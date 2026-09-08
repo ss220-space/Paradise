@@ -1,4 +1,4 @@
-import { number } from 'prop-types';
+
 import { useMemo } from 'react';
 
 const MECHA_REPLACEMENTS: Record<string, string> = {
@@ -43,7 +43,7 @@ export const useHonk = (honkChance: number = 0.4) => {
         if (Math.random() >= honkChance || words[i].length <= 3) continue;
 
         const cleanWord = words[i].replace(
-          new RegExp(`^[^a-zA-Zа-яёА-Я]+|[^a-zA-Zа-яёА-Я]+$`, 'g'),
+          /^[^a-zA-Zа-яёА-Я]+|[^a-zA-Zа-яёА-Я]+$/g,
           ''
         );
 
@@ -53,8 +53,8 @@ export const useHonk = (honkChance: number = 0.4) => {
         const replaceStart = Math.random() > 0.5;
 
         words[i] = replaceStart
-          ? 'хонк' + cleanWord.substring(replaceLength)
-          : cleanWord.substring(0, cleanWord.length - replaceLength) + 'хонк';
+          ? `хонк${cleanWord.substring(replaceLength)}`
+          : `${cleanWord.substring(0, cleanWord.length - replaceLength)}хонк`;
       }
 
       return words.join(' ');

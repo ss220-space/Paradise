@@ -861,14 +861,14 @@
 
 //TBD
 /mob/proc/check_lang_data()
-	. = ""
+	. = list()
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
 
 /mob/living/check_lang_data()
-	. = ""
+	. = list()
 
 	if(default_language)
 		. += "Текущий язык по умолчанию: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br><br>"
@@ -880,13 +880,10 @@
 			else
 				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
-/mob/verb/check_languages()
-	set name = "Меню языков"
-	set category = VERB_CATEGORY_IC
-	set src = usr
+GAME_VERB(/mob, check_languages, "Меню языков", VERB_CATEGORY_IC)
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)
-	popup.set_content(check_lang_data())
+	popup.set_content(jointext(check_lang_data(), ""))
 	popup.open()
 
 /mob/living/Topic(href, href_list)

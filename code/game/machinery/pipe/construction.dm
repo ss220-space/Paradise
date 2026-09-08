@@ -134,6 +134,8 @@
 			connect_types = list(1,2,3)
 
 	update(make_from)
+	//Flipping handled manually due to custom handling for trinary pipes
+	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING, post_rotation_proccall = PROC_REF(fixdir))
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
@@ -150,10 +152,6 @@
 			our_rpd.delete_single_pipe(user, src)
 		else
 			return ..()
-
-/obj/item/pipe/click_alt(mob/user)
-	rotate()
-	return CLICK_ACTION_SUCCESS
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -178,26 +176,16 @@
 
 // rotate the pipe item clockwise
 
-/obj/item/pipe/verb/rotate()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть трубу"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/item/pipe/proc/rotate()
 	if(pipe_type == PIPE_CIRCULATOR)
 		flip()
 		return
 
-	src.dir = turn(src.dir, -90)
+	setDir(turn(src.dir, -90))
 
 	fixdir()
 
-/obj/item/pipe/verb/flip()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Перевернуть трубу"
-	set src in view(1)
+GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

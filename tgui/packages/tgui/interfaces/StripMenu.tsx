@@ -1,10 +1,10 @@
-import { range } from 'common/collections';
-import { BooleanLike } from 'common/react';
+import { range } from 'es-toolkit';
+import type { ReactNode } from 'react';
+import { Box, Button, DmIcon, Icon, Image, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Icon, Stack, Image } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
 
 const ROWS = 5;
 
@@ -452,7 +452,7 @@ export const StripMenu = (_props: unknown) => {
   };
 
   const disable_background_hover = (item) => {
-    if (item && item.cantstrip) {
+    if (item?.cantstrip) {
       return 'transparent';
     }
     return 'none';
@@ -605,35 +605,34 @@ export const StripMenu = (_props: unknown) => {
                           {slot.additionalComponent}
                         </Button>
                         <Stack direction="row-reverse">
-                          {alternateActions !== undefined &&
-                            alternateActions.map((actionKey, index) => {
-                              const buttonOffset = index * 1.8;
-                              return (
-                                <Stack.Item key={index} width="100%">
-                                  <Button
-                                    onClick={() => {
-                                      act('alt', {
-                                        key: keyAtSpot,
-                                        action_key: actionKey,
-                                      });
-                                    }}
-                                    tooltip={ALTERNATE_ACTIONS[actionKey].text}
-                                    width="1.8em"
-                                    style={{
-                                      background: 'rgba(0, 0, 0, 0.6)',
-                                      position: 'absolute',
-                                      bottom: 0,
-                                      right: `${buttonOffset}em`,
-                                      zIndex: 2 + index,
-                                    }}
-                                  >
-                                    <Icon
-                                      name={ALTERNATE_ACTIONS[actionKey].icon}
-                                    />
-                                  </Button>
-                                </Stack.Item>
-                              );
-                            })}
+                          {alternateActions?.map((actionKey, index) => {
+                            const buttonOffset = index * 1.8;
+                            return (
+                              <Stack.Item key={index} width="100%">
+                                <Button
+                                  onClick={() => {
+                                    act('alt', {
+                                      key: keyAtSpot,
+                                      action_key: actionKey,
+                                    });
+                                  }}
+                                  tooltip={ALTERNATE_ACTIONS[actionKey].text}
+                                  width="1.8em"
+                                  style={{
+                                    background: 'rgba(0, 0, 0, 0.6)',
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    right: `${buttonOffset}em`,
+                                    zIndex: 2 + index,
+                                  }}
+                                >
+                                  <Icon
+                                    name={ALTERNATE_ACTIONS[actionKey].icon}
+                                  />
+                                </Button>
+                              </Stack.Item>
+                            );
+                          })}
                         </Stack>
                       </Box>
                     </Stack.Item>

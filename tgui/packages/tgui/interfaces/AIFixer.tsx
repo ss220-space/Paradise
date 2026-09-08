@@ -1,15 +1,15 @@
-import { useBackend } from '../backend';
 import {
-  Button,
-  ProgressBar,
   Box,
+  Button,
+  Icon,
   LabeledList,
+  ProgressBar,
   Section,
   Stack,
-  Icon,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AiData } from './AICard';
+import type { AiData } from './AICard';
 
 type AIFixerData = { occupant: string; stat: number; active: boolean } & AiData;
 
@@ -28,7 +28,7 @@ export const AIFixer = (props: unknown) => {
                 align="center"
                 color="average"
               >
-                <Icon.Stack style={{ transform: 'translate(-40px, -55px)' }}>
+                <Icon.Stack>
                   <Icon name="robot" size={5} color="silver" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
@@ -46,7 +46,7 @@ export const AIFixer = (props: unknown) => {
       workingAI = false;
     }
 
-    let integrityColor = null; // Handles changing color of the integrity bar
+    let integrityColor: string | null = null; // Handles changing color of the integrity bar
     if (data.integrity >= 75) {
       integrityColor = 'green';
     } else if (data.integrity >= 25) {

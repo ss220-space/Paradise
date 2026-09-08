@@ -205,7 +205,7 @@
 
 /obj/structure/spider/terrorweb/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] невосприимчива к [Proj.declent_ru(DATIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] невосприимчива к [Proj.declent_ru(DATIVE)]!"))
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()

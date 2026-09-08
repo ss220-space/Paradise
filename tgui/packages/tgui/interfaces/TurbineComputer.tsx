@@ -1,16 +1,16 @@
-import { BooleanLike } from 'common/react';
-import { useBackend } from '../backend';
 import {
   Button,
-  LabeledList,
-  Section,
-  ProgressBar,
   Knob,
+  LabeledList,
+  ProgressBar,
+  Section,
   Stack,
-} from '../components';
-import { formatPower } from '../format';
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
 
 type TurbineComputerData = {
   online: BooleanLike;
@@ -30,7 +30,7 @@ export const TurbineComputer = (_props) => {
     bearingDamage,
   } = data;
   const operational = Boolean(
-    compressor && !compressor_broken && turbine && !turbine_broken
+    compressor && !compressor_broken && turbine && !turbine_broken,
   );
   return (
     <Window width={400} height={415}>
@@ -179,7 +179,7 @@ const TurbineWorking = (_props) => {
             bad: [90, Infinity],
           }}
         >
-          {toFixed(bearingDamage) + '%'}
+          {`${toFixed(bearingDamage)}%`}
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>

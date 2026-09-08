@@ -356,7 +356,7 @@
 		return
 
 	hackedcheck = !hackedcheck
-	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
+	balloon_alert(user, "защитные протоколы [hackedcheck ? "дезактивированы" : "активированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
 
@@ -519,6 +519,7 @@
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
 	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
 	return alist(

@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { Box, Button, Section, Stack } from 'tgui/components';
-import { isEscape, KEY } from 'common/keys';
-import { BooleanLike } from 'common/react';
+import { useEffect, useRef, useState } from 'react';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
+import { isEscape, KEY } from 'tgui-core/keys';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -43,7 +43,7 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
 const DOM_KEY_LOCATION_NUMPAD = 3;
 
 const formatKeyboardEvent = (
-  event: React.KeyboardEvent<HTMLDivElement>
+  event: React.KeyboardEvent<HTMLDivElement>,
 ): string => {
   let text = '';
 

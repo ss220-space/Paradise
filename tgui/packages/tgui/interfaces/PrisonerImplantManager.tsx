@@ -1,10 +1,9 @@
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Section, Box, Stack } from '../components';
-import { LabeledList } from '../components/LabeledList';
+import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { Window } from '../layouts';
 
 type PrisonerImplantManagerData = {
   loginState: LoginState;
@@ -48,7 +47,7 @@ export const PrisonerImplantManager = (_props: unknown) => {
     );
   }
 
-  let injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
+  const injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
 
   return (
     <Window theme="security" width={500} height={850}>

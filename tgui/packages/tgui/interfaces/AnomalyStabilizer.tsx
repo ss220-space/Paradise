@@ -1,5 +1,5 @@
+import { Box, Button, NumberInput, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 type AnomalyStabilizerData = {

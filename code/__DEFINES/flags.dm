@@ -162,6 +162,8 @@
 #define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
 #define DF_UID_INVALID (1<<3)
+/// Set on datums that should be tracked by the event logger.
+#define DF_EVLOGGING (1<<4)
 
 //TURF FLAGS
 /// If a turf cant be jaunted through.

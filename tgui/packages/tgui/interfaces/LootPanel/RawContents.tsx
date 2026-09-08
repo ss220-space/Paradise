@@ -1,8 +1,7 @@
-import { createSearch } from 'common/string';
-
-import { Flex } from '../../components';
+import { Flex } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { LootBox } from './LootBox';
-import { SearchItem } from './types';
+import type { SearchItem } from './types';
 
 type Props = {
   contents: SearchItem[];
@@ -15,7 +14,7 @@ export const RawContents = (props: Props) => {
   const { contents, searchText, selectedUids, onToggleSelection } = props;
 
   const filteredContents = contents.filter(
-    createSearch(searchText, (item: SearchItem) => item.name)
+    createSearch(searchText, (item: SearchItem) => item.name),
   );
 
   return (

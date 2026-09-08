@@ -53,9 +53,9 @@
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
 	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon/robot, self_diagnosis),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
 
 	hat_offset_y = -15
@@ -72,7 +72,7 @@
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 	mmi = null
-	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
+	UNASSIGN_GAME_VERB(src, /mob/living/silicon/robot, Namepick)
 	module = new /obj/item/robot_module/cogscarab(src)
 
 	var/datum/action/innate/hide/drone/cogscarab/hide = new()
@@ -250,10 +250,12 @@
 	return FALSE
 
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
-	add_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		ASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/cogscarab/remove_robot_verbs()
-	remove_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Medical","Diagnostic", "Multisensor","Disable"), null)
@@ -281,10 +283,7 @@
 /mob/living/silicon/robot/cogscarab/use_power() //it's made of gears...
 	return
 
-/mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Освещение"
-	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = VERB_CATEGORY_COGSCARAB
+GAME_VERB_DESC(/mob/living/silicon/robot/cogscarab, light, "Освещение", "Activate a low power omnidirectional LED. Toggled on or off.", VERB_CATEGORY_COGSCARAB)
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

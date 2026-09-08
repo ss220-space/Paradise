@@ -1,5 +1,5 @@
+import { Box, Button } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Box } from '../components';
 import { Window } from '../layouts';
 
 type TankDispenserData = {
@@ -19,7 +19,7 @@ export const TankDispenser = (_props: unknown) => {
             icon="arrow-circle-down"
             onClick={() => act('oxygen')}
           >
-            {'Dispense Oxygen Tank (' + o_tanks + ')'}
+            {`Dispense Oxygen Tank (${o_tanks})`}
           </Button>
         </Box>
         <Box m="5px">
@@ -28,7 +28,7 @@ export const TankDispenser = (_props: unknown) => {
             icon="arrow-circle-down"
             onClick={() => act('plasma')}
           >
-            {'Dispense Plasma Tank (' + p_tanks + ')'}
+            {`Dispense Plasma Tank (${p_tanks})`}
           </Button>
         </Box>
       </Window.Content>

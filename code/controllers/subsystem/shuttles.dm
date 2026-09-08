@@ -401,7 +401,7 @@ SUBSYSTEM_DEF(shuttle)
 	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
 	new_transit_dock.reserved_area = proposal
-	new_transit_dock.name = "Transit for [M.id]/[M.name]"
+	new_transit_dock.name = M.name
 	new_transit_dock.owner = M
 	new_transit_dock.assigned_area = new_area
 

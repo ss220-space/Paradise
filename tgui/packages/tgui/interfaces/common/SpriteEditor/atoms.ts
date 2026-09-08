@@ -1,5 +1,5 @@
-import { atom, WritableAtom } from 'jotai';
-import { sendAct as act } from 'tgui/backend';
+import { atom, type WritableAtom } from 'jotai';
+import { sendAct as act } from 'tgui/events/act';
 import { colorToHexString } from './colorSpaces';
 import type { Tool } from './Types/Tool';
 import { Bucket } from './Types/Tools/Bucket';
@@ -20,7 +20,7 @@ export const currentColorInternalAtom = atom<EditorColor>({
   b: 255,
 });
 export const onSelectServerColorAtom = atom<string | undefined>(
-  undefined
+  undefined,
 ) as WritableAtom<string | undefined, [string | undefined], void>;
 export const currentColorAtom = atom<EditorColor, [EditorColor], void>(
   (get) => get(currentColorInternalAtom),
@@ -33,7 +33,7 @@ export const currentColorAtom = atom<EditorColor, [EditorColor], void>(
       act(onSetServerColor, { color: colorToHexString(color) });
     }
     set(currentColorInternalAtom, color);
-  }
+  },
 );
 
 export const tools: Tool[] = [
@@ -59,7 +59,7 @@ export const currentToolAtom = atom<
       oldTool?.cancel?.(context);
     }
     set(currentToolInternalAtom, tool);
-  }
+  },
 );
 export const dirAtom = atom(Dir.SOUTH);
 export const layerAtom = atom(0);

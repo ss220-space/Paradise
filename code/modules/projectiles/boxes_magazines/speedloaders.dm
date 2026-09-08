@@ -1,5 +1,6 @@
-// Basically it's both an ammo box and external magazine
+// MARK: Base Speedloader
 /obj/item/ammo_box/speedloader
+	abstract_type = /obj/item/ammo_box/speedloader
 	gender = MALE
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"

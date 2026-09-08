@@ -126,14 +126,6 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.remove_atom_from_hud(human)
 
-	add_verb(human, list(
-		/mob/living/carbon/human/proc/emote_ping,
-		/mob/living/carbon/human/proc/emote_beep,
-		/mob/living/carbon/human/proc/emote_buzz,
-		/mob/living/carbon/human/proc/emote_buzz2,
-		/mob/living/carbon/human/proc/emote_yes,
-		/mob/living/carbon/human/proc/emote_no))
-
 /datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
@@ -144,14 +136,6 @@
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(human)
-
-	remove_verb(human, list(
-		/mob/living/carbon/human/proc/emote_ping,
-		/mob/living/carbon/human/proc/emote_beep,
-		/mob/living/carbon/human/proc/emote_buzz,
-		/mob/living/carbon/human/proc/emote_buzz2,
-		/mob/living/carbon/human/proc/emote_yes,
-		/mob/living/carbon/human/proc/emote_no))
 
 /datum/species/machine/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
 	. = ..()

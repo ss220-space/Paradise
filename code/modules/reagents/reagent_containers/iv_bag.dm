@@ -16,6 +16,7 @@
 	resistance_flags = ACID_PROOF
 	custom_price = PAYCHECK_LOWER
 	w_class = WEIGHT_CLASS_NORMAL
+	can_empty = FALSE
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
@@ -30,10 +31,6 @@
 		INSTRUMENTAL = "капельницей",
 		PREPOSITIONAL = "капельнице",
 	)
-
-/obj/item/reagent_containers/iv_bag/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()

@@ -1,5 +1,5 @@
+import { Box, Button, NoticeBox } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, NoticeBox } from '../../components';
 
 type TemporaryNoticeData = {
   temp: Temp;

@@ -3,18 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use 'sass:color';
 @use 'sass:math';
-@use '~tgui/styles/base.scss';
-@use '~tgui/styles/colors.scss';
-
-$text-color: hsl(210, 50%, 80%) !default;
-$color-bg-section: base.$color-bg-section !default;
-$color-bg-reconnect: $color-bg-section !default;
-$color-text-reconnect: colors.$red !default;
 
 .Chat {
-  color: $text-color;
+  color: var(--chat-text-color);
 }
 
 .Chat__badge {
@@ -42,7 +34,7 @@ $color-text-reconnect: colors.$red !default;
 }
 
 .Chat__scrollButton {
-  position: fixed !important;
+  position: fixed;
   right: 2em;
   bottom: 1em;
 }
@@ -57,20 +49,16 @@ $color-text-reconnect: colors.$red !default;
     display: inline-block;
     border-radius: 1em;
     padding: 0 0.7em;
-    color: colors.$red;
-    background-color: $color-bg-section;
+    color: var(--color-red);
+    background-color: var(--color-section);
   }
 
   &:after {
     content: '';
     display: block;
     margin-top: -0.75em;
-    border-bottom: math.div(1em, 6) solid colors.$red;
+    border-bottom: math.div(1em, 6) solid var(--color-red);
   }
-}
-
-.Chat__highlight {
-  color: hsl(0, 0%, 0%);
 }
 
 .Chat__highlight--restricted {
@@ -79,24 +67,19 @@ $color-text-reconnect: colors.$red !default;
   font-weight: bold;
 }
 
+.Chat__highlight {
+  color: var(--highlight-color);
+  background: oklch(from var(--highlight-color) l c h / 15%);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
 .ChatMessage {
   word-wrap: break-word;
 }
 
 .ChatMessage--highlighted {
-  position: relative;
-  border-left: math.div(1em, 6) solid hsl(50, 100%, 63.5%);
+  background: oklch(from var(--highlight-color) l c h / 8%);
+  border-left: 2px solid var(--highlight-color);
   padding-left: 0.5em;
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: hsla(50, 100%, 63.5%, 0.1);
-    // Make this click-through since this is an overlay
-    pointer-events: none;
-  }
 }

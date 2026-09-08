@@ -2,54 +2,231 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "dreammaker",
-			"dme": "paradise.dme",
-			"problemMatcher": [
-				"$dreammaker"
-			],
-			"group": "build",
-			"label": "dm: build - paradise.dme"
+			"type": "process",
+			"command": "tools/build/build.sh",
+			"windows": {
+				"command": ".\\tools\\build\\build.bat"
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All"
 		},
 		{
-			"label": "Create FAST_LOAD DME",
-			"type": "shell",
-			"command": "cmd",
+			"type": "process",
+			"command": "tools/build/build.sh",
 			"args": [
-				"/c",
-				"(echo #define FAST_LOAD && type \"paradise.dme\") > \"fast_paradise.dme\" && echo Created fast_paradise.dme"
+				"-DSKIP_LAVALAND",
+				"-DSKIP_SPACE_LEVELS",
+				"-DSKIP_TAIPAN",
+				"-DSKIP_AWAY_MISSION",
+				"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
 			],
-			"problemMatcher": []
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": [
+					"-DSKIP_LAVALAND",
+					"-DSKIP_SPACE_LEVELS",
+					"-DSKIP_TAIPAN",
+					"-DSKIP_AWAY_MISSION",
+					"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
+				]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (low memory mode)"
 		},
 		{
-			"label": "Build FAST_LOAD DME",
-			"dependsOn": "Create FAST_LOAD DME",
-			"type": "dreammaker",
-			"dme": "fast_paradise.dme",
-			"problemMatcher": [
-				"$dreammaker"
-			]
-		},
-		{
-			"label": "Remove FAST_LOAD DME",
-			"dependsOn": "Build FAST_LOAD DME",
-			"type": "shell",
-			"command": "cmd",
+			"type": "process",
+			"command": "tools/build/build.sh",
 			"args": [
-				"/c",
-				"timeout /t 3 /nobreak >nul && del \"fast_paradise.dme\" && echo Temporary file cleaned up"
+				"-DSKIP_LAVALAND",
+				"-DSKIP_SPACE_LEVELS",
+				"-DSKIP_TAIPAN",
+				"-DSKIP_AWAY_MISSION",
+				"-DAUTOSTART_GAME",
+				"-DFAST_LOAD",
+				"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
 			],
-			"problemMatcher": []
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": [
+					"-DSKIP_LAVALAND",
+					"-DSKIP_SPACE_LEVELS",
+					"-DSKIP_TAIPAN",
+					"-DSKIP_AWAY_MISSION",
+					"-DAUTOSTART_GAME",
+					"-DFAST_LOAD",
+					"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
+				]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (absolute minimum)"
 		},
 		{
-			"label": "dm: build - fast_paradise.dme",
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"Create FAST_LOAD DME",
-				"Build FAST_LOAD DME",
-				"Remove FAST_LOAD DME"
+			"type": "process",
+			"command": "tools/build/build.sh",
+			"args": ["-DTESTING", "-DTIMER_DEBUG", "-DREFERENCE_DOING_IT_LIVE"],
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": ["-DTESTING", "-DTIMER_DEBUG", "-DREFERENCE_DOING_IT_LIVE"]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (testing)"
+		},
+		{
+			"type": "process",
+			"command": "tools/build/build.sh",
+			"args": [
+				"-DSKIP_LAVALAND",
+				"-DSKIP_SPACE_LEVELS",
+				"-DSKIP_TAIPAN",
+				"-DSKIP_AWAY_MISSION",
+				"-DTESTING",
+				"-DTIMER_DEBUG",
+				"-DREFERENCE_DOING_IT_LIVE",
+				"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
 			],
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": [
+					"-DSKIP_LAVALAND",
+					"-DSKIP_SPACE_LEVELS",
+					"-DSKIP_TAIPAN",
+					"-DSKIP_AWAY_MISSION",
+					"-DTESTING",
+					"-DTIMER_DEBUG",
+					"-DREFERENCE_DOING_IT_LIVE",
+					"-DFORCE_MAP=\"/datum/map/fast_load_multiz\""
+				]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (testing + low memory mode)"
+		},
+		{
+			"type": "process",
+			"command": "tools/build/build.sh",
+			"args": ["-DTESTING", "-DMAP_TEST"],
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": ["-DTESTING", "-DMAP_TEST"]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build"
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (map testing)"
+		},
+		{
+			"type": "dreammaker",
+			"dme": "tgstation.dme",
+			"problemMatcher": ["$dreammaker"],
 			"group": "build",
-			"problemMatcher": []
+			"label": "dm: build - tgstation.dme"
+		},
+		{
+			"command": "${command:dreammaker.reparse}",
+			"group": "build",
+			"label": "dm: reparse"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgui-build",
+			"windows": {
+				"command": ".\\bin\\tgui-build.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: build"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgui-dev",
+			"windows": {
+				"command": ".\\bin\\tgui-dev.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: dev server"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgui-bench",
+			"windows": {
+				"command": ".\\bin\\tgui-bench.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: bench"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgui-sonar",
+			"windows": {
+				"command": ".\\bin\\tgui-sonar.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: sonar"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgfont",
+			"windows": {
+				"command": ".\\bin\\tgfont.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: rebuild tgfont"
 		}
 	]
 }

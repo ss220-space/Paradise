@@ -1,5 +1,5 @@
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type MainPageProps = {
@@ -108,17 +108,15 @@ const DetailsPage = ({ act, data }: DetailsPageProps) => {
         <span className="CodexGigas__title">Информация о {devilName}</span>
       }
     >
-      <>
-        <p className="CodexGigas__info-text">Запрет: {ban}</p>
-        <p className="CodexGigas__info-text">Слабость: {bane}</p>
-        <p className="CodexGigas__info-text">Обязательство: {obligation}</p>
-        <p className="CodexGigas__info-text">Ритуал изгнания: {banish}</p>
-        <div className="CodexGigas__centered">
-          <Button onClick={() => act('reset')} className="CodexGigas__button">
-            Искать заново
-          </Button>
-        </div>
-      </>
+      <p className="CodexGigas__info-text">Запрет: {ban}</p>
+      <p className="CodexGigas__info-text">Слабость: {bane}</p>
+      <p className="CodexGigas__info-text">Обязательство: {obligation}</p>
+      <p className="CodexGigas__info-text">Ритуал изгнания: {banish}</p>
+      <div className="CodexGigas__centered">
+        <Button onClick={() => act('reset')} className="CodexGigas__button">
+          Искать заново
+        </Button>
+      </div>
     </Section>
   );
 };

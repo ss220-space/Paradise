@@ -80,28 +80,15 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell
-	var/obj/effect/proc_holder/spell/spelltype
+	var/spelltype
 
 /datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.AddSpell(new spelltype(null))
+	mutant.AddSpell(new spelltype)
 
 /datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, flags)
 	. = ..()
-	for(var/obj/effect/proc_holder/spell/spell as anything in mutant.mob_spell_list)
-		if(istype(spell, spelltype))
-			mutant.RemoveSpell(spell)
-
-/datum/dna/gene/basic/grant_verb
-	var/verbtype
-
-/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
-	. = ..()
-	add_verb(mutant, verbtype)
-
-/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
-	. = ..()
-	remove_verb(mutant, verbtype)
+	mutant.RemoveSpell(spelltype)
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
@@ -110,63 +97,53 @@
 	activation_messages = list("Ваши кончики пальцев слегка покалывает от холода.")
 	deactivation_messages = list("Ваши пальцы становятся теплее.")
 	instability = GENE_INSTABILITY_MODERATE
-	spelltype = /obj/effect/proc_holder/spell/cryokinesis
+	spelltype = /datum/action/cooldown/spell/pointed/cryokinesis
 
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
 
-/obj/effect/proc_holder/spell/cryokinesis
+/datum/action/cooldown/spell/pointed/cryokinesis
 	name = "Cryokinesis"
 	desc = "Понижает температуру тела выбранного гуманоида."
-	base_cooldown = 120 SECONDS
-	clothes_req = FALSE
+	cooldown_time = 120 SECONDS
+	spell_requirements = NONE
+	cast_range = 10
+	active_msg = span_notice_alt("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
+	deactive_msg = span_notice_alt("Ваш разум возвращается в нормальное состояние.")
+	button_icon_state = "genetic_cryo"
 
-	selection_activated_message	= span_notice_alt("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
-	selection_deactivated_message = span_notice_alt("Ваш разум возвращается в нормальное состояние.")
+/datum/action/cooldown/spell/pointed/cryokinesis/is_valid_target(atom/cast_on)
+	return ..() && iscarbon(cast_on)
 
-	var/list/compatible_mobs = list(/mob/living/carbon/human)
-
-	action_icon_state = "genetic_cryo"
-	need_active_overlay = TRUE
-
-/obj/effect/proc_holder/spell/cryokinesis/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.allowed_type = /mob/living/carbon
-	T.click_radius = 0
-	T.try_auto_target = FALSE // Give the clueless geneticists a way out and to have them not target themselves
-	T.selection_type = SPELL_SELECTION_RANGE
-	T.include_user = TRUE
-	return T
-
-/obj/effect/proc_holder/spell/cryokinesis/cast(list/targets, mob/user = usr)
-
-	var/mob/living/carbon/C = targets[1]
+/datum/action/cooldown/spell/pointed/cryokinesis/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/C = cast_on
 
 	if(HAS_TRAIT(C, TRAIT_RESIST_COLD))
 		C.visible_message(span_warning("Облако мелких ледяных кристаллов окутывает [C.name], но почти мгновенно исчезает!"))
 		return
 	var/handle_suit = FALSE
-	if(ishuman(C))
+	if(!ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(istype(H.head, /obj/item/clothing/head/helmet/space))
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = TRUE
 				if(H.internal)
-					H.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, сковывая [H]!"),
-									span_notice("[user] распыля[PLUR_ET_YUT(user)] облако мелких кристалликов льда на визор вашего [H.head]."))
+					H.visible_message(span_warning("[owner] распыля[PLUR_ET_YUT(owner)] облако мелких ледяных кристаллов, сковывая [H]!"),
+									span_notice("[owner] распыля[PLUR_ET_YUT(owner)] облако мелких кристалликов льда на визор вашего [H.head]."))
 				else
-					H.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких кристаллов льда, поглощая [H]!"),
-									span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, которые покрывают визор вашего [H.head] и попадают в вентиляционные отверстия!"))
+					H.visible_message(span_warning("[owner] распыля[PLUR_ET_YUT(owner)] облако мелких кристаллов льда, поглощая [H]!"),
+									span_warning("[owner] распыля[PLUR_ET_YUT(owner)] облако мелких ледяных кристаллов, которые покрывают визор вашего [H.head] и попадают в вентиляционные отверстия!"))
 
 					H.adjust_bodytemperature(-100)
-				add_attack_logs(user, C, "Cryokinesis")
+				add_attack_logs(owner, C, "Cryokinesis")
 	if(!handle_suit)
 		C.adjust_bodytemperature(-200)
 		C.ExtinguishMob()
 
-		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
-		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
+		C.visible_message(span_warning("[owner] распыля[PLUR_ET_YUT(owner)] облако мелких ледяных кристаллов, поглощая [C]!"))
+		add_attack_logs(owner, C, "Cryokinesis- NO SUIT/INTERNALS")
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -177,26 +154,61 @@
 	activation_messages = list("Вы чувствуете голод.")
 	deactivation_messages = list("Вы больше не чувствуете себя таким голодным.")
 	instability = GENE_INSTABILITY_MINOR
-	spelltype = /obj/effect/proc_holder/spell/eat
+	spelltype = /datum/action/cooldown/spell/list_target/eat
 
 /datum/dna/gene/basic/grant_spell/mattereater/New()
 	..()
 	block = GLOB.eatblock
 
-/obj/effect/proc_holder/spell/eat
+/datum/action/cooldown/spell/list_target/eat
 	name = "Eat"
 	desc = "Ешьте всё подряд!"
+	cooldown_time = 30 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "genetic_eat"
+	choose_target_message = "Choose the target of your hunger"
+	target_radius = 1
+	var/list/types_allowed = list(
+		/obj/item,
+		/mob/living/carbon/human,
+		/mob/living/carbon/alien/larva,
+		/mob/living/simple_animal/pet,
+		/mob/living/simple_animal/hostile,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/mouse,
+		/mob/living/simple_animal/slime,
+		/mob/living/simple_animal/chick,
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/lizard,
+		/mob/living/simple_animal/cow,
+		/mob/living/simple_animal/spiderbot
+	)
+	var/list/own_blacklist = list(
+		/obj/item/organ,
+		/obj/item/implant
+	)
 
-	base_cooldown = 30 SECONDS
+/datum/action/cooldown/spell/list_target/eat/get_list_targets(atom/center, target_radius)
+	var/list/possible_targets = list()
 
-	clothes_req = FALSE
+	for(var/atom/movable/atom in range(target_radius, center))
+		if((atom in owner) && is_type_in_list(atom, own_blacklist))
+			continue
+		if(is_type_in_list(atom, types_allowed))
+			if(isitem(atom))
+				var/obj/item/item = atom
+				if(item.item_flags & ABSTRACT)
+					continue
+			if(isanimal(atom))
+				var/mob/living/simple_animal/animal = atom
+				if(!animal.gold_core_spawnable)
+					continue
+			possible_targets += atom
 
-	action_icon_state = "genetic_eat"
+	return possible_targets
 
-/obj/effect/proc_holder/spell/eat/create_new_targeting()
-	return new /datum/spell_targeting/matter_eater
-
-/obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
+/datum/action/cooldown/spell/list_target/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/should_update_health = FALSE
@@ -217,57 +229,54 @@
 		if(update_damage_icon)
 			H.UpdateDamageIcon()
 
-/obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
-	if(!length(targets))
-		user.balloon_alert(user, "слишком далеко")
-		return
-
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
+/datum/action/cooldown/spell/list_target/eat/cast(atom/cast_on)
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
-			user.balloon_alert(user, "рот чем-то закрыт!")
+			owner.balloon_alert(owner, "рот чем-то закрыт!")
 			return
 
-	var/atom/movable/the_item = targets[1]
+	var/atom/movable/the_item = cast_on
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
-		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
+		var/obj/item/organ/external/limb = H.get_organ(owner.zone_selected)
 		if(!istype(limb))
-			to_chat(user, span_warning("Вы не можете съесть эту часть тела!"))
-			revert_cast()
+			to_chat(owner, span_warning("Вы не можете съесть эту часть тела!"))
+			reset_spell_cooldown()
 			return FALSE
 
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			to_chat(user, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
-			revert_cast()
+			to_chat(owner, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
+			reset_spell_cooldown()
 			return FALSE
 
 		if(ischest(limb))
 			// Bullshit, but prevents being able to instagib someone.
-			to_chat(user, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
-			revert_cast()
+			to_chat(owner, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
+			reset_spell_cooldown()
 			return FALSE
 
-		user.visible_message(span_danger("[user] приближа[PLUR_ET_YUT(user)]ся к [the_item] и начина[PLUR_ET_YUT(user)] поглощать [limb.name]!"))
+		owner.visible_message(span_danger("[owner] приближа[PLUR_ET_YUT(owner)]ся к [the_item] и начина[PLUR_ET_YUT(owner)] поглощать [limb.name]!"))
 		var/oldloc = H.loc
-		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
-			user.balloon_alert(user, "вас прервали")
+		if(!do_after(owner, EAT_MOB_DELAY, H, NONE))
+			owner.balloon_alert(owner, "вас прервали")
 		else
 			if(!limb || !H)
 				return
 			if(H.loc != oldloc)
-				to_chat(user, span_danger("Вы упустили [limb]!"))
+				to_chat(owner, span_danger("Вы упустили [limb]!"))
 				return
-			user.visible_message(span_danger("[user] [pick("отрыва[PLUR_ET_YUT(user)]","откусыва[PLUR_ET_YUT(user)]")] [limb] от [the_item]!"))
-			playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
+			owner.visible_message(span_danger("[owner] [pick("отрыва[PLUR_ET_YUT(owner)]","откусыва[PLUR_ET_YUT(owner)]")] [limb] от [the_item]!"))
+			playsound(owner.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 			limb.droplimb(0, DROPLIMB_SHARP)
-			doHeal(user)
+			doHeal(owner)
 	else
-		user.visible_message(span_danger("[user] [pick("съеда[PLUR_ET_YUT(user)]","поглоща[PLUR_ET_YUT(user)]")] [the_item]."))
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
+		owner.visible_message(span_danger("[owner] [pick("съеда[PLUR_ET_YUT(owner)]","поглоща[PLUR_ET_YUT(owner)]")] [the_item]."))
+		playsound(owner.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		qdel(the_item)
-		doHeal(user)
+		doHeal(owner)
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -279,27 +288,27 @@
 	activation_messages = list("Вы чувствуете силу в своих ногах.")
 	deactivation_messages = list("Вы чувствуете, как сила уходит из ваших ног.")
 	instability = GENE_INSTABILITY_MINOR
-	spelltype = /obj/effect/proc_holder/spell/leap
+	spelltype = /datum/action/cooldown/spell/leap
 
 /datum/dna/gene/basic/grant_spell/jumpy/New()
 	..()
 	block = GLOB.jumpblock
 
-/obj/effect/proc_holder/spell/leap
+/datum/action/cooldown/spell/leap
 	name = "Jump"
 	desc = "Прыгайте на огромные расстояния!"
+	cooldown_time = 6 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "genetic_jump"
 
-	base_cooldown = 6 SECONDS
+/datum/action/cooldown/spell/leap/can_cast_spell(feedback)
+	return ..() && !HAS_TRAIT_FROM(owner, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
 
-	clothes_req = FALSE
 
-	action_icon_state = "genetic_jump"
-
-/obj/effect/proc_holder/spell/leap/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
+/datum/action/cooldown/spell/leap/cast(atom/cast_on)
+	. = ..()
 	var/failure = FALSE
+	var/mob/living/user = cast_on
 	if(ismob(user.loc) || user.incapacitated(IGNORE_RESTRAINTS) || user.buckled)
 		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
@@ -374,7 +383,7 @@
 	name = "Полиморфизм"
 	desc = "Позволяет субъекту изменять свою внешность, чтобы подражать другим."
 
-	spelltype = /obj/effect/proc_holder/spell/polymorph
+	spelltype = /datum/action/cooldown/spell/pointed/polymorph
 	//cooldown = 1800
 	activation_messages = list("Вы как-то не очень похожи на себя.")
 	deactivation_messages = list("Вы уверены в своей идентичности.")
@@ -384,36 +393,29 @@
 	..()
 	block = GLOB.polymorphblock
 
-/obj/effect/proc_holder/spell/polymorph
+/datum/action/cooldown/spell/pointed/polymorph
 	name = "Polymorph"
 	desc = "Подражайте внешности других!"
-	base_cooldown = 3 MINUTES
+	cooldown_time = 3 MINUTES
+	spell_requirements = NONE
+	active_msg = span_notice_alt("Ваше тело становится нестабильным.")
+	deactive_msg = span_notice_alt("Ваше тело возвращается в норму.")
+	cast_range = 10
+	button_icon_state = "genetic_poly"
 
-	clothes_req = FALSE
+/datum/action/cooldown/spell/pointed/polymorph/is_valid_target(atom/cast_on)
+	return ..() && ishuman(cast_on)
 
-	selection_activated_message	= span_notice_alt("Ваше тело становится нестабильным.")
-	selection_deactivated_message = span_notice_alt("Ваше тело возвращается в норму.")
+/datum/action/cooldown/spell/pointed/polymorph/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
 
-	action_icon_state = "genetic_poly"
-	need_active_overlay = TRUE
-
-/obj/effect/proc_holder/spell/polymorph/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.try_auto_target = FALSE
-	T.click_radius = -1
-	T.range = 1
-	T.selection_type = SPELL_SELECTION_RANGE
-	return T
-
-/obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/target = targets[1]
-
-	user.visible_message(span_warning("Тело [user] смещается и деформируется."))
+	owner.visible_message(span_warning("Тело [owner] смещается и деформируется."))
 
 	spawn(1 SECONDS)
-		if(target && user)
-			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
-			var/mob/living/carbon/human/H = user
+		if(target && owner)
+			playsound(owner.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
+			var/mob/living/carbon/human/H = owner
 			H.UpdateAppearance(target.dna.UI)
 			H.real_name = target.real_name
 			H.name = target.name
@@ -425,7 +427,7 @@
 	name = "Эмпатические мысли"
 	desc = "Субъект получает возможность читать мысли других людей, чтобы получить определённую информацию."
 
-	spelltype = /obj/effect/proc_holder/spell/empath
+	spelltype = /datum/action/cooldown/spell/list_target/empath
 	activation_messages = list("Вы вдруг стали замечать в окружающих больше, чем раньше.")
 	deactivation_messages = list("Вы больше не способны чувствовать намерения других.")
 	instability = GENE_INSTABILITY_MINOR
@@ -435,94 +437,90 @@
 	..()
 	block = GLOB.empathblock
 
-/obj/effect/proc_holder/spell/empath
+/datum/action/cooldown/spell/list_target/empath
 	name = "Read Mind"
 	desc = "Читайте мысли других людей, чтобы получить информацию."
-	base_cooldown = 18 SECONDS
-	clothes_req = FALSE
+	cooldown_time = 18 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "genetic_empath"
+	target_radius = 10
+	targeting_type = /datum/aoe_targeting/human
 
-	action_icon_state = "genetic_empath"
+/datum/action/cooldown/spell/list_target/empath/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
+	if(!istype(target))
+		to_chat(owner, span_warning("Вы можете использовать это только на других органических существах."))
+		return
 
-/obj/effect/proc_holder/spell/empath/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.allowed_type = /mob/living/carbon
-	T.selection_type = SPELL_SELECTION_RANGE
-	return T
+	if(target.dna?.GetSEState(GLOB.psyresistblock))
+		to_chat(owner, span_warning("Вы не можете заглянуть в разум [target.name]!"))
+		return
 
-/obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/M in targets)
-		if(!iscarbon(M))
-			to_chat(user, span_warning("Вы можете использовать это только на других органических существах."))
-			return
+	if(target.stat == DEAD)
+		to_chat(owner, span_warning("Вы не можете прочитать мысли мёртвого существа."))
+		return
+	if(target.health < 0)
+		to_chat(owner, span_warning("[target.name] в предсмертном состоянии, а [GEND_HIS_HER(target)] мысли слишком спутаны, чтобы их прочитать."))
+		return
 
-		if(M.dna?.GetSEState(GLOB.psyresistblock))
-			to_chat(user, span_warning("Вы не можете заглянуть в разум [M.name]!"))
-			return
+	to_chat(owner, span_notice("Чтение мыслей <b>[target.name]:</b>"))
 
-		if(M.stat == 2)
-			to_chat(user, span_warning("Вы не можете прочитать мысли мёртвого существа."))
-			return
-		if(M.health < 0)
-			to_chat(user, span_warning("[M.name] в предсмертном состоянии, а [GEND_HIS_HER(M)] мысли слишком спутаны, чтобы их прочитать."))
-			return
+	var/pain_condition = target.health / target.maxHealth
+	// lower health means more pain
+	var/list/randomthoughts = list("о перекусе","о будущем","о прошлом","о деньгах",
+	"о своей причёске","о дальнейших планах","о работе","о космосе","о чём-то забавном","о чём-то грустном",
+	"о чём-то раздражающем","о каком-то радостном событии","о всякой ерунде","об ошибках прошлого")
+	var/thoughts = "думает [pick(randomthoughts)]"
 
-		to_chat(user, span_notice("Чтение мыслей <b>[M.name]:</b>"))
+	if(target.fire_stacks)
+		pain_condition -= 0.5
+		thoughts = "поглощен[GEND_A_O_Y(target)] огнем"
 
-		var/pain_condition = M.health / M.maxHealth
-		// lower health means more pain
-		var/list/randomthoughts = list("о перекусе","о будущем","о прошлом","о деньгах",
-		"о своей причёске","о дальнейших планах","о работе","о космосе","о чём-то забавном","о чём-то грустном",
-		"о чём-то раздражающем","о каком-то радостном событии","о всякой ерунде","об ошибках прошлого")
-		var/thoughts = "думает [pick(randomthoughts)]"
+	switch(pain_condition)
+		if(0.81 to INFINITY)
+			to_chat(owner, span_notice("<b>Состояние</b>: [target.name] чувству[PLUR_ET_YUT(target)] себя хорошо."))
+		if(0.61 to 0.8)
+			to_chat(owner, span_notice("<b>Состояние</b>: [target.name] испытыва[PLUR_ET_YUT(target)] слабую боль."))
+		if(0.41 to 0.6)
+			to_chat(owner, span_notice("<b>Состояние</b>: [target.name] испытыва[PLUR_ET_YUT(target)] умеренную боль."))
+		if(0.21 to 0.4)
+			to_chat(owner, span_notice("<b>Состояние</b>: [target.name] испытыва[PLUR_ET_YUT(target)] сильную боль."))
+		else
+			to_chat(owner, span_notice("<b>Состояние</b>: [target.name] испытыва[PLUR_ET_YUT(target)] мучительную боль."))
+			thoughts = "дума[PLUR_ET_YUT(target)] о том, что [GEND_HIS_HER(target)] скоро настигнет смерть"
 
-		if(M.fire_stacks)
-			pain_condition -= 0.5
-			thoughts = "поглощен[GEND_A_O_Y(M)] огнем"
+	switch(target.a_intent)
+		if(INTENT_HELP)
+			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете благожелательные мысли, исходящие от [target.name]."))
+		if(INTENT_DISARM)
+			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете опасливые мысли, исходящие от [target.name]."))
+		if(INTENT_GRAB)
+			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете враждебные мысли, исходящие от [target.name]."))
+		if(INTENT_HARM)
+			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете жестокие мысли, исходящие от [target.name]."))
+			for(var/mob/living/L in view(7, target))
+				if(target)
+					continue
+				thoughts = "дума[PLUR_ET_YUT(target)] о том, чтобы ударить [L.name]"
+				break
+		else
+			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [target.name]."))
 
-		switch(pain_condition)
-			if(0.81 to INFINITY)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[PLUR_ET_YUT(M)] себя хорошо."))
-			if(0.61 to 0.8)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_YUT(M)] слабую боль."))
-			if(0.41 to 0.6)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_YUT(M)] умеренную боль."))
-			if(0.21 to 0.4)
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_YUT(M)] сильную боль."))
-			else
-				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[PLUR_ET_YUT(M)] мучительную боль."))
-				thoughts = "дума[PLUR_ET_YUT(M)] о том, что [GEND_HIS_HER(M)] скоро настигнет смерть"
+	if(ishuman(target))
+		var/list/numbers = list()
+		var/mob/living/carbon/human/H = target
+		if(H.mind && H.mind.initial_account)
+			numbers += H.mind.initial_account.account_number
+			numbers += H.mind.initial_account.remote_access_pin
+		if(length(numbers)>0)
+			to_chat(owner, span_notice("<b>Числа</b>: Вы чувствуете, что [length(numbers) > 1 ? "числа" : "число"] [english_list(numbers)] [length(numbers) > 1 ? "являются важными" : "является важным"] для [target.name]."))
+	to_chat(owner, span_notice("<b>Мысли</b>: [target.name] сейчас [thoughts]."))
 
-		switch(M.a_intent)
-			if(INTENT_HELP)
-				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете благожелательные мысли, исходящие от [M.name]."))
-			if(INTENT_DISARM)
-				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете опасливые мысли, исходящие от [M.name]."))
-			if(INTENT_GRAB)
-				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете враждебные мысли, исходящие от [M.name]."))
-			if(INTENT_HARM)
-				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете жестокие мысли, исходящие от [M.name]."))
-				for(var/mob/living/L in view(7,M))
-					if(L == M)
-						continue
-					thoughts = "дума[PLUR_ET_YUT(M)] о том, чтобы ударить [L.name]"
-					break
-			else
-				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [M.name]."))
-
-		if(ishuman(M))
-			var/numbers[0]
-			var/mob/living/carbon/human/H = M
-			if(H.mind && H.mind.initial_account)
-				numbers += H.mind.initial_account.account_number
-				numbers += H.mind.initial_account.remote_access_pin
-			if(length(numbers)>0)
-				to_chat(user, span_notice("<b>Числа</b>: Вы чувствуете, что [length(numbers) > 1 ? "числа" : "число"] [english_list(numbers)] [length(numbers) > 1 ? "являются важными" : "является важным"] для [M.name]."))
-		to_chat(user, span_notice("<b>Мысли</b>: [M.name] сейчас [thoughts]."))
-
-		if(HAS_TRAIT(M, TRAIT_EMPATHY))
-			to_chat(M, span_warning("Вы чувствуете, что [user.name] читает ваши мысли."))
-		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
-			to_chat(M, span_warning("Вы чувствуете, что кто-то вторгается в ваши мысли..."))
+	if(HAS_TRAIT(target, TRAIT_EMPATHY))
+		to_chat(target, span_warning("Вы чувствуете, что [owner.name] читает ваши мысли."))
+	else if(prob(5) || target.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
+		to_chat(target, span_warning("Вы чувствуете, что кто-то вторгается в ваши мысли..."))
 
 ////////////////////////////////////////////////////////////////////////
 

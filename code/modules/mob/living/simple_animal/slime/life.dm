@@ -1,6 +1,6 @@
 
 /mob/living/simple_animal/slime/Life()
-	set invisibility = 0
+	set invisibility = FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return

@@ -1,17 +1,17 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
+  Box,
   Button,
-  Table,
+  Divider,
   Icon,
   Input,
-  Divider,
-  Box,
   LabeledList,
   Section,
-} from '../components';
+  Table,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Transaction } from './AccountsUplinkTerminal';
+import type { Transaction } from './AccountsUplinkTerminal';
 
 /*
 #define NO_SCREEN 0
@@ -265,7 +265,7 @@ const DefaultScreen = (props: unknown) => {
   return (
     <>
       <Section
-        title={'Welcome, ' + owner_name}
+        title={`Welcome, ${owner_name}`}
         buttons={
           <Button icon="sign-out-alt" onClick={() => act('logout')}>
             Logout

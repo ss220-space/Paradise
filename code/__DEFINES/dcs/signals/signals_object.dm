@@ -43,11 +43,6 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
-#define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
-#define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
-	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
@@ -143,7 +138,7 @@
 ///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
 
-/// Sent from obj/item/gun/toggle_gunlight_verb(): (user)
+/// Sent from obj/item/gun/toggle_gunlight(): (user)
 #define COMSIG_GUN_LIGHT_TOGGLE "gun_light_toggle"
 
 /// Sent from obj/item/gun/zoom(): (user, zoomed)
@@ -385,8 +380,5 @@
 #define COMSIG_ITEM_EXPORTED "item_sold"
 	/// Stops the export from adding the export information to the report, so you can handle it manually.
 	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
-
-/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
-#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 
 #define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"

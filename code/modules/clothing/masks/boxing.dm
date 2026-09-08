@@ -7,7 +7,7 @@
 	flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR
-
+	actions_types = list(/datum/action/item_action/adjust)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',

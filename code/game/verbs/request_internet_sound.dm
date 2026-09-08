@@ -1,6 +1,4 @@
-/client/verb/request_internet_sound()
-	set name = "Заказать музыку"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, request_internet_sound, "Заказать музыку", VERB_CATEGORY_OOC)
 
 	if(!CONFIG_GET(flag/request_internet_sound))
 		to_chat(src, span_danger("Заказ музыки на этом сервере отключён."), confidential = TRUE)

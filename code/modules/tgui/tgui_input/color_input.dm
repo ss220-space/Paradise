@@ -120,9 +120,11 @@
 
 	switch(action)
 		if("submit")
-			if(!findtext(params["entry"], GLOB.is_color))
+			var/raw_data = LOWER_TEXT(params["entry"])
+			var/hex = sanitize_hexcolor(raw_data, desired_format = 6, include_crunch = TRUE)
+			if(!hex)
 				return
-			choice = params["entry"]
+			choice = hex
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE

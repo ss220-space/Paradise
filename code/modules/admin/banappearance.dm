@@ -26,19 +26,6 @@ GLOBAL_LIST_EMPTY(appearance_keylist)	//to store the keys
 				return "Reason Unspecified"
 	return 0
 
-/*
-DEBUG
-/mob/verb/list_all_appearances()
-	set name = "list all appearances"
-
-	for(var/s in appearance_keylist)
-		to_chat(world, s)
-
-/mob/verb/reload_appearances()
-	set name = "reload appearances"
-
-	appearance_loadbanfile()
-*/
 // AA 2020-11-25: This entire proc isnt even called. What the actual fuck.
 /proc/appearance_loadbanfile()
 	if(CONFIG_GET(flag/ban_legacy_system))

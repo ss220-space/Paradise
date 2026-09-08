@@ -13,7 +13,7 @@
 
 /datum/action/innate/cult/blood_magic/proc/Positioning()
 	for(var/datum/hud/hud as anything in viewers)
-		var/our_view = hud.mymob?.canon_client?.view || "15x15"
+		var/our_view = hud.mymob?.canon_client?.view_size.getView()|| SQUARE_VIEWPORT_SIZE
 		var/atom/movable/screen/movable/action_button/button = viewers[hud]
 		var/position = screen_loc_to_offset(button.screen_loc)
 		var/list/position_list = list()
@@ -266,68 +266,48 @@
 	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
+
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/obj/effect/proc_holder/horror/PH
 	charges = 4
+	click_action = TRUE
+	enable_text = span_cultitalic_alt("You prepare to horrify a target...")
+	disable_text = span_cultitalic_alt("You dispel the magic...")
 
-/datum/action/innate/cult/blood_spell/horror/New()
-	PH = new()
-	PH.attached_action = src
-	..()
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/caller_turf = get_turf(clicker)
+	if(!isturf(caller_turf))
+		return FALSE
 
-/datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/obj/effect/proc_holder/horror/destroy = PH
-	. = ..()
-	if(destroy  && !QDELETED(destroy))
-		QDEL_NULL(destroy)
+	if(!ishuman(clicked_on) || get_dist(clicker, clicked_on) > 7)
+		return FALSE
 
-/datum/action/innate/cult/blood_spell/horror/Activate()
-	PH.toggle(owner) //the important bit
+	var/mob/living/carbon/human/human_clicked = clicked_on
+	if(iscultist(human_clicked))
+		return FALSE
+
+	return ..()
+
+/datum/action/innate/cult/blood_spell/horror/do_ability(mob/living/clicker, mob/living/carbon/human/clicked_on)
+	clicked_on.Hallucinate(120 SECONDS)
+	SEND_SOUND(clicker, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
+
+
+	addtimer(CALLBACK(clicked_on, TYPE_PROC_REF(/atom/, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
+	to_chat(clicker, span_cult("[clicked_on] has been cursed with living nightmares!"))
+
+	charges--
+	desc = base_desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	build_all_button_icons()
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
+	if(charges <= 0)
+		to_chat(clicker, span_cult("You have exhausted the spell's power!"))
+		qdel(src)
+
 	return TRUE
-
-/obj/effect/proc_holder/horror
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
-	var/datum/action/innate/cult/blood_spell/attached_action
-
-/obj/effect/proc_holder/horror/Destroy()
-	var/datum/action/innate/cult/blood_spell/AA = attached_action
-	. = ..()
-	if(AA && !QDELETED(AA))
-		QDEL_NULL(AA)
-
-/obj/effect/proc_holder/horror/proc/toggle(mob/user)
-	if(active)
-		remove_ranged_ability(user, span_cult("You dispel the magic..."))
-	else
-		add_ranged_ability(user, span_cult("You prepare to horrify a target..."))
-
-/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return FALSE
-	if(ranged_ability_user.incapacitated() || !iscultist(user))
-		user.ranged_ability.remove_ranged_ability(user)
-		return FALSE
-	var/turf/T = get_turf(ranged_ability_user)
-	if(!isturf(T))
-		return FALSE
-	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target) || iscultist(target))
-			return FALSE
-		var/mob/living/carbon/human/H = target
-		H.Hallucinate(120 SECONDS)
-		attached_action.charges--
-		attached_action.desc = attached_action.base_desc
-		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
-		attached_action.UpdateButtonIcon()
-		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] has been cursed with living nightmares!</b>"))
-		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
-			qdel(src)
-			return TRUE
-	return FALSE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"

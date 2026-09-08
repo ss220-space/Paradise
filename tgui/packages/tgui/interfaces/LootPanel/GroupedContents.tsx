@@ -1,8 +1,8 @@
-import { createSearch } from 'common/string';
-import { Box } from '../../components';
+import { Box } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 
 import { LootBox } from './LootBox';
-import { SearchGroup, SearchItem } from './types';
+import type { SearchGroup, SearchItem } from './types';
 
 type Props = {
   contents: Record<string, { items: SearchItem[]; path: string }>;

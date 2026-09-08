@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import { storage } from 'common/storage';
-import type { BooleanLike } from 'common/react';
-import { vecAdd, vecMultiply, vecScale, vecSubtract } from 'common/vector';
 import { createLogger } from 'common/logging';
+import { storage } from 'common/storage';
+import type { BooleanLike } from 'tgui-core/react';
+import { vecAdd, vecMultiply, vecScale, vecSubtract } from 'tgui-core/vector';
 
 type Point = [number, number];
 type GeometryPayload = Partial<{
@@ -32,7 +32,7 @@ let pendingWinset: GeometryPayload = {};
 let lastSentWinset: GeometryPayload = {};
 
 /** Expends all stored winset calls in a single call. */
-const flushWinset = (): void => {
+function flushWinset(): void {
   winsetRaf = undefined;
 
   const payload: GeometryPayload = {};
@@ -49,76 +49,76 @@ const flushWinset = (): void => {
     Byond.winset(Byond.windowId, payload);
     lastSentWinset = { ...lastSentWinset, ...payload };
   }
-};
+}
 
-const scheduleWinset = (): void => {
+function scheduleWinset(): void {
   if (winsetRaf !== undefined) {
     return;
   }
   winsetRaf = requestAnimationFrame(flushWinset);
-};
+}
 
-const flushWinsetNow = (): void => {
+function flushWinsetNow(): void {
   if (winsetRaf !== undefined) {
     cancelAnimationFrame(winsetRaf);
     winsetRaf = undefined;
   }
   flushWinset();
-};
+}
 
 // Set the window key
-export const setWindowKey = (key: string): void => {
+export function setWindowKey(key: string): void {
   windowKey = key;
-};
+}
 
 // Get window position
-export const getWindowPosition = (): Point => {
+export function getWindowPosition(): Point {
   return [window.screenLeft * pixelRatio, window.screenTop * pixelRatio];
-};
+}
 
 // Get window size
-export const getWindowSize = (): Point => {
+export function getWindowSize(): Point {
   return [window.innerWidth * pixelRatio, window.innerHeight * pixelRatio];
-};
+}
 
 // Set window position
-export const setWindowPosition = (vec: Point): void => {
+export function setWindowPosition(vec: Point): void {
   const byondPos = vecAdd(vec, screenOffset);
   Byond.winset(Byond.windowId, {
     pos: `${byondPos[0]},${byondPos[1]}`,
   });
-};
+}
 
-const setWindowPositionBatched = (vec: Point): void => {
+function setWindowPositionBatched(vec: Point): void {
   const byondPos = vecAdd(vec, screenOffset);
   pendingWinset.pos = `${byondPos[0]},${byondPos[1]}`;
   scheduleWinset();
-};
+}
 
 // Set window size
-const setWindowSize = (vec: Point): void => {
+function setWindowSize(vec: Point): void {
   Byond.winset(Byond.windowId, {
     size: `${vec[0]}x${vec[1]}`,
   });
-};
+}
 
-const setWindowSizeBatched = (vec: Point): void => {
+function setWindowSizeBatched(vec: Point): void {
   pendingWinset.size = `${vec[0]}x${vec[1]}`;
   scheduleWinset();
-};
+}
 
 // Get screen position
-const getScreenPosition = (): Point => {
+function getScreenPosition(): Point {
   return [0 - screenOffset[0], 0 - screenOffset[1]];
-};
+}
 
 // Get screen size
-const getScreenSize = (): Point => {
+function getScreenSize(): Point {
   return [
     window.screen.availWidth * pixelRatio,
     window.screen.availHeight * pixelRatio,
   ];
-};
+}
 
 /**
  * Moves an item to the top of the recents array, and keeps its length
@@ -128,11 +128,11 @@ const getScreenSize = (): Point => {
  *
  * Returns new recents and an item which was trimmed.
  */
-export const touchRecents = (
+export function touchRecents(
   recents: string[],
   touchedItem: string,
-  limit = 50
-): [string[], string | undefined] => {
+  limit = 50,
+): [string[], string | undefined] {
   const nextRecents: string[] = [touchedItem];
   let trimmedItem: string | undefined;
   for (let i = 0; i < recents.length; i++) {
@@ -147,10 +147,10 @@ export const touchRecents = (
     }
   }
   return [nextRecents, trimmedItem];
-};
+}
 
 // Store window geometry in local storage
-export const storeWindowGeometry = async (): Promise<void> => {
+export async function storeWindowGeometry(): Promise<void> {
   logger.log('storing geometry');
   const geometry = {
     pos: getWindowPosition(),
@@ -160,13 +160,13 @@ export const storeWindowGeometry = async (): Promise<void> => {
   // Update the list of stored geometries
   const [geometries, trimmedKey] = touchRecents(
     (await storage.get('geometries')) || [],
-    windowKey
+    windowKey,
   );
   if (trimmedKey) {
     storage.remove(trimmedKey);
   }
   storage.set('geometries', geometries);
-};
+}
 
 type RecallOptions = Partial<{
   pos: Point;
@@ -176,9 +176,9 @@ type RecallOptions = Partial<{
 }>;
 
 // Recall window geometry from local storage and apply it
-export const recallWindowGeometry = async (
-  options: RecallOptions = {}
-): Promise<void> => {
+export async function recallWindowGeometry(
+  options: RecallOptions = {},
+): Promise<void> {
   const geometry = await storage.get(windowKey);
   if (geometry) {
     logger.log('recalled geometry:', geometry);
@@ -195,7 +195,7 @@ export const recallWindowGeometry = async (
     document.body.style.zoom = `${100 / window.devicePixelRatio}%`;
     document.documentElement.style.setProperty(
       '--scaling-amount',
-      window.devicePixelRatio.toString()
+      window.devicePixelRatio.toString(),
     );
   } else {
     document.body.style.zoom = '';
@@ -226,14 +226,14 @@ export const recallWindowGeometry = async (
     pos = vecAdd(
       vecScale(areaAvailable, 0.5),
       vecScale(size, -0.5),
-      vecScale(screenOffset, -1.0)
+      vecScale(screenOffset, -1.0),
     );
     setWindowPosition(pos);
   }
-};
+}
 
 // Setup draggable window
-export const setupDrag = async (): Promise<void> => {
+export async function setupDrag(): Promise<void> {
   // Calculate screen offset caused by the windows taskbar
   const windowPosition = getWindowPosition();
 
@@ -243,13 +243,13 @@ export const setupDrag = async (): Promise<void> => {
   ]);
   screenOffset = await screenOffsetPromise;
   logger.debug('screen offset', screenOffset);
-};
+}
 
 /**
  * Constraints window position to safe screen area, accounting for safe
  * margins which could be a system taskbar.
  */
-const constraintPosition = (pos: Point, size: Point): [boolean, Point] => {
+function constraintPosition(pos: Point, size: Point): [boolean, Point] {
   const screenPos = getScreenPosition();
   const screenSize = getScreenSize();
   const nextPos: Point = [pos[0], pos[1]];
@@ -267,25 +267,25 @@ const constraintPosition = (pos: Point, size: Point): [boolean, Point] => {
     }
   }
   return [relocated, nextPos];
-};
+}
 
 // Start dragging the window
-export const dragStartHandler = (event): void => {
+export function dragStartHandler(event): void {
   logger.log('drag start');
   dragging = true;
   dragPointOffset = vecSubtract(
     [event.screenX * pixelRatio, event.screenY * pixelRatio],
-    getWindowPosition()
+    getWindowPosition(),
   ) as Point;
   // Focus click target
   (event.target as HTMLElement)?.focus();
   document.addEventListener('mousemove', dragMoveHandler);
   document.addEventListener('mouseup', dragEndHandler);
   dragMoveHandler(event);
-};
+}
 
 // End dragging the window
-const dragEndHandler = (event): void => {
+function dragEndHandler(event): void {
   logger.log('drag end');
   dragMoveHandler(event);
   flushWinsetNow();
@@ -293,10 +293,10 @@ const dragEndHandler = (event): void => {
   document.removeEventListener('mouseup', dragEndHandler);
   dragging = false;
   storeWindowGeometry();
-};
+}
 
 // Move the window while dragging
-const dragMoveHandler = (event: MouseEvent): void => {
+function dragMoveHandler(event: MouseEvent): void {
   if (!dragging) {
     return;
   }
@@ -304,10 +304,10 @@ const dragMoveHandler = (event: MouseEvent): void => {
   setWindowPositionBatched(
     vecSubtract(
       [event.screenX * pixelRatio, event.screenY * pixelRatio],
-      dragPointOffset
-    ) as Point
+      dragPointOffset,
+    ) as Point,
   );
-};
+}
 
 // Start resizing the window
 export const resizeStartHandler =
@@ -318,7 +318,7 @@ export const resizeStartHandler =
     resizing = true;
     dragPointOffset = vecSubtract(
       [event.screenX * pixelRatio, event.screenY * pixelRatio],
-      getWindowPosition()
+      getWindowPosition(),
     ) as Point;
     initialSize = getWindowSize();
     // Focus click target
@@ -329,7 +329,7 @@ export const resizeStartHandler =
   };
 
 // End resizing the window
-const resizeEndHandler = (event: MouseEvent): void => {
+function resizeEndHandler(event: MouseEvent): void {
   logger.log('resize end', size);
   resizeMoveHandler(event);
   flushWinsetNow();
@@ -337,17 +337,17 @@ const resizeEndHandler = (event: MouseEvent): void => {
   document.removeEventListener('mouseup', resizeEndHandler);
   resizing = false;
   storeWindowGeometry();
-};
+}
 
 // Move the window while resizing
-const resizeMoveHandler = (event: MouseEvent): void => {
+function resizeMoveHandler(event: MouseEvent): void {
   if (!resizing) {
     return;
   }
   event.preventDefault();
   const currentOffset = vecSubtract(
     [event.screenX * pixelRatio, event.screenY * pixelRatio],
-    getWindowPosition()
+    getWindowPosition(),
   );
   const delta = vecSubtract(currentOffset, dragPointOffset);
   // Extra 1x1 area is added to ensure the browser can see the cursor
@@ -359,4 +359,4 @@ const resizeMoveHandler = (event: MouseEvent): void => {
   size[0] = Math.max(size[0], 150 * pixelRatio);
   size[1] = Math.max(size[1], 50 * pixelRatio);
   setWindowSizeBatched(size);
-};
+}

@@ -1,40 +1,40 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Box,
   Button,
   Icon,
+  Image,
   Input,
   LabeledList,
   Section,
   Stack,
-  Tabs,
   Table,
-  Image,
-} from '../components';
+  Tabs,
+} from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
 import {
-  BaseRecord,
-  Comment,
-  Field,
-  Record,
+  type BaseRecord,
+  type Comment,
+  type Field,
+  type Record,
   SortButton,
 } from './MedicalRecords';
 
 const statusStyles = {
   '*Execute*': 'execute',
   '*Arrest*': 'arrest',
-  'Incarcerated': 'incarcerated',
-  'Parolled': 'parolled',
-  'Released': 'released',
-  'Demote': 'demote',
-  'Search': 'search',
-  'Monitor': 'monitor',
+  Incarcerated: 'incarcerated',
+  Parolled: 'parolled',
+  Released: 'released',
+  Demote: 'demote',
+  Search: 'search',
+  Monitor: 'monitor',
 };
 
 const doEdit = (field: Field) => {
@@ -216,7 +216,7 @@ const SecurityRecordsPageList = (_properties) => {
                     '|' +
                     record.status
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -226,9 +226,7 @@ const SecurityRecordsPageList = (_properties) => {
                 <Table.Row
                   key={record.id}
                   mb={1}
-                  className={
-                    'SecurityRecords__listRow--' + statusStyles[record.status]
-                  }
+                  className={`SecurityRecords__listRow--${statusStyles[record.status]}`}
                   onClick={() =>
                     act('view', {
                       uid_gen: record.uid_gen,
@@ -330,7 +328,7 @@ const SecurityRecordsPageMaintenance = (_properties) => {
 const SecurityRecordsPageView = (_properties) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { isPrinting, general, security } = data;
-  if (!general || !general.fields) {
+  if (!general?.fields) {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
@@ -368,7 +366,7 @@ const SecurityRecordsPageView = (_properties) => {
           <SecurityRecordsViewGeneral />
         </Section>
       </Stack.Item>
-      {!security || !security.fields ? (
+      {!security?.fields ? (
         <Stack.Item grow color="bad">
           <Section
             fill
@@ -388,7 +386,7 @@ const SecurityRecordsPageView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+                <Icon.Stack>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
@@ -444,7 +442,7 @@ const SecurityRecordsPageView = (_properties) => {
 const SecurityRecordsViewGeneral = (_properties) => {
   const { data } = useBackend<SecurityRecordsData>();
   const { general } = data;
-  if (!general || !general.fields) {
+  if (!general?.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
@@ -459,7 +457,7 @@ const SecurityRecordsViewGeneral = (_properties) => {
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              {decodeHtmlEntities('' + field.value)}
+              {decodeHtmlEntities(`${field.value}`)}
               {!!field.edit && (
                 <Button
                   icon="pen"

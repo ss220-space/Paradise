@@ -1,3 +1,4 @@
+import { logger } from 'common/logging';
 import { useEffect, useState } from 'react';
 import {
   Autofocus,
@@ -6,8 +7,8 @@ import {
   Section,
   Stack,
   VirtualList,
-} from '../components';
-import { fetchRetry } from 'common/https';
+} from 'tgui-core/components';
+import { fetchRetry } from 'tgui-core/http';
 import {
   KEY_A,
   KEY_DOWN,
@@ -18,11 +19,10 @@ import {
   KEY_R,
   KEY_UP,
   KEY_Z,
-} from 'common/keycodes';
+} from 'tgui-core/keycodes';
 import { resolveAsset } from '../assets';
 import { useBackend } from './../backend';
 import { Window } from './../layouts';
-import { logger } from 'common/logging';
 
 type SpawnSearchData = {
   initValue: string | undefined;
@@ -61,7 +61,7 @@ export const SpawnSearch = () => {
   });
   const [selected, setSelected] = useState<number>(0);
   const [query, setQuery] = useState<string>(
-    (regexSearch ? 're:' : '') + (initValue || '')
+    (regexSearch ? 're:' : '') + (initValue || ''),
   );
   const [spawnAmount, setSpawnAmount] = useState<number>(1);
   const [invalidInput, setInvalidInput] = useState<boolean>(false);
@@ -103,7 +103,7 @@ export const SpawnSearch = () => {
         return atomData.types.filter(
           (type: AtomTypeData) =>
             queryRegex.test(type.typepath) ||
-            (searchNames && queryRegex.test(type.name))
+            (searchNames && queryRegex.test(type.name)),
         );
       } catch (error) {
         // We'll get plenty of invalid regexes as we type it out, just highlight the input red and abort search
@@ -132,7 +132,7 @@ export const SpawnSearch = () => {
       (type: AtomTypeData) =>
         (searchLambda(type.typepath) ||
           (searchNames && searchLambda(type.name))) &&
-        (includeAbstracts || !atomData.abstractTypes[type.typepath])
+        (includeAbstracts || !atomData.abstractTypes[type.typepath]),
     );
   };
 
@@ -154,14 +154,14 @@ export const SpawnSearch = () => {
       .catch((error) => {
         logger.log(
           'Failed to fetch spawn_menu_atom_data.json',
-          JSON.stringify(error)
+          JSON.stringify(error),
         );
       });
   }, []);
 
   useEffect(
     () => setFilteredItems(filterItems()),
-    [query, atomData, includeAbstracts]
+    [query, atomData, includeAbstracts],
   );
 
   // User presses up or down on keyboard
@@ -322,17 +322,17 @@ export const SpawnSearch = () => {
                       >
                         {fancyTypes &&
                         Object.keys(atomData.fancyTypes).findLast(
-                          (x: string) => item.typepath.indexOf(x) === 0
+                          (x: string) => item.typepath.indexOf(x) === 0,
                         )
                           ? item.typepath.replace(
                               Object.keys(atomData.fancyTypes).findLast(
-                                (x: string) => item.typepath.indexOf(x) === 0
+                                (x: string) => item.typepath.indexOf(x) === 0,
                               ) as string,
                               atomData.fancyTypes[
                                 Object.keys(atomData.fancyTypes).findLast(
-                                  (x: string) => item.typepath.indexOf(x) === 0
+                                  (x: string) => item.typepath.indexOf(x) === 0,
                                 ) as string
-                              ]
+                              ],
                             )
                           : item.typepath}
                       </span>

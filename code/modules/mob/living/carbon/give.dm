@@ -1,6 +1,6 @@
-/mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
-	set category = VERB_CATEGORY_IC
-	set name = "Передать"
+GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /mob/living/carbon, oview(1))
+	VERB_ARG_TYPED_RANGE(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_VIEW, /mob/living/carbon, 1)
+
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
 		to_chat(usr, span_danger("Погодите-ка... у [target.declent_ru(ACCUSATIVE)] НЕТ РУК! ААА!"))
@@ -54,10 +54,7 @@
 /**
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
-/mob/living/carbon/verb/toggle_give()
-	set name = "Передать предмет"
-	set category = VERB_CATEGORY_IC
-
+/mob/living/carbon/proc/toggle_give()
 	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))

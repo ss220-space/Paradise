@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
-	/// List of all areas that can be accessed via IC means
-	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
 	///What do we have as the lavaland theme today?
@@ -81,6 +79,12 @@ SUBSYSTEM_DEF(mapping)
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
+	#ifdef FORCE_MAP
+	map_datum = text2path(FORCE_MAP)
+	if(map_datum)
+		map_datum = new map_datum
+	#endif
+
 	if(map_datum) // Dont do this again if we are recovering
 		return
 	if(fexists("data/next_map.txt"))
@@ -157,17 +161,24 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 	// Load the station
 	loadStation()
-
+	#ifndef SKIP_LAVALAND
 	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		loadLavaland()
+	#endif
+	#ifndef SKIP_TAIPAN
 	if(!CONFIG_GET(flag/disable_taipan) && !(map_datum.disables & DISABLE_TAIPAN))
 		loadTaipan()
+	#endif
+	#ifndef SKIP_AWAY_MISSION
 	// Pick a random away mission.
 	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
 		loadAwayLevel()
+	#endif
+	#ifndef SKIP_SPACE_LEVELS
 	// Seed space ruins
 	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
 		handleRuins()
+	#endif
 
 	var/empty_z_traits = list(REACHABLE)
 #ifdef UNIT_TESTS
@@ -180,7 +191,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
-
+	#ifndef SKIP_LAVALAND
 	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
@@ -200,6 +211,7 @@ SUBSYSTEM_DEF(mapping)
 			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
 	else
 		log_startup_progress("Skipping lavaland ruins...")
+	#endif
 
 	// Create transit/reserve area for shuttle to fly in and out
 	var/base_transit_z = add_reservation_zlevel()
@@ -211,18 +223,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_z_level_linkages(GLOB.space_manager.z_list)
 
 	// Now we make a list of areas for teleport locs
-	teleportlocs = list()
-	for(var/area/AR as anything in get_sorted_areas())
-		if(AR.no_teleportlocs)
-			continue
-		if(teleportlocs[AR.name])
-			continue
-		if(!AR.has_contained_turfs())
-			continue
-		if(is_station_level(AR.z))
-			teleportlocs[AR.name] = AR
-
-	teleportlocs = sortAssoc(teleportlocs)
+	process_teleport_locs()
 
 	ghostteleportlocs = list()
 	for(var/area/AR as anything in get_sorted_areas())

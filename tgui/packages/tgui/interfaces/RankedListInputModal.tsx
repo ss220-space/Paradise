@@ -1,9 +1,9 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { Button, Section, Stack, Table } from '../components';
+import { useEffect, useState } from 'react';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { useState, useEffect } from 'react';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ListInputData = {
   items: string[];

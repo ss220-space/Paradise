@@ -83,7 +83,7 @@
 		push_over()
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
-	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
+	visible_message(span_danger("[src] is hit by [P]!"))
 	playsound(src, 'sound/weapons/slice.ogg', 50, TRUE)
 	if(prob(P.damage))
 		push_over()

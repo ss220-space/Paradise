@@ -59,7 +59,7 @@
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
-		visible_message(span_danger("[src] blocks [Proj] with its shield!"), projectile_message = TRUE)
+		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
 		return FALSE
 	return ..()
 

@@ -1822,7 +1822,7 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]))
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]), FALSE)
 
 	else if(href_list["check_antagonist"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
@@ -2989,7 +2989,7 @@
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 
 			if("tripleAI")
-				usr.client.triple_ai()
+				SSadmin_verbs.dynamic_invoke_verb(usr.client, /datum/admin_verb/triple_ai)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 
 			if("mass_mindswap")
@@ -3309,7 +3309,7 @@
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, sound(
-							ANNOUNCER_ANIMES,
+							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
 							channel = CHANNEL_ANNOUNCER,
 							volume = 40,
 							))
@@ -3469,7 +3469,7 @@
 			if("spawn_cargo_crate")
 				if(!you_realy_want_do_this())
 					return
-				create_cargo_crate()
+				SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/spawn_cargo)
 
 			if("borg_skins")
 				if(!check_rights(R_SKINS))
@@ -3975,19 +3975,18 @@
 /datum/admins/proc/mass_mindswap()
 	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
 		return
-
+	var/datum/action/cooldown/spell/pointed/mindswap/swap = new
 	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 		if(!human.mind)
 			continue
 
 		var/mob/living/target = safepick(GLOB.human_list - human)
-
 		if(!target \
-		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+		|| !swap.is_valid_target(target))
 			continue
-
-		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
-
+		swap.owner = human
+		swap.cast(target)
+	qdel(swap)
 	log_and_message_admins("Initiated mass mindswap")
 
 /datum/admins/proc/change_lava_type()

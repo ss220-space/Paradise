@@ -1,14 +1,19 @@
 /datum/keybinding/carbon
+	abstract_type = /datum/keybinding/carbon
 	category = KB_CATEGORY_CARBON
+	weight = WEIGHT_MOB
 
 /datum/keybinding/carbon/can_use(client/user)
 	return iscarbon(user.mob)
 
 /datum/keybinding/carbon/throw_mode
-	name = "Режим броска (переключить)"
-	keys = list("R")
+	name = "toggle_throw_mode"
+	full_name = "Режим броска (переключить)"
+	description = "Toggle throwing the current item or not."
+	hotkey_keys = list("R")
+	keybind_signal = COMSIG_KB_LIVING_TOGGLETHROWMODE_DOWN
 
-/datum/keybinding/carbon/throw_mode/down(client/user)
+/datum/keybinding/carbon/throw_mode/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()
 	if(.)
 		return .
@@ -17,9 +22,12 @@
 	return TRUE
 
 /datum/keybinding/carbon/throw_mode_hold
-	name = "Режим броска (Зажать)"
+	name = "hold_throw_mode"
+	full_name = "Режим броска (Зажать)"
+	description = "Hold this to turn on throw mode, and release it to turn off throw mode"
+	keybind_signal = COMSIG_KB_LIVING_HOLDTHROWMODE_DOWN
 
-/datum/keybinding/carbon/throw_mode_hold/down(client/user)
+/datum/keybinding/carbon/throw_mode_hold/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()
 	if(.)
 		return .
@@ -34,10 +42,13 @@
 	carbon_mob.throw_mode_off()
 
 /datum/keybinding/carbon/give_item
-	name = "Передать вещь (переключить)"
-	keys = list("V")
+	name = "Give_Item"
+	full_name = "Передать вещь (переключить)"
+	description = "Give the item you're currently holding"
+	hotkey_keys = list("V")
+	keybind_signal = COMSIG_KB_LIVING_GIVEITEM_DOWN
 
-/datum/keybinding/carbon/give_item/down(client/user)
+/datum/keybinding/carbon/give_item/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()
 	if(.)
 		return .
@@ -46,10 +57,19 @@
 	return TRUE
 
 /datum/keybinding/carbon/intent
+	abstract_type = /datum/keybinding/carbon/intent
 	/// The intent to switch to.
 	var/intent
 
-/datum/keybinding/carbon/intent/down(client/user)
+/datum/keybinding/carbon/intent/New()
+	keybind_signal = COMSIG_KB_CARBON_INTENT(intent)
+	name = "intent_switch_[intent]"
+	var/intent_cap = capitalize(intent)
+	full_name = "[intent_cap] Intent (нажать)"
+	description = "Переключает интент на [intent_cap]."
+	..()
+
+/datum/keybinding/carbon/intent/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()
 	if(.)
 		return .
@@ -61,30 +81,39 @@
 /datum/keybinding/carbon/intent/help
 	name = "Help Intent (нажать)"
 	intent = INTENT_HELP
-	keys = list("1")
+	hotkey_keys = list("1")
 
 /datum/keybinding/carbon/intent/disarm
 	name = "Disarm Intent (нажать)"
 	intent = INTENT_DISARM
-	keys = list("2")
+	hotkey_keys = list("2")
 
 /datum/keybinding/carbon/intent/grab
 	name = "Grab Intent (нажать)"
 	intent = INTENT_GRAB
-	keys = list("3")
+	hotkey_keys = list("3")
 
 /datum/keybinding/carbon/intent/harm
 	name = "Harm Intent (нажать)"
 	intent = INTENT_HARM
-	keys = list("4")
+	hotkey_keys = list("4")
 
 /datum/keybinding/carbon/intent_hold
+	abstract_type = /datum/keybinding/carbon/intent_hold
 	/// The intent to switch to.
 	var/intent
 	/// The previous intent before holding.
 	var/prev_intent
 
-/datum/keybinding/carbon/intent_hold/down(client/user)
+/datum/keybinding/carbon/intent_hold/New()
+	keybind_signal = COMSIG_KB_CARBON_INTENT(intent)
+	name = "intent_hold_[intent]"
+	var/intent_cap = capitalize(intent)
+	full_name = "[intent_cap] Intent (зажать)"
+	description = "Удерживает интент [intent_cap]."
+	..()
+
+/datum/keybinding/carbon/intent_hold/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()
 	if(.)
 		return .
@@ -117,9 +146,8 @@
 	intent = INTENT_HARM
 
 /datum/keybinding/carbon/parry
-	name = "Parry"
-	keys = list("Space")
-
-/datum/keybinding/carbon/parry/down(client/user)
-	. = ..()
-	SEND_SIGNAL(user.mob, COMSIG_CARBON_PARRY)
+	name = "parry"
+	full_name = "Парирование"
+	description = "Активирует парирование предметом в руках, если предмет способен на это."
+	hotkey_keys = list("Space")
+	keybind_signal = COMSIG_KB_CARBON_PARRY

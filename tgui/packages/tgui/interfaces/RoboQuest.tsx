@@ -1,15 +1,14 @@
-import { Fragment } from 'react';
-import { useBackend } from '../backend';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Box,
-  Section,
   Button,
-  Stack,
-  ImageButton,
   Divider,
   DmIcon,
-} from '../components';
+  ImageButton,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type RoboQuestData = {
@@ -79,12 +78,12 @@ export const RoboQuest = (_props: unknown) => {
   const [shopState, changeShopState] = useState(false);
 
   const cat_to_color = {
-    'medical': 'blue',
-    'working': 'brown',
-    'security': 'red',
-    'working_medical': 'olive',
-    'medical_security': 'violet',
-    'working_medical_security': 'grey',
+    medical: 'blue',
+    working: 'brown',
+    security: 'red',
+    working_medical: 'olive',
+    medical_security: 'violet',
+    working_medical_security: 'grey',
   };
 
   return (
@@ -137,15 +136,15 @@ export const RoboQuest = (_props: unknown) => {
                                   icon_state={i.icon_state}
                                 />
                               </Stack.Item>
-                            )
+                            ),
                         )}
                     </Stack>
                   </Stack.Item>
                 </Stack>
-                <>
-                  <Divider />
-                  <b>{checkMessage}</b>
-                </>
+
+                <Divider />
+                <b>{checkMessage}</b>
+
                 {!!cooldown && (
                   <>
                     <b>
@@ -253,35 +252,32 @@ export const RoboQuest = (_props: unknown) => {
                   <br />
                 </>
               )}
-
-              <>
-                <br />
-                При получении заказа на экзкостюм, выбор подтипа меха определяет
-                тип специализированных очков, которые будут начислены за
-                выполнение заказа.
-                <br />
-                <br />
-                Рабочие экзокостюмы приносят{' '}
-                <Box inline color={'brown'}>
-                  {' '}
-                  коричневые
-                </Box>{' '}
-                очки. Медицинские экзокостюмы приносят{' '}
-                <Box inline color={'teal'}>
-                  {' '}
-                  голубые
-                </Box>{' '}
-                очки. Боевые экзокостюмы приносят{' '}
-                <Box inline color={'red'}>
-                  {' '}
-                  красные
-                </Box>{' '}
-                очки.
-                <br />
-                <br />
-                Каждый мех, вне зависимости от подтипа, приносит некоторое
-                количество очков для магазина особых наград.
-              </>
+              <br />
+              При получении заказа на экзкостюм, выбор подтипа меха определяет
+              тип специализированных очков, которые будут начислены за
+              выполнение заказа.
+              <br />
+              <br />
+              Рабочие экзокостюмы приносят{' '}
+              <Box inline color={'brown'}>
+                {' '}
+                коричневые
+              </Box>{' '}
+              очки. Медицинские экзокостюмы приносят{' '}
+              <Box inline color={'teal'}>
+                {' '}
+                голубые
+              </Box>{' '}
+              очки. Боевые экзокостюмы приносят{' '}
+              <Box inline color={'red'}>
+                {' '}
+                красные
+              </Box>{' '}
+              очки.
+              <br />
+              <br />
+              Каждый мех, вне зависимости от подтипа, приносит некоторое
+              количество очков для магазина особых наград.
             </Section>
           </Stack.Item>
           <Stack.Item basis={38}>
@@ -432,7 +428,7 @@ export const RoboQuest = (_props: unknown) => {
                       >
                         {i.cost.robo}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </Section>
             )}

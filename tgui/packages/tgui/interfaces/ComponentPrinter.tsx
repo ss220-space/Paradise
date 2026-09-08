@@ -1,7 +1,14 @@
+import {
+  Box,
+  Button,
+  DmIcon,
+  NoticeBox,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Section, DmIcon, Button, Stack, NoticeBox } from '../components';
-import { toTitleCase } from 'common/string';
 
 type Design = {
   name: string;
@@ -77,7 +84,7 @@ export const ComponentPrinter = (props) => {
               <Box style={{ display: 'inline' }}>
                 {(design.cost &&
                   Object.keys(design.cost)
-                    .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
+                    .map((mat) => `${toTitleCase(mat)}: ${design.cost[mat]}`)
                     .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
               </Box>
               <Box

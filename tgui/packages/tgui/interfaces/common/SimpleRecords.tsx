@@ -1,9 +1,9 @@
+import { sortBy } from 'es-toolkit';
+import { type ReactNode, useState } from 'react';
+import { Box, Button, Input, LabeledList, Section } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../../backend';
-import { ReactNode, useState } from 'react';
-import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
-import { Box, Input, Button, Section, LabeledList } from '../../components';
 
 export type RecordsProps = {
   records: Records;
@@ -57,7 +57,7 @@ export type MedicalRecord = {
 
 type SimpleRecordsProps = {
   records: Records;
-  recordType: string;
+  typeOfRecord: string;
   recordsList: Record[];
 };
 
@@ -69,7 +69,7 @@ export const SimpleRecords = (props: SimpleRecordsProps) => {
       {!records ? (
         <SelectionView {...props} />
       ) : (
-        <RecordView recordType={props.recordType} {...props} />
+        <RecordView recordTypeValue={props.typeOfRecord} {...props} />
       )}
     </Box>
   );
@@ -89,17 +89,17 @@ const SelectionView = (props: SelectionViewProps) => {
   const SelectMembers = (people, searchText = '') => {
     const MemberSearch = createSearch<Record>(
       searchText,
-      (member) => member.Name
+      (member) => member.Name,
     );
     return flow([
       (recordsList: Record[]) =>
         // Null member filter
-        filter(recordsList, (member) => !!member?.Name),
+        recordsList.filter((member) => !!member?.Name),
       // Optional search term
       (recordsList: Record[]) =>
-        searchText ? filter(recordsList, MemberSearch) : recordsList,
+        searchText ? recordsList.filter(MemberSearch) : recordsList,
       // Slightly expensive, but way better than sorting in BYOND
-      (recordsList: Record[]) => sortBy(recordsList, (member) => member.Name),
+      (recordsList: Record[]) => sortBy(recordsList, [(member) => member.Name]),
     ])(recordsList);
   };
 
@@ -130,7 +130,7 @@ const SelectionView = (props: SelectionViewProps) => {
 };
 
 type RecordViewProps = {
-  recordType: string;
+  recordTypeValue: string;
   records: Records;
 };
 
@@ -140,7 +140,7 @@ const RecordView = (props: RecordViewProps) => {
   const { general, medical, security } = records;
 
   let secondaryRecord: ReactNode;
-  switch (props.recordType) {
+  switch (props.recordTypeValue) {
     case 'MED':
       secondaryRecord = (
         <Section title="Medical Data">

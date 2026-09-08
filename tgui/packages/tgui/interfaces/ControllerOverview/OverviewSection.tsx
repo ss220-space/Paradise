@@ -1,9 +1,8 @@
-import { Button, LabeledList, Section, Stack } from '../../components';
-
+import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
 import type { ControllerData } from './types';
 
-export const OverviewSection = (props) => {
+export const OverviewSection = (_props: unknown) => {
   const { act, data } = useBackend<ControllerData>();
   const {
     fast_update,
@@ -37,15 +36,14 @@ export const OverviewSection = (props) => {
             Fast
           </Button>
           <Button.Input
-            currentValue={(rolling_length / 10).toString()}
-            onCommit={(e, value) => {
+            buttonText={`Average: ${(rolling_length / 10).toFixed(2)} Second(s)`}
+            value={(rolling_length / 10).toString()}
+            onCommit={(value) => {
               act('set_rolling_length', {
                 rolling_length: value,
               });
             }}
-          >
-            Average: {rolling_length / 10} Second(s)
-          </Button.Input>
+          />
         </>
       }
     >

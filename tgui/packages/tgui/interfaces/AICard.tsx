@@ -1,12 +1,12 @@
-import { useBackend } from '../backend';
 import {
-  Button,
-  ProgressBar,
-  LabeledList,
   Box,
+  Button,
+  LabeledList,
+  ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type AiCartData = {
@@ -38,7 +38,7 @@ export const AICard = (props: unknown) => {
       </Window>
     );
   } else {
-    let integrityColor = null; // Handles changing color of the integrity bar
+    let integrityColor: string | null = null; // Handles changing color of the integrity bar
     if (data.integrity >= 75) {
       integrityColor = 'green';
     } else if (data.integrity >= 25) {

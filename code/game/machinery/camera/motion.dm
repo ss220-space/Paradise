@@ -53,7 +53,7 @@
 
 /// Returns TRUE if the camera can see the target.
 /obj/machinery/camera/can_see(atom/target, length = 7) // I stole this from global and modified it to work with Xray cameras.
-	if(!target || target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
+	if(!target || target.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(target, TRAIT_NINJA_INVISIBILITY))
 		return FALSE
 	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)

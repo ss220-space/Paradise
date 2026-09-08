@@ -94,19 +94,5 @@
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/vulpkanin/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_howl)
-	add_verb(H, /mob/living/carbon/human/proc/emote_growl)
-
-/datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_howl)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_growl)
-
 /datum/species/vulpkanin/compressor_grind(location)
 	new /obj/item/reagent_containers/food/snacks/vulpix(location)

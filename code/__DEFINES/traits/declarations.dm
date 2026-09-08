@@ -59,6 +59,7 @@
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
+#define TRAIT_NINJA_INVISIBILITY "ninja_invisibility"
 /// Does nothing on its own, applied via status effect.
 #define TRAIT_STASIS "in_stasis"
 /// Makes the owner appear as dead to most forms of medical examination
@@ -562,6 +563,19 @@
 /// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
 #define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
 
+/// The mob has an active mime vow of silence, and thus is unable to speak and has other mime things going on
+#define TRAIT_MIMING "miming"
+
+/// This atom can have spells cast from it if a mob is within it
+/// This means the "caster" of the spell is changed to the mob's loc
+/// Note this doesn't mean all spells are guaranteed to work or the mob is guaranteed to cast
+#define TRAIT_CASTABLE_LOC "castable_loc"
+
+/// Needs above trait to work.
+/// This trait makes it so that any cast spells will attempt to transfer to the location's location.
+/// For example, a heretic inside the haunted blade's spells would emanate from the mob wielding the sword.
+#define TRAIT_SPELLS_TRANSFER_TO_LOC "spells_transfer_to_loc"
+
 #define TRAIT_GUN_BURST_FIRING "burst_firing"
 
 /// Does the mob ignore elevation? (e.g. xeno larvas on hiding)
@@ -592,6 +606,8 @@
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
 #define TRAIT_GIVE_READY "give_ready"
+
+#define TRAIT_NO_WIZARD_CLOTHES "no_wizard_clothes"
 
 /// Mob has fov applied to it
 #define TRAIT_FOV_APPLIED "fov_applied"

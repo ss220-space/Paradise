@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		var/rendered = "<span class=\"admin_attack\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
@@ -64,7 +64,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
-ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
+ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(M, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!M)
 		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
@@ -302,7 +303,8 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 ADMIN_VERB(player_notes, R_ADMIN|R_MOD, "Player Notes", "Open Player Notes panel.", ADMIN_CATEGORY_BAN)
 	show_note()
 
-ADMIN_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player Notes panel for a given ckey.", ADMIN_CATEGORY_BAN, key as text)
+ADMIN_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player Notes panel for a given ckey.", ADMIN_CATEGORY_BAN)
+	VERB_ARG(key, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 	show_note(key)
 
 ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence on VPN whitelist", ADMIN_CATEGORY_BAN)
@@ -425,14 +427,10 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 	if(!check_rights_client(R_SERVER, FALSE, user))
 		message = adminscrub(message, 500)
 
-	message = handleDiscordEmojis(message)
+	message = handle_emojis(message)
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-	to_chat(world, fieldset_block(span_notice("<b>[user.holder.fakekey ? "Администрация" : user.key] объявляет:</b>"), span_notice("<p>[message]</p>"), "boxed_message blue_box"))
 	log_admin("Announce: [key_name(user)] : [message]")
-	for(var/client/clients_to_alert in GLOB.clients)
-		window_flash(clients_to_alert)
-		if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-			SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+	send_ooc_announcement(message, user.holder.fakekey ? "Администрация" : user.key, play_sound = 'sound/effects/adminhelp.ogg')
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 ADMIN_VERB(toggle_ooc, R_ADMIN, "Toggle OOC", "Toggle the OOC channel on or off.", ADMIN_CATEGORY_TOGGLES)
@@ -624,7 +622,8 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 
 	return ""
 
-ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG, object as text|null)
+ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
 	var/static/list/atom_types
 	if(isnull(atom_types))
 		atom_types = subtypesof(/atom)
@@ -663,7 +662,45 @@ ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG,
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 	return TRUE
 
-ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target_mob in GLOB.mob_list)
+ADMIN_VERB(spawn_atom_pod, R_SPAWN, "PodSpawn", "Spawn an atom via supply drop.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
+	var/chosen = pick_closest_path(object)
+	if(!chosen)
+		return
+	var/turf/target_turf = get_turf(user.mob)
+
+	if(ispath(chosen, /turf))
+		target_turf.ChangeTurf(chosen)
+	else
+		var/obj/structure/closet/supplypod/pod = podspawn(list(
+			"target" = target_turf,
+			"path" = /obj/structure/closet/supplypod/centcompod,
+		))
+		//we need to set the admin spawn flag for the spawned items so we do it outside of the podspawn proc
+		var/atom/A = new chosen(pod)
+		A.flags |= ADMIN_SPAWNED
+
+	log_admin("[key_name(user)] pod-spawned [chosen] at [AREACOORD(user.mob)]")
+	BLACKBOX_LOG_ADMIN_VERB("Podspawn Atom")
+
+ADMIN_VERB(spawn_cargo, R_SPAWN, "Spawn Cargo", "Spawn a cargo crate.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
+	var/chosen = pick_closest_path(object, make_types_fancy(subtypesof(/datum/supply_order) + subtypesof(/datum/syndie_supply_packs)))
+	if(!chosen)
+		return
+	var/datum/supply_order/order = (chosen in typecacheof(/datum/supply_packs))? new /datum/supply_order : new /datum/syndie_supply_order
+	order.ordernum = 0
+	order.object = new chosen
+	order.orderedby = "ОШИБКА"
+	order.orderedbyRank = "ОШИБКА"
+	order.crates = 1
+	order.createObject(get_turf(user.mob))
+
+	log_admin("[key_name(user)] spawned cargo pack [chosen] at [AREACOORD(user.mob)]")
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Cargo")
+
+ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target_mob, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	var/datum/mind/target_mind = target_mob.mind
 	if(!target_mind)
 		to_chat(user, "This mob has no mind!", confidential = TRUE)

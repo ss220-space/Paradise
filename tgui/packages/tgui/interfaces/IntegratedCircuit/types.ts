@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLAttributes, MouseEvent } from 'react';
+import type { CSSProperties, HTMLAttributes, MouseEvent } from 'react';
 
 export interface LocationMap {
   [key: string]: { x: number; y: number; color?: string };
@@ -47,8 +47,8 @@ export interface IntegratedCircuitState {
     is_output: boolean;
     ref: string;
   } | null;
-  mouseX: number | null;
-  mouseY: number | null;
+  mouseX: number | undefined;
+  mouseY: number | undefined;
   zoom: number;
   backgroundX: number;
   backgroundY: number;
@@ -91,21 +91,21 @@ export interface PortProps {
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortMouseUp?: (
     portIndex: number,
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortRightClick?: (
     portIndex: number,
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortUpdated?: (port: PortType, iconRef: any) => void;
   onPortLoaded?: (port: PortType, iconRef: any) => void;
@@ -120,21 +120,21 @@ export interface ObjectComponentProps extends HTMLAttributes<HTMLDivElement> {
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortMouseUp?: (
     portIndex: number,
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortRightClick?: (
     portIndex: number,
     componentId: number,
     port: PortType,
     isOutput: boolean,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onPortUpdated?: (port: PortType, iconRef: any) => void;
   onPortLoaded?: (port: PortType, iconRef: any) => void;
@@ -153,8 +153,8 @@ export interface DisplayComponentProps {
   left?: string;
   fixedSize?: boolean;
   style?: CSSProperties;
-  onDisplayUpdated?: (el: HTMLDivElement) => void;
-  onDisplayLoaded?: (el: HTMLDivElement) => void;
+  onDisplayUpdated?: (el: HTMLDivElement | null) => void;
+  onDisplayLoaded?: (el: HTMLDivElement | null) => void;
 }
 
 export interface ComponentMenuProps {
@@ -179,7 +179,7 @@ export interface VariableMenuProps {
     variable_name: string,
     variable_type: string,
     variable_list_type: number,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   handleMouseDownSetter;
   handleMouseDownGetter;

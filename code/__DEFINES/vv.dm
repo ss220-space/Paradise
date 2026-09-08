@@ -28,6 +28,7 @@
 #define VV_WEAKREF "Weak Reference Datum"
 #define VV_REGEX "Regex"
 #define VV_MATRIX "Matrix"
+#define VV_HK_DEBUG_APPEARANCE "debugappearance"
 
 #define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
 #define VV_MSG_TAGGED(num) "<br><font size='1' color='red'><b>Tagged Datum #[num]</b></font>"

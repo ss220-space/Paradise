@@ -39,7 +39,7 @@
 	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 	var/obj/item/item_parent = parent
 	if(ismob(item_parent.loc))
-		UnregisterSignal(item_parent.loc, COMSIG_CARBON_PARRY)
+		UnregisterSignal(item_parent.loc, COMSIG_KB_CARBON_PARRY)
 
 /datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE, _requires_two_hands = FALSE, _requires_activation = FALSE, _block_callback = null)
 	if(!isitem(parent))
@@ -73,15 +73,15 @@
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 	if(slot & ITEM_SLOT_HANDS)
-		RegisterSignal(user, COMSIG_CARBON_PARRY, PROC_REF(start_parry))
+		RegisterSignal(user, COMSIG_KB_CARBON_PARRY, PROC_REF(start_parry))
 		ADD_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 	else
-		UnregisterSignal(user, COMSIG_CARBON_PARRY)
+		UnregisterSignal(user, COMSIG_KB_CARBON_PARRY)
 		REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER
-	UnregisterSignal(user, COMSIG_CARBON_PARRY)
+	UnregisterSignal(user, COMSIG_KB_CARBON_PARRY)
 	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/parry/proc/start_parry(mob/living/mob_user)

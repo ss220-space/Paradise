@@ -60,6 +60,9 @@ stddef.dm
 .idea/
 */node_modules/*
 
+# JavaScript tools
+**/node_modules
+
 /tools/bootstrap/.cache/
 
 # ignore DMI tool build cache

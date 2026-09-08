@@ -1,7 +1,12 @@
 import { useBackend } from 'tgui/backend';
-import { Flex, LabeledControls, RoundGauge, Section } from 'tgui/components';
-import { formatSiUnit } from 'common/format';
-import { toFixed } from 'common/math';
+import {
+  Flex,
+  LabeledControls,
+  RoundGauge,
+  Section,
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
 
 type Data = {
   apc_energy: number;

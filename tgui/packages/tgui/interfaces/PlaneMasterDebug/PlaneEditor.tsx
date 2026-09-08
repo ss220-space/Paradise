@@ -5,8 +5,7 @@ import {
   Section,
   Slider,
   Tooltip,
-} from '../../components';
-
+} from 'tgui-core/components';
 import { useBackend } from '../../backend';
 import type { Plane } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';

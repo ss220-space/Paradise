@@ -1,68 +1,22 @@
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: hsl(0, 100%, 27.3%),
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: hsl(25.7, 48.3%, 11.4%),
-  $color-bg-grad-spread: 6%
-);
-
-.theme-infernal {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+.theme-infernal:root {
+  // Base
+  --color-base: hsl(26, 48%, 11.5%);
+  --color-primary: hsl(0, 100%, 27.3%);
+  --color-secondary: hsl(0, 41.5%, 20.8%);
+  --color-border-primary: hsl(0, 59.4%, 40.6%);
+  --base-gradient-spread: 6;
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: (
-      'color-default': colors.$primary,
-      'color-disabled': hsl(19, 28.7%, 28%),
-      'color-selected': hsl(0, 67.9%, 41.6%),
-      'color-caution': hsl(29.6, 58.7%, 52.5%),
-      'color-danger': hsl(0, 100%, 27.3%)
-    )
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: (
-      'color-default': color.adjust(colors.$primary, $lightness: -20%),
-      'color-disabled': hsl(19, 28.7%, 28%),
-      'color-selected': hsl(0, 67.9%, 41.6%)
-    )
-  );
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': hsl(0, 59.4%, 40.6%))
-  );
-  @include meta.load-css(
-    '../components/NoticeBox.scss',
-    $with: ('background-color': hsl(0, 41.5%, 20.8%))
-  );
-  @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': hsl(0, 59.4%, 40.6%))
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
-  );
-  @include meta.load-css('../components/Section.scss');
-  @include meta.load-css(
-    '../components/Tooltip.scss',
-    $with: ('background-color': hsl(0, 65.8%, 14.9%))
-  );
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(0, 41.5%, 20.8%))
-  );
+  --button-background-disabled: hsl(19, 29%, 28%);
+  --button-background-selected: hsl(0, 68%, 42%);
+  --button-background-caution: hsl(30, 59%, 52.5%);
+  --button-background-danger: var(--color-primary);
+  --image-button-background-default: hsl(from var(--color-primary) h s calc(l - 20));
+  --image-button-background-disabled: hsl(19, 29%, 28%);
+  --image-button-background-selected: hsl(0, 68%, 42%);
+  --notice-box-background: var(--color-secondary);
+  --progress-bar-background: rgba(0, 0, 0, 0.5);
+  --tooltip-background-lightness: 15;
 
   .Layout__content {
     background-image: url('../../assets/bg-codex_gygax.svg');

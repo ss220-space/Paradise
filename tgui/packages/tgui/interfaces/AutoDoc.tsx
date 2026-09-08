@@ -1,7 +1,6 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import { Box, Button, Flex, Image, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { useState } from 'react';
-import { Box, Section, Button, Flex, Image } from '../components';
 import { Window } from '../layouts';
 
 type AutoDocData = {
@@ -25,7 +24,7 @@ export const AutoDoc = (props: unknown) => {
             <Image
               height="256px"
               width="256px"
-              src={`data:image/jpeg;base64,${TguiIcons['human']}`}
+              src={`data:image/jpeg;base64,${TguiIcons.human}`}
               fixBlur
               style={{
                 position: 'absolute',
@@ -56,7 +55,7 @@ export const AutoDoc = (props: unknown) => {
                         >
                           {part}
                         </Button>
-                      )
+                      ),
                   )}
 
                   <Button
@@ -72,7 +71,7 @@ export const AutoDoc = (props: unknown) => {
               }
             >
               <Box>
-                {!!(occupant[ChoosenPart] && occupant[ChoosenPart].extOrgan) &&
+                {!!occupant[ChoosenPart]?.extOrgan &&
                   occupant[ChoosenPart].extOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>
@@ -137,16 +136,16 @@ export const AutoDoc = (props: unknown) => {
                       {organ.dead ? 'dead' : ''}
                       {!!organ.dead && <br />}
                       {organ.germ_level
-                        ? 'Germ level is ' + organ.germ_level
+                        ? `Germ level is ${organ.germ_level}`
                         : ''}
                       {!!organ.germ_level && <br />}
                       {organ.totalLoss
-                        ? 'Total damage is ' + organ.totalLoss
+                        ? `Total damage is ${organ.totalLoss}`
                         : ''}
                       <br />
                     </Fragment>
                   ))}
-                {!!(occupant[ChoosenPart] && occupant[ChoosenPart].intOrgan) &&
+                {!!occupant[ChoosenPart]?.intOrgan &&
                   occupant[ChoosenPart].intOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>
@@ -165,10 +164,10 @@ export const AutoDoc = (props: unknown) => {
                       {organ.dead ? 'dead' : ''}
                       {!!organ.dead && <br />}
                       {organ.germ_level
-                        ? 'Germ level is ' + organ.germ_level
+                        ? `Germ level is ${organ.germ_level}`
                         : ''}
                       {!!organ.germ_level && <br />}
-                      {organ.totalLoss ? 'Total damage is ' + organ.damage : ''}
+                      {organ.totalLoss ? `Total damage is ${organ.damage}` : ''}
                       {!!organ.totalLoss && (
                         <>
                           <Button

@@ -1,9 +1,7 @@
 #define DEFAULT_WHO_CELLS_PER_ROW 4
 #define NO_ADMINS_ONLINE_MESSAGE "Все запросы помощи администраторов перенаправляются в наш Discord-сервер! Даже если в игре в данный момент нет администраторов, ваше сообщение может быть замечено, и на него может быть дан ответ."
 
-/client/verb/who()
-	set name = "Список игроков"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, who, "Список игроков", VERB_CATEGORY_OOC)
 
 	var/msg = ""
 
@@ -92,9 +90,7 @@
 
 	to_chat(src, fieldset_block(span_bold("Игроков онлайн"), span_infoplain(msg), "boxed_message"), type = MESSAGE_TYPE_INFO)
 
-/client/verb/adminwho()
-	set name = "В сети"
-	set category = ADMIN_CATEGORY_TICKETS
+GAME_VERB(/client, adminwho, "Список админов", ADMIN_CATEGORY_TICKETS)
 
 	var/list/adminwho_data = generate_adminwho_string()
 	var/header = adminwho_data["has_admins"] ? "В сети" : "Нет никого в сети"

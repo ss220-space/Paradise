@@ -76,10 +76,7 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 
-/obj/machinery/papershredder/verb/empty_contents()
-	set name = "Опустошить корзину"
-	set category = VERB_CATEGORY_OBJECT
-	set src in range(1)
+GAME_VERB_SRC(/obj/machinery/papershredder, empty_contents, range(1), "Опустошить корзину", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

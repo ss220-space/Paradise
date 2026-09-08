@@ -1,12 +1,12 @@
+import { Input, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Input, LabeledList, Section } from '../../components';
 
 type RadioEncoder = {
   radio_name: string;
   radio_rank: string;
 };
 
-export const pai_encoder = (props: unknown) => {
+export const pai_encoder = (_props: unknown) => {
   const { act, data } = useBackend<PaiData<RadioEncoder>>();
   const { radio_name, radio_rank } = data.app_data;
 

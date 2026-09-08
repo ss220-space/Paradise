@@ -418,17 +418,6 @@
 			continue
 		show_to.client?.screen += reuse
 
-//Triggered when F12 is pressed (Unless someone changed something in the DMF)
-/mob/verb/button_pressed_F12()
-	set name = "F12"
-	set hidden = TRUE
-
-	if(hud_used && client)
-		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
-	else
-		to_chat(usr, span_warning("У этого типа существ нет HUD."))
-
 /datum/hud/proc/update_locked_slots()
 	return
 
@@ -486,7 +475,7 @@
 			if(!our_client)
 				position_action(button, button.linked_action.default_button_position)
 				return
-			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, ICON_SIZE_ALL, our_client.view) // Asks for a location adjacent to our button that won't overflow the map
+			button.screen_loc = button.screen_loc = get_valid_screen_location(relative_to.screen_loc, ICON_SIZE_ALL, our_client.view_size.getView()) // Asks for a location adjacent to our button that won't overflow the map
 			toggle_palette.update_state()
 
 	button.location = relative_to.location

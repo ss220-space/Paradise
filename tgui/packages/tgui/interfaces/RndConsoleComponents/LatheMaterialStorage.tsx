@@ -1,6 +1,6 @@
-import { declension_ru } from 'common/string';
+import { declension_ru } from 'common/l10n';
+import { Button, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Section, Table } from '../../components';
 
 type LatheMaterialStorageData = {
   loaded_materials: Material[];
@@ -21,10 +21,10 @@ export const LatheMaterialStorage = (properties) => {
               data.menu === 4 ? 'lathe_ejectsheet' : 'imprinter_ejectsheet';
             act(action, { id, amount });
           };
+          amount ||= 0;
           // 1 sheet = 2000 units
           const sheets = Math.floor(amount / 2000);
           const empty = amount < 1;
-          const plural = sheets === 1 ? '' : 's';
           return (
             <Table.Row
               key={id}

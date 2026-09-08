@@ -25,9 +25,7 @@
 		removePen(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/clipboard/verb/removePen()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Открепить ручку"
+GAME_VERB_SRC(/obj/item/clipboard, removePen, usr, "Открепить ручку", VERB_CATEGORY_HIDDEN)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	penPlacement(usr, containedpen, FALSE)

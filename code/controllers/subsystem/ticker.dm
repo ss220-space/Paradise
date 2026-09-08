@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(ticker)
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
+	var/list/round_start_events
 	/// Time that the round started
 	var/time_game_started = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
@@ -13,7 +14,11 @@ SUBSYSTEM_DEF(ticker)
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
+	#ifdef AUTOSTART_GAME
+	var/force_start = TRUE
+	#else
 	var/force_start = FALSE
+	#endif
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -122,7 +127,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.start_vote(new /datum/vote/crew_transfer)
+				SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer")
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency?.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -158,7 +163,7 @@ SUBSYSTEM_DEF(ticker)
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
 					if("vote")
-						SSvote.start_vote(new /datum/vote/map)
+						SSvote.initiate_vote(/datum/vote/map, "Map Rotation")
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
@@ -315,6 +320,11 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+
+	for(var/datum/callback/callback as anything in round_start_events)
+		callback.InvokeAsync()
+
+	LAZYCLEARLIST(round_start_events)
 
 	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
@@ -778,6 +788,13 @@ SUBSYSTEM_DEF(ticker)
 
 	log_debug("Initiating world reboot from Ticker subsystem...")
 	world.Reboot()
+
+//These callbacks will fire after roundstart key transfer
+/datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
+	if(!HasRoundStarted())
+		LAZYADD(round_start_events, cb)
+	else
+		cb.InvokeAsync()
 
 // Timers invoke this async
 /datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()

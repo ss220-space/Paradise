@@ -582,7 +582,7 @@
 /datum/status_effect/panacea
 	id = "panacea"
 	duration = 20 SECONDS
-	tick_interval = 2 SECONDS
+	tick_interval = 10 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 

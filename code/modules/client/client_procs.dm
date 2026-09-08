@@ -3,10 +3,10 @@
 	////////////
 
 #define UPLOAD_LIMIT 10485760 //Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION 513 // Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION 516 // Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION 514 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD 1566 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION 516 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD 1682 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -116,6 +116,9 @@
 	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+	if(href_list["commandbar_typing"])
+		handle_commandbar_typing(href_list)
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -133,13 +136,13 @@
 	if(href_list["__keydown"])
 		var/keycode = href_list["__keydown"]
 		if(keycode)
-			KeyDown(keycode)
+			keyDown(keycode)
 		return
 
 	if(href_list["__keyup"])
 		var/keycode = href_list["__keyup"]
 		if(keycode)
-			KeyUp(keycode)
+			keyUp(keycode)
 		return
 
 	// Tgui Topic middleware
@@ -188,6 +191,22 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
+/client/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, holder))
+			return FALSE
+		if(NAMEOF(src, ckey))
+			return FALSE
+		if(NAMEOF(src, key))
+			return FALSE
+		if(NAMEOF(src, view))
+			view_size.setDefault(var_value)
+			return TRUE
+	return ..()
+
+/client/proc/rescale_view(change, min, max)
+	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
+
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
@@ -232,9 +251,11 @@
 	pm_tracker = new(ckey)
 
 	//kill old tgui panel
-	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
-	tgui_panel = new(src, "chat_panel")
+	winset(src, OUTPUT_SELECTOR_LEGACY_OUTPUT_SELECTOR, "left=output_legacy")
+	tgui_panel = new(src, "browseroutput")
 	tgui_say = new(src, "tgui_say")
+
+	initialize_commandbar_spy()
 
 	set_right_click_menu_mode(TRUE)
 
@@ -294,9 +315,6 @@
 
 	if(SSinput.initialized)
 		set_macros()
-
-	// Setup widescreen
-	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
@@ -363,6 +381,7 @@
 
 	// Initialize tgui say
 	tgui_say.initialize()
+	initialize_escape_menu()
 
 	donator_check()
 	check_ip_intel()
@@ -370,7 +389,6 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential = TRUE)
-		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -401,8 +419,16 @@
 
 	skills_select_window = new()
 
+	view_size = new(src)
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	view_size.apply()
+
 	Master.UpdateTickRate()
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CLIENT_CONNECT, src)
+	fully_created = TRUE
+	set_fullscreen()
 
 	// Check total playercount
 	var/playercount = 0
@@ -430,13 +456,13 @@
 		return
 
 	tgui_panel.window.send_message("donations/load_data", list(
-		"month_donations" = SSdonations.month_donations,
-		"target_donation" = SSdonations.target_donation,
-		"tts_target_donation" = SSdonations.tts_target_donation,
-		"donations_text" = SSdonations.donations_text,
-		"boosty_url" = SSdonations.boosty_url,
-		"kofi_url" = SSdonations.kofi_url,
-		"discord_url"= SSdonations.discord_url,
+		"monthDonations" = SSdonations.month_donations,
+		"targetDonation" = SSdonations.target_donation,
+		"ttsTargetDonation" = SSdonations.tts_target_donation,
+		"donationsText" = SSdonations.donations_text,
+		"boostyUrl" = SSdonations.boosty_url,
+		"kofiUrl" = SSdonations.kofi_url,
+		"discordUrl"= SSdonations.discord_url,
 	))
 	check_donator_achivements()
 
@@ -1223,37 +1249,15 @@
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
 
-/client/verb/toggle_fullscreen()
-	set name = "Полный экран"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_OOC)
 
 	fullscreen = !fullscreen
 
-	if(fullscreen)
-		winset(usr, "mainwindow", "on-size=")
-		winset(usr, "mainwindow", "titlebar=false")
-		winset(usr, "mainwindow", "can-resize=false")
-		winset(usr, "mainwindow", "menu=")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "is-maximized=true")
-	else
-		winset(usr, "mainwindow", "titlebar=true")
-		winset(usr, "mainwindow", "can-resize=true")
-		winset(usr, "mainwindow", "menu=menu")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "on-size=fitviewport")
+	set_fullscreen()
 
-	fit_viewport()
-
-/**
- * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
- *
- * Hardcoded to the ESC key.
- */
-/client/verb/reset_held_keys()
-	set name = "Reset Held Keys"
-	set hidden = TRUE
-	client_reset_held_keys()
+/client/proc/set_fullscreen()
+	winset(src, SKIN_MAINWINDOW, "is-fullscreen=[fullscreen ? "true" : "false"]")
+	attempt_auto_fit_viewport()
 
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
@@ -1265,37 +1269,48 @@
 		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
-/client/verb/fit_viewport()
-	set name = "Подгонка области видимости"
-	set desc = "Fit the size of the map window to match the viewport."
-	set category = VERB_CATEGORY_SPECIALVERBS
-
+GAME_VERB_DESC(/client, fit_viewport, "Подгонка области видимости", "Fit the size of the map window to match the viewport.", VERB_CATEGORY_SPECIALVERBS)
 	// Fetch aspect ratio
-	var/list/view_size = getviewsize(view)
+	var/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "[SKIN_MAINWINDOW_SPLIT];[SKIN_MAPWINDOW]", "size"))
 
-	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
-	if(!sizes["mapwindow.size"])
-		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+	// Client closed the window? Some other error? This is unexpected behaviour, let's
+	// CRASH with some info.
+	if(!sizes["[SKIN_MAPWINDOW].size"])
+		CRASH("sizes does not contain mapwindow.size key. This means a winget failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
 
-	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/map_size = splittext(sizes["[SKIN_MAPWINDOW].size"], "x")
 
-	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
-	// If we don't get our expected 2 outputs, let's give some useful error info.
-	if(length(map_size) != 2)
-		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+	var/split_size = splittext(sizes["[SKIN_MAINWINDOW_SPLIT].size"], "x")
+	var/split_width = text2num(split_size[1])
 
-	var/height = text2num(map_size[2])
-	var/desired_width = round(height * aspect_ratio)
-	if(text2num(map_size[1]) == desired_width)
-		// Nothing to do.
+	// Window is minimized, we can't get proper data so return to avoid division by 0
+	if(!split_width)
 		return
 
-	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
-	var/split_width = text2num(split_size[1])
+	// Gets the type of zoom we're currently using from our view datum
+	// If it's 0 we do our pixel calculations based off the size of the mapwindow
+	// If it's not, we already know how big we want our window to be, since zoom is the exact pixel ratio of the map
+	var/zoom_value = src.view_size?.zoom || 0
+
+	var/desired_width = 0
+	if(zoom_value)
+		desired_width = round(view_size[1] * zoom_value * ICON_SIZE_X)
+	else
+
+		// Looks like we expect mapwindow.size to be "ixj" where i and j are numbers.
+		// If we don't get our expected 2 outputs, let's give some useful error info.
+		if(length(map_size) != 2)
+			CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+		var/height = text2num(map_size[2])
+		desired_width = round(height * aspect_ratio)
+
+	if(text2num(map_size[1]) == desired_width)
+		// Nothing to do
+		return
 
 	// Avoid auto-resizing the statpanel and chat into nothing.
 	desired_width = min(desired_width, split_width - 300)
@@ -1303,55 +1318,54 @@
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
 	var/pct = 100 * (desired_width + 4) / split_width
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
 	// Apply an ever-lowering offset until we finish or fail
 	var/delta
 	for(var/safety in 1 to 10)
-		var/after_size = winget(src, "mapwindow", "size")
+		var/after_size = winget(src, SKIN_MAPWINDOW, "size")
 		map_size = splittext(after_size, "x")
-		var/produced_width = text2num(map_size[1])
+		var/got_width = text2num(map_size[1])
 
-		if(produced_width == desired_width)
-			// Success!
+		if(got_width == desired_width)
+			// success
 			return
 		else if(isnull(delta))
-			// Calculate a probably delta based on the difference
-			delta = 100 * (desired_width - produced_width) / split_width
-		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
-			// If we overshot, halve the delta and reverse direction
-			delta = -delta / 2
+			// calculate a probable delta value based on the difference
+			delta = 100 * (desired_width - got_width) / split_width
+		else if((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
+			// if we overshot, halve the delta and reverse direction
+			delta = -delta/2
 
-	pct += delta
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+		pct += delta
+		winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
-/client/verb/fix_stat_panel()
-	set name = "Fix Stat Panel"
-	set hidden = TRUE
+/// Attempt to automatically fit the viewport, assuming the user wants it
+/client/proc/attempt_auto_fit_viewport()
+	/*
+	if(!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
+		return
+	*/
+	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
+	if(fully_created)
+		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
 
+GAME_VERB_HIDDEN(/client, fix_stat_panel, "Fix Stat Panel")
 	init_verbs()
 
 /**
  * Reloads the titlescreen if it is bugged for someone.
  */
-/client/verb/fix_title_screen()
-	set name = "Починить меню лобби"
-	set desc = "Lobbyscreen broke? Press this."
-	set category = VERB_CATEGORY_SPECIALVERBS
-
+GAME_VERB_DESC(/client, fix_title_screen, "Починить меню лобби", "Lobbyscreen broke? Press this.", VERB_CATEGORY_SPECIALVERBS)
 	if(isnewplayer(mob))
 		SStitle.show_title_screen_to(src)
 	else
 		SStitle.hide_title_screen_from(src)
 
-/client/verb/fitviewport() // wrapper for mainwindow
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, fitviewport, "")// wrapper for mainwindow
 	fit_viewport()
 
-/client/verb/link_discord_account()
-	set name = "Привязка Discord"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
+GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(!CONFIG_GET(string/discordurl))
 		return
@@ -1609,6 +1623,17 @@
 		panel_tabs |= verb_to_init.category
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
 	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+	var/list/panel_verbs = list()
+	for(var/procpath/verb_to_init as anything in verbstoprocess)
+		if(!verb_to_init || verb_to_init.hidden)
+			continue
+		var/datum/verb_metadata/meta = SSverbs.verbs_by_verb_path[verb_to_init]
+		if(!meta && !SSadmin_verbs.admin_verbs_by_verb_path[verb_to_init])
+			continue
+		if(meta?.src_based)
+			continue
+		panel_verbs += list(SSverbs.serialize_verb(verb_to_init))
+	tgui_panel?.window?.send_message("verbs/init", list("verbs" = panel_verbs))
 
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
@@ -1718,13 +1743,13 @@
 
 /client/proc/set_right_click_menu_mode(shift_only)
 	if(shift_only)
-		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=true")
 		winset(src, "ShiftUp", "is-disabled=false")
 		winset(src, "Shift", "is-disabled=false")
 	else
-		winset(src, "mapwindow.map", "right-click=false")
-		winset(src, "default.Shift", "is-disabled=true")
-		winset(src, "default.ShiftUp", "is-disabled=true")
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=false")
+		winset(src, SKIN_DEFAULT_SHIFT, "is-disabled=true")
+		winset(src, SKIN_DEFAULT_SHIFTUP, "is-disabled=true")
 
 /client/proc/open_filter_editor(atom/in_atom)
 	if(holder)
@@ -1746,3 +1771,8 @@
 
 #undef SUGGESTED_CLIENT_VERSION
 #undef SUGGESTED_CLIENT_BUILD
+
+GAME_VERB_DESC(/client, stop_client_sounds, "Stop Sounds", "Stop Current Sounds", VERB_CATEGORY_OOC)
+	SEND_SOUND(usr, sound(null))
+	tgui_panel?.stop_music()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Stop Self Sounds"))

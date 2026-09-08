@@ -322,7 +322,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	remove_verb(src, /mob/verb/me_verb)
+	UNASSIGN_GAME_VERB(src, /mob, me_verb)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	med_hud.show_to(src)
 
@@ -402,6 +402,7 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
+	var/datum/action/cooldown/spell/exit_possession/posession_spell
 
 /obj/structure/closet/stasis/get_ru_names()
 	return alist(
@@ -425,6 +426,7 @@
 	if(isanimal(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	posession_spell = new
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -432,7 +434,7 @@
 		var/mob/living/mob = arrived
 		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
-		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
+		holder_animal.AddSpell(posession_spell)
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
@@ -440,7 +442,7 @@
 		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
-			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
+			posession_spell.Remove(holder_animal)
 		if(kill || !isanimal(loc))
 			L.death(0)
 	..()
@@ -451,29 +453,26 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-/obj/effect/proc_holder/spell/exit_possession
+/datum/action/cooldown/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Покинуть тело, которым вы овладели"
-	base_cooldown = 6 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "exit_possession"
+	cooldown_time = 6 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "exit_possession"
 
-/obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
-	if(!isfloorturf(user.loc))
+/datum/action/cooldown/spell/exit_possession/cast(atom/cast_on)
+	. = ..()
+	if(!isfloorturf(owner.loc))
 		return
 
-	var/datum/mind/target_mind = user.mind
-	var/mob/living/current = user // Saving the current mob here to gib as usr seems to get confused after the mind's been transferred, due to delay in transfer_to
-	for(var/i in user)
+	var/mob/living/current = owner // Saving the current mob here to gib as usr seems to get confused after the mind's been transferred, due to delay in transfer_to
+	for(var/i in owner)
 		if(istype(i, /obj/structure/closet/stasis))
 			var/obj/structure/closet/stasis/S = i
 			S.dump_contents(0)
 			qdel(S)
 			break
 	current.gib()
-	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
+	Remove(owner)
+	qdel(src)
 

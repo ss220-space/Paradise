@@ -29,6 +29,7 @@
 		setDir(dir)
 
 	pipename = initial(pipe_type.name)
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 	update_appearance(UPDATE_ICON_STATE)
 	AddElement(/datum/element/undertile)
 
@@ -90,21 +91,6 @@
 			dpdir |= REVERSE_DIR(dir)
 	return dpdir
 
-/obj/structure/disposalconstruct/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
-
-// flip and rotate verbs
-/obj/structure/disposalconstruct/verb/rotate_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть трубу"
-	set src in view(1)
-	rotate(usr)
-
-/obj/structure/disposalconstruct/click_alt(mob/user)
-	rotate(user)
-	return CLICK_ACTION_SUCCESS
-
 /// Rotates construct 90 degrees counter-clockwise
 /obj/structure/disposalconstruct/proc/rotate(mob/user)
 	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
@@ -119,21 +105,17 @@
 	update_appearance(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/structure/disposalconstruct/verb/flip_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Перевернуть трубу"
-	set src in view(1)
-	flip(usr)
-
-/obj/structure/disposalconstruct/AltShiftClick(mob/user)
-	if(Adjacent(user))
-		flip(user)
+/obj/structure/disposalconstruct/proc/post_rotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
+		var/obj/structure/disposalpipe/temp = pipe_type
+		if(is_pipe() && initial(temp.flip_type))
+			if(ISDIAGONALDIR(dir)) // Fix RPD-induced diagonal turning
+				setDir(turn(dir, 45))
+			pipe_type = initial(temp.flip_type)
+	update_appearance()
 
 /// Flips construct 180 degrees, but also inverts it if its a pipe with defined flip_type
 /obj/structure/disposalconstruct/proc/flip(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return FALSE
 	if(anchored)
 		if(user)
 			to_chat(user, span_warning("You must unfasten the [pipename] before flipping it."))

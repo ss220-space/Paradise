@@ -94,6 +94,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight,
+		new/datum/data/pda/app/bank,
 	)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
@@ -224,10 +225,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
 
-/obj/item/pda/verb/verb_reset_pda()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Сброс КПК"
-	set src in usr
+GAME_VERB_SRC(/obj/item/pda, verb_reset_pda, usr, "Сброс КПК", VERB_CATEGORY_HIDDEN)
 
 	if(issilicon(usr))
 		return
@@ -272,26 +270,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	request_cartridge?.on_id_updated()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pda/verb/verb_remove_id()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Извлечь ID-карту"
-	set src in usr
-
-	if(issilicon(usr))
-		return
-
-	if(can_use(usr))
-		if(id)
-			remove_id(usr)
-		else
-			to_chat(usr, span_notice("This PDA does not have an ID in it."))
-	else
-		to_chat(usr, span_notice("You cannot do this while restrained."))
-
-/obj/item/pda/verb/verb_remove_pen()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Извлечь ручку"
-	set src in usr
+GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", VERB_CATEGORY_HIDDEN)
 	remove_pen(usr)
 
 /obj/item/pda/proc/remove_pen(mob/user)

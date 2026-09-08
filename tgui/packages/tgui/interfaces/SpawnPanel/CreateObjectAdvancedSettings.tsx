@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { Button, Dropdown, Slider, Table } from 'tgui/components';
+import { Button, Dropdown, Slider, Table } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import type { IconSettings } from './index';
 
-interface SpawnPanelData {
+type SpawnPanelData = {
   icon: string;
   iconState: string;
   iconStates: string[];
   selected_object?: string;
   apply_icon_override?: boolean;
-}
+};
 
 interface CreateObjectAdvancedSettingsProps {
   iconSettings: IconSettings;
@@ -18,13 +18,13 @@ interface CreateObjectAdvancedSettingsProps {
 }
 
 export const CreateObjectAdvancedSettings = (
-  props: CreateObjectAdvancedSettingsProps
+  props: CreateObjectAdvancedSettingsProps,
 ) => {
   const { act, data } = useBackend<SpawnPanelData>();
   const { iconSettings, onIconSettingsChange } = props;
 
   const sendUpdatedSettings = (
-    changedSettings: Partial<Record<string, unknown>> = {}
+    changedSettings: Partial<Record<string, unknown>> = {},
   ) => {
     const currentSettings = {
       selected_atom_icon: data.icon || iconSettings.icon,

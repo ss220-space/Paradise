@@ -23,6 +23,17 @@ SUBSYSTEM_DEF(tgui)
 
 /datum/controller/subsystem/tgui/PreInit()
 	basehtml = file2text('tgui/public/tgui.html')
+	// Inject inline helper functions
+	var/helpers = file2text('tgui/public/helpers.min.js')
+	helpers = "<script type='text/javascript'>\n[helpers]\n</script>"
+	basehtml = replacetextEx(basehtml, "<!-- tgui:helpers -->", helpers)
+
+	// Inject inline ntos-error styles
+	var/ntos_error = file2text('tgui/public/ntos-error.min.css')
+	ntos_error = "<style type='text/css'>\n[ntos_error]\n</style>"
+	basehtml = replacetextEx(basehtml, "<!-- tgui:ntos-error -->", ntos_error)
+
+	basehtml = replacetextEx(basehtml, "<!-- tgui:nt-copyright -->", "Nanotrasen (c) 2525-[CURRENT_STATION_YEAR]")
 
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
@@ -285,9 +296,9 @@ SUBSYSTEM_DEF(tgui)
  * required ui datum/tgui The UI to be added.
  */
 /datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
+	ui.user?.tgui_open_uis |= ui
 	LAZYOR(ui.src_object.open_uis, ui)
 	all_uis |= ui
-
 /**
  * private
  *
@@ -355,10 +366,11 @@ SUBSYSTEM_DEF(tgui)
 		return
 
 	if(CONFIG_GET(string/asset_transport) == ASSET_TRANSPORT_WEBROOT)
+		SSassets.apply_configuration()
 		var/datum/asset_transport/webroot/webroot = SSassets.transport
 
 		var/datum/asset_cache_item/item = webroot.register_asset("iframe.html", file("tgui/public/iframe.html"))
-		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", "[CONFIG_GET(string/asset_cdn_url)][webroot.get_asset_suffex(item)]")
 		return
 
 	if(!storage_iframe)

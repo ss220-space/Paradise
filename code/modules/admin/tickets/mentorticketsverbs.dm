@@ -6,7 +6,6 @@ ADMIN_VERB(resolve_all_mentor_tickets, R_ADMIN, "Resolve All Open Mentor Tickets
 		return
 	SSmentor_tickets.resolveAllOpenTickets()
 
-/client/verb/openMentorUserUI()
-	set name = "Ментор запросы"
-	set category = ADMIN_CATEGORY_TICKETS
+GAME_VERB(/client, openMentorUserUI, "Ментор запросы", ADMIN_CATEGORY_TICKETS)
+
 	SSmentor_tickets.userDetailUI(usr)

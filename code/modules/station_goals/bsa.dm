@@ -674,11 +674,13 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	if(!cannon)
 		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
-		gps_locators[G.gpstag] = G
+	for(var/obj/item/gps/gps in GLOB.GPS_list) //nulls on the list somehow
+		if(!gps.tracking)
+			continue
+		gps_locators[gps.gpstag] = gps
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : GLOB.teleportlocs
 	var/choose = tgui_input_list(user, "Выберите цель", "Наведение", options)
 	if(!choose)
 		return
@@ -726,7 +728,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		if(center)
 			return locate(center.x, center.y, center.z)
 	else if(istype(target,/obj/item/gps))
-		return get_turf(target)
+		var/obj/item/gps/gps = target
+		if(gps.tracking)
+			return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	return aim_turf

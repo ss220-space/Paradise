@@ -33,7 +33,7 @@
 
 // MARK: PML-8 rocket launcher
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
-	name = "PML-9"
+	name = "PML-8"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
 	icon_state = "rocketlauncher"
 	item_state = "rocketlauncher"

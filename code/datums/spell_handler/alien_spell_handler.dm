@@ -8,7 +8,12 @@ This was also the case with the verb implementation, it's just much more obvious
 	/// Amount of plasma required to use this ability
 	var/plasma_cost = 0
 
-/datum/spell_handler/alien/can_cast(mob/living/carbon/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/alien/New(datum/action/cooldown/spell/spell, cost = 0)
+	plasma_cost = cost
+	spell.name = "[spell.name] ([plasma_cost])"
+	spell.build_all_button_icons()
+
+/datum/spell_handler/alien/can_cast(mob/living/carbon/user, show_message, datum/action/cooldown/spell/spell)
 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 	if(!vessel)
 		return FALSE
@@ -20,15 +25,15 @@ This was also the case with the verb implementation, it's just much more obvious
 
 	return TRUE
 
-/datum/spell_handler/alien/spend_spell_cost(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/alien/spend_spell_cost(mob/living/carbon/user, datum/action/cooldown/spell/spell)
 	user.use_plasma_spell(plasma_cost, user)
 
-/datum/spell_handler/alien/before_cast(list/targets, mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/alien/before_cast(list/targets, mob/living/carbon/user, datum/action/cooldown/spell/spell)
 	if(plasma_cost)
 		to_chat(user, span_boldnotice("You have [user.get_plasma()] plasma left to use."))
 		user.update_plasma_display(user, update_buttons = TRUE)
 
-/datum/spell_handler/alien/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/alien/revert_cast(mob/living/carbon/user, datum/action/cooldown/spell/spell)
 	if(plasma_cost)
 		user.adjust_alien_plasma(plasma_cost)
 		to_chat(user, span_boldnotice("You have [user.get_plasma()] plasma left to use."))

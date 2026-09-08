@@ -157,7 +157,7 @@
 		span_notice("Вы начинаете [safety ? "снимать" : "ставить"] предохранитель...")
 	)
 
-	if(!user || !do_after(user, 0.5 SECONDS, target = src) || QDELETED(src))
+	if(!user || !do_after(user, 0.5 SECONDS, target = src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING) || QDELETED(src))
 		return
 
 	safety = !safety

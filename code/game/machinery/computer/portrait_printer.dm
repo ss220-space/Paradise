@@ -124,6 +124,27 @@
 	to_chat(usr, span_notice("You have printed [chosen_portrait.title] onto a new canvas."))
 	playsound(src, 'sound/machines/printer.ogg', 100, TRUE)
 
+/obj/machinery/computer/portrait_printer/mouse_drop_receive(atom/dropping, mob/user, params)
+	. = ..()
+	if(istype(dropping, /obj/item/paper_bin))
+		paper_bin_act(dropping, user)
+
+/obj/machinery/computer/portrait_printer/proc/paper_bin_act(obj/item/paper_bin/bin, mob/user)
+	if(bin.amount == 0)
+		balloon_alert(user, "корзина пустая!")
+		return
+	for(var/obj/item/paper/paper in bin.contents)
+		if(stored_paper >= max_paper)
+			return
+		qdel(paper)
+		stored_paper++
+		bin.amount--
+	var/transfer_amount = min(bin.amount, max_paper - stored_paper)
+	stored_paper += transfer_amount
+	bin.amount -= transfer_amount
+	bin.update_appearance(UPDATE_ICON)
+	playsound(src, 'sound/machines/computer/paper_insert.ogg', 40, vary = TRUE)
+
 /*
 /obj/machinery/computer/portrait_printer/proc/download_painting(selected_painting)
 	var/datum/painting/chosen_portrait = locate(selected_painting) in SSpersistent_paintings.paintings

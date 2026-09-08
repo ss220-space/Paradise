@@ -127,10 +127,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			return 1
 	return 0
 
-/mob/verb/displayjobbans()
-	set category = VERB_CATEGORY_OOC
-	set name = "Текущие джоббаны"
-	set desc = "Displays all of your current jobbans."
+GAME_VERB_DESC(/mob, displayjobbans, "Текущие джоббаны", "Displays all of your current jobbans.", VERB_CATEGORY_OOC)
 
 	if(!client || !ckey)
 		return

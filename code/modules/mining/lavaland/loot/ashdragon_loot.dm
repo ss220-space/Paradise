@@ -145,7 +145,7 @@
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"))
 	return ..()
 
 // Blood
@@ -178,12 +178,11 @@
 			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
-				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
+				if(locate(/datum/action/cooldown/spell/shapeshift/dragon) in user.mind.spell_list)
 					to_chat(user, span_danger("Знакомая сила течёт по вашим жилам! Но вы уже умеете превращаться в дракона..."))
 				else
 					to_chat(user, span_danger("Сила переполняет вас! Теперь вы можете менять форму по желанию."))
-					var/obj/effect/proc_holder/spell/shapeshift/dragon/shapeshift = new
-					user.mind.AddSpell(shapeshift)
+					user.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/dragon)
 		if(3)
 			to_chat(user, span_danger("Кажется, теперь вы могли бы пройтись прямо сквозь лаву."))
 			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)

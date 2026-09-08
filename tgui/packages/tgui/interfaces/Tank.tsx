@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { useBackend } from '../backend';
+import type { ReactNode } from 'react';
 import {
   Button,
   LabeledList,
   NumberInput,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type TankData = {
@@ -55,7 +55,7 @@ export const Tank = (_props: unknown) => {
                   bad: [-Infinity, 0.15],
                 }}
               >
-                {data.tankPressure + ' kPa'}
+                {`${data.tankPressure} kPa`}
               </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Release Pressure">

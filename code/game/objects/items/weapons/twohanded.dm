@@ -722,7 +722,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
+		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return HIT_RESULT_SUCCESS
 	return HIT_RESULT_FAILED
@@ -1264,7 +1264,7 @@
 		if(istype(target, /obj/structure/girder))
 			var/obj/structure/G = target
 			G.take_damage(extra_girder_damage)
-		else if(istype(target, /obj/machinery/door))
+		else if(is_door(target))
 			var/obj/machinery/D = target
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)

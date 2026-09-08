@@ -154,6 +154,39 @@ SUBSYSTEM_DEF(pathfinder)
 	active_pathing += run
 	return TRUE
 
+/// Builds a single directional arrow image for a path step visualization
+/datum/controller/subsystem/pathfinder/proc/render_path_arrow(turf/draw, direction)
+	var/image/arrow = image('icons/turf/debug.dmi', draw, "arrow", PATH_ARROW_DEBUG_LAYER, direction)
+	SET_PLANE_EXPLICIT(arrow, BALLOON_CHAT_PLANE, draw)
+	return arrow
+
+///Renders a full path of arrows, showing the direction taken from each tile.
+/datum/controller/subsystem/pathfinder/proc/render_path_images(list/turf/draw_list)
+	if(!length(draw_list))
+		return list()
+	var/list/image/turf_images = list()
+	for(var/i in 1 to (length(draw_list) - 1))
+		var/turf/current = draw_list[i]
+		var/turf/next = draw_list[i + 1]
+		turf_images += render_path_arrow(current, get_dir(current, next))
+	return turf_images
+
+/// Renders a full path visualisation: start marker, directional arrows along the path, end marker.
+/datum/controller/subsystem/pathfinder/proc/render_path_images_full(list/turf/draw_list)
+	if(!length(draw_list))
+		return list()
+	var/list/image/turf_images = list()
+	var/turf/first = draw_list[1]
+	var/image/start = image('icons/turf/debug.dmi', first, "start", PATH_DEBUG_LAYER)
+	SET_PLANE_EXPLICIT(start, BALLOON_CHAT_PLANE, first)
+	turf_images += start
+	turf_images += render_path_images(draw_list)
+	var/turf/last = draw_list[length(draw_list)]
+	var/image/end = image('icons/turf/debug.dmi', last, "end", PATH_DEBUG_LAYER)
+	SET_PLANE_EXPLICIT(end, BALLOON_CHAT_PLANE, last)
+	turf_images += end
+	return turf_images
+
 /// Takes a set of pathfind info, returns the first valid pathmap that would work if one exists
 /// Optionally takes a max age to accept (defaults to 0 seconds) and a minimum acceptable range
 /// If include_building is true and we can only find a building path, we'll use that instead. tho we will wait for it to finish first

@@ -1,5 +1,5 @@
+import { Button, LabeledList, NoticeBox, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 type TransferValveData = {

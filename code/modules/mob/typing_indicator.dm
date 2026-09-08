@@ -65,28 +65,3 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 		thinking = TRUE
 
 	return state
-
-/mob/verb/say_wrapper()
-	set name = ".Say"
-	set hidden = TRUE
-
-	set_typing_indicator(TRUE)
-	typing = TRUE
-	var/message = typing_input(src, "", "say (text)")
-	typing = FALSE
-	set_typing_indicator(FALSE)
-	if(message)
-		say_verb(message)
-
-/mob/verb/me_wrapper()
-	set name = ".Me"
-	set hidden = TRUE
-
-	set_typing_indicator(TRUE, TRUE)
-	typing = TRUE
-	var/message = typing_input(src, "", "me (text)")
-	typing = FALSE
-	set_typing_indicator(FALSE)
-	if(message)
-		me_verb(message)
-

@@ -1,7 +1,7 @@
+import { Box, Button, Flex, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, Flex, LabeledList, Section } from '../../components';
-import { RndRoute, RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
+import { RndNavButton, RndRoute } from './index';
 
 type SettingsMenuData = {
   sync: boolean;

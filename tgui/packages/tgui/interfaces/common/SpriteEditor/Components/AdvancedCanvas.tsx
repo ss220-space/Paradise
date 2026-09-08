@@ -4,7 +4,7 @@ import {
   type BooleanStyleMap,
   computeBoxProps,
   type StringStyleMap,
-} from 'common/ui';
+} from 'tgui-core/ui';
 import { colorToCssString } from '../colorSpaces';
 import { useClickAndDragEventHandler, useDimensions } from '../helpers';
 import type {
@@ -18,7 +18,7 @@ import type {
 
 type AdvancedCanvasMouseEventHandler = (
   event: MouseEvent,
-  ref: React.RefObject<HTMLCanvasElement | null>
+  ref: React.RefObject<HTMLCanvasElement | null>,
 ) => void;
 
 type AdvancedCanvasClickHandler = {
@@ -48,11 +48,11 @@ type AdvancedCanvasProps = IncludeOrOmitEntireType<
 >;
 
 const propsHaveClickHandler = (
-  props: AdvancedCanvasProps
+  props: AdvancedCanvasProps,
 ): props is AdvancedCanvasPropsBase & AdvancedCanvasClickHandler =>
   Object.keys(props).includes('onClick');
 const propsHaveClickAndDragHandlers = (
-  props: AdvancedCanvasProps
+  props: AdvancedCanvasProps,
 ): props is AdvancedCanvasPropsBase & AdvancedCanvasClickAndDragHandlers => {
   const keys = Object.keys(props);
   return keys.includes('onMouseMove') || keys.includes('onMouseUp');
@@ -96,7 +96,7 @@ export const AdvancedCanvas = (props: AdvancedCanvasProps) => {
         canvasRef,
         props.onMouseDown,
         props.onMouseMove,
-        props.onMouseUp
+        props.onMouseUp,
       )
     : undefined;
   useLayoutEffect(() => {
@@ -105,7 +105,7 @@ export const AdvancedCanvas = (props: AdvancedCanvasProps) => {
     const { width: parentWidth, height: parentHeight } =
       parent.getBoundingClientRect();
     const scalingFactor = Math.floor(
-      Math.min(parentWidth / imageWidth, parentHeight / imageHeight)
+      Math.min(parentWidth / imageWidth, parentHeight / imageHeight),
     );
     setCanvasDimensions([
       imageWidth * scalingFactor,
@@ -132,7 +132,7 @@ export const AdvancedCanvas = (props: AdvancedCanvasProps) => {
           x * scalingFactor,
           y * scalingFactor,
           scalingFactor,
-          scalingFactor
+          scalingFactor,
         );
       });
     });

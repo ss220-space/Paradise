@@ -4,7 +4,7 @@ import {
   type SetStateAction,
   useState,
 } from 'react';
-import { Button, LabeledList, Section } from '../../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';

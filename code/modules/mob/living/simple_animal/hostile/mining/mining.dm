@@ -46,7 +46,7 @@
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"))
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy

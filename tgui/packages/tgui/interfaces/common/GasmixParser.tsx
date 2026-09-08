@@ -1,4 +1,4 @@
-import { Box, Button, LabeledList } from '../../components';
+import { Box, Button, LabeledList } from 'tgui-core/components';
 
 export type Gasmix = {
   name?: string;
@@ -127,7 +127,7 @@ export const GasmixParser = (props: GasmixParserProps) => {
                   </Box>
                 ) : (
                   <div key={reaction[1]}>{reaction[1]}</div>
-                )
+                ),
               )
             : 'No reactions detected'}
         </LabeledList.Item>

@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { Box, Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { LabeledList, Button, Box } from '../../components';
 
 type DoorjackInfo = {
   cable: boolean;
@@ -8,7 +8,7 @@ type DoorjackInfo = {
   inprogress: boolean;
 };
 
-export const pai_doorjack = (props: unknown) => {
+export const pai_doorjack = (_props: unknown) => {
   const { act, data } = useBackend<PaiData<DoorjackInfo>>();
   const { cable, machine, inprogress } = data.app_data;
 

@@ -1,4 +1,5 @@
-ADMIN_VERB_AND_CONTEXT_MENU(machine_upgrade, R_DEBUG, "Tweak Component Ratings", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, obj/machinery/machine in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(machine_upgrade, R_DEBUG, "Tweak Component Ratings", /obj/machinery)
+	VERB_ARG_TYPED(machine, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /obj/machinery)
 	if(!istype(machine))
 		to_chat(user, span_danger("This can only be used on subtypes of /obj/machinery."))
 		return

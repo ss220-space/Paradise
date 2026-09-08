@@ -1,35 +1,10 @@
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: hsl(207.4, 27.4%, 32.9%),
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: hsl(217.5, 26.1%, 18%),
-  $color-bg-grad-spread: 1%
-);
-
-.theme-safe {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
-
-  // Components
-  @include meta.load-css(
-    '../components/Section.scss',
-    $with: ('background-color': hsl(56.1, 28.7%, 57.6%))
-  );
-
-  // Layouts
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(217.3, 25.9%, 28%))
-  );
-
-  // Interfaces
-  @include meta.load-css('../interfaces/Safe.scss');
+.theme-safe:root {
+  // Base
+  --color-base: hsl(217.5, 26.1%, 18%);
+  --color-primary: hsl(207.4, 27.4%, 32.9%);
+  --color-secondary: hsl(217, 26%, 28%);
+  --color-section: hsl(56, 29%, 58%);
+  --base-gradient-spread: 1;
 
   .Layout__content {
     background-image: none;
@@ -38,7 +13,7 @@
   .Section {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     font-style: italic;
-    color: black;
+    color: var(--color-black);
     box-shadow: 5px 5px hsl(0, 0%, 6.7%);
     background-image: linear-gradient(
       to bottom,

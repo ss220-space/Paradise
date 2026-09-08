@@ -563,7 +563,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/bullet_act(obj/projectile/P)
 	if(BUBBLEGUM_IS_ENRAGED)
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] отражает снаряд; его нельзя поразить дальнобойным оружием, когда он в ярости!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] отражает снаряд; его нельзя поразить дальнобойным оружием, когда он в ярости!"), span_userdanger("Вы отражаете снаряд!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 300, TRUE)
 		return
 	..()

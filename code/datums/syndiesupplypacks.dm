@@ -252,9 +252,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/stechkin
 	name = "Syndicate Stechkin Pistol Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/gun_module/muzzle/suppressor,
@@ -2826,7 +2826,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/pen/fancy/bomb,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/hp,
@@ -2967,7 +2967,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/mask/chameleon,
 		/obj/item/storage/belt/military/traitor/sec,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/ap,
 		/obj/item/ammo_box/magazine/m10mm/fire,
@@ -3015,7 +3015,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'Grenadier' Bundle"
 	contains = list(
 		/obj/item/storage/belt/grenade/demolitionist,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/fire,
@@ -3040,7 +3040,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/accessory/holster,  // 0 TC
 		/obj/item/storage/belt/military/traitor/sec,  // 0 TC
 		/obj/item/pinpointer/advpinpointer,  // 4 TC
-		/obj/item/gun/projectile/automatic/pistol,  // 4 TC
+		/obj/item/gun/projectile/automatic/pistol/stechkin,  // 4 TC
 		/obj/item/ammo_box/magazine/m10mm, // 1 TC
 		/obj/item/ammo_box/magazine/m10mm/ap,  // 1 TC
 		/obj/item/ammo_box/magazine/m10mm/fire,  // 1 TC

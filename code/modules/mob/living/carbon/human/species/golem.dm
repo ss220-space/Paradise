@@ -884,8 +884,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		if(P.flag == BULLET || P.flag == BOMB)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, TRUE)
 			H.visible_message(span_danger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
-			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
-			projectile_message = TRUE)
+			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"))
 			return FALSE
 	return TRUE
 
@@ -942,8 +941,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(!(P.original == H && P.firer == H)) // Self-shots don't reflect
 		if(P.is_reflectable(REFLECTABILITY_ENERGY))
 			H.visible_message(span_danger("[P.name] отражается от стеклянной кожи [H]!"), \
-			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"), \
-			projectile_message = TRUE)
+			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"))
 
 			P.reflect_back(H)
 
@@ -1250,9 +1248,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	H.equip_to_slot_or_del(new	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		H.mind.miming = TRUE
+		H.AddSpell(new /datum/action/cooldown/spell/mime)
+		H.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
+		ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 /datum/species/golem/tranquillite/get_heal_material_types()
 	return list(

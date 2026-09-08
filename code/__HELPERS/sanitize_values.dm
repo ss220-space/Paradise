@@ -83,26 +83,46 @@
  *
  * Arguments:
  * * input_color - The color string to sanitize
- * * default_color - The default color to return if invalid (default: "#000000")
+ * * default - The default color to return if invalid (default: "#000000")
  */
-/proc/sanitize_hexcolor(input_color, default_color = "#000000")
-	if(!istext(input_color))
-		return default_color
-	var/color_length = length(input_color)
-	if(color_length != 7 && color_length != 4)
-		return default_color
-	if(text2ascii(input_color, 1) != 35)
-		return default_color // 35 is the ASCII code for "#"
-	var/valid_color = "#"
-	for(var/character_position = 2, character_position <= color_length, character_position++)
-		var/character_code = text2ascii(input_color, character_position)
-		switch(character_code)
-			if(48 to 57)
-				valid_color += ascii2text(character_code) // numbers 0 to 9
-			if(97 to 102)
-				valid_color += ascii2text(character_code) // letters a to f
-			if(65 to 70)
-				valid_color += ascii2text(character_code + 32) // letters A to F - translates to lowercase
+/proc/sanitize_hexcolor(color, desired_format = DEFAULT_HEX_COLOR_LEN, include_crunch = TRUE, default)
+	var/crunch = include_crunch ? "#" : ""
+	if(!istext(color))
+		color = ""
+
+	var/start = 1 + (text2ascii(color, 1) == 35)
+	var/len = length(color)
+	var/char = ""
+	// Used for conversion between RGBA hex formats.
+	var/format_input_ratio = "[desired_format]:[length_char(color)-(start-1)]"
+
+	. = ""
+	var/i = start
+	while(i <= len)
+		char = color[i]
+		i += length(char)
+		switch(text2ascii(char))
+			if(48 to 57) //numbers 0 to 9
+				. += char
+			if(97 to 102) //letters a to f
+				. += char
+			if(65 to 70) //letters A to F
+				char = LOWER_TEXT(char)
+				. += char
 			else
-				return default_color
-	return valid_color
+				break
+		switch(format_input_ratio)
+			if("3:8", "4:8", "3:6", "4:6") //skip next one. RRGGBB(AA) -> RGB(A)
+				i += length(color[i])
+			if("6:4", "6:3", "8:4", "8:3") //add current char again. RGB(A) -> RRGGBB(AA)
+				. += char
+
+	if(length_char(.) == desired_format)
+		return crunch + .
+	switch(format_input_ratio) //add or remove alpha channel depending on desired format.
+		if("3:8", "3:4", "6:4")
+			return crunch + copytext(., 1, desired_format+1)
+		if("4:6", "4:3", "8:3")
+			return crunch + . + ((desired_format == 4) ? "f" : "ff")
+		else //not a supported hex color format.
+			return default ? default : crunch + repeat_string(desired_format, "0")

@@ -9,8 +9,8 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from 'tgui/components';
-import { toFixed } from 'common/math';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';
@@ -92,7 +92,7 @@ const GasList = (props: GasListProps) => {
 
   const gases: HypertorusGas[] = sortBy(
     filter(raw_gases, (gas) => gas.amount >= 0.01),
-    [(gas) => -gas.amount]
+    [(gas) => -gas.amount],
   );
 
   if (stickyGases) {

@@ -7,7 +7,8 @@
 	--scrollbar-thumb: #a7a7a7;
 }
 
-html, body{
+html,
+body {
 	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
 }
 
@@ -35,6 +36,7 @@ h3 {
 }
 
 img {
+	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: pixelated;
 }
 
@@ -77,6 +79,7 @@ img {
 	display: inline-table;
 	cursor: pointer;
 	user-select: none;
+	-ms-user-select: none; /* Remove after Byond 516 */
 	text-align: center;
 	font-size: 1em;
 	min-width: 2.9em;
@@ -86,7 +89,6 @@ img {
 	border: 0;
 	border-bottom: 0.1667em solid transparent;
 	border-radius: 0.25em 0.25em 0 0;
-	margin-left: 0.5em;
 }
 
 .button:hover {
@@ -115,8 +117,16 @@ img {
 	white-space: pre;
 }
 
+.mcstatcontent td {
+	vertical-align: top;
+}
+
+.mcstatcontent .monospace {
+	font-family: "Consolas", "Lucida Console", "Courier New", monospace;
+}
+
 #under-menu {
-	height: 0.2rem;
+	height: 0.5em;
 	background-color: #eeeeee;
 }
 
@@ -133,6 +143,7 @@ img {
 	display: inline-flex;
 	position: relative;
 	user-select: none;
+	-ms-user-select: none; /* Remove after Byond 516 */
 	width: 100%;
 	max-height: 1.85em;
 	text-decoration: none;
@@ -267,6 +278,7 @@ body.dark {
  * MARK: NTOS
  */
 .ntos:root {
+	--color-base: #121922;
 	--scrollbar-base: #141d26;
 	--scrollbar-thumb: #2a3b4f;
 }
@@ -336,6 +348,7 @@ body.ntos {
  * MARK: Syndicate
  */
 .syndicate:root {
+	--color-base: #2b0101;
 	--scrollbar-base: #3a0202;
 	--scrollbar-thumb: #770303;
 }
@@ -405,6 +418,7 @@ body.syndicate {
  * MARK: Paradise
  */
 .paradise:root {
+	--color-base: #400125;
 	--scrollbar-base: #680b29;
 	--scrollbar-thumb: #cb1551;
 }
