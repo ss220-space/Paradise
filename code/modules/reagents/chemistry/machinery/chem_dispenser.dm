@@ -344,7 +344,7 @@
 		return
 
 	hackedcheck = !hackedcheck
-	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
+	balloon_alert(user, "защитные протоколы [hackedcheck ? "дезактивированы" : "активированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
 
