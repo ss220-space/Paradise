@@ -41,6 +41,14 @@
 		new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, FALSE, TRUE),
 	)
 
+/obj/overmap/entity/hyperrelay/public/setup_virtual_iff()
+	virtual_iff_channels = list(
+		new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, TRUE, TRUE),
+		new /datum/overmap_iff_channel(OVERMAP_IFF_CENTCOM, overmap_iff_label_for_id(OVERMAP_IFF_CENTCOM), TRUE, FALSE, TRUE),
+		new /datum/overmap_iff_channel(OVERMAP_IFF_SYNDICATE, overmap_iff_label_for_id(OVERMAP_IFF_SYNDICATE), TRUE, FALSE, TRUE),
+		new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, FALSE, TRUE),
+	)
+
 /datum/controller/subsystem/overmap/proc/spawn_hyperrelays()
 	if(!station_sector || !service_sector)
 		return
@@ -58,6 +66,46 @@
 	service_sector.add_object(service_relay, service_spot)
 	station_sector.add_object(station_relay, station_spot)
 	log_world("Overmap: hyperrelay pair at service [service_spot.x],[service_spot.y] and station [station_spot.x],[station_spot.y].")
+
+/datum/controller/subsystem/overmap/proc/spawn_station_wilderness_relays()
+	if(!station_sector || !wilderness_sector)
+		return
+	var/turf/station_spot = pick_hyperrelay_edge_turf(station_sector, TRUE)
+	var/turf/wilderness_spot = pick_hyperrelay_edge_turf(wilderness_sector, FALSE)
+	if(!station_spot || !wilderness_spot)
+		log_world("Overmap: failed to place station↔wilderness hyperrelay pair.")
+		return
+	var/obj/overmap/entity/hyperrelay/station_relay = new /obj/overmap/entity/hyperrelay/public(station_spot)
+	var/obj/overmap/entity/hyperrelay/wild_relay = new /obj/overmap/entity/hyperrelay/public(wilderness_spot)
+	station_relay.pair_id = "station_wilderness"
+	wild_relay.pair_id = "station_wilderness"
+	station_relay.paired = wild_relay
+	wild_relay.paired = station_relay
+	station_sector.add_object(station_relay, station_spot)
+	wilderness_sector.add_object(wild_relay, wilderness_spot)
+	log_world("Overmap: hyperrelay pair at station [station_spot.x],[station_spot.y] (top) and wilderness [wilderness_spot.x],[wilderness_spot.y] (bottom).")
+
+/datum/controller/subsystem/overmap/proc/pick_hyperrelay_edge_turf(datum/overmap_sector/sector, at_top)
+	if(!sector)
+		return null
+	var/low_x = sector.origin_x + OVERMAP_EDGE
+	var/low_y = sector.origin_y + OVERMAP_EDGE
+	var/high_x = sector.origin_x + sector.size - OVERMAP_EDGE - 1
+	var/high_y = sector.origin_y + sector.size - OVERMAP_EDGE - 1
+	var/list/candidates = list()
+	for(var/turf/open_turf as anything in block(locate(low_x, low_y, sector.z_level), locate(high_x, high_y, sector.z_level)))
+		if(sector.turf_occupied(open_turf))
+			continue
+		if(locate(/obj/overmap/entity/hyperrelay) in range(2, open_turf))
+			continue
+		var/local_y = sector.coord_y(open_turf)
+		var/edge_dist = at_top ? (sector.size - local_y) : (local_y - 1)
+		if(edge_dist < 2 || edge_dist > 4)
+			continue
+		candidates += open_turf
+	if(length(candidates))
+		return pick(candidates)
+	return sector.get_random_open_turf()
 
 /datum/controller/subsystem/overmap/proc/pick_hyperrelay_turf(datum/overmap_sector/sector, on_right)
 	if(!sector)

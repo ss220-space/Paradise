@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(lighting)
 	dependencies = list(
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/overmap,
 	)
 	wait = 1
 	ss_flags = SS_TICKER

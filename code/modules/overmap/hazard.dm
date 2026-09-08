@@ -483,24 +483,20 @@
 			return overmap_hazard_paint_elbow(hazard_type, sector, start, rand(5, 8), pick(line_dirs))
 
 /proc/spawn_static_overmap_hazards(datum/overmap_sector/sector)
-	if(!sector)
+	if(!sector || sector.hazard_spawn_weight <= 0)
 		return
-	for(var/i in 1 to rand(4, 6))
-		var/turf/start = overmap_hazard_pick_start(sector)
-		if(!start)
-			break
-		overmap_hazard_paint_random(/obj/overmap/feature/hazard/asteroid, sector, start)
-	for(var/i in 1 to rand(2, 4))
-		var/turf/start = overmap_hazard_pick_start(sector)
-		if(!start)
-			break
-		overmap_hazard_paint_random(/obj/overmap/feature/hazard/emp, sector, start)
-	for(var/i in 1 to rand(2, 4))
-		var/turf/start = overmap_hazard_pick_start(sector)
-		if(!start)
-			break
-		overmap_hazard_paint_random(/obj/overmap/feature/hazard/carp, sector, start)
+	var/scale = sector.hazard_spawn_weight * (sector.size / OVERMAP_DEFAULT_SIZE)
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/asteroid, max(1, round(rand(4, 6) * scale)))
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/emp, max(1, round(rand(2, 4) * scale)))
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/carp, max(1, round(rand(2, 4) * scale)))
 	log_world("Overmap: static hazards placed on sector [sector.id].")
+
+/proc/scatter_overmap_hazard_type(datum/overmap_sector/sector, hazard_type, amount)
+	for(var/i in 1 to amount)
+		var/turf/start = overmap_hazard_pick_start(sector)
+		if(!start)
+			break
+		overmap_hazard_paint_random(hazard_type, sector, start)
 
 /proc/spawn_moving_overmap_hazards(datum/overmap_sector/sector)
 	return

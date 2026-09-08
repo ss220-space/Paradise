@@ -8,17 +8,6 @@
 "H" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"S" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 10;
-	height = 30;
-	id = "freegolem_space";
-	name = "The middle of space";
-	width = 20
-	},
-/turf/template_noop,
-/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -773,7 +762,7 @@ a
 a
 a
 a
-S
+a
 a
 a
 a

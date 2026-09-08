@@ -7,7 +7,7 @@
 
 /datum/map_template/ruin/space/zoo
 	id = "zoo"
-	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
+	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "abandonedzoo.dmm"
 	name = "Biological Storage Facility"
 	description = "In case society crumbles, we will be able to restore our \
@@ -75,6 +75,7 @@
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
+	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "derelict1.dmm"
 	name = "Derelict 1"
@@ -84,6 +85,7 @@
 
 /datum/map_template/ruin/space/derelict2
 	id = "derelict2"
+	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
 	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "derelict2.dmm"
 	name = "Dinner for Two"
@@ -93,6 +95,7 @@
 
 /datum/map_template/ruin/space/derelict3
 	id = "derelict3"
+	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "derelict3.dmm"
 	name = "Derelict 3"
 	description = "These hulks were once part of a larger structure, where \
@@ -129,7 +132,7 @@
 
 /datum/map_template/ruin/space/listeningpost
 	id = "listeningpost"
-	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
+	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
 	suffix = "listeningpost.dmm"
 	name = "Syndie Listening Post"
 	description = "What happens to Nuclear Operatives that fail in their mission? \
@@ -147,7 +150,6 @@
 
 /datum/map_template/ruin/space/gas_the_lizards
 	id = "gas-the-lizards"
-	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "gasthelizards.dmm"
 	name = "Disposal Facility 17"
 	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
@@ -166,6 +168,7 @@
 
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
+	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "mechtransport.dmm"
 	name = "CF Corsair"
 	description = "Well, when is it getting here? I have bills to pay; very \
@@ -186,6 +189,7 @@
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
+	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "turretedoutpost.dmm"
 	name = "Unnamed Turreted Outpost"
 	description = "We'd ask them to stop blaring that ruskiepop music, but \
@@ -209,6 +213,7 @@
 
 /datum/map_template/ruin/space/abandonedtele
 	id = "abandonedtele"
+	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "abandonedtele.dmm"
 	name = "Abandoned Teleporter"
@@ -216,7 +221,7 @@
 
 /datum/map_template/ruin/space/spaceprison
 	id = "spaceprison"
-	overmap_size = OVERMAP_RUIN_SIZE_LARGE
+	overmap_size = OVERMAP_RUIN_SIZE_MEDIUM
 	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "spaceprison.dmm"
 	name = "Space Prison"
@@ -226,7 +231,6 @@
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
-	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "clownmime.dmm"
 	name = "Clown & Mime Mineral Deposits"
 	description = "A crash site of two opposing factions, both trying to complete mining trips for their own valuable minerals. While all the crew have long perished, the minerals are likely intact."
@@ -234,7 +238,7 @@
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
-	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
+	overmap_size = OVERMAP_RUIN_SIZE_SMALL
 	suffix = "druglab.dmm"
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
@@ -260,7 +264,6 @@
 
 /datum/map_template/ruin/space/whiteship
 	id = "whiteship"
-	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
 	suffix = "whiteship.dmm"
 	name = "NT Medical Ship"
 	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
@@ -271,7 +274,6 @@
 /datum/map_template/ruin/space/golem_destination
 	id = "golemtarget"
 	overmap_size = OVERMAP_RUIN_SIZE_SMALL
-	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
 	suffix = "golemtarget.dmm"
 	name = "Golem Shuttle Destination"
 	description = "Just a handful of rocks floating in space. Guaranteed space destination for the Golem shuttle in case other destinations don't spawn."
@@ -323,6 +325,7 @@
 
 /datum/map_template/ruin/space/dj // edited for shuttle to ussp station
 	id = "dj"
+	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
 	suffix = "dj.dmm"
 	name = "Russian DJ Station"
 	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
@@ -342,8 +345,7 @@
 
 /datum/map_template/ruin/space/spacehotelv1 // new map, duplicated and edited partialy from other ss13 builds
 	id = "spacehotelv1"
-	overmap_size = OVERMAP_RUIN_SIZE_LARGE
-	overmap_pools = list(OVERMAP_RUIN_POOL_STATION)
+	overmap_size = OVERMAP_RUIN_SIZE_MEDIUM
 	suffix = "spacehotelv1.dmm"
 	name = "The Twin-Nexus Hotel"
 	description = "An interstellar hotel, where the weary spaceman can rest \
@@ -458,8 +460,6 @@
 
 /datum/map_template/ruin/space/graveyard
 	id = "graveyard"
-	overmap_size = OVERMAP_RUIN_SIZE_LARGE
-	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "graveyard.dmm"
 	name = "Space graveyard"
 	description = "An abandoned graveyard with a church drifts across the vastness of space; memorial services and the ringing of bells have long since left this place.\
@@ -478,7 +478,6 @@
 
 /datum/map_template/ruin/space/spacebotany
 	id = "spacebotany"
-	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "spacebotany.dmm"
 	name = "Space Botany"
 	description = "An abandoned botanical station that once produced various biological weapons and engaged in various dubious developments. \
@@ -488,6 +487,7 @@
 
 /datum/map_template/ruin/space/astroak
 	id = "astroak"
+	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "astroak.dmm"
 	name = "Astroak"
 	description = "An ordinary church of Carp'Sie, it seems that the carps punished the believers..."

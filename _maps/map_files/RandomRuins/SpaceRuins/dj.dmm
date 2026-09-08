@@ -701,11 +701,9 @@
 /area/djstation)
 "IK" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	id_tag = "dj_post";
-	locked = 1;
-	name = "DJ Post Docking Port"
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	id_tag = "dj_post"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -913,17 +911,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"Wc" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 5;
-	id = "dj_post";
-	name = "Docking port DJ Post";
-	width = 8
-	},
-/turf/space,
-/area/space)
 "Xf" = (
 /obj/structure/sign/pods,
 /turf/simulated/wall/mineral/titanium/interior,
@@ -1250,7 +1237,7 @@ YA
 YA
 YA
 YA
-Wc
+YA
 YA
 aa
 aa

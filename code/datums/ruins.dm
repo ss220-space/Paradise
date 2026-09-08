@@ -91,15 +91,15 @@
 		return TRUE
 	return FALSE
 
-/datum/map_template/ruin/proc/try_to_place_in_region(datum/overmap_space_region/cell)
+/datum/map_template/ruin/proc/try_to_place_in_region(datum/overmap_space_region/cell, margin = 0)
 	if(!cell)
 		return FALSE
 	if(width > cell.size || height > cell.size)
 		return FALSE
-	var/min_x = cell.playable_min_x() + round(width / 2)
-	var/max_x = cell.playable_max_x() - round(width / 2)
-	var/min_y = cell.playable_min_y() + round(height / 2)
-	var/max_y = cell.playable_max_y() - round(height / 2)
+	var/min_x = cell.playable_min_x() + round(width / 2) + margin
+	var/max_x = cell.playable_max_x() - round(width / 2) - margin
+	var/min_y = cell.playable_min_y() + round(height / 2) + margin
+	var/max_y = cell.playable_max_y() - round(height / 2) - margin
 	if(min_x > max_x || min_y > max_y)
 		return FALSE
 	var/tries = PLACEMENT_TRIES
@@ -108,9 +108,28 @@
 		var/turf/central_turf = locate(rand(min_x, max_x), rand(min_y, max_y), cell.space_z)
 		if(!cell.contains_space_turf(central_turf))
 			continue
+		if(cell.footprint_taken(central_turf, width, height, margin))
+			continue
+		var/footprint_min_x = central_turf.x - round(width / 2)
+		var/footprint_min_y = central_turf.y - round(height / 2)
+		var/footprint_max_x = footprint_min_x + width - 1
+		var/footprint_max_y = footprint_min_y + height - 1
+		var/scan_min_x = max(footprint_min_x - margin, cell.playable_min_x())
+		var/scan_min_y = max(footprint_min_y - margin, cell.playable_min_y())
+		var/scan_max_x = min(footprint_max_x + margin, cell.playable_max_x())
+		var/scan_max_y = min(footprint_max_y + margin, cell.playable_max_y())
 		var/valid = TRUE
-		for(var/turf/check as anything in get_affected_turfs(central_turf, TRUE))
-			if(!cell.contains_space_turf(check) || (check.turf_flags & NO_RUINS))
+		for(var/turf/check as anything in block(locate(scan_min_x, scan_min_y, cell.space_z), locate(scan_max_x, scan_max_y, cell.space_z)))
+			if(check.turf_flags & NO_RUINS)
+				valid = FALSE
+				break
+			if(check.x < footprint_min_x || check.x > footprint_max_x || check.y < footprint_min_y || check.y > footprint_max_y)
+				continue
+			if(!istype(check, /turf/space/overmap_region))
+				valid = FALSE
+				break
+			var/turf/space/overmap_region/region_turf = check
+			if(region_turf.region != cell)
 				valid = FALSE
 				break
 		if(!valid)
@@ -119,6 +138,7 @@
 		loaded++
 		for(var/turf/marked as anything in get_affected_turfs(central_turf, TRUE))
 			marked.turf_flags |= NO_RUINS
+		cell.register_ruin_footprint(central_turf, width, height)
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return TRUE
 	return FALSE

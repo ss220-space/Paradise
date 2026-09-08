@@ -23,6 +23,7 @@ SUBSYSTEM_DEF(overmap)
 	var/datum/overmap_sector/local_sector
 	var/datum/overmap_sector/station_sector
 	var/datum/overmap_sector/service_sector
+	var/datum/overmap_sector/wilderness_sector
 	var/obj/overmap/entity/station_entity
 	var/obj/overmap/entity/taipan_site/taipan_entity
 	var/obj/overmap/planet/lavaland_planet
@@ -54,6 +55,7 @@ SUBSYSTEM_DEF(overmap)
 		. += copytext(alphabet, index, index + 1)
 
 /datum/controller/subsystem/overmap/Initialize()
+	log_world("Overmap: initializing (lighting initialized: [SSlighting.initialized], maxz: [world.maxz]).")
 	iff_key_centcom = generate_overmap_iff_key()
 	iff_key_syndicate = generate_overmap_iff_key()
 	while(iff_key_syndicate == iff_key_centcom)
@@ -65,6 +67,7 @@ SUBSYSTEM_DEF(overmap)
 	spawn_lavaland()
 	spawn_station()
 	spawn_service_sector()
+	spawn_wilderness()
 	spawn_hyperrelays()
 	register_roundstart_shuttles()
 	register_roundstart_pods()
@@ -433,6 +436,17 @@ SUBSYSTEM_DEF(overmap)
 		var/obj/overmap/entity/service_site/site = new site_path(spot)
 		service_sector.add_object(site, spot)
 		log_world("Overmap: service site [site.site_id] at [spot.x],[spot.y] on sector [service_sector.id].")
+
+/datum/controller/subsystem/overmap/proc/spawn_wilderness()
+	if(sectors[OVERMAP_SECTOR_ID_WILDERNESS_A])
+		return
+	wilderness_sector = create_typed_sector(/datum/overmap_sector/wilderness/alpha)
+	if(!wilderness_sector)
+		log_world("Overmap: failed to create wilderness sector.")
+		return
+	log_world("Overmap: wilderness sector '[wilderness_sector.name]' created ([wilderness_sector.size]x[wilderness_sector.size]).")
+	spawn_station_wilderness_relays()
+	wilderness_sector.populate_roundstart()
 
 /datum/controller/subsystem/overmap/proc/register_service_site(obj/overmap/entity/service_site/site)
 	if(!site?.site_id)

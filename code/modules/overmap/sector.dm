@@ -318,8 +318,8 @@
 /datum/overmap_sector/station
 	id = OVERMAP_SECTOR_ID_STATION
 	name = "Эпсилон Лукусты"
-	ruin_spawn_weight = 0.15
-	hazard_spawn_weight = 0.1
+	ruin_spawn_weight = 0.7
+	hazard_spawn_weight = 0.3
 	tile_travel = 2
 
 /datum/overmap_sector/service
@@ -332,9 +332,9 @@
 /datum/overmap_sector/wilderness
 	size = OVERMAP_SECTOR_WILDERNESS_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_WILDERNESS
-	ruin_spawn_weight = 1
-	hazard_spawn_weight = 1
-	tile_travel = 6
+	ruin_spawn_weight = 2
+	hazard_spawn_weight = 2
+	tile_travel = 3
 
 /datum/overmap_sector/wilderness/populate_roundstart()
 	spawn_static_overmap_hazards(src)
@@ -342,8 +342,9 @@
 
 /datum/overmap_sector/wilderness/alpha
 	id = OVERMAP_SECTOR_ID_WILDERNESS_A
-	name = "ПРИДУМАТЬ НАЗВАНИЕ СЕКТОРА"
-
+	name = "Рубеж Альфа"
+/*
 /datum/overmap_sector/wilderness/beta
 	id = OVERMAP_SECTOR_ID_WILDERNESS_B
-	name = "ПРИДУМАТЬ НАЗВАНИЕ СЕКТОРА"
+	name = "Рубеж Бета"
+*/
