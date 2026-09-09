@@ -13,11 +13,11 @@
 	var/turf/our_turf = get_turf(src)
 	if(our_turf)
 		distortion_offset = GET_Z_PLANE_OFFSET(our_turf.z)
-		ADD_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), src)
+		ADD_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), text_ref(src))
 
 /obj/effect/warp_effect/Destroy()
 	if(!isnull(distortion_offset))
-		REMOVE_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), src)
+		REMOVE_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), text_ref(src))
 	return ..()
 
 /obj/effect/warp_effect/ex_act(severity, target)
