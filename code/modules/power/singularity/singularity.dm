@@ -53,8 +53,6 @@
 
 	/// Visual warp distortion overlay attached as vis_contents once the singularity reaches stage two.
 	var/obj/effect/warp_effect/supermatter/warp
-	/// The plane offset we enabled the distortion trait on, so it can be cleanly removed later.
-	var/warp_distortion_offset
 
 /obj/singularity/Initialize(mapload, starting_energy)
 	. = ..()
@@ -94,7 +92,6 @@
 	STOP_PROCESSING(SSsinguloprocess, src)
 	GLOB.poi_list.Remove(src)
 	vis_contents -= warp
-	disable_warp_distortion()
 	QDEL_NULL(warp) // don't want to leave it hanging
 	QDEL_NULL(proximity_monitor)
 	return ..()
@@ -249,7 +246,6 @@
 				vis_contents -= warp
 				qdel(warp)
 				warp = null
-				disable_warp_distortion()
 		if(STAGE_TWO)
 			if(check_cardinals_range(1, TRUE))
 				current_size = STAGE_TWO
@@ -264,7 +260,6 @@
 					warp = new(src)
 					vis_contents += warp
 					apply_wibbly_filters(warp)
-					enable_warp_distortion()
 		if(STAGE_THREE)
 			if(check_cardinals_range(2, TRUE))
 				current_size = STAGE_THREE
@@ -279,7 +274,6 @@
 					warp = new(src)
 					vis_contents += warp
 					apply_wibbly_filters(warp)
-					enable_warp_distortion()
 		if(STAGE_FOUR)
 			if(check_cardinals_range(3, TRUE))
 				current_size = STAGE_FOUR
@@ -558,21 +552,6 @@
 	)
 	qdel(src)
 	return gain
-
-/// Enables the world distortion on our z level, using our warp as the displacement map.
-/obj/singularity/proc/enable_warp_distortion()
-	var/turf/our_turf = get_turf(src)
-	if(!our_turf)
-		return
-	warp_distortion_offset = GET_Z_PLANE_OFFSET(our_turf.z)
-	ADD_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(warp_distortion_offset), src)
-
-/// Disables the world distortion we previously enabled on our z level.
-/obj/singularity/proc/disable_warp_distortion()
-	if(isnull(warp_distortion_offset))
-		return
-	REMOVE_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(warp_distortion_offset), src)
-	warp_distortion_offset = null
 
 /obj/singularity/proc/update_warp()
 	if(!warp)
