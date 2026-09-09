@@ -124,3 +124,6 @@
 				. = FALSE
 	if(.)
 		add_fingerprint(usr)
+
+/obj/item/radio/electropack
+	portable_broadcast_restriction = FALSE

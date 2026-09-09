@@ -1290,3 +1290,9 @@
 	to_chat(user, span_notice("Вы модифицировали гарнитуру в [headset.declent_ru(ACCUSATIVE)]. Теперь она защищает ваши органы слуха от громких звуков."))
 	qdel(src)
 	qdel(mask)
+
+/obj/item/radio/headset
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/headset/can_toggle_broadcast(mob/user)
+	return FALSE

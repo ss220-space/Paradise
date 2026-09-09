@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	/// Whether the radio will transmit dialogue it hears nearby into its radio channel.
 	VAR_PRIVATE/broadcasting = FALSE
+	/// Whether toggling broadcast requires the radio to be carried in a hand or on the belt.
+	var/portable_broadcast_restriction = TRUE
 	/// Whether the radio is currently receiving radio messages from its radio frequencies.
 	VAR_PRIVATE/listening = TRUE
 
@@ -182,14 +184,33 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	return listening
 
 
-/// Turn off broadcasting if radio is not in hands
+/// Returns TRUE if the radio is currently carried in a hand or on the belt slot of a mob
+/obj/item/radio/proc/is_portably_carried()
+	var/mob/holder = loc
+	if(!istype(holder))
+		return FALSE
+	if(holder.is_in_hands(src))
+		return TRUE
+	if(ishuman(holder))
+		var/mob/living/carbon/human/human_holder = holder
+		return human_holder.belt == src
+	return FALSE
+
+/// Whether the broadcast toggle is currently allowed for this radio
+/obj/item/radio/proc/can_toggle_broadcast(mob/user)
+	return !portable_broadcast_restriction || is_portably_carried()
+
+/// Turn off broadcasting if a restricted radio is not carried in hands or on the belt
 /obj/item/radio/proc/check_broadcasting_state()
-	if(broadcasting && !usr.is_in_hands(src))
+	if(portable_broadcast_restriction && broadcasting && !is_portably_carried())
 		set_broadcasting(FALSE)
 
 /obj/item/radio/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	check_broadcasting_state()
+	if(portable_broadcast_restriction && broadcasting)
+		// delayed check so moving the radio between inventory slots (hand <-> belt)
+		// does not pass through a transient uncarried state and kill the broadcast
+		addtimer(CALLBACK(src, PROC_REF(check_broadcasting_state)), 0.5 SECONDS)
 
 //now for setters for the above protected vars
 
@@ -228,8 +249,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!on)
 		return
 
-	// Don't allow turning on broadcasting if radio is not in hands
-	if(new_broadcasting && !usr.is_in_hands(src))
+	// Don't allow turning on broadcasting if a restricted radio is not carried in hands or on the belt
+	if(new_broadcasting && !can_toggle_broadcast(usr))
 		return
 
 	if(broadcasting != new_broadcasting)
@@ -310,6 +331,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/list/data = list()
 
 	data["broadcasting"] = broadcasting
+	data["can_broadcast"] = can_toggle_broadcast(user)
 	data["listening"] = listening
 	data["frequency"] = frequency
 	data["minFrequency"] = freerange ? RADIO_LOW_FREQ : PUBLIC_LOW_FREQ
@@ -358,6 +380,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			set_listening(!listening)
 
 		if("broadcast")
+			if(!can_toggle_broadcast(usr))
+				balloon_alert(usr, "держите в руке или на поясе!")
+				return
 			set_broadcasting(!broadcasting)
 
 		if("channel")
@@ -712,6 +737,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		. += span_notice("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
+	if(!can_toggle_broadcast(user))
+		balloon_alert(user, "держите в руке или на поясе!")
+		return NONE
 	set_broadcasting(!broadcasting)
 	balloon_alert(user, "микрофон [broadcasting ? "включён" : "выключен"]")
 	return CLICK_ACTION_SUCCESS
@@ -1011,3 +1039,23 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		INSTRUMENTAL = "красным телефоном",
 		PREPOSITIONAL = "красном телефоне",
 	)
+
+// Subtypes excluded from the portable broadcast restriction.
+// The restriction applies only to /obj/item/radio itself,
+/obj/item/radio/dummy
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/off
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/phone
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/bot
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/borg
+	portable_broadcast_restriction = FALSE
+
+/obj/item/radio/portal
+	portable_broadcast_restriction = FALSE

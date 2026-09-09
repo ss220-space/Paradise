@@ -120,3 +120,5 @@ GAME_PROC_SRC(/obj/item/clothing, remove_spy_spider, range(1, usr), "Снять 
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
 
+/obj/item/radio/spy_spider
+	portable_broadcast_restriction = FALSE

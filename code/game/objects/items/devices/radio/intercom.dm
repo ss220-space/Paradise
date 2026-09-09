@@ -497,3 +497,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/pirate, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/ai_private, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/confessional, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 27, 27)
+
+/obj/item/radio/intercom
+	portable_broadcast_restriction = FALSE
