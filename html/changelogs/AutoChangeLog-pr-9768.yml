@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - bugfix: "Починка спрайта DCA-S45. (PR #9768)"
