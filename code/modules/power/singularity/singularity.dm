@@ -558,7 +558,6 @@
 		return
 	warp.pixel_x = initial(warp.pixel_x) - pixel_x
 	warp.pixel_y = initial(warp.pixel_y) - pixel_y
-	// Smaller divisor = smaller distortion area. was allowed_size / 2.
 	var/scaling = allowed_size / 3
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
