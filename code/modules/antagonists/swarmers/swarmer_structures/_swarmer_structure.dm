@@ -1,6 +1,3 @@
-/// List of all swarmer structures
-GLOBAL_LIST_EMPTY(swarmer_objects)
-
 /**
  * Swarmer structures
  *
@@ -29,11 +26,11 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 
 /obj/structure/swarmer/Initialize(mapload)
 	. = ..()
-	GLOB.swarmer_objects += src
+	add_object_to_swarmer_team_list(src)
 	set_light(lon_range)
 
 /obj/structure/swarmer/Destroy(force)
-	GLOB.swarmer_objects -= src
+	remove_object_from_swarmer_team_list(src)
 	return ..()
 
 /obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

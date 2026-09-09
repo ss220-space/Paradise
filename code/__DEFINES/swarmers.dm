@@ -33,19 +33,20 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		),
 	// Mega swarmer
 	/mob/living/simple_animal/hostile/swarmer/mega = list(
-		/datum/action/cooldown/swarmer/build/nanobot_fabricator,
+		// nuSanya -> unfinished
+		// /datum/action/cooldown/swarmer/build/nanobot_fabricator,
 		),
 	))
 
-/// List containing all swarmers mobs.
+/// List containing all swarmer mobs.
 GLOBAL_LIST_EMPTY(swarmers)
 
 // MARK: Swarmer spawn values
 /// How often based on organic resources do we spawn a swarmer
-#define SWARMER_SPAWN_VALUE 50
+#define SWARMER_SPAWN_VALUE 60
 /// How often based on organic resources do we spawn a mega-swarmer
 /// Ideally divisable by SWARMER_SPAWN_VALUE
-#define MEGA_SWARMER_SPAWN_VALUE 1200
+#define MEGA_SWARMER_SPAWN_VALUE 1800
 
 
 // MARK: Swarmer delays
@@ -116,3 +117,23 @@ GLOBAL_LIST_EMPTY(swarmers)
 #define SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE (1<<7)
 /// Bitflag combination for impossible swarmer_act, means the act's default behaviour is ignored, and we just attack
 #define SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT (1<<8)
+
+
+// MARK: Analyzer return bitflags
+/// Bitflag sent if there are no analyzers present
+#define SWARMER_ANALYZE_NONE (1<<0)
+/// Bitflag sent if the analyzers are currently busy
+#define SWARMER_ANALYZE_BUSY (1<<1)
+/// Bitflag sent if the mob was sent too many times already
+#define SWARMER_ANALYZE_TOO_MUCH (1<<2)
+/// Bitflag sent if there is a free analyzer
+#define SWARMER_ANALYZE_FOUND (1<<3)
+
+
+// MARK: Processer return bitflags
+/// Bitflag sent if there are no processer present
+#define SWARMER_PROCESS_NONE (1<<0)
+/// Bitflag sent if the processers are currently busy
+#define SWARMER_PROCESS_BUSY (1<<1)
+/// Bitflag sent if there is a free processer
+#define SWARMER_PROCESS_FOUND (1<<2)

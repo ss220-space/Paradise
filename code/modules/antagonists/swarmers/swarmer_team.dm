@@ -33,12 +33,28 @@
 	team.organic_resources += amount
 	return TRUE
 
+/// Global proc to add an object to the swarmer team structure list.
+/proc/add_object_to_swarmer_team_list(obj/object)
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!team)
+		team = new
+
+	LAZYADDASSOCLIST(team.swarmer_objects, object.type, object.UID())
+
+/// Global proc to remove an object from the swarmer team structure list
+/proc/remove_object_from_swarmer_team_list(obj/object)
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!team)
+		return
+
+	LAZYREMOVEASSOC(team.swarmer_objects, object.type, object.UID())
+
 /// How many metallic resources swarmers get on core init
 #define METALLIC_START_RESOURCES 90
 /// Metal modifier limit
 #define METAL_MODIFIER_LIMIT 3
-/// Delay between destroying swarmer mobs/structures on core destroy
-#define DESTROY_DELAY 0.1 SECONDS
+/// Limit of times a mob can be sent to an analyzer
+#define ANALYZER_SEND_LIMIT 2
 
 /datum/team/swarmer_team
 	name = "Свармеры"
@@ -60,6 +76,10 @@
 	var/mega_swarmer_announcement_made = FALSE
 	/// Cooldown system for messages on core integrity change
 	COOLDOWN_DECLARE(message_cooldown)
+	/// Assoc lazylist of all swarmer structures in format: [key: type] -> [value: list(object uids of this type)]
+	var/list/swarmer_objects
+	/// Assoc lazylist of mob UIDs to times they have been in an analyzer
+	var/list/analyzer_mob_list
 
 /datum/team/swarmer_team/New(list/starting_members)
 	..()
@@ -68,10 +88,8 @@
 	add_objective_to_members(swarmer_objective)
 
 /datum/team/swarmer_team/Destroy(force)
-	if(swarmer_core) // also unregistered on core destruction
-		UnregisterSignal(swarmer_core, COMSIG_OBJ_INTEGRITY_CHANGED)
-		UnregisterSignal(swarmer_core, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)
+	on_core_destroy()
 	QDEL_NULL(swarmer_objective)
 	return ..()
 
@@ -156,31 +174,39 @@
  * Proc used in organic processing (not mobs)
  *
  * Tries to send an item to any processer one by one.
- *
- * Returns TRUE, if there was any free processer.
- * Returns FALSE otherwise.
+ * Returns processer bitflags (check swarmers.dm defines)
  */
 /datum/team/swarmer_team/proc/try_process_organic(obj/item/item)
-	for(var/obj/structure/swarmer/organic_processer/processer in GLOB.swarmer_objects)
+	if(!LAZYACCESS(swarmer_objects, /obj/structure/swarmer/organic_processer))
+		return SWARMER_PROCESS_NONE
+
+	for(var/processer_uid in swarmer_objects[/obj/structure/swarmer/organic_processer])
+		var/obj/structure/swarmer/organic_processer/processer = locateUID(processer_uid)
 		if(processer?.try_load_item(item))
-			return TRUE
+			return SWARMER_PROCESS_FOUND
 
-	return FALSE
-
+	return SWARMER_PROCESS_BUSY
 /**
  * Proc used in organic analyzing (mobs)
  *
  * Tries to send a mob to any analyzer one by one.
- *
- * Returns TRUE, if there was any free analyzer.
- * Returns FALSE otherwise.
+ * Returns analyzer bitflags (check swarmers.dm defines)
  */
 /datum/team/swarmer_team/proc/try_analyze_mob(mob/living/target)
-	for(var/obj/structure/swarmer/organic_analyzer/analyzer in GLOB.swarmer_objects)
-		if(analyzer?.try_load_mob(target))
-			return TRUE
+	if(!LAZYACCESS(swarmer_objects, /obj/structure/swarmer/organic_analyzer))
+		return SWARMER_ANALYZE_NONE
 
-	return FALSE
+	var/target_uid = target.UID()
+	if(LAZYACCESS(analyzer_mob_list, target_uid) >= ANALYZER_SEND_LIMIT)
+		return SWARMER_ANALYZE_TOO_MUCH
+
+	for(var/analyzer_uid in swarmer_objects[/obj/structure/swarmer/organic_analyzer])
+		var/obj/structure/swarmer/organic_analyzer/analyzer = locateUID(analyzer_uid)
+		if(analyzer?.try_load_mob(target))
+			LAZYADDASSOC(analyzer_mob_list, target_uid, 1)
+			return SWARMER_ANALYZE_FOUND
+
+	return SWARMER_ANALYZE_BUSY
 
 /**
  * Increases metal resource modifier
@@ -227,25 +253,58 @@
 		explosion(swarmer, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2)
 		if(!QDELETED(swarmer))
 			qdel(swarmer)
-		addtimer(CALLBACK(src, PROC_REF(start_swarmers_destroying)), DESTROY_DELAY, TIMER_DELETE_ME)
+		addtimer(CALLBACK(src, PROC_REF(start_swarmers_destroying)), 0.1 SECONDS, TIMER_DELETE_ME)
 		return
 
 	destroy_swarmer_objects()
 
 /// Destroys swarmer objects one-by-one with a delay
 /datum/team/swarmer_team/proc/destroy_swarmer_objects()
-	if(!length(GLOB.swarmer_objects))
+	if(!LAZYLEN(swarmer_objects))
 		return
 
-	var/obj/swarmer_obj = GLOB.swarmer_objects[1]
-	explosion(swarmer_obj, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2)
-	if(!QDELETED(swarmer_obj))
-		qdel(swarmer_obj)
-	addtimer(CALLBACK(src, PROC_REF(destroy_swarmer_objects)), DESTROY_DELAY, TIMER_DELETE_ME)
+	var/obj_type = swarmer_objects[1]
+	var/list/obj_uids = swarmer_objects[obj_type]
+	var/obj_uid = obj_uids[1]
+	var/obj/obj = locateUID(obj_uid)
+	if(obj) // not sure how that would happen but why not
+		explosion(obj, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2)
+		if(!QDELETED(obj))
+			qdel(obj)
+
+	LAZYREMOVEASSOC(swarmer_objects, obj_type, obj_uid) // extra safety
+	addtimer(CALLBACK(src, PROC_REF(destroy_swarmer_objects)), 0.1 SECONDS, TIMER_DELETE_ME)
+
+/// Returns the list used for choosing the hub to teleport to in tgui_input_list proc.
+/// hub_to_ignore can be used to not include a certain hub
+/datum/team/swarmer_team/proc/get_transport_hub_list(obj/structure/swarmer/transport_hub/hub_to_ignore)
+	if(!LAZYACCESS(swarmer_objects, /obj/structure/swarmer/transport_hub))
+		return
+
+	var/list/potential_hubs = list()
+	var/list/hub_names = list()
+	var/list/duplicate_hub_count = list()
+	for(var/hub_uid in swarmer_objects[/obj/structure/swarmer/transport_hub])
+		var/obj/structure/swarmer/transport_hub/hub = locateUID(hub_uid)
+		if(!hub || !hub.enabled)
+			continue
+
+		var/resultkey = hub.listkey
+		if(resultkey in hub_names)
+			duplicate_hub_count[resultkey]++
+			resultkey = "[resultkey] ([duplicate_hub_count[resultkey]])"
+		else
+			hub_names += resultkey
+			duplicate_hub_count[resultkey] = 1
+
+		if(hub != hub_to_ignore)
+			potential_hubs[resultkey] = hub
+
+	return potential_hubs
 
 /datum/team/swarmer_team/proc/on_nanobot_fabricator_init(obj/structure/swarmer/nanobot_fabricator/fabricator)
 	return
 
 #undef METALLIC_START_RESOURCES
 #undef METAL_MODIFIER_LIMIT
-#undef DESTROY_DELAY
+#undef ANALYZER_SEND_LIMIT

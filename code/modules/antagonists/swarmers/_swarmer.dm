@@ -1,5 +1,5 @@
-/// How many organic resources we get on teleporting if we failed the analyze
-#define SWARMER_ANALYZE_TELEPORT_GAIN (rand(5, 15))
+/// How many organic resources are given if the analyze was failed and we teleported a carbon mob
+#define SWARMER_CARBON_MOB_TELEPORT_REWARD 5
 
 /mob/living/simple_animal/hostile/swarmer
 	abstract_type = /mob/living/simple_animal/hostile/swarmer
@@ -285,13 +285,19 @@
 			balloon_alert(src, "сбито!")
 			return
 
-	if(!team.try_process_organic(item))
-		balloon_alert(src, "нету места для органики!")
+	var/process_result = team.try_process_organic(item)
+	if(process_result & SWARMER_PROCESS_FOUND)
+		spark_system.start()
+		balloon_alert(src, "успешно отправлено!")
+		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
 		return
 
-	balloon_alert(src, "успешно отправлено!")
-	spark_system.start()
-	playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
+	if(process_result & SWARMER_PROCESS_NONE)
+		balloon_alert(src, "нету переработчиков!")
+	else if(process_result & SWARMER_PROCESS_BUSY)
+		balloon_alert(src, "нету свободных обработчиков!")
+	else
+		CRASH("Swarmer team try_process_organic returned none of the supposed bitflags. Return value: [process_result]")
 
 /**
  * Proc used to disperse of mobs.
@@ -299,39 +305,48 @@
  * Handles do_after and tries to send the mob to an analyzer.
  * If there are no free analyzers, we teleport the target randomly.
  */
-/mob/living/simple_animal/hostile/swarmer/proc/try_disperse(mob/living/target)
+/mob/living/simple_animal/hostile/swarmer/proc/try_analyze(mob/living/target)
 	balloon_alert(src, "отправка...")
 	if(!do_after(src, SWARMER_SEND_ANALYZER_DELAY, target, max_interact_count = 1))
 		balloon_alert(src, "сбито!")
 		return
 
-	spark_system.start()
-	if(team.try_analyze_mob(target))
+	var/analyze_result = team.try_analyze_mob(target)
+	if(analyze_result & SWARMER_ANALYZE_FOUND)
 		balloon_alert(src, "отправлено в анализатор!")
 		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
+		spark_system.start()
 		return
-	if(!iscarbon(target))
-		balloon_alert(src, "нету места для органики!")
-		return
+
+	if(analyze_result & SWARMER_ANALYZE_NONE)
+		balloon_alert(src, "нету анализаторов, телепорn!")
+	else if(analyze_result & SWARMER_ANALYZE_BUSY)
+		balloon_alert(src, "анализаторы заняты, телепорт!")
+	else if(analyze_result & SWARMER_ANALYZE_TOO_MUCH)
+		balloon_alert(src, "уже анализирован, телепорт!")
+	else
+		CRASH("Swarmer team try_analyze_proc returned none of the supposed bitflags. Return value: [analyze_result]")
+
+	spark_system.start()
 	fail_disperse_teleport(target)
 
 /**
  * Proc called if no free organic analyzers were found
  *
- * Puts restrains on target, adjust organic resources slightly
- * and teleports them randomly.
+ * Puts restrains on target and teleports them randomly.
  */
-/mob/living/simple_animal/hostile/swarmer/proc/fail_disperse_teleport(mob/living/carbon/target)
+/mob/living/simple_animal/hostile/swarmer/proc/fail_disperse_teleport(mob/living/target)
 	var/turf/safe_turf = find_safe_turf(z)
 	if(!safe_turf)
-		balloon_alert(src, "нет мест для телепорта!")
 		return
-	if(!target.handcuffed)
-		target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
+
+	if(iscarbon(target))
+		adjust_swarmer_organic_resources(SWARMER_CARBON_MOB_TELEPORT_REWARD)
+		var/mob/living/carbon/carbon_target = target
+		if(!carbon_target.handcuffed)
+			carbon_target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
+
 	target.Sleeping(10 SECONDS)
-	balloon_alert(src, "случайно телепортировано!")
-	playsound(src, 'sound/effects/sparks4.ogg', 50, TRUE)
-	adjust_swarmer_organic_resources(SWARMER_ANALYZE_TELEPORT_GAIN)
 	do_teleport(target, safe_turf)
 
 /// Proc used to convert cyborgs to swarmers.
@@ -435,9 +450,11 @@
 	balloon_alert(src, "успех!")
 	new /obj/structure/lattice/catwalk/fireproof/swarmer_catwalk(target_turf)
 
+#undef SWARMER_CARBON_MOB_TELEPORT_REWARD
+
 /// Tries to send a mob to the processer, or teleport them randomly if none exist
 /mob/living/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
-	user.try_disperse(src)
+	user.try_analyze(src)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /mob/living/simple_animal/hostile/swarmer/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
@@ -473,4 +490,3 @@
 	icon_state = "integrate"
 	duration = 5
 
-#undef SWARMER_ANALYZE_TELEPORT_GAIN

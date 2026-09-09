@@ -251,12 +251,13 @@
 /datum/action/cooldown/swarmer/move_core/Activate()
 	. = ..()
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_owner = owner
-	var/obj/structure/swarmer/core/core = swarmer_owner.team.swarmer_core
+	var/datum/team/swarmer_team/swarmer_team = swarmer_owner.team
+	var/obj/structure/swarmer/core/core = swarmer_team.swarmer_core
 	if(!core || !in_range(core, swarmer_owner))
 		owner.balloon_alert(swarmer_owner, "далеко от ядра!")
 		return
 
-	var/list/potential_hubs = get_hub_list()
+	var/list/potential_hubs = swarmer_team.get_transport_hub_list()
 	if(!length(potential_hubs))
 		owner.balloon_alert(owner, "отсутствуют другие хабы!")
 		return
@@ -281,24 +282,6 @@
 	core.forceMove(target_turf)
 	qdel(actual_selected_hub)
 	swarmer_shield_around_turf(target_turf, forcefield_radius, forcefield_duration)
-
-/// Used to get a list of all active transport hubs
-/datum/action/cooldown/swarmer/move_core/proc/get_hub_list()
-	var/list/potential_hubs = list()
-	var/list/hub_names = list()
-	var/list/duplicate_hub_count = list()
-	for(var/obj/structure/swarmer/transport_hub/hub in GLOB.swarmer_objects)
-		if(!hub.enabled)
-			continue
-		var/resultkey = hub.listkey
-		if(resultkey in hub_names)
-			duplicate_hub_count[resultkey]++
-			resultkey = "[resultkey] ([duplicate_hub_count[resultkey]])"
-		else
-			hub_names += resultkey
-			duplicate_hub_count[resultkey] = 1
-		potential_hubs[resultkey] = hub
-	return potential_hubs
 
 #undef SWARMER_BLOCKADE_COST
 #undef SWARMER_TRAP_COST

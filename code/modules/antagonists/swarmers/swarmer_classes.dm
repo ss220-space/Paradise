@@ -1,3 +1,5 @@
+// Actions given to swarmers are in a global list located in swarmers.dm defines file
+
 /// How many metallic resources are required to swap to generalist class
 #define GENERALIST_SWAP_COST 20
 /// How many metallic resources are required to swap to rover class

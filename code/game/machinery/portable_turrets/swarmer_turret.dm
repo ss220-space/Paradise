@@ -32,11 +32,11 @@
 
 /obj/machinery/porta_turret/swarmer/Initialize(mapload)
 	. = ..()
-	GLOB.swarmer_objects += src
+	add_object_to_swarmer_team_list(src)
 
 /obj/machinery/porta_turret/swarmer/Destroy()
 	. = ..()
-	GLOB.swarmer_objects -= src
+	remove_object_from_swarmer_team_list(src)
 
 /// Icon state of these turrets don't change
 /obj/machinery/porta_turret/swarmer/update_icon_state()
