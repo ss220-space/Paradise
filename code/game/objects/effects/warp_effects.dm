@@ -28,15 +28,25 @@
 // MARK: Heart
 /obj/effect/warp_effect/heart
 	var/range = 12
+	var/distortion_offset
 
 /obj/effect/warp_effect/heart/Initialize(mapload)
 	. = ..()
 	if(GLOB.heart)
 		range = GLOB.heart.pulse_range * 4
+	var/turf/our_turf = get_turf(src)
+	if(our_turf)
+		distortion_offset = GET_Z_PLANE_OFFSET(our_turf.z)
+		ADD_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), src)
 	var/matrix/scale_matrix = matrix() * 0.5
 	transform = scale_matrix
 	animate(src, transform = scale_matrix * range, time = 0.1 * range SECONDS, alpha = 0)
 	QDEL_IN(src, 0.1 * range SECONDS)
+
+/obj/effect/warp_effect/heart/Destroy()
+	if(!isnull(distortion_offset))
+		REMOVE_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(distortion_offset), src)
+	return ..()
 
 // MARK: Gravity generator
 /obj/effect/warp_effect/gravity_generator
