@@ -4,6 +4,7 @@
 	icon_state = "spider_clan"
 	freqlock = SPY_SPIDER_FREQ
 	gender = MALE
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/spy_spider/get_ru_names()
 	return alist(
@@ -119,6 +120,3 @@ GAME_PROC_SRC(/obj/item/clothing, remove_spy_spider, range(1, usr), "Снять 
 	to_chat(user, span_notice("Вы незаметно прикрепляете жучок к одежде [declent_ru(GENITIVE)]."))
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
-
-/obj/item/radio/spy_spider
-	portable_broadcast_restriction = FALSE

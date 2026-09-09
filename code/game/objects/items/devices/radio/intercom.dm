@@ -19,6 +19,7 @@
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object
 	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/intercom/get_ru_names()
 	return alist(
@@ -497,6 +498,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/pirate, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/ai_private, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/confessional, 27, 27)
 MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 27, 27)
-
-/obj/item/radio/intercom
-	portable_broadcast_restriction = FALSE

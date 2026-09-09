@@ -479,6 +479,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	icon_state = "radio_portal"
 	item_state = "radio_portal"
 	default_frequency = AI_FREQ
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/portal/get_ru_names()
 	return alist(
@@ -854,6 +855,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
+	portable_broadcast_restriction = FALSE
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 
 /obj/item/radio/borg/get_ru_names()
@@ -982,6 +984,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/off
 	should_be_listening = FALSE
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone
 	name = "phone"
@@ -992,6 +995,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	drop_sound = 'sound/items/handling/drop/phone_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone/get_ru_names()
 	return alist(
@@ -1023,6 +1027,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/bot
 	tts_seed = null
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone/ussp
 	name = "Red phone"
@@ -1040,22 +1045,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		PREPOSITIONAL = "красном телефоне",
 	)
 
-// Subtypes excluded from the portable broadcast restriction.
-// The restriction applies only to /obj/item/radio itself,
+// /obj/item/radio/dummy has no dedicated config block; excluded subtypes
+// (headset, intercom, electropack, borg, portal, off, phone, bot, centcom, spy_spider)
+// have the flag set in their config blocks instead.
 /obj/item/radio/dummy
-	portable_broadcast_restriction = FALSE
-
-/obj/item/radio/off
-	portable_broadcast_restriction = FALSE
-
-/obj/item/radio/phone
-	portable_broadcast_restriction = FALSE
-
-/obj/item/radio/bot
-	portable_broadcast_restriction = FALSE
-
-/obj/item/radio/borg
-	portable_broadcast_restriction = FALSE
-
-/obj/item/radio/portal
 	portable_broadcast_restriction = FALSE
