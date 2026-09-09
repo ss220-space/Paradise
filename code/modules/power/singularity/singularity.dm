@@ -245,6 +245,7 @@
 			if(warp)
 				vis_contents -= warp
 				qdel(warp)
+				warp = null
 		if(STAGE_TWO)
 			if(check_cardinals_range(1, TRUE))
 				current_size = STAGE_TWO
@@ -557,7 +558,7 @@
 		return
 	warp.pixel_x = initial(warp.pixel_x) - pixel_x
 	warp.pixel_y = initial(warp.pixel_y) - pixel_y
-	var/scaling = allowed_size / 2
+	var/scaling = allowed_size / 3
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
