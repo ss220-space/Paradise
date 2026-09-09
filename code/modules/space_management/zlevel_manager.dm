@@ -116,6 +116,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	if(name in levels_by_name)
 		CRASH("Name already in use: [name]")
+	SSmapping.ensure_z_level_bookkeeping(world.maxz + 1)
 	world.incrementMaxZ()
 	var/our_z = world.maxz
 	milla_init_z(our_z)
