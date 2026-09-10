@@ -83,6 +83,54 @@
 	glass_type = /obj/machinery/door/airlock/external/glass
 	airlock_type = /obj/machinery/door/airlock/external
 
+/obj/structure/door_assembly/door_assembly_docking
+	name = "docking airlock assembly"
+	icon = 'icons/obj/doors/airlocks/external/external.dmi'
+	base_name = "docking airlock"
+	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	glass_type = /obj/machinery/door/airlock/external/docking/glass
+	airlock_type = /obj/machinery/door/airlock/external/docking
+
+/obj/structure/door_assembly/door_assembly_docking_support
+	name = "docking support airlock assembly"
+	icon = 'icons/obj/doors/airlocks/external/external.dmi'
+	base_name = "docking support airlock"
+	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	glass_type = /obj/machinery/door/airlock/external/docking/support/glass
+	airlock_type = /obj/machinery/door/airlock/external/docking/support
+
+/obj/structure/door_assembly/door_assembly_docking_shuttle
+	name = "shuttle hatch docking assembly"
+	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
+	base_name = "shuttle hatch"
+	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+	glass_type = /obj/machinery/door/airlock/external/docking/shuttle/glass
+	airlock_type = /obj/machinery/door/airlock/external/docking/shuttle
+
+/obj/structure/door_assembly/door_assembly_docking_shuttle_support
+	name = "shuttle hatch docking support assembly"
+	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
+	base_name = "shuttle hatch"
+	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
+	glass_type = /obj/machinery/door/airlock/external/docking/shuttle/support/glass
+	airlock_type = /obj/machinery/door/airlock/external/docking/shuttle/support
+
+/obj/structure/door_assembly/door_assembly_docking_hatch
+	name = "airtight hatch docking assembly"
+	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi'
+	base_name = "airtight hatch"
+	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/external/docking/hatch
+	noglass = TRUE
+
+/obj/structure/door_assembly/door_assembly_docking_hatch_support
+	name = "airtight hatch docking support assembly"
+	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi'
+	base_name = "airtight hatch"
+	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/external/docking/hatch/support
+	noglass = TRUE
+
 /obj/structure/door_assembly/door_assembly_fre
 	name = "freezer airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'

@@ -6,6 +6,9 @@
 #define DOCKING_NULL_DESTINATION (1<<3)
 #define DOCKING_NULL_SOURCE (1<<4)
 
+#define SHUTTLE_FIT_AABB 1
+#define SHUTTLE_FIT_HULL 2
+
 //Rotation params
 #define ROTATE_DIR 1
 #define ROTATE_SMOOTH 2

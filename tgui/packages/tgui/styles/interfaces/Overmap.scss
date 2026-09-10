@@ -1,0 +1,841 @@
+.OvermapConsole {
+  background: #071015;
+  background-image: none;
+  font-variant-numeric: tabular-nums;
+
+  .Section {
+    border: 1px solid rgba(110, 190, 210, 0.22);
+    border-radius: 0;
+    background: rgba(4, 12, 16, 0.72);
+  }
+
+  .Section__title {
+    border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+    padding: 0.3em 0.5em;
+    font-size: 0.75em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8ec8d6;
+  }
+
+  .Button {
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+  }
+
+  .NoticeBox {
+    border-radius: 0;
+  }
+
+  .NumberInput,
+  .Input,
+  .Dropdown {
+    border-radius: 0;
+  }
+}
+
+.OvermapConsole__pad {
+  padding: 0.75em;
+}
+
+.OvermapRail {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.4em 0.7em;
+  background: linear-gradient(180deg, #132228 0%, #0a1519 100%);
+  border-bottom: 1px solid rgba(140, 220, 230, 0.35);
+}
+
+.OvermapRail__id {
+  min-width: 0;
+  flex: 1;
+}
+
+.OvermapRail__name {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OvermapRail__meta {
+  font-size: 0.75em;
+  color: #7aa3ad;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapRail__lamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  justify-content: flex-end;
+}
+
+.OvermapLamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #6d7f84;
+  font-size: 0.68em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.OvermapLamp__dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: #314248;
+  box-shadow: inset 0 0 2px #000;
+}
+
+.OvermapLamp--on {
+  color: #c6f3ea;
+  border-color: rgba(90, 220, 180, 0.45);
+
+  .OvermapLamp__dot {
+    background: #5dffc2;
+    box-shadow: 0 0 6px #5dffc2;
+  }
+}
+
+.OvermapLamp--warn {
+  color: #f3d7a2;
+  border-color: rgba(230, 170, 60, 0.5);
+
+  .OvermapLamp__dot {
+    background: #ffb347;
+    box-shadow: 0 0 6px #ffb347;
+  }
+}
+
+.OvermapSeg {
+  display: flex;
+  border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+}
+
+.OvermapSeg__item {
+  flex: 1;
+  margin: 0;
+  padding: 0.45em 0.4em;
+  border: 0;
+  border-right: 1px solid rgba(110, 190, 210, 0.18);
+  background: #0c171c;
+  color: #7aa3ad;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
+.OvermapSeg__item:last-child {
+  border-right: 0;
+}
+
+.OvermapSeg__item:hover {
+  color: #d7f3f8;
+  background: #132328;
+}
+
+.OvermapSeg__item--on {
+  color: #081014;
+  background: #7ad0c4;
+  font-weight: bold;
+}
+
+.OvermapStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.OvermapStat {
+  min-width: 4.6em;
+  padding: 0.25em 0.45em;
+  background: #08141a;
+  border: 1px solid rgba(110, 190, 210, 0.18);
+}
+
+.OvermapStat__label {
+  font-size: 0.62em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6e9098;
+}
+
+.OvermapStat__value {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.95em;
+  color: #e5f6fa;
+}
+
+.OvermapStat--good .OvermapStat__value {
+  color: #7dffc4;
+}
+
+.OvermapStat--warn .OvermapStat__value {
+  color: #ffcc66;
+}
+
+.OvermapStat--bad .OvermapStat__value {
+  color: #ff7a7a;
+}
+
+.OvermapList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.OvermapRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.28em 0.45em;
+  background: rgba(8, 22, 28, 0.9);
+  border-left: 3px solid #2a4a52;
+}
+
+.OvermapRow--click {
+  cursor: pointer;
+}
+
+.OvermapRow--click:hover {
+  background: rgba(18, 42, 50, 0.95);
+}
+
+.OvermapRow--on {
+  border-left-color: #7ad0c4;
+  background: rgba(40, 90, 88, 0.35);
+}
+
+.OvermapRow--muted {
+  opacity: 0.55;
+}
+
+.OvermapRow--good {
+  border-left-color: #4ecf8a;
+  background: rgba(18, 70, 48, 0.4);
+}
+
+.OvermapRow--warn {
+  border-left-color: #e0b04a;
+  background: rgba(70, 52, 12, 0.42);
+}
+
+.OvermapRow--iff {
+  border-left-color: #6aa8ff;
+  background: rgba(20, 40, 80, 0.42);
+}
+
+.OvermapRow--info {
+  border-left-color: #5aa0aa;
+}
+
+.OvermapRow__tag {
+  flex-shrink: 0;
+  padding: 0.05em 0.35em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-size: 0.65em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.OvermapRow__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.OvermapRow__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OvermapRow__meta {
+  font-size: 0.75em;
+  color: #7aa3ad;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapRow__act {
+  flex-shrink: 0;
+}
+
+.OvermapActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  padding: 0.4em 0.5em;
+  background: #0a161b;
+  border-top: 1px solid rgba(140, 220, 230, 0.35);
+}
+
+.OvermapLamp--bad {
+  color: #ffb0b0;
+  border-color: rgba(255, 70, 70, 0.7);
+
+  .OvermapLamp__dot {
+    background: #ff3b3b;
+    box-shadow: 0 0 8px #ff3b3b;
+  }
+}
+
+.OvermapStats--stack {
+  flex-direction: column;
+  width: 7.2em;
+}
+
+.OvermapHelmBar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0.5em;
+}
+
+.OvermapHelmBar__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .OvermapStats--stack {
+    width: 9.5em;
+  }
+}
+
+.OvermapHelmBar__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.OvermapHelmBar__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  .OvermapStats--stack {
+    width: 9.5em;
+  }
+}
+
+.OvermapMapSection {
+  .Section__content {
+    padding: 0;
+    height: 100%;
+  }
+}
+
+.OvermapMinimap {
+  width: 100%;
+  height: 100%;
+
+  > div,
+  .Layout__content {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.OvermapMinimap--tall {
+  min-height: 360px;
+}
+
+.OvermapMinimap--fill {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  aspect-ratio: 19 / 15;
+}
+
+.OvermapMinimap--exact {
+  margin: 0 auto;
+  flex: 0 0 auto;
+  overflow: hidden;
+  width: var(--overmap-map-w, 608px);
+  height: var(--overmap-map-h, 480px);
+
+  > div,
+  .Layout__content {
+    width: inherit !important;
+    height: inherit !important;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.OvermapStat--hero {
+  min-width: 9em;
+  padding: 0.55em 0.7em;
+
+  .OvermapStat__value {
+    font-size: 1.35em;
+  }
+}
+
+.OvermapCoord {
+  display: inline-block;
+  margin-left: 0.35em;
+  padding: 0 0.3em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.OvermapRow--bad {
+  border-left-color: #ff4a4a;
+  background: rgba(90, 20, 20, 0.45);
+}
+
+.OvermapActions .Button {
+  flex: 1;
+  min-width: 8em;
+  height: 2.4em;
+  background: #0d2228;
+  border: 1px solid rgba(122, 208, 196, 0.45);
+  color: #c6f3ea;
+}
+
+.OvermapActions .Button:hover {
+  background: #16343c;
+}
+
+.OvermapActions .Button--selected,
+.OvermapActions .Button--color--good {
+  background: #7ad0c4 !important;
+  color: #081014 !important;
+  border-color: #7ad0c4;
+}
+
+.OvermapActions .Button--color--bad,
+.OvermapActions .Button--selected.Button--color--bad {
+  background: #8a2a2a !important;
+  color: #ffe8e8 !important;
+  border-color: #ff6a6a;
+}
+
+.OvermapStick {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, rgba(20, 50, 56, 0.4) 0%, #08141a 62%),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(122, 208, 196, 0.18) 0 1px,
+      transparent 1px 18px
+    );
+  border: 2px solid rgba(140, 220, 230, 0.45);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.65);
+  cursor: crosshair;
+  user-select: none;
+}
+
+.OvermapStick--off {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.OvermapStick__headingWrap {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+}
+
+.OvermapStick__heading {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top: 0;
+  border-bottom: 12px solid #e8f7fb;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  filter: drop-shadow(0 0 4px #7ad0c4);
+}
+
+.OvermapAlerts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  padding: 0.35em 0.45em;
+  border-top: 1px solid rgba(110, 190, 210, 0.18);
+  background: rgba(4, 12, 16, 0.55);
+}
+
+.OvermapAlerts .Button {
+  flex: 1;
+  min-width: 7em;
+  font-size: 0.72em;
+}
+
+.OvermapStat--scan {
+  min-width: 10em;
+  padding: 0.65em 0.8em;
+
+  .OvermapStat__value {
+    font-size: 1.28em;
+  }
+}
+
+.OvermapStick__ring {
+  position: absolute;
+  inset: 18%;
+  border: 1px dashed rgba(122, 208, 196, 0.28);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.OvermapStick__dead {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20%;
+  height: 20%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+}
+
+.OvermapStick__knob {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #7ad0c4;
+  box-shadow: 0 0 8px #7ad0c4;
+  pointer-events: none;
+}
+
+.OvermapStickCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.OvermapKey {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px;
+  padding: 0 !important;
+}
+
+.OvermapPad {
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  grid-template-rows: repeat(3, 36px);
+  gap: 4px;
+  width: 116px;
+  margin: 0 auto;
+}
+
+.OvermapPanel {
+  padding: 0.45em;
+  height: 100%;
+}
+
+.OvermapGauge {
+  width: 100%;
+  min-width: 8em;
+  height: 7px;
+  margin-top: 0.25em;
+  background: #061016;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+}
+
+.OvermapGauge__fill {
+  height: 100%;
+  background: #7ad0c4;
+  box-shadow: 0 0 8px rgba(122, 208, 196, 0.45);
+}
+
+.OvermapIffGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+}
+
+.OvermapIffCard {
+  padding: 0.55em 0.65em 0.6em;
+  background: linear-gradient(180deg, #102027 0%, #0a161c 100%);
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  border-left: 4px solid #7ad0c4;
+}
+
+.OvermapIffCard--global {
+  border-left-color: #7ad0c4;
+}
+
+.OvermapIffCard--centcom {
+  border-left-color: #4aa3ff;
+}
+
+.OvermapIffCard--syndicate {
+  border-left-color: #ff5a5a;
+}
+
+.OvermapIffCard__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6em;
+  margin-bottom: 0.5em;
+}
+
+.OvermapIffCard__title {
+  font-size: 0.92em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+}
+
+.OvermapIffCard__hint {
+  margin-top: 0.2em;
+  font-size: 0.72em;
+  line-height: 1.35;
+  color: #7aa3ad;
+}
+
+.OvermapIffCard__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  flex-shrink: 0;
+}
+
+.OvermapIffCard__tag {
+  padding: 0.12em 0.4em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-size: 0.62em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.OvermapIffCard--centcom .OvermapIffCard__tag {
+  border-color: rgba(74, 163, 255, 0.45);
+  color: #9cc8ff;
+}
+
+.OvermapIffCard--syndicate .OvermapIffCard__tag {
+  border-color: rgba(255, 90, 90, 0.5);
+  color: #ffb0b0;
+}
+
+.OvermapIffCard__switches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4em;
+}
+
+.OvermapIffSwitch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1em;
+  margin: 0;
+  padding: 0.4em 0.55em;
+  background: #08141a;
+  border: 1px solid rgba(110, 190, 210, 0.25);
+  color: #6e9098;
+  cursor: pointer;
+  text-align: left;
+}
+
+.OvermapIffSwitch:hover {
+  background: #102228;
+  color: #d7f3f8;
+}
+
+.OvermapIffSwitch__label {
+  font-size: 0.62em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.OvermapIffSwitch__state {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 1.05em;
+  color: #8aa0a6;
+}
+
+.OvermapIffSwitch--on {
+  border-color: rgba(122, 208, 196, 0.65);
+  background: rgba(40, 90, 88, 0.35);
+  color: #c6f3ea;
+}
+
+.OvermapIffSwitch--on .OvermapIffSwitch__state {
+  color: #7dffc4;
+}
+
+.OvermapIffSlot {
+  margin-top: 0.7em;
+  padding: 0.55em 0.65em;
+  background: #08141a;
+  border: 1px dashed rgba(122, 208, 196, 0.35);
+}
+
+.OvermapIffSlot__label {
+  margin-bottom: 0.35em;
+  font-size: 0.62em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6e9098;
+}
+
+.OvermapIffSlot__input input {
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.OvermapHelmLockHost {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.OvermapHelmLockHost__dim {
+  filter: grayscale(0.7) brightness(0.7);
+  opacity: 0.42;
+  pointer-events: none;
+  flex: 1;
+  min-height: 0;
+}
+
+.OvermapHelmLockOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+  background: rgba(4, 10, 12, 0.28);
+}
+
+.OvermapHelmLockOverlay__card {
+  pointer-events: auto;
+  width: min(420px, 90%);
+  padding: 1.2em 1.4em;
+  border: 1px solid rgba(180, 210, 220, 0.45);
+  background: rgba(8, 16, 20, 0.92);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.45);
+}
+
+.OvermapHelmLockOverlay__title {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+}
+
+.OvermapHelmLockOverlay__sub {
+  margin-top: 0.45em;
+  font-size: 0.8em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8ec8d6;
+}
+
+.OvermapCommsLamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(110, 190, 210, 0.35);
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8ec8d6;
+}
+
+.OvermapCommsLamp__dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: #4a6670;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.OvermapCommsLamp--locked {
+  border-color: rgba(220, 90, 70, 0.55);
+  color: #f0a090;
+  background: rgba(80, 20, 16, 0.45);
+
+  .OvermapCommsLamp__dot {
+    background: #ff5a45;
+    box-shadow: 0 0 6px #ff5a45;
+  }
+}
+
+.OvermapCommsLamp--open {
+  border-color: rgba(90, 200, 120, 0.55);
+  color: #a8e6b8;
+  background: rgba(16, 60, 28, 0.45);
+
+  .OvermapCommsLamp__dot {
+    background: #4adf7a;
+    box-shadow: 0 0 6px #4adf7a;
+  }
+}
+
+.OvermapCommsLamp--clear {
+  border-color: rgba(110, 190, 210, 0.25);
+  color: #7aa3ad;
+}
+
+.OvermapCommsMsg {
+  padding: 0.55em 0.65em;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  background: rgba(6, 16, 20, 0.85);
+}
+
+.OvermapCommsMsg__body {
+  margin-top: 0.4em;
+  padding: 0.45em 0.5em;
+  background: rgba(0, 0, 0, 0.35);
+  border-left: 2px solid rgba(110, 190, 210, 0.35);
+  color: #d7eef3;
+  font-size: 0.9em;
+  line-height: 1.35;
+}
+
+.OvermapCommsCipher {
+  padding: 0.45em 0.55em;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  background: rgba(8, 18, 22, 0.9);
+}
+
+.OvermapCommsCipher__mask {
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.12em;
+  color: #e8f7fb;
+}

@@ -336,7 +336,7 @@ export const SpiderOS = (_properties) => {
   const { act, data } = useBackend<SpiderOSData>();
   let body: ReactNode;
   if (data.suit_tgui_state === 0) {
-    const actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
+    const actionsCheck = !!(data.blocked_TGUI_rows ?? []).filter((value) => !value)
       .length;
     body = (
       <Flex direction="row" spacing={1}>
@@ -902,41 +902,25 @@ export const ShuttleConsole = (_properties) => {
           <LabeledList.Item label="Ваша позиция">
             {data.player_pos}
           </LabeledList.Item>
-          {!!data.shuttle && // only show this stuff if there's a shuttle
-            ((!!data.docking_ports_len && (
-              <LabeledList.Item label={'Отправить шаттл'}>
-                {data.docking_ports.map((port) => (
-                  <Button
-                    icon="chevron-right"
-                    key={port.name}
-                    onClick={() =>
-                      act('move', {
-                        move: port.id,
-                      })
-                    }
-                  >
-                    {port.name}
-                  </Button>
-                ))}
+          {!!data.shuttle && (
+            <>
+              <LabeledList.Item label="Управление">
+                <Button icon="compass" onClick={() => act('open_helm')}>
+                  Управление шаттлом
+                </Button>
               </LabeledList.Item>
-            )) || ( // ELSE, if there's no docking ports.
-              <>
-                <LabeledList.Item label="Status" color="red">
-                  <NoticeBox color="red">Shuttle Locked</NoticeBox>
-                </LabeledList.Item>
-                {!!data.admin_controlled && (
-                  <LabeledList.Item label="Авторизация">
-                    <Button
-                      icon="exclamation-circle"
-                      disabled={!data.status}
-                      onClick={() => act('request')}
-                    >
-                      Запросить авторизацию
-                    </Button>
-                  </LabeledList.Item>
-                )}
-              </>
-            ))}
+              <LabeledList.Item label="Транспондер">
+                <Button icon="broadcast-tower" onClick={() => act('open_transponder')}>
+                  Управление транспондером
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="Сенсоры">
+                <Button icon="satellite-dish" onClick={() => act('open_sensors')}>
+                  Управление сенсорами
+                </Button>
+              </LabeledList.Item>
+            </>
+          )}
         </LabeledList>
       </Flex>
     </Section>

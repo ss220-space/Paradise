@@ -466,6 +466,24 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 
+/obj/item/storage/box/syndie_kit/hijack
+	name = "shuttle hijack kit"
+	desc = "Коробка с секвенсором и инструкцией по угону эвакуационного шаттла."
+
+/obj/item/storage/box/syndie_kit/hijack/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор угона шаттла",
+		GENITIVE = "набора угона шаттла",
+		DATIVE = "набору угона шаттла",
+		ACCUSATIVE = "набор угона шаттла",
+		INSTRUMENTAL = "набором угона шаттла",
+		PREPOSITIONAL = "наборе угона шаттла",
+	)
+
+/obj/item/storage/box/syndie_kit/hijack/populate_contents()
+	new /obj/item/card/emag(src)
+	new /obj/item/paper/guides/antag/hijack_shuttle(src)
+
 /obj/item/storage/box/syndie_kit/genes
 	name = "genetic superiority bundle"
 	desc = "Коробка, содержащая шприцы с сильными генетическими модификациями."

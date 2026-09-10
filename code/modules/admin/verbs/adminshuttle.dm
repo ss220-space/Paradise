@@ -42,3 +42,15 @@ ADMIN_VERB(cancel_shuttle, R_ADMIN, "Cancel Shuttle", "Recall the shuttle, regar
 	BLACKBOX_LOG_ADMIN_VERB("Cancel Shuttle")
 	log_admin("[key_name(user)] admin-recalled the emergency shuttle.")
 	message_admins(span_adminnotice("[key_name_admin(user)] admin-recalled the emergency shuttle."))
+
+ADMIN_VERB(force_dock_shuttle, R_ADMIN, "Force Dock", "Мгновенно ставит эвакуационный шаттл на площадку в зависимости от текущего этапа полёта.", ADMIN_CATEGORY_SHUTTLE)
+	if(!SSshuttle?.emergency)
+		to_chat(user, span_warning("Эвакуационный шаттл не зарегистрирован."), confidential = TRUE)
+		return
+	var/result = SSshuttle.emergency.admin_force_dock()
+	if(result != TRUE)
+		to_chat(user, span_warning("[result]"), confidential = TRUE)
+		return
+	BLACKBOX_LOG_ADMIN_VERB("Force Dock")
+	log_admin("[key_name(user)] admin-force-docked the emergency shuttle (mode [SSshuttle.emergency.mode]).")
+	message_admins(span_adminnotice("[key_name_admin(user)] admin-force-docked the emergency shuttle."))

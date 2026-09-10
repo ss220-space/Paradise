@@ -754,12 +754,8 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "fu" = (
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	id_tag = "mining_away";
-	name = "Mining Shuttle Airlock";
-	opacity = 0;
-	req_access = list(48)
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "mining_away"
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -1750,10 +1746,10 @@
 	},
 /area/mine/living_quarters)
 "kn" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/airlock/external/docking{
 	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access = list(2)
+	dock_name = "Каторга";
+	dir = 8
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -3633,6 +3629,7 @@
 	dir = 8
 	},
 /obj/machinery/tcomms/relay/mining,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "we" = (
@@ -4077,19 +4074,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "yA" = (
-/obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "mining_away";
-	name = "lavaland mine";
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
-	width = 7
+/obj/machinery/door/airlock/external/docking/glass{
+	id_tag = "mining_away";
+	dock_name = "Док шахтёрского шаттла";
+	dir = 8
 	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/mine/lobby)
 "yE" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -4335,20 +4327,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
-"Ai" = (
-/obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
-	dir = 8;
-	dwidth = 2;
-	height = 5;
-	id = "laborcamp_away";
-	name = "labor camp";
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
-	width = 9
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
 "Am" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -4858,9 +4836,8 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "CF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock"
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "laborcamp_away"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -5780,6 +5757,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/overmap_intercom/directional/east,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "HN" = (
@@ -6146,9 +6124,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Kg" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock"
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "laborcamp_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -13010,7 +12987,7 @@ DH
 DH
 DH
 DH
-Ai
+DH
 DH
 DH
 bB
@@ -13777,7 +13754,7 @@ iu
 uN
 GY
 iu
-kn
+Kg
 iu
 XT
 CF
@@ -26359,7 +26336,7 @@ bB
 bB
 bB
 bB
-yA
+bB
 bB
 bB
 bB
@@ -26616,7 +26593,7 @@ Ne
 bB
 bB
 zt
-fu
+yA
 zt
 bB
 bB
