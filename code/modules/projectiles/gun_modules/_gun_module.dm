@@ -46,8 +46,7 @@
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	balloon_alert(user, "установка модуля...")
-	if(!do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun))
+	if(!do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun, max_interact_count = 1))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
 	target_gun.add_attachment_overlay(src)
@@ -59,8 +58,7 @@
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user, force = FALSE, put_in_hands = TRUE)
-	balloon_alert(user, "снятие модуля...")
-	if(!force && !do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun))
+	if(!force && !do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun, max_interact_count = 1))
 		return FALSE
 	src.on_detach(target_gun, user)
 	target_gun.attachments_by_slot[slot] = null
