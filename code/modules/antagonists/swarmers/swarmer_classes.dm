@@ -338,6 +338,9 @@
 	if(times_fired % 10 == 0) // Every 20 seconds or so
 		playsound(src, 'sound/swarmer/megaswarmer_ambient.ogg', 100, TRUE)
 
+/mob/living/simple_animal/hostile/swarmer/check_eye_prot()
+	return FLASH_PROTECTION_FLASH
+
 /mob/living/simple_animal/hostile/swarmer/mega/get_ru_names()
 	return alist(
 		NOMINATIVE = "мега — свармер",

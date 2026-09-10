@@ -60,43 +60,42 @@
 	if(check_for_limit_per_area)
 		desc = "[desc]\n В одной зоне могут находиться максимум [limit_per_area] построек того-же типа."
 
-/datum/action/cooldown/swarmer/build/Activate()
+/datum/action/cooldown/swarmer/build/Activate(mob/living/simple_animal/hostile/swarmer/target)
 	. = ..()
-	var/mob/living/user = owner
 	var/turf/spawn_turf
 	var/list/turfs_to_check
 	var/obj/structure/swarmer/build_atom_prototype = build_type
 	if(build_atom_prototype::bound_width > ICON_SIZE_X || build_atom_prototype::bound_height > ICON_SIZE_Y)
 		var/occupied_turfs_width = ceil(build_atom_prototype::bound_width / ICON_SIZE_X)
 		var/occupied_turfs_height = ceil(build_atom_prototype::bound_height / ICON_SIZE_Y)
-		spawn_turf = get_offset_target_turf(get_turf(user), -floor(occupied_turfs_width / 2), 0)
+		spawn_turf = get_offset_target_turf(get_turf(target), -floor(occupied_turfs_width / 2), 0)
 		turfs_to_check = CORNER_BLOCK(spawn_turf, occupied_turfs_width, occupied_turfs_height)
 	else
-		spawn_turf = get_turf(user)
+		spawn_turf = get_turf(target)
 		turfs_to_check = list(spawn_turf)
 
-	if(!turf_build_checks(user, turfs_to_check))
+	if(!turf_build_checks(target, turfs_to_check))
 		return
 
-	if(!custom_build_checks(user, turfs_to_check))
+	if(!custom_build_checks(target, turfs_to_check))
 		return
 
 	if(!adjust_swarmer_metallic_resources(-action_cost))
-		user.balloon_alert(user, "недостаточно ресурсов!")
+		target.balloon_alert(target, "недостаточно ресурсов!")
 		return
 
-	if(!do_after(user, build_time, user, max_interact_count = 1))
-		user.balloon_alert(user, "сбито!")
+	if(!do_after(target, build_time, target, max_interact_count = 1))
+		target.balloon_alert(target, "сбито!")
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
 	if(!check_for_limit(spawn_turf))
-		user.balloon_alert(user, "достигнут лимит на зону!")
-		to_chat(user, span_warning("Максимум того, что вы строили, в одной зоне можно лишь [limit_per_area]!"))
+		target.balloon_alert(target, "достигнут лимит на зону!")
+		to_chat(target, span_warning("Максимум того, что вы строили, в одной зоне можно лишь [limit_per_area]!"))
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
-	user.balloon_alert(user, "успех!")
+	target.balloon_alert(target, "успех!")
 	return new build_type(spawn_turf)
 
 /// Default turf checks
@@ -191,11 +190,11 @@
 	action_cost = SWARMER_HUB_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
-/datum/action/cooldown/swarmer/build/transport_hub/Activate()
+/datum/action/cooldown/swarmer/build/transport_hub/Activate(mob/living/simple_animal/hostile/swarmer/target)
 	. = ..() // Returns built hub
 	if(!.)
 		return
-	var/keyword = tgui_input_text(owner, "Пожалуйста, введите название для постройки.", "Ввод названия")
+	var/keyword = tgui_input_text(target, "Пожалуйста, введите название для постройки.", "Ввод названия")
 	if(!keyword)
 		return
 	var/obj/structure/swarmer/transport_hub/hub = .
@@ -297,13 +296,12 @@
 	/// How long the forcefield lasts
 	var/forcefield_duration = 5 SECONDS
 
-/datum/action/cooldown/swarmer/move_core/Activate()
+/datum/action/cooldown/swarmer/move_core/Activate(mob/living/simple_animal/hostile/swarmer/target)
 	. = ..()
-	var/mob/living/simple_animal/hostile/swarmer/swarmer_owner = owner
-	var/datum/team/swarmer_team/swarmer_team = swarmer_owner.team
+	var/datum/team/swarmer_team/swarmer_team = target.team
 	var/obj/structure/swarmer/core/core = swarmer_team.swarmer_core
-	if(!core || !in_range(core, swarmer_owner))
-		owner.balloon_alert(swarmer_owner, "далеко от ядра!")
+	if(!core || !in_range(core, target))
+		owner.balloon_alert(target, "далеко от ядра!")
 		return
 
 	var/list/potential_hubs = swarmer_team.get_transport_hub_list()
@@ -331,6 +329,27 @@
 	core.forceMove(target_turf)
 	qdel(actual_selected_hub)
 	swarmer_shield_around_turf(target_turf, forcefield_radius, forcefield_duration)
+
+/datum/action/cooldown/swarmer/core_location
+	name = "Локация ядра"
+	desc = "Узнать, где находится ядро."
+	button_icon_state = "swarmer_core_location"
+
+/datum/action/cooldown/swarmer/core_location/Activate(mob/living/simple_animal/hostile/swarmer/target)
+	. = ..()
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!team)
+		return
+
+	if(!team.swarmer_core)
+		return
+
+	var/dir_to_core = get_dir(target, team.swarmer_core)
+	var/area/core_area = get_area(team.swarmer_core)
+	var/locname = initial(core_area.name)
+	target.balloon_alert(target, "[dir2rustext(dir_to_core)]!")
+	to_chat(target, "[span_swarmerbold("Местоположение ядра:")] [span_swarmerboldlarge("[locname]")] \n\
+		[span_swarmerbold("Направление от вас:")] [span_swarmerboldlarge("[dir2rustext(dir_to_core)]")]")
 
 #undef SWARMER_BLOCKADE_COST
 #undef SWARMER_TRAP_COST

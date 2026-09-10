@@ -52,7 +52,7 @@
 /// How many metallic resources swarmers get on core init
 #define METALLIC_START_RESOURCES 150
 /// Metal modifier limit
-#define METAL_MODIFIER_LIMIT 2.5
+#define METAL_MODIFIER_LIMIT 3
 /// Limit of times a mob can be sent to an analyzer
 #define ANALYZER_SEND_LIMIT 2
 

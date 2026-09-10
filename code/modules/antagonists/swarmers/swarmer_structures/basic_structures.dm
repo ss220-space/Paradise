@@ -91,7 +91,7 @@
 	icon_state = "metal_storage"
 	max_integrity = 100
 	/// The amount the metal modifier is adjusted by on init or destroy
-	var/static/metal_modifier_adjust = 0.1
+	var/static/metal_modifier_adjust = 0.15
 
 /obj/structure/swarmer/resource_storage/Initialize(mapload)
 	. = ..()

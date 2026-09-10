@@ -69,6 +69,7 @@
 	diag_hud_set_swarmerhealth()
 	diag_hud_set_swarmerstat()
 
+	grant_actions_by_list(GLOB.common_swarmer_actions)
 	grant_actions_by_list(GLOB.swarmer_actions_by_type[type])
 
 /mob/living/simple_animal/hostile/swarmer/ComponentInitialize()

@@ -1,3 +1,8 @@
+// List of common swarmer actions
+GLOBAL_LIST_INIT(common_swarmer_actions, list(
+	/datum/action/cooldown/swarmer/core_location,
+))
+
 /// Assoc list containing all action types that are given based on type on init
 GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	// Starting swarmer
@@ -79,11 +84,13 @@ GLOBAL_LIST_EMPTY(swarmers)
 #define SWARMER_REPAIR_COST 1
 
 
-// MARK: Swarmer EMP effects
+// MARK: Swarmer weaknesses
 /// How much swarmers and swarmer structures get damaged on emp
 #define SWARMER_EMP_DAMAGE 25
 /// For how long do swarmer structures get disabled for on emp_act
 #define SWARMER_STRUCTURE_EMP_DURATION 10 SECONDS
+/// For how long swarmers get stunned on melee flash attack
+#define SWARMER_FLASH_ATTACK_STUN 4 SECONDS
 
 
 // MARK: Swarmer act return bitflags
