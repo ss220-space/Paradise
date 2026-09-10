@@ -45,7 +45,7 @@
 	/// How many resources does it require to swap to this class from an existing one
 	var/swap_resource_cost = 0
 	/// Can swarmers swap to this type in core?
-	var/can_swap_to = TRUE
+	var/can_swap_to = FALSE
 	/// Reference to swarmer team
 	var/datum/team/swarmer_team/team
 	/// Spark system (since we use them a lot)
@@ -62,8 +62,12 @@
 	spark_system.attach(src)
 	add_language(LANGUAGE_HIVE_SWARMER)
 	updatename()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_atom_to_hud(src)
+
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.show_to(src)
+	diag_hud.add_atom_to_hud(src)
+	diag_hud_set_swarmerhealth()
+	diag_hud_set_swarmerstat()
 
 	grant_actions_by_list(GLOB.swarmer_actions_by_type[type])
 
@@ -86,17 +90,25 @@
 		mind.add_antag_datum(/datum/antagonist/swarmer, /datum/team/swarmer_team)
 	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
 
-// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
-	var/image/holder = hud_list[DIAG_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
-	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
+	return diag_hud_set_swarmerhealth()
 
-// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
-	holder.icon_state = "hudstat"
+	return diag_hud_set_swarmerstat()
+
+/mob/living/simple_animal/hostile/swarmer/proc/diag_hud_set_swarmerhealth()
+	if(stat == DEAD)
+		set_hud_image_state(DIAG_HUD, "huddiagdead")
+	else
+		set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/maxHealth)]")
+
+/mob/living/simple_animal/hostile/swarmer/proc/diag_hud_set_swarmerstat()
+	if(stat == DEAD)
+		set_hud_image_state(DIAG_STAT_HUD, "huddead2")
+	else if(IsStunned())
+		set_hud_image_state(DIAG_STAT_HUD, "hudoffline")
+	else
+		set_hud_image_state(DIAG_STAT_HUD, "hudstat")
 
 /mob/living/simple_animal/hostile/swarmer/Destroy()
 	GLOB.swarmers -= src
@@ -377,7 +389,6 @@
 
 	if(!resource_gain)
 		balloon_alert(src, "не совместимо!")
-		stack_trace("[target] swarmer_act uses consume return value, yet integrate_amount proc returned zero or null")
 		return FALSE
 
 	. = TRUE

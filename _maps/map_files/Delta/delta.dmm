@@ -6606,7 +6606,6 @@
 /area/station/security/lobby)
 "btB" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/reactor)
 "btM" = (
@@ -29649,6 +29648,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -41702,16 +41702,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/security/prison/visit)
-"ikf" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "ikl" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43634,6 +43624,7 @@
 /area/station/ai/satellite/exterior)
 "iDV" = (
 /obj/structure/chair/office/dark,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
 "iDY" = (
@@ -47065,7 +47056,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/spawner/swarmer,
 /obj/machinery/atmospherics/reactor_chamber,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -74478,7 +74468,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -81712,6 +81701,7 @@
 "pCz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/bar)
 "pCC" = (
@@ -85887,6 +85877,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/science/sm_chamber)
 "qoK" = (
@@ -111247,6 +111238,7 @@
 	name = "Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "uNq" = (
@@ -127261,11 +127253,6 @@
 	icon_state = "brown"
 	},
 /area/station/command/office/ce)
-"xKf" = (
-/obj/effect/decal/cleanable/blood/xeno,
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/greengrid,
-/area/station/science/xenobiology)
 "xKk" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -153739,7 +153726,7 @@ hMW
 aDT
 tRI
 tRI
-xKf
+oPz
 mVD
 dHE
 qYC
@@ -180458,7 +180445,7 @@ hrm
 hrm
 hrm
 bBv
-ikf
+hrm
 hrm
 dDN
 bsc

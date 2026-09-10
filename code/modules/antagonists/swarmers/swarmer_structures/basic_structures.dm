@@ -66,7 +66,7 @@
 	swarmer_examine = "Свободно пропускает свармеров и их выстрелы."
 	icon_state = "barricade"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	max_integrity = 60
+	max_integrity = 50
 	swarmers_pass = TRUE
 
 /obj/structure/swarmer/blockade/get_ru_names()
@@ -91,7 +91,7 @@
 	icon_state = "metal_storage"
 	max_integrity = 100
 	/// The amount the metal modifier is adjusted by on init or destroy
-	var/static/metal_modifier_adjust = 0.2
+	var/static/metal_modifier_adjust = 0.1
 
 /obj/structure/swarmer/resource_storage/Initialize(mapload)
 	. = ..()

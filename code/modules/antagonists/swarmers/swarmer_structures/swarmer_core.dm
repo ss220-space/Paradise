@@ -138,14 +138,14 @@
 
 /// Makes a ghost poll for basic swarmer spawn
 /obj/structure/swarmer/core/proc/spawn_swarmer_from_ghost()
+	var/turf/spawn_loc = get_turf(src)
+	if(!spawn_loc)
+		return
+
 	var/image/poll_source = image('icons/mob/swarmer.dmi', "swarmer_combat")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за Свармера?", ROLE_SWARMER, TRUE, poll_time = 15 SECONDS, source = poll_source)
 	if(!length(candidates)) // Makes a spawner if no-one wanted to
-		new /obj/effect/mob_spawn/swarmer(get_step(loc, pick(GLOB.alldirs)))
-		return
-
-	var/turf/spawn_loc = get_turf(src)
-	if(isnull(spawn_loc))
+		new /obj/effect/mob_spawn/swarmer(spawn_loc)
 		return
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
@@ -217,27 +217,32 @@
 
 	switch(action)
 		if("select_class")
-			var/confirm = tgui_alert(ui.user, "Вы уверены, что хотите выбрать данный класс?", "Выбор класса", list("Да", "Нет"))
+			var/mob/living/simple_animal/hostile/swarmer/old_swarmer = ui.user
+			var/confirm = tgui_alert(old_swarmer, "Вы уверены, что хотите выбрать данный класс?", "Выбор класса", list("Да", "Нет"))
 			if(confirm == "Нет")
 				return
 
 			var/swarmer_path = text2path(params["class"])
 			if(!ispath(swarmer_path, /mob/living/simple_animal/hostile/swarmer))
-				log_and_message_admins("[ui.user.ckey] attempted to href exploit swarmer core swap into [swarmer_path]. This can't be a false alarm.")
+				log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into [swarmer_path]. This can't be a false alarm.")
 				return
 
 			var/mob/living/simple_animal/hostile/swarmer/new_swarmer = swarmer_path
 			if(new_swarmer::can_swap_to == FALSE)
-				log_and_message_admins("[ui.user.ckey] attempted to href exploit swarmer core swap into non-possible swarmer class. This can't be a false alarm.")
+				log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into non-possible swarmer class. This can't be a false alarm.")
 				return
 
-			var/mob/living/simple_animal/hostile/swarmer/old_swarmer = ui.user
 			var/swap_cost = is_basicswarmer(old_swarmer) ? new_swarmer::swap_resource_cost : round(new_swarmer::swap_resource_cost / 2)// swarmer classes cost less on non-basic swap
 			if(!adjust_swarmer_metallic_resources(-swap_cost))
 				old_swarmer.balloon_alert(old_swarmer, "недостаточно ресурсов!")
 				return
 
-			new_swarmer = new swarmer_path(get_turf(old_swarmer))
+			var/turf/spawn_turf = get_turf(old_swarmer)
+			if(!spawn_turf)
+				return
+
+			ui.close()
+			new_swarmer = new swarmer_path(spawn_turf)
 			// Handle mmi transfer to new swarmer
 			if(old_swarmer.mmi)
 				old_swarmer.mmi.forceMove(new_swarmer)

@@ -55,18 +55,25 @@
 	. = ..()
 	if(!.)
 		return
+
 	if(occupant)
 		swarmer.balloon_alert(swarmer, "занято!")
 		return
+
 	swarmer.balloon_alert(swarmer, "входим...")
-	if(!do_after(swarmer, SWARMER_REPAIR_STATION_DELAY, src, max_interact_count = 1))
+	if(!do_after(swarmer, SWARMER_REPAIR_STATION_DELAY, src, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(check_if_not_busy))))
 		swarmer.balloon_alert(swarmer, "сбито!")
 		return
+
 	enter_turf = get_turf(swarmer)
 	swarmer.forceMove(src)
 	occupant = swarmer
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
+
+/// Checks if the repair station is busy. Used in do_after for entering
+/obj/structure/swarmer/repair_station/proc/check_if_not_busy()
+	return !occupant
 
 /obj/structure/swarmer/repair_station/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	if(!occupant)

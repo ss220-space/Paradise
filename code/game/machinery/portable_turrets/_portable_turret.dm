@@ -17,6 +17,7 @@
 	name = "turret"
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turretCover"
+	hud_possible = list(DIAG_HUD)
 	anchored = TRUE
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
@@ -105,8 +106,16 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+	prepare_huds()
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
+	diag_hud_set_health()
+
 	proximity_monitor = new(src, scan_range)
 	setup()
+
+/obj/machinery/porta_turret/proc/diag_hud_set_health()
+	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/initial(health))]")
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)
 	handleInterloper(AM)
@@ -463,6 +472,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	health -= force
+	diag_hud_set_health()
 	if(force > 5 && prob(45) && spark_system && !spark_system.total_effects)
 		spark_system.start()
 	if(health <= 0)

@@ -9,6 +9,7 @@
 	name = "swarmer structure"
 	desc = "Вы не должны это видеть."
 	icon = 'icons/obj/swarmer.dmi'
+	hud_possible = list(DIAG_HUD)
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
@@ -29,9 +30,22 @@
 	add_object_to_swarmer_team_list(src)
 	set_light(lon_range)
 
+	prepare_huds()
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
+	diag_hud_set_health()
+
 /obj/structure/swarmer/Destroy(force)
 	remove_object_from_swarmer_team_list(src)
 	return ..()
+
+// Hud for swarmers
+/obj/structure/swarmer/proc/diag_hud_set_health()
+	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]")
+
+/obj/structure/swarmer/on_update_integrity(old_value, new_value)
+	. = ..()
+	diag_hud_set_health()
 
 /obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -49,6 +63,10 @@
 
 /// Special intent handling for swarmer clicks on swarmer structures. Used for repairing.
 /obj/structure/swarmer/proc/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(get_integrity_percentage() == 1)
+		swarmer.balloon_alert(swarmer, "не требует починки!")
+		return
+
 	swarmer.balloon_alert_to_viewers("чинит...", "починка...")
 	if(!do_after(swarmer, SWARMER_REPAIR_DELAY(swarmer), src, max_interact_count = 1))
 		swarmer.balloon_alert(swarmer, "сбито!")

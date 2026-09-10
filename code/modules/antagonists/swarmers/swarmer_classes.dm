@@ -29,7 +29,6 @@
 	pass_door_while_hidden = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
-	can_swap_to = FALSE
 	swarmer_class_info = "Данный класс не отличается ничем особенным, и существует для того, чтобы вы его сменили в ядре на новый.\n\
 		Для смены класса, нажмите по ядру в 1 интенте \"Помощь\".\n\
 		Достаточно маленький для того, чтобы проползать под столами и шлюзами."
@@ -65,6 +64,7 @@
 	ranged_cooldown_time = 1 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
 	swap_resource_cost = GENERALIST_SWAP_COST
+	can_swap_to = TRUE
 	swarmer_class_info = "Данный класс является базовой боевой единицей, оснащённой пушкой, а также способностью строить мелкие туррели, баррикады и ловушки.\n\
 		Скорость равна человеческой."
 
@@ -93,8 +93,9 @@
 	melee_damage_upper = 30
 	health = 55
 	maxHealth = 55
-	speed = -1
+	speed = -0.3
 	swap_resource_cost = ROVER_SWAP_COST
+	can_swap_to = TRUE
 	pass_door_while_hidden = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	swarmer_class_info = "Данный класс является разведовательной единицей, оснащённой колёсами вместо ног, а также мощным тараном, способным сбивать целей с ног.\n\
@@ -149,6 +150,7 @@
 	speed = 1.5
 	ranged = 1
 	swap_resource_cost = COMBAT_SWAP_COST
+	can_swap_to = TRUE
 	swarmer_class_info = "Данный класс является защитной единицей, оснащённой более сильной защитой и пушками.\n\
 		Оснащён следующими типами выстрелов: Обычный выстрел, двойной выстрел, сильный выстрел, саботажный выстрел.\n\
 		Менять тип выстрела на ПКМ по самому себе.\n\
@@ -211,6 +213,7 @@
 	maxHealth = 120
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swap_resource_cost = BUILDER_SWAP_COST
+	can_swap_to = TRUE
 	mob_size = MOB_SIZE_HUMAN
 	swarmer_class_info = "Данный класс является строительной единицей, способной строить множество различных конструкций.\n\
 		Является самым важным классом среди \"Свармеров\", без которого выполнение цели является невозможным.\n\
@@ -254,7 +257,6 @@
 	rapid_fire_delay = 1
 	health = 350
 	maxHealth = 350
-	can_swap_to = FALSE
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swarmer_class_info = "Вы — финальная боевая единица \"Свармеров\", оснащённая миниганом, встроенной ACP турелью, а также защитными пластинами.\n\
 		Ваша цель — окончательно захватить станцию под ваш контроль."

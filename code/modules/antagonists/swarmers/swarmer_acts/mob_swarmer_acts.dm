@@ -6,6 +6,10 @@
 		return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_RIGHT_CLICK_DEFAULT
 
 	. = SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
+	if(health == maxHealth)
+		user.balloon_alert(user, "не требует починки!")
+		return
+
 	balloon_alert(src, "вас чинят!")
 	user.balloon_alert(user, "починка!")
 

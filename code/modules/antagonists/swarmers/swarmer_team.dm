@@ -50,9 +50,9 @@
 	LAZYREMOVEASSOC(team.swarmer_objects, object.type, object.UID())
 
 /// How many metallic resources swarmers get on core init
-#define METALLIC_START_RESOURCES 90
+#define METALLIC_START_RESOURCES 150
 /// Metal modifier limit
-#define METAL_MODIFIER_LIMIT 3
+#define METAL_MODIFIER_LIMIT 2.5
 /// Limit of times a mob can be sent to an analyzer
 #define ANALYZER_SEND_LIMIT 2
 
@@ -69,7 +69,7 @@
 	/// Modifier of metal gatherings by swarmers (not structures)
 	var/metal_modifier = 1
 	/// Unlimited modifier of metal gatherings by swarmer used for calculations
-	var/unlimited_metal_modifier = 0
+	var/unlimited_metal_modifier = 1
 	/// Main objective given to all swarmers
 	var/datum/objective/swarmer_goal/swarmer_objective
 	/// Have we made an announcement about mega-swarmer already or not
@@ -215,7 +215,7 @@
  */
 /datum/team/swarmer_team/proc/adjust_modifier(adjust_amount)
 	unlimited_metal_modifier += adjust_amount
-	metal_modifier = max(0, min(METAL_MODIFIER_LIMIT, unlimited_metal_modifier))
+	metal_modifier = max(1, min(METAL_MODIFIER_LIMIT, unlimited_metal_modifier))
 
 /// Helper proc to get the metal modifier limit
 /datum/team/swarmer_team/proc/get_metal_modifier_limit()

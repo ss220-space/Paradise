@@ -14,9 +14,7 @@
 	use_power = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
-	emp_vulnerable = FALSE // Damage and turning off is overkill
 	density = TRUE
-	scan_range = 9
 	shot_delay = 1 SECONDS
 
 	faction = ROLE_SWARMER
@@ -44,12 +42,14 @@
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Override as needed.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_help_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	SHOULD_CALL_PARENT(TRUE)
 	ui_interact(src)
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Used for repairing.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	SHOULD_CALL_PARENT(TRUE)
+	if(get_integrity_percentage() == 1)
+		swarmer.balloon_alert(swarmer, "не требует починки!")
+		return
+
 	swarmer.balloon_alert_to_viewers("чинит...", "починка!")
 	if(!do_after(swarmer, SWARMER_REPAIR_DELAY(swarmer), src, max_interact_count = 1))
 		return
@@ -60,7 +60,6 @@
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Override as needed.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	SHOULD_CALL_PARENT(TRUE)
 	if(!is_builderswarmer(swarmer))
 		return FALSE
 	var/message = anchored ? "открепляем..." : "прикрепляем..."
@@ -75,7 +74,6 @@
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Override as needed.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_harm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	SHOULD_CALL_PARENT(TRUE)
 	if(!is_builderswarmer(swarmer))
 		return FALSE
 	var/confirm = tgui_alert(swarmer, "Вы уверены, что хотите РАЗОБРАТЬ [declent_ru(ACCUSATIVE)]?", "Разбор структуры", list("Да", "Нет"))
@@ -127,7 +125,7 @@
 /obj/machinery/porta_turret/swarmer/turret
 	name = "swarmer turret"
 	desc = "Штурмовая энергетическая турель \"Свармеров\", способная стрелять залпом по три пули."
-	health = 125
+	health = 100
 	icon_state = "turret_rapid"
 	shot_delay = 1.5 SECONDS
 	projectile = /obj/projectile/beam/disabler/swarmer/weak_turret
@@ -148,7 +146,7 @@
 /obj/machinery/porta_turret/swarmer/sniper
 	name = "swarmer sentry"
 	desc = "Снайперская энергетическая турель \"Свармеров\", способная стрелять мощным выстрелом, что пробивает целей насквозь."
-	health = 175
+	health = 150
 	icon_state = "turret_sniper"
 	shot_delay = 2.5 SECONDS
 	projectile = /obj/projectile/beam/disabler/swarmer/strong_turret

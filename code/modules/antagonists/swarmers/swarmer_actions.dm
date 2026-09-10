@@ -13,11 +13,11 @@
 /// How many metallic resources does it cost to make a resource storage
 #define SWARMER_STORAGE_COST 10
 /// How many metallic resources does it cost to make a rapid fire turret
-#define SWARMER_RAPID_TURRET_COST 20
+#define SWARMER_RAPID_TURRET_COST 25
 /// How many metallic resources does it cost to make a sniper turret
-#define SWARMER_SNIPER_TURRET_COST 25
+#define SWARMER_SNIPER_TURRET_COST 35
 /// How many metallic resources does it cost to make an ACP turret
-#define SWARMER_ACP_COST 25
+#define SWARMER_ACP_COST 30
 /// How many metallic resources does it cost to make a nanobot fabricator
 #define SWARMER_NANOBOT_FABRICATOR_COST 250
 /// How many metallic resources does it cost to move the core to a hub
@@ -40,7 +40,7 @@
 /datum/action/cooldown/swarmer/New(Target, original = TRUE)
 	. = ..()
 	if(action_cost)
-		desc = "[initial(desc)] Стоимость: [action_cost] металлических материал[DECL_CREDIT(action_cost)]."
+		desc = "[desc] Стоимость: [action_cost] металлических материал[DECL_CREDIT(action_cost)]."
 
 /datum/action/cooldown/swarmer/build
 	abstract_type = /datum/action/cooldown/swarmer/build
@@ -49,13 +49,20 @@
 	var/build_type = /obj/structure/swarmer
 	/// How long does it take to build
 	var/build_time = 0
-	/// Does it require the user to type a keyword for the structure
-	var/req_keyword = FALSE
+	/// Do we check for the limit of buildings in the same area?
+	var/check_for_limit_per_area = FALSE
+	/// Limit of buildings per area of the same type
+	var/limit_per_area
+
+/// Updates description to include material cost.
+/datum/action/cooldown/swarmer/build/New(Target, original = TRUE)
+	. = ..()
+	if(check_for_limit_per_area)
+		desc = "[desc]\n В одной зоне могут находиться максимум [limit_per_area] построек того-же типа."
 
 /datum/action/cooldown/swarmer/build/Activate()
 	. = ..()
 	var/mob/living/user = owner
-
 	var/turf/spawn_turf
 	var/list/turfs_to_check
 	var/obj/structure/swarmer/build_atom_prototype = build_type
@@ -68,7 +75,7 @@
 		spawn_turf = get_turf(user)
 		turfs_to_check = list(spawn_turf)
 
-	if(!default_build_checks(user, turfs_to_check))
+	if(!turf_build_checks(user, turfs_to_check))
 		return
 
 	if(!custom_build_checks(user, turfs_to_check))
@@ -83,11 +90,17 @@
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
+	if(!check_for_limit(spawn_turf))
+		user.balloon_alert(user, "достигнут лимит на зону!")
+		to_chat(user, span_warning("Максимум того, что вы строили, в одной зоне можно лишь [limit_per_area]!"))
+		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
+		return
+
 	user.balloon_alert(user, "успех!")
 	return new build_type(spawn_turf)
 
 /// Default turf checks
-/datum/action/cooldown/swarmer/build/proc/default_build_checks(mob/living/user, list/turfs_to_check)
+/datum/action/cooldown/swarmer/build/proc/turf_build_checks(mob/living/user, list/turfs_to_check)
 	if(!length(turfs_to_check) || !user)
 		return FALSE
 
@@ -111,6 +124,36 @@
 		if((locate(/obj/machinery/porta_turret/swarmer) in target_turf))
 			user.balloon_alert(user, "нельзя строить сверху существующего!")
 			target_turf.balloon_alert(user, "здесь!")
+			return FALSE
+
+/// Checks for limit of same building in src area
+/// Returns TRUE if we should continue building
+/datum/action/cooldown/swarmer/build/proc/check_for_limit(turf/spawn_turf)
+	if(!check_for_limit_per_area)
+		return TRUE
+
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!team) // no objects inited
+		return TRUE
+
+	var/list/swarmer_objects = team.swarmer_objects
+	if(!LAZYACCESS(swarmer_objects, build_type)) // none built at all
+		return TRUE
+
+	var/list/same_obj_uids = swarmer_objects[build_type]
+	if(length(same_obj_uids) <= (limit_per_area - 1)) // not enough to even check
+		return TRUE
+
+	. = TRUE
+	var/area/area_to_check = get_area(spawn_turf)
+	var/same_obj_in_area_amount = 0
+	for(var/obj_uid in same_obj_uids)
+		var/obj/obj = locateUID(obj_uid)
+		if(area_to_check != get_area(obj))
+			continue
+
+		same_obj_in_area_amount++
+		if(same_obj_in_area_amount >= (limit_per_area - 1))
 			return FALSE
 
 /// Proc for custom checks based on what is being built, returns TRUE on default
@@ -210,6 +253,8 @@
 	build_type = /obj/machinery/porta_turret/swarmer/turret
 	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
+	check_for_limit_per_area = TRUE
+	limit_per_area = 5
 
 /datum/action/cooldown/swarmer/build/sniper_turret
 	name = "Создать снайперскую турель"
@@ -218,6 +263,8 @@
 	build_type = /obj/machinery/porta_turret/swarmer/sniper
 	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
+	check_for_limit_per_area = TRUE
+	limit_per_area = 3
 
 /datum/action/cooldown/swarmer/build/acp_turret
 	name = "Создать установку ACP"
@@ -226,6 +273,8 @@
 	build_type = /obj/structure/swarmer/acp_turret
 	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
+	check_for_limit_per_area = TRUE
+	limit_per_area = 3
 
 /datum/action/cooldown/swarmer/build/nanobot_fabricator
 	name = "Создать фабрикатор наноботов"
