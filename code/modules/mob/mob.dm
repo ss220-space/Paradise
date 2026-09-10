@@ -1455,12 +1455,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
  * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
 **/
-/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1, list/antimagic_sources = null)
 	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
 		return FALSE
 
 	// A list of all things which are providing anti-magic to us
-	var/list/antimagic_sources = list()
+	if(!antimagic_sources)
+		antimagic_sources = list()
 	var/is_magic_blocked = FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_BLOCK_MAGIC)
@@ -1474,6 +1475,15 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		on_block_magic_effects(casted_magic_flags, antimagic_sources)
 
 	return is_magic_blocked
+
+/// Blocks magic and returns one source of anti-magic that blocked it.
+/// Returns the mob itself when the protection comes from an anti-magic trait.
+/// Returns FALSE if the magic was not blocked.
+/mob/proc/block_magic_and_get_source(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	var/list/antimagic_sources = list()
+	if(!can_block_magic(casted_magic_flags, charge_cost, antimagic_sources))
+		return FALSE
+	return length(antimagic_sources) ? pick(antimagic_sources) : src
 
 /// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
 /mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
