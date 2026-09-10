@@ -78,7 +78,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	var/mob/living/last_smoker = last_cig_smoker?.resolve()
 	if(last_smoker)
-		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
 	last_cig_smoker = null
 	return ..()
 
@@ -339,10 +339,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/equipped(mob/living/user, slot, initial)
 	. = ..()
 	if(!(slot & ITEM_SLOT_MASK))
-		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
 		return
 	last_cig_smoker = WEAKREF(user)
-	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED), PROC_REF(drop_cig_from_mouth))
+	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP), PROC_REF(drop_cig_from_mouth))
 
 /obj/item/clothing/mask/cigarette/proc/drop_cig_from_mouth(mob/living/source)
 	SIGNAL_HANDLER
@@ -369,7 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)
-	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
 	.=..()
 
 /obj/item/clothing/mask/cigarette/get_temperature()

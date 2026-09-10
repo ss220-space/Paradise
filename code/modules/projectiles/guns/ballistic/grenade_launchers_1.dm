@@ -17,7 +17,7 @@
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
 
-/obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
+/obj/item/gun/projectile/bombarda/get_ru_names()
 	return alist(
 		NOMINATIVE = "кустарный гранатомет",
 		GENITIVE = "кустарного гранатомета",
@@ -26,6 +26,27 @@
 		INSTRUMENTAL = "кустарным гранатометом",
 		PREPOSITIONAL = "кустарном гранатомете",
 	)
+
+/obj/item/gun/projectile/bombarda/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "[opened ? "За" : "От"]крыть"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!magazine)
+		return
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else
+		return
+
+	if(!magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
 	if(isammocasing(item))
