@@ -201,9 +201,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 	if(dead_fighter in fighters)
 		fighters -= dead_fighter
 
-	if(dead_fighter.ckey)
-		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
-
 	if(length(fighters) <= 1 && !is_cleansing_going)
 		for(var/datum/timedevent/timer in _active_timers)
 			qdel(timer)
@@ -212,6 +209,9 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 		//Also avoiding all issues with death handling of thunderdome participants by letting fighters' components do their stuff.
 		if(last_poller)
 			last_poller.visible_message(span_danger("Thunderdome has ended with death of all participants! Cleansing in 5 seconds..."))
+
+	if(dead_fighter.ckey)
+		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
 	return
 
 /**
