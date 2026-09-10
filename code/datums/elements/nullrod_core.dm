@@ -10,7 +10,7 @@
 	if(!istype(target))
 		return ELEMENT_INCOMPATIBLE
 	target.AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
-/*
+/* At the time of the port, these components are not present in the build.
 	target.AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 		success_forcesay = rune_remove_line, \

@@ -44,6 +44,41 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 		return
 	AddComponent(/datum/component/subtype_picker, GLOB.nullrod_variants, CALLBACK(src, PROC_REF(on_holy_weapon_picked)))
 
+/obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	log_world("NULLROD ATTACK CALLED")
+	. = ..()
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && user.mind.isholy)
+		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
+		switch(vamp.nullification)
+			if(OLD_NULLIFICATION)
+				vamp.base_nullification()
+
+			if(NEW_NULLIFICATION)
+				vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+		return .
+
+/obj/item/nullrod/pickup(mob/living/user)
+	if(sanctify_force && !user.mind?.isholy)
+		user.take_overall_damage(force, sanctify_force)
+		user.Weaken(10 SECONDS)
+		user.drop_item_ground(src, force = TRUE)
+		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
+							span_warning("[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!"))
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
+		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
+		return FALSE
+	return ..()
+
+/obj/item/nullrod/examine(mob/living/user)
+	. = ..()
+	if(sanctify_force)
+		. += span_notice("It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'")
+
 /// Callback for subtype picker, invoked when the chaplain picks a new nullrod
 /obj/item/nullrod/proc/on_holy_weapon_picked(obj/item/nullrod/new_holy_weapon, mob/living/picker)
 	if(!station_holy_item)
