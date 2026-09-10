@@ -45,7 +45,6 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	AddComponent(/datum/component/subtype_picker, GLOB.nullrod_variants, CALLBACK(src, PROC_REF(on_holy_weapon_picked)))
 
 /obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	log_world("NULLROD ATTACK CALLED")
 	. = ..()
 
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
