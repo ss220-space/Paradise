@@ -31,7 +31,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
 
-// MARK: PML-8 rocket launcher
+// MARK: PML-8
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-8"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
@@ -139,7 +139,7 @@
 		sleep(2 SECONDS)
 		return OXYLOSS
 
-// MARK: RPG-232 rocket launcher
+// MARK: RPG-232
 /obj/item/gun/projectile/revolver/rocketlauncher/rpg232
 	name = "RPG-232"
 	desc = "Разработанный в ТСФ многоразовый гранатомет, так и не поступивший на вооружение Федерации. Модель стала популярна среди тяжеловооруженных отрядов ОЗА \"Нанотрейзен\"."

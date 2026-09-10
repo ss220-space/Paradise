@@ -37,6 +37,24 @@
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		can_spin_cylinder = FALSE
 
+/obj/item/gun/projectile/revolver/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else if(isspeedloader(held_item))
+		var/obj/item/ammo_box/speedloader/speedloader = held_item
+		incoming_ammo = speedloader.get_round(TRUE)
+	else
+		return
+
+	if(!incoming_ammo || !magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+	return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/gun/projectile/revolver/set_gun_user(mob/user)
 	verbs -= /obj/item/gun/projectile/revolver/proc/spin
 	. = ..()
