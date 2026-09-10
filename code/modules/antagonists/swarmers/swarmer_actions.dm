@@ -254,7 +254,7 @@
 	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 	check_for_limit_per_area = TRUE
-	limit_per_area = 5
+	limit_per_area = 4
 
 /datum/action/cooldown/swarmer/build/sniper_turret
 	name = "Создать снайперскую турель"
@@ -264,7 +264,7 @@
 	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 	check_for_limit_per_area = TRUE
-	limit_per_area = 3
+	limit_per_area = 2
 
 /datum/action/cooldown/swarmer/build/acp_turret
 	name = "Создать установку ACP"
