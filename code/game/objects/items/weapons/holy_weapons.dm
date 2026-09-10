@@ -90,6 +90,15 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return (BRUTELOSS|FIRELOSS)
 
+/obj/item/nullrod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
+		return
+
+	if(isliving(target))
+		var/mob/living/L = target
+		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
 /obj/item/nullrod/non_station
 	station_holy_item = FALSE
