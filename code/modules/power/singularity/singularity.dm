@@ -53,9 +53,14 @@
 
 	/// Visual warp distortion overlay attached as vis_contents once the singularity reaches stage two.
 	var/obj/effect/warp_effect/supermatter/warp
+	/// Looping ambient sound of the singularity.
+	var/datum/looping_sound/singularity/soundloop
 
 /obj/singularity/Initialize(mapload, starting_energy)
 	. = ..()
+
+	soundloop = new(src, TRUE)
+	soundloop.set_volume(5 * current_size + 5)
 
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, INNATE_TRAIT)
 
@@ -94,6 +99,7 @@
 	vis_contents -= warp
 	QDEL_NULL(warp) // don't want to leave it hanging
 	QDEL_NULL(proximity_monitor)
+	QDEL_NULL(soundloop)
 	return ..()
 
 /obj/singularity/attack_tk(mob/user)
@@ -300,6 +306,8 @@
 			dissipate = FALSE
 
 	update_icon(UPDATE_ICON_STATE)
+	soundloop.set_volume(5 * current_size + 5)
+
 	var/datum/component/singularity/resolved_singularity = singularity_component.resolve()
 	if(!isnull(resolved_singularity))
 		resolved_singularity.consume_range = new_consume_range
