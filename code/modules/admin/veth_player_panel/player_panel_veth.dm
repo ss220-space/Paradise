@@ -67,7 +67,7 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, target)
 			return
 		if("createCommandReport")
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_create_centcom_report)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/create_command_report)
 			return
 		if("logs")
 			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))

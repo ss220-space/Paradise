@@ -14,10 +14,15 @@
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
+
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 11, ATTACHMENT_OFFSET_Y = -5),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/rail/scope/x8)
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -33,6 +38,14 @@
 	charge_sections = 3
 	modifystate = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+	)
+	starting_attachment_types = list(
+		/obj/item/gun_module/rail/scope/x8,
+		/obj/item/gun_module/under/hand/angle,
+	)
 
 // MARK: Dominator
 /obj/item/gun/energy/dominator

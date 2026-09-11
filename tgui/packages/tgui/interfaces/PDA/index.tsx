@@ -14,7 +14,7 @@ const PDA_UI = {
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
-  pda_bank: 'raingor_company',
+  'pda_bank': 'brg',
 };
 
 const THEME_NAMES: Record<string, string> = {
@@ -53,12 +53,10 @@ const GetApp = (name) => {
     }
     throw err;
   }
-
   const Component = appModule[name];
   if (!Component) {
     return RoutingErrorWindow({ type: 'missingExport', name: name });
   }
-
   return Component;
 };
 
@@ -106,27 +104,33 @@ export const PDA = () => {
       height={PDA_UI.window.height}
       theme={theme}
     >
-      <Window.Content p={0} height="100%">
+      <Window.Content p={0}>
         <Box
-          height="100%"
           style={{
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr minmax(4rem, 9%)',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
             overflow: 'hidden',
           }}
         >
-          <PDAHeader />
+          <Box>
+            <PDAHeader />
+          </Box>
+
           <Box
-            p={0.75}
-            minHeight={0}
             style={{
+              flex: 1,
               overflowY: 'auto',
+              minHeight: 0,
             }}
+            p={0.75}
           >
             <AppComponent />
           </Box>
 
-          <PDAFooter />
+          <Box>
+            <PDAFooter />
+          </Box>
         </Box>
       </Window.Content>
     </Window>

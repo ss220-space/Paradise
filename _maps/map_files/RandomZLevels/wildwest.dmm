@@ -171,11 +171,6 @@
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/wwvault)
-"aL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "aM" = (
 /turf/simulated/mineral/random,
 /area/space/nearstation)
@@ -184,17 +179,6 @@
 /area/awaymission/wwmines)
 "aO" = (
 /turf/simulated/floor/engine/cult,
-/area/space/nearstation)
-"aP" = (
-/obj/effect/forcefield{
-	desc = "You can't get in. Heh.";
-	icon = 'icons/mob/actions/actions.dmi';
-	icon_state = "cultforcewall";
-	layer = 1;
-	lifetime = 0;
-	name = "Blocker"
-	},
-/turf/space,
 /area/space/nearstation)
 "aQ" = (
 /turf/simulated/wall/indestructible/mineral_rock,
@@ -233,6 +217,14 @@
 /obj/machinery/door/airlock/sandstone,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
+"bc" = (
+/obj/effect/decal/cleanable/blood/gibs/body{
+	icon_state = "gibdown1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
 "bd" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
 	icon_state = "gibup1"
@@ -362,14 +354,6 @@
 /area/awaymission/wwmines)
 "bH" = (
 /obj/structure/closet/cabinet,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"bI" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bJ" = (
@@ -621,11 +605,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
-"cp" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "cq" = (
 /obj/effect/mob_spawn/human/cook,
 /turf/simulated/floor/plasteel{
@@ -1193,13 +1172,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
-"ec" = (
-/obj/structure/toilet/directional/north,
-/mob/living/simple_animal/hostile/creature,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/awaymission/wwgov)
 "ed" = (
 /obj/machinery/door/airlock/sandstone,
 /turf/simulated/floor/plating/ironsand,
@@ -1327,13 +1299,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"ey" = (
-/obj/machinery/shower/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/awaymission/wwmines)
 "ez" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
@@ -1350,18 +1315,17 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/wwmines)
-"eD" = (
-/obj/machinery/shower/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/awaymission/wwmines)
 "eE" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
+	},
+/area/awaymission/wwmines)
+"eF" = (
+/obj/effect/mob_spawn/human/doctor,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
 "eG" = (
@@ -1505,15 +1469,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
-"fa" = (
-/obj/structure/toilet/directional/south,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"fb" = (
-/obj/structure/toilet/directional/south,
-/obj/item/ammo_box/speedloader/a357,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "fd" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -1542,12 +1497,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
-	},
-/area/awaymission/wwmines)
-"fh" = (
-/obj/effect/mob_spawn/human/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
 "fi" = (
@@ -1615,12 +1564,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"fr" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "fs" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/bed,
@@ -1630,12 +1573,6 @@
 "ft" = (
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"fu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/wwrefine)
 "fv" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
 	icon_state = "gibdown1"
@@ -1665,44 +1602,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"fA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/wwrefine)
 "fB" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"fC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/wwrefine)
 "fD" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"fE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/wwrefine)
-"fF" = (
-/obj/effect/landmark{
-	name = "wildwest_syndipod"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/wwrefine)
 "fG" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -1775,20 +1685,6 @@
 /mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"fQ" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
-"fR" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "fS" = (
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/grass,
@@ -1802,12 +1698,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"fU" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "fV" = (
 /obj/effect/decal/cleanable/blood/gibs/up,
 /turf/simulated/floor/wood,
@@ -1816,30 +1706,9 @@
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"fX" = (
-/obj/machinery/vending/snack,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "fY" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"fZ" = (
-/obj/machinery/vending/cola,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
-"ga" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
 /area/awaymission/wwmines)
 "gb" = (
 /obj/structure/window/reinforced,
@@ -1854,27 +1723,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"gc" = (
-/obj/structure/sink/directional/north,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"gd" = (
-/obj/effect/decal/cleanable/blood/gibs/body{
-	icon_state = "gibdown1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
-"ge" = (
-/obj/item/stack/medical/bruise_pack,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "gf" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -1888,20 +1736,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"gg" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
-"gh" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "gi" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/ironsand,
@@ -1917,22 +1751,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"gm" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
-"gn" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "go" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1967,14 +1785,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"gu" = (
-/obj/effect/decal/cleanable/blood/gibs/body{
-	icon_state = "gibup1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
 /area/awaymission/wwmines)
 "gv" = (
 /obj/structure/window/reinforced{
@@ -2028,12 +1838,6 @@
 /obj/item/gun/projectile/shotgun,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"gD" = (
-/obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "gE" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -2074,14 +1878,6 @@
 /obj/item/gun/projectile/revolver/russian,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"gL" = (
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/awaymission/wwmines)
 "gM" = (
 /obj/machinery/photocopier,
 /obj/machinery/light/small{
@@ -2105,15 +1901,6 @@
 	icon_state = "gibdown1"
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"gR" = (
-/obj/effect/decal/cleanable/blood/gibs/body{
-	icon_state = "gibup1"
-	},
-/obj/structure/chair/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
 /area/awaymission/wwmines)
 "gU" = (
 /obj/item/hatchet,
@@ -2157,11 +1944,23 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
+"hq" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
 "hr" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/wwrefine)
+"ht" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
 "hu" = (
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/shuttle{
@@ -2204,19 +2003,161 @@
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver,
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
+"hR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/wwrefine)
+"ih" = (
+/obj/machinery/shower/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/wwmines)
 "iz" = (
 /obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
+"jt" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"lb" = (
+/obj/effect/landmark{
+	name = "wildwest_syndipod"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/wwrefine)
+"lp" = (
+/obj/effect/decal/cleanable/blood/gibs/body{
+	icon_state = "gibup1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
 "ne" = (
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
+/area/awaymission/wwmines)
+"sI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"wD" = (
+/obj/effect/forcefield{
+	desc = "You can't get in. Heh.";
+	icon = 'icons/mob/actions/actions.dmi';
+	icon_state = "cultforcewall";
+	layer = 1;
+	lifetime = 0;
+	name = "Blocker"
+	},
+/turf/space,
+/area/space/nearstation)
+"Am" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"AE" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"AY" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"Bs" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"BO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/wwrefine)
+"BQ" = (
+/obj/machinery/shower/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/awaymission/wwmines)
+"Dr" = (
+/obj/structure/sink/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "DI" = (
 /obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"GR" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"Hj" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"HU" = (
+/obj/effect/decal/cleanable/blood/gibs/body{
+	icon_state = "gibup1"
+	},
+/obj/structure/chair/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"Ig" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/wwrefine)
+"Lu" = (
+/obj/item/stack/medical/bruise_pack,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"Me" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/wwrefine)
+"Nk" = (
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "Ps" = (
@@ -2227,6 +2168,65 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
+/area/awaymission/wwmines)
+"SB" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"Up" = (
+/obj/machinery/vending/cola,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"WL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"WM" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"WN" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"Zl" = (
+/obj/structure/toilet/directional/north,
+/mob/living/simple_animal/hostile/creature,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/wwgov)
+"Zx" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/awaymission/wwmines)
+"ZY" = (
+/obj/structure/toilet/directional/south,
+/obj/item/ammo_box/speedloader/a357,
+/turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 
 (1,1,1) = {"
@@ -2406,7 +2406,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -2663,7 +2663,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -2920,7 +2920,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -3177,7 +3177,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -3434,7 +3434,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -3691,7 +3691,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -3948,7 +3948,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -4205,7 +4205,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -4462,7 +4462,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -4719,7 +4719,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -4976,7 +4976,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -5233,7 +5233,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -5490,7 +5490,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -5747,7 +5747,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -6004,7 +6004,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -6261,7 +6261,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -6518,7 +6518,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -6775,7 +6775,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -7032,7 +7032,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -7289,7 +7289,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -7546,7 +7546,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -7586,7 +7586,7 @@ bM
 cm
 cm
 bM
-ec
+Zl
 dY
 cm
 ea
@@ -7803,7 +7803,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -8060,7 +8060,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -8317,7 +8317,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -8574,7 +8574,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -8831,7 +8831,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -9088,7 +9088,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -9345,7 +9345,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -9602,7 +9602,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -9859,7 +9859,7 @@ aa
 aa
 aa
 aa
-aP
+wD
 aa
 aa
 aa
@@ -16857,8 +16857,8 @@ ek
 ek
 ek
 ek
-fu
-fC
+Me
+Ig
 ek
 ew
 aa
@@ -17114,8 +17114,8 @@ ek
 ek
 ek
 gw
-fA
-fE
+hR
+BO
 ek
 eQ
 eS
@@ -17628,8 +17628,8 @@ ek
 ek
 ek
 ek
-fu
-fF
+Me
+lb
 ek
 fH
 eS
@@ -17885,8 +17885,8 @@ ek
 ek
 ek
 gw
-fA
-fE
+hR
+BO
 ek
 fK
 aa
@@ -18399,8 +18399,8 @@ ek
 ek
 ek
 ek
-fu
-fC
+Me
+Ig
 ek
 fG
 aa
@@ -18656,8 +18656,8 @@ ek
 ek
 ek
 gw
-fA
-fE
+hR
+BO
 ek
 ew
 aa
@@ -19170,8 +19170,8 @@ ek
 ek
 ek
 ek
-fu
-fF
+Me
+lb
 ek
 ej
 aG
@@ -19427,8 +19427,8 @@ ek
 ek
 ek
 gw
-fA
-fE
+hR
+BO
 ek
 ej
 aG
@@ -23991,7 +23991,7 @@ ab
 ab
 ab
 ab
-aP
+wD
 aQ
 aQ
 aQ
@@ -26093,16 +26093,16 @@ bh
 aX
 eX
 bA
-ey
-ey
-ey
-ey
+ih
+ih
+ih
+ih
 eX
 bh
 bh
 do
 bh
-fa
+Nk
 eX
 aX
 aX
@@ -26616,7 +26616,7 @@ bh
 eH
 bh
 bh
-fa
+Nk
 eX
 aX
 aX
@@ -27130,7 +27130,7 @@ bh
 eX
 bh
 da
-fa
+Nk
 eX
 aX
 eX
@@ -27378,14 +27378,14 @@ bh
 aX
 eX
 bA
-eD
-eD
-eD
-eD
+BQ
+BQ
+BQ
+BQ
 eX
 bh
 eX
-gc
+Dr
 bi
 eX
 eX
@@ -27642,9 +27642,9 @@ eX
 eX
 bh
 eX
-gc
+Dr
 bh
-fa
+Nk
 eX
 aX
 eX
@@ -27899,7 +27899,7 @@ bh
 cf
 bh
 eX
-gc
+Dr
 bh
 eX
 eX
@@ -28129,7 +28129,7 @@ bh
 bh
 aX
 eX
-bI
+WN
 bh
 bh
 eX
@@ -28156,7 +28156,7 @@ eX
 eX
 bh
 eX
-gc
+Dr
 bh
 eX
 eX
@@ -28415,7 +28415,7 @@ bh
 eX
 bh
 bh
-fa
+Nk
 eX
 aX
 eX
@@ -28929,7 +28929,7 @@ bh
 bh
 bh
 bh
-fa
+Nk
 eX
 aX
 eX
@@ -29443,7 +29443,7 @@ bh
 bh
 cY
 bh
-fb
+ZY
 eX
 aX
 eX
@@ -30980,7 +30980,7 @@ bh
 el
 bh
 bh
-fr
+hq
 bh
 el
 bh
@@ -34556,7 +34556,7 @@ aX
 eX
 bB
 bh
-cp
+AY
 ci
 bh
 bh
@@ -37403,7 +37403,7 @@ bh
 bD
 bD
 em
-fh
+eF
 bD
 bD
 dp
@@ -40234,11 +40234,11 @@ bh
 bh
 bh
 eX
-aL
-aL
-aL
-gm
-aL
+sI
+sI
+sI
+SB
+sI
 dL
 bh
 eX
@@ -40491,11 +40491,11 @@ bh
 es
 dD
 eX
-fQ
-aL
-aL
-aL
-aL
+Zx
+sI
+sI
+sI
+sI
 dL
 bh
 eX
@@ -40748,11 +40748,11 @@ bh
 es
 hp
 eX
-fU
-aL
-gg
-gn
-aL
+jt
+sI
+ht
+AE
+sI
 dL
 bh
 eX
@@ -41005,11 +41005,11 @@ eo
 es
 bB
 eX
-fR
-gd
-aL
-aL
-gu
+WM
+bc
+sI
+sI
+lp
 eX
 bh
 bh
@@ -41262,11 +41262,11 @@ bh
 es
 dD
 eX
-fX
-fh
-aL
-gm
-aL
+Am
+eF
+sI
+SB
+sI
 dC
 bh
 bh
@@ -41519,11 +41519,11 @@ bh
 bh
 bh
 eX
-fX
-ge
-ge
-aL
-aL
+Am
+Lu
+Lu
+sI
+sI
 eX
 dL
 dL
@@ -41776,19 +41776,19 @@ et
 et
 gP
 eX
-ga
-aL
-aL
-gn
-aL
-aL
-aL
-aL
-aL
-aL
-aL
-aL
-aL
+Hj
+sI
+sI
+AE
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
 eX
 aR
 aG
@@ -42033,19 +42033,19 @@ bh
 bh
 bh
 eX
-fZ
-aL
-aL
-aL
-gu
-gD
-aL
-gL
-aL
-gR
-aL
-gL
-aL
+Up
+sI
+sI
+sI
+lp
+Bs
+sI
+GR
+sI
+HU
+sI
+GR
+sI
 eX
 aR
 aG
@@ -42290,19 +42290,19 @@ bh
 bh
 bh
 eX
-aL
-aL
-gh
-aL
-aL
-aL
-gh
-aL
-aL
-aL
-gh
-aL
-aL
+sI
+sI
+WL
+sI
+sI
+sI
+WL
+sI
+sI
+sI
+WL
+sI
+sI
 eX
 aR
 aG

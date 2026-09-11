@@ -30,7 +30,7 @@
 		to_chat(user, span_warning("You can't speak!"))
 		return
 
-	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
+	if(HAS_TRAIT(user, TRAIT_MUTE) ||HAS_MIND_TRAIT(user, TRAIT_MIMING)) //Under vow of silence/mute?
 		user.visible_message(
 			span_notice("[user] appears to whisper to themselves."),
 			span_notice("You begin to whisper to yourself.")

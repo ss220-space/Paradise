@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Искажения от различных объектов отображаются корректно (PR #9773)"

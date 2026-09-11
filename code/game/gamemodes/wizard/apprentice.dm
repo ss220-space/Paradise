@@ -185,10 +185,11 @@
 	var/id = "no_name"
 	var/desc = "Описание заклинаний"
 	var/mob/living/carbon/human/owner
+	var/list/datum/action/cooldown/spell/spells = list()
 
 /datum/magick_school/proc/kit()
-	return 0
-
+	for(var/spell_to_add in spells)
+		owner.mind.AddSpell(new spell_to_add)
 
 // MARK 2: CONTENT & DATA
 
@@ -221,12 +222,15 @@
 	name = "Школа Исцеления"
 	id = "healer"
 	desc = "Школа, практикующие заклинания для выживания и исцеления травм, с созданием защитного барьера для самозащиты."
-/datum/magick_school/healer/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
-	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), ITEM_SLOT_HAND_RIGHT)
+	spells = list(
+		/datum/action/cooldown/spell/charge,
+		/datum/action/cooldown/spell/summon_item,
+		/datum/action/cooldown/spell/forcewall,
+	)
 
+/datum/magick_school/healer/kit()
+	. = ..()
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/healmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/healmage(owner), ITEM_SLOT_HEAD)
 
@@ -235,11 +239,14 @@
 	name = "Школа Пространства"
 	id = "motion"
 	desc = "Школа, практикующая разнообразные техники перемещения. Эфирный прыжок, телепортация и блинк заставят возненавидеть назойливого волшебника!"
-/datum/magick_school/motion/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
+	spells = list(
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/teleport/area_teleport/wizard,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+	)
 
+/datum/magick_school/motion/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/space/suit/psyamp, ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/helmet/space/head/psyamp, ITEM_SLOT_HEAD)
 
@@ -269,10 +276,14 @@
 	name = "Школа Диверсии"
 	id = "sabotage"
 	desc = "Школа, практикующаяся в нанесении ущерба грязным технологиям магглов. Магглы не любят, когда технологии восстают против них самих."
+	spells = list(
+		/datum/action/cooldown/spell/emplosion/disable_tech,
+		/datum/action/cooldown/spell/charge,
+		/datum/action/cooldown/spell/summon_item,
+	)
+
 /datum/magick_school/sabotage/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/emplosion/disable_tech(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/storage/blacktrenchcoat/suit/saboteur, ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, ITEM_SLOT_HEAD)
@@ -304,11 +315,15 @@
 	name = "Школа Защиты"
 	id = "defense"
 	desc = "Школа, практикующая заклинания защиты, не допускающая допуск неприятеля и заставляющая его держать дистанцию!"
+	spells = list(
+		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/forcewall/greater,
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/aoe/sacred_flame,
+	)
+
 /datum/magick_school/defense/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
@@ -318,10 +333,14 @@
 	name = "Школа Огня"
 	id = "fire"
 	desc = "Классическая школа огня, прислужники которой искусно владеют стихией огня!"
+	spells = list(
+		/datum/action/cooldown/spell/smoke,
+		/datum/action/cooldown/spell/pointed/projectile/fireball,
+		/datum/action/cooldown/spell/aoe/sacred_flame,
+	)
+
 /datum/magick_school/fire/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/smoke(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, ITEM_SLOT_CLOTH_OUTER)
 
@@ -341,9 +360,12 @@
 	name = "Школа Ваяния"
 	id = "sculpt"
 	desc = "Школа, практикующая оживление статики, и каменение динамики."
+	spells = list(
+		/datum/action/cooldown/spell/touch/flesh_to_stone,
+	)
 
 /datum/magick_school/sculpt/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/flesh_to_stone(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/artmage(owner), ITEM_SLOT_CLOTH_OUTER)
@@ -354,9 +376,12 @@
 	name = "Школа Хранителей"
 	id = "stand"
 	desc = "Школа, практикующее владение собственным стендом-защитником с защитной стеной."
+	spells = list(
+		/datum/action/cooldown/spell/forcewall/greater,
+	)
 
 /datum/magick_school/stand/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/guardiancreator(owner), ITEM_SLOT_HAND_RIGHT)
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
@@ -367,10 +392,13 @@
 	name = "Школа Неустойчивости"
 	id = "instability"
 	desc = "Школа, не позволяющая магглам стоять в полный рост перед волшебниками. Ей даже интересовалась федерация Клоунов."
+	spells = list(
+		/datum/action/cooldown/spell/summon_item,
+		/datum/action/cooldown/spell/aoe/repulse,
+	)
 
 /datum/magick_school/instability/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/bikehorn, ITEM_SLOT_BELT)
 
@@ -379,9 +407,13 @@
 	name = "Школа Крови"
 	id = "blood"
 	desc = "Запретная школа, вызывающая опасения у архимагов, но допущенная к изучению. Юный последователь крови получает собственную робу, цепь и камни душ."
+	spells = list(
+		/datum/action/cooldown/spell/conjure/construct,
+	)
+
 /datum/magick_school/blood/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), ITEM_SLOT_BELT)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 
 	var/obj/item/melee/chainofcommand/chain = new
 	chain.name = "Жертвенная Цепь"
@@ -405,8 +437,12 @@
 	name = "Школа Некромантии"
 	id = "necro"
 	desc = "Запретная школа, заставляющая мертвых служить некроманту, заключившему контракт души."
+	spells = list(
+		/datum/action/cooldown/spell/lichdom,
+	)
+
 /datum/magick_school/necromantic/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/lichdom(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_LEFT)
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_RIGHT)
 
@@ -418,8 +454,12 @@
 	name = "Школа Прозрения"
 	id = "vision"
 	desc = "Древняя школа, практикующее безмерное видение с лишением зрения недостойных. Послужники носят уникальные робы."
+	spells = list(
+		/datum/action/cooldown/spell/aoe/blind,
+	)
+
 /datum/magick_school/vision/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
+	. = ..()
 	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
 	ADD_TRAIT(owner, TRAIT_XRAY_VISION, MAGIC_TRAIT)
 	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
@@ -434,10 +474,14 @@
 	name = "Школа Сингулярности"
 	id = "singulo"
 	desc = "Древняя школа, практикующая древние познания владения сингулярности."
+	spells = list(
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/summon_item,
+	)
+
 /datum/magick_school/singulo/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), ITEM_SLOT_HAND_RIGHT)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 
 	var/obj/item/clothing/suit/wizrobe/magusred/suit = new
 	suit.magical = TRUE
@@ -460,10 +504,13 @@
 	name = "Школа Подмены"
 	id = "replace"
 	desc = "Старая школа, практикующая заклинания для чтения без мантии с подменам разума и открытием закрытых дверей."
-/datum/magick_school/replace/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
+	spells = list(
+		/datum/action/cooldown/spell/aoe/knock,
+		/datum/action/cooldown/spell/pointed/mindswap,
+	)
 
+/datum/magick_school/replace/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), ITEM_SLOT_HEAD)
 
@@ -472,11 +519,14 @@
 	name = "Школа Разрушения"
 	id = "destruction"
 	desc = "Старая школа, практикующая заклинания на нанесении ущерба."
-/datum/magick_school/destruction/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning(null))
+	spells = list(
+		/datum/action/cooldown/spell/aoe/magic_missile,
+		/datum/action/cooldown/spell/pointed/projectile/fireball,
+		/datum/action/cooldown/spell/charged/beam/tesla,
+	)
 
+/datum/magick_school/destruction/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), ITEM_SLOT_HEAD)
 
@@ -485,14 +535,17 @@
 	name = "Школа Лазиса"
 	id = "lavaland"
 	desc = "Школа, использующая традиции магии пеплоходцев."
+	spells = list(
+		/datum/action/cooldown/spell/conjure/legion_skulls,
+		/datum/action/cooldown/spell/pointed/goliath_tentacles,
+		/datum/action/cooldown/spell/pointed/goliath_dash,
+		/datum/action/cooldown/spell/pointed/projectile/watchers_look,
+		/datum/action/cooldown/spell/touch/healtouch,
+	)
+
 /datum/magick_school/lavaland/kit()
 	owner.faction += "mining"
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_tentacles)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_dash)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/watchers_look)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch/advanced)
-
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), ITEM_SLOT_CLOTH_INNER)
 	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), ITEM_SLOT_GLOVES)
 	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), ITEM_SLOT_CLOTH_OUTER)

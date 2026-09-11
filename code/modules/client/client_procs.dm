@@ -3,10 +3,10 @@
 	////////////
 
 #define UPLOAD_LIMIT 10485760 //Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION 513 // Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION 516 // Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION 514 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD 1566 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION 516 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD 1682 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -456,13 +456,13 @@
 		return
 
 	tgui_panel.window.send_message("donations/load_data", list(
-		"month_donations" = SSdonations.month_donations,
-		"target_donation" = SSdonations.target_donation,
-		"tts_target_donation" = SSdonations.tts_target_donation,
-		"donations_text" = SSdonations.donations_text,
-		"boosty_url" = SSdonations.boosty_url,
-		"kofi_url" = SSdonations.kofi_url,
-		"discord_url"= SSdonations.discord_url,
+		"monthDonations" = SSdonations.month_donations,
+		"targetDonation" = SSdonations.target_donation,
+		"ttsTargetDonation" = SSdonations.tts_target_donation,
+		"donationsText" = SSdonations.donations_text,
+		"boostyUrl" = SSdonations.boosty_url,
+		"kofiUrl" = SSdonations.kofi_url,
+		"discordUrl"= SSdonations.discord_url,
 	))
 	check_donator_achivements()
 

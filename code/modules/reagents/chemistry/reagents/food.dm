@@ -328,10 +328,10 @@
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
 			if(victim.head)
-				if(victim.head.flags_cover & MASKCOVERSEYES)
+				if(victim.head.flags_cover & HEADCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags_cover & MASKCOVERSMOUTH)
+				if(victim.head.flags_cover & HEADCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
 				if(isclothing(victim.head))

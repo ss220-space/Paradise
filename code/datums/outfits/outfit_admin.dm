@@ -531,7 +531,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/card/emag = 1,
@@ -1277,8 +1277,8 @@
 	V.bloodtotal = 9999
 	H.mind.offstation_role = TRUE
 	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/bats)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/hellhound)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.set_gene_stability(100)
 

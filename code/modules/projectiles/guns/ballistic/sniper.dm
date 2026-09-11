@@ -1,9 +1,9 @@
-// TODO: Merge it with bolt_action_rifles.dm
-
-// MARK: Generic
+// MARK: Base Sniper Rifle
 /obj/item/gun/projectile/automatic/sniper_rifle
+	abstract_type = /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
-	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
+	desc = "Крупнокалиберная снайперская винтовка."
+	gender = FEMALE
 	icon_state = "sniper"
 	item_state = "sniper"
 	weapon_weight = WEAPON_HEAVY
@@ -39,28 +39,52 @@
 	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 0.01)
 
 
-// MARK: Syndicate SR
+// MARK: SGM-HSR15
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
+	name = "SGM-HSR15 sniper rifle"
+	desc = "Тяжёлая снайперская винтовка калибра .50 производства \"Shellguard Munitions\". Высокая точность, низкая скорострельность \
+			и огромная убойная сила. Предназначена для поражения целей на больших дистанциях. Совместима с широким спектром боеприпасов."
 	origin_tech = "combat=7;syndicate=6"
 
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/get_ru_names()
+	return alist(
+		NOMINATIVE = "снайперская винтовка SGM-HSR15",
+		GENITIVE = "снайперской винтовки SGM-HSR15",
+		DATIVE = "снайперской винтовке SGM-HSR15",
+		ACCUSATIVE = "снайперскую винтовку SGM-HSR15",
+		INSTRUMENTAL = "снайперской винтовкой SGM-HSR15",
+		PREPOSITIONAL = "снайперской винтовке SGM-HSR15",
+	)
+
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "Крупнокалиберная снайперская винтовка, разработанная \"Shellguard Munitions\" для задач, требующих максимальной поражающей способности на больших дистанциях.<br>\
+		<br>\
+		Экстремальная отдача и значительная пауза между выстрелами обуславливается использованием тяжёлого боеприпаса. \
+		Камера, спроектированная с увеличенным допуском, позволяет использовать \
+		широкий спектр патронов .50: от классических бронебойных и взрывных до узкоспециализированных усыпляющих и кровопускающих.<br>\
+		<br>\
+		SGM-HSR15 поставляется ограниченными партиями для ряда ЧВК, силовых структур и индивидуальных заказчиков. По сообщениям некоторых источников, \
+		элитные оперативники \"Синдиката\" располагают большим количеством винтовок данной модели, \
+		однако \"Shellguard Munitions\" отвергает любые возможные связи с данной организацией."\
+	)
+
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
-	name = "syndicate penetrator sniper rifle"
 	icon_state = "sniperpenetrator"
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
 	. = ..()
-	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
 
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
-// MARK: Compact Syndicate SR
-/obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
-	name = "compact sniper rifle"
-	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+// MARK: "Hornisse"
+/obj/item/gun/projectile/automatic/sniper_rifle/compact
+	name = "\"Hornisse\" sniper rifle"
+	desc = "Буллпап-конфигурация снайперской винтовки SGM-HSR15. Использует патроны калибра .50L. Автоматика, \
+			оптимизированная под патрон уменьшенной мощности и перенос магазина за пистолетную рукоять делают \
+			эту винтовку пригодной для боя на коротких дистанциях."
 	icon_state = "snipercompact"
 	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
@@ -72,10 +96,35 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -4),
 	)
 
+/obj/item/gun/projectile/automatic/sniper_rifle/compact/get_ru_names()
+	return alist(
+		NOMINATIVE = "снайперская винтовка \"Шершень\"",
+		GENITIVE = "снайперской винтовки \"Шершень\"",
+		DATIVE = "снайперской винтовке \"Шершень\"",
+		ACCUSATIVE = "снайперскую винтовку \"Шершень\"",
+		INSTRUMENTAL = "снайперской винтовкой \"Шершень\"",
+		PREPOSITIONAL = "снайперской винтовке \"Шершень\"",
+	)
+
+/obj/item/gun/projectile/automatic/sniper_rifle/compact/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "\"Шершень\" представляет собой глубокую переработку снайперской платформы SGM-HSR15 производства \"Shellguard Munitions\", \
+		выполненную инженерами \"Синдиката\" для нужд оперативных групп. Цель — сохранить поражающую способность базовой модели при радикальном сокращении габаритов.<br>\
+		<br>\
+		Решением стала конвертация компоновки в буллпап: магазин и затворная группа перенесены за пистолетную рукоять, \
+		что позволило сохранить длину ствола при значительно меньшей общей длине оружия. \
+		Питание осуществляется патроном .50L — ослабленной версией .50 с меньшим пороховым зарядом. Такая конструкция позволила значительно снизить отдачу и повысить \
+		скорострельность, лишь незначительно потеряв в убойной силе и пробивной способности. Для повышения эргономики и габаритов ствол был укорочен, \
+		а приклад заменён на облегчённую версию.<br>\
+		<br>\
+		Данная модель не была замечена на открытых рынках или в использовании представителями какой-либо организации. \
+		По информации из разрозненных источников, \"Синдикат\" производит \"Шершней\" сугубо для внутреннего пользования."\
+	)
+
 // MARK: AXMC
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
-	name = "axmc sniper rifle"
-	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
+	name = "AXMC sniper rifle"
+	desc = "Тяжёлая снайперская винтовка калибра .338."
 	icon_state = "axmc"
 	item_state = "AXMC"
 	mag_type = /obj/item/ammo_box/magazine/a338
@@ -88,10 +137,10 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка axmc",
-		GENITIVE = "снайперской винтовки axmc",
-		DATIVE = "снайперской винтовке axmc",
-		ACCUSATIVE = "снайперскую винтовку axmc",
-		INSTRUMENTAL = "снайперской винтовкой axmc",
-		PREPOSITIONAL = "снайперской винтовке axmc",
+		NOMINATIVE = "снайперская винтовка AXMC",
+		GENITIVE = "снайперской винтовки AXMC",
+		DATIVE = "снайперской винтовке AXMC",
+		ACCUSATIVE = "снайперскую винтовку AXMC",
+		INSTRUMENTAL = "снайперской винтовкой AXMC",
+		PREPOSITIONAL = "снайперской винтовке AXMC",
 	)

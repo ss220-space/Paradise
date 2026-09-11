@@ -6,6 +6,7 @@ import {
   Section,
 } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { type Channel, RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
@@ -17,8 +18,8 @@ type RadioData = {
   broadcasting: boolean;
   loudspeaker: boolean;
   has_loudspeaker: boolean;
-  schannels: Channel[];
-  ichannels: Channel[];
+  schannels: Record<string, BooleanLike>;
+  ichannels: Record<string, number>;
 } & Frequency;
 
 export const Radio = (_props: unknown) => {
@@ -45,11 +46,11 @@ export const Radio = (_props: unknown) => {
     rc = RADIO_CHANNELS[i];
     colorMap[rc.name] = rc.color;
   }
-  const schannels = data.schannels.map((value, key) => ({
+  const schannels = Object.entries(data.schannels).map(([key, value]) => ({
     name: key.toString(),
     status: !!value,
   }));
-  const ichannels = data.ichannels.map((value, key) => ({
+  const ichannels = Object.entries(data.ichannels).map(([key, value]) => ({
     name: key.toString(),
     freq: value,
   }));
