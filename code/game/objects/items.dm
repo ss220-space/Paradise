@@ -980,7 +980,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
  * This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
  */
 /obj/item/proc/IsReflect(def_zone)
-	return FALSE
+	return REFLECT_NOTHING
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
