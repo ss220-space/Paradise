@@ -36,6 +36,27 @@
 		PREPOSITIONAL = "дробовике 12g",
 	)
 
+/obj/item/gun/projectile/shotgun/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src && get_ammo())
+		context[SCREENTIP_CONTEXT_LMB] = "Передёрнуть затвор"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else if(isspeedloader(held_item))
+		var/obj/item/ammo_box/speedloader/speedloader = held_item
+		incoming_ammo = speedloader.get_round(TRUE)
+	else
+		return
+
+	if(!incoming_ammo || !magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+	return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
