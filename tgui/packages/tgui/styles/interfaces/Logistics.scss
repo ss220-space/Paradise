@@ -1,0 +1,89 @@
+.Logistics__StatusGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 0.5rem 0.75rem;
+  align-items: start;
+}
+
+.Logistics__StatusCell {
+  min-width: 0;
+}
+
+.Logistics__Stock {
+  .Logistics__Header,
+  .Logistics__Line {
+    min-height: 32px;
+    padding: 0 0.5rem;
+  }
+
+  .Logistics__Header {
+    line-height: 32px;
+    background-color: rgba(0, 0, 0, 0.33);
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .Section__content {
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+.Logistics__Bottom {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1.2fr;
+  align-items: stretch;
+  gap: 0;
+  min-height: 240px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.Logistics__BottomSide,
+.Logistics__BottomCenter {
+  min-width: 0;
+  padding: 0.5rem;
+}
+
+.Logistics__BottomSide {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.Logistics__BottomCenter {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.Logistics__Column {
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.Logistics__Column--buffer {
+  align-items: stretch;
+}
+
+.Logistics__NodeIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Logistics__BufferList {
+  flex: 1;
+  min-height: 110px;
+  max-height: 140px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3rem;
+}

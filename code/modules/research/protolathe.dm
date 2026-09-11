@@ -47,6 +47,7 @@ Note: Must be placed west/left of and R&D console to function.
 	init_parts()
 	create_reagents()
 	RefreshParts()
+	AddElement(/datum/element/logistics_compatible)
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
 		base_icon_state = "syndie_protolathe"

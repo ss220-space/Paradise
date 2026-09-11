@@ -12,6 +12,7 @@ import {
 import { classes } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
@@ -46,6 +47,7 @@ type OreRedemptionData = {
   disk: Disk;
   sheets: Ore[];
   alloys: Ore[];
+  logistics_enabled: boolean;
 };
 
 type ID = {
@@ -72,10 +74,20 @@ type SectionProps = ComponentProps<typeof Section>;
 
 const IdDisk = (properties: SectionProps) => {
   const { act, data } = useBackend<OreRedemptionData>();
-  const { id, points, disk } = data;
+  const { id, points, disk, logistics_enabled } = data;
   const { ...rest } = properties;
   return (
-    <Section {...rest}>
+    <Section
+      {...rest}
+      title={
+        <Stack align="center" width="100%">
+          <Stack.Item grow>Статус</Stack.Item>
+          <Stack.Item>
+            <LogisticsButton enabled={!!logistics_enabled} />
+          </Stack.Item>
+        </Stack>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="ID-карта">
           {id ? (

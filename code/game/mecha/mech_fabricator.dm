@@ -76,6 +76,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	AddElement(/datum/element/logistics_compatible)
 	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
 
@@ -412,6 +413,7 @@
 		data["buildStart"] = null
 		data["buildEnd"] = null
 
+	data["logistics_enabled"] = logistics_board_installed()
 	return data
 
 /obj/machinery/mecha_part_fabricator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -419,6 +421,8 @@
 		return
 
 	. = TRUE
+	if(try_logistics_ui_act(action, usr))
+		return
 	switch(action)
 		if("category")
 			var/new_cat = params["cat"]

@@ -11,6 +11,7 @@
 	throw_range = 20
 	flags = CONDUCT
 	max_amount = 60
+	logistics_count_amount = TRUE
 
 /obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE

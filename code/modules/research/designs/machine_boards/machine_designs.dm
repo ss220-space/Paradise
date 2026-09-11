@@ -298,6 +298,22 @@
 	build_path = /obj/item/circuitboard/smartfridge
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
+/datum/design/smart_container
+	id = "smart_container"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/smart_container
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
+/datum/design/logistics_interface
+	id = "logistics_interface"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/logistics_interface
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
 /datum/design/monkey_recycler
 	id = "monkey_recycler"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 1)
