@@ -133,8 +133,8 @@
 
 // Do I need the definition above? Who knows!
 /obj/structure/closet/crate/hydroponics/prespawned/populate_contents()
-	new /obj/item/reagent_containers/glass/bucket(src)
-	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/reagent_containers/cup/bucket(src)
+	new /obj/item/reagent_containers/cup/bucket(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)

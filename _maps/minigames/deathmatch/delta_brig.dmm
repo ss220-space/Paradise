@@ -375,7 +375,7 @@
 "nr" = (
 /obj/structure/table,
 /obj/machinery/light,
-/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

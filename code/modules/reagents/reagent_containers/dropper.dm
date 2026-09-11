@@ -12,6 +12,7 @@
 	volume = 5
 	pass_open_check = TRUE
 	custom_price = PAYCHECK_MIN * 0.2
+	fill_icon_thresholds = list(10, 25, 50, 75, 100)
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return alist(
@@ -22,31 +23,6 @@
 		INSTRUMENTAL = "пипеткой",
 		PREPOSITIONAL = "пипетке",
 	)
-
-/obj/item/reagent_containers/dropper/update_overlays()
-	. = ..()
-	underlays.Cut()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 90)
-				filling.icon_state = "[icon_state]75"
-			if(91 to INFINITY)
-				filling.icon_state = "[icon_state]100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
-/obj/item/reagent_containers/dropper/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED

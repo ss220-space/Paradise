@@ -254,7 +254,7 @@
  * Taipan bullshit.
  */
 /mob/living/simple_animal/bot/secbot/griefsky/proc/check_for_mug(obj/item/slot_item)
-	if(istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
+	if(istype(slot_item, /obj/item/reagent_containers/cup/glass/mug/comms))
 		return TRUE
 	return FALSE
 

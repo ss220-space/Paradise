@@ -130,7 +130,7 @@
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,				// 0 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
-								/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail = 1,	// 0 TK
+								/obj/item/reagent_containers/cup/glass/drinkingglass/alliescocktail = 1,	// 0 TK
 								/obj/item/storage/box/syndie_kit/emp = 1,									// 10 TK
 								/obj/item/CQC_manual = 1),													// 50 TK
 			"Sabotage" = list("Name" = "'Sabotage' bundle",	// 195-197 TK

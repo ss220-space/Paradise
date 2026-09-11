@@ -19,7 +19,7 @@
 	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	/// Whether the machine is currently performing dialysis.
 	var/filtering = FALSE
 	var/max_chem
