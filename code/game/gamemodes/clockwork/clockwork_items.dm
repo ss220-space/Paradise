@@ -153,7 +153,7 @@
 		if(KNOCK_SPELL)
 			if(!proximity_flag) //magical key only works if you're close enough
 				return
-			if(istype(target, /obj/machinery/door))
+			if(is_door(target))
 				var/obj/machinery/door/door = target
 				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
 					return
@@ -165,7 +165,7 @@
 				deplete_spell()
 			else if(iscloset(target))
 				var/obj/structure/closet/closet = target
-				if(istype(closet, /obj/structure/closet/secure_closet))
+				if(is_secure_closet(closet))
 					var/obj/structure/closet/secure_closet/SC = closet
 					SC.locked = FALSE
 				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

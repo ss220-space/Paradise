@@ -30,11 +30,11 @@
 	if(!devil.owner)
 		return
 
-	for(var/obj/effect/proc_holder/spell/spell as anything in devil.owner.spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in devil.owner.spell_list)
 		if(!is_type_in_list(spell, rank_spells))
 			continue
 
-		devil.owner.RemoveSpell(spell)
+		qdel(spell)
 
 /datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
 	return FALSE
@@ -43,10 +43,11 @@
 	if(!devil.owner)
 		return
 
-	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
+	for(var/datum/action/cooldown/spell/spell as anything in rank_spells)
 		if(is_type_in_list(spell, rank_spells))
 			continue
-		devil.owner.AddSpell(new spell)
+		var/datum/action/cooldown/spell/spell_to_add = new spell
+		devil.owner.AddSpell(spell_to_add)
 
 /datum/devil_rank/basic_devil
 	name = "Низший дьявол"
@@ -57,10 +58,10 @@
 	required_souls = ENRAGED_THRESHOLD
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/devil_panel,
-		/obj/effect/proc_holder/spell/sacrifice_circle,
-		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul,
+		/datum/action/cooldown/spell/devil_panel,
+		/datum/action/cooldown/spell/conjure/sacrifice_circle,
+		/datum/action/cooldown/spell/pointed/summon_contract,
+		/datum/action/cooldown/spell/list_target/return_soul,
 	)
 
 /datum/devil_rank/enraged_devil
@@ -73,13 +74,13 @@
 	required_sacrifice = BLOOD_SACRIFICE
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/devil_panel,
-		/obj/effect/proc_holder/spell/sacrifice_circle,
-		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/dark_conversion,
+		/datum/action/cooldown/spell/devil_panel,
+		/datum/action/cooldown/spell/conjure/sacrifice_circle,
+		/datum/action/cooldown/spell/pointed/summon_contract,
+		/datum/action/cooldown/spell/list_target/return_soul,
+		/datum/action/cooldown/spell/conjure_item/pitchfork,
+		/datum/action/cooldown/spell/aoe/devil_fire,
+		/datum/action/cooldown/spell/pointed/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard
@@ -93,15 +94,15 @@
 	required_sacrifice = TRUE_SACRIFICE
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/devil_panel,
-		/obj/effect/proc_holder/spell/sacrifice_circle,
-		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/dark_conversion,
+		/datum/action/cooldown/spell/devil_panel,
+		/datum/action/cooldown/spell/conjure/sacrifice_circle,
+		/datum/action/cooldown/spell/pointed/summon_contract,
+		/datum/action/cooldown/spell/list_target/return_soul,
+		/datum/action/cooldown/spell/conjure_item/pitchfork,
+		/datum/action/cooldown/spell/pointed/projectile/fireball/hellish,
+		/datum/action/cooldown/spell/aoe/devil_fire,
+		/datum/action/cooldown/spell/jaunt/infernal_jaunt,
+		/datum/action/cooldown/spell/pointed/dark_conversion,
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
@@ -131,21 +132,21 @@
 	ritual_required = TRUE
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/devil_panel,
-		/obj/effect/proc_holder/spell/sacrifice_circle,
-		/obj/effect/proc_holder/spell/summon_contract,
-		/obj/effect/proc_holder/spell/return_soul,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/sintouch,
-		/obj/effect/proc_holder/spell/dark_conversion,
+		/datum/action/cooldown/spell/devil_panel,
+		/datum/action/cooldown/spell/conjure/sacrifice_circle,
+		/datum/action/cooldown/spell/pointed/summon_contract,
+		/datum/action/cooldown/spell/list_target/return_soul,
+		/datum/action/cooldown/spell/conjure_item/pitchfork/greater,
+		/datum/action/cooldown/spell/pointed/projectile/fireball/hellish,
+		/datum/action/cooldown/spell/aoe/devil_fire,
+		/datum/action/cooldown/spell/jaunt/infernal_jaunt,
+		/datum/action/cooldown/spell/aoe/sintouch,
+		/datum/action/cooldown/spell/pointed/dark_conversion,
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
 	var/mob/devil_mob = devil.owner.current
-	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
+	if(istype(devil_mob.loc, /obj/effect/dummy/phased_mob/blood))
 		devil_mob.forceMove(get_turf(devil_mob))
 	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
@@ -161,16 +162,16 @@
 	regen_amount = ASCEND_DEVIL_REGEN_AMOUNT
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended,
-		/obj/effect/proc_holder/spell/fireball/hellish/acsend,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/devil_broadcast,
+		/datum/action/cooldown/spell/conjure_item/pitchfork/ascended,
+		/datum/action/cooldown/spell/pointed/projectile/fireball/hellish/acsend,
+		/datum/action/cooldown/spell/aoe/devil_fire,
+		/datum/action/cooldown/spell/jaunt/infernal_jaunt,
+		/datum/action/cooldown/spell/aoe/devil_broadcast,
 	)
 
 /datum/devil_rank/ascend/apply_rank()
 	var/mob/devil_mob = devil.owner.current
-	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
+	if(istype(devil_mob.loc, /obj/effect/dummy/phased_mob/blood))
 		devil_mob.forceMove(get_turf(devil_mob))
 	var/mob/living/carbon/true_devil/ascended/true_devil
 	if(isascendeddevil(devil_mob))

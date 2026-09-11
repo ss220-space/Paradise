@@ -7,6 +7,8 @@
 		if(body_position == LYING_DOWN)
 			points_to_add *= 2
 		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
+		var/datum/action/cooldown/spell/evolve/evolution = locate() in actions
+		evolution?.build_all_button_icons()
 
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))

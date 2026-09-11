@@ -896,8 +896,10 @@
 	return TRUE
 
 /datum/ritual/ashwalker/interrogation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
-	var/obj/effect/proc_holder/spell/empath/empath = new
-	if(!empath.cast(used_things, invoker))
+	var/datum/action/cooldown/spell/list_target/empath/empath = new
+	empath.owner = invoker
+	var/mob/living/carbon/human/human = locate() in used_things
+	if(!empath.cast(human, invoker))
 		return RITUAL_FAILED_ON_PROCEED
 
 	return RITUAL_SUCCESSFUL

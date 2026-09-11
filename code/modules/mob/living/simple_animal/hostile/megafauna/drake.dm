@@ -707,7 +707,8 @@ Difficulty: Medium
 	return
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))
+	var/datum/action/cooldown/spell/aoe/repulse/spacedragon/spell = new
+	spell.Grant(src)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
@@ -723,25 +724,6 @@ Difficulty: Medium
 		return
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
-
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
-	name = "Удар хвостом"
-	desc = "Отбрасывайте нападающих ударом хвоста."
-	sound = 'sound/magic/tail_swing.ogg'
-	base_cooldown = 15 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	invocation_type = "none"
-	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon_state = "tailsweep"
-	action_background_icon_state = "bg_alien"
-
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, 1)
-		C.spin(6, 1)
-	..(targets, user, 3 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return

@@ -317,9 +317,9 @@
 	allow_duplicates = FALSE
 	var/possessed = FALSE
 	var/mob/living/simple_animal/shade/talisman/slave // Talisman
-	var/obj/effect/proc_holder/spell/hierophant_talisman_heal/spell_heal
-	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
-	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
+	var/datum/action/cooldown/spell/hierophant_talisman_heal/spell_heal
+	var/datum/action/cooldown/spell/pointed/hierophant_talisman_teleport/spell_teleport
+	var/datum/action/cooldown/spell/pointed/hierophant_talisman_message/spell_message
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/get_ru_names()
 	return alist(
@@ -406,118 +406,98 @@
 	QDEL_NULL(spell_message)
 	return ..()
 
-/obj/effect/proc_holder/spell/hierophant_talisman_heal
+/datum/action/cooldown/spell/hierophant_talisman_heal
 	name = "Маяк помощи"
 	desc = "Исцеляет вашего хозяина."
-	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	phase_allowed = TRUE
-	should_recharge_after_cast = FALSE
-	stat_allowed = UNCONSCIOUS
-	action_icon_state = "hierophant_talisman_heal"
-	action_background_icon_state = "bg_hierophant_talisman"
+	spell_requirements = NONE
+	check_flags = NONE
+	button_icon_state = "hierophant_talisman_heal"
+	background_icon_state = "bg_hierophant_talisman"
 
-/obj/effect/proc_holder/spell/hierophant_talisman_heal/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.target_priority = SPELL_TARGET_CLOSEST
-	T.max_targets = 1
-	T.range = 1
-	T.use_turf_of_user = TRUE
-	return T
+/datum/action/cooldown/spell/hierophant_talisman_heal/can_cast_spell(feedback)
+	if(!istype(owner, /mob/living/simple_animal/shade/talisman))
+		return FALSE
+	return ..()
 
-/obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if(target.ckey == user.master)
-		return TRUE
-	return FALSE
-
-/obj/effect/proc_holder/spell/hierophant_talisman_heal/cast(list/targets, mob/living/simple_animal/shade/talisman/user  = usr)
-	var/mob/living/carbon/human/target = targets[1]
+/datum/action/cooldown/spell/hierophant_talisman_heal/cast(atom/cast_on)
+	. = ..()
+	cooldown_time = 0
+	var/mob/living/simple_animal/shade/talisman/user = owner
+	var/mob/living/carbon/human/target = user.master
 	var/update = NONE
 	update |= target.heal_overall_damage(15, 15, updating_health = FALSE, affect_robotic = TRUE)
 	update |= target.heal_damage_type(15, TOX, updating_health = FALSE)
 	if(update)
 		target.updatehealth()
 	if(target.health / target.maxHealth <= 0.25)
-		cooldown_handler.start_recharge(10 SECONDS)
+		cooldown_time = 10 SECONDS
 		to_chat(user, span_hierophant("Это существо умирает... Жалко, но... вы должны защитить его..."))
 	else
-		cooldown_handler.start_recharge(20 SECONDS)
+		cooldown_time = 20 SECONDS
 		to_chat(user, span_hierophant("Вы защищаете... это существо... Хорошо, мой ученик."))
 	to_chat(target, span_hierophant("Мой талисман защищает вас... Жалкое зрелище..."))
 
-/obj/effect/proc_holder/spell/hierophant_talisman_teleport
+/datum/action/cooldown/spell/pointed/hierophant_talisman_teleport
 	name = "Малая телепортация Иерофанта"
 	desc = "Перемещает хозяина в выбранное место."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	phase_allowed = TRUE
-	should_recharge_after_cast = FALSE
-	stat_allowed = UNCONSCIOUS
-	centcom_cancast = FALSE
-	action_icon_state = "hierophant_talisman_teleport"
-	action_background_icon_state = "bg_hierophant_talisman"
+	spell_requirements = NONE
+	check_flags = NONE
+	button_icon_state = "hierophant_talisman_teleport"
+	background_icon_state = "bg_hierophant_talisman"
+	background_icon_state_active = "bg_hierophant_talisman"
+	cast_range = 3
 
-/obj/effect/proc_holder/spell/hierophant_talisman_teleport/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.allowed_type = /turf/simulated
-	T.range = 3
-	T.use_turf_of_user = TRUE
-	return T
+/datum/action/cooldown/spell/pointed/hierophant_talisman_teleport/cast(atom/cast_on)
+	. = ..()
+	var/turf/target_turf = get_turf(cast_on)
+	var/mob/living/simple_animal/shade/talisman/user = owner
+	if(!istype(user))
+		return
+	var/mob/living/carbon/human/master = user.master
+	if(!master)
+		return
+	var/turf/start_turf = get_turf(master)
+	master.forceMove(target_turf)
+	new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
+	new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
+	playsound(start_turf,'sound/machines/airlock_open.ogg', 200, TRUE)
+	if(master.health / master.maxHealth <= 0.25)
+		cooldown_time = 15 SECONDS
+		to_chat(user, span_hierophant("Телепортируй! Телепортируй! Никогда не сдавайся!"))
+		user.say("Мгновенная телепортация, мой дорогой друг!")
+	else
+		cooldown_time = 30 SECONDS
+		to_chat(user, span_hierophant("Танцуйте, мои прелестные!"))
+		user.say("Исчезни, мой друг!")
+	addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf, master), 2)
 
-/obj/effect/proc_holder/spell/hierophant_talisman_teleport/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
-	var/turf/target_turf = get_turf(targets[1])
-	for(var/mob/living/carbon/human/H in GLOB.human_list)
-		if(H.ckey == user.master)
-			var/turf/start_turf = get_turf(H)
-			H.forceMove(target_turf)
-			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
-			new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
-			playsound(start_turf,'sound/machines/airlock_open.ogg', 200, TRUE)
-			if(H.health / H.maxHealth <= 0.25)
-				cooldown_handler.start_recharge(15 SECONDS)
-				to_chat(user, span_hierophant("Телепортируй! Телепортируй! Никогда не сдавайся!"))
-				user.say("Мгновенная телепортация, мой дорогой друг!")
-			else
-				cooldown_handler.start_recharge(30 SECONDS)
-				to_chat(user, span_hierophant("Танцуйте, мои прелестные!"))
-				user.say("Исчезни, мой друг!")
-			addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf), 2)
-			break
-
-/obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_2(turf/T, turf/S)
+/datum/action/cooldown/spell/pointed/hierophant_talisman_teleport/proc/talisman_teleport_2(turf/T, turf/S, mob/living/carbon/human/master)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(S, src)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется!"))
-	set_density(FALSE)
+	S.visible_message(span_hierophant("[DECLENT_RU_CAP(master, NOMINATIVE)] растворяется!"))
 	addtimer(CALLBACK(src, PROC_REF(talisman_teleport_3), T), 2)
 
-/obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_3(turf/T)
+/datum/action/cooldown/spell/pointed/hierophant_talisman_teleport/proc/talisman_teleport_3(turf/T, mob/living/carbon/human/master)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
-	set_density(TRUE)
-	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
+	T.visible_message(span_hierophant("[DECLENT_RU_CAP(master, NOMINATIVE)] материализуется!"))
 
-/obj/effect/proc_holder/spell/hierophant_talisman_message
+/datum/action/cooldown/spell/pointed/hierophant_talisman_message
 	name = "Телепатическое послание"
 	desc = "Отправляет мысленное сообщение людям."
-	base_cooldown = 5 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	phase_allowed = TRUE
-	stat_allowed = UNCONSCIOUS
-	action_icon_state = "hierophant_talisman_message"
-	action_background_icon_state = "bg_hierophant_talisman"
+	cooldown_time = 5 SECONDS
+	spell_requirements = NONE
+	check_flags = NONE
+	button_icon_state = "hierophant_talisman_message"
+	background_icon_state = "bg_hierophant_talisman"
+	background_icon_state_active = "bg_hierophant_talisman"
 
-/obj/effect/proc_holder/spell/hierophant_talisman_message/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.selection_type = SPELL_SELECTION_RANGE
-	T.use_turf_of_user = TRUE
-	return T
+/datum/action/cooldown/spell/pointed/hierophant_talisman_message/is_valid_target(atom/cast_on)
+	return ishuman(cast_on)
 
-/obj/effect/proc_holder/spell/hierophant_talisman_message/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
-	var/mob/living/carbon/human/choice = targets[1]
+/datum/action/cooldown/spell/pointed/hierophant_talisman_message/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/choice = cast_on
 	var/msg = tgui_input_text(usr, "Что вы хотите сообщить [choice]?", null, "")
 	if(!(msg))
 		return
@@ -551,18 +531,12 @@
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
 	if(add_actions)
-		LAZYADD(slave.mob_spell_list, spell_heal)
-		LAZYADD(slave.mob_spell_list, spell_teleport)
-		LAZYADD(slave.mob_spell_list, spell_message)
-		spell_heal.action.Grant(slave)
-		spell_teleport.action.Grant(slave)
-		spell_message.action.Grant(slave)
+		slave.AddSpell(spell_heal)
+		slave.AddSpell(spell_teleport)
+		slave.AddSpell(spell_message)
 	else
-		LAZYREMOVE(slave.mob_spell_list, spell_heal)
-		LAZYREMOVE(slave.mob_spell_list, spell_teleport)
-		LAZYREMOVE(slave.mob_spell_list, spell_message)
-		spell_heal.action.Remove(slave)
-		spell_teleport.action.Remove(slave)
-		spell_message.action.Remove(slave)
+		slave.RemoveSpell(spell_heal)
+		slave.RemoveSpell(spell_teleport)
+		slave.RemoveSpell(spell_message)
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE
