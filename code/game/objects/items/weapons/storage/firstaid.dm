@@ -22,11 +22,11 @@
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
 	throw_range = 8
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_brute = /datum/reagent/medicine/salglu_solution
+	var/treatment_oxy = /datum/reagent/medicine/salbutamol
+	var/treatment_fire = /datum/reagent/medicine/salglu_solution
+	var/treatment_tox = /datum/reagent/medicine/charcoal
+	var/treatment_virus = /datum/reagent/medicine/spaceacillin
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
 
@@ -336,9 +336,9 @@
 	icon_state = "NTfirstaid"
 	item_state = "medkit_ert"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 
@@ -383,9 +383,9 @@
 	icon_state = "NTeraid"
 	item_state = "medkit_ert2"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ertm/get_ru_names()
@@ -415,9 +415,9 @@
 	icon_state = "bezerk"
 	item_state = "medkit_bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE

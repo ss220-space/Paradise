@@ -2,7 +2,7 @@
 	name = "Эктоплазменная лихорадка"
 	agent = "Искажённая эктоплазма"
 	desc = "Вызвана ревенантом, она медленно истощает органические формы жизни и может искажать душу."
-	cures = list("holywater")
+	cures = list(/datum/reagent/holywater)
 	cure_prob = 50
 	cure_text = "Святая вода"
 	discovered = TRUE

@@ -11,7 +11,7 @@
 	production = 3
 	yield = 5
 	icon_dead = "tobacco-dead"
-	reagents_add = list("cocaextract" = 0.1, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/coca_extract = 0.1, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/reagent_containers/food/snacks/grown/coca
@@ -64,7 +64,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		reagents.add_reagent("crack", 5)
+		reagents.add_reagent(/datum/reagent/crack, 5)
 		to_chat(user, span_notice("You fill [src] with crack crystals."))
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -77,7 +77,7 @@
 
 /obj/item/coca_trail/pickup(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
-	user.reagents.add_reagent("cocaine", 5)
+	user.reagents.add_reagent(/datum/reagent/cocaine, 5)
 	to_chat(user, span_notice("You sniff the trail of cocaine and it hits you to the very brain."))
 	qdel(src)
 	return FALSE

@@ -489,9 +489,9 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("aluminum", 30)
-	B2.reagents.add_reagent("fluorosurfactant", 10)
-	B2.reagents.add_reagent("sacid", 10)
+	B1.reagents.add_reagent(/datum/reagent/aluminum, 30)
+	B2.reagents.add_reagent(/datum/reagent/fluorosurfactant, 10)
+	B2.reagents.add_reagent(/datum/reagent/acid, 10)
 
 	beakers += B1
 	beakers += B2
@@ -508,8 +508,8 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("firefighting_foam", 30)
-	B2.reagents.add_reagent("firefighting_foam", 30)
+	B1.reagents.add_reagent(/datum/reagent/firefighting_foam, 30)
+	B2.reagents.add_reagent(/datum/reagent/firefighting_foam, 30)
 
 	beakers += B1
 	beakers += B2
@@ -525,9 +525,9 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("plasma", 25)
-	B2.reagents.add_reagent("sacid", 25)
+	B1.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/plasma, 25)
+	B2.reagents.add_reagent(/datum/reagent/acid, 25)
 
 	beakers += B1
 	beakers += B2
@@ -544,11 +544,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("atrazine", 85)
-	B1.reagents.add_reagent("potassium", 15)
-	B2.reagents.add_reagent("phosphorus", 15)
-	B2.reagents.add_reagent("sugar", 15)
-	B2.reagents.add_reagent("atrazine", 70)
+	B1.reagents.add_reagent(/datum/reagent/glyphosate/atrazine, 85)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 15)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 15)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 15)
+	B2.reagents.add_reagent(/datum/reagent/glyphosate/atrazine, 70)
 
 	beakers += B1
 	beakers += B2
@@ -559,7 +559,7 @@
 	icon_state = "cleaner"
 	stage = GRENADE_READY
 	/// The chemical used to clean things
-	var/cleaning_chem = "cleaner"
+	var/cleaning_chem = /datum/reagent/space_cleaner
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
@@ -567,9 +567,9 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("fluorosurfactant", 40)
+	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 40)
 	B2.reagents.add_reagent(cleaning_chem, 10)
-	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
+	B2.reagents.add_reagent(/datum/reagent/water, 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 	beakers += B1
 	beakers += B2
@@ -577,17 +577,17 @@
 /obj/item/grenade/chem_grenade/cleaner/everything
 	payload_name = "melter"
 	desc = "Внутри этой гранаты находятся наниты \"Синдиката\" с чёрного рынка, которые поглощают всё, с чем сталкиваются. Органы, одежда, пульты, люди. Ничто не в безопасности.<br>Теперь с новым пенящимся аппликатором!"
-	cleaning_chem = "admincleaner_all"
+	cleaning_chem = /datum/reagent/admin_cleaner/all
 
 /obj/item/grenade/chem_grenade/cleaner/object
 	payload_name = "object dissolving"
 	desc = "Внутри этой гранаты находятся наниты \"Синдиката\" с чёрного рынка, которые, как ни странно, поглощают только предметы, оставляя живых существ и более крупные машины в покое.<br>Теперь с новым пенообразующим аппликатором!"
-	cleaning_chem = "admincleaner_item"
+	cleaning_chem = /datum/reagent/admin_cleaner/item
 
 /obj/item/grenade/chem_grenade/cleaner/organic
 	payload_name = "organic dissolving"
 	desc = "Внутри этой гранаты находятся наниты \"Синдиката\" с чёрного рынка, которые жаждут живых существ и их органов, кремниевых или органических, мёртвых или живых.<br>Теперь с новым пенящимся аппликатором!"
-	cleaning_chem = "admincleaner_mob"
+	cleaning_chem = /datum/reagent/admin_cleaner/organic
 
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
@@ -612,11 +612,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("condensedcapsaicin", 85)
-	B1.reagents.add_reagent("potassium", 15)
-	B2.reagents.add_reagent("phosphorus", 15)
-	B2.reagents.add_reagent("sugar", 15)
-	B2.reagents.add_reagent("condensedcapsaicin", 70)
+	B1.reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 85)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 15)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 15)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 15)
+	B2.reagents.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 70)
 
 	beakers += B1
 	beakers += B2
@@ -632,11 +632,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 85)
-	B1.reagents.add_reagent("potassium", 15)
-	B2.reagents.add_reagent("phosphorus", 15)
-	B2.reagents.add_reagent("sugar", 15)
-	B2.reagents.add_reagent("facid", 70)
+	B1.reagents.add_reagent(/datum/reagent/acid/facid, 85)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 15)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 15)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 15)
+	B2.reagents.add_reagent(/datum/reagent/acid/facid, 70)
 
 	beakers += B1
 	beakers += B2
@@ -652,11 +652,11 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("sarin", 85)
-	B1.reagents.add_reagent("potassium", 15)
-	B2.reagents.add_reagent("phosphorus", 15)
-	B2.reagents.add_reagent("sugar", 15)
-	B2.reagents.add_reagent("sarin", 70)
+	B1.reagents.add_reagent(/datum/reagent/sarin, 85)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 15)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 15)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 15)
+	B2.reagents.add_reagent(/datum/reagent/sarin, 70)
 
 	beakers += B1
 	beakers += B2

@@ -204,17 +204,17 @@
 		add_holy_water(user, target)
 
 /obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
-	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+	if(target.reagents.has_reagent(/datum/reagent/water)) //blesses all the water in the holder
 		to_chat(user, span_notice("Вы освящаете [target.declent_ru(GENITIVE)]."))
-		var/water2holy = target.reagents.get_reagent_amount("water")
-		target.reagents.del_reagent("water")
-		target.reagents.add_reagent("holywater", water2holy)
+		var/water2holy = target.reagents.get_reagent_amount(/datum/reagent/water)
+		target.reagents.del_reagent(/datum/reagent/water)
+		target.reagents.add_reagent(/datum/reagent/holywater, water2holy)
 
-	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+	if(target.reagents.has_reagent(/datum/reagent/fuel/unholywater)) //yeah yeah, copy pasted code - sue me
 		to_chat(user, span_notice("Вы очищаете [target.declent_ru(GENITIVE)]."))
-		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-		target.reagents.del_reagent("unholywater")
-		target.reagents.add_reagent("holywater", unholy2clean)
+		var/unholy2clean = target.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)
+		target.reagents.del_reagent(/datum/reagent/fuel/unholywater)
+		target.reagents.add_reagent(/datum/reagent/holywater, unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()

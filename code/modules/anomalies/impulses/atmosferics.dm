@@ -110,7 +110,7 @@
 		if(!ishuman(mob))
 			continue
 
-		mob.reagents.add_reagent("frostoil", 15)
+		mob.reagents.add_reagent(/datum/reagent/consumable/frostoil, 15)
 
 /datum/anomaly_impulse/fire
 	name = "Пожар"

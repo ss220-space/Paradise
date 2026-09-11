@@ -1,4 +1,4 @@
-#define GET_FUEL reagents.get_reagent_amount("fuel")
+#define GET_FUEL reagents.get_reagent_amount(/datum/reagent/fuel)
 
 /obj/item/weldingtool
 	name = "welding tool"
@@ -67,7 +67,7 @@
 		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
 		middleman.being_overriding_light()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	reagents.add_reagent(/datum/reagent/fuel, maximum_fuel)
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
 	update_appearance()
@@ -107,7 +107,7 @@
 			remove_fuel(1)
 	if(refills_over_time)
 		if(GET_FUEL < maximum_fuel)
-			reagents.add_reagent("fuel", 1)
+			reagents.add_reagent(/datum/reagent/fuel, 1)
 	..()
 
 /obj/item/weldingtool/extinguish_light(force = FALSE)
@@ -215,7 +215,7 @@
 
 /// Doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 /obj/item/weldingtool/proc/remove_fuel(amount)
-	reagents.remove_reagent("fuel", amount * requires_fuel)
+	reagents.remove_reagent(/datum/reagent/fuel, amount * requires_fuel)
 	if(!GET_FUEL)
 		toggle_welder(TRUE)
 
@@ -225,7 +225,7 @@
 	if(GET_FUEL >= maximum_fuel)
 		balloon_alert(user, "бак полон!")
 		return
-	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
+	var/amount_transferred = A.reagents.trans_id_to(src, /datum/reagent/fuel, amount)
 	if(amount_transferred)
 		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL_CREDIT(amount_transferred)] топлива")
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)

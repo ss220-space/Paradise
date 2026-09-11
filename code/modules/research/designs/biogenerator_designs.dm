@@ -7,7 +7,7 @@
 	id = "milk"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
-	make_reagents = list("milk" = 10)
+	make_reagents = list(/datum/reagent/consumable/drink/milk = 10)
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/cream
@@ -15,7 +15,7 @@
 	id = "cream"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
-	make_reagents = list("cream" = 10)
+	make_reagents = list(/datum/reagent/consumable/drink/milk/cream = 10)
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/sodiumchloride
@@ -23,7 +23,7 @@
 	id = "sodiumchloride"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
-	make_reagents = list("sodiumchloride" = 10)
+	make_reagents = list(/datum/reagent/consumable/sodiumchloride = 10)
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/black_pepper
@@ -31,7 +31,7 @@
 	id = "black_pepper"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
-	make_reagents = list("blackpepper" = 10)
+	make_reagents = list(/datum/reagent/consumable/blackpepper = 10)
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/milk_carton
@@ -54,8 +54,7 @@
 	name = "Солонка"
 	id = "salt_shaker"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/food/condiment/saltshaker
+	materials = list(MAT_BIOMASS = 25)
 	make_reagents = list()
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
@@ -67,6 +66,7 @@
 	build_path = /obj/item/reagent_containers/food/condiment/peppermill
 	make_reagents = list()
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
+
 /datum/design/monkey_cube
 	name = "Куб шимпанзе"
 	id = "mcube"

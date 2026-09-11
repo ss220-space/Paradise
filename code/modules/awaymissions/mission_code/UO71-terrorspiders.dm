@@ -193,7 +193,7 @@
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
-	list_reagents = list("terror_black_toxin" = 50)
+	list_reagents = list(/datum/reagent/terror_black_toxin = 50)
 
 /obj/machinery/computer/id_upgrader
 	name = "ID Upgrade Machine"

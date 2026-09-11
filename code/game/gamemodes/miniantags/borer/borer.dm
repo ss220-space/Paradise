@@ -321,7 +321,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/borer, toggle_silence_inside_host, "Р�
 
 		if(!stat && host.stat != DEAD)
 
-			if(host.reagents.has_reagent("sugar"))
+			if(host.reagents.has_reagent(/datum/reagent/consumable/sugar))
 
 				if(!docile)
 
@@ -429,7 +429,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/borer, toggle_silence_inside_host, "Р�
 			return
 
 		to_chat(src, span_userdanger("Вы впрыскиваете [reagent.name] из своих резервуаров в кровь [host]."))
-		host.reagents.add_reagent(reagent.id, reagent.quantity)
+		host.reagents.add_reagent(reagent.type, reagent.quantity)
 		chemicals -= reagent.chemuse
 		add_attack_logs(src, host, "injected [reagent.name]")
 

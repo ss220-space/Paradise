@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/bait_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/bait_righthand.dmi'
 	item_state = "ash_eater"
-	list_reagents = list("protein" = 1) //mmmm tasty
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1) //mmmm tasty
 	tastes = list("пепла" = 5, "безнадёжности" = 1)
 	bitesize = 1
 	foodtype = MEAT
@@ -93,7 +93,7 @@
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "charred_krill"
 	item_state = "charred_krill"
-	list_reagents = list("protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
 	bitesize = 1
 	antable = FALSE
 	tastes = list("пепла" = 5, "упущенных возможностей" = 1)

@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "taco"
 	bitesize = 3
-	list_reagents = list("nutriment" = 7, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
 	foodtype = MEAT | VEGETABLES
 
@@ -20,7 +20,7 @@
 	icon_state = "burrito"
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
-	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("torilla" = 2, "meat" = 3)
 	foodtype = MEAT | VEGETABLES
 
@@ -31,7 +31,7 @@
 	icon_state = "chimichanga"
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
-	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
+	list_reagents = list(/datum/reagent/medicine/omnizine = 4, /datum/reagent/consumable/cheese = 2) //Deadpool reference. Deal with it.
 	foodtype = MEAT | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/enchiladas
@@ -42,7 +42,7 @@
 	trash = /obj/item/trash/tray
 	filling_color = "#A36A1F"
 	bitesize = 4
-	list_reagents = list("nutriment" = 8, "capsaicin" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/capsaicin = 6)
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
 	foodtype = MEAT | VEGETABLES
 
@@ -53,7 +53,7 @@
 	bitesize = 1
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
-	list_reagents = list("nutriment" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	foodtype = FRIED | GRAIN
 
 /obj/item/reagent_containers/food/snacks/tortilla
@@ -63,7 +63,7 @@
 	icon_state = "tortilla"
 	trash = /obj/item/trash/plate
 	filling_color = "#E8C31E"
-	list_reagents = list("nutriment" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("corn" = 2)
 	foodtype = FRIED | GRAIN
 
@@ -74,7 +74,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/plate
 	filling_color = "#E8C31E"
-	list_reagents = list("nutriment" = 5, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, "salt" = 1)
 	tastes = list("corn" = 2)
 	bitesize = 3
 	foodtype = FRIED | GRAIN
@@ -86,7 +86,7 @@
 	icon_state = "cheesenachos"
 	trash = /obj/item/trash/plate
 	filling_color = "#f1d65c"
-	list_reagents = list("nutriment" = 7, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, "salt" = 1)
 	tastes = list("corn" = 1, "cheese" = 2)
 	bitesize = 4
 	foodtype = FRIED | GRAIN | DAIRY
@@ -98,7 +98,7 @@
 	icon_state = "cubannachos"
 	trash = /obj/item/trash/plate
 	filling_color = "#ec5c23"
-	list_reagents = list("nutriment" = 7, "salt" = 1, "capsaicin" = 3, "plantmatter" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, "salt" = 1, /datum/reagent/consumable/capsaicin = 3, /datum/reagent/consumable/nutriment/plantmatter = 1)
 	tastes = list("corn" = 1, "chili" = 2)
 	bitesize = 4
 	foodtype = FRIED | GRAIN
@@ -109,7 +109,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "carneburrito"
 	filling_color = "#69250b"
-	list_reagents = list("nutriment" = 8, "protein" = 3, "soysauce" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/soysauce = 1)
 	tastes = list("corn" = 1, "meat" = 2, "beans" = 1)
 	bitesize = 4
 	foodtype = GRAIN | MEAT
@@ -120,7 +120,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheeseburrito"
 	filling_color = "#f1d65c"
-	list_reagents = list("nutriment" = 10, "soysauce" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/soysauce = 2)
 	tastes = list("corn" = 1, "beans" = 1, "cheese" = 2)
 	bitesize = 4
 	foodtype = GRAIN | DAIRY
@@ -131,7 +131,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "plasmaburrito"
 	filling_color = "#f35a46"
-	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "capsaicin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/plantmatter = 4, /datum/reagent/consumable/capsaicin = 4)
 	tastes = list("corn" = 1, "beans" = 1, "chili" = 2)
 	bitesize = 4
 	foodtype = GRAIN | VEGETABLES
@@ -147,7 +147,7 @@
 	icon_state = "chinese1"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/beans = 3, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 1)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 	foodtype = FRIED | VEGETABLES
 
@@ -158,7 +158,7 @@
 	icon_state = "chickenball"
 	item_state = "chinese3"
 	junkiness = 25
-	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 5)
 	tastes = list("chicken" = 1, "sweetness" = 1)
 	foodtype = FRIED | MEAT
 
@@ -169,7 +169,7 @@
 	icon_state = "chinese2"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 5)
 	tastes = list("chicken" = 1)
 	foodtype = FRIED | MEAT
 
@@ -180,7 +180,7 @@
 	icon_state = "chinese3"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 3)
 	tastes = list("noodles" = 1)
 	foodtype = FRIED | GRAIN | VEGETABLES
 
@@ -192,7 +192,7 @@
 	item_state = "chinese2"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/rice = 3, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 1)
 	tastes = list("rice" = 1)
 	foodtype = FRIED | GRAIN | VEGETABLES
 
@@ -206,7 +206,7 @@
 	icon_state = "chawanmushi"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#F0F2E4"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("custard" = 1)
 	foodtype = DAIRY
 
@@ -216,7 +216,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "yakiimo"
 	trash = /obj/item/trash/plate
-	list_reagents = list("nutriment" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	filling_color = "#8B1105"
 	tastes = list("sweet potato" = 1)
 	foodtype = VEGETABLES | SUGAR
@@ -232,7 +232,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	foodtype = MEAT | FRIED
 
 /obj/item/reagent_containers/food/snacks/monkeykabob
@@ -242,7 +242,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	foodtype = MEAT | FRIED
 
 /obj/item/reagent_containers/food/snacks/tofukabob
@@ -252,7 +252,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	foodtype = VEGETABLES | FRIED
 
 //////////////////////////////////
@@ -265,7 +265,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "shawarma"
 	filling_color = "#c0720c"
-	list_reagents = list("protein" = 4, "nutriment" = 4, "vitamin" = 2, "tomatojuice" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/drink/tomatojuice = 4)
 	tastes = list("meat" = 3, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
 	foodtype = MEAT | VEGETABLES
 
@@ -275,7 +275,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "doner_cheese"
 	filling_color = "#c0720c"
-	list_reagents = list("protein" = 4, "nutriment" = 6, "vitamin" = 2, "tomatojuice" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/drink/tomatojuice = 4)
 	tastes = list("meat" = 3, "cheese" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
 	foodtype = MEAT | DAIRY | VEGETABLES
 
@@ -285,7 +285,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "doner_mushroom"
 	filling_color = "#c0720c"
-	list_reagents = list("protein" = 4, "nutriment" = 4, "plantmatter" = 2, "vitamin" = 2, "tomatojuice" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/drink/tomatojuice = 4)
 	tastes = list("meat" = 3, "mushrooms" = 2, "vegetables" = 2, "tomato" = 1, "pepper" = 1)
 	foodtype = MEAT | VEGETABLES
 
@@ -295,7 +295,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "doner_vegan"
 	filling_color = "#c0720c"
-	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "vitamin" = 4, "tomatojuice" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/plantmatter = 4, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/drink/tomatojuice = 8)
 	tastes = list("vegetables" = 2, "tomato" = 1, "pepper" = 1)
 	foodtype = VEGETABLES
 
@@ -308,7 +308,7 @@
 	desc = "An offer you daga kotowaru."
 	icon_state = "risotto"
 	filling_color = "#cfae89"
-	list_reagents = list("nutriment" = 5, "plantmatter" = 2, "wine" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/ethanol/wine = 5)
 	tastes = list("cheese" = 1, "rice" = 2, "wine" = 1)
 	bitesize = 3
 	foodtype = DAIRY | VEGETABLES
@@ -320,7 +320,7 @@
 	icon_state = "bruschetta"
 	trash = /obj/item/trash/plate
 	filling_color = "#a30e0e"
-	list_reagents = list("nutriment" = 2, "plantmatter" = 2, "tomatojucie" = 2, "garlicjucie" = 1, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/plantmatter = 2, "tomatojucie" = 2, "garlicjucie" = 1, "salt" = 1)
 	tastes = list("bread" = 1, "tomato" = 2, "garlic" = 1, "cheese" = 1)
 	bitesize = 4
 	foodtype = DAIRY | VEGETABLES | GRAIN
@@ -332,7 +332,7 @@
 	icon_state = "quiche"
 	trash = /obj/item/trash/plate
 	filling_color = "#cfae89"
-	list_reagents = list("nutriment" = 7, "plantmatter" = 2, "tomatojucie" = 2, "garlicjucie" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/plantmatter = 2, "tomatojucie" = 2, "garlicjucie" = 1)
 	tastes = list("cheese" = 1, "tomato" = 1, "garlic" = 1, "egg" = 1)
 	bitesize = 4
 	foodtype = DAIRY | VEGETABLES

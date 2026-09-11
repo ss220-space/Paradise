@@ -92,7 +92,7 @@
 			var/reagents_length = length(A.reagents.reagent_list)
 			messages.Add(span_notice("[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found."))
 			for(var/datum/reagent/R in A.reagents.reagent_list)
-				if(R.id != "blood")
+				if(R.type != /datum/reagent/blood)
 					messages.Add(span_notice("\t [R]"))
 				else
 					var/blood_type = R.data["blood_type"]

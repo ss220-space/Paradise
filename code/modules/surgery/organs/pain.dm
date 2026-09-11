@@ -27,7 +27,7 @@
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/proc/pain(partname, amount)
-	if(!client?.prefs || reagents.has_reagent("sal_acid"))
+	if(!client?.prefs || reagents.has_reagent(/datum/reagent/medicine/sal_acid))
 		return
 
 	if(!has_pain())

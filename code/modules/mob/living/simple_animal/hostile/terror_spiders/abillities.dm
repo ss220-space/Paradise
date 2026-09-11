@@ -182,8 +182,8 @@
 	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	owner.create_reagents(2000)
-	owner.reagents.add_reagent("neurotoxin", 1000)
-	owner.reagents.add_reagent("capulettium_plus", 1000)
+	owner.reagents.add_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 1000)
+	owner.reagents.add_reagent(/datum/reagent/capulettium_plus, 1000)
 	smoke.set_up(range = 2, location = owner, carry = owner.reagents, silent = TRUE)
 	smoke.start()
 

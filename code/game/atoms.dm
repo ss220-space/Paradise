@@ -921,13 +921,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	if(get_blood_type() != /datum/reagent/blood)
 		return
 	return list("ANIMAL DNA" = "Y-")
 
 /mob/living/carbon/get_blood_dna_list()
-	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
-	var/check_blood = get_blood_id()
+	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
+	var/check_blood = get_blood_type()
 	if(!check_blood || !(check_blood in acceptable_blood))
 		return
 	var/list/blood_dna = list()
@@ -1059,7 +1059,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		var/vomit_reagent = green ? /datum/reagent/greenvomit : /datum/reagent/vomit
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)

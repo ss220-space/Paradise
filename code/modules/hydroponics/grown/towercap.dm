@@ -23,7 +23,7 @@
 	icon_state = "mycelium-steelcap"
 	species = "steelcap"
 	plantname = "Steel Caps"
-	reagents_add = list("iron" = 0.05)
+	reagents_add = list(/datum/reagent/iron = 0.05)
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
 	rarity = 20

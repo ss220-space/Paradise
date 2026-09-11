@@ -1,14 +1,14 @@
 // see code/datums/recipe.dm
 
 /datum/recipe/microwave/boiledegg
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 	)
 	result = /obj/item/reagent_containers/food/snacks/boiledegg
 
 /datum/recipe/microwave/dionaroast
-	reagents = list("facid" = 5) //It dissolves the carapace. Still poisonous, though.
+	reagents = list(/datum/reagent/acid/facid = 5) //It dissolves the carapace. Still poisonous, though.
 	items = list(
 		/obj/item/holder/diona,
 		/obj/item/reagent_containers/food/snacks/grown/apple,
@@ -16,35 +16,35 @@
 	result = /obj/item/reagent_containers/food/snacks/dionaroast
 
 /datum/recipe/microwave/jellydonut
-	reagents = list("berryjuice" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/drink/berryjuice = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut/jelly
 
 /datum/recipe/microwave/jellydonut/slime
-	reagents = list("slimejelly" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/slimejelly = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 
 /datum/recipe/microwave/jellydonut/cherry
-	reagents = list("cherryjelly" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut/jelly/cherryjelly
 
 /datum/recipe/microwave/donut
-	reagents = list("sugar" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut
 
 /datum/recipe/microwave/donut/sprinkles
-	reagents = list("sugar" = 5, "sprinkles" = 2)
+	reagents = list(/datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/sprinkles = 2)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
@@ -171,14 +171,14 @@
 	result = /obj/item/reagent_containers/food/snacks/eggplantparm
 
 /datum/recipe/microwave/soylentviridians
-	reagents = list("flour" = 10)
+	reagents = list(/datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/soybeans,
 	)
 	result = /obj/item/reagent_containers/food/snacks/soylentviridians
 
 /datum/recipe/microwave/soylentgreen
-	reagents = list("flour" = 10)
+	reagents = list(/datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
@@ -186,7 +186,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soylentgreen
 
 /datum/recipe/microwave/chaosdonut
-	reagents = list("frostoil" = 5, "capsaicin" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/consumable/frostoil = 5, /datum/reagent/consumable/capsaicin = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 	)
@@ -214,7 +214,7 @@
 	result = /obj/item/reagent_containers/food/snacks/popcorn
 
 /datum/recipe/microwave/spacylibertyduff
-	reagents = list("water" = 5, "vodka" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/ethanol/vodka = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap,
@@ -223,7 +223,7 @@
 	result = /obj/item/reagent_containers/food/snacks/spacylibertyduff
 
 /datum/recipe/microwave/amanitajelly
-	reagents = list("water" = 5, "vodka" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/ethanol/vodka = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
@@ -233,12 +233,12 @@
 
 /datum/recipe/microwave/amanitajelly/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/amanitajelly/being_cooked = ..()
-	being_cooked.reagents.del_reagent("amanitin")
+	being_cooked.reagents.del_reagent(/datum/reagent/amanitin)
 	return being_cooked
 
 //Soup
 /datum/recipe/microwave/meatballsoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meatball,
 		/obj/item/reagent_containers/food/snacks/grown/potato,
@@ -247,11 +247,11 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/meatballsoup
 
 /datum/recipe/microwave/slimesoup
-	reagents = list("water" = 10, "slimejelly" = 5)
+	reagents = list(/datum/reagent/water = 10, /datum/reagent/slimejelly = 5)
 	result = /obj/item/reagent_containers/food/snacks/soup/slimesoup
 
 /datum/recipe/microwave/bloodsoup
-	reagents = list("blood" = 10)
+	reagents = list(/datum/reagent/blood = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
 		/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
@@ -259,7 +259,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/bloodsoup
 
 /datum/recipe/microwave/clownstears
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/stack/ore/bananium,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
@@ -267,7 +267,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/clownstears
 
 /datum/recipe/microwave/vegetablesoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/potato,
 		/obj/item/reagent_containers/food/snacks/grown/carrot,
@@ -277,7 +277,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/vegetablesoup
 
 /datum/recipe/microwave/nettlesoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/grown/nettle/basic,
@@ -286,7 +286,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/nettlesoup
 
 /datum/recipe/microwave/mysterysoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/badrecipe,
 		/obj/item/reagent_containers/food/snacks/tofu,
@@ -296,7 +296,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/mysterysoup
 
 /datum/recipe/microwave/sawdustsoup
-	reagents = list("water" = 20)
+	reagents = list(/datum/reagent/water = 20)
 	items = list(
 		/obj/item/stack/sheet/wood,
 		/obj/item/stack/sheet/wood,
@@ -304,7 +304,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/sawdustsoup
 
 /datum/recipe/microwave/tomatosoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -312,7 +312,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/tomatosoup
 
 /datum/recipe/microwave/rassolnik
-	reagents = list("water" = 10, "rice" = 5)
+	reagents = list(/datum/reagent/water = 10, /datum/reagent/consumable/rice = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/potato,
 		/obj/item/reagent_containers/food/snacks/grown/cucumber,
@@ -320,11 +320,11 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/rassolnik
 
 /datum/recipe/microwave/wishsoup
-	reagents = list("water" = 20)
+	reagents = list(/datum/reagent/water = 20)
 	result = /obj/item/reagent_containers/food/snacks/soup/wishsoup
 
 /datum/recipe/microwave/misosoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/soydope,
 		/obj/item/reagent_containers/food/snacks/soydope,
@@ -334,14 +334,14 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/misosoup
 
 /datum/recipe/microwave/mushroomsoup
-	reagents = list("water" = 5, "milk" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/mushroomsoup
 
 /datum/recipe/microwave/beetsoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/whitebeet,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage,
@@ -349,7 +349,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/beetsoup
 
 /datum/recipe/microwave/stew
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items= list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/potato,
@@ -386,7 +386,7 @@
 	result = /obj/item/reagent_containers/food/snacks/soup/coldchili
 
 /datum/recipe/microwave/shavelsoup
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cutlet,
 		/obj/item/reagent_containers/food/snacks/grown/potato,
@@ -422,7 +422,7 @@
 	result = /obj/item/reagent_containers/food/snacks/enchiladas
 
 /datum/recipe/microwave/burrito
-	reagents = list("capsaicin" = 5, "rice" = 5)
+	reagents = list(/datum/reagent/consumable/capsaicin = 5, /datum/reagent/consumable/rice = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cutlet,
 		/obj/item/reagent_containers/food/snacks/beans,
@@ -432,7 +432,7 @@
 	result = /obj/item/reagent_containers/food/snacks/burrito
 
 /datum/recipe/microwave/monkeysdelight
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "flour" = 10)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1, /datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monkeycube,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
@@ -456,40 +456,40 @@
 	result = /obj/item/reagent_containers/food/snacks/sandwich
 
 /datum/recipe/microwave/slimetoast
-	reagents = list("slimejelly" = 5)
+	reagents = list(/datum/reagent/slimejelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 	)
 	result = /obj/item/reagent_containers/food/snacks/jelliedtoast/slime
 
 /datum/recipe/microwave/jelliedtoast
-	reagents = list("cherryjelly" = 5)
+	reagents = list(/datum/reagent/consumable/cherryjelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 	)
 	result = /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
 
 /datum/recipe/microwave/boiledspaghetti
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/spaghetti,
 	)
 	result = /obj/item/reagent_containers/food/snacks/boiledspaghetti
 
 /datum/recipe/microwave/boiledrice
-	reagents = list("water" = 5, "rice" = 10)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/rice = 10)
 	result = /obj/item/reagent_containers/food/snacks/boiledrice
 
 /datum/recipe/microwave/ricepudding
-	reagents = list("milk" = 5, "rice" = 10)
+	reagents = list(/datum/reagent/consumable/drink/milk = 5, /datum/reagent/consumable/rice = 10)
 	result = /obj/item/reagent_containers/food/snacks/ricepudding
 
 /datum/recipe/microwave/boiledbuckwheat
-	reagents = list("water" = 5, "buckwheat" = 10)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/buckwheat = 10)
 	result = /obj/item/reagent_containers/food/snacks/boiledbuckwheat
 
 /datum/recipe/microwave/buckwheat_merchant
-	reagents = list("water" = 5, "buckwheat" = 10)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/buckwheat = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/carrot,
@@ -498,7 +498,7 @@
 	result = /obj/item/reagent_containers/food/snacks/buckwheat_merchant
 
 /datum/recipe/microwave/pastatomato
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/spaghetti,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -514,7 +514,7 @@
 	result = /obj/item/reagent_containers/food/snacks/poppypretzel
 
 /datum/recipe/microwave/meatballspaggetti
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/spaghetti,
 		/obj/item/reagent_containers/food/snacks/meatball,
@@ -523,7 +523,7 @@
 	result = /obj/item/reagent_containers/food/snacks/meatballspaghetti
 
 /datum/recipe/microwave/spesslaw
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/spaghetti,
 		/obj/item/reagent_containers/food/snacks/meatball,
@@ -534,7 +534,7 @@
 	result = /obj/item/reagent_containers/food/snacks/spesslaw
 
 /datum/recipe/microwave/macncheese
-	reagents = list("water" = 5, "milk" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/drink/milk = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/macaroni,
@@ -542,7 +542,7 @@
 	result = /obj/item/reagent_containers/food/snacks/macncheese
 
 /datum/recipe/microwave/superbiteburger
-	reagents = list("sodiumchloride" = 5, "blackpepper" = 5)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 5, /datum/reagent/consumable/blackpepper = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bigbiteburger,
 		/obj/item/reagent_containers/food/snacks/dough,
@@ -554,26 +554,26 @@
 	result = /obj/item/reagent_containers/food/snacks/superbiteburger
 
 /datum/recipe/microwave/candiedapple
-	reagents = list("water" = 5, "sugar" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sugar = 5)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/apple)
 	result = /obj/item/reagent_containers/food/snacks/candiedapple
 
 /datum/recipe/microwave/slimeburger
-	reagents = list("slimejelly" = 5)
+	reagents = list(/datum/reagent/slimejelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
 	)
 	result = /obj/item/reagent_containers/food/snacks/jellyburger/slime
 
 /datum/recipe/microwave/jellyburger
-	reagents = list("cherryjelly" = 5)
+	reagents = list(/datum/reagent/consumable/cherryjelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
 	)
 	result = /obj/item/reagent_containers/food/snacks/jellyburger/cherry
 
 /datum/recipe/microwave/twobread
-	reagents = list("wine" = 5)
+	reagents = list(/datum/reagent/consumable/ethanol/wine = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/breadslice,
@@ -581,7 +581,7 @@
 	result = /obj/item/reagent_containers/food/snacks/twobread
 
 /datum/recipe/microwave/slimesandwich
-	reagents = list("slimejelly" = 5)
+	reagents = list(/datum/reagent/slimejelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/breadslice,
@@ -589,7 +589,7 @@
 	result = /obj/item/reagent_containers/food/snacks/jellysandwich/slime
 
 /datum/recipe/microwave/cherrysandwich
-	reagents = list("cherryjelly" = 5)
+	reagents = list(/datum/reagent/consumable/cherryjelly = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/breadslice,
@@ -597,14 +597,14 @@
 	result = /obj/item/reagent_containers/food/snacks/jellysandwich/cherry
 
 /datum/recipe/microwave/boiledslimeextract
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/slime_extract,
 	)
 	result = /obj/item/reagent_containers/food/snacks/boiledslimecore
 
 /datum/recipe/microwave/mint
-	reagents = list("toxin" = 5)
+	reagents = list(/datum/reagent/toxin = 5)
 	result = /obj/item/reagent_containers/food/snacks/mint
 
 /datum/recipe/microwave/chocolateegg
@@ -615,7 +615,7 @@
 	result = /obj/item/reagent_containers/food/snacks/chocolateegg
 
 /datum/recipe/microwave/chawanmushi
-	reagents = list("water" = 5, "soysauce" = 5)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/soysauce = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/reagent_containers/food/snacks/egg,
@@ -634,7 +634,7 @@
 
 /datum/recipe/microwave/herbsalad/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/herbsalad/being_cooked = ..()
-	being_cooked.reagents.del_reagent("toxin")
+	being_cooked.reagents.del_reagent(/datum/reagent/toxin)
 	return being_cooked
 
 /datum/recipe/microwave/aesirsalad
@@ -657,7 +657,7 @@
 	result = /obj/item/reagent_containers/food/snacks/validsalad
 
 /datum/recipe/microwave/vegisalad
-	reagents = list("cream" = 5, "sodiumchloride" = 1)
+	reagents = list(/datum/reagent/consumable/drink/milk/cream = 5, /datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/cucumber,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -665,7 +665,7 @@
 	result = /obj/item/reagent_containers/food/snacks/vegisalad
 
 /datum/recipe/microwave/oliviersalad
-	reagents = list("cream" = 10, "sodiumchloride" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk/cream = 10, /datum/reagent/consumable/sodiumchloride = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/pickles,
 		/obj/item/reagent_containers/food/snacks/boiledegg,
@@ -676,7 +676,7 @@
 	result = /obj/item/reagent_containers/food/snacks/oliviersalad
 
 /datum/recipe/microwave/weirdoliviersalad
-	reagents = list("cream" = 10, "sodiumchloride" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk/cream = 10, /datum/reagent/consumable/sodiumchloride = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/pickles,
 		/obj/item/reagent_containers/food/snacks/boiledegg,
@@ -689,13 +689,13 @@
 
 /datum/recipe/microwave/validsalad/make_food(obj/container)
 	var/obj/item/reagent_containers/food/snacks/validsalad/being_cooked = ..()
-	being_cooked.reagents.del_reagent("toxin")
+	being_cooked.reagents.del_reagent(/datum/reagent/toxin)
 	return being_cooked
 
 ////////////////////////////FOOD ADDITTIONS///////////////////////////////
 
 /datum/recipe/microwave/wrap
-	reagents = list("soysauce" = 10)
+	reagents = list(/datum/reagent/consumable/soysauce = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/friedegg,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage,
@@ -703,7 +703,7 @@
 	result = /obj/item/reagent_containers/food/snacks/wrap
 
 /datum/recipe/microwave/beans
-	reagents = list("ketchup" = 5)
+	reagents = list(/datum/reagent/consumable/ketchup = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/soybeans,
 		/obj/item/reagent_containers/food/snacks/grown/soybeans,
@@ -719,7 +719,7 @@
 	result = /obj/item/reagent_containers/food/snacks/benedict
 
 /datum/recipe/microwave/meatbun
-	reagents = list("soysauce" = 5)
+	reagents = list(/datum/reagent/consumable/soysauce = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/meatball,
@@ -728,7 +728,7 @@
 	result = /obj/item/reagent_containers/food/snacks/meatbun
 
 /datum/recipe/microwave/icecreamsandwich
-	reagents = list("ice" = 5, "cream" = 5)
+	reagents = list(/datum/reagent/consumable/drink/cold/ice = 5, /datum/reagent/consumable/drink/milk/cream = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/icecream,
 	)
@@ -743,7 +743,7 @@
 	result = /obj/item/reagent_containers/food/snacks/notasandwich
 
 /datum/recipe/microwave/friedbanana
-	reagents = list("sugar" = 10, "cornoil" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/consumable/cornoil = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
@@ -751,21 +751,21 @@
 	result = /obj/item/reagent_containers/food/snacks/friedbanana
 
 /datum/recipe/microwave/stuffing
-	reagents = list("water" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/bread,
 	)
 	result = /obj/item/reagent_containers/food/snacks/stuffing
 
 /datum/recipe/microwave/boiledspiderleg
-	reagents = list("water" = 10)
+	reagents = list(/datum/reagent/water = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 	)
 	result = /obj/item/reagent_containers/food/snacks/boiledspiderleg
 
 /datum/recipe/microwave/spidereggsham
-	reagents = list("sodiumchloride" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/spidereggs,
 		/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat,
@@ -773,7 +773,7 @@
 	result = /obj/item/reagent_containers/food/snacks/spidereggsham
 
 /datum/recipe/microwave/sashimi
-	reagents = list("soysauce" = 5)
+	reagents = list(/datum/reagent/consumable/soysauce = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/spidereggs,
 		/obj/item/reagent_containers/food/snacks/carpmeat,
@@ -781,14 +781,14 @@
 	result = /obj/item/reagent_containers/food/snacks/sashimi
 
 /datum/recipe/microwave/mashedtaters
-	reagents = list("gravy" = 5)
+	reagents = list(/datum/reagent/consumable/gravy = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/potato,
 	)
 	result = /obj/item/reagent_containers/food/snacks/mashed_potatoes
 
 /datum/recipe/microwave/shawarma
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meatsteak,
 		/obj/item/reagent_containers/food/snacks/meatsteak,
@@ -801,7 +801,7 @@
 	result = /obj/item/reagent_containers/food/snacks/shawarma
 
 /datum/recipe/microwave/doner_cheese
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meatsteak,
 		/obj/item/reagent_containers/food/snacks/meatsteak,
@@ -814,7 +814,7 @@
 	result = /obj/item/reagent_containers/food/snacks/doner_cheese
 
 /datum/recipe/microwave/doner_mushroom
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meatsteak,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
@@ -829,7 +829,7 @@
 	result = /obj/item/reagent_containers/food/snacks/doner_mushroom
 
 /datum/recipe/microwave/doner_vegan
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/cabbage,
 		/obj/item/reagent_containers/food/snacks/onion_slice,
@@ -843,7 +843,7 @@
 	result = /obj/item/reagent_containers/food/snacks/doner_vegan
 
 /datum/recipe/microwave/kidan_ragu
-	reagents = list("water" = 10, "sodiumchloride" = 1)
+	reagents = list(/datum/reagent/water = 10, /datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/organ/external/head/kidan,
 		/obj/item/reagent_containers/food/snacks/grown/potato,
@@ -855,7 +855,7 @@
 	result = /obj/item/reagent_containers/food/snacks/kidanragu
 
 /datum/recipe/microwave/tomato_sauce
-	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 1, "herbsmix" = 1)
+	reagents = list(/datum/reagent/water = 15, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 1, /datum/reagent/consumable/herbs = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -863,7 +863,7 @@
 	result = /obj/item/reagent_containers/food/condiment/tomatosauce
 
 /datum/recipe/microwave/diablo_sauce
-	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 2, "herbsmix" = 1)
+	reagents = list(/datum/reagent/water = 15, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 2, /datum/reagent/consumable/herbs = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/chili,
@@ -871,7 +871,7 @@
 	result = /obj/item/reagent_containers/food/condiment/diablosauce
 
 /datum/recipe/microwave/cheese_sauce
-	reagents = list("milk" = 15, "cream" = 5)
+	reagents = list(/datum/reagent/consumable/drink/milk = 15, /datum/reagent/consumable/drink/milk/cream = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -879,7 +879,7 @@
 	result = /obj/item/reagent_containers/food/condiment/cheesesauce
 
 /datum/recipe/microwave/mushroom_sauce
-	reagents = list("milk" = 15, "cream" = 5, "sodiumchloride" = 1,)
+	reagents = list(/datum/reagent/consumable/drink/milk = 15, /datum/reagent/consumable/drink/milk/cream = 5, /datum/reagent/consumable/sodiumchloride = 1,)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/onion,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
@@ -887,7 +887,7 @@
 	result = /obj/item/reagent_containers/food/condiment/mushroomsauce
 
 /datum/recipe/microwave/garlic_sauce
-	reagents = list("water" = 15, "sodiumchloride" = 1, "herbsmix" = 1)
+	reagents = list(/datum/reagent/water = 15, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/herbs = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/cucumber,
@@ -895,7 +895,7 @@
 	result = /obj/item/reagent_containers/food/condiment/garlicsauce
 
 /datum/recipe/microwave/custard
-	reagents = list("sugar" = 10, "milk" = 10, "cream" = 5, "vanilla" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/consumable/drink/milk = 10, /datum/reagent/consumable/drink/milk/cream = 5, /datum/reagent/consumable/vanilla = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 	)
@@ -914,11 +914,11 @@
 	result = /obj/item/reagent_containers/food/snacks/taco
 
 /datum/recipe/microwave/mint_2
-	reagents = list("sugar" = 5, "frostoil" = 5)
+	reagents = list(/datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/frostoil = 5)
 	result = /obj/item/reagent_containers/food/snacks/mint
 
 /datum/recipe/microwave/boiled_shrimp
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/shrimp,
 	)
@@ -929,7 +929,7 @@
 //////////////////////////////////////////
 
 /datum/recipe/microwave/pelmeni
-	reagents = list("water" = 5)
+	reagents = list(/datum/reagent/water = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/pelmeni,
 	)
@@ -982,21 +982,21 @@
 	result = /obj/item/reagent_containers/food/snacks/beefnoodles
 
 /datum/recipe/microwave/tortilla
-	reagents = list("flour" = 10)
+	reagents = list(/datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/corn,
 	)
 	result = /obj/item/reagent_containers/food/snacks/tortilla
 
 /datum/recipe/microwave/nachos
-	reagents = list("sodiumchloride" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/tortilla,
 	)
 	result = /obj/item/reagent_containers/food/snacks/nachos
 
 /datum/recipe/microwave/cheesenachos
-	reagents = list("sodiumchloride" = 1)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/tortilla,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -1038,14 +1038,14 @@
 	result = /obj/item/reagent_containers/food/snacks/plasmaburrito
 
 /datum/recipe/microwave/risotto
-	reagents = list("wine" = 5, "rice" = 10)
+	reagents = list(/datum/reagent/consumable/ethanol/wine = 5, /datum/reagent/consumable/rice = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
 	result = /obj/item/reagent_containers/food/snacks/risotto
 
 /datum/recipe/microwave/bruschetta
-	reagents = list("sodiumchloride" = 2, "flour" = 10)
+	reagents = list(/datum/reagent/consumable/sodiumchloride = 2, /datum/reagent/consumable/flour = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -1063,14 +1063,14 @@
 	result = /obj/item/reagent_containers/food/snacks/quiche
 
 /datum/recipe/microwave/crayfish
-	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/herbs = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/crayfish_raw,
 	)
 	result = /obj/item/reagent_containers/food/snacks/crayfish_cooked
 
 /datum/recipe/microwave/crayfish_small
-	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/herbs = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/crayfish_raw_small,
 	)

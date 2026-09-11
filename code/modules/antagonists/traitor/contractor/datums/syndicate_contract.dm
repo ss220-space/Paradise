@@ -542,7 +542,7 @@
 	// Supply them with some chow. How generous is the Syndicate?
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(food_turf)
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
-	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
+	drink.reagents.add_reagent(/datum/reagent/consumable/drink/tea, 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
 
 #define VICTIM_EXPERIENCE_START 0

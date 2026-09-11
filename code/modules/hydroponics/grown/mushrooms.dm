@@ -20,7 +20,7 @@
 	growthstages = 4
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("morphine" = 0.35, "charcoal" = 0.35, "nutriment" = 0)
+	reagents_add = list(/datum/reagent/medicine/morphine = 0.35, /datum/reagent/medicine/charcoal = 0.35, /datum/reagent/consumable/nutriment = 0)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/reishi
 	seed = /obj/item/seeds/reishi
@@ -47,7 +47,7 @@
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list(/obj/item/seeds/angel)
-	reagents_add = list("psilocybin" = 0.04, "amanitin" = 0.35, "nutriment" = 0, "growthserum" = 0.1)
+	reagents_add = list(/datum/reagent/psilocybin = 0.04, /datum/reagent/amanitin = 0.35, /datum/reagent/consumable/nutriment = 0, /datum/reagent/growthserum = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita
 	seed = /obj/item/seeds/amanita
@@ -75,7 +75,7 @@
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("psilocybin" = 0.04, "nutriment" = 0, "amanitin" = 0.3)
+	reagents_add = list(/datum/reagent/psilocybin = 0.04, /datum/reagent/consumable/nutriment = 0, /datum/reagent/amanitin = 0.3)
 	rarity = 30
 	origin_tech = "biotech=5"
 
@@ -104,7 +104,7 @@
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("psilocybin" = 0.25, "nutriment" = 0.02)
+	reagents_add = list(/datum/reagent/psilocybin = 0.25, /datum/reagent/consumable/nutriment = 0.02)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap
 	seed = /obj/item/seeds/liberty
@@ -132,7 +132,7 @@
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list(/obj/item/seeds/plump/walkingmushroom)
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
@@ -141,7 +141,7 @@
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
-	distill_reagent = "manlydorf"
+	distill_reagent = /datum/reagent/consumable/ethanol/manly_dorf
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -156,7 +156,7 @@
 	maturation = 5
 	yield = 1
 	mutatelist = list()
-	reagents_add = list("vitamin" = 0.05, "nutriment" = 0.15)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.05, /datum/reagent/consumable/nutriment = 0.15)
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom
@@ -198,7 +198,7 @@
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
 	seed = /obj/item/seeds/chanter
@@ -226,7 +226,7 @@
 	genes = list(/datum/plant_gene/trait/glow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list(/obj/item/seeds/glowshroom/glowcap, /obj/item/seeds/glowshroom/shadowshroom)
-	reagents_add = list("radium" = 0.1, "phosphorus" = 0.1, "nutriment" = 0.04)
+	reagents_add = list(/datum/reagent/radium = 0.1, /datum/reagent/phosphorus = 0.1, /datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom
 	seed = /obj/item/seeds/glowshroom
@@ -274,7 +274,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
 	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list()
-	reagents_add = list("teslium" = 0.1, "nutriment" = 0.04)
+	reagents_add = list(/datum/reagent/teslium = 0.1, /datum/reagent/consumable/nutriment = 0.04)
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
@@ -303,7 +303,7 @@
 	icon_harvest = "mold-harvest"
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
-	reagents_add = list("fungus" = 0.35)
+	reagents_add = list(/datum/reagent/fungus = 0.35)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/fungus
 	seed = /obj/item/seeds/fungus
@@ -325,7 +325,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
 	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list()
-	reagents_add = list("radium" = 0.2, "nutriment" = 0.04)
+	reagents_add = list(/datum/reagent/radium = 0.2, /datum/reagent/consumable/nutriment = 0.04)
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom

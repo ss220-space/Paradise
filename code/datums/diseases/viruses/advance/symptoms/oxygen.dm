@@ -31,8 +31,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				if(M.reagents.get_reagent_amount("salbutamol") < 20)
-					M.reagents.add_reagent("salbutamol", 20)
+				if(M.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 20)
+					M.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, span_notice(pick("Ваши лёгкие чувствуют себя прекрасно.", "Вы понимаете, что не дышали.", "Вы не чувствуете необходимости дышать.")))

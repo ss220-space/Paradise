@@ -156,9 +156,9 @@
 		for(var/mob/living/L in range(5, src))
 			if(!isclocker(L))
 				continue
-			if(L.reagents?.has_reagent("holywater"))
+			if(L.reagents?.has_reagent(/datum/reagent/holywater))
 				to_chat(L, span_warning("You feel a terrible liquid disappearing from your body."))
-				L.reagents.del_reagent("holywater")
+				L.reagents.del_reagent(/datum/reagent/holywater)
 			if(iscogscarab(L))
 				var/mob/living/silicon/robot/cogscarab/C = L
 				C.wind_up_timer = min(C.wind_up_timer + 60, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 60 seconds. roughly, every second 10 to timer.

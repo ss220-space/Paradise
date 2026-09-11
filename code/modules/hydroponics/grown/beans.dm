@@ -15,7 +15,7 @@
 	icon_dead = "soybean-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/soya/koi)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05, "soybeanoil" = 0.03)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05, /datum/reagent/consumable/soybeanoil = 0.03)
 
 /obj/item/reagent_containers/food/snacks/grown/soybeans
 	seed = /obj/item/seeds/soya
@@ -38,7 +38,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/koibeans
 	potency = 10
 	mutatelist = list()
-	reagents_add = list("carpotoxin" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/carpotoxin = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/koibeans
@@ -63,7 +63,7 @@
 	icon_dead = "olives-dead"
 	icon_harvest = "olives-harvest"
 	mutatelist = list(/obj/item/seeds/soya/olive/charc)
-	reagents_add = list("oliveoil" = 0.3, "plantmatter" = 0.05, "vitamin" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/cornoil/oliveoil = 0.3, /datum/reagent/consumable/nutriment/plantmatter = 0.05, /datum/reagent/consumable/nutriment/vitamin = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/olive
 	seed = /obj/item/seeds/soya/olive
@@ -83,7 +83,7 @@
 	icon_grow = "charcolives-grow"
 	icon_dead = "charcolives-dead"
 	icon_harvest = "charcolives-harvest"
-	reagents_add = list("charcoal" = 0.4, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/medicine/charcoal = 0.4, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/olive/charc
 	seed = /obj/item/seeds/soya/olive/charc

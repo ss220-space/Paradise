@@ -34,4 +34,4 @@
 	exposed_mob.apply_damage(0.3 * reac_volume, TOX)
 	exposed_mob.apply_damage(0.2 * reac_volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
 	if(exposed_mob.reagents)
-		exposed_mob.reagents.add_reagent("uranium", 0.35 * reac_volume)
+		exposed_mob.reagents.add_reagent(/datum/reagent/uranium, 0.35 * reac_volume)

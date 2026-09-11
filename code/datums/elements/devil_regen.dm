@@ -158,7 +158,7 @@
 	for(var/datum/reagent/reagent as anything in human.reagents?.reagent_list)
 		if(reagent.devil_regen_ignored)
 			continue
-		human.reagents.remove_reagent(reagent, min(reagent.volume, regen_amount))
+		human.reagents.remove_reagent(reagent.type, min(reagent.volume, regen_amount))
 
 	if(ishuman(human))
 		var/mob/living/carbon/human/mob = human

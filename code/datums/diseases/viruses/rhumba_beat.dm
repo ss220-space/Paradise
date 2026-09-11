@@ -4,7 +4,7 @@
 	agent = UNKNOWN_STATUS_RUS
 	spread_flags = CONTACT
 	cure_text = "Чики-чики БУМ!"
-	cures = list("plasma")
+	cures = list(/datum/reagent/plasma)
 	severity = DISEASE_SEVERITY_BIOHAZARD
 
 /datum/disease/virus/rhumba_beat/stage_act()

@@ -32,7 +32,7 @@
 /obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(isglassreagentcontainer(target))
 		var/obj/item/reagent_containers/glass/beaker = target
-		beaker.reagents.add_reagent(inner_reagent.id, transfer)
+		beaker.reagents.add_reagent(inner_reagent.type, transfer)
 		to_chat(user, span_notice("You have poured 10 units of content into this."))
 	else
 		to_chat(user, span_notice("You can't pour [src]'s content into this."))

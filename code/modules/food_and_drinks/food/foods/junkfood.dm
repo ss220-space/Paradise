@@ -12,7 +12,7 @@
 	filling_color = "#E8C31E"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/sugar = 2)
 	tastes = list("crisps" = 1)
 	foodtype = JUNKFOOD | FRIED
 
@@ -24,7 +24,7 @@
 	filling_color = "#631212"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("protein" = 1, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/consumable/sugar = 3)
 	tastes = list("chewy beef" = 1)
 	foodtype = JUNKFOOD | MEAT
 
@@ -36,7 +36,7 @@
 	filling_color = "#BAD145"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/sugar = 2)
 	tastes = list("pistachios" = 1)
 	foodtype = JUNKFOOD
 
@@ -48,7 +48,7 @@
 	filling_color = "#343834"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/sugar = 2)
 	tastes = list("dried raisins" = 1)
 	foodtype = JUNKFOOD | FRUIT
 
@@ -69,7 +69,7 @@
 	trash = /obj/item/trash/spacetwinkie
 	filling_color = "#FFE591"
 	junkiness = 25
-	list_reagents = list("sugar" = 4)
+	list_reagents = list(/datum/reagent/consumable/sugar = 4)
 	tastes = list("twinkies" = 1)
 	foodtype = JUNKFOOD | SUGAR
 
@@ -81,7 +81,7 @@
 	filling_color = "#FFA305"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/fake_cheese = 2, /datum/reagent/consumable/sugar = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
 	foodtype = JUNKFOOD | DAIRY
 
@@ -93,7 +93,7 @@
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
 	antable = FALSE
-	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/medicine/salglu_solution = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
 	foodtype = JUNKFOOD
 
@@ -105,7 +105,7 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("protein" = 2, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/consumable/sugar = 2)
 	tastes = list("bread" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
@@ -116,7 +116,7 @@
 	trash = /obj/item/trash/doshik
 	filling_color = "#d1a62f"
 	junkiness = 20
-	list_reagents = list("protein" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3)
 	tastes = list("doshi co" = 1, "pleasure" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
@@ -128,7 +128,7 @@
 	trash = /obj/item/trash/doshik
 	filling_color = "#d16a2f"
 	junkiness = 20
-	list_reagents = list("protein" = 3, "capsaicin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/capsaicin = 5)
 	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
@@ -140,13 +140,13 @@
 /obj/item/reagent_containers/food/snacks/sosjerky/healthy
 	name = "homemade beef jerky"
 	desc = "Homemade beef jerky made from the finest space cows."
-	list_reagents = list("nutriment" = 3, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
 	junkiness = 0
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/no_raisin/healthy
 	name = "homemade raisins"
 	desc = "homemade raisins, the best in all of spess."
-	list_reagents = list("nutriment" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
 	junkiness = 0
 	foodtype = FRUIT

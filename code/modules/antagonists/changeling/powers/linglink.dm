@@ -85,7 +85,7 @@
 	cling?.is_linking = FALSE
 	target.add_language(LANGUAGE_HIVE_CHANGELING)
 	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'АААААААААААА!!")
-	target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
+	target.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 40) // So they don't choke to death while you interrogate them
 
 	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), time MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 

@@ -87,21 +87,23 @@
 
 		if("add")
 			var/id = params["id"]
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
-			if(beaker && validexchange(id))
+			if(beaker && validexchange(reagent.type))
 				var/obj/item/reagent_containers/glass/A = beaker
 				var/datum/reagents/R = A.reagents
-				R.trans_id_to(src, id, amount)
+				R.trans_id_to(src, reagent.type, amount)
 				. = TRUE
 
 		if("remove")
 			var/id = params["id"]
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
-			if(beaker && validexchange(id))
+			if(beaker && validexchange(reagent.type))
 				var/obj/item/reagent_containers/glass/A = beaker
-				reagents.trans_id_to(A, id, amount)
+				reagents.trans_id_to(A, reagent.type, amount)
 			else
-				reagents.remove_reagent(id, amount)
+				reagents.remove_reagent(reagent.type, amount)
 			. = TRUE
 
 		if("synthcond")
@@ -110,33 +112,33 @@
 				var/brand = pick(1,2,3,4)
 				if(brand == 1)
 					if(type == 2)
-						reagents.add_reagent("cola",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_cola, 5)
 					else
-						reagents.add_reagent("kahlua",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/kahlua, 5)
 				else if(brand == 2)
 					if(type == 2)
-						reagents.add_reagent("dr_gibb",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/dr_gibb, 5)
 					else
-						reagents.add_reagent("vodka",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/vodka, 5)
 				else if(brand == 3)
 					if(type == 2)
-						reagents.add_reagent("space_up",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_up, 5)
 					else
-						reagents.add_reagent("rum",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/rum, 5)
 				else if(brand == 4)
 					if(type == 2)
-						reagents.add_reagent("spacemountainwind",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/spacemountainwind, 5)
 					else
-						reagents.add_reagent("gin",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/gin, 5)
 			else if(type == 4)
 				var/remaining_space = min(30, reagents.maximum_volume - reagents.total_volume)
 				if(remaining_space > 0)
-					reagents.add_reagent("cream", remaining_space)
+					reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, remaining_space)
 				. = TRUE
 			else if(type == 5)
 				var/remaining_space = min(30, reagents.maximum_volume - reagents.total_volume)
 				if(remaining_space > 0)
-					reagents.add_reagent("water", remaining_space)
+					reagents.add_reagent(/datum/reagent/water, remaining_space)
 				. = TRUE
 
 		if("createcup")
@@ -198,13 +200,13 @@
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		add_fingerprint(user)
-		if(I.reagents.has_reagent("sprinkles"))
+		if(I.reagents.has_reagent(/datum/reagent/consumable/sprinkles))
 			balloon_alert(user, "уже есть посыпка!")
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "посыпка добавлена")
 		if(I.reagents.total_volume > 29)
 			I.reagents.remove_any(1)
-		I.reagents.add_reagent("sprinkles", 1)
+		I.reagents.add_reagent(/datum/reagent/consumable/sprinkles, 1)
 		I.name += " c посыпкой"
 		I.desc += " С ароматной посыпкой."
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -212,7 +214,7 @@
 	return ..()
 
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
+	if(reag == /datum/reagent/consumable/sprinkles || reag == /datum/reagent/consumable/drink/cold/space_cola || reag == /datum/reagent/consumable/ethanol/kahlua || reag == /datum/reagent/consumable/drink/cold/dr_gibb || reag == /datum/reagent/consumable/ethanol/vodka || reag == /datum/reagent/consumable/drink/cold/space_up || reag == /datum/reagent/consumable/ethanol/rum || reag == /datum/reagent/consumable/drink/cold/spacemountainwind || reag == /datum/reagent/consumable/ethanol/gin || reag == /datum/reagent/consumable/drink/milk/cream || reag == /datum/reagent/water)
 		return 1
 	else
 		if(reagents.total_volume < 500)

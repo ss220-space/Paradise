@@ -49,8 +49,8 @@
 
 	charges_cooldown.start_recharge()
 	balloon_alert(imp_in, "вы чувствуете облегчение")
-	imp_in.reagents.add_reagent("epinephrine", 5)
-	imp_in.reagents.add_reagent("traneksam_acid", 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/traneksam_acid, 5)
 	imp_in.apply_status_effect(/datum/status_effect/heal)
 	imp_in.adjust_nutrition(-150)
 	return ..()

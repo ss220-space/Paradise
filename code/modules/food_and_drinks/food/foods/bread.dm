@@ -10,7 +10,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/meatbreadslice
 	slices_num = 5
 	filling_color = "#FF7575"
-	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 20, /datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bread" = 10, "meat" = 10)
 	foodtype = GRAIN | MEAT
 
@@ -30,7 +30,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	slices_num = 5
 	filling_color = "#8AFF75"
-	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 20, /datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bread" = 10, "acid" = 10)
 	foodtype = GRAIN | MEAT
 
@@ -49,7 +49,7 @@
 	icon_state = "spidermeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	slices_num = 5
-	list_reagents = list("protein" = 20, "nutriment" = 10, "toxin" = 15, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 20, /datum/reagent/consumable/nutriment = 10, /datum/reagent/toxin = 15, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bread" = 10, "cobwebs" = 5)
 	foodtype = GRAIN | MEAT | TOXIC
 
@@ -59,7 +59,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "xenobreadslice"
 	trash = /obj/item/trash/plate
-	list_reagents = list("toxin" = 2)
+	list_reagents = list(/datum/reagent/toxin = 2)
 	foodtype = GRAIN | MEAT | TOXIC
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread/banana
@@ -69,7 +69,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
 	slices_num = 5
 	filling_color = "#EDE5AD"
-	list_reagents = list("banana" = 20, "nutriment" = 20)
+	list_reagents = list(/datum/reagent/consumable/drink/banana = 20, /datum/reagent/consumable/nutriment = 20)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | FRUIT
 
@@ -90,7 +90,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
 	slices_num = 5
 	filling_color = "#F7FFE0"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bread" = 10, "tofu" = 10)
 	foodtype = GRAIN | VEGETABLES
 
@@ -111,7 +111,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/breadslice
 	slices_num = 6
 	filling_color = "#FFE396"
-	list_reagents = list("nutriment" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
@@ -128,7 +128,7 @@
 	icon_state = "breadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#D27332"
-	list_reagents = list("nutriment" = 2, "bread" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/bread = 5)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
@@ -137,7 +137,7 @@
 	desc = "Похоже, ваши похитители позаботились о вашем питании."
 	gender = MALE
 	trash = null
-	list_reagents = list("nutriment" = 7, "bread" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/bread = 5)
 
 /obj/item/reagent_containers/food/snacks/breadslice/stale/get_ru_names()
 	return alist(
@@ -153,7 +153,7 @@
 	name = "moldy bread"
 	gender = MALE
 	trash = null
-	list_reagents = list("nutriment" = 2, "bread" = 5, "fungus" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/bread = 5, /datum/reagent/fungus = 1)
 
 /obj/item/reagent_containers/food/snacks/breadslice/moldy/get_ru_names()
 	return alist(
@@ -168,7 +168,7 @@
 /obj/item/reagent_containers/food/snacks/breadslice/burned
 	name = "burned bread slice"
 	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
-	list_reagents = list("nutriment" = 2, "bread" = 5, "????" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/bread = 5, /datum/reagent/questionmark = 2)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | TOXIC
 
@@ -180,7 +180,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	slices_num = 5
 	filling_color = "#FFF896"
-	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtype = GRAIN | DAIRY
 
@@ -191,7 +191,7 @@
 	icon_state = "creamcheesebreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFF896"
-	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
 	foodtype = GRAIN | DAIRY
 
@@ -204,7 +204,7 @@
 	desc = "The base for any self-respecting burger."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "bun"
-	list_reagents = list("nutriment" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	tastes = list("bun" = 1)
 	foodtype = GRAIN
 
@@ -212,7 +212,7 @@
 	name = "Bun Bun"
 	desc = "A small bread monkey fashioned from two burger buns."
 	icon_state = "bunbun"
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("bun" = 2)
 	foodtype = GRAIN
 
@@ -222,7 +222,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flatbread"
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
 
@@ -234,7 +234,7 @@
 	item_state = "baguette"
 	filling_color = "#E3D796"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
 	slot_flags = ITEM_SLOT_BELT
@@ -263,7 +263,7 @@
 	icon_state = "twobread"
 	filling_color = "#DBCC9A"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
 
@@ -274,7 +274,7 @@
 	icon_state = "toast"
 	filling_color = "#B2580E"
 	bitesize = 3
-	list_reagents = list("nutriment" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	tastes = list("toast" = 2)
 	foodtype = GRAIN
 
@@ -290,10 +290,10 @@
 	foodtype = GRAIN | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
-	list_reagents = list("nutriment" = 1, "cherryjelly" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast/slime
-	list_reagents = list("nutriment" = 1, "slimejelly" = 5, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/slimejelly = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 
 /obj/item/reagent_containers/food/snacks/rofflewaffles
 	name = "roffle waffles"
@@ -303,7 +303,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#FF00F7"
 	bitesize = 4
-	list_reagents = list("nutriment" = 8, "psilocybin" = 2, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/psilocybin = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("waffle" = 1, "mushrooms" = 1)
 	foodtype = GRAIN | SUGAR | VEGETABLES
 
@@ -314,6 +314,6 @@
 	icon_state = "waffles"
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"
-	list_reagents = list("nutriment" = 8, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 1)
 	foodtype = GRAIN | SUGAR
 

@@ -226,8 +226,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
-	if(holder.has_reagent("capsaicin"))
-		holder.remove_reagent("capsaicin", 2)
+	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/milk/soymilk
@@ -250,7 +250,7 @@
 
 /datum/reagent/consumable/drink/milk/chocolate_milk
 	name = "Шоколадное молоко"
-	id ="chocolate_milk"
+	id = "chocolate_milk"
 	description = "Молоко с шоколадом. Прямо как в детстве."
 	color = "#85432C"
 	drink_name = "стакан шоколадного молока"
@@ -294,8 +294,8 @@
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustStaminaLoss(-1, FALSE)
-	if(holder.has_reagent("frostoil"))
-		holder.remove_reagent("frostoil", 5)
+	if(holder.has_reagent(/datum/reagent/consumable/frostoil))
+		holder.remove_reagent(/datum/reagent/consumable/frostoil, 5)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/target, severity)
@@ -501,7 +501,7 @@
 	description = "Мороженое, смешанное с Доктором Гиббом."
 	color = "#B22222"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	drink_icon= "gibbfloats"
+	drink_icon = "gibbfloats"
 	drink_name = "кружка Всплывшего Гибба"
 	drink_desc = "Мороженое, смешанное с Доктором Гиббом."
 	taste_description = "революции"
