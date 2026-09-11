@@ -125,7 +125,7 @@
 	icon_state = "knuckles"
 	item_state = "knuckles"
 	extra_knock_chance = 15 //20% overall
-	var/knuckle_damage = 5 //additional fists damage
+	var/knuckle_damage = 3 //additional fists damage
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 0)
@@ -145,7 +145,15 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+	var/list/deltas = list()
+	SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, null)
+	var/delta = 0
+	for(var/addition in deltas)
+		delta += addition
+
+	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
+	CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
+	damage *= skill_mod
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
 	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))

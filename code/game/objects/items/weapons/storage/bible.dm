@@ -74,8 +74,8 @@
 	)
 
 /obj/item/storage/bible/booze/populate_contents()
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/cup/soda_cans/beer(src)
+	new /obj/item/reagent_containers/cup/soda_cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)

@@ -768,7 +768,7 @@
 			to_chat(user, span_warning("The [reagent_source.name] is empty."))
 			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
-		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
+		if(!reagent_source.is_open_container() && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, span_warning("You need to open [reagent_source] first."))
 			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 

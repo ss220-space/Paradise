@@ -127,7 +127,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer")
+				SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer", forced = TRUE)
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency?.mode == SHUTTLE_ENDGAME || mode.station_was_nuked

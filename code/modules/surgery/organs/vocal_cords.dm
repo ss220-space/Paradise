@@ -158,7 +158,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/command = tgui_input_text(owner, "Изречь Глас Божий", "Команда")
 	if(!command)
 		return
-	owner.say(".~[command]")
+	owner.say(".~ [command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return

@@ -313,6 +313,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 		if("selectequip")
 			usr.client.holder.Topic(null, list("select_equip" = selected_player.UID()))
 			return
+		if("customquip")
+			usr.client.holder.Topic(null, list("custom_equip" = selected_player.UID()))
+			return
 		if("changevoice")
 			usr.client.holder.Topic(null, list("change_voice" = selected_player.UID()))
 			return
