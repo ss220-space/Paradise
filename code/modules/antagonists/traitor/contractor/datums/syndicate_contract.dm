@@ -541,7 +541,7 @@
 	|| /obj/item/reagent_containers/food/snacks/breadslice/stale
 	// Supply them with some chow. How generous is the Syndicate?
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(food_turf)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
+	var/obj/item/reagent_containers/cup/glass/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
 

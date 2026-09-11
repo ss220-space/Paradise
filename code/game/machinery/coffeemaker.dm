@@ -23,7 +23,7 @@
 	anchored = TRUE
 
 	/// The coffee pot currently in the machine
-	var/obj/item/reagent_containers/glass/coffeepot/coffeepot
+	var/obj/item/reagent_containers/cup/coffeepot/coffeepot
 	/// Whether the machine is currently brewing
 	var/brewing = FALSE
 	/// Time required to brew coffee
@@ -114,7 +114,7 @@
 	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
+	if(istype(attack_item, /obj/item/reagent_containers/cup/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
 		handle_coffeepot_insertion(user, attack_item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -144,7 +144,7 @@
 	update_appearance(UPDATE_OVERLAYS)
 	return item_slot
 
-/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/glass/coffeepot/new_coffeepot)
+/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/cup/coffeepot/new_coffeepot)
 	coffeepot = handle_item_replacement(user, new_coffeepot, coffeepot, "кофейник заменён", "кофейник вставлен", "кофейник извлечён")
 
 /obj/machinery/coffeemaker/proc/replace_cartridge(mob/living/user, obj/item/coffee_cartridge/new_cartridge)
@@ -226,7 +226,7 @@
 		balloon_alert(user, "техпанель открыта!")
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/reagent_containers/glass/coffeepot/new_pot = inserting_item
+	var/obj/item/reagent_containers/cup/coffeepot/new_pot = inserting_item
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!user.transfer_item_to_loc(new_pot, src))
@@ -299,7 +299,7 @@
 	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
-		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
+		coffeepot = new /obj/item/reagent_containers/cup/coffeepot(src)
 		cartridge = new /obj/item/coffee_cartridge(src)
 
 	component_parts = list()
@@ -376,7 +376,7 @@
 	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
-		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
+		coffeepot = new /obj/item/reagent_containers/cup/coffeepot(src)
 		cartridge = null
 
 	component_parts = list()

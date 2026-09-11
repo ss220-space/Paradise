@@ -10,7 +10,7 @@
 	icon_state = "icecream_vat"
 	max_integrity = 300
 	idle_power_usage = 20
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/useramount = 15	//Last used amount
 
 /obj/machinery/icemachine/get_ru_names()
@@ -51,7 +51,7 @@
 
 	data["beakerContents"] = list()
 	if(beaker)
-		var/obj/item/reagent_containers/glass/A = beaker
+		var/obj/item/reagent_containers/cup/A = beaker
 		var/datum/reagents/R = A.reagents
 		for(var/datum/reagent/G in R.reagent_list)
 			data["beakerContents"] += list(list(
@@ -89,7 +89,7 @@
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(id))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				var/datum/reagents/R = A.reagents
 				R.trans_id_to(src, id, amount)
 				. = TRUE
@@ -98,7 +98,7 @@
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(id))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				reagents.trans_id_to(A, id, amount)
 			else
 				reagents.remove_reagent(id, amount)

@@ -19,7 +19,7 @@
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 	/// Can be set to draw from this for reagents.
-	var/obj/item/reagent_containers/glass/reagent_glass = null
+	var/obj/item/reagent_containers/cup/reagent_glass = null
 	/// Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/skin = null
 	var/mob/living/carbon/patient = null

@@ -153,7 +153,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/datum/snake_fashion/snake_fashion = null
 
 	/// UID of a /mob that threw the item.
-	var/thrownby
+	var/datum/weakref/thrownby = null
 
 	/// So items can have custom embedd values
 	/// Because customisation is king

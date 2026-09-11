@@ -294,7 +294,7 @@
 		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/unholywater
+/obj/item/reagent_containers/cup/glass/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"

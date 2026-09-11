@@ -506,7 +506,7 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/tastybread,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
+		/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
 		/obj/item/pen,
 		/obj/item/screwdriver,
 		/obj/item/stack/tape_roll,
@@ -646,8 +646,8 @@
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
-		/obj/item/reagent_containers/glass/bottle/random_reagent = 1,
-		/obj/item/reagent_containers/glass/bottle/random_chem = 1,
+		/obj/item/reagent_containers/cup/bottle/random_reagent = 1,
+		/obj/item/reagent_containers/cup/bottle/random_chem = 1,
 	)
 	return ..()
 
