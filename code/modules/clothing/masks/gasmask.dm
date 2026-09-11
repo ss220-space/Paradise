@@ -417,7 +417,8 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+
+	/*//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
 	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
 		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
 			//mask_spell = spell
@@ -429,7 +430,7 @@
 	// 	mask_spell.action.enable_invisibility(FALSE)
 	// 	return
 
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)*/
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -437,7 +438,8 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+
+	/*var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
 	if(!spell)
 		return
 
@@ -445,9 +447,9 @@
 	// 	spell.action.enable_invisibility(TRUE)
 	// 	return
 
-	if(user.mind.miming)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		spell.cast(list(user))
-	user.mind.RemoveSpell(spell)
+	user.mind.RemoveSpell(spell)*/
 
 /obj/item/clothing/mask/gas/mime/sad
 	name = "sad mime mask"

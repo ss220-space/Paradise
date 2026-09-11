@@ -17,9 +17,9 @@ emp_act
 		var/reflected = FALSE
 
 		switch(can_reflect)
-			if(1) // proper reflection
+			if(REFLECT_NORMAL)
 				reflected = TRUE
-			if(2) //If target is holding a toy sword
+			if(REFLECT_TOY) //If target is holding a toy sword
 				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 

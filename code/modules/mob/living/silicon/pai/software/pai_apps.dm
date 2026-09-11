@@ -368,7 +368,7 @@
 		cleanup_hack()
 		return
 	if(cable && cable.machine == machinery && cable.machine == hackmachine)
-		if(istype(machinery, /obj/machinery/door))
+		if(is_door(machinery))
 			var/obj/machinery/door/D = machinery
 			D.open()
 		else if(isapc(machinery))

@@ -190,10 +190,10 @@
 		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
 		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
+	wizard_mob.equip_or_collect(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, ITEM_SLOT_HAND_LEFT)
+	wizard_mob.equip_or_collect(spellbook, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -238,10 +238,10 @@
 	else
 		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/cup/glass/mugwort, ITEM_SLOT_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
+	wizard_mob.equip_or_collect(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
+	wizard_mob.equip_or_collect(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -331,7 +331,7 @@
 			if(LAZYLEN(wizard.spell_list))
 				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+				for(var/datum/action/cooldown/spell/spell as anything in wizard.spell_list)
 					text += "[spell.name]"
 					if(length(wizard.spell_list) > i)
 						text += ", "
@@ -381,12 +381,12 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mind.spell_list)
 		mind.RemoveSpell(spell_to_remove)
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mob_spell_list)
 		RemoveSpell(spell_to_remove)
 
 /*Checks if the wizard can cast spells.
