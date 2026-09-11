@@ -254,6 +254,15 @@ emp_act
 	if(shield_result == HIT_RESULT_REFLECY_BACK)
 		return HIT_RESULT_REFLECY_BACK
 
+	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(w_uniform && w_uniform.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return HIT_RESULT_SUCCESS
 	return HIT_RESULT_FAILED

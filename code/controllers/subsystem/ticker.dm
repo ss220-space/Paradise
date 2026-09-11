@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(ticker)
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
 					if("vote")
-						SSvote.initiate_vote(/datum/vote/map, "Map Rotation")
+						SSvote.initiate_vote(/datum/vote/map, "Map Rotation", forced = TRUE)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
