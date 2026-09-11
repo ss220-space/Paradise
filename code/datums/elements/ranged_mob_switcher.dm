@@ -40,6 +40,7 @@
 
 	apply_mode(pick(possible_modes), target) // Apply any given mode
 	RegisterSignal(target, COMSIG_LIVING_RIGHT_CLICK_ATTACK, PROC_REF(on_right_click_attack))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_self_examine))
 
 /datum/element/ranged_mob_switcher/Detach(mob/living/simple_animal/hostile/target, ...)
 	UnregisterSignal(target, COMSIG_LIVING_RIGHT_CLICK_ATTACK)
@@ -107,3 +108,13 @@
 		var/datum/ranged_mob_switcher_mode/mode = mode_type
 		mode_name_to_type[mode::name] = mode_type
 		radial_menu_list[mode::name] = image(icon = mode::icon, icon_state = mode::icon_state)
+
+
+/// Signal proc. Shows on self examine that we can change modes
+/datum/element/ranged_mob_switcher/proc/on_self_examine(mob/living/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+
+	if(source != user)
+		return
+
+	examine_text += span_notice("Вы можете изменить режим стрельбы атакуя себя на ПКМ.")
