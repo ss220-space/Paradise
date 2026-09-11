@@ -21,6 +21,7 @@
 	var/has_lid = FALSE
 	/// The last time we have checked for taste.
 	COOLDOWN_DECLARE(last_check_time)
+	var/chugging = FALSE
 
 /obj/item/reagent_containers/cup/Initialize(mapload, vol)
 	. = ..()
@@ -123,9 +124,45 @@
 	checkLiked(fraction, target)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
+/obj/item/reagent_containers/cup/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!iscarbon(over_object))
+		return
+
+	var/mob/living/carbon/chugger = over_object
+
+	if(!(container_type & DRAINABLE))
+		balloon_alert(chugger, "сначала откройте!")
+		return
+
+	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
+		balloon_alert(chugger, "ваш рот чем-то закрыт!")
+		return
+
+	if(!reagents.total_volume || loc != chugger || src != chugger.get_active_hand())
+		return
+
+	chugger.visible_message(
+		span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		span_notice("Вы слышите звуки, походящие на питьё чего-то.")
+	)
+
+	chugging = TRUE
+	while(do_after(chugger, 4 SECONDS, chugger, show_progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
+		chugger.eat(src, chugger, 25)
+		if(!reagents.total_volume)
+			chugger.emote("gasp")
+			chugger.visible_message(
+				span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
+				span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
+				span_notice("Вы слышите громкие глотки и последующий громкий выдох.")
+			)
+			break
+	chugging = FALSE
+
 /obj/item/reagent_containers/cup/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if((!proximity_flag) || !check_allowed_items(target,target_self=1))
+	if((!proximity_flag) || chugging || !check_allowed_items(target,target_self=1))
 		return
 
 	if(!is_open_container())
