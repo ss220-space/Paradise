@@ -1,0 +1,23 @@
+## allow players to initate a mode-change start
+#ALLOW_VOTE_GAMEMODE
+
+## allow players to initate a next round map-change start
+ALLOW_VOTE_MAP
+
+## min delay (deciseconds) between voting sessions (default 10 minutes)
+VOTE_DELAY 18000
+
+## time period (deciseconds) which voting session will last (default 1 minute)
+VOTE_PERIOD 600
+
+## autovote initial delay (deciseconds) before first automatic transfer vote call (default 180 minutes)
+VOTE_AUTOTRANSFER_INITIAL 108000
+
+##autovote delay (deciseconds) before sequential automatic transfer votes are called (default 60 minutes)
+VOTE_AUTOTRANSFER_INTERVAL 36000
+
+## prevents dead players from voting or starting votes
+#VOTE_NO_DEAD
+
+## prevents offstation players from voting or starting votes
+VOTE_NO_OFFSTATION_ROLE
