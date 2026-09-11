@@ -21,7 +21,7 @@
 	prisoners_count = rand(3, 5)
 	request_number = "[rand(100, 999)]"
 	name = "Запрос исполнения наказания №[request_number]"
-	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] [declension_ru(prisoners_count, "заключенным", "заключенными", "заключенными")] для исполнения наказания."
+	description = "Запрос исполнения наказания №[request_number]. На станцию прибудет шаттл с [prisoners_count] заключенным[DECL___I_I(prisoners_count)] для исполнения наказания."
 
 /datum/addition_goal/prisoners/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	reward_credits = 0
@@ -116,7 +116,7 @@
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на временное заключение</b></center><br>
-		В ваш адрес [declension_ru(prisoners_count, "направлен", "напревлены", "направлены")] [prisoners_count] [declension_ru(prisoners_count, "заключенный", "заключенных", "заключенных")] для отбытия наказания.<br>
+		В ваш адрес направлен[DECL___Y_Y(prisoners_count)] [prisoners_count] [declension_ru(prisoners_count, "заключенный", "заключенных", "заключенных")] для отбытия наказания.<br>
 		Просим произвести заключение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/prisoner as anything in prisoners)

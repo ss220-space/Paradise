@@ -89,7 +89,7 @@
 			reward_cargopoints += CARGOPOINTS_BY_UTILIZATION
 
 /datum/addition_goal/funeral/format_accept_report(mob/user)
-	var/text = {"В ваш адрес направлены [corpse_count] [declension_ru(corpse_count, "тело", "тела", "тел")] для организации процедуры захоронения.<br>
+	var/text = {"В ваш адрес направлены [corpse_count] тел[declension_ru(corpse_count, "о", "а", "")] для организации процедуры захоронения.<br>
 		Просим произвести погребение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/corpse as anything in corpses)

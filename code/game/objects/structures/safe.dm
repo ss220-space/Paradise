@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/examine(mob/user)
 	. = ..()
-	. += span_notice("Похоже, что эта модель имеет [number_of_tumblers] [declension_ru(number_of_tumblers,"тумблер","тумблера","тумблеров")].")
+	. += span_notice("Похоже, что эта модель имеет [number_of_tumblers] тумблер[DECL___A_OV(number_of_tumblers)].")
 	if(open)
 		. += span_notice("На внутренней стороне двери написаны цифры: <b>[get_combination()]</b>.")
 

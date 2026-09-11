@@ -37,7 +37,7 @@
 
 /obj/item/circuit_component/health/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL___A_OV(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/health/populate_ports()
 	input_port = add_input_port("Организм", PORT_TYPE_ATOM)

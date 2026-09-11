@@ -753,7 +753,7 @@
 	else
 		visible_message(
 			span_warning("[name] пыта[PLUR_ET_YUT(src)]ся себя отстегнуть!"),
-			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[DECL_SEC_MIN(breakout_time * 0.1)]."),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[DECL_U_Y__(breakout_time * 0.1)]."),
 		)
 
 	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,

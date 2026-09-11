@@ -118,7 +118,7 @@ GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check,"день","дня","дней")]."))
+		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] д[DECL_EN_NYA_NEJ(player_age_check)]."))
 		return
 
 	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)
@@ -147,7 +147,7 @@ GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_SEC_MIN(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_U_Y__(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

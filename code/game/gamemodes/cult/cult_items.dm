@@ -388,7 +388,7 @@
 
 	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
 	var/curse_delay = cursetime / 600
-	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)]."
+	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_U_Y__(curse_delay)]."
 
 	GLOB.major_announcement.announce(
 		message = curse_message,

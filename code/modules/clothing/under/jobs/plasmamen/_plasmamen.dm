@@ -27,7 +27,7 @@
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
-	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_CREDIT(extinguishes_left)].")
+	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL___A_OV(extinguishes_left)].")
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))

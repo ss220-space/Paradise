@@ -748,7 +748,7 @@
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_SEC_MIN(blood_gained)] крови!"))
+		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_U_Y__(blood_gained)] крови!"))
 
 /datum/action/cooldown/spell/pointed/bestia_lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)
@@ -1687,7 +1687,7 @@
 /datum/action/cooldown/spell/conjure/bestia_bats/cast(atom/cast_on)
 	. = ..()
 	owner.visible_message(span_warning("Внезапно <b>[summon_amount] ста[declension_ru(summon_amount, "я", "и", "й")]</b> космических летучих мышей появились рядом с [owner]!"), \
-						span_notice("Вы вызываете <b>[summon_amount] ста[declension_ru(summon_amount, "ю", "и", "й")]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
+						span_notice("Вы вызываете <b>[summon_amount] ста[DECL_YU_I_J(summon_amount)]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
 						span_italics("Вы слышите жуткий шум множества крыльев и громкие визги..."))
 
 /datum/action/cooldown/spell/conjure/bestia_bats/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force)

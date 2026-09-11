@@ -378,7 +378,7 @@
 
 /obj/item/storage/bag/kaboom/examine(mob/user)
 	. = ..()
-	. += span_notice("Внутри [LAZYLEN(contents)] заряд[DECL_CREDIT(LAZYLEN(contents))].")
+	. += span_notice("Внутри [LAZYLEN(contents)] заряд[DECL___A_OV(LAZYLEN(contents))].")
 
 /obj/item/storage/bag/kaboom/proc/set_next_bomb()
 	for(var/obj/item/grenade/plastic/I in contents)

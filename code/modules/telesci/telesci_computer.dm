@@ -53,7 +53,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
+	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL___A_OV(crystals)]" : "нет кристаллов"] блюспейса.")
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

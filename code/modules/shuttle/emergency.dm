@@ -29,7 +29,7 @@
 			to_chat(user, span_warning("Недостаточный уровень доступа."))
 			return ATTACK_CHAIN_PROCEED
 
-		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
+		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(!choice || !Adjacent(user) || QDELETED(id_card) || id_card.loc != user || SSshuttle.emergency.mode != SHUTTLE_DOCKED)
 			return ATTACK_CHAIN_PROCEED
 
@@ -45,7 +45,7 @@
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.announce(
-							message = "Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.",
+							message = "Осталось получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] для досрочного запуска шаттла.",
 							color_override = "red"
 						)
 					else
@@ -60,7 +60,7 @@
 			if("Repeal")
 				if(authorized.Remove(id_card.registered_name))
 					GLOB.minor_announcement.announce(
-						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].",
+						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))]."
 					)
 
 			if("Abort")

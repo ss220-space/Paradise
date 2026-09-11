@@ -33,15 +33,15 @@
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/current in reagents.reagent_list)
 						var/datum/reagent/reagent = current
-						. += span_notice("<b>[reagent.name]</b> - <b>[reagent.volume]</b> единиц[declension_ru(reagent.volume, "а", "ы", "")].")
+						. += span_notice("<b>[reagent.name]</b> - <b>[reagent.volume]</b> единиц[DECL_A_Y__(reagent.volume)].")
 				else //Otherwise, just show the total volume
 					if(reagents && length(reagents.reagent_list))
-						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
+						. += span_notice("<b>[reagents.total_volume]</b> единиц[DECL_A_Y__(reagents.total_volume)] вещества.")
 			else
 				. += span_notice("Ничего.")
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
+				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[DECL_A_Y__(reagents.total_volume)] вещества.")
 			else
 				. += span_danger("Внутри ничего нет.")
 

@@ -86,12 +86,12 @@
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n" + span_notice("- Скорость варки — <b>[speed * 100]</b>%.")
 		if(coffeepot?.reagents.total_volume)
-			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[DECL_SEC_MIN(coffeepot.reagents.total_volume)] вещества.")
+			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[DECL_U_Y__(coffeepot.reagents.total_volume)] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
 				. += span_notice("- Картридж <b>пуст</b>.")
 			else
-				. += span_notice("- Картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[declension_ru(cartridge.charges, "е", "я", "й")].")
+				. += span_notice("- Картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[DECL_E_YA_J(cartridge.charges)].")
 	else
 		. += span_boldwarning("Дисплей не работает!")
 
@@ -102,7 +102,7 @@
 
 	if(!uses_cartridges)
 		if(length(coffee))
-			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[declension_ru(length(coffee), "ю", "и", "й")] кофе.")
+			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[DECL_YU_I_J(length(coffee))] кофе.")
 		else
 			. += span_notice("Отсек для зёрен <b>пуст</b>.")
 
