@@ -9,7 +9,7 @@
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE
-	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
+	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/cup/beaker/large
 	var/limit = null
 	var/efficiency = null
 

@@ -1,0 +1,495 @@
+import { type ChangeEvent, useEffect, useRef } from 'react';
+import {
+  Box,
+  Button,
+  Icon,
+  Image,
+  ImageButton,
+  Section,
+  Stack,
+  Tooltip,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
+
+type OutfitItem = {
+  path?: string;
+  name?: string;
+  desc?: string;
+  icon?: string;
+  icon_state?: string;
+  id_card?: BooleanLike;
+};
+
+type ItemStack = {
+  path: string;
+  name: string;
+  icon: string;
+  icon_state: string;
+};
+
+type Augmentation = {
+  zone: string;
+  zone_name: string;
+  status_name: string;
+  company?: string;
+};
+
+type Reagent = { name: string; amount: number };
+
+interface CustomOutfitData {
+  outfit?: Record<string, OutfitItem | undefined> & { id?: OutfitItem };
+  implants?: ItemStack[];
+  backpack_items?: ItemStack[];
+  augmentations?: Augmentation[];
+  has_dental_implant?: BooleanLike;
+  dental_reagents?: Reagent[];
+  preview_icon?: string;
+  /** JSON payload sent by the server for a client-side save */
+  save_file_json?: string;
+  /** Filename suggested by the server for the save */
+  save_file_name?: string;
+}
+
+type SlotDef = {
+  name: string;
+  icon: string;
+  iconRot?: number;
+  slot: string;
+};
+
+// Slots that depend on another slot being filled. If the parent slot is empty,
+// the dependent slot is locked (greyed out) and auto-cleared.
+const SLOT_DEPENDENCY: Record<string, string> = {
+  suit_store: 'suit',
+  belt: 'uniform',
+  id: 'uniform',
+  l_pocket: 'uniform',
+  r_pocket: 'uniform',
+};
+
+const SLOT_ROWS: SlotDef[][] = [
+  [
+    { name: 'Headgear', icon: 'hard-hat', slot: 'head' },
+    { name: 'Glasses', icon: 'glasses', slot: 'glasses' },
+    { name: 'Ears', icon: 'headphones-alt', slot: 'l_ear' },
+  ],
+  [
+    { name: 'Neck', icon: 'stethoscope', slot: 'neck' },
+    { name: 'Mask', icon: 'theater-masks', slot: 'mask' },
+  ],
+  [
+    { name: 'Uniform', icon: 'tshirt', slot: 'uniform' },
+    { name: 'Suit', icon: 'user-tie', slot: 'suit' },
+    { name: 'Gloves', icon: 'mitten', slot: 'gloves' },
+  ],
+  [
+    { name: 'Suit Storage', icon: 'briefcase-medical', slot: 'suit_store' },
+    { name: 'Back', icon: 'shopping-bag', slot: 'back' },
+    { name: 'ID', icon: 'id-card-o', slot: 'id' },
+  ],
+  [
+    { name: 'Belt', icon: 'band-aid', slot: 'belt' },
+    { name: 'Left Hand', icon: 'hand-paper', slot: 'l_hand' },
+    { name: 'Right Hand', icon: 'hand-paper', slot: 'r_hand' },
+  ],
+  [
+    { name: 'Shoes', icon: 'socks', slot: 'shoes' },
+    {
+      name: 'Left Pocket',
+      icon: 'envelope-open-o',
+      iconRot: 180,
+      slot: 'l_pocket',
+    },
+    {
+      name: 'Right Pocket',
+      icon: 'envelope-open-o',
+      iconRot: 180,
+      slot: 'r_pocket',
+    },
+  ],
+];
+
+export const CustomOutfit = () => {
+  const { act, data } = useBackend<CustomOutfitData>();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const lastSavedRef = useRef<string | null>(null);
+
+  // Server asked the client to save a file: download it locally and ack.
+  useEffect(() => {
+    const json = data.save_file_json;
+    if (!json) {
+      // Payload cleared by the server after ack — allow saving the same data again.
+      lastSavedRef.current = null;
+      return;
+    }
+    if (lastSavedRef.current === json) {
+      return;
+    }
+    lastSavedRef.current = json;
+    const blob = new Blob([json], {
+      type: 'application/json',
+    });
+    Byond.saveBlob(blob, data.save_file_name || 'Custom Outfit.json', '.json');
+    act('save_ack');
+  }, [data.save_file_json, data.save_file_name]);
+
+  const onFileSelected = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    // Reset so picking the same file twice still fires onChange.
+    event.target.value = '';
+    if (!file) {
+      return;
+    }
+    try {
+      const json = await file.text();
+      act('load_data', { json });
+    } catch {
+      // Ignore unreadable files.
+    }
+  };
+
+  const hasBack = !!data.outfit?.back?.path;
+  const implants = data.implants || [];
+  const backpackItems = data.backpack_items || [];
+  const augmentations = data.augmentations || [];
+  const hasDental = data.has_dental_implant;
+  const dentalList = data.dental_reagents || [];
+  const dentalTooltip = hasDental
+    ? dentalList
+        .map((reagent) => `${reagent.name}: ${reagent.amount}u`)
+        .join('\n')
+    : 'Добавить реагенты в зубной имплант';
+
+  const idOutfit = data.outfit?.id;
+
+  return (
+    <Window title="Custom Outfit" width={900} height={625} theme="admin">
+      <Window.Content>
+        <Stack fill>
+          <Stack.Item grow={5} basis={0}>
+            <Section fill scrollable title="Слоты">
+              <Stack vertical>
+                {SLOT_ROWS.map((row, rowIndex) => (
+                  <Stack.Item key={rowIndex}>
+                    <Stack>
+                      {row.map((slot) => (
+                        <OutfitSlot key={slot.slot} {...slot} />
+                      ))}
+                    </Stack>
+                  </Stack.Item>
+                ))}
+              </Stack>
+            </Section>
+          </Stack.Item>
+
+          <Stack.Item grow={4} basis={0}>
+            <Stack fill vertical>
+              <Stack.Item>
+                <Section
+                  fill
+                  title="Результат"
+                  buttons={
+                    <>
+                      <Button
+                        icon="file-upload"
+                        tooltip="Загрузить из файла"
+                        tooltipPosition="left"
+                        onClick={() => fileInputRef.current?.click()}
+                      />
+                      <Button
+                        icon="plus"
+                        tooltip="Сохранить в файл"
+                        tooltipPosition="left"
+                        onClick={() => act('save')}
+                      />
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".json,application/json"
+                        style={{ display: 'none' }}
+                        onChange={onFileSelected}
+                      />
+                      <Button
+                        icon="check"
+                        color="good"
+                        tooltip="Применить снаряжение на персонажа"
+                        tooltipPosition="left"
+                        onClick={() => act('apply')}
+                      />
+                    </>
+                  }
+                >
+                  <Stack fill vertical>
+                    <Stack.Item grow basis={0}>
+                      <Button
+                        fluid
+                        icon="pills"
+                        iconColor={hasDental ? 'good' : 'gray'}
+                        content="Зубной имплант"
+                        tooltip={dentalTooltip}
+                        onClick={() => act('dental_implant')}
+                      />
+                      <Button
+                        fluid
+                        icon="id-card"
+                        content="Редактировать ID-карту"
+                        tooltipPosition="left"
+                        color={idOutfit?.id_card ? 'blue' : 'gray'}
+                        disabled={!idOutfit?.path}
+                        onClick={() => act('edit_id')}
+                      />
+                    </Stack.Item>
+                    <Stack.Item grow basis={0}>
+                      <PreviewImage base64={data.preview_icon} />
+                    </Stack.Item>
+                  </Stack>
+                </Section>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+
+          <Stack.Item grow={3} basis={0}>
+            <Stack fill vertical>
+              <Stack.Item>
+                <Section title="Импланты">
+                  <ItemGrid
+                    items={implants}
+                    onAdd={() => act('add_implant')}
+                    onRemove={(item) =>
+                      act('remove_implant', { ref: item.path })
+                    }
+                    addTooltip="Добавить имплант"
+                  />
+                </Section>
+                <Section title="Аугментации">
+                  <Stack vertical>
+                    {augmentations?.map((item) => (
+                      <Stack.Item key={item.zone}>
+                        <Button
+                          key={item.zone}
+                          fluid
+                          color="transparent"
+                          icon="robot"
+                          content={`${item.zone_name} — ${item.status_name}${item.company ? ` (${item.company})` : ''}`}
+                          tooltip="Удалить аугментацию"
+                          tooltipPosition="bottom-start"
+                          onClick={() =>
+                            act('remove_augmentation', { zone: item.zone })
+                          }
+                        />
+                      </Stack.Item>
+                    ))}
+                    <Stack.Item>
+                      <Button
+                        fluid
+                        icon="plus"
+                        content="Добавить аугментацию"
+                        onClick={() => act('add_augmentation')}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Section>
+              </Stack.Item>
+              <Stack.Item grow basis={0}>
+                <Section fill scrollable title="Рюкозак">
+                  <ItemGrid
+                    items={backpackItems}
+                    onAdd={() => act('add_backpack_item')}
+                    onRemove={(item) => act('remove_item', { ref: item.path })}
+                    addTooltip="Добавить предмет"
+                    addDisabled={!hasBack}
+                    addDisabledTooltip="Добавьте рюкозак"
+                  />
+                </Section>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
+      </Window.Content>
+    </Window>
+  );
+};
+
+const PreviewImage = (props: { base64?: string }) => {
+  const { base64 } = props;
+  if (!base64) {
+    return (
+      <Stack fill align="center" justify="center">
+        <Stack.Item>
+          <Box color="label">Нет данных</Box>
+        </Stack.Item>
+      </Stack>
+    );
+  }
+
+  return (
+    <Stack fill align="center" justify="center">
+      <Stack.Item grow basis={0}>
+        <Image
+          width="100%"
+          height="100%"
+          src={`data:image/png;base64,${base64}`}
+          style={{
+            objectFit: 'contain',
+            imageRendering: 'pixelated',
+          }}
+        />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const OutfitSlot = (props: SlotDef) => {
+  const { name, icon, iconRot = 0, slot } = props;
+  const { act, data } = useBackend<CustomOutfitData>();
+  const currItem = data.outfit?.[slot];
+  const dependencySlot = SLOT_DEPENDENCY[slot];
+  const parentItem = dependencySlot ? data.outfit?.[dependencySlot] : null;
+  const locked = dependencySlot ? !parentItem?.path : false;
+
+  // If the parent slot was emptied, clear this dependent slot as well.
+  useEffect(() => {
+    if (locked && currItem?.path) {
+      act('clear', { slot });
+    }
+  }, [locked, currItem?.path]);
+
+  return (
+    <Stack.Item grow basis={0}>
+      <Stack vertical>
+        <Stack.Item>
+          <Box
+            textAlign="center"
+            fontSize={0.8}
+            color="label"
+            opacity={locked ? 0.4 : 0.8}
+          >
+            <Icon name={icon} rotation={iconRot} mr={0.5} />
+            {name}
+          </Box>
+        </Stack.Item>
+        <Stack.Item>
+          <Tooltip
+            content={
+              locked
+                ? `Нужен ${dependencySlot === 'suit' ? 'Suit' : 'Uniform'}`
+                : null
+            }
+            position="top"
+          >
+            <Box
+              height="48px"
+              backgroundColor="rgba(0,0,0,0.3)"
+              style={{ borderRadius: '4px' }}
+              opacity={locked ? 0.5 : 1}
+              onClick={locked ? undefined : () => act('click', { slot })}
+            >
+              <Stack fill align="center" justify="center">
+                <Stack.Item>
+                  {currItem?.icon ? (
+                    <ImageButton
+                      imageSize={48}
+                      dmIcon={currItem.icon}
+                      dmIconState={currItem.icon_state}
+                      title={currItem.desc}
+                      onClick={() => act('clear', { slot })}
+                    />
+                  ) : (
+                    <Icon
+                      name={icon}
+                      rotation={iconRot}
+                      size={1.5}
+                      color="gray"
+                    />
+                  )}
+                </Stack.Item>
+              </Stack>
+            </Box>
+          </Tooltip>
+        </Stack.Item>
+        <Stack.Item>
+          <Box
+            textAlign="center"
+            fontSize={0.75}
+            color={currItem ? 'label' : 'gray'}
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {currItem?.name || '—'}
+          </Box>
+        </Stack.Item>
+      </Stack>
+    </Stack.Item>
+  );
+};
+
+type ItemGridProps = {
+  items?: ItemStack[];
+  onAdd: () => void;
+  onRemove: (item: ItemStack) => void;
+  addTooltip: string;
+  addDisabled?: boolean;
+  addDisabledTooltip?: string;
+};
+
+const ItemGrid = (props: ItemGridProps) => {
+  const {
+    items,
+    onAdd,
+    onRemove,
+    addTooltip,
+    addDisabled = false,
+    addDisabledTooltip = '',
+  } = props;
+  return (
+    <Stack wrap>
+      {items?.map((item) => (
+        <Stack.Item key={item.path} m={0.5}>
+          <Box
+            width="48px"
+            height="48px"
+            backgroundColor="rgba(0,0,0,0.3)"
+            style={{ borderRadius: '4px' }}
+          >
+            <Stack fill align="center" justify="center">
+              <Stack.Item>
+                <ImageButton
+                  imageSize={48}
+                  dmIcon={item.icon}
+                  dmIconState={item.icon_state}
+                  tooltip={item.name}
+                  onClick={() => onRemove(item)}
+                />
+              </Stack.Item>
+            </Stack>
+          </Box>
+        </Stack.Item>
+      ))}
+      <Stack.Item m={0.5}>
+        <Box
+          width="48px"
+          height="48px"
+          backgroundColor="rgba(0,0,0,0.3)"
+          style={{ borderRadius: '4px' }}
+        >
+          <Stack fill align="center" justify="center">
+            <Stack.Item>
+              <Button
+                icon="plus"
+                tooltip={addDisabled ? addDisabledTooltip : addTooltip}
+                tooltipPosition="bottom-start"
+                disabled={addDisabled}
+                onClick={onAdd}
+              />
+            </Stack.Item>
+          </Stack>
+        </Box>
+      </Stack.Item>
+    </Stack>
+  );
+};

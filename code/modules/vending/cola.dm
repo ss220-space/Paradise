@@ -22,22 +22,22 @@
 	)
 
 	products = list(
-		/obj/item/reagent_containers/food/drinks/cans/cola = 10,
-		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,
-		/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
-		/obj/item/reagent_containers/food/drinks/cans/space_up = 10,
-		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10,
+		/obj/item/reagent_containers/cup/soda_cans/cola = 10,
+		/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind = 10,
+		/obj/item/reagent_containers/cup/soda_cans/dr_gibb = 10,
+		/obj/item/reagent_containers/cup/soda_cans/starkist = 10,
+		/obj/item/reagent_containers/cup/soda_cans/space_up = 10,
+		/obj/item/reagent_containers/cup/soda_cans/grape_juice = 10,
 	)
 	premium = list(
-		/obj/item/reagent_containers/food/drinks/cans/energy = 10,
-		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 10,
-		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 10,
-		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 10,
-		/obj/item/reagent_containers/food/drinks/zaza = 5,
+		/obj/item/reagent_containers/cup/soda_cans/energy = 10,
+		/obj/item/reagent_containers/cup/soda_cans/energy/trop = 10,
+		/obj/item/reagent_containers/cup/soda_cans/energy/milk = 10,
+		/obj/item/reagent_containers/cup/soda_cans/energy/grey = 10,
+		/obj/item/reagent_containers/cup/glass/zaza = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5,
+		/obj/item/reagent_containers/cup/soda_cans/thirteenloko = 5,
 	)
 	refill_canister = /obj/item/vending_refill/cola
 

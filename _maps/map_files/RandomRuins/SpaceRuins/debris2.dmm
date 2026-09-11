@@ -49,7 +49,7 @@
 /area/space)
 "A" = (
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "B" = (
@@ -63,7 +63,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/space,
 /area/space)
 "G" = (

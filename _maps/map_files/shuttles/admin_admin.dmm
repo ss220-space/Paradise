@@ -114,11 +114,11 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_x = -12;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -420,7 +420,7 @@
 "hG" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/candle/eternal,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 6;
 	pixel_y = 9
 	},
@@ -505,7 +505,7 @@
 	color = "#22aab7";
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
 "nc" = (
