@@ -66,7 +66,7 @@
 	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/opened = 0
 	var/damage_coeff
 	var/scan_level
@@ -490,7 +490,7 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(connected.beaker)
-		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
+		data["beakerLabel"] = DECLENT_RU_CAP(connected.beaker, NOMINATIVE)
 		if(connected.beaker.reagents && length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
@@ -668,7 +668,7 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 						connected.occupant.UpdateAppearance()
 		if("ejectBeaker")
 			if(connected.beaker)
-				var/obj/item/reagent_containers/glass/B = connected.beaker
+				var/obj/item/reagent_containers/cup/B = connected.beaker
 				B.forceMove(connected.loc)
 				connected.beaker = null
 				if(Adjacent(usr) && !issilicon(usr))

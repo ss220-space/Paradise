@@ -690,7 +690,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", /mob
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
 
 	if(user.view_size.getView() == user.view_size.default)
-		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "MAX"), 7)
+		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 37), 7) - 7
 		if(!input)
 			return
 

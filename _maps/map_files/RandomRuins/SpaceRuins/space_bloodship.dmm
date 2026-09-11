@@ -63,7 +63,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "vW" = (
-/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/obj/item/reagent_containers/cup/glass/bottle/unholywater,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "xv" = (
@@ -214,7 +214,7 @@
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "KY" = (
-/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/obj/item/reagent_containers/cup/glass/bottle/unholywater,
 /obj/effect/decal/cleanable/crayon{
 	color = "#cc3300";
 	desc = null

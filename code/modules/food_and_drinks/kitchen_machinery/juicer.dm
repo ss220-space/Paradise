@@ -41,7 +41,7 @@
 
 /obj/machinery/juicer/Initialize(mapload)
 	. = ..()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
@@ -51,7 +51,7 @@
 		return ..()
 
 	add_fingerprint(user)
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		if(beaker)
 			balloon_alert(user, "внутри уже есть ёмкость!")
 			return ATTACK_CHAIN_PROCEED

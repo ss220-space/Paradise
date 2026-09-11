@@ -70,8 +70,8 @@
 	component_parts += new /obj/item/circuitboard/chem_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
 	RefreshParts()
 	update_icon()
 	if(condi)
@@ -98,7 +98,7 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
+	for(var/obj/item/reagent_containers/cup/beaker/B in component_parts)
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/examine(mob/user)
@@ -143,7 +143,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		add_fingerprint(user)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
@@ -555,8 +555,8 @@
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
 	RefreshParts()
 
 /datum/chemical_production_mode
@@ -677,7 +677,7 @@
 	mode_id = "chem_bottles"
 	production_name = "Бутылки"
 	production_icon = "wine-bottle"
-	item_type = /obj/item/reagent_containers/glass/bottle/reagent
+	item_type = /obj/item/reagent_containers/cup/bottle/reagent
 	sprites = list("bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 
 	max_items_amount = 5
@@ -691,7 +691,7 @@
 	mode_id = "condi_bottles"
 	production_name = "Бутылки"
 	production_icon = "wine-bottle"
-	item_type = /obj/item/reagent_containers/food/condiment
+	item_type = /obj/item/reagent_containers/condiment
 	max_items_amount = 5
 	max_units_per_item = 50
 
@@ -701,7 +701,7 @@
 	mode_id = "condi_packets"
 	production_name = "Упаковки для специй"
 	production_icon = "bacon"
-	item_type = /obj/item/reagent_containers/food/condiment/pack
+	item_type = /obj/item/reagent_containers/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
 	name_suffix = "Упаковка - "

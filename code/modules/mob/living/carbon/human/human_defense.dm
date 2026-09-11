@@ -17,9 +17,9 @@ emp_act
 		var/reflected = FALSE
 
 		switch(can_reflect)
-			if(1) // proper reflection
+			if(REFLECT_NORMAL)
 				reflected = TRUE
-			if(2) //If target is holding a toy sword
+			if(REFLECT_TOY) //If target is holding a toy sword
 				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
@@ -253,6 +253,15 @@ emp_act
 
 	if(shield_result == HIT_RESULT_REFLECY_BACK)
 		return HIT_RESULT_REFLECY_BACK
+
+	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(w_uniform && w_uniform.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
 
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return HIT_RESULT_SUCCESS
