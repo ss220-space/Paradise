@@ -1071,19 +1071,19 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 			if(vampire_grab)
 				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
 			else
-				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_AGGRESSIVE)
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_AGGRESSIVE, grabber.pulling)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_AGGRESSIVE : martial_override
 		if(GRAB_NECK)
 			if(vampire_grab)
 				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_NECK]
 			else
-				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_NECK)
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_NECK, grabber.pulling)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_NECK : martial_override
 		if(GRAB_KILL)
 			if(vampire_grab)
 				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_KILL]
 			else
-				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL, grabber.pulling)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
 	if(. > 0)
 		if(ishuman(src))
@@ -1585,6 +1585,8 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 	update_pull_movespeed()
 
 /mob/living/proc/set_pull_offsets(mob/living/target, grab_state_to_offset = GRAB_PASSIVE, animate = TRUE)
+	if(HAS_TRAIT(target, TRAIT_FORCE_GRASPED))
+		return // Force Grab should not rotate or pixel-shift the victim.
 	if(target.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
 	var/offset = 0
