@@ -1479,7 +1479,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /// Blocks magic and returns one source of anti-magic that blocked it.
 /// Returns the mob itself when the protection comes from an anti-magic trait.
 /// Returns FALSE if the magic was not blocked.
-/mob/proc/block_magic_and_get_source(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+/mob/proc/can_block_magic_and_get_source(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
 	var/list/antimagic_sources = list()
 	if(!can_block_magic(casted_magic_flags, charge_cost, antimagic_sources))
 		return FALSE

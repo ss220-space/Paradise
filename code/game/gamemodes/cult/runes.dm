@@ -779,7 +779,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/targets = list()
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
-			var/atom/antimagic_source = L.block_magic_and_get_source()
+			var/atom/antimagic_source = L.can_block_magic_and_get_source()
 			if(antimagic_source)
 				if(isitem(antimagic_source))
 					to_chat(L, span_userdanger("[antimagic_source] suddenly burns hotly before returning to normal!"))
