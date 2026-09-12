@@ -25,6 +25,7 @@
 	COOLDOWN_DECLARE(parry_cd)
 	var/datum/callback/block_callback
 	var/linked_alert
+	var/mob/living/current_user
 
 /datum/component/parry/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
@@ -44,7 +45,6 @@
 /datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE, _requires_two_hands = FALSE, _requires_activation = FALSE, _block_callback = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-
 	parry_time_out_time = _parry_time_out_time
 	stamina_constant = _stamina_constant
 	stamina_coefficient = _stamina_coefficient
@@ -72,21 +72,33 @@
 
 /datum/component/parry/Destroy(force)
 	QDEL_NULL(linked_alert)
+	current_user = null
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
+
+/datum/component/parry/process(seconds_per_tick)
+	CALCULATE_SKILL_MOD(current_user, SHIELD_MOD, shield_skill_mod)
+	current_user?.adjustStaminaLoss(stamina_coefficient * seconds_per_tick SECONDS * shield_skill_mod)
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 	if(slot & ITEM_SLOT_HANDS)
 		RegisterSignal(user, COMSIG_KB_CARBON_PARRY, PROC_REF(start_parry))
+		RegisterSignal(user, DEACTIVATE_KEYBIND(COMSIG_KB_CARBON_PARRY), PROC_REF(stop_parry))
 		ADD_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+		current_user = user
 	else
-		UnregisterSignal(user, COMSIG_KB_CARBON_PARRY)
+		UnregisterSignal(user, list(COMSIG_KB_CARBON_PARRY, DEACTIVATE_KEYBIND(COMSIG_KB_CARBON_PARRY)))
 		REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+		current_user = null
+		stop_parry(user)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER
-	UnregisterSignal(user, COMSIG_KB_CARBON_PARRY)
+	UnregisterSignal(user, list(COMSIG_KB_CARBON_PARRY, DEACTIVATE_KEYBIND(COMSIG_KB_CARBON_PARRY)))
 	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE, UNIQUE_TRAIT_SOURCE(src))
+	stop_parry(user)
+	current_user = null
 
 /datum/component/parry/proc/start_parry(mob/living/mob_user)
 	SIGNAL_HANDLER
@@ -114,14 +126,18 @@
 	mob_user.do_attack_animation(mob_user, used_item = parent)
 	timer_id = addtimer(CALLBACK(src, PROC_REF(stop_parry), mob_user), parry_time_out_time, TIMER_STOPPABLE)
 	linked_alert = mob_user.throw_alert(UID(), /atom/movable/screen/alert/parry)
+	START_PROCESSING(SSfastprocess, src)
 
 /datum/component/parry/proc/stop_parry(mob/living/mob_user)
+	SIGNAL_HANDLER
 	if(timer_id)
 		deltimer(timer_id)
 	timer_id = null
 	mob_user.clear_alert(UID())
 	linked_alert = null
-	COOLDOWN_START(src, parry_cd,  parry_cooldown)
+	if(!COOLDOWN_STARTED(src, parry_cd))
+		COOLDOWN_START(src, parry_cd,  parry_cooldown)
+	STOP_PROCESSING(SSfastprocess, src)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = ITEM_ATTACK)
 	SIGNAL_HANDLER
@@ -143,7 +159,7 @@
 
 	CALCULATE_SKILL_MOD(owner, SHIELD_MOD, shield_skill_mod)
 
-	var/stamina_damage = (stamina_coefficient * (((time_since_parry / parry_time_out_time)) * (damage + armor_penetration_flat)) + stamina_constant) * shield_skill_mod
+	var/stamina_damage = (stamina_coefficient * ((damage + armor_penetration_flat)) + stamina_constant) * shield_skill_mod
 
 	if(!no_parry_sound)
 		var/sound_to_play
@@ -154,7 +170,7 @@
 
 		playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
 
-	if(time_since_parry <= parry_time_out_time * 0.5) // a perfect parry
+	if(time_since_parry <= parry_time_out_time * PERFECT_PARRY_COEFFICIENT) // a perfect parry
 		was_perfect = TRUE
 
 	block_callback?.Invoke(hitby)

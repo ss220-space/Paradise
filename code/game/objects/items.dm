@@ -694,6 +694,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		final_block_chance = 0
 	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)
 	var/block_successful = (signal_result & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance)
+	if((signal_result & COMPONENT_BLOCK_PERFECT) && attack_type == ITEM_ATTACK)
+		owner.visible_message(span_danger("[owner] контратаку[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
+		return HIT_RESULT_PARRY
 	if(block_successful)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
 		return signal_result || block_successful
