@@ -9,6 +9,7 @@
 	default_frequency = AIRLOCK_FREQ
 	var/code = 2
 	var/intensivity = TRUE
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/electropack/attack_hand(mob/user)
 	if(src == user.back)
