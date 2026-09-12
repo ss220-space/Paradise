@@ -179,3 +179,5 @@
 /mob/living/simple_animal/setStaminaLoss(amount, updating_health = TRUE)
 	return setDamage(amount, updating_health)
 
+/mob/living/simple_animal/received_stamina_damage(current_level, amount_actual, amount)
+	return
