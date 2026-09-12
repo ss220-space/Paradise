@@ -177,14 +177,14 @@
  * Ties are resolved randomly. Returns null if the mind has no skills.
  */
 /datum/mind/proc/get_highest_skill()
-	var/highest_level = 0
+	var/highest_level = -1
 	var/list/highest_skills = list()
 	for(var/skill_type in skills)
 		var/level = skills[skill_type]
 		if(level > highest_level)
 			highest_level = level
 			highest_skills = list(skill_type)
-		else if(level == highest_level && level > 0)
+		else if(level == highest_level)
 			highest_skills += skill_type
 	if(!length(highest_skills))
 		return null
