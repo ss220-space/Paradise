@@ -826,7 +826,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	var/energy_sword = istype(I, /obj/item/melee/energy/sword)
+	var/energy_sword = is_esword(I)
 	var/toy_sword = istype(I, /obj/item/toy/sword)
 	if(!energy_sword && !toy_sword)
 		if(build_step == 0 && toy_step == 0)
