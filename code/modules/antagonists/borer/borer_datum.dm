@@ -123,7 +123,7 @@
 	pre_remove_movable_effect()
 
 	QDEL_NULL(borer_rank)
-	QDEL_NULL(learned_focuses)
+	QDEL_LIST(learned_focuses)
 	QDEL_NULL(scaling)
 
 	user = null
