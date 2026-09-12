@@ -6543,13 +6543,6 @@
 /obj/effect/mist,
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission)
-"WO" = (
-/obj/structure/cable,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "WS" = (
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
@@ -15189,7 +15182,7 @@ er
 dT
 ch
 ch
-WO
+kc
 ID
 Dy
 er

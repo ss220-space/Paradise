@@ -2419,17 +2419,6 @@
 	icon_state = "white"
 	},
 /area/moonoutpost19/mo19research)
-"fo" = (
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
 "fp" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -13337,7 +13326,7 @@ dZ
 ek
 ez
 ez
-fo
+ez
 fF
 gc
 gv

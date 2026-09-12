@@ -3148,14 +3148,12 @@
 /area/mine/laborcamp)
 "nJ" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "nK" = (
@@ -3853,20 +3851,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "sv" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/structure/cable,
-/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"

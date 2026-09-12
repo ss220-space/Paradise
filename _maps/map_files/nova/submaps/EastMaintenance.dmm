@@ -2180,17 +2180,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
 /area/station/maintenance/abandonedoffices)
-"Bs" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore2)
 "Bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -4930,7 +4919,7 @@ Fb
 Fb
 PQ
 nJ
-Bs
+At
 xU
 PQ
 Fb

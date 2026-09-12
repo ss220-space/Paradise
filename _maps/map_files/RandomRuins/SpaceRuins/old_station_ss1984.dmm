@@ -622,11 +622,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/ancientstation/theta_rnd)
-"cm" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/orange,
-/turf/template_noop,
-/area/template_noop)
 "cp" = (
 /mob/living/simple_animal/hostile/hivebot/strong,
 /obj/structure/cable/orange,
@@ -2708,11 +2703,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
-"kz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/theta_solar)
 "kA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch/directional/west,
@@ -7256,14 +7246,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
-"BT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable/orange,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_engi)
 "BU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/unloading_machine{
@@ -18863,8 +18845,8 @@ GS
 fr
 zr
 ia
-BT
-BT
+lZ
+lZ
 PN
 LK
 pw
@@ -22620,7 +22602,7 @@ WT
 WD
 WD
 Pc
-cm
+bY
 Jr
 WD
 WD
@@ -22870,7 +22852,7 @@ WD
 WD
 WD
 Jr
-cm
+bY
 JC
 WD
 WD
@@ -22997,7 +22979,7 @@ Jr
 lE
 lE
 Jr
-cm
+bY
 Jr
 lE
 lE
@@ -23241,7 +23223,7 @@ Pc
 WD
 WD
 Jr
-cm
+bY
 Pc
 WD
 WD
@@ -23475,12 +23457,12 @@ WD
 WD
 WD
 ea
-cm
+bY
 Pc
 WD
 WD
 ea
-cm
+bY
 Pc
 WD
 WD
@@ -23597,7 +23579,7 @@ WD
 WD
 WD
 ea
-cm
+bY
 Pc
 WD
 WD
@@ -23607,7 +23589,7 @@ JC
 WD
 WD
 Pc
-cm
+bY
 ea
 WD
 WD
@@ -24102,7 +24084,7 @@ lE
 Dy
 Dy
 ZY
-kz
+cg
 Ju
 hT
 oO
@@ -24207,24 +24189,24 @@ WD
 UE
 yV
 yV
-cm
-bY
-yV
-yV
-bY
-bY
-bY
 bY
 bY
 yV
-cm
+yV
+bY
+bY
+bY
+bY
+bY
+yV
+bY
 bY
 bY
 bY
 xA
 cg
 Be
-kz
+cg
 ii
 uF
 TK
@@ -24456,7 +24438,7 @@ JC
 WD
 WD
 Jr
-cm
+bY
 Pc
 WD
 WD
@@ -24705,7 +24687,7 @@ Pc
 WD
 WD
 Pc
-cm
+bY
 ea
 WD
 WD
@@ -24949,7 +24931,7 @@ WD
 xu
 WD
 JC
-cm
+bY
 ea
 WD
 WD
@@ -25427,7 +25409,7 @@ WD
 WD
 WD
 ea
-cm
+bY
 JC
 WD
 WD

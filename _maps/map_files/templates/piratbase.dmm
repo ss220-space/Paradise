@@ -224,9 +224,6 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/prison_solar)
 "aQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/table,
 /obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = -6;
@@ -244,28 +241,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable,
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/spray/cleaner/medical,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -4600,9 +4576,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "oX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4611,19 +4584,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable,
-/obj/structure/table/wood,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "oZ" = (
@@ -7153,18 +7114,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
-"xp" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "xq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -10493,9 +10442,6 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "IE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10505,20 +10451,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable,
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/drinks/bottle/orangejuice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -12840,22 +12773,7 @@
 /obj/structure/table,
 /obj/machinery/door/window/eastright,
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/door/window/eastright,
-/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
-/obj/structure/cable,
-/obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -20859,7 +20777,7 @@ pV
 fX
 Iv
 hS
-xp
+qO
 ie
 Iv
 AK
