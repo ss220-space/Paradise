@@ -32,7 +32,7 @@
 	/// Only used by the synchronous mesh strain. If set to true, these blobs won't share or receive damage taken with others.
 	var/ignore_syncmesh_share = FALSE
 	/// If the blob blocks atmos and heat spread
-	var/atmosblock = FALSE
+	var/atmosblock = TRUE
 
 /obj/structure/blob/ComponentInitialize()
 	var/static/list/loc_connections = list(
@@ -96,6 +96,12 @@
 	if(atmosblock)
 		return FALSE
 	return ..()
+
+/obj/structure/blob/proc/adjacent_fire_act_from_air(radiated_temperature)
+	if(overmind?.blobstrain?.fire_based || (resistance_flags & FIRE_PROOF))
+		return
+	if(radiated_temperature > BLOB_ADJACENT_FIRE_MAX_TEMP)
+		take_damage(rand(1, 6) * (radiated_temperature / BLOB_ADJACENT_FIRE_MAX_TEMP), BURN, FIRE)
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
 	. = ..()

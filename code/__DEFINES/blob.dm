@@ -115,6 +115,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOB_REGULAR_HP_INIT 21 // The starting HP of a normal blob tile
 #define BLOB_REGULAR_HP_REGEN 1 // Health regenerated when pulsed by a node/core
 
+#define BLOB_ADJACENT_FIRE_MAX_TEMP 2500
+
 #define BLOB_STRONG_MAX_HP 150
 #define BLOB_STRONG_HP_REGEN 2
 #define BLOB_STRONG_BRUTE_RESIST 0.25 // Brute damage taken gets multiplied by this value
