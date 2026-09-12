@@ -854,6 +854,11 @@
 	normal_armor = armor //initialize, so it will be easier to change armors stats
 	harden_armor = getArmor(arglist(harden_armor))
 
+/obj/item/clothing/suit/armor/clockwork/Destroy()
+	normal_armor = null
+	harden_armor = null
+	return ..()
+
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
 		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))

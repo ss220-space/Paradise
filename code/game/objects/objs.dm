@@ -89,9 +89,7 @@
 			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
 	QDEL_NULL(multitool_menu)
-	if(!islist(armor))
-		qdel(armor)
-		armor = null
+	armor = null
 	return ..()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
