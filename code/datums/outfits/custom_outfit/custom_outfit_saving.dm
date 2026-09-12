@@ -2,6 +2,8 @@
 #define CUSTOM_OUTFIT_SAVE_VERSION 1
 
 /datum/custom_outfit/proc/get_save_data()
+	if(skills_active && ishuman(target_mob) && target_mob.mind)
+		sync_skills_from_mind(target_mob)
 	. = list()
 	.["format"] = CUSTOM_OUTFIT_SAVE_FORMAT
 	.["version"] = CUSTOM_OUTFIT_SAVE_VERSION
@@ -19,6 +21,19 @@
 		reagents["[reagent_path]"] = volume
 	.["reagent_volumes"] = reagents
 	.["id_card_data"] = id_card_data
+	var/list/saved_belt = list()
+	for(var/item_path, count in belt_contents)
+		if(ispath(item_path, /obj/item) && isnum(count) && count > 0)
+			saved_belt["[item_path]"] = count
+	.["belt_contents"] = saved_belt
+	.["backpack_nested_contents"] = serialize_nested_for_save("backpack")
+	.["belt_nested_contents"] = serialize_nested_for_save("belt")
+	var/list/saved_skills = list()
+	for(var/skill_path, level in skill_levels)
+		if(ispath(skill_path, /datum/skill) && isnum(level))
+			saved_skills["[skill_path]"] = level
+	.["skill_levels"] = saved_skills
+	.["skills_active"] = skills_active
 
 /datum/custom_outfit/proc/save_to_client(mob/user)
 	if(!user.client)
@@ -79,6 +94,14 @@
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
 	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
+		return FALSE
+	if(data["belt_contents"] != null && !islist(data["belt_contents"]))
+		return FALSE
+	if(data["backpack_nested_contents"] != null && !islist(data["backpack_nested_contents"]))
+		return FALSE
+	if(data["belt_nested_contents"] != null && !islist(data["belt_nested_contents"]))
+		return FALSE
+	if(data["skill_levels"] != null && !islist(data["skill_levels"]))
 		return FALSE
 	return TRUE
 
@@ -152,15 +175,44 @@
 					continue
 				new_id_card_data["access"] += access_num
 
+	var/list/new_belt_contents = list()
+	if(islist(save_data["belt_contents"]))
+		for(var/item_text, count in save_data["belt_contents"])
+			var/item_path = text2path(item_text)
+			if(!is_valid_item_entry(item_path, count))
+				continue
+			new_belt_contents[item_path] = count
+
+	var/list/new_skill_levels = list()
+	if(islist(save_data["skill_levels"]))
+		for(var/skill_text, level in save_data["skill_levels"])
+			var/skill_path = text2path(skill_text)
+			if(!ispath(skill_path, /datum/skill) || !isnum(level))
+				continue
+			new_skill_levels[skill_path] = clamp(level, 0, SKILL_LEVEL_LEGEND)
+
+	var/list/new_nested = list("backpack" = list(), "belt" = list())
+	if(islist(save_data["backpack_nested_contents"]))
+		new_nested["backpack"] = apply_nested_for_load(save_data["backpack_nested_contents"])
+	if(islist(save_data["belt_nested_contents"]))
+		new_nested["belt"] = apply_nested_for_load(save_data["belt_nested_contents"])
+
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit
 	external_augmentations = new_external
 	internal_augmentations = new_internal
 	reagent_volumes = new_reagents
 	id_card_data = new_id_card_data
+	belt_contents = new_belt_contents
+	nested_storage_contents = new_nested
+	skill_levels = new_skill_levels
+	skills_active = save_data["skills_active"] ? TRUE : FALSE
+	if(skills_active && ishuman(target_mob))
+		apply_absolute_skills_to_mind(target_mob)
 
 	body_dirty = TRUE
 	backpack_dirty = TRUE
+	belt_dirty = TRUE
 	dental_dirty = TRUE
 	return TRUE
 
@@ -197,6 +249,37 @@
 			fitting_cyber += organ_path
 	loaded_outfit.cybernetic_implants = fitting_cyber
 	loaded_outfit.accessories = filter_path_list(loaded_outfit.accessories, /obj/item/clothing/accessory)
+
+/datum/custom_outfit/proc/serialize_nested_for_save(container_key)
+	. = list()
+	var/list/container_nested = nested_storage_contents[container_key]
+	for(var/parent_path_str, children in container_nested)
+		if(!islist(children))
+			continue
+		var/list/child_out = list()
+		for(var/item_path, child_count in children)
+			if(!ispath(item_path, /obj/item) || !isnum(child_count) || child_count <= 0)
+				continue
+			child_out["[item_path]"] = child_count
+		if(length(child_out))
+			.[parent_path_str] = child_out
+
+/datum/custom_outfit/proc/apply_nested_for_load(list/nested_data)
+	. = list()
+	for(var/parent_text, children in nested_data)
+		if(!islist(children))
+			continue
+		var/parent_path = text2path(parent_text)
+		if(!ispath(parent_path, /obj/item/storage))
+			continue
+		var/list/child_out = list()
+		for(var/item_text, child_count in children)
+			var/item_path = text2path(item_text)
+			if(!is_valid_item_entry(item_path, child_count))
+				continue
+			child_out[item_path] = child_count
+		if(length(child_out))
+			.["[parent_path]"] = child_out
 
 #undef CUSTOM_OUTFIT_SAVE_FORMAT
 #undef CUSTOM_OUTFIT_SAVE_VERSION

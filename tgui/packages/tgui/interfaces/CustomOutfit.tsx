@@ -1,10 +1,11 @@
-import { type ChangeEvent, useEffect, useRef } from 'react';
+import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import {
   Box,
   Button,
   Icon,
   Image,
   ImageButton,
+  Modal,
   Section,
   Stack,
   Tooltip,
@@ -27,6 +28,8 @@ type ItemStack = {
   name: string;
   icon: string;
   icon_state: string;
+  is_storage?: BooleanLike;
+  storage_items?: ItemStack[];
 };
 
 type Augmentation = {
@@ -45,6 +48,7 @@ interface CustomOutfitData {
   augmentations?: Augmentation[];
   has_dental_implant?: BooleanLike;
   dental_reagents?: Reagent[];
+  skills_active?: BooleanLike;
   preview_icon?: string;
   /** JSON payload sent by the server for a client-side save */
   save_file_json?: string;
@@ -150,9 +154,20 @@ export const CustomOutfit = () => {
     }
   };
 
+  const [chooserItem, setChooserItem] = useState<{
+    container: string;
+    item: ItemStack;
+  } | null>(null);
+  const [editingNested, setEditingNested] = useState<{
+    container: string;
+    path: string;
+  } | null>(null);
+
   const hasBack = !!data.outfit?.back?.path;
+  const hasBelt = !!data.outfit?.belt?.path;
   const implants = data.implants || [];
   const backpackItems = data.backpack_items || [];
+  const beltItems = data.belt_items || [];
   const augmentations = data.augmentations || [];
   const hasDental = data.has_dental_implant;
   const dentalList = data.dental_reagents || [];
@@ -225,6 +240,7 @@ export const CustomOutfit = () => {
                     <Stack.Item grow basis={0}>
                       <Button
                         fluid
+                        mb={1}
                         icon="pills"
                         iconColor={hasDental ? 'good' : 'gray'}
                         content="Зубной имплант"
@@ -233,13 +249,38 @@ export const CustomOutfit = () => {
                       />
                       <Button
                         fluid
+                        mb={1}
                         icon="id-card"
-                        content="Редактировать ID-карту"
+                        content="ID-карта"
                         tooltipPosition="left"
                         color={idOutfit?.id_card ? 'blue' : 'gray'}
                         disabled={!idOutfit?.path}
                         onClick={() => act('edit_id')}
                       />
+                      <Stack mb={1}>
+                        <Stack.Item grow>
+                          <Button
+                            fluid
+                            icon="book-open-reader"
+                            content="Навыки"
+                            disabled={!data.skills_active}
+                            onClick={() => act('open_skills')}
+                          />
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Button
+                            icon={
+                              data.skills_active ? 'check-square' : 'square-o'
+                            }
+                            iconColor={data.skills_active ? 'good' : 'gray'}
+                            onClick={() =>
+                              act('toggle_skills', {
+                                enabled: !data.skills_active,
+                              })
+                            }
+                          />
+                        </Stack.Item>
+                      </Stack>
                     </Stack.Item>
                     <Stack.Item grow basis={0}>
                       <PreviewImage base64={data.preview_icon} />
@@ -293,20 +334,130 @@ export const CustomOutfit = () => {
                 </Section>
               </Stack.Item>
               <Stack.Item grow basis={0}>
-                <Section fill scrollable title="Рюкозак">
+                <Section fill scrollable title="Рюкзак">
                   <ItemGrid
                     items={backpackItems}
                     onAdd={() => act('add_backpack_item')}
-                    onRemove={(item) => act('remove_item', { ref: item.path })}
+                    onRemove={(item) =>
+                      act('remove_backpack_item', { ref: item.path })
+                    }
+                    onStorageClick={(item) =>
+                      setChooserItem({ container: 'backpack', item })
+                    }
                     addTooltip="Добавить предмет"
                     addDisabled={!hasBack}
-                    addDisabledTooltip="Добавьте рюкозак"
+                    addDisabledTooltip="Добавьте рюкзак"
+                  />
+                </Section>
+              </Stack.Item>
+              <Stack.Item grow basis={0}>
+                <Section fill scrollable title="Пояс">
+                  <ItemGrid
+                    items={beltItems}
+                    onAdd={() => act('add_belt_item')}
+                    onRemove={(item) =>
+                      act('remove_belt_item', { ref: item.path })
+                    }
+                    onStorageClick={(item) =>
+                      setChooserItem({ container: 'belt', item })
+                    }
+                    addTooltip="Добавить предмет"
+                    addDisabled={!hasBelt}
+                    addDisabledTooltip="Добавьте пояс"
                   />
                 </Section>
               </Stack.Item>
             </Stack>
           </Stack.Item>
         </Stack>
+
+        {chooserItem && (
+          <Modal onEscape={() => setChooserItem(null)}>
+            <Section
+              title={`${chooserItem.item.name || 'Предмет'} — что сделать?`}
+              buttons={
+                <Button icon="times" onClick={() => setChooserItem(null)} />
+              }
+            >
+              <Stack>
+                <Stack.Item grow>
+                  <Button
+                    fluid
+                    icon="pencil"
+                    content="Редактировать содержимое"
+                    onClick={() => {
+                      setEditingNested({
+                        container: chooserItem.container,
+                        path: chooserItem.item.path,
+                      });
+                      setChooserItem(null);
+                    }}
+                  />
+                </Stack.Item>
+                <Stack.Item grow>
+                  <Button
+                    fluid
+                    color="bad"
+                    icon="trash"
+                    content="Удалить"
+                    onClick={() => {
+                      const action =
+                        chooserItem.container === 'backpack'
+                          ? 'remove_backpack_item'
+                          : 'remove_belt_item';
+                      act(action, { ref: chooserItem.item.path });
+                      setChooserItem(null);
+                    }}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Section>
+          </Modal>
+        )}
+
+        {editingNested &&
+          (() => {
+            const containerItems =
+              editingNested.container === 'backpack'
+                ? backpackItems
+                : beltItems;
+            const parent = containerItems.find(
+              (entry) => entry.path === editingNested.path,
+            );
+            const parentName = parent?.name || 'Хранилище';
+            const children = parent?.storage_items || [];
+            return (
+              <Modal onEscape={() => setEditingNested(null)}>
+                <Section
+                  title={`Содержимое: ${parentName}`}
+                  buttons={
+                    <Button
+                      icon="times"
+                      onClick={() => setEditingNested(null)}
+                    />
+                  }
+                >
+                  <ItemGrid
+                    items={children}
+                    onAdd={() =>
+                      act('add_storage_item', {
+                        container: editingNested.container,
+                        parent: editingNested.path,
+                      })
+                    }
+                    onRemove={(item) =>
+                      act('remove_storage_item', {
+                        container: editingNested.container,
+                        parent: editingNested.path,
+                        ref: item.path,
+                      })
+                    }
+                    addTooltip="Добавить предмет"
+                  />
+                </Section>
+              </Modal>
+            );
+          })()}
       </Window.Content>
     </Window>
   );
@@ -432,6 +583,7 @@ type ItemGridProps = {
   items?: ItemStack[];
   onAdd: () => void;
   onRemove: (item: ItemStack) => void;
+  onStorageClick?: (item: ItemStack) => void;
   addTooltip: string;
   addDisabled?: boolean;
   addDisabledTooltip?: string;
@@ -442,6 +594,7 @@ const ItemGrid = (props: ItemGridProps) => {
     items,
     onAdd,
     onRemove,
+    onStorageClick,
     addTooltip,
     addDisabled = false,
     addDisabledTooltip = '',
@@ -463,7 +616,11 @@ const ItemGrid = (props: ItemGridProps) => {
                   dmIcon={item.icon}
                   dmIconState={item.icon_state}
                   tooltip={item.name}
-                  onClick={() => onRemove(item)}
+                  onClick={() =>
+                    item.is_storage && onStorageClick
+                      ? onStorageClick(item)
+                      : onRemove(item)
+                  }
                 />
               </Stack.Item>
             </Stack>
