@@ -74,6 +74,8 @@
 	var/list/fit_cache = list()
 	// Cache of storage preset contents (list(path = count)), keyed by storage path.
 	var/list/preset_storage_cache = list()
+	/// Cache of MOD control unit bag preset contents (path = count).
+	var/list/preset_mod_cache = list()
 	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
 	var/list/belt_contents = list()
 	var/belt_dirty = FALSE
@@ -243,6 +245,7 @@
 	check_dummy_species_type = null
 	fit_cache.Cut()
 	preset_storage_cache.Cut()
+	preset_mod_cache.Cut()
 	belt_contents.Cut()
 	nested_storage_contents.Cut()
 	QDEL_NULL(dental_editor)
@@ -287,7 +290,7 @@
 		var/mob/living/carbon/human/human_target = target_mob
 		data["target_name"] = human_target.name
 		data["target_valid"] = TRUE
-		data["backpack_is_storage"] = isstorage(human_target.back)
+		data["backpack_is_storage"] = !!get_back_content_storage(human_target.back)
 		if(skills_active)
 			sync_skills_from_mind(human_target)
 		var/appearance_key = build_appearance_key(human_target)
@@ -490,10 +493,25 @@
 		"untrackable" = id_card.untrackable,
 	)
 
+/datum/custom_outfit/proc/is_valid_back_item(item_path)
+	return ispath(item_path, /obj/item/storage/backpack) || ispath(item_path, /obj/item/mod/control)
+
+/datum/custom_outfit/proc/get_back_content_storage(obj/item/back_item)
+	if(QDELETED(back_item))
+		return null
+	if(isstorage(back_item))
+		return back_item
+	if(ispath(back_item.type, /obj/item/mod/control))
+		var/obj/item/mod/control/mod_control = back_item
+		return mod_control.bag
+	return null
+
+
 /datum/custom_outfit/proc/capture_backpack(mob/living/carbon/human/human_target)
-	if(!isstorage(human_target.back))
+	var/obj/item/back_storage = get_back_content_storage(human_target.back)
+	if(!back_storage)
 		return
-	for(var/obj/item/backpack_item in human_target.back.contents)
+	for(var/obj/item/backpack_item in back_storage.contents)
 		edited_outfit.backpack_contents[backpack_item.type] = (edited_outfit.backpack_contents[backpack_item.type] || 0) + 1
 		if(isstorage(backpack_item))
 			capture_nested_contents(backpack_item, "backpack")
@@ -514,10 +532,28 @@
 	return preset
 
 /// Adds the preset contents of a storage item type to the outfit backpack
-/// Arguments:
-/// * storage_path - type path of the storage item
 /datum/custom_outfit/proc/merge_backpack_presets(storage_path)
 	var/list/preset = get_preset_storage_contents(storage_path)
+	for(var/item_path, count in preset)
+		edited_outfit.backpack_contents[item_path] = (edited_outfit.backpack_contents[item_path] || 0) + count
+
+/// Adds the preset bag contents of a MOD control unit type to the outfit backpack list (path = count).
+/datum/custom_outfit/proc/get_preset_mod_back_contents(mod_path)
+	if(mod_path in preset_mod_cache)
+		return preset_mod_cache[mod_path]
+	var/list/preset = list()
+	var/obj/item/mod/control/sample = new mod_path(null)
+	if(sample.bag)
+		for(var/obj/item/preset_item in sample.bag.contents)
+			preset[preset_item.type] = (preset[preset_item.type] || 0) + 1
+		QDEL_LIST(sample.bag.contents)
+	qdel(sample)
+	preset_mod_cache[mod_path] = preset
+	return preset
+
+/// Adds the preset bag contents of a MOD control unit type to the outfit backpack
+/datum/custom_outfit/proc/merge_mod_backpack_presets(mod_path)
+	var/list/preset = get_preset_mod_back_contents(mod_path)
 	for(var/item_path, count in preset)
 		edited_outfit.backpack_contents[item_path] = (edited_outfit.backpack_contents[item_path] || 0) + count
 
@@ -1008,7 +1044,7 @@
 	// Freshly spawned backpack/belt get their preset contents from
 	// populate_contents(), so the outfit lists (which already contain those
 	// presets) must always be synced over them to avoid duplicating them.
-	if(backpack_dirty && isstorage(human_target.back))
+	if(backpack_dirty && get_back_content_storage(human_target.back))
 		sync_existing_backpack(human_target, new_backpack_contents)
 	if(belt_dirty && isstorage(human_target.belt))
 		sync_belt_contents(human_target, new_belt_contents)
@@ -1051,7 +1087,7 @@
 		to_delete += outfit_slot
 
 		if(outfit_slot == CUSTOM_OUTFIT_SLOT_BACK)
-			if(!outfit_path || !ispath(outfit_path, /obj/item/storage))
+			if(!outfit_path || !is_valid_back_item(outfit_path))
 				final_outfit.backpack_contents = list()
 
 		if(outfit_slot in slot_holders)
@@ -1106,14 +1142,15 @@
 			stashed_item.forceMove(human_target.loc)
 
 /datum/custom_outfit/proc/sync_existing_backpack(mob/living/carbon/human/human_target, list/new_backpack_contents)
-	if(!isstorage(human_target.back))
+	var/obj/item/back_storage = get_back_content_storage(human_target.back)
+	if(!back_storage)
 		return
-	QDEL_LIST(human_target.back.contents)
+	QDEL_LIST(back_storage.contents)
 	for(var/item_path, count in new_backpack_contents)
 		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
 			continue
 		for(var/iteration in 1 to count)
-			var/obj/item/spawned_item = new item_path(human_target.back)
+			var/obj/item/spawned_item = new item_path(back_storage)
 			if(isstorage(spawned_item))
 				apply_nested_contents(spawned_item, "backpack", "[item_path]")
 
@@ -1250,7 +1287,7 @@
 		tgui_alert(user, "Target is no longer valid.")
 		return FALSE
 	var/mob/living/carbon/human/human_target = target_mob
-	if(!isstorage(human_target.back))
+	if(!human_target.back || !is_valid_back_item(human_target.back.type))
 		tgui_alert(user, "Target does not have a storage back item.")
 		return FALSE
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
@@ -1565,7 +1602,7 @@
 			tgui_alert(user, "Invalid item", "Custom Outfit", list("OK"))
 		return FALSE
 	var/base_type = slot_base_type[slot]
-	if(base_type && !(slot in slot_any_item) && !ispath(choice, base_type))
+	if(base_type && !(slot in slot_any_item) && !ispath(choice, base_type) && !(slot == CUSTOM_OUTFIT_SLOT_BACK && is_valid_back_item(choice)))
 		var/confirm_choice = tgui_alert(user, "Этот предмет может не поместиться в выбранный слот.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
 		if(QDELETED(src) || QDELETED(user))
 			return FALSE
@@ -1601,6 +1638,9 @@
 		if(ispath(choice, /obj/item/storage))
 			if(previous_back_path != choice)
 				merge_backpack_presets(choice)
+		else if(ispath(choice, /obj/item/mod/control))
+			if(previous_back_path != choice)
+				merge_mod_backpack_presets(choice)
 		else
 			edited_outfit.backpack_contents.Cut()
 	if(slot == CUSTOM_OUTFIT_SLOT_BELT)
@@ -1905,26 +1945,67 @@
 	var/datum/custom_outfit/owner_outfit
 	var/picked_slot
 	var/list/skin_to_path = list()
+	/// Reverse map (item path -> skin key) for highlighting the current selection.
+	var/list/path_to_skin = list()
+	/// Reverse map (item path -> display name) used to build the UI skin list.
+	var/list/path_to_name = list()
+	/// Reverse map (item path -> icon) used to build the UI skin list.
+	var/list/path_to_icon = list()
+	/// Reverse map (item path -> icon state) used to build the UI skin list.
+	var/list/path_to_icon_state = list()
 
 /datum/custom_outfit_item_picker/New(datum/custom_outfit/owner, slot)
 	owner_outfit = owner
 	picked_slot = slot
 	var/base_type = owner.slot_base_type[slot]
 	var/slot_flag = owner.slot_to_item_flag[slot]
-	for(var/item_path in valid_subtypesof(base_type))
-		var/obj/item/item_ref = item_path
-		var/item_name = initial(item_ref.name)
-		if(!item_name)
-			continue
-		// Hide items the target species cannot wear (same rules as can_equip).
-		if(!owner.item_fits_species(item_path, slot_flag, owner.target_mob))
-			continue
-		var/icon_state_text = initial(item_ref.icon_state) || ""
-		skin_to_path["[item_name]_[icon_state_text]"] = item_path
+	var/list/base_types = valid_subtypesof(base_type)
+	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
+		base_types += valid_subtypesof(/obj/item/mod/control) - /obj/item/mod/control
+	for(var/item_path in base_types)
+		register_skin_item(owner, item_path, slot_flag)
+
+/datum/custom_outfit_item_picker/proc/register_skin_item(datum/custom_outfit/owner, item_path, slot_flag)
+	var/obj/item/item_ref = item_path
+	var/item_name = initial(item_ref.name)
+	if(!item_name)
+		return
+	// Hide items the target species cannot wear (same rules as can_equip).
+	if(!owner.item_fits_species(item_path, slot_flag, owner.target_mob))
+		return
+	var/item_icon = initial(item_ref.icon)
+	var/icon_state_text = initial(item_ref.icon_state) || ""
+	if(ispath(item_path, /obj/item/mod/control))
+		var/obj/item/mod/control/pre_equipped/mod_ref = item_path
+		var/datum/mod_theme/mod_theme = GLOB.mod_themes[initial(mod_ref.theme)]
+		if(mod_theme)
+			var/skin_name = initial(mod_ref.applied_skin) || mod_theme.default_skin
+			var/list/used_skin = mod_theme.variants[skin_name]
+			if(used_skin)
+				item_icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+			icon_state_text = "[skin_name]-[initial(mod_ref.base_icon_state)]"
+	path_to_icon["[item_path]"] = item_icon
+	path_to_icon_state["[item_path]"] = icon_state_text
+	var/skin_key = "[item_name]_[icon_state_text]"
+	if(skin_key in skin_to_path)
+		var/suffix = "[item_path]"
+		suffix = copytext(suffix, findlasttext(suffix, "/") + 1)
+		var/display_name = "[item_name] ([suffix])"
+		skin_key = "[display_name]_[icon_state_text]"
+		if(skin_key in skin_to_path)
+			return
+		item_name = display_name
+	skin_to_path[skin_key] = item_path
+	path_to_skin["[item_path]"] = skin_key
+	path_to_name["[item_path]"] = item_name
 
 /datum/custom_outfit_item_picker/Destroy()
 	owner_outfit = null
 	skin_to_path.Cut()
+	path_to_skin.Cut()
+	path_to_name.Cut()
+	path_to_icon.Cut()
+	path_to_icon_state.Cut()
 	return ..()
 
 /datum/custom_outfit_item_picker/ui_state(mob/user)
@@ -1944,11 +2025,10 @@
 	var/list/data = list()
 	var/list/chameleon_skins = list()
 	for(var/skin_key, item_path in skin_to_path)
-		var/obj/item/item_ref = item_path
 		chameleon_skins.Add(list(list(
-			"icon" = initial(item_ref.icon),
-			"icon_state" = initial(item_ref.icon_state) || "",
-			"name" = initial(item_ref.name),
+			"icon" = path_to_icon["[item_path]"],
+			"icon_state" = path_to_icon_state["[item_path]"],
+			"name" = path_to_name["[item_path]"],
 		)))
 	data["ui_theme"] = "admin"
 	data["chameleon_skins"] = chameleon_skins
@@ -1957,12 +2037,7 @@
 /datum/custom_outfit_item_picker/ui_data(mob/user)
 	var/list/data = list()
 	var/current_path = owner_outfit ? owner_outfit.edited_outfit.vars[picked_slot] : null
-	if(ispath(current_path, /obj/item))
-		var/obj/item/item_ref = current_path
-		var/icon_state_text = initial(item_ref.icon_state) || ""
-		data["selected_appearance"] = "[initial(item_ref.name)]_[icon_state_text]"
-	else
-		data["selected_appearance"] = null
+	data["selected_appearance"] = path_to_skin["[current_path]"]
 	return data
 
 /datum/custom_outfit_item_picker/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
