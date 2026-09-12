@@ -448,7 +448,7 @@
 		if(CRUSH_SPELL)
 			if(ishuman(living))
 				var/mob/living/carbon/human/human = living
-				var/atom/antimagic_source = human.block_magic_and_get_source()
+				var/atom/antimagic_source = human.can_block_magic_and_get_source()
 				if(antimagic_source)
 					human.visible_message(span_danger("[antimagic_source] shines as it deflects magic from [user]!"))
 					deplete_spell()
