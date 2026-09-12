@@ -2,6 +2,7 @@
 /datum/skill/research
 	category = "Научные"
 	category_color = "#c68cfa"
+	exp_per_level = EXP_TO_UPGRADE_SKILL / 2.5
 
 /datum/skill/research/research
 	id = "research.research"
@@ -44,6 +45,7 @@
 	name = "Робототехника"
 	desc = "Влияет на скорость постройки мехов и печати их запчастей, а так же на работу с проводами роботов и киборгов."
 	duration_mod_names = list(MECH_CONSTRUCT_DURATION_MOD, PROTOLATHE_RESOURCE_MOD)
+	exp_per_level = EXP_TO_UPGRADE_SKILL / 1.5
 	skills_mods = alist(
 		MECH_CONSTRUCT_RAND_BUILD_PROB = alist(
 			SKILL_LEVEL_NONE = 0.5,
