@@ -135,8 +135,7 @@
 	timer_id = null
 	mob_user.clear_alert(UID())
 	linked_alert = null
-	if(!COOLDOWN_STARTED(src, parry_cd))
-		COOLDOWN_START(src, parry_cd,  parry_cooldown)
+	COOLDOWN_START(src, parry_cd,  parry_cooldown)
 	STOP_PROCESSING(SSfastprocess, src)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = ITEM_ATTACK)
