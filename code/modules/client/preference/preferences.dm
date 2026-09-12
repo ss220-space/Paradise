@@ -34,6 +34,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	ROLE_BINGLE = 14,
 ))
 
+GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближайшего соседа", SCALING_METHOD_BLUR = "Билейная интерполяция", SCALING_METHOD_NORMAL = "Поточечная выборка"))
+
 /proc/player_old_enough_antag(client/C, role, req_job_rank)
 	if(available_in_days_antag(C, role))
 		return FALSE	//available_in_days>0 = still some days required = player not old enough
@@ -301,18 +303,23 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	var/exoframe_type = PREF_EXOFRAME_REINFORCED
 
 	var/action_buttons_screen_locs = list()
-
+	var/zoom = 0
+	var/zoom_mode = SCALING_METHOD_NORMAL
 
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	max_gear_slots = CONFIG_GET(number/max_loadout_points)
+
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!is_guest_key(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
+
+		zoom = text2num(winget(C, SKIN_MAPWINDOW_MAP, "zoom")) || zoom
+		zoom_mode = winget(C, SKIN_MAPWINDOW_MAP, "zoom-mode") || zoom_mode
 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
@@ -658,6 +665,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b> – TGUI ввод — большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b> – TGUI ввод — поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b>Стиль заголовочного меню:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Пикселизированный" : "Базовый"]</a><br>"
+			dat += "<b>Масштабирование:</b> <a href='byond://?_src_=prefs;preference=zoom_mode'>[GLOB.zoom_modes[zoom_mode]]</a><br>"
+			dat += "<b>Зум:</b> <a href='byond://?_src_=prefs;preference=zoom_scale'>[zoom]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_SPEC) // Antagonist's Preferences
@@ -2411,6 +2420,27 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("donor_public")
 					if(user.client.donator_level > 0)
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
+
+				if("zoom_mode")
+					var/list/options = list()
+					for(var/key, value in GLOB.zoom_modes)
+						options[value] = key
+					var/result = tgui_input_list(user, "ВЫберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
+					if(!result)
+						return
+					zoom_mode = options[result] || zoom_mode
+					user?.client?.view_size?.setZoomMode()
+
+				if("zoom_scale")
+					var/list/options = list()
+					for(var/key in 0 to 9 step 0.5)
+						options += key
+					var/result = tgui_input_list(user, "ВЫберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
+					if(isnull(result))
+						return
+					
+					zoom = result
+					user?.client?.view_size?.resetFormat()
 
 				if("gender")
 					if(!S.has_gender)

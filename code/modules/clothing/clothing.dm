@@ -1025,7 +1025,7 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT|PEPPERPROOF
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"

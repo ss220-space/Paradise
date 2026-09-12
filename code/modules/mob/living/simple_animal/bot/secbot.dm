@@ -78,7 +78,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/stock_parts/cell/potato(Tsec)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/S = new(Tsec)
+	var/obj/item/reagent_containers/cup/glass/drinkingglass/S = new(Tsec)
 	S.reagents.add_reagent("whiskey", 15)
 	S.on_reagent_change()
 	..()
@@ -176,7 +176,7 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
+	AddSpell(new /datum/action/cooldown/spell/bot_speed)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

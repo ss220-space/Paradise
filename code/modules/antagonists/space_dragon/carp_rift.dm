@@ -170,7 +170,7 @@
 		GLOB.major_announcement.announce(
 			message = "Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
 			new_title = ANNOUNCE_WILDNATURE_RU,
-			new_sound = SSstation.announcer.get_rand_report_sound(),
+			new_sound = ANNOUNCER_SPANOMALIES,
 		)
 
 /**

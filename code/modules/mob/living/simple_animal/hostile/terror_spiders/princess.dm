@@ -30,7 +30,7 @@
 	ranged_cooldown_time = 30
 	canlay = 1
 	hasnested = TRUE
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_princess)
+	special_abillity = list(/datum/action/cooldown/spell/aoe/terror_shriek_princess)
 	var/spider_max_children = 20
 	tts_seed = "Lissandra"
 

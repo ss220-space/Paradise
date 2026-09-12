@@ -238,7 +238,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clown_recorder = 1,
 	)
@@ -450,7 +450,7 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1,
 	)
 	backpack = /obj/item/storage/backpack/mime
@@ -470,9 +470,8 @@
 		return
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		H.mind.miming = TRUE
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mime)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
 
 /datum/job/service/janitor
 	title = JOB_TITLE_JANITOR
@@ -622,8 +621,8 @@
 		new_deity = deity_name
 	bible.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
-
-	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
+	var/datum/action/cooldown/spell/pointed/bless/b_action = new()
+	b_action.Grant(user)
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name

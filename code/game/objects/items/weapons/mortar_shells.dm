@@ -116,7 +116,7 @@
 	locked = FALSE
 
 	var/obj/item/warhead/mortar/warhead
-	var/obj/item/reagent_containers/glass/beaker/fuel
+	var/obj/item/reagent_containers/cup/beaker/fuel
 	var/fuel_requirement = 60
 	var/fuel_type = "hydrogen"
 
@@ -186,7 +186,7 @@
 	. = ..()
 
 /obj/item/mortar_shell/custom/attackby(obj/item/I, mob/user)
-	if(isglassreagentcontainer(I) && !locked)
+	if(iscup(I) && !locked)
 		if(!warhead)
 			to_chat(user, span_notice("[name] must contain a warhead to do that!"))
 			return ATTACK_CHAIN_PROCEED

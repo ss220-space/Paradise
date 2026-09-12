@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/projectile/revolver/rsh_12,
 	/obj/item/gun/projectile/automatic/gyropistol,
 	/obj/item/gun/energy/pulse,
-	/obj/item/gun/projectile/automatic/pistol,
+	/obj/item/gun/projectile/automatic/pistol/stechkin,
 	/obj/item/gun/projectile/revolver/doublebarrel,
 	/obj/item/gun/projectile/shotgun,
 	/obj/item/gun/projectile/shotgun/automatic/combat,

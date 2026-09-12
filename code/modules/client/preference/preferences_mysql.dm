@@ -85,7 +85,7 @@
 	discord_name = sanitize_text(discord_name, initial(discord_name))
 	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, default = initial(screentip_color))
-	parent?.view_size.setDefault(VIEWPORT_USE_PREF)
+	parent?.view_size?.setDefault(VIEWPORT_USE_PREF)
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)

@@ -30,8 +30,8 @@
 		S.sharerRevives(src)
 
 	if(mind)
-		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
-			spell.updateButtonIcon()
+		for(var/datum/action/cooldown/spell/spell as anything in mind.spell_list)
+			spell.UpdateButtonIcon()
 
 	return TRUE
 

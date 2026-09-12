@@ -212,7 +212,7 @@
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
 	ammo_x_offset = 3
-	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	var/mimic_type = /obj/item/gun/projectile/automatic/pistol/stechkin //Setting this to the mimicgun type does exactly what you think it will.
 	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/mimicgun/newshot()

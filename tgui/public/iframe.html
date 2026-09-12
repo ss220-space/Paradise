@@ -35,12 +35,30 @@
               if (event.oldVersion < 1) {
                 req.result.createObjectStore(INDEXED_DB_STORE_NAME);
               }
+
+              if(event.oldVersion < 2) {
+                req.result.createObjectStore("ring");
+                req.result.createObjectStore("messages", { autoIncrement: true }).transaction.oncomplete = async () => {
+                const trans = req.result.transaction("messages", READ_WRITE).objectStore("messages");
+
+                for (let index = 0; index < MAX_MESSAGES; index++) {
+                  await promiseForRequest(trans.add(null));
+              }
+            }
+          }
+
             } catch (err) {
               reject(new Error('Failed to upgrade IDB: ' + req.error));
             }
           };
 
-          req.onsuccess = () => resolve(req.result);
+          req.onsuccess = async () => {
+            const ringPos = await promiseForRequest(req.result.transaction("ring", "readonly").objectStore("ring").get("value"));
+
+            writeFrom = ringPos || 0;
+
+            resolve(req.result);
+          };
 
           req.onerror = () => {
             reject(new Error('Failed to open IDB: ' + req.error));

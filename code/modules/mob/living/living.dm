@@ -45,8 +45,6 @@
 		S.sharerDies(FALSE)
 		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
 	sharedSoullinks = null
-	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	now_pushing = null
 	if(LAZYLEN(status_effects))
@@ -92,11 +90,7 @@
 	med_hud_set_status()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
-	var/prev_client = client
 	. = ..()
-	if(.)
-		if(ranged_ability && prev_client)
-			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
@@ -2172,19 +2166,19 @@ GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
 
 /mob/living/magic_charge_act(mob/user)
 	if(LAZYLEN(mob_spell_list))
-		for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
-			if(spell.cooldown_handler.is_on_cooldown())
+		for(var/datum/action/cooldown/spell/spell as anything in mob_spell_list)
+			if(spell.next_use_time >= world.time)
 				continue
 
-			spell.revert_cast()
+			spell.reset_spell_cooldown()
 			. |= RECHARGE_SUCCESSFUL
 
 	if(LAZYLEN(mind?.spell_list))
-		for(var/obj/effect/proc_holder/spell/spell as anything in mind?.spell_list)
-			if(spell.cooldown_handler.is_on_cooldown())
+		for(var/datum/action/cooldown/spell/spell as anything in mind?.spell_list)
+			if(spell.next_use_time >= world.time)
 				continue
 
-			spell.revert_cast()
+			spell.reset_spell_cooldown()
 			. |= RECHARGE_SUCCESSFUL
 
 	to_chat(src, span_notice("Вы чувствуете [(. & RECHARGE_SUCCESSFUL) ? "поток магической энергии, это приятно!" : "себя очень странно на мгновение, но это проходит."]"))

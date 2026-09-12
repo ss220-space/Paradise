@@ -297,7 +297,7 @@
 		/obj/item/wrench = 1,
 		/obj/item/reagent_containers/food/snacks/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
