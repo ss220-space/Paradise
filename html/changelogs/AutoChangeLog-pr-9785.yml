@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь при перетаскивании бикеров и стаканов на куклу питье начинается корректно. (PR #9785)"
