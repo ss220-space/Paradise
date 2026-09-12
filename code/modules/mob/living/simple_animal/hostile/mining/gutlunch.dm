@@ -71,7 +71,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
