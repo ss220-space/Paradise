@@ -117,6 +117,7 @@
 		to_chat(user, span_notice("Вы делаете глоток из [declent_ru(GENITIVE)]."))
 
 	. |= ATTACK_CHAIN_SUCCESS
+	drink(target, user)
 
 /obj/item/reagent_containers/cup/proc/drink(mob/living/carbon/target, mob/living/user)
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target, user)
