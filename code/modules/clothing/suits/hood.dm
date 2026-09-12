@@ -89,6 +89,8 @@
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
+	icon_state = icon_state + "_hood"
+	item_state = item_state + "_hood"
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(wearer, span_notice("You adjust the hood on [src]."))
 	wearer.update_worn_oversuit()
@@ -108,6 +110,9 @@
 /obj/item/clothing/suit/hooded/proc/unequip_hood()
 	if(!hood || hood.loc == src)
 		return
+	icon_state = replacetext("[icon_state]", "_hood", "")
+	item_state = replacetext("[item_state]", "_hood", "")
+	update_icon(UPDATE_ICON_STATE)
 	var/mob/living/carbon/human/wearer = hood.loc
 	if(!ishuman(wearer))
 		hood.forceMove(src)
