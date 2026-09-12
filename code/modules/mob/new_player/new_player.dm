@@ -86,7 +86,8 @@
 		return FALSE
 
 		//if(!client.tos_consent)
-		//	to_chat(usr, "<span class='warning'>Вы должны согласится с политикой конфидициальноти перед игрой!</span>")
+		//	to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+		//	privacy_consent()
 		//	return FALSE
 		//if(client.version_blocked)
 		//	client.show_update_notice()
@@ -160,7 +161,8 @@
 			to_chat(usr, "<span class='warning'>Наблюдать за процессом обучения запрещено!</span>")
 			return FALSE
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -211,7 +213,8 @@
 
 	if(href_list["late_join"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -684,7 +687,7 @@
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
-	close_window(src, "preferences")	
+	close_window(src, "preferences")
 	close_window(src, "mob_occupation") //closes job selection
 
 

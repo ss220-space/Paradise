@@ -47,6 +47,10 @@ tools/MapDaemon/logs/*.txt
 stddef.dm
 .atom-build.json
 .idea/
+*/node_modules/*
+
+# JavaScript tools
+**/node_modules
 
 /tools/bootstrap/.cache/
 
@@ -70,3 +74,7 @@ stddef.dm
 /sound/tts_scrambled/**/*
 .vscode/launch.json
 .gitignore
+
+# Rust output.
+/rust/target/*
+/tools/icon_cutter/cache/hypnagogic*
