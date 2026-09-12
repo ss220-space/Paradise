@@ -381,8 +381,6 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/machinery/atmospherics)
 	// Some kind of mapping object, runtimes without set on mapping var/codes_txt
 	returnable_list += typesof(/obj/machinery/navbeacon)
-	// These should not exist outside of their holder
-	returnable_list += typesof(/obj/effect/proc_holder)
 	// Require typepath of particles to spawn
 	returnable_list += typesof(/obj/effect/abstract/particle_holder_tgmc)
 	// Spawns pipes that try to merge causes billion runtimes on test
