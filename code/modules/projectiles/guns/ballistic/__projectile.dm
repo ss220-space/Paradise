@@ -195,6 +195,9 @@
 
 	unload_act(user)
 
+/obj/item/gun/projectile/get_display_ammo_count()
+	return get_ammo()
+
 /obj/item/gun/projectile/proc/unload_act(mob/user)
 	if(magazine)
 		magazine.forceMove(drop_location())
