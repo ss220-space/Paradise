@@ -89,6 +89,160 @@
 		CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING,
 	)
 
+/datum/design/centrifuge
+	name = "Machine Design (Nuclear Centrifuge Board)"
+	desc = "The circuit board for a nuclear centrifuge."
+	id = "nuclear_centrifuge"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PLASMA = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/nuclear_centrifuge
+	category = list("Power", CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/rod_fabricator
+	id = "nuclear_fabricator"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/nuclear_rod_fabricator
+	category = list(PROTOLATHE_CATEGORY_POWER, CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/nuclear_gas_node
+	id = "nuclear_gas_node"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/reactor_gas_node
+	category = list(PROTOLATHE_CATEGORY_POWER, CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/nuclear_moderator_gas_node
+	id = "nuclear_moderator_gas_node"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/reactor_moderator_gas_node
+	category = list(PROTOLATHE_CATEGORY_POWER, CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/rod_fabricator_upgrade
+	id = "nuclear_fab_upgrade"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3, RESEARCH_TREE_TOXINS = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_URANIUM = 500, MAT_GOLD = 400)
+	build_path = /obj/item/rod_fabricator_upgrade
+	category = list(PROTOLATHE_CATEGORY_POWER, CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/reactor_chamber
+	id = "reactor_chamber"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_PLASMA = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 2000)
+	build_path = /obj/item/circuitboard/machine/reactor_chamber
+	category = list(PROTOLATHE_CATEGORY_POWER, CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/neutron_grenade
+	id = "neutron_grenade"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PLASMA = 5, RESEARCH_TREE_TOXINS = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GOLD = 2000)
+	build_path = /obj/item/grenade/nuclear_starter
+	category = list(PROTOLATHE_CATEGORY_POWER, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/rod_housing_plasma_agitator
+	id = "rod_housing_plasma_agitator"
+	req_tech = list(RESEARCH_TREE_PLASMA = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GOLD = 1000)
+	build_path = /obj/item/nuclear_rod/moderator/plasma_agitator
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_housing_aluminum_reflector
+	id = "rod_housing_aluminum_reflector"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GOLD = 1000)
+	build_path = /obj/item/nuclear_rod/moderator/aluminum_reflector
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_housing_molten_salt
+	id = "rod_housing_molten_salt"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
+	build_path = /obj/item/nuclear_rod/coolant/molten_salt
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_housing_steam_hammerjet
+	id = "rod_housing_steam_hammerjet"
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
+	build_path = /obj/item/nuclear_rod/coolant/steam_hammerjet
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_housing_platinum_plating
+	id = "rod_housing_platinum_plating"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/nuclear_rod/moderator/platinum_plating
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_housing_iridium_conductor
+	id = "rod_housing_iridium_conductor"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MAGNETS = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/nuclear_rod/coolant/iridium_conductor
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_plasma_agitator
+	id = "rod_core_plasma_agitator"
+	req_tech = list(RESEARCH_TREE_PLASMA = 3, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000, MAT_PLASMA = 4000)
+	build_path = /obj/item/nuclear_rod/moderator/plasma_agitator
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_aluminum_reflector
+	id = "rod_core_aluminum_reflector"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000, MAT_SILVER = 2000)
+	build_path = /obj/item/nuclear_rod/moderator/aluminum_reflector
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_molten_salt
+	id = "rod_core_molten_salt"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 2000)
+	build_path = /obj/item/nuclear_rod/coolant/molten_salt
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_steam_hammerjet
+	id = "rod_core_steam_hammerjet"
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/nuclear_rod/coolant/steam_hammerjet
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_platinum_plating
+	id = "rod_core_platinum_plating"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_PLASMA = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000, MAT_GOLD = 2000)
+	build_path = /obj/item/nuclear_rod/moderator/platinum_plating
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
+/datum/design/rod_core_iridium_conductor
+	id = "rod_core_iridium_conductor"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MAGNETS = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 1000, MAT_SILVER = 2000)
+	build_path = /obj/item/nuclear_rod/coolant/iridium_conductor
+	category = list(PROTOLATHE_CATEGORY_POWER)
+
 /datum/design/diode_disk_stamina
 	id = "diode_disk_stamina"
 	build_type = PROTOLATHE
@@ -104,7 +258,7 @@
 	id = "diode_disk_healing"
 	build_type = PROTOLATHE
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 5)
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_SILVER = SMALL_MATERIAL_AMOUNT) //silver is medical metal. Why? who knows.
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_SILVER = SMALL_MATERIAL_AMOUNT)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/healing
 	category = list(
@@ -126,7 +280,7 @@
 	id = "diode_disk_sanity"
 	build_type = PROTOLATHE
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 5)
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5) //Uranium, the metal of love and warmth (from decay heat).
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/sanity
 	category = list(
@@ -160,3 +314,4 @@
 	category = list(
 		PROTOLATHE_CATEGORY_ILLEGAL,
 	)
+

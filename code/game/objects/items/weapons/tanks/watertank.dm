@@ -34,17 +34,7 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-/obj/item/watertank/verb/toggle_mister()
-	set name = "Вынуть шланг"
-	set category = VERB_CATEGORY_OBJECT
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(usr, span_notice("The watertank needs to be on your back to use."))
-		return
-
+/obj/item/watertank/proc/toggle_mister()
 	on = !on
 
 	var/mob/living/carbon/human/user = usr

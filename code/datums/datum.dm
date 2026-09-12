@@ -255,3 +255,30 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+#ifdef DATUMVAR_DEBUGGING_MODE
+/datum/proc/save_vars()
+	cached_vars = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		cached_vars[i] = vars[i]
+
+/datum/proc/check_changed_vars()
+	. = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		if(cached_vars[i] != vars[i])
+			.[i] = list(cached_vars[i], vars[i])
+
+/datum/proc/txt_changed_vars()
+	var/list/l = check_changed_vars()
+	var/t = "[src]([src.UID()]) changed vars:"
+	for(var/i in l)
+		t += "\"[i]\" \[[l[i][1]]\] --> \[[l[i][2]]\] "
+	t += "."
+
+/datum/proc/to_chat_check_changed_vars(target = world)
+	to_chat(target, txt_changed_vars())
+#endif

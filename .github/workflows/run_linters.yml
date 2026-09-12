@@ -12,6 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - uses: actions/setup-python@v7
+        id: setup-python
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+          cache-dependency-path: tools/requirements.txt
+
       - name: Restore SpacemanDMM cache
         uses: actions/cache@v6
         with:
@@ -24,20 +31,12 @@ jobs:
         uses: actions/cache@v6
         with:
           path: tools/bootstrap/.cache
-          key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
+          key: ${{ runner.os }}-bootstrap-py${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('tools/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-bootstrap-
+            ${{ runner.os }}-bootstrap-py${{ steps.setup-python.outputs.python-version }}-
 
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.13"
-          cache: "pip"
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22.11.0
-          cache: "yarn"
-          cache-dependency-path: ./tgui/yarn.lock
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
 
       - name: Install Python packages
         run: pip install -r tools/requirements.txt
@@ -56,14 +55,14 @@ jobs:
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.13
         with:
-          repository: "OpenDreamProject/OpenDream"
-          tag: "latest"
-          fileName: "DMCompiler_linux-x64.tar.gz"
+          repository: 'OpenDreamProject/OpenDream'
+          tag: 'latest'
+          fileName: 'DMCompiler_linux-x64.tar.gz'
           extract: true
 
       - name: Give Linters A Go
         id: linter-setup
-        run: ":"
+        run: ':'
 
       - name: Run Grep Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
@@ -158,4 +157,4 @@ jobs:
 
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tgui/bin/tgui --ci
+        run: tools/build/build.sh --ci lint tgui-test

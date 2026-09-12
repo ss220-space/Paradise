@@ -212,7 +212,7 @@
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
 	ammo_x_offset = 3
-	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	var/mimic_type = /obj/item/gun/projectile/automatic/pistol/stechkin //Setting this to the mimicgun type does exactly what you think it will.
 	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/mimicgun/newshot()
@@ -492,7 +492,6 @@
 	item_state = ""
 	ninja_weapon = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_MEDIUM
 	slot_flags = NONE
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)

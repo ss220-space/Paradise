@@ -14,10 +14,15 @@
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
+
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 11, ATTACHMENT_OFFSET_Y = -5),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/rail/scope/x8)
 
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
@@ -33,6 +38,14 @@
 	charge_sections = 3
 	modifystate = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+	)
+	starting_attachment_types = list(
+		/obj/item/gun_module/rail/scope/x8,
+		/obj/item/gun_module/under/hand/angle,
+	)
 
 // MARK: Dominator
 /obj/item/gun/energy/dominator
@@ -48,6 +61,7 @@
 	cell_type = /obj/item/stock_parts/cell/dominator
 	modifystate = TRUE
 	shaded_charge = TRUE
+	weapon_weight = WEAPON_LIGHT
 	charge_sections = 3
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/dominator/stun,
@@ -108,6 +122,7 @@
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
+	weapon_weight = WEAPON_LIGHT
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
@@ -218,6 +233,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	zoomable = TRUE
@@ -234,6 +250,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2

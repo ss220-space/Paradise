@@ -6,26 +6,10 @@
 	nitrogen = MOLES_N2STANDARD
 	abstract_type = /turf/simulated
 
-	var/wet = 0
-	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay
-	var/thermite = 0
-	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
-	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
-	// LINDA
-	var/datum/excited_group/excited_group
-	var/excited = 0
-	var/recently_active = 0
-	var/archived_cycle = 0
-	var/current_cycle = 0
-	var/icy = 0
-	var/icyoverlay
 	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-
-	/// The temp we were when we got archived
-	var/temperature_archived
 
 	/// Current gas overlays.
 	var/list/atmos_overlay_types = null
@@ -95,6 +79,9 @@
 
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
+
+/turf/simulated/proc/is_wet()
+	return SEND_SIGNAL(src, COMSIG_TURF_IS_WET)
 
 /turf/simulated/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

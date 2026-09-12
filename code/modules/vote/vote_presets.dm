@@ -3,38 +3,40 @@
 
 // Crew transfer vote
 /datum/vote/crew_transfer
-	question = "Завершение смены"
-	choices = list(
+	name = "Трансфер экипажа"
+	override_question = "Завершение смены"
+	default_choices = list(
 		CREW_TRANSFER_CHOICE,
 		CONTINUE_SHIFT_CHOICE,
 	)
-	vote_type_text = "crew transfer"
-
-/datum/vote/crew_transfer/New()
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		CRASH("Attempted to call a shuttle vote before the game starts!")
-	..()
-	no_dead_vote = TRUE
 	no_offstation_vote = TRUE
 
-/datum/vote/crew_transfer/handle_result(result)
+/datum/vote/crew_transfer/finalize_vote(result)
 	if(result == CREW_TRANSFER_CHOICE)
-		SSvote.clear_transfer_votes()
 		init_shift_change(null, TRUE)
+
+/datum/vote/crew_transfer/can_be_initiated(forced)
+	. = ..()
+	if(. != VOTE_AVAILABLE)
+		return .
+
+	if(forced)
+		return .
+
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		return "Attempted to call a shuttle vote before the game starts!"
+
+	return "Only admins can create crew transfer vote."
 
 // Map vote
 /datum/vote/map
-	question = "Map Vote"
-	vote_type_text = "map"
+	name = "Карта"
+	default_message = "Голосование за карту в следующем раунде!"
+	count_method = VOTE_COUNT_METHOD_MULTI
+	allow_dead_vote = TRUE
 
-/datum/vote/map/New()
-	if(!SSmapping.map_datum)
-		CRASH("Map Vote triggered before the `map_datum` is defined!")
-	..()
-	no_dead_vote = FALSE
-	no_offstation_vote = FALSE
-
-/datum/vote/map/generate_choices()
+/datum/vote/map/create_vote(mob/vote_creator)
+	. = ..()
 	var/list/map_pool = subtypesof(/datum/map)
 	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
 		map_pool -= SSmapping.map_datum.type
@@ -48,17 +50,23 @@
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue
-		choices.Add("[initial(possible_map.station_name)] ([initial(possible_map.name)])")
+		choices["[initial(possible_map.station_name)] ([initial(possible_map.name)])"] = 0
 
-/datum/vote/map/announce()
-	..()
-	for(var/mob/voter in GLOB.player_list)
-		voter.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
-		if(!voter.client?.prefs || voter.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS)
-			continue
-		voter.immediate_vote()
+/datum/vote/map/is_accessible_vote()
+	return TRUE
 
-/datum/vote/map/handle_result(result)
+/datum/vote/map/can_be_initiated(forced)
+	. = ..()
+	if(. != VOTE_AVAILABLE)
+		return .
+
+	if(!SSmapping.map_datum)
+		return "Map Vote triggered before the map config load!"
+
+	if(!SSticker.current_state < GAME_STATE_PREGAME)
+		return "Map Vote triggered before Lobby stage!"
+
+/datum/vote/map/finalize_vote(result)
 	// Find target map.
 	if(!result)
 		return
@@ -72,30 +80,57 @@
 	to_chat(world, span_interface("<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
 	SSmapping.next_map = new top_voted_map
 
+/datum/vote/map/toggle_votable()
+	CONFIG_SET(flag/allow_vote_map, !CONFIG_GET(flag/allow_vote_map))
+
+/datum/vote/map/is_config_enabled()
+	return CONFIG_GET(flag/allow_vote_map)
+
 /datum/vote/gamemode
-	question = "Gamemode Vote"
-	vote_type_text = "gamemode"
+	name = "Игровой режим"
+	override_question = "Голосование за игровой режим режим"
+	count_method = VOTE_COUNT_METHOD_MULTI
+	allow_dead_vote = TRUE
+	display_statistics = FALSE
+	print_results = FALSE
+	hide_winner = TRUE
 
-/datum/vote/gamemode/New()
-	..()
-	no_dead_vote = FALSE
-	no_offstation_vote = FALSE
+/datum/vote/gamemode/create_vote(mob/vote_creator)
+	. = ..()
+	for(var/mode in config.votable_modes)
+		choices[mode] = 0
 
-/datum/vote/gamemode/generate_choices()
-	choices.Add(config.votable_modes)
-
-/datum/vote/gamemode/handle_result(result)
+/datum/vote/gamemode/finalize_vote(result)
 	if(!result)
 		return
+
 	if(GLOB.master_mode != result)
-		world.save_mode(result)
-		if(SSticker?.mode)
-			to_chat(world, "<font color='red'><b>Mode has been selected but round already started, it will be applied next round.</b></font>")
-		else
-			GLOB.master_mode = result
+		GLOB.master_mode = "secret"
+		GLOB.secret_force_mode = result
+
 	if(!SSticker.ticker_going)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
+
+/datum/vote/gamemode/toggle_votable()
+	CONFIG_SET(flag/allow_vote_gamemode, !CONFIG_GET(flag/allow_vote_gamemode))
+
+/datum/vote/gamemode/is_config_enabled()
+	return CONFIG_GET(flag/allow_vote_gamemode)
+
+/datum/vote/gamemode/is_accessible_vote()
+	return TRUE
+
+/datum/vote/gamemode/can_be_initiated(forced)
+	. = ..()
+	if(. != VOTE_AVAILABLE)
+		return .
+
+	if(SSticker?.mode)
+		return "Game mode triggered after the game mode selection!"
+
+	if(!SSticker.current_state < GAME_STATE_PREGAME)
+		return "Map Vote triggered before Lobby stage!"
 
 #undef CREW_TRANSFER_CHOICE
 #undef CONTINUE_SHIFT_CHOICE

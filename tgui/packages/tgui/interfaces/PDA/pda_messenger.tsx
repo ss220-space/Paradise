@@ -1,16 +1,15 @@
-import { filter } from 'common/collections';
-import { useBackend } from '../../backend';
 import { useState } from 'react';
 import {
   Box,
   Button,
+  Dropdown,
   Icon,
   Input,
   LabeledList,
   Section,
   Stack,
-  Dropdown,
-} from '../../components';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 
 export const pda_messenger = (props: unknown) => {
   const { data } = useBackend<MessenderData>();
@@ -74,50 +73,52 @@ export const ActiveConversation = (props: Conversation) => {
           />
           <Button
             icon="comment"
-            onClick={() => act('Message', { 'target': active_convo })}
+            onClick={() => act('Message', { target: active_convo })}
           >
             Reply
           </Button>
         </>
       }
     >
-      {filter(messages, (im) => im.target === active_convo).map((im, i) => (
-        <Box
-          textAlign={im.sent ? 'right' : 'left'}
-          position="relative"
-          mb={1}
-          key={i}
-        >
-          <Icon
-            fontSize={2.5}
-            color={im.sent ? '#4d9121' : '#cd7a0d'}
-            position="absolute"
-            left={im.sent ? null : '0px'}
-            right={im.sent ? '0px' : null}
-            bottom="-4px"
-            style={{
-              zIndex: '0',
-              transform: im.sent ? 'scale(-1, 1)' : null,
-            }}
-            name="comment"
-          />
+      {messages
+        .filter((im) => im.target === active_convo)
+        .map((im, i) => (
           <Box
-            inline
-            backgroundColor={im.sent ? '#4d9121' : '#cd7a0d'}
-            p={1}
-            maxWidth="100%"
+            textAlign={im.sent ? 'right' : 'left'}
             position="relative"
-            textAlign={im.sent ? 'left' : 'right'}
-            style={{
-              zIndex: '1',
-              borderRadius: '10px',
-              wordBreak: 'normal',
-            }}
+            mb={1}
+            key={i}
           >
-            {im.sent ? 'You:' : 'Them:'} {im.message}
+            <Icon
+              fontSize={2.5}
+              color={im.sent ? '#4d9121' : '#cd7a0d'}
+              position="absolute"
+              left={im.sent ? null : '0px'}
+              right={im.sent ? '0px' : null}
+              bottom="-4px"
+              style={{
+                zIndex: '0',
+                transform: im.sent ? 'scale(-1, 1)' : undefined,
+              }}
+              name="comment"
+            />
+            <Box
+              inline
+              backgroundColor={im.sent ? '#4d9121' : '#cd7a0d'}
+              p={1}
+              maxWidth="100%"
+              position="relative"
+              textAlign={im.sent ? 'left' : 'right'}
+              style={{
+                zIndex: '1',
+                borderRadius: '10px',
+                wordBreak: 'normal',
+              }}
+            >
+              {im.sent ? 'You:' : 'Them:'} {im.message}
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ))}
     </Section>
   );
 
@@ -126,7 +127,7 @@ export const ActiveConversation = (props: Conversation) => {
       <Section
         fill
         scrollable
-        title={'Conversation with ' + convo_device + ' '}
+        title={`Conversation with ${convo_device} `}
         buttons={
           <>
             <Button
@@ -138,24 +139,26 @@ export const ActiveConversation = (props: Conversation) => {
             />
             <Button
               icon="comment"
-              onClick={() => act('Message', { 'target': active_convo })}
+              onClick={() => act('Message', { target: active_convo })}
             >
               Reply
             </Button>
           </>
         }
       >
-        {filter(messages, (im) => im.target === active_convo).map((im, i) => (
-          <Box
-            key={i}
-            color={im.sent ? '#4d9121' : '#cd7a0d'}
-            style={{
-              wordBreak: 'normal',
-            }}
-          >
-            {im.sent ? 'You:' : 'Them:'} <Box inline>{im.message}</Box>
-          </Box>
-        ))}
+        {messages
+          .filter((im) => im.target === active_convo)
+          .map((im, i) => (
+            <Box
+              key={i}
+              color={im.sent ? '#4d9121' : '#cd7a0d'}
+              style={{
+                wordBreak: 'normal',
+              }}
+            >
+              {im.sent ? 'You:' : 'Them:'} <Box inline>{im.message}</Box>
+            </Box>
+          ))}
       </Section>
     );
   }
@@ -210,9 +213,12 @@ export const MessengerList = (props: MessengerListProps) => {
 
   return (
     <Stack fill vertical>
-      <Stack.Item mb={5}>
-        <LabeledList>
-          <LabeledList.Item label="Messenger Functions">
+      <Stack.Item>
+        <Stack>
+          <Stack.Item>
+            <span>Messenger Functions:</span>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               selected={!silent}
               icon={silent ? 'volume-mute' : 'volume-up'}
@@ -220,6 +226,8 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Ringer: {silent ? 'Off' : 'On'}
             </Button>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               color={toff ? 'bad' : 'green'}
               icon="power-off"
@@ -227,6 +235,8 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Messenger: {toff ? 'Off' : 'On'}
             </Button>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               icon="trash"
               color="bad"
@@ -234,25 +244,28 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Delete All Conversations
             </Button>
-            <Stack>
-              <Stack.Item>
-                <Button icon="bell" onClick={() => act('Ringtone')}>
-                  Set Custom Ringtone
-                </Button>
-              </Stack.Item>
-              <Stack.Item grow={1}>
-                <Dropdown
-                  selected={ringtone}
-                  fluid
-                  options={Object.keys(ringtone_list)}
-                  onSelected={(value) =>
-                    act('Available_Ringtones', { selected_ringtone: value })
-                  }
-                />
-              </Stack.Item>
-            </Stack>
-          </LabeledList.Item>
-        </LabeledList>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item mb={5}>
+        <Stack>
+          <Stack.Item>
+            <Button icon="bell" onClick={() => act('Ringtone')}>
+              Set Custom Ringtone
+            </Button>
+          </Stack.Item>
+          <Stack.Item grow={1}>
+            <Dropdown
+              selected={ringtone}
+              fluid
+              options={Object.keys(ringtone_list)}
+              onSelected={(value) =>
+                act('Available_Ringtones', { selected_ringtone: value })
+              }
+            />
+          </Stack.Item>
+        </Stack>
+
         {(!toff && (
           <Box>
             {!!charges && (
@@ -312,7 +325,7 @@ const PDAList = (props: PDAProps) => {
 
   const { pdas, title, msgAct, searchTerm, charges, plugins } = props;
 
-  if (!pdas || !pdas.length) {
+  if (!pdas?.length) {
     return <Section title={title}>No PDAs found.</Section>;
   }
 
@@ -320,7 +333,9 @@ const PDAList = (props: PDAProps) => {
     <Section fill scrollable title={title}>
       {pdas
         .filter((pda) => {
-          return pda.Name.toLowerCase().includes(searchTerm.toLowerCase());
+          return searchTerm
+            ? pda.Name.toLowerCase().includes(searchTerm.toLowerCase())
+            : true;
         })
         .map((pda) => (
           <Stack key={pda.uid} m={0.5}>
@@ -328,14 +343,14 @@ const PDAList = (props: PDAProps) => {
               <Button
                 fluid
                 icon="arrow-circle-down"
-                onClick={() => act(msgAct, { target: pda.uid })}
+                onClick={() => msgAct && act(msgAct, { target: pda.uid })}
               >
                 {pda.Name}
               </Button>
             </Stack.Item>
             <Stack.Item>
               {!!charges &&
-                plugins.map((plugin) => (
+                plugins?.map((plugin) => (
                   <Button
                     key={plugin.uid}
                     icon={plugin.icon}

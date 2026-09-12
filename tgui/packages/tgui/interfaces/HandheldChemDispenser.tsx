@@ -1,11 +1,11 @@
-import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
@@ -131,7 +131,7 @@ const HandheldChemDispenserSettings = (properties) => {
 const HandheldChemDispenserChemicals = (properties) => {
   const { act, data } = useBackend<HandheldChemDispenserData>();
   const { chemicals = [], current_reagent } = data;
-  const flexFillers = [];
+  const flexFillers: boolean[] = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
     flexFillers.push(true);
   }

@@ -122,7 +122,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
@@ -283,7 +283,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()

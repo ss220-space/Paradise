@@ -1,4 +1,5 @@
-ADMIN_VERB(bluespace_artillery, R_ADMIN|R_EVENT, "Bluespace Artillery", "Выстрелить из БСА.", ADMIN_CATEGORY_FUN, mob/living/target in GLOB.mob_list)
+ADMIN_VERB(bluespace_artillery, R_ADMIN|R_EVENT, "Bluespace Artillery", "Выстрелить из БСА.", ADMIN_CATEGORY_FUN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
 	if(!isliving(target))
 		to_chat(user, span_warning("Это можно использовать только на объектах типа /mob/living"), confidential = TRUE)
 		return

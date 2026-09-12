@@ -322,7 +322,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	remove_verb(src, /mob/verb/me_verb)
+	UNASSIGN_GAME_VERB(src, /mob, me_verb)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	med_hud.show_to(src)
 

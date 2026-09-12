@@ -73,7 +73,7 @@
 /datum/action/innate/borer/make_chems
 	name = "Secrete Chemicals"
 	desc = "Push some chemicals into your host's bloodstream."
-	button_icon_state = "fleshmend"
+	button_icon_state = "red_cross"
 
 /datum/action/innate/borer/make_chems/Activate()
 	var/mob/living/simple_animal/borer/borer = owner

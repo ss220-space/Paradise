@@ -1,25 +1,25 @@
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
-import React, { useState } from 'react';
+import type React from 'react';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
   Collapsible,
   Dropdown,
-  Stack,
-  Input,
   ImageButton,
+  Input,
   NoticeBox,
   Section,
-} from '../components';
+  Stack,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { CollapsibleProps } from '../components/Collapsible';
 
 const sortTypes = {
-  'Alphabetical': (a: number, b: number) => a - b,
-  'Availability': (a: Item, b: Item) =>
+  Alphabetical: (a: number, b: number) => a - b,
+  Availability: (a: Item, b: Item) =>
     -((a.affordable as any) - (b.affordable as any)),
-  'Price': (a: Item, b: Item) => a.price - b.price,
+  Price: (a: Item, b: Item) => a.price - b.price,
 };
 
 export const MiningVendor = (_properties) => {
@@ -123,21 +123,21 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
   const { gridLayout } = properties;
   // Search thingies
   const { searchText, sortOrder, sortType } = properties;
-  const searcher = createSearch<[string, Item]>(searchText, (item) => {
+  const searcher = createSearch<[string, Item]>(searchText || '', (item) => {
     return item[0];
   });
 
   let has_contents = false;
-  let contents = Object.entries(items).map((kv, _i) => {
+  const contents = Object.entries(items).map((kv, _i) => {
     let items_in_cat = Object.entries(kv[1] as Record<string, Item>)
       .filter(searcher)
       .map((kv2) => {
         kv2[1].affordable = has_id && id.points >= kv2[1].price;
         return kv2[1];
       })
-      .sort(sortTypes[sortType]);
+      .sort(sortTypes[sortType || 0]);
     if (items_in_cat.length === 0) {
-      return;
+      return '';
     }
     if (sortOrder) {
       items_in_cat = items_in_cat.reverse();
@@ -203,7 +203,7 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
             selected={sortType}
             options={Object.keys(sortTypes)}
             width="100%"
-            onSelected={(v) => setSortType(v)}
+            onSelected={(v) => setSortType?.(v)}
           />
         </Stack.Item>
         <Stack.Item>
@@ -212,7 +212,7 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
             height={1.75}
             tooltip={sortOrder ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-start"
-            onClick={() => setSortOrder(!sortOrder)}
+            onClick={() => setSortOrder?.(!sortOrder)}
           />
         </Stack.Item>
       </Stack>
@@ -222,8 +222,8 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
 
 type MiningVendorProps = {
   items: Item[];
-  gridLayout: boolean;
-} & CollapsibleProps;
+  gridLayout?: boolean;
+} & ComponentProps<typeof Collapsible>;
 
 const MiningVendorItemsCategory = (properties: MiningVendorProps) => {
   const { act, data } = useBackend<MiningVendorData>();
@@ -276,7 +276,7 @@ const MiningVendorItemsCategory = (properties: MiningVendorProps) => {
           >
             <Box textAlign={'left'}>{item.name}</Box>
           </ImageButton>
-        )
+        ),
       )}
     </Collapsible>
   );

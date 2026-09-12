@@ -318,7 +318,7 @@
 	return CLICK_ACTION_BLOCKING
 
 //Rotates the windoor assembly clockwise
-/obj/structure/windoor_assembly/verb/revrotate()
+GAME_VERB_SRC(/obj/structure/windoor_assembly, revrotate, oview(1), "Повернуть по часовой", VERB_CATEGORY_HIDDEN)
 	if(anchored)
 		to_chat(usr, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
@@ -335,10 +335,7 @@
 	return TRUE
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
-/obj/structure/windoor_assembly/verb/flip()
-	set name = "Повернуть"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/structure/windoor_assembly, flip, oview(1), "Повернуть", VERB_CATEGORY_HIDDEN)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 

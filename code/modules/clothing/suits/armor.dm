@@ -348,51 +348,6 @@
 		PREPOSITIONAL = "абляционном бронежилете",
 	)
 
-/obj/item/clothing/suit/armor/reflector
-	name = "reflector coat"
-	desc = "Высокотехнологичное инновационное пальто, изготовленное из светоотражающего материала, предназначенное для отражения энергетических лучей. Сочетает в себе стиль и самые передовые технологии."
-	icon_state = "reflector"
-	item_state = "reflector"
-	blood_overlay_type = "armor"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-	)
-	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-	var/hit_reflect_chance = 50
-
-/obj/item/clothing/suit/armor/reflector/get_ru_names()
-	return alist(
-		NOMINATIVE = "рефлекторное пальто",
-		GENITIVE = "рефлекторное пальто",
-		DATIVE = "рефлекторному пальто",
-		ACCUSATIVE = "рефлекторное пальто",
-		INSTRUMENTAL = "рефлекторным пальто",
-		PREPOSITIONAL = "рефлекторном пальто",
-	)
-
-/obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
-	if(!(def_zone in reflect_zones))
-		return FALSE
-
-	if(prob(hit_reflect_chance))
-		return TRUE
-
-	return FALSE
-
 /obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
@@ -470,8 +425,7 @@
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		owner.visible_message(
-			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!"),
-			projectile_message = (attack_type == PROJECTILE_ATTACK)
+			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!")
 		)
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
@@ -501,8 +455,7 @@
 		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!"),
-			projectile_message = (attack_type == PROJECTILE_ATTACK)
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!")
 		)
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
@@ -525,8 +478,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message(
-			span_danger("[owner] получает [attack_text] в грудь!"),
-			projectile_message = (attack_type == PROJECTILE_ATTACK)
+			span_danger("[owner] получает [attack_text] в грудь!")
 		) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
@@ -540,8 +492,7 @@
 		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], испуская разряды молний!"),
-			projectile_message = (attack_type == PROJECTILE_ATTACK)
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], испуская разряды молний!")
 		)
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)

@@ -1,7 +1,7 @@
-import { KeyboardEvent, useEffect, useState } from 'react';
-import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
-import { isEscape, KEY } from 'common/keys';
-import { BooleanLike } from 'common/react';
+import { type KeyboardEvent, useState } from 'react';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui-core/components';
+import { isEscape, KEY } from 'tgui-core/keys';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -36,7 +36,7 @@ export const AlertModal = (props: unknown) => {
   // Stolen wholesale from fontcode
   const textWidth = (text: string, font: string, fontsize: number) => {
     // default font height is 12 in tgui
-    font = fontsize + 'px ' + font;
+    font = `${fontsize}px ${font}`;
     const c = document.createElement('canvas');
     const ctx = c.getContext('2d') as CanvasRenderingContext2D;
     ctx.font = font;
@@ -54,7 +54,7 @@ export const AlertModal = (props: unknown) => {
   const isVerbose = buttons.some(
     (button) =>
       textWidth(button, 'Verdana, Geneva', large_buttons ? 14 : 12) > // 14 is the larger font size for large buttons
-      windowWidth / buttons.length - paddingMagicNumber
+      windowWidth / buttons.length - paddingMagicNumber,
   );
   const largeSpacing = isVerbose && large_buttons ? 20 : 15;
 

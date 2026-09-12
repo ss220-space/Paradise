@@ -61,6 +61,11 @@ SUBSYSTEM_DEF(redis)
 	log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
 	return SS_INIT_SUCCESS
 
+/datum/controller/subsystem/redis/Shutdown()
+	. = ..()
+	if(connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+
 /datum/controller/subsystem/redis/fire()
 	check_messages()
 

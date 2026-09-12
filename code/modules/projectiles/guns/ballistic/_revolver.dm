@@ -2,9 +2,11 @@
  * Located in it's own file because we have revolver-like weapons which are not revolvers (like grenade launchers)
  */
 
+//TODO: make it a proper base revolver class
 /obj/item/gun/projectile/revolver
 	name = ".357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Классический револьвер с барабаном на 6 патронов."
+	gender = MALE
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
@@ -18,11 +20,28 @@
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+	var/can_spin_cylinder = TRUE
+
+/obj/item/gun/projectile/revolver/get_ru_names()
+	return alist(
+		NOMINATIVE = "револьвер .357 Magnum",
+		GENITIVE = "револьвера .357 Magnum",
+		DATIVE = "револьверу .357 Magnum",
+		ACCUSATIVE = "револьвер .357 Magnum",
+		INSTRUMENTAL = "револьвером .357 Magnum",
+		PREPOSITIONAL = "револьвере .357 Magnum",
+	)
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		can_spin_cylinder = FALSE
+
+/obj/item/gun/projectile/revolver/set_gun_user(mob/user)
+	verbs -= /obj/item/gun/projectile/revolver/proc/spin
+	. = ..()
+	if(can_spin_cylinder)
+		verbs += /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
@@ -69,11 +88,7 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 	return
 
-/obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Вращать барабан"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Click to spin your revolver's chamber."
-	set src in usr
+GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернуть барабан", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -83,9 +98,12 @@
 		C.spin()
 		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
-		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
-	else
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		usr.visible_message(
+			span_notice("[usr] враща[PLUR_ET_YUT(usr)] барабан [declent_ru(GENITIVE)]."),
+			span_notice("Вы вращаете барабан [declent_ru(GENITIVE)].")
+		)
+	else if(can_spin_cylinder && gun_user)
+		verbs -= /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)

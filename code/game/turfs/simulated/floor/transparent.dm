@@ -187,7 +187,6 @@
 	desc = "Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
 	base_icon_state = "reinf_glass"
-	thermal_conductivity = 0.035
 	heat_capacity = 1600
 	explosion_vertical_block = 1
 	alpha_to_leave = 206
@@ -201,7 +200,6 @@
 	desc = "Wait, was space always that color?"
 	icon = 'icons/turf/floors/plasmaglass.dmi'
 	base_icon_state = "plasmaglass"
-	thermal_conductivity = 0.030
 	heat_capacity = 32000
 
 /turf/simulated/floor/glass/reinforced/plasma
@@ -209,7 +207,6 @@
 	desc = "For when you REALLY don't want your floor choice to suffocate everyone."
 	icon = 'icons/turf/floors/reinf_plasmaglass.dmi'
 	base_icon_state = "reinf_plasmaglass"
-	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
 /turf/simulated/floor/glass/titanium
@@ -217,7 +214,6 @@
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	base_icon_state = "titaniumglass"
-	thermal_conductivity = 0.025
 	heat_capacity = 1600
 	explosion_vertical_block = 2
 

@@ -1,35 +1,36 @@
-import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  AnimatedNumber,
-  Section,
-  ProgressBar,
-  Icon,
-  Tabs,
-  Table,
-} from '../components';
 import { useState } from 'react';
-import { Window } from '../layouts';
-import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
-import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Table,
+  Tabs,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
+import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { Danger2Colour } from './common/AtmosScan';
+import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 type AirAlarmData = {
   air: Air;
   mode: number;
-  atmos_alarm: boolean;
-  locked: boolean;
-  alarmActivated: boolean;
+  atmos_alarm: BooleanLike;
+  locked: BooleanLike;
+  alarmActivated: BooleanLike;
   rcon: number;
   target_temp: number;
   vents: AtmosMachine[];
   scrubbers: AtmosMachine[];
   modes: Mode[];
   presets: Preset[];
-  emagged: boolean;
+  emagged: BooleanLike;
   preset: number;
   thresholds: Threshold[];
 };
@@ -38,7 +39,7 @@ type Air = {
   danger: Danger;
   contents: AirContent;
   pressure: number;
-  thermostat_state: boolean;
+  thermostat_state: BooleanLike;
   temperature: number;
   temperature_c: number;
 };
@@ -72,7 +73,7 @@ type Mode = {
   id: number;
   name: string;
   desc: string;
-  emagonly: boolean;
+  emagonly: BooleanLike;
 };
 
 type Preset = {
@@ -131,7 +132,7 @@ const AirStatus = (_props: unknown) => {
     areaStatus = 'DANGER: Internals Required';
   }
 
-  let permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
+  const permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
 
   return (
     <Section title="Air Status">
@@ -181,7 +182,7 @@ const AirStatus = (_props: unknown) => {
                 icon="thermometer-full"
                 onClick={() => act('temperature')}
               >
-                {target_temp + ' C'}
+                {`${target_temp} C`}
               </Button>
               <Button
                 selected={air.thermostat_state}
@@ -245,28 +246,28 @@ const AirAlarmTabs = (props: TabIndexProps) => {
       <Tabs.Tab
         key="Vents"
         selected={0 === tabIndex}
-        onClick={() => setTabIndex(0)}
+        onClick={() => setTabIndex?.(0)}
       >
         <Icon name="sign-out-alt" /> Vent Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Scrubbers"
         selected={1 === tabIndex}
-        onClick={() => setTabIndex(1)}
+        onClick={() => setTabIndex?.(1)}
       >
         <Icon name="sign-in-alt" /> Scrubber Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Mode"
         selected={2 === tabIndex}
-        onClick={() => setTabIndex(2)}
+        onClick={() => setTabIndex?.(2)}
       >
         <Icon name="cog" /> Mode
       </Tabs.Tab>
       <Tabs.Tab
         key="Thresholds"
         selected={3 === tabIndex}
-        onClick={() => setTabIndex(3)}
+        onClick={() => setTabIndex?.(3)}
       >
         <Icon name="tachometer-alt" /> Thresholds
       </Tabs.Tab>
@@ -315,8 +316,8 @@ const AirAlarmModesView = (props: unknown) => {
           }}
         >
           {Object.keys(modes).map((key) => {
-            let m = modes[key];
-            if (!m.emagonly || !!emagged) {
+            const m = modes[key];
+            if (!m.emagonly || emagged) {
               return (
                 <Table.Row key={m.name}>
                   <Table.Cell textAlign="right" width={1}>
@@ -331,6 +332,8 @@ const AirAlarmModesView = (props: unknown) => {
                   <Table.Cell>{m.desc}</Table.Cell>
                 </Table.Row>
               );
+            } else {
+              return '';
             }
           })}
         </Table>

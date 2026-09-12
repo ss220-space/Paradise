@@ -1,7 +1,6 @@
-import { Box, Button, Stack } from '../../components';
-import { classes } from 'common/react';
-
 import { getWindowPosition, setWindowPosition } from 'tgui/drag';
+import { Box, Button, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { Port } from './Port';
 import type { Filter, Plane, PlaneConnectorsMap, Relay } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
@@ -31,7 +30,7 @@ export const PlaneMaster = (props: PlaneMasterProps) => {
     })
     .sort(
       (a: Filter | Relay, b: Filter | Relay) =>
-        (a.source as Plane).plane - (b.source as Plane).plane
+        (a.source as Plane).plane - (b.source as Plane).plane,
     );
 
   const outgoing_connections: (Filter | Relay)[] = (
@@ -43,7 +42,7 @@ export const PlaneMaster = (props: PlaneMasterProps) => {
     })
     .sort(
       (a: Filter | Relay, b: Filter | Relay) =>
-        (a.target as Plane).plane - (b.target as Plane).plane
+        (a.target as Plane).plane - (b.target as Plane).plane,
     );
 
   return (

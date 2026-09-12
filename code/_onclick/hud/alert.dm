@@ -835,7 +835,7 @@
 	if(!.)
 		return FALSE
 
-	owner.client.vote()
+	owner.vote()
 	return TRUE
 
 //OBJECT-BASED

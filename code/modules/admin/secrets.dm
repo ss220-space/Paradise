@@ -81,6 +81,7 @@
 					<br>
 					<b>Reinforce Station</b><br>
 					<a href='byond://?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</a>&nbsp;&nbsp;
+					<a href='byond://?src=[UID()];secretsfun=nuclear_overload'>Disable Fission Reactor Safeties</a>&nbsp;&nbsp;
 					<br>
 					<b>Renames</b><br>
 					<a href='byond://?src=[UID()];secretsfun=set_station_name'>Rename Station Name</a><br>

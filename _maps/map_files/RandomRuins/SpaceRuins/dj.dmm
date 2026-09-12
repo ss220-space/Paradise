@@ -50,14 +50,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"au" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/noalarm/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/djstation)
 "av" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -197,14 +189,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"bc" = (
-/obj/structure/curtain/open/shower,
-/obj/machinery/shower/directional/east,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
 "bd" = (
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
@@ -249,23 +233,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
-	},
-/area/djstation)
-"bn" = (
-/obj/structure/mirror{
-	dir = 4;
-	pixel_x = -32
-	},
-/obj/structure/sink/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bo" = (
-/obj/structure/toilet/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
 	},
 /area/djstation)
 "bp" = (
@@ -396,15 +363,6 @@
 "bN" = (
 /turf/space,
 /area/djstation)
-"bP" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "bR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -426,13 +384,6 @@
 "bT" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
-/area/djstation)
-"bU" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "cP" = (
@@ -457,12 +408,29 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
+"eE" = (
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
 "eH" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/djstation)
+"hv" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space)
 "hJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -507,15 +475,12 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"lv" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-8"
+"nc" = (
+/obj/structure/toilet/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
+/area/djstation)
 "oE" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -574,11 +539,29 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
+"wF" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
 "wS" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/djstation)
+"wV" = (
+/obj/structure/mirror{
+	dir = 4;
+	pixel_x = -32
+	},
+/obj/structure/sink/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
 /area/djstation)
 "xB" = (
@@ -598,6 +581,14 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
+/area/djstation)
+"yI" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/noalarm/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/djstation)
 "zC" = (
 /obj/item/multitool,
@@ -777,6 +768,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
+"Ms" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space)
 "Mu" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -892,6 +892,14 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
+"UH" = (
+/obj/structure/safe/floor,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
 "UQ" = (
 /obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
@@ -936,14 +944,6 @@
 	pixel_y = 35
 	},
 /turf/space,
-/area/djstation)
-"XI" = (
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
 /area/djstation)
 "YA" = (
 /turf/space,
@@ -1122,9 +1122,9 @@ YA
 ab
 bw
 bw
-bP
+Ms
 YA
-bP
+Ms
 bw
 bw
 ab
@@ -1317,8 +1317,8 @@ NY
 aM
 aM
 aS
-bc
-bn
+eE
+wV
 ao
 bE
 bR
@@ -1392,7 +1392,7 @@ aN
 JC
 aS
 ao
-bo
+nc
 ao
 kO
 Xf
@@ -1410,10 +1410,10 @@ YA
 ab
 YA
 bw
-bP
-bP
-bP
-bP
+Ms
+Ms
+Ms
+Ms
 YA
 YA
 bT
@@ -1421,7 +1421,7 @@ bJ
 an
 ap
 an
-au
+yI
 ao
 aG
 aI
@@ -1484,15 +1484,15 @@ YA
 ab
 az
 aF
-bP
-bP
-bP
-bP
+Ms
+Ms
+Ms
+Ms
 YA
 bw
 sJ
 bM
-bU
+wF
 Er
 Ml
 ke
@@ -1558,10 +1558,10 @@ YA
 ab
 bw
 bw
-lv
-lv
-lv
-lv
+hv
+hv
+hv
+hv
 bw
 YA
 bT
@@ -1646,7 +1646,7 @@ am
 YA
 YA
 ao
-XI
+UH
 sd
 dv
 ao
@@ -1862,9 +1862,9 @@ YA
 ab
 bw
 bw
-lv
+hv
 YA
-lv
+hv
 bw
 bw
 ab

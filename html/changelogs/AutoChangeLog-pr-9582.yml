@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь прогресс бары при успешном действии не выглядят как зафейленые. (PR #9582)"

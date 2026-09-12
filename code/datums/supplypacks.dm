@@ -1946,6 +1946,54 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_CE
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_MATERIALS = 3)
 
+/datum/supply_packs/engineering/nuclear_supermatter_rod
+	name = "Nuclear Supermatter Rod Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+	)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter rod crate"
+
+/datum/supply_packs/engineering/nuclear_supermatter_kit
+	name = "Nuclear Supermatter Rods Starter Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter starter crate"
+
+/datum/supply_packs/engineering/nuclear_moderator_rods
+	name = "Forged Nuclear Moderator crate"
+	contains = list(
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+	)
+	cost = 90
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Moderator crate"
+
+/datum/supply_packs/engineering/nuclear_coolant_rods
+	name = "Forged Nuclear Coolant crate"
+	contains = list(
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+	)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Coolant crate"
+
 /datum/supply_packs/engineering/inflatable
 	name = "Надувные заграждения"
 	contains = list(
@@ -3746,10 +3794,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/monkey
-	name = "Шимпанзе"
-	contains = list (/obj/item/storage/box/monkeycubes,
+	name = "Кубы шимпанзе"
+	contains = list(
+		/obj/item/storage/box/monkeycubes,
 	)
 	cost = 30
+	required_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	containername = "ящик шимпанзе"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик шимпанзе",
@@ -3760,11 +3810,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике шимпанзе",
 	)
 
-/datum/supply_packs/organic/farwa
-	name = "Фарвы"
-	contains = list (/obj/item/storage/box/monkeycubes/farwacubes,
+/datum/supply_packs/organic/monkey/farwa
+	name = "Кубы фарв"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/farwacubes,
 	)
-	cost = 30
 	containername = "ящик фарв"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик фарв",
@@ -3775,11 +3825,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике фарв",
 	)
 
-/datum/supply_packs/organic/wolpin
-	name = "Вульпины"
-	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes,
+/datum/supply_packs/organic/monkey/wolpin
+	name = "Кубы вульпинов"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/wolpincubes,
 	)
-	cost = 30
 	containername = "ящик вульпинов"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик вульпинов",
@@ -3790,11 +3840,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике вульпинов",
 	)
 
-/datum/supply_packs/organic/skrell
-	name = "Неары"
-	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes,
+/datum/supply_packs/organic/monkey/skrell
+	name = "Кубы неар"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/neaeracubes,
 	)
-	cost = 30
 	containername = "ящик неар"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик неар",
@@ -3805,11 +3855,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике неар",
 	)
 
-/datum/supply_packs/organic/stok
-	name = "Стоки"
-	contains = list (/obj/item/storage/box/monkeycubes/stokcubes,
+/datum/supply_packs/organic/monkey/stok
+	name = "Кубы стоков"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/stokcubes,
 	)
-	cost = 30
 	containername = "ящик стоков"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик стоков",

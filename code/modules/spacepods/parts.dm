@@ -15,6 +15,10 @@
 	var/link_to = null
 	var/link_angle = 0
 
+/obj/item/pod_parts/pod_frame/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_rotation)
+
 /obj/item/pod_parts/pod_frame/proc/find_square()
 	/*
 	each part, in essence, stores the relative position of another part
@@ -89,28 +93,6 @@
 	set_density(anchored)
 	to_chat(user, span_notice("Вы [anchored ? "закрепили [declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
-/obj/item/pod_parts/pod_frame/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
-
-/obj/item/pod_parts/pod_frame/verb/rotate()
-	set name = "Повернуть каркас"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
-
-	if(anchored)
-		to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] надёжно закреплён болтами!")
-		return FALSE
-
-	dir = turn(dir, -90)
-	return TRUE
-
-/obj/item/pod_parts/pod_frame/click_alt(mob/user)
-	rotate()
-	return CLICK_ACTION_SUCCESS
 
 /obj/item/pod_parts/pod_frame/attack_hand()
 	return

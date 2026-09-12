@@ -1,8 +1,8 @@
-import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
-import { filter } from 'common/collections';
-import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, Input, ImageButton } from '../components';
+import { useState } from 'react';
+import { ImageButton, Input, Section, Stack } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
@@ -31,20 +31,20 @@ export const Chameleon = (_props) => {
 const selectSkins = (skins: ChameleonSkin[], searchText = '') => {
   const testSearch = createSearch(
     searchText,
-    (skin: ChameleonSkin) => skin.name
+    (skin: ChameleonSkin) => skin.name,
   );
   return flow([
     (skins) =>
       // Null filter
-      filter<ChameleonSkin>(skins, (skin) => !!skin?.name),
+      skins.filter((skin: ChameleonSkin) => !!skin?.name),
     // Optional search term
-    (skins) => (searchText ? filter(skins, testSearch) : skins),
+    (skins) => (searchText ? skins.filter(testSearch) : skins),
   ])(skins);
 };
 
 export const ChameleonAppearances = (_props) => {
   const { act, data } = useBackend<Data>();
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const chameleon_skins = selectSkins(data.chameleon_skins, searchText);
   const { selected_appearance } = data;
   return (
@@ -60,8 +60,7 @@ export const ChameleonAppearances = (_props) => {
       <Stack.Item grow>
         <Section fill scrollable title={'Item Appearance'}>
           {chameleon_skins.map((chameleon_skin) => {
-            const skin_name =
-              chameleon_skin.name + '_' + chameleon_skin.icon_state;
+            const skin_name = `${chameleon_skin.name}_${chameleon_skin.icon_state}`;
             return (
               <ImageButton
                 dmIcon={chameleon_skin.icon}

@@ -1,5 +1,5 @@
 import { useBackend } from 'tgui/backend';
-import { Box, Flex, Icon, Section, Stack, Tooltip } from 'tgui/components';
+import { Box, Flex, Icon, Section, Stack, Tooltip } from 'tgui-core/components';
 
 import type { HypertorusFuel } from '.';
 import { to_exponential_if_big } from './helpers';
@@ -133,7 +133,7 @@ export const HypertorusTemperatures = (props) => {
   const maxTemperature = Math.max(...temperatures);
   const minTemperature = Math.max(
     2.73,
-    Math.min(20, ...temperatures.filter((d) => d > 0))
+    Math.min(20, ...temperatures.filter((d) => d > 0)),
   );
 
   if (power_level === 6) {

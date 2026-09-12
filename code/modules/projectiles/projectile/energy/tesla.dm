@@ -41,7 +41,6 @@
 	icon_state = null
 	hitscan = TRUE
 	impact_effect_type = null
-	damage = 5
 	var/shock_damage = 10
 
 /obj/projectile/energy/tesla_cannon/on_hit(atom/target, blocked = 0, pierce_hit)

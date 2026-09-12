@@ -35,6 +35,7 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_LIGHT
 	ammo_x_offset = 2
 	charge_sections = 3
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
@@ -58,6 +59,7 @@
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
+	weapon_weight = WEAPON_LIGHT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
@@ -76,6 +78,7 @@
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
+	weapon_weight = WEAPON_LIGHT
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
@@ -94,6 +97,7 @@
 	icon_state = "pdw9pistol"
 	item_state = "gun"
 	force = 7
+	weapon_weight = WEAPON_LIGHT
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
@@ -160,24 +164,21 @@
 	origin_tech = "combat=7;magnets=6;powerstorage=6"
 	slot_flags = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
 	selfcharge = TRUE
-	charge_delay = 5
-	recharge_rate = 600
+	recharge_rate = 1000
 	slowdown = 0.4
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	fire_delay = 0.4 SECONDS
 	windup_autofire = TRUE
-	windup_autofire_reduction_multiplier = 0.05
+	windup_autofire_reduction_multiplier = 0.1
 	windup_autofire_cap = 0.25
-	windup_spindown = 1 SECONDS
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
 	var/force_unwielded = 10
@@ -200,10 +201,6 @@
 		force_wielded = src.force_wielded, \
 		require_twohands = TRUE \
 	)
-
-/obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
-	..()
-	balloon_alert(user, "слишком тяжело!")
 
 /obj/item/gun/energy/gun/minigun/update_icon_state()
 	item_state = !cell ? initial(item_state) : "[initial(item_state)][!can_shoot(silent = TRUE) ? "1" : ""]"

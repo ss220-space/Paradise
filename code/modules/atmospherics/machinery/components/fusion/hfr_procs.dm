@@ -11,7 +11,7 @@
 	if(!anchored || panel_open)
 		return FALSE
 
-	for(var/obj/machinery/hypertorus/object in orange(1,src))
+	for(var/obj/machinery/hypertorus/object in orange(1, src))
 		if(. == FALSE)
 			break
 
@@ -46,14 +46,14 @@
 				. = FALSE
 			linked_interface = object
 
-	for(var/obj/machinery/atmospherics/unary/hypertorus/object in orange(1,src))
+	for(var/obj/machinery/atmospherics/unary/hypertorus/object in orange(1, src))
 		if(. == FALSE)
 			break
 
 		if(object.panel_open)
 			. = FALSE
 
-		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
+		if(get_step(object, REVERSE_DIR(object.dir)) != loc)
 			. = FALSE
 
 		if(istype(object,/obj/machinery/atmospherics/unary/hypertorus/fuel_input))

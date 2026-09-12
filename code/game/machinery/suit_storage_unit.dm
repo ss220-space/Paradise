@@ -765,10 +765,7 @@
 /obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
 	eject_occupant()
 
-/obj/machinery/suit_storage_unit/verb/get_out()
-	set name = "Извлечь находящегося внутри"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/suit_storage_unit, get_out, oview(1), "Извлечь находящегося внутри", VERB_CATEGORY_HIDDEN)
 
 	if(usr.stat)
 		return
@@ -777,35 +774,6 @@
 	SStgui.update_uis(src)
 	update_icon(UPDATE_OVERLAYS)
 	return
-
-/obj/machinery/suit_storage_unit/verb/move_inside()
-	set name = "Спрятаться внутри"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!state_open)
-		to_chat(usr, span_warning("The unit's doors are shut."))
-		return
-	if(broken)
-		to_chat(usr, span_warning("The unit is not operational."))
-		return
-	if((occupant) || (helmet) || (suit) || (storage))
-		to_chat(usr, span_warning("It's too cluttered inside for you to fit in!"))
-		return
-	visible_message("[usr] starts squeezing into the suit storage unit!")
-	if(do_after(usr, 1 SECONDS, usr))
-		usr.forceMove(src)
-		occupant = usr
-		state_open = FALSE //Close the thing after the guy gets inside
-		update_icon(UPDATE_OVERLAYS)
-
-		add_fingerprint(usr)
-		SStgui.update_uis(src)
-		return
-	else
-		occupant = null
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user)
 	return attack_hand(user)

@@ -1,7 +1,7 @@
-import { useBackend } from '../../backend';
 import { useState } from 'react';
-import { Box, Button } from '../../components';
-import { PodLauncherData } from './types';
+import { Button } from 'tgui-core/components';
+import { useBackend } from '../../backend';
+import type { PodLauncherData } from './types';
 
 export const TabPod = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();

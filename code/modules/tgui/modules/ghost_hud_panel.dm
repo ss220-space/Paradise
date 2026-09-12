@@ -14,6 +14,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		"medical" = DATA_HUD_MEDICAL_ADVANCED,
 		"security" = DATA_HUD_SECURITY_ADVANCED,
 		"diagnostic" = DATA_HUD_DIAGNOSTIC,
+		"hydroponic" = DATA_HUD_HYDROPONIC,
 		"pressure" = DATA_HUD_PRESSURE,
 	)
 

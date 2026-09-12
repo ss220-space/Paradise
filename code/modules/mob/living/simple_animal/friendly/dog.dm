@@ -44,10 +44,7 @@
 	collar_type = "dog"
 	ai_controller = /datum/ai_controller/dog
 
-/mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Гоняться за хвостом"
-	set desc = "d'awwww."
-	set category = VERB_CATEGORY_DOG
+GAME_VERB_DESC(/mob/living/simple_animal/pet/dog, chasetail, "Гоняться за хвостом", "d'awwww.", VERB_CATEGORY_ANIMAL)
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)

@@ -55,9 +55,8 @@
 
 	switch(action)
 		if("deathmatch")
-			ui.close()
-			deathmatch()
-			return TRUE
+			to_chat(owner, span_warning("Дезматч временно отключён до дальнейшего оповещения."))
+			return
 
 	var/list/possible_spawners = params["ID"]
 	var/obj/MS = locateUID(pick(possible_spawners))

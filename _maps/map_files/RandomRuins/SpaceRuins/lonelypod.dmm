@@ -51,9 +51,28 @@
 	},
 /turf/space,
 /area/space)
+"kS" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plushie/carp,
+/obj/item/trash/candle{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "lI" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/glass/reinforced,
+/area/ruin/unpowered)
+"ma" = (
+/obj/structure/safe,
+/obj/item/stack/spacecash/c1000{
+	amount = 5000
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/ammo_box/magazine/pistolm9mm,
+/turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
 "my" = (
 /turf/space,
@@ -79,15 +98,6 @@
 /area/ruin/unpowered)
 "sE" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/carpet/black,
-/area/ruin/unpowered)
-"tq" = (
-/obj/structure/safe,
-/obj/item/stack/spacecash/c1000{
-	amount = 5000
-	},
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/ammo_box/magazine/pistolm9mm,
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
 "tz" = (
@@ -442,16 +452,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"Ue" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/plushie/carp,
-/obj/item/trash/candle{
-	pixel_y = 13
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Vh" = (
@@ -837,7 +837,7 @@ my
 my
 my
 PO
-tq
+ma
 SX
 PO
 Qi
@@ -940,7 +940,7 @@ my
 my
 PO
 PO
-Ue
+kS
 PI
 Ib
 PO

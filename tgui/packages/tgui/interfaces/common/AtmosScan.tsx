@@ -1,5 +1,4 @@
-import { filter } from 'common/collections';
-import { Box, LabeledList } from '../../components';
+import { Box, LabeledList } from 'tgui-core/components';
 
 export const Danger2Colour = (danger: number) => {
   if (danger === 0) {
@@ -28,20 +27,23 @@ export const AtmosScan = (props: AtmosScanData) => {
   return (
     <Box>
       <LabeledList>
-        {filter(
-          aircontents,
-          (i) =>
-            i.val !== 0 || i.entry === 'Pressure' || i.entry === 'Temperature'
-        ).map((item) => (
-          <LabeledList.Item
-            key={item.entry}
-            label={item.entry}
-            color={Danger2Colour(item.danger || 0)}
-          >
-            {item.val}
-            {item.units}
-          </LabeledList.Item>
-        ))}
+        {aircontents
+          .filter(
+            (i) =>
+              i.val !== 0 ||
+              i.entry === 'Pressure' ||
+              i.entry === 'Temperature',
+          )
+          .map((item) => (
+            <LabeledList.Item
+              key={item.entry}
+              label={item.entry}
+              color={Danger2Colour(item.danger || 0)}
+            >
+              {item.val}
+              {item.units}
+            </LabeledList.Item>
+          ))}
       </LabeledList>
     </Box>
   );

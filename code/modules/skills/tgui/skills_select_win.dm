@@ -133,16 +133,16 @@
 	if(used_points < 0)
 		user.mind.selected_skills[skill] = 0
 		return
+	var/max_skill_delta = SKILL_LEVEL_LEGEND
 	if(!admin_interact)
-		var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
+		max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 		if(skill in user.dna.species.max_select_skills)
 			max_skill_delta = user.dna.species.max_select_skills[skill]
-		delta = clamp(delta, -used_points, max_skill_delta)
 	GET_SKILL_LEVEL(target_user, skill, skill_level)
 	if(skill_level + used_points > SKILL_LEVEL_LEGEND)
 		user.mind.selected_skills[skill] = SKILL_LEVEL_LEGEND - skill_level
 		return
-	user.mind.selected_skills[skill] += delta
+	user.mind.selected_skills[skill] = clamp(used_points + delta, 0, max_skill_delta)
 
 /datum/ui_module/skills_select_win/proc/save_skills(mob/user)
 	var/total_used_points = collect_used_skill_points(user)

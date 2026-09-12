@@ -36,7 +36,7 @@
 /datum/skill/combat/bows
 	id = "combat.bows"
 	name = "Стрельба из лука"
-	desc = "Влияет на меткость стрельбы из лука, а так же на самедление при нятянутой тетеве."
+	desc = "Влияет на меткость стрельбы из лука, а так же на замедление при натянутой тетиве."
 	duration_mod_names = list(BOW_SLOWDOWN_MOD, BOW_READY_TO_FIRE_MOD)
 	skills_mods = alist(
 		BOW_ACCURACY_MOD = alist(

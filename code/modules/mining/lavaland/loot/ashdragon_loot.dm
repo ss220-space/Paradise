@@ -145,7 +145,7 @@
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"))
 	return ..()
 
 // Blood

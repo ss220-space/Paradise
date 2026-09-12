@@ -1,5 +1,5 @@
+import { Button, Flex, NoticeBox } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Flex, NoticeBox } from '../../components';
 
 type InterfaceLockData = {
   siliconUser: boolean;

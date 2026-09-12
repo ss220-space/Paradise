@@ -228,6 +228,7 @@
 	slot_flags = NONE
 	gas_type = null
 	fillable = FALSE
+	var/datum/weakref/last_user
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank
 	var/obj/item/clothing/suit/space/our_suit
@@ -238,9 +239,15 @@
 	temp_air_contents = air_contents
 
 /obj/item/tank/jetpack/suit/Destroy()
+	var/mob/living/carbon/human/human_owner = last_user?.resolve()
+	if(human_owner)
+		UnregisterSignal(human_owner, COMSIG_MOVABLE_MOVED)
+	if(tank)
+		UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
 	our_suit = null
 	tank = null
 	temp_air_contents = null
+	last_user = null
 	return ..()
 
 /obj/item/tank/jetpack/suit/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -273,15 +280,31 @@
 		to_chat(user, span_warning("You need a tank in your suit storage!"))
 		return FALSE
 	tank = user.s_store
+	last_user = WEAKREF(user)
+	RegisterSignal(tank, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
 	air_contents = tank.air_contents
 	START_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/tank/jetpack/suit/turn_off(mob/living/carbon/human/user)
+	if(tank)
+		UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
+	if(user)
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	tank = null
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/tank/jetpack/suit/proc/jetpack_check_distance(atom/source, old_loc, movement_dir, forced, old_locs, momentum_change)
+	SIGNAL_HANDLER
+
+	var/mob/living/carbon/human/human_user = get_owner()
+	var/turf/user_turf = get_turf(human_user)
+	var/turf/tank_turf = get_turf(tank)
+	if(user_turf && tank_turf && user_turf != tank_turf)
+		turn_off(human_user)
 
 /obj/item/tank/jetpack/suit/ninja
 	name = "ninja jetpack upgrade"
@@ -295,9 +318,10 @@
 	if(!user)
 		return FALSE
 
-	if(!skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_INVISIBILITY))
+	var/is_cloaked = HAS_TRAIT(user, TRAIT_NINJA_INVISIBILITY)
+	if(!skip_trails && is_cloaked)
 		configure_jetpack(skip_trails = TRUE)
-	else if(skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) != standartize_alpha(NINJA_ALPHA_INVISIBILITY))
+	else if(skip_trails && !is_cloaked)
 		configure_jetpack(skip_trails = FALSE)
 
 	return ..()

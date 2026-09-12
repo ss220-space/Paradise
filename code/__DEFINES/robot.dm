@@ -32,3 +32,26 @@
 #define CYBORG_RIDING_OFFSET_WALLE list(TEXT_NORTH = list(0, 9), TEXT_SOUTH = list(0, 9), TEXT_EAST = list(-13, 9), TEXT_WEST = list(12, 9))
 
 #define CYBORG_RIDING_OFFSET_DESTROYER list(TEXT_NORTH = list(0, 11), TEXT_SOUTH = list(0, 11), TEXT_EAST = list(-23, 11), TEXT_WEST = list(23, 11))
+
+/// Names for cyborg modueles. Currently used only in UI
+
+#define CYBORG_MODULE_NAME_GENERALIST "Генералист"
+
+#define CYBORG_MODULE_NAME_MEDIC "Медик"
+#define CYBORG_MODULE_NAME_MEDIC_ERT "Тактический медик"
+#define CYBORG_MODULE_NAME_MEDIC_ERT_SPECIAL "Боевой медик"
+
+#define CYBORG_MODULE_NAME_ENGINEER "Инженер"
+#define CYBORG_MODULE_NAME_ENGINEER_ERT "Боевой инженер"
+#define CYBORG_MODULE_NAME_SABOTEUR "Саботёр"
+
+#define CYBORG_MODULE_NAME_JANITOR "Уборщик"
+#define CYBORG_MODULE_NAME_JANITOR_ERT "Тактический уборщик"
+
+#define CYBORG_MODULE_NAME_MINER "Шахтёр"
+
+#define CYBORG_MODULE_NAME_SERVICE "Сервисный работник"
+
+#define CYBORG_MODULE_NAME_SECURITY "Охранник"
+#define CYBORG_MODULE_NAME_SOLIDER "Боец"
+#define CYBORG_MODULE_NAME_BATTLEDROID "Штурмовик"

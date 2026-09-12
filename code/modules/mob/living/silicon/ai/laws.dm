@@ -1,6 +1,4 @@
-/mob/living/silicon/ai/proc/show_laws_verb()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Список законов"
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, show_laws_verb, "Список законов", "Check what your laws are privately. Also ensures all synced cyborgs are up to date with your laws, reminds them of your laws.", VERB_CATEGORY_AICOMMANDS)
 	src.show_laws()
 
 /mob/living/silicon/ai/show_laws(everyone = 0)
@@ -26,8 +24,3 @@
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.lawupdate && (R.connected_ai == src))
 			R.show_laws()
-
-/mob/living/silicon/ai/proc/ai_checklaws()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Объявить законы"
-	subsystem_law_manager()

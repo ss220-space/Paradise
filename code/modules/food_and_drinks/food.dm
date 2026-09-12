@@ -12,6 +12,7 @@
 	visible_transfer_rate = FALSE
 	righthand_file = 'icons/mob/inhands/foods_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/foods_lefthand.dmi'
+	can_empty = FALSE
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
@@ -63,10 +64,6 @@
 		return PROCESS_KILL
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
-
-/obj/item/reagent_containers/food/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)

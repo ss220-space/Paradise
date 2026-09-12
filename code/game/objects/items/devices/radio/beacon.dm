@@ -121,7 +121,7 @@
 								"Desc" = "Find and eliminate your targets quietly and effectively with this kit.",
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,						// 10 TK
 								/obj/item/pen/fancy/bomb = 1,												// 30 TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/projectile/automatic/pistol/stechkin = 1,								// 20 TK
 								/obj/item/gun_module/muzzle/suppressor = 1,													// 5 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
@@ -220,7 +220,7 @@
 								/obj/item/clothing/mask/chameleon = 1,										// 0-20 TK
 								/obj/item/storage/belt/military/traitor/sec = 1,							// 5 TK
 								/obj/item/pinpointer/advpinpointer = 1,										// 20 TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/projectile/automatic/pistol/stechkin = 1,								// 20 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/ap = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/fire = 1,									// 5 TK
@@ -248,7 +248,7 @@
 			"Grenadier" = list("Name" = "'Grenadier' bundle",	// 95-227 TK
 								"Desc" = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation.",
 								/obj/item/storage/belt/grenade/demolitionist = 1,							// 10-125TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/projectile/automatic/pistol/stechkin = 1,								// 20 TK
 								/obj/item/ammo_box/magazine/m10mm = 2,										// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/fire = 2,									// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK

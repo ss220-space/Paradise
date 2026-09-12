@@ -61,8 +61,6 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest
 GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
 GLOBAL_VAR_INIT(pending_server_update, FALSE)
 
-GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
-
 GLOBAL_LIST_INIT(pipe_colors, list(
 	"grey" = PIPE_COLOR_GREY,
 	"red" = PIPE_COLOR_RED,
@@ -98,3 +96,5 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 
 GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)
+
+GLOBAL_DATUM(main_fission_reactor, /obj/machinery/atmospherics/fission_reactor)

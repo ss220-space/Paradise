@@ -592,6 +592,17 @@
 		PROTOLATHE_CATEGORY_CIRCUITRY,
 	)
 
+/datum/design/turret_integration_module
+	id = "turret_integration_module"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_ENGINEERING = 6)
+	materials = list(MAT_DIAMOND = 1200, MAT_SILVER = 1600, MAT_TITANIUM = 2000)
+	build_path = /obj/item/turret_integration_module
+	build_type = PROTOLATHE
+	category = list(
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+		PROTOLATHE_CATEGORY_WEAPON,
+	)
+
 /datum/design/module/mod_module_shell
 	id = "module_shell"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)

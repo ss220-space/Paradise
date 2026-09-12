@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -8,11 +7,12 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
 import { SortButton } from './common/SortButtons';
-import { createSearch } from 'common/string';
 
 const noneSelect = '*none*';
 
@@ -81,7 +81,7 @@ export const PermissionsEdit = (_props: unknown) => {
   const [sortId, setSortId] = useState('target_name');
   const [sortOrder, setSortOrder] = useState(true);
 
-  const [newAdminCkey, setNewAdminCkey] = useState<string>(null);
+  const [newAdminCkey, setNewAdminCkey] = useState<string>('');
   const [newAdminRank, setNewAdminRank] = useState(noneSelect);
   const [newAdminPreset, setNewAdminPreset] = useState(noneSelect);
 
@@ -158,8 +158,8 @@ export const PermissionsEdit = (_props: unknown) => {
             {admins
               .filter(
                 createSearch(searchText, ({ ckey, rank }) => {
-                  return ckey + '|' + rank;
-                })
+                  return `${ckey}|${rank}`;
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -172,8 +172,8 @@ export const PermissionsEdit = (_props: unknown) => {
                 if (typeof a[sortId] === 'number') {
                   return (a[sortId] - b[sortId]) * i;
                 }
-                let firstValue = a[sortId];
-                let secondValue = b[sortId];
+                const firstValue = a[sortId];
+                const secondValue = b[sortId];
                 return firstValue.localeCompare(secondValue) * i;
               })
               .map((admin, index) => {

@@ -416,9 +416,6 @@
 		update_controlling_area()
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
-	set name = "Подняться"
-	set category = VERB_CATEGORY_IC
-
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
 		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
@@ -433,9 +430,6 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
-	set name = "Опуститься"
-	set category = VERB_CATEGORY_IC
-
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
 		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
@@ -628,13 +622,11 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/mob in get_hearers_in_view(7, src))
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
-		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
-			continue
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
@@ -822,7 +814,7 @@
 /mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/ion))
 		return ..()
-	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
+	visible_message(span_warning("[proj] goes right through [src]!"))
 
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE

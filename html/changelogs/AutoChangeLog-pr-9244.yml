@@ -1,8 +1,0 @@
-author: "Bess3"
-delete-after: True
-changes:
-  - add: "Новые шарики с возможностью скручивать фигурки животных (PR #9244)"
-  - add: "Плюшевая игрушка СМО, Глорп, пиздосик (щитспавн) (PR #9244)"
-  - refactor: "Файл игрушек разбит на подфайлы/Рефактор кода игрушек (PR #9244)"
-  - image: "inhand у игрушки грея (PR #9244)"
-  - del: "therapy doll, toddler, toy beacon, virus pop, grumpy fox (PR #9244)"

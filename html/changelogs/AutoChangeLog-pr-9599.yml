@@ -1,4 +1,0 @@
-author: "Bess3"
-delete-after: True
-changes:
-  - bugfix: "Шарики удаляются после скручивания (PR #9599)"

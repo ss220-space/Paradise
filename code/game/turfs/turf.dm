@@ -31,25 +31,7 @@
 	var/nitrogen = 0
 	var/toxins = 0
 	var/sleeping_agent = 0
-	var/agent_b = 0
-	var/hydrogen = 0
-	var/water_vapor = 0
-	var/hypernoblium = 0
-	var/nitrium = 0
-	var/tritium = 0
-	var/bz = 0
-	var/pluoxium = 0
-	var/miasma = 0
-	var/freon = 0
-	var/healium = 0
-	var/proto_nitrate = 0
-	var/zauker = 0
-	var/halon = 0
-	var/helium = 0
-	var/antinoblium = 0
 
-	//Properties for airtight tiles (/wall)
-	var/thermal_conductivity = 0.05
 	var/heat_capacity = 1
 
 	//Properties for both

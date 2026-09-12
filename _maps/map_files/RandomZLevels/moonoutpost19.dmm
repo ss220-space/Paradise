@@ -98,21 +98,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/hive)
-"ap" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/obj/item/gun/projectile/automatic/pistol,
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "red";
-	icon_state = "gib1_flesh"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/moonoutpost19/hive)
 "aq" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -1748,14 +1733,6 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/moonoutpost19/khonsu19)
-"dF" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on";
-	on = 1
-	},
-/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
 "dG" = (
@@ -7026,6 +7003,11 @@
 	germ_level = 20
 	},
 /area/moonoutpost19/mo19arrivals)
+"tv" = (
+/obj/item/flashlight/lantern/on,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/moonoutpost19/khonsu19)
 "vO" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -7036,6 +7018,21 @@
 	germ_level = 20
 	},
 /area/moonoutpost19/mo19arrivals)
+"BN" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_impregnated";
+	item_state = "facehugger_impregnated";
+	stat = 2
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/effect/decal/cleanable/blood/gibs{
+	color = "red";
+	icon_state = "gib1_flesh"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/moonoutpost19/hive)
 "Jr" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
@@ -8803,7 +8800,7 @@ ab
 ab
 ab
 ad
-ap
+BN
 aw
 aq
 ao
@@ -17828,7 +17825,7 @@ ab
 ab
 ab
 dz
-dF
+tv
 dI
 aZ
 aZ

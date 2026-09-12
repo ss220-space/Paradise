@@ -46,6 +46,8 @@
 
 /obj/structure/closet/syndicate/sst/populate_contents()
 	new /obj/item/ammo_box/magazine/l6saw(src)
+	new /obj/item/ammo_box/magazine/l6saw(src)
+	new /obj/item/ammo_box/magazine/l6saw/bleeding(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/storage/belt/military/sst(src)

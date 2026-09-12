@@ -6,14 +6,14 @@
 
 			if(I)
 				uneq_active()
-				visible_message(span_danger("[M] disarmed [src]!"), span_userdanger("[M] has disabled [src]'s active module!"))
+				balloon_alert_to_viewers("обезоружен!")
 				add_attack_logs(M, src, "alien disarmed")
 
 			else
 				Stun(4 SECONDS)
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
-				visible_message(span_danger("[M] forces back [src]!"), span_userdanger("[M] forces back [src]!"))
+				balloon_alert_to_viewers("оглушён!")
 
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 
@@ -56,7 +56,7 @@
 			cell.add_fingerprint(user)
 			cell.forceMove_turf()
 			user.put_in_active_hand(cell, ignore_anim = FALSE)
-			to_chat(user, span_notice("You remove \the [cell]."))
+			balloon_alert(user, "аккумулятор извлечен")
 			var/datum/robot_component/C = components["power cell"]
 			C.uninstall()
 			module?.update_cells(unlink_cell = TRUE)
@@ -68,3 +68,14 @@
 			step_away(src, user, 15)
 			sleep(3)
 			step_away(src, user, 15)
+
+/mob/living/silicon/robot/bullet_act(obj/projectile/projectile)
+	if(module_active && iscyborgmobilitymodule(module_active))
+		return ..(projectile)
+	if(!reflection_type || !reflectable)
+		return ..(projectile)
+	if((!istype(projectile) || !projectile.is_reflectable(reflection_type) || !projectile.starting))
+		return ..(projectile)
+	balloon_alert_to_viewers("снаряд отражен")
+	projectile.reflect_back(src)
+	return -1

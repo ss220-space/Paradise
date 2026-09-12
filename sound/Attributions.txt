@@ -18,3 +18,6 @@ chainsaw_start.ogg is adapted from 8 Chainsaw Pulls.wav by Stefan021
 https://freesound.org/s/431740/ (CC 0)
 chainsaw_stop.ogg is adapted from kyles "chainsaw sawing short cuts +stop.flac" (CC 0)
 https://freesound.org/people/kyles/sounds/453256/
+
+/datum/looping_sound/centrifuge sounds spliced from washing_machine.wav -- https://freesound.org/people/magnus589/sounds/372183/ -- under CC Attribution 4.0 International
+

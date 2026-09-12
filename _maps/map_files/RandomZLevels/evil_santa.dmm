@@ -585,9 +585,8 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fr" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
@@ -861,9 +860,8 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "hr" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -1218,11 +1216,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "jI" = (
-/obj/item/flashlight/lantern{
+/obj/item/flashlight/lantern/on{
 	light_color = "#ffb366";
 	light_range = 3;
-	name = "Mining lantern";
-	on = 1
+	name = "Mining lantern"
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
@@ -1844,9 +1841,8 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "oO" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -3678,9 +3674,8 @@
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Ga" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -3767,9 +3762,8 @@
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
 "GA" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
@@ -4294,11 +4288,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Lj" = (
-/obj/item/flashlight/lantern{
+/obj/item/flashlight/lantern/on{
 	light_color = "#ffb366";
 	light_range = 3;
-	name = "Mining lantern";
-	on = 1
+	name = "Mining lantern"
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
 	slowdown = 0
@@ -4475,11 +4468,10 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "MP" = (
-/obj/item/flashlight/lantern{
+/obj/item/flashlight/lantern/on{
 	light_color = "#ffb366";
 	light_range = 3;
-	name = "Mining lantern";
-	on = 1
+	name = "Mining lantern"
 	},
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 32
@@ -5315,11 +5307,10 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "TF" = (
-/obj/item/flashlight/lantern{
+/obj/item/flashlight/lantern/on{
 	light_color = "#ffb366";
 	light_range = 3;
-	name = "Mining lantern";
-	on = 1
+	name = "Mining lantern"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -5784,9 +5775,8 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "XD" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -6000,9 +5990,8 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ZN" = (
-/obj/item/flashlight/lantern{
-	light_color = "#ffb366";
-	on = 1
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)

@@ -68,11 +68,20 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	Master.Initialize(10, FALSE, TRUE)
 
+	RunUnattendedFunctions()
+
+	return
+
+/// Runs after the call to Master.Initialize, but before the delay kicks in. Used to turn the world execution into some single function then exit
+/world/proc/RunUnattendedFunctions()
 	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
 
+	#ifdef PERFORMANCE_TESTS
+	queue_performance_tests()
+	#endif
 	return
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
@@ -322,37 +331,27 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 /**
- * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
+ * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via rust std::process::exit(0).
  * This is not a normal routine and it should be used under certain circumstances (like world can't shutdown itself properly)
  * Please close spawned threads with separate PIDs (if any)
  */
 /world/proc/KillImmediately()
 	PrepareShutdown()
-	log_world("Shutting down current instance via forceful killing from shell...")
+	log_world("Shutting down current instance via forceful killing from rust...")
 
-	log_debug("Kill via shell initiated...")
+	log_debug("Kill via rust initiated...")
 	rustlib_clear_uuid_storage()
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-
-	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
-
-	if(world.system_type == UNIX)
-		shell("kill -15 [process_id]")
-
-	if(world.system_type == MS_WINDOWS)
-		shell("taskkill /pid [process_id]")
+	rustlib_exit_byond_process()
 
 /world/Del()
 	PrepareShutdown()
 	return ..()
 
 /world/proc/PrepareShutdown()
-	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
-	if(SSredis.connected)
-		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 
 /world/proc/update_hub_visibility(new_visibility)
@@ -404,4 +403,23 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+
+/world/proc/queue_performance_tests()
+	//trigger things to run the whole process
+	Master.sleep_offline_after_initializations = FALSE
+	SSticker.force_start = TRUE
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(run_performance_tests))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(addtimer), cb, 10 SECONDS))
+
+/// Stub proc intended to be filled with code that does some test, profiles it, and logs that test.
+/// Intended to be used with line by line macros, but you should live your truth
+/world/proc/run_performance_tests()
+	// In case we do somethin that could otherwise end the round
+	SSticker.delay_end = TRUE
+	// Your code goes here
+
+	// Logging goes here
+	// (sample line by line) stat_tracking_export_to_csv_later("file_name.csv", GLOB.cost_list, GLOB.count_list)
+	SSticker.delay_end = FALSE
+	shutdown()
 

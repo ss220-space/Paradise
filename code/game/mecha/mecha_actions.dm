@@ -185,10 +185,10 @@
 		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
 		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Приближение [chassis.zoom_mode ? "вкл" : "выкл"].</font>")
 		if(chassis.zoom_mode)
-			owner.client.AddViewMod("mecha", 12)
+			owner.client.view_size.setTo(4.5)
 			SEND_SOUND(owner, sound(chassis.zoomsound, volume = 50))
 		else
-			owner.client.RemoveViewMod("mecha")
+			owner.client.view_size.resetToDefault()
 		UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_phasing

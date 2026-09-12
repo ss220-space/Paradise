@@ -11,3 +11,5 @@
 #define SEC_LEVEL_EPSILON 4
 /// Security level is delta. (station destruction immiment)
 #define SEC_LEVEL_DELTA 5
+
+#define SEC_LEVEL_DELTA_REACTOR	6

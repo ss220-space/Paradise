@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - refactor: "Отрефакторена снайперка пилота на использование оружейных модулей. (PR #9743)"

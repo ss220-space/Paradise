@@ -1037,12 +1037,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
 		G.blood_color = color
-		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		ASSIGN_GAME_VERB(src, /mob/living/carbon/human, bloody_doodle)
 	else
 		hand_blood_color = color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
-		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		ASSIGN_GAME_VERB(src, /mob/living/carbon/human, bloody_doodle)
 
 	update_worn_gloves() //handles bloody hands overlays and updating
 	return TRUE

@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type AnomalyGeneratorData = {

@@ -1150,7 +1150,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /// Adds the hat flavor text when examined
 ///obj/machinery/power/supermatter_crystal/proc/holiday_hat_examine(atom/source, mob/user, list/examine_list)
 //	SIGNAL_HANDLER
-//	examine_list += span_info("There's a santa hat placed atop it. How it got there without being dusted is a mystery.")
+//	examine_list += span_notice("There's a santa hat placed atop it. How it got there without being dusted is a mystery.")
 
 #undef BIKE
 #undef COIL

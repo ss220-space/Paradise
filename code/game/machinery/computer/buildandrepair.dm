@@ -119,6 +119,11 @@
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/security/telescreen/singularity
 
+/obj/item/circuitboard/camera/telescreen/nfr
+	board_name = "Telescreen_NFR"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	build_path = /obj/machinery/computer/security/telescreen/nfr
+
 /obj/item/circuitboard/camera/telescreen/toxin_chamber
 	board_name = "Toxins Telescreen"
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE
@@ -376,6 +381,12 @@
 	board_name = "Supermatter Monitoring Console"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/sm_monitor
+	origin_tech = "programming=2;powerstorage=2"
+
+/obj/item/circuitboard/fission_monitor
+	board_name = "NGCR Monitoring Console"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	build_path = /obj/machinery/computer/fission_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever

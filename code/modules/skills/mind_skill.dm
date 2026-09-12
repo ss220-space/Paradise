@@ -16,18 +16,23 @@
 /datum/mind/proc/register_skill_signals_for_user(mob/user)
 	if(!user)
 		return
-	if(skills_initialized && skills_initialized != WEAKREF(user))
+
+	var/datum/weakref/user_weakref = WEAKREF(user)
+	if(user_weakref == skills_initialized) // skills are initialized for user and exists on this mind
+		return
+
+	if(skills_initialized) // skills initialized for mind but not on user
 		unregister_skill_signals_for_user(skills_initialized.resolve())
-	if(user != skills_initialized)
-		if(!length(selected_skills_levels))
-			init_skills(user)
-		else
-			skills_initialized = WEAKREF(user)
-		RegisterSignal(user, COMSIG_GET_SKILL_LEVEL, PROC_REF(get_skill_level_from_signal))
-		RegisterSignal(user, COMSIG_SKILL_AVAILABLE, PROC_REF(get_skill_available_from_signal))
-		for(var/skill_name, skill_datum in GLOB.skills)
-			var/datum/skill/skill = skill_datum
-			skill.apply_to_mob(user)
+
+	if(!length(selected_skills_levels))
+		init_skills(user)
+	else
+		skills_initialized = user_weakref
+	RegisterSignal(user, COMSIG_GET_SKILL_LEVEL, PROC_REF(get_skill_level_from_signal))
+	RegisterSignal(user, COMSIG_SKILL_AVAILABLE, PROC_REF(get_skill_available_from_signal))
+	for(var/skill_name, skill_datum in GLOB.skills)
+		var/datum/skill/skill = skill_datum
+		skill.apply_to_mob(user)
 
 /datum/mind/proc/unregister_skill_signals_for_user(mob/user)
 	if(!user)
@@ -85,11 +90,11 @@
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
 		if(skill_type in cached_selected_skills_levels)
-			level += cached_selected_skills_levels[skill_type]
+			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
-			level = min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+			level = max(min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_manual_skill_bonuses)
-			level = min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+			level = max(min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_neurotrainer_bonuses)
 			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(level == SKILL_LEVEL_UNAVAILABLE)

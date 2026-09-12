@@ -2,7 +2,6 @@
 	name = "reinforced floor"
 	desc = "Extremely sturdy."
 	icon_state = "engine"
-	thermal_conductivity = 0.025
 	heat_capacity = INFINITY
 	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
@@ -143,25 +142,6 @@
 	oxygen = 2644
 	nitrogen = 10580
 
-/turf/simulated/floor/engine/agent_b
-	name = "agent B floor"
-	agent_b = 10000
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/engine/hydrogen
-	name = "H2 floor"
-	hydrogen = 100000
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/engine/water_vapor
-	name = "H2O floor"
-	water_vapor = 10000
-	oxygen = 0
-	nitrogen = 0
-	temperature = 716
-
 /turf/simulated/floor/engine/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
@@ -185,7 +165,6 @@
 	name = "insulated reinforced floor"
 	insulated = TRUE
 	explosion_vertical_block = 3
-	thermal_conductivity = 0
 
 /turf/simulated/floor/engine/insulated/vacuum
 	name = "insulated vacuum floor"

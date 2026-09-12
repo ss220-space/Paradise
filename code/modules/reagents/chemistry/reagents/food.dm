@@ -90,10 +90,14 @@
 
 /datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
 	. = ..()
+	if(user.dna.species.reagent_tag & SYNTHETIC)
+		return
 	user.apply_status_effect(status_effect_type)
 
 /datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
 	. = ..()
+	if(user.dna.species.reagent_tag & SYNTHETIC)
+		return
 	user.remove_status_effect(status_effect_type)
 
 /datum/reagent/consumable/nutriment/protein/liquid
@@ -324,10 +328,10 @@
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
 			if(victim.head)
-				if(victim.head.flags_cover & MASKCOVERSEYES)
+				if(victim.head.flags_cover & HEADCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags_cover & MASKCOVERSMOUTH)
+				if(victim.head.flags_cover & HEADCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
 				if(isclothing(victim.head))

@@ -12,6 +12,13 @@
  */
 //#define DATUMVAR_DEBUGGING_MODE
 
+// If defined, we will compile with FULL timer debug info, rather then a limited scope
+// Be warned, this increases timer creation cost by 5x
+// #define TIMER_DEBUG
+
+/// If defined, we boot up, run world.run_performance_tests() and then shut down the server
+// #define PERFORMANCE_TESTS
+
 /**
  * Uncomment the following line to compile unit tests on a local server.
  * The output will be in a test_run-[DATE].log file in the ./data folder.
@@ -107,12 +114,6 @@
  */
 //#define USE_BYOND_TRACY
 
-/**
- * If defined, we will compile with FULL timer debug info, rather then a limited scope
- * Be warned, this increases timer creation cost by 5x
- */
-//#define TIMER_DEBUG
-
 #ifndef PRELOAD_RSC
 /**
  * Set to:
@@ -140,9 +141,22 @@
 #define TIMER_DEBUG
 #endif
 
-#if defined(TGS_V3_API) || defined(PARADISE_PRODUCTION_HARDWARE)
+#if defined(TGS_V3_API)
 // TGS performs its own build of dm.exe, but includes a prepended TGS define.
 #define CBT
+#endif
+
+#if defined(OPENDREAM)
+	#if !defined(CIBUILDING)
+		#warn You are building with OpenDream. Remember to build TGUI manually.
+		#warn You can do this by running tgui-build.cmd from the bin directory.
+	#endif
+#else
+	#if !defined(CBT) && !defined(SPACEMAN_DMM)
+		#warn Building with Dream Maker is no longer supported and will result in errors.
+		#warn In order to build, run BUILD.cmd in the root directory.
+		#warn Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
+	#endif
 #endif
 
 /// Runs the game in "map test mode"
