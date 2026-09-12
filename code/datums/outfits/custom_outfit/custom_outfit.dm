@@ -41,6 +41,8 @@
 #define CUSTOM_OUTFIT_SLOT_L_HAND "l_hand"
 #define CUSTOM_OUTFIT_SLOT_R_HAND "r_hand"
 
+#define CUSTOM_OUTFIT_SIMPLE_EQUIP_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_FEET|ITEM_SLOT_GLOVES|ITEM_SLOT_NECK|ITEM_SLOT_BACK|ITEM_SLOT_EARS)
+
 /datum/custom_outfit
 	var/mob/target_mob
 	var/datum/outfit/edited_outfit
@@ -60,6 +62,10 @@
 	var/cached_preview_key
 	var/preview_dirty = TRUE
 	var/preview_pending = FALSE
+	// Clean dummy human used by item_fits_species for can_equip checks.
+	var/mob/living/carbon/human/check_dummy
+	var/check_dummy_species_type
+	var/list/fit_cache = list()
 
 	var/static/list/slot_to_human_var = list(
 		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
@@ -216,6 +222,9 @@
 
 /datum/custom_outfit/Destroy()
 	target_mob = null
+	QDEL_NULL(check_dummy)
+	check_dummy_species_type = null
+	fit_cache.Cut()
 	QDEL_NULL(dental_editor)
 	QDEL_NULL(dental_holder)
 	QDEL_NULL(id_card_editor)
@@ -672,13 +681,29 @@
 		final_outfit.cybernetic_implants.Cut()
 	return final_outfit
 
-/// Returns TRUE if a clothing item of the given path can be equipped on the
-/// given human given its species_restricted list (mirrors can_equip in _species.dm).
+/// Returns TRUE if the item can be equipped (can_equip).
 /datum/custom_outfit/proc/item_fits_species(obj/item/item_path, slot_flag, mob/living/carbon/human/human)
 	if(!ispath(item_path, /obj/item/clothing) || !ishuman(human) || !human.dna?.species)
 		return TRUE
 	if(human.is_general_slot(slot_flag))
 		return TRUE
+	if(slot_flag & CUSTOM_OUTFIT_SIMPLE_EQUIP_SLOTS)
+		return item_fits_species_can_equip(item_path, slot_flag, human)
+	return item_restricted_for_species(item_path, human)
+
+/datum/custom_outfit/proc/item_fits_species_can_equip(obj/item/item_path, slot_flag, mob/living/carbon/human/human)
+	ensure_check_dummy(human)
+	var/datum/species/species = human.dna.species
+	var/cache_key = "[species.type]_[item_path]_[slot_flag]"
+	if(cache_key in fit_cache)
+		return fit_cache[cache_key]
+	var/obj/item/item_instance = new item_path(null)
+	. = species.can_equip(item_instance, slot_flag, check_dummy, disable_warning = TRUE, bypass_obscured = TRUE, bypass_equip_delay_self = TRUE, bypass_incapacitated = TRUE)
+	qdel(item_instance)
+	fit_cache[cache_key] = .
+	return .
+
+/datum/custom_outfit/proc/item_restricted_for_species(obj/item/item_path, mob/living/carbon/human/human)
 	var/obj/item/clothing/cloth_template = item_path
 	var/list/restricted = initial(cloth_template.species_restricted)
 	if(!restricted)
@@ -688,6 +713,18 @@
 	if(wearable && human.dna.species.is_monkeybasic && ("lesser form" in restricted))
 		wearable = FALSE
 	return wearable
+
+/// Ensures a clean dummy human of the given human's species exists for
+/// can_equip-based checks.
+/datum/custom_outfit/proc/ensure_check_dummy(mob/living/carbon/human/human)
+	var/species_type = human.dna.species.type
+	if(!QDELETED(check_dummy) && check_dummy_species_type == species_type)
+		return
+	QDEL_NULL(check_dummy)
+	check_dummy = new human.type
+	check_dummy_species_type = species_type
+	check_dummy.set_species(species_type, skip_same_check = TRUE)
+	fit_cache.Cut()
 
 /// Returns TRUE if an internal organ can be implanted into the given human
 /// (i.e. the parent body zone exists and can hold it).
@@ -1183,7 +1220,13 @@
 		tgui_alert(user, "Этот шлем является частью скафандра. Вместо этого выберите сам скафандр.", "Custom Outfit", list("OK"))
 		return FALSE
 	if(!item_fits_species(choice, slot_to_item_flag[slot], target_mob))
-		tgui_alert(user, "Эта вещь не подходит выбранной расе персонажа.", "Custom Outfit", list("OK"))
+		var/restriction_hint = ""
+		if(ishuman(target_mob) && target_mob.dna?.species)
+			var/obj/item/clothing/cloth_template = choice
+			var/list/restricted = initial(cloth_template.species_restricted)
+			if(restricted)
+				restriction_hint = " Цель: [target_mob.dna.species.name], эта вещь доступна: [english_list(restricted)]."
+		tgui_alert(user, "Эта вещь не подходит выбранной расе персонажа. [restriction_hint]", "Custom Outfit", list("OK"))
 		return FALSE
 	if(initial(choice.icon_state) == null)
 		var/confirm_choice = tgui_alert(user, "Предупреждение: значение icon_state этого элемента равно null, что указывает на высокую вероятность того, что он не является пригодным для использования.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
@@ -1498,10 +1541,14 @@
 	owner_outfit = owner
 	picked_slot = slot
 	var/base_type = owner.slot_base_type[slot]
+	var/slot_flag = owner.slot_to_item_flag[slot]
 	for(var/item_path in valid_subtypesof(base_type))
 		var/obj/item/item_ref = item_path
 		var/item_name = initial(item_ref.name)
 		if(!item_name)
+			continue
+		// Hide items the target species cannot wear (same rules as can_equip).
+		if(!owner.item_fits_species(item_path, slot_flag, owner.target_mob))
 			continue
 		var/icon_state_text = initial(item_ref.icon_state) || ""
 		skin_to_path["[item_name]_[icon_state_text]"] = item_path

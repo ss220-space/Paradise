@@ -293,14 +293,14 @@ export const CustomOutfit = () => {
                 </Section>
               </Stack.Item>
               <Stack.Item grow basis={0}>
-                <Section fill scrollable title="Рюкозак">
+                <Section fill scrollable title="Рюкзак">
                   <ItemGrid
                     items={backpackItems}
                     onAdd={() => act('add_backpack_item')}
                     onRemove={(item) => act('remove_item', { ref: item.path })}
                     addTooltip="Добавить предмет"
                     addDisabled={!hasBack}
-                    addDisabledTooltip="Добавьте рюкозак"
+                    addDisabledTooltip="Добавьте рюкзак"
                   />
                 </Section>
               </Stack.Item>
