@@ -5,7 +5,11 @@
 #define CUSTOM_OUTFIT_ACTION_ADD_IMPLANT "add_implant"
 #define CUSTOM_OUTFIT_ACTION_REMOVE_IMPLANT "remove_implant"
 #define CUSTOM_OUTFIT_ACTION_ADD_BACKPACK_ITEM "add_backpack_item"
-#define CUSTOM_OUTFIT_ACTION_REMOVE_ITEM "remove_item"
+#define CUSTOM_OUTFIT_ACTION_REMOVE_BACKPACK_ITEM "remove_backpack_item"
+#define CUSTOM_OUTFIT_ACTION_ADD_BELT_ITEM "add_belt_item"
+#define CUSTOM_OUTFIT_ACTION_REMOVE_BELT_ITEM "remove_belt_item"
+#define CUSTOM_OUTFIT_ACTION_ADD_STORAGE_ITEM "add_storage_item"
+#define CUSTOM_OUTFIT_ACTION_REMOVE_STORAGE_ITEM "remove_storage_item"
 #define CUSTOM_OUTFIT_ACTION_ADD_AUGMENTATION "add_augmentation"
 #define CUSTOM_OUTFIT_ACTION_REMOVE_AUGMENTATION "remove_augmentation"
 #define CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT "dental_implant"
@@ -67,7 +71,15 @@
 	var/check_dummy_species_type
 	var/list/fit_cache = list()
 	// Cache of storage preset contents (list(path = count)), keyed by storage path.
-	var/list/preset_backpack_cache = list()
+	var/list/preset_storage_cache = list()
+	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
+	var/list/belt_contents = list()
+	// TRUE when belt_contents changed and must be synced on apply.
+	var/belt_dirty = FALSE
+	// Contents of nested storages (boxes) placed inside the backpack or belt.
+	// Keyed by container ("backpack"/"belt"), then by the parent storage path
+	// string, holding a list(path = count) of the items inside that box.
+	var/list/nested_storage_contents = list("backpack" = list(), "belt" = list())
 
 	var/static/list/slot_to_human_var = list(
 		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
@@ -227,7 +239,9 @@
 	QDEL_NULL(check_dummy)
 	check_dummy_species_type = null
 	fit_cache.Cut()
-	preset_backpack_cache.Cut()
+	preset_storage_cache.Cut()
+	belt_contents.Cut()
+	nested_storage_contents.Cut()
 	QDEL_NULL(dental_editor)
 	QDEL_NULL(dental_holder)
 	QDEL_NULL(id_card_editor)
@@ -249,7 +263,7 @@
 
 /datum/custom_outfit/ui_static_data(mob/user)
 	. = ..()
-	.["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	.["access_regions"] = get_accesslist_static_data(REGION_ALL)
 	.["joblist"] = get_joblist_for_tgui()
 
 /datum/custom_outfit/ui_data(mob/user)
@@ -257,6 +271,7 @@
 	data["outfit"] = serialize_outfit()
 
 	data["backpack_items"] = serialize_backpack()
+	data["belt_items"] = serialize_belt()
 	data["implants"] = serialize_implants()
 	data["augmentations"] = serialize_augmentations()
 	data["dental_reagents"] = serialize_reagents()
@@ -316,6 +331,26 @@
 				backpack_dirty = TRUE
 			. = TRUE
 
+		if(CUSTOM_OUTFIT_ACTION_ADD_BELT_ITEM)
+			if(choose_belt_item(user))
+				belt_dirty = TRUE
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_REMOVE_BELT_ITEM)
+			if(remove_belt_item(get_path_param(params)))
+				belt_dirty = TRUE
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_ADD_STORAGE_ITEM)
+			if(choose_storage_item(user, params["container"], params["parent"]))
+				mark_container_dirty(params["container"])
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_REMOVE_STORAGE_ITEM)
+			if(remove_nested_storage_item(params["container"], params["parent"], get_path_param(params)))
+				mark_container_dirty(params["container"])
+			. = TRUE
+
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_IMPLANT)
 			var/implant_path = get_path_param(params)
 			if(implant_path && ((implant_path in edited_outfit.implants) || (implant_path in edited_outfit.cybernetic_implants)))
@@ -324,7 +359,7 @@
 				body_dirty = TRUE
 			. = TRUE
 
-		if(CUSTOM_OUTFIT_ACTION_REMOVE_ITEM)
+		if(CUSTOM_OUTFIT_ACTION_REMOVE_BACKPACK_ITEM)
 			if(remove_backpack_item(get_path_param(params)))
 				backpack_dirty = TRUE
 			. = TRUE
@@ -413,6 +448,7 @@
 		edited_outfit.vars[outfit_slot] = equipped_item.type
 	capture_id_card_data(human_target)
 	capture_backpack(human_target)
+	capture_belt(human_target)
 	capture_implants(human_target)
 	capture_augmentations(human_target)
 
@@ -445,29 +481,90 @@
 		return
 	for(var/obj/item/backpack_item in human_target.back.contents)
 		edited_outfit.backpack_contents[backpack_item.type] = (edited_outfit.backpack_contents[backpack_item.type] || 0) + 1
+		if(isstorage(backpack_item))
+			capture_nested_contents(backpack_item, "backpack")
 
 /// Returns the preset contents of a storage item type - populate_contents() as a list(path = count).
 /// Arguments:
 /// * storage_path - type path of the storage item to inspect.
-/datum/custom_outfit/proc/get_preset_backpack_contents(storage_path)
-	if(storage_path in preset_backpack_cache)
-		return preset_backpack_cache[storage_path]
+/datum/custom_outfit/proc/get_preset_storage_contents(storage_path)
+	if(storage_path in preset_storage_cache)
+		return preset_storage_cache[storage_path]
 	var/obj/item/storage/sample = new storage_path(null)
 	var/list/preset = list()
 	for(var/obj/item/preset_item in sample.contents)
 		preset[preset_item.type] = (preset[preset_item.type] || 0) + 1
 	QDEL_LIST(sample.contents)
 	qdel(sample)
-	preset_backpack_cache[storage_path] = preset
+	preset_storage_cache[storage_path] = preset
 	return preset
 
 /// Adds the preset contents of a storage item type to the outfit backpack
 /// Arguments:
 /// * storage_path - type path of the storage item
 /datum/custom_outfit/proc/merge_backpack_presets(storage_path)
-	var/list/preset = get_preset_backpack_contents(storage_path)
+	var/list/preset = get_preset_storage_contents(storage_path)
 	for(var/item_path, count in preset)
 		edited_outfit.backpack_contents[item_path] = (edited_outfit.backpack_contents[item_path] || 0) + count
+
+/// Adds the preset contents of a storage item type to the belt list
+/// Arguments:
+/// * storage_path - type path of the storage item
+/datum/custom_outfit/proc/merge_belt_presets(storage_path)
+	var/list/preset = get_preset_storage_contents(storage_path)
+	for(var/item_path, count in preset)
+		belt_contents[item_path] = (belt_contents[item_path] || 0) + count
+
+/datum/custom_outfit/proc/capture_belt(mob/living/carbon/human/human_target)
+	if(!isstorage(human_target.belt))
+		return
+	for(var/obj/item/belt_item in human_target.belt.contents)
+		belt_contents[belt_item.type] = (belt_contents[belt_item.type] || 0) + 1
+		if(isstorage(belt_item))
+			capture_nested_contents(belt_item, "belt")
+
+/// Captures the contents of a storage item already worn (inside backpack/belt)
+/// into the nested storage map so it can be edited in the UI.
+/// Arguments:
+/// * parent_storage - the storage item inside the container.
+/// * container_key - "backpack" or "belt".
+/datum/custom_outfit/proc/capture_nested_contents(obj/item/storage/parent_storage, container_key)
+	var/parent_key = "[parent_storage.type]"
+	var/list/parent_nested = nested_storage_contents[container_key]
+	var/list/children = parent_nested[parent_key] || list()
+	for(var/obj/item/child_item in parent_storage.contents)
+		children[child_item.type] = (children[child_item.type] || 0) + 1
+	parent_nested[parent_key] = children
+
+/// Initializes the nested contents of a storage item added to a container from
+/// its own preset (populate_contents) items, so the box's contents can be
+/// viewed and edited right away. Only seeds the entry once per box path.
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/// * storage_path - the storage item's type path.
+/datum/custom_outfit/proc/ensure_nested_presets(container_key, storage_path)
+	var/parent_key = "[storage_path]"
+	var/list/container_nested = nested_storage_contents[container_key]
+	if(parent_key in container_nested)
+		return
+	var/list/preset = get_preset_storage_contents(storage_path)
+	if(!preset)
+		return
+	var/list/children = list()
+	for(var/item_path, count in preset)
+		children[item_path] = count
+	container_nested[parent_key] = children
+
+/// Marks the given container's contents as changed so the next Apply resyncs
+/// them (used after editing nested storage contents).
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/datum/custom_outfit/proc/mark_container_dirty(container_key)
+	switch(container_key)
+		if("backpack")
+			backpack_dirty = TRUE
+		if("belt")
+			belt_dirty = TRUE
 
 /datum/custom_outfit/proc/capture_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents)
@@ -508,14 +605,47 @@
 			id_entry["id_card"] = serialize_id_card_data()
 
 /datum/custom_outfit/proc/serialize_backpack()
+	return serialize_container("backpack", edited_outfit.backpack_contents)
+
+/datum/custom_outfit/proc/serialize_belt()
+	return serialize_container("belt", belt_contents)
+
+/// Builds the UI item list for a storage container, embedding each nested
+/// storage item's own contents (one level deep).
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/// * contents - the container's flat list(path = count).
+/datum/custom_outfit/proc/serialize_container(container_key, list/contents)
 	. = list()
-	for(var/item_path, count in edited_outfit.backpack_contents)
+	for(var/item_path, count in contents)
 		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
 			continue
 		var/list/item_data = entry(item_path)
 		if(!islist(item_data))
 			continue
 		item_data["count"] = count
+		if(ispath(item_path, /obj/item/storage))
+			item_data["is_storage"] = TRUE
+			item_data["storage_items"] = serialize_nested(container_key, "[item_path]")
+		. += list(item_data)
+
+/// Serializes the contents of a single nested storage item as a UI item list.
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/// * parent_path - the parent storage item's type path in string form.
+/datum/custom_outfit/proc/serialize_nested(container_key, parent_path)
+	. = list()
+	var/list/container_nested = nested_storage_contents[container_key]
+	var/list/children = container_nested ? container_nested[parent_path] : null
+	if(!children)
+		return .
+	for(var/item_path, child_count in children)
+		if(!ispath(item_path, /obj/item) || !isnum(child_count) || child_count <= 0)
+			continue
+		var/list/item_data = entry(item_path)
+		if(!islist(item_data))
+			continue
+		item_data["count"] = child_count
 		. += list(item_data)
 
 /datum/custom_outfit/proc/serialize_implants()
@@ -774,6 +904,7 @@
 
 	var/datum/outfit/final_outfit = make_final_outfit(preserve_implants = body_dirty)
 	var/list/new_backpack_contents = edited_outfit.backpack_contents.Copy()
+	var/list/new_belt_contents = belt_contents.Copy()
 	var/list/stashed_items = list()
 	var/list/to_delete = list()
 	prepare_equipment(human_target, final_outfit, stashed_items, to_delete)
@@ -798,11 +929,13 @@
 	restore_stashed_items(human_target, stashed_items)
 	apply_id_card_data(human_target)
 
-	// A freshly spawned backpack gets its preset contents from
-	// populate_contents(), so the outfit list (which already contains those
-	// presets) must always be synced over it to avoid duplicating them.
+	// Freshly spawned backpack/belt get their preset contents from
+	// populate_contents(), so the outfit lists (which already contain those
+	// presets) must always be synced over them to avoid duplicating them.
 	if(backpack_dirty && isstorage(human_target.back))
 		sync_existing_backpack(human_target, new_backpack_contents)
+	if(belt_dirty && isstorage(human_target.belt))
+		sync_belt_contents(human_target, new_belt_contents)
 
 	if(dental_dirty)
 		sync_dental_reagents()
@@ -810,6 +943,7 @@
 
 	body_dirty = FALSE
 	backpack_dirty = FALSE
+	belt_dirty = FALSE
 	dental_dirty = FALSE
 
 	human_target.regenerate_icons()
@@ -899,7 +1033,40 @@
 		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
 			continue
 		for(var/iteration in 1 to count)
-			new item_path(human_target.back)
+			var/obj/item/spawned_item = new item_path(human_target.back)
+			if(isstorage(spawned_item))
+				apply_nested_contents(spawned_item, "backpack", "[item_path]")
+
+/datum/custom_outfit/proc/sync_belt_contents(mob/living/carbon/human/human_target, list/new_belt_contents)
+	if(!isstorage(human_target.belt))
+		return
+	QDEL_LIST(human_target.belt.contents)
+	for(var/item_path, count in new_belt_contents)
+		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+			continue
+		for(var/iteration in 1 to count)
+			var/obj/item/spawned_item = new item_path(human_target.belt)
+			if(isstorage(spawned_item))
+				apply_nested_contents(spawned_item, "belt", "[item_path]")
+
+/// Fills an in-world storage item with the edited contents configured for it,
+/// replacing any preset (populate_contents) items. Does nothing if the box has
+/// no explicitly configured contents, so untouched boxes keep their presets.
+/// Arguments:
+/// * parent_storage - the storage item instance just spawned.
+/// * container_key - "backpack" or "belt".
+/// * parent_path - the storage item's type path in string form.
+/datum/custom_outfit/proc/apply_nested_contents(obj/item/storage/parent_storage, container_key, parent_path)
+	var/list/container_nested = nested_storage_contents[container_key]
+	var/list/children = container_nested ? container_nested[parent_path] : null
+	if(!children)
+		return
+	QDEL_LIST(parent_storage.contents)
+	for(var/item_path, count in children)
+		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+			continue
+		for(var/iteration in 1 to count)
+			new item_path(parent_storage)
 
 /datum/custom_outfit/proc/remove_existing_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents.Copy())
@@ -1012,22 +1179,103 @@
 	if(!ispath(chosen_path, /obj/item))
 		return FALSE
 	edited_outfit.backpack_contents[chosen_path] = (edited_outfit.backpack_contents[chosen_path] || 0) + 1
+	if(ispath(chosen_path, /obj/item/storage))
+		ensure_nested_presets("backpack", chosen_path)
 	return TRUE
 
-/datum/custom_outfit/proc/remove_backpack_item(item_path)
-	if(!item_path)
+/datum/custom_outfit/proc/choose_belt_item(mob/user)
+	if(QDELETED(target_mob) || !ishuman(target_mob))
+		tgui_alert(user, "Target is no longer valid.")
 		return FALSE
-	if(!(item_path in edited_outfit.backpack_contents))
+	var/mob/living/carbon/human/human_target = target_mob
+	if(!isstorage(human_target.belt))
+		tgui_alert(user, "Target does not have a storage belt item.")
 		return FALSE
-	var/count = edited_outfit.backpack_contents[item_path]
+	var/obj/item/chosen_path = pick_closest_path(FALSE)
+	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
+		return FALSE
+	if(!ispath(chosen_path, /obj/item))
+		return FALSE
+	belt_contents[chosen_path] = (belt_contents[chosen_path] || 0) + 1
+	if(ispath(chosen_path, /obj/item/storage))
+		ensure_nested_presets("belt", chosen_path)
+	return TRUE
+
+/// Decrements one item of the given path in a path = count list.
+/// Arguments:
+/// * storage_list - list(path = count) to remove from.
+/// * item_path - type path of the item to remove.
+/datum/custom_outfit/proc/decrement_list_entry(list/storage_list, item_path)
+	if(!item_path || !(item_path in storage_list))
+		return FALSE
+	var/count = storage_list[item_path]
 	if(!isnum(count))
-		edited_outfit.backpack_contents -= item_path
+		storage_list -= item_path
 		return TRUE
 	count -= 1
 	if(count <= 0)
-		edited_outfit.backpack_contents -= item_path
+		storage_list -= item_path
 	else
-		edited_outfit.backpack_contents[item_path] = count
+		storage_list[item_path] = count
+	return TRUE
+
+/datum/custom_outfit/proc/remove_backpack_item(item_path)
+	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path)
+	if(removed && ispath(item_path, /obj/item/storage))
+		forget_nested_contents("backpack", "[item_path]")
+	return removed
+
+/datum/custom_outfit/proc/remove_belt_item(item_path)
+	var/removed = decrement_list_entry(belt_contents, item_path)
+	if(removed && ispath(item_path, /obj/item/storage))
+		forget_nested_contents("belt", "[item_path]")
+	return removed
+
+/// Removes the nested contents entry for a storage item that was just removed
+/// from a container.
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/// * parent_path - the removed storage item's type path in string form.
+/datum/custom_outfit/proc/forget_nested_contents(container_key, parent_path)
+	var/list/container_nested = nested_storage_contents[container_key]
+	if(container_nested)
+		container_nested -= parent_path
+
+// Adds a new item to the contents of a nested storage (a box inside the
+// backpack or belt), prompted by the admin.
+// Arguments:
+// * container_key - "backpack" or "belt".
+// * parent_path - the parent storage item's type path in string form.
+/datum/custom_outfit/proc/choose_storage_item(mob/user, container_key, parent_path)
+	if(QDELETED(target_mob) || !ishuman(target_mob))
+		tgui_alert(user, "Target is no longer valid.")
+		return FALSE
+	var/obj/item/chosen_path = pick_closest_path(FALSE)
+	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
+		return FALSE
+	if(!ispath(chosen_path, /obj/item))
+		return FALSE
+	var/list/container_nested = nested_storage_contents[container_key]
+	var/list/children = container_nested[parent_path] || list()
+	children[chosen_path] = (children[chosen_path] || 0) + 1
+	container_nested[parent_path] = children
+	return TRUE
+
+/// Removes one item from the contents of a nested storage.
+/// Arguments:
+/// * container_key - "backpack" or "belt".
+/// * parent_path - the parent storage item's type path in string form.
+/// * item_path - the item type path to remove.
+/datum/custom_outfit/proc/remove_nested_storage_item(container_key, parent_path, item_path)
+	var/list/container_nested = nested_storage_contents[container_key]
+	var/list/children = container_nested ? container_nested[parent_path] : null
+	if(!children)
+		return FALSE
+	var/removed = decrement_list_entry(children, item_path)
+	if(!removed)
+		return FALSE
+	if(!length(children))
+		container_nested -= parent_path
 	return TRUE
 
 /datum/custom_outfit/proc/choose_implant(mob/user)
@@ -1264,6 +1512,7 @@
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
 	var/previous_back_path = edited_outfit.vars[CUSTOM_OUTFIT_SLOT_BACK]
+	var/previous_belt_path = edited_outfit.vars[CUSTOM_OUTFIT_SLOT_BELT]
 	edited_outfit.vars[slot] = choice
 	if(slot == CUSTOM_OUTFIT_SLOT_ID)
 		initialize_id_card_data(choice)
@@ -1274,6 +1523,13 @@
 				merge_backpack_presets(choice)
 		else
 			edited_outfit.backpack_contents.Cut()
+	if(slot == CUSTOM_OUTFIT_SLOT_BELT)
+		belt_dirty = TRUE
+		if(ispath(choice, /obj/item/storage))
+			if(previous_belt_path != choice)
+				merge_belt_presets(choice)
+		else
+			belt_contents.Cut()
 	return TRUE
 
 /datum/custom_outfit/proc/clear_slot(slot)
@@ -1652,7 +1908,11 @@
 #undef CUSTOM_OUTFIT_ACTION_ADD_IMPLANT
 #undef CUSTOM_OUTFIT_ACTION_REMOVE_IMPLANT
 #undef CUSTOM_OUTFIT_ACTION_ADD_BACKPACK_ITEM
-#undef CUSTOM_OUTFIT_ACTION_REMOVE_ITEM
+#undef CUSTOM_OUTFIT_ACTION_REMOVE_BACKPACK_ITEM
+#undef CUSTOM_OUTFIT_ACTION_ADD_BELT_ITEM
+#undef CUSTOM_OUTFIT_ACTION_REMOVE_BELT_ITEM
+#undef CUSTOM_OUTFIT_ACTION_ADD_STORAGE_ITEM
+#undef CUSTOM_OUTFIT_ACTION_REMOVE_STORAGE_ITEM
 #undef CUSTOM_OUTFIT_ACTION_ADD_AUGMENTATION
 #undef CUSTOM_OUTFIT_ACTION_REMOVE_AUGMENTATION
 #undef CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT
@@ -1686,3 +1946,4 @@
 #undef CUSTOM_OUTFIT_SLOT_SUIT_STORE
 #undef CUSTOM_OUTFIT_SLOT_L_HAND
 #undef CUSTOM_OUTFIT_SLOT_R_HAND
+#undef CUSTOM_OUTFIT_SIMPLE_EQUIP_SLOTS
