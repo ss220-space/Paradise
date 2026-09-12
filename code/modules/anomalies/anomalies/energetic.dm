@@ -234,12 +234,12 @@
 
 /obj/effect/energy_ball
 	name = "энергетический шар"
-	desc = "Миниатюрная, отностилельно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
+	desc = "Миниатюрная, относительно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
 	icon = 'icons/effects/anomalies.dmi'
 	icon_state = "energetic1"
 	gender = MALE
 	alpha = 0
-	light = 5
+	light_power = 5
 	/// Anomaly that src conected with.
 	var/obj/effect/anomaly/energetic/owner
 	/// The proportion of the size relative to the default size.
@@ -271,7 +271,8 @@
 
 /obj/effect/energy_ball/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	. = ..()
+	owner = null
+	return ..()
 
 /obj/effect/energy_ball/process()
 	if(QDELETED(owner) || owner.loc == null)

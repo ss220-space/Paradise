@@ -209,7 +209,7 @@
 		. += "[initial(icon_state)]_overlay_[enchant_type]"
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
-	if(autofire.shooting && !overheat)
+	if(autofire?.shooting && !overheat)
 		icon_state = "clockgun_firing"
 	else
 		icon_state = "clockgun"
