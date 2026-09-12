@@ -1,4 +1,0 @@
-author: "anon1mka"
-delete-after: True
-changes:
-  - balance: "Урон кастетов зависит от силы и навыков безоружного боя (PR #9774)"
