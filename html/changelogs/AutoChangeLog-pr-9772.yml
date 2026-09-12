@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - sound: "Добавлены звуки работы ТЭГа, Теслы, Сингулярности (PR #9772)"

@@ -218,6 +218,10 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
 
+#define REFLECT_NOTHING 0
+#define REFLECT_NORMAL 1
+#define REFLECT_TOY 2
+
 //Autofire component
 /// Compatible firemode is in the gun. Wait until it's held in the user hands.
 #define AUTOFIRE_STAT_IDLE (1<<0)

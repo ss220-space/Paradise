@@ -8,11 +8,9 @@
 		user.say("糞食らえ!")
 		creeping_widow.has_focus = 0
 		INVOKE_ASYNC(src, PROC_REF(do_tornado_effect), user)
-		var/obj/effect/proc_holder/spell/aoe/repulse/R = new(null)
-		var/list/turfs = list()
-		for(var/turf/T in range(1,user))
-			turfs.Add(T)
-		R.cast(turfs)
+		var/datum/action/cooldown/spell/aoe/repulse/R = new
+		R.aoe_radius = 1
+		R.cast(user)
 		add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 		if(creeping_widow.my_suit && creeping_widow.my_suit.s_initialized && creeping_widow.my_suit.auto_smoke)
 			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in creeping_widow.my_suit.actions)

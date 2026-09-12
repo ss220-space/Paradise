@@ -436,7 +436,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
 		return ..()
 	if(active)
 		balloon_alert(user, "уже активно!")

@@ -1,7 +1,7 @@
-// MARK: 5.56x45mm - AR-15
+// MARK: 5.56x45mm - AR-30
 /obj/item/ammo_box/magazine/m556
-	gun_name = "AR-15"
-	extra_info = "Используется для широкого спектра оружия системы AR-15."
+	gun_name = "винтовок AR-30"
+	extra_info = "Используется для широкого спектра оружия системы AR-30."
 	icon_state = "5.56m"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
@@ -11,7 +11,7 @@
 
 // MARK: 5.45x39mm - AK-814
 /obj/item/ammo_box/magazine/ak814
-	gun_name = "автомата АК-814"
+	gun_name = "автомата АГ-814"
 	icon_state = "ak814"
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545
@@ -19,25 +19,15 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
-/obj/item/ammo_box/magazine/ak814/get_ru_names()
-	return alist(
-		NOMINATIVE = "автоматный магазин AK-814 (5,45x39 мм)",
-		GENITIVE = "автоматного магазина AK-814 (5,45x39 мм)",
-		DATIVE = "автоматному магазину AK-814 (5,45x39 мм)",
-		ACCUSATIVE = "автоматного магазина AK-814 (5,45x39 мм)",
-		INSTRUMENTAL = "автоматным магазином AK-814 (5,45x39 мм)",
-		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)",
-	)
-
 /obj/item/ammo_box/magazine/ak814/fusty
 	ammo_type = /obj/item/ammo_casing/a545/fusty
 
 /obj/item/ammo_box/magazine/ak814/fusty/empty
 	start_empty = TRUE
 
-// MARK: 5.45x39mm - AKS-74U
+// MARK: 5.45x39mm - AGS-74U
 /obj/item/ammo_box/magazine/aks74u
-	gun_name = "автомата АКС-74У"
+	gun_name = "автомата АГС-74У"
 	icon_state = "ak47mag"
 	origin_tech = "combat=4;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545/fusty
@@ -45,22 +35,12 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
-/obj/item/ammo_box/magazine/aks74u/get_ru_names()
-	return alist(
-		NOMINATIVE = "автоматный магазин АКС-74У (5,45x39 мм)",
-		GENITIVE = "автоматного магазина АКС-74У (5,45x39 мм)",
-		DATIVE = "автоматному магазину АКС-74У (5,45x39 мм)",
-		ACCUSATIVE = "автоматного магазина АКС-74У (5,45x39 мм)",
-		INSTRUMENTAL = "автоматным магазином АКС-74У (5,45x39 мм)",
-		PREPOSITIONAL = "автоматном магазине АКС-74У (5,45x39 мм)",
-	)
-
 /obj/item/ammo_box/magazine/aksu/empty
 	start_empty = TRUE
 
-// MARK: 7.62x51mm - M-52
+// MARK: 7.62x51mm - SGM-BR52
 /obj/item/ammo_box/magazine/m52mag
-	gun_name = "боевой винтовки M-52"
+	gun_name = "боевой винтовки SGM-BR52"
 	icon_state = "m52_ammo"
 	ammo_type = /obj/item/ammo_casing/a762x51
 	caliber = CALIBER_7_DOT_62X51MM

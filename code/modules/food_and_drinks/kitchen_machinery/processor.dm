@@ -148,7 +148,7 @@
 			span_notice("Вы слышите странные звуки...")
 		)
 		return
-	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
+	var/obj/item/reagent_containers/cup/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
 	B.holder = bucket_of_blood
 	B.volume = 70

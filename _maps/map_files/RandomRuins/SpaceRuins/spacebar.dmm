@@ -608,7 +608,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ruin/powered/space_bar)
 "JK" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/powered/space_bar)
@@ -838,9 +838,9 @@
 /area/ruin/powered/space_bar)
 "Zx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/machinery/light/small{
 	dir = 8
 	},

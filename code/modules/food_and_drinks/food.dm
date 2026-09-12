@@ -1,11 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-/// Food.
-////////////////////////////////////////////////////////////////////////////////
-
-#define HATE_MESSAGES list("Что это было?! Я ненавижу <b>$TYPE</b>, я же $ASPECIES!", "Это было ужасно! Как уважающий себя $ASPECIES, я не могу есть <b>$TYPE</b>.", "Боже, это было опасно! <b>$CAPITALTYPE</b> $IS вредно для $PLURALSPECIES!")
-#define DISLIKE_MESSAGES list("Не очень вкусно. Мне, как $ASPECIES, лучше избегать <b>$TYPE</b>.", "<b>$CAPITALTYPE</b> $IS не лучшая еда для $PLURALSPECIES. Больше не буду это есть.", "Фу. <b>$CAPITALTYPE</b> $IS не то, что должен есть $ASPECIES.")
-#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> $IS прекрасно.", "<b>$CAPITALTYPE</b> $IS потрясающе. Надо есть это чаще.")
-
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = null
 	volume = 50 //Sets the default container amount for all food items.
@@ -29,13 +21,14 @@
 	// Time we last checked for ants
 	var/last_ant_time = 0
 	var/foodtype = NONE
-	var/last_check_time
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
 	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	var/randomize_position = TRUE
+	/// The last time we have checked for taste.
+	COOLDOWN_DECLARE(last_check_time)
 
 /obj/item/reagent_containers/food/get_short_name()
 	return declent_ru(NOMINATIVE)
@@ -80,26 +73,34 @@
 
 	last_ant_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/M)
-	if(last_check_time + 2 SECONDS < world.time)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(foodtype & H.dna.species.toxic_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, span_warning("[format_message(type_string, HATE_MESSAGES, H.dna.species)]"))
+/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/eater)
+	if(!COOLDOWN_FINISHED(src, last_check_time))
+		return FALSE
+	if(!ishuman(eater))
+		return FALSE
+	var/mob/living/carbon/human/gourmand = eater
 
-				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.disliked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, span_warning("[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]"))
+	var/food_taste_reaction
 
-				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.liked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, span_notice("[format_message(type_string, LOVE_MESSAGES, H.dna.species)]"))
+	if(foodtype & gourmand.dna.species.toxic_food)
+		food_taste_reaction = FOOD_TOXIC
+	else if(foodtype & gourmand.dna.species.disliked_food)
+		food_taste_reaction = FOOD_DISLIKED
+	else if(foodtype & gourmand.dna.species.liked_food)
+		food_taste_reaction = FOOD_LIKED
 
-				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
-			last_check_time = world.time
+	switch(food_taste_reaction)
+		if(FOOD_TOXIC)
+			to_chat(gourmand, span_danger("Это было отвратительно! Мерзость!"))
+			gourmand.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
+		if(FOOD_DISLIKED)
+			to_chat(gourmand, span_warning("Это было очень невкусно. Фу."))
+			gourmand.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
+		if(FOOD_LIKED)
+			to_chat(gourmand, span_notice("Какой замечательный вкус!"))
+			gourmand.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
+
+	COOLDOWN_START(src, last_check_time, 5 SECONDS)
 
 /obj/item/reagent_containers/food/proc/format_message(type, list/messages, datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
@@ -114,66 +115,34 @@
 /obj/item/reagent_containers/food/proc/on_mob_eating_effect(mob/user)
 	return
 
-/obj/item/reagent_containers/food/proc/matched_food_type(matching_flags)
-	if(matching_flags & MEAT)
-		return pick("meat", "flesh", "dead animals")
-	if(matching_flags & VEGETABLES)
-		return pick("vegetables", "veggies")
-	if(matching_flags & RAW)
-		return pick("raw food", "uncooked food", "tartare")
-	if(matching_flags & FRUIT)
-		return "fruit"
-	if(matching_flags & DAIRY)
-		return "dairy"
-	if(matching_flags & FRIED)
-		return pick("fried food", "deep fried stuff")
-	if(matching_flags & ALCOHOL)
-		return pick("alcohol", "booze")
-	if(matching_flags & SUGAR)
-		return pick("sugary food", "sweets")
-	if(matching_flags & GRAIN)
-		return pick("grain products", "carbs")
-	if(matching_flags & EGG)
-		return pick("eggs")
-	if(matching_flags & GROSS)
-		return pick("gross stuff", "garbage")
-	if(matching_flags & TOXIC)
-		return pick("toxic garbage", "toxins", "literally poison")
-	if(matching_flags & JUNKFOOD)
-		return "junk food"
-
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()
 	if(foodtype & MEAT)
-		. += span_notice("It contains meat.")
+		. += span_notice("Содержит мясо.")
 	if(foodtype & VEGETABLES)
-		. += span_notice("It contains vegetables.")
+		. += span_notice("Содержит овощи.")
 	if(foodtype & RAW)
-		. += span_notice("It is not properly cooked.")
+		. += span_notice("Оно сырое.")
 	if(foodtype & JUNKFOOD)
-		. += span_notice("It is junkfood.")
+		. += span_notice("Это фаст-фуд.")
 	if(foodtype & GRAIN)
-		. += span_notice("It is made of grain.")
+		. += span_notice("Содержит злаки.")
 	if(foodtype & FRUIT)
-		. += span_notice("It contains fruits.")
+		. += span_notice("Содержит фрукты.")
 	if(foodtype & DAIRY)
-		. += span_notice("It contains dairy.")
+		. += span_notice("Это молочный продукт.")
 	if(foodtype & FRIED)
-		. += span_notice("It is fried.")
+		. += span_notice("Зажарено до корочки.")
 	if(foodtype & SUGAR)
-		. += span_notice("It is sugary.")
+		. += span_notice("Содержит сахар.")
 	if(foodtype & EGG)
-		. += span_notice("It contains eggs.")
+		. += span_notice("Содержит яйца.")
 	if(foodtype & GROSS)
-		. += span_notice("This is pure garbage.")
+		. += span_notice("Эта еда походит на помои.")
 	if(foodtype & TOXIC)
-		. += span_notice("This is straight up poisonous.")
+		. += span_notice("Это буквально отрава.")
 	if(user.can_see_food()) //Show each individual reagent
-		. += span_notice("It contains:")
+		. += span_notice("Содержит:")
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
-			. += span_notice("[R.volume] units of [R.name]")
-
-#undef HATE_MESSAGES
-#undef DISLIKE_MESSAGES
-#undef LOVE_MESSAGES
+			. += span_notice("[R.name] — [R.volume] ед.")

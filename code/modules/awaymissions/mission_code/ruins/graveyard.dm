@@ -245,7 +245,7 @@
 
 /obj/structure/closet/coffin/graveyard_loot/populate_contents()
 	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
-	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
+	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol/stechkin)
 	switch(rand(1,55))
 		if(1 to 2)
 			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/noble
@@ -272,7 +272,7 @@
 			big_money.icon_state = "cashblue"
 			big_money.amount = rand(1000, 5000)
 			big_money.forceMove(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
+			new /obj/item/reagent_containers/cup/glass/bottle/rum(src)
 			new /obj/item/decorations/bouquets/random(src)
 		if(10 to 50)
 			var/mob/living/carbon/human/skeleton/dead/suit_and_shoes = new(src)

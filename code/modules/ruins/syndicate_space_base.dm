@@ -52,7 +52,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	back = /obj/item/storage/backpack/syndicate/science
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/gun/projectile/automatic/pistol/stechkin
 	id = /obj/item/card/id/syndicate/scientist
 	implants = list(/obj/item/implant/weapons_auth)
 
@@ -124,7 +124,7 @@
 		/obj/item/reagent_containers/applicator/burn = 1,
 		/obj/item/reagent_containers/hypospray/safety = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist

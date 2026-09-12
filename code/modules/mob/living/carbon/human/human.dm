@@ -30,6 +30,7 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
+	GLOB.interaction_panel.register_mob(src)
 
 /mob/living/carbon/human/Destroy()
 	bleeding_bodyparts.Cut()
@@ -38,6 +39,7 @@
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
+	GLOB.interaction_panel.unregister_mob(src)
 	return ..()
 
 /// This proc is for holding effects applied when a mob is missing certain organs
@@ -487,7 +489,7 @@
 		return .
 	if(!(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 5)
-			INVOKE_ASYNC(src, PROC_REF(forcesay))
+			INVOKE_ASYNC(src, PROC_REF(force_say))
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
 				to_chat(src, span_warning("Вы чувствуете, как ваше сердце вновь бьётся!"))
@@ -1644,12 +1646,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/cup/glass) && (ismachineperson(src)))))
 			balloon_alert(user, "у цели нет рта!")
 			return FALSE
 	return ..()
 
-/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/cup/glass/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			balloon_alert(src, "у вас нет рта!")

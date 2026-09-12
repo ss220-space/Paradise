@@ -7,7 +7,7 @@
 	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = GRENADE_EMPTY
 	var/list/obj/item/beakers = list()
-	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
+	var/list/allowed_containers = list(/obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/cup/bottle)
 	var/affected_area = 3
 	var/obj/item/assembly_holder/nadeassembly = null
 	var/label = null
@@ -383,9 +383,9 @@
 	icon_state = "large_grenade"
 	bomb_state = "largebomb"
 	allowed_containers = list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/condiment,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/condiment,
+		/obj/item/reagent_containers/cup/glass,
 		/obj/item/slime_extract,
 	)
 	origin_tech = "combat=3;engineering=3"
@@ -399,7 +399,7 @@
 
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
-			for(var/obj/item/reagent_containers/glass/G in beakers)
+			for(var/obj/item/reagent_containers/cup/G in beakers)
 				G.reagents.trans_to(S, G.reagents.total_volume)
 
 			//If there is still a core (sometimes it's used up)
@@ -408,7 +408,7 @@
 
 			if(S)
 				if(S.reagents && S.reagents.total_volume)
-					for(var/obj/item/reagent_containers/glass/G in beakers)
+					for(var/obj/item/reagent_containers/cup/G in beakers)
 						S.reagents.trans_to(G, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
@@ -486,8 +486,8 @@
 /obj/item/grenade/chem_grenade/metalfoam/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("aluminum", 30)
 	B2.reagents.add_reagent("fluorosurfactant", 10)
@@ -505,8 +505,8 @@
 /obj/item/grenade/chem_grenade/firefighting/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("firefighting_foam", 30)
 	B2.reagents.add_reagent("firefighting_foam", 30)
@@ -522,8 +522,8 @@
 /obj/item/grenade/chem_grenade/incendiary/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("phosphorus", 25)
 	B2.reagents.add_reagent("plasma", 25)
@@ -541,8 +541,8 @@
 /obj/item/grenade/chem_grenade/antiweed/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("atrazine", 85)
 	B1.reagents.add_reagent("potassium", 15)
@@ -564,8 +564,8 @@
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("fluorosurfactant", 40)
 	B2.reagents.add_reagent(cleaning_chem, 10)
@@ -609,8 +609,8 @@
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("condensedcapsaicin", 85)
 	B1.reagents.add_reagent("potassium", 15)
@@ -629,8 +629,8 @@
 /obj/item/grenade/chem_grenade/facid/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("facid", 85)
 	B1.reagents.add_reagent("potassium", 15)
@@ -649,8 +649,8 @@
 /obj/item/grenade/chem_grenade/saringas/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("sarin", 85)
 	B1.reagents.add_reagent("potassium", 15)

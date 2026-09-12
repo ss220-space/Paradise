@@ -26,7 +26,7 @@
 	icon_state = "runaash_[number]"
 
 /obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
 		return ..()
 	if(transforming)
 		return ..()

@@ -31,7 +31,7 @@
 		chain = firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY)
 
 		var/datum/antagonist/vampire/vampire = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
-		var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/infected_trophy = locate() in firer.mind?.spell_list
+		var/datum/action/cooldown/spell/infected_trophy = locate() in firer.actions
 		if(vampire && infected_trophy)
 			range += vampire.get_trophies(INTERNAL_ORGAN_EYES)	// 15 MAX
 			var/datum/spell_handler/vampire/handler = infected_trophy.custom_handler

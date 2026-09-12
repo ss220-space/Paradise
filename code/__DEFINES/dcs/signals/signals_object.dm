@@ -43,11 +43,6 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
-#define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
-#define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
-	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
@@ -370,6 +365,16 @@
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
 
+/// Called before inserting something into storage. [/obj/item/storage/proc/can_be_inserted(): (obj/item/W, stop_messages = FALSE)]
+#define COMSIG_PRE_INSERT_INTO_STORAGE "pre_insert_into_storage"
+	/// Block item inseration.
+	#define BLOCK_INSERTING_ITEM (1<<0)
+
+/// Called when need to check is /datum/component/differentiate_storage_size added to storage or not.
+#define COMSIG_CHECK_DIFFERENTIATE_SIZE_COMPONENT "check_differentiate_size_component"
+	/// Storage has differentiate_storage_size component.
+	#define HAS_DIFFERENTIATE_SIZE_COMPONENT (1<<0)
+
 /// Called when the spraycan interacts.
 #define COMSIG_OBJ_PAINTED "obj_painted"
 
@@ -385,8 +390,5 @@
 #define COMSIG_ITEM_EXPORTED "item_sold"
 	/// Stops the export from adding the export information to the report, so you can handle it manually.
 	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
-
-/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
-#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 
 #define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"

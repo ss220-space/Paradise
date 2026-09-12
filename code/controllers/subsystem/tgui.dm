@@ -366,10 +366,11 @@ SUBSYSTEM_DEF(tgui)
 		return
 
 	if(CONFIG_GET(string/asset_transport) == ASSET_TRANSPORT_WEBROOT)
+		SSassets.apply_configuration()
 		var/datum/asset_transport/webroot/webroot = SSassets.transport
 
 		var/datum/asset_cache_item/item = webroot.register_asset("iframe.html", file("tgui/public/iframe.html"))
-		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", "[CONFIG_GET(string/asset_cdn_url)][webroot.get_asset_suffex(item)]")
 		return
 
 	if(!storage_iframe)
