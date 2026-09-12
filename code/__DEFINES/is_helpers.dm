@@ -139,6 +139,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_id_card(W) (istype(W, /obj/item/card/id))
 
+#define is_guestpass_id(A) (istype(A, /obj/item/card/id/guest))
+
 #define isradio(A) (istype(A, /obj/item/radio))
 
 #define isflower(A) (istype(A, /obj/item/twohanded/required/kirbyplants))
