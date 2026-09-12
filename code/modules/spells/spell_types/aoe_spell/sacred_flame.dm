@@ -10,6 +10,8 @@
 	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+	if(victim.can_block_magic(antimagic_flags))
+		return
 	victim.adjust_fire_stacks(20)
 	victim.IgniteMob()
 	if(isliving(caster))

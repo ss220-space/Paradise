@@ -29,13 +29,13 @@
 	origin.Beam(to_beam, icon_state = "lightning[rand(1,12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	playsound(get_turf(to_beam), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 
-	// if(to_beam.can_block_magic(antimagic_flags))
-	// 	to_beam.visible_message(
-	// 		span_warning("[to_beam] absorbs the spell, remaining unharmed!"),
-	// 		span_userdanger("You absorb the spell, remaining unharmed!"),
-	// 	)
+	if(to_beam.can_block_magic(antimagic_flags))
+		to_beam.visible_message(
+			span_warning("[to_beam] absorbs the spell, remaining unharmed!"),
+			span_userdanger("You absorb the spell, remaining unharmed!"),
+		)
+		return
 
-	//else
 	to_beam.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 
 	// Bounce again! Call our proc recursively to keep the chain going (even if our mob blocked it with antimagic)

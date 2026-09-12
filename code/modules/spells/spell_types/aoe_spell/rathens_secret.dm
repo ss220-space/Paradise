@@ -16,6 +16,8 @@
 
 /datum/action/cooldown/spell/aoe/rathens_secret/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
+	if(target.can_block_magic(antimagic_flags))
+		return
 	var/datum/effect_system/fluid_spread/smoke/s = new
 	s.set_up(amount = 5, location = target)
 	s.start()

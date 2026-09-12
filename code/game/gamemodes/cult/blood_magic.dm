@@ -445,9 +445,7 @@
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
-	var/obj/item/nullrod/N = locate() in target
-
-	if(N)
+	if(L.can_block_magic())
 		target.visible_message(
 			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),

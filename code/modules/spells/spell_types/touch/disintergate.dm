@@ -14,6 +14,12 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
+/datum/action/cooldown/spell/touch/disintegrate/is_valid_target(atom/cast_on)
+	var/mob/living/carbon/human/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
+	return ishuman(cast_on)
+
 /datum/action/cooldown/spell/touch/disintegrate/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/M = victim
 	do_sparks(4, FALSE, M.loc) //no idea what the 0 is
