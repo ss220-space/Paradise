@@ -4794,18 +4794,8 @@
 /area/ruin/unpowered)
 "bOC" = (
 /obj/structure/table,
+/obj/machinery/power/apc/directional/east,
 /obj/item/reagent_containers/cup/bucket,
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7143,16 +7133,6 @@
 /obj/item/seeds/tomato,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/security/permabrig)
-"cIY" = (
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/monitor)
 "cJc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15780,25 +15760,12 @@
 /area/coldcolony/malta/engineering/break_room)
 "goP" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
 /obj/structure/table,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	desc = "For the Cargonia!";
-	name = "Molotov cocktail"
-	},
-/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "gpj" = (
@@ -21241,14 +21208,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/break_room)
-"izL" = (
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/maintenance/engineering)
 "izV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -31098,20 +31057,7 @@
 /area/shuttle/pirate_corvette)
 "mwL" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	pixel_y = 18
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_y = 18
-	},
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -31784,19 +31730,6 @@
 "mLc" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/glass/mug/hos,
-/obj/effect/spawner/lootdrop/officetoys,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -37485,21 +37418,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
-"oWk" = (
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/hallway/service/nw)
 "oWq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -49459,16 +49377,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
-"tOb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/research/shallway)
 "tOe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -53868,22 +53776,6 @@
 	icon_state = "wood-cherry-broken2"
 	},
 /area/ruin/unpowered)
-"vCG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/hallway/service/nw)
 "vCJ" = (
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/wood/fancy/oak,
@@ -60242,19 +60134,8 @@
 /obj/structure/sink/directional/east,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/firealarm/directional/east,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sink/directional/east,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
 /obj/structure/cable,
-/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -87012,7 +86893,7 @@ awz
 rCz
 gAD
 ssV
-oWk
+gex
 kWr
 sre
 dAz
@@ -90867,7 +90748,7 @@ nBf
 qMf
 qSA
 ssV
-vCG
+iJm
 wku
 hjo
 hjo
@@ -99211,7 +99092,7 @@ viH
 dLM
 aIL
 jOZ
-izL
+dBI
 dZz
 hSD
 rSb
@@ -99981,7 +99862,7 @@ qdh
 qdh
 ygl
 uLt
-izL
+dBI
 upi
 pZa
 hSD
@@ -100452,7 +100333,7 @@ kwO
 iZH
 lCO
 eOr
-tOb
+nJW
 vwl
 hgZ
 kwO
@@ -101002,7 +100883,7 @@ wFw
 tWT
 lAM
 qQl
-cIY
+beA
 gKN
 vzU
 xwM

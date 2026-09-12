@@ -9602,9 +9602,6 @@
 /area/janitor)
 "cnQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -9612,21 +9609,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/cup/bottle/nutrient/killer/weedkiller,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller{
-	pixel_y = 17
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "cnS" = (
@@ -17142,26 +17125,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sink/directional/north,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -39788,29 +39755,11 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/item/reagent_containers/cup/glass/zaza,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
-	},
 /obj/structure/cable,
-/obj/item/reagent_containers/food/drinks/zaza,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42562,25 +42511,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = -4
-	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
@@ -63665,9 +63595,6 @@
 /obj/item/reagent_containers/cup/beaker/large,
 /obj/item/reagent_containers/cup/beaker/large,
 /obj/item/reagent_containers/cup/beaker/large,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/item/reagent_containers/applicator{
 	pixel_x = 6;
 	pixel_y = 7
@@ -63677,45 +63604,7 @@
 	pixel_y = 7
 	},
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/applicator{
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/applicator{
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
 /obj/structure/cable,
-/obj/item/reagent_containers/applicator{
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/applicator{
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -80719,24 +80608,11 @@
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology/lab)
 "rdz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/item/reagent_containers/cup/beaker,
 /obj/structure/disposalpipe/broken{
 	dir = 8
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 19
-	},
-/obj/structure/disposalpipe/broken{
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "rdC" = (
@@ -102045,16 +101921,6 @@
 /obj/structure/table,
 /obj/machinery/light,
 /obj/item/reagent_containers/cup/glass/mug/sec,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/light,
-/obj/item/reagent_containers/food/drinks/mug/sec,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -103923,23 +103789,8 @@
 	pixel_x = -3;
 	pixel_y = 13
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/item/reagent_containers/cup/glass/mug/serv,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp{
-	pixel_x = -3;
-	pixel_y = 13
-	},
 /obj/structure/cable,
-/obj/item/reagent_containers/food/drinks/mug/serv{
-	pixel_x = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
