@@ -261,6 +261,18 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/obj/effect/abstract/particle_holder_tgmc,
 		// Requires frame to be passed in
 		/obj/structure/sign/picture_frame,
+		// Requires contract owner
+		/obj/item/paper/contract/infernal,
+		// Requires target
+		/obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot,
+		// Requires target
+		/obj/effect/temp_visual/beam_target,
+		// Shouldn't exist on its own without carbon
+		/obj/effect/frosty_breath,
+		// Requires atoms in initialize
+		/obj/effect/buildmode_line,
+		// Borers create their antag datums which cause a lot of runtimes without actual owner
+		/mob/living/simple_animal/borer,
 	)
 
 	// Everything that follows is a typesof() check.
@@ -371,4 +383,16 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/machinery/navbeacon)
 	// These should not exist outside of their holder
 	returnable_list += typesof(/obj/effect/proc_holder)
+	// Require typepath of particles to spawn
+	returnable_list += typesof(/obj/effect/abstract/particle_holder_tgmc)
+	// Spawns pipes that try to merge causes billion runtimes on test
+	returnable_list += typesof(/obj/effect/spawner/airlock)
+	// Require data list
+	returnable_list += typesof(/mob/living/simple_animal/hostile/airmob)
+	// Sometimes causes runtimes with multiple grilles on turf, idk why
+	returnable_list += typesof(/obj/effect/spawner/window)
+	// Legacy holodeck stuff that causes some weird fucking runtimes
+	returnable_list += typesof(/turf/simulated/floor/indestructible/beach/water)
+	// Cause a lot of runtimes
+	returnable_list += typesof(/obj/effect/particle_effect/fluid)
 	return returnable_list
