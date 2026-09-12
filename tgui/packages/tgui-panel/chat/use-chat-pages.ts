@@ -129,7 +129,6 @@ export function useChatPages() {
       ...pagesRecord,
       [currentPageId]: draft,
     });
-    chatRenderer.changePage(draft);
   }
 
   return {

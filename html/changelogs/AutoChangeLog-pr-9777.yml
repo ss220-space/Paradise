@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Экшен связок бога теперь добавляет префикс правильно. (PR #9777)"

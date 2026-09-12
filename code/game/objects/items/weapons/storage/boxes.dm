@@ -95,7 +95,7 @@
 
 /obj/item/storage/box/beakers/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker(src)
+		new /obj/item/reagent_containers/cup/beaker(src)
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
@@ -103,7 +103,7 @@
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+		new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
@@ -263,7 +263,7 @@
 
 /obj/item/storage/box/drinkingglasses/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+		new /obj/item/reagent_containers/cup/glass/drinkingglass(src)
 
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
@@ -282,7 +282,7 @@
 
 /obj/item/storage/box/condimentbottles/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/condiment(src)
+		new /obj/item/reagent_containers/condiment(src)
 
 /obj/item/storage/box/cups
 	name = "box of paper cups"
@@ -291,7 +291,7 @@
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+		new /obj/item/reagent_containers/cup/glass/sillycup(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
@@ -668,7 +668,7 @@
 /obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
 	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -679,13 +679,13 @@
 	item_state = "syndie"
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/reagent_containers/condiment/soysauce(src)
+	new /obj/item/reagent_containers/condiment/enzyme(src)
+	new /obj/item/reagent_containers/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
 	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -860,9 +860,9 @@
 /obj/item/storage/box/barber/populate_contents()
 	new /obj/item/scissors/barber(src)
 	new /obj/item/hair_dye_bottle(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hairgrownium(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hair_dye(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
 
@@ -1321,7 +1321,7 @@
 	can_hold = list(
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/cup/soda_cans/beer,
 	)
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
@@ -1331,7 +1331,7 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
 	for(var/i in 1 to small_ones)
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/cup/soda_cans/beer(src)
 
 /obj/item/storage/box/mr_cheng
 	name = "Mr. Cheng ad agent kit"

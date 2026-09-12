@@ -2,6 +2,7 @@ import './styles/main.scss';
 
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler, setupDrag } from 'tgui/drag';
+import { focusMap } from 'tgui/focus';
 import { isEscape, KEY } from 'tgui-core/keys';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { type Channel, ChannelIterator } from './ChannelIterator';
@@ -118,7 +119,7 @@ export const TguiSay = () => {
   }
 
   const handleClose = (): void => {
-    innerRef.current?.blur();
+    focusMap();
     windowClose(scale.current);
     setTimeout(() => {
       chatHistory.current.reset();
@@ -218,8 +219,10 @@ export const TguiSay = () => {
   };
 
   const UpdateTyping = (prefix: keyof typeof RADIO_PREFIXES | null) => {
-    if (!prefix) return;
-    if (channelIterator.current.isVisible() && !(prefix in BINARY_PREFIXES)) {
+    if (
+      channelIterator.current.isVisible() &&
+      !(prefix && prefix in BINARY_PREFIXES)
+    ) {
       messages.current.typingMsg();
     }
   };
@@ -235,7 +238,7 @@ export const TguiSay = () => {
       setButtonContent(channel);
     }
 
-    if (prefix) UpdateTyping(prefix);
+    UpdateTyping(prefix || null);
     if (value) setValue(value);
   };
 
