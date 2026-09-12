@@ -95,7 +95,6 @@
 	data["can_save"] = admin_interact || free_points == 0
 	return data
 
-
 /datum/ui_module/skills_select_win/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = TRUE
 	if(!COOLDOWN_FINISHED(src, skill_click_cooldown))

@@ -66,6 +66,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/evented
 	/// Check for event headslugs not to do start things in the time of popping after first pop
 	var/oncepoped = FALSE
+	/// Associates stored DNA with the victim's job role for form-based skill bonuses (DNA -> assigned_role)
+	var/list/dna_roles = list()
+	/// The job role of the currently assumed form;
+	var/datum/job/current_form_job = null
 
 /datum/antagonist/changeling/New()
 	..()
@@ -398,25 +402,34 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * * mob/living/carbon/user - the mob to absorb DNA from
  */
 /datum/antagonist/changeling/proc/absorb_dna(mob/living/carbon/user)
-	user.dna.real_name = user.real_name // Set this again, just to be sure that it's properly set.
-	store_dna(user.dna.Clone())
+	user.dna.real_name = user.real_name
+	store_dna(user.dna.Clone(), user.mind?.assigned_role)
 	add_new_languages(user.languages)
 	absorbed_count++
+	// Absorbing another changeling grants no bonus.
 
 /**
  * Store the target DNA. If the DNA belongs to one of the changeling's "escape with identity" objectives, make the DNA protected.
  *
  * Arguments:
  * * datum/dna/new_dna - the DNA to store
+ * * assigned_role - the job role of the absorbed victim, used to grant form-based skill bonuses
  */
-/datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna)
+/datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna, assigned_role = null)
 	for(var/datum/objective/escape/escape_with_identity/objective in objectives)
 		if(objective.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna
+			dna_roles[new_dna] = assigned_role
 			return
 
 	absorbed_dna |= new_dna
+	dna_roles[new_dna] = assigned_role
 	trim_dna()
+
+/datum/antagonist/changeling/get_form_skill_level(datum/skill/skill_type)
+	if(current_form_job)
+		return current_form_job.get_skill_level(skill_type)
+	return 0
 
 /**
  * Prompt the changeling with a list of names associated with their stored DNA. Return a [/datum/dna] based on the name chosen.
