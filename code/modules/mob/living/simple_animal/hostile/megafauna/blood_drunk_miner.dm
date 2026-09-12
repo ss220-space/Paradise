@@ -116,14 +116,6 @@ Difficulty: Medium
 		PREPOSITIONAL = "усиленном капюшоне исследователя",
 	)
 
-/obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
-	. = ..()
-	blood_spell = new
-
-/obj/item/clothing/suit/hooded/explorer/blood/Destroy()
-	QDEL_NULL(blood_spell)
-	return ..()
-
 /datum/action/cooldown/spell/blood_suit
 	name = "Жажда крови"
 	desc = "Сладкая кровь. Моя сладкая кровь, я люблю тебя!"
