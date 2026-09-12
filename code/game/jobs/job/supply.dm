@@ -50,6 +50,7 @@
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/cargo/qm
 
 /datum/job/supply
 	abstract_type = /datum/job/supply
@@ -92,6 +93,7 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 	backpack = /obj/item/storage/backpack/cargo
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/cargo
 
 /datum/job/supply/mining
 	title = JOB_TITLE_MINER
@@ -141,6 +143,7 @@
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival/survival_mining
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/miner
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -209,3 +212,5 @@
 		/obj/item/wormhole_jaunter = 1,
 	)
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/mining_medic
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/cargo

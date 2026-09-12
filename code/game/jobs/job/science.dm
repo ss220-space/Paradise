@@ -56,6 +56,8 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
+	beret_variant = /obj/item/clothing/head/beret/purple/rd
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical/science/rd
 
 /datum/job/science
 	abstract_type = /datum/job/science
@@ -151,6 +153,8 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
+	beret_variant = /obj/item/clothing/head/beret/sci
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical/science
 
 /datum/job/science/scientist/student
 	title = JOB_TITLE_SCIENCE_STUDENT
@@ -232,6 +236,8 @@
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
+	beret_variant = /obj/item/clothing/head/beret/sci
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical/science
 
 /datum/job/science/mechanic
 	title = JOB_TITLE_SPACEPOD_TECHNICIAN
@@ -273,3 +279,5 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	beret_variant = /obj/item/clothing/head/beret/sci
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical/science

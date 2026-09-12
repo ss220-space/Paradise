@@ -90,6 +90,16 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/hop
 	allowed_roles = list(JOB_TITLE_HOP)
 
+/datum/gear/suit/coat/universal
+	index_name = "universal winter coat"
+	display_name = "универсальная зимняя куртка"
+	path = /obj/item/clothing/suit/hooded/wintercoat
+
+/datum/gear/suit/coat/universal/get_spawn_path(datum/outfit/job/job)
+	if(!istype(job) || !job.coat_variant)
+		return null
+	return job.coat_variant
+
 //LABCOATS
 /datum/gear/suit/labcoat
 	index_name = "labcoat"
