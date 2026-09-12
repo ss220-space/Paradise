@@ -191,6 +191,8 @@
 /datum/beam/proc/set_subsegment_appearance(obj/effect/ebeam/segment)
 	//Assign our single visual ebeam to each ebeam's vis_contents
 	segment.vis_contents += visuals
+	//Layer on vis_contents doesn't matter, so its set to the segment directly
+	segment.layer = beam_layer
 
 //for when you don't want each segment to look identital
 /datum/beam/varied
