@@ -48,6 +48,7 @@ interface CustomOutfitData {
   augmentations?: Augmentation[];
   has_dental_implant?: BooleanLike;
   dental_reagents?: Reagent[];
+  skills_active?: BooleanLike;
   preview_icon?: string;
   /** JSON payload sent by the server for a client-side save */
   save_file_json?: string;
@@ -239,6 +240,7 @@ export const CustomOutfit = () => {
                     <Stack.Item grow basis={0}>
                       <Button
                         fluid
+                        mb={1}
                         icon="pills"
                         iconColor={hasDental ? 'good' : 'gray'}
                         content="Зубной имплант"
@@ -247,6 +249,7 @@ export const CustomOutfit = () => {
                       />
                       <Button
                         fluid
+                        mb={1}
                         icon="id-card"
                         content="ID-карта"
                         tooltipPosition="left"
@@ -254,15 +257,30 @@ export const CustomOutfit = () => {
                         disabled={!idOutfit?.path}
                         onClick={() => act('edit_id')}
                       />
-                      <Button
-                        fluid
-                        icon="book-open-reader"
-                        content="Навыки"
-                        tooltipPosition="left"
-                        color={idOutfit?.id_card ? 'blue' : 'gray'}
-                        disabled={!idOutfit?.path}
-                        onClick={() => act('edit_id')}
-                      />
+                      <Stack mb={1}>
+                        <Stack.Item grow>
+                          <Button
+                            fluid
+                            icon="book-open-reader"
+                            content="Навыки"
+                            disabled={!data.skills_active}
+                            onClick={() => act('open_skills')}
+                          />
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Button
+                            icon={
+                              data.skills_active ? 'check-square' : 'square-o'
+                            }
+                            iconColor={data.skills_active ? 'good' : 'gray'}
+                            onClick={() =>
+                              act('toggle_skills', {
+                                enabled: !data.skills_active,
+                              })
+                            }
+                          />
+                        </Stack.Item>
+                      </Stack>
                     </Stack.Item>
                     <Stack.Item grow basis={0}>
                       <PreviewImage base64={data.preview_icon} />

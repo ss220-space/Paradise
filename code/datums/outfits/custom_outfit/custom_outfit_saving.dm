@@ -2,6 +2,8 @@
 #define CUSTOM_OUTFIT_SAVE_VERSION 1
 
 /datum/custom_outfit/proc/get_save_data()
+	if(skills_active && ishuman(target_mob) && target_mob.mind)
+		sync_skills_from_mind(target_mob)
 	. = list()
 	.["format"] = CUSTOM_OUTFIT_SAVE_FORMAT
 	.["version"] = CUSTOM_OUTFIT_SAVE_VERSION
@@ -26,6 +28,12 @@
 	.["belt_contents"] = saved_belt
 	.["backpack_nested_contents"] = serialize_nested_for_save("backpack")
 	.["belt_nested_contents"] = serialize_nested_for_save("belt")
+	var/list/saved_skills = list()
+	for(var/skill_path, level in skill_levels)
+		if(ispath(skill_path, /datum/skill) && isnum(level))
+			saved_skills["[skill_path]"] = level
+	.["skill_levels"] = saved_skills
+	.["skills_active"] = skills_active
 
 /datum/custom_outfit/proc/save_to_client(mob/user)
 	if(!user.client)
@@ -92,6 +100,8 @@
 	if(data["backpack_nested_contents"] != null && !islist(data["backpack_nested_contents"]))
 		return FALSE
 	if(data["belt_nested_contents"] != null && !islist(data["belt_nested_contents"]))
+		return FALSE
+	if(data["skill_levels"] != null && !islist(data["skill_levels"]))
 		return FALSE
 	return TRUE
 
@@ -173,6 +183,14 @@
 				continue
 			new_belt_contents[item_path] = count
 
+	var/list/new_skill_levels = list()
+	if(islist(save_data["skill_levels"]))
+		for(var/skill_text, level in save_data["skill_levels"])
+			var/skill_path = text2path(skill_text)
+			if(!ispath(skill_path, /datum/skill) || !isnum(level))
+				continue
+			new_skill_levels[skill_path] = clamp(level, 0, SKILL_LEVEL_LEGEND)
+
 	var/list/new_nested = list("backpack" = list(), "belt" = list())
 	if(islist(save_data["backpack_nested_contents"]))
 		new_nested["backpack"] = apply_nested_for_load(save_data["backpack_nested_contents"])
@@ -187,6 +205,10 @@
 	id_card_data = new_id_card_data
 	belt_contents = new_belt_contents
 	nested_storage_contents = new_nested
+	skill_levels = new_skill_levels
+	skills_active = save_data["skills_active"] ? TRUE : FALSE
+	if(skills_active && ishuman(target_mob))
+		apply_absolute_skills_to_mind(target_mob)
 
 	body_dirty = TRUE
 	backpack_dirty = TRUE

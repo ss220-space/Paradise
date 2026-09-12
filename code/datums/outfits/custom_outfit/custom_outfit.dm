@@ -16,6 +16,8 @@
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
 #define CUSTOM_OUTFIT_ACTION_EDIT_ID "edit_id"
+#define CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS "toggle_skills"
+#define CUSTOM_OUTFIT_ACTION_OPEN_SKILLS "open_skills"
 
 #define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
 #define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
@@ -74,12 +76,13 @@
 	var/list/preset_storage_cache = list()
 	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
 	var/list/belt_contents = list()
-	// TRUE when belt_contents changed and must be synced on apply.
 	var/belt_dirty = FALSE
-	// Contents of nested storages (boxes) placed inside the backpack or belt.
-	// Keyed by container ("backpack"/"belt"), then by the parent storage path
-	// string, holding a list(path = count) of the items inside that box.
 	var/list/nested_storage_contents = list("backpack" = list(), "belt" = list())
+	// TRUE when the skill distribution window is unlocked and skills are applied.
+	var/skills_active = FALSE
+	// Stored skill profile: list(skill type path = level). Applied on Apply when
+	// skills_active is TRUE.
+	var/list/skill_levels = list()
 
 	var/static/list/slot_to_human_var = list(
 		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
@@ -263,7 +266,7 @@
 
 /datum/custom_outfit/ui_static_data(mob/user)
 	. = ..()
-	.["access_regions"] = get_accesslist_static_data(REGION_ALL)
+	.["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_TAIPAN)
 	.["joblist"] = get_joblist_for_tgui()
 
 /datum/custom_outfit/ui_data(mob/user)
@@ -276,6 +279,7 @@
 	data["augmentations"] = serialize_augmentations()
 	data["dental_reagents"] = serialize_reagents()
 	data["has_dental_implant"] = length(reagent_volumes) > 0
+	data["skills_active"] = skills_active
 	if(pending_save_json)
 		data["save_file_json"] = pending_save_json
 		data["save_file_name"] = pending_save_name
@@ -284,6 +288,8 @@
 		data["target_name"] = human_target.name
 		data["target_valid"] = TRUE
 		data["backpack_is_storage"] = isstorage(human_target.back)
+		if(skills_active)
+			sync_skills_from_mind(human_target)
 		var/appearance_key = build_appearance_key(human_target)
 		if(!preview_pending && (preview_dirty || appearance_key != cached_preview_key))
 			preview_pending = TRUE
@@ -394,6 +400,14 @@
 		if(CUSTOM_OUTFIT_ACTION_EDIT_ID)
 			ensure_id_card_data()
 			open_id_card_editor(user)
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS)
+			toggle_skills(user, params["enabled"] ? TRUE : FALSE)
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_OPEN_SKILLS)
+			open_skills_editor(user)
 			. = TRUE
 
 	if(. && !QDELETED(ui))
@@ -566,6 +580,44 @@
 		if("belt")
 			belt_dirty = TRUE
 
+/// Toggles skill editing on/off. Enabling seeds the profile from the target's
+/// current selected skills when no profile is stored yet.
+/// Arguments:
+/// * user - the admin triggering the toggle.
+/// * enabled - whether skill editing becomes active.
+/datum/custom_outfit/proc/toggle_skills(mob/user, enabled)
+	if(skills_active == enabled)
+		return
+	skills_active = enabled
+	if(enabled && ishuman(target_mob) && target_mob.mind && !length(skill_levels))
+		sync_skills_from_mind(target_mob)
+	if(enabled)
+		apply_absolute_skills_to_mind(target_mob)
+
+/// Opens the skill distribution window for the target character (admin mode).
+/// Locked unless skill editing is active.
+/// Arguments:
+/// * user - the admin opening the window.
+/datum/custom_outfit/proc/open_skills_editor(mob/user)
+	if(!skills_active)
+		return
+	if(QDELETED(target_mob) || !ishuman(target_mob) || !target_mob.mind)
+		tgui_alert(user, "Target has no valid mind for skill editing.")
+		return
+	apply_absolute_skills_to_mind(target_mob)
+	if(!user.client)
+		return
+	user.client.skills_select_window.show(user, target_mob, admin_interact = TRUE)
+
+/// Captures the target's current selected skill levels back into the stored
+/// profile (used after the skill window commits its edits).
+/// Arguments:
+/// * human_target - the character whose skills are being edited.
+/datum/custom_outfit/proc/sync_skills_from_mind(mob/living/carbon/human/human_target)
+	if(!ishuman(human_target) || !human_target.mind)
+		return
+	skill_levels = human_target.mind.get_skills_for_skills_select()
+
 /datum/custom_outfit/proc/capture_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents)
 		if(!(implant.type in edited_outfit.implants))
@@ -573,6 +625,30 @@
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs)
 		if(!(cyberimp_organ.type in edited_outfit.cybernetic_implants))
 			edited_outfit.cybernetic_implants += cyberimp_organ.type
+
+/datum/custom_outfit/proc/apply_absolute_skills_to_mind(mob/living/carbon/human/human_target)
+	if(!ishuman(human_target) || !human_target.mind)
+		return
+	if(!skill_levels || !length(skill_levels))
+		return
+
+	human_target.mind.selected_skills_levels = list()
+	human_target.mind.refresh_skills()
+
+	var/list/base_levels = human_target.mind.get_skills_for_skills_select()
+	var/list/deltas = list()
+
+	for(var/skill_path, abs_level in skill_levels)
+		if(!ispath(skill_path, /datum/skill) || !isnum(abs_level))
+			continue
+		var/base = base_levels[skill_path] || 0
+		var/diff = abs_level - base
+		diff = min(max(diff, 0), SKILL_LEVEL_LEGEND - base)
+		if(diff)
+			deltas[skill_path] = diff
+
+	human_target.mind.selected_skills_levels = deltas
+	human_target.mind.refresh_skills()
 
 /datum/custom_outfit/proc/capture_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_body_zones)
@@ -940,6 +1016,10 @@
 	if(dental_dirty)
 		sync_dental_reagents()
 		apply_reagent_pill(human_target)
+
+	if(skills_active && human_target.mind)
+		sync_skills_from_mind(human_target)
+		apply_absolute_skills_to_mind(human_target)
 
 	body_dirty = FALSE
 	backpack_dirty = FALSE
@@ -1692,7 +1772,7 @@
 	if(QDELETED(linked_outfit))
 		return
 	var/list/data = list()
-	data["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	data["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_TAIPAN)
 	data["joblist"] = linked_outfit.get_joblist_for_tgui()
 	return data
 
@@ -1919,6 +1999,8 @@
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
 #undef CUSTOM_OUTFIT_ACTION_EDIT_ID
+#undef CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS
+#undef CUSTOM_OUTFIT_ACTION_OPEN_SKILLS
 
 #undef CUSTOM_OUTFIT_CHOICE_USE_ANYWAY
 #undef CUSTOM_OUTFIT_CHOICE_CANCEL
