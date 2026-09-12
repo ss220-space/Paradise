@@ -313,7 +313,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/cup/glass = I
 		if(beaker)

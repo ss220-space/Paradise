@@ -239,7 +239,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/cup/glass))
+	if(iscup(I) || istype(I, /obj/item/reagent_containers/cup/glass))
 		add_fingerprint(user)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
