@@ -7,7 +7,6 @@
 	gender = FEMALE
 	icon_state = "pill"
 	item_state = "pill"
-	has_variable_transfer_amount = FALSE
 	volume = 100
 	consume_sound = null
 	can_taste = FALSE

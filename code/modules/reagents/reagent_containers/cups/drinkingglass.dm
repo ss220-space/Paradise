@@ -52,14 +52,14 @@
 	extinguish()
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_icon_state()
-	if(reagents.reagent_list.len)
+	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(check.drink_icon)
 			icon_state = check.drink_icon
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_overlays()
 	. = ..()
-	if(reagents.reagent_list.len)
+	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(!check.drink_icon)
 			var/mutable_appearance/glass_overlay = mutable_appearance(icon, "glassoverlay")
@@ -70,7 +70,7 @@
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_name(updates)
 	. = ..()
-	if(reagents.reagent_list.len)
+	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		name = check.drink_name
 	else
@@ -78,7 +78,7 @@
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_desc(updates)
 	. = ..()
-	if(reagents.reagent_list.len)
+	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		desc = check.drink_desc
 	else
