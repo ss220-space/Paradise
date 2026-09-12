@@ -77,7 +77,7 @@
 	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
 	var/list/belt_contents = list()
 	var/belt_dirty = FALSE
-	var/list/nested_storage_contents = list("backpack" = list(), "belt" = list())
+	var/list/nested_storage_contents = list(CUSTOM_OUTFIT_SLOT_BACK = list(), CUSTOM_OUTFIT_SLOT_BELT = list())
 	// TRUE when the skill distribution window is unlocked and skills are applied.
 	var/skills_active = FALSE
 	// Stored skill profile: list(skill type path = level). Applied on Apply when
