@@ -158,6 +158,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
+#define is_energy_gun_cell(A) (istype(A, /obj/item/weapon_cell/energy_gun))
+
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
 #define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
@@ -189,6 +191,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 #define isdisposalunit(A) (istype(A, /obj/machinery/disposal))
 
 #define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
+
+#define is_laser_modification_case(A) (istype(A, /obj/item/laser_modification_case))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

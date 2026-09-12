@@ -8,6 +8,15 @@
 /obj/effect/projectile/muzzle/laser
 	icon_state = "muzzle_laser"
 
+/obj/effect/projectile/muzzle/laser/heavy
+	icon_state = "muzzle_laser_heavy"
+
+/obj/effect/projectile/muzzle/laser/armorpierce
+	icon_state = "muzzle_laser_armorpierce"
+
+/obj/effect/projectile/muzzle/laser/light
+	icon_state = "muzzle_laser_light"
+
 /obj/effect/projectile/muzzle/laser/blue
 	icon_state = "muzzle_blue"
 
