@@ -118,6 +118,7 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 
+/obj/item/reagent_containers/cup/proc/drink(mob/living/carbon/target, mob/living/user)
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target, user)
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
 	reagents.trans_to(target, gulp_size)
@@ -148,8 +149,8 @@
 	)
 
 	chugging = TRUE
-	while(do_after(chugger, 4 SECONDS, chugger, show_progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
-		chugger.eat(src, chugger, 25)
+	while(do_after(chugger, 4 SECONDS, chugger, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
+		drink(chugger, user)
 		if(!reagents.total_volume)
 			chugger.emote("gasp")
 			chugger.visible_message(
