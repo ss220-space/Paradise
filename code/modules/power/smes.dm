@@ -102,6 +102,9 @@
 	if(clevel > 0)
 		. += "smes-og[clevel]"
 
+/obj/machinery/power/smes/should_have_node()
+	return TRUE
+
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()

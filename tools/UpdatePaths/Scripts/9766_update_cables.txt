@@ -1,0 +1,13 @@
+# Removes Variables
+/obj/structure/cable : /obj/structure/cable
+/obj/structure/cable/green : /obj/structure/cable/green
+/obj/structure/cable/blue : /obj/structure/cable/blue
+/obj/structure/cable/pink : /obj/structure/cable/pink
+/obj/structure/cable/orange : /obj/structure/cable/orange
+/obj/structure/cable/cyan : /obj/structure/cable/cyan
+/obj/structure/cable/white : /obj/structure/cable/white
+
+# Replaces common cables
+/obj/structure/cable/yellow : /obj/structure/cable/layer1
+/obj/structure/cable/blue : /obj/structure/cable/layer3
+/obj/structure/cable/multiz : /obj/structure/cable/multilayer/multiz

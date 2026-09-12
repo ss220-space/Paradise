@@ -18,6 +18,9 @@
 	. = ..()
 	linked_reactor = GLOB.main_fission_reactor
 
+/obj/machinery/power/reactor_power/should_have_node()
+	return TRUE
+
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor && linked_reactor.can_create_power)
 		add_avail(max(linked_reactor.final_power, 0))

@@ -33,7 +33,7 @@
 	var/center_nodes = 0
 
 	for(var/obj/structure/cable/cable in T.contents)
-		if(cable.d1 == 0 || cable.d2 == 0)
+		if(cable.check_nodeness())
 			center_nodes++
 
 	if(center_nodes > 1)
@@ -55,25 +55,6 @@
 	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
 		Fail(T, "nearspace area contains a non-space turf: [T], ([T.type])")
 
-/datum/map_per_tile_test/cable_adjacency_checker
-
-/datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
-	for(var/obj/structure/cable/cable in T.contents)
-		check_direction(T, cable.d1, "d1")
-		check_direction(T, cable.d2, "d2")
-
-/datum/map_per_tile_test/cable_adjacency_checker/proc/check_direction(origin_turf, direction, report_name)
-	if(!direction) // cable direction = 0, which means its a node
-		return TRUE
-	var/turf/potential_cable_turf = get_step(origin_turf, direction)
-	var/reversed_direction = REVERSE_DIR(direction)
-	for(var/obj/structure/cable/other_cable in potential_cable_turf.contents)
-		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
-			return TRUE
-
-	Fail(origin_turf, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
-	return FALSE
-
 /**
  * Check to ensure that APCs have a cable node on their tile.
  */
@@ -84,7 +65,7 @@
 	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in T.contents
 	if(apc)
 		for(var/obj/structure/cable/cable in T.contents)
-			if(cable.d1 == 0 || cable.d2 == 0)
+			if(cable.check_nodeness())
 				missing_node = FALSE
 
 		if(missing_node)
@@ -130,7 +111,7 @@
 	var/list/invalid_types = list(
 		/obj/structure/disposalpipe/trunk/multiz,
 		/obj/structure/disposalpipe/trunk/multiz/down,
-		/obj/structure/cable/multiz,
+		/obj/structure/cable/multilayer/multiz,
 		/obj/machinery/atmospherics/pipe/multiz,
 		// obj/structure/ladder, if it wasn't being used by jacob I guess
 		/obj/structure/stairs

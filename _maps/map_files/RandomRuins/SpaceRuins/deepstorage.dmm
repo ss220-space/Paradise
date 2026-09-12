@@ -564,16 +564,12 @@
 /turf/simulated/floor/light,
 /area/ruin/unpowered)
 "br" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bs" = (
 /obj/machinery/power/smes,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bu" = (
@@ -602,9 +598,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bz" = (
@@ -653,22 +647,12 @@
 /obj/machinery/power/apc/noalarm/directional/west{
 	keep_preset_name = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bH" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"bI" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bJ" = (
@@ -804,12 +788,6 @@
 "mL" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "STORAGE-RELAY"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"xL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -2586,8 +2564,8 @@ ar
 ar
 ac
 br
-xL
-bI
+br
+br
 ar
 ar
 ar
@@ -2724,7 +2702,7 @@ ar
 ar
 ac
 bH
-bI
+br
 ar
 ar
 ar
