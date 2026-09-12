@@ -66,6 +66,8 @@
 	var/mob/living/carbon/human/check_dummy
 	var/check_dummy_species_type
 	var/list/fit_cache = list()
+	// Cache of storage preset contents (list(path = count)), keyed by storage path.
+	var/list/preset_backpack_cache = list()
 
 	var/static/list/slot_to_human_var = list(
 		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
@@ -225,6 +227,7 @@
 	QDEL_NULL(check_dummy)
 	check_dummy_species_type = null
 	fit_cache.Cut()
+	preset_backpack_cache.Cut()
 	QDEL_NULL(dental_editor)
 	QDEL_NULL(dental_holder)
 	QDEL_NULL(id_card_editor)
@@ -442,6 +445,29 @@
 		return
 	for(var/obj/item/backpack_item in human_target.back.contents)
 		edited_outfit.backpack_contents[backpack_item.type] = (edited_outfit.backpack_contents[backpack_item.type] || 0) + 1
+
+/// Returns the preset contents of a storage item type - populate_contents() as a list(path = count).
+/// Arguments:
+/// * storage_path - type path of the storage item to inspect.
+/datum/custom_outfit/proc/get_preset_backpack_contents(storage_path)
+	if(storage_path in preset_backpack_cache)
+		return preset_backpack_cache[storage_path]
+	var/obj/item/storage/sample = new storage_path(null)
+	var/list/preset = list()
+	for(var/obj/item/preset_item in sample.contents)
+		preset[preset_item.type] = (preset[preset_item.type] || 0) + 1
+	QDEL_LIST(sample.contents)
+	qdel(sample)
+	preset_backpack_cache[storage_path] = preset
+	return preset
+
+/// Adds the preset contents of a storage item type to the outfit backpack
+/// Arguments:
+/// * storage_path - type path of the storage item
+/datum/custom_outfit/proc/merge_backpack_presets(storage_path)
+	var/list/preset = get_preset_backpack_contents(storage_path)
+	for(var/item_path, count in preset)
+		edited_outfit.backpack_contents[item_path] = (edited_outfit.backpack_contents[item_path] || 0) + count
 
 /datum/custom_outfit/proc/capture_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents)
@@ -750,7 +776,7 @@
 	var/list/new_backpack_contents = edited_outfit.backpack_contents.Copy()
 	var/list/stashed_items = list()
 	var/list/to_delete = list()
-	var/kept_existing_back = prepare_equipment(human_target, final_outfit, stashed_items, to_delete)
+	prepare_equipment(human_target, final_outfit, stashed_items, to_delete)
 	delete_replaced_equipment(human_target, to_delete)
 
 	if(body_dirty)
@@ -772,7 +798,10 @@
 	restore_stashed_items(human_target, stashed_items)
 	apply_id_card_data(human_target)
 
-	if(kept_existing_back && backpack_dirty)
+	// A freshly spawned backpack gets its preset contents from
+	// populate_contents(), so the outfit list (which already contains those
+	// presets) must always be synced over it to avoid duplicating them.
+	if(backpack_dirty && isstorage(human_target.back))
 		sync_existing_backpack(human_target, new_backpack_contents)
 
 	if(dental_dirty)
@@ -1234,12 +1263,16 @@
 			return FALSE
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
+	var/previous_back_path = edited_outfit.vars[CUSTOM_OUTFIT_SLOT_BACK]
 	edited_outfit.vars[slot] = choice
 	if(slot == CUSTOM_OUTFIT_SLOT_ID)
 		initialize_id_card_data(choice)
 	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
-		if(!ispath(choice, /obj/item/storage))
+		if(ispath(choice, /obj/item/storage))
+			if(previous_back_path != choice)
+				merge_backpack_presets(choice)
+		else
 			edited_outfit.backpack_contents.Cut()
 	return TRUE
 
