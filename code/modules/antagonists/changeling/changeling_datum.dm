@@ -559,7 +559,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_user = user
 	var/missing_limbs = 5
 	for(var/obj/item/organ/external/limb as anything in h_user.bodyparts)
-		if(istype(limb, /obj/item/organ/external/head) || \
+		if(ishead(limb) || \
 			istype(limb, /obj/item/organ/external/arm) || \
 			istype(limb, /obj/item/organ/external/leg))
 

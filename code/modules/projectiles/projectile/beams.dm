@@ -808,3 +808,117 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
+
+/**
+ * This projectile deals burn damage to silicons and
+ * applies a stamina regeneration block on hit.
+ */
+/obj/projectile/beam/disabler/swarmer
+	name = "swarmer laser"
+	icon_state = "default_swarmer"
+	/// For how long this disables stamina regeneration on hit
+	var/staminaregen_block_duration = 1 SECONDS
+
+/**
+ * Deals burn damage instead of stamina if the target is silicon or animal.
+ * Applies stamina regenerate block on hit.
+ */
+/obj/projectile/beam/disabler/swarmer/on_hit(atom/target, blocked, hit_zone)
+	if(isswarmer(target))
+		return FALSE
+	if(issilicon(target) || isanimal(target))
+		var/mob/living/difficult_target = target
+		return difficult_target.apply_damage(damage, BURN, hit_zone, blocked)
+	. = ..()
+	if(. && isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
+
+/// Used in small swarmer turrets, is shooted three times
+/obj/projectile/beam/disabler/swarmer/weak_turret
+	name = "weak turret laser"
+	damage = 10
+
+/// Used in big swarmer turrets
+/obj/projectile/beam/disabler/swarmer/strong_turret
+	name = "strong turret laser"
+	damage = 45
+	armour_penetration = 30
+	forcedodge = 2
+
+/// Used in mega-swarmer minigun
+/obj/projectile/beam/disabler/swarmer/minigun
+	damage = 15
+
+/// Basic projectile
+/obj/projectile/beam/disabler/swarmer/generalist
+	damage = 20
+
+/// Used in double shots
+/obj/projectile/beam/disabler/swarmer/double
+	name = "double swarmer laser"
+	icon_state = "double_shot_swarmer"
+	damage = 22
+
+/// Applies knockdown on hit
+/obj/projectile/beam/disabler/swarmer/empowered
+	name = "strong swarmer laser"
+	icon_state = "charged_shot_swarmer"
+	damage = 50
+	knockdown = 1 SECONDS
+
+/// Resets sybils, switches modes, unloads guns
+/obj/projectile/beam/disabler/swarmer/sabotage
+	name = "sabotage swarmer laser"
+	icon_state = "sabotage_shot_swarmer"
+	damage = 22
+
+/**
+ * If target has an energy gun, it either
+ * resets the sibyls, or swaps the mode to disabler.
+ * If target has a projectile gun, it either unloads the magazine,
+ * or empties it fully.
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(!isliving(target) || !.)
+		return
+	var/mob/living/target_mob = target
+	var/obj/item/gun/gun = target_mob.is_type_in_hands(/obj/item/gun)
+	if(!gun)
+		return
+	if(is_energygun(gun))
+		handle_energygun(gun)
+		return
+	if(!is_projectilegun(gun))
+		return
+	handle_projectilegun(gun, target_mob)
+
+/**
+ * Proc used to handle energy gun sabotaging.
+ *
+ * If the gun has sibyls, it resets them. Otherwise,
+ * tries setting the mode to disabler, if present.
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/proc/handle_energygun(obj/item/gun/energy/gun)
+	var/obj/item/gun_module/sibyl/sibyl_mod = gun.sibyl_mod
+	if(sibyl_mod)
+		sibyl_mod.lock()
+		return
+	// This sets mode to non-lethal
+	gun.select_fire()
+
+/**
+ * Proc used to handle projectile gun sabotaging.
+ *
+ * If the gun has an internal magazine, it unloads the magazine fully.
+ * Otherwise, unload the magazine instead.
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/proc/handle_projectilegun(obj/item/gun/projectile/gun, mob/living/target)
+	var/obj/item/ammo_box/magazine/magazine = gun.magazine
+	if(!magazine)
+		return
+	if(!istype(magazine, /obj/item/ammo_box/magazine/internal))
+		gun.unload_act(target)
+		return
+	magazine.empty_magazine() // If the magazine is built in, empty it instead

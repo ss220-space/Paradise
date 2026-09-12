@@ -209,6 +209,13 @@
 	new /obj/item/stack/rods/fireproof(get_turf(src), 3)
 	deconstruct()
 
+/obj/structure/lattice/catwalk/fireproof/swarmer_catwalk
+	name = "swarmer catwalk"
+	desc = "Сетчатая конструкция, напоминающая мостик, создаваемая \"Свармерами\" для перемещения по опасной местности."
+	icon = 'icons/obj/smooth_structures/swarmer_catwalk.dmi'
+	base_icon_state = "swarmer_catwalk"
+	icon_state = "swarmer_catwalk-0"
+
 /obj/structure/lattice/catwalk/mapping
 	name = "reinforced catwalk"
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."

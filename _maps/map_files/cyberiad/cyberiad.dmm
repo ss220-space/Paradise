@@ -894,7 +894,6 @@
 	req_access = list(1);
 	use_power = 0
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7893,6 +7892,11 @@
 /obj/item/instrument/harmonica,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
+"aGV" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint2)
 "aGW" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -20913,6 +20917,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "bPG" = (
@@ -20996,7 +21001,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain/bedroom)
 "bQv" = (
-/obj/structure/toilet/captain_toilet/directional/east,
+/obj/structure/toilet/captain_toilet{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -26492,16 +26499,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/break_room)
-"cli" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/north)
 "clk" = (
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
@@ -26886,14 +26883,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/locker_toilet)
-"cno" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "cnt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -48537,13 +48526,13 @@
 	},
 /area/station/science/toxins/mixing)
 "gQO" = (
+/obj/structure/lattice,
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access = list(1);
 	use_power = 0
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50083,7 +50072,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "hva" = (
@@ -53961,16 +53949,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"iXi" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "iXq" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/delivery,
@@ -54346,6 +54324,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -55316,14 +55295,6 @@
 	icon_state = "vault"
 	},
 /area/station/command/gateway)
-"jCR" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "graveyard_church";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
 "jDi" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
@@ -59756,7 +59727,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/maintenance/atmospherics)
 "lpu" = (
@@ -66764,6 +66734,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -76590,16 +76561,6 @@
 	icon_state = "white"
 	},
 /area/station/science/chem_lab)
-"soJ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/south)
 "soT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm/directional/east,
@@ -81842,7 +81803,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "urx" = (
@@ -89032,7 +88992,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "xhx" = (
@@ -98684,8 +98643,8 @@ uTI
 uTI
 uTI
 dQQ
-cli
-cli
+eur
+eur
 dQQ
 dQQ
 eZC
@@ -98723,8 +98682,8 @@ iRs
 maH
 iRs
 iRs
-soJ
-soJ
+jgU
+jgU
 iRs
 uTI
 uTI
@@ -101261,7 +101220,7 @@ ylx
 ylx
 ylx
 tyB
-cno
+jwp
 ool
 jwp
 jTQ
@@ -140326,7 +140285,7 @@ uTI
 uTI
 uTI
 eyX
-jCR
+aQI
 eyX
 uTI
 uTI
@@ -141177,7 +141136,7 @@ bGG
 bGG
 bGG
 bGG
-xKt
+aGV
 bGG
 cuQ
 cuQ
@@ -143685,17 +143644,17 @@ uTI
 uTI
 uTI
 bEG
-iXi
+iKh
 bjR
-iXi
-bjR
-bjR
+iKh
 bjR
 bjR
 bjR
-iXi
 bjR
-iXi
+bjR
+iKh
+bjR
+iKh
 bjR
 uTI
 uTI

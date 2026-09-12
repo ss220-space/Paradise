@@ -50,6 +50,7 @@
 #define ROLE_SPACE_DRAGON "space dragon"
 #define ROLE_MALF_AI "Malfunctioning AI"
 #define ROLE_ESCAPING_PRISONER "escaping prisoner"
+#define ROLE_SWARMER "swarmer"
 
 #define ROLE_NONE "nothing" // special define used as a marker
 #define ROLE_HIJACKER "hijacker" // another marker
@@ -91,6 +92,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_WIZARD = /datum/game_mode/wizard, // Wizard
 	ROLE_ALIEN, // Xenomorph
 	ROLE_BINGLE, // Bingle
+	ROLE_SWARMER, // Swarmer
 ))
 
 #define ROLE_PRISONERS_MAX_COUNT 4

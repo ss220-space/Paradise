@@ -57,3 +57,6 @@
 
 /// a client (re)connected, after all /client/New() checks have passed : (client/connected_client)
 #define COMSIG_GLOB_CLIENT_CONNECT "!client_connect"
+
+/// Swarmer core was destroyed
+#define COMSIG_GLOB_SWARMER_CORE_DESTROYED "!swarmer_core_destroy"

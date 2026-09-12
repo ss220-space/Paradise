@@ -246,7 +246,7 @@
 			reset_spell_cooldown()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/head))
+		if(ishead(limb))
 			// Bullshit, but prevents being unable to clone someone.
 			to_chat(owner, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
 			reset_spell_cooldown()

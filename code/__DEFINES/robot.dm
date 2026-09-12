@@ -1,3 +1,6 @@
+/// For how long silicons get stunned on flash attack
+#define SILICON_FLASH_ATTACK_STUN rand(10 SECONDS, 20 SECONDS)
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 

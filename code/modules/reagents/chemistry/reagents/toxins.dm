@@ -457,7 +457,7 @@
 		var/should_scream = TRUE
 
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-			if(istype(bodypart, /obj/item/organ/external/head) && !H.wear_mask && !H.head && volume > 25)
+			if(ishead(bodypart) && !H.wear_mask && !H.head && volume > 25)
 				bodypart.disfigure()
 				if(H.has_pain() && should_scream)
 					H.emote("scream")

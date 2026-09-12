@@ -210,7 +210,7 @@
 	if(!awakened)
 		return
 
-	spasm_animation()
+	animate_rumble(src)
 
 /obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
 	if(!awakened || ascended)

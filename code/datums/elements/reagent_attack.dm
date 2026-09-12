@@ -42,7 +42,7 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK)
 
-/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, proximity_flag)
+/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/mob/mob = source

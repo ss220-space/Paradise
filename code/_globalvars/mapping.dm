@@ -62,6 +62,7 @@ GLOBAL_LIST_EMPTY(latejoin_cyborg)
 GLOBAL_LIST_EMPTY(prisonwarp) //prisoners go to these
 GLOBAL_LIST_EMPTY(syndieprisonwarp) //contractor targets go to these
 GLOBAL_LIST_EMPTY(xeno_spawn)//Aliens spawn at these.
+GLOBAL_LIST_EMPTY(swarmer_spawn) // Swarmers spawn at these
 GLOBAL_LIST_EMPTY(ertdirector)
 GLOBAL_LIST_EMPTY(emergencyresponseteamspawn)
 GLOBAL_LIST_EMPTY(tdome1)
