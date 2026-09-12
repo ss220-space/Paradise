@@ -574,6 +574,15 @@
 		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
 
+/datum/mind/proc/memory_edit_swarmers()
+	. = _memory_edit_header("swarmers")
+	var/datum/antagonist/swarmer/swarmer_datum = has_antag_datum(/datum/antagonist/swarmer/)
+	if(swarmer_datum)
+		. += "|<b><font color='red'>Свармер</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];swarmer=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_SWARMER)
+
 /datum/mind/proc/memory_edit_xenomorphs()
 	. = _memory_edit_header("xenomorphs")
 	var/datum/antagonist/xenomorph/xeno_datum = has_antag_datum(/datum/antagonist/xenomorph)
@@ -796,9 +805,11 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
-		sections["blob"] = memory_edit_blob(current)
+		sections["blob"] = memory_edit_blob()
 	if(isterrorspider(current))
-		sections["terror_spiders"] = memory_edit_terrors(current)
+		sections["terror_spiders"] = memory_edit_terrors()
+	if(isswarmer(current))
+		sections["swarmers"] = memory_edit_swarmers()
 	if(isalien(current))
 		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))

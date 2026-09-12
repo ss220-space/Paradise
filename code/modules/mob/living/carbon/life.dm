@@ -218,6 +218,8 @@
 		organ.on_life()
 
 /mob/living/carbon/handle_chemicals_in_body()
+	if(HAS_TRAIT(src, TRAIT_BLOCK_METABOLIZE))
+		return
 	reagents.metabolize(src)
 
 /mob/living/carbon/proc/handle_wetness(times_fired)

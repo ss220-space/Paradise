@@ -31,22 +31,6 @@
 /// The duration of the animate call in mob/living/update_transform
 #define UPDATE_TRANSFORM_ANIMATION_TIME (0.2 SECONDS)
 
-/// Similar to shake but more spasm-y and jerk-y
-/atom/proc/spasm_animation(loops = -1)
-	var/list/transforms = list(
-		matrix(transform).Translate(-1, 0),
-		matrix(transform).Translate(0, 1),
-		matrix(transform).Translate(1, 0),
-		matrix(transform).Translate(0, -1),
-		matrix(transform),
-	)
-
-	animate(src, transform = transforms[1], time = 0.1, loop = loops)
-	animate(transform = transforms[2], time = 0.1)
-	animate(transform = transforms[3], time = 0.2)
-	animate(transform = transforms[4], time = 0.3)
-	animate(transform = transforms[5], time = 0.1)
-
 ///Animates source spinning around itself. For docmentation on the args, check atom/proc/SpinAnimation()
 /atom/proc/do_spin_animation(speed = 1 SECONDS, loops = -1, segments = 3, angle = 120, parallel = TRUE, tag = null)
 	var/list/matrices = list()

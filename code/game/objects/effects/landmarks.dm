@@ -158,6 +158,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
+/obj/effect/landmark/spawner/swarmer
+	name = "swarmer_spawn"
+	icon_state = "swarmer_spawn"
+
+/obj/effect/landmark/spawner/swarmer/Initialize(mapload)
+	spawner_list = GLOB.swarmer_spawn
+	return ..()
+
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
 	icon_state = "ninjastart"

@@ -38,7 +38,7 @@
 		to_chat(target, span_userdanger("You have no appendix, but something had to give! Holy shit, what was that?"))
 		target.Weaken(6 SECONDS)
 		for(var/obj/item/organ/external/E as anything in target.bodyparts)
-			if(istype(E, /obj/item/organ/external/head))
+			if(ishead(E))
 				continue
 			if(ischest(E))
 				continue

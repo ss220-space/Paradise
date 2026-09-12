@@ -55,7 +55,7 @@
 	if(iscarbon(batman))
 		var/mob/living/carbon/human/carbon_batman = batman
 		for(var/obj/item/organ/external/bodypart_to_break as anything in carbon_batman.bodyparts)
-			if(istype(bodypart_to_break, /obj/item/organ/external/head))
+			if(ishead(bodypart_to_break))
 				continue
 			bodypart_to_break.external_receive_damage(brute = 15)
 	else
