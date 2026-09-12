@@ -1,5 +1,3 @@
-
-
 /obj/item/reagent_containers/cup/glass/drinkingglass
 	name = "glass"
 	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
@@ -54,14 +52,14 @@
 	extinguish()
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_icon_state()
-	if(length(reagents.reagent_list))
+	if(reagents.reagent_list.len)
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(check.drink_icon)
 			icon_state = check.drink_icon
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_overlays()
 	. = ..()
-	if(length(reagents.reagent_list))
+	if(reagents.reagent_list.len)
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(!check.drink_icon)
 			var/mutable_appearance/glass_overlay = mutable_appearance(icon, "glassoverlay")
@@ -72,7 +70,7 @@
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_name(updates)
 	. = ..()
-	if(length(reagents.reagent_list))
+	if(reagents.reagent_list.len)
 		var/datum/reagent/check = reagents.get_master_reagent()
 		name = check.drink_name
 	else
@@ -80,14 +78,11 @@
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/update_desc(updates)
 	. = ..()
-	if(length(reagents.reagent_list))
+	if(reagents.reagent_list.len)
 		var/datum/reagent/check = reagents.get_master_reagent()
 		desc = check.drink_desc
 	else
 		desc = initial(desc)
-
-/obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change()
-	update_appearance()
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/cup/glass/drinkingglass/soda

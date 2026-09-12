@@ -37,7 +37,7 @@
 	force = 1
 	throwforce = 1
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 5
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
@@ -166,7 +166,7 @@
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 10
 	isGlass = FALSE
 
