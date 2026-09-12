@@ -70,6 +70,10 @@
 
 	examine_text = span_notice("It's able to <b>parry</b> [english_list(attack_list)].")
 
+/datum/component/parry/Destroy(force)
+	QDEL_NULL(linked_alert)
+	return ..()
+
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 	if(slot & ITEM_SLOT_HANDS)

@@ -206,7 +206,7 @@
 		/obj/item/toy/crayon/rainbow,
 		/obj/item/storage/fancy/crayons,
 		/obj/item/reagent_containers/spray/waterflower,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
 	)
 
 /datum/vox_pack/goods/clown/sec
@@ -231,7 +231,7 @@
 		/obj/item/toy/crayon/rainbow,
 		/obj/item/storage/fancy/crayons,
 		/obj/item/reagent_containers/spray/waterflower,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
 		/obj/item/instrument/bikehorn,
 		/obj/item/restraints/handcuffs/toy,
 		/obj/item/restraints/handcuffs/toy,

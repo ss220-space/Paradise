@@ -912,14 +912,6 @@
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
-"dq" = (
-/obj/item/reagent_containers/food/condiment/peppermill,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"dr" = (
-/obj/item/reagent_containers/food/condiment/saltshaker,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "ds" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -1080,28 +1072,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/wood,
-/area/awaymission/wwgov)
-"dQ" = (
-/obj/item/reagent_containers/food/drinks/bottle/wine,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
-/area/awaymission/wwgov)
-"dR" = (
-/obj/item/reagent_containers/food/drinks/bottle/patron,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
-/area/awaymission/wwgov)
-"dS" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
 /area/awaymission/wwgov)
 "dT" = (
 /obj/structure/chair/comfy/beige{
@@ -2020,6 +1990,16 @@
 /obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
+"iB" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
 "jt" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -2043,8 +2023,18 @@
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
-"ne" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+"ml" = (
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
+"qE" = (
+/obj/item/reagent_containers/condiment/peppermill,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"re" = (
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "sI" = (
@@ -2052,17 +2042,11 @@
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
-"wD" = (
-/obj/effect/forcefield{
-	desc = "You can't get in. Heh.";
-	icon = 'icons/mob/actions/actions.dmi';
-	icon_state = "cultforcewall";
-	layer = 1;
-	initial_duration = 0;
-	name = "Blocker"
-	},
-/turf/space,
-/area/space/nearstation)
+"uj" = (
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
+/turf/simulated/floor/carpet,
+/area/awaymission/wwmines)
 "Am" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
@@ -2144,12 +2128,29 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
+"Ip" = (
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
 "Lu" = (
 /obj/item/stack/medical/bruise_pack,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
+"LY" = (
+/obj/effect/forcefield{
+	desc = "You can't get in. Heh.";
+	icon = 'icons/mob/actions/actions.dmi';
+	icon_state = "cultforcewall";
+	layer = 1;
+	initial_duration = 0;
+	name = "Blocker"
+	},
+/turf/space,
+/area/space/nearstation)
 "Me" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -2160,14 +2161,13 @@
 /obj/structure/toilet/directional/south,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
+"Pr" = (
+/obj/item/reagent_containers/condiment/saltshaker,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
 "Ps" = (
 /obj/structure/closet/crate/large,
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"RT" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
-/turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "SB" = (
 /obj/structure/chair/wood{
@@ -2406,7 +2406,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -2663,7 +2663,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -2920,7 +2920,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -3177,7 +3177,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -3434,7 +3434,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -3691,7 +3691,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -3948,7 +3948,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -4205,7 +4205,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -4462,7 +4462,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -4719,7 +4719,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -4976,7 +4976,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -5233,7 +5233,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -5490,7 +5490,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -5747,7 +5747,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -6004,7 +6004,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -6261,7 +6261,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -6518,7 +6518,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -6775,7 +6775,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -7032,7 +7032,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -7289,7 +7289,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -7546,7 +7546,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -7803,7 +7803,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -8060,7 +8060,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -8317,7 +8317,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -8574,7 +8574,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -8831,7 +8831,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -9088,7 +9088,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -9345,7 +9345,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -9602,7 +9602,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -9859,7 +9859,7 @@ aa
 aa
 aa
 aa
-wD
+LY
 aa
 aa
 aa
@@ -12464,7 +12464,7 @@ cN
 cN
 dI
 cN
-dQ
+Ip
 bM
 cm
 cm
@@ -12721,7 +12721,7 @@ cN
 dx
 cN
 cN
-dQ
+Ip
 bM
 cm
 cm
@@ -12978,7 +12978,7 @@ cN
 dz
 dJ
 cN
-dS
+iB
 bM
 cm
 cm
@@ -13235,7 +13235,7 @@ cN
 dy
 cN
 cN
-dR
+ml
 bM
 cm
 cm
@@ -13492,7 +13492,7 @@ cN
 cN
 di
 cN
-dR
+ml
 bM
 cm
 cm
@@ -23991,7 +23991,7 @@ ab
 ab
 ab
 ab
-wD
+LY
 aQ
 aQ
 aQ
@@ -36117,10 +36117,10 @@ eX
 dk
 bD
 eG
-ne
+re
 eI
 eK
-ne
+re
 eI
 bD
 gP
@@ -36373,12 +36373,12 @@ bh
 eX
 bh
 dA
-ne
+re
 bD
 bD
 bD
 bD
-ne
+re
 fL
 bh
 eX
@@ -36873,7 +36873,7 @@ bA
 bA
 bA
 bA
-dq
+qE
 ci
 bh
 bh
@@ -36888,10 +36888,10 @@ eX
 dk
 bD
 eI
-ne
+re
 eI
 eK
-RT
+uj
 eK
 fM
 gP
@@ -37130,7 +37130,7 @@ bA
 bA
 bA
 bA
-dr
+Pr
 ci
 bh
 cV

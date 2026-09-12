@@ -15,6 +15,7 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
+	fill_icon_thresholds = list(1, 5, 10 ,15)
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
@@ -37,9 +38,6 @@
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 	. = ..()
-
-/obj/item/reagent_containers/syringe/on_reagent_change()
-	update_icon()
 
 /obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -172,12 +170,6 @@
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
-	var/rounded_vol
-	if(reagents?.total_volume)
-		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
-		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling_overlay
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)

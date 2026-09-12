@@ -44,7 +44,7 @@
 		)
 
 /datum/cargo_quest/reagents/update_interface_icon()
-	interface_images += path2assetID(/obj/item/reagent_containers/glass/beaker/large)
+	interface_images += path2assetID(/obj/item/reagent_containers/cup/beaker/large)
 
 /datum/cargo_quest/reagents/add_goal(difficultly)
 	var/list/possible_reagents_list = repeated_reagents.Copy() + unique_reagents.Copy()
@@ -123,4 +123,4 @@
 		if(reagent.drink_icon)
 			interface_images += reagent_id
 		else
-			interface_images += path2assetID(/obj/item/reagent_containers/glass/beaker/large)
+			interface_images += path2assetID(/obj/item/reagent_containers/cup/beaker/large)

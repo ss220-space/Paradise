@@ -5,7 +5,7 @@
 
 /obj/item/grenade/chem_grenade/dirt/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
 	var/list/muck = list(/datum/reagent/blood, /datum/reagent/carbon, /datum/reagent/consumable/flour)
 	var/filth = pick(muck)
 	muck -= filth
@@ -24,8 +24,8 @@
 
 /obj/item/grenade/chem_grenade/meat/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent(/datum/reagent/blood, 60)
 	if(prob(5))
@@ -43,7 +43,7 @@
 
 /obj/item/grenade/chem_grenade/holywater/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B = new(src)
 	B.reagents.add_reagent(/datum/reagent/holywater, 100)
 	beakers += B
 
@@ -55,8 +55,8 @@
 
 /obj/item/grenade/chem_grenade/hellwater/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 	B1.reagents.add_reagent(/datum/reagent/hellwater, 80)
 	B1.reagents.add_reagent(/datum/reagent/consumable/sugar, 20)
 	B2.reagents.add_reagent(/datum/reagent/hellwater, 60)
@@ -70,8 +70,8 @@
 
 /obj/item/grenade/chem_grenade/drugs/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent(/datum/reagent/space_drugs, 25)
 	B1.reagents.add_reagent(/datum/reagent/lsd, 25)
@@ -90,8 +90,8 @@
 
 /obj/item/grenade/chem_grenade/ethanol/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent(/datum/reagent/consumable/ethanol, 75)
 	B1.reagents.add_reagent(/datum/reagent/potassium, 25)
@@ -113,7 +113,7 @@
 
 /obj/item/grenade/chem_grenade/lube/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
 	B1.reagents.add_reagent(/datum/reagent/lube, 50)
 	beakers += B1
 
@@ -136,8 +136,8 @@
 
 /obj/item/grenade/chem_grenade/explosion/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 	B1.reagents.add_reagent(/datum/reagent/glycerol, 30) // todo: someone says NG is overpowered, test.
 	B1.reagents.add_reagent(/datum/reagent/acid, 15)
 	B2.reagents.add_reagent(/datum/reagent/acid, 15)
@@ -170,8 +170,8 @@
 
 /obj/item/grenade/chem_grenade/waterpotassium/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
 	B1.reagents.add_reagent(/datum/reagent/water, 100)
 	B2.reagents.add_reagent(/datum/reagent/potassium, 100)
 	beakers += B1
@@ -204,8 +204,8 @@
 
 /obj/item/grenade/chem_grenade/emp/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 	B1.reagents.add_reagent(/datum/reagent/uranium, 50)
 	B2.reagents.add_reagent(/datum/reagent/iron, 50)
 	beakers += B1
@@ -233,7 +233,7 @@
 	. = ..()
 	var/obj/item/slime_extract/gold/B1 = new(src)
 	B1.Uses = rand(1,3)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 	B2.reagents.add_reagent(/datum/reagent/plasma, 5 * B1.Uses)
 	beakers += B1
 	beakers += B2
@@ -259,7 +259,7 @@
 	. = ..()
 	var/obj/item/slime_extract/silver/B1 = new(src)
 	B1.Uses = rand(1,3)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/B2 = new(src)
 	B2.reagents.add_reagent(/datum/reagent/plasma, 5 * B1.Uses)
 	beakers += B1
 	beakers += B2

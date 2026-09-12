@@ -865,10 +865,10 @@
 
 /obj/item/clothing/suit/armor/clockwork/IsReflect(def_zone)
 	if(!ishuman(loc))
-		return FALSE
+		return REFLECT_NOTHING
 	var/mob/living/carbon/human/owner = loc
 	if(owner.wear_suit != src)
-		return FALSE
+		return REFLECT_NOTHING
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
@@ -877,8 +877,8 @@
 			deplete_spell()
 		else
 			reflect_uses--
-		return TRUE
-	return FALSE
+		return REFLECT_NORMAL
+	return REFLECT_NOTHING
 
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()

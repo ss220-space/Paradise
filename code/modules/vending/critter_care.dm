@@ -40,8 +40,8 @@
 		/obj/item/toy/pet_rock = 5,
 		/obj/item/pet_carrier/normal = 3,
 		/obj/item/pet_carrier = 5,
-		/obj/item/reagent_containers/food/condiment/animalfeed = 5,
-		/obj/item/reagent_containers/glass/pet_bowl = 3,
+		/obj/item/reagent_containers/condiment/animalfeed = 5,
+		/obj/item/reagent_containers/cup/pet_bowl = 3,
 	)
 	contraband = list(
 		/obj/item/fish_eggs/babycarp = 5,

@@ -21,10 +21,10 @@
 	default_premium_price = PAYCHECK_MIN
 
 	products = list(
-		/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30,
+		/obj/item/reagent_containers/cup/glass/drinkingglass/soda = 30,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20,
+		/obj/item/reagent_containers/cup/glass/drinkingglass/cola = 20,
 	)
 
 /obj/machinery/vending/sovietsoda/get_ru_names()

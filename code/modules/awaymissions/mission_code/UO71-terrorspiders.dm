@@ -191,7 +191,7 @@
 			update_icon()
 	return ..()
 
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin
+/obj/item/reagent_containers/cup/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
 	list_reagents = list("terror_black_toxin" = 50)
 
