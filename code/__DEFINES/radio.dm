@@ -104,9 +104,6 @@
 #define SEC_I_FREQ_NAME "Безопасность (ИТК)"
 #define SPY_SPIDER_FREQ_NAME "Жучок"
 #define NINJA_FREQ_NAME "Клан Паука"
-#define EVENT_ALPHA_FREQ_NAME "Альфа частота"
-#define EVENT_BETA_FREQ_NAME "Бета частота"
-#define EVENT_GAMMA_FREQ_NAME "Гамма частота"
 #define VOX_RAID_FREQ_NAME "Вокс Рейдер"
 
 #define RED_NAME "Красные"
