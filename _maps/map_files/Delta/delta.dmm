@@ -35306,11 +35306,8 @@
 /area/station/maintenance/trading)
 "hbI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
