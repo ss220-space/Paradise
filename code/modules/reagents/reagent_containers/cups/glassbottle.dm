@@ -18,79 +18,38 @@
 		context[SCREENTIP_CONTEXT_RMB] = "Разбить бутылку о цель"
 		return CONTEXTUAL_SCREENTIP_SET
 
-/obj/item/reagent_containers/cup/glass/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM || !isGlass)
-		return ..()
+/obj/item/reagent_containers/cup/glass/bottle/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM && isGlass)
+		return NONE
+	return ..()
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_warning("Вы не хотите навредить [target]!"))
-		return ATTACK_CHAIN_PROCEED
+/obj/item/reagent_containers/cup/glass/bottle/afterattack(atom/target, mob/user, list/modifiers)
+	if(!isGlass)
+		return
 
-	. = ATTACK_CHAIN_BLOCKED_ALL
+	var/head_hitter = user.zone_selected == BODY_ZONE_HEAD && isliving(target)
+	if(!QDELETED(target))
+		// An attack that targets the head of a living mob will attempt to knock them down
+		if(head_hitter)
+			var/mob/living/living_target = target
+			var/knockdown_effectiveness = bottle_knockdown_duration + ((force / 10) * 1 SECONDS) - living_target.getarmor(BODY_ZONE_HEAD, MELEE)
+			if(prob(knockdown_effectiveness))
+				living_target.Knockdown(min(knockdown_effectiveness, 20 SECONDS))
 
-	var/obj/item/organ/external/affecting = user.zone_selected //Find what the player is aiming at
-
-	var/armor_block = 0 //Get the target's armor values for normal attack damage.
-	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
-
-	//Calculating duration and calculating damage.
-	if(ishuman(target))
-
-		var/mob/living/carbon/human/human_target = target
-		var/headarmor = 0 // Target's head armor
-		armor_block = human_target.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
-
-		//If they have a hat/helmet and the user is targeting their head.
-		if(affecting == BODY_ZONE_HEAD && istype(human_target.head, /obj/item/clothing/head))
-
-			// If their head has an armor value, assign headarmor to it, else give it 0.
-			var/armor_get = human_target.head.armor.getRating(MELEE)
-			if(armor_get)
-				headarmor = armor_get
-			else
-				headarmor = 0
-		else
-			headarmor = 0
-
-		//Calculate the weakening duration for the target.
-		armor_duration = (bottle_knockdown_duration - headarmor) + force
-
-	else
-		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, MELEE)
-		if(affecting == BODY_ZONE_HEAD)
-			armor_duration = bottle_knockdown_duration + force
-	armor_duration /= 10
-
-	//Apply the damage!
-	armor_block = min(90, armor_block)
-	target.apply_damage(force, BRUTE, affecting, armor_block)
-
-	// You are going to knock someone out for longer if they are not wearing a helmet.
-	var/head_attack_message = ""
-	if(affecting == BODY_ZONE_HEAD && iscarbon(target))
-		head_attack_message = " по голове"
-		//Knockdown the target for the duration that we calculated and divide it by 5.
-		if(armor_duration)
-			var/knock_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
-			target.Knockdown(knock_time)
-
-	//Display an attack message.
-	if(target != user)
-		target.visible_message(
-			span_danger("[user] ударил[GEND_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
-			span_userdanger("[user] ударил[GEND_A_O_I(user)] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
+	// Displays a custom message which follows the attack
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] разбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] [head_hitter ? "о свою голову" : "об себя"]!"),
+			span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)] [head_hitter ? "о свою голову" : "об себя"]!"),
 		)
+
 	else
 		user.visible_message(
-			span_danger("[target] ударил[GEND_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
-			span_userdanger("[target] ударил[GEND_A_O_I(target)] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
+			span_warning("[user] разбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] [head_hitter ? "о голову [target.declent_ru(GENITIVE)]" : "об [target.declent_ru(ACCUSATIVE)]"]!"),
+			span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)] [head_hitter ? "о голову [target.declent_ru(GENITIVE)]" : "об [target.declent_ru(ACCUSATIVE)]"]!"),
 		)
 
-	//Attack logs
-	add_attack_logs(user, target, "Hit with [src]")
-
-	//Finally, smash the bottle. This kills (qdel) the bottle.
+	// Finally, smash the bottle. This kills (del) the bottle and also does all the logging for us
 	smash(target, user)
 
 /obj/item/reagent_containers/cup/glass/bottle/post_smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, obj/item/broken_bottle/broken)
