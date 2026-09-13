@@ -52,6 +52,10 @@
 	if(!is_open_container())
 		return
 
+	if(user.a_intent == INTENT_HARM && reagents.total_volume)
+		context[SCREENTIP_CONTEXT_RMB] = "Вылить содержимое на цель"
+		. = CONTEXTUAL_SCREENTIP_SET
+
 	if(target.is_refillable() && reagents.total_volume)
 		context[SCREENTIP_CONTEXT_LMB] = "Перелить в эту ёмкость"
 		. = CONTEXTUAL_SCREENTIP_SET
