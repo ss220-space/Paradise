@@ -193,6 +193,9 @@
 /obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
+	if(!user.Adjacent(target))
+		return
+
 	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 
