@@ -41,7 +41,6 @@
 	/// Pass open check in empty verb
 	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
-	var/can_empty = TRUE
 
 /obj/item/reagent_containers/get_ru_names_cached()
 	if(chem_master_made)
@@ -69,8 +68,6 @@
 		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
 	update_icon()
-	if(can_empty)
-		verbs |= /obj/item/reagent_containers/proc/empty
 
 /obj/item/reagent_containers/examine()
 	. = ..()

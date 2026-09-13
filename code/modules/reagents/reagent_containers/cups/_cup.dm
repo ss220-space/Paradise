@@ -49,7 +49,7 @@
 /obj/item/reagent_containers/cup/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
 	. = ..()
 
-	if(!is_open_container())
+	if(!is_open_container() || target == source)
 		return
 
 	if(user.a_intent == INTENT_HARM && reagents.total_volume)
@@ -57,7 +57,7 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_refillable() && reagents.total_volume)
-		context[SCREENTIP_CONTEXT_LMB] = "Перелить в эту ёмкость"
+		context[SCREENTIP_CONTEXT_LMB] = "Вылить в [iscup ? "эту ёмкость" : "этот объект"]"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(isliving(target) && reagents.total_volume)
@@ -66,7 +66,7 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_drainable())
-		context[SCREENTIP_CONTEXT_RMB] = "Налить из этой ёмкости"
+		context[SCREENTIP_CONTEXT_RMB] = "Налить из [iscup ? "этой ёмкости" : "этого объекта"]"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)

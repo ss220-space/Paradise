@@ -20,12 +20,6 @@
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
 
-/obj/item/reagent_containers/cup/soda_cans/empty()
-	if(!canopened)
-		balloon_alert(usr, "сначала откройте!")
-		return
-	..()
-
 /obj/item/reagent_containers/cup/soda_cans/examine(mob/user)
 	. = ..()
 	. += span_notice("<b>[canopened ? "Открыто" : "Закрыто"]</b>")
