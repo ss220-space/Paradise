@@ -69,6 +69,7 @@
 	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
 	button_icon_state = "fake_death"
 	background_icon_state = "bg_terror"
+	spell_requirements = NONE
 	active_msg = span_notice_alt("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
 	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
@@ -81,6 +82,7 @@
 	desc = "Плюнуть кислоту, создающую дым при контакте."
 	button_icon_state = "smoke"
 	background_icon_state = "bg_terror"
+	spell_requirements = NONE
 	active_msg = span_notice_alt("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")
 	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'

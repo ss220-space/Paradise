@@ -1455,6 +1455,9 @@
 	else if(href_list["select_equip"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
 
+	else if(href_list["custom_equip"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/custom_equipment, locateUID(href_list["custom_equip"]))
+
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
 			return

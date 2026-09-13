@@ -1362,7 +1362,7 @@
 /area/deathmatch)
 "Ny" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_y = 18
 	},
 /obj/item/toy/russian_revolver,

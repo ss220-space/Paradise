@@ -860,7 +860,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 	)
-	result = /obj/item/reagent_containers/food/condiment/tomatosauce
+	result = /obj/item/reagent_containers/condiment/tomatosauce
 
 /datum/recipe/microwave/diablo_sauce
 	reagents = list(/datum/reagent/water = 15, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/blackpepper = 2, /datum/reagent/consumable/herbs = 1)
@@ -868,7 +868,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/tomato,
 		/obj/item/reagent_containers/food/snacks/grown/chili,
 	)
-	result = /obj/item/reagent_containers/food/condiment/diablosauce
+	result = /obj/item/reagent_containers/condiment/diablosauce
 
 /datum/recipe/microwave/cheese_sauce
 	reagents = list(/datum/reagent/consumable/drink/milk = 15, /datum/reagent/consumable/drink/milk/cream = 5)
@@ -876,7 +876,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/condiment/cheesesauce
+	result = /obj/item/reagent_containers/condiment/cheesesauce
 
 /datum/recipe/microwave/mushroom_sauce
 	reagents = list(/datum/reagent/consumable/drink/milk = 15, /datum/reagent/consumable/drink/milk/cream = 5, /datum/reagent/consumable/sodiumchloride = 1,)
@@ -884,7 +884,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/onion,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 	)
-	result = /obj/item/reagent_containers/food/condiment/mushroomsauce
+	result = /obj/item/reagent_containers/condiment/mushroomsauce
 
 /datum/recipe/microwave/garlic_sauce
 	reagents = list(/datum/reagent/water = 15, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/herbs = 1)
@@ -892,14 +892,14 @@
 		/obj/item/reagent_containers/food/snacks/grown/garlic,
 		/obj/item/reagent_containers/food/snacks/grown/cucumber,
 	)
-	result = /obj/item/reagent_containers/food/condiment/garlicsauce
+	result = /obj/item/reagent_containers/condiment/garlicsauce
 
 /datum/recipe/microwave/custard
 	reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/consumable/drink/milk = 10, /datum/reagent/consumable/drink/milk/cream = 5, /datum/reagent/consumable/vanilla = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg,
 	)
-	result = /obj/item/reagent_containers/food/condiment/custard
+	result = /obj/item/reagent_containers/condiment/custard
 
 //////////////////////////////////////////
 // bs12 food port stuff

@@ -654,6 +654,14 @@ const MobManipulationSection = (_props: unknown) => {
           </Button>
           <Button
             fluid
+            icon="shirt"
+            disabled={!isButtonAllowed('event')}
+            onClick={() => handleAction('customquip')}
+          >
+            CUSTOM EQUIPMENT
+          </Button>
+          <Button
+            fluid
             icon="microphone"
             onClick={() => handleAction('changevoice')}
           >

@@ -34,10 +34,10 @@
 //        Could be anything!
 // -------------------------------------
 
-/obj/item/reagent_containers/glass/bottle/random_reagent
+/obj/item/reagent_containers/cup/bottle/random_reagent
 	name = "unlabelled bottle"
 
-/obj/item/reagent_containers/glass/bottle/random_reagent/Initialize(mapload)
+/obj/item/reagent_containers/cup/bottle/random_reagent/Initialize(mapload)
 	. = ..()
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
@@ -51,10 +51,10 @@
 	pixel_y = rand(-10, 10)
 
 //Cuts out the food and drink reagents
-/obj/item/reagent_containers/glass/bottle/random_chem
+/obj/item/reagent_containers/cup/bottle/random_chem
 	name = "unlabelled chemical bottle"
 
-/obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
+/obj/item/reagent_containers/cup/bottle/random_chem/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/random_reagent = get_random_reagent_type()
 	if(GLOB.rare_chemicals.Find(random_reagent))
@@ -65,10 +65,10 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
-/obj/item/reagent_containers/glass/bottle/random_base_chem
+/obj/item/reagent_containers/cup/bottle/random_base_chem
 	name = "unlabelled chemical bottle"
 
-/obj/item/reagent_containers/glass/bottle/random_base_chem/Initialize(mapload)
+/obj/item/reagent_containers/cup/bottle/random_base_chem/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/R = pick(GLOB.base_chemicals)
 	reagents.add_reagent(R, rand(2, 6)*5)
@@ -76,11 +76,11 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink
+/obj/item/reagent_containers/cup/glass/bottle/random_drink
 	name = "unlabelled drink"
 	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/bottle/random_drink/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/reagent
 	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
@@ -96,10 +96,10 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
+/obj/item/reagent_containers/cup/glass/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/bottle/random_reagent/Initialize(mapload)
 	. = ..()
 	var/R = get_random_reagent_type()
 	if(GLOB.rare_chemicals.Find(R))
@@ -156,11 +156,11 @@
 
 /obj/structure/closet/crate/secure/unknownchemicals/populate_contents()
 	for(var/i in 1 to 7)
-		new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
+		new/obj/item/reagent_containers/cup/bottle/random_base_chem(src)
 	for(var/i in 1 to 3)
-		new/obj/item/reagent_containers/glass/bottle/random_chem(src)
+		new/obj/item/reagent_containers/cup/bottle/random_chem(src)
 	while(prob(50))
-		new/obj/item/reagent_containers/glass/bottle/random_reagent(src)
+		new/obj/item/reagent_containers/cup/bottle/random_reagent(src)
 
 	new/obj/item/storage/pill_bottle/random_meds(src)
 	while(prob(25))
@@ -173,7 +173,7 @@
 
 /obj/structure/closet/crate/secure/chemicals/populate_contents()
 	for(var/chem in GLOB.standard_chemicals)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(chem, B.volume)
 		if(prob(85))
 			var/datum/reagent/r = GLOB.chemical_reagents_list[chem]
@@ -187,9 +187,9 @@
 
 /obj/structure/closet/secure_closet/cabinet/bar/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
-		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
+		new/obj/item/reagent_containers/cup/glass/bottle/random_drink(src)
 	while(prob(25))
-		new/obj/item/reagent_containers/food/drinks/bottle/random_reagent(src)
+		new/obj/item/reagent_containers/cup/glass/bottle/random_reagent(src)
 
 // -------------------------------------
 //          Do not order this.

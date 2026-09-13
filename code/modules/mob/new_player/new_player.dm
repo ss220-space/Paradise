@@ -683,12 +683,13 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	client.prefs.copy_to(new_character)
 

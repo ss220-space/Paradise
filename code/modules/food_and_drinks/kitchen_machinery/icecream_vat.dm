@@ -10,7 +10,7 @@
 	icon_state = "icecream_vat"
 	max_integrity = 300
 	idle_power_usage = 20
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/useramount = 15	//Last used amount
 
 /obj/machinery/icemachine/get_ru_names()
@@ -51,7 +51,7 @@
 
 	data["beakerContents"] = list()
 	if(beaker)
-		var/obj/item/reagent_containers/glass/A = beaker
+		var/obj/item/reagent_containers/cup/A = beaker
 		var/datum/reagents/R = A.reagents
 		for(var/datum/reagent/G in R.reagent_list)
 			data["beakerContents"] += list(list(
@@ -90,7 +90,7 @@
 			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(reagent.type))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				var/datum/reagents/R = A.reagents
 				R.trans_id_to(src, reagent.type, amount)
 				. = TRUE
@@ -100,7 +100,7 @@
 			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(reagent.type))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				reagents.trans_id_to(A, reagent.type, amount)
 			else
 				reagents.remove_reagent(reagent.type, amount)
@@ -187,7 +187,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "внутри уже есть ёмкость!")

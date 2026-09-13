@@ -66,7 +66,7 @@
 /area/shuttle/escape)
 "an" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -307,7 +307,7 @@
 "aU" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/carpet/arcade,
 /area/shuttle/escape)
 "aV" = (
@@ -348,7 +348,7 @@
 "bd" = (
 /obj/structure/table,
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/carpet/arcade,
 /area/shuttle/escape)
