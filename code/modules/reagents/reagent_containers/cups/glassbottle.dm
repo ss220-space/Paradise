@@ -11,6 +11,13 @@
 	/// Directly relates to the `knockdown` duration. Lowered by armor (i.e. helmets).
 	var/bottle_knockdown_duration = BOTTLE_KNOCKDOWN_DEFAULT_DURATION
 
+/obj/item/reagent_containers/cup/glass/bottle/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(isliving(target) && user.a_intent == INTENT_HARM && isGlass)
+		context[SCREENTIP_CONTEXT_RMB] = "Разбить бутылку о цель"
+		return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/reagent_containers/cup/glass/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
@@ -90,6 +97,11 @@
 	if(!throwingdatum && ismob(thrower))
 		astype(thrower, /mob).put_in_hands(broken)
 	broken.item_state = broken_inhand_icon_state
+
+/obj/item/reagent_containers/cup/glass/bottle/try_splash(mob/user, atom/target)
+	if(!isGlass)
+		return ..()
+	return FALSE // instead of splashing, hit them with the bottle!
 
 /obj/item/reagent_containers/cup/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)

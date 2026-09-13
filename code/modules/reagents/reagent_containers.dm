@@ -80,11 +80,6 @@
 		else if(possible_transfer_amounts.len)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")].")
 
-/obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM)
-		return ATTACK_CHAIN_PROCEED
-	return ..()
-
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
@@ -118,7 +113,7 @@
 	mode_change_message(user)
 
 /obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
-	if(user.intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM)
 		return NONE // non-combat-mode-rmb allows for stuff like opening containers or attacking (bottle breaking)
 	if(try_splash(user, interacting_with))
 		return ITEM_INTERACT_SUCCESS

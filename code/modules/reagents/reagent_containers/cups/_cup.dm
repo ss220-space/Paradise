@@ -57,12 +57,12 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(isliving(target) && reagents.total_volume)
-		context[SCREENTIP_CONTEXT_LMB] = "Напоить из ёмкости"
-		context[SCREENTIP_CONTEXT_RMB] = "Пить до опустошения"
+		context[SCREENTIP_CONTEXT_LMB] = "[target == user ? "Сделать глоток" : "Напоить"] из ёмкости"
+		context[SCREENTIP_CONTEXT_RMB] = "[target == user ? "Пить" : "Поить"] до опустошения"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_drainable())
-		context[SCREENTIP_CONTEXT_RMB] = "Налить в ёмкость"
+		context[SCREENTIP_CONTEXT_RMB] = "Отлить из этой ёмкости"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
@@ -138,7 +138,7 @@
 				ignored_mobs = list(user),
 			)
 			to_chat(user, span_notice("Вы пытаетесь попить из [declent_ru(GENITIVE)]."))
-			if(!do_after(user, 1.25 SECONDS, user))
+			if(!do_after(user, 1.25 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE))
 				return ITEM_INTERACT_BLOCKING
 			if(!reagents || !reagents.total_volume)
 				return ITEM_INTERACT_BLOCKING
