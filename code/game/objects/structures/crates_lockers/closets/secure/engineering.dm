@@ -22,7 +22,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/rpd(src)
-	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
+	new /obj/item/reagent_containers/cup/glass/mug/ce(src)
 	new /obj/item/autoimplanter/oneuse/meson_eyes(src)
 	new /obj/item/clothing/glasses/meson/atmos(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)

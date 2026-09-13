@@ -108,3 +108,32 @@
 	mid_sounds = list('sound/machines/fission/centrifuge_mid.ogg' = 1)
 	mid_length = 0.95 SECONDS
 	volume = 35
+
+/datum/looping_sound/singularity
+	start_sound = 'sound/machines/generator/singularity_form.ogg'
+	start_length = 5 SECONDS
+	mid_sounds = list('sound/machines/generator/singularity.ogg' = 1)
+	mid_length = 26 SECONDS
+	end_sound = 'sound/machines/generator/singularity_collapse.ogg'
+	volume = 30
+	extra_range = 5
+	falloff_exponent = 10
+	falloff_distance = 5
+	use_sound_tokens = TRUE
+	pressure_affected = FALSE
+
+/datum/looping_sound/thermogenerator
+	mid_sounds = list('sound/machines/generator/thermoelectric.ogg' = 1)
+	volume = 40
+
+/datum/looping_sound/tesla
+	start_sound = 'sound/machines/generator/tesla_consume.ogg'
+	mid_sounds = list('sound/machines/generator/tesla.ogg' = 1)
+	mid_length = 44 SECONDS
+	end_sound = 'sound/machines/generator/tesla_collapse.ogg'
+	volume = 40
+	extra_range = 5
+	falloff_exponent = 10
+	falloff_distance = 5
+	use_sound_tokens = TRUE
+	pressure_affected = FALSE

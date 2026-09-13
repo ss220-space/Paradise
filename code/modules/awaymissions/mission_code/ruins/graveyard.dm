@@ -272,7 +272,7 @@
 			big_money.icon_state = "cashblue"
 			big_money.amount = rand(1000, 5000)
 			big_money.forceMove(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
+			new /obj/item/reagent_containers/cup/glass/bottle/rum(src)
 			new /obj/item/decorations/bouquets/random(src)
 		if(10 to 50)
 			var/mob/living/carbon/human/skeleton/dead/suit_and_shoes = new(src)

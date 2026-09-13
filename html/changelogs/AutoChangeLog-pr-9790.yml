@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь не будет ситуаций, когда кулдаун блока заканчивается до таймаута блока. (PR #9790)"

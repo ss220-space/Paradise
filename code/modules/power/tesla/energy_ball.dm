@@ -47,6 +47,8 @@
 	var/energy_to_lower = -20
 	/// List of objects already shocked in the current cycle to avoid double shocks.
 	var/list/shocked_things = list()
+	/// Looping ambient sound of the tesla ball.
+	var/datum/looping_sound/tesla/soundloop
 
 /obj/energy_ball/get_ru_names()
 	return alist(
@@ -61,12 +63,16 @@
 /obj/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
 
+	soundloop = new(src, FALSE)
+
 	energy = starting_energy
 	miniball = is_miniball
 	START_PROCESSING(SSobj, src)
 
 	if(is_miniball)
 		return
+
+	soundloop.start()
 
 	set_light(10, 7, "#5e5edd")
 	var/turf/spawned_turf = get_turf(src)
@@ -80,6 +86,7 @@
 
 	QDEL_LIST(orbiting_balls)
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
 
 	return ..()
 

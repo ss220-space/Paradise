@@ -49,7 +49,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ak" = (
@@ -354,7 +354,7 @@
 /area/ruin/powered/snow_cabin)
 "xO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "xU" = (
@@ -523,7 +523,7 @@
 "OV" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "PD" = (

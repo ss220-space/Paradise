@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - bugfix: "Реагенты в ёмкостях теперь снова нормально отображаются. (PR #9792)"

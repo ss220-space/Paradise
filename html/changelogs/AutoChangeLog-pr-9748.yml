@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - tweak: "Голосование за игровой режим теперь форсит в secret и скрывает победителя. (PR #9748)"
-  - bugfix: "Исправлен баг с Object заместо префикса. (PR #9748)"

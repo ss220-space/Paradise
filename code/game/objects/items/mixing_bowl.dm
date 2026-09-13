@@ -72,9 +72,9 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/static/list/containers = list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/condiment,
 	)
 	if(is_type_in_list(I, containers))
 		add_fingerprint(user)

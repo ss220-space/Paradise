@@ -35,6 +35,27 @@
 		PREPOSITIONAL = "деревянном луке",
 	)
 
+/obj/item/gun/projectile/bow/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src && chambered)
+		context[SCREENTIP_CONTEXT_LMB] = "[ready_to_fire ? "Ослабить" : "Натянуть"] тетиву"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!magazine)
+		return
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else
+		return
+
+	if(!magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Установить стрелу"
+	return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/gun/projectile/bow/proc/update_state()
 	update_slowdown()
 	update_icon(UPDATE_ICON_STATE)
