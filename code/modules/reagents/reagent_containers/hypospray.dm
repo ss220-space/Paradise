@@ -370,7 +370,6 @@
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 	custom_price = PAYCHECK_MIN
-	can_empty = FALSE
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?

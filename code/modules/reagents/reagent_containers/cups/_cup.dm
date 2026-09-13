@@ -57,7 +57,7 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_refillable() && reagents.total_volume)
-		context[SCREENTIP_CONTEXT_LMB] = "Вылить в [iscup ? "эту ёмкость" : "этот объект"]"
+		context[SCREENTIP_CONTEXT_LMB] = "Вылить в [iscup(target) ? "эту ёмкость" : "этот объект"]"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(isliving(target) && reagents.total_volume)
@@ -66,7 +66,7 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_drainable())
-		context[SCREENTIP_CONTEXT_RMB] = "Налить из [iscup ? "этой ёмкости" : "этого объекта"]"
+		context[SCREENTIP_CONTEXT_RMB] = "Налить из [iscup(target) ? "этой ёмкости" : "этого объекта"]"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)

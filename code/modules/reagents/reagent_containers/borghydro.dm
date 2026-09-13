@@ -7,7 +7,6 @@
 	item_state = "hypo"
 	icon_state = "borghypo"
 	has_variable_transfer_amount = FALSE
-	can_empty = FALSE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
