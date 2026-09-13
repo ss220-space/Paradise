@@ -168,24 +168,6 @@
 		return FALSE
 	return TRUE
 
-GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	if(tgui_alert(usr, "Вы уверены?", "Вылить содержимое", list("Да", "Нет")) != "Да")
-		return
-	if(!usr.Adjacent(src) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	if(isturf(usr.loc) && loc == usr)
-		if(!is_open_container() && !pass_open_check)
-			balloon_alert(usr, "сначала откройте!")
-			return
-		if(reagents.total_volume)
-			balloon_alert(usr, "содержимое вылито")
-			splash_reagents(usr.loc)
-		else
-			balloon_alert(usr, "пусто, нечего выливать!")
-
 /obj/item/reagent_containers/ex_act()
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
