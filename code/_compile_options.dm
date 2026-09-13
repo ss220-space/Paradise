@@ -33,7 +33,7 @@
 #error CIBUILDING and LOCAL_UNIT_TESTS should not be enabled at the same time!
 #endif
 
-#if defined(UNIT_TESTS) || defined(MAP_TEST)
+#if defined(UNIT_TESTS) || defined(MAP_TESTS)
 #define TEST_RUNNER
 #endif
 
@@ -162,7 +162,10 @@
 /// Runs the game in "map test mode"
 /// Map test mode prevents common annoyances, such as rats from spawning and random light fixture breakage,
 /// so mappers can test important facets of their map (working powernet, atmos, good light coverage) without these interfering.
-// #define MAP_TEST
+//#define MAP_TEST
+
+/// Don't confuse with MAP_TEST, this one serves to compile game with map unit tests
+//#define MAP_TESTS
 
 #if defined(MAP_TEST) && !defined(CIBUILDING)
 #warn Compiling in MAP_TEST mode. Certain game mechanics will be disabled.

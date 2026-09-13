@@ -115,7 +115,14 @@
 			"define": "LOCAL_UNIT_TESTS",
 			"label": "Local unit tests",
 			"category": "Testing",
-			"description": "Locally runs all unit tests, then shuts down."
+			"description": "Locally runs all unit tests (without map tests), then shuts down."
+		},
+		{
+			"id": "MAP_UNIT_TESTS",
+			"define": "MAP_TESTS",
+			"label": "Map unit tests",
+			"category": "Testing",
+			"description": "Runs all map unit tests, then shuts down."
 		},
 		{
 			"id": "USE_BYOND_TRACY",

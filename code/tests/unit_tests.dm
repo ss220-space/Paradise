@@ -48,6 +48,6 @@
 #include "test_find_reference_sanity.dm"
 #endif
 
-#ifdef MAP_TEST
+#ifdef MAP_TESTS
 #include "test_map_tests.dm"
 #endif

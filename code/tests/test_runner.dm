@@ -21,11 +21,11 @@
 	SSticker.force_start = TRUE
 
 /datum/test_runner/proc/RunAll()
-	#ifdef MAP_TEST
+	#ifdef MAP_TESTS
 	// Run map tests first in case unit tests futz with map state
 	RunMap()
 	#endif
-	#if defined(UNIT_TESTS) || defined(MAP_TEST)
+	#if defined(UNIT_TESTS) || defined(MAP_TESTS)
 	Run()
 	#endif
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
