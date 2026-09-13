@@ -162,6 +162,17 @@
 
 	return TRUE
 
+/obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
+	if(!iscarbon(eater))
+		return FALSE
+	if(!reagents || !reagents.total_volume)
+		return FALSE
+	var/mob/living/carbon/as_carbon = eater
+	if(as_carbon.is_mouth_covered())
+		as_carbon.balloon_alert(user, "рот чем-то закрыт!")
+		return FALSE
+	return TRUE
+
 GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -321,3 +332,39 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
 	filling.color = reagent_color_and_contrast_matrix
 
 	. += filling
+
+/// Transfering from `src` to `target`.
+/obj/item/reagent_containers/proc/try_refill(atom/target, mob/living/user)
+	if(!reagents.total_volume)
+		balloon_alert(user, "нечего выливать!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(target.reagents.holder_full())
+		balloon_alert(user, "нет места!")
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
+	if(trans)
+		balloon_alert(user, "перелито [trans] ед.")
+	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_TO, target)
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS
+
+/// Transfering from `target` to `src`.
+/obj/item/reagent_containers/proc/try_drain(atom/target, mob/living/user)
+	if(!target.reagents.total_volume)
+		balloon_alert(user, "нечего наливать!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(reagents.holder_full())
+		balloon_alert(user, "нет места!")
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
+	if(trans)
+		balloon_alert(user, "налито [trans] ед.")
+	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_FROM, target)
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS
