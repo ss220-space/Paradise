@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - qol: "Теперь при получении ПМки есть явная кнопка \"Ответить\"(REPLY). (PR #9789)"

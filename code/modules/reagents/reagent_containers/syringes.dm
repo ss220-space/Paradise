@@ -8,6 +8,7 @@
 	item_state = "syringe_0"
 	icon_state = "0"
 	belt_icon = "syringe"
+	fill_icon_state = "syringe"
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE

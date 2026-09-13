@@ -35,9 +35,11 @@
 	if(isnull(held_item) || held_item == src)
 		if(can_lid)
 			context[SCREENTIP_CONTEXT_ALT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
-		context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
-		context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
-		return CONTEXTUAL_SCREENTIP_SET
+			. = CONTEXTUAL_SCREENTIP_SET
+		if(has_variable_transfer_amount)
+			context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
+			context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
+			. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
 	. = ..()
@@ -117,9 +119,12 @@
 		to_chat(user, span_notice("Вы делаете глоток из [declent_ru(GENITIVE)]."))
 
 	. |= ATTACK_CHAIN_SUCCESS
+	drink(target, user)
 
+/obj/item/reagent_containers/cup/proc/drink(mob/living/carbon/target, mob/living/user)
 	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target, user)
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
+	reagents.reaction(target, REAGENT_INGEST, fraction)
 	reagents.trans_to(target, gulp_size)
 	checkLiked(fraction, target)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
@@ -148,8 +153,8 @@
 	)
 
 	chugging = TRUE
-	while(do_after(chugger, 4 SECONDS, chugger, show_progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
-		chugger.eat(src, chugger, 25)
+	while(do_after(chugger, 4 SECONDS, chugger, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
+		drink(chugger, user)
 		if(!reagents.total_volume)
 			chugger.emote("gasp")
 			chugger.visible_message(
@@ -376,7 +381,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	name = "baggie"
 	desc = "Небольшой пластиковый пакет, часто используемый фармацевтическими \"предпринимателями\"."
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/get_ru_names()
 	return alist(
@@ -392,7 +397,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	name = "Thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	amount_per_transfer_from_this = 25
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	list_reagents = list(/datum/reagent/thermite = 25)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite/get_ru_names()
@@ -649,7 +654,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 15
 	resistance_flags = FLAMMABLE
 	color = "#0085E5"

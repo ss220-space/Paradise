@@ -105,7 +105,7 @@ SUBSYSTEM_DEF(throwing)
 	src.starting_turf = get_turf(thrownthing)
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
-		src.initial_target = target
+		src.initial_target = WEAKREF(target)
 	src.init_dir = init_dir
 	src.maxrange = maxrange
 	src.speed = speed
@@ -155,17 +155,8 @@ SUBSYSTEM_DEF(throwing)
 	var/atom/movable/actual_target = initial_target?.resolve()
 	var/atom/thrower = get_thrower()
 
-	if(dist_travelled) //to catch sneaky things moving on our tile while we slept
-		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-			if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
-				continue
-			if(ismob(obstacle) && thrownthing.pass_flags & PASSMOB && (obstacle != actual_target))
-				continue
-			if(obstacle.pass_flags_self & LETPASSTHROW)
-				continue
-			if(obstacle == actual_target || (obstacle.density && !(obstacle.flags & ON_BORDER) && !(obstacle in AM.buckled_mobs) && !(AM in obstacle.buckled_mobs)))
-				finalize(TRUE, obstacle)
-				return
+	if(dist_travelled && hitcheck(actual_target, thrower)) //to catch sneaky things moving on our tile while we slept
+		return
 
 	var/atom/step
 
@@ -175,8 +166,9 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
-			finalize()
-			return
+			if(!hitcheck(actual_target, thrower))
+				finalize()
+				return
 
 		if(dist_travelled <= max(dist_x, dist_y)) //if we haven't reached the target yet we home in on it, otherwise we use the initial direction
 			step = get_step(AM, get_dir(AM, target_turf))
@@ -210,6 +202,18 @@ SUBSYSTEM_DEF(throwing)
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()
 			return
+
+/datum/thrownthing/proc/hitcheck(atom/movable/target, atom/movable/initial_thrower)
+	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
+		if(obstacle == thrownthing || obstacle == initial_thrower)
+			continue
+		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
+			continue
+		if(obstacle.pass_flags_self & LETPASSTHROW)
+			continue
+		if(obstacle == target || (((obstacle.density && !(obstacle.flags & ON_BORDER)) || (isliving(obstacle) && !dodgeable)) && !(obstacle in thrownthing.buckled_mobs)))
+			finalize(obstacle)
+			return TRUE
 
 /datum/thrownthing/proc/finalize(atom/hit_target)
 	set waitfor = FALSE

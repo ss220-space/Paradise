@@ -16,7 +16,7 @@
 	/// max spray distance mod
 	var/spray_maxrange_mod = 1
 	volume = 250
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	var/delay = CLICK_CD_RANGE * 2
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
