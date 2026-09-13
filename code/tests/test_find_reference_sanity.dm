@@ -1,5 +1,5 @@
 ///Used to test the completeness of the reference finder proc.
-/datum/unit_test/find_reference_sanity
+/datum/unit_test/room_test/find_reference_sanity
 
 /atom/movable/ref_holder
 	var/static/atom/movable/ref_test/static_test
@@ -25,7 +25,7 @@
 	self_ref = null
 	return ..()
 
-/datum/unit_test/find_reference_sanity/Run()
+/datum/unit_test/room_test/find_reference_sanity/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -38,7 +38,7 @@
 	TEST_ASSERT(!LAZYLEN(victim.found_refs), "The ref-tracking tool found a ref where none existed")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_baseline/Run()
+/datum/unit_test/room_test/find_reference_baseline/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -59,7 +59,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, testbed.test_alist), "The ref-tracking tool failed to find an alist value")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_exotic/Run()
+/datum/unit_test/room_test/find_reference_exotic/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -81,7 +81,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, testbed.test_alist), "The ref-tracking tool failed to find an alist key")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_esoteric/Run()
+/datum/unit_test/room_test/find_reference_esoteric/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -106,7 +106,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, to_find_alist), "The ref-tracking tool failed to find a nested alist entry")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_null_key_entry/Run()
+/datum/unit_test/room_test/find_reference_null_key_entry/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -121,7 +121,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, testbed.test_assoc_list), "The ref-tracking tool failed to find a null key'd assoc list entry")
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, testbed.test_alist), "The ref-tracking tool failed to find a null key'd alist entry")
 
-/datum/unit_test/find_reference_assoc_investigation/Run()
+/datum/unit_test/room_test/find_reference_assoc_investigation/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -140,7 +140,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, to_find_null_assoc_nested), "The ref-tracking tool failed to find a null key'd nested assoc list entry")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_alist_investigation/Run()
+/datum/unit_test/room_test/find_reference_alist_investigation/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	SSgarbage.should_save_refs = TRUE
@@ -162,7 +162,7 @@
 	TEST_ASSERT(LAZYACCESS(victim.found_refs, to_find_number_assoc_nested), "The ref-tracking tool failed to find a number key'd alist entry")
 	SSgarbage.should_save_refs = FALSE
 
-/datum/unit_test/find_reference_static_investigation/Run()
+/datum/unit_test/room_test/find_reference_static_investigation/Run()
 	var/atom/movable/ref_test/victim = allocate(/atom/movable/ref_test)
 	var/atom/movable/ref_holder/testbed = allocate(/atom/movable/ref_holder)
 	pass(testbed)
