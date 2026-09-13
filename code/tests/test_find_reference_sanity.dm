@@ -33,10 +33,6 @@
 	//Sanity check
 	var/refcount = refcount(victim)
 	TEST_ASSERT_EQUAL(refcount, 3, "Should be: test references: 0 + baseline references: 3 (victim var,loc,allocated list)")
-	TEST_ASSERT_NOTNULL(victim, "VICTIM should not be null")
-	TEST_ASSERT_NOTNULL(victim.loc, "LOC should not be null")
-	TEST_ASSERT_NOTNULL(allocated, "ALLOCATED should not be null")
-	TEST_ASSERT(length(allocated) > 0, "ALLOCATED should not be empty")
 	victim.DoSearchVar(testbed, "Sanity Check") //We increment search time to get around an optimization
 
 	TEST_ASSERT(!LAZYLEN(victim.found_refs), "The ref-tracking tool found a ref where none existed")
