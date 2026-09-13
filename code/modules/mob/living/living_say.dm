@@ -101,6 +101,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// English symbols no case
 	":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
 	":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
+	":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
+	":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
+	":3" = EVENT_GAMMA_FREQ_NAME,		"#3" = EVENT_GAMMA_FREQ_NAME,	"№3" = EVENT_GAMMA_FREQ_NAME,	".3" = EVENT_GAMMA_FREQ_NAME,
 	// Russian symbols no case
 		// None yet.
 
