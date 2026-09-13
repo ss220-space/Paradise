@@ -667,6 +667,7 @@ GAME_VERB_SRC(/obj/structure/table, do_flip, oview(1), "Flip/Unflip table", VERB
 	buildstack = /obj/item/stack/sheet/plasteel
 	max_integrity = 200
 	integrity_failure = 50
+	can_be_flipped = FALSE
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, FIRE = 80, ACID = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
