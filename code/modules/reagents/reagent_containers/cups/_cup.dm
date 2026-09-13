@@ -62,7 +62,7 @@
 		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(target.is_drainable())
-		context[SCREENTIP_CONTEXT_RMB] = "Отлить из этой ёмкости"
+		context[SCREENTIP_CONTEXT_RMB] = "Налить из этой ёмкости"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
