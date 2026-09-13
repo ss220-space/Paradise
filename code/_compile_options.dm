@@ -27,6 +27,7 @@
 
 #ifdef LOCAL_UNIT_TESTS
 #define UNIT_TESTS
+#define MAP_TESTS
 #endif
 
 #if defined(CIBUILDING) && defined(LOCAL_UNIT_TESTS)
