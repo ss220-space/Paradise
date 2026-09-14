@@ -299,8 +299,6 @@
 		if(QDELETED(preview_view))
 			preview_view = new /atom/movable/screen/map_view/character_preview
 			preview_view.generate_view("custom_outfit_preview_[UID()]")
-		if(!preview_view.dummy)
-			preview_view.rebuild_dummy(src)
 		preview_view.update_body()
 		data["character_preview_view"] = preview_view.assigned_map
 		ensure_preview_view(user, ui?.window)
