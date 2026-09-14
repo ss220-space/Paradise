@@ -224,7 +224,7 @@
 	. = ..()
 	var/contents_number = length(contents)
 	if(contents_number)
-		. += span_notice("Вы можете разглядеть форм[declension_ru(contents_number, "у", "ы", "ы")] [contents_number] объект[DECL_A_OV_OV(contents_number)] через ткань.")
+		. += span_notice("Вы можете разглядеть форм[DECL_U_Y_Y(contents_number)] [contents_number] объект[DECL_A_OV_OV(contents_number)] через ткань.")
 
 /obj/item/bodybag/bluespace/Destroy()
 	for(var/atom/movable/movable in contents)

@@ -574,9 +574,9 @@
 		ru_names = alist(
 			NOMINATIVE = "[LAZYLEN(cards)] карт[DECL_A_Y_0(LAZYLEN(cards))]",
 			GENITIVE = "[LAZYLEN(cards)] карт[DECL_Y_0_0(LAZYLEN(cards))]",
-			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
+			DATIVE = "[LAZYLEN(cards)] карт[DECL_YE_AM_AM(LAZYLEN(cards))]",
 			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y_0(LAZYLEN(cards))]",
-			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
+			INSTRUMENTAL = "[LAZYLEN(cards)] карт[DECL_OJ_AMI_AMI(LAZYLEN(cards))]",
 			PREPOSITIONAL = "[LAZYLEN(cards)] карт[DECL_E_AH_AH(LAZYLEN(cards))]"
 		)
 	else

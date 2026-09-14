@@ -116,7 +116,7 @@
 
 /datum/addition_goal/prisoners/format_accept_report(mob/user)
 	var/text = {"<center><b>Запрос на временное заключение</b></center><br>
-		В ваш адрес направлен[DECL_0_Y_Y(prisoners_count)] [prisoners_count] [declension_ru(prisoners_count, "заключенный", "заключенных", "заключенных")] для отбытия наказания.<br>
+		В ваш адрес направлен[DECL_0_Y_Y(prisoners_count)] [prisoners_count] заключённ[DECL_J_H_H(prisoners_count)] для отбытия наказания.<br>
 		Просим произвести заключение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/prisoner as anything in prisoners)
