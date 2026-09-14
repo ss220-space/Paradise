@@ -171,6 +171,8 @@
 /obj/spacepod/crowbar_act(mob/living/user, obj/item/tool)
 	if(assemble_process)
 		. = TRUE
+		if(!length(systems.modules))
+			return
 		var/obj/item/spacepod_module/extracted_module = tgui_input_list(user, "Выберите модуль для удаления:", "Удаление модуля", systems.modules)
 		if(extracted_module == null || extracted_module.systems == null)
 			return

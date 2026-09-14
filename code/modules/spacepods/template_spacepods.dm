@@ -32,7 +32,7 @@
 	return // implement on specific spacepod
 
 /obj/spacepod/template/proc/create_misc_modules()
-	return // implement on specific spacepod
+	systems.add_module(src, new /obj/item/spacepod_module/tracker(src))
 
 
 // MARK: One engine pod
@@ -208,12 +208,17 @@
 		PREPOSITIONAL = "космическом челноке \"Странник\"",
 	)
 
+/obj/spacepod/template/one_engine/civilian/create_misc_modules()
+	. = ..()
+	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
+
 /obj/spacepod/template/one_engine/civilian/damaged
 	desc = "Сильно поврежденный космический челнок \"Странник\""
 
 /obj/spacepod/template/one_engine/civilian/damaged/Initialize(mapload)
 	. = ..()
-	take_damage(250, BRUTE)
+	for(var/i in range(1, 5))
+		take_damage(rand(50, 150), BRUTE)
 	update_icon()
 
 
@@ -245,6 +250,7 @@
 	gun_turret.install_gun(laser_gun)
 
 /obj/spacepod/template/two_engine/raptor/create_misc_modules()
+	. = ..()
 	// Life support module
 	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
 	// Passenger seat for arrests
@@ -331,6 +337,7 @@
 	systems.add_module(src, bottom_side_armor)
 
 /obj/spacepod/template/two_engine/cobra/create_misc_modules()
+	. = ..()
 	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
 	systems.add_module(src, new /obj/item/spacepod_module/fire_extingusher/five_charges(src))
 
