@@ -18,8 +18,6 @@ export const CustomOutfitID = (props) => {
   const { act, data } = useBackend();
   const [assignmentMode, setAssignmentMode] = useState('dropdown');
   const [customAssignment, setCustomAssignment] = useState('');
-  const [rankMode, setRankMode] = useState('dropdown');
-  const [customRank, setCustomRank] = useState('');
 
   const idCard = data.id_card || {};
   const joblist = Array.isArray(data.joblist) ? data.joblist : [];
@@ -100,37 +98,12 @@ export const CustomOutfitID = (props) => {
                   <Dropdown
                     fluid
                     options={ranklist}
-                    selected={rankMode === 'custom' ? 'Custom' : idCard.rank || null}
-                    placeholder="Выберите ранг или напишите свой"
-                    onSelected={(value) => {
-                      if (value === 'Custom') {
-                        setRankMode('custom');
-                        setCustomRank(idCard.rank || '');
-                      } else {
-                        setRankMode('dropdown');
-                        act('set_id_rank', { rank: value });
-                      }
-                    }}
+                    selected={idCard.rank || null}
+                    placeholder="Выберите ранг"
+                    onSelected={(value) =>
+                      act('set_id_rank', { rank: value })
+                    }
                   />
-                  {rankMode === 'custom' && (
-                    <>
-                      <Box color="label" fontSize={0.75} mt={0.5} mb={0.5}>
-                        Свой ранг
-                      </Box>
-                      <Input
-                        fluid
-                        placeholder="Введите ранг"
-                        value={customRank}
-                        onChange={setCustomRank}
-                        onEnter={(value) =>
-                          value && act('set_id_rank', { rank: value })
-                        }
-                        onBlur={(value) =>
-                          value && act('set_id_rank', { rank: value })
-                        }
-                      />
-                    </>
-                  )}
                 </Stack.Item>
                 <Stack.Item>
                   <Box color="label" fontSize={0.75} mb={0.5}>
