@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Укреплённый стол нельзя перевернуть. (PR #9797)"
