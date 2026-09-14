@@ -26,8 +26,8 @@
 		if(ispath(item_path, /obj/item) && isnum(count) && count > 0)
 			saved_belt["[item_path]"] = count
 	.["belt_contents"] = saved_belt
-	.["backpack_nested_contents"] = serialize_nested_for_save("backpack")
-	.["belt_nested_contents"] = serialize_nested_for_save("belt")
+	.["backpack_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BACKPACK)
+	.["belt_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BELT)
 	var/list/saved_skills = list()
 	for(var/skill_path, level in skill_levels)
 		if(ispath(skill_path, /datum/skill) && isnum(level))
@@ -191,11 +191,11 @@
 				continue
 			new_skill_levels[skill_path] = clamp(level, 0, SKILL_LEVEL_LEGEND)
 
-	var/list/new_nested = list("backpack" = list(), "belt" = list())
+	var/list/new_nested = list(CUSTOM_OUTFIT_CONTAINER_BACKPACK = list(), CUSTOM_OUTFIT_CONTAINER_BELT = list())
 	if(islist(save_data["backpack_nested_contents"]))
-		new_nested["backpack"] = apply_nested_for_load(save_data["backpack_nested_contents"])
+		new_nested[CUSTOM_OUTFIT_CONTAINER_BACKPACK] = apply_nested_for_load(save_data["backpack_nested_contents"])
 	if(islist(save_data["belt_nested_contents"]))
-		new_nested["belt"] = apply_nested_for_load(save_data["belt_nested_contents"])
+		new_nested[CUSTOM_OUTFIT_CONTAINER_BELT] = apply_nested_for_load(save_data["belt_nested_contents"])
 
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit

@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Icon,
-  Image,
   ImageButton,
   Modal,
   Section,
@@ -13,6 +12,7 @@ import {
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { CharacterPreview } from './common/CharacterPreview';
 
 type OutfitItem = {
   path?: string;
@@ -49,7 +49,8 @@ interface CustomOutfitData {
   has_dental_implant?: BooleanLike;
   dental_reagents?: Reagent[];
   skills_active?: BooleanLike;
-  preview_icon?: string;
+  /** id of the live map view rendering the preview dummy */
+  character_preview_view?: string;
   /** JSON payload sent by the server for a client-side save */
   save_file_json?: string;
   /** Filename suggested by the server for the save */
@@ -283,7 +284,18 @@ export const CustomOutfit = () => {
                       </Stack>
                     </Stack.Item>
                     <Stack.Item grow basis={0}>
-                      <PreviewImage base64={data.preview_icon} />
+                      <Stack vertical fill>
+                        <Stack.Item grow align="center">
+                          {data.character_preview_view ? (
+                            <CharacterPreview
+                              id={data.character_preview_view}
+                              height="400px"
+                            />
+                          ) : (
+                            <Box color="label">Нет данных</Box>
+                          )}
+                        </Stack.Item>
+                      </Stack>
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -460,35 +472,6 @@ export const CustomOutfit = () => {
           })()}
       </Window.Content>
     </Window>
-  );
-};
-
-const PreviewImage = (props: { base64?: string }) => {
-  const { base64 } = props;
-  if (!base64) {
-    return (
-      <Stack fill align="center" justify="center">
-        <Stack.Item>
-          <Box color="label">Нет данных</Box>
-        </Stack.Item>
-      </Stack>
-    );
-  }
-
-  return (
-    <Stack fill align="center" justify="center">
-      <Stack.Item grow basis={0}>
-        <Image
-          width="100%"
-          height="100%"
-          src={`data:image/png;base64,${base64}`}
-          style={{
-            objectFit: 'contain',
-            imageRendering: 'pixelated',
-          }}
-        />
-      </Stack.Item>
-    </Stack>
   );
 };
 

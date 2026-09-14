@@ -22,7 +22,6 @@
 #define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
 #define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
 
-
 #define CUSTOM_OUTFIT_DEFAULT_COMPANY "Cybernetic"
 #define CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT 5
 #define CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT 1
@@ -64,10 +63,9 @@
 	var/datum/custom_outfit_id_editor/id_card_editor
 	var/pending_save_json
 	var/pending_save_name
-	var/cached_preview_icon
-	var/cached_preview_key
 	var/preview_dirty = TRUE
 	var/preview_pending = FALSE
+	var/atom/movable/screen/map_view/character_preview/preview_view
 	// Clean dummy human used by item_fits_species for can_equip checks.
 	var/mob/living/carbon/human/check_dummy
 	var/check_dummy_species_type
@@ -79,7 +77,7 @@
 	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
 	var/list/belt_contents = list()
 	var/belt_dirty = FALSE
-	var/list/nested_storage_contents = list(CUSTOM_OUTFIT_SLOT_BACK = list(), CUSTOM_OUTFIT_SLOT_BELT = list())
+	var/list/nested_storage_contents = list(CUSTOM_OUTFIT_CONTAINER_BACKPACK = list(), CUSTOM_OUTFIT_CONTAINER_BELT = list())
 	// TRUE when the skill distribution window is unlocked and skills are applied.
 	var/skills_active = FALSE
 	// Stored skill profile: list(skill type path = level). Applied on Apply when
@@ -241,6 +239,7 @@
 
 /datum/custom_outfit/Destroy()
 	target_mob = null
+	QDEL_NULL(preview_view)
 	QDEL_NULL(check_dummy)
 	check_dummy_species_type = null
 	fit_cache.Cut()
@@ -272,7 +271,7 @@
 	.["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_TAIPAN)
 	.["joblist"] = get_joblist_for_tgui()
 
-/datum/custom_outfit/ui_data(mob/user)
+/datum/custom_outfit/ui_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	data["outfit"] = serialize_outfit()
 
@@ -293,12 +292,12 @@
 		data["backpack_is_storage"] = !!get_back_content_storage(human_target.back)
 		if(skills_active)
 			sync_skills_from_mind(human_target)
-		var/appearance_key = build_appearance_key(human_target)
-		if(!preview_pending && (preview_dirty || appearance_key != cached_preview_key))
-			preview_pending = TRUE
-			addtimer(CALLBACK(src, PROC_REF(regenerate_preview_icon)), 1)
-		if(cached_preview_icon)
-			data["preview_icon"] = cached_preview_icon
+		if(preview_dirty)
+			if(!preview_pending)
+				preview_pending = TRUE
+				addtimer(CALLBACK(src, PROC_REF(regenerate_preview_dummy)), 1)
+		data["character_preview_view"] = ensure_preview_view(user, ui?.window)
+		preview_view?.update_appearance()
 	else
 		data["target_name"] = null
 		data["target_valid"] = FALSE
@@ -418,14 +417,12 @@
 		SStgui.try_update_ui(user, src, ui)
 	return .
 
-/datum/custom_outfit/proc/regenerate_preview_icon()
+/datum/custom_outfit/proc/regenerate_preview_dummy()
 	preview_pending = FALSE
-	if(QDELETED(src) || QDELETED(target_mob) || !ishuman(target_mob))
+	if(QDELETED(src) || QDELETED(preview_view))
 		return
-	var/mob/living/carbon/human/human_target = target_mob
-	cached_preview_key = build_appearance_key(human_target)
+	preview_view.rebuild_dummy(src)
 	preview_dirty = FALSE
-	cached_preview_icon = generate_preview_icon()
 	SStgui.update_uis(src)
 
 /datum/custom_outfit/proc/get_path_param(list/params)
@@ -514,7 +511,7 @@
 	for(var/obj/item/backpack_item in back_storage.contents)
 		edited_outfit.backpack_contents[backpack_item.type] = (edited_outfit.backpack_contents[backpack_item.type] || 0) + 1
 		if(isstorage(backpack_item))
-			capture_nested_contents(backpack_item, "backpack")
+			capture_nested_contents(backpack_item, CUSTOM_OUTFIT_CONTAINER_BACKPACK)
 
 /// Returns the preset contents of a storage item type - populate_contents() as a list(path = count).
 /// Arguments:
@@ -571,7 +568,7 @@
 	for(var/obj/item/belt_item in human_target.belt.contents)
 		belt_contents[belt_item.type] = (belt_contents[belt_item.type] || 0) + 1
 		if(isstorage(belt_item))
-			capture_nested_contents(belt_item, "belt")
+			capture_nested_contents(belt_item, CUSTOM_OUTFIT_CONTAINER_BELT)
 
 /// Captures the contents of a storage item already worn (inside backpack/belt)
 /// into the nested storage map so it can be edited in the UI.
@@ -611,9 +608,9 @@
 /// * container_key - "backpack" or "belt".
 /datum/custom_outfit/proc/mark_container_dirty(container_key)
 	switch(container_key)
-		if("backpack")
+		if(CUSTOM_OUTFIT_CONTAINER_BACKPACK)
 			backpack_dirty = TRUE
-		if("belt")
+		if(CUSTOM_OUTFIT_CONTAINER_BELT)
 			belt_dirty = TRUE
 
 /// Toggles skill editing on/off. Enabling seeds the profile from the target's
@@ -717,10 +714,10 @@
 			id_entry["id_card"] = serialize_id_card_data()
 
 /datum/custom_outfit/proc/serialize_backpack()
-	return serialize_container("backpack", edited_outfit.backpack_contents)
+	return serialize_container(CUSTOM_OUTFIT_CONTAINER_BACKPACK, edited_outfit.backpack_contents)
 
 /datum/custom_outfit/proc/serialize_belt()
-	return serialize_container("belt", belt_contents)
+	return serialize_container(CUSTOM_OUTFIT_CONTAINER_BELT, belt_contents)
 
 /// Builds the UI item list for a storage container, embedding each nested
 /// storage item's own contents (one level deep).
@@ -1029,8 +1026,6 @@
 		apply_internal_augmentations(human_target)
 		apply_external_augmentations(human_target)
 
-	// Don't try to equip cybernetic implants that don't fit this body
-	// (e.g. a tail-mounted implant on a tailless character).
 	var/list/fitting_cyber = list()
 	for(var/organ_path in final_outfit.cybernetic_implants)
 		if(organ_fits_species(organ_path, human_target))
@@ -1041,9 +1036,6 @@
 	restore_stashed_items(human_target, stashed_items)
 	apply_id_card_data(human_target)
 
-	// Freshly spawned backpack/belt get their preset contents from
-	// populate_contents(), so the outfit lists (which already contain those
-	// presets) must always be synced over them to avoid duplicating them.
 	if(backpack_dirty && get_back_content_storage(human_target.back))
 		sync_existing_backpack(human_target, new_backpack_contents)
 	if(belt_dirty && isstorage(human_target.belt))
@@ -1152,7 +1144,7 @@
 		for(var/iteration in 1 to count)
 			var/obj/item/spawned_item = new item_path(back_storage)
 			if(isstorage(spawned_item))
-				apply_nested_contents(spawned_item, "backpack", "[item_path]")
+				apply_nested_contents(spawned_item, CUSTOM_OUTFIT_CONTAINER_BACKPACK, "[item_path]")
 
 /datum/custom_outfit/proc/sync_belt_contents(mob/living/carbon/human/human_target, list/new_belt_contents)
 	if(!isstorage(human_target.belt))
@@ -1164,7 +1156,7 @@
 		for(var/iteration in 1 to count)
 			var/obj/item/spawned_item = new item_path(human_target.belt)
 			if(isstorage(spawned_item))
-				apply_nested_contents(spawned_item, "belt", "[item_path]")
+				apply_nested_contents(spawned_item, CUSTOM_OUTFIT_CONTAINER_BELT, "[item_path]")
 
 /// Fills an in-world storage item with the edited contents configured for it,
 /// replacing any preset (populate_contents) items. Does nothing if the box has
@@ -1254,33 +1246,13 @@
 	pill_action.name = "Раскусить [pill.declent_ru(ACCUSATIVE)]"
 	pill_action.Grant(human_target)
 
-/datum/custom_outfit/proc/generate_preview_icon()
-	if(QDELETED(target_mob) || !ishuman(target_mob))
-		return null
-	var/mob/living/carbon/human/human_target = target_mob
-	if(!human_target.dna || !human_target.dna.species)
-		return null
-	var/mob/living/carbon/human/dummy = new human_target.type
-	if(!dummy)
-		return null
-
-	copy_appearance(human_target, dummy)
-
-	var/datum/outfit/final_outfit = make_final_outfit(preserve_implants = TRUE)
-	if(length(internal_augmentations))
-		apply_internal_augmentations(dummy)
-	if(length(external_augmentations))
-		apply_external_augmentations(dummy)
-	dummy.equipOutfit(final_outfit)
-	dummy.regenerate_icons()
-
-	var/icon/flat_icon = getFlatIcon(dummy, SOUTH, null, null, null, TRUE, TRUE)
-	if(!flat_icon)
-		qdel(dummy)
-		return null
-	var/base64_string = icon2base64(flat_icon)
-	qdel(dummy)
-	return base64_string
+/datum/custom_outfit/proc/ensure_preview_view(mob/viewer, datum/tgui_window/tgui_window)
+	if(QDELETED(preview_view))
+		preview_view = new /atom/movable/screen/map_view/character_preview
+		preview_view.generate_view("custom_outfit_preview_[UID()]")
+	if(viewer && !QDELETED(viewer))
+		preview_view.display_to(viewer, tgui_window)
+	return preview_view.assigned_map
 
 /datum/custom_outfit/proc/choose_backpack_item(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
@@ -1297,7 +1269,7 @@
 		return FALSE
 	edited_outfit.backpack_contents[chosen_path] = (edited_outfit.backpack_contents[chosen_path] || 0) + 1
 	if(ispath(chosen_path, /obj/item/storage))
-		ensure_nested_presets("backpack", chosen_path)
+		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BACKPACK, chosen_path)
 	return TRUE
 
 /datum/custom_outfit/proc/choose_belt_item(mob/user)
@@ -1315,7 +1287,7 @@
 		return FALSE
 	belt_contents[chosen_path] = (belt_contents[chosen_path] || 0) + 1
 	if(ispath(chosen_path, /obj/item/storage))
-		ensure_nested_presets("belt", chosen_path)
+		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BELT, chosen_path)
 	return TRUE
 
 /// Decrements one item of the given path in a path = count list.
@@ -1339,13 +1311,13 @@
 /datum/custom_outfit/proc/remove_backpack_item(item_path)
 	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path)
 	if(removed && ispath(item_path, /obj/item/storage))
-		forget_nested_contents("backpack", "[item_path]")
+		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BACKPACK, "[item_path]")
 	return removed
 
 /datum/custom_outfit/proc/remove_belt_item(item_path)
 	var/removed = decrement_list_entry(belt_contents, item_path)
 	if(removed && ispath(item_path, /obj/item/storage))
-		forget_nested_contents("belt", "[item_path]")
+		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BELT, "[item_path]")
 	return removed
 
 /// Removes the nested contents entry for a storage item that was just removed
