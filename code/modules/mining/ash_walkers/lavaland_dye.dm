@@ -187,7 +187,7 @@
 	if(!uses)
 		balloon_alert(user, "краска закончилась!")
 		qdel(src)
-		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
+		var/obj/item/reagent_containers/cup/glass/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)
 
 /obj/item/lavaland_mortar/attack_obj(obj/object, mob/living/user, params)
@@ -210,5 +210,5 @@
 	if(!uses)
 		balloon_alert(user, "краска закончилась!")
 		qdel(src)
-		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
+		var/obj/item/reagent_containers/cup/glass/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)

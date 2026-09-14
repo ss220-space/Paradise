@@ -292,12 +292,12 @@
 	name = "обработка омертвелых тканей"
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
-		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
-		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/cup/bottle = 90,
+		/obj/item/reagent_containers/cup/glass/drinkingglass = 85,
+		/obj/item/reagent_containers/cup/glass/bottle = 80,
+		/obj/item/reagent_containers/cup/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
-		/obj/item/reagent_containers/glass/bucket = 50,
+		/obj/item/reagent_containers/cup/bucket = 50,
 	)
 
 	time = 2.4 SECONDS

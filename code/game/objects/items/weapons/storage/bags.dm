@@ -881,8 +881,8 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 	max_combined_w_class = 200
 	can_hold = list(
 		/obj/item/reagent_containers/food/pill,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -901,8 +901,8 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/slime_extract,
 		/obj/item/reagent_containers/food/snacks/monkeycube,
 		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/hypospray/autoinjector,
 	)

@@ -637,7 +637,7 @@
 /area/deathmatch)
 "uP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/cup/glass/flask/gold,
 /obj/item/razor,
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
@@ -925,7 +925,7 @@
 /area/deathmatch)
 "Fr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /turf/simulated/floor/carpet,
 /area/deathmatch)
 "FC" = (
@@ -1092,11 +1092,11 @@
 /obj/machinery/coffeemaker/impressa{
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel{
 	pixel_x = 6;
 	pixel_y = -10
 	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
 	pixel_x = -7;
 	pixel_y = -10
 	},

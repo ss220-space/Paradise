@@ -157,6 +157,7 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			<a href='byond://?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</a> |
 			<a href='byond://?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</a> |
 			<a href='byond://?_src_=holder;select_equip=[M.UID()]'>Select Equipment</a> |
+			<a href='byond://?_src_=holder;custom_equip=[M.UID()]'>Custom Equipment</a> |
 			<a href='byond://?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</a> |
 			<a href='byond://?_src_=holder;change_voice=[M.UID()]'>Change Voice</a> |
 			"}

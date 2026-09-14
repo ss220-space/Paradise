@@ -1646,12 +1646,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/cup/glass) && (ismachineperson(src)))))
 			balloon_alert(user, "у цели нет рта!")
 			return FALSE
 	return ..()
 
-/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/cup/glass/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			balloon_alert(src, "у вас нет рта!")

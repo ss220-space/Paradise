@@ -42,8 +42,8 @@
 			if(bomb?.bombtank)
 				bomb.bombtank.detonate()
 
-		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
-			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc
+		else if(istype(locloc, /obj/item/reagent_containers/cup/beaker))
+			var/obj/item/reagent_containers/cup/beaker/beakerbomb = locloc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
 

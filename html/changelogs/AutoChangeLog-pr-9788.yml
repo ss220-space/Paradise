@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - tweak: "Принудительное открытие окна принятия TOS, когда он требуется. (PR #9788)"
