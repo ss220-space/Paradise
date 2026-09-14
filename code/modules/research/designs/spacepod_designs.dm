@@ -207,6 +207,17 @@
 	build_path = /obj/item/spacepod_module/armor/heavy
 	category = list(POD_FAB_CATEGORY_ARMOR)
 
+/datum/design/pod_life_support
+	construction_time = 100
+	name = "Модуль жизнеобеспечения."
+	desc = "Модуль жизнеобеспечения космического челнока. Необходимый модуль если вы хотите полетать в челноке без скафандра."
+	id = "pod_life_support"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PODFAB
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
+	build_path = /obj/item/spacepod_module/life_support
+	category = list(POD_FAB_CATEGORY_MISC)
+
 /datum/design/pod_passenger_seat
 	construction_time = 100
 	name = "Модуль пассажирского сиденья."
@@ -249,7 +260,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/spacepod_key
-	category = list(POD_FAB_CATEGORY_PARTS)
+	category = list(POD_FAB_CATEGORY_MISC)
 
 /datum/design/pod_catapult
 	construction_time = 100
@@ -271,4 +282,4 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/spacepod_module/tracker
-	category = list(POD_FAB_CATEGORY_PARTS)
+	category = list(POD_FAB_CATEGORY_MISC)
