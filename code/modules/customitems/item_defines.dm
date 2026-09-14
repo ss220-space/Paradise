@@ -1448,7 +1448,7 @@ GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "
 		return
 
 	to_chat(user, span_notice("You modify the appearance of [target] based on the kit blueprints."))
-	var/obj/spacepod2/pod = target
+	var/obj/spacepod/pod = target
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"

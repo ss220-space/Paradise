@@ -31,7 +31,7 @@
 		/obj/machinery/bfl_receiver,
 		/obj/projectile,
 		/obj/singularity,
-		/obj/spacepod2,
+		/obj/spacepod,
 		/obj/structure/lattice,
 		/obj/structure/railing,
 		/obj/structure/stone_tile,

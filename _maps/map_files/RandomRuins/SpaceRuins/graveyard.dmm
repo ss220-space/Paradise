@@ -1881,7 +1881,7 @@
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "Qe" = (
-/obj/spacepod2/template/one_engine/civilian/damaged,
+/obj/spacepod/template/one_engine/civilian/damaged,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "Qr" = (

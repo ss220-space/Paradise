@@ -137,10 +137,10 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, modifiers)
 
-	if(isspacepod2(loc))
+	if(isspacepod(loc))
 		if(!isturf(A) && !isturf(A.loc)) // Prevents inventory from being drilled
 			return
-		var/obj/spacepod2/pod = loc
+		var/obj/spacepod/pod = loc
 		return pod.click_action(A, src, modifiers)
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))

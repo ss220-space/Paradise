@@ -31,3 +31,6 @@
 
 /// Spacepod frame mass in kg
 #define POD_FRAME_MASS 300
+
+/// List of active trackers
+GLOBAL_LIST_EMPTY(pod_trackers)

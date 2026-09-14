@@ -16,6 +16,7 @@
 	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = null
 	var/obj/item/spacepod_module/key_lock/key_lock = null
 	var/obj/item/spacepod_module/catapult_module/catapult = null
+	var/obj/item/spacepod_module/tracker/tracker = null
 
 /datum/spacepod_systems/Destroy(force)
 	. = ..()
@@ -31,6 +32,7 @@
 	fire_extenguisher = null
 	key_lock = null
 	catapult = null
+	tracker = null
 	QDEL_LIST(modules)
 
 /datum/spacepod_systems/proc/check_complete()
@@ -54,7 +56,7 @@
 	if(gyroscope == null)
 		. += span_notice("Отсутствует гироскопический стабилизатор.")
 
-/datum/spacepod_systems/proc/add_module(obj/spacepod2/pod, obj/item/spacepod_module/module)
+/datum/spacepod_systems/proc/add_module(obj/spacepod/pod, obj/item/spacepod_module/module)
 	module.systems = src
 	modules += module
 	if(istype(module, /obj/item/spacepod_module/battery))
@@ -82,9 +84,11 @@
 		key_lock = module
 	if(istype(module, /obj/item/spacepod_module/catapult_module))
 		catapult = module
+	if(istype(module, /obj/item/spacepod_module/tracker))
+		tracker = module
 	module.on_install(pod)
 
-/datum/spacepod_systems/proc/remove_module(obj/spacepod2/pod, obj/item/spacepod_module/module)
+/datum/spacepod_systems/proc/remove_module(obj/spacepod/pod, obj/item/spacepod_module/module)
 	module.on_remove(pod)
 	module.enable = FALSE
 	module.fire = FALSE
@@ -120,6 +124,8 @@
 		key_lock = null
 	if(istype(module, /obj/item/spacepod_module/catapult_module))
 		catapult = null
+	if(istype(module, /obj/item/spacepod_module/tracker))
+		tracker = null
 
 /datum/spacepod_systems/proc/remove_fuel_tank_from_pumps(obj/item/spacepod_module/fuel_tank/tank)
 	for(var/obj/item/spacepod_module/fuel_pump/pump in fuel_pumps)
@@ -128,7 +134,7 @@
 		if(pump.destination_tank == tank)
 			pump.destination_tank = null
 
-/datum/spacepod_systems/proc/process_work(seconds_per_tick, obj/spacepod2/pod)
+/datum/spacepod_systems/proc/process_work(seconds_per_tick, obj/spacepod/pod)
 	for(var/obj/item/spacepod_module/module as anything in modules)
 		if(module.fire)
 			module.fire_process()

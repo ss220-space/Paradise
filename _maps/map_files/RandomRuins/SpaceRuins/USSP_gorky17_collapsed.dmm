@@ -12496,7 +12496,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "LV" = (
-/obj/spacepod2/template/one_engine/civilian/damaged{
+/obj/spacepod/template/one_engine/civilian/damaged{
 	dir = 4;
 	icon_state = "pod_mil";
 	name = "Green Zwei"

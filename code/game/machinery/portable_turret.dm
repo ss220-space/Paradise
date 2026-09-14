@@ -114,7 +114,7 @@
 	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
 
-	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod2, /obj/vehicle, /mob/living))
+	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
 	if(!is_type_in_typecache(entity, valid_targets))
 		return
 
@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return assess_and_assign(ME.occupant)
 
 	if(isspacepod(target))
-		var/obj/spacepod2/SP = target
+		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 
 	if(isvehicle(target))

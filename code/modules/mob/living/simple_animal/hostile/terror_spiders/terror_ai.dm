@@ -73,7 +73,7 @@
 			targets2 += M
 		else
 			targets3 += M
-	for(var/obj/spacepod2/S in view(src, vision_range))
+	for(var/obj/spacepod/S in view(src, vision_range))
 		targets3 += S
 	if(length(targets1))
 		return targets1
@@ -214,7 +214,7 @@
 				enemies |= M
 				enemies |= M.occupant
 		else if(isspacepod(A))
-			var/obj/spacepod2/M = A
+			var/obj/spacepod/M = A
 			if(M.pilot)
 				enemies |= M
 				enemies |= M.pilot

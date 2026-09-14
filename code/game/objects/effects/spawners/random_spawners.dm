@@ -415,14 +415,14 @@
 	name = "50pc loot spacepod"
 	icon_state = "spacepod"
 	result = list(
-		/obj/spacepod2/template/two_engine/cobra = 1,
+		/obj/spacepod/template/two_engine/cobra = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod_no_weapon
 	name = "50pc loot spacepod"
 	icon_state = "spacepod"
 	result = list(
-		/obj/spacepod2/template/two_engine/cobra/no_weapon = 1,
+		/obj/spacepod/template/two_engine/cobra/no_weapon = 1,
 	)
 
 //random lavaland loot

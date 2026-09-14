@@ -7208,15 +7208,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "wb" = (
-/obj/item/spacepod_equipment/cargo/ore{
-	pixel_x = -5
-	},
-/obj/item/spacepod_equipment/sec_cargo/chair{
-	pixel_x = 5
-	},
-/obj/item/spacepod_equipment/cargo{
-	pixel_y = 13
-	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14730,7 +14721,6 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
-/obj/item/spacepod_equipment/weaponry/laser,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -15699,7 +15689,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/spacepod_equipment/weaponry/mining_laser,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

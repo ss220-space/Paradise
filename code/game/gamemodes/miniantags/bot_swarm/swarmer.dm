@@ -440,7 +440,7 @@
 	to_chat(S, span_warning("Attempting to dismantle this machine would result in an immediate counterattack. Aborting."))
 	return FALSE
 
-/obj/spacepod2/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("Destroying this vehicle would destroy us. Aborting."))
 	return FALSE
 

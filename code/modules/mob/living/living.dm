@@ -1403,7 +1403,7 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 		var/datum/gas_mixture/coffin_air = coffin.return_obj_air()
 		return coffin_air.temperature()
 	if(isspacepod(loc))
-		var/obj/spacepod2/pod = loc
+		var/obj/spacepod/pod = loc
 		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
 		return environment.temperature()

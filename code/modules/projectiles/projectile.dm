@@ -339,7 +339,7 @@
 
 
 /obj/projectile/CanPassAfterBump(atom/bumped_atom)
-	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod2(bumped_atom)))))
+	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))))
 		return TRUE
 	return ..()
 
@@ -356,7 +356,7 @@
 			range = initial(range)
 			return TRUE
 	if(firer && !ignore_source_check)
-		if(bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod2(bumped_atom)))) //cannot shoot yourself or your mech
+		if(bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))) //cannot shoot yourself or your mech
 			// loc = bumped_atom.loc
 			return FALSE
 

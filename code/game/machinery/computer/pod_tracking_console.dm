@@ -25,14 +25,14 @@
 /obj/machinery/computer/podtracker/ui_data(mob/user)
 	var/list/data = list()
 	var/list/pods = list()
-	for(var/obj/item/spacepod_equipment/misc/tracker/TR in GLOB.pod_trackers)
-		var/obj/spacepod2/my_pod = TR.my_atom
+	for(var/obj/item/spacepod_module/tracker/tracker_module in GLOB.pod_trackers)
+		var/obj/spacepod/my_pod = tracker_module.pod
 		var/podname
 		var/pilot
 		var/list/passengers
 		var/passengers_text = ""
 		if(my_pod)
-			podname = capitalize(sanitize(my_pod.name))
+			podname = capitalize(sanitize(my_pod.declent_ru(NOMINATIVE)))
 			pilot = "None"
 			passengers = list()
 			if(my_pod.pilot)
@@ -43,10 +43,10 @@
 			passengers_text = english_list(passengers, "None")
 			pods.Add(list(list("name" = podname, "podx" = my_pod.x, "pody" = my_pod.y, "podz" = my_pod.z, "pilot" = pilot, "passengers" = passengers_text)))
 		else
-			podname = capitalize(sanitize(TR.name))
+			podname = capitalize(sanitize(tracker_module.declent_ru(NOMINATIVE)))
 			pilot = "None"
 			passengers_text = "None"
-			pods.Add(list(list("name" = podname, "podx" = TR.x, "pody" = TR.y, "podz" = TR.z, "pilot" = pilot, "passengers" = passengers_text)))
+			pods.Add(list(list("name" = podname, "podx" = tracker_module.x, "pody" = tracker_module.y, "podz" = tracker_module.z, "pilot" = pilot, "passengers" = passengers_text)))
 
 	data["pods"] = pods
 	return data

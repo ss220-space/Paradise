@@ -1,11 +1,11 @@
 
-/obj/spacepod2/template
-	abstract_type = /obj/spacepod2/template
+/obj/spacepod/template
+	abstract_type = /obj/spacepod/template
 	name = "template spacepod"
 	desc = "Шаблонный космический челнок."
 	assemble_process = FALSE
 
-/obj/spacepod2/template/create_internal_system()
+/obj/spacepod/template/create_internal_system()
 	. = ..()
 	create_battery()
 	create_fuel_and_engines()
@@ -14,33 +14,33 @@
 	create_armor()
 	create_misc_modules()
 
-/obj/spacepod2/template/proc/create_battery()
+/obj/spacepod/template/proc/create_battery()
 	var/obj/item/spacepod_module/battery/battery = new /obj/item/spacepod_module/battery/full(src)
 	systems.add_module(src, battery)
 
-/obj/spacepod2/template/proc/create_fuel_and_engines()
+/obj/spacepod/template/proc/create_fuel_and_engines()
 	return // implement on specific spacepod
 
-/obj/spacepod2/template/proc/create_gyroscope()
+/obj/spacepod/template/proc/create_gyroscope()
 	var/obj/item/spacepod_module/gyroscope/gyro = new(src)
 	systems.add_module(src, gyro)
 
-/obj/spacepod2/template/proc/create_weapon()
+/obj/spacepod/template/proc/create_weapon()
 	return // implement on specific spacepod
 
-/obj/spacepod2/template/proc/create_armor()
+/obj/spacepod/template/proc/create_armor()
 	return // implement on specific spacepod
 
-/obj/spacepod2/template/proc/create_misc_modules()
+/obj/spacepod/template/proc/create_misc_modules()
 	return // implement on specific spacepod
 
 
 // MARK: One engine pod
-/obj/spacepod2/template/one_engine
+/obj/spacepod/template/one_engine
 	name = "one engine spacepod"
 	desc = "Однодвигательный космический челнок."
 
-/obj/spacepod2/template/one_engine/create_fuel_and_engines()
+/obj/spacepod/template/one_engine/create_fuel_and_engines()
 	// Total mass: 1090 кг
 	// Total thrust: 3500
 	// fueltank
@@ -74,7 +74,7 @@
 	systems.add_module(src, apu)
 	systems.add_module(src, central_engine)
 
-/obj/spacepod2/template/one_engine/create_armor()
+/obj/spacepod/template/one_engine/create_armor()
 	var/obj/item/spacepod_module/armor/fore_armor = new /obj/item/spacepod_module/armor/light(src)
 	fore_armor.id = "fore_armor"
 	fore_armor.module_name = "Носовая броня"
@@ -86,11 +86,11 @@
 
 
 // MARK: Two engine
-/obj/spacepod2/template/two_engine
+/obj/spacepod/template/two_engine
 	name = "two engine spacepod"
 	desc = "Двухдвигательный космический челнок."
 
-/obj/spacepod2/template/two_engine/create_fuel_and_engines()
+/obj/spacepod/template/two_engine/create_fuel_and_engines()
 	// Total mass: 2825 кг
 	// Total thrust: 12000
 	// fuel tanks
@@ -182,7 +182,7 @@
 	systems.add_module(src, engine_left)
 
 
-/obj/spacepod2/template/two_engine/create_armor()
+/obj/spacepod/template/two_engine/create_armor()
 	var/obj/item/spacepod_module/armor/fore_armor = new /obj/item/spacepod_module/armor/light(src)
 	fore_armor.id = "fore_armor"
 	fore_armor.module_name = "Носовая броня"
@@ -194,11 +194,11 @@
 
 
 // MARK: Civilian spacepod
-/obj/spacepod2/template/one_engine/civilian
+/obj/spacepod/template/one_engine/civilian
 	name = "wanderer spacepod"
 	desc = "Стильный однодвигательный гражданский космический челнок \"Странник\"."
 
-/obj/spacepod2/template/one_engine/civilian/get_ru_names()
+/obj/spacepod/template/one_engine/civilian/get_ru_names()
 	return alist(
 		NOMINATIVE = "космический челнок \"Странник\"",
 		GENITIVE = "космического челнока \"Странник\"",
@@ -208,23 +208,23 @@
 		PREPOSITIONAL = "космическом челноке \"Странник\"",
 	)
 
-/obj/spacepod2/template/one_engine/civilian/damaged
+/obj/spacepod/template/one_engine/civilian/damaged
 	desc = "Сильно поврежденный космический челнок \"Странник\""
 
-/obj/spacepod2/template/one_engine/civilian/damaged/Initialize(mapload)
+/obj/spacepod/template/one_engine/civilian/damaged/Initialize(mapload)
 	. = ..()
 	take_damage(250, BRUTE)
 	update_icon()
 
 
 // MARK: Security spacepod
-/obj/spacepod2/template/two_engine/raptor
+/obj/spacepod/template/two_engine/raptor
 	name = "raptor spacepod"
 	desc = "Стандартный патрульный челнок службы безопасности \"Раптор\". Оснащен двумя двигателями и оружейным модулем для патрулирования космического пространства около станции."
 	icon_state = "pod_dece"
 	max_integrity = 450
 
-/obj/spacepod2/template/two_engine/raptor/get_ru_names()
+/obj/spacepod/template/two_engine/raptor/get_ru_names()
 	return alist(
 		NOMINATIVE = "космический челнок \"Раптор\"",
 		GENITIVE = "космического челнока \"Раптор\"",
@@ -234,7 +234,7 @@
 		PREPOSITIONAL = "космическом челноке \"Раптор\"",
 	)
 
-/obj/spacepod2/template/two_engine/raptor/create_weapon()
+/obj/spacepod/template/two_engine/raptor/create_weapon()
 	var/obj/item/spacepod_module/weapon/turret/gun_turret = new(src)
 	systems.add_module(src, gun_turret)
 	// Primary weapon - disabler
@@ -244,7 +244,7 @@
 	var/obj/item/gun/energy/laser/laser_gun = new(src)
 	gun_turret.install_gun(laser_gun)
 
-/obj/spacepod2/template/two_engine/raptor/create_misc_modules()
+/obj/spacepod/template/two_engine/raptor/create_misc_modules()
 	// Life support module
 	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
 	// Passenger seat for arrests
@@ -258,7 +258,7 @@
 	// Emergency catapult module
 	systems.add_module(src, new /obj/item/spacepod_module/catapult_module(src))
 
-/obj/spacepod2/template/two_engine/raptor/create_armor()
+/obj/spacepod/template/two_engine/raptor/create_armor()
 	var/obj/item/spacepod_module/armor/fore_armor = new /obj/item/spacepod_module/armor/heavy(src)
 	fore_armor.id = "fore_armor"
 	fore_armor.module_name = "Носовая броня"
@@ -278,13 +278,13 @@
 
 
 // MARK: Syndicate spacepod
-/obj/spacepod2/template/two_engine/cobra
+/obj/spacepod/template/two_engine/cobra
 	name = "cobra spacepod"
 	desc = "Челнок, окрашенный в цвета \"Синдиката\"."
 	icon_state = "pod_synd"
 	max_integrity = 400
 
-/obj/spacepod2/template/two_engine/cobra/get_ru_names()
+/obj/spacepod/template/two_engine/cobra/get_ru_names()
 	return alist(
 		NOMINATIVE = "космический челнок \"Кобра\"",
 		GENITIVE = "космического челнока \"Кобра\"",
@@ -294,7 +294,7 @@
 		PREPOSITIONAL = "космическом челноке \"Кобра\"",
 	)
 
-/obj/spacepod2/template/two_engine/cobra/create_weapon()
+/obj/spacepod/template/two_engine/cobra/create_weapon()
 	var/obj/item/spacepod_module/weapon/turret/gun_turret = new(src)
 	systems.add_module(src, gun_turret)
 	// Primary weapon - C-20rm SMG
@@ -304,7 +304,7 @@
 	var/obj/item/gun/projectile/automatic/shotgun/bulldog/secondary = new(src)
 	gun_turret.install_gun(secondary)
 
-/obj/spacepod2/template/two_engine/raptor/create_armor()
+/obj/spacepod/template/two_engine/raptor/create_armor()
 	var/obj/item/spacepod_module/armor/fore_armor = new /obj/item/spacepod_module/armor/heavy(src)
 	fore_armor.id = "fore_armor"
 	fore_armor.module_name = "Носовая броня"
@@ -330,10 +330,10 @@
 	bottom_side_armor.module_name = "Броня днища"
 	systems.add_module(src, bottom_side_armor)
 
-/obj/spacepod2/template/two_engine/cobra/create_misc_modules()
+/obj/spacepod/template/two_engine/cobra/create_misc_modules()
 	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
 	systems.add_module(src, new /obj/item/spacepod_module/fire_extingusher/five_charges(src))
 
-/obj/spacepod2/template/two_engine/cobra/no_weapon/create_weapon()
+/obj/spacepod/template/two_engine/cobra/no_weapon/create_weapon()
 	var/obj/item/spacepod_module/weapon/turret/gun_turret = new(src)
 	systems.add_module(src, gun_turret)

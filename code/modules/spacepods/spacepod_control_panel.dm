@@ -11,7 +11,7 @@
 
 /datum/ui_module/spacepod_control_panels
 	name = "Панель управления космическим челноком"
-	var/obj/spacepod2/pod
+	var/obj/spacepod/pod
 	var/selected_tab_id = TAB_INSTRUMENTAL
 
 /datum/ui_module/spacepod_control_panels/ui_state(mob/user)

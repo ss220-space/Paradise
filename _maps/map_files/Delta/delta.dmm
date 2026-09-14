@@ -78684,7 +78684,7 @@
 /area/station/maintenance/fpmaint)
 "pam" = (
 /obj/structure/table/wood,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000;
 	pixel_x = 5;
 	pixel_y = 11
@@ -79202,7 +79202,7 @@
 	},
 /area/station/science/xenobiology)
 "peh" = (
-/obj/spacepod2/template/two_engine/raptor{
+/obj/spacepod/template/two_engine/raptor{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -129764,7 +129764,7 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/item/clothing/suit/jacket/pilot,

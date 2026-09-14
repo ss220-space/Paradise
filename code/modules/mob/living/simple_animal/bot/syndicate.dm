@@ -144,7 +144,7 @@
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		break
 
-	for(var/obj/spacepod2/P in view(7, src))
+	for(var/obj/spacepod/P in view(7, src))
 		if((P.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 		if(!P.pilot)

@@ -497,7 +497,7 @@
 		if(M.occupant)
 			return FALSE
 	if(isspacepod(the_target))
-		var/obj/spacepod2/S = the_target
+		var/obj/spacepod/S = the_target
 		if(S.pilot)
 			return FALSE
 	return TRUE

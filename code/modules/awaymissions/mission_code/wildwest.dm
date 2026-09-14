@@ -218,7 +218,7 @@ GAME_VERB_PROC(/mob/living/carbon, immortality, "Воскрешение", VERB_C
 			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble.' Then the line goes dead."))
 			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name == "wildwest_syndipod")
-					var/obj/spacepod2/template/two_engine/cobra/pod = new(get_turf(L))
+					var/obj/spacepod/template/two_engine/cobra/pod = new(get_turf(L))
 					pod.name = "Syndi Recon Pod"
 				if(L.name == "wildwest_syndibackup")
 					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))

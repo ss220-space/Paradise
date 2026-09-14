@@ -701,7 +701,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/podbay)
 "aeD" = (
-/obj/spacepod2/template/two_engine/raptor{
+/obj/spacepod/template/two_engine/raptor{
 	req_access = list(71)
 	},
 /turf/simulated/floor/engine,
@@ -2460,7 +2460,7 @@
 	dir = 4
 	},
 /obj/item/paper/monitorkey,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	pixel_x = -8;
 	pixel_y = 10
 	},
@@ -3496,7 +3496,7 @@
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
 /obj/machinery/light_switch/directional/west,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/item/gps,
@@ -74352,7 +74352,6 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/spacepod_equipment/weaponry/laser,
 /obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

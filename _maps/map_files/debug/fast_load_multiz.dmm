@@ -113,7 +113,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "ww" = (
-/obj/spacepod2/template/two_engine/raptor,
+/obj/spacepod/template/two_engine/raptor,
 /turf/space,
 /area/space)
 "xL" = (

@@ -88,7 +88,7 @@
 	pilot?.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
 	return TRUE
 
-/obj/spacepod2/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
+/obj/spacepod/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	var/list/happy_three_friends = passengers + pilot
 	..()
 	for(var/mob/living/victim as anything in happy_three_friends)

@@ -267,7 +267,7 @@
 			status_tab_data[++status_tab_data.len] = list("Заряд рывков:","[ninja.get_dash_charge()]")
 
 	if(isspacepod(loc))
-		var/obj/spacepod2/S = loc
+		var/obj/spacepod/S = loc
 		status_tab_data[++status_tab_data.len] = list("Целостность челнока:", "[!S.obj_integrity ? "0" : "[(S.obj_integrity / S.max_integrity) * 100]"]%")
 
 /// Define used for calculating explosve damage and effects upon humanoids. Result is >= 0

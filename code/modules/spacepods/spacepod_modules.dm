@@ -47,13 +47,13 @@
 	integrity = max_integrity
 	name = "module \"[module_name]\""
 
-/obj/item/spacepod_module/proc/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/proc/install_to(mob/living/user, obj/spacepod/pod)
 	return FALSE
 
-/obj/item/spacepod_module/proc/on_install(obj/spacepod2/pod)
+/obj/item/spacepod_module/proc/on_install(obj/spacepod/pod)
 	return TRUE
 
-/obj/item/spacepod_module/proc/on_remove(obj/spacepod2/pod)
+/obj/item/spacepod_module/proc/on_remove(obj/spacepod/pod)
 	return TRUE
 
 /obj/item/spacepod_module/proc/fire_process()
@@ -138,7 +138,7 @@
 	. = ..()
 	fuel_amount = fuel_capacity
 
-/obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.fuel_tanks) >= POD_MAX_FUEL_TANKS)
 		return FALSE
 	var/fueltank_id = "fueltank_[length(pod.systems.fuel_tanks) + 1]"
@@ -174,7 +174,7 @@
 	. = ..()
 	power = power_capacity
 
-/obj/item/spacepod_module/battery/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/battery/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.battery != null)
 		to_chat(user, span_notice("Аккумуляторная батарея уже установлена в космическом челноке!"))
 		return FALSE
@@ -211,7 +211,7 @@
 	var/obj/item/spacepod_module/fuel_tank/source_tank
 	var/obj/item/spacepod_module/fuel_tank/destination_tank
 
-/obj/item/spacepod_module/fuel_pump/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/fuel_pump/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.fuel_tanks) == 0)
 		to_chat(user, span_notice("Чтобы установить топливный насос, сначала установите топливный бак!"))
 		return FALSE
@@ -288,7 +288,7 @@
 	/// Receiving external rotation
 	var/external_rotation = FALSE
 
-/obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.engines) >= POD_MAX_ENGINES)
 		return FALSE
 	var/engine_id = "engine_[length(pod.systems.engines) + 1]"
@@ -373,7 +373,7 @@
 /obj/item/spacepod_module/fuel_tank/engine/apu/is_apu()
 	return TRUE
 
-/obj/item/spacepod_module/fuel_tank/engine/apu/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/fuel_tank/engine/apu/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.apu != null)
 		to_chat(user, span_notice("Вспомогательная силовая установка уже установлена в космическом челноке!"))
 		return FALSE
@@ -453,7 +453,7 @@
 		return
 	current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
 
-/obj/item/spacepod_module/gyroscope/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/gyroscope/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.gyroscope != null)
 		to_chat(user, span_notice("Стабилизирующий гироскоп уже установлен в космическом челноке!"))
 		return FALSE
@@ -482,7 +482,7 @@
 	QDEL_NULL(secondary)
 	. = ..()
 
-/obj/item/spacepod_module/weapon/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/weapon/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.weapon != null)
 		to_chat(user, span_notice("Модуль вооружения уже установлен в космическом челноке!"))
 		return FALSE
@@ -524,7 +524,7 @@
 	src.id = id
 	src.name = name
 
-/datum/spacepod_weapon_slot/proc/reload(obj/spacepod2/pod, mob/user)
+/datum/spacepod_weapon_slot/proc/reload(obj/spacepod/pod, mob/user)
 	if(weapon == null)
 		return
 	if(isenergygun(weapon))
@@ -601,7 +601,7 @@
 	max_integrity = 100
 	mass = 60
 
-/obj/item/spacepod_module/armor/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/armor/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.armors) >= POD_ARMOR_PLATE_BY_ENGINE * length(pod.systems.engines))
 		to_chat(user, span_notice("Установлено максимальное количество модулей брони в космическом челноке!"))
 		return FALSE
@@ -638,7 +638,7 @@
 	mass = 40
 	consume_power = 50
 
-/obj/item/spacepod_module/life_support/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/life_support/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.life_support != null)
 		to_chat(user, span_notice("Модуль жизнеобеспечения уже установлен в космическом челноке!"))
 		return FALSE
@@ -666,17 +666,17 @@
 	hit_weight = 0
 	mass = 220
 
-/obj/item/spacepod_module/passenger_seat/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/passenger_seat/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.max_passengers >= POD_PASSENGERS_BY_ENGINE * length(pod.systems.engines))
 		to_chat(user, span_notice("Установлено максимальное количество пассажирский сидений в космическом челноке!"))
 		return FALSE
 	src.id = "passenger_seat_[pod.max_passengers]"
 	return TRUE
 
-/obj/item/spacepod_module/passenger_seat/on_install(obj/spacepod2/pod)
+/obj/item/spacepod_module/passenger_seat/on_install(obj/spacepod/pod)
 	pod.max_passengers += 1
 
-/obj/item/spacepod_module/passenger_seat/on_remove(obj/spacepod2/pod)
+/obj/item/spacepod_module/passenger_seat/on_remove(obj/spacepod/pod)
 	pod.max_passengers -= 1
 
 /obj/item/spacepod_module/fire_extingusher
@@ -691,7 +691,7 @@
 /obj/item/spacepod_module/fire_extingusher/five_charges
 	charges = 5
 
-/obj/item/spacepod_module/passenger_seat/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/fire_extingusher/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.fire_extenguisher != null)
 		to_chat(user, span_notice("Модуль пожаротушения уже установлен в космическом челноке!"))
 		return FALSE
@@ -713,16 +713,16 @@
 	. = ..()
 	key_id = ++id_source
 
-/obj/item/spacepod_module/key_lock/install_to(mob/living/user, obj/spacepod2/pod)
+/obj/item/spacepod_module/key_lock/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.key_lock != null)
 		to_chat(user, span_notice("Модуль замка уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/key_lock/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/spacepod_equipment/key))
+	if(istype(item, /obj/item/spacepod_key))
 		add_fingerprint(user)
-		var/obj/item/spacepod_equipment/key/key = item
+		var/obj/item/spacepod_key/key = item
 		if(key.id)
 			to_chat(user, span_warning("Этот ключ уже используется."))
 			return ATTACK_CHAIN_PROCEED
@@ -732,6 +732,24 @@
 
 	return ..()
 
+/obj/item/spacepod_key
+	name = "spacepod key"
+	desc = "Маленький ключ для доступа к космическому челноку. Предназначен для открытия модуля замка у космического челнока."
+	icon = 'icons/obj/spacepod.dmi'
+	icon_state = "podkey"
+	w_class = WEIGHT_CLASS_TINY
+	var/id = 0
+
+/obj/item/spacepod_key/get_ru_names()
+	return alist(
+		NOMINATIVE = "ключ к космическому челноку",
+		GENITIVE = "ключа к космическому челноку",
+		DATIVE = "ключу к космическому челноку",
+		ACCUSATIVE = "ключ к космическому челноку",
+		INSTRUMENTAL = "ключом к космическому челноку",
+		PREPOSITIONAL = "ключе к космическому челноку",
+	)
+
 /obj/item/spacepod_module/catapult_module
 	id = "catapult"
 	caption = "CAT"
@@ -739,3 +757,28 @@
 	desc = "Система экстренной эвакуации пилота. Автоматически выбрасывает пилота в направлении, противоположном курсу челнока в случае критического повреждения корпуса."
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
 	mass = 50
+
+/obj/item/spacepod_module/catapult_module/install_to(mob/living/user, obj/spacepod/pod)
+	if(pod.systems.catapult != null)
+		to_chat(user, span_notice("Модуль пожаротушения уже установлен в космическом челноке!"))
+		return FALSE
+	return TRUE
+
+/obj/item/spacepod_module/tracker
+	id = "tracker"
+	caption = "TR"
+	module_name = "Модуль маячка"
+	desc = "Модуль маячка, позволяет находить челнок с помощью специальной консоли."
+	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
+	mass = 5
+	var/obj/spacepod/pod
+
+/obj/item/spacepod_module/tracker/on_install(obj/spacepod/pod)
+	src.pod = pod
+	GLOB.pod_trackers |= src
+	return TRUE
+
+/obj/item/spacepod_module/tracker/on_remove(obj/spacepod/pod)
+	src.pod = null
+	GLOB.pod_trackers -= src
+	return TRUE

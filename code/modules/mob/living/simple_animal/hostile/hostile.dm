@@ -167,7 +167,7 @@
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
-		var/static/possible_targets = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod2, /mob/living))
+		var/static/possible_targets = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod, /mob/living))
 		for(var/HM in typecache_filter_list(range(vision_range, targets_from), possible_targets))
 			if(targets_from.can_see(HM, vision_range))
 				. += HM
@@ -239,7 +239,7 @@
 				enemies |= M
 				enemies |= M.occupant
 		else if(isspacepod(A))
-			var/obj/spacepod2/S = A
+			var/obj/spacepod/S = A
 			if(S.pilot)
 				enemies |= S
 				enemies |= S.pilot
@@ -275,7 +275,7 @@
 			if(M.occupant)
 				return A
 		else if(isspacepod(A))
-			var/obj/spacepod2/S = A
+			var/obj/spacepod/S = A
 			if(S.pilot)
 				return A
 
@@ -341,7 +341,7 @@
 					return TRUE
 
 		if(isspacepod(the_target))
-			var/obj/spacepod2/S = the_target
+			var/obj/spacepod/S = the_target
 			if(S.pilot)//Just so we don't attack empty pods
 				if(CanAttack(S.pilot))
 					return TRUE
@@ -726,7 +726,7 @@
 	var/static/hostile_machines = typecacheof(list(
 		/obj/machinery/porta_turret,
 		/obj/mecha,
-		/obj/spacepod2,
+		/obj/spacepod,
 	))
 	. = list()
 	for(var/mob/mob as anything in SSmobs.clients_by_zlevel[check_z])
