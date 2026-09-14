@@ -22,6 +22,16 @@
 	/// Default gun weight class buffer variable
 	var/gun_w_class
 
+/obj/item/gun_module/stock/get_ru_names()
+	return alist(
+		NOMINATIVE = "телескопический приклад",
+		GENITIVE = "телескопического приклада",
+		DATIVE = "телескопическому прикладу",
+		ACCUSATIVE = "телескопический приклад",
+		INSTRUMENTAL = "телескопическим прикладом",
+		PREPOSITIONAL = "телескопическом прикладе",
+	)
+
 /obj/item/gun_module/stock/Destroy()
 	QDEL_NULL(buffered_overlay_unfold)
 	return ..()

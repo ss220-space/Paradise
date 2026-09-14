@@ -11,7 +11,7 @@
 		/obj/item/clothing/shoes/clown_shoes,
 		/obj/item/clothing/under/rank/clown,
 		/obj/item/pda/clown,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
 		/obj/item/reagent_containers/spray/waterflower,
 		/obj/item/storage/backpack/clown,
 		/obj/item/toy/crayon/rainbow,
@@ -27,7 +27,7 @@
 		/obj/item/clothing/suit/suspenders,
 		/obj/item/clothing/under/mime,
 		/obj/item/pda/mime,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
 		/obj/item/toy/crayon/mime,
 	)
 

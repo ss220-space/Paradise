@@ -29,6 +29,12 @@
 		PREPOSITIONAL = "винтовке Мосина",
 	)
 
+/obj/item/gun/projectile/shotgun/boltaction/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "[bolt_open ? "За" : "От"]крыть затвор"
+		return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
 	if(bolt_open)

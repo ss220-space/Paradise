@@ -147,7 +147,7 @@
 
 /datum/keybinding/carbon/parry
 	name = "parry"
-	full_name = "Парирование"
-	description = "Активирует парирование предметом в руках, если предмет способен на это."
+	full_name = "Блок"
+	description = "Активирует блок предметом в руках, если предмет способен на это."
 	hotkey_keys = list("Space")
 	keybind_signal = COMSIG_KB_CARBON_PARRY

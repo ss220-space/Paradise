@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(config && CONFIG_GET(string/server_extra_features))
 		features += CONFIG_GET(string/server_extra_features)
 
-	if(config && CONFIG_GET(flag/allow_vote_mode))
+	if(config && CONFIG_GET(flag/allow_vote_gamemode))
 		features += "vote"
 
 	if(config && CONFIG_GET(string/wikiurl))
