@@ -320,7 +320,7 @@
 	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
 	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
 	if(trans)
-		balloon_alert(user, "перелито [trans] ед.")
+		balloon_alert(user, UNLINT("перелито [trans] ед."))
 	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_TO, target)
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
@@ -338,7 +338,7 @@
 	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
 	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
 	if(trans)
-		balloon_alert(user, "налито [trans] ед.")
+		balloon_alert(user, UNLINT("налито [trans] ед."))
 	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_FROM, target)
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
