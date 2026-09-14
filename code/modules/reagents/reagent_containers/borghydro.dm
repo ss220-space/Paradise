@@ -6,7 +6,8 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
+	can_empty = FALSE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
@@ -85,10 +86,6 @@
 
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
-
-/obj/item/reagent_containers/borghypo/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)

@@ -1,7 +1,8 @@
 // MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "L6 SAW"
-	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
+	desc = "Тяжёлый ручной пулемёт калибра 7,62x51 мм, модифицированный для использования в ближнем бою. Обеспечивает высокую плотность огня ценой значительной отдачи."
+	gender = MALE
 	icon = 'icons/obj/weapons/guns_48x32.dmi'
 	icon_state = "l6saw"
 	item_state = "l6closedmag"
@@ -23,7 +24,23 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -11),
 	)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
-	var/cover_open = 0
+	var/cover_open = FALSE
+
+/obj/item/gun/projectile/automatic/l6_saw/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "[cover_open ? "За" : "От"]крыть крышку"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/gun/projectile/automatic/l6_saw/get_ru_names()
+	return alist(
+		NOMINATIVE = "ручной пулемёт L6 SAW",
+		GENITIVE = "ручного пулемёта L6 SAW",
+		DATIVE = "ручному пулемёту L6 SAW",
+		ACCUSATIVE = "ручной пулемёт L6 SAW",
+		INSTRUMENTAL = "ручным пулемётом L6 SAW",
+		PREPOSITIONAL = "ручном пулемёте L6 SAW",
+	)
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open

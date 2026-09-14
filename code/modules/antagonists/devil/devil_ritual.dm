@@ -207,7 +207,9 @@
 
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
-			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
+			var/datum/action/cooldown/spell/jaunt/infernal_jaunt/jaunt = locate() in invoker.mind.spell_list
+			if(jaunt)
+				qdel(jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
 			GLOB.major_announcement.announce(
 				message = "Тёмная сущность, известная как [devil.info.truename], из измерения, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие Космического Закона и Стандартных Рабочих Процедур приостановлено. Весь экипаж должен уничтожать любые проявления Ада на месте.",

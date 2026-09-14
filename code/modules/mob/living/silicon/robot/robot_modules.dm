@@ -125,7 +125,8 @@
 	R.add_language(LANGUAGE_MOTH, FALSE)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	add_verb(R, subsystems)
+	for(var/verb in subsystems)
+		ASSIGN_GAME_VERB_DIRECT(R, verb)
 
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
@@ -133,8 +134,8 @@
 		R.module_actions += act
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	remove_verb(R, subsystems)
-
+	for(var/verb in subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(R, verb)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
@@ -175,7 +176,10 @@
 	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
 	name = "Generalist"
 	module_type = "Standard"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(ENG_FREQ_NAME = 1, MED_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SRV_FREQ_NAME = 1, SUP_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -246,7 +250,9 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	module_type = "Medical"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(MED_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -307,7 +313,7 @@
 	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/stack/medical/splint(src)
 	modules += new /obj/item/stack/nanopaste/cyborg(src)
-	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
+	modules += new /obj/item/reagent_containers/cup/beaker/large(src)
 	modules += new /obj/item/reagent_containers/dropper(src)
 	modules += new /obj/item/reagent_containers/syringe(src)
 	modules += new /obj/item/crowbar/cyborg(src)
@@ -363,7 +369,10 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_blueprints),
+	)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	channels = list(ENG_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/eng
@@ -461,7 +470,9 @@
 /obj/item/robot_module/security
 	name = "Security"
 	module_type = "Security"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/sec
 	borg_skins = list(
@@ -674,7 +685,7 @@
 	modules += new /obj/item/handheld_chem_dispenser/botanical(src)
 	modules += new /obj/item/handheld_chem_dispenser/cooking(src)
 	modules += new /obj/item/kitchen/knife(src)
-	modules += new /obj/item/reagent_containers/glass/bucket(src)
+	modules += new /obj/item/reagent_containers/cup/bucket(src)
 	modules += new /obj/item/cultivator(src)
 	modules += new /obj/item/shovel/spade(src)
 	modules += new /obj/item/storage/bag/plants/portaseeder(src)
@@ -697,7 +708,7 @@
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray(src)
-	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
+	modules += new /obj/item/reagent_containers/cup/glass/shaker(src)
 	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/kitchen/knife/butcher/meatcleaver(src)

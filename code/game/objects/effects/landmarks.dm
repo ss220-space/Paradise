@@ -896,4 +896,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 					break
 			if(dense_object)
 				continue
-			hangover_debris += new /obj/item/reagent_containers/food/drinks/cans/beer/almost_empty(turf_to_spawn_on)
+			hangover_debris += new /obj/item/reagent_containers/cup/soda_cans/beer/almost_empty(turf_to_spawn_on)

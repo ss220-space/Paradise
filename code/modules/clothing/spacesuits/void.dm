@@ -164,7 +164,7 @@
 	desc = "Стандартный скафандр \"премиум\" класса для командного состава и важных персон. Сочетает корпоративный стиль с практичностью и удобством. Легкий, не сковывает движений. Компактно складывается. Разработан NASA."
 	icon_state = "void_ntblue"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/storage/briefcase, /obj/item/pda, /obj/item/paicard, /obj/item/aicard, /obj/item/ai_module, /obj/item/reagent_containers/food/drinks/flask, /obj/item/storage/lockbox, /obj/item/megaphone, /obj/item/folder, /obj/item/card, /obj/item/camera, /obj/item/melee/baton)
+	allowed = list(/obj/item/storage/briefcase, /obj/item/pda, /obj/item/paicard, /obj/item/aicard, /obj/item/ai_module, /obj/item/reagent_containers/cup/glass/flask, /obj/item/storage/lockbox, /obj/item/megaphone, /obj/item/folder, /obj/item/card, /obj/item/camera, /obj/item/melee/baton)
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, FIRE = 50, ACID = 50)
 	item_state = "void_ntblue"
 

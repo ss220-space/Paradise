@@ -2,6 +2,7 @@
 #define MOOD_RESET "reset"
 
 /datum/emote/living/simple_animal/slime
+	abstract_type = /datum/emote/living/simple_animal/slime
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/slime)
 	mob_type_blacklist_typecache = null
 	/// Apply mood of the emote. Set this to MOOD_RESET to cause the emote to reset the mood back to default.

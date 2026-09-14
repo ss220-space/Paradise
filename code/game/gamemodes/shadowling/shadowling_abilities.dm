@@ -1,6 +1,6 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-/obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/user)
+/datum/action/cooldown/spell/proc/shadowling_check(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
 
@@ -24,43 +24,33 @@
 /**
  * Stuns and mutes a human target, depending on the distance relative to the shadowling.
  */
-/obj/effect/proc_holder/spell/shadowling_glare
+/datum/action/cooldown/spell/aoe/shadowling_glare
 	name = "Glare"
 	desc = "Оглушает и заглушает цель на приличную продолжительность. Продолжительность зависит от близости к цели."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	need_active_overlay = TRUE
+	cooldown_time = 30 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "glare"
+	background_icon_state = "bg_shadowling"
+	max_targets = 1
+	aoe_radius = 10
+	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/shadowling_living
 
-	action_icon_state = "glare"
-	action_background_icon_state = "bg_shadowling"
-
-	selection_activated_message = span_notice_alt("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message = span_notice_alt("Ваши глаза расслабляются... пока что.")
-
-/obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.random_target = TRUE
-	T.target_priority = SPELL_TARGET_CLOSEST
-	T.max_targets = 1
-	T.range = 10
-	return T
-
-/obj/effect/proc_holder/spell/shadowling_glare/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+/datum/action/cooldown/spell/aoe/shadowling_glare/can_cast_spell(feedback)
+	var/mob/living/caster = owner
+	if(caster.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
-	. = ..()
+	return ..()
 
-/obj/effect/proc_holder/spell/shadowling_glare/valid_target(mob/living/carbon/human/target, user)
-	return !target.stat && !is_shadow_or_thrall(target)
+/datum/action/cooldown/spell/aoe/shadowling_glare/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/carbon/human/target = victim
 
-/obj/effect/proc_holder/spell/shadowling_glare/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/target = targets[1]
-
-	user.visible_message(span_warning("<b>Глаза [user] вспыхивают ослепительно красным светом!</b>"))
-	var/distance = get_dist(target, user)
+	caster.visible_message(span_warning("<b>Глаза [caster] вспыхивают ослепительно красным светом!</b>"))
+	var/distance = get_dist(target, caster)
 	if(distance <= 2)
 		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."), \
-								span_userdanger("Ваш взгляд насильно притягивается к глазам [user], и вы пленяетесь их неописуемой красотой..."))
+								span_userdanger("Ваш взгляд насильно притягивается к глазам [caster], и вы пленяетесь их неописуемой красотой..."))
 
 		target.Weaken(4 SECONDS)
 		target.AdjustSilence(20 SECONDS)
@@ -74,106 +64,105 @@
 		to_chat(target, span_userdanger("Красный свет вспыхивает перед глазами, и разум пытается противостоять ему... Вы обессилены... Вы не в состоянии говорить..."))
 		target.visible_message(span_danger("[target] застывает на месте, [GEND_HIS_HER(target)] глаза стекленеют..."))
 
-/obj/effect/proc_holder/spell/aoe/shadowling_veil
+/datum/action/cooldown/spell/aoe/shadowling_veil
 	name = "Veil"
 	desc = "Гасит большинство близлежащих источников света."
-	base_cooldown = 15 SECONDS //Short cooldown because people can just turn the lights back on
-	clothes_req = FALSE
+	cooldown_time = 15 SECONDS //Short cooldown because people can just turn the lights back on
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
-	action_icon_state = "veil"
-	action_background_icon_state = "bg_shadowling"
-	aoe_range = 5
+	button_icon_state = "veil"
+	background_icon_state = "bg_shadowling"
+	aoe_radius = 5
+	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/turfs
 
-/obj/effect/proc_holder/spell/aoe/shadowling_veil/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = aoe_range
-	return T
-
-/obj/effect/proc_holder/spell/aoe/shadowling_veil/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+/datum/action/cooldown/spell/aoe/shadowling_veil/can_cast_spell(feedback)
+	var/mob/living/user = owner
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
+	return ..() && shadowling_check(user)
+
+/datum/action/cooldown/spell/aoe/shadowling_veil/cast(atom/cast_on)
 	. = ..()
+	to_chat(owner, span_shadowling("Вы бесшумно отключаете все ближайшие источники света."))
 
-/obj/effect/proc_holder/spell/aoe/shadowling_veil/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
-		return
+/datum/action/cooldown/spell/aoe/shadowling_veil/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/turf/turf = victim
+	turf.extinguish_light()
+	for(var/atom/atom as anything in turf.contents)
+		if(is_type_in_list(atom, blacklisted_lights))
+			continue
+		atom.extinguish_light()
 
-	to_chat(user, span_shadowling("Вы бесшумно отключаете все ближайшие источники света."))
-	for(var/turf/turf in targets)
-		turf.extinguish_light()
-		for(var/atom/atom in turf.contents)
-			if(is_type_in_list(atom, blacklisted_lights))
-				continue
-			atom.extinguish_light()
-
-/obj/effect/proc_holder/spell/shadowling_shadow_walk
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk
 	name = "Shadow Walk"
 	desc = "На короткое время переносит вас в пространство между мирами, позволяя проходить сквозь стены и делая невидимым."
-	base_cooldown = 30 SECONDS //Used to be twice this, buffed
-	clothes_req = FALSE
-	phase_allowed = TRUE
-	action_icon_state = "shadow_walk"
-	action_background_icon_state = "bg_shadowling"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "shadow_walk"
+	background_icon_state = "bg_shadowling"
+	school = SCHOOL_FORBIDDEN
+	sound = 'sound/effects/bamf.ogg'
+	exit_jaunt_sound = 'sound/effects/bamf.ogg'
+	jaunt_duration = 4 SECONDS
+	jaunt_in_time = 0
+	jaunt_in_type = /obj/effect/temp_visual/shadowling_phase
+	jaunt_out_type = /obj/effect/temp_visual/shadowling_phase
+	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/shadow
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_shadow_walk/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_shadow_walk/cast(list/targets, mob/living/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
-		return
-
-	playsound(user.loc, 'sound/effects/bamf.ogg', 50, TRUE)
-	// mech supress escape
-	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
-		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
-	user.visible_message(span_warning("[user] исчезает в клубах черного тумана!"), \
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/do_jaunt(mob/living/cast_on)
+	. = ..()
+	cast_on.SetStunned(0)
+	cast_on.SetWeakened(0)
+	cast_on.SetKnockdown(0)
+	cast_on.ExtinguishMob()
+	cast_on.pulledby?.stop_pulling()
+	cast_on.stop_pulling()
+	if(HAS_TRAIT_FROM(cast_on, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		cast_on.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+	cast_on.visible_message(span_warning("[cast_on] исчезает в клубах черного тумана!"), \
 						span_shadowling("Вы входите в пространство между мирами через небольшой проход."))
-	user.SetStunned(0)
-	user.SetWeakened(0)
-	user.SetKnockdown(0)
-	user.incorporeal_move = INCORPOREAL_NORMAL
-	user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
-	user.ExtinguishMob()
-	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
-	user.pulledby?.stop_pulling()
-	user.stop_pulling()
 
-	sleep(4 SECONDS)
-	if(QDELETED(user))
-		return
-
-	user.visible_message(span_warning("[user] внезапно появляется!"), \
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/stop_jaunt(mob/living/cast_on, obj/effect/dummy/phased_mob/spell_jaunt/holder, turf/start_point)
+	. = ..()
+	cast_on.visible_message(span_warning("[cast_on] внезапно появляется!"), \
 						span_shadowling("Давление становится слишком велико, и вы покидаете межпространственную тьму."))
-	user.incorporeal_move = INCORPOREAL_NONE
-	user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
-	user.forceMove(get_turf(user))
 
-/obj/effect/proc_holder/spell/shadowling_guise
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/do_steam_effects(turf/loc)
+	return
+
+/obj/effect/dummy/phased_mob/spell_jaunt/shadow
+	name = "shadow form"
+	movespeed = 0
+	phased_mob_icon = 'icons/effects/effects.dmi'
+	/// Icon state we use for our position indicator
+	phased_mob_icon_state = "plumbing"
+
+/datum/action/cooldown/spell/shadowling_guise
 	name = "Guise"
 	desc = "Окутывает твой силует тенями, делая тебя менее заметным."
-	base_cooldown = 120 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "shadow_walk"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 120 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "shadow_walk"
+	background_icon_state = "bg_shadowling"
 	var/conseal_time = 4 SECONDS
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_guise/Destroy()
-	if(action?.owner)
-		reveal(action.owner)
-	return ..()
+/datum/action/cooldown/spell/shadowling_guise/Remove(mob/living/remove_from)
+	. = ..()
+	reveal(remove_from)
 
-/obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/living/user = usr)
-	user.visible_message(span_warning("[user] внезапно исчезает!"), \
+/datum/action/cooldown/spell/shadowling_guise/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/caster = cast_on
+	caster.visible_message(span_warning("[caster] внезапно исчезает!"), \
 						span_shadowling("Вы окутываете себя тьмой, и вас становится трудно разглядеть."))
-	user.alpha_set(standartize_alpha(10), ALPHA_SOURCE_SHADOW_THRALL)
-	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
+	caster.alpha_set(standartize_alpha(10), ALPHA_SOURCE_SHADOW_THRALL)
+	addtimer(CALLBACK(src, PROC_REF(reveal), caster), conseal_time)
 
-/obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/living/user)
+/datum/action/cooldown/spell/shadowling_guise/proc/reveal(mob/living/user)
 	if(QDELETED(user))
 		return
 
@@ -181,22 +170,21 @@
 	user.visible_message(span_warning("[user] появляется из ниоткуда!"), \
 						span_shadowling("Ваша теневая маскировка исчезает."))
 
-/obj/effect/proc_holder/spell/shadowling_vision
+/datum/action/cooldown/spell/shadowling_vision
 	name = "Shadowling Darksight"
 	desc = "Дарует вам ночное зрение."
-	base_cooldown = 0
-	clothes_req = FALSE
-	action_icon_state = "darksight"
-	action_background_icon_state = "bg_shadowling"
+	spell_requirements = SPELL_REQUIRES_HUMAN
+	button_icon_state = "darksight"
+	background_icon_state = "bg_shadowling"
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_vision/Destroy()
-	action?.owner?.set_vision_override(null)
-	return ..()
+/datum/action/cooldown/spell/shadowling_vision/Remove(mob/living/remove_from)
+	. = ..()
+	remove_from.set_vision_override(null)
 
-/obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_vision/cast(list/targets, mob/living/carbon/human/user = usr)
+/datum/action/cooldown/spell/shadowling_vision/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/user = cast_on
 	if(!istype(user))
 		return
 
@@ -207,118 +195,108 @@
 		to_chat(user, span_notice("Вы возвращаете нормальное зрение."))
 		user.set_vision_override(null)
 
-/obj/effect/proc_holder/spell/shadowling_vision/thrall
-	desc = "Thrall Darksight"
+/datum/action/cooldown/spell/shadowling_vision/thrall
+	name = "Thrall Darksight"
 	desc = "Дарует вам возможность видеть в темноте."
 
-/obj/effect/proc_holder/spell/aoe/shadowling_icy_veins
+/datum/action/cooldown/spell/aoe/shadowling_icy_veins
 	name = "Icy Veins"
 	desc = "Моментально замораживает кровь ближайших существ, оглушает их и наносит термические повреждения."
-	base_cooldown = 25 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "icy_veins"
-	action_background_icon_state = "bg_shadowling"
-	aoe_range = 5
+	cooldown_time = 25 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "icy_veins"
+	background_icon_state = "bg_shadowling"
+	aoe_radius = 5
+	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/shadowling_living
 
-/obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new()
-	T.range = aoe_range
-	T.allowed_type = /mob/living
-	return T
-
-/obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
+/datum/action/cooldown/spell/aoe/shadowling_icy_veins/cast(atom/cast_on)
 	. = ..()
-
-/obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
+	if(!shadowling_check(owner))
+		reset_spell_cooldown()
 		return
 
-	to_chat(user, span_shadowling("Вы замораживаете воздух поблизости."))
-	playsound(user.loc, 'sound/effects/ghost2.ogg', 50, TRUE)
+	to_chat(owner, span_shadowling("Вы замораживаете воздух поблизости."))
+	playsound(owner.loc, 'sound/effects/ghost2.ogg', 50, TRUE)
 
-	for(var/mob/living/target in targets)
-		if(is_shadow_or_thrall(target))
-			to_chat(target, span_danger("Вы чувствуете, как порыв холодного воздуха обволакивает вас и проносится мимо, но вас это не затрагивает!"))
-			continue
+/datum/action/cooldown/spell/aoe/shadowling_icy_veins/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/target = victim
+	to_chat(target, span_userdanger("Вас накрывает волна невероятно холодного воздуха!"))
+	target.Stun(2 SECONDS)
+	target.apply_damage(10, BURN)
+	if(!iscarbon(target))
+		return
+	target.adjust_bodytemperature(-200) //Extreme amount of initial cold
+	if(!target.reagents)
+		return
+	target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 
-		to_chat(target, span_userdanger("Вас накрывает волна невероятно холодного воздуха!"))
-		target.Stun(2 SECONDS)
-		target.apply_damage(10, BURN)
-		if(iscarbon(target))
-			target.adjust_bodytemperature(-200) //Extreme amount of initial cold
-			if(target.reagents)
-				target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
-
-/obj/effect/proc_holder/spell/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
+/datum/action/cooldown/spell/pointed/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
 	desc = "Порабощает сознание гуманойдов вашей воле, они должны быть живыми и активными. Это занимает некоторое время."
-	base_cooldown = 3 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "enthrall"
-	action_background_icon_state = "bg_shadowling"
-	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
-	need_active_overlay = TRUE
+	cooldown_time = 3 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_SANGUINE
+	button_icon_state = "enthrall"
+	background_icon_state = "bg_shadowling"
+	background_icon_state_active = "bg_shadowling"
+	active_msg = span_notice_alt("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	deactive_msg = span_notice_alt("Ваш разум расслабляется.")
+	cast_range = 1
 	var/enthralling = FALSE
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_enthrall/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.range = 1
-	T.click_radius = -1
-	return T
+/datum/action/cooldown/spell/pointed/shadowling_enthrall/can_cast_spell(feedback)
+	return ..() && !enthralling
 
-/obj/effect/proc_holder/spell/shadowling_enthrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(enthralling || user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
+/datum/action/cooldown/spell/pointed/shadowling_enthrall/is_valid_target(atom/cast_on)
+	if(!ishuman(cast_on))
+		return
+	var/mob/living/carbon/human/target = cast_on
+	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client && ..()
+
+/datum/action/cooldown/spell/pointed/shadowling_enthrall/cast(atom/cast_on)
 	. = ..()
 
-/obj/effect/proc_holder/spell/shadowling_enthrall/valid_target(mob/living/carbon/human/target, user)
-	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
-
-/obj/effect/proc_holder/spell/shadowling_enthrall/cast(list/targets, mob/user = usr)
-
 	list_clear_nulls(SSticker.mode.shadowling_thralls)
-	if(!is_shadow(user))
+	if(!is_shadow(owner))
 		return
 
-	var/mob/living/carbon/human/target = targets[1]
+	var/mob/living/carbon/human/target = cast_on
 	if(ismindshielded(target))
-		to_chat(user, span_danger("У этой цели есть щит разума, блокирующий ваши силы! Вы не можете подчинить его!"))
+		to_chat(owner, span_danger("У этой цели есть щит разума, блокирующий ваши силы! Вы не можете подчинить его!"))
 		return
 
 	enthralling = TRUE
-	to_chat(user, span_danger("Эта цель верна. Вы начинаете процесс подчинения."))
-	to_chat(target, span_userdanger("[user] смотр[PLUR_IT_YAT(user)] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
+	to_chat(owner, span_danger("Эта цель верна. Вы начинаете процесс подчинения."))
+	to_chat(target, span_userdanger("[owner] смотр[PLUR_IT_YAT(owner)] на вас. Вы чувствуете, что ваша голова начинает пульсировать."))
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
-				to_chat(user, span_notice("Вы прикладываете ладони к голове [target]..."))
-				user.visible_message(span_warning("[user] прикладыва[PLUR_ET_YUT(user)] свои ладони к голове [target]"))
+				to_chat(owner, span_notice("Вы прикладываете ладони к голове [target]..."))
+				owner.visible_message(span_warning("[owner] прикладыва[PLUR_ET_YUT(owner)] свои ладони к голове [target]"))
 			if(2)
-				to_chat(user, span_notice("Вы начинаете обрабатывать разум [target] до состояния чистого листа..."))
-				user.visible_message(span_warning("Ладони [user] вспыхивают ярко-красным светом на висках [target]!"))
+				to_chat(owner, span_notice("Вы начинаете обрабатывать разум [target] до состояния чистого листа..."))
+				owner.visible_message(span_warning("Ладони [owner] вспыхивают ярко-красным светом на висках [target]!"))
 				to_chat(target, span_danger("Ужасный красный свет заливает ваш разум. Вы падаете, когда ваше сознание стирается."))
 				target.Weaken(24 SECONDS)
 			if(3)
-				to_chat(user, span_notice("Вы начинаете выращивать опухоль, которая будет контролировать нового раба..."))
-				user.visible_message(span_warning("Странная энергия исходит из рук [user] в голову [target]"))
+				to_chat(owner, span_notice("Вы начинаете выращивать опухоль, которая будет контролировать нового раба..."))
+				owner.visible_message(span_warning("Странная энергия исходит из рук [owner] в голову [target]"))
 				to_chat(target, span_boldannounceic("Вы чувствуете, как ваши воспоминания искажаются, деформируются. Чувство ужаса овладевает вашим сознанием."))
-		if(!do_after(user, 3 SECONDS, target, NONE)) // 9 seconds for enthralling
-			to_chat(user, span_warning("Порабощение было прервано — разум вашей цели возвращается в прежнее состояние."))
-			to_chat(target, span_userdanger("Вы вырываетесь из цепких рук [user] и приходите в себя."))
+		if(!do_after(owner, 3 SECONDS, target, NONE)) // 9 seconds for enthralling
+			to_chat(owner, span_warning("Порабощение было прервано — разум вашей цели возвращается в прежнее состояние."))
+			to_chat(target, span_userdanger("Вы вырываетесь из цепких рук [owner] и приходите в себя."))
 			enthralling = FALSE
 			return
 
-		if(QDELETED(target) || QDELETED(user))
-			revert_cast(user)
+		if(QDELETED(target) || QDELETED(owner))
+			reset_spell_cooldown()
 			return
 
 	enthralling = FALSE
-	to_chat(user, span_shadowling("Вы подчинили себе <b>[target]</b>!"))
+	to_chat(owner, span_shadowling("Вы подчинили себе <b>[target]</b>!"))
 	target.visible_message(span_big("[target], похоже, испытал[GEND_A_O_I(target)] откровение!"), \
 							span_warning("Фальшивые лица все <b>ТЁМНЫЕ не настоящие, не настоящие, не настоящие</b>!!!"))
 	target.setOxyLoss(0) //In case the shadowling was choking them out
@@ -328,25 +306,25 @@
 /**
  * Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor.
  */
-/obj/effect/proc_holder/spell/shadowling_regen_armor
+/datum/action/cooldown/spell/shadowling_regen_armor
 	name = "Rapid Re-Hatch"
 	desc = "Восстанавливает ваше обличие, подпитываясь рабами усиляет тебя."
-	base_cooldown = 3 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "regen_armor"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 3 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	button_icon_state = "regen_armor"
+	background_icon_state = "bg_shadowling"
+	shadowling_spell = TRUE
 	var/blind_smoke_acquired
 	var/screech_acquired
 	var/null_charge_acquired
 	var/revive_thrall_acquired
 
-/obj/effect/proc_holder/spell/shadowling_regen_armor/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_regen_armor/cast(list/targets, mob/living/carbon/human/user = usr)
+/datum/action/cooldown/spell/shadowling_regen_armor/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/user = cast_on
 	if(!is_shadow(user))
 		to_chat(user, span_warning("Чтобы сделать это, нужно быть тенеморфом!"))
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
 	if(!istype(user))
@@ -375,51 +353,27 @@
 
 	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
+		user.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_blindness_smoke)
 
 	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
+		user.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_screech)
 
 	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall(null))
+		user.mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_revive_thrall)
 
 	if(thralls >= victory_threshold)
 		for(var/mob/shadowling in GLOB.alive_mob_list)
 			if(!is_shadow(shadowling))
 				continue
 
-			shadowling.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_hatch)
-			shadowling.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_ascend(null))
+			shadowling.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
 			if(shadowling == user)
 				to_chat(shadowling, span_shadowling("<i>Ты проецируешь эту силу на остальных тенелингов..</i>"))
 			else
 				to_chat(shadowling, span_shadowling("<b>[user.real_name] объединил силу рабов ты можешь вознестись</b>")) //Tells all the other shadowlings
-
-/**
- * Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount.
- */
-/obj/effect/proc_holder/spell/shadowling_collective_mind
-	name = "Collective Hivemind"
-	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
-	base_cooldown = 3 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "collective_mind"
-	action_background_icon_state = "bg_shadowling"
-	var/blind_smoke_acquired
-	var/screech_acquired
-	var/null_charge_acquired
-	var/revive_thrall_acquired
-
-/obj/effect/proc_holder/spell/shadowling_collective_mind/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_collective_mind/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
-	. = ..()
 
 /proc/get_thralls()
 	var/thralls = 0
@@ -431,7 +385,7 @@
 		to_chat(target, span_shadowling("You feel hooks sink into your mind and pull."))
 
 	return thralls
-
+/* unused
 /obj/effect/proc_holder/spell/shadowling_collective_mind/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
 		revert_cast(user)
@@ -483,36 +437,31 @@
 			if(shadowling == user)
 				to_chat(shadowling, span_shadowling("<i>You project this power to the rest of the shadowlings.</i>"))
 			else
-				to_chat(shadowling, span_shadowling("<b>[user.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b>"))//Tells all the other shadowlings
-
-/obj/effect/proc_holder/spell/shadowling_blindness_smoke
+				to_chat(shadowling, span_shadowling("<b>[user.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b>"))//Tells all the other
+*/
+/datum/action/cooldown/spell/shadowling_blindness_smoke
 	name = "Blindness Smoke"
 	desc = "Выпускает облако чёрного дыма, которое лечит рабов."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "black_smoke"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 30 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "black_smoke"
+	background_icon_state = "bg_shadowling"
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_blindness_smoke/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_blindness_smoke/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
+/datum/action/cooldown/spell/shadowling_blindness_smoke/cast(atom/cast_on)
 	. = ..()
-
-/obj/effect/proc_holder/spell/shadowling_blindness_smoke/cast(list/targets, mob/user = usr) //Extremely hacky
-	if(!shadowling_check(user))
-		revert_cast(user)
+	if(!shadowling_check(cast_on))
+		reset_spell_cooldown()
 		return
 
-	user.visible_message(span_warning("[user] внезапно наклоняется и выкашливает облако черного дыма, которое начинает быстро распространяться!"))
-	to_chat(user, span_deadsay("Вы изрыгаете огромное облако слепящего дыма."))
-	playsound(user, 'sound/effects/bamf.ogg', 50, TRUE)
+	cast_on.visible_message(span_warning("[cast_on] внезапно наклоняется и выкашливает облако черного дыма, которое начинает быстро распространяться!"))
+	to_chat(cast_on, span_deadsay("Вы изрыгаете огромное облако слепящего дыма."))
+	playsound(cast_on, 'sound/effects/bamf.ogg', 50, TRUE)
 	var/datum/reagents/reagents_list = new (1000)
 	reagents_list.add_reagent("blindness_smoke", 810)
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
-	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
+	smoke.set_up(range = 3, location = cast_on.loc, carry = reagents_list, silent = TRUE)
 	smoke.start()
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
@@ -536,54 +485,50 @@
 		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags
 
-/obj/effect/proc_holder/spell/aoe/shadowling_screech
+/datum/action/cooldown/spell/aoe/shadowling_screech
 	name = "Sonic Screech"
 	desc = "Оглушает и сбивает с толку находящихся рядом гуманойдов, а также разбивает окна."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "screech"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 30 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "screech"
+	background_icon_state = "bg_shadowling"
+	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/turfs
 
-/obj/effect/proc_holder/spell/aoe/shadowling_screech/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = aoe_range
-	return T
-
-/obj/effect/proc_holder/spell/aoe/shadowling_screech/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
+/datum/action/cooldown/spell/aoe/shadowling_screech/cast(atom/cast_on)
 	. = ..()
-
-/obj/effect/proc_holder/spell/aoe/shadowling_screech/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
+	if(!shadowling_check(owner))
+		reset_spell_cooldown()
 		return
 
-	user.audible_message(span_warning("<b>[user] изда[PLUR_ET_YUT(user)] ужасный крик!</b>"))
-	playsound(user.loc, 'sound/effects/screech.ogg', 100, TRUE)
+	owner.audible_message(span_warning("<b>[owner] изда[PLUR_ET_YUT(owner)] ужасный крик!</b>"))
+	playsound(owner.loc, 'sound/effects/screech.ogg', 100, TRUE)
 
-	for(var/turf/turf in targets)
-		for(var/mob/target in turf.contents)
-			if(is_shadow_or_thrall(target))
-				continue
+/datum/action/cooldown/spell/aoe/shadowling_screech/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/turf/turf = victim
+	for(var/mob/target in turf.contents)
+		if(is_shadow_or_thrall(target))
+			continue
 
-			if(iscarbon(target))
-				var/mob/living/carbon/c_mob = target
-				to_chat(c_mob, span_danger("<b>Острая боль пронзает голову и путает мысли!</b>"))
-				c_mob.AdjustConfused(20 SECONDS)
-				c_mob.AdjustDeaf(6 SECONDS)
+		if(iscarbon(target))
+			var/mob/living/carbon/c_mob = target
+			to_chat(c_mob, span_danger("<b>Острая боль пронзает голову и путает мысли!</b>"))
+			c_mob.AdjustConfused(20 SECONDS)
+			c_mob.AdjustDeaf(6 SECONDS)
+			continue
 
-			else if(issilicon(target))
-				var/mob/living/silicon/robot = target
-				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
-				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
-				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, TRUE, robot)
-				robot.Weaken(12 SECONDS)
+		if(issilicon(target))
+			var/mob/living/silicon/robot = target
+			to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
+			SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
+			playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+			do_sparks(5, TRUE, robot)
+			robot.Weaken(12 SECONDS)
 
-		for(var/obj/structure/window/window in turf.contents)
-			window.take_damage(rand(80, 100))
-
+	for(var/obj/structure/window/window in turf.contents)
+		window.take_damage(rand(80, 100))
+/* unused
 /obj/effect/proc_holder/spell/shadowling_null_charge
 	name = "Null Charge"
 	desc = "Empties an APC, preventing it from recharging until fixed."
@@ -642,40 +587,33 @@
 		target_apc.charging = APC_NOT_CHARGING
 		target_apc.null_charge()
 		target_apc.update_icon()
-
-/obj/effect/proc_holder/spell/shadowling_revive_thrall
+*/
+/datum/action/cooldown/spell/pointed/shadowling_revive_thrall
 	name = "Black Recuperation"
 	desc = "Оживляет или усиливает раба."
-	base_cooldown = 1 MINUTES
-	clothes_req = FALSE
-	action_icon_state = "revive_thrall"
-	action_background_icon_state = "bg_shadowling"
-	selection_activated_message = span_notice_alt("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
-	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
-	need_active_overlay = TRUE
+	cooldown_time = 1 MINUTES
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "revive_thrall"
+	background_icon_state = "bg_shadowling"
+	background_icon_state_active = "bg_shadowling"
+	active_msg = span_notice_alt("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
+	deactive_msg = span_notice_alt("Ваш разум расслабляется.")
+	cast_range = 1
+	shadowling_spell = TRUE
 	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
 	var/ignore_prer = FALSE
 
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.click_radius = -1
-	T.range = 1
-	return T
+/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/is_valid_target(atom/cast_on)
+	return is_thrall(cast_on) && ..()
 
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
-		return FALSE
+/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/cast(atom/cast_on)
 	. = ..()
-
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/valid_target(mob/living/carbon/human/target, user)
-	return is_thrall(target)
-
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/thrall = targets[1]
+	var/mob/living/carbon/human/thrall = cast_on
 	if(thrall.stat == CONSCIOUS)
 		if(isshadowlinglesser(thrall))
-			to_chat(user, span_warning("[thrall] уже наделен силой."))
-			revert_cast(user)
+			to_chat(owner, span_warning("[thrall] уже наделен силой."))
+			reset_spell_cooldown()
 			return
 
 		var/empowered_thralls = 0
@@ -688,66 +626,66 @@
 				empowered_thralls++
 
 		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT && !ignore_prer)
-			to_chat(user, span_warning("Вы не можете тратить столько энергии. Слишком много наделенных силой рабов."))
-			revert_cast(user)
+			to_chat(owner, span_warning("Вы не можете тратить столько энергии. Слишком много наделенных силой рабов."))
+			reset_spell_cooldown()
 			return
 
-		user.visible_message(span_danger("[user] клад[PLUR_ET_UT(user)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
+		owner.visible_message(span_danger("[owner] клад[PLUR_ET_UT(owner)] свои руки, из под которых светится красный свет, на лицо [thrall]."), \
 							span_shadowling("Вы кладете ладони на лицо [thrall] и начинаете наполнять [GEND_HIS_HER(thrall)] энергией..."))
-		to_chat(thrall, span_userdanger("[user] положил[GEND_A_O_I(user)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
-		if(!do_after(user, 8 SECONDS, thrall, NONE))
-			to_chat(user, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
-			revert_cast(user)
+		to_chat(thrall, span_userdanger("[owner] положил[GEND_A_O_I(owner)] свои ладони на ваше лицо. Вы чувствуете, как в вас собирается энергия. Стойте спокойно..."))
+		if(!do_after(owner, 8 SECONDS, thrall, NONE))
+			to_chat(owner, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
+			reset_spell_cooldown()
 			return
 
-		if(QDELETED(thrall) || QDELETED(user))
-			revert_cast(user)
+		if(QDELETED(thrall) || QDELETED(owner))
+			reset_spell_cooldown()
 			return
 
-		to_chat(user, span_shadowling("<b><i>Вы высвобождаете мощный заряд энергии в [thrall]!</b></i>"))
-		user.visible_message(span_boldannounceic("<i>В лицо [thrall] бьет красная молния!</i>"))
+		to_chat(owner, span_shadowling("<b><i>Вы высвобождаете мощный заряд энергии в [thrall]!</b></i>"))
+		owner.visible_message(span_boldannounceic("<i>В лицо [thrall] бьет красная молния!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
-		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
+		owner.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 		thrall.Weaken(10 SECONDS)
 		thrall.visible_message(span_warning("<b>[thrall] падает, [GEND_HIS_HER(thrall)] кожа лица деформируются!"), \
 								span_userdanger("<i>АААААААААААААААХХ</i>"))
 
 		sleep(2 SECONDS)
-		if(QDELETED(thrall) || QDELETED(user))
-			revert_cast(user)
+		if(QDELETED(thrall) || QDELETED(owner))
+			reset_spell_cooldown()
 			return
 
 		thrall.visible_message(span_warning("[thrall] медленно поднима[PLUR_ET_YUT(thrall)]ся, переставая быть похожим[PLUR_I(thrall)] на гуманоида."), \
 								span_shadowling("<b>Вы чувствуете, как в вас вливается новая сила. Вы получили дар от своих хозяев. Теперь вы очень похожи на них. Вы обретаете силу во тьме, но медленно увядаете при свете. Кроме того, теперь вы обладаете способностью использовать ослепляющий взгляд и ходить в тени.</b>"))
 
 		thrall.set_species(/datum/species/shadow/ling/lesser)
-		thrall.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_guise)
-		thrall.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
-		thrall.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
+		thrall.mind.RemoveSpell(/datum/action/cooldown/spell/shadowling_guise)
+		thrall.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_glare)
+		thrall.mind.AddSpell(new /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk)
 
 	else if(thrall.stat == DEAD)
-		user.visible_message(span_danger("[user] опуска[PLUR_ET_YUT(user)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
+		owner.visible_message(span_danger("[owner] опуска[PLUR_ET_YUT(owner)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \
 							span_shadowling("Вы склоняетесь над телом своего раба и начинаете накапливать энергию..."))
 		thrall.notify_ghost_cloning("Ваши хозяева возрождают вас! Если вы хотите оживить свой труп, войдите в него заново.", source = thrall)
-		if(!do_after(user, 3 SECONDS, thrall, NONE))
-			to_chat(user, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
-			revert_cast(user)
+		if(!do_after(owner, 3 SECONDS, thrall, NONE))
+			to_chat(owner, span_warning("Ваша концентрация нарушается. Поток энергии ослабевает."))
+			reset_spell_cooldown()
 			return
 
-		if(QDELETED(thrall) || QDELETED(user))
-			revert_cast(user)
+		if(QDELETED(thrall) || QDELETED(owner))
+			reset_spell_cooldown()
 			return
 
-		to_chat(user, span_shadowling("<b><i>Вы высвобождаете мощный заряд энергии в [thrall]!</b></i>"))
-		user.visible_message(span_boldannounceic("<i>Красная молния устремляется из рук [user] в грудь [thrall]!</i>"))
+		to_chat(owner, span_shadowling("<b><i>Вы высвобождаете мощный заряд энергии в [thrall]!</b></i>"))
+		owner.visible_message(span_boldannounceic("<i>Красная молния устремляется из рук [owner] в грудь [thrall]!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
-		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
+		owner.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 
 		sleep(1 SECONDS)
-		if(QDELETED(thrall) || QDELETED(user))
-			revert_cast(user)
+		if(QDELETED(thrall) || QDELETED(owner))
+			reset_spell_cooldown()
 			return
 
 		thrall.revive()
@@ -759,9 +697,9 @@
 		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
 	else
-		to_chat(user, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
-		revert_cast(user)
-
+		to_chat(owner, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
+		reset_spell_cooldown()
+/* unused
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle
 	name = "Destroy Engines"
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
@@ -832,184 +770,154 @@
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!
-
+*/
 // ASCENDANT ABILITIES BEYOND THIS POINT //
 
-/obj/effect/proc_holder/spell/ascendant_annihilate
+/datum/action/cooldown/spell/pointed/ascendant_annihilate
 	name = "Annihilate"
 	desc = "Моментально разрывает на куски."
-	base_cooldown = 0
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "annihilate"
-	action_background_icon_state = "bg_shadowling"
-	selection_activated_message = span_notice_alt("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
-	need_active_overlay = TRUE
+	spell_requirements = NONE
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "annihilate"
+	background_icon_state = "bg_shadowling"
+	active_msg = span_notice_alt("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
+	deactive_msg = span_notice_alt("Ваш разум расслабляется.")
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/ascendant_annihilate/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.click_radius = 1
-	T.range = 7
-	T.try_auto_target = FALSE
-	return T
+/datum/action/cooldown/spell/pointed/ascendant_annihilate/is_valid_target(atom/cast_on)
+	return ..() && isliving(cast_on)
 
-/obj/effect/proc_holder/spell/ascendant_annihilate/cast(list/targets, mob/user = usr)
-	var/mob/living/simple_animal/ascendant_shadowling/ascendant = user
-	if(ascendant.phasing)
-		to_chat(user, span_warning("Вы вне пространства. Сначала проявите себя."))
-		revert_cast(user)
-		return
+/datum/action/cooldown/spell/pointed/ascendant_annihilate/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
 
-	var/mob/living/carbon/human/target = targets[1]
-
-	playsound(user.loc, 'sound/magic/staff_chaos.ogg', 100, TRUE)
+	playsound(owner.loc, 'sound/magic/staff_chaos.ogg', 100, TRUE)
 
 	if(is_shadow(target)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
-		to_chat(user, span_warning("Making an ally explode seems unwise."))
-		revert_cast(user)
+		to_chat(owner, span_warning("Making an ally explode seems unwise."))
+		reset_spell_cooldown()
 		return
 
-	user.visible_message(span_danger("Метки [user] вспыхивают, когда [GEND_HE_SHE(user)] дела[PLUR_ET_YUT(user)] жест в [target]!"), \
+	owner.visible_message(span_danger("Метки [owner] вспыхивают, когда [GEND_HE_SHE(owner)] дела[PLUR_ET_YUT(owner)] жест в [target]!"), \
 						span_shadowling("Вы направляете копьё телекинетической энергии в [target]."))
 	sleep(0.4 SECONDS)
 
-	if(QDELETED(target) || QDELETED(user))
+	if(QDELETED(target) || QDELETED(owner))
 		return
 
 	playsound(target, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	target.visible_message(span_userdanger("[target] взрывается!"))
 	target.gib()
 
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant
+/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/ascendant
 	name = "Black will"
 	desc = "Дарует силу твоему рабу или оживляет его"
-	base_cooldown = 0
+	cooldown_time = 0
 	ignore_prer = TRUE
-	human_req = FALSE
 
-/obj/effect/proc_holder/spell/ascendant_hypnosis
+/datum/action/cooldown/spell/pointed/ascendant_hypnosis
 	name = "Hypnosis"
 	desc = "Моментально подчиняет гуманойда."
-	base_cooldown = 0
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "enthrall"
-	action_background_icon_state = "bg_shadowling"
-	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
-	need_active_overlay = TRUE
+	spell_requirements = NONE
+	button_icon_state = "enthrall"
+	background_icon_state = "bg_shadowling"
+	active_msg = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	deactive_msg = span_notice_alt("Ваш разум расслабляется.")
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/ascendant_hypnosis/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.click_radius = 0
-	T.range = 7
-	return T
-
-/obj/effect/proc_holder/spell/ascendant_hypnosis/valid_target(mob/living/carbon/human/target, user)
-	return !is_shadow_or_thrall(target) && target.ckey && target.mind && !target.stat
-
-/obj/effect/proc_holder/spell/ascendant_hypnosis/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	if(user.phasing)
-		to_chat(user, span_warning("Вы вне пространства. Сначала проявите себя."))
-		revert_cast(user)
+/datum/action/cooldown/spell/pointed/ascendant_hypnosis/is_valid_target(atom/cast_on)
+	if(!ishuman(cast_on))
 		return
+	var/mob/living/carbon/human/target = cast_on
+	return !is_shadow_or_thrall(target) && target.ckey && target.mind && !target.stat && ..()
 
-	var/mob/living/carbon/human/target = targets[1]
+/datum/action/cooldown/spell/pointed/ascendant_hypnosis/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
 
 	target.vomit(0, VOMIT_BLOOD, distance = 2, message = FALSE)
-	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
-	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [GEND_HIS_HER(target)] в раба"))
+	playsound(owner.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
+	to_chat(owner, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [GEND_HIS_HER(target)] в раба"))
 	to_chat(target, span_userdanger(span_fontsize3("Волна мучительной боли проникает в ваше сознание, и...")))
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
-/obj/effect/proc_holder/spell/ascendant_phase_shift
+/datum/action/cooldown/spell/jaunt/ascendant_phase_shift
 	name = "Phase Shift"
 	desc = "Перемещает тебя в пространство между мирами по твоему желанию, позволяя тебе проходить сквозь стены и становиться невидимым."
-	base_cooldown = 1.5 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "shadow_walk"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 1.5 SECONDS
+	spell_requirements = NONE
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "shadow_walk"
+	background_icon_state = "bg_shadowling"
+	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/shadow
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/ascendant_phase_shift/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/ascendant_phase_shift/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	if(!istype(user))
+/datum/action/cooldown/spell/jaunt/ascendant_phase_shift/cast(atom/cast_on)
+	. = ..()
+	if(is_jaunting(owner))
+		exit_jaunt(owner)
 		return
+	enter_jaunt(owner)
 
-	user.phasing = !user.phasing
+/datum/action/cooldown/spell/jaunt/ascendant_phase_shift/enter_jaunt(mob/living/jaunter, turf/loc_override)
+	var/obj/effect/dummy/phased_mob/spell_jaunt/shadow/jaunt = ..()
+	jaunter.forceMove(jaunt)
+	jaunter.visible_message(span_danger("[jaunter] внезапно исчезает!"), \
+						span_shadowling("Вы начинаете перемещаться сквозь пространство. Используйте способность еще раз, чтобы вернуться."))
 
-	if(user.phasing)
-		user.visible_message(span_danger("[user] внезапно исчезает!"), \
-							span_shadowling("Вы начинаете перемещаться сквозь пространство. Используйте способность еще раз, чтобы вернуться."))
-		user.incorporeal_move = INCORPOREAL_NORMAL
-		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
-	else
-		user.visible_message(span_danger("[user] внезапно появля[PLUR_ET_YUT(user)]ся из ниоткуда!"), \
-							span_shadowling("Вы возвращаетесь из пространства между мирами."))
-		user.incorporeal_move = INCORPOREAL_NONE
-		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
+/datum/action/cooldown/spell/jaunt/ascendant_phase_shift/exit_jaunt(mob/living/unjaunter, turf/loc_override)
+	. = ..()
+	unjaunter.visible_message(span_danger("[unjaunter] внезапно появля[PLUR_ET_YUT(unjaunter)]ся из ниоткуда!"), \
+						span_shadowling("Вы возвращаетесь из пространства между мирами."))
 
-/obj/effect/proc_holder/spell/aoe/ascendant_storm
+/datum/action/cooldown/spell/aoe/ascendant_storm
 	name = "Lightning Storm"
 	desc = "Оглушает окружающих."
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "lightning_storm"
-	action_background_icon_state = "bg_shadowling"
-	aoe_range = 6
+	spell_requirements = NONE
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "lightning_storm"
+	background_icon_state = "bg_shadowling"
+	aoe_radius = 6
+	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/shadowling_carbon
+	cooldown_time = 5 SECONDS
 
-/obj/effect/proc_holder/spell/aoe/ascendant_storm/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new()
-	T.range = aoe_range
-	return T
-
-/obj/effect/proc_holder/spell/aoe/ascendant_storm/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	if(!istype(user))
-		return FALSE
-
-	if(user.phasing)
-		to_chat(user, span_warning("Вы вне пространства. Сначала проявите себя."))
-		revert_cast(user)
-		return
-
-	user.visible_message(span_warning("<b>В руках [user] возникает и разгорается огромная шаровая молния!</b>"), \
+/datum/action/cooldown/spell/aoe/ascendant_storm/cast(atom/cast_on)
+	. = ..()
+	owner.visible_message(span_warning("<b>В руках [owner] возникает и разгорается огромная шаровая молния!</b>"), \
 						span_shadowling("Вы создаете шаровую молнию и выпускаете ее."))
-	playsound(user.loc, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	playsound(owner.loc, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 
-	for(var/mob/living/carbon/human/target in targets)
-		if(is_shadow_or_thrall(target))
-			continue
+/datum/action/cooldown/spell/aoe/ascendant_storm/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/carbon/human/target = victim
+	to_chat(target, span_userdanger("Вас поражает молния!"))
+	playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE)
+	target.Weaken(16 SECONDS)
+	target.take_organ_damage(0, 50)
+	caster.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 
-		to_chat(target, span_userdanger("Вас поражает молния!"))
-		playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE)
-		target.Weaken(16 SECONDS)
-		target.take_organ_damage(0, 50)
-		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
-
-/obj/effect/proc_holder/spell/ascendant_transmit
+/datum/action/cooldown/spell/ascendant_transmit
 	name = "Ascendant Broadcast"
 	desc = "Посылает сообщение всем вокруг."
-	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	action_icon_state = "transmit"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 20 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "transmit"
+	background_icon_state = "bg_shadowling"
+	shadowling_spell = TRUE
 
-/obj/effect/proc_holder/spell/ascendant_transmit/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/ascendant_transmit/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	var/text = tgui_input_text(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
+/datum/action/cooldown/spell/ascendant_transmit/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/ascendant_shadowling/shadow = cast_on
+	if(!istype(cast_on))
+		return
+	var/text = tgui_input_text(shadow, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
 
 	if(!text)
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
-	user.announce(text)
+	shadow.announce(text)
 
 #undef EMPOWERED_THRALL_LIMIT

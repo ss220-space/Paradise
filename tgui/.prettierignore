@@ -1,4 +1,12 @@
-# Ignore built packages:
+node_modules
 public
-**.cjs
-packages/tgui-dev-server
+
+*.js
+*.ts
+*.tsx
+*.css
+*.jsx
+*.json
+
+# Running it on tgui.html is fine, however.
+!/public/tgui.html

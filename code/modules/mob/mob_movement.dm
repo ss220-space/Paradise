@@ -337,9 +337,7 @@
 /client/proc/check_has_body_select()
 	return mob?.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
 
-/client/verb/body_toggle_head()
-	set name = "body-toggle-head"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_toggle_head, "body-toggle-head")
 
 	if(!check_has_body_select())
 		return
@@ -356,9 +354,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_r_arm()
-	set name = "body-r-arm"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_r_arm, "body-r-arm")
 
 	if(!check_has_body_select())
 		return
@@ -372,9 +368,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_chest()
-	set name = "body-chest"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_chest, "body-chest")
 
 	if(!check_has_body_select())
 		return
@@ -388,9 +382,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_l_arm()
-	set name = "body-l-arm"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_l_arm, "body-l-arm")
 
 	if(!check_has_body_select())
 		return
@@ -404,9 +396,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_r_leg()
-	set name = "body-r-leg"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_r_leg, "body-r-leg")
 
 	if(!check_has_body_select())
 		return
@@ -420,9 +410,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_groin()
-	set name = "body-groin"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_groin, "body-groin")
 
 	if(!check_has_body_select())
 		return
@@ -436,9 +424,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_tail()
-	set name = "body-tail"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_tail, "body-tail")
 
 	if(!check_has_body_select())
 		return
@@ -446,9 +432,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_TAIL)
 
-/client/verb/body_l_leg()
-	set name = "body-l-leg"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_l_leg, "body-l-leg")
 
 	if(!check_has_body_select())
 		return
@@ -462,21 +446,10 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/toggle_throw_mode()
-	set hidden = 1
-	if(iscarbon(mob))
-		var/mob/living/carbon/C = mob
-		C.toggle_throw_mode()
-	else
-		to_chat(usr, span_danger("Это существо не может бросать предметы"))
-
 /mob/proc/toggle_move_intent(new_move_intent)
 	return
 
-/mob/verb/move_up()
-	set name = "Подняться"
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB(/mob, move_up, "Подняться", VERB_CATEGORY_IC)
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
 
@@ -500,15 +473,10 @@
 		return
 
 	balloon_alert(src, "двигаетесь вверх...")
-	if(!do_after(src, 1 SECONDS, cog_icon = null))
-		return
-
-	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag|ZMOVE_WITH_DELAY))
 		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
-/mob/verb/move_down()
-	set name = "Опуститься"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, move_down, "Опуститься", VERB_CATEGORY_IC)
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)
@@ -528,11 +496,8 @@
 		return
 
 	balloon_alert(src, "двигаетесь вниз...")
-	if(!do_after(src, 1 SECONDS, cog_icon = null))
-		return
-
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
-	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag|ZMOVE_WITH_DELAY))
 		to_chat(src, span_notice("Вы двигаетесь вниз."))
 	return FALSE
 

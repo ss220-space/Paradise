@@ -8,7 +8,8 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", atom/movable/target in view())
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", /atom/movable)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB|VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_VIEW, /atom/movable)
 	target.admin_Freeze(user)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.

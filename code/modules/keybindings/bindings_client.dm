@@ -1,9 +1,6 @@
 // Clients aren't datums so we have to define these procs indpendently.
 // These verbs are called for all key press and release events
-/client/verb/KeyDown(_key as text)
-	set instant = TRUE
-	set hidden = TRUE
-
+GAME_VERB_NATIVE_INSTANT(/client, keyDown, "keyDown", VERB_CATEGORY_HIDDEN, _key as text, mousepos_x as num, mousepos_y as num, sizex as num, sizey as num)
 	client_keysend_amount += 1
 
 	var/cache = client_keysend_amount
@@ -24,19 +21,26 @@
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
 			to_chat(src, span_userdanger("Flooding keysends! This could have been caused by lag, or due to a plugged-in game controller. You have been disconnected from the server automatically."))
-			log_and_message_admins("was just autokicked for flooding keysends; likely abuse but potentially lagspike, or a controller plugged into their PC.")
+			log_admin("Client [ckey] was just autokicked for flooding keysends; likely abuse but potentially lagspike.")
+			message_admins("Client [ckey] was just autokicked for flooding keysends; likely abuse but potentially lagspike.")
 			qdel(src)
 			return
 
 	///Check if the key is short enough to even be a real key
 	if(LAZYLEN(_key) > MAX_KEYPRESS_COMMANDLENGTH)
 		to_chat(src, span_userdanger("Invalid KeyDown detected! You have been disconnected from the server automatically."))
-		log_and_message_admins("just attempted to send an invalid keypress. Keymessage was over [MAX_KEYPRESS_COMMANDLENGTH] characters, autokicking due to likely abuse.")
+		log_admin("Client [ckey] just attempted to send an invalid keypress. Keymessage was over [MAX_KEYPRESS_COMMANDLENGTH] characters, autokicking due to likely abuse.")
+		message_admins("Client [ckey] just attempted to send an invalid keypress. Keymessage was over [MAX_KEYPRESS_COMMANDLENGTH] characters, autokicking due to likely abuse.")
 		qdel(src)
 		return
 
+	//Focus Chat failsafe. Overrides movement checks to prevent WASD.
+	if(!hotkeys && length(_key) == 1 && _key != "Alt" && _key != "Ctrl" && _key != "Shift")
+		winset(src, null, "input.focus=true ; input.text=[url_encode(_key)]")
+		return
+
 	if(length(keys_held) >= HELD_KEY_BUFFER_LENGTH && !keys_held[_key])
-		KeyUp(keys_held[1]) //We are going over the number of possible held keys, so let's remove the first one.
+		keyUp(keys_held[1], mousepos_x, mousepos_y, sizex, sizey) //We are going over the number of possible held keys, so let's remove the first one.
 
 	//the time a key was pressed isn't actually used anywhere (as of 2019-9-10) but this allows easier access usage/checking
 	keys_held[_key] = world.time
@@ -62,24 +66,23 @@
 			else
 				full_key = _key
 
+	var/list/click_data = get_loc_from_mousepos(mousepos_x, mousepos_y, sizex, sizey, src)
+
 	var/keycount = 0
 	for(var/datum/keybinding/keybinding as anything in active_keybindings[full_key])
 		keycount++
-		if(keybinding.can_use(src) && keybinding.down(src) && keycount >= MAX_COMMANDS_PER_KEY)
+		if(keybinding.can_use(src) && keybinding.down(src, click_data[1], click_data[2], click_data[3]) && keycount >= MAX_COMMANDS_PER_KEY)
 			break
 
-	SEND_SIGNAL(mob, COMSIG_MOB_KEYDOWN, _key, src, full_key)
+	holder?.key_down(_key, src, full_key)
 	mob.focus?.key_down(_key, src, full_key)
 	mob.update_mouse_pointer()
 
-/client/verb/KeyUp(_key as text)
-	set instant = TRUE
-	set hidden = TRUE
-
+GAME_VERB_NATIVE_INSTANT(/client, keyUp, "keyUp", VERB_CATEGORY_HIDDEN, _key as text, mousepos_x as num, mousepos_y as num, sizex as num, sizey as num)
 	var/key_combo = key_combos_held[_key]
 	if(key_combo)
 		key_combos_held -= _key
-		KeyUp(key_combo)
+		keyUp(key_combo, mousepos_x, mousepos_y, sizex, sizey)
 
 	if(!keys_held[_key])
 		return
@@ -91,12 +94,15 @@
 		calculate_move_dir()
 		if(!movement_locked && !(next_move_dir_add & movement))
 			next_move_dir_sub |= movement
-
+	var/list/click_data
+	//manual calls of keyup
+	if(mousepos_x && mousepos_y)
+		click_data = get_loc_from_mousepos(mousepos_x, mousepos_y, sizex, sizey, src)
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically
 	for(var/datum/keybinding/keybinding as anything in active_keybindings[_key])
-		if(keybinding.can_use(src) && keybinding.up(src))
+		if(keybinding.can_use(src) && keybinding.up(src, click_data?[1]))
 			break
-
+	holder?.key_up(_key, src)
 	mob.focus?.key_up(_key, src)
 	mob.update_mouse_pointer()

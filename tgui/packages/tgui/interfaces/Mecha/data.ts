@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'tgui-core/react';
 import type { Access } from '../common/AccessList';
 
 export type RadioData = {

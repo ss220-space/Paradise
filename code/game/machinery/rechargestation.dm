@@ -218,7 +218,7 @@
 			continue
 
 		//Service
-		if(istype(module, /obj/item/reagent_containers/food/condiment/enzyme))
+		if(istype(module, /obj/item/reagent_containers/condiment/enzyme))
 			if(module.reagents.get_reagent_amount("enzyme") < 50)
 				module.reagents.add_reagent("enzyme", 2 * coeff)
 			continue
@@ -263,15 +263,8 @@
 			spray.reagents.add_reagent("sacid", 2 * coeff)
 			return
 
-/obj/machinery/recharge_station/verb/move_eject()
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/recharge_station, move_eject, oview(1), "Вылезти", VERB_CATEGORY_HIDDEN)
 	go_out(usr)
-
-/obj/machinery/recharge_station/verb/move_inside_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-	move_inside(usr)
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user)
 	if(!user || !istype(user))

@@ -40,7 +40,8 @@ ADMIN_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", ADMIN
 #undef JUMP_TO_KEY
 #undef JUMP_TO_COORDINATES
 
-ADMIN_VERB(jump_to_area, R_ADMIN, "Jump To Area", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, area/target in get_sorted_areas())
+ADMIN_VERB(jump_to_area, R_ADMIN, "Jump To Area", "Jumps to the specified area.", ADMIN_CATEGORY_GAME)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_AREA, VERB_ARG_SOURCE_WORLD, /area)
 	var/turf/drop_location
 	top_level:
 		for(var/list/zlevel_turfs as anything in target.get_zlevel_turf_lists())
@@ -57,19 +58,24 @@ ADMIN_VERB(jump_to_area, R_ADMIN, "Jump To Area", ADMIN_VERB_NO_DESCRIPTION, ADM
 	message_admins("[key_name_admin(user)] jumped to [AREACOORD(drop_location)]")
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Area")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", turf/locale in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_turf, R_ADMIN, "Jump To Turf", /turf)
+	VERB_ARG_TYPED(locale, VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_WORLD, /turf)
 	log_admin("[key_name(user)] jumped to [AREACOORD(locale)]")
 	message_admins("[key_name_admin(user)] jumped to [AREACOORD(locale)]")
 	user.mob.abstract_move(locale)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Turf")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_mob, R_ADMIN, "Jump To Mob", mob/target in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_mob, R_ADMIN, "Jump To Mob", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	user.mob.abstract_move(target.loc)
 	log_admin("[key_name(user)] jumped to [key_name(target)]")
 	message_admins("[key_name_admin(user)] jumped to [ADMIN_LOOKUPFLW(target)] at [AREACOORD(target)]")
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Mob")
 
-ADMIN_VERB(jump_to_coord, R_ADMIN|R_DEBUG, "Jump To Coordinate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, cx as num, cy as num, cz as num)
+ADMIN_VERB(jump_to_coord, R_ADMIN|R_DEBUG, "Jump To Coordinate", "Jump to a specific coordinate in the game world.", ADMIN_CATEGORY_GAME)
+	VERB_ARG(cx, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
+	VERB_ARG(cy, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
+	VERB_ARG(cz, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	var/turf/where_we_droppin = locate(cx, cy, cz)
 	if(isnull(where_we_droppin))
 		to_chat(user, span_warning("Invalid coordinates."))
@@ -98,7 +104,8 @@ ADMIN_VERB(jump_to_key, R_ADMIN, "Jump To Key", "Jump to a specific player.", AD
 	user.mob.abstract_move(target.loc)
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Key")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", mob/target in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(get_mob, R_ADMIN, "Get Mob", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	var/atom/loc = get_turf(user.mob)
 	target.admin_teleport(loc)
 	BLACKBOX_LOG_ADMIN_VERB("Get Mob")
@@ -128,7 +135,8 @@ ADMIN_VERB(get_key, R_ADMIN, "Get Key", "Teleport the player with the provided k
 	message_admins("[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(selected_mob)]")
 	BLACKBOX_LOG_ADMIN_VERB("Get Key")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(send_mob, R_ADMIN, "Send Mob", mob/jumper in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(send_mob, R_ADMIN, "Send Mob", /mob)
+	VERB_ARG_TYPED(jumper, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	var/list/sorted_areas = get_sorted_areas()
 	if(!length(sorted_areas))
 		to_chat(user, "No areas found.", confidential = TRUE)

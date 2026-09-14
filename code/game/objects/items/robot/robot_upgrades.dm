@@ -785,10 +785,10 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/reagent_containers/glass/bucket/container in robot.module.modules)
+	for(var/obj/item/reagent_containers/cup/bucket/container in robot.module.modules)
 		qdel(container)
 
-	robot.module.modules += new /obj/item/reagent_containers/glass/beaker/bluespace(robot.module)
+	robot.module.modules += new /obj/item/reagent_containers/cup/beaker/bluespace(robot.module)
 	robot.module.rebuild()
 	return TRUE
 
@@ -796,10 +796,10 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/reagent_containers/glass/beaker/bluespace/container2 in robot.module)
+	for(var/obj/item/reagent_containers/cup/beaker/bluespace/container2 in robot.module)
 		qdel(container2)
 
-	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
+	robot.module.modules += new /obj/item/reagent_containers/cup/bucket(robot.module)
 	robot.module.rebuild()
 	return TRUE
 

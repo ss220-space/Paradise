@@ -264,6 +264,8 @@ Pipelines + Other Objects -> Pipe network
 	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
 	var/final_pressures = pressures * skill_mod
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
+	if(prob(25))
+		playsound(src, 'sound/effects/reducedtoatmos.ogg', 80, FALSE)
 	user.throw_at(general_direction, final_pressures / 10, final_pressures / 50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)

@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, Dropdown, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 type RitualMenuData = {
@@ -180,7 +180,7 @@ export const RitualMenu = (_props: unknown) => {
                 onMouseOver={(e) => SetStartButtonColor('#555')}
                 onMouseLeave={(e) => SetStartButtonColor('#3c3c3c')}
                 onClick={() => {
-                  SetSelectedRitual(null);
+                  SetSelectedRitual('');
                   act('start_ritual');
                 }}
               >

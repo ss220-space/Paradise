@@ -177,6 +177,7 @@
 	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	light_range = 2
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/shoes/magboots/wizard/toggle_magpulse(mob/user, silent = FALSE)
 	if(!user || !user.mind)

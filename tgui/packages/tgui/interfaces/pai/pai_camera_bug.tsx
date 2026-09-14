@@ -1,7 +1,7 @@
+import { Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { LabeledList, Button } from '../../components';
 
-export const pai_camera_bug = (props: unknown) => {
+export const pai_camera_bug = (_props: unknown) => {
   const { act } = useBackend();
 
   return (

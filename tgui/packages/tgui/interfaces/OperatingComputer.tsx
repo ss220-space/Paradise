@@ -1,18 +1,18 @@
-import { round } from 'common/math';
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import type { ReactNode } from 'react';
 import {
   Box,
   Button,
-  Stack,
   Icon,
   Knob,
   LabeledList,
-  Section,
-  Tabs,
   ProgressBar,
-} from '../components';
-import { ReactNode } from 'react';
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 const stats = [
   ['good', 'В сознании'],
@@ -207,7 +207,7 @@ const OperatingComputerPatient = (_props: unknown) => {
                     </LabeledList.Item>
                   </LabeledList>
                 </Section>
-              )
+              ),
             )
           ) : (
             <Box color="label">Операции в данный момент не проводятся.</Box>

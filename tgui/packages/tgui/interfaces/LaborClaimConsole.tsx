@@ -1,16 +1,16 @@
-import { toTitleCase } from 'common/string';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  ProgressBar,
   LabeledList,
+  ProgressBar,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const LaborClaimConsole = (props: unknown) => {
+export const LaborClaimConsole = (_props: unknown) => {
   return (
     <Window width={320} height={470}>
       <Window.Content scrollable>
@@ -66,7 +66,7 @@ const ShuttleControlSection = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {id_points + ' / ' + id_goal + ' ' + completionStatus}
+              {`${id_points} / ${id_goal} ${completionStatus}`}
             </ProgressBar>
           )) ||
             (!!emagged && 'ERR0R COMPLETED?!@') ||
@@ -87,7 +87,7 @@ const ShuttleControlSection = (props: unknown) => {
             disabled={!id_inserted || !unclaimed_points}
             onClick={() => act('claim_points')}
           >
-            {'Claim points (' + unclaimed_points + ')'}
+            {`Claim points (${unclaimed_points})`}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Inserted ID">
