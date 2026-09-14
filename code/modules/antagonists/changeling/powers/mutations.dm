@@ -193,7 +193,7 @@
 /obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!user.Adjacent(target))
+	if(!proximity_flag)
 		return
 
 	if(is_airlock(target))
