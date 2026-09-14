@@ -286,7 +286,9 @@ export const CustomOutfit = () => {
                     <Stack.Item grow basis={0}>
                       <Stack vertical fill>
                         <Stack.Item grow align="center">
-                          {data.character_preview_view ? (
+                          {data.character_preview_view &&
+                          !chooserItem &&
+                          !editingNested ? (
                             <CharacterPreview
                               id={data.character_preview_view}
                               height="400px"
