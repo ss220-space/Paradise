@@ -17,6 +17,8 @@
 	if(!istype(user))
 		return FALSE
 
+	delete_organ_item()
+
 	if(active)
 		eyes = new /obj/item/organ/internal/cyberimp/eyes/shield/ling(null)
 		user.balloon_alert(user, "защитные мембраны")
@@ -29,9 +31,13 @@
 	eyes.insert(user)
 	return TRUE
 
-/datum/action/changeling/augmented_eyesight/Remove(mob/remove_from)
-	eyes.remove(remove_from)
+/datum/action/changeling/augmented_eyesight/Remove(mob/user)
+	delete_organ_item()
 	return ..()
+
+/datum/action/changeling/augmented_eyesight/proc/delete_organ_item(mob/living/carbon/user)
+	var/obj/item/thing = eyes.remove(user)
+	qdel(thing)
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling
 	name = "protective membranes"
