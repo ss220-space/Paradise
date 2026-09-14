@@ -45,6 +45,7 @@ $_channel_map: (
   'Бета': hsl(212, 93%, 54%),
   'Гамма': hsl(12, 62%, 56%),
   'Воксы': hsl(279, 86%, 47%),
+  'Молитва': hsl(214, 86%, 30%),
 );
 
 $channel_keys: map.keys($_channel_map) !default;

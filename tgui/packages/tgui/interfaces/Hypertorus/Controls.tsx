@@ -9,8 +9,8 @@ import {
   NumberInput,
   Section,
   Tooltip,
-} from 'tgui/components';
-import type { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import type { HypertorusFilter } from '.';
 import { HelpDummy, HoverHelp } from './helpers';

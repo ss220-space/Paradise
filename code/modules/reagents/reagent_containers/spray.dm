@@ -16,7 +16,7 @@
 	/// max spray distance mod
 	var/spray_maxrange_mod = 1
 	volume = 250
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	var/delay = CLICK_CD_RANGE * 2
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
@@ -39,9 +39,6 @@
 /obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(isstorage(target) || istable(target) || istype(target, /obj/structure/rack) || iscloset(target) \
 	|| is_reagent_container(target) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
-		return
-
-	if(istype(target, /obj/effect/proc_holder/spell))
 		return
 
 	if(istype(target, /obj/structure/reagent_dispensers) && get_dist(src, target) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution

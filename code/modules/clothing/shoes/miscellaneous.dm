@@ -50,6 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -254,10 +255,7 @@
 
 	return ..()
 
-/obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Достать нож"
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr, "Достать нож", VERB_CATEGORY_HIDDEN)
 	remove_knife(usr)
 
 /obj/item/clothing/shoes/workboots/mining/proc/remove_knife(mob/user)

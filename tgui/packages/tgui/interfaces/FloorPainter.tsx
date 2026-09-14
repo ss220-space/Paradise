@@ -1,16 +1,17 @@
-import { useBackend } from '../backend';
 import {
+  Box,
   Button,
   DmIcon,
-  LabeledList,
-  Section,
-  Table,
   Dropdown,
   Flex,
   Icon,
-  Box,
-} from '../components';
+  LabeledList,
+  Section,
+  Table,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Direction } from './common/Direction';
 
 type SelectableTileProps = {
   icon: string;
@@ -39,10 +40,10 @@ const SelectableTile = (props: SelectableTileProps) => {
 };
 
 const Dir = {
-  NORTH: 1,
-  SOUTH: 2,
-  EAST: 4,
-  WEST: 8,
+  NORTH: Direction.NORTH,
+  SOUTH: Direction.SOUTH,
+  EAST: Direction.EAST,
+  WEST: Direction.WEST,
 };
 
 type FloorPainterData = {
@@ -108,33 +109,35 @@ export const FloorPainter = (props: unknown) => {
           <LabeledList>
             <LabeledList.Item label="Direction">
               <Table style={{ display: 'inline' }}>
-                {[Dir.NORTH, null, Dir.SOUTH].map((latitude) => (
+                {[Direction.NORTH, null, Direction.SOUTH].map((latitude) => (
                   <Table.Row key={latitude}>
-                    {[latitude + Dir.WEST, latitude, latitude + Dir.EAST].map(
-                      (dir) => (
-                        <Table.Cell
-                          key={dir}
-                          style={{
-                            verticalAlign: 'middle',
-                            textAlign: 'center',
-                          }}
-                        >
-                          {dir === null ? (
-                            <Icon name="arrows-alt" size={3} />
-                          ) : (
-                            <SelectableTile
-                              icon={icon}
-                              icon_state={selectedStyle}
-                              direction={dir}
-                              isSelected={dir === selectedDir}
-                              onSelect={() =>
-                                act('select_direction', { direction: dir })
-                              }
-                            />
-                          )}
-                        </Table.Cell>
-                      )
-                    )}
+                    {[
+                      (latitude || 0) | Dir.WEST,
+                      latitude,
+                      (latitude || 0) | Dir.EAST,
+                    ].map((dir) => (
+                      <Table.Cell
+                        key={dir}
+                        style={{
+                          verticalAlign: 'middle',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {dir === null ? (
+                          <Icon name="arrows-alt" size={3} />
+                        ) : (
+                          <SelectableTile
+                            icon={icon}
+                            icon_state={selectedStyle}
+                            direction={dir}
+                            isSelected={dir === selectedDir}
+                            onSelect={() =>
+                              act('select_direction', { direction: dir })
+                            }
+                          />
+                        )}
+                      </Table.Cell>
+                    ))}
                   </Table.Row>
                 ))}
               </Table>

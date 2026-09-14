@@ -7,7 +7,7 @@ import {
   Input,
   Section,
   Stack,
-} from 'tgui/components';
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -47,7 +47,7 @@ const AiCoreDisplayPickerContent = () => {
 
   // Filter options based on search term
   const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (

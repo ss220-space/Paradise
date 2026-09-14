@@ -1,5 +1,5 @@
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Section, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type AutopsyData = {

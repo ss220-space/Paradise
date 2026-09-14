@@ -5,8 +5,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui/components';
-import { toFixed } from 'common/math';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
@@ -64,7 +64,7 @@ export const ReactorMonitor = (props) => {
     .sort((a, b) => b.amount - a.amount);
   const moderatorGasMaxAmount = Math.max(
     1,
-    ...filteredModeratorGases.map((gas) => gas.portion)
+    ...filteredModeratorGases.map((gas) => gas.portion),
   );
   return (
     <Window width={550} height={500}>
@@ -101,7 +101,7 @@ export const ReactorMonitor = (props) => {
                     }
                   >
                     {toFixed(
-                      NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000
+                      NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000,
                     ) + (NGCR_power < 10000 ? ' KW' : ' MW')}
                   </ProgressBar>
                 </LabeledList.Item>
@@ -131,7 +131,7 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(1000), Infinity],
                     }}
                   >
-                    {toFixed(NGCR_ambienttemp) + ' K'}
+                    {`${toFixed(NGCR_ambienttemp)} K`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Pressure">
@@ -145,7 +145,7 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(3000), Infinity],
                     }}
                   >
-                    {toFixed(NGCR_ambientpressure) + ' kPa'}
+                    {`${toFixed(NGCR_ambientpressure)} kPa`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Control Rod Limiter">
@@ -160,7 +160,7 @@ export const ReactorMonitor = (props) => {
                       bad: [-Infinity, 30],
                     }}
                   >
-                    {toFixed(NGCR_operatingpower) + ' %'}
+                    {`${toFixed(NGCR_operatingpower)} %`}
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
@@ -219,7 +219,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={gasMaxAmount}
                         >
-                          {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
+                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}
@@ -249,7 +249,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={moderatorGasMaxAmount}
                         >
-                          {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
+                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}

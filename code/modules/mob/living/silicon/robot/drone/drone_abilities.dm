@@ -1,9 +1,5 @@
 // DRONE ABILITIES
-/mob/living/silicon/robot/drone/verb/set_mail_tag()
-	set name = "Почтовый адрес"
-	set desc = "Tag yourself for delivery through the disposals system."
-	set category = VERB_CATEGORY_DRONE
-
+GAME_VERB_DESC(/mob/living/silicon/robot/drone, set_mail_tag, "Почтовый адрес", "Tag yourself for delivery through the disposals system.", VERB_CATEGORY_DRONE)
 	var/tag = tgui_input_list(usr, "Выберите желаемое место назначения.", "Установка почтового адреса", GLOB.TAGGERLOCATIONS, null)
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
@@ -18,22 +14,13 @@
 		to_chat(src, span_notice("\The [D] acknowledges your signal."))
 		D.flush_count = D.flush_every_ticks
 
-/mob/living/silicon/robot/drone/verb/hide()
-	set name = "Спрятаться"
-	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = VERB_CATEGORY_DRONE
-
+GAME_VERB_DESC(/mob/living/silicon/robot/drone, hide, "Спрятаться", "Allows you to hide beneath tables or certain items. Toggled on or off.", VERB_CATEGORY_DRONE)
 	var/datum/action/innate/hide/drone/hide = locate() in actions
 	if(!hide)
 		return
-
 	hide.Activate()
 
-/mob/living/silicon/robot/drone/verb/light()
-	set name = "Освещение"
-	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = VERB_CATEGORY_DRONE
-
+GAME_VERB_DESC(/mob/living/silicon/robot/drone, light, "Освещение", "Activate a low power omnidirectional LED. Toggled on or off.", VERB_CATEGORY_DRONE)
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
 	control_headlamp()
@@ -44,14 +31,6 @@
 		get_scooped(M)
 	else
 		..()
-
-/mob/living/silicon/robot/drone/verb/customize()
-	set name = "Настройка шасси"
-	set desc = "Reconfigure your chassis into a customized version."
-	set category = VERB_CATEGORY_DRONE
-
-	to_chat(src, span_warning("Ошибка 404: Настраиваемое шасси не найдено. Отмена опции настройки."))
-	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()

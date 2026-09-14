@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,7 +7,8 @@ import {
   LabeledList,
   Modal,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type ShuttleConsoleData = {

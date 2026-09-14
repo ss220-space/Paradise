@@ -372,7 +372,7 @@
 	name = "BuckHelm"
 	result = /obj/item/clothing/head/helmet/buckhelm
 	time = 6 SECONDS
-	reqs = list(/obj/item/reagent_containers/glass/bucket = 3)
+	reqs = list(/obj/item/reagent_containers/cup/bucket = 3)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 

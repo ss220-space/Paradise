@@ -3,29 +3,53 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use 'sass:map';
+@use 'sass:color';
+
 // MARK: GENERAL STUFF
 em {
-  font-style: normal;
-  font-weight: bold;
+	font-style: normal;
+	font-weight: bold;
 }
 
 img {
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  image-rendering: pixelated;
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: pixelated;
 }
 
 img.icon {
-  height: 1em;
-  min-height: 16px;
-  min-width: 16px;
-  width: auto;
-  vertical-align: bottom;
+	height: 1em;
+	min-height: 16px;
+	min-width: 16px;
+	width: auto;
+	vertical-align: bottom;
 }
 
 a {
-  color: hsl(202, 49%, 44%);
+	cursor: var(--cursor-pointer);
+	color: var(--color-hyperlink);
+	transition: color var(--transition-time-medium);
+
+	&:hover {
+		color: hsl(
+			from var(--color-hyperlink) h s calc(l + var(--adjust-hover))
+		);
+	}
+}
+
+a.visited,
+a:visited {
+	color: var(--color-hyperlink-visited);
+
+	&:hover {
+		color: hsl(
+			from var(--color-hyperlink-visited) h s
+				calc(l + var(--adjust-hover))
+		);
+	}
 }
 
 h1,
@@ -34,72 +58,72 @@ h3,
 h4,
 h5,
 h6 {
-  color: hsl(214, 38%, 74%);
-  font-family: Georgia, Verdana, sans-serif;
+	color: hsl(214, 38%, 74%);
+	font-family: Georgia, Verdana, sans-serif;
 }
 
 h1.alert,
 h2.alert {
-  color: hsl(214, 38%, 74%);
+	color: hsl(214, 38%, 74%);
 }
 
 .emoji {
-  max-height: 16px;
-  max-width: 16px;
+	max-height: 16px;
+	max-width: 16px;
 }
 
 .emoji16x16 {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .italic,
 .italics,
 .emote {
-  font-style: italic;
+	font-style: italic;
 }
 
 .bold {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .bolditalics {
-  font-style: italic;
-  font-weight: bold;
+	font-style: italic;
+	font-weight: bold;
 }
 
 .center {
-  text-align: center;
+	text-align: center;
 }
 
 .small {
-  font-size: 60%;
+	font-size: 60%;
 }
 
 .big {
-  font-size: 150%;
+	font-size: 150%;
 }
 
 .reallybig {
-  font-size: 175%;
+	font-size: 175%;
 }
 
 .sans {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+	font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .wingdings {
-  font-family: Wingdings, Webdings;
+	font-family: Wingdings, Webdings;
 }
 
 .robot {
-  font-family: 'OCR-A', monospace;
-  font-size: 1.15em;
-  font-weight: bold;
+	font-family: 'OCR-A', monospace;
+	font-size: 1.15em;
+	font-weight: bold;
 }
 
 .hidden {
-  display: none;
-  visibility: hidden;
+	display: none;
+	visibility: hidden;
 }
 
 .infoplain {
@@ -107,14 +131,14 @@ h2.alert {
 
 // MARK: MOTD
 .motd {
-  color: hsl(215, 30%, 76%);
-  font-family: Verdana, sans-serif;
-  white-space: normal;
-  line-height: 1.35;
+	color: hsl(215, 30%, 76%);
+	font-family: Verdana, sans-serif;
+	white-space: normal;
+	line-height: 1.35;
 }
 
 .motd p {
-  margin: 0.25em 0;
+	margin: 0.25em 0;
 }
 
 .motd h1,
@@ -123,13 +147,13 @@ h2.alert {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: hsl(42, 45%, 72%);
-  text-decoration: none;
-  margin: 0.5em 0 0.3em;
-  padding-bottom: 0.15em;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  border-bottom: 1px solid hsla(42, 45%, 65%, 0.45);
+	color: hsl(42, 45%, 72%);
+	text-decoration: none;
+	margin: 0.5em 0 0.3em;
+	padding-bottom: 0.15em;
+	line-height: 1.2;
+	letter-spacing: 0.02em;
+	border-bottom: 1px solid hsla(42, 45%, 65%, 0.45);
 }
 
 .motd a,
@@ -137,31 +161,31 @@ h2.alert {
 .motd a:visited,
 .motd a:active,
 .motd a:hover {
-  color: hsl(215, 70%, 62%);
+	color: hsl(215, 70%, 62%);
 }
 
 .motd .accent {
-  color: hsl(42, 70%, 75%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(42, 70%, 75%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .motd .warning {
-  color: hsl(355, 55%, 78%);
-  font-style: normal;
-  background: hsla(355, 55%, 70%, 0.07);
-  border: 1px solid hsla(355, 55%, 70%, 0.25);
-  border-radius: 0.3em;
-  margin: 0.5em 0;
-  padding: 0.25em 0.75em;
+	color: hsl(355, 55%, 78%);
+	font-style: normal;
+	background: hsla(355, 55%, 70%, 0.07);
+	border: 1px solid hsla(355, 55%, 70%, 0.25);
+	border-radius: 0.3em;
+	margin: 0.5em 0;
+	padding: 0.25em 0.75em;
 }
 
 .motd .warning > :first-child {
-  margin-top: 0;
+	margin-top: 0;
 }
 
 .motd .warning > :last-child {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .motd .warning h1,
@@ -170,902 +194,1104 @@ h2.alert {
 .motd .warning h4,
 .motd .warning h5,
 .motd .warning h6 {
-  color: hsl(355, 55%, 80%);
-  border-bottom-color: hsla(355, 55%, 70%, 0.5);
+	color: hsl(355, 55%, 80%);
+	border-bottom-color: hsla(355, 55%, 70%, 0.5);
 }
 
 .motd > .motd-card:first-child {
-  margin-top: 0;
+	margin-top: 0;
 }
 
 .motd > .motd-card:last-child {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .motd-card {
-  background: hsla(42, 45%, 65%, 0.04);
-  border: 1px solid hsla(42, 45%, 65%, 0.25);
-  border-left: 3px solid hsla(42, 45%, 65%, 0.5);
-  margin: 0.5em 0.25em;
-  padding: 0.6em 0.85em;
-  border-radius: 0.4em;
+	background: hsla(42, 45%, 65%, 0.04);
+	border: 1px solid hsla(42, 45%, 65%, 0.25);
+	border-left: 3px solid hsla(42, 45%, 65%, 0.5);
+	margin: 0.5em 0.25em;
+	padding: 0.6em 0.85em;
+	border-radius: 0.4em;
 }
 
 // MARK: MEMO
 .memo {
-  color: hsl(75, 100%, 26%);
-  text-align: center;
+	color: hsl(75, 100%, 26%);
+	text-align: center;
 }
 
 .memoedit {
-  text-align: center;
-  font-size: 75%;
+	text-align: center;
+	font-size: 75%;
 }
 
 // MARK: General colors
 .ooc {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .looc {
-  color: hsl(210, 50%, 60%);
-  font-weight: bold;
+	color: hsl(210, 50%, 60%);
+	font-weight: bold;
 }
 
 .discordpm {
-  color: hsl(227, 88%, 68%);
+	color: hsl(227, 88%, 68%);
 }
 
 .debug {
-  color: hsl(284, 47%, 35%);
+	color: hsl(284, 47%, 35%);
 }
 
 .deadsay {
-  color: hsl(302, 100%, 30%);
+	color: hsl(302, 100%, 30%);
 }
 
 .darkmblue {
-  color: hsl(227, 88%, 68%);
+	color: hsl(227, 88%, 68%);
 }
 
 .prefix {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .name {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .yell {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 // MARK: Base colors
 .red {
-  color: hsl(0, 100%, 50%);
+	color: hsl(0, 100%, 50%);
 }
 
 .green {
-  color: hsl(138, 97%, 37%);
+	color: hsl(138, 97%, 37%);
 }
 
 .purple {
-  color: hsl(279, 60%, 48%);
+	color: hsl(279, 60%, 48%);
 }
 
 .orange {
-  color: hsl(39, 100%, 50%);
+	color: hsl(39, 100%, 50%);
 }
 
 .blue {
-  color: hsl(202, 100%, 37%);
+	color: hsl(202, 100%, 37%);
 }
 
 .yellow {
-  color: hsl(60, 100%, 50%);
+	color: hsl(60, 100%, 50%);
 }
 
 // MARK: Other colors
 .rose {
-  color: hsl(0, 100%, 66%);
+	color: hsl(0, 100%, 66%);
 }
 
 .interface {
-  color: hsl(279, 60%, 48%);
+	color: hsl(279, 60%, 48%);
 }
 
 .greentext {
-  color: hsl(120, 100%, 50%);
-  font-size: 150%;
+	color: hsl(120, 100%, 50%);
+	font-size: 150%;
 }
 
 .redtext {
-  color: hsl(0, 100%, 50%);
-  font-size: 150%;
+	color: hsl(0, 100%, 50%);
+	font-size: 150%;
 }
 
 .resonate {
-  color: hsl(174, 55%, 36%);
+	color: hsl(174, 55%, 36%);
 }
 
 .specialnotice {
-  color: hsl(200, 27%, 40%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(200, 27%, 40%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .whisper {
-  font-style: italic;
-  color: hsl(0, 0%, 80%);
+	font-style: italic;
+	color: hsl(0, 0%, 80%);
 }
 
 .good {
-  color: hsl(120, 100%, 25%);
+	color: hsl(120, 100%, 25%);
 }
 
 .average {
-  color: hsl(30, 100%, 50%);
+	color: hsl(30, 100%, 50%);
 }
 
 .bad {
-  color: hsl(0, 100%, 50%);
+	color: hsl(0, 100%, 50%);
 }
 
 // MARK: Admin/Mentor
 .mentorhelp {
-  color: hsl(202, 100%, 37%);
-  font-weight: bold;
+	color: hsl(202, 100%, 37%);
+	font-weight: bold;
 }
 
 .mentor_channel {
-  color: hsl(250, 100%, 68%);
-  font-weight: bold;
+	color: hsl(250, 100%, 68%);
+	font-weight: bold;
 }
 
 .mentor_channel_admin {
-  color: hsl(266, 100%, 68%);
-  font-weight: bold;
+	color: hsl(266, 100%, 68%);
+	font-weight: bold;
 }
 
-.admin {
-  color: hsl(225, 100%, 61%);
-  font-weight: bold;
+.admin,
+.admin_attack {
+	color: hsl(225, 100%, 61%);
+	font-weight: bold;
 }
 
 .adminhelp {
-  color: hsl(0, 100%, 33%);
-  font-weight: bold;
+	color: hsl(0, 100%, 33%);
+	font-weight: bold;
 }
 
 .adminticket {
-  color: hsl(108, 68%, 41%);
-  font-weight: bold;
+	color: hsl(108, 68%, 41%);
+	font-weight: bold;
 }
 
 .adminticketalt {
-  color: hsl(51, 57%, 54%);
-  font-weight: bold;
+	color: hsl(51, 57%, 54%);
+	font-weight: bold;
 }
 
 .admin_channel {
-  color: hsl(44, 98%, 50%);
-  font-weight: bold;
+	color: hsl(44, 98%, 50%);
+	font-weight: bold;
 }
 
 .all_admin_ping {
-  color: hsl(201, 91%, 51%);
-  font-weight: bold;
-  font-size: 120%;
-  text-align: center;
+	color: hsl(201, 91%, 51%);
+	font-weight: bold;
+	font-size: 120%;
+	text-align: center;
 }
 
 .dev_channel {
-  color: hsl(145, 63%, 49%);
-  font-weight: bold;
+	color: hsl(145, 63%, 49%);
+	font-weight: bold;
 }
 
 .dev_channel_admin {
-  color: hsl(145, 61%, 34%);
-  font-weight: bold;
+	color: hsl(145, 61%, 34%);
+	font-weight: bold;
 }
 
 .adminooc {
-  color: hsl(15, 84%, 34%);
-  font-weight: bold;
+	color: hsl(15, 84%, 34%);
+	font-weight: bold;
 }
 
 // MARK: Radio
 .radio {
-  color: hsl(134, 69%, 41%);
+	color: hsl(134, 69%, 41%);
 }
 
 .deptradio {
-  color: hsl(300, 50%, 40%);
+	color: hsl(300, 50%, 40%);
 }
 
 .comradio {
-  color: hsl(241, 100%, 68%);
+	color: hsl(241, 100%, 68%);
 }
 
 .syndradio {
-  color: hsl(359, 32%, 43%);
+	color: hsl(359, 32%, 43%);
 }
 
 .dsquadradio {
-  color: hsl(300, 9%, 56%);
+	color: hsl(300, 9%, 56%);
 }
 
 .airadio {
-  color: hsl(315, 100%, 68%);
+	color: hsl(315, 100%, 68%);
 }
 
 .centradio {
-  color: hsl(197, 63%, 40%);
+	color: hsl(197, 63%, 40%);
 }
 
 .secradio {
-  color: hsl(0, 71%, 54%);
+	color: hsl(0, 71%, 54%);
 }
 
 .prisradio {
-  color: hsl(17, 94%, 56%);
+	color: hsl(17, 94%, 56%);
 }
 
 .engradio {
-  color: hsl(36, 100%, 33%);
+	color: hsl(36, 100%, 33%);
 }
 
 .medradio {
-  color: hsl(177, 100%, 35%);
+	color: hsl(177, 100%, 35%);
 }
 
 .sciradio {
-  color: hsl(272, 92%, 76%);
+	color: hsl(272, 92%, 76%);
 }
 
 .supradio {
-  color: hsl(34, 45%, 50%);
+	color: hsl(34, 45%, 50%);
 }
 
 .srvradio {
-  color: hsl(72, 54%, 61%);
+	color: hsl(72, 54%, 61%);
 }
 
 .proradio {
-  color: hsl(322, 43%, 52%);
+	color: hsl(322, 43%, 52%);
 }
 
 .spyradio {
-  color: hsl(252, 16%, 51%);
+	color: hsl(252, 16%, 51%);
 }
 
 .sovradio {
-  color: hsl(33, 93%, 54%);
+	color: hsl(33, 93%, 54%);
 }
 
 .taipan {
-  color: hsl(50, 100%, 77%);
+	color: hsl(50, 100%, 77%);
 }
 
 .spider_clan {
-  color: hsl(112, 98%, 55%);
+	color: hsl(112, 98%, 55%);
 }
 
 .event_alpha {
-  color: hsl(64, 81%, 31%);
+	color: hsl(64, 81%, 31%);
 }
 
 .event_beta {
-  color: hsl(212, 93%, 54%);
+	color: hsl(212, 93%, 54%);
 }
 
 .event_gamma {
-  color: hsl(12, 62%, 56%);
+	color: hsl(12, 62%, 56%);
 }
 
 .t1radio {
-  color: hsl(84, 100%, 59%);
+	color: hsl(84, 100%, 59%);
 }
 
 .t2radio {
-  color: hsl(216, 85%, 39%);
+	color: hsl(216, 85%, 39%);
 }
 
 .t3radio {
-  color: hsl(0, 100%, 50%);
+	color: hsl(0, 100%, 50%);
 }
 
 .vox {
-  color: hsl(292, 80%, 45%);
+	color: hsl(292, 80%, 45%);
 }
 
 // MARK: Alerts
 .alert {
-  color: hsl(0, 74%, 49%);
+	color: hsl(0, 74%, 49%);
 }
 
 .ghostalert {
-  color: hsl(302, 100%, 40%);
-  font-style: italic;
-  font-weight: bold;
+	color: hsl(302, 100%, 40%);
+	font-style: italic;
+	font-weight: bold;
 }
 
 .warning {
-  color: hsl(0, 74%, 45%);
-  font-style: italic;
+	color: hsl(0, 74%, 45%);
+	font-style: italic;
 }
 
 .boldwarning {
-  color: hsl(0, 74%, 45%);
-  font-style: italic;
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-style: italic;
+	font-weight: bold;
 }
 
 .announce {
-  color: hsl(0, 73.6%, 44.5%);
-  font-weight: bold;
+	color: hsl(0, 73.6%, 44.5%);
+	font-weight: bold;
 }
 
 .danger {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
 }
 
 .bolddanger {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
 }
 
 .biggerdanger {
-  color: hsl(0, 100%, 50%);
-  font-weight: bold;
-  font-size: 150%;
+	color: hsl(0, 100%, 50%);
+	font-weight: bold;
+	font-size: 150%;
 }
 
 .userdanger {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .disarm {
-  color: hsl(0, 100%, 30%);
+	color: hsl(0, 100%, 30%);
 }
 
 .notice {
-  color: hsl(227, 88%, 68%);
+	color: hsl(227, 88%, 68%);
 }
 
 .boldnotice {
-  color: hsl(227, 88%, 68%);
-  font-weight: bold;
+	color: hsl(227, 88%, 68%);
+	font-weight: bold;
 }
 
 .smallnotice {
-  color: hsl(227, 87.7%, 68%);
-  font-size: 90%;
+	color: hsl(227, 87.7%, 68%);
+	font-size: 90%;
 }
 
 .smallnoticeital {
-  color: hsl(227, 87.7%, 68%);
-  font-style: italic;
-  font-size: 90%;
+	color: hsl(227, 87.7%, 68%);
+	font-style: italic;
+	font-size: 90%;
 }
 
 .hear {
-  color: hsl(227, 87.7%, 68%);
-  font-style: italic;
+	color: hsl(227, 87.7%, 68%);
+	font-style: italic;
 }
 
 .adminnotice {
-  color: hsl(227, 87.7%, 68%);
+	color: hsl(227, 87.7%, 68%);
 }
 
 .adminhelp {
-  color: hsl(0, 100%, 50%);
-  font-weight: bold;
+	color: hsl(0, 100%, 50%);
+	font-weight: bold;
 }
 
 .unconscious {
-  color: hsl(213.6, 37.9%, 74.1%);
-  font-weight: bold;
+	color: hsl(213.6, 37.9%, 74.1%);
+	font-weight: bold;
 }
 
 .suicide {
-  color: hsl(0, 100%, 66%);
-  font-style: italic;
+	color: hsl(0, 100%, 66%);
+	font-style: italic;
 }
 
 // MARK: Announcements
 .announcement h1,
 .announcement h2 {
-  color: hsl(214, 38%, 74%);
-  margin: 8pt 0;
-  line-height: 1.2;
+	color: hsl(214, 38%, 74%);
+	margin: 8pt 0;
+	line-height: 1.2;
 }
 
 .announcement p {
-  color: hsl(0, 74%, 49%);
-  line-height: 1.3;
+	color: hsl(0, 74%, 49%);
+	line-height: 1.3;
 }
 
 .announcement.minor h1 {
-  font-size: 180%;
+	font-size: 180%;
 }
 
 .announcement.minor h2 {
-  font-size: 170%;
+	font-size: 170%;
 }
 
 .announcement.sec h1 {
-  color: hsl(0, 100%, 50%);
-  font-size: 180%;
-  font-family: Verdana, sans-serif;
+	color: hsl(0, 100%, 50%);
+	font-size: 180%;
+	font-family: Verdana, sans-serif;
 }
 
 .boldannounceic {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
 }
 
 .boldannounceooc {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
 }
 
 .pr_announce {
-  color: hsl(0, 74%, 45%);
-  font-weight: bold;
+	color: hsl(0, 74%, 45%);
+	font-weight: bold;
 }
 
 .greenannounce {
-  color: hsl(133, 93%, 30%);
-  font-weight: bold;
+	color: hsl(133, 93%, 30%);
+	font-weight: bold;
 }
 
 // MARK: Syndicate codewords
 .codephrases {
-  color: hsl(240, 100%, 67%);
+	color: hsl(240, 100%, 67%);
 }
 
 .coderesponses {
-  color: hsl(0, 100%, 60%);
+	color: hsl(0, 100%, 60%);
 }
 
 // MARK: Antagonists
 .alien {
-  color: hsl(300, 59%, 48%);
+	color: hsl(300, 59%, 48%);
 }
 
 .noticealien {
-  color: hsl(120, 100%, 38%);
+	color: hsl(120, 100%, 38%);
 }
 
 .alertalien {
-  color: hsl(120, 100%, 38%);
-  font-weight: bold;
+	color: hsl(120, 100%, 38%);
+	font-weight: bold;
 }
 
 .terrorspider {
-  color: hsl(285, 94%, 65%);
+	color: hsl(285, 94%, 65%);
 }
 
 .dantalion {
-  color: hsl(328, 52%, 36%);
+	color: hsl(328, 52%, 36%);
 }
 
 .sinister {
-  color: hsl(300, 100%, 25%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(300, 100%, 25%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .blob {
-  color: hsl(140, 100%, 19%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(140, 100%, 19%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .revennotice {
-  color: hsl(227, 88%, 68%);
+	color: hsl(227, 88%, 68%);
 }
 
 .revenboldnotice {
-  color: hsl(227, 88%, 68%);
-  font-weight: bold;
+	color: hsl(227, 88%, 68%);
+	font-weight: bold;
 }
 
 .revenbignotice {
-  color: hsl(227, 88%, 68%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(227, 88%, 68%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .revenminor {
-  color: hsl(273, 53%, 48%);
+	color: hsl(273, 53%, 48%);
 }
 
 .revenwarning {
-  color: hsl(276, 85%, 40%);
-  font-style: italic;
+	color: hsl(276, 85%, 40%);
+	font-style: italic;
 }
 
 .revendanger {
-  color: hsl(276, 85%, 40%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(276, 85%, 40%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .changeling {
-  color: hsl(191, 100%, 44%);
+	color: hsl(191, 100%, 44%);
 }
 
 .abductor {
-  color: hsl(300, 100%, 25%);
-  font-style: italic;
+	color: hsl(300, 100%, 25%);
+	font-style: italic;
 }
 
 .mind_control {
-  color: hsl(320, 85%, 34%);
-  font-size: 3;
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(320, 85%, 34%);
+	font-size: 3;
+	font-weight: bold;
+	font-style: italic;
 }
 
 .his_grace {
-  color: hsl(119, 84%, 45%);
-  font-family: 'Courier New', cursive, sans-serif;
-  font-style: italic;
+	color: hsl(119, 84%, 45%);
+	font-family: 'Courier New', cursive, sans-serif;
+	font-style: italic;
 }
 
 .hypnophrase {
-  color: hsl(0, 0%, 12.5%);
-  font-weight: bold;
-  animation: hypnocolor 1500ms infinite;
-  animation-direction: alternate;
+	color: hsl(0, 0%, 12.5%);
+	font-weight: bold;
+	animation: hypnocolor 1500ms infinite;
+	animation-direction: alternate;
 }
 
 @keyframes hypnocolor {
-  0% {
-    color: hsl(0, 0%, 12.5%);
-  }
+	0% {
+		color: hsl(0, 0%, 12.5%);
+	}
 
-  25% {
-    color: hsl(265.8, 97.7%, 34.1%);
-  }
+	25% {
+		color: hsl(265.8, 97.7%, 34.1%);
+	}
 
-  50% {
-    color: hsl(272, 86.3%, 60%);
-  }
+	50% {
+		color: hsl(272, 86.3%, 60%);
+	}
 
-  75% {
-    color: hsl(266.2, 69.6%, 36.1%);
-  }
+	75% {
+		color: hsl(266.2, 69.6%, 36.1%);
+	}
 
-  100% {
-    color: hsl(191.9, 83.4%, 71.6%);
-  }
+	100% {
+		color: hsl(191.9, 83.4%, 71.6%);
+	}
 }
 
 .shadowling {
-  color: hsl(281, 39%, 59%);
+	color: hsl(281, 39%, 59%);
 }
 
 .holoparasite {
-  color: hsl(257.1, 12.4%, 55.7%);
+	color: hsl(257.1, 12.4%, 55.7%);
 }
 
 // MARK: Cults
 .cult {
-  color: hsl(300, 100%, 25%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(300, 100%, 25%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .cultspeech {
-  color: hsl(0, 100%, 34%);
-  font-style: italic;
+	color: hsl(0, 100%, 34%);
+	font-style: italic;
 }
 
 .cultitalic {
-  color: hsl(0, 100%, 33%);
-  font-style: italic;
+	color: hsl(0, 100%, 33%);
+	font-style: italic;
 }
 
 .cultlarge {
-  color: hsl(0, 100%, 33%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(0, 100%, 33%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .narsie {
-  color: hsl(0, 100%, 33%);
-  font-weight: bold;
-  font-size: 300%;
+	color: hsl(0, 100%, 33%);
+	font-weight: bold;
+	font-size: 300%;
 }
 
 .narsiesmall {
-  color: hsl(0, 100%, 33%);
-  font-weight: bold;
-  font-size: 200%;
+	color: hsl(0, 100%, 33%);
+	font-weight: bold;
+	font-size: 200%;
 }
 
 .clock {
-  color: hsl(43, 100%, 37%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(43, 100%, 37%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .clockspeech {
-  color: hsl(43, 100%, 30%);
-  font-style: italic;
+	color: hsl(43, 100%, 30%);
+	font-style: italic;
 }
 
 .clockitalic {
-  color: hsl(43, 100%, 37%);
-  font-style: italic;
+	color: hsl(43, 100%, 37%);
+	font-style: italic;
 }
 
 .clocklarge {
-  color: hsl(43, 100%, 37%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(43, 100%, 37%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .ratvar {
-  color: hsl(43, 100%, 37%);
-  font-weight: bold;
-  font-size: 300%;
+	color: hsl(43, 100%, 37%);
+	font-weight: bold;
+	font-size: 300%;
 }
 
 // MARK: Megafauna
 .colossus {
-  color: hsl(359, 52%, 33%);
-  font-size: 175%;
+	color: hsl(359, 52%, 33%);
+	font-size: 175%;
 }
 
 .hierophant {
-  color: hsl(280, 100%, 30%);
-  font-weight: bold;
-  font-style: italic;
+	color: hsl(280, 100%, 30%);
+	font-weight: bold;
+	font-style: italic;
 }
 
 .hierophant_warning {
-  color: hsl(280, 100%, 30%);
-  font-style: italic;
+	color: hsl(280, 100%, 30%);
+	font-style: italic;
 }
 
 // MARK: Languages
 .tajaran {
-  color: hsl(337, 37%, 37%);
+	color: hsl(337, 37%, 37%);
 }
 
 .skrell {
-  color: hsl(181, 100%, 41%);
+	color: hsl(181, 100%, 41%);
 }
 
 .solcom {
-  color: hsl(240, 94%, 75%);
+	color: hsl(240, 94%, 75%);
 }
 
 .com_zvezhan {
-  color: hsl(0, 27%, 38%);
+	color: hsl(0, 27%, 38%);
 }
 
 .zombie {
-  color: hsl(0, 100%, 50%);
+	color: hsl(0, 100%, 50%);
 }
 
 .soghun {
-  color: hsl(120, 61%, 34%);
+	color: hsl(120, 61%, 34%);
 }
 
 .vox_raid {
-  color: hsl(300, 100%, 33%);
+	color: hsl(300, 100%, 33%);
 }
 
 .diona {
-  color: hsl(30, 100%, 25%);
-  font-weight: bold;
+	color: hsl(30, 100%, 25%);
+	font-weight: bold;
 }
 
 .trinary {
-  color: hsl(0, 0%, 45%);
+	color: hsl(0, 0%, 45%);
 }
 
 .kidan {
-  color: hsl(22, 95%, 40%);
+	color: hsl(22, 95%, 40%);
 }
 
 .slime {
-  color: hsl(198, 100%, 33%);
+	color: hsl(198, 100%, 33%);
 }
 
 .drask {
-  color: hsl(199, 64%, 78%);
-  font-family: 'Arial Black';
+	color: hsl(199, 64%, 78%);
+	font-family: 'Arial Black';
 }
 
 .moth {
-  color: hsl(71, 58%, 38%);
-  font-family: 'Copperplate';
+	color: hsl(71, 58%, 38%);
+	font-family: 'Copperplate';
 }
 
 .clown {
-  color: hsl(0, 100%, 50%);
+	color: hsl(0, 100%, 50%);
 }
 
 .vulpkanin {
-  color: hsl(21, 41%, 53%);
+	color: hsl(21, 41%, 53%);
 }
 
 .gutter {
-  color: hsl(214, 38%, 59%);
-  font-family: 'Trebuchet MS', cursive, sans-serif;
+	color: hsl(214, 38%, 59%);
+	font-family: 'Trebuchet MS', cursive, sans-serif;
 }
 
 .tradeband {
-  font-family: Georgia, Verdana, sans-serif;
+	font-family: Georgia, Verdana, sans-serif;
 }
 
 .com_srus {
-  color: hsl(0, 27%, 38%);
+	color: hsl(0, 27%, 38%);
 }
 
 // MARK: Anomaly
 .bluespace_anomaly {
-  color: hsl(201, 100%, 59%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(201, 100%, 59%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .energetic_anomaly {
-  color: hsl(54, 100%, 57%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(54, 100%, 57%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .atmospferic_anomaly {
-  color: hsl(0, 100%, 51%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(0, 100%, 51%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .gravitational_anomaly {
-  color: hsl(187, 100%, 37%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(187, 100%, 37%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 .vortex_anomaly {
-  color: hsl(203, 23%, 37%);
-  font-weight: bold;
-  font-size: 120%;
+	color: hsl(203, 23%, 37%);
+	font-weight: bold;
+	font-size: 120%;
 }
 
 // MARK: Gases
 .oxygen {
-  color: hsl(211, 100%, 63%);
+	color: hsl(211, 100%, 63%);
 }
 
 .nitrogen {
-  color: hsl(1, 94%, 62%);
+	color: hsl(1, 94%, 62%);
 }
 
 .carbon_dioxide {
-  color: hsl(0, 0%, 80%);
+	color: hsl(0, 0%, 80%);
 }
 
 .plasma {
-  color: hsl(27, 100%, 46%);
+	color: hsl(27, 100%, 46%);
 }
 
 .sleeping_agent {
-  color: hsl(1, 80%, 74%);
+	color: hsl(1, 80%, 74%);
 }
 
 .agent_b {
-  color: hsl(180, 100%, 25%);
+	color: hsl(180, 100%, 25%);
 }
 
 .hydrogen {
-  color: hsl(351, 16%, 41%);
+	color: hsl(351, 16%, 41%);
 }
 
 .water_vapor {
-  color: hsl(248, 39%, 39%);
-}
-
-// MARK: Boxed messages
-.boxed_message {
-  background: hsl(220, 10%, 10%);
-  border: 0.085em solid;
-  border-left: 0.33em solid;
-  border-color: hsla(220, 40%, 75%, 0.25);
-  margin: 0.5em 0;
-  padding: 0.5em 0.75em;
-  border-radius: 0.33rem;
-
-  &.red_box {
-    background: hsl(0, 20%, 10%);
-    border-color: hsla(0, 100%, 50%, 0.5);
-  }
-
-  &.green_box {
-    background: hsl(140, 20%, 10%);
-    border-color: hsla(120, 100%, 50%, 0.5);
-  }
-
-  &.blue_box {
-    background: hsl(220, 20%, 10%);
-    border-color: hsla(225, 90%, 65%, 0.5);
-  }
-
-  &.purple_box {
-    background: hsl(260, 25%, 12.5%);
-    border-color: hsla(260, 100%, 75%, 0.5);
-  }
-
-  &.yellow_box {
-    background: hsl(259, 25%, 13%);
-    border-color: hsla(56, 100%, 50%, 0.502);
-  }
-
-  hr {
-    margin: 0.5em -0.75em;
-    border-color: inherit;
-  }
+	color: hsl(248, 39%, 39%);
 }
 
 .fieldset_legend {
-  position: relative;
-  max-width: 95%;
-  font-size: 120%;
-  background-color: hsl(0, 0%, 8%);
-  padding: 0.25em 0.5em;
-  border-color: inherit;
-  z-index: 0;
+	position: relative;
+	max-width: 95%;
+	font-size: 120%;
+	background-color: var(--color-section);
+	padding: var(--space-s) var(--space-m);
+	border-color: inherit;
+	z-index: 0;
 
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 0.085em solid;
-    border-color: inherit;
-    border-radius: 0.33rem;
-    mask-image: linear-gradient(to top, black 50%, transparent 50%);
-    z-index: -1;
-  }
+	&:before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border: var(--border-thickness-tiny) solid;
+		border-color: inherit;
+		border-radius: var(--border-radius-medium);
+		mask-image: linear-gradient(to top, black 50%, transparent 50%);
+		z-index: -1;
+	}
+}
+
+.boxed_message {
+	background: hsl(220, 10%, 10%);
+	border: var(--border-thickness-tiny) solid;
+	border-left: var(--border-thickness-large) solid;
+	border-color: hsla(220, 40%, 75%, 0.25);
+	margin: var(--space-m) 0;
+	padding: var(--space-m) var(--space-l);
+	border-radius: var(--border-radius-medium);
+
+	&.red_box {
+		background: hsl(0, 20%, 10%);
+		border-color: hsla(0, 100%, 50%, 0.5);
+	}
+
+	&.green_box {
+		background: hsl(140, 20%, 10%);
+		border-color: hsla(120, 100%, 50%, 0.5);
+	}
+
+	&.blue_box {
+		background: hsl(220, 20%, 10%);
+		border-color: hsla(225, 90%, 65%, 0.5);
+	}
+
+	&.purple_box {
+		background: hsl(260, 25%, 12.5%);
+		border-color: hsla(260, 100%, 75%, 0.5);
+	}
+	&.yellow_box {
+		background: hsl(259, 25%, 13%);
+		border-color: hsla(56, 100%, 50%, 0.502);
+	}
+
+	hr {
+		margin: var(--space-m) -0.75em;
+		border-color: inherit;
+	}
 }
 
 // MARK:  Helper classes
 
 .tooltip {
-  font-style: italic;
-  border-bottom: 1px dashed;
+	font-style: italic;
+	border-bottom: 1px dashed;
 }
 
 // Provides a horizontal bar with text in the middle
 // I got this off stackoverflow
 .separator {
-  display: flex;
-  align-items: center;
-  text-align: center;
+	display: flex;
+	align-items: center;
+	text-align: center;
 }
 
 .separator::before,
 .separator::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid hsl(213.6, 37.9%, 74.1%);
+	content: '';
+	flex: 1;
+	border-bottom: 1px solid hsl(213.6, 37.9%, 74.1%);
 }
 
 .separator:not(:empty)::before {
-  margin-right: 0.25em;
+	margin-right: 0.25em;
 }
 
 .separator:not(:empty)::after {
-  margin-left: 0.25em;
+	margin-left: 0.25em;
+}
+
+$alert-stripe-colors: (
+	'default': hsl(198.6, 100%, 11.4%),
+	'green': hsl(120, 100%, 12%),
+	'blue': hsl(198.6, 100%, 11.4%),
+	'pink': hsl(326.2, 100%, 9.4%),
+	'yellow': hsl(51, 100%, 17.1%),
+	'orange': hsl(35.1, 100%, 17.5%),
+	'red': hsl(0, 100%, 12.9%),
+	'purple': hsl(295, 100%, 9.4%),
+	'grey': hsl(0, 0%, 14.5%),
+	'white': hsl(0, 0%, 13%),
+	'amber': hsl(35, 100%, 35%),
+	'crimson': hsl(348, 83%, 25%),
+	'cyan': hsl(174.9, 80.1%, 31.6%),
+	'darkred': hsl(0, 100%, 59.6%),
+	'black': hsl(0, 0%, 34.1%),
+);
+
+$alert-stripe-alternate-colors: (
+	'default': hsl(198.3, 100%, 13.5%),
+	'green': hsl(120, 100%, 13.9%),
+	'blue': hsl(198.3, 100%, 13.5%),
+	'pink': hsl(325.3, 100%, 12.5%),
+	'yellow': hsl(50.6, 100%, 15.1%),
+	'orange': hsl(37, 100%, 21%),
+	'red': hsl(0, 100%, 16.1%),
+	'purple': hsl(295.1, 100%, 12%),
+	'grey': hsl(0, 0%, 16.1%),
+	'white': hsl(0, 0%, 10%),
+	'amber': hsl(35, 89%, 31%),
+	'crimson': hsl(347, 61%, 18%),
+	'cyan': hsl(174.9, 87.2%, 42.7%),
+	'darkred': hsl(0, 59.5%, 53.5%),
+	'black': hsl(0, 0%, 47.5%),
+);
+
+$alert-major-header-colors: (
+	'default': hsl(192.4, 100%, 60%),
+	'green': hsl(150.1, 100%, 50%),
+	'blue': hsl(192.4, 100%, 60%),
+	'pink': hsl(336.1, 100%, 66.1%),
+	'yellow': hsl(38.7, 100%, 93.9%),
+	'orange': hsl(20.9, 92%, 95.1%),
+	'red': hsl(336.1, 100%, 66.1%),
+	'purple': hsl(266.5, 84.3%, 80%),
+	'grey': hsl(336.1, 100%, 66.1%),
+	'white': hsl(20.9, 92%, 95.1%),
+	'amber': hsl(35, 59%, 71%),
+	'crimson': hsl(0, 48%, 68%),
+	'cyan': hsl(0, 0%, 16.1%),
+	'darkred': hsl(0, 100%, 16.3%),
+	'black': hsl(0, 0%, 86.7%),
+);
+
+$alert-subheader-header-colors: (
+	'default': hsl(336.1, 100%, 66.1%),
+	'green': hsl(336.4, 100%, 76.1%),
+	'blue': hsl(336.1, 100%, 66.1%),
+	'pink': hsl(192.4, 100%, 60%),
+	'yellow': hsl(192.4, 100%, 60%),
+	'orange': hsl(192.4, 100%, 60%),
+	'red': hsl(192.4, 100%, 60%),
+	'purple': hsl(192.4, 100%, 60%),
+	'grey': hsl(192.4, 100%, 60%),
+	'white': hsl(192.4, 100%, 60%),
+	'amber': hsl(192, 100%, 60%),
+	'crimson': hsl(192, 100%, 60%),
+	'cyan': hsl(207, 89%, 29%),
+	'darkred': hsl(0, 68%, 35%),
+	'black': hsl(0, 0%, 71%),
+);
+
+$border-width: 4;
+
+$border-width-px: $border-width * 1px;
+
+.major_announcement_title {
+	font-size: 175%;
+	padding: 0rem 0.5rem;
+	line-height: 100%;
+	text-align: left;
+	text-decoration: none;
+	width: 100%;
+}
+
+.subheader_announcement_text {
+	font-weight: bold;
+	padding: 0 0.5rem;
+	padding-top: 0.25rem;
+	line-height: 100%;
+	width: 100%;
+	text-align: left;
+	font-size: 125%;
+}
+
+.major_announcement_text {
+	color: hsl(0, 0%, 91.8%);
+	background-color: hsl(0, 0%, 7.5%);
+	font-weight: bold;
+	font-size: 100%;
+	text-align: left;
+	padding: 0.5rem 0.5rem;
+	width: 100%;
+	height: 100%;
+}
+
+.minor_announcement_title {
+	font-weight: bold;
+	padding: 0 0.5rem;
+	padding-top: 0;
+	line-height: 100%;
+	width: 100%;
+	height: 100%;
+	text-align: left;
+	font-size: 150%;
+}
+
+.minor_announcement_text {
+	background-color: hsl(0, 0%, 12.5%);
+	color: hsl(0, 0%, 91.8%);
+	padding: 0.5rem 0.5rem;
+	text-align: left;
+	font-size: 100%;
+}
+
+.announcement_header {
+	padding: 0.5rem 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.ooc_alert {
+	background: hsl(50.6, 100%, 15.1%);
+	border: 1px solid hsl(47.9, 100%, 40%);
+	margin: 0.5em;
+	padding: 0.5em 0.5em 0.5em 0.2em;
+	color: hsl(0, 0%, 100%);
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+}
+
+.ooc_announcement_text {
+	color: hsl(47.9, 100%, 40%);
+	padding: 0.5em 0 0 0.35em;
+	display: flex;
+	flex-direction: column;
+}
+
+@each $color-name, $color-value in $alert-stripe-colors {
+	.chat_alert_#{$color-name} {
+		color: hsl(0, 0%, 100%);
+		padding: 0.5rem 0.5rem;
+		box-shadow: none;
+		font-weight: bold;
+		margin: 1rem 0 1rem 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		border-image: repeating-linear-gradient(
+			-45deg,
+			map.get($alert-stripe-alternate-colors, $color-name),
+			map.get($alert-stripe-alternate-colors, $color-name) 10px,
+			$color-value 10px,
+			$color-value 20px
+		);
+		border-image-slice: $border-width fill;
+		border-width: $border-width-px;
+		border-image-width: $border-width-px;
+		border-image-outset: 0 0 0 0;
+		border-image-repeat: repeat repeat;
+		border-style: solid;
+	}
+
+	.chat_alert_#{$color-name} .major_announcement_title {
+		color: map.get($alert-major-header-colors, $color-name);
+	}
+
+	.chat_alert_#{$color-name} .minor_announcement_title {
+		color: map.get($alert-major-header-colors, $color-name);
+	}
+
+	.chat_alert_#{$color-name} .subheader_announcement_text {
+		color: map.get($alert-subheader-header-colors, $color-name);
+	}
+
+	.chat_alert_#{$color-name} .minor_announcement_text {
+		background-color: color.adjust(
+			map.get($alert-stripe-colors, $color-name),
+			$lightness: -5%,
+			$space: hsl
+		);
+	}
+
+	.chat_alert_#{$color-name} .major_announcement_text {
+		background-color: color.adjust(
+			map.get($alert-stripe-colors, $color-name),
+			$lightness: -5%,
+			$space: hsl
+		);
+	}
 }
 
 /**

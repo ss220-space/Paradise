@@ -400,7 +400,7 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString,
   );
   return gas?.label || fallbackValue || gasId;
 };
@@ -410,7 +410,7 @@ export const getGasColor = (gasId: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString,
   );
   return gas?.color;
 };
@@ -451,83 +451,81 @@ export const timeAgo = (ref_time: number, now_time: number) => {
   const diff = now_time - ref_time;
   if (diff > 3600) {
     const hours = Math.round(diff / 3600);
-    return hours + ' hour' + (hours === 1 ? '' : 's') + ' ago';
+    return `${hours} hour${hours === 1 ? '' : 's'} ago`;
   } else if (diff > 60) {
     const mins = Math.round(diff / 60);
-    return mins + ' minute' + (mins === 1 ? '' : 's') + ' ago';
+    return `${mins} minute${mins === 1 ? '' : 's'} ago`;
   } else {
     const secs = Math.round(diff);
-    return secs + ' second' + (secs === 1 ? '' : 's') + ' ago';
+    return `${secs} second${secs === 1 ? '' : 's'} ago`;
   }
-
-  return 'just now';
 };
 
 export const JOBS_RU = {
-  'Assistant': 'Ассистент',
-  'Civilian': 'Гражданский',
-  'Prisoner': 'Заключённый',
-  'Captain': 'Капитан',
+  Assistant: 'Ассистент',
+  Civilian: 'Гражданский',
+  Prisoner: 'Заключённый',
+  Captain: 'Капитан',
   'Head of Personnel': 'Глава персонала',
   'Head of Security': 'Глава Службы Безопасности',
   'Research Director': 'Директор НИО',
   'Chief Engineer': 'Главный инженер',
   'Chief Medical Officer': 'Главный врач',
-  'Blueshield': 'Офицер "Синий щит"',
-  'Magistrate': 'Магистрат',
+  Blueshield: 'Офицер "Синий щит"',
+  Magistrate: 'Магистрат',
   'Nanotrasen Representative': 'Представитель "Нанотрейзен"',
-  'AI': 'Станционный ИИ',
-  'Cyborg': 'Робот',
+  AI: 'Станционный ИИ',
+  Cyborg: 'Робот',
   'Personal AI': 'Персональный ИИ',
-  'Warden': 'Смотритель',
-  'Detective': 'Детектив',
+  Warden: 'Смотритель',
+  Detective: 'Детектив',
   'Security Officer': 'Офицер',
   'Brig Physician': 'Бриг-медик',
   'Security Pod Pilot': 'Пилот СБ',
   'Station Engineer': 'Инженер',
   'Life Support Specialist': 'Атмосферный специалист',
   'Trainee Engineer': 'Инженер-стажёр',
-  'Coroner': 'Патологоанатом',
+  Coroner: 'Патологоанатом',
   'Medical Doctor': 'Врач',
-  'Paramedic': 'Парамедик',
-  'Chemist': 'Химик',
-  'Virologist': 'Вирусолог',
-  'Psychiatrist': 'Психиатр',
-  'Geneticist': 'Генетик',
-  'Intern': 'Интерн',
-  'Scientist': 'Учёный',
-  'Roboticist': 'Робототехник',
+  Paramedic: 'Парамедик',
+  Chemist: 'Химик',
+  Virologist: 'Вирусолог',
+  Psychiatrist: 'Психиатр',
+  Geneticist: 'Генетик',
+  Intern: 'Интерн',
+  Scientist: 'Учёный',
+  Roboticist: 'Робототехник',
   'Spacepod Technician': 'Челнок-инженер',
   'Student Scientist': 'Учёный-студент',
-  'Quartermaster': 'Квартирмейстер',
+  Quartermaster: 'Квартирмейстер',
   'Cargo Technician': 'Грузчик',
   'Shaft Miner': 'Шахтёр',
   'Mining Medic': 'Шахтёрский врач',
-  'Explorer': 'Исследователь',
-  'Bartender': 'Бармен',
-  'Botanist': 'Ботаник',
-  'Cook': 'Повар',
-  'Chef': 'Шеф',
-  'Janitor': 'Уборщик',
-  'Clown': 'Клоун',
-  'Mime': 'Мим',
-  'Librarian': 'Библиотекарь',
-  'Lawyer': 'Адвокат',
-  'Chaplain': 'Священник',
-  'Psychologist': 'Психолог',
-  'Investor': 'Инвестор',
+  Explorer: 'Исследователь',
+  Bartender: 'Бармен',
+  Botanist: 'Ботаник',
+  Cook: 'Повар',
+  Chef: 'Шеф',
+  Janitor: 'Уборщик',
+  Clown: 'Клоун',
+  Mime: 'Мим',
+  Librarian: 'Библиотекарь',
+  Lawyer: 'Адвокат',
+  Chaplain: 'Священник',
+  Psychologist: 'Психолог',
+  Investor: 'Инвестор',
 };
 
 export const DEPARTMENTS_RU = {
-  'Command': 'Командование',
-  'Legal': 'Юриспруденция',
-  'Security': 'Безопасность',
-  'Service': 'Обслуживание',
-  'Cargo': 'Снабжение',
-  'Science': 'Наука',
-  'Medical': 'Медицина',
-  'Silicon': 'Синтетики',
-  'Engineering': 'Инженерия',
+  Command: 'Командование',
+  Legal: 'Юриспруденция',
+  Security: 'Безопасность',
+  Service: 'Обслуживание',
+  Cargo: 'Снабжение',
+  Science: 'Наука',
+  Medical: 'Медицина',
+  Silicon: 'Синтетики',
+  Engineering: 'Инженерия',
   'No Department': 'Без отдела',
-  'Other': 'Другое',
+  Other: 'Другое',
 };

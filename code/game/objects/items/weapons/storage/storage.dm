@@ -73,15 +73,10 @@
 	if(w_class_override)
 		w_class_override = string_list(w_class_override)
 
-	if(allow_quick_empty)
-		verbs += /obj/item/storage/verb/quick_empty
-	else
-		verbs -= /obj/item/storage/verb/quick_empty
-
 	if(allow_quick_gather)
-		verbs += /obj/item/storage/verb/toggle_gathering_mode
+		verbs += /obj/item/storage/proc/toggle_gathering_mode
 	else
-		verbs -= /obj/item/storage/verb/toggle_gathering_mode
+		verbs -= /obj/item/storage/proc/toggle_gathering_mode
 
 	populate_contents()
 
@@ -645,6 +640,9 @@
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_PRE_INSERT_INTO_STORAGE, usr) & BLOCK_INSERTING_ITEM)
+		return FALSE
+
 	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			usr.balloon_alert(usr, "нет места!")
@@ -686,7 +684,8 @@
 			usr.balloon_alert(usr, "нет места!")
 		return FALSE
 
-	if(W.w_class >= w_class && (isstorage(W)))
+	var/using_differentiant_size_component = SEND_SIGNAL(src, COMSIG_CHECK_DIFFERENTIATE_SIZE_COMPONENT) & HAS_DIFFERENTIATE_SIZE_COMPONENT
+	if(W.w_class >= w_class && (isstorage(W)) && !using_differentiant_size_component)
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком большой объект!")
@@ -708,11 +707,6 @@
 
 		if(!usr.can_unEquip(W))
 			return FALSE
-
-	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
-		if(!stop_messages)
-			balloon_alert(usr, "не хватит места!")
-		return FALSE
 
 	return TRUE
 
@@ -894,9 +888,7 @@
 		show_to(user)
 	return ..()
 
-/obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Режим сбора"
-	set category = VERB_CATEGORY_OBJECT
+GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбора", VERB_CATEGORY_HIDDEN)
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -904,15 +896,6 @@
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
-
-/obj/item/storage/verb/quick_empty()
-	set name = "Выбросить содержимое"
-	set category = VERB_CATEGORY_OBJECT
-
-	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	drop_inventory(usr)
 
 /obj/item/storage/proc/drop_inventory(user)
 	var/turf/current_turf = get_turf(src)
@@ -1037,11 +1020,6 @@
 		orient2hud(user)
 		show_to(user)
 	return TRUE
-
-/obj/item/storage/examine(mob/user)
-	. = ..()
-	if(dynamic_storage_size)
-		. += span_notice("Размер <b>изменяется</b> в зависимости от наличия содержимого.")
 
 #undef STORAGE_CAP_WIDTH
 #undef STORED_CAP_WIDTH

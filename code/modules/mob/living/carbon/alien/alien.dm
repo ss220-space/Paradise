@@ -63,7 +63,7 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	add_verb(src, /mob/living/verb/mob_sleep)
+	ASSIGN_GAME_VERB(src, /mob/living, mob_sleep)
 	thermal_toogle = new
 	thermal_toogle.Grant(src)
 
@@ -233,9 +233,7 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
-
+/mob/living/carbon/alien/proc/nightvisiontoggle()
 	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		nightvision = 8
@@ -325,7 +323,7 @@ Des: Removes all infected images from the alien.
 	if(!vessel)
 		return
 	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
-	for(var/datum/action/spell_action/action in actions)
+	for(var/datum/action/cooldown/spell/action in mob_spell_list)
 		action.UpdateButtonIcon()
 
 /**
@@ -334,7 +332,7 @@ Des: Removes all infected images from the alien.
  */
 /mob/living/carbon/proc/update_plasma_display(mob/owner, update_buttons = FALSE)
 	if(update_buttons)
-		for(var/datum/action/spell_action/action in actions)
+		for(var/datum/action/cooldown/spell/action in mob_spell_list)
 			action.UpdateButtonIcon()
 
 	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens

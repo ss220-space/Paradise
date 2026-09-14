@@ -1,12 +1,12 @@
-import { useBackend } from '../backend';
 import {
-  Section,
   Button,
-  NumberInput,
-  Stack,
-  NoticeBox,
   Icon,
-} from '../components';
+  NoticeBox,
+  NumberInput,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type SmartfridgeData = {
@@ -60,14 +60,9 @@ export const Smartfridge = (_props: unknown) => {
                   align="center"
                   color="average"
                 >
-                  <Icon.Stack style={{ transform: 'translate(-30px, -50px)' }}>
+                  <Icon.Stack>
                     <Icon name="cookie-bite" size={5} color="brown" />
-                    <Icon
-                      name="slash"
-                      size={5}
-                      color="red"
-                      style={{ transform: 'translate(-5px, 0)' }}
-                    />
+                    <Icon name="slash" size={5} color="red" />
                   </Icon.Stack>
                   <br />
                   Хранилище пусто.

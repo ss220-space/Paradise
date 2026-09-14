@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Icon, Input, Section, Stack } from 'tgui/components';
-import type { BooleanStyleMap, StringStyleMap } from 'common/ui';
+import { Box, Button, Icon, Input, Section, Stack } from 'tgui-core/components';
+import type { BooleanStyleMap, StringStyleMap } from 'tgui-core/ui';
 import { Dir, type InlineStyle, type SpriteData } from '../Types/types';
 import { AdvancedCanvas } from './AdvancedCanvas';
 
@@ -37,7 +37,7 @@ export const LayerManager = (props: LayerManagerProps) => {
         `"leftControls${i} ${dirCellPrefixes
           .slice(0, iconDirs)
           .map((dir) => `${dir}${i}`)
-          .join(' ')} rightControls${i}"`
+          .join(' ')} rightControls${i}"`,
     ).toReversed(),
   ].join(' ');
   return (

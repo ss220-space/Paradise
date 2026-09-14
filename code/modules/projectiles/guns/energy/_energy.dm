@@ -106,10 +106,7 @@
 
 	return ..()
 
-/obj/item/gun/energy/proc/toggle_voice()
-	set name = "Сменить голос Sibyl System"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Кликните для переключения голосовой подсистемы."
+GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голос Sibyl System", VERB_CATEGORY_HIDDEN)
 
 	if(sibyl_mod)
 		sibyl_mod.toggle_voice(usr)

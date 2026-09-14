@@ -66,14 +66,14 @@
 	qdel(query)
 
 	//Sanitize
-	ooccolor = sanitize_hexcolor(ooccolor, initial(ooccolor))
+	ooccolor = sanitize_hexcolor(ooccolor, default = initial(ooccolor))
 	UI_style = sanitize_inlist(UI_style, list(UI_THEME_WHITE, UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE, UI_THEME_CLOCKWORK), initial(UI_style))
 	default_slot = sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles = sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2 = sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
 	toggles3 = sanitize_integer(toggles3, 0, TOGGLES_3_TOTAL, initial(toggles3))
 	sound = sanitize_integer(sound, 0, 65535, initial(sound))
-	UI_style_color = sanitize_hexcolor(UI_style_color, initial(UI_style_color))
+	UI_style_color = sanitize_hexcolor(UI_style_color, default = initial(UI_style_color))
 	UI_style_alpha = sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
 	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
@@ -84,7 +84,8 @@
 	discord_id = sanitize_text(discord_id, initial(discord_id))
 	discord_name = sanitize_text(discord_name, initial(discord_name))
 	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
-	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
+	screentip_color = sanitize_hexcolor(screentip_color, default = initial(screentip_color))
+	parent?.view_size?.setDefault(VIEWPORT_USE_PREF)
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -374,7 +375,7 @@
 	s_tone			= sanitize_integer(s_tone, -185, 34, initial(s_tone))
 	s_colour		= sanitize_hexcolor(s_colour)
 	for(var/marking_location in m_colours)
-		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], DEFAULT_MARKING_COLOURS[marking_location])
+		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], default = DEFAULT_MARKING_COLOURS[marking_location])
 	hacc_colour		= sanitize_hexcolor(hacc_colour)
 	h_style			= sanitize_inlist(h_style, GLOB.hair_styles_public_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, GLOB.facial_hair_styles_list, initial(f_style))

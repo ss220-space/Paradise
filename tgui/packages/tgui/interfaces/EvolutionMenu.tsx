@@ -1,8 +1,8 @@
+import { Box, Button, Flex, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
-export const EvolutionMenu = (props: unknown) => {
+export const EvolutionMenu = (_props: unknown) => {
   return (
     <Window width={500} height={800} theme="changeling">
       <Window.Content className="Layout__content--flexColumn" scrollable>
@@ -133,7 +133,7 @@ const Abilities = (props: unknown) => {
           </Flex>
           {!!view_mode && (
             <Flex color="#8a8a8a" my={1} ml={1.5} width="95%">
-              {ability.description + ' ' + ability.helptext}
+              {`${ability.description} ${ability.helptext}`}
             </Flex>
           )}
         </Box>

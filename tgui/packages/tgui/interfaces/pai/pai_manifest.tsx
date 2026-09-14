@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { CrewManifest, ManifestData } from '../common/CrewManifest';
+import { CrewManifest, type ManifestData } from '../common/CrewManifest';
 
-export const pai_manifest = (props: unknown) => {
+export const pai_manifest = (_props: unknown) => {
   const { data } = useBackend<PaiData<ManifestData>>();
 
   return <CrewManifest {...data.app_data} />;

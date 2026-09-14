@@ -549,11 +549,11 @@
 
 /mob/living/simple_animal/slime/invalid
 	var/dead_for_sure = FALSE
-	var/obj/effect/proc_holder/spell/slime_degradation/parent_spell
+	var/datum/action/cooldown/spell/slime_degradation/parent_spell
 	var/mob/living/carbon/human/sman
 	powerlevel = 10
 
-/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, obj/effect/proc_holder/spell/slime_degradation/slime_spell)
+/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, datum/action/cooldown/spell/slime_degradation/slime_spell)
 	..()
 	for(var/datum/action/innate/slime/A in actions)
 		if(!istype(A,/datum/action/innate/slime/feed))
@@ -562,8 +562,6 @@
 		sman = slimeman
 	if(slime_spell)
 		parent_spell = slime_spell
-	remove_verb(src, /mob/living/simple_animal/slime/verb/Evolve)
-	remove_verb(src, /mob/living/simple_animal/slime/verb/Reproduce)
 
 /mob/living/simple_animal/slime/invalid/Destroy()
 	parent_spell = null

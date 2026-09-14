@@ -21,7 +21,7 @@
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay
-	var/obj/item/reagent_containers/glass/beaker
+	var/obj/item/reagent_containers/cup/beaker
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -260,7 +260,7 @@
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(beaker)
-		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
+		data["beakerLabel"] = DECLENT_RU_CAP(beaker, NOMINATIVE)
 		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
@@ -313,9 +313,9 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
-		var/obj/item/reagent_containers/glass/glass = I
+		var/obj/item/reagent_containers/cup/glass = I
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
@@ -494,11 +494,7 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Извлечь пациента"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
+GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
@@ -526,24 +522,6 @@
 	go_out()
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
-
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
 
 /datum/data/function/proc/reset()
 	return
