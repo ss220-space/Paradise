@@ -31,10 +31,10 @@
 		owner.apply_external_augmentations(dummy)
 	dummy.equipOutfit(final_outfit)
 	dummy.move_to_null_space()
-	update_appearance()
+	update_body()
 
 /// Copies the dummy's appearance onto the screen object.
-/atom/movable/screen/map_view/character_preview/update_appearance()
+/atom/movable/screen/map_view/character_preview/proc/update_body()
 	if(QDELETED(dummy))
 		return
 	dummy.setDir(preview_direction)

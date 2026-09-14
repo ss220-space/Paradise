@@ -296,8 +296,14 @@
 			if(!preview_pending)
 				preview_pending = TRUE
 				addtimer(CALLBACK(src, PROC_REF(regenerate_preview_dummy)), 1)
-		data["character_preview_view"] = ensure_preview_view(user, ui?.window)
-		preview_view?.update_appearance()
+		if(QDELETED(preview_view))
+			preview_view = new /atom/movable/screen/map_view/character_preview
+			preview_view.generate_view("custom_outfit_preview_[UID()]")
+		if(!preview_view.dummy)
+			preview_view.rebuild_dummy(src)
+		preview_view.update_body()
+		data["character_preview_view"] = preview_view.assigned_map
+		ensure_preview_view(user, ui?.window)
 	else
 		data["target_name"] = null
 		data["target_valid"] = FALSE
@@ -436,6 +442,15 @@
 	for(var/job_title in GLOB.joblist)
 		. += job_title
 	. += "Custom"
+	return .
+
+/datum/custom_outfit/proc/get_ranklist_for_tgui()
+	. = list()
+	for(var/job_title in GLOB.joblist)
+		if(job_title == "Cyborg" || findtextEx(job_title, "Team ") == 1)
+			continue
+		. += job_title
+	. += "Deathsquad Officer"
 	return .
 
 /datum/custom_outfit/proc/is_valid_item_entry(item_path, count)
@@ -1786,6 +1801,7 @@
 	var/list/data = list()
 	data["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_TAIPAN)
 	data["joblist"] = linked_outfit.get_joblist_for_tgui()
+	data["ranklist"] = linked_outfit.get_ranklist_for_tgui()
 	return data
 
 /datum/custom_outfit_id_editor/ui_data(mob/user)
@@ -1823,6 +1839,13 @@
 			var/new_assignment = params["assignment"]
 			if(istext(new_assignment))
 				id_data["assignment"] = new_assignment
+			else
+				. = FALSE
+
+		if("set_id_rank")
+			var/new_rank = params["rank"]
+			if(istext(new_rank))
+				id_data["rank"] = new_rank
 			else
 				. = FALSE
 
