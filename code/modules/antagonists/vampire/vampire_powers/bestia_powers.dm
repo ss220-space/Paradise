@@ -748,7 +748,7 @@
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_U_Y__(blood_gained)] крови!"))
+		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_U_Y_0(blood_gained)] крови!"))
 
 /datum/action/cooldown/spell/pointed/bestia_lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)

@@ -105,7 +105,7 @@
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
-		. += span_notice("Внутри остал[DECL_A_O_O(reagents.total_volume)]сь примерно [round(reagents.total_volume)] единиц[DECL_A_Y__(reagents.total_volume)] вещества.")
+		. += span_notice("Внутри остал[DECL_A_O_O(reagents.total_volume)]сь примерно [round(reagents.total_volume)] единиц[DECL_A_Y_0(reagents.total_volume)] вещества.")
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
@@ -374,7 +374,7 @@
 
 /obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, span_notice("Вы настраиваете объём распыления. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[DECL_YE_Y___(amount_per_transfer_from_this)] содержимого за раз."))
+	to_chat(user, span_notice("Вы настраиваете объём распыления. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[DECL_YE_Y_0(amount_per_transfer_from_this)] содержимого за раз."))
 
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie
