@@ -4,33 +4,31 @@
  * @license MIT
  */
 
-import { Box } from 'tgui/components';
-import { classes } from 'common/react';
-
+import { Box } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { useBackend } from '../backend';
-import { useDebug } from '../debug';
 import { Layout } from './Layout';
 
 type BoxProps = React.ComponentProps<typeof Box>;
 
 type Props = Partial<{
+  canSuspend: boolean;
   theme: string;
 }> &
   BoxProps;
 
-export const Pane = (props: Props) => {
-  const { theme, children, className, ...rest } = props;
+export function Pane(props: Props) {
+  const { theme, canSuspend, children, className, ...rest } = props;
   const { suspended } = useBackend();
-  const { debugLayout = false } = useDebug();
+
+  const isSuspended = canSuspend && suspended;
 
   return (
     <Layout className={classes(['Window', className])} theme={theme} {...rest}>
-      <Box fillPositionedParent className={debugLayout && 'debug-layout'}>
-        {!suspended && children}
-      </Box>
+      <Box fillPositionedParent>{!isSuspended && children}</Box>
     </Layout>
   );
-};
+}
 
 type ContentProps = Partial<{
   fitted: boolean;
@@ -38,7 +36,7 @@ type ContentProps = Partial<{
 }> &
   BoxProps;
 
-const PaneContent = (props: ContentProps) => {
+function PaneContent(props: ContentProps) {
   const { className, fitted, children, ...rest } = props;
 
   return (
@@ -53,6 +51,6 @@ const PaneContent = (props: ContentProps) => {
       )}
     </Layout.Content>
   );
-};
+}
 
 Pane.Content = PaneContent;

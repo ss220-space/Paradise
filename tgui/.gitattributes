@@ -12,10 +12,10 @@
 *.yml text eol=lf
 *.md text eol=lf
 *.bat text eol=lf
-*.svg text eol=lf
 yarn.lock text eol=lf
-bin/tgui text eol=lf
 
-## Treat bundles as binary and ignore them during conflicts
+## Treat bundles as binary
+*.bundle.* binary
+*.chunk.* binary
 .yarn/releases/**/* binary
 .yarn/plugins/**/* binary

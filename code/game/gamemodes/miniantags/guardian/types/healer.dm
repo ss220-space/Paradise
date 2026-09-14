@@ -29,7 +29,9 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(src, summoner))
+	var/datum/action/cooldown/spell/guardian_quickmend/spell = new
+	spell.summoner = summoner
+	AddSpell(spell)
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	beacon = null
@@ -91,10 +93,7 @@
 	else
 		to_chat(src, span_danger("Нужно быть в хозяине для переключения режимов!"))
 
-/mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Установить БС-маяк"
-	set category = VERB_CATEGORY_GUARDIAN
-	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
+GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/healer, Beacon, "Установить БС-маяк", "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях.", VERB_CATEGORY_GUARDIAN)
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
 		if(isfloorturf(beacon_loc))
@@ -145,44 +144,28 @@
 	else
 		to_chat(src, span_danger("Вам нужно стоять смирно!"))
 
-/obj/effect/proc_holder/spell/guardian_quickmend
+/datum/action/cooldown/spell/guardian_quickmend
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
-	action_icon_state = "heal"
-	base_cooldown = 35 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "heal"
+	cooldown_time = 35 SECONDS
+	spell_requirements = NONE
 	var/chance_to_mend = 50
 	var/cast_time = 50
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-/obj/effect/proc_holder/spell/guardian_quickmend/Initialize(mapload, mob/living/carbon/human/summoned_by)
+/datum/action/cooldown/spell/guardian_quickmend/Remove(mob/living/remove_from)
 	. = ..()
-	summoner = summoned_by
-
-/obj/effect/proc_holder/spell/guardian_quickmend/Destroy()
 	summoner = null
-	return ..()
 
-/obj/effect/proc_holder/spell/guardian_quickmend/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new
-	T.range = 1
-	T.selection_type = SPELL_SELECTION_RANGE
-	T.use_turf_of_user = TRUE
-	T.try_auto_target = TRUE
-	return T
-
-/obj/effect/proc_holder/spell/guardian_quickmend/valid_target(target, user)
+/datum/action/cooldown/spell/guardian_quickmend/is_valid_target(atom/cast_on)
 	return target == summoner
 
-/obj/effect/proc_holder/spell/guardian_quickmend/cast(list/targets, mob/user)
-	for(var/target in targets)
-		if(target != summoner)
-			to_chat(user, "Это не ваш хозяин.")
-			return FALSE
-	to_chat(user, "Проверка ран хозяина..")
-	if(do_after(user, cast_time, summoner))
+/datum/action/cooldown/spell/guardian_quickmend/cast(atom/cast_on)
+	. = ..()
+	to_chat(owner, "Проверка ран хозяина..")
+	if(do_after(owner, cast_time, summoner))
 		if(prob(chance_to_mend))
 			var/list/injures[] = list()
 			injures["bleedings"] = summoner.check_internal_bleedings() + summoner.check_arterial_bleedings()
@@ -196,43 +179,43 @@
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
 			if(!length(available_cures))
-				revert_cast(user)
+				reset_spell_cooldown()
 				return FALSE
 			var/random_cure = pick(available_cures)
-			to_chat(user, "Найдена травма. Попытка исцеления..")
+			to_chat(owner, "Найдена травма. Попытка исцеления..")
 			switch(random_cure)
 				if("bleedings")
 					var/obj/item/organ/external/limb = pick(injures["bleedings"])
 					limb.stop_internal_bleeding()
 					limb.stop_arterial_bleeding()
 					limb.stop_bleeding()
-					to_chat(user, "Кровотечение остановлено.")
+					to_chat(owner, "Кровотечение остановлено.")
 					return TRUE
 				if("fractures")
 					var/obj/item/organ/external/limb = pick(injures["fractures"])
 					limb.mend_fracture()
-					to_chat(user, "Перелом зафиксирован.")
+					to_chat(owner, "Перелом зафиксирован.")
 					return TRUE
 				if("infections")
 					var/obj/item/organ/internal/organ = pick(injures["infections"])
 					organ.germ_level = 0
-					to_chat(user, "Очищено тело хозяина от инфекции.")
+					to_chat(owner, "Очищено тело хозяина от инфекции.")
 					return TRUE
 				if("embedded")
 					var/obj/item/organ/external/limb = safepick(injures["embedded"])
 					var/obj/item/item = safepick(limb?.embedded_objects)
 					limb?.remove_embedded_object(item)
-					to_chat(user, "Удалось вытащить застрявший предмет.")
+					to_chat(owner, "Удалось вытащить застрявший предмет.")
 					return TRUE
 				if("damaged_organs")
 					var/obj/item/organ/internal/organ = pick(injures["damaged_organs"])
 					organ.damage = 0
-					to_chat(user, "Восстановлен поврежденный орган.")
+					to_chat(owner, "Восстановлен поврежденный орган.")
 					return TRUE
 		else
-			to_chat(user, "Проверка окончилась неудачей.")
+			to_chat(owner, "Проверка окончилась неудачей.")
 			return TRUE
 	else
-		to_chat(user, "Нужно стоять смирно!")
-		revert_cast(user)
+		to_chat(owner, "Нужно стоять смирно!")
+		reset_spell_cooldown()
 		return FALSE

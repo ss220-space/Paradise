@@ -5,16 +5,13 @@
 //	to mixed-drinks code. If you want an object that starts pre-loaded, you need to make it in addition to the other code.
 
 //Food items that aren't eaten normally and leave an empty container behind.
-/obj/item/reagent_containers/food/condiment
+/obj/item/reagent_containers/condiment
 	name = "condiment container"
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5)
-	visible_transfer_rate = TRUE
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
 		"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
@@ -30,10 +27,10 @@
 	)
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/food/condiment/attack_self(mob/user)
+/obj/item/reagent_containers/condiment/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
 
@@ -71,10 +68,10 @@
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	return .|ATTACK_CHAIN_SUCCESS
 
-/obj/item/reagent_containers/food/condiment/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/reagent_containers/condiment/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+	if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
 			to_chat(user, span_warning("[target] is empty!"))
@@ -88,7 +85,7 @@
 		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
+	else if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("[src] is empty!"))
 			return
@@ -98,7 +95,7 @@
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
 
-/obj/item/reagent_containers/food/condiment/on_reagent_change()
+/obj/item/reagent_containers/condiment/on_reagent_change()
 	if(!length(possible_states))
 		return
 	if(length(reagents.reagent_list) > 0)
@@ -122,18 +119,18 @@
 		name = "condiment bottle"
 		desc = "An empty condiment bottle."
 
-/obj/item/reagent_containers/food/condiment/enzyme
+/obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
 
-/obj/item/reagent_containers/food/condiment/sugar
+/obj/item/reagent_containers/condiment/sugar
 	name = "sugar bottle"
 	desc = "Tasty spacey sugar!"
 	list_reagents = list("sugar" = 50)
 
-/obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
+/obj/item/reagent_containers/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
@@ -143,7 +140,7 @@
 	list_reagents = list("sodiumchloride" = 20)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
+/obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide."))
 	var/newname = "[name]"
 	name = "[user.name]"
@@ -152,7 +149,7 @@
 	desc = "Salt. From dead crew, presumably."
 	return BRUTELOSS
 
-/obj/item/reagent_containers/food/condiment/peppermill
+/obj/item/reagent_containers/condiment/peppermill
 	name = "pepper mill"
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
@@ -162,7 +159,7 @@
 	list_reagents = list("blackpepper" = 20)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/milk
+/obj/item/reagent_containers/condiment/milk
 	name = "space milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
@@ -170,7 +167,7 @@
 	list_reagents = list("milk" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/flour
+/obj/item/reagent_containers/condiment/flour
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
@@ -178,7 +175,7 @@
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/soymilk
+/obj/item/reagent_containers/condiment/soymilk
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
@@ -186,7 +183,7 @@
 	list_reagents = list("soymilk" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/rice
+/obj/item/reagent_containers/condiment/rice
 	name = "rice sack"
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
@@ -194,21 +191,20 @@
 	list_reagents = list("rice" = 30)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/soysauce
+/obj/item/reagent_containers/condiment/soysauce
 	name = "soy sauce"
 	desc = "A salty soy-based flavoring."
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)
 	possible_states = list()
 
-/obj/item/reagent_containers/food/condiment/syndisauce
+/obj/item/reagent_containers/condiment/syndisauce
 	name = "Chef Excellence's Special Sauce"
 	desc = "Этот ароматный соус, приготовленный из мухоморов, просто восхитителен! Смерть никогда не была такой приятной на вкус."
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()
-	log_eating = TRUE
 
-/obj/item/reagent_containers/food/condiment/syndisauce/get_ru_names()
+/obj/item/reagent_containers/condiment/syndisauce/get_ru_names()
 	return alist(
 		NOMINATIVE = "элитарный соус шефа",
 		GENITIVE = "элитарного соуса шефа",
@@ -219,7 +215,7 @@
 	)
 
 //Tomato sauce
-/obj/item/reagent_containers/food/condiment/tomatosauce
+/obj/item/reagent_containers/condiment/tomatosauce
 	name = "tomato sauce"
 	desc = "The father of all sauces. Tomatoes, a little spice and nothing extra."
 	icon_state = "tomatosauce"
@@ -227,7 +223,7 @@
 	possible_states = list()
 
 //Diablo sauce
-/obj/item/reagent_containers/food/condiment/diablosauce
+/obj/item/reagent_containers/condiment/diablosauce
 	name = "diablo sauce"
 	desc = "An ancient burning sauce, its recipe has hardly changed since its creation."
 	icon_state = "diablosauce"
@@ -235,7 +231,7 @@
 	possible_states = list()
 
 //Cheese sauce
-/obj/item/reagent_containers/food/condiment/cheesesauce
+/obj/item/reagent_containers/condiment/cheesesauce
 	name = "cheese sauce"
 	desc = "Cheese, cream and milk... maximum protein concentration!"
 	icon_state = "cheesesauce"
@@ -243,7 +239,7 @@
 	possible_states = list()
 
 //Mushroom sauce
-/obj/item/reagent_containers/food/condiment/mushroomsauce
+/obj/item/reagent_containers/condiment/mushroomsauce
 	name = "mushroom sauce"
 	desc = "Creamy sauce with mushrooms, has a rather pungent smell."
 	icon_state = "mushroomsauce"
@@ -251,7 +247,7 @@
 	possible_states = list()
 
 //Garlic sauce
-/obj/item/reagent_containers/food/condiment/garlicsauce
+/obj/item/reagent_containers/condiment/garlicsauce
 	name = "garlic sauce"
 	desc = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
 	icon_state = "garlicsauce"
@@ -259,7 +255,7 @@
 	possible_states = list()
 
 //Custard
-/obj/item/reagent_containers/food/condiment/custard
+/obj/item/reagent_containers/condiment/custard
 	name = "Custard"
 	desc = "Soft and sweet cream, used in confectionery."
 	icon_state = "custard"
@@ -267,7 +263,7 @@
 	possible_states = list()
 
 //Herbs
-/obj/item/reagent_containers/food/condiment/herbs
+/obj/item/reagent_containers/condiment/herbs
 	name = "Herbs mix"
 	desc = "A mix of variouse herbs. Perfect for pizza!"
 	icon_state = "herbs"
@@ -276,13 +272,13 @@
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
-/obj/item/reagent_containers/food/condiment/pack
+/obj/item/reagent_containers/condiment/pack
 	name = "condiment pack"
 	desc = "A small plastic pack with condiments to put on your food."
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(10)
 	possible_states = list(
 		"ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
 		"capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
@@ -298,15 +294,15 @@
 		"chocolate_sprinkle" = list("condi_chocolate", "Chocolate sprinkle", "The amount of sugar that's already there wasn't enough for you?"),
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
 
-/obj/item/reagent_containers/food/condiment/pack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/reagent_containers/condiment/pack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.
-	if(istype(target, /obj/item/reagent_containers/food))
+	if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("You tear open [src], but there's nothing in it."))
 			qdel(src)
@@ -320,7 +316,7 @@
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 
-/obj/item/reagent_containers/food/condiment/pack/update_desc(updates = ALL)
+/obj/item/reagent_containers/condiment/pack/update_desc(updates = ALL)
 	. = ..()
 	if(length(reagents.reagent_list))
 		var/main_reagent = reagents.get_master_reagent_id()
@@ -332,7 +328,7 @@
 	else
 		desc = "A small condiment pack. It is empty."
 
-/obj/item/reagent_containers/food/condiment/pack/update_icon_state()
+/obj/item/reagent_containers/condiment/pack/update_icon_state()
 	. = ..()
 	if(length(reagents.reagent_list))
 		var/main_reagent = reagents.get_master_reagent_id()
@@ -344,15 +340,15 @@
 	else
 		icon_state = "condi_empty"
 
-/obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
+/obj/item/reagent_containers/condiment/pack/on_reagent_change()
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
-/obj/item/reagent_containers/food/condiment/pack/ketchup
+/obj/item/reagent_containers/condiment/pack/ketchup
 	name = "ketchup pack"
 	originalname = "ketchup"
 	list_reagents = list("ketchup" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/ketchup/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/ketchup/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик кетчупа",
 		GENITIVE = "пакетика кетчупа",
@@ -362,12 +358,12 @@
 		PREPOSITIONAL = "пакетике кетчупа"
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/hotsauce
+/obj/item/reagent_containers/condiment/pack/hotsauce
 	name = "hotsauce pack"
 	originalname = "hotsauce"
 	list_reagents = list("capsaicin" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/hotsauce/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/hotsauce/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик острого соуса",
 		GENITIVE = "пакетика острого соуса",
@@ -378,7 +374,7 @@
 	)
 
 // Animal feed
-/obj/item/reagent_containers/food/condiment/animalfeed
+/obj/item/reagent_containers/condiment/animalfeed
 	name = "pet food package"
 	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
 	icon = 'icons/obj/pet_bowl.dmi'
@@ -386,16 +382,16 @@
 	volume = 80
 	list_reagents = list("afeed" = 80)
 
-/obj/item/reagent_containers/food/condiment/animalfeed/on_reagent_change()
+/obj/item/reagent_containers/condiment/animalfeed/on_reagent_change()
 	return
 
 // MARK: Creamer pack
-/obj/item/reagent_containers/food/condiment/pack/creamer
+/obj/item/reagent_containers/condiment/pack/creamer
 	name = "creamer pack"
 	originalname = "creamer"
 	list_reagents = list("cream" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/creamer/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/creamer/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик сливок",
 		GENITIVE = "пакетика сливок",
@@ -405,17 +401,17 @@
 		PREPOSITIONAL = "пакетике сливок"
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/creamer/ComponentInitialize()
+/obj/item/reagent_containers/condiment/pack/creamer/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "creamer")
 
 // MARK: Sugar pack
-/obj/item/reagent_containers/food/condiment/pack/sugar
+/obj/item/reagent_containers/condiment/pack/sugar
 	name = "sugar pack"
 	originalname = "sugar"
 	list_reagents = list("sugar" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/sugar/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/sugar/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик сахара",
 		GENITIVE = "пакетика сахара",
@@ -425,17 +421,17 @@
 		PREPOSITIONAL = "пакетике сахара"
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/sugar/ComponentInitialize()
+/obj/item/reagent_containers/condiment/pack/sugar/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "sugar")
 
 // MARK: Aspartame pack
-/obj/item/reagent_containers/food/condiment/pack/aspartame
+/obj/item/reagent_containers/condiment/pack/aspartame
 	name = "aspartame pack"
 	originalname = "aspartame"
 	list_reagents = list("aspartame" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/aspartame/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/aspartame/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик аспартама",
 		GENITIVE = "пакетика аспартама",
@@ -445,17 +441,17 @@
 		PREPOSITIONAL = "пакетике аспартама"
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/aspartame/ComponentInitialize()
+/obj/item/reagent_containers/condiment/pack/aspartame/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "aspartame")
 
 // MARK: Chocolate sprinkle
-/obj/item/reagent_containers/food/condiment/pack/chocolate
+/obj/item/reagent_containers/condiment/pack/chocolate
 	name = "chocolate sprinkle pack"
 	originalname = "chocolate sprikle"
 	list_reagents = list("chocolate_sprinkle" = 10)
 
-/obj/item/reagent_containers/food/condiment/pack/chocolate/get_ru_names()
+/obj/item/reagent_containers/condiment/pack/chocolate/get_ru_names()
 	return alist(
 		NOMINATIVE = "пакетик шоколадной посыпки",
 		GENITIVE = "пакетика шоколадной посыпки",

@@ -7,7 +7,7 @@
 #define ATTACHMENT_SLOT_UNDER "under"
 /// Sibyl slot identifier
 #define ATTACHMENT_SLOT_SIBYL "sibyl"
-/// Muzzle slot identifier
+/// Stock slot identifier
 #define ATTACHMENT_SLOT_STOCK "stock"
 
 // Keys for attachment X/Y offset values

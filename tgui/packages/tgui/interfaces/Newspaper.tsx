@@ -1,8 +1,8 @@
+import type { ReactNode } from 'react';
+import { Box, Button, Flex, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
-import { Box, Section, Image, Button, Flex } from '../components';
 import { Window } from '../layouts';
-import { PhotoThumbnail, StoryData } from './Newscaster';
+import { PhotoThumbnail, type StoryData } from './Newscaster';
 
 type NewspaperData = {
   wanted: StoryData;
@@ -59,7 +59,7 @@ export const Newspaper = (_props: unknown) => {
     'ноября',
     'декабря',
   ];
-  let date = new Date();
+  const date = new Date();
 
   return (
     <Window width={800} height={600} theme="paper" title="Газета Грифон">
@@ -118,7 +118,7 @@ export const Newspaper = (_props: unknown) => {
                         <Flex wrap="wrap" justify="space-between">
                           <Flex.Item width="40%">
                             <PhotoThumbnail
-                              name={'story_photo_' + article.uid + '.png'}
+                              name={`story_photo_${article.uid}.png`}
                               style={{ float: 'left', width: '100%' }}
                             />
                           </Flex.Item>
@@ -150,7 +150,7 @@ export const Newspaper = (_props: unknown) => {
                         <Flex wrap="wrap" justify="space-between">
                           <Flex.Item width="40%">
                             <PhotoThumbnail
-                              name={'story_photo_' + article.uid + '.png'}
+                              name={`story_photo_${article.uid}.png`}
                               style={{ float: 'left', width: '100%' }}
                             />
                           </Flex.Item>
@@ -267,7 +267,7 @@ const WantedBlock = (properties: WantedBlockProps) => {
         {photo && (
           <Flex.Item width="30%">
             <PhotoThumbnail
-              name={'story_photo_' + id + '.png'}
+              name={`story_photo_${id}.png`}
               style={{ float: 'left', marginRight: '0.5rem', width: '100%' }}
             />
           </Flex.Item>

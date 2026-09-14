@@ -1,6 +1,7 @@
 /// Allows right clicking mobs to send an admin PM to their client.
 /// Forwards the selected mob's client to cmd_admin_pm.
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", mob/target in GLOB.player_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!ismob(target) || !target.client)
 		return
 	user.cmd_admin_pm(target.client, null)
@@ -107,7 +108,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		set_typing(C, TRUE)
 		tickets_system.refresh_tickets(tickets)
 		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
-		msg = handleDiscordEmojis(msg)
+		msg = handle_emojis(msg)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -176,13 +177,20 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 
 	var/emoji_msg = span_emojienabled("[msg]")
 	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/reply_msg = ""
+	if(key)
+		if(holder && holder.fakekey)
+			reply_msg = "(<a href='byond://?priv_msg=[getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+		else
+			reply_msg = "(<a href='byond://?priv_msg=[ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, C.mob))
 		receive_window_link = ticket_link
 	receive_message = fieldset_block(
 		"<span class='[receive_span]'>[type] от — <b>[receive_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b></span>",
-		"<span class='[receive_span]'>[emoji_msg][C.holder ? "<br>[ping_link] [receive_window_link] [alert_link]" : ""]</span>",
+		"<span class='[receive_span]'>[emoji_msg][C.holder ? "<br>[reply_msg] [ping_link] [receive_window_link] [alert_link]" : "<br>[reply_msg]"]</span>",
 		box_class \
 	)
 	to_chat(C, receive_message)
@@ -194,7 +202,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 			send_window_link = ticket_link
 		var/send_message = fieldset_block(
 			"<span class='[send_span]'>[send_pm_type][type] к — <b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b></span>",
-			"<span class='[send_span]'>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]",
+			"<span class='[send_span]'>[emoji_msg]</span><br>[reply_msg] [ping_link] [send_window_link] [alert_link]",
 			box_class \
 		)
 		to_chat(src, send_message)
@@ -265,9 +273,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential = TRUE)
 
-/client/verb/open_pms_ui()
-	set name = "ЛС"
-	set category = ADMIN_CATEGORY_TICKETS
+GAME_VERB(/client, open_pms_ui, "ЛС", ADMIN_CATEGORY_TICKETS)
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

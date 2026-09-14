@@ -1,7 +1,10 @@
 /datum/emote/living/simple_animal
+	abstract_type = /datum/emote/living/simple_animal
 	mob_type_allowed_typecache = list(/mob/living/simple_animal)
+	keybind_category = KB_CATEGORY_EMOTE_ANIMAL
 
 /datum/emote/living/simple_animal/diona_chirp
+	name = "Чирикать (диона)"
 	key = "chirp"
 	key_third_person = "chirps"
 	message = "чирика%(ет,ют)%."
@@ -11,15 +14,20 @@
 	sound = 'sound/creatures/nymphchirp.ogg'
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
 
+/datum/emote/living/simple_animal/pet
+	abstract_type = /datum/emote/living/simple_animal/pet
+
 /**
  * Dog emotes
  */
 /datum/emote/living/simple_animal/pet/dog
+	abstract_type = /datum/emote/living/simple_animal/pet/dog
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/pet/dog)
 
 /datum/emote/living/simple_animal/pet/dog/bark
+	name = "Лаять (пёс)"
 	key = "bark"
 	key_third_person = "barks"
 	message = "ла%(ет,ют)%."
@@ -36,6 +44,7 @@
 	return safepick(user.bark_sound)
 
 /datum/emote/living/simple_animal/pet/dog/yelp
+	name = "Тявкать (пёс)"
 	key = "yelp"
 	key_third_person = "yelps"
 	message = "тявка%(ет,ют)%!"
@@ -47,6 +56,7 @@
 	return safepick(user.yelp_sound)
 
 /datum/emote/living/simple_animal/pet/dog/growl
+	name = "Рычать (пёс)"
 	key = "growl"
 	key_third_person = "growls"
 	message = "рыч%(ит,ат)%!"
@@ -61,11 +71,13 @@
  * Mouse
  */
 /datum/emote/living/simple_animal/mouse
+	abstract_type = /datum/emote/living/simple_animal/mouse
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/mouse)
 
 /datum/emote/living/simple_animal/mouse/squeak
+	name = "Писк (мышь)"
 	key = "squeak"
 	key_third_person = "squeaks"
 	message = "пищ%(ит,ат)%!"
@@ -77,6 +89,7 @@
 	return user.squeak_sound
 
 /datum/emote/living/simple_animal/mouse/scream
+	name = "Кричать (мышь)"
 	key = "scream"
 	key_third_person = "screams"
 	message = "тревожно пищ%(ит,ат)%!"
@@ -91,9 +104,11 @@
  * Cat
  */
 /datum/emote/living/simple_animal/pet/cat
+	abstract_type = /datum/emote/living/simple_animal/pet/cat
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/pet/cat)
 
 /datum/emote/living/simple_animal/pet/cat/meow
+	name = "Мяукать (кот)"
 	key = "meow"
 	key_third_person = "meows"
 	message = "мяука%(ет,ют)%."
@@ -105,6 +120,7 @@
 	return user.meow_sound
 
 /datum/emote/living/simple_animal/pet/cat/hiss
+	name = "Шипеть (кот)"
 	key = "hiss"
 	key_third_person = "hisses"
 	message = "шип%(ит,ят)%!"
@@ -113,12 +129,14 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/pet/cat/purr
+	name = "Мурлыкать (кот)"
 	key = "purr"
 	key_third_person = "purrs"
 	message = "мурлыка%(ет,ют)%."
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/sit/cat
+	name = "Сесть/Встать (кот)"
 	message = null
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/pet/cat)
 
@@ -130,6 +148,7 @@
  * Frog
  */
 /datum/emote/living/simple_animal/frog_warcry
+	name = "Боевой клич (лягушка)"
 	key = "warcry"
 	message = "изда%(ёт,ют)% боевой клич!"
 	message_postfix = ", в сторону %t!"

@@ -12,11 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22.11.0
-          cache: "yarn"
-          cache-dependency-path: ./tgui/yarn.lock
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
@@ -27,5 +24,4 @@ jobs:
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -Mci_map_testing paradise.dme
+          tools/build/build.sh --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS

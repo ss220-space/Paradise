@@ -1,6 +1,5 @@
-import { Box, Button, Floating, Stack } from '../../components';
-import { classes } from 'common/react';
-
+import { Box, Button, Floating, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { BlendColors, type Filter, type Plane, type Relay } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
@@ -70,11 +69,11 @@ export const Port = (props: PortProps) => {
         onDoubleClick={() => {
           setZoomToX(
             connectedPlane.position.x +
-              (zoomToX === connectedPlane.position.x ? 0.1 : 0)
+              (zoomToX === connectedPlane.position.x ? 0.1 : 0),
           );
           setZoomToY(
             connectedPlane.position.y +
-              (zoomToY === connectedPlane.position.y ? 0.1 : 0)
+              (zoomToY === connectedPlane.position.y ? 0.1 : 0),
           );
         }}
       >

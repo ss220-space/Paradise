@@ -1,4 +1,4 @@
-// MARK: Generic
+// MARK: Generic wooden bow
 /obj/item/gun/projectile/bow
 	name = "bow"
 	desc = "Прочный лук, сделанный из дерева."
@@ -6,12 +6,10 @@
 	icon_state = "bow"
 	base_icon_state = "bow"
 	item_state = "bow"
-
 	fire_sound = 'sound/weapons/bows/bow_fire.ogg'
 	pickup_sound = 'sound/weapons/bows/bow_pickup.ogg'
 	drop_sound = 'sound/weapons/bows/bow_drop.ogg'
 	equip_sound = 'sound/weapons/bows/bow_equip.ogg'
-
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
@@ -36,6 +34,27 @@
 		INSTRUMENTAL = "деревянным луком",
 		PREPOSITIONAL = "деревянном луке",
 	)
+
+/obj/item/gun/projectile/bow/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src && chambered)
+		context[SCREENTIP_CONTEXT_LMB] = "[ready_to_fire ? "Ослабить" : "Натянуть"] тетиву"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!magazine)
+		return
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else
+		return
+
+	if(!magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Установить стрелу"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/projectile/bow/proc/update_state()
 	update_slowdown()
@@ -119,17 +138,15 @@
 	update_state()
 
 // MARK: Bone
-/obj/item/gun/projectile/bow/ashen //better than wooden
+/obj/item/gun/projectile/bow/ashen
 	name = "bone bow"
 	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
 	icon_state = "ashenbow"
 	base_icon_state = "ashenbow"
 	item_state = "ashenbow"
-
 	fire_sound = 'sound/weapons/bows/bonebow_fire.ogg'
 	drop_sound = 'sound/weapons/bows/bonebow_drop.ogg'
 	draw_sound = 'sound/weapons/bows/bonebow_pull.ogg'
-
 	item_flags = NONE
 	flags = NONE
 	force = 10
@@ -149,6 +166,7 @@
 		PREPOSITIONAL = "костяном луке",
 	)
 
+// MARK: Compound
 /obj/item/gun/projectile/bow/compound
 	name = "compound bow"
 	desc = "Композитный лук, предназначенный для любительской охоты и соревнований."
@@ -174,9 +192,10 @@
 		PREPOSITIONAL = "композитном луке",
 	)
 
+// MARK: Tactical
 /obj/item/gun/projectile/bow/tactical
 	name = "tactical bow"
-	desc = "Тактический лук Синдиката, предназначенный для особых операций, для которых не подходит любое другое оружие. Для удобства прицеливания установлен прицел малой кратности."
+	desc = "Тактический лук \"Синдиката\", предназначенный для особых операций, для которых не подходит любое другое оружие. Для удобства прицеливания установлен прицел малой кратности."
 	icon_state = "assaultbow"
 	base_icon_state = "assaultbow"
 	item_state = "assaultbow"
@@ -201,6 +220,7 @@
 		PREPOSITIONAL = "тактическом луке",
 	)
 
+// MARK: Handmade
 /obj/item/gun/projectile/bow/handmade
 	name = "handmade bow"
 	desc = "Самодельный лук, сделанный из того, что нашлось под рукой."

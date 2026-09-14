@@ -203,7 +203,7 @@
 	name = "combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	icon_state = "combat_hypo"
 	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
@@ -363,13 +363,14 @@
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 	custom_price = PAYCHECK_MIN
+	can_empty = FALSE
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?
@@ -459,10 +460,6 @@
 	if(loc != user)
 		return FALSE
 	return TRUE
-
-/obj/item/reagent_containers/hypospray/autoinjector/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)

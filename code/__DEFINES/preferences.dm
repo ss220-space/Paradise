@@ -66,7 +66,7 @@
 #define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS (1<<20) // 1048576
 #define PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE (1<<21) // 2097152
 #define PREFTOGGLE_2_SPLIT_ADMIN_TABS (1<<22) // 4194304
-#define PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES (1<<23) // 8388608
+#define PREFTOGGLE_2_OFF_LEGACY_OUTPUT_MESSAGES (1<<23) // 8388608
 
 #define TOGGLES_2_TOTAL 16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
@@ -230,9 +230,6 @@
 /// Anonymous player display label
 #define ANON_KEY "(Anon)"
 
-/// This isnt in client_defines due to scoping issues
-#define DEFAULT_CLIENT_VIEWSIZE "17x15"
-
 // Used for alternate_option
 #define GET_RANDOM_JOB 0
 #define BE_ASSISTANT 1
@@ -243,3 +240,7 @@
 #define TAB_SPEC 2
 #define TAB_KEYS 3
 #define TAB_TOGGLES 4
+
+#define SCALING_METHOD_NORMAL "normal"
+#define SCALING_METHOD_DISTORT "distort"
+#define SCALING_METHOD_BLUR "blur"

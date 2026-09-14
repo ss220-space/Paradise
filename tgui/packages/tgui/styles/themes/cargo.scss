@@ -1,40 +1,14 @@
-@use 'sass:color';
-@use 'sass:meta';
+.theme-cargo:root {
+  --cargo-color: hsl(35, 50%, 40%);
 
-$cargo: #946f31;
+  // Base
+  --color-base: hsl(from var(--cargo-color) h s calc(l - 22.5));
+  --color-primary: var(--cargo-color);
+  --secondary-lightness-adjustment: -5;
+  --border-radius-unit: 0.17;
 
-@use '../colors.scss' with (
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: color.scale($cargo, $lightness: -45%),
-  $border-radius: 2px
-);
-
-.theme-cargo {
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: (
-      'color-default': $cargo,
-      'color-transparent-text': rgba(255, 214, 198, 0.75)
-    )
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: (
-      'color-default-fill': $cargo,
-      'background-color': rgba(0, 0, 0, 0.5)
-    )
-  );
-  @include meta.load-css('../components/Section.scss');
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': color.scale($cargo, $lightness: -25%))
-  );
+  --button-color-transparent: hsl(from var(--cargo-color) h s 85 / 0.75);
+  --progress-bar-background: hsla(0, 0%, 0%, 0.5);
+  --tooltip-background-lightness: 25;
 }

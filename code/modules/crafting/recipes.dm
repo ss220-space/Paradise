@@ -36,10 +36,10 @@
 		/datum/reagent/fuel = 50,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/assembly/igniter = 1,
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/soda_cans = 1,
 	)
 	parts = list(
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/soda_cans = 1,
 	)
 	time = 15
 	category = CAT_WEAPONRY
@@ -73,13 +73,13 @@
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
+	result = /obj/item/reagent_containers/cup/glass/bottle/molotov
 	reqs = list(
 		/obj/item/rag = 1,
-		/obj/item/reagent_containers/food/drinks/bottle = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 	)
-	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/cup/glass/bottle/molotov)
+	parts = list(/obj/item/reagent_containers/cup/glass/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -192,7 +192,7 @@
 	name = "Cleanbot"
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(
-		/obj/item/reagent_containers/glass/bucket = 1,
+		/obj/item/reagent_containers/cup/bucket = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/robot_parts/r_arm = 1,
 	)
@@ -497,7 +497,7 @@
 	reqs = list(
 		/obj/item/stack/tape_roll = 2,
 		/obj/item/stack/sheet/metal = 1,
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/soda_cans = 1,
 	)
 	time = 5 SECONDS
 	category = CAT_WEAPONRY
@@ -1251,7 +1251,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/wood = 3,
 	)
-	result = /obj/item/reagent_containers/glass/bucket/wooden
+	result = /obj/item/reagent_containers/cup/bucket/wooden
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 

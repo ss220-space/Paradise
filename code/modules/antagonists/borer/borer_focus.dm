@@ -29,16 +29,16 @@
 /datum/borer_focus/head
 	name = "Head focus"
 	cost = HEAD_FOCUS_COST
-	
+
 /datum/borer_focus/torso
 	name = "Body focus"
 	cost = TORSO_FOCUS_COST
 	var/obj/item/organ/internal/heart/linked_organ
-	
+
 /datum/borer_focus/hands
 	name = "Hands focus"
 	cost = HANDS_FOCUS_COST
-	
+
 /datum/borer_focus/legs
 	name = "Legs focus"
 	cost = LEGS_FOCUS_COST
@@ -58,7 +58,7 @@
 /datum/borer_focus/secretion
 	name = "Secretion focus"
 	cost = SECRETION_FOCUS_COST
-	
+
 /datum/borer_focus/head/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.physiology.brain_mod *= 0.85
@@ -86,7 +86,7 @@
 /datum/borer_focus/head/tick()
 	if(!parent.user.controlling && parent.user.host && parent.user.host.stat != DEAD)
 		parent.user.host.adjustBrainLoss(-1)
-			
+
 /datum/borer_focus/torso/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.physiology.brute_mod *= 0.9
@@ -116,7 +116,7 @@
 /datum/borer_focus/torso/Destroy(force)
 	linked_organ = null
 	return ..()
-		
+
 /datum/borer_focus/hands/grant_movable_effect()
 	parent.user.host.add_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.user.host.physiology.punch_damage_low += 7
@@ -127,10 +127,10 @@
 /datum/borer_focus/hands/remove_movable_effect()
 	parent.user.host.remove_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.user.host.physiology.punch_damage_low -= 7
-	parent.user.host.physiology.punch_damage_high -= 5	
+	parent.user.host.physiology.punch_damage_high -= 5
 	parent.user.host.next_move_modifier /= 0.75
 	return TRUE
-	
+
 /datum/borer_focus/legs/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
@@ -148,7 +148,8 @@
 	return TRUE
 
 /datum/borer_focus/sting/apply()
-	parent.user.dominate_spell.weaken_time += pick(5, 6) SECONDS
+	var/datum/action/cooldown/spell/pointed/borer_dominate/dominate_spell = locate() in parent.user.mob_spell_list
+	dominate_spell.weaken_time += pick(5, 6) SECONDS
 	parent.user.torment_action.cost -= 15
 
 /datum/borer_focus/reproductive/apply()
@@ -180,5 +181,6 @@
 	parent.user.update_transform(0.8) // 20%
 
 /datum/borer_focus/secretion/apply()
-	parent.user.chem_gain += 0.5
-	parent.user.infest_spell.cast_time = parent.user.infest_spell.cast_time * 0.5
+	parent.user.chem_gain += 05
+	var/datum/action/cooldown/spell/pointed/borer_infest/infest_spell = locate() in parent.user.mob_spell_list
+	infest_spell.cast_time = infest_spell.cast_time * 0.5

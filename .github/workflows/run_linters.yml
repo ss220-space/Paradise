@@ -35,11 +35,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bootstrap-py${{ steps.setup-python.outputs.python-version }}-
 
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22.11.0
-          cache: 'yarn'
-          cache-dependency-path: ./tgui/yarn.lock
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
 
       - name: Install Python packages
         run: pip install -r tools/requirements.txt
@@ -160,4 +157,4 @@ jobs:
 
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tgui/bin/tgui --ci
+        run: tools/build/build.sh --ci lint tgui-test

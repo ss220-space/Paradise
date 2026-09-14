@@ -1,6 +1,5 @@
-import { classes } from '../../common/react';
-import { useBackend } from '../backend';
-import React, { ReactNode, useState } from 'react';
+import type React from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Button,
   Icon,
@@ -9,7 +8,9 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -39,18 +40,18 @@ const ge = (actual: number, test: number) => actual >= test;
 const le = (actual: number, test: number) => actual <= test;
 
 const seedFilter = (searchText: string) => {
-  let terms = searchText.split(' ');
-  let filters = [];
-  for (let term of terms) {
-    let parts = term.split(':');
+  const terms = searchText.split(' ');
+  const filters: ((s: Seed) => boolean)[] = [];
+  for (const term of terms) {
+    const parts = term.split(':');
     if (parts.length === 0) {
       continue;
     }
     if (parts.length === 1) {
       filters.push((seed: Seed) =>
-        (seed.name + ' (' + seed.variant + ')')
+        `${seed.name} (${seed.variant})`
           .toLocaleLowerCase()
-          .includes(parts[0].toLocaleLowerCase())
+          .includes(parts[0].toLocaleLowerCase()),
       );
       continue;
     }
@@ -68,7 +69,7 @@ const seedFilter = (searchText: string) => {
     } else {
       searchVal = Number(parts[1]);
     }
-    if (isNaN(searchVal)) {
+    if (Number.isNaN(searchVal)) {
       return (_) => false;
     }
     switch (parts[0].toLocaleLowerCase()) {
@@ -114,7 +115,7 @@ const seedFilter = (searchText: string) => {
     }
   }
   return (seed: Seed) => {
-    for (let filter of filters) {
+    for (const filter of filters) {
       if (!filter(seed)) {
         return false;
       }
@@ -229,7 +230,7 @@ const SeedList = (properties: VendAmountProps & SearchTextProps) => {
           {!seeds
             ? 'No seeds present.'
             : seeds
-                .filter(seedFilter(searchText))
+                .filter(seedFilter(searchText || ''))
                 .sort((a, b) => {
                   const i = sortOrder ? 1 : -1;
                   if (typeof a[sortId] === 'number') {
@@ -291,10 +292,10 @@ const SortButton = (properties: SortButtonProps) => {
         fluid
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >
@@ -313,7 +314,7 @@ type VendAmountProps = {
 };
 
 const SeedExtractorActions = (
-  properties: VendAmountProps & SearchTextProps
+  properties: VendAmountProps & SearchTextProps,
 ) => {
   const { setSearchText, setVendAmount } = properties;
   return (
@@ -331,7 +332,7 @@ const SeedExtractorActions = (
         <Input
           placeholder="1"
           onChange={(value) =>
-            setVendAmount(Number(value) >= 1 ? Number(value) : 1)
+            setVendAmount?.(Number(value) >= 1 ? Number(value) : 1)
           }
         />
       </Stack.Item>

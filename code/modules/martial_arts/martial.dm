@@ -173,9 +173,9 @@
 		D.visible_message(span_danger("[A] has weakened [D]!!"), \
 								span_userdanger("[A] has weakened [D]!"))
 		D.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
-		D.forcesay(GLOB.hit_appends)
+		D.force_say(GLOB.hit_appends)
 	else if(D.body_position == LYING_DOWN)
-		D.forcesay(GLOB.hit_appends)
+		D.force_say(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
@@ -222,10 +222,10 @@
 			human.drop_r_hand()
 
 	if(has_explaination_verb)
-		add_verb(human, /mob/living/carbon/human/proc/martial_arts_help)
+		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, martial_arts_help)
 
 	if(has_dirslash)
-		add_verb(human, /mob/living/carbon/human/proc/dirslash_enabling)
+		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, dirslash_enabling)
 		human.dirslash_enabled = TRUE
 
 	human.mind.known_martial_arts.Add(src)
@@ -251,8 +251,8 @@
 	return TRUE
 
 /datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
-	remove_verb(old_human, /mob/living/carbon/human/proc/martial_arts_help)
-	remove_verb(old_human, /mob/living/carbon/human/proc/dirslash_enabling)
+	UNASSIGN_GAME_VERB(old_human, /mob/living/carbon/human, martial_arts_help)
+	UNASSIGN_GAME_VERB(old_human, /mob/living/carbon/human, dirslash_enabling)
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
@@ -264,20 +264,15 @@
 			highest_weight = MA
 	return highest_weight
 
-/mob/living/carbon/human/proc/martial_arts_help()
-	set name = "Информацию о БИ"
-	set desc = "Gives information about the martial arts you know."
-	set category = VERB_CATEGORY_MARTIALARTS
+GAME_VERB_PROC_DESC(/mob/living/carbon/human, martial_arts_help, "Информацию о БИ", "Gives information about the martial arts you know.", VERB_CATEGORY_MARTIALARTS)
 	var/mob/living/carbon/human/human = usr
 	if(!istype(human))
 		to_chat(usr, span_warning("You shouldn't have access to this verb. Report this as a bug to the github please."))
 		return
 	human.mind.martial_art.give_explaination(human)
 
-/mob/living/carbon/human/proc/dirslash_enabling()
-	set name = "Атака по направлению"
-	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = VERB_CATEGORY_MARTIALARTS
+GAME_VERB_PROC_DESC(/mob/living/carbon/human, dirslash_enabling, "Атака по направлению", "If direction slash is enabled, you can attack mobs, by clicking behind their backs", VERB_CATEGORY_MARTIALARTS)
+
 	dirslash_enabled = !dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
 

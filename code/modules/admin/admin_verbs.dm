@@ -10,7 +10,7 @@
 
 ADMIN_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin verbs.", ADMIN_CATEGORY_MAIN)
 	user.remove_admin_verbs()
-	add_verb(user, /client/proc/show_verbs)
+	ASSIGN_GAME_VERB(user, /client, show_verbs)
 
 	to_chat(user, span_interface("Almost all of your adminverbs have been hidden."), confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Hide All Adminverbs")
@@ -198,7 +198,8 @@ ADMIN_VERB(drop_bomb, R_EVENT, "Drop Bomb", "Cause an explosion of varying stren
 #undef BIG_BOMB
 #undef CUSTOM_BOMB
 
-ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/M as mob)
+ADMIN_VERB_ONLY_CONTEXT_MENU(bless, R_EVENT, "Bless", /mob/living)
+	VERB_ARG_TYPED(M, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
 	if(!istype(M))
 		to_chat(user, span_warning("This can only be used on instances of type /mob/living"), confidential = TRUE)
 		return
@@ -325,24 +326,32 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
-ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/T in GLOB.mob_list)
+ADMIN_VERB(bless_in_list, R_ADMIN|R_EVENT, "Bless in List", "Bless a player with divine power.", ADMIN_CATEGORY_FUN)
+	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Bless", GLOB.mob_list)
+	if(!selected_mob)
+		return
+
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/bless, selected_mob)
+
+ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(spell_recipient, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+	
 	var/list/spell_list = list()
-	var/type_length = length("/obj/effect/proc_holder/spell") + 2
+	var/type_length = length("/datum/action/cooldown/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/obj/effect/proc_holder/spell/S = tgui_input_list(user, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
+	var/datum/action/cooldown/spell/S = tgui_input_list(user, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
 	if(!S)
 		return
 	S = spell_list[S]
-	if(T.mind)
-		T.mind.AddSpell(new S)
-	else
-		T.AddSpell(new S)
+	S = new S
+	S.Grant(spell_recipient)
 
 	BLACKBOX_LOG_ADMIN_VERB("Give Spell")
-	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
+	log_and_message_admins("gave [key_name_log(spell_recipient)] the spell [S].")
 
-ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
 	var/choosen_disease = tgui_input_list(user, "Choose the disease to give to that guy", "ACHOO", GLOB.diseases)
 	if(!choosen_disease)
 		return
@@ -352,7 +361,8 @@ ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADM
 	BLACKBOX_LOG_ADMIN_VERB("Give Disease")
 	log_and_message_admins("gave [key_name_log(target)] the disease [disease].")
 
-ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
 	if(!target.diseases)
 		to_chat(user, span_warning("[target] doesn't have any diseases!"))
 
@@ -363,7 +373,8 @@ ADMIN_VERB(cure_disease, R_EVENT, "Cure Disease", ADMIN_VERB_NO_DESCRIPTION, ADM
 	log_and_message_admins("cured [choosen_disease] for [key_name(target)].")
 	choosen_disease.cure()
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(make_sound, R_SOUNDS, "Make Sound", obj/target in view())
+ADMIN_VERB_ONLY_CONTEXT_MENU(make_sound, R_SOUNDS, "Make Sound", /obj)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_VIEW, /obj)
 	if(!target)
 		return
 	var/message = tgui_input_text(user, "What do you want the message to be?", "Make Sound")
@@ -379,17 +390,22 @@ ADMIN_VERB(build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle build mod
 		togglebuildmode(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 
-ADMIN_VERB_AND_CONTEXT_MENU(object_say, R_EVENT, "OSay", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, msg as text)
-	var/datum/component/object_possession/possession_comp = user.mob.GetComponent(/datum/component/object_possession)
+ADMIN_VERB_ONLY_CONTEXT_MENU(object_say, R_EVENT, "Object Say", /obj)
+	VERB_ARG_TYPED(speaker, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /obj)
+	var/message = tgui_input_text(user, "What do you want the message to be?", "Make Sound", encode = FALSE)
+	if(!message)
+		return
+	speaker.atom_say(message)
+	log_admin("[key_name(user)] made [speaker] at [AREACOORD(speaker)] say \"[message]\"")
+	message_admins(span_adminnotice("[key_name_admin(user)] made [speaker] at [AREACOORD(speaker)]. say \"[message]\""))
+	BLACKBOX_LOG_ADMIN_VERB("Object Say")
 
-	if(!possession_comp || !possession_comp.possessed || !msg)
+ADMIN_VERB(object_say_in_list, R_EVENT, "Object Say in List", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_FUN)
+	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Object Say", GLOB.mob_list)
+	if(!selected_mob)
 		return
 
-	for(var/mob/hearer in hearers(possession_comp.possessed))
-		hearer.show_message("<b>[possession_comp.possessed.name]</b> says: \"" + msg + "\"", 2)
-
-	log_and_message_admins("[key_name_admin(user)] used OSay on [possession_comp.possessed]: [msg]")
-	BLACKBOX_LOG_ADMIN_VERB("OSay")
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/object_say, selected_mob)
 
 ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-admin yourself.", ADMIN_CATEGORY_MAIN)
 	// TODO: shit code, refactor deadmin
@@ -401,7 +417,7 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 		GLOB.de_devs |= user.ckey
 
 	user.deadmin()
-	add_verb(user, /client/proc/readmin)
+	ASSIGN_GAME_VERB(user, /client, readmin)
 	user.update_active_keybindings()
 	update_byond_admin_configs(user.ckey, R_NONE)
 
@@ -452,7 +468,8 @@ ADMIN_VERB(open_law_manager, R_ADMIN, "Manage Silicon Laws", "Open the law manag
 	log_and_message_admins("has opened [silicon]'s law manager.")
 	BLACKBOX_LOG_ADMIN_VERB("Manage Silicon Laws")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_admin, R_EVENT, "C.M.A. - Admin", mob/living/carbon/human/H in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_admin, R_EVENT, "C.M.A. - Admin", /mob/living/carbon/human)
+	VERB_ARG_TYPED(H, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living/carbon/human)
 	if(!istype(H))
 		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
@@ -471,7 +488,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_admin, R_EVENT, "C.M.A. - A
 		H.change_appearance(APPEARANCE_ALL, user.mob, user.mob, check_species_whitelist = 0)
 	BLACKBOX_LOG_ADMIN_VERB("CMA - Admin")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Self", mob/living/carbon/human/H in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Self", /mob/living/carbon/human)
+	VERB_ARG_TYPED(H, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living/carbon/human)
 	if(!istype(H))
 		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
@@ -498,7 +516,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Se
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	BLACKBOX_LOG_ADMIN_VERB("CMA - Self")
 
-ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR | R_VIEWRUNTIMES|R_DEBUG, "AObserve", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target as mob, look_into_inventory = FALSE)
+ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR | R_VIEWRUNTIMES|R_DEBUG, "AObserve", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+	VERB_ARG(look_into_inventory, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	if(isnewplayer(user.mob))
 		to_chat(user, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return
@@ -538,7 +558,8 @@ ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.",
 		message_admins("[key_name_admin(user)] has freed a job slot for [selected_job].")
 	BLACKBOX_LOG_ADMIN_VERB("Free Job Slot")
 
-ADMIN_VERB_AND_CONTEXT_MENU(man_up, R_ADMIN, "Man Up", "Tells to man up and deal with it.", ADMIN_CATEGORY_FUN, mob/player_mob in GLOB.player_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(man_up, R_ADMIN, "Man Up", /mob)
+	VERB_ARG_TYPED(player_mob, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /mob)
 	if(QDELETED(player_mob))
 		return
 	to_chat(player_mob, custom_boxed_message("blue_box center", span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
@@ -546,6 +567,13 @@ ADMIN_VERB_AND_CONTEXT_MENU(man_up, R_ADMIN, "Man Up", "Tells to man up and deal
 
 	log_and_message_admins("told [key_name_log(player_mob)] to man up and deal with it.")
 	BLACKBOX_LOG_ADMIN_VERB("Man Up")
+
+ADMIN_VERB(man_up_in_list, R_ADMIN, "Man Up in List", "Tells to man up and deal with it.", ADMIN_CATEGORY_FUN)
+	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Man Up", GLOB.mob_list)
+	if(!selected_mob)
+		return
+
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/man_up, selected_mob)
 
 ADMIN_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells EVERYONE to man up and deal with it.", ADMIN_CATEGORY_FUN)
 	if(tgui_alert(user, "Вы уверены что хотите отправить глобальное сообщение?", "Подтверждение глобального Man Up", list("Да", "Нет")) == "Да")
@@ -566,7 +594,8 @@ ADMIN_VERB(toggle_advanced_interaction, R_ADMIN, "Toggle Advanced Admin Interact
 ADMIN_VERB(show_watchlist, R_ADMIN, "Show Watchlist", "Show the watchlist.", ADMIN_CATEGORY_MAIN)
 	user.watchlist_show()
 
-ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/about_to_be_banned in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_alert_message, R_ADMIN, "Send Alert Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(about_to_be_banned, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!ismob(about_to_be_banned))
 		return
 
@@ -623,7 +652,8 @@ ADMIN_VERB(force_hijack, R_EVENT, "Toggle Shuttle Force Hijack", "Force shuttle 
 	log_and_message_admins("[shuttle.force_hijacked ? "enabled" : "disabled"] forced shuttle hijack.")
 	BLACKBOX_LOG_ADMIN_VERB("Shuttle Force Hijack")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Icon", atom/thing in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Icon", /atom)
+	VERB_ARG_TYPED(thing, VERB_ARG_TYPE_ATOM, VERB_ARG_SOURCE_WORLD, /atom)
 	var/icon/image = getFlatIcon(thing, no_anim = TRUE) //TODO replace with  iconforge flat icon
 	var/image_width = max(image.Width(), 32)
 	var/image_height = max(image.Height(), 32)
@@ -646,3 +676,27 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Ico
 		image.Scale(image_width, image_height)
 
 	usr << ftp(image, "[thing.name]_[image_width]x[image_height].png")
+
+ADMIN_VERB(open_event_logger, R_DEBUG, "Open Event Logger", "Open the event logger interface.", ADMIN_CATEGORY_DEBUG)
+	GLOB.event_logger.ui_interact(user.mob)
+
+ADMIN_VERB(set_admin_notice, R_SERVER, "Set Admin Notice", "Set an announcement that appears to everyone who joins the server. Only lasts this round.", ADMIN_CATEGORY_SERVER)
+	var/new_admin_notice = tgui_input_text(
+		user,
+		"Set a public notice for this round. Everyone who joins the server will see it.\n(Leaving it blank will delete the current notice):",
+		"Set Notice",
+		GLOB.admin_notice,
+	)
+	if(new_admin_notice == null)
+		return
+	if(new_admin_notice == GLOB.admin_notice)
+		return
+	if(new_admin_notice == "")
+		message_admins("[key_name(user)] removed the admin notice.")
+		log_admin("[key_name(user)] removed the admin notice:\n[GLOB.admin_notice]")
+	else
+		message_admins("[key_name(user)] set the admin notice.")
+		log_admin("[key_name(user)] set the admin notice:\n[new_admin_notice]")
+		to_chat(world, span_adminnotice("<b>Admin Notice:</b>\n \t [new_admin_notice]"), confidential = TRUE)
+	BLACKBOX_LOG_ADMIN_VERB("Set Admin Notice")
+	GLOB.admin_notice = new_admin_notice

@@ -255,7 +255,7 @@
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/sandwich(src)
 	new /obj/item/reagent_containers/food/snacks/chips(src)
-	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
+	new /obj/item/reagent_containers/cup/soda_cans/cola(src)
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
@@ -827,10 +827,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Режим наноткани"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим наноткани", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
@@ -1099,10 +1096,7 @@
 	. = ..()
 	verbs -= /obj/item/clothing/under/verb/rollsuit
 
-/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Молния костюма"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "Молния костюма", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE

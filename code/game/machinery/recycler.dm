@@ -21,6 +21,7 @@
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
+	AddElement(/datum/element/simple_rotation)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -181,37 +182,21 @@
 	else if(emagged == 1)
 		target.adjustBruteLoss(crush_damage)
 
-/obj/machinery/recycler/verb/rotate()
-	set name = "Повернуть по часовой"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/machinery/recycler/click_alt(mob/user)
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
+		return
 	eat_dir = turn(eat_dir, 270)
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/recycler/verb/rotateccw()
-	set name = "Повернуть против часовой"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/machinery/recycler/AltShiftClick(mob/user)
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
+		return
 	eat_dir = turn(eat_dir, 90)
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

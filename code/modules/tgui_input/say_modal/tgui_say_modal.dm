@@ -10,7 +10,7 @@
 	var/message = TGUI_CREATE_MESSAGE("open", list(
 		channel = channel,
 	))
-	return "\".output tgui_say.browser:update [message]\""
+	return "\".output [SKIN_TGUISAY_BROWSER]:update [message]\""
 
 /**
  * The tgui say modal. This initializes an input window which hides until
@@ -20,16 +20,26 @@
 /datum/tgui_say
 	/// The user who opened the window
 	var/client/client
+	/// Injury phrases to blurt out
+	var/static/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
+	/// Max message length
+	var/max_length = MAX_MESSAGE_LEN
 	/// The modal window
 	var/datum/tgui_window/window
 	/// Boolean for whether the tgui_say was opened by the user.
 	var/window_open
+	/// What text was present in the say box the last time save_text was called
+	var/saved_text = ""
+	/// What channel was in use in the say box the last time save_text was called
+	var/saved_channel
+	/// Speech suffuxes used for force_say after "-". Defaults to hurt_phrases
+	var/list/alter_phrases
 
 /** Creates the new input window to exist in the background. */
 /datum/tgui_say/New(client/client, id)
 	src.client = client
 	window = new(client, id)
-	winset(client, "tgui_say", "size=1,1;is-visible=0;")
+	winset(client, SKIN_TGUISAY, "size=1,1;is-visible=0;")
 	window.subscribe(src, PROC_REF(on_message))
 	window.is_browser = TRUE
 
@@ -55,19 +65,22 @@
  */
 /datum/tgui_say/proc/load()
 	window_open = FALSE
-	winset(client, "tgui_say", "pos=848,500;size=275,30;is-visible=0;")
+
+	winset(client, SKIN_TGUISAY, "pos=848,500;is-visible=0;")
+
 	window.send_message("props", list(
 		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
 		"scale" = (client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
-		"maxLength" = MAX_MESSAGE_LEN,
+		"maxLength" = max_length,
 	))
+
 	stop_thinking()
 	return TRUE
 
 /**
  * Sets the window as "opened" server side, though it is already
  * visible to the user. We do this to set local vars &
- * start typing (if enabled and in an IC channel).
+ * start typing (if enabled and in an IC channel). Logs the event.
  *
  * Arguments:
  * payload - A list containing the channel the window was opened in.
@@ -76,48 +89,53 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	switch(payload["channel"])
-		if(ME_CHANNEL, RADIO_CHANNEL, SAY_CHANNEL, WHISPER_CHANNEL)
-			start_thinking()
+	saved_text = ""
+	if(payload["channel"] != OOC_CHANNEL && payload["channel"] != ADMIN_CHANNEL && payload["channel"] != PRAY_CHANNEL)
+		start_thinking()
+	/*
+	if(!client.typing_indicators)
+		log_speech_indicators("[key_name(client)] started typing at [loc_name(client.mob)], indicators DISABLED.")
+	*/
 	return TRUE
 
 /**
  * Closes the window serverside. Closes any open chat bubbles
- * regardless of preference.
+ * regardless of preference. Logs the event.
  */
 /datum/tgui_say/proc/close()
 	window_open = FALSE
 	stop_thinking()
-	stop_typing()
+	/*
+	if(!client.typing_indicators)
+		log_speech_indicators("[key_name(client)] stopped typing at [loc_name(client.mob)], indicators DISABLED.")
+	*/
 
 /**
  * The equivalent of ui_act, this waits on messages from the window
  * and delegates actions.
  */
 /datum/tgui_say/proc/on_message(type, payload)
-	switch(type)
-		if("ready")
-			load()
+	if(type == "ready")
+		load()
+		return TRUE
+	if(type == "open")
+		open(payload)
+		return TRUE
+	if(type == "close")
+		close()
+		return TRUE
+	if(type == "thinking")
+		if(payload["visible"] == TRUE)
+			start_thinking()
 			return TRUE
-		if("open")
-			open(payload)
+		if(payload["visible"] == FALSE)
+			stop_thinking()
 			return TRUE
-		if("close")
-			close()
-			return TRUE
-		if("thinking")
-			if(payload?["visible"] == TRUE)
-				start_thinking()
-				return TRUE
-			if(payload?["visible"] == FALSE)
-				stop_thinking()
-				return TRUE
-			return FALSE
-		if("typing")
-			start_typing(payload?["isMeChannel"])
-			return TRUE
-		if("entry")
-			handle_entry(payload)
-			return TRUE
-
+		return FALSE
+	if(type == "typing")
+		start_typing()
+		return TRUE
+	if(type == "entry" || type == "force" || type == "save")
+		handle_entry(type, payload)
+		return TRUE
 	return FALSE

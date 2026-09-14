@@ -32,7 +32,7 @@ Notes:
 
 /datum/tooltip
 	var/client/owner
-	var/control = "mainwindow.tooltip"
+	var/control = SKIN_MAINWINDOW_TOOLTIP
 	var/file = 'code/modules/tooltip/tooltip.html'
 	var/showing = 0
 	var/queueHide = 0
