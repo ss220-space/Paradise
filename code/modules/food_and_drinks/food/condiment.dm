@@ -22,7 +22,7 @@
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/condiment/proc/try_eat(atom/target, mob/living/user)
-	if(!canconsume(target, user))
+	if(!can_consume(target, user))
 		return ITEM_INTERACT_BLOCKING
 
 	user.changeNext_move(CLICK_CD_MELEE)

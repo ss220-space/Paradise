@@ -14,17 +14,17 @@
 /obj/item/reagent_containers/cup/glass/bottle/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
 	. = ..()
 
-	if(isliving(target) && user.a_intent == INTENT_HARM && isGlass)
+	if(isliving(target) && user.a_intent == INTENT_HARM && is_glass)
 		context[SCREENTIP_CONTEXT_RMB] = "Разбить бутылку о цель"
 		return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/glass/bottle/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
-	if(user.a_intent == INTENT_HARM && isGlass)
+	if(user.a_intent == INTENT_HARM && is_glass)
 		return NONE
 	return ..()
 
 /obj/item/reagent_containers/cup/glass/bottle/afterattack(atom/target, mob/user, list/modifiers)
-	if(!isGlass)
+	if(!is_glass)
 		return
 
 	var/head_hitter = user.zone_selected == BODY_ZONE_HEAD && isliving(target)
@@ -58,7 +58,7 @@
 	broken.item_state = broken_inhand_icon_state
 
 /obj/item/reagent_containers/cup/glass/bottle/try_splash(mob/user, atom/target)
-	if(!isGlass)
+	if(!is_glass)
 		return ..()
 	return FALSE // instead of splashing, hit them with the bottle!
 
@@ -588,7 +588,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/juice
 	item_state = "carton"
 	throwforce = 0
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 	name = "orange juice"
@@ -701,7 +701,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/molotov/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
-	if(!isGlass)
+	if(!is_glass)
 		desc += " Вы не уверены, что сделать это из коробки было самой удачной идеей."
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/update_icon_state()
@@ -719,8 +719,8 @@
 	var/obj/item/reagent_containers/cup/glass/bottle/bottle = locate() in contents
 	if(bottle)
 		bottle.reagents.copy_to(src, 100)
-		if(!bottle.isGlass)
-			isGlass = FALSE
+		if(!bottle.is_glass)
+			is_glass = FALSE
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = FALSE)
@@ -759,7 +759,7 @@
 		span_notice("Вы поджигаете [declent_ru(ACCUSATIVE)]."),
 	)
 	add_overlay(GLOB.fire_overlay)
-	if(!isGlass)
+	if(!is_glass)
 		addtimer(CALLBACK(src, PROC_REF(explode), 5 SECONDS))
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/proc/explode()
@@ -776,7 +776,7 @@
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user)
 	if(active)
-		if(!isGlass)
+		if(!is_glass)
 			to_chat(user, span_danger("Пламя распространилось уже слишком далеко!"))
 			return
 		to_chat(user, span_notice("Вы гасите пламя у [declent_ru(GENITIVE)]."))

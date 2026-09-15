@@ -154,7 +154,7 @@
 
 	return TRUE
 
-/obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
+/obj/item/reagent_containers/proc/can_consume(mob/eater, mob/user)
 	if(!iscarbon(eater))
 		return FALSE
 	if(!reagents || !reagents.total_volume)

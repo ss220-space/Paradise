@@ -13,7 +13,7 @@
 	/// How much we drink at once, shot glasses drink more.
 	var/gulp_size = 5
 	/// Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it.
-	var/isGlass = FALSE
+	var/is_glass = FALSE
 	/// What kind of chem transfer method does this cup use. Defaults to INGEST
 	var/reagent_consumption_method = REAGENT_INGEST
 	/// What sound does our consumption play on consuming from the container?
@@ -108,7 +108,7 @@
 	COOLDOWN_START(src, last_check_time, 5 SECONDS)
 
 /obj/item/reagent_containers/cup/proc/try_drink(mob/living/target_mob, mob/living/user, repeat_drinking = FALSE)
-	if(!canconsume(target_mob, user))
+	if(!can_consume(target_mob, user))
 		return ITEM_INTERACT_BLOCKING
 
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -188,7 +188,7 @@
 	if(!is_open_container())
 		return NONE
 
-	if(target.is_drainable()) //A dispenser. Transfer FROM it.
+	if(target.is_drainable() && is_reagent_dispenser(target)) //A dispenser. Transfer FROM it.
 		return try_drain(target, user)
 
 	if(isliving(target))
@@ -725,7 +725,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coffeepot"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
-	isGlass = TRUE
+	is_glass = TRUE
 	fill_icon_thresholds = list(30, 60, 100)
 
 /obj/item/reagent_containers/cup/coffeepot/get_ru_names()
