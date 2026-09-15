@@ -241,13 +241,8 @@
 				if(!isvampire(src))
 					adjust_nutrition(10)
 
-//this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
-	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
-		setStaminaLoss(0)
-		stam_regen_start_time = null
-
 	// Keep SSD people asleep
 	if(player_logged)
 		Sleeping(4 SECONDS)
