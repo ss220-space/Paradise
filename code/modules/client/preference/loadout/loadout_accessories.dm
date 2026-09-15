@@ -192,3 +192,7 @@
 							)
 	gear_tweaks += new /datum/gear_tweak/path(holsters, src, TRUE)
 
+/datum/gear/accessory/wristwatch
+	index_name = "wristwatch"
+	display_name = "Наручные часы"
+	path = /obj/item/clothing/accessory/wristwatch
