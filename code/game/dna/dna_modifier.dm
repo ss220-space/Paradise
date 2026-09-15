@@ -187,7 +187,7 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")
