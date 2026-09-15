@@ -88,5 +88,4 @@
 
 /datum/gear/glasses/goldblue
 	index_name = "round gold-rimmed glasses"
-	display_name = "Очки в золотистой оправе"
 	path = /obj/item/clothing/glasses/goldblue

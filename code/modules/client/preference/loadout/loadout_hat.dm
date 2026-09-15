@@ -250,10 +250,8 @@
 
 /datum/gear/hat/jew_hat
 	index_name = "jew hat"
-	display_name = "кипа"
 	path = /obj/item/clothing/head/jew_hat
 
 /datum/gear/hat/flatcap
 	index_name = "flatcap"
-	display_name = "Картуз"
 	path = /obj/item/clothing/head/flatcap

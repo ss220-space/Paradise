@@ -194,5 +194,4 @@
 
 /datum/gear/accessory/wristwatch
 	index_name = "wristwatch"
-	display_name = "Наручные часы"
 	path = /obj/item/clothing/accessory/wristwatch
