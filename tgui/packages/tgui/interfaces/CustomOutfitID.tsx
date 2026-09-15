@@ -21,6 +21,7 @@ export const CustomOutfitID = (props) => {
 
   const idCard = data.id_card || {};
   const joblist = Array.isArray(data.joblist) ? data.joblist : [];
+  const ranklist = Array.isArray(data.ranklist) ? data.ranklist : [];
 
   return (
     <Window title="Редактор ID-карты" width={900} height={600} theme="admin">
@@ -90,6 +91,20 @@ export const CustomOutfitID = (props) => {
                   )}
                 </Stack.Item>
 
+                <Stack.Item>
+                  <Box color="label" fontSize={0.75} mb={0.5}>
+                    Ранг
+                  </Box>
+                  <Dropdown
+                    fluid
+                    options={ranklist}
+                    selected={idCard.rank || null}
+                    placeholder="Выберите ранг"
+                    onSelected={(value) =>
+                      act('set_id_rank', { rank: value })
+                    }
+                  />
+                </Stack.Item>
                 <Stack.Item>
                   <Box color="label" fontSize={0.75} mb={0.5}>
                     Пол
