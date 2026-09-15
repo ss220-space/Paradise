@@ -44,6 +44,10 @@
 #include "test_washing.dm"
 #endif
 
+#ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
+#include "test_find_reference_sanity.dm"
+#endif
+
 #ifdef MAP_TESTS
 #include "test_map_tests.dm"
 #endif

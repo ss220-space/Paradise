@@ -23,6 +23,11 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
+/obj/item/clothing/suit/armor/abductor/vest/Destroy()
+	stealth_armor = null
+	combat_armor = null
+	return ..()
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(prev_has)
