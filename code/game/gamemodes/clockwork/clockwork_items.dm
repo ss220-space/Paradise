@@ -130,7 +130,7 @@
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, duration = 2) //No questions
 
-			if(living.null_rod_check())
+			if(living.can_block_magic())
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
@@ -448,9 +448,9 @@
 		if(CRUSH_SPELL)
 			if(ishuman(living))
 				var/mob/living/carbon/human/human = living
-				var/obj/item/rod = human.null_rod_check()
-				if(rod)
-					human.visible_message(span_danger("[human]'s [rod] shines as it deflects magic from [user]!"))
+				var/atom/antimagic_source = human.can_block_magic_and_get_source()
+				if(antimagic_source)
+					human.visible_message(span_danger("[antimagic_source] shines as it deflects magic from [user]!"))
 					deplete_spell()
 					return
 				var/obj/item/organ/external/BP = pick(human.bodyparts)
@@ -999,7 +999,7 @@
 		return
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
-		if(living.null_rod_check())
+		if(living.can_block_magic())
 			src.visible_message(span_warning("[living]'s holy weapon absorbs the light!"))
 			deplete_spell()
 			return

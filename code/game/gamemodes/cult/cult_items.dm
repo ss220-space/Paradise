@@ -734,7 +734,7 @@
 			else
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.null_rod_check())
+			if(!L.can_block_magic())
 				L.Knockdown(6 SECONDS)
 			break_spear(T)
 	else
