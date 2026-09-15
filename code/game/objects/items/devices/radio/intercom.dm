@@ -19,6 +19,7 @@
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object
 	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/intercom/get_ru_names()
 	return alist(
