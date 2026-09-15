@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Фикс звука ТЭГа (PR #9791)"

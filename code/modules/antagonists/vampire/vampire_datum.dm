@@ -335,7 +335,7 @@
 				vampire.adjustToxLoss(-2)
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
-				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_SEC_MIN(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y_0(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y_0(bloodusable)] крови" : ""]."))
 				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
@@ -512,6 +512,9 @@
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(subclass.full_power_override || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
+		if(subclass?.skill_type && subclass?.full_power_skill_level && skill_bonuses[subclass.skill_type] != subclass.full_power_skill_level)
+			skill_bonuses[subclass.skill_type] = subclass.full_power_skill_level
+			owner.refresh_skills()
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x

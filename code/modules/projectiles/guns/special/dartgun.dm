@@ -83,7 +83,7 @@
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/cup/beaker/new_beaker = I
 		if(!istype(new_beaker, containers_type))

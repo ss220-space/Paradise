@@ -3,7 +3,6 @@
 	desc = "Химический пластырь, предназначенный для медленного ввода веществ в кровоток пациента через контакт с кожей."
 	icon_state = "bandaid"
 	item_state = "bandaid"
-	possible_transfer_amounts = null
 	volume = 20
 	container_type = 0 //nooo my insta-kill patch!!!
 	apply_type = REAGENT_TOUCH

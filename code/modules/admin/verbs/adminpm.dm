@@ -177,13 +177,20 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 
 	var/emoji_msg = span_emojienabled("[msg]")
 	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/reply_msg = ""
+	if(key)
+		if(holder && holder.fakekey)
+			reply_msg = "(<a href='byond://?priv_msg=[getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+		else
+			reply_msg = "(<a href='byond://?priv_msg=[ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, C.mob))
 		receive_window_link = ticket_link
 	receive_message = fieldset_block(
 		"<span class='[receive_span]'>[type] от — <b>[receive_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b></span>",
-		"<span class='[receive_span]'>[emoji_msg][C.holder ? "<br>[ping_link] [receive_window_link] [alert_link]" : ""]</span>",
+		"<span class='[receive_span]'>[emoji_msg][C.holder ? "<br>[reply_msg] [ping_link] [receive_window_link] [alert_link]" : "<br>[reply_msg]"]</span>",
 		box_class \
 	)
 	to_chat(C, receive_message)
@@ -195,7 +202,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 			send_window_link = ticket_link
 		var/send_message = fieldset_block(
 			"<span class='[send_span]'>[send_pm_type][type] к — <b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b></span>",
-			"<span class='[send_span]'>[emoji_msg]</span><br>[ping_link] [send_window_link] [alert_link]",
+			"<span class='[send_span]'>[emoji_msg]</span><br>[reply_msg] [ping_link] [send_window_link] [alert_link]",
 			box_class \
 		)
 		to_chat(src, send_message)

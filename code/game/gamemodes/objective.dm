@@ -1078,7 +1078,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
-	explanation_text = "Загрузите [target_amount] уровн[declension_ru(target_amount, "ень", "я", "ей")] исследований."
+	explanation_text = "Загрузите [target_amount] уров[DECL_EN_NYA_NEJ(target_amount)] исследований."
 	return target_amount
 
 /datum/objective/download/check_completion()
@@ -1091,7 +1091,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
-	explanation_text = "Накопите [target_amount] очк[declension_ru(target_amount, "о", "а", "ов")] захвата."
+	explanation_text = "Накопите [target_amount] очк[DECL_O_A_OV(target_amount)] захвата."
 	return target_amount
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
@@ -1125,7 +1125,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Заполучите [target_amount] совместим[declension_ru(target_amount, "ый геном", "ых генома", "ых геномов")]. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
+	explanation_text = "Заполучите [target_amount] совместим[DECL_YJ_YH_YH(target_amount)] геном[DECL_0_A_OV(target_amount)]. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
 	return target_amount
 
 /datum/objective/absorb/check_completion()

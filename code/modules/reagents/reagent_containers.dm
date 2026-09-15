@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5
 	var/visible_transfer_rate = TRUE
+	/// Does this container allow changing transfer amounts at all, the container can still have only one possible transfer value in `possible_transfer_amounts` at some point even if this is true
+	var/has_variable_transfer_amount = TRUE
 	/// The different possible amounts of reagent to transfer out of the container
 	var/list/possible_transfer_amounts = list(5,10,15,20,25,30)
 	/// The maximum amount of reagents this container can hold
@@ -72,8 +74,11 @@
 
 /obj/item/reagent_containers/examine()
 	. = ..()
-	if(possible_transfer_amounts.len)
-		. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
+	if(has_variable_transfer_amount)
+		if(possible_transfer_amounts.len)
+			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
+		else if(possible_transfer_amounts.len)
+			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
 
 /obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
@@ -85,10 +90,13 @@
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
-	change_transfer_amount(user, FORWARD)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, FORWARD)
+		return TRUE
 
 /obj/item/reagent_containers/attack_self_secondary(mob/user)
-	change_transfer_amount(user, BACKWARD)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, BACKWARD)
 
 /obj/item/reagent_containers/proc/mode_change_message(mob/user)
 	return
@@ -106,7 +114,7 @@
 		else
 			CRASH("change_transfer_amount() called with invalid direction value")
 	amount_per_transfer_from_this = possible_transfer_amounts[index]
-	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]")
+	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]")
 	mode_change_message(user)
 
 /obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)

@@ -379,7 +379,7 @@
 		if(!points)
 			to_chat(user, span_warning("На [declent_ru(DATIVE)] не осталось очков."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы перевели <b>[points]</b> очк[declension_ru(points,"о","а","ов")] на свою ID-карту."))
+		to_chat(user, span_notice("Вы перевели <b>[points]</b> очк[DECL_O_A_OV(points)] на свою ID-карту."))
 		id_card.mining_points += points
 		points = 0
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -388,7 +388,7 @@
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += span_notice("На карте [points] очк[declension_ru(points,"о","а","ов")].")
+	. += span_notice("На карте [points] очк[DECL_O_A_OV(points)].")
 
 /*********************Jump Boots Implants********************/
 
