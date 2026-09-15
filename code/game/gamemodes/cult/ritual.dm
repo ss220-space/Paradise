@@ -48,15 +48,15 @@
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(iscultist(target))
-		if(target.reagents?.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
+		if(target.reagents?.has_reagent(/datum/reagent/holywater)) //allows cultists to be rescued from the clutches of ordained religion
 			if(target == user) // Targeting yourself
 				to_chat(user, span_warning("You can't remove holy water from yourself!"))
 			else // Targeting someone else
 				to_chat(user, span_cult("You remove the taint from [target]."))
 				to_chat(target, span_cult("[user] removes the taint from your body."))
-				var/amount = target.reagents.get_reagent_amount("holywater")
-				target.reagents.del_reagent("holywater")
-				target.reagents.add_reagent("unholywater", amount)
+				var/amount = target.reagents.get_reagent_amount(/datum/reagent/holywater)
+				target.reagents.del_reagent(/datum/reagent/holywater)
+				target.reagents.add_reagent(/datum/reagent/fuel/unholywater, amount)
 				add_attack_logs(user, target, "Hit with [src], removing the holy water from them")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

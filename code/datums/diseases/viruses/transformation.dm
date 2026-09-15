@@ -84,7 +84,7 @@
 	desc = "Обезьяны с этой болезнью кусают людей, вызывая их мутацию в обезьяну."
 	stage_prob = 2
 	cure_prob = 5
-	cures = list("banana")
+	cures = list(/datum/reagent/consumable/drink/banana)
 	spread_flags = BITES
 	infectable_mobtypes = list(/mob/living/carbon/human)
 	severity = DISEASE_SEVERITY_BIOHAZARD
@@ -132,7 +132,7 @@
 	name = "Роботрансформация"
 	agent = "R2D2 Наномашины"
 	desc = "Эта болезнь, на самом деле острая инфекция наномашин, превращает жертву в киборга."
-	cures = list("copper")
+	cures = list(/datum/reagent/copper)
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	cure_prob = 5
 	is_new_mind = TRUE
@@ -162,7 +162,7 @@
 	name = "Ксенотрансформация"
 	agent = "Чужеродные микробы рип-ЛИ"
 	desc = "Эта болезнь превращает жертву в ксеноморфа."
-	cures = list("spaceacillin", "glycerol")
+	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/glycerol)
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	cure_prob = 5
 	stage1 = null
@@ -194,7 +194,7 @@
 	name = "Продвинутая Мутационная Трансформация"
 	agent = "Токсин Продвинутой Мутации"
 	desc = "Этот высококонцентрированный экстракт превращает всё в большее количество себя."
-	cures = list("frostoil")
+	cures = list(/datum/reagent/consumable/frostoil)
 	cure_prob = 80
 	stage1 = list(span_notice_alt("Вы чувствуете себя не очень хорошо."))
 	stage2 = list(span_notice_alt("Ваша кожа кажется немного скользкой."))
@@ -222,7 +222,7 @@
 	agent = "Шерсть магической собаки"
 	desc = "Эта болезнь превращает жертву в корги."
 	cure_text = "Смерть"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	severity = DISEASE_SEVERITY_UNCURABLE
 	stage1 = list(span_notice_alt("ГАВ."))
 	stage2 = list(span_notice_alt("Вам хочется надеть глупую шляпу."))
@@ -248,7 +248,7 @@
 	name = "Благословение Обжорства"
 	desc = "\"Дар\" из какого-то ужасного места."
 	cure_text = "Ничего"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	severity = DISEASE_SEVERITY_UNCURABLE
 	stage_prob = 20
 	stage1 = list(span_notice_alt("Ваш желудок урчит."))
@@ -265,7 +265,7 @@
 	agent = "Мистическая грязь"
 	desc = "Эта болезнь превращает жертву в свинью."
 	cure_text = "Смерть"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	severity = DISEASE_SEVERITY_UNCURABLE
 	stage1 = list(span_notice_alt("ХРЮ."))
 	stage2 = list(span_notice_alt("Вам хочется валяться в грязи."))

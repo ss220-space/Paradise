@@ -20,8 +20,8 @@
 	return TRUE
 
 /datum/disease/critical/has_cure()
-	for(var/C_id in cures)
-		if(affected_mob.reagents.has_reagent(C_id))
+	for(var/cure_type in cures)
+		if(affected_mob.reagents.has_reagent(cure_type))
 			if(prob(cure_prob))
 				return TRUE
 	return FALSE
@@ -32,7 +32,7 @@
 	additional_info = "Пациент находится в состоянии шока"
 	max_stages = 3
 	stage_prob = 6
-	cures = list("salglu_solution")
+	cures = list(/datum/reagent/medicine/salglu_solution)
 	cure_prob = 10
 
 /datum/disease/critical/shock/stage_act()
@@ -99,7 +99,7 @@
 	additional_info = "У пациента сердечный приступ"
 	max_stages = 3
 	stage_prob = 5
-	cures = list("atropine", "epinephrine", "heparin", "neuromatin")
+	cures = list(/datum/reagent/medicine/atropine, /datum/reagent/medicine/epinephrine, /datum/reagent/heparin, /datum/reagent/medicine/neuromatin)
 	cure_prob = 10
 	needs_all_cures = FALSE
 	required_organs = list(/obj/item/organ/internal/heart)

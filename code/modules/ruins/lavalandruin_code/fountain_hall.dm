@@ -58,7 +58,7 @@
 		return
 	last_process = world.time
 	to_chat(user, span_notice("Вода кажется теплой и успокаивающей, когда вы касаетесь её. Фонтан мгновенно высыхает вскоре после этого."))
-	user.reagents.add_reagent("godblood", 20)
+	user.reagents.add_reagent(/datum/reagent/medicine/omnizine_diluted/godblood, 20)
 	update_icon()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), time_between_uses)
 

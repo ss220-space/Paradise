@@ -67,7 +67,7 @@
 	AddElement(/datum/element/simple_flying)
 	AddElement( \
 		/datum/element/reagent_attack/bee, \
-		reagent_id = "beetoxin", \
+		reagent_id = /datum/reagent/bee_venom, \
 		reagent_amount = 5, \
 	)
 
@@ -239,7 +239,7 @@
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
 		beegent.reaction_mob(L, REAGENT_TOUCH)
-		L.reagents.add_reagent(beegent.id, rand(1, 5))
+		L.reagents.add_reagent(beegent.type, rand(1, 5))
 
 //PEASENT BEES
 /mob/living/simple_animal/hostile/poison/bees/queen/pollinate()
@@ -278,8 +278,8 @@
 		if(!syringe.reagents.total_volume)
 			to_chat(user, span_warning("The [syringe.name] is empty."))
 			return ATTACK_CHAIN_PROCEED
-		if(syringe.reagents.has_reagent("royal_bee_jelly"))
-			if(!syringe.reagents.has_reagent("royal_bee_jelly", 5))
+		if(syringe.reagents.has_reagent(/datum/reagent/royal_bee_jelly))
+			if(!syringe.reagents.has_reagent(/datum/reagent/royal_bee_jelly, 5))
 				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
 				return ATTACK_CHAIN_PROCEED
 			var/obj/item/queen_bee/new_queen = new(drop_location())
@@ -289,7 +289,7 @@
 				// bees use the global singleton instances of reagents,
 				// so we don't need to worry about one bee being deleted and her copies losing their reagents.
 				new_queen.queen.assign_reagent(queen.beegent)
-			syringe.reagents.remove_reagent("royal_bee_jelly", 5, TRUE)
+			syringe.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5, TRUE)
 			syringe.update_icon()
 			user.visible_message(
 				span_warning("[user] has injected [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),
@@ -297,10 +297,10 @@
 			)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/datum/reagent/new_reagent = GLOB.chemical_reagents_list[syringe.reagents.get_master_reagent_id()]
-		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.id, 5))
+		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.type, 5))
 			to_chat(user, span_warning("You don't have enough units of [new_reagent.name] to modify the bee's DNA!"))
 			return ATTACK_CHAIN_PROCEED
-		syringe.reagents.remove_reagent(new_reagent.id, 5, TRUE)
+		syringe.reagents.remove_reagent(new_reagent.type, 5, TRUE)
 		syringe.update_icon()
 		queen.assign_reagent(new_reagent)
 		user.visible_message(
@@ -335,7 +335,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
 	. = ..()
-	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
+	beegent = GLOB.chemical_reagents_list[/datum/reagent/acid/facid] //Prepare to die
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()

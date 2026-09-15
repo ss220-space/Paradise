@@ -31,7 +31,7 @@
 
 /datum/status_effect/cultghost/tick(seconds_between_ticks)
 	if(owner.reagents)
-		owner.reagents.del_reagent("holywater") //can't be deconverted
+		owner.reagents.del_reagent(/datum/reagent/holywater) //can't be deconverted
 
 // MARK: crusher_mark
 /datum/status_effect/crusher_mark

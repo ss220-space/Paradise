@@ -311,7 +311,7 @@
 		return
 	if(emp_shielded(severity))
 		return
-	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	owner.reagents.add_reagent(/datum/reagent/questionmark, poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
@@ -371,7 +371,7 @@
 		return
 	if(emp_shielded(severity))
 		return
-	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	owner.reagents.add_reagent(/datum/reagent/questionmark, poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/plus

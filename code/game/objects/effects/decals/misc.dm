@@ -56,7 +56,7 @@
 	desc = "A bunch of space ants."
 	icon = 'icons/goonstation/effects/effects.dmi'
 	icon_state = "spaceants"
-	scoop_reagents = list("ants" = 20)
+	scoop_reagents = list(/datum/reagent/ants = 20)
 
 /obj/effect/decal/ants/Initialize(mapload)
 	. = ..()

@@ -8,7 +8,7 @@
 	can_progress_in_dead = TRUE
 	discovery_threshold = 0.9
 	spread_flags = CONTACT
-	cures = list("sugar")
+	cures = list(/datum/reagent/consumable/sugar)
 	severity = DISEASE_SEVERITY_HARMFUL
 	possible_mutations = list(/datum/disease/virus/lycan)
 	var/bees_spawned = 0
@@ -52,6 +52,4 @@
 /datum/disease/virus/beesease/proc/bee_stinging()
 	to_chat(affected_mob, span_danger("Ваш желудок болезненно жжёт."))
 	affected_mob.Slowed(3 SECONDS, 10)
-	var/datum/reagent/bee_venom_beesease/R = new
-	R.volume = 5
-	affected_mob.reagents.add_reagent(R.id, R.volume)
+	affected_mob.reagents.add_reagent(/datum/reagent/bee_venom_beesease, 5)

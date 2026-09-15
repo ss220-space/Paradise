@@ -38,6 +38,6 @@ Bonus
 			if(4, 5)
 				if(prob(10))
 					to_chat(M, span_notice(pick("Ваше тело онемело.", "Вы понимаете, что не чувствуете ничего.", "Вы не чувствуете своё тело.")))
-	if(M.reagents.get_reagent_amount("hydrocodone") < 2 && M.getToxLoss() < 13 && A.stage > 4)
-		M.reagents.add_reagent("hydrocodone", 0.5)
+	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/hydrocodone) < 2 && M.getToxLoss() < 13 && A.stage > 4)
+		M.reagents.add_reagent(/datum/reagent/medicine/hydrocodone, 0.5)
 	return

@@ -60,7 +60,7 @@
 
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(owner.AmountBlinded() || owner.AmountEyeBlurry() || (eyes?.damage > 0))
-		owner.reagents.add_reagent("oculine", 1)
+		owner.reagents.add_reagent(/datum/reagent/medicine/oculine, 1)
 
 	if(HAS_TRAIT(owner, TRAIT_NEARSIGHTED) || HAS_TRAIT(owner, TRAIT_BLIND))
 		update_flags |= owner.CureNearsighted()
@@ -71,7 +71,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
 	var/obj/object = ..()
-	object.reagents.add_reagent("oculine", 15)
+	object.reagents.add_reagent(/datum/reagent/medicine/oculine, 15)
 	return object
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling

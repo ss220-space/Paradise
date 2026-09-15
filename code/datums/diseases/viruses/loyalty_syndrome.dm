@@ -7,7 +7,7 @@
 	spread_flags = CONTACT
 	permeability_mod = 0.8
 	cure_text = "Галоперидол"
-	cures = list("haloperidol")
+	cures = list(/datum/reagent/medicine/haloperidol)
 	visibility_flags = HIDDEN_HUD
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	no_vaccine = TRUE

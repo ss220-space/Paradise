@@ -160,7 +160,7 @@
 	name = "Griffeater Gin"
 	desc = "Бутылка высококачественного джина, произведённого в Новом Лондоне."
 	icon_state = "ginbottle"
-	list_reagents = list("gin" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/gin = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/gin/get_ru_names()
 	return alist(
@@ -176,7 +176,7 @@
 	name = "Uncle Git's Special Reserve"
 	desc = "Односолодовый виски премиум-класса, бережно выдержанный в туннелях ядерного бомбоубежища. ТУННЕЛЬНЫЙ ВИСКИ РУЛИТ!"
 	icon_state = "whiskeybottle"
-	list_reagents = list("whiskey" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/whiskey/get_ru_names()
 	return alist(
@@ -192,7 +192,7 @@
 	name = "Tunguska Triple Distilled"
 	desc = "Высококачественная водка тройной перегонки, импортированная прямо из СССП."
 	icon_state = "vodkabottle"
-	list_reagents = list("vodka" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/vodka = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/vodka/get_ru_names()
 	return alist(
@@ -208,7 +208,7 @@
 	name = "Badminka Vodka"
 	desc = "Может и не самая дорогая, но всё ещё пригодная для употребления водка, производимая на окраинах СССП. Чёрт возьми, водка есть водка!"
 	icon_state = "badminka"
-	list_reagents = list("vodka" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/vodka = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka/get_ru_names()
 	return alist(
@@ -224,7 +224,7 @@
 	name = "Caccavo Guaranteed Quality Tequila"
 	desc = "Изготовлена из высококачественных нефтяных дистиллятов, чистого талидомида и других высококачественных ингредиентов!"
 	icon_state = "tequilabottle"
-	list_reagents = list("tequila" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/tequila = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/tequila/get_ru_names()
 	return alist(
@@ -240,7 +240,7 @@
 	name = "Bottle of Nothing"
 	desc = "Бутылка, наполненная Ничем."
 	icon_state = "bottleofnothing"
-	list_reagents = list("nothing" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/nothing = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing/get_ru_names()
 	return alist(
@@ -256,7 +256,7 @@
 	name = "Jolly Jug"
 	desc = "Кувшин, наполненный банановым соком. Хонк!"
 	icon_state = "bottleofjolly"
-	list_reagents = list("banana" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/banana = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/bottleofbanana/get_ru_names()
 	return alist(
@@ -272,7 +272,7 @@
 	name = "Roca Patron Silver"
 	desc = "Премиальная текила с серебряным отливом, которую подают в ночных клубах по всей галактике."
 	icon_state = "patronbottle"
-	list_reagents = list("patron" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/patron = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/patron/get_ru_names()
 	return alist(
@@ -288,7 +288,7 @@
 	name = "Captain Pete's Cuban Spiced Rum"
 	desc = "Как сказал однажды мой шкипер: \"Если бледная смерть с трепетным ужасом сделает космическую пустоту нашим последним пристанищем, Бог, слышащий, как клубится тьма космоса, соизволит спасти нашу молящуюся душу\"."
 	icon_state = "rumbottle"
-	list_reagents = list("rum" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/rum = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/rum/get_ru_names()
 	return alist(
@@ -304,7 +304,7 @@
 	name = "flask of holy water"
 	desc = "Кувшин со святой водой, такие обычно стоят в церквях."
 	icon_state = "holyflask"
-	list_reagents = list("holywater" = 100)
+	list_reagents = list(/datum/reagent/holywater = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/holywater/get_ru_names()
 	return alist(
@@ -318,13 +318,13 @@
 
 /obj/item/reagent_containers/cup/glass/bottle/holywater/hell
 	desc = "Кувшин со святой водой... который пробыл в чреве Некрополя слишком долго."
-	list_reagents = list("hell_water" = 100)
+	list_reagents = list(/datum/reagent/hellwater = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/vermouth
 	name = "Goldeneye Vermouth"
 	desc = "Сладкая, сладкая сухость..."
 	icon_state = "vermouthbottle"
-	list_reagents = list("vermouth" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/vermouth = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/vermouth/get_ru_names()
 	return alist(
@@ -340,7 +340,7 @@
 	name = "Robert Robust's Coffee Liqueur"
 	desc = "Широко известный мексиканский ликёр \"Калуа\" со вкусом кофе. Производится с 1936 года."
 	icon_state = "kahluabottle"
-	list_reagents = list("kahlua" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/kahlua = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/kahlua/get_ru_names()
 	return alist(
@@ -356,7 +356,7 @@
 	name = "College Girl Goldschlager"
 	desc = "Потому что они единственные, кто будет пить шнапс с корицей 100%-ой пробы."
 	icon_state = "goldschlagerbottle"
-	list_reagents = list("goldschlager" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/goldschlager = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/goldschlager/get_ru_names()
 	return alist(
@@ -372,7 +372,7 @@
 	name = "Chateau De Baton Premium Cognac"
 	desc = "Коньяк премиального качества, изготовленный путём многочисленных дистилляций и многолетней выдержки."
 	icon_state = "cognacbottle"
-	list_reagents = list("cognac" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/cognac = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/cognac/get_ru_names()
 	return alist(
@@ -388,7 +388,7 @@
 	name = "Doublebeard Bearded Special Wine"
 	desc = "Слабая аура беспокойства и боли в заднице окружает эту бутылку."
 	icon_state = "winebottle"
-	list_reagents = list("wine" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/wine = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/wine/get_ru_names()
 	return alist(
@@ -404,7 +404,7 @@
 	name = "Yellow Marquee Absinthe"
 	desc = "Крепкий алкогольный напиток, сваренный и распространяемый компанией \"Жёлтый Шатёр\"."
 	icon_state = "absinthebottle"
-	list_reagents = list("absinthe" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/absinthe = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/absinthe/get_ru_names()
 	return alist(
@@ -436,7 +436,7 @@
 	desc = "Яблочный сок для взрослых."
 	icon_state = "hcider"
 	volume = 50
-	list_reagents = list("suicider" = 50)
+	list_reagents = list(/datum/reagent/consumable/ethanol/suicider = 50)
 
 /obj/item/reagent_containers/cup/glass/bottle/hcider/get_ru_names()
 	return alist(
@@ -452,7 +452,7 @@
 	name = "Fernet Bronca"
 	desc = "Бутылка фернета, произведенного на космической станции \"Кордоба\"."
 	icon_state = "fernetbottle"
-	list_reagents = list("fernet" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/fernet = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/fernet/get_ru_names()
 	return alist(
@@ -468,7 +468,7 @@
 	name = "Sparkling Sunny Champagne"
 	desc = "Бутылка чистого обжигающего солнца, готовая поразить ваш мозг."
 	icon_state = "champagnebottle"
-	list_reagents = list("champagne" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/champagne = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/champagne/get_ru_names()
 	return alist(
@@ -484,7 +484,7 @@
 	name = "Jungle Aperol Aperitivo"
 	desc = "Настоящая засажа для вашей печени."
 	icon_state = "aperolbottle"
-	list_reagents = list("aperol" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/aperol = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/aperol/get_ru_names()
 	return alist(
@@ -500,7 +500,7 @@
 	name = "Infused Space Jaegermeister"
 	desc = "Das ist des Jägers Ehrenschild, daß er beschützt und hegt sein Wild, weidmännisch jagt, wie sich gehört, den Schöpfer im Geschöpfe ehrt."
 	icon_state = "jagermeisterbottle"
-	list_reagents = list("jagermeister" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/jagermeister = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/jagermeister/get_ru_names()
 	return alist(
@@ -516,7 +516,7 @@
 	name = "Grainy Mint Schnapps"
 	desc = "Настоящий ужас для истинного ценителя, высококачественный мятный шнапс."
 	icon_state = "schnapsbottle"
-	list_reagents = list("schnaps" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/schnaps = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/schnaps/get_ru_names()
 	return alist(
@@ -532,7 +532,7 @@
 	name = "Sheridan's Coffee Layered"
 	desc = "Двойное чудо с новой инновационной шеей, намного лучше, чем у вас."
 	icon_state = "sheridanbottle"
-	list_reagents = list("sheridan" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/sheridan = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/sheridan/get_ru_names()
 	return alist(
@@ -548,7 +548,7 @@
 	name = "Vacuum Cherry Bitter"
 	desc = "Постарайтесь не задохнуться, выпив такую чудесную горечь."
 	icon_state = "bitterbottle"
-	list_reagents = list("bitter" = 50)
+	list_reagents = list(/datum/reagent/consumable/ethanol/bitter = 50)
 
 /obj/item/reagent_containers/cup/glass/bottle/bitter/get_ru_names()
 	return alist(
@@ -564,7 +564,7 @@
 	name = "Grenadier Blue Curacao"
 	desc = "Взрыв — это искусство, но синий взрыв намного лучше."
 	icon_state = "bluecuracao"
-	list_reagents = list("bluecuracao" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/bluecuracao = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/bluecuracao/get_ru_names()
 	return alist(
@@ -580,7 +580,7 @@
 	name = "The Headless Horseman's Sambuka"
 	desc = "Я не пил самбуку с тех пор, как мне было двадцать."
 	icon_state = "sambukabottle"
-	list_reagents = list("sambuka" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/sambuka = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/sambuka/get_ru_names()
 	return alist(
@@ -596,7 +596,7 @@
 	name = "Arrogant Green Rat"
 	desc = "Лучшее вино из райского города, где трава зелёная, а девушки красивые."
 	icon_state = "arrogant_green_rat"
-	list_reagents = list("wine" = 100)
+	list_reagents = list(/datum/reagent/consumable/ethanol/wine = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/arrogant_green_rat/get_ru_names()
 	return alist(
@@ -623,7 +623,7 @@
 	name = "orange juice"
 	desc = "Полон витаминов и вкусностей!"
 	icon_state = "orangejuice"
-	list_reagents = list("orangejuice" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/orangejuice = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice/get_ru_names()
 	return alist(
@@ -639,7 +639,7 @@
 	name = "milk cream"
 	desc = "Это сливки. Сделаны из молока. А что ещё вы думали там найти?"
 	icon_state = "cream"
-	list_reagents = list("cream" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/milk/cream = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/cream/get_ru_names()
 	return alist(
@@ -655,7 +655,7 @@
 	name = "tomato juice"
 	desc = "Ну, по крайней мере, это выглядит как томатный сок. Слишком красное, чтобы сказать точно."
 	icon_state = "tomatojuice"
-	list_reagents = list("tomatojuice" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/tomatojuice = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice/get_ru_names()
 	return alist(
@@ -671,7 +671,7 @@
 	name = "lime juice"
 	desc = "Кисло-сладкая вкуснятина."
 	icon_state = "limejuice"
-	list_reagents = list("limejuice" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/limejuice = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice/get_ru_names()
 	return alist(
@@ -687,7 +687,7 @@
 	name = "milk"
 	desc = "Мягкое, вкусно и полезное молоко."
 	icon_state = "milk"
-	list_reagents = list("milk" = 100)
+	list_reagents = list(/datum/reagent/consumable/drink/milk = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/milk/get_ru_names()
 	return alist(
