@@ -40,7 +40,7 @@
 /datum/action/cooldown/swarmer/New(Target, original = TRUE)
 	. = ..()
 	if(action_cost)
-		desc = "[desc] Стоимость: [action_cost] металлических материал[DECL_CREDIT(action_cost)]."
+		desc = "[desc] Стоимость: [action_cost] металлических материал[DECL_0_A_OV(action_cost)]."
 
 /datum/action/cooldown/swarmer/build
 	abstract_type = /datum/action/cooldown/swarmer/build
