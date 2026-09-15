@@ -82,7 +82,7 @@
 	patient.InitializeAIController()
 
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
-	var/text = {"К вам было отправлено [patiens_count] душевнобольных с соседней психбольницы.<br>
+	var/text = {"К вам был[DECL_0_O_O(patiens_count)] отправлен[DECL_0_O_O(patiens_count)] [patiens_count] душевнобольн[DECL_OJ_YH_YH(patiens_count)] с соседней психбольницы.<br>
 		Их необходимо полностью вылечить. Будьте осторожны, пациенты буйные.
 		Список пациентов:<br>"}
 	var/number = 1
