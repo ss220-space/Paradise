@@ -195,6 +195,14 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
+/// Offers mob a choice to ghostize.
+/mob/proc/offer_ghostize()
+	if(QDELETED(src))
+		return
+	var/choice = tgui_alert(src, "Хотите ли вы выйти в режим наблюдателя? Вы сможете вернуться в тело в любой момент.", "Выход в призраки", list("Да", "Нет"))
+	if(choice == "Да")
+		ghostize()
+
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(!key)
 		return

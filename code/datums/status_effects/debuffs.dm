@@ -1629,3 +1629,47 @@
 /datum/status_effect/gene_instability/major/critical/proc/on_time_end()
 	if(owner.gene_stability < GENETIC_DAMAGE_STAGE_3)
 		owner.gib()
+
+// MARK: staminaregen_block
+/datum/status_effect/staminaregen_block
+	id = "staminaregen_block"
+	alert_type = null
+	duration = 1 SECONDS
+
+/// Duration can be specified on creation
+/datum/status_effect/staminaregen_block/on_creation(mob/living/new_owner, new_duration)
+	if(new_duration)
+		duration = new_duration
+	return ..()
+
+/datum/status_effect/staminaregen_block/on_apply()
+	ADD_TRAIT(owner, TRAIT_BLOCK_STAMINA_REGEN, id)
+	return ..()
+
+/datum/status_effect/staminaregen_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_BLOCK_STAMINA_REGEN, id)
+
+// MARK: metabolize_block
+/datum/status_effect/metabolize_block
+	id = "metabolize_block"
+	alert_type = null
+	duration = 10 SECONDS
+	/// Overlay applied to mob, if set on creation
+	var/mutable_appearance/overlay
+
+/// Duration and set overlays can be specified on creation
+/datum/status_effect/metabolize_block/on_creation(mob/living/new_owner, new_duration, mutable_appearance/new_overlay)
+	if(new_duration)
+		duration = new_duration
+	if(new_overlay)
+		overlay = new_overlay
+	return ..()
+
+/datum/status_effect/metabolize_block/on_apply()
+	ADD_TRAIT(owner, TRAIT_BLOCK_METABOLIZE, id)
+	owner.add_overlay(overlay)
+	return ..()
+
+/datum/status_effect/metabolize_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_BLOCK_METABOLIZE, id)
+	owner.cut_overlay(overlay)
