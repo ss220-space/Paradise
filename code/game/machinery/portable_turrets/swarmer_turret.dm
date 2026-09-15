@@ -46,7 +46,7 @@
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Used for repairing.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	if(get_integrity_percentage() == 1)
+	if(obj_integrity == max_integrity)
 		swarmer.balloon_alert(swarmer, "не требует починки!")
 		return
 
@@ -92,7 +92,7 @@
 /obj/machinery/porta_turret/swarmer/isLocked(mob/user)
 	return isswarmer(user)
 
-/// No one except swarmers should be able to access the control panel
+/// No one should be able to access the control panel
 /obj/machinery/porta_turret/swarmer/allowed(mob/M)
 	return FALSE
 
@@ -125,7 +125,7 @@
 /obj/machinery/porta_turret/swarmer/turret
 	name = "swarmer turret"
 	desc = "Штурмовая энергетическая турель \"Свармеров\", способная стрелять залпом по три пули."
-	health = 100
+	health = 150
 	icon_state = "turret_rapid"
 	shot_delay = 1.5 SECONDS
 	projectile = /obj/projectile/beam/disabler/swarmer/weak_turret
@@ -146,7 +146,7 @@
 /obj/machinery/porta_turret/swarmer/sniper
 	name = "swarmer sentry"
 	desc = "Снайперская энергетическая турель \"Свармеров\", способная стрелять мощным выстрелом, что пробивает целей насквозь."
-	health = 150
+	health = 200
 	icon_state = "turret_sniper"
 	shot_delay = 2.5 SECONDS
 	projectile = /obj/projectile/beam/disabler/swarmer/strong_turret

@@ -145,7 +145,6 @@
  * Adjusts twice less from corpses.
  */
 /obj/structure/swarmer/organic_analyzer/proc/adjust_resources()
-	var/modifier = occupant.is_dead() ? 0.5 : 1 // We get less from corpses
 	if(ismachineperson(occupant))
 		return adjust_swarmer_metallic_resources(SWARMER_ANALYZE_MACHINE_GAIN * modifier)
 	if(iscarbon(occupant))

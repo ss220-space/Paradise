@@ -13,4 +13,10 @@
 	return 100
 
 /obj/item/gun/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
+	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_CONSUME
+
+/obj/item/gun/integrate_amount()
+	return 5
+
+/obj/item/soulscythe/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_DAMAGE

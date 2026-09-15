@@ -66,7 +66,7 @@
 	swarmer_examine = "Свободно пропускает свармеров и их выстрелы."
 	icon_state = "barricade"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	max_integrity = 50
+	max_integrity = 75
 	swarmers_pass = TRUE
 
 /obj/structure/swarmer/blockade/get_ru_names()

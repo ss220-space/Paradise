@@ -65,6 +65,7 @@
 		return
 	if(!isliving(entity) || isswarmer(entity))
 		return
+
 	processing_targets[entity] = TRUE // Associative for performance
 	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSobj, src)
@@ -75,12 +76,15 @@
 		return PROCESS_KILL
 	if(!anchored)
 		return
+
 	//Verify that targeted mobs are in our range. Otherwise, just remove them from processing.
 	for(var/mob/mob as anything in processing_targets)
 		if(!IN_GIVEN_RANGE(loc, mob, range))
 			processing_targets -= mob
+
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return
+
 	strike()
 	COOLDOWN_START(src, cooldown, cooldown_after_strike)
 

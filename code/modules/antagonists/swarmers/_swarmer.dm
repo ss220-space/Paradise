@@ -36,6 +36,7 @@
 	unsuitable_atmos_damage = 0
 	move_force = MOVE_FORCE_DEFAULT
 	pull_force = PULL_FORCE_DEFAULT
+	pressure_resistance = 100
 	/// Text used in core tgui and sent to client to tell about current class abilities
 	var/swarmer_class_info = "Напишите баг-репорт, если увидили это."
 	/// How much time does it take to dismantle a machine
@@ -61,6 +62,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	add_language(LANGUAGE_HIVE_SWARMER)
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 	updatename()
 
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]

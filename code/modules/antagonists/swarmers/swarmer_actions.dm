@@ -49,16 +49,16 @@
 	var/build_type = /obj/structure/swarmer
 	/// How long does it take to build
 	var/build_time = 0
-	/// Do we check for the limit of buildings in the same area?
-	var/check_for_limit_per_area = FALSE
-	/// Limit of buildings per area of the same type
-	var/limit_per_area
+	/// Do we check if there are structures of the same type in given distance?
+	var/check_for_distance = FALSE
+	/// Minimum distance that we can build the same structure
+	var/distance_per_structure
 
 /// Updates description to include material cost.
 /datum/action/cooldown/swarmer/build/New(Target, original = TRUE)
 	. = ..()
-	if(check_for_limit_per_area)
-		desc = "[desc]\n В одной зоне могут находиться максимум [limit_per_area] построек того-же типа."
+	if(check_for_distance)
+		desc = "[desc]\n Минимальное расстояние между друг-другом — [distance_per_structure] тайлов."
 
 /datum/action/cooldown/swarmer/build/Activate(mob/living/simple_animal/hostile/swarmer/target)
 	. = ..()
@@ -77,23 +77,36 @@
 	if(!turf_build_checks(target, turfs_to_check))
 		return
 
+	// also used in do_after
+	if(!check_for_structure_in_turfs(target, turfs_to_check))
+		return
+
 	if(!custom_build_checks(target, turfs_to_check))
+		return
+
+	if(!check_for_distance(spawn_turf))
+		target.balloon_alert(target, "слишком близко!")
+		to_chat(target, span_warning("Минимальное расстояние между тем, что вы строили — [distance_per_structure]!"))
 		return
 
 	if(!adjust_swarmer_metallic_resources(-action_cost))
 		target.balloon_alert(target, "недостаточно ресурсов!")
 		return
 
-	if(!do_after(target, build_time, target, max_interact_count = 1))
+	if(!do_after(target, build_time, target, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(check_for_structure_in_turfs), target, turfs_to_check)))
 		target.balloon_alert(target, "сбито!")
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
-	if(!check_for_limit(spawn_turf))
+	/*
+	Might have to uncomment later. Allows people to cooperate and place multiple structures of the same type nearby if we have the limit
+	But doing it on each do after tick is too much
+	if(!check_for_distance(spawn_turf))
 		target.balloon_alert(target, "достигнут лимит на зону!")
-		to_chat(target, span_warning("Максимум того, что вы строили, в одной зоне можно лишь [limit_per_area]!"))
+		to_chat(target, span_warning("Минимальная разница между тем, что вы строили — [distance_per_structure]!"))
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
+	*/
 
 	target.balloon_alert(target, "успех!")
 	return new build_type(spawn_turf)
@@ -116,19 +129,24 @@
 			user.balloon_alert(user, "стена!")
 			target_turf.balloon_alert(user, "здесь!")
 			return FALSE
+
+/// Swarmer structures in turf checks
+/datum/action/cooldown/swarmer/build/proc/check_for_structure_in_turfs(mob/living/user, list/turfs_to_check)
+	if(!length(turfs_to_check) || !user)
+		return FALSE
+
+	. = TRUE
+	for(var/turf/target_turf as anything in turfs_to_check)
 		if((locate(/obj/structure/swarmer) in target_turf))
 			user.balloon_alert(user, "нельзя строить сверху существующего!")
-			target_turf.balloon_alert(user, "здесь!")
 			return FALSE
 		if((locate(/obj/machinery/porta_turret/swarmer) in target_turf))
 			user.balloon_alert(user, "нельзя строить сверху существующего!")
-			target_turf.balloon_alert(user, "здесь!")
 			return FALSE
 
-/// Checks for limit of same building in src area
-/// Returns TRUE if we should continue building
-/datum/action/cooldown/swarmer/build/proc/check_for_limit(turf/spawn_turf)
-	if(!check_for_limit_per_area)
+/// Checks if we have the same structure type in given range
+/datum/action/cooldown/swarmer/build/proc/check_for_distance(turf/spawn_turf)
+	if(!check_for_distance)
 		return TRUE
 
 	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
@@ -139,20 +157,11 @@
 	if(!LAZYACCESS(swarmer_objects, build_type)) // none built at all
 		return TRUE
 
-	var/list/same_obj_uids = swarmer_objects[build_type]
-	if(length(same_obj_uids) <= (limit_per_area - 1)) // not enough to even check
-		return TRUE
-
 	. = TRUE
-	var/area/area_to_check = get_area(spawn_turf)
-	var/same_obj_in_area_amount = 0
+	var/list/same_obj_uids = swarmer_objects[build_type]
 	for(var/obj_uid in same_obj_uids)
 		var/obj/obj = locateUID(obj_uid)
-		if(area_to_check != get_area(obj))
-			continue
-
-		same_obj_in_area_amount++
-		if(same_obj_in_area_amount >= (limit_per_area - 1))
+		if(IN_GIVEN_RANGE(spawn_turf, obj, distance_per_structure))
 			return FALSE
 
 /// Proc for custom checks based on what is being built, returns TRUE on default
@@ -252,8 +261,8 @@
 	build_type = /obj/machinery/porta_turret/swarmer/turret
 	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
-	check_for_limit_per_area = TRUE
-	limit_per_area = 4
+	check_for_distance = TRUE
+	distance_per_structure = 2
 
 /datum/action/cooldown/swarmer/build/sniper_turret
 	name = "Создать снайперскую турель"
@@ -262,8 +271,8 @@
 	build_type = /obj/machinery/porta_turret/swarmer/sniper
 	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
-	check_for_limit_per_area = TRUE
-	limit_per_area = 2
+	check_for_distance = TRUE
+	distance_per_structure = 3
 
 /datum/action/cooldown/swarmer/build/acp_turret
 	name = "Создать установку ACP"
@@ -272,8 +281,8 @@
 	build_type = /obj/structure/swarmer/acp_turret
 	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
-	check_for_limit_per_area = TRUE
-	limit_per_area = 3
+	check_for_distance = TRUE
+	distance_per_structure = 2
 
 /datum/action/cooldown/swarmer/build/nanobot_fabricator
 	name = "Создать фабрикатор наноботов"

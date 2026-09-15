@@ -22,8 +22,8 @@
 	icon_living = "swarmer_starter"
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	health = 25
-	maxHealth = 25
+	health = 30
+	maxHealth = 30
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
 	speed = 0.25
 	pass_door_while_hidden = TRUE
@@ -61,7 +61,7 @@
 	speed = 0
 	ranged = 1
 	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
-	ranged_cooldown_time = 1 SECONDS
+	ranged_cooldown_time = 0.8 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
 	swap_resource_cost = GENERALIST_SWAP_COST
 	can_swap_to = TRUE
@@ -91,9 +91,9 @@
 	icon_living = "swarmer_rover"
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	health = 55
-	maxHealth = 55
-	speed = -0.3
+	health = 60
+	maxHealth = 60
+	speed = -1
 	swap_resource_cost = ROVER_SWAP_COST
 	can_swap_to = TRUE
 	pass_door_while_hidden = TRUE
@@ -147,7 +147,7 @@
 	health = 220
 	maxHealth = 220
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
-	speed = 1.5
+	speed = 0.5
 	ranged = 1
 	swap_resource_cost = COMBAT_SWAP_COST
 	can_swap_to = TRUE
@@ -157,7 +157,7 @@
 		Способен строить баррикады.\n\
 		Чинится автоматически у ядра, становится быстрее у ядра."
 	/// What speed do we have if there is any swarmer structure nearby
-	var/increased_speed = 0
+	var/increased_speed = -0.25
 	/// List of all modes used in ranged_mob_switcher element
 	var/static/list/combat_modes = list(
 		/datum/ranged_mob_switcher_mode/combat_swarmer_double,
@@ -209,8 +209,8 @@
 	icon_living = "swarmer_builder"
 	melee_damage_lower = 40
 	melee_damage_upper = 40
-	health = 120
-	maxHealth = 120
+	health = 175
+	maxHealth = 175
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swap_resource_cost = BUILDER_SWAP_COST
 	can_swap_to = TRUE
@@ -255,8 +255,8 @@
 	projectilesound = 'sound/weapons/taser2.ogg'
 	rapid = 6
 	rapid_fire_delay = 1
-	health = 350
-	maxHealth = 350
+	health = 500
+	maxHealth = 500
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swarmer_class_info = "Вы — финальная боевая единица \"Свармеров\", оснащённая миниганом, встроенной ACP турелью, а также защитными пластинами.\n\
 		Ваша цель — окончательно захватить станцию под ваш контроль."

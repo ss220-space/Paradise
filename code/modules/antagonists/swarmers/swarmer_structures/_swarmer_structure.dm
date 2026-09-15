@@ -63,7 +63,7 @@
 
 /// Special intent handling for swarmer clicks on swarmer structures. Used for repairing.
 /obj/structure/swarmer/proc/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	if(get_integrity_percentage() == 1)
+	if(obj_integrity == max_integrity)
 		swarmer.balloon_alert(swarmer, "не требует починки!")
 		return
 

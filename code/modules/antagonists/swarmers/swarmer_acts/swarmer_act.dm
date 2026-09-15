@@ -22,6 +22,6 @@
 	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_DAMAGE
 
 /// Returns how many resources a swarmer gets from consuming an atom.
-/// Will runtime if [SWARMER_ACT_POSSIBLE_ACTION_DAMAGE] was used in swarmer_act, and the value returned here is null.
+/// Will runtime if [SWARMER_ACT_POSSIBLE_ACTION_CONSUME] was used in swarmer_act, and the value returned here is null.
 /atom/proc/integrate_amount()
 	return
