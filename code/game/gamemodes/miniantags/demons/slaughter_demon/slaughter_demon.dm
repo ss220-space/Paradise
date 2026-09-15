@@ -279,7 +279,7 @@
 
 /datum/objective/slaughter/New()
 	targetKill = rand(10,20)
-	explanation_text = "Поглотить [targetKill] смертн[declension_ru(targetKill, "ого", "ых", "ых")]."
+	explanation_text = "Поглотить [targetKill] смертн[DECL_OGO_YH_YH(targetKill)]."
 	..()
 
 /datum/objective/slaughter/check_completion()

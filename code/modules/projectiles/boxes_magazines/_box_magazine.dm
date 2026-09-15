@@ -125,7 +125,7 @@
 
 	if(caliber && max_ammo)
 		readout += "<b><u>ВМЕСТИМОСТЬ</u></b>"
-		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> боеприпас[declension_ru(max_ammo, "а", "ов", "ов")] калибра <b>[caliber]</b>."
+		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> боеприпас[DECL_A_OV_OV(max_ammo)] калибра <b>[caliber]</b>."
 
 	readout += "[mag_ammo.add_notes_ammo()]"
 
