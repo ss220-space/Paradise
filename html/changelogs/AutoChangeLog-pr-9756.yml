@@ -1,4 +1,0 @@
-author: "Den109G"
-delete-after: True
-changes:
-  - bugfix: "Книга мага больше не удаляется, если руки заняты после кидания д20 (PR #9756)"
