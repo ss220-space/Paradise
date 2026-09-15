@@ -135,7 +135,7 @@
  * Combat Swarmer
  *
  * Auto-repairs nears the core, has increased speed around swarmer structures.
- * Has 4 different projectile modes, and can build barricades.
+ * Has 3 different projectile modes, and can build barricades.
  */
 /mob/living/simple_animal/hostile/swarmer/combat
 	name = "Combat Swarmer"

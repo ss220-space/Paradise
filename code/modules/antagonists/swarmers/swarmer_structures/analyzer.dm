@@ -146,14 +146,14 @@
  */
 /obj/structure/swarmer/organic_analyzer/proc/adjust_resources()
 	if(ismachineperson(occupant))
-		return adjust_swarmer_metallic_resources(SWARMER_ANALYZE_MACHINE_GAIN * modifier)
+		return adjust_swarmer_metallic_resources(SWARMER_ANALYZE_MACHINE_GAIN)
 	if(iscarbon(occupant))
-		modifier = occupant.mind ? 1 : 0.3 // Much less from carbons with no mind
+		var/modifier = occupant.mind ? 1 : 0.3 // Much less from carbons with no mind
 		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_CARBON_GAIN * modifier)
 	if(ishostile(occupant))
-		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_HOSTILE_GAIN * modifier)
+		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_HOSTILE_GAIN)
 	if(isliving(occupant))
-		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_LIVING_GAIN * modifier)
+		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_LIVING_GAIN)
 
 /**
  * Proc used to get rid of random bodyparts and organs
