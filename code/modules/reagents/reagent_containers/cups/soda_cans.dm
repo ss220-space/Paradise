@@ -109,7 +109,7 @@
 /obj/item/reagent_containers/cup/soda_cans/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
+	if(is_reagent_dispenser(target) && !canopened)
 		balloon_alert(user, "сначала откройте!")
 		return
 	else if(target.is_open_container() && !canopened)

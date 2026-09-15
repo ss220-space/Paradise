@@ -41,7 +41,7 @@
 	|| is_reagent_container(target) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
 		return
 
-	if(istype(target, /obj/structure/reagent_dispensers) && get_dist(src, target) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
+	if(is_reagent_dispenser(target) && get_dist(src, target) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
 		if(!target.reagents.total_volume && target.reagents)
 			balloon_alert(user, "пусто!")
 			return

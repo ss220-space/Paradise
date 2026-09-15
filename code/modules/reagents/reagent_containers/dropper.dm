@@ -92,7 +92,7 @@
 			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
-			if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
+			if(!target.is_open_container() && !is_reagent_dispenser(target))
 				balloon_alert(user, "не подходит!")
 				return
 
