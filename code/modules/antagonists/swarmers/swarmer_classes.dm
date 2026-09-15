@@ -59,7 +59,7 @@
 	health = 150
 	maxHealth = 150
 	speed = 0
-	ranged = 1
+	ranged = TRUE
 	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
 	ranged_cooldown_time = 0.8 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
@@ -148,7 +148,7 @@
 	maxHealth = 220
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
 	speed = 0.5
-	ranged = 1
+	ranged = TRUE
 	swap_resource_cost = COMBAT_SWAP_COST
 	can_swap_to = TRUE
 	swarmer_class_info = "Данный класс является защитной единицей, оснащённой более сильной защитой и пушками.\n\
@@ -212,6 +212,10 @@
 	health = 175
 	maxHealth = 175
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
+	ranged = TRUE
+	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
+	ranged_cooldown_time = 2 SECONDS
+	projectilesound = 'sound/weapons/taser2.ogg'
 	swap_resource_cost = BUILDER_SWAP_COST
 	can_swap_to = TRUE
 	mob_size = MOB_SIZE_HUMAN
@@ -249,7 +253,7 @@
 	icon_living = "swarmer_mega"
 	melee_damage_lower = 60
 	melee_damage_upper = 60
-	ranged = 1
+	ranged = TRUE
 	projectiletype = /obj/projectile/beam/disabler/swarmer/minigun
 	ranged_cooldown_time = 1.5 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'

@@ -86,7 +86,8 @@
 
 	if(!check_for_distance(spawn_turf))
 		target.balloon_alert(target, "слишком близко!")
-		to_chat(target, span_warning("Минимальное расстояние между тем, что вы строили — [distance_per_structure]!"))
+		var/obj/build_prototype = build_type // cant use ru_names
+		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [distance_per_structure]!"))
 		return
 
 	if(!adjust_swarmer_metallic_resources(-action_cost))
@@ -98,15 +99,13 @@
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
-	/*
-	Might have to uncomment later. Allows people to cooperate and place multiple structures of the same type nearby if we have the limit
-	But doing it on each do after tick is too much
+	// Before and after checks. Not doing this in do_after callback since this is quite a costy operation
 	if(!check_for_distance(spawn_turf))
-		target.balloon_alert(target, "достигнут лимит на зону!")
-		to_chat(target, span_warning("Минимальная разница между тем, что вы строили — [distance_per_structure]!"))
+		target.balloon_alert(target, "слишком близко!")
+		var/obj/build_prototype = build_type // cant use ru_names
+		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [distance_per_structure]!"))
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
-	*/
 
 	target.balloon_alert(target, "успех!")
 	return new build_type(spawn_turf)
