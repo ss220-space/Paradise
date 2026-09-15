@@ -35,7 +35,7 @@ REPLACEMENTS = [
     (r'declension_ru\(([^,]+),\s*"а",\s*"ов",\s*"ов"\)', r'DECL_A_OV_OV(\1)', 'DECL_A_OV_OV'),
     (r'declension_ru\(([^,]+),\s*"",\s*"и",\s*"и"\)', r'DECL_0_I_I(\1)', 'DECL_0_I_I'),
     (r'declension_ru\(([^,]+),\s*"",\s*"ы",\s*"ы"\)', r'DECL_0_Y_Y(\1)', 'DECL_0_Y_Y'),
-    (r'declension_ru\(([^,]+),\s*"е",\s*"ах",\s*"ах"\)', r'DECL_E_AH_AH(\1)', 'DECL_E_AH_AH'),
+    (r'declension_ru\(([^,]+),\s*"е",\s*"ах",\s*"ах"\)', r'DECL_YE_AH_AH(\1)', 'DECL_YE_AH_AH'),
     (r'declension_ru\(([^,]+),\s*"ся",\s*"ось",\s*"ось"\)', r'DECL_SYA_OS_OS(\1)', 'DECL_SYA_OS_OS'),
     (r'declension_ru\(([^,]+),\s*"",\s*"а",\s*""\)', r'DECL_0_A_0(\1)', 'DECL_0_A_0'),
     (r'declension_ru\(([^,]+),\s*"о",\s*"а",\s*""\)', r'DECL_O_A_0(\1)', 'DECL_O_A_0'),
@@ -47,6 +47,11 @@ REPLACEMENTS = [
     (r'declension_ru\(([^,]+),\s*"е",\s*"ам",\s*"ам"\)', r'DECL_YE_AM_AM(\1)', 'DECL_YE_AM_AM'),
     (r'declension_ru\(([^,]+),\s*"я",\s*"и",\s*"и"\)', r'DECL_YA_I_I(\1)', 'DECL_YA_I_I'),
     (r'declension_ru\(([^,]+),\s*"у",\s*"ы",\s*"ы"\)', r'DECL_U_Y_Y(\1)', 'DECL_U_Y_Y'),
+    (r'declension_ru\(([^,]+),\s*"ен",\s*"но",\s*"но"\)', r'DECL_YEN_NO_NO(\1)', 'DECL_YEN_NO_NO'),
+    (r'declension_ru\(([^,]+),\s*"ое",\s*"ых",\s*"ых"\)', r'DECL_OJE_YH_YH(\1)', 'DECL_OJE_YH_YH'),
+    (r'declension_ru\(([^,]+),\s*"ой",\s*"ых",\s*"ых"\)', r'DECL_OJ_YH_YH(\1)', 'DECL_OJ_YH_YH'),
+    (r'declension_ru\(([^,]+),\s*"ый",\s*"ых",\s*"ых"\)', r'DECL_YJ_YH_YH(\1)', 'DECL_YJ_YH_YH'),
+    (r'declension_ru\(([^,]+),\s*"ого",\s*"ых",\s*"ых"\)', r'DECL_OGO_YH_YH(\1)', 'DECL_OGO_YH_YH'),
 
     # pluralize_ru()
     (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_YUT(\1)', 'PLUR_YOT_YUT'),

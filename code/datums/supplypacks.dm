@@ -5552,7 +5552,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/misc/randomised/New()
-	manifest += "Содержит [num_contained] люб[declension_ru(num_contained, "ой предмет", "ых предмета", "ых предметов")] из списка:"
+	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
 	..()
 
 /datum/supply_packs/misc/foamforce
@@ -6543,7 +6543,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/contraband/randomised/contraband/New()
-	manifest += "Содержит [num_contained] люб[declension_ru(num_contained, "ой предмет", "ых предмета", "ых предметов")] из списка:"
+	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
 	..()
 
 /datum/supply_packs/contraband/foamforce/bonus

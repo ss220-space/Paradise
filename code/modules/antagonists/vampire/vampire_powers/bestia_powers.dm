@@ -1686,7 +1686,7 @@
 
 /datum/action/cooldown/spell/conjure/bestia_bats/cast(atom/cast_on)
 	. = ..()
-	owner.visible_message(span_warning("Внезапно <b>[summon_amount] ста[declension_ru(summon_amount, "я", "и", "й")]</b> космических летучих мышей появились рядом с [owner]!"), \
+	owner.visible_message(span_warning("Внезапно рядом с [owner.declent_ru(INSTRUMENTAL)] появляется полчище космических летучих мышей!"), \
 						span_notice("Вы вызываете <b>[summon_amount] ста[DECL_YU_I_J(summon_amount)]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
 						span_italics("Вы слышите жуткий шум множества крыльев и громкие визги..."))
 

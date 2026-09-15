@@ -1125,7 +1125,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Заполучите [target_amount] совместим[declension_ru(target_amount, "ый геном", "ых генома", "ых геномов")]. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
+	explanation_text = "Заполучите [target_amount] совместим[DECL_YJ_YH_YH(target_amount)] геном[DECL_0_A_OV(target_amount)]. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
 	return target_amount
 
 /datum/objective/absorb/check_completion()

@@ -137,8 +137,8 @@
 	var/ghost_counter = ghost_check()
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message(
-		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
-		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
+		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
+		span_notice("Вы бьёте с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
 	)
 	return ..()
 
