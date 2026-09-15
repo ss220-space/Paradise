@@ -64,6 +64,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/hos
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/HoS/beret
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security/hos
 
 /datum/job/security
 	abstract_type = /datum/job/security
@@ -139,6 +141,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/warden
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/beret/sec/warden
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security
 
 /datum/job/security/detective
 	title = JOB_TITLE_DETECTIVE
@@ -191,6 +195,8 @@
 
 	implants = list(/obj/item/implant/mindshield)
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/beret/sec
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -265,6 +271,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/beret/sec
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security
 
 /datum/outfit/job/officer/cadet
 	name = "Кадет"
@@ -318,6 +326,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/brigphys
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/brigphys
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security
 
 /datum/job/security/pilot
 	title = JOB_TITLE_PILOT
@@ -367,3 +377,5 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/pilot
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/beret/sec/black
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/security

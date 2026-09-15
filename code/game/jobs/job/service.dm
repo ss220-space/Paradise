@@ -57,6 +57,7 @@
 		/obj/item/melee/baton/telescopic = 1,
 	)
 	implants = list()
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/hop
 
 /datum/job/service
 	abstract_type = /datum/job/service

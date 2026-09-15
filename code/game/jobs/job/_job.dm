@@ -252,6 +252,8 @@
 
 	var/tmp/list/gear_leftovers = list()
 	var/obj/item/organ/internal/cyberimp/eyes/hud/implant_variant = null
+	var/obj/item/clothing/head/beret/beret_variant = null
+	var/obj/item/clothing/suit/hooded/wintercoat/coat_variant = null
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(allow_backbag_choice)
@@ -304,7 +306,7 @@
 			gear_leftovers += gear_datum
 			continue
 
-		var/obj/item/placed_in = gear_datum.spawn_item(H, H.client.prefs.get_gear_metadata(gear_datum))
+		var/obj/item/placed_in = gear_datum.spawn_item(H, H.client.prefs.get_gear_metadata(gear_datum), src)
 		if(H.equip_to_slot_or_del(placed_in, gear_datum.slot, TRUE))
 			to_chat(H, span_notice("Вы получили [placed_in.declent_ru(ACCUSATIVE)]!"))
 		else
@@ -324,7 +326,7 @@
 
 	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
-			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
+			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G), src)
 			if(!placed_in)
 				continue
 			if(placed_in.equip_to_best_slot(H))
