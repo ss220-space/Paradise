@@ -56,6 +56,9 @@
 
 	efficiency = (cap + 1) * 0.5 //used in the amount of charge in power cell uses
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/electrolyzer/Destroy()
 	if(cell)
 		QDEL_NULL(cell)
