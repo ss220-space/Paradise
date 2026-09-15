@@ -5,7 +5,6 @@
 	icon = 'icons/obj/drinks.dmi'
 	var/canopened = FALSE
 	container_type = NONE
-	var/is_glass = 0
 	var/is_plastic = 0
 	var/times_shaken = 0
 	var/can_shake = TRUE
