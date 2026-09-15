@@ -243,7 +243,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(storage.contents)
 		if(failed)
-			to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
+			to_chat(user, span_notice("[failed] предмет[DECL_0_A_OV(failed)] не был[DECL_0_I_I(failed)] загружен[DECL_0_Y_Y(failed)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	balloon_alert(user, "не подходит!")
@@ -289,7 +289,7 @@
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
-		to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
+		to_chat(user, span_notice("[failed] предмет[DECL_0_A_OV(failed)] не был[DECL_0_I_I(failed)] загружен[DECL_0_Y_Y(failed)]."))
 
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)

@@ -135,7 +135,7 @@
 	. = ..()
 	. += span_notice("В ступке находится [fluff_name] краска.")
 	if(uses > 0) //what if someone makes -1 uses for testing or smth
-		. += span_notice("Краски в ступке осталось на [uses] использовани[declension_ru(uses, "е", "я", "й")].")
+		. += span_notice("Краски в ступке осталось на [uses] использовани[DECL_E_YA_J(uses)].")
 
 /obj/item/lavaland_mortar/cinnabar_dyes
 	icon_state = "cinnabar_dyes"
