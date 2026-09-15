@@ -1272,3 +1272,39 @@
 	. = ..()
 	user.emote("smile")
 
+/obj/item/clothing/accessory/wristwatch
+	name = "wrist watch"
+	desc = "Недорогие наручные часы. Показывают текущее время."
+	icon_state = "wristwatch"
+	actions_types = list(/datum/action/item_action/watch_time)
+	COOLDOWN_DECLARE(watch_time_cooldown)
+
+/obj/item/clothing/accessory/wristwatch/get_ru_names()
+	return alist(
+		NOMINATIVE = "наручные часы",
+		GENITIVE = "наручных часов",
+		DATIVE = "наручным часам",
+		ACCUSATIVE = "наручные часы",
+		INSTRUMENTAL = "наручными часами",
+		PREPOSITIONAL = "наручных часах",
+	)
+
+/obj/item/clothing/accessory/wristwatch/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return .
+	ui_action_click(user, null, TRUE)
+
+/obj/item/clothing/accessory/wristwatch/ui_action_click(mob/user, datum/action/action, state)
+	watch_time(user)
+
+/obj/item/clothing/accessory/wristwatch/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot == ITEM_SLOT_ACCESSORY)
+		return TRUE
+
+/obj/item/clothing/accessory/wristwatch/proc/watch_time(mob/user)
+	if(!COOLDOWN_FINISHED(src, watch_time_cooldown))
+		return
+	user.custom_emote(EMOTE_VISIBLE, "смотрит на часы")
+	to_chat(span_notice("Текущее время: [station_time_timestamp()]"))
+	COOLDOWN_START(src, watch_time_cooldown, 15 SECONDS)
