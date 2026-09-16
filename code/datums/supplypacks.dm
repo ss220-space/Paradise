@@ -1350,6 +1350,34 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике A9 \"Искра\"",
 	)
 
+/datum/supply_packs/security/armory/sparkle_a12_ammo
+	name = "Боеприпасы для ПП А9\"Искра\""
+	contains = list(
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/magazine/sparkle_a12,
+		/obj/item/ammo_box/c9mm,
+		/obj/item/ammo_box/c9mm,
+		/obj/item/ammo_box/c9mm,
+		/obj/item/ammo_box/c9mm,
+		/obj/item/ammo_box/c9mm,
+		/obj/item/ammo_box/c9mm,
+	)
+	cost = 100
+	containername = "ящик боеприпасов для ПП А9\"Искра\""
+	container_ru_names = alist(
+		NOMINATIVE = "ящик боеприпасов для ПП А9\"Искра\"",
+		GENITIVE = "ящика боеприпасов для ПП А9\"Искра\"",
+		DATIVE = "ящику боеприпасов для ПП А9\"Искра\"",
+		ACCUSATIVE = "ящик боеприпасов для ПП А9\"Искра\"",
+		INSTRUMENTAL = "ящиком боеприпасов для ПП А9\"Искра\"",
+		PREPOSITIONAL = "ящике боеприпасов для ПП А9\"Искра\"",
+	)
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
@@ -2323,6 +2351,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик продвинутых мультиметров",
 		INSTRUMENTAL = "ящиком продвинутых мультиметров",
 		PREPOSITIONAL = "ящике продвинутых мультиметров",
+	)
+
+/datum/supply_packs/engineering/atm_holosign
+	name = "Атмосферные голобарьеры"
+	containername = "ящик проекторов атмосферных голографических барьеров"
+	contains = list(
+		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/atmos,
+	)
+	cost = 60
+	containertype = /obj/structure/closet/crate/engineering/atm_holosign
+	containername = "ящик проекторов атмосферных голографических барьеров"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик проекторов атмосферных голографических барьеров",
+		GENITIVE = "ящика проекторов атмосферных голографических барьеров",
+		DATIVE = "ящику проекторов атмосферных голографических барьеров",
+		ACCUSATIVE = "ящик проекторов атмосферных голографических барьеров",
+		INSTRUMENTAL = "ящиком проекторов атмосферных голографических барьеров",
+		PREPOSITIONAL = "ящике проекторов атмосферных голографических барьеров",
 	)
 
 ///////////// Station Goals
@@ -5804,6 +5852,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик с грузовым МЭК",
 		INSTRUMENTAL = "ящиком с грузовым МЭК",
 		PREPOSITIONAL = "ящике с грузовым МЭК",
+	)
+
+/datum/supply_packs/misc/quest_tablet
+	name = "Планшеты запросов на поставку"
+	contains = list(
+		/obj/item/qm_quest_tablet/cargotech,
+		/obj/item/qm_quest_tablet/cargotech,
+		/obj/item/qm_quest_tablet/cargotech,
+	)
+	cost = 60
+	containername = "ящик с планшетами запросов на поставку"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с планшетами запросов на поставку",
+		GENITIVE = "ящика с планшетами запросов на поставку",
+		DATIVE = "ящику с планшетами запросов на поставку",
+		ACCUSATIVE = "ящик с планшетами запросов на поставку",
+		INSTRUMENTAL = "ящиком с планшетами запросов на поставку",
+		PREPOSITIONAL = "ящике с планшетами запросов на поставку",
 	)
 
 /datum/supply_packs/misc/motorcycle
