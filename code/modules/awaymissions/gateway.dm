@@ -1,4 +1,9 @@
 GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
+/// Roundstart gate lock duration (and between openings)
+#define GATE_LOCK_DURATION 15 MINUTES
+/// Max open duration
+#define GATE_OPEN_DURATION 5 MINUTES
+
 /obj/machinery/gateway
 	name = "gateway"
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
@@ -8,6 +13,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = FALSE
+	var/active_timer = 0
 
 /obj/machinery/gateway/Initialize(mapload)
 	. = ..()
@@ -54,7 +60,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/update_icon_state()
 	icon_state = active ? "oncenter" : "offcenter"
 
-/obj/machinery/gateway/centerstation/process()
+/obj/machinery/gateway/centerstation/process(seconds_per_tick)
+	active_timer += seconds_per_tick
 	if(stat & (NOPOWER))
 		if(active)
 			toggleoff()
@@ -64,6 +71,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(GLOB.full_lockdown)
 			toggleoff()
 		use_power(5000)
+
+	if(active && active_timer > GATE_OPEN_DURATION)
+		toggleoff()
 
 /obj/machinery/gateway/centerstation/proc/detect()
 	linked = list()	//clear the list
@@ -107,6 +117,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = TRUE
 		G.update_icon()
 	active = TRUE
+	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
@@ -114,6 +125,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
+	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user)
@@ -122,7 +134,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		detect()
 		return
 	if(!active)
-		toggleon(user)
+		if(active_timer > GATE_LOCK_DURATION)
+			toggleon(user)
+			return
+		balloon_alert(user, "идет процесс зарядки...")
 		return
 	toggleoff()
 
@@ -205,6 +220,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = TRUE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = TRUE
+	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
@@ -212,6 +228,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
+	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centeraway/attack_hand(mob/user)
@@ -220,7 +237,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		detect()
 		return
 	if(!active)
-		toggleon(user)
+		if(active_timer > GATE_LOCK_DURATION)
+			toggleon(user)
+			return
+		balloon_alert(user, "идет процесс зарядки...")
 		return
 	toggleoff()
 
@@ -266,3 +286,5 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	to_chat(user, "[span_boldnotice("Recalibration successful! ")][span_notice("This gate's systems have been fine tuned. Travel to this gate will now be on target.")]")
 	calibrated = TRUE
 
+#undef GATE_LOCK_DURATION
+#undef GATE_OPEN_DURATION
