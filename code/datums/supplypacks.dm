@@ -1333,25 +1333,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/armory/sparkle_a12
-	name = "Пистолет-пулемёты A9 \"Искра\""
+	name = "Пистолет-пулемёты  А-12 \"Искра\""
 	contains = list(
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 	)
 	cost = 50
-	containername = "ящик A9 \"Искра\""
+	containername = "ящик A12 \"Искра\""
 	container_ru_names = alist(
-		NOMINATIVE = "ящик A9 \"Искра\"",
-		GENITIVE = "ящика A9 \"Искра\"",
-		DATIVE = "ящику A9 \"Искра\"",
-		ACCUSATIVE = "ящик A9 \"Искра\"",
-		INSTRUMENTAL = "ящиком A9 \"Искра\"",
-		PREPOSITIONAL = "ящике A9 \"Искра\"",
+		NOMINATIVE = "ящик A12 \"Искра\"",
+		GENITIVE = "ящика A12 \"Искра\"",
+		DATIVE = "ящику A12 \"Искра\"",
+		ACCUSATIVE = "ящик A12 \"Искра\"",
+		INSTRUMENTAL = "ящиком A12 \"Искра\"",
+		PREPOSITIONAL = "ящике A12 \"Искра\"",
 	)
 
 /datum/supply_packs/security/armory/sparkle_a12_ammo
-	name = "Боеприпасы для ПП А9\"Искра\""
+	name = "Боеприпасы для пистолета-пулемёта А-12 \"Искра\""
 	contains = list(
 		/obj/item/ammo_box/magazine/sparkle_a12,
 		/obj/item/ammo_box/magazine/sparkle_a12,
@@ -1369,14 +1369,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/ammo_box/c9mm,
 	)
 	cost = 100
-	containername = "ящик боеприпасов для ПП А9\"Искра\""
+	containername = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\""
 	container_ru_names = alist(
-		NOMINATIVE = "ящик боеприпасов для ПП А9\"Искра\"",
-		GENITIVE = "ящика боеприпасов для ПП А9\"Искра\"",
-		DATIVE = "ящику боеприпасов для ПП А9\"Искра\"",
-		ACCUSATIVE = "ящик боеприпасов для ПП А9\"Искра\"",
-		INSTRUMENTAL = "ящиком боеприпасов для ПП А9\"Искра\"",
-		PREPOSITIONAL = "ящике боеприпасов для ПП А9\"Искра\"",
+		NOMINATIVE = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
+		GENITIVE = "ящика боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
+		DATIVE = "ящику боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
+		ACCUSATIVE = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
+		INSTRUMENTAL = "ящиком боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
+		PREPOSITIONAL = "ящике боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
 	)
 /////// Implants & etc
 
