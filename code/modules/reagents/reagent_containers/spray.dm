@@ -7,7 +7,7 @@
 	item_state = "cleaner"
 	belt_icon = "cleaner"
 	item_flags = NOBLUDGEON
-	container_type = OPENCONTAINER
+	container_type = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

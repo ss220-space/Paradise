@@ -11,6 +11,7 @@
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 	pass_open_check = TRUE
+	container_type = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
 	fill_icon_thresholds = list(10, 25, 50, 75, 100)
 
