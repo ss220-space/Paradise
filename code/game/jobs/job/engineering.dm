@@ -55,6 +55,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	beret_variant = /obj/item/clothing/head/beret/ce
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/engineering/ce
 
 /datum/job/engineering
 	abstract_type = /datum/job/engineering
@@ -114,6 +116,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	beret_variant = /obj/item/clothing/head/beret/eng
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/engineering
 
 /datum/job/engineering/atmos
 	title = JOB_TITLE_ATMOSTECH
@@ -154,6 +158,8 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
+	beret_variant = /obj/item/clothing/head/beret/atmos
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
 
 /datum/job/engineering/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
