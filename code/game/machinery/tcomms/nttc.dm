@@ -72,6 +72,7 @@
 		JOB_TITLE_ROBOTICIST = "sciradio",
 		JOB_TITLE_SCIENTIST = "sciradio",
 		JOB_TITLE_SCIENCE_STUDENT = "sciradio",
+		JOB_TITLE_EXPLORER = "sciradio",
 		// Security
 		JOB_TITLE_BRIGDOC = "secradio",
 		JOB_TITLE_DETECTIVE = "secradio",
@@ -96,7 +97,6 @@
 		JOB_TITLE_CLOWN = "srvradio",
 		JOB_TITLE_JANITOR = "srvradio",
 		JOB_TITLE_LIBRARIAN = "srvradio",
-		JOB_TITLE_EXPLORER = "srvradio",
 		JOB_TITLE_MIME = "srvradio",
 		// Syndicate
 		JOB_TITLE_SYNDICATE_OFFICER = "syndiecom",

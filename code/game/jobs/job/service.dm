@@ -626,36 +626,3 @@
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name
-
-/datum/job/service/explorer
-	title = JOB_TITLE_EXPLORER
-	flag = JOB_FLAG_EXPLORER
-	total_positions = 3
-	spawn_positions = 3
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
-	)
-
-/datum/outfit/job/explorer
-	name = JOB_TITLE_RU_EXPLORER
-	jobtype = /datum/job/service/explorer
-	uniform = /obj/item/clothing/under/color/black
-	shoes = /obj/item/clothing/shoes/color/black
-	head = /obj/item/clothing/head/beret/black
-	suit = /obj/item/clothing/suit/armor/vest
-	l_ear = /obj/item/radio/headset/headset_service
-	l_pocket = /obj/item/kitchen/knife/combat/survival
-	backpack_contents = list(
-		/obj/item/storage/firstaid/doctor = 1,
-	)
