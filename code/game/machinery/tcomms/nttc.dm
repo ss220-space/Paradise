@@ -96,6 +96,7 @@
 		JOB_TITLE_CLOWN = "srvradio",
 		JOB_TITLE_JANITOR = "srvradio",
 		JOB_TITLE_LIBRARIAN = "srvradio",
+		JOB_TITLE_EXPLORER = "srvradio",
 		JOB_TITLE_MIME = "srvradio",
 		// Syndicate
 		JOB_TITLE_SYNDICATE_OFFICER = "syndiecom",

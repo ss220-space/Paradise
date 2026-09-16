@@ -16027,6 +16027,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -27925,6 +27926,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -73209,6 +73211,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/command/gateway)
 "oap" = (
@@ -86633,6 +86636,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -123042,6 +123046,15 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/launch)
+"wWh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/command/gateway)
 "wWk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -169629,7 +169642,7 @@ wbc
 lRP
 clu
 etL
-fba
+wWh
 fOB
 dry
 clu

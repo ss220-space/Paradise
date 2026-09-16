@@ -19292,6 +19292,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -39787,6 +39788,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -111488,6 +111490,7 @@
 /area/station/commons/fitness)
 "rfi" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -122087,6 +122090,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 1
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -129326,6 +129330,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -142041,6 +142046,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

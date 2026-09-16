@@ -43897,6 +43897,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53670,6 +53671,7 @@
 /area/station/maintenance/apmaint)
 "iRW" = (
 /obj/item/radio/intercom/directional/west,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54067,6 +54069,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60062,6 +60065,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82458,6 +82462,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -88460,6 +88465,12 @@
 /obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"wVw" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/command/gateway)
 "wVZ" = (
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -115660,7 +115671,7 @@ iRZ
 aSA
 gbr
 lvw
-cGS
+wVw
 ocT
 nKc
 qay
