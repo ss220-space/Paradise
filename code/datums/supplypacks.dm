@@ -5853,7 +5853,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с грузовым МЭК",
 	)
 
-
 /datum/supply_packs/misc/motorcycle
 	name = "Мотоцикл"
 	contains = list(
