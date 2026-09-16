@@ -45879,6 +45879,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -65300,6 +65301,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -69707,6 +69709,7 @@
 /area/station/maintenance/asmaint2)
 "pxF" = (
 /obj/item/radio/intercom/directional/east,
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"

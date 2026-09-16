@@ -25592,6 +25592,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -35643,6 +35644,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/alarm/directional/north,
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -41711,6 +41713,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/command/gateway)
 "ikX" = (
@@ -104011,6 +104014,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel,
 /area/station/command/gateway)
 "tsT" = (
