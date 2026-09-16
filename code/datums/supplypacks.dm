@@ -5853,23 +5853,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с грузовым МЭК",
 	)
 
-/datum/supply_packs/misc/quest_tablet
-	name = "Планшеты запросов на поставку"
-	contains = list(
-		/obj/item/qm_quest_tablet/cargotech,
-		/obj/item/qm_quest_tablet/cargotech,
-		/obj/item/qm_quest_tablet/cargotech,
-	)
-	cost = 60
-	containername = "ящик с планшетами запросов на поставку"
-	container_ru_names = alist(
-		NOMINATIVE = "ящик с планшетами запросов на поставку",
-		GENITIVE = "ящика с планшетами запросов на поставку",
-		DATIVE = "ящику с планшетами запросов на поставку",
-		ACCUSATIVE = "ящик с планшетами запросов на поставку",
-		INSTRUMENTAL = "ящиком с планшетами запросов на поставку",
-		PREPOSITIONAL = "ящике с планшетами запросов на поставку",
-	)
 
 /datum/supply_packs/misc/motorcycle
 	name = "Мотоцикл"
