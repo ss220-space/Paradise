@@ -73,9 +73,9 @@
 	. = ..()
 	if(has_variable_transfer_amount)
 		if(possible_transfer_amounts.len)
-			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
+			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
 		else if(possible_transfer_amounts.len)
-			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")].")
+			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
@@ -106,7 +106,7 @@
 		else
 			CRASH("change_transfer_amount() called with invalid direction value")
 	amount_per_transfer_from_this = possible_transfer_amounts[index]
-	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]")
+	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]")
 	mode_change_message(user)
 
 /obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
