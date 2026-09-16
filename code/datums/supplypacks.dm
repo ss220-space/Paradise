@@ -2362,7 +2362,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/holosign_creator/atmos,
 	)
 	cost = 60
-	containertype = /obj/structure/closet/crate/engineering/atm_holosign
+	containertype = /obj/structure/closet/crate/engineering
 	containername = "ящик проекторов атмосферных голографических барьеров"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик проекторов атмосферных голографических барьеров",
