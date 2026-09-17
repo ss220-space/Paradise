@@ -30,7 +30,8 @@ SUBSYSTEM_DEF(nightshift)
 	GLOB.minor_announcement.announce(
 		message,
 		new_title = ANNOUNCE_NIGHTSHIFT_RU,
-		new_sound = 'sound/misc/notice2.ogg'
+		new_sound = 'sound/misc/notice2.ogg',
+		color_override = "grey"
 	)
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift()

@@ -22,10 +22,15 @@
 			return 0
 		return 1
 
-/mob/living/simple_animal/slime/verb/Feed()
-	set category = VERB_CATEGORY_SLIME
-	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
+/datum/action/innate/slime/feed
+	name = "Поглощать"
+	button_icon_state = "slimeeat"
 
+/datum/action/innate/slime/feed/Activate()
+	var/mob/living/simple_animal/slime/S = owner
+	S.Feed()
+
+/mob/living/simple_animal/slime/proc/Feed()
 	if(stat)
 		return 0
 
@@ -42,14 +47,6 @@
 	if(CanFeedon(M))
 		Feedon(M)
 		return 1
-
-/datum/action/innate/slime/feed
-	name = "Поглощать"
-	button_icon_state = "slimeeat"
-
-/datum/action/innate/slime/feed/Activate()
-	var/mob/living/simple_animal/slime/S = owner
-	S.Feed()
 
 /mob/living/simple_animal/slime/proc/CanFeedon(mob/living/M, silent = FALSE)
 	if(!Adjacent(M))
@@ -126,10 +123,19 @@
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)
 
-/mob/living/simple_animal/slime/verb/Evolve()
-	set category = VERB_CATEGORY_SLIME
-	set desc = "This will let you evolve slime."
+/datum/action/innate/slime/evolve
+	name = "Эволюция"
+	button_icon_state = "slimegrow"
+	needs_growth = GROWTH_NEEDED
 
+/datum/action/innate/slime/evolve/Activate()
+	var/mob/living/simple_animal/slime/S = owner
+	S.Evolve()
+	if(S.age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in S.actions))
+		var/datum/action/innate/slime/reproduce/A = new
+		A.Grant(S)
+
+/mob/living/simple_animal/slime/proc/Evolve()
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
@@ -167,38 +173,6 @@
 			species.evolved_slime = TRUE
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
-
-/datum/action/innate/slime/evolve
-	name = "Эволюция"
-	button_icon_state = "slimegrow"
-	needs_growth = GROWTH_NEEDED
-
-/datum/action/innate/slime/evolve/Activate()
-	var/mob/living/simple_animal/slime/S = owner
-	S.Evolve()
-	if(S.age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in S.actions))
-		var/datum/action/innate/slime/reproduce/A = new
-		A.Grant(S)
-
-/mob/living/simple_animal/slime/verb/Reproduce()
-	set category = VERB_CATEGORY_SLIME
-	set desc = "This will make you split into four Slimes."
-
-	if(stat)
-		to_chat(src, "<i>I must be conscious to do this...</i>")
-		return
-
-	if(age_state.age != SLIME_BABY)
-		if(amount_grown >=	age_state.amount_grown_for_split)
-			if(stat)
-				to_chat(src, "<i>I must be conscious to do this...</i>")
-				return
-
-			force_split(TRUE)
-		else
-			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
-	else
-		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
 
 /mob/living/simple_animal/slime/proc/force_split(can_mutate = TRUE)
 	if(age_state.age == SLIME_BABY)
@@ -287,6 +261,24 @@
 /datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
+
+/mob/living/simple_animal/slime/proc/Reproduce()
+	if(stat)
+		to_chat(src, "<i>I must be conscious to do this...</i>")
+		return
+
+	if(age_state.age != SLIME_BABY)
+		if(amount_grown >=	age_state.amount_grown_for_split)
+			if(stat)
+				to_chat(src, "<i>I must be conscious to do this...</i>")
+				return
+
+			force_split(TRUE)
+		else
+			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
+	else
+		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
+
 
 #undef NO_GROWTH_NEEDED
 #undef GROWTH_NEEDED

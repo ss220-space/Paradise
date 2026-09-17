@@ -778,46 +778,7 @@
 	emagged = TRUE
 	if(user)
 		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
-	. = ..()
-
-/obj/item/clothing/accessory/holobadge/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
-	. = ..()
-	if(.)
-		has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
-/obj/item/clothing/accessory/holobadge/on_removed(mob/detacher)
-	. = ..()
-	if(.)
-		var/obj/item/clothing/under/old_suit = .
-		old_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
-//For the holobadge hotkey
-/obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Показать значок"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	var/obj/item/clothing/accessory/holobadge/holobadge_ref = null
-	if(istype(src, /obj/item/clothing/accessory/holobadge))
-		holobadge_ref = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/suit = src
-		if(LAZYLEN(suit.accessories))
-			holobadge_ref = locate() in suit.accessories
-
-	if(!holobadge_ref)
-		to_chat(usr, span_warning("Something is very wrong."))
-
-	if(!holobadge_ref.stored_name)
-		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
-		return
-
-	usr.visible_message(
-		span_warning("[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security."),
-		span_warning("You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security."),
-	)
+	return ..()
 
 ///////////
 //SCARVES//
@@ -1311,3 +1272,39 @@
 	. = ..()
 	user.emote("smile")
 
+/obj/item/clothing/accessory/wristwatch
+	name = "wrist watch"
+	desc = "Недорогие наручные часы. Показывают текущее время."
+	icon_state = "wristwatch"
+	actions_types = list(/datum/action/item_action/watch_time)
+	COOLDOWN_DECLARE(watch_time_cooldown)
+
+/obj/item/clothing/accessory/wristwatch/get_ru_names()
+	return alist(
+		NOMINATIVE = "наручные часы",
+		GENITIVE = "наручных часов",
+		DATIVE = "наручным часам",
+		ACCUSATIVE = "наручные часы",
+		INSTRUMENTAL = "наручными часами",
+		PREPOSITIONAL = "наручных часах",
+	)
+
+/obj/item/clothing/accessory/wristwatch/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return .
+	ui_action_click(user, null, TRUE)
+
+/obj/item/clothing/accessory/wristwatch/ui_action_click(mob/user, datum/action/action, state)
+	watch_time(user)
+
+/obj/item/clothing/accessory/wristwatch/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot == ITEM_SLOT_ACCESSORY)
+		return TRUE
+
+/obj/item/clothing/accessory/wristwatch/proc/watch_time(mob/user)
+	if(!COOLDOWN_FINISHED(src, watch_time_cooldown))
+		return
+	user.custom_emote(EMOTE_VISIBLE, "смотрит на часы")
+	to_chat(span_notice("Текущее время: [station_time_timestamp()]"))
+	COOLDOWN_START(src, watch_time_cooldown, 15 SECONDS)

@@ -66,7 +66,7 @@
 		return
 
 	var/need_points = focus.cost - evo_points
-	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.name]."))
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[DECL_O_A_OV(need_points)] эволюции для получения [focus.name]."))
 	return
 
 /datum/antagonist/borer/proc/entered_host(mob/source)

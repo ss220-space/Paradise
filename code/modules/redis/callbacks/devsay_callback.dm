@@ -7,7 +7,7 @@
 	if(data["source"] == CONFIG_GET(string/instance_id)) // Ignore self messages
 		return
 
-	var/emoji_msg = handleDiscordEmojis(html_decode(data["message"]))
+	var/emoji_msg = handle_emojis(html_decode(data["message"]))
 
 	for(var/client/client as anything in GLOB.admins)
 		if(check_rights(R_ADMIN|R_VIEWRUNTIMES, FALSE, client.mob))

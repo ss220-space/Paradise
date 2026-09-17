@@ -16,3 +16,13 @@ export RUSTG_VERSION=3.3.0-ss220
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.13.5
+
+# Bun version
+export BUN_VERSION=1.3.5
+
+
+#hypnagogic repo
+export CUTTER_REPO=spacestation13/hypnagogic
+
+#hypnagogic git tag
+export CUTTER_VERSION=v5.0.1

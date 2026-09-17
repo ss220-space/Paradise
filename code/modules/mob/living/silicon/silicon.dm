@@ -16,7 +16,6 @@
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera")
-	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
@@ -43,8 +42,8 @@
 	var/obj/item/areaeditor/blueprints/cyborg/blueprints
 
 	var/list/silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/proc/subsystem_law_manager
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
 
 	var/obj/item/inventory_head
@@ -311,7 +310,7 @@
 			speech_synthesizer_langs -= language
 
 /mob/living/silicon/check_lang_data()
-	. = ""
+	. = list()
 
 	if(default_language)
 		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
@@ -334,18 +333,10 @@
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
 
-/mob/living/silicon/verb/pose()
-	set name = "Задать позу"
-	set desc = "Sets a description which will be shown when someone examines you."
-	set category = VERB_CATEGORY_IC
+GAME_VERB_DESC(/mob/living/silicon, pose, "Задать позу", "Устанавливает короткое описание отображаемое при омотре вас.", VERB_CATEGORY_IC)
+	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
-	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
-
-/mob/living/silicon/verb/set_flavor()
-	set name = "Описание внешности"
-	set desc = "Sets an extended description of your character's features."
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_DESC(/mob/living/silicon, set_flavor, "Описание внешности", "Устанавливает подробное описание внешности вашего персонажа.", VERB_CATEGORY_IC)
 	update_flavor_text()
 
 /mob/living/silicon/binarycheck()

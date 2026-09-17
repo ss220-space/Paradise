@@ -105,9 +105,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		actions.Grant(slime)
 	RegisterSignal(slime, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(slime)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_squish)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_pop)
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/slime)
 	. = ..()
@@ -115,9 +112,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	actions?.Remove(slime)
 
 	UnregisterSignal(slime, COMSIG_HUMAN_UPDATE_DNA)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_squish)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_pop)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/slime)
 	SIGNAL_HANDLER

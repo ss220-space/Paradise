@@ -4,20 +4,21 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'tgui/backend';
-import { Section, Stack, Tabs } from 'tgui/components';
-
-import { ChatPageSettings } from '../chat';
-import { changeSettingsTab } from './actions';
+import { Section, Stack, Tabs } from 'tgui-core/components';
+import { ChatPageSettings } from '../chat/ChatPageSettings';
 import { SETTINGS_TABS } from './constants';
-import { selectActiveTab } from './selectors';
 import { SettingsGeneral } from './SettingsGeneral';
 import { SettingsStatPanel } from './SettingsStatPanel';
+import { SettingsWebsocket } from './SettingsWebsocket';
 import { TextHighlightSettings } from './TextHighlight';
+import { useSettings } from './use-settings';
 
-export const SettingsPanel = (props: unknown) => {
-  const activeTab = useSelector(selectActiveTab);
-  const dispatch = useDispatch();
+export function SettingsPanel(props) {
+  const {
+    settings: { view },
+    updateSettings,
+  } = useSettings();
+  const { activeTab } = view;
 
   return (
     <Stack fill>
@@ -29,11 +30,12 @@ export const SettingsPanel = (props: unknown) => {
                 key={tab.id}
                 selected={tab.id === activeTab}
                 onClick={() =>
-                  dispatch(
-                    changeSettingsTab({
-                      tabId: tab.id,
-                    })
-                  )
+                  updateSettings({
+                    view: {
+                      ...view,
+                      activeTab: tab.id,
+                    },
+                  })
                 }
               >
                 {tab.name}
@@ -47,7 +49,8 @@ export const SettingsPanel = (props: unknown) => {
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
         {activeTab === 'statPanel' && <SettingsStatPanel />}
+        {activeTab === 'websocket' && <SettingsWebsocket />}
       </Stack.Item>
     </Stack>
   );
-};
+}

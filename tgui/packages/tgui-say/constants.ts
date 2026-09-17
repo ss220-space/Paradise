@@ -8,7 +8,8 @@ export enum WindowSize {
 /** Line lengths for autoexpand */
 export enum LineLength {
   Small = 20,
-  Medium = 40,
+  Medium = 39,
+  Large = 59,
 }
 
 /**
@@ -56,9 +57,12 @@ export const RADIO_PREFIXES = {
   "#' ": 'СССП',
   ':э ': 'СССП',
   ':* ': 'КланПаука',
-  ':1 ': 'Альфа',
-  ':2 ': 'Бета',
-  ':3 ': 'Гамма',
+  ':у1 ': 'Альфа',
+  ':e1 ': 'Альфа',
+  ':у2 ': 'Бета',
+  ':e2 ': 'Бета',
+  ':у3 ': 'Гамма',
+  ':e3 ': 'Гамма',
   ':vr ': 'Воксы',
   ':мк ': 'Воксы',
 } as const;

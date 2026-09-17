@@ -1,5 +1,5 @@
+import { Button, DmIcon, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Section, Table, DmIcon } from '../../components';
 import { LatheMaterials } from './index';
 
 type LatheCategoryData = {
@@ -74,7 +74,7 @@ export const LatheCategory = (properties) => {
                   {materials.map(({ name, amount, is_red }) => (
                     <>
                       {' | '}
-                      <span className={is_red ? 'color-red' : null}>
+                      <span className={is_red ? 'color-red' : ''}>
                         {amount} {name}
                       </span>
                     </>
@@ -82,7 +82,7 @@ export const LatheCategory = (properties) => {
                 </Table.Cell>
               </Table.Row>
             );
-          }
+          },
         )}
       </Table>
     </Section>

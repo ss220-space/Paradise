@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { LabeledList, Section, Button, Box } from '../components';
 import { Window } from '../layouts';
 
 type ThiefKitData = {
@@ -67,65 +67,63 @@ export const ThiefKit = (_props: unknown) => {
           }
         >
           <LabeledList>
-            {kits &&
-              kits.map((i) => (
-                <LabeledList.Item
-                  key={i.type}
-                  label={i.name}
-                  buttons={
-                    <Section>
-                      <Button
-                        icon="upload"
-                        disabled={i.was_taken || uses >= possible_uses}
-                        onClick={() =>
-                          act('takeKit', {
-                            item: i.type,
-                          })
-                        }
-                      >
-                        Выбрать
-                      </Button>
-                      <Button
-                        icon="undo"
-                        disabled={!i.was_taken}
-                        onClick={() =>
-                          act('undoKit', {
-                            item: i.type,
-                          })
-                        }
-                      />
-                    </Section>
-                  }
-                >
-                  <Box italic>{i.desc}</Box>
-                </LabeledList.Item>
-              ))}
-          </LabeledList>
-        </Section>
-
-        <Section title="Выбранные наборы:">
-          <LabeledList>
-            {choosen_kits &&
-              choosen_kits.map((i) => (
-                <LabeledList.Item
-                  key={i.type}
-                  label={i.name}
-                  buttons={
+            {kits?.map((i) => (
+              <LabeledList.Item
+                key={i.type}
+                label={i.name}
+                buttons={
+                  <Section>
+                    <Button
+                      icon="upload"
+                      disabled={i.was_taken || uses >= possible_uses}
+                      onClick={() =>
+                        act('takeKit', {
+                          item: i.type,
+                        })
+                      }
+                    >
+                      Выбрать
+                    </Button>
                     <Button
                       icon="undo"
+                      disabled={!i.was_taken}
                       onClick={() =>
                         act('undoKit', {
                           item: i.type,
                         })
                       }
-                    >
-                      Отменить выбор
-                    </Button>
-                  }
-                >
-                  <Box italic>{'  '}</Box>
-                </LabeledList.Item>
-              ))}
+                    />
+                  </Section>
+                }
+              >
+                <Box italic>{i.desc}</Box>
+              </LabeledList.Item>
+            ))}
+          </LabeledList>
+        </Section>
+
+        <Section title="Выбранные наборы:">
+          <LabeledList>
+            {choosen_kits?.map((i) => (
+              <LabeledList.Item
+                key={i.type}
+                label={i.name}
+                buttons={
+                  <Button
+                    icon="undo"
+                    onClick={() =>
+                      act('undoKit', {
+                        item: i.type,
+                      })
+                    }
+                  >
+                    Отменить выбор
+                  </Button>
+                }
+              >
+                <Box italic>{'  '}</Box>
+              </LabeledList.Item>
+            ))}
           </LabeledList>
         </Section>
 

@@ -81,18 +81,6 @@ SUBSYSTEM_DEF(http)
 	active_async_requests += req
 	total_requests++
 
-	//if(logging_enabled)
-	//	// Create a log holder
-	//	var/list/log_data = list()
-	//	log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
-	//	log_data += "\t[uppertext(req.method)] [req.url]"
-	//	log_data += "\tRequest body: [req.body]"
-	//	log_data += "\tRequest headers: [req.headers]"
-	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
-	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
-	//	// Write the log data
-	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
-
 /**
  * Blocking request creator
  *
@@ -101,43 +89,3 @@ SUBSYSTEM_DEF(http)
  */
 /datum/controller/subsystem/http/proc/make_blocking_request(method, url, body = "", list/headers)
 	CRASH("Attempted use of a blocking HTTP request")
-	/*
-	var/datum/http_request/req = new()
-	req.prepare(method, url, body, headers)
-	req.execute_blocking()
-	var/datum/http_response/res = req.into_response()
-
-	// Now generate a logfile
-	var/list/log_data = list()
-	log_data += "NEW BLOCKING REQUEST"
-	log_data += "\t[uppertext(req.method)] [req.url]"
-	log_data += "\tRequest body: [req.body]"
-	log_data += "\tRequest headers: [req.headers]"
-	if(res.errored)
-		log_data += "\t ----- RESPONSE ERRROR -----"
-		log_data += "\t [res.error]"
-	else
-		log_data += "\tResponse status code: [res.status_code]"
-		log_data += "\tResponse body: [res.body]"
-		log_data += "\tResponse headers: [json_encode(res.headers)]"
-	log_data += "END BLOCKING REQUEST"
-
-	// Write the log data
-	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
-
-	return res
-	*/
-
-/*
-
-	Example of how to use callbacks properly
-
-/client/verb/testing()
-	set name = "Testing"
-
-	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
-
-/client/proc/response(mob/user, datum/http_response/response)
-	to_chat(user, "<span class='notice'>Code: [response.status_code] | Content: [response.body]")
-*/

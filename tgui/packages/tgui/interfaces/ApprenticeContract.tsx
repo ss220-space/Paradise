@@ -1,6 +1,6 @@
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Button, Section, Stack } from '../components';
 
 type School = {
   id: string;
@@ -23,7 +23,7 @@ export const ApprenticeContract = (props) => {
       title={isBook ? 'Магический учебник' : 'Contract of Apprenticeship'}
       width={500}
       height={600}
-      theme="admin"
+      theme="wizard"
     >
       <Window.Content scrollable>
         <Stack fill vertical>

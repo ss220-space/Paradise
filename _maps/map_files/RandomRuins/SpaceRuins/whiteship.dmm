@@ -130,8 +130,8 @@
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/syringe/charcoal,
 /obj/item/reagent_containers/syringe/insulin,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/epinephrine,
 /obj/item/reagent_containers/syringe,
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = 6;
@@ -271,7 +271,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/bag/trash,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
@@ -579,7 +579,7 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/reagent_containers/cup/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -641,11 +641,11 @@
 /area/shuttle/abandoned)
 "oy" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/item/reagent_containers/cup/beaker/waterbottle/large,
 /obj/machinery/light/built{
 	dir = 4
 	},
@@ -1076,7 +1076,7 @@
 /area/shuttle/abandoned)
 "xk" = (
 /obj/structure/closet/crate/can,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty,
 /obj/item/trash/pistachios,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
@@ -1764,7 +1764,7 @@
 "Ne" = (
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/mug/cmo,
+/obj/item/reagent_containers/cup/glass/mug/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1887,12 +1887,12 @@
 "Oy" = (
 /obj/structure/rack,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/radio,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -2063,7 +2063,7 @@
 /area/shuttle/abandoned)
 "Ur" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -2107,7 +2107,7 @@
 	},
 /obj/structure/table,
 /obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -2299,14 +2299,14 @@
 /area/shuttle/abandoned)
 "ZO" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = 1;
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = -6;
 	pixel_y = 4
 	},

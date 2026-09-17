@@ -1,29 +1,29 @@
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
 import {
   Button,
-  Section,
-  Stack,
   Input,
-  Slider,
   ProgressBar,
-} from '../components';
+  Section,
+  Slider,
+  Stack,
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import type { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
-import { BooleanLike } from 'common/react';
 
 const trimLongStr = (str: string, length: number) => {
-  return str.length > length ? str.substring(0, length) + '...' : str;
+  return str.length > length ? `${str.substring(0, length)}...` : str;
 };
 
 const selectForms = (forms: Form[], searchText = ''): Form[] => {
   const testSearch = createSearch(searchText, (form: Form) => form.altername);
   return flow([
-    (forms: Form[]) => filter(forms, (form) => !!form?.altername),
-    (forms: Form[]) => (searchText ? filter(forms, testSearch) : forms),
-    (forms: Form[]) => sortBy(forms, (form) => form.id),
+    (forms: Form[]) => forms.filter((form) => !!form?.altername),
+    (forms: Form[]) => (searchText ? forms.filter(testSearch) : forms),
+    (forms: Form[]) => sortBy(forms, [(form) => form.id]),
   ])(forms);
 };
 
@@ -59,11 +59,11 @@ export const Photocopier = (_props: unknown) => {
   const [searchText, setSearchText] = useState('');
 
   const forms = selectForms(
-    sortBy(data.forms || [], (form) => form.category),
-    searchText
+    sortBy(data.forms || [], [(form) => form.category]),
+    searchText,
   );
-  const categories = [];
-  for (let form of forms) {
+  const categories: string[] = [];
+  for (const form of forms) {
     if (!categories.includes(form.category)) {
       categories.push(form.category);
     }
@@ -147,7 +147,7 @@ export const Photocopier = (_props: unknown) => {
                       {data.copyitem
                         ? data.copyitem
                         : data.mob
-                          ? 'Жопа ' + data.mob + '!'
+                          ? `Жопа ${data.mob}!`
                           : 'Слот для документа'}
                     </Button>
                   </Stack.Item>

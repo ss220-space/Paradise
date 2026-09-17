@@ -205,7 +205,7 @@
 		to_chat(user, span_notice("The demons do not respond to your summon. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
+	var/obj/effect/dummy/phased_mob/blood/holder = new /obj/effect/dummy/phased_mob/blood(T)
 	var/mob/living/simple_animal/demon/demon = new demon_type(holder)
 	demon.vialspawned = TRUE
 	demon.holder = holder

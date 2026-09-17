@@ -1,213 +1,260 @@
+
+/**
+ * # Vote Singleton
+ *
+ * A singleton datum that represents a type of vote for the voting subsystem.
+ */
 /datum/vote
-	/// Person who started the vote
-	var/initiator = "сервером"
-	/// world.time the vote started at
-	var/started_time
-	/// The question being asked
-	var/question
-	/// Vote type text, for showing in UIs and stuff
-	var/vote_type_text = "админское"
-	/// Do we want to show the vote counts as it goes
-	var/show_counts = FALSE
-	/// Vote result type. This determines how a winner is picked
-	var/vote_result_type = VOTE_RESULT_TYPE_MAJORITY
-	/// Was this vote custom started?
-	var/is_custom = FALSE
+	/// The name of the vote.
+	var/name
+	/// If supplied, an override question will be displayed instead of the name of the vote.
+	var/override_question
+	/// The sound effect played to everyone when this vote is initiated.
+	var/vote_sound = 'sound/vox_fem/bloop.ogg'
+	/// A list of default choices we have for this vote.
+	var/list/default_choices
+	/// Does the name of this vote contain the word "vote"?
+	var/contains_vote_in_name = FALSE
+	/// What message do we show as the tooltip of this vote if the vote can be initiated?
+	var/default_message = "Click to initiate a vote."
+	/// The counting method we use for votes.
+	var/count_method = VOTE_COUNT_METHOD_SINGLE
+	/// The method for selecting a winner.
+	var/winner_method = VOTE_WINNER_METHOD_SIMPLE
+	/// Should we show details about the number of votes submitted for each option?
+	var/display_statistics = TRUE
+	/// only applicable if `display_statistics` is false, this will let the final vote tally be printed to chat even if it couldn't be seen during the vote
+	var/print_results = TRUE
+	var/hide_winner = FALSE
 	/// Is dead players allowed to vote
-	var/no_dead_vote = FALSE
+	var/allow_dead_vote = FALSE
 	/// Is offstation role players allowed to vote
 	var/no_offstation_vote = FALSE
-	/// Is we muted OOC for vote, and it should be enabled
-	var/ooc_auto_muted = 0
-	/// Choices available in the vote
-	var/list/choices = list()
-	// Assoc list of [ckeys => choice] who have voted. We dont want to hold client refs.
-	var/list/voted = list()
 
-/datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
-	if(SSvote.active_vote)
-		CRASH("Attempted to start another vote with one already in progress!")
+	// Internal values used when tracking ongoing votes.
+	// Don't mess with these, change the above values / override procs for subtypes.
+	/// An assoc list of [all choices] to [number of votes in the current running vote].
+	VAR_FINAL/list/choices = list()
+	/// A assoc list of [ckey] to [what they voted for in the current running vote].
+	VAR_FINAL/list/choices_by_ckey = list()
+	/// The world time this vote was started.
+	VAR_FINAL/started_time = -1
+	/// The time remaining in this vote's run.
+	VAR_FINAL/time_remaining = -1
 
-	if(_initiator)
-		initiator = _initiator
-	if(_question)
-		question = _question
-	if(_choices)
-		choices = _choices
+/**
+ * Used to determine if this vote is a possible
+ * vote type for the vote subsystem.
+ *
+ * If FALSE is returned, this vote singleton
+ * will not be created when the vote subsystem initializes,
+ * meaning no one will be able to hold this vote.
+ */
+/datum/vote/proc/is_accessible_vote()
+	return !!length(default_choices)
 
-	is_custom = _is_custom
+/**
+ * Resets our vote to its default state.
+ */
+/datum/vote/proc/reset()
+	SHOULD_CALL_PARENT(TRUE)
 
-	no_dead_vote = CONFIG_GET(flag/vote_no_dead)
-	no_offstation_vote = CONFIG_GET(flag/vote_no_offstation_role)
+	choices.Cut()
+	choices_by_ckey.Cut()
+	started_time = null
+	time_remaining = -1
 
-	// If we have no choices, dynamically generate them
-	if(!length(choices))
-		generate_choices()
+/**
+ * If this vote has a config associated, toggles it between enabled and disabled.
+ */
+/datum/vote/proc/toggle_votable()
+	return
 
-/datum/vote/proc/start()
-	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]"
-	if(is_custom)
-		vote_type_text = "custom"
-		text += "\n[question]"
-		if(usr)
-			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
+/**
+ * If this vote has a config associated, returns its value (True or False, usually).
+ * If it has no config, returns -1.
+ */
+/datum/vote/proc/is_config_enabled()
+	return -1
 
-	else if(usr)
-		log_admin("[capitalize(vote_type_text)] vote started by [key_name(usr)].")
+/**
+ * Checks if the passed mob can initiate this vote.
+ *
+ * * forced - if being invoked by someone who is an admin
+ *
+ * Return VOTE_AVAILABLE if the mob can initiate the vote.
+ * Return a string with the reason why the mob can't initiate the vote.
+ */
+/datum/vote/proc/can_be_initiated(forced = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 
-	if(CONFIG_GET(flag/ooc_allowed))
-		ooc_auto_muted = TRUE
-		toggle_ooc()
+	if(!forced && !is_config_enabled())
+		return "This vote is currently disabled by the server configuration."
 
-	log_vote(text)
+	return VOTE_AVAILABLE
+
+/**
+ * Called prior to the vote being initiated.
+ *
+ * Return FALSE to prevent the vote from being initiated.
+ */
+/datum/vote/proc/create_vote(mob/vote_creator)
+	SHOULD_CALL_PARENT(TRUE)
+
+	for(var/key in default_choices)
+		choices[key] = 0
+
+	return TRUE
+
+/**
+ * Called when this vote is actually initiated.
+ *
+ * Return a string - the text displayed to the world when the vote is initiated.
+ */
+/datum/vote/proc/initiate_vote(initiator, duration)
+	SHOULD_CALL_PARENT(TRUE)
+
 	started_time = world.time
-	announce(text)
+	time_remaining = round(duration / 10)
 
-/datum/vote/proc/remaining()
-	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
+	return "[contains_vote_in_name ? "[capitalize(name)]" : "[capitalize(name)] vote"] started by [initiator || "Central Command"]."
 
-// Returns the result
-/datum/vote/proc/calculate_result()
-	switch(vote_result_type)
-		if(VOTE_RESULT_TYPE_MAJORITY)
-			if(!length(voted))
-				to_chat(world, span_interface("Не было подано ни одного голоса. Вы все так ненавидите демократию?!")) // shame them
-				return null
+/**
+ * Gets the result of the vote.
+ *
+ * non_voters - a list of all ckeys who didn't vote in the vote.
+ *
+ * Returns a list of all options that won.
+ * If there were no votes at all, the list will be length = 0, non-null.
+ * If only one option one, the list will be length = 1.
+ * If there was a tie, the list will be length > 1.
+ */
+/datum/vote/proc/get_vote_result(list/non_voters)
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(TRUE)
 
-			var/list/results = list()
+	switch(winner_method)
+		if(VOTE_WINNER_METHOD_NONE)
+			return list()
+		if(VOTE_WINNER_METHOD_SIMPLE)
+			return get_simple_winner()
+		if(VOTE_WINNER_METHOD_WEIGHTED_RANDOM)
+			return get_random_winner()
 
-			// Count up all votes
-			for(var/ck in voted)
-				if(voted[ck] in results)
-					results[voted[ck]]++
-				else
-					results[voted[ck]] = 1
+	stack_trace("invalid select winner method: [winner_method]. Defaulting to simple.")
+	return get_simple_winner()
 
-			// Get the biggest vote count, since we can also use this to pick tiebreaks
-			var/maxvotes = 0
-			for(var/res in results)
-				maxvotes = max(results[res], maxvotes)
+/// Gets the winner of the vote, selecting the choice with the most votes.
+/datum/vote/proc/get_simple_winner()
+	var/highest_vote = 0
+	var/list/current_winners = list()
 
-			var/list/winning_options = list()
+	for(var/option in choices)
+		var/vote_count = choices[option]
+		if(vote_count < highest_vote)
+			continue
 
-			for(var/res in results)
-				if(results[res] == maxvotes)
-					winning_options |= res
+		if(vote_count > highest_vote)
+			highest_vote = vote_count
+			current_winners = list(option)
+			continue
+		current_winners += option
 
-			// Print all results
-			for(var/res in results)
-				if(res in winning_options)
-					// Make it stand out
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
-				else
-					// Make it normal
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
+	return length(current_winners) ? current_winners : list()
 
-			if(length(winning_options) > 1)
-				var/random_dictator = pick(winning_options)
-				to_chat(world, span_interface("<b>Ничья между [russian_list(sanitize(winning_options))]. Выбираем [sanitize(capitalize(random_dictator))] наугад!</b>")) // shame them
-				return random_dictator
+/// Gets the winner of the vote, selecting a random choice from all choices based on their vote count.
+/datum/vote/proc/get_random_winner()
+	var/winner = pick_weight_classic(choices)
+	return winner ? list(winner) : list()
 
-			// If we got here there must only be one thing in the list
-			var/res = winning_options[1]
-
-			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования — [sanitize(capitalize(res))]</b>"))
-				return res
-
-			to_chat(world, span_interface("Победитель голосования — [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
-			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
-			return null
-
-/datum/vote/proc/announce(start_text)
-	to_chat(world, custom_boxed_message("purple_box", span_purple("<b>[start_text]</b>\n\
-		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
-		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
-	SEND_SOUND(world, sound('sound/ambience/misc/alarm4.ogg'))
-
-/datum/vote/proc/tick()
-	if(remaining() == 0)
-		var/result = calculate_result()
-		handle_result(result)
-		qdel(src)
-
-/datum/vote/Destroy(force)
-	if(SSvote.active_vote == src)
-		SSvote.active_vote = null
-		if(ooc_auto_muted && !CONFIG_GET(flag/ooc_allowed))
-			toggle_ooc()
-		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
-	return ..()
-
-/datum/vote/proc/handle_result(result)
-	return
-
-/datum/vote/proc/generate_choices()
-	return
-
-/*
-	UI STUFFS
-*/
-/datum/vote/ui_state(mob/user)
-	return GLOB.always_state
-
-/datum/vote/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "VotePanel", "Меню голосования")
-		ui.open()
-
-/datum/vote/ui_data(mob/user)
-	var/list/data = list()
-	data["remaining"] = remaining()
-	data["user_vote"] = null
-	if(user.ckey in voted)
-		data["user_vote"] = voted[user.ckey]
-
-	data["question"] = question
-	data["choices"] = choices
-
-	// Admins see counts anyway
-	if(show_counts || check_rights(R_ADMIN, FALSE, user))
-		data["show_counts"] = TRUE
-
-		// Show counts
-		var/list/counts = list()
-		for(var/ck in voted)
-			if(voted[ck] in counts)
-				counts[voted[ck]]++
-			else
-				counts[voted[ck]] = 1
-
-		data["counts"] = counts
+/**
+ * Gets the resulting text displayed when the vote is completed.
+ *
+ * all_winners - list of all options that won. Can be multiple, in the event of ties.
+ * real_winner - the option that actually won.
+ * non_voters - a list of all ckeys who didn't vote in the vote.
+ *
+ * Return a formatted string of text to be displayed to everyone.
+ */
+/datum/vote/proc/get_result_text(list/all_winners, real_winner, list/non_voters)
+	var/title_text = ""
+	var/returned_text = ""
+	if(override_question)
+		title_text += span_bold(override_question)
 	else
-		data["show_counts"] = FALSE
-		data["counts"] = list()
+		title_text += span_bold("[capitalize(name)] Vote")
 
-	data["show_cancel"] = check_rights(R_ADMIN, FALSE, user)
+	returned_text += "Winner Selection: "
+	switch(winner_method)
+		if(VOTE_WINNER_METHOD_NONE)
+			returned_text += "None"
+		if(VOTE_WINNER_METHOD_WEIGHTED_RANDOM)
+			returned_text += "Weighted Random"
+		else
+			returned_text += "Simple"
 
-	return data
+	var/total_votes = 0 // for determining percentage of votes
+	for(var/option in choices)
+		total_votes += choices[option]
 
-/datum/vote/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
-		return
+	if(total_votes <= 0)
+		return span_bold("Vote Result: Inconclusive - No Votes!")
 
-	if(no_dead_vote && (usr.stat == DEAD || isanimal((usr))) && !usr.client.holder)
-		return FALSE
-
-	if(no_offstation_vote && usr.mind && usr.mind.offstation_role && !check_rights(R_ADMIN))
-		return FALSE
-
-	. = TRUE
-
-	switch(action)
-		if("vote")
-			if(params["target"] in choices)
-				voted[usr.ckey] = params["target"]
+	if(display_statistics || print_results)
+		returned_text += "\nResults:"
+		for(var/option in choices)
+			returned_text += "\n"
+			var/votes = choices[option]
+			var/percentage_text = ""
+			if(votes > 0)
+				var/actual_percentage = round((votes / total_votes) * 100, 0.1)
+				var/text = "[actual_percentage]"
+				var/spaces_needed = 5 - length(text)
+				for(var/_ in 1 to spaces_needed)
+					returned_text += " "
+				percentage_text += "[text]%"
 			else
-				message_admins("[span_boldannounceooc("\[EXPLOIT\]")] User [key_name_admin(usr)] spoofed a vote in the vote panel!")
-		if("cancel")
-			if(check_rights(R_ADMIN))
-				to_chat(world, "<b>Голосование было отменено!</b>")
-				log_and_message_admins("Canceled a vote")
-				qdel(src)
+				percentage_text = "    0%"
+			returned_text += "[percentage_text] | [span_bold(option)]: [choices[option]]"
+
+	if(!real_winner) // vote has no winner or cannot be won, but still had votes
+		return returned_text
+
+	returned_text += "\n"
+	returned_text += get_winner_text(all_winners, real_winner, non_voters)
+
+	return fieldset_block(title_text, returned_text, "boxed_message purple_box")
+
+/**
+ * Gets the text that displays the winning options within the result text.
+ *
+ * all_winners - list of all options that won. Can be multiple, in the event of ties.
+ * real_winner - the option that actually won.
+ * non_voters - a list of all ckeys who didn't vote in the vote.
+ *
+ * Return a formatted string of text to be displayed to everyone.
+ */
+/datum/vote/proc/get_winner_text(list/all_winners, real_winner, list/non_voters)
+	var/returned_text = ""
+	if(hide_winner)
+		return span_bold("\nVote Result: \[Скрыт\]")
+	if(length(all_winners) > 1)
+		returned_text += "\n[span_bold("Vote Tied Between:")]"
+		for(var/a_winner in all_winners)
+			returned_text += "\n\t[a_winner]"
+
+	returned_text += span_bold("\nVote Result: [real_winner]")
+	return returned_text
+
+/**
+ * How this vote handles a tiebreaker between multiple winners.
+ */
+/datum/vote/proc/tiebreaker(list/winners)
+	return pick(winners)
+
+/**
+ * Called when a vote is actually all said and done.
+ * Apply actual vote effects here.
+ */
+/datum/vote/proc/finalize_vote(winning_option)
+	return

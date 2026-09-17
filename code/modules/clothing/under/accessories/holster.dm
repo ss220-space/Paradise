@@ -125,39 +125,6 @@
 	else
 		. += span_notice("It is empty.")
 
-/obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
-	. = ..()
-	if(.)
-		has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
-
-/obj/item/clothing/accessory/holster/on_removed(mob/detacher)
-	. = ..()
-	if(.)
-		var/obj/item/clothing/under/old_suit = .
-		old_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
-
-//For the holster hotkey
-/obj/item/clothing/accessory/holster/verb/holster_verb()
-	set name = "Кобура"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	var/obj/item/clothing/accessory/holster/holster
-	if(istype(src, /obj/item/clothing/accessory/holster))
-		holster = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/uniform = src
-		if(LAZYLEN(uniform.accessories))
-			holster = locate() in uniform.accessories
-
-	if(!holster)
-		return
-
-	holster.attack_self(usr)
-
 /obj/item/clothing/accessory/holster/armpit
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	holster_allow = /obj/item/gun/projectile

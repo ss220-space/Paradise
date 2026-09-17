@@ -1,6 +1,6 @@
 // MARK: 9mm - Sparkle-A12
 /obj/item/ammo_box/magazine/sparkle_a12
-	gun_name = "пистолет-пулемета А9 \"Искра\""
+	gun_name = "пистолета-пулемёта А-12 \"Искра\""
 	icon_state = "sparkle_a12"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -12,10 +12,9 @@
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
 	icon_state = "[initial(icon_state)]_[CEILING(ammo_count() / 6, 1) * 6]"
 
-
 // MARK: 9mm - UZI
 /obj/item/ammo_box/magazine/uzim9mm
-	gun_name = "пистолет-пулемета UZI"
+	gun_name = "пистолета-пулемёта UZI"
 	icon_state = "uzi9mm-32"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -24,10 +23,9 @@
 /obj/item/ammo_box/magazine/uzim9mm/update_icon_state()
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
 
-
-// MARK: 9mm - SMG K-45
+// MARK: 9mm - K-45
 /obj/item/ammo_box/magazine/kedr
-	gun_name = "пистолета-пулемета K-45"
+	gun_name = "пистолета-пулемёта K-45"
 	icon_state = "kedr"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -36,10 +34,9 @@
 /obj/item/ammo_box/magazine/kedr/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
 
-
 // MARK: 9mm - Saber SMG
 /obj/item/ammo_box/magazine/smgm9mm
-	gun_name = "пистолет-пулемёта \"Saber SMG\""
+	gun_name = "пистолета-пулемёта SABR-9"
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -65,7 +62,7 @@
 
 // MARK: 9mm - SFG-5
 /obj/item/ammo_box/magazine/sfg9mm
-	gun_name = "пистолет-пулемёта SFG-5"
+	gun_name = "пистолета-пулемёта SFG-5"
 	icon_state = "sfg5"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
@@ -77,9 +74,9 @@
 /obj/item/ammo_box/magazine/sfg9mm/empty
 	start_empty = TRUE
 
-// MARK: .45 - C-20r
+// MARK: .45 - DCA S45
 /obj/item/ammo_box/magazine/smgm45
-	gun_name = "пистолет-пулемёта C-20r"
+	gun_name = "пистолета-пулемёта DCA S45"
 	icon_state = "c20r45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = CALIBER_DOT_45
@@ -90,15 +87,15 @@
 
 // MARK: .45 - Tommy Gun
 /obj/item/ammo_box/magazine/tommygunm45
-	gun_name = "пистолет-пулемёта Томпсона"
+	gun_name = "пистолета-пулемёта Томпсона"
 	icon_state = "drum45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = CALIBER_DOT_45
 	max_ammo = 50
 
-// MARK: .45 N&R - SP-91-RC
+// MARK: .45 N&R - DCA S91
 /obj/item/ammo_box/magazine/sp91rc
-	gun_name = "пистолет-пулемета SP-91-RC"
+	gun_name = "пистолета-пулемёта DCA S91"
 	icon_state = "45NRmag"
 	ammo_type = /obj/item/ammo_casing/c45nr
 	caliber = CALIBER_45NR
@@ -113,7 +110,7 @@
 
 // MARK: 7.62x25mm - PPSh
 /obj/item/ammo_box/magazine/ppsh
-	gun_name = "пистолет-пулемета ППШ"
+	gun_name = "пистолета-пулемёта ППШ"
 	icon_state = "ppshDrum"
 	origin_tech = "combat=3;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/ftt762
@@ -121,9 +118,9 @@
 	max_ammo = 71
 	multiple_sprites = 2
 
-// MARK: 4.6x30mm - WT-550 PDW
+// MARK: 4.6x30mm - WT-550
 /obj/item/ammo_box/magazine/wt550m9
-	gun_name = "пистолет-пулемета WT-550 PDW"
+	gun_name = "пистолета-пулемёта WT-550"
 	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM

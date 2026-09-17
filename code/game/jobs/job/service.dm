@@ -238,7 +238,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clown_recorder = 1,
 	)
@@ -275,7 +275,6 @@
 	if(!(locate(/datum/action/innate/mimicking) in actions))
 		var/datum/action/innate/mimicking/mimicking = new
 		mimicking.Grant(src)
-	add_verb(src, /mob/living/carbon/human/proc/mimicking)
 
 /datum/action/innate/mimicking
 	name = "Подражание"
@@ -384,8 +383,6 @@
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
 /mob/living/carbon/human/proc/mimicking(mob/living/carbon/human/H)
-	set name = "Имитировать голос"
-	set category = VERB_CATEGORY_IC
 	if(!H)
 		to_chat(usr, span_notice("Используйте <b>ПКМ</b> для выбора цели."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions
@@ -453,7 +450,7 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1,
 	)
 	backpack = /obj/item/storage/backpack/mime
@@ -473,9 +470,8 @@
 		return
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		H.mind.miming = TRUE
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mime)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
 
 /datum/job/service/janitor
 	title = JOB_TITLE_JANITOR
@@ -625,8 +621,8 @@
 		new_deity = deity_name
 	bible.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
-
-	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
+	var/datum/action/cooldown/spell/pointed/bless/b_action = new()
+	b_action.Grant(user)
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name
