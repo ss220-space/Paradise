@@ -104,14 +104,14 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
-		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+		ATTACHMENT_SLOT_LOCKING_PIN = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
 		ATTACHMENT_SLOT_UNDER,
-		ATTACHMENT_SLOT_SIBYL
+		ATTACHMENT_SLOT_LOCKING_PIN,
 	)
 
 	var/suppressed = FALSE
@@ -327,7 +327,8 @@
 			continue
 		var/obj/item/gun_module/module = new module_path(src)
 		attachments_by_slot[module.slot] = module
-		add_attachment_overlay(module)
+		if(module.exists_overlay)
+			add_attachment_overlay(module)
 		module.gun = src
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
@@ -613,7 +614,8 @@
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot(mob/user)
-	return TRUE
+	var/response = SEND_SIGNAL(src, COMSIG_GUN_CHECK_CAN_SHOOT, user)
+	return !(response & GUN_CHECK_CANCEL_ATTACK)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
