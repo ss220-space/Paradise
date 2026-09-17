@@ -690,3 +690,20 @@ GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr,
 		INSTRUMENTAL = "сапогами Гигачада",
 		PREPOSITIONAL = "сапогах Гигачада",
 	)
+
+/obj/item/clothing/shoes/crocks
+	name = "crocks shoes"
+	desc = "Пара резиновых сабо. Выглядят как сплавленная воедино дешевая пластмасса."
+	icon_state = "crocks"
+	item_state = "crocks"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI)
+
+/obj/item/clothing/shoes/chad/get_ru_names()
+	return alist(
+		NOMINATIVE = "жёлтые кроксы",
+		GENITIVE = "жёлтых кроксов",
+		DATIVE = "жёлтым кроксам",
+		ACCUSATIVE = "жёлтые кроксы",
+		INSTRUMENTAL = "жёлтыми кроксами",
+		PREPOSITIONAL = "жёлтых кроксах",
+	)
