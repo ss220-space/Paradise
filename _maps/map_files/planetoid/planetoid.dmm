@@ -63,13 +63,18 @@
 /turf/simulated/floor/planetoid/grass/dirtedge/south,
 /area/planetoid)
 "hA" = (
-/turf/simulated/floor/planetoid/grass/beachedge/west,
+/obj/structure/prop/hunter/trophy_display/top_center,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "hZ" = (
 /turf/simulated/floor/planetoid/grass/dirtcorner2/west,
 /area/planetoid)
 "ip" = (
 /turf/simulated/floor/planetoid/grass/sandcorner/north,
+/area/planetoid)
+"iH" = (
+/obj/effect/hunter/ancient_temple,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "jA" = (
 /turf/simulated/floor/planetoid/grass/sandedge/south,
@@ -92,10 +97,6 @@
 /area/planetoid)
 "lo" = (
 /turf/simulated/floor/planetoid/grass/sandedge/east,
-/area/planetoid)
-"lM" = (
-/obj/structure/flora/jungle/thickbush,
-/turf/simulated/floor/planetoid/grass/beachcorner/north,
 /area/planetoid)
 "mC" = (
 /turf/simulated/floor/planetoid/grass/scorched3,
@@ -139,23 +140,43 @@
 /obj/structure/flora/firebush,
 /turf/simulated/floor/planetoid/dirt,
 /area/planetoid/caves)
+"tq" = (
+/obj/effect/hunter/ancient_temple/rubble/rubble_1,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "tt" = (
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/north,
 /area/planetoid)
 "tu" = (
 /turf/simulated/floor/light/colour_cycle,
 /area/coldcolony/malta/hallway/service/central)
+"tS" = (
+/obj/structure/prop/hunter/trophy_display/top_right,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "tU" = (
 /turf/simulated/floor/planetoid/desert/beachcorner/west,
 /area/planetoid)
 "tW" = (
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner/south,
 /area/planetoid)
+"ub" = (
+/obj/structure/prop/hunter/ancient_temple/small_statue/base,
+/obj/structure/prop/hunter/ancient_temple/small_statue/sandstone{
+	pixel_y = 20
+	},
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "ug" = (
 /turf/simulated/floor/planetoid/dirt,
 /area/planetoid/caves)
-"uF" = (
-/turf/simulated/floor/planetoid/grass/scorched3/single,
+"uy" = (
+/obj/structure/prop/hunter/trophy_display/bottom_left,
+/obj/structure/prop/hunter/misc/prop_armor{
+	pixel_y = 20;
+	pixel_x = 14
+	},
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "vv" = (
 /obj/structure/mortar,
@@ -198,11 +219,20 @@
 /turf/simulated/floor/glass/reinforced,
 /area/coldcolony/malta/hallway/service/central)
 "AG" = (
+/obj/structure/prop/hunter/trophy_display/center,
+/obj/structure/prop/hunter/misc/prop_armor/elder{
+	pixel_y = 20;
+	pixel_x = 7
+	},
 /turf/simulated/floor/planetoid/grass/scorched2/single,
 /area/planetoid)
 "AP" = (
 /turf/simulated/floor/planetoid/grass/dirtedge/east,
 /area/planetoid)
+"AX" = (
+/mob/living/simple_animal/hostile/giant_lizard,
+/turf/simulated/floor/planetoid/dirt,
+/area/planetoid/caves)
 "Bi" = (
 /turf/simulated/floor/planetoid/grass/dirtedge/north,
 /area/planetoid)
@@ -270,6 +300,14 @@
 	},
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
+"Iv" = (
+/obj/structure/prop/hunter/ancient_temple/giant_statue/base,
+/obj/structure/prop/hunter/ancient_temple/giant_statue{
+	pixel_y = 18;
+	pixel_x = -17
+	},
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "IQ" = (
 /turf/simulated/floor/planetoid/desert/beachedge/south,
 /area/planetoid)
@@ -319,6 +357,26 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
 /area/planetoid)
+"Nj" = (
+/obj/structure/prop/hunter/trophy_display/bottom_right,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"Om" = (
+/obj/structure/decor/ifv{
+	dir = 8
+	},
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"Oy" = (
+/obj/structure/prop/hunter/ancient_temple,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"OJ" = (
+/obj/structure/prop/hunter/ancient_temple/fountain_head/flowing{
+	pixel_y = 15
+	},
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "Pm" = (
 /obj/structure/meshfence,
 /turf/simulated/floor/planetoid/dirt,
@@ -329,6 +387,10 @@
 /area/planetoid)
 "Rq" = (
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
+/area/planetoid)
+"RQ" = (
+/obj/effect/hunter/ancient_temple/rubble/rubble_2,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "Sg" = (
 /turf/simulated/floor/planetoid/grass/dirtcorner/north,
@@ -380,11 +442,12 @@
 "XM" = (
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid)
+"Yj" = (
+/obj/structure/prop/hunter/trophy_display,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "Yu" = (
 /turf/simulated/floor/planetoid/grass/sandedge/west,
-/area/planetoid)
-"YJ" = (
-/turf/simulated/floor/planetoid/grass/beachcorner/west,
 /area/planetoid)
 "YX" = (
 /turf/simulated/floor/planetoid/desert/beachcorner/east,
@@ -507,7 +570,7 @@ dj
 dj
 WJ
 ug
-ug
+AX
 ug
 ug
 ug
@@ -594,7 +657,7 @@ ug
 ug
 WJ
 ug
-ug
+AX
 ug
 ug
 WJ
@@ -754,14 +817,14 @@ dj
 WJ
 ug
 ug
+AX
 ug
 ug
 ug
 ug
 ug
 ug
-ug
-ug
+AX
 WJ
 TC
 jA
@@ -843,7 +906,7 @@ ug
 ug
 ug
 ug
-ug
+AX
 WJ
 TC
 jA
@@ -1002,7 +1065,7 @@ dj
 dj
 WJ
 ug
-ug
+AX
 WJ
 WJ
 ug
@@ -1087,7 +1150,7 @@ WJ
 WJ
 WJ
 ug
-ug
+AX
 WJ
 ug
 WJ
@@ -1249,7 +1312,7 @@ dj
 dj
 WJ
 ug
-ug
+AX
 ug
 ug
 ug
@@ -1496,7 +1559,7 @@ WJ
 WJ
 ug
 ug
-ug
+AX
 ug
 ug
 WJ
@@ -1744,7 +1807,7 @@ WJ
 WJ
 ug
 ug
-ug
+AX
 Pm
 lo
 vx
@@ -1837,10 +1900,10 @@ LI
 hz
 Bi
 pg
-YJ
-hA
-lM
-jA
+dj
+dj
+dj
+dj
 MP
 fk
 YX
@@ -1922,7 +1985,7 @@ vR
 vR
 cz
 fp
-vx
+dj
 dj
 rI
 dj
@@ -2083,8 +2146,8 @@ ns
 HK
 fp
 vx
-dj
-dj
+Yj
+uy
 dj
 dj
 dj
@@ -2165,7 +2228,7 @@ ay
 lo
 vx
 dj
-dj
+hA
 AG
 dj
 dj
@@ -2247,9 +2310,9 @@ dj
 dj
 dj
 dj
+tS
+Nj
 dj
-dj
-HC
 eM
 JL
 yV
@@ -2411,9 +2474,9 @@ dj
 dj
 dj
 dj
-uF
 dj
 dj
+iH
 dj
 IQ
 Sx
@@ -2491,11 +2554,11 @@ dj
 dj
 dj
 dj
+Oy
 dj
 dj
-dj
-dj
-dj
+RQ
+tq
 dj
 TE
 bg
@@ -2656,11 +2719,11 @@ gU
 Dc
 Dc
 Dc
+ub
 dj
 dj
 dj
-dj
-dj
+Iv
 dj
 dj
 dj
@@ -3070,7 +3133,7 @@ dj
 dj
 dj
 dj
-dj
+Om
 dj
 dj
 dj
@@ -3394,7 +3457,7 @@ Av
 Av
 Av
 Dc
-dj
+OJ
 dj
 dj
 dj
@@ -3728,7 +3791,7 @@ dj
 dj
 dj
 dj
-dj
+rI
 dj
 dj
 dj

@@ -29,7 +29,7 @@
 
 /obj/structure/meshfence/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_fence()
 
 /obj/structure/meshfence/Destroy()
 	density = FALSE
@@ -133,7 +133,7 @@
 		cut = FALSE
 		set_density(TRUE)
 		update_integrity(max_integrity)
-		update_icon()
+		update_fence()
 		update_nearby_icons()
 		user.visible_message(span_notice("[user] чинит [src]."),
 			span_notice("Вы починили [src]."))
@@ -178,7 +178,7 @@
 	obj_integrity = 0
 	cut = TRUE
 	set_density(FALSE)
-	update_icon()
+	update_fence()
 	update_nearby_icons()
 
 /obj/structure/meshfence/deconstruct(disassembled = TRUE)
@@ -186,7 +186,7 @@
 		new /obj/item/stack/rods(loc, 10)
 	return ..()
 
-/obj/structure/meshfence/update_icon()
+/obj/structure/meshfence/proc/update_fence()
 	// Junction calculation: connect to orthogonal neighbours
 	junction = 0
 	for(var/obj/structure/meshfence/fence in orange(src, 1))
@@ -207,10 +207,10 @@
 
 /// Updates our own icon and the icons of all adjacent fences
 /obj/structure/meshfence/proc/update_nearby_icons()
-	update_icon()
+	update_fence()
 	for(var/direction in GLOB.cardinal)
 		for(var/obj/structure/meshfence/fence in get_step(src, direction))
-			fence.update_icon()
+			fence.update_fence()
 
 // Subtypes matching the imported DMI files
 

@@ -13,6 +13,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_SAND
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+	baseturf = /turf/simulated/floor/planetoid
 
 /turf/simulated/floor/planetoid/ex_act(severity, target)
 	return
@@ -24,6 +25,51 @@
 	return
 
 /turf/simulated/floor/planetoid/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/planetoid/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		build_with_rods(I, user)
+		// Planetoid ground renders at TURF_LAYER, so a lattice/catwalk built on it has to be lifted to stay visible.
+		var/obj/structure/lattice/built_lattice = locate() in src
+		if(built_lattice)
+			built_lattice.layer = MID_TURF_LAYER
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/tile))
+		var/obj/structure/lattice/lattice = locate() in src
+		if(!lattice)
+			to_chat(user, span_warning("Грунту потребуется опора! Сначала установите металлические стержни."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/obj/item/stack/tile/tile = I
+		if(!tile.turf_type)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!tile.use(1))
+			to_chat(user, span_warning("Для постройки пола нужна одна напольная плитка!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		if(istype(tile, /obj/item/stack/tile/plasteel))
+			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		else
+			ChangeTurf(tile.turf_type, keep_icon = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/turf/simulated/floor/planetoid/ReplaceWithLattice()
+	new /obj/structure/lattice(src)
+
+/turf/simulated/floor/planetoid/make_plating(make_floor_tile, mob/user)
+	return
+
+/turf/simulated/floor/planetoid/singularity_pull(atom/singularity, current_size)
+	return
+
+/turf/simulated/floor/planetoid/narsie_act()
+	return
+
+/turf/simulated/floor/planetoid/ratvar_act(convert_mecha = FALSE)
 	return
 
 // MARK: DESERT
@@ -99,7 +145,7 @@
 /turf/simulated/floor/planetoid/desert/beachedge/west
 	dir = WEST
 
-// DESERT - BEACH CORNDER
+// DESERT - BEACH CORNER
 /turf/simulated/floor/planetoid/desert/beachcorner
 	icon_state = "beachcorner"
 	baseturf = /turf/simulated/floor/planetoid/desert/beachcorner
@@ -181,7 +227,7 @@
 
 // MARK: DIRT
 /turf/simulated/floor/planetoid/dirt
-	name = "grass"
+	name = "dirt"
 	icon_state = "dirt"
 	baseturf = /turf/simulated/floor/planetoid/dirt
 
@@ -285,7 +331,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge/west
 	dir = WEST
 
-// GRASS - SAND CORNDER
+// GRASS - SAND CORNER
 /turf/simulated/floor/planetoid/grass/sandcorner
 	icon_state = "grassdirt_corner"
 	baseturf = /turf/simulated/floor/planetoid/grass/sandcorner
@@ -386,7 +432,7 @@
 /turf/simulated/floor/planetoid/grass/beachedge/west
 	dir = WEST
 
-// GRASS - BEACH CORNDER
+// GRASS - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/beachcorner
 	icon_state = "gbcorner"
 	baseturf = /turf/simulated/floor/planetoid/grass/beachcorner
@@ -431,7 +477,7 @@
 /turf/simulated/floor/planetoid/grass/scorched1/sandedge/west
 	dir = WEST
 
-// GRASS SCORCHED - SAND CORNDER
+// GRASS SCORCHED - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner
 	icon_state = "grassdirt_corner_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandcorner
@@ -481,7 +527,7 @@
 /turf/simulated/floor/planetoid/grass/scorched1/beachedge/west
 	dir = WEST
 
-// GRASS SCORCHED - BEACH CORNDER
+// GRASS SCORCHED - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched1/beachcorner
 	icon_state = "gbcorner_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/beachcorner
@@ -527,7 +573,7 @@
 /turf/simulated/floor/planetoid/grass/scorched2/sandedge/west
 	dir = WEST
 
-// GRASS SCORCHED2 - SAND CORNDER
+// GRASS SCORCHED2 - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner
 	icon_state = "grassdirt_corner_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner
@@ -545,7 +591,7 @@
 	dir = WEST
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2
-	icon_state = "grassdirt_corner2_scorched1"
+	icon_state = "grassdirt_corner2_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/south
@@ -575,8 +621,9 @@
 	dir = EAST
 
 /turf/simulated/floor/planetoid/grass/scorched2/beachedge/west
+	dir = WEST
 
-// GRASS SCORCHED2 - BEACH CORNDER
+// GRASS SCORCHED2 - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched2/beachcorner
 	icon_state = "gbcorner_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/beachcorner
@@ -621,7 +668,7 @@
 /turf/simulated/floor/planetoid/grass/scorched3/sandedge/west
 	dir = WEST
 
-// GRASS SCORCHED3 - SAND CORNDER
+// GRASS SCORCHED3 - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner
 	icon_state = "grassdirt_corner_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandcorner
@@ -669,8 +716,9 @@
 	dir = EAST
 
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge/west
+	dir = WEST
 
-// GRASS SCORCHED3 - BEACH CORNDER
+// GRASS SCORCHED3 - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner
 	icon_state = "gbcorner_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/beachcorner
