@@ -1948,6 +1948,7 @@
 #include "code\game\objects\structures\kitchen_spike.dm"
 #include "code\game\objects\structures\ladders.dm"
 #include "code\game\objects\structures\lattice.dm"
+#include "code\game\objects\structures\laz_sign.dm"
 #include "code\game\objects\structures\loom.dm"
 #include "code\game\objects\structures\meshfence.dm"
 #include "code\game\objects\structures\mineral_doors.dm"
