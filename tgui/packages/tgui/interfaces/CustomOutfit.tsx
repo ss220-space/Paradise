@@ -48,7 +48,6 @@ interface CustomOutfitData {
   augmentations?: Augmentation[];
   has_dental_implant?: BooleanLike;
   dental_reagents?: Reagent[];
-  skills_active?: BooleanLike;
   /** id of the live map view rendering the preview dummy */
   character_preview_view?: string;
   /** JSON payload sent by the server for a client-side save */
@@ -258,30 +257,6 @@ export const CustomOutfit = () => {
                         disabled={!idOutfit?.path}
                         onClick={() => act('edit_id')}
                       />
-                      <Stack mb={1}>
-                        <Stack.Item grow>
-                          <Button
-                            fluid
-                            icon="book-open-reader"
-                            content="Навыки"
-                            disabled={!data.skills_active}
-                            onClick={() => act('open_skills')}
-                          />
-                        </Stack.Item>
-                        <Stack.Item>
-                          <Button
-                            icon={
-                              data.skills_active ? 'check-square' : 'square-o'
-                            }
-                            iconColor={data.skills_active ? 'good' : 'gray'}
-                            onClick={() =>
-                              act('toggle_skills', {
-                                enabled: !data.skills_active,
-                              })
-                            }
-                          />
-                        </Stack.Item>
-                      </Stack>
                     </Stack.Item>
                     <Stack.Item grow basis={0}>
                       <Stack vertical fill>

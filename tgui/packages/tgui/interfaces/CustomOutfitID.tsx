@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
   Box,
@@ -9,6 +8,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 
@@ -93,16 +93,14 @@ export const CustomOutfitID = (props) => {
 
                 <Stack.Item>
                   <Box color="label" fontSize={0.75} mb={0.5}>
-                    Ранг
+                    Ранг (sec hud icon)
                   </Box>
                   <Dropdown
                     fluid
                     options={ranklist}
                     selected={idCard.rank || null}
                     placeholder="Выберите ранг"
-                    onSelected={(value) =>
-                      act('set_id_rank', { rank: value })
-                    }
+                    onSelected={(value) => act('set_id_rank', { rank: value })}
                   />
                 </Stack.Item>
                 <Stack.Item>

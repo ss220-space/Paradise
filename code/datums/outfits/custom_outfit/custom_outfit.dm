@@ -16,8 +16,6 @@
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
 #define CUSTOM_OUTFIT_ACTION_EDIT_ID "edit_id"
-#define CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS "toggle_skills"
-#define CUSTOM_OUTFIT_ACTION_OPEN_SKILLS "open_skills"
 
 #define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
 #define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
@@ -25,6 +23,8 @@
 #define CUSTOM_OUTFIT_DEFAULT_COMPANY "Cybernetic"
 #define CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT 5
 #define CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT 1
+
+#define CUSTOM_OUTFIT_EXTRA_RANKS list("Deathsquad Officer")
 
 #define CUSTOM_OUTFIT_SLOT_UNIFORM "uniform"
 #define CUSTOM_OUTFIT_SLOT_SUIT "suit"
@@ -78,11 +78,6 @@
 	var/list/belt_contents = list()
 	var/belt_dirty = FALSE
 	var/list/nested_storage_contents = list(CUSTOM_OUTFIT_CONTAINER_BACKPACK = list(), CUSTOM_OUTFIT_CONTAINER_BELT = list())
-	// TRUE when the skill distribution window is unlocked and skills are applied.
-	var/skills_active = FALSE
-	// Stored skill profile: list(skill type path = level). Applied on Apply when
-	// skills_active is TRUE.
-	var/list/skill_levels = list()
 
 	var/static/list/slot_to_human_var = list(
 		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
@@ -256,6 +251,10 @@
 	LAZYCLEARLIST(reagent_volumes)
 	return ..()
 
+/datum/custom_outfit/ui_close(mob/user)
+	. = ..()
+	qdel(src)
+
 /datum/custom_outfit/ui_state(mob/user)
 	return ADMIN_STATE(R_EVENT)
 
@@ -281,7 +280,6 @@
 	data["augmentations"] = serialize_augmentations()
 	data["dental_reagents"] = serialize_reagents()
 	data["has_dental_implant"] = length(reagent_volumes) > 0
-	data["skills_active"] = skills_active
 	if(pending_save_json)
 		data["save_file_json"] = pending_save_json
 		data["save_file_name"] = pending_save_name
@@ -290,8 +288,6 @@
 		data["target_name"] = human_target.name
 		data["target_valid"] = TRUE
 		data["backpack_is_storage"] = !!get_back_content_storage(human_target.back)
-		if(skills_active)
-			sync_skills_from_mind(human_target)
 		if(preview_dirty)
 			if(!preview_pending)
 				preview_pending = TRUE
@@ -387,8 +383,9 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT)
-			if(!QDELETED(dental_holder) && dental_holder.reagents && dental_holder.reagents.total_volume > 0)
-				dental_holder.reagents.clear_reagents()
+			if(length(reagent_volumes))
+				if(!QDELETED(dental_holder) && dental_holder.reagents)
+					dental_holder.reagents.clear_reagents()
 				reagent_volumes = list()
 				dental_dirty = TRUE
 			else
@@ -406,14 +403,6 @@
 		if(CUSTOM_OUTFIT_ACTION_EDIT_ID)
 			ensure_id_card_data()
 			open_id_card_editor(user)
-			. = TRUE
-
-		if(CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS)
-			toggle_skills(user, params["enabled"] ? TRUE : FALSE)
-			. = TRUE
-
-		if(CUSTOM_OUTFIT_ACTION_OPEN_SKILLS)
-			open_skills_editor(user)
 			. = TRUE
 
 	if(. && !QDELETED(ui))
@@ -445,14 +434,16 @@
 /datum/custom_outfit/proc/get_ranklist_for_tgui()
 	. = list()
 	for(var/job_title in GLOB.joblist)
-		if(job_title == "Cyborg" || findtextEx(job_title, "Team ") == 1)
+		var/datum/job/job_datum = GLOB.joblist[job_title]
+		if(job_datum && job_datum.admin_only)
 			continue
 		. += job_title
-	. += "Deathsquad Officer"
+	for(var/rank in CUSTOM_OUTFIT_EXTRA_RANKS)
+		. += rank
 	return .
 
 /datum/custom_outfit/proc/is_valid_item_entry(item_path, count)
-	return ispath(item_path, /obj/item) && isnum(count) && count > 0
+	return CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count)
 
 /datum/custom_outfit/proc/get_slot_options(base_type)
 	. = slot_option_cache[base_type]
@@ -474,6 +465,7 @@
 			continue
 		edited_outfit.vars[outfit_slot] = equipped_item.type
 	capture_id_card_data(human_target)
+	capture_dental(human_target)
 	capture_backpack(human_target)
 	capture_belt(human_target)
 	capture_implants(human_target)
@@ -504,18 +496,26 @@
 	)
 
 /datum/custom_outfit/proc/is_valid_back_item(item_path)
-	return ispath(item_path, /obj/item/storage/backpack) || ispath(item_path, /obj/item/mod/control)
+	return ispath(item_path, /obj/item/storage/backpack) || CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(item_path)
 
 /datum/custom_outfit/proc/get_back_content_storage(obj/item/back_item)
 	if(QDELETED(back_item))
 		return null
 	if(isstorage(back_item))
 		return back_item
-	if(ispath(back_item.type, /obj/item/mod/control))
+	if(CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(back_item.type))
 		var/obj/item/mod/control/mod_control = back_item
 		return mod_control.bag
 	return null
 
+/datum/custom_outfit/proc/capture_dental(mob/living/carbon/human/human_target)
+	reagent_volumes = list()
+	for(var/obj/item/reagent_containers/food/pill/dental_implant/pill in human_target.contents)
+		if(QDELETED(pill) || !pill.reagents)
+			continue
+		for(var/datum/reagent/reagent_instance in pill.reagents.reagent_list)
+			if(reagent_instance.volume > 0)
+				reagent_volumes[reagent_instance.type] = reagent_instance.volume
 
 /datum/custom_outfit/proc/capture_backpack(mob/living/carbon/human/human_target)
 	var/obj/item/back_storage = get_back_content_storage(human_target.back)
@@ -626,44 +626,6 @@
 		if(CUSTOM_OUTFIT_CONTAINER_BELT)
 			belt_dirty = TRUE
 
-/// Toggles skill editing on/off. Enabling seeds the profile from the target's
-/// current selected skills when no profile is stored yet.
-/// Arguments:
-/// * user - the admin triggering the toggle.
-/// * enabled - whether skill editing becomes active.
-/datum/custom_outfit/proc/toggle_skills(mob/user, enabled)
-	if(skills_active == enabled)
-		return
-	skills_active = enabled
-	if(enabled && ishuman(target_mob) && target_mob.mind && !length(skill_levels))
-		sync_skills_from_mind(target_mob)
-	if(enabled)
-		apply_absolute_skills_to_mind(target_mob)
-
-/// Opens the skill distribution window for the target character (admin mode).
-/// Locked unless skill editing is active.
-/// Arguments:
-/// * user - the admin opening the window.
-/datum/custom_outfit/proc/open_skills_editor(mob/user)
-	if(!skills_active)
-		return
-	if(QDELETED(target_mob) || !ishuman(target_mob) || !target_mob.mind)
-		tgui_alert(user, "Target has no valid mind for skill editing.")
-		return
-	apply_absolute_skills_to_mind(target_mob)
-	if(!user.client)
-		return
-	user.client.skills_select_window.show(user, target_mob, admin_interact = TRUE)
-
-/// Captures the target's current selected skill levels back into the stored
-/// profile (used after the skill window commits its edits).
-/// Arguments:
-/// * human_target - the character whose skills are being edited.
-/datum/custom_outfit/proc/sync_skills_from_mind(mob/living/carbon/human/human_target)
-	if(!ishuman(human_target) || !human_target.mind)
-		return
-	skill_levels = human_target.mind.get_skills_for_skills_select()
-
 /datum/custom_outfit/proc/capture_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents)
 		if(!(implant.type in edited_outfit.implants))
@@ -671,31 +633,6 @@
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs)
 		if(!(cyberimp_organ.type in edited_outfit.cybernetic_implants))
 			edited_outfit.cybernetic_implants += cyberimp_organ.type
-
-/datum/custom_outfit/proc/apply_absolute_skills_to_mind(mob/living/carbon/human/human_target)
-	if(!ishuman(human_target) || !human_target.mind)
-		return
-	if(!skill_levels || !length(skill_levels))
-		return
-
-	human_target.mind.selected_skills_levels = list()
-	human_target.mind.refresh_skills()
-
-	var/list/base_levels = human_target.mind.get_skills_for_skills_select()
-	var/list/deltas = list()
-
-	for(var/skill_path, abs_level in skill_levels)
-		if(!ispath(skill_path, /datum/skill) || !isnum(abs_level))
-			continue
-		var/base = base_levels[skill_path] || 0
-		var/diff = abs_level - base
-		diff = min(max(diff, 0), SKILL_LEVEL_LEGEND - base)
-		if(diff)
-			deltas[skill_path] = diff
-
-	human_target.mind.selected_skills_levels = deltas
-	human_target.mind.refresh_skills()
-
 /datum/custom_outfit/proc/capture_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_body_zones)
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
@@ -707,8 +644,8 @@
 			continue
 		if(limb.is_robotic())
 			external_augmentations[body_zone] = list(
-				"status" = CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC,
-				"company" = limb.model,
+				"status" = limb.tough ? CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED : CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC,
+				"company" = limb.model || CUSTOM_OUTFIT_DEFAULT_COMPANY,
 			)
 	for(var/obj/item/organ/internal/organ in human_target.internal_organs)
 		if(istype(organ, /obj/item/organ/internal/cyberimp))
@@ -740,13 +677,13 @@
 /datum/custom_outfit/proc/serialize_container(container_key, list/contents)
 	. = list()
 	for(var/item_path, count in contents)
-		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count))
 			continue
 		var/list/item_data = entry(item_path)
 		if(!islist(item_data))
 			continue
 		item_data["count"] = count
-		if(ispath(item_path, /obj/item/storage))
+		if(CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 			item_data["is_storage"] = TRUE
 			item_data["storage_items"] = serialize_nested(container_key, "[item_path]")
 		. += list(item_data)
@@ -762,7 +699,7 @@
 	if(!children)
 		return .
 	for(var/item_path, child_count in children)
-		if(!ispath(item_path, /obj/item) || !isnum(child_count) || child_count <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, child_count))
 			continue
 		var/list/item_data = entry(item_path)
 		if(!islist(item_data))
@@ -799,7 +736,7 @@
 			"kind" = "external",
 		))
 	for(var/organ_path in internal_augmentations)
-		if(!ispath(organ_path, /obj/item/organ/internal))
+		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		var/obj/item/organ/internal/organ_ref = organ_path
 		. += list(list(
@@ -813,7 +750,7 @@
 /datum/custom_outfit/proc/serialize_reagents()
 	. = list()
 	for(var/reagent_path, amount in reagent_volumes)
-		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_REAGENT_VOLUME(reagent_path, amount))
 			continue
 		var/datum/reagent/reagent_ref = reagent_path
 		. += list(list(
@@ -822,7 +759,7 @@
 		))
 
 /datum/custom_outfit/proc/entry(data)
-	if(ispath(data, /obj/item))
+	if(CUSTOM_OUTFIT_IS_ITEM_PATH(data))
 		var/obj/item/item_path = data
 		return list(
 			"path" = "[item_path]",
@@ -834,7 +771,7 @@
 	return data
 
 /datum/custom_outfit/proc/initialize_id_card_data(id_card_path)
-	if(!ispath(id_card_path, /obj/item/card/id))
+	if(!CUSTOM_OUTFIT_IS_ID_CARD_PATH(id_card_path))
 		id_card_data = null
 		return
 	var/obj/item/card/id/id_card_ref = id_card_path
@@ -961,7 +898,7 @@
 
 /// Returns TRUE if the item can be equipped (can_equip).
 /datum/custom_outfit/proc/item_fits_species(obj/item/item_path, slot_flag, mob/living/carbon/human/human)
-	if(!ispath(item_path, /obj/item/clothing) || !ishuman(human) || !human.dna?.species)
+	if(!CUSTOM_OUTFIT_IS_CLOTHING_PATH(item_path) || !ishuman(human) || !human.dna?.species)
 		return TRUE
 	if(human.is_general_slot(slot_flag))
 		return TRUE
@@ -1007,7 +944,7 @@
 /// Returns TRUE if an internal organ can be implanted into the given human
 /// (i.e. the parent body zone exists and can hold it).
 /datum/custom_outfit/proc/organ_fits_species(organ_path, mob/living/carbon/human/human)
-	if(!ispath(organ_path, /obj/item/organ/internal) || !ishuman(human))
+	if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path) || !ishuman(human))
 		return TRUE
 	var/obj/item/organ/organ_template = organ_path
 	var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
@@ -1057,10 +994,6 @@
 	if(dental_dirty)
 		sync_dental_reagents()
 		apply_reagent_pill(human_target)
-
-	if(skills_active && human_target.mind)
-		sync_skills_from_mind(human_target)
-		apply_absolute_skills_to_mind(human_target)
 
 	body_dirty = FALSE
 	backpack_dirty = FALSE
@@ -1152,7 +1085,7 @@
 		return
 	QDEL_LIST(back_storage.contents)
 	for(var/item_path, count in new_backpack_contents)
-		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count))
 			continue
 		for(var/iteration in 1 to count)
 			var/obj/item/spawned_item = new item_path(back_storage)
@@ -1164,7 +1097,7 @@
 		return
 	QDEL_LIST(human_target.belt.contents)
 	for(var/item_path, count in new_belt_contents)
-		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count))
 			continue
 		for(var/iteration in 1 to count)
 			var/obj/item/spawned_item = new item_path(human_target.belt)
@@ -1185,7 +1118,7 @@
 		return
 	QDEL_LIST(parent_storage.contents)
 	for(var/item_path, count in children)
-		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count))
 			continue
 		for(var/iteration in 1 to count)
 			new item_path(parent_storage)
@@ -1228,7 +1161,7 @@
 
 /datum/custom_outfit/proc/apply_internal_augmentations(mob/living/carbon/human/human_target)
 	for(var/organ_path in internal_augmentations)
-		if(!ispath(organ_path, /obj/item/organ/internal))
+		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		var/obj/item/organ/organ_template = organ_path
 		var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
@@ -1237,20 +1170,20 @@
 		new organ_path(human_target)
 
 /datum/custom_outfit/proc/apply_reagent_pill(mob/living/carbon/human/human_target)
-	for(var/obj/item/reagent_containers/food/pill/old_pill in human_target.contents)
+	for(var/obj/item/reagent_containers/food/pill/dental_implant/old_pill in human_target.contents)
 		qdel(old_pill)
 	if(!length(reagent_volumes))
 		return
 	var/list/validated_reagents = list()
 	var/total_volume = 0
 	for(var/reagent_path, amount in reagent_volumes)
-		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_REAGENT_VOLUME(reagent_path, amount))
 			continue
 		validated_reagents[reagent_path] = amount
 		total_volume += amount
 	if(!total_volume)
 		return
-	var/obj/item/reagent_containers/food/pill/pill = new /obj/item/reagent_containers/food/pill(human_target)
+	var/obj/item/reagent_containers/food/pill/dental_implant/pill = new /obj/item/reagent_containers/food/pill/dental_implant(human_target)
 	if(total_volume > pill.reagents.maximum_volume)
 		pill.reagents.maximum_volume = total_volume
 	for(var/reagent_path, amount in validated_reagents)
@@ -1278,10 +1211,10 @@
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
 		return FALSE
-	if(!ispath(chosen_path, /obj/item))
+	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
 	edited_outfit.backpack_contents[chosen_path] = (edited_outfit.backpack_contents[chosen_path] || 0) + 1
-	if(ispath(chosen_path, /obj/item/storage))
+	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BACKPACK, chosen_path)
 	return TRUE
 
@@ -1296,10 +1229,10 @@
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
 		return FALSE
-	if(!ispath(chosen_path, /obj/item))
+	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
 	belt_contents[chosen_path] = (belt_contents[chosen_path] || 0) + 1
-	if(ispath(chosen_path, /obj/item/storage))
+	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BELT, chosen_path)
 	return TRUE
 
@@ -1323,13 +1256,13 @@
 
 /datum/custom_outfit/proc/remove_backpack_item(item_path)
 	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path)
-	if(removed && ispath(item_path, /obj/item/storage))
+	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BACKPACK, "[item_path]")
 	return removed
 
 /datum/custom_outfit/proc/remove_belt_item(item_path)
 	var/removed = decrement_list_entry(belt_contents, item_path)
-	if(removed && ispath(item_path, /obj/item/storage))
+	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BELT, "[item_path]")
 	return removed
 
@@ -1355,7 +1288,7 @@
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
 		return FALSE
-	if(!ispath(chosen_path, /obj/item))
+	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
 	var/list/container_nested = nested_storage_contents[container_key]
 	var/list/children = container_nested[parent_path] || list()
@@ -1511,7 +1444,7 @@
 	if(!organ_choice)
 		return FALSE
 	var/cyber_base_path = internal_organ_options[organ_choice]
-	if(!ispath(cyber_base_path, /obj/item/organ/internal))
+	if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(cyber_base_path))
 		return FALSE
 	var/list/organ_paths = list()
 	for(var/organ_path in typesof(cyber_base_path))
@@ -1582,7 +1515,7 @@
 /datum/custom_outfit/proc/set_item(mob/user, slot, obj/item/choice)
 	if(!(slot in slot_to_human_var))
 		return FALSE
-	if(!ispath(choice, /obj/item))
+	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(choice))
 		if(choice)
 			tgui_alert(user, "Invalid item", "Custom Outfit", list("OK"))
 		return FALSE
@@ -1593,7 +1526,7 @@
 			return FALSE
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
-	if(ispath(choice, /obj/item/clothing/head/helmet/space/hardsuit))
+	if(CUSTOM_OUTFIT_IS_HARDSUIT_HELMET_PATH(choice))
 		// Hardsuit helmets can only exist attached to their suit; spawning one
 		// standalone throws a runtime.
 		tgui_alert(user, "Этот шлем является частью скафандра. Вместо этого выберите сам скафандр.", "Custom Outfit", list("OK"))
@@ -1620,17 +1553,17 @@
 		initialize_id_card_data(choice)
 	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
-		if(ispath(choice, /obj/item/storage))
+		if(CUSTOM_OUTFIT_IS_STORAGE_PATH(choice))
 			if(previous_back_path != choice)
 				merge_backpack_presets(choice)
-		else if(ispath(choice, /obj/item/mod/control))
+		else if(CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(choice))
 			if(previous_back_path != choice)
 				merge_mod_backpack_presets(choice)
 		else
 			edited_outfit.backpack_contents.Cut()
 	if(slot == CUSTOM_OUTFIT_SLOT_BELT)
 		belt_dirty = TRUE
-		if(ispath(choice, /obj/item/storage))
+		if(CUSTOM_OUTFIT_IS_STORAGE_PATH(choice))
 			if(previous_belt_path != choice)
 				merge_belt_presets(choice)
 		else
@@ -1714,8 +1647,7 @@
 
 /datum/custom_outfit/proc/open_dental_editor(mob/user)
 	if(QDELETED(dental_holder))
-		dental_holder = new /obj/item/reagent_containers/food/pill()
-		dental_holder.name = "зубной имплант"
+		dental_holder = new /obj/item/reagent_containers/food/pill/dental_implant
 		dental_holder.create_reagents(CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
 		for(var/reagent_path, volume in reagent_volumes)
 			dental_holder.reagents.add_reagent(reagent_path, volume)
@@ -1741,14 +1673,8 @@
 		if(reagent_instance.volume > 0)
 			reagent_volumes[reagent_instance.type] = reagent_instance.volume
 
-/obj/item/reagent_containers/food/pill/custom_outfit_editor
-	name = "dental implant"
-	var/datum/custom_outfit/custom_outfit_ref
-
-/obj/item/reagent_containers/food/pill/custom_outfit_editor/ui_close(mob/user)
-	. = ..()
-	if(custom_outfit_ref)
-		custom_outfit_ref.sync_dental_reagents()
+/obj/item/reagent_containers/food/pill/dental_implant
+	name = "зубной имплант"
 
 /datum/reagents_editor/custom_outfit_dental
 	var/datum/custom_outfit/linked_outfit
@@ -1968,7 +1894,7 @@
 		return
 	var/item_icon = initial(item_ref.icon)
 	var/icon_state_text = initial(item_ref.icon_state) || ""
-	if(ispath(item_path, /obj/item/mod/control))
+	if(CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(item_path))
 		var/obj/item/mod/control/pre_equipped/mod_ref = item_path
 		var/datum/mod_theme/mod_theme = GLOB.mod_themes[initial(mod_ref.theme)]
 		if(mod_theme)
@@ -2067,8 +1993,6 @@
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
 #undef CUSTOM_OUTFIT_ACTION_EDIT_ID
-#undef CUSTOM_OUTFIT_ACTION_TOGGLE_SKILLS
-#undef CUSTOM_OUTFIT_ACTION_OPEN_SKILLS
 
 #undef CUSTOM_OUTFIT_CHOICE_USE_ANYWAY
 #undef CUSTOM_OUTFIT_CHOICE_CANCEL
