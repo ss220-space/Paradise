@@ -348,3 +348,9 @@
 
 /turf/simulated/wall/indestructible/jungle/jungle3
 	icon_state = "wall3"
+
+/turf/simulated/wall/indestructible/jungle/jungle4
+	icon_state = "wall5"
+
+/turf/simulated/wall/indestructible/jungle/jungle5
+	icon_state = "wall5"
