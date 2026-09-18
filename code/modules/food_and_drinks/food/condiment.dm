@@ -1,3 +1,5 @@
+#define CONSUME_AMOUNT 10
+
 // MARK: Condiment container
 /obj/item/reagent_containers/condiment
 	name = "condiment container"
@@ -44,7 +46,7 @@
 			span_danger("[user] скормил[GEND_A_O_I(user)] [target.declent_ru(ACCUSATIVE)] содержимое [declent_ru(GENITIVE)]!"),
 			span_userdanger("[user] скормил[GEND_A_O_I(user)] вам содержимое [declent_ru(GENITIVE)]!"),
 		)
-	reagents.trans_to(target, 5)
+	reagents.trans_to(target, CONSUME_AMOUNT)
 	reagents.reaction(target, REAGENT_INGEST)
 	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
 	return ITEM_INTERACT_SUCCESS
@@ -437,3 +439,5 @@
 		INSTRUMENTAL = "пакетиком шоколадной посыпки",
 		PREPOSITIONAL = "пакетике шоколадной посыпки"
 	)
+
+#undef CONSUME_AMOUNT

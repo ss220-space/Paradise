@@ -27,6 +27,10 @@
 	if(!is_glass)
 		return
 
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(user, span_warning("Вы не хотите навредить [target.declent_ru(DATIVE)]!"))
+		return
+
 	var/head_hitter = user.zone_selected == BODY_ZONE_HEAD && isliving(target)
 	if(!QDELETED(target))
 		// An attack that targets the head of a living mob will attempt to knock them down
