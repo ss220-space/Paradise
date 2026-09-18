@@ -330,7 +330,7 @@
 	name = "Элитарный соус шефа"
 	desc = "Фирменный соус, приготовленный из мухоморов. Токсический эффект будет зависеть от того, как долго он остаётся в организме, \
 			чем больше доза, тем больше времени потребуется для её усвоения."
-	item = /obj/item/reagent_containers/food/condiment/syndisauce
+	item = /obj/item/reagent_containers/condiment/syndisauce
 	cost = 1
 	job = list(JOB_TITLE_CHEF)
 
@@ -481,7 +481,7 @@
 /datum/uplink_item/jobspecific/gbs
 	name = "Бутылка с вирусом ГБС"
 	desc = "Содержит чрезвычайно смертельный вирус ГБС, в начальной фазе имитирующий симптомы гриппа, но со временем разрывает тело носителя."
-	item = /obj/item/reagent_containers/glass/bottle/gbs
+	item = /obj/item/reagent_containers/cup/bottle/gbs
 	cost = 60
 	job = list(JOB_TITLE_VIROLOGIST)
 	surplus = 0
@@ -673,7 +673,7 @@
 /datum/uplink_item/jobspecific/poisonbottle
 	name = "Бутылка с ядом"
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
-	item = /obj/item/reagent_containers/glass/bottle/traitor
+	item = /obj/item/reagent_containers/cup/bottle/traitor
 	cost = 10
 	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)

@@ -641,15 +641,17 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
+		damage *= skill_mod
+
 		var/delta = 0
 		var/list/deltas = list()
 		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, null)
 		for(var/addition in deltas)
 			delta += addition
+		damage += delta
 
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
-		damage *= skill_mod
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)

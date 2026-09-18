@@ -6,8 +6,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
-	possible_transfer_amounts = null
-	can_empty = FALSE
+	has_variable_transfer_amount = FALSE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
@@ -163,7 +162,7 @@
 	var/contained = injected.name
 	var/trans = our_reagents.trans_to(target, amount_per_transfer_from_this)
 	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_U_Y_0(trans)]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[DECL_A_Y_0(our_reagents.total_volume)] вещества."))
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	radial_menu(user)
@@ -194,7 +193,7 @@
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += span_notice("Содержит в себе <b>[R.volume]</b> единиц[DECL_SEC_MIN(R.volume)] вещества \"[R.name]\".")
+				. += span_notice("Содержит в себе <b>[R.volume]</b> единиц[DECL_U_Y_0(R.volume)] вещества \"[R.name]\".")
 				empty = FALSE
 
 		if(empty)

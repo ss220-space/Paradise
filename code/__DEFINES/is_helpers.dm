@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define issyringe(A) (istype(A, /obj/item/reagent_containers/syringe))
 
-#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
+#define iscup(A) (istype(A, /obj/item/reagent_containers/cup))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
@@ -464,3 +464,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
+#define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))

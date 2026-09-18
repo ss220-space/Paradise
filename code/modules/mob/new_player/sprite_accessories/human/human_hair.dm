@@ -1052,3 +1052,8 @@
 	icon_state = "braindead"
 	unsuitable_gender = MALE
 	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/chainsmoker
+	name = "Chain Smoker"
+	icon_state = "chainsmoker"
+	species_allowed = list(SPECIES_HUMAN)

@@ -831,13 +831,13 @@
 			/obj/item/reagent_containers/iv_bag/slime,
 			/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 		),
-		/obj/item/reagent_containers/glass/bottle/morphine,
-		/obj/item/reagent_containers/glass/bottle/potassium_iodide,
+		/obj/item/reagent_containers/cup/bottle/morphine,
+		/obj/item/reagent_containers/cup/bottle/potassium_iodide,
 		list(
 			/obj/item/stack/medical/bruise_pack/military,
 			/obj/item/stack/medical/suture/advanced,
 		),
-		/obj/item/reagent_containers/glass/bottle/abductor/rezadone,
+		/obj/item/reagent_containers/cup/bottle/abductor/rezadone,
 		list(
 			/obj/item/handheld_defibrillator,
 			/obj/item/defibrillator/compact/loaded

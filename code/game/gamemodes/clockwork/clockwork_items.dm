@@ -608,7 +608,7 @@
 	enchants = GLOB.shield_spells
 
 /obj/item/shield/clock_buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parry_time_out_time = PARRY_SHIELD_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/clock_buckler/update_overlays()
 	. = ..()
@@ -865,10 +865,10 @@
 
 /obj/item/clothing/suit/armor/clockwork/IsReflect(def_zone)
 	if(!ishuman(loc))
-		return FALSE
+		return REFLECT_NOTHING
 	var/mob/living/carbon/human/owner = loc
 	if(owner.wear_suit != src)
-		return FALSE
+		return REFLECT_NOTHING
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
@@ -877,8 +877,8 @@
 			deplete_spell()
 		else
 			reflect_uses--
-		return TRUE
-	return FALSE
+		return REFLECT_NORMAL
+	return REFLECT_NOTHING
 
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()

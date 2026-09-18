@@ -8,6 +8,7 @@
 	item_state = "syringe_0"
 	icon_state = "0"
 	belt_icon = "syringe"
+	fill_icon_state = "syringe"
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE
@@ -15,6 +16,7 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
+	fill_icon_thresholds = list(1, 5, 10 ,15)
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
@@ -37,9 +39,6 @@
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 	. = ..()
-
-/obj/item/reagent_containers/syringe/on_reagent_change()
-	update_icon()
 
 /obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -110,7 +109,7 @@
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_SEC_MIN(reagents.total_volume)] вещества."))
+				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[DECL_YEJ_AMI_AMI(trans)] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_U_Y_0(reagents.total_volume)] вещества."))
 			if(reagents.holder_full())
 				mode = !mode
 				update_icon()
@@ -149,7 +148,7 @@
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			after_transfer(target)
-			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_SEC_MIN(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
+			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_U_Y_0(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
 				F.log_eating = TRUE
@@ -172,12 +171,6 @@
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
-	var/rounded_vol
-	if(reagents?.total_volume)
-		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
-		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling_overlay
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)

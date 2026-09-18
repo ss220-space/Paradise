@@ -158,14 +158,14 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/command = tgui_input_text(owner, "Изречь Глас Божий", "Команда")
 	if(!command)
 		return
-	owner.say(".~[command]")
+	owner.say(".~ [command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_SEC_MIN((next_command - world.time)/10)] перед следующим Словом."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_U_Y_0((next_command - world.time)/10)] перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE
