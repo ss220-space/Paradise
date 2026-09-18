@@ -3,7 +3,7 @@
 	name = ""
 	desc = ""
 	max_integrity = 20
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/examine(mob/user)
 	. = ..()

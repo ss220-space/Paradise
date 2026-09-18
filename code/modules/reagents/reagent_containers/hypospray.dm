@@ -11,7 +11,7 @@
 	belt_icon = "hypospray"
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	resistance_flags = ACID_PROOF
-	container_type = OPENCONTAINER
+	container_type = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	custom_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
@@ -370,7 +370,6 @@
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 	custom_price = PAYCHECK_MIN
-	can_empty = FALSE
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?
