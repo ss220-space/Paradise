@@ -101,15 +101,15 @@
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	switch(det_time)
-		if(0.1 SECONDS)
-			det_time = 1 SECONDS
-		if(1 SECONDS)
+		if(2 SECONDS)
 			det_time = 3 SECONDS
 		if(3 SECONDS)
+			det_time = 4 SECONDS
+		if(4 SECONDS)
 			det_time = 5 SECONDS
 		if(5 SECONDS)
-			det_time = 0.1 SECONDS
-	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "мгновенно" : "[det_time/10] секунд[DECL_U_Y_0(det_time/10)]"]")
+			det_time = 2 SECONDS
+	balloon_alert(user, "время детонации — [det_time/10] секунд[DECL_SEC_MIN(det_time/10)]")
 	add_fingerprint(user)
 	return TRUE
 
