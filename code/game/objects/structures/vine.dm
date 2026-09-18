@@ -31,10 +31,10 @@
 	icon_state = "Hvy[pick(1,3)]"
 	max_integrity = pick(90, 150)
 
-/obj/structure/vine/attackby(obj/item/I, mob/user, params)
+/obj/structure/vine/attackby(obj/item/item, mob/user, params)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	playsound(src.loc, 'sound/effects/vegetation_hit.ogg', 25, TRUE)
-	if(indestructible || !item.sharp)
+	if(!item.sharp)
 		return .
 	var/damage = rand(10, 15)
 	if(istype(item, /obj/item/kitchen/knife/combat) || istype(item, /obj/item/hatchet))
