@@ -15464,6 +15464,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
+"fMc" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/test_chamber)
 "fMt" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -22643,6 +22647,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
 "izh" = (
@@ -42014,6 +42019,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "pHk" = (
@@ -103095,7 +103101,7 @@ vQs
 sBl
 pGn
 iBA
-iBA
+fMc
 uhH
 uhH
 iBA

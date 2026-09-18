@@ -178,6 +178,7 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!try_use_flash(user))
 		return .
+
 	if(iscarbon(target))
 		flash_carbon(target, user, 10 SECONDS, TRUE)
 		if(overcharged)
@@ -185,17 +186,22 @@
 			target.IgniteMob()
 			burn_out()
 		return .|ATTACK_CHAIN_SUCCESS
-	if(issilicon(target))
+
+	if(issilicon(target) || isswarmer(target))
 		add_attack_logs(user, target, "Flashed with [src]")
-		if(target.flash_eyes(affect_silicon = TRUE))
-			target.Weaken(rand(10 SECONDS, 20 SECONDS))
-			target.visible_message(
-				span_disarm("[user.declent_ru(NOMINATIVE)] перегружа[PLUR_ET_YUT(user)] оптические сенсоры [target.declent_ru(GENITIVE)] [declent_ru(INSTRUMENTAL)]!"),
-				span_userdanger("[user.declent_ru(NOMINATIVE)] перегружа[PLUR_ET_YUT(user)] ваши оптические сенсоры [declent_ru(INSTRUMENTAL)]!"),
-				ignored_mobs = user,
-			)
-			target.balloon_alert(user, "цель ослеплена!")
+		if(!target.flash_eyes(affect_silicon = TRUE))
+			return .|ATTACK_CHAIN_SUCCESS
+
+		var/weaken_time = issilicon(target) ? SILICON_FLASH_ATTACK_STUN : SWARMER_FLASH_ATTACK_STUN
+		target.Weaken(weaken_time)
+		target.visible_message(
+			span_disarm("[user.declent_ru(NOMINATIVE)] перегружа[PLUR_ET_YUT(user)] оптические сенсоры [target.declent_ru(GENITIVE)] [declent_ru(INSTRUMENTAL)]!"),
+			span_userdanger("[user.declent_ru(NOMINATIVE)] перегружа[PLUR_ET_YUT(user)] ваши оптические сенсоры [declent_ru(INSTRUMENTAL)]!"),
+			ignored_mobs = user,
+		)
+		target.balloon_alert(user, "цель ослеплена!")
 		return .|ATTACK_CHAIN_SUCCESS
+
 	target.visible_message(
 		span_disarm("[user.declent_ru(NOMINATIVE)] безуспешно пыта[PLUR_ET_YUT(user)]ся ослепить [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"),
 		span_userdanger("[user.declent_ru(NOMINATIVE)] безуспешно пыта[PLUR_ET_YUT(user)]ся ослепить вас [declent_ru(INSTRUMENTAL)]!"),
