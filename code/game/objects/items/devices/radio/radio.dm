@@ -160,7 +160,11 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/dummy/Initialize(mapload)
 	. = ..()
 	// this is just dummy. We minimalize memmory usage for this object
-	Destroy()
+	return INITIALIZE_HINT_QDEL
+
+/obj/item/radio/dummy/Destroy(force)
+	GLOB.global_announcer = null
+	return ..()
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
 //if another decorator is made that doesnt require getters feel free to nuke these and change these vars over to that
@@ -910,7 +914,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/borg/get_base_channels()
 	var/mob/living/silicon/robot/robot = loc
-	return robot?.module?.channels | keyslot?.channels
+	if(!istype(robot))
+		return
+	return robot?.radio?.channels | keyslot?.channels
 
 /obj/item/radio/borg/make_broken()
 	name = "broken radio"
