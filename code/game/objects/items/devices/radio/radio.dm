@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	/// Whether the radio will transmit dialogue it hears nearby into its radio channel.
 	VAR_PRIVATE/broadcasting = FALSE
+	/// Whether toggling broadcast requires the radio to be carried in a hand or on the belt.
+	var/portable_broadcast_restriction = TRUE
 	/// Whether the radio is currently receiving radio messages from its radio frequencies.
 	VAR_PRIVATE/listening = TRUE
 
@@ -181,6 +183,35 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/get_listening()
 	return listening
 
+
+/// Returns TRUE if the radio is currently carried in a hand or on the belt slot of a mob
+/obj/item/radio/proc/is_portably_carried()
+	var/mob/holder = loc
+	if(!istype(holder))
+		return FALSE
+	if(holder.is_in_hands(src))
+		return TRUE
+	if(ishuman(holder))
+		var/mob/living/carbon/human/human_holder = holder
+		return human_holder.belt == src
+	return FALSE
+
+/// Whether the broadcast toggle is currently allowed for this radio
+/obj/item/radio/proc/can_toggle_broadcast(mob/user)
+	return !portable_broadcast_restriction || is_portably_carried()
+
+/// Turn off broadcasting if a restricted radio is not carried in hands or on the belt
+/obj/item/radio/proc/check_broadcasting_state()
+	if(portable_broadcast_restriction && broadcasting && !is_portably_carried())
+		set_broadcasting(FALSE)
+
+/obj/item/radio/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(portable_broadcast_restriction && broadcasting)
+		// delayed check so moving the radio between inventory slots (hand <-> belt)
+		// does not pass through a transient uncarried state and kill the broadcast
+		addtimer(CALLBACK(src, PROC_REF(check_broadcasting_state)), 0.5 SECONDS)
+
 //now for setters for the above protected vars
 
 /**
@@ -217,6 +248,16 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
 	if(!on)
 		return
+
+	// Don't allow turning on broadcasting if a restricted radio is not carried in hands or on the belt
+	if(new_broadcasting && !can_toggle_broadcast(usr))
+		return
+
+	if(broadcasting != new_broadcasting)
+		if(new_broadcasting)
+			playsound(src, 'sound/effects/radio_on.ogg', 50, TRUE)
+		else
+			playsound(src, 'sound/effects/radio_off.ogg', 50, TRUE)
 
 	broadcasting = new_broadcasting
 	if(actual_setting)
@@ -290,6 +331,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/list/data = list()
 
 	data["broadcasting"] = broadcasting
+	data["can_broadcast"] = can_toggle_broadcast(user)
 	data["listening"] = listening
 	data["frequency"] = frequency
 	data["minFrequency"] = freerange ? RADIO_LOW_FREQ : PUBLIC_LOW_FREQ
@@ -338,6 +380,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			set_listening(!listening)
 
 		if("broadcast")
+			if(!can_toggle_broadcast(usr))
+				balloon_alert(usr, "держите в руке или на поясе!")
+				return
 			set_broadcasting(!broadcasting)
 
 		if("channel")
@@ -434,6 +479,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	icon_state = "radio_portal"
 	item_state = "radio_portal"
 	default_frequency = AI_FREQ
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/portal/get_ru_names()
 	return alist(
@@ -611,6 +657,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!broadcasting)
 		return
 
+	check_broadcasting_state()
+	if(!broadcasting)
+		return
+
 	if(get_dist(src, M) > canhear_range)
 		return
 
@@ -688,6 +738,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		. += span_notice("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
+	if(!can_toggle_broadcast(user))
+		balloon_alert(user, "держите в руке или на поясе!")
+		return NONE
 	set_broadcasting(!broadcasting)
 	balloon_alert(user, "микрофон [broadcasting ? "включён" : "выключен"]")
 	return CLICK_ACTION_SUCCESS
@@ -802,6 +855,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
+	portable_broadcast_restriction = FALSE
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 
 /obj/item/radio/borg/get_ru_names()
@@ -930,6 +984,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/off
 	should_be_listening = FALSE
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone
 	name = "phone"
@@ -940,6 +995,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	drop_sound = 'sound/items/handling/drop/phone_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone/get_ru_names()
 	return alist(
@@ -971,6 +1027,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/bot
 	tts_seed = null
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/phone/ussp
 	name = "Red phone"
@@ -987,3 +1044,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		INSTRUMENTAL = "красным телефоном",
 		PREPOSITIONAL = "красном телефоне",
 	)
+
+// /obj/item/radio/dummy has no dedicated config block; excluded subtypes
+// (headset, intercom, electropack, borg, portal, off, phone, bot, centcom, spy_spider)
+// have the flag set in their config blocks instead.
+/obj/item/radio/dummy
+	portable_broadcast_restriction = FALSE
