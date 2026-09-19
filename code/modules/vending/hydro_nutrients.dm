@@ -21,9 +21,9 @@
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
 	products = list(
-		/obj/item/reagent_containers/glass/bottle/nutrient/ez = 10,
-		/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 10,
-		/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,
+		/obj/item/reagent_containers/cup/bottle/nutrient/ez = 10,
+		/obj/item/reagent_containers/cup/bottle/nutrient/l4z = 10,
+		/obj/item/reagent_containers/cup/bottle/nutrient/rh = 10,
 		/obj/item/reagent_containers/spray/pestspray = 10,
 		/obj/item/reagent_containers/syringe = 5,
 	)
@@ -34,8 +34,8 @@
 		/obj/item/plant_analyzer = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/glass/bottle/ammonia = 10,
-		/obj/item/reagent_containers/glass/bottle/diethylamine = 5,
+		/obj/item/reagent_containers/cup/bottle/ammonia = 10,
+		/obj/item/reagent_containers/cup/bottle/diethylamine = 5,
 	)
 
 /obj/machinery/vending/hydronutrients/get_ru_names()

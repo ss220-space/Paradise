@@ -6,16 +6,16 @@
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
 	antag_menu_name = "Вампир дьявола"
 	upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/vampire/glare = 0,
-		/obj/effect/proc_holder/spell/vampire/goon/self/shapeshift = 100,
-		/obj/effect/proc_holder/spell/vampire/goon/self/cloak = 150,
-		/obj/effect/proc_holder/spell/vampire/shadow_snare = 150,
-		/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 200,
-		/obj/effect/proc_holder/spell/vampire/goon/self/screech = 200,
+		/datum/action/cooldown/spell/vamp_rejuvenate = 0,
+		/datum/action/cooldown/spell/aoe/glare = 0,
+		/datum/action/cooldown/spell/vamp_shapeshift = 100,
+		/datum/action/cooldown/spell/goon_vamp_cloak = 150,
+		/datum/action/cooldown/spell/pointed/shadow_snare = 150,
+		/datum/action/cooldown/spell/aoe/vamp_extinguish = 200,
+		/datum/action/cooldown/spell/aoe/goon_vamp_screech = 200,
 		/datum/vampire_passive/regen = 200,
-		/obj/effect/proc_holder/spell/vampire/goon/shadowstep = 250,
-		/obj/effect/proc_holder/spell/vampire/goon/self/jaunt = 300,
+		/datum/action/cooldown/spell/teleport/radius_turf/goon_vamp_blink = 250,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/goon_vamp_jaunt = 300,
 		/datum/vampire_passive/xray = 500,
 		/datum/vampire_passive/full = 500,
 	)

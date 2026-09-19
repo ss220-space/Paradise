@@ -141,6 +141,34 @@
 	var/static_lighting = TRUE
 
 /**
+ * A list of teleport locations
+ *
+ * Adding a wizard area teleport list because motherfucking lag -- Urist
+ * I am far too lazy to make it a proper list of areas so I'll just make it run the usual teleport routine at the start of the game
+ */
+GLOBAL_LIST_EMPTY(teleportlocs)
+
+/**
+ * Generate a list of turfs you can teleport to from the areas list
+ *
+ * Includes areas if they're not a shuttle or not not teleport or have no contents
+ *
+ * The chosen turf is the first item in the areas contents that is a station level
+ *
+ * The returned list of turfs is sorted by name
+ */
+/proc/process_teleport_locs()
+	for(var/area/teleport_area as anything in get_sorted_areas())
+		if(is_area_shuttle(teleport_area) || teleport_area.tele_proof)
+			continue
+		if(GLOB.teleportlocs[teleport_area.name])
+			continue
+		if(!teleport_area.has_contained_turfs())
+			continue
+		if(is_station_level(teleport_area.z))
+			GLOB.teleportlocs[teleport_area.name] = teleport_area
+
+/**
  * Called when an area loads
  *
  *  Adds the item to the GLOB.areas_by_type list based on area type

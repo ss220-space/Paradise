@@ -70,9 +70,9 @@
 /area/ruin/space/methlab)
 "o" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "p" = (

@@ -14,7 +14,7 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/reagent_containers/spray/waterflower(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/bottleofbanana(src)
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/seeds/banana(src)
 	new /obj/item/restraints/handcuffs/toy(src)
@@ -42,7 +42,7 @@
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/color/black(src)
 	new /obj/item/toy/crayon/mime(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)
 
 /obj/structure/closet/secure_closet/syndicate_officer

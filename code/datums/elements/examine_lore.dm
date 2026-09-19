@@ -4,7 +4,7 @@
 	argument_hash_start_idx = 2
 	/// The message we add to items to denote that we have cool lore to read.
 	var/lore_hint
-	/// Our lore. In order to match descriptions on items, this should be considered to be pre-italicized.
+	/// Our lore text. Should be pre-italicized.
 	var/lore
 
 /datum/element/examine_lore/Attach(datum/target, lore_hint, lore)
@@ -13,8 +13,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	var/atom/atom_target = target
-	src.lore_hint = lore_hint || span_notice("Вы можете [EXAMINE_HINT("присмотреться")], чтобы узнать немного больше о [atom_target.declent_ru(PREPOSITIONAL)].")
+	src.lore_hint = lore_hint
 	src.lore = lore
 
 	if(!lore)
@@ -38,4 +37,4 @@
 
 /datum/element/examine_lore/proc/on_examine_more(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += "<i>[lore]</i>"
+	examine_list += "<b>[span_blue("ЛОРНАЯ СПРАВКА")]</b><hr><i>[lore]</i>"

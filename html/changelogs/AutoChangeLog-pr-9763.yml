@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - refactor: "Правки проков локализации. (PR #9763)"

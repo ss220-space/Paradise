@@ -12,11 +12,10 @@
 	volume = 200
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
-	container_type = OPENCONTAINER
+	container_type = OPENCONTAINER | NO_SPLASH
 	resistance_flags = ACID_PROOF
 	custom_price = PAYCHECK_LOWER
 	w_class = WEIGHT_CLASS_NORMAL
-	can_empty = FALSE
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
@@ -178,9 +177,9 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		after_transfer(target)
-		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_U_Y_0(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
-	else if(isglassreagentcontainer(target) && !target.is_open_container())
+	else if(iscup(target) && !target.is_open_container())
 		balloon_alert(user, "закрыто!")
 		return
 

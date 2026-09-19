@@ -1,0 +1,5 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - add: "Добавлены какие-то фишки в custom outfit (PR #9782)"
+  - bugfix: "Исправлены какие-то ошибки в custom outfit (PR #9782)"

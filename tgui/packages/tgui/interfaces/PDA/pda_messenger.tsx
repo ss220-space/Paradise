@@ -213,9 +213,12 @@ export const MessengerList = (props: MessengerListProps) => {
 
   return (
     <Stack fill vertical>
-      <Stack.Item mb={5}>
-        <LabeledList>
-          <LabeledList.Item label="Messenger Functions">
+      <Stack.Item>
+        <Stack>
+          <Stack.Item>
+            <span>Messenger Functions:</span>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               selected={!silent}
               icon={silent ? 'volume-mute' : 'volume-up'}
@@ -223,6 +226,8 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Ringer: {silent ? 'Off' : 'On'}
             </Button>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               color={toff ? 'bad' : 'green'}
               icon="power-off"
@@ -230,6 +235,8 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Messenger: {toff ? 'Off' : 'On'}
             </Button>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               icon="trash"
               color="bad"
@@ -237,25 +244,28 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Delete All Conversations
             </Button>
-            <Stack>
-              <Stack.Item>
-                <Button icon="bell" onClick={() => act('Ringtone')}>
-                  Set Custom Ringtone
-                </Button>
-              </Stack.Item>
-              <Stack.Item grow={1}>
-                <Dropdown
-                  selected={ringtone}
-                  fluid
-                  options={Object.keys(ringtone_list)}
-                  onSelected={(value) =>
-                    act('Available_Ringtones', { selected_ringtone: value })
-                  }
-                />
-              </Stack.Item>
-            </Stack>
-          </LabeledList.Item>
-        </LabeledList>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Item mb={5}>
+        <Stack>
+          <Stack.Item>
+            <Button icon="bell" onClick={() => act('Ringtone')}>
+              Set Custom Ringtone
+            </Button>
+          </Stack.Item>
+          <Stack.Item grow={1}>
+            <Dropdown
+              selected={ringtone}
+              fluid
+              options={Object.keys(ringtone_list)}
+              onSelected={(value) =>
+                act('Available_Ringtones', { selected_ringtone: value })
+              }
+            />
+          </Stack.Item>
+        </Stack>
+
         {(!toff && (
           <Box>
             {!!charges && (
@@ -323,10 +333,9 @@ const PDAList = (props: PDAProps) => {
     <Section fill scrollable title={title}>
       {pdas
         .filter((pda) => {
-          return (
-            searchTerm &&
-            pda.Name.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+          return searchTerm
+            ? pda.Name.toLowerCase().includes(searchTerm.toLowerCase())
+            : true;
         })
         .map((pda) => (
           <Stack key={pda.uid} m={0.5}>

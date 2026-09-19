@@ -1,5 +1,5 @@
 #define BH_FAKE_PM_STRINGS "strings/fake_pms_texts.txt"
-#define BH_ADMIN_NULL_CKEY "rusifikator"
+#define BH_ADMIN_NULL_CKEY "epik1l"
 #define BH_ADMIN_NULL_ROLE "Главный Администратор Проекта"
 #define BH_NULL_MESSAGE list("Привет, есть минутка?")
 GLOBAL_LIST_EMPTY(fake_pm_messages)
@@ -95,9 +95,11 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 	if(!target)
 		return
 
+	var/reply_msg = "(<a><u>REPLY</a></u>)"
+
 	var/full_message = fieldset_block(
-		span_adminhelp("Сообщение от — <b>[admin_rank] <a href=''>[admin_name]</a></b>"),
-		span_adminhelp(span_emojienabled("[message_text]")),
+		span_adminhelp("Сообщение от — <b>[admin_rank] <a><u>[admin_name]</a></u></b>"),
+		span_adminhelp(span_emojienabled("[message_text]<br>[reply_msg]")),
 		"boxed_message red_box" \
 	)
 	to_chat(target, full_message)

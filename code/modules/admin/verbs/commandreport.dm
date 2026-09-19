@@ -1,0 +1,193 @@
+/// The default command report announcement sound.
+#define DEFAULT_ANNOUNCEMENT_SOUND "default_announcement"
+
+/// Preset central command names to chose from for centcom reports.
+#define CENTCOM_PRESET "Центральное командование"
+#define SYNDICATE_PRESET "\"Синдикат\""
+#define WIZARD_PRESET "Федерация Космических Волшебников"
+#define SPIDER_CLAN_PRESET "Клан Паука"
+#define CUSTOM_PRESET "Custom Command Name"
+#define CUSTOM_SOUND_PRESET "Custom Sound"
+
+ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
+	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
+	if(!input)
+		return
+	change_command_name(input)
+	log_and_message_admins("has changed Central Command's name to [input]")
+
+/// Verb to open the create command report window and send command reports.
+ADMIN_VERB(create_command_report, R_EVENT, "Create Command Report", "Create a command report to be sent to the station.", ADMIN_CATEGORY_EVENTS)
+	BLACKBOX_LOG_ADMIN_VERB("Create Command Report")
+	var/datum/command_report_menu/tgui = new(user.mob)
+	tgui.ui_interact(user.mob)
+
+/// Datum for holding the TGUI window for command reports.
+/datum/command_report_menu
+	/// The mob using the UI.
+	var/mob/ui_user
+	/// The name of central command that will accompany our report
+	var/command_name = CENTCOM_PRESET
+	/// Whether we are using a custom name instead of a preset.
+	var/custom_name
+	/// The actual contents of the report we're going to send.
+	var/command_report_content
+	/// Whether the report's contents are announced.
+	var/announce_contents = TRUE
+	/// Whether a copy of the report is printed at every console.
+	var/print_report = TRUE
+	/// The sound that's going to accompany our message.
+	var/played_sound = DEFAULT_ANNOUNCEMENT_SOUND
+	/// The colour of the announcement when sent
+	var/announcement_color = "default"
+	/// The subheader to include when sending the announcement. Keep blank to not include a subheader
+	var/subheader = ""
+	/// A static list of preset names that can be chosen.
+	var/list/preset_names = list(CENTCOM_PRESET, SYNDICATE_PRESET, WIZARD_PRESET, SPIDER_CLAN_PRESET, CUSTOM_PRESET)
+
+	var/static/list_
+
+/datum/command_report_menu/New(mob/user)
+	ui_user = user
+	if(command_name() != CENTCOM_PRESET)
+		command_name = command_name()
+		preset_names.Insert(1, command_name())
+
+/datum/command_report_menu/ui_state(mob/user)
+	return ADMIN_STATE(R_ADMIN)
+
+/datum/command_report_menu/ui_close()
+	qdel(src)
+
+/datum/command_report_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "CommandReport")
+		ui.open()
+
+/datum/command_report_menu/ui_data(mob/user)
+	var/list/data = list()
+	data["command_name"] = command_name
+	data["custom_name"] = custom_name
+	data["command_report_content"] = command_report_content
+	data["announce_contents"] = announce_contents
+	data["print_report"] = print_report
+	data["played_sound"] = played_sound
+	data["announcement_color"] = announcement_color
+	data["subheader"] = subheader
+
+	return data
+
+/datum/command_report_menu/ui_static_data(mob/user)
+	var/list/data = list()
+	data["command_name_presets"] = preset_names
+	data["announcer_sounds"] = list(DEFAULT_ANNOUNCEMENT_SOUND) + GLOB.announcer_keys + CUSTOM_SOUND_PRESET
+	data["announcement_colors"] = ANNOUNCEMENT_COLORS
+
+	return data
+
+/datum/command_report_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("update_command_name")
+			if(params["updated_name"] == CUSTOM_PRESET)
+				custom_name = TRUE
+			else if(params["updated_name"] in preset_names)
+				custom_name = FALSE
+
+			command_name = params["updated_name"]
+
+		if("set_report_sound")
+			if(params["picked_sound"] == CUSTOM_SOUND_PRESET)
+				played_sound = DEFAULT_ANNOUNCEMENT_SOUND // fallback by default
+				var/sound_file = input(ui_user, "Select sound file", "Upload sound") as sound|null
+				if(!sound_file)
+					tgui_alert(ui_user, "The custom sound could not be loaded. The standard sound will be played.", "Loading error", list("Ok"))
+					return
+
+				if(!IS_SOUND_FILE(sound_file))
+					tgui_alert(ui_user, "Invalid file type. Please select a sound file.", "Loading error", list("Ok"))
+					return
+
+				played_sound = sound_file
+			else
+				played_sound = params["picked_sound"]
+
+		if("toggle_announce")
+			announce_contents = !announce_contents
+
+		if("toggle_printing")
+			print_report = !print_report
+
+		if("update_announcement_color")
+			var/colors = ANNOUNCEMENT_COLORS
+			var/chosen_color = params["updated_announcement_color"]
+			if(chosen_color in colors)
+				announcement_color = chosen_color
+
+		if("set_subheader")
+			subheader = params["new_subheader"]
+
+		if("submit_report")
+			if(!command_name)
+				to_chat(ui_user, span_danger("You can't send a report with no command name."))
+				return
+			if(!params["report"])
+				to_chat(ui_user, span_danger("You can't send a report with no contents."))
+				return
+			command_report_content = params["report"]
+			send_announcement()
+
+	return TRUE
+
+/*
+ * The actual proc that sends the priority announcement and reports
+ *
+ * Uses the variables set by the user on our datum as the arguments for the report.
+ */
+/datum/command_report_menu/proc/send_announcement()
+	var/list/default_subheaders = list(
+		CENTCOM_PRESET = "сообщение \"Нанотрейзен\".",
+		SYNDICATE_PRESET = "сообщение \"Синдиката\".",
+		WIZARD_PRESET = "сообщение Федерации Космических Волшебников",
+		SPIDER_CLAN_PRESET = "сообщение Клана Паука.",
+	)
+	/// The sound we're going to play on report.
+	var/report_sound = played_sound
+	if(played_sound == DEFAULT_ANNOUNCEMENT_SOUND)
+		report_sound = SSstation.announcer.get_rand_report_sound()
+
+	if(announce_contents)
+		var/chosen_color = announcement_color
+		if(chosen_color == "default")
+			if(command_name == SYNDICATE_PRESET)
+				chosen_color = "crimson"
+			else if(command_name == WIZARD_PRESET)
+				chosen_color = "purple"
+			else if(command_name == SPIDER_CLAN_PRESET)
+				chosen_color = "cyan"
+		GLOB.major_announcement.announce(command_report_content, command_name, new_subtitle = (subheader == ""? capitalize(default_subheaders[command_name]) : subheader), new_sound = report_sound, color_override = chosen_color)
+
+	if(!announce_contents || print_report)
+		if(!announce_contents)
+			radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
+		print_command_report(command_report_content, "[announce_contents ? capitalize(default_subheaders[command_name]) : "Засекреченное [default_subheaders[command_name]]"]")
+
+	log_admin("[key_name(ui_user)] has created a command report: \"[command_report_content]\", sent from \"[command_name]\" with the sound \"[played_sound]\".")
+
+	message_admins("[key_name_admin(ui_user)] has created a command report, sent from \"[command_name]\" with the sound \"[played_sound]\"")
+	if(!announce_contents)
+		message_admins("The message was: [command_report_content]")
+
+
+#undef DEFAULT_ANNOUNCEMENT_SOUND
+
+#undef CENTCOM_PRESET
+#undef SYNDICATE_PRESET
+#undef WIZARD_PRESET
+#undef SPIDER_CLAN_PRESET
+#undef CUSTOM_PRESET
+#undef CUSTOM_SOUND_PRESET

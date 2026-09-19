@@ -14,7 +14,6 @@
 /datum/centcom_announcer/proc/get_rand_welcome_sound()
 	return pick(welcome_sounds)
 
-
 /datum/centcom_announcer/proc/get_rand_alert_sound()
 	return pick(alert_sounds)
 

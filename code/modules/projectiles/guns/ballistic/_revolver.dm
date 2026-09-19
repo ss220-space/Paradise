@@ -2,9 +2,11 @@
  * Located in it's own file because we have revolver-like weapons which are not revolvers (like grenade launchers)
  */
 
+//TODO: make it a proper base revolver class
 /obj/item/gun/projectile/revolver
 	name = ".357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Классический револьвер с барабаном на 6 патронов."
+	gender = MALE
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
@@ -20,10 +22,38 @@
 	var/show_live_rounds = TRUE
 	var/can_spin_cylinder = TRUE
 
+/obj/item/gun/projectile/revolver/get_ru_names()
+	return alist(
+		NOMINATIVE = "револьвер .357 Magnum",
+		GENITIVE = "револьвера .357 Magnum",
+		DATIVE = "револьверу .357 Magnum",
+		ACCUSATIVE = "револьвер .357 Magnum",
+		INSTRUMENTAL = "револьвером .357 Magnum",
+		PREPOSITIONAL = "револьвере .357 Magnum",
+	)
+
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		can_spin_cylinder = FALSE
+
+/obj/item/gun/projectile/revolver/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	var/obj/item/ammo_casing/incoming_ammo
+	if(isammocasing(held_item))
+		incoming_ammo = held_item
+	else if(isspeedloader(held_item))
+		var/obj/item/ammo_box/speedloader/speedloader = held_item
+		incoming_ammo = speedloader.get_round(TRUE)
+	else
+		return
+
+	if(!incoming_ammo || !magazine.ammo_suitability(incoming_ammo))
+		return
+
+	context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/projectile/revolver/set_gun_user(mob/user)
 	verbs -= /obj/item/gun/projectile/revolver/proc/spin
@@ -76,7 +106,7 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 	return
 
-GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Вращать барабан", VERB_CATEGORY_HIDDEN)
+GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернуть барабан", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -86,7 +116,10 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Вращать ба
 		C.spin()
 		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
-		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
+		usr.visible_message(
+			span_notice("[usr] враща[PLUR_ET_YUT(usr)] барабан [declent_ru(GENITIVE)]."),
+			span_notice("Вы вращаете барабан [declent_ru(GENITIVE)].")
+		)
 	else if(can_spin_cylinder && gun_user)
 		verbs -= /obj/item/gun/projectile/revolver/proc/spin
 

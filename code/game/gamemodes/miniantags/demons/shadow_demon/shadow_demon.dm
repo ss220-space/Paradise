@@ -28,14 +28,12 @@
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/crawl = new
-	AddSpell(crawl)
+	AddSpell(new /datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		crawl.phased = TRUE
+	if(istype(loc, /obj/effect/dummy/phased_mob/blood))
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
 	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay", src))
@@ -43,7 +41,7 @@
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
 	var/lum_count = check_darkness()
-	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
+	var/damage_mod = istype(loc, /obj/effect/dummy/phased_mob/blood) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(30 * damage_mod) // 20 seconds in light and you are done
 		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
@@ -188,23 +186,6 @@
 		return
 	..()
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple
-	name = "Теневой захват"
-	desc = "Выстрелите одной из своих рук. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
-	action_background_icon_state = "shadow_demon_bg"
-	action_icon_state = "shadow_grapple"
-	invocation_type = "none"
-	invocation = null
-	sound = null
-	need_active_overlay = TRUE
-	selection_activated_message = span_notice_alt("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
-	selection_deactivated_message = span_notice_alt("Вы поглощаете энергию обратно... пока что.")
-	base_cooldown = 10 SECONDS
-	fireball_type = /obj/projectile/magic/shadow_hand
-
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
-	return
-
 /obj/item/organ/internal/heart/demon/shadow
 	name = "heart of darkness"
 	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."
@@ -227,10 +208,10 @@
 
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	M.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M?.mind?.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	M.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	. = ..()
 
 /mob/living/simple_animal/demon/shadow/attempt_objectives()

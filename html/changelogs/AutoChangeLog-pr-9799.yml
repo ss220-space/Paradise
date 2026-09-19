@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Термалы генокрада удаляются после реадаптации. (PR #9799)"
