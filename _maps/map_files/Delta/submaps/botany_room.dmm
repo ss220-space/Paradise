@@ -131,7 +131,6 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/table/wood,
-/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "fO" = (
@@ -953,7 +952,6 @@
 	},
 /obj/machinery/alarm/directional/south,
 /obj/structure/table/wood,
-/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ul" = (
