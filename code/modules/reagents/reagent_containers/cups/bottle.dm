@@ -12,7 +12,7 @@
 	materials = list(MAT_GLASS = 1000)
 	custom_price = PAYCHECK_MIN * 0.6
 	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
-	isGlass = TRUE
+	is_glass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/get_ru_names()
 	return alist(
@@ -1373,7 +1373,7 @@
 			user.balloon_alert(user, "контейнер полон!")
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/transfer_amount = reagents.trans_to(attacking_item, amount_per_transfer_from_this)
-		balloon_alert(user, "перемещено [transfer_amount] единиц[declension_ru(transfer_amount, "а", "ы", "")] вещества")
+		balloon_alert(user, "перемещено [transfer_amount] единиц[DECL_A_Y_0(transfer_amount)] вещества")
 		flick("syrup_anim", src)
 
 	attacking_item.update_icon()
