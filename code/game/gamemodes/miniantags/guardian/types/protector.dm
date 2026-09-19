@@ -97,11 +97,10 @@
 /obj/effect/forcefield/wizard/guardian
 	desc = "Непробиваемый барьер неизвестной сущности."
 	icon_state = "at_shield2"
-	lifetime = 15 SECONDS
+	initial_duration = 15 SECONDS
 
 /obj/effect/forcefield/wizard/guardian/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	var/mob/living/simple_animal/hostile/guardian/guardian = wizard
+	var/mob/living/simple_animal/hostile/guardian/guardian = mover
 	if(istype(guardian) && mover == guardian.summoner)
 		return TRUE
-
