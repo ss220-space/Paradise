@@ -25,7 +25,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/living = hit_atom
 		var/datum/reagents/reagents_list = new (50)
-		reagents_list.add_reagent("facid", 40)
+		reagents_list.add_reagent(/datum/reagent/acid/facid, 40)
 		living.visible_message(span_danger("Кислотный пузырек разрывается при попадании на [living], разбрызгивая кислоту по [GEND_HIS_HER(living)] телу!"))
 		reagents_list.reaction(living, REAGENT_TOUCH)
 		reagents_list.clear_reagents()
@@ -35,7 +35,7 @@
 		wall_target.rot()
 	else
 		var/datum/reagents/reagents_list = new (100)
-		reagents_list.add_reagent("facid", 80)
+		reagents_list.add_reagent(/datum/reagent/acid/facid, 80)
 		reagents_list.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 

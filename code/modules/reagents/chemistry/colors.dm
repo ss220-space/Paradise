@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(random_color_list, list("#00aedb","#a200ff","#f47835","#d41243"
 	var/vol_temp
 	// see libs/IconProcs/IconProcs.dm
 	for(var/datum/reagent/reagent in reagent_list)
-		if(reagent.id == "blood" && reagent.data && reagent.data["blood_color"])
+		if(reagent == /datum/reagent/blood && reagent.data && reagent.data["blood_color"])
 			reagent_color = reagent.data["blood_color"]
 		else
 			reagent_color = reagent.color

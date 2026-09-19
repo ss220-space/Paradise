@@ -6,7 +6,7 @@
 	visibility_flags = HIDDEN_HUD
 	spread_flags = AIRBORNE
 	cure_text = "Железо для живых, нанопаста для роботов"
-	cures = list("iron")
+	cures = list(/datum/reagent/iron)
 	infectable_mobtypes = list(/mob/living/carbon/human, /mob/living/silicon/robot, /mob/living/simple_animal/pet/dog/corgi/borgi)
 	ignore_immunity = TRUE
 	permeability_mod = 0.75

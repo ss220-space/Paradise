@@ -315,7 +315,7 @@
 		else
 			owner.visible_message(span_notice("Душа [owner] поглощается посохом, освобождая предыдущую змею от её обязанностей."))
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
-			var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
+			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/perfluorodecalin, /datum/reagent/medicine/kelotane)
 			healSnake.poison_type = pick(chems)
 			healSnake.name = "Asclepius's Snake"
 			healSnake.real_name = "Asclepius's Snake"
@@ -593,7 +593,7 @@
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
 		if(!reagent.harmless)
-			owner.reagents.remove_reagent(reagent.id, 2)
+			owner.reagents.remove_reagent(reagent.type, 2)
 
 /datum/status_effect/terror/regeneration
 	id = "terror_regen"

@@ -10,7 +10,7 @@
 	name = "Example"
 	description = "This is an example."
 	ingredients = list(thing_1, thing_2, thing_3)
-	result = "water"
+	result = /datum/reagent/water
 
 The ingredients list must have 3 non-null entries.
 Failing to ensure the list has EXACTLY 3 entries (unless the system is updated in the future to use a different number) will result in runtimes.
@@ -25,7 +25,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/banana,
 		/obj/item/reagent_containers/food/snacks/grown/cherries,
 	)
-	result = "paradise_punch"
+	result = /datum/reagent/consumable/drink/paradise_punch
 
 /datum/bottler_recipe/Applepocalypse
 	name = "Apple-pocalypse"
@@ -45,7 +45,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/berries/poison,
 		/obj/item/reagent_containers/food/snacks/grown/berries/poison,
 	)
-	result = "berry_banned2"
+	result = /datum/reagent/consumable/drink/berry_banned2
 
 /datum/bottler_recipe/Berry_Banned
 	name = "Berry Banned"
@@ -55,7 +55,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/berries,
 		/obj/item/reagent_containers/food/snacks/grown/berries,
 	)
-	result = "berry_banned"
+	result = /datum/reagent/consumable/drink/apple_pocalypse
 
 /datum/bottler_recipe/Blackeye_Brew
 	name = "Blackeye Brew"
@@ -65,7 +65,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/sugarcane,
 		/obj/item/reagent_containers/food/snacks/icecream,
 	)
-	result = "blackeye_brew"
+	result = /datum/reagent/consumable/drink/blackeye_brew
 
 /datum/bottler_recipe/Grape_Granade
 	name = "Grape Granade"
@@ -75,7 +75,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/grapes,
 		/obj/item/flash,
 	)
-	result = "grape_granade"
+	result = /datum/reagent/consumable/drink/grape_granade
 
 /datum/bottler_recipe/Meteor_Malt
 	name = "Meteor Malt"
@@ -85,7 +85,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/wheat,
 		/obj/item/stack/ore,
 	)
-	result = "meteor_malt"
+	result = /datum/reagent/consumable/drink/meteor_malt
 
 /datum/bottler_recipe/moonlight_skuma
 	name = "Moon'drin"
@@ -95,4 +95,4 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 		/obj/item/reagent_containers/food/snacks/grown/moonlight,
 		/obj/item/reagent_containers/food/snacks/grown/moonlight,
 	)
-	result = "moonlight_skuma"
+	result = /datum/reagent/consumable/ethanol/moonlight_skuma

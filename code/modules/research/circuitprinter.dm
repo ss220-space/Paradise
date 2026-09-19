@@ -97,7 +97,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/A = materials.amount(M)
 	if(!A)
-		A = reagents.get_reagent_amount(M)
+		A = reagents.get_reagent_amount_by_id(M)
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 

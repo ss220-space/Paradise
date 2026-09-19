@@ -394,7 +394,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	amount_per_transfer_from_this = 25
 	has_variable_transfer_amount = FALSE
-	list_reagents = list("thermite" = 25)
+	list_reagents = list(/datum/reagent/thermite = 25)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite/get_ru_names()
 	return alist(
@@ -449,19 +449,19 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	)
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
-	list_reagents = list("cryoxadone" = 30)
+	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
 /obj/item/reagent_containers/cup/beaker/sacid
-	list_reagents = list("sacid" = 50)
+	list_reagents = list(/datum/reagent/acid = 50)
 
 /obj/item/reagent_containers/cup/beaker/slimejelly
-	list_reagents = list("slimejelly" = 50)
+	list_reagents = list(/datum/reagent/slimejelly = 50)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth
-	list_reagents = list("methamphetamine" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10)
 
 /obj/item/reagent_containers/cup/beaker/laughter
-	list_reagents = list("laughter" = 50)
+	list_reagents = list(/datum/reagent/consumable/laughter = 50)
 
 // MARK: Water bottle
 /obj/item/reagent_containers/cup/beaker/waterbottle
@@ -687,7 +687,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	var/mutable_appearance/bowl_nc_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "nc_petbowl", appearance_flags = RESET_COLOR)
 	. += bowl_nc_mask
 	if(reagents.total_volume)
-		var/datum/reagent/feed = reagents.has_reagent("afeed")
+		var/datum/reagent/feed = reagents.has_reagent(/datum/reagent/consumable/animal_feed)
 		if(feed && (feed.volume >= (reagents.total_volume - feed.volume)))
 			var/image/feed_overlay = image(icon = 'icons/obj/pet_bowl.dmi', icon_state = "petfood_5", layer = FLOAT_LAYER)
 			feed_overlay.appearance_flags = RESET_COLOR
@@ -705,9 +705,9 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 /obj/item/reagent_containers/cup/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
 		return ..()
-	if(reagents.has_reagent("afeed", 1))
+	if(reagents.has_reagent(/datum/reagent/consumable/animal_feed, 1))
 		pet.heal_organ_damage(5, 5)
-		reagents.remove_reagent("afeed", 1)
+		reagents.remove_reagent(/datum/reagent/consumable/animal_feed, 1)
 		playsound(pet.loc, 'sound/items/eatfood.ogg', rand(10, 30), TRUE)
 	else
 		reagents.remove_any(1)
