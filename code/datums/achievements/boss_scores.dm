@@ -38,11 +38,6 @@
 	desc = "КАК много вы убили?"
 	database_id = LEGION_SCORE
 
-/datum/award/score/swarmer_beacon_score
-	name = "Разрушено Маяков Свармеров"
-	desc = "КАК много вы убили?"
-	database_id = SWARMER_BEACON_SCORE
-
 /datum/award/score/ancient_robot_score
 	name = "Убито Древних Роботов"
 	desc = "КАК много вы убили?"
