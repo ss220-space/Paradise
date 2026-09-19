@@ -414,6 +414,8 @@
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
 
+/// If a mob is grasped with force grab
+#define TRAIT_FORCE_GRASPED "force_grasped"
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
