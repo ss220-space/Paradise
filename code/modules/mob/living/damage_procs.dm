@@ -721,20 +721,26 @@
 		if(old_stamloss != 0)
 			updatehealth("adjustStaminaLoss")
 		return STATUS_UPDATE_NONE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, STAMINA, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, STAMINA, used_weapon = used_weapon)
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
-	var/old_stamloss = getStaminaLoss()
+
+	var/old_amount = getStaminaLoss()
 	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
-	if(old_stamloss == getStaminaLoss())
-		updating_health = FALSE
+	var/delta = old_amount - staminaloss
+	if(delta <= 0)
+		// need to check for stamcrit AFTER canadjust but BEFORE early return here
+		received_stamina_damage(staminaloss, -1 * delta)
+	if(delta == 0) // no change, no need to update
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
-	if(amount > 0)
-		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
 		updatehealth("adjustStaminaLoss")
 
@@ -754,17 +760,22 @@
 		if(old_stamloss != 0)
 			updatehealth("setStaminaLoss")
 		return STATUS_UPDATE_NONE
-	var/old_stamloss = getStaminaLoss()
+
+	var/old_amount = getStaminaLoss()
 	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
-	if(old_stamloss == getStaminaLoss())
+	var/delta = old_amount - staminaloss
+	if(delta <= 0 && amount >= DAMAGE_PRECISION)
+		received_stamina_damage(staminaloss, -1 * delta, amount)
+
+	if(delta == 0) // no change, no need to update
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
-	if(amount > 0)
-		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
+
 	if(updating_health)
 		updatehealth("setStaminaLoss")
+	return delta
 
 /// Returns the maximum stamina of the mob with bonuses affecting it
 /mob/living/proc/get_max_stamina()
@@ -786,6 +797,15 @@
 /mob/living/proc/setMaxHealth(newMaxHealth)
 	. = maxHealth
 	maxHealth = newMaxHealth
+
+/// The mob has received stamina damage
+///
+/// - current_level: The mob's current stamina damage amount (to save unnecessary getStaminaLoss() calls)
+/// - amount_actual: The amount of stamina damage received, in actuality
+/// For example, if you are taking 50 stamina damage but are at 90, you would actually only receive 30 stamina damage (due to the cap)
+/// - amount: The amount of stamina damage received, raw
+/mob/living/proc/received_stamina_damage(current_level, amount_actual, amount)
+	addtimer(CALLBACK(src, PROC_REF(setStaminaLoss), 0, TRUE, TRUE), stamina_regen_time, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /**
  * Heals ONE external organ, organ gets randomly selected from damagable ones.
