@@ -586,7 +586,7 @@
 	alert_type = null
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
-	owner.heal_damages(tox = 10, brain = 5)
+	owner.heal_damages(tox = 30, brain = 5)
 	owner.AdjustDrunk(-12 SECONDS)
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 5)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
