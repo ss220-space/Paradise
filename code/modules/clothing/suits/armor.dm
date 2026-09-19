@@ -11,6 +11,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flashlight/seclite,
 		/obj/item/kitchen/knife/combat,
+		/obj/item/twohanded/sechammer,
 	)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
@@ -199,9 +200,21 @@
 	name = "security belt-shoulder system"
 	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
 	icon_state = "sec_rps"
-	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	undyeable = TRUE
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed = list(
+		/obj/item/twohanded/spear/secspear,
+		/obj/item/gun/energy,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/gun/projectile,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight/seclite,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/twohanded/sechammer,
+	)
 	pockets_count = 4
 	pockets_max_combined_w_class = 8
 
