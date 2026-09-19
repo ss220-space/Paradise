@@ -7,7 +7,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
-	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD | RICOCHET_SPECIAL
 	var/list/ui_users = list()
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
