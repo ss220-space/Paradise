@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Исправлено сердце Ратвара (PR #9810)"
