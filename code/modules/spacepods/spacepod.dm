@@ -181,16 +181,16 @@
 		to_chat(user, span_notice("Модуль [extracted_module.module_name] извлечен."))
 
 	if(!unlocked)
-		balloon_alert(user, "Замок закрыт")
+		balloon_alert(user, "замок закрыт")
 		return ..()
 
 	. = TRUE
 	if(hatch_opened)
 		hatch_opened = FALSE
-		balloon_alert(user, "Люк техобслуживания закрыт")
+		balloon_alert(user, "люк техобслуживания закрыт")
 	else
 		hatch_opened = TRUE
-		balloon_alert(user, "Люк техобслуживания открыт")
+		balloon_alert(user, "люк техобслуживания открыт")
 
 //MARK: attackby
 /obj/spacepod/attackby(obj/item/item, mob/living/user, list/modifiers)
@@ -271,9 +271,9 @@
 		return
 	unlocked = !unlocked
 	if(unlocked)
-		balloon_alert(user, "Замок открыт")
+		balloon_alert(user, "замок открыт")
 	else
-		balloon_alert(user, "Замок закрыт")
+		balloon_alert(user, "замок закрыт")
 
 
 //MARK: Attack hand

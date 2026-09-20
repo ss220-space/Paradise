@@ -200,7 +200,6 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 	return round(cell.maxcharge / shot.e_cost, 1)
 
 
-
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
 		return
