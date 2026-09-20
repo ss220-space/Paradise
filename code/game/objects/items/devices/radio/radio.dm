@@ -916,7 +916,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/mob/living/silicon/robot/robot = loc
 	if(!istype(robot))
 		return
-	return robot?.radio?.channels | keyslot?.channels
+	return robot.radio?.channels | keyslot?.channels
 
 /obj/item/radio/borg/make_broken()
 	name = "broken radio"

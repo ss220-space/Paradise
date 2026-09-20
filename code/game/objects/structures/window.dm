@@ -418,6 +418,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		playsound(src, breaksound, 70, TRUE)
 		if(!(obj_flags & NODECONSTRUCT))
 			for(var/obj/item/shard/debris in spawn_debris(drop_location()))
+				debris.color = color
 				transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
 	update_nearby_icons()
@@ -505,6 +506,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
 		var/obj/item/item = new shardtype(loc)
+		item.color = color
 		item.embedded_ignore_throwspeed_threshold = TRUE
 		item.throw_impact(throwned_mob)
 		item.embedded_ignore_throwspeed_threshold = FALSE
