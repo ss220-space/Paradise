@@ -69,6 +69,15 @@
 	callback_fire = null
 	callback_reset_fire = null
 	callback_bursting = null
+	UnregisterSignal(parent, list(
+		COMSIG_GUN_TOGGLE_FIREMODE,
+		COMSIG_GUN_AUTOFIREDELAY_MODIFIED,
+		COMSIG_GUN_BURST_SHOTS_TO_FIRE_MODIFIED,
+		COMSIG_GUN_BURST_SHOT_DELAY_MODIFIED,
+		COMSIG_GUN_AUTO_BURST_SHOT_DELAY_MODIFIED,
+		COMSIG_GUN_FIRE,
+		COMSIG_GUN_STOP_FIRE)
+	)
 	return ..()
 
 ///Setter for fire mode

@@ -274,7 +274,7 @@ export function getReadablePlane(
   return (
     (Object.keys(planeToText).find(
       (x) => planeToText[x] === appearance.data.plane_true,
-    ) || appearance.data.plane_true.toString()) +
+    ) || appearance.data.plane_true?.toString()) +
     (appearance.data.plane !== -32767 ? ` (${appearance.data.plane})` : '')
   );
 }

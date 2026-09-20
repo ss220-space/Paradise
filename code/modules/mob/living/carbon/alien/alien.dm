@@ -323,7 +323,7 @@ Des: Removes all infected images from the alien.
 	if(!vessel)
 		return
 	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
-	for(var/datum/action/spell_action/action in actions)
+	for(var/datum/action/cooldown/spell/action in mob_spell_list)
 		action.UpdateButtonIcon()
 
 /**
@@ -332,7 +332,7 @@ Des: Removes all infected images from the alien.
  */
 /mob/living/carbon/proc/update_plasma_display(mob/owner, update_buttons = FALSE)
 	if(update_buttons)
-		for(var/datum/action/spell_action/action in actions)
+		for(var/datum/action/cooldown/spell/action in mob_spell_list)
 			action.UpdateButtonIcon()
 
 	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens

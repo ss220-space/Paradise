@@ -1,5 +1,6 @@
-// Basically it's both an ammo box and external magazine
+// MARK: Base Speedloader
 /obj/item/ammo_box/speedloader
+	abstract_type = /obj/item/ammo_box/speedloader
 	gender = MALE
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"
@@ -17,7 +18,7 @@
 /obj/item/ammo_box/speedloader/update_desc(updates = ALL)
 	. = ..()
 	desc = "Устройство для быстрой перезарядки [gun_name] калибра [caliber]. Вмещает вплоть до [max_ammo] \
-			боеприпас[declension_ru(max_ammo, "а", "ов", "ов")].[extra_info ? " " + extra_info : ""]"
+			боеприпас[DECL_A_OV_OV(max_ammo)].[extra_info ? " " + extra_info : ""]"
 
 // MARK: Revolvers
 /obj/item/ammo_box/speedloader/a357

@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(vote)
 	log_vote("vote finalized", vote_log_data)
 	if(to_display)
 		to_chat(world, span_infoplain(vote_font("[to_display]")))
-
+	message_admins("Vote winner:\n [final_winner_string]")
 	// Finally, doing any effects on vote completion
 	current_vote.finalize_vote(final_winner)
 
@@ -128,11 +128,8 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/submit_single_vote(mob/voter, their_vote)
 	if(!current_vote)
 		return
-	if(!voter?.ckey)
-		return
-	if((CONFIG_GET(flag/vote_no_dead) || current_vote.no_dead_vote) && voter.stat == DEAD && !check_rights(R_ADMIN, user = voter))
-		return
-	if(current_vote.no_offstation_vote && voter.mind && usr.mind.offstation_role && !check_rights(R_ADMIN,user = voter))
+
+	if(!can_vote(voter))
 		return
 
 	// If user has already voted, remove their specific vote
@@ -154,17 +151,11 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/submit_multi_vote(mob/voter, their_vote)
 	if(!current_vote)
 		return
-	if(!voter?.ckey)
+
+	if(!can_vote(voter))
 		return
 
-	if((CONFIG_GET(flag/vote_no_dead) || current_vote.no_dead_vote) && voter.stat == DEAD && !check_rights(R_ADMIN, user = voter))
-		return
-
-	if(current_vote.no_offstation_vote && voter.mind && usr.mind.offstation_role && !check_rights(R_ADMIN,user = voter))
-		return
-
-	else
-		voted += voter.ckey
+	voted += voter.ckey
 
 	if(current_vote.choices_by_ckey[voter.ckey + their_vote] == 1)
 		current_vote.choices_by_ckey[voter.ckey + their_vote] = 0
@@ -174,6 +165,17 @@ SUBSYSTEM_DEF(vote)
 		current_vote.choices_by_ckey[voter.ckey + their_vote] = 1
 		current_vote.choices[their_vote]++
 
+	return TRUE
+
+/datum/controller/subsystem/vote/proc/can_vote(mob/voter, datum/vote/vote = current_vote)
+	if(!voter?.ckey)
+		return FALSE
+
+	if((CONFIG_GET(flag/vote_no_dead) && !vote.allow_dead_vote) && voter.stat == DEAD && !check_rights(R_ADMIN, user = voter))
+		return FALSE
+
+	if(vote.no_offstation_vote && voter.mind && voter.mind.offstation_role && !check_rights(R_ADMIN, user = voter))
+		return FALSE
 	return TRUE
 
 /**
@@ -417,13 +419,16 @@ SUBSYSTEM_DEF(vote)
 			if(!istype(selected))
 				return
 
+			if(!can_vote(voter, selected))
+				return
+
 			// Whether the user actually can initiate this vote is checked in initiate_vote,
 			// meaning you can't spoof initiate a vote you're not supposed to be able to
 			return initiate_vote(
 				vote_type = selected,
 				vote_initiator_name = voter.key,
 				vote_initiator = voter,
-				forced = !!GLOB.admin_datums[voter.ckey],
+				forced = check_rights_for(voter.client, R_ADMIN),
 			)
 
 		if("voteSingle")

@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Поднять/Опустить у СБ масок снова работают. (PR #9805)"

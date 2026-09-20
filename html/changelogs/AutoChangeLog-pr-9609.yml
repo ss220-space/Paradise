@@ -1,0 +1,4 @@
+author: "Ksaikok46"
+delete-after: True
+changes:
+  - bugfix: "Исправлены множественные хардделы, возможны побочные эффекты. (PR #9609)"

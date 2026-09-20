@@ -500,7 +500,7 @@
 	if(!action_checks(target))
 		return FALSE
 	if(isobj(target))
-		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
+		if(!is_door(target))//early return if we're not trying to open a door
 			return FALSE
 		set_ready_state(FALSE)
 		var/obj/machinery/door/D = target	//the door we want to open

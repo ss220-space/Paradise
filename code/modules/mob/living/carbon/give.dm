@@ -281,7 +281,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 	return TRUE
 
 /mob/living/carbon/alert_timeout(atom/movable/screen/alert/alert, category)
-	if(istype(alert, /atom/movable/screen/alert/take_item))
+	if(!QDELETED(alert) && istype(alert, /atom/movable/screen/alert/take_item))
 		var/atom/movable/screen/alert/take_item/take_alert = alert
 		var/mob/living/giver = locateUID(take_alert.giver_UID)
 		var/obj/item/item = locateUID(take_alert.item_UID)

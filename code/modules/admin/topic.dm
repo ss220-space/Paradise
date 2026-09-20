@@ -319,7 +319,7 @@
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.announce(
-			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] минут[DECL_U_Y_0(time_to_destination)]."
 		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
@@ -1454,6 +1454,9 @@
 
 	else if(href_list["select_equip"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
+
+	else if(href_list["custom_equip"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/custom_equipment, locateUID(href_list["custom_equip"]))
 
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
@@ -3309,7 +3312,7 @@
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, sound(
-							ANNOUNCER_ANIMES,
+							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
 							channel = CHANNEL_ANNOUNCER,
 							volume = 40,
 							))
@@ -3469,7 +3472,7 @@
 			if("spawn_cargo_crate")
 				if(!you_realy_want_do_this())
 					return
-				create_cargo_crate()
+				SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/spawn_cargo)
 
 			if("borg_skins")
 				if(!check_rights(R_SKINS))
@@ -3975,19 +3978,18 @@
 /datum/admins/proc/mass_mindswap()
 	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
 		return
-
+	var/datum/action/cooldown/spell/pointed/mindswap/swap = new
 	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 		if(!human.mind)
 			continue
 
 		var/mob/living/target = safepick(GLOB.human_list - human)
-
 		if(!target \
-		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+		|| !swap.is_valid_target(target))
 			continue
-
-		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
-
+		swap.owner = human
+		swap.cast(target)
+	qdel(swap)
 	log_and_message_admins("Initiated mass mindswap")
 
 /datum/admins/proc/change_lava_type()
