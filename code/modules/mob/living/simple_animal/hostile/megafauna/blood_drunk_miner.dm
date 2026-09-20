@@ -77,6 +77,12 @@ Difficulty: Medium
 	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 	AddComponent(/datum/component/boss_music, 'sound/music/boss/bdm_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Destroy()
+	if(miner_saw.loc == src)
+		qdel(miner_saw)
+	miner_saw = null
+	return ..()
+
 /* New costume */
 
 /obj/item/clothing/suit/hooded/explorer/blood
@@ -287,7 +293,9 @@ Difficulty: Medium
 	if(!.)
 		return
 
+	var/obj/item/melee/energy/cleaving_saw/old_saw = miner_saw
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
+	qdel(old_saw)
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
 	projectiletype = /obj/projectile/kinetic/miner/enraged
@@ -296,7 +304,9 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/unrage()
 	. = ..()
+	var/obj/item/melee/energy/cleaving_saw/old_saw = miner_saw
 	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	qdel(old_saw)
 	dash_cooldown_to_use = initial(dash_cooldown_to_use)
 	ranged_cooldown_time = initial(ranged_cooldown_time)
 	projectiletype = initial(projectiletype)
