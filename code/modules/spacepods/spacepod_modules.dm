@@ -12,7 +12,7 @@
 	/// Current module integrity
 	var/integrity
 	/// Maximal module integrity
-	max_integrity = 100
+	max_integrity = 50
 	/// Hit chance weight
 	var/hit_weight = POD_MODULE_HIT_CHANCE_NORMAL
 	/// Mass of module on kg
@@ -106,7 +106,7 @@
 	module_name = "Топливный бак"
 	desc = "Стандартный топливный бак вместимостью 1000 литров. Обеспечивает челнок горючим для перелётов на средние расстояния."
 	icon_state = "fueltank"
-	max_integrity = 200
+	max_integrity = 75
 	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
 	fire_damage_mod = 2
 	fire_on_hit_chance = 25
@@ -131,7 +131,7 @@
 	module_name = "Большой топливный бак"
 	desc = "Увеличенный топливный бак вместимостью 2000 литров. Для дальних перелётов и тяжёлых челноков с высоким расходом топлива."
 	icon_state = "fueltank_large"
-	max_integrity = 300
+	max_integrity = 100
 	hit_weight = POD_MODULE_HIT_CHANCE_EXTRA_LARGE
 	mass = 250
 	fuel_capacity = 2000
@@ -164,7 +164,7 @@
 	module_name = "Аккумуляторная батарея"
 	desc = "Аккумулирует электроэнергию от генераторов и питает электросеть для бортовых систем челнока."
 	icon_state = "battery"
-	max_integrity = 200
+	max_integrity = 100
 	fire_on_hit_chance = 10
 	mass = 80
 	enable = TRUE
@@ -204,7 +204,7 @@
 	module_name = "Топливный насос"
 	desc = "Перекачивает топливо из бака к двигателю. Несколько насосов повышают пропускную способность и стабильность подачи."
 	icon_state = "fuel_pump"
-	max_integrity = 50
+	max_integrity = 20
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
 	fire_damage_mod = 5
 	fire_on_hit_chance = 20
@@ -271,7 +271,7 @@
 	icon_state = "engine"
 	caption = "ENG"
 	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
-	max_integrity = 300
+	max_integrity = 120
 	fire_damage_mod = 1
 	fire_on_hit_chance = 15
 	mass = 150
@@ -434,7 +434,7 @@
 	icon_state = "gyro"
 	caption = "GYRO"
 	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
-	max_integrity = 250
+	max_integrity = 70
 	consume_power = 50
 	mass = 100
 	/// Maximal rotations per minutes
@@ -479,7 +479,7 @@
 	icon_state = "weapon"
 	caption = "WPN"
 	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
-	max_integrity = 250
+	max_integrity = 100
 	consume_power = 5
 	mass = 250
 	var/only_course_fire = FALSE
@@ -608,7 +608,7 @@
 	module_name = "модуль брони"
 	icon_state = "armor"
 	hit_weight = POD_MODULE_HIT_CHANCE_EXTRA_LARGE
-	max_integrity = 100
+	max_integrity = 75
 	mass = 60
 
 /obj/item/spacepod_module/armor/install_to(mob/living/user, obj/spacepod/pod)
@@ -634,7 +634,7 @@
 	module_name = "Модуль тяжёлой брони"
 	desc = "Усиленная бронепластина с высоким сопротивлением урону. Значительно тяжелее лёгкой, но выдерживает прямые попадания."
 	icon_state = "armor_heavy"
-	max_integrity = 300
+	max_integrity = 150
 	mass = 150
 
 
@@ -646,7 +646,6 @@
 	desc = "Поддерживает пригодную для дыхания атмосферу и температуру в кабине шаттла."
 	icon_state = "life_support"
 	hit_weight = POD_MODULE_HIT_CHANCE_NORMAL
-	max_integrity = 100
 	mass = 40
 	consume_power = 50
 
