@@ -313,11 +313,11 @@
 
 /obj/spacepod/proc/remove_gun_from_systems(mob/user, obj/item/gun/selected_gun)
 	if(selected_gun == null)
-		balloon_alert(user, "вооружение не установлено.")
+		balloon_alert(user, "вооружение не установлено")
 		return
 	var/obj/item/gun/removed_gun = systems.weapon.remove_gun(selected_gun)
 	if(removed_gun == null)
-		balloon_alert(user, "вооружение не установлено.")
+		balloon_alert(user, "вооружение не установлено")
 		return
 	removed_gun.forceMove(src.loc)
 	balloon_alert(user, "оружие извлечено!")
@@ -502,7 +502,7 @@
 		balloon_alert(user, "нет места!")
 		return
 
-	visible_message(span_notice("[user] начина[[PLUR_ET_YUT(user)]] забираться в [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] забираться в [declent_ru(ACCUSATIVE)]."))
 	if(!do_after(user, POD_ENTER_DURATION, src))
 		balloon_alert(user, "посадка отменена")
 		return
