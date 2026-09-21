@@ -827,14 +827,16 @@
 	if(isswarmer(target))
 		return FALSE
 
+	if(!isliving(target))
+		return ..()
+
 	if(!ishuman(target))
 		var/mob/living/difficult_target = target
 		return difficult_target.apply_damage(damage, BURN, hit_zone, blocked)
 
-	. = ..()
-	if(.)
-		var/mob/living/living_target = target
-		living_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
+	var/mob/living/carbon/human/human_target = target
+	human_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
+	return ..()
 
 /// Used in small swarmer turrets, is shooted three times
 /obj/projectile/beam/disabler/swarmer/weak_turret

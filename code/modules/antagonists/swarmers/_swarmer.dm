@@ -184,7 +184,7 @@
 	if(isswarmer(target))
 		return
 
-	if(!ishuman(target))
+	if(isliving(target) && !ishuman(target))
 		var/mob/living/difficult_target = target
 		var/damage = rand(melee_damage_lower, melee_damage_upper)
 		difficult_target.apply_damage(damage, BURN, blocked = getarmor(null, MELEE))

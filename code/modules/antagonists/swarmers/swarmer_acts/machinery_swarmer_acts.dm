@@ -19,7 +19,7 @@
 /obj/machinery/r_n_d/server/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_LIVING
 
-/obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
+/obj/machinery/portable_atmospherics/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS
 
 /obj/machinery/tcomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
