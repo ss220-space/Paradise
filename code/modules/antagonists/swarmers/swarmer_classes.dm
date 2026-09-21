@@ -91,9 +91,9 @@
 	icon_living = "swarmer_rover"
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	health = 60
-	maxHealth = 60
-	speed = -1
+	health = 50
+	maxHealth = 50
+	speed = -0.25
 	swap_resource_cost = ROVER_SWAP_COST
 	can_swap_to = TRUE
 	pass_door_while_hidden = TRUE
@@ -144,8 +144,8 @@
 	icon_living = "swarmer_combat"
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	health = 220
-	maxHealth = 220
+	health = 175
+	maxHealth = 175
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
 	speed = 0.5
 	ranged = TRUE

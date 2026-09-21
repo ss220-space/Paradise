@@ -261,7 +261,7 @@
 	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 	check_for_distance = TRUE
-	distance_per_structure = 2
+	distance_per_structure = 3
 
 /datum/action/cooldown/swarmer/build/sniper_turret
 	name = "Создать снайперскую турель"
@@ -271,7 +271,7 @@
 	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 	check_for_distance = TRUE
-	distance_per_structure = 3
+	distance_per_structure = 4
 
 /datum/action/cooldown/swarmer/build/acp_turret
 	name = "Создать установку ACP"

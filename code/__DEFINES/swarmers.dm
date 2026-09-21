@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 #define SWARMER_SPAWN_VALUE 60
 /// How often based on organic resources do we spawn a mega-swarmer
 /// Ideally divisable by SWARMER_SPAWN_VALUE
-#define MEGA_SWARMER_SPAWN_VALUE 1800
+#define MEGA_SWARMER_SPAWN_VALUE 1500
 
 
 // MARK: Swarmer delays
@@ -67,12 +67,12 @@ GLOBAL_LIST_EMPTY(swarmers)
 #define SWARMER_NORMAL_BUILD_DELAY 5 SECONDS
 /// Biggest build delay
 #define SWARMER_SLOW_BUILD_DELAY 10 SECONDS
-/// How long does it take for a swarmer to teleport through hubs (Note: Rovers take twice less time)
+/// How long does it take for a swarmer to teleport through hubs
 #define SWARMER_TELEPORT_DELAY(swarmer) (is_roverswarmer(swarmer) ? 4 SECONDS : 8 SECONDS)
-/// How long does it take for swarmer to repair something (Builder swarmers take twice less time)
-#define SWARMER_REPAIR_DELAY(swarmer) (is_builderswarmer(swarmer) ? 0.5 SECONDS : 1 SECONDS)
-/// How much swarmer related stuff gets repaired by (Builder swarmer repair twice more)
-#define SWARMER_REPAIR_AMOUNT(swarmer) (is_builderswarmer(swarmer) ? 30 : 15)
+/// How long does it take for swarmer to repair something
+#define SWARMER_REPAIR_DELAY(swarmer) (is_builderswarmer(swarmer) ? 2 SECONDS : 5 SECONDS)
+/// How much swarmer related stuff gets repaired by
+#define SWARMER_REPAIR_AMOUNT(swarmer) (is_builderswarmer(swarmer) ? 25 : 15)
 /// How long does it take for a swarmer to send anything to a processer
 #define SWARMER_SEND_ORGANIC_DELAY 2 SECONDS
 /// How long does it take for a swarmer to send anything to an analyzer
@@ -81,16 +81,18 @@ GLOBAL_LIST_EMPTY(swarmers)
 
 // MARK: Ability costs
 /// How many metallic resources does it cost for swarmer to repair something
-#define SWARMER_REPAIR_COST 1
+#define SWARMER_REPAIR_COST(swarmer) (is_builderswarmer(swarmer) ? 2 : 4)
 
 
 // MARK: Swarmer weaknesses
 /// How much swarmers and swarmer structures get damaged on emp
-#define SWARMER_EMP_DAMAGE 15
+#define SWARMER_EMP_DAMAGE 25
 /// For how long do swarmer structures get disabled for on emp_act
 #define SWARMER_STRUCTURE_EMP_DURATION 10 SECONDS
 /// For how long swarmers get stunned on melee flash attack
 #define SWARMER_FLASH_ATTACK_STUN 4 SECONDS
+/// For how long swarmers get stunned on flashbangs
+#define SWARMER_FLASHBANG_STUN 2 SECONDS
 
 
 // MARK: Swarmer act return bitflags

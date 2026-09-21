@@ -820,17 +820,19 @@
 	var/staminaregen_block_duration = 1 SECONDS
 
 /**
- * Deals burn damage instead of stamina if the target is silicon or animal.
+ * Deals burn damage instead of stamina if the target is not human.
  * Applies stamina regenerate block on hit.
  */
 /obj/projectile/beam/disabler/swarmer/on_hit(atom/target, blocked, hit_zone)
 	if(isswarmer(target))
 		return FALSE
-	if(issilicon(target) || isanimal(target))
+
+	if(!ishuman(target))
 		var/mob/living/difficult_target = target
 		return difficult_target.apply_damage(damage, BURN, hit_zone, blocked)
+
 	. = ..()
-	if(. && isliving(target))
+	if(.)
 		var/mob/living/living_target = target
 		living_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
 

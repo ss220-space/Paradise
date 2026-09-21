@@ -8,6 +8,7 @@
 	desc = "Напишите баг-репорт, если увидили это."
 	health = 35
 	maxHealth = 35
+	status_flags = CANPUSH|CANWEAKEN
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_old"
 	icon_living = "swarmer_old"
@@ -37,6 +38,7 @@
 	move_force = MOVE_FORCE_DEFAULT
 	pull_force = PULL_FORCE_DEFAULT
 	pressure_resistance = 100
+	allows_unconscious = TRUE
 	/// Text used in core tgui and sent to client to tell about current class abilities
 	var/swarmer_class_info = "Напишите баг-репорт, если увидили это."
 	/// How much time does it take to dismantle a machine
@@ -108,7 +110,7 @@
 /mob/living/simple_animal/hostile/swarmer/proc/diag_hud_set_swarmerstat()
 	if(stat == DEAD)
 		set_hud_image_state(DIAG_STAT_HUD, "huddead2")
-	else if(IsStunned())
+	else if(stat == UNCONSCIOUS)
 		set_hud_image_state(DIAG_STAT_HUD, "hudoffline")
 	else
 		set_hud_image_state(DIAG_STAT_HUD, "hudstat")
@@ -167,22 +169,25 @@
 		return FALSE
 	return ..()
 
+/mob/living/simple_animal/hostile/swarmer/check_ear_prot()
+	return HEARING_PROTECTION_TOTAL
+
 /// Swarmer projectiles pass through swarmers
 /mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(is_swarmerprojectile(mover))
 		return TRUE
 
-/// Handles dealing actual damage to cyborgs and animals.
+/// Handles dealing actual damage to non humans.
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
 	. = ..()
 	if(isswarmer(target))
 		return
 
-	if(issilicon(target) || isanimal(target))
+	if(!ishuman(target))
 		var/mob/living/difficult_target = target
 		var/damage = rand(melee_damage_lower, melee_damage_upper)
-		difficult_target.apply_damage(damage, BURN)
+		difficult_target.apply_damage(damage, BURN, blocked = getarmor(null, MELEE))
 
 /**
  * Unarmed_Attack signal proc

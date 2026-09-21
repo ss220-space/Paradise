@@ -16,7 +16,7 @@
 	if(!do_after(user, SWARMER_REPAIR_DELAY(user), src, max_interact_count = 1))
 		return
 
-	if(!adjust_swarmer_metallic_resources(-SWARMER_REPAIR_COST))
+	if(!adjust_swarmer_metallic_resources(-SWARMER_REPAIR_COST(user)))
 		user.balloon_alert(user, "недостаточно ресурсов!")
 		return
 

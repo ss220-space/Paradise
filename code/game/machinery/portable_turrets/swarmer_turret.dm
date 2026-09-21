@@ -53,7 +53,7 @@
 	swarmer.balloon_alert_to_viewers("чинит...", "починка!")
 	if(!do_after(swarmer, SWARMER_REPAIR_DELAY(swarmer), src, max_interact_count = 1))
 		return
-	if(!adjust_swarmer_metallic_resources(-SWARMER_REPAIR_COST))
+	if(!adjust_swarmer_metallic_resources(-SWARMER_REPAIR_COST(swarmer)))
 		swarmer.balloon_alert(swarmer, "недостаточно ресурсов!")
 		return
 	repair_damage(SWARMER_REPAIR_AMOUNT(swarmer))

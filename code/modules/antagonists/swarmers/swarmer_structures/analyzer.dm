@@ -12,8 +12,8 @@
 /// How many metallic resources we get on removing a robotic organ on analyzing
 #define SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN 10
 
-/// How many bodyparts or organs we take on machine analyze finish
-#define SWARMER_ANALYZE_FINISH_MACHINE_TAKE 2
+/// How many bodyparts we take analyze finish
+#define SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX 1
 /// What is the chance to remove a bodypart or organ on non-machine analyze
 #define SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE 20
 
@@ -32,18 +32,26 @@
 	contents_thermal_insulation = 1
 	/// Current mob in src
 	var/mob/living/occupant
-	/// The list of weathers we protect the occupant from.
-	var/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE) // Does not protect against lava or the The Floor Is Lava spell.
 	/// The contents of the gas to be distributed to an occupant. Set in Initialize()
 	var/datum/gas_mixture/air_contents = null
 	/// Spark system (since we use them a lot)
 	var/datum/effect_system/spark_spread/spark_system
 	/// Active processing sound loop
 	var/datum/looping_sound/swarmer_analyzer/sound_loop
-	/// Organ removal chance for non-machine carbons
-	var/organ_removal_chance = SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE
-	/// How many bodyparts we take from machine carbons
-	var/machine_organ_take = SWARMER_ANALYZE_FINISH_MACHINE_TAKE
+	/// The list of weathers we protect the occupant from.
+	var/static/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+	/// List of organs we don't remove
+	var/static/list/organs_blacklist = typecacheof(list(
+		/obj/item/organ/internal/brain,
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/lungs,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/eyes,
+		// Separator
+		/obj/item/organ/external/groin,
+		/obj/item/organ/external/chest,
+		/obj/item/organ/external/head,
+	))
 
 /obj/structure/swarmer/organic_analyzer/Initialize(mapload)
 	. = ..()
@@ -158,66 +166,46 @@
 /**
  * Proc used to get rid of random bodyparts and organs
  *
- * Removes [machine_organ_take] bodyparts from machine carbons, removes
- * safe to remove organs and bodyparts from other carbons with a chance one by one.
- *
- * Adjusts metallic resources if there was
- * a robotic organ removed on non-machine analyze.
+ * Removes organs not included in organs_blacklist typecache list with a
+ * [SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE] chance, one by one.
+ * Has a limit for removed external bodyparts - [SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX].
  */
 /obj/structure/swarmer/organic_analyzer/proc/take_random_organs()
 	if(!ishuman(occupant))
 		return
+
+	var/external_bodyparts_taken = 0
 	var/mob/living/carbon/human/target = occupant
-	if(ismachineperson(target)) // Machine handling
-		var/removed_amount = 0
-		while(removed_amount < machine_organ_take)
-			var/obj/item/organ/external/bodypart = pick(target.bodyparts)
-			if(ischest(bodypart) || isgroin(bodypart))
+	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
+		// First, internal organs
+		var/list/organ_list = target.get_organs_zone(bodypart.limb_zone)
+		for(var/obj/item/organ/internal/organ as anything in organ_list)
+			if(is_type_in_typecache(organ, organs_blacklist))
 				continue
-			removed_amount += 1
-			var/atom/movable/thing = bodypart.remove(target)
+			if(!prob(SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE))
+				continue
+
+			if(organ.is_robotic())
+				adjust_swarmer_metallic_resources(SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN)
+			var/atom/movable/thing = organ.remove(target)
 			if(!QDELETED(thing))
 				qdel(thing)
-		target.UpdateAppearance()
-		return
-	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts) // Non machine handling
-		if(isgroin(bodypart)) // groin gets skipped
+
+		// Now, the external organ
+		if(external_bodyparts_taken >= SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX)
 			continue
-		if(ischest(bodypart)) // Liver, kidneys
-			var/list/organ_list = target.get_organs_zone(BODY_ZONE_CHEST)
-			for(var/obj/item/organ/internal/organ as anything in organ_list)
-				if(!istype(organ, /obj/item/organ/internal/liver) && !istype(organ, /obj/item/organ/internal/kidneys))
-					continue
-				if(!prob(organ_removal_chance))
-					continue
-				if(organ.is_robotic())
-					adjust_swarmer_metallic_resources(SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN)
-				var/atom/movable/thing = organ.remove(target)
-				if(!QDELETED(thing))
-					qdel(thing)
+		if(is_type_in_typecache(bodypart, organs_blacklist))
 			continue
-		if(ishead(bodypart)) // Eyes, ears
-			var/list/organ_list = target.get_organs_zone(BODY_ZONE_HEAD)
-			for(var/obj/item/organ/internal/organ as anything in organ_list)
-				if(!istype(organ, /obj/item/organ/internal/eyes) && !istype(organ, /obj/item/organ/internal/ears))
-					continue
-				if(!prob(organ_removal_chance))
-					continue
-				if(organ.is_robotic())
-					adjust_swarmer_metallic_resources(SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN)
-				var/atom/movable/thing = organ.remove(target)
-				if(!QDELETED(thing))
-					qdel(thing)
+		if(!prob(SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE))
 			continue
-		if(!prob(organ_removal_chance)) // / Arms, legs, tails, wings
-			continue
-		if(!bodypart.owner) // Trying to remove removed bodypart child, and thats bad
-			continue
+
+		external_bodyparts_taken++
 		if(bodypart.is_robotic())
 			adjust_swarmer_metallic_resources(SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN)
 		var/atom/movable/thing = bodypart.remove(target)
 		if(!QDELETED(thing))
 			qdel(thing)
+
 	target.UpdateAppearance()
 
 /// Proc used to get rid of the occupant (teleport it to a safe place)
@@ -269,5 +257,5 @@
 #undef SWARMER_ANALYZE_LIVING_GAIN
 #undef SWARMER_ANALYZE_MACHINE_GAIN
 #undef SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN
-#undef SWARMER_ANALYZE_FINISH_MACHINE_TAKE
+#undef SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX
 #undef SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE

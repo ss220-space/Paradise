@@ -721,13 +721,13 @@
 	. = ..()
 	if(traits_to_apply)
 		owner.add_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
-	if(needs_update_stat || issilicon(owner))
+	if(needs_update_stat || issilicon(owner) || isswarmer(owner))
 		owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
 	if(traits_to_apply)
 		owner.remove_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
-	if(needs_update_stat || issilicon(owner))
+	if(needs_update_stat || issilicon(owner) || isswarmer(owner))
 		owner.update_stat()
 	return ..()
 
@@ -744,7 +744,7 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
 
 /datum/status_effect/incapacitating/stun/on_apply()
-	if(issilicon(owner))
+	if(issilicon(owner) || isswarmer(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
 
@@ -772,7 +772,7 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
 
 /datum/status_effect/incapacitating/weakened/on_apply()
-	if(issilicon(owner))
+	if(issilicon(owner) || isswarmer(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
 

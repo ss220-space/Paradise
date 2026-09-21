@@ -108,7 +108,7 @@
 			continue
 
 		living_mob.adjustStaminaLoss(MAX_STAMINA_LOSS, forced = TRUE)
-		var/throw_direction = get_dir(living_mob, target_turf)
+		var/throw_direction = get_dir(target_turf, living_mob)
 		var/throw_target = get_edge_target_turf(pod, throw_direction)
 		living_mob.throw_at(throw_target, 5, 20)
 
