@@ -60,6 +60,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/deathmatch)
+"br" = (
+/obj/item/flag/nt,
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
 "bt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/research{
@@ -281,6 +288,13 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
+"gY" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/flask/gold,
+/obj/item/razor,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/royalblue,
+/area/deathmatch)
 "hq" = (
 /obj/machinery/pdapainter,
 /obj/machinery/light{
@@ -474,6 +488,23 @@
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/carpet,
 /area/deathmatch)
+"og" = (
+/obj/structure/table/wood,
+/obj/machinery/coffeemaker/impressa{
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel{
+	pixel_x = 6;
+	pixel_y = -10
+	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/deathmatch)
 "op" = (
 /obj/structure/bed/dogbed/ian,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
@@ -635,13 +666,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/deathmatch)
-"uP" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/flask/gold,
-/obj/item/razor,
-/obj/machinery/light,
-/turf/simulated/floor/carpet/royalblue,
-/area/deathmatch)
 "uR" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
@@ -744,13 +768,6 @@
 "yv" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/deathmatch)
-"yy" = (
-/obj/item/flag/nt,
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = -28
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/deathmatch)
@@ -923,11 +940,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/deathmatch)
-"Fr" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/whiskey,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "FC" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/coffeepack{
@@ -1085,23 +1097,6 @@
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/deathmatch)
-"MA" = (
-/obj/structure/table/wood,
-/obj/machinery/coffeemaker/impressa{
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel{
-	pixel_x = 6;
-	pixel_y = -10
-	},
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur{
-	pixel_x = -7;
-	pixel_y = -10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
 	},
 /area/deathmatch)
 "MF" = (
@@ -1387,6 +1382,11 @@
 /obj/machinery/vending/cart,
 /turf/simulated/floor/wood/fancy/light,
 /area/deathmatch)
+"WP" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/turf/simulated/floor/carpet,
+/area/deathmatch)
 "Xf" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1493,7 +1493,7 @@ gA
 MF
 op
 uE
-yy
+br
 gA
 Zn
 Zn
@@ -1820,7 +1820,7 @@ Om
 pr
 pr
 pr
-MA
+og
 FC
 Wf
 hT
@@ -1911,7 +1911,7 @@ gA
 ws
 TC
 wz
-Fr
+WP
 dV
 hL
 ge
@@ -2245,7 +2245,7 @@ uE
 uE
 tS
 gw
-uP
+gY
 gA
 "}
 (28,1,1) = {"
