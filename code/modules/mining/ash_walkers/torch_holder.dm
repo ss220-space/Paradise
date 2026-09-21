@@ -270,8 +270,8 @@
 	fuel = INFINITY
 
 /obj/structure/torch_holder/built/Initialize(mapload)
+	. = ..()
 	status = TORCH_EMPTY
-	..()
 
 /obj/structure/torch_holder/extinguish_light(force = FALSE)
 	if(force)

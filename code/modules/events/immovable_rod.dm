@@ -300,6 +300,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	target = target_atom
 	return ..()
 
+/obj/effect/immovablerod/smite/Destroy(force)
+	QDEL_NULL(exit)
+	end = null
+	target = null
+	return ..()
+
 /obj/effect/immovablerod/smite/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 

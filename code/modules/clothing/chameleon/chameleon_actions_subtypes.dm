@@ -24,7 +24,7 @@
 /datum/action/item_action/chameleon/change/pda/update_look(obj/item/picked_item)
 	. = ..()
 	var/obj/item/pda/agent_pda = target
-	var/obj/item/card/id/id_card = owner.get_id_card()
+	var/obj/item/card/id/id_card = owner?.get_id_card()
 	if(id_card)
 		agent_pda.custom_name = "PDA-[id_card.registered_name]"
 		if(!agent_pda.fakejob)

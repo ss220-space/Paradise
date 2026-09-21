@@ -229,12 +229,11 @@
 	LAZYCLEARLIST(attachment_overlays)
 	QDEL_NULL(azoom)
 	QDEL_NULL(chambered)
-	if(sound_loop)
-		QDEL_NULL(sound_loop)
-	if(accuracy)
-		QDEL_NULL(accuracy)
-	if(recoil)
-		QDEL_NULL(recoil)
+	QDEL_NULL(sound_loop)
+	QDEL_NULL(accuracy)
+	QDEL_NULL(recoil)
+	gun_user = null
+	target = null
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/target)

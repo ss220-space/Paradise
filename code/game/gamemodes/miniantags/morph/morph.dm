@@ -107,6 +107,12 @@
 	RemoveSpell(open_vent_spell)
 	RemoveSpell(pass_airlock_spell)
 	RemoveSpell(reproduce_spell)
+	mimic_spell = null
+	ambush_spell = null
+	pass_airlock_spell = null
+	open_vent_spell = null
+	reproduce_spell = null
+	GLOB.morphs_alive_list -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
