@@ -26,9 +26,16 @@
 
 /datum/status_effect/stacking/wet/proc/WetMob()
 	if(!HAS_TRAIT(owner, TRAIT_WET_IMMUNITY) && stacks > 0)
+		owner.AddComponent(/datum/component/slippery, SLIPPERY_TIME_WATER, can_slip_callback = CALLBACK(src, PROC_REF(slip_owner_instead)))
 		update_wet()
 		SEND_SIGNAL(owner, COMSIG_LIVING_WET)
 		return TRUE
+	return FALSE
+
+/datum/status_effect/stacking/wet/proc/slip_owner_instead(atom/source, mob/living/victim)
+	if(victim == owner || owner.stat == DEAD)
+		return FALSE
+	owner.slip(SLIPPERY_TIME_WATER, victim, SLIP_WHEN_LYING, 0)
 	return FALSE
 
 /datum/status_effect/stacking/wet/add_stacks(stacks_added) //Adjusting the amount of fire_stacks we have on person
