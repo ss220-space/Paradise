@@ -510,3 +510,13 @@
 		return
 	pod.systems.fire_extenguisher.charges -= 1
 	target_module.fire = FALSE
+
+#undef TAB_ELECTRICITY
+#undef TAB_ENGINES
+#undef TAB_FUEL
+#undef TAB_WEAPONS
+#undef TAB_LIFE_SUPPORT
+#undef TAB_INTEGRITY
+#undef TAB_INSTRUMENTAL
+#undef TAB_MISC
+#undef NOT_SELECTED_RPM_PROVIDER

@@ -270,7 +270,6 @@
 	desc = "Базовый маршевый двигатель челнока. Обеспечивает тягу для перемещения в космосе. Требуется вспомогательная силовая установка для запуска данного двигателя."
 	icon_state = "engine"
 	caption = "ENG"
-	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
 	max_integrity = 120
 	fire_damage_mod = 1
 	fire_on_hit_chance = 15
@@ -645,7 +644,6 @@
 	module_name = "Модуль жизнеобеспечения"
 	desc = "Поддерживает пригодную для дыхания атмосферу и температуру в кабине шаттла."
 	icon_state = "life_support"
-	hit_weight = POD_MODULE_HIT_CHANCE_NORMAL
 	mass = 40
 	consume_power = 50
 
