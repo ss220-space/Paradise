@@ -336,10 +336,6 @@
 	icon = 'icons/turf/ground_map.dmi'
 	icon_state = "wall2"
 
-/turf/simulated/wall/indestructible/jungle/Initialize(mapload)
-	. = ..()
-	icon_state = "wall[pick(1,3)]"
-
 /turf/simulated/wall/indestructible/jungle/jungle1
 	icon_state = "wall1"
 
