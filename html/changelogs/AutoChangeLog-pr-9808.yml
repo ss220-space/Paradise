@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Вернул скорость работы для панацеи генокрада. (PR #9808)"
