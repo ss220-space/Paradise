@@ -10864,19 +10864,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"coK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/tourist)
 "coO" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -43734,15 +43721,6 @@
 	},
 /area/station/security/hallway/secure)
 "iGy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
@@ -72436,20 +72414,6 @@
 /obj/item/pen,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"nTP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/station/maintenance/tourist)
 "nTQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -95246,15 +95210,6 @@
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "rVL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -107772,8 +107727,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -124813,19 +124772,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
-"xnz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/tourist)
 "xnE" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
@@ -140770,7 +140716,7 @@ seh
 yfI
 gjp
 hDA
-coK
+hDA
 okO
 kQB
 vFW
@@ -141284,7 +141230,7 @@ mKG
 udh
 gjp
 nAq
-nTP
+jWO
 nTH
 dzH
 krO
@@ -141541,7 +141487,7 @@ xpv
 gmF
 gjp
 hDA
-nzc
+uqF
 vES
 kUf
 bwH
@@ -141798,7 +141744,7 @@ wWm
 fVp
 gjp
 knI
-xnz
+hDA
 vES
 oap
 uRj
