@@ -7,6 +7,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
+	bound_width = 64
 
 /obj/structure/laz_sign/blood
 	desc = "Потрёпанная временем металлическая вывеска, указывающая на посадочную зону шаттла. Залита кровью."

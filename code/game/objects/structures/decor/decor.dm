@@ -9,7 +9,7 @@
 /obj/structure/decor/ifv
 	name = "destroyed M34 IFV"
 	desc = "Уничтоженная БМП. Так просто не поднять – сорок шесть тонн..."
-	icon = 'icons/obj/ifv_prop.dmi'
+	icon = 'icons/obj/structures/ifv_prop.dmi'
 	icon_state = "ifv_destroyed"
 	resistance_flags = INDESTRUCTIBLE
 
@@ -22,3 +22,21 @@
 		INSTRUMENTAL = "уничтоженной БМП M34",
 		PREPOSITIONAL = "уничтоженной БМП M34",
 	)
+
+/obj/structure/decor/ifv/Initialize(mapload, newdir)
+	. = ..()
+	if(newdir)
+		setDir(newdir)
+	switch(dir)
+		if(NORTH, SOUTH)
+			bound_width = 64
+			bound_height = 128
+		if(EAST, WEST)
+			bound_width = 128
+			bound_height = 64
+
+/obj/structure/decor/destroyed_sensor
+	name = "destroyed sensor"
+	icon = 'icons/obj/structures/motion_sensor_v2.dmi'
+	icon_state = "sensor_broken"
+	resistance_flags = INDESTRUCTIBLE

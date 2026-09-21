@@ -7,9 +7,7 @@
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
 /area/planetoid)
 "aM" = (
-/obj/structure/meshfence/slim/door{
-	dir = 4
-	},
+/obj/structure/fence/meshfence,
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "bg" = (
@@ -95,6 +93,10 @@
 "kp" = (
 /turf/simulated/floor/planetoid/grass/dirtcorner/south,
 /area/planetoid)
+"ld" = (
+/obj/structure/decor/container/horizontal/blue/top,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "lo" = (
 /turf/simulated/floor/planetoid/grass/sandedge/east,
 /area/planetoid)
@@ -111,19 +113,40 @@
 /obj/structure/flora/jungle/plantbot1,
 /turf/simulated/floor/planetoid/grass/grass2,
 /area/planetoid)
-"pB" = (
-/obj/structure/meshfence/slim/door,
+"pE" = (
+/obj/structure/decor/container/horizontal/blue/bottom,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"pY" = (
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "qh" = (
 /turf/simulated/floor/planetoid/grass/dirtcorner2/east,
 /area/planetoid)
+"rv" = (
+/obj/structure/decor/container/kelland/left,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "rI" = (
 /obj/machinery/floodlight/colony,
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
+"rQ" = (
+/obj/machinery/power/port_gen/pacman/super/upgraded,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "rY" = (
 /turf/simulated/floor/planetoid/grass/scorched1/scorched_alt,
+/area/planetoid)
+"rZ" = (
+/obj/structure/decor/container/kelland/right,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"sE" = (
+/obj/structure/vine,
+/obj/structure/fence/door/mesh,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "sU" = (
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/west,
@@ -131,10 +154,6 @@
 "tb" = (
 /obj/structure/flora/jungle/shrub,
 /turf/simulated/floor/planetoid/grass/grass3,
-/area/planetoid)
-"th" = (
-/obj/structure/meshfence/dark_slim,
-/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "tp" = (
 /obj/structure/flora/firebush,
@@ -211,6 +230,11 @@
 	},
 /turf/simulated/floor/water/hot_spring,
 /area/planetoid)
+"Ab" = (
+/obj/structure/vine/medium,
+/obj/structure/fence/meshfence/slim,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "Aj" = (
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/glass/reinforced,
@@ -237,7 +261,7 @@
 /turf/simulated/floor/planetoid/grass/dirtedge/north,
 /area/planetoid)
 "BD" = (
-/obj/structure/meshfence/slim,
+/obj/structure/decor/container/grant/left,
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "Cz" = (
@@ -258,7 +282,8 @@
 /area/planetoid)
 "EJ" = (
 /obj/structure/flora/rock/jungle,
-/obj/structure/meshfence/warning,
+/obj/structure/vine,
+/obj/structure/fence/meshfence/slim,
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid)
 "ER" = (
@@ -271,7 +296,8 @@
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
 /area/planetoid)
 "FO" = (
-/obj/structure/meshfence/slim,
+/obj/structure/vine,
+/obj/structure/fence/meshfence/slim,
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
 /area/planetoid)
 "Gc" = (
@@ -308,6 +334,11 @@
 	},
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
+"IN" = (
+/obj/structure/vine/medium,
+/obj/structure/fence/meshfence,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "IQ" = (
 /turf/simulated/floor/planetoid/desert/beachedge/south,
 /area/planetoid)
@@ -329,6 +360,7 @@
 /area/planetoid)
 "LI" = (
 /obj/structure/flora/rock/pile/icy,
+/obj/structure/decor/destroyed_sensor,
 /turf/simulated/floor/planetoid/grass/grass1,
 /area/planetoid)
 "LK" = (
@@ -357,6 +389,10 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
 /area/planetoid)
+"Ng" = (
+/obj/structure/decor/container/horizontal/blue/middle,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "Nj" = (
 /obj/structure/prop/hunter/trophy_display/bottom_right,
 /turf/simulated/floor/planetoid/desert,
@@ -378,15 +414,17 @@
 /turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "Pm" = (
-/obj/structure/meshfence,
+/obj/structure/vine/heavy,
+/obj/structure/fence/meshfence,
 /turf/simulated/floor/planetoid/dirt,
 /area/planetoid/caves)
-"Rg" = (
-/obj/structure/meshfence,
-/turf/simulated/floor/planetoid/desert,
-/area/planetoid)
 "Rq" = (
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
+/area/planetoid)
+"RN" = (
+/obj/structure/vine,
+/obj/structure/fence/meshfence,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 "RQ" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_2,
@@ -409,7 +447,8 @@
 /turf/simulated/floor/planetoid/desert/beachedge/south,
 /area/planetoid)
 "UH" = (
-/obj/structure/meshfence/slim,
+/obj/structure/vine,
+/obj/structure/fence/meshfence/slim,
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid)
 "UR" = (
@@ -422,6 +461,10 @@
 "Vv" = (
 /turf/simulated/floor/planetoid/grass/beachcorner/south,
 /area/planetoid)
+"VQ" = (
+/obj/structure/decor/container/grant/right,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "Wm" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/planetoid/grass/scorched2,
@@ -429,10 +472,6 @@
 "WJ" = (
 /turf/simulated/wall/indestructible/rock,
 /area/planetoid/caves)
-"WS" = (
-/obj/structure/meshfence/dark,
-/turf/simulated/floor/planetoid/desert,
-/area/planetoid)
 "WU" = (
 /turf/simulated/floor/planetoid/grass/beachedge/south,
 /area/planetoid)
@@ -455,12 +494,25 @@
 "Zi" = (
 /turf/simulated/floor/planetoid/grass/sandsingle,
 /area/planetoid)
+"ZC" = (
+/obj/structure/fence/door/mesh/slim,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
 "ZI" = (
 /obj/structure/railing/wooden/cornerr,
 /obj/structure/railing/wooden{
 	dir = 8
 	},
 /turf/simulated/floor/water/hot_spring,
+/area/planetoid)
+"ZN" = (
+/obj/structure/vine/heavy,
+/obj/structure/fence/meshfence/slim,
+/turf/simulated/floor/planetoid/desert,
+/area/planetoid)
+"ZO" = (
+/obj/structure/decor/container/grant/rightmid,
+/turf/simulated/floor/planetoid/desert,
 /area/planetoid)
 
 (1,1,1) = {"
@@ -1890,7 +1942,7 @@ WJ
 WJ
 WJ
 ug
-pB
+IN
 dj
 dj
 XM
@@ -1971,10 +2023,10 @@ dj
 dj
 dj
 WJ
-Rg
-BD
-aM
-Rg
+ZN
+ZN
+Ab
+Ab
 EJ
 hz
 hZ
@@ -2054,7 +2106,7 @@ dj
 dj
 dj
 rI
-BD
+RN
 dj
 dj
 UH
@@ -2136,7 +2188,7 @@ dj
 dj
 dj
 dj
-BD
+RN
 dj
 dj
 FO
@@ -2215,13 +2267,13 @@ dj
 dj
 dj
 dj
-WS
-aM
-WS
-BD
-aM
-BD
-BD
+dj
+dj
+dj
+RN
+RN
+RN
+sE
 dj
 dj
 ay
@@ -2297,16 +2349,16 @@ dj
 dj
 dj
 dj
-th
 dj
 dj
 dj
 dj
 dj
-pB
+dj
+aM
 dj
 dj
-dj
+rQ
 dj
 dj
 dj
@@ -2379,16 +2431,16 @@ dj
 dj
 dj
 dj
-th
 dj
 dj
 dj
 dj
 dj
-BD
+dj
+aM
 dj
 dj
-dj
+pY
 dj
 dj
 dj
@@ -2461,16 +2513,16 @@ dj
 dj
 dj
 dj
-pB
+dj
 dj
 XJ
 dj
 dj
 dj
-BD
+aM
 dj
 dj
-dj
+pY
 dj
 dj
 dj
@@ -2543,13 +2595,13 @@ dj
 dj
 dj
 dj
-th
 dj
 dj
 dj
 dj
 dj
-BD
+dj
+ZC
 dj
 dj
 dj
@@ -2625,13 +2677,13 @@ dj
 dj
 dj
 dj
-th
 dj
 dj
 dj
 dj
 dj
-BD
+dj
+aM
 dj
 dj
 dj
@@ -2707,8 +2759,8 @@ dj
 dj
 dj
 dj
-th
-th
+dj
+dj
 Dc
 Dc
 Dc
@@ -2973,7 +3025,7 @@ dj
 dj
 dj
 dj
-dj
+BD
 dj
 dj
 dj
@@ -3055,7 +3107,7 @@ dj
 dj
 dj
 dj
-dj
+ZO
 dj
 dj
 dj
@@ -3137,9 +3189,9 @@ Om
 dj
 dj
 dj
+VQ
 dj
-dj
-dj
+rv
 dj
 dj
 dj
@@ -3221,7 +3273,7 @@ dj
 dj
 dj
 dj
-dj
+rZ
 dj
 dj
 dj
@@ -3304,9 +3356,9 @@ dj
 dj
 dj
 dj
-dj
-dj
-dj
+ld
+Ng
+pE
 dj
 dj
 dj
