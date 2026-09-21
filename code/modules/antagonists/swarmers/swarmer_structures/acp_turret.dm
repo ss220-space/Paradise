@@ -94,26 +94,32 @@
 	var/turf/our_turf = get_turf(src)
 	new /obj/effect/temp_visual/acp_stomp(our_turf, range)
 	for(var/mob/living/target as anything in processing_targets)
-		apply_range_based_effects(target)
 		target.apply_status_effect(STATUS_EFFECT_METABOLIZE_BLOCK, metabolization_block_duration, strike_overlay)
+		apply_range_based_effects(target)
 		animate_shockwave(target) // must be after range based effects proc
 
 /// Applies stamina damage, slow duration and chance, together with effects based on distance relative to the turret
 /obj/structure/swarmer/acp_turret/proc/apply_range_based_effects(mob/living/target)
 	var/modifier = range - get_dist(src, target)
+	var/final_knockdown_duration = knockdown_duration * modifier
+	target.Knockdown(final_knockdown_duration)
+
 	var/increase_modifier = max((range - 1), 1)
-	// Slow is guaranteed if target is next to the turret.
 	var/slow_chance_increase_per_tile = (100 - slowed_chance) * (1 / increase_modifier)
 	var/slow_duration_increase_per_tile = slowed_duration * (1 / increase_modifier)
 	var/final_slowed_chance = round(slowed_chance + modifier * slow_chance_increase_per_tile)
 	var/final_slowed_duration = round(slowed_duration + modifier * slow_duration_increase_per_tile)
-	var/final_damage = damage + damage * modifier * SWARMER_ACP_RANGE_DAMAGE_MODIFIER
-	var/final_knockdown_duration = knockdown_duration * modifier
-
-	target.apply_damage(final_damage, STAMINA)
-	target.Knockdown(final_knockdown_duration)
 	if(prob(final_slowed_chance))
 		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MODIFIER)
+
+	var/final_damage = damage + damage * modifier * SWARMER_ACP_RANGE_DAMAGE_MODIFIER
+	if(!iscarbon(target))
+		target.apply_damage(final_damage / 2, BURN)
+		return
+
+	var/mob/living/carbon/carbon_target = target
+	if(!carbon_target.IsStamcrited())
+		target.apply_damage(final_damage, STAMINA)
 
 /obj/structure/swarmer/acp_turret/get_ru_names()
 	return alist(
