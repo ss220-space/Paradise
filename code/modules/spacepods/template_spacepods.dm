@@ -342,5 +342,4 @@
 	systems.add_module(src, new /obj/item/spacepod_module/fire_extingusher/five_charges(src))
 
 /obj/spacepod/template/two_engine/cobra/no_weapon/create_weapon()
-	var/obj/item/spacepod_module/weapon/turret/gun_turret = new(src)
-	systems.add_module(src, gun_turret)
+	return // no weapon cobra variant

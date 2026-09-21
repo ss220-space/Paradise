@@ -313,14 +313,14 @@
 
 /obj/spacepod/proc/remove_gun_from_systems(mob/user, obj/item/gun/selected_gun)
 	if(selected_gun == null)
-		to_chat(user, span_notice("Вооружение не установлено."))
+		balloon_alert(user, "вооружение не установлено.")
 		return
 	var/obj/item/gun/removed_gun = systems.weapon.remove_gun(selected_gun)
 	if(removed_gun == null)
-		to_chat(user, span_notice("Вооружение не установлено."))
+		balloon_alert(user, "вооружение не установлено.")
 		return
 	removed_gun.forceMove(src.loc)
-	to_chat(user, span_notice("Вы извлекаете [removed_gun.declent_ru(NOMINATIVE)] из космического челнока."))
+	balloon_alert(user, "оружие извлечено!")
 
 
 // MARK: Process (update)
@@ -417,7 +417,7 @@
 
 /obj/spacepod/proc/eject_pilot()
 	pilot.forceMove(get_turf(src))
-	RemovePilotActions(pilot)
+	remove_pilot_actions(pilot)
 	control_panels.ui_close(pilot)
 	pilot = null
 
@@ -436,23 +436,23 @@
 	if(!istype(target))
 		return
 	src.visible_message(
-		span_warning("[user] пытается открыть дверь и вытащить [target] из [declent_ru(GENITIVE)]!"),
-		span_warning("Вы видите, как [user] пытается открыть дверь!")
+		span_warning("[user] пыта[PLUR_ET_YUT(user)]ся открыть дверь и вытащить [target] из [declent_ru(GENITIVE)]!"),
+		span_warning("Вы видите, как [user] пыта[PLUR_ET_YUT(user)]ся открыть дверь!")
 	)
 	if(!do_after(user, POD_OCCUPANT_EJECT_DURATION, src))
 		target.visible_message(
-			span_warning("[user] не смог открыть дверь!"),
+			span_warning("[user] не смог[PLUR_LI(user)] открыть дверь!"),
 			span_warning("Вы не дали [user] проникнуть в [declent_ru(NOMINATIVE)]!")
 		)
 		return
 
-	target.Stun(2 SECONDS)
+	target.Knockdown(3 SECONDS)
 	if(pilot)
 		eject_pilot()
 	else
 		eject_passenger(target)
 	target.visible_message(
-		span_warning("[user] распахивает дверь и достаёт [target] из [declent_ru(GENITIVE)]!"),
+		span_warning("[user] распахива[PLUR_ET_YUT(user)] дверь и доста[PLUR_YOT_YUT(user)] [target] из [declent_ru(GENITIVE)]!"),
 		span_warning("Дверь распахивается, и вас выбрасывает на пол!")
 	)
 
@@ -502,7 +502,7 @@
 		balloon_alert(user, "нет места!")
 		return
 
-	visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[user] начина[[PLUR_ET_YUT(user)]] забираться в [declent_ru(ACCUSATIVE)]."))
 	if(!do_after(user, POD_ENTER_DURATION, src))
 		balloon_alert(user, "посадка отменена")
 		return
@@ -510,7 +510,7 @@
 	if(!pilot || pilot == null)
 		pilot = user
 		user.forceMove(src)
-		GrantPilotActions(user)
+		grant_pilot_actions(user)
 		add_fingerprint(user)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		return
@@ -703,13 +703,13 @@
 	return move_delay
 
 // MARK: Actions
-/obj/spacepod/proc/GrantPilotActions(mob/living/user)
+/obj/spacepod/proc/grant_pilot_actions(mob/living/user)
 	eject_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	//fire_action.Grant(user, src)
 	panel_action.Grant(user, src)
 
-/obj/spacepod/proc/RemovePilotActions(mob/living/user)
+/obj/spacepod/proc/remove_pilot_actions(mob/living/user)
 	eject_action.Remove(user)
 	lights_action.Remove(user)
 	//fire_action.Remove(user)

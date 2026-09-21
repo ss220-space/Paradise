@@ -31,15 +31,6 @@
 	button_icon_state = "mech_lights_[pod.lights ? "on" : "off"]"
 	UpdateButtonIcon()
 
-/datum/action/innate/pod/pod_fire
-	name = "Стрелять"
-	button_icon_state = "mech_zoom_off"
-
-/datum/action/innate/pod/pod_fire/Activate()
-	if(!owner || !pod || pod.pilot != owner)
-		return
-	// pod.fireWeapon(owner)
-
 /datum/action/innate/pod/pod_panel
 	name = "Панель управления"
 	button_icon_state = "mech_misc"
@@ -48,20 +39,3 @@
 	if(!owner || !pod || pod.pilot != owner)
 		return
 	pod.control_panels.ui_interact(owner)
-
-	// var/misc_system = tgui_input_list(owner, "Выберите систему", "Управление челноком", POD_MISC_SYSTEMS)
-	// if(!misc_system)
-	// 	return
-	// if(!owner || !pod || pod.pilot != owner) //we check twice because of input
-	// 	return
-	// switch(misc_system)
-	// 	if(POD_MISC_LOCK_DOOR)
-	// 		pod.lock_pod(owner)
-	// 	if(POD_MISC_POD_DOORS)
-	// 		pod.toggleDoors(owner)
-	// 	if(POD_MISC_UNLOAD_CARGO)
-	// 		pod.unload(owner)
-	// 	if(POD_MISC_CHECK_SEAT)
-	// 		pod.checkSeat(owner)
-	// 	if(POD_MISC_LOCATOR_SKAN)
-	// 		pod.startScan(owner)

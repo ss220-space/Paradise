@@ -339,7 +339,7 @@
 	beam_segments[beam_index] = null
 
 
-/obj/projectile/CanPassAfterBump(atom/bumped_atom)
+/obj/projectile/can_pass_after_bump(atom/bumped_atom)
 	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))))
 		return TRUE
 	return ..()

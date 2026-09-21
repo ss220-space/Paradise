@@ -110,8 +110,8 @@
 
 /datum/design/pod_battery
 	construction_time = 150
-	name = "Аккумуляторная батареия челнока"
-	desc = "Аккумуляторная батареия челнока на 5 КВатт. Необходимый модуль для электропитания челнока."
+	name = "Аккумуляторная батарея челнока"
+	desc = "Аккумуляторная батарея челнока на 5 КВатт. Необходимый модуль для электропитания челнока."
 	id = "pod_battery"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1, RESEARCH_TREE_POWERSTORAGE = 2)
 	build_type = PODFAB
@@ -143,7 +143,7 @@
 
 /datum/design/pod_engine_speedy
 	construction_time = 300
-	name = "Формажный двигатель челнока"
+	name = "Форсажный двигатель челнока"
 	desc = "Плазменный реактивно-импульсный двигатель космического челнока. Двигатель с куда большей тягой, но и с большим расходом топлива."
 	id = "pod_engine_speedy"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 3)
@@ -177,7 +177,7 @@
 /datum/design/pod_weapon_turret
 	construction_time = 250
 	name = "Модуль турельного вооружения"
-	desc = "Турель устанавливаемая на челнок для ведения кругового обстрела с установленного оружия. Имеет два универсальных слота под оружие."
+	desc = "Турель, устанавливаемая на челнок для ведения кругового обстрела с установленного оружия. Имеет два универсальных слота под оружие."
 	id = "pod_weapon_turret"
 	req_tech = list(RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_MAGNETS = 2, RESEARCH_TREE_ENGINEERING = 3)
 	build_type = PODFAB
