@@ -74,7 +74,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/awaystart/Initialize(mapload)
+	. = ..()
 	GLOB.awaydestinations.Add(src)
+
+/obj/effect/landmark/awaystart/Destroy()
+	GLOB.awaydestinations -= src
 	return ..()
 
 // MARK: SPAWNER

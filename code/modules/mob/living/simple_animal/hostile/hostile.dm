@@ -84,6 +84,10 @@
 
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
+	enemies = null
+	friends = null
+	if(target)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	GiveTarget(null)
 	return ..()
 

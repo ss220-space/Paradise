@@ -475,3 +475,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
+#define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))

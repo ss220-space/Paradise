@@ -40,10 +40,13 @@
 
 /obj/effect/mob_spawn/human/thunderdome/create(mob/dead/observer/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
 	var/death_time_before = plr.persistent_client.time_of_death
+	var/datum/mini_game/thunderdome_battle/battle = thunderdome
 	var/mob/living/created = ..()
-	thunderdome.fighters += created
+	if(!created || !battle)
+		return
+	battle.fighters += created
 	created.ignore_slowdown(THUNDERDOME_TRAIT)
-	created.AddComponent(/datum/component/thunderdome_death_signaler, thunderdome)
+	created.AddComponent(/datum/component/thunderdome_death_signaler, battle)
 	created.AddComponent(/datum/component/death_timer_reset, death_time_before)
 
 /obj/effect/mob_spawn/human/thunderdome/cqc
