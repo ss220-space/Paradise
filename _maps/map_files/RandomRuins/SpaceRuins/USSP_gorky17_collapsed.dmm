@@ -6674,7 +6674,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "uJ" = (
 /obj/structure/table,
-/obj/item/pod_paint_bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
