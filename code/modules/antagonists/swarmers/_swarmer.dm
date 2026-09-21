@@ -40,7 +40,7 @@
 	pressure_resistance = 100
 	allows_unconscious = TRUE
 	/// Text used in core tgui and sent to client to tell about current class abilities
-	var/swarmer_class_info = "Напишите баг-репорт, если увидили это."
+	var/swarmer_class_info = "Вы не должны это видеть."
 	/// How much time does it take to dismantle a machine
 	var/dismantle_speed = NORMAL_SWARMER_DISMANTLE_DELAY
 	/// How many items from a stack can we consume at once
@@ -339,7 +339,7 @@
 		return
 
 	if(analyze_result & SWARMER_ANALYZE_NONE)
-		balloon_alert(src, "нету анализаторов, телепорn!")
+		balloon_alert(src, "нету анализаторов, телепорт!")
 	else if(analyze_result & SWARMER_ANALYZE_BUSY)
 		balloon_alert(src, "анализаторы заняты, телепорт!")
 	else if(analyze_result & SWARMER_ANALYZE_TOO_MUCH)

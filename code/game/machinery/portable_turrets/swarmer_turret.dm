@@ -131,6 +131,7 @@
 	projectile = /obj/projectile/beam/disabler/swarmer/weak_turret
 	eprojectile = /obj/projectile/beam/disabler/swarmer/weak_turret
 	rapid = 3
+	scan_range = 6
 
 /obj/machinery/porta_turret/swarmer/turret/get_ru_names()
 	return alist(
