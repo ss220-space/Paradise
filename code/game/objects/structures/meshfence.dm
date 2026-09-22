@@ -7,6 +7,7 @@
 	layer = ABOVE_OBJ_LAYER
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
+	pass_flags_self = PASSFENCE
 
 	var/junction = 0
 

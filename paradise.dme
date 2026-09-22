@@ -2042,6 +2042,7 @@
 #include "code\game\sound\sound_keys\sound_keys_assoc.dm"
 #include "code\game\turfs\baseturf.dm"
 #include "code\game\turfs\simulated.dm"
+#include "code\game\turfs\simulated\cm_walls.dm"
 #include "code\game\turfs\turf.dm"
 #include "code\game\turfs\simulated\floor.dm"
 #include "code\game\turfs\simulated\hunter_wall.dm"
