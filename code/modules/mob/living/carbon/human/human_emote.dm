@@ -12,7 +12,8 @@
 /datum/emote/living/carbon/human/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && tail_required && !user.get_organ(BODY_ZONE_TAIL))
-		to_chat(user, span_warning("You have no tail!"))
+		if(status_check) // don't spam the chat while building emote lists
+			to_chat(user, span_warning("You have no tail!"))
 		return FALSE
 
 /datum/emote/living/carbon/human/select_message_type(mob/living/carbon/human/user, msg, intentional)
@@ -672,12 +673,6 @@
 	message = "начина%(ет,ют)% махать хвостом."
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 	tail_required = TRUE
-	species_type_whitelist_typecache = list(
-		/datum/species/unathi,
-		/datum/species/vulpkanin,
-		/datum/species/tajaran,
-		/datum/species/vox,
-	)
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE, intentional)
 	. = ..()
@@ -690,12 +685,12 @@
 		user.start_tail_wagging()
 
 /datum/emote/living/carbon/human/proc/can_wag(mob/living/carbon/human/user)
-	var/datum/species/species = user.dna?.species
-	if(!species)
+	var/obj/item/organ/external/tail/tail = user.get_organ(BODY_ZONE_TAIL)
+	if(!tail)
 		return FALSE
-	var/wagging_allowed = (species.bodyflags & TAIL_WAGGING)
+	var/wagging_allowed = (tail.dna?.species.bodyflags & TAIL_WAGGING)   // флаг расы-донора хвоста
 	var/tail_obscured = user.wear_suit && (user.wear_suit.flags_inv & HIDETAIL)
-	if(!wagging_allowed || (wagging_allowed && tail_obscured))
+	if(!wagging_allowed || tail_obscured)
 		return FALSE
 	if(istype(user.body_accessory, /datum/body_accessory/tail) && !user.body_accessory.try_restrictions(user))
 		return FALSE
@@ -776,7 +771,8 @@
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && wings_required && !user.get_organ(BODY_ZONE_WING))
-		to_chat(user, span_warning("You have no wings!"))
+		if(status_check) // don't spam the chat while building emote lists
+			to_chat(user, span_warning("You have no wings!"))
 		return FALSE
 
 /datum/emote/living/carbon/human/moth/flap
@@ -785,6 +781,7 @@
 	key_third_person = "flaps"
 	message = "маш%(ет,ут)% крыльями."
 	wings_required = TRUE
+	species_type_whitelist_typecache = null
 
 /datum/emote/living/carbon/human/moth/flap/angry
 	name = "Агрессивно махать крыльями (нианы)"
@@ -798,6 +795,7 @@
 	key_third_person = "flutters"
 	message = "расправля%(ет,ют)% крылья."
 	wings_required = TRUE
+	species_type_whitelist_typecache = null
 
 /**
  * Vox
@@ -1096,6 +1094,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	tail_required = TRUE
+	species_type_whitelist_typecache = null
 	volume = 100
 	audio_cooldown = 15 SECONDS
 	sound = 'sound/voice/unathi/whip_short.ogg'
