@@ -26,7 +26,6 @@
 /obj/structure/vine/heavy
 	icon_state = "Hvy1"
 	opacity = TRUE
-	density = TRUE
 
 /obj/structure/vine/heavy/Initialize(mapload)
 	. = ..()
