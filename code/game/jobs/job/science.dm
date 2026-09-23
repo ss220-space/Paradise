@@ -281,6 +281,7 @@
 	spawn_positions = 3
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
+	alt_titles = list(ALT_JOB_TITLE_RU_SPACE_EXPLORER)
 	outfit = /datum/outfit/job/explorer
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,

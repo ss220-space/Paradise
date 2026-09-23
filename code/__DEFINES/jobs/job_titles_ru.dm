@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_MIME "Мим"
 #define JOB_TITLE_RU_JANITOR "Уборщик"
 #define JOB_TITLE_RU_LIBRARIAN "Библиотекарь"
-#define JOB_TITLE_RU_EXPLORER "Исследователь"
+#define JOB_TITLE_RU_EXPLORER "Исследователь врат"
 
 // Civilians
 #define JOB_TITLE_RU_CIVILIAN "Гражданский"
@@ -304,6 +304,8 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_CYBERNETIC_ENGINEER "Кибернетический инженер"
 // Student scientist
 #define ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER "Младший научный сотрудник"
+// Explorer
+#define ALT_JOB_TITLE_RU_SPACE_EXPLORER "Исследователь космоса"
 
 // Warden
 #define ALT_JOB_TITLE_RU_OVERSEER "Надзиратель"
