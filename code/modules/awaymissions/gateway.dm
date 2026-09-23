@@ -14,6 +14,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = FALSE
 	var/active_timer = 0
+	req_access = list(ACCESS_RD, ACCESS_ARMORY)
 
 /obj/machinery/gateway/Initialize(mapload)
 	. = ..()
@@ -130,6 +131,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user)
 	add_fingerprint(user)
+	if(!allowed(user))
+		balloon_alert(user, "нет доступа!")
+		return
 	if(!ready)
 		detect()
 		return
