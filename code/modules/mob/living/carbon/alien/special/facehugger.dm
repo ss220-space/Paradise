@@ -355,6 +355,14 @@
 		remove_clothing_traits(loc)
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сворачивается в клубок!"))
 
+/obj/item/clothing/mask/facehugger/can_mob_unequip(mob/user)
+	if(!real || sterile || stat == DEAD || user.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+		return ..()
+	if(user.get_item_by_slot(slot_flags) == src)
+		to_chat(user, span_userdanger("[src] is latched on too tight! Get help or wait for it to let go!"))
+		return FALSE
+	return ..()
+
 /proc/CanHug(mob/living/hugged_mob)
 	if(!istype(hugged_mob))
 		return FALSE

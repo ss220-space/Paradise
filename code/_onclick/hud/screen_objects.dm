@@ -107,11 +107,15 @@
 	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/close/Click()
+	// TODO vakons datum_storage: delete it later
 	var/obj/item/storage/storage = master_ref?.resolve()
-	if(!istype(storage))
-		return
-	storage.close(usr)
-	return TRUE
+	if(istype(storage))
+		storage.close(usr)
+		return TRUE
+	var/datum/storage/datum_storage = master_ref?.resolve()
+	if(istype(datum_storage))
+		datum_storage.hide_contents(usr)
+		return TRUE
 
 /atom/movable/screen/drop
 	name = "accurate drop"
@@ -209,6 +213,7 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 
+// TODO vakons datum_storage: delete it later
 /atom/movable/screen/storage
 	name = "storage"
 
@@ -217,10 +222,6 @@
 	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/storage/Click(location, control, params)
-	var/obj/item/storage/storage_master = master_ref?.resolve()
-	if(!istype(storage_master))
-		return FALSE
-
 	if(world.time <= usr.next_move)
 		return TRUE
 
@@ -234,8 +235,18 @@
 		return TRUE
 
 	var/obj/item/inserted = usr.get_active_hand()
-	if(inserted)
+
+	// TODO vakons datum_storage delete it later
+	var/obj/item/storage/storage_master = master_ref?.resolve()
+	if(istype(storage_master) && inserted)
 		storage_master.attempt_insert(inserted)
+		return TRUE
+
+	var/datum/storage/datum_storage = master_ref?.resolve()
+	if(!istype(datum_storage))
+		return FALSE
+	if(istype(storage_master) && inserted)
+		datum_storage.attempt_insert(inserted, usr)
 
 	return TRUE
 
@@ -277,6 +288,47 @@
 
 /atom/movable/screen/storage/space_box
 	screen_loc = "7,7 to 10,8"
+
+/atom/movable/screen/storage/cell
+	icon_state = "stored_continue"
+
+/atom/movable/screen/storage/cell/mouse_drop_receive(atom/target, mob/living/user, params)
+	var/datum/storage/storage = master_ref?.resolve()
+
+	if (isnull(storage) || !istype(user) || storage != user.active_storage)
+		return
+
+	if(is_ventcrawling(user) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+		return
+
+	if (target.loc != storage.real_location)
+		return
+
+	/// Due to items in storage ignoring transparency for click hitboxes, this only can happen if we drag onto a free cell - aka after all current contents
+	storage.real_location.contents -= target
+	storage.real_location.contents += target
+	storage.refresh_views()
+
+/atom/movable/screen/storage/corner
+	icon_state = "storage_corner_topleft"
+
+/atom/movable/screen/storage/corner/top_right
+	icon_state = "storage_corner_topright"
+
+/atom/movable/screen/storage/corner/bottom_left
+	icon_state = "storage_corner_bottomleft"
+
+/atom/movable/screen/storage/corner/bottom_right
+	icon_state = "storage_corner_bottomright"
+
+/atom/movable/screen/storage/rowjoin
+	name = "storage"
+	icon_state = "storage_rowjoin_left"
+	alpha = 0
+
+/atom/movable/screen/storage/rowjoin/right
+	icon_state = "storage_rowjoin_right"
+
 
 /atom/movable/screen/zone_sel
 	name = "damage zone"

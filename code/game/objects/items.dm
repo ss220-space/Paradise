@@ -596,6 +596,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	add_fingerprint(user)
 
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
+	return TRUE
+
 /**
  * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
  */

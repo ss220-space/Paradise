@@ -534,3 +534,6 @@
 /obj/machinery/door/zap_act(power, zap_flags)
 	zap_flags &= ~ZAP_OBJ_DAMAGE
 	. = ..()
+
+/obj/machinery/door/get_dumping_location()
+	return null

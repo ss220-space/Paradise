@@ -73,6 +73,21 @@
 //a value in hud_list with one of these will change that behavior
 #define HUD_LIST_LIST 1
 
+/// Static elements that are always present in standard hud
+#define HUD_GROUP_STATIC 1
+/// Inventory elements toggled by the inventory switch
+#define HUD_GROUP_TOGGLEABLE_INVENTORY 2
+/// Info display HUD elements
+#define HUD_GROUP_INFO 3
+/// Permanently on-screen elements, regardless of your HUD status
+#define HUD_GROUP_SCREEN_OVERLAYS 4
+/// Hotkey buttons
+#define HUD_GROUP_HOTKEYS 5
+/// Open storages and items in them
+#define HUD_GROUP_STORAGE 6
+/// Total amount of screen groups in use
+#define SCREEN_GROUP_AMT 6
+
 /// cooldown for being shown the images for any particular data hud
 #define ADD_HUD_TO_COOLDOWN 20
 

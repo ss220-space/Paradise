@@ -13,6 +13,7 @@
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_PAI
 	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
+	can_be_held = TRUE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user

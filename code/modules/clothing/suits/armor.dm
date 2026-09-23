@@ -213,6 +213,10 @@
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/suit/armor/vest/capcarapace/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/backpack)
+
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
 	desc = "For when an armored vest isn't fashionable enough."

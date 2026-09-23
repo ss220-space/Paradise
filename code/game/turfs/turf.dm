@@ -220,6 +220,9 @@
 /turf/proc/blob_consume()
 	return
 
+/turf/open/get_dumping_location()
+	return src
+
 /turf/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)//This is the default turf behaviour for the RPD; override it as required
 	switch(mode)
 		if(RPD_ATMOS_MODE)

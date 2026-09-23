@@ -316,6 +316,10 @@
 	var/obj/item/tank/jetpack/jetpack = target
 	return istype(jetpack) && jetpack.stabilize
 
+/datum/action/item_action/storage_gather_mode
+	check_flags = AB_CHECK_CONSCIOUS
+	name = "Переключить режим подбора"
+	desc = "Переключает режим подбора у хранилища."
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS

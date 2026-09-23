@@ -426,6 +426,14 @@
 
 	return TRUE
 
+/mob/living/canUseStorage()
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if(!usable_hands) // almost redundant if it weren't for mobs
+		return FALSE
+
+	return TRUE
+
 /mob/living/can_perform_action(atom/target, action_bitflags)
 	if(!istype(target))
 		CRASH("Missing target arg for can_perform_action")
@@ -922,6 +930,12 @@ GAME_VERB_SRC(/mob/living, Examine_OOC, view(), "Мета-инфа (OOC)", VERB_
 
 	if(isliving(pulling))
 		set_pull_offsets(pulling, grab_state)
+
+	if(active_storage)
+		var/storage_is_important_recurisve = (active_storage.parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
+		var/can_reach_active_storage = active_storage.parent.IsReachableBy(src)
+		if(!storage_is_important_recurisve && !can_reach_active_storage)
+			active_storage.hide_contents(src)
 
 	if(s_active && !(s_active.IsReachableBy(src)))	//check !(s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)

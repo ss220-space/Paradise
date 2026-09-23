@@ -43,6 +43,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
 	collar_type = "dog"
 	ai_controller = /datum/ai_controller/dog
+	can_be_held = TRUE
 
 GAME_VERB_DESC(/mob/living/simple_animal/pet/dog, chasetail, "Гоняться за хвостом", "d'awwww.", VERB_CATEGORY_ANIMAL)
 
