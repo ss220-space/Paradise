@@ -64291,6 +64291,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/door_control/gateway{
+	pixel_x = 36
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"

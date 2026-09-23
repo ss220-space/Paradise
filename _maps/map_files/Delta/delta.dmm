@@ -83412,6 +83412,9 @@
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
+/obj/machinery/door_control/gateway{
+	pixel_y = -36
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "pTc" = (

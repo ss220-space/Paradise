@@ -145,6 +145,22 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	toggleoff()
 
+
+/obj/machinery/gateway/centerstation/proc/toggle_remotely(mob/user, atom/remote_device)
+	if(!allowed(user))
+		remote_device.balloon_alert(user, "нет доступа!")
+		return
+	if(!ready)
+		detect()
+		return
+	if(!active)
+		if(active_timer > GATE_LOCK_DURATION)
+			toggleon(user)
+			return
+		remote_device.balloon_alert(user, "идет процесс зарядки...")
+		return
+	toggleoff()
+
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/moving_atom)
 	. = ..()
@@ -289,6 +305,20 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return .
 	to_chat(user, "[span_boldnotice("Recalibration successful! ")][span_notice("This gate's systems have been fine tuned. Travel to this gate will now be on target.")]")
 	calibrated = TRUE
+
+
+/obj/machinery/door_control/gateway
+	name = "gateway door control"
+	desc = "Use this button for toggle gateway."
+	req_access = list(ACCESS_RD)
+	id = 1
+
+/obj/machinery/door_control/gateway/build_device()
+	var/obj/item/assembly/control/gateway/gateway_device = new(src)
+	gateway_device.ids = get_ids()
+	gateway_device.safety_z_check = safety_z_check
+	device = gateway_device
+
 
 #undef GATE_LOCK_DURATION
 #undef GATE_OPEN_DURATION

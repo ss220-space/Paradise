@@ -23101,7 +23101,7 @@
 	id = "Biohazard";
 	name = "Biohazard Shutter Control";
 	pixel_x = 5;
-	pixel_y = 32;
+	pixel_y = 27;
 	req_access = list(30)
 	},
 /obj/machinery/door_control{
@@ -23109,6 +23109,10 @@
 	name = "Privacy Shutters";
 	pixel_x = -6;
 	pixel_y = 36
+	},
+/obj/machinery/door_control/gateway{
+	pixel_y = 36;
+	pixel_x = 5
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/station/command/office/rd)
