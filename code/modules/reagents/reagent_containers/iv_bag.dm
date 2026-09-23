@@ -11,8 +11,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	icon_state = "ivbag"
 	volume = 200
-	possible_transfer_amounts = list(1, 5, 10, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
-	amount_per_transfer_from_this = 1
+	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER | NO_SPLASH
 	resistance_flags = ACID_PROOF
 	custom_price = PAYCHECK_LOWER
