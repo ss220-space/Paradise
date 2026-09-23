@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 		/datum/action/cooldown/spell/teleport/radius_turf/blink,
 		/datum/action/cooldown/spell/teleport/area_teleport/wizard,
 		/datum/action/cooldown/spell/forcewall,
-		/datum/action/cooldown/spell/forcewall/greater,
+		/datum/action/cooldown/spell/forcewall/greater/noclothes,
 		/datum/action/cooldown/spell/conjure/timestop,
 		/datum/action/cooldown/spell/conjure/carp,
 		/datum/action/cooldown/spell/aoe/magic_missile,
