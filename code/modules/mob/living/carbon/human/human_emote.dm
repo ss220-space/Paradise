@@ -688,7 +688,7 @@
 	var/obj/item/organ/external/tail/tail = user.get_organ(BODY_ZONE_TAIL)
 	if(!tail)
 		return FALSE
-	var/wagging_allowed = (tail.dna?.species.bodyflags & TAIL_WAGGING)   // флаг расы-донора хвоста
+	var/wagging_allowed = (tail.dna?.species.bodyflags & TAIL_WAGGING)
 	var/tail_obscured = user.wear_suit && (user.wear_suit.flags_inv & HIDETAIL)
 	if(!wagging_allowed || tail_obscured)
 		return FALSE
