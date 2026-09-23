@@ -29,8 +29,7 @@
 	new wall_type(get_step(cast_on, turn(cast_on.dir, 270)), cast_on)
 
 /datum/action/cooldown/spell/forcewall/greater/noclothes
-	. = ..()
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/action/cooldown/spell/forcewall/greater/mime
 	name = "Великая Невидимая стена"
