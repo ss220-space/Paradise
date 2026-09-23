@@ -1,6 +1,7 @@
 #define IV_DRAW 0
 #define IV_INJECT 1
 
+// MARK: IV Bag
 /obj/item/reagent_containers/iv_bag
 	name = "IV Bag"
 	desc = "Пакет с тонкой иглой на конце. Предназначен для введения пациентам веществ прямо в кровоток в течение определённого времени."
@@ -10,7 +11,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	icon_state = "ivbag"
 	volume = 200
-	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
+	possible_transfer_amounts = list(1, 5, 10, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER | NO_SPLASH
 	resistance_flags = ACID_PROOF
@@ -31,6 +32,20 @@
 		PREPOSITIONAL = "капельнице",
 	)
 
+/obj/item/reagent_containers/iv_bag/Initialize(mapload, vol)
+	. = ..()
+	register_context()
+
+/obj/item/reagent_containers/iv_bag/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "Изменить режим перемещения"
+		. = CONTEXTUAL_SCREENTIP_SET
+		if(has_variable_transfer_amount)
+			context[SCREENTIP_CONTEXT_RMB] = "Выбрать объём перемещения"
+			. = CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()
@@ -47,9 +62,12 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack_self(mob/user)
-	..()
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/iv_bag/attack_self_secondary(mob/user)
+	if(has_variable_transfer_amount)
+		select_transfer_amount(user)
 
 /obj/item/reagent_containers/iv_bag/attack_hand()
 	..()
@@ -204,8 +222,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-// PRE-FILLED IV BAGS BELOW
-
+// MARK: Pre-filled IV Bags
 /obj/item/reagent_containers/iv_bag/salglu
 	list_reagents = list("salglu_solution" = 200)
 
