@@ -298,7 +298,6 @@
 	name = JOB_TITLE_RU_EXPLORER
 	jobtype = /datum/job/science/explorer
 	uniform = /obj/item/clothing/under/color/black
-	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/beret/black
 	suit = /obj/item/clothing/suit/armor/vest
 	l_ear = /obj/item/radio/headset/headset_sci
