@@ -94982,6 +94982,9 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
 /turf/simulated/floor/plasteel,
 /area/station/command/gateway)
 "rTi" = (

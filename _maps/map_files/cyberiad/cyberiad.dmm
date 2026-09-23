@@ -69251,6 +69251,9 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

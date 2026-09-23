@@ -31354,6 +31354,9 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
