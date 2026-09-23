@@ -12,7 +12,7 @@
 /datum/emote/living/carbon/human/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && tail_required && !user.get_organ(BODY_ZONE_TAIL))
-		if(status_check) // don't spam the chat while building emote lists
+		if(status_check)
 			to_chat(user, span_warning("You have no tail!"))
 		return FALSE
 
@@ -771,7 +771,7 @@
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && wings_required && !user.get_organ(BODY_ZONE_WING))
-		if(status_check) // don't spam the chat while building emote lists
+		if(status_check)
 			to_chat(user, span_warning("You have no wings!"))
 		return FALSE
 
