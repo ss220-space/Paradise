@@ -5660,7 +5660,6 @@
 /area/station/command/office/qm)
 "aXX" = (
 /obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -32935,7 +32934,7 @@
 "fLF" = (
 /obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
-/turf/space,
+/turf/space/openspace,
 /area/station/engineering/engine)
 "fLJ" = (
 /obj/effect/spawner/window/reinforced,
@@ -36276,12 +36275,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/service/chapel/massdriver)
-"gqC" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "gqD" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -37983,12 +37976,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/station/maintenance/backstage)
-"gEj" = (
-/obj/structure/cable/layer1,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/layer1,
-/turf/space/openspace,
-/area/space)
 "gEq" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -60427,17 +60414,6 @@
 	icon_state = "stage_bleft"
 	},
 /area/station/maintenance/casino)
-"ktZ" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/power/emitter{
-	dir = 8
-	},
-/obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "kua" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62839,7 +62815,6 @@
 	pixel_y = -10
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/layer1,
 /obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
@@ -94252,16 +94227,15 @@
 /turf/simulated/floor/wood,
 /area/station/commons/arcade)
 "qgK" = (
-/obj/machinery/power/emitter{
-	dir = 4
+/obj/machinery/power/energy_accumulator/tesla_coil{
+	anchored = 1
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/structure/cable/layer1,
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
+/area/space)
 "qgN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -116637,11 +116611,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
-"tVp" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "tVr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -139252,13 +139221,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/station/hallway/primary/central/nw)
-"xLs" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
-/obj/structure/cable/layer1,
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "xLv" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
@@ -255347,7 +255309,7 @@ duD
 cwC
 cwC
 nSx
-qgK
+vfH
 hUe
 eng
 yeX
@@ -256112,13 +256074,13 @@ aKM
 aKM
 aKM
 aKM
-gqC
 aKM
 aKM
-gqC
 aKM
-gqC
-gEj
+aKM
+aKM
+aKM
+aKM
 aKM
 nlQ
 hUe
@@ -256627,7 +256589,7 @@ fFc
 afv
 uJG
 uJG
-iuf
+cYe
 uJG
 xrY
 uJG
@@ -256879,8 +256841,8 @@ pKJ
 pYj
 xXw
 bkc
-gqC
-vEo
+aKM
+qgK
 uJG
 bkc
 bkc
@@ -257650,8 +257612,8 @@ pKJ
 xXw
 xXw
 tTB
-xLs
-vEo
+aKM
+qgK
 uJG
 bkc
 bkc
@@ -257662,7 +257624,7 @@ bkc
 bkc
 uJG
 alJ
-tVp
+nlQ
 rPc
 aXX
 dan
@@ -258421,8 +258383,8 @@ pKJ
 pYj
 xXw
 bkc
-gqC
-vEo
+aKM
+qgK
 uJG
 bkc
 bkc
@@ -259195,14 +259157,14 @@ bkc
 aKM
 aKM
 aKM
-gqC
 aKM
 aKM
-gqC
 aKM
 aKM
-gqC
-gEj
+aKM
+aKM
+aKM
+aKM
 aKM
 nlQ
 rhS
@@ -259973,7 +259935,7 @@ duD
 cwC
 cwC
 nSx
-ktZ
+wME
 xXw
 dqe
 eOz
