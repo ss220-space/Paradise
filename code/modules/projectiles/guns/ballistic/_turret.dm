@@ -12,9 +12,11 @@
 	pull_push_slowdown = 1.5
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
+	buckle_bonus_spread = 0
 	var/obj/item/stationary_machinegun/item = /obj/item/stationary_machinegun
 	var/obj/item/gun/projectile/automatic/internal_gun = /obj/item/gun/projectile/automatic/l6_saw
 	var/offset_x = 12
+	var/allow_move = TRUE
 
 /obj/structure/stationary_machinegun/Initialize(mapload)
 	. = ..()
@@ -56,7 +58,7 @@
 		layer = initial(layer)
 
 /obj/structure/stationary_machinegun/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != user || !ishuman(user) || !item || has_buckled_mobs())
+	if(over_object != user || !ishuman(user) || !item || has_buckled_mobs() || !allow_move)
 		return
 
 	user.visible_message(
