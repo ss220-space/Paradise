@@ -1255,18 +1255,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
-"alu" = (
-/obj/machinery/power/energy_accumulator/tesla_coil{
-	anchored = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "alx" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -5427,9 +5415,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -6516,12 +6502,6 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"bfZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "bga" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8411,18 +8391,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/secondary)
-"bzK" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/power/emitter{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "bzP" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -12749,25 +12717,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/service/kitchen)
-"clW" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors"
-	},
-/obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors"
-	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "cme" = (
 /obj/structure/chair/comfy/black,
 /obj/structure/window/reinforced{
@@ -12970,9 +12919,7 @@
 	},
 /area/station/commons/fitness)
 "cnV" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
 /area/space)
@@ -16046,14 +15993,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/commons/serviceyard)
-"cPI" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/engine)
 "cPO" = (
 /obj/structure/statue/silver/sec,
 /turf/simulated/floor/plasteel{
@@ -21962,13 +21901,6 @@
 /obj/structure/table/glass,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/commons/serviceyard)
-"dUS" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "dUU" = (
 /obj/effect/landmark/lightsout,
 /obj/machinery/hologram/holopad,
@@ -22270,15 +22202,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/eastarrival)
-"dXY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "dYc" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -22655,9 +22578,7 @@
 /area/station/ai/upload/chamber)
 "ebj" = (
 /obj/effect/landmark/start/hangover,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -28182,9 +28103,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/tourist)
 "eZO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -28428,32 +28347,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "yellow"
-	},
-/area/station/engineering/engine)
-"fbx" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "yellow"
 	},
 /area/station/engineering/engine)
@@ -36481,15 +36374,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/commons/fitness)
-"grP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "grR" = (
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
@@ -37870,18 +37754,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/cargo/delivery)
-"gDF" = (
-/obj/machinery/power/energy_accumulator/tesla_coil{
-	anchored = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "gDG" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43265,13 +43137,6 @@
 	icon_state = "purple"
 	},
 /area/janitor)
-"hxR" = (
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "hxU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -43929,12 +43794,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/commercial)
-"hDo" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "hDp" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
@@ -44256,9 +44115,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/storage/secure)
 "hFN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -50812,26 +50669,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"iKx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "iKE" = (
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /obj/machinery/washing_machine,
@@ -53724,9 +53561,7 @@
 /area/station/commons/vacant_office)
 "jlI" = (
 /obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -54987,12 +54822,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/supermatter/room)
 "jwL" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56108,26 +55939,6 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
-"jHf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "jHl" = (
 /obj/structure/cable,
 /obj/structure/girder,
@@ -56464,13 +56275,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/medical)
-"jKe" = (
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "jKg" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
@@ -57462,19 +57266,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/railing,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom/directional/east,
+/obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "jTU" = (
@@ -63656,19 +63449,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/warden)
-"kUM" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "kUT" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -63772,12 +63552,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"kWe" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "kWg" = (
 /turf/simulated/wall,
 /area/station/maintenance/tourist)
@@ -64424,9 +64198,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -65339,12 +65111,7 @@
 	pixel_y = -10
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "liz" = (
@@ -67154,13 +66921,6 @@
 	icon_state = "purple"
 	},
 /area/station/science/robotics)
-"lyy" = (
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "lyF" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/west,
@@ -67541,9 +67301,7 @@
 	},
 /area/station/security/interrogation)
 "lBS" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -68501,18 +68259,6 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
-"lLE" = (
-/obj/machinery/power/emitter{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "lMa" = (
 /obj/machinery/syndicatebomb/training,
 /obj/structure/table/reinforced,
@@ -69504,15 +69250,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
-"lUj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "lUk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71423,43 +71160,23 @@
 	},
 /area/station/engineering/engine)
 "mko" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors"
-	},
 /obj/machinery/door_control{
 	id = "Singularity";
 	name = "Singularity Blast Doors";
 	pixel_y = -32;
 	req_access = list(10)
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engine Room";
 	req_access = list(10)
 	},
 /obj/effect/turf_decal/delivery,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
 	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/layer1,
-/obj/machinery/door_control{
-	id = "Singularity";
-	name = "Singularity Blast Doors";
-	pixel_y = -32;
-	req_access = list(10)
-	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engine Room";
-	req_access = list(10)
-	},
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "mkv" = (
@@ -72942,9 +72659,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "mws" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -74537,12 +74252,8 @@
 	},
 /area/station/hallway/primary/central/sw)
 "mKy" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "mKB" = (
@@ -75539,9 +75250,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -75601,13 +75310,6 @@
 	},
 /area/station/science/research/lobby)
 "mSM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -81209,12 +80911,8 @@
 /obj/machinery/power/emitter{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/engine)
 "nMA" = (
@@ -82016,21 +81714,9 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/secondary/exit)
-"nVs" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/window/full/plasmareinforced,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "nVu" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
 /area/space)
@@ -82397,9 +82083,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/solars/starboard)
 "nYq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -82722,15 +82406,9 @@
 	},
 /area/station/command/bridge)
 "obK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
 /area/space)
@@ -85759,13 +85437,6 @@
 	icon_state = "white"
 	},
 /area/station/science/research/lobby)
-"oEs" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "oEx" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -88453,15 +88124,6 @@
 /obj/structure/cable/multilayer/multiz,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/supermatter/room)
-"pem" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "pet" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -89882,16 +89544,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/teleporter/abandoned)
-"prd" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "pre" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
@@ -90369,13 +90021,8 @@
 /area/station/maintenance/casino)
 "pvd" = (
 /obj/machinery/power/apc/worn_out/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/library)
 "pvg" = (
@@ -90766,16 +90413,6 @@
 	dir = 4
 	},
 /obj/item/radio/intercom/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -91492,12 +91129,8 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/engine)
 "pFB" = (
@@ -91933,18 +91566,6 @@
 	},
 /turf/simulated/floor/engine/hull/reinforced,
 /area/space)
-"pKM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
-	},
-/area/station/engineering/engine)
 "pKY" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -93785,16 +93406,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"qbR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "qbX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -96767,9 +96378,7 @@
 "qAv" = (
 /obj/structure/window/full/plasmareinforced,
 /obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "qAw" = (
@@ -100535,9 +100144,7 @@
 	},
 /area/station/hallway/primary/central/south)
 "rfO" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/engineering/engine)
@@ -101325,9 +100932,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "rmz" = (
@@ -102301,13 +101906,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/eva)
-"rvk" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "rvn" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims{
@@ -104552,18 +104150,6 @@
 /obj/item/bedsheet/red,
 /turf/simulated/floor/carpet/red,
 /area/station/security/warden)
-"rNM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
-	},
-/area/station/engineering/engine)
 "rNP" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -107190,13 +106776,9 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/perma)
 "snN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/layer1,
 /turf/space/openspace,
 /area/space)
 "snT" = (
@@ -110195,16 +109777,6 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/station/command/office/qm)
-"sNp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/space/openspace,
-/area/space)
 "sNv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -110251,19 +109823,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/main)
-"sNU" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/carpet,
-/area/station/maintenance/library)
 "sNY" = (
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
@@ -110294,13 +109853,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"sOd" = (
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "sOj" = (
 /obj/machinery/door/airlock/silver{
 	name = "Bathroom"
@@ -112196,12 +111748,7 @@
 	},
 /area/station/telecomms/server)
 "teh" = (
-/obj/structure/cable/multiz{
-	color = "#eebb20"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/multilayer/multiz,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "tej" = (
@@ -112870,9 +112417,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "tkH" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/camera/emp_proof{
 	c_tag = "Singularity South-West 2nd Floor";
 	dir = 10;
@@ -115033,13 +114578,6 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fpmaint)
-"tCk" = (
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/engine)
 "tCw" = (
 /obj/machinery/light{
 	dir = 4
@@ -122265,13 +121803,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/maintenance/medroom)
-"uRg" = (
-/obj/machinery/particle_accelerator/control_box,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "uRi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -124177,9 +123708,7 @@
 /area/station/engineering/supermatter/room)
 "vhR" = (
 /obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -128791,9 +128320,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/camera/emp_proof{
 	c_tag = "Particle Accellerator 2nd Floor";
 	dir = 4;
@@ -129288,9 +128815,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/chapel)
 "vYe" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -132249,17 +131774,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -136597,25 +136112,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/storage)
-"xih" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/engine)
 "xii" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -137353,17 +136849,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -138508,9 +137994,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/eva)
 "xzo" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/camera/emp_proof{
 	c_tag = "Singularity South-East 2nd Floor";
 	dir = 1;
@@ -141269,10 +140753,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/multiz{
-	color = "#eebb20"
-	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/multilayer/multiz,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "xVJ" = (
@@ -141435,23 +140917,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
 "xWz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/light,
 /obj/structure/stairs{
 	dir = 4;
 	layer = 2
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "xWD" = (
@@ -142893,16 +142367,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/station/service/library)
-"yiX" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "yiZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -191349,7 +190813,7 @@ aTx
 rBI
 jUX
 ipM
-xih
+akL
 ebj
 eZO
 mSg
@@ -191609,7 +191073,7 @@ oWa
 wxJ
 jOK
 ogK
-pKM
+mSg
 isa
 xGp
 gCY
@@ -192120,7 +191584,7 @@ lxo
 wbM
 wbM
 bQi
-jHf
+wbM
 bAn
 xXw
 lbw
@@ -192379,8 +191843,8 @@ ifm
 pos
 teh
 iYT
-clW
-pKM
+bkh
+mSg
 isa
 wUe
 xXw
@@ -192630,14 +192094,14 @@ eIe
 alJ
 ftf
 qaX
-iKx
+fmg
 pPz
 fYI
 rLM
 dGo
-kUM
+iYT
 fBs
-fbx
+ipM
 prg
 vQl
 pGU
@@ -192894,7 +192358,7 @@ ohq
 mSM
 liu
 bkh
-pKM
+mSg
 isa
 vQl
 pGU
@@ -193665,7 +193129,7 @@ fbu
 xpo
 pOO
 put
-pKM
+mSg
 isa
 fBD
 pGU
@@ -193919,10 +193383,10 @@ aTx
 rBI
 jUX
 ipM
-xih
-cPI
+akL
+akL
 eZO
-rNM
+mSg
 isa
 qjU
 xXw
@@ -255584,15 +255048,15 @@ iWW
 rWx
 fvL
 xXw
-jKe
-hxR
-hxR
-hxR
+cbM
+cbM
+cbM
+cbM
 vhR
-hxR
-hxR
-hxR
-tCk
+cbM
+cbM
+cbM
+cbM
 dZf
 bCi
 jDh
@@ -255841,7 +255305,7 @@ rWx
 xXw
 xXw
 xXw
-lLE
+nJs
 oJu
 pku
 pku
@@ -256610,19 +256074,19 @@ pKJ
 sXs
 xXw
 bkc
-oEs
-rvk
-rvk
-rvk
-prd
-rvk
-rvk
-prd
-rvk
-prd
-sNp
-rvk
-kWe
+cnV
+cnV
+cnV
+cnV
+nVu
+cnV
+cnV
+nVu
+cnV
+nVu
+snN
+cnV
+ftf
 dZf
 sAB
 tQH
@@ -256867,19 +256331,19 @@ rWx
 sXs
 xXw
 bkc
-dUS
+cnV
 fsK
 pkq
 pkq
-gDF
+rHi
 pkq
 pkq
-gDF
+rHi
 pkq
-gDF
+rHi
 pkq
 cFs
-bfZ
+ftf
 dZf
 bQP
 dWd
@@ -257124,7 +256588,7 @@ rDr
 xXw
 xXw
 kdC
-dUS
+cnV
 fFc
 afv
 uJG
@@ -257136,14 +256600,14 @@ uJG
 uJG
 iqf
 alJ
-bfZ
+ftf
 dZf
 ayO
 aIK
 jet
 iKt
 rRJ
-sNU
+iOx
 glo
 nMA
 gbz
@@ -257393,7 +256857,7 @@ bkc
 bkc
 uJG
 alJ
-bfZ
+ftf
 dZf
 xcU
 evV
@@ -257638,7 +257102,7 @@ pKJ
 sXs
 xXw
 bkc
-dUS
+cnV
 fFc
 uJG
 bkc
@@ -257650,7 +257114,7 @@ bkc
 bkc
 uJG
 alJ
-bfZ
+ftf
 xXw
 xXw
 xXw
@@ -257895,7 +257359,7 @@ pKJ
 sXs
 xXw
 bkc
-dUS
+cnV
 fFc
 cYe
 bkc
@@ -257907,10 +257371,10 @@ bkc
 bkc
 sVz
 alJ
-bfZ
+ftf
 qAv
-dXY
-grP
+lxo
+wbM
 rmw
 vUe
 xVA
@@ -258409,7 +257873,7 @@ pKJ
 sXs
 xXw
 bkc
-dUS
+cnV
 fFc
 ski
 bkc
@@ -258421,9 +257885,9 @@ bkc
 bkc
 cYe
 alJ
-bfZ
+ftf
 aTx
-lUj
+fmg
 pPz
 fYI
 rLM
@@ -258666,7 +258130,7 @@ pKJ
 sXs
 xXw
 bkc
-dUS
+cnV
 fFc
 uJG
 bkc
@@ -258678,12 +258142,12 @@ bkc
 bkc
 uJG
 alJ
-bfZ
+ftf
 aTx
-lUj
+fmg
 mgI
 hrQ
-uRg
+ohq
 nYq
 ekt
 qJd
@@ -258923,7 +258387,7 @@ pKJ
 sXs
 xXw
 bkc
-yiX
+nVu
 vEo
 uJG
 bkc
@@ -258935,13 +258399,13 @@ bkc
 bkc
 uJG
 alJ
-bfZ
-nVs
+ftf
+qaX
 mws
 lBS
 hFN
 vYe
-pem
+lBS
 mjx
 mrl
 jjb
@@ -259180,7 +258644,7 @@ rWx
 xXw
 xXw
 jQo
-dUS
+cnV
 fFc
 sGD
 uJG
@@ -259192,7 +258656,7 @@ uJG
 uJG
 tve
 alJ
-bfZ
+ftf
 xXw
 xXw
 xXw
@@ -259437,19 +258901,19 @@ rDr
 sXs
 xXw
 bkc
-dUS
+cnV
 pFY
 wuI
-alu
+rAI
 wuI
 wuI
-alu
+rAI
 wuI
 wuI
-alu
+rAI
 wuI
 mwE
-bfZ
+ftf
 vJT
 lxG
 nmz
@@ -259695,18 +259159,18 @@ sXs
 xXw
 bkc
 cnV
-rvk
-rvk
-qbR
-rvk
-rvk
-qbR
-rvk
-rvk
-qbR
+cnV
+cnV
+nVu
+cnV
+cnV
+nVu
+cnV
+cnV
+nVu
 snN
-rvk
-hDo
+cnV
+ftf
 vJT
 ccL
 vGz
@@ -260467,7 +259931,7 @@ rDr
 xXw
 xXw
 xXw
-bzK
+afy
 oJu
 pku
 pku
@@ -260724,15 +260188,15 @@ oRh
 rDr
 fvL
 xXw
-sOd
-hxR
-hxR
-hxR
+cbM
+cbM
+cbM
+cbM
 jlI
-hxR
-hxR
-hxR
-lyy
+cbM
+cbM
+cbM
+cbM
 xXw
 flY
 hyI

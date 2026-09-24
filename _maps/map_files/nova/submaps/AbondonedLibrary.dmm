@@ -6,9 +6,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "bc" = (
@@ -34,9 +32,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/camera/emp_proof{
 	c_tag = "Particle Accellerator 2nd Floor";
 	dir = 4;
@@ -57,9 +53,7 @@
 "cp" = (
 /obj/structure/window/full/plasmareinforced,
 /obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "cw" = (
@@ -144,9 +138,7 @@
 	},
 /area/station/maintenance/electrical_shop)
 "hb" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "hc" = (
@@ -271,9 +263,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "pi" = (
@@ -383,9 +373,7 @@
 	},
 /area/station/maintenance/electrical_shop)
 "sB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
 /area/space)
@@ -774,12 +762,6 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/trading)
-"Lq" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "Lw" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -889,10 +871,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/multiz{
-	color = "#eebb20"
-	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/multilayer/multiz,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "Ow" = (
@@ -1100,9 +1080,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "Vf" = (
@@ -1544,7 +1522,7 @@ hZ
 hZ
 hZ
 Ny
-Lq
+hb
 uN
 zY
 uY
@@ -1586,7 +1564,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 uN
 AP
 qv
@@ -1628,7 +1606,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 uN
 gs
 vq
@@ -1670,7 +1648,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 AV
 AV
 AV
@@ -1712,7 +1690,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 cp
 nh
 Va
@@ -2090,7 +2068,7 @@ hZ
 hZ
 hZ
 Ny
-Lq
+hb
 DG
 Ox
 Fp
@@ -2132,7 +2110,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 DG
 NH
 Ox
@@ -2174,7 +2152,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 DG
 el
 NH
@@ -2216,7 +2194,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 AV
 AV
 AV
@@ -2258,7 +2236,7 @@ hZ
 hZ
 hZ
 HU
-Lq
+hb
 cp
 nh
 Va
