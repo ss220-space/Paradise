@@ -4771,15 +4771,9 @@
 	dir = 4;
 	layer = 2
 	},
-/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "aPW" = (
@@ -82284,12 +82278,6 @@
 	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/layer1,
-/obj/machinery/door_control{
-	id = "Singularity";
-	name = "Singularity Blast Doors";
-	pixel_y = -32;
-	req_access = list(10)
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)

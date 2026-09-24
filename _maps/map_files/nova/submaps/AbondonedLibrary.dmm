@@ -170,18 +170,24 @@
 	},
 /area/station/maintenance/trading)
 "ke" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/obj/effect/spawner/random_spawners/fungus_30,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
 	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/simulated/wall,
+/area/station/maintenance/trading)
 "kj" = (
-/obj/structure/window/full/plasmareinforced,
-/obj/structure/grille,
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
 "kz" = (
 /obj/item/paper,
 /obj/item/paper{
@@ -192,21 +198,20 @@
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/electrical_shop)
 "kB" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
 "lF" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"lG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "lH" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
@@ -316,12 +321,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"qw" = (
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "qA" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -402,10 +401,14 @@
 /turf/simulated/wall/rust,
 /area/station/maintenance/electrical_shop)
 "uP" = (
-/obj/structure/cable/layer1,
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/electrical_shop)
 "uY" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -701,16 +704,15 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"ER" = (
-/turf/space/openspace,
-/area/space)
 "Ff" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
 	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/turf/template_noop,
+/area/template_noop)
 "Fp" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -726,9 +728,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"GS" = (
-/turf/simulated/wall/r_wall,
-/area/station/engineering/engine)
 "Hi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -782,13 +781,15 @@
 /turf/simulated/wall,
 /area/station/maintenance/trading)
 "JG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/spawner/random_spawners/fungus_30,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
 	},
-/obj/structure/cable/multilayer/multiz,
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/station/maintenance/electrical_shop)
 "KC" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/crate/secure/loot,
@@ -903,20 +904,15 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"OF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "OO" = (
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/trading)
 "OR" = (
 /obj/structure/sign/barsign{
 	pixel_y = -32
@@ -942,21 +938,15 @@
 /obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
-"PV" = (
-/turf/simulated/openspace,
-/area/station/engineering/engine)
 "QD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
 	},
-/obj/structure/cable/layer1,
-/obj/machinery/camera/emp_proof{
-	c_tag = "Particle Accellerator 2nd Floor";
-	dir = 4;
-	network = list("Engineering","SS13")
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/turf/template_noop,
+/area/template_noop)
 "Rh" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary,
 /obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedLibrary/electronicsden,
@@ -1269,7 +1259,7 @@ hZ
 hZ
 hZ
 hZ
-hg
+uP
 SG
 DQ
 IQ
@@ -1437,8 +1427,8 @@ hZ
 hZ
 hZ
 hZ
-ER
-qw
+hZ
+hZ
 hg
 Ux
 tT
@@ -1479,8 +1469,8 @@ hZ
 hZ
 hZ
 hZ
-uP
-OO
+hZ
+hZ
 hg
 sv
 Ma
@@ -1521,8 +1511,8 @@ hZ
 hZ
 hZ
 hZ
-lG
-OO
+hZ
+hZ
 hg
 zY
 uY
@@ -1563,8 +1553,8 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
+hZ
+hZ
 hg
 AP
 qv
@@ -1605,8 +1595,8 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
+hZ
+hZ
 hg
 gs
 Iu
@@ -1647,15 +1637,15 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
-GS
-GS
-GS
-GS
-GS
-GS
-GS
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
 PG
 bK
 rn
@@ -1690,19 +1680,19 @@ hZ
 hZ
 hZ
 kB
-OO
-kj
-ke
-Ff
-OF
-QD
-JG
-PV
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
 hg
 tZ
 LF
 LF
-PG
+JG
 hZ
 hZ
 "}
@@ -1815,7 +1805,7 @@ hZ
 hZ
 hZ
 hZ
-VI
+OO
 SK
 AY
 Pu
@@ -1983,8 +1973,8 @@ hZ
 hZ
 hZ
 hZ
-ER
-qw
+hZ
+hZ
 VI
 NH
 Ox
@@ -2025,8 +2015,8 @@ hZ
 hZ
 hZ
 hZ
-uP
-OO
+hZ
+hZ
 VI
 Ox
 NH
@@ -2067,8 +2057,8 @@ hZ
 hZ
 hZ
 hZ
-lG
-OO
+hZ
+hZ
 VI
 Ox
 Fp
@@ -2109,8 +2099,8 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
+hZ
+hZ
 VI
 NH
 Ox
@@ -2151,8 +2141,8 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
+hZ
+hZ
 VI
 el
 NH
@@ -2193,15 +2183,15 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
-GS
-GS
-GS
-GS
-GS
-GS
-GS
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
 Bl
 XT
 qA
@@ -2235,20 +2225,20 @@ hZ
 hZ
 hZ
 hZ
-kB
-OO
-kj
-ke
-Ff
-OF
 QD
-JG
-PV
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
+hZ
 VI
 bg
 bg
 bg
-Bl
+ke
 hZ
 hZ
 "}
@@ -2361,7 +2351,7 @@ hZ
 hZ
 hZ
 hZ
-hZ
+Ff
 hZ
 hZ
 hZ
@@ -2781,6 +2771,7 @@ hZ
 hZ
 hZ
 hZ
+QD
 hZ
 hZ
 hZ
@@ -2793,8 +2784,7 @@ hZ
 hZ
 hZ
 hZ
-hZ
-hZ
+kj
 hZ
 hZ
 "}
