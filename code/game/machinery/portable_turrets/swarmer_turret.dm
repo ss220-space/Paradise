@@ -104,6 +104,13 @@
 /obj/machinery/porta_turret/swarmer/setup()
 	return
 
+// Much easier to do here, we ignore mechs, spacepods and else not living
+/obj/machinery/porta_turret/swarmer/handleInterloper(atom/movable/entity)
+	if(!isliving(entity) || isswarmer(entity)) // swarmer check is here since emagged interactions are pretty much hardcoded
+		return
+
+	return ..()
+
 /obj/machinery/porta_turret/swarmer/assess_perp(mob/living/carbon/human/perp)
 	return 10 // Swarmer turrets shoot everything not in their faction
 
