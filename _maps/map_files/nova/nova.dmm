@@ -4775,11 +4775,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -31619,15 +31614,6 @@
 	dir = 8
 	},
 /obj/structure/cable/layer1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -39632,6 +39618,26 @@
 	icon_state = "darkbrown"
 	},
 /area/station/cargo/storage)
+"gQy" = (
+/obj/machinery/door_control{
+	id = "Singularity";
+	name = "Singularity Blast Doors";
+	pixel_y = -32;
+	req_access = list(10)
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engine Room";
+	req_access = list(10)
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/cable/layer1,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Singularity";
+	name = "Singularity Blast Doors"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/engine)
 "gQz" = (
 /obj/effect/turf_decal/delivery/blue,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -45902,16 +45908,6 @@
 	},
 /obj/structure/cable/layer1,
 /obj/structure/railing,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "hSY" = (
@@ -62850,11 +62846,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/layer1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
@@ -63891,11 +63882,6 @@
 	},
 /obj/item/radio/intercom/directional/east,
 /obj/structure/cable/layer1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -68530,15 +68516,6 @@
 	dir = 4
 	},
 /obj/structure/cable/layer1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -76788,14 +76765,6 @@
 /obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/library)
 "nek" = (
@@ -82315,17 +82284,6 @@
 	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/layer1,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors"
-	},
-/obj/structure/cable/layer1,
 /obj/machinery/door_control{
 	id = "Singularity";
 	name = "Singularity Blast Doors";
@@ -82333,11 +82291,6 @@
 	req_access = list(10)
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engine Room";
-	req_access = list(10)
-	},
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "nZZ" = (
@@ -109246,12 +109199,6 @@
 	dir = 8
 	},
 /obj/structure/cable/layer1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -135242,7 +135189,6 @@
 	dir = 8
 	},
 /obj/structure/cable/multilayer/multiz,
-/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "xdw" = (
@@ -191427,7 +191373,7 @@ aTx
 aTx
 bsa
 xXw
-nZN
+gQy
 xXw
 bsa
 lZu
