@@ -614,6 +614,7 @@
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	var/response = SEND_SIGNAL(src, COMSIG_GUN_CHECK_CAN_SHOOT, user)
 	return !(response & GUN_CHECK_CANCEL_ATTACK)
 

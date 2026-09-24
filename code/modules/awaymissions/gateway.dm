@@ -1,4 +1,8 @@
 GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
+/// Gateway open cooldown id
+#define COOLDOWN_GATEWAY_OPEN "gateway_open"
+/// Gateway lock cooldown id
+#define COOLDOWN_GATEWAY_LOCK "gateway_lock"
 /// Roundstart gate lock duration (and between openings)
 #define GATE_LOCK_DURATION 15 MINUTES
 /// Max open duration
@@ -13,7 +17,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = FALSE
-	var/active_timer = 0
 	req_access = list(ACCESS_RD, ACCESS_ARMORY)
 
 /obj/machinery/gateway/Initialize(mapload)
@@ -44,7 +47,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		GLOB.the_gateway = src
 
 	update_icon(UPDATE_ICON_STATE)
-	wait = world.time + CONFIG_GET(number/gateway_delay)
+	wait = world.time + CONFIG_GET(number/gateway_delay) + GATE_LOCK_DURATION
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/Destroy()
@@ -62,7 +65,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	icon_state = active ? "oncenter" : "offcenter"
 
 /obj/machinery/gateway/centerstation/process(seconds_per_tick)
-	active_timer += seconds_per_tick
 	if(stat & (NOPOWER))
 		if(active)
 			toggleoff()
@@ -73,7 +75,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			toggleoff()
 		use_power(5000)
 
-	if(active && active_timer > GATE_OPEN_DURATION)
+	if(active && !TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_OPEN))
 		toggleoff()
 
 /obj/machinery/gateway/centerstation/proc/detect()
@@ -118,7 +120,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = TRUE
 		G.update_icon()
 	active = TRUE
-	active_timer = 0
+	TIMER_COOLDOWN_START(src, COOLDOWN_GATEWAY_OPEN, GATE_OPEN_DURATION)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
@@ -126,7 +128,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
-	active_timer = 0
+	TIMER_COOLDOWN_START(src, COOLDOWN_GATEWAY_LOCK, GATE_LOCK_DURATION)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user)
@@ -138,10 +140,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		detect()
 		return
 	if(!active)
-		if(active_timer > GATE_LOCK_DURATION)
-			toggleon(user)
+		if(TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_LOCK))
+			balloon_alert(user, "идет процесс зарядки...")
 			return
-		balloon_alert(user, "идет процесс зарядки...")
+		toggleon(user)
 		return
 	toggleoff()
 
@@ -154,10 +156,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		detect()
 		return
 	if(!active)
-		if(active_timer > GATE_LOCK_DURATION)
-			toggleon(user)
+		if(TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_LOCK))
+			remote_device.balloon_alert(user, "идет процесс зарядки...")
 			return
-		remote_device.balloon_alert(user, "идет процесс зарядки...")
+		toggleon(user)
 		return
 	toggleoff()
 
@@ -240,7 +242,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = TRUE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = TRUE
-	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
@@ -248,7 +249,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
-	active_timer = 0
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centeraway/attack_hand(mob/user)
@@ -257,10 +257,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		detect()
 		return
 	if(!active)
-		if(active_timer > GATE_LOCK_DURATION)
-			toggleon(user)
-			return
-		balloon_alert(user, "идет процесс зарядки...")
+		toggleon(user)
 		return
 	toggleoff()
 
@@ -320,5 +317,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	device = gateway_device
 
 
+#undef COOLDOWN_GATEWAY_OPEN
+#undef COOLDOWN_GATEWAY_LOCK
 #undef GATE_LOCK_DURATION
 #undef GATE_OPEN_DURATION
