@@ -63851,10 +63851,6 @@
 	},
 /obj/item/radio/intercom/directional/east,
 /obj/structure/cable/layer1,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "kWX" = (
