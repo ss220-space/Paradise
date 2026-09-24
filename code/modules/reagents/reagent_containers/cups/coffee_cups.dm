@@ -3,11 +3,11 @@
 	name = ""
 	desc = ""
 	max_integrity = 20
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/examine(mob/user)
 	. = ..()
-	. += span_notice("Вмещает до <b>[volume]</b> единиц[declension_ru(volume, "ы", "", "")] вещества.")
+	. += span_notice("Вмещает до <b>[volume]</b> единиц[DECL_Y_0_0(volume)] вещества.")
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

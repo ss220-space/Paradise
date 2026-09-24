@@ -1,5 +1,5 @@
 #define CUSTOM_OUTFIT_SAVE_FORMAT "ss1984_custom_outfit"
-#define CUSTOM_OUTFIT_SAVE_VERSION 1
+#define CUSTOM_OUTFIT_SAVE_VERSION 2
 
 /datum/custom_outfit/proc/get_save_data()
 	. = list()
@@ -19,6 +19,14 @@
 		reagents["[reagent_path]"] = volume
 	.["reagent_volumes"] = reagents
 	.["id_card_data"] = id_card_data
+	var/list/saved_belt = list()
+	for(var/item_path, count in belt_contents)
+		if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, count))
+			continue
+		saved_belt["[item_path]"] = count
+	.["belt_contents"] = saved_belt
+	.["backpack_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BACKPACK)
+	.["belt_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BELT)
 
 /datum/custom_outfit/proc/save_to_client(mob/user)
 	if(!user.client)
@@ -78,7 +86,13 @@
 		return FALSE
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
-	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
+	if(!islist(data["id_card_data"]))
+		return FALSE
+	if(!islist(data["belt_contents"]))
+		return FALSE
+	if(!islist(data["backpack_nested_contents"]))
+		return FALSE
+	if(!islist(data["belt_nested_contents"]))
 		return FALSE
 	return TRUE
 
@@ -114,7 +128,7 @@
 	var/list/new_internal = list()
 	for(var/organ_text in save_data["internal_augmentations"])
 		var/organ_path = text2path(organ_text)
-		if(!ispath(organ_path, /obj/item/organ/internal))
+		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		new_internal[organ_path] = TRUE
 
@@ -122,7 +136,7 @@
 	var/list/reagents = save_data["reagent_volumes"]
 	for(var/reagent_text, amount in reagents)
 		var/reagent_path = text2path(reagent_text)
-		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
+		if(!CUSTOM_OUTFIT_IS_VALID_REAGENT_VOLUME(reagent_path, amount))
 			continue
 		new_reagents[reagent_path] = min(amount, CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
 
@@ -148,9 +162,23 @@
 				var/access_num = isnum(access_entry) ? access_entry : text2num("[access_entry]")
 				if(!isnum(access_num))
 					continue
-				if(!(access_num in get_all_accesses()))
+				if(!(access_num in get_absolutely_all_accesses()))
 					continue
 				new_id_card_data["access"] += access_num
+
+	var/list/new_belt_contents = list()
+	if(islist(save_data["belt_contents"]))
+		for(var/item_text, count in save_data["belt_contents"])
+			var/item_path = text2path(item_text)
+			if(!is_valid_item_entry(item_path, count))
+				continue
+			new_belt_contents[item_path] = count
+
+	var/list/new_nested = list(CUSTOM_OUTFIT_CONTAINER_BACKPACK = list(), CUSTOM_OUTFIT_CONTAINER_BELT = list())
+	if(islist(save_data["backpack_nested_contents"]))
+		new_nested[CUSTOM_OUTFIT_CONTAINER_BACKPACK] = apply_nested_for_load(save_data["backpack_nested_contents"])
+	if(islist(save_data["belt_nested_contents"]))
+		new_nested[CUSTOM_OUTFIT_CONTAINER_BELT] = apply_nested_for_load(save_data["belt_nested_contents"])
 
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit
@@ -158,9 +186,12 @@
 	internal_augmentations = new_internal
 	reagent_volumes = new_reagents
 	id_card_data = new_id_card_data
+	belt_contents = new_belt_contents
+	nested_storage_contents = new_nested
 
 	body_dirty = TRUE
 	backpack_dirty = TRUE
+	belt_dirty = TRUE
 	dental_dirty = TRUE
 	return TRUE
 
@@ -173,7 +204,7 @@
 /datum/custom_outfit/proc/sanitize_loaded_outfit(datum/outfit/loaded_outfit)
 	for(var/outfit_slot in slot_to_human_var)
 		var/loaded_path = loaded_outfit.vars[outfit_slot]
-		if(loaded_path && !ispath(loaded_path, /obj/item))
+		if(loaded_path && !CUSTOM_OUTFIT_IS_ITEM_PATH(loaded_path))
 			loaded_outfit.vars[outfit_slot] = null
 		if(loaded_path && !item_fits_species(loaded_path, slot_to_item_flag[outfit_slot], target_mob))
 			loaded_outfit.vars[outfit_slot] = null
@@ -183,9 +214,9 @@
 			continue
 		sanitized_backpack[item_path] = count
 	loaded_outfit.backpack_contents = sanitized_backpack
-	if(loaded_outfit.box && !ispath(loaded_outfit.box, /obj/item))
+	if(loaded_outfit.box && !CUSTOM_OUTFIT_IS_ITEM_PATH(loaded_outfit.box))
 		loaded_outfit.box = null
-	if(loaded_outfit.head && ispath(loaded_outfit.head, /obj/item/clothing/head/helmet/space/hardsuit))
+	if(loaded_outfit.head && CUSTOM_OUTFIT_IS_HARDSUIT_HELMET_PATH(loaded_outfit.head))
 		// Hardsuit helmets cannot be spawned standalone (their Initialize expects
 		// the parent suit), so they are not a valid head slot item.
 		loaded_outfit.head = null
@@ -197,6 +228,37 @@
 			fitting_cyber += organ_path
 	loaded_outfit.cybernetic_implants = fitting_cyber
 	loaded_outfit.accessories = filter_path_list(loaded_outfit.accessories, /obj/item/clothing/accessory)
+
+/datum/custom_outfit/proc/serialize_nested_for_save(container_key)
+	. = list()
+	var/list/container_nested = nested_storage_contents[container_key]
+	for(var/parent_path_str, children in container_nested)
+		if(!islist(children))
+			continue
+		var/list/child_out = list()
+		for(var/item_path, child_count in children)
+			if(!CUSTOM_OUTFIT_IS_VALID_ITEM_ENTRY(item_path, child_count))
+				continue
+			child_out["[item_path]"] = child_count
+		if(length(child_out))
+			.[parent_path_str] = child_out
+
+/datum/custom_outfit/proc/apply_nested_for_load(list/nested_data)
+	. = list()
+	for(var/parent_text, children in nested_data)
+		if(!islist(children))
+			continue
+		var/parent_path = text2path(parent_text)
+		if(!CUSTOM_OUTFIT_IS_STORAGE_PATH(parent_path))
+			continue
+		var/list/child_out = list()
+		for(var/item_text, child_count in children)
+			var/item_path = text2path(item_text)
+			if(!is_valid_item_entry(item_path, child_count))
+				continue
+			child_out[item_path] = child_count
+		if(length(child_out))
+			.["[parent_path]"] = child_out
 
 #undef CUSTOM_OUTFIT_SAVE_FORMAT
 #undef CUSTOM_OUTFIT_SAVE_VERSION

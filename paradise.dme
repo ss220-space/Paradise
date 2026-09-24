@@ -495,6 +495,7 @@
 #include "code\_onclick\hud\blobbernaut.dm"
 #include "code\_onclick\hud\bot.dm"
 #include "code\_onclick\hud\cogscarab.dm"
+#include "code\_onclick\hud\character_preview.dm"
 #include "code\_onclick\hud\constructs.dm"
 #include "code\_onclick\hud\devil.dm"
 #include "code\_onclick\hud\fullscreen.dm"

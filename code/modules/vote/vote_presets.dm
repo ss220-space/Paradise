@@ -63,7 +63,7 @@
 	if(!SSmapping.map_datum)
 		return "Map Vote triggered before the map config load!"
 
-	if(!SSticker.current_state < GAME_STATE_PREGAME)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return "Map Vote triggered before Lobby stage!"
 
 /datum/vote/map/finalize_vote(result)
@@ -127,10 +127,10 @@
 		return .
 
 	if(SSticker?.mode)
-		return "Game mode triggered after the game mode selection!"
+		return "Gamemode Vote triggered after the game mode selection!"
 
-	if(!SSticker.current_state < GAME_STATE_PREGAME)
-		return "Map Vote triggered before Lobby stage!"
+	if(SSticker.current_state < GAME_STATE_PREGAME)
+		return "Gamemode Vote triggered before Lobby stage!"
 
 #undef CREW_TRANSFER_CHOICE
 #undef CONTINUE_SHIFT_CHOICE

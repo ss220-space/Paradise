@@ -142,10 +142,10 @@
 
 	// No dividing by 0
 	if(initial_damage)
-		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
+		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[DECL_E_YA_J(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets))]")
 		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
 	if(initial_stamina)
-		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
+		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[DECL_E_YA_J(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets))]")
 		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."
 
 	return readout.Join("\n") // Sending over a single string, rather than the whole list
@@ -233,7 +233,7 @@
 		balloon_alert(user, "не получилось собрать")
 		return ATTACK_CHAIN_PROCEED
 	box.update_appearance(UPDATE_ICON|UPDATE_DESC)
-	to_chat(user, span_notice("Вы собрали [boolets] гильз[DECL_SEC_MIN(boolets)]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
+	to_chat(user, span_notice("Вы собрали [boolets] гильз[DECL_U_Y_0(boolets)]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[DECL_A_Y_0(length(box.stored_ammo))]."))
 	if(box.can_fast_load)
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
 	return ATTACK_CHAIN_PROCEED_SUCCESS

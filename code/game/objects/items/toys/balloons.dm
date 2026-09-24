@@ -25,7 +25,7 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/waterballoon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!istype(target, /obj/structure/reagent_dispensers))
+	if(!is_reagent_dispenser(target))
 		return
 
 	var/obj/structure/reagent_dispensers/dispencer = target
@@ -43,7 +43,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
-	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/cup/glass/drinkingglass))
+	if(!iscup(item) && !istype(item, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		return ..()
 
 	add_fingerprint(user)

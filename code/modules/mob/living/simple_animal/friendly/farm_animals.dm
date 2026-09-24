@@ -89,7 +89,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
@@ -221,7 +221,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))
@@ -720,6 +720,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	. = ..()
 	create_reagents(80)
 	reagents.add_reagent("milk", 20)
+
+/obj/item/udder/Destroy(force)
+	reagents.my_atom = null
+	QDEL_NULL(reagents)
+	return ..()
 
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5

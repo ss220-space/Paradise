@@ -13,7 +13,12 @@
 	/// How much we drink at once, shot glasses drink more.
 	var/gulp_size = 5
 	/// Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it.
-	var/isGlass = FALSE
+	var/is_glass = FALSE
+	/// What kind of chem transfer method does this cup use. Defaults to INGEST
+	var/reagent_consumption_method = REAGENT_INGEST
+	/// What sound does our consumption play on consuming from the container?
+	var/consumption_sound = 'sound/items/drink.ogg'
+	/// Whether to allow heating up the contents with a source of flame.
 	var/heatable = TRUE
 	/// Can we put a lid on this container?
 	var/can_lid = FALSE
@@ -27,6 +32,7 @@
 	if(heatable)
 		AddElement(/datum/element/reagents_item_heatable)
 	register_context()
+	register_item_context()
 
 /obj/item/reagent_containers/cup/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
@@ -34,9 +40,34 @@
 	if(isnull(held_item) || held_item == src)
 		if(can_lid)
 			context[SCREENTIP_CONTEXT_ALT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
-		context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
-		context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
-		return CONTEXTUAL_SCREENTIP_SET
+			. = CONTEXTUAL_SCREENTIP_SET
+		if(has_variable_transfer_amount)
+			context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
+			context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
+			. = CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/reagent_containers/cup/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(!is_open_container() || target == source)
+		return
+
+	if(user.a_intent == INTENT_HARM && reagents.total_volume)
+		context[SCREENTIP_CONTEXT_RMB] = "Вылить содержимое на цель"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(target.is_refillable() && reagents.total_volume)
+		context[SCREENTIP_CONTEXT_LMB] = "Вылить в [iscup(target) ? "эту ёмкость" : "этот объект"]"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(isliving(target) && reagents.total_volume)
+		context[SCREENTIP_CONTEXT_LMB] = "[target == user ? "Сделать глоток" : "Напоить"] из ёмкости"
+		context[SCREENTIP_CONTEXT_RMB] = "[target == user ? "Пить" : "Поить"] до опустошения"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(target.is_drainable())
+		context[SCREENTIP_CONTEXT_RMB] = "Налить из [iscup(target) ? "этой ёмкости" : "этого объекта"]"
+		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
 	. = ..()
@@ -76,87 +107,94 @@
 
 	COOLDOWN_START(src, last_check_time, 5 SECONDS)
 
-/obj/item/reagent_containers/cup/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!is_open_container())
-		return ..()
+/obj/item/reagent_containers/cup/proc/try_drink(mob/living/target_mob, mob/living/user, repeat_drinking = FALSE)
+	if(!can_consume(target_mob, user))
+		return ITEM_INTERACT_BLOCKING
 
-	. = ATTACK_CHAIN_PROCEED
-
-	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
-		if(target == user)
-			balloon_alert(user, "ваш рот закрыт!")
-		else
-			balloon_alert(user, "рот цели закрыт!")
-		return .
-
-	if(!reagents || !reagents.total_volume)
-		balloon_alert(user, "пусто!")
-		return .
-
-	if(has_lid)
-		balloon_alert(user, "снимите крышку!")
-		return .
-
-	if(!istype(target))
-		return .
-
-	if(target != user)
-		target.visible_message(
-			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(target_mob != user)
+		if(DOING_INTERACTION_WITH_TARGET(user, target_mob))
+			return ITEM_INTERACT_BLOCKING
+		target_mob.visible_message(
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся напоить содержимым [declent_ru(GENITIVE)] [target_mob]!"),
 			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
 		)
-		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
-			return .
-		target.visible_message(
-			span_danger("[user] напоил[GEND_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
+		if(target_mob.is_blind())
+			to_chat(target_mob, span_userdanger("Кто-то пытается вас чем-то напоить!"))
+		if(!do_after(user, 3 SECONDS, target_mob))
+			return ITEM_INTERACT_BLOCKING
+		if(!reagents || !reagents.total_volume)
+			return ITEM_INTERACT_BLOCKING // The drink might be empty after the delay, such as by spam-feeding
+		target_mob.visible_message(
+			span_danger("[user] напоил[GEND_A_O_I(user)] [target_mob] содержимым [declent_ru(GENITIVE)]!"),
 			span_userdanger("[user] напоил[GEND_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
-		add_attack_logs(user, target, "Fed with [name] containing [reagents.log_list()]")
+		if(target_mob.is_blind())
+			to_chat(target_mob, span_userdanger("Вас чем-то напоили!"))
+		add_attack_logs(user, target_mob, "Fed with [name] containing [reagents.log_list()]")
+
 	else
+		if(repeat_drinking)
+			if(DOING_INTERACTION_WITH_TARGET(user, user))
+				return ITEM_INTERACT_BLOCKING
+			user.visible_message(
+				span_notice("[user] пыта[PLUR_ET_YUT(user)]ся попить из [declent_ru(GENITIVE)]."),
+				ignored_mobs = list(user),
+			)
+			to_chat(user, span_notice("Вы пытаетесь попить из [declent_ru(GENITIVE)]."))
+			if(!do_after(user, 1.25 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE))
+				return ITEM_INTERACT_BLOCKING
+			if(!reagents || !reagents.total_volume)
+				return ITEM_INTERACT_BLOCKING
+			user.visible_message(
+				span_notice("[user] пь[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]."),
+				ignored_mobs = list(user),
+			)
 		to_chat(user, span_notice("Вы делаете глоток из [declent_ru(GENITIVE)]."))
 
-	. |= ATTACK_CHAIN_SUCCESS
+	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target_mob, user)
+	var/fraction = min(gulp_size / reagents.total_volume, 1)
+	reagents.trans_to(target_mob, gulp_size)
+	reagents.reaction(target_mob, reagent_consumption_method, fraction)
+	checkLiked(fraction, target_mob)
+	playsound(target_mob, consumption_sound, rand(10, 50), TRUE)
 
-	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target, user)
-	var/fraction = min(gulp_size/reagents.total_volume, 1)
-	reagents.trans_to(target, gulp_size)
-	checkLiked(fraction, target)
-	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
+	if(repeat_drinking)
+		return try_drink(target_mob, user, TRUE) | ITEM_INTERACT_SUCCESS
 
-/obj/item/reagent_containers/cup/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/reagent_containers/cup/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if((!proximity_flag) || !check_allowed_items(target,target_self=1))
-		return
 
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
 	if(!is_open_container())
-		return
+		return NONE
 
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
-		if(!reagents.total_volume)
-			balloon_alert(usr, "пусто!")
-			return
+		return try_refill(target, user)
 
-		if(target.reagents.holder_full())
-			balloon_alert(usr, "нет места!")
-			return
+	if(isliving(target))
+		return try_drink(target, user)
 
-		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
+	return NONE
 
-	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
-		if(!target.reagents.total_volume)
-			balloon_alert(user, "пусто!")
-			return
+/obj/item/reagent_containers/cup/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
+	. = ..()
 
-		if(reagents.holder_full())
-			balloon_alert(user, "нет места!")
-			return
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	if(!is_open_container())
+		return NONE
 
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)].")
+	if(target.is_drainable() && is_reagent_dispenser(target)) //A dispenser. Transfer FROM it.
+		return try_drain(target, user)
 
-	target.update_appearance()
+	if(isliving(target))
+		return try_drink(target, user, TRUE)
+
+	return NONE
 
 /obj/item/reagent_containers/cup/update_overlays()
 	. = ..()
@@ -339,7 +377,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	name = "baggie"
 	desc = "Небольшой пластиковый пакет, часто используемый фармацевтическими \"предпринимателями\"."
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/get_ru_names()
 	return alist(
@@ -355,7 +393,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	name = "Thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	amount_per_transfer_from_this = 25
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	list_reagents = list("thermite" = 25)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite/get_ru_names()
@@ -612,7 +650,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 15
 	resistance_flags = FLAMMABLE
 	color = "#0085E5"
@@ -687,7 +725,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coffeepot"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
-	isGlass = TRUE
+	is_glass = TRUE
 	fill_icon_thresholds = list(30, 60, 100)
 
 /obj/item/reagent_containers/cup/coffeepot/get_ru_names()
