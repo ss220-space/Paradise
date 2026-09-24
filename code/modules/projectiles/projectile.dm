@@ -169,6 +169,8 @@
 	var/impact_light_range = 2
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
+	/// If true directly targeted turfs can be hit
+	var/can_hit_turfs = FALSE
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -459,6 +461,8 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
+		if(can_hit_turfs && isturf(original) && loc == get_turf(original)  && !(original in permutated))
+			Bump(original)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
