@@ -46,11 +46,18 @@
 
 #define CUSTOM_OUTFIT_SIMPLE_EQUIP_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_FEET|ITEM_SLOT_GLOVES|ITEM_SLOT_NECK|ITEM_SLOT_BACK|ITEM_SLOT_EARS)
 
+/**
+ * Stores and edits a custom outfit for a human mob.
+ *
+ * This datum manages outfit slots, equipment contents, augmentations,
+ * ID card data and serialized custom outfit files.
+ */
 /datum/custom_outfit
 	var/mob/target_mob
 	var/datum/outfit/edited_outfit
 	var/list/external_augmentations = list()
 	var/list/internal_augmentations = list()
+	var/list/arm_implant_sides = list()
 	var/list/reagent_volumes = list()
 	var/list/id_card_data = null
 	var/body_dirty = FALSE
@@ -246,6 +253,7 @@
 	QDEL_NULL(edited_outfit)
 	LAZYCLEARLIST(external_augmentations)
 	LAZYCLEARLIST(internal_augmentations)
+	LAZYCLEARLIST(arm_implant_sides)
 	LAZYCLEARLIST(reagent_volumes)
 	return ..()
 
@@ -312,8 +320,7 @@
 
 	switch(action)
 		if(CUSTOM_OUTFIT_ACTION_LOAD_DATA)
-			load_from_json(user, params["json"])
-			. = TRUE
+			. = load_from_json(user, params["json"])
 
 		if(CUSTOM_OUTFIT_ACTION_SAVE)
 			save_to_client(user)
@@ -362,6 +369,7 @@
 			if(implant_path && ((implant_path in edited_outfit.implants) || (implant_path in edited_outfit.cybernetic_implants)))
 				edited_outfit.implants -= implant_path
 				edited_outfit.cybernetic_implants -= implant_path
+				arm_implant_sides -= implant_path
 				body_dirty = TRUE
 			. = TRUE
 
@@ -631,6 +639,8 @@
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs)
 		if(!(cyberimp_organ.type in edited_outfit.cybernetic_implants))
 			edited_outfit.cybernetic_implants += cyberimp_organ.type
+		if(is_arm_cyberimp_path(cyberimp_organ.type))
+			arm_implant_sides[cyberimp_organ.type] = cyberimp_organ.parent_organ_zone
 /datum/custom_outfit/proc/capture_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_body_zones)
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
@@ -976,6 +986,8 @@
 
 	var/list/fitting_cyber = list()
 	for(var/organ_path in final_outfit.cybernetic_implants)
+		if(is_arm_cyberimp_path(organ_path))
+			continue
 		if(organ_fits_species(organ_path, human_target))
 			fitting_cyber += organ_path
 	final_outfit.cybernetic_implants = fitting_cyber
@@ -1158,14 +1170,37 @@
 					limb.robotize(make_tough = TRUE, company = company, convert_all = FALSE)
 
 /datum/custom_outfit/proc/apply_internal_augmentations(mob/living/carbon/human/human_target)
+	var/list/paths_to_apply = list()
+	var/list/seen_arm_slots = list()
+	var/chosen_side
 	for(var/organ_path in internal_augmentations)
+		paths_to_apply += organ_path
+	for(var/cyberimp_path in edited_outfit.cybernetic_implants)
+		if(is_arm_cyberimp_path(cyberimp_path))
+			paths_to_apply += cyberimp_path
+	for(var/organ_path in paths_to_apply)
 		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		var/obj/item/organ/organ_template = organ_path
+		if(is_arm_cyberimp_path(organ_path))
+			chosen_side = get_arm_implant_side(organ_path)
+			if(chosen_side in seen_arm_slots)
+				continue
+			seen_arm_slots += chosen_side
 		var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
 		if(parent_zone && !human_target.get_organ(parent_zone))
 			continue
-		new organ_path(human_target)
+		var/obj/item/organ/internal/new_organ = new organ_path
+		if(is_arm_cyberimp_path(organ_path))
+			new_organ.parent_organ_zone = chosen_side
+			new_organ.slot = chosen_side + "_device"
+		if(!new_organ.can_insert(null, human_target))
+			qdel(new_organ)
+			continue
+		if(human_target.get_organ_slot(new_organ.slot))
+			qdel(new_organ)
+			continue
+		new_organ.insert(human_target, ORGAN_MANIPULATION_NOEFFECT)
 
 /datum/custom_outfit/proc/apply_reagent_pill(mob/living/carbon/human/human_target)
 	for(var/obj/item/reagent_containers/food/pill/dental_implant/old_pill in human_target.contents)
@@ -1339,6 +1374,8 @@
 		var/implant_type = all_options[label]
 		if(base_path == /obj/item/organ/internal/cyberimp && !organ_fits_species(implant_type, target_mob))
 			continue
+		if(base_path == /obj/item/organ/internal/cyberimp && is_arm_cyberimp_path(implant_type) && copytext("[implant_type]", -2) == "/l")
+			continue
 		options[label] = implant_type
 	if(!length(options))
 		to_chat(user, span_warning("No implants found."))
@@ -1351,11 +1388,65 @@
 	var/implant_path = options[choice]
 	if(!ispath(implant_path, base_path))
 		return FALSE
+	if(base_path == /obj/item/organ/internal/cyberimp && is_arm_cyberimp_path(implant_path))
+		return add_arm_cyberimp(user, implant_path)
 	var/list/destination = (base_path == /obj/item/organ/internal/cyberimp) ? edited_outfit.cybernetic_implants : edited_outfit.implants
 	if(implant_path in destination)
 		return FALSE
 	destination += implant_path
 	return TRUE
+
+/datum/custom_outfit/proc/is_arm_cyberimp_path(implant_path)
+	return ispath(implant_path, /obj/item/organ/internal/cyberimp/arm)
+
+/datum/custom_outfit/proc/add_arm_cyberimp(mob/user, implant_path)
+	var/side_options = list(
+		"Правая рука" = BODY_ZONE_R_ARM,
+		"Левая рука" = BODY_ZONE_L_ARM,
+	)
+	var/side_choice = tgui_input_list(user, "В какую руку установить имплант?", "Имплант", side_options)
+	if(QDELETED(src) || QDELETED(user) || !side_choice)
+		return FALSE
+	var/side = side_options[side_choice]
+	if(!(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)))
+		return FALSE
+	var/occupied_path
+	for(var/existing_path in edited_outfit.cybernetic_implants)
+		if(!is_arm_cyberimp_path(existing_path))
+			continue
+		if(get_arm_implant_side(existing_path) == side)
+			occupied_path = existing_path
+			break
+	if(occupied_path)
+		var/replace_options = list(
+			"Отменить добавление" = FALSE,
+			"Заменить старый имплант" = TRUE,
+		)
+		var/replace_choice = tgui_input_list(user, "В выбранной руке уже установлен имплант", "Конфликт имплантов", replace_options)
+		if(QDELETED(src) || QDELETED(user) || !replace_choice)
+			return FALSE
+		if(!replace_options[replace_choice])
+			return FALSE
+		remove_arm_cyberimp(occupied_path)
+	if(implant_path in edited_outfit.cybernetic_implants)
+		return FALSE
+	edited_outfit.cybernetic_implants += implant_path
+	arm_implant_sides[implant_path] = side
+	return TRUE
+
+/datum/custom_outfit/proc/get_arm_implant_side(implant_path)
+	var/side = arm_implant_sides[implant_path]
+	if(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
+		return side
+	var/obj/item/organ/internal/organ_ref = implant_path
+	return organ_ref.parent_organ_zone
+
+/// Drops an arm implant and its stored side from the outfit.
+/// Arguments:
+/// * implant_path - type path of the arm implant.
+/datum/custom_outfit/proc/remove_arm_cyberimp(implant_path)
+	edited_outfit.cybernetic_implants -= implant_path
+	arm_implant_sides -= implant_path
 
 /datum/custom_outfit/proc/choose_augmentation(mob/user)
 	var/list/type_options = list(
@@ -1448,7 +1539,7 @@
 	for(var/organ_path in typesof(cyber_base_path))
 		var/obj/item/organ/internal/organ_ref = organ_path
 		var/organ_name = initial(organ_ref.name)
-		if(!organ_name)
+		if(!organ_name || (copytext("[organ_path]", -2) == "/l"))
 			continue
 		if(!organ_fits_species(organ_path, target_mob))
 			continue
@@ -1464,6 +1555,33 @@
 	var/organ_path = organ_paths[variant_choice]
 	if(!organ_path)
 		return FALSE
+	if(ispath(organ_path, /obj/item/organ/internal/cyberimp/arm))
+		var/side_options = list(
+			"Правая рука" = BODY_ZONE_R_ARM,
+			"Левая рука" = BODY_ZONE_L_ARM,
+		)
+		var/side_choice = tgui_input_list(user, "В какую руку установить имплант?", "Имплант", side_options)
+		if(QDELETED(src) || QDELETED(user) || !side_choice)
+			return FALSE
+		var/side = side_options[side_choice]
+		var/occupied_path
+		for(var/existing_path in internal_augmentations)
+			if(arm_implant_sides[existing_path] == side && ispath(existing_path, /obj/item/organ/internal/cyberimp/arm))
+				occupied_path = existing_path
+				break
+		if(occupied_path)
+			var/replace_options = list(
+				"Отменить добавление" = FALSE,
+				"Заменить старый имплант" = TRUE,
+			)
+			var/replace_choice = tgui_input_list(user, "В выбранной руке уже установлен имплант", "Конфликт имплантов", replace_options)
+			if(QDELETED(src) || QDELETED(user) || !replace_choice)
+				return FALSE
+			if(!replace_options[replace_choice])
+				return FALSE
+			internal_augmentations -= occupied_path
+			arm_implant_sides -= occupied_path
+		arm_implant_sides[organ_path] = side
 	internal_augmentations[organ_path] = TRUE
 	return TRUE
 

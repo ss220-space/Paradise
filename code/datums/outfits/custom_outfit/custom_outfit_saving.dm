@@ -14,6 +14,12 @@
 	for(var/organ_path in internal_augmentations)
 		internal += "[organ_path]"
 	.["internal_augmentations"] = internal
+	var/list/arm_sides = list()
+	for(var/organ_path, side in arm_implant_sides)
+		if(!(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)))
+			continue
+		arm_sides["[organ_path]"] = side
+	.["arm_implant_sides"] = arm_sides
 	var/list/reagents = list()
 	for(var/reagent_path, volume in reagent_volumes)
 		reagents["[reagent_path]"] = volume
@@ -55,19 +61,19 @@
 	if(!istext(json_text) || !length(json_text))
 		return FALSE
 	if(length(json_text) > CUSTOM_OUTFIT_LOAD_MAX_LENGTH)
-		to_chat(user, span_warning("Outfit file is too large."))
+		tgui_alert(user, span_warning("JSON файл слишком большой."))
 		return FALSE
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(!rustg_json_is_valid(json_text))
-		to_chat(user, span_warning("Could not read the selected file."))
+		tgui_alert(user, span_warning("Не удалось прочитать выбранный JSON файл."))
 		return FALSE
 	var/list/save_data = json_decode(json_text)
 	if(!validate_save_data(save_data))
-		to_chat(user, span_warning("Malformed or outdated outfit file."))
+		tgui_alert(user, span_warning("Некорректный или устаревший JSON файл"))
 		return FALSE
 	if(!apply_save_data(save_data))
-		to_chat(user, span_warning("Failed to apply outfit file."))
+		tgui_alert(user, span_warning("Не удалось применить файл."))
 		return FALSE
 	return TRUE
 
@@ -86,7 +92,7 @@
 		return FALSE
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
-	if(!islist(data["id_card_data"]))
+	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
 		return FALSE
 	if(!islist(data["belt_contents"]))
 		return FALSE
@@ -131,6 +137,15 @@
 		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		new_internal[organ_path] = TRUE
+	var/list/new_arm_sides = list()
+	if(islist(save_data["arm_implant_sides"]))
+		for(var/organ_text, side in save_data["arm_implant_sides"])
+			var/organ_path = text2path(organ_text)
+			if(!(organ_path in loaded_outfit.cybernetic_implants))
+				continue
+			if(!(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)))
+				continue
+			new_arm_sides[organ_path] = side
 
 	var/list/new_reagents = list()
 	var/list/reagents = save_data["reagent_volumes"]
@@ -184,6 +199,7 @@
 	edited_outfit = loaded_outfit
 	external_augmentations = new_external
 	internal_augmentations = new_internal
+	arm_implant_sides = new_arm_sides
 	reagent_volumes = new_reagents
 	id_card_data = new_id_card_data
 	belt_contents = new_belt_contents
@@ -224,6 +240,8 @@
 	loaded_outfit.cybernetic_implants = filter_path_list(loaded_outfit.cybernetic_implants, /obj/item/organ/internal/cyberimp)
 	var/list/fitting_cyber = list()
 	for(var/organ_path in loaded_outfit.cybernetic_implants)
+		if(is_arm_cyberimp_path(organ_path) && copytext("[organ_path]", -2) == "/l")
+			continue
 		if(organ_fits_species(organ_path, target_mob))
 			fitting_cyber += organ_path
 	loaded_outfit.cybernetic_implants = fitting_cyber

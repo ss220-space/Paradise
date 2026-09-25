@@ -180,7 +180,7 @@ export const CustomOutfit = () => {
   const idOutfit = data.outfit?.id;
 
   return (
-    <Window title="Custom Outfit" width={900} height={625} theme="admin">
+    <Window title="Custom Outfit" width={1000} height={725} theme="admin">
       <Window.Content>
         <Stack fill>
           <Stack.Item grow={5} basis={0}>
