@@ -6,6 +6,7 @@
 #define BROKEN_NEEDS_SCREWDRIVER 2
 
 /obj/machinery/kitchen_machine
+	abstract_type = /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	density = TRUE

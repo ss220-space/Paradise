@@ -23,6 +23,10 @@
 		/datum/reagent/medicine/charcoal = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		/datum/reagent/medicine/hydrocodone = list('icons/mob/actions/actions.dmi', "magicm"))
 
+/obj/item/reagent_containers/borghypo/Destroy(force)
+	QDEL_LIST(reagent_list)
+	return ..()
+
 /obj/item/reagent_containers/borghypo/get_ru_names()
 	return alist(
 		NOMINATIVE = "робо-гипоспрей",

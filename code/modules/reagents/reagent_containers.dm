@@ -94,6 +94,21 @@
 /obj/item/reagent_containers/proc/mode_change_message(mob/user)
 	return
 
+/obj/item/reagent_containers/proc/select_transfer_amount(mob/user)
+	if(!possible_transfer_amounts)
+		return
+
+	var/default = null
+	if(amount_per_transfer_from_this in possible_transfer_amounts)
+		default = amount_per_transfer_from_this
+	var/amount = tgui_input_list(user, "Объём перемещения отсюда:", DECLENT_RU_CAP(src, NOMINATIVE), possible_transfer_amounts, default)
+
+	if(!amount)
+		return
+
+	amount_per_transfer_from_this = amount
+	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]")
+
 /obj/item/reagent_containers/proc/change_transfer_amount(mob/user, direction = FORWARD)
 	var/list_len = length(possible_transfer_amounts)
 	if(!list_len)
@@ -119,7 +134,7 @@
 
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if(!is_open_container())
+	if(!is_open_container() || (container_type & NO_SPLASH))
 		return FALSE
 
 	if(!reagents?.total_volume)
@@ -202,7 +217,7 @@
  * * throwingdatum - The throwingdatum behind the throw if the
  */
 /obj/item/reagent_containers/proc/splash_reagents(atom/target, mob/splasher, was_thrown = FALSE, allow_closed_splash = FALSE)
-	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash))
+	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (container_type & NO_SPLASH))
 		return
 
 	if(ismob(target) && target.reagents)

@@ -74,7 +74,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/plate
 	filling_color = "#E8C31E"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/sodiumchloride = 1)
 	tastes = list("corn" = 2)
 	bitesize = 3
 	foodtype = FRIED | GRAIN
@@ -86,7 +86,7 @@
 	icon_state = "cheesenachos"
 	trash = /obj/item/trash/plate
 	filling_color = "#f1d65c"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 7, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/sodiumchloride = 1)
 	tastes = list("corn" = 1, "cheese" = 2)
 	bitesize = 4
 	foodtype = FRIED | GRAIN | DAIRY
@@ -98,7 +98,7 @@
 	icon_state = "cubannachos"
 	trash = /obj/item/trash/plate
 	filling_color = "#ec5c23"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 7, "salt" = 1, /datum/reagent/consumable/capsaicin = 3, /datum/reagent/consumable/nutriment/plantmatter = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/consumable/capsaicin = 3, /datum/reagent/consumable/nutriment/plantmatter = 1)
 	tastes = list("corn" = 1, "chili" = 2)
 	bitesize = 4
 	foodtype = FRIED | GRAIN
@@ -320,7 +320,7 @@
 	icon_state = "bruschetta"
 	trash = /obj/item/trash/plate
 	filling_color = "#a30e0e"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/plantmatter = 2, "tomatojucie" = 2, "garlicjucie" = 1, "salt" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/drink/tomatojuice = 2, /datum/reagent/consumable/garlic = 1, /datum/reagent/consumable/sodiumchloride = 1)
 	tastes = list("bread" = 1, "tomato" = 2, "garlic" = 1, "cheese" = 1)
 	bitesize = 4
 	foodtype = DAIRY | VEGETABLES | GRAIN
@@ -332,7 +332,7 @@
 	icon_state = "quiche"
 	trash = /obj/item/trash/plate
 	filling_color = "#cfae89"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/plantmatter = 2, "tomatojucie" = 2, "garlicjucie" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/plantmatter = 2, /datum/reagent/consumable/drink/tomatojuice = 2, /datum/reagent/consumable/garlic = 1)
 	tastes = list("cheese" = 1, "tomato" = 1, "garlic" = 1, "egg" = 1)
 	bitesize = 4
 	foodtype = DAIRY | VEGETABLES
