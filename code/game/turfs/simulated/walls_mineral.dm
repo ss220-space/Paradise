@@ -372,6 +372,9 @@
 	smooth = SMOOTH_BITMASK
 	icon_state = "shuttle_nd"
 
+/turf/simulated/wall/mineral/plastitanium/nodiagonal/non_dismountable/welder_act()
+	return
+
 /turf/simulated/wall/mineral/plastitanium/nosmooth
 	icon = 'icons/turf/shuttle/shuttle.dmi'
 	icon_state = "wall"
