@@ -18,6 +18,16 @@
 	var/offset_x = 12
 	var/allow_move = TRUE
 
+/obj/structure/stationary_machinegun/get_ru_names()
+	return list(
+		NOMINATIVE = "станковый пулемет",
+		GENITIVE = "станкового пулемета",
+		DATIVE = "станковому пулемету",
+		ACCUSATIVE = "станковый пулемет",
+		INSTRUMENTAL = "станковым пулеметом",
+		PREPOSITIONAL = "станковом пулемете",
+	)
+
 /obj/structure/stationary_machinegun/Initialize(mapload)
 	. = ..()
 	item = new item(src)
@@ -121,6 +131,16 @@
 	materials = list(MAT_METAL = 5000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/stationary_machinegun/origin = /obj/structure/stationary_machinegun
+
+/obj/item/stationary_machinegun/get_ru_names()
+	return list(
+		NOMINATIVE = "станковый пулемет",
+		GENITIVE = "станкового пулемета",
+		DATIVE = "станковому пулемету",
+		ACCUSATIVE = "станковый пулемет",
+		INSTRUMENTAL = "станковым пулеметом",
+		PREPOSITIONAL = "станковом пулемете",
+	)
 
 /obj/item/stationary_machinegun/attack_self(mob/user)
 	plant(user)
