@@ -15,10 +15,10 @@
 
 //sniper
 /obj/projectile/beam/disabler/slowed/heavy
-	damage = 60
+	damage = 80
 
 /obj/projectile/beam/laser/slowed/heavy
-	damage = 50
+	damage = 70
 
 // shotgun
 /obj/projectile/beam/disabler/scatter/energy_shotgun
