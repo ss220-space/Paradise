@@ -17,7 +17,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 	weapon_weight = WEAPON_LIGHT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
@@ -32,7 +32,7 @@
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 
 /obj/item/gun/energy/gun/advtaser/cyborg/newshot()
 	..()
@@ -69,7 +69,7 @@
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg)
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
