@@ -22,6 +22,7 @@ SUBSYSTEM_DEF(npcpool)
 	if(!resumed)
 		var/list/activelist = GLOB.simple_animals[AI_ON]
 		src.currentrun = activelist.Copy()
+		shuffle(currentrun)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun

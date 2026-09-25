@@ -633,6 +633,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	icon_state = "blue_laser"
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	damage = 20
 
 /obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
