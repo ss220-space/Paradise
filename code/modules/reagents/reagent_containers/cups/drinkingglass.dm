@@ -1,5 +1,3 @@
-
-
 /obj/item/reagent_containers/cup/glass/drinkingglass
 	name = "glass"
 	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
@@ -85,9 +83,6 @@
 		desc = check.drink_desc
 	else
 		desc = initial(desc)
-
-/obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change()
-	update_appearance()
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/cup/glass/drinkingglass/soda

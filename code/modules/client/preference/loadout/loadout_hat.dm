@@ -22,10 +22,6 @@
 	index_name = "top hat"
 	path = /obj/item/clothing/head/that
 
-/datum/gear/hat/flatcap
-	index_name = "flat cap"
-	path = /obj/item/clothing/head/flatcap
-
 /datum/gear/hat/ushanka
 	index_name = "ushanka"
 	path = /obj/item/clothing/head/ushanka
@@ -251,3 +247,11 @@
 /datum/gear/hat/headband/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/hat/jew_hat
+	index_name = "jew hat"
+	path = /obj/item/clothing/head/jew_hat
+
+/datum/gear/hat/flatcap
+	index_name = "flatcap"
+	path = /obj/item/clothing/head/flatcap

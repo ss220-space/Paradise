@@ -254,6 +254,9 @@ emp_act
 	if(shield_result == HIT_RESULT_REFLECY_BACK)
 		return HIT_RESULT_REFLECY_BACK
 
+	if(shield_result == HIT_RESULT_PARRY)
+		return HIT_RESULT_PARRY
+
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return HIT_RESULT_SUCCESS
 
@@ -496,7 +499,11 @@ emp_act
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(user != src && check_shields(item, item.force, "[item.declent_ru(ACCUSATIVE)]", ITEM_ATTACK, item.armour_penetration))
+	var/shield_check = check_shields(item, item.force, "[item.declent_ru(ACCUSATIVE)]", ITEM_ATTACK, item.armour_penetration)
+
+	if(user != src && shield_check)
+		if(shield_check == HIT_RESULT_PARRY)
+			user.Knockdown(PERFECT_PARRY_MELEE_KNOCKDOWN)
 		return ATTACK_CHAIN_BLOCKED
 
 	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[PLUR_ET_YUT(src)] [item.declent_ru(ACCUSATIVE)]!")))
