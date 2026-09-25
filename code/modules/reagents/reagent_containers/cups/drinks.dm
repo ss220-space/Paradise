@@ -5,7 +5,7 @@
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
-	isGlass = TRUE
+	is_glass = TRUE
 
 /obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	. = ..()
@@ -13,7 +13,7 @@
 		smash(hit_atom, throwingdatum?.get_thrower(), throwingdatum)
 
 /obj/item/reagent_containers/cup/glass/proc/smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, break_top = FALSE)
-	if(!isGlass)
+	if(!is_glass)
 		return FALSE
 	if(QDELING(src) || !target) //Invalid loc
 		return FALSE
@@ -37,11 +37,11 @@
 	force = 1
 	throwforce = 1
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 5
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/trophy/gold_cup
 	name = "gold cup"
@@ -81,7 +81,7 @@
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/ice/get_ru_names()
 	return alist(
@@ -136,7 +136,7 @@
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
 	drink_type = GROSS
-	isGlass = FALSE
+	is_glass = FALSE
 
 // MARK: Liguid Food
 /obj/item/reagent_containers/cup/glass/dry_ramen
@@ -145,7 +145,7 @@
 	icon_state = "ramen"
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/dry_ramen/Initialize(mapload)
 	. = ..()
@@ -159,16 +159,16 @@
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
 	drink_type = JUNKFOOD
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 10
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/sillycup/update_icon_state()
 	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
@@ -180,7 +180,7 @@
 	icon_state = "shaker"
 	materials = list(MAT_METAL=1500)
 	volume = 100
-	isGlass = FALSE
+	is_glass = FALSE
 
 // MARK: Flasks
 /obj/item/reagent_containers/cup/glass/flask
@@ -189,7 +189,7 @@
 	icon_state = "flask"
 	materials = list(MAT_METAL=250)
 	volume = 60
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/flask/barflask
 	desc = "For those who can't be bothered to hang out at the bar to drink."
@@ -261,7 +261,7 @@
 	list_reagents = list("zaza" = 80)
 	can_lid = TRUE
 	fill_icon_thresholds = list(50, 60, 65, 70, 75, 80)
-	isGlass = FALSE
+	is_glass = FALSE
 
 // MARK: Sport Food
 /obj/item/reagent_containers/cup/glass/protein
@@ -273,7 +273,7 @@
 	volume = 80
 	drink_type = GROSS
 	list_reagents = list("protein" = 80)
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/protein/get_ru_names()
 	return alist(
@@ -363,7 +363,7 @@
 	icon_state = "guarana_raspberry"
 	item_state = "guarana_raspberry"
 	list_reagents = list("guarana" = 10)
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/guarana/get_ru_names()
 	return alist(
@@ -382,7 +382,7 @@
 	icon_state = "creatine"
 	item_state = "creatine"
 	list_reagents = list("creatine" = 10)
-	isGlass = FALSE
+	is_glass = FALSE
 
 /obj/item/reagent_containers/cup/glass/creatine/get_ru_names()
 	return alist(

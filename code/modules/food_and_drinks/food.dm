@@ -1,10 +1,9 @@
 /obj/item/reagent_containers/food
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 50 //Sets the default container amount for all food items.
 	visible_transfer_rate = FALSE
 	righthand_file = 'icons/mob/inhands/foods_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/foods_lefthand.dmi'
-	can_empty = FALSE
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2

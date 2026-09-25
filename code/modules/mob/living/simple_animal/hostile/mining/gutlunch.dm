@@ -56,7 +56,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
 	if(udder)
-		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
+		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	QDEL_NULL(udder)
@@ -136,8 +136,7 @@
 
 /obj/item/udder/gutlunch/Initialize(mapload)
 	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
+	reagents.maximum_volume = 50
 
 /obj/item/udder/gutlunch/generateMilk()
 	reagents.add_reagent("bugmilk", rand(2, 5))

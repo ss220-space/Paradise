@@ -388,7 +388,7 @@
 
 	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
 	var/curse_delay = cursetime / 600
-	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)]."
+	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_U_Y_0(curse_delay)]."
 
 	GLOB.major_announcement.announce(
 		message = curse_message,
@@ -403,7 +403,7 @@
 		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
 
 	else
-		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[declension_ru(MAX_SHUTTLE_CURSES - totalcurses, "", "а", "")]."))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[DECL_0_A_0(MAX_SHUTTLE_CURSES - totalcurses)]."))
 
 	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
 		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "ОСТАВЬТЕ НАС В ПОКОЕ!"
@@ -706,7 +706,7 @@
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"

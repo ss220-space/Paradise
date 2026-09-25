@@ -92,7 +92,13 @@
 		return FALSE
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
-	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
+	if(!islist(data["id_card_data"]))
+		return FALSE
+	if(!islist(data["belt_contents"]))
+		return FALSE
+	if(!islist(data["backpack_nested_contents"]))
+		return FALSE
+	if(!islist(data["belt_nested_contents"]))
 		return FALSE
 	if(!islist(data["belt_contents"]))
 		return FALSE

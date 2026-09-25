@@ -2818,3 +2818,91 @@
 		INSTRUMENTAL = "коричневой бейсбольной униформой",
 		PREPOSITIONAL = "коричневой бейсбольной униформе",
 	)
+
+/obj/item/clothing/under/chad
+	name = "Chad suit"
+	desc = "Должно быть абсолютно очевидным — перед вами настоящая легенда."
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "chadsuit"
+	item_state = "chadsuit"
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/chad/get_ru_names()
+	return alist(
+		NOMINATIVE = "костюм Гигачада",
+		GENITIVE = "костюма Гигачада",
+		DATIVE = "костюму Гигачада",
+		ACCUSATIVE = "костюм Гигачада",
+		INSTRUMENTAL = "костюмом Гигачада",
+		PREPOSITIONAL = "костюме Гигачада",
+	)
+
+/obj/item/clothing/under/bandit
+	name = "bandit suit"
+	desc = "Грубая полосатая ткань и потёртые брюки. Наряд человека, который не боится показать своё прошлое."
+	icon_state = "bandit"
+	item_state = "bandit"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/bandit/get_ru_names()
+	return alist(
+		NOMINATIVE = "бандитский костюм",
+		GENITIVE = "бандитского костюма",
+		DATIVE = "бандитскому костюму",
+		ACCUSATIVE = "бандитский костюм",
+		INSTRUMENTAL = "бандитским костюмом",
+		PREPOSITIONAL = "бандитском костюме",
+	)
+
+/obj/item/clothing/under/goon
+	name = "goon suit"
+	desc = "Минималистичный тёмный наряд. Одежда для тех, кто предпочитает решать вопросы кулаками, а не словами."
+	icon_state = "goon"
+	item_state = "goon"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/goon/get_ru_names()
+	return alist(
+		NOMINATIVE = "костюм громилы",
+		GENITIVE = "костюма громилы",
+		DATIVE = "костюму громилы",
+		ACCUSATIVE = "костюм громилы",
+		INSTRUMENTAL = "костюмом громилы",
+		PREPOSITIONAL = "костюме громилы",
+	)
+
+
+/obj/item/clothing/under/gopnik
+	name = "gopnik suit"
+	desc = "Легкая куртка с объёмным меховым воротником. Одежда, которая одновременно согревает и запугивает."
+	icon_state = "gopnik"
+	item_state = "gopnik"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/gopnik/get_ru_names()
+	return alist(
+		NOMINATIVE = "костюм гопника",
+		GENITIVE = "костюма гопника",
+		DATIVE = "костюму гопника",
+		ACCUSATIVE = "костюм гопника",
+		INSTRUMENTAL = "костюмом гопника",
+		PREPOSITIONAL = "костюме гопника",
+	)
+
+/obj/item/clothing/under/chainsmoker
+	name = "chainsmoker suit"
+	desc = "Простая выцветшая футболка и штаны. Наряд человека, которому плевать на мнение окружающих — главное, чтобы было комфортно."
+	icon_state = "chainsmoker"
+	item_state = "chainsmoker"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/chainsmoker/get_ru_names()
+	return alist(
+		NOMINATIVE = "костюм курильщика",
+		GENITIVE = "костюма курильщика",
+		DATIVE = "костюму курильщика",
+		ACCUSATIVE = "костюм курильщика",
+		INSTRUMENTAL = "костюмом курильщика",
+		PREPOSITIONAL = "костюме курильщика",
+	)
