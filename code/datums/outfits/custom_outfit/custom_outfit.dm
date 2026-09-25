@@ -350,7 +350,7 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_BELT_ITEM)
-			if(remove_belt_item(get_path_param(params)))
+			if(remove_belt_item(user, get_path_param(params)))
 				belt_dirty = TRUE
 			. = TRUE
 
@@ -360,7 +360,7 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_STORAGE_ITEM)
-			if(remove_nested_storage_item(params["container"], params["parent"], get_path_param(params)))
+			if(remove_nested_storage_item(user, params["container"], params["parent"], get_path_param(params)))
 				mark_container_dirty(params["container"])
 			. = TRUE
 
@@ -374,7 +374,7 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_BACKPACK_ITEM)
-			if(remove_backpack_item(get_path_param(params)))
+			if(remove_backpack_item(user, get_path_param(params)))
 				backpack_dirty = TRUE
 			. = TRUE
 
@@ -1233,6 +1233,20 @@
 		preview_view.display_to(viewer, tgui_window)
 	return preview_view.assigned_map
 
+/datum/custom_outfit/proc/prompt_item_amount(mob/user, message, current_count = 0)
+	var/prompt = message
+	if(current_count > 0)
+		prompt = "[message] (сейчас: [current_count])"
+	var/amount = tgui_input_number(user, prompt, "Количество", default = 1, max_value = CUSTOM_OUTFIT_MAX_ITEM_COUNT, min_value = 1)
+	if(QDELETED(src) || QDELETED(user) || isnull(amount))
+		return
+	amount = round(amount)
+	if(amount < 1)
+		amount = 1
+	if(amount > CUSTOM_OUTFIT_MAX_ITEM_COUNT)
+		amount = CUSTOM_OUTFIT_MAX_ITEM_COUNT
+	return amount
+
 /datum/custom_outfit/proc/choose_backpack_item(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
 		tgui_alert(user, "Target is no longer valid.")
@@ -1246,7 +1260,11 @@
 		return FALSE
 	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
-	edited_outfit.backpack_contents[chosen_path] = (edited_outfit.backpack_contents[chosen_path] || 0) + 1
+	var/current_count = edited_outfit.backpack_contents[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить в рюкзак?", current_count)
+	if(isnull(amount))
+		return FALSE
+	edited_outfit.backpack_contents[chosen_path] = current_count + amount
 	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BACKPACK, chosen_path)
 	return TRUE
@@ -1264,37 +1282,57 @@
 		return FALSE
 	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
-	belt_contents[chosen_path] = (belt_contents[chosen_path] || 0) + 1
+	var/current_count = belt_contents[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить на пояс?", current_count)
+	if(isnull(amount))
+		return FALSE
+	belt_contents[chosen_path] = current_count + amount
 	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BELT, chosen_path)
 	return TRUE
 
-/// Decrements one item of the given path in a path = count list.
+/// Removes the given amount of items of a path from a path = count list.
+/// Returns FALSE when the item is not stored or the amount is not positive.
 /// Arguments:
 /// * storage_list - list(path = count) to remove from.
 /// * item_path - type path of the item to remove.
-/datum/custom_outfit/proc/decrement_list_entry(list/storage_list, item_path)
+/// * amount - how many to remove.
+/datum/custom_outfit/proc/decrement_list_entry(list/storage_list, item_path, amount = 1)
 	if(!item_path || !(item_path in storage_list))
+		return FALSE
+	if(!isnum(amount) || amount < 1)
 		return FALSE
 	var/count = storage_list[item_path]
 	if(!isnum(count))
 		storage_list -= item_path
 		return TRUE
-	count -= 1
+	count -= amount
 	if(count <= 0)
 		storage_list -= item_path
 	else
 		storage_list[item_path] = count
 	return TRUE
 
-/datum/custom_outfit/proc/remove_backpack_item(item_path)
-	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path)
+/datum/custom_outfit/proc/remove_backpack_item(mob/user, item_path)
+	var/current_count = edited_outfit.backpack_contents[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать из рюкзака?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path, amount)
 	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BACKPACK, "[item_path]")
 	return removed
 
-/datum/custom_outfit/proc/remove_belt_item(item_path)
-	var/removed = decrement_list_entry(belt_contents, item_path)
+/datum/custom_outfit/proc/remove_belt_item(mob/user, item_path)
+	var/current_count = belt_contents[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать с пояса?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(belt_contents, item_path, amount)
 	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BELT, "[item_path]")
 	return removed
@@ -1325,7 +1363,11 @@
 		return FALSE
 	var/list/container_nested = nested_storage_contents[container_key]
 	var/list/children = container_nested[parent_path] || list()
-	children[chosen_path] = (children[chosen_path] || 0) + 1
+	var/current_count = children[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить в контейнер?", current_count)
+	if(isnull(amount))
+		return FALSE
+	children[chosen_path] = current_count + amount
 	container_nested[parent_path] = children
 	return TRUE
 
@@ -1334,12 +1376,18 @@
 /// * container_key - "backpack" or "belt".
 /// * parent_path - the parent storage item's type path in string form.
 /// * item_path - the item type path to remove.
-/datum/custom_outfit/proc/remove_nested_storage_item(container_key, parent_path, item_path)
+/datum/custom_outfit/proc/remove_nested_storage_item(mob/user, container_key, parent_path, item_path)
 	var/list/container_nested = nested_storage_contents[container_key]
 	var/list/children = container_nested ? container_nested[parent_path] : null
 	if(!children)
 		return FALSE
-	var/removed = decrement_list_entry(children, item_path)
+	var/current_count = children[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать из контейнера?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(children, item_path, amount)
 	if(!removed)
 		return FALSE
 	if(!length(children))
