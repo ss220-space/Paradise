@@ -19,7 +19,7 @@
 	var/allow_move = TRUE
 
 /obj/structure/stationary_machinegun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станковый пулемет",
 		GENITIVE = "станкового пулемета",
 		DATIVE = "станковому пулемету",
@@ -70,11 +70,6 @@
 /obj/structure/stationary_machinegun/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object != user || !ishuman(user) || !item || has_buckled_mobs() || !allow_move)
 		return
-
-	user.visible_message(
-		span_notice("[user] grabs [src]."),
-		span_notice("You grab [src]."),
-	)
 
 	item.forceMove(drop_location())
 	transfer_fingerprints_to(item)
@@ -133,7 +128,7 @@
 	var/obj/structure/stationary_machinegun/origin = /obj/structure/stationary_machinegun
 
 /obj/item/stationary_machinegun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станковый пулемет",
 		GENITIVE = "станкового пулемета",
 		DATIVE = "станковому пулемету",
