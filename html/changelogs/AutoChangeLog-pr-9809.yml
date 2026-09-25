@@ -1,4 +1,0 @@
-author: "NightDawnFox"
-delete-after: True
-changes:
-  - code_imp: "мапперам стало чуть удобнее делать карты (совместимость с проблемным ивентом) (PR #9809)"
