@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/custom_outfit - SS1984</title></head><body><header><a href="index.html">SS1984</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/custom_outfit.html#var">Var Details</a> - <a href="datum/custom_outfit.html#proc">Proc Details</a></header><main><h1>custom_outfit <aside>/<a href="datum.html">datum</a>/<a href="datum/custom_outfit.html">custom_outfit</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L49"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 49"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/custom_outfit.html#var/preset_mod_cache">preset_mod_cache</a></th><td>Cache of MOD control unit bag preset contents (path = count).</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/custom_outfit.html#proc/apply_nested_contents">apply_nested_contents</a></th><td>Fills an in-world storage item with the edited contents configured for it,
+replacing any preset (populate_contents) items. Does nothing if the box has
+no explicitly configured contents, so untouched boxes keep their presets.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/capture_nested_contents">capture_nested_contents</a></th><td>Captures the contents of a storage item already worn (inside backpack/belt)
+into the nested storage map so it can be edited in the UI.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/decrement_list_entry">decrement_list_entry</a></th><td>Decrements one item of the given path in a path = count list.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/ensure_check_dummy">ensure_check_dummy</a></th><td>Ensures a clean dummy human of the given human's species exists for
+can_equip-based checks.</td></tr><tr><th><a href="datum/custom_outfit.html#proc/ensure_nested_presets">ensure_nested_presets</a></th><td>Initializes the nested contents of a storage item added to a container from
+its own preset (populate_contents) items, so the box's contents can be
+viewed and edited right away. Only seeds the entry once per box path.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/forget_nested_contents">forget_nested_contents</a></th><td>Removes the nested contents entry for a storage item that was just removed
+from a container.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/get_preset_mod_back_contents">get_preset_mod_back_contents</a></th><td>Adds the preset bag contents of a MOD control unit type to the outfit backpack list (path = count).</td></tr><tr><th><a href="datum/custom_outfit.html#proc/get_preset_storage_contents">get_preset_storage_contents</a></th><td>Returns the preset contents of a storage item type - populate_contents() as a list(path = count).
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/item_fits_species">item_fits_species</a></th><td>Returns TRUE if the item can be equipped (can_equip).</td></tr><tr><th><a href="datum/custom_outfit.html#proc/mark_container_dirty">mark_container_dirty</a></th><td>Marks the given container's contents as changed so the next Apply resyncs
+them (used after editing nested storage contents).
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/merge_backpack_presets">merge_backpack_presets</a></th><td>Adds the preset contents of a storage item type to the outfit backpack</td></tr><tr><th><a href="datum/custom_outfit.html#proc/merge_belt_presets">merge_belt_presets</a></th><td>Adds the preset contents of a storage item type to the belt list
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/merge_mod_backpack_presets">merge_mod_backpack_presets</a></th><td>Adds the preset bag contents of a MOD control unit type to the outfit backpack</td></tr><tr><th><a href="datum/custom_outfit.html#proc/organ_fits_species">organ_fits_species</a></th><td>Returns TRUE if an internal organ can be implanted into the given human
+(i.e. the parent body zone exists and can hold it).</td></tr><tr><th><a href="datum/custom_outfit.html#proc/remove_nested_storage_item">remove_nested_storage_item</a></th><td>Removes one item from the contents of a nested storage.
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/serialize_container">serialize_container</a></th><td>Builds the UI item list for a storage container, embedding each nested
+storage item's own contents (one level deep).
+Arguments:</td></tr><tr><th><a href="datum/custom_outfit.html#proc/serialize_nested">serialize_nested</a></th><td>Serializes the contents of a single nested storage item as a UI item list.
+Arguments:</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/preset_mod_cache"><aside class="declaration">var </aside>preset_mod_cache <aside>– /list</aside> <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L74"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 74"></a></h3><p>Cache of MOD control unit bag preset contents (path = count).</p><h2 id="proc">Proc Details</h2><h3 id="proc/apply_nested_contents"><aside class="declaration">proc </aside>apply_nested_contents<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/storage.html">storage</a>/parent_storage, container_key, parent_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L1112"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 1112"></a></aside></h3><p>Fills an in-world storage item with the edited contents configured for it,
+replacing any preset (populate_contents) items. Does nothing if the box has
+no explicitly configured contents, so untouched boxes keep their presets.
+Arguments:</p>
+<ul>
+<li>parent_storage - the storage item instance just spawned.</li>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>parent_path - the storage item's type path in string form.</li>
+</ul><h3 id="proc/capture_nested_contents"><aside class="declaration">proc </aside>capture_nested_contents<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/storage.html">storage</a>/parent_storage, container_key)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L589"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 589"></a></aside></h3><p>Captures the contents of a storage item already worn (inside backpack/belt)
+into the nested storage map so it can be edited in the UI.
+Arguments:</p>
+<ul>
+<li>parent_storage - the storage item inside the container.</li>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+</ul><h3 id="proc/decrement_list_entry"><aside class="declaration">proc </aside>decrement_list_entry<aside>(/list/storage_list, item_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L1241"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 1241"></a></aside></h3><p>Decrements one item of the given path in a path = count list.
+Arguments:</p>
+<ul>
+<li>storage_list - list(path = count) to remove from.</li>
+<li>item_path - type path of the item to remove.</li>
+</ul><h3 id="proc/ensure_check_dummy"><aside class="declaration">proc </aside>ensure_check_dummy<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/human)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L932"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 932"></a></aside></h3><p>Ensures a clean dummy human of the given human's species exists for
+can_equip-based checks.</p><h3 id="proc/ensure_nested_presets"><aside class="declaration">proc </aside>ensure_nested_presets<aside>(container_key, storage_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L603"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 603"></a></aside></h3><p>Initializes the nested contents of a storage item added to a container from
+its own preset (populate_contents) items, so the box's contents can be
+viewed and edited right away. Only seeds the entry once per box path.
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>storage_path - the storage item's type path.</li>
+</ul><h3 id="proc/forget_nested_contents"><aside class="declaration">proc </aside>forget_nested_contents<aside>(container_key, parent_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L1272"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 1272"></a></aside></h3><p>Removes the nested contents entry for a storage item that was just removed
+from a container.
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>parent_path - the removed storage item's type path in string form.</li>
+</ul><h3 id="proc/get_preset_mod_back_contents"><aside class="declaration">proc </aside>get_preset_mod_back_contents<aside>(mod_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L549"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 549"></a></aside></h3><p>Adds the preset bag contents of a MOD control unit type to the outfit backpack list (path = count).</p><h3 id="proc/get_preset_storage_contents"><aside class="declaration">proc </aside>get_preset_storage_contents<aside>(storage_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L530"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 530"></a></aside></h3><p>Returns the preset contents of a storage item type - populate_contents() as a list(path = count).
+Arguments:</p>
+<ul>
+<li>storage_path - type path of the storage item to inspect.</li>
+</ul><h3 id="proc/item_fits_species"><aside class="declaration">proc </aside>item_fits_species<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/item_path, slot_flag, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/human)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L898"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 898"></a></aside></h3><p>Returns TRUE if the item can be equipped (can_equip).</p><h3 id="proc/mark_container_dirty"><aside class="declaration">proc </aside>mark_container_dirty<aside>(container_key)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L620"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 620"></a></aside></h3><p>Marks the given container's contents as changed so the next Apply resyncs
+them (used after editing nested storage contents).
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+</ul><h3 id="proc/merge_backpack_presets"><aside class="declaration">proc </aside>merge_backpack_presets<aside>(storage_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L543"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 543"></a></aside></h3><p>Adds the preset contents of a storage item type to the outfit backpack</p><h3 id="proc/merge_belt_presets"><aside class="declaration">proc </aside>merge_belt_presets<aside>(storage_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L571"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 571"></a></aside></h3><p>Adds the preset contents of a storage item type to the belt list
+Arguments:</p>
+<ul>
+<li>storage_path - type path of the storage item</li>
+</ul><h3 id="proc/merge_mod_backpack_presets"><aside class="declaration">proc </aside>merge_mod_backpack_presets<aside>(mod_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L563"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 563"></a></aside></h3><p>Adds the preset bag contents of a MOD control unit type to the outfit backpack</p><h3 id="proc/organ_fits_species"><aside class="declaration">proc </aside>organ_fits_species<aside>(organ_path, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/human)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L944"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 944"></a></aside></h3><p>Returns TRUE if an internal organ can be implanted into the given human
+(i.e. the parent body zone exists and can hold it).</p><h3 id="proc/remove_nested_storage_item"><aside class="declaration">proc </aside>remove_nested_storage_item<aside>(container_key, parent_path, item_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L1302"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 1302"></a></aside></h3><p>Removes one item from the contents of a nested storage.
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>parent_path - the parent storage item's type path in string form.</li>
+<li>item_path - the item type path to remove.</li>
+</ul><h3 id="proc/serialize_container"><aside class="declaration">proc </aside>serialize_container<aside>(container_key, /list/contents)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L675"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 675"></a></aside></h3><p>Builds the UI item list for a storage container, embedding each nested
+storage item's own contents (one level deep).
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>contents - the container's flat list(path = count).</li>
+</ul><h3 id="proc/serialize_nested"><aside class="declaration">proc </aside>serialize_nested<aside>(container_key, parent_path)  <a href="https://github.com/ss220-space/Paradise/blob/d46cbe6c566436e6d8cd223e4b1685795856d1ab/code/datums/outfits/custom_outfit/custom_outfit.dm#L693"><img src="git.png" width="16" height="16" title="code/datums/outfits/custom_outfit/custom_outfit.dm 693"></a></aside></h3><p>Serializes the contents of a single nested storage item as a UI item list.
+Arguments:</p>
+<ul>
+<li>container_key - &quot;backpack&quot; or &quot;belt&quot;.</li>
+<li>parent_path - the parent storage item's type path in string form.</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ss220-space/Paradise/tree/d46cbe6c566436e6d8cd223e4b1685795856d1ab">d46cbe6</a> (master220) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>
