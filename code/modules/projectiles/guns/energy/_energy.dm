@@ -62,7 +62,7 @@
 	if(!length(ammo_type))
 		return
 	var/obj/projectile/exam_proj
-	readout += "- Имеет <b>[length(ammo_type)]</b> режим[DECL_CREDIT(length(ammo_type))] стрельбы."
+	readout += "- Имеет <b>[length(ammo_type)]</b> режим[DECL_0_A_OV(length(ammo_type))] стрельбы."
 	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
 		exam_proj = for_ammo.projectile_type
 
@@ -75,10 +75,10 @@
 
 		if(initial(exam_proj.damage) > 0) // Don't divide by 0!!!!!
 			var/lethality_str = initial(exam_proj.damage_type) == STAMINA ? span_blue("<b>нелетального</b>") : span_red("<b>летального</b>")
-			var/lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets), "ие", "ия", "ий")]")
+			var/lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets)] попадан[DECL_E_YA_J(HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets))]")
 			readout += "- Для [lethality_str] устранения противника в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [lethal_hits_to_crit]."
 			if(initial(exam_proj.stamina) > 0) // In case a projectile does damage AND stamina damage (Energy Crossbow)
-				var/non_lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets), "ие", "ия", "ий")]")
+				var/non_lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets)] попадан[DECL_E_YA_J(HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets))]")
 				readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [non_lethal_hits_to_crit]."
 
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
@@ -177,7 +177,10 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 		update_icon()
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
-	if(user && sibyl_mod)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(. && user && sibyl_mod)
 		if(!sibyl_mod.check_auth(user))
 			return FALSE
 

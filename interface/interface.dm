@@ -65,8 +65,8 @@ GAME_VERB_HIDDEN(/client, hotkeys_help, "Hotkeys Help")
 
 GAME_VERB_HIDDEN(/client, emote_panel, "Emote Panel")
 
-	if(!isliving(mob))
-		to_chat(mob, span_notice("Эмоции доступны только живым!"))
+	if(!isliving(mob) && !isobserver(mob))
+		to_chat(mob, span_notice("Вам не доступны эмоции!"))
 		return
 
 	if(!GLOB.emote_panel)

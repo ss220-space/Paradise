@@ -505,6 +505,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "robotics_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+		if(JOB_TITLE_EXPLORER)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "explorer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "armor"), ICON_OVERLAY)
 		if(JOB_TITLE_SYNDICATE_AGENT)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
@@ -558,3 +562,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	qdel(clothes_s)
 
 	return preview_icon
+
+/datum/datacore/proc/find_general_record_by_name(name)
+	for(var/datum/data/record/finded_record as anything in general)
+		if(finded_record.fields["name"] == name)
+			return finded_record
+	return null

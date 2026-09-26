@@ -18,8 +18,8 @@
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(length(alien_powers))
 		for(var/power_to_remove in alien_powers)
-			var/actual_spell = locate(power_to_remove) in user.mob_spell_list
-			user.RemoveSpell(actual_spell)
+			var/datum/action/cooldown/spell/actual_spell = locate(power_to_remove) in user.actions
+			actual_spell.Remove(user)
 	. = ..()
 
 /obj/item/organ/internal/xenos/prepare_eat()
@@ -54,7 +54,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=5;plasmatech=4"
 	slot = INTERNAL_ORGAN_PLASMAVESSEL
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+	alien_powers = list(/datum/action/cooldown/spell/conjure/plant_weeds, /datum/action/cooldown/spell/touch/transfer_plasma)
 	/// Used as a marker for hud updates on Life(). Ridiculous initial value required to update hud on organ insertion.
 	var/old_plasma_amount = 9999
 	/// Current amount of plasma.
@@ -86,7 +86,7 @@
 	max_plasma = 750
 	stored_plasma = 300
 	plasma_rate = 30
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/queen, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+	alien_powers = list(/datum/action/cooldown/spell/conjure/plant_weeds/queen, /datum/action/cooldown/spell/touch/transfer_plasma)
 
 /obj/item/organ/internal/xenos/plasmavessel/queen/get_ru_names()
 	return alist(
@@ -235,7 +235,7 @@
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_ACIDGLAND
 	origin_tech = "biotech=5;materials=2;combat=2"
-	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
+	alien_powers = list(/datum/action/cooldown/spell/touch/corrosive_acid_spit)
 
 /obj/item/organ/internal/xenos/acidgland/get_ru_names()
 	return alist(
@@ -250,7 +250,7 @@
 /obj/item/organ/internal/xenos/acidgland/sentinel
 	name = "medium xeno acid gland"
 	desc = "Орган, ответственный за секрецию кислоты в организме ксеноморфа. Эта принадлежала часовому."
-	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel)
+	alien_powers = list(/datum/action/cooldown/spell/touch/corrosive_acid_spit/sentinel)
 
 /obj/item/organ/internal/xenos/acidgland/sentinel/get_ru_names()
 	return alist(
@@ -265,7 +265,7 @@
 /obj/item/organ/internal/xenos/acidgland/praetorian
 	name = "massive xeno acid gland"
 	desc = "Орган, ответственный за секрецию кислоты в организме ксеноморфа. Эта принадлежала преторианцу."
-	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/praetorian)
+	alien_powers = list(/datum/action/cooldown/spell/touch/corrosive_acid_spit/praetorian)
 
 /obj/item/organ/internal/xenos/acidgland/praetorian/get_ru_names()
 	return alist(
@@ -280,7 +280,7 @@
 /obj/item/organ/internal/xenos/acidgland/queen
 	name = "royal xeno acid gland"
 	desc = "Орган, ответственный за секрецию кислоты в организме ксеноморфа. Эта принадлежала королеве ксеноморфов."
-	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/queen)
+	alien_powers = list(/datum/action/cooldown/spell/touch/corrosive_acid_spit/queen)
 
 /obj/item/organ/internal/xenos/acidgland/queen/get_ru_names()
 	return alist(
@@ -300,7 +300,7 @@
 	slot = INTERNAL_ORGAN_HIVENODE
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
+	alien_powers = list(/datum/action/cooldown/spell/pointed/xeno_whisper)
 
 /obj/item/organ/internal/xenos/hivenode/get_ru_names()
 	return alist(
@@ -332,7 +332,7 @@
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
 	origin_tech = "biotech=5;combat=5"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
+	alien_powers = list(/datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit)
 
 /obj/item/organ/internal/xenos/neurotoxin/get_ru_names()
 	return alist(
@@ -347,7 +347,7 @@
 /obj/item/organ/internal/xenos/neurotoxin/sentinel
 	name = "medium xeno neurotoxin gland"
 	desc = "Орган, ответственный за секрецию нейротоксина в организме ксеноморфа. Эта принадлежала стражу"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
+	alien_powers = list(/datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/sentinel)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel/get_ru_names()
 	return alist(
@@ -367,7 +367,7 @@
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	slot = INTERNAL_ORGAN_RESIN_SPINNER
 	origin_tech = "biotech=5;materials=4"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/build_resin)
+	alien_powers = list(/datum/action/cooldown/spell/build_resin)
 
 /obj/item/organ/internal/xenos/resinspinner/get_ru_names()
 	return alist(
@@ -387,7 +387,7 @@
 	slot = INTERNAL_ORGAN_EGGSAC
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
+	alien_powers = list(/datum/action/cooldown/spell/conjure/xeno_eggs)
 
 /obj/item/organ/internal/xenos/eggsac/get_ru_names()
 	return alist(

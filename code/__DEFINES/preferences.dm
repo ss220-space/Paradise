@@ -240,3 +240,7 @@
 #define TAB_SPEC 2
 #define TAB_KEYS 3
 #define TAB_TOGGLES 4
+
+#define SCALING_METHOD_NORMAL "normal"
+#define SCALING_METHOD_DISTORT "distort"
+#define SCALING_METHOD_BLUR "blur"

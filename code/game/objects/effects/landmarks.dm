@@ -74,7 +74,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/awaystart/Initialize(mapload)
+	. = ..()
 	GLOB.awaydestinations.Add(src)
+
+/obj/effect/landmark/awaystart/Destroy()
+	GLOB.awaydestinations -= src
 	return ..()
 
 // MARK: SPAWNER
@@ -572,6 +576,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = JOB_TITLE_INVESTOR
 	icon_state = "Investor"
 
+/obj/effect/landmark/start/explorer
+	name = JOB_TITLE_EXPLORER
+	icon_state = "Explorer"
+
 // MARK: COSTUME
 /// Costume spawner, selects a random subclass and disappears
 /obj/effect/landmark/costume/random/Initialize(mapload)
@@ -896,4 +904,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 					break
 			if(dense_object)
 				continue
-			hangover_debris += new /obj/item/reagent_containers/food/drinks/cans/beer/almost_empty(turf_to_spawn_on)
+			hangover_debris += new /obj/item/reagent_containers/cup/soda_cans/beer/almost_empty(turf_to_spawn_on)

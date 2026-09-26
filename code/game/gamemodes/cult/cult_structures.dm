@@ -146,7 +146,7 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = span_cultitalic_alt("You kneel before the altar and your faith is rewarded with a %ITEM%!")
-	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
+	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/cup/glass/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
 /obj/structure/cult/functional/forge
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
 
 /obj/structure/cult/functional/pylon/cult_conceal()
 	STOP_PROCESSING(SSobj, src)

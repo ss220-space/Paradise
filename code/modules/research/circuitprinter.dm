@@ -66,20 +66,20 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 
@@ -176,7 +176,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	qdel(tool)
-	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_U_Y_0(amount_inserted /  SHEET_VOLUME)] материала."))
 
 
 #define LINK_CIRCUIT "Привязать схему"
@@ -586,7 +586,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)
-		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+		if(istype(component, /obj/item/reagent_containers/cup/beaker))
 			reagents.trans_to(component, reagents.total_volume)
 
 		component.forceMove(drop_loc)

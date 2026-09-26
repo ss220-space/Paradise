@@ -55,7 +55,7 @@
 	new pizza_type_to_spawn(pod)
 
 	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/drinks/cans/beer(pod)
+		new /obj/item/reagent_containers/cup/soda_cans/beer(pod)
 
 	new /obj/effect/pod_landingzone(choosen_turf, pod)
 
@@ -298,7 +298,7 @@
 		/datum/job/service/janitor = /obj/item/organ/internal/cyberimp/arm/janitorial,
 		/datum/job/service/librarian = /obj/item/organ/internal/cyberimp/eyes/meson,
 		/datum/job/service/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
-		/datum/job/service/explorer = /obj/item/organ/internal/heart/cybernetic,
+		/datum/job/science/explorer = /obj/item/organ/internal/heart/cybernetic,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/head_of_staff/nanotrasenrep = /obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,

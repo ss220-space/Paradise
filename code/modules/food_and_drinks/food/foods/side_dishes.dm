@@ -24,7 +24,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#EDDD00"
 	list_reagents = list("nutriment" = 4)
-	tastes = list("fries" = 3, "salt" = 1)
+	tastes = list("fries" = 3, "sodiumchloride" = 1)
 	foodtype = VEGETABLES | FRIED
 
 /obj/item/reagent_containers/food/snacks/cheesyfries
@@ -65,7 +65,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FAA005"
 	list_reagents = list("plantmatter" = 3, "oculine" = 3, "vitamin" = 2)
-	tastes = list("carrots" = 3, "salt" = 1)
+	tastes = list("carrots" = 3, "sodiumchloride" = 1)
 	foodtype = VEGETABLES | FRIED
 
 //////////////////////

@@ -6,36 +6,45 @@
 
 /datum/vampire_passive/increment_thrall_cap/three
 
-/obj/effect/proc_holder/spell/vampire/enthrall
+/datum/action/cooldown/spell/pointed/dantalion_enthrall
 	name = "Порабощение"
 	desc = "Вы используете значительную часть своей силы, чтобы поработить разум другого гуманоида или оживить своего раба."
 	gain_desc = "Вы обрели способность подчинять людей своей воле."
-	action_icon_state = "vampire_enthrall"
-	need_active_overlay = TRUE
-	required_blood = 100
-	deduct_blood_on_cast = FALSE
+	button_icon_state = "vampire_enthrall"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	cast_range = 1
+	cooldown_time = 10 SECONDS
+	var/required_blood = 100
 
-/obj/effect/proc_holder/spell/vampire/enthrall/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.range = 1
-	T.click_radius = 0
-	return T
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/mob/living/target = targets[1]
-	user.visible_message(span_warning("[user] куса[PLUR_ET_YUT(user)] [target] за шею!"), \
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/is_valid_target(atom/cast_on)
+	if(!iscarbon(cast_on))
+		return FALSE
+	var/mob/living/victim = cast_on
+	return (..() && can_enthrall(owner, victim)) || (victim.stat == DEAD && isvampirethrall(victim))
+
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/cast(atom/cast_on)
+	. = ..()
+	var/datum/antagonist/vampire/vampire = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/mob/living/target = cast_on
+	owner.visible_message(span_warning("[owner] куса[PLUR_ET_YUT(owner)] [target] за шею!"), \
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 
-	if(!do_after(user, 15 SECONDS, target, NONE))
-		revert_cast(user)
-		to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
+	if(!do_after(owner, 15 SECONDS, target, NONE))
+		reset_spell_cooldown()
+		to_chat(owner, span_warning("Вы или ваша цель сдвинулись с места."))
 		return
 
-	if(target.stat == DEAD && isvampirethrall(target))
+	if(isvampirethrall(target))
 		var/datum/antagonist/mindslave/thrall/thrall = target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
-		if(thrall && thrall.master == user.mind)
+		if(thrall && thrall.master == owner.mind)
 			var/turf/turf = get_turf(target)
 			playsound(turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
 
@@ -45,20 +54,19 @@
 
 			animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 			animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
-			addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_first), target, target_image, turf, user, vampire), 1.6 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_first), target, target_image, turf, owner, vampire), 1.6 SECONDS)
 			return
 
-		to_chat(user, span_warning("Это не ваш раб."))
-		revert_cast(user)
+		to_chat(owner, span_warning("Это не ваш раб."))
+		reset_spell_cooldown()
 		return
 
-	if(can_enthrall(user, target))
-		handle_enthrall(user, target)
-		var/datum/spell_handler/vampire/vamp = custom_handler
-		var/blood_cost = vamp.calculate_blood_cost(vampire)
-		vampire.bloodusable -= blood_cost
+	handle_enthrall(owner, target)
+	var/datum/spell_handler/vampire/vamp = custom_handler
+	var/blood_cost = vamp.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
 
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	. = FALSE
 	if(!C)
 		CRASH("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]")
@@ -68,6 +76,11 @@
 
 	if(!ishuman(C))
 		to_chat(user, span_warning("Вы можете поработить только разумных гуманоидов!"))
+		return
+	if(C.stat == DEAD)
+		if(isvampirethrall(C))
+			return // So we won't get any messages when trying to revive our thrall
+		C.balloon_alert(user, "цель мертва!")
 		return
 
 	if(!C.mind)
@@ -91,7 +104,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
 
@@ -102,7 +115,7 @@
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step_first(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/proc/revive_thrall_step_first(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
 	if(QDELETED(target) || QDELETED(target_image))
 		return
 	target.revive()
@@ -112,7 +125,7 @@
 	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_second), target, target_image, location, user, vampire), 0.5 SECONDS)
 
 /// Second stage: return the thrall to the tile and complete the ritual
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step_second(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
+/datum/action/cooldown/spell/pointed/dantalion_enthrall/proc/revive_thrall_step_second(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
 	if(QDELETED(target) || QDELETED(target_image))
 		return
 	target.forceMove(location)
@@ -124,18 +137,18 @@
 	user.create_log(CONVERSION_LOG, "revived thrall", target)
 	target.create_log(CONVERSION_LOG, "was revived by vampire master", user)
 
-/obj/effect/proc_holder/spell/vampire/thrall_commune
+/datum/action/cooldown/spell/dantalion_thrall_commune
 	name = "Телепатическая связь"
 	desc = "Общайтесь со своими рабами с помощью блюспейс-телепатии."
 	gain_desc = "Вы обрели способность общаться со своими рабами на расстоянии."
-	action_icon_state = "vamp_communication"
-	create_attack_logs = FALSE
-	base_cooldown = 2 SECONDS
+	button_icon_state = "vamp_communication"
+	background_icon_state = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	check_flags = AB_CHECK_CONSCIOUS
+	cooldown_time = 2 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
-	return
-
-/datum/spell_targeting/select_vampire_network/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
+/datum/action/cooldown/spell/dantalion_thrall_commune/proc/choose_targets(mob/user) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
 	var/list/mob/living/targets = list()
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire) // if the user is a vampire
 
@@ -158,177 +171,187 @@
 	targets += V.owner.current
 	return targets
 
-/obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_targeting()
-	var/datum/spell_targeting/select_vampire_network/T = new
-	return T
-
-/obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
-	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
+/datum/action/cooldown/spell/dantalion_thrall_commune/cast(atom/cast_on)
+	. = ..()
+	var/input = tgui_input_text(owner, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
 	if(!input)
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
 	// if admins give this to a non vampire/thrall it is not my problem
-	var/is_thrall = isvampirethrall(user)
-	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [user.real_name]"))
+	var/is_thrall = isvampirethrall(owner)
+	var/title = is_thrall ? "(Раб Вампира) [owner.real_name]" : span_dantalion(span_fontsize3("(Мастер Вампир) [owner.real_name]"))
 	var/message = is_thrall ? span_dantalion("[input]") : span_dantalion(span_fontsize3(span_bold("[input]")))
-
+	var/list/targets = choose_targets(owner)
 	for(var/mob/player in targets)
 		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, span_gamesay("([ghost_follow_link(user, ghost)]) <i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
+		to_chat(ghost, span_gamesay("([ghost_follow_link(owner, ghost)]) <i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
-	log_say("(DANTALION) [input]", user)
-	user.create_log(SAY_LOG, "(DANTALION) [input]")
+	log_say("(DANTALION) [input]", owner)
+	owner.create_log(SAY_LOG, "(DANTALION) [input]")
 
-/obj/effect/proc_holder/spell/vampire/pacify
+/datum/action/cooldown/spell/pointed/pacify
 	name = "Умиротворение"
 	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
-	action_icon_state = "pacify"
-	required_blood = 10
-	need_active_overlay = TRUE
+	button_icon_state = "pacify"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_SANGUINE
+	var/required_blood = 10
 
-/obj/effect/proc_holder/spell/vampire/pacify/create_new_targeting()
-	var/datum/spell_targeting/click/targeting = new
-	targeting.range = 7
-	targeting.click_radius = 1
-	targeting.allowed_type = /mob/living/carbon/human
-	targeting.selection_type = SPELL_SELECTION_RANGE
-	return targeting
+/datum/action/cooldown/spell/pointed/pacify/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/pacify/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/pointed/pacify/is_valid_target(atom/cast_on)
+	return ..() && ishuman(cast_on)
+
+/datum/action/cooldown/spell/pointed/pacify/cast(atom/cast_on)
+	. = ..()
 	var/sound/sound = sound('sound/magic/cult_spell.ogg')
 	sound.volume = 30
-	SEND_SOUND(user, sound)
-	for(var/mob/living/carbon/human/target as anything in targets)
-		if(!target.affects_vampire(user))
-			to_chat(user, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
-			return
+	SEND_SOUND(owner, sound)
+	var/mob/living/carbon/human/target = cast_on
+	if(!target.affects_vampire(owner))
+		to_chat(owner, span_warning("Вы чувствуете, что ваша способность не произвела никакого эффекта!"))
+		return
 
-		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
-		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
-		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify
+	to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
+	SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
+	target.apply_status_effect(STATUS_EFFECT_PACIFIED, owner) // we wont to see, whom we already pacify
 
-/obj/effect/proc_holder/spell/vampire/switch_places
+/datum/action/cooldown/spell/pointed/switch_places
 	name = "Подпространственный обмен"
 	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации. Невозможно использовать сквозь стены."
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
-	centcom_cancast = FALSE
-	action_icon_state = "subspace_swap"
-	required_blood = 15
-	need_active_overlay = TRUE
+	button_icon_state = "subspace_swap"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	cooldown_time = 10 SECONDS
+	var/required_blood = 15
 
-/obj/effect/proc_holder/spell/vampire/switch_places/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.range = 7
-	T.click_radius = 1
-	T.try_auto_target = FALSE
-	T.allowed_type = /mob/living
-	return T
+/datum/action/cooldown/spell/pointed/switch_places/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
-	var/mob/living/target = targets[1]
-	if(isAI(target))
-		to_chat(user, span_warning("Заклинание не действует на ядро ИИ!"))
-		revert_cast()
-		return
-	var/turf/user_turf = get_turf(user)
+/datum/action/cooldown/spell/pointed/switch_places/is_valid_target(atom/cast_on)
+	return ..() && isliving(cast_on) && !isAI(cast_on)
+
+/datum/action/cooldown/spell/pointed/switch_places/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/target = cast_on
+	var/turf/user_turf = get_turf(owner)
 	var/turf/target_turf = get_turf(target)
 	target.forceMove(user_turf)
-	user.forceMove(target_turf)
+	owner.forceMove(target_turf)
 	var/sound/sound = sound('sound/magic/mindswap.ogg')
 	sound.volume = 30
-	SEND_SOUND(user, sound)
+	SEND_SOUND(owner, sound)
 
-	if(target.affects_vampire(user))
+	if(target.affects_vampire(owner))
 		target.Slowed(4 SECONDS)
 		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
 
-/obj/effect/proc_holder/spell/vampire/self/decoy
+/datum/action/cooldown/spell/dantalion_decoy
 	name = "Приманка"
 	desc = "На короткое время станьте невидимым и создайте иллюзию для обмана, чтобы провести свою жертву."
 	gain_desc = "Вы получили способность становиться невидимым и создавать обманные иллюзии."
-	action_icon_state = "decoy"
-	required_blood = 30
-	base_cooldown = 20 SECONDS
+	button_icon_state = "decoy"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_SANGUINE
+	cooldown_time = 20 SECONDS
 	var/duration = 6 SECONDS
+	var/required_blood = 30
 
-/obj/effect/proc_holder/spell/vampire/self/decoy/cast(list/targets, mob/user)
-	var/user_turf = get_turf(user)
+/datum/action/cooldown/spell/dantalion_decoy/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+/datum/action/cooldown/spell/dantalion_decoy/cast(atom/cast_on)
+	. = ..()
+	var/user_turf = get_turf(owner)
 	var/mob/living/simple_animal/hostile/illusion/escape/E = new(user_turf)
-	E.Copy_Parent(user, duration, 20)
-	E.GiveTarget(user) //so it starts running right away
-	E.Goto(user, E.move_to_delay, E.minimum_distance)
-	user.make_invisible()
+	E.Copy_Parent(owner, duration, 20)
+	E.GiveTarget(owner) //so it starts running right away
+	E.Goto(owner, E.move_to_delay, E.minimum_distance)
+	owner.make_invisible()
 	playsound(user_turf, 'sound/hallucinations/look_up1.ogg', 50, TRUE)
-	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), duration)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), duration)
 
-/obj/effect/proc_holder/spell/vampire/rally_thralls
+/datum/action/cooldown/spell/aoe/rally_thralls
 	name = "Сплотить рабов"
 	desc = "Снимает все обездвиживающие эффекты с находящихся рядом с вами рабов."
 	gain_desc = "Вы получили способность снимать все обездвиживающие эффекты с ближайших рабов."
-	action_icon_state = "thralls_up"
-	required_blood = 25
-	base_cooldown = 30 SECONDS
+	button_icon_state = "thralls_up"
+	background_icon_state = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	cooldown_time = 30 SECONDS
+	aoe_radius = /datum/aoe_targeting/vamp_thralls
+	var/required_blood = 25
 
-/obj/effect/proc_holder/spell/vampire/rally_thralls/create_new_targeting()
-	var/datum/spell_targeting/aoe/thralls/T = new
-	T.allowed_type = /mob/living/carbon/human
-	T.range = 7
-	return T
+/datum/action/cooldown/spell/aoe/rally_thralls/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/datum/spell_targeting/aoe/thralls/valid_target(target, user, obj/effect/proc_holder/spell/spell, check_if_in_range)
-	if(!isvampirethrall(target))
-		return FALSE
-	return ..()
+/datum/action/cooldown/spell/aoe/rally_thralls/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/carbon/human/H = victim
+	var/image/I = image('icons/effects/vampire_effects.dmi', "rallyoverlay", layer = EFFECTS_LAYER)
+	playsound(H, 'sound/magic/staff_healing.ogg', 50)
+	H.remove_CC()
+	H.add_overlay(I)
+	addtimer(CALLBACK(H, TYPE_PROC_REF(/atom, cut_overlay), I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
-/obj/effect/proc_holder/spell/vampire/rally_thralls/cast(list/targets, mob/user)
-	for(var/mob/living/carbon/human/H as anything in targets)
-		var/image/I = image('icons/effects/vampire_effects.dmi', "rallyoverlay", layer = EFFECTS_LAYER)
-		playsound(H, 'sound/magic/staff_healing.ogg', 50)
-		H.remove_CC()
-		H.add_overlay(I)
-		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom, cut_overlay), I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
-
-/obj/effect/proc_holder/spell/vampire/self/share_damage
+/datum/action/cooldown/spell/share_damage
 	name = "Кровавые узы"
 	desc = "Создает сеть между вами и ближайшими рабами, которая равномерно распределяет весь получаемый урон."
 	gain_desc = "Вы получили способность распределять урон между вами и вашими рабами."
-	action_icon_state = "blood_bond"
-	required_blood = 5
+	button_icon_state = "blood_bond"
+	background_icon_state = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	var/required_blood = 5
 
-/obj/effect/proc_holder/spell/vampire/self/share_damage/cast(list/targets, mob/living/user)
-	var/datum/status_effect/thrall_net/T = user.has_status_effect(STATUS_EFFECT_THRALL_NET)
+/datum/action/cooldown/spell/share_damage/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+/datum/action/cooldown/spell/share_damage/cast(atom/cast_on)
+	. = ..()
+	var/datum/status_effect/thrall_net/T = owner.has_status_effect(STATUS_EFFECT_THRALL_NET)
 	if(!T)
-		user.apply_status_effect(STATUS_EFFECT_THRALL_NET, user.mind.has_antag_datum(/datum/antagonist/vampire))
+		var/mob/living/caster = owner
+		caster.apply_status_effect(STATUS_EFFECT_THRALL_NET, owner.mind.has_antag_datum(/datum/antagonist/vampire))
 		return
 	qdel(T)
 
-/obj/effect/proc_holder/spell/vampire/hysteria
+/datum/action/cooldown/spell/aoe/hysteria
 	name = "Массовая истерия"
 	desc = "Накладывает мощную иллюзию, заставляющую всех, кто находится поблизости, воспринимать окружающих как случайных животных после кратковременного ослепления. Также замедляет пострадавших."
 	gain_desc = "Вы получили способность заставлять всех, кто находится рядом, воспринимать окружающих как случайных животных после кратковременного ослепления."
-	action_icon_state = "hysteria"
-	required_blood = 25
-	base_cooldown = 60 SECONDS
+	button_icon_state = "hysteria"
+	background_icon_state = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	aoe_radius = 8
+	cooldown_time = 60 SECONDS
+	targeting_type = /datum/aoe_targeting/human_affects_vamp
+	var/required_blood = 25
 
-/obj/effect/proc_holder/spell/vampire/hysteria/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new
-	T.range = 8
-	T.allowed_type = /mob/living/carbon/human
-	return T
-
-/obj/effect/proc_holder/spell/vampire/hysteria/cast(list/targets, mob/user)
-	for(var/mob/living/carbon/human/target in targets)
-		if(!target.affects_vampire(user))
-			continue
-
-		SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
-		target.Slowed(4 SECONDS)
-		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
+/datum/action/cooldown/spell/aoe/hysteria/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/carbon/human/target = victim
+	SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
+	target.Slowed(4 SECONDS)
+	target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
+	new /obj/effect/hallucination/delusion(get_turf(owner), target, skip_nearby = FALSE)
 
