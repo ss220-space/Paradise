@@ -1,101 +1,63 @@
-#define DAMAGE 1
-#define FIRE_OLAY 2
-#define POD_LIGHT 1
-#define WINDOW 2
-#define RIM 3
-#define PAINT 4
-
-#define NO_GRAVITY_SPEED (0.15 SECONDS)
-#define GRAVITY_SPEED (0.4 SECONDS)
-
-#define POD_MISC_LOCK_DOOR "Блокировка дверей"
-#define POD_MISC_POD_DOORS "Шлюз отсека"
-#define POD_MISC_UNLOAD_CARGO "Сбросить груз"
-#define POD_MISC_CHECK_SEAT "Проверить под сиденьем"
-#define POD_MISC_LOCATOR_SKAN "Сканировать сектор"
-
-#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO, POD_MISC_LOCATOR_SKAN)
-
-/obj/item/pod_paint_bucket
-	name = "space pod paintkit"
-	desc = "Pimp your ride"
-	icon_state = "paint_red"
-
-/obj/item/pod_paint_bucket/get_ru_names()
-	return alist(
-		NOMINATIVE = "набор для покраски челнока",
-		GENITIVE = "набора для покраски челнока",
-		DATIVE = "набору для покраски челнока",
-		ACCUSATIVE = "набор для покраски челнока",
-		INSTRUMENTAL = "набором для покраски челнока",
-		PREPOSITIONAL = "наборе для покраски челнока",
-	)
-
+// MARK: Basic spacepod
 /obj/spacepod
-	name = "space pod"
-	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
+	name = "not complete spacepod"
+	desc = "Незавершенный космический челнок."
 	icon = 'icons/goonstation/48x48/pods.dmi'
-	density = TRUE //Dense. To raise the heat.
-
+	icon_state = "pod_civ"
+	density = TRUE
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = ACID_PROOF
 	movement_type = FLYING
-
 	layer = BEHIND_MOB_LAYER
 	infra_luminosity = 15
 
-	var/mob/living/pilot	//There is only ever one pilot and he gets all the privledge
-	var/list/mob/passengers = list() //passengers can't do anything and are variable in number
+	/// Current pilot
+	var/mob/living/pilot = null
+	/// List of passengers into pod
+	var/list/mob/passengers = list()
+	/// Maximum of passengers count
 	var/max_passengers = 0
+	/// Cabin internal storage
 	var/obj/item/storage/internal/cargo_hold
 
-	var/datum/spacepod/equipment/equipment_system
+	/// Internal pod system
+	var/datum/spacepod_systems/systems = null
 
-	var/battery_type = "/obj/item/stock_parts/cell/high"
-	var/obj/item/stock_parts/cell/battery
-
+	/// Air in cabin
 	var/datum/gas_mixture/cabin_air
+	/// Air tank for cabin
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
-	var/use_internal_tank = 0
 
-	var/hatch_open = 0
-
-	var/next_firetime = 0
-
-	var/has_paint = 0
-
-	var/list/pod_overlays
-	var/list/pod_paint_effect
-	var/list/colors = new/list(4)
-	var/health = 250
-
-	var/lights = 0
+	/// Frame integrity
+	max_integrity = 300
+	/// Enable external lights
+	var/lights = FALSE
+	/// External lights power
 	var/lights_power = 6
-	var/can_paint = TRUE
-
-	var/list/icon_light_color = list(
-		"pod_civ" = COLOR_WHITE, \
-		"pod_mil" = "#bbf093", \
-		"pod_synd" = COLOR_SOFT_RED, \
-		"pod_gold" = COLOR_WHITE, \
-		"pod_black" = "#3b8fe5", \
-		"pod_industrial" = "#cccc00"
-	)
-
+	/// Pod door unlocked flag
 	var/unlocked = TRUE
-	var/move_delay = NO_GRAVITY_SPEED
+	/// Complete assembly flag
+	var/assemble_process = TRUE
+	/// Hant state flag
+	var/hatch_opened = FALSE
+
+	/// Movement speed coefficient (use smaller value for higher speed)
+	var/pod_speed_coeff = POD_SPEED_COEFF
+	/// Movement cooldown
 	COOLDOWN_DECLARE(spacepod_move_cooldown)
-	COOLDOWN_DECLARE(cooldown_emp)	//Used for disabling movement when hit by an EMP
+	/// Ion trail effect
 	var/datum/effect_system/trail_follow/spacepod/ion_trail
 
 	// Actions
 	var/datum/action/innate/pod/pod_eject/eject_action = new
 	var/datum/action/innate/pod/pod_eject/passanger_eject = new
-	var/datum/action/innate/pod/pod_toggle_internals/internals_action = new
 	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
-	var/datum/action/innate/pod/pod_fire/fire_action = new
-	var/datum/action/innate/pod/pod_misc/misc_action = new
+	var/datum/action/innate/pod/pod_panel/panel_action = new
+
+	// tgui
+	var/datum/ui_module/spacepod_control_panels/control_panels
+
 
 /obj/spacepod/get_ru_names()
 	return alist(
@@ -107,676 +69,29 @@
 		PREPOSITIONAL = "космическом челноке",
 	)
 
-/obj/spacepod/return_obj_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(!use_internal_tank)
-		return null
-	return cabin_air
-
-/obj/spacepod/proc/apply_paint(mob/user)
-	var/part_type
-	if(!can_paint)
-		balloon_alert(user, "нельзя перекрасить!")
-		return
-
-	var/part = tgui_input_list(user, "Выберите элемент", null, list("Фары", "Окантовка", "Основной цвет", "Стекла"))
-	switch(part)
-		if("Фары")
-			part_type = POD_LIGHT
-		if("Окантовка")
-			part_type = RIM
-		if("Основной цвет")
-			part_type = PAINT
-		if("Стекла")
-			part_type = WINDOW
-	var/coloradd = tgui_input_color(user, "Выберите цвет", "Цвет")
-	if(isnull(coloradd))
-		return
-	colors[part_type] = coloradd
-	if(!has_paint)
-		has_paint = 1
-	update_icons()
-
-/obj/spacepod/get_cell()
-	return battery
-
 /obj/spacepod/Initialize(mapload)
 	. = ..()
-	if(!pod_overlays)
-		pod_overlays = new/list(2)
-		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
-	if(!pod_paint_effect)
-		pod_paint_effect = new/list(4)
-		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
-		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
-		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
-		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 	bound_width = 64
 	bound_height = 64
-	battery = new battery_type(src)
+	create_internal_system()
 	add_cabin()
 	add_airtank()
-	src.use_internal_tank = 1
-	equipment_system = new(src)
-	equipment_system.installed_modules += battery
 	GLOB.spacepods_list += src
 	cargo_hold = new/obj/item/storage/internal(src)
-	cargo_hold.w_class = 5	//so you can put bags in
-	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
-	cargo_hold.max_w_class = 5		//fit almost anything
-	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
+	cargo_hold.w_class = 5 //so you can put bags in
+	cargo_hold.storage_slots = 4
+	cargo_hold.max_w_class = 5
+	cargo_hold.max_combined_w_class = 14
 	START_PROCESSING(SSobj, src)
 	ion_trail = new
 	ion_trail.set_up(src)
 	ion_trail.start()
-
-/obj/spacepod/Destroy()
-	if(equipment_system.cargo_system)
-		equipment_system.cargo_system.removed(null)
-	QDEL_NULL(equipment_system)
-	QDEL_NULL(cargo_hold)
-	QDEL_NULL(battery)
-	QDEL_NULL(cabin_air)
-	QDEL_NULL(internal_tank)
-	QDEL_NULL(ion_trail)
-	QDEL_NULL(eject_action)
-	QDEL_NULL(passanger_eject)
-	QDEL_NULL(internals_action)
-	QDEL_NULL(lights_action)
-	QDEL_NULL(fire_action)
-	QDEL_NULL(misc_action)
-	occupant_sanity_check()
-	if(pilot)
-		eject_pilot()
-	if(passengers)
-		for(var/mob/M in passengers)
-			eject_passenger(M)
-	GLOB.spacepods_list -= src
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/spacepod/process()
-	give_air()
-	regulate_temp()
-
-/obj/spacepod/proc/update_icons()
-	if(!pod_overlays)
-		pod_overlays = new/list(2)
-		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
-
-	if(!pod_paint_effect)
-		pod_paint_effect = new/list(4)
-		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
-		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
-		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
-		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
-	cut_overlays()
-
-	if(has_paint)
-		var/image/to_add
-		if(!isnull(pod_paint_effect[POD_LIGHT]))
-			to_add = pod_paint_effect[POD_LIGHT]
-			to_add.color = colors[POD_LIGHT]
-			add_overlay(to_add)
-		if(!isnull(pod_paint_effect[WINDOW]))
-			to_add = pod_paint_effect[WINDOW]
-			to_add.color = colors[WINDOW]
-			add_overlay(to_add)
-		if(!isnull(pod_paint_effect[RIM]))
-			to_add = pod_paint_effect[RIM]
-			to_add.color = colors[RIM]
-			add_overlay(to_add)
-		if(!isnull(pod_paint_effect[PAINT]))
-			to_add = pod_paint_effect[PAINT]
-			to_add.color = colors[PAINT]
-			add_overlay(to_add)
-	if(health <= round(initial(health)/2))
-		add_overlay(pod_overlays[DAMAGE])
-		if(health <= round(initial(health)/4))
-			add_overlay(pod_overlays[FIRE_OLAY])
-
-	light_color = icon_light_color[src.icon_state]
-
-/obj/spacepod/bullet_act(obj/projectile/P)
-	. = P.on_hit(src)
-	if(P.damage_type == BRUTE || P.damage_type == BURN)
-		deal_damage(P.damage)
-
-/obj/spacepod/AllowDrop()
-	return TRUE
-
-/obj/spacepod/blob_act(obj/structure/blob/B)
-	deal_damage(30)
-
-/obj/spacepod/force_eject_occupant(mob/target)
-	if(target == pilot)
-		eject_pilot()
-	else
-		eject_passenger(target)
-
-/obj/spacepod/proc/eject_pilot()
-	pilot.forceMove(get_turf(src))
-	RemoveActions(pilot)
-	pilot = null
-
-/obj/spacepod/proc/eject_passenger(mob/living/passenger)
-	passenger.forceMove(get_turf(src))
-	passanger_eject.Remove(passenger)
-	passengers -= passenger
-
-/obj/spacepod/attack_animal(mob/living/simple_animal/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
-		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [declent_ru(ACCUSATIVE)].")
-		return FALSE
-	else
-		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		deal_damage(damage)
-		visible_message(span_danger("[user] [user.attacktext] [declent_ru(ACCUSATIVE)]!"))
-		add_attack_logs(user, src, "attacked")
-		return TRUE
-
-/obj/spacepod/attack_alien(mob/living/carbon/alien/user)
-	if(user.a_intent == INTENT_HARM)
-		user.do_attack_animation(src)
-		user.changeNext_move(CLICK_CD_MELEE)
-		deal_damage(user.obj_damage)
-		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
-		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробива[PLUR_ET_YUT(user)] броню [declent_ru(GENITIVE)]"))
-
-/obj/spacepod/attack_tk()
-	return
-
-/obj/spacepod/proc/deal_damage(damage)
-	var/oldhealth = health
-	health = max(0, health - damage)
-	var/percentage = (health / initial(health)) * 100
-	occupant_sanity_check()
-	if(oldhealth > health && percentage <= 25 && percentage > 0)
-		play_sound_to_riders('sound/effects/engine_alert2.ogg')
-	if(oldhealth > health && !health)
-		play_sound_to_riders('sound/effects/engine_alert1.ogg')
-	if(!health)
-		spawn(0)
-			message_to_riders(span_userdanger("Обнаружены критические повреждения! Взрыв ядра неизбежен!"))
-			for(var/i in 1 to 3)
-				var/count = 3
-				message_to_riders(span_warning("[count]"))
-				count--
-				sleep(10)
-			if(LAZYLEN(pilot) || LAZYLEN(passengers))
-				for(var/M in passengers + pilot)
-					var/mob/living/L = M
-					L.adjustBruteLoss(300)
-			explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
-			robogibs(loc)
-			robogibs(loc)
-			qdel(src)
-
-	update_icons()
-
-/obj/spacepod/repair_damage(repair_amount)
-	if(health)
-		health = min(initial(health), health + repair_amount)
-		update_icons()
-
-/obj/spacepod/ex_act(severity, target)
-	occupant_sanity_check()
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			if(passengers || pilot)
-				for(var/mob/M in passengers | pilot)
-					var/mob/living/carbon/human/H = M
-					if(H)
-						H.forceMove(get_turf(src))
-						H.ex_act(severity - 1)
-						to_chat(H, span_warning("Вас с силой выбрасывает из [declent_ru(GENITIVE)]!"))
-			qdel(src)
-		if(EXPLODE_HEAVY)
-			deal_damage(100)
-		if(EXPLODE_LIGHT)
-			if(prob(40))
-				deal_damage(50)
-
-/obj/spacepod/emp_act(severity)
-	occupant_sanity_check()
-	cargo_hold.emp_act(severity)
-
-	if(battery && battery.charge > 0)
-		battery.use((battery.charge/3)/(severity*2))
-	deal_damage(80 / severity)
-	if(COOLDOWN_TIMELEFT(src, cooldown_emp) < (80 SECONDS / severity))
-		COOLDOWN_START(src, cooldown_emp, 80 SECONDS / severity)
-
-	switch(severity)
-		if(1)
-			message_to_riders(span_warning("Консоль челнока мигает: ОБНАРУЖЕНА МОЩНАЯ ЭМИ-ВОЛНА!"))
-		if(2)
-			message_to_riders(span_warning("Консоль челнока мигает: ОБНАРУЖЕНА ЭМИ-ВОЛНА!"))
-
-/obj/spacepod/proc/play_sound_to_riders(mysound)
-	if(length(passengers | pilot) == 0)
-		return
-	var/sound/S = sound(mysound)
-	S.wait = 0 //No queue
-	S.channel = SSsounds.random_available_channel()
-	S.volume = 50
-	for(var/mob/M in passengers | pilot)
-		M << S
-
-/obj/spacepod/proc/message_to_riders(mymessage)
-	if(length(passengers | pilot) == 0)
-		return
-	for(var/mob/M in passengers | pilot)
-		to_chat(M, mymessage)
-
-/obj/spacepod/attackby(obj/item/I, mob/user, params)
-	var/cached_damage = I.force
-	if(user.a_intent == INTENT_HARM)
-		. = ..()
-		if(!ATTACK_CHAIN_CANCEL_CHECK(.))
-			deal_damage(cached_damage)
-		return .
-
-	if(iscell(I))
-		add_fingerprint(user)
-		if(!hatch_open)
-			balloon_alert(user, "технический люк закрыт!")
-			return ATTACK_CHAIN_PROCEED
-		if(battery)
-			balloon_alert(user, "нет места!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		battery = I
-		balloon_alert(user, "установлено!")
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/spacepod_equipment/key))
-		add_fingerprint(user)
-		if(!equipment_system)
-			to_chat(user, span_warning("Ошибка конфигурации оборудования. Сообщите об этом в баг-репорт в Discord."))
-			return ATTACK_CHAIN_PROCEED
-		if(!istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-			balloon_alert(user, "нет замка!")
-			return ATTACK_CHAIN_PROCEED
-		var/obj/item/spacepod_equipment/key/key = I
-		if(key.id != equipment_system.lock_system.id)
-			balloon_alert(user, "неправильный ключ!")
-			return ATTACK_CHAIN_PROCEED
-		lock_pod(user)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(I, /obj/item/spacepod_equipment))
-		add_fingerprint(user)
-		if(!hatch_open)
-			balloon_alert(user, "технический люк закрыт!")
-			return ATTACK_CHAIN_PROCEED
-		if(!equipment_system)
-			to_chat(user, span_warning("Ошибка конфигурации оборудования. Сообщите об этом в баг-репорт в Discord."))
-			return ATTACK_CHAIN_PROCEED
-		var/success = FALSE
-		if(istype(I, /obj/item/spacepod_equipment/weaponry))
-			success = add_equipment(user, I, "weapon_system")
-		else if(istype(I, /obj/item/spacepod_equipment/misc))
-			success = add_equipment(user, I, "misc_system")
-		else if(istype(I, /obj/item/spacepod_equipment/cargo))
-			success = add_equipment(user, I, "cargo_system")
-		else if(istype(I, /obj/item/spacepod_equipment/sec_cargo))
-			success = add_equipment(user, I, "sec_cargo_system")
-		else if(istype(I, /obj/item/spacepod_equipment/lock))
-			success = add_equipment(user, I, "lock_system")
-		else if(istype(I, /obj/item/spacepod_equipment/locators))
-			success = add_equipment(user, I, "locator_system")
-		else
-			stack_trace("Attempted to install unknown spacepod equipment ([I.type]).")
-		if(!success)
-			return ATTACK_CHAIN_PROCEED
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/lock_buster))
-		var/obj/item/lock_buster/buster = I
-		if(!buster.on)
-			to_chat(user, span_warning("Сначала включите [buster.declent_ru(ACCUSATIVE)]."))
-			return ATTACK_CHAIN_PROCEED
-		if(equipment_system.lock_system)
-			user.visible_message(
-				span_warning("[user] начинает высверливать замок [declent_ru(GENITIVE)]."),
-				span_notice("Вы начинаете высверливать замок [declent_ru(GENITIVE)]...")
-			)
-			if(!do_after(user, 10 SECONDS * buster.toolspeed, src, category = DA_CAT_TOOL) || !equipment_system.lock_system)
-				return ATTACK_CHAIN_PROCEED
-			QDEL_NULL(equipment_system.lock_system)
-			unlocked = TRUE
-			user.visible_message(
-				span_warning("[user] ломает замок [declent_ru(GENITIVE)]."),
-				span_notice("Вы сломали замок [declent_ru(GENITIVE)].")
-			)
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		if(!unlocked)	// we don't have a lock system, and the pod is still somehow locked, unlocking.
-			unlocked = TRUE
-			user.visible_message(
-				span_notice("[user] чинит двери [declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)]."),
-				span_notice("Вы починили двери [declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)].")
-			)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	// must be the last option as all items not listed prior will be stored
-	if(cargo_hold && cargo_hold.storage_slots > 0 && !hatch_open && unlocked)
-		cargo_hold.attackby(I, user, params)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
-		deal_damage(cached_damage)
-
-/obj/spacepod/examine(mob/user)
-	. = ..()
-	var/integrity = health * 100 / initial(health)
-	switch(integrity)
-		if(100)
-			. += span_notice("Он полностью невредим.")
-		if(85 to 99)
-			. += span_notice("Он незначительно повреждён.")
-		if(65 to 85)
-			. += span_notice("Он немного повреждён.")
-		if(45 to 65)
-			. += span_notice("Он сильно повреждён.")
-		if(25 to 45)
-			. += span_notice("Он тяжело повреждён.")
-		else
-			. += span_warning("Он вот-вот развалится.")
-
-/obj/spacepod/crowbar_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!equipment_system.lock_system || unlocked || hatch_open)
-		hatch_open = !hatch_open
-		to_chat(user, span_notice("Вы [hatch_open ? "открываете" : "закрываете"] технический люк."))
-	else
-		balloon_alert(user, "люк заблокирован!")
-
-/obj/spacepod/welder_act(mob/user, obj/item/welder)
-	if(user.a_intent == INTENT_HARM)
-		return
-	. = TRUE
-	if(health >= initial(health))
-		balloon_alert(user, "челнок целый!")
-		return
-	if(!welder.tool_use_check(user, 0))
-		return
-	WELDER_ATTEMPT_REPAIR_MESSAGE
-	while(health < initial(health))
-		if(!welder.use_tool(src, user, 20, volume = welder.tool_volume))
-			break
-
-		repair_damage(10)
-		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
-
-	if(health >= initial(health))
-		balloon_alert(user, "челнок полностью отремонтирован!")
-
-/obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
-	if(equipment_system.vars[slot])
-		to_chat(user, span_warning("В слоте \"[slot]\" уже есть оборудование!"))
-		return FALSE
-	if(SPE.loc == user && !user.drop_transfer_item_to_loc(SPE, src))
-		return FALSE
-	to_chat(user, span_notice("Вы установили [SPE.declent_ru(NOMINATIVE)] в челнок."))
-	equipment_system.vars[slot] = SPE
-	var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
-	system.my_atom = src
-	equipment_system.installed_modules += SPE
-	max_passengers += SPE.occupant_mod
-	cargo_hold.storage_slots += SPE.storage_mod["slots"]
-	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
-
-/obj/spacepod/attack_hand(mob/user)
-	if(user.a_intent == INTENT_GRAB && unlocked)
-		var/mob/living/target
-		if(pilot)
-			target = pilot
-		else if(length(passengers) > 0)
-			target = passengers[1]
-
-		if(istype(target))
-			src.visible_message(
-				span_warning("[user] пытается открыть дверь и вытащить [target] из [declent_ru(GENITIVE)]!"),
-				span_warning("Вы видите, как [user] пытается открыть дверь!")
-			)
-			if(do_after(user, 5 SECONDS, src))
-				target.Stun(2 SECONDS)
-				if(pilot)
-					eject_pilot()
-				else
-					eject_passenger(target)
-				target.visible_message(
-					span_warning("[user] распахивает дверь и достаёт [target] из [declent_ru(GENITIVE)]!"),
-					span_warning("Дверь распахивается, и вас выбрасывает на пол!")
-				)
-				return
-			target.visible_message(
-				span_warning("[user] не смог открыть дверь!"),
-				span_warning("Вы не дали [user] проникнуть в [declent_ru(NOMINATIVE)]!")
-			)
-
-	if(!hatch_open)
-		if(cargo_hold.storage_slots > 0)
-			if(unlocked)
-				cargo_hold.open(user)
-			else
-				to_chat(user, span_notice("Грузовой отсек заблокирован."))
-		return ..()
-	if(!equipment_system || !istype(equipment_system))
-		to_chat(user, span_warning("Ошибка оборудования (неверный тип данных). Сообщите об этом в баг-репорт в Discord."))
-		return
-	var/list/possible = list()
-	if(battery)
-		possible.Add("Energy Cell")
-	if(equipment_system.weapon_system)
-		possible.Add("Weapon System")
-	if(equipment_system.misc_system)
-		possible.Add("Misc. System")
-	if(equipment_system.cargo_system)
-		possible.Add("Cargo System")
-	if(equipment_system.sec_cargo_system)
-		possible.Add("Secondary Cargo System")
-	if(equipment_system.lock_system)
-		possible.Add("Lock System")
-	if(equipment_system.locator_system)
-		possible.Add("Locator System")
-	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
-		if("Energy Cell")
-			if(user.get_active_hand() && user.get_inactive_hand())
-				to_chat(user, span_warning("Для этого нужна свободная рука."))
-				return
-			battery.forceMove_turf()
-			user.put_in_any_hand_if_possible(battery, ignore_anim = FALSE)
-			to_chat(user, span_notice("Вы извлекаете [battery] из космического модуля"))
-			battery = null
-			return
-		if("Weapon System")
-			remove_equipment(user, equipment_system.weapon_system, "weapon_system")
-			return
-		if("Misc. System")
-			remove_equipment(user, equipment_system.misc_system, "misc_system")
-			return
-		if("Cargo System")
-			remove_equipment(user, equipment_system.cargo_system, "cargo_system")
-			return
-		if("Secondary Cargo System")
-			remove_equipment(user, equipment_system.sec_cargo_system, "sec_cargo_system")
-			return
-		if("Lock System")
-			remove_equipment(user, equipment_system.lock_system, "lock_system")
-		if("Locator System")
-			remove_equipment(user, equipment_system.locator_system, "locator_system")
-
-/obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
-
-	if(length(passengers) > max_passengers - SPE.occupant_mod)
-		to_chat(user, span_warning("Кто-то сидит в [SPE.declent_ru(PREPOSITIONAL)]!"))
-		return
-
-	var/sum_w_class = 0
-	for(var/obj/item/I in cargo_hold.contents)
-		sum_w_class += I.w_class
-	if(length(cargo_hold.contents) > cargo_hold.storage_slots - SPE.storage_mod["slots"] || sum_w_class > cargo_hold.max_combined_w_class - SPE.storage_mod["w_class"])
-		to_chat(user, span_warning("Сначала освободите [SPE.declent_ru(ACCUSATIVE)]!"))
-		return
-
-	if(user.get_active_hand() && user.get_inactive_hand())
-		balloon_alert(user, "нужна свободная рука!")
-		return
-
-	SPE.forceMove(get_turf(src))
-	user.put_in_any_hand_if_possible(SPE, ignore_anim = FALSE)
-	to_chat(user, span_notice("Вы извлекли [SPE.declent_ru(ACCUSATIVE)] из системы."))
-	equipment_system.installed_modules -= SPE
-	max_passengers -= SPE.occupant_mod
-	cargo_hold.storage_slots -= SPE.storage_mod["slots"]
-	cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
-	SPE.removed(user)
-	SPE.my_atom = null
-	equipment_system.vars[slot] = null
-
-/obj/spacepod/hear_talk(mob/M, list/message_pieces)
-	cargo_hold.hear_talk(M, message_pieces)
-	..()
-
-/obj/spacepod/hear_message(mob/M, msg)
-	cargo_hold.hear_message(M, msg)
-	..()
-
-/obj/spacepod/proc/return_inv()
-
-	var/list/L = list()
-
-	L += src.contents
-
-	for(var/obj/item/storage/S in src)
-		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			var/obj/item/storage/inv = G.gift
-			L += inv.return_inv()
-	return L
-
-/obj/spacepod/civilian
-	icon_state = "pod_civ"
-	desc = "Стильный гражданский космический челнок."
-
-/obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
-	if(istype(I, /obj/item/pod_paint_bucket))
-		apply_paint(user)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
-/obj/spacepod/random
-	icon_state = "pod_civ"
-// placeholder
-
-/obj/spacepod/sec
-	name = "security spacepod"
-	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
-	icon_state = "pod_dece"
-	health = 600
-
-/obj/spacepod/sec/get_ru_names()
-	return alist(
-		NOMINATIVE = "космический челнок охраны",
-		GENITIVE = "космического челнока охраны",
-		DATIVE = "космическому челноку охраны",
-		ACCUSATIVE = "космический челнок охраны",
-		INSTRUMENTAL = "космическим челноком охраны",
-		PREPOSITIONAL = "космическом челноке охраны",
-	)
-
-/obj/spacepod/syndi
-	name = "syndicate spacepod"
-	desc = "Челнок, окрашенный в цвета \"Синдиката\"."
-	icon_state = "pod_synd"
-	health = 400
-	unlocked = FALSE
-
-/obj/spacepod/syndi/get_ru_names()
-	return alist(
-		NOMINATIVE = "космический челнок \"Синдиката\"",
-		GENITIVE = "космического челнока \"Синдиката\"",
-		DATIVE = "космическому челноку \"Синдиката\"",
-		ACCUSATIVE = "космический челнок \"Синдиката\"",
-		INSTRUMENTAL = "космическим челноком \"Синдиката\"",
-		PREPOSITIONAL = "космическом челноке \"Синдиката\"",
-	)
-
-/obj/spacepod/syndi/unlocked
-	unlocked = TRUE
-
-/obj/spacepod/sec/Initialize(mapload)
-	. = ..()
-
-	var/obj/item/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/spacepod_equipment/weaponry/taser
-	T.loc = equipment_system
-	equipment_system.weapon_system = T
-	equipment_system.weapon_system.my_atom = src
-	equipment_system.installed_modules += T
-	var/obj/item/spacepod_equipment/misc/tracker/L = new /obj/item/spacepod_equipment/misc/tracker
-	L.loc = equipment_system
-	equipment_system.misc_system = L
-	equipment_system.misc_system.my_atom = src
-	equipment_system.installed_modules += L
-	var/obj/item/spacepod_equipment/sec_cargo/chair/C = new /obj/item/spacepod_equipment/sec_cargo/chair
-	C.loc = equipment_system
-	equipment_system.sec_cargo_system = C
-	equipment_system.sec_cargo_system.my_atom = src
-	equipment_system.installed_modules += C
-	max_passengers = 1
-	var/obj/item/spacepod_equipment/lock/keyed/K = new /obj/item/spacepod_equipment/lock/keyed
-	K.loc = equipment_system
-	equipment_system.lock_system = K
-	equipment_system.lock_system.my_atom = src
-	equipment_system.lock_system.id = 100000
-	equipment_system.installed_modules += K
-
-/obj/spacepod/random/Initialize(mapload)
-	. = ..()
-	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
-	switch(icon_state)
-		if("pod_civ")
-			desc = "Элегантный гражданский челнок."
-		if("pod_black")
-			desc = "Чёрный челнок без опознавательных знаков."
-		if("pod_mil")
-			desc = "Тёмно-серый челнок с эмблемой военного подразделения \"Нанотрейзен\"."
-		if("pod_synd")
-			desc = "Грозный военный челнок с надписью \"Нахуй НТ\" на борту."
-		if("pod_gold")
-			desc = "Позолоченный челнок — явно стоил кому-то целого состояния."
-		if("pod_industrial")
-			desc = "Промышленный челнок с усиленной конструкцией."
-	update_icons()
-
-/obj/spacepod/proc/toggle_internal_tank(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
-
-	use_internal_tank = !use_internal_tank
-	to_chat(user, span_notice("Подача воздуха: [use_internal_tank ? "из баллона" : "снаружи"]."))
+	control_panels = new()
+	control_panels.pod = src
+
+/obj/spacepod/proc/create_internal_system()
+	systems = new()
+	return systems
 
 /obj/spacepod/proc/add_cabin()
 	cabin_air = new
@@ -790,67 +105,374 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)
+/obj/spacepod/Destroy()
+	QDEL_NULL(cargo_hold)
+	QDEL_NULL(systems)
+	QDEL_NULL(cabin_air)
+	QDEL_NULL(internal_tank)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(eject_action)
+	QDEL_NULL(passanger_eject)
+	QDEL_NULL(lights_action)
+	QDEL_NULL(panel_action)
+	QDEL_NULL(control_panels)
 	occupant_sanity_check()
-	if(length(passengers) < max_passengers)
-		H.forceMove(src)
-		passengers += H
-		H.forceMove(src)
-		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
-		return 1
+	if(pilot)
+		eject_pilot()
+	if(passengers)
+		for(var/mob/passenger in passengers)
+			eject_passenger(passenger)
+	GLOB.spacepods_list -= src
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/spacepod/examine(mob/user)
+	. = ..()
+	if(assemble_process)
+		. += span_notice("Сборка пода не завершена.")
+		var/list/errors = systems.check_complete()
+		if(length(errors) > 0)
+			for(var/error_msg in errors)
+				. += error_msg
+			return
+		. += span_notice("Для завершения сборки используйте мультитул.")
+
+	if(hatch_opened)
+		. += span_notice("Люк техобслуживания открыт.")
+
+
+// MARK: Assemble procs
+/obj/spacepod/multitool_act(mob/living/user, obj/item/tool)
+	if(!assemble_process)
+		return ..()
+	. = TRUE
+	var/list/assemble_errors = systems.check_complete()
+	if(length(assemble_errors) > 0)
+		to_chat(user, span_warning("Сборка не завершена, осмотрите челнок чтобы узнать какие детали отсутствуют для завершения сборки."))
+		return
+	var/new_name = tgui_input_text(user, "Название челнока", "Задать название челнока", default = name, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(length(new_name) == 0 || !assemble_process)
+		return
+	var/new_desc = tgui_input_text(user, "Описание челнока", "Задать описание челнока", default = desc, max_length = MAX_MESSAGE_LEN, encode = TRUE)
+	if(length(new_desc) == 0 || !assemble_process)
+		return
+	name = new_name
+	desc = new_desc
+	ru_names = alist(
+		NOMINATIVE = "космический челнок \"[new_name]\"",
+		GENITIVE = "космического челнока \"[new_name]\"",
+		DATIVE = "космическому челноку \"[new_name]\"",
+		ACCUSATIVE = "космический челнок \"[new_name]\"",
+		INSTRUMENTAL = "космическим челноком \"[new_name]\"",
+		PREPOSITIONAL = "космическом челноке \"[new_name]\"",
+	)
+	assemble_process = FALSE
+
+/obj/spacepod/crowbar_act(mob/living/user, obj/item/tool)
+	if(assemble_process)
+		. = TRUE
+		if(!length(systems.modules))
+			return
+		var/obj/item/spacepod_module/extracted_module = tgui_input_list(user, "Выберите модуль для удаления:", "Удаление модуля", systems.modules)
+		if(extracted_module == null || extracted_module.systems == null)
+			return
+		systems.remove_module(src, extracted_module)
+		extracted_module.forceMove(src.loc)
+		to_chat(user, span_notice("Модуль [extracted_module.module_name] извлечен."))
+
+	if(!unlocked)
+		balloon_alert(user, "замок закрыт")
+		return ..()
+
+	. = TRUE
+	if(hatch_opened)
+		hatch_opened = FALSE
+		balloon_alert(user, "люк техобслуживания закрыт")
+	else
+		hatch_opened = TRUE
+		balloon_alert(user, "люк техобслуживания открыт")
+
+//MARK: attackby
+/obj/spacepod/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(item, /obj/item/spacepod_key))
+		add_fingerprint(user)
+		if(!systems.key_lock)
+			balloon_alert(user, "нет замка!")
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/spacepod_key/key = item
+		if(key.id != systems.key_lock.key_id)
+			balloon_alert(user, "неправильный ключ!")
+			return ATTACK_CHAIN_PROCEED
+		toggle_lock(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(assemble_process && istype(item, /obj/item/spacepod_module))
+		var/obj/item/spacepod_module/module_obj = item
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ..()
+		var/obj/item/spacepod_module/installed_module = module_obj.install_to(user, src)
+		if(!installed_module)
+			item.forceMove(src.loc)
+			return ..()
+		systems.add_module(src, module_obj)
+		to_chat(user, span_notice("Модуль [module_obj.module_name] установлен."))
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!hatch_opened)
+		return ..()
+
+	// attach gun
+	if(isgun(item) && systems.weapon != null)
+		if(systems.weapon.install_gun(item))
+			if(!user.drop_transfer_item_to_loc(item, src))
+				return ..()
+			item.forceMove(src)
+			update_icon(UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	// sitch to assemble mode
+	if(ismultitool(item))
+		to_chat(user, span_notice("Системы космического челнока переведены в режим сборки."))
+		assemble_process = TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	// refill fuel
+	if(istype(item, /obj/item/tank/internals))
+		var/obj/item/tank/internals/fuel_tank = item
+		if(fuel_tank.air_contents.toxins() <= 0)
+			to_chat(user, span_notice("Нет нужного топлива!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		var availableFuel = fuel_tank.air_contents.toxins() * 10
+		var/last_fuel = systems.fill_fuel_tanks(availableFuel)
+		fuel_tank.air_contents.set_toxins(last_fuel / 10)
+		to_chat(user, span_notice("Заправлено [availableFuel - last_fuel] топлива из [availableFuel]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	// charge battery
+	if(iscell(item) && systems.battery != null)
+		var/charge_rate = 0.1
+		var/obj/item/stock_parts/cell/cell_item = item
+		var/free_charge = systems.battery.power_capacity - systems.battery.power
+		var/used_charge = min(cell_item.charge * charge_rate, free_charge)
+		systems.battery.power += used_charge
+		cell_item.charge -= used_charge / charge_rate
+		to_chat(user, span_notice("Аккумуляторная батарея заряжена на [used_charge] Ватт."))
+
+	return ..()
+
+/obj/spacepod/proc/toggle_lock(mob/user)
+	if(!systems.key_lock)
+		return
+	unlocked = !unlocked
+	if(unlocked)
+		balloon_alert(user, "замок открыт")
+	else
+		balloon_alert(user, "замок закрыт")
+
+
+//MARK: Attack hand
+#define ACTION_CARGO_ACCESS "Доступ к хранилищу"
+#define ACTION_REMOVE_PRIMARY_WEAPON "Извлечь основное вооружение"
+#define ACTION_REMOVE_SECONDARY_WEAPON "Извлечь дополнительное вооружение"
+
+/obj/spacepod/attack_hand(mob/user)
+	if(user.a_intent == INTENT_GRAB && unlocked)
+		eject_any_occupant(user)
+
+	if(hatch_opened)
+		var/list/options = list()
+		options += ACTION_CARGO_ACCESS
+		if(systems.weapon != null)
+			if(systems.weapon.primary.weapon != null)
+				options += ACTION_REMOVE_PRIMARY_WEAPON
+			if(systems.weapon.secondary.weapon != null)
+				options += ACTION_REMOVE_SECONDARY_WEAPON
+
+		var/choice = length(options) == 1 ? options[1] : tgui_input_list(user, "Что вы хотите сделать?", "Доступ к челноку через люк", options)
+		if(!choice)
+			return
+		switch(choice)
+			if(ACTION_CARGO_ACCESS)
+				cargo_hold.open(user)
+			if(ACTION_REMOVE_PRIMARY_WEAPON)
+				if(systems.weapon != null)
+					remove_gun_from_systems(user, systems.weapon.primary.weapon)
+			if(ACTION_REMOVE_SECONDARY_WEAPON)
+				if(systems.weapon != null)
+					remove_gun_from_systems(user, systems.weapon.secondary.weapon)
+
+#undef ACTION_CARGO_ACCESS
+#undef ACTION_REMOVE_PRIMARY_WEAPON
+#undef ACTION_REMOVE_SECONDARY_WEAPON
+
+/obj/spacepod/proc/remove_gun_from_systems(mob/user, obj/item/gun/selected_gun)
+	if(selected_gun == null)
+		balloon_alert(user, "вооружение не установлено")
+		return
+	var/obj/item/gun/removed_gun = systems.weapon.remove_gun(selected_gun)
+	if(removed_gun == null)
+		balloon_alert(user, "вооружение не установлено")
+		return
+	removed_gun.forceMove(src.loc)
+	balloon_alert(user, "оружие извлечено!")
+
+
+// MARK: Process (update)
+/obj/spacepod/process(seconds_per_tick)
+	systems.process_work(seconds_per_tick, src)
+	if(systems && systems.life_support && systems.life_support.enable)
+		give_air()
+		regulate_temp()
+
+/obj/spacepod/proc/give_air()
+	if(!internal_tank)
+		return
+	var/datum/gas_mixture/tank_air = internal_tank.return_obj_air()
+	var/release_pressure = ONE_ATMOSPHERE
+	var/cabin_pressure = cabin_air.return_pressure()
+	var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
+	var/transfer_moles = 0
+	if(pressure_delta > 0) //cabin pressure lower than release pressure
+		if(tank_air.temperature() > 0)
+			transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
+			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
+			cabin_air.merge(removed)
+		return
+
+	//cabin pressure higher than release pressure
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/t_air = location.get_readonly_air()
+	pressure_delta = cabin_pressure - release_pressure
+
+	if(t_air)
+		pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
+
+	if(pressure_delta <= 0) //if location pressure is lower than cabin pressure
+		return
+
+	transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
+	var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
+	if(t_air)
+		location.blind_release_air(removed)
+	else //just delete the cabin gas, we're in space or some shit
+		qdel(removed)
+
+/obj/spacepod/proc/regulate_temp()
+	if(cabin_air && cabin_air.return_volume() > 0)
+		var/delta = cabin_air.temperature() - T20C
+		cabin_air.set_temperature(max(0, cabin_air.temperature() - max(-10, min(10, round(delta / 4, 0.1)))))
+
+
+// MARK: Passenger procs
+/obj/spacepod/AllowDrop()
+	return TRUE
 
 /obj/spacepod/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
 	if(user == pilot || (user in passengers) || !isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(isliving(dropping))
-		occupant_sanity_check()
+	// if(isobj(dropping))
+	// 	load_cargo(user, dropping)
+	// 	return
 
-		if(dropping != user && unlocked && (dropping.stat == DEAD || dropping.incapacitated()))
-			if(length(passengers) >= max_passengers && !pilot)
-				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
-				return
-			if(length(passengers) < max_passengers)
-				visible_message(span_danger("[user.name] начина[PLUR_ET_YUT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
-				if(do_after(user, 5 SECONDS, dropping))
-					moved_other_inside(dropping)
-			return
-
-		if(dropping == user)
-			enter_pod(user)
-
-	else if(isobj(dropping))
-		load_cargo(user, dropping)
-
-/obj/spacepod/proc/load_cargo(mob/user, obj/object)
-	var/obj/item/spacepod_equipment/cargo/cargo = equipment_system.cargo_system
-	if(!cargo)
+	if(!isliving(dropping))
 		return
-	var/valid_cargo = FALSE
-	if(istype(cargo, /obj/item/spacepod_equipment/cargo/ore))
-		if(istype(object, /obj/structure/ore_box))
-			valid_cargo = TRUE
-	else if(istype(cargo, /obj/item/spacepod_equipment/cargo/crate))
-		if(is_crate(object))
-			valid_cargo = TRUE
-	if(!valid_cargo)
+
+	occupant_sanity_check()
+
+	if(dropping == user)
+		enter_pod(user)
 		return
-	if(!cargo.storage)
-		balloon_alert(user, "погрузка...")
-		if(do_after(user, 4 SECONDS, src))
-			cargo.storage = object
-			object.forceMove(cargo)
-			balloon_alert(user, "загружено!")
-		else
-			balloon_alert(user, "не удалось загрузить!")
+
+	if(!unlocked)
+		to_chat(user, span_danger(span_bold("Люк закрыт!")))
+		return
+
+	if(length(passengers) >= max_passengers)
+		to_chat(user, span_danger(span_bold("Все пассажирские места заняты!")))
+		return
+
+	visible_message(span_danger("[user.name] начина[PLUR_ET_YUT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
+	if(!do_after(user, POD_OCCUPANT_INSERT_DURATION, dropping))
+		return
+
+	if(length(passengers) >= max_passengers)
+		to_chat(user, span_danger(span_bold("Все пассажирские места заняты!")))
+		return
+
+	moved_other_inside(dropping)
+
+
+/obj/spacepod/force_eject_occupant(mob/target)
+	if(target == pilot)
+		eject_pilot()
 	else
-		balloon_alert(user, "нет места!")
+		eject_passenger(target)
+
+/obj/spacepod/proc/eject_pilot()
+	pilot.forceMove(get_turf(src))
+	remove_pilot_actions(pilot)
+	control_panels.ui_close(pilot)
+	pilot = null
+
+/obj/spacepod/proc/eject_passenger(mob/living/passenger)
+	passenger.forceMove(get_turf(src))
+	passanger_eject.Remove(passenger)
+	passengers -= passenger
+
+/obj/spacepod/proc/eject_any_occupant(mob/user)
+	var/mob/living/target
+	if(pilot)
+		target = pilot
+	else if(length(passengers) > 0)
+		target = passengers[1]
+
+	if(!istype(target))
+		return
+	src.visible_message(
+		span_warning("[user] пыта[PLUR_ET_YUT(user)]ся открыть дверь и вытащить [target] из [declent_ru(GENITIVE)]!"),
+		span_warning("Вы видите, как [user] пыта[PLUR_ET_YUT(user)]ся открыть дверь!")
+	)
+	if(!do_after(user, POD_OCCUPANT_EJECT_DURATION, src))
+		target.visible_message(
+			span_warning("[user] не смог[PLUR_LI(user)] открыть дверь!"),
+			span_warning("Вы не дали [user] проникнуть в [declent_ru(NOMINATIVE)]!")
+		)
+		return
+
+	target.Knockdown(3 SECONDS)
+	if(pilot)
+		eject_pilot()
+	else
+		eject_passenger(target)
+	target.visible_message(
+		span_warning("[user] распахива[PLUR_ET_YUT(user)] дверь и доста[PLUR_YOT_YUT(user)] [target] из [declent_ru(GENITIVE)]!"),
+		span_warning("Дверь распахивается, и вас выбрасывает на пол!")
+	)
+
+/obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/target)
+	occupant_sanity_check()
+	if(length(passengers) >= max_passengers)
+		return
+
+	target.forceMove(src)
+	passengers += target
+	target.forceMove(src)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
+	return TRUE
+
 
 /obj/spacepod/proc/enter_pod(mob/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(equipment_system.lock_system && !unlocked)
+	if(!unlocked)
 		balloon_alert(user, "двери заблокированы!")
 		return FALSE
 
@@ -858,9 +480,9 @@
 		balloon_alert(user, "слишком далеко!")
 		return FALSE
 
-	var/fukkendisk = user.get_type_in_all_contents(/obj/item/disk/nuclear)
-	if(fukkendisk)
-		to_chat(user, span_danger("<b>Диск ядерной аутентификации блокирует двери! Похоже, он не хочет попасть в челнок.</b>"))
+	var/has_nuke_auth_disk = user.get_type_in_all_contents(/obj/item/disk/nuclear)
+	if(has_nuke_auth_disk)
+		to_chat(user, span_danger(span_bold("Диск ядерной аутентификации блокирует двери! Похоже, он не хочет попасть в челнок.")))
 		return FALSE
 
 	if(user.has_buckled_mobs()) //mob attached to us
@@ -873,48 +495,53 @@
 /obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
 		log_debug("SHIT'S GONE WRONG WITH THE SPACEPOD [src] AT [x], [y], [z], AREA [get_area(src)], TURF [get_turf(src)]")
+		return
 
 	occupant_sanity_check()
-
-	if(length(passengers) <= max_passengers)
-		visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
-		if(do_after(user, 4 SECONDS, src))
-			if(!pilot || pilot == null)
-				pilot = user
-				user.forceMove(src)
-				GrantActions(user)
-				add_fingerprint(user)
-				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
-				return
-			if(length(passengers) < max_passengers)
-				passengers += user
-				user.forceMove(src)
-				passanger_eject.Grant(user, src)
-				add_fingerprint(user)
-				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
-			else
-				to_chat(user, span_notice("Вы слишком медлили. В следующий раз будьте быстрее."))
-		else
-			balloon_alert(user, "посадка отменена")
-	else
+	if(length(passengers) >= max_passengers && pilot != null)
 		balloon_alert(user, "нет места!")
+		return
+
+	visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] забираться в [declent_ru(ACCUSATIVE)]."))
+	if(!do_after(user, POD_ENTER_DURATION, src))
+		balloon_alert(user, "посадка отменена")
+		return
+
+	if(!pilot || pilot == null)
+		pilot = user
+		user.forceMove(src)
+		grant_pilot_actions(user)
+		add_fingerprint(user)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
+		return
+
+	if(length(passengers) < max_passengers)
+		passengers += user
+		user.forceMove(src)
+		passanger_eject.Grant(user, src)
+		add_fingerprint(user)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
+	else
+		to_chat(user, span_notice("Вы слишком медлили. В следующий раз будьте быстрее."))
 
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
-	if(passengers)
-		if(length(passengers) > max_passengers)
-			for(var/i = length(passengers); i <= max_passengers; i--)
-				var/mob/occupant = passengers[i - 1]
-				occupant.forceMove(get_turf(src))
-				log_debug("##SPACEPOD WARNING: passengers EXCEED CAP: MAX passengers [max_passengers], passengers [english_list(passengers)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-				passengers[i - 1] = null
-		for(var/mob/M in passengers)
-			if(!ismob(M))
-				M.forceMove(get_turf(src))
-				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [M], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-				passengers -= M
-			else if(M.loc != src)
-				log_debug("##SPACEPOD WARNING: OCCUPANT [M] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-				passengers -= M
+	if(!passengers)
+		return
+	if(length(passengers) > max_passengers)
+		for(var/i = length(passengers); i >= max_passengers; i--)
+			var/mob/occupant = passengers[i - 1]
+			occupant.forceMove(get_turf(src))
+			log_debug("##SPACEPOD WARNING: passengers EXCEED CAP: MAX passengers [max_passengers], passengers [english_list(passengers)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+			passengers[i - 1] = null
+
+	for(var/mob/passenger in passengers)
+		if(!ismob(passenger))
+			passenger.forceMove(get_turf(src))
+			log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [passenger], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+			passengers -= passenger
+		else if(passenger.loc != src)
+			log_debug("##SPACEPOD WARNING: OCCUPANT [passenger] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+			passengers -= passenger
 
 /obj/spacepod/proc/exit_pod(mob/user)
 	if(user.stat != CONSCIOUS) // unconscious people can't let themselves out
@@ -936,269 +563,90 @@
 
 	to_chat(user, span_notice("Вы выбрались из [declent_ru(GENITIVE)]."))
 
-/obj/spacepod/proc/lock_pod(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/spacepod/proc/catapult_pilot(force = FALSE)
+	if(!pilot)
 		return
-
-	if((user in passengers) && user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
+	if(!systems.catapult || (!force && !systems.catapult.enable))
 		return
+	var/mob/pilot_user = pilot
+	eject_pilot()
+	var/opposite_dir = dir ^ (NORTH|SOUTH|EAST|WEST)
+	//var/atom/target = get_edge_target_turf(src, opposite_dir)
+	var/turf/target = get_distant_turf(get_turf(src), opposite_dir, 7)
+	var/turf/start = get_distant_turf(get_turf(src), opposite_dir, 1)
+	pilot_user.loc = start
+	pilot_user.throw_at(target, 4, 2, src, TRUE, FALSE)
 
-	if(!equipment_system.lock_system)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет системы блокировки."))
-		unlocked = TRUE //Should never be false without a lock, but if it somehow happens, that will force an unlock.
+// MARK: Attack procs
+/obj/spacepod/proc/click_action(atom/target, mob/user, list/modifiers)
+	if(systems.weapon == null)
+		return // weapons not installed
+
+	if(!systems.weapon.connection_power_net || !systems.weapon.enable)
+		return // weapon module offline
+
+	var/datum/spacepod_weapon_slot/selected_gun = null
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		selected_gun = systems.weapon.secondary
 	else
-		unlocked = !unlocked
-		to_chat(user, span_warning("Вы [unlocked ? "разблокировали" : "заблокировали"] двери."))
+		selected_gun = systems.weapon.primary
 
-/obj/spacepod/proc/toggleDoors(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+	if(selected_gun == null)
+		return // selected gun not exists
+	if(selected_gun.safety || selected_gun.charging)
+		return // safety or charging process
 
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
+	selected_gun.weapon.fast_fire(target, user)
 
-	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3, src))
-		var/mob/living/carbon/human/L = user
 
-		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-			if(P.density)
-				P.open()
-				return TRUE
-			else
-				P.close()
-				return TRUE
+// MARK: Damage
+/obj/spacepod/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	if(damage_type != BRUTE && damage_type != BURN)
+		// ignore other damage types, only brute or burn
+		return ..(0, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-		for(var/mob/living/carbon/human/O in passengers)
-			if(P.check_access(O.get_active_hand()) || P.check_access(O.wear_id))
-				if(P.density)
-					P.open()
-					return TRUE
-				else
-					P.close()
-					return TRUE
+	// damage modules, and return remaining damage to frame
+	damage_amount = systems.damage_modules(damage_amount)
+	. = ..(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-		balloon_alert(user, "нет доступа!")
-		return
-
-	to_chat(user, span_warning("Рядом нет шлюзов."))
-
-/obj/spacepod/proc/fireWeapon(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
-
-	if(!equipment_system.weapon_system)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет оружия!"))
-		return
-
-	equipment_system.weapon_system.fire_weapons()
-
-/obj/spacepod/proc/unload(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
-
-	if(!equipment_system.cargo_system)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет грузового отсека!"))
-		return
-
-	equipment_system.cargo_system.unload()
-
-/obj/spacepod/proc/toggleLights(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
-
-	lights = !lights
-
-	if(lights)
-		set_light(lights_power, l_on = TRUE)
-	else
-		set_light_on(FALSE)
-
-	visible_message("Прожекторы [lights ? "включены" : "выключены"].")
-
-/obj/spacepod/proc/checkSeat(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	to_chat(user, span_notice("Вы начинаете искать потерянные вещи под сиденьем."))
-	if(do_after(user, 4 SECONDS, src))
-		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
-		var/list/true_contents = contents - badlist
-		if(length(true_contents) > 0)
-			var/obj/I = pick(true_contents)
-			if(user.put_in_any_hand_if_possible(I))
-				src.contents -= I
-				to_chat(user, span_notice("Вы находите [I.declent_ru(ACCUSATIVE)] [pick("под сиденьем", "под консолью", "в техническом отсеке")]!"))
-			else
-				to_chat(user, span_notice("Вы заметили что-то блестящее, но не можете достать!"))
-		else
-			to_chat(user, span_notice("Вы не нашли ничего ценного."))
-			balloon_alert(user, "пусто!")
-	else
-		to_chat(user, span_notice("Вы решаете не обыскивать [declent_ru(ACCUSATIVE)]."))
-
-/obj/spacepod/proc/startScan(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(user != pilot)
-		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
-		return
-	if(!equipment_system.locator_system)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет системы навигации!"))
-		return
-
-	equipment_system.locator_system.atom_say("Сканирование сектора...")
-	if(do_after(user, 5 SECONDS, src))
-		equipment_system.locator_system.scan(user)
-	else
-		equipment_system.locator_system.atom_say("Ошибка сканирования. Сохраняйте неподвижность.")
-
-/obj/spacepod/proc/GrantActions(mob/living/user)
-	eject_action.Grant(user, src)
-	internals_action.Grant(user, src)
-	lights_action.Grant(user, src)
-	misc_action.Grant(user, src)
-	fire_action.Grant(user, src)
-
-/obj/spacepod/proc/RemoveActions(mob/living/user)
-	eject_action.Remove(user)
-	internals_action.Remove(user)
-	lights_action.Remove(user)
-	misc_action.Remove(user)
-	fire_action.Remove(user)
-
-/datum/action/innate/pod
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	button_icon = 'icons/mob/actions/actions_mecha.dmi'
-	var/obj/spacepod/pod
-
-/datum/action/innate/pod/Grant(mob/living/L, obj/spacepod/S)
-	if(S)
-		pod = S
+/obj/spacepod/obj_destruction(damage_flag)
+	catapult_pilot()
 	. = ..()
 
-/datum/action/innate/pod/Destroy()
-	pod = null
-	return ..()
 
-/datum/action/innate/pod/pod_eject
-	name = "Выйти из челнока"
-	button_icon_state = "mech_eject"
+// MARK: Environment
+/obj/spacepod/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(systems && systems.life_support && systems.life_support.enable)
+		return cabin_air
+	return null
 
-/datum/action/innate/pod/pod_eject/Activate()
-	pod.exit_pod(owner)
-
-/datum/action/innate/pod/pod_toggle_internals
-	name = "Переключить баллон"
-	desc = "Переключает подачу воздуха из внутреннего баллона, защищая от вакуума и разреженной атмосферы."
-	button_icon_state = "mech_internals_off"
-
-/datum/action/innate/pod/pod_toggle_internals/Activate()
-	if(!owner || !pod || pod.pilot != owner)
+/obj/spacepod/proc/play_sound_to_riders(mysound)
+	if(length(passengers | pilot) == 0)
 		return
-	pod.toggle_internal_tank(owner)
-	button_icon_state = "mech_internals_[pod.use_internal_tank ? "on" : "off"]"
-	UpdateButtonIcon()
+	var/sound/sound_entry = sound(mysound)
+	sound_entry.wait = 0 //No queue
+	sound_entry.channel = SSsounds.random_available_channel()
+	sound_entry.volume = 50
+	for(var/mob/passenger in passengers | pilot)
+		passenger << sound_entry
 
-/datum/action/innate/pod/pod_toggle_lights
-	name = "Переключить прожектор"
-	desc = "Переключает мощный осветительный модуль."
-	button_icon_state = "mech_lights_off"
-
-/datum/action/innate/pod/pod_toggle_lights/Activate()
-	if(!owner || !pod || pod.pilot != owner)
+/obj/spacepod/proc/message_to_riders(mymessage)
+	if(length(passengers | pilot) == 0)
 		return
-	pod.toggleLights(owner)
-	button_icon_state = "mech_lights_[pod.lights ? "on" : "off"]"
-	UpdateButtonIcon()
+	for(var/mob/passenger in passengers | pilot)
+		to_chat(passenger, mymessage)
 
-/datum/action/innate/pod/pod_fire
-	name = "Стрелять"
-	button_icon_state = "mech_zoom_off"
+/obj/spacepod/hear_talk(mob/user, list/message_pieces)
+	cargo_hold.hear_talk(user, message_pieces)
+	..()
 
-/datum/action/innate/pod/pod_fire/Activate()
-	if(!owner || !pod || pod.pilot != owner)
-		return
-	pod.fireWeapon(owner)
+/obj/spacepod/hear_message(mob/user, msg)
+	cargo_hold.hear_message(user, msg)
+	..()
 
-/datum/action/innate/pod/pod_misc
-	name = "Доп. системы"
-	button_icon_state = "mech_misc"
 
-/datum/action/innate/pod/pod_misc/Activate()
-	if(!owner || !pod || pod.pilot != owner)
-		return
-	var/misc_system = tgui_input_list(owner, "Выберите систему", "Управление челноком", POD_MISC_SYSTEMS)
-	if(!misc_system)
-		return
-	if(!owner || !pod || pod.pilot != owner) //we check twice because of input
-		return
-	switch(misc_system)
-		if(POD_MISC_LOCK_DOOR)
-			pod.lock_pod(owner)
-		if(POD_MISC_POD_DOORS)
-			pod.toggleDoors(owner)
-		if(POD_MISC_UNLOAD_CARGO)
-			pod.unload(owner)
-		if(POD_MISC_CHECK_SEAT)
-			pod.checkSeat(owner)
-		if(POD_MISC_LOCATOR_SKAN)
-			pod.startScan(owner)
-
-// Fun fact, these procs are just copypastes from pod code
-// And have been for the past 4 years
-// Please send help
-/obj/spacepod/proc/regulate_temp()
-	if(cabin_air && cabin_air.return_volume() > 0)
-		var/delta = cabin_air.temperature() - T20C
-		cabin_air.set_temperature(max(0, cabin_air.temperature() - max(-10, min(10, round(delta / 4, 0.1)))))
-
-/obj/spacepod/proc/give_air()
-	if(internal_tank)
-		var/datum/gas_mixture/tank_air = internal_tank.return_obj_air()
-		var/release_pressure = ONE_ATMOSPHERE
-		var/cabin_pressure = cabin_air.return_pressure()
-		var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
-		var/transfer_moles = 0
-		if(pressure_delta > 0) //cabin pressure lower than release pressure
-			if(tank_air.temperature() > 0)
-				transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
-				var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
-				cabin_air.merge(removed)
-			return
-
-		if(pressure_delta < 0) //cabin pressure higher than release pressure
-			var/turf/location = get_turf(src)
-			var/datum/gas_mixture/t_air = location.get_readonly_air()
-			pressure_delta = cabin_pressure - release_pressure
-
-			if(t_air)
-				pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
-
-			if(pressure_delta <= 0) //if location pressure is lower than cabin pressure
-				return
-
-			transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
-			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-			if(t_air)
-				location.blind_release_air(removed)
-			else //just delete the cabin gas, we're in space or some shit
-				qdel(removed)
-
+// MARK: Movement
 // it looks really good with default Process_Spacemove and newtonian movement actually, should make a button to turn it on/off
 /obj/spacepod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	// obviously
@@ -1208,73 +656,61 @@
 		return FALSE
 
 	if(!pilot || user != pilot || !direction)
-		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)	// Don't make it spam
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.25 SECONDS) // Don't make it spam
 		return FALSE
 
 	. = TRUE
 
-	var/skill_factor
-	if(pilot)
-		CALCULATE_SKILL_MOD(pilot, SPACEPOD_BATTERY_USAGE_MOD, skill_mod)
-		skill_factor = skill_mod
-	if(health <= 0)
-		to_chat(user, span_warning("Она мертва, Джим."))
+	var/thrust = systems.get_total_thrust()
+	if(thrust <= 0)
 		. = FALSE
-	else if(!battery)
-		to_chat(user, span_warning("Батарея не обнаружена."))
-		. = FALSE
-	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
-		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] [DECL_U_Y_0(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
-		. = FALSE
-	else if(!battery.use(1 / skill_factor))
-		to_chat(user, span_warning("Недостаточно энергии."))
-		. = FALSE
+
 	if(!.)
-		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.25 SECONDS)
 		return .
 
 	if(direction & (UP|DOWN))
-		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.25 SECONDS)
 		. = zMove(direction)
 		if(.)
 			pilot.update_z(z) // after we moved
 	else
 		var/turf/next_step = get_step(src, direction)
 		if(!next_step)
-			COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+			COOLDOWN_START(src, spacepod_move_cooldown, 0.1 SECONDS)
 			return FALSE
-		var/calculated_move_delay = !no_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
+		var/calculated_move_delay = get_current_speed_delay(thrust)
+		set_dir_on_move = systems.can_maneuver()
 		. = Move(next_step, direction)
 		if(ISDIAGONALDIR(direction) && loc == next_step)
 			calculated_move_delay *= sqrt(2)
 		set_glide_size(DELAY_TO_GLIDE_SIZE(calculated_move_delay))
 		COOLDOWN_START(src, spacepod_move_cooldown, calculated_move_delay)
 
-	if(. && equipment_system.cargo_system)
-		for(var/atom/pod_loc as anything in locs)
-			for(var/obj/item/item in pod_loc.contents)
-				equipment_system.cargo_system.passover(item)
+	// if(. && equipment_system.cargo_system)
+	// 	for(var/atom/pod_loc as anything in locs)
+	// 		for(var/obj/item/item in pod_loc.contents)
+	// 			equipment_system.cargo_system.passover(item)
 
-//// Damaged spacepod
-/obj/spacepod/civilian/damaged
-	desc = "Сильно поврежденный челнок."
+/obj/spacepod/proc/get_current_speed_delay(thrust)
+	if(thrust <= 0)
+		return POD_MOVE_MAX_DELAY
+	var/mass = systems.get_total_mass()
+	var/thrust_ratio = mass / thrust
+	var/move_delay = clamp(pod_speed_coeff * thrust_ratio, POD_MOVE_MIN_DELAY, POD_MOVE_MAX_DELAY)
+	if(!no_gravity(loc))
+		move_delay *=  POD_GRAVITY_SPEED_MOD
+	return move_delay
 
-/obj/spacepod/civilian/damaged/Initialize(mapload)
-	. = ..()
-	deal_damage(200)
-	update_icon()
+// MARK: Actions
+/obj/spacepod/proc/grant_pilot_actions(mob/living/user)
+	eject_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	//fire_action.Grant(user, src)
+	panel_action.Grant(user, src)
 
-#undef DAMAGE
-#undef FIRE_OLAY
-#undef WINDOW
-#undef POD_LIGHT
-#undef RIM
-#undef PAINT
-#undef NO_GRAVITY_SPEED
-#undef GRAVITY_SPEED
-#undef POD_MISC_LOCK_DOOR
-#undef POD_MISC_POD_DOORS
-#undef POD_MISC_UNLOAD_CARGO
-#undef POD_MISC_CHECK_SEAT
-#undef POD_MISC_SYSTEMS
-#undef POD_MISC_LOCATOR_SKAN
+/obj/spacepod/proc/remove_pilot_actions(mob/living/user)
+	eject_action.Remove(user)
+	lights_action.Remove(user)
+	//fire_action.Remove(user)
+	panel_action.Remove(user)

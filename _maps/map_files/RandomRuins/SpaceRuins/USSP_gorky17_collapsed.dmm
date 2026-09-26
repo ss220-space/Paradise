@@ -6674,7 +6674,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "uJ" = (
 /obj/structure/table,
-/obj/item/pod_paint_bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12496,7 +12495,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "LV" = (
-/obj/spacepod/civilian/damaged{
+/obj/spacepod/template/one_engine/civilian/damaged{
 	dir = 4;
 	icon_state = "pod_mil";
 	name = "Green Zwei"

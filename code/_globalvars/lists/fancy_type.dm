@@ -83,8 +83,6 @@ GLOBAL_LIST_INIT(fancy_type_replacements, list(
 	/obj/item/robot_parts = "ROBOT_PARTS",
 	/obj/item/seeds = "SEED",
 	/obj/item/slime_extract = "SLIME_CORE",
-	/obj/item/spacepod_equipment = "POD_EQUIP",
-	/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
 	/obj/item/stack = "STACK",
 	/obj/item/stack/ore = "ORE",
 	/obj/item/stack/sheet = "SHEET",

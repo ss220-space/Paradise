@@ -190,6 +190,16 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 	if(!. && !silent)
 		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
 
+
+/obj/item/gun/energy/proc/get_ammo_count()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	return round(cell.charge / shot.e_cost, 1)
+
+/obj/item/gun/energy/proc/get_max_ammo_count()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	return round(cell.maxcharge / shot.e_cost, 1)
+
+
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
 		return

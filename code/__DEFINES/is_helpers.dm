@@ -129,6 +129,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define isenergygun(A) (istype(A, /obj/item/gun/energy))
 
+#define isprojectilegun(A) (istype(A, /obj/item/gun/projectile))
+
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
 #define isbaton(A) (istype(A, /obj/item/melee/baton))

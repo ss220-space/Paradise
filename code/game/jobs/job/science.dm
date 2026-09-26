@@ -264,9 +264,6 @@
 	id = /obj/item/card/id/research
 	r_pocket = /obj/item/t_scanner
 	pda = /obj/item/pda/toxins
-	backpack_contents = list(
-		/obj/item/pod_paint_bucket = 1,
-	)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
