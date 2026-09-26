@@ -186,8 +186,8 @@
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_NORMAL)
-			var/T = get_step(L, direct)
-			if(T)
+			var/turf/T = get_step(L, direct)
+			if(T && !istype(T, /turf/simulated/floor/indestructible/hyperspace))
 				L.forceMove(T)
 			L.setDir(direct)
 		if(INCORPOREAL_NINJA)

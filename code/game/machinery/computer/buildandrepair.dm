@@ -523,6 +523,30 @@
 	board_name = "Transport Ferry Console"
 	build_path = /obj/machinery/computer/shuttle/ferry/request
 
+/obj/item/circuitboard/helm
+	board_name = "Helm Console"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	build_path = /obj/machinery/computer/helm
+	origin_tech = "programming=3;magnets=2"
+
+/obj/item/circuitboard/engines
+	board_name = "Engines Control Console"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	build_path = /obj/machinery/computer/engines
+	origin_tech = "programming=3;engineering=3"
+
+/obj/item/circuitboard/sensors
+	board_name = "Sensor Control Console"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	build_path = /obj/machinery/computer/sensors
+	origin_tech = "programming=3;magnets=3"
+
+/obj/item/circuitboard/navmap
+	board_name = "Overmap Monitor"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	build_path = /obj/machinery/computer/navmap
+	origin_tech = "programming=2;magnets=2"
+
 /obj/item/circuitboard/mining_shuttle
 	board_name = "Mining Shuttle"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY

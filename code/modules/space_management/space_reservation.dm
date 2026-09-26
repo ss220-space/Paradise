@@ -124,7 +124,7 @@
 		return
 	if(!enterer.simulated || istype(enterer, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
-	if(!isobserver(enterer))
+	if(isobserver(enterer) || istype(enterer, /obj/docking_port))
 		return
 	dump_in_space(enterer)
 

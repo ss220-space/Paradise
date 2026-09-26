@@ -63,7 +63,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 // Returns whether the given z level has a freeze on initialization
 /datum/zlev_manager/proc/is_zlevel_dirty(z)
-	var/datum/space_level/our_z = get_zlev(z)
+	var/datum/space_level/our_z = z_list["[z]"]
+	if(!our_z)
+		return FALSE
 	return (our_z.dirt_count > 0)
 
 // Increases the dirt count on a z level
@@ -114,6 +116,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	if(name in levels_by_name)
 		CRASH("Name already in use: [name]")
+	SSmapping.ensure_z_level_bookkeeping(world.maxz + 1)
 	world.incrementMaxZ()
 	var/our_z = world.maxz
 	milla_init_z(our_z)

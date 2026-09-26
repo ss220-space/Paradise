@@ -126,26 +126,6 @@
 	new /obj/item/sensor_device/advanced/mining(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 
-/**********************Shuttle Computer**************************/
-
-/obj/machinery/computer/shuttle/mining
-	name = "Mining Shuttle Console"
-	desc = "Используется для вызова и отправки шахтёрского шаттла."
-	circuit = /obj/item/circuitboard/mining_shuttle
-	shuttleId = "mining"
-	possible_destinations = "mining_home;mining_away"
-	lockdown_affected = TRUE
-
-/obj/machinery/computer/shuttle/mining/get_ru_names()
-	return alist(
-		NOMINATIVE = "консоль управления шахтёрским шаттлом",
-		GENITIVE = "консоли управления шахтёрским шаттлом",
-		DATIVE = "консоли управления шахтёрским шаттлом",
-		ACCUSATIVE = "консоль управления шахтёрским шаттлом",
-		INSTRUMENTAL = "консолью управления шахтёрским шаттлом",
-		PREPOSITIONAL = "консоли управления шахтёрским шаттлом",
-	)
-
 /******************************Lantern*******************************/
 
 /obj/item/flashlight/lantern
