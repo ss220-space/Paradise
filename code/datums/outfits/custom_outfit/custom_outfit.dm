@@ -603,7 +603,7 @@
 /// instead of inspecting the type, and the result is cached per suit type.
 /// Arguments:
 /// * suit_path - type path of the MOD control unit.
-datum/custom_outfit/proc/get_mod_suit_defaults(suit_path)
+/datum/custom_outfit/proc/get_mod_suit_defaults(suit_path)
 	. = list()
 	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(suit_path))
 		return
@@ -618,7 +618,7 @@ datum/custom_outfit/proc/get_mod_suit_defaults(suit_path)
 
 /// Restores the suit defaults when the configured suit differs from the one the
 /// current module setup was built for. Safe to call on every apply.
-datum/custom_outfit/proc/ensure_mod_configuration()
+/datum/custom_outfit/proc/ensure_mod_configuration()
 	if(!has_mod_suit())
 		reset_mod_configuration()
 		return
@@ -670,7 +670,7 @@ datum/custom_outfit/proc/ensure_mod_configuration()
 /// Arguments:
 /// * path - type path to look for.
 /// * paths - list of type paths to search.
-datum/custom_outfit/proc/is_path_configured(path, list/paths)
+/datum/custom_outfit/proc/is_path_configured(path, list/paths)
 	for(var/configured_path in paths)
 		if(configured_path == path)
 			return TRUE
@@ -1306,7 +1306,7 @@ datum/custom_outfit/proc/is_path_configured(path, list/paths)
 /// Returns TRUE if the type is one of the parts a MOD suit is built from.
 /// Arguments:
 /// * item - the item to check.
-datum/custom_outfit/proc/is_mod_part_type(obj/item/item)
+/datum/custom_outfit/proc/is_mod_part_type(obj/item/item)
 	if(!item)
 		return FALSE
 	return is_mod_part_type_path(item.type)
@@ -1314,7 +1314,7 @@ datum/custom_outfit/proc/is_mod_part_type(obj/item/item)
 /// Returns TRUE if the type path is one of the parts a MOD suit is built from.
 /// Arguments:
 /// * path - the type path to check.
-datum/custom_outfit/proc/is_mod_part_type_path(path)
+/datum/custom_outfit/proc/is_mod_part_type_path(path)
 	if(!path)
 		return FALSE
 	return ispath(path, /obj/item/clothing/head/mod) || ispath(path, /obj/item/clothing/gloves/mod) \
@@ -1326,7 +1326,7 @@ datum/custom_outfit/proc/is_mod_part_type_path(path)
 /// Arguments:
 /// * item - the item to check.
 /// * human_target - the wearer whose suit is checked.
-datum/custom_outfit/proc/is_mod_part(obj/item/item, mob/living/carbon/human/human_target = null)
+/datum/custom_outfit/proc/is_mod_part(obj/item/item, mob/living/carbon/human/human_target = null)
 	if(!is_mod_part_type(item))
 		return FALSE
 	var/obj/item/mod/control/mod_control
@@ -1356,7 +1356,7 @@ datum/custom_outfit/proc/is_mod_part(obj/item/item, mob/living/carbon/human/huma
 /// control ref, and the owning suit is found through its part datums.
 /// Arguments:
 /// * human_target - the wearer to check.
-datum/custom_outfit/proc/cleanup_orphan_mod_parts(mob/living/carbon/human/human_target)
+/datum/custom_outfit/proc/cleanup_orphan_mod_parts(mob/living/carbon/human/human_target)
 	if(CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(human_target.back?.type))
 		return
 	for(var/obj/item/part as anything in human_target.contents)
@@ -2323,6 +2323,7 @@ datum/custom_outfit/proc/cleanup_orphan_mod_parts(mob/living/carbon/human/human_
 /datum/custom_outfit_mod_editor/Destroy()
 	if(!QDELETED(linked_outfit))
 		linked_outfit.mod_editor = null
+	return ..()
 
 /datum/custom_outfit_mod_editor/ui_state(mob/user)
 	return GLOB.always_state
