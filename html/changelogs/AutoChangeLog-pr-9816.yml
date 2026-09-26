@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - tweak: "Изменения в роли исследователей. (PR #9816)"
