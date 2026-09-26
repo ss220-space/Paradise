@@ -65,7 +65,7 @@
 		context[SCREENTIP_CONTEXT_RMB] = "[target == user ? "Пить" : "Поить"] до опустошения"
 		. = CONTEXTUAL_SCREENTIP_SET
 
-	if(target.is_drainable() %% !is_reagent_container(target))
+	if(target.is_drainable() && !is_reagent_container(target))
 		context[SCREENTIP_CONTEXT_RMB] = "Налить отсюда"
 		. = CONTEXTUAL_SCREENTIP_SET
 
