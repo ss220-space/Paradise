@@ -26,9 +26,7 @@
 /area/ruin/ussp_space_banya)
 "bc" = (
 /obj/item/chair,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "bq" = (
@@ -62,9 +60,7 @@
 /area/ruin/ussp_space_banya)
 "cZ" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/noticeboard{
 	pixel_x = -32;
 	pixel_y = -1
@@ -148,9 +144,7 @@
 /area/ruin/ussp_space_banya)
 "fG" = (
 /obj/item/ammo_casing/revolver,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "fS" = (
@@ -263,9 +257,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/ussp_space_banya)
 "mg" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -398,9 +390,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "rn" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -522,9 +512,7 @@
 /area/ruin/ussp_space_banya)
 "vI" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -578,9 +566,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "xE" = (
@@ -663,9 +649,7 @@
 /area/ruin/ussp_space_banya)
 "AZ" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "Bn" = (
@@ -697,9 +681,7 @@
 "Cz" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "CI" = (
@@ -723,9 +705,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/ussp_space_banya)
 "Ep" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "EO" = (
@@ -833,9 +813,7 @@
 	},
 /area/ruin/ussp_space_banya)
 "Ld" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes/vintage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ussp_space_banya)
@@ -882,9 +860,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Temperature Control Room"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "OH" = (
@@ -934,9 +910,7 @@
 /area/ruin/ussp_space_banya)
 "Re" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/ussp_space_banya)
 "RV" = (
@@ -979,13 +953,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
-"Uf" = (
-/obj/structure/cable{
-	dir = 9;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/ussp_space_banya)
 "Un" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dust,
@@ -1011,9 +978,7 @@
 /obj/item/ammo_casing/revolver,
 /obj/effect/decal/cleanable/blood/gibs/xeno/core,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "VH" = (
@@ -1131,9 +1096,7 @@
 "YY" = (
 /obj/machinery/power/apc/directional/north,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "Zf" = (
@@ -1692,7 +1655,7 @@ mg
 AZ
 cZ
 OF
-Uf
+Ep
 AU
 Dd
 nD

@@ -31,6 +31,9 @@
 	Make(S)
 	connect_to_network()
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/solar/Destroy()
 	unset_control() //remove from control computer
 	return ..()
@@ -364,6 +367,9 @@
 
 	if(computerframe)
 		qdel(computerframe)
+
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
 
 /obj/machinery/power/solar_control/proc/setup()
 	set_panels(cdir)

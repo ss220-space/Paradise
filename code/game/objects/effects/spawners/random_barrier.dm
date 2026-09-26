@@ -76,3 +76,21 @@
 		/obj/structure/grille/broken = 8,
 		/turf/simulated/floor/plating = 5,
 	)
+
+/obj/effect/spawner/random_spawners/girder_50
+	name = "girder often"
+	icon_state = "girder"
+	result = list(
+		/obj/structure/girder = 8,
+		/obj/item/stack/sheet = 5,
+		/turf/simulated/floor/plating = 2,
+	)
+
+/obj/effect/spawner/random_spawners/girder_13
+	name = "girder maybe"
+	icon_state = "girder"
+	result = list(
+		/obj/structure/girder = 2,
+		/obj/item/stack/sheet = 8,
+		/turf/simulated/floor/plating = 5,
+	)
