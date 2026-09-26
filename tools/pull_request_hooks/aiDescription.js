@@ -1,10 +1,10 @@
 import fs from "fs";
 import { CHANGELOG_ENTRIES } from "./changelogConfig.js";
 
-const MODEL = "openai/gpt-4.1-mini";
-const MODELS_ENDPOINT = "https://models.github.ai/inference/chat/completions";
-const DIFF_BUDGET = 18000;
-const FILE_PATCH_LIMIT = 4000;
+const DEFAULT_MODEL = "openrouter/free";
+const AI_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+const DIFF_BUDGET = 60000;
+const FILE_PATCH_LIMIT = 8000;
 const SECTION_WHAT = "Что этот ПР делает";
 const SECTION_WHY = "Почему это хорошо для игры";
 const SECTION_CHANGELOG = "Список изменений";
@@ -83,8 +83,17 @@ export function fillBody(body, generated) {
   return newBody.replace(/\n{3,}/g, "\n\n").trim() + "\n";
 }
 
+function parseJsonReply(text) {
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if (start === -1 || end <= start) {
+    throw new Error(`Модель ответила не JSON: ${text.slice(0, 500)}`);
+  }
+  return JSON.parse(text.slice(start, end + 1));
+}
+
 export function normalizeGenerated(raw) {
-  const data = typeof raw === "string" ? JSON.parse(raw) : raw;
+  const data = typeof raw === "string" ? parseJsonReply(raw) : raw;
   const changelog = [];
   for (const entry of Array.isArray(data.changelog) ? data.changelog : []) {
     const prefix = PREFIXES.find(({ aliases }) =>
@@ -162,27 +171,39 @@ ${diff}`;
 }
 
 async function generate(messages) {
-  const response = await fetch(MODELS_ENDPOINT, {
+  const response = await fetch(AI_ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.AI_API_KEY}`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     body: JSON.stringify({
-      model: MODEL,
+      model: process.env.AI_MODEL || DEFAULT_MODEL,
       messages,
       temperature: 0.2,
       response_format: { type: "json_object" },
     }),
   });
 
+  const text = await response.text();
   if (!response.ok) {
-    throw new Error(`GitHub Models ответил ${response.status}: ${await response.text()}`);
+    throw new Error(`Нейросеть ответила ${response.status}: ${text.slice(0, 1000)}`);
   }
 
-  const data = await response.json();
-  return normalizeGenerated(data.choices[0].message.content);
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(`Эндпоинт вернул не JSON: ${text.slice(0, 500)}`);
+  }
+
+  const content = data.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error(`Пустой ответ нейросети: ${text.slice(0, 1000)}`);
+  }
+  console.log(`Модель: ${data.model ?? "?"}`);
+  return normalizeGenerated(content);
 }
 
 export async function fillPullRequestDescription({ github, context }) {
@@ -190,6 +211,11 @@ export async function fillPullRequestDescription({ github, context }) {
   const byLabel = context.payload.action === "labeled";
 
   if (byLabel && context.payload.label?.name !== TRIGGER_LABEL) {
+    return;
+  }
+
+  if (!process.env.AI_API_KEY) {
+    console.log("Секрет AI_API_KEY не задан, пропускаю.");
     return;
   }
 

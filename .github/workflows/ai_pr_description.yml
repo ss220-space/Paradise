@@ -6,7 +6,6 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
-  models: read
 concurrency:
   group: ai-pr-description-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -20,7 +19,8 @@ jobs:
       - name: Fill PR description
         uses: actions/github-script@v9
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_MODEL: ${{ vars.AI_MODEL }}
         with:
           script: |
             const { fillPullRequestDescription } = await import('${{ github.workspace }}/tools/pull_request_hooks/aiDescription.js')
