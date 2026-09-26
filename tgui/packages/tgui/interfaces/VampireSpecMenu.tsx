@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, Section, Divider, Box, DmIcon } from '../components';
+import { Box, Button, Divider, DmIcon, Section } from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type VampireSpecMenuData = {
@@ -325,8 +325,8 @@ export const DantMenu = (_props: unknown) => {
           100 <span color="red">ед. крови</span>
         </i>
         , подчиняет цель вашей воле, требует от вас не шевелиться во время
-        порабощения. Не работает на носителей импланта защиты разума и на уже
-        порабощенных существ.
+        порабощения. Не работает на носителей импланта защиты разума, в случае
+        если цель раб, воскресит его.
       </p>
       <p>
         <b>Предел рабов</b>: Вы можете поработить максимум одного раба за раз.

@@ -34,207 +34,187 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "The Emergency Escape Bar"
-	description = "Features include a bathroom, a quality lounge for the heads, and a \
-		small gambling table."
-
-/datum/map_template/shuttle/emergency/cyb
-	suffix = "cyb"
-	name = "emergency shuttle (Cyberiad)"
-
-/datum/map_template/shuttle/emergency/dept
-	suffix = "dept"
-	name = "emergency shuttle (department)"
-	description = "Features include: areas for each department, and a small bar."
-	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
-
-/datum/map_template/shuttle/emergency/military
-	suffix = "mil"
-	name = "emergency shuttle (military)"
-	description = "Troop transport with point defense turrets."
-	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
+	name = "Бар шаттл"
+	description = "Маленький эвакуационный шаттл, включающий в себя: барную стойку, туалеты, мостик и бриг с медом. "
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
-	name = "Snappop(tm)!"
-	description = "Hey kids and grownups! Are you bored of DULL and TEDIOUS \
-		shuttle journeys after you're evacuating for probably BORING reasons. \
-		Well then order the Snappop(tm) today! We've got fun activities for \
-		everyone, an all access cockpit, and no boring security brig! Boo! \
-		Play dress up with your friends! Collect all the bedsheets before \
-		your neighbour does! Check if the AI is watching you with our patent \
-		pending \"Peeping Tom AI Multitool Detector\" or PEEEEEETUR for \
-		short. Have a fun ride!"
-	admin_notes = "Brig is replaced by anchored greentext book surrounded by \
-		lavaland chasms, stationside door has been removed to prevent \
-		accidental dropping."
+	name = "Клоунский шаттл"
+	description = "Шаттл с клоунскими хлопушками."
 
 /datum/map_template/shuttle/emergency/cramped
 	suffix = "cramped"
-	name = "Secure Transport Vessel 5 (STV5)"
-	description = "Well, looks like Centcomm only had this ship in the area, \
-		they probably weren't expecting you to need evac for a while. \
-		Probably best if you don't rifle around in whatever equipment they \
-		were transporting. I hope you're friendly with your coworkers, \
-		because there is very little space in this thing.\n\
-		\n\
-		Contains contraband armory guns, maintenance loot, and abandoned \
-		crates!"
-	admin_notes = "Due to origin as a solo piloted secure vessel, has an \
-		active GPS onboard labeled STV5."
+	name = "Безопасное транспортное судно 5 (БТС5)"
+	description = "Маленький грузовой шаттл, занимающейся перевозками особых грузов в секторе Эпсилон Лукусты."
+	admin_notes = "Маршрутка."
+
+/datum/map_template/shuttle/emergency/old
+	suffix = "old"
+	name = "Шаттл снятый с эксплуатации"
+	description = "Старая модель эвакуационного шаттла, что видел лучшие времена."
+
+/datum/map_template/shuttle/emergency/cyb
+	suffix = "cyb"
+	description = "Маленький эвакуационный шаттл, включающий в себя: барную стойку, туалеты, мостик и бриг с медом."
+	name = "ТКН «Харон» (Кибериада)"
+	admin_notes = "Вторые доки справа на севере."
+
+/datum/map_template/shuttle/emergency/dept
+	suffix = "dept"
+	name = "ТКН «Харон» (Расширенный)"
+	description = "Особенности: зоны для каждого отдела и небольшой бар."
+	admin_notes = "Разработан для уменьшения хаоса. Каждый департамент имеет личный отсек на шаттле."
+
+/datum/map_template/shuttle/emergency/military
+	suffix = "mil"
+	name = "ТКН «Ахерон» (Военный)"
+	description = "Транспортный шаттл военной модели, предназначенный для эвакуации персонала из зон боевых действий."
+	admin_notes = "Основное предназначение: эвак персонала во время биоугроз или когда всё очень печально. НЕ СПАВНИТЕ, ЕСЛИ В РАУНДЕ ЕСТЬ АНТАГ С УГОНОМ."
 
 /* В текущих реалиях шаттл не работает, да и делать его рабочим смысла особо нет ибо это будет уже другой шаттл
 /datum/map_template/shuttle/emergency/meta
 	suffix = "meta"
 	name = "emergency shuttle (Metastation)"
 */
-/datum/map_template/shuttle/emergency/narnar
-	suffix = "narnar"
-	name = "Shuttle 667"
-	description = "Looks like this shuttle may have wandered into the \
-		darkness between the stars on route to the station. Let's not think \
-		too hard about where all the bodies came from."
-	admin_notes = "Contains inactive \
-		constructs. Put players in constructs if you want them to move. \
-		Cloning pods in 'medbay' area are showcases and nonfunctional."
-
-/datum/map_template/shuttle/emergency/old
-	suffix = "old"
-	name = "Retired Station shuttle."
-	description = "an older model of the station shuttle."
-
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
-	name = "transport ferry"
-	description = "Standard issue Box/Metastation Centcom ferry."
+	name = "ТКН «Ферри»"
+	description = "Транспортное судно повышенной манёвренности, предназначенное для перевозки \
+	особо важного персонала в пределах системы Эпсилон Лукусты. \
+	В основном используется дипломатами, а также полевыми офицерами Центрального командования."
 
 /datum/map_template/shuttle/ferry/meat
 	suffix = "meat"
-	name = "\"meat\" ferry"
-	description = "Ahoy! We got all kinds o' meat aft here. Meat from plant \
-		people, people who be dark, not in a racist way, just they're dark \
-		black. Oh and lizard meat too,mighty popular that is. Definitely \
-		100% fresh, just ask this guy here. *person on meatspike moans* See? \
-		Definitely high quality meat, nothin' wrong with it, nothin' added, \
-		definitely no zombifyin' reagents!"
-	admin_notes = "Meat currently contains no zombifying reagents, people on \
-		meatspike must be spawned in."
+	name = "\"Мясной\" ТКН «Ферри»"
+	description = "Привет! У нас есть все виды мяса. Мясо человеческого происхождения: \
+		белые, черные, не в расистском смысле, просто темнокожие. \
+		О, и мясо унати тоже, оно очень популярно. Определенно, \
+		100% свежее, просто спросите у этого парня. *человек на мясорубке стонет* Видите? \
+		Мясо, безусловно, высокого качества, в нем нет ничего плохого, ничего добавленного, \
+		никаких зомбирующих реагентов!"
 
 //Комплекс неполноferrности калеки
 
 /datum/map_template/shuttle/ferry/cargo
 	suffix = "cargo"
-	name = "Cargo ferry"
-	description = "Грузовой малый шаттл, снабженный всем по немногу"
+	name = "ТКН «Ферри» для доставки грузов"
+	description = "Грузовой малый шаттл, снабженный всем по немногу."
 
 /datum/map_template/shuttle/ferry/chem
 	suffix = "chem"
-	name = "Chemical ferry"
-	description = "Грузовой малый шаттл, оснащенный хим. лабораторией на 2 рабочих места"
+	name = "ТКН «Ферри» с хим. лабой"
+	description = "Грузовой малый шаттл, оснащенный хим. лабораторией на 2 рабочих места."
 
 /datum/map_template/shuttle/ferry/clown
 	suffix = "clown"
-	name = "Clown ferry"
+	name = "Клоунский ТКН «Ферри»"
 	description = "Клоунская делегация! МЫ ИДЕМ К ВАМ, ХОНК!"
 
 /datum/map_template/shuttle/ferry/cult
 	suffix = "cult"
-	name = "Cult ferry"
-	description = "Малый шаттл делегации неизвестного культа"
+	name = "ТКН «Ферри-666»"
+	description = "Малый шаттл делегации неизвестного культа."
 
 /datum/map_template/shuttle/ferry/deepdarkdungeon
 	suffix = "deepdarkdungeon"
-	name = "3D ferry"
-	description = "3D - deep dark dungeon for deep dark fantasy"
+	name = "ТКН «Ферри» ГАЧИ версия"
+	description = "Дип Драк Фентези."
 
 /datum/map_template/shuttle/ferry/doomsday
 	suffix = "doomsday"
-	name = "\"DeathSquad\" ferry"
+	name = "ТКН «Ферри» с мегафауной"
 	description = "Особенный груз для зачистки.\
 	После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
-	Пассажиры крайне агрессивны"
+	Пассажиры крайне агрессивны."
+	admin_notes = "Шаттл с мегафауной. Не советую спавнить! Не знаю, зачем он вообще сущетсвует."
 
 /datum/map_template/shuttle/ferry/medical
 	suffix = "medical"
-	name = "Medical ferry"
+	name = "ТКН «Ферри» (мед)"
 	description = "Небольшой шаттл медицинской помощи, оснащенный базовым \
-	комплектом и операционной"
+	комплектом и операционной."
 
 /datum/map_template/shuttle/ferry/meteorshelp
 	suffix = "meteorshelp"
-	name = "Meteors help ferry"
-	description = "Корабль, расчитанный на инженерную команду \
-	Рассчитан на 5 гуманоидов и 2 киборга максимум"
+	name = "ТКН «Ферри» (инж)"
+	description = "Корабль, расчитанный на инженерную команду."
 
 /datum/map_template/shuttle/ferry/mime
 	suffix = "mime"
-	name = "Mime ferry"
+	name = "Мимский ТКН «Ферри»"
 	description = "..."
 
 /datum/map_template/shuttle/ferry/prisoner
 	suffix = "prisoner"
-	name = "For prisoner ferry"
+	name = "ТКН «Ферри» (сб)"
 	description = "Шаттл, оснащенный просторной камерой для транспортировки \
-	особенных заключенных"
+	особенных заключенных."
 
 /datum/map_template/shuttle/ferry/slave
 	suffix = "slave"
-	name = "Slave trade ferry"
+	name = "Рабовладельческий шаттл"
 	description = "Шаттл, оснащенный шестью камерами для транспортировки рабов \
-	С целью дальнейшей продажи"
+	С целью дальнейшей продажи."
 
 /datum/map_template/shuttle/ferry/SMgen
 	suffix = "SMgen"
-	name = "Generator ferry"
+	name = "Шаттл-двигатель"
 	description = "Шаттл экстренной подпидки станции. \
-	ВНИМАНИЕ! Содержит мобильный двигатель на СУПЕРМАТЕРИИ"
+	ВНИМАНИЕ! Содержит мобильный двигатель на СУПЕРМАТЕРИИ."
 
 /datum/map_template/shuttle/ferry/theatrehelp
 	suffix = "theatrehelp"
-	name = "\"Theatre\" ferry"
-	description = "Делегация помощи в организации мероприятий"
+	name = "Театральный ТКН «Ферри»"
+	description = "Делегация помощи в организации мероприятий."
 
 /datum/map_template/shuttle/ferry/ussp
 	suffix = "ussp"
 	name = "Челнок СССП"
-	description = "Делегационный челнок СССП, для дип. и не очень миссий"
+	description = "Делегационный челнок СССП, для дип. и не очень миссий."
 
 /datum/map_template/shuttle/ferry/vip
 	suffix = "vip"
-	name = "\"VIP\" ferry"
-	description = "Шаттл для транспортировки VIP-персон"
+	name = "VIP ТКН «Ферри»"
+	description = "Шаттл для транспортировки VIP-персон."
 
 /datum/map_template/shuttle/ferry/zoo
 	suffix = "zoo"
-	name = "ZOO ferry"
-	description = "Шаттл для транспортировки различных форм жизни"
+	name = "ТКН «Ферри» с зоопарком"
+	description = "Шаттл для транспортировки различных форм жизни."
 
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
-	name = "NHV Asclepius"
-	description = "Nanostrasen Hospital ship, for medical assistance during disasters."
+	name = "МКН «Асклепий»"
+	description = "Экстренный корабль, снаряжённый медицинским инструментарием. Используется при чрезвычайных ситуациях."
+	admin_notes = "Шаттл для щитспавна мед ОБР. ПОСЛЕ СПАВНА УДАЛИТЕ В КОНСОЛИ НАВИГАЦИИ НЕНУЖНЫЕ ЗОНЫ ДЛЯ ПРЫЖКА (jumpto_ports)!!! Корабль ШТУРМОВОЙ,\
+	он может ПРОБИВАТЬ СТАНЦИЮ НАСКВОЗЬ"
 
 /datum/map_template/shuttle/admin/admin
 	suffix = "admin"
-	name = "NTV Argos"
-	description = "Default Admin ship. An older ship used for special operations."
+	name = "ТКН «Аргос»"
+	description = "Многоцелевое транспортное судно. Несмотря на малые размеры, является полностью автономным судном, \
+	позволяющим использовать его для дальних перелётов."
+	admin_notes = "ПОСЛЕ СПАВНА УДАЛИТЕ В КОНСОЛИ НАВИГАЦИИ НЕНУЖНЫЕ ЗОНЫ ДЛЯ ПРЫЖКА (jumpto_ports)!!! Корабль ШТУРМОВОЙ, \
+	он может ПРОБИВАТЬ СТАНЦИЮ НАСКВОЗЬ."
 
 /datum/map_template/shuttle/admin/armory
 	suffix = "armory"
-	name = "NRV Sparta"
-	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
+	name = "ОКН «Спарта»"
+	description = "Оборонный корабль исключительной мобильности, используется во время специальных операций."
+	admin_notes = "Вообщем, этот шаттл задумывался как аналог нюкерского инфильтратора, но \
+	только для ОБР от уровня ГАММА и ЭПСИЛОН. ПОСЛЕ СПАВНА УДАЛИТЕ В КОНСОЛИ НАВИГАЦИИ НЕНУЖНЫЕ ЗОНЫ ДЛЯ ПРЫЖКА (jumpto_ports)!!! Корабль ШТУРМОВОЙ, \
+	он может ПРОБИВАТЬ СТАНЦИЮ НАСКВОЗЬ."
 
 /datum/map_template/shuttle/admin/club
 	suffix = "club"
-	name = "NKV Parnassus"
-	description = "Коммерческий шаттл \"Нанотрейзен\", направленный на получение прибыли при помощи сферы развлечений"
+	name = "ККН «Парнас»"
+	description = "Коммерческий корабль \"Нанотрейзен\", направленный на получение прибыли при помощи сферы развлечений."
+	admin_notes = "ПОСЛЕ СПАВНА УДАЛИТЕ В КОНСОЛИ НАВИГАЦИИ НЕНУЖНЫЕ ЗОНЫ ДЛЯ ПРЫЖКА (jumpto_ports)!!! Корабль ШТУРМОВОЙ, \
+	он может ПРОБИВАТЬ СТАНЦИЮ НАСКВОЗЬ."
 
 /datum/map_template/shuttle/admin/interview
 	suffix = "interview"
-	name = "NAV Aphens"
-	description = "Административный шаттл \"Нанотрейзен\". Используется для проведения опросов и бесед."
-
-/datum/map_template/shuttle/admin/alien
-	suffix = "alien"
-	name = "NTV Troy"
-	description = "Некогда транспортный шаттл \"Нанотрейзен\", ныне охваченный выделениями чужих."
+	name = "АКН «Афина»"
+	description = "Административный корабль \"Нанотрейзен\". Используется для проведения опросов и бесед."
+	admin_notes = "ПОСЛЕ СПАВНА УДАЛИТЕ В КОНСОЛИ НАВИГАЦИИ НЕНУЖНЫЕ ЗОНЫ ДЛЯ ПРЫЖКА (jumpto_ports)!!! Корабль ШТУРМОВОЙ, \
+	он может ПРОБИВАТЬ СТАНЦИЮ НАСКВОЗЬ."

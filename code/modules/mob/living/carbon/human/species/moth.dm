@@ -21,7 +21,7 @@
 	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
-	blood_color = "#b9ae9c"
+	blood_color = BLOOD_COLOR_MOTH
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужж%(ит,ат)%"
 	female_giggle_sound = list('sound/voice/mothchitter.ogg')
@@ -89,12 +89,14 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 3,
+		/datum/skill/combat/accuracy = 1,
+	)
+
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	add_verb(H, /mob/living/carbon/human/proc/emote_flap)
-	add_verb(H, /mob/living/carbon/human/proc/emote_aflap)
-	add_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
@@ -111,9 +113,6 @@
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_flap)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_aflap)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	cocoon?.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)

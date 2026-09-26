@@ -25,7 +25,7 @@
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	toolbox_radial_menu_compatibility = TRUE
 	greyscale_config = /datum/greyscale_config/wirecutters
@@ -47,7 +47,7 @@
 	)
 
 /obj/item/wirecutters/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусачки",
 		GENITIVE = "кусачек",
 		DATIVE = "кусачкам",
@@ -104,7 +104,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунные кусачки",
 		GENITIVE = "латунных кусачек",
 		DATIVE = "латунным кусачкам",
@@ -132,7 +132,7 @@
 	greyscale_colors = null
 
 /obj/item/wirecutters/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродные кусачки",
 		GENITIVE = "чужеродных кусачек",
 		DATIVE = "чужеродным кусачкам",
@@ -149,7 +149,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/wirecutters/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматизированные кусачки",
 		GENITIVE = "автоматизированных кусачек",
 		DATIVE = "автоматизированным кусачкам",
@@ -181,7 +181,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/wirecutters/power/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "челюсти жизни",
 		GENITIVE = "челюстей жизни",
 		DATIVE = "челюстям жизни",
@@ -231,7 +231,7 @@
 	greyscale_colors = null
 
 /obj/item/wirecutters/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутые кусачки",
 		GENITIVE = "продвинутых кусачек",
 		DATIVE = "продвинутым кусачкам",

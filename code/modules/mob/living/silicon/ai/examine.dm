@@ -17,7 +17,7 @@
 				msg += "<b>Its casing is melted and heat-warped!</b>\n"
 		if(src.stat == UNCONSCIOUS)
 			msg += "It is non-responsive and displaying the text: \"RUNTIME: Sensory Overload, stack 26/3\".\n"
-		if(!shunted && !client)
+		if(!shunted && !client && !deployed_shell)
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
 	msg += "</span>"

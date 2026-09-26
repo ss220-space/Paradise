@@ -37,7 +37,7 @@
 	var/mob/living/carbon/human/H = usr
 	if(!( ishuman(H)))
 		return 1
-	if((usr == src.loc || (in_range(src, usr) && istype(src.loc, /turf))))
+	if((usr == src.loc || (in_range(src, usr) && isturf(src.loc))))
 		usr.set_machine(src)
 		if(href_list["spell_teleport"])
 			if(src.uses >= 1)
@@ -49,19 +49,19 @@
 
 	var/A
 
-	A = tgui_input_list(user, "Area to jump to", "BOOYEA", SSmapping.teleportlocs)
+	A = tgui_input_list(user, "Area to jump to", "BOOYEA", GLOB.teleportlocs)
 
 	if(!A)
 		return
 
-	var/area/thearea = SSmapping.teleportlocs[A]
+	var/area/thearea = GLOB.teleportlocs[A]
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
+	if(!((user == loc || (in_range(src, user) && isturf(src.loc)))))
 		return
 
-	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+	if(thearea.tele_proof && !istype(thearea, /area/centcom/wizard_station))
 		to_chat(user, span_warning("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
 		return
 

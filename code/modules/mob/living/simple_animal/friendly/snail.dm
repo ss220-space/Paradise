@@ -30,7 +30,7 @@
 	holder_type = /obj/item/holder/snail
 
 /mob/living/simple_animal/snail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космо-улитка",
 		GENITIVE = "космо-улитки",
 		DATIVE = "космо-улитке",
@@ -91,14 +91,14 @@
 	response_harm   = "топчет"
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE
-	status_flags = CANPARALYSE | CANPUSH
+	status_flags = CANPARALYSE | CANPUSH | CANUNCONSCIOUS
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat/turtlemeat = 10, /obj/item/stack/ore/tranquillite = 5)
 	footstep_type = FOOTSTEP_MOB_SLIME
 	holder_type = /obj/item/holder/turtle
 
 /mob/living/simple_animal/turtle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "черепаха",
 		GENITIVE = "черепахи",
 		DATIVE = "черепахе",
@@ -106,3 +106,7 @@
 		INSTRUMENTAL = "черепахой",
 		PREPOSITIONAL = "черепахе",
 	)
+
+/mob/living/simple_animal/turtle/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)

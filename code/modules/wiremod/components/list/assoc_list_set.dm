@@ -19,6 +19,12 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/variable/assoc_list/list_set/Destroy()
+	key = null
+	value = null
+	failed = null
+	. = ..()
+
 /obj/item/circuit_component/variable/assoc_list/list_set/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальный размер списка: [max_list_size]", "orange", "sitemap")

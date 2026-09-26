@@ -2,10 +2,10 @@
 	name = "shuttle"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	max_integrity = 500
-	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70) //default + ignores melee
+	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, fire = 50, acid = 70) //default + ignores melee
 
 /obj/structure/shuttle/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+	generate_debris_handler(DEBRIS_SPARKS, -40, 8, 1)
 
 /obj/structure/shuttle/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -15,14 +15,18 @@
 	icon = 'icons/turf/shuttle/misc.dmi'
 	density = TRUE
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль — бред
-	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
+	resistance_flags = INDESTRUCTIBLE // То что у нас двигатели ломаются от пары пуль — бред
+	var/list/obj/structure/fillers = list() // Для коллизии более больших двигателей
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 
 // Это временное решение, дабы движки были освещены. Я хотел сделать анимацию с перекрасом цветов света в синий при полёте, но не сделал. Надеюсь кто-то сделает.
 /obj/structure/shuttle/engine/Initialize(mapload)
 	. = ..()
 	set_light_range_power_color(2)
+
+/obj/structure/shuttle/engine/Destroy(force)
+	QDEL_LIST(fillers)
+	return ..()
 
 /obj/structure/shuttle/engine/heater
 	name = "heater"
@@ -31,6 +35,7 @@
 /obj/structure/shuttle/engine/platform
 	name = "platform"
 	icon_state = "platform"
+	layer = TABLE_LAYER
 
 /obj/structure/shuttle/engine/propulsion
 	name = "propulsion"
@@ -55,8 +60,8 @@
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
-//	bound_width = 64
-//	bound_height = 64
+// bound_width = 64
+// bound_height = 64
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/large/Initialize(mapload)
@@ -77,8 +82,8 @@
 	desc = "Almost gigantic bluespace engine used to propel very large ships at very high speed."
 	pixel_x = -32
 	pixel_y = -32
-//	bound_width = 96
-//	bound_height = 96
+// bound_width = 96
+// bound_height = 96
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/huge/Initialize(mapload)

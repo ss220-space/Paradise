@@ -2,7 +2,7 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "драконий сундук",
 		GENITIVE = "драконьего сундука",
 		DATIVE = "драконьему сундуку",
@@ -31,7 +31,7 @@
 	name = "firey dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный драконий сундук",
 		GENITIVE = "огненного драконьего сундука",
 		DATIVE = "огненному драконьему сундуку",
@@ -64,7 +64,7 @@
 	var/list/mob/dead/observer/spirits
 
 /obj/item/melee/ghost_sword/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "спектральный клинок",
 		GENITIVE = "спектрального клинка",
 		DATIVE = "спектральному клинку",
@@ -73,8 +73,8 @@
 		PREPOSITIONAL = "спектральном клинке",
 	)
 
-/obj/item/melee/ghost_sword/New()
-	..()
+/obj/item/melee/ghost_sword/Initialize(mapload)
+	. = ..()
 	spirits = list()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -137,15 +137,15 @@
 	var/ghost_counter = ghost_check()
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message(
-		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
-		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
+		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
+		span_notice("Вы бьёте с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
 	)
 	return ..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] призрак[DECL_A_OV_OV(ghost_counter)]!"))
 	return ..()
 
 // Blood
@@ -157,7 +157,7 @@
 	icon_state = "vial"
 
 /obj/item/dragons_blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка драконьей крови",
 		GENITIVE = "бутылки драконьей крови",
 		DATIVE = "бутылке драконьей крови",
@@ -178,12 +178,11 @@
 			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
-				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
+				if(locate(/datum/action/cooldown/spell/shapeshift/dragon) in user.mind.spell_list)
 					to_chat(user, span_danger("Знакомая сила течёт по вашим жилам! Но вы уже умеете превращаться в дракона..."))
 				else
 					to_chat(user, span_danger("Сила переполняет вас! Теперь вы можете менять форму по желанию."))
-					var/obj/effect/proc_holder/spell/shapeshift/dragon/shapeshift = new
-					user.mind.AddSpell(shapeshift)
+					user.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/dragon)
 		if(3)
 			to_chat(user, span_danger("Кажется, теперь вы могли бы пройтись прямо сквозь лаву."))
 			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)
@@ -196,7 +195,7 @@
 	desc = "Вы ведь точно собираетесь это выпить, не так ли?"
 
 /obj/item/dragons_blood/refined/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка очищенной драконьей крови",
 		GENITIVE = "бутылки очищенной драконьей крови",
 		DATIVE = "бутылке очищенной драконьей крови",
@@ -226,9 +225,9 @@
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
-	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))
-	stage4	= list(span_danger("Ваша кровь кипит!"))
-	stage5	= list(span_danger("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
+	stage3	= list(span_danger_alt("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger_alt("Ваши зубы кажутся острее."))
+	stage4	= list(span_danger_alt("Ваша кровь кипит!"))
+	stage5	= list(span_danger_alt("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
 //Lava Staff
@@ -259,7 +258,7 @@
 	var/banned_turfs
 
 /obj/item/lava_staff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лавовый посох",
 		GENITIVE = "лавового посоха",
 		DATIVE = "лавовому посоху",
@@ -268,11 +267,11 @@
 		PREPOSITIONAL = "лавовом посохе",
 	)
 
-/obj/item/lava_staff/New()
+/obj/item/lava_staff/Initialize(mapload)
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
 	if(timer > world.time)
 		return

@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
+	interaction_flags_mouse_drop = ALLOW_RESTING | ALLOW_PAI | NEED_HANDS
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.
@@ -122,13 +123,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	ui_interact(user)
 
 /obj/item/gps/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	attack_self(user)
-	return TRUE
 
 /obj/item/gps/ui_host()
 	return parent ? parent : src
@@ -195,12 +193,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "Внутренняя система позиционирования шахтёрского робота. Служит маяком для поиска повреждённых единиц или инструментом координации командой."
 
-/obj/item/gps/cyborg/Initialize(mapload)
+/obj/item/gps/cyborg/Initialize(mapload, gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
-/obj/item/gps/cyborg/New(gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
-	. = ..()
 	src.gpstag = gpstag
 	src.upgraded = upgraded
 	src.tracking = tracking
@@ -278,7 +273,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/gpsupgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшения GPS",
 		GENITIVE = "модуля улучшения GPS",
 		DATIVE = "модулю улучшения GPS",

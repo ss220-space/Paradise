@@ -5,25 +5,36 @@
 	name = "auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов."
 	gender = MALE
-	icon = 'icons/goonstation/objects/objects.dmi'
-	icon_state = "mender"
+	icon = 'icons/map_icons/items/_item.dmi'
+	greyscale_config = /datum/greyscale_config/mender
+	greyscale_config_inhand_left = /datum/greyscale_config/mender_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/mender_inhand_right
+	greyscale_config_belt = /datum/greyscale_config/mender_belt
+	greyscale_colors = COLOR_WHITE
+	post_init_icon_state = "mender"
+	icon_state = "/obj/item/reagent_containers/applicator"
 	item_state = "mender"
-	belt_icon = "automender"
+	belt_icon = "mender"
 	volume = 200
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
-	container_type = REFILLABLE | AMOUNT_VISIBLE
+	container_type = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
 	temperature_min = 270
 	temperature_max = 350
 	pass_open_check = TRUE
 	custom_premium_price = PAYCHECK_LOWER
+	// used for emagged version
 	var/ignore_flags = FALSE
-	var/applied_amount = 8 // How much it applies
-	var/applying = FALSE // So it can't be spammed.
+	// How much reagents it applies per cycle.
+	var/applied_amount = 8
+	// to prevent from spamming
+	var/applying = FALSE
+	// list of sound to play when applying reagents
+	var/apply_sounds = SFX_MENDER
 
 /obj/item/reagent_containers/applicator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер",
 		GENITIVE = "авто-мендера",
 		DATIVE = "авто-мендеру",
@@ -40,10 +51,6 @@
 		if(user)
 			balloon_alert(user, "протоколы безопасности взломаны")
 
-/obj/item/reagent_containers/applicator/set_APTFT()
-	set hidden = TRUE
-	return
-
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
@@ -56,24 +63,31 @@
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
-	update_icon()
-
-/obj/item/reagent_containers/applicator/update_icon_state()
-	icon_state = "mender[applying ? "-active" : ""]"
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
+	var/overlay_icon = 'icons/obj/chemical.dmi'
 	if(reagents.total_volume)
-		. += mutable_appearance(icon, "mender-fluid", color = mix_color_from_reagents(reagents.reagent_list))
+		var/mutable_appearance/liquid_overlay = mutable_appearance(overlay_icon, "mender_liquid_overlay")
+		liquid_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
+		. += liquid_overlay
+
+	if(applying)
+		var/mutable_appearance/applying_overlay = mutable_appearance(overlay_icon, "mender_applying_overlay")
+		applying_overlay.color = greyscale_colors
+		flick_overlay_view(applying_overlay, 1 SECONDS)
+
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
+	var/mutable_appearance/applicator_bar = mutable_appearance(overlay_icon, "app_e")
 	switch(reag_pct)
 		if(51 to 100)
-			applicator_bar.icon_state = "app_hf"
+			applicator_bar.icon_state = "mender_ind_full"
 		if(1 to 50)
-			applicator_bar.icon_state = "app_he"
+			applicator_bar.icon_state = "mender_ind_low"
 		if(0)
-			applicator_bar.icon_state = "app_e"
+			applicator_bar.icon_state = "mender_ind_empty"
+
 	. += applicator_bar
 
 /obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -92,7 +106,7 @@
 
 	var/protection = 0
 	if(!ignore_flags)
-		if(!target.can_inject(user, FALSE))
+		if(!target.can_inject(user, TRUE))
 			return .
 
 		if(ishuman(target))
@@ -120,13 +134,14 @@
 	. |= ATTACK_CHAIN_SUCCESS
 
 	applying = TRUE
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 	apply_to(target, user, APPLICATOR_PRE_LOOP_RATIO * reacting_to_applied_ratio, TRUE, def_zone) // We apply a very weak application up front, then loop.
 	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	var/cycle_count = 0
 
 	var/measured_health = 0
-	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS)
+	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
+	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS) * skill_duration_mod
 	while(do_after(user, cycle_delay, target))
 		measured_health = target.health
 		apply_to(target, user, 1, FALSE, def_zone)
@@ -140,27 +155,29 @@
 
 	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	applying = FALSE
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
+/obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/target, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
 
 	if(reagents?.total_volume)
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
-		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, TRUE, def_zone)
-		reagents.trans_to(M, total_applied_amount * 0.5)
+		reagents.reaction(target, REAGENT_TOUCH, fractional_applied_amount, show_message, TRUE, def_zone)
+		reagents.trans_to(target, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 
-		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, TRUE)
+		playsound(get_turf(src), pick(apply_sounds), 50, TRUE)
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."
+	icon_state = "/obj/item/reagent_containers/applicator/brute"
+	greyscale_colors = COLOR_MENDER_BRUTE
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Мех. Повреждения)",
 		GENITIVE = "авто-мендера (Мех. Повреждения)",
 		DATIVE = "авто-мендеру (Мех. Повреждения)",
@@ -172,10 +189,12 @@
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений."
+	greyscale_colors = COLOR_MENDER_BURN
+	icon_state = "/obj/item/reagent_containers/applicator/burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Терм. Повреждения)",
 		GENITIVE = "авто-мендера (Терм. Повреждения)",
 		DATIVE = "авто-мендеру (Терм. Повреждения)",
@@ -187,10 +206,12 @@
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления как механических, так и термических повреждений."
+	greyscale_colors = COLOR_MENDER_DUAL
+	icon_state = "/obj/item/reagent_containers/applicator/dual"
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Синт-плоть)",
 		GENITIVE = "авто-мендера (Синт-плоть)",
 		DATIVE = "авто-мендеру (Синт-плоть)",

@@ -4,6 +4,10 @@
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
+/obj/item/melee/energy/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
+
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	var/message = span_danger("[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!")
 	var/self_message = span_userdanger("You block the attack!")
@@ -46,7 +50,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
+	block_type = MELEE_ATTACKS
 	armour_penetration = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
@@ -56,6 +60,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+
+/obj/item/melee/rapier/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/rapier/ComponentInitialize()
 	. = ..()
@@ -72,7 +79,6 @@
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "rapier"
 	item_state = "rapier"
-	block_type = MELEE_ATTACKS
 
 /obj/item/melee/rapier/captain/Initialize(mapload)
 	. = ..()
@@ -101,9 +107,11 @@
 	materials = null
 	force = 25
 	throwforce = 20
-	block_chance = 95
 	armour_penetration = 100
 	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)
+
+/obj/item/melee/rapier/centcomm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 0.5, _stamina_coefficient = 0.1, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/rapier/centcomm/ComponentInitialize()
 	. = ..()
@@ -179,10 +187,10 @@
 	attack(target, user, params, def_zone)
 	attack_in_progress = FALSE
 
-/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(prob(25))
@@ -281,15 +289,15 @@
 		no_multi_hit = TRUE \
 	)
 
-/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))
 			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
 			to_chat(user, span_warning("You easily splat the [target]."))
-			if(istype(target, /mob/living/))
+			if(isliving(target))
 				var/mob/living/bug = target
-				bug.death(1)
+				bug.death(TRUE)
 			else
 				qdel(target)
 
@@ -303,10 +311,12 @@
 	item_state = "big_iron"
 	attack_verb = list("опалил", "задоминировал", "заробастил")
 
-/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+
+	if(!proximity_flag)
 		return
+
 	if(ishuman(target))
 		if(!ishumanbasic(target))
 			var/mob/living/victim = target

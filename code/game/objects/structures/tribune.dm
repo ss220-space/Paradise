@@ -71,7 +71,7 @@
 	if(dir != border_dir || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
 
-/obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -86,7 +86,7 @@
 	if(pass_flags_self & leaving.pass_flags)
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 

@@ -206,7 +206,7 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
-	if(!istype(item, /obj/item/mortar_shell))
+	if(!ismortarcasing(item))
 		return ATTACK_CHAIN_PROCEED
 	var/obj/item/mortar_shell/mortar_shell = item
 
@@ -255,7 +255,7 @@
 		span_notice("[user] loads \a [mortar_shell.name] into [src]."),
 		span_notice("You load \a [mortar_shell.name] into [src].")
 	)
-	visible_message("[icon2html(src, viewers(src))] [span_danger("The [name] fires!")]")
+	visible_message("[get_examine_icon(viewers(src))] [span_danger("The [name] fires!")]")
 	user.drop_transfer_item_to_loc(mortar_shell, src, TRUE, TRUE)
 	playsound(loc, 'sound/weapons/gun_mortar_fire.ogg', 50, TRUE)
 	busy = FALSE

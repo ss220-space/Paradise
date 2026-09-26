@@ -21,7 +21,7 @@
 	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
@@ -32,7 +32,7 @@
 	var/books_to_load = 0
 
 /obj/structure/bookcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжный шкаф",
 		GENITIVE = "книжного шкафа",
 		DATIVE = "книжному шкафу",
@@ -56,7 +56,7 @@
 	. = ..()
 
 /obj/structure/bookcase/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()
@@ -77,7 +77,7 @@
 	if(update)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bookcase/MouseDrop_T(atom/movable/thing, mob/user, params)
+/obj/structure/bookcase/mouse_drop_receive(atom/movable/thing, mob/user, params)
 	if(!istype(user, /mob/living/simple_animal/pet/library_owl))
 		return
 	if(!is_type_in_typecache(thing, allowed_books))
@@ -188,6 +188,8 @@
 /obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
+	for(var/i = 0; i <= 3; i++)
+		new /obj/item/book/skill_manual/medical/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/engineering
@@ -202,6 +204,8 @@
 	new /obj/item/book/manual/engineering_guide(src)
 	new /obj/item/book/manual/engineering_singularity_safety(src)
 	new /obj/item/book/manual/robotics_cyborgs(src)
+	for(var/i in 0 to 3)
+		new /obj/item/book/skill_manual/engineering/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/research_and_development
@@ -211,6 +215,18 @@
 /obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
+	for(var/i in 0 to 3)
+		new /obj/item/book/skill_manual/research/random(src)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/bookcase/manuals/skills
+	manual_name = "Medical Manuals "
+	manual_name_ru = " с различными учебниками"
+
+/obj/structure/bookcase/manuals/skills/Initialize(mapload)
+	. = ..()
+	for(var/i = 0; i <= 5; i++)
+		new /obj/item/book/skill_manual/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /*
@@ -251,9 +267,11 @@
 	var/obj/item/store
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
+	/// Begin read with examine
+	var/read_by_examine = TRUE
 
 /obj/item/book/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книга",
 		GENITIVE = "книги",
 		DATIVE = "книге",
@@ -269,10 +287,11 @@
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
-			attack_self(user)
-		else
-			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
+		if(read_by_examine)
+			if(in_range(user, src) || isobserver(user))
+				attack_self(user)
+			else
+				. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
 	else
 		. += span_notice("Вы не умеете читать.")
 
@@ -403,7 +422,7 @@
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(I.sharp)
+	if(!I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)
@@ -436,7 +455,7 @@
 	var/mode = 0					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
 /obj/item/barcodescanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканнер штрих-кодов",
 		GENITIVE = "сканнера штрих-кодов",
 		DATIVE = "сканнеру штрих-кодов",

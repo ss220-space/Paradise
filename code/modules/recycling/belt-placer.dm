@@ -41,12 +41,13 @@
 
 	return ..()
 
-/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	var/obj/item/conveyor_construct/conveyor = locate() in contents
 	if(!conveyor)
 		to_chat(user, span_warning("There are no belts in [src]."))
 		return
-	conveyor.afterattack(target, user, proximity, params)
+	conveyor.afterattack(target, user, proximity_flag, modifiers, status)
 

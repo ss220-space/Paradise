@@ -36,6 +36,13 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 	/// World.time this player last died
 	var/time_of_death = 0
 
+	/// Has the player ever enabled AntagHUD this round
+	var/antaghud_enabled = FALSE
+	/// Is the player eligible for OOC respawn
+	var/respawn_eligible = TRUE
+	/// The client's ability to respawn is currently blocked by a minigame or event.
+	var/respawn_locked = FALSE
+
 /datum/persistent_client/New(ckey, client)
 	src.client = client
 	achievements = new(ckey)

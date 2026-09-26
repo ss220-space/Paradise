@@ -6,11 +6,11 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 20, ACID = 20)
 	var/obj/item/projector
 
 /obj/structure/holosign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографическая табличка",
 		GENITIVE = "голографической таблички",
 		DATIVE = "голографической табличке",
@@ -65,7 +65,7 @@
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак мокрого пола",
 		GENITIVE = "знака мокрого пола",
 		DATIVE = "знаку мокрого пола",
@@ -113,7 +113,7 @@
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
 /obj/structure/holosign/barrier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический барьер",
 		GENITIVE = "голографического барьера",
 		DATIVE = "голографическому барьеру",
@@ -136,19 +136,23 @@
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering
+	name = "engineering holobarrier"
+	desc = "A short engineering holographic barrier used for designating hazardous zones, slightly blocks radiation. Can only be passed by walking."
 	icon_state = "holosign_engi"
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
-	name = "holo firelock"
+	name = "holofirelock"
 	desc = "Голографический барьер, похожий на пожарный шлюз. Он не препятствует прохождению твёрдых предметов, но не позволяет газу проникать внутрь."
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	layer = ABOVE_MOB_LAYER
 	alpha = 150
+	rad_insulation = RAD_LIGHT_INSULATION
+	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 
 /obj/structure/holosign/barrier/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический пожарный шлюз",
 		GENITIVE = "голографического пожарного шлюза",
 		DATIVE = "голографическому пожарному шлюзу",
@@ -181,7 +185,7 @@
 	allow_walk = FALSE
 
 /obj/structure/holosign/barrier/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический барьер",
 		GENITIVE = "энергетического барьера",
 		DATIVE = "энергетическому барьеру",
@@ -204,7 +208,7 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/holosign/barrier/cyborg/hacked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряженный энергетический барьер",
 		GENITIVE = "заряженного энергетического барьера",
 		DATIVE = "заряженному энергетическому барьеру",

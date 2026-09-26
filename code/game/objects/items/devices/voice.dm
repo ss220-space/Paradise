@@ -14,7 +14,7 @@
 	var/tts_voice
 	var/active
 
-/obj/item/voice_changer/New()
+/obj/item/voice_changer/Initialize(mapload)
 	. = ..()
 
 	if(isitem(loc))
@@ -25,7 +25,7 @@
 /obj/item/voice_changer/Destroy()
 	if(isitem(parent))
 		LAZYREMOVE(parent.actions, actions)
-
+	parent = null
 	return ..()
 
 /obj/item/voice_changer/attack_self(mob/user)

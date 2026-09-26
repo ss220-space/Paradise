@@ -17,9 +17,6 @@
 
 		if(body_position != LYING_DOWN && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
-				if(LAZYLEN(bodypart.internal_organs))
-					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
@@ -34,6 +31,10 @@
 			continue
 
 		if(bodypart.is_traumatized() || !bodypart.properly_attached)
+			var/drop_chance = bodypart.fracture.drop_chance
+			if(!drop_chance || !prob(drop_chance))
+				continue
+
 			if(bodypart.limb_zone == BODY_ZONE_L_ARM || bodypart.limb_zone == BODY_ZONE_PRECISE_L_HAND)
 				if(!l_hand)
 					continue
@@ -159,7 +160,7 @@
 		if(step_count >= bodypart.splinted_count + SPLINT_LIFE)
 			bodypart.remove_splint(splint_break = TRUE)	// oh no, we actually need surgery now!
 
-/mob/living/carbon/human/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
+/mob/living/carbon/human/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
 	if(isliving(thing.loc))
 		var/mob/living/holder = thing.loc
 		holder.drop_item_ground(thing)

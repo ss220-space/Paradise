@@ -1,97 +1,98 @@
 // MARK: METAL
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe_list("sofas", list(
-		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, one_per_turf = TRUE, on_floor = TRUE)
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/left, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/right, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corner, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD)
 	)),
 	new /datum/stack_recipe_list("corporate sofas", list(
-		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa/corp, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/corp/left, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/corp/right, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corp/corner, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa/corp, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (left)", /obj/structure/chair/sofa/corp/left, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/corp/right, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corp/corner, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("seats", list(
-		new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("wheelchair", /obj/vehicle/ridden/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 1, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 1, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("white shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("black shuttle seat", /obj/structure/chair/comfy/shuttle/dark, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("wheelchair", /obj/vehicle/ridden/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("white shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("black shuttle seat", /obj/structure/chair/comfy/shuttle/dark, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("comfy chairs", list(
-		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("blue comfy chair", /obj/structure/chair/comfy/blue, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("blue comfy chair", /obj/structure/chair/comfy/blue, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("wall-mounted", list(
-		new /datum/stack_recipe("button frame", /obj/item/mounted/frame/door_control, time = 5 SECONDS),
-		new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, time = 5 SECONDS, on_floor = TRUE),
-		new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, time = 5 SECONDS, on_floor = TRUE),
-		new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
-		new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, TRUE),
-		new /datum/stack_recipe("APC frame", /obj/item/mounted/frame/apc_frame, 2),
-		new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
-		new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
-		new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
-		new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
-		new /datum/stack_recipe("shower", /obj/item/mounted/shower, 5, time = 0.7 SECONDS, on_floor = TRUE),
-		new /datum/stack_recipe("torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS),
+		new /datum/stack_recipe("button frame", /obj/item/mounted/frame/door_control, time = 5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, time = 5 SECONDS, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, time = 5 SECONDS, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, TRUE, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("APC frame", /obj/item/mounted/frame/apc_frame, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("shower", /obj/item/mounted/shower, 5, time = 1 SECONDS, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("construction", list(
-		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20),
-		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50),
-		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
-		new /datum/stack_recipe("gun rack parts", /obj/item/gunrack_parts),
-		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3),
-		new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("crate shelf parts", /obj/item/rack_parts/cargo_shelf, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20, time = 0.5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50, time = 0.5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("rack parts", /obj/item/rack_parts, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("gun rack parts", /obj/item/rack_parts/gunrack_parts, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("airlock assemblies", list(
-		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("public airlock assembly", /obj/structure/door_assembly/door_assembly_public, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("command airlock assembly", /obj/structure/door_assembly/door_assembly_com, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("security airlock assembly", /obj/structure/door_assembly/door_assembly_sec, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("engineering airlock assembly", /obj/structure/door_assembly/door_assembly_eng, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("mining airlock assembly", /obj/structure/door_assembly/door_assembly_min, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("atmospherics airlock assembly", /obj/structure/door_assembly/door_assembly_atmo, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("external maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("freezer airlock assembly", /obj/structure/door_assembly/door_assembly_fre, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("public airlock assembly", /obj/structure/door_assembly/door_assembly_public, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("command airlock assembly", /obj/structure/door_assembly/door_assembly_com, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("security airlock assembly", /obj/structure/door_assembly/door_assembly_sec, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("engineering airlock assembly", /obj/structure/door_assembly/door_assembly_eng, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("mining airlock assembly", /obj/structure/door_assembly/door_assembly_min, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("atmospherics airlock assembly", /obj/structure/door_assembly/door_assembly_atmo, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("external maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("freezer airlock assembly", /obj/structure/door_assembly/door_assembly_fre, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("gym equipment", list(
-		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("misc", list(
-		new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
-		new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade, time = 0.5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	)),
 ))
 
@@ -102,6 +103,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	icon_state = "sheet-metal"
 	protolathe_name = "metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	matter_amount = 1
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
@@ -150,8 +152,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	protolathe_name = "metal"
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
-	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
+	matter_amount = 8
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10
 	flags = CONDUCT
@@ -192,9 +195,11 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
 		new /datum/stack_recipe("torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS),
-		new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
+		new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/cup/bucket/wooden, 3, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 		new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal),
+		new /datum/stack_recipe("painting frame", /obj/item/wallframe/painting, 1, time = 1 SECONDS),
+		new /datum/stack_recipe("easel", /obj/structure/easel, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("wood structures", list(
 		new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -245,18 +250,21 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	sheettype = "wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
+
+/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.wood_recipes
+
+/obj/item/stack/sheet/wood/fifty
+	amount = 50
 
 /obj/item/stack/sheet/wood/cyborg
 	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
 	energy_type = /datum/robot_energy_storage/wood
 	cost = 4
-
-/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.wood_recipes
 
 // MARK: CLOTH
 GLOBAL_LIST_INIT(cloth_recipes, list(
@@ -303,7 +311,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
-		new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag),
+		new /datum/stack_recipe("rag", /obj/item/rag),
+		new/datum/stack_recipe("19x19 canvas", /obj/item/canvas/nineteen_nineteen, 3),
+		new/datum/stack_recipe("23x19 canvas", /obj/item/canvas/twentythree_nineteen, 4),
+		new/datum/stack_recipe("23x23 canvas", /obj/item/canvas/twentythree_twentythree, 5),
 	)),
 	null,
 ))
@@ -327,6 +338,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
+
+/obj/item/stack/sheet/cloth/fifty
+	amount = 50
 
 // MARK: DURATHREAD
 GLOBAL_LIST_INIT(durathread_recipes, list(
@@ -352,6 +366,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.durathread_recipes
+
+/obj/item/stack/sheet/durathread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
@@ -400,6 +417,19 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	null,
 ))
 
+/obj/item/stack/sheet/cardboard
+	name = "cardboard"
+	desc = "Large sheets of card, like boxes folded flat."
+	singular_name = "cardboard sheet"
+	icon_state = "sheet-card"
+	item_state = "sheet-card"
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cardboard
+
+/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.cardboard_recipes
+
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		add_fingerprint(user)
@@ -415,18 +445,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 
 	return ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
-	name = "cardboard"
-	desc = "Large sheets of card, like boxes folded flat."
-	singular_name = "cardboard sheet"
-	icon_state = "sheet-card"
-	item_state = "sheet-card"
-	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/sheet/cardboard
-
-/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.cardboard_recipes
+/obj/item/stack/sheet/cardboard/fifty
+	amount = 50
 
 // MARK: RUNED METAL
 GLOBAL_LIST_INIT(cult_recipes, list(
@@ -464,6 +484,7 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+	matter_amount = 8
 
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"
@@ -473,6 +494,7 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal_fake
+	matter_amount = 8
 
 /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -513,6 +535,9 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
+
+/obj/item/stack/sheet/runed_metal_fake/ten
+	amount = 10
 
 /obj/item/stack/sheet/runed_metal_fake/fifty
 	amount = 50
@@ -576,6 +601,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	merge_type = /obj/item/stack/sheet/brass
+	matter_amount = 8
 
 /obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -611,7 +637,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
 	energy_type = /datum/robot_energy_storage/brass
 
@@ -624,6 +650,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	merge_type = /obj/item/stack/sheet/brass_fake
+	matter_amount = 8
 
 /obj/item/stack/sheet/brass_fake/narsie_act()
 	qdel(src)
@@ -659,7 +686,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=2;biotech=2"
 
 /obj/item/stack/sheet/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кости",
 		GENITIVE = "костей",
 		DATIVE = "костям",
@@ -683,7 +710,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=4;biotech=5"
 
 /obj/item/stack/sheet/razor_sharp_teeth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бритвенно-острые зубы",
 		GENITIVE = "бритвенно-острых зубов",
 		DATIVE = "бритвенно-острым зубам",
@@ -696,18 +723,19 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe_list("storage", list(
 		new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
-		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/glass/beaker/drugs, 1, on_floor = TRUE),
+		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs, 1, on_floor = TRUE),
 		new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("fluid containers", list(
-		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty, on_floor = TRUE),
-		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
+		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/empty, on_floor = TRUE),
+		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
 		new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
+		new /datum/stack_recipe("пластиковый стул", /obj/structure/chair/plastic, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("plastic utensils", list(
 		new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, on_floor = TRUE),
@@ -736,6 +764,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("custodian", /obj/structure/sign/custodian, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dangerous alien life", /obj/structure/sign/xeno_warning_mining, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("deathsposal", /obj/structure/sign/deathsposal, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("doors", /obj/structure/sign/doors, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("drop pods", /obj/structure/sign/drop, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("engineering department", /obj/structure/sign/directions/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("engineering", /obj/structure/sign/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -746,16 +775,17 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("explosives alt", /obj/structure/sign/explosives/alt, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("external airlock", /obj/structure/sign/vacuum/external, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("fire", /obj/structure/sign/fire, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("green cross", /obj/structure/sign/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("green cross", /obj/structure/sign/medbay/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("hazardous radiation", /obj/structure/sign/radiation, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("high voltage", /obj/structure/sign/electricshock, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("holy", /obj/structure/sign/holy, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("medical bay", /obj/structure/sign/directions/medical, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("medical lifestar", /obj/structure/sign/medbay, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("no smoking", /obj/structure/sign/nosmoking_1, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("no smoking alt", /obj/structure/sign/nosmoking_2, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pods", /obj/structure/sign/pods, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("radioactive area", /obj/structure/sign/radiation/rad_area, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("red cross", /obj/structure/sign/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("red cross", /obj/structure/sign/medbay/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("research division", /obj/structure/sign/directions/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("restroom", /obj/structure/sign/restroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("science", /obj/structure/sign/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -764,6 +794,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("security department", /obj/structure/sign/directions/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("vacuum", /obj/structure/sign/vacuum, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("xenobio", /obj/structure/sign/xenobio, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("xenobio slime", /obj/structure/sign/xenobio/slime, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 ))
 
@@ -783,11 +814,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	. = ..()
 	recipes = GLOB.plastic_recipes
 
-/obj/item/stack/sheet/plastic/fifty
-	amount = 50
-
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/obj/item/stack/sheet/plastic/ten
+	amount = 10
+
+/obj/item/stack/sheet/plastic/fifty
+	amount = 50
 
 // MARK: BAMBOO
 GLOBAL_LIST_INIT(bamboo_recipes, list(
@@ -806,7 +840,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 
@@ -819,7 +853,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 
 // MARK: CHEESE
 GLOBAL_LIST_INIT(cheese_recipes, list(
-	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE),
+	new /datum/stack_recipe("Cheesus statue", /obj/structure/statue/cheese/cheesus, 5, one_per_turf = TRUE, time = 10 SECONDS, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/cheese
@@ -841,7 +875,7 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 
 // MARK: GINGERBREAD
 GLOBAL_LIST_INIT(gingerbread_recipes, list(
-	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/gingerbread
@@ -854,11 +888,11 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/gingerbread
 
-/obj/item/stack/sheet/gingerbread/fifty
-	amount = 50
-
 /obj/item/stack/sheet/gingerbread/five
 	amount = 5
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

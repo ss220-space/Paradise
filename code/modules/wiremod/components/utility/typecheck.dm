@@ -16,6 +16,11 @@
 	/// Object to typecheck
 	var/datum/port/input/thing_to_check
 
+/obj/item/circuit_component/compare/typecheck/Destroy()
+	typecheck_options = null
+	thing_to_check = null
+	. = ..()
+
 /obj/item/circuit_component/compare/typecheck/populate_options()
 	var/static/component_options = list(
 		PORT_TYPE_STRING,

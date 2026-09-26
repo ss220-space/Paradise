@@ -23,7 +23,7 @@
 	var/printing = FALSE
 
 /obj/item/dna_notepad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет генетика",
 		GENITIVE = "планшета генетика",
 		DATIVE = "планшету генетика",
@@ -184,16 +184,6 @@
 		color = DNA_COLOR_POWER
 	write_dna_data(block_num, answer, color)
 	return TRUE
-
-/obj/item/dna_notepad/verb/print_report_verb()
-	set name = "Печать отчёта"
-	set category = VERB_CATEGORY_OBJECT
-	var/mob/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated())
-		return
-	print_report(user)
 
 /obj/item/dna_notepad/proc/load_unknown_disabilities_from_console(obj/machinery/computer/scan_consolenew/dna_console, mob/living/user)
 	add_fingerprint(user)

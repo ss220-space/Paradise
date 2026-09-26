@@ -12,9 +12,62 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	attack_verb = list("атаковал", "тыкнул")
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
 	var/colour = COLOR_RED
 	var/drawtype = "rune"
-	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
+	var/static/list/graffiti = list(
+		"body",
+		"amyjon",
+		"face",
+		"matt",
+		"revolution",
+		"engie",
+		"guy",
+		"end",
+		"dwarf",
+		"uboa",
+		"up",
+		"down",
+		"left",
+		"right",
+		"heart",
+		"borgsrogue",
+		"voxpox",
+		"shitcurity",
+		"catbeast",
+		"hieroglyphs1",
+		"hieroglyphs2",
+		"hieroglyphs3",
+		"security",
+		"syndicate1",
+		"syndicate2",
+		"nanotrasen",
+		"lie",
+		"valid",
+		"arrowleft",
+		"arrowright",
+		"arrowup",
+		"arrowdown",
+		"chicken",
+		"hailcrab",
+		"brokenheart",
+		"peace",
+		"scribble",
+		"scribble2",
+		"scribble3",
+		"skrek",
+		"squish",
+		"tunnelsnake",
+		"yip",
+		"youaredead",
+		"cyka",
+		"antilizard",
+		"Tunnel",
+		"Gib",
+		"space",
+		"prolizard",
+		"no_cake",
+	)
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 	var/uses = NORMAL_CRAYONS_USES
 	var/instant = 0
@@ -22,6 +75,7 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/can_change_colour = FALSE
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide."))
@@ -45,7 +99,7 @@
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
-	graffiti.Find()
+	graffiti.Find(null)
 	dat += "<h3>Graffiti:</h3><br>"
 	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1
@@ -78,9 +132,13 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity) return
-	if(busy) return
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return
+
+	if(busy)
+		return
+
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(letters.Find(drawtype))
@@ -128,6 +186,10 @@
 		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
 		qdel(src)
 
+/obj/item/paint_palette/set_painting_tool_color(chosen_color)
+	. = ..()
+	current_color = chosen_color
+
 /obj/item/toy/crayon/red
 	name = "red crayon"
 	dye_color = DYE_RED
@@ -167,7 +229,8 @@
 	colourName = "purple"
 	dye_color = DYE_PURPLE
 
-/obj/item/toy/crayon/random/New()
+/obj/item/toy/crayon/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
@@ -200,7 +263,6 @@
 			colour = COLOR_PURPLE
 			colourName = "purple"
 			dye_color = DYE_PURPLE
-	..()
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
@@ -251,6 +313,7 @@
 	colourName = "rainbow"
 	uses = BETTER_CRAYONS_USES
 	dye_color = DYE_RAINBOW
+	can_change_colour = TRUE
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -306,29 +369,42 @@
 			colour = new_color
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(capped)
+	if(!can_paint(target, user))
 		return
-	else
-		if(iscarbon(target))
-			if(uses-10 > 0)
-				uses = uses - 10
-				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
-				if(C.client)
-					C.EyeBlurry(6 SECONDS)
-					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
-						C.Confused(6 SECONDS)
-						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
-		if(loc == user) //sound play only if it in user hands
-			playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		..()
+
+	if(isobj(target))
+		target.balloon_alert_to_viewers("закрашивание...")
+		if(!do_after(user, 5 SECONDS, target, NONE))
+			return
+
+		if(!can_paint(target, user))
+			return
+
+		uses--
+		playsound(src, 'sound/effects/spray.ogg', 20, TRUE)
+		SEND_SIGNAL(target, COMSIG_OBJ_PAINTED, colour)
+		return ..()
+
+	if(iscarbon(target))
+		if(uses-10 > 0)
+			uses = uses - 10
+			var/mob/living/carbon/human/C = target
+			user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
+			if(C.client)
+				C.EyeBlurry(6 SECONDS)
+				C.EyeBlind(2 SECONDS)
+				if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
+					C.Confused(6 SECONDS)
+					C.Weaken(6 SECONDS)
+			C.lip_style = "spray_face"
+			C.lip_color = colour
+			C.update_body()
+	if(loc == user) //sound play only if it in user hands
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	return ..()
 
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
@@ -350,6 +426,8 @@
 	if(!uses)
 		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
 		return FALSE
+	if(isobj(object) && !(object.flags & UNPAINTABLE))
+		return TRUE
 	return TRUE
 
 /obj/item/toy/crayon/spraycan/paintkit

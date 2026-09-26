@@ -1,7 +1,7 @@
 /obj/item/clothing/under/plasmaman
 	name = "plasma envirosuit"
 	desc = "Специализированный костюм, позволяющий плазменным формам жизни существовать в обогащённой кислородом среде. Внутри установлен экстренный автоматический огнетушитель на случай возгорания. Не подходит для космоса."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 200
 	var/next_extinguish = 0
@@ -16,7 +16,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм плазмолюда",
 		GENITIVE = "защитного костюма плазмолюда",
 		DATIVE = "защитному костюму плазмолюда",
@@ -27,7 +27,7 @@
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
-	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_CREDIT(extinguishes_left)].")
+	. += span_notice("Встроенный огнетушитель имеет [extinguishes_left] заряд[DECL_0_A_OV(extinguishes_left)].")
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -72,7 +72,7 @@
 	icon = 'icons/obj/device.dmi'
 
 /obj/item/extinguisher_refill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "картридж пополнения встроенного огнетушителя",
 		GENITIVE = "картриджа пополнения встроенного огнетушителя",
 		DATIVE = "картриджу пополнения встроенного огнетушителя",

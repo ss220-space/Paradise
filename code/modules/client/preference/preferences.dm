@@ -30,8 +30,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
-	ROLE_DEVIL = 14
+	ROLE_DEVIL = 14,
+	ROLE_BINGLE = 14,
 ))
+
+GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближайшего соседа", SCALING_METHOD_BLUR = "Билейная интерполяция", SCALING_METHOD_NORMAL = "Поточечная выборка"))
 
 /proc/player_old_enough_antag(client/C, role, req_job_rank)
 	if(available_in_days_antag(C, role))
@@ -68,14 +71,26 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	else
 		return max(0, days - C.player_age)
 
+/// Checks whether a role should be disabled due to a mutually exclusive role selection
+/// Civilian/Prisoner/Investor — only one can be selected, the others are disabled
+/proc/is_job_title_muted(job_support_low, job_title)
+	var/any_mutual_role_selected = job_support_low & (JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
+	if(!any_mutual_role_selected)
+		return FALSE
+
+	// If a special role is selected, disable everything except the selected one
+	if(job_support_low & JOB_FLAG_CIVILIAN)
+		return job_title != JOB_TITLE_CIVILIAN
+	if(job_support_low & JOB_FLAG_PRISONER)
+		return job_title != JOB_TITLE_PRISONER
+	if(job_support_low & JOB_FLAG_INVESTOR)
+		return job_title != JOB_TITLE_INVESTOR
+	return FALSE
+
+
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 0
-#define TAB_GAME 1
-#define TAB_SPEC 2
-#define TAB_KEYS 3
-#define TAB_TOGGLES 4
 
 /datum/preferences
 	var/client/parent
@@ -193,6 +208,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
+	var/final_alternate_option
 
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)
@@ -236,6 +252,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		"1012" = 50, // CHANNEL_RADIO_NOISE
 		"1011" = 100, // CHANNEL_BOSS_MUSIC
 		"1010" = 100, // CHANNEL_INTERACTION_SOUNDS
+		"1009" = 40, // CHANNEL_ANNOUNCER
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -263,8 +280,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
+	/// Cached list of keybindings, mapping keys to actions.
 	/// View range preference for this client
-	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	var/viewrange = WIDESCREEN_PARTIAL_VIEWPORT_SIZE
 	/// How dark things are if client is a ghost, 0-255
 	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 
@@ -285,18 +303,23 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	var/exoframe_type = PREF_EXOFRAME_REINFORCED
 
 	var/action_buttons_screen_locs = list()
-
+	var/zoom = 0
+	var/zoom_mode = SCALING_METHOD_NORMAL
 
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	max_gear_slots = CONFIG_GET(number/max_loadout_points)
+
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!is_guest_key(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
+
+		zoom = text2num(winget(C, SKIN_MAPWINDOW_MAP, "zoom")) || zoom
+		zoom_mode = winget(C, SKIN_MAPWINDOW_MAP, "zoom-mode") || zoom_mode
 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
@@ -380,7 +403,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if(SPECIES_GREY)
 					dat += "<b>Инопланетная речь:</b> <a href='byond://?_src_=prefs;preference=toggle_wingdings;task=input'>[disabilities & DISABILITY_FLAG_WINGDINGS ? "Да" : "Нет"]</a><br>"
 					dat += "<b>Дешифратор инопланетной речи:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Да" : "Нет"]</a><br>"
-				if(SPECIES_MACNINEPERSON)
+				if(SPECIES_MACHINEPERSON)
 					dat += "<b>Модель оболочки:</b> <a href='byond://?_src_=prefs;preference=ipcloadouts;task=input'>Выбрать</a><br>"
 				if(SPECIES_WRYN)
 					dat += "<b>Телепатическая глухота:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Да" : "Нет"]</a><br>"
@@ -474,11 +497,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Альтернативный тип головы:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
-			if(species == SPECIES_MACNINEPERSON)
+			if(species == SPECIES_MACHINEPERSON)
 				var/exoframe_name = exoframe_names[exoframe_type] || exoframe_type
 				dat += "<b>Каркас экзоскелета:</b> <a href='byond://?_src_=prefs;preference=exoframe;task=input'>[exoframe_name]</a><br>"
 			dat += "<b>Части тела:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Изменить</a><br>"
-			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
+			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACHINEPERSON)
 				dat += "<b>Внутренние органы:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Изменить</a><br>"
 
 			//display limbs below
@@ -575,6 +598,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(unlock_content)
 				dat += "<b>Публичность членства BYOND:</b> <a href='byond://?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
 			dat += "<b>Runechat облака с сообщениями:</b> <a href='byond://?_src_=prefs;preference=chat_on_map'>[toggles2 & PREFTOGGLE_2_RUNECHAT ? "Включить" : "Выключить"]</a><br>"
+			dat += "<b>Runechat для LOOC:</b> <a href='byond://?_src_=prefs;preference=runechat_looc'>[toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC ? "Включить" : "Выключить"]</a><br>"
 			dat += "<b>Анонимность CKEY:</b> <a href='byond://?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Анонимный" : "Не анонимный"]</b></a><br>"
 			if(user.client.donator_level > 0)
 				dat += "<b>Публичность донат-статуса:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
@@ -591,6 +615,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>OOC заметки:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Редактировать</b></a><br>"
 			dat += "<b>Параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax'>"
 			switch(parallax)
+				if(PARALLAX_BOOMER)
+					dat += "Старое качество"
 				if(PARALLAX_LOW)
 					dat += "Низкое качество"
 				if(PARALLAX_MED)
@@ -632,13 +658,15 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += " – <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " – <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[ui_theme_to_russian(UI_style)]</b></a><br>"
-			dat += "<b>Красивый TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Блокировать TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
 			dat += "<b> – Размер TGUI strip menu:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Полноразмерный" : "Миниатюрный"]</a><br>"
 			dat += "<b> – Тема TGUI say:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Светлая" : "Тёмная"]</a><br>"
 			dat += "<b> – TGUI ввод:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "Нет" : "Да"]</a><br>"
 			dat += "<b> – TGUI ввод — большие кнопки:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b> – TGUI ввод — поменять порядок кнопок:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Да" : "Нет"]</a><br>"
 			dat += "<b>Стиль заголовочного меню:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Пикселизированный" : "Базовый"]</a><br>"
+			dat += "<b>Масштабирование:</b> <a href='byond://?_src_=prefs;preference=zoom_mode'>[GLOB.zoom_modes[zoom_mode]]</a><br>"
+			dat += "<b>Зум:</b> <a href='byond://?_src_=prefs;preference=zoom_scale'>[zoom]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_SPEC) // Antagonist's Preferences
@@ -656,7 +684,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						var/available_in_days_antag = available_in_days_antag(user.client, i)
 						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
 						if(available_in_days_antag)
-							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] [(declension_ru(available_in_days_antag, "день", "дня", "дней"))]]</b></font><br>"
+							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] д[(DECL_EN_NYA_NEJ(available_in_days_antag))]]</b></font><br>"
 						else if(role_available_in_playtime)
 							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(role_available_in_playtime)]]</b></font><br>"
 						else
@@ -700,7 +728,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					var/datum/keybinding/KB = kb
 					var/kb_uid = KB.UID() // Cache this to reduce proc jumps
 					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
-					var/list/keys = override_keys || KB.keys
+					var/list/keys = override_keys || KB.classic_keys
 					var/keys_buttons = ""
 					for(var/key in keys)
 						var/disp_key = key
@@ -708,7 +736,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							disp_key = "<b>[disp_key]</b>"
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
-					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 25%'>[KB.full_name]</td>"
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[span_good("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Сбросить</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Очистить</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
@@ -793,11 +821,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 #undef MAX_SAVE_SLOTS
 #undef MAX_SAVE_SLOTS_MEMBER
-#undef TAB_CHAR
-#undef TAB_GAME
-#undef TAB_SPEC
-#undef TAB_KEYS
-#undef TAB_TOGGLES
 
 /datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]
@@ -817,7 +840,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_CMO, JOB_TITLE_QUARTERMASTER, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_CMO, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MAGISTRATE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -871,13 +894,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[get_job_title_ru(GetPlayerAltTitle(job))]</a>"
 			else
-				rank = job.title
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
-				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
+				rank = get_job_title_ru(job.title)
+			if(is_job_title_muted(job_support_low, job.title))
+				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
-			if(jobban_isbanned(user, job.title))
+			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЗАБАНЕНО]</b></span></td></tr>"
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
@@ -889,7 +912,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЧЕРЕЗ [available_in_days] [declension_ru(available_in_days, "день", "дня", "дней")]]</b></span></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЧЕРЕЗ [available_in_days] д[DECL_EN_NYA_NEJ(available_in_days)]]</b></span></td></tr>"
 				continue
 			if(!job.character_old_enough(user.client))
 				var/datum/species/current_species = GLOB.all_species[species]
@@ -898,16 +921,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(job.species_in_blacklist(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НЕДОСТУПНО ДЛЯ ДАННОЙ РАСЫ]</b></span></td></tr>"
 				continue
+			if(!job.check_custom_requirements(user.client))
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НУЖНО ДОСТИЖЕНИЕ]</b></span></td></tr>"
+				continue
 			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN))
-				html += "</td><td></td></tr>"
-				continue
-			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
-				html += "</td><td></td></tr>"
-				continue
 
 			html += "</td><td width='40%'>"
 
@@ -945,11 +965,16 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
 				html += "</td></tr>"
-				// index += 1
-				// html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 				continue
 			if(job.title == JOB_TITLE_PRISONER)//Prisoner is special
 				if(job_support_low & JOB_FLAG_PRISONER)
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
+				else
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
+				html += "</td></tr>"
+				continue
+			if(job.title == JOB_TITLE_INVESTOR)//Investor is special
+				if(job_support_low & JOB_FLAG_INVESTOR)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
@@ -1002,7 +1027,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	keybindings = list()
 	keybindings_overrides = overrides
 	for(var/datum/keybinding/keybinding as anything in GLOB.keybindings)
-		var/list/keys = keybinding.keys
+		var/list/keys = keybinding.classic_keys
 		if(overrides?[keybinding.name])
 			keys = overrides[keybinding.name]
 		for(var/key in keys)
@@ -1132,10 +1157,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		ShowChoices(user)
 		return
 
-	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER)
+	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER || role == JOB_TITLE_INVESTOR)
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
+			job_support_low |= job.flag
+			job_support_low &= ~(JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
 			job_support_low |= job.flag
 		SetChoices(user)
 		return 1
@@ -1243,7 +1270,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
 	return player_alt_titles.Find(job.title) > 0 \
 		? player_alt_titles[job.title] \
-		: job.title
+		: get_job_title_ru(job.title)
 
 /datum/preferences/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1479,9 +1506,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if("alt_title")
 				var/datum/job/job = locateUID(href_list["job"])
 				if(job)
-					var/choices = list(job.title) + job.alt_titles
-					var/choice = tgui_input_list(user, "Выберите альтернативное название для должности \"[job.title]\".", "Альтернативные названия", choices)
+					var/choices = list(get_job_title_ru(job.title)) + job.alt_titles
+					var/choice = tgui_input_list(user, "Выберите альтернативное название для должности \"[get_job_title_ru(job.title)]\".", "Альтернативные названия", choices)
 					if(choice)
+						choice = job_title_ru_to_en(choice)
 						SetPlayerAltTitle(job, choice)
 						SetChoices(user)
 			if("input")
@@ -1556,18 +1584,18 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("age")
 					age = get_rand_age(S)
 				if("hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						h_sec_colour = rand_hex_color()
 				if("h_style")
 					h_style = random_hair_style(gender, S, robohead)
 				if("facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						f_sec_colour = rand_hex_color()
 				if("f_style")
 					f_style = random_facial_hair_style(gender, species, robohead)
@@ -1628,7 +1656,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							real_name = new_name
 							user.client << output(real_name, "title_browser:update_current_character")
 						else
-							to_chat(user, span_red("Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и ."))
+							to_chat(user, span_red("Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[DECL_A_OV_OV(MAX_NAME_LEN)]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и ."))
 
 				if("age")
 					var/list/age_list = get_age_limits(S, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
@@ -1641,7 +1669,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					var/prev_species = species
 					new_species += CONFIG_GET(str_list/playable_species)
 
-					species = tgui_input_list(user, "Выберите расу", "Раса", sortTim(new_species, cmp = /proc/cmp_text_asc))
+					species = tgui_input_list(user, "Выберите расу", "Раса", sortTim(new_species, GLOBAL_PROC_REF(cmp_text_asc)))
 					if(!species)
 						species = prev_species
 						return
@@ -1738,7 +1766,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						else if(!(lang.flags & RESTRICTED))
 							new_languages += language_name
 
-					var/new_language = tgui_input_list(user, "Выберите дополнительный язык", "Дополнительный язык", sortTim(new_languages, cmp = /proc/cmp_text_asc))
+					var/new_language = tgui_input_list(user, "Выберите дополнительный язык", "Дополнительный язык", sortTim(new_languages, GLOBAL_PROC_REF(cmp_text_asc)))
 					if(!new_language)
 						return
 					language = new_language
@@ -1763,13 +1791,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
 						var/new_hair = tgui_input_color(user, "Выберите цвет причёски.", "Причёска", h_colour)
 						if(!isnull(new_hair))
 							h_colour = new_hair
 
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет причёски.", "Причёска", h_sec_colour)
@@ -1801,7 +1829,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							if(species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
-					sortTim(valid_hairstyles, cmp = /proc/cmp_text_asc) //this alphabetizes the list
+					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
 					var/new_h_style = tgui_input_list(user, "Выберите стиль причёски", "Причёска", valid_hairstyles)
 					if(new_h_style)
 						h_style = new_h_style
@@ -1847,7 +1875,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 							valid_head_accessory_styles += head_accessory_style
 
-						sortTim(valid_head_accessory_styles, cmp = /proc/cmp_text_asc)
+						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_head_accessory_style = tgui_input_list(user, "Выберите тип аксессуаров на голове", "Аксессуары на голове", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							ha_style = new_head_accessory_style
@@ -1905,7 +1933,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на голове", "Отметки на голове", valid_markings)
 						if(new_marking_style)
 							m_styles["head"] = new_marking_style
@@ -1930,8 +1958,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 								continue
 							if(!M.pickable)
 								continue
+							if(M.wizard_only)
+								continue
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на теле", "Отметки на теле", valid_markings)
 						if(new_marking_style)
 							m_styles["body"] = new_marking_style
@@ -1960,7 +1990,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на хвосте", "Отметки на хвосте", valid_markings)
 						if(new_marking_style)
 							m_styles["tail"] = new_marking_style
@@ -1984,20 +2014,20 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
 						possible_body_accessories.Remove("None") // in case an admin is viewing it
-					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
+					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_body_accessory = tgui_input_list(user, "Выберите тип аксессуаров на теле", "Аксессуары на теле", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
 						var/new_facial = tgui_input_color(user, "Выберите цвет лицевой растительности.", "Лицевая растительность", f_colour)
 						if(!isnull(new_facial))
 							f_colour = new_facial
 
 				if("secondary_facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = tgui_input_color(user, "Выберите дополнительный цвет лицевой растительности.", "Лицевая растительность", f_sec_colour)
@@ -2011,6 +2041,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
+							continue
+						if(SA.wizard_only)
 							continue
 						if(gender == SA.unsuitable_gender)
 							continue
@@ -2030,7 +2062,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						else //If the user is not a species who can have robotic heads, use the default handling.
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
-					sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
+					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_f_style = tgui_input_list(user, "Выберите стиль лицевой растительности", "Лицевая растительность", valid_facial_hairstyles)
 					if(new_f_style)
 						f_style = new_f_style
@@ -2044,7 +2076,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
-					sortTim(valid_underwear, cmp = /proc/cmp_text_asc)
+					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_underwear = tgui_input_list(user, "Выберите тип нижнего белья", "Нижнее бельё", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
@@ -2064,7 +2096,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
-					sortTim(valid_undershirts, cmp = /proc/cmp_text_asc)
+					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Выберите тип нательной рубашки", "Нательная рубашка", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
@@ -2084,7 +2116,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
-					sortTim(valid_sockstyles, cmp = /proc/cmp_text_asc)
+					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_socks = tgui_input_list(user, "Выберите тип носков", "Носки", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
@@ -2177,8 +2209,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(limb == BODY_ZONE_HEAD)
 							ha_style = "None"
 							alt_head = null
-							h_style = GLOB.hair_styles_public_list["Bald"]
-							f_style = GLOB.facial_hair_styles_list["Shaved"]
+							h_style = "Bald"
+							f_style = "Shaved"
 							m_styles["head"] = "None"
 						rlimb_data[limb] = choice
 						organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
@@ -2267,8 +2299,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(PREF_ORGANSTATUS_ORGANIC_RUS)
 							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "None"
-								h_style = GLOB.hair_styles_public_list["Bald"]
-								f_style = GLOB.facial_hair_styles_list["Shaved"]
+								h_style = "Bald"
+								f_style = "Shaved"
 							organ_data[limb] = null
 							rlimb_data[limb] = null
 							if(third_limb)
@@ -2318,8 +2350,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 								if(limb == BODY_ZONE_HEAD)
 									ha_style = "None"
 									alt_head = null
-									h_style = GLOB.hair_styles_public_list["Bald"]
-									f_style = GLOB.facial_hair_styles_list["Shaved"]
+									h_style = "Bald"
+									f_style = "Shaved"
 									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
 							organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
@@ -2389,6 +2421,27 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					if(user.client.donator_level > 0)
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
+				if("zoom_mode")
+					var/list/options = list()
+					for(var/key, value in GLOB.zoom_modes)
+						options[value] = key
+					var/result = tgui_input_list(user, "Выберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
+					if(!result)
+						return
+					zoom_mode = options[result] || zoom_mode
+					user?.client?.view_size?.setZoomMode()
+
+				if("zoom_scale")
+					var/list/options = list()
+					for(var/key in 0 to 9 step 0.5)
+						options += key
+					var/result = tgui_input_list(user, "Выберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
+					if(isnull(result))
+						return
+
+					zoom = result
+					user?.client?.view_size?.resetFormat()
+
 				if("gender")
 					if(!S.has_gender)
 						var/newgender = tgui_input_list(user, "Выберите пол", "Пол", list(PREF_GENDER_MALE, PREF_GENDER_FEMALE, PREF_GENDER_PLURAL))
@@ -2419,7 +2472,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_CLOCKWORK_RUS))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_GLASS_RUS, UI_THEME_CLOCKWORK_RUS))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -2435,6 +2488,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							UI_style = UI_THEME_OPERATIVE
 						if(UI_THEME_WHITE_RUS)
 							UI_style = UI_THEME_WHITE
+						if(UI_THEME_GLASS_RUS)
+							UI_style = UI_THEME_GLASS
 						if(UI_THEME_CLOCKWORK_RUS)
 							UI_style = UI_THEME_CLOCKWORK
 
@@ -2444,6 +2499,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("chat_on_map")
 					toggles2 ^= PREFTOGGLE_2_RUNECHAT
+
+				if("runechat_looc")
+					toggles3 ^= PREFTOGGLE_3_RUNECHAT_LOOC
 
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
@@ -2495,9 +2553,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("setviewrange")
 					var/list/viewrange_options = list(
-						"15x15 (Классический)" = "15x15",
-						"17x15 (Широкий)" = "17x15",
-						"19x15 (Ультраширокий)" = "19x15"
+						"15x15 (Классический)" = SQUARE_VIEWPORT_SIZE,
+						"17x15 (Широкий)" = WIDESCREEN_PARTIAL_VIEWPORT_SIZE,
+						"19x15 (Ультраширокий)" = WIDESCREEN_VIEWPORT_SIZE
 					)
 
 					var/new_range = tgui_input_list(user, "Выберите диапазон обзора", "Диапазон обзора", viewrange_options)
@@ -2508,12 +2566,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					if(actual_new_range == parent.view)
 						return
 					viewrange = actual_new_range
-					parent.change_view(actual_new_range)
+					parent.view_size.setDefault(VIEWPORT_USE_PREF)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, span_notice("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[declension_ru(CONFIG_GET(number/auto_cryo_afk), "ы", "", "")]. \
-								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[DECL_SEC_MIN(CONFIG_GET(number/auto_despawn_afk))] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
+						to_chat(user, span_notice("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[DECL_Y_0_0(CONFIG_GET(number/auto_cryo_afk))]. \
+								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[DECL_U_Y_0(CONFIG_GET(number/auto_despawn_afk))] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
 					else
 						to_chat(user, span_notice("Автоматический переход в криосон выключен."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
@@ -2622,6 +2680,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("parallax")
 					var/parallax_styles = list(
 						"Отключено" = PARALLAX_DISABLE,
+						"Старое" = PARALLAX_BOOMER,
 						"Низкое" = PARALLAX_LOW,
 						"Среднее" = PARALLAX_MED,
 						"Высокое" = PARALLAX_HIGH,
@@ -2638,8 +2697,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent?.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref(parent.mob)
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(
@@ -2746,7 +2804,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
 
 								// Update overrides
-								var/list/key_overrides = keybindings_overrides[KB.name] || KB.keys?.Copy() || list()
+								var/list/key_overrides = keybindings_overrides[KB.name] || KB.classic_keys?.Copy() || list()
 								var/index = key_overrides.Find(old_key)
 								var/changed = FALSE
 								if(clear) // Clear
@@ -2767,7 +2825,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									changed = isnull(keybindings_overrides[KB.name]) // Sets it in the JSON
 
 								if(changed)
-									if(!length(key_overrides) && !length(KB.keys))
+									if(!length(key_overrides) && !length(KB.classic_keys))
 										keybindings_overrides -= KB.name
 									else
 										keybindings_overrides[KB.name] = key_overrides
@@ -2785,7 +2843,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					else if(href_list["clear"])
 						var/datum/keybinding/KB = locateUID(href_list["clear"])
 						if(KB)
-							if(length(KB.keys))
+							if(length(KB.classic_keys))
 								keybindings_overrides[KB.name] = list()
 							else
 								keybindings_overrides -= KB.name

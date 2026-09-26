@@ -50,7 +50,7 @@
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "матка голиафов",
 		GENITIVE = "матки голиафов",
 		DATIVE = "матке голиафов",
@@ -62,25 +62,25 @@
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
 	button_icon_state = "tentacle_patch"
-	chosen_message = span_boldwarning("Теперь вы атакуете щупальцами!")
+	chosen_message = span_boldwarning_alt("Теперь вы атакуете щупальцами!")
 	chosen_attack_num = TENTACLE_PATCH
 
 /datum/action/innate/elite_attack/spawn_children
 	name = "Выпуск выводка"
 	button_icon_state = "spawn_children"
-	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
+	chosen_message = span_boldwarning_alt("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
 	chosen_attack_num = SPAWN_CHILDREN
 
 /datum/action/innate/elite_attack/rage
 	name = "Бешенство"
 	button_icon_state = "rage"
-	chosen_message = span_boldwarning("Вы временно увеличиваете скорость передвижения.")
+	chosen_message = span_boldwarning_alt("Вы временно увеличиваете скорость передвижения.")
 	chosen_attack_num = RAGE
 
 /datum/action/innate/elite_attack/call_children
 	name = "Зов"
 	button_icon_state = "call_children"
-	chosen_message = span_boldwarning("Вы призываете своих детёнышей к себе.")
+	chosen_message = span_boldwarning_alt("Вы призываете своих детёнышей к себе.")
 	chosen_attack_num = CALL_CHILDREN
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/Destroy()
@@ -227,7 +227,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детёныш голиафа",
 		GENITIVE = "детёныша голиафа",
 		DATIVE = "детёнышу голиафа",
@@ -306,7 +306,7 @@
 	var/use_time
 
 /obj/item/crusher_trophy/broodmother_tongue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "материнский язык",
 		GENITIVE = "материнского языка",
 		DATIVE = "материнскому языку",

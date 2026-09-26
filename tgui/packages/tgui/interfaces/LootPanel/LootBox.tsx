@@ -1,8 +1,8 @@
-import { BooleanLike } from 'common/react';
+import { Button, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { IconDisplay } from './IconDisplay';
-import { SearchGroup, SearchItem } from './types';
-import { Button, Stack } from '../../components';
+import type { SearchGroup, SearchItem } from './types';
 
 type Data = {
   is_blind: BooleanLike;
@@ -11,9 +11,13 @@ type Data = {
 type Props =
   | {
       item: SearchItem;
+      selected?: boolean;
+      onToggleSelection?: (uid: string) => void;
     }
   | {
       group: SearchGroup;
+      selected?: boolean;
+      onToggleSelection?: (uid: string) => void;
     };
 
 export const LootBox = (props: Props) => {
@@ -22,11 +26,17 @@ export const LootBox = (props: Props) => {
 
   let amount = 0;
   let item: SearchItem;
+  let selected = false;
+  let onToggleSelection: ((uid: string) => void) | undefined;
   if ('group' in props) {
     amount = props.group.amount;
     item = props.group.item;
+    selected = props.selected ?? false;
+    onToggleSelection = props.onToggleSelection;
   } else {
     item = props.item;
+    selected = props.selected ?? false;
+    onToggleSelection = props.onToggleSelection;
   }
 
   const name = !item.name ? '???' : item.name;
@@ -35,7 +45,10 @@ export const LootBox = (props: Props) => {
     <Button
       p={0}
       fluid
-      color="transparent"
+      color={selected ? 'good' : 'transparent'}
+      style={
+        selected ? { backgroundColor: 'hsl(94, 63%, 31%, 0.25)' } : undefined
+      }
       onClick={(event) =>
         act('grab', {
           alt: event.altKey,
@@ -46,10 +59,15 @@ export const LootBox = (props: Props) => {
       }
       onContextMenu={(event) => {
         event.preventDefault();
-        act('grab', {
-          right: true,
-          uid: item.uid,
-        });
+        // Shift + RMB selects the item for copying, plain RMB interacts with it
+        if (event.shiftKey && onToggleSelection) {
+          onToggleSelection(item.uid);
+        } else {
+          act('grab', {
+            right: true,
+            uid: item.uid,
+          });
+        }
       }}
     >
       <Stack>
@@ -60,11 +78,12 @@ export const LootBox = (props: Props) => {
           lineHeight="34px"
           overflow="hidden"
           style={{ textOverflow: 'ellipsis' }}
+          color={selected ? 'good' : undefined}
         >
           {!is_blind && name}
         </Stack.Item>
         <Stack.Item lineHeight="34px" pr={1}>
-          {amount > 1 && 'x' + amount}
+          {amount > 1 && `x${amount}`}
         </Stack.Item>
       </Stack>
     </Button>

@@ -5,7 +5,7 @@
 	icon_state = "lattice-31"
 	base_icon_state = "lattice"
 	anchored = TRUE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE // I'd set to GAME_PLANE, but may fuck with pipes, srubbers and pumps. Also you see better lower floor under catwalk.
@@ -14,16 +14,27 @@
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_LATTICE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
-	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
+	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
-	for(var/obj/structure/lattice/LAT in loc)
-		if(LAT != src)
-			QDEL_IN(LAT, 0)
+	for(var/obj/structure/lattice/lattice in loc)
+		if(lattice == src)
+			continue
+		WARNING("multiple lattices found in ([loc.x], [loc.y], [loc.z], [get_area(lattice)])")
+		return INITIALIZE_HINT_QDEL
+
 	if(length(give_turf_traits))
 		give_turf_traits = string_list(give_turf_traits)
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
+// so items on the lattice fall when the lattice is destroyed
+/obj/structure/lattice/Destroy(force)
+	var/turf/turfloc = loc
+	. = ..()
+	if(isturf(turfloc))
+		for(var/thing_that_falls in turfloc)
+			turfloc.zFall(thing_that_falls)
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -51,11 +62,20 @@
 		C.deconstruct()
 	..()
 
-/obj/structure/lattice/attackby(obj/item/I, mob/user, params)
+/obj/structure/lattice/proc/replace_with_catwalk()
+	var/list/post_replacement_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_LATTICE_PRE_REPLACE_WITH_CATWALK, post_replacement_callbacks)
+	var/turf/turf = loc
+	qdel(src)
+	var/new_catwalk = new /obj/structure/lattice/catwalk(turf)
+	for(var/datum/callback/callback as anything in post_replacement_callbacks)
+		callback.Invoke(new_catwalk)
+
+/obj/structure/lattice/attackby(obj/item/I, mob/user, list/modifiers)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
+	I.melee_attack_chain(user, loc, modifiers)	// hand this off to the turf instead (for building plating, catwalks, etc)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/lattice/ratvar_act()
@@ -65,7 +85,7 @@
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/lattice/singularity_pull(S, current_size)
+/obj/structure/lattice/singularity_pull(atom/singularity, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
@@ -73,14 +93,14 @@
 	. = ..()
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
-	if(our_rcd.useResource(1, user))
-		to_chat(user, "Building Floor...")
+	if(our_rcd.useResource(RCD_COST_FLOOR, user))
+		to_chat(user, "Печать пола...")
 		playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 		var/turf/AT = get_turf(src)
 		add_attack_logs(user, AT, "Constructed floor with RCD")
 		AT.ChangeTurf(our_rcd.floor_type)
 		return RCD_ACT_SUCCESSFULL
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати пола!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
@@ -114,7 +134,7 @@
 	number_of_rods = 2
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
-	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
+	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
@@ -158,7 +178,7 @@
 	desc = "A lightweight support lattice made of heat-resistance alloy."
 	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, FIRE = 100, ACID = 70)
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
@@ -167,18 +187,18 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 1)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/fireproof
 	name = "strong catwalk"
 	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
-	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, FIRE = 100, ACID = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
-	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
+	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
@@ -186,7 +206,7 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 3)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/mapping
@@ -194,7 +214,7 @@
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
+	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/catwalk/mapping/deconstruction_hints(mob/user)
 	return

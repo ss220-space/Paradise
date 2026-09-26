@@ -8,20 +8,36 @@
 	access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK, ACCESS_MECHANIC)
+					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK, ACCESS_MECHANIC)
 	minimal_access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK, ACCESS_MECHANIC)
+					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK, ACCESS_MECHANIC)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CHIEF_ENGINEER_RESEARCHER,
+	)
 	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
 	outfit = /datum/outfit/job/rd
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BASIC,
+		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/protolathe = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/robotics = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/rd
-	name = JOB_TITLE_RD
+	name = JOB_TITLE_RU_RD
 	jobtype = /datum/job/head_of_staff/rd
 
 	uniform = /obj/item/clothing/under/rank/research_director
@@ -39,8 +55,10 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
 
 /datum/job/science
+	abstract_type = /datum/job/science
 	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
 	is_science = 1
@@ -61,13 +79,65 @@
 	flag = JOB_FLAG_SCIENTIST
 	total_positions = 6
 	spawn_positions = 6
-	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_ANOMALIST,
+		ALT_JOB_TITLE_RU_PLASMOLOGIST,
+		ALT_JOB_TITLE_RU_XENOBIOLOGIST,
+		ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE,
+		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER,
+	)
 	outfit = /datum/outfit/job/scientist
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/protolathe = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_XENOBIOLOGIST = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
+		),
+		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		),
+		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		)
+	)
 
 /datum/outfit/job/scientist
-	name = JOB_TITLE_SCIENTIST
+	name = JOB_TITLE_RU_SCIENTIST
 	jobtype = /datum/job/science/scientist
 
 	uniform = /obj/item/clothing/under/rank/scientist
@@ -80,14 +150,17 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
 
 /datum/job/science/scientist/student
-	title = JOB_TITLE_SCIENTIST_STUDENT
+	title = JOB_TITLE_SCIENCE_STUDENT
 	flag = JOB_FLAG_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)
-	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate", "Student Robotist")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER,
+	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -95,9 +168,18 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/scientist/student
 	paycheck = PAYCHECK_LOWER
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/scientist/student
-	name = JOB_TITLE_SCIENTIST_STUDENT
+	name = JOB_TITLE_RU_SCIENCE_STUDENT
 	jobtype = /datum/job/science/scientist/student
 
 	uniform = /obj/item/clothing/under/rank/scientist/student
@@ -109,28 +191,38 @@
 		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Scientist Assistant")
+			if(ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER)
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
-			if("Student Robotist")
-				suit = /obj/item/clothing/suit/storage/labcoat
-				uniform = /obj/item/clothing/under/rank/roboticist/student
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/roboticist/skirt/student
 
 /datum/job/science/roboticist
 	title = JOB_TITLE_ROBOTICIST
 	flag = JOB_FLAG_ROBOTICIST
 	total_positions = 2
 	spawn_positions = 2
-	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS) //As a job that handles so many corpses, it makes sense for them to have morgue access.
-	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS) //As a job that handles so many corpses, it makes sense for them to have morgue access.
-	alt_titles = list("Biomechanical Engineer", "Mechatronic Engineer")
+	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
+	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_BIONICS_SPECIALIST,
+		ALT_JOB_TITLE_RU_CYBERNETIC_ENGINEER,
+	)
 	outfit = /datum/outfit/job/roboticist
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BASIC,
+		/datum/skill/research/robotics = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/roboticist
-	name = JOB_TITLE_ROBOTICIST
+	name = JOB_TITLE_RU_ROBOTICIST
 	jobtype = /datum/job/science/roboticist
 
 	uniform = /obj/item/clothing/under/rank/roboticist
@@ -139,19 +231,30 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 
 /datum/job/science/mechanic
-	title = JOB_TITLE_MECHANIC
+	title = JOB_TITLE_SPACEPOD_TECHNICIAN
 	flag = JOB_FLAG_MECHANIC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_RESEARCH, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
-	minimal_access = list(ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_RESEARCH, ACCESS_TECH_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
+	minimal_access = list(ACCESS_RESEARCH, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/robotics = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/mechanic
-	name = JOB_TITLE_MECHANIC
+	name = JOB_TITLE_RU_SPACEPOD_TECHNICIAN
 	jobtype = /datum/job/science/mechanic
 	uniform = /obj/item/clothing/under/rank/mechanic
 	belt = /obj/item/storage/belt/utility/full
@@ -169,3 +272,39 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+
+/datum/job/science/explorer
+	title = JOB_TITLE_EXPLORER
+	flag = JOB_FLAG_EXPLORER
+	total_positions = 3
+	spawn_positions = 3
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
+	alt_titles = list(ALT_JOB_TITLE_RU_SPACE_EXPLORER)
+	outfit = /datum/outfit/job/explorer
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+	)
+
+/datum/outfit/job/explorer
+	name = JOB_TITLE_RU_EXPLORER
+	jobtype = /datum/job/science/explorer
+	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	head = /obj/item/clothing/head/beret/black
+	suit = /obj/item/clothing/suit/armor/vest
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/research
+	l_pocket = /obj/item/kitchen/knife/combat/survival
+	pda = /obj/item/pda/toxins
+	backpack_contents = list(
+		/obj/item/storage/firstaid/doctor = 1,
+	)

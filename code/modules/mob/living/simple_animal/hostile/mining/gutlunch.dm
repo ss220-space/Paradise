@@ -40,7 +40,7 @@
 	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кишкожор",
 		GENITIVE = "кишкожора",
 		DATIVE = "кишкожору",
@@ -56,7 +56,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
 	if(udder)
-		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
+		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	QDEL_NULL(udder)
@@ -71,7 +71,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
@@ -125,7 +125,7 @@
 	name = "nutrient sac"
 
 /obj/item/udder/gutlunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "питательный мешок",
 		GENITIVE = "питательного мешка",
 		DATIVE = "питательному мешку",
@@ -136,8 +136,7 @@
 
 /obj/item/udder/gutlunch/Initialize(mapload)
 	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
+	reagents.maximum_volume = 50
 
 /obj/item/udder/gutlunch/generateMilk()
 	reagents.add_reagent("bugmilk", rand(2, 5))
@@ -148,7 +147,7 @@
 	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жирохрюн",
 		GENITIVE = "жирохрюна",
 		DATIVE = "жирохрюну",
@@ -168,7 +167,7 @@
 	gender = FEMALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "квохтун",
 		GENITIVE = "квохтуна",
 		DATIVE = "квохтуну",
@@ -195,7 +194,7 @@
 	var/growth = 0
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "червожор",
 		GENITIVE = "червожора",
 		DATIVE = "червожору",

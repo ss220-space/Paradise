@@ -19,9 +19,17 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/pinpointer/Destroy()
+	target = null
+	x_pos = null
+	y_pos = null
+	z_pos = null
+	on_error = null
+	. = ..()
+
 /obj/item/circuit_component/pinpointer/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_0_A_OV(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/pinpointer/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM, FALSE)

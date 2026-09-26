@@ -44,11 +44,15 @@ export const spawnLocationIcons = {
   'В руке выбранного моба': 'crosshairs',
 };
 
-export const directionIcons = {
-  1: 'arrow-up',
-  2: 'arrow-down',
-  4: 'arrow-right',
-  8: 'arrow-left',
+export const directionRotation = {
+  1: 0,
+  5: 45,
+  4: 90,
+  6: 135,
+  2: 180,
+  10: 225,
+  8: 270,
+  9: 315,
 };
 
 export const directionNames = {
@@ -56,4 +60,8 @@ export const directionNames = {
   2: 'ЮГ',
   4: 'ВОСТОК',
   8: 'ЗАПАД',
+  5: 'СЕВЕРО-ВОСТОК',
+  6: 'ЮГО-ВОСТОК',
+  9: 'СЕВЕРО-ЗАПАД',
+  10: 'ЮГО-ЗАПАД',
 };

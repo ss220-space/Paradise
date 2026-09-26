@@ -49,7 +49,7 @@
 	)
 
 /obj/machinery/vending/suitdispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Suitlord 9000",
 		GENITIVE = "торгового автомата Suitlord 9000",
 		DATIVE = "торговому автомату Suitlord 9000",
@@ -57,3 +57,6 @@
 		INSTRUMENTAL = "торговым автоматом Suitlord 9000",
 		PREPOSITIONAL = "торговом автомате Suitlord 9000",
 	)
+
+/obj/machinery/vending/suitdispenser/free
+	all_products_free = TRUE

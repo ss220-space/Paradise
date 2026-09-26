@@ -23,6 +23,7 @@
 /mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/waddling)
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)
 
 /mob/living/simple_animal/pet/penguin/emperor
 	name = "Emperor penguin"

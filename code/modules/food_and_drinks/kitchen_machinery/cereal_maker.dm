@@ -9,7 +9,7 @@
 	officon = "cereal_off"
 
 /obj/machinery/cooker/cerealmaker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аппарат для хлопьев",
 		GENITIVE = "аппарата для хлопьев",
 		DATIVE = "аппарату для хлопьев",

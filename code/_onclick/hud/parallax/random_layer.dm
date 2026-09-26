@@ -4,7 +4,7 @@
 	speed = 2
 	layer = 3
 
-/atom/movable/screen/parallax_layer/random/Initialize(mapload, datum/hud/hud_owner, template, atom/movable/screen/parallax_layer/random/twin)
+/atom/movable/screen/parallax_layer/random/Initialize(mapload, datum/hud/hud_owner, client/owner, template, atom/movable/screen/parallax_layer/random/twin)
 	. = ..()
 
 	if(twin)
@@ -38,16 +38,13 @@
 	parallax_color = twin.parallax_color
 	add_atom_colour(parallax_color, ADMIN_COLOUR_PRIORITY)
 
-///atom/movable/screen/parallax_layer/random/space_gas/apply_global_effects()
-	//GLOB.starlight_color = starlight_color || parallax_color
-
 /// Space gas but green for the radioactive nebula station trait
 /atom/movable/screen/parallax_layer/random/space_gas/radioactive
 	parallax_color = list(0,0,0,0, 0,2,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0) //very vibrant green
 
-///atom/movable/screen/parallax_layer/random/space_gas/radioactive/apply_global_effects()
-	//. = ..()
-	//set_base_starlight("#189156")
+/atom/movable/screen/parallax_layer/random/space_gas/radioactive/apply_global_effects()
+	. = ..()
+	set_base_starlight("#189156")
 
 /// Big asteroid rocks appear in the background
 /atom/movable/screen/parallax_layer/random/asteroids

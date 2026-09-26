@@ -74,7 +74,7 @@
 
 	for(var/datum/mind/ninja in space_ninjas)
 
-		text += "<br><b>[ninja.get_display_key()]</b> был <b>[ninja.name]</b> ("
+		text += "<br><b>[ninja.get_mind_key()]</b> был <b>[ninja.name]</b> ("
 		if(ninja.current)
 			if(ninja.current.stat == DEAD)
 				text += "Умер"

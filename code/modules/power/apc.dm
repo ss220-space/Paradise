@@ -64,6 +64,10 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
+// cell's charge for apc types
+#define CELL_IMPORTANT 5000
+#define CELL_GENERATOR 25000
+
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -199,6 +203,7 @@
 	environment_channel = CHANNEL_SETTING_OFF
 	operating = FALSE
 	emergency_power = FALSE
+	cell_type = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -206,6 +211,13 @@
 /obj/machinery/power/apc/syndicate //general syndicate access
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
+
+/obj/machinery/power/apc/important_area
+	cell_type = CELL_IMPORTANT
+
+/obj/machinery/power/apc/generator
+	cell_type = CELL_GENERATOR
+	shock_proof = TRUE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -227,41 +239,74 @@
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
+/obj/machinery/power/apc/Initialize(mapload, direction, building = FALSE)
+	. = ..()
 	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
-	..()
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, FIRE = 90, ACID = 50)
+
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
 
-	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_access = list(ACCESS_SYNDICATE)
+	var/area/apc_area = get_area(src)
+
+	if(keep_preset_name)
+		if(isarea(apc_area))
+			area = apc_area
+		// no-op, keep the name
+	else if(isarea(apc_area) && !areastring)
+		area = apc_area
+		name = "[area.name] APC"
+	else
+		name = "[get_area_name(area, TRUE)] APC"
 
 	if(building)
 		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
 		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
-
-		area = get_area(src)
-		area.apc |= src
 		opened = APC_OPENED
 		operating = FALSE
-		name = "[area.name] APC"
 		stat |= MAINT
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(update)), 5)
+	else
+		electronics_state = APC_ELECTRONICS_SECURED
+		// is starting with a power cell installed, create it and set its charge level
+		if(cell_type)
+			cell = new/obj/item/stock_parts/cell/upgraded(src)
+			cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+			cell.charge = start_charge * cell.maxcharge / 100 // (convert percentage to actual value)
+		make_terminal()
+
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_access = list(ACCESS_SYNDICATE)
+	cog = null // Or you can't put it in
+
+	//if area isn't specified use current
+	area.apc |= src
+
+	// Make the apc visually interactive
+	register_context()
+	addtimer(CALLBACK(src, PROC_REF(update)), 0.5 SECONDS)
+	update_appearance()
+
+	var/static/list/hovering_mob_typechecks = list(
+		/mob/living/silicon = list(
+			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+			SCREENTIP_CONTEXT_RMB = "Разблокировать/Заблокировать",
+		)
+	)
+	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
 
 /obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	area.power_light = 0
-	area.power_equip = 0
-	area.power_environ = 0
-	area.power_change()
+	if(area)
+		area.power_light = FALSE
+		area.power_equip = FALSE
+		area.power_environ = FALSE
+		area.power_change()
 	if(occupier)
 		malfvacate(TRUE)
 	QDEL_NULL(wires)
@@ -278,37 +323,6 @@
 	terminal = new/obj/machinery/power/terminal(get_turf(src))
 	terminal.setDir(dir)
 	terminal.master = src
-
-/obj/machinery/power/apc/Initialize(mapload)
-	var/area/A = get_area(src)
-	//if area isn't specified use current
-	if(keep_preset_name)
-		if(isarea(A))
-			area = A
-		// no-op, keep the name
-	else if(isarea(A) && !areastring)
-		area = A
-		name = "[area.name] APC"
-	else
-		name = "[get_area_name(area, TRUE)] APC"
-	area.apc |= src
-	. = ..()
-	if(!mapload)
-		return
-	electronics_state = APC_ELECTRONICS_SECURED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new/obj/item/stock_parts/cell/upgraded(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100		// (convert percentage to actual value)
-
-	cog = null // Or you can't put it in
-
-	update_icon()
-
-	make_terminal()
-
-	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
@@ -613,9 +627,9 @@
 			return ATTACK_CHAIN_PROCEED
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
-			throw EXCEPTION("attackby on APC when it's not on a turf")
-			return ATTACK_CHAIN_PROCEED
-		if(!host_turf.can_have_cabling() || host_turf.intact)
+			. = ATTACK_CHAIN_PROCEED
+			CRASH("attackby on APC when it's not on a turf")
+		if(!host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 			to_chat(user, span_warning("You should remove the floor plating in front of the APC first."))
 			return ATTACK_CHAIN_PROCEED
 		if(!has_electronics())
@@ -629,10 +643,11 @@
 			span_notice("You start to construct the cable terminal beneath the APC frame..."),
 		)
 		coil.play_tool_sound(src)
-		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || terminal || !host_turf.can_have_cabling() || host_turf.intact || !has_electronics() || QDELETED(coil))
+		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || terminal || !host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || !has_electronics() || QDELETED(coil))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/structure/cable/node = host_turf.get_cable_node()
-		if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
+		CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+		if(prob(50 * prob_mod) && electrocute_mob(user, node, node, 1, TRUE))
 			do_sparks(5, TRUE, src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!coil.use(10))
@@ -770,6 +785,30 @@
 		update_icon()
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/storage/part_replacer))
+		add_fingerprint(user)
+		if(stat & BROKEN)
+			to_chat(user, span_warning("Для этого ЛКП должен быть цел."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(opened == APC_CLOSED)
+			playsound(loc, 'sound/items/crowbar.ogg', 30, TRUE)
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает открывать техническую панель ЛКП."),
+				span_notice("Вы начали открывать техническую панель ЛКП.."),
+			)
+			if(!do_after(user, 10 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || opened != APC_CLOSED)
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] открыл техническую панель ЛКП."),
+				span_notice("Вы открыли техническую панель ЛКП."),
+			)
+			opened = APC_OPENED
+			update_icon()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		cell_upgrade_by_rped(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
 
@@ -1070,7 +1109,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
@@ -1122,10 +1161,12 @@
 	return "[area.name] : [equipment_channel]/[lighting_channel]/[environment_channel] ([last_used_equipment+last_used_lighting+last_used_environment]) : [cell? cell.percent() : "N/C"] ([charging])"
 
 /obj/machinery/power/apc/proc/update()
+	var/area/area = src.area
 	if(operating && !shorted)
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_equip = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_environ = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
+		playsound(loc, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -1137,6 +1178,7 @@
 		area.power_light = FALSE
 		area.power_equip = FALSE
 		area.power_environ = FALSE
+		playsound(loc, 'sound/machines/terminal_off.ogg', 50, FALSE)
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	area.power_change()
 
@@ -1370,6 +1412,8 @@
 /obj/machinery/power/apc/process()
 	if(stat & (BROKEN|MAINT))
 		return
+	var/area/area = src.area
+	var/obj/item/stock_parts/cell/cell = src.cell
 	if(!area.requires_power)
 		return
 
@@ -1402,18 +1446,19 @@
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [last_used_equipment] - Last Light: [last_used_lighting] - Longterm: [longtermpower]")
 
 	if(cell && !shorted)
+		var/cell_rate = GLOB.CELLRATE
 		// draw power from cell as before to power the area
-		var/cellused = min(cell.charge, GLOB.CELLRATE * last_used_total)	// clamp deduction to a max, amount left in cell
+		var/cellused = min(cell.charge, cell_rate * last_used_total)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)
 
 		if(excess > last_used_total)		// if power excess recharge the cell
 										// by the same amount just used
 			cell.give(cellused)
-			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
+			add_load(cellused / cell_rate)		// add the load used to recharge the cell
 
 		else		// no excess, and not enough per-apc
-			if((cell.charge/GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
+			if((cell.charge / cell_rate + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
+				cell.charge = min(cell.maxcharge, cell.charge + cell_rate * excess)	//recharge with what we can
 				add_load(excess)		// so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 
@@ -1440,8 +1485,8 @@
 		if(chargemode && charging == APC_IS_CHARGING && operating)
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
-				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
+				var/ch = min(excess * cell_rate, cell.maxcharge * GLOB.CHARGELEVEL)
+				add_load(ch / cell_rate) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
@@ -1455,7 +1500,7 @@
 
 		if(chargemode)
 			if(charging == APC_NOT_CHARGING)
-				if(excess > cell.maxcharge*GLOB.CHARGELEVEL)
+				if(excess > cell.maxcharge * GLOB.CHARGELEVEL)
 					chargecount++
 				else
 					chargecount = 0
@@ -1736,6 +1781,33 @@
 	if(apc_area)
 		apc_area.power_change()
 
+/obj/machinery/power/apc/proc/cell_upgrade_by_rped(mob/user, obj/item/storage/part_replacer/rped)
+	var/obj/item/stock_parts/cell/best_cell
+	for(var/obj/item/stock_parts/cell/newcell in rped.contents)
+		if(!cell || newcell.maxcharge > cell.maxcharge || newcell.charge > cell.charge * 2)
+			if(!best_cell || newcell.maxcharge > best_cell.maxcharge)
+				best_cell = newcell
+
+	if(best_cell)
+		rped.remove_from_storage(best_cell, src)
+		rped.handle_item_insertion(cell, TRUE)
+		playsound(loc, 'sound/items/rped.ogg', 30, TRUE)
+		if(cell)
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] заменил [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы заменили [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+			)
+		else
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] установил [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы установили [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+			)
+		cell = best_cell
+		update_icon()
+		return
+
+	to_chat(user, span_warning("Невозможно заменить батарею!"))
+
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1
 #undef UPSTATE_OPENED2
@@ -1788,3 +1860,13 @@
 #undef APC_ELECTRONICS_INSTALLED
 #undef APC_ELECTRONICS_SECURED
 
+#undef CELL_IMPORTANT
+#undef CELL_GENERATOR
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important_area, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 26, 26)

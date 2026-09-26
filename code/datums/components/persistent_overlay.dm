@@ -9,7 +9,7 @@
 	if(!isatom(parent) || !istext(dupe_id) || dupe_id == DEFAULT_DUPE_ID)
 		return COMPONENT_INCOMPATIBLE
 
-	var/all_persistent = parent.datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = parent._datum_components?[/datum/component/persistent_overlay]
 	if(all_persistent)
 		if(!islist(all_persistent))
 			all_persistent = list(all_persistent)

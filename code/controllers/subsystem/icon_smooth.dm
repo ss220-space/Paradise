@@ -1,12 +1,12 @@
 SUBSYSTEM_DEF(icon_smooth)
 	name = "Icon Smoothing"
-	init_order = INIT_ORDER_ICON_SMOOTHING
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	)
 	wait = 1
 	priority = FIRE_PRIORITY_SMOOTHING
-	flags = SS_TICKER
-	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "icon_smooth"
+	ss_flags = SS_TICKER|SS_HIBERNATE
+
 	/**
 	 *	Used to track instances of icon smooth halters. Does not apply to roundstart loading, however.
 	 *  Always make sure to remove halt source from this list on the end of operation.
@@ -14,6 +14,13 @@ SUBSYSTEM_DEF(icon_smooth)
 	var/halt_sources = list()
 	var/list/smooth_queue = list()
 	var/list/deferred = list()
+
+/datum/controller/subsystem/icon_smooth/PreInit()
+	. = ..()
+	hibernate_checks = list(
+		NAMEOF(src, smooth_queue),
+		NAMEOF(src, halt_sources),
+	)
 
 /datum/controller/subsystem/icon_smooth/fire()
 	if(length(halt_sources))
@@ -26,7 +33,7 @@ SUBSYSTEM_DEF(icon_smooth)
 		if(QDELETED(smoothing_atom) || !(smoothing_atom.smooth & SMOOTH_QUEUED))
 			continue
 		if(smoothing_atom.flags & INITIALIZED)
-			smooth_icon(smoothing_atom)
+			smoothing_atom.smooth_icon()
 		else
 			deferred += smoothing_atom
 		if(MC_TICK_CHECK)
@@ -46,11 +53,11 @@ SUBSYSTEM_DEF(icon_smooth)
 	// Smooth EVERYTHING in the world
 	for(var/turf/T in world)
 		if(T.smooth)
-			smooth_icon(T)
+			T.smooth_icon()
 		for(var/A in T)
 			var/atom/AA = A
 			if(AA.smooth)
-				smooth_icon(AA)
+				AA.smooth_icon(AA)
 				CHECK_TICK
 
 	// Incase any new atoms were added to the smoothing queue for whatever reason
@@ -59,7 +66,7 @@ SUBSYSTEM_DEF(icon_smooth)
 		var/atom/A = V
 		if(!A || A.z <= 2)
 			continue
-		smooth_icon(A)
+		A.smooth_icon()
 		CHECK_TICK
 
 	return SS_INIT_SUCCESS

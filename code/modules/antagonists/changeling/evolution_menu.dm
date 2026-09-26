@@ -4,8 +4,8 @@
 #define EXPANDED_MODE 1
 
 /datum/action/changeling/evolution_menu
-	name = "-Evolution Menu-" //Dashes are so it's listed before all the other abilities.
-	desc = "Choose our method of subjugation."
+	name = "Меню эволюции" //Dashes are so it's listed before all the other abilities.
+	desc = "Выберите наш способ доминировать."
 	button_icon_state = "changelingsting"
 	power_type = CHANGELING_INNATE_POWER
 	/// Which UI view will be displayed. Compact mode will show only ability names, and will leave out their descriptions and helptext.
@@ -32,7 +32,7 @@
 
 /datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
 	if(!ishuman(user))	// No need to manipulate with the menu while you are not a humanoid
-		to_chat(user, span_warning("We cannot do that in this form!"))
+		user.balloon_alert(user, "неподходящая форма")
 		return
 	ui_interact(user)
 
@@ -42,7 +42,7 @@
 /datum/action/changeling/evolution_menu/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "EvolutionMenu", "Evolution Menu")
+		ui = new(user, src, "EvolutionMenu", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -94,20 +94,20 @@
 		return FALSE
 
 	if(power_type in purchased_abilities)
-		to_chat(owner, span_warning("We have already evolved this ability!"))
+		to_chat(owner, span_warning("Мы уже развили эту способность!"))
 		return FALSE
 
 	var/datum/action/changeling/power = power_type
 	if(cling.absorbed_count < initial(power.req_dna))
-		to_chat(owner, span_warning("We must absorb more victims before we can evolve this ability!"))
+		to_chat(owner, span_warning("Мы должны поглотить больше ДНК для развития этой способности!"))
 		return FALSE
 
 	if(cling.genetic_points < initial(power.dna_cost))
-		to_chat(owner, span_warning("We cannot afford to evolve this ability!"))
+		to_chat(owner, span_warning("Нам не хватает очков развития для этой способности!"))
 		return FALSE
 
 	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH)) // To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
-		to_chat(owner, span_warning("We lack the energy to evolve new abilities right now."))
+		to_chat(owner, span_warning("Мы заняты регенерацией и у нас не хватит сил для развития!"))
 		return FALSE
 
 	cling.give_power(new power_type)

@@ -168,6 +168,16 @@
 	/// Sent when the valve is closed
 	var/datum/port/output/closed
 
+/obj/item/circuit_component/digital_valve/Destroy()
+	if(attached_valve)
+		unregister_usb_parent(attached_valve)
+	open = null
+	close = null
+	is_open = null
+	opened = null
+	closed = null
+	. = ..()
+
 /obj/item/circuit_component/digital_valve/populate_ports()
 	open = add_input_port("Открыть", PORT_TYPE_SIGNAL)
 	close = add_input_port("Закрыть", PORT_TYPE_SIGNAL)

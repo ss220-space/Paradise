@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 		melee_damage_upper = initial(melee_damage_upper) + damage_increase * current_teleport_count
 		obj_damage = initial(obj_damage) + obj_damage_increase * current_teleport_count
 
-/mob/living/simple_animal/hostile/bread_monster/New(loc, ...)
+/mob/living/simple_animal/hostile/bread_monster/Initialize(mapload)
 	. = ..()
 	GLOB.bread_monsters += src
 

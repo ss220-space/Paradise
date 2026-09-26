@@ -7,6 +7,13 @@
 		qdel(src)
 	owner = new_owner
 
+/datum/orbit_menu/Destroy(force)
+	var/owner_menu = owner?.orbit_menu
+	if(owner_menu && owner_menu == src)
+		owner.orbit_menu = null
+	owner = null
+	return ..()
+
 /datum/orbit_menu/ui_state(mob/user)
 	return GLOB.observer_state
 

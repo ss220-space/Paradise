@@ -1,4 +1,4 @@
-/datum/game_test/initialize_sanity/Run()
+/datum/unit_test/initialize_sanity/Run()
 	if(length(SSatoms.BadInitializeCalls))
 		TEST_FAIL("Bad Initialize() calls detected. Please read logs.")
 		var/list/init_failures_to_text = list(

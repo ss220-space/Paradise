@@ -17,7 +17,7 @@
 	var/obj/machinery/power/solar_control/control = null
 
 /obj/machinery/power/solar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "солнечная панель",
 		GENITIVE = "солнечной панели",
 		DATIVE = "солнечной панели",
@@ -132,7 +132,9 @@
 		sunfrac = 0
 		return
 
-	sunfrac = cos(p_angle) ** 2
+	var/cos_p_angle = cos(p_angle)
+
+	sunfrac = POW2(cos_p_angle)
 	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
 
 /obj/machinery/power/solar/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
@@ -156,9 +158,6 @@
 	stat |= BROKEN
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
-	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
 	. = PROCESS_KILL
@@ -205,7 +204,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заготовка солнечной панели",
 		GENITIVE = "заготовки солнечной панели",
 		DATIVE = "заготовке солнечной панели",

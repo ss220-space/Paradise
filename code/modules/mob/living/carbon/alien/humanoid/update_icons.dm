@@ -32,15 +32,9 @@
 			icon = alt_icon
 			alt_icon = old_icon
 
-	pixel_x = base_pixel_x + body_position_pixel_x_offset
-	pixel_y = base_pixel_y + body_position_pixel_y_offset
-
 	update_held_items()
 	update_pockets()
 	update_fire()
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))

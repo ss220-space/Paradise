@@ -26,7 +26,7 @@
 	var/current_interactions = 0
 
 /obj/item/storage/toolbox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик для инструментов",
 		GENITIVE = "ящика для инструментов",
 		DATIVE = "ящику для инструментов",
@@ -78,14 +78,14 @@
 
 	return TRUE
 
-/obj/item/storage/toolbox/afterattack(atom/object, mob/living/user, proximity, params)
+/obj/item/storage/toolbox/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(!check_for_radial_menu_availability(object, user, proximity))
+	if(!check_for_radial_menu_availability(target, user, proximity_flag))
 		return
 
-	handle_radial_menu_interaction(object, user)
+	handle_radial_menu_interaction(target, user)
 
 /obj/item/storage/toolbox/proc/handle_radial_menu_interaction(atom/object, mob/living/user)
 	if(current_interactions)
@@ -105,7 +105,7 @@
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
 
-	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, object), require_near = TRUE, anim_speed = 0.1)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, object), require_near = TRUE)
 	if(!picked_item)
 		return
 
@@ -150,7 +150,7 @@
 	picked_tool.tool_attack_chain(user, object)
 	current_interactions -= 1
 
-	if(QDELETED(picked_tool) || picked_tool.loc != user || !user.Adjacent(picked_tool))
+	if(QDELETED(picked_tool) || picked_tool.loc != user || !picked_tool.IsReachableBy(user))
 		current_interactions = 0
 		return
 
@@ -171,7 +171,7 @@
 	name = "emergency toolbox"
 
 /obj/item/storage/toolbox/emergency/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экстренный ящик для инструментов",
 		GENITIVE = "экстренного ящика для инструментов",
 		DATIVE = "экстренному ящику для инструментов",
@@ -196,7 +196,7 @@
 	item_state = "toolbox_red_rusted"
 
 /obj/item/storage/toolbox/emergency/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
 		DATIVE = "ржавому ящику для инструментов",
@@ -211,7 +211,7 @@
 	item_state = "toolbox_blue"
 
 /obj/item/storage/toolbox/mechanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик для механических инструментов",
 		GENITIVE = "ящика для механических инструментов",
 		DATIVE = "ящику для механических инструментов",
@@ -240,7 +240,7 @@
 	item_state = "toolbox_blue_rusted"
 
 /obj/item/storage/toolbox/mechanical/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
 		DATIVE = "ржавому ящику для инструментов",
@@ -255,7 +255,7 @@
 	item_state = "toolbox_yellow"
 
 /obj/item/storage/toolbox/electrical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик для электромонтажных инструментов",
 		GENITIVE = "ящика для электромонтажных инструментов",
 		DATIVE = "ящику для электромонтажных инструментов",
@@ -289,7 +289,7 @@
 	blurry_chance = 8
 
 /obj/item/storage/toolbox/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный ящик для инструментов",
 		GENITIVE = "подозрительного ящика для инструментов",
 		DATIVE = "подозрительному ящику для инструментов",
@@ -319,7 +319,7 @@
 	blurry_chance = 12
 
 /obj/item/storage/toolbox/syndisuper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "очень подозрительный ящик для инструментов",
 		GENITIVE = "очень подозрительного ящика для инструментов",
 		DATIVE = "очень подозрительному ящику для инструментов",
@@ -344,7 +344,7 @@
 	item_state = "toolbox_syndie"
 
 /obj/item/storage/toolbox/fakesyndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный ящик для инструментов",
 		GENITIVE = "подозрительного ящика для инструментов",
 		DATIVE = "подозрительному ящику для инструментов",
@@ -382,7 +382,7 @@
 	storage_slots = 28
 
 /obj/item/storage/toolbox/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный ящик",
 		GENITIVE = "латунного ящика",
 		DATIVE = "латунному ящику",
@@ -425,7 +425,7 @@
 	)
 
 /obj/item/storage/toolbox/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический набор",
 		GENITIVE = "хирургического набора",
 		DATIVE = "хирургическому набору",
@@ -466,7 +466,7 @@
 	new /obj/item/FixOVein(src)
 
 /obj/item/storage/toolbox/surgery/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый хирургический набор",
 		GENITIVE = "продвинутого хирургического набора",
 		DATIVE = "продвинутому хирургическому набору",
@@ -485,7 +485,7 @@
 	item_state = "surgerykit_alien"
 
 /obj/item/storage/toolbox/surgery/alien/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инородный хирургический набор",
 		GENITIVE = "инородного хирургического набора",
 		DATIVE = "инородному хирургическому набору",
@@ -520,7 +520,7 @@
 	throwforce = 4
 
 /obj/item/storage/toolbox/surgery/ashwalker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический саквояж",
 		GENITIVE = "хирургического саквояжа",
 		DATIVE = "хирургическому саквояжу",
@@ -549,7 +549,7 @@
 	item_state = "toolbox_green"
 
 /obj/item/storage/toolbox/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "артистический ящик для инструментов",
 		GENITIVE = "артистического ящика для инструментов",
 		DATIVE = "артистическому ящику для инструментов",

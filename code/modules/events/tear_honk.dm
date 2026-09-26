@@ -29,7 +29,7 @@
 	)
 
 /obj/effect/tear/honk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хонкомысленный разрыв",
 		GENITIVE = "хонкомысленного разрыва",
 		DATIVE = "хонкомысленному разрыву",

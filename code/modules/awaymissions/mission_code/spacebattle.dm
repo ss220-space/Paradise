@@ -362,13 +362,13 @@
 		if(25 to 35) // 10%
 			SynRange = /obj/item/ammo_box/magazine/m10mm
 		if(35 to 40) // 5%
-			SynRange = /obj/item/gun/projectile/automatic/pistol
+			SynRange = /obj/item/gun/projectile/automatic/pistol/stechkin
 		if(40 to 47) // 7%
 			SynRange = /obj/item/clothing/accessory/holster
 		if(47 to 50) // 3%
 			SynRange = /obj/item/ammo_box/magazine/smgm45
 		if(50 to 51) // 1%
-			SynRange = /obj/item/gun/projectile/automatic/c20r
+			SynRange = /obj/item/gun/projectile/automatic/smg/c20r/rusted
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
 	. = ..()
@@ -417,12 +417,6 @@
 	maxHealth = 50
 	faction = list("syndicate")
 	projectiletype = /obj/projectile/beam/laser/syndrone
-
-/obj/projectile/beam/laser/syndrone
-	name = "light immolation beam"
-	damage = 8
-	icon_state = "scatterlaser"
-	eyeblur = 2 SECONDS
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, TRUE, src)
@@ -512,7 +506,7 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/tastybread,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
+		/obj/item/reagent_containers/cup/soda_cans/dr_gibb,
 		/obj/item/pen,
 		/obj/item/screwdriver,
 		/obj/item/stack/tape_roll,
@@ -573,7 +567,7 @@
 				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
 			)
 		if(8 to 9) //20%
-			suit_store = /obj/item/gun/projectile/automatic/wt550
+			suit_store = /obj/item/gun/projectile/automatic/smg/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/magazine/wt550m9 = 1,
@@ -652,8 +646,8 @@
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
-		/obj/item/reagent_containers/glass/bottle/random_reagent = 1,
-		/obj/item/reagent_containers/glass/bottle/random_chem = 1,
+		/obj/item/reagent_containers/cup/bottle/random_reagent = 1,
+		/obj/item/reagent_containers/cup/bottle/random_chem = 1,
 	)
 	return ..()
 
@@ -689,7 +683,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, FIRE = 50, ACID = 90)
 	icon_state = "hardsuit1-syndi"
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged

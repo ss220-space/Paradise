@@ -15,6 +15,10 @@
 
 	var/datum/port/input/bar_number
 
+/obj/item/circuit_component/object_overlay/bar/Destroy()
+	bar_number = null
+	. = ..()
+
 /obj/item/circuit_component/object_overlay/bar/populate_ports()
 	. = ..()
 	bar_number = add_input_port("Число", PORT_TYPE_NUMBER)

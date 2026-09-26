@@ -26,11 +26,12 @@
 #define ROLE_HOG_CULTIST "hand of god: cultist"
 #define ROLE_DEVIL "devil"
 #define ROLE_KRAMPUS "krampus"
-#define ROLE_RAIDER "vox raider"
+#define ROLE_VOX_RAIDER "vox raider"
 #define ROLE_TRADER "trader"
 #define ROLE_VAMPIRE "vampire"
 #define ROLE_THIEF "thief"
 #define ROLE_TERROR_SPIDER "Terror Spider"
+#define ROLE_BINGLE "Bingle"
 // Role tags for EVERYONE!
 #define ROLE_BORER "cortical borer"
 #define ROLE_DEMON "demon"
@@ -50,8 +51,8 @@
 #define ROLE_MALF_AI "Malfunctioning AI"
 #define ROLE_ESCAPING_PRISONER "escaping prisoner"
 
-#define ROLE_NONE "nothing"	// special define used as a marker
-#define ROLE_HIJACKER "hijacker"	// another marker
+#define ROLE_NONE "nothing" // special define used as a marker
+#define ROLE_HIJACKER "hijacker" // another marker
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -86,9 +87,10 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TRADER, // Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, // Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, // Vampire
-	ROLE_RAIDER = /datum/game_mode/heist, // Vox raider
+	ROLE_VOX_RAIDER, // Vox raider
 	ROLE_WIZARD = /datum/game_mode/wizard, // Wizard
 	ROLE_ALIEN, // Xenomorph
+	ROLE_BINGLE, // Bingle
 ))
 
 #define ROLE_PRISONERS_MAX_COUNT 4

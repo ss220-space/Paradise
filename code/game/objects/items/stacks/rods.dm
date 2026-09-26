@@ -1,16 +1,16 @@
 GLOBAL_LIST_INIT(rod_recipes, list ( \
-	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
-	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
-		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
 		)), \
 	))
 
@@ -21,10 +21,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	force = 9.0
-	throwforce = 10.0
+	force = 9
+	throwforce = 10
 	throw_speed = 3
 	materials = list(MAT_METAL=1000)
+	matter_amount = 0.5
 	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
@@ -79,34 +80,22 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
-/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		melee_attack_chain(user, target, click_parameters)
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, list/modifiers)
+	target.attackby(src, user, list2params(modifiers))
 
-/obj/item/stack/fireproof_rods
+/obj/item/stack/rods/fireproof
 	name = "fireproof rods"
 	desc = "Жаропрочные стержни, способные выдержать жар в несколько тысяч градусов. Могут использоваться для строительства мостов над лавой."
 	singular_name = "fireproof rod"
 	icon_state = "f_rods"
 	item_state = "f_rods"
-	flags = CONDUCT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	force = 9.0
-	throwforce = 10.0
-	throw_speed = 3
-	attack_verb = list("ударил", "огрел")
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
-	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	usesound = 'sound/items/deconstruct.ogg'
+	matter_amount = 2
 
-/obj/item/stack/fireproof_rods/twentyfive
+/obj/item/stack/rods/fireproof/twentyfive
 	amount = 25
 
-/obj/item/stack/fireproof_rods/update_icon_state()
+/obj/item/stack/rods/fireproof/update_icon_state()
 	var/amount = get_amount()
 	icon_state = "f_rods-[clamp(amount, 1, 5)]"
-
-/obj/item/stack/fireproof_rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		melee_attack_chain(user, target, click_parameters)
-

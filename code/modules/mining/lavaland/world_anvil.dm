@@ -6,7 +6,6 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	climbable = TRUE
 	pass_flags = LETPASSTHROW
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// What is currently forging in source
@@ -15,7 +14,7 @@
 	var/obj/item/gps/internal
 
 /obj/structure/world_anvil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Мировая Кузня",
 		GENITIVE = "Мировой Кузни",
 		DATIVE = "Мировой Кузне",
@@ -23,6 +22,11 @@
 		INSTRUMENTAL = "Мировой Кузней",
 		PREPOSITIONAL = "Мировой Кузне",
 	)
+
+/obj/structure/world_anvil/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 16)
 
 /obj/item/gps/internal/world_anvil
 	icon_state = null
@@ -55,7 +59,7 @@
 
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
-	. += span_notice("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
+	. += span_notice("Доступно [forge_charges] ковочн[DECL_YJ_YH_YH(forge_charges)] заряд[DECL_0_A_OV(forge_charges)].")
 
 /obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -70,7 +74,7 @@
 		if(!user.drop_transfer_item_to_loc(gibtonite, src))
 			return ..()
 		forge_charges = forge_charges + gibtonite.quality
-		to_chat(user, span_notice("Вы помещаете гибтонит на Мировую Кузню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[declension_ru(forge_charges,"ого заряда","ых зарядов","ых зарядов")]."))
+		to_chat(user, span_notice("Вы помещаете гибтонит на Мировую Кузню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[DECL_YJ_YH_YH(forge_charges)] заряд[DECL_0_A_OV(forge_charges)]."))
 		qdel(gibtonite)
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -83,7 +87,7 @@
 		if(!user.drop_transfer_item_to_loc(gem, src))
 			return ..()
 		forge_charges += 3
-		to_chat(user, span_notice("Вы помещаете драконий янтарь на Мировую Наковальню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[declension_ru(forge_charges,"ого заряда","ых зарядов","ых зарядов")]."))
+		to_chat(user, span_notice("Вы помещаете драконий янтарь на Мировую Наковальню, наблюдая как он плавится. Теперь наковальня достаточно нагрета для <b>[forge_charges]</b> ковочн[DECL_YJ_YH_YH(forge_charges)] заряд[DECL_0_A_OV(forge_charges)]."))
 		qdel(gem)
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL

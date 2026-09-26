@@ -7,14 +7,18 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
+	spawn_loot()
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
+	var/list/weighted_loot = fill_with_ones(loot)
 	while(lootcount)
-		var/lootspawn = pickweight(loot)
+		var/lootspawn = pickweight(weighted_loot)
 		if(lootspawn)
 			new lootspawn(get_turf(src))
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 		lootcount--
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner"
@@ -127,11 +131,14 @@
 		/obj/item/clothing/head/helmet/biker = 2,
 		/obj/item/mod/construction/broken_core = 4,
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
+		/obj/item/tripod/camera = 1,
+		/obj/item/book/skill_manual/random = 2,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps/scarecrow = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
+		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
 		/obj/item/stack/tape_roll/thick = 7,
 		/obj/item/gun/syringe/syndicate = 2,
@@ -155,8 +162,16 @@
 		/obj/item/storage/pill_bottle/fakedeath = 2,
 		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 		/obj/item/clothing/glasses/chameleon/meson = 7,
+		/obj/item/book/skill_manual/combat/random = 1,
 		"" = 70,
 	)
+
+/obj/effect/spawner/lootdrop/maintenance/spawn_loot()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
+		return
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
+		lootcount = FLOOR(lootcount * 1.5, 1)
+	return ..()
 
 /obj/effect/spawner/lootdrop/maintenance/double
 	icon_state = "x2"
@@ -252,7 +267,7 @@
 	name = "3. Donksoft gear"
 	lootcount = 8
 	loot = list(
-		/obj/item/gun/projectile/automatic/c20r/toy = 150,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy = 150,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 100,
 		/obj/item/gun/projectile/automatic/toy/pistol = 200,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 100,
@@ -307,24 +322,24 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_med = 50,
 		/obj/item/stack/nanopaste = 50,
 		/obj/item/storage/pill_bottle/random_meds/labelled = 50,
-		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+		/obj/item/reagent_containers/cup/bottle/reagent/omnizine = 50,
+		/obj/item/reagent_containers/cup/bottle/reagent/strange_reagent = 50,
 		/obj/item/scalpel/laser/manager = 50,
 		/obj/item/organ/internal/heart/gland/ventcrawling = 50,
 		/obj/item/organ/internal/heart/gland/heals = 50,
 		/obj/item/dnainjector/regenerate = 50,
 		/obj/item/dnainjector/nobreath = 50,
 		/obj/item/dnainjector/telemut = 50,
-		/obj/item/reagent_containers/glass/bottle/regeneration = 50,
-		/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
+		/obj/item/reagent_containers/cup/bottle/regeneration = 50,
+		/obj/item/reagent_containers/cup/bottle/sensory_restoration = 50,
 		/obj/item/autopsy_scanner = 50,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical = 50,
 		/obj/item/gun/medbeam = 50,
 		/obj/item/reagent_containers/applicator/dual/syndi = 50,
-		/obj/item/reagent_containers/glass/bottle/retrovirus = 50,
-		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
-		/obj/item/reagent_containers/glass/bottle/tuberculosiscure = 50,
-		/obj/item/reagent_containers/glass/bottle/gbs = 50,
+		/obj/item/reagent_containers/cup/bottle/retrovirus = 50,
+		/obj/item/reagent_containers/cup/bottle/reagent/strange_reagent = 50,
+		/obj/item/reagent_containers/cup/bottle/tuberculosiscure = 50,
+		/obj/item/reagent_containers/cup/bottle/gbs = 50,
 		/obj/item/mod/construction/plating/rescue = 25,
 		/obj/item/bodyanalyzer/advanced = 50,
 	)
@@ -385,7 +400,7 @@
 	lootcount = 1
 	loot = list(
 		/obj/machinery/floodlight = 50,
-		/obj/machinery/disco = 50,
+		/obj/machinery/jukebox/disco = 50,
 		/obj/mecha/combat/durand/old = 50,
 		/obj/machinery/snow_machine = 50,
 	)

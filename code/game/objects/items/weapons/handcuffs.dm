@@ -13,8 +13,8 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakout_time = 150 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	breakout_time = 2 MINUTES
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	custom_price = PAYCHECK_MIN * 1.2
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	/// If TRUE, these cuffs are disposable
@@ -22,7 +22,7 @@
 	var/ignoresClumsy = FALSE
 
 /obj/item/restraints/handcuffs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наручники",
 		GENITIVE = "наручников",
 		DATIVE = "наручникам",
@@ -128,9 +128,10 @@
 	item_state = "sinewcuff"
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/sinew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки из сухожилий",
 		GENITIVE = "стяжек из сухожилий",
 		DATIVE = "стяжкам из сухожилий",
@@ -149,9 +150,10 @@
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 	custom_price = PAYCHECK_MIN
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/cable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки из проводов",
 		GENITIVE = "стяжек из проводов",
 		DATIVE = "стяжкам из проводов",
@@ -184,9 +186,9 @@
 /obj/item/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
-/obj/item/restraints/handcuffs/cable/random/New()
+/obj/item/restraints/handcuffs/cable/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	..()
 
 /obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
 	if(!colorC)
@@ -232,7 +234,7 @@
 		user.put_in_hands(bola, ignore_anim = FALSE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I
 		cable_color(crayon.colourName)
@@ -250,7 +252,7 @@
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
 /obj/item/restraints/handcuffs/cable/zipties/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки",
 		GENITIVE = "стяжек",
 		DATIVE = "стяжкам",
@@ -278,7 +280,7 @@
 	icon_state = "pinkcuffs"
 
 /obj/item/restraints/handcuffs/pinkcuffs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовые наручники",
 		GENITIVE = "розовых наручников",
 		DATIVE = "розовым наручникам",
@@ -296,7 +298,6 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "manacle_lock"
 	item_state = "manacle"
-	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
 		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi',
@@ -305,7 +306,7 @@
 	trashtype = /obj/item/restraints/handcuffs/manacles/used
 
 /obj/item/restraints/handcuffs/manacles/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кандалы",
 		GENITIVE = "кандалов",
 		DATIVE = "кандалам",

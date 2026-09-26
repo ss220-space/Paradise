@@ -26,7 +26,7 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель средства от сорняков",
 		GENITIVE = "распылителя средства от сорняков",
 		DATIVE = "распылителю средства от сорняков",
@@ -50,7 +50,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель пестицидов",
 		GENITIVE = "распылителя пестицидов",
 		DATIVE = "распылителю пестицидов",
@@ -93,7 +93,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/cultivator/rake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грабли",
 		GENITIVE = "граблей",
 		DATIVE = "граблям",
@@ -255,20 +255,22 @@
 // Nutrient defines for hydroponics
 // *************************************
 
-/obj/item/reagent_containers/glass/bottle/nutrient
+/obj/item/reagent_containers/cup/bottle/nutrient
 	name = "jug of nutrient"
 	desc = "Пластиковая канистра для различных жидкостей."
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	fill_icon_state = "plastic_jug"
+	possible_transfer_amounts = list(1, 2, 5, 10, 20, 40, 80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
+	fill_icon_thresholds = list(1, 25, 40, 55, 70, 85, 100)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра",
 		GENITIVE = "канистры",
 		DATIVE = "канистре",
@@ -277,13 +279,18 @@
 		PREPOSITIONAL = "канистре",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/New()
-	..()
-	add_lid()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/cup/bottle/nutrient/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
+/obj/item/reagent_containers/cup/bottle/nutrient/update_overlays()
+	. = ..()
+
+	if(has_lid)
+		. += "plastic_jug_lid"
+
+/obj/item/reagent_containers/cup/bottle/nutrient/on_reagent_change()
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 	if(reagents.total_volume)
@@ -293,42 +300,14 @@
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 
-/obj/item/reagent_containers/glass/bottle/nutrient/update_overlays()
-	. = ..()
-	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 10)
-				filling.icon_state = "plastic_jug-10"
-			if(11 to 29)
-				filling.icon_state = "plastic_jug25"
-			if(30 to 45)
-				filling.icon_state = "plastic_jug40"
-			if(46 to 61)
-				filling.icon_state = "plastic_jug55"
-			if(62 to 77)
-				filling.icon_state = "plastic_jug70"
-			if(78 to 92)
-				filling.icon_state = "plastic_jug85"
-			if(93 to INFINITY)
-				filling.icon_state = "plastic_jug100"
-
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling
-
-	if(!is_open_container())
-		. += "lid_jug"
-
-/obj/item/reagent_containers/glass/bottle/nutrient/ez
+/obj/item/reagent_containers/cup/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/ez/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/ez/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
 		GENITIVE = "канистры (И-ЗИ-Нутриент)",
 		DATIVE = "канистре (И-ЗИ-Нутриент)",
@@ -337,14 +316,14 @@
 		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/l4z
+/obj/item/reagent_containers/cup/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutriment" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/l4z/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/l4z/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра (Лефт-Фо-Зед)",
 		GENITIVE = "канистры (Лефт-Фо-Зед)",
 		DATIVE = "канистре (Лефт-Фо-Зед)",
@@ -353,14 +332,14 @@
 		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/rh
+/obj/item/reagent_containers/cup/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutriment" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/rh/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/rh/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра (Робаст-Харвест)",
 		GENITIVE = "канистры (Робаст-Харвест)",
 		DATIVE = "канистре (Робаст-Харвест)",
@@ -369,24 +348,24 @@
 		PREPOSITIONAL = "канистре (Робаст-Харвест)",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/empty
+/obj/item/reagent_containers/cup/bottle/nutrient/empty
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer
+/obj/item/reagent_containers/cup/bottle/nutrient/killer
 	icon_state = "plastic_jug_k"
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/cup/bottle/nutrient/killer/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
+/obj/item/reagent_containers/cup/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/killer/weedkiller/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра (Атразин)",
 		GENITIVE = "канистры (Атразин)",
 		DATIVE = "канистре (Атразин)",
@@ -395,14 +374,14 @@
 		PREPOSITIONAL = "канистре (Атразин)",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
+/obj/item/reagent_containers/cup/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/nutrient/killer/pestkiller/get_ru_names()
+	return alist(
 		NOMINATIVE = "канистра (Пестициды)",
 		GENITIVE = "канистры (Пестициды)",
 		DATIVE = "канистре (Пестициды)",
@@ -424,7 +403,7 @@
 	origin_tech = "biotech=6"
 
 /obj/item/conductive_organ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проводящий орган",
 		GENITIVE = "проводящего органа",
 		DATIVE = "проводящему органу",

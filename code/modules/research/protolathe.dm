@@ -33,7 +33,7 @@ Note: Must be placed west/left of and R&D console to function.
 	reagents = new()
 
 /obj/machinery/r_n_d/protolathe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "протолат",
 		GENITIVE = "протолата",
 		DATIVE = "протолату",
@@ -44,39 +44,41 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/protolathe(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	init_parts()
+	create_reagents()
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
 		base_icon_state = "syndie_protolathe"
-	reagents.my_atom = src
 
-/obj/machinery/r_n_d/protolathe/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/r_n_d/protolathe/proc/init_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/protolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
+
+/obj/machinery/r_n_d/protolathe/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	RefreshParts()
-	if(is_taipan(z))
-		icon_state = "syndie_protolathe"
-		base_icon_state = "syndie_protolathe"
-	reagents.my_atom = src
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker/large(null)
+
+/obj/machinery/r_n_d/protolathe/Destroy(force)
+	if(linked_console)
+		linked_console.linked_lathe = null
+	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
@@ -112,16 +114,16 @@ Note: Must be placed west/left of and R&D console to function.
 	if(is_open_container)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	return ..()
 
-/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/protolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null
@@ -137,7 +139,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)
-		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+		if(istype(component, /obj/item/reagent_containers/cup/beaker))
 			reagents.trans_to(component, reagents.total_volume)
 		component.forceMove(drop_loc)
 	materials.retrieve_all()

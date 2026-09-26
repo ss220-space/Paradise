@@ -7,7 +7,7 @@
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke
 
 /obj/item/grenade/smokebomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дымовая граната",
 		GENITIVE = "дымовой гранаты",
 		DATIVE = "дымовой гранате",
@@ -16,8 +16,8 @@
 		PREPOSITIONAL = "дымовой гранате"
 	)
 
-/obj/item/grenade/smokebomb/New()
-	..()
+/obj/item/grenade/smokebomb/Initialize(mapload)
+	. = ..()
 	smoke = new
 	smoke.attach(src)
 
@@ -46,4 +46,3 @@
 		B.take_damage(damage, BURN, MELEE, 0)
 	sleep(80)
 	qdel(src)
-	return

@@ -31,7 +31,7 @@
 	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления телепадом",
 		GENITIVE = "консоли управления телепадом",
 		DATIVE = "консоли управления телепадом",
@@ -53,13 +53,13 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
+	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_0_A_OV(crystals)]" : "нет кристаллов"] блюспейса.")
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+	if(isbluespacecrystal(I))
 		add_fingerprint(user)
 		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(crystals >= max_crystals)
@@ -94,7 +94,7 @@
 	return ..()
 
 /obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	var/obj/item/multitool/multitool = I
@@ -280,7 +280,7 @@
 					log_msg += "[key_name(T)], "
 				else
 					log_msg += "[ROI.name]"
-					if(istype(ROI, /obj/structure/closet))
+					if(iscloset(ROI))
 						var/obj/structure/closet/C = ROI
 						log_msg += " ("
 						for(var/atom/movable/Q as mob|obj in C)

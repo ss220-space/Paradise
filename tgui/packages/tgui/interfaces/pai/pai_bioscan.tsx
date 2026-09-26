@@ -1,5 +1,5 @@
+import { Box, LabeledList, ProgressBar } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, LabeledList, ProgressBar } from '../../components';
 
 type Bioscan = {
   brute: number;
@@ -18,7 +18,7 @@ type Adiction = {
   stage: number;
 };
 
-export const pai_bioscan = (props: unknown) => {
+export const pai_bioscan = (_props: unknown) => {
   const { data } = useBackend<PaiData<Bioscan>>();
   const {
     holder,

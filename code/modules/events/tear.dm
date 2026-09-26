@@ -87,7 +87,7 @@
 		/mob/living/simple_animal/hostile/faithless)
 
 /obj/effect/tear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пространственный разрыв",
 		GENITIVE = "пространственного разрыва",
 		DATIVE = "пространственному разрыву",

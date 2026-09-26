@@ -59,7 +59,7 @@
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
-		visible_message(span_danger("[src] blocks [Proj] with its shield!"), projectile_message = TRUE)
+		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
 		return FALSE
 	return ..()
 
@@ -94,6 +94,11 @@
 	name = "[name] [pick(GLOB.last_names_male)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Destroy()
+	depotarea = null
+	spawn_turf = null
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
@@ -146,7 +151,7 @@
 	if(scan_cycles >= 15)
 		scan_cycles = 0
 		if(!are_zs_connected(src, spawn_turf))
-			if(istype(loc, /obj/structure/closet))
+			if(iscloset(loc))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))
 				visible_message(span_boldwarning("[src] smashes their way out of [O]!"))
@@ -323,7 +328,7 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r/rusted)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/smg/c20r/rusted)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
@@ -331,7 +336,7 @@
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r/rusted)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/smg/c20r/rusted)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/ComponentInitialize()
 	AddComponent( \
@@ -367,14 +372,13 @@
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
 	AI_delay_max = 0 SECONDS
-
-/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/swarming)
-	AddElement(/datum/element/simple_flying)
+	var/flying = TRUE
 
 /mob/living/simple_animal/hostile/viscerator/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
 		minbodytemp = 0, \
 	)
+	AddComponent(/datum/component/swarming)
+	if(flying)
+		AddElement(/datum/element/simple_flying)

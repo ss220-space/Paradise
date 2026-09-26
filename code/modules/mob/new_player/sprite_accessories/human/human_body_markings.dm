@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_GREY, SPECIES_MACNINEPERSON, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_VOX, SPECIES_KIDAN)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_GREY, SPECIES_MACHINEPERSON, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_VOX, SPECIES_KIDAN)
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tiger
@@ -48,3 +48,9 @@
 	name = "Monobrows"
 	species_allowed = list(SPECIES_HUMAN)
 	icon_state = "mono_eyebrows"
+
+/datum/sprite_accessory/body_markings/thickeyebrow
+	name = "Thick Eyebrow"
+	icon_state = "thickeyebrow"
+	species_allowed = list(SPECIES_HUMAN)
+	wizard_only = TRUE

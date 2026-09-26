@@ -29,7 +29,7 @@
 	item_state = "staffofhealing"
 	fire_sound = 'sound/magic/staff_healing.ogg'
 
-/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/healing/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers) //Stops people trying to commit suicide to heal themselves
 	return
 
 /obj/item/gun/magic/staff/chaos
@@ -42,6 +42,9 @@
 	recharge_rate = 2
 	no_den_usage = 1
 	fire_sound = 'sound/magic/staff_chaos.ogg'
+
+/obj/item/gun/magic/staff/chaos/lesser_chaos
+	ammo_type = /obj/item/ammo_casing/magic/lesser_chaos
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -85,7 +88,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 25
 	armour_penetration = 75
-	block_chance = 50
 	block_type = MELEE_ATTACKS
 	sharp = 1
 	max_charges = 4
+
+/obj/item/gun/magic/staff/spellblade/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)

@@ -42,12 +42,11 @@
 	if(force_open_above)
 		build_signal_listener()
 
-/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, atom/newloc)
+/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving == src)
 		return //Let's not block ourselves.
-	var/direction = get_dir_multiz(src, newloc)
 
 	if(!isobserver(leaving) && isTerminator() && direction == dir)
 		leaving.set_currently_z_moving(CURRENTLY_Z_ASCENDING)

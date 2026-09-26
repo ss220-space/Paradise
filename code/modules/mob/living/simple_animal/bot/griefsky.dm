@@ -6,6 +6,8 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	window_name = "Автоматическая Охранная Единица v3.0"
+	bot_type = GRIEF_BOT
+	model = "Griefsky"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword
@@ -20,7 +22,7 @@
 	var/syndie = FALSE	// taipan griefsky
 
 /mob/living/simple_animal/bot/secbot/griefsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Генерал Грифски",
 		GENITIVE = "Генерала Грифски",
 		DATIVE = "Генералу Грифски",
@@ -46,7 +48,7 @@
 	locked = FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/toy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Гиневал Гифтски",
 		GENITIVE = "Гиневала Гифтски",
 		DATIVE = "Гиневалу Гифтски",
@@ -76,7 +78,7 @@
 	syndie = TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Генерал Синди",
 		GENITIVE = "Генерала Синди",
 		DATIVE = "Генералу Синди",
@@ -91,13 +93,9 @@
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
-	var/datum/job/security/detective/J = new/datum/job/security/detective
+	var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 	access_card.access += J.get_access()
 	prev_access = access_card.access
-
-/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
-	return ..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
@@ -114,7 +112,7 @@
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
-/mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
+/mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers) //like secbots its only possible with admin intervention
 	if(!iscarbon(atom))
 		return
 
@@ -124,7 +122,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
@@ -252,7 +250,7 @@
  * Taipan bullshit.
  */
 /mob/living/simple_animal/bot/secbot/griefsky/proc/check_for_mug(obj/item/slot_item)
-	if(istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
+	if(istype(slot_item, /obj/item/reagent_containers/cup/glass/mug/comms))
 		return TRUE
 	return FALSE
 
@@ -261,7 +259,7 @@
 	visible_message(span_boldannounceic("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/obj/item/bot_assembly/secbot_assembly/Sa = new /obj/item/bot_assembly/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
@@ -285,7 +283,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()

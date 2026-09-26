@@ -24,7 +24,7 @@
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(istype(bodypart, /obj/item/organ/external/chest))
+		if(ischest(bodypart))
 			continue
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - bodypart.get_damage()))

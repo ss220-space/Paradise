@@ -21,6 +21,16 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 
+/datum/reagents/Destroy()
+	QDEL_LIST(reagent_list)
+	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
+	my_atom = null
+	return ..()
+
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
@@ -189,6 +199,9 @@
 	if(!target.reagents || total_volume <= 0 || !get_reagent_amount(reagent))
 		return
 
+	if(!isnum(amount) || amount <= 0 || !IS_FINITE(amount))
+		return
+
 	var/datum/reagents/R = target.reagents
 	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
@@ -285,7 +298,7 @@
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[reagent.name]' does not return an overdose info list!"))
+					stack_trace("Reagent '[reagent.name]' does not return an overdose info list!")
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
@@ -487,7 +500,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			R.volume = FLOOR(R.volume, 1)
+			R.volume = floor(R.volume)
 			update_total()
 			return TRUE
 	return FALSE
@@ -642,7 +655,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			R.volume += amount
 			update_total()
 
@@ -683,7 +696,7 @@
 		return FALSE
 
 	else
-		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
+		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 
 	handle_reactions()
 	return TRUE
@@ -694,7 +707,7 @@
 		return TRUE
 
 /datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
-	if(!isnum(amount))
+	if(!isnum(amount) || amount <= 0 || !IS_FINITE(amount))
 		return TRUE
 
 	for(var/A in reagent_list)
@@ -719,7 +732,7 @@
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			if(!amount)
 				return R
 			else
@@ -741,33 +754,34 @@
 					return FALSE
 	return FALSE
 
-/datum/reagents/proc/get_reagent_amount(reagent)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.id == reagent)
-			return R.volume
+/datum/reagents/proc/get_reagent_amount(reagent_id)
+	if(ispath(reagent_id))
+		var/datum/reagent/found_reagent = get_reagent(reagent_id)
+		return found_reagent ? found_reagent.volume : FALSE
+
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(current_reagent.id != reagent_id)
+			continue
+		return current_reagent.volume
+
 	return FALSE
 
 /datum/reagents/proc/get_reagents()
-	var/res = ""
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(res != "")
-			res += ","
-		res += R.name
-	return res
+	var/result = ""
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(result != "")
+			result += ","
+		result += current_reagent.name
+	return result
 
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
 
-/datum/reagents/proc/get_reagent_by_id(id)
-	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == id)
-			return R
-
-	return
+/datum/reagents/proc/get_reagent_by_id(reagent_id)
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(current_reagent.id != reagent_id)
+			continue
+		return current_reagent
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
@@ -838,7 +852,7 @@
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
-	if(!istype(current_reagent.data, /list))
+	if(!islist(current_reagent.data))
 		return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()
@@ -940,14 +954,19 @@
 
 	return clothing_pen
 
-/datum/reagents/Destroy()
-	. = ..()
-	QDEL_LIST(reagent_list)
-	reagent_list = null
-	QDEL_LIST(addiction_list)
-	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
-
 #undef ADDICTION_TIME
 #undef MINOR_ADDICTION_TIME
+
+//Creates foam from the reagent. Metaltype is for metal foam, notification is what to show people in textbox
+/datum/reagents/proc/create_foam(foamtype, foam_volume, result_type = null, notification = null, log = FALSE, lifetime, slippery)
+	var/location = get_turf(my_atom)
+
+	var/datum/effect_system/fluid_spread/foam/foam = new foamtype(location)
+	foam.set_up(null, foam_volume, my_atom, location, carry = src, result_type = result_type)
+	foam.start(log = log, lifetime = lifetime, slippery = slippery)
+
+	clear_reagents()
+	if(!notification)
+		return
+	for(var/mob/viewer in viewers(5, location))
+		to_chat(viewer, notification)

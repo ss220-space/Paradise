@@ -7,12 +7,12 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in GLOB.huds)
-		hud.add_atom_to_hud(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/data/human)?.add_atom_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in GLOB.huds)
-		hud.remove_atom_from_hud(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/data)?.remove_atom_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -29,7 +29,7 @@
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || istype(M,/mob/dead/observer))
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -47,10 +47,10 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_AISHELL_STAT_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD, DIAG_AISHELL_STAT_HUD)
 
 /datum/atom_hud/data/bot_path
 	// This hud exists so the bot can see itself, that's all
@@ -242,7 +242,7 @@
 		var/can_reenter = ghost_can_reenter() && !suiciding && mind
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
 
-		if(revivable && can_reenter)
+		if(revivable && (can_reenter || HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE)))
 			set_hud_image_state(STATUS_HUD, STATUS_HUD_FLATLINE)
 		else
 			if(can_reenter)
@@ -352,7 +352,7 @@
 			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
 			set_hud_image_active(IMPTRACK_HUD)
 
-		else if(istype(current_implant,/obj/item/implant/mindshield))
+		else if(HAS_TRAIT(src, TRAIT_MINDSHIELD_HUD))
 			set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
 			set_hud_image_active(IMPMINDSHIELD_HUD)
 
@@ -452,8 +452,7 @@
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
-	var/pixel_y = get_cached_height() - ICON_SIZE_Y
-	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]", y_offset = pixel_y)
+	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]")
 
 /obj/mecha/proc/diag_hud_set_mechcell()
 	if(cell)
@@ -583,7 +582,7 @@
 	set_hud_image_active(PLANT_HEALTH_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_toxin()
-	if(toxic < 10)	// You don't want to see these icons if the value is small
+	if(toxic < 10) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_TOXIN_HUD, "")
 		set_hud_image_inactive(PLANT_TOXIN_HUD)
 		return
@@ -591,7 +590,7 @@
 	set_hud_image_active(PLANT_TOXIN_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_pest()
-	if(pestlevel < 1)	// You don't want to see these icons if the value is small
+	if(pestlevel < 1) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_PEST_HUD, "")
 		set_hud_image_inactive(PLANT_PEST_HUD)
 		return
@@ -599,7 +598,7 @@
 	set_hud_image_active(PLANT_PEST_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_weed()
-	if(weedlevel < 1)	// You don't want to see these icons if the value is small
+	if(weedlevel < 1) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_WEED_HUD, "")
 		set_hud_image_inactive(PLANT_WEED_HUD)
 		return
@@ -705,6 +704,19 @@
 	)
 	return max(scale_list) - min(scale_list)
 
+/atom/proc/get_hud_x_offset()
+	return -(get_cached_width() - ICON_SIZE_X) / 2
+
+/atom/proc/get_hud_y_offset()
+	return get_cached_height() - ICON_SIZE_Y
+
+/atom/proc/adjust_hud_position(image/holder, animate_time = null)
+	if(animate_time)
+		animate(holder, pixel_w = get_hud_x_offset(), pixel_z = get_hud_y_offset(), time = animate_time)
+		return
+	holder.pixel_w = get_hud_x_offset()
+	holder.pixel_z = get_hud_y_offset()
+
 
 /atom/proc/set_hud_image_state(hud_type, hud_state, x_offset = 0, y_offset = 0)
 	if(!hud_list) // Still initializing
@@ -720,8 +732,11 @@
 
 	holder.icon_state = hud_state
 
+	adjust_hud_position(holder)
+
 	if(!x_offset && !y_offset)
 		return
+
 
 	holder.pixel_w += x_offset
 	holder.pixel_z += y_offset

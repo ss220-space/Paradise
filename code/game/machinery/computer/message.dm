@@ -10,15 +10,15 @@
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Messages - Saves me time if I want to change something.
-	var/noserver = span_alert("ALERT: No server detected.")
-	var/incorrectkey = span_warning("ALERT: Incorrect decryption key!")
-	var/defaultmsg = span_notice("Welcome. Please select an option.")
-	var/rebootmsg = span_warning("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
+	var/noserver = span_alert_alt("ALERT: No server detected.")
+	var/incorrectkey = span_warning_alt("ALERT: Incorrect decryption key!")
+	var/defaultmsg = span_notice_alt("Welcome. Please select an option.")
+	var/rebootmsg = span_warning_alt("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
 	//Computer properties
 	var/screen = 0		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
-	var/message = span_notice("System bootup complete. Please select an option.")	// The message that shows on the main menu.
+	var/message = span_notice_alt("System bootup complete. Please select an option.")	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
 	var/optioncount = 8
 	// Custom Message Properties
@@ -34,6 +34,25 @@
 	icon_screen = "seclaptop"
 	normal_icon = "seclaptop"
 	density = FALSE
+
+/obj/machinery/computer/message_monitor/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/message_monitor/LateInitialize()
+	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
+	if(!linkedServer && length(GLOB.message_servers))
+		linkedServer = GLOB.message_servers[1]
+		RegisterSignal(linkedServer, COMSIG_QDELETING, PROC_REF(unlink_server))
+
+/obj/machinery/computer/message_monitor/proc/unlink_server()
+	SIGNAL_HANDLER
+	linkedServer = null
+
+/obj/machinery/computer/message_monitor/Destroy(force)
+	customrecepient = null
+	linkedServer = null
+	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
@@ -69,14 +88,6 @@
 	else
 		icon_screen = normal_icon
 	..()
-
-/obj/machinery/computer/message_monitor/Initialize(mapload)
-	. = ..()
-	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(GLOB.message_servers && length(GLOB.message_servers) > 0)
-			linkedServer = GLOB.message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
@@ -154,7 +165,7 @@
 			dat += "</table>"
 		//Hacking screen.
 		if(2)
-			if(istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot))
+			if(isAI(user) || isrobot(user))
 				dat += "Brute-forcing for server key.<br> It will take 20 seconds for every character that the password has."
 				dat += "In the meantime, this console can reveal your true intentions if you let someone access it. Make sure no humans enter the room during that time."
 			else
@@ -271,7 +282,7 @@
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && isturf(src.loc))) || (issilicon(usr)))
 		//Authenticate
 		if(href_list["auth"])
 			if(auth)

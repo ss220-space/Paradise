@@ -3,6 +3,7 @@
 */
 
 #define RPD_COOLDOWN_TIME 4 //How long should we have to wait between dispensing pipes?
+#define RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY (2 SECONDS)
 #define RPD_WALLBUILD_TIME 40 //How long should drilling into a wall take?
 #define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
 #define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
@@ -22,7 +23,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	toolbox_radial_menu_compatibility = TRUE
@@ -36,6 +37,7 @@
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
+	var/use_duration = 1 SECONDS
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 	var/obj/item/wrench/integrated_wrench = new
@@ -96,7 +98,9 @@
 
 /obj/item/rpd/proc/create_atmos_pipe(mob/user, turf/T) //Make an atmos pipe, meter, or gas sensor
 	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")) //Damn dirty apes -- I mean hackers
+		CRASH("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
 		return
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
@@ -117,38 +121,61 @@
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		P.wrench_act(user, integrated_wrench)
-	else if(iswrench(inactive_hand_item) && (user.CanReach(P, inactive_hand_item)))
+	else if(iswrench(inactive_hand_item) && (P.IsReachableBy(user, inactive_hand_item.reach)))
 		P.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
+		CRASH("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected")
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
 		return
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
-	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
+	var/obj/structure/disposalconstruct/construct = new(null, whatdpipe, rotate_dir)
+	if(construct.density)
+		if(check_dpipe_duplicate(T, construct))
+			user.balloon_alert(user, "не хватает места!")
+			qdel(construct)
+			return
+		do_sparks(3, TRUE, T)
+		if(!do_after(user, RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY * atmos_mod, T, category = DA_CAT_TOOL, max_interact_count = 1))
+			user?.balloon_alert(user, "прервано!")
+			qdel(construct)
+			return
+	if(QDELETED(src) || QDELETED(construct))
+		return
+	construct.forceMove(T)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		construct.wrench_act(user, integrated_wrench)
-	else if(iswrench(inactive_hand_item) && (user.CanReach(construct, inactive_hand_item)))
+	else if(iswrench(inactive_hand_item) && (construct.IsReachableBy(user, inactive_hand_item.reach)))
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
-
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
+		return
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
+		return
 	for(var/obj/item/pipe/P in T)
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
+		return
 	var/eaten
 	for(var/obj/item/pipe/P in T)
 		QDEL_NULL(P)
@@ -170,6 +197,9 @@
 		to_chat(user, span_notice("There were no loose pipes on [T]."))
 
 /obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
+	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
+	if(!do_after(user, use_duration * atmos_mod, P, max_interact_count = 1))
+		return
 	to_chat(user, span_notice("[src] sucks up [P]."))
 	QDEL_NULL(P)
 	activate_rpd()
@@ -273,43 +303,87 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, span_notice("You set [src]'s mode."))
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity, params)
-	..()
-	if(loc != user)
-		return
-	if(!proximity && !ranged)
-		return
-	if(world.time < lastused + spawndelay)
-		return
-	if(ranged && !(target in view(user)))
-		return
+/obj/item/rpd/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!check_ranged(interacting_with, user))
+		return ITEM_INTERACT_BLOCKING
 
-	var/turf/T = get_turf(target)
-	if(target != T)
+	if(rpd_interaction(interacting_with, user, mode, is_ranged = TRUE))
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!check_ranged(interacting_with, user))
+		return ITEM_INTERACT_BLOCKING
+
+	if(rpd_interaction(interacting_with, user, mode = RPD_DELETE_MODE, is_ranged = TRUE))
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/proc/check_ranged(atom/interacting_with, mob/living/user)
+	if(!ranged)
+		return FALSE
+
+	if(!(interacting_with in view(user)))
+		return FALSE
+	return TRUE
+
+/obj/item/rpd/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	if(rpd_interaction(interacting_with, user, mode))
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(rpd_interaction(interacting_with, user, mode = RPD_DELETE_MODE))
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/proc/rpd_interaction(atom/target, mob/user, mode, is_ranged = FALSE)
+	if(loc != user)
+		return FALSE
+
+	if(world.time < lastused + spawndelay)
+		return FALSE
+
+	if(astype(target, /obj/item)?.item_flags & IN_INVENTORY)
+		return FALSE
+
+	var/turf/location = get_turf(target)
+	if(target != location)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
-		if(target.rpd_act(user, src) == TRUE)
+		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
-			if(ranged)
-				user.Beam(T, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-			return
+			if(is_ranged)
+				draw_beam(target, user)
+			return FALSE
 
 	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 
-	for(var/obj/O in T)
-		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, span_warning("[O] blocks the [src]!"))
-			return
+	for(var/obj/object in location)
+		if(object.rpd_blocksusage())
+			to_chat(user, span_warning("[object] blocks the [src]!"))
+			return FALSE
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
-	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.maxview() + 2))\
-			user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-	T.rpd_act(user, src)
+	if(is_ranged) //woosh beam if bluespaced at a distance
+		if(get_dist(src, location) <= (user.client.maxview() + 2))\
+			draw_beam(target, user)
+
+	location.rpd_act(user, src, mode)
+	return TRUE
+
+/obj/item/rpd/proc/draw_beam(atom/target, mob/user)
+	user.Beam(target, icon = 'icons/effects/effects.dmi', icon_state = "rped_upgrade", time = 0.5 SECONDS)
+
+/obj/item/rpd/proc/check_dpipe_duplicate(turf/turf_to_check, obj/structure/disposalconstruct/dpipe_to_compare)
+	for(var/obj/structure/disposalconstruct/disposal_pipe_in_turf in turf_to_check)
+		if(disposal_pipe_in_turf.pipe_type == dpipe_to_compare.pipe_type)
+			return TRUE
+	return FALSE
 
 #undef RPD_COOLDOWN_TIME
+#undef RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY
 #undef RPD_WALLBUILD_TIME
 #undef RPD_MENU_ROTATE
 #undef RPD_MENU_FLIP

@@ -29,7 +29,7 @@
 			return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H?.mind && H.mind.miming)
+		if(H?.mind && HAS_MIND_TRAIT(H, TRAIT_MIMING))
 			to_chat(user, span_warning("Your vow of silence prevents you from speaking."))
 			return
 		if(HAS_TRAIT(H, TRAIT_COMIC) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
@@ -73,7 +73,7 @@
 		O.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
 
 	for(var/mob/M in get_hearers_in_view(7, src))
-		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(M, TRAIT_DEAF) && M.stat != UNCONSCIOUS)
 			M.create_chat_message(user, message, list("yell"))
 		var/effect = SOUND_EFFECT_MEGAPHONE
 		if(isrobot(user))

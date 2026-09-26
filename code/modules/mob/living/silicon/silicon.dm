@@ -4,6 +4,8 @@
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	abstract_type = /mob/living/silicon
+	looting_icon_mode = LOOT_ICON_FLAT_ICON_TYPE_CACHABLE
+	examine_cursor_icon = null
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -14,7 +16,6 @@
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera")
-	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
@@ -27,13 +28,11 @@
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_AISHELL_STAT_HUD)
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
-
-	var/obj/item/radio/common_radio
 
 	var/register_alarms = TRUE
 	var/datum/ui_module/atmos_control/atmos_control
@@ -43,8 +42,8 @@
 	var/obj/item/areaeditor/blueprints/cyborg/blueprints
 
 	var/list/silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/proc/subsystem_law_manager
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
 
 	var/obj/item/inventory_head
@@ -98,6 +97,7 @@
 	diag_hud_set_health()
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FENCE_CLIMBER, INNATE_TRAIT)
 
 	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
@@ -122,8 +122,12 @@
 	QDEL_NULL(power_monitor)
 	QDEL_NULL(gps)
 	QDEL_NULL(blueprints)
+	QDEL_NULL(aiCamera)
 
 	return ..()
+
+/mob/living/silicon/proc/get_radio()
+	return
 
 /mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	return
@@ -306,7 +310,7 @@
 			speech_synthesizer_langs -= language
 
 /mob/living/silicon/check_lang_data()
-	. = ""
+	. = list()
 
 	if(default_language)
 		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
@@ -329,18 +333,10 @@
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
 
-/mob/living/silicon/verb/pose()
-	set name = "Задать позу"
-	set desc = "Sets a description which will be shown when someone examines you."
-	set category = VERB_CATEGORY_IC
+GAME_VERB_DESC(/mob/living/silicon, pose, "Задать позу", "Устанавливает короткое описание отображаемое при омотре вас.", VERB_CATEGORY_IC)
+	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
-	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
-
-/mob/living/silicon/verb/set_flavor()
-	set name = "Описание внешности"
-	set desc = "Sets an extended description of your character's features."
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_DESC(/mob/living/silicon, set_flavor, "Описание внешности", "Устанавливает подробное описание внешности вашего персонажа.", VERB_CATEGORY_IC)
 	update_flavor_text()
 
 /mob/living/silicon/binarycheck()
@@ -349,8 +345,8 @@
 /mob/living/silicon/proc/remove_med_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.hide_from(src)
+	var/datum/atom_hud/data/diagnostic/diagsensor = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diagsensor.hide_from(src)
 	secsensor.hide_from(src)
 	medsensor.hide_from(src)
 
@@ -363,8 +359,8 @@
 	medsensor.show_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.show_to(src)
+	var/datum/atom_hud/data/diagnostic/diagsensor = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diagsensor.show_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Security", "Medical","Diagnostic", "Multisensor","Disable"), null)
@@ -386,6 +382,10 @@
 			to_chat(src, span_notice("Multisensor overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
+
+// Returns AI that is bounded to us. Like a AI itself or a AI-pilot of shell
+/mob/living/silicon/proc/try_get_ai()
+	return null
 
 /mob/living/silicon/adjustToxLoss(
 	amount = 0,
@@ -410,8 +410,6 @@
 	return 1
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
-/mob/living/silicon/can_hear()
-	return TRUE
 
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return FALSE
@@ -438,3 +436,4 @@
 	. = ..()
 	var/damage = 10 + 1.5 * speed
 	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
+

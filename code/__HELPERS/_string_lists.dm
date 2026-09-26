@@ -5,7 +5,7 @@
 /// Pick a string with @pick(SOME_KEY) replacements for nested random selection
 #define pick_list_replacements(FILE, KEY) (strings_replacement(FILE, KEY))
 /// Load and parse a JSON file
-#define json_load(FILE) (json_decode(wrap_file2text(FILE)))
+#define json_load(FILE) (json_decode(WRAP_FILE2TEXT(FILE)))
 
 /// Global cache for loaded string files
 GLOBAL_LIST(string_cache)

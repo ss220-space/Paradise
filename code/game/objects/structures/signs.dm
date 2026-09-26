@@ -3,15 +3,28 @@
 	anchored = TRUE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	var/does_emissive = FALSE
 	var/random_number = FALSE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	var/buildable_sign = TRUE
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/sign/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	switch(held_item?.tool_behaviour)
+		if(TOOL_WELDER)
+			context[SCREENTIP_CONTEXT_LMB] = "Repair"
+			return CONTEXTUAL_SCREENTIP_SET
+		if(TOOL_SCREWDRIVER)
+			if(!buildable_sign)
+				return ///Cannot be unfastened regardless.
+			context[SCREENTIP_CONTEXT_LMB] = "Unfasten"
+			return CONTEXTUAL_SCREENTIP_SET
+	return NONE
 
 /obj/structure/sign/update_overlays()
 	. = ..()
@@ -33,12 +46,15 @@
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
-	if(istype(src, /obj/structure/sign/double))
+	if(!buildable_sign)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	balloon_alert(user, "откручено")
+	deconstruct(TRUE)
+
+/obj/structure/sign/deconstruct(disassembled)
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
@@ -56,7 +72,7 @@
 	var/sign_state = ""
 
 /obj/item/sign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "табличка",
 		GENITIVE = "таблички",
 		DATIVE = "табличке",
@@ -98,9 +114,10 @@
 	name = "station map"
 	desc = "Фотография станции в рамке."
 	max_integrity = 500
+	build
 
 /obj/structure/sign/double/map/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карта станции",
 		GENITIVE = "карты станции",
 		DATIVE = "карте станции",
@@ -198,14 +215,15 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/redcross
-	name = "медбэй"
+/obj/structure/sign/medbay
+	name = "МЕДБЭЙ"
 	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
+	icon_state = "lifestar"
+
+/obj/structure/sign/medbay/redcross
 	icon_state = "redcross"
 
-/obj/structure/sign/greencross
-	name = "медбэй"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
+/obj/structure/sign/medbay/greencross
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
@@ -268,14 +286,12 @@
 	desc = "Вращающаяся вывеска, указывающая на близость парикмахерской."
 	icon_state = "barber"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
 	name = "знак китайского ресторана"
 	desc = "Светящийся дракон приглашает вас внутрь."
 	icon_state = "chinese"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/bathhouse
 	name = "знак бани"
@@ -302,6 +318,9 @@
 	desc = "Знак, обозначающий область, где исследуются ксенобиологические существа."
 	icon_state = "xenobio"
 
+/obj/structure/sign/xenobio/slime
+	icon_state = "xenobio2"
+
 /obj/structure/sign/evac
 	name = "ЭВАКУАЦИЯ"
 	desc = "Знак, обозначающий область, где проводятся процедуры эвакуации."
@@ -311,6 +330,11 @@
 	name = "ДЕСАНТНЫЕ КАПСУЛЫ"
 	desc = "Знак, обозначающий область, где проводятся процедуры загрузки десантных капсул."
 	icon_state = "drop"
+
+/obj/structure/sign/doors
+	name = "ШЛЮЗЫ"
+	desc = "Знак, обозначающий область, где возможно внезапное закрытие шлюзов."
+	icon_state = "doors"
 
 /obj/structure/sign/custodian
 	name = "УБОРЩИК"

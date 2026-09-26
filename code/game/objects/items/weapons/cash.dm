@@ -38,8 +38,9 @@
 			icon_state = "cashrbow"
 
 /obj/item/stack/spacecash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
-		throwingdatum.thrower.say(pick(
+	var/mob/thrower = throwingdatum?.thrower
+	if(istype(thrower.mind?.martial_art, /datum/martial_art/mr_chang))
+		thrower.say(pick(
 			"Бесплатные деньги!!", "Настоящий денежный дождь!!",\
 			"Деньги, деньги, деньги!!!", "Это лучшая сделка!!")
 		)
@@ -120,8 +121,8 @@
 /obj/item/stack/spacecash/ussp/c1000
 	amount = 1000
 
-/obj/item/stack/spacecash/ussp/New(loc, amt = null)
-	..()
+/obj/item/stack/spacecash/ussp/Initialize(mapload, new_amount, merge)
+	. = ..()
 	update_icon()
 
 /obj/item/stack/spacecash/ussp/update_icon_state()

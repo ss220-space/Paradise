@@ -11,8 +11,9 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC	//so you cant put this bag in other bag
-	max_combined_w_class = 63	//3*21
-	storage_slots = 21	//based on captains stuff
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 90	//3*30
+	storage_slots = 30	//based on captains stuff
 	can_hold = list(//no gloves, glasses, accessory, masks and suits
 		/obj/item/clothing/head,		//thats made to restrict players with abusing this bag(HighRisk stuff)
 		/obj/item/clothing/neck,		//reactive armor, krav maga
@@ -41,7 +42,7 @@
 	)
 
 /obj/item/storage/garmentbag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка для одежды",
 		GENITIVE = "сумки для одежды",
 		DATIVE = "сумке для одежды",
@@ -269,3 +270,27 @@
 	new /obj/item/clothing/head/beret/mining_medic(src)
 	new /obj/item/clothing/head/surgery/brown(src)
 	new /obj/item/clothing/shoes/color/white(src)
+
+/obj/item/storage/garmentbag/brigdoc/populate_contents()
+	new /obj/item/clothing/head/beret/brigphys(src)
+	new /obj/item/clothing/head/soft/brigphys(src)
+	new /obj/item/clothing/under/rank/security/brigphys(src)
+	new /obj/item/clothing/under/rank/security/brigphys/skirt(src)
+	new /obj/item/clothing/under/rank/security/brigmedical(src)
+	new /obj/item/clothing/under/rank/security/brigmedical/skirt(src)
+	new /obj/item/clothing/suit/storage/brigdoc(src)
+	new /obj/item/clothing/suit/storage/fr_jacket(src)
+	new /obj/item/clothing/suit/storage/suragi_jacket/medsec(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/shoes/color/white(src)
+	new /obj/item/clothing/shoes/sandal/white(src)
+
+/obj/item/storage/garmentbag/paramedic/populate_contents()
+	new /obj/item/clothing/head/soft/paramedic(src)
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
+	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
+	new /obj/item/clothing/suit/storage/paramedic(src)
+	new	/obj/item/clothing/suit/storage/paramedic_jacket(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/mask/surgical(src)

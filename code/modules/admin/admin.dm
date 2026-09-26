@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		var/rendered = "<span class=\"admin_attack\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
@@ -64,7 +64,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
-ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
+ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(M, VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!M)
 		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
@@ -142,7 +143,8 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "#ffaa00" : "#aabbff"];'>ADMINHELP</span></a> |
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?"#ffaa00" : "#aabbff"];'>DEADCHAT</span></a> |
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"#ffaa00":"#aabbff"];'>TTS</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a>\]
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_INTERNET_REQUEST]'><span style='color: [check_mute(M.client.ckey, MUTE_INTERNET_REQUEST) ? "#ffaa00" : "#aabbff"];'>WEBREQ</span></a>\]
 			(<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "#ffaa00" : "#aabbff"];'>toggle all</span></a>)
 		"}
 		body += {"<br><b>Mob Manipulation:</b>
@@ -155,6 +157,7 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			<a href='byond://?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</a> |
 			<a href='byond://?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</a> |
 			<a href='byond://?_src_=holder;select_equip=[M.UID()]'>Select Equipment</a> |
+			<a href='byond://?_src_=holder;custom_equip=[M.UID()]'>Custom Equipment</a> |
 			<a href='byond://?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</a> |
 			<a href='byond://?_src_=holder;change_voice=[M.UID()]'>Change Voice</a> |
 			"}
@@ -221,7 +224,7 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			else
 				body += "<a href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</a> | "
 
-			if(istype(M, /mob/dead/observer))
+			if(isobserver(M))
 				body += "<a href='byond://?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 				body += {"<a href='byond://?_src_=holder;togglerespawnability=[M.UID()]'>Toggle Respawnability</a> | "}
 
@@ -301,7 +304,8 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 ADMIN_VERB(player_notes, R_ADMIN|R_MOD, "Player Notes", "Open Player Notes panel.", ADMIN_CATEGORY_BAN)
 	show_note()
 
-ADMIN_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player Notes panel for a given ckey.", ADMIN_CATEGORY_BAN, key as text)
+ADMIN_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player Notes panel for a given ckey.", ADMIN_CATEGORY_BAN)
+	VERB_ARG(key, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 	show_note(key)
 
 ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence on VPN whitelist", ADMIN_CATEGORY_BAN)
@@ -347,6 +351,16 @@ ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence o
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open()
 	return
+
+ADMIN_VERB(toggle_hub, R_SERVER, "Toggle Hub", "Toggles the server's visilibility on the BYOND Hub.", ADMIN_CATEGORY_SERVER)
+	world.update_hub_visibility(!GLOB.hub_visibility)
+
+	log_admin("[key_name(user)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
+	message_admins("[key_name_admin(user)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
+	if(GLOB.hub_visibility && !world.reachable)
+		message_admins("WARNING: The server will not show up on the hub because byond is detecting that a filewall is blocking incoming connections.")
+
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 ADMIN_VERB(restart_server, R_SERVER, "Reboot World", "Restarts the world immediately.", ADMIN_CATEGORY_SERVER)
 	// Give an extra popup if they are rebooting a live server
@@ -407,21 +421,17 @@ ADMIN_VERB(end_round, R_SERVER, "End Round", "Instantly ends the round and bring
 	SSticker.mode_result = "admin ended"
 
 ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.", ADMIN_CATEGORY_EVENTS)
-	var/message = tgui_input_text(user, "Global message to send:", "Admin Announce", null, multiline = TRUE, encode = FALSE)
+	var/message = tgui_input_text(user, "Глобальное сообщение для отправки:", "Объявление администрации", null, multiline = TRUE, encode = FALSE)
 	if(!message)
 		return
 
 	if(!check_rights_client(R_SERVER, FALSE, user))
 		message = adminscrub(message, 500)
 
-	message = handleDiscordEmojis(message)
+	message = handle_emojis(message)
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-	to_chat(world, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[message]</p>")))
 	log_admin("Announce: [key_name(user)] : [message]")
-	for(var/client/clients_to_alert in GLOB.clients)
-		window_flash(clients_to_alert)
-		if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-			SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+	send_ooc_announcement(message, user.holder.fakekey ? "Администрация" : user.key, play_sound = 'sound/effects/adminhelp.ogg')
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 ADMIN_VERB(toggle_ooc, R_ADMIN, "Toggle OOC", "Toggle the OOC channel on or off.", ADMIN_CATEGORY_TOGGLES)
@@ -613,7 +623,8 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 
 	return ""
 
-ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG, object as text|null)
+ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
 	var/static/list/atom_types
 	if(isnull(atom_types))
 		atom_types = subtypesof(/atom)
@@ -652,7 +663,45 @@ ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG,
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 	return TRUE
 
-ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target_mob in GLOB.mob_list)
+ADMIN_VERB(spawn_atom_pod, R_SPAWN, "PodSpawn", "Spawn an atom via supply drop.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
+	var/chosen = pick_closest_path(object)
+	if(!chosen)
+		return
+	var/turf/target_turf = get_turf(user.mob)
+
+	if(ispath(chosen, /turf))
+		target_turf.ChangeTurf(chosen)
+	else
+		var/obj/structure/closet/supplypod/pod = podspawn(list(
+			"target" = target_turf,
+			"path" = /obj/structure/closet/supplypod/centcompod,
+		))
+		//we need to set the admin spawn flag for the spawned items so we do it outside of the podspawn proc
+		var/atom/A = new chosen(pod)
+		A.flags |= ADMIN_SPAWNED
+
+	log_admin("[key_name(user)] pod-spawned [chosen] at [AREACOORD(user.mob)]")
+	BLACKBOX_LOG_ADMIN_VERB("Podspawn Atom")
+
+ADMIN_VERB(spawn_cargo, R_SPAWN, "Spawn Cargo", "Spawn a cargo crate.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG(object, VERB_ARG_TYPE_TYPEPATH, VERB_ARG_SOURCE_INPUT)
+	var/chosen = pick_closest_path(object, make_types_fancy(subtypesof(/datum/supply_order) + subtypesof(/datum/syndie_supply_packs)))
+	if(!chosen)
+		return
+	var/datum/supply_order/order = (chosen in typecacheof(/datum/supply_packs))? new /datum/supply_order : new /datum/syndie_supply_order
+	order.ordernum = 0
+	order.object = new chosen
+	order.orderedby = "ОШИБКА"
+	order.orderedbyRank = "ОШИБКА"
+	order.crates = 1
+	order.createObject(get_turf(user.mob))
+
+	log_admin("[key_name(user)] spawned cargo pack [chosen] at [AREACOORD(user.mob)]")
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Cargo")
+
+ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target_mob, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	var/datum/mind/target_mind = target_mob.mind
 	if(!target_mind)
 		to_chat(user, "This mob has no mind!", confidential = TRUE)
@@ -701,7 +750,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential = TRUE)
+	to_chat(usr, boxed_message(messages.Join("\n")), confidential = TRUE)
 
 	log_and_message_admins("checked the AI laws")
 
@@ -714,7 +763,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
@@ -724,7 +773,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 
 /proc/formatLocation(location)
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)

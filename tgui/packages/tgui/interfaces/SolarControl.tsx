@@ -1,13 +1,13 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Grid,
   LabeledList,
   NumberInput,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
+import { Grid } from '../components';
 import { Window } from '../layouts';
 
 type SolarControlData = {
@@ -79,7 +79,7 @@ export const SolarControl = (_props: unknown) => {
                     maxValue={1}
                     value={generated_ratio}
                   >
-                    {generated + ' W'}
+                    {`${generated} W`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Panel orientation">
@@ -112,7 +112,8 @@ export const SolarControl = (_props: unknown) => {
                   minValue={0}
                   maxValue={359}
                   value={cdir}
-                  onDrag={(cdir) => act('cdir', { cdir })}
+                  tickWhileDragging
+                  onChange={(cdir) => act('cdir', { cdir })}
                 />
               )}
               {tracking_state === TRACKER_AUTO && (
@@ -156,7 +157,8 @@ export const SolarControl = (_props: unknown) => {
                     const sign = Math.sign(tracking_rate) > 0 ? '+' : '-';
                     return sign + Math.abs(tracking_rate);
                   }}
-                  onDrag={(tdir) => act('tdir', { tdir })}
+                  tickWhileDragging
+                  onChange={(tdir) => act('tdir', { tdir })}
                 />
               )}
               {tracking_state === TRACKER_OFF && (

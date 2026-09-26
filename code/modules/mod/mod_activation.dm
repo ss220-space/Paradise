@@ -1,4 +1,4 @@
-#define MOD_ACTIVATION_STEP_FLAGS (DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM|DA_IGNORE_INCAPACITATED|DA_IGNORE_LYING)
+#define MOD_ACTIVATION_STEP_FLAGS (DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM|DA_IGNORE_INCAPACITATED|DA_IGNORE_CONSCIOUSNESS|DA_IGNORE_LYING)
 
 /// Creates a radial menu from which the user chooses parts of the suit to deploy/retract. Repeats until all parts are extended or retracted.
 /obj/item/mod/control/proc/choose_deploy(mob/user)
@@ -231,7 +231,11 @@
 
 /obj/item/mod/control/proc/delayed_seal_part(obj/item/clothing/part)
 	var/datum/mod_part/part_datum = get_part_datum(part)
-	if(!do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
+	var/skill_factor = 1
+	if(wearer)
+		CALCULATE_SKILL_MOD(wearer, MOD_ACTIVATION_SPEED_MOD, skill_modifier)
+		skill_factor = skill_modifier
+	if(!do_after(wearer, activation_step_time * skill_factor, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
 		return FALSE
 
 	to_chat(wearer, span_notice("[DECLENT_RU_CAP(part, NOMINATIVE)] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
@@ -240,7 +244,11 @@
 	return TRUE
 
 /obj/item/mod/control/proc/delayed_activation()
-	if(!do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
+	var/skill_factor = 1
+	if(wearer)
+		CALCULATE_SKILL_MOD(wearer, MOD_ACTIVATION_SPEED_MOD, skill_modifier)
+		skill_factor = skill_modifier
+	if(!do_after(wearer, activation_step_time * skill_factor, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
 		return FALSE
 	control_activation(is_on = !active)
 	return TRUE
@@ -264,10 +272,11 @@
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 	update_speed()
-	wearer.update_clothing(part.slot_flags | slot_flags)
-	wearer.refresh_obscured()
-	if((part.clothing_flags & AIRTIGHT) && !wearer.has_airtight_items())
-		wearer.internal = null
+	if(wearer)
+		wearer.update_clothing(part.slot_flags | slot_flags)
+		wearer.refresh_obscured()
+		if((part.clothing_flags & AIRTIGHT) && !wearer.has_airtight_items())
+			wearer.internal = null
 	SEND_SIGNAL(src, COMSIG_MOD_PART_SEALED, part_datum)
 	if(is_sealed)
 		if(!active)

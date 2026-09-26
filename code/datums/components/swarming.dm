@@ -35,7 +35,7 @@
 	other_swarm.swarm()
 	other_swarm.swarm_members |= src
 
-/datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/departed, atom/newLoc)
+/datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	var/datum/component/swarming/other_swarm = departed.GetComponent(/datum/component/swarming)

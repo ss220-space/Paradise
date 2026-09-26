@@ -14,7 +14,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	var/decon_mod = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деструктивный анализатор",
 		GENITIVE = "деструктивного анализатора",
 		DATIVE = "деструктивному анализатору",
@@ -25,27 +25,30 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
-	component_parts += new /obj/item/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	init_parts()
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
 		base_icon_state = "syndie_d_analyzer"
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/r_n_d/destructive_analyzer/proc/init_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	RefreshParts()
-	if(is_taipan(z))
-		icon_state = "syndie_d_analyzer"
-		base_icon_state = "syndie_d_analyzer"
+
+/obj/machinery/r_n_d/destructive_analyzer/Destroy(force)
+	if(linked_console)
+		linked_console.linked_destroy = null
+	return ..()
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -85,7 +88,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		return ATTACK_CHAIN_PROCEED
 	// anomaly cores are only disassembed in the upgraded machine.
 	// 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
-	if(istype(I, /obj/item/assembly/signaler/core) && (decon_mod < 12))
+	if(iscore(I) && (decon_mod < 12))
 		balloon_alert(user, "слишком сложный объект!")
 		return ATTACK_CHAIN_PROCEED
 	if(!I.origin_tech)
@@ -101,23 +104,24 @@ Note: Must be placed within 3 tiles of the R&D Console
 	flick("[base_icon_state]_insert", src)
 	loaded_item = I
 	balloon_alert(user, "помещено в камеру разбора")
-	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
+	CALCULATE_SKILL_MOD(user, RESEARCH_DURATION_MOD, skill_duration_mod)
+	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS * skill_duration_mod)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/destructive_analyzer/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/destructive_analyzer/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null
 
-/obj/machinery/r_n_d/destructive_analyzer/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/destructive_analyzer/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	return default_deconstruction_crowbar(user, I)
+	return default_deconstruction_crowbar(user, tool)
 
 /obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing()
 	busy = FALSE

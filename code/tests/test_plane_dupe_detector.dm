@@ -1,7 +1,7 @@
 ///Checks if we don't have two planes on the same layer
-/datum/game_test/plane_dupe_detector
+/datum/unit_test/plane_dupe_detector
 
-/datum/game_test/plane_dupe_detector/Run()
+/datum/unit_test/plane_dupe_detector/Run()
 	var/list/plane_integer_list = list()
 	for(var/atom/movable/screen/plane_master/plane_path as anything in subtypesof(/atom/movable/screen/plane_master))
 		if(!initial(plane_path.plane))

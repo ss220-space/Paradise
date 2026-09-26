@@ -31,7 +31,7 @@
 	var/next_dest_loc
 
 /mob/living/simple_animal/bot/cleanbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чистобот",
 		GENITIVE = "чистобота",
 		DATIVE = "чистоботу",
@@ -66,7 +66,9 @@
 	. += mutable_appearance(icon, "[icon_state][overlay_state]", appearance_flags = RESET_COLOR)
 
 	if(mask_color)
-		. += mutable_appearance(icon, "cleanbot_mask", appearance_flags = RESET_COLOR, color = mask_color)
+		var/mutable_appearance/mask_overlay = mutable_appearance(icon, "cleanbot_mask", appearance_flags = RESET_COLOR)
+		mask_overlay.color = mask_color
+		. += mask_overlay
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
@@ -88,7 +90,7 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		playsound(loc, 'sound/effects/spray.ogg', 20, TRUE)
 		balloon_alert(user, "краска нанесена")
 		mask_color = can.colour
@@ -219,7 +221,7 @@
 	on = FALSE
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/reagent_containers/cup/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
@@ -277,7 +279,7 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else

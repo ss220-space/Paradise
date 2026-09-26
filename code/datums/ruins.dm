@@ -54,7 +54,7 @@
 		if(!valid)
 			continue
 
-		log_world("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
+		log_world("Ruin \"[name]\" placed at ([COORD(central_turf)])")
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i

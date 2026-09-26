@@ -4,6 +4,7 @@
 /atom/movable/screen/human/toggle
 	name = "toggle"
 	icon_state = "toggle"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/human/toggle/Click()
 	var/mob/targetmob = usr
@@ -42,6 +43,7 @@
 /atom/movable/screen/ling/sting
 	name = "current sting"
 	screen_loc = ui_lingstingdisplay
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/ling/sting/Click()
 	if(isobserver(usr))
@@ -104,6 +106,12 @@
 	static_inventory += using
 
 	using = new /atom/movable/screen/language_menu(null, src)
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
+	using = new /atom/movable/screen/area_creator(null, src)
 	using.icon = ui_style
 	using.color = ui_color
 	using.alpha = ui_alpha

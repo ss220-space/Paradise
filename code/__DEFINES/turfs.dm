@@ -16,8 +16,9 @@
 /// Used only by /turf/openspace. Show and grants access to what's under.
 #define TURF_FULLTRANSPARENT 2
 
-#define CHANGETURF_IGNORE_AIR (1<<0) // This flag prevents changeturf from gathering air from nearby turfs to fill the new turf with an approximation of local air
-#define CHANGETURF_KEEP_CABLING (1<<1) // This flags prevents from cables being removed. Used in maploader only
+#define CHANGETURF_IGNORE_AIR (1<<0) //! This flag prevents changeturf from gathering air from nearby turfs to fill the new turf with an approximation of local air
+#define CHANGETURF_KEEP_CABLING (1<<1) //! This flags prevents from cables being removed. Used in maploader only
+#define CHANGETURF_INHERIT_MOUNTS (1<<2) //! All objects attached to the turf don't fall off after transform
 
 #define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
 
@@ -89,6 +90,14 @@
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
 
+//Interactability underfloor things
+/// The pipes, disposals, and wires are hidden
+#define UNDERFLOOR_HIDDEN 0
+/// The pipes, disposals, and wires are visible but cannot be interacted with
+#define UNDERFLOOR_VISIBLE 1
+/// The pipes, disposals, and wires are visible and can be interacted with
+#define UNDERFLOOR_INTERACTABLE 2
+
 /// Maximum amount of time, (in deciseconds) a tile can be wet for.
 #define MAXIMUM_WET_TIME (5 MINUTES)
 
@@ -121,3 +130,15 @@
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 
 #define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
+
+/// Define the alpha for holiday/colored tile decals. Probably not implemented yet
+#define DECAL_ALPHA 60
+/// Generate horizontal striped color turf decals
+#define PATTERN_DEFAULT "default"
+/// Generate vertical striped color turf decals
+#define PATTERN_VERTICAL_STRIPE "vertical"
+/// Generate random color turf decals
+#define PATTERN_RANDOM "random"
+/// Generate rainbow color turf decals
+#define PATTERN_RAINBOW "rainbow"

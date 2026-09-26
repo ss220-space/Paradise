@@ -16,7 +16,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусок мяса",
 		GENITIVE = "куска мяса",
 		DATIVE = "куску мяса",
@@ -86,7 +86,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренное мясо",
 		GENITIVE = "жаренного мяса",
 		DATIVE = "жаренному мясу",
@@ -151,8 +151,8 @@
 	var/type1 = "meat_drask"
 	var/type2 = "meat_drask2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
@@ -164,8 +164,8 @@
 	var/type1 = "meat_grey"
 	var/type2 = "meat_grey2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
@@ -456,7 +456,7 @@
 	tastes = list("паутины" = 1, "слабых подёргиваний во рту" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паучья лапка",
 		GENITIVE = "паучьей лапки",
 		DATIVE = "паучьей лапке",
@@ -494,7 +494,7 @@
 	tastes = list("жёсткого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо голиафа",
 		GENITIVE = "мяса голиафа",
 		DATIVE = "мясу голиафа",
@@ -516,7 +516,7 @@
 	tastes = list("слизистого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо златожора",
 		GENITIVE = "мяса златожора",
 		DATIVE = "мясу златожору",
@@ -577,7 +577,7 @@
 	name = "unathi meat steak"
 	icon_state = "meatstake_unathi"
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
-	tastes = list("unathi meat odor" = 1, "tomato" = 2, "harebell" = 1, "black pepper" = 2, "salt" = 2, "chiken" = 1)
+	tastes = list("unathi meat odor" = 1, "tomato" = 2, "harebell" = 1, "black pepper" = 2, "sodiumchloride" = 2, "chiken" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/drask
 	name = "drask meat steak"
@@ -590,7 +590,7 @@
 	name = "grey meat steak"
 	icon_state = "meatstake_grey"
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
-	tastes = list("grey meat odor" = 1, "garlic" = 1, "cabbage" = 1, "tomato" = 2, "salt" = 2)
+	tastes = list("grey meat odor" = 1, "garlic" = 1, "cabbage" = 1, "tomato" = 2, "sodiumchloride" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/skrell
 	name = "skrell meat steak"
@@ -609,7 +609,7 @@
 	desc = "A piece of hot spicy jelly."
 	icon_state = "meatstake_slime"
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
-	tastes = list("slime meat odor" = 1, "garlic" = 1, "sugar" = 1, "herbs" = 1, "lemon" = 1, "ambrosia" = 1, "salt" = 2)
+	tastes = list("slime meat odor" = 1, "garlic" = 1, "sugar" = 1, "herbs" = 1, "lemon" = 1, "ambrosia" = 1, "sodiumchloride" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/wryn
 	name = "wryn meat steak"
@@ -621,7 +621,7 @@
 	name = "kidan meat steak"
 	icon_state = "meatstake_kidan"
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
-	tastes = list("kidan meat odor" = 1, "bug odor" = 1, "herbs" = 2, "olives" = 2, "salt" = 2)
+	tastes = list("kidan meat odor" = 1, "bug odor" = 1, "herbs" = 2, "olives" = 2, "sodiumchloride" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/nian
 	name = "nian meat steak"
@@ -635,14 +635,14 @@
 	filling_color = "#548100"
 	icon_state = "meatstake_diona"
 	list_reagents = list("plantmatter" = 4, "vitamin" = 5)
-	tastes = list("diona odor" = 1, "salt" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
+	tastes = list("diona odor" = 1, "sodiumchloride" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/meatsteak/monkey
 	name = "monkey meat steak"
 	icon_state = "meatstake_monkey"
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
-	tastes = list("monkey meat odor" = 1, "salt" = 2, "herbs" = 1, "lemon" = 1, "chili" = 2)
+	tastes = list("monkey meat odor" = 1, "sodiumchloride" = 2, "herbs" = 1, "lemon" = 1, "chili" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/farwa
 	name = "farwa meat steak"
@@ -696,9 +696,13 @@
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/telebacon/New()
-	..()
+/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
+	. = ..()
 	baconbeacon = new /obj/item/beacon/bacon(src)
+
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -779,7 +783,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/goliath_steak/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стейк из мяса голиафа",
 		GENITIVE = "стейка из мяса голиафа",
 		DATIVE = "стейку из мяса голиафа",
@@ -801,7 +805,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренная паучья лапка",
 		GENITIVE = "жаренной паучьей лапки",
 		DATIVE = "жаренной паучьей лапке",
@@ -865,11 +869,6 @@
 	if(volume >= 1)
 		return Expand()
 
-/obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_from_active_hand()
-	forceMove(get_turf(source))
-	return 1
-
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		return
@@ -893,6 +892,10 @@
 			creature.fingerprintshidden = fingerprintshidden
 		SSmobs.cubemonkeys += creature
 		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/monkeycube/wash_tg(clean_types)
+	. = ..()
+	return COMPONENT_CLEANED
 
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
 	faction = list("neutral", "syndicate")
@@ -940,7 +943,7 @@
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		var/crayon_color = crayon.colourName
 		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")
@@ -990,10 +993,10 @@
 	desc = "An egg! It looks weird..."
 
 /obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
 	color = mix_color_from_reagents(reagents.reagent_list)
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "fried egg"
@@ -1003,7 +1006,7 @@
 	filling_color = "#FFDF78"
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
-	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
+	tastes = list("egg" = 1, "sodiumchloride" = 1, "pepper" = 1)
 	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/boiledegg

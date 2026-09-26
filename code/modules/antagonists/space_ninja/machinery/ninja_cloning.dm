@@ -91,7 +91,8 @@
 		/datum/action/item_action/advanced/ninja/SpiderOS,
 		/datum/action/item_action/advanced/ninja/ninja_autodust,
 		/datum/action/item_action/ninjastatus,
-		/datum/action/item_action/advanced/ninja/ninja_sword_recall
+		/datum/action/item_action/advanced/ninja/ninja_sword_recall,
+		/datum/action/item_action/advanced/ninja/suit_mode,
 	)
 	var/action_path
 	for(action_path in n_suit.actions_types)

@@ -9,11 +9,11 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_medium_box"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 /obj/structure/bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот",
 		GENITIVE = "бота",
 		DATIVE = "боту",
@@ -39,6 +39,11 @@
 	var/datum/port/output/signal
 	/// The user who used the bot
 	var/datum/port/output/entity
+
+/obj/item/circuit_component/bot/Destroy()
+	signal = null
+	entity = null
+	. = ..()
 
 /obj/item/circuit_component/bot/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)

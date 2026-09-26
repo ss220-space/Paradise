@@ -9,7 +9,8 @@
 
 /obj/item/implant/emp/activate()
 	uses--
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, get_turf(imp_in), 3, 5, TRUE, name)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), get_turf(imp_in), 3, 5, TRUE, name)
+	. = ..()
 	if(!uses)
 		qdel(src)
 

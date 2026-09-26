@@ -110,7 +110,7 @@
 "q" = (
 /obj/item/hatchet,
 /obj/item/storage/bag/plants,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -136,11 +136,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "u" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_x = -28;
@@ -161,17 +157,14 @@
 	pixel_y = 5
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "y" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "z" = (
@@ -227,10 +220,10 @@
 /area/ruin/powered/seedvault)
 "I" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "J" = (

@@ -57,11 +57,11 @@
 	heat_level_3 = 400 //Default 460
 	heatmod = 3
 
-	flesh_color = "#a3d4eb"
+	flesh_color = BLOOD_COLOR_DRASK
 	reagent_tag = ORGANIC
-	base_color = "#a3d4eb"
+	base_color = BLOOD_COLOR_DRASK
 	blood_species = "Drask"
-	blood_color = "#a3d4eb"
+	blood_color = BLOOD_COLOR_DRASK
 	butt_sprite = "drask"
 
 	has_organ = list(
@@ -98,6 +98,14 @@
 	)
 	autohiss_exempt = list("Орлуум")
 
+	max_select_skills = list(
+		/datum/skill/general/carrying = 3,
+		/datum/skill/general/mech_drive = 1,
+		/datum/skill/combat/melee = 1,
+		/datum/skill/combat/fists = 3,
+		/datum/skill/research/robotics = 1,
+	)
+
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
@@ -111,8 +119,6 @@
 		coma = new
 		coma.Grant(human)
 
-	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
-
 /datum/species/drask/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
 
@@ -121,8 +127,6 @@
 
 	var/datum/action/innate/drask/coma/coma = locate() in human.actions
 	coma?.Remove(human)
-
-	remove_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/handle_life(mob/living/carbon/human/human)
 	. = ..()

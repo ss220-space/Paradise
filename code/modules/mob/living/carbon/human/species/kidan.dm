@@ -18,7 +18,7 @@
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
-	blood_color = "#FB9800"
+	blood_color = BLOOD_COLOR_KIDAN
 	reagent_tag = ORGANIC
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
@@ -110,6 +110,9 @@
 		"с" = list("з", "зс", "ззз", "ззсз"),
 	)
 	autohiss_exempt = list("Хитин")
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 3,
+	)
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -117,26 +120,6 @@
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	add_verb(H, list(
-		/mob/living/carbon/human/proc/emote_click,
-		/mob/living/carbon/human/proc/emote_clack,
-		/mob/living/carbon/human/proc/emote_wiggle,
-		/mob/living/carbon/human/proc/emote_wave_k
-	))
-	remove_verb(H, list(
-		/mob/living/carbon/human/verb/emote_pale,
-		/mob/living/carbon/human/verb/emote_blink,
-		/mob/living/carbon/human/verb/emote_blink_r,
-		/mob/living/carbon/human/verb/emote_blush,
-		/mob/living/carbon/human/verb/emote_wink,
-		/mob/living/carbon/human/verb/emote_smile,
-		/mob/living/carbon/human/verb/emote_snuffle,
-		/mob/living/carbon/human/verb/emote_grin,
-		/mob/living/carbon/human/verb/emote_eyebrow,
-		/mob/living/carbon/human/verb/emote_frown,
-		/mob/living/carbon/human/verb/emote_sniff,
-		/mob/living/carbon/human/verb/emote_glare
-	))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
 	kidan_hud.show_to(H)
@@ -149,24 +132,6 @@
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	remove_verb(H, list(
-		/mob/living/carbon/human/proc/emote_click,
-		/mob/living/carbon/human/proc/emote_clack,
-		/mob/living/carbon/human/proc/emote_wiggle,
-		/mob/living/carbon/human/proc/emote_wave_k))
-	add_verb(H, list(
-		/mob/living/carbon/human/verb/emote_pale,
-		/mob/living/carbon/human/verb/emote_blink,
-		/mob/living/carbon/human/verb/emote_blink_r,
-		/mob/living/carbon/human/verb/emote_blush,
-		/mob/living/carbon/human/verb/emote_wink,
-		/mob/living/carbon/human/verb/emote_smile,
-		/mob/living/carbon/human/verb/emote_snuffle,
-		/mob/living/carbon/human/verb/emote_grin,
-		/mob/living/carbon/human/verb/emote_eyebrow,
-		/mob/living/carbon/human/verb/emote_frown,
-		/mob/living/carbon/human/verb/emote_sniff,
-		/mob/living/carbon/human/verb/emote_glare))
 
 	// Removing the HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
@@ -198,8 +163,8 @@
 
 	// Add itself to the kidan hud
 	prepare_huds()
-	for(var/datum/atom_hud/kidan_pheromones/kidan_hud in GLOB.huds)
-		kidan_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/kidan_pheromones/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.add_atom_to_hud(src)
 	var/image/holder = hud_list[KIDAN_PHEROMONES_HUD]
 	holder.icon = icon
 	holder.icon_state = icon_state
@@ -266,7 +231,7 @@
 		if("Создать")
 			// Can we create more pheromones?
 			if(length(active_pheromones_current) >= active_pheromones_maximum)
-				to_chat(H, span_warning("У вас уже [length(active_pheromones_current)] [declension_ru(length(active_pheromones_current),"активный феромон","активных феромона","активных феромонов")], нельзя создать больше."))
+				to_chat(H, span_warning("У вас уже есть [length(active_pheromones_current)] активн[DECL_YJ_YH_YH(length(active_pheromones_current))] феромон[DECL_0_A_OV(length(active_pheromones_current))], нельзя создать больше."))
 				return
 
 			// Encode the message

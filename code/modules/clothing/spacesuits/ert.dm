@@ -5,7 +5,7 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
+	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, fire = 100, acid = 80)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
@@ -23,6 +23,10 @@
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))
 			register_camera(wearer)
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Destroy()
+	QDEL_NULL(camera)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
@@ -44,7 +48,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"
@@ -52,7 +56,7 @@
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
+	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, fire = 100, acid = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -70,7 +74,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
@@ -230,22 +234,27 @@
 	)
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	hide_tail_by_species = list(SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_VOX, SPECIES_VULPKANIN)
+	var/obj/item/nullrod/inner_nullrod
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
-	new /obj/item/nullrod(src)
+	inner_nullrod = new /obj/item/nullrod(src)
+
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Destroy()
+	QDEL_NULL(inner_nullrod)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's helmet"
 	icon_state = "hardsuit0-inquisitor"
 	item_color = "inquisitor"
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's hardsuit"
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 
 // Solgov
 
@@ -256,7 +265,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 100, acid = 50)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 50)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "Trans-Solar Federation Specops Marine hardsuit"
@@ -265,8 +274,8 @@
 	icon_state = "ert_solgov_marine"
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 100, acid = 50)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 50)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "Trans-Solar Federation Specops Lieutenant helmet"
@@ -288,7 +297,7 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 10, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 10, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	vision_flags = SEE_MOBS
@@ -310,7 +319,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 10, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 10, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -340,7 +349,7 @@
 	item_state = "ert_evasuit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during peacemaker's mission."
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, fire = 50, acid = 65)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -354,7 +363,7 @@
 	item_state = "ert_eva_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during mission. Has camera module inside, can be activated."
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_NONE
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE

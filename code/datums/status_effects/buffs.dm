@@ -268,7 +268,7 @@
 /datum/status_effect/hippocraticOath
 	id = "Hippocratic Oath"
 	tick_interval = 25
-	examine_text = span_notice("Кажется, они окружены аурой исцеления и доброжелательности.")
+	examine_text = span_notice_alt("Кажется, они окружены аурой исцеления и доброжелательности.")
 	alert_type = null
 
 	var/datum/component/aura_healing/aura_healing
@@ -375,6 +375,10 @@
 
 /datum/status_effect/regenerative_core/on_apply()
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.add_fracture_ignore_trait(src)
+
 	owner.heal_overall_damage(25, 25, affect_robotic = TRUE)
 	owner.remove_CC()
 	if(ishuman(owner))
@@ -384,7 +388,8 @@
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
 				bodypart.stop_arterial_bleeding()
-				bodypart.mend_fracture()
+				if(bodypart.has_fracture() && bodypart.fracture.can_mend_by_aura_heal)
+					bodypart.mend_fracture()
 		else
 			to_chat(owner, span_warning("...Но ядро ослаблено, оно не достаточно близко к остальным легионам некрополя."))
 	else
@@ -393,6 +398,10 @@
 
 /datum/status_effect/regenerative_core/on_remove()
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Регенерация плоти"
@@ -404,7 +413,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
 	/// This diminishes the healing of fleshmend the higher it is.
-	var/tolerance = 1
+	var/tolerance = 0
 	/// This diminishes the healing of fleshmend if the user is cold when it is activated
 	var/freezing = FALSE
 	/// Number of heal ticks.
@@ -423,10 +432,14 @@
 
 /datum/status_effect/fleshmend/proc/apply_new_fleshmend()
 	tolerance += 1
-	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
-	if(freezing)
-		to_chat(owner, span_warning("Эффективность нашего исцеления снижена из-за холодного тела!"))
 	active_instances += instance_duration
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
+
+	if(freezing || tolerance > 1)
+		owner.balloon_alert(owner, "эффективность регенерации снижена")
+	else
+		owner.balloon_alert(owner, "быстрая регенерация плоти")
+
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	if(LAZYLEN(active_instances) >= 1)
@@ -453,66 +466,129 @@
 
 		active_instances -= expired_instances
 
-	tolerance = max(tolerance - 0.05, 1)
-	if(tolerance <= 1 && length(active_instances) == 0)
+	tolerance = max(tolerance - 0.1, 1)
+
+	if(length(active_instances) <= 0)
 		qdel(src)
+
+/atom/movable/screen/alert/status_effect/epinephrine
+	name = "Выброс адреналина"
+	desc = "Даёт защиту от оглушения."
+	icon_state = "epinephrine"
+
+/datum/status_effect/epinephrine
+	id = "epinephrine"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/epinephrine
+	duration = 5 SECONDS
+
+/datum/status_effect/epinephrine/on_apply()
+	owner.balloon_alert(owner, "адреналин наполняет силой!")
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+	owner.SetStunned(0)
+	owner.SetWeakened(0)
+	owner.SetKnockdown(0)
+	owner.setStaminaLoss(0)
+	owner.set_resting(FALSE, instant = TRUE)
+	owner.get_up(instant = TRUE)
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.add_fracture_ignore_trait(src)
+	return TRUE
+
+/datum/status_effect/epinephrine/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)
+
+/datum/status_effect/epinephrine/refresh(effect, ...)
+	. = ..()
+
+	owner.balloon_alert(owner, "адреналин наполняет силой!")
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+	owner.SetStunned(0)
+	owner.SetWeakened(0)
+	owner.SetKnockdown(0)
+	owner.setStaminaLoss(0)
+	owner.set_resting(FALSE, instant = TRUE)
+	owner.get_up(instant = TRUE)
 
 /datum/status_effect/speedlegs
 	id = "gottagofast"
-	tick_interval = 4 SECONDS
 	alert_type = null
 	var/stacks = 0
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 
 /datum/status_effect/speedlegs/on_apply()
-	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	cling = IS_CHANGELING(owner)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
+	cling.chem_charges -= CLING_MUSCLES_CHEMICALCOST
 	return TRUE
 
 /datum/status_effect/speedlegs/tick(seconds_between_ticks)
-	if(owner.body_position == LYING_DOWN)
-		to_chat(owner, span_danger("Мы не можем использовать наши ноги, пока лежим!"))
-		qdel(src)
-	else if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
-		to_chat(owner, span_danger("Наши мышцы расслабляются, не имея энергии для напряжения."))
-		owner.Weaken(6 SECONDS)
+	if(owner.stat || owner.staminaloss >= owner.get_max_stamina() || cling.chem_charges <= (stacks * CLING_MUSCLES_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE)
+		owner.balloon_alert(owner, "мы истощены!")
+		owner.Knockdown(6 SECONDS)
 		qdel(src)
 	else
 		stacks++
-		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
-		if(stacks == 7) //Warning message that the stacks are getting too high
-			to_chat(owner, span_warning("Наши ноги начинают сильно болеть..."))
-
-/datum/status_effect/speedlegs/before_remove()
-	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
-		to_chat(owner, span_notice("Наши мышцы только что напряглись, они не расслабятся так быстро."))
-		return FALSE
-	return TRUE
+		if(stacks == CLING_MUSCLES_STACKS)
+			owner.balloon_alert(owner, "наши ноги болят!")
+		else if(stacks > CLING_MUSCLES_STACKS) //Warning message that the stacks are getting too high
+			cling.chem_charges -= (stacks * CLING_MUSCLES_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE  //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 
 /datum/status_effect/speedlegs/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
-	if(!owner.IsWeakened())
-		to_chat(owner, span_notice("Наши мышцы расслабляются."))
-		if(stacks >= 7)
-			to_chat(owner, span_danger("Мы падаем от истощения."))
-			owner.Weaken(6 SECONDS)
-			owner.emote("gasp")
-	cling.genetic_damage += stacks
+	if(stacks >= CLING_MUSCLES_STACKS)
+		owner.balloon_alert(owner, "наши мышцы истощены")
+		owner.Knockdown(6 SECONDS)
+		owner.emote("gasp")
+	else
+		owner.balloon_alert(owner, "наши мышцы расслабляются")
+	cling = null
+
+/datum/status_effect/chameleon
+	id = "chameleonskin"
+	alert_type = null
+	var/stacks = 0
+	var/datum/antagonist/changeling/cling
+
+/datum/status_effect/chameleon/on_apply()
+	cling = IS_CHANGELING(owner)
+	cling.chem_charges -= CLING_CHAMELEON_CHEMICALCOST
+	owner.balloon_alert(owner, "кожа становится прозрачной!")
+	return TRUE
+
+/datum/status_effect/chameleon/tick(seconds_between_ticks)
+	if(owner.stat || cling.chem_charges <= CLING_CHAMELEON_CONSUMPTION + CLING_CHEM_RECHARGE_RATE)
+		qdel(src)
+	else
+		cling.chem_charges -= CLING_CHAMELEON_CONSUMPTION
+		if((world.time - owner.last_movement) >= 10)
+			owner.alpha_add(standartize_alpha(-50), ALPHA_SOURCE_CHAMELEON_CLING)
+		else
+			owner.alpha_add(standartize_alpha(150), ALPHA_SOURCE_CHAMELEON_CLING)
+
+/datum/status_effect/chameleon/on_remove()
+	owner.balloon_alert(owner, "кожа снова видна")
+	owner.alpha_set(1, ALPHA_SOURCE_CHAMELEON_CLING)
 	cling = null
 
 /datum/status_effect/panacea
 	id = "panacea"
 	duration = 20 SECONDS
-	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
-	owner.heal_damages(tox = 5, brain = 5)	//Has the same healing as 20 charcoal, but happens faster
-	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
-	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
-	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
+	owner.heal_damages(tox = 30, brain = 5)
+	owner.AdjustDrunk(-12 SECONDS)
+	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 5)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
 		if(!reagent.harmless)
 			owner.reagents.remove_reagent(reagent.id, 2)
@@ -968,7 +1044,7 @@
 /atom/movable/screen/alert/status_effect/heal
 	name = "Лечение нанитами"
 	desc = "Регенерация увеличена."
-	icon_state = "fleshmend"
+	icon_state = "red_cross"
 
 /datum/status_effect/heal
 	id = "heal"
@@ -997,3 +1073,30 @@
 
 /datum/status_effect/jump_jet/on_remove()
 	owner.RemoveElement(/datum/element/forced_gravity, 0)
+
+
+/// Gives a short period of time when the fracture occurs.
+/datum/status_effect/ignore_fracture
+	id = "ignore_fracture"
+	alert_type = null
+	duration = 10 SECONDS
+
+/datum/status_effect/ignore_fracture/on_creation(
+		mob/living/new_owner,
+		duration = 10 SECONDS,
+	)
+	src.duration = duration
+	return ..()
+
+/datum/status_effect/ignore_fracture/on_apply()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.add_fracture_ignore_trait(src)
+	return TRUE
+
+/datum/status_effect/ignore_fracture/on_remove()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)

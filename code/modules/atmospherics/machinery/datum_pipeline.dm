@@ -51,20 +51,22 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	if(!air)
 		air = new
 	var/list/possible_expansions = list(base)
-	while(length(possible_expansions)>0)
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
+	var/datum/gas_mixture/pipeline_air = air
+	var/list/pipeline_members = members
+	while(length(possible_expansions) > 0)
+		for(var/obj/machinery/atmospherics/borderline as anything in possible_expansions)
 
 			var/list/result = borderline.pipeline_expansion(src)
 
 			if(length(result) > 0)
-				for(var/obj/machinery/atmospherics/P in result)
+				for(var/obj/machinery/atmospherics/P as anything in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
-						if(!members.Find(item))
+						if(!(item in pipeline_members))
 
 							if(item.parent)
-								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Starts from:[base.type]([base]). Nearby: [item.x], [item.y], [item.z]."))
-							members += item
+								stack_trace("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Starts from:[base.type]([base]). Nearby: [item.x], [item.y], [item.z].")
+							pipeline_members += item
 							possible_expansions += item
 
 							volume += item.volume
@@ -74,9 +76,9 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
-								air.merge(item.air_temporary)
+								pipeline_air.merge(item.air_temporary)
 								item.air_temporary = null
-					else
+					else if(P)
 						P.setPipenet(src, borderline)
 						addMachineryMember(P)
 
@@ -134,18 +136,14 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 /datum/pipeline/proc/temporarily_store_air()
 	//Update individual gas_mixtures by volume ratio
 
-	for(var/obj/machinery/atmospherics/pipe/member in members)
-		member.air_temporary = new
-		member.air_temporary.volume = member.volume
-
-		member.air_temporary.set_oxygen(air.oxygen() * member.volume / air.volume)
-		member.air_temporary.set_nitrogen(air.nitrogen() * member.volume / air.volume)
-		member.air_temporary.set_toxins(air.toxins() * member.volume / air.volume)
-		member.air_temporary.set_carbon_dioxide(air.carbon_dioxide() * member.volume / air.volume)
-		member.air_temporary.set_sleeping_agent(air.sleeping_agent() * member.volume / air.volume)
-		member.air_temporary.set_agent_b(air.agent_b() * member.volume / air.volume)
-
-		member.air_temporary.set_temperature(air.temperature())
+	var/remaining_volume = air.volume
+	for(var/obj/machinery/atmospherics/pipe/member as anything in members)
+		if(remaining_volume <= 0)
+			break
+		var/member_volume = member.volume
+		var/datum/gas_mixture/temp_air = air.remove_ratio(member_volume / remaining_volume)
+		remaining_volume -= member_volume
+		member.air_temporary = temp_air
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
 	var/datum/milla_safe/pipeline_temperature_interact/milla = new()
@@ -225,37 +223,40 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	for(var/i = 1; i <= length(pipelines); i++)
 		var/datum/pipeline/pipeline = pipelines[i]
 
-		if(!istype(pipeline) || QDELETED(pipeline) || isnull(pipeline.air))
+		if(QDELETED(pipeline) || isnull(pipeline.air))
 			continue
 
 		gas_mixtures += pipeline.air
 		gas_mixtures += pipeline.other_airs
 
-		for(var/obj/machinery/atmospherics/binary/valve/valve in pipeline.other_atmosmch)
-			if(QDELETED(valve))
+		for(var/atom/atm as anything in pipeline.other_atmosmch)
+			if(QDELETED(atm))
 				continue
 
-			if(valve.open)
-				pipelines |= valve.parent1
-				pipelines |= valve.parent2
-
-		for(var/obj/machinery/atmospherics/trinary/tvalve/triple_valve in pipeline.other_atmosmch)
-			if(QDELETED(triple_valve))
+			if(istype(atm, /obj/machinery/atmospherics/binary/valve))
+				var/obj/machinery/atmospherics/binary/valve/valve = atm
+				if(valve.open)
+					pipelines |= valve.parent1
+					pipelines |= valve.parent2
 				continue
-			if(!triple_valve.state)
-				if(src != triple_valve.parent2) // otherwise dc'd side connects to both other sides!
-					pipelines |= triple_valve.parent1
-					pipelines |= triple_valve.parent3
-			else
-				if(src != triple_valve.parent3)
-					pipelines |= triple_valve.parent1
-					pipelines |= triple_valve.parent2
 
-		for(var/obj/machinery/atmospherics/unary/portables_connector/connector in pipeline.other_atmosmch)
-			if(QDELETED(connector))
+			if(istype(atm, /obj/machinery/atmospherics/unary/portables_connector))
+				var/obj/machinery/atmospherics/unary/portables_connector/connector = atm
+				if(connector.connected_device)
+					gas_mixtures += connector.portableConnectorReturnAir()
 				continue
-			if(connector.connected_device)
-				gas_mixtures += connector.portableConnectorReturnAir()
+
+			if(istype(atm, /obj/machinery/atmospherics/trinary/tvalve))
+				var/obj/machinery/atmospherics/trinary/tvalve/triple_valve = atm
+				if(!triple_valve.state)
+					if(src != triple_valve.parent2) // otherwise dc'd side connects to both other sides!
+						pipelines |= triple_valve.parent1
+						pipelines |= triple_valve.parent3
+				else
+					if(src != triple_valve.parent3)
+						pipelines |= triple_valve.parent1
+						pipelines |= triple_valve.parent2
+
 
 	if(length(members))
 		share_many_airs(gas_mixtures, members[1])

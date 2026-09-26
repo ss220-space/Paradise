@@ -1,7 +1,7 @@
 //NEVER USE THIS IT SUX	-PETETHEGOAT
 
-/obj/item/reagent_containers/glass/paint
-	desc = "It's a paint bucket."
+/obj/item/reagent_containers/cup/paint
+	desc = "Это ведро краски."
 	name = "paint bucket"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_neutral"
@@ -13,12 +13,16 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
+	/// paint title in ru_names
+	var/paint_title_ru = ""
 
-/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/cup/paint/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(!is_open_container())
 		return
+
 	if(istype(target) && reagents.total_volume >= 5)
 		user.visible_message(span_warning("[target] has been splashed with something by [user]!"))
 		spawn(5)
@@ -27,41 +31,84 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/glass/paint/red
+/obj/item/reagent_containers/cup/paint/get_ru_names()
+	return alist(
+		NOMINATIVE = "ведро [paint_title_ru]",
+		GENITIVE = "ведра [paint_title_ru]",
+		DATIVE = "ведру [paint_title_ru]",
+		ACCUSATIVE = "ведро [paint_title_ru]",
+		INSTRUMENTAL = "ведром [paint_title_ru]",
+		PREPOSITIONAL = "ведре [paint_title_ru]",
+	)
+
+/obj/item/reagent_containers/cup/paint/red
 	name = "red paint bucket"
 	icon_state = "paint_red"
 	list_reagents = list("paint_red" = 70)
+	paint_title_ru = "красной краски"
 
-/obj/item/reagent_containers/glass/paint/green
+/obj/item/reagent_containers/cup/paint/green
 	name = "green paint bucket"
 	icon_state = "paint_green"
 	list_reagents = list("paint_green" = 70)
+	paint_title_ru = "зеленой краски"
 
-/obj/item/reagent_containers/glass/paint/blue
+/obj/item/reagent_containers/cup/paint/blue
 	name = "blue paint bucket"
 	icon_state = "paint_blue"
 	list_reagents = list("paint_blue" = 70)
+	paint_title_ru = "синей краски"
 
-/obj/item/reagent_containers/glass/paint/yellow
+/obj/item/reagent_containers/cup/paint/yellow
 	name = "yellow paint bucket"
 	icon_state = "paint_yellow"
 	list_reagents = list("paint_yellow" = 70)
+	paint_title_ru = "желтой краски"
 
-/obj/item/reagent_containers/glass/paint/violet
+/obj/item/reagent_containers/cup/paint/violet
 	name = "violet paint bucket"
 	icon_state = "paint_violet"
 	list_reagents = list("paint_violet" = 70)
+	paint_title_ru = "фиолетовой краски"
 
-/obj/item/reagent_containers/glass/paint/black
+/obj/item/reagent_containers/cup/paint/black
 	name = "black paint bucket"
 	icon_state = "paint_black"
 	list_reagents = list("paint_black" = 70)
+	paint_title_ru = "черной краски"
 
-/obj/item/reagent_containers/glass/paint/white
+/obj/item/reagent_containers/cup/paint/white
 	name = "white paint bucket"
 	icon_state = "paint_white"
 	list_reagents = list("paint_white" = 70)
+	paint_title_ru = "белой краски"
 
-/obj/item/reagent_containers/glass/paint/remover
+/obj/item/reagent_containers/cup/paint/remover
 	name = "paint remover bucket"
 	list_reagents = list("paint_remover" = 70)
+	paint_title_ru = "краскоудалителя"
+
+/obj/item/random_paint_box
+	name = "paint box"
+	desc = "Коробка, которая содержит случайное ведро с краской."
+	icon = 'icons/obj/storage/boxes.dmi'
+	icon_state = "giftcrate3"
+
+/obj/item/random_paint_box/attack_self(mob/user)
+	var/static/list/paint_types
+	if(!paint_types)
+		paint_types = subtypesof(/obj/item/reagent_containers/cup/paint)
+	var/chosen = pick(paint_types)
+	var/obj/item/thing = new chosen(user.drop_location())
+	user.put_in_hands(thing)
+	qdel(src)
+
+/obj/item/random_paint_box/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка красок",
+		GENITIVE = "коробки красок",
+		DATIVE = "коробке красок",
+		ACCUSATIVE = "коробку красок",
+		INSTRUMENTAL = "коробкой красок",
+		PREPOSITIONAL = "коробке красок",
+	)

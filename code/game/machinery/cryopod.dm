@@ -255,7 +255,7 @@
 	)
 
 /obj/machinery/cryopod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенный морозильник",
 		GENITIVE = "криогенного морозильника",
 		DATIVE = "криогенному морозильнику",
@@ -272,6 +272,10 @@
 	base_icon_state = "cryo_s-open"
 	occupied_icon_state = "cryo_s"
 	dir = WEST
+	syndicate = TRUE
+
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
 	syndicate = TRUE
 
 /obj/machinery/cryopod/Initialize(mapload)
@@ -318,7 +322,7 @@
 	if(occupant)
 		// Eject dead people
 		if(occupant.stat == DEAD)
-			go_out()
+			discard_occupant()
 			return
 
 		// Allow a gap between entering the pod and actually despawning.
@@ -483,6 +487,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)
 
+/obj/machinery/cryopod/proc/discard_occupant()
+	playsound(src, 'sound/machines/buzz-sigh.ogg', HALFWAY_SOUND_VOLUME, use_reverb = TRUE)
+	go_out()
+	balloon_alert_to_viewers("субъект отклонен")
+
 /obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
@@ -527,8 +536,7 @@
 	add_fingerprint(grabber)
 	take_occupant(target, willing)
 
-/obj/machinery/cryopod/MouseDrop_T(atom/movable/O, mob/user, params)
-
+/obj/machinery/cryopod/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
@@ -543,11 +551,11 @@
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
-		return TRUE
+		return
 
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -555,18 +563,17 @@
 
 	if(L.stat == DEAD)
 		to_chat(user, span_notice("Dead people can not be put into cryo."))
-		return TRUE
+		return
 
 	if(!L.mind)
 		to_chat(user, span_notice("Catatonic people are not allowed into cryo."))
-		return TRUE
+		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
-		return TRUE
+		return
 
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
-	return TRUE
 
 /obj/machinery/cryopod/proc/put_in(mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/willing = null //We don't want to allow people to be forced into despawning.
@@ -621,71 +628,6 @@
 	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
 
-/obj/machinery/cryopod/verb/eject()
-	set name = "Вылезти"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(usr != occupant)
-		to_chat(usr, "The cryopod is in use and locked!")
-		return
-
-	//Eject any items that aren't meant to be in the pod.
-	var/list/items = contents
-	if(occupant)
-		items -= occupant
-
-	for(var/obj/item/I in items)
-		I.forceMove(get_turf(src))
-
-	go_out()
-	add_fingerprint(usr)
-
-/obj/machinery/cryopod/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
-		return
-
-	if(occupant)
-		to_chat(usr, span_boldnotice("\The [src] is in use."))
-		return
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	visible_message("[usr] starts climbing into [src].")
-
-	if(do_after(usr, 2 SECONDS, usr))
-
-		if(!usr || !usr.client)
-			return
-
-		if(occupant)
-			to_chat(usr, span_boldnotice("\The [src] is in use."))
-			return
-
-		usr.forceMove(src)
-		occupant = usr
-		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
-
-		to_chat(usr, span_notice("[on_enter_occupant_message]"))
-		to_chat(usr, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
-		occupant = usr
-		time_entered = world.time
-
-		add_fingerprint(usr)
-		name = "[name] ([usr.name])"
-
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
 		return
@@ -726,6 +668,9 @@
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R))
 		return ..()
+	if(R.shell)
+		discard_occupant()
+		return ..()
 
 	R.contents -= R.mmi
 	qdel(R.mmi)
@@ -750,7 +695,7 @@
 	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
 			free_syndie_cryopods += P
-		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+		else if(!P.occupant && istype(get_area(P), /area/station/commons/sleep))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(length(free_cryopods))

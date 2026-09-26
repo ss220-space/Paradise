@@ -46,6 +46,10 @@
 		minbodytemp = 0, \
 	)
 
+/mob/living/simple_animal/hostile/bear/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_SPACEWALK, TRAIT_SWIMMER, TRAIT_FENCE_CLIMBER, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT)
+
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
 		playsound(src, src.trigger_sound, 40, TRUE)
@@ -55,8 +59,8 @@
 	name = "Hudson"
 	desc = "Feared outlaw, this guy is one bad news bear." //I'm sorry...
 
-/mob/living/simple_animal/hostile/bear/Hudson/New()
-	..()
+/mob/living/simple_animal/hostile/bear/Hudson/Initialize(mapload)
+	. = ..()
 	var/unbearable_pun = pick("He's unbearably cute.", "It looks like he is a bearer of bad news.", "Sadly, he is bearly able to comprehend puns.")
 	desc = "That's Hudson. " +  unbearable_pun// I am not sorry for this.
 

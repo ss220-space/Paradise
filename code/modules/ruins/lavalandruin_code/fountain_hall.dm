@@ -7,7 +7,7 @@
 	can_buckle = TRUE
 
 /obj/structure/sacrificealtar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жертвенный алтарь",
 		GENITIVE = "жертвенного алтаря",
 		DATIVE = "жертвенному алтарю",
@@ -40,7 +40,7 @@
 	var/last_process = 0
 
 /obj/structure/healingfountain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "целебный фонтан",
 		GENITIVE = "целебного фонтана",
 		DATIVE = "целебному фонтану",

@@ -57,7 +57,7 @@
 	var/used = FALSE
 
 /obj/item/mimejutsu_scroll/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мануал Мимдзютсю",
 		GENITIVE = "мануала Мимдзютсю",
 		DATIVE = "мануалу Мимдзютсю",

@@ -4,6 +4,7 @@
 	job_rank = ROLE_SPACE_DRAGON
 	special_role = SPECIAL_ROLE_SPACE_DRAGON
 	antag_menu_name = "Космический дракон"
+	has_skill_bonus = FALSE
 	/// All space carps created by this antagonist space dragon
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -148,7 +149,7 @@
 	GLOB.major_announcement.announce(
 		message = "Огромное число неопознанных форм жизни направляется к [station_name()] с высокой скоростью. Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...",
 		new_title = ANNOUNCE_WILDNATURE_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)

@@ -25,7 +25,7 @@
 	active_power_usage = 500
 
 /obj/machinery/gibber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясорубка",
 		GENITIVE = "мясорубки",
 		DATIVE = "мясорубке",
@@ -126,7 +126,7 @@
 
 	return ..()
 
-/obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
+/obj/machinery/gibber/mouse_drop_receive(mob/target, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -137,7 +137,7 @@
 
 	if(targetl.buckled)
 		return
-	. = TRUE
+
 	add_fingerprint(user)
 	move_into_gibber(user,target)
 
@@ -169,10 +169,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
-/obj/machinery/gibber/verb/eject()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Опустошить мясорубку"
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мясорубку", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -391,7 +388,7 @@
 			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
-		if(istype(O,/obj/item/organ))
+		if(is_organ(O))
 			continue
 		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now

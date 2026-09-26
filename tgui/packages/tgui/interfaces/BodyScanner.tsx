@@ -1,6 +1,4 @@
-import { round } from 'common/math';
-import { capitalize } from 'common/string';
-import { useBackend } from '../backend';
+import { Fragment, type ReactNode } from 'react';
 import {
   AnimatedNumber,
   Box,
@@ -12,10 +10,11 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Fragment, ReactNode } from 'react';
-import { ProgressBarProps } from '../components/ProgressBar';
 
 const stats = [
   ['good', 'Норма'],
@@ -48,12 +47,12 @@ const damages = [
 ];
 
 const damageRange: Record<string, [number, number]> = {
-  'average': [0.25, 0.5],
-  'bad': [0.5, Infinity],
+  average: [0.25, 0.5],
+  bad: [0.5, Infinity],
 };
 
 const mapTwoByTwo = <T, R>(a: T[][], c: (s: T[], c2: T[], i: number) => R) => {
-  let result: R[] = [];
+  const result: R[] = [];
   for (let i = 0; i < a.length; i += 2) {
     result.push(c(a[i], a[i + 1], i));
   }
@@ -66,10 +65,10 @@ const reduceOrganStatus = (A: ReactNode[]) => {
         (a, s) => (
           <>
             {a}
-            <Box key={s.toString()}>{s}</Box>
+            <Box key={s?.toString()}>{s}</Box>
           </>
         ),
-        null
+        null,
       )
     : null;
 };
@@ -275,7 +274,7 @@ const BodyScannerMainAbnormalities = (props: BodyScannerProps) => {
               {a[2]}
             </Box>
           );
-        }
+        } else return '';
       })}
     </Section>
   );
@@ -313,7 +312,7 @@ const BodyScannerMainDamage = (props: BodyScannerProps) => {
   );
 };
 
-const BodyScannerMainDamageBar = (props: ProgressBarProps) => {
+const BodyScannerMainDamageBar = (props: any) => {
   const { value, mb, ...rest } = props;
   return (
     <ProgressBar
@@ -435,7 +434,7 @@ const BodyScannerMainOrgansExternal = (props: Organs<ExternalOrgan>) => {
                   ),
                 ])}
                 {reduceOrganStatus(
-                  o.shrapnel.map((s) => (s.known ? s.name : 'Инородное тело'))
+                  o.shrapnel.map((s) => (s.known ? s.name : 'Инородное тело')),
                 )}
               </Box>
             </Table.Cell>

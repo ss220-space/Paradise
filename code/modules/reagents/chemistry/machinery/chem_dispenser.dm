@@ -29,9 +29,12 @@
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
 	var/is_drink = FALSE
+	var/base_skill = /datum/skill/medical/chemistry
+	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
+	var/dispence_random_prob_name = CHEMISTRY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический раздатчик",
 		GENITIVE = "химического раздатчика",
 		DATIVE = "химическому раздатчику",
@@ -54,74 +57,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	dispensable_reagents = sortAssoc(dispensable_reagents)
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/supgraded/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
-	component_parts += new /obj/item/stock_parts/cell/bluespace
-	RefreshParts()
-
-/obj/machinery/chem_dispenser/mutagensaltpeter
-	name = "botanical chemical dispenser"
-	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
-	obj_flags = NODECONSTRUCT
-
-	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
-		"water",
-		"atrazine",
-		"pestkiller",
-		"cryoxadone",
-		"ammonia",
-		"ash",
-		"diethylamine",
-	)
-	upgrade_reagents = list()
-
-/obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
-	return list(
-		NOMINATIVE = "ботанический раздатчик",
-		GENITIVE = "ботанического раздатчика",
-		DATIVE = "ботаническому раздатчику",
-		ACCUSATIVE = "ботанический раздатчик",
-		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике",
-	)
-
-/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/RefreshParts()
@@ -149,7 +84,7 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
+		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_U_Y_0(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -181,6 +116,16 @@
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
+	var/static/alist/dispense_amounts = alist(
+		SKILL_LEVEL_NONE = list(10, 50, 100),
+		SKILL_LEVEL_BEGINNER = list(5, 10, 50, 100),
+		SKILL_LEVEL_BASIC = list(5, 10, 30, 50, 100),
+		SKILL_LEVEL_ADVANCED = list(5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_PROFESSIONAL = list(1, 5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_EXPERT = list(1, 3, 5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_LEGEND = list(1, 3, 5, 10, 15, 20, 30, 50, 100),
+		SKILL_LEVEL_UNAVAILABLE = list(50),
+	)
 	var/list/data = list()
 
 	data["glass"] = is_drink
@@ -188,6 +133,8 @@
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
 	data["isBeakerLoaded"] = beaker ? 1 : 0
+	GET_SKILL_LEVEL(user, base_skill, skill_level)
+	data["dispenseAmounts"] = dispense_amounts[skill_level]
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
@@ -224,37 +171,59 @@
 		//Chem dispenser dispense amount
 		if("amount")
 			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) //Round to nearest 1 and clamp to 0 - 100
+
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
+
 			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
 				return
-			var/datum/reagents/R = beaker.reagents
-			var/free = R.maximum_volume - R.total_volume
+
+			var/datum/reagents/reagents = beaker.reagents
+			var/free = reagents.maximum_volume - reagents.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
+			var/reagent = params["reagent"]
+
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
-			R.add_reagent(params["reagent"], actual)
+
+			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
+			actual += min(amount * dispense_rand_size * (rand(0, 1) * dispense_rand_size), free) // assistants gets free drinks, but can evaporate energy in seconds
+
+			CALCULATE_SKILL_MOD(usr, dispence_random_prob_name, dispence_random_prob)
+			dispence_random_prob *= 100
+			if(prob(dispence_random_prob))
+				reagent = pick(dispensable_reagents)
+			reagents.add_reagent(reagent, actual)
+
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
+
 			if(!beaker || !amount)
 				return
-			var/datum/reagents/R = beaker.reagents
+
+			var/datum/reagents/reagents = beaker.reagents
 			var/id = params["reagent"]
+
 			if(amount > 0)
-				R.remove_reagent(id, amount)
+				reagents.remove_reagent(id, amount)
+
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(id)
+				reagents.isolate_reagent(id)
+
 			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
-				R.floor_reagent(id)
+				reagents.floor_reagent(id)
+
 		if("ejectBeaker")
 			if(!beaker)
 				return
+
 			beaker.forceMove(loc)
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker, ignore_anim = FALSE)
+
 			beaker = null
 			update_icon(UPDATE_OVERLAYS)
 		else
@@ -270,7 +239,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
+	if(iscup(I) || istype(I, /obj/item/reagent_containers/cup/glass))
 		add_fingerprint(user)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
@@ -287,13 +256,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
-	if(!panel_open)
-		balloon_alert(user, "техпанель закрыта!")
-		return
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
 
 /obj/machinery/chem_dispenser/deconstruct(disassembled)
 	if(beaker)
@@ -322,12 +284,19 @@
 		return
 
 	hackedcheck = !hackedcheck
-	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
+	balloon_alert(user, "защитные протоколы [hackedcheck ? "дезактивированы" : "активированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
+		return TRUE
+
+/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		balloon_alert(user, "техпанель закрыта!")
+		return
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
@@ -372,22 +341,54 @@
 		beaker_cache["[random_pixel]"] = beaker_olay
 	. += beaker_cache["[random_pixel]"]
 
+/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/supgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace
+	RefreshParts()
+
+/*******************************
+		Soda dispenser
+********************************/
+
 /obj/machinery/chem_dispenser/soda
 	name = "soda fountain"
 	desc = "Машина, способная синтезировать целый ряд самых разных напитков. Круто!"
 	icon_state = "soda_dispenser"
 	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
-	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("banana", "berryjuice", "carrotjuice", "coffee", "cola", "dr_gibb", "grapejuice", "hot_coco", "ice", "lemon_lime",
+	"lemonjuice", "limejuice", "milk", "orangejuice", "potato", "sodawater", "soymilk", "space_up", "spacemountainwind", "sugar",
+	"tea", "tomatojuice", "tonic", "water", "watermelonjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик напитков",
 		GENITIVE = "раздатчика напитков",
 		DATIVE = "раздатчику напитков",
@@ -431,6 +432,10 @@
 		dispensable_reagents |= hackedupgrade_reagents
 	return ..()
 
+/*******************************
+		Beer dispenser
+********************************/
+
 /obj/machinery/chem_dispenser/beer
 	name = "booze dispenser"
 	desc = "Машина, способная синтезировать для вас любую алкогольную бурду, которая только может прийти в голову. Настоящее чудо алкологольных технологий!"
@@ -441,9 +446,12 @@
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик алкоголя",
 		GENITIVE = "раздатчика алкоголя",
 		DATIVE = "раздатчику алкоголя",
@@ -476,16 +484,22 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-//botanical chemical dispenser
+/*******************************
+	Botanical dispenser
+********************************/
+
 /obj/machinery/chem_dispenser/botanical
 	name = "botanical chemical dispenser"
 	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
 	ui_title = "Ботанический ХимРаздатчик"
 	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
@@ -518,7 +532,55 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-// Handheld chem dispenser
+/obj/machinery/chem_dispenser/mutagensaltpeter
+	name = "botanical chemical dispenser"
+	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
+	obj_flags = NODECONSTRUCT
+	dispensable_reagents = list(
+		"mutagen",
+		"saltpetre",
+		"eznutriment",
+		"left4zednutriment",
+		"robustharvestnutriment",
+		"water",
+		"atrazine",
+		"pestkiller",
+		"cryoxadone",
+		"ammonia",
+		"ash",
+		"diethylamine",
+	)
+	upgrade_reagents = list()
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
+
+/obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
+	return alist(
+		NOMINATIVE = "ботанический раздатчик",
+		GENITIVE = "ботанического раздатчика",
+		DATIVE = "ботаническому раздатчику",
+		ACCUSATIVE = "ботанический раздатчик",
+		INSTRUMENTAL = "ботаническим раздатчиком",
+		PREPOSITIONAL = "ботаническом раздатчике",
+	)
+
+/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null)
+	RefreshParts()
+
+/*******************************
+	Handheld chem dispenser
+********************************/
+
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	desc = "Компактная версия химического раздатчика. Удобно!"
@@ -538,7 +600,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной химический раздатчик",
 		GENITIVE = "ручного химического раздатчика",
 		DATIVE = "ручному химическому раздатчику",
@@ -562,8 +624,8 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
+/obj/item/handheld_chem_dispenser/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !current_reagent || !amount)
 		return
 
 	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
@@ -575,11 +637,11 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_U_Y_0(amount)] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] из [target.declent_ru(GENITIVE)]."))
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_U_Y_0(amount)] [current_reagent] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))
@@ -651,7 +713,7 @@
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
-		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
+		var/mutable_appearance/power_light = mutable_appearance('icons/obj/chemical.dmi', "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
 			if(0 to 33)
@@ -662,13 +724,12 @@
 				power_light.icon_state = "light_full"
 		. += power_light
 
-		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
-		mode_light.icon_state = "light_[mode]"
+		var/mutable_appearance/mode_light = mutable_appearance('icons/obj/chemical.dmi', "light_[mode]")
 		. += mode_light
 
-		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
+		var/mutable_appearance/chamber_contents = mutable_appearance('icons/obj/chemical.dmi', "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
-		chamber_contents.icon += R.color
+		chamber_contents.color = R.color
 		. += chamber_contents
 
 /obj/item/handheld_chem_dispenser/process()
@@ -728,7 +789,7 @@
 	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/booze/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной алкогольный раздатчик",
 		GENITIVE = "ручного алкогольного раздатчика",
 		DATIVE = "ручному алкогольному раздатчику",
@@ -749,7 +810,7 @@
 	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
 
 /obj/item/handheld_chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной раздатчик напитков",
 		GENITIVE = "ручного раздатчика напитков",
 		DATIVE = "ручному раздатчику напитков",
@@ -777,7 +838,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",
@@ -797,7 +858,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",

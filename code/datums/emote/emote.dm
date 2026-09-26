@@ -8,8 +8,11 @@
  *
  */
 /datum/emote
+	abstract_type = /datum/emote
 	/// What calls the emote.
 	var/key = ""
+	/// Needed for more user-friendly emote names, so emotes with keys like "aflap" will show as "flap angry". Defaulted to key.
+	var/name = ""
 	/// Alternative keys
 	var/list/additional_keys
 	/// This will also call the emote.
@@ -91,6 +94,10 @@
 	var/vary = FALSE
 	/// Whether or not to adjust the frequency of the emote sound based on age.
 	var/age_based = FALSE
+	/// If TRUE, plays the emote sound through a [/datum/sound_token], which keeps panning and fading as the source or listener moves.
+	var/use_sound_tokens = FALSE
+	/// Range, in tiles, of the sound token spawned when use_sound_tokens is enabled.
+	var/sound_token_range = SOUND_RANGE
 	/// If true, this emote will only make a sound effect when called unintentionally.
 	var/only_forced_audio = FALSE
 	/// Whether or not the emote can even be called at all if it's not intentional
@@ -107,6 +114,7 @@
 	var/bypass_unintentional_cooldown = FALSE
 	/// How loud is the audio emote?
 	var/volume = 50
+	var/keybind_category = KB_CATEGORY_EMOTE_GENERIC
 
 /datum/emote/New()
 	if(message_param && !param_desc)
@@ -192,7 +200,7 @@
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
 	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
 		if(bypass_unintentional_cooldown || user.start_audio_emote_cooldown(intentional, intentional ? audio_cooldown : unintentional_audio_cooldown))
-			play_sound_effect(user, intentional, tmp_sound, sound_volume)
+			play_sound_effect(user, intentional, get_sfx(tmp_sound), sound_volume)
 
 	if(msg)
 		user.create_log(EMOTE_LOG, msg)
@@ -215,7 +223,7 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
-		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !user.mind.miming)
+		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !HAS_MIND_TRAIT(user, TRAIT_MIMING))
 			user.audible_message(displayed_msg, deaf_message = span_emote("You see how <b>[user]</b> [msg]"))
 		else
 			user.visible_message(displayed_msg)
@@ -256,19 +264,26 @@
 /**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
- * Note! If you want age_based to work, you need to force vary to TRUE.
  * * user - The user of the emote.
  * * intentional - Whether or not the emote was triggered intentionally.
  * * sound_path - Filesystem path to the audio clip to play.
  * * sound_volume - Volume at which to play the audio clip.
  */
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
+	var/frequency
 	if(age_based && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
-	else
-		playsound(user.loc, sound_path, sound_volume, vary)
+		var/mob/living/carbon/human/human_user = user
+		frequency = human_user.get_age_pitch()
+
+	if(use_sound_tokens)
+		// Tokens don't randomise pitch on their own, so roll the vary frequency here if we don't already have an age-based one.
+		if(isnull(frequency) && vary)
+			frequency = get_rand_frequency()
+		playsoundtoken(source = user, soundin = sound_path, volume = sound_volume, range = sound_token_range, frequency = frequency)
+		return
+
+	// Vary needs to be TRUE or frequency changes get ignored deep within playsound_local, so force it when we have an age-based pitch.
+	playsound(user.loc, sound_path, sound_volume, vary || !isnull(frequency), frequency = frequency)
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
@@ -359,7 +374,7 @@
  */
 /datum/emote/proc/select_message_type(mob/user, msg, intentional)
 	. = msg
-	if(user.mind && user.mind.miming && message_mime)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING) && message_mime)
 		. = islist(message_mime) ? pick(message_mime) : message_mime
 	if(isalienadult(user) && message_alien)
 		. = islist(message_alien) ? pick(message_alien) : message_alien
@@ -544,7 +559,7 @@
  * If this returns false, any mouth emotes will be replaced with muzzled noises.
  */
 /datum/emote/proc/can_vocalize_emotes(mob/user)
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		// mimes get special treatment; though they can't really "vocalize" we don't want to replace their message.
 		return TRUE
 	if(!muzzle_ignore && !user.can_speak())

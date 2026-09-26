@@ -2,3 +2,4 @@
 	mid_sounds = list('sound/items/thermal_drill.ogg' = 1)
 	mid_length = 19
 	volume = 30
+	use_sound_tokens = TRUE

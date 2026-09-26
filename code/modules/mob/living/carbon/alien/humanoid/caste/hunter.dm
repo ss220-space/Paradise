@@ -8,12 +8,23 @@
 	caste_movement_delay = -1
 	role_text = "Вы — Охотник. Ваша основная задача — добыча носителей для заражения их грудоломами."
 	var/invisibility_cost = 5
+	var/datum/action/innate/alien/leap_toggle/leap_action
 
-/mob/living/carbon/alien/humanoid/hunter/New()
+/mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
+	. = ..()
+
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	..()
+
+	leap_action = new
+	leap_action.Grant(src)
+
+/mob/living/carbon/alien/humanoid/hunter/Destroy()
+	if(leap_action)
+		leap_action.Remove(src)
+		leap_action = null
+	return ..()
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
@@ -29,7 +40,6 @@
 
 /mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = TRUE)
 	leap_on_click = !leap_on_click
-	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	update_icons()
 	if(message)
 		to_chat(src, span_noticealien("You will now [leap_on_click ? "leap at":"slash at"] enemies!"))
@@ -55,8 +65,7 @@
 
 	leaping = TRUE
 	//Because the leaping sprite is bigger than the normal one
-	body_position_pixel_x_offset = -32
-	body_position_pixel_y_offset = -32
+	add_offsets(LEAPING_TRAIT, x_add = -8, animate = FALSE)
 	update_icons()
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT) //Throwing itself doesn't protect mobs against lava (because gulag).
 	var/updated_speed = (no_gravity() || target.no_gravity()) ? LEAP_SPEED_NO_GRAVITY : LEAP_SPEED_DEFAULT
@@ -68,8 +77,7 @@
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
 	leaping = FALSE
-	body_position_pixel_x_offset = 0
-	body_position_pixel_y_offset = 0
+	remove_offsets(LEAPING_TRAIT, animate = FALSE)
 	update_icons()
 	REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, LEAPING_TRAIT)
 

@@ -113,7 +113,7 @@
 	required_things = list(
 		/mob/living/carbon/human = 2,
 	)
-	var/static/list/timers_list = list(
+	var/static/alist/timers_list = alist(
 		FIRST_DEVIL_ASCEND_STAGE = 10 SECONDS,
 		SECOND_DEVIL_ASCEND_STAGE = 25 SECONDS,
 		THIRD_DEVIL_ASCEND_STAGE = 20 SECONDS,
@@ -207,12 +207,14 @@
 
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
-			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
+			var/datum/action/cooldown/spell/jaunt/infernal_jaunt/jaunt = locate() in invoker.mind.spell_list
+			if(jaunt)
+				qdel(jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
 			GLOB.major_announcement.announce(
 				message = "Тёмная сущность, известная как [devil.info.truename], из измерения, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие Космического Закона и Стандартных Рабочих Процедур приостановлено. Весь экипаж должен уничтожать любые проявления Ада на месте.",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
-				new_sound = 'sound/AI/commandreport.ogg'
+				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
@@ -258,7 +260,7 @@
 			GLOB.major_announcement.announce(
 				message = "Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
-				new_sound = 'sound/AI/commandreport.ogg'
+				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			var/area/area = get_area(invoker)
 			if(area)

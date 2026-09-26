@@ -38,7 +38,7 @@
 	death()
 
 /mob/living/simple_animal/hostile/blob_minion/zombie/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents spore from pulling things
-	if(istype(pulled_atom, /mob/living))
+	if(isliving(pulled_atom))
 		return TRUE // Get dem
 	if(!supress_message)
 		to_chat(src, span_warning("Вы не можете таскать ничего кроме других существ и их тел."))
@@ -68,8 +68,6 @@
 	blob_head_overlay.color = LAZYACCESS(atom_colours, FIXED_COLOUR_PRIORITY) || COLOR_WHITE
 	color = initial(color) // reversing what our component did lol, but we needed the value for the overlay
 	. |= blob_head_overlay
-	if(blocks_emissive)
-		. |= get_emissive_block()
 
 /// Create an explosion of spores on death
 /mob/living/simple_animal/hostile/blob_minion/zombie/proc/death_burst()

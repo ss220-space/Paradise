@@ -46,13 +46,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -63,6 +58,7 @@
 /obj/machinery/atmospherics/unary/tank/nitrous_oxide{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -219,12 +215,9 @@
 	},
 /area/ruin/space/gasthelizards/engineering)
 "hS" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -274,8 +267,8 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/bottle/mutagen,
-/obj/item/reagent_containers/glass/bottle/mutagen,
+/obj/item/reagent_containers/cup/bottle/mutagen,
+/obj/item/reagent_containers/cup/bottle/mutagen,
 /obj/item/razor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -304,6 +297,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -315,9 +309,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "kO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -377,7 +369,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -443,8 +434,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -467,9 +457,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "rk" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor_gtl";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "mix_sensor_gtl"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/gasthelizards/viewzone)
@@ -598,12 +587,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -660,13 +646,8 @@
 /obj/structure/rack,
 /obj/item/melee/baton/security/cattleprod,
 /obj/item/restraints/handcuffs,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/card/id/away/gtl,
@@ -711,21 +692,16 @@
 "DE" = (
 /obj/structure/rack,
 /obj/item/camera,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "DL" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -765,7 +741,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/machinery/door_control{
 	id = "gtl_vitrine";
 	name = "Vitrine Shutters";
@@ -798,8 +773,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
@@ -851,19 +825,19 @@
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "HU" = (
-/obj/item/reagent_containers/glass/bottle/morphine{
+/obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/glass/bottle/toxin{
+/obj/item/reagent_containers/cup/bottle/toxin{
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/bottle/morphine{
+/obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/glass/bottle/facid{
+/obj/item/reagent_containers/cup/bottle/facid{
 	name = "fluorosulfuric acid bottle";
 	pixel_x = -3;
 	pixel_y = 6
@@ -906,7 +880,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/bag/trash,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/item/soap/homemade,
 /obj/item/storage/box/lights/mixed,
@@ -916,9 +890,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1004,10 +976,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
 "Mp" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1099,8 +1068,7 @@
 	specialfunctions = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
@@ -1316,8 +1284,7 @@
 	},
 /obj/machinery/atmospherics/meter,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1401,7 +1368,6 @@
 "YR" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,

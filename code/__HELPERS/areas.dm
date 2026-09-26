@@ -40,7 +40,7 @@
 				return FALSE
 
 			var/static/list/cardinal_directions = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
-			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(adjacent_turf))
+			if(!cardinal_directions["[direction]"] || !current_turf.CanAtmosPass(direction) || !adjacent_turf.CanAtmosPass(REVERSE_DIR(direction)))
 				continue
 
 			turfs_to_process += adjacent_turf
@@ -58,6 +58,7 @@
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/list/blacklisted_areas = typecacheof(list(
 		/area/space,
+		/area/centcom/asteroid,
 	))
 
 	var/error = ""
@@ -78,10 +79,12 @@
 		var/area/place = get_area(the_turf)
 		if(blacklisted_areas[place.type])
 			continue
-		if(!isnull(place.apc))
-			apc_map[place.name] = place.apc
+		if(!place.requires_power || place.tele_proof || place.no_teleportlocs)
+			continue
 		if(!LAZYLEN(the_turf.GetAtmosAdjacentTurfs(TRUE))) // No expanding areas on blocked turfs
 			continue
+		if(length(place.apc))
+			apc_map[place.name] = place.apc
 		if(length(apc_map) > 1) // When merging 2 or more areas make sure we arent merging their apc into 1 area
 			to_chat(creator, span_warning("Multiple APC's detected in the vicinity. only 1 is allowed."))
 			return
@@ -107,6 +110,7 @@
 		newA.always_unpowered = FALSE
 		newA.valid_territory = FALSE
 		newA.has_gravity = oldA.has_gravity
+		require_area_resort() //new area registered. resort the names
 	else
 		newA = area_choice
 
@@ -120,20 +124,12 @@
 	 * we use this to keep track of what areas are affected by the blueprints & what machinery of these areas needs to be reconfigured accordingly
 	 */
 	var/list/area/affected_areas = list()
-	for(var/turf/the_turf as anything in turfs)
-		var/area/old_area = the_turf.loc
-		LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, the_turf.z, list())
-		LISTASSERTLEN(newA.turfs_by_zlevel, the_turf.z, list())
-		old_area.turfs_to_uncontain_by_zlevel[the_turf.z] += the_turf
-		newA.turfs_by_zlevel[the_turf.z] += the_turf
-
-		//keep rack of all areas affected by turf changes
-		affected_areas[old_area.name] = old_area
-
-		//move the turf to its new area and unregister it from the old one
-		the_turf.change_area(old_area, newA)
+	set_turfs_to_area(turfs, newA, affected_areas)
 
 	newA.reg_in_areas_in_z()
+
+	if(!isarea(area_choice) && newA.static_lighting)
+		newA.create_area_lighting_objects()
 
 	//convert map to list
 	var/list/area/area_list = list()
@@ -165,7 +161,7 @@
 /// Returns a sorted version of GLOB.areas, by name
 /proc/get_sorted_areas()
 	if(!GLOB.sortedAreas)
-		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), /proc/cmp_name_asc)
+		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), GLOBAL_PROC_REF(cmp_name_asc))
 	return GLOB.sortedAreas
 
 /// Simple datum for storing coordinates.
@@ -179,8 +175,8 @@
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
-	//	   Movement based on lower left corner. Tiles that do not fit
-	//		 into the new area will not be moved.
+	//    Movement based on lower left corner. Tiles that do not fit
+	//  into the new area will not be moved.
 
 	if(!A || !src)
 		return FALSE
@@ -192,17 +188,17 @@
 	var/src_min_y = 0
 	for(var/turf/T in turfs_src)
 		if(T.x < src_min_x || !src_min_x)
-			src_min_x	= T.x
+			src_min_x = T.x
 		if(T.y < src_min_y || !src_min_y)
-			src_min_y	= T.y
+			src_min_y = T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	for(var/turf/T in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x)
-			trg_min_x	= T.x
+			trg_min_x = T.x
 		if(T.y < trg_min_y || !trg_min_y)
-			trg_min_y	= T.y
+			trg_min_y = T.y
 
 	var/list/refined_src = new/list()
 	for(var/turf/T in turfs_src)
@@ -251,7 +247,7 @@
 						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type", "pixloc", "verbs", "ckey", "key", "x", "y", "z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 					toupdate += X
@@ -299,9 +295,22 @@
 
 	return turfs
 
+///Takes: list of area types
+///Returns: all mobs that are in an area type
+/proc/mobs_in_area_type(list/area/checked_areas)
+	var/list/mobs_in_area = list()
+	for(var/mob/living/mob as anything in GLOB.mob_living_list)
+		if(QDELETED(mob))
+			continue
+		for(var/area in checked_areas)
+			if(istype(get_area(mob), area))
+				mobs_in_area += mob
+				break
+	return mobs_in_area
+
 ///Takes: Area type as text string or as typepath OR an instance of the area.
 ///Returns: A list of all areas of that type in the world.
-/proc/get_areas(areatype, subtypes=TRUE)
+/proc/get_areas(areatype, subtypes = TRUE)
 	if(!areatype)
 		return null
 	if(istext(areatype))
@@ -321,3 +330,21 @@
 			if(area_to_check.type == areatype)
 				areas += area_to_check
 	return areas
+
+/proc/set_turfs_to_area(list/turf/turfs, area/new_area, list/area/affected_areas = list())
+	for(var/turf/the_turf as anything in turfs)
+		set_turf_to_area(the_turf, new_area, affected_areas)
+
+/proc/set_turf_to_area(turf/the_turf, area/new_area, list/area/affected_areas = list())
+	var/area/old_area = the_turf.loc
+
+	//keep rack of all areas affected by turf changes
+	affected_areas[old_area.name] = old_area
+
+	//move the turf to its new area and unregister it from the old one
+	the_turf.change_area(old_area, new_area)
+
+	//inform atoms on the turf that their area has changed
+	for(var/atom/stuff as anything in the_turf)
+		//unregister the stuff from its old area
+		SEND_SIGNAL(stuff, COMSIG_EXIT_AREA, old_area)

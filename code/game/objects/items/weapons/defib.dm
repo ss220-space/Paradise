@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 	)
@@ -25,10 +25,12 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	/// Ref to internal power cell.
 	var/obj/item/stock_parts/cell/high/cell = null
-	/// If false, using harm intent will let you zap people. Note that any updates to this after init will only impact icons.
+	/// If false, using harm/disarm intent will let you zap people. Note that any updates to this after init will only impact icons.
 	var/safety = TRUE
 	/// If true, this can be used through hardsuits
 	var/ignore_hardsuits = FALSE
+	/// Chance to cause cardiac arrest when used in Harm mode with safety protocols disabled.
+	var/heart_attack_probability = 30
 	/// If this is vulnerable to EMPs.
 	var/hardened = FALSE
 	/// If this can be emagged.
@@ -37,7 +39,7 @@
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
 /obj/item/defibrillator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дефибриллятор",
 		GENITIVE = "дефибриллятора",
 		DATIVE = "дефибриллятору",
@@ -48,7 +50,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/Destroy()
@@ -94,7 +96,7 @@
 		. += "[icon_state]-emagged"
 	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[icon_state]-charge[ratio]"
 	if(!cell)
 		. += "[icon_state]-nocell"
@@ -169,16 +171,6 @@
 	safety = !safety
 	..()
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Взять электроды"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	toggle_paddles(usr)
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
@@ -255,9 +247,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "biotech=5"
+	heart_attack_probability = 10
 
 /obj/item/defibrillator/compact/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный дефибриллятор",
 		GENITIVE = "компактного дефибриллятора",
 		DATIVE = "компактному дефибриллятору",
@@ -283,9 +276,10 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	ignore_hardsuits = TRUE
 	safety = FALSE
+	heart_attack_probability = 100
 
 /obj/item/defibrillator/compact/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой дефибриллятор",
 		GENITIVE = "боевого дефибриллятора",
 		DATIVE = "боевому дефибриллятору",
@@ -307,11 +301,12 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	ignore_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
+	heart_attack_probability = 100
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
 /obj/item/defibrillator/compact/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый компактный дефибриллятор",
 		GENITIVE = "продвинутого компактного дефибриллятора",
 		DATIVE = "продвинутому компактному дефибриллятору",
@@ -356,7 +351,7 @@
 	var/on_cooldown = FALSE
 
 /obj/item/twohanded/shockpaddles/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды дефибриллятора",
 		GENITIVE = "электродов дефибриллятора",
 		DATIVE = "электродам дефибриллятора",
@@ -373,7 +368,7 @@
 	base_icon_state = "ntpaddles"
 
 /obj/item/twohanded/shockpaddles/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды продвинутого дефибриллятора",
 		GENITIVE = "электродов продвинутого дефибриллятора",
 		DATIVE = "электродам продвинутого дефибриллятора",
@@ -391,7 +386,7 @@
 	base_icon_state = "syndiepaddles"
 
 /obj/item/twohanded/shockpaddles/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды боевого дефибриллятора",
 		GENITIVE = "электродов боевого дефибриллятора",
 		DATIVE = "электродам боевого дефибриллятора",
@@ -400,14 +395,18 @@
 		PREPOSITIONAL = "электродах боевого дефибриллятора",
 	)
 
-/obj/item/twohanded/shockpaddles/New(mainunit)
+/obj/item/twohanded/shockpaddles/Initialize(mapload, obj/item/defibrillator/mainunit)
 	. = ..()
+	if(QDELETED(mainunit))
+		return INITIALIZE_HINT_QDEL
 	add_defib_component(mainunit)
 
-/obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
+/obj/item/twohanded/shockpaddles/proc/add_defib_component(obj/item/defibrillator/mainunit)
+	if(QDELETED(src))
+		return
 	if(check_defib_exists(mainunit))
 		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof, heart_attack_chance = defib.heart_attack_probability)
 	else
 		AddComponent(/datum/component/defib)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
@@ -416,6 +415,11 @@
 
 /obj/item/twohanded/shockpaddles/Destroy()
 	defib = null
+	UnregisterSignal(src, list(
+		COMSIG_DEFIB_READY,
+		COMSIG_DEFIB_SHOCK_APPLIED,
+		COMSIG_DEFIB_PADDLES_APPLIED,
+	))
 	return ..()
 
 /// Check to see if we should abort this before we've even gotten started

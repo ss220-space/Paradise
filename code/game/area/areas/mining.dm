@@ -1,10 +1,10 @@
-/**********************Mine areas**************************/
-
+// MARK: Mine
 /area/mine
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	area_flags = NONE
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
 
 /area/mine/explored
 	name = "Mine"
@@ -15,9 +15,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
+	ambience_index = AMBIENCE_MINING
 
 /area/mine/dangerous/explored/golem
 	name = "Small Asteroid"
@@ -31,10 +29,8 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = MINING_SOUNDS
+	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
 	holomap_should_draw = FALSE
 
 /area/mine/lobby
@@ -78,21 +74,25 @@
 /area/mine/west_outpost
 	name = "West Mining Outpost"
 
+/area/mine/laborcamp
+	name = "Labor Camp"
+	icon_state = "brig"
+
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
-	ambientsounds = HIGHSEC_SOUNDS
+	ambience_index = AMBIENCE_DANGER
 
 /area/mine/podbay
 	name = "Mining Podbay"
 
-/**********************Lavaland Areas**************************/
-
+// MARK: Lavaland
 /area/lavaland
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_LAVALAND
 	area_flags = FLORA_ALLOWED
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -102,9 +102,7 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
+	ambience_index = AMBIENCE_MINING
 	area_flags = NONE
 	holomap_should_draw = FALSE
 
@@ -116,9 +114,7 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
+	ambience_index = AMBIENCE_MINING
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

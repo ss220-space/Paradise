@@ -49,18 +49,17 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+// No movement while seen code.
+/mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
-
-// No movement while seen code.
-
-/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
-	..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
+	var/datum/action/cooldown/spell/aoe/flicker_lights/flick = new
+	flick.Grant(src)
+	var/datum/action/cooldown/spell/aoe/blind/blind = new
+	blind.Grant(src)
+	var/datum/action/cooldown/spell/nightvision/nightvision = new()
+	nightvision.Grant(src)
 
 	// Set creator
 	if(creator)
@@ -77,7 +76,7 @@
 		if(client)
 			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/statue/handle_automated_action()
 	if(!..())
@@ -137,7 +136,7 @@
 
 // Cannot talk
 
-/mob/living/simple_animal/hostile/statue/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/hostile/statue/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	return
 
 // Turn to dust when gibbed
@@ -163,48 +162,18 @@
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe/flicker_lights
+/datum/action/cooldown/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	aoe_range = 14
+	cooldown_time = 30 SECONDS
+	spell_requirements = NONE
+	aoe_radius = 14
+	targeting_type = /datum/aoe_targeting/light
 
-/obj/effect/proc_holder/spell/aoe/flicker_lights/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = aoe_range
-	return T
-
-/obj/effect/proc_holder/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
-	for(var/turf/T in targets)
-		for(var/obj/machinery/light/L in T)
-			L.flicker()
-
-//Blind AOE
-/obj/effect/proc_holder/spell/aoe/blindness
-	name = "Blindness"
-	desc = "Your prey will be momentarily blind for you to advance on them."
-
-	message = span_notice("You glare your eyes.")
-	base_cooldown = 60 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	aoe_range = 10
-
-/obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = aoe_range
-	return T
-
-/obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(L == user)
-			continue
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.EyeBlind(8 SECONDS)
+/datum/action/cooldown/spell/aoe/flicker_lights/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/obj/machinery/light/L = victim
+	L.flicker()
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"

@@ -16,7 +16,7 @@
 	var/list/wrapped_victims
 
 /mob/living/simple_animal/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой демон",
 		GENITIVE = "теневого демона",
 		DATIVE = "теневому демону",
@@ -28,14 +28,12 @@
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/crawl = new
-	AddSpell(crawl)
+	AddSpell(new /datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		crawl.phased = TRUE
+	if(istype(loc, /obj/effect/dummy/phased_mob/blood))
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
 	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay", src))
@@ -43,7 +41,7 @@
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
 	var/lum_count = check_darkness()
-	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
+	var/damage_mod = istype(loc, /obj/effect/dummy/phased_mob/blood) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(30 * damage_mod) // 20 seconds in light and you are done
 		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
@@ -68,7 +66,7 @@
 		set_varspeed(-0.3)
 	return lum_count
 
-/mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
+/mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target, proximity_flag, list/modifiers)
 	// Pick a random attack sound for each attack
 	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(target))
@@ -116,7 +114,7 @@
 	light_power = -4
 	light_range = 6
 	max_integrity = 100
-	light_color = "#ddd6cf"
+	light_color = COLOR_DARK_DELAM
 	anchored = TRUE
 	/// Amount of SSobj ticks (Roughly 2 seconds) since the last hallucination proc'd
 	var/time_since_last_hallucination = 0
@@ -124,7 +122,7 @@
 	var/silent = TRUE
 
 /obj/structure/shadowcocoon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой кокон",
 		GENITIVE = "теневого кокона",
 		DATIVE = "теневому кокону",
@@ -188,68 +186,13 @@
 		return
 	..()
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple
-	name = "Теневой захват"
-	desc = "Выстрелите одной из своих рук. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
-	action_background_icon_state = "shadow_demon_bg"
-	action_icon_state = "shadow_grapple"
-	invocation_type = "none"
-	invocation = null
-	sound = null
-	need_active_overlay = TRUE
-	selection_activated_message = span_notice("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
-	selection_deactivated_message = span_notice("Вы поглощаете энергию обратно... пока что.")
-	base_cooldown = 10 SECONDS
-	fireball_type = /obj/projectile/magic/shadow_hand
-
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
-	return
-
-/obj/projectile/magic/shadow_hand
-	name = "shadow hand"
-	icon_state = "shadow_hand"
-	plane = FLOOR_PLANE
-	speed = 1
-	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
-	var/hit = FALSE
-
-/obj/projectile/magic/shadow_hand/get_ru_names()
-	return list(
-		NOMINATIVE = "теневая рука",
-		GENITIVE = "теневой руки",
-		DATIVE = "теневой руке",
-		ACCUSATIVE = "теневую руку",
-		INSTRUMENTAL = "теневой рукой",
-		PREPOSITIONAL = "теневой руке",
-	)
-
-/obj/projectile/magic/shadow_hand/fire(setAngle)
-	if(firer)
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
-	return ..()
-
-/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
-	if(hit)
-		return
-	hit = TRUE // to prevent double hits from the pull
-	. = ..()
-	for(var/atom/extinguish_target in range(2, src))
-		extinguish_target.extinguish_light(TRUE)
-	if(isliving(target))
-		var/mob/living/l_target = target
-		l_target.Immobilize(4 SECONDS)
-		l_target.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
-		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-	else
-		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-
 /obj/item/organ/internal/heart/demon/shadow
 	name = "heart of darkness"
 	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."
 	color = COLOR_BLACK
 
 /obj/item/organ/internal/heart/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце тьмы",
 		GENITIVE = "сердца тьмы",
 		DATIVE = "сердцу тьмы",
@@ -265,10 +208,10 @@
 
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	M.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M?.mind?.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	M.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	. = ..()
 
 /mob/living/simple_animal/demon/shadow/attempt_objectives()
@@ -295,7 +238,7 @@
 	mind.objectives += wrap_objective
 	mind.objectives += survive_objective
 	messages.Add(mind.prepare_announce_objectives())
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/objective/wrap
 	name = "Обёртывание"

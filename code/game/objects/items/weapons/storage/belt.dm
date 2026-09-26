@@ -1,3 +1,23 @@
+#define ALLOWED_TOOL_BELT_ITEMS list( \
+	/obj/item/screwdriver, \
+	/obj/item/wirecutters, \
+	/obj/item/wrench, \
+	/obj/item/weldingtool, \
+	/obj/item/crowbar, \
+	/obj/item/multitool, \
+	/obj/item/stack/cable_coil, \
+	/obj/item/clothing/gloves, \
+	/obj/item/t_scanner, \
+	/obj/item/extinguisher/mini, \
+	/obj/item/holosign_creator, \
+	/obj/item/analyzer, \
+	/obj/item/robotanalyzer, \
+	/obj/item/rcd, \
+	/obj/item/rpd, \
+	/obj/item/flashlight, \
+	/obj/item/radio, \
+)
+
 /obj/item/storage/belt
 	name = "not actually a toolbelt"
 	desc = "Can hold various things. This is the base type of /belt, are you sure you should have this?"
@@ -15,50 +35,15 @@
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
+	dynamic_storage_size = TRUE
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	/// Won't change it's size even with items inside if TRUE
-	var/storable = FALSE
-	/// Size after putting smth in
-	var/expanded_size = WEIGHT_CLASS_BULKY
-	/// Size when there's no contents
-	var/folded_size = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/belt/examine(mob/user)
-	. = ..()
-	if(storable || initial(w_class) == expanded_size)
-		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
-	else if(length(contents))
-		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
-	else
-		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
-
-/obj/item/storage/belt/proc/update_weight()
-	if(initial(w_class) == expanded_size) // so initially BULKY belts won't become NORMAL when they get empty
-		return
-	if(!length(contents) || storable)
-		w_class = folded_size
-		return
-	w_class = expanded_size
-
-/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
-	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
-		balloon_alert(usr, "сначала вытащите пояс!")
-		return FALSE
-	. = ..()
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
-	. = ..()
-	update_weight()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
@@ -97,7 +82,7 @@
 	return null
 
 /obj/item/storage/belt/proc/select_item_by_radial_menu(mob/user, list/choices)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), anim_speed = 0)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return null
 	return find_content_by_name(choice)
@@ -150,25 +135,8 @@
 	use_item_overlays = TRUE
 	max_combined_w_class = 18
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
-		/obj/item/flashlight,
-		/obj/item/stack/cable_coil,
-		/obj/item/t_scanner,
-		/obj/item/analyzer,
-		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator,
-		/obj/item/radio,
-		/obj/item/robotanalyzer,
-		/obj/item/clothing/gloves,
-		/obj/item/rcd,
-		/obj/item/rpd,
-	)
+	can_hold = ALLOWED_TOOL_BELT_ITEMS
+	w_class_override = ALLOWED_TOOL_BELT_ITEMS
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -201,7 +169,7 @@
 	item_state = "utility_ce"
 	storage_slots = 8
 	max_combined_w_class = 20 // set of tools + RCD/RPD
-	storable = TRUE
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -225,8 +193,8 @@
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/food/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/lighter/zippo,
@@ -246,10 +214,10 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/radio,
 	)
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
+	use_to_pickup = TRUE //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский пояс",
 		GENITIVE = "медицинского пояса",
 		DATIVE = "медицинскому поясу",
@@ -257,6 +225,35 @@
 		INSTRUMENTAL = "медицинским поясом",
 		PREPOSITIONAL = "медицинском поясе",
 	)
+
+/obj/item/storage/belt/medical/filled/populate_contents()
+	new /obj/item/reagent_containers/applicator/brute(src)
+	new /obj/item/reagent_containers/applicator/burn(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/storage/pill_bottle/filled(src)
+	update_icon()
+
+/obj/item/storage/belt/medical/filled/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+	update_icon()
+
+/obj/item/storage/belt/medical/response_team/populate_contents()
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	update_icon()
 
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"
@@ -282,7 +279,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический пояс",
 		GENITIVE = "хирургического пояса",
 		DATIVE = "хирургическому поясу",
@@ -302,23 +299,13 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 
-/obj/item/storage/belt/medical/response_team/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	update_icon()
-
 /obj/item/storage/belt/medical/surgery/abductor
 	name = "agent surgical belt"
 	desc = "Хирургический пояс инопланетного происхождения."
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "surgical_alien"
 	max_combined_w_class = 19
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -336,7 +323,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный хирургический пояс",
 		GENITIVE = "инопланетного хирургического пояса",
 		DATIVE = "инопланетному хирургическому поясу",
@@ -368,7 +355,7 @@
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
@@ -397,7 +384,8 @@
 		/obj/item/flash,
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
+		/obj/item/ammo_box/magazine,
+		/obj/item/ammo_box/speedloader,
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
@@ -453,16 +441,87 @@
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
-	desc = "Unique and versatile chest rig, can hold security gear."
+	desc = "Универсальная разгрузка, вмещающая снаряжение службы безопасности."
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
-	custom_price = PAYCHECK_MAX // 1 extra slot, so lil bit more expensive
+	custom_price = 2 * PAYCHECK_MAX
+	/// Fast reload duration
+	var/fast_reload_delay = 1.5 SECONDS
+
+/obj/item/storage/belt/security/webbing/get_ru_names()
+	return alist(
+		NOMINATIVE = "разгрузка СБ",
+		GENITIVE = "разгрузки СБ",
+		DATIVE = "разгрузке СБ",
+		ACCUSATIVE = "разгрузку СБ",
+		INSTRUMENTAL = "разгрузкой СБ",
+		PREPOSITIONAL = "разгрузке СБ",
+	)
+
+/obj/item/storage/belt/security/webbing/ComponentInitialize()
+	. = ..()
+	var/static/list/hovering_item_typechecks = list(
+		/obj/item/gun/projectile/automatic = list(
+			SCREENTIP_CONTEXT_LMB = "Быстрая перезарядка",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
+	AddElement(/datum/element/contextual_screentip_bare_hands, ctrl_lmb_text = "Достать магазин")
+
+/obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, list/modifiers)
+	if(!istype(attack_item, /obj/item/gun/projectile/automatic))
+		return ..()
+
+	add_fingerprint(user)
+	var/obj/item/gun/projectile/automatic/gun = attack_item
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		if(!istype(magazine, gun.mag_type))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, modifiers)
+		break
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+
+/obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
+	if(!IsReachableBy(user) || user.incapacitated())
+		return ..()
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		user.put_in_active_hand(magazine)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/storage/belt/security/webbing/proc/do_fast_reload(mob/user, obj/item/gun/projectile/automatic/gun, obj/item/ammo_box/magazine/magazine, params)
+	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1))
+		return
+	if(QDELETED(src) || QDELETED(user) || QDELETED(gun) || QDELETED(magazine) || magazine.loc != src || !user.is_in_hands(gun) || !IsReachableBy(user))
+		return
+
+	var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+	gun.attackby(magazine, user, params)
+	var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+	if(!mag_changed || !can_be_inserted(gun_magazine))
+		return
+
+	handle_item_insertion(gun_magazine)
+	gun_magazine.update_appearance()
+
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
-	desc = "Unique and versatile chest rig, can hold SRT gear."
+	desc = "Уникальная и универсальная нагрудная разгрузочная система, вмещающая снаряжение отряда специального назначения."
+
+/obj/item/storage/belt/security/webbing/srt/get_ru_names()
+	return alist(
+		NOMINATIVE = "разгрузка ОСН",
+		GENITIVE = "разгрузки ОСН",
+		DATIVE = "разгрузке ОСН",
+		ACCUSATIVE = "разгрузку ОСН",
+		INSTRUMENTAL = "разгрузкой ОСН",
+		PREPOSITIONAL = "разгрузке ОСН",
+	)
 
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
@@ -473,6 +532,48 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/security/webbing/pouch
+	name = "pouch"
+	desc = "Подсумок на два магазина."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch"
+	item_state = "pouch"
+	storage_slots = 2
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
+	can_hold = list(/obj/item/ammo_box/magazine)
+	custom_price = PAYCHECK_MAX
+	fast_reload_delay = 2 SECONDS
+
+/obj/item/storage/belt/security/webbing/pouch/get_ru_names()
+	return alist(
+		NOMINATIVE = "подсумок",
+		GENITIVE = "подсумка",
+		DATIVE = "подсумку",
+		ACCUSATIVE = "подсумок",
+		INSTRUMENTAL = "подсумком",
+		PREPOSITIONAL = "подсумке",
+	)
+
+/obj/item/storage/belt/security/webbing/pouch/fast
+	name = "fast pouch"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	icon_state = "pouch_fast"
+	item_state = "pouch_fast"
+	custom_price = 4 * PAYCHECK_MAX
+	fast_reload_delay = 0.2 SECONDS
+
+/obj/item/storage/belt/security/webbing/pouch/fast/get_ru_names()
+	return alist(
+		NOMINATIVE = "продвинутый подсумок",
+		GENITIVE = "продвинутого подсумка",
+		DATIVE = "продвинутому подсумку",
+		ACCUSATIVE = "продвинутый подсумок",
+		INSTRUMENTAL = "продвинутым подсумком",
+		PREPOSITIONAL = "продвинутом подсумке",
+	)
+
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
@@ -480,9 +581,7 @@
 	item_state = "soulstonebelt"
 	storage_slots = 6
 	use_item_overlays = TRUE
-	can_hold = list(
-		"/obj/item/soulstone",
-	)
+	can_hold = list(/obj/item/soulstone)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
 	for(var/I in 1 to 7)
@@ -496,7 +595,7 @@
 	item_state = "champion"
 	materials = list(MAT_GOLD=400)
 	storage_slots = 1
-	can_hold = list("/obj/item/clothing/mask")
+	can_hold = list(/obj/item/clothing/mask)
 
 /obj/item/storage/belt/military
 	name = "military belt"
@@ -504,7 +603,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_combined_w_class = 18
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -517,14 +616,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
-	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
-	)
+	w_class_override = ALLOWED_TOOL_BELT_ITEMS
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -553,7 +645,7 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+		/obj/item/reagent_containers/cup/glass/bottle/molotov,
 	)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
@@ -604,7 +696,7 @@
 	can_hold = /obj/item/ammo_casing/caseless/rocket
 
 /obj/item/storage/belt/rocketman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс с ракетами",
 		GENITIVE = "пояса с ракетами",
 		DATIVE = "поясу с ракетами",
@@ -677,10 +769,16 @@
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
 /obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 	new /obj/item/melee/baton/telescopic(src)
+
+/obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
+	new	/obj/item/gun/projectile/revolver/rsh_12/admin(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"
@@ -733,7 +831,7 @@
 	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс тренера",
 		GENITIVE = "пояса тренера",
 		DATIVE = "поясу тренера",
@@ -767,7 +865,7 @@
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "патронташ",
 		GENITIVE = "патронташа",
 		DATIVE = "патронташу",
@@ -784,11 +882,6 @@
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
-
-/obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
-						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
-						На трезвых они действуют не так сильно!"
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
@@ -812,7 +905,7 @@
 	storage_slots = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/gun/projectile/revolver/detective,
 		/obj/item/gun/projectile/automatic/toy/pistol,
 	)
@@ -824,9 +917,7 @@
 	item_state = "soulstonebelt"
 	storage_slots = 6
 	use_item_overlays = TRUE
-	can_hold = list(
-		/obj/item/gun/magic/wand,
-	)
+	can_hold = list(/obj/item/gun/magic/wand)
 
 /obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -985,12 +1076,23 @@
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
 	w_class_override = list(
-		/obj/item/crowbar,
 		/obj/item/screwdriver,
-		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
+		/obj/item/weldingtool,
+		/obj/item/crowbar,
 		/obj/item/multitool,
+		/obj/item/stack/cable_coil,
+		/obj/item/clothing/gloves,
+		/obj/item/t_scanner,
+		/obj/item/extinguisher/mini,
+		/obj/item/holosign_creator,
+		/obj/item/analyzer,
+		/obj/item/robotanalyzer,
+		/obj/item/rcd,
+		/obj/item/rpd,
+		/obj/item/flashlight,
+		/obj/item/radio,
 		/obj/item/handheld_defibrillator,
 	)
 
@@ -1113,7 +1215,6 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
-		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -1121,40 +1222,40 @@
 		/obj/item/multitool,
 		/obj/item/flashlight,
 		/obj/item/stack/cable_coil,
-		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
-		/obj/item/resonator,
-		/obj/item/mining_scanner,
 		/obj/item/pickaxe,
 		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/plants,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/gem,
+		/obj/item/gps,
+		/obj/item/survivalcapsule,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/wormhole_jaunter,
+		/obj/item/stack/marker_beacon,
+		/obj/item/kitchen/knife,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
+		/obj/item/organ/internal/regenerative_core,
+		/obj/item/hivelordstabilizer,
+		/obj/item/storage/pill_bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/stack/medical,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/stack/medical,
-		/obj/item/kitchen/knife,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/gps,
-		/obj/item/storage/bag/ore,
-		/obj/item/survivalcapsule,
-		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/food/pill,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/organ/internal/regenerative_core,
-		/obj/item/wormhole_jaunter,
-		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon,
-		/obj/item/gem,
 	)
 
 /obj/item/storage/belt/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка исследователя",
 		GENITIVE = "разгрузки исследователя",
 		DATIVE = "разгрузке исследователя",
@@ -1180,39 +1281,37 @@
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		/obj/item/hatchet,
 		/obj/item/flashlight/lantern,
 		/obj/item/pickaxe,
 		/obj/item/shovel,
+		/obj/item/cultivator/wooden,
+		/obj/item/hatchet,
+		/obj/item/kitchen/knife,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
-		/obj/item/kitchen/knife,
 		/obj/item/organ/internal/regenerative_core,
+		/obj/item/hivelordstabilizer,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/bait,
 		/obj/item/reagent_containers/food/snacks/charred_krill,
-		/obj/item/whetstone,
 		/obj/item/reagent_containers/food/snacks/lavaland,
+		/obj/item/whetstone,
 		/obj/item/lavaland_dye,
 		/obj/item/conductive_organ,
 		/obj/item/stack/sheet/cartilage_plate,
 		/obj/item/stack/sheet/razor_sharp_teeth,
-		/obj/item/hivelordstabilizer,
 		/obj/item/circular_saw_blade,
 		/obj/item/t_scanner/adv_mining_scanner/bleary_eye,
 		/obj/item/acid_bladder,
-		/obj/item/shovel/spade/wooden,
-		/obj/item/hatchet/wooden,
-		/obj/item/cultivator/wooden,
 	)
+	cant_hold = list(/obj/item/pickaxe/drill)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охотничий пояс",
 		GENITIVE = "охотничьего пояса",
 		DATIVE = "охотничьему поясу",
@@ -1238,14 +1337,14 @@
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/reagent_containers/food/drinks/flask,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/reagent_containers/food/drinks/cans,
-		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/cup/glass/flask,
+		/obj/item/reagent_containers/cup/glass/drinkingglass,
+		/obj/item/reagent_containers/cup/glass/bottle,
+		/obj/item/reagent_containers/cup/soda_cans,
+		/obj/item/reagent_containers/cup/glass/shaker,
 		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/condiment,
-		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/condiment,
+		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/radio,
 	)
 	custom_price = PAYCHECK_LOWER
@@ -1323,3 +1422,5 @@
 	if(!..())
 		return
 	playsound(src, unsheath_sound, 20)
+
+#undef ALLOWED_TOOL_BELT_ITEMS

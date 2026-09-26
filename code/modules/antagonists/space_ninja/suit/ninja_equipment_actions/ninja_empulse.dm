@@ -22,8 +22,7 @@
 	playsound(H.loc, 'sound/effects/empulse.ogg', 60, TRUE)
 	empulse(H, 4, 6, TRUE, "Ninja EM Burst") //Procs sure are nice. Slightly weaker than wizard's disable tch.
 	if(auto_smoke)
-		if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+		if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in affecting.actions)
 			prime_smoke(lowcost = TRUE)
-	for(var/datum/action/item_action/advanced/ninja/ninjapulse/ninja_action in actions)
-		ninja_action.use_action()
-		break
+	var/datum/action/item_action/advanced/ninja/ninjapulse/ninjapulse = locate() in affecting.actions
+	ninjapulse.use_action()

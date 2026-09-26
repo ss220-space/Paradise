@@ -8,7 +8,7 @@
  *
  *     AddComponent(/datum/component/slippery, 80, 0, (NO_SLIP_WHEN_WALKING | SLIDE))
  *
- * This adds slippery behaviour to the parent atom, with a 80 decisecond (~8 seconds) weaken
+ * This adds slippery behaviour to the parent atom, with a 80 decisecond (~8 seconds) knockdown
  * The lube flags control how the slip behaves, in this case, the mob wont slip if it's in walking mode (NO_SLIP_WHEN_WALKING)
  * and if they do slip, they will slide a few tiles (SLIDE)
  *
@@ -17,8 +17,8 @@
  */
 /datum/component/slippery
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
-	/// How long the slip keeps the crossing mob weakened
-	var/weaken_time = 0
+	/// How long the slip keeps the crossing mob knockdowned
+	var/knockdown_time = 0
 	/// The amount of tiles someone will be moved after slip
 	var/slip_tiles
 	/// Flags for how slippery the parent is. See [__DEFINES/mobs.dm]
@@ -38,19 +38,19 @@
  * When applied to any atom in the game this will apply slipping behaviours to that atom
  *
  * Arguments:
- * * weaken - Length of time the weaken applies (Deciseconds)
+ * * knockdown - Length of time the knockdown applies (Deciseconds)
  * * lube_flags - Controls the slip behaviour, they are listed starting [here][SLIDE]
  * * datum/callback/on_slip_callback - Callback to define further custom controls on when slipping is applied
  * * datum/callback/on_slip_callback - Callback to add custom behaviours as the crossing mob is slipped
  */
 /datum/component/slippery/Initialize(
-	weaken,
+	knockdown,
 	slip_tiles,
 	lube_flags = NONE,
 	datum/callback/on_slip_callback,
 	datum/callback/can_slip_callback,
 )
-	src.weaken_time = max(weaken, 0)
+	src.knockdown_time = max(knockdown, 0)
 	src.slip_tiles = max(0, slip_tiles)
 	src.lube_flags = lube_flags
 	src.can_slip_callback = can_slip_callback
@@ -75,20 +75,20 @@
 /datum/component/slippery/InheritComponent(
 	datum/component/slippery/component,
 	i_am_original,
-	weaken,
+	knockdown,
 	slip_tiles,
 	lube_flags = NONE,
 	datum/callback/on_slip_callback,
 	datum/callback/can_slip_callback,
 )
 	if(component)
-		weaken = component.weaken_time
+		knockdown = component.knockdown_time
 		slip_tiles = component.slip_tiles
 		lube_flags = component.lube_flags
 		on_slip_callback = component.on_slip_callback
 		can_slip_callback = component.on_slip_callback
 
-	src.weaken_time = max(weaken, 0)
+	src.knockdown_time = max(knockdown, 0)
 	src.slip_tiles = max(slip_tiles, 0)
 	src.lube_flags = lube_flags
 	src.on_slip_callback = on_slip_callback
@@ -114,5 +114,5 @@
 		return
 	if(can_slip_callback && !can_slip_callback.Invoke(parent, victim))
 		return
-	if(victim.slip(weaken_time, parent, lube_flags, slip_tiles))
+	if(victim.slip(knockdown_time, parent, lube_flags, slip_tiles))
 		on_slip_callback?.Invoke(victim)

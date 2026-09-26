@@ -28,7 +28,6 @@
 /mob/Login()
 	if(!client)
 		return FALSE
-
 	canon_client = client
 
 	client.persistent_client.set_mob(src)
@@ -41,7 +40,9 @@
 	world.update_status()
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
-	client.screen = list()				//remove hud items just in case
+	client.clear_screen()			//remove hud items just in case
+	client.set_right_click_menu_mode(shift_to_open_context_menu)
+
 
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
@@ -55,7 +56,7 @@
 
 	next_move = 1
 
-	SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
+	//SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
 
 	add_sight(SEE_SELF)
 
@@ -74,10 +75,7 @@
 	reset_perspective(loc)
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
-		add_verb(src, /client/proc/readmin)
-
-	//Clear ability list and update from mob.
-	remove_verb(client, GLOB.ability_verbs)
+		ASSIGN_GAME_VERB(src, /client, readmin)
 
 	client.update_active_keybindings()
 
@@ -92,14 +90,29 @@
 		alt_hud.check_hud(src)
 
 	update_client_colour(0)
+	update_ambience_area(get_area(src))
+
+	if(HAS_TRAIT(src, TRAIT_DEAF))
+		stop_sound_channel(CHANNEL_AMBIENCE)
+
 	update_morgue()
 	client.init_verbs()
 
-	for(var/datum/action/action as anything in persistent_client.player_actions)
-		action.Grant(src)
+	if(client)
 
-	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
-		callback.Invoke()
+		client.view_size?.resetToDefault() // Resets the client.view in case it was changed.
+
+		for(var/datum/action/A as anything in persistent_client.player_actions)
+			A.Grant(src)
+
+		for(var/datum/callback/CB as anything in persistent_client.post_login_callbacks)
+			CB.Invoke()
+
+		//Check if they should have a stat panel, after they deadmined.
+		//client.set_stat_panel()
+
+		//Update the chat panel's job/character info for conditional highlights.
+		client.tgui_panel?.send_player_info()
 
 	if(client.click_intercept)
 		client.click_intercept.quit() // Let's not keep any old click_intercepts
@@ -111,6 +124,7 @@
 	AddElement(/datum/element/weather_listener, /datum/weather/snow_storm, ZTRAIT_SNOWSTORM, GLOB.snowstorm_sounds)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+	SEND_SIGNAL(client, COMSIG_CLIENT_MOB_LOGIN, src)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 	return TRUE
 

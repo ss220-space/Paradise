@@ -1,7 +1,7 @@
 /mob/living/carbon/human/register_init_signals()
 	. = ..()
 
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)), PROC_REF(on_fat))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)), PROC_REF(on_fat))
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_DNA), PROC_REF(on_no_dna_trait_gain))
 

@@ -71,7 +71,7 @@
 
 	// now generate name
 	var/filename = "sound/instruments/[cached_legacy_dir]/[ascii2text(note + 64)][acc][oct].[cached_legacy_ext]"
-	var/soundfile = wrap_file(filename)
+	var/soundfile = WRAP_FILE(filename)
 	// make sure the note exists
 	var/cached_fexists = valid_files[filename]
 	if(!isnull(cached_fexists))
@@ -96,5 +96,5 @@
 		if(!HASBIT(mob.client?.prefs?.sound, SOUND_INSTRUMENTS))
 			continue
 
-		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound_to_use = music_played)
+		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound_to_use = music_played, falloff_exponent = exponential_falloff)
 		// Could do environment and echo later but not for now

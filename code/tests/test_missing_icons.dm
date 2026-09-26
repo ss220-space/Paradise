@@ -1,12 +1,12 @@
 /// Makes sure objects actually have icons that exist!
-/datum/game_test/missing_icons
+/datum/unit_test/missing_icons
 	var/static/list/possible_icon_states = list()
 	/// additional_icon_location is for downstream modularity support.
 	/// Make sure this location is also present in tools/deploy.sh
 	/// If you need additional paths ontop of this second one, you can add another generate_possible_icon_states_list("your/folder/path/") below the if(additional_icon_location) block in Run(), and make sure to add that path to tools/deploy.sh as well.
 	var/additional_icon_location = null
 
-/datum/game_test/missing_icons/proc/generate_possible_icon_states_list(directory_path)
+/datum/unit_test/missing_icons/proc/generate_possible_icon_states_list(directory_path)
 	if(!directory_path)
 		directory_path = "icons/obj/"
 
@@ -17,7 +17,7 @@
 		else
 			possible_icon_states += generate_possible_icon_states_list("[directory_path][file_path]")
 
-/datum/game_test/missing_icons/Run()
+/datum/unit_test/missing_icons/Run()
 	generate_possible_icon_states_list()
 	generate_possible_icon_states_list("icons/effects/")
 	if(additional_icon_location)

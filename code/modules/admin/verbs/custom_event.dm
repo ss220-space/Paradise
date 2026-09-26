@@ -17,18 +17,16 @@ ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom ev
 	to_chat(world, "<br>")
 
 // normal verb for players to view info
-/client/verb/cmd_view_custom_event()
-	set category = VERB_CATEGORY_OOC
-	set name = "Специальный ивент"
+GAME_VERB(/client, cmd_view_custom_event, "Информация об ивенте", VERB_CATEGORY_OOC)
 
 	var/list/custom_event_information = list()
 	if(!GLOB.custom_event_msg || GLOB.custom_event_msg == "")
 		custom_event_information += "There currently is no known custom event taking place."
 		custom_event_information += "Keep in mind: it is possible that an admin has not properly set this."
-		to_chat(src, chat_box_regular(custom_event_information.Join("<br>")))
+		to_chat(src, boxed_message(custom_event_information.Join("<br>")))
 		return
 
 	custom_event_information += "<h1 class='alert'>Custom Event</h1>"
 	custom_event_information += "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
 	custom_event_information += span_alert("[html_encode(GLOB.custom_event_msg)]")
-	to_chat(src, chat_box_regular(custom_event_information.Join("<br>")))
+	to_chat(src, boxed_message(custom_event_information.Join("<br>")))

@@ -1,11 +1,11 @@
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, LabeledList, Section } from '../../components';
 
 type ChemicalStorageData = {
   loaded_chemicals: Chemical[];
 } & RndData;
 
-export const LatheChemicalStorage = (properties) => {
+export const LatheChemicalStorage = (_properties: unknown) => {
   const { data, act } = useBackend<ChemicalStorageData>();
 
   const { loaded_chemicals } = data;

@@ -6,7 +6,7 @@
 	item_state = "plasmaman_liver"
 
 /obj/item/organ/internal/liver/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень плазмолюда",
 		GENITIVE = "печени плазмолюда",
 		DATIVE = "печени плазмолюда",
@@ -23,7 +23,7 @@
 	item_state = "plasmaman_eyes"
 
 /obj/item/organ/internal/eyes/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза плазмолюда",
 		GENITIVE = "глаз плазмолюда",
 		DATIVE = "глазам плазмолюда",
@@ -38,7 +38,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали плазмолюду."
 
 /obj/item/organ/internal/ears/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши плазмолюда",
 		GENITIVE = "ушей плазмолюда",
 		DATIVE = "ушам плазмолюда",
@@ -56,7 +56,7 @@
 	item_base = "plasmaman_heart"
 
 /obj/item/organ/internal/heart/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце плазмолюда",
 		GENITIVE = "сердца плазмолюда",
 		DATIVE = "сердцу плазмолюда",
@@ -73,7 +73,7 @@
 	mmi_icon = 'icons/obj/species_organs/plasmaman.dmi'
 
 /obj/item/organ/internal/brain/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг плазмолюда",
 		GENITIVE = "мозга плазмолюда",
 		DATIVE = "мозгу плазмолюда",
@@ -90,7 +90,7 @@
 	item_state = "plasmaman_kidneys"
 
 /obj/item/organ/internal/kidneys/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки плазмолюда",
 		GENITIVE = "почек плазмолюда",
 		DATIVE = "почкам плазмолюда",
@@ -109,7 +109,7 @@
 	safe_toxins_max = 0
 
 /obj/item/organ/internal/lungs/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие плазмолюда",
 		GENITIVE = "лёгких плазмолюда",
 		DATIVE = "лёгким плазмолюда",

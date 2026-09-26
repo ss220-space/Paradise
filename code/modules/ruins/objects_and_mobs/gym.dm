@@ -15,7 +15,7 @@
 	var/material_drop_amount = 10
 
 /obj/structure/punching_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боксёрская груша",
 		GENITIVE = "боксёрской груши",
 		DATIVE = "боксёрской груше",
@@ -68,12 +68,13 @@
 	gender = MALE
 	density = TRUE
 	anchored = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/icon_state_inuse
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 5
 
 /obj/structure/weightmachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "силовой тренажёр",
 		GENITIVE = "силового тренажёра",
 		DATIVE = "силовому тренажёру",
@@ -81,6 +82,22 @@
 		INSTRUMENTAL = "силовым тренажёром",
 		PREPOSITIONAL = "силовом тренажёре",
 	)
+
+/obj/structure/weightmachine/Initialize(mapload)
+	. = ..()
+
+	var/static/list/tool_behaviors
+	if(!tool_behaviors)
+		tool_behaviors = string_assoc_nested_list(list(
+			TOOL_WELDER = list(
+				SCREENTIP_CONTEXT_LMB = "Разобрать",
+			),
+
+			TOOL_WRENCH = list(
+				SCREENTIP_CONTEXT_LMB = "Закрепить",
+			),
+		))
+	AddElement(/datum/element/contextual_screentip_tools, tool_behaviors)
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
@@ -162,7 +179,7 @@
 	icon_state_inuse = "fitnesslifter2"
 
 /obj/structure/weightmachine/stacklifter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грузоблочный тренажёр",
 		GENITIVE = "грузоблочного тренажёра",
 		DATIVE = "грузоблочному тренажёру",
@@ -195,7 +212,7 @@
 	icon_state_inuse = "fitnessweight-c"
 
 /obj/structure/weightmachine/weightlifter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скамья для жима",
 		GENITIVE = "скамьи для жима",
 		DATIVE = "скамье для жима",
@@ -237,7 +254,7 @@
 	var/rod_y = 28
 
 /obj/structure/weightmachine/horizontalbar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "турник",
 		GENITIVE = "турника",
 		DATIVE = "турнику",

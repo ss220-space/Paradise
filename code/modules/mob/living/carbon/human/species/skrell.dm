@@ -33,7 +33,7 @@
 	heatmod = 1.5
 
 	blood_species = "Skrell"
-	blood_color = "#1D2CBF"
+	blood_color = BLOOD_COLOR_SKRELL
 	base_color = "#38b661" //RGB: 56, 182, 97.
 	default_hair_colour = "#38b661"
 	eyes = "skrell_eyes_s"
@@ -87,50 +87,8 @@
 		JOB_MIN_AGE_COMMAND = 25,
 	)
 
-/datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	add_verb(H, list(
-		/mob/living/carbon/human/proc/emote_warble,
-		/mob/living/carbon/human/proc/emote_sad_trill,
-		/mob/living/carbon/human/proc/emote_joyfull_trill,
-		/mob/living/carbon/human/proc/emote_croaking,
-		/mob/living/carbon/human/proc/emote_discontent,
-		/mob/living/carbon/human/proc/emote_relax,
-		/mob/living/carbon/human/proc/emote_excitement,
-		/mob/living/carbon/human/proc/emote_confusion,
-		/mob/living/carbon/human/proc/emote_understand))
-	remove_verb(H, list(
-		/mob/living/carbon/human/verb/emote_grin,
-		/mob/living/carbon/human/verb/emote_wink,
-		/mob/living/carbon/human/verb/emote_eyebrow,
-		/mob/living/carbon/human/verb/emote_glare,
-		/mob/living/carbon/human/verb/emote_chuckle,
-		/mob/living/carbon/human/verb/emote_frown,
-		/mob/living/carbon/human/verb/emote_snuffle))
-
 /datum/species/skrell/gain_muscles(mob/living/target, datum/strength_level/default, max_level, can_become_stronger)
 	..(target, target.gender == FEMALE ? default.prev_level : default, max_level, can_become_stronger)
-
-/datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	remove_verb(H, list(
-		/mob/living/carbon/human/proc/emote_warble,
-		/mob/living/carbon/human/proc/emote_sad_trill,
-		/mob/living/carbon/human/proc/emote_joyfull_trill,
-		/mob/living/carbon/human/proc/emote_croaking,
-		/mob/living/carbon/human/proc/emote_discontent,
-		/mob/living/carbon/human/proc/emote_relax,
-		/mob/living/carbon/human/proc/emote_excitement,
-		/mob/living/carbon/human/proc/emote_confusion,
-		/mob/living/carbon/human/proc/emote_understand))
-	add_verb(H, list(
-		/mob/living/carbon/human/verb/emote_grin,
-		/mob/living/carbon/human/verb/emote_wink,
-		/mob/living/carbon/human/verb/emote_eyebrow,
-		/mob/living/carbon/human/verb/emote_glare,
-		/mob/living/carbon/human/verb/emote_chuckle,
-		/mob/living/carbon/human/verb/emote_frown,
-		/mob/living/carbon/human/verb/emote_snuffle))
 
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)
 	. = ..()

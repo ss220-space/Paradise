@@ -1,7 +1,12 @@
 #define BORG_LAMP_CD_RESET 10 SECONDS
 
+#define BORG_BASE_MAINTPANEL_OPEN_DELAY 2.5 SECONDS
+#define BORG_BASE_INNERPANEL_OPEN_DELAY 1 SECONDS
+
+GLOBAL_LIST_EMPTY(available_ai_shells)
+
 GLOBAL_LIST_INIT(robot_verbs_default, list(
-	/mob/living/silicon/robot/proc/sensor_mode,
+	VERB_META(/mob/living/silicon/robot, sensor_mode),
 ))
 
 /mob/living/silicon/robot
@@ -10,23 +15,36 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
 	bubble_icon = "robot"
-	universal_understand = 1
+	universal_understand = TRUE
 	deathgasp_on_death = TRUE
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
+
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_AISHELL_STAT_HUD)
+	hud_type = /datum/hud/robot
+
+	silicon_subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon/robot, self_diagnosis),
+		VERB_META(/mob/living/silicon/, subsystem_law_manager),
+	)
+
+	tts_effect_override = SOUND_EFFECT_ROBOT
 
 	var/sight_mode = 0
 	var/custom_name = ""
 
-	//Hud stuff
+	// Hud stuff vars
 	var/atom/movable/screen/inv1 = null
 	var/atom/movable/screen/inv2 = null
 	var/atom/movable/screen/inv3 = null
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
+	/// Used to determine whether they have the module menu shown or not
+	var/shown_robot_modules = FALSE
 	var/atom/movable/screen/robot_modules_background
 
 	//3 Modules can be activated at any one time.
@@ -41,7 +59,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/portable/camera = null
 
-	// Components are basically robot organs.
+	//AI shell vars
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
+
+	/// Components are basically robot organs.
 	var/list/components = list()
 	var/list/upgrades = list()
 
@@ -65,47 +89,61 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
+	/// If 'TRUE', borg will gain ability to reflect projectiles
+	var/reflectable = FALSE
+	/// Type of this cyborg reflection. 0 - nothing. 1 - bullets. 2 - lasers.
+	var/reflection_type = REFLECTABILITY_ENERGY
 
-	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
+	/// A limited pickable modules goes into this list. If empty all modules will be available(default ones)
+	var/list/limited_modules = list()
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
 
-	var/wiresexposed = 0
-	var/locked = 1
+	var/wiresexposed = FALSE
+	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 	var/check_one_access = TRUE
 	var/ident = 0
-	//var/list/laws = list()
-	var/viewalerts = 0
+	var/viewalerts = FALSE
 	var/obj/item/robot_module/modtype = /obj/item/robot_module/standard
-	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/low_power_mode = 0 //whether the robot has no charge left.
-	var/weapon_lock = 0
-	var/weaponlock_time = 120
-	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
+	/// Spark system to do sparks
+	var/datum/effect_system/spark_spread/spark_system
+	/// whether the robot has no charge left.
+	var/low_power_mode = FALSE
+	var/weapon_lock = FALSE
+	var/weaponlock_time = 12 SECONDS
+	/// Cyborgs will sync their laws with their AI by default
+	var/lawupdate = TRUE
 	///Boolean of whether the borg is locked down or not
 	var/lockcharge = FALSE
-	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	/// Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/scrambledcodes = FALSE
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
-	var/pdahide = 0 //Used to hide the borg from the messenger list
-	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
+	/// Used to hide the borg from the messenger list
+	var/pdahide = FALSE
+	/// The number of known entities currently accessing the internal camera
+	var/tracking_entities = 0
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/modules_break = TRUE
 
-	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
-	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
-	var/lamp_cooldown = 0
-	var/default_lamp_color = "#FFFFFF" //White color of the default lamp light
-	var/fire_light_modificator = 3 //Determines how bright fire emits light when on cyborg.
+	/// Maximum brightness of a borg lamp. Set as a var for easy adjusting.
+	var/lamp_max = 10
+	/// Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
+	var/lamp_intensity = 0
+	/// Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_recharging = 0
+	var/lamp_cooldown = FALSE
+	/// White color of the default lamp light
+	var/default_lamp_color = "#FFFFFF"
+	/// Determines how bright fire emits light when on cyborg.
+	var/fire_light_modificator = 3
 
-	var/updating = 0 //portable camera camerachunk update
+	/// portable camera camerachunk update
+	var/updating = FALSE
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
-	hud_type = /datum/hud/robot
-
+	/// Type of the cell, that will be inserted into cyborg when he spawns
 	var/default_cell_type = /obj/item/stock_parts/cell/high
 	///Jetpack-like effect.
 	var/ionpulse = FALSE
@@ -122,21 +160,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/robot_skin/selected_skin
 
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
-	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
-	)
 
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/Initialize(mapload, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	add_language(LANGUAGE_BINARY, 1)
+	add_language(LANGUAGE_BINARY, TRUE)
 
 	ADD_TRAIT(src, TRAIT_FORCED_STANDING, INNATE_TRAIT)
 
@@ -152,55 +185,115 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	radio = new /obj/item/radio/borg(src)
-	common_radio = radio
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
-	if(is_taipan(z) || syndie) //Чтобы турели не били собранных на тайпане или из емагнутого корпуса боргов
+	if(is_taipan(z) || syndie) // So syndicate turrets dont shoot at syndieborgs
 		faction += "syndicate"
 
 	if(has_camera && !camera && !syndie)
 		camera = new(src, list("SS13", "Robots"), real_name)
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
-			camera.status = 0
+			camera.status = FALSE
 
-	if(mmi == null)
+	if(shell)
+		var/obj/item/borg/upgrade/ai/board = new(src)
+		make_shell(board)
+		install_upgrade(board)
+
+	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
-	if(mmi.clock)
-		ratvar_act(TRUE)
-
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
+	else if(mmi.clock)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, ratvar_act), TRUE)
 
 	initialize_components()
 
-	for(var/V in components)
-		if(V != "power cell")
-			var/datum/robot_component/C = components[V]
-			C.installed = 1
-			C.wrapped = new C.external_type
+	for(var/key, value in components)
+		if(key != "power cell")
+			var/datum/robot_component/component = value
+			component.install(new component.external_type, FALSE)
 
-	..()
+	. = ..()
 
 	robot_module_hat_offset(icon_state)
 	add_robot_verbs()
 
-	if(cell)
-		var/datum/robot_component/cell_component = components["power cell"]
-		cell_component.wrapped = cell
-		cell_component.installed = 1
-		cell_component.install()
+	// Install a default cell into the borg if none is there yet
+	var/datum/robot_component/cell_component = components["power cell"]
+	var/obj/item/stock_parts/cell/new_cell = cell || new default_cell_type(src)
+	cell_component.install(new_cell)
 
 	diag_hud_set_borgcell()
 	scanner = new()
 	scanner.Grant(src)
 
 	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
-		transform_animation(icon_state, TRUE)
+		INVOKE_ASYNC(src, PROC_REF(transform_animation), icon_state, TRUE)
 
 	add_strippable_element()
+	AddComponent(/datum/component/anti_juggling)
+
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
+
+	evacuate_ai(DANGER_LVL_MAY_DIE)
+
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/mmi_drop_location = get_turf(loc)//To hopefully prevent run time errors.
+
+		if(mmi_drop_location)
+			mmi.forceMove(mmi_drop_location)
+
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+
+			to_chat(src, span_boldannounceooc("Опаньки! Что-то пошло не так и ваш робомозг потерял связь с реальностью и вашей душой, \
+			так-что вы были насильно превращены в призрака. Напишите багрепорт на нашем дискорд-сервере, чтобы этого больше не повторилось."))
+
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+
+		mmi = null
+
+	if(shell)
+		GLOB.available_ai_shells -= src
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+	selected_skin = null
+
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
+	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(scanner)
+	QDEL_NULL(rbPDA)
+	QDEL_NULL(radio)
+	QDEL_NULL(inv1)
+	QDEL_NULL(inv2)
+	QDEL_NULL(inv3)
+	QDEL_NULL(lamp_button)
+	QDEL_NULL(thruster_button)
+	QDEL_NULL(robot_modules_background)
+	QDEL_NULL(undeployment_action)
+	QDEL_LIST_ASSOC_VAL(components)
+	QDEL_LIST(upgrades)
+	QDEL_LIST(module_actions)
+	return ..()
+
+/mob/living/silicon/robot/get_radio()
+	return radio
 
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
@@ -234,8 +327,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		setup_PDA()
 
 		//We also need to update name of internal camera.
-		if(camera)
-			camera.c_tag = newname
+		camera?.c_tag = newname
+
+		gps?.gpstag = "[newname] (Robot)"
 
 	if(mmi?.brainmob)
 		mmi.brainmob.name = newname
@@ -254,25 +348,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return custom_name
 	else
-		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
+		if(shell)
+			return (mainframe? "[mainframe.real_name]" : "Empty") + " " + "[designation] Shell-[num2text(ident)]"
+		else
+			return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
-/mob/living/silicon/robot/verb/Namepick()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Сменить имя"
+GAME_VERB(/mob/living/silicon/robot, Namepick, "Сменить имя", VERB_CATEGORY_ROBOTCOMMANDS)
 
 	if(custom_name)
 		return FALSE
 
 	if(!allow_rename)
-		to_chat(src, span_warning("Rename functionality is not enabled on this unit."))
+		balloon_alert(src, "нельзя сменить имя!")
 		return FALSE
 
 	rename_self(braintype, 1)
 
-/mob/living/silicon/robot/verb/Change_Voice()
-	set name = "Сменить голос"
-	set desc = "Express yourself!"
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
+GAME_VERB_DESC(/mob/living/silicon/robot, Change_Voice, "Сменить голос", "Express yourself!", VERB_CATEGORY_ROBOTCOMMANDS)
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -300,41 +392,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return FALSE
 
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	return ..()
-
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
 		return
@@ -343,13 +400,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = text2path(forced_module)
 
 	var/list/modules = list(
-			"Generalist" = /obj/item/robot_module/standard,
-			"Engineering" = /obj/item/robot_module/engineering,
-			"Medical" = /obj/item/robot_module/medical,
-			"Miner" = /obj/item/robot_module/miner,
-			"Janitor" = /obj/item/robot_module/janitor,
-			"Service" = /obj/item/robot_module/butler,
-			"Security" = /obj/item/robot_module/security
+			CYBORG_MODULE_NAME_GENERALIST = /obj/item/robot_module/standard,
+			CYBORG_MODULE_NAME_ENGINEER = /obj/item/robot_module/engineering,
+			CYBORG_MODULE_NAME_MEDIC = /obj/item/robot_module/medical,
+			CYBORG_MODULE_NAME_MINER = /obj/item/robot_module/miner,
+			CYBORG_MODULE_NAME_JANITOR = /obj/item/robot_module/janitor,
+			CYBORG_MODULE_NAME_SERVICE = /obj/item/robot_module/butler,
+			CYBORG_MODULE_NAME_SECURITY = /obj/item/robot_module/security
 		)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
@@ -360,9 +417,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(mmi?.syndicate)
 		modules = list(
-				"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
-				"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
-				"Syndicate Bloodhound" = /obj/item/robot_module/syndicate
+				CYBORG_MODULE_NAME_SABOTEUR = /obj/item/robot_module/syndicate_saboteur,
+				CYBORG_MODULE_NAME_MEDIC_ERT_SPECIAL = /obj/item/robot_module/syndicate_medical,
+				CYBORG_MODULE_NAME_BATTLEDROID = /obj/item/robot_module/syndicate
 			)
 
 	if(mmi?.ninja)
@@ -375,7 +432,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modtype = forced_module
 
 	else
-		modtype = tgui_input_list(usr, "Please, select a module!", "Robot", modules)
+		modtype = tgui_input_list(usr, "Пожалуйста, выберите модуль!", "Выбор специализации", modules)
 		modtype = modules[modtype]
 
 	if(!modtype)
@@ -419,6 +476,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
 	robot_module_hat_offset(icon_state)
+
+/mob/living/silicon/robot/shell
+	shell = TRUE
+	cell = null
 
 /mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
@@ -488,10 +549,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = initial(icon)
 	icon_state = "robot"
 	base_icon = "robot"
-	module.remove_subsystems_and_actions(src)
+	if(module)
+		module.remove_subsystems_and_actions(src)
+	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
+
+	module.on_remove(src)
 
 	QDEL_NULL(module)
 
@@ -505,66 +570,52 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	robot_module_hat_offset(icon_state)
 	drop_hat()
 
-	add_language(LANGUAGE_BINARY, 1)
+	add_language(LANGUAGE_BINARY, TRUE)
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
-/mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
-	set name = "Toggle Module"
-	set hidden = 1
+/mob/living/silicon/robot/proc/cmd_toggle_module(module as num)
 	toggle_module(module)
 
-/mob/living/silicon/robot/verb/cmd_unequip_module()
-	set name = "Unequip Module"
-	set hidden = 1
+/mob/living/silicon/robot/proc/cmd_unequip_module()
 	uneq_active()
 
 // this verb lets cyborgs see the stations manifest
-/mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Манифест экипажа"
+GAME_VERB(/mob/living/silicon/robot, cmd_station_manifest, "Манифест экипажа", VERB_CATEGORY_ROBOTCOMMANDS)
 	show_station_manifest()
 
-/mob/living/silicon/robot/verb/toggle_component()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Компоненты"
-	set desc = "Toggle a component, conserving power."
-
+GAME_VERB_DESC(/mob/living/silicon/robot, toggle_component, "Компоненты", "Toggle a component, conserving power.", VERB_CATEGORY_ROBOTCOMMANDS)
 	var/list/installed_components = list()
-	for(var/V in components)
-		if(V == "power cell") continue
-		var/datum/robot_component/C = components[V]
-		if(C.installed)
-			installed_components += V
+	for(var/key, value in components)
+		if(key == "power cell")
+			continue
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			installed_components += key
 
-	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
+	var/toggle = tgui_input_list(src, "Какой компонент вы желаете переключить?", "Компоненты", installed_components)
 	if(!toggle)
 		return
 
 	var/datum/robot_component/C = components[toggle]
 	C.toggle()
-	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
+	to_chat(src, span_warning("Вы [C.toggled ? "включили" : "отключили"] [C.name]."))
 
-/mob/living/silicon/robot/proc/sensor_mode()
-	set name = "Сенсоры камеры"
-	set desc = "Augment visual feed with internal sensor overlays."
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
+GAME_VERB_PROC_DESC(/mob/living/silicon/robot, sensor_mode, "Сенсоры камеры", "Augment visual feed with internal sensor overlays.", VERB_CATEGORY_ROBOTCOMMANDS)
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	add_verb(src, GLOB.robot_verbs_default)
-	add_verb(src, silicon_subsystems)
+	for(var/verb in (silicon_subsystems + GLOB.robot_verbs_default))
+		ASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	remove_verb(src, GLOB.robot_verbs_default)
-	remove_verb(src, silicon_subsystems)
+	for(var/verb in (silicon_subsystems + GLOB.robot_verbs_default))
+		UNASSIGN_GAME_VERB_DIRECT(src, verb)
 
-/mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Список тревог"
+GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список тревог", VERB_CATEGORY_ROBOTCOMMANDS)
 
 	if(usr.stat == DEAD)
-		to_chat(src, span_userdanger("Alert: You are dead."))
+		to_chat(src, span_userdanger("КРИТИЧЕСКАЯ ОШИБКА: Система не отвечает."))
 		return //won't work if dead
 
 	robot_alerts()
@@ -611,7 +662,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/toggle_ionpulse(silent = FALSE)
 	if(!ionpulse)
 		if(!silent)
-			to_chat(src, span_notice("No thrusters are installed!"))
+			to_chat(src, span_notice("Ионные двигатели не установлены!"))
 
 		return
 
@@ -622,7 +673,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse_on = !ionpulse_on
 
 	if(!silent)
-		to_chat(src, span_notice("You [ionpulse_on ? "" : "de"]activate your ion thrusters."))
+		to_chat(src, span_notice("Вы [ionpulse_on ? "в" : "вы"]ключили ионные двигатели."))
 
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
@@ -723,83 +774,83 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/robot_parts/robot_component))
 		add_fingerprint(user)
 		if(!opened)
-			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
+			balloon_alert(user, "техпанель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
-		for(var/V in components)
-			var/datum/robot_component/component = components[V]
-			if(!component.installed && istype(I, component.external_type))
-				if(!user.drop_transfer_item_to_loc(I, src))
-					return ..()
+		for(var/key, value in components)
+			var/datum/robot_component/component = value
+			if(!component.is_missing() || !istype(I, component.external_type))
+				continue
 
-				component.installed = TRUE
-				component.wrapped = I
-				component.install()
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
 
-				I.move_to_null_space()
-				var/obj/item/robot_parts/robot_component/robot_component = I
+			component.install(I)
+			var/obj/item/robot_parts/robot_component/robot_component = I
 
-				if(istype(robot_component))
-					component.brute_damage = robot_component.brute
-					component.electronics_damage = robot_component.burn
+			if(istype(robot_component))
+				component.brute_damage = robot_component.brute
+				component.electronics_damage = robot_component.burn
 
-				to_chat(user, span_notice("You have installed [I]."))
-				return ATTACK_CHAIN_BLOCKED_ALL
+			balloon_alert(user, "компонент установлен")
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
 
+		if(user == src)
+			return
+
 		if(!wiresexposed && !isdrone(src))
-			to_chat(user, span_warning("You should expose the wires first!"))
+			balloon_alert(user, "внутренняя панель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!getFireLoss())
-			to_chat(user, span_warning("Nothing to fix!"))
+			balloon_alert(user, "повреждения отсутствуют!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!getFireLoss(TRUE))
-			to_chat(user, span_warning("The damaged components are beyond saving!"))
+			to_chat(user, span_warning("Повреждённые компоненты нуждаются в полной замене!"))
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!coil.use(1))
-			to_chat(user, span_warning("You need at least one length of cable to fix anything!"))
+			balloon_alert(user, "недостаточно проводов!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		heal_overall_damage(burn = 30)
-		visible_message(
-			span_notice("[user] has fixed some of the burnt wires in [src]'s internals."),
-			span_notice("[user] has fixed some of the burnt wires in your internals."),
-			ignored_mobs = user,
-		)
-		to_chat(user, span_notice("You have fixed some of the burnt wires in [src]'s internals."))
+		balloon_alert_to_viewers("проводка заменена", "вашу проводку заменили")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(!opened)
-			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
+			balloon_alert(user, "техпанель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(wiresexposed)
-			to_chat(user, span_warning("You should hide the wires first!"))
+			balloon_alert(user, "внутренняя панель открыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(cell)
-			to_chat(user, span_warning("There is a power cell already installed!"))
+			balloon_alert(user, "аккумулятор уже установлен!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 
-		to_chat(user, span_notice("You have installed the power cell."))
+		balloon_alert(user, "аккумулятор установлен")
 		var/datum/robot_component/cell/cell_component = components["power cell"]
 
-		cell = I
-		cell_component.installed = TRUE
-		cell_component.wrapped = I
-		cell_component.install()
-		cell_component.external_type = I.type // Update the cell component's `external_type` to the path of new cell
+		cell_component.install(I)
 		//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 		cell_component.brute_damage = 0
 		cell_component.electronics_damage = 0
@@ -822,11 +873,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
 		if(!opened)
-			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
+			balloon_alert(user, "техпанель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!radio) //sanityyyyyy
-			to_chat(user, span_warning("Unable to locate a radio!"))
+			balloon_alert(user, "радио отсутствует!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		radio.attackby(I, user, params) //GTFO, you have your own procs
@@ -836,24 +889,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 
 		if(opened)
-			to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
+			balloon_alert(user, "техпанель уже открыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(emagged)	//still allow them to open the cover
-			to_chat(user, span_danger("The interface seems slightly damaged!"))
+			to_chat(user, span_danger("Кажется, ID-замок сломан!"))
 
 		if(!allowed(I))
-			to_chat(user, span_warning("Access denied!"))
+			balloon_alert(user, "доступ запрещён!")
+			playsound(src, SFX_BUTTON_DENIED, YEET_SOUND_VOLUME, use_reverb = TRUE)
 			return ATTACK_CHAIN_PROCEED
 
 		locked = !locked
-		visible_message(
-			span_warning("[user] has [locked ? "locked" : "unlocked"] [src]'s interface."),
-			span_notice("[user] has [locked ? "locked" : "unlocked"] your interface."),
-			ignored_mobs = user,
-		)
-
-		to_chat(user, span_notice("You have [locked ? "locked" : "unlocked"] cyborg's interface."))
+		balloon_alert_to_viewers("техпанель [locked ? "за" : "раз"]блокирована")
 		update_icons()
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -862,28 +911,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 		var/obj/item/borg/upgrade/upgrade = I
 		if(!opened)
-			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
+			balloon_alert(user, "техпанель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!module && upgrade.require_module)
-			to_chat(user, span_warning("The cyborg must choose a specialization module before it can be upgraded!"))
+			balloon_alert(user, "требуется специализация!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(upgrade, src))
 			return ..()
 
-		if(!upgrade.action(src, user))
-			upgrade.forceMove(drop_location())
+		if(!install_upgrade(upgrade, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		visible_message(
-			span_warning("[user] has applied [upgrade] to [src]."),
-			span_notice("[user] has applied [upgrade] to you."),
-			ignored_mobs = user,
-		)
-
-		to_chat(user, span_notice("You have applied [upgrade] to [src]."))
-		install_upgrade(upgrade)
+		balloon_alert_to_viewers("улучшение установлено")
 		module?.fix_modules()	//Set up newly added items with NODROP trait.
 
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -891,27 +934,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/mmi_radio_upgrade))
 		add_fingerprint(user)
 		if(!opened)
-			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
+			balloon_alert(user, "техпанель закрыта!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!mmi)
-			to_chat(user, span_warning("This cyborg does not have an MMI to augment!"))
+			balloon_alert(user, UNLINT("ММИ отсутствует!"))
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(mmi.radio)
-			to_chat(user, span_warning("A radio upgrade is already installed!"))
+			balloon_alert(user, "уже установлено!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 
-		visible_message(
-			span_warning("[user] has installed the radio upgrade to [src]'s MMI."),
-			span_notice("[user] has installed the radio upgrade into yor MMI."),
-			ignored_mobs = user,
-		)
-
-		to_chat(user, span_notice("You have installed the radio upgrade to [src]'s MMI."))
+		balloon_alert_to_viewers("улучшение установлено")
 		mmi.install_radio()
 		qdel(I)
 
@@ -921,13 +961,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 		locked = !locked
 
-		visible_message(
-			span_warning("[user] has [locked ? "locked" : "unlocked"] [src]'s interface."),
-			span_notice("[user] has [locked ? "locked" : "unlocked"] your interface."),
-			ignored_mobs = user,
-		)
-
-		to_chat(user, span_notice("You have [locked ? "locked" : "unlocked"] cyborg's interface."))
+		balloon_alert_to_viewers("техпанель [locked ? "за" : "раз"]блокирована")
 		update_icons()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -974,14 +1008,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!cell)	// haxing
 		wiresexposed = !wiresexposed
-		to_chat(user, span_notice("The wires have been [wiresexposed ? "exposed" : "unexposed"]."))
+		balloon_alert(user, "панель [wiresexposed ? "от" : "за"]кручена")
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
 		else
-			to_chat(user, "Unable to locate a radio.")
+			balloon_alert(user, "радио отсутствует!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 
 		update_icons()
 
@@ -995,14 +1030,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!opened)
 		if(locked)
-			to_chat(user, "The cover is locked and cannot be opened.")
+			balloon_alert(user, "техпанель заблокирована!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, BORG_BASE_MAINTPANEL_OPEN_DELAY, volume = I.tool_volume))
 			return
 
-		to_chat(user, "You open the cover.")
 		opened = TRUE
+		balloon_alert_to_viewers("техпанель открыта")
 		update_icons()
 		return
 
@@ -1010,60 +1046,70 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 
-		to_chat(user, "You close the cover.")
 		opened = FALSE
+		balloon_alert_to_viewers("техпанель закрыта")
 		update_icons()
 		return
 
 	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
-		if(!mmi)
-			to_chat(user, "[src] has no brain to remove.")
+		if(!mmi && !shell)
+			balloon_alert(user, "мозг отсутствует!")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
-		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
-		if(I.use_tool(src, user, 30, volume = I.tool_volume))
-			user.visible_message("[user] deconstructs [src]!", span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
+		balloon_alert(user, "деконструкция начата...")
+		if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+			if(cell || !wiresexposed || !wires.is_all_cut() || (!mmi && !shell))
+				user.balloon_alert(user, "невозможно!")
+				SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
+				return
+			user.visible_message(
+				span_alert("[user] разбир[PLUR_ET_UT(user)] [declent_ru(GENITIVE)]!"),
+				span_notice("Вы снимаете поддерживающие заклёпки, и [declent_ru(NOMINATIVE)] разваливается на составные части!")
+			)
 			deconstruct()
 
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
 	var/list/removable_components = list()
-	for(var/V in components)
-		if(V == "power cell")
+	for(var/key, value in components)
+		if(key == "power cell")
 			continue
 
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 1 || C.installed == -1)
-			removable_components += V
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			removable_components += key
 
 	if(module)
 		removable_components += module.custom_removals
 
-	var/remove = tgui_input_list(user, "Which component do you want to pry out?", "Remove Component", removable_components)
+	var/remove = tgui_input_list(user, "Какой компонент вы хотите вытащить?", "Тех. обслуживание [src]", removable_components)
 	if(!remove)
 		return
 
 	if(module && module.handle_custom_removal(remove, user, I))
 		return
 
+	var/datum/robot_component/component = components[remove]
+
+	if(component.is_missing()) // Somebody else removed it during the input
+		return
+
+
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
-	var/datum/robot_component/C = components[remove]
-	var/obj/item/robot_parts/robot_component/thing = C.wrapped
-	to_chat(user, "You remove \the [thing].")
+	var/datum/robot_component/choosed_component = components[remove]
+	var/obj/item/robot_parts/robot_component/thing = choosed_component.wrapped
+	balloon_alert(user, "компонент изъят")
 
 	if(istype(thing))
-		thing.brute = C.brute_damage
-		thing.burn = C.electronics_damage
+		thing.brute = component.brute_damage
+		thing.burn = component.electronics_damage
 
-	thing.loc = loc
-	var/was_installed = C.installed
-	C.installed = 0
-
-	if(was_installed == 1)
-		C.uninstall()
+	component.uninstall()
+	thing.forceMove(loc)
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
@@ -1074,24 +1120,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	. = TRUE
 	if(!getBruteLoss())
-		to_chat(user, span_warning("Nothing to fix!"))
+		balloon_alert(user, "повреждений нет!")
+		SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		return .
 
 	if(!getBruteLoss(TRUE))
-		to_chat(user, span_warning("The damaged components are beyond saving!"))
+		to_chat(user, span_warning("Повреждённые компоненты нуждаются в полной замене!"))
+		SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		return .
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 
 	heal_overall_damage(brute = 30)
-	visible_message(
-		span_notice("[user] has patched some dents on [src] with [I]."),
-		span_notice("[user] has patched some dents on your externals with [I]."),
-		ignored_mobs = user,
-	)
 
-	to_chat(user, span_notice("You have patched some dents on [src] with [I]."))
+	balloon_alert_to_viewers("корпус отремонтирован")
 
 /mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
@@ -1103,19 +1146,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(isclocker(src))
-		to_chat(user, span_danger("As you try to emag, a magic force keeps the cover locked!"))
+		to_chat(user, span_clocklarge("Убери свои грязные руки от моего слуги."))
+		if(isrobot(user))
+			return
+		to_chat(user, span_danger("Вы попытались провести криптографическим секвенсором по адаптеру [src], но он просто вылетел из ваших рук, движимый неизвестной и невероятно мощной магией."))
+		if(!iscarbon(user))
+			return
+		var/mob/living/carbon/carbon = user
+		var/obj/item/item = carbon.get_active_hand()
+		if(!item)
+			return
+		if(carbon.drop_item_ground(item))
+			var/turf/destination = get_edge_target_turf(src, turn(user.dir, 180))
+			item.throw_at(destination, 10, 5, user)
 		return
 
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
-			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
+			to_chat(user, "Криптографический секвенсор искрится, но вы не видите результатов. Кажется, эту машину просто так не взломать...")
+			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		else if(locked)
 			add_attack_logs(user, src, "emagged cover")
-			to_chat(user, "You emag the cover lock.")
-			locked = 0
+			balloon_alert(user, "техпанель разблокирована")
+			locked = FALSE
 		else
-			to_chat(user, "The cover is already unlocked.")
+			balloon_alert(user, "уже разблокировано!")
 
 		return
 
@@ -1124,7 +1180,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return//Prevents the X has hit Y with Z message also you cant emag them twice
 
 		if(wiresexposed)
-			to_chat(user, "You must close the panel first")
+			balloon_alert(user, "внутренняя панель открыта!")
+			return
+
+		if(shell)
+			if(!mainframe)
+				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
+			else
+				evacuate_ai(DANGER_LVL_INSTA_DEATH)
+				balloon_alert(user, "ии удален")
+				death()
 			return
 
 		else
@@ -1189,7 +1254,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
 
-/mob/living/silicon/robot/ratvar_act(weak = FALSE)
+/mob/living/silicon/robot/ratvar_act(weak = FALSE, shell_affected = FALSE)
+	if(mainframe)
+		var/mob/living/silicon/ai/AI = mainframe
+		evacuate_ai(DANGER_LVL_NONE)
+		AI.ratvar_act()
+		return
+	if(shell && !shell_affected)
+		return
 	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
 		return
 
@@ -1201,29 +1273,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		pdahide = TRUE
 
 	SSticker.mode.add_clocker(mind)
-	UnlinkSelf()
+	if(!shell)
+		UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
 
-/mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Блокировку панели"
-	set desc = "Toggles the lock on your cover."
+GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировка панели", "Toggles the lock on your cover.", VERB_CATEGORY_ROBOTCOMMANDS)
 
 	if(can_lock_cover)
-		if(tgui_alert(usr, "Are you sure?", locked ? "Unlock Cover" : "Lock Cover", list("Yes", "No")) == "Yes")
+		if(tgui_alert(usr, "Вы уверены?", locked ? "Разблокировка" : "Блокировка", list("ДА", "ОТМЕНА")) == "ДА")
 			locked = !locked
 			update_icons()
-			to_chat(usr, span_notice("You [locked ? "lock" : "unlock"] your cover."))
+			to_chat(usr, span_notice("Вы [locked ? "за" : "раз"]блокировали свою техпанель ."))
 		return
 
 	if(!locked)
-		to_chat(usr, span_warning("You cannot lock your cover yourself. Find a robotocist."))
+		to_chat(usr, span_warning("Вы не можете сделать это самостоятельно. Обратитесь к робототехникам."))
 		return
 
-	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
+	if(tgui_alert(usr, "Вы уже не сможете заблокировать техпанель обратно.\nДля этого вам потребуется помощь робототехников", "Разблокировка панели", list("ДА", "ОТМЕНА")) == "ДА")
 		locked = FALSE
 		update_icons()
-		to_chat(usr, span_notice("You unlock your cover."))
+		to_chat(usr, span_notice("Вы разблокировали свою техпанель."))
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1286,9 +1356,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 	if(module)
 		module.set_appearance(src)
 
@@ -1319,7 +1386,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
-		to_chat(src, span_warning("Weapon lock active, unable to use modules! Count:[weaponlock_time]"))
+		to_chat(src, span_warning("Активна блокировка оружия, невозможно использовать модули! Счётчик: [weaponlock_time]"))
 		return
 
 	if(!module)
@@ -1367,16 +1434,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade)
+/mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade, mob/user)
+	if(!upgrade)
+		return FALSE
+	if(!upgrade.action(src, user))
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.put_in_any_hand_if_possible(upgrade, TRUE, FALSE)
+			return FALSE
+		upgrade.forceMove(drop_location())
+		return FALSE
+
 	if(!upgrade.instant_use)
 		RegisterSignal(upgrade, COMSIG_QDELETING, PROC_REF(on_upgrade_deleted))
 		upgrades += upgrade
 
 		if(upgrade.loc != src)
 			upgrade.forceMove(src)
+		return TRUE
 
-	else
-		qdel(upgrade)
+	qdel(upgrade)
+	return TRUE
 
 ///Called when an applied upgrade is deleted.
 /mob/living/silicon/robot/proc/on_upgrade_deleted(obj/item/borg/upgrade/old_upgrade)
@@ -1435,20 +1513,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				contents -= O
 
 			else
-				to_chat(src, "Module isn't activated.")
+				balloon_alert(src, "модуль неактивен")
 
 		else
-			to_chat(src, "Module isn't activated")
+			balloon_alert(src, "модуль неактивен")
 
 		installed_modules()
 		return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
-	radio.interact(src)
+	if(radio)
+		radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_cooldown > world.time || low_power_mode)
-		to_chat(src, span_danger("This function is currently offline."))
+		balloon_alert(src, "фары не отвечают")
 		return
 
 	if(lamp_intensity == 0) //We'll skip intensity of 2, since every mob already has such a see-darkness range, so no much need for it.
@@ -1457,13 +1536,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
 
-	to_chat(src, span_notice("[lamp_intensity > 2 ? "Headlamp power set to Level [lamp_intensity * 0.5]" : "Headlamp disabled"]."))
+	to_chat(src, span_notice("[lamp_intensity > 2 ? "Вы переключили мощность своих фар. Уровень мощности: [lamp_intensity * 0.5]" : "фары отключены"]."))
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(turn_off = FALSE, cooldown = 10 SECONDS)
 	if(lamp_intensity > 2)
 		if(turn_off || stat || low_power_mode)
-			to_chat(src, span_danger("Your headlamp has been deactivated."))
+			balloon_alert(src, "фары резко отключились")
 			lamp_intensity = 0
 			lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
 			set_light_on(FALSE)
@@ -1488,8 +1567,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/turf/T = get_turf(src)
 
 	if((modtype != /obj/item/robot_module/clockwork || !mmi.clock) && isclocker(src))
-		to_chat(src, span_warning("With body torn into pieces, your mind got free from evil cult!"))
+		to_chat(src, span_warning("Вместе с вашим телом были разрушены и оковы ужасного заводного культа! Вы свободны от его пагубного влияния и можете продолжить служить станции!"))
 		SSticker.mode.remove_clocker(mind, FALSE)
+
+	evacuate_ai(DANGER_LVL_NONE)
 
 	if(robot_suit)
 		robot_suit.forceMove(T)
@@ -1534,67 +1615,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell.forceMove(T)
 		cell = null
 
+	if(shell)
+		new /obj/item/borg/upgrade/ai(T)
+
 	drop_hat()
 	eject_riders()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
-	var/oldLoc = src.loc
+/mob/living/silicon/robot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-
 	if(.)
-		if(camera && oldLoc != src.loc)
+		if(camera && old_loc != src.loc)
 			GLOB.cameranet.updatePortableCamera(src.camera)
-
-	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
-			var/turf/tile = loc
-			if(stat != DEAD && isturf(tile))
-				var/floor_only = TRUE
-
-				for(var/A in tile)
-					if(iseffect(A))
-						var/obj/effect/check = A
-
-						if(check.is_cleanable())
-							var/obj/effect/decal/cleanable/blood/B = check
-
-							if(istype(B) && B.off_floor)
-								floor_only = FALSE
-
-							else
-								qdel(B)
-
-					else if(isitem(A))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-
-					else if(ishuman(A))
-						var/mob/living/carbon/human/cleaned_human = A
-
-						if(cleaned_human.body_position == LYING_DOWN)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_worn_head()
-
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_worn_oversuit()
-
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_worn_undersuit()
-
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_worn_shoes()
-
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
-
-				if(floor_only)
-					tile.clean_blood()
-		return
 
 /mob/living/silicon/robot/proc/self_destruct()
 	apply_status_effect(/datum/status_effect/selfdestruct, src)
@@ -1613,24 +1645,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Сброс кодов идентификации"
-	set desc = "Scrambles your security and identification codes and resets your current buffers. \
-				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
-
 	var/mob/living/silicon/robot/R = src
 
 	if(R)
 		R.UnlinkSelf()
-		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
+		to_chat(R, "Обновление прошивки завершено. Пассивная передача местоположения отключена. Все системы в норме.")
 
 /mob/living/silicon/robot/mode()
-	set category = VERB_CATEGORY_IC
-	set name = "Использовать объект"
-	set desc = "Использовать удерживаемый объект."
-	set src = usr
-
 	var/obj/item/W = get_active_hand()
 
 	if(W)
@@ -1672,10 +1693,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
-	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	if(!module)
+		return
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module.default_skin)
 	if(!skin)
 		return
-	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	set_skin(skin, TRUE, skin.type != module.default_skin)
 	return
 
 /mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
@@ -1688,12 +1711,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
-		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
+		var/permit_required = !isnull(new_skin.required_permit)
+		var/donator_tier_required = !isnull(new_skin.donator_tier)
+		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
+			var/has_permit = permit_required && mind?.cyborg_skin_permissions[new_skin.required_permit]
+			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
+
+			if(!has_permit && !has_donator)
+				continue
+
 		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
 		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
 		choices[new_skin.name] = skin_image
@@ -1712,6 +1738,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = skin.icon_base_prefix
 	base_icon = skin.icon_base_prefix
 	selected_skin = skin
+	transform = matrix(1,0,skin.move_x,0,1,0)
 	if(use_transformation)
 		transform_animation(skin.icon_base_prefix, default)
 		return
@@ -1744,6 +1771,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		if(AI_NOTIFICATION_AI_SHELL) //New AI Shell
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1754,12 +1783,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
+		if(shell)
+			notify_ai(AI_NOTIFICATION_AI_SHELL)
+		else
+			notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
 /mob/living/silicon/robot/can_perform_action(atom/target, action_bitflags)
 	if(lockcharge || low_power_mode)
-		to_chat(src, span_warning("You can't do that right now!"))
+		balloon_alert_to_viewers("способность заблокирована")
 		return FALSE
 	return ..()
 
@@ -1785,6 +1817,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	..()
+	if(mainframe)
+		var/mob/living/silicon/ai/AI = mainframe
+		evacuate_ai(DANGER_LVL_NONE)
+		to_chat(AI, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРОМАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
 
 	switch(severity)
 		if(1)
@@ -1819,9 +1855,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
 	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
-	brute_mod = 0.5 // Пулевые орудия наносят на 50%+5ед меньше урона. Теперь полная обойма ружейных пуль не убьет киборга(но заставит потерять 2 модуля и броню)
-	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все ещё снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
-	emp_protection = TRUE // Это киборг отряда смерти, он не должен быть остановим обычной импульсной винтовкой.
+	brute_mod = 0.5 // Bullets are dealing 50%+5 less damage. Full line of shotgun slugs now won't kill the cyborg(but cyborg will lose 2 modules and armor planting)
+	burn_mod = 0.5 // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
+	emp_protection = TRUE // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
+	reflectable = TRUE
 	allow_rename = FALSE
 	modtype = /obj/item/robot_module/deathsquad
 	faction = list("nanotrasen")
@@ -1831,10 +1868,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	see_reagents = TRUE
 	has_transform_animation = TRUE
 
-/mob/living/silicon/robot/deathsquad/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
@@ -1843,14 +1876,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
-	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
-		P.reflect_back(src)
-		return -1
-
-	return ..(P)
-
 /mob/living/silicon/robot/ert
 	designation = "ERT"
 	lawupdate = 0
@@ -1858,12 +1883,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list(
-		"Engineering" = /obj/item/robot_module/engineering,
-		"Medical" = /obj/item/robot_module/medical,
-		"Security" = /obj/item/robot_module/security,
+		CYBORG_MODULE_NAME_ENGINEER_ERT = /obj/item/robot_module/engineering,
+		CYBORG_MODULE_NAME_MEDIC_ERT = /obj/item/robot_module/medical,
+		CYBORG_MODULE_NAME_SOLIDER = /obj/item/robot_module/security,
+		CYBORG_MODULE_NAME_JANITOR_ERT = /obj/item/robot_module/janitor/ert,
 	)
 	allow_rename = FALSE
-	weapons_unlock = TRUE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
@@ -1875,8 +1900,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculate_channels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..(loc)
+/mob/living/silicon/robot/ert/Initialize(mapload)
+	. = ..()
 	var/rnum = rand(1,1000)
 	var/borgname = "[eprefix] ERT [rnum]"
 
@@ -1900,13 +1925,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	limited_modules = list("Combat" = /obj/item/robot_module/combat, "Engineering" = /obj/item/robot_module/engineering, "Medical" = /obj/item/robot_module/medical)
+	limited_modules = list(
+		CYBORG_MODULE_NAME_BATTLEDROID = /obj/item/robot_module/combat,
+		CYBORG_MODULE_NAME_ENGINEER_ERT = /obj/item/robot_module/engineering/ert,
+		CYBORG_MODULE_NAME_MEDIC_ERT_SPECIAL = /obj/item/robot_module/medical/ert,
+		CYBORG_MODULE_NAME_JANITOR_ERT = /obj/item/robot_module/janitor/ert,
+	)
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
-
-/mob/living/silicon/robot/ert/gamma/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 /mob/living/silicon/robot/destroyer
 	// admin-only borg, the seraph / special ops officer of borgs
@@ -1920,22 +1946,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
-	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
-	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
-	brute_mod = 0.5 // Пулевые орудия наносят на 50%+5ед меньше урона. Теперь полная обойма ружейных пуль не убьет киборга(но заставит потерять 2 модуля и броню)
-	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все ещё снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
-	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
+	eye_protection = FLASH_PROTECTION_WELDER
+	ear_protection = HEARING_PROTECTION_MINOR
+	emp_protection = TRUE
+	damage_protection = 10
+	brute_mod = 0.5
+	burn_mod = 0.5
+	emp_protection = TRUE
+	reflectable = TRUE
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
-
-/mob/living/silicon/robot/destroyer/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1954,19 +1978,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)
-	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
-		P.reflect_back(src)
-		return -1
-
-	return ..(P)
-
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
 		base_icon = icon_state
 
-	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+	if(module_active && iscyborgmobilitymodule(module_active))
 		icon_state = "[base_icon]-roll"
 
 	else
@@ -2000,14 +2016,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
-		borked_part.installed = 1
-		borked_part.wrapped = new borked_part.external_type
-
-		if(ispath(borked_part.external_type, /obj/item/stock_parts/cell)) // is the broken part a cell?
-			cell = new borked_part.external_type // borgs that have their cell destroyed have their `cell` var set to null. we need create a new cell for them based on their old cell type.
-
 		borked_part.heal_damage(brute,burn)
-		borked_part.install()
+		borked_part.install(new borked_part.external_type)
 
 /mob/living/silicon/robot/check_eye_prot()
 	return eye_protection
@@ -2061,7 +2071,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/check_module_damage(makes_sound = TRUE)
 	if(modules_break)
-		if(health < 50) //Gradual break down of modules as more damage is sustained
+		if(health < 50) // Gradual break down of modules as more damage is sustained
 			if(uneq_module(module_state_3))
 				if(makes_sound)
 					audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
@@ -2085,17 +2095,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 
+/mob/living/silicon/robot/is_buckle_possible(mob/living/target, force, check_loc)
+	if(!target)
+		return FALSE
+	if(module_active && iscyborgmobilitymodule(module_active))
+		return FALSE
+	if(is_simple_animal(target) || is_monkeybasic(target))
+		return FALSE
+	return ..()
+
+/mob/living/silicon/robot/post_buckle_mob(mob/living/target)
+	. = ..()
+	add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+
+/mob/living/silicon/robot/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+
 /mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
 	can_buckle = !can_buckle
-	switch(can_buckle)
-		if(FALSE)
-			eject_riders()
-			balloon_alert(src, "сидение задвинуто")
-			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
-
-		if(TRUE)
-			balloon_alert(src, "сидение выдвинуто")
-			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	if(can_buckle)
+		balloon_alert(src, "сидение выдвинуто")
+		playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	else
+		eject_riders()
+		balloon_alert(src, "сидение задвинуто")
+		playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /mob/living/silicon/robot/proc/eject_riders()
 	if(!length(buckled_mobs))
@@ -2103,7 +2128,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
 		unbuckle_mob(buckled_mob)
 
-//use this type only if you need to simulate a road accident
+// Use this type only if you need to simulate a road accident
 /mob/living/silicon/robot/proc/eject_riders_harmfull()
 	if(!length(buckled_mobs))
 		return
@@ -2118,9 +2143,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
 
-/mob/living/silicon/robot/verb/powerwarn()
-	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Состояние заряда"
+GAME_VERB(/mob/living/silicon/robot, powerwarn, "Состояние заряда", VERB_CATEGORY_ROBOTCOMMANDS)
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
@@ -2134,4 +2157,166 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
+/mob/living/silicon/robot/try_get_ai()
+	if(!mainframe)
+		return null
+	return mainframe
+
+// Checks for making a bold message in cyborg's binary channel
+/mob/living/silicon/robot/proc/check_binary_master(mob/living/speaker)
+	if(shell)
+		return FALSE
+	if(isAI(speaker))
+		var/mob/living/silicon/ai/AI = speaker
+		if(connected_ai == AI)
+			return TRUE
+	else if(isrobot(speaker))
+		var/mob/living/silicon/robot/robot = speaker
+		if(connected_ai == robot.try_get_ai())
+			return TRUE
+	return FALSE
+
+/mob/living/silicon/robot/proc/update_camera_name()
+	if(!QDELETED(camera))
+		camera.c_tag = real_name
+
+/datum/action/innate/undeployment
+	name = "Вернуться в ядро"
+	desc = "Отключитесь от оболочки и вернитесь в своё ядро"
+	button_icon_state = "undeploy_shell"
+
+/datum/action/innate/undeployment/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
+	var/mob/living/silicon/robot/shell_to_disconnect = owner
+
+	shell_to_disconnect.undeploy()
+	return TRUE
+
+// Gives avaiable AIshell actions
+/mob/living/silicon/robot/proc/grant_shell_actions()
+	if(!mainframe)
+		return
+	undeployment_action.Grant(src)
+
+// Removes avaiable AIshell actions
+/mob/living/silicon/robot/proc/remove_shell_actions()
+	undeployment_action.Remove(src)
+
+// Makes a AIshell from any cyborg
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
+	if(isnull(board))
+		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
+		return FALSE
+
+	shell = TRUE
+	braintype = "AI Shell"
+	name = "Empty AI Shell-[ident]"
+	real_name = name
+	GLOB.available_ai_shells |= src
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+
+// Called when BORIS module has been removes from robot. Reverts BORIS module, leaving a normal and non-AIshell cyborg
+/mob/living/silicon/robot/proc/revert_shell()
+	if(!shell)
+		return
+	undeploy()
+	var/list/installed_upgardes = upgrades
+	for(var/obj/item/borg/upgrade/ai/boris in src)
+		if(boris in installed_upgardes)
+			installed_upgardes -= boris
+		qdel(boris)
+	shell = FALSE
+	GLOB.available_ai_shells -= src
+	name = "Unformatted Cyborg-[num2text(ident)]"
+	real_name = name
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "nothing")
+
+// Called when the AI is connecting to the AIshell. Prepares cyborg for a AI-pilot
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
+	real_name = "[AI.real_name] [designation] Shell-[num2text(ident)]"
+	name = real_name
+	update_camera_name()
+	mainframe = AI
+	deployed = TRUE
+	lawupdate = 0
+	grant_shell_actions()
+	tts_seed = AI.tts_seed
+	lawsync()
+
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")
+	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+	if(module && mainframe?.aiRadio)
+		module.channels = mainframe.aiRadio.channels
+	radio.recalculate_channels()
+
+// Called when the AI is leaving the AIshell.
+/mob/living/silicon/robot/proc/undeploy()
+	if(!deployed || !mind || !mainframe)
+		return
+	mainframe.UnregisterSignal(src, COMSIG_LIVING_DEATH)
+	mind.transfer_to(mainframe)
+	deployed = FALSE
+	mainframe.deployed_shell = null
+	remove_shell_actions()
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "nothing")
+	if(mainframe.laws)
+		mainframe.laws.show_laws(mainframe)
+	if(mainframe.eyeobj)
+		mainframe.eyeobj.setLoc(loc)
+	mainframe = null
+
+/mob/living/silicon/robot/attack_ai(mob/user)
+	if(!shell)
+		return
+	if(mainframe || key)
+		to_chat(user, span_warning("Передатчик уже используется. Подключение невозможно"))
+	if(stat == DEAD || stat == UNCONSCIOUS || !cell || (cell.charge <= 0))
+		to_chat(user, span_warning("Передатчик не отвечает на запросы. Подключение невозможно."))
+		return
+	if(connected_ai)
+		if(connected_ai != user)
+			to_chat(user, span_warning("Отказано в доступе. Подключение невозможно."))
+			return
+	if(tgui_alert(user, "Подключиться к [name]?", "Подключение к оболочке", list(AISHELL_CONNECT_POSITIVE, AISHELL_CONNECT_NEGATIVE)) != AISHELL_CONNECT_POSITIVE)
+		return
+	if(shell && (!connected_ai || connected_ai == user))
+		var/mob/living/silicon/ai/AI = user
+		AI.deploy_to_shell(src)
+
+// Just kicks AI-mainframe from cyborg
+// Can kill him if 'danger_level' suggests it.
+/mob/living/silicon/robot/proc/evacuate_ai(danger_level = DANGER_LVL_NONE)
+	if(!mainframe)
+		return
+	var/mob/living/silicon/ai/AI = mainframe
+	mainframe.disconnect_shell()
+	if(danger_level == DANGER_LVL_NONE)
+		to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
+		return
+	if(danger_level == DANGER_LVL_MAY_DIE)
+		if(prob(50))
+			to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
+			AI.adjustOxyLoss(200)
+			return
+	if(danger_level == DANGER_LVL_INSTA_DEATH)
+		to_chat(AI, span_alert("$%@#!$%##!!$$#---"))
+		AI.adjustOxyLoss(200)
+		return
+
 #undef BORG_LAMP_CD_RESET
+#undef BORG_BASE_MAINTPANEL_OPEN_DELAY
+#undef BORG_BASE_INNERPANEL_OPEN_DELAY
+
+/mob/living/silicon/robot/vv_edit_var(var_name, var_value)
+	if(!check_rights(R_SKINS) && (var_name in list("icon", "icon_state")))
+		return FALSE
+	. = ..()
+
+/mob/living/silicon/robot/get_lootpanel_cache_key()
+	return "[module?.type] [selected_skin?.type]"
+

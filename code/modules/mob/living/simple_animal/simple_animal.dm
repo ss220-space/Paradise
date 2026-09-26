@@ -10,6 +10,7 @@
 
 	hud_type = /datum/hud/simple_animal
 	abstract_type = /mob/living/simple_animal
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
@@ -192,6 +193,19 @@
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
+	if(LAZYLEN(speak))
+		speak = string_list(speak)
+	if(LAZYLEN(speak_emote))
+		speak_emote = string_list(speak_emote)
+	if(LAZYLEN(emote_hear))
+		emote_hear = string_list(emote_hear)
+	if(LAZYLEN(emote_see))
+		emote_see = string_list(emote_see)
+	if(LAZYLEN(loot))
+		loot = string_list(loot)
+	damage_coeff = string_assoc_list(damage_coeff)
+	if(LAZYLEN(atmos_requirements))
+		atmos_requirements = string_assoc_list(atmos_requirements)
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
 	add_strippable_element()
@@ -201,6 +215,8 @@
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
+	SSidlenpcpool.currentrun -= src
+	walk(src, NONE)
 
 	if(nest)
 		nest.spawned_mobs -= src
@@ -425,9 +441,11 @@
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(length(loot))
-		for(var/i in loot)
-			new i(loc)
+	if(!length(loot))
+		return
+	for(var/item in loot)
+		new item(drop_location())
+	loot = null
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -459,6 +477,9 @@
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
+	if(!isatom(the_target))
+		stack_trace("Invalid target in CanAttack(): [the_target]")
+		return FALSE
 	if(see_invisible < the_target.invisibility)
 		return FALSE
 	if(ismob(the_target))
@@ -633,6 +654,7 @@
 	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(AIStatus == togglestatus)
@@ -711,9 +733,6 @@
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/simple_animal/Login()
 	..()
 	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
@@ -723,7 +742,7 @@
 	. = ..()
 	toggle_ai(AI_ON)
 
-/mob/living/simple_animal/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	. = ..()
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)
@@ -825,14 +844,14 @@
 	leash_radius = radius
 
 /mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
-	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
 
 	stop_automated_movement = TRUE
 
-/mob/living/simple_animal/proc/end_dchat_plays()
+/mob/living/simple_animal/proc/stop_deadchat_plays()
 	stop_automated_movement = FALSE
 
 /mob/living/simple_animal/can_use_machinery(obj/machinery/mach)

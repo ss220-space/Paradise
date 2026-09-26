@@ -11,6 +11,8 @@
 #define TURRET_BUILD_HATCH_CLOSED 6
 #define TURRET_BUILD_COATED 7
 
+#define TURRET_COVER_ANIMATION_TIME (1 SECONDS)
+
 /obj/machinery/porta_turret
 	name = "turret"
 	icon = 'icons/obj/machines/turrets.dmi'
@@ -19,9 +21,10 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -88,6 +91,9 @@
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
 
+	var/obj/item/salvage_sensor = /obj/item/assembly/prox_sensor
+	var/sprite_prefix = ""
+
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 
@@ -105,7 +111,7 @@
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
 
-	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) //Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
 
 	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
@@ -189,19 +195,19 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	underlays += GLOB.turret_icons["open"]
 
 	if(stat & BROKEN)
-		icon_state = "destroyed_target_prism"
+		icon_state = "[sprite_prefix]destroyed_target_prism"
 	else if(raised || raising)
 		if(powered() && enabled)
 			if(iconholder)
 				//lasers have a orange icon
-				icon_state = "orange_target_prism"
+				icon_state = "[sprite_prefix]orange_target_prism"
 			else
 				//almost everything has a blue icon
-				icon_state = "target_prism"
+				icon_state = "[sprite_prefix]target_prism"
 		else
-			icon_state = "grey_target_prism"
+			icon_state = "[sprite_prefix]grey_target_prism"
 	else
-		icon_state = "turretCover"
+		icon_state = "[sprite_prefix]turretCover"
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
@@ -340,7 +346,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!(stat & BROKEN) || syndicate)
 		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || !(stat & BROKEN))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || !(stat & BROKEN))
 		return .
 	if(prob(70))
 		to_chat(user, span_notice("You remove the turret and salvage some components."))
@@ -352,7 +359,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
 		if(prob(50))
-			new /obj/item/assembly/prox_sensor(loc)
+			new salvage_sensor(loc)
 	else
 		to_chat(user, span_notice("You remove the turret but did not manage to salvage anything."))
 	qdel(src)
@@ -373,7 +380,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		span_notice("You begin [anchored ? "un" : ""]securing the turret."),
 	)
 	wrenching = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
 		wrenching = FALSE
 		return .
 	wrenching = FALSE
@@ -567,7 +575,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 
-	if(istype(target, /obj/vehicle))
+	if(isvehicle(target))
 		var/obj/vehicle/T = target
 		if(T.has_buckled_mobs())
 			for(var/m in T.buckled_mobs)
@@ -650,6 +658,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(target(M))
 			return TRUE
 
+/obj/machinery/porta_turret/proc/play_cover_animation(animation)
+	flick_overlay_view(mutable_appearance(icon, animation), TURRET_COVER_ANIMATION_TIME)
+
+/obj/machinery/porta_turret/proc/finish_cover_animation(is_raised)
+	set_raised_raising(is_raised, FALSE)
+	update_icon(UPDATE_ICON_STATE)
+
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)
 		return
@@ -661,14 +676,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popup", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
-
-	set_raised_raising(TRUE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
+	play_cover_animation("[sprite_prefix]popup")
+	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), TRUE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	last_target = null
@@ -682,14 +691,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popdown", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
-
-	set_raised_raising(FALSE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
+	play_cover_animation("[sprite_prefix]popdown")
+	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), FALSE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
@@ -821,6 +824,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/gun_charge = 0			//the gun charge of the gun type installed
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
+	var/integrated = FALSE
 
 /obj/machinery/porta_turret_construct/update_icon_state()
 	icon_state = "turret_frame[build_step >= TURRET_BUILD_ARMORED ? "2" : ""]"
@@ -863,7 +867,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(build_step != TURRET_BUILD_LOOSEN)
 		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
 		return .
 	to_chat(user, span_notice("You dismantle the turret construction."))
 	new /obj/item/stack/sheet/metal(loc, 5)
@@ -905,7 +910,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(TURRET_BUILD_ARMOR_SECURED)
-			if(istype(I, /obj/item/gun/energy)) //the gun installation part
+			if(isenergygun(I)) //the gun installation part
 				var/obj/item/gun/energy/new_gun = I
 				if(isrobot(user) || !new_gun.turret_check())
 					return ATTACK_CHAIN_PROCEED
@@ -930,13 +935,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(TURRET_BUILD_GUN)
-			if(isprox(I))
+			var/is_module = istype(I, /obj/item/turret_integration_module)
+			if(isprox(I) || is_module)
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
+				integrated = is_module
 				build_step = TURRET_BUILD_PROX
 				qdel(I)
-				to_chat(user, span_notice("You add the prox sensor to the turret."))
+				to_chat(user, span_notice("You add the [integrated ? "integration module" : "prox sensor"] to the turret."))
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(TURRET_BUILD_HATCH_CLOSED)
@@ -961,7 +968,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 0))
 				return .
 			to_chat(user, span_notice("You start removing the turret's interior metal armor..."))
-			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
 				return .
 			to_chat(user, span_notice("You remove the turret's interior metal armor."))
 			build_step = TURRET_BUILD_ANCHORED
@@ -972,11 +980,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 5))
 				return .
 			to_chat(user, span_notice("You start welding the turret's armor down..."))
-			if(!I.use_tool(src, user, 5 SECONDS, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!I.use_tool(src, user, 5 SECONDS * construction_mod, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
 				return .
 			to_chat(user, span_notice("You weld the turret's armor down."))
 			//The final step: create a full turret
-			var/obj/machinery/porta_turret/turret = new target_type(loc)
+			var/turret_type = integrated ? /obj/machinery/porta_turret/integrated : target_type
+			var/obj/machinery/porta_turret/turret = new turret_type(loc)
 			turret.name = finish_name
 			turret.installation = installation
 			turret.old_gun_data = old_gun_data
@@ -1005,8 +1015,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(TURRET_BUILD_PROX)
 			add_fingerprint(user)
-			to_chat(user, span_notice("You remove the prox sensor from the turret frame."))
-			var/obj/item/assembly/prox_sensor/sensor = new(loc)
+			to_chat(user, span_notice("You remove the [integrated ? "integration module" : "prox sensor"] from the turret frame."))
+			var/obj/item/sensor = integrated ? new /obj/item/turret_integration_module(loc) : new /obj/item/assembly/prox_sensor(loc)
+			integrated = FALSE
 			build_step = TURRET_BUILD_GUN
 			user.put_in_hands(sensor, ignore_anim = FALSE)
 
@@ -1015,10 +1026,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
-
-/atom/movable/porta_turret_cover
-	icon = 'icons/obj/machines/turrets.dmi'
-	anchored = TRUE
 
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
@@ -1117,6 +1124,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	projectile = /obj/projectile/bullet/weakbullet3
 	eprojectile = /obj/projectile/bullet/weakbullet3
 
+/obj/machinery/porta_turret/syndicate/vox
+	name = "vox turret"
+	projectile = /obj/projectile/beam/disabler
+	eprojectile = /obj/projectile/beam/disabler
+	faction = "Vox"
+
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED
 #undef TURRET_BUILD_ARMORED
@@ -1125,4 +1138,5 @@ GLOBAL_LIST_EMPTY(turret_icons)
 #undef TURRET_BUILD_PROX
 #undef TURRET_BUILD_HATCH_CLOSED
 #undef TURRET_BUILD_COATED
+#undef TURRET_COVER_ANIMATION_TIME
 

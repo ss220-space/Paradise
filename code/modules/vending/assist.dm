@@ -31,7 +31,7 @@
 	)
 
 /obj/machinery/vending/assist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Assistomate",
 		GENITIVE = "торгового автомата Assistomate",
 		DATIVE = "торговому автомату Assistomate",

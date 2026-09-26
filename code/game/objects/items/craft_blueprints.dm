@@ -7,8 +7,9 @@
 	desc = "Чертежи для крафта"
 	icon = 'icons/obj/craft_blueprints.dmi'
 	icon_state = "blueprint"
-	var/place_icon = "put_blueprint"
+	interaction_flags_mouse_drop = NEED_HANDS
 
+	var/place_icon = "put_blueprint"
 	/// Placing state
 	var/placed_on_table = FALSE
 	/// Crafting item name
@@ -27,7 +28,7 @@
 	var/required_toner = 10
 
 /obj/item/craft_blueprints/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чертежи для крафта",
 		GENITIVE = "чертежей для крафта",
 		DATIVE = "чертежам для крафта",
@@ -48,7 +49,7 @@
 
 /obj/item/craft_blueprints/Destroy()
 	. = ..()
-	UnregisterSignal(COMSIG_ITEM_PLACED_ON_TABLE)
+	UnregisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE)
 
 /obj/item/craft_blueprints/update_desc(updates)
 	. = ..()
@@ -90,7 +91,7 @@
 		return FALSE
 	. = ..()
 
-/obj/item/craft_blueprints/attackby(obj/item/item, mob/user, params)
+/obj/item/craft_blueprints/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!placed_on_table)
 		return ..()
 	if(user.a_intent == INTENT_HARM || (item.item_flags & ABSTRACT) || item.is_robot_module())
@@ -99,28 +100,23 @@
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/click_params = params2list(params)
-	var/x_offset = text2num(LAZYACCESS(click_params, ICON_X))
-	var/y_offset = text2num(LAZYACCESS(click_params, ICON_Y))
+	var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 	if(!x_offset || !y_offset)
 		return .
 	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
-
 /obj/item/craft_blueprints/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
-		return ..()
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		balloon_alert(usr, "не получилось!")
-		return FALSE
-	var/mob/living/human = usr
-	balloon_alert(usr, "свернуто")
+	if(over_object != user || !ishuman(user) || user.incapacitated())
+		return
+
+	var/mob/living/human = user
+	balloon_alert(user, "свернуто")
 	placed_on_table = FALSE
 	layer = initial(layer)
 	update_icon()
 	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
-	return FALSE
 
 // MARK: Crafting mechanic
 
@@ -134,7 +130,8 @@
 		balloon_alert(user, "не хватает компонентов")
 		return
 	to_chat(user, span_notice("Вы начинаете крафт предмета \"[crafting_name]\"..."))
-	if(!do_after(user, craft_duration, src))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!do_after(user, craft_duration * construction_mod, src))
 		return
 	surroundings = get_surroundings(user)
 	if(!check_tools(user, tools, surroundings))

@@ -7,7 +7,7 @@
 	var/atom/objholder = null
 
 /datum/buildmode_mode/fill/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Select corner")] -> Left Mouse Button on turf/obj/mob\n\
 		[span_bold("Delete region")] -> Left Mouse Button + Alt on turf/obj/mob\n\
 		[span_bold("Select object type")] -> Right Mouse Button on buildmode button"))

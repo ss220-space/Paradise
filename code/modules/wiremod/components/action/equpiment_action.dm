@@ -69,6 +69,11 @@
 
 /obj/item/circuit_component/equipment_action/Destroy()
 	QDEL_LIST_ASSOC_VAL(granted_to)
+	icon_options = null
+	button_name = null
+	user = null
+	signal = null
+	options_map = null
 	return ..()
 
 /obj/item/circuit_component/equipment_action/populate_options()
@@ -127,8 +132,9 @@
 /obj/item/circuit_component/equipment_action/proc/update_actions()
 	for(var/uid in granted_to)
 		var/datum/action/granted_action = granted_to[uid]
-		granted_action.name = button_name.value || "Дейстие"
+		granted_action.name = button_name.value || "Действие"
 		granted_action.button_icon_state = LAZYACCESS(options_map, icon_options.value)
+		granted_action.build_all_button_icons(ALL)
 
 
 #undef HUD_BLANK

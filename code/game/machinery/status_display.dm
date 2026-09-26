@@ -76,15 +76,14 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 /obj/machinery/status_display/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(stat & NOPOWER)
 		return
 
 	if(picture_state)
-		. += picture_state
+		. += mutable_appearance(icon, picture_state)
 
-	underlays += emissive_appearance(icon, "lightmask", src)
+	. += emissive_appearance(icon, "lightmask", src, alpha = src.alpha)
 
 /obj/machinery/status_display/power_change(forced = FALSE)
 	if(!..())
@@ -242,14 +241,14 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 		return
 
 	if(mode == STATUS_DISPLAY_ALERT)
-		set_light(1, 1, GLOB.statdisp_picture_colors[picture_state], l_on = TRUE)
+		set_light(1.5, 0.7, GLOB.statdisp_picture_colors[picture_state], l_on = TRUE)
 	else
-		var/lum = 0.4
+		var/lum = 0.7
 		if(index1)
 			lum += 0.4
 		if(index2)
 			lum += 0.4
-		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_DISPLAY_ORANGE : COLOR_DISPLAY_BLUE, l_on = TRUE)
+		set_light(1.5, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_DISPLAY_ORANGE : COLOR_DISPLAY_BLUE, l_on = TRUE)
 
 GLOBAL_LIST_EMPTY(ai_displays)
 
@@ -300,9 +299,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	. = ..()
 
 	var/new_display
-
-	underlays.Cut()
-
 	if(stat & NOPOWER)
 		return
 
@@ -363,6 +359,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 		if(AI_DISPLAY_MODE_BSOD)
 			new_display = "ai_bsod"
 
-	. += new_display
-	underlays += emissive_appearance(icon, "lightmask", src)
+	. += mutable_appearance(icon, new_display)
+	. += emissive_appearance(icon, "lightmask", src, alpha = src.alpha)
 

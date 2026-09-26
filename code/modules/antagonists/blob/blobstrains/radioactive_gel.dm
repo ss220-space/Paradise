@@ -12,10 +12,14 @@
 	message_living = ", и вы чувствуете странное тепло изнутри"
 	reagent = /datum/reagent/blob/radioactive_gel
 
-/datum/blobstrain/reagent/radioactive_gel/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
+/datum/blobstrain/reagent/radioactive_gel/damage_reaction(obj/structure/blob/blob, damage, damage_type, damage_flag)
 	if((damage_flag == ENERGY || damage_flag == LASER) && prob(40))
-		for(var/mob/living/l in range(5, B))
-			l.apply_effect(damage, IRRADIATE)
+		radiation_pulse(
+			source = blob,
+			max_range = 5,
+			threshold = 0.1,
+			chance = 60
+		)
 	return ..()
 
 /datum/reagent/blob/radioactive_gel

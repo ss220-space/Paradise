@@ -1,4 +1,4 @@
-<a align="center" href="#"><img src=".github/assets/ss1984.gif" alt="Буквально SS1984"></a>
+<a align="center" href="#"><img src=".github/images/ss1984.gif" alt="Буквально SS1984"></a>
 # <p align="center"> Добро пожаловать в репозиторий проекта SS1984!</p>
 
 <p align="center">
@@ -8,9 +8,9 @@
 
 
 <p align="center">
-	<a href="https://xkcd.ru/371/"><img src=".github/assets/60-percent-of-the-time-works-every-time.svg" alt="60% Works"></a>
-	<a href="https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a/"><img src=".github/assets/made-in-byond.gif" alt="Made in BYOND"></a>
-	<a href="https://xkcd.ru/1296/"><img src=".github/assets/fuck-it-ship-it.svg" alt="Fuck it, Ship it"></a>
+	<img src=".github/images/badges/built-with-bugs.svg" alt="Bugs">
+	<img src=".github/images/badges/contains-copypaste.svg" alt="Copypaste">
+	<a href="https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a/"><img src=".github/images/badges/made-in-byond.gif" alt="Made in BYOND"></a>
 </p>
 
 | Вебсайт             | Ссылка                                                                                               |
@@ -20,16 +20,23 @@
 | Codedocs            | https://ss220-space.github.io/Paradise/                                                              |
 | Discord             | https://discord.ss220.space                                                                          |
 
+> [!TIP]
+> Некоторая полезная информация находится на нашем Discord-сервере в закрытых каналах разработки.<br>
+> Для получения доступа, посетите канал [#информация](https://discord.com/channels/617003227182792704/628271712097665025). В нём вы найдёте информацию о доступных ролях, их функциях и способах получения.<br>
+
 # Полезная документация
 
-- [Руководство по локализации](/.github/guides/LOCALIZATION.md)
-- [Руководство по стилю](/.github/guides/STYLE.md)
-- [Руководство по автодокументации](.github/guides/AUTODOC.md)
-- [Правила контрибьюции](.github/CONTRIBUTING.md) (УСТАРЕЛО)
+- ### [Правила контрибьюции](.github/CONTRIBUTING.md)
+  Руководство по внесению вклада в проект, советы по работе с Github и стандарты разработки/написания кода. **Обязательно к ознакомлению!**
 
-> [!TIP]
-> Большая часть информации доступна на нашем Discord-сервере в закрытых каналах.<br>
-> Для получения доступа, посетите канал [#информация](https://discord.com/channels/617003227182792704/628271712097665025). В нём вы найдёте информацию о доступных ролях, их функциях и способах получения.<br>
+- ### [Руководство по стилю](/.github/guides/STYLE.md)
+  Стандарты оформления кода для единообразия кодовой базы проекта.
+
+- ### [Руководство по автодокументации](.github/guides/AUTODOC.md)
+  Как оформлять комментарии для автоматической генерации документации.
+
+- ### [Руководство по локализации](/.github/guides/LOCALIZATION.md)
+  Правила и стандарты локализации, руководство по инструментам локализации.
 
 ### LICENSE
 

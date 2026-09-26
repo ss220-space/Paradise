@@ -9,7 +9,7 @@
 	origin_tech = "biotech=3"
 
 /obj/item/hivelordstabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизатор ядра",
 		GENITIVE = "стабилизатора ядра",
 		DATIVE = "стабилизатору ядра",
@@ -30,10 +30,10 @@
 	light_range = 2
 	light_power = 3
 	light_color = "#FFBF00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/hivelordstabilizer/molten_mass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сплавленный сгусток",
 		GENITIVE = "сплавленного сгустка",
 		DATIVE = "сплавленному сгустку",
@@ -42,16 +42,20 @@
 		PREPOSITIONAL = "сплавленном сгустке",
 	)
 
-/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
+/obj/item/hivelordstabilizer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	var/obj/item/organ/internal/regenerative_core/C = M
-	if(!istype(C, /obj/item/organ/internal/regenerative_core))
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
-		return ..()
+		return
 
-	C.preserved()
+	if(core.preserved || core.inert)
+		to_chat(user, span_warning("Это ядро уже [core.inert ? "сгнило" : "стабилизировано"]!"))
+		return
+
+	core.preserved()
 	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
 
@@ -68,7 +72,7 @@
 	var/preserved = 0
 
 /obj/item/organ/internal/regenerative_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "регенеративное ядро",
 		GENITIVE = "регенеративного ядра",
 		DATIVE = "регенеративному ядру",
@@ -79,7 +83,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 4 MINUTES)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -101,7 +105,7 @@
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "Всё, что осталось от легиона. Оно сгнило и совершенно бесполезно."
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "сгнившее регенеративное ядро",
 		GENITIVE = "сгнившего регенеративного ядра",
 		DATIVE = "сгнившему регенеративному ядру",
@@ -145,7 +149,7 @@
 			user.temporarily_remove_item_from_inventory(src)
 			after_use()
 
-/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(proximity_flag)
 		applyto(target, user)
@@ -182,7 +186,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/regenerative_core/cooldown/applyto(atom/target, mob/user)
 	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
@@ -190,7 +194,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 #undef INFINITY_CORE_COOLDOWN
 
@@ -201,6 +205,10 @@
 
 /obj/item/organ/internal/regenerative_core/legion/pre_preserved
 	preserved = TRUE
+
+/obj/item/organ/internal/regenerative_core/legion/inert/Initialize(mapload)
+	. = ..()
+	go_inert()
 
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()
@@ -253,7 +261,7 @@
 	)
 
 /obj/item/organ/internal/legion_tumour/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опухоль легиона",
 		GENITIVE = "опухоли легиона",
 		DATIVE = "опухоли легиона",

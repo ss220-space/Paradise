@@ -29,7 +29,9 @@
 		setDir(dir)
 
 	pipename = initial(pipe_type.name)
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 	update_appearance(UPDATE_ICON_STATE)
+	AddElement(/datum/element/undertile)
 
 	if(!is_pipe())
 		set_density(TRUE)
@@ -89,27 +91,6 @@
 			dpdir |= REVERSE_DIR(dir)
 	return dpdir
 
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(intact)
-	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
-	update_appearance(UPDATE_ICON_STATE)
-
-/obj/structure/disposalconstruct/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
-
-// flip and rotate verbs
-/obj/structure/disposalconstruct/verb/rotate_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть трубу"
-	set src in view(1)
-	rotate(usr)
-
-/obj/structure/disposalconstruct/click_alt(mob/user)
-	rotate(user)
-	return CLICK_ACTION_SUCCESS
-
 /// Rotates construct 90 degrees counter-clockwise
 /obj/structure/disposalconstruct/proc/rotate(mob/user)
 	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
@@ -124,21 +105,17 @@
 	update_appearance(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/structure/disposalconstruct/verb/flip_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Перевернуть трубу"
-	set src in view(1)
-	flip(usr)
-
-/obj/structure/disposalconstruct/AltShiftClick(mob/user)
-	if(Adjacent(user))
-		flip(user)
+/obj/structure/disposalconstruct/proc/post_rotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
+		var/obj/structure/disposalpipe/temp = pipe_type
+		if(is_pipe() && initial(temp.flip_type))
+			if(ISDIAGONALDIR(dir)) // Fix RPD-induced diagonal turning
+				setDir(turn(dir, 45))
+			pipe_type = initial(temp.flip_type)
+	update_appearance()
 
 /// Flips construct 180 degrees, but also inverts it if its a pipe with defined flip_type
 /obj/structure/disposalconstruct/proc/flip(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return FALSE
 	if(anchored)
 		if(user)
 			to_chat(user, span_warning("You must unfasten the [pipename] before flipping it."))
@@ -156,7 +133,7 @@
 	var/turf/our_turf = loc
 	if(!isturf(our_turf))
 		return .
-	if(our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -197,7 +174,7 @@
 	var/turf/our_turf = loc
 	if(!isturf(our_turf))
 		return .
-	if(our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
 		return .
 	if(!anchored)
@@ -216,16 +193,17 @@
 	transfer_fingerprints_to(disposals)
 	qdel(src)
 
-/obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
+/obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	. = TRUE
-	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_single_pipe(user, src)
-	else
-		return ..()
+	switch(mode)
+		if(RPD_ROTATE_MODE)
+			rotate()
+		if(RPD_FLIP_MODE)
+			flip()
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_single_pipe(user, src)
+		else
+			return ..()
 
 /obj/structure/disposalconstruct/set_anchored(anchorvalue)
 	. = ..()

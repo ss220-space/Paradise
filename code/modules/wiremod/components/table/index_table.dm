@@ -19,6 +19,12 @@
 	/// The filtered list
 	var/datum/port/output/output_list
 
+/obj/item/circuit_component/index_table/Destroy()
+	received_table = null
+	target_index = null
+	output_list = null
+	. = ..()
+
 /obj/item/circuit_component/index_table/populate_ports()
 	received_table = add_input_port("Ввод", PORT_TYPE_TABLE)
 	target_index = add_input_port("Индекс", PORT_TYPE_NUMBER)

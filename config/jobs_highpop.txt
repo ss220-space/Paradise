@@ -44,7 +44,7 @@ Security Officer=7
 Brig Physician=1
 Security Pod Pilot=1
 
-Internal Affairs Agent=2
+Lawyer=2
 
 Civilian=-1
 Prisoner=-1

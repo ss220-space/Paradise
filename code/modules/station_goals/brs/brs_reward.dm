@@ -108,8 +108,8 @@
 		/obj/vehicle/ridden/car,
 
 		//Toys
-		/obj/item/toy/syndicateballoon = 5,
-		/obj/item/gun/projectile/automatic/c20r/toy,
+		/obj/item/toy/balloon/syndicate = 5,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
@@ -126,11 +126,9 @@
 		/obj/random/figure,
 		/obj/random/mech,
 		/obj/random/plushie,
-		/obj/random/therapy,
 		/obj/random/carp_plushie,
 		/obj/item/toy/balloon,
 		/obj/item/toy/spinningtoy,
-		/obj/item/toy/blink,
 		/obj/item/storage/box/dice,
 		/obj/item/storage/box/snappops,
 		/obj/item/deck/cards,
@@ -217,7 +215,7 @@
 		/obj/item/storage/secure/briefcase/syndie = 30,
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_rift/New()
+/obj/effect/spawner/lootdrop/bluespace_rift/Initialize(mapload)
 	playsound(loc, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, loc)
 	if(!locate(/obj/effect/portal) in get_turf(loc))
@@ -236,7 +234,7 @@
 		/obj/item/paper/researchnotes_brs,
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_rift_server/New()
+/obj/effect/spawner/lootdrop/bluespace_rift_server/Initialize(mapload)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	do_sparks(2, FALSE, loc)
 	return ..()

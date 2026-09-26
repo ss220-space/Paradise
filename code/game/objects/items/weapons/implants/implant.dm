@@ -10,7 +10,6 @@
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	var/datum/action/item_action/hands_free/activate/action
 	item_color = "black"
 	item_flags = DROPDEL  // By default, don't let implants be harvestable.
 
@@ -41,6 +40,8 @@
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
 	var/datum/implant_fluff/implant_data = /datum/implant_fluff
 
+	var/datum/action/item_action/hands_free/activate/action
+
 /obj/item/implant/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE, PROC_REF(update_button))
@@ -69,6 +70,7 @@
 		implantcase.update_state()
 	QDEL_NULL(implant_data)
 	QDEL_NULL(cooldown_system)
+	QDEL_NULL(action)
 	UnregisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE)
 	return ..()
 
@@ -149,7 +151,9 @@
 	return
 
 /obj/item/implant/proc/activate(cause)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED, cause, imp_in)
+	return TRUE
 
 /obj/item/implant/ui_action_click(mob/user, datum/action/action, leftclick)
 	activate("action_button")
@@ -166,7 +170,7 @@
  */
 /obj/item/implant/proc/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	if(!force && !can_implant(source, user))
-		return
+		return FALSE
 	var/obj/item/implant/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src && imp_e.type == src.type)
 		if(imp_e.uses < initial(imp_e.uses) * 2)
@@ -209,6 +213,7 @@
 	if(user)
 		add_attack_logs(user, source, "Chipped with [src]")
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, source, user, force)
 	return TRUE
 
 /**
@@ -245,6 +250,7 @@
 
 	unregister_emotes()
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source)
 	return TRUE
 
 /**

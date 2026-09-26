@@ -74,7 +74,7 @@
 	user.set_machine(src)
 	var/dat = ""
 
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		to_chat(user, "This console is not networked to the rest of the grid.")
 		return
 

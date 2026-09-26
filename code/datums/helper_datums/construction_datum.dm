@@ -10,10 +10,14 @@
 	..()
 	holder = atom
 	if(!holder) //don't want this without a holder
-		spawn
-			qdel(src)
+		qdel(src)
+		return
 	set_desc(length(steps))
 	return
+
+/datum/construction/Destroy(force)
+	holder = null
+	. = ..()
 
 /datum/construction/proc/next_step(mob/user as mob)
 	steps.len--
@@ -41,7 +45,10 @@
 	return 0
 
 /datum/construction/proc/custom_action(step, used_atom, user)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
+	CALCULATE_SKILL_MOD(usr, CONSTRUCTING_SPEED_MOD, skill_duration_mod)
+	if(iscoil(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.get_amount() < 4)
 			to_chat(user, (span_warning("There's not enough cable to finish the task.")))
@@ -50,6 +57,8 @@
 			C.use(4)
 			playsound(holder, C.usesound, 50, TRUE)
 	else if(isstack(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
 			to_chat(user, (span_warning("There's not enough material in this stack.")))
@@ -59,12 +68,14 @@
 	else if(isitem(used_atom))
 		var/obj/item/I = used_atom
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+			if(!I.use_tool(holder, user, skill_duration_mod, volume = I.tool_volume))
 				return 0
-	return 1
+	if(!do_after(user, skill_duration_mod, holder))
+		return FALSE
+	return TRUE
 
 /datum/construction/proc/check_all_steps(atom/used_atom,mob/user as mob) //check all steps, remove matching one.
-	for(var/i=1;i<=length(steps);i++)
+	for(var/i in 1 to length(steps))
 		var/list/L = steps[i]
 		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
 			steps[i]=null;//stupid byond list from list removal...
@@ -97,7 +108,7 @@
 /datum/construction/proc/try_consume(mob/user as mob, atom/used_atom, amount)
 	if(amount > 0)
 		// CABLES
-		if(istype(used_atom,/obj/item/stack/cable_coil))
+		if(iscoil(used_atom))
 			var/obj/item/stack/cable_coil/coil=used_atom
 			if(!coil.use(amount))
 				to_chat(user, span_warning("You don't have enough cable! You need at least [amount] coils."))
@@ -227,7 +238,7 @@
 		var/spawntype=state["spawn"]
 		var/atom/A = new spawntype(holder.loc)
 		if("amount" in state)
-			if(istype(A,/obj/item/stack/cable_coil))
+			if(iscoil(A))
 				var/obj/item/stack/cable_coil/C=A
 				C.amount=state["amount"]
 			if(isstack(A))

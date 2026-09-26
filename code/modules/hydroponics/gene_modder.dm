@@ -53,12 +53,13 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 4)
+		var/rating = M.rating
+		if(rating > 4)
 			max_potency = 100
-		else if(M.rating > 3)
+		else if(rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100	 Clamps at 100
+			max_potency = initial(max_potency) + (POW3(rating)) // 51,58,77,95,100	 Clamps at 100
 
 		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10	Clamps at 10
 
@@ -72,7 +73,7 @@
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/weed_rate_mod = ML.rating * 2.5
-		min_weed_rate = max(FLOOR(10-weed_rate_mod, 1), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
+		min_weed_rate = max(floor(10-weed_rate_mod), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
 		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0	Clamps at 0 and 67	You want this low
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
@@ -119,7 +120,7 @@
 			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
 			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-		else if(istype(I, /obj/item/soap))
+		else if(issoap(I))
 			cleaning = TRUE
 		if(!cleaning)
 			return ATTACK_CHAIN_PROCEED
@@ -421,8 +422,8 @@
 	var/datum/plant_gene/gene
 	var/read_only = 0 //Well, it's still a floppy disk
 
-/obj/item/disk/plantgene/New()
-	..()
+/obj/item/disk/plantgene/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/disk/plantgene/Destroy()
@@ -438,7 +439,7 @@
 				cleaning = TRUE
 			else
 				return ATTACK_CHAIN_PROCEED
-		if(istype(W, /obj/item/soap))
+		if(issoap(W))
 			cleaning = TRUE
 
 		if(!cleaning)

@@ -53,7 +53,7 @@
 	foodtype = JUNKFOOD | FRUIT
 
 /obj/item/reagent_containers/food/snacks/no_raisin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изюм \"1984\"",
 		GENITIVE = "изюма \"1984\"",
 		DATIVE = "изюму \"1984\"",

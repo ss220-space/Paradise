@@ -1,4 +1,12 @@
-#define EMPRESS_EVOLVE_TARGET_COUNT round(2 + num_station_players() / 6)
+
+/// Cooldown for vector inject larva ablity
+#define XENO_VECTOR_INJECT_COOLDOWN 3.5 MINUTES
+
+/// How many players we need for evolve to one praetorian
+#define XENO_PLAYERS_FOR_PRAETORIAN 25
+
+/// How many players we need for evolve to empress
+#define XENO_PLAYERS_FOR_EMPRESS round(2 + num_station_players() / 6)
 
 #define EVOLVE_ANNOUNCE_TRIGGER 0.1
 
@@ -17,3 +25,5 @@
 #define XENO_STAGE_STORM 2
 #define XENO_STAGE_END 3
 #define XENO_STAGE_POST_END 4
+
+#define XENO_EMBRYO_TIME pick(15, 30) SECONDS

@@ -27,6 +27,10 @@
 	button_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	var/input = tgui_input_text(owner, "Введите сообщение для вашего хранителя:", "Сообщение")
 	if(!input)
 		return
@@ -52,6 +56,9 @@
 	button_icon_state = "recall"
 
 /datum/action/guardian/recall/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	guardian.Recall()
 
 /**
@@ -71,6 +78,10 @@
 	return TRUE
 
 /datum/action/guardian/reset_guardian/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	if(cooldown_timer)
 		to_chat(owner, span_warning("Эта способность всё ещё перезаряжается."))
 		return

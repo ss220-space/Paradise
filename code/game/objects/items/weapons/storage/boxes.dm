@@ -18,7 +18,9 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
+
 #define BAG_PUTTING_DELAY 6 SECONDS
+
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -34,6 +36,11 @@
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
+/obj/item/storage/box/get_uplink_log_items()
+	. = list()
+	for(var/obj/item/contained_item in contents)
+		. += contained_item.get_uplink_log_items()
+
 /obj/item/storage/box/large
 	name = "large box"
 	desc = "Это крайне вместительная коробка."
@@ -45,7 +52,7 @@
 	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая коробка",
 		GENITIVE = "большой коробки",
 		DATIVE = "большой коробке",
@@ -88,7 +95,7 @@
 
 /obj/item/storage/box/beakers/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker(src)
+		new /obj/item/reagent_containers/cup/beaker(src)
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
@@ -96,7 +103,7 @@
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+		new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
@@ -256,7 +263,7 @@
 
 /obj/item/storage/box/drinkingglasses/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+		new /obj/item/reagent_containers/cup/glass/drinkingglass(src)
 
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
@@ -275,7 +282,7 @@
 
 /obj/item/storage/box/condimentbottles/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/condiment(src)
+		new /obj/item/reagent_containers/condiment(src)
 
 /obj/item/storage/box/cups
 	name = "box of paper cups"
@@ -284,7 +291,7 @@
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+		new /obj/item/reagent_containers/cup/glass/sillycup(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
@@ -293,7 +300,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/donkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -313,7 +320,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/warmdonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с разогретыми Донк-покетами",
 		GENITIVE = "коробки с разогретыми Донк-покетами",
 		DATIVE = "коробке с разогретыми Донк-покетами",
@@ -334,7 +341,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/syndidonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -347,42 +354,155 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
 
+/obj/item/storage/box/coffeepack
+	name = "arabica beans"
+	desc = "Пакет, содержащий высушенные зёрна кофе арабика. Произведено \"Waffle Corp\"."
+	gender = PLURAL
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "arabica_beans"
+	storage_slots = 5
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown/coffee)
+	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
+
+/obj/item/storage/box/coffeepack/get_ru_names()
+	return alist(
+		NOMINATIVE = "зёрна кофе арабика",
+		GENITIVE = "зёрен кофе арабика",
+		DATIVE = "зёрнам кофе арабика",
+		ACCUSATIVE = "зёрна кофе арабика",
+		INSTRUMENTAL = "зёрнами кофе арабика",
+		PREPOSITIONAL = "зёрнах кофе арабика"
+	)
+
+/obj/item/storage/box/coffeepack/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader)
+
+/obj/item/storage/box/coffeepack/populate_contents()
+	for(var/i in 1 to storage_slots)
+		var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = new beantype(src)
+		bean.dry = TRUE
+		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY)
+
+/obj/item/storage/box/coffeepack/examine(mob/user)
+	. = ..()
+	if(!in_range(user, src))
+		return
+	if(LAZYLEN(contents) > 0)
+		return
+	. += span_notice("Пусто.")
+
+/obj/item/storage/box/coffeepack/robusta
+	name = "robusta beans"
+	desc = "Пакет, содержащий высушенные зёрна кофе робуста. Произведено \"Waffle Corp\"."
+	icon_state = "robusta_beans"
+	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
+
+/obj/item/storage/box/coffeepack/robusta/get_ru_names()
+	return alist(
+		NOMINATIVE = "зёрна кофе робуста",
+		GENITIVE = "зёрен кофе робуста",
+		DATIVE = "зёрнам кофе робуста",
+		ACCUSATIVE = "зёрна кофе робуста",
+		INSTRUMENTAL = "зёрнами кофе робуста",
+		PREPOSITIONAL = "зёрнах кофе робуста"
+	)
+
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
-	desc = "Drymate brand monkey cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
+	desc = "Кубы шимпанзе фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "monkey_box"
 	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
+/obj/item/storage/box/monkeycubes/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка кубов шимпанзе",
+		GENITIVE = "коробки кубов шимпанзе",
+		DATIVE = "коробке кубов шимпанзе",
+		ACCUSATIVE = "коробку кубов шимпанзе",
+		INSTRUMENTAL = "коробкой кубов шимпанзе",
+		PREPOSITIONAL = "коробке кубов шимпанзе"
+	)
+
 /obj/item/storage/box/monkeycubes/populate_contents()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 7)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5,5)
+	pixel_y = base_pixel_y + rand(-5,5)
+
 /obj/item/storage/box/monkeycubes/syndicate
-	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
+	desc = "Кубы шимпанзе фирмы \"Waffle Co.\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды и щепотку обмана!"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
-	desc = "Drymate brand farwa cubes. Just add water!"
+	desc = "Кубы фарв фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "farwa_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+
+/obj/item/storage/box/monkeycubes/farwacubes/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка кубов фарв",
+		GENITIVE = "коробки кубов фарв",
+		DATIVE = "коробке кубов фарв",
+		ACCUSATIVE = "коробку кубов фарв",
+		INSTRUMENTAL = "коробкой кубов фарв",
+		PREPOSITIONAL = "коробке кубов фарв"
+	)
 
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
-	desc = "Drymate brand stok cubes. Just add water!"
+	desc = "Кубы стоков фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "stok_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+
+/obj/item/storage/box/monkeycubes/stokcubes/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка кубов стоков",
+		GENITIVE = "коробки кубов стоков",
+		DATIVE = "коробке кубов стоков",
+		ACCUSATIVE = "коробку кубов стоков",
+		INSTRUMENTAL = "коробкой кубов стоков",
+		PREPOSITIONAL = "коробке кубов стоков"
+	)
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
-	desc = "Drymate brand neaera cubes. Just add water!"
+	desc = "Кубы неар фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "neaera_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+
+
+/obj/item/storage/box/monkeycubes/neaeracubes/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка кубов неар",
+		GENITIVE = "коробки кубов неар",
+		DATIVE = "коробке кубов неар",
+		ACCUSATIVE = "коробку кубов неар",
+		INSTRUMENTAL = "коробкой кубов неар",
+		PREPOSITIONAL = "коробке кубов неар"
+	)
 
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
-	desc = "Drymate brand wolpin cubes. Just add water!"
+	desc = "Кубы вульпинов фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+
+/obj/item/storage/box/monkeycubes/wolpincubes/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка кубов вульпинов",
+		GENITIVE = "коробки кубов вульпинов",
+		DATIVE = "коробке кубов вульпинов",
+		ACCUSATIVE = "коробку кубов вульпинов",
+		INSTRUMENTAL = "коробкой кубов вульпинов",
+		PREPOSITIONAL = "коробке кубов вульпинов"
+	)
 
 /obj/item/storage/box/permits
 	name = "box of construction permits"
@@ -537,7 +657,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer/security/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
@@ -548,7 +668,7 @@
 /obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
 	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -559,13 +679,13 @@
 	item_state = "syndie"
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/reagent_containers/condiment/soysauce(src)
+	new /obj/item/reagent_containers/condiment/enzyme(src)
+	new /obj/item/reagent_containers/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
 	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -645,7 +765,7 @@
 	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробок спичек",
 		GENITIVE = "коробка спичек",
 		DATIVE = "коробку спичек",
@@ -740,9 +860,9 @@
 /obj/item/storage/box/barber/populate_contents()
 	new /obj/item/scissors/barber(src)
 	new /obj/item/hair_dye_bottle(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hairgrownium(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hair_dye(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
 
@@ -776,7 +896,7 @@
 	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
 
 /obj/item/storage/box/papersack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумажный пакет",
 		GENITIVE = "бумажного пакета",
 		DATIVE = "бумажному пакету",
@@ -1067,42 +1187,6 @@
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
-/obj/item/storage/pouch
-	name = "pouch"
-	desc = "Подсумок на два магазина."
-	icon_state = "pouch"
-	item_state = "pouch"
-	storage_slots = 2
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT
-	can_hold = list(/obj/item/ammo_box/magazine)
-
-/obj/item/storage/pouch/fast
-	name = "fast pouch"
-	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
-	icon_state = "pouch_fast"
-	item_state = "pouch_fast"
-
-/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/projectile/automatic))
-		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = I
-		for(var/obj/item/ammo_box/magazine/magazine in contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
-			gun.attackby(magazine, user, params)
-			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
-			var/success = mag_changed || (!gun_magazine && gun.magazine)
-			if(mag_changed && can_be_inserted(gun_magazine))
-				handle_item_insertion(gun_magazine)
-				gun_magazine.update_appearance()
-			if(success)
-				break
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
 /obj/item/storage/box/sec
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
@@ -1120,7 +1204,7 @@
 	new /obj/item/security_voucher(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/flash(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/implanter/fake_mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Набор энергитического пистолета \"Доминатор\""
@@ -1137,7 +1221,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
@@ -1149,7 +1233,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор Спектр",
 		GENITIVE = "набора Спектр",
 		DATIVE = "набору Спектр",
@@ -1171,7 +1255,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор \"Таурус\"",
 		GENITIVE = "набора \"Таурус\"",
 		DATIVE = "набору \"Таурус\"",
@@ -1237,7 +1321,7 @@
 	can_hold = list(
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/cup/soda_cans/beer,
 	)
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
@@ -1247,7 +1331,7 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
 	for(var/i in 1 to small_ones)
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/cup/soda_cans/beer(src)
 
 /obj/item/storage/box/mr_cheng
 	name = "Mr. Cheng ad agent kit"
@@ -1277,8 +1361,8 @@
 	name = "plant data disks box"
 	icon_state = "box_disc"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
@@ -1304,6 +1388,45 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/pen_case
+	name = "box of pens"
+	icon_state = "pen_case"
+	item_state = "pen_case"
+	custom_price = PAYCHECK_MIN * 2
+
+	/**
+	 * Weighted list of possible loot items.
+	 * random_pen = ((probability in list * weight) / 100)
+	 */
+	var/static/list/random_pen = list(
+		/obj/item/pen = 50,
+		/obj/item/pen/blue = 10,
+		/obj/item/pen/red = 10,
+		/obj/item/pen/gray = 10,
+		/obj/item/pen/invisible = 5,
+		/obj/item/pen/fancy = 5,
+		/obj/item/pen/multi = 3,
+		/obj/item/pen/multi/fountain = 3,
+		/obj/item/pen/survival = 3,
+		/obj/item/pen/multi/gold = 1,
+	)
+
+/obj/item/storage/box/pen_case/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор ручек",
+		GENITIVE = "набора ручек",
+		DATIVE = "набору ручек",
+		ACCUSATIVE = "набор ручек",
+		INSTRUMENTAL = "набором ручек",
+		PREPOSITIONAL = "наборе ручек",
+	)
+
+/obj/item/storage/box/pen_case/populate_contents()
+	for(var/i in 1 to 7)
+		var/rand_pen = pickweight(random_pen)
+		new rand_pen(src)
+
 
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN

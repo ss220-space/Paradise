@@ -15,7 +15,7 @@
 	var/mob/owner
 
 /obj/item/pinpointer/crew/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "целеуказатель Контрактника",
 		GENITIVE = "целеуказателя Контрактника",
 		DATIVE = "целеуказателю Контрактника",

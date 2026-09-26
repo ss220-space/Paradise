@@ -53,9 +53,9 @@
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
 	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon/robot, self_diagnosis),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
 
 	hat_offset_y = -15
@@ -72,20 +72,28 @@
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 	mmi = null
-	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
+	UNASSIGN_GAME_VERB(src, /mob/living/silicon/robot, Namepick)
 	module = new /obj/item/robot_module/cogscarab(src)
 
 	var/datum/action/innate/hide/drone/cogscarab/hide = new()
 	hide.Grant(src)
 
 	if(!isclocker(src))
-		SSticker.mode.add_clocker(mind)
+		INVOKE_ASYNC(src, PROC_REF(async_add_clocker))
 
 	update_icons()
 
-/mob/living/silicon/robot/drone/Destroy()
+/mob/living/silicon/robot/cogscarab/proc/async_add_clocker()
+	if(QDELETED(src) || !mind)
+		return
+	SSticker.mode.add_clocker(mind)
+
+/mob/living/silicon/robot/cogscarab/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
+	if(fabr)
+		fabr.cogscarab_list -= src
+	fabr = null
 	return ..()
 
 /mob/living/silicon/robot/cogscarab/add_strippable_element()
@@ -148,9 +156,6 @@
 
 	if(stat == CONSCIOUS)
 		add_overlay("eyes-[icon_state]")
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
@@ -245,10 +250,12 @@
 	return FALSE
 
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
-	add_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		ASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/cogscarab/remove_robot_verbs()
-	remove_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Medical","Diagnostic", "Multisensor","Disable"), null)
@@ -276,10 +283,7 @@
 /mob/living/silicon/robot/cogscarab/use_power() //it's made of gears...
 	return
 
-/mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Освещение"
-	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = VERB_CATEGORY_COGSCARAB
+GAME_VERB_DESC(/mob/living/silicon/robot/cogscarab, light, "Освещение", "Activate a low power omnidirectional LED. Toggled on or off.", VERB_CATEGORY_COGSCARAB)
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
@@ -306,8 +310,9 @@
 	var/list/grabbed_items = list()
 	var/grab_limit = 30 // limits of how much you can take
 
-/obj/item/clockwork/brassmaker/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity) return //Not adjacent.
+/obj/item/clockwork/brassmaker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
 	var/turf/T = get_turf(target)
@@ -353,7 +358,7 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/robot = user
 		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot.module
-		var/brass_melted = FLOOR(metal_amount / metal_need_per_brass, 1)
+		var/brass_melted = floor(metal_amount / metal_need_per_brass)
 		metal_amount -= brass_melted * metal_need_per_brass
 		if(!stack_brass)
 			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module, null, FALSE)

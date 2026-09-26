@@ -12,7 +12,7 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/grille/G in get_turf(src))
 		// Complain noisily
-		log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
+		stack_trace("Extra grille on turf: ([T.x],[T.y],[T.z])")
 		qdel(G) //just in case mappers don't know what they are doing
 
 	if(!useFull && window_to_spawn_regular)
@@ -38,6 +38,12 @@
 
 /obj/effect/spawner/window/proc/sync_id(obj/structure/window/reinforced/polarized/W)
 	return
+
+/obj/effect/spawner/window/plastitanium
+	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon_state = "plastitanium_window-0"
+	window_to_spawn_regular = /obj/structure/window/plastitanium
+	window_to_spawn_full = /obj/structure/window/plastitanium
 
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"

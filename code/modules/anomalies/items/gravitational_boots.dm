@@ -22,7 +22,7 @@
 	var/obj/item/stock_parts/cell/cell = null
 
 /obj/item/clothing/shoes/magboots/gravity/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гравитационные ботинки", \
 		GENITIVE = "гравитационных ботинок", \
 		DATIVE = "гравитационным ботинкам", \

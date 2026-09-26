@@ -11,8 +11,8 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
@@ -33,7 +33,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм исследователя",
 		GENITIVE = "костюма исследователя",
 		DATIVE = "костюму исследователя",
@@ -50,7 +50,7 @@
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
@@ -72,7 +72,7 @@
 	)
 
 /obj/item/clothing/head/hooded/explore/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон исследователя",
 		GENITIVE = "капюшона исследователя",
 		DATIVE = "капюшону исследователя",
@@ -89,8 +89,8 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 	slowdown = 0
-	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	jetpack = /obj/item/tank/jetpack/suit
 	jetpack_upgradable = TRUE
 
@@ -105,7 +105,7 @@
 	)
 
 /obj/item/clothing/suit/space/hostile_environment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Э.К.З.О. костюм",
 		GENITIVE = "Э.К.З.О. костюма ",
 		DATIVE = "Э.К.З.О. костюму",
@@ -117,6 +117,7 @@
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddElement(/datum/element/radiation_protected_clothing)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
@@ -132,13 +133,23 @@
 		else
 			to_chat(C, span_warning("[pick("Вы слышите тихий шепот.", "Вы чуете пепел.", "Вам жарко.", "Вы слышите рёв вдали.")]"))
 
+/obj/item/clothing/suit/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
+		return
+	armor = getArmor(melee = 70, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
+
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
 	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 
 	sprite_sheets = list(
@@ -152,7 +163,7 @@
 	)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Э.К.З.О. шлем",
 		GENITIVE = "Э.К.З.О. шлема ",
 		DATIVE = "Э.К.З.О. шлему",
@@ -164,11 +175,22 @@
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddElement(/datum/element/radiation_protected_clothing)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
 	. = ..()
 	. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
+
+/obj/item/clothing/head/helmet/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
+		return
+	armor = getArmor(melee = 70, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"
@@ -176,7 +198,7 @@
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -189,7 +211,7 @@
 	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемпионский шлем",
 		GENITIVE = "чемпионского шлема",
 		DATIVE = "чемпионскому шлему",
@@ -206,8 +228,8 @@
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
 	clothing_flags = FIXED_SLOWDOWN // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -219,7 +241,7 @@
 	)
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемпионская броня",
 		GENITIVE = "чемпионской брони",
 		DATIVE = "чемпионской броне",
@@ -234,7 +256,7 @@
 	item_color = "templar"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем Чёрного Храмовника",
 		GENITIVE = "шлема Чёрного Храмовника",
 		DATIVE = "шлему Чёрного Храмовника",
@@ -248,10 +270,10 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспехи Чёрного Храмовника",
 		GENITIVE = "доспехов Чёрного Храмовника",
 		DATIVE = "доспехам Чёрного Храмовника",
@@ -266,7 +288,7 @@
 	item_color = "hightemplar"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем высшего Чёрного Храмовника",
 		GENITIVE = "шлема высшего Чёрного Храмовника",
 		DATIVE = "шлему высшего Чёрного Храмовника",
@@ -282,7 +304,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспехи высшего Чёрного Храмовника",
 		GENITIVE = "доспехов высшего Чёрного Храмовника",
 		DATIVE = "доспехам высшего Чёрного Храмовника",
@@ -297,7 +319,7 @@
 	item_color = "inquisitor"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем инквизитора",
 		GENITIVE = "шлема инквизитора",
 		DATIVE = "шлему инквизитора",
@@ -313,7 +335,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 
 /obj/item/clothing/suit/space/hardsuit/champion/inquisitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скафандр инквизитора",
 		GENITIVE = "скафандра инквизитора",
 		DATIVE = "скафандру инквизитора",
@@ -325,10 +347,10 @@
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
 	desc = "Тяжёлая мантия, сшитая из сухожилий и шкур, предназначенная для защиты носителя от опасной погоды."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -351,7 +373,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мантия первопроходца",
 		GENITIVE = "мантии первопроходца",
 		DATIVE = "мантии первопроходца",
@@ -365,7 +387,7 @@
 	icon_state = "pathhead"
 	item_state = "pathhead"
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -382,7 +404,7 @@
 	)
 
 /obj/item/clothing/head/hooded/pathfinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каса первопроходца",
 		GENITIVE = "касы первопроходца",
 		DATIVE = "касе первопроходца",
@@ -399,7 +421,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/explorer/mining
 
 /obj/item/clothing/suit/hooded/explorer/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый костюм исследователя",
 		GENITIVE = "белого костюма исследователя",
 		DATIVE = "белому костюму исследователя",
@@ -414,7 +436,7 @@
 	item_state = "mining_explorer"
 
 /obj/item/clothing/head/hooded/explorer/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый капюшон исследователя",
 		GENITIVE = "белого капюшона исследователя",
 		DATIVE = "белому капюшону исследователя",

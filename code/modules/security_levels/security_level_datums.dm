@@ -32,6 +32,10 @@
 	var/elevating_to_announcement_title = "Not set."
 	/// Our announcement when elevating to this level
 	var/elevating_to_announcement_text = "Not set."
+	/// Sibyl System weapon tiers allowed at this security level
+	var/sibyl_limit = SIBYL_TIER_NONLETHAL
+	/// The color of our announcement divider.
+	var/announcement_color = "default"
 
 /**
  * Should contain actions that must be completed before actual security level set
@@ -51,6 +55,7 @@
 	color = "limegreen"
 	lowering_to_announcement_title = "Внимание! Уровень угрозы понижен до Зелёного."
 	lowering_to_announcement_text = "Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются."
+	announcement_color = "green"
 
 /**
  * MARK: BLUE
@@ -67,6 +72,8 @@
 	lowering_to_announcement_text = "Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, но может по-прежнему держать его на виду. Выборочные обыски запрещены."
 	elevating_to_announcement_title = "Внимание! Уровень угрозы повышен до Синего."
 	elevating_to_announcement_text = "На станции обнаружено присутствие враждебных элементов, представляющих незначительную угрозу экипажу и активам корпорации. Служба безопасности может держать оружие на виду и использовать летальную силу в соответствии с рабочими процедурами отдела защиты активов."
+	sibyl_limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL
+	announcement_color = "blue"
 
 /**
  * MARK: RED
@@ -85,6 +92,8 @@
 	lowering_to_announcement_text = "Угроза уничтожения станции миновала, но враждебная активность остается на высоком уровне. Службе безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены."
 	elevating_to_announcement_title = "Внимание! Код Красный!"
 	elevating_to_announcement_text = "На борту станции подтверждена серьезная угроза для экипажа и активов корпорации. Службе безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены и рекомендуются."
+	sibyl_limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL
+	announcement_color = "red"
 
 /**
  * MARK: GAMMA
@@ -104,6 +113,8 @@
 	lowering_to_announcement_text = "Центральным командованием был установлен Код Гамма. Станция находится под угрозой полного уничтожения. Службе безопасности следует получить полное вооружение и приготовиться к ведению боевых действий с враждебными элементами на борту станции. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний."
 	elevating_to_announcement_text = "Центральным командованием был установлен Код Гамма. Станция находится под угрозой полного уничтожения. Службе безопасности следует получить полное вооружение и приготовиться к ведению боевых действий с враждебными элементами на борту станции. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний."
 	elevating_to_announcement_title = "Внимание! Активирован код Гамма!"
+	sibyl_limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+	announcement_color = "yellow"
 
 /**
  * MARK: EPSILON
@@ -124,6 +135,8 @@
 	lowering_to_announcement_text = "Центральным командованием был установлен код Эпсилон. Все контракты считаются расторгнутыми."
 	elevating_to_announcement_title = "Внимание! Активирован код Эпсилон!"
 	elevating_to_announcement_text = "Центральным командованием был установлен код Эпсилон. Все контракты считаются расторгнутыми."
+	sibyl_limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+	announcement_color = "black"
 
 /datum/security_level/epsilon/pre_change()
 	sound_to_playing_players_on_station_level(sound_to_use = sound('sound/effects/powerloss.ogg'))
@@ -143,3 +156,16 @@
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Внимание! Активирован код Дельта!"
 	elevating_to_announcement_text = "Механизм самоуничтожения станции задействован. Все члены экипажа обязаны подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога."
+	sibyl_limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+	announcement_color = "purple"
+
+/datum/security_level/delta_overload
+	number_level = SEC_LEVEL_DELTA_REACTOR
+	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
+	ai_announcement_sound = 'sound/AI/delta.ogg'
+	color = "orangered"
+	status_display_mode = STATUS_DISPLAY_ALERT
+	status_display_data = "deltaalert"
+	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
+	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs."
+	announcement_color = "purple"

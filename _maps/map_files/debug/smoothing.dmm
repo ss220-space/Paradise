@@ -4,7 +4,7 @@
 /area/centcom)
 "b" = (
 /turf/simulated/floor/plating,
-/area/start)
+/area/misc/start)
 "c" = (
 /turf/simulated/floor/plasteel,
 /area/centcom)
@@ -28,7 +28,7 @@
 "i" = (
 /obj/effect/landmark/start,
 /turf/simulated/floor/indestructible,
-/area/start)
+/area/misc/start)
 "j" = (
 /obj/effect/landmark/observer_start,
 /turf/simulated/floor/plating,

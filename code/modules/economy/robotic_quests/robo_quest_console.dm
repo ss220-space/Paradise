@@ -16,6 +16,7 @@
 	"third" = list("working_medical_security") \
 )
 
+#define ROBOQUEST_REMOVE_COOLDOWN (30 SECONDS)
 ///////////////////////
 // roboquest console //
 ///////////////////////
@@ -71,25 +72,28 @@
 	currentID = null
 	. = ..()
 
-/obj/machinery/computer/roboquest/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/roboquest/attackby(obj/item/inserted_card, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(inserted_card))
+		if(istype(inserted_card, /obj/item/card/id/guest))
+			balloon_alert(user, "неверный тип карты!")
+			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(inserted_card, src))
 			return ..()
 		if(currentID)
 			currentID.forceMove(drop_location())
 			user.put_in_hands(currentID, ignore_anim = FALSE)
-		currentID = I
+		currentID = inserted_card
 		SStgui.try_update_ui(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
 /obj/machinery/computer/roboquest/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 
 	. = TRUE
@@ -211,6 +215,7 @@
 	data["style"] = style
 	data["cooldown"] = currentID?.bounty_penalty ? time2text((currentID.bounty_penalty-world.time), "mm:ss") : FALSE
 	data["instant_teleport"] = can_instant_teleport()
+	data["hasAccess"] = currentID ? (ACCESS_ROBOTICS in currentID.access) : FALSE
 	return data
 
 /obj/machinery/computer/roboquest/ui_static_data(mob/user)
@@ -229,6 +234,9 @@
 			currentID = null
 			SStgui.update_uis(src)
 		if("GetTask")
+			if(!currentID || !(ACCESS_ROBOTICS in currentID.access))
+				to_chat(usr, span_warning("Доступ запрещён. Требуется доступ робототехники."))
+				return
 			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
 			if(!mecha_type || !currentID || currentID.robo_bounty)
@@ -236,8 +244,8 @@
 			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")
 			currentID.robo_bounty = null
-			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 5 MINUTES)
-			currentID.bounty_penalty = world.time + 5 MINUTES
+			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), ROBOQUEST_REMOVE_COOLDOWN)
+			currentID.bounty_penalty = world.time + ROBOQUEST_REMOVE_COOLDOWN
 		if("Check")
 			if(!pad)
 				checkMessage = "Привязанный пад не обнаружен."
@@ -371,8 +379,9 @@
 	/// whether our robopad is advanced
 	var/advanced = FALSE
 
-/obj/machinery/roboquest_pad/New()
-	..()
+/obj/machinery/roboquest_pad/Initialize(mapload)
+	. = ..()
+
 	component_parts = list()
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -391,8 +400,9 @@
 	icon_state = "advqpad"
 	advanced = TRUE
 
-/obj/machinery/roboquest_pad/advanced/New()
-	..()
+/obj/machinery/roboquest_pad/advanced/Initialize(mapload)
+	. = ..()
+
 	component_parts = list()
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -425,7 +435,7 @@
 	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
-		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
+		var/obj/structure/closet/crate/critter/mecha/box = new(get_turf(src), quest, console, penalty)
 		M.forceMove(box)
 		if(destination)
 			do_teleport(box, destination)
@@ -451,7 +461,7 @@
 		quest.id.robo_bounty = null
 		quest = null
 
-/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(ismecha(departed) && console)
@@ -470,8 +480,9 @@
 // mecha box //
 ///////////////
 
-/obj/structure/closet/critter/mecha
+/obj/structure/closet/crate/critter/mecha
 	name = "mecha box"
+	icon = 'icons/obj/closet.dmi'
 	icon_state = "mecha_box"
 	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
 	req_access = list(ACCESS_ROBOTICS)
@@ -482,23 +493,23 @@
 	/// Penalty, given by console check
 	var/penalty = 0
 
-/obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+/obj/structure/closet/crate/critter/mecha/Initialize(mapload, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	. = ..()
 	src.quest = quest
 	src.console = console
 	src.penalty = penalty
 
-/obj/structure/closet/critter/mecha/toggle(mob/user)
+/obj/structure/closet/crate/critter/mecha/toggle(mob/user)
 	if(!allowed(user))
 		to_chat(user, span_notice("You don`t have required access."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return FALSE
 	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 	if(response == "No" || !Adjacent(user))
 		return FALSE
 	. = ..()
 
-/obj/structure/closet/critter/mecha/after_open(mob/living/user, force)
+/obj/structure/closet/crate/critter/mecha/after_open(mob/living/user, force)
 	qdel(src)
 
 #undef NO_SUCCESS
@@ -510,3 +521,4 @@
 #undef COMBAT_CLASS
 #undef RANDOM_CLASS
 #undef CATS_BY_STAGE
+#undef ROBOQUEST_REMOVE_COOLDOWN

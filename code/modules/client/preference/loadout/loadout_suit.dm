@@ -33,7 +33,7 @@
 /datum/gear/suit/coat/job/med
 	index_name = "winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC , JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC , JOB_TITLE_CORONER)
 
 /datum/gear/suit/coat/job/cmo
 	index_name = "winter coat, chief medical officer"
@@ -43,7 +43,7 @@
 /datum/gear/suit/coat/job/sci
 	index_name = "winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical/science
-	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENTIST_STUDENT)
+	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENCE_STUDENT)
 
 /datum/gear/suit/coat/job/rd
 	index_name = "winter coat, research director"
@@ -53,17 +53,17 @@
 /datum/gear/suit/coat/job/engi
 	index_name = "winter coat, engineering"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN)
 
 /datum/gear/suit/coat/job/atmos
 	index_name = "winter coat, atmospherics"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/suit/coat/job/ce
 	index_name = "winter coat, chief engineer"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/ce
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/suit/coat/job/hydro
 	index_name = "winter coat, hydroponics"
@@ -180,7 +180,7 @@
 /datum/gear/suit/suragi_jacket/eng
 	index_name = "Suragi Jacket - Engineering"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/eng
-	allowed_roles = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC)
+	allowed_roles = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN)
 
 /datum/gear/suit/suragi_jacket/botany
 	index_name = "Suragi Jacket - Hydroponics"
@@ -190,7 +190,7 @@
 /datum/gear/suit/suragi_jacket/medic
 	index_name = "Suragi Jacket - Medical"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medic
-	allowed_roles = list(JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/suit/suragi_jacket/medsec
 	index_name = "Suragi Jacket - Medical Security"
@@ -220,7 +220,7 @@
 /datum/gear/suit/suragi_jacket/sci
 	index_name = "Suragi Jacket - Science"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/sci
-	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
+	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT)
 
 /datum/gear/suit/suragi_jacket/janitor
 	index_name = "Suragi Jacket - Janitor"

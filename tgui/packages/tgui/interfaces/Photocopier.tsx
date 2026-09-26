@@ -1,28 +1,29 @@
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
 import {
   Button,
-  Section,
-  Stack,
   Input,
-  Slider,
   ProgressBar,
-} from '../components';
+  Section,
+  Slider,
+  Stack,
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import type { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
 
 const trimLongStr = (str: string, length: number) => {
-  return str.length > length ? str.substring(0, length) + '...' : str;
+  return str.length > length ? `${str.substring(0, length)}...` : str;
 };
 
 const selectForms = (forms: Form[], searchText = ''): Form[] => {
   const testSearch = createSearch(searchText, (form: Form) => form.altername);
   return flow([
-    (forms: Form[]) => filter(forms, (form) => !!form?.altername),
-    (forms: Form[]) => (searchText ? filter(forms, testSearch) : forms),
-    (forms: Form[]) => sortBy(forms, (form) => form.id),
+    (forms: Form[]) => forms.filter((form) => !!form?.altername),
+    (forms: Form[]) => (searchText ? forms.filter(testSearch) : forms),
+    (forms: Form[]) => sortBy(forms, [(form) => form.id]),
   ])(forms);
 };
 
@@ -38,7 +39,9 @@ type PhotocopierData = {
   category: string;
   maxcopies: number;
   ui_theme: string;
-  toner: number;
+  has_toner: BooleanLike;
+  max_toner: number;
+  current_toner: number;
   forms: Form[];
   form_id: string;
   copyitem: string;
@@ -51,16 +54,16 @@ type PhotocopierData = {
 export const Photocopier = (_props: unknown) => {
   const { act, data } = useBackend<PhotocopierData>();
 
-  const { copies, maxcopies } = data;
+  const { copies, maxcopies, current_toner, has_toner, max_toner } = data;
 
   const [searchText, setSearchText] = useState('');
 
   const forms = selectForms(
-    sortBy(data.forms || [], (form) => form.category),
-    searchText
+    sortBy(data.forms || [], [(form) => form.category]),
+    searchText,
   );
-  const categories = [];
-  for (let form of forms) {
+  const categories: string[] = [];
+  for (const form of forms) {
     if (!categories.includes(form.category)) {
       categories.push(form.category);
     }
@@ -72,24 +75,57 @@ export const Photocopier = (_props: unknown) => {
     category = forms.filter((form: Form) => form.category === data.category);
   }
 
+  const average_toner = max_toner * 0.66;
+  const bad_toner = max_toner * 0.33;
+
   return (
     <Window width={550} height={575} theme={data.ui_theme}>
       <Window.Content>
         <Stack fill>
           <Stack.Item basis="40%">
             <Stack fill vertical>
-              <Section title="Статус">
+              <Section
+                title="Статус"
+                buttons={
+                  <Button
+                    icon="eject"
+                    disabled={!has_toner}
+                    onClick={() => act('remove_toner')}
+                  >
+                    Извлечь тонер
+                  </Button>
+                }
+              >
                 <Stack>
-                  <Stack.Item width="50%" mt={0.3} color="grey">
-                    Заряд тонера:
-                  </Stack.Item>
-                  <Stack.Item width="50%">
-                    <ProgressBar
-                      minValue={0}
-                      maxValue={30}
-                      value={data.toner}
-                    />
-                  </Stack.Item>
+                  {has_toner ? (
+                    <>
+                      <Stack.Item width="50%" mt={0.3} color="grey">
+                        Заряд тонера:
+                      </Stack.Item>
+                      <Stack.Item width="50%">
+                        <ProgressBar
+                          minValue={0}
+                          value={current_toner}
+                          maxValue={max_toner}
+                          ranges={{
+                            average: [bad_toner, average_toner],
+                            bad: [0, bad_toner],
+                          }}
+                        />
+                      </Stack.Item>
+                    </>
+                  ) : (
+                    <Stack.Item>
+                      <ProgressBar
+                        color="bad"
+                        minValue={0}
+                        value={0}
+                        maxValue={1}
+                      >
+                        Нет тонера
+                      </ProgressBar>
+                    </Stack.Item>
+                  )}
                 </Stack>
                 <Stack mt={1}>
                   <Stack.Item width="50%" mb={0.3} color="grey">
@@ -111,7 +147,7 @@ export const Photocopier = (_props: unknown) => {
                       {data.copyitem
                         ? data.copyitem
                         : data.mob
-                          ? 'Жопа ' + data.mob + '!'
+                          ? `Жопа ${data.mob}!`
                           : 'Слот для документа'}
                     </Button>
                   </Stack.Item>
@@ -137,7 +173,9 @@ export const Photocopier = (_props: unknown) => {
                       fluid
                       textAlign="center"
                       icon="print"
-                      disabled={data.toner === 0 || data.form === null}
+                      disabled={
+                        !has_toner || current_toner < 0 || data.form === null
+                      }
                       onClick={() => act('print_form')}
                     >
                       Печать
@@ -149,7 +187,7 @@ export const Photocopier = (_props: unknown) => {
                         fluid
                         textAlign="center"
                         icon="image"
-                        disabled={data.toner < 5}
+                        disabled={!has_toner || current_toner < 5}
                         tooltip="Распечатать фото с Базы Данных"
                         onClick={() => act('ai_pic')}
                       >
@@ -165,7 +203,9 @@ export const Photocopier = (_props: unknown) => {
                       textAlign="center"
                       icon="copy"
                       disabled={
-                        data.toner === 0 || (!data.copyitem && !data.mob)
+                        !has_toner ||
+                        current_toner < 0 ||
+                        (!data.copyitem && !data.mob)
                       }
                       onClick={() => act('copy')}
                     >
@@ -179,7 +219,7 @@ export const Photocopier = (_props: unknown) => {
                         textAlign="center"
                         icon="i-cursor"
                         tooltip="Распечатать свой текст"
-                        disabled={data.toner === 0}
+                        disabled={!has_toner || current_toner < 0}
                         onClick={() => act('ai_text')}
                       >
                         Текст
@@ -257,8 +297,7 @@ export const Photocopier = (_props: unknown) => {
               title={data.category || 'Все формы'}
               buttons={
                 <Input
-                  mr={18.5}
-                  width="100%"
+                  style={{ maxWidth: '160px' }}
                   placeholder="Поиск формы"
                   expensive
                   onChange={setSearchText}

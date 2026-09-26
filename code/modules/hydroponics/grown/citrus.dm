@@ -208,7 +208,7 @@
 	bitecount = 3
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/tangerine/get_ru_names()
-		return list(
+	return alist(
 		NOMINATIVE = "мандарин",
 		GENITIVE = "мандарина",
 		DATIVE = "мандарину",

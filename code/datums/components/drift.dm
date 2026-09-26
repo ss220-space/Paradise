@@ -50,7 +50,7 @@
 /datum/component/drift/Destroy()
 	inertia_last_loc = null
 	if(!QDELETED(drifting_loop))
-		qdel(drifting_loop)
+		QDEL_NULL(drifting_loop)
 	drifting_loop = null
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
@@ -183,7 +183,7 @@
 
 	block_inputs_until = world.time + glide_for
 	QDEL_IN(src, glide_for + 1)
-	qdel(drifting_loop)
+	QDEL_NULL(drifting_loop)
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(allow_final_movement))
 
 /datum/component/drift/proc/allow_final_movement(datum/source)

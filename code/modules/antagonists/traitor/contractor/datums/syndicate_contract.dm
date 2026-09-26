@@ -32,7 +32,7 @@
 		/obj/item/toy/nuke,
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
-		/obj/item/toy/syndicateballoon,
+		/obj/item/toy/balloon/syndicate,
 	)
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
 	var/credits_base = 100
@@ -108,6 +108,15 @@
 	contract.owner = owner
 	contract.target_blacklist = target_blacklist
 	generate(target_override)
+
+/datum/syndicate_contract/Destroy(force)
+	owning_hub = null
+	contract = null
+	pod = null
+	extraction_flare = null
+	QDEL_LIST(victim_belongings)
+	QDEL_LIST(temp_objs)
+	return ..()
 
 /**
  * Fills the contract with valid data to be used.
@@ -192,7 +201,7 @@
 		return
 	var/final_tc_reward = reward_tc[chosen_difficulty]
 	if(target_dead)
-		final_tc_reward = CEILING(final_tc_reward * owning_hub.dead_penalty, 1)
+		final_tc_reward = ceil(final_tc_reward * owning_hub.dead_penalty)
 	// Notify the Hub
 	owning_hub.on_completion(final_tc_reward, reward_credits)
 	// Finalize
@@ -419,7 +428,7 @@
 		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
 	owning_hub.contractor_uplink?.message_holder(
 		"Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. " \
-		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_CREDIT(creds)].", \
+		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_0_A_OV(creds)].", \
 		'sound/machines/terminal_prompt_confirm.ogg'
 	)
 
@@ -532,7 +541,7 @@
 	|| /obj/item/reagent_containers/food/snacks/breadslice/stale
 	// Supply them with some chow. How generous is the Syndicate?
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(food_turf)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
+	var/obj/item/reagent_containers/cup/glass/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
 

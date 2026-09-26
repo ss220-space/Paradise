@@ -54,15 +54,15 @@
 		/obj/item/clothing/mask/breath/vox = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/glass/bottle/wizarditis = 1,
+		/obj/item/reagent_containers/cup/bottle/wizarditis = 1,
 	)
 
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 	tiltable = FALSE
 
 /obj/machinery/vending/magivend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат MagiVend",
 		GENITIVE = "торгового автомата MagiVend",
 		DATIVE = "торговому автомату MagiVend",

@@ -63,6 +63,25 @@
 	icon_file = 'icons/obj/items.dmi'
 	json_config = 'code/datums/greyscale/json_configs/wrap_paper.json'
 
+/datum/greyscale_config/mender
+	name = "Mender Applicator"
+	icon_file = 'icons/obj/chemical.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_inhand_left
+	name = "Held Mender Applicator, Left"
+	icon_file = 'icons/mob/inhands/items_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_inhand_right
+	name = "Held Mender Applicator, Right"
+	icon_file = 'icons/mob/inhands/items_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_belt
+	name = "Belt Worn Mender Applicator"
+	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
 /*
 	ENCRYPTION KEYS
  */
@@ -91,3 +110,22 @@
 	name = "Syndie Encryptionkey"
 	icon_file = 'icons/obj/radio.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_syndie.json'
+
+/*
+	ARM IMPLANTS
+ */
+
+/datum/greyscale_config/armimp
+	name = "Arm Implant"
+	icon_file = 'icons/obj/surgery.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp.json'
+
+/datum/greyscale_config/armimp_inhand_left
+	name = "Arm Implant, Left"
+	icon_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp_inhand.json'
+
+/datum/greyscale_config/armimp_inhand_right
+	name = "Arm Implant, Right"
+	icon_file = 'icons/mob/inhands/implants_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp_inhand.json'

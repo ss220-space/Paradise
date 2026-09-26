@@ -15,18 +15,20 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
+	light_color = COLOR_LIGHT_ORANGE
 	light_range = 4
 	light_on = FALSE
-	light_color = COLOR_LIGHT_YELLOW
 	toolbox_radial_menu_compatibility = TRUE
 	/// Should the flashlight start turned on?
 	var/on = FALSE
 	/// The sound the light makes when it's turned on/off
 	var/togglesound = 'sound/weapons/empty.ogg'
+	/// When true, painting the flashlight won't change its light color
+	var/ignore_base_color = FALSE
 
 /obj/item/flashlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фонарик",
 		GENITIVE = "фонарика",
 		DATIVE = "фонарику",
@@ -35,12 +37,17 @@
 		PREPOSITIONAL = "фонарике"
 	)
 
+
+/obj/item/flashlight/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить свет")
+
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/flashlight/dummy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дебаг-фонарик",
 		GENITIVE = "дебаг-фонарика",
 		DATIVE = "дебаг-фонарику",
@@ -51,8 +58,8 @@
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
-	if(icon_state == "[initial(icon_state)]-on")
-		on = TRUE
+	if(on)
+		set_light_on(TRUE)
 	update_brightness()
 
 /obj/item/flashlight/update_icon_state()
@@ -62,10 +69,10 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/flashlight/proc/update_brightness()
-	if(light_system == STATIC_LIGHT)
+	if(light_system == COMPLEX_LIGHT)
 		update_light()
 	set_light_on(on)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -86,7 +93,7 @@
 
 	. = ATTACK_CHAIN_PROCEED
 
-	if(!ishuman(user) || SSticker?.mode.name != "monkey")	//don't have dexterity
+	if(ismonkey(user))
 		balloon_alert(user, "вы слишком неуклюжи!")
 		return .
 
@@ -131,6 +138,16 @@
 		update_brightness()
 		update_equipped_item()
 
+/obj/item/flashlight/update_atom_colour()
+	. = ..()
+	if(ignore_base_color)
+		return
+	var/list/applied_matrix = cached_color_filter
+	if(!applied_matrix)
+		applied_matrix = color_transition_filter(color, SATURATION_OVERRIDE)
+	var/new_light_color = apply_matrix_to_color(initial(light_color), applied_matrix["color"], applied_matrix["space"] || COLORSPACE_RGB)
+	set_light_color(new_light_color)
+
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "Небольшой фонарь в форме ручки. Используется медицинским персоналом."
@@ -140,11 +157,11 @@
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 
 /obj/item/flashlight/pen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фонарик-ручка",
 		GENITIVE = "фонарик-ручки",
 		DATIVE = "фонарик-ручке",
@@ -166,7 +183,7 @@
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/seclite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический фонарик",
 		GENITIVE = "тактического фонарика",
 		DATIVE = "тактическому фонарику",
@@ -184,7 +201,7 @@
 	slot_flags = ITEM_SLOT_EARS
 
 /obj/item/flashlight/sectaclight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "головной фонарь",
 		GENITIVE = "головного фонаря",
 		DATIVE = "головному фонарю",
@@ -202,7 +219,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/flashlight/drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маломощный фонарь",
 		GENITIVE = "маломощного фонаря",
 		DATIVE = "маломощному фонарю",
@@ -221,14 +238,15 @@
 	gender = FEMALE
 	icon_state = "lamp"
 	item_state = "lamp"
-	light_range = 5
+	light_range = 3.5
+	light_system = OVERLAY_LIGHT //COMPLEX_LIGHT doesn't work for some reason
+	light_color = LIGHT_COLOR_FAINT_BLUE
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()
 	on = TRUE
-	light_color = COLOR_PALE_YELLOW
 
 /obj/item/flashlight/lamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "настольная лампа",
 		GENITIVE = "настольной лампы",
 		DATIVE = "настольной лампе",
@@ -242,10 +260,10 @@
 	desc = "Стационарный источник света. Классический вариант зелёного цвета."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-	light_color = COLOR_LIGHT_GREEN
+	light_color = LIGHT_COLOR_TUNGSTEN
 
 /obj/item/flashlight/lamp/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёная настольная лампа",
 		GENITIVE = "зелёной настольной лампы",
 		DATIVE = "зелёной настольной лампе",
@@ -260,10 +278,10 @@
 			банановой кожуры и дурацким шнуром включения."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
-	light_color = COLOR_BRIGHT_LIME
+	light_color = LIGHT_COLOR_BRIGHT_YELLOW
 
 /obj/item/flashlight/lamp/bananalamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банановая настольная лампа",
 		GENITIVE = "банановой настольной лампы",
 		DATIVE = "банановой настольной лампе",
@@ -281,11 +299,12 @@
 	desc = "Ручной аварийный источник света. Заполнен пиротехническим составом, который поджигается \
 			при активации, давая яркое пламя красного цвета."
 	light_range = 8
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	heat = T1000K
 	var/can_fire_cigs = TRUE
 	var/fuel = 0
 	/// Force when enabled
@@ -295,9 +314,12 @@
 	var/fuel_lower = 800
 	/// Maximum amount on initialization
 	var/fuel_upp = 1000
+	var/spawn_fuel = TRUE
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/flashlight/flare/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фальшфейер",
 		GENITIVE = "фальшфейера",
 		DATIVE = "фальшфейеру",
@@ -307,11 +329,18 @@
 	)
 
 /obj/item/flashlight/flare/Initialize(mapload)
-	fuel = rand(fuel_lower, fuel_upp)
+	if(spawn_fuel)
+		fuel = rand(fuel_lower, fuel_upp)
 	. = ..()
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
 
 /obj/item/flashlight/flare/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	if(middleman)
+		QDEL_NULL(middleman)
 	return ..()
 
 /obj/item/flashlight/flare/update_icon_state()
@@ -334,20 +363,25 @@
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/get_heat()
+/obj/item/flashlight/flare/get_temperature()
 	return on * 1000
 
 /obj/item/flashlight/flare/proc/turn_on()
 	on = TRUE
+	START_PROCESSING(SSobj, src)
 	update_brightness()
 	force = on_damage
 	damtype = FIRE
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = FALSE
+	set_light_on(FALSE)
 	force = initial(force)
 	damtype = initial(damtype)
 	update_brightness()
+
+/obj/item/flashlight/flare/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
@@ -357,7 +391,6 @@
 		balloon_alert_to_viewers("медленно тускнеет")
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-	// Usual checks
 	if(!fuel)
 		balloon_alert(user, "израсходовано!")
 		return
@@ -377,6 +410,9 @@
 /obj/item/flashlight/flare/on/Initialize(mapload)
 	. = ..()
 	turn_on()
+
+/obj/item/flashlight/flare/used
+	spawn_fuel= FALSE
 
 /// Special flare subtype for the illumination flare shell
 /// Acts like a flare, just even stronger, and set length
@@ -418,11 +454,11 @@
 	produce_heat = 0
 	fuel_lower = 1600
 	fuel_upp = 2000
-	blocks_emissive = FALSE
+	ignore_base_color = TRUE
 	var/chemglow_sprite_type = "green"
 
 /obj/item/flashlight/flare/glowstick/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёный химсвет",
 		GENITIVE = "зелёного химсвета",
 		DATIVE = "зелёному химсвету",
@@ -432,8 +468,8 @@
 	)
 
 /obj/item/flashlight/flare/glowstick/Initialize(mapload)
-	light_color = color
-	. = ..()
+	set_light_color(color)
+	return ..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
@@ -441,10 +477,14 @@
 
 /obj/item/flashlight/flare/glowstick/update_overlays()
 	. = ..()
-	if(on)
-		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
-		glowstick_overlay.color = color
-		. += glowstick_overlay
+	if(!on)
+		return
+	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+	glowstick_overlay.color = color
+	. += glowstick_overlay
+
+/obj/item/flashlight/flare/glowstick/used
+	spawn_fuel = FALSE
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
@@ -452,7 +492,7 @@
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный химсвет",
 		GENITIVE = "красного химсвета",
 		DATIVE = "красному химсвету",
@@ -469,7 +509,7 @@
 	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий химсвет",
 		GENITIVE = "синего химсвета",
 		DATIVE = "синему химсвету",
@@ -484,7 +524,7 @@
 	chemglow_sprite_type = "orange"
 
 /obj/item/flashlight/flare/glowstick/orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевый химсвет",
 		GENITIVE = "оранжевого химсвета",
 		DATIVE = "оранжевому химсвету",
@@ -499,7 +539,7 @@
 	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жёлтый химсвет",
 		GENITIVE = "жёлтого химсвета",
 		DATIVE = "жёлтому химсвету",
@@ -514,7 +554,7 @@
 	chemglow_sprite_type = "pink"
 
 /obj/item/flashlight/flare/glowstick/pink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовый химсвет",
 		GENITIVE = "розового химсвета",
 		DATIVE = "розовому химсвету",
@@ -534,7 +574,7 @@
 	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/emergency/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аварийный химсвет",
 		GENITIVE = "аварийного химсвета",
 		DATIVE = "аварийному химсвету",
@@ -567,9 +607,11 @@
 	item_state = "torch"
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+	fuel_lower = 60
+	fuel_upp = 70
 
 /obj/item/flashlight/flare/torch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "факел",
 		GENITIVE = "факела",
 		DATIVE = "факелу",
@@ -588,13 +630,13 @@
 	icon_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	light_range = 6
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светящийся экстракт слайма",
 		GENITIVE = "светящегося экстракта слайма",
 		DATIVE = "светящемуся экстракту слайма",
@@ -648,16 +690,17 @@
 		return ..()
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/flashlight/emp/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/flashlight/emp/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
-		if(ismob(A))
-			var/mob/M = A
-			add_attack_logs(user, M, "Hit with EMP-light")
-		balloon_alert(user, "осталось [emp_cur_charges] использовани[declension_ru(emp_cur_charges, "е", "я", "й")]")
-		A.emp_act(1)
+		if(ismob(target))
+			var/mob/mob_target = target
+			add_attack_logs(user, mob_target, "Hit with EMP-light")
+		balloon_alert(user, "осталось [emp_cur_charges] использовани[DECL_E_YA_J(emp_cur_charges)]")
+		target.emp_act(1)
 	else
 		balloon_alert(user, "перезарядка!")
 
@@ -667,15 +710,27 @@
 
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"
-	desc = "Groovy..."
+	desc = "Заводной..."
 	icon_state = null
-	light_system = STATIC_LIGHT
-	light_color = null
-	light_range = 0
-	light_power = 10
+	light_system = COMPLEX_LIGHT
+	light_power = 2
 	alpha = 0
-	layer = 0
-	on = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
 	anchored = TRUE
-	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	on = TRUE
+	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
+	var/even_cycle = FALSE
+	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
+	var/base_light_range = 4
+
+/obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
+	. = ..()
+	if(!isnull(_light_range))
+		base_light_range = _light_range
+		set_light_range(_light_range)
+	if(!isnull(_light_power))
+		set_light_power(_light_power)
+	if(!isnull(_light_color))
+		set_light_color(_light_color)

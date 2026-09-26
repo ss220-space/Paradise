@@ -1,6 +1,9 @@
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
 
+## Uncomment this to disable station traits.
+#FORBID_STATION_TRAITS
+
 ## The lower delay between events in minutes.
 ## Affect mundane, moderate, and major events respectively
 EVENT_DELAY_LOWER EV_LEVEL_MUNDANE 5
@@ -21,3 +24,25 @@ EVENT_CUSTOM_START_MODERATE LOWER 25
 EVENT_CUSTOM_START_MODERATE UPPER 35
 EVENT_CUSTOM_START_MAJOR LOWER 70
 EVENT_CUSTOM_START_MAJOR UPPER 100
+
+## Configuration for station traits of each type directly from TG.
+## The first value (key) is the budget, or the space available to use for station traits of that type. Some take more space than others.
+## The second value (assoc) is the weight associated with said budget compared to the rest for that type.
+POSITIVE_STATION_TRAITS 0 8
+POSITIVE_STATION_TRAITS 1 4
+POSITIVE_STATION_TRAITS 2 2
+POSITIVE_STATION_TRAITS 3 1
+
+NEUTRAL_STATION_TRAITS 0 10
+NEUTRAL_STATION_TRAITS 1 10
+NEUTRAL_STATION_TRAITS 2 3
+NEUTRAL_STATION_TRAITS 2.5 1
+
+NEGATIVE_STATION_TRAITS 0 8
+NEGATIVE_STATION_TRAITS 1 4
+NEGATIVE_STATION_TRAITS 2 2
+NEGATIVE_STATION_TRAITS 3 1
+
+## Overflow slot cap.
+## NOTE: This will overwrite anything you put in jobconfig.toml!
+OVERFLOW_CAP 20

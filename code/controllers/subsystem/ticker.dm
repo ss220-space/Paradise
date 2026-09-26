@@ -1,16 +1,12 @@
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "ticker"
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
+	var/list/round_start_events
 	/// Time that the round started
 	var/time_game_started = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
@@ -18,9 +14,11 @@ SUBSYSTEM_DEF(ticker)
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
+	#ifdef AUTOSTART_GAME
+	var/force_start = TRUE
+	#else
 	var/force_start = FALSE
-	/// Do we want to crew members to start on the shuttle?
-	var/shuttle_start = FALSE
+	#endif
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -88,9 +86,6 @@ SUBSYSTEM_DEF(ticker)
 	ASYNC
 		login_music = choose_lobby_music()
 
-	if(!login_music)
-		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
-
 	randomtips = world.file2list("strings/tips.txt")
 	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
@@ -99,9 +94,10 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
+			var/pregame_timestart = CONFIG_GET(number/pregame_timestart)
+			round_start_time = world.time + (pregame_timestart SECONDS)
 			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
-			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [CONFIG_GET(number/pregame_timestart)] секунд[DECL_SEC_MIN(CONFIG_GET(number/pregame_timestart))].")
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_U_Y_0(pregame_timestart)].")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -131,7 +127,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.start_vote(new /datum/vote/crew_transfer)
+				SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer", forced = TRUE)
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency?.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -167,13 +163,31 @@ SUBSYSTEM_DEF(ticker)
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
 					if("vote")
-						SSvote.start_vote(new /datum/vote/map)
+						SSvote.initiate_vote(/datum/vote/map, "Map Rotation", forced = TRUE)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
 				to_chat(world, "<b>Следующая карта — [SSmapping.next_map.name]!</b>")
 
 			SSachievements.save_achievements_to_db()
+
+/datum/controller/subsystem/ticker/Recover()
+	current_state = SSticker.current_state
+	force_ending = SSticker.force_ending
+	login_music = SSticker.login_music
+	minds = SSticker.minds
+	delay_end = SSticker.delay_end
+	tipped = SSticker.tipped
+	selected_tip = SSticker.selected_tip
+	round_start_time = SSticker.round_start_time
+	if(Master) //Set Masters run level if it exists
+		switch(current_state)
+			if(GAME_STATE_SETTING_UP)
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+			if(GAME_STATE_PLAYING)
+				Master.SetRunLevel(RUNLEVEL_GAME)
+			if(GAME_STATE_FINISHED)
+				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -212,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL_CREDIT(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
+		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL_0_A_OV(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
 		mode = null
 		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
@@ -299,8 +313,6 @@ SUBSYSTEM_DEF(ticker)
 		minds += player.mind
 
 	watch = start_watch()
-	if(prob(5))
-		SSticker.shuttle_start = TRUE
 
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
@@ -308,6 +320,13 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+
+	for(var/datum/callback/callback as anything in round_start_events)
+		callback.InvokeAsync()
+
+	LAZYCLEARLIST(round_start_events)
+
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	change_state(GAME_STATE_PLAYING)
@@ -354,16 +373,20 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
-	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
+	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
+	SEND_SOUND(world, sound(
+			SSstation.announcer.get_rand_welcome_sound(),
+			channel = CHANNEL_ANNOUNCER,
+			volume = 40,
+		))
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+		for(var/holiday_name, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 
@@ -395,13 +418,13 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/choose_lobby_music()
 	var/list/songs = CONFIG_GET(str_list/lobby_music)
-	if(LAZYLEN(songs))
+	if(length(songs))
 		selected_lobby_music = pick(songs)
 
 	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
-			if(LAZYLEN(holiday.lobby_music))
+		for(var/holidayname, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
+			if(length(holiday.lobby_music))
 				selected_lobby_music = pick(holiday.lobby_music)
 				break
 
@@ -416,38 +439,36 @@ SUBSYSTEM_DEF(ticker)
 		login_music_initializated = TRUE
 		return
 
-	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
-	var/errorlevel = output[SHELLEO_ERRORLEVEL]
-	var/stdout = output[SHELLEO_STDOUT]
-	var/stderr = output[SHELLEO_STDERR]
+	// Only resolve metadata here. The audio file is downloaded later, when the
+	// music asset is built on first client login.
+	var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, selected_lobby_music)
 
-	if(!errorlevel)
-		var/list/data
-		try
-			data = json_decode(stdout)
-		catch(var/exception/e)
-			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
-			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
-			log_world(span_warning("[e]: [stdout]"))
-			login_music_initializated = TRUE
-			return
-		if(data["title"])
-			login_music_data["title"] = data["title"]
-			login_music_data["url"] = data["url"]
-			login_music_data["link"] = data["webpage_url"]
-			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
-			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
-
-	if(errorlevel)
-		to_chat(world, span_boldwarning("yt-dlp failed."))
-		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
-		login_music_initializated = TRUE
-		return
+	// Shell work is done, every remaining path marks init complete.
 	login_music_initializated = TRUE
-	return stdout
+
+	if(!sound_info.success)
+		to_chat(world, span_boldwarning("yt-dlp failed."))
+		log_world("Could not play lobby song [selected_lobby_music]: [sound_info.error_message]")
+		return
+
+	if(!sound_info.title)
+		return
+
+	login_music_data["title"] = sound_info.title
+	login_music_data["url"] = sound_info.url
+	login_music_data["link"] = sound_info.webpage_url
+	login_music_data["id"] = sound_info.id
+	login_music_data["path"] = "cache/songs/[sound_info.id].mp3"
+	login_music_data["title_link"] = sound_info.webpage_url ? "<a href=\"[sound_info.webpage_url]\">[sound_info.title]</a>" : sound_info.title
+	// Same metadata keys the now-playing widget reads for admin web sounds.
+	login_music_data["duration"] = DisplayTimeText(sound_info.duration * 1 SECONDS)
+	login_music_data["artist"] = sound_info.artist
+	login_music_data["upload_date"] = sound_info.upload_date
+	login_music_data["album"] = sound_info.album
+
+	return sound_info.title
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
-
 	auto_toggle_ooc(TRUE) // Turn it on
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
@@ -551,7 +572,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, chat_box_purple(span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
+		to_chat(world, custom_boxed_message("purple_box", span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up  past this point.
@@ -645,6 +666,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Save the data before end of the round griefing
 	SSpersistent_data.save()
+	SSpersistent_paintings.save_paintings()
 	to_chat(world, end_of_round_info.Join("<br>"))
 
 	// Display the scoreboard window
@@ -665,9 +687,9 @@ SUBSYSTEM_DEF(ticker)
 	add_game_logs("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/antag_hud in GLOB.huds)
+	for(var/hud_key, hud_type in GLOB.huds)
 		for(var/mob/player as anything in GLOB.player_list)
-			antag_hud.show_to(player)
+			astype(hud_type, /datum/atom_hud/antag)?.show_to(player)
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
@@ -738,7 +760,7 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = restart_timeout
 
-	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_SEC_MIN(delay/10)]. [reason]"))
+	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_U_Y_0(delay/10)]. [reason]"))
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
@@ -755,14 +777,24 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 
+	log_debug("Sending round end sound to every player.")
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
 			continue
 		SEND_SOUND(mob, round_end_sound)
 
+	log_debug("Running sleep on round end sound duration...")
 	sleep(sound_length)
 
+	log_debug("Initiating world reboot from Ticker subsystem...")
 	world.Reboot()
+
+//These callbacks will fire after roundstart key transfer
+/datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
+	if(!HasRoundStarted())
+		LAZYADD(round_start_events, cb)
+	else
+		cb.InvokeAsync()
 
 // Timers invoke this async
 /datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()

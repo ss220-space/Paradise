@@ -72,7 +72,7 @@
 		blow(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(state == BALLOON_BLOW && (I.sharp || I.get_heat() || is_pointed(I)))
+	if(state == BALLOON_BLOW && (I.sharp || I.get_temperature() || is_pointed(I)))
 		burst()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

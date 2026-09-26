@@ -12,6 +12,7 @@
 	var/list/valid_tail_marking_styles = list()
 	var/list/valid_body_accessories = list()
 	var/list/valid_alt_head_styles = list()
+	var/wizard_mirror = FALSE
 
 	var/check_whitelist
 	var/list/whitelist
@@ -322,10 +323,10 @@
 
 /datum/ui_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
-		log_runtime(EXCEPTION("Missing head!"), owner)
+		stack_trace("[owner] Missing head!")
 		return FALSE
 	if(!head_organ.dna)
-		log_runtime(EXCEPTION("Missing head DNA!"), owner)
+		stack_trace("[owner] Missing head DNA!")
 		return FALSE
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 
@@ -392,13 +393,13 @@
 		valid_species = owner.generate_valid_species(check_whitelist, whitelist, blacklist)
 	if(!length(valid_hairstyles) || !length(valid_facial_hairstyles))
 		valid_hairstyles = owner.generate_valid_hairstyles()
-		valid_facial_hairstyles = owner.generate_valid_facial_hairstyles()
+		valid_facial_hairstyles = owner.generate_valid_facial_hairstyles(wizard_mirror)
 	if(!length(valid_head_accessories))
 		valid_head_accessories = owner.generate_valid_head_accessories()
 	if(!length(valid_head_marking_styles))
 		valid_head_marking_styles = owner.generate_valid_markings("head")
 	if(!length(valid_body_marking_styles))
-		valid_body_marking_styles = owner.generate_valid_markings("body")
+		valid_body_marking_styles = owner.generate_valid_markings("body", wizard_mirror)
 	if(!length(valid_tail_marking_styles))
 		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!length(valid_body_accessories))

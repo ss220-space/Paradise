@@ -1,4 +1,13 @@
+/**
+ * The mob, usually meant to be a creature of some type
+ *
+ * Has a client attached that is a living person (most of the time), although I have to admit
+ * sometimes it's hard to tell they're sentient
+ *
+ * Has a lot of the creature game world logic, such as health etc
+ */
 /mob
+	abstract_type = /mob
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -6,7 +15,7 @@
 	throwforce = 10
 	dont_save = TRUE // to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
-	abstract_type = /mob
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -43,8 +52,21 @@
 	/// Last time we typed something in to the typing popup
 	var/last_typed_time
 
+	/// Percentage of how much rgb to max the lighting plane at
+	/// This lets us brighten it without washing out color
+	/// Scale from 0-100, reset off update_sight()
+	var/lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
+	// Individual color max for red, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_red = 0
+	// Individual color max for green, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_green = 0
+	// Individual color max for blue, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_blue = 0
+	/// A list of red, green and blue cutoffs
+	/// This is what actually gets applied to the mob, it's modified by things like glasses
+	var/list/lighting_color_cutoffs = null
+
 	var/datum/mind/mind
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 	var/stat = CONSCIOUS
@@ -67,7 +89,6 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
-	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
 
 	/// Allows all mobs to use the me verb by default, will have to manually specify they cannot
@@ -176,11 +197,8 @@
 	var/job = null // Living
 
 	var/datum/dna/dna = null // Carbon
-	var/radiation = 0 // Carbon
-	var/max_radiation = CARBON_MAX_RADIATION // Carbon
 
 	//see: setup.dm for list of mutations
-
 	var/voice_name = "неизвестный голос"
 
 	/// Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -189,8 +207,6 @@
 	/// Can move on the shuttle.
 	var/move_on_shuttle = 1
 
-	/// Whether antagHUD has been enabled previously.
-	var/has_enabled_antagHUD = FALSE
 	/// Whether AntagHUD is active right now
 	var/antagHUD = FALSE
 	/// Just a handler for permanent/temporary THOUGHTS_HUD changing.
@@ -213,7 +229,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	/// Bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
-	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH
+	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH|CANUNCONSCIOUS
 
 	var/area/lastarea = null
 
@@ -284,9 +300,6 @@
 
 	var/registered_z
 
-	/// Any ranged ability the mob has, as a click override
-	var/obj/effect/proc_holder/ranged_ability
-
 	/// The datum receiving keyboard input. src by default
 	var/datum/focus
 
@@ -326,3 +339,19 @@
 
 	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
 	var/datum/persistent_client/persistent_client
+
+	var/tts_effect_override = SOUND_EFFECT_NONE
+	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
+	var/obj/item/tts_effect_override_source = null
+
+	/// Mob bitflags
+	var/mob_flags = NONE
+
+	/// A ref of the area we're taking our ambient loop from.
+	var/area/ambience_tracked_area
+
+	var/shift_to_open_context_menu = TRUE
+
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
+

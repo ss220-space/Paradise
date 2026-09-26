@@ -18,8 +18,10 @@
 /obj/machinery/atmospherics/pipe/Initialize(mapload)
 	. = ..()
 	//so pipes under walls are hidden
-	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
+	if(iswallturf(get_turf(src)) || istype(get_turf(src), /turf/simulated/wall/shuttle))
 		level = 1
+
+	AddElement(/datum/element/undertile)
 
 /obj/machinery/atmospherics/pipe/Destroy()
 	var/turf/turf = get_turf(src)
@@ -68,6 +70,11 @@
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
+		var/list/expansion = pipeline_expansion()
+		if(expansion)
+			list_clear_nulls(expansion)
+		if(!length(expansion))
+			return ..()
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
 	..()

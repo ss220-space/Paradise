@@ -51,7 +51,7 @@
 	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/secbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный робот",
 		GENITIVE = "охранного робота",
 		DATIVE = "охранному роботу",
@@ -66,7 +66,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Бипски",
 		GENITIVE = "Офицера Бипски",
 		DATIVE = "Офицеру Бипски",
@@ -78,7 +78,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/stock_parts/cell/potato(Tsec)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/S = new(Tsec)
+	var/obj/item/reagent_containers/cup/glass/drinkingglass/S = new(Tsec)
 	S.reagents.add_reagent("whiskey", 15)
 	S.on_reagent_change()
 	..()
@@ -89,7 +89,7 @@
 	radio_channel = AI_FREQ_NAME
 
 /mob/living/simple_animal/bot/secbot/pingsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Пингски",
 		GENITIVE = "Офицера Пингски",
 		DATIVE = "Офицеру Пингски",
@@ -105,7 +105,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/ofitser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Тюремски",
 		GENITIVE = "Офицера Тюремски",
 		DATIVE = "Офицеру Тюремски",
@@ -125,7 +125,7 @@
 	emagged = 2
 
 /mob/living/simple_animal/bot/secbot/buzzsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Баззски",
 		GENITIVE = "Офицера Баззски",
 		DATIVE = "Офицеру Баззски",
@@ -143,7 +143,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/armsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Арсеналски",
 		GENITIVE = "Офицера Арсеналски",
 		DATIVE = "Офицеру Арсеналски",
@@ -160,7 +160,7 @@
 	weaponscheck = TRUE
 
 /mob/living/simple_animal/bot/secbot/podsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Подски",
 		GENITIVE = "Офицера Подски",
 		DATIVE = "Офицеру Подски",
@@ -172,15 +172,11 @@
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
-	var/datum/job/security/detective/J = new/datum/job/security/detective
+	var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
-
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.show_to(src)
+	AddSpell(new /datum/action/cooldown/spell/bot_speed)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -310,7 +306,7 @@
 				retaliate(Proj.firer)
 	..()
 
-/mob/living/simple_animal/bot/secbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/secbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if((C.staminaloss < 110 || arrest_type) && !baton_delayed)
@@ -391,11 +387,8 @@
 
 	prev_flashing_lights = flashing_lights
 
-/mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Вкл/выкл фонарик"
-	set category = VERB_CATEGORY_OBJECT
-	set src = usr
 
+GAME_VERB(/mob/living/simple_animal/bot/secbot, toggle_flashing_lights, "Вкл/выкл фонарик", VERB_CATEGORY_IC)
 	flashing_lights = !flashing_lights
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
@@ -535,7 +528,7 @@
 	GLOB.move_manager.stop_looping(src)
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/obj/item/bot_assembly/secbot_assembly/Sa = new /obj/item/bot_assembly/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name

@@ -1,4 +1,4 @@
-/datum/game_test/map_templates/Run()
+/datum/unit_test/map_templates/Run()
 	var/list/datum/map_template/templates = subtypesof(/datum/map_template)
 	for(var/I in templates)
 		var/datum/map_template/MT = new I // The new is important here to ensure stuff gets set properly

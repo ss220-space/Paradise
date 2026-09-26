@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 type TcommsRelayData = {
@@ -45,7 +45,7 @@ export const TcommsRelay = (_props: unknown) => {
                 {network_id ? network_id : 'Не задано'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Привзка">
+            <LabeledList.Item label="Привязка">
               {linked ? (
                 <Box color="green">Привязано</Box>
               ) : (

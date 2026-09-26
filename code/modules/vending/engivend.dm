@@ -30,11 +30,12 @@
 	)
 	premium = list(
 		/obj/item/clothing/glasses/meson = 3,
+		/obj/item/rcd = 3,
 		/obj/item/storage/belt/utility = 3,
 	)
 
 /obj/machinery/vending/engivend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Engi-Vend",
 		GENITIVE = "торгового автомата Engi-Vend",
 		DATIVE = "торговому автомату Engi-Vend",

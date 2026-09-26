@@ -18,6 +18,7 @@
 	refill_canister = /obj/item/vending_refill/gun_mods
 	default_price = PAYCHECK_CREW
 	default_premium_price = PAYCHECK_MAX
+	vandal_secure = TRUE
 
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 8,
@@ -29,14 +30,18 @@
 		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/ammo_box/magazine/enforcer/extended = 10,
+		/obj/item/gun_module/rail/hud/medical = 3,
+		/obj/item/gun_module/rail/hud/security = 3,
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
+		/obj/item/gun_module/under/bayonet = 3,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 2,
+		/obj/item/gun_module/rail/scope/x4 = 1,
 	)
 
 /obj/machinery/vending/gun_mods/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ModTech",
 		GENITIVE = "торгового автомата ModTech",
 		DATIVE = "торговому автомату ModTech",
@@ -63,6 +68,8 @@
 		/obj/item/gun_module/under/laser/ray = 5,
 		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/gun_module/under/bayonet = 5,
+		/obj/item/gun_module/under/bayonet/long = 3,
 		/obj/item/gun_module/muzzle/suppressor = 5,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/gun_module/muzzle/suppressor/heavy = 2,

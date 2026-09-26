@@ -152,7 +152,7 @@
 	. = list()
 	if(!fexists(SERVICE_PR_TEST_JSON))
 		return
-	var/list/json = json_decode(wrap_file2text(SERVICE_PR_TEST_JSON))
+	var/list/json = json_decode(WRAP_FILE2TEXT(SERVICE_PR_TEST_JSON))
 	if(!json)
 		return
 	for(var/I in json)

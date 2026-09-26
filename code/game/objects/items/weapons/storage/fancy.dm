@@ -199,7 +199,7 @@
 		. += crayon.colourName
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		switch(crayon.colourName)
 			if("mime")
@@ -249,7 +249,7 @@
 	)
 
 /obj/item/storage/fancy/cigarettes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет",
 		GENITIVE = "пачки сигарет",
 		DATIVE = "пачке сигарет",
@@ -330,7 +330,7 @@
 	item_state = "Dpacket"
 
 /obj/item/storage/fancy/cigarettes/dromedaryco/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
 		GENITIVE = "пачки \"Марсианский Табак\"",
 		DATIVE = "пачке \"Марсианский Табак\"",
@@ -346,7 +346,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Синдиката\"",
 		GENITIVE = "пачки сигарет \"Синдиката\"",
 		DATIVE = "пачке сигарет \"Синдиката\"",
@@ -362,20 +362,20 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "\"Dr. Denchigo\" Marijuana Packet"
+	name = "\"Dr. Vitalya\" Marijuana Packet"
 	desc = "Упаковка 20 медицинских сигарет, выпускаемых по рецепту. Содержат марихуану."
 	icon_state = "medpacket"
 	item_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
 /obj/item/storage/fancy/cigarettes/cigpack_med/get_ru_names()
-	return list(
-		NOMINATIVE = "пачка сигарет \"Доктор Денчиго\"",
-		GENITIVE = "пачки сигарет \"Доктор Денчиго\"",
-		DATIVE = "пачке сигарет \"Доктор Денчиго\"",
-		ACCUSATIVE = "пачку сигарет \"Доктор Денчиго\"",
-		INSTRUMENTAL = "пачкой сигарет \"Доктор Денчиго\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\"",
+	return alist(
+		NOMINATIVE = "пачка сигарет \"Доктор Виталя\"",
+		GENITIVE = "пачки сигарет \"Доктор Виталя\"",
+		DATIVE = "пачке сигарет \"Доктор Виталя\"",
+		ACCUSATIVE = "пачку сигарет \"Доктор Виталя\"",
+		INSTRUMENTAL = "пачкой сигарет \"Доктор Виталя\"",
+		PREPOSITIONAL = "пачке сигарет \"Доктор Виталя\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
@@ -386,7 +386,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
 		GENITIVE = "пачки сигарет \"Лёгкие на подъём\"",
 		DATIVE = "пачке сигарет \"Лёгкие на подъём\"",
@@ -401,7 +401,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/richard
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
 		GENITIVE = "пачки сигарет \"Ричард и Компания\"",
 		DATIVE = "пачке сигарет \"Ричард и Компания\"",
@@ -417,7 +417,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
 		GENITIVE = "пачки сигарет \"Робаст\"",
 		DATIVE = "пачке сигарет \"Робаст\"",
@@ -435,7 +435,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
 		GENITIVE = "пачки сигарет \"Золотой Робаст\"",
 		DATIVE = "пачке сигарет \"Золотой Робаст\"",
@@ -451,7 +451,7 @@
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
 		GENITIVE = "пачки сигарет \"Дымящий Карп\"",
 		DATIVE = "пачке сигарет \"Дымящий Карп\"",
@@ -467,7 +467,7 @@
 	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
 		GENITIVE = "пачки сигарет \"Табак Мидори\"",
 		DATIVE = "пачке сигарет \"Табак Мидори\"",
@@ -488,7 +488,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"от Шейди Джима\"",
 		GENITIVE = "пачки сигарет \"от Шейди Джима\"",
 		DATIVE = "пачке сигарет \"от Шейди Джима\"",
@@ -505,7 +505,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
 /obj/item/storage/fancy/cigarettes/cigpack_random/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",
 		GENITIVE = "пачки сигарет \"Энигма\"",
 		DATIVE = "пачке сигарет \"Энигма\"",
@@ -527,7 +527,7 @@
 	can_hold = list(/obj/item/rollingpaper)
 
 /obj/item/storage/fancy/rollingpapers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "упаковка рулонной бумаги",
 		GENITIVE = "упаковки рулонной бумаги",
 		DATIVE = "упаковке рулонной бумаги",
@@ -563,7 +563,7 @@
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
 /obj/item/storage/fancy/cigcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "портсигар",
 		GENITIVE = "портсигара",
 		DATIVE = "портсигару",
@@ -590,24 +590,24 @@
 	icon_type = "vial"
 	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	storage_slots = 6
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/cup/beaker/vial)
 
 /obj/item/storage/fancy/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
-		new /obj/item/reagent_containers/glass/beaker/vial(src)
+		new /obj/item/reagent_containers/cup/beaker/vial(src)
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/cup/beaker/vial)
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/item/storage/lockbox/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
-		new /obj/item/reagent_containers/glass/beaker/vial(src)
+		new /obj/item/reagent_containers/cup/beaker/vial(src)
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon_state()
@@ -633,7 +633,7 @@
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для ухода за аквариумом",
 		GENITIVE = "набора для ухода за аквариумом",
 		DATIVE = "набору для ухода за аквариумом",
@@ -648,3 +648,99 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+/*
+ * MARK: Coffee condiments
+ */
+/obj/item/storage/fancy/coffee_condi_display
+	name = "coffee condiments display"
+	desc = "Небольшая деревянная коробка, предназначенная для хранения и демонстрации добавок к кофе."
+	gender = MALE
+	icon_state = "coffee_condi_display"
+	icon_type = "condiment pack"
+	pixel_y = 4
+	storage_slots = 14
+	can_hold = list(
+		/obj/item/reagent_containers/condiment/pack/sugar,
+		/obj/item/reagent_containers/condiment/pack/creamer,
+		/obj/item/reagent_containers/condiment/pack/aspartame,
+		/obj/item/reagent_containers/condiment/pack/chocolate,
+	)
+
+/obj/item/storage/fancy/coffee_condi_display/get_ru_names()
+	return alist(
+		NOMINATIVE = "шоу-бокс для добавок к кофе",
+		GENITIVE = "шоу-бокса для добавок к кофе",
+		DATIVE = "шоу-боксу для добавок к кофе",
+		ACCUSATIVE = "шоу-бокс для добавок к кофе",
+		INSTRUMENTAL = "шоу-боксом для добавок к кофе",
+		PREPOSITIONAL = "шоу-боксе для добавок к кофе"
+	)
+
+/obj/item/storage/fancy/coffee_condi_display/update_icon_state()
+	return
+
+/obj/item/storage/fancy/coffee_condi_display/update_overlays()
+	. = list()
+	var/list/added_overlays = list()
+
+	for(var/obj/item/reagent_containers/condiment/pack/pack in contents)
+		var/overlay_name
+		if(istype(pack, /obj/item/reagent_containers/condiment/pack/sugar))
+			overlay_name = "condi_display_sugar"
+		else if(istype(pack, /obj/item/reagent_containers/condiment/pack/aspartame))
+			overlay_name = "condi_display_sweetener"
+		else if(istype(pack, /obj/item/reagent_containers/condiment/pack/creamer))
+			overlay_name = "condi_display_creamer"
+		else if(istype(pack, /obj/item/reagent_containers/condiment/pack/chocolate))
+			overlay_name = "condi_display_chocolate"
+
+		if(overlay_name && !(overlay_name in added_overlays))
+			. += mutable_appearance(icon, overlay_name)
+			added_overlays += overlay_name
+
+/obj/item/storage/fancy/coffee_condi_display/populate_contents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/condiment/pack/sugar(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/condiment/pack/aspartame(src)
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/condiment/pack/creamer(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/condiment/pack/chocolate(src)
+	update_appearance()
+
+/*
+ * MARK: Coffee cartridge rack
+ */
+/obj/item/storage/fancy/coffee_cart_rack
+	name = "coffeemaker cartridge rack"
+	desc = "Небольшая стойка для хранения кофе-картриджей, совместимых с кофемашиной \"Моделло 3\"."
+	gender = FEMALE
+	icon_state = "coffee_cartrack0"
+	icon_type = "coffee cartridge"
+	pixel_y = 2
+	storage_slots = 4
+	can_hold = list(
+		/obj/item/coffee_cartridge,
+		/obj/item/blank_coffee_cartridge,
+	)
+
+/obj/item/storage/fancy/coffee_cart_rack/get_ru_names()
+	return alist(
+		NOMINATIVE = "стойка для кофе-картриджей",
+		GENITIVE = "стойки для кофе-картриджей",
+		DATIVE = "стойке для кофе-картриджей",
+		ACCUSATIVE = "стойку для кофе-картриджей",
+		INSTRUMENTAL = "стойкой для кофе-картриджей",
+		PREPOSITIONAL = "стойке для кофе-картриджей",
+	)
+
+/obj/item/storage/fancy/coffee_cart_rack/populate_contents()
+	var/cartridges = rand(1, storage_slots)
+	for(var/I in 1 to cartridges)
+		new /obj/item/coffee_cartridge(src)
+	update_appearance()
+
+/obj/item/storage/fancy/coffee_cart_rack/update_icon_state()
+	icon_state = "coffee_cartrack[length(contents)]"

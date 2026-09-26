@@ -1,19 +1,18 @@
-import { filter, sort } from 'common/collections';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
+import { NanoMap } from 'tgui/components';
 import {
+  Box,
   Button,
   ByondUi,
+  Icon,
   Input,
   NoticeBox,
-  NanoMap,
   Section,
   Stack,
-  Box,
   Tabs,
-  Icon,
-} from 'tgui/components';
-import { BooleanLike, classes } from 'common/react';
-import { createSearch } from 'common/string';
+} from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -24,6 +23,7 @@ type Data = {
   mapRef: string;
   stationLevelNum: number[];
   stationLevelName: string[];
+  is_portable?: boolean;
 };
 
 type Camera = {
@@ -41,7 +41,7 @@ type Camera = {
  */
 const prevNextCamera = (
   cameras: Camera[],
-  activeCamera: Camera & { status: BooleanLike }
+  activeCamera: Camera & { status: BooleanLike },
 ) => {
   if (!activeCamera || cameras.length < 2) {
     return [];
@@ -75,15 +75,15 @@ const prevNextCamera = (
  * Filters cameras, applies search terms and sorts the alphabetically.
  */
 const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
-  let queriedCameras = filter(cameras, (camera: Camera) => !!camera.name);
+  let queriedCameras = cameras.filter((camera: Camera) => !!camera.name);
   if (searchText) {
     const testSearch = createSearch(
       searchText,
-      (camera: Camera) => camera.name
+      (camera: Camera) => camera.name,
     );
-    queriedCameras = filter(queriedCameras, testSearch);
+    queriedCameras = queriedCameras.filter(testSearch);
   }
-  queriedCameras = sort(queriedCameras);
+  queriedCameras = queriedCameras.sort();
 
   return queriedCameras;
 };
@@ -246,11 +246,10 @@ const CameraSelectorMap = (props) => {
 
 const CameraControls = (props: { searchText: string }) => {
   const { act, data } = useBackend<Data>();
-  const { activeCamera, mapRef } = data;
+  const { activeCamera, mapRef, is_portable } = data;
   const { searchText } = props;
 
   const cameras = selectCameras(data.cameras, searchText);
-
   const [prevCamera, nextCamera] = prevNextCamera(cameras, activeCamera);
 
   return (
@@ -266,6 +265,19 @@ const CameraControls = (props: { searchText: string }) => {
               )}
             </Stack.Item>
 
+            {!!is_portable && (
+              <Stack.Item>
+                <Button
+                  icon="expand"
+                  color="transparent"
+                  tooltip="Перейти в продвинутый режим слежения"
+                  onClick={() => act('toggle_advanced')}
+                >
+                  Продвинутый
+                </Button>
+              </Stack.Item>
+            )}
+
             <Stack.Item>
               <Button
                 icon="chevron-left"
@@ -277,7 +289,6 @@ const CameraControls = (props: { searchText: string }) => {
                 }
               />
             </Stack.Item>
-
             <Stack.Item>
               <Button
                 icon="chevron-right"

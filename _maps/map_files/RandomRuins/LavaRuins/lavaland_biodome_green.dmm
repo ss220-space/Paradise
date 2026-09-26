@@ -80,7 +80,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/ruin/powered/green_bio)
 "gQ" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -115,10 +115,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "iW" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -199,11 +196,11 @@
 /area/ruin/powered/green_bio)
 "oX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -231,7 +228,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "qn" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "ra" = (
@@ -245,8 +242,7 @@
 /area/ruin/powered/green_bio)
 "rp" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -306,8 +302,7 @@
 /area/ruin/powered/green_bio)
 "vh" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -331,18 +326,18 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "xZ" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered/green_bio)
 "yO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "zf" = (
@@ -395,10 +390,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Ci" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -485,7 +477,7 @@
 /area/ruin/powered/green_bio)
 "Gw" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -3
 	},
 /turf/simulated/floor/carpet,
@@ -541,8 +533,7 @@
 	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -583,7 +574,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "Lh" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Lq" = (
@@ -612,10 +603,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -629,8 +617,7 @@
 /area/ruin/powered/green_bio)
 "Oy" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -683,8 +670,7 @@
 /area/ruin/powered/green_bio)
 "Wg" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -696,9 +682,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "Wr" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/machinery/light/small{
 	dir = 4
 	},

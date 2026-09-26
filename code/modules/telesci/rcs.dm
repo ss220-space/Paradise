@@ -27,7 +27,7 @@
 	var/chargecost = 1000
 
 /obj/item/rcs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система быстрой доставки (RCS)",
 		GENITIVE = "системы быстрой доставки (RCS)",
 		DATIVE = "системе быстрой доставки (RCS)",
@@ -39,13 +39,13 @@
 /obj/item/rcs/get_cell()
 	return rcell
 
-/obj/item/rcs/New()
-	..()
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
 	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))
+	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[DECL_0_A_OV(round(rcell.charge/chargecost))]."))
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -151,4 +151,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))
+	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[DECL_0_A_OV(round(rcell.charge/chargecost))]."))

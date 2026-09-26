@@ -89,7 +89,7 @@
 			reward_cargopoints += CARGOPOINTS_BY_UTILIZATION
 
 /datum/addition_goal/funeral/format_accept_report(mob/user)
-	var/text = {"В ваш адрес направлены [corpse_count] [declension_ru(corpse_count, "тело", "тела", "тел")] для организации процедуры захоронения.<br>
+	var/text = {"В ваш адрес направлены [corpse_count] тел[DECL_O_A_0(corpse_count)] для организации процедуры захоронения.<br>
 		Просим произвести погребение в соответствии с нижеуказанным списком:<br>"}
 	var/number = 1
 	for(var/mob/living/corpse as anything in corpses)
@@ -134,7 +134,7 @@
 					report_text += "тело не находится в гробу.<br>"
 					continue
 				var/obj/structure/closet/coffin/coffin = corpse.loc
-				if(istype(coffin.loc, /turf/space))
+				if(isspaceturf(coffin.loc))
 					report_text += "успешно похоронен.<br>"
 					complete_count++
 				else

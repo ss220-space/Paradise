@@ -14,7 +14,7 @@
 #define RCS_MESSAUTH 7 // Authentication before sending
 #define RCS_ANNOUNCE 8 // Send announcement
 #define RCS_SHIPPING 9 // Print Shipping Labels/Packages
-#define RCS_SHIP_LOG 10	// View Shipping Label Log
+#define RCS_SHIP_LOG 10 // View Shipping Label Log
 
 // Radio list
 #define ENGI_ROLES list(RC_ATMOSPHERICS, RC_MECHANIC, RC_ENGINEERING, RC_CHIEF_ENGINEER_DESK, RC_TECH_STORAGE, RC_TELECOMS_ADMIN)
@@ -81,7 +81,7 @@
 
 // Central Command Dependent
 #define RC_BLUESHIELD "Blueshield"
-#define RC_INTERNAL_AFFAIRS_OFFICE "Internal Affairs Office"
+#define RC_LAWYER_OFFICE "Lawyer Office"
 #define RC_NT_REPRESENTATIVE "NT Representative"
 #define RC_CENTRAL_COMMAND "Central Command"
 

@@ -313,9 +313,9 @@
 /proc/find_loc(obj/R as obj)
 	if(!R)	return null
 	var/turf/T = R.loc
-	while(!istype(T, /turf))
+	while(!isturf(T))
 		T = T.loc
-		if(!T || istype(T, /area))	return null
+		if(!T || isarea(T))	return null
 	return T
 
 /obj/machinery/teleport
@@ -479,9 +479,9 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
+	if(isAI(A) || istype(A, /obj/structure/AIcore))
 		visible_message(span_warning("The teleporter rejects the AI unit."))
-		if(istype(A, /mob/living/silicon/ai))
+		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
 			var/list/TPError = list(span_warning("Firmware instructions dictate you must remain on your assigned station!"),
 			span_warning("You cannot interface with this technology and get rejected!"),

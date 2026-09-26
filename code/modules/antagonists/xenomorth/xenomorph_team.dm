@@ -122,7 +122,7 @@
 	GLOB.major_announcement.announce(
 		message = "Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
 		new_title = "Отчёт об объекте [station_name()].",
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /datum/team/xenomorph/proc/evolve_start(area/loc)
@@ -202,7 +202,8 @@
 
 /datum/team/xenomorph/declare_completion()
 	if(length(members))
-		var/list/text = declare_results()
+		var/list/text = list()
+		text += declare_results()
 		if(length(queens))
 			text += span_fontsize2("<br/><b>Королев[(length(queens) > 1 ? "ами были" : "ой была")]:</b>")
 			for(var/datum/mind/queen in queens)
@@ -256,7 +257,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C
+			C.remove_from_respawnable_list()
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.possess_by_player(C.key)
@@ -278,7 +279,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C
+			C.remove_from_respawnable_list()
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
 			new_xeno.move_into_vent(vent, FALSE)
 			new_xeno.possess_by_player(C.key)

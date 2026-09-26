@@ -84,10 +84,10 @@
 	icon_keyboard = "rd_key"
 	var/datum/ui_module/sat_control/sat_control
 
-/obj/machinery/computer/sat_control/New()
+/obj/machinery/computer/sat_control/Initialize(mapload)
+	. = ..()
 	sat_control = new(src)
 	sat_control.object = src
-	..()
 
 /obj/machinery/computer/sat_control/Destroy()
 	QDEL_NULL(sat_control)
@@ -172,6 +172,15 @@
 	/// A list of "proxy" objects used for multi-z coverage.
 	var/list/obj/effect/abstract/meteor_shield_proxy/proxies = list()
 
+/obj/machinery/satellite/meteor_shield/Destroy()
+	QDEL_NULL(proximity_monitor)
+	QDEL_LIST_ASSOC_VAL(proxies)
+	if(!(active && emagged))
+		return ..()
+
+	change_meteor_chance(0.5)
+	return ..()
+
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
 	if(active)
@@ -195,14 +204,6 @@
 	. = ..()
 	proximity_monitor = new(src, kill_range)
 	setup_proxies()
-
-/obj/machinery/satellite/meteor_shield/Destroy()
-	QDEL_NULL(proximity_monitor)
-	if(!(active && emagged))
-		return ..()
-
-	change_meteor_chance(0.5)
-	return ..()
 
 /obj/machinery/satellite/meteor_shield/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -270,10 +271,12 @@
 			/datum/event/dust/meaty,
 			/datum/event/dust,
 		))
-	for(var/datum/event_container/container in SSevents.event_containers)
-		for(var/datum/event_meta/M in container.available_events)
-			if(is_type_in_typecache(M.event_type, meteor_event_typecache))
-				M.weight_mod *= mod
+
+	for(var/severity_level, container in SSevents.event_containers)
+		var/datum/event_container/event_container = container
+		for(var/datum/event_meta/event_meta in event_container.available_events)
+			if(is_type_in_typecache(event_meta.event_type, meteor_event_typecache))
+				event_meta.weight_mod *= mod
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(emagged)
@@ -303,7 +306,8 @@
 
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
 	QDEL_NULL(proximity_monitor)
-	parent.proxies -= src
+	parent?.proxies?.RemoveAll(src)
+	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED, COMSIG_QDELETING))
 	parent = null
 	return ..()
 

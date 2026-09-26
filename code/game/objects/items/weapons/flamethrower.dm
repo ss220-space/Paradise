@@ -37,7 +37,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return null
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/M = location
 		if(M.l_hand == src || M.r_hand == src)
 			location = M.loc
@@ -67,10 +67,11 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag, params)
+/obj/item/flamethrower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(flag)
+	if(proximity_flag)
 		return // too close
+
 	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
@@ -250,7 +251,7 @@
 		add_game_logs("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]", owner)
 		igniter.ignite_turf(src,target_turf, release_amount = 100)
 		QDEL_NULL(ptank)
-		return 1 //It hit the flamethrower, not them
+		return HIT_RESULT_SUCCESS //It hit the flamethrower, not them
 
 /obj/item/assembly/igniter/proc/flamethrower_process(turf/simulated/location)
 	location.hotspot_expose(700, 2)

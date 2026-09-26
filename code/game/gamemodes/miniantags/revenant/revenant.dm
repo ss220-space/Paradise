@@ -51,9 +51,19 @@
 	var/draining = 0 //If the revenant is draining someone.
 	var/list/drained_mobs //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
+	var/list/revenant_spells = list(
+		/datum/action/cooldown/spell/nightvision/revenant,
+		/datum/action/cooldown/spell/pointed/revenant_transmit,
+		/datum/action/cooldown/spell/aoe/revenant/defile,
+		/datum/action/cooldown/spell/aoe/revenant/malfunction,
+		/datum/action/cooldown/spell/aoe/revenant/overload,
+		/datum/action/cooldown/spell/aoe/revenant/blight,
+		/datum/action/cooldown/spell/aoe/revenant/haunt_object,
+		/datum/action/cooldown/spell/aoe/revenant/hallucinations,
+	)
 
 /mob/living/simple_animal/revenant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ревенант",
 		GENITIVE = "ревенанта",
 		DATIVE = "ревенанту",
@@ -81,6 +91,7 @@
 		death()
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence_regen_cap, essence+essence_regen_amount)
+		update_spell_icons()
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
@@ -128,8 +139,9 @@
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, span_revendanger("Вы чувствуете, как ваша сущность распадается!"))
+	update_spell_icons()
 
-/mob/living/simple_animal/revenant/say(message)
+/mob/living/simple_animal/revenant/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(!message)
 		return
 
@@ -150,8 +162,8 @@
 	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
 	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
-/mob/living/simple_animal/revenant/New()
-	..()
+/mob/living/simple_animal/revenant/Initialize(mapload)
+	. = ..()
 
 	remove_from_all_data_huds()
 	random_revenant_name()
@@ -214,17 +226,11 @@
 			mind.objectives += objective2
 			SSticker.mode.traitors |= mind //Necessary for announcing
 			messages.Add(mind.prepare_announce_objectives(FALSE))
-			to_chat(src, chat_box_red(messages.Join("<br>")))
+			to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/blight(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
+	for(var/spell_type in revenant_spells)
+		AddSpell(new spell_type)
 	return TRUE
 
 /mob/living/simple_animal/revenant/dust()
@@ -301,9 +307,10 @@
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 	if(!silent)
 		if(essence_amt > 0)
-			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source]."))
+			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[DECL_YA_I_I(essence_amt)] от [source]."))
 		else
-			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
+			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[DECL_YA_I_I(essence_amt)] из-за [source]."))
+	update_spell_icons()
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -349,13 +356,17 @@
 	else
 		icon_state = icon_idle
 
+/mob/living/simple_animal/revenant/proc/update_spell_icons()
+	for(var/datum/action/cooldown/spell/aoe/revenant/spell in mob_spell_list)
+		spell.UpdateButtonIcon()
+
 /datum/objective/revenant
 	needs_target = FALSE
 	var/targetAmount = 100
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(targetAmount,"e","и","")] эссенции у людей."
+	explanation_text = "Поглотите [targetAmount] единиц[DECL_U_Y_0(targetAmount)] эссенции у людей."
 	..()
 
 /datum/objective/revenant/check_completion()
@@ -413,7 +424,7 @@
 	var/client/client_to_revive
 
 /obj/item/ectoplasm/revenant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фантомная пыль",
 		GENITIVE = "фантомной пыли",
 		DATIVE = "фантомной пыли",
@@ -422,8 +433,8 @@
 		PREPOSITIONAL = "фантомной пыли",
 	)
 
-/obj/item/ectoplasm/revenant/New()
-	..()
+/obj/item/ectoplasm/revenant/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(reform)), reform_time)
 
 /obj/item/ectoplasm/revenant/Destroy()

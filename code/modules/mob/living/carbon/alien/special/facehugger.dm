@@ -43,7 +43,7 @@
 	var/mob/living/simple_animal/hostile/facehugger/holdered_mob
 
 /obj/item/clothing/mask/facehugger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лицехват",
 		GENITIVE = "лицехвата",
 		DATIVE = "лицехвату",
@@ -315,7 +315,7 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(try_drop_hugger), target), 0.5 SECONDS)
 
-/obj/item/clothing/mask/facehugger/container_resist(mob/living/L)
+/obj/item/clothing/mask/facehugger/container_resist_act(mob/living/L)
 	var/mob/living/mob = src.loc
 
 	if(istype(mob) || isstorage(loc))
@@ -386,7 +386,7 @@
 	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
 
 /obj/item/clothing/mask/facehugger/lamarr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",

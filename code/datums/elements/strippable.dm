@@ -22,7 +22,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
+	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, PROC_REF(mouse_drop_onto))
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
@@ -30,7 +30,7 @@
 /datum/element/strippable/Detach(datum/source)
 	. = ..()
 
-	UnregisterSignal(source, COMSIG_DO_MOB_STRIP)
+	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
 	if(!isnull(strip_menus))
 		qdel(strip_menus[source])
@@ -45,6 +45,9 @@
 	if(over != user)
 		return
 
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		return
+
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
@@ -55,6 +58,7 @@
 		LAZYSET(strip_menus, source, strip_menu)
 
 	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /// A representation of an item that can be stripped down
 /datum/strippable_item
@@ -332,6 +336,11 @@
 			items[strippable_key] = result
 			continue
 
+		if(istype(item, /obj/item/tank) && iscarbon(owner))
+			var/mob/living/carbon/carbon_owner = owner
+			if(carbon_owner.internal == item)
+				LAZYSET(result, "internals_active", TRUE)
+
 		if(strippable_key in LAZYACCESS(interactions, user))
 			LAZYSET(result, "interacting", TRUE)
 
@@ -339,16 +348,27 @@
 		if(obscuring == STRIPPABLE_OBSCURING_COMPLETELY || (item && !item.canStrip(user)))
 			LAZYSET(result, "cantstrip", TRUE)
 
+		var/hidden = obscuring == STRIPPABLE_OBSCURING_HIDDEN
 		if(obscuring != STRIPPABLE_OBSCURING_NONE)
 			LAZYSET(result, "obscured", obscuring)
-			items[strippable_key] = result
-			continue
+			if(obscuring == STRIPPABLE_OBSCURING_COMPLETELY)
+				items[strippable_key] = result
+				continue
 
 		var/alternates = item_data.get_body_action(owner, user)
 		if(!islist(alternates) && !isnull(alternates))
 			alternates = list(alternates)
 
-		if(isnull(item))
+		var/real_alts = item_data.get_alternate_actions(owner, user)
+		if(!isnull(real_alts))
+			if(islist(alternates))
+				alternates += real_alts
+			else
+				alternates = real_alts
+				if(!islist(alternates) && !isnull(alternates))
+					alternates = list(alternates)
+
+		if(isnull(item) || hidden)
 			if(length(alternates))
 				LAZYSET(result, "alternates", alternates)
 			items[strippable_key] = result
@@ -362,15 +382,6 @@
 		result["icon"] = item.icon
 		result["icon_state"] = item.icon_state
 		result["name"] = item.name
-
-		var/real_alts = item_data.get_alternate_actions(owner, user)
-		if(!isnull(real_alts))
-			if(islist(alternates))
-				alternates += real_alts
-			else
-				alternates = real_alts
-				if(!islist(alternates) && !isnull(alternates))
-					alternates = list(alternates)
 		result["alternates"] = alternates
 
 		items[strippable_key] = result

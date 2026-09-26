@@ -1,12 +1,9 @@
 SUBSYSTEM_DEF(http)
 	name = "HTTP"
-	flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
+	ss_flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
 	wait = 1
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY // All the time
-	// Assuming for the worst, since only discord is hooked into this for now, but that may change
-	offline_implications = "The server is no longer capable of making async HTTP requests. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "http_requests"
+
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests = list()
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
@@ -14,17 +11,22 @@ SUBSYSTEM_DEF(http)
 	var/logging_errors_only = TRUE
 	/// Total requests the SS has processed in a round
 	var/total_requests
-
-/datum/controller/subsystem/http/PreInit()
-	. = ..()
-	rustg_create_async_http_client() // Open the door
+	var/list/current_run
+	var/current_index
 
 /datum/controller/subsystem/http/get_stat_details()
 	return "P: [length(active_async_requests)] | T: [total_requests]"
 
 /datum/controller/subsystem/http/fire(resumed)
-	for(var/r in active_async_requests)
-		var/datum/http_request/req = r
+	if(!resumed)
+		current_run = active_async_requests.Copy()
+		current_index = 1
+
+	var/list/cached_current_run = current_run
+	var/length = length(cached_current_run)
+	var/index = current_index
+	while(index <= length)
+		var/datum/http_request/req = cached_current_run[index]
 		// Check if we are complete
 		if(req.is_complete())
 			// If so, take it out the processing list
@@ -38,7 +40,8 @@ SUBSYSTEM_DEF(http)
 			// And log the result
 			if(logging_enabled)
 				if(logging_errors_only && (!res.errored || res.status_code != 200))
-					return
+					index++
+					continue
 				var/list/log_data = list()
 				log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
 				log_data += "\t[uppertext(req.method)] [req.url]"
@@ -56,6 +59,10 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
 				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), CONFIG_GET(string/tts_token_silero), "TOKEN"))
+		index++
+		if(MC_TICK_CHECK)
+			current_index = index
+			return
 
 /**
  * Async request creator
@@ -74,19 +81,6 @@ SUBSYSTEM_DEF(http)
 	active_async_requests += req
 	total_requests++
 
-	// if(logging_enabled)
-	//	// Create a log holder
-	//	var/list/log_data = list()
-	//	log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
-	//	log_data += "\t[uppertext(req.method)] [req.url]"
-	//	log_data += "\tRequest body: [req.body]"
-	//	log_data += "\tRequest headers: [req.headers]"
-	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
-	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
-
-	//	// Write the log data
-	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
-
 /**
  * Blocking request creator
  *
@@ -95,43 +89,3 @@ SUBSYSTEM_DEF(http)
  */
 /datum/controller/subsystem/http/proc/make_blocking_request(method, url, body = "", list/headers)
 	CRASH("Attempted use of a blocking HTTP request")
-	/*
-	var/datum/http_request/req = new()
-	req.prepare(method, url, body, headers)
-	req.execute_blocking()
-	var/datum/http_response/res = req.into_response()
-
-	// Now generate a logfile
-	var/list/log_data = list()
-	log_data += "NEW BLOCKING REQUEST"
-	log_data += "\t[uppertext(req.method)] [req.url]"
-	log_data += "\tRequest body: [req.body]"
-	log_data += "\tRequest headers: [req.headers]"
-	if(res.errored)
-		log_data += "\t ----- RESPONSE ERRROR -----"
-		log_data += "\t [res.error]"
-	else
-		log_data += "\tResponse status code: [res.status_code]"
-		log_data += "\tResponse body: [res.body]"
-		log_data += "\tResponse headers: [json_encode(res.headers)]"
-	log_data += "END BLOCKING REQUEST"
-
-	// Write the log data
-	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
-
-	return res
-	*/
-
-/*
-
-	Example of how to use callbacks properly
-
-/client/verb/testing()
-	set name = "Testing"
-
-	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
-
-/client/proc/response(mob/user, datum/http_response/response)
-	to_chat(user, "<span class='notice'>Code: [response.status_code] | Content: [response.body]")
-*/

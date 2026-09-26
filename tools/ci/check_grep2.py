@@ -104,9 +104,7 @@ def check_proc_args_with_var_prefix(idx, line):
 NANOTRASEN_CAMEL_CASE_EN = re.compile(r"(NanoTrasen)")
 NANOTRASEN_CAMEL_CASE_RU = re.compile(r"(НаноТрейзен)")
 NANOTRASEN_MISSPELLING_N_RU = re.compile(r"(нанотрейзен)")
-
 NANOTRASEN_QUOTES_RU = re.compile(r'(..)Нанотрейзен(..)')
-
 def check_nanotrasen_style(idx, line):
     failures = []
     if match := NANOTRASEN_CAMEL_CASE_EN.search(line):
@@ -116,11 +114,9 @@ def check_nanotrasen_style(idx, line):
     if match := NANOTRASEN_MISSPELLING_N_RU.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Found lowercase '{match.group(1)}', should be 'Нанотрейзен'."))
-
     for match in NANOTRASEN_QUOTES_RU.finditer(line):
         context_before = match.group(1)
         context_after = match.group(2)
-
         if context_before != '\\"' and context_after != '\\"':
             surrounding_text = context_before[1] + "Нанотрейзен" + context_after[0]
             failures.append((idx + 1, f"Found 'Нанотрейзен' without escaped quotes '{surrounding_text}', should be \\\"Нанотрейзен\\\"."))
@@ -131,7 +127,6 @@ def check_nanotrasen_style(idx, line):
             continue
         else:
             continue
-
     return failures
 
 TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
@@ -323,6 +318,8 @@ def check_dash_usage(idx, line):
         if 'UNLINT' not in line:
             return [(idx + 1, "Found hyphen or en dash, which should be replaced with em dash (—).")]
 
+CHECK_PLAYSOUND_IMPROPER_CALL_IGNORE = ['code/modules/asset_cache/assets']
+
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
 SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')
 def check_playsound_improper_call(idx, line):
@@ -348,17 +345,24 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_HELPERS_FILE = "localization.dm"
+IGNORE_LOCALIZATION_HELPERS_DIR = os.path.join("code", "__HELPERS", "localization")
 MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
     if MACROED_PROCS.search(line):
         if 'UNLINT' not in line:
-            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
+            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization/")]
 
 CAPITALIZED_DECLENT_RU = re.compile(r'capitalize\(\w+\.declent_ru\(\w+\)\)|capitalize\(declent_ru_cap\((\w+)\)\)')
 def check_capitalized_declent_ru_usage(idx, line):
     if CAPITALIZED_DECLENT_RU.search(line):
-        return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
+        return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization/")]
+
+CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS = ['code/__DEFINES/', 'code/__HELPERS/', 'tools/']
+
+CHECK_MANUAL_VERB_RE = re.compile(r'\tset\s*(name|desc|category|hidden|popup_menu|instant)\s*=\s*(.*)\s')
+def check_manual_verb(idx, line):
+    if CHECK_MANUAL_VERB_RE.search(line):
+        return [(idx + 1, "Manual verb attribute detected. Use GAME_VERB() or ADMIN_VERB() instead.")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -390,7 +394,6 @@ CODE_CHECKS = [
     check_duplicate_spans,
     check_html_tags_case,
     check_dash_usage,
-    check_playsound_improper_call,
     check_apostrophe_name,
     check_rand_floating_point,
     check_bitwise_operator_order,
@@ -505,7 +508,11 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename != IGNORE_LOCALIZATION_HELPERS_FILE:
+        if not any(excluded in code_filepath for excluded in CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS):
+            extra_checks.append(check_manual_verb)
+        if not any(excluded in code_filepath for excluded in CHECK_PLAYSOUND_IMPROPER_CALL_IGNORE):
+            extra_checks.append(check_playsound_improper_call)
+        if os.path.dirname(code_filepath) != IGNORE_LOCALIZATION_HELPERS_DIR:
             extra_checks.append(check_localization_macro_usage)
             extra_checks.append(check_capitalized_declent_ru_usage)
 

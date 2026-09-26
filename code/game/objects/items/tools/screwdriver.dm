@@ -21,7 +21,7 @@
 	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
 	toolbox_radial_menu_compatibility = TRUE
 	greyscale_config = /datum/greyscale_config/screwdriver
@@ -43,7 +43,7 @@
 	)
 
 /obj/item/screwdriver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "отвёртка",
 		GENITIVE = "отвёртки",
 		DATIVE = "отвёртке",
@@ -93,7 +93,7 @@
 	greyscale_colors = null
 
 /obj/item/screwdriver/nuke/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ультратонкая отвёртка",
 		GENITIVE = "ультратонкой отвёртки",
 		DATIVE = "ультратонкой отвёртке",
@@ -120,7 +120,7 @@
 	greyscale_colors = null
 
 /obj/item/screwdriver/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная отвёртка",
 		GENITIVE = "латунной отвёртки",
 		DATIVE = "латунной отвёртке",
@@ -148,7 +148,7 @@
 	greyscale_colors = null
 
 /obj/item/screwdriver/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродная отвёртка",
 		GENITIVE = "чужеродной отвёртки",
 		DATIVE = "чужеродной отвёртке",
@@ -166,7 +166,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/screwdriver/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электрическая отвёртка",
 		GENITIVE = "электрической отвёртки",
 		DATIVE = "электрической отвёртке",
@@ -203,7 +203,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/screwdriver/power/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручная дрель",
 		GENITIVE = "ручной дрели",
 		DATIVE = "ручной дрели",
@@ -247,7 +247,7 @@
 	greyscale_colors = null
 
 /obj/item/screwdriver/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутая отвёртка",
 		GENITIVE = "продвинутой отвёртки",
 		DATIVE = "продвинутой отвёртке",

@@ -259,7 +259,7 @@
 						continue
 				// if is anchored, don't let through
 				if(ROI.anchored)
-					if(!istype(ROI, /obj/mecha))
+					if(!ismecha(ROI))
 						if(isliving(ROI))
 							var/mob/living/L = ROI
 							if(L.buckled)

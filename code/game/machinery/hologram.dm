@@ -46,7 +46,9 @@ GLOBAL_LIST_EMPTY(holopads)
 	max_integrity = 300
 	light_on = FALSE
 	light_range = 2
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 50, acid = 0)
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/list/masters //List of living mobs that use the holopad
 	var/list/holorays //Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn
@@ -389,7 +391,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 
-	if(istype(user, /mob/living/silicon/ai))
+	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.current)
 			return FALSE
@@ -543,6 +545,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	Impersonation = null
 	if(!QDELETED(HC))
 		HC.Disconnect(HC.calling_holopad)
+	HC = null
 	return ..()
 
 /obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)

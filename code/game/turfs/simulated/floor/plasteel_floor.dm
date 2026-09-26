@@ -14,12 +14,8 @@
 		dir = floor_regular_dir
 
 /turf/simulated/floor/plasteel/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/plasteel/pressure_debug
 
@@ -30,7 +26,7 @@
 	temperature = TCMB
 
 /turf/simulated/floor/plasteel/pressure_debug/Initialize(mapload)
-	..()
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(update_color)), 1, TIMER_LOOP)
 
 /turf/simulated/floor/plasteel/pressure_debug/proc/update_color()
@@ -69,15 +65,21 @@
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
 
+/turf/simulated/floor/plasteel/dark/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/plasteel/dark/nitrogen
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+	oxygen = 0
+
 /turf/simulated/floor/plasteel/dark/telecomms
 	nitrogen = 100
 	oxygen = 0
 	temperature = 80
 
 /turf/simulated/floor/plasteel/dark/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -96,9 +98,6 @@
 	icon_state = "stairs-old"
 
 /turf/simulated/floor/plasteel/stairs/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -106,9 +105,17 @@
 	icon_state = "grimy"
 
 /turf/simulated/floor/plasteel/grimy/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/plasteel/hight_cap
+	heat_capacity = 1e+006
+
+/turf/simulated/floor/plasteel/low_cap
+	heat_capacity = 1
+
+/turf/simulated/floor/plasteel/t0c
+	temperature = T0C
+
+/turf/simulated/floor/plasteel/cold
+	atmos_environment = ENVIRONMENT_COLD

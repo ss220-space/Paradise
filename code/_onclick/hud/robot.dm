@@ -1,5 +1,6 @@
 /atom/movable/screen/robot
 	icon = 'icons/mob/screen_robot.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/robot/module
 	name = "cyborg module"
@@ -200,6 +201,17 @@
 	using.screen_loc = ui_borg_lawmanager
 	static_inventory += using
 
+/datum/hud/robot/Destroy(force)
+	var/mob/living/silicon/robot/myrob = mymob
+	myrob.inv1 = null
+	myrob.hands = null
+	myrob.inv2 = null
+	myrob.inv3 = null
+	myrob.lamp_button = null
+	myrob.thruster_button = null
+
+	return ..()
+
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
 		return
@@ -250,7 +262,7 @@
 		if(!R.robot_modules_background)
 			return
 
-		var/display_rows = CEILING(length(R.module.modules) / 8, 1)
+		var/display_rows = ceil(length(R.module.modules) / 8)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
 		screenmob.client?.screen += R.robot_modules_background
 

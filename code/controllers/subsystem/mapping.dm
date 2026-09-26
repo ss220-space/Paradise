@@ -1,16 +1,18 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING // 7
+	dependencies = list(
+		/datum/controller/subsystem/jobs,
+		/datum/controller/subsystem/processing/station,
+	//	/datum/controller/subsystem/processing/reagents,
+	)
 	runlevels = ALL
-	ss_id = "mapping"
+
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
-	/// List of all areas that can be accessed via IC means
-	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
 	///What do we have as the lavaland theme today?
@@ -40,6 +42,9 @@ SUBSYSTEM_DEF(mapping)
 
 	/// Amount of reserved levels we created so far. Mostly we will have only one
 	var/num_of_res_levels = 0
+
+	/// list of lazy templates that have been loaded
+	var/list/loaded_lazy_templates
 
 	/// List of z level (as number) -> plane offset of that z level
 	/// Used to maintain the plane cube
@@ -74,6 +79,12 @@ SUBSYSTEM_DEF(mapping)
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
+	#ifdef FORCE_MAP
+	map_datum = text2path(FORCE_MAP)
+	if(map_datum)
+		map_datum = new map_datum
+	#endif
+
 	if(map_datum) // Dont do this again if we are recovering
 		return
 	if(fexists("data/next_map.txt"))
@@ -132,9 +143,10 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	environments = list()
-	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
-	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
-	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+
+	for(var/type in subtypesof(/datum/atmosphere))
+		var/datum/atmosphere/atmosphere = new type()
+		environments[atmosphere.id] = atmosphere.env_id
 
 	setupPlanes()
 	find_last_played_maps()
@@ -149,22 +161,29 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 	// Load the station
 	loadStation()
-
+	#ifndef SKIP_LAVALAND
 	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		loadLavaland()
+	#endif
+	#ifndef SKIP_TAIPAN
 	if(!CONFIG_GET(flag/disable_taipan) && !(map_datum.disables & DISABLE_TAIPAN))
 		loadTaipan()
+	#endif
+	#ifndef SKIP_AWAY_MISSION
 	// Pick a random away mission.
 	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
 		loadAwayLevel()
+	#endif
+	#ifndef SKIP_SPACE_LEVELS
 	// Seed space ruins
 	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
 		handleRuins()
+	#endif
 
 	var/empty_z_traits = list(REACHABLE)
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 	preloadTemplates(path = "_maps/map_files/tests/")
-	empty_z_traits |= GAME_TEST_LEVEL
+	empty_z_traits |= UNIT_TEST_LEVEL
 #endif
 
 	// Makes a blank space level for the sake of randomness
@@ -172,7 +191,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
-
+	#ifndef SKIP_LAVALAND
 	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
@@ -186,14 +205,13 @@ SUBSYSTEM_DEF(mapping)
 		run_map_terrain_population()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
-		if(time_spent >= 10)
+		// This number is already in seconds
+		if(time_spent >= 15)
 			log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
 			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
-			var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
-			for(var/get_player_attention in GLOB.player_list)
-				SEND_SOUND(get_player_attention, loud_annoying_alarm)
 	else
 		log_startup_progress("Skipping lavaland ruins...")
+	#endif
 
 	// Create transit/reserve area for shuttle to fly in and out
 	var/base_transit_z = add_reservation_zlevel()
@@ -205,18 +223,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_z_level_linkages(GLOB.space_manager.z_list)
 
 	// Now we make a list of areas for teleport locs
-	teleportlocs = list()
-	for(var/area/AR as anything in get_sorted_areas())
-		if(AR.no_teleportlocs)
-			continue
-		if(teleportlocs[AR.name])
-			continue
-		if(!AR.has_contained_turfs())
-			continue
-		if(is_station_level(AR.z))
-			teleportlocs[AR.name] = AR
-
-	teleportlocs = sortAssoc(teleportlocs)
+	process_teleport_locs()
 
 	ghostteleportlocs = list()
 	for(var/area/AR as anything in get_sorted_areas())
@@ -397,7 +404,7 @@ SUBSYSTEM_DEF(mapping)
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
-	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	GLOB.maploader.load_map(WRAP_FILE(map_datum.map_path), z_offset = map_z_level)
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
@@ -520,7 +527,7 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = TRUE
 			door.update_icon()
@@ -531,7 +538,7 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = FALSE
 			door.update_icon()
@@ -578,6 +585,7 @@ SUBSYSTEM_DEF(mapping)
 	z_reservation = null,
 	reservation_type = /datum/turf_reservation,
 	turf_type_override = null,
+	noisy = TRUE,
 )
 	UNTIL((!z_reservation || reservation_ready["[z_reservation]"]) && !clearing_reserved_turfs)
 	var/datum/turf_reservation/reserve = new reservation_type
@@ -589,7 +597,7 @@ SUBSYSTEM_DEF(mapping)
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
 		var/new_reserved_z = add_reservation_zlevel()
-		initialize_reserved_level(new_reserved_z)
+		initialize_reserved_level(new_reserved_z, noisy)
 		if(reserve.reserve(width, height, z_size, new_reserved_z))
 			return reserve
 	else
@@ -601,7 +609,7 @@ SUBSYSTEM_DEF(mapping)
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.
-/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z, noisy = TRUE)
 	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
 	if(!check_level_trait(z, RESERVED_LEVEL))
@@ -612,14 +620,14 @@ SUBSYSTEM_DEF(mapping)
 		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
 	)
 	for(var/turf/T as anything in reserved_block)
-		// No need to empty() these, because they just got created and are already /turf/open/space/basic.
+		// No need to empty() these, because they just got created and are already /turf/space/basic.
 		T.turf_flags = UNUSED_RESERVATION_TURF
 		T.blocks_air = TRUE
 		CHECK_TICK
 
 	// Gotta create these suckers if we've not done so already
 	if(SSatoms.initialized)
-		SSatoms.InitializeAtoms(Z_TURFS(z))
+		SSatoms.InitializeAtoms(Z_TURFS(z), noisy)
 
 	unused_turfs["[z]"] = reserved_block
 	reservation_ready["[z]"] = TRUE
@@ -708,11 +716,6 @@ SUBSYSTEM_DEF(mapping)
 	if(contain_turfs)
 		build_area_turfs(z_value, filled_with_space)
 
-	// And finally, misc global generation
-
-	// We'll have to update this if offsets change, because we load lowest z to highest z
-	generate_lighting_appearance_by_z(z_value)
-
 /datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
 	// If we know this is filled with default tiles, we can use the default area
 	// Faster
@@ -750,11 +753,6 @@ SUBSYSTEM_DEF(mapping)
 		z_level_to_lowest_plane_offset[level_to_update.zpos] = plane_offset
 		z_level_to_stack[level_to_update.zpos] = z_stack
 
-	// This can be affected by offsets, so we need to update it
-	// PAIN
-	for(var/i in 1 to length(GLOB.space_manager.z_list))
-		generate_lighting_appearance_by_z(i)
-
 	var/old_max = max_plane_offset
 	max_plane_offset = max(max_plane_offset, plane_offset)
 	if(max_plane_offset == old_max)
@@ -771,7 +769,8 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/generate_offset_lists(gen_from, new_offset)
 	create_plane_offsets(gen_from, new_offset)
 	for(var/offset in gen_from to new_offset)
-		GLOB.fullbright_overlays += create_fullbright_overlay(offset)
+		GLOB.starlight_objects += starlight_object(offset)
+		GLOB.starlight_overlays += starlight_overlay(offset)
 
 /datum/controller/subsystem/mapping/proc/create_plane_offsets(gen_from, new_offset)
 	for(var/plane_offset in gen_from to new_offset)
@@ -802,11 +801,6 @@ SUBSYSTEM_DEF(mapping)
 
 			true_to_offset_planes[string_real] |= offset_plane
 
-/datum/controller/subsystem/mapping/proc/generate_lighting_appearance_by_z(z_level)
-	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
-		GLOB.default_lighting_underlays_by_z.len = z_level
-	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level * 0.01, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
-
 /// Takes a turf or a z level, and returns a list of all the z levels that are connected to it
 /datum/controller/subsystem/mapping/proc/get_connected_levels(turf/connected)
 	var/z_level = connected
@@ -814,5 +808,36 @@ SUBSYSTEM_DEF(mapping)
 		z_level = connected.z
 	return z_level_to_stack[z_level]
 
+/datum/controller/subsystem/mapping/proc/lazy_load_template(template_key, force = FALSE)
+	RETURN_TYPE(/datum/turf_reservation)
+
+	UNTIL(initialized)
+	var/static/lazy_loading = FALSE
+	UNTIL(!lazy_loading)
+
+	lazy_loading = TRUE
+	. = _lazy_load_template(template_key, force)
+	lazy_loading = FALSE
+	return .
+
+/datum/controller/subsystem/mapping/proc/_lazy_load_template(template_key, force = FALSE)
+	PRIVATE_PROC(TRUE)
+
+	if(LAZYACCESS(loaded_lazy_templates, template_key)  && !force)
+		var/datum/lazy_template/template = GLOB.lazy_templates[template_key]
+		return template.reservations[1]
+	LAZYSET(loaded_lazy_templates, template_key, TRUE)
+
+	var/datum/lazy_template/target = GLOB.lazy_templates[template_key]
+	if(!target)
+		CRASH("Attempted to lazy load a template key that does not exist: '[template_key]'")
+	return target.lazy_load()
+
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	ss_flags |= SS_NO_INIT
+	loaded_lazy_templates = SSmapping.loaded_lazy_templates
+
+/// Returns true if the map we're playing on is on a planet
+/datum/controller/subsystem/mapping/proc/is_planetary()
+	return map_datum.planetary
+

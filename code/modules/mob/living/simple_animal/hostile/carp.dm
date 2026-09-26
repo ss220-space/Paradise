@@ -62,7 +62,7 @@
 		"silver" = "#fdfbf3"
 	)
 /mob/living/simple_animal/hostile/carp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космокарп",
 		GENITIVE = "космокарпа",
 		DATIVE = "космокарпу",
@@ -157,7 +157,7 @@
 	tts_seed = "Shaker"
 
 /mob/living/simple_animal/hostile/carp/megacarp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мегакосмокарп",
 		GENITIVE = "мегакосмокарпа",
 		DATIVE = "мегакосмокарпу",
@@ -201,7 +201,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/carp/sea/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морской карп",
 		GENITIVE = "морского карпа",
 		DATIVE = "морскому карпу",
@@ -221,8 +221,8 @@
 	name = "mutated Carp"
 	desc = "Космический карп со странной внешностью."
 	icon_state = "Mcarp"
-	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
+	random_color = FALSE
 
 	melee_damage_lower = 25
 	melee_damage_upper = 30
@@ -230,10 +230,10 @@
 	health = 150
 
 /mob/living/simple_animal/hostile/carp/mcarp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мутировавший карп",
-		GENITIVE = "мутирововшего карпа",
-		DATIVE = "мутирововшему карпу",
+		GENITIVE = "мутировавшего карпа",
+		DATIVE = "мутировавшему карпу",
 		ACCUSATIVE = "мутировавшего карпа",
 		INSTRUMENTAL = "мутировавшим карпом",
 		PREPOSITIONAL = "мутировавшем карпе",
@@ -260,7 +260,7 @@
 	random_color = FALSE
 
 /mob/living/simple_animal/hostile/carp/koi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический кои",
 		GENITIVE = "космического кои",
 		DATIVE = "космическому кои",

@@ -8,7 +8,7 @@
 	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/computer/shuttle/labor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления шаттлом каторги",
 		GENITIVE = "консоли управления шаттлом каторги",
 		DATIVE = "консоли управления шаттлом каторги",
@@ -25,7 +25,7 @@
 	req_access = list()
 
 /obj/machinery/computer/shuttle/labor/one_way/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления заключёнными каторги",
 		GENITIVE = "консоли управления заключёнными каторги",
 		DATIVE = "консоли управления заключёнными каторги",

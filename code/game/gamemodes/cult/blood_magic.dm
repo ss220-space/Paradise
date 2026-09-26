@@ -13,7 +13,7 @@
 
 /datum/action/innate/cult/blood_magic/proc/Positioning()
 	for(var/datum/hud/hud as anything in viewers)
-		var/our_view = hud.mymob?.canon_client?.view || "15x15"
+		var/our_view = hud.mymob?.canon_client?.view_size.getView()|| SQUARE_VIEWPORT_SIZE
 		var/atom/movable/screen/movable/action_button/button = viewers[hud]
 		var/position = screen_loc_to_offset(button.screen_loc)
 		var/list/position_list = list()
@@ -266,68 +266,48 @@
 	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
+
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
 	button_icon_state = "horror"
-	var/obj/effect/proc_holder/horror/PH
 	charges = 4
+	click_action = TRUE
+	enable_text = span_cultitalic_alt("You prepare to horrify a target...")
+	disable_text = span_cultitalic_alt("You dispel the magic...")
 
-/datum/action/innate/cult/blood_spell/horror/New()
-	PH = new()
-	PH.attached_action = src
-	..()
+/datum/action/innate/cult/blood_spell/horror/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/caller_turf = get_turf(clicker)
+	if(!isturf(caller_turf))
+		return FALSE
 
-/datum/action/innate/cult/blood_spell/horror/Destroy()
-	var/obj/effect/proc_holder/horror/destroy = PH
-	. = ..()
-	if(destroy  && !QDELETED(destroy))
-		QDEL_NULL(destroy)
+	if(!ishuman(clicked_on) || get_dist(clicker, clicked_on) > 7)
+		return FALSE
 
-/datum/action/innate/cult/blood_spell/horror/Activate()
-	PH.toggle(owner) //the important bit
+	var/mob/living/carbon/human/human_clicked = clicked_on
+	if(iscultist(human_clicked))
+		return FALSE
+
+	return ..()
+
+/datum/action/innate/cult/blood_spell/horror/do_ability(mob/living/clicker, mob/living/carbon/human/clicked_on)
+	clicked_on.Hallucinate(120 SECONDS)
+	SEND_SOUND(clicker, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
+
+
+	addtimer(CALLBACK(clicked_on, TYPE_PROC_REF(/atom/, remove_alt_appearance), "cult_apoc", TRUE), 4 MINUTES, TIMER_OVERRIDE|TIMER_UNIQUE)
+	to_chat(clicker, span_cult("[clicked_on] has been cursed with living nightmares!"))
+
+	charges--
+	desc = base_desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	build_all_button_icons()
+	SSblackbox.record_feedback("tally", "cult_spell_invoke", 1, "[name]")
+	if(charges <= 0)
+		to_chat(clicker, span_cult("You have exhausted the spell's power!"))
+		qdel(src)
+
 	return TRUE
-
-/obj/effect/proc_holder/horror
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
-	var/datum/action/innate/cult/blood_spell/attached_action
-
-/obj/effect/proc_holder/horror/Destroy()
-	var/datum/action/innate/cult/blood_spell/AA = attached_action
-	. = ..()
-	if(AA && !QDELETED(AA))
-		QDEL_NULL(AA)
-
-/obj/effect/proc_holder/horror/proc/toggle(mob/user)
-	if(active)
-		remove_ranged_ability(user, span_cult("You dispel the magic..."))
-	else
-		add_ranged_ability(user, span_cult("You prepare to horrify a target..."))
-
-/obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return FALSE
-	if(ranged_ability_user.incapacitated() || !iscultist(user))
-		user.ranged_ability.remove_ranged_ability(user)
-		return FALSE
-	var/turf/T = get_turf(ranged_ability_user)
-	if(!isturf(T))
-		return FALSE
-	if(target in view(7, ranged_ability_user))
-		if(!ishuman(target) || iscultist(target))
-			return FALSE
-		var/mob/living/carbon/human/H = target
-		H.Hallucinate(120 SECONDS)
-		attached_action.charges--
-		attached_action.desc = attached_action.base_desc
-		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
-		attached_action.UpdateButtonIcon()
-		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] has been cursed with living nightmares!</b>"))
-		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
-			qdel(src)
-			return TRUE
-	return FALSE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
@@ -378,6 +358,7 @@
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
+	abstract_type = /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
@@ -414,7 +395,7 @@
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
 			source.UpdateButtonIcon()
-	..()
+	return ..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
@@ -428,7 +409,7 @@
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
 
-/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -450,30 +431,29 @@
 	color = RUNE_COLOR_RED
 	invocation = "Фуу ма'джин!"
 
-/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(!isliving(target) || !proximity)
+/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
+	if(!isliving(target) || !proximity_flag)
 		return
 	var/mob/living/L = target
 
 	if(iscultist(target))
 		return
 
-	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
-							span_cultitalic("You attempt to stun [L] with the spell!"))
+	user.visible_message(
+		span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"),
+		span_cultitalic("You attempt to stun [L] with the spell!"),
+	)
 
-	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 
 	if(N)
-		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
-								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		target.visible_message(
+			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
+			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
+		)
 		uses--
-		return ..()
-
-	if(ismindshielded(L))
-		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
-								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
 		return ..()
 
 	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
@@ -503,11 +483,11 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Сас'со к'арта форбичи!"
 
-/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
-	if(!iscultist(target) || !proximity)
+	if(!iscultist(target) || !proximity_flag)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
 	for(var/R in GLOB.teleport_runes)
@@ -553,7 +533,7 @@
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
+	else if(!is_station_level(user.z) || isspacearea(get_area(user)))
 		actual_selected_rune.handle_portal("space", origin)
 
 	if(user == teleporting_mob)
@@ -574,8 +554,8 @@
 	invocation = "Ин'тотум Лиг'абис!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(iscarbon(target) && proximity)
+/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(iscarbon(target) && proximity_flag)
 		var/mob/living/carbon/C = target
 		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
@@ -629,7 +609,7 @@
 	. += span_notice("<u>A sinister spell used to convert:</u> Plasteel into runed metal [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\
 						Airlocks into brittle runed airlocks after a delay (harm intent)")
 
-/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag)
 		if(channeling)
 			to_chat(user, span_cultitalic("You are already invoking twisted construction!"))
@@ -684,8 +664,8 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(iscarbon(target) && proximity)
+/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(iscarbon(target) && proximity_flag)
 		uses--
 		var/mob/living/carbon/C = target
 		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_CLOTH_OUTER)
@@ -707,7 +687,7 @@
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
-/obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag)
 
 		// Shielded suit
@@ -753,8 +733,8 @@
 	. += span_cultitalic("You have collected [uses] charge\s of blood.")
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity, params)
-	if(proximity)
+/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 
@@ -893,10 +873,11 @@
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
 			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime) || istype(B, /obj/effect/decal/cleanable/blood/drask)))
-				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
+				var/bloodiness = B.bloodiness
+				if(bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else
-					temp += max((B.bloodiness ** 2) / 800, 1)
+					temp += max(POW2(bloodiness) / 800, 1)
 				new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(B))
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))

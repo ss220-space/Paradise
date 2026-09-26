@@ -1,8 +1,8 @@
 use crate::milla::constants::*;
 use atomic_float::AtomicF32;
 use bitflags::bitflags;
-use byondapi::map::{byond_locatexyz, ByondXYZ};
-use byondapi::prelude::*;
+use meowtonin::ToByond;
+use meowtonin::{misc::locate_xyz, ByondError, ByondResult, ByondValue, ByondXYZ};
 use std::collections::HashSet;
 use std::ops::Add;
 use std::sync::{atomic::AtomicBool, atomic::Ordering::Relaxed, RwLock};
@@ -80,6 +80,97 @@ impl GasSet {
     }
     pub(crate) fn set_water_vapor(&mut self, value: f32) {
         self.values[GAS_WATER_VAPOR] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn tritium(&self) -> f32 {
+        self.values[GAS_TRITIUM]
+    }
+    pub(crate) fn set_tritium(&mut self, value: f32) {
+        self.values[GAS_TRITIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn bz(&self) -> f32 {
+        self.values[GAS_BZ]
+    }
+    pub(crate) fn set_bz(&mut self, value: f32) {
+        self.values[GAS_BZ] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn pluoxium(&self) -> f32 {
+        self.values[GAS_PLUOXIUM]
+    }
+    pub(crate) fn set_pluoxium(&mut self, value: f32) {
+        self.values[GAS_PLUOXIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn miasma(&self) -> f32 {
+        self.values[GAS_MIASMA]
+    }
+    pub(crate) fn set_miasma(&mut self, value: f32) {
+        self.values[GAS_MIASMA] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn freon(&self) -> f32 {
+        self.values[GAS_FREON]
+    }
+    pub(crate) fn set_freon(&mut self, value: f32) {
+        self.values[GAS_FREON] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn nitrium(&self) -> f32 {
+        self.values[GAS_NITRIUM]
+    }
+    pub(crate) fn set_nitrium(&mut self, value: f32) {
+        self.values[GAS_NITRIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn healium(&self) -> f32 {
+        self.values[GAS_HEALIUM]
+    }
+    pub(crate) fn set_healium(&mut self, value: f32) {
+        self.values[GAS_HEALIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn proto_nitrate(&self) -> f32 {
+        self.values[GAS_PROTO_NITRATE]
+    }
+    pub(crate) fn set_proto_nitrate(&mut self, value: f32) {
+        self.values[GAS_PROTO_NITRATE] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn zauker(&self) -> f32 {
+        self.values[GAS_ZAUKER]
+    }
+    pub(crate) fn set_zauker(&mut self, value: f32) {
+        self.values[GAS_ZAUKER] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn halon(&self) -> f32 {
+        self.values[GAS_HALON]
+    }
+    pub(crate) fn set_halon(&mut self, value: f32) {
+        self.values[GAS_HALON] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn helium(&self) -> f32 {
+        self.values[GAS_HELIUM]
+    }
+    pub(crate) fn set_helium(&mut self, value: f32) {
+        self.values[GAS_HELIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn antinoblium(&self) -> f32 {
+        self.values[GAS_ANTINOBLIUM]
+    }
+    pub(crate) fn set_antinoblium(&mut self, value: f32) {
+        self.values[GAS_ANTINOBLIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn hypernoblium(&self) -> f32 {
+        self.values[GAS_HYPER_NOBLIUM]
+    }
+    pub(crate) fn set_hypernoblium(&mut self, value: f32) {
+        self.values[GAS_HYPER_NOBLIUM] = value;
         self.dirty.store(true, Relaxed);
     }
     pub(crate) fn set_dirty(&mut self) {
@@ -171,14 +262,15 @@ pub(crate) enum AtmosMode {
     NoDecay,
 }
 
-impl From<AtmosMode> for ByondValue {
-    fn from(value: AtmosMode) -> Self {
-        match value {
-            AtmosMode::Space => ByondValue::from(0.0),
-            AtmosMode::Sealed => ByondValue::from(1.0),
-            AtmosMode::ExposedTo { .. } => ByondValue::from(2.0),
-            AtmosMode::NoDecay => ByondValue::from(3.0),
-        }
+impl TryFrom<AtmosMode> for ByondValue {
+    type Error = ByondError;
+    fn try_from(value: AtmosMode) -> ByondResult<Self> {
+        Ok(match value {
+            AtmosMode::Space => (0.0).to_byond()?,
+            AtmosMode::Sealed => (1.0).to_byond()?,
+            AtmosMode::ExposedTo { .. } => (2.0).to_byond()?,
+            AtmosMode::NoDecay => (3.0).to_byond()?,
+        })
     }
 }
 
@@ -220,32 +312,34 @@ bitflags! {
 }
 
 /// A single tile in the atmos model.
-#[repr(align(64))]
 #[derive(Debug, Clone)]
 pub(crate) struct Tile {
-    /// Which directions this tile cannot transmit gases in.
-    pub(crate) airtight_directions: AirtightDirections,
     /// The gases this tile holds.
     pub(crate) gases: GasSet,
-    /// How much thermal energy this tile has, in joules.
-    pub(crate) thermal_energy: f32,
-    /// The general behavior of this tile.
-    pub(crate) mode: AtmosMode,
     /// How well this tile conducts heat in each direction
     pub(crate) superconductivity: Superconductivity,
+    /// How much thermal energy this tile has, in joules.
+    pub(crate) thermal_energy: f32,
+    /// How strongly the air in this tile is flowing towards +axis.
+    pub(crate) wind: [f32; AXES.len()],
     /// How much heat capacity the tile itself has, in joules per kelvin.
     pub(crate) innate_heat_capacity: f32,
     /// How hot the tile's hotspot is. A hotspot is a sub-tile reagion that's caught fire.
     pub(crate) hotspot_temperature: f32,
     /// How much of the tile the hotspot covers. 1.0 would be the entire tile.
     pub(crate) hotspot_volume: f32,
-    /// How strongly the air in this tile is flowing towards +axis.
-    pub(crate) wind: [f32; AXES.len()],
-    /// Is there a wall in this direction?
-    pub(crate) wall: [bool; AXES.len()],
-    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
+    /// The general behavior of this tile.
+    pub(crate) mode: AtmosMode,
+    /// Which directions this tile cannot transmit gases in.
+    pub(crate) airtight_directions: AirtightDirections,
+    /// Is there a wall in this direction?
+    pub(crate) wall: [bool; AXES.len()],
+    pub(crate) updates: ReasonFlags,
+    pub(crate) radiation_energy: f32,
+    pub(crate) hallucination_strength: f32,
+    pub(crate) nuclear_particles: f32,
 }
 
 impl Tile {
@@ -261,8 +355,11 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
-            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
+            updates: ReasonFlags::NONE,
+            radiation_energy: 0.0,
+            hallucination_strength: 0.0,
+            nuclear_particles: 0.0,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
@@ -319,10 +416,6 @@ impl Tile {
         for axis in 0..AXES.len() {
             self.wind[axis] = other.wind[axis];
             self.wall[axis] = other.wall[axis];
-            for gas in 0..GAS_COUNT {
-                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
-                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
-            }
         }
         self.fuel_burnt = other.fuel_burnt;
     }
@@ -330,8 +423,9 @@ impl Tile {
 
 /// Converts a tile into BYOND values.
 /// Must match the order in code/__DEFINES/milla.dm
-impl From<&Tile> for Vec<ByondValue> {
-    fn from(value: &Tile) -> Self {
+impl TryFrom<&Tile> for Vec<ByondValue> {
+    type Error = ByondError;
+    fn try_from(value: &Tile) -> ByondResult<Self> {
         let mut environment_id: u8 = 0;
         if let AtmosMode::ExposedTo {
             environment_id: env,
@@ -339,45 +433,64 @@ impl From<&Tile> for Vec<ByondValue> {
         {
             environment_id = env;
         }
-        vec![
-            ByondValue::from(value.airtight_directions.bits() as f32),
-            ByondValue::from(value.gases.oxygen()),
-            ByondValue::from(value.gases.carbon_dioxide()),
-            ByondValue::from(value.gases.nitrogen()),
-            ByondValue::from(value.gases.toxins()),
-            ByondValue::from(value.gases.sleeping_agent()),
-            ByondValue::from(value.gases.agent_b()),
-            ByondValue::from(value.gases.hydrogen()),
-            ByondValue::from(value.gases.water_vapor()),
-            ByondValue::from(value.mode),
-            ByondValue::from(environment_id as f32),
-            ByondValue::from(value.superconductivity.north),
-            ByondValue::from(value.superconductivity.east),
-            ByondValue::from(value.superconductivity.south),
-            ByondValue::from(value.superconductivity.west),
-            ByondValue::from(value.innate_heat_capacity),
-            ByondValue::from(value.temperature()),
-            ByondValue::from(value.hotspot_temperature),
-            ByondValue::from(value.hotspot_volume),
-            ByondValue::from(value.wind[AXIS_X]),
-            ByondValue::from(value.wind[AXIS_Y]),
-            ByondValue::from(value.fuel_burnt),
-        ]
+        Ok(vec![
+            value.airtight_directions.bits().to_byond()?,
+            value.gases.oxygen().to_byond()?,
+            value.gases.carbon_dioxide().to_byond()?,
+            value.gases.nitrogen().to_byond()?,
+            value.gases.toxins().to_byond()?,
+            value.gases.sleeping_agent().to_byond()?,
+            value.gases.agent_b().to_byond()?,
+            value.gases.hydrogen().to_byond()?,
+            value.gases.water_vapor().to_byond()?,
+            value.gases.tritium().to_byond()?,
+            value.gases.bz().to_byond()?,
+            value.gases.pluoxium().to_byond()?,
+            value.gases.miasma().to_byond()?,
+            value.gases.freon().to_byond()?,
+            value.gases.nitrium().to_byond()?,
+            value.gases.healium().to_byond()?,
+            value.gases.proto_nitrate().to_byond()?,
+            value.gases.zauker().to_byond()?,
+            value.gases.halon().to_byond()?,
+            value.gases.helium().to_byond()?,
+            value.gases.antinoblium().to_byond()?,
+            value.gases.hypernoblium().to_byond()?,
+            value.mode.try_into()?,
+            environment_id.to_byond()?,
+            value.superconductivity.north.to_byond()?,
+            value.superconductivity.east.to_byond()?,
+            value.superconductivity.south.to_byond()?,
+            value.superconductivity.west.to_byond()?,
+            value.innate_heat_capacity.to_byond()?,
+            value.temperature().to_byond()?,
+            value.hotspot_temperature.to_byond()?,
+            value.hotspot_volume.to_byond()?,
+            value.wind[AXIS_X].to_byond()?,
+            value.wind[AXIS_Y].to_byond()?,
+            value.fuel_burnt.to_byond()?,
+        ])
     }
 }
 
 bitflags! {
     #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub(crate) struct ReasonFlags: u8 {
+    pub(crate) struct ReasonFlags: u16 {
+        const NONE = 0;
         const DISPLAY = 1 << 0;
         const HOT = 1 << 1;
         const WIND = 1 << 2;
         const CONDENSATION = 1 << 3;
+        const RADIATION_PULSE = 1 << 4;
+        const CREATE_HOT_ICE = 1 << 5;
+        const CREATE_RESIN = 1 << 6;
+        const HALLUCINATION = 1 << 7;
+        const NUCLEAR_PARTICLES = 1 << 8;
     }
 }
 
 /// A tile that we consider interesting for some reason.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub(crate) struct InterestingTile {
     /// The tile itself.
     pub(crate) tile: Tile,
@@ -400,17 +513,21 @@ pub(crate) struct InterestingTile {
 /// and datums isn't possible.
 ///
 /// Must match the order in code/__DEFINES/milla.dm
-impl From<&InterestingTile> for Vec<ByondValue> {
-    fn from(value: &InterestingTile) -> Self {
-        let mut ret: Vec<ByondValue> = (&value.tile).into();
+impl TryFrom<&InterestingTile> for Vec<ByondValue> {
+    type Error = ByondError;
+    fn try_from(value: &InterestingTile) -> ByondResult<Self> {
+        let mut ret: Vec<ByondValue> = (&value.tile).try_into()?;
         ret.extend(vec![
-            byond_locatexyz(value.coords).unwrap(),
-            ByondValue::from(value.reasons.bits() as f32),
-            ByondValue::from(value.wind_x),
-            ByondValue::from(value.wind_y),
+            locate_xyz(value.coords).unwrap(),
+            value.reasons.bits().to_byond()?,
+            value.wind_x.to_byond()?,
+            value.wind_y.to_byond()?,
+            value.tile.radiation_energy.to_byond()?,
+            value.tile.hallucination_strength.to_byond()?,
+            value.tile.nuclear_particles.to_byond()?,
         ]);
 
-        ret
+        Ok(ret)
     }
 }
 
@@ -560,6 +677,17 @@ impl Buffers {
         tile.gases.recalculate();
         environments.push(tile);
         id
+    }
+
+    pub(crate) fn clear_and_free_z_levels(&self) {
+        let mut active = self.buffer_a.write().unwrap();
+        let mut inactive = self.buffer_b.write().unwrap();
+
+        active.0.clear();
+        inactive.0.clear();
+
+        active.0.shrink_to_fit();
+        inactive.0.shrink_to_fit();
     }
 }
 

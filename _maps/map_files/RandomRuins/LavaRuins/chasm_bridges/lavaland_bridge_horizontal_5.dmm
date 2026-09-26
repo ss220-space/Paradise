@@ -8,12 +8,7 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "C" = (
-/turf/simulated/floor/wood/cold{
-	baseturf = /turf/simulated/floor/lava/lava_land_surface;
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 
 (1,1,1) = {"

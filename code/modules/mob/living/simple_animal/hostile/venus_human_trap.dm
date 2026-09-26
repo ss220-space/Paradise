@@ -12,13 +12,13 @@
 	var/growth_time = 120 SECONDS
 	var/list/vines = list()
 
-/obj/structure/alien/resin/flower_bud_enemy/New()
-	..()
+/obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
+	. = ..()
 	var/list/anchors = list()
-	anchors += locate(x-2,y+2,z)
-	anchors += locate(x+2,y+2,z)
-	anchors += locate(x-2,y-2,z)
-	anchors += locate(x+2,y-2,z)
+	anchors += locate(x - 2, y + 2, z)
+	anchors += locate(x + 2, y + 2, z)
+	anchors += locate(x - 2, y - 2, z)
+	anchors += locate(x + 2, y - 2, z)
 
 	for(var/turf/T in anchors)
 		vines += Beam(T, "vine", maxdistance = 5, beam_type = /obj/effect/ebeam/reacting/vine)

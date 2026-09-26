@@ -30,7 +30,7 @@
 	tts_seed = "Antimage"
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "базилиск",
 		GENITIVE = "базилиска",
 		DATIVE = "базилиску",
@@ -38,11 +38,6 @@
 		INSTRUMENTAL = "базилиском",
 		PREPOSITIONAL = "базилиске",
 	)
-
-/obj/projectile/temp/basilisk
-	name = "freezing blast"
-	icon_state = "ice_2"
-	temperature = 50
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
@@ -80,7 +75,7 @@
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наблюдатель",
 		GENITIVE = "наблюдателя",
 		DATIVE = "наблюдателю",
@@ -111,7 +106,7 @@
 	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмовый наблюдатель",
 		GENITIVE = "магмового наблюдателя",
 		DATIVE = "магмовому наблюдателю",
@@ -136,7 +131,7 @@
 	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ледяной наблюдатель",
 		GENITIVE = "ледяного наблюдателя",
 		DATIVE = "ледяному наблюдателю",
@@ -162,69 +157,3 @@
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril
 	fromtendril = TRUE
-
-/obj/projectile/watcher
-	name = "stunning blast"
-	icon_state = "temp_0"
-	damage_type = BURN
-	speed = 0.8
-
-/obj/projectile/watcher/get_ru_names()
-	return list(
-		NOMINATIVE = "оглушающий выброс",
-		GENITIVE = "оглушающего выброса",
-		DATIVE = "оглушающему выбросу",
-		ACCUSATIVE = "оглушающий выброс",
-		INSTRUMENTAL = "оглушающим выбросом",
-		PREPOSITIONAL = "оглушающем выбросе",
-	)
-
-/obj/projectile/watcher/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(.)
-		var/mob/living/L = target
-		if(istype(L) && !isrobot(L))
-			L.AdjustWeakened(1 SECONDS)
-			L.Slowed(3 SECONDS)
-			L.Confused(3 SECONDS)
-
-/obj/projectile/temp/basilisk/magmawing
-	name = "scorching blast"
-	icon_state = "lava"
-	damage = 5
-	nodamage = FALSE
-	temperature = 700 //Heats you up!
-	speed = 0.6
-
-/obj/projectile/temp/basilisk/magmawing/get_ru_names()
-	return list(
-		NOMINATIVE = "опаляющий выброс",
-		GENITIVE = "опаляющего выброса",
-		DATIVE = "опаляющему выбросу",
-		ACCUSATIVE = "опаляющий выброс",
-		INSTRUMENTAL = "опаляющим выбросом",
-		PREPOSITIONAL = "опаляющем выбросе",
-	)
-
-/obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(.)
-		var/mob/living/L = target
-		if(istype(L))
-			L.adjust_fire_stacks(3)
-			L.IgniteMob()
-			if(L.getFireLoss() > 50)
-				explosion(L.loc, adminlog = FALSE, flame_range = 3)
-				L.AdjustWeakened(1 SECONDS)
-
-/obj/projectile/temp/basilisk/icewing
-	damage = 5
-	nodamage = FALSE
-	speed = 0.6
-
-/obj/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(.)
-		var/mob/living/L = target
-		if(istype(L))
-			L.apply_status_effect(/datum/status_effect/freon/watcher)

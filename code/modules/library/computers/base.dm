@@ -14,7 +14,7 @@
 	var/datum/library_query/query = new()
 
 /obj/machinery/computer/library/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гостевой компьютер",
 		GENITIVE = "гостевого компьютера",
 		DATIVE = "гостевому компьютеру",

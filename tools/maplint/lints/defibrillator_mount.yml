@@ -1,0 +1,13 @@
+help: 'Use the specific directional subtypes for this defibrillator mount.'
+/obj/machinery/defibrillator_mount:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+
+# directional
+
+=/obj/machinery/defibrillator_mount/directional:
+  banned: TRUE
+=/obj/machinery/defibrillator_mount/loaded/directional:
+  banned: TRUE

@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL=2000, MAT_GLASS=2000, MAT_BLUESPACE=400)
 	origin_tech = "bluespace=4;biotech=5"
 	/// Tank with ready reagents.
-	var/obj/item/reagent_containers/glass/beaker/large/ready_reagents = new
+	var/obj/item/reagent_containers/cup/beaker/large/ready_reagents = new
 	/// A list synthesized reagents.
 	var/list/synth_reagents = list()
 	/// The amount of substance synthesized in a cycle.
@@ -24,7 +24,7 @@
 	var/obj/item/assembly/signaler/core/vortex/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный шприцемёт", \
 		GENITIVE = "экспериментального шприцемёта", \
 		DATIVE = "экспериментальному шприцемёту", \
@@ -41,7 +41,7 @@
 	STOP_PROCESSING(SSobj, src)
 	core?.forceMove(get_turf(src))
 	core = null
-	QDEL_LAZYLIST(synth_reagents)
+	QDEL_LIST(synth_reagents)
 	qdel(ready_reagents)
 	return ..()
 
@@ -85,12 +85,12 @@
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(item))
+	if(iscup(item))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
 
-		var/obj/item/reagent_containers/glass/RC = item
+		var/obj/item/reagent_containers/cup/RC = item
 		if(!RC.reagents.reagent_list)
 			return  ..()
 
@@ -144,11 +144,11 @@
 	for(var/obj/item/reagent_containers/syringe/slime in syringes)
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
-/obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
-	if(!isglassreagentcontainer(target))
+/obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!iscup(target))
 		return ..()
 
-	var/obj/item/reagent_containers/glass/G = target
+	var/obj/item/reagent_containers/cup/G = target
 	ready_reagents.reagents.trans_to(G, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/examine(mob/user)

@@ -22,7 +22,7 @@
 	/// ID for TGUI data
 	var/id = "standard"
 
-	var/list/ru_names = list(
+	var/alist/ru_names = alist(
 		NOMINATIVE = "капсула снабжения",
 		GENITIVE = "капсулы снабжения",
 		DATIVE = "капсуле снабжения",
@@ -38,7 +38,7 @@
 	decal_icon = "bluespace"
 	glow_color = "blue"
 	id = "bluespace"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "блюспейс капсула снабжения",
 		GENITIVE = "блюспейс капсулы снабжения",
 		DATIVE = "блюспейс капсуле снабжения",
@@ -54,7 +54,7 @@
 	decal_icon = "centcom"
 	glow_color = "blue"
 	id = "centcom"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "капсула снабжения Центрального командования",
 		GENITIVE = "капсулы снабжения Центрального командования",
 		DATIVE = "капсуле снабжения Центрального командования",
@@ -70,7 +70,7 @@
 	icon_state = "darkpod"
 	decal_icon = "contractor"
 	id = "contractor"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "капсула снабжения контрактника",
 		GENITIVE = "капсулы снабжения контрактника",
 		DATIVE = "капсуле снабжения контрактника",
@@ -87,7 +87,7 @@
 	decal_icon = "syndicate"
 	glow_color = "red"
 	id = "syndicate"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -104,7 +104,7 @@
 	decal_icon = "deathsquad"
 	glow_color = "blue"
 	id = "deathsquad"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "капсула Отряда Смерти",
 		GENITIVE = "капсулы Отряда Смерти",
 		DATIVE = "капсуле Отряда Смерти",
@@ -120,7 +120,7 @@
 	decal_icon = "cultist"
 	glow_color = "red"
 	id = "cultist"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "кровавая капсула снабжения",
 		GENITIVE = "кровавой капсулы снабжения",
 		DATIVE = "кровавой капсуле снабжения",
@@ -140,7 +140,7 @@
 	glow_color = null
 	rubble_type = RUBBLE_THIN
 	id = "missile"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -155,7 +155,7 @@
 	desc = "Огромная кроваво-красная ракета, которая, похоже, не взорвалась полностью. Вероятно, она была запущена из какой-то ракетной шахты \"Синдиката\" в дальнем космосе. Судя по всему, сбоку имеется люк для вспомогательной полезной нагрузки, хотя открыть его вручную, скорее всего, невозможно."
 	icon_state = "smissile"
 	id = "syndie_missile"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "крылатая ракета \"Синдиката\"",
 		GENITIVE = "крылатой ракеты \"Синдиката\"",
 		DATIVE = "крылатой ракете \"Синдиката\"",
@@ -174,7 +174,7 @@
 	glow_color = null
 	rubble_type = RUBBLE_WIDE
 	id = "supply_box"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "ящик с припасами Aussec",
 		GENITIVE = "ящика с припасами Aussec",
 		DATIVE = "ящику с припасами Aussec",
@@ -191,7 +191,7 @@
 	decal_icon = "clown"
 	glow_color = "green"
 	id = "clown"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "ХОНК капсула",
 		GENITIVE = "ХОНК капсулы",
 		DATIVE = "ХОНК капсуле",
@@ -210,7 +210,7 @@
 	glow_color = null
 	rubble_type = RUBBLE_WIDE
 	id = "orange"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "апельсин",
 		GENITIVE = "апельсина",
 		DATIVE = "апельсину",
@@ -230,7 +230,7 @@
 	glow_color = null
 	rubble_type = RUBBLE_NONE
 	id = "invisible"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "капсула S.T.E.A.L.T.H. MKVII",
 		GENITIVE = "капсулы S.T.E.A.L.T.H. MKVII",
 		DATIVE = "капсуле S.T.E.A.L.T.H. MKVII",
@@ -250,7 +250,7 @@
 	glow_color = null
 	rubble_type = RUBBLE_NONE
 	id = "gondola"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "гандола",
 		GENITIVE = "гандолы",
 		DATIVE = "гандоле",

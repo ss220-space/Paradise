@@ -1,5 +1,5 @@
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type Voice = {
@@ -31,13 +31,13 @@ export const Mimicking = (props: unknown) => {
                   <>
                     <Button
                       selected={voice.selected}
-                      onClick={() => act('Choose', { 'id': voice.id })}
+                      onClick={() => act('Choose', { id: voice.id })}
                     >
                       Choose
                     </Button>
                     <Button
                       color="bad"
-                      onClick={() => act('Delete', { 'id': voice.id })}
+                      onClick={() => act('Delete', { id: voice.id })}
                     >
                       Delete
                     </Button>

@@ -120,10 +120,9 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/microscope/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(usr == over_object)
-		remove_sample(usr)
-		return FALSE
-	return ..()
+	if(user != over_object)
+		return
+	remove_sample(user)
 
 /obj/machinery/microscope/update_icon_state()
 	icon_state = "microscope"

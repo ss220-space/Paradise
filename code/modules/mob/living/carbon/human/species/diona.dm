@@ -40,7 +40,7 @@
 	skinned_type = /obj/item/stack/sheet/wood
 
 	blood_species = "Diona"
-	blood_color = "#004400"
+	blood_color = BLOOD_COLOR_DIONA
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
@@ -88,8 +88,14 @@
 		JOB_MIN_AGE_COMMAND = 26,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/mech_drive = 0,
+		/datum/skill/service/botany = 5,
+		/datum/skill/research/robotics = 0,
+	)
+
 /datum/species/diona/can_understand(mob/other)
-	if(istype(other, /mob/living/simple_animal/diona))
+	if(isnymph(other))
 		return TRUE
 
 	return FALSE
@@ -97,11 +103,9 @@
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.gender = NEUTER
-	add_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_creak)
 	H.clear_alert("nolight")
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)

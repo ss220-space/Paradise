@@ -1,3 +1,8 @@
+#define DEFIB_NO_SHOCK 0
+#define DEFIB_SHOCK_FAILED 1
+#define DEFIB_SHOCK_SUCCESS 2
+#define DEFIB_DAMAGE 40
+#define DEFIB_COMBAT_DAMAGE 70
 /**
  * A component for an item that attempts to defibrillate a mob when activated.
  */
@@ -6,6 +11,8 @@
 	var/robotic
 	/// If it should penetrate space suits
 	var/ignore_hardsuits
+	/// Chance to cause cardiac arrest when used in Harm mode with safety protocols disabled.
+	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
 	/// If the defib is actively performing a defib cycle
@@ -31,12 +38,13 @@
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
  * * ignore_hardsuits - If true, the defib can zap through hardsuits.
+ * * heart_attack_chance - If safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null, heart_attack_chance = 0)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -44,6 +52,7 @@
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
 	src.ignore_hardsuits = ignore_hardsuits
+	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
 	src.emag_proof = emag_proof
@@ -75,11 +84,11 @@
 	if(safety)
 		safety = FALSE
 		playsound(get_turf(unit), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
-		unit.atom_say("Протоколы безопасности деактивированы!")
+		unit.atom_say("Протоколы безопасности деактивированы!", FALSE)
 	else
 		safety = TRUE
 		playsound(get_turf(unit), 'sound/machines/defib_saftyon.ogg', 50, FALSE)
-		unit.atom_say("Протоколы безопасности активированы!")
+		unit.atom_say("Протоколы безопасности активированы!", FALSE)
 
 /datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
@@ -114,10 +123,12 @@
 /datum/component/defib/proc/defibrillate(mob/living/user, mob/living/carbon/human/target)
 	// Before we do all the hard work, make sure we aren't already defibbing someone
 	if(busy)
-		return
+		return DEFIB_NO_SHOCK
 
 	var/parent_unit = locateUID(actual_unit_uid)
 	var/should_cause_harm = user.a_intent == INTENT_HARM && !safety
+	var/should_cause_disarm = user.a_intent == INTENT_DISARM && !safety
+	var/is_offensive = should_cause_harm || should_cause_disarm
 
 	// Find what the defib should be referring to itself as
 	var/atom/defib_ref
@@ -129,36 +140,54 @@
 		defib_ref = parent
 
 	// check what the unit itself has to say about how the defib went
-	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
+	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, is_offensive)
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Недостаточно энергии!")
-		return
+		defib_ref.atom_say("Недостаточно энергии!", FALSE)
+		return DEFIB_NO_SHOCK
 
 	if(on_cooldown)
 		user.balloon_alert(user, "заряд не готов!")
-		return
+		return DEFIB_NO_SHOCK
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
-		return  // the unit should handle this
+		return DEFIB_NO_SHOCK
 
 	if(!istype(target))
 		user.balloon_alert(user, "неподходящая цель!")
-		return
+		return DEFIB_NO_SHOCK
+
+	busy = TRUE
+	var/result = DEFIB_NO_SHOCK
 
 	if(should_cause_harm)
-		combat_fibrillate(user, target)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
-		busy = FALSE
-		return
+		result = combat_fibrillate(user, target, defib_ref)
+	else if(should_cause_disarm)
+		result = disarm_fibrillate(user, target, defib_ref)
+	else
+		result = medical_fibrillate(user, target, defib_ref)
 
+	busy = FALSE
+
+	if(result != DEFIB_NO_SHOCK)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, is_offensive, result == DEFIB_SHOCK_SUCCESS)
+
+	return result
+
+/**
+ * Standard medical defibrillation flow.
+ *
+ * Arguments:
+ * * user - wielder of the defib
+ * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
+ */
+/datum/component/defib/proc/medical_fibrillate(mob/living/user, mob/living/carbon/human/target, atom/defib_ref)
 	user.visible_message(
 		span_warning("[user] начина[PLUR_ET_YUT(user)] размещать электроды дефибриллятора на груди [target.name]."),
 		span_warning("Вы начинаете размещать электроды дефибриллятора на груди [target.name]."),
 	)
-
-	busy = TRUE
 	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
 	if(ghost?.can_reenter_corpse)
 		to_chat(ghost, span_ghostalert("Ваше сердце пытаются дефибриллировать. Вернитесь в своё тело, если хотите быть оживлены!"))
@@ -166,8 +195,7 @@
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
-		busy = FALSE
-		return
+		return DEFIB_NO_SHOCK
 
 	user.visible_message(
 		span_notice("[user] разместил[GEND_A_O_I(user)] электроды дефибриллятора на груди [target.name]."),
@@ -180,44 +208,45 @@
 		QDEL_NULL(ghost)
 
 	if(!do_after(user, 2 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
-		busy = FALSE
-		return
+		return DEFIB_NO_SHOCK
 
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !ignore_hardsuits)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Грудь пациента закрыта. Операция отменена.")
-		busy = FALSE
-		return
+		defib_ref.atom_say("Грудь пациента закрыта. Операция отменена.", FALSE)
+		return DEFIB_NO_SHOCK
 
+	// --- CARDIAC ARREST PATH ---
 	if(target.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = target.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!heart || heart.is_dead())
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-			busy = FALSE
-		if(!heart)
-			defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!")
-		else if(heart.is_dead())
-			defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!")
+			if(!heart)
+				defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!", FALSE)
+			else
+				defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!", FALSE)
+			return DEFIB_NO_SHOCK
 
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		set_cooldown(cooldown)
-		defib_ref.atom_say("Сердечная аритмия устранена!")
-		target.visible_message(span_warning("Тело [target] слегка вздрагивает."), span_userdanger("Вы чувствуете мощный удар током, после которого ритм вашего сердца приходит в норму."))
+		defib_ref.atom_say("Сердечная аритмия устранена!", FALSE)
+		target.visible_message(
+			span_warning("Тело [target] слегка вздрагивает."),
+			span_userdanger("Вы чувствуете мощный удар током, после которого ритм вашего сердца приходит в норму.")
+		)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 		playsound(get_turf(defib_ref), SFX_BODYFALL, 50, TRUE)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, FALSE)
 		target.shock_internal_organs(100)
-		busy = FALSE
-		return
+		return DEFIB_SHOCK_SUCCESS
 
+	// --- NOT DEAD CHECK ---
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Пациент не подлежит реанимации. Операция отменена.")
-		busy = FALSE
-		return
+		defib_ref.atom_say("Пациент не подлежит реанимации. Операция отменена.", FALSE)
+		return DEFIB_NO_SHOCK
 
+	// --- REVIVE PATH ---
 	target.visible_message(span_warning("Тело [target] слегка вздрагивает."))
 	playsound(get_turf(defib_ref), SFX_BODYFALL, 50, TRUE)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
@@ -229,95 +258,193 @@
 	var/time_dead = world.time - target.timeofdeath
 
 	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
-		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!", FALSE)
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!", FALSE)
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!")
+		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!", FALSE)
 		defib_success = FALSE
 	else if(!target.get_organ_slot(INTERNAL_ORGAN_BRAIN))  //So things like headless clings don't get outed
-		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!")
+		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!", FALSE)
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!", FALSE)
 		else
-			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!")
+			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!", FALSE)
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
-		defib_ref.atom_say("Реанимация не удалась!")
+		defib_ref.atom_say("Реанимация не удалась!", FALSE)
 		defib_success = FALSE
 
 	if(!defib_success)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
+		set_cooldown(cooldown)
+		return DEFIB_SHOCK_FAILED
+
+	// --- SUCCESS ---
+	// Heal oxy and tox damage type by as much as we're under -100 health
+	var/damage_above_threshold = -(min(target.health, HEALTH_THRESHOLD_DEAD) - HEALTH_THRESHOLD_DEAD)
+	var/heal_amount = damage_above_threshold + 5
+	target.heal_damages(tox = heal_amount, oxy = heal_amount)
+
+	// Inflict some brain damage scaling with time spent dead
+	var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+	if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
+		target.setBrainLoss(defib_time_brain_damage)
+
+	target.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
+	target.Paralyse(12 SECONDS)
+	target.emote("gasp")
+
+	if(target.getBrainLoss() >= 100)
+		playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
+		defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.", FALSE)
 	else
-		// Heal oxy and tox damage type by as much as we're under -100 health
-		var/damage_above_threshold = -(min(target.health, HEALTH_THRESHOLD_DEAD) - HEALTH_THRESHOLD_DEAD)
-		var/heal_amount = damage_above_threshold + 5
-		target.heal_damages(tox = heal_amount, oxy = heal_amount)
+		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, FALSE)
 
-		// Inflict some brain damage scaling with time spent dead
-		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
-		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
-			target.setBrainLoss(defib_time_brain_damage)
+	defib_ref.atom_say("Реанимация успешна!", FALSE)
 
-		target.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
-		target.Paralyse(12 SECONDS)
-		target.emote("gasp")
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
+	if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
+		excess_shock(user, target, target.pulledby, defib_ref)
 
-		if(target.getBrainLoss() >= 100)
-			playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
-			defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.")
-		else
-			playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, FALSE)
-		defib_ref.atom_say("Реанимация успешна!")
-
-		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
-		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
-			excess_shock(user, target, target.pulledby, defib_ref)
-
-		target.med_hud_set_health()
-		target.med_hud_set_status()
-		target.shock_internal_organs(100)
-		target.special_check_for_transplantation()
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
-		add_attack_logs(user, target, "Revived with [defib_ref]")
-		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
-	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
+	target.med_hud_set_health()
+	target.med_hud_set_status()
+	target.shock_internal_organs(100)
+	target.special_check_for_transplantation()
+	add_attack_logs(user, target, "Revived with [defib_ref]")
+	SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 	set_cooldown(cooldown)
-	busy = FALSE
+
+	return DEFIB_SHOCK_SUCCESS
 
 /**
- * Inflict stamina loss and stun/knockdown on someone.
+ * Attempts to block a attack (such as a defibrillator shock) using the target's held or worn items.
+ *
+ * Iterates through all items in the target's contents and calls their hit_reaction(),
+ * which handles block chance and shield components.
+ *
+ * Arguments:
+ * * target - person being attacked
+ * * attack_text - text used in block messages
+ * * attack_type - type of the incoming attack (used for block filtering)
+ *
+ * Returns:
+ * * TRUE - if the attack was successfully blocked
+ * * FALSE - if no blocking item reacted
+ */
+/datum/component/defib/proc/try_block_attack(mob/living/carbon/human/target, mob/living/user, attack_type = ITEM_ATTACK)
+	if(!target || !user || !isitem(parent))
+		return FALSE
+
+	var/obj/item/defib_item = parent
+	return target.check_shields(defib_item, 0, "[defib_item.declent_ru(ACCUSATIVE)] [user.declent_ru(GENITIVE)]", attack_type)
+
+/**
+ * Applies the non-lethal effects of an offensive defibrillator shock.
+ *
+ * Standard defibs apply stamina damage and either confusion or knockdown.
+ * Combat-capable defibs that ignore hardsuits always apply knockdown instead.
+ *
+ * Arguments:
+ * * target - person being shocked
+ */
+/datum/component/defib/proc/apply_disarm_fibrillate_effects(mob/living/carbon/human/target)
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
+
+	if(ignore_hardsuits)
+		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
+		target.Knockdown(5 SECONDS)
+		return
+
+	target.apply_damage(DEFIB_DAMAGE, STAMINA)
+	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_disarm_knockdown_end), target), 5 SECONDS)
+
+/datum/component/defib/proc/apply_disarm_knockdown_end(mob/living/carbon/human/target)
+	if(QDELETED(target))
+		return
+	if(!target.IsKnockdown())
+		to_chat(target, span_warning("Ваши мышцы сводит судорогой, и вы падаете на землю!"))
+	target.Knockdown(3 SECONDS)
+/**
+ * Inflict stamina loss and confusion/knockdown on someone.
  *
  * Arguments:
  * * user - wielder of the defib
  * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
  */
-/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return
-	busy = TRUE
+/datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
+	var/obj/item/defib_item = parent
+
+	if(try_block_attack(target, user))
+		return DEFIB_NO_SHOCK
+
 	target.visible_message(
-		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [defib_item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [defib_item.declent_ru(INSTRUMENTAL)]!"),
 	)
-	if(ignore_hardsuits)
-		target.apply_damage(70, STAMINA)
-		target.Weaken(4 SECONDS)
-	else
-		target.apply_damage(40, STAMINA)
-		target.Knockdown(3 SECONDS)
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+
+	apply_disarm_fibrillate_effects(target)
+
+	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
 	target.shock_internal_organs(100)
 	set_cooldown(cooldown)
-	busy = FALSE
 
+	return DEFIB_SHOCK_SUCCESS
+
+/**
+ * Inflict burn damage and potentially trigger a heart attack on someone.
+ *
+ * Arguments:
+ * * user - wielder of the defib
+ * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
+ */
+/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
+	var/obj/item/defib_item = parent
+	if(!do_after(user, 1 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
+		return DEFIB_NO_SHOCK
+
+	target.visible_message(
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [defib_item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [defib_item.declent_ru(INSTRUMENTAL)]!"),
+	)
+	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
+
+	if(!do_after(user, 2 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
+		return DEFIB_NO_SHOCK
+
+	var/damage = ignore_hardsuits ? DEFIB_COMBAT_DAMAGE : DEFIB_DAMAGE
+	var/obj/item/organ/external/limb_to_hit = target.get_organ(BODY_ZONE_CHEST)
+	var/armor = target.run_armor_check(limb_to_hit, MELEE)
+	target.apply_damage(damage, BURN, limb_to_hit, armor)
+
+	if(ignore_hardsuits)
+		target.Knockdown(5 SECONDS)
+	else
+		target.Knockdown(3 SECONDS)
+
+	if(prob(heart_attack_chance))
+		add_attack_logs(user, target, "Gave a heart attack with [parent]")
+		target.set_heartattack(TRUE)
+
+	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+	target.emote("scream")
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
+	add_attack_logs(user, target, "Shocked with [parent]")
+	target.shock_internal_organs(100)
+	set_cooldown(cooldown)
+
+	return DEFIB_SHOCK_SUCCESS
 /*
  * Pass excess shock from a defibrillation into someone else.
  *
@@ -347,3 +474,8 @@
 							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
 
+#undef DEFIB_NO_SHOCK
+#undef DEFIB_SHOCK_FAILED
+#undef DEFIB_SHOCK_SUCCESS
+#undef DEFIB_DAMAGE
+#undef DEFIB_COMBAT_DAMAGE

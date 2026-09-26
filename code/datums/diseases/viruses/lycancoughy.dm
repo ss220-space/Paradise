@@ -44,7 +44,7 @@
 				new puppypicked(affected_mob.loc)
 				barklimit ++
 			if(prob(1))
-				var/list/plushtype = list(/obj/item/toy/plushie/orange_fox, /obj/item/toy/plushie/corgi, /obj/item/toy/plushie/robo_corgi, /obj/item/toy/plushie/pink_fox)
+				var/list/plushtype = list(/obj/item/toy/plushie/fox/orange, /obj/item/toy/plushie/corgi, /obj/item/toy/plushie/robo_corgi, /obj/item/toy/plushie/fox/pink)
 				var/obj/item/toy/plushie/coughfox = pick(plushtype)
 				new coughfox(affected_mob.loc)
 				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_YUT(affected_mob)] [coughfox.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы отрыгиваете [coughfox.declent_ru(ACCUSATIVE)]?!"))

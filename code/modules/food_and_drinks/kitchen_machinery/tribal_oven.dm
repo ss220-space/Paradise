@@ -16,7 +16,7 @@
 	transfer_reagents_from_ingredients = FALSE
 
 /obj/machinery/kitchen_machine/tribal_oven/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каменная печь",
 		GENITIVE = "каменной печи",
 		DATIVE = "каменной печи",

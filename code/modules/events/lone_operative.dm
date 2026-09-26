@@ -27,3 +27,20 @@
 		message_admins("[name] event failed to find players. Retrying in 30s.")
 		addtimer(CALLBACK(src, PROC_REF(get_operative)), 30 SECONDS)
 
+/datum/event_meta/lone_operative
+	name = EVENT_LONE_OPERATIVE
+	severity = EVENT_LEVEL_MODERATE
+	event_type = /datum/event/lone_operative
+	weight = 0
+	one_shot = TRUE
+	role_weights = list(ASSIGNMENT_SECURITY = 10)
+
+/datum/event_meta/lone_operative/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot, min_event_weight, max_event_weight)
+	if(!GLOB.lone_operative_meta)
+		GLOB.lone_operative_meta = src
+	return src
+
+/datum/event_meta/lone_operative/Destroy(force)
+	if(GLOB.lone_operative_meta == src)
+		GLOB.lone_operative_meta = null
+	return ..()

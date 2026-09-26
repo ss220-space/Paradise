@@ -66,7 +66,7 @@
 	// Close UIs if mindless.
 	if(!client)
 		return UI_CLOSE
-	// Disable UIs if unconcious or blocked.
+	// Disable UIs if unconscious or blocked.
 	else if(stat || HAS_TRAIT(src, TRAIT_UI_BLOCKED))
 		return UI_DISABLED
 	// Update UIs if incapicitated but concious.

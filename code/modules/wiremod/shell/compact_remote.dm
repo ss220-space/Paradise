@@ -7,12 +7,12 @@
 	name = "compact remote"
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small_simple"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/compact_remote/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный пульт дистанционного управления",
 		GENITIVE = "компактного пульта дистанционного управления",
 		DATIVE = "компактному пульту дистанционного управления",
@@ -37,6 +37,11 @@
 	var/datum/port/output/signal
 	/// The user who used the bot
 	var/datum/port/output/entity
+
+/obj/item/circuit_component/compact_remote/Destroy()
+	signal = null
+	entity = null
+	. = ..()
 
 /obj/item/circuit_component/compact_remote/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)

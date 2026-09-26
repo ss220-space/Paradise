@@ -99,7 +99,7 @@
 	loot = list(/obj/effect/decal/remains/human)
 
 /mob/living/simple_animal/hostile/skeleton/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оживший скелет",
 		GENITIVE = "ожившего скелета",
 		DATIVE = "ожившему скелету",

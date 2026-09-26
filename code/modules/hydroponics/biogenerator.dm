@@ -12,7 +12,7 @@
 	/// Is the biogenerator curretly grinding up plants?
 	var/processing = FALSE
 	/// The container that is used to store reagents from certain products.
-	var/obj/item/reagent_containers/glass/container
+	var/obj/item/reagent_containers/cup/container
 	/// The amount of biomass stored in the machine.
 	var/biomass = 0
 	/// Used to modify the cost of producing items. A higher number means cheaper costs.
@@ -28,7 +28,7 @@
 	/// A list which holds all categories and items the biogenator has available. Used with the UI to save having to rebuild this every time someone opens it.
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
-	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/categories = list(BIOGEN_CHEMICALS, BIOGEN_ORGANIC, BIOGEN_LEATHER_CLOTH, BIOGEN_CUBES, BIOGEN_FOOD)
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -107,7 +107,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(iscup(I))
 		if(panel_open)
 			to_chat(user, span_warning("Close the maintenance panel first."))
 			return ATTACK_CHAIN_PROCEED

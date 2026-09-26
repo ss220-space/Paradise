@@ -3,7 +3,6 @@
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
 	gender = MALE
-	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "briefcase"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
@@ -21,7 +20,7 @@
 	var/next_sound = 0
 
 /obj/item/bee_briefcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "портфель",
 		GENITIVE = "портфеля",
 		DATIVE = "портфелю",
@@ -43,7 +42,7 @@
 			. += span_warning("The bees are gone... Colony collapse disorder?")
 
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I
 		if(!bees_left)

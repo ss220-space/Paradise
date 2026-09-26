@@ -21,14 +21,14 @@
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
+	to_chat(wizard.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	if(CONFIG_GET(number/traitor_scaling))
 		players_per_mage = CONFIG_GET(number/traitor_scaling)
-	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
+	var/wizard_cap = ceil((num_players_started() / players_per_mage))
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")
 
@@ -36,26 +36,26 @@
 		if(isnull(wizard.current))
 			continue
 		if(!iscarbon(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(isbrain(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
-				if(istype(get_area(wizard.current), /area/wizard_station))
+				if(istype(get_area(wizard.current), /area/centcom/wizard_station))
 					to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
@@ -85,14 +85,14 @@
 	return ..()
 
 // To silence all struggles within the wizard's lair
-/datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
+/datum/game_mode/wizard/raginmages/proc/end_squabble(area/centcom/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
 		if(L.mind || L.client)
 			marked_for_death |= L
 	for(var/datum/mind/M in wizards)
-		if(istype(M.current) && istype(get_area(M.current), /area/wizard_station))
+		if(istype(M.current) && istype(get_area(M.current), /area/centcom/wizard_station))
 			mages_made -= 1
 			wizards -= M // No, you don't get to occupy a slot
 			marked_for_death |= M.current
@@ -138,8 +138,8 @@
 			log_game("Spawned [new_character] (ckey: [new_character.key]) as Wizard as Raging Mage.")
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS

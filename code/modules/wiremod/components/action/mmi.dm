@@ -59,6 +59,16 @@
 
 /obj/item/circuit_component/mmi/Destroy()
 	remove_current_brain()
+	message = null
+	send = null
+	eject = null
+	north = null
+	east = null
+	south = null
+	west = null
+	attack = null
+	alt_attack = null
+	clicked_atom = null
 	return ..()
 
 /obj/item/circuit_component/mmi/input_received(datum/port/input/port)
@@ -85,10 +95,10 @@
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
 	. = ..()
-	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_attack_by))
+	RegisterSignal(shell, COMSIG_ATOM_ATTACKBY, PROC_REF(handle_attack_by))
 
 /obj/item/circuit_component/mmi/unregister_shell(atom/movable/shell)
-	UnregisterSignal(shell, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(shell, COMSIG_ATOM_ATTACKBY)
 	remove_current_brain()
 	return ..()
 

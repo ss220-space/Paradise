@@ -15,6 +15,10 @@
 	/// The cooldown for this component of how often it can send speech messages.
 	var/speech_cooldown = 1 SECONDS
 
+/obj/item/circuit_component/speech/Destroy()
+	message = null
+	. = ..()
+
 /obj/item/circuit_component/speech/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Перезарядка произношения: [DisplayTimeText(speech_cooldown)]", "orange", "stopwatch")

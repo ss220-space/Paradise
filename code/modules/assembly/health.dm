@@ -56,7 +56,7 @@
 	user_health = user.health
 	if(user_health <= alarm_health) // Its a health detector, not a death detector
 		pulse(FALSE, user)
-		user.audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
+		user.audible_message("[get_examine_icon(hearers(loc))] *beep* *beep* *beep*")
 		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 		toggle_scan()
 

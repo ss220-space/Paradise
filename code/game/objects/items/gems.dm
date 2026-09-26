@@ -38,7 +38,7 @@
 	base_pixel_y = pixel_y
 
 /obj/item/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самоцвет",
 		GENITIVE = "самоцвета",
 		DATIVE = "самоцвету",
@@ -102,9 +102,13 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
 	sell_multiplier = 2
+	/// Is the crystal protected?
+	var/shielded = TRUE
+	/// Cooldown between radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/gem/rupee/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл рупериума",
 		GENITIVE = "кристалла рупериума",
 		DATIVE = "кристаллу рупериума",
@@ -115,26 +119,39 @@
 
 /obj/item/gem/rupee/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-			rad_per_cycle = 10, \
-			rad_cycle = 3 SECONDS, \
-			rad_cycle_radius = 5 \
+	START_PROCESSING(SSobj, src)
+
+/obj/item/gem/rupee/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/gem/rupee/process()
+	if(shielded)
+		return
+
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	COOLDOWN_START(src, radiation_cooldown, 3 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 5,
+		threshold = RAD_EXTREME_INSULATION,
 	)
-	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
 
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+	if(shielded)
 		. += span_notice("Вы можете использовать что-нибудь <b>острое</b>, чтобы распилить кристалл.")
 	else
-		. += span_warning("Кристалл ярко горит!")
+		. += span_warning("Кристалл ярко горит и излучает смертоносную радиацию!")
 
 /obj/item/gem/rupee/update_icon_state()
-	icon_state = "[HAS_TRAIT(src, TRAIT_BLOCK_RADIATION) ? "" : "broken_"]rupee"
+	icon_state = "[shielded ? "" : "broken_"]rupee"
 
 /obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !shielded)
 		return .
 
 	to_chat(user, span_notice("Вы начали распиливать кристалл! Это явно плохая идея..."))
@@ -142,8 +159,7 @@
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	to_chat(user, span_warning("Вы разрушили внешнюю оболочку кристалла! Голова начинает болеть..."))
-	user.apply_effect(50, IRRADIATE)
-	REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+	shielded = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 //magmawing watcher gem
@@ -158,11 +174,11 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#ff7b00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/hot = TRUE
 
 /obj/item/gem/magma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окаменелый аурит",
 		GENITIVE = "окаменелого аурита",
 		DATIVE = "окаменелому ауриту",
@@ -206,12 +222,12 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#62cad5"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/cold = TRUE
 	sell_multiplier = 2
 
 /obj/item/gem/fdiamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозный бриллиант",
 		GENITIVE = "морозного бриллианта",
 		DATIVE = "морозному бриллианту",
@@ -257,10 +273,10 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#62326a"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/phoron/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизированный бароксильдиум",
 		GENITIVE = "стабилизированного бароксильдиума",
 		DATIVE = "стабилизированному бароксильдиуму",
@@ -279,13 +295,13 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/item/gps/internal
 
 /obj/item/gem/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уплотненный дилитиум",
 		GENITIVE = "уплотненного дилитиума",
 		DATIVE = "уплотненному дилитиуму",
@@ -321,10 +337,10 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/amber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Драконий жемчуг",
 		GENITIVE = "драконего жемчуга",
 		DATIVE = "драконьему жемчугу",
@@ -343,13 +359,13 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#4785a4"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/blink_range = 6
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
 
 /obj/item/gem/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустотный кристалл",
 		GENITIVE = "пустотного кристалла",
 		DATIVE = "пустотному кристаллу",
@@ -395,13 +411,13 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#ac0606"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/used = FALSE
 	var/blood = 50
 	var/charges = 10
 
 /obj/item/gem/bloodstone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый ихор",
 		GENITIVE = "кровавого ихора",
 		DATIVE = "кровавому ихору",
@@ -430,11 +446,12 @@
 		used = TRUE
 		set_light_range_power_color(3, 2, "#ac2626")
 
-/obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/gem/bloodstone/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active)
-		I.hidden_uplink.uses += charges
+
+	if(istype(target) && target.hidden_uplink && target.hidden_uplink.active)
+		target.hidden_uplink.uses += charges
 		qdel(src)
 		to_chat(user, span_notice("Вы вставляете [declent_ru(ACCUSATIVE)] внутрь вашего апплинка, заряжая его."))
 
@@ -449,13 +466,13 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#4245f3"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	point_value = 2000
 	insertable = FALSE
 	sell_multiplier = 10
 
 /obj/item/gem/data/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс кристалл данных",
 		GENITIVE = "блюспейс кристалла данных",
 		DATIVE = "блюспейс кристаллу данных",
@@ -486,7 +503,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/ruby/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рубин",
 		GENITIVE = "рубина",
 		DATIVE = "рубину",
@@ -503,7 +520,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/sapphire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сапфир",
 		GENITIVE = "сапфира",
 		DATIVE = "сапфиру",
@@ -520,7 +537,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/emerald/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изумруд",
 		GENITIVE = "изумруда",
 		DATIVE = "изумруду",
@@ -537,7 +554,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/topaz/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "топаз",
 		GENITIVE = "топаза",
 		DATIVE = "топазу",

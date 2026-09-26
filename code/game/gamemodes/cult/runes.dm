@@ -61,10 +61,10 @@ To draw a rune, use a ritual dagger.
 	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
-	var/image/blood = image(loc = src)
-	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		AI.client.images += blood
+	var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = src)
+	I.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_runes", I)
+	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
@@ -124,16 +124,23 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/cult_conceal() //for concealing spell
 	visible_message(span_danger("[src] fades away."))
-	invisibility = INVISIBILITY_HIDDEN_RUNES
-	alpha = 100 //To help ghosts distinguish hidden runes
+	set_cult_veil(TRUE)
 
 /obj/effect/rune/cult_reveal() //for revealing spell
-	invisibility = 0
+	set_cult_veil(FALSE)
 	visible_message(span_danger("[src] suddenly appears!"))
-	alpha = initial(alpha)
 
 /obj/effect/rune/is_cleanable()
 	return TRUE
+
+/obj/effect/rune/wash_tg(clean_types)
+	. = ..()
+
+	if(!. && !(clean_types & CLEAN_TYPE_BLOOD))
+		return
+
+	qdel(src)
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -146,7 +153,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
-	if(invisibility == INVISIBILITY_HIDDEN_RUNES)//hidden rune
+	if(HAS_TRAIT(src, TRAIT_CULT_CONCEALED))//hidden rune
 		return
 	// Get the user
 	if(user)
@@ -199,13 +206,14 @@ structure_check() searches for nearby cultist structures required for the invoca
  * * target - Location to teleport to
  */
 /obj/effect/rune/proc/teleport_effect(mob/living/user, turf/location, target)
+	var/trait_source = UNIQUE_TRAIT_SOURCE(src)
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
 	// So that the mob only appears after the effect is finished
-	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, trait_source)
 	user.invisibility = INVISIBILITY_MAXIMUM
 	sleep(1.2 SECONDS)
-	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, trait_source)
 	user.invisibility = 0
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -215,7 +223,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/fail_invoke()
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
-	if(!invisibility) // No visible messages if not visible
+	if(!HAS_TRAIT(src, TRAIT_CULT_CONCEALED)) // No visible messages if not visible
 		visible_message(span_warning("The markings pulse with a small flash of red light, then fall dark."))
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
@@ -276,7 +284,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				brain.forceMove(T)
 				O = brain // Convoluted way of making the brain disappear
 
-		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
+		else if(is_internal_organ_brain(O)) // Offering a brain
 			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
@@ -397,6 +405,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
 	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+		if(isrobot(offering))
+			var/mob/living/silicon/robot/robot = offering
+			if(robot.shell && robot.mainframe)
+				robot.evacuate_ai(DANGER_LVL_INSTA_DEATH)
+				robot.dust()
+				playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
+				return TRUE
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
@@ -494,7 +509,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		playsound(target, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
-		else if(!is_station_level(z) || istype(get_area(src), /area/space))
+		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", rune_turf)
 		user.visible_message(
 			span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
@@ -609,10 +624,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		set waitfor = FALSE
 		to_chat(user, span_cult("[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it."))
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
-		
+
 		if(QDELETED(mob_to_revive))
 			return
-		
+
 		if(length(candidates))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive, span_biggerdanger("Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form."))
@@ -865,7 +880,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(z) || istype(get_area(src), /area/space))
+		if(!is_station_level(z) || isspacearea(get_area(src)))
 			to_chat(user, span_cultitalic("The veil is not weak enough here to manifest spirits, you must be on station!"))
 			fail_invoke()
 			return
@@ -886,7 +901,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O))
+		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.persistent_client?.antaghud_enabled && !QDELETED(src) && !QDELETED(O))
 			ghosts_on_rune += O
 	if(!length(ghosts_on_rune))
 		to_chat(user, span_cultitalic("There are no spirits near [src]!"))
@@ -995,8 +1010,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	scribe_damage = 10 //how much damage you take doing it
 	var/used = FALSE
 
-/obj/effect/rune/narsie/New()
-	..()
+/obj/effect/rune/narsie/Initialize(mapload, set_keyword)
+	. = ..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
@@ -1027,12 +1042,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, sound('sound/effects/narsie_summon.ogg'))
+	sound_to_playing_players('sound/effects/narsie_summon.ogg')
 	to_chat(world, span_cultitalic("<b>The veil... [span_big("is...")] [span_reallybig("TORN!!!--")]</b>"))
 	update_icon(UPDATE_ICON_STATE)
-	var/turf/T = get_turf(src)
+	var/turf/rune_turf = get_turf(src)
 	sleep(40)
-	new /obj/singularity/god/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
+	new /obj/god/narsie(rune_turf) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

@@ -54,7 +54,7 @@
 	ui_interact(user)
 
 /// Сюда вписать код ответственный за пихание оккупанта
-/obj/machinery/ninja_mindscan_machine/MouseDrop_T(atom/movable/dropped, mob/user, params)
+/obj/machinery/ninja_mindscan_machine/mouse_drop_receive(atom/movable/dropped, mob/user, params)
 // Только ниндзя умеет работать с этой машиной, но я всё равно оставлю проверки ниже во избежание других проблем.
 	if(!isninja(user))
 		to_chat(user, span_boldwarning("ERROR!!! UNAUTORISED USER!!!"))
@@ -83,7 +83,7 @@
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(dropped.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(dropped.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		to_chat(user, span_boldnotice("The [src] is already occupied!"))
@@ -106,7 +106,6 @@
 	if(!Adjacent(dropped_mob) && !Adjacent(user))
 		to_chat(user, span_boldnotice("You're not close enough to [src]."))
 		return
-	. = TRUE
 	if(dropped_mob != user)
 		visible_message("[user] starts putting [dropped_mob] into the [src].")
 	if(do_after(user, 2 SECONDS, dropped_mob))

@@ -1,4 +1,4 @@
-/datum/game_test/status_effect_ids/Run()
+/datum/unit_test/status_effect_ids/Run()
 	var/list/bad_statuses = list()
 	for(var/datum/status_effect/effect as anything in subtypesof(/datum/status_effect))
 		if(initial(effect.id) == null)

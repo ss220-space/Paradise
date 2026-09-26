@@ -1,4 +1,5 @@
 /datum/job/head_of_staff
+	abstract_type = /datum/job/head_of_staff
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Капитаном"
@@ -10,6 +11,7 @@
 	head_position = TRUE
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	law_level = LAW_LEVEL_HEAD
 
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
@@ -36,6 +38,14 @@
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+	)
+	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -49,7 +59,7 @@
 	)
 
 /datum/outfit/job/captain
-	name = JOB_TITLE_CAPTAIN
+	name = JOB_TITLE_RU_CAPTAIN
 	jobtype = /datum/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
@@ -68,6 +78,7 @@
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -103,12 +114,20 @@
 		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 		ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP
 	)
-	alt_titles = list("NT Consultant", "Central Command Consultant")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_NT_AUDITOR,
+		ALT_JOB_TITLE_RU_NT_INSPECTOR,
+		ALT_JOB_TITLE_RU_NT_CONSULTANT,
+	)
 	outfit = /datum/outfit/job/nanotrasenrep
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/nanotrasenrep
-	name = JOB_TITLE_REPRESENTATIVE
+	name = JOB_TITLE_RU_REPRESENTATIVE
 	jobtype = /datum/job/head_of_staff/nanotrasenrep
 	uniform = /obj/item/clothing/under/rank/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
@@ -157,9 +176,19 @@
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/blueshield
-	name = JOB_TITLE_BLUESHIELD
+	name = JOB_TITLE_RU_BLUESHIELD
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
@@ -172,8 +201,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto/rubber = 1,
-		/obj/item/ammo_box/magazine/smgm9mm = 2,
+		/obj/item/gun/projectile/automatic/smg/saber/rubber = 1,
+		/obj/item/ammo_box/magazine/smgm9mm/rubber = 2,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield
@@ -181,7 +210,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
 /datum/job/head_of_staff/judge
-	title = JOB_TITLE_JUDGE
+	title = JOB_TITLE_MAGISTRATE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
 	department = STATION_DEPARTMENT_LEGAL
@@ -207,12 +236,20 @@
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS
 	)
 	law_level = LAW_LEVEL_MAGISTRATE
-	alt_titles = list("Judge")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_JUDGE,
+	)
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/judge
-	name = JOB_TITLE_JUDGE
+	name = JOB_TITLE_RU_MAGISTRATE
 	jobtype = /datum/job/head_of_staff/judge
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	suit = /obj/item/clothing/suit/judgerobe
@@ -246,7 +283,9 @@
 	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
-	alt_titles = list("Human Resources Agent", "Lawyer", "Attorney")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_LAWYER,
+	)
 	minimal_player_age = 30
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
@@ -254,16 +293,19 @@
 	outfit = /datum/outfit/job/lawyer
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/lawyer
-	name = JOB_TITLE_LAWYER
+	name = JOB_TITLE_RU_LAWYER
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/internalaffairs
+	uniform = /obj/item/clothing/under/rank/lawyer
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/color/brown
-	l_ear = /obj/item/radio/headset/headset_iaa/alt
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	id = /obj/item/card/id/iaa
+	l_ear = /obj/item/radio/headset/headset_iaa
+	glasses = /obj/item/clothing/glasses/hud/security/read_only
+	id = /obj/item/card/id/lawyer
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	l_hand = /obj/item/storage/briefcase
@@ -271,7 +313,6 @@
 	backpack_contents = list(
 		/obj/item/flash = 1,
 	)
-	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_laws

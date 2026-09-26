@@ -3,7 +3,7 @@
 	load_immediately = TRUE
 	force_cache = TRUE
 	// Don't let the asset subsystem load this. This is how we trick it.
-	_abstract = /datum/asset/spritesheet_batched/test
+	abstract_type = /datum/asset/spritesheet_batched/test
 	var/static/list/items = list(/obj/item/camera, /obj/item/clothing/under/color/blue, /obj/item/clothing/under/color/black)
 
 /datum/asset/spritesheet_batched/test/create_spritesheets()
@@ -26,7 +26,7 @@
 		for(var/size_id in sizes)
 			SSassets.transport.unregister_asset("[name]_[size_id].png")
 
-/datum/game_test/test_asset_smart_cache/Run()
+/datum/unit_test/test_asset_smart_cache/Run()
 	fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.test.json")
 	fdel("data/spritesheets/spritesheet_test.css")
 	var/datum/asset/spritesheet_batched/test/sheet = new()

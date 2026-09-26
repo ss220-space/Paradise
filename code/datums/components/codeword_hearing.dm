@@ -46,7 +46,7 @@
 	SIGNAL_HANDLER
 
 	// don't skip codewords when source speaks
-	if(!source.can_hear())
+	if(HAS_TRAIT(source, TRAIT_DEAF))
 		return
 
 	*message = replace_regex.Replace(*message, "<span class='[span_class]'>$1</span>")

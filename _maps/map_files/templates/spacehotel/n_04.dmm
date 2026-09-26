@@ -78,11 +78,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "p" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/alien/weeds,
 /obj/structure/mirror{
 	dir = 8;
@@ -93,9 +89,7 @@
 	},
 /area/template_noop)
 "q" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -111,9 +105,7 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},

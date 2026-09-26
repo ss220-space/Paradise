@@ -13,6 +13,7 @@
 	name = "elite"
 	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
+	abstract_type = /mob/living/simple_animal/hostile/asteroid/elite
 	faction = list("boss")
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
@@ -40,7 +41,7 @@
 	var/enemies_count_scale = 1.3 // 30% stronger per enemy
 
 /mob/living/simple_animal/hostile/asteroid/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элита",
 		GENITIVE = "элиты",
 		DATIVE = "элите",
@@ -64,7 +65,7 @@
 		. += "Однако, этот кажется менее диким."
 
 /mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/hostile))
+	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/M = target
 		if(faction_check_mob(M))
 			return FALSE
@@ -236,7 +237,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/list/invaders = list()
 
 /obj/structure/elite_tumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пульсирующая опухоль",
 		GENITIVE = "пульсирующей опухоли",
 		DATIVE = "пульсирующей опухоли",
@@ -332,6 +333,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	potentialspawns = string_list(potentialspawns)
 
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -500,7 +502,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	throw_range = 5
 
 /obj/item/tumor_shard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "осколок опухоли",
 		GENITIVE = "осколка опухоли",
 		DATIVE = "осколку опухоли",
@@ -509,7 +511,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		PREPOSITIONAL = "осколке опухоли",
 	)
 
-/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
@@ -554,7 +556,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
 
 /obj/effect/temp_visual/elite_tumor_wall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магическая стена",
 		GENITIVE = "магической стены",
 		DATIVE = "магической стене",

@@ -10,7 +10,7 @@
 	GLOB.major_announcement.announce(
 		message = "Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
 		new_title = "Отчёт об объекте [station_name()].",
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)
@@ -61,9 +61,9 @@
 	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_blob()
-	var/list/blob_infected = blobs["infected"]
-	var/list/blob_offsprings = blobs["offsprings"]
-	var/list/minions = blobs["minions"]
+	var/list/blob_infected = blobs[BLOB_GROUP_INFECTED]
+	var/list/blob_offsprings = blobs[BLOB_GROUP_OFFSPRINGS]
+	var/list/minions = blobs[BLOB_GROUP_MINIONS]
 	if(length(blob_infected))
 		declare_blob_completion()
 		var/list/text = list("<br/><span style='font-size: 2;'><b>Блоб[(length(blob_infected) > 1 ? "ами были" : "ом был")]:</b></pan>")

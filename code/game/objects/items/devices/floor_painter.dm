@@ -36,11 +36,11 @@
 		"warnwhitered", "warnwhiteorange", "warnwhiteblue", "warnwhitewhite", "warnwhitecamo", "blackfull", "brownoldfull", "escapefull",
 		"navyblue", "navybluecorners", "navybluefull", "darkgrey", "darkgreycamo", "darkgreynavyblue", "darkgreynavybluecorner")
 
-/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/floor_painter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
-	var/turf/simulated/floor/plasteel/F = A
+	var/turf/simulated/floor/plasteel/F = target
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)
 		to_chat(user, span_notice("This is already painted [floor_state] [dir2text(floor_dir)]!"))
@@ -62,6 +62,18 @@
 	user.set_machine(src)
 	ui_interact(user)
 	return 1
+
+/obj/item/floor_painter/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isplasteelfloor(interacting_with))
+		return ITEM_INTERACT_BLOCKING
+	var/turf/simulated/floor/plasteel/picked_floor = interacting_with
+	if(!(picked_floor.icon_state in allowed_states))
+		user.balloon_alert(user, "невозможно скопировать!")
+		return ITEM_INTERACT_BLOCKING
+	floor_state = picked_floor.icon_state
+	SStgui.update_uis(src)
+	user.balloon_alert(user, "пол скопирован")
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/floor_painter/ui_state(mob/user)
 	return GLOB.inventory_state

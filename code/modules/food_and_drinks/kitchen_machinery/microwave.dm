@@ -14,7 +14,7 @@
 	pass_flags = PASSTABLE
 
 /obj/machinery/kitchen_machine/microwave/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "микроволновка",
 		GENITIVE = "микроволновки",
 		DATIVE = "микроволновке",

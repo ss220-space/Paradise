@@ -288,3 +288,13 @@
 	result = /mob/living/simple_animal/pet/cat/cak
 	category = CAT_FOOD
 	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines -Foxes are better
+
+/datum/crafting_recipe/food/liarscake
+	name = "Шоколадный торт со свечкой"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake = 1,
+		/obj/item/candle = 1,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake/liarscake
+	category = CAT_FOOD
+	subcategory = CAT_CAKE

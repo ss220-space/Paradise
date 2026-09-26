@@ -101,7 +101,7 @@
 		icon_state = "[base_icon_state][rand(1,3)]"
 	else
 		//if on the floor, glowshroom on-floor sprite
-		icon_state = "[base_icon_state]f"
+		icon_state = base_icon_state
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
@@ -279,10 +279,10 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
+/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/plant_analyzer))
 		// Hacky item guess
-		item.melee_attack_chain(user, myseed, params)
+		item.melee_attack_chain(user, myseed, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

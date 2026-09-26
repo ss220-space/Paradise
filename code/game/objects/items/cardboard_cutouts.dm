@@ -54,7 +54,7 @@
 
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		change_appearance(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -83,7 +83,7 @@
 		push_over()
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/projectile/P)
-	visible_message(span_danger("[src] is hit by [P]!"), projectile_message = TRUE)
+	visible_message(span_danger("[src] is hit by [P]!"))
 	playsound(src, 'sound/weapons/slice.ogg', 50, TRUE)
 	if(prob(P.damage))
 		push_over()
@@ -108,7 +108,8 @@
 		return
 	if(!new_appearance || !crayon)
 		return
-	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!do_after(user, 1 SECONDS * construction_mod, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 	user.visible_message(span_notice("[user] gives [src] a new look."), span_notice("Voila! You give [src] a new look."))
 	alpha = 255

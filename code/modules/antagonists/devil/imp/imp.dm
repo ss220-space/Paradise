@@ -35,7 +35,7 @@
 	tts_seed = "demon"
 
 /mob/living/simple_animal/imp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бес",
 		GENITIVE = "беса",
 		DATIVE = "бесу",

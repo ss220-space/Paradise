@@ -1,8 +1,8 @@
+import { type ComponentProps, useState } from 'react';
+import { Grid } from 'tgui/components';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { useState } from 'react';
-import { Button, Section, Table, Stack, Grid } from '../components';
 import { Window } from '../layouts';
-import { ButtonProps } from '../components/Button';
 
 interface MuteStates {
   ic: boolean;
@@ -12,6 +12,7 @@ interface MuteStates {
   deadchat: boolean;
   emote: boolean;
   tts: boolean;
+  webreq: boolean;
   all: boolean;
 }
 
@@ -44,7 +45,7 @@ const isMobType = (currentType: string, checkType: string): boolean => {
   };
   return (
     types[checkType]?.some((type: string) =>
-      currentType.toLowerCase().includes(type)
+      currentType.toLowerCase().includes(type),
     ) || false
   );
 };
@@ -202,7 +203,7 @@ const PunishSection = (_props: unknown) => {
   };
 
   const hasCkey = (): boolean => {
-    return data.ckey !== 'NO CKEY' ? true : false;
+    return data.ckey !== 'NO CKEY';
   };
 
   return (
@@ -213,7 +214,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="times"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!hasCkey()}
             onClick={() => handleAction('kick')}
           >
@@ -223,7 +224,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('jobban')}
           >
@@ -234,7 +235,7 @@ const PunishSection = (_props: unknown) => {
               fluid
               icon="bullseye"
               color="red"
-              tooltip={hasCkey ? null : 'NO CKEY'}
+              tooltip={hasCkey() ? null : 'NO CKEY'}
               disabled={!hasCkey()}
               onClick={() => handleAction('watchlist')}
             >
@@ -247,7 +248,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('ban')}
           >
@@ -257,7 +258,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('appban')}
           >
@@ -653,6 +654,14 @@ const MobManipulationSection = (_props: unknown) => {
           </Button>
           <Button
             fluid
+            icon="shirt"
+            disabled={!isButtonAllowed('event')}
+            onClick={() => handleAction('customquip')}
+          >
+            CUSTOM EQUIPMENT
+          </Button>
+          <Button
+            fluid
             icon="microphone"
             onClick={() => handleAction('changevoice')}
           >
@@ -667,6 +676,13 @@ const MobManipulationSection = (_props: unknown) => {
               MIRROR UI TO ADMIN
             </Button>
           ) : null}
+          <Button
+            fluid
+            icon="circle-user"
+            onClick={() => handleAction('editskills')}
+          >
+            EDIT SKILLS
+          </Button>
         </Grid.Column>
         <Grid.Column size={6}>
           <Button
@@ -888,6 +904,13 @@ const MuteSection = (_props: unknown) => {
           </ButtonMute>
           <ButtonMute
             fluid
+            checked={data.muteStates.webreq}
+            onClick={() => toggleMute('webreq')}
+          >
+            WEBREQ
+          </ButtonMute>
+          <ButtonMute
+            fluid
             checked={data.muteStates.all}
             onClick={() => toggleMute('all')}
           >
@@ -903,7 +926,7 @@ const MuteSection = (_props: unknown) => {
 
 type ButtonMuteProps = {
   checked: boolean;
-} & ButtonProps;
+} & ComponentProps<typeof Button>;
 
 const ButtonMute = (props: ButtonMuteProps) => {
   const { checked, ...rest } = props;

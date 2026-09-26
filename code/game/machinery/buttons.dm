@@ -11,7 +11,7 @@
 	var/id_tag = "default"
 	var/active = FALSE
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, fire = 90, acid = 70)
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -63,7 +63,8 @@
 
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 	to_chat(user, span_notice("You detach [src] from the wall."))
 	new /obj/item/mounted/frame/driver_button(loc)

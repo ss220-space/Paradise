@@ -1,0 +1,11 @@
+/obj/machinery/atmospherics/trinary/filter:
+  banned_variables:
+    - filter_type
+
+/obj/machinery/atmospherics/air_sensor:
+  banned_variables:
+    - output
+
+/obj/machinery/atmospherics/unary/vent_scrubber:
+    banned_variables:
+    - scrub

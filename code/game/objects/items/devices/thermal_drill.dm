@@ -11,8 +11,8 @@
 	var/datum/looping_sound/thermal_drill/soundloop
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/thermal_drill/New()
-	..()
+/obj/item/thermal_drill/Initialize(mapload)
+	. = ..()
 	song = new(src, SSinstruments.synthesizer_instrument_ids)
 	soundloop = new(src, FALSE)
 	spark_system = new /datum/effect_system/spark_spread()

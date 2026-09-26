@@ -3,9 +3,9 @@
  *
  * This test is here to ensure there are no security levels with the same name or number level. Having the same name or number level will cause problems.
  */
-/datum/game_test/security_levels
+/datum/unit_test/security_levels
 
-/datum/game_test/security_levels/Run()
+/datum/unit_test/security_levels/Run()
 	var/list/comparison = subtypesof(/datum/security_level)
 
 	for(var/datum/security_level/iterating_level in comparison)

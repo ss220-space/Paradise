@@ -1,3 +1,4 @@
+#define CHIYRIZINE_BLOOD_RESTORE 30
 /*
  * Reagents created and used by ninja's suit only.
  */
@@ -66,6 +67,7 @@
 			our_mob.AdjustParalysis(-2 SECONDS)
 			our_mob.AdjustWeakened(-2 SECONDS)
 			our_mob.AdjustKnockdown(-2 SECONDS)
+			our_mob.AdjustBlood(CHIYRIZINE_BLOOD_RESTORE)
 		if(20 to 40)
 			//Human only effects
 			if(ishuman(our_mob))
@@ -106,6 +108,7 @@
 					if(!LAZYIN(mob_human.dna.default_blocks, gene.block))
 						mob_human.force_gene_block(gene.block, FALSE)
 				mob_human.dna.struc_enzymes = mob_human.dna.struc_enzymes_original
+				qdel(mob_human.GetComponent(/datum/component/irradiated))
 
 		if(40 to INFINITY)
 			if(ishuman(our_mob))
@@ -158,7 +161,7 @@
 			mob_human.Slowed(4 SECONDS)
 			mob_human.Confused(20 SECONDS)
 			mob_human.EyeBlurry(4 SECONDS)
-		if(prob(10) && last_random_turf && istype(mob_human.loc, /turf) && !rend)
+		if(prob(10) && last_random_turf && isturf(mob_human.loc) && !rend)
 			mob_human.visible_message(span_notice("[mob_human] vanished!"), span_warning("Вы переместились в знакомое место..."))
 			new /obj/effect/temp_visual/gravpush(get_turf(mob_human))
 			playsound(get_turf(mob_human), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
@@ -172,3 +175,5 @@
 
 /datum/reagent/medicine/chiyurizine/proc/clearRend()
 	rend = null
+
+#undef CHIYRIZINE_BLOOD_RESTORE

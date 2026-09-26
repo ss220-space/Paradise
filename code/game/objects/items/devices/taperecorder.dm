@@ -31,8 +31,8 @@
 /obj/item/taperecorder/empty
 	starts_with_tape = FALSE
 
-/obj/item/taperecorder/New()
-	..()
+/obj/item/taperecorder/Initialize(mapload)
+	. = ..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
@@ -374,8 +374,8 @@
 	var/list/timestamp = list()
 	var/ruined = FALSE
 
-/obj/item/tape/random/New()
-	..()
+/obj/item/tape/random/Initialize(mapload)
+	. = ..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"
 
 /obj/item/tape/examine(mob/user)
@@ -438,10 +438,7 @@
 		ruined = FALSE
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/verb/wipe()
-	set name = "Стереть плёнку"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
+GAME_VERB_SRC(/obj/item/tape, wipe, view(1), "Стереть плёнку", VERB_CATEGORY_HIDDEN)
 
 	var/mob/living/carbon/user = usr
 	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

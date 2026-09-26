@@ -7,7 +7,7 @@
 	GLOB.major_announcement.announce(
 		message = "Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.",
 		new_title = ANNOUNCE_ANOMALY_RU,
-		new_sound = 'sound/AI/radiation.ogg'
+		new_sound = ANNOUNCER_RADIATION,
 	)
 	//sound not longer matches the text, but an audible warning is probably good
 

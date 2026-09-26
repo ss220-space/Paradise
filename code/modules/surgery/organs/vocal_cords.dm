@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/spans = null
 
 /obj/item/organ/internal/vocal_cords/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голосовые связки",
 		GENITIVE = "голосовых связок",
 		DATIVE = "голосовым связкам",
@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	icon_state = "adamantine_resonator"
 
 /obj/item/organ/internal/adamantine_resonator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адамантиновый резонатор",
 		GENITIVE = "адамантинового резонатора",
 		DATIVE = "адамантиновому резонатору",
@@ -85,7 +85,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	icon_state = "adamantine_cords"
 
 /obj/item/organ/internal/vocal_cords/adamantine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адамантиновые голосовые связки",
 		GENITIVE = "адамантиновых голосовых связок",
 		DATIVE = "адамантиновым голосовым связкам",
@@ -94,9 +94,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		PREPOSITIONAL = "адамантиновых голосовых связках",
 	)
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/do_effect(trigger_flags)
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
@@ -125,7 +123,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	spans = "colossus yell"
 
 /obj/item/organ/internal/vocal_cords/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "связки бога",
 		GENITIVE = "связок бога",
 		DATIVE = "связкам бога",
@@ -160,14 +158,14 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/command = tgui_input_text(owner, "Изречь Глас Божий", "Команда")
 	if(!command)
 		return
-	owner.say(".~[command]")
+	owner.say(".~ [command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_SEC_MIN((next_command - world.time)/10)] перед следующим Словом."))
+		to_chat(owner, span_notice("Вы должны подождать [(next_command - world.time)/10] секунд[DECL_U_Y_0((next_command - world.time)/10)] перед следующим Словом."))
 		return FALSE
 	if(!owner)
 		return FALSE
@@ -188,7 +186,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in get_hearers_in_view(8, owner))
-		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
+		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)

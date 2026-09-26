@@ -1,29 +1,3 @@
-// Exist only for sdql2, deleted by official paradise
-/obj/effect/statclick
-	name = "Initializing..."
-	var/target
-
-INITIALIZE_IMMEDIATE(/obj/effect/statclick)
-
-/obj/effect/statclick/Initialize(mapload, text, target)
-	. = ..()
-	name = text
-	src.target = target
-	if(isdatum(target)) //Harddel man bad
-		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cleanup))
-
-/obj/effect/statclick/Destroy()
-	target = null
-	return ..()
-
-/obj/effect/statclick/proc/cleanup()
-	SIGNAL_HANDLER
-	qdel(src)
-
-/obj/effect/statclick/proc/update(text)
-	name = text
-	return src
-
 //SDQL2 datumized, /tg/station special!
 
 /*
@@ -904,7 +878,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	if(i > length(expression))
 		return list("val" = null, "i" = i)
 
-	if(istype(expression[i], /list))
+	if(islist(expression[i]))
 		val = SDQL_expression(object, expression[i])
 
 	else if(expression[i] == "TRUE")
@@ -1019,7 +993,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 			spaces += whitespace
 
 	for(var/item in query_tree)
-		if(istype(item, /list))
+		if(islist(item))
 			to_chat(usr, "[spaces](", confidential = TRUE)
 			SDQL_testout(item, indent + 1)
 			to_chat(usr, "[spaces])", confidential = TRUE)
@@ -1029,7 +1003,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 		if(!isnum(item) && query_tree[item])
 
-			if(istype(query_tree[item], /list))
+			if(islist(query_tree[item]))
 				to_chat(usr, "[spaces][whitespace](", confidential = TRUE)
 				SDQL_testout(query_tree[item], indent + 2)
 				to_chat(usr, "[spaces][whitespace])", confidential = TRUE)
@@ -1058,6 +1032,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		var/datum/located = locate(pointer) || locateUID(pointer)
 		if(!istype(located))
 			to_chat(usr, span_danger("Invalid pointer: [expression[start + 1]] - null or not datum"), confidential = TRUE)
+			return null
+		if(!located.can_vv_mark())
+			to_chat(usr, span_danger("Pointer [expression[start+1]] cannot be marked"), confidential = TRUE)
 			return null
 		v = located
 		start++

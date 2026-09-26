@@ -5,8 +5,8 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 SUBSYSTEM_DEF(security_level)
 	name = "Security Level"
-	flags = SS_NO_FIRE
-	ss_id = "security_level"
+	ss_flags = SS_NO_FIRE
+
 	/// Option reference of a timer id of the latest set security level. Only set when security level is changed to one with `set_delay` > 0
 	var/security_level_set_timer_id
 	/// Currently set security level
@@ -108,14 +108,16 @@ SUBSYSTEM_DEF(security_level)
 			selected_level.lowering_to_announcement_text,
 			selected_level.lowering_to_announcement_title,
 			new_sound = selected_level.lowering_to_sound,
-			new_sound2 = selected_level.ai_announcement_sound
+			new_sound2 = selected_level.ai_announcement_sound,
+			color_override = selected_level.announcement_color
 		)
 		return
 	GLOB.security_announcement.announce(
 		selected_level.elevating_to_announcement_text,
 		selected_level.elevating_to_announcement_title,
 		new_sound = selected_level.elevating_to_sound,
-		new_sound2 = selected_level.ai_announcement_sound
+		new_sound2 = selected_level.ai_announcement_sound,
+		color_override = selected_level.announcement_color
 	)
 
 /**

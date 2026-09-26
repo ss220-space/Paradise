@@ -1,6 +1,13 @@
 /datum/award/achievement/jobs
 	category = ACHIEVEMENT_CATEGORY_JOBS
 
+// MARK: Engineering
+/datum/award/achievement/jobs/theoretical_limits
+	name = "Всё в пределах теоретических ограничений"
+	desc = "Я никогда не думал, что увижу резонансный каскад, не говоря уже о том, чтобы предотвратить его..."
+	database_id = MEDAL_THEORETICAL_LIMITS
+	icon_state = "theoreticallimits"
+
 // MARK: Medical
 /datum/award/achievement/jobs/sandman
 	name = "Песочный Человек"

@@ -1,5 +1,4 @@
-// Telegun for Tator RDs
-
+// MARK: Telegun
 /obj/item/gun/energy/telegun
 	name = "Teleporter Gun"
 	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
@@ -13,7 +12,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/telegun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телепушка",
 		GENITIVE = "телепушки",
 		DATIVE = "телепушке",

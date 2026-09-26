@@ -6,7 +6,7 @@
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, FIRE = 50, ACID = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor
@@ -15,7 +15,7 @@
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, FIRE = 50, ACID = 90)
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor
@@ -54,7 +54,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
 	name = "engineering hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	item_color = "engineering"
@@ -63,7 +62,6 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/agent
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный — предатель!"
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent

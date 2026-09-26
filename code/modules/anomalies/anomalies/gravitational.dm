@@ -39,7 +39,7 @@
 	if(QDELETED(item))
 		return
 
-	var/grav_delta = -item.get_gravity()
+	var/grav_delta = -item.has_gravity()
 	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
 	item.add_gravity(id, grav_delta)
 	addtimer(CALLBACK(item, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
@@ -71,7 +71,7 @@
 	grav_change_time_high = 5 SECONDS
 
 /obj/effect/anomaly/gravitational/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малая гравитационная аномалия", \
 		GENITIVE = "малой гравитационной аномалии", \
 		DATIVE = "малой гравитационной аномалии", \
@@ -96,7 +96,7 @@
 	grav_change_time_high = 60 SECONDS
 
 /obj/effect/anomaly/gravitational/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гравитационная аномалия", \
 		GENITIVE = "гравитационной аномалии", \
 		DATIVE = "гравитационной аномалии", \
@@ -121,7 +121,7 @@
 	has_warp = TRUE
 
 /obj/effect/anomaly/gravitational/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая гравитационная аномалия", \
 		GENITIVE = "большой гравитационной аномалии", \
 		DATIVE = "большой гравитационной аномалии", \
@@ -130,7 +130,7 @@
 		PREPOSITIONAL = "большой гравитационной аномалии",
 	)
 
-/obj/effect/anomaly/gravitational/tier3/New()
+/obj/effect/anomaly/gravitational/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -169,7 +169,7 @@
 	has_warp = TRUE
 
 /obj/effect/anomaly/gravitational/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колоссальная гравитационная аномалия", \
 		GENITIVE = "колоссальной гравитационной аномалии", \
 		DATIVE = "колоссальной гравитационной аномалии", \
@@ -178,7 +178,7 @@
 		PREPOSITIONAL = "колоссальной гравитационной аномалии",
 	)
 
-/obj/effect/anomaly/gravitational/tier4/New()
+/obj/effect/anomaly/gravitational/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)

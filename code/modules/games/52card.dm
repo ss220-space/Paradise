@@ -11,7 +11,7 @@
 	card_style = "nanotrasen"
 
 /obj/item/deck/cards/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт",
 		GENITIVE = "колоды карт",
 		DATIVE = "колоде карт",
@@ -84,7 +84,7 @@
 	deck_style = "double"
 
 /obj/item/deck/cards/doublecards/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "двойная колода карт",
 		GENITIVE = "двойной колоды карт",
 		DATIVE = "двойной колоде карт",
@@ -107,7 +107,7 @@
 	sharp = TRUE
 
 /obj/item/deck/cards/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительная колода карт",
 		GENITIVE = "подозрительной колоды карт",
 		DATIVE = "подозрительной колоде карт",
@@ -138,7 +138,7 @@
 	simple_deck = TRUE
 
 /obj/item/deck/cards/tiny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода миниатюрных карт",
 		GENITIVE = "колоды миниатюрных карт",
 		DATIVE = "колоде миниатюрных карт",
@@ -157,7 +157,7 @@
 	deck_size = 2
 
 /obj/item/deck/cards/tiny/doublecards/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "двойная колода миниатюрных карт",
 		GENITIVE = "двойной колоды миниатюрных карт",
 		DATIVE = "двойной колоде миниатюрных карт",

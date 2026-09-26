@@ -127,7 +127,7 @@
 	return atoms
 
 /**
- *	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ * Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
 /proc/is_location_within_transition_boundaries(atom/loc)
 	return (loc.x > TRANSITION_BORDER_WEST) \
@@ -177,6 +177,14 @@
 /// Adds the debris element for projectile impacts.
 /atom/proc/add_debris_element()
 	return
+
+GLOBAL_ALIST_EMPTY(debris_handlers)
+
+/atom/proc/generate_debris_handler(debris_icon_state, debris_velocity = -40, debris_amount = 8, debris_scale = 1)
+	var/key = "[debris_icon_state] [debris_velocity] [debris_amount] [debris_scale]"
+	if(!GLOB.debris_handlers[key])
+		GLOB.debris_handlers[key] = new /datum/debris_handler(debris_icon_state, debris_velocity, debris_amount, debris_scale)
+	debris_handler = GLOB.debris_handlers[key]
 
 /**
  * Among other things, used by flamethrower and boiler spray to calculate if flame/spray can pass through.
@@ -513,25 +521,21 @@
 /proc/check_wall_item(floor_loc, dir_toward_wall, check_external = FALSE)
 	var/wall_loc = get_step(floor_loc, dir_toward_wall)
 	for(var/obj/checked_object in floor_loc)
-		if(!check_external)
-			if(!is_type_in_typecache(checked_object, GLOB.wallitems_interior))
-				continue
-
-			// Direction works sometimes
-			if(checked_object.dir == dir_toward_wall)
+		if(check_external)
+			if(is_type_in_typecache(checked_object, GLOB.wallitems_exterior) && checked_object.dir == dir_toward_wall)
 				return TRUE
-
-			// Some stuff doesn't use dir properly, so we need to check pixel instead
-			// That's exactly what get_turf_pixel() does
-			if(get_turf_pixel(checked_object) == wall_loc)
-				return TRUE
-
 			continue
 
-		if(!is_type_in_typecache(checked_object, GLOB.wallitems_exterior))
+		if(!is_type_in_typecache(checked_object, GLOB.wallitems_interior))
 			continue
 
+		//Direction works sometimes
 		if(checked_object.dir == dir_toward_wall)
+			return TRUE
+
+		//Some stuff doesn't use dir properly, so we need to check pixel instead
+		//That's exactly what get_turf_pixel() does
+		if(get_turf_pixel(checked_object) == wall_loc)
 			return TRUE
 
 	// Some stuff is placed directly on the wallturf (signs).
@@ -567,7 +571,7 @@
 /atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
-	if(!current_turf || !target_turf)	// nullspace
+	if(!current_turf || !target_turf) // nullspace
 		return FALSE
 	if(get_dist(current_turf, target_turf) > length)
 		return FALSE
@@ -663,4 +667,44 @@
 		current_turf = get_step_towards(current_turf, target_turf)
 		step_count++
 
+	return TRUE
+
+/**
+ * Line of sight check!
+ * Spawns a dummy object and then iterates through each turf to see if it's blocked by something not handled by pass_args.
+ * Contains a mid_los_check, meant to be overriden by subtypes.
+ * args:
+ * * user = Origin to start at.
+ * * target = End point.
+ * * pass_args = pass_flags given to dummy object to allow it to ignore certain types of blockades.
+ */
+/proc/los_check(atom/movable/user, mob/target, pass_args = PASSTABLE|PASSGLASS|PASSGRILLE, datum/callback/mid_check)
+	var/turf/user_turf = user.loc
+	if(!istype(user_turf))
+		return FALSE
+	var/obj/dummy = new(user_turf)
+	dummy.pass_flags |= pass_args //Grille/Glass so it can be used through common windows
+	var/turf/previous_step = user_turf
+	var/first_step = TRUE
+	for(var/turf/next_step as anything in (get_line(user_turf, target) - user_turf))
+		if(first_step)
+			for(var/obj/blocker in user_turf)
+				if(!blocker.density || !(blocker.flags & ON_BORDER))
+					continue
+				if(blocker.CanPass(dummy, get_dir(user_turf, next_step)))
+					continue
+				return FALSE // Could not leave the first turf.
+			first_step = FALSE
+		if(next_step.density)
+			qdel(dummy)
+			return FALSE
+		for(var/atom/movable/movable as anything in next_step)
+			if(!movable.CanPass(dummy, get_dir(next_step, previous_step)))
+				qdel(dummy)
+				return FALSE
+		if(mid_check?.Invoke(user, target, pass_args, next_step, dummy) == FALSE) // specify false as it may return null if there's no check
+			qdel(dummy)
+			return FALSE
+		previous_step = next_step
+	qdel(dummy)
 	return TRUE

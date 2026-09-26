@@ -38,7 +38,7 @@
 	var/was_harmed = FALSE
 
 /mob/living/simple_animal/possum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опоссум",
 		GENITIVE = "опоссума",
 		DATIVE = "опоссуму",
@@ -84,7 +84,7 @@
 	health = 50
 
 /mob/living/simple_animal/possum/Poppy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ключик",
 		GENITIVE = "Ключика",
 		DATIVE = "Ключику",

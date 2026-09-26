@@ -13,9 +13,14 @@
 
 	var/max_range = 1
 
+/obj/item/circuit_component/id_access_reader/Destroy()
+	target = null
+	access_port = null
+	. = ..()
+
 /obj/item/circuit_component/id_access_reader/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)].", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_0_A_OV(max_range)].", "orange", "info")
 
 /obj/item/circuit_component/id_access_reader/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)

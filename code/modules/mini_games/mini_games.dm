@@ -43,7 +43,7 @@
 					A.name = title
 				A.desc = message
 				A.action = action
-				A.target = source
+				A.target_ref = WEAKREF(source)
 				if(!alert_overlay)
 					var/old_layer = source.layer
 					var/old_plane = source.plane

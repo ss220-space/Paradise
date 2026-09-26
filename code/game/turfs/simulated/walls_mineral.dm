@@ -5,11 +5,9 @@
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
 	abstract_type = /turf/simulated/wall/mineral
-	var/last_event = 0
-	var/active = null
 
 /turf/simulated/wall/mineral/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 5, 1)
+	generate_debris_handler(DEBRIS_ROCK, -40, 5, 1)
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -82,14 +80,47 @@
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 	smooth = SMOOTH_BITMASK
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
+	var/active = null
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/turf/simulated/wall/mineral/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(world.time <= last_event + 1.5 SECONDS)
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
+	propagate_radiation_pulse()
+	last_event = world.time
+	active = FALSE
+
+/turf/simulated/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/turf/simulated/wall/mineral/uranium/attackby(obj/item/W, mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/turf/simulated/wall/mineral/uranium/Bumped(atom/movable/movable_atom)
+	radiate()
+	return ..()
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"
@@ -97,7 +128,6 @@
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
-	thermal_conductivity = 0.04
 	base_icon_state = "plasma_wall"
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
@@ -106,12 +136,12 @@
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	if(I.get_heat() <= 300)	//If the temperature of the object is over 300, then ignite
+	if(I.get_temperature() <= 300)	//If the temperature of the object is over 300, then ignite
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 	investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
-	ignite(I.get_heat())
+	ignite(I.get_temperature())
 
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
@@ -169,7 +199,7 @@
 	explosion_block = 0
 
 /turf/simulated/wall/mineral/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
 	if(I.sharp && I.force)
@@ -194,6 +224,8 @@
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
 	sheet_amount = 5
+	base_icon_state = "iron_wall"
+	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
 	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
@@ -318,7 +350,8 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
-/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act()
+/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 /////////////////////Plastitanium walls/////////////////////

@@ -85,7 +85,7 @@
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message(span_danger("[src] deflects [P] with their shield!"), \
-		span_danger("You block [P] with your shield!"), projectile_message = TRUE)
+		span_danger("You block [P] with your shield!"))
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
@@ -94,11 +94,9 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/clockwork/marauder/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
 	if(can_change_intents)
 		switch(input)
-			if(INTENT_HELP,INTENT_DISARM,INTENT_HARM)
+			if(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 				a_intent = input
 			if("right")
 				if(a_intent == INTENT_HELP)
@@ -143,18 +141,19 @@
 /mob/living/simple_animal/mouse/clockwork/handle_automated_action()
 	if(!isturf(loc))
 		return
-	var/turf/simulated/floor/F = get_turf(src)
-	if(!istype(F) || F?.intact)
+	var/turf/simulated/floor/our_floor = get_turf(src)
+	if(!istype(our_floor))
 		return
-	var/obj/structure/cable/C = locate() in F
-	if(C && prob(30))
-		if(C.avail())
-			visible_message(span_warning("[src] chews through [C]. [src] sparks for a moment!"))
-			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-		else
-			visible_message(span_warning("[src] chews through [C]."))
-		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
-		C.deconstruct()
+	var/obj/structure/cable/thing_to_eat = locate() in our_floor
+	if(!(thing_to_eat && !HAS_TRAIT(thing_to_eat, TRAIT_UNDERFLOOR) && prob(30)))
+		return
+	if(thing_to_eat.avail())
+		visible_message(span_warning("[src] chews through [thing_to_eat]. [src] sparks for a moment!"))
+		playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+	else
+		visible_message(span_warning("[src] chews through [thing_to_eat]."))
+		investigate_log("was chewed through by a clock mouse in [COORD(our_floor)] - [ADMIN_JMP(our_floor)])", INVESTIGATE_WIRES)
+		thing_to_eat.deconstruct()
 
 /mob/living/simple_animal/mouse/clockwork/splat(obj/item/item = null, mob/living/user = null)
 	return

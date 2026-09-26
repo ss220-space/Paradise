@@ -14,7 +14,7 @@
 	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/clothing/accessory/necklace/gem/examine(mob/user)
 	. = ..()

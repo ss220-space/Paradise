@@ -10,7 +10,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 5
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_HUGE
 	limb_body_flag = UPPER_TORSO
 	vital = TRUE
@@ -21,7 +21,7 @@
 	convertable_children = list(/obj/item/organ/external/groin)
 
 /obj/item/organ/external/chest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грудь",
 		GENITIVE = "груди",
 		DATIVE = "груди",
@@ -31,6 +31,8 @@
 	)
 
 /obj/item/organ/external/chest/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!is_robotic() || emp_proof || !tough) // Augmented chest suffocates the user on EMP.
 		return
@@ -48,15 +50,16 @@
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 5
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
+	cannot_break = TRUE
 	amputation_point = "поясницу"
 	gendered_icon = TRUE
 
 /obj/item/organ/external/groin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "живот",
 		GENITIVE = "живота",
 		DATIVE = "животу",
@@ -72,7 +75,7 @@
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1
 	bleeding_mod = 0.8
 	limb_body_flag = ARM_LEFT
 	amputation_point = "левое плечо"
@@ -80,7 +83,7 @@
 	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая рука",
 		GENITIVE = "левой руки",
 		DATIVE = "левой руке",
@@ -89,7 +92,41 @@
 		PREPOSITIONAL = "левой руке",
 	)
 
+/obj/item/organ/external/arm/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/arm/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
 /obj/item/organ/external/arm/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
@@ -109,7 +146,7 @@
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/arm/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая рука",
 		GENITIVE = "правой руки",
 		DATIVE = "правой руке",
@@ -125,7 +162,7 @@
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1
 	bleeding_mod = 0.8
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
@@ -134,7 +171,7 @@
 	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая нога",
 		GENITIVE = "левой ноги",
 		DATIVE = "левой ноге",
@@ -146,36 +183,44 @@
 /obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
+	user.update_fractures_fall()
 
-/obj/item/organ/external/leg/fracture(silent = FALSE)
+/obj/item/organ/external/leg/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
@@ -202,7 +247,7 @@
 	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/leg/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая нога",
 		GENITIVE = "правой ноги",
 		DATIVE = "правой ноге",
@@ -218,7 +263,7 @@
 	icon_name = "l_foot"
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
-	max_bleeding_amount = 1.5
+	max_bleeding_amount = 0.5
 	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	min_broken_damage = 15
@@ -230,7 +275,7 @@
 	amputation_point = "левую лодыжку"
 
 /obj/item/organ/external/foot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая ступня",
 		GENITIVE = "левой ступни",
 		DATIVE = "левой ступне",
@@ -245,6 +290,7 @@
 	if(is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
@@ -252,32 +298,37 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
+	user.update_fractures_fall()
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-/obj/item/organ/external/foot/fracture(silent = FALSE)
+/obj/item/organ/external/foot/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
+	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()
@@ -312,6 +363,8 @@
 		owner.set_usable_legs(owner.usable_legs + 1)
 
 /obj/item/organ/external/foot/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
@@ -338,7 +391,7 @@
 	amputation_point = "правую лодыжку"
 
 /obj/item/organ/external/foot/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая ступня",
 		GENITIVE = "правой ступни",
 		DATIVE = "правой ступне",
@@ -355,7 +408,7 @@
 	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
-	max_bleeding_amount = 1.5
+	max_bleeding_amount = 0.5
 	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	bleeding_mod = 0.65
@@ -366,7 +419,7 @@
 	can_grasp = TRUE
 
 /obj/item/organ/external/hand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая кисть",
 		GENITIVE = "левой кисти",
 		DATIVE = "левой кисти",
@@ -375,8 +428,37 @@
 		PREPOSITIONAL = "левой кисти",
 	)
 
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
+/obj/item/organ/external/hand/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_workspeed()
+
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
+	owner.update_fractures_workspeed()
 	owner.set_num_hands(owner.num_hands + 1)
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
@@ -423,6 +505,8 @@
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 /obj/item/organ/external/hand/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
@@ -442,7 +526,7 @@
 	amputation_point = "правое запястье"
 
 /obj/item/organ/external/hand/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая кисть",
 		GENITIVE = "правой кисти",
 		DATIVE = "правой кисти",
@@ -459,7 +543,7 @@
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	max_bleeding_amount = 3.75
+	max_bleeding_amount = 2
 	bleeding_mod = 1.1
 	limb_body_flag = HEAD
 	gendered_icon = TRUE
@@ -487,8 +571,15 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+	///Type of lipstick being used, basically
+	var/lip_style
+	///Lipstick color
+	var/lip_color
+	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
+	var/stored_lipstick_trait
+
 /obj/item/organ/external/head/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голова",
 		GENITIVE = "головы",
 		DATIVE = "голове",
@@ -538,7 +629,7 @@
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
+	if(in_range(user, src) || isobserver(user))
 		if(!length(contents))
 			. += span_notice("Выглядит пустой.")
 		else
@@ -565,6 +656,8 @@
 	new_dna?.write_head_attributes(src)
 
 /obj/item/organ/external/head/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
 		return
@@ -582,10 +675,9 @@
 	limb_zone = BODY_ZONE_TAIL
 	icon_name = "tail"
 	max_damage = 30
-	min_broken_damage = 15
-	max_bleeding_amount = 1.25
-	bleeding_mod = 0.65
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
+	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = TAIL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -596,7 +688,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/tail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост",
 		GENITIVE = "хвоста",
 		DATIVE = "хвосту",
@@ -640,7 +732,7 @@
 	min_broken_damage = 10
 
 /obj/item/organ/external/tail/monkey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост обезьяны",
 		GENITIVE = "хвоста обезьяны",
 		DATIVE = "хвосту обезьяны",
@@ -656,7 +748,7 @@
 	species_type = /datum/species/monkey/tajaran
 
 /obj/item/organ/external/tail/monkey/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост фарвы",
 		GENITIVE = "хвоста фарвы",
 		DATIVE = "хвосту фарвы",
@@ -672,7 +764,7 @@
 	species_type = /datum/species/monkey/vulpkanin
 
 /obj/item/organ/external/tail/monkey/vulpkanin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост вульпина",
 		GENITIVE = "хвоста вульпина",
 		DATIVE = "хвосту вульпина",
@@ -688,7 +780,7 @@
 	species_type = /datum/species/monkey/unathi
 
 /obj/item/organ/external/tail/monkey/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост стока",
 		GENITIVE = "хвоста стока",
 		DATIVE = "хвосту стока",
@@ -704,8 +796,9 @@
 	icon_name = "wing"
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
-	min_broken_damage = 15
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
+	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
 	amputation_point = "спину"
@@ -715,7 +808,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/wing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылья",
 		GENITIVE = "крыльев",
 		DATIVE = "крыльям",

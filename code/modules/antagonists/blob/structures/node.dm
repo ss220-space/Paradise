@@ -4,7 +4,7 @@
 	desc = "Большая пульсирующая желтая масса."
 	max_integrity = BLOB_NODE_MAX_HP
 	health_regen = BLOB_NODE_HP_REGEN
-	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 65, ACID = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 65, ACID = 90)
 	point_return = BLOB_REFUND_NODE_COST
 	claim_range = BLOB_NODE_CLAIM_RANGE
 	pulse_range = BLOB_NODE_PULSE_RANGE
@@ -34,8 +34,6 @@
 			blob_overlay.color = BlendRGB(overmind.blobstrain.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
 	. += blob_overlay
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_node_overlay")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /obj/structure/blob/special/node/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()

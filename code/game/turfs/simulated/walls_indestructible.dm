@@ -24,7 +24,7 @@
 /turf/simulated/wall/indestructible/singularity_act()
 	return
 
-/turf/simulated/wall/indestructible/singularity_pull(S, current_size)
+/turf/simulated/wall/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/wall/indestructible/narsie_act()
@@ -45,10 +45,10 @@
 /turf/simulated/wall/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
-/turf/simulated/wall/indestructible/rpd_act()
+/turf/simulated/wall/indestructible/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /turf/simulated/wall/indestructible/acid_act(acidpwr, acid_volume, acid_id)
@@ -57,7 +57,8 @@
 /turf/simulated/wall/indestructible/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/indestructible/rcd_deconstruct_act()
+/turf/simulated/wall/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 /turf/simulated/wall/indestructible/thermitemelt(mob/user, time)
@@ -72,6 +73,26 @@
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
+
+/turf/simulated/wall/indestructible/fakeglass/brass
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window-0"
+	base_icon_state = "clockwork_window"
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+
+/turf/simulated/wall/indestructible/fakeglass/brass/showcase
+	color = "#ff00fb"
+
+/turf/simulated/wall/indestructible/fakeglass/brass/showcase/get_ru_names()
+	return alist(
+		NOMINATIVE = "витрина",
+		GENITIVE = "витрины",
+		DATIVE = "витрине",
+		ACCUSATIVE = "витрину",
+		INSTRUMENTAL = "витриной",
+		PREPOSITIONAL = "витрине",
+	)
 
 /turf/simulated/wall/indestructible/reinforced
 	name = "reinforced wall"
@@ -97,6 +118,14 @@
 	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
 	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 	smooth = SMOOTH_BITMASK
+
+/turf/simulated/wall/indestructible/fakedoor
+	name = "airlock"
+	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
+	icon_state = "closed"
+
+/turf/simulated/wall/indestructible/fakedoor/hatch
+	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi'
 
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
@@ -147,7 +176,14 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
-	always_lit = TRUE
+
+/turf/simulated/wall/indestructible/abductor/normal
+	icon_state = "abductor"
+	icon = 'icons/turf/walls/abductor_wall.dmi'
+
+/turf/simulated/wall/indestructible/titanium
+	icon_state = "shuttle"
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"
@@ -204,6 +240,8 @@
 	icon_state = "iron"
 	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
+	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
 /turf/simulated/wall/indestructible/bananium
 	name = "bananium wall"
@@ -247,4 +285,47 @@
 // used with /effect/view_portal in order to get rid of dynamic lighting.
 /turf/simulated/wall/indestructible/invisible/view_portal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	always_lit = TRUE
+
+/turf/simulated/wall/indestructible/bingle
+	name = "Bingle Pit wall"
+	desc = "Оно... синее. Это всё, что приходит вам в голову. Вы не уверены, что это вообще можно разрушить."
+	icon = 'icons/turf/walls/bingle.dmi'
+	icon_state = "wall-0"
+	smooth = SMOOTH_BITMASK
+
+/turf/simulated/wall/indestructible/bingle/get_ru_names()
+	return alist(
+		NOMINATIVE = "яма Бинглов",
+		GENITIVE = "ямы Бинглов",
+		DATIVE = "яме Бинглов",
+		ACCUSATIVE = "яму Бинглов",
+		INSTRUMENTAL = "ямой Бинглов",
+		PREPOSITIONAL = "яме Бинглов",
+	)
+
+/turf/simulated/wall/indestructible/opsglass
+	name = "window"
+	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon_state = "plastitanium_window-0"
+	base_icon_state = "plastitanium_window"
+	opacity = FALSE
+	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM + SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM + SMOOTH_GROUP_SYNDICATE_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS
+
+/turf/simulated/wall/indestructible/opsglass/Initialize(mapload)
+	. = ..()
+	icon_state = null
+	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
+	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
+
+/turf/simulated/wall/indestructible/opsglass/limited_smooth
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+
+/turf/simulated/wall/indestructible/syndicate
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS + SMOOTH_GROUP_AIRLOCK
+	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS

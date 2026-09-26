@@ -1,3 +1,15 @@
+/mob/living/proc/get_bodypart(zone)
+	return
+
+/mob/living/carbon/human/get_bodypart(zone)
+	RETURN_TYPE(/obj/item/organ/external)
+
+	if(!zone)
+		zone = BODY_ZONE_CHEST
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.limb_zone == zone)
+			return bodypart
+
 /mob/proc/get_int_organ(typepath) //int stands for internal
 	return
 

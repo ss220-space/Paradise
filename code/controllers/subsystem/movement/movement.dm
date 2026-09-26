@@ -1,10 +1,8 @@
 SUBSYSTEM_DEF(movement)
 	name = "Movement Loops"
-	flags = SS_NO_INIT|SS_BACKGROUND|SS_TICKER
+	ss_flags = SS_NO_INIT|SS_TICKER
 	wait = 1 //Fire each tick
-	offline_implications = "Move loops for movables are no longer available. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "move_manager"
+
 	/*
 		A breif aside about the bucketing system here
 

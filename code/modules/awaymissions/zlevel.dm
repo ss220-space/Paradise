@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	if(CONFIG_GET(string/override_away_mission))
 		log_startup_progress_global("Mapping", "Away mission overridden by configuration to [CONFIG_GET(string/override_away_mission)].")
 
-	var/file = wrap_file(map)
+	var/file = WRAP_FILE(map)
 	var/bounds = GLOB.maploader.load_map(file, 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	var/total_z = bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1
 	var/map_z_level

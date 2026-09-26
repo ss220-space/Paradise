@@ -51,7 +51,6 @@
 	icon_state = "cart-e"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 	)
 
 /obj/item/cartridge/atmos
@@ -194,7 +193,6 @@
 	icon_state = "cart-ce"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/status_display,
 	)
@@ -229,7 +227,6 @@
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
@@ -259,7 +256,6 @@
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
@@ -295,7 +291,7 @@
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
 
 /obj/item/cartridge/frame/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "картридж П.О.Д.С.Т.А.В.А.",
 		GENITIVE = "картриджа П.О.Д.С.Т.А.В.А.",
 		DATIVE = "картриджу П.О.Д.С.Т.А.В.А.",

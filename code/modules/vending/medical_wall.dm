@@ -37,13 +37,13 @@
 		/obj/item/reagent_containers/syringe/antiviral = 4,
 		/obj/item/reagent_containers/food/pill/tox = 1,
 	)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 	tiltable = FALSE
 
 /obj/machinery/vending/wallmed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NanoMed",
 		GENITIVE = "торгового автомата NanoMed",
 		DATIVE = "торговому автомату NanoMed",
@@ -51,6 +51,8 @@
 		INSTRUMENTAL = "торговым автоматом NanoMed",
 		PREPOSITIONAL = "торговом автомате NanoMed",
 	)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 25, 30)
 
 /obj/machinery/vending/wallmed/syndicate
 	name = "SyndiWallMed"
@@ -70,7 +72,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/wallmed/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SyndiWallMed",
 		GENITIVE = "торгового автомата SyndiWallMed",
 		DATIVE = "торговому автомату SyndiWallMed",

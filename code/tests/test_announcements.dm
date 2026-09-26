@@ -1,8 +1,8 @@
 /// This test exists largely to ensure that no runtimes occur when announcements
 /// are made, so there are no explicit Fail calls. It either works or runtimes.
-/datum/game_test/announcements
+/datum/unit_test/announcements
 
-/datum/game_test/announcements/Run()
+/datum/unit_test/announcements/Run()
 	GLOB.major_announcement.announce(
 		message = "Figments from an eldritch god are being summoned into the NSS Cyberiad from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space Law and SOP are suspended. The entire crew must kill cultists on sight.",
 		new_title = "Central Command Higher Dimensional Affairs",

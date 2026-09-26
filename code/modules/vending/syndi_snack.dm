@@ -30,7 +30,7 @@
 	)
 
 /obj/machinery/vending/syndisnack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
 		GENITIVE = "торгового автомата Getmore Chocolate Corp",
 		DATIVE = "торговому автомату Getmore Chocolate Corp",

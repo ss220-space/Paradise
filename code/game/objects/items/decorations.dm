@@ -236,7 +236,7 @@
 	anchored = TRUE
 
 /obj/structure/decorative_structures/garland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "новогодняя гирлянда",
 		GENITIVE = "новогодней гирлянды",
 		DATIVE = "новогодней гирлянде",
@@ -330,7 +330,7 @@
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
 
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
 	take_damage(pick(2,3), BRUTE, MELEE)
@@ -338,9 +338,6 @@
 	user.visible_message(span_danger("You punched something viscous! You hear a slimy sound."))
 
 /obj/structure/decorative_structures/corpse/play_attack_sound()
-	return
-
-/obj/structure/decorative_structures/corpse/climb_on()
 	return
 
 /obj/structure/decorative_structures/corpse/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -434,7 +431,7 @@
 	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
-	..()
+	return ..()
 
 /obj/structure/decorative_structures/snowcloud
 	name = "snow cloud"

@@ -41,11 +41,11 @@
 
 /datum/element/lunge_attack/proc/perform_lunge(obj/item/source, mob/living/user, atom/target)
 	user.apply_status_effect(STATUS_EFFECT_LUNGING)
-	
+
 	RegisterSignal(user, COMSIG_MOVABLE_IMPACT, PROC_REF(on_impact), override = TRUE)
-	
+
 	user.throw_at(target, lunge_range, lunge_speed, source, spin = FALSE, callback = CALLBACK(src, PROC_REF(lunge_ended), source, user, target))
-	
+
 	ADD_TRAIT(user, TRAIT_CANT_LUNGE, UNIQUE_TRAIT_SOURCE(src))
 	addtimer(CALLBACK(src, PROC_REF(reset_lunge), user), cooldown_time)
 
@@ -68,15 +68,11 @@
 	ADD_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
 	var/atom/final_target = target
-	
+
 	if(target == get_turf(user))
 		var/turf/next_tile = get_step(user, user.dir)
 		if(next_tile)
 			final_target = next_tile
-	
-	if(!HAS_TRAIT(weapon, TRAIT_CLEAVE_BLOCKED))
-		if(SEND_SIGNAL(weapon, COMSIG_ITEM_AFTERATTACK, final_target, user, FALSE, null, TRUE))
-			return
 
 	if(user.Adjacent(final_target))
 		weapon.melee_attack_chain(user, final_target)
@@ -93,13 +89,13 @@
 
 	if(!user || !target || !user.Adjacent(target))
 		return
-		
+
 	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, melee_attack_chain), user, target)
 
 /datum/element/lunge_attack/proc/lunge_ended(obj/item/source, mob/living/user, atom/target)
 	UnregisterSignal(user, COMSIG_MOVABLE_IMPACT)
 	user.remove_status_effect(STATUS_EFFECT_LUNGING)
-	
+
 	if(!HAS_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED))
 		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), source, user, target)
 	REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))

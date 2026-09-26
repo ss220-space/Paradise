@@ -9,17 +9,23 @@
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	var/obj/item/noz
 	var/on = 0
 	var/volume = 500
 
-/obj/item/watertank/New()
-	..()
+/obj/item/watertank/Initialize(mapload)
+	. = ..()
 	create_reagents(volume)
 	noz = make_noz()
+
+/obj/item/watertank/Destroy()
+	remove_noz()
+	QDEL_NULL(noz)
+	return ..()
 
 /obj/item/watertank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mister()
@@ -28,17 +34,7 @@
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
-/obj/item/watertank/verb/toggle_mister()
-	set name = "Вынуть шланг"
-	set category = VERB_CATEGORY_OBJECT
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(usr, span_notice("The watertank needs to be on your back to use."))
-		return
-
+/obj/item/watertank/proc/toggle_mister()
 	on = !on
 
 	var/mob/living/carbon/human/user = usr
@@ -71,12 +67,6 @@
 		var/mob/user = noz.loc
 		user.drop_item_ground(noz, force = TRUE)
 
-/obj/item/watertank/Destroy()
-	if(on)
-		remove_noz()
-		QDEL_NULL(noz)
-	return ..()
-
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
 		ui_action_click()
@@ -106,13 +96,20 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/New(parent_tank)
-	..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-		loc = tank
-	return
+/obj/item/reagent_containers/spray/mister/Initialize(mapload)
+	if(!check_tank_exists(loc, usr, src))
+		return INITIALIZE_HINT_QDEL
+	tank = loc
+	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+	return ..()
+
+/obj/item/reagent_containers/spray/mister/Destroy()
+	if(tank)
+		tank.remove_noz()
+		tank.noz = null
+	tank = null
+	reagents = null // Unset, this is the tanks reagents
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -123,20 +120,18 @@
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
 
-/proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
+/proc/check_tank_exists(parent_tank, mob/living/carbon/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		M.temporarily_remove_item_from_inventory(O)
-		qdel(O)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
 		forceMove(tank.loc)
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/spray/mister/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -147,8 +142,8 @@
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
 
-/obj/item/watertank/janitor/New()
-	..()
+/obj/item/watertank/janitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("cleaner", 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
@@ -157,7 +152,6 @@
 	icon_state = "misterjani"
 	item_state = "misterjani"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
@@ -179,8 +173,8 @@
 	item_state = "waterbackpackatmos"
 	volume = 200
 
-/obj/item/watertank/atmos/New()
-	..()
+/obj/item/watertank/atmos/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 200)
 
 /obj/item/watertank/atmos/make_noz()
@@ -223,17 +217,19 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/New(parent_tank)
-	. = ..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents
-		max_water = tank.volume
-		loc = tank
-
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
-	. = ..()
+	if(!check_tank_exists(loc, usr, src))
+		return INITIALIZE_HINT_QDEL
+	tank = loc
+	reagents = tank.reagents
+	max_water = tank.volume
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+	return ..()
+
+/obj/item/extinguisher/mini/nozzle/Destroy()
+	tank = null
+	reagents = null
+	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -262,7 +258,7 @@
 	tank.on = 0
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return
@@ -293,7 +289,7 @@
 				nanofrost_cooldown = 0
 		return
 	if(nozzle_mode == METAL_FOAM)
-		if(!Adj|| !istype(target, /turf))
+		if(!Adj|| !isturf(target))
 			return
 		if(metal_synthesis_cooldown < 5)
 			var/datum/effect_system/fluid_spread/foam/metal/s = new()

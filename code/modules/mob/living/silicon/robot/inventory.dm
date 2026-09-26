@@ -11,7 +11,7 @@
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
 
-/mob/living/silicon/robot/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+/mob/living/silicon/robot/get_equipped_items(include_flags = NONE)
 	. = list()
 	if(module_state_1)
 		. += module_state_1
@@ -25,6 +25,7 @@
 	if(!O)
 		return 0
 
+	O.dropped(src)
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(client)
@@ -38,7 +39,7 @@
 			A.Remove(src)
 
 	if(module_active == O)
-		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		if(iscyborgmobilitymodule(module_active))
 			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
@@ -77,6 +78,7 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
@@ -86,6 +88,7 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
@@ -95,13 +98,15 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else
 		to_chat(src, "You need to disable a module first!")
 	check_module_damage(FALSE)
 
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_to_update, add = TRUE)
 	for(var/mob/dead/observer/observe as anything in inventory_observers)
-		if(!(observe.client && observe.client.eye == src))
+		if(!observe.client || observe.client.eye != src)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(inventory_observers, observe)
 			continue
 
@@ -216,7 +221,8 @@
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
 
-	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+	if(iscyborgmobilitymodule(module_active))
+		eject_riders_harmfull()
 		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 	update_icons()
 
@@ -225,7 +231,7 @@
 	if(module < 1 || module > 3)
 		return
 
-	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+	if(iscyborgmobilitymodule(module_active))
 		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 
 	switch(module)

@@ -25,8 +25,9 @@
 		if(!length(viewers_by_turf[turf]) || !length(things_by_turf[turf]))
 			continue
 		var/destroyed = capitalize(english_list(things_by_turf[turf]))
-		for(var/mob/viewer as anything in viewers_by_turf[turf])
-			viewer.show_message(span_warning("[destroyed] gets crushed by a hyperspace ripple!"), EMOTE_VISIBLE)
+		var/message = span_warning("[destroyed] gets crushed by a hyperspace ripple!")
+		for(var/mob/viewer in viewers_by_turf[turf])
+			viewer.show_message(message, EMOTE_VISIBLE)
 
 /**
  * Atom crushed by shuttle feedback.

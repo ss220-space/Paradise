@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	anchored = TRUE
 	idle_power_usage = 5
 	active_power_usage = 50
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1
@@ -18,7 +19,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "утилизатор обезьян",
 		GENITIVE = "утилизатора обезьян",
 		DATIVE = "утилизатору обезьян",
@@ -44,8 +45,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
-	for(var/thing in connected)
-		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
+	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()
@@ -136,6 +136,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
 	grabber.stop_pulling()
 	qdel(victim)
+	victim = null
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	Shake(pixelshiftx = 1, pixelshifty = 0, duration = 3.4 SECONDS)
 	use_power(500)
@@ -154,5 +155,5 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[declension_ru(cube_production, "а", "ов", "ов")]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[declension_ru(required_grind, "ы", "", "")]</b>."))
+		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[DECL_A_OV_OV(cube_production)]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[DECL_Y_0_0(required_grind)]</b>."))
 	return

@@ -5,7 +5,7 @@ ADMIN_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", "Turns yo
 
 	var/atom/movable/AM = user.holder.marked_datum
 	var/json_data = json_encode(AM.serialize())
-	to_chat(user, chat_box_examine(json_data))
+	to_chat(user, boxed_message(json_data))
 
 ADMIN_VERB(deserialize_json, R_SPAWN, "Deserialize JSON datum", "Creates an object from a JSON string.", ADMIN_CATEGORY_DEBUG)
 	var/json_text = tgui_input_text(user, "Enter the JSON code:", "Text", multiline = TRUE, encode = FALSE)

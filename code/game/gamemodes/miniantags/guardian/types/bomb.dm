@@ -42,7 +42,7 @@
 		if(target.pilot)
 			to_chat(src, span_warning("Челноки не пригодны для минирования!"))
 			return FALSE
-	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
+	if(isdisposalunit(A)) // Have no idea why they just destroy themselves
 		to_chat(src, span_warning("Бомбы не мусор! Нельзя минировать мусорки!"))
 		return FALSE
 	return TRUE

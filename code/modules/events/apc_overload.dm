@@ -24,7 +24,7 @@
 	GLOB.minor_announcement.announce(
 		message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
 		new_title = ANNOUNCE_APC_CRIT_RU,
-		new_sound = 'sound/AI/power_overload.ogg'
+		new_sound = ANNOUNCER_POWEROFF
 	)
 
 /datum/event/apc_overload/end()
@@ -32,9 +32,9 @@
 
 /proc/apc_overload_failure(announce=TRUE)
 	var/static/list/skipped_areas_apc = typecacheof(list(
-		/area/engineering/engine,
-		/area/engineering/supermatter,
-		/area/turret_protected/ai,
+		/area/station/engineering/engine,
+		/area/station/engineering/supermatter/engine,
+		/area/station/ai/satellite/chamber,
 	))
 
 	if(announce)

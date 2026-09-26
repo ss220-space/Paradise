@@ -43,7 +43,7 @@
 	var/list/mice = list()
 	for(var/HM in .)
 		//Yum a tasty mouse
-		if(istype(HM, /mob/living/simple_animal/mouse))
+		if(ismouse(HM))
 			mice += HM
 		if(isliving(HM))
 			living_mobs += HM
@@ -55,7 +55,7 @@
 	return mice
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/mouse))
+	if(ismouse(target))
 		visible_message(span_notice("[name] consumes [target] in a single gulp!"), span_notice("You consume [target] in a single gulp!"))
 		QDEL_NULL(target)
 		adjustHealth(-2)
@@ -89,11 +89,7 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/add_strippable_element()
 	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_snake_items)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/verb/chasetail()
-	set name = "Гоняться за хвостом"
-	set desc = "d'awwww."
-	set category = VERB_CATEGORY_ANIMAL
-
+GAME_VERB_DESC(/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge, chasetail, "Гоняться за хвостом", "d'awwww.", VERB_CATEGORY_ANIMAL)
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
@@ -255,7 +251,7 @@
 	unique_pet = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доктор Рираха",
 		GENITIVE = "доктора Рираха",
 		DATIVE = "доктору Рираху",

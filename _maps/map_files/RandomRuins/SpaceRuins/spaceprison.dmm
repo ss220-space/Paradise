@@ -43,7 +43,7 @@
 /area/space/nearstation)
 "ai" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aj" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -61,12 +61,14 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "an" = (
 /obj/machinery/power/solar{
 	name = "South-East Solar Panel"
@@ -190,7 +192,7 @@
 	id_tag = "solar_space_prison_pump"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -200,21 +202,21 @@
 	},
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aF" = (
 /obj/structure/rack,
 /obj/machinery/light/small{
@@ -233,7 +235,7 @@
 	dir = 5;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aG" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -243,7 +245,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aJ" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
@@ -251,14 +253,14 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aK" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aL" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -271,7 +273,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aN" = (
 /obj/structure/chair{
 	dir = 4
@@ -279,7 +281,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aO" = (
 /turf/template_noop,
 /area/space/nearstation)
@@ -292,16 +294,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aR" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -309,13 +313,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aU" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -331,14 +337,14 @@
 	dir = 8;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "aZ" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ba" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter{
@@ -353,7 +359,7 @@
 	dir = 4;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bb" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
@@ -364,29 +370,31 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bc" = (
 /obj/structure/closet/toolcloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bd" = (
 /obj/machinery/power/smes,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "be" = (
 /obj/item/cigbutt,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bf" = (
 /obj/structure/cable,
 /obj/machinery/power/terminal{
@@ -394,7 +402,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bg" = (
 /obj/structure/chair{
 	dir = 1
@@ -402,24 +410,24 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bi" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bj" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bl" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
@@ -428,14 +436,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -444,7 +450,7 @@
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -456,7 +462,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bp" = (
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 14
@@ -465,14 +471,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "br" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bs" = (
 /obj/structure/table,
 /obj/structure/cable{
@@ -481,7 +487,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bt" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -492,7 +498,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -505,7 +511,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bw" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -521,14 +527,16 @@
 	id = "spaceprisonsolar";
 	name = "Space Prison Solar Control"
 	},
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating,
-/area/ruin/spaceprison)
-"bB" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -24
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plating,
+/area/ruin/space_prison)
+"bB" = (
+/obj/machinery/power/apc/worn_out/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -537,7 +545,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bD" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -549,7 +557,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -557,12 +565,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bF" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bI" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -571,7 +581,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bJ" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
@@ -609,7 +619,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bK" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -618,16 +628,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bL" = (
 /obj/item/stock_parts/cell,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -639,7 +651,7 @@
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -649,13 +661,13 @@
 	req_access = list(12, 63)
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bO" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bR" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -666,7 +678,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bT" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
@@ -675,7 +687,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bU" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -688,12 +700,12 @@
 /obj/item/bedsheet/black,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bW" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -702,7 +714,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "bY" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced,
@@ -719,16 +731,16 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ca" = (
 /obj/structure/bed,
 /obj/item/bedsheet/fluff/hugosheet,
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cb" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cc" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -740,7 +752,7 @@
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ce" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -749,7 +761,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cg" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -772,7 +784,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ck" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -785,7 +797,7 @@
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cl" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -795,7 +807,7 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cm" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -806,7 +818,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cn" = (
 /obj/machinery/door/window/brigdoor{
 	id = "Ruin Cell 1";
@@ -815,7 +827,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "co" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -826,7 +838,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cp" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -838,7 +850,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -848,7 +860,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cr" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -857,7 +869,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ct" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/tcomms/relay,
@@ -865,7 +877,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cu" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "spaceprisonnot";
@@ -875,14 +887,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cB" = (
 /obj/machinery/light/small,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -892,7 +904,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cD" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -901,7 +913,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cG" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/cleanable/dust,
@@ -909,14 +921,14 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cH" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cI" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -926,16 +938,18 @@
 	},
 /obj/structure/wryn/floor,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cJ" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cK" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -949,33 +963,35 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cM" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cN" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cO" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cP" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cQ" = (
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
@@ -985,7 +1001,7 @@
 	pixel_y = 23
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "cS" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/decal/cleanable/dust,
@@ -994,14 +1010,14 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "dz" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "dN" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/blackbox_recorder,
@@ -1009,13 +1025,13 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "dP" = (
 /obj/structure/chair/office/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ea" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1024,7 +1040,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "eb" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/ancient{
@@ -1032,14 +1048,12 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/o2,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 24
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ed" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1050,11 +1064,11 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "el" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "et" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1067,26 +1081,26 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "eC" = (
 /obj/structure/spacepoddoor,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
 	id_tag = "spaceprisonpod"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "eG" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "eO" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "eS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1095,7 +1109,7 @@
 	dir = 9;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1105,11 +1119,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ft" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Space Prison Armory";
@@ -1117,7 +1131,7 @@
 	security_level = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fv" = (
 /obj/machinery/door/airlock/glass{
 	name = "Space Prison Dorm";
@@ -1135,7 +1149,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/paper/crumpled,
@@ -1143,33 +1157,33 @@
 	dir = 6;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fK" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/wryn/floor,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "fT" = (
 /obj/structure/window/reinforced,
-/obj/structure/toilet{
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/space_prison)
+"fV" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/ruin/spaceprison)
-"fV" = (
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gc" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gd" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1179,7 +1193,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gi" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1188,21 +1202,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gj" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/wryn/floor,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gm" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gr" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/officetoys,
@@ -1210,7 +1222,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gy" = (
 /obj/machinery/light{
 	dir = 1
@@ -1227,11 +1239,11 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gD" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "gE" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -1239,54 +1251,56 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "hf" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "hl" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "hq" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "hI" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "hK" = (
 /obj/structure/window/reinforced,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "hR" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "iz" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "iH" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "iR" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -1295,7 +1309,7 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "iS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1305,7 +1319,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jf" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1316,7 +1330,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ji" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -1324,7 +1338,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1335,9 +1349,11 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jy" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
 	id = "spaceprisonpod";
@@ -1348,17 +1364,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jO" = (
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jU" = (
 /obj/item/gps/ruin{
 	gpstag = "Faint Radio Signal"
 	},
 /turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "jX" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/twohanded/required/kirbyplants,
@@ -1369,14 +1385,14 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kh" = (
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -1387,13 +1403,13 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kE" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1403,7 +1419,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kP" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1413,13 +1429,13 @@
 	name = "Cell 1 Locker"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "kR" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "lD" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
@@ -1431,16 +1447,14 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "lI" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "lK" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1448,13 +1462,15 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "lL" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "mK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1462,13 +1478,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "mZ" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ni" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1481,18 +1497,18 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "np" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "nS" = (
 /obj/machinery/suit_storage_unit/security,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "nT" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1513,7 +1529,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "of" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/office/light{
@@ -1522,7 +1538,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "op" = (
 /obj/machinery/door/airlock/glass{
 	name = "Space Prison Dorm";
@@ -1531,7 +1547,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "oq" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1541,14 +1557,14 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "pf" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "pz" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/secure_closet/guncabinet,
@@ -1556,7 +1572,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "pH" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -1567,7 +1583,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "pP" = (
 /obj/structure/grille/broken,
 /obj/structure/window/reinforced{
@@ -1581,17 +1597,17 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "pW" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "qp" = (
 /obj/item/paper/crumpled/hotel_scrap_1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "qN" = (
 /obj/structure/rack{
 	dir = 8;
@@ -1606,13 +1622,13 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "qP" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "qR" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1622,7 +1638,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "rh" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1631,7 +1647,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "rl" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1640,19 +1656,19 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ru" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "rx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "se" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -1663,14 +1679,14 @@
 	name = "Cell 6 Locker"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "sw" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "sx" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced,
@@ -1681,13 +1697,13 @@
 /area/space/nearstation)
 "sE" = (
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "sQ" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "tc" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
@@ -1695,7 +1711,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "tz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1705,7 +1721,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "tH" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -1720,7 +1736,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "tV" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -1729,7 +1745,7 @@
 	req_access = list(2)
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "uL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1739,13 +1755,15 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "uO" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vk" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -1753,7 +1771,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vm" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/crate/medical,
@@ -1764,7 +1782,7 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vs" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
@@ -1776,18 +1794,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vN" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vY" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -1799,7 +1817,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "vZ" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1809,7 +1827,7 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "wm" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -1824,7 +1842,7 @@
 	dir = 4;
 	icon_state = "darkredcorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "wU" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet/brig{
@@ -1833,13 +1851,13 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xb" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xy" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1853,7 +1871,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xB" = (
 /obj/machinery/door/window/brigdoor{
 	name = "Prison Med Door";
@@ -1863,21 +1881,18 @@
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xG" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xW" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "xZ" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -1885,42 +1900,37 @@
 	dir = 6;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "yd" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "yv" = (
 /obj/structure/window/reinforced,
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "yw" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "yH" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/wryn/floor,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "yJ" = (
 /obj/item/paper/crumpled,
 /obj/structure/cable{
@@ -1930,14 +1940,14 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "zj" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "zk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1945,7 +1955,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "zr" = (
 /obj/machinery/door/window/brigdoor{
 	id = "Ruin Cell 3";
@@ -1953,7 +1963,7 @@
 	req_access = list(2)
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "zt" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1962,7 +1972,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "zO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1972,7 +1982,7 @@
 	name = "Cell 4 Locker"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Aa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1982,7 +1992,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ai" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1990,21 +2000,21 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "An" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ao" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Aq" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical{
@@ -2018,7 +2028,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "As" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -2027,14 +2037,14 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "AC" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "AF" = (
 /obj/machinery/light,
 /obj/machinery/suit_storage_unit,
@@ -2043,13 +2053,15 @@
 	dir = 6;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Bd" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Br" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -2065,9 +2077,11 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "BG" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2075,28 +2089,28 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "BH" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "BI" = (
 /obj/item/paper/crumpled,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "BT" = (
 /obj/item/paper,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Cc" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -2105,26 +2119,28 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Cr" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "CD" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "CF" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "CG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2134,7 +2150,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Do" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2149,7 +2165,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ee" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2167,19 +2183,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Es" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/paper/crumpled/bloody/ruins,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ew" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ex" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -2187,7 +2203,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "EF" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2199,7 +2215,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ES" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -2212,7 +2228,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Fh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2222,7 +2238,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Fr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2232,7 +2248,7 @@
 	dir = 9;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Gu" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2245,12 +2261,12 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "GQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "GZ" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/light,
@@ -2259,7 +2275,7 @@
 	dir = 10;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Hc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2268,14 +2284,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Hk" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "HB" = (
 /obj/structure/grille,
 /turf/template_noop,
@@ -2285,7 +2301,7 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "HN" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -2304,14 +2320,16 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ih" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Io" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2321,7 +2339,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ir" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -2331,17 +2349,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "IL" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "IM" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "IP" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -2349,7 +2369,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ji" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2361,7 +2381,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Jl" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2372,7 +2392,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "JK" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2382,11 +2402,11 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ka" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ko" = (
 /obj/structure/window/reinforced,
 /obj/item/shard{
@@ -2400,7 +2420,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ky" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2416,12 +2436,12 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "KD" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "KP" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2432,7 +2452,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Lj" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2440,7 +2460,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Me" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2449,35 +2469,32 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Mj" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Mv" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Space Prison Airstorage";
 	req_access = list(12,63)
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Mw" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Mz" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ME" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -2487,9 +2504,11 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "MG" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -2497,15 +2516,12 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "MI" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "MN" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2514,7 +2530,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "MT" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -2522,7 +2538,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "MW" = (
 /obj/structure/window/reinforced,
 /obj/machinery/door_timer/cell_4{
@@ -2532,7 +2548,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Nr" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs{
@@ -2546,7 +2562,7 @@
 	dir = 10;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Nu" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -2557,32 +2573,29 @@
 "Nz" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "NL" = (
 /obj/item/paper/crumpled/bloody/ruins,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "NM" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "NS" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ok" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/paper/crumpled/hotel_scrap_6,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "OB" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -2592,7 +2605,7 @@
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "OK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2603,10 +2616,10 @@
 	security_level = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Pd" = (
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Pq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2614,7 +2627,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "PI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2624,7 +2637,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "PP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2632,7 +2645,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Qc" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -2640,7 +2653,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Qh" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2650,7 +2663,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Qi" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -2659,7 +2672,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QF" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -2671,7 +2684,7 @@
 	dir = 8;
 	icon_state = "darkredcorners"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2683,7 +2696,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2693,17 +2706,17 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QL" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QP" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "QX" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "spaceprisonsot";
@@ -2713,7 +2726,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Rc" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2724,24 +2737,21 @@
 	name = "Cell 3 Locker"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Rr" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Sg" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Sp" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -2756,7 +2766,7 @@
 	name = "Security Ballistic Weapons";
 	req_access = list(1)
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -2764,7 +2774,7 @@
 	dir = 5;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "SX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2774,35 +2784,37 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Td" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/stack/ore/bluespace_crystal{
 	amount = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Tg" = (
 /obj/structure/window/reinforced,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "TB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "TH" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/wryn/wax/wall,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "TI" = (
 /obj/machinery/door/window/brigdoor{
 	id = "Ruin Cell 2";
@@ -2810,27 +2822,29 @@
 	req_access = list(2)
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "TK" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Uv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "UR" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Vg" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dust,
@@ -2838,52 +2852,50 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Vs" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "VC" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/bed,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "VL" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Wf" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Wg" = (
 /obj/machinery/door/window/northright{
 	name = "Sleep door"
 	},
 /turf/simulated/floor/wood,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Wr" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "WF" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/inflatable,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Xe" = (
 /obj/machinery/light{
 	dir = 1
@@ -2895,17 +2907,17 @@
 	dir = 9;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Xj" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Xy" = (
 /obj/structure/spacepoddoor,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "XX" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -2914,24 +2926,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Yc" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Yo" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Ys" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2940,26 +2949,26 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Yx" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YB" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/wryn/floor,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YF" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2968,7 +2977,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YK" = (
 /obj/structure/table,
 /obj/item/radio,
@@ -2977,24 +2986,22 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YL" = (
 /obj/structure/window/reinforced,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "YV" = (
 /obj/item/paper/crumpled/hotel_scrap_7,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Zd" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/office/light{
@@ -3004,7 +3011,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Zh" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -3012,7 +3019,7 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "Zz" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Space Prison Armory";
@@ -3023,10 +3030,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 "ZJ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -3037,7 +3043,7 @@
 	name = "Cell 5 Locker"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
+/area/ruin/space_prison)
 
 (1,1,1) = {"
 aa

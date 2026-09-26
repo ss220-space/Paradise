@@ -1,6 +1,7 @@
 /atom/movable/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-
+	if(.)
+		return
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отстегнуть?", "Отстегивание", sort_names(buckled_mobs))
@@ -12,14 +13,14 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-/atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
-	. = ..()
+/atom/movable/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
 	return mouse_buckle_handling(dropping, user)
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
-
-	if(can_buckle && has_buckled_mobs() && Adjacent(user))
+	if(.)
+		return
+	if(Adjacent(user) && can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отстегнуть?", "Отстегивание", sort_names(buckled_mobs))
 			if(isnull(unbuckled))
@@ -92,7 +93,7 @@
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	target.set_buckled(src)
 	buckled_mobs |= target
-	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/buckled)
 	target.set_glide_size(glide_size)
 	target.setDir(dir)
 
@@ -328,7 +329,7 @@
  * * user - The mob unbuckling target
  */
 /atom/movable/proc/user_unbuckle_mob(mob/living/target, mob/living/user)
-	if(!(target in buckled_mobs) || !user.Adjacent(target))
+	if(!(target in buckled_mobs) || !target.IsReachableBy(user))
 		return
 	var/mob/living/buckled_mob = unbuckle_mob(target)
 	if(buckled_mob)

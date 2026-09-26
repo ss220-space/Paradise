@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /datum/bluespace_cannon_fire_mode/burst/fire(obj/machinery/bsa/full/cannon, mob/user, turf/target, target_signal)
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, TRUE)
-	for(var/i = 0; i < shots_count; i++)
+	for(var/i in 0 to shots_count - 1)
 		var/turf/impact_turf = cannon.spread(target, spread)
 		var/delay = BSA_IMPACT_DELAY + i * delay_between_shots
 		addtimer(CALLBACK(cannon, TYPE_PROC_REF(/obj/machinery/bsa/full, incoming_shot_aim), impact_turf), (delay - BSA_IMPACT_LASER_NOTIFY_BEFORE) SECONDS)
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	icon_state = "power_box"
 
 /obj/machinery/bsa/back/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор блюспейс-артиллерии",
 		GENITIVE = "генератора блюспейс-артиллерии",
 		DATIVE = "генератору блюспейс-артиллерии",
@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	icon_state = "emitter_center"
 
 /obj/machinery/bsa/front/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ускоритель блюспейс-артиллерии",
 		GENITIVE = "ускорителя блюспейс-артиллерии",
 		DATIVE = "ускорителю блюспейс-артиллерии",
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/obj/machinery/bsa/front/front
 
 /obj/machinery/bsa/middle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фузор блюспейс-артиллерии",
 		GENITIVE = "фузора блюспейс-артиллерии",
 		DATIVE = "фузору блюспейс-артиллерии",
@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	var/obj/item/multitool/multitool = I
@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	bound_x = -192
 
 /obj/machinery/bsa/full/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс-артиллерия",
 		GENITIVE = "блюспейс-артиллерии",
 		DATIVE = "блюспейс-артиллерии",
@@ -333,8 +333,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/New(loc, direction)
-	..()
+/obj/machinery/bsa/full/Initialize(mapload, direction)
+	. = ..()
 
 	if(direction)
 		cannon_direction = direction
@@ -365,11 +365,24 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/bsa/full/proc/destroy_all_on_fire_beam(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
-	for(var/turf/T as anything in get_line(get_step(point,dir),get_target_turf()))
-		T.ex_act(EXPLODE_DEVASTATE)
-		for(var/atom/A in T)
-			A.ex_act(EXPLODE_DEVASTATE)
-	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
+	var/turf/target = get_target_turf()
+	var/atom/blocker
+	for(var/turf/tile as anything in get_line(get_step(point,dir), target))
+		if(SEND_SIGNAL(tile, COMSIG_ATOM_BSA_BEAM) & COMSIG_ATOM_BLOCKS_BSA_BEAM)
+			blocker = tile
+		else
+			for(var/atom/movable/stuff as anything in tile)
+				if(SEND_SIGNAL(stuff, COMSIG_ATOM_BSA_BEAM) & COMSIG_ATOM_BLOCKS_BSA_BEAM)
+					blocker = stuff
+					break
+		if(blocker)
+			target = tile
+			break
+		else
+			tile.ex_act(EXPLODE_DEVASTATE)
+			for(var/atom/atom in tile)
+				atom.ex_act(EXPLODE_DEVASTATE)
+	point.Beam(target, icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
 
 /obj/machinery/bsa/full/proc/incoming_shot_notify(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 75, TRUE)
@@ -481,7 +494,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/image/crosshair
 
 /obj/machinery/computer/bsa_control/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления БСА",
 		GENITIVE = "консоли управления БСА",
 		DATIVE = "консоли управления БСА",
@@ -661,11 +674,13 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	if(!cannon)
 		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
-		gps_locators[G.gpstag] = G
+	for(var/obj/item/gps/gps in GLOB.GPS_list) //nulls on the list somehow
+		if(!gps.tracking)
+			continue
+		gps_locators[gps.gpstag] = gps
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : GLOB.teleportlocs
 	var/choose = tgui_input_list(user, "Выберите цель", "Наведение", options)
 	if(!choose)
 		return
@@ -696,7 +711,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		return A.name
 	else if(istype(target,/obj/item/gps))
@@ -707,13 +722,15 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return aim_turf
 
 /obj/machinery/computer/bsa_control/proc/detect_target_turf()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		var/turf/center = A.get_center_turf()
 		if(center)
 			return locate(center.x, center.y, center.z)
 	else if(istype(target,/obj/item/gps))
-		return get_turf(target)
+		var/obj/item/gps/gps = target
+		if(gps.tracking)
+			return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	return aim_turf

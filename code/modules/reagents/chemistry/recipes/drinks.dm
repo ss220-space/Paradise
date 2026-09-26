@@ -881,7 +881,7 @@
 	result = "bacchus_blessing"
 	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
 	result_amount = 4
-	mix_message = span_warning("The mixture turns to a sickening froth.")
+	mix_message = span_warning_alt("The mixture turns to a sickening froth.")
 
 /datum/chemical_reaction/fernet_cola
 	name = "Fernet Cola"

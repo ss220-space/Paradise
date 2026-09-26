@@ -1,0 +1,22 @@
+help: "Use the specific directional subtypes for this extinguisher cabinet."
+/obj/structure/extinguisher_cabinet:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+    - name
+
+/obj/structure/extinguisher_cabinet/empty:
+  banned_variables:
+    - extinguishertype
+
+=/obj/structure/extinguisher_cabinet:
+  banned: TRUE
+=/obj/structure/extinguisher_cabinet/empty:
+  banned: TRUE
+
+# directional
+=/obj/structure/extinguisher_cabinet:
+  banned: TRUE
+=/obj/structure/extinguisher_cabinet/empty/directional:
+  banned: TRUE

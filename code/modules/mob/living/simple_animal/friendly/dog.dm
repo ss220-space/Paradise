@@ -44,10 +44,7 @@
 	collar_type = "dog"
 	ai_controller = /datum/ai_controller/dog
 
-/mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Гоняться за хвостом"
-	set desc = "d'awwww."
-	set category = VERB_CATEGORY_DOG
+GAME_VERB_DESC(/mob/living/simple_animal/pet/dog, chasetail, "Гоняться за хвостом", "d'awwww.", VERB_CATEGORY_ANIMAL)
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
@@ -307,7 +304,7 @@
 		"speak" = CALLBACK(src, PROC_REF(handle_automated_speech), TRUE),
 		"wear_hat" = CALLBACK(src, PROC_REF(find_new_hat)),
 		"drop_hat" = CALLBACK(src, PROC_REF(drop_hat)),
-		"spin" = CALLBACK(src, TYPE_PROC_REF(/mob, emote), "spin")), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+		"spin" = CALLBACK(src, TYPE_PROC_REF(/mob, emote), "spin")), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
@@ -324,7 +321,7 @@
 			possible_headwear += item
 	if(!length(possible_headwear))
 		for(var/obj/item/item in orange(1))
-			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && Adjacent(item))
+			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && item.IsReachableBy(src))
 				possible_headwear += item
 	if(!length(possible_headwear))
 		return
@@ -361,9 +358,12 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/Destroy(force)
+	SSpersistent_data.registered_atoms -= src
+	return ..()
+
 /mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
-	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
@@ -778,7 +778,7 @@
 	health = 30
 
 /mob/living/simple_animal/pet/dog/pug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мопс",
 		GENITIVE = "мопса",
 		DATIVE = "мопсу",

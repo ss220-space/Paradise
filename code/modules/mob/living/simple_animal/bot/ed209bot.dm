@@ -13,7 +13,7 @@
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = SEC_FREQ_NAME
-	bot_type = SEC_BOT
+	bot_type = ADVANCED_SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "найти преступников, задержать их и доложить службе безопасности"
@@ -56,7 +56,7 @@
 	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/ed209/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный робот ED-209",
 		GENITIVE = "охранного робота ED-209",
 		DATIVE = "охранному роботу ED-209",
@@ -75,7 +75,7 @@
 	set_weapon() //giving it the right projectile and firing sound.
 	setup_access()
 
-	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
+	AddSpell(new /datum/action/cooldown/spell/bot_speed)
 
 	if(lasercolor)
 		shot_delay = 6 //Longer shot delay because JESUS CHRIST
@@ -90,13 +90,9 @@
 			else if(lasercolor == "r")
 				name = pick("КРАСНОЕ БЕЗУМИЕ","КРАСНЫЙ УНИЧТОЖИТЕЛЬ","КРАСНЫЙ КИБОРГ УБИЙЦА")
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.show_to(src)
-
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
-		var/datum/job/security/detective/J = new/datum/job/security/detective
+		var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 
@@ -406,7 +402,7 @@
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
+	var/obj/item/bot_assembly/ed209_assembly/Sa = new /obj/item/bot_assembly/ed209_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay(image('icons/obj/aibots.dmi', "hs_hole"))
 	Sa.created_name = name
@@ -561,7 +557,7 @@
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)

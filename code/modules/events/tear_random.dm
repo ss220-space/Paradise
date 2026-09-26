@@ -27,7 +27,7 @@
 	var/static/list/hostile_mobs
 
 /obj/effect/tear/random/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рандомысленный разрыв",
 		GENITIVE = "рандомысленного разрыва",
 		DATIVE = "рандомысленному разрыву",

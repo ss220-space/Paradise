@@ -232,6 +232,7 @@
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
+	use_sound_tokens = TRUE
 
 /*
 

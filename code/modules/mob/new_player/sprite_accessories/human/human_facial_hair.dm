@@ -259,3 +259,33 @@
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
+
+/datum/sprite_accessory/facial_hair/big_mustache
+	name = "Big Mustache"
+	icon_state = "big_mustache"
+	wizard_only = TRUE
+
+/datum/sprite_accessory/facial_hair/big_dwarf
+	name = "Big Dwarf"
+	icon_state = "big_dwarf"
+	wizard_only = TRUE
+
+/datum/sprite_accessory/facial_hair/hottabych
+	name = "Hottabych"
+	icon_state = "hottabych"
+	wizard_only = TRUE
+
+/datum/sprite_accessory/facial_hair/long_mustache
+	name = "Long Mustache"
+	icon_state = "long_mustache"
+	wizard_only = TRUE
+
+/datum/sprite_accessory/facial_hair/long_fork
+	name = "Long Fork"
+	icon_state = "long_fork"
+	wizard_only = TRUE
+
+/datum/sprite_accessory/facial_hair/electrobeard
+	name = "Electro Beard"
+	icon_state = "electrobeard"
+	wizard_only = TRUE

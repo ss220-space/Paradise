@@ -69,6 +69,8 @@
 
 /datum/config_entry/flag/allow_random_events // Enables random events mid-round when set
 
+/datum/config_entry/flag/forbid_station_traits
+
 /datum/config_entry/number/traitor_objectives_amount
 	default = 2
 	min_val = 0
@@ -91,3 +93,7 @@
 /datum/config_entry/number/cubemonkey_cap
 	default = 20
 	min_val = 0
+
+/datum/config_entry/number/overflow_cap
+	default = 20
+	min_val = -1

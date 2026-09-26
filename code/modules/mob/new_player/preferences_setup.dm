@@ -21,7 +21,7 @@
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
 	if(S?.bodyflags & HAS_HEAD_ACCESSORY)
@@ -231,7 +231,7 @@
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 
 			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
-			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			icobase = (C?.icobase) ? C.icobase : current_species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
 
@@ -762,6 +762,19 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "toolbox_blue"), ICON_OVERLAY)
+				switch(backbag)
+					if(2)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+					if(3)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
+					if(4)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+
+			if(JOB_FLAG_EXPLORER)
+				clothes_s = new /icon(uniform_dmi, "explorer_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "armor"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "beret_black"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)

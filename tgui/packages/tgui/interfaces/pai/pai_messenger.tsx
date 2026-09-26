@@ -1,9 +1,9 @@
 import { useBackend } from '../../backend';
 import {
   ActiveConversation,
-  MessenderData,
+  type MessenderData,
   MessengerList,
-} from '../pda/pda_messenger';
+} from '../PDA/pda_messenger';
 
 export const pai_messenger = (props: unknown) => {
   const { data } = useBackend<PaiData<MessenderData>>();

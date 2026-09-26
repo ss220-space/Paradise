@@ -8,7 +8,7 @@
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.abandon_allowed
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = CONFIG_GET(flag/allow_vote_mode)
+	status_info["vote"] = CONFIG_GET(flag/allow_vote_gamemode)
 	status_info["ai"] = CONFIG_GET(flag/allow_ai)
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
@@ -18,6 +18,7 @@
 	status_info["listed"] = "Public"
 	if(!world.hub_password)
 		status_info["listed"] = "Invisible"
+	status_info["hub"] = GLOB.hub_visibility
 	var/player_count = 0
 	var/admin_count = 0
 

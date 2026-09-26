@@ -18,6 +18,12 @@
 	var/datum/port/output/output
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/concat_list/Destroy()
+	list_port = null
+	separator = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/concat_list/populate_ports()
 	list_port = add_input_port("Ввод", PORT_TYPE_LIST(PORT_TYPE_ANY))
 	separator = add_input_port("Разделитель", PORT_TYPE_STRING)

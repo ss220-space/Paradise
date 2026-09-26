@@ -8,10 +8,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
 	custom_price = PAYCHECK_CREW
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной монитор экипажа",
 		GENITIVE = "ручного монитора экипажа",
 		DATIVE = "ручному монитору экипажа",
@@ -32,18 +33,13 @@
 	ui_interact(user)
 
 /obj/item/sensor_device/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(user.incapacitated() || !ishuman(user))
+		return
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
-		return FALSE
+	if(over_object != user)
+		return
 
-	if(over_object == user)
-		attack_self(user)
-		return TRUE
-
-	return FALSE
+	attack_self(user)
 
 /obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
 	crew_monitor.ui_interact(user, ui)
@@ -57,7 +53,7 @@
 	icon_state = "c_scanner"
 
 /obj/item/sensor_device/advanced/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "командный монитор экипажа",
 		GENITIVE = "командного монитора экипажа",
 		DATIVE = "командному монитору экипажа",
@@ -77,7 +73,7 @@
 	icon_state = "s_scanner"
 
 /obj/item/sensor_device/advanced/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный монитор экипажа",
 		GENITIVE = "охранного монитора экипажа",
 		DATIVE = "охранному монитору экипажа",
@@ -99,7 +95,7 @@
 	item_state = "mining_scanner"
 
 /obj/item/sensor_device/advanced/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский монитор экипажа",
 		GENITIVE = "шахтёрского монитора экипажа",
 		DATIVE = "шахтёрскому монитору экипажа",

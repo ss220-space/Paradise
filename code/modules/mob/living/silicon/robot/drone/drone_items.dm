@@ -32,15 +32,18 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
-		/obj/item/stack/ore/bluespace_crystal
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/tile/wood,
 	)
 
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
 /obj/item/gripper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магнитный захват",
 		GENITIVE = "магнитного захвата",
 		DATIVE = "магнитному захвату",
@@ -62,10 +65,12 @@
 		/obj/item/robot_parts/r_leg,
 		/obj/item/robot_parts/chest,
 		/obj/item/stack/sheet/mineral/plasma,
+		/obj/item/reagent_containers/food/snacks/monkeycube,
+		/obj/item/bodybag,
 	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский захват",
 		GENITIVE = "медицинского захвата",
 		DATIVE = "медицинскому захвату",
@@ -95,7 +100,7 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 		return
 
-/obj/item/gripper/medical/melee_attack_chain(mob/living/user, atom/target, params)
+/obj/item/gripper/medical/melee_attack_chain(mob/living/user, atom/target, list/modifiers)
 	try_shake_up(user, target)
 	. = ..()
 
@@ -114,7 +119,7 @@
 	)
 
 /obj/item/gripper/service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карточный захват",
 		GENITIVE = "карточного захвата",
 		DATIVE = "карточному захвату",
@@ -123,7 +128,7 @@
 		PREPOSITIONAL = "карточном захвате",
 	)
 
-/obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
+/obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, list/modifiers)
 	try_shake_up(user, target)
 	. = ..()
 
@@ -133,7 +138,7 @@
 	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний захват",
 		GENITIVE = "древнего захвата",
 		DATIVE = "древнему захвату",
@@ -142,7 +147,8 @@
 		PREPOSITIONAL = "древнем захвате",
 	)
 
-/obj/item/gripper/cogscarab/New()
+/obj/item/gripper/cogscarab/Initialize(mapload)
+	. = ..()
 	//Has a list of items that it can hold.
 	can_hold += list(
 		/obj/item/clockwork/integration_cog,
@@ -150,7 +156,6 @@
 		/obj/item/stack/sheet,
 		/obj/item/mmi/robotic_brain/clockwork
 	)
-	..()
 
 /obj/item/gripper/universal
 	name = "Universal gripper"
@@ -181,6 +186,7 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/organ,
@@ -203,7 +209,7 @@
 	)
 
 /obj/item/gripper/universal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный захват",
 		GENITIVE = "универсального захвата",
 		DATIVE = "универсальному захвату",
@@ -219,7 +225,7 @@
 	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/nuclear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядерный захват",
 		GENITIVE = "ядерного захвата",
 		DATIVE = "ядерному захвату",
@@ -228,17 +234,9 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
-/obj/item/gripper/New()
-	..()
+/obj/item/gripper/Initialize(mapload)
+	. = ..()
 	can_hold = typecacheof(can_hold)
-
-/obj/item/gripper/verb/drop_item_gripped()
-	set name = "Выкинуть предмет"
-	set desc = "Release an item from your magnetic gripper."
-	set category = VERB_CATEGORY_DRONE
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	drop_gripped_item()
 
 /obj/item/gripper/attack_self(mob/user)
 	if(gripped_item)
@@ -246,29 +244,29 @@
 	else
 		balloon_alert(user, "клешня пуста!")
 
-/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
+/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(!gripped_item)
 		return FALSE
-	. = gripped_item.tool_act(user, tool, tool_type)
+	. = gripped_item.tool_act(user, tool, modifiers)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
-/obj/item/gripper/Click(location,control,params)
+/obj/item/gripper/Click(location,control, params)
 	if(!usr.get_active_hand())
 		usr.ClickOn(src, params)
 		return
 	gripped_item ? usr.ClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-/obj/item/gripper/DblClick(location,control,params)
+/obj/item/gripper/DblClick(location,control, params)
 	if(!usr.get_active_hand())
 		usr.DblClickOn(src, params)
 		return
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-/obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
+/obj/item/gripper/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(!gripped_item)
 		return ATTACK_CHAIN_PROCEED
-	. = gripped_item.attackby(weapon, user, params)
+	. = gripped_item.attackby(weapon, user, modifiers)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
@@ -278,9 +276,14 @@
 	if(!silent)
 		balloon_alert(loc, "предмет выброшен")
 	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
+	set_gripper_item(null)
 
-/obj/item/gripper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/gripper/proc/set_gripper_item(new_item)
+	PRIVATE_PROC(TRUE)
+	gripped_item = new_item
+	SEND_SIGNAL(src, COMSIG_GRIPPED_ITEM_CHANGE, new_item)
+
+/obj/item/gripper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
@@ -290,22 +293,22 @@
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
 
-/obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)	// this shit requires massive refactoring
+/obj/item/gripper/melee_attack_chain(mob/user, atom/target, list/modifiers)	// this shit requires massive refactoring
 	. = ATTACK_CHAIN_PROCEED
 
 	if(gripped_item) //Already have an item.
 		//Pass the attack on to the target. This might delete/relocate gripped_item.
-		. |= target.attackby(gripped_item, user, params)
+		. |= target.attackby(gripped_item, user, modifiers)
 		if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(gripped_item) || QDELETED(target) || QDELETED(user))
 			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
 			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item.afterattack(target, user, TRUE, params)
+			gripped_item.afterattack(target, user, TRUE, modifiers)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && length(contents))
-			gripped_item = contents[1]
+			set_gripper_item(contents[1])
 		else if(gripped_item && !length(contents))
-			gripped_item = null
+			set_gripper_item(null)
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
@@ -313,11 +316,11 @@
 			. |= ATTACK_CHAIN_SUCCESS
 			balloon_alert(user, "подобрано")
 			I.forceMove(src)
-			gripped_item = I
+			set_gripper_item(I)
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
-			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
+			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
 
@@ -329,7 +332,7 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING, COMSIG_ATOM_UPDATED_ICON))
 	gripped_item.update_icon(UPDATE_OVERLAYS)
-	gripped_item = null
+	set_gripper_item(null)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gripper/proc/handle_item_icon_update()
@@ -362,7 +365,7 @@
 		)
 
 /obj/item/matter_decompiler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "декомпилятор материи",
 		GENITIVE = "декомпилятора материи",
 		DATIVE = "декомпилятору материи",
@@ -371,11 +374,12 @@
 		PREPOSITIONAL = "декомпиляторе материи",
 	)
 
-/obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity) return //Not adjacent.
+/obj/item/matter_decompiler/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
 	var/turf/T = get_turf(target)
@@ -431,7 +435,7 @@
 		else
 			module_string += text("[O]: <a href=byond://?src=[UID()];act=[UID_of(O)]>Активировать</a><br>")
 
-		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
+		if(isitem(O) && !(iscoil(O)))
 			tools += module_string
 		else
 			resources += module_string

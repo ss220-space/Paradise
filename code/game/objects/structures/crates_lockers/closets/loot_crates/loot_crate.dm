@@ -1,4 +1,5 @@
 /obj/structure/closet/loot_crate
+	abstract_type = /obj/structure/closet/loot_crate
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = null
 	locked = TRUE
@@ -22,11 +23,11 @@
 		explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flame_range = 3)
 		qdel(src)
 		return
-	. = ..()
+	return ..()
 
 /obj/structure/closet/loot_crate/Destroy(force)
 	tier = null
-	. = ..()
+	return ..()
 
 /obj/structure/closet/loot_crate/update_overlays()
 	. = list()
@@ -41,7 +42,8 @@
 
 	to_chat(user, span_notice("Вы начинаете взламывать кодовый замок"))
 
-	if(!do_after(user, tier.open_time, src))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!do_after(user, tier.open_time * lockpick_mod, src))
 		return
 
 	balloon_alert(user, "взлом окончен")
@@ -53,7 +55,8 @@
 	if(locked || opened)
 		return ..()
 
-	if(!do_after(user, 5 SECONDS, src))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!do_after(user, 5 SECONDS * lockpick_mod, src))
 		return
 
 	open()

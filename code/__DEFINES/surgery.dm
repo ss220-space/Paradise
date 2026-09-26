@@ -11,9 +11,9 @@
 // The type of surgeries that an initiator can start.
 // Note that this doesn't apply for surgeries applied on missing organs.
 /// An initiator with this can start surgeries on organic organs. Make sure that anything that can be sharp gets this as well.
-#define SURGERY_INITIATOR_ORGANIC 1
+#define SURGERY_INITIATOR_ORGANIC (1<<0)
 /// An initiator with this can start surgeries on robotic organs.
-#define SURGERY_INITIATOR_ROBOTIC 2
+#define SURGERY_INITIATOR_ROBOTIC (1<<1)
 
 // How "open" an organ is.
 

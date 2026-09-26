@@ -1,4 +1,4 @@
-GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
+GLOBAL_ALIST_EMPTY(dice_rolls)
 
 /datum/dice_roll
 	var/number = 0
@@ -44,11 +44,11 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 			continue
 		for(var/datum/mind/user in obj.get_owners())
 			to_chat(user, span_userdanger("Вам кажется, что вы что-то забыли..."))
-			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+			SEND_SOUND(user.current, sound('sound/ambience/misc/alarm4.ogg'))
 			var/list/messages = list()
 			messages.Add(user.prepare_announce_objectives(FALSE))
-			to_chat(user.current, chat_box_red(messages.Join("<br>")))
-			SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+			to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
+			SEND_SOUND(user.current, sound('sound/ambience/misc/alarm4.ogg'))
 	if(is_sacrifice_target(delete_target.mind))
 		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
 			SSticker.mode.cult_objs.ready_to_summon()
@@ -88,7 +88,7 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 		turfs_around |= turf
 
 	shuffle(turfs_around)
-	while((spawned_hounds < 5 || spawned_t_hounds < 2) && turfs_around.len)
+	while((spawned_hounds < 5 || spawned_t_hounds < 2) && length(turfs_around))
 		turf_to_spawn = pop(turfs_around)
 		if(spawned_t_hounds < 2)
 			hound = new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)
@@ -128,6 +128,8 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 
 /datum/dice_roll/monkefy/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(user)]ся в обезьяну!"))
+	if(ismachineperson(user))
+		user.set_species(/datum/species/human)
 	user.monkeyize()
 
 /datum/dice_roll/explode
@@ -142,6 +144,12 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 
 /datum/dice_roll/break_bone/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	var/obj/item/organ/external/limb = pick(user.bodyparts)
+	if(!limb)
+		return
+	if(ismachineperson(user))
+		limb.droplimb()
+		to_chat(user, span_userdanger("Вы чувствуете, как ваш[GEND_A_E_I(limb)] [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] треска[PLUR_ET_YUT(limb)]ся и отрыва[PLUR_ET_YUT(limb)]ся!"))
+		return
 	limb.fracture()
 	to_chat(user, span_userdanger("Вы чувствуете, как ваш[GEND_A_E_I(limb)] [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] треска[PLUR_ET_YUT(limb)]ся и лома[PLUR_ET_YUT(limb)]ся!"))
 

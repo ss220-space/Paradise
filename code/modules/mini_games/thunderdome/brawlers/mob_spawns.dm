@@ -6,7 +6,14 @@
 	death = FALSE
 	allow_tts_pick = FALSE
 	banType = ROLE_THUNDERDOME
+	skills_ref_job = JOB_TITLE_OFFICER
+	use_antag_skills = TRUE
 	var/datum/mini_game/thunderdome_battle/thunderdome
+
+/obj/effect/mob_spawn/human/thunderdome/Destroy()
+	thunderdome?.fighters -= src
+	thunderdome = null
+	return ..()
 
 /obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/dead/observer/user)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
@@ -16,7 +23,7 @@
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
-			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[DECL_CREDIT(min_hours)] типа [exp_type] для доступа к ней."))
+			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[DECL_0_A_OV(min_hours)] типа [exp_type] для доступа к ней."))
 			return
 	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE
@@ -33,10 +40,13 @@
 
 /obj/effect/mob_spawn/human/thunderdome/create(mob/dead/observer/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
 	var/death_time_before = plr.persistent_client.time_of_death
+	var/datum/mini_game/thunderdome_battle/battle = thunderdome
 	var/mob/living/created = ..()
-	thunderdome.fighters += created
+	if(!created || !battle)
+		return
+	battle.fighters += created
 	created.ignore_slowdown(THUNDERDOME_TRAIT)
-	created.AddComponent(/datum/component/thunderdome_death_signaler, thunderdome)
+	created.AddComponent(/datum/component/thunderdome_death_signaler, battle)
 	created.AddComponent(/datum/component/death_timer_reset, death_time_before)
 
 /obj/effect/mob_spawn/human/thunderdome/cqc

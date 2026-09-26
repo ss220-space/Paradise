@@ -1,51 +1,56 @@
 /obj/item/storage/wallet
 	name = "leather wallet"
 	desc = "Made from genuine leather, it is of the highest quality."
-	storage_slots = 10
 	icon = 'icons/obj/wallets.dmi'
 	icon_state = "brown_wallet"
 	item_state = "brown_wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	slot_flags = ITEM_SLOT_ID
+	storage_slots = 5
 	can_hold = list(
-		/obj/item/lipstick,
-		/obj/item/stack/spacecash,
 		/obj/item/card,
+		/obj/item/clothing/gloves/ring,
 		/obj/item/clothing/mask/cigarette,
-		/obj/item/flashlight/pen,
-		/obj/item/seeds,
-		/obj/item/stack/medical,
-		/obj/item/toy/crayon,
 		/obj/item/coin,
 		/obj/item/dice,
 		/obj/item/disk,
+		/obj/item/encryptionkey,
+		/obj/item/flashlight/pen,
 		/obj/item/implanter,
+		/obj/item/key,
 		/obj/item/lighter,
+		/obj/item/lipstick,
 		/obj/item/match,
 		/obj/item/paper,
 		/obj/item/pen,
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/stamp,
-		/obj/item/encryptionkey,
-		/obj/item/clothing/gloves/ring,
 		/obj/item/reagent_containers/food/pill/patch,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/seeds,
 		/obj/item/spacepod_equipment/key,
-		/obj/item/key,
+		/obj/item/stack/medical,
+		/obj/item/tourniquet,
+		/obj/item/stack/spacecash,
+		/obj/item/stamp,
+		/obj/item/toy/crayon,
 	)
-	slot_flags = ITEM_SLOT_ID
-
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null
 
+/obj/item/storage/wallet/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_id_on_signal))
+
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
-	if(. && istype(I, /obj/item/card/id))
+	if(. && is_id_card(I))
 		refresh_ID()
 
 /obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
 	. = ..()
-	if(. && istype(I, /obj/item/card/id))
+	if(. && is_id_card(I))
 		refresh_ID()
 
 /obj/item/storage/wallet/swap_items(obj/item/item_1, obj/item/item_2, mob/user)
@@ -55,6 +60,11 @@
 
 /obj/item/storage/wallet/orient2hud(mob/user)
 	. = ..()
+	refresh_ID()
+
+/obj/item/storage/wallet/proc/refresh_id_on_signal(datum/source)
+	SIGNAL_HANDLER
+
 	refresh_ID()
 
 /obj/item/storage/wallet/proc/refresh_ID()
@@ -107,7 +117,6 @@
 /obj/item/storage/wallet/color
 	name = "cheap wallet"
 	desc = "A cheap wallet from the arcade."
-	storage_slots = 5		//smaller storage than normal wallets
 
 /obj/item/storage/wallet/color/Initialize(mapload)
 	. = ..()

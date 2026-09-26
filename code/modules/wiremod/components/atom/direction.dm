@@ -26,9 +26,19 @@
 	/// Maximum range for a valid direction to be returned
 	var/max_range = 7
 
+/obj/item/circuit_component/direction/Destroy()
+	input_port = null
+	output = null
+	distance = null
+	north = null
+	south = null
+	east = null
+	west = null
+	. = ..()
+
 /obj/item/circuit_component/direction/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_0_A_OV(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/direction/populate_ports()
 	input_port = add_input_port("Цель", PORT_TYPE_ATOM)

@@ -14,7 +14,8 @@
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in SSmachines.get_by_type(/obj/machinery/atmospherics/unary/vent_scrubber))
-		if(is_station_level(temp_vent.loc.z))
+		var/turf/vent_turf = get_turf(temp_vent)
+		if(vent_turf && is_station_level(vent_turf.z) && !temp_vent.welded && !vent_turf.is_blocked_turf_ignore_climbable())
 			if(length(temp_vent.parent.other_atmosmch) > 50)
 				vents += temp_vent
 

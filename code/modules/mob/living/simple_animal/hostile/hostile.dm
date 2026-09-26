@@ -79,6 +79,10 @@
 
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
+	enemies = null
+	friends = null
+	if(target)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	GiveTarget(null)
 	return ..()
 
@@ -550,7 +554,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
-		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
+		casing.fire(target = targeted_atom, user = src, modifiers = null, distro = null, quiet = FALSE, zone_override = ran_zone(), firer_source_atom = src)
 		casing.after_fire()
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)

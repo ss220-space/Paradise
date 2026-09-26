@@ -7,11 +7,8 @@ SUBSYSTEM_DEF(throwing)
 	name = "Throwing"
 	priority = FIRE_PRIORITY_THROWING
 	wait = 1
-	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
+	ss_flags = SS_NO_INIT|SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "throwing"
 
 	var/list/currentrun
 	var/list/processing = list()
@@ -52,8 +49,8 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing
 	///Defines the atom that has been thrown (Objects and Mobs, mostly.)
 	var/atom/movable/thrownthing
-	///Original intended target of the throw.
-	var/atom/initial_target
+	///Weakref to the original intended target of the throw, to prevent hardDels.
+	var/datum/weakref/initial_target
 	///The turf that the target was on, if it's not a turf itself.
 	var/turf/target_turf
 	///The turf that we were thrown from.
@@ -67,7 +64,7 @@ SUBSYSTEM_DEF(throwing)
 	///Turfs to travel per tick
 	var/speed
 	///If a mob is the one who has thrown the object, then it's moved here. This can be null and must be null checked before trying to use it.
-	var/mob/thrower
+	var/datum/weakref/thrower
 	///A variable that helps in describing objects thrown at an angle, if it should be moved diagonally first or last.
 	var/diagonals_first
 	///Set to TRUE if the throw is exclusively diagonal (45 Degree angle throws for example)
@@ -108,12 +105,12 @@ SUBSYSTEM_DEF(throwing)
 	src.starting_turf = get_turf(thrownthing)
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
-		src.initial_target = target
+		src.initial_target = WEAKREF(target)
 	src.init_dir = init_dir
 	src.maxrange = maxrange
 	src.speed = speed
 	if(thrower)
-		src.thrower = thrower
+		src.thrower = WEAKREF(thrower)
 	src.diagonals_first = diagonals_first
 	src.force = force
 	src.callback = callback
@@ -139,6 +136,12 @@ SUBSYSTEM_DEF(throwing)
 
 	qdel(src)
 
+/// Returns the thrower, or null
+/datum/thrownthing/proc/get_thrower()
+	. = thrower?.resolve()
+	if(isnull(.))
+		thrower = null
+
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
 	if(!isturf(AM.loc) || !AM.throwing)
@@ -149,7 +152,10 @@ SUBSYSTEM_DEF(throwing)
 		delayed_time += world.time - last_move
 		return
 
-	if(dist_travelled && hitcheck()) //to catch sneaky things moving on our tile while we slept
+	var/atom/movable/actual_target = initial_target?.resolve()
+	var/atom/thrower = get_thrower()
+
+	if(dist_travelled && hitcheck(actual_target, thrower)) //to catch sneaky things moving on our tile while we slept
 		return
 
 	var/atom/step
@@ -159,10 +165,10 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && !AM.no_gravity(AM.loc))
-			if(!hitcheck())
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
+			if(!hitcheck(actual_target, thrower))
 				finalize()
-			return
+				return
 
 		if(dist_travelled <= max(dist_x, dist_y)) //if we haven't reached the target yet we home in on it, otherwise we use the initial direction
 			step = get_step(AM, get_dir(AM, target_turf))
@@ -191,11 +197,23 @@ SUBSYSTEM_DEF(throwing)
 		 * If A will become X times bigger, T will become sqrt(X) times lower.
 		 */
 		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
-			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
+			dist_travelled += 1 * sqrt(abs(AM.has_gravity()))
 
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()
 			return
+
+/datum/thrownthing/proc/hitcheck(atom/movable/target, atom/movable/initial_thrower)
+	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
+		if(obstacle == thrownthing || obstacle == initial_thrower)
+			continue
+		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
+			continue
+		if(obstacle.pass_flags_self & LETPASSTHROW)
+			continue
+		if(obstacle == target || (((obstacle.density && !(obstacle.flags & ON_BORDER)) || (isliving(obstacle) && !dodgeable)) && !(obstacle in thrownthing.buckled_mobs)))
+			finalize(obstacle)
+			return TRUE
 
 /datum/thrownthing/proc/finalize(atom/hit_target)
 	set waitfor = FALSE
@@ -229,18 +247,6 @@ SUBSYSTEM_DEF(throwing)
 	thrownthing.newtonian_move(init_dir)
 
 	qdel(src)
-
-/datum/thrownthing/proc/hitcheck()
-	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || obstacle == thrower)
-			continue
-		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
-			continue
-		if(obstacle.pass_flags_self & LETPASSTHROW)
-			continue
-		if(obstacle == initial_target || (((obstacle.density && !(obstacle.flags & ON_BORDER)) || (isliving(obstacle) && !dodgeable)) && !(obstacle in thrownthing.buckled_mobs)))
-			finalize(obstacle)
-			return TRUE
 
 #undef MAX_THROWING_DIST
 #undef MAX_TICKS_TO_MAKE_UP

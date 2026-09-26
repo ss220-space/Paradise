@@ -8,7 +8,7 @@
 	icon_state = "pneumaticRifle"
 	item_state = "pneumaticRifle"
 	fire_sound = 'sound/weapons/pneumatic_rifle.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 50)
 	var/obj/item/tank/internals/tank = null
 	var/list/syringes = list()
 	var/max_syringes = 1
@@ -53,7 +53,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		add_fingerprint(user)
 		if(isBelted)
 			to_chat(user, span_warning("The [name] is already strapped!"))
@@ -83,7 +83,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)
@@ -98,7 +98,7 @@
 
 	return ..()
 
-/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(target == loc)
 		return
@@ -138,7 +138,7 @@
 	syringes.Remove(S)
 	qdel(S)
 
-/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!tank)
 		to_chat(user, span_warning("[src] can't fire without a source of gas."))
 		return

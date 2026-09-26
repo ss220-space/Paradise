@@ -7,7 +7,7 @@
 	icobase = 'icons/mob/human_races/r_skeleton.dmi'
 	deform = 'icons/mob/human_races/r_skeleton.dmi'
 
-	blood_color = "#FFFFFF"
+	blood_color = BLOOD_COLOR_SKELETON
 	flesh_color = "#E6E6C6"
 
 	inherent_traits = list(
@@ -19,6 +19,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_NO_HUNGER,
+		TRAIT_RESIST_HEAT,
 	)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
@@ -55,16 +56,8 @@
 	disliked_food = NONE
 	liked_food = DAIRY
 
-/datum/species/skeleton/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
-
 /datum/species/skeleton/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
-
-/datum/species/skeleton/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly

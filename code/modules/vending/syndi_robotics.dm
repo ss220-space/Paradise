@@ -33,7 +33,7 @@
 	)
 
 /obj/machinery/vending/syndierobotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Syndie Robo-Deluxe",
 		GENITIVE = "торгового автомата Syndie Robo-Deluxe",
 		DATIVE = "торговому автомату Syndie Robo-Deluxe",

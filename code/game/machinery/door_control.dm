@@ -9,6 +9,8 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
 	var/ai_control = TRUE
 	var/is_animating = FALSE
 
@@ -113,7 +115,8 @@
 	if(!(open || allowed(user)))
 		to_chat(user, span_warning("Access Denied. The cover plate will not open."))
 		return
-	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 
 	// Close the panel
@@ -144,7 +147,8 @@
 		to_chat(user, "You must take out the electronics first.")
 		return
 
-	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/door_control(get_turf(user))
@@ -238,7 +242,7 @@
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
 		flick("[base_icon_state]-denied",src)
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	use_power(5)
@@ -304,6 +308,8 @@
 /obj/machinery/door_control/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, span_notice("[src] is highly secured. You cannot open the cover plate."))
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/secure, 24, 24)
 
 // hidden mimic button
 /obj/machinery/door_control/mimic

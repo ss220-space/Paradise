@@ -6,8 +6,7 @@
 	icon_state = "case"
 	item_state = "case"
 
-/obj/item/storage/briefcase/crimekit/New()
-	..()
+/obj/item/storage/briefcase/crimekit/populate_contents()
 	new /obj/item/storage/box/swabs(src)
 	new /obj/item/storage/box/fingerprints(src)
 	new /obj/item/forensics/sample_kit(src)

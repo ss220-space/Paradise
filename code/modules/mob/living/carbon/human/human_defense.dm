@@ -17,24 +17,27 @@ emp_act
 		var/reflected = FALSE
 
 		switch(can_reflect)
-			if(1) // proper reflection
+			if(REFLECT_NORMAL)
 				reflected = TRUE
-			if(2) //If target is holding a toy sword
+			if(REFLECT_TOY) //If target is holding a toy sword
 				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
 			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"),\
-							projectile_message = TRUE)
+							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
 
 	//Shields
-	if(check_shields(P, P.damage, "[P.declent_ru(ACCUSATIVE)]", PROJECTILE_ATTACK, P.armour_penetration))
+	var/shield_check_result = check_shields(P, P.damage, "[P.declent_ru(ACCUSATIVE)]", PROJECTILE_ATTACK, P.armour_penetration)
+	if(shield_check_result == HIT_RESULT_SUCCESS)
 		P.on_hit(src, 100, def_zone)
 		return 2
+	else if(shield_check_result == HIT_RESULT_REFLECY_BACK)
+		P.reflect_back(src)
+		return -1
 
 	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
@@ -72,9 +75,11 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		if(def_zone == BODY_ZONE_CHEST)
+			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
-	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
+	organ.add_autopsy_data(P.declent_ru(NOMINATIVE), P.damage) // Add the bullet's name to the autopsy data
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	return (..(P , def_zone))
 
@@ -100,14 +105,14 @@ emp_act
 	if(HAS_TRAIT(H, TRAIT_REPAIRING_LIMB))
 		balloon_alert(user, "уже ремонтируется!")
 		return
-	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 	var/surgery_time = 0
 	if(user == src)
 		surgery_time = H.robotic_limb_repair_time
 
 	if(!item.use_tool(src, user, surgery_time, amount = 1, volume = item.tool_volume))
-		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
@@ -149,7 +154,7 @@ emp_act
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
 
-	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
@@ -196,6 +201,14 @@ emp_act
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
 
+///Get all the clothing on a specific body part
+/mob/living/carbon/human/proc/get_clothing_on_part(obj/item/organ/external/def_zone)
+	var/list/covering_part = list()
+	for(var/obj/item/clothing/equipped in get_equipped_items())
+		if(equipped.body_parts_covered & def_zone.limb_body_flag)
+			covering_part += equipped
+	return covering_part
+
 /// This proc returns the permeability protection for a particular external organ.
 /mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)
@@ -231,33 +244,44 @@ emp_act
 	return 0
 
 //End Here
-
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "атаку", attack_type = ITEM_ATTACK, armour_penetration = 0, shields_penetration = 0)
-	var/block_chance_modifier = round(damage / -3) - shields_penetration
-	var/is_crawling = (body_position == LYING_DOWN)
-	if(l_hand && !isclothing(l_hand))
-		var/final_block_chance = is_crawling ? 0 : l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return TRUE
-	if(r_hand && !isclothing(r_hand))
-		var/final_block_chance = is_crawling ? 0 : r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return TRUE
-	if(wear_suit)
-		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return TRUE
-	if(neck)
-		var/final_block_chance = neck.block_chance - (clamp((armour_penetration-neck.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return TRUE
-	if(w_uniform)
-		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return TRUE
+	var/obj/item/shield = get_best_shield()
+
+	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
+	if(shield_result >= HIT_RESULT_SUCCESS)
+		return HIT_RESULT_SUCCESS
+
+	if(shield_result == HIT_RESULT_REFLECY_BACK)
+		return HIT_RESULT_REFLECY_BACK
+
+	if(shield_result == HIT_RESULT_PARRY)
+		return HIT_RESULT_PARRY
+
+	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(w_uniform && w_uniform.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
+
+/mob/living/carbon/human/proc/get_best_shield()
+	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
+	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
+	if(!right_hand_parry && !left_hand_parry)
+		return null // no parry component
+
+	if(right_hand_parry && left_hand_parry)
+		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
+			return left_hand_parry.parent
+		else
+			return right_hand_parry.parent
+	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/item, visible_message, self_message)
 	if(mind?.martial_art)
@@ -475,7 +499,11 @@ emp_act
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(user != src && check_shields(item, item.force, "[item.declent_ru(ACCUSATIVE)]", ITEM_ATTACK, item.armour_penetration))
+	var/shield_check = check_shields(item, item.force, "[item.declent_ru(ACCUSATIVE)]", ITEM_ATTACK, item.armour_penetration)
+
+	if(user != src && shield_check)
+		if(shield_check == HIT_RESULT_PARRY)
+			user.Knockdown(PERFECT_PARRY_MELEE_KNOCKDOWN)
 		return ATTACK_CHAIN_BLOCKED
 
 	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[PLUR_ET_YUT(src)] [item.declent_ru(ACCUSATIVE)]!")))
@@ -563,7 +591,7 @@ emp_act
 					update_worn_undersuit()
 
 	if(apply_damage_result && (item.force > 10 || (item.force >= 5 && prob(33))))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
+		force_say(GLOB.hit_appends)	//forcesay checks stat already
 
 	. |= dna.species.spec_proceed_attack_results(item, src, user, affecting)
 
@@ -724,6 +752,11 @@ emp_act
 					visible_message(span_danger("[M] попытал[GEND_SYA_AS_OS_IS(M)] сбить с ног [src]!"))
 					add_attack_logs(M, src, "Alien tried to tackle")
 
+/mob/living/carbon/human/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
@@ -795,22 +828,22 @@ emp_act
 						armor_block = 0
 					objective.take_damage(damage * armor_block, BRUTE)
 
-/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
+/mob/living/carbon/human/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	if(mech.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(mech.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+			to_chat(mech.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
 			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute")
-			step_away(src,M,15)
+		mech.do_attack_animation(src, used_item = selected_module)
+		if(mech.damtype == BRUTE)
+			step_away(src, mech, 15)
 		var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 		if(affecting)
-			var/dmg = rand(M.force/2, M.force)
-			switch(M.damtype)
+			var/dmg = rand(mech.force / 2, mech.force)
+			switch(mech.damtype)
 				if(BRUTE)
-					if(M.force > 35) // durand and other heavy mechas
+					if(mech.force > 35) // durand and other heavy mechas
 						Weaken(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
+					else if(mech.force > 20 && !IsWeakened()) // lightweight mechas like gygax
 						Knockdown(4 SECONDS)
 					apply_damage(dmg, BRUTE, def_zone = affecting)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
@@ -818,14 +851,14 @@ emp_act
 					apply_damage(dmg, BURN, def_zone = affecting)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if(TOX)
-					M.mech_toxin_damage(src)
+					mech.mech_toxin_damage(src)
 				else
 					return
 
-		M.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[M.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[M.name] ударил вас!"))
+		mech.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[mech.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[mech.name] ударил вас!"))
 
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
+		add_attack_logs(mech.occupant, src, "Mecha-meleed with [mech]")
 	else
 		..()
 

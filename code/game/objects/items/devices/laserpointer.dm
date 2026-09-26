@@ -27,8 +27,8 @@
 /obj/item/laser_pointer/purple
 	pointer_icon_state = "purple_laser"
 
-/obj/item/laser_pointer/New()
-	..()
+/obj/item/laser_pointer/Initialize(mapload)
+	. = ..()
 	diode = new(src)
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
@@ -37,14 +37,14 @@
 	QDEL_NULL(diode)
 	return ..()
 
-/obj/item/laser_pointer/upgraded/New()
-	..()
+/obj/item/laser_pointer/upgraded/Initialize(mapload)
+	. = ..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
 /obj/item/laser_pointer/update_icon_state()
 	icon_state = "pointer[is_pointing ? "_[pointer_icon_state]" : ""]"
 
-/obj/item/laser_pointer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/laser_pointer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(laser_act(target, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ATTACK_CHAIN_PROCEED
@@ -70,12 +70,12 @@
 		diode.forceMove(get_turf(loc))
 		diode = null
 
-/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)	//we're placing the object on a table or in backpack
+/obj/item/laser_pointer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)	//we're placing the object on a table or in backpack
 		return
-	laser_act(target, user, params)
+	laser_act(target, user, modifiers)
 
-/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, list/modifiers)
 	if(!(user in (viewers(7,target))))
 		return FALSE
 	if(!diode)
@@ -138,7 +138,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
 	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
-	var/list/modifiers = params2list(params)
 	if(modifiers)
 		if(LAZYACCESS(modifiers, ICON_X))
 			laser.pixel_w = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)

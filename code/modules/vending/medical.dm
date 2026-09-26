@@ -50,6 +50,7 @@
 				/obj/item/reagent_containers/syringe/calomel = 8,
 				/obj/item/reagent_containers/syringe/insulin = 8,
 				/obj/item/reagent_containers/syringe/heparin = 8,
+				/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 3,
 			),
 		),
 		list(
@@ -67,16 +68,16 @@
 			"name" = "Бутылки",
 			"icon" = "flask",
 			"products" = list(
-				/obj/item/reagent_containers/glass/bottle/oculine = 5,
-				/obj/item/reagent_containers/glass/bottle/epinephrine = 5,
-				/obj/item/reagent_containers/glass/bottle/saline = 5,
-				/obj/item/reagent_containers/glass/bottle/charcoal = 5,
-				/obj/item/reagent_containers/glass/bottle/salicylic = 5,
-				/obj/item/reagent_containers/glass/bottle/morphine = 5,
-				/obj/item/reagent_containers/glass/bottle/ether = 5,
-				/obj/item/reagent_containers/glass/bottle/potassium_iodide = 5,
-				/obj/item/reagent_containers/glass/bottle/atropine = 5,
-				/obj/item/reagent_containers/glass/bottle/diphenhydramine = 5,
+				/obj/item/reagent_containers/cup/bottle/oculine = 5,
+				/obj/item/reagent_containers/cup/bottle/epinephrine = 5,
+				/obj/item/reagent_containers/cup/bottle/saline = 5,
+				/obj/item/reagent_containers/cup/bottle/charcoal = 5,
+				/obj/item/reagent_containers/cup/bottle/salicylic = 5,
+				/obj/item/reagent_containers/cup/bottle/morphine = 5,
+				/obj/item/reagent_containers/cup/bottle/ether = 5,
+				/obj/item/reagent_containers/cup/bottle/potassium_iodide = 5,
+				/obj/item/reagent_containers/cup/bottle/atropine = 5,
+				/obj/item/reagent_containers/cup/bottle/diphenhydramine = 5,
 			),
 		),
 		list(
@@ -95,7 +96,7 @@
 			"icon" = "ellipsis",
 			"products" = list(
 				/obj/item/reagent_containers/dropper = 5,
-				/obj/item/reagent_containers/glass/beaker = 8,
+				/obj/item/reagent_containers/cup/beaker = 8,
 				/obj/item/reagent_containers/iv_bag/slime = 2,
 			),
 		),
@@ -109,16 +110,15 @@
 		/obj/item/stack/medical/bruise_pack/military = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/glass/bottle/sulfonal = 3,
-		/obj/item/reagent_containers/glass/bottle/pancuronium = 3,
-		/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 3,
+		/obj/item/reagent_containers/cup/bottle/sulfonal = 3,
+		/obj/item/reagent_containers/cup/bottle/pancuronium = 3,
 	)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
 /obj/machinery/vending/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NanoMed Plus",
 		GENITIVE = "торгового автомата NanoMed Plus",
 		DATIVE = "торговому автомату NanoMed Plus",
@@ -137,7 +137,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/medical/syndicate_access/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SyndiMed Plus",
 		GENITIVE = "торгового автомата SyndiMed Plus",
 		DATIVE = "торговому автомату SyndiMed Plus",

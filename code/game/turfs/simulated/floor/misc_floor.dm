@@ -2,9 +2,6 @@
 	icon_state = "rockvault"
 
 /turf/simulated/floor/vault/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -25,6 +22,13 @@
 	name = "server base"
 
 /turf/simulated/floor/greengrid
+	icon_state = "gcircuit"
+
+/turf/simulated/floor/bluegrid/telecomms/mainframe
+	name = "Mainframe Floor"
+	icon_state = "dark"
+
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit
 	icon_state = "gcircuit"
 
 /turf/simulated/floor/greengrid/airless
@@ -140,11 +144,11 @@
 		creature.ExtinguishMob()
 	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/departed, atom/newLoc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!linkedcontroller || !ismob(departed))
+	if(!linkedcontroller || !ismob(gone))
 		return .
-	linkedcontroller.mobinpool -= departed
+	linkedcontroller.mobinpool -= gone
 
 /turf/simulated/floor/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)
@@ -168,9 +172,6 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -186,13 +187,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE)
+		H.slip(SLIPPERY_TIME_LUBE, src, TURF_WET_LUBE)
 	return
 
 /turf/simulated/floor/lubed/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -263,8 +261,5 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/simulated/floor/clockwork/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND

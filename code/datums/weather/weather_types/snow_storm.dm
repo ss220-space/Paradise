@@ -3,19 +3,19 @@
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
 	probability = 99
 
-	telegraph_message = span_warning("Drifting particles of snow begin to dust the surrounding area...")
+	telegraph_message = span_warning_alt("Drifting particles of snow begin to dust the surrounding area...")
 	telegraph_duration = 40 SECONDS
 	telegraph_overlay = "light_snow"
 	telegraph_sound = 'sound/ambience/weather/snowstorm/snow_start.ogg'
 	telegraph_sound_vol = /datum/looping_sound/snowstorm::volume + 10
 
-	weather_message = span_userdanger("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
+	weather_message = span_userdanger_alt("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
 	weather_overlay = "snow_storm"
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 
 	end_duration = 10 SECONDS
-	end_message = span_boldannounceic("The snowfall dies down, it should be safe to go outside again.")
+	end_message = span_boldannounceic_alt("The snowfall dies down, it should be safe to go outside again.")
 	end_overlay = "light_snow"
 	end_sound = 'sound/ambience/weather/snowstorm/snow_end.ogg'
 	end_sound_vol = /datum/looping_sound/snowstorm::volume + 10
@@ -23,22 +23,18 @@
 	area_type = /area
 	target_trait = ZTRAIT_SNOWSTORM
 	protected_areas = list(
-		/area/maintenance,
-		/area/turret_protected/ai_upload,
-		/area/turret_protected/ai_upload_foyer,
-		/area/turret_protected/ai,
-		/area/storage/emergency,
-		/area/storage/emergency2,
-		/area/solar,
-		/area/toxins/test_area,
-		/area/engineering/engine,
-		/area/crew_quarters/sleep,
-		/area/security/brig,
+		/area/station/maintenance,
+		/area/station/ai/upload/chamber,
+		/area/station/ai/satellite/chamber,
+		/area/station/solars,
+		/area/station/science/toxins/test,
+		/area/station/engineering/engine,
+		/area/station/commons/sleep,
+		/area/station/security/brig,
 		/area/shuttle,
 		/area/space,
 		/area/coldcolony/malta,
-		/area/crew_quarters/bar/atrium/safe,
-		/area/toxins/xenobiology,
+		/area/station/science/xenobiology,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -126,7 +122,7 @@
 		var/cold_protection = 1 - human_target.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection
 
-	else if(istype(target, /mob/living/simple_animal/borer))
+	else if(isborer(target))
 		var/mob/living/simple_animal/borer/borer = target
 		var/cold_protection = 1 - borer.host?.get_cold_protection(simulatuon_temp)
 		temp_drop *= cold_protection

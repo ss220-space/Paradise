@@ -1,10 +1,3 @@
-/client/verb/setup_character()
-	set name = "Игровые настройки"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
-	prefs.current_tab = 1
-	prefs.ShowChoices(usr)
-
 // Preference toggles
 /datum/preference_toggle
 	/// Name of the preference toggle. Don't set this if you don't want it to appear in game
@@ -286,8 +279,9 @@
 
 /datum/preference_toggle/toggle_disco/set_toggles(client/user)
 	. = ..()
-	if(user.prefs.sound & ~SOUND_DISCO)
-		usr.stop_sound_channel(CHANNEL_JUKEBOX)
+	var/mob/client_mob = user.mob
+	if(!isnull(client_mob))
+		SEND_SIGNAL(client_mob, COMSIG_MOB_JUKEBOX_PREFERENCE_APPLIED)
 
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Сообщения на КПК — Призрак"
@@ -299,10 +293,7 @@
 	disable_message = "Будучи призраком, теперь вы не будете видеть все КПК-сообщения."
 	blackbox_message = "Toggle Ghost PDA"
 
-/client/verb/silence_current_midi()
-	set name = "Заглушить MIDI"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
+GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заглушает текущие MIDI-файлы, проигрываемые администрацией.", VERB_CATEGORY_SPECIALVERBS)
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")
 
@@ -315,6 +306,16 @@
 	enable_message = "Теперь вы будете видеть Runechat облака с сообщениями."
 	disable_message = "Теперь вы не будете видеть Runechat облака с сообщениями."
 	blackbox_message = "Toggle Runechat"
+
+/datum/preference_toggle/toggle_runechat_looc
+	name = "Runechat-LOOC"
+	description = "Переключает видимость Runechat облаков с LOOC-сообщениями."
+	preftoggle_bitflag = PREFTOGGLE_3_RUNECHAT_LOOC
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь вы будете видеть Runechat облака с LOOC-сообщениями."
+	disable_message = "Теперь вы не будете видеть Runechat облака с LOOC-сообщениями."
+	blackbox_message = "Toggle Runechat LOOC"
 
 /datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Уведомление о смерти — Призрак"
@@ -637,16 +638,6 @@
 	disable_message = "Теперь вы не будете видеть описание предметов при наведении курсора."
 	blackbox_message = "Toggle item description tips on hover"
 
-/datum/preference_toggle/toggle_facing_to_mouse
-	name = "Следовать за курсором мыши"
-	description = "Когда включено — при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
-	preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE3
-	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-	enable_message = "Теперь ваш персонаж будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
-	disable_message = "Теперь ваш персонаж не будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
-	blackbox_message = "Переключение следования за курсором мыши."
-
 /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
 	name = "Вывод из игры без цели"
 	description = "Переключает разрешение антагонистам выводить вас из раунда без соответствующей цели."
@@ -658,14 +649,14 @@
 	blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
 /datum/preference_toggle/toggle_off_projectile_messages
-	name = "Выключить боевые сообщения выстрелов"
-	description = "Выключает большую часть сообщений, появляющихся при стрельбе."
-	preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+	name = "Выключить отправку сообщений в легаси чат"
+	description = "Выключает отправку сообщений в легаси чат, появляющийся в случае, если тгуи панель не работает."
+	preftoggle_bitflag = PREFTOGGLE_2_OFF_LEGACY_OUTPUT_MESSAGES
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь вы не будете видеть сообщения, появляющиеся при стрельбе."
-	disable_message = "Теперь вы будете видеть сообщения, появляющиеся при стрельбе."
-	blackbox_message = "Переключение комбат логов от выстрелов"
+	enable_message = "Теперь сообщения не будут отправляться в легаси чат."
+	disable_message = "Теперь сообщения будут отправляться в легаси чат."
+	blackbox_message = "Переключение отправки сообщений в легаси чат"
 
 /datum/preference_toggle/toggle_auto_dnr
 	name = "Запрет реанимации при смерти"

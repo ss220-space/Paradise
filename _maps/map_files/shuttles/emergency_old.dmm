@@ -52,31 +52,23 @@
 /area/shuttle/escape)
 "ao" = (
 /obj/machinery/computer/crew,
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor2"
+	},
 /area/shuttle/escape)
 "as" = (
 /obj/machinery/computer/robotics,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "at" = (
@@ -87,6 +79,7 @@
 /area/shuttle/escape)
 "au" = (
 /obj/machinery/light/spot,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "av" = (
@@ -115,8 +108,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
@@ -129,18 +121,14 @@
 	},
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -156,8 +144,7 @@
 "aL" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -167,12 +154,9 @@
 	},
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -191,8 +175,7 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -221,14 +204,16 @@
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/shuttle{
@@ -241,6 +226,9 @@
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/closet/crate,
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -260,8 +248,7 @@
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
@@ -272,8 +259,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -324,13 +310,12 @@
 	name = "Escape Shuttle Cell";
 	req_access = list(63)
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "ev" = (
 /obj/machinery/sleeper{
 	dir = 1;
-	icon_state = "sleeper";
-	tag = "icon-sleeper (NORTH)"
+	icon_state = "sleeper"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -354,6 +339,10 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -365,6 +354,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "mk" = (
@@ -372,14 +362,10 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle/objective_check,
-/area/shuttle/escape)
-"oB" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/escape)
 "rj" = (
 /obj/machinery/vending/wallmed{
@@ -388,6 +374,9 @@
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -418,6 +407,10 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/escape)
+"LC" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/escape)
 "OC" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
@@ -436,7 +429,7 @@ kP
 kP
 OC
 aW
-OC
+kP
 ak
 OC
 ac
@@ -471,7 +464,7 @@ aA
 aN
 an
 kP
-DZ
+aq
 bb
 bf
 kP
@@ -534,7 +527,7 @@ aa
 kP
 bW
 al
-ap
+ai
 at
 kP
 aZ
@@ -547,7 +540,7 @@ ac
 ac
 ac
 an
-an
+LC
 OC
 aX
 bc
@@ -574,7 +567,7 @@ aA
 aA
 an
 aQ
-oB
+kP
 kP
 kP
 kP
@@ -626,7 +619,7 @@ aC
 aC
 an
 aQ
-OC
+kP
 kP
 kP
 kP
@@ -638,7 +631,7 @@ aa
 kP
 bW
 ao
-aq
+ai
 av
 OC
 ac
@@ -665,7 +658,7 @@ aa
 kP
 ac
 bW
-an
+ap
 kP
 aA
 aA

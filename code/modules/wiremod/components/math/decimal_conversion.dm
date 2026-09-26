@@ -21,6 +21,11 @@
 		"minus" = "remove",
 	)
 
+/obj/item/circuit_component/decimal_conversion/Destroy()
+	number = null
+	LAZYCLEARLIST(bit_array)
+	. = ..()
+
 /obj/item/circuit_component/decimal_conversion/populate_ports()
 	AddComponent(/datum/component/circuit_component_add_port, \
 		port_list = bit_array, \

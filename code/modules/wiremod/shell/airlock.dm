@@ -14,7 +14,7 @@
 	autoclose = FALSE
 
 /obj/machinery/door/airlock/shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый шлюз",
 		GENITIVE = "программируемого шлюза",
 		DATIVE = "программируемому шлюзу",
@@ -77,6 +77,21 @@
 	var/datum/port/output/bolted
 	/// Called when the airlock is unbolted
 	var/datum/port/output/unbolted
+
+/obj/item/circuit_component/airlock/Destroy()
+	if(attached_airlock)
+		unregister_shell(attached_airlock)
+	bolt = null
+	unbolt = null
+	open = null
+	close = null
+	is_open = null
+	is_bolted = null
+	opened = null
+	closed = null
+	bolted = null
+	unbolted = null
+	. = ..()
 
 /obj/item/circuit_component/airlock/populate_ports()
 	// Input Signals
@@ -165,13 +180,21 @@
 	/// The signal sent when this event is triggered
 	var/datum/port/output/event_triggered
 
+/obj/item/circuit_component/airlock_access_event/Destroy()
+	if(attached_airlock)
+		unregister_shell(attached_airlock)
+	open_airlock = null
+	accessing_entity = null
+	event_triggered = null
+	. = ..()
+
 /obj/item/circuit_component/airlock_access_event/register_shell(atom/movable/shell)
 	. = ..()
 	if(!is_airlock(shell))
 		return
 
 	attached_airlock = shell
-	RegisterSignal(shell, list(
+	RegisterSignals(shell, list(
 		COMSIG_OBJ_ALLOWED,
 		COMSIG_AIRLOCK_SHELL_ALLOWED,
 	), PROC_REF(handle_allowed))

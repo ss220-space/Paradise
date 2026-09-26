@@ -5,6 +5,7 @@
 	window_x = 340
 	window_y = 106
 	proper_name = "Cyborg"
+	skill_type = /datum/skill/research/robotics
 
 /datum/wires/robot/New(atom/_holder)
 	wires = list(WIRE_AI_CONTROL, WIRE_BORG_CAMERA, WIRE_BORG_LAWCHECK, WIRE_BORG_LOCKED)

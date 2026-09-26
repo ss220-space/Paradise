@@ -1,3 +1,24 @@
+/mob/living/carbon/human/get_examine_name(mob/user)
+	var/displayed_species = get_visible_species()
+	var/examine_color = dna.species.flesh_color
+	var/skipjumpsuit = FALSE
+	var/skipface = FALSE
+
+	//exosuits and helmets obscure our view and stuff.
+	if(wear_suit)
+		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
+
+	if(head)
+		skipface = head.flags_inv & HIDENAME
+
+	if(wear_mask)
+		skipface |= wear_mask.flags_inv & HIDENAME
+
+	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
+		return ..() //omit the species when examining
+	else
+		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
@@ -28,66 +49,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = "Это <em>[name]</em>"
-
-	var/displayed_species = get_visible_species()
-	var/examine_color = dna.species.flesh_color
-	var/ru_species = list(
-		SPECIES_ABDUCTOR = "абдуктор",
-		SPECIES_DIONA = "диона",
-		SPECIES_DRASK = "драск",
-		SPECIES_GOLEM_BASIC = "голем",
-		SPECIES_GOLEM_RANDOM = "случайный голем",
-		SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
-		SPECIES_GOLEM_PLASMA = "плазменный голем",
-		SPECIES_GOLEM_DIAMOND = "алмазный голем",
-		SPECIES_GOLEM_GOLD = "золотой голем",
-		SPECIES_GOLEM_SILVER = "серебряный голем",
-		SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
-		SPECIES_GOLEM_TITANIUM = "титановый голем",
-		SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
-		SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
-		SPECIES_GOLEM_WOOD = "деревянный голем",
-		SPECIES_GOLEM_URANIUM = "урановый голем",
-		SPECIES_GOLEM_PLASTIC = "пластиковый голем",
-		SPECIES_GOLEM_SAND = "песчаный голем",
-		SPECIES_GOLEM_GLASS = "стеклянный голем",
-		SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
-		SPECIES_GOLEM_BANANIUM = "бананиевый голем",
-		SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
-		SPECIES_GOLEM_CLOCKWORK = "латунный голем",
-		SPECIES_GREY = "серый",
-		SPECIES_HUMAN = "человек",
-		SPECIES_KIDAN = "кидан",
-		SPECIES_MACNINEPERSON = "КПБ",
-		SPECIES_MONKEY = "шимпанзе",
-		SPECIES_FARWA = "фарва",
-		SPECIES_WOLPIN = "вульпин",
-		SPECIES_NEARA = "неара",
-		SPECIES_STOK = "сток",
-		SPECIES_MOTH = "ниан",
-		SPECIES_NUCLEATION = "нуклеация",
-		SPECIES_PLASMAMAN = "плазмолюд",
-		SPECIES_SHADOW_BASIC = "тень",
-		SPECIES_SHADOWLING = "тенеморф",
-		SPECIES_LESSER_SHADOWLING = "низший тенеморф",
-		SPECIES_SKELETON = "скелет",
-		SPECIES_SKRELL = "скрелл",
-		SPECIES_SLIMEPERSON = "слаймолюд",
-		SPECIES_TAJARAN = "таяран",
-		SPECIES_UNATHI = "унати",
-		SPECIES_ASHWALKER_BASIC = "пеплоходец",
-		SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
-		SPECIES_DRACONOID = "драконид",
-		SPECIES_VOX = "вокс",
-		SPECIES_VOX_ARMALIS = "вокс армалис",
-		SPECIES_VULPKANIN = "вульпканин",
-		SPECIES_WRYN = "врин"
-	)
-	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		msg += ".\n"    //omit the species when examining
-	else
-		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>.\n"
+	var/msg = ""
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -250,7 +212,7 @@
 							if(G.can_reenter_corpse == 0)
 								foundghost = FALSE
 							break
-				if(!foundghost)
+				if(!foundghost && !HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE))
 					msg += span_deadsay(" [GEND_HIS_HER_CAP(src)] душа покинула тело")
 		msg += span_deadsay("...\n")
 
@@ -374,6 +336,11 @@
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+			continue
+		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>\n")
+
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
@@ -388,6 +355,16 @@
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 		else
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+
+	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
+		var/blood_volume_text
+		if(blood_volume >= BLOOD_VOLUME_PALE)
+			blood_volume_text = span_warning("Пониженный уровень крови.")
+		else if(blood_volume >= BLOOD_VOLUME_BAD)
+			blood_volume_text = span_warning("Низкий уровень крови.")
+		else
+			blood_volume_text = span_warning("Критический уровень крови!")
+		msg += "[blood_volume_text]\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_YUT(src)] мягкое голубое свечение!\n")
@@ -406,7 +383,7 @@
 				if(!key)
 					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для н[GEND_HIS_HER(src)]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] внезапно заснул[GEND_A_O_I(src)]. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
+					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] страдает от космического расстройства сна. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
@@ -418,7 +395,7 @@
 	if(istype(implant) && implant.activated)
 		msg += span_italics("Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [GEND_HIS_HER(src)] хвосте.\n")
 
-	if(get_gravity(src) < -NO_GRAVITY && !buckled)
+	if(has_gravity(src) < -NO_GRAVITY && !buckled)
 		msg += "[GEND_HE_SHE_CAP(src)] наход[PLUR_IT_YAT(src)]ся на потолке.\n"
 
 	if(user.no_gravity() && !buckled)
@@ -480,7 +457,6 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += "[span_deptradio("Состояние:")] [span_notice(get_desc_for_medical_status(hud_list[STATUS_HUD].icon_state))]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
@@ -494,10 +470,7 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
-
-/mob/living/carbon/human/get_examine_time()
-	return 1 SECONDS
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**
  * Shows any and all examine text related to any status effects the user has.
@@ -547,7 +520,19 @@
 
 		return (have_hud_exam & hud_exam)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+	else if(isrobot(M))
+		var/mob/living/silicon/robot/robot = M
+		var/is_hydro_hud_active = FALSE
+		for(var/datum/action/innate/action as anything in robot.module_actions)
+			if(!istype(action, /datum/action/innate/robot_sight_hydro))
+				continue
+
+			is_hydro_hud_active = action.active ? EXAMINE_HUD_BOTANY : FALSE
+			break
+
+		return hud_exam & is_hydro_hud_active || hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
+
+	else if(isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
 	else if(ispAI(M))

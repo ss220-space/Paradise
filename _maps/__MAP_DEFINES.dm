@@ -32,7 +32,7 @@
 	/// Reserved z-level used only by shuttles
 	#define RESERVED_LEVEL "Transit/Reserved"
 	/// A level used for spawning map areas in tests
-	#define GAME_TEST_LEVEL "Game Test Level"
+	#define UNIT_TEST_LEVEL "Unit Test Level"
 	#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
 	#define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 
@@ -66,8 +66,11 @@ last: Transit
 #define ZTRAIT_UP "Up"
 #define ZTRAIT_DOWN "Down"
 
-#define ZTRAIT_GRAVITY "Gravity"	// overrides Z-level gravity making it always on. Unless it's space turf or openspace in a space area. See atom/proc/get_gravity()
+#define ZTRAIT_GRAVITY "Gravity"	// overrides Z-level gravity making it always on. Unless it's space turf or openspace in a space area. See atom/proc/has_gravity()
 #define ZTRAIT_BASETURF "Baseturf"	// overrides Z-level baseturf. set type path by ZTRAIT_BASETURF = "/turf/..."
+
+///boolean - does this z disable parallax?
+#define ZTRAIT_NOPARALLAX "No Parallax"
 
 // 3 Is already big one hella station.
 // Making over 3 may consider some big impact on space levels but it saned to top.

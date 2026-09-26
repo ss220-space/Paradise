@@ -1,11 +1,8 @@
 SUBSYSTEM_DEF(fires)
 	name = "Fires"
 	priority = FIRE_PRIORITY_BURNING
-	flags = SS_NO_INIT|SS_BACKGROUND
+	ss_flags = SS_NO_INIT|SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	cpu_display = SS_CPUDISPLAY_LOW // Trust me, this isnt atmos fires, this is paper and stuff being lit with lighters and stuff
-	offline_implications = "Objects will no longer react to fires. No immediate action is needed."
-	ss_id = "fire_processing"
 
 	var/list/currentrun = list()
 	var/list/processing = list()

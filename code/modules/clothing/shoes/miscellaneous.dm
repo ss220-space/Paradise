@@ -10,7 +10,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, FIRE = 70, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 	pickup_sound = 'sound/items/handling/pickup/boots_pickup.ogg'
@@ -40,7 +40,7 @@
 	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, FIRE = 90, ACID = 50)
 	clothing_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE)
 
 /obj/item/clothing/shoes/sandal
@@ -50,6 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
@@ -82,7 +83,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 75)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -168,7 +169,7 @@
 	item_state = "highjacks"
 
 /obj/item/clothing/shoes/jackboots/high/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "высокие берцы",
 		GENITIVE = "высоких берцов",
 		DATIVE = "высоким берцам",
@@ -201,7 +202,7 @@
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
@@ -231,7 +232,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/workboots/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрские ботинки",
 		GENITIVE = "шахтёрских ботинок",
 		DATIVE = "шахтёрским ботинкам",
@@ -254,10 +255,7 @@
 
 	return ..()
 
-/obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Достать нож"
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr, "Достать нож", VERB_CATEGORY_HIDDEN)
 	remove_knife(usr)
 
 /obj/item/clothing/shoes/workboots/mining/proc/remove_knife(mob/user)
@@ -268,7 +266,7 @@
 		if(O)
 			to_chat(user, span_notice("Вы извлекли нож из ботинка."))
 			O.forceMove_turf()
-			if(istype(loc, /mob))
+			if(ismob(loc))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O, ignore_anim = FALSE)
@@ -445,7 +443,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "Hugs-The-Feet lizard skin boots"
@@ -479,12 +477,12 @@
 	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, FIRE = 10, ACID = 0)
 	resistance_flags = FIRE_PROOF
 	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обмотки из шкуры голиафа",
 		GENITIVE = "обмоток из шкуры голиафа",
 		DATIVE = "обмоткам из шкуры голиафа",
@@ -498,12 +496,12 @@
 	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
 	icon_state = "footwraps_dragon"
 	item_state = "footwraps_dragon"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, RAD = 0, FIRE = 15, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, FIRE = 15, ACID = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обмотки из шкуры пепельного дракона",
 		GENITIVE = "обмоток из шкуры пепельного дракона",
 		DATIVE = "обмоткам из шкуры пепельного дракона",
@@ -569,18 +567,21 @@
 
 /obj/item/clothing/shoes/bhop/clown
 	name = "clown shoes"
-	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте <b>Ctrl</b>!"
+	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные!"
 	icon_state = "clown"
 	item_state = "clown_shoes"
-	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	actions_types = list(/datum/action/item_action/bhop/clown)
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
 
+/obj/item/clothing/shoes/bhop/clown/examine_more(mob/user)
+	. = ..()
+	. += span_warning("Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!")
+
 /obj/item/clothing/shoes/bhop/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
 		DATIVE = "клоунским башмакам",
@@ -681,11 +682,28 @@
 	species_restricted = list(SPECIES_HUMAN)
 
 /obj/item/clothing/shoes/chad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сапоги Гигачада",
 		GENITIVE = "сапога Гигачада",
 		DATIVE = "сапогу Гигачада",
 		ACCUSATIVE = "сапоги Гигачада",
 		INSTRUMENTAL = "сапогами Гигачада",
 		PREPOSITIONAL = "сапогах Гигачада",
+	)
+
+/obj/item/clothing/shoes/crocks
+	name = "crocks shoes"
+	desc = "Пара резиновых сабо. Выглядят как сплавленная воедино дешевая пластмасса."
+	icon_state = "crocks"
+	item_state = "crocks"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI)
+
+/obj/item/clothing/shoes/chad/get_ru_names()
+	return alist(
+		NOMINATIVE = "жёлтые кроксы",
+		GENITIVE = "жёлтых кроксов",
+		DATIVE = "жёлтым кроксам",
+		ACCUSATIVE = "жёлтые кроксы",
+		INSTRUMENTAL = "жёлтыми кроксами",
+		PREPOSITIONAL = "жёлтых кроксах",
 	)

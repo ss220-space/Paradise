@@ -13,7 +13,7 @@
 	open_icon = "oven_open"
 
 /obj/machinery/kitchen_machine/oven/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "духовка",
 		GENITIVE = "духовки",
 		DATIVE = "духовке",
@@ -76,4 +76,3 @@
 	add_attack_logs(grabber, victim, "Smashed with [src]")
 	//Removes the grip to prevent rapid bashes. With the knockdown, you PROBABLY can't run unless they are slow to grab you again...
 	grabber.stop_pulling()
-

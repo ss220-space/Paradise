@@ -1,4 +1,5 @@
 /mob/new_player/Login()
+	client.view_size?.resetToDefault() // Resets the client.view in case it was changed.
 	client?.persistent_client?.set_mob(src)
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 
@@ -10,7 +11,12 @@
 				src << link(CONFIG_GET(string/overflow_server_url))
 
 	if(GLOB.join_motd)
-		to_chat(src, "<div class=\"motd\">[GLOB.join_motd]</div>")
+		// Strip source newlines so to_chat() does not turn HTML indentation into <br>.
+		var/motd_html = replacetext(GLOB.join_motd, "\n", "")
+		to_chat(src, span_infoplain("<div class=\"motd\">[motd_html]</div>"))
+
+	if(GLOB.admin_notice)
+		to_chat(src, span_notice("<b>Admin Notice:</b>\n \t [GLOB.admin_notice]"))
 
 	if(!mind)
 		mind = new /datum/mind(key)
@@ -24,7 +30,7 @@
 
 	lastarea = loc
 
-	client.screen = list() // Remove HUD items just in case.
+	client.clear_screen() // Remove HUD items just in case.
 	client.images = list()
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
@@ -40,13 +46,12 @@
 	GLOB.new_player_mobs |= src
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
-		add_verb(src, /client/proc/readmin)
+		ASSIGN_GAME_VERB(src, /client, readmin)
 	. = TRUE
 
 	SStitle.show_title_screen_to(client)
 
-	spawn(4 SECONDS)
-		client?.playtitlemusic()
+	client?.playtitlemusic()
 
 /mob/new_player/proc/whitelist_check()
 	// Admins are immune to overflow rerouting

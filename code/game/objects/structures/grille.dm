@@ -7,9 +7,8 @@
 	anchored = TRUE
 	flags = CONDUCT
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	cares_about_temperature = TRUE
@@ -49,16 +48,17 @@
 
 /obj/structure/grille/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(!our_rcd.checkResource(2, user))
-		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this window!"))
+	if(!our_rcd.checkResource(RCD_COST_WINDOW * 2, user))
+		to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции окна!"))
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		return RCD_ACT_FAILED
-	to_chat(user, "Deconstructing window...")
+	to_chat(user, "Деконструкция окна...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	if(!our_rcd.useResource(2, user))
+	if(!our_rcd.useResource(RCD_COST_WINDOW * 2, user))
 		return RCD_ACT_FAILED
 	playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 	var/turf/T1 = get_turf(src)
@@ -184,7 +184,8 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	deconstruct()
 
@@ -194,7 +195,8 @@
 	. = TRUE
 	if(shock(user, 90))
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
 	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
@@ -234,7 +236,8 @@
 			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
 	to_chat(user, span_notice("You start placing the window..."))
-	if(do_after(user, 2 SECONDS, src))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(do_after(user, 2 SECONDS * building_mod, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
@@ -283,7 +286,8 @@
 /obj/structure/grille/proc/shock(mob/user, prb)
 	if(!anchored || broken)		// unanchored/broken grilles are never connected
 		return FALSE
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
 		return FALSE
@@ -311,12 +315,12 @@
 			var/obj/obj = atom_movable
 			if(obj.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				var/turf/turf = get_turf(src)
-				if(turf.intact)
+				if(turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 					return FALSE
 				var/obj/structure/cable/cable = turf.get_cable_node()
 				if(cable)
 					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-					tesla_zap(source = src, zap_range = 3, power = cable.newavail() * 0.01, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					tesla_zap(source = src, zap_range = 3, power = cable.newavail() * 0.01, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_LOW_POWER_GEN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
 					cable.add_delayedload(cable.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 

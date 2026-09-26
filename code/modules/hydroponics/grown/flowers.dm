@@ -258,8 +258,8 @@
 	if(target.IgniteMob())
 		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
 
-/obj/item/grown/novaflower/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/grown/novaflower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)

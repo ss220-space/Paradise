@@ -15,7 +15,7 @@
 	can_use_indoors = TRUE
 
 /obj/item/extraction_pack/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система эвакуации \"Фултон\"",
 		GENITIVE = "системы эвакуации \"Фултон\"",
 		DATIVE = "системе эвакуации \"Фултон\"",
@@ -31,7 +31,7 @@
 	item_state = "syndie"
 
 /obj/item/storage/box/contractor/fulton_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для эвакуации Фултон",
 		GENITIVE = "набора для эвакуации Фултон",
 		DATIVE = "набору для эвакуации Фултон",

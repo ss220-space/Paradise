@@ -19,7 +19,7 @@
 	)
 
 /obj/machinery/papershredder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "измельчитель бумаги",
 		GENITIVE = "измельчителя бумаги",
 		DATIVE = "измельчителю бумаги",
@@ -76,10 +76,7 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 
-/obj/machinery/papershredder/verb/empty_contents()
-	set name = "Опустошить корзину"
-	set category = VERB_CATEGORY_OBJECT
-	set src in range(1)
+GAME_VERB_SRC(/obj/machinery/papershredder, empty_contents, range(1), "Опустошить корзину", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -133,7 +130,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		add_fingerprint(user)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
@@ -168,7 +165,7 @@
 	throw_range = 3
 
 /obj/item/shredded_paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "измельчённая бумага",
 		GENITIVE = "измельчённой бумаги",
 		DATIVE = "измельчённой бумаге",

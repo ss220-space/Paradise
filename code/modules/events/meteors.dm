@@ -1,6 +1,6 @@
 /datum/event/meteor_wave
-	startWhen		= 5
-	endWhen		= 7
+	startWhen = 5
+	endWhen = 7
 	var/next_meteor = 6
 	var/waves = 1
 
@@ -12,7 +12,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Зафиксировано движение астероидов на встречном со станцией курсе.",
 			new_title = ANNOUNCE_METEOR_RU,
-			new_sound = 'sound/AI/meteors.ogg'
+			new_sound = ANNOUNCER_METEORS,
 		)
 	else
 		GLOB.minor_announcement.announce(
@@ -23,7 +23,7 @@
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
 	if(waves && activeFor >= next_meteor)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, severity * rand(1, 2), get_meteors())
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), severity * rand(1, 2), get_meteors())
 		next_meteor += rand(15, 30) / severity
 		waves--
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)

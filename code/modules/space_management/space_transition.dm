@@ -160,7 +160,7 @@
 
 /datum/point/proc/deactivate()
 	if(!spl)
-		throw EXCEPTION("Attempted to deactivate inactive point")
+		CRASH("Attempted to deactivate inactive point")
 	for(var/direction in spl.neighbors)
 		var/datum/space_level/S = spl.neighbors[direction]
 		var/oppose = get_opposite_direction(direction)
@@ -295,7 +295,7 @@
 /datum/spacewalk_grid/proc/get_empty_node()
 	var/datum/point/P = pick(available_nodes)
 	if(isnull(P))
-		throw EXCEPTION("The `available_nodes` list was either empty or contained a null entry")
+		CRASH("The `available_nodes` list was either empty or contained a null entry")
 	consume_node(P)
 	return P
 

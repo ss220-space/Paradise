@@ -7,7 +7,7 @@
 	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок игральных костей",
 		GENITIVE = "мешка игральных костей",
 		DATIVE = "мешку игральных костей",
@@ -68,7 +68,7 @@
 	var/rigged_value
 
 /obj/item/dice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -240,7 +240,7 @@
 	var/used = FALSE
 
 /obj/item/dice/d20/fate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Игральная Кость Судьбы",
 		GENITIVE = "Игральной Кости Судьбы",
 		DATIVE = "Игральной Кости Судьбы",
@@ -254,7 +254,7 @@
 	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
 
 /obj/item/dice/d20/fate/stealth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -271,7 +271,7 @@
 	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
 
 /obj/item/dice/d20/fate/one_use/stealth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -290,7 +290,7 @@
 	rigged_value = 1
 
 /obj/item/dice/d20/fate/cursed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая Игральная Кость Судьбы",
 		GENITIVE = "проклятой Игральной Кости Судьбы",
 		DATIVE = "проклятой Игральной Кости Судьбы",
@@ -303,14 +303,14 @@
 	. = ..()
 	if(!used)
 		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 			return
 
 		if(!reusable)
 			used = TRUE
 
 		var/turf/T = get_turf(src)
-		T.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] ярко вспыхива[PLUR_ET_YUT(src)]!"))
+		T.visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] ярко вспыхива[PLUR_ET_YUT(src)]!"))
 
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
@@ -318,7 +318,7 @@
 	. = ..()
 
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)

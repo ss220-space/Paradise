@@ -74,3 +74,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
+/obj/item/implanter/get_uplink_log_items()
+	. = list()
+	if(imp)
+		. += imp

@@ -14,6 +14,10 @@
 	/// The result from the output
 	var/datum/port/output/result
 
+/obj/item/circuit_component/tempsensor/Destroy()
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/tempsensor/populate_ports()
 	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 

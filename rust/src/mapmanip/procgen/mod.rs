@@ -3,14 +3,15 @@ use std::collections::{HashMap, HashSet};
 use super::core::GridMap;
 
 use dmmtools::dmm::{Coord2, Coord3, Prefab};
-use eyre::ContextCompat;
 use geometry::{distance, get_direction, Directions, Rect, DIRECTIONS};
+use meowtonin::{ByondError, ByondResult};
 use rand::{
     rng,
     seq::{IndexedRandom, SliceRandom},
-    Rng,
+    Rng, RngExt,
 };
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 
 mod geometry;
 
@@ -483,7 +484,7 @@ impl MazegenHauberk {
 pub(crate) fn mapmanip_mazegen_hauberk(
     map: &mut GridMap,
     settings: &MazegenHauberkSettings,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     let width = map.size.x / SCALE;
     let height = map.size.y / SCALE;
     let mut rng = rng();
@@ -565,7 +566,11 @@ pub(crate) fn mapmanip_mazegen_hauberk(
             for a in (x * 3)..(x + 1) * 3 {
                 for b in (y * 3)..(y + 1) * 3 {
                     let tile = map.grid.get_mut(&Coord3::new(a + 1, b + 1, 1)).unwrap();
-                    tile.remove_turf().wrap_err("map tile has no turf")?;
+                    tile.remove_turf().ok_or({
+                        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                            "map tile has no turf",
+                        ))
+                    })?;
                     tile.prefabs
                         .insert(0, Prefab::from_path(&settings.default_floor));
                 }

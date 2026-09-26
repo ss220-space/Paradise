@@ -10,13 +10,13 @@
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	base_icon_state = "coil"
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL=2000)
+	materials = list(MAT_METAL=1250)
 
 	/// The currently connected circuit
 	var/obj/item/integrated_circuit/attached_circuit
 
 /obj/item/usb_cable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "USB-кабель",
 		GENITIVE = "USB-кабеля",
 		DATIVE = "USB-кабелю",

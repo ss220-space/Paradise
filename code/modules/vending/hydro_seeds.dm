@@ -93,7 +93,7 @@
 	)
 
 /obj/machinery/vending/hydroseeds/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат MegaSeed Servitor",
 		GENITIVE = "торгового автомата MegaSeed Servitor",
 		DATIVE = "торговому автомату MegaSeed Servitor",

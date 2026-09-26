@@ -80,18 +80,6 @@
 		return ..()
 	toggle_light(user)
 
-/obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Крышка аквариума"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
-	toggle_lid(usr)
-
-/obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Освещение аквариума"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
-	toggle_light(usr)
-
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -110,12 +98,6 @@
 //////////////////////////////
 //	Initialize() PROCS		//
 //////////////////////////////
-
-/obj/machinery/fishtank/Initialize(mapload)
-	. = ..()
-	if(!has_lid)	//Tank doesn't have a lid/light, remove the verbs for then
-		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
-		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
 /obj/machinery/fishtank/tank/Initialize(mapload)
 	. = ..()
@@ -173,7 +155,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T, vertical)
+/obj/machinery/fishtank/wall/CanAtmosPass(direction)
 	return FALSE
 
 /obj/machinery/fishtank/process()
@@ -544,7 +526,7 @@
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M)
 	var/fish_count = get_num_fish()
-	if(istype(M, /mob/living/simple_animal/pet/cat))
+	if(iscat(M))
 		if(M.a_intent == INTENT_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message(

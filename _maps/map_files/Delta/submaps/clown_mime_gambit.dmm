@@ -7,19 +7,19 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/mimeoffice)
+/area/station/service/mime)
 "d" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Mime"
 	},
 /turf/simulated/floor/plating,
-/area/mimeoffice)
+/area/station/service/mime)
 "e" = (
 /turf/simulated/wall,
-/area/mimeoffice)
+/area/station/service/mime)
 "f" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 6
@@ -28,7 +28,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/mimeoffice)
+/area/station/service/mime)
 "g" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -42,7 +42,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "h" = (
 /obj/structure/statue/bananium/clown/unique{
 	name = "Статуя Великого Кекеги"
@@ -50,26 +50,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "i" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/item/flag/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "j" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -77,7 +70,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "k" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -90,21 +83,17 @@
 	name = "Mime Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/clownoffice)
+/area/station/service/clown)
 "l" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /obj/structure/closet/secure_closet/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "m" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -118,19 +107,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "o" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/eastright{
 	name = "Mime Delivery";
 	req_access = list(46);
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "p" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -144,17 +132,16 @@
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "q" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime,
 /turf/template_noop,
 /area/template_noop)
 "r" = (
 /turf/simulated/wall,
-/area/clownoffice)
+/area/station/service/clown)
 "t" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -164,7 +151,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "u" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -172,10 +159,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "v" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -191,7 +177,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "w" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -205,14 +191,14 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime,
 /obj/effect/map_effect/marker_helper/submap_def/delta/clown_mime/shuffle,
 /turf/simulated/wall,
-/area/clownoffice)
+/area/station/service/clown)
 "y" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/landmark/start/clown,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "z" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -225,16 +211,16 @@
 	name = "Mime Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/mimeoffice)
+/area/station/service/mime)
 "B" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Clown"
 	},
 /turf/simulated/floor/plating,
-/area/clownoffice)
+/area/station/service/clown)
 "C" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -243,7 +229,7 @@
 	name = "Mime Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/mimeoffice)
+/area/station/service/mime)
 "D" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -257,7 +243,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "E" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/baguette,
@@ -275,10 +261,9 @@
 	},
 /obj/item/reagent_containers/spray/waterflower,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "F" = (
 /obj/structure/bed,
 /obj/structure/sign/poster/official/random{
@@ -289,10 +274,9 @@
 	c_tag = "Mime Office"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "G" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -313,10 +297,9 @@
 	},
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "I" = (
 /obj/structure/bed,
 /obj/structure/sign/poster/official/random{
@@ -329,9 +312,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "J" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/eastright{
 	name = "Clown Delivery";
 	req_access = list(46)
@@ -339,33 +322,29 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "K" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
-/area/clownoffice)
+/area/station/service/clown)
 "L" = (
 /obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "N" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/closet/secure_closet/clown,
 /obj/item/clothing/suit/soldiercoat,
 /obj/item/clothing/under/soldieruniform,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "O" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/grown/banana,
@@ -383,22 +362,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "P" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "R" = (
 /obj/machinery/vending/autodrobe,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "S" = (
 /obj/machinery/suit_storage_unit/mime,
 /obj/machinery/door_control{
@@ -408,10 +386,9 @@
 	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
-/area/mimeoffice)
+/area/station/service/mime)
 "U" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -423,10 +400,11 @@
 /area/template_noop)
 "X" = (
 /obj/machinery/vending/autodrobe,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 "Y" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -435,7 +413,7 @@
 	name = "Clown Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/clownoffice)
+/area/station/service/clown)
 "Z" = (
 /obj/machinery/door_control{
 	id = "Clown";
@@ -447,7 +425,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/clownoffice)
+/area/station/service/clown)
 
 (1,1,1) = {"
 a

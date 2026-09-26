@@ -17,7 +17,7 @@
 	circuit = /obj/item/circuitboard/computer/addition_goals
 
 /obj/machinery/computer/addition_goals/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления дополнительными целями смены",
 		GENITIVE = "консоли управления дополнительными целями смены",
 		DATIVE = "консоли управления дополнительными целями смены",
@@ -29,6 +29,10 @@
 /obj/machinery/computer/addition_goals/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
 	SSaddition_goals.console_list += src
+
+/obj/machinery/computer/addition_goals/Destroy()
+	SSaddition_goals.console_list -= src
+	return ..()
 
 /obj/machinery/computer/addition_goals/attack_hand(mob/user)
 	. = ..()

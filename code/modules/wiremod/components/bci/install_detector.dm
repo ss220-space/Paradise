@@ -18,6 +18,14 @@
 
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
+/obj/item/circuit_component/install_detector/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	implanted = null
+	removed = null
+	current_state = null
+	. = ..()
+
 /obj/item/circuit_component/install_detector/populate_ports()
 	. = ..()
 	current_state = add_output_port("Состояние", PORT_TYPE_NUMBER)

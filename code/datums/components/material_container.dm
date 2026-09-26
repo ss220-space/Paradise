@@ -40,8 +40,8 @@
 
 	RegisterSignal(parent, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, PROC_REF(on_insert_stack_signal))
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))
@@ -51,6 +51,10 @@
 		if(possible_mats[id])
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
+
+/datum/component/material_container/Destroy(force)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
 
 /// / Signal handler for stack insertion, returns container insertion flags.
 /datum/component/material_container/proc/on_insert_stack_signal(datum/source, obj/item/stack/stack, amt)
@@ -65,7 +69,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[declension_ru(amt, "а", "ы", "")] материала.")
+				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[DECL_A_Y_0(amt)] материала.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -106,12 +110,12 @@
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
 		if(isstack(I))
-			I.balloon_alert(user, "вставлен[declension_ru(inserted, "", "о", "о")] [inserted] объект[DECL_CREDIT(inserted)] из стопки")
+			I.balloon_alert(user, "вставлен[DECL_0_O_O(inserted)] [inserted] объект[DECL_0_A_OV(inserted)] из стопки")
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			I.balloon_alert(user, "вставлен[declension_ru(inserted, "а", "о", "о")] [inserted] единиц[declension_ru(inserted, "а", "ы", "")] материала")
+			I.balloon_alert(user, "вставлен[DECL_A_O_O(inserted)] [inserted] единиц[DECL_A_Y_0(inserted)] материала")
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)

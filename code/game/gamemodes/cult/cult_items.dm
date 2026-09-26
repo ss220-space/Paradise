@@ -90,7 +90,7 @@
 	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "руническая бола",
 		GENITIVE = "рунической болы",
 		DATIVE = "рунической боле",
@@ -111,7 +111,7 @@
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -128,7 +128,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
@@ -148,7 +148,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -162,7 +162,7 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -177,7 +177,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
+	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -190,7 +190,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -221,7 +221,7 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -256,7 +256,7 @@
 	item_state = "flagellanthood"
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -294,7 +294,7 @@
 		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/unholywater
+/obj/item/reagent_containers/cup/glass/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
@@ -306,7 +306,7 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
+	clothing_traits = list(TRAIT_CULT_VEIL_SIGHT)
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
@@ -350,7 +350,7 @@
 		to_chat(user, span_danger(span_big("Похоже, что культ крови исчерпал свои силы для наложения проклятий на эвакуационный шаттл. Создавать новые проклятые сферы или продолжать пытаться разбить эту — неразумно.")))
 		return
 
-	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 
@@ -388,7 +388,7 @@
 
 	var/curse_message = pick_n_take(remaining_curses) || "Что-то пошло ужасающе неправильно..."
 	var/curse_delay = cursetime / 600
-	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_SEC_MIN(curse_delay)]."
+	curse_message += " Шаттл задерживается на [curse_delay] минут[DECL_U_Y_0(curse_delay)]."
 
 	GLOB.major_announcement.announce(
 		message = curse_message,
@@ -403,7 +403,7 @@
 		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё лишь один раз."))
 
 	else
-		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[declension_ru(MAX_SHUTTLE_CURSES - totalcurses, "", "а", "")]."))
+		to_chat(user, span_biggerdanger("Вы чувствуете, что эвакуационный шаттл можно проклясть ещё только [MAX_SHUTTLE_CURSES - totalcurses] раз[DECL_0_A_0(MAX_SHUTTLE_CURSES - totalcurses)]."))
 
 	if(totalcurses >= MAX_SHUTTLE_CURSES && (world.time < first_curse_time + SHUTTLE_CURSE_OMFG_TIMESPAN))
 		var/omfg_message = pick_list(CULT_SHUTTLE_CURSE, "omfg_announce") || "ОСТАВЬТЕ НАС В ПОКОЕ!"
@@ -527,7 +527,7 @@
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, fire = 10, acid = 10)
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
@@ -616,7 +616,7 @@
 			else if(P.damage_type == BURN)
 				threshold = energy_threshold
 			else
-				return FALSE
+				return HIT_RESULT_FAILED
 			// Assuming the projectile damage is 20 (WT-550), 'shatter_chance' will be 10
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
@@ -628,10 +628,10 @@
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
 				owner.Knockdown(6 SECONDS)
 				qdel(src)
-				return FALSE
+				return HIT_RESULT_FAILED
 
 			if(P.is_reflectable(REFLECTABILITY_ENERGY))
-				return FALSE //To avoid reflection chance double-dipping with block chance
+				return HIT_RESULT_FAILED //To avoid reflection chance double-dipping with block chance
 
 		// Hit by a melee weapon or blocked a projectile
 		. = ..()
@@ -644,12 +644,12 @@
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
 					spawn_illusion(owner, FALSE) // Running illusion
-			return TRUE
+			return HIT_RESULT_SUCCESS
 
 	else // Non-cultist holding the shield
 		if(prob(50))
 			spawn_illusion(owner, TRUE, TRUE)
-		return FALSE
+		return HIT_RESULT_FAILED
 
 /obj/item/shield/mirror/proc/spawn_illusion(mob/living/carbon/human/user, hostile, betray)
 	if(hostile)
@@ -681,7 +681,7 @@
 	if(isliving(loc))
 		var/mob/living/holder = loc
 		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
-	return FALSE
+	return REFLECT_NOTHING
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
@@ -693,7 +693,6 @@
 	force_wielded = 24
 	throwforce = 40
 	armour_penetration = 30
-	block_chance = 30
 	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	no_spin_thrown = TRUE
@@ -701,10 +700,13 @@
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
+/obj/item/twohanded/cult_spear/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -748,20 +750,6 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(wielded)
-		final_block_chance *= 2
-	if(prob(final_block_chance))
-		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"), projectile_message = TRUE)
-			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
-			return TRUE
-		else
-			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-			owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
-			return TRUE
-	return FALSE
-
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
@@ -787,49 +775,6 @@
 			L.drop_item_ground(spear)
 			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
 		spear.throw_at(owner, 10, 2, null)
-
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
-	name = "blood bolt barrage"
-	desc = "Blood for blood."
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
-	color = "#ff0000"
-	guns_left = 24
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	fire_sound = 'sound/magic/wand_teleport.ogg'
-	pickup_sound = 'sound/effects/splat.ogg'
-	drop_sound = 'sound/effects/splat.ogg'
-	item_flags = NOBLUDGEON|DROPDEL
-
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
-
-/obj/item/ammo_casing/magic/arcane_barrage/blood
-	projectile_type = /obj/projectile/magic/arcane_barrage/blood
-	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
-
-/obj/projectile/magic/arcane_barrage/blood
-	name = "blood bolt"
-	icon_state = "blood_bolt"
-	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/cult/sparks
-	hitsound = 'sound/effects/splat.ogg'
-
-/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	if(iscultist(target))
-		damage = 0
-		nodamage = TRUE
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(H.stat != DEAD)
-				H.reagents.add_reagent("unholywater", 4)
-		if(isshade(target) || isconstruct(target))
-			var/mob/living/simple_animal/M = target
-			if(M.health + 5 < M.maxHealth)
-				M.adjustHealth(-5)
-		new /obj/effect/temp_visual/cult/sparks(target)
-	..()
 
 /obj/item/blood_orb
 	name = "orb of blood"

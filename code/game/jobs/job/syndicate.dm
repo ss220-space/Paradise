@@ -1,5 +1,5 @@
 /datum/job/syndicateofficer
-	title = JOB_TITLE_SYNDICATE
+	title = JOB_TITLE_SYNDICATE_OFFICER
 	flag = JOB_FLAG_SYNDICATE
 	department_flag = JOB_FLAG_SYNDICATE // This gets its job as its own flag because admin jobs dont have flags
 	department = STATION_DEPARTMENT_OTHER
@@ -13,12 +13,34 @@
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
 	insurance_type = INSURANCE_TYPE_NONE
+	skill_levels = list(
+		/datum/skill/general/carrying = 3,
+		/datum/skill/general/mech_drive = 3,
+		/datum/skill/general/mod_use = 3,
+		/datum/skill/general/cooking = 3,
+		/datum/skill/service/drink_mixing = 3,
+		/datum/skill/service/botany = 3,
+		/datum/skill/service/cleaning = 3,
+		/datum/skill/combat/accuracy = 4,
+		/datum/skill/combat/guns = 4,
+		/datum/skill/combat/melee = 4,
+		/datum/skill/combat/fists = 4,
+		/datum/skill/medical/surgery = 3,
+		/datum/skill/medical/heal = 3,
+		/datum/skill/medical/chemistry = 3,
+		/datum/skill/medical/genetic = 3,
+		/datum/skill/medical/virusology = 3,
+		/datum/skill/research/research = 3,
+		/datum/skill/research/protolathe = 3,
+		/datum/skill/research/robotics = 3,
+		/datum/skill/research/xenobiology = 3,
+	)
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)
 
 /datum/outfit/job/syndicateofficer
-	name = "Syndicate Officer"
+	name = JOB_TITLE_RU_SYNDICATE_OFFICER
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate
@@ -28,7 +50,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
+	belt = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_ear = /obj/item/radio/headset/syndicate/admin_officer
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command

@@ -58,13 +58,13 @@
 /datum/component/ghost_direct_control/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(on_ghost_clicked))
-	RegisterSignal(parent, COMSIG_LIVING_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(on_login))
 	RegisterSignal(parent, COMSIG_IS_GHOST_CONTROLABLE, PROC_REF(on_ghost_controlable_check))
 	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 /datum/component/ghost_direct_control/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_LIVING_EXAMINE, COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
+	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_ATOM_EXAMINE, COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
 	return ..()
 
 /datum/component/ghost_direct_control/Destroy(force)

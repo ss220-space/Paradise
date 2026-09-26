@@ -30,7 +30,8 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_VV_TOPIC, PROC_REF(handle_vv_topic))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
@@ -82,14 +83,14 @@
 			return
 		var/cooldown = ckey_to_cooldown[source.ckey] - world.time
 		if(cooldown > 0)
-			var/ceil_cooldown = CEILING(cooldown * 0.1, 1)
-			to_chat(source, span_warning("Управление командами будет доступно через [ceil_cooldown] секунд[DECL_SEC_MIN(ceil_cooldown)]."))
+			var/ceil_cooldown = ceil(cooldown * 0.1)
+			to_chat(source, span_warning("Управление командами будет доступно через [ceil_cooldown] секунд[DECL_U_Y_0(ceil_cooldown)]."))
 			return MOB_DEADSAY_SIGNAL_INTERCEPT
 		ckey_to_cooldown[source.ckey] = world.time + input_cooldown
 		addtimer(CALLBACK(src, PROC_REF(end_cooldown), source.ckey), input_cooldown)
 		inputs[message].Invoke()
 		var/input_cooldown_s = input_cooldown * 0.1
-		to_chat(source, span_notice("Команда \"[message]\" принята. Следующий ввод будет доступен через [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)]."))
+		to_chat(source, span_notice("Команда \"[message]\" принята. Следующий ввод будет доступен через [input_cooldown_s] секунд[DECL_U_Y_0(input_cooldown_s)]."))
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
@@ -107,7 +108,7 @@
 		inputs[result].Invoke()
 		if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 			var/input_cooldown_s = input_cooldown * 0.1
-			var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)]."))
+			var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_U_Y_0(input_cooldown_s)]."))
 			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
 	else if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
@@ -191,9 +192,30 @@
 		return WAIVE_AUTOMUTE_CHECK
 	return NONE
 
+/// Allows for this component to be removed via a dedicated VV dropdown entry.
+/datum/component/deadchat_control/proc/handle_vv_topic(datum/source, mob/user, list/href_list)
+	SIGNAL_HANDLER
+	if(!href_list[VV_HK_DEADCHAT_PLAYS] || !check_rights(R_EVENT))
+		return
+	. = COMPONENT_VV_HANDLED
+	INVOKE_ASYNC(src, PROC_REF(async_handle_vv_topic), user, href_list)
+
+/// Async proc handling the alert input and associated logic for an admin removing this component via the VV dropdown.
+/datum/component/deadchat_control/proc/async_handle_vv_topic(mob/user, list/href_list)
+	if(tgui_alert(user, "Remove deadchat control from [parent]?", "Deadchat Plays [parent]", list("Remove", "Cancel")) == "Remove")
+		// Quick sanity check as this is an async call.
+		if(QDELETED(src))
+			return
+
+		to_chat(user, span_notice("Deadchat can no longer control [parent]."))
+		log_admin("[key_name(user)] has removed deadchat control from [parent]")
+		message_admins(span_notice("[key_name(user)] has removed deadchat control from [parent]"))
+
+		qdel(src)
+
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/object, mob/user, list/examine_list)
-	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
+	SIGNAL_HANDLER  // COMSIG_ATOM_EXAMINE
 
 	if(!isobserver(user))
 		return
@@ -205,15 +227,15 @@
 		return
 
 	if(!(user in orbiters))
-		examine_list += span_deadsay(span_bold("Прыгнете на н[GEND_HIS_HER(object)]] и осмотрите снова, чтобы увидеть список доступных команд."))
+		examine_list += span_deadsay(span_bold("Прыгнете на н[GEND_HIS_HER(object)] и осмотрите снова, чтобы увидеть список доступных команд."))
 		return
 
 	var/input_cooldown_s = input_cooldown * 0.1
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
-		examine_list += span_notice("Введите команду в чат, чтобы проголосовать за действие. Это происходит один раз в [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)].")
+		examine_list += span_notice("Введите команду в чат, чтобы проголосовать за действие. Это происходит один раз в [input_cooldown_s] секунд[DECL_U_Y_0(input_cooldown_s)].")
 	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
-		examine_list += span_notice("Введите команду в чат для выполнения действия. Вы можете делать это один раз в [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)].")
+		examine_list += span_notice("Введите команду в чат для выполнения действия. Вы можете делать это один раз в [input_cooldown_s] секунд[DECL_U_Y_0(input_cooldown_s)].")
 
 	var/extended_examine = "Список команд:"
 

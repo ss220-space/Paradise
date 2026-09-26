@@ -15,12 +15,25 @@
 		ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION,
 		ACCESS_MINERAL_STOREROOM
 	)
-	alt_titles = list("Chief Supply Manager")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CHIEF_ENGINEER_SUPPLY_MANAGER,
+		ALT_JOB_TITLE_RU_LOGISTICS_DIRECTOR,
+	)
 	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/qm
-	name = JOB_TITLE_QUARTERMASTER
+	name = JOB_TITLE_RU_QUARTERMASTER
 	jobtype = /datum/job/head_of_staff/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo
@@ -36,8 +49,10 @@
 		/obj/item/melee/baton/telescopic = 1,
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/supply
+	abstract_type = /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
 	is_supply = 1
@@ -55,11 +70,21 @@
 	spawn_positions = 3
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Supply Manager", "Loader")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST,
+	)
 	outfit = /datum/outfit/job/cargo_tech
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/cargo_tech
-	name = JOB_TITLE_CARGOTECH
+	name = JOB_TITLE_RU_CARGOTECH
 	jobtype = /datum/job/supply/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargotech
@@ -76,12 +101,23 @@
 	blocked_race_for_job = list(SPECIES_NUCLEATION)
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	insurance_type = INSURANCE_TYPE_EXTENDED
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/mining
-	name = JOB_TITLE_MINER
+	name = JOB_TITLE_RU_MINER
 	jobtype = /datum/job/supply/mining
 
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
@@ -104,6 +140,7 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival/survival_mining
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -138,13 +175,22 @@
 	selection_color = "#cee6ef"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
-	alt_titles = list("Lavaland Health Officer")
 	outfit = /datum/outfit/job/mining_medic
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_type = EXP_TYPE_MEDICAL
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/mining_medic
-	name = JOB_TITLE_MINING_MEDIC
+	name = JOB_TITLE_RU_MINING_MEDIC
 	jobtype = /datum/job/supply/mining_medic
 	glasses = /obj/item/clothing/glasses/hud/health/meson
 	l_ear = /obj/item/radio/headset/headset_mining_medic
@@ -162,3 +208,4 @@
 		/obj/item/radio/weather_monitor = 1,
 		/obj/item/wormhole_jaunter = 1,
 	)
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical

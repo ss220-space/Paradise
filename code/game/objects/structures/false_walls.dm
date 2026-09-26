@@ -12,22 +12,20 @@
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
-
+	rad_insulation = RAD_MEDIUM_INSULATION
+	density = TRUE
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
+	opacity = TRUE
+	max_integrity = 100
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
+	cares_about_temperature = TRUE
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
 	var/walltype = /turf/simulated/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
-
-	density = TRUE
-	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
-	opacity = TRUE
-	max_integrity = 100
-
-	canSmoothWith = SMOOTH_GROUP_WALLS
-	smoothing_groups = SMOOTH_GROUP_WALLS
-	smooth = SMOOTH_BITMASK
-	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
@@ -55,7 +53,7 @@
 	recalculate_atmos_connectivity()
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
+/obj/structure/falsewall/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)
@@ -178,19 +176,20 @@
 
 /obj/structure/falsewall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(5, user))
-		to_chat(user, "Разборка стены...")
+	if(our_rcd.checkResource(RCD_COST_WALL * 2, user))
+		to_chat(user, "Деконструкция стены...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(5, user))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
+			if(!our_rcd.useResource(RCD_COST_WALL * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed false wall with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
-		to_chat(user, span_warning("ОШИБКА! Прервана разборка!"))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ОШИБКА! Недостаточно вещества в устройстве для разборки этой стены!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции стены!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
@@ -239,13 +238,13 @@
 
 /obj/structure/falsewall/reinforced/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	if(!our_rcd.canRwall)
+		balloon_alert(user, "нельзя деконструировать!")
 		return RCD_NO_ACT
 	. = ..()
 
 /*
  * Uranium Falsewalls
  */
-
 /obj/structure/falsewall/uranium
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
@@ -254,18 +253,45 @@
 	base_icon_state = "uranium_wall"
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/simulated/wall/mineral/uranium
-	var/active = null
-	var/last_event = 0
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
+	var/active = null
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/structure/falsewall/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/obj/structure/falsewall/uranium/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/falsewall/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/falsewall/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	active = TRUE
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
+	propagate_radiation_pulse()
+	active = FALSE
 
 /*
  * Other misc falsewall types
@@ -320,7 +346,7 @@
 	if(opening)
 		return ..()
 
-	if(I.get_heat() > 300)
+	if(I.get_temperature() > 300)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()

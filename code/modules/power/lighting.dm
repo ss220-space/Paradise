@@ -20,7 +20,7 @@
 	anchored = TRUE
 	layer = FLY_LAYER
 	max_integrity = 50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	/// Construction stage
 	var/stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	/// Light bulb type
@@ -177,7 +177,7 @@
 	anchored = TRUE
 	layer = FLY_LAYER
 	max_integrity = 10
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
@@ -235,6 +235,8 @@
 	/// If true, this light cannot ever have an emergency mode
 	var/no_emergency = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light, 0, 0)
+
 /**
  * # Small light fixture
  *
@@ -251,6 +253,8 @@
 	nightshift_light_color = "#ffefa0"
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 
 /obj/machinery/light/spot
 	name = "spotlight"
@@ -597,10 +601,11 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !(I.flags & CONDUCT) || !has_power())
 		return
 
-	if(status != initial_status && prob(12))	// Proceed only if changed `state` during `take_damage`.
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(status != initial_status && prob(12 * prob_mod))	// Proceed only if changed `state` during `take_damage`.
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-	else if(status == LIGHT_EMPTY && prob(75))
+	else if(status == LIGHT_EMPTY && prob(75 * prob_mod))
 		to_chat(user, span_userdanger("You aimed right into the light socket."))
 		electrocute_mob(user, get_area(src), src, randfloat(0.7, 1), TRUE)
 		do_sparks(3, TRUE, src)
@@ -745,7 +750,13 @@
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
-// break the light and make sparks if was on
+/obj/machinery/light/proc/set_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = TRUE
+	update()
+
+/obj/machinery/light/proc/unset_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = FALSE
+	update()
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
 	if(status == LIGHT_EMPTY)
@@ -868,7 +879,6 @@
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
-	blocks_emissive = FALSE
 	/// Light status (LIGHT_OK | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// How many times has the light been switched on/off?
@@ -964,7 +974,7 @@
 			desc = "A broken [name]."
 
 /obj/item/light/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I
 		if(syringe.mode != 1)	// injecting

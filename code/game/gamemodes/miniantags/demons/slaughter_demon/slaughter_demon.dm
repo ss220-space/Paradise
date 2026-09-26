@@ -23,7 +23,7 @@
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
 /mob/living/simple_animal/demon/slaughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демон резни",
 		GENITIVE = "демона резни",
 		DATIVE = "демону резни",
@@ -37,10 +37,7 @@
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
-	AddSpell(bloodspell)
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		bloodspell.phased = TRUE
+	AddSpell(new /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon)
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
@@ -72,7 +69,7 @@
 	mind.objectives += fluffObjective
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
@@ -81,7 +78,7 @@
 	desc = "Омерзительная масса из разорванной плоти и органов."
 
 /obj/effect/decal/cleanable/blood/innards/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",
 		DATIVE = "кровавому месиву",
@@ -111,7 +108,7 @@
 							чтобы найти случайного живого еретика.</b>"
 
 /mob/living/simple_animal/demon/slaughter/cult/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вестник резни",
 		GENITIVE = "вестника резни",
 		DATIVE = "вестнику резни",
@@ -123,31 +120,30 @@
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
 	return
 
-/obj/effect/proc_holder/spell/sense_victims
+/datum/action/cooldown/spell/sense_victims
 	name = "Охота за душами"
 	desc = "Определите местоположение еретиков."
-	base_cooldown = 0
-	clothes_req = FALSE
-	human_req = FALSE
-	overlay = null
-	action_icon_state = "bloodcrawl"
-	action_background_icon_state = "bg_cult"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "bloodcrawl"
+	background_icon_state = "bg_cult"
 
-/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
-	return new /datum/spell_targeting/alive_mob_list
-
-/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
-	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
-
-/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
-	var/mob/living/victim = targets[1]
-	to_chat(victim, span_userdanger("Вы чувствуете ужасное ощущение, что за вами наблюдают..."))
-	victim.Stun(6 SECONDS) //HUE
-	var/area/A = get_area(victim)
-	if(!A)
-		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
+/datum/action/cooldown/spell/sense_victims/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/target = try_pick_target()
+	if(!target)
+		to_chat(owner, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
-	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(victim)] ошибку [GEND_HIS_HER(victim)] пути.</b>"))
+	to_chat(target, span_userdanger("Вы чувствуете ужасное ощущение, что за вами наблюдают..."))
+	target.Stun(6 SECONDS) //HUE
+	var/area/A = get_area(target)
+	to_chat(owner, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(target)] ошибку [GEND_HIS_HER(target)] пути.</b>"))
+
+/datum/action/cooldown/spell/sense_victims/proc/try_pick_target()
+	var/list/possible_targets = GLOB.alive_mob_list
+	shuffle(possible_targets)
+	for(var/mob/living/target in possible_targets)
+		if(target.stat == CONSCIOUS && target.key && !iscultist(target))
+			return target
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
 	. = ..()
@@ -176,14 +172,14 @@
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/sense_victims/SV = new
-		AddSpell(SV)
+		var/datum/action/cooldown/spell/sense_victims/SV = new
+		SV.Grant(src)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind
 		new_objective.explanation_text = "Устройте Резню неверующим!"
 		S.mind.objectives += new_objective
 		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
-		to_chat(S, chat_box_red(messages.Join("<br>")))
+		to_chat(S, custom_boxed_message("red_box center", messages.Join("<br>")))
 		log_game("[S.key] has become Slaughter demon.")
 
 /**
@@ -213,13 +209,14 @@
 
 /obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = new()
+	action.Grant(M)
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+		M.RemoveSpell(/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon)
 	. = ..()
 
 /**
@@ -256,7 +253,7 @@
 						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
 
 /mob/living/simple_animal/demon/slaughter/laughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демон смеха",
 		GENITIVE = "демона смеха",
 		DATIVE = "демону смеха",
@@ -282,7 +279,7 @@
 
 /datum/objective/slaughter/New()
 	targetKill = rand(10,20)
-	explanation_text = "Поглотить [targetKill] смертн[declension_ru(targetKill, "ого", "ых", "ых")]."
+	explanation_text = "Поглотить [targetKill] смертн[DECL_OGO_YH_YH(targetKill)]."
 	..()
 
 /datum/objective/slaughter/check_completion()

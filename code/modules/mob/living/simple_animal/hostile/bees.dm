@@ -269,7 +269,7 @@
 	return ..()
 
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I
 		if(syringe.mode != 1)	// injecting

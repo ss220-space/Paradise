@@ -16,7 +16,7 @@
 	cooldown_time = 1 SECONDS
 
 /obj/item/mod/module/bikehorn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гудка",
 		GENITIVE = "модуля гудка",
 		DATIVE = "модулю гудка",
@@ -45,7 +45,7 @@
 	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/waddle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль покачивания",
 		GENITIVE = "модуля покачивания",
 		DATIVE = "модулю покачивания",
@@ -79,7 +79,7 @@
 	incompatible_modules = list(/obj/item/mod/module/boot_heating)
 
 /obj/item/mod/module/boot_heating/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль осушающей обуви",
 		GENITIVE = "модуля осушающей обуви",
 		DATIVE = "модулю осушающей обуви",
@@ -98,5 +98,5 @@
 	SIGNAL_HANDLER
 
 	var/turf/simulated/t_loc = get_turf(src)
-	if(istype(t_loc) && t_loc.wet)
+	if(istype(t_loc) && t_loc.is_wet())
 		t_loc.MakeDry(TURF_WET_WATER)

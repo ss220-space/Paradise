@@ -126,9 +126,6 @@
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/simple_animal/pet/slugcat/on_lying_down(new_lying_angle)
 	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest

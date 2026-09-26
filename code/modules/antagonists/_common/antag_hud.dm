@@ -46,9 +46,12 @@
 		newhud.join_hud(current)
 
 /datum/mind/proc/leave_all_huds()
-	for(var/datum/atom_hud/antag/hud in GLOB.huds)
-		if(current in hud.hud_users_all_z_levels)
-			hud.leave_hud(current)
+	for(var/hud_key, hud_type in GLOB.huds)
+		var/datum/atom_hud/antag/antag_hud = hud_type
+		if(!istype(antag_hud))
+			continue
+		if(current in antag_hud.hud_users_all_z_levels)
+			antag_hud.leave_hud(current)
 
 ///Master Servent Datum Sytems,Based on TG Gang system//
 

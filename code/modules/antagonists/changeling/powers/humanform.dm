@@ -1,26 +1,19 @@
 /datum/action/changeling/humanform
-	name = "Human form"
-	desc = "We change into a human. Costs 5 chemicals."
+	name = "Гуманоидная форма"
+	desc = "Мы трансформируемся в гуманоида."
 	button_icon_state = "human_form"
 	req_dna = 1
-	genetic_damage = 3
-	max_genetic_damage = 3
-	chemical_cost = 5
 
-/**
- * Transform into a human.
- */
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		return FALSE
 
-	var/datum/dna/chosen_dna = cling.select_dna("Select the target DNA: ", "Target DNA")
+	var/datum/dna/chosen_dna = cling.select_dna("Какое ДНК использовать?: ", "Выбор ДНК")
 	if(!chosen_dna || !user)
 		return FALSE
 
 	// Notify players about transform.
-	user.visible_message(span_warning("[user] transforms!"), span_notice("We transform our appearance."))
-
+	user.visible_message(span_warning("[user] трансформируется в гуманоида!"))
 	user.force_gene_block(GLOB.monkeyblock, FALSE)
 
 	if(istype(user))
@@ -39,4 +32,3 @@
 	Remove(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-

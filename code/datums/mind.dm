@@ -1,23 +1,57 @@
-/*	Note from Carnie:
+/* Note from Carnie:
 		The way datum/mind stuff works has been changed a lot.
 		Minds now represent IC characters rather than following a client around constantly.
 	Guidelines for using minds properly:
-	-	Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
+	- Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
 		ghost.mind is however used as a reference to the ghost's corpse
-	-	When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
+	- When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
 		the existing mind of the old mob should be transfered to the new mob like so:
 			mind.transfer_to(new_mob)
-	-	You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
+	- You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
 		By setting key or ckey explicitly after transfering the mind with transfer_to you will cause bugs like DCing
 		the player.
-	-	IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
-	-	When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
+	- IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
+	- When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
 		a ghost to become a xeno during an event). Simply assign the key or ckey like you've always done.
 			new_mob.key = key
 		The Login proc will handle making a new mob for that mobtype (including setting up stuff like mind.name). Simple!
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
 		yourself.
 */
+
+//All objective types.
+#define OBJ_TYPE_ASSASSINATE "assassinate"
+#define OBJ_TYPE_SUPERMATTER_CASCADE "supermatter cascade"
+#define OBJ_TYPE_PREVENT_FROM_ESCAPE "prevent from escape"
+#define OBJ_TYPE_PAIN_HUNTER "pain hunter"
+#define OBJ_TYPE_STEAL_BRAIN "steal brain"
+#define OBJ_TYPE_PROTECT "protect"
+#define OBJ_TYPE_ESCAPE "escape"
+#define OBJ_TYPE_SURVIVE "survive"
+#define OBJ_TYPE_DIE "die"
+#define OBJ_TYPE_STEAL "steal"
+#define OBJ_TYPE_THIEF_HARD "thief hard"
+#define OBJ_TYPE_THIEF_MEDIUM "thief medium"
+#define OBJ_TYPE_THIEF_COLLECT "thief collect"
+#define OBJ_TYPE_THIEF_PET "thief pet"
+#define OBJ_TYPE_THIEF_STRUCTURE "thief structure"
+#define OBJ_TYPE_DOWNLOAD "download"
+#define OBJ_TYPE_NUCLEAR "nuclear"
+#define OBJ_TYPE_CAPTURE "capture"
+#define OBJ_TYPE_BLOOD "blood"
+#define OBJ_TYPE_ABSORB "absorb"
+#define OBJ_TYPE_DESTROY "destroy"
+#define OBJ_TYPE_IDENTITY_THEFT "identity theft"
+#define OBJ_TYPE_HIJACK "hijack"
+#define OBJ_TYPE_KILL_ALL_HUMANS "kill all humans"
+#define OBJ_TYPE_GET_MONEY "get money"
+#define OBJ_TYPE_FIND_AND_SCAN "find and scan"
+#define OBJ_TYPE_SET_UP "set up"
+#define OBJ_TYPE_RESEARCH_CORRUPT "research corrupt"
+#define OBJ_TYPE_AI_CORRUPT "ai corrupt"
+#define OBJ_TYPE_PLANT_EXPLOSIVE "plant explosive"
+#define OBJ_TYPE_CYBORG_HIJACK "cyborg hijack"
+#define OBJ_TYPE_CUSTOM "custom"
 
 /datum/mind
 	var/key
@@ -50,13 +84,11 @@
 
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
-	var/list/datum/objective/special_verbs = list()
 
 	var/list/targets = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
-	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
 	/// this mind's ANTAG_HUD should have this icon_state
@@ -91,6 +123,29 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// Flag for skills initialization
+	var/datum/weakref/skills_initialized
+	/// List of skill levels (associative map of type to level (number))
+	var/list/skills = list()
+	/// Available free skill points
+	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	/// Temp variable for skill leveling (for skill_select_win works)
+	var/list/selected_skills = null
+	var/list/selected_skills_levels = list()
+	/// Active temporaly skill bonuses from skill manuals
+	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/manual_skill_bonuses = list()
+	/// Active skill bonuses from neurotrainer
+	var/list/active_neurotrainer_bonuses = list()
+	var/list/job_alt_skills
+	/// Active skill bonuses from skill manuals
+	var/list/read_manuals = list()
+
+	///Owned cyborg skin permissions
+	var/list/cyborg_skin_permissions = list()
+
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -107,6 +162,7 @@
 
 		qdel(antag)
 
+	unregister_skill_signals_for_user(current)
 	current = null
 	soulOwner = null
 	return ..()
@@ -118,7 +174,7 @@
 	return original_mob_UID == o_mob.UID()
 
 // Do not use for admin related things as this can hide the mob's ckey
-/datum/mind/proc/get_display_key()
+/datum/mind/proc/get_mind_key()
 	// Lets try find a client so we can check their prefs
 	var/client/C = null
 
@@ -134,17 +190,7 @@
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+	return get_display_key(C)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
@@ -153,20 +199,22 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud // we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 
-	if(current)					// remove ourself from our old body's mind variable
+	if(current) // remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() // leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)
 
-	if(new_character.mind)		// remove any mind currently in our new body's mind variable
+	if(new_character.mind) // remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
 
-	current = new_character		// link ourself to our new body
-	new_character.mind = src	// and link our new body to ourself
+	current = new_character // link ourself to our new body
+	new_character.mind = src // and link our new body to ourself
 
-	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
+
+	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
+	register_skill_signals_for_user(current)
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
@@ -177,7 +225,7 @@
 			if(!MA.temporary)
 				MA.teach(current)
 
-	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
+	for(var/datum/antagonist/antag in antag_datums) // Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
 	if(iscarbon(new_character))
@@ -185,7 +233,7 @@
 		carbon.last_mind = src
 
 	if(active)
-		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
+		new_character.possess_by_player(key) // now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()
@@ -258,7 +306,7 @@
 	var/list/all_objectives = list()
 
 	for(var/datum/antagonist/antag in antag_datums)
-		all_objectives += antag.objectives	// Add all antag datum objectives.
+		all_objectives += antag.objectives // Add all antag datum objectives.
 
 	for(var/datum/objective/objective in objectives)
 		all_objectives += objective // Add all mind objectives.
@@ -271,6 +319,7 @@
 /datum/mind/proc/remove_objective(datum/objective/objective, qdel_on_remove = FALSE)
 	for(var/datum/antagonist/antag in antag_datums)
 		antag.objectives -= objective
+	objective.on_remove_objective(src)
 	objectives -= objective
 	if(qdel_on_remove)
 		qdel(objective)
@@ -339,12 +388,12 @@
 
 /datum/mind/proc/memory_edit_clockwork_silicon()
 	. = _memory_edit_header("clockwork")
-	if(istype(current, /mob/living/silicon/robot))
+	if(isrobot(current))
 		if(src in SSticker.mode.clockwork_cult)
 			. += "<a href='byond://?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 		else
 			. += "<b>NO</b>|<a href='byond://?src=[UID()];siliclock=clockrobot'>clocker</a>"
-	else if(istype(current, /mob/living/silicon/ai))
+	else if(isAI(current))
 		if(src in SSticker.mode.clockwork_cult)
 			. += "no|<b><font color='red'>CLOCKER</font></b>"
 		else
@@ -551,7 +600,8 @@
 	var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
 	if(traitor_datum?.contractor_pending)
 		var/status
-		if(C?.contractor_uplink) // Offer accepted
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		if(contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= traitor_datum.contractor_pending.offer_deadline)
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
@@ -559,11 +609,11 @@
 			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
 		. += "[status]|<a href='byond://?src=[UID()];contractor=clear'>no</a>"
 		// List all their contracts
-		if(C?.contractor_uplink)
+		if(contractor_uplink)
 			. += "<br><b>Contracts:</b>"
-			if(C.contractor_uplink.hub.contracts)
+			if(contractor_uplink.hub.contracts)
 				var/count = 1
-				for(var/co in C.contractor_uplink.hub.contracts)
+				for(var/co in contractor_uplink.hub.contracts)
 					var/datum/syndicate_contract/CO = co
 					. += "<br><b>Contract #[count++]</b>: "
 					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
@@ -584,8 +634,8 @@
 							. += "<font color='red'>FAILED</font>"
 				. += "<br>"
 				. += "<a href='byond://?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[C.contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[C.contractor_uplink.hub.rep]</a><br>"
+				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[contractor_uplink.hub.reward_tc_available]</a><br>"
+				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[contractor_uplink.hub.rep]</a><br>"
 			else
 				. += "<br>"
 				. += "<i>Has not logged in to contractor uplink</i>"
@@ -668,6 +718,18 @@
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
+/datum/mind/proc/memory_edit_vox_raider()
+	. = _memory_edit_header("vox raider")
+	if(has_antag_datum(/datum/antagonist/vox_raider))
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
+	else
+		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+
+	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -685,12 +747,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling",	// "traitorchan", "thiefchan", "changelingthief",
-		"vampire",		// "traitorvamp", "thiefvamp", "vampirethief",
+		"changeling", // "traitorchan", "thiefchan", "changelingthief",
+		"vampire", // "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
 		"traitor",
 		"ninja",
-		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
+		"thief", // "traitorthief", "traitorthiefvamp", "traitorthiefchan",
 		"malf_ai",
 		"blob"
 	)
@@ -718,6 +780,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** VOX RAIDER ***/
+		sections["vox raider"] = memory_edit_vox_raider()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -873,56 +937,58 @@
 
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 18)	//Convert last part of path into an objective keyword.
+			def_value = copytext(temp_obj_type, 18) //Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
 			switch(def_value)
 				if("maroon")
-					def_value = "prevent from escape"
+					def_value = OBJ_TYPE_PREVENT_FROM_ESCAPE
 				if("pain_hunter")
-					def_value = "pain hunter"
+					def_value = OBJ_TYPE_PAIN_HUNTER
 				if("debrain")
-					def_value = "steal brain"
+					def_value = OBJ_TYPE_STEAL_BRAIN
 				if("steal/hard")
-					def_value = "thief hard"
+					def_value = OBJ_TYPE_THIEF_HARD
 				if("steal/medium")
-					def_value = "thief medium"
+					def_value = OBJ_TYPE_THIEF_MEDIUM
 				if("collect")
-					def_value = "thief collect"
+					def_value = OBJ_TYPE_THIEF_COLLECT
 				if("steal_pet")
-					def_value = "thief pet"
+					def_value = OBJ_TYPE_THIEF_PET
 				if("steal_structure")
-					def_value = "thief structure"
+					def_value = OBJ_TYPE_THIEF_STRUCTURE
 				if("escape_with_identity")
-					def_value = "identity theft"
+					def_value = OBJ_TYPE_IDENTITY_THEFT
 				if("block")
-					def_value = "kill all humans"
+					def_value = OBJ_TYPE_KILL_ALL_HUMANS
 				if("get_money")
-					def_value = "get money"
+					def_value = OBJ_TYPE_GET_MONEY
 				if("find_and_scan")
-					def_value = "find and scan"
+					def_value = OBJ_TYPE_FIND_AND_SCAN
 				if("set_up")
-					def_value = "set up"
+					def_value = OBJ_TYPE_SET_UP
 				if("research_corrupt")
-					def_value = "research corrupt"
+					def_value = OBJ_TYPE_RESEARCH_CORRUPT
 				if("ai_corrupt")
-					def_value = "ai corrupt"
+					def_value = OBJ_TYPE_AI_CORRUPT
 				if("plant_explosive")
-					def_value = "plant explosive"
+					def_value = OBJ_TYPE_PLANT_EXPLOSIVE
 				if("cyborg_hijack")
-					def_value = "cyborg hijack"
+					def_value = OBJ_TYPE_CYBORG_HIJACK
+				if("supermatter_cascade")
+					def_value = OBJ_TYPE_SUPERMATTER_CASCADE
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
-			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
-			"download", "nuclear", "capture", "blood", "absorb",
-			"destroy", "identity theft", "hijack", "kill all humans",
+			OBJ_TYPE_ASSASSINATE, OBJ_TYPE_SUPERMATTER_CASCADE, OBJ_TYPE_PREVENT_FROM_ESCAPE, OBJ_TYPE_PAIN_HUNTER, OBJ_TYPE_STEAL_BRAIN, OBJ_TYPE_PROTECT, OBJ_TYPE_ESCAPE, OBJ_TYPE_SURVIVE,
+			OBJ_TYPE_STEAL, OBJ_TYPE_THIEF_HARD, OBJ_TYPE_THIEF_MEDIUM, OBJ_TYPE_THIEF_COLLECT, OBJ_TYPE_THIEF_PET, OBJ_TYPE_THIEF_STRUCTURE,
+			OBJ_TYPE_DOWNLOAD, OBJ_TYPE_NUCLEAR, OBJ_TYPE_CAPTURE, OBJ_TYPE_BLOOD, OBJ_TYPE_ABSORB,
+			OBJ_TYPE_DESTROY, OBJ_TYPE_IDENTITY_THEFT, OBJ_TYPE_HIJACK, OBJ_TYPE_KILL_ALL_HUMANS,
 			// Цели для ниндзя //
-			"get money", "find and scan", "set up",
-			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
+			OBJ_TYPE_GET_MONEY, OBJ_TYPE_FIND_AND_SCAN, OBJ_TYPE_SET_UP,
+			OBJ_TYPE_RESEARCH_CORRUPT, OBJ_TYPE_AI_CORRUPT, OBJ_TYPE_PLANT_EXPLOSIVE, OBJ_TYPE_CYBORG_HIJACK,
 			// Кастомная цель//
-			"custom")
+			OBJ_TYPE_CUSTOM)
 
 		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", objective_types)
 		if(!new_obj_type)
@@ -931,7 +997,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate", "protect", "steal brain", "prevent from escape", "pain hunter")
+			if(OBJ_TYPE_ASSASSINATE, OBJ_TYPE_PROTECT, OBJ_TYPE_STEAL_BRAIN, OBJ_TYPE_PREVENT_FROM_ESCAPE, OBJ_TYPE_PAIN_HUNTER)
 
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
@@ -969,11 +1035,11 @@
 					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
-				var/obj_type = list("assassinate" = /datum/objective/assassinate,
-								"protect" = /datum/objective/protect,
-								"steal brain" = /datum/objective/debrain,
-								"prevent from escape" = /datum/objective/maroon,
-								"pain hunter" = /datum/objective/pain_hunter
+				var/obj_type = list(OBJ_TYPE_ASSASSINATE = /datum/objective/assassinate,
+						OBJ_TYPE_PROTECT = /datum/objective/protect,
+						OBJ_TYPE_STEAL_BRAIN = /datum/objective/debrain,
+						OBJ_TYPE_PREVENT_FROM_ESCAPE = /datum/objective/maroon,
+						OBJ_TYPE_PAIN_HUNTER = /datum/objective/pain_hunter
 								)[new_obj_type]
 
 				if(new_target == "Free objective")
@@ -988,24 +1054,24 @@
 
 					var/description = ""
 					switch(new_obj_type)
-						if("assassinate")
+						if(OBJ_TYPE_ASSASSINATE)
 							description = "Assassinate"
-						if("protect")
+						if(OBJ_TYPE_PROTECT)
 							description = "Protect"
-						if("steal brain")
+						if(OBJ_TYPE_STEAL_BRAIN)
 							var/mob/living/target = new_target
 							var/obj/item/organ/internal/brains = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 							description = "Steal the [brains ? brains.name : "brain"] of"
-						if("prevent from escape")
+						if(OBJ_TYPE_PREVENT_FROM_ESCAPE)
 							description = "Prevent from escaping alive or free"
-						if("pain hunter")
+						if(OBJ_TYPE_PAIN_HUNTER)
 							var/datum/objective/pain_hunter/choose_objective = new_objective
 							choose_objective.update_find_objective()
 					if(description)
 						//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 						new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
-			if("destroy")
+			if(OBJ_TYPE_DESTROY)
 				var/list/possible_targets = active_ais(1)
 				if(length(possible_targets))
 					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
@@ -1016,31 +1082,31 @@
 				else
 					to_chat(usr, "No active AIs with minds")
 
-			if("kill all humans")
+			if(OBJ_TYPE_KILL_ALL_HUMANS)
 				new_objective = new /datum/objective/block
 				new_objective.owner = src
 
-			if("hijack")
+			if(OBJ_TYPE_HIJACK)
 				new_objective = new /datum/objective/hijack
 				new_objective.owner = src
 
-			if("escape")
+			if(OBJ_TYPE_ESCAPE)
 				new_objective = new /datum/objective/escape
 				new_objective.owner = src
 
-			if("survive")
+			if(OBJ_TYPE_SURVIVE)
 				new_objective = new /datum/objective/survive
 				new_objective.owner = src
 
-			if("die")
+			if(OBJ_TYPE_DIE)
 				new_objective = new /datum/objective/die
 				new_objective.owner = src
 
-			if("nuclear")
+			if(OBJ_TYPE_NUCLEAR)
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
 
-			if("find and scan")
+			if(OBJ_TYPE_FIND_AND_SCAN)
 				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/find_and_scan
 					var/datum/objective/find_and_scan/scan_objective = new_objective
@@ -1057,22 +1123,22 @@
 					scan_objective.find_target()
 					scan_objective.owner = src
 
-			if("research corrupt")
+			if(OBJ_TYPE_RESEARCH_CORRUPT)
 				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/research_corrupt
 					new_objective.owner = src
 
-			if("ai corrupt")
+			if(OBJ_TYPE_AI_CORRUPT)
 				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/ai_corrupt
 					new_objective.owner = src
 
-			if("cyborg hijack")
+			if(OBJ_TYPE_CYBORG_HIJACK)
 				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/cyborg_hijack
 					new_objective.owner = src
 
-			if("plant explosive")
+			if(OBJ_TYPE_PLANT_EXPLOSIVE)
 				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/plant_explosive
 					var/datum/objective/plant_explosive/bomb_objective = new_objective
@@ -1098,7 +1164,7 @@
 					bomber.equip_or_collect(charge, ITEM_SLOT_POCKET_LEFT)
 					charge.detonation_objective = bomb_objective
 
-			if("set up")
+			if(OBJ_TYPE_SET_UP)
 				new_objective = new /datum/objective/set_up
 				new_objective.owner = src //Должно быть вначале чтобы проверки ниже работали
 				var/list/possible_targets = list()
@@ -1124,7 +1190,7 @@
 					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
-			if("steal")
+			if(OBJ_TYPE_STEAL)
 				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
 					new_objective.owner = src
@@ -1135,7 +1201,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("thief hard")
+			if(OBJ_TYPE_THIEF_HARD)
 				if(!istype(objective, /datum/objective/steal/hard))
 					new_objective = new /datum/objective/steal/hard
 					new_objective.owner = src
@@ -1146,7 +1212,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("thief medium")
+			if(OBJ_TYPE_THIEF_MEDIUM)
 				if(!istype(objective, /datum/objective/steal/medium))
 					new_objective = new /datum/objective/steal/medium
 					new_objective.owner = src
@@ -1157,7 +1223,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("thief collect")
+			if(OBJ_TYPE_THIEF_COLLECT)
 				if(!istype(objective, /datum/objective/steal/collect))
 					new_objective = new /datum/objective/steal/collect
 					new_objective.owner = src
@@ -1168,7 +1234,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("thief pet")
+			if(OBJ_TYPE_THIEF_PET)
 				if(!istype(objective, /datum/objective/steal/animal))
 					new_objective = new /datum/objective/steal/animal
 					new_objective.owner = src
@@ -1179,7 +1245,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("thief structure")
+			if(OBJ_TYPE_THIEF_STRUCTURE)
 				if(!istype(objective, /datum/objective/steal/structure))
 					new_objective = new /datum/objective/steal/structure
 					new_objective.owner = src
@@ -1190,7 +1256,7 @@
 					to_chat(usr, span_warning("Цель не обнаружена. Выберите другую или создайте её."))
 					return
 
-			if("get money")
+			if(OBJ_TYPE_GET_MONEY)
 				new_objective = new /datum/objective/get_money
 				var/datum/objective/get_money/money_objective = new_objective
 				var/input_sum = null
@@ -1204,7 +1270,7 @@
 				money_objective.owner = src
 				money_objective.new_cash(input_sum, accounts_procent)
 
-			if("download","capture","absorb", "blood")
+			if(OBJ_TYPE_DOWNLOAD, OBJ_TYPE_CAPTURE, OBJ_TYPE_ABSORB, OBJ_TYPE_BLOOD)
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -1214,22 +1280,22 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
+					if(OBJ_TYPE_DOWNLOAD)
 						new_objective = new /datum/objective/download
 						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
+					if(OBJ_TYPE_CAPTURE)
 						new_objective = new /datum/objective/capture
 						new_objective.explanation_text = "Accumulate [target_number] capture points."
-					if("absorb")
+					if(OBJ_TYPE_ABSORB)
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
-					if("blood")
+					if(OBJ_TYPE_BLOOD)
 						new_objective = new /datum/objective/blood
 						new_objective.explanation_text = "Накопить не менее [target_number] единиц крови."
 				new_objective.owner = src
 				new_objective.target_amount = target_number
 
-			if("identity theft")
+			if(OBJ_TYPE_IDENTITY_THEFT)
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
@@ -1243,8 +1309,7 @@
 
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
-					return
+					CRASH("Invalid target for identity theft objective, cancelling")
 
 				var/datum/objective/escape/escape_with_identity/identity_objective = new
 				identity_objective.owner = src
@@ -1253,7 +1318,12 @@
 				identity_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 				new_objective = identity_objective
 
-			if("custom")
+			if(OBJ_TYPE_SUPERMATTER_CASCADE)
+				new_objective = new /datum/objective/supermatter_cascade
+				new_objective.owner = src
+				new_objective.on_add_objective(src)
+
+			if(OBJ_TYPE_CUSTOM)
 				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : ""))
 				if(!expl)
 					return
@@ -1272,6 +1342,7 @@
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
+			new_objective.on_add_objective(src)
 			objectives += new_objective
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
@@ -1549,7 +1620,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Наши способности пробудились. Мы вернули обрывки воспоминаний... Мы ГЕНОКРАД!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -1655,7 +1726,7 @@
 					vamp.clear_subclass()
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 				else
-					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.upgrade_tiers -= /datum/action/cooldown/spell/vamp_specialize
 					vamp.change_subclass(subclass_type)
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 
@@ -1962,7 +2033,8 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		var/datum/contractor_hub/H = contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -1995,7 +2067,7 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
@@ -2007,7 +2079,7 @@
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
@@ -2019,7 +2091,7 @@
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
@@ -2053,7 +2125,7 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
@@ -2090,7 +2162,7 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
@@ -2135,7 +2207,7 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 
 			if("interrupt")
 				if(!C)
@@ -2160,7 +2232,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 
@@ -2291,6 +2363,7 @@
 				ninja_datum.give_equip = FALSE
 				ninja_datum.give_objectives = FALSE
 				ninja_datum.generate_antags = FALSE
+				ninja_datum.change_species(current)
 				add_antag_datum(ninja_datum)
 				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
@@ -2458,6 +2531,30 @@
 				alien.update_datum()
 				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
+	else if(href_list["vox_raider"])
+		switch(href_list["vox_raider"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/vox_raider)
+
+			if("make")
+				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("equip")
+				if(!ishuman(current))
+					return
+				var/mob/living/carbon/human/current_human = current
+				current_human.equipOutfit(/datum/outfit/vox)
+
+			if("body")
+				if(!ishuman(current))
+					return
+				transform_body_vox_raider(current)
+
+			if("landmark")
+				var/picked_landmark = safepick(GLOB.raider_spawn)
+				var/turf/loc_spawn = get_turf(picked_landmark)
+				current.forceMove(loc_spawn)
+
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -2514,8 +2611,8 @@
 
 	else if(href_list["obj_announce"])
 		var/list/messages = prepare_announce_objectives()
-		to_chat(current, chat_box_red(messages.Join("<br>")))
-		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
+		to_chat(current, custom_boxed_message("red_box center", messages.Join("<br>")))
+		SEND_SOUND(current, sound('sound/ambience/misc/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
@@ -2554,6 +2651,11 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+	if(antag.has_skill_bonus)
+		ADD_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
+
+	recalculate_skills()
+
 	return antag
 
 /**
@@ -2568,7 +2670,10 @@
 	if(!antag)
 		return
 
+	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
+
 	qdel(antag)
+	recalculate_skills()
 
 /**
  * Removes all antag datums from the src mind.
@@ -2658,7 +2763,7 @@
 	if(!contractor_datum && !traitor_datum?.contractor_pending)
 		return
 
-	if(contractor_datum?.contractor_uplink && !traitor_datum.contractor_pending.is_admin_forced)
+	if(contractor_datum?.contractor_uplink_ref?.resolve() && !traitor_datum.contractor_pending.is_admin_forced)
 		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
 	traitor_datum.contractor_pending = null
@@ -2767,6 +2872,16 @@
 		return nuclear_datum.uplink = null
 
 	qdel(uplink)
+
+/// Old uplink's owner search via "owner" var in uplink in GLOB.world_uplinks and traitor "key"
+/datum/mind/proc/find_uplink_by_key()
+	if(!key)
+		return
+	var/my_ckey = ckey(key)
+	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
@@ -2891,34 +3006,32 @@
 	if(ishuman(current))
 		return /datum/antagonist/blob_infected/human
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+/datum/mind/proc/AddSpell(datum/action/cooldown/spell/spell)
 	if(!istype(spell))
 		return
 	LAZYADD(spell_list, spell)
-	spell.action.Grant(current)
-	spell.on_spell_gain(current)
+	spell.Grant(current)
 
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
+/datum/mind/proc/RemoveSpell(datum/action/cooldown/spell/instance_or_path) //To remove a specific spell from a mind
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
 		if(spell.type == instance_or_path)
-			spell.on_spell_removed(current)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
-/datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
+/datum/mind/proc/deactivate_spell(datum/action/cooldown/spell/instance_or_path)
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
 
-	var/obj/effect/proc_holder/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
+	var/datum/action/cooldown/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
 
 	if(!spell)
 		return FALSE
 
 	LAZYREMOVE(spell_list, spell)
 
-	spell.action.Remove(current)
+	spell.Remove(current)
 
 	return TRUE
 
@@ -2930,11 +3043,11 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		spell.action.Grant(new_character)
+	for(var/datum/action/cooldown/spell/spell as anything in new_character.mind.spell_list)
+		new_character.mind.AddSpell(spell)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
 		var/exception = FALSE
 		for(var/typepath in exceptions)
 			if(istype(spell, typepath))
@@ -2942,9 +3055,9 @@
 				break
 		if(exception)
 			continue
-		if(spell.cooldown_handler)
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
-		spell.updateButtonIcon()
+		if(spell.cooldown_time)
+			INVOKE_ASYNC(spell, TYPE_PROC_REF(/datum/action/cooldown, StartCooldown), delay)
+		spell.UpdateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
@@ -2968,7 +3081,7 @@
 	add_antag_datum(new /datum/antagonist/mindslave(missionary.mind, greeting))
 
 	var/obj/item/clothing/under/jumpsuit = null
-	if(ishuman(current))		//only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
+	if(ishuman(current)) //only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
 		var/mob/living/carbon/human/H = current
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
@@ -2980,7 +3093,7 @@
 	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
-	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
+	if(!zealot_master) //if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 
 	remove_antag_datum(/datum/antagonist/mindslave)
@@ -2989,8 +3102,8 @@
 	zealot_master = null
 
 	if(jumpsuit)
-		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
-		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
+		jumpsuit.color = initial(jumpsuit.color) //reset the jumpsuit no matter where our mind is
+		if(ishuman(current)) //but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
 			H.update_worn_undersuit()
 
@@ -3013,6 +3126,11 @@
 	else
 		return get_ghost(even_if_they_cant_reenter = TRUE)
 
+/// Signal proc for [COMSIG_ADMIN_DELETING], to ghostize a mob beforehand if an admin is manually deleting it.
+/mob/proc/ghost_before_admin_delete(datum/source)
+	SIGNAL_HANDLER
+	ghostize()
+
 //Initialisation procs
 /mob/proc/mind_initialize()
 	if(mind)
@@ -3026,6 +3144,8 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	mind.register_skill_signals_for_user(src)
+	RegisterSignal(src, COMSIG_ADMIN_DELETING, PROC_REF(ghost_before_admin_delete), override = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 
 //HUMAN
@@ -3033,7 +3153,7 @@
 	..()
 	last_mind = mind
 	if(!mind.assigned_role)
-		mind.assigned_role = JOB_TITLE_CIVILIAN	//defualt
+		mind.assigned_role = JOB_TITLE_CIVILIAN //defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
@@ -3120,3 +3240,36 @@
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST
+
+#undef OBJ_TYPE_ASSASSINATE
+#undef OBJ_TYPE_SUPERMATTER_CASCADE
+#undef OBJ_TYPE_PREVENT_FROM_ESCAPE
+#undef OBJ_TYPE_PAIN_HUNTER
+#undef OBJ_TYPE_STEAL_BRAIN
+#undef OBJ_TYPE_PROTECT
+#undef OBJ_TYPE_ESCAPE
+#undef OBJ_TYPE_SURVIVE
+#undef OBJ_TYPE_DIE
+#undef OBJ_TYPE_STEAL
+#undef OBJ_TYPE_THIEF_HARD
+#undef OBJ_TYPE_THIEF_MEDIUM
+#undef OBJ_TYPE_THIEF_COLLECT
+#undef OBJ_TYPE_THIEF_PET
+#undef OBJ_TYPE_THIEF_STRUCTURE
+#undef OBJ_TYPE_DOWNLOAD
+#undef OBJ_TYPE_NUCLEAR
+#undef OBJ_TYPE_CAPTURE
+#undef OBJ_TYPE_BLOOD
+#undef OBJ_TYPE_ABSORB
+#undef OBJ_TYPE_DESTROY
+#undef OBJ_TYPE_IDENTITY_THEFT
+#undef OBJ_TYPE_HIJACK
+#undef OBJ_TYPE_KILL_ALL_HUMANS
+#undef OBJ_TYPE_GET_MONEY
+#undef OBJ_TYPE_FIND_AND_SCAN
+#undef OBJ_TYPE_SET_UP
+#undef OBJ_TYPE_RESEARCH_CORRUPT
+#undef OBJ_TYPE_AI_CORRUPT
+#undef OBJ_TYPE_PLANT_EXPLOSIVE
+#undef OBJ_TYPE_CYBORG_HIJACK
+#undef OBJ_TYPE_CUSTOM

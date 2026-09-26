@@ -23,7 +23,7 @@
 	var/infinite_snow = FALSE
 
 /obj/machinery/snow_machine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снегогенератор",
 		GENITIVE = "снегогенератора",
 		DATIVE = "снегогенератору",

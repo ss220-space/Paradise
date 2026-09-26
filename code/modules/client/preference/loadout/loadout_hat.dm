@@ -7,7 +7,7 @@
 	index_name = "hardhat, select"
 	display_name = "Строительная каска"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/hat/hhat/New()
 	..()
@@ -21,10 +21,6 @@
 /datum/gear/hat/that
 	index_name = "top hat"
 	path = /obj/item/clothing/head/that
-
-/datum/gear/hat/flatcap
-	index_name = "flat cap"
-	path = /obj/item/clothing/head/flatcap
 
 /datum/gear/hat/ushanka
 	index_name = "ushanka"
@@ -148,28 +144,52 @@
 /datum/gear/hat/beret_job/sci
 	index_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
 
 /datum/gear/hat/beret_job/med
 	index_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST)
 
 /datum/gear/hat/beret_job/eng
 	index_name = "engineering beret"
 	path = /obj/item/clothing/head/beret/eng
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/hat/beret_job/atmos
 	index_name = "atmospherics beret"
 	path = /obj/item/clothing/head/beret/atmos
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
+
+/datum/gear/hat/blacksombrero
+	index_name = "Black Sombrero"
+	path = /obj/item/clothing/head/fluff/blacksombrero
+
+/datum/gear/hat/guardhelm
+	index_name = "Plastic Guard helm"
+	path = /obj/item/clothing/head/fluff/guardhelm
+
+/datum/gear/hat/goldtophat
+	index_name = "Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat
+
+/datum/gear/hat/goldtophat/red
+	index_name = "Red Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/red
+
+/datum/gear/hat/goldtophat/blue
+	index_name = "Blue Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/blue
+
+/datum/gear/hat/mushhat
+	index_name = "Mushroom Hat"
+	path = /obj/item/clothing/head/fluff/mushhat
 
 /datum/gear/hat/surgicalcap
 	index_name = "surgical cap, select"
 	display_name = "Хирургическая шапочка"
 	path = /obj/item/clothing/head/surgery/purple
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN)
 
 /datum/gear/hat/surgicalcap/New()
 	..()
@@ -227,3 +247,11 @@
 /datum/gear/hat/headband/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/hat/jew_hat
+	index_name = "jew hat"
+	path = /obj/item/clothing/head/jew_hat
+
+/datum/gear/hat/flatcap
+	index_name = "flatcap"
+	path = /obj/item/clothing/head/flatcap

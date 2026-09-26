@@ -21,6 +21,13 @@
 
 	var/index_type = PORT_TYPE_NUMBER
 
+/obj/item/circuit_component/index/Destroy()
+	list_options = null
+	list_port = null
+	index_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/index/populate_options()
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 

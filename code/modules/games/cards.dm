@@ -18,6 +18,7 @@
 	throw_speed = 3
 	throw_range = 10
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/list/cards = list()
 	/// Decks default to a single pack, setting it higher will multiply them by that number
 	var/deck_size = 1
@@ -56,7 +57,7 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/deck/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!istype(target, /obj/item/cardhand))
 		return
 	var/success
@@ -80,7 +81,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(LAZYLEN(cardhand.cards) > 1)
 			var/confirm = tgui_alert(user, "Вы уверены, что хотите вернуть [LAZYLEN(cardhand.cards)] [LAZYLEN(cardhand.cards) < 5 ? "карты" : "карт"] в колоду?", "Вернуть руку?", list("Да", "Нет"))
-			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !user.is_in_hands(cardhand))
 				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card
@@ -93,7 +94,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += span_notice("В колоде [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
+	. += span_notice("В колоде [LAZYLEN(cards)] карт[DECL_A_Y_0(LAZYLEN(cards))].")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
@@ -209,7 +210,7 @@
 		balloon_alert(user, "в колоде нет карт!")
 		return
 
-	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карты", "карт", "карт")]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
+	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] карт[DECL_Y_0_0(LAZYLEN(cards))]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
 	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -221,11 +222,11 @@
 			players += player
 
 	if(!LAZYLEN(players))
-		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")], но вокруг нет игроков!"))
+		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> карт[DECL_U_Y_0(LAZYLEN(cards))], но вокруг нет игроков!"))
 		return
-	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
+	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> карт[DECL_U_Y_0(LAZYLEN(cards))]."))
 
-	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
+	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] карт[DECL_U_Y_0(LAZYLEN(cards))]?", "Раздать карты", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -247,13 +248,13 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
-			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> карт[DECL_U_Y_0(cards)]."),
+			span_notice("Вы раздаёте себе <b>[dcard]</b> карт[DECL_U_Y_0(dcard)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> [declension_ru(cards, "карту", "карты", "карт")]."),
-			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(dcard, "карту", "карты", "карт")].")
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> карт[DECL_U_Y_0(cards)]."),
+			span_notice("Вы раздаёте [target] <b>[dcard]</b> карт[DECL_U_Y_0(dcard)].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
@@ -277,22 +278,17 @@
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 /obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(over_object != user || !iscarbon(user))
+		return
 
-	if(over_object != user || user.incapacitated() || !iscarbon(user))
-		return FALSE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(
-			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
-		)
-		return TRUE
-
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(
+		span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
+	)
 
 /obj/item/pack
 	name = "card pack"
@@ -340,7 +336,7 @@
 	var/pickedcard
 
 /obj/item/cardhand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральные карты",
 		GENITIVE = "игральных карт",
 		DATIVE = "игральным картам",
@@ -455,9 +451,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return
+/datum/action/item_action/remove_card/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.Removecard()
@@ -468,14 +462,13 @@
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
 
-/datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/discard/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()
 	return ..()
 
 // No more datum action here
-
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
@@ -578,17 +571,17 @@
 	. = ..()
 	if(LAZYLEN(cards) > 1)
 		name = "hand of [LAZYLEN(cards)] cards"
-		ru_names = list(
-			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
-			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
-			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
-			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_SEC_MIN(LAZYLEN(cards))]",
-			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
-			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
+		ru_names = alist(
+			NOMINATIVE = "[LAZYLEN(cards)] карт[DECL_A_Y_0(LAZYLEN(cards))]",
+			GENITIVE = "[LAZYLEN(cards)] карт[DECL_Y_0_0(LAZYLEN(cards))]",
+			DATIVE = "[LAZYLEN(cards)] карт[DECL_YE_AM_AM(LAZYLEN(cards))]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y_0(LAZYLEN(cards))]",
+			INSTRUMENTAL = "[LAZYLEN(cards)] карт[DECL_OJ_AMI_AMI(LAZYLEN(cards))]",
+			PREPOSITIONAL = "[LAZYLEN(cards)] карт[DECL_YE_AH_AH(LAZYLEN(cards))]"
 		)
 	else
 		name = "playing card"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "игральная карта",
 			GENITIVE = "игральной карты",
 			DATIVE = "игральной карте",
@@ -637,7 +630,7 @@
 		. += image
 		return
 
-	var/offset = FLOOR(20/LAZYLEN(cards) + 1, 1)
+	var/offset = floor(20/LAZYLEN(cards) + 1)
 	// var/i = 0
 	for(var/i in 1 to LAZYLEN(cards))
 		var/datum/playingcard/card = cards[i]

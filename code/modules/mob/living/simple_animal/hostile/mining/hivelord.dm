@@ -30,7 +30,7 @@
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рой",
 		GENITIVE = "роя",
 		DATIVE = "рою",
@@ -38,6 +38,12 @@
 		INSTRUMENTAL = "роем",
 		PREPOSITIONAL = "рое",
 	)
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/drop_loot(drop_loc)
+	if(is_station_level(z))
+		return
+
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -96,7 +102,7 @@
 	var/life_time = 10 SECONDS
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фрагмент роя",
 		GENITIVE = "фрагмента роя",
 		DATIVE = "фрагменту роя",
@@ -121,7 +127,7 @@
 	color = BLOOD_COLOR_RED
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый рой",
 		GENITIVE = "кровавого роя",
 		DATIVE = "кровавому рою",
@@ -206,7 +212,7 @@
 	var/mob/living/carbon/human/stored_mob
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "легион",
 		GENITIVE = "легиона",
 		DATIVE = "легиону",
@@ -235,7 +241,7 @@
 	dwarf_mob = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "легион-карлик",
 		GENITIVE = "легиона-карлика",
 		DATIVE = "легиону-карлику",
@@ -289,7 +295,7 @@
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "легион",
 		GENITIVE = "легиона",
 		DATIVE = "легиону",
@@ -382,9 +388,10 @@
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
+	mob_size = MOB_SIZE_LARGE
 
 /mob/living/simple_animal/hostile/big_legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "легион",
 		GENITIVE = "легиона",
 		DATIVE = "легиону",
@@ -409,12 +416,11 @@
 	burn_damage = 1000
 	mob_name = "ashen skeleton"
 	mob_gender = NEUTER
-	husk = FALSE
 	mob_species = /datum/species/skeleton
 	mob_color = "#454545"
 
 /obj/effect/mob_spawn/human/corpse/charredskeleton/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленные останки",
 		GENITIVE = "обугленных останков",
 		DATIVE = "обугленным останкам",
@@ -476,7 +482,7 @@
 			if(prob(70))
 				backpack_contents += list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(alist(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))
@@ -520,5 +526,5 @@
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult
 			l_pocket = /obj/item/melee/cultblade/dagger
 			glasses =  /obj/item/clothing/glasses/hud/health/night
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
+			backpack_contents = list(/obj/item/reagent_containers/cup/glass/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

@@ -29,6 +29,16 @@
 
 	var/current_actual_index = 1
 
+/obj/item/circuit_component/foreach/Destroy()
+	list_options = null
+	list_to_iterate = null
+	next_index = null
+	reset_index = null
+	element = null
+	current_index = null
+	on_next_index = null
+	on_finished = null
+	. = ..()
 
 /obj/item/circuit_component/foreach/populate_options()
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)

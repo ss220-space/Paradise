@@ -1,13 +1,13 @@
+import { Box } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { RndRoute } from './RndRoute';
-import {
-  LatheMainMenu,
-  LatheCategory,
-  LatheMaterialStorage,
-  LatheChemicalStorage,
-} from './index';
-import { Box } from '../../components';
 import { SUBMENU } from '../RndConsole';
+import {
+  LatheCategory,
+  LatheChemicalStorage,
+  LatheMainMenu,
+  LatheMaterialStorage,
+} from './index';
+import { RndRoute } from './RndRoute';
 
 export const LatheMenu = (properties) => {
   const { data } = useBackend<RndData>();

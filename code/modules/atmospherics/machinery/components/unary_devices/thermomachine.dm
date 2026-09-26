@@ -6,11 +6,12 @@
 	post_init_icon_state = "thermo_base"
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 	greyscale_config = /datum/greyscale_config/thermomachine
 	flags = NO_NEW_GAGS_PREVIEW
 	greyscale_colors = COLOR_VIBRANT_LIME
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	/// actual temperature will be defined by RefreshParts() and by the cooling var
 	var/min_temperature = T20C
 	/// actual temperature will be defined by RefreshParts() and by the cooling var
@@ -38,9 +39,6 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/thermomachine/on_construction()
-	..(dir, dir)
-
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += span_notice("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")
@@ -61,13 +59,14 @@
 	if(pipenet)
 		setPipenet(pipenet)
 		pipenet.addMachineryMember(src)
-	. = ..()
+	return ..()
 
 /obj/machinery/atmospherics/unary/thermomachine/RefreshParts()
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
-	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
+	var/bin_rating_fixed = (calculated_bin_rating - 1)
+	heat_capacity = 5000 * POW2(bin_rating_fixed)
 	min_temperature = T20C
 	max_temperature = T20C
 	if(cooling)

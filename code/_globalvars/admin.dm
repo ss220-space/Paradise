@@ -1,0 +1,16 @@
+/// A list of all the special byond lists that need to be handled different by VV
+GLOBAL_LIST_INIT(vv_special_lists, init_special_list_names())
+GLOBAL_VAR_INIT(admin_notice, "") // Admin notice that all clients see when joining the server
+
+/proc/init_special_list_names()
+	var/list/output = list()
+	var/obj/sacrifice = new
+	for(var/varname in sacrifice.vars)
+		var/value = sacrifice.vars[varname]
+		if(!islist(value))
+			if(!isdatum(value) && hascall(value, "Cut"))
+				output += varname
+			continue
+		if(isnull(locate(text_ref(value))))
+			output += varname
+	return output

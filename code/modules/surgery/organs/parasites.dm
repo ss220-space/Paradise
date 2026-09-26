@@ -145,7 +145,3 @@
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others
 	return null
-
-/obj/item/organ/internal/body_egg/terror_eggs/phantom
-	//no healer!
-	roll_2 = list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/builder)

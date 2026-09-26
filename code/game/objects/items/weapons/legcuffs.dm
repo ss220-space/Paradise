@@ -11,7 +11,7 @@
 	breakout_time = 30 SECONDS
 
 /obj/item/restraints/legcuffs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кандалы",
 		GENITIVE = "кандалов",
 		DATIVE = "кандалам",
@@ -34,7 +34,7 @@
 	var/obj/item/assembly/signaler/sig = null
 
 /obj/item/restraints/legcuffs/beartrap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капкан",
 		GENITIVE = "капкана",
 		DATIVE = "капкану",
@@ -216,7 +216,7 @@
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 
 /obj/item/restraints/legcuffs/bola/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бола",
 		GENITIVE = "болы",
 		DATIVE = "боле",
@@ -350,7 +350,7 @@
 	weaken_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/tactical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "укреплённая бола",
 		GENITIVE = "укреплённой болы",
 		DATIVE = "укрёпленной боле",
@@ -371,7 +371,7 @@
 	custom_price = PAYCHECK_MIN * 1.2
 
 /obj/item/restraints/legcuffs/bola/energy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетическая бола",
 		GENITIVE = "энергетической болы",
 		DATIVE = "энергетической боле",
@@ -388,7 +388,7 @@
 	reusable = FALSE
 
 /obj/item/restraints/legcuffs/bola/sinew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бола из черепов",
 		GENITIVE = "болы из черепов",
 		DATIVE = "боле из черепов",

@@ -12,6 +12,9 @@ use rayon::{
 use std::sync::{Arc, Mutex};
 use tracy_full::zone;
 
+use meowtonin::{ByondError, ByondResult};
+use std::error::Error;
+
 pub fn blend_color(image: &mut RgbaImage, color: [u8; 4], blend_mode: &blending::BlendMode) {
     zone!("blend_color");
     let image_buf: &mut [u8] = image.as_mut();
@@ -144,7 +147,7 @@ pub struct RgbOrRgbaHex {
     a: Option<u8>,
 }
 
-pub fn hex_to_rgb_or_rgba(hex_in: &str) -> eyre::Result<RgbOrRgbaHex> {
+pub fn hex_to_rgb_or_rgba(hex_in: &str) -> ByondResult<RgbOrRgbaHex> {
     zone!("hex_to_rgb_or_rgba");
     let mut hex = hex_in.to_owned();
     if let Some(stripped) = hex_in.strip_prefix('#') {
@@ -159,7 +162,7 @@ pub fn hex_to_rgb_or_rgba(hex_in: &str) -> eyre::Result<RgbOrRgbaHex> {
     })
 }
 
-pub fn hex_to_rgba(hex_in: &String) -> eyre::Result<[u8; 4]> {
+pub fn hex_to_rgba(hex_in: &String) -> ByondResult<[u8; 4]> {
     zone!("hex_to_rgba");
     let mut color: [u8; 4] = [0, 0, 0, 0];
     let mut hex = hex_in.clone();
@@ -186,7 +189,9 @@ pub fn hex_to_rgba(hex_in: &String) -> eyre::Result<[u8; 4]> {
         hex += "ff";
     }
     if let Err(err) = hex::decode_to_slice(hex, &mut color) {
-        return Err(eyre::eyre!("Decoding hex color '{hex_in}' failed: {err}"));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!("Decoding hex color '{hex_in}' failed: {err}"),
+        )));
     }
     Ok(color)
 }
@@ -485,23 +490,25 @@ pub fn blend_images_other_universal(
     image_data_other: Arc<UniversalIconData>,
     blend_mode: &blending::BlendMode,
     position: Option<(i32, i32)>,
-) -> eyre::Result<UniversalIconData> {
+) -> ByondResult<UniversalIconData> {
     zone!("blend_images_other_universal");
     let errors = Arc::new(Mutex::new(Vec::<String>::new()));
     let expected_length_first = image_data.dirs as u32 * image_data.frames;
     // Make sure our logic sound... First and last should correctly match these two Vecs at all times, but this assumption might be incorrect.
     if expected_length_first != image_data.images.len() as u32 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
             "Error during blend_images_other - the base set of images did not contain the correct amount of images (contains {}, it should contain {expected_length_first}) to match the amount of dirs ({}) or frames ({}) from the first icon state. This shouldn't ever happen!",
             image_data.images.len(), image_data.dirs, image_data.frames
-        ));
+        ))));
     }
     let expected_length_last = image_data_other.dirs as u32 * image_data_other.frames;
     if expected_length_last != image_data_other.images.len() as u32 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
             "Error during blend_images_other - the blending set of images did not contain the correct amount of images (contains {}, it should contain {expected_length_last}) to match the amount of dirs ({}) or frames ({}) from the last icon state. This shouldn't ever happen!",
             image_data_other.images.len(), image_data_other.dirs, image_data_other.frames
-        ));
+        ))));
     }
     let mut images = image_data.images.clone();
     let mut images_other = image_data_other.images.clone();
@@ -526,10 +533,11 @@ pub fn blend_images_other_universal(
                 }
             }
         } else {
-            return Err(eyre::eyre!(
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                 "Attempted to blend two icon states with different dir amounts with {} and {} dirs respectively.",
                 image_data.dirs, image_data_other.dirs
-            ));
+            ))));
         }
     }
 
@@ -562,10 +570,11 @@ pub fn blend_images_other_universal(
             }
             delay_out = Some(new_delays);
         } else {
-            return Err(eyre::eyre!(
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                 "Attempted to blend two icon states with different frame amounts - with {} and {} frames respectively.",
                 image_data.frames, image_data_other.frames
-            ));
+            ))));
         }
     }
     let images_out: Vec<RgbaImage> = if images_other.len() == 1 {
@@ -593,7 +602,9 @@ pub fn blend_images_other_universal(
     };
     let errors_unlock = errors.lock().unwrap();
     if !errors_unlock.is_empty() {
-        return Err(eyre::eyre!(errors_unlock.join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors_unlock.join("\n"),
+        )));
     }
     Ok(UniversalIconData {
         images: images_out,
@@ -613,35 +624,39 @@ pub fn blend_images_other(
     blend_mode: &blending::BlendMode,
     first_matched_state: &mut Option<IconState>,
     last_matched_state: &mut Option<IconState>,
-) -> eyre::Result<Vec<RgbaImage>> {
+) -> ByondResult<Vec<RgbaImage>> {
     zone!("blend_images_other");
     let base_icon_state = match first_matched_state {
         Some(state) => state,
         None => {
-            return Err(eyre::eyre!("No value in first_matched_state during blend_images_other. This should never happen, unless a GAGS config doesn't start with an icon_state.".to_string()));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "No value in first_matched_state during blend_images_other. This should never happen, unless a GAGS config doesn't start with an icon_state.")));
         }
     };
     let blending_icon_state = match last_matched_state {
         Some(state) => state,
         None => {
-            return Err(eyre::eyre!("No value in last_matched_state during blend_images_other. This should never happen, unless a GAGS config doesn't start with an icon_state.".to_string()));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "No value in last_matched_state during blend_images_other. This should never happen, unless a GAGS config doesn't start with an icon_state.")));
         }
     };
     let errors = Arc::new(Mutex::new(Vec::<String>::new()));
     let expected_length_first = base_icon_state.dirs as u32 * base_icon_state.frames;
     // Make sure our logic sound... First and last should correctly match these two Vecs at all times, but this assumption might be incorrect.
     if expected_length_first != images.len() as u32 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
             "Error during blend_images_other - the base set of images did not contain the correct amount of images (contains {}, it should contain {expected_length_first}) to match the amount of dirs ({}) or frames ({}) from the first icon state. This shouldn't ever happen!",
             images.len(), base_icon_state.dirs, base_icon_state.frames
-        ));
+        ))));
     }
     let expected_length_last = blending_icon_state.dirs as u32 * blending_icon_state.frames;
     if expected_length_last != images_other.len() as u32 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
             "Error during blend_images_other - the blending set of images did not contain the correct amount of images (contains {}, it should contain {expected_length_last}) to match the amount of dirs ({}) or frames ({}) from the last icon state. This shouldn't ever happen!",
             images_other.len(), blending_icon_state.dirs, blending_icon_state.frames
-        ));
+        ))));
     }
     let mut images = images.clone();
     let mut images_other = images_other.clone();
@@ -663,10 +678,11 @@ pub fn blend_images_other(
             // Copy the dir amount in case we need to handle frame cases next.
             blending_icon_state.dirs = base_icon_state.dirs;
         } else {
-            return Err(eyre::eyre!(
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                 "Attempted to blend two icon states with different dir amounts - {} and {}, with {} and {} dirs respectively.",
                 base_icon_state.name, blending_icon_state.name, base_icon_state.dirs, blending_icon_state.dirs
-            ));
+            ))));
         }
     }
 
@@ -700,10 +716,11 @@ pub fn blend_images_other(
             }
             base_icon_state.delay = Some(new_delays);
         } else {
-            return Err(eyre::eyre!(
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                 "Attempted to blend two icon states with different frame amounts - {} and {}, with {} and {} frames respectively.",
                 base_icon_state.name, blending_icon_state.name, base_icon_state.frames, blending_icon_state.frames
-            ));
+            ))));
         }
     }
     let images_out: Vec<RgbaImage> = if images_other.len() == 1 {
@@ -731,7 +748,9 @@ pub fn blend_images_other(
     };
     let errors_unlock = errors.lock().unwrap();
     if !errors_unlock.is_empty() {
-        return Err(eyre::eyre!(errors_unlock.join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors_unlock.join("\n"),
+        )));
     }
     Ok(images_out)
 }
@@ -742,7 +761,7 @@ impl Transform {
         &self,
         image_data: Arc<UniversalIconData>,
         flatten: bool,
-    ) -> eyre::Result<UniversalIconData> {
+    ) -> ByondResult<UniversalIconData> {
         zone!("transform_apply");
         let images: Vec<RgbaImage>;
         let mut frames = image_data.frames;
@@ -792,9 +811,9 @@ impl Transform {
             }
             Transform::Crop { x1, y1, x2, y2 } => {
                 if *x2 <= (*x1 - 1) || *y2 <= (*y1 - 1) {
-                    return Err(eyre::eyre!(
-                        "Invalid bounds {x1} {y1} to {x2} {y2} in crop transform"
-                    ));
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!("Invalid bounds {x1} {y1} to {x2} {y2} in crop transform"),
+                    )));
                 }
                 images = image_data.map_cloned_images(|image| crop(image, *x1, *y1, *x2, *y2));
             }
@@ -822,11 +841,16 @@ impl Transform {
                         if image.width() != image.height()
                             && !dmi::dirs::CARDINAL_DIRS.contains(&dir)
                         {
-                            return Err(eyre::eyre!("Non-square icons cannot be flipped diagonally (Turned&Flipped)! (used Flip(dir={dir}) on {}x{})", image.width(), image.height()));
+                            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Non-square icons cannot be flipped diagonally (Turned&Flipped)! (used Flip(dir={dir}) on {}x{})", image.width(), image.height()))));
                         }
                         dir
                     }
-                    None => return Err(eyre::eyre!("Invalid dir specified for Flip: {dir}")),
+                    None => {
+                        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                            format!("Invalid dir specified for Flip: {dir}"),
+                        )))
+                    }
                 };
                 images = image_data.map_cloned_images(|image| flip(image, dir));
             }
@@ -836,7 +860,11 @@ impl Transform {
             Transform::Shift { dir, offset, wrap } => {
                 let dir = match dmi::dirs::Dirs::from_bits(*dir) {
                     Some(dir) => dir,
-                    None => return Err(eyre::eyre!("Invalid dir specified for Shift: {dir}")),
+                    None => {
+                        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                            format!("Invalid dir specified for Shift: {dir}"),
+                        )))
+                    }
                 };
                 images =
                     image_data.map_cloned_images(|image| shift(image, dir, *offset, *wrap != 0));
@@ -863,9 +891,9 @@ impl Transform {
                 let x2 = x2.unwrap_or(x1);
                 let y2 = y2.unwrap_or(y1);
                 if x2 <= (x1 - 1) || y2 <= (y1 - 1) {
-                    return Err(eyre::eyre!(
-                        "Invalid bounds {x1} {y1} to {x2} {y2} in DrawBox transform"
-                    ));
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!("Invalid bounds {x1} {y1} to {x2} {y2} in DrawBox transform"),
+                    )));
                 }
                 let hex = color.clone().unwrap_or_else(|| String::from("#00000000"));
                 let rgba = hex_to_rgba(&hex)?;
@@ -889,7 +917,7 @@ fn apply_all_transforms(
     image_data: Arc<UniversalIconData>,
     transforms: &Vec<Transform>,
     flatten: bool,
-) -> eyre::Result<Arc<UniversalIconData>> {
+) -> ByondResult<Arc<UniversalIconData>> {
     let mut errors = Vec::<String>::new();
     let mut last_image_data = image_data;
     for transform in transforms {
@@ -899,7 +927,9 @@ fn apply_all_transforms(
         }
     }
     if !errors.is_empty() {
-        return Err(eyre::eyre!(errors.join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors.join("\n"),
+        )));
     }
     Ok(last_image_data)
 }

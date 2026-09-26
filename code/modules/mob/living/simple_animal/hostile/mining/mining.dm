@@ -1,5 +1,6 @@
 //the base mining mob
 /mob/living/simple_animal/hostile/asteroid
+	abstract_type = /mob/living/simple_animal/hostile/asteroid
 	vision_range = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("mining")
@@ -45,7 +46,7 @@
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"))
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy

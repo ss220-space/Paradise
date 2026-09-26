@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -11,8 +9,11 @@ import {
   Section,
   Stack,
   Tooltip,
-} from '../components';
-import { formatSiUnit } from '../format';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type CanisterData = {
@@ -22,11 +23,13 @@ type CanisterData = {
   defaultReleasePressure: number;
   minReleasePressure: number;
   maxReleasePressure: number;
+  hasHypernobCrystal: BooleanLike;
   valveOpen: boolean;
   name: string;
   canLabel: boolean;
   hasHoldingTank: boolean;
   holdingTank: HoldingTank;
+  reactionSuppressionEnabled: BooleanLike;
 };
 
 type HoldingTank = {
@@ -48,6 +51,8 @@ export const Canister = (_props: unknown) => {
     canLabel,
     hasHoldingTank,
     holdingTank,
+    hasHypernobCrystal,
+    reactionSuppressionEnabled,
   } = data;
 
   return (
@@ -83,7 +88,7 @@ export const Canister = (_props: unknown) => {
                 value={tankPressure}
                 format={(value) => {
                   if (value < 10000) {
-                    return toFixed(value) + ' kPa';
+                    return `${toFixed(value)} kPa`;
                   }
                   return formatSiUnit(value * 1000, 1, 'Pa');
                 }}
@@ -98,9 +103,10 @@ export const Canister = (_props: unknown) => {
                   unit="kPa"
                   minValue={minReleasePressure}
                   maxValue={maxReleasePressure}
+                  tickWhileDragging
                   step={5}
                   stepPixelSize={1}
-                  onDrag={(e, value) =>
+                  onChange={(e, value) =>
                     act('pressure', {
                       pressure: value,
                     })
@@ -165,6 +171,20 @@ export const Canister = (_props: unknown) => {
               </Tooltip>
             </LabeledControls.Item>
           </LabeledControls>
+        </Section>
+        <Section>
+          <LabeledList>
+            {!!hasHypernobCrystal && (
+              <LabeledList.Item label="Reaction Suppression">
+                <Button
+                  icon={reactionSuppressionEnabled ? 'snowflake' : 'times'}
+                  content={reactionSuppressionEnabled ? 'Enabled' : 'Disabled'}
+                  selected={reactionSuppressionEnabled}
+                  onClick={() => act('reaction_suppression')}
+                />
+              </LabeledList.Item>
+            )}
+          </LabeledList>
         </Section>
         <Section
           title="Holding Tank"

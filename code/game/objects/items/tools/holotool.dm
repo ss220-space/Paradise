@@ -22,7 +22,7 @@
 	item_state_color = "#48D1CC" // mediumturquoise
 
 /obj/item/holotool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный голотул",
 		GENITIVE = "экспериментального голотула",
 		DATIVE = "экспериментальному голотулу",

@@ -31,7 +31,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/toy/carpplushie/dehy_carp,
+/obj/item/toy/plushie/carp/dehy_carp,
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "h" = (
@@ -50,11 +50,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "k" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	dir = 8;
 	pixel_x = -28
@@ -64,9 +60,7 @@
 	},
 /area/template_noop)
 "l" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
@@ -83,9 +77,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},

@@ -11,7 +11,7 @@
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
 	blacklisted = TRUE
 
-	blood_color = "#555555"
+	blood_color = BLOOD_COLOR_SHADOWLING
 	flesh_color = "#222222"
 
 	inherent_traits = list(
@@ -27,6 +27,7 @@
 		TRAIT_NO_SLIP_ALL,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_SHOCKIMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	brute_mod = 0.75
 	burn_mod = 1.25

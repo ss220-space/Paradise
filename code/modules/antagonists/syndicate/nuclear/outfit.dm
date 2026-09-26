@@ -16,11 +16,11 @@
 	implants = list(/obj/item/implant/explosive)
 	internals_slot = ITEM_SLOT_SUITSTORE
 
-	id_access = SYNDICATE_OPERATIVE
+	id_access = JOB_TITLE_SYNDICATE_OPERATIVE
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival/survival_syndi = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
@@ -31,14 +31,17 @@
 
 /datum/outfit/admin/syndicate/operative/loneop
 	name = "Syndicate Nuclear Operative (Loneop)"
+	suit = null
+	l_hand = null
 	r_pocket = /obj/item/radio/uplink/nuclear/loneop
 	uplink_uses = null
+	back = /obj/item/mod/control/pre_equipped/nuclear
 
 /datum/outfit/admin/syndicate/operative/nuclear
 	name = "Syndicate Nuclear Operative"
 	toggle_helmet = FALSE
 	suit = null
-	belt = /obj/item/gun/projectile/automatic/pistol
+	belt = /obj/item/gun/projectile/automatic/pistol/stechkin
 	shoes = /obj/item/clothing/shoes/combat
 	l_pocket = null
 	l_hand = null
@@ -60,7 +63,7 @@
 /datum/outfit/admin/syndicate/operative/nuclear/leader
 	name = "Syndicate Nuclear Operative Leader"
 	l_hand = /obj/item/nuclear_challenge
-	id_access = SYNDICATE_OPERATIVE_LEADER
+	id_access = JOB_TITLE_SYNDICATE_OPERATIVE_LEADER
 
 /datum/outfit/admin/syndicate/operative/nuclear/vox
 	name = "Syndicate Nuclear Operative (vox)"

@@ -13,12 +13,12 @@
 		GLOB.minor_announcement.announce(
 			message = "На пути станции были обнаружены мясориты.",
 			new_title = "Мясориты.",
-			new_sound = 'sound/AI/meteors.ogg'
+			new_sound = ANNOUNCER_METEORS,
 		)
 
 /datum/event/dust/meaty/start()
 	while(qnty-- > 0)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, 1, GLOB.meteors_pigs)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), 1, GLOB.meteors_pigs)
 		if(prob(10))
 			sleep(randfloat(1 SECONDS, 1.5 SECONDS))
 

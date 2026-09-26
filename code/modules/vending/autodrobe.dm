@@ -64,6 +64,7 @@
 				/obj/item/clothing/neck/poncho = 10,
 				/obj/item/clothing/neck/cloak/toggle/owlwings = 10,
 				/obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings = 10,
+				/obj/item/clothing/glasses/goldblue = 10,
 			),
 		),
 		list(
@@ -180,6 +181,7 @@
 				/obj/item/clothing/shoes/griffin = 10,
 				/obj/item/clothing/shoes/singery = 10,
 				/obj/item/clothing/shoes/singerb = 10,
+				/obj/item/clothing/shoes/crocks = 5,
 			),
 		),
 		list(
@@ -189,6 +191,8 @@
 				/obj/item/cane = 10,
 				/obj/item/twohanded/staff/broom = 10,
 				/obj/item/twohanded/staff = 10,
+				/obj/item/toy/balloon = 10,
+				/obj/item/toy/balloon/long = 10,
 			),
 		),
 	)
@@ -201,6 +205,10 @@
 		/obj/item/clothing/under/syndicate/blackops_civ = 1,
 		/obj/item/clothing/glasses/thermal_fake = 1,
 		/obj/item/clothing/mask/horsehead = 2,
+		/obj/item/clothing/under/bandit = 1,
+		/obj/item/clothing/under/goon = 1,
+		/obj/item/clothing/under/gopnik = 1,
+		/obj/item/clothing/under/chainsmoker = 1,
 	)
 
 	premium = list(
@@ -222,7 +230,7 @@
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/autodrobe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат AutoDrobe",
 		GENITIVE = "торгового автомата AutoDrobe",
 		DATIVE = "торговому автомату AutoDrobe",
@@ -230,3 +238,6 @@
 		INSTRUMENTAL = "торговым автоматом AutoDrobe",
 		PREPOSITIONAL = "торговом автомате AutoDrobe",
 	)
+
+/obj/machinery/vending/autodrobe/free
+	all_products_free = TRUE

@@ -27,6 +27,13 @@
 
 	var/max_list_count = 100
 
+/obj/item/circuit_component/assoc_literal/Destroy()
+	list_options = null
+	LAZYCLEARLIST(entry_ports)
+	LAZYCLEARLIST(key_ports)
+	list_output = null
+	. = ..()
+
 /obj/item/circuit_component/assoc_literal/pre_input_received(datum/port/input/port)
 	if(port != list_options)
 		return

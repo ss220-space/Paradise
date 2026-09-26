@@ -59,10 +59,7 @@
 	pointed_atom_appearance.pixel_w = 0
 	pointed_atom_appearance.pixel_z = 0
 	thought_bubble.overlays += pointed_atom_appearance
-
-	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
-	if(!isnull(hover_outline_index))
-		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
+	pointed_atom_appearance.remove_filter(HOVER_OUTLINE_FILTER)
 
 	thought_bubble.pixel_w = 16
 	thought_bubble.pixel_z = 32
@@ -124,10 +121,8 @@
  * Removing it causes interface update lags with appearing/disappearing "Object"
  * tab when walking nearby "Object"-verbed things
  */
-/mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
-	set name = "Указать на"
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_CONTEXT(/mob, pointed, "Указать на", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_VIEW, /atom)
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return
 

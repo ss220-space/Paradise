@@ -4,9 +4,10 @@
 	icon_state = "wizard_envirosuit"
 	item_state = "wizard_envirosuit"
 	item_color = "wizard_envirosuit"
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/under/plasmaman/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический защитный костюм плазмолюда",
 		GENITIVE = "магического защитного костюма плазмолюда",
 		DATIVE = "магическому защитному костюму плазмолюда",

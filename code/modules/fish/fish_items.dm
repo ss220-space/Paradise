@@ -54,8 +54,6 @@
 	icon_state = "bag"
 	storage_slots = 100
 	max_combined_w_class = 100
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
 		/obj/item/fish,
 		/obj/item/fish_eggs,
@@ -78,8 +76,8 @@
 	list_reagents = list("protein" = 1)
 	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/shrimp/New()
-	..()
+/obj/item/reagent_containers/food/snacks/shrimp/Initialize(mapload)
+	. = ..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
 
 /obj/item/reagent_containers/food/snacks/feederfish
@@ -107,7 +105,7 @@
 	name = "glofish"
 	desc = "A small bio-luminescent fish. Not very bright, but at least it's pretty!"
 	icon_state = "glofish"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_color = "#99FF66"
 
@@ -150,10 +148,10 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/New()
-	..()
-	src.pixel_x = rand(-5,5)
-	src.pixel_y = rand(-5,5)
+/obj/item/shard/shark_teeth/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/fish/catfish
 	name = "catfish"

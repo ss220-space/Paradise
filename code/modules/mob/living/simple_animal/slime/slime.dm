@@ -38,7 +38,7 @@
 
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.
-	status_flags = CANPARALYSE | CANPUSH
+	status_flags = CANPARALYSE | CANPUSH | CANUNCONSCIOUS
 
 	footstep_type = FOOTSTEP_MOB_SLIME
 
@@ -107,14 +107,15 @@
 	set_nutrition(new_set_nutrition)
 	add_language(LANGUAGE_SLIME)
 
-/mob/living/simple_animal/slime/Destroy()
-	for(var/A in actions)
-		var/datum/action/AC = A
+/mob/living/simple_animal/slime/Destroy(force)
+	walk(src, NONE)
+	for(var/datum/action/AC as anything in actions)
 		AC.Remove(src)
+		qdel(AC)
 	Target = null
 	Leader = null
-	Friends.Cut()
-	speech_buffer.Cut()
+	LAZYCLEARLIST(Friends)
+	LAZYCLEARLIST(speech_buffer)
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -220,7 +221,7 @@
 				clear_fullscreen("brute")
 
 /mob/living/simple_animal/slime/ObjBump(obj/object)
-	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
+	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (is_window(object) && !istype(object, /obj/structure/grille)))
 		return
 
 	var/probab = 10
@@ -294,10 +295,12 @@
 	powerlevel = 0 // oh no, the power!
 
 /mob/living/simple_animal/slime/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(isliving(over_object) && over_object != src && usr == src && CanFeedon(over_object))
-		Feedon(over_object)
-		return FALSE
-	return ..()
+	if(!isliving(over_object) || over_object == src || user != src)
+		return
+	if(!CanFeedon(over_object))
+		return
+
+	Feedon(over_object)
 
 /mob/living/simple_animal/slime/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	return
@@ -450,7 +453,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is [icon2html(src, user)] \a <em>[src]</em>!"
+	. += "<span class='notice'>This is [get_examine_icon(user)] \a <em>[src]</em>!"
 	if(stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else
@@ -546,12 +549,12 @@
 
 /mob/living/simple_animal/slime/invalid
 	var/dead_for_sure = FALSE
-	var/obj/effect/proc_holder/spell/slime_degradation/parent_spell
+	var/datum/action/cooldown/spell/slime_degradation/parent_spell
 	var/mob/living/carbon/human/sman
 	powerlevel = 10
 
-/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, obj/effect/proc_holder/spell/slime_degradation/slime_spell)
-	..()
+/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, datum/action/cooldown/spell/slime_degradation/slime_spell)
+	. = ..()
 	for(var/datum/action/innate/slime/A in actions)
 		if(!istype(A,/datum/action/innate/slime/feed))
 			A.Remove(src)
@@ -559,8 +562,6 @@
 		sman = slimeman
 	if(slime_spell)
 		parent_spell = slime_spell
-	remove_verb(src, /mob/living/simple_animal/slime/verb/Evolve)
-	remove_verb(src, /mob/living/simple_animal/slime/verb/Reproduce)
 
 /mob/living/simple_animal/slime/invalid/Destroy()
 	parent_spell = null

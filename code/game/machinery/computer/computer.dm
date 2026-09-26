@@ -7,7 +7,8 @@
 	idle_power_usage = 300
 	active_power_usage = 300
 	integrity_failure = 100
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 20)
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
@@ -53,7 +54,7 @@
 		underlays.Cut()
 		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
 
-/obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/machinery/computer/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
@@ -199,7 +200,7 @@
 
 /obj/machinery/computer/attack_hand(mob/user)
 	/* Observers can view computers, but not actually use them via Topic*/
-	if(istype(user, /mob/dead/observer)) return 0
+	if(isobserver(user)) return 0
 	return ..()
 
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
@@ -207,7 +208,8 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(circuit && !(obj_flags & NODECONSTRUCT))
-		if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 
 /obj/machinery/computer/hit_by_thrown_mob(mob/living/hit_by_thrown_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

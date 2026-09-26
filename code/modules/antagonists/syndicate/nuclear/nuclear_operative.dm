@@ -19,6 +19,16 @@
 	)
 	var/obj/item/uplink/uplink
 
+/datum/antagonist/nuclear_operative/New()
+	. = ..()
+	skill_bonuses = list(
+		/datum/skill/combat/accuracy = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/guns = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/melee = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/fists = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
+	)
+
 /datum/antagonist/nuclear_operative/on_gain()
 	nuclear_team = team
 	. = ..()
@@ -80,7 +90,7 @@
 	if(!outfit)
 		return
 
-	for(var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item in human.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		qdel(item)
 
 	human.equipOutfit(outfit)

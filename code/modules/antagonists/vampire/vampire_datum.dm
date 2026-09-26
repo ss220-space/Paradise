@@ -62,6 +62,7 @@
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
+	QDEL_NULL(diablerie)
 	return ..()
 
 /datum/antagonist/vampire/greet()
@@ -173,12 +174,12 @@
  * Remove and delete the vampire's current subclass and all associated abilities.
  *
  * Arguments:
- * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ * * give_specialize_power - if the [specialize][/datum/action/cooldown/spell/vamp_specialize power should be given back or not
  */
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 100
+		upgrade_tiers[/datum/action/cooldown/spell/vamp_specialize] = 100
 
 	suck_rate = initial(suck_rate)
 	remove_all_powers()
@@ -194,9 +195,9 @@
 	bloodusable += blood_amount
 	check_vampire_upgrade(TRUE)
 
-	for(var/obj/effect/proc_holder/spell/power in powers)
-		if(power.action)
-			power.action.UpdateButtonIcon()
+	for(var/datum/action/cooldown/spell/power in powers)
+		if(istype(power))
+			power.build_button_icon()
 
 /datum/antagonist/vampire/proc/count_drain(mob/living/carbon/human/user, blood_amount = 0)
 	if(!user)
@@ -334,7 +335,7 @@
 				vampire.adjustToxLoss(-2)
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
-				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_SEC_MIN(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y_0(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y_0(bloodusable)] крови" : ""]."))
 				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
@@ -390,8 +391,7 @@
 		pixel_x_diff = 8
 	else if(vampire_dir & WEST)
 		pixel_x_diff = -8
-	animate(owner.current, pixel_x = owner.current.pixel_x + pixel_x_diff, pixel_y = owner.current.pixel_y + pixel_y_diff, time = 0.5)
-	animate(pixel_x = owner.current.pixel_x - pixel_x_diff, pixel_y = owner.current.pixel_y - pixel_y_diff, time = 7)
+	owner.current.add_offsets(UID(), x_add = pixel_x_diff, y_add = pixel_y_diff)
 	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
 
 /// Checks vampire's sucking target blood volume and sends a warning message if it's low. Returns FALSE if the target is drained dry
@@ -428,8 +428,7 @@
 	if(draining)
 		to_chat(owner.current, span_notice("Вы прекращаете пить кровь [draining.name]."))
 		draining = null
-		owner.current.pixel_x = owner.current.base_pixel_x + owner.current.body_position_pixel_x_offset
-		owner.current.pixel_y = owner.current.base_pixel_y + owner.current.body_position_pixel_y_offset
+		owner.current.remove_offsets(UID())
 		owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
@@ -442,18 +441,15 @@
 #undef STATE_SUCKING
 
 /datum/antagonist/vampire/proc/force_add_ability(path)
-	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	var/datum/action/cooldown/spell/spell = new path
+	if(istype(spell, /datum/action/cooldown/spell))
 		owner.AddSpell(spell)
-		if(istype(spell, /obj/effect/proc_holder/spell/vampire) && subclass)
-			var/obj/effect/proc_holder/spell/vampire/v_spell = spell
-			v_spell.on_trophie_update(src, force = TRUE)
-			// We give cooldown reduction bonus from current diablerie level to all new spells. Covers body transfers as well.
-			if(diablerie && v_spell.cooldown_handler)
-				var/datum/spell_cooldown/cooldown = v_spell.cooldown_handler
-				cooldown.change_cooldowns(recharge_reduction = DIABLERIE_COOLDOWN_REDUCTION * diablerie.diablerie_count)
+		spell.on_trophie_update(src, force = TRUE)
+		// We give cooldown reduction bonus from current diablerie level to all new spells. Covers body transfers as well.
+		if(diablerie && spell.cooldown_time)
+			spell.cooldown_time = spell.cooldown_time - DIABLERIE_COOLDOWN_REDUCTION * diablerie.diablerie_count
 
-		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+		if(istype(spell, /datum/action/cooldown/spell/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
 	else if(istype(spell, /datum/vampire_passive))
@@ -477,10 +473,12 @@
 /datum/antagonist/vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+		if(istype(ability, /datum/action/cooldown/spell/dissect_info) && subclass)
 			subclass.spell_TGUI = null
-		if(istype(ability, /obj/effect/proc_holder/spell))
-			owner.RemoveSpell(ability)
+		if(istype(ability, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/ability_spell = ability
+			owner.RemoveSpell(ability_spell)
+			qdel(ability_spell)
 		else if(istype(ability, /datum/vampire_passive))
 			var/datum/vampire_passive/passive = ability
 			passive.on_remove(src)
@@ -495,16 +493,12 @@
 		remove_ability(power)
 
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
-	var/list/old_powers = powers.Copy()
-
 	for(var/ptype in upgrade_tiers)
 		var/level = upgrade_tiers[ptype]
 		if(bloodtotal >= level)
 			add_ability(ptype)
 
 	if(!subclass)
-		if(announce)
-			announce_new_power(old_powers)
 		return
 
 	subclass.add_subclass_ability(src)
@@ -515,23 +509,12 @@
 	check_full_power_upgrade()
 	check_trophies_passives()
 
-	if(announce)
-		announce_new_power(old_powers)
-
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(subclass.full_power_override || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
-
-/datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
-	for(var/p in powers)
-		if(!(p in old_powers))
-			if(istype(p, /obj/effect/proc_holder/spell))
-				var/obj/effect/proc_holder/spell/power = p
-				to_chat(owner.current, span_boldnotice("[power.gain_desc]"))
-
-			else if(istype(p, /datum/vampire_passive))
-				var/datum/vampire_passive/power = p
-				to_chat(owner.current, span_boldnotice("[power.gain_desc]"))
+		if(subclass?.skill_type && subclass?.full_power_skill_level && skill_bonuses[subclass.skill_type] != subclass.full_power_skill_level)
+			skill_bonuses[subclass.skill_type] = subclass.full_power_skill_level
+			owner.refresh_skills()
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x

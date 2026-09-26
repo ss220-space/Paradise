@@ -5,7 +5,7 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || (health <= HEALTH_THRESHOLD_CRIT && check_death_method() && !dna.species.ignore_critical_condition))
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || (health <= HEALTH_THRESHOLD_CRIT && check_death_method() && !dna?.species.ignore_critical_condition))
 			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
@@ -21,10 +21,3 @@
 	else
 		return
 	update_stamina_hud()
-
-/mob/living/carbon/can_hear()
-	. = ..()
-	var/obj/item/organ/internal/ears/ears = get_organ_slot(INTERNAL_ORGAN_EARS)
-	if(!ears)
-		return FALSE
-

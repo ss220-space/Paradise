@@ -27,9 +27,10 @@
 	inherent_traits = list(
 		TRAIT_HAS_LIPS,
 		TRAIT_HAS_REGENERATION,
+		TRAIT_WATER_HATER,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_HAIR
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = ORGANIC
 
@@ -93,6 +94,11 @@
 	)
 	autohiss_exempt = list("Сик'таир")
 
+	max_select_skills = list(
+		/datum/skill/general/cooking = 1,
+		/datum/skill/medical/surgery = 1,
+	)
+
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -101,22 +107,6 @@
 		H.reagents.add_reagent("psilocybin",(0.5))
 		return TRUE
 	return ..()
-
-/datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_purr)
-	add_verb(H, /mob/living/carbon/human/proc/emote_purrl)
-	add_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
-
-/datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_purrl)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
 
 /datum/species/tajaran/compressor_grind(location)
 	new /obj/item/reagent_containers/food/snacks/tajaroni(location)

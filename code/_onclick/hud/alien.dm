@@ -1,15 +1,6 @@
 /atom/movable/screen/alien
 	icon = 'icons/mob/screen_alien.dmi'
 
-/atom/movable/screen/alien/leap
-	name = "toggle leap"
-	icon_state = "leap_off"
-
-/atom/movable/screen/alien/leap/Click()
-	if(isalienhunter(usr))
-		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
-		AH.toggle_leap()
-
 /atom/movable/screen/alien/nightvision
 	name = "toggle night-vision"
 	icon_state = "nightvision1"
@@ -46,12 +37,6 @@
 	using.screen_loc = ui_movi
 	static_inventory += using
 	move_intent = using
-
-	if(isalienhunter(mymob))
-		mymob.leap_icon = new /atom/movable/screen/alien/leap(null, src)
-		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
-		mymob.leap_icon.screen_loc = ui_alien_leap
-		static_inventory += mymob.leap_icon
 
 //equippable shit
 	inv_box = new /atom/movable/screen/inventory/hand(null, src)

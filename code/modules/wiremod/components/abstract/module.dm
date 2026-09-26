@@ -36,7 +36,7 @@
 	. = ..()
 	attached_module.display_name = new_name
 	attached_module.name = "module ([new_name])"
-	attached_module.ru_names = list(
+	attached_module.ru_names = alist(
 		NOMINATIVE = "модуль ([new_name])",
 		GENITIVE = "модуля ([new_name])",
 		DATIVE = "модулю ([new_name])",

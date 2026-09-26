@@ -176,7 +176,7 @@
 /datum/surgery_step/cavity/proc/get_item_inside(obj/item/organ/external/affected)
 	var/obj/item/extracting
 	for(var/obj/item/I in affected.contents)
-		if(!istype(I, /obj/item/organ))
+		if(!is_organ(I))
 			extracting = I
 			break
 
@@ -276,7 +276,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	for(var/obj/item/I in affected.contents)
-		if(!istype(I, /obj/item/organ))
+		if(!is_organ(I))
 			extracting = I
 			break
 
@@ -322,7 +322,7 @@
 		to_chat(user, span_danger("Центральное Командование убьёт вас, если узнает, что вы имплантировали ядерный диск в чьё-то тело. Особенно, если оно внутри [tool.declent_ru(GENITIVE)]!"))
 		return FALSE
 
-	if(istype(tool, /obj/item/organ))
+	if(is_organ(tool))
 		to_chat(user, span_warning("Неподходящий тип операции для трансплантации органов."))
 		return FALSE
 

@@ -36,7 +36,7 @@
 	var/anger_speed = 4
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костномозговой ткач",
 		GENITIVE = "костномозгового ткача",
 		DATIVE = "костномозговому ткачу",
@@ -107,7 +107,7 @@
 	var/foundorgans = 0
 	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
 	for(var/obj/item/organ/internal/I as anything in organs)
-		if(!istype(I, /obj/item/organ/internal/brain))
+		if(!is_internal_organ_brain(I))
 			foundorgans ++
 			if(!preparing)
 				qdel(I)
@@ -123,7 +123,7 @@
 	singular_name = "chitin chunk"
 
 /obj/item/stack/sheet/animalhide/weaver_chitin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хитин ткача",
 		GENITIVE = "хитина ткача",
 		DATIVE = "хитину ткача",
@@ -169,7 +169,7 @@
 	crusher_loot = /obj/item/crusher_trophy/gland
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозный костномозговой ткач",
 		GENITIVE = "морозного костномозгового ткача",
 		DATIVE = "морозному костномозговому ткачу",

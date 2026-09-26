@@ -21,6 +21,7 @@
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
+	AddElement(/datum/element/simple_rotation)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -146,73 +147,56 @@
 	emergency_mode = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/proc/crush_living(mob/living/L)
+/obj/machinery/recycler/proc/crush_living(mob/living/target)
+	target.forceMove(loc)
 
-	L.forceMove(loc)
-
-	if(issilicon(L))
+	if(issilicon(target))
 		playsound(loc, 'sound/items/welder.ogg', 50, TRUE)
 	else
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/gib = 1
 	// By default, the emagged recycler will gib all non-carbons. (human simple animal mobs don't count)
-	if(iscarbon(L))
+	if(iscarbon(target))
 		gib = 0
-		if(L.stat == CONSCIOUS)
-			L.say("ARRRRRRRRRRRGH!!!")
-		add_mob_blood(L)
+		if(target.stat == CONSCIOUS)
+			target.say("ARRRRRRRRRRRGH!!!")
+		add_mob_blood(target)
 
-	if(!blood && !issilicon(L))
+	if(!blood && !issilicon(target))
 		blood = 1
 		update_icon(UPDATE_ICON_STATE)
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE, TRUE))
-			if(L.drop_item_ground(I))
-				eat(I, sound = 0)
+		for(var/obj/item/item in target.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+			if(target.drop_item_ground(item))
+				eat(item, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(10 SECONDS)
+	target.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)
-		L.gib()
+		target.gib()
 	else if(emagged == 1)
-		L.adjustBruteLoss(crush_damage)
+		target.adjustBruteLoss(crush_damage)
 
-/obj/machinery/recycler/verb/rotate()
-	set name = "Повернуть по часовой"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/machinery/recycler/click_alt(mob/user)
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
+		return
 	eat_dir = turn(eat_dir, 270)
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/recycler/verb/rotateccw()
-	set name = "Повернуть против часовой"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/machinery/recycler/AltShiftClick(mob/user)
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
+		return
 	eat_dir = turn(eat_dir, 90)
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

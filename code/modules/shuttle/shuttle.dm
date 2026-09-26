@@ -15,34 +15,40 @@
 	var/id
 	// this should point -away- from the dockingport door, ie towards the ship
 	dir = NORTH
-	var/width = 0	//size of covered area, perpendicular to dir
-	var/height = 0	//size of covered area, parallel to dir
-	var/dwidth = 0	//position relative to covered area, perpendicular to dir
-	var/dheight = 0	//position relative to covered area, parallel to dir
+	///size of covered area, perpendicular to dir
+	var/width = 0
+	///size of covered area, parallel to dir
+	var/height = 0
+	///position relative to covered area, perpendicular to dir
+	var/dwidth = 0
+	///position relative to covered area, parallel to dir
+	var/dheight = 0
 
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
 	var/timid = FALSE
 
 	var/list/ripples = list()
-	var/hidden = FALSE //are we invisible to shuttle navigation computers?
+	///Are we invisible to shuttle navigation computers?
+	var/hidden = FALSE
 
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
+	// unless you assert that you know what you're doing. Horrible things
+	// may result.
 	if(force)
 		..()
-		. = QDEL_HINT_HARDDEL_NOW
+		return QDEL_HINT_QUEUE
 	else
-
 		return QDEL_HINT_LETMELIVE
 
-/obj/docking_port/get_gravity(turf/T)
+/obj/docking_port/has_gravity(turf/T)
 	return FALSE
 
 /obj/docking_port/take_damage()
 	return
 
-/obj/docking_port/singularity_pull()
+/obj/docking_port/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/docking_port/singularity_act()
@@ -257,7 +263,8 @@
 	/// Meaning, if port located at: front = NORTH, left side = WEST, right side = EAST, backside = SOUTH.
 	var/port_direction = NORTH
 
-	var/mob/last_caller				// Who called the shuttle the last time
+	/// Who called the shuttle the last time
+	var/mob/last_caller
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -267,7 +274,7 @@
 	. = ..()
 
 	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
+	if(is_area_shuttle(A))
 		areaInstance = A
 
 	if(!areaInstance)
@@ -410,12 +417,12 @@
 	var/obj/docking_port/stationary/S1 = assigned_transit
 	if(S1)
 		if(dock(S1, transit = TRUE))
-			log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"]."))
+			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
 			return TRUE
 	else
-		log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]"))
+		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
@@ -611,7 +618,7 @@
 
 	mobile_port.loc = new_dock.loc
 	mobile_port.dir =new_dock.dir
-
+	#ifndef SKIP_LAVALAND
 	// Update mining and labor shuttle ash storm audio
 	if((mobile_port.id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
@@ -619,7 +626,7 @@
 		if(W)
 			W.update_eligible_areas()
 			W.update_audio()
-
+	#endif
 	mobile_port.unlockPortDoors(new_dock)
 	areaInstance.parallax_movedir = mobile_port.preferred_direction
 	SEND_SIGNAL(mobile_port, COMSIG_SHUTTLE_DOCK, new_dock)
@@ -728,8 +735,7 @@
 	if(assigned_transit?.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for(var/thing in L0)
-		var/turf/T = thing
+	for(var/turf/T in L0)
 		if(!T || !istype(T.loc, areaInstance.type))
 			continue
 		for(var/atom/movable/movable as anything in T)
@@ -811,9 +817,9 @@
 			dst = previous
 		else
 			dst = destination
-		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
+		. = "В пути к [dst ? dst.name : lowertext(UNKNOWN_STATUS_RUS)]"
 	else if(mode == SHUTTLE_RECHARGING)
-		return "[dockedAt.name], recharging [getTimerStr()]"
+		return "[dockedAt.name]"
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
@@ -829,14 +835,12 @@
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
-/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
-	..()
+/obj/machinery/computer/shuttle/Initialize(mapload, obj/item/circuitboard/shuttle/C)
+	. = ..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
-/obj/machinery/computer/shuttle/Initialize(mapload)
-	. = ..()
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -888,22 +892,22 @@
 	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : lowertext(UNKNOWN_STATUS_RUS)
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
-		data["status"] = "Missing"
+		data["status"] = "Потерянный"
 		return data
 	if(admin_controlled)
-		data["status"] = "Unauthorized Access"
+		data["status"] = "Несанкционированный доступ"
 	else if(lockdown_check)
-		data["status"] = "Lockdown"
+		data["status"] = "Заблокирован"
 	else
 		switch(mobile_docking_port.mode)
 			if(SHUTTLE_IGNITING)
-				data["status"] = "Igniting"
+				data["status"] = "Запуск"
 			if(SHUTTLE_IDLE)
-				data["status"] = "Idle"
+				data["status"] = "Ожидание"
 			if(SHUTTLE_RECHARGING)
-				data["status"] = "Recharging"
+				data["status"] = "Зарядка"
 			else
-				data["status"] = "In Transit"
+				data["status"] = "В пути"
 	if(mobile_docking_port)
 		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
@@ -923,7 +927,7 @@
 				data["destination"] = destination
 		else if(!length(data["locations"]))
 			data["locked"] = TRUE
-			data["status"] = "Locked"
+			data["status"] = "Заблокирован"
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled || lockdown_check
 	return data
@@ -932,8 +936,8 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, span_danger("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		to_chat(usr, span_danger("Доступ запрещён."))
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE

@@ -15,7 +15,7 @@
 	upgradeable = 1
 
 /obj/machinery/cooker/deepfryer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фритюрница",
 		GENITIVE = "фритюрницы",
 		DATIVE = "фритюрнице",
@@ -151,4 +151,4 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/E = I
-	return istype(E.dna.species, /datum/species/vox)
+	return isvox(E)

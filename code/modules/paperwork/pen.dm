@@ -138,8 +138,8 @@
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
 
-/obj/item/pen/fancy/bomb/tool_act(mob/living/user, obj/item/I, tool_type)
-	return bomb.tool_act(user, I, tool_type) || ..()
+/obj/item/pen/fancy/bomb/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	return bomb.tool_act(user, tool, modifiers) || ..()
 
 /obj/item/pen/multi/gold
 	name = "Gilded Pen"
@@ -183,7 +183,7 @@
 	light_range = 2
 	light_color = COLOR_SOFT_RED
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	armour_penetration = 20
 	var/on = FALSE
 	var/backstab_sound = 'sound/items/unsheath.ogg'
@@ -193,7 +193,7 @@
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
 	var/cached_sound = hitsound
-	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(INC_IGNORE_RESTRAINED))
+	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(IGNORE_RESTRAINTS))
 		hitsound = null
 		force += backstab_damage
 		extra_force_applied = TRUE
@@ -289,6 +289,7 @@
 	name = "survival pen"
 	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
 	icon_state = "digging_pen"
+	tool_behaviour = TOOL_MINING //For the classic "digging out of prison with a spoon but you're in space so this analogy doesn't work" situation.
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
 	usesound = 'sound/effects/picaxe1.ogg'

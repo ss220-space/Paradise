@@ -17,7 +17,7 @@
 		/obj/item/grenade/chem_grenade/pyro = 5,
 		/obj/item/grenade/chem_grenade/cryo = 5,
 		/obj/item/grenade/chem_grenade/adv_release = 5,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater = 1,
 	)
 	slogan_list = list("It's not pyromania if you're getting paid!","You smell that? Plasma, son. Nothing else in the world smells like that.","I love the smell of Plasma in the morning.")
 	resistance_flags = FIRE_PROOF
@@ -53,7 +53,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
 	back = /obj/item/storage/backpack
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/gun/projectile/automatic/pistol/stechkin
 	id = /obj/item/card/id/syndicate/anyone
 	implants = list(/obj/item/implant/weapons_auth)
 
@@ -86,7 +86,7 @@
 		/obj/item/paper/monitorkey = 1, // message console on lavaland does NOT spawn with this
 	)
 
-/obj/item/clothing/mask/chameleon/gps/New()
+/obj/item/clothing/mask/chameleon/gps/Initialize(mapload)
 	. = ..()
 	new /obj/item/gps/internal/lavaland_syndicate_base(src)
 

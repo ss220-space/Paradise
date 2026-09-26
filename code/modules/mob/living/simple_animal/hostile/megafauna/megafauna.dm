@@ -32,7 +32,6 @@
 	var/score_achievement_type
 	var/elimination = FALSE
 	var/anger_modifier = 0
-	var/obj/item/gps/internal_gps
 	var/internal_type
 	var/recovery_time = 0
 	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
@@ -48,7 +47,7 @@
 	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мегафауна",
 		GENITIVE = "мегафауны",
 		DATIVE = "мегафауне",
@@ -61,6 +60,8 @@
 	. = ..()
 	if(internal_type && true_spawn)
 		internal = new internal_type(src)
+	if(islist(crusher_loot))
+		crusher_loot = string_list(crusher_loot)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -123,7 +124,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
-	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
+	if(!is_area_shuttle(get_area(src))) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
 
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)

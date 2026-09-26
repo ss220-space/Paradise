@@ -30,11 +30,25 @@
 
 	var/max_range = 60
 
+/obj/item/circuit_component/pathfind/Destroy()
+	input_X = null
+	input_Y = null
+	id_card = null
+	output = null
+	finished = null
+	failed = null
+	reason_failed = null
+	LAZYCLEARLIST(path)
+	path = null
+	old_dest = null
+	next_turf = null
+	. = ..()
+
 /obj/item/circuit_component/pathfind/get_ui_notices()
 	. = ..()
 	// Not necessary to show the same path cooldown, since it doesn't change much for the player
 	. += create_ui_notice("Перезарядка поиска пути: [DisplayTimeText(different_path_cooldown)]", "orange", "stopwatch")
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_0_A_OV(max_range)]", "orange", "info")
 
 /obj/item/circuit_component/pathfind/populate_ports()
 	input_X = add_input_port("X", PORT_TYPE_NUMBER, trigger = null)

@@ -124,14 +124,14 @@
 		return FALSE
 	return TRUE
 
-/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity, params)
+/obj/item/nullrod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
 
-	if(isliving(AM))
-		var/mob/living/L = AM
+	if(isliving(target))
+		var/mob/living/L = target
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
 /obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
@@ -165,7 +165,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
+
+/obj/item/nullrod/staff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/staff/ComponentInitialize()
 	. = ..()
@@ -188,13 +190,15 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
-	block_chance = 30
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
+
+/obj/item/nullrod/claymore/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/nullrod/claymore/ComponentInitialize()
 	. = ..()
@@ -333,7 +337,7 @@
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
-	
+
 	if(QDELETED(src))
 		return
 
@@ -423,15 +427,15 @@
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
-/obj/item/nullrod/whip/New()
-	..()
+/obj/item/nullrod/whip/Initialize(mapload)
+	. = ..()
 	desc = "What a terrible night to be on the [station_name()]."
 
-/obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/nullrod/whip/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(is_shadow(H))
 			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
 			user.say("[phrase]")
@@ -492,13 +496,15 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	force = 13
-	block_chance = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
 	hitsound = SFX_SWING_HIT
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+
+/obj/item/nullrod/claymore/bostaff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
@@ -566,8 +572,8 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/New()
-	..()
+/obj/item/nullrod/rosary/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/rosary/Destroy()
@@ -683,7 +689,7 @@
 	var/list/smited_clowns
 
 /obj/item/nullrod/rosary/bread/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "молитвенный хлеб",
 		GENITIVE = "молитвенного хлеба",
 		DATIVE = "молитвенному хлебу",
@@ -732,7 +738,6 @@
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
-	description_antag = "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
@@ -740,18 +745,24 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
 
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
-/obj/item/nullrod/missionary_staff/New()
-	..()
+/obj/item/nullrod/missionary_staff/examine_more(mob/user)
+	. = ..()
+	. += span_warning("This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them.")
+
+/obj/item/nullrod/missionary_staff/Initialize(mapload)
+	. = ..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
+
+/obj/item/nullrod/missionary_staff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/missionary_staff/Destroy()
 	if(robes)		//delink on destruction
@@ -779,35 +790,35 @@
 		to_chat(missionary, span_warning("You must be wearing the missionary robes you wish to link with this staff."))
 		return FALSE
 
-/obj/item/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
-	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
+/obj/item/nullrod/missionary_staff/afterattack(atom/target, mob/living/carbon/human/user, proximity_flag, list/modifiers, status)
+	if(!ishuman(target) || !istype(user)) //ishuman checks
 		return
-	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
+	if(target == user)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
 		return
 	if(!robes)		//staff must be linked to convert
-		to_chat(missionary, span_warning("You must link your staff to a set of missionary robes before attempting conversions."))
+		to_chat(user, span_warning("You must link your staff to a set of missionary robes before attempting conversions."))
 		return
-	if(!missionary.wear_suit || missionary.wear_suit != robes)	//must be wearing the robes to convert
+	if(!user.wear_suit || user.wear_suit != robes)	//must be wearing the robes to convert
 		return
 	if(faith < 100)
-		to_chat(missionary, span_warning("You don't have enough faith to attempt a conversion right now."))
+		to_chat(user, span_warning("You don't have enough faith to attempt a conversion right now."))
 		return
-	to_chat(missionary, span_notice("You concentrate on [target] and begin the conversion ritual..."))
-	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
-		to_chat(missionary, span_warning("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
+	to_chat(user, span_notice("You concentrate on [target] and begin the conversion ritual..."))
+	if(!user.mind)	//no mind means no conversion, but also means no faith lost.
+		to_chat(user, span_warning("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
 		return
 	to_chat(target, span_userdanger("Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good..."))
-	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
+	if(do_after(user, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
-			to_chat(missionary, span_warning("You don't have enough faith to complete the conversion on [target]!"))
+			to_chat(user, span_warning("You don't have enough faith to complete the conversion on [target]!"))
 			return
-		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
-			do_convert(target, missionary)
+		if(user in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
+			do_convert(target, user)
 		else
-			to_chat(missionary, span_warning("You lost sight of the target before [target.p_they()] could be converted!"))
+			to_chat(user, span_warning("You lost sight of the target before [target.p_they()] could be converted!"))
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
 	else	//the do_after failed, probably because you moved or dropped the staff
-		to_chat(missionary, span_warning("Your concentration was broken!"))
+		to_chat(user, span_warning("Your concentration was broken!"))
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 10 MINUTES

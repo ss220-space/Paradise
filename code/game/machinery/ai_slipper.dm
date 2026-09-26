@@ -5,7 +5,7 @@
 	layer = 3
 	plane = FLOOR_PLANE
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 50, acid = 30)
 	interaction_flags_click = ALLOW_SILICON_REACH
 	var/uses = 20
 	var/disabled = TRUE

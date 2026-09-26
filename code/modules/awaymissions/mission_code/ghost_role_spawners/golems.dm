@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/golem_shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "незавершённая оболочка свободного голема",
 		GENITIVE = "незавершённой оболочки свободного голема",
 		DATIVE = "незавершённой оболочке свободного голема",
@@ -24,7 +24,7 @@
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
 
 /obj/item/golem_shell/servant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "незавершённая оболочка голема-слуги",
 		GENITIVE = "незавершённой оболочки голема-слуги",
 		DATIVE = "незавершённой оболочке голема-слуги",
@@ -100,7 +100,7 @@
 	flavour_text = "Вы — свободный голем. Ваш клан поклоняется Освободителю.\nВ своей бесконечной и божественной мудрости он освободил ваш клан, чтобы вы могли путешествовать по звёздам, сказав: \"Да делайте что хотите\".\nХотя вы связаны с тем, кто вас создал, в вашем обществе принято повторять эти же слова новорождённым големам, чтобы ни один голем больше не был вынужден служить."
 
 /obj/effect/mob_spawn/human/golem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инертная оболочка свободного голема",
 		GENITIVE = "инертной оболочки свободного голема",
 		DATIVE = "инертной оболочке свободного голема",
@@ -126,7 +126,9 @@
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
-	to_chat(new_spawn, "[initial(X.info_text)]")
+	var/info_text = initial(X.info_text)
+	if(info_text)
+		to_chat(new_spawn, info_text)
 	if(!owner)
 		to_chat(new_spawn, span_notice("В обществах свободных големов принято уважать адамантиновых големов как старейшин, однако вы не обязаны подчиняться им. Адамантиновые големы — единственные, кто может резонировать со всеми големами."))
 		to_chat(new_spawn, "Создавайте оболочки големов в автолате и добавляйте обработанные минеральные листы в оболочки, чтобы оживить их! Вы — мирная группа, если вас не провоцировать.")
@@ -144,9 +146,9 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-			H.mind.miming = TRUE
+			new_spawn.AddSpell(new /datum/action/cooldown/spell/mime)
+			new_spawn.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
+			ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 	if(has_owner)
 		new_spawn.mind.assigned_role = "Servant Golem"
@@ -175,7 +177,7 @@
 	mob_name = "a servant golem"
 
 /obj/effect/mob_spawn/human/golem/servant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инертная оболочка голема-слуги",
 		GENITIVE = "инертной оболочки голема-слуги",
 		DATIVE = "инертной оболочке голема-слуги",
@@ -190,7 +192,7 @@
 	mob_species = /datum/species/golem/adamantine
 
 /obj/effect/mob_spawn/human/golem/adamantine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "покрытая пылью оболочка свободного голема",
 		GENITIVE = "покрытой пылью оболочки свободного голема",
 		DATIVE = "покрытой пылью оболочке свободного голема",
@@ -213,7 +215,7 @@
 	flavour_text = "Вы — часовой голем, созданный для служения Ратвару."
 
 /obj/effect/mob_spawn/human/golem/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оболочка голема из плоти",
 		GENITIVE = "оболочки голема из плоти",
 		DATIVE = "оболочке голема из плоти",

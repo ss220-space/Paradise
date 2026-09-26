@@ -33,7 +33,7 @@
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	reagent_tag = ORGANIC
-	blood_color = "#FF5AFF"
+	blood_color = BLOOD_COLOR_ABDUCTOR
 	female_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	female_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg') //Abductors always scream like guys

@@ -8,6 +8,7 @@
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
 	antag_menu_name = "Ксеноморф"
+	has_skill_bonus = FALSE
 	var/datum/team/xenomorph/xenomorph_team
 	var/role_text
 

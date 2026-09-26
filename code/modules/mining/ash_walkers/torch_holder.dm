@@ -14,7 +14,7 @@
 	metal_sheets_refunded = 0
 
 /obj/item/mounted/frame/torch_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крепление для факела",
 		GENITIVE = "крепления для факела",
 		DATIVE = "креплению для факела",
@@ -67,7 +67,7 @@
 	var/timer = null
 
 /obj/structure/torch_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крепление для факела",
 		GENITIVE = "крепления для факела",
 		DATIVE = "креплению для факела",
@@ -206,7 +206,7 @@
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
 				if(G.max_heat_protection_temperature)
-					prot = (G.max_heat_protection_temperature > torch.get_heat())
+					prot = (G.max_heat_protection_temperature > torch.get_temperature())
 		else
 			prot = 1
 
@@ -256,7 +256,7 @@
 	ancient = TRUE
 
 /obj/structure/torch_holder/mapping/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древнее крепление для факела",
 		GENITIVE = "древнего крепления для факела",
 		DATIVE = "древнему креплению для факела",
@@ -270,8 +270,8 @@
 	fuel = INFINITY
 
 /obj/structure/torch_holder/built/Initialize(mapload)
+	. = ..()
 	status = TORCH_EMPTY
-	..()
 
 /obj/structure/torch_holder/extinguish_light(force = FALSE)
 	if(force)

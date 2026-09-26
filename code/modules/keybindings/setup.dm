@@ -15,22 +15,15 @@
 	set waitfor = FALSE
 
 	//Reset the buffer
-	client_reset_held_keys()
+	reset_held_keys()
 
 	erase_all_macros()
 
-	var/list/macro_sets = SSinput.macro_set
-	for(var/i in 1 to length(macro_sets))
-		var/setname = macro_sets[i]
-		if(setname != "default")
-			winclone(src, "default", setname)
-		var/list/macro_set = macro_sets[setname]
-		for(var/k in 1 to length(macro_set))
-			var/key = macro_set[k]
-			var/command = macro_set[key]
-			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
-
-	winset(src, null, "input.border=line") //screw you, we start in hotkey mode now
+	var/list/macro_set = SSinput.macro_set
+	for(var/k in 1 to length(macro_set))
+		var/key = macro_set[k]
+		var/command = macro_set[key]
+		winset(src, "default-[key]", "parent=default;name=[key];command=[command]")
 
 	calculate_move_dir()
 
@@ -45,13 +38,13 @@
 	winset(src, null, erase_output)
 
 /// Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
-/client/proc/client_reset_held_keys()
+/client/proc/reset_held_keys()
 	for(var/key in keys_held)
-		KeyUp(key)
+		keyUp(key)
 
 	//In case one got stuck and the previous loop didn't clean it, somehow.
 	for(var/key in key_combos_held)
-		KeyUp(key_combos_held[key])
+		keyUp(key_combos_held[key])
 
 /client/proc/update_active_keybindings()
 	active_keybindings = list()

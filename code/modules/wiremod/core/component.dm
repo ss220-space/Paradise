@@ -107,7 +107,7 @@
 	return ..()
 
 /obj/item/circuit_component/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "компонент \"[display_name]\"" ,
 			GENITIVE = "компонента \"[display_name]\"",
 			DATIVE = "компоненту \"[display_name]\"",

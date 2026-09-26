@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "req_comp_off"
 	max_integrity = 300
-	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, FIRE = 90, ACID = 90)
 	var/department = UNKNOWN_STATUS_RUS //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -89,17 +89,24 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/power_change(forced = FALSE)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
+
+/obj/machinery/requests_console/update_appearance(updates=ALL)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light(0)
+		return
+	set_light(1.5, 0.7, "#34D352")//green light
 
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(stat & NOPOWER)
 		return
 
-	. += "req_comp[newmessagepriority]"
-	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
+	var/screen_state = "req_comp[newmessagepriority]"
+	. += mutable_appearance(icon, screen_state)
+	. += emissive_appearance(icon, screen_state, src, alpha = src.alpha)
 
 /obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -219,7 +226,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.update_icon(UPDATE_OVERLAYS)
+						Console.update_appearance()
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -252,7 +259,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		return login_console(screen, I, src)
 
@@ -316,7 +323,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)

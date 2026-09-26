@@ -10,7 +10,7 @@
 	base_pixel_x = -16
 
 /obj/effect/temp_visual/mook_dust/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пыль",
 		GENITIVE = "пыли",
 		DATIVE = "пыли",

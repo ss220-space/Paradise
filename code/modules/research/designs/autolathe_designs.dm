@@ -6,7 +6,7 @@
 	id = "bucket"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/reagent_containers/glass/bucket
+	build_path = /obj/item/reagent_containers/cup/bucket
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
 /datum/design/crowbar
@@ -217,7 +217,7 @@
 	id = "pet_bowl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/glass/pet_bowl
+	build_path = /obj/item/reagent_containers/cup/pet_bowl
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
 /datum/design/metal
@@ -299,21 +299,35 @@
 	id = "drinking_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass
+	build_path = /obj/item/reagent_containers/cup/glass/drinkingglass
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/shot_glass
 	id = "shot_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 100)
-	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
+	build_path = /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/shaker
 	id = "shaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1500)
-	build_path = /obj/item/reagent_containers/food/drinks/shaker
+	build_path = /obj/item/reagent_containers/cup/glass/shaker
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
+/datum/design/coffeepot
+	id = "coffeepot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+	build_path = /obj/item/reagent_containers/cup/coffeepot
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
+/datum/design/syrup_bottle
+	id = "syrup_bottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/cup/bottle/syrup_bottle
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/cultivator
@@ -355,21 +369,21 @@
 	id = "beaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/glass/beaker
+	build_path = /obj/item/reagent_containers/cup/beaker
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/large_beaker
 	id = "large_beaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 2500)
-	build_path = /obj/item/reagent_containers/glass/beaker/large
+	build_path = /obj/item/reagent_containers/cup/beaker/large
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/vial
 	id = "vial"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 250)
-	build_path = /obj/item/reagent_containers/glass/beaker/vial
+	build_path = /obj/item/reagent_containers/cup/beaker/vial
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/vial_storage_box
@@ -719,15 +733,8 @@
 	id = "9mmTEbox"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
-	build_path = /obj/item/ammo_box/c9mmte
+	build_path = /obj/item/ammo_box/dot45NR
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
-
-/datum/design/enforcer/disable
-	id = "enforcer_disable"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 25000)
-	build_path = /obj/item/ammo_box/enforcer/disabler
-	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/spectermag_disabler
 	id = "spectermag"
@@ -818,7 +825,7 @@
 	id = "c10mm"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 45500)
-	build_path = /obj/item/ammo_box/c10mm
+	build_path = /obj/item/ammo_box/m10mm
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/c45
@@ -905,6 +912,19 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
+/datum/design/toner
+	id = "toner"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.1, MAT_GLASS = SMALL_MATERIAL_AMOUNT * 0.1)
+	build_path = /obj/item/toner
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/toner/large
+	id = "toner_large"
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT * 0.5)
+	build_path = /obj/item/toner/large
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
 /datum/design/vendor
 	id = "vendor"
 	build_type = AUTOLATHE
@@ -951,6 +971,46 @@
 /datum/design/cap_ammo
 	id = "cap_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100)
+	materials = list(MAT_METAL = 600)
 	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+//MARK: unlockable ammo
+/datum/design/sfg9mm
+	id = "sfg_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sfg9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/smgm9mm
+	id = "saber_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/ak814_mag
+	id = "ak814_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ak814/fusty/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/aksu_ammo_box
+	id = "aksu_ammo_box"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/a545x39/fusty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/laser_carbine_mag
+	id = "lk_mag_empty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)

@@ -1,8 +1,11 @@
-/datum/action/innate/alien_nightvision_toggle
-	name = "Переключить ночное зрение"
-	button_icon_state = "meson"
+/datum/action/innate/alien
+	background_icon_state = "bg_alien"
 
-/datum/action/innate/alien_nightvision_toggle/Activate()
+/datum/action/innate/alien/thermal_toogle
+	name = "Переключить термальное зрение"
+	button_icon_state = "thermal"
+
+/datum/action/innate/alien/thermal_toogle/Activate()
 	var/mob/living/carbon/alien/host = owner
 
 	if(!IsAvailable())
@@ -12,6 +15,7 @@
 		host.nightvision = 8
 		host.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		host.nightvision_enabled = TRUE
+		host.balloon_alert(host, "термальное")
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
 		host.update_sight()
 		return
@@ -20,6 +24,7 @@
 		host.nightvision = initial(host.nightvision)
 		host.lighting_alpha = initial(host.lighting_alpha)
 		host.nightvision_enabled = FALSE
+		host.balloon_alert(host, "обычное")
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 		host.update_sight()
 		return
@@ -34,20 +39,20 @@
 								'sound/creatures/alien/xeno_resin_build2.ogg', \
 								'sound/creatures/alien/xeno_resin_build3.ogg'), 30)
 
+/*******************
 //Small sprites
-/datum/action/innate/small_sprite_alien
+********************/
+
+/datum/action/innate/alien/sprite_toggle
 	name = "Переключить спрайт"
 	desc = "Остальные продолжат видеть вас огромным."
-	button_icon_state = "mech_cycle_equip_off"
+	button_icon_state = "alien_evolve_larva"
 	check_flags = AB_CHECK_CONSCIOUS
 	var/small = FALSE
 	var/small_icon = 'icons/mob/alien.dmi'
 	var/small_icon_state = "alienq_running"
 
-/datum/action/innate/small_sprite_alien/praetorian
-	small_icon_state = "aliens_running"
-
-/datum/action/innate/small_sprite_alien/Trigger(mob/clicker, trigger_flags)
+/datum/action/innate/alien/sprite_toggle/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -62,4 +67,32 @@
 	else
 		owner.remove_alt_appearance("smallsprite")
 		small = FALSE
+
+/datum/action/innate/alien/sprite_toggle/praetorian
+	small_icon_state = "aliens_running"
+
+/*******************
+//Leap toggle
+********************/
+
+/datum/action/innate/alien/leap_toggle
+	name = "Переключить прыжок"
+	button_icon_state = "leap_off"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/mob/living/carbon/alien/humanoid/hunter/alien_hunter
+
+/datum/action/innate/alien/leap_toggle/UpdateButtonIcon()
+	. = ..()
+	alien_hunter = owner
+	button_icon_state = alien_hunter.leap_on_click ? initial(button_icon_state) : "leap_on"
+
+/datum/action/innate/alien/leap_toggle/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+
+	if(!isalienhunter(owner))
+		return
+
+	UpdateButtonIcon()
+	alien_hunter = owner
+	alien_hunter.toggle_leap()
 

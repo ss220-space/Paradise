@@ -24,6 +24,14 @@
 	container_type = OPENCONTAINER
 	create_reagents(15) //This is mostly used in the case of a BCI still having reagents in it when the component is removed.
 
+/obj/item/circuit_component/reagent_injector/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	inject = null
+	transfer_amounts = null
+	injected = null
+	. = ..()
+
 /obj/item/circuit_component/reagent_injector/populate_ports()
 	. = ..()
 	inject = add_input_port("Вызов", PORT_TYPE_SIGNAL, trigger = PROC_REF(trigger_inject))

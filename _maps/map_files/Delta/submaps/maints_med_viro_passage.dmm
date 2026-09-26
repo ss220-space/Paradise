@@ -123,7 +123,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -143,7 +145,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -243,7 +247,9 @@
 /turf/simulated/wall,
 /area/template_noop)
 "Ro" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -268,7 +274,9 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "WF" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,

@@ -49,7 +49,7 @@
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/feral_cats/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната с дикими кошками",
 		GENITIVE = "гранаты с дикими кошками",
 		DATIVE = "гранате с дикими кошками",

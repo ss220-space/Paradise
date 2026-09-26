@@ -16,7 +16,7 @@
 	return 0
 
 /datum/ai_law/sixsixsix/get_index()
-	return	666
+	return 666
 
 /datum/ai_laws
 	var/name = "Unknown Laws"
@@ -116,7 +116,7 @@
 		laws.set_zeroth_law(zeroth_law.law, zeroth_law_borg ? zeroth_law_borg.law : null)
 
 /****************
-*	Add Laws	*
+* Add Laws *
 ****************/
 /datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
 	if(!law)
@@ -199,7 +199,7 @@
 	sorted_laws.Cut()
 
 /****************
-*	Remove Laws	*
+* Remove Laws *
 *****************/
 /datum/ai_laws/proc/delete_law(datum/ai_law/law)
 	if(istype(law))
@@ -235,7 +235,7 @@
 	sorted_laws.Cut()
 
 /****************
-*	Clear Laws	*
+* Clear Laws *
 ****************/
 /datum/ai_laws/proc/clear_zeroth_laws()
 	zeroth_law = null
@@ -279,10 +279,10 @@
 			. += "[law.get_index()]. [law.law]"
 
 /********************
-*	Stating Laws	*
+* Stating Laws *
 ********************/
 /********
-*	Get	*
+* Get *
 ********/
 /datum/ai_laws/proc/get_state_law(datum/ai_law/law)
 	return law.get_state_law(src)
@@ -313,7 +313,7 @@
 	return FALSE
 
 /********
-*	Set	*
+* Set *
 ********/
 /datum/ai_laws/proc/set_state_law(datum/ai_law/law, state)
 	law.set_state_law(src, state)

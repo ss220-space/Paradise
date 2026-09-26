@@ -6,7 +6,7 @@
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDENAME
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
@@ -37,7 +37,7 @@
 	item_state = "capspacesuit"
 	resistance_flags = ACID_PROOF
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
-	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
@@ -56,7 +56,7 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	vision_flags = SEE_MOBS
@@ -72,7 +72,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
@@ -93,7 +93,7 @@
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 50, BIO = 90, FIRE = 100, ACID = 100)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -105,9 +105,9 @@
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
-	desc = "An armored beret commonly used by special operations officers."
+	desc = "Бронированный берет, обычно используемый офицерами подразделений специального назначения \"Нанотрейзен\"."
 	icon_state = "beret_officer"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	flags_inv = NONE
 	flags_cover = NONE
 	sprite_sheets = list(
@@ -118,12 +118,32 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-/obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
-	name = "Офицерская фуражка Верховного Главнокомандующего"
-	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего Верховного Главнокомандующего Флота Nanotrasen. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
+/obj/item/clothing/head/helmet/space/deathsquad/beret/get_ru_names()
+	return alist(
+		NOMINATIVE = "берет офицера СО \"Нанотрейзен\"",
+		GENITIVE = "берета офицера СО \"Нанотрейзен\"",
+		DATIVE = "берету офицера СО \"Нанотрейзен\"",
+		ACCUSATIVE = "берет офицера СО \"Нанотрейзен\"",
+		INSTRUMENTAL = "беретом офицера СО \"Нанотрейзен\"",
+		PREPOSITIONAL = "берете офицера СО \"Нанотрейзен\"",
+)
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/captain
+	name = "Nanotrasen Fleet Captain's Cap"
+	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего капитана флота \"Нанотрейзен\" в секторе Эпсилон Лукусты. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
 	icon_state = "ntsc_cap"
 	item_state = "ntsc_cap"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/captain/get_ru_names()
+	return alist(
+		NOMINATIVE = "фуражка капитана флота \"Нанотрейзен\"",
+		GENITIVE = "фуражки капитана флота \"Нанотрейзен\"",
+		DATIVE = "фуражке капитана флота \"Нанотрейзен\"",
+		ACCUSATIVE = "фуражку капитана флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "фуражкой капитана флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "фуражке капитана флота \"Нанотрейзен\"",
+)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "Trans-Solar Federation commander's beret"
@@ -132,29 +152,76 @@
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
-	desc = "An armored jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
+	desc = "Высокотехнологичная куртка с высокими защитными свойствами, используются в основном офицерами специальных операций \"Нанотрейзен\"."
+	icon_state = "bladerunner_coat"
+	item_state = "bladerunner_coat"
 	blood_overlay_type = "coat"
 	flags_inv = NONE
 	slowdown = 0
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
 
-/obj/item/clothing/suit/space/deathsquad/officer/supreme
-	name = "Форма Верховного Главнокомандующего"
-	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего Верховного Главнокомандующего Флота Nanotrasen. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
+/obj/item/clothing/suit/space/deathsquad/officer/get_ru_names()
+	return alist(
+		NOMINATIVE = "куртка офицера СО \"Нанотрейзен\"",
+		GENITIVE = "куртки офицера СО \"Нанотрейзен\"",
+		DATIVE = "куртке офицера СО \"Нанотрейзен\"",
+		ACCUSATIVE = "куртку офицера СО \"Нанотрейзен\"",
+		INSTRUMENTAL = "курткой офицера СО \"Нанотрейзен\"",
+		PREPOSITIONAL = "куртке офицера СО \"Нанотрейзен\"",
+	)
+
+/obj/item/clothing/suit/space/deathsquad/officer/centcom
+	name = "CCO Jacket"
+	desc = "Куртка из дорогостоящих материалов с золотой отделкой."
+	icon_state = "dress_capjacket_black_open"
+	item_state = "dress_capjacket_black_open"
+	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
+
+/obj/item/clothing/suit/space/deathsquad/officer/centcom/get_ru_names()
+	return alist(
+		NOMINATIVE = "куртка офицера ЦК \"Нанотрейзен\"",
+		GENITIVE = "куртки офицера ЦК \"Нанотрейзен\"",
+		DATIVE = "куртке офицера ЦК \"Нанотрейзен\"",
+		ACCUSATIVE = "куртку офицера ЦК \"Нанотрейзен\"",
+		INSTRUMENTAL = "курткой офицера ЦК \"Нанотрейзен\"",
+		PREPOSITIONAL = "куртке офицера ЦК \"Нанотрейзен\"",
+)
+
+/obj/item/clothing/suit/space/deathsquad/officer/captain
+	name = "Nanotreisen Fleet Captain's Cloak"
+	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего капитана флота \"Нанотрейзен\" в секторе Эпсилон Лукусты. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/suit/space/deathsquad/officer/captain/get_ru_names()
+	return alist(
+		NOMINATIVE = "плащ капитана флота \"Нанотрейзен\"",
+		GENITIVE = "плаща капитана флота \"Нанотрейзен\"",
+		DATIVE = "плащу капитана флота \"Нанотрейзен\"",
+		ACCUSATIVE = "плащ капитана флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "плащом капитана флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "плаще капитана флота \"Нанотрейзен\"",
+)
 
 /obj/item/clothing/suit/space/deathsquad/officer/field
-	name = "Полевая форма Офицера Флота Nanotrasen"
+	name = "Nanotrasen Fleet Officer's Field Cloak"
 	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
+
+/obj/item/clothing/suit/space/deathsquad/officer/field/get_ru_names()
+	return alist(
+		NOMINATIVE = "полевая форма офицера флота \"Нанотрейзен\"",
+		GENITIVE = "полевой формы офицера флота \"Нанотрейзен\"",
+		DATIVE = "полевой форме офицера флота \"Нанотрейзен\"",
+		ACCUSATIVE = "полевую форму офицера флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "полевой формой офицера флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "полевой форме офицера флота \"Нанотрейзен\"",
+	)
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "Trans-Solar Federation commander's jacket"
@@ -186,7 +253,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
 	species_restricted = null
@@ -207,7 +274,7 @@
 	icon_state = "santa"
 	item_state = "santa"
 	slowdown = 0
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 	sprite_sheets = list(
@@ -226,8 +293,8 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
-	clothing_flags = STOPSPRESSUREDMAGE
+	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
@@ -249,7 +316,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -269,7 +336,7 @@
 	desc = "A brand new paramedic EVA helmet. It seems to mold to your head shape. Used for retrieving bodies in space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, fire = 50, acid = 65)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
@@ -290,7 +357,7 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, fire = 50, acid = 65)
 	slowdown = 0.5
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
@@ -310,7 +377,7 @@
 	name = "EVA suit"
 	icon_state = "spacenew"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, fire = 50, acid = 65)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
@@ -327,7 +394,7 @@
 	name = "EVA helmet"
 	icon_state = "spacenew"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_NONE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
@@ -391,7 +458,7 @@
 	name = "pirate EVA suit"
 	icon_state = "pirate_armor"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, fire = 50, acid = 65)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -408,7 +475,7 @@
 	name = "pirate EVA helmet"
 	icon_state = "pirate_armor"
 	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -426,10 +493,10 @@
 	name = "pirate leader EVA suit"
 	icon_state = "leader_armor"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid. This one has a red markings."
-	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, fire = 50, acid = 65)
 
 /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	name = "pirate leader EVA helmet"
 	icon_state = "leader_armor"
 	desc = "A lightweight pirate-themed space helmet with red skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, fire = 50, acid = 65)

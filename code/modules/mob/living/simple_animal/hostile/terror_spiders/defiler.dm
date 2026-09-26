@@ -26,15 +26,15 @@
 	web_type = /obj/structure/spider/terrorweb/white
 	delay_web = 10
 	special_abillity = list(
-		/obj/effect/proc_holder/spell/terror_smoke,
-		/obj/effect/proc_holder/spell/terror_parasmoke,
-		/obj/effect/proc_holder/spell/aoe/terror_shriek,
+		/datum/action/cooldown/spell/smoke/terror,
+		/datum/action/cooldown/spell/terror_parasmoke,
+		/datum/action/cooldown/spell/aoe/terror_shriek,
 	)
 	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель — атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 	datum_type = /datum/antagonist/terror_spider/main_spider/defiler
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Осквернитель Ужаса",
 		GENITIVE = "Осквернителя Ужаса",
 		DATIVE = "Осквернителю Ужаса",
@@ -89,7 +89,7 @@
 	desc = "Эта паутина покрыта сотнями крошечных кусающих пауков и их яицами."
 
 /obj/structure/spider/terrorweb/white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зараженная паутина",
 		GENITIVE = "зараженной паутины",
 		DATIVE = "зараженной паутине",

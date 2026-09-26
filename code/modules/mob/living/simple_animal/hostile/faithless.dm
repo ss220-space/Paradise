@@ -28,7 +28,7 @@
 	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/faithless/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "неверующий",
 		GENITIVE = "неверующего",
 		DATIVE = "неверующему",

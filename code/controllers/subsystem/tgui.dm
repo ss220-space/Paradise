@@ -10,11 +10,9 @@
 SUBSYSTEM_DEF(tgui)
 	name = "TGUI"
 	wait = 9
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	priority = FIRE_PRIORITY_TGUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "All TGUIs will no longer process. Shuttle call recommended."
-	ss_id = "tgui"
 
 	/// A list of UIs scheduled to process
 	var/list/current_run = list()
@@ -25,6 +23,17 @@ SUBSYSTEM_DEF(tgui)
 
 /datum/controller/subsystem/tgui/PreInit()
 	basehtml = file2text('tgui/public/tgui.html')
+	// Inject inline helper functions
+	var/helpers = file2text('tgui/public/helpers.min.js')
+	helpers = "<script type='text/javascript'>\n[helpers]\n</script>"
+	basehtml = replacetextEx(basehtml, "<!-- tgui:helpers -->", helpers)
+
+	// Inject inline ntos-error styles
+	var/ntos_error = file2text('tgui/public/ntos-error.min.css')
+	ntos_error = "<style type='text/css'>\n[ntos_error]\n</style>"
+	basehtml = replacetextEx(basehtml, "<!-- tgui:ntos-error -->", ntos_error)
+
+	basehtml = replacetextEx(basehtml, "<!-- tgui:nt-copyright -->", "Nanotrasen (c) 2525-[CURRENT_STATION_YEAR]")
 
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
@@ -287,9 +296,9 @@ SUBSYSTEM_DEF(tgui)
  * required ui datum/tgui The UI to be added.
  */
 /datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
+	ui.user?.tgui_open_uis |= ui
 	LAZYOR(ui.src_object.open_uis, ui)
 	all_uis |= ui
-
 /**
  * private
  *
@@ -338,7 +347,7 @@ SUBSYSTEM_DEF(tgui)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE
-	if(isnull(target.tgui_open_uis) || !istype(target.tgui_open_uis, /list))
+	if(isnull(target.tgui_open_uis) || !islist(target.tgui_open_uis))
 		target.tgui_open_uis = list()
 	// Transfer all the UIs.
 	for(var/datum/tgui/ui in source.tgui_open_uis)
@@ -357,13 +366,34 @@ SUBSYSTEM_DEF(tgui)
 		return
 
 	if(CONFIG_GET(string/asset_transport) == ASSET_TRANSPORT_WEBROOT)
+		SSassets.apply_configuration()
 		var/datum/asset_transport/webroot/webroot = SSassets.transport
 
 		var/datum/asset_cache_item/item = webroot.register_asset("iframe.html", file("tgui/public/iframe.html"))
-		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", "[CONFIG_GET(string/asset_cdn_url)][webroot.get_asset_suffex(item)]")
 		return
 
 	if(!storage_iframe)
 		return
 
 	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)
+
+/**
+ * public
+ *
+ * Resets position of all UIs to 0, 0.
+ *
+ * required user mob The mob who opened/is using the UI.
+ * optional src_object datum If provided, only close UIs belonging this src_object.
+ *
+ * return int The number of UIs reset.
+ */
+/datum/controller/subsystem/tgui/proc/reset_ui_position(mob/user, datum/src_object)
+	var/count = 0
+	if(length(user?.tgui_open_uis) == 0)
+		return count
+	for(var/datum/tgui/ui in user.tgui_open_uis)
+		if(isnull(src_object) || ui.src_object == src_object)
+			ui.reset_ui_position()
+			count++
+	return count

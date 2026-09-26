@@ -27,7 +27,7 @@
 	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/liver/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень таярана",
 		GENITIVE = "печени таярана",
 		DATIVE = "печени таярана",
@@ -47,7 +47,7 @@
 	see_in_dark = 8
 
 /obj/item/organ/internal/eyes/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза таярана",
 		GENITIVE = "глаз таярана",
 		DATIVE = "глазам таярана",
@@ -62,7 +62,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали таярану."
 
 /obj/item/organ/internal/ears/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши таярана",
 		GENITIVE = "ушей таярана",
 		DATIVE = "ушам таярана",
@@ -79,7 +79,7 @@
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/eyes/tajaran/farwa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза фарвы",
 		GENITIVE = "глаз фарвы",
 		DATIVE = "глазам фарвы",
@@ -97,7 +97,7 @@
 	item_base = "tajaran_heart"
 
 /obj/item/organ/internal/heart/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце таярана",
 		GENITIVE = "сердца таярана",
 		DATIVE = "сердцу таярана",
@@ -114,7 +114,7 @@
 	mmi_icon = 'icons/obj/species_organs/tajaran.dmi'
 
 /obj/item/organ/internal/brain/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг таярана",
 		GENITIVE = "мозга таярана",
 		DATIVE = "мозгу таярана",
@@ -131,7 +131,7 @@
 	item_state = "tajaran_lungs"
 
 /obj/item/organ/internal/lungs/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие таярана",
 		GENITIVE = "лёгких таярана",
 		DATIVE = "лёгким таярана",
@@ -148,7 +148,7 @@
 	item_state = "tajaran_kidneys"
 
 /obj/item/organ/internal/kidneys/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки таярана",
 		GENITIVE = "почек таярана",
 		DATIVE = "почкам таярана",
@@ -165,7 +165,7 @@
 	max_damage = 20
 
 /obj/item/organ/external/tail/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост таярана",
 		GENITIVE = "хвоста таярана",
 		DATIVE = "хвосту таярана",

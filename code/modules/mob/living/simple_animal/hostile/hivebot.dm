@@ -1,5 +1,3 @@
-/obj/projectile/hivebotbullet
-
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
 	desc = "A small robot."
@@ -14,7 +12,7 @@
 	attacktext = "рвёт"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/projectile/hivebotbullet
+	projectiletype = /obj/projectile
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

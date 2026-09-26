@@ -32,7 +32,7 @@
 	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "златожор",
 		GENITIVE = "златожора",
 		DATIVE = "златожору",
@@ -85,7 +85,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
-	visible_message(span_danger("[P.name] отскакивает от тучного брюха [declent_ru(GENITIVE)]"), projectile_message = TRUE)
+	visible_message(span_danger("[P.name] отскакивает от тучного брюха [declent_ru(GENITIVE)]"))
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(
 	amount = 0,

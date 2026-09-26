@@ -18,7 +18,7 @@
 		'sound/ambience/spooky/haunting_ambience.ogg',
 		'sound/ambience/spooky/suspenseful_ambience.ogg',
 		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
-		'sound/ambience/apathy.ogg',
+		'sound/ambience/spooky/apathy.ogg',
 	)
 
 /area/vision_change_area/awaymission/evil_santa/spawn_s

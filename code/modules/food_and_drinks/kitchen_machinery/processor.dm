@@ -15,7 +15,7 @@
 	var/rating_amount = 0
 
 /obj/machinery/processor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кухонный комбайн",
 		GENITIVE = "кухонного комбайна",
 		DATIVE = "кухонному комбайну",
@@ -148,7 +148,7 @@
 			span_notice("Вы слышите странные звуки...")
 		)
 		return
-	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
+	var/obj/item/reagent_containers/cup/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
 	B.holder = bucket_of_blood
 	B.volume = 70

@@ -10,11 +10,11 @@
 	icon_state = "icecream_vat"
 	max_integrity = 300
 	idle_power_usage = 20
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/useramount = 15	//Last used amount
 
 /obj/machinery/icemachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Крем-Мастер Делюкс",
 		GENITIVE = "Крем-Мастер Делюкс",
 		DATIVE = "Крем-Мастер Делюкс",
@@ -51,7 +51,7 @@
 
 	data["beakerContents"] = list()
 	if(beaker)
-		var/obj/item/reagent_containers/glass/A = beaker
+		var/obj/item/reagent_containers/cup/A = beaker
 		var/datum/reagents/R = A.reagents
 		for(var/datum/reagent/G in R.reagent_list)
 			data["beakerContents"] += list(list(
@@ -89,7 +89,7 @@
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(id))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				var/datum/reagents/R = A.reagents
 				R.trans_id_to(src, id, amount)
 				. = TRUE
@@ -98,7 +98,7 @@
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
 			if(beaker && validexchange(id))
-				var/obj/item/reagent_containers/glass/A = beaker
+				var/obj/item/reagent_containers/cup/A = beaker
 				reagents.trans_id_to(A, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
@@ -144,7 +144,7 @@
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
 			C.name = "мороженное в стаканчике [name]"
-			C.ru_names = list(
+			C.ru_names = alist(
 				NOMINATIVE = "мороженое в стаканчике \"[name]\"",
 				GENITIVE = "мороженого в стаканчике \"[name]\"",
 				DATIVE = "мороженому в стаканчике \"[name]\"",
@@ -165,7 +165,7 @@
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
 			C.name = "мороженное в рожке [name]"
-			C.ru_names = list(
+			C.ru_names = alist(
 				NOMINATIVE = "мороженое в рожке \"[name]\"",
 				GENITIVE = "мороженого в рожке \"[name]\"",
 				DATIVE = "мороженому в рожке \"[name]\"",
@@ -185,7 +185,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "внутри уже есть ёмкость!")

@@ -1,24 +1,41 @@
-/mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+// This makes sure that mobs with clients/keys are not just deleted from the game.
+/mob/Destroy()
 	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	if(s_active)
+		s_active.close(src)
 	for(var/mob/dead/observer/observe in orbiters)
 		if(!istype(observe))
 			continue
 		observe.stop_orbit()
 		observe.reset_perspective(null)
+
+	for(var/mob/dead/observer/ghost as anything in inventory_observers)
+		ghost.handle_when_autoobserve_move()
+
 	QDEL_NULL(hud_used)
+	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+	for(var/datum/action/action in actions)
+		action.HideFrom(src)
+		action.clear_ref(src)
+	LAZYCLEARLIST(actions)
+
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
+
 	for(var/alert in alerts)
-		clear_alert(alert)
+		clear_alert(alert, TRUE)
+
 	if(client)
-		var/client/client_ = client
-		client_.movingmob = null
+		clear_client_in_contents()
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
@@ -30,6 +47,12 @@
 	if(mind?.current == src)
 		mind.current = null
 
+	LAZYCLEARLIST(screens)
+	clear_fullscreens()
+
+	key = null
+	ckey = null
+	tts_effect_override_source = null
 	return ..()
 
 /mob/Initialize(mapload)
@@ -124,28 +147,12 @@
 /**
  * Some kind of debug verb that gives atmosphere environment details
  */
-/mob/proc/Cell()
-	set category = ADMIN_CATEGORY_DEBUG
-	set hidden = TRUE
+GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 
 	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
 
-	if(!environment)
-		return
-
-	var/text = span_notice("Coordinates: [x],[y] \n")
-	text += span_danger("Temperature: [environment.temperature()] \n")
-	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
-	text += span_notice("Oxygen: [environment.oxygen()] \n")
-	text += span_notice("Plasma : [environment.toxins()] \n")
-	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
-	text += span_notice("N2O: [environment.sleeping_agent()] \n")
-	text += span_notice("Agent B: [environment.agent_b()] \n")
-	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
-	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
-
-	to_chat(usr, text)
+	to_chat(usr,"Coordinates: [x],[y] \n")
+	atmos_scan(usr, location, silent = TRUE)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 
@@ -165,7 +172,7 @@
 			type = alt_type
 			. = FALSE
 
-		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+		if(type & EMOTE_AUDIBLE && HAS_TRAIT(src, TRAIT_DEAF))	//Hearing related
 			if(!alt_msg)
 				return FALSE
 			msg = alt_msg
@@ -186,7 +193,7 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	if(!isturf(loc))
 		vision_distance = floor(vision_distance / 2)
 	. = ..()
@@ -207,7 +214,7 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	var/turf/turf = get_turf(src)
 	if(!turf)
 		return
@@ -228,9 +235,6 @@
 
 	for(var/mob/mob in hearers)
 		if(!mob.client)
-			continue
-
-		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
 			continue
 
 		//This entire if/else chain could be in two lines but isn't for readibilties sake.
@@ -351,7 +355,6 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -383,7 +386,8 @@
 		else
 			client.perspective = EYE_PERSPECTIVE
 			client.set_eye(loc)
-
+	/// Signal sent after the eye has been successfully updated, with the client existing.
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	return TRUE
 
 /mob/living/reset_perspective(atom/new_eye)
@@ -410,9 +414,6 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
-		if(!new_eye)
-			client.set_eye(src)
-			client.perspective = MOB_PERSPECTIVE
 
 /mob/proc/clear_client_in_contents()
 	if(!client?.movingmob)
@@ -420,31 +421,190 @@
 	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
 	client.movingmob = null
 
-//mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view())
-	set name = "Осмотреть"
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom)
+	VERB_ARG_TYPED(examinify, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_VIEW, /atom)
 	if(!client)
 		return
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), examinify))
 
-/mob/proc/run_examinate(atom/target)
-	// TODO: TG Double Examine
-	var/list/result = target.examine(src)
-	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
+/mob/proc/run_examinate(atom/examinify, force_examinate_more = FALSE)
+	if(QDELETED(examinify)) // since this can run async we might have had the atom get qdeleted already
+		return
 
-	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
 
-/mob/verb/mode()
-	set name = "Использовать объект"
-	set src = usr
+	var/turf/examine_turf = get_turf(examinify)
+	if(is_blind()) //blind people see things differently (through touch)
+		if(!blind_examine_check(examinify))
+			return
+	else if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
+		return
+
+	face_atom(examinify)
+	var/result_combined
+	if(client)
+		LAZYINITLIST(client.recent_examines)
+		var/ref_to_atom = examinify.UID()
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(force_examinate_more || (examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW)))
+			var/list/result = examinify.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>Вы внимательно осматриваете [examinify.declent_ru(ACCUSATIVE)], но не замечаете новых деталей...</i>")
+			result_combined = boxed_message(jointext(result, "<br>"))
+		else
+			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
+			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
+			handle_eye_contact(examinify)
+
+	if(!result_combined)
+		var/list/result = examinify.examine(src)
+		var/atom_title = examinify.examine_title(src, thats = TRUE)
+		examining(examinify, result)
+		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+		var/list/more_result = examinify.examine_more(src)
+		if(length(more_result))
+			result += span_notice("<i>Вы можете <a href='byond://?src=[UID()];run_examinate=[examinify.UID()]'>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
+		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : boxed_message(jointext(result, "<br>")))
+
+	to_chat(src, span_infoplain(result_combined))
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
+
+/// Handles adding examine messages for the target that are specific to this mob, e.g. a blood worm examining how much blood a living target has.
+/mob/proc/examining(atom/target, list/result)
+	SHOULD_NOT_SLEEP(TRUE)
+	return
+
+/mob/Topic(href, list/href_list)
+	. = ..()
+	if(.)
+		return
+	if(href_list["run_examinate"])
+		var/atom/examined_atom = locateUID(href_list["run_examinate"])
+		//run_examinate only early returns this check for turfs for some reason.
+		if(examined_atom in view(client ? client.view : world.view, src))
+			run_examinate(examined_atom, force_examinate_more = TRUE)
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
+
+/mob/living/blind_examine_check(atom/examined_thing)
+	//need to be next to something and awake
+	if(!Adjacent(examined_thing) || incapacitated())
+		to_chat(src, span_warning("Здесь что-то есть, но вы не можете это разглядеть!"))
+		return FALSE
+
+	//you can examine things you're holding directly, but you can't examine other things if your hands are full
+	/// the item in our active hand
+	var/obj/item/active_item = get_active_hand()
+	var/boosted = FALSE
+	if(active_item)
+		if(HAS_TRAIT(active_item, TRAIT_BLIND_TOOL)) //TODO: дать трейт трости, реворкнув её TG-лайк (сейчас трейт нигде не используется)
+			boosted = TRUE
+		else if(active_item != examined_thing)
+			examined_thing.balloon_alert(src, "освободите руки, чтобы осмотреть!")
+			return FALSE
+
+	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
+	/// our active hand, to check if it's disabled/detached
+	if(get_active_hand() || do_after_count() >= usable_hands)
+		examined_thing.balloon_alert(src, "нет свободных рук для осмотра!")
+		return FALSE
+
+	//you can only queue up one examine on something at a time
+	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
+		return FALSE
+
+	examined_thing.balloon_alert(src, "попытка нащупать объект...")
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] шар[PLUR_IT_YAT(src)]ся вокруг руками в поисках [examined_thing.declent_ru(GENITIVE)]."))
+
+	/// how long it takes for the blind person to find the thing they're examining
+	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
+	if(boosted)
+		examine_delay_length = 0.5 SECONDS
+	if(client?.recent_examines && client?.recent_examines[examined_thing.UID()]) //easier to find things we just touched
+		examine_delay_length = 0.33 SECONDS
+	else if(isobj(examined_thing))
+		examine_delay_length *= 1.5
+	else if(ismob(examined_thing) && examined_thing != src)
+		examine_delay_length *= 2
+
+	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
+		balloon_alert(src, "не удалось осмотреть!")
+		return FALSE
+
+	return TRUE
+
+
+/mob/proc/clear_from_recent_examines(ref_to_clear)
+	SIGNAL_HANDLER
+	if(!client)
+		return
+	LAZYREMOVE(client.recent_examines, ref_to_clear)
+
+/**
+ * handle_eye_contact() is called when we examine() something. If we examine an alive mob with a mind who has examined us in the last 2 seconds within 5 tiles, we make eye contact!
+ *
+ * Note that if either party has their face obscured, the other won't get the notice about the eye contact
+ * Also note that examine_more() doesn't proc this or extend the timer, just because it's simpler this way and doesn't lose much.
+ * The nice part about relying on examining is that we don't bother checking visibility, because we already know they were both visible to each other within the last second, and the one who triggers it is currently seeing them
+ */
+/mob/proc/handle_eye_contact(mob/living/examined_mob)
+	return
+
+/mob/living/handle_eye_contact(mob/living/examined_mob)
+	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client || is_blind())
+		return
+
+	var/imagined_eye_contact = FALSE
+	if(!LAZYACCESS(examined_mob.client?.recent_examines, src.UID()))
+		return
+
+	if(get_dist(src, examined_mob) > EYE_CONTACT_RANGE)
+		return
+
+	// check to see if their face is blocked or, if not, a signal blocks it
+	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
+		var/obj/item/clothing/eye_cover = examined_mob.get_item_by_slot(ITEM_SLOT_EYES)
+		if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
+
+	if(!(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT))
+		return
+
+	var/obj/item/clothing/eye_cover = get_item_by_slot(ITEM_SLOT_EYES)
+	if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
+		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
+
+/// Checks if we can make eye contact or someone can make eye contact with us
+/mob/living/proc/can_eye_contact()
+	return TRUE
+
+/mob/living/carbon/can_eye_contact()
+	return !(check_obscured_slots() & ITEM_SLOT_EYES)
+
+/mob/proc/mode()
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_mode)))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/execute_mode()
 
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
 		if(src == mecha.occupant)
-			mecha.selected?.self_occupant_attack()
+			var/list/modules = list()
+			for(var/key, module in mecha.selected_equipment_in_hands)
+				modules += module
+			var/obj/item/mecha_parts/mecha_equipment/selected = tgui_input_list(usr, "Выберите модуль", "Выбор модуля", modules)
+			if(!selected)
+				return
+			selected.self_occupant_attack()
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -478,17 +638,15 @@
 	canon_client = null
 	GLOB.left_player_list |= src
 
-/mob/verb/memory()
-	set name = "Заметки"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, memory, "Заметки", VERB_CATEGORY_IC)
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
-/mob/verb/add_memory(msg as message)
-	set name = "Добавить заметку"
-	set category = VERB_CATEGORY_IC
+
+GAME_VERB(/mob, add_memory, "Добавить заметку", VERB_CATEGORY_IC)
+	VERB_ARG(msg, VERB_ARG_TYPE_MESSAGE, VERB_ARG_SOURCE_INPUT)
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -518,7 +676,7 @@
 		memory()
 
 /mob/proc/update_flavor_text()
-	set src in usr
+
 	if(usr != src)
 		to_chat(usr, "No.")
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Описание внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
@@ -537,9 +695,7 @@
 		else
 			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
-/mob/verb/abandon_mob()
-	set name = "Возродиться"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/mob, abandon_mob, "Возродиться", VERB_CATEGORY_OOC)
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, span_warning("Respawning is disabled."))
@@ -554,7 +710,7 @@
 		return
 
 	var/deathtime = world.time - persistent_client.time_of_death
-	if(istype(src,/mob/dead/observer))
+	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
@@ -592,7 +748,7 @@
 		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -600,15 +756,14 @@
 		return
 
 	M.possess_by_player(key)
-	GLOB.respawnable_list += usr
+	usr.add_to_respawnable_list()
 	return
 
 /mob/proc/is_dead()
 	return stat == DEAD
 
-/mob/verb/cancel_camera()
-	set name = "Сбросить позицию камеры"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", VERB_CATEGORY_OOC)
+
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -635,17 +790,15 @@
 		popup.open(FALSE)
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
-	. = ..()
-	if(!. || usr != user || usr == src || over_object != usr || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return FALSE
+	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
-		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
-		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
-		return FALSE
+		to_chat(user, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
-		return FALSE
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+		return
 
 /**
  * Checks whether a mob can perform an action to interact with an object
@@ -688,7 +841,7 @@
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -713,41 +866,6 @@
 	SEND_SIGNAL(src, COMSIG_MOB_GET_STATUS_TAB_ITEMS, .)
 	return .
 
-// facing verbs
-/mob/proc/canface()
-	if(stat == DEAD)
-		return FALSE
-	if(anchored)
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
-		return FALSE
-	return TRUE
-
-/mob/proc/facedir(ndir)
-	if(!canface())
-		return FALSE
-	setDir(ndir)
-	client.move_delay += cached_multiplicative_slowdown
-	return TRUE
-
-/mob/verb/eastface()
-	set hidden = 1
-	return facedir(EAST)
-
-/mob/verb/westface()
-	set hidden = 1
-	return facedir(WEST)
-
-/mob/verb/northface()
-	set hidden = 1
-	return facedir(NORTH)
-
-/mob/verb/southface()
-	set hidden = 1
-	return facedir(SOUTH)
-
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
@@ -760,10 +878,7 @@
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/dead/observer/verb/respawn()
-	set name = "Играть за НИП"
-	set category = VERB_CATEGORY_GHOST
-
+GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEGORY_GHOST)
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
@@ -799,13 +914,13 @@
 		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
-	if(istype(picked_mob, /mob/living/simple_animal/borer))
+	if(isborer(picked_mob))
 		var/mob/living/simple_animal/borer/borer = picked_mob
 		borer.transfer_personality(usr.client)
 		return
 
 	to_chat(usr, span_notice(message))
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	picked_mob.possess_by_player(key)
 
 /mob/proc/become_mouse()
@@ -818,7 +933,7 @@
 	//find a viable mouse candidate
 	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
@@ -861,18 +976,16 @@
 				visible_message(span_warning("[src.name] наблевал[GEND_A_O_I(src)] на себя!"),span_warning("Вы наблевали на себя!"))
 			location.add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+/mob/proc/AddSpell(datum/action/cooldown/spell/spell)
 	if(!istype(spell))
 		return
 	LAZYADD(mob_spell_list, spell)
-	spell.action.allow_observer_click = TRUE
-	spell.action.Grant(src)
-	spell.on_spell_gain(src)
+	spell.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path)
+/mob/proc/RemoveSpell(datum/action/cooldown/spell/instance_or_path)
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
-	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in mob_spell_list)
 		if(spell.type == instance_or_path)
 			LAZYREMOVE(mob_spell_list, spell)
 			qdel(spell)
@@ -1012,36 +1125,6 @@
 
 	target += new_log
 
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
-
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
@@ -1100,6 +1183,7 @@
 	return FALSE
 
 /mob/proc/update_sight()
+	//SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -1111,6 +1195,9 @@
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
+
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
 
@@ -1120,6 +1207,7 @@
 		vision_type = new O
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type
@@ -1128,7 +1216,7 @@
 /mob/proc/sync_lighting_plane_alpha()
 	if(!hud_used)
 		return
-	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane as anything in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
 		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
@@ -1154,25 +1242,6 @@
 /mob/proc/set_nutrition(change, forced)
 	nutrition = max(0, change)
 
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	. = ..()
-	if(bloody_hands && clean_hands)
-		bloody_hands = 0
-		update_worn_gloves()
-	if(l_hand?.clean_blood() || r_hand?.clean_blood())
-		update_held_items()
-	if(back?.clean_blood())
-		update_worn_back()
-	if(clean_mask && wear_mask?.clean_blood())
-		update_worn_mask()
-	if(clean_feet)
-		feet_blood_color = null
-		qdel(feet_blood_DNA)
-		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_worn_shoes()
-	update_icons()	//apply the now updated overlays to the mob
-
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
@@ -1184,8 +1253,8 @@
 	usr = temp
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel,
-	/area/maintenance/chapel
+	/area/station/service/chapel,
+	/area/station/maintenance/chapel
 )))
 
 /mob/proc/holy_check()
@@ -1365,3 +1434,52 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+ */
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.get_lumcount() > light_amount)
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE
+
+/**
+ * Helpful for when a players uplink window gets glitched to above their screen.
+ * preventing them from moving the UPLINK window.
+ */
+GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_SPECIALVERBS)
+	SStgui.reset_ui_position(src)
+
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list |= src
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(remove_from_respawnable_list))
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_QDELETING)
+
+/mob/key_down(key, client/client, full_key)
+	..()
+	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)

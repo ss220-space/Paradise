@@ -15,8 +15,17 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
+	if(length(GLOB.newplayer_start))
+		forceMove(pick(GLOB.newplayer_start))
+	else
+		forceMove(locate(1,1,1))
 	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
+
+/mob/new_player/Destroy(force)
+	if(mind)
+		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+	return ..()
 
 /mob/new_player/proc/privacy_consent()
 	close_window(src, "playersetup")
@@ -71,6 +80,7 @@
 	if(href_list["ready"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -141,6 +151,7 @@
 	if(href_list["observe"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -179,8 +190,8 @@
 			observer.name = observer.real_name
 			observer.possess_by_player(key)
 			observer.persistent_client.time_of_death = world.time
-			QDEL_NULL(mind)
-			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if(CONFIG_GET(flag/respawn_observer))
+				observer.add_to_respawnable_list()			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 
@@ -191,6 +202,7 @@
 	if(href_list["late_join"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -278,7 +290,7 @@
 		return
 
 	if(href_list["focus"])
-		winset(client, "mapwindow.map", "focus=true")
+		winset(client, SKIN_MAPWINDOW_MAP, "focus=true")
 		return
 
 /mob/new_player/proc/IsJobAvailable(rank)
@@ -345,7 +357,7 @@
 /mob/new_player/proc/random_job()
 	var/jobs_available = list()
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && job.check_custom_requirements(client))
 			jobs_available += job.title
 	if(!length(jobs_available))
 		return FALSE
@@ -388,33 +400,39 @@
 		if(!rank)
 			var/msg = "Нет свободных ролей. Пожалуйста, попробуйте позже."
 			to_chat(src, msg)
-			alert(msg)
+			tgui_alert(usr, msg)
 			return FALSE
 
 	if(!IsJobAvailable(rank))
 		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
-		to_chat(src, msg)
-		alert(msg)
+		to_chat(src, span_warning(msg))
+		tgui_alert(usr, msg)
 		return FALSE
 
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		var/msg = "Должность [rank] недоступна в связи с инвалидностью персонажа. Пожалуйста, попробуйте другую."
-		to_chat(src, msg)
-		alert(msg)
+		to_chat(src, span_warning(msg))
+		tgui_alert(usr, msg)
 		return FALSE
 
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
 		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст — [get_age_limits(species, thisjob.min_age_type)]"
-		to_chat(src, msg)
-		alert(msg)
+		to_chat(src, span_warning(msg))
+		tgui_alert(usr, msg)
 		return FALSE
 
 	if(thisjob.species_in_blacklist(client))
 		var/msg = "Должность [rank] недоступна для данной расы. Пожалуйста, попробуйте другую."
-		to_chat(src, msg)
-		alert(msg)
+		to_chat(src, span_warning(msg))
+		tgui_alert(usr, msg)
+		return FALSE
+
+	if(!thisjob.check_custom_requirements(client))
+		var/msg = "Должность [rank] доступна только после получения достижения \"Опора проекта\". Пожалуйста, попробуйте другую."
+		to_chat(src, span_warning(msg))
+		tgui_alert(usr, msg)
 		return FALSE
 
 	SSjobs.AssignRole(src, rank, 1)
@@ -491,7 +509,7 @@
 	if(!IsAdminJob(rank))
 		GLOB.data_core.manifest_inject(character)
 		AnnounceArrival(character, rank, join_message)
-		AddEmploymentContract(character)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(add_employment_contract), character), 3 SECONDS)
 
 		if(GLOB.summon_guns_triggered)
 			give_guns(character)
@@ -535,12 +553,10 @@
 	message = replacetext(message,"$join_message",join_message)
 	return message
 
-/mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
-	spawn(30)
-		for(var/C in GLOB.employmentCabinets)
-			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(employmentCabinet.populated)
-				employmentCabinet.addFile(employee)
+/proc/add_employment_contract(mob/living/carbon/human/employee)
+	for(var/obj/structure/filingcabinet/employment/cabinet as anything in GLOB.employmentCabinets)
+		if(cabinet.populated)
+			cabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -572,34 +588,34 @@
 	dat += "<b>Уровень угрозы на станции: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
+		dat += "<span style='color: red;'><b>Экипаж объекта был эвакуирован.</b></span><br>"
 	else if((SSshuttle.emergency?.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
-		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
+		dat += "<span style='color: red;'>В настоящее время экипаж объекта проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<span style='color: lime;'>Станция отметила эти позиции как приоритетные: "
+		dat += "<span style='color: lime;'>Объект отметил эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
 			amt_count++
 			if(amt_count != amt)
-				dat += " [a.title], "
+				dat += " [get_job_title_ru(a.title)], "
 			else
-				dat += " [a.title]. </span><br>"
+				dat += " [get_job_title_ru(a.title)]. </span><br>"
 
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
-		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
-		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
-		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
-		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
-		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
-		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
-		)
+		STATION_DEPARTMENT_RU_COMMAND = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
+		STATION_DEPARTMENT_RU_ENGINEERING = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
+		STATION_DEPARTMENT_RU_SECURITY = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		STATION_DEPARTMENT_RU_OTHER = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
+		STATION_DEPARTMENT_RU_SILICON = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
+		STATION_DEPARTMENT_RU_SERVICE = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
+		STATION_DEPARTMENT_RU_MEDICAL = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
+		STATION_DEPARTMENT_RU_SCIENCE = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
+		STATION_DEPARTMENT_RU_SUPPLY = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
+	)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			num_jobs_available++
@@ -612,7 +628,7 @@
 				var/list/jobs = categorizedJobs[jobcat]["jobs"]
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
-					if(jobcat == "Command") // Put captain at top of command jobs
+					if(jobcat == STATION_DEPARTMENT_RU_COMMAND) // Put captain at top of command jobs
 						if(job.title == JOB_TITLE_CAPTAIN)
 							jobs.Insert(1, job)
 						else
@@ -623,7 +639,7 @@
 						else
 							jobs += job
 			if(!categorized)
-				categorizedJobs["Miscellaneous"]["jobs"] += job
+				categorizedJobs[STATION_DEPARTMENT_RU_OTHER]["jobs"] += job
 
 	if(num_jobs_available)
 		dat += "Выберите из следующих открытых позиций:<br><br>"
@@ -636,20 +652,20 @@
 			var/color = categorizedJobs[jobcat]["color"]
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-			if(jobcat == "Miscellaneous")
-				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
+			if(jobcat == STATION_DEPARTMENT_RU_OTHER)
+				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Случайно (из доступных)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</b></span></a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</b></span></a><br>"
 				else
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</a><br>"
 			dat += "</fieldset><br>"
 
 		dat += "</td></tr></table></center>"
 	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<br>Wait a few minutes, then try again.<br>Or, try observing the round.</center>"
+		dat += "<br><br><center>Открытые позиции отсутствуют.<br>Попробуйте снова через несколько минут.<br>Или зайдите за наблюдателя.</center>"
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
+	var/datum/browser/popup = new(src, "latechoices", "Выбор должности", 1250, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)
@@ -670,12 +686,13 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	client.prefs.copy_to(new_character)
 
@@ -708,14 +725,14 @@
 		chosen_species = GLOB.all_species[client.prefs.species]
 	if(!chosen_species)
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
+		stack_trace("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human.")
 		client.prefs.species = SPECIES_HUMAN
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = GLOB.all_languages[client.prefs.language]
 	if((!chosen_language && client.prefs.language != LANGUAGE_NONE) || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
+		stack_trace("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None.")
 		client.prefs.language = LANGUAGE_NONE
 		INVOKE_ASYNC(src, PROC_REF(save_character))
 
@@ -743,10 +760,6 @@
 
 /mob/new_player/is_ready()
 	return ready && ..()
-
-// No hearing announcements
-/mob/new_player/can_hear()
-	return FALSE
 
 /mob/new_player/mob_negates_gravity()
 	return TRUE //no need to calculate if they have gravity.

@@ -14,9 +14,9 @@
 /obj/item/gun/magic/wand/Initialize(mapload)
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
-			max_charges = CEILING(max_charges / 3, 1)
+			max_charges = ceil(max_charges / 3)
 		else
-			max_charges = CEILING(max_charges / 2, 1)
+			max_charges = ceil(max_charges / 2)
 	. = ..()
 
 /obj/item/gun/magic/wand/examine(mob/user)
@@ -35,14 +35,14 @@
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gun/magic/wand/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
 	if(target == user)
 		if(no_den_usage)
 			var/area/A = get_area(user)
-			if(istype(A, /area/wizard_station))
+			if(istype(A, /area/centcom/wizard_station))
 				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 				return
 			else
@@ -201,7 +201,7 @@
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!charges && !charging)
 		to_chat(usr, span_notice("[src] has started to regain its charge."))

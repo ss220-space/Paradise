@@ -7,5 +7,5 @@ updates:
     schedule:
       interval: daily
     labels:
-      - "🐙 GitHub"
+      - "GitHub"
     open-pull-requests-limit: 10

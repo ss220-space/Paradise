@@ -26,9 +26,7 @@
 /**
  * This proc is called whenever mob's client presses 'equip_held_object' hotkey
  */
-/mob/verb/quick_equip()
-	set name = "quick-equip"
-	set hidden = TRUE
+GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_quick_equip)))
 
@@ -205,6 +203,21 @@
 /mob/proc/equip_to_slot(obj/item/I, slot, initial)
 	return
 
+/// This proc is called after an item has been successfully handled and equipped to a slot.
+/mob/proc/has_equipped(obj/item/item, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	item.item_flags |= IN_INVENTORY
+	. = item.equipped(src, slot, initial)
+	if(.)
+		update_equipment_speed_mods()
+
+/// This proc is called after an item has been removed from a mob but before it has been officially deslotted.
+/mob/proc/has_unequipped(obj/item/item, silent = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	item.dropped(src, silent)
+	update_equipment_speed_mods()
+	return TRUE
+
 /**
  * Returns if a certain item can be equipped to a certain slot.
  * Always call [obj/item/mob_can_equip()] instead of this proc.
@@ -221,13 +234,6 @@
 	if(I == r_hand)
 		return r_hand
 	return null
-
-/mob/proc/is_in_hands_to_flag(obj/item/I)
-	if(I == l_hand)
-		return ITEM_SLOT_HAND_LEFT
-	if(I == r_hand)
-		return ITEM_SLOT_HAND_RIGHT
-	return NONE
 
 /**
  * Returns `TRUE` if mob's hands free
@@ -564,6 +570,7 @@
 		// For inventory observing
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen -= I
@@ -576,8 +583,8 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent, newloc)
 
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
-	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, src)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent, slot)
 	if(!not_handled)
 		update_equipment_speed_mods()
 	return TRUE
@@ -629,7 +636,7 @@
 
 //get_all_contents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
-	var/list/processing_list = get_equipped_items(TRUE, TRUE)
+	var/list/processing_list = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))

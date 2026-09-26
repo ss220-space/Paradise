@@ -7,8 +7,40 @@
 	permeability_coefficient = 0.5
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -19,11 +51,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат",
 		GENITIVE = "лабораторного халата",
 		DATIVE = "лабораторному халату",
@@ -32,6 +63,10 @@
 		PREPOSITIONAL = "лабораторном халате",
 	)
 
+/obj/item/clothing/suit/storage/labcoat/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/suit/storage/labcoat/cmo
 	name = "chief medical officer's labcoat"
 	desc = "Стерильный лабораторный халат. Окрашен в синие цвета."
@@ -39,7 +74,7 @@
 	item_state = "labcoat_cmo_open"
 
 /obj/item/clothing/suit/storage/labcoat/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат главного врача",
 		GENITIVE = "лабораторного халата главного врача",
 		DATIVE = "лабораторному халату главного врача",
@@ -55,7 +90,7 @@
 	item_state = "labcoat_green_open"
 
 /obj/item/clothing/suit/storage/labcoat/mad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат безумного учёного",
 		GENITIVE = "лабораторного халата безумного учёного",
 		DATIVE = "лабораторному халату безумного учёного",
@@ -71,7 +106,7 @@
 	item_state = "labcoat_gen_open"
 
 /obj/item/clothing/suit/storage/labcoat/genetics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат генетика",
 		GENITIVE = "лабораторного халата генетика",
 		DATIVE = "лабораторному халату генетика",
@@ -87,7 +122,7 @@
 	item_state = "labcoat_chem_open"
 
 /obj/item/clothing/suit/storage/labcoat/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат химика",
 		GENITIVE = "лабораторного халата химика",
 		DATIVE = "лабораторному халату химика",
@@ -102,7 +137,7 @@
 	icon_state = "labcoat_vir_open"
 
 /obj/item/clothing/suit/storage/labcoat/virologist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат вирусолога",
 		GENITIVE = "лабораторного халата вирусолога",
 		DATIVE = "лабораторному халату вирусолога",
@@ -118,7 +153,7 @@
 	item_state = "labcoat_tox_open"
 
 /obj/item/clothing/suit/storage/labcoat/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат учёного",
 		GENITIVE = "лабораторного халата учёного",
 		DATIVE = "лабораторному халату учёного",
@@ -134,7 +169,7 @@
 	item_state = "labcoat_mort_open"
 
 /obj/item/clothing/suit/storage/labcoat/mortician/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат патологоанатома",
 		GENITIVE = "лабораторного халата патологоанатома",
 		DATIVE = "лабораторному халату патологоанатома",
@@ -150,7 +185,7 @@
 	item_state = "labcoat_emt_open"
 
 /obj/item/clothing/suit/storage/labcoat/emt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат парамедика",
 		GENITIVE = "лабораторного халата парамедика",
 		DATIVE = "лабораторному халату парамедика",
@@ -166,7 +201,7 @@
 	item_state = "mining_labcoat_open"
 
 /obj/item/clothing/suit/storage/labcoat/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат шахтёрского врача",
 		GENITIVE = "лабораторного халата шахтёрского врача",
 		DATIVE = "лабораторному халату шахтёрского врача",

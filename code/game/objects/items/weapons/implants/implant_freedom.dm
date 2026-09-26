@@ -31,6 +31,8 @@
 				C_imp_in.forceMove(get_turf(container))
 				container.prisoner = null
 
+	. = ..()
+
 	if(!uses)
 		qdel(src)
 

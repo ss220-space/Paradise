@@ -17,7 +17,7 @@
 	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 
 /obj/machinery/cooker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кухонный аппарат",
 		GENITIVE = "кухонного аппарата",
 		DATIVE = "кухонному аппарату",
@@ -28,15 +28,13 @@
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
-	if(D.cooktype[thiscooktype])
-		return 1
-	return 0
+	return LAZYACCESS(D.cooktype, thiscooktype)
 
 // Sets the new snack's cooktype list to the same as the old one - no more cooking something in the same machine more than once!
 /obj/machinery/cooker/proc/setCooked(obj/item/reagent_containers/food/snacks/oldtypes, obj/item/reagent_containers/food/snacks/newtypes)
-	var/ct
-	for(ct in oldtypes.cooktype)
-		newtypes.cooktype[ct] = oldtypes.cooktype[ct]
+	var/list/cached_newtypes_cooktype = newtypes.cooktype
+	for(var/ct, value in oldtypes.cooktype)
+		LAZYSET(cached_newtypes_cooktype, ct, value)
 
 // transfers reagents
 /obj/machinery/cooker/proc/setRegents(obj/item/reagent_containers/OldReg, obj/item/reagent_containers/NewReg)
@@ -85,7 +83,7 @@
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
 		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]."
-		oil.ru_names = list(
+		oil.ru_names = alist(
 			NOMINATIVE = "жир",
 			GENITIVE = "жира",
 			DATIVE = "жиру",
@@ -174,11 +172,11 @@
 	var/obj/item/reagent_containers/food/snacks/newfood = gettype()
 	setIcon(cooking, newfood)
 	changename(cooking, newfood)
-	if(istype(cooking, /obj/item/reagent_containers))
+	if(is_reagent_container(cooking))
 		setRegents(cooking, newfood)
 	if(is_snack)
 		setCooked(cooking, newfood)
-	newfood.cooktype[thiscooktype] = 1
+	LAZYSET(newfood.cooktype, thiscooktype, TRUE)
 	turnoff(cooking)
 
 /obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)

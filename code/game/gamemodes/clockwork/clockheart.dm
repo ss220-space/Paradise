@@ -15,7 +15,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	var/cur_enchant = null
 	var/list/enchants
-	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
 	var/list/enchanted_before = FALSE
 	var/curse_dial = TRUE
 	var/curse_upper = TRUE
@@ -79,7 +78,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	return cursed_parts
 
 /obj/structure/clockwork/functional/heart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
 		DATIVE = "Сердцу Ратвара",
@@ -90,8 +89,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(GLOB.heart)
-		qdel(src, TRUE)
-		return
+		return INITIALIZE_HINT_QDEL
 	GLOB.poi_list += src
 	GLOB.heart = src
 	enchants = GLOB.gun_and_heart_spells
@@ -159,7 +157,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		for(var/turf/tile in orange(1, src))
 			new /obj/effect/gibspawner/clock(tile)
 		playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-		GLOB.heart = null
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_NEEDS_SUMMONING && SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind?.current)
@@ -169,12 +166,14 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	for(var/part in spawned_parts)
 		LAZYREMOVE(GLOB.poi_list, part)
 		qdel(part)
-	if(gateway)
-		QDEL_NULL(gateway)
+	QDEL_NULL(gateway)
 	spawned_parts = null
+	GLOB.heart = null
+	GLOB.poi_list -= src
 	GLOB.total_curses = 3
-	. = ..()
-/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	return ..()
+
+/obj/structure/clockwork/functional/heart/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
 	if(!istype(dropping, /obj/structure/part_dial))
@@ -189,7 +188,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	SSticker.mode.check_clock_reveal()
 	qdel(dropping)
-	give_blessing(user)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
@@ -215,7 +213,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	GLOB.total_curses --
 	qdel(part)
 	update_icon(UPDATE_OVERLAYS)
-	give_blessing(user)
 	SSticker.mode.clocker_objs.update_seals()
 
 /obj/structure/clockwork/functional/heart/proc/summon(mob/user, obj/item/shard)
@@ -234,7 +231,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать внепространственного бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound()
 	)
 	gateway = new
 	gateway.heart = src
@@ -259,7 +256,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
 		return -1
 	if(ISDIAGONALDIR(dir_to_center))
-		throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+		throw_dist = ceil(MAGNITUDE(base_x_throw_distance, base_y_throw_distance) - MAGNITUDE(x_component, y_component))
 		did_not_stand_back.forceMove(get_ranged_target_turf(loc, dir_to_center, throw_dist))
 	else if(dir_to_center & (NORTH|SOUTH))
 		throw_dist = base_y_throw_distance - y_component + 1
@@ -281,21 +278,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/mob/living/affected = did_not_stand_back
 	to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
 	affected.Knockdown(6 SECONDS)
-
-/obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
-	var/bless_to_give
-	var/chosen_blessing
-	if(isnull(blessings))
-		bless_to_give = new /obj/item/gun/energy/gun/minigun/clockwork
-		user.put_in_hands(bless_to_give)
-		return
-	chosen_blessing = pick(blessings)
-	bless_to_give = new chosen_blessing(user.loc)
-	user.put_in_hands(bless_to_give)
-	LAZYREMOVE(blessings, chosen_blessing)
-	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
-	chosen_blessing = null
-	bless_to_give = null
 
 /obj/structure/clockwork/functional/heart/proc/spawn_parts()
 	var/first_part_loc = get_safe_random_station_turf()
@@ -337,8 +319,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/heart_filler/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-/obj/structure/heart_filler/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	parent.MouseDrop_T(dropping, user, params)
+/obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
+	return parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
@@ -360,7 +342,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 
 /obj/structure/part_dial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большой латунный циферблат",
 		GENITIVE = "большого латунного циферблата",
 		DATIVE = "большому латунному циферблату",
@@ -394,9 +376,13 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	new /obj/effect/decal/cleanable/ash(user.loc)
 
 /obj/structure/part_dial/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	GLOB.poi_list += src
-	. = ..()
+
+/obj/structure/part_dial/Destroy(force)
+	GLOB.poi_list -= src
+	return ..()
 
 /obj/structure/part_dial/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
@@ -413,7 +399,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	can_put_in_closet = FALSE
 
 /obj/item/part_upper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная деталь",
 		GENITIVE = "латунной детали",
 		DATIVE = "латунной детали",
@@ -449,6 +435,10 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	. = ..()
 	GLOB.poi_list += src
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+
+/obj/item/part_upper/Destroy(force)
+	GLOB.poi_list -= src
+	return ..()
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)
 	if(!GLOB.heart?.curse_upper)

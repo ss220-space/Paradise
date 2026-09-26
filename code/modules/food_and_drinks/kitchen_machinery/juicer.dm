@@ -30,7 +30,7 @@
 	)
 
 /obj/machinery/juicer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "соковыжималка",
 		GENITIVE = "соковыжималки",
 		DATIVE = "соковыжималке",
@@ -41,7 +41,7 @@
 
 /obj/machinery/juicer/Initialize(mapload)
 	. = ..()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
@@ -51,14 +51,13 @@
 		return ..()
 
 	add_fingerprint(user)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(iscup(I) || istype(I, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		if(beaker)
 			balloon_alert(user, "внутри уже есть ёмкость!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		verbs += /obj/machinery/juicer/verb/detach
 		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -138,15 +137,11 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/juicer/verb/detach()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Извлечь ёмкость"
-	set src in oview(1)
+/obj/machinery/juicer/proc/detach()
 	if(usr.stat != 0)
 		return
 	if(!beaker)
 		return
-	verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(loc)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)

@@ -16,7 +16,7 @@
 	var/obj/item/card/id/inserted_id = null
 
 /obj/machinery/bodyscanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский сканер",
 		GENITIVE = "медицинского сканера",
 		DATIVE = "медицинскому сканеру",
@@ -121,31 +121,31 @@
 
 	setDir(turn(dir, -90))
 
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
+/obj/machinery/bodyscanner/mouse_drop_receive(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
-		return FALSE //not human
+		return //not human
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE //user shouldn't be doing things
+		return //user shouldn't be doing things
 	if(H.anchored)
-		return FALSE //mob is anchored???
+		return //mob is anchored???
 	if(get_dist(user, src) > 1 || get_dist(user, H) > 1)
-		return FALSE //doesn't use adjacent() to allow for non-cardinal (fuck my life)
+		return //doesn't use adjacent() to allow for non-cardinal (fuck my life)
 	if(!ishuman(user) && !isrobot(user))
-		return FALSE //not a borg or human
+		return //not a borg or human
 	if(panel_open)
 		balloon_alert(user, "техпанель открыта!")
-		return TRUE //panel open
+		return //panel open
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE //occupied
+		return //occupied
 	if(H.buckled)
-		return FALSE
+		return
 	if(H.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм!"))
-		return TRUE
+		return
 
 	if(H == user)
 		visible_message("[user] начина[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
@@ -161,7 +161,6 @@
 	to_chat(H, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(user)
 	SStgui.update_uis(src)
-	return TRUE
 
 /obj/machinery/bodyscanner/attack_ai(user)
 	return attack_hand(user)
@@ -187,7 +186,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		if(inserted_id)
 			balloon_alert(user, "слот ID карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
@@ -201,10 +200,7 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/bodyscanner/verb/eject()
-	set src in oview(1)
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Извлечь пациента"
+GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -289,7 +285,6 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 
-		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
 		occupantData["paralysis"] = occupant.AmountParalyzed()
@@ -357,7 +352,7 @@
 
 			organData["status"] = organStatus
 
-			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(E) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
 			if(E.has_internal_bleeding())
@@ -469,9 +464,6 @@
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Термические повреждения: [occupant.getFireLoss()]</font><br>"
 
-		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
-
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"
 
@@ -541,7 +533,7 @@
 
 				internal_bleeding += "Внутреннее кровотечение"
 
-			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(e) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
 				splint = "Наложена шина"

@@ -7,6 +7,7 @@
 	item_color = "r"
 	implant_data = /datum/implant_fluff/storage
 	var/obj/item/storage/hidden/implant/storage
+	allow_multiple = TRUE
 
 /obj/item/implant/storage/Initialize(mapload)
 	. = ..()
@@ -22,6 +23,7 @@
 	else
 		for(var/mob/to_close in storage.mobs_viewing)
 			storage.close(to_close)
+	return ..()
 
 /obj/item/implant/storage/removed(mob/living/source)
 	. = ..()
@@ -36,21 +38,26 @@
 		storage.remove_from_storage(item, drop_location())
 
 /obj/item/implant/storage/implant(mob/living/source, mob/user, force = FALSE)
+	// We need to check for the same implant inside before we call parent which will implant it
 	var/obj/item/implant/storage/imp_e = locate(src.type) in source
-	if(imp_e)
-		imp_e.storage.storage_slots += storage.storage_slots
-		imp_e.storage.max_combined_w_class += storage.max_combined_w_class
-		imp_e.storage.contents += storage.contents
+	. = ..()
+	if(!.)
+		return FALSE
 
-		for(var/mob/check in range(1))
-			if(check.s_active == storage)
-				storage.close(check)
-		storage.show_to(source)
-
-		qdel(src)
+	if(!imp_e)
 		return TRUE
 
-	return ..()
+	imp_e.storage.storage_slots += storage.storage_slots
+	imp_e.storage.max_combined_w_class += storage.max_combined_w_class
+	imp_e.storage.contents += storage.contents
+
+	for(var/mob/check in range(1))
+		if(check.s_active == storage)
+			storage.close(check)
+	storage.show_to(source)
+
+	qdel(src)
+	return TRUE
 
 /obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
 	if(storage?.contents)

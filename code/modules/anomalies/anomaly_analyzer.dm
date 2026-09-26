@@ -14,7 +14,7 @@
 	var/scan_data
 
 /obj/item/anomaly_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер аномалий", \
 		GENITIVE = "сканера аномалий", \
 		DATIVE = "сканеру аномалий", \
@@ -57,13 +57,13 @@
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)
-	popup.set_content(chat_box_yellow("[jointext(scan_data || list(), "<br>")]"))
+	popup.set_content(custom_boxed_message("yellow_box", "[jointext(scan_data || list(), "<br>")]"))
 	popup.open(no_focus = 1)
 
 /obj/item/anomaly_analyzer/attack_self(mob/user)
 	show(user)
 
-/obj/item/anomaly_analyzer/afterattack(atom/target, mob/user, proximity, params, status)
+/obj/item/anomaly_analyzer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target == user || !isanomaly(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

@@ -1,25 +1,18 @@
-import { CSSProperties, Key } from 'react';
+import type { CSSProperties } from 'react';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, Stack } from '../components';
+import { GASES } from '../constants';
 import { Window } from '../layouts';
 
 type GasMix = {
   name: string;
-  oxygen: number;
-  nitrogen: number;
-  carbon_dioxide: number;
-  plasma: number;
-  nitrous_oxide: number;
-  agent_b: number;
-  hydrogen: number;
-  water_vapor: number;
   total_moles: number;
   temperature: number;
   volume: number;
   pressure: number;
   heat_capacity: number;
   thermal_energy: number;
-} & Key;
+};
 
 type GasAnalyzerData = {
   gasmixes: GasMix[];
@@ -32,7 +25,6 @@ export const GasAnalyzerContent = (props: unknown) => {
   return (
     <Section
       title={gasmixes[0].name}
-      key={gasmixes[0]}
       buttons={
         <Button
           icon={autoUpdating ? 'unlock' : 'lock'}
@@ -53,109 +45,25 @@ export const GasAnalyzerContent = (props: unknown) => {
       ) : (
         <LabeledList>
           <LabeledList.Item label={'Total Moles'}>
-            {(gasmixes[0].total_moles ? gasmixes[0].total_moles : '-') + ' mol'}
+            {`${gasmixes[0].total_moles ? gasmixes[0].total_moles : '-'} mol`}
           </LabeledList.Item>
-          {gasmixes[0].oxygen ? (
-            <LabeledList.Item label={'Oxygen'}>
-              {gasmixes[0].oxygen.toFixed(2) +
-                ' mol (' +
-                ((gasmixes[0].oxygen / gasmixes[0].total_moles) * 100).toFixed(
-                  2
-                ) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].nitrogen ? (
-            <LabeledList.Item label={'Nitrogen'}>
-              {gasmixes[0].nitrogen.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].nitrogen / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].carbon_dioxide ? (
-            <LabeledList.Item label={'Carbon Dioxide'}>
-              {gasmixes[0].carbon_dioxide.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].carbon_dioxide / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].plasma ? (
-            <LabeledList.Item label={'Plasma'}>
-              {gasmixes[0].plasma.toFixed(2) +
-                ' mol (' +
-                ((gasmixes[0].plasma / gasmixes[0].total_moles) * 100).toFixed(
-                  2
-                ) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].nitrous_oxide ? (
-            <LabeledList.Item label={'Nitrous Oxide'}>
-              {gasmixes[0].nitrous_oxide.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].nitrous_oxide / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].hydrogen ? (
-            <LabeledList.Item label={'Hydrogen'}>
-              {gasmixes[0].hydrogen.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].hydrogen / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].water_vapor ? (
-            <LabeledList.Item label={'Water Vapor'}>
-              {gasmixes[0].water_vapor.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].water_vapor / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].agent_b ? (
-            <LabeledList.Item label={'Agent B'}>
-              {gasmixes[0].agent_b.toFixed(2) +
-                ' mol (' +
-                ((gasmixes[0].agent_b / gasmixes[0].total_moles) * 100).toFixed(
-                  2
-                ) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
+
+          {GASES.map((gas, i) => {
+            if (gasmixes[0][gas.tlv] <= 0.01) {
+              return '';
+            }
+            return (
+              <LabeledList.Item key={i} label={gas.label}>
+                {gasmixes[0][gas.tlv].toFixed(2) +
+                  ' mol (' +
+                  (
+                    (gasmixes[0][gas.tlv] / gasmixes[0].total_moles) *
+                    100
+                  ).toFixed(2) +
+                  ' %)'}
+              </LabeledList.Item>
+            );
+          })}
           <LabeledList.Item label={'Temperature'}>
             {(gasmixes[0].total_moles
               ? (gasmixes[0].temperature - 273.15).toFixed(2)
@@ -167,14 +75,14 @@ export const GasAnalyzerContent = (props: unknown) => {
               ' K)'}
           </LabeledList.Item>
           <LabeledList.Item label={'Volume'}>
-            {(gasmixes[0].total_moles ? gasmixes[0].volume : '-') + ' L'}
+            {`${gasmixes[0].total_moles ? gasmixes[0].volume : '-'} L`}
           </LabeledList.Item>
           <LabeledList.Item label={'Pressure'}>
             {(gasmixes[0].total_moles ? gasmixes[0].pressure.toFixed(2) : '-') +
               ' kPa'}
           </LabeledList.Item>
           <LabeledList.Item label={'Heat Capacity'}>
-            {gasmixes[0].heat_capacity + ' / K'}
+            {`${gasmixes[0].heat_capacity} / K`}
           </LabeledList.Item>
           <LabeledList.Item label={'Thermal Energy'}>
             {gasmixes[0].thermal_energy}

@@ -11,7 +11,7 @@
 	speed_process = 1
 
 /obj/machinery/mineral/unloading_machine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузочная машина",
 		GENITIVE = "разгрузочной машины",
 		DATIVE = "разгрузочной машине",

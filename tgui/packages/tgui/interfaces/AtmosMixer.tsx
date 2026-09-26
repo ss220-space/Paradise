@@ -1,7 +1,12 @@
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
-import { AtmosBase } from './AtmosFilter';
+import type { AtmosBase } from './AtmosFilter';
 
 type AtmosMixerData = {
   node1_concentration: number;
@@ -49,8 +54,9 @@ export const AtmosMixer = (props: unknown) => {
                 step={10}
                 minValue={0}
                 maxValue={max_pressure}
+                tickWhileDragging
                 value={pressure}
-                onDrag={(value) =>
+                onChange={(value) =>
                   act('custom_pressure', {
                     pressure: value,
                   })

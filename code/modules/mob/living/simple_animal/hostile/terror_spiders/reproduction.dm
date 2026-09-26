@@ -19,7 +19,7 @@
 	var/mob/asigned_ghost
 
 /obj/structure/spider/spiderling/terror_spiderling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паучок",
 		GENITIVE = "паучка",
 		DATIVE = "паучку",
@@ -43,6 +43,10 @@
 		S.immediate_ventcrawl = TRUE
 	var/datum/team/terror_spiders/spider_team = GLOB.antagonist_teams[/datum/team/terror_spiders]
 	spider_team?.terror_eggs -= src
+	spider_myqueen = null
+	spider_mymother = null
+	asigned_ghost = null
+	LAZYCLEARLIST(enemies)
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
@@ -273,7 +277,7 @@
 		if(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess)
 			name = "princess of terror eggs"
 			ru_prefix = "принцессы ужаса"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "яйца [ru_prefix]",
 		GENITIVE = "яиц [ru_prefix]",
 		DATIVE = "яйцам [ru_prefix]",
@@ -332,14 +336,14 @@
 	name = "empress egg cluster"
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, FIRE = 50, ACID = 50)
 	explosion_block = 100
 	grown_tick_count = 250
 	explosion_vertical_block = 100
 	var/save_burst = FALSE
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яйца Императрицы Ужаса",
 		GENITIVE = "яиц Императрицы Ужаса",
 		DATIVE = "яйцам Императрицы Ужаса",
@@ -373,7 +377,7 @@
 	icon_state = "spiderjelly"
 
 /obj/structure/spider/royaljelly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "королевское желе",
 		GENITIVE = "королевского желе",
 		DATIVE = "королевскому желе",

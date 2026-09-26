@@ -16,9 +16,9 @@
 	if(toggle)
 		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
 
-/mob/living/simple_animal/hostile/guardian/protector/New()
-	..()
-	AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater/guardian)
+/mob/living/simple_animal/hostile/guardian/protector/Initialize(mapload)
+	. = ..()
+	AddSpell(new /datum/action/cooldown/spell/forcewall/greater/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
@@ -50,12 +50,12 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
+			if(iseffect(summoner.loc))
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_0_A_OV(range)] от [summoner.real_name]!"))
 				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от <b>[src]</b>!"))
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_0_A_OV(range)] от <b>[src]</b>!"))
 				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_YUT(summoner)] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
@@ -88,12 +88,12 @@
 		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
-/obj/effect/proc_holder/spell/forcewall/greater/guardian
+/datum/action/cooldown/spell/forcewall/greater/guardian
 	name = "Голографическая силовая стена"
 	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
-	clothes_req = FALSE
 	invocation = "YOU SHALL NOT PASS!"
 	wall_type = /obj/effect/forcefield/wizard/guardian
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /obj/effect/forcefield/wizard/guardian
 	desc = "Непробиваемый барьер неизвестной сущности."

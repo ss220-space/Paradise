@@ -15,7 +15,7 @@
 	else
 		user.visible_message("[user] dumbly fumbles to find a place on [M] to plug in [src].", "There aren't any ports on [M] that match the jack belonging to [src].")
 
-/obj/item/pai_cable/afterattack(obj/machinery/M, mob/user, proximity, params)
+/obj/item/pai_cable/afterattack(obj/machinery/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(istype(M) && proximity)
-		plugin(M, user)
+	if(istype(target) && proximity_flag)
+		plugin(target, user)

@@ -88,7 +88,7 @@
 	programs = list(new /datum/data/pda/app/request_console/chaplain)
 
 /obj/item/cartridge/request_console/lawyer
-	name = "Internal Affairs Request"
+	name = "Lawyer Request"
 	programs = list(new /datum/data/pda/app/request_console/lawyer)
 
 /obj/item/cartridge/request_console/botanist

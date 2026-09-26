@@ -25,6 +25,12 @@
 	var/view_cooldown = 1 SECONDS
 	var/maximum_range = 5 //Variablised incase admins want to increase it.
 
+/obj/item/circuit_component/view_sensor/Destroy()
+	range = null
+	result = null
+	cooldown = null
+	. = ..()
+
 /obj/item/circuit_component/view_sensor/populate_ports()
 	range = add_input_port("Дальность", PORT_TYPE_NUMBER, default = maximum_range)
 	result = add_output_port("Результат", PORT_TYPE_LIST(PORT_TYPE_ATOM))

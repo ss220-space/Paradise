@@ -43,6 +43,7 @@
 		add_to_current_dead_players()
 	else
 		add_to_current_living_players()
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAYER_LOGIN, src)
 
 ///Removes the mob reference from the list of all player-mobs, besides from either the of dead or alive player-mob lists, as appropriate. Called on Logout().
 /mob/proc/remove_from_player_list()
@@ -53,6 +54,7 @@
 		remove_from_current_dead_players()
 	else
 		remove_from_current_living_players()
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAYER_LOGOUT, src)
 
 ///Adds the cliented mob reference to either the list of dead player-mobs or to the list of observers, depending on how they joined the game.
 /mob/proc/add_to_current_dead_players()

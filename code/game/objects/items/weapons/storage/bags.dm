@@ -23,30 +23,38 @@
 //  Generic non-item
 /obj/item/storage/bag
 	abstract_type = /obj/item/storage/bag
-	allow_quick_gather = 1
-	allow_quick_empty = 1
-	display_contents_with_number = 1 // should work fine now
-	use_to_pickup = 1
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+	display_contents_with_number = TRUE
+	use_to_pickup = TRUE
 	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	dynamic_storage_size = TRUE
+
+
+/obj/item/storage/bag/ComponentInitialize()
+	. = ..()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 ////////////////////////////////////////
 // MARK:	Trash bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/trash
 	name = "trash bag"
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
-
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = NONE
+	slot_flags_2 = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
-	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
@@ -77,9 +85,44 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
+/obj/item/storage/bag/trash/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	trashbag_interact(interacting_with, user)
+
+/obj/item/storage/bag/trash/proc/trashbag_interact(atom/target, mob/user)
+	var/turf/target_turf = get_turf(target)
+	var/success = FALSE
+	var/failure = FALSE
+	for(var/obj/item/item in target_turf)
+		if(item == src || item.anchored)
+			continue
+
+		if(!can_be_inserted(item, stop_messages = TRUE))
+			failure = TRUE
+			continue
+
+		success = TRUE
+		item.do_pickup_animation(user)
+		handle_item_insertion(item, prevent_warning = TRUE)
+
+	if(!success)
+		user.balloon_alert(user, "не удалось собрать!")
+		return
+
+	playsound(src, SFX_PICK_UP, 50, TRUE)
+	if(failure)
+		user.balloon_alert(user, "почти всё собрано!")
+		return
+	user.balloon_alert(user, "успешно собрано!")
+
 ////////////////////////////////////////
 // MARK:	Plastic bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/plasticbag
 	name = "plastic bag"
 	desc = "It's a very flimsy, very noisy alternative to a bag."
@@ -87,9 +130,8 @@
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
-	w_class = WEIGHT_CLASS_BULKY
-	display_contents_with_number = 0 //or else this will lead to stupid behavior.
-	can_hold = list() // any
+	slot_flags_2 = NONE
+	display_contents_with_number = FALSE //or else this will lead to stupid behavior.
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
@@ -123,20 +165,22 @@
 ////////////////////////////////////////
 // MARK:	Mining satchel
 ////////////////////////////////////////
+
 /obj/item/storage/bag/ore
 	name = "mining satchel"
 	desc = "Эта малютка может хранить и переносить руду."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
+	var/aoe = FALSE
+	var/mob/listening_to
 
 /obj/item/storage/bag/ore/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка",
 		GENITIVE = "шахтёрской сумки",
 		DATIVE = "шахтёрской сумке",
@@ -145,21 +189,69 @@
 		PREPOSITIONAL = "шахтёрской сумке",
 	)
 
-/obj/item/storage/bag/ore/bigger
-	name = "industrial mining satchel"
-	desc = "Усовершенствованная версия с дополнительными карманами для руды."
-	icon_state = "satchel_better"
-	storage_slots = 16 //little better
+/obj/item/storage/bag/ore/Destroy()
+	if(!listening_to)
+		return ..()
 
-/obj/item/storage/bag/ore/bigger/get_ru_names()
-	return list(
-		NOMINATIVE = "промышленная шахтёрская сумка",
-		GENITIVE = "промышленной шахтёрской сумки",
-		DATIVE = "промышленной шахтёрской сумке",
-		ACCUSATIVE = "промышленную шахтёрскую сумку",
-		INSTRUMENTAL = "промышленной шахтёрской сумкой",
-		PREPOSITIONAL = "промышленной шахтёрской сумке",
-	)
+	UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+	listening_to = null
+	return ..()
+
+/obj/item/storage/bag/ore/equipped(mob/user, slot)
+	. = ..()
+	if(listening_to == user)
+		return
+
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
+	listening_to = user
+
+/obj/item/storage/bag/ore/dropped(mob/user)
+	. = ..()
+	if(!listening_to)
+		return
+
+	UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+	listening_to = null
+
+/obj/item/storage/bag/ore/proc/on_user_moved(mob/living/user, atom/old_loc, dir, forced)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(handle_move), user)
+
+/obj/item/storage/bag/ore/proc/handle_move(mob/living/user)
+	if(user.stat != CONSCIOUS)
+		return
+
+	var/turf/tile = get_turf(user)
+	if(!tile)
+		return
+
+	var/obj/structure/ore_box/box = (istype(user.pulling, /obj/structure/ore_box)) ? user.pulling : null
+	var/list/target_turfs = aoe ? RANGE_TURFS(1, tile) : list(tile)
+
+	for(var/turf/turf as anything in target_turfs)
+		if(!istype(turf, /turf/simulated/floor/plating/asteroid))
+			continue
+
+		for(var/obj/item/stack/ore/ore in turf)
+			if(QDELETED(ore))
+				continue
+
+			ore.do_pickup_animation(user)
+			if(pickup_ore(ore, user, box))
+				continue
+
+/obj/item/storage/bag/ore/proc/pickup_ore(obj/item/stack/ore/ore, mob/user, obj/structure/ore_box/box)
+	if(box)
+		ore.forceMove(box)
+		return TRUE
+
+	if(can_be_inserted(ore, stop_messages = TRUE))
+		handle_item_insertion(ore, prevent_warning = TRUE)
+		return TRUE
+	return FALSE
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -167,6 +259,23 @@
 /obj/item/storage/bag/ore/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
+/obj/item/storage/bag/ore/bigger
+	name = "industrial mining satchel"
+	desc = "Усовершенствованная версия с дополнительными карманами для руды."
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
+	max_combined_w_class = 320
+
+/obj/item/storage/bag/ore/bigger/get_ru_names()
+	return alist(
+		NOMINATIVE = "промышленная шахтёрская сумка",
+		GENITIVE = "промышленной шахтёрской сумки",
+		DATIVE = "промышленной шахтёрской сумке",
+		ACCUSATIVE = "промышленную шахтёрскую сумку",
+		INSTRUMENTAL = "промышленной шахтёрской сумкой",
+		PREPOSITIONAL = "промышленной шахтёрской сумке",
+	)
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
@@ -177,7 +286,7 @@
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/holding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка хранения",
 		GENITIVE = "шахтёрской сумки хранения",
 		DATIVE = "шахтёрской сумке хранения",
@@ -198,14 +307,12 @@
 	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	storage_slots = 48
 	max_combined_w_class = 48
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/gem)
 
 /obj/item/storage/bag/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка для самоцветов",
 		GENITIVE = "сумки для самоцветов",
 		DATIVE = "сумке для самоцветов",
@@ -224,13 +331,13 @@
 ////////////////////////////////////////
 // MARK:	Bombs bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
 	name = "Charge Deployment System"
 	desc = "Система Размещения Зарядов. Способна автоматически устанавливать выбранную взрывчатку."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bomb_satchel"
 	origin_tech = "engineering=2"
-	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	storage_slots = 5
 	max_combined_w_class = 200
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -241,7 +348,7 @@
 	var/bombs_left = 0
 
 /obj/item/storage/bag/kaboom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Система Размещения Зарядов",
 		GENITIVE = "Системы Размещения Зарядов",
 		DATIVE = "Системе Размещения Зарядов",
@@ -271,7 +378,7 @@
 
 /obj/item/storage/bag/kaboom/examine(mob/user)
 	. = ..()
-	. += span_notice("Внутри [LAZYLEN(contents)] заряд[DECL_CREDIT(LAZYLEN(contents))].")
+	. += span_notice("Внутри [LAZYLEN(contents)] заряд[DECL_0_A_OV(LAZYLEN(contents))].")
 
 /obj/item/storage/bag/kaboom/proc/set_next_bomb()
 	for(var/obj/item/grenade/plastic/I in contents)
@@ -284,8 +391,8 @@
 		return FALSE
 	return TRUE
 
-/obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
-	if(istype(AM, /obj/item/grenade/plastic))
+/obj/item/storage/bag/kaboom/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(istype(target, /obj/item/grenade/plastic))
 		if(!..())
 			return
 
@@ -296,22 +403,22 @@
 	if(isnull(nextbomb))
 		nextbomb = pick(contents)
 
-	if(!flag)
+	if(!proximity_flag)
 		return
 
-	if(iscarbon(AM))
+	if(iscarbon(target))
 		balloon_alert(user, "нельзя прикрепить!")
 		return
 
-	if(isobserver(AM))
-		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
+	if(isobserver(target))
+		to_chat(user, span_warning("Ваша рука проходит сквозь [target]!"))
 		return
 	balloon_alert(user, "устанавливаем...")
-	if(do_after(user, 5 SECONDS, AM))
+	if(do_after(user, 5 SECONDS, target))
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
-		nextbomb.attach(AM, user, TRUE)
+		nextbomb.attach(target, user, TRUE)
 		if(!LAZYLEN(contents))
 			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
 		else
@@ -348,15 +455,18 @@
 ////////////////////////////////////////
 // MARK:	Plant bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/plants
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
 	storage_slots = 100 //the number of plant pieces it can carry.
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora)
+	can_hold = list(
+		/obj/item/seeds,
+		/obj/item/grown,
+		/obj/item/reagent_containers/food/snacks/grown,
+	)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -365,10 +475,7 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Конвертация в семена"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Activate to convert your plants into plantable seeds."
+GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, "Конвертация в семена", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -381,6 +488,7 @@
 ////////////////////////////////////////
 // MARK:	Sheet snatcher
 ////////////////////////////////////////
+
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 /obj/item/storage/bag/sheetsnatcher
@@ -388,139 +496,146 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	/// Maximum number of sheets it can hold.
+	var/capacity = 300
 
-	var/capacity = 300; //the number of sheets it can carry.
+// Helper to calculate total sheets currently stored.
+/obj/item/storage/bag/sheetsnatcher/proc/get_total_sheets()
+	. = 0
+	for(var/obj/item/stack/sheet/sheet_stack in contents)
+		. += sheet_stack.amount
 
-/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
+/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/inserted_item, stop_messages = FALSE)
+	if(!istype(inserted_item, /obj/item/stack/sheet) || istype(inserted_item, /obj/item/stack/sheet/mineral/sandstone) || istype(inserted_item, /obj/item/stack/sheet/wood))
 		if(!stop_messages)
-			to_chat(usr, "The snatcher does not accept [W].")
-		return 0 //I don't care, but the existing code rejects them for not being "sheets" *shrug* -Sayu
-	var/current = 0
-	for(var/obj/item/stack/sheet/S in contents)
-		current += S.amount
-	if(capacity == current)//If it's full, you're done
+			to_chat(usr, "The snatcher does not accept [inserted_item].")
+		return FALSE
+
+	var/total_sheets = get_total_sheets()
+	if(total_sheets >= capacity)
 		if(!stop_messages)
 			to_chat(usr, span_warning("The snatcher is full."))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-// Modified handle_item_insertion.  Would prefer not to, but...
-/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
-	var/obj/item/stack/sheet/S = W
-	if(!istype(S)) return 0
+/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/inserted_item, prevent_warning = FALSE)
+	var/obj/item/stack/sheet/sheet_stack = inserted_item
+	if(!istype(sheet_stack))
+		return FALSE
 
-	var/amount
-	var/inserted = 0
-	var/current = 0
-	for(var/obj/item/stack/sheet/S2 in contents)
-		current += S2.amount
-	if(capacity < current + S.amount)//If the stack will fill it up
-		amount = capacity - current
-	else
-		amount = S.amount
+	// Preliminary check with proper warnings if not prevented.
+	if(!can_be_inserted(sheet_stack, prevent_warning))
+		return FALSE
 
-	for(var/obj/item/stack/sheet/sheet in contents)
-		if(S.type == sheet.type) // we are violating the amount limitation because these are not sane objects
-			sheet.amount += amount	// they should only be removed through procs in this file, which split them up.
-			S.amount -= amount
-			inserted = 1
+	var/total_sheets = get_total_sheets()
+	var/free_space = capacity - total_sheets
+	var/amount_to_insert = min(sheet_stack.amount, free_space)
+
+	if(amount_to_insert <= 0)
+		if(!prevent_warning)
+			to_chat(usr, span_warning("The snatcher is full."))
+		return FALSE
+
+	// Try to merge with an existing stack of the same type.
+	var/merged_with_existing = FALSE
+	for(var/obj/item/stack/sheet/stored_stack in contents)
+		if(stored_stack.type == sheet_stack.type)
+			stored_stack.amount += amount_to_insert
+			sheet_stack.amount -= amount_to_insert
+			merged_with_existing = TRUE
 			break
 
-	if(!inserted || !S.amount)
-		usr.drop_transfer_item_to_loc(S, src)
-		usr.update_icons()	//update our overlays
-		if(usr.client && usr.s_active != src)
-			usr.client.screen -= S
-		if(!S.amount)
-			qdel(S)
+	if(!merged_with_existing)
+		// No matching stack — create a new one inside the bag.
+		var/obj/item/stack/sheet/new_stack = new sheet_stack.type(src)
+		new_stack.amount = amount_to_insert
+		sheet_stack.amount -= amount_to_insert
 
+	// If the original stack is now empty, delete it.
+	if(sheet_stack.amount <= 0)
+		qdel(sheet_stack)
+	// else it remains where it was, partially used.
+
+	// Update UI if open.
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
 	return TRUE
 
-// Sets up numbered display to show the stack size of each stored mineral
-// NOTE: numbered display is turned off currently because it's broken
-/obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user as mob)
-	var/adjusted_contents = contents.len
+/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/removed_item, atom/new_location)
+	var/obj/item/stack/sheet/sheet_stack = removed_item
+	if(!istype(sheet_stack))
+		return ..() // Let parent handle non-sheets (shouldn't happen).
 
-	//Numbered contents display
-	var/list/datum/numbered_display/numbered_contents
-	if(display_contents_with_number)
-		numbered_contents = list()
-		adjusted_contents = 0
-		for(var/obj/item/stack/sheet/I in contents)
-			adjusted_contents++
-			var/datum/numbered_display/D = new/datum/numbered_display(I)
-			D.number = I.amount
-			numbered_contents.Add(D)
+	// Normal removal — let parent handle moving the whole stack.
+	if(sheet_stack.amount <= sheet_stack.max_amount)
+		return ..(sheet_stack, new_location)
 
-	var/row_num = 0
-	var/col_count = min(7,storage_slots) -1
-	if(adjusted_contents > 7)
-		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-
-	if(!display_contents_with_number)
-		space_orient_objs(numbered_contents)
-	else
-		standard_orient_objs(row_num, col_count, numbered_contents)
-
-// Modified quick_empty verb drops appropriate sized stacks
-/obj/item/storage/bag/sheetsnatcher/quick_empty()
-	var/location = get_turf(src)
-	for(var/obj/item/stack/sheet/S in contents)
-		while(S.amount)
-			var/obj/item/stack/sheet/N = new S.type(location)
-			var/stacksize = min(S.amount,N.max_amount)
-			N.amount = stacksize
-			S.amount -= stacksize
-		if(!S.amount)
-			qdel(S) // todo: there's probably something missing here
+	// If the stack is larger than max_amount, we split it.
+	// Create a new stack with max_amount to be moved.
+	var/obj/item/stack/sheet/new_stack = new sheet_stack.type(new_location)
+	new_stack.amount = sheet_stack.max_amount
+	sheet_stack.amount -= sheet_stack.max_amount
+	// The original stack stays in the bag.
+	// Move the new stack to the target location.
+	if(ismob(new_location))
+		var/mob/mob = new_location
+		mob.put_in_hands(new_stack)
+	else if(isturf(new_location))
+		new_stack.forceMove(new_location)
+	// Update UI.
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
+	return TRUE
 
-// Instead of removing
-/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W, atom/new_location)
-	var/obj/item/stack/sheet/S = W
-	if(!istype(S)) return 0
+/obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user)
+	var/adjusted_contents = length(contents)
+	var/list/datum/numbered_display/numbered_displays
+	if(display_contents_with_number)
+		numbered_displays = list()
+		adjusted_contents = 0
+		for(var/obj/item/stack/sheet/sheet_stack in contents)
+			adjusted_contents++
+			var/datum/numbered_display/display = new/datum/numbered_display(sheet_stack)
+			display.number = sheet_stack.amount
+			numbered_displays.Add(display)
 
-	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't receive a different object than you clicked on.
-	//Therefore, make a new stack internally that has the remainder.
-	// -Sayu
+	var/row_num = 0
+	var/col_count = min(7, storage_slots) - 1
+	if(adjusted_contents > 7)
+		row_num = round((adjusted_contents - 1) / 7)
 
-	if(S.get_amount() > S.max_amount)
-
-		new S.type(src, S.amount - S.max_amount)
-
-		S.amount = S.max_amount
-
-	return ..(S,new_location)
+	if(!display_contents_with_number)
+		space_orient_objs(numbered_displays)
+	else
+		standard_orient_objs(row_num, col_count, numbered_displays)
 
 // Sheet Snatcher (Cyborg)
 /obj/item/storage/bag/sheetsnatcher/borg
 	name = "Sheet Snatcher 9000"
 	desc = ""
-	capacity = 500//Borgs get more because >specialization
+	capacity = 500 // Borgs get more because > specialization
 
 ////////////////////////////////////////
 // MARK:	Cash bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/cash
 	icon_state = "cashbag"
 	name = "Cash bag"
 	desc = "A bag for carrying lots of cash. It's got a big dollar sign printed on the front."
 	storage_slots = 50; //the number of cash pieces it can carry.
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * cash.w_class
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/coin,/obj/item/stack/spacecash)
+	can_hold = list(
+		/obj/item/coin,
+		/obj/item/stack/spacecash,
+	)
 
 ////////////////////////////////////////
 // MARK:	Book bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/books
 	name = "book bag"
 	desc = "Красная сумка, предназначенная для удобной транспортировки и хранения книг."
@@ -530,15 +645,18 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "bookbag"
 	item_state = "bookbag"
-	display_contents_with_number = 0 //This would look really stupid otherwise
+	display_contents_with_number = FALSE //This would look really stupid otherwise
 	max_combined_w_class = 21
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
-	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
+	can_hold = list(
+		/obj/item/book,
+		/obj/item/storage/bible,
+		/obj/item/tome,
+		/obj/item/spellbook,
+	)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/books/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжная сумка",
 		GENITIVE = "книжной сумки",
 		DATIVE = "книжной сумке",
@@ -550,6 +668,7 @@
 ////////////////////////////////////////
 // MARK:	Construction bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/construction
 	name = "construction bag"
 	desc = "Вместительная сумка, оснащённая множеством карманов и отделений для систематизации и переноски деталей."
@@ -557,8 +676,6 @@
 	icon_state = "construction_bag"
 	storage_slots = 50
 	max_combined_w_class = 100
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
 		/obj/item/assembly,
 		/obj/item/circuitboard,
@@ -577,7 +694,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/construction/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "строительная сумка",
 		GENITIVE = "строительной сумки",
 		DATIVE = "строительной сумке",
@@ -589,119 +706,26 @@
 ////////////////////////////////////////
 // MARK:	Tray
 ////////////////////////////////////////
+
 /obj/item/storage/bag/tray
-	name = "tray"
+	name = "serving tray"
+	desc = "Металлический поднос, на который можно выкладывать еду и напитки."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
-	desc = "A metal tray to lay food on."
 	force = 5
-	throwforce = 10.0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags_2 = NONE
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	pickup_sound = SFX_TRAY_PICKUP
+	drop_sound = SFX_TRAY_DROP
 
-/obj/item/storage/bag/tray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
-		return .
-
-	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-	if(ishuman(target) && prob(10))
-		target.Knockdown(4 SECONDS)
-
-	// Drop all the things. All of them.
-	var/list/obj/item/oldContents = contents.Copy()
-	drop_inventory(user)
-
-	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
-
-/obj/item/storage/bag/tray/update_overlays()
-	. = ..()
-	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
-
-/obj/item/storage/bag/tray/cyborg
-	var/placement_radius = 12
-
-/obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
-	set name = "Радиус размещения"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-
-	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
-	new_radius = clamp(new_radius, 0, 16)
-	placement_radius = new_radius
-
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity, params)
-	if(!target || !proximity)
-		return
-
-	var/obj/structure/table/table = locate() in get_turf(target)
-
-	if(isturf(target) || table)
-		var/droppedSomething = FALSE
-		var/list/fancy_items
-		for(var/obj/item/I in contents)
-			remove_from_storage(I, get_turf(target))
-			LAZYADD(fancy_items, I)
-			droppedSomething = TRUE
-
-		if(fancy_items)
-			var/fancy_items_count = length(fancy_items)
-			var/iteration = 0
-			var/delta_phi = 2 * PI / fancy_items_count
-			for(var/obj/item/I as anything in fancy_items)
-				I.pixel_x = placement_radius * sin(180 * delta_phi * iteration / PI)
-				I.pixel_y = placement_radius * cos(180 * delta_phi * iteration / PI)
-				iteration += 1
-
-		if(droppedSomething)
-			if(table)
-				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
-			else
-				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
-		update_icon(UPDATE_OVERLAYS)
-
-	return ..()
-
-/obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
-
-/obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
-	for(var/i in 1 to 6)
-		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-
-/obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
-
-////////////////////////////////////////
-// MARK:	Antag tray
-////////////////////////////////////////
-/obj/item/storage/bag/dangertray
-	name = "tray"
-	desc = "Металлический поднос для еды с острыми как бритва краями."
-	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "dangertray"
-	force = 5
-	throwforce = 25
-	throw_speed = 3
-	armour_penetration = 15
-	sharp = TRUE
-	flags = CONDUCT
-	materials = list(MAT_METAL=3000)
-
-/obj/item/storage/bag/dangertray/get_ru_names()
-	return list(
+/obj/item/storage/bag/tray/get_ru_names()
+	return alist(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
 		DATIVE = "подносу",
@@ -710,35 +734,143 @@
 		PREPOSITIONAL = "подносе",
 	)
 
-/obj/item/storage/bag/dangertray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/bag/tray/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	. = ..()
+
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
+	// Drop all the things. All of them.
+	var/list/obj/item/old_contents = contents.Copy()
+	drop_inventory(user)
+	// Make each item scatter a bit
+	for(var/obj/item/tray_item in old_contents)
+		do_scatter(tray_item)
+
+	if(prob(50))
+		playsound(target, 'sound/items/trayhit1.ogg', 50, TRUE)
+	else
+		playsound(target, 'sound/items/trayhit2.ogg', 50, TRUE)
+
 	if(ishuman(target) && prob(10))
 		target.Knockdown(4 SECONDS)
+	update_appearance()
+	. |= ATTACK_CHAIN_BLOCKED_ALL
 
-	// Drop all the things. All of them.
-	var/list/obj/item/oldContents = contents.Copy()
-	drop_inventory(user)
+/obj/item/storage/bag/tray/proc/do_scatter(obj/item/tray_item)
+	var/delay = rand(2, 4)
+	var/datum/move_loop/loop = GLOB.move_manager.move_rand(tray_item, list(NORTH, SOUTH, EAST, WEST), delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
+	//This does mean scattering is tied to the tray. Not sure how better to handle it
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
-	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
+/obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/new_delay = rand(2, 4)
+	var/count = source.lifetime / source.delay
+	source.lifetime = count * new_delay
+	source.delay = new_delay
 
-/obj/item/storage/bag/dangertray/update_overlays()
+/obj/item/storage/bag/tray/update_overlays()
 	. = ..()
 	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
+		var/mutable_appearance/item_copy = new(item)
+		item_copy.plane = FLOAT_PLANE
+		item_copy.layer = FLOAT_LAYER + 0.1
+		item_copy.pixel_x = 0
+		item_copy.pixel_y = 0
+		item_copy.pixel_w = rand(-3, 3)
+		item_copy.pixel_z = rand(-3, 3)
+		. += item_copy
+
+/obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	update_appearance()
+
+/obj/item/storage/bag/tray/Exited(atom/movable/gone, direction)
+	. = ..()
+	update_appearance()
+
+/obj/item/storage/bag/tray/cookies_tray
+	var/cookie_type = /obj/item/reagent_containers/food/snacks/cookie
+
+/obj/item/storage/bag/tray/cookies_tray/populate_contents()
+	for(var/i in 1 to 6)
+		var/obj/item/cookie = new cookie_type(src)
+		handle_item_insertion(cookie) // Done this way so the tray actually has the cookies visible when spawned
+
+/obj/item/storage/bag/tray/cookies_tray/sugarcookie
+	cookie_type = /obj/item/reagent_containers/food/snacks/sugarcookie
+
+////////////////////////////////////////
+// MARK:	Antag tray
+////////////////////////////////////////
+
+/obj/item/storage/bag/tray/danger
+	name = "tray"
+	desc = "Металлический поднос для еды с острыми как бритва краями."
+	icon_state = "dangertray"
+	throwforce = 25
+	armour_penetration = 15
+	sharp = TRUE
+	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/tray/danger/get_ru_names()
+	return alist(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе",
+	)
+
+// Sprites from CM13
+/obj/item/storage/bag/tray/surgical_tray
+	name = "surgical tray"
+	desc = "A small metallic tray covered in sterile tarp. Intended to store surgical tools in a neat and clean fashion."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "surgical_tray"
+	storage_slots = 22 // 11 Items, x2 to be sure
+	max_combined_w_class = 38 // Items listed add up to 19, x2 to be sure
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/cautery,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/stack/medical/bruise_pack,
+		/obj/item/stack/medical/ointment,
+		/obj/item/surgical_drapes,
+	)
+
+/obj/item/storage/surgical_tray/populate_contents()
+	new /obj/item/scalpel(src)
+	new /obj/item/cautery(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/retractor(src)
+	new /obj/item/FixOVein(src)
+	new /obj/item/surgicaldrill(src)
+	new /obj/item/circular_saw(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/surgical_drapes(src)
+
+/obj/item/storage/surgical_tray/update_icon_state()
+	if(!length(contents))
+		icon_state = "surgical_tray_e"
+	else
+		icon_state = "surgical_tray"
 
 ////////////////////////////////////////
 // MARK:	Chemistry bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/chemistry
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -747,14 +879,17 @@
 	desc = "A bag for storing pills, patches, and bottles."
 	storage_slots = 50
 	max_combined_w_class = 200
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
+	can_hold = list(
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+	)
 	resistance_flags = FLAMMABLE
 
 ////////////////////////////////////////
 // MARK:	Bio bag
 ////////////////////////////////////////
+
 /obj/item/storage/bag/bio
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -762,15 +897,22 @@
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	storage_slots = 25
 	max_combined_w_class = 200
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
+	can_hold = list(
+		/obj/item/slime_extract,
+		/obj/item/reagent_containers/food/snacks/monkeycube,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/hypospray/autoinjector,
+	)
 	resistance_flags = FLAMMABLE
 
 ////////////////////////////////////////
 // MARK:	Pouch
 //			(mostly for ashwalkers)
 ////////////////////////////////////////
+
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
 	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
@@ -787,7 +929,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лекарственный мешочек",
 		GENITIVE = "лекарственного мешочка",
 		DATIVE = "лекарственному мешочку",
@@ -808,7 +950,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/fishing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рыболовный мешочек",
 		GENITIVE = "рыболовного мешочка",
 		DATIVE = "рыболовному мешочку",

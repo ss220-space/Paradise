@@ -52,14 +52,9 @@
 /area/djstation)
 "au" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 0;
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/noalarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -68,10 +63,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -207,10 +199,7 @@
 /area/space)
 "bc" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -267,20 +256,14 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/djstation)
 "bo" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -416,7 +399,6 @@
 "bP" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -449,7 +431,6 @@
 "bU" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -529,7 +510,6 @@
 "lv" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -555,9 +535,7 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "qn" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
@@ -753,22 +731,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"Lr" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 28;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/djstation)
 "Lv" = (
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -881,6 +843,14 @@
 	icon_state = "dark"
 	},
 /area/djstation)
+"SW" = (
+/obj/structure/safe/floor,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
 "Tc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -927,6 +897,22 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
+"Vx" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 28;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/djstation)
 "Wc" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -958,14 +944,6 @@
 	pixel_y = 35
 	},
 /turf/space,
-/area/djstation)
-"XI" = (
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
 /area/djstation)
 "YA" = (
 /turf/space,
@@ -1485,7 +1463,7 @@ ao
 Uj
 Vm
 Fu
-Lr
+Vx
 aX
 bR
 bR
@@ -1668,7 +1646,7 @@ am
 YA
 YA
 ao
-XI
+SW
 sd
 dv
 ao

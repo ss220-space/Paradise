@@ -19,7 +19,7 @@
 	var/worm_chance = 30
 
 /turf/simulated/floor/plating/asteroid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "астероидный песок",
 		GENITIVE = "астероидного песка",
 		DATIVE = "астероидному песку",
@@ -105,7 +105,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+	if((istype(I, /obj/item/shovel) || I.tool_behaviour == TOOL_MINING))
 		if(!can_dig(user))
 			return .
 		I.play_tool_sound()
@@ -132,6 +132,9 @@
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return
 
+/turf/simulated/floor/plating/asteroid/cold
+	atmos_environment = ENVIRONMENT_COLD
+
 /// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
 GLOBAL_LIST_EMPTY(dug_up_basalt)
 
@@ -143,9 +146,10 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
+	smoothing_groups = SMOOTH_GROUP_FLOOR_BASALT
 
 /turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вулканический пол",
 		GENITIVE = "вулканического пола",
 		DATIVE = "вулканическому полу",
@@ -162,6 +166,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/basalt/Destroy()
 	GLOB.dug_up_basalt -= src
 	return ..()
+
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
 	baseturf = /turf/simulated/floor/lava
@@ -200,20 +205,22 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		if("basalt5", "basalt9")
 			B.set_light(1.4, 0.6, LIGHT_COLOR_LAVA) //barely anything!
 
+/turf/simulated/floor/plating/asteroid/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
@@ -231,7 +238,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	temperature = 180
 	slowdown = 2
 	environment_type = "snow"
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
@@ -239,7 +245,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снег",
 		GENITIVE = "снега",
 		DATIVE = "снегу",
@@ -269,9 +275,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
 
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
 /turf/simulated/floor/plating/asteroid/snow/temperature
 	temperature = 255.37
-
-/turf/simulated/floor/plating/asteroid/snow/planet
-	oxygen = 22
-	nitrogen = 82

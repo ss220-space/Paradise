@@ -18,7 +18,7 @@
 	var/list/targeted_turfs = list()
 
 /obj/item/storm_staff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "посох бурь",
 		GENITIVE = "посоха бурь",
 		DATIVE = "посоху бурь",
@@ -68,7 +68,7 @@
 			user.transform *= 1.2
 			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
-/obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!thunder_charges)
 		to_chat(user, span_warning("Посох должен перезарядиться."))

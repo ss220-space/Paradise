@@ -25,16 +25,16 @@
 			lighting_alpha = 220
 			flash_protect = FLASH_PROTECTION_SENSITIVE
 			vision_flags |= SEE_MOBS
-			icon_state = "[initial(icon_state)]_red"
-			item_state = "[initial(item_state)]_red"
+			icon_state = "securityhudnight"
+			item_state = "securityhudnight"
 			balloon_alert(user, "режим — Термальное видение")
 		if(NINJA_FLASHPROTECTION)
 			see_in_dark = 2
 			lighting_alpha = null
 			flash_protect = FLASH_PROTECTION_FLASH
 			vision_flags &= ~SEE_MOBS
-			icon_state = "[initial(icon_state)]_blue"
-			item_state = "[initial(item_state)]_blue"
+			icon_state = "healthhudnight"
+			item_state = "healthhudnight"
 			balloon_alert(user, "режим — Защита от ослепления")
 
 	if(n_mask && istype(user.wear_mask, /obj/item/clothing/mask/gas/space_ninja))

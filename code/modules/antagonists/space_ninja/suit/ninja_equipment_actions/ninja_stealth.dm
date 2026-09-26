@@ -34,17 +34,17 @@
 			n_shoes.silence_steps = TRUE
 			animate(ninja, alpha = NINJA_ALPHA_INVISIBILITY, time = 6)
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_INVISIBILITY), ALPHA_SOURCE_NINJA)
+			ADD_TRAIT(ninja, TRAIT_NINJA_INVISIBILITY, NINJA_TRAIT)
 			new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
 			ninja.visible_message(span_warning("[ninja.name] расстворил[GEND_SYA_AS_OS_IS(ninja) ] в воздухе!"), span_notice("Теперь вас практически невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
 			ninja.AddComponent(/datum/component/ninja_states_breaker, src)
 			if(auto_smoke)
 				if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
 					prime_smoke(lowcost = TRUE)
-			for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
-				ninja_action.use_action()
-				ninja_action.action_ready = TRUE
-				ninja_action.toggle_button_on_off()
-				break
+			var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_stealth = locate() in ninja.actions
+			ninja_stealth.use_action()
+			ninja_stealth.action_ready = TRUE
+			ninja_stealth.toggle_button_on_off()
 			s_busy = FALSE
 
 /**
@@ -59,18 +59,19 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!ninja)
 		return FALSE
-	if(stealth)
-		stealth = !stealth
-		n_shoes.silence_steps = FALSE
-		var/stealth_alpha
-		stealth_alpha = spirited ? NINJA_ALPHA_SPIRIT_FORM : NINJA_ALPHA_NORMAL
-		animate(ninja, alpha = stealth_alpha, time = 6)
-		ninja.alpha_set(standartize_alpha(stealth_alpha), ALPHA_SOURCE_NINJA)
-		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(ninja), ninja.dir)
-		ninja.visible_message(span_warning("[ninja.name] появил[GEND_SYA_AS_OS_IS(ninja) ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
-		qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
-		for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
-			ninja_action.action_ready = FALSE
-			ninja_action.toggle_button_on_off()
-		return TRUE
-	return FALSE
+	if(!stealth)
+		return FALSE
+	stealth = !stealth
+	n_shoes.silence_steps = FALSE
+	var/stealth_alpha
+	stealth_alpha = spirited ? NINJA_ALPHA_SPIRIT_FORM : NINJA_ALPHA_NORMAL
+	animate(ninja, alpha = stealth_alpha, time = 6)
+	ninja.alpha_set(standartize_alpha(stealth_alpha), ALPHA_SOURCE_NINJA)
+	REMOVE_TRAIT(ninja, TRAIT_NINJA_INVISIBILITY, NINJA_TRAIT)
+	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(ninja), ninja.dir)
+	ninja.visible_message(span_warning("[ninja.name] появил[GEND_SYA_AS_OS_IS(ninja) ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
+	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
+	var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_stealth = locate() in ninja.actions
+	ninja_stealth.action_ready = FALSE
+	ninja_stealth.toggle_button_on_off()
+	return TRUE

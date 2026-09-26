@@ -319,7 +319,7 @@
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.announce(
-			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] минут[DECL_U_Y_0(time_to_destination)]."
 		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
@@ -330,7 +330,7 @@
 		if(!you_realy_want_do_this())
 			return
 
-		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
+		var/message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED) ? "de-lockdowned and de-strandise the Emergency Shuttle" : "de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
 		href_list["check_antagonist"] = TRUE
@@ -383,16 +383,16 @@
 			return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		var/delmob = 0
+		var/delmob = FALSE
 		switch(tgui_alert(usr, "Delete old mob?", "Message", list("Yes", "No", "Cancel")))
 			if("Cancel")
 				return
 			if("Yes")
-				delmob = 1
+				delmob = TRUE
 
 		switch(href_list["simplemake"])
 			if("observer")
@@ -514,7 +514,7 @@
 		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 		if(!M.ckey)	//sanity
@@ -564,7 +564,7 @@
 //			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -813,7 +813,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -994,34 +994,10 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, locateUID(href_list["open_logging_view"]), TRUE)
 
 	else if(href_list["geoip"])
-		if(!check_rights(R_ADMIN))
+		var/mob/target = locateUID(href_list["geoip"])
+		if(!ismob(target) || !target.client)
 			return
-
-		var/mob/M = locateUID(href_list["geoip"])
-		if(ismob(M))
-			if(!M.client)
-				return
-			var/dat = ""
-			var/client/C = M.client
-			if(C.geoip.status != "updated")
-				C.geoip.try_update_geoip(C, C.address)
-			dat += "<center><b>Ckey:</b> [M.ckey]</center>"
-			dat += "<b>Country:</b> [C.geoip.country]<br>"
-			dat += "<b>CountryCode:</b> [C.geoip.countryCode]<br>"
-			dat += "<b>Region:</b> [C.geoip.region]<br>"
-			dat += "<b>Region Name:</b> [C.geoip.regionName]<br>"
-			dat += "<b>City:</b> [C.geoip.city]<br>"
-			dat += "<b>Timezone:</b> [C.geoip.timezone]<br>"
-			dat += "<b>ISP:</b> [C.geoip.isp]<br>"
-			dat += "<b>Mobile:</b> [C.geoip.mobile]<br>"
-			dat += "<b>Proxy:</b> [C.geoip.proxy]<br>"
-			dat += "<b>IP:</b> [C.geoip.ip]<br>"
-			dat += "<hr><b>Status:</b> [C.geoip.status]"
-			var/datum/browser/popup = new(usr, "geoip", "<div align='center'>GeoIP info</div>", 400, 300)
-			popup.set_content(dat)
-			popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
-			popup.open()
-			onclose(usr, "geoip")
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/geoip, target.ckey)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1084,7 +1060,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -1187,7 +1163,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!istype(M, /mob))	return
+		if(!ismob(M))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1366,7 +1342,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1411,7 +1387,7 @@
 
 		var/mob/M = locateUID(href_list["eraseflavortext"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1442,7 +1418,7 @@
 
 		var/mob/M = locateUID(href_list["userandomname"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1478,6 +1454,9 @@
 
 	else if(href_list["select_equip"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
+
+	else if(href_list["custom_equip"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/custom_equipment, locateUID(href_list["custom_equip"]))
 
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
@@ -1522,10 +1501,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1549,10 +1528,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1576,10 +1555,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1600,10 +1579,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1701,10 +1680,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1723,10 +1702,10 @@
 			to_chat(usr, "This can only be used on instances of type /mob/dead/observer", confidential = TRUE)
 			return
 		if(!(O in GLOB.respawnable_list))
-			GLOB.respawnable_list += O
+			O.add_to_respawnable_list()
 			log_and_message_admins("allowed [key_name(O)] to respawn!")
 		else
-			GLOB.respawnable_list -= O
+			O.remove_from_respawnable_list()
 			log_and_message_admins("disallowed [key_name(O)] to respawn!")
 
 	else if(href_list["revive"])
@@ -1846,7 +1825,7 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]))
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]), FALSE)
 
 	else if(href_list["check_antagonist"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
@@ -2243,6 +2222,9 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/subject = locateUID(href_list["adminmoreinfo"])
 		if(!ismob(subject))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
@@ -2282,7 +2264,7 @@
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2294,7 +2276,7 @@
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2306,7 +2288,7 @@
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2350,6 +2332,14 @@
 
 	else if(href_list["Smite"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, locateUID(href_list["Smite"]))
+
+	else if(href_list["play_internet"])
+		if(!check_rights(R_SOUNDS))
+			return
+		var/link_url = href_list["play_internet"]
+		if(!link_url)
+			return
+		web_sound(usr.client, link_url, href_list["credit"])
 
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
@@ -2739,7 +2729,7 @@
 		var/dirty_paths
 		if(istext(href_list["object_list"]))
 			dirty_paths = list(href_list["object_list"])
-		else if(istype(href_list["object_list"], /list))
+		else if(islist(href_list["object_list"]))
 			dirty_paths = href_list["object_list"]
 
 		var/paths = list()
@@ -2824,7 +2814,7 @@
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
-								if(istype(O,/mob))
+								if(ismob(O))
 									var/mob/M = O
 									M.real_name = obj_name
 							if(where == "inhand" && isliving(usr) && isitem(O))
@@ -3002,7 +2992,7 @@
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 
 			if("tripleAI")
-				usr.client.triple_ai()
+				SSadmin_verbs.dynamic_invoke_verb(usr.client, /datum/admin_verb/triple_ai)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 
 			if("mass_mindswap")
@@ -3305,7 +3295,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(isclothing(W) || is_id_card(W) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/weapons/projectile.dmi'
 					W.icon_state = "revolver"
@@ -3321,7 +3311,11 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
+					SEND_SOUND(human, sound(
+							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
+							channel = CHANNEL_ANNOUNCER,
+							volume = 40,
+							))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 
@@ -3344,12 +3338,12 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
-					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/commons) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.announce(
 					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-					new_sound = 'sound/AI/commandreport.ogg'
+					new_sound = SSstation.announcer.get_rand_report_sound(),
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
@@ -3399,9 +3393,9 @@
 				var/delete_mobs = tgui_alert(usr, "Clear all mobs?", "Confirm", list("Yes", "No", "Cancel"))
 				if(delete_mobs == "Cancel")
 					return
-				var/area/thunderdome = locate(/area/tdome/arena)
-				var/area/team1 = locate(/area/tdome/tdome1)
-				var/area/team2 = locate(/area/tdome/tdome2)
+				var/area/thunderdome = locate(/area/centcom/tdome/arena)
+				var/area/team1 = locate(/area/centcom/tdome/tdome1)
+				var/area/team2 = locate(/area/centcom/tdome/tdome2)
 				if(delete_mobs == "Yes")
 					var/clear_team_spawns = tgui_alert(usr, "Clear mobs on thunderdome spawns too?", "Confirm", list("Yes", "No"))
 					if(clear_team_spawns == "Yes")
@@ -3414,7 +3408,7 @@
 				for(var/obj/obj in thunderdome)
 					if(!istype(obj,/obj/machinery/camera))
 						qdel(obj) //Clear objects
-				var/area/template = locate(/area/tdome/arena_source)
+				var/area/template = locate(/area/centcom/tdome/arena_source)
 				template.copy_contents_to(thunderdome)
 				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
 				message_admins(span_adminnotice("[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs]."))
@@ -3466,15 +3460,19 @@
 					log_admin("[key_name(usr)] moved the gamma armory")
 					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
 
+			if("nuclear_overload")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Disable Fission Reactor Safeties")
+				message_admins("[key_name_admin(usr)] disabled reactor safeties")
+				log_admin("[key_name(usr)] disabled reactor safeties")
+				if(GLOB.main_fission_reactor)
+					INVOKE_ASYNC(GLOB.main_fission_reactor, TYPE_PROC_REF(/obj/machinery/atmospherics/fission_reactor/, overload_reactor))
+				else
+					log_admin("An admin attempted to override fission reactor safeties, but no reactor was found!")
+
 			if("spawn_cargo_crate")
 				if(!you_realy_want_do_this())
 					return
-				create_cargo_crate()
-
-			if("shuttle_start")
-				if(!you_realy_want_do_this())
-					return
-				shuttle_start()
+				SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/spawn_cargo)
 
 			if("borg_skins")
 				if(!check_rights(R_SKINS))
@@ -3624,8 +3622,8 @@
 					return
 				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
-				J.total_positions = -1
-				J.spawn_positions = -1
+				J.total_positions = JOB_UNLIMITED_POSITION
+				J.spawn_positions = JOB_UNLIMITED_POSITION
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
@@ -3833,6 +3831,33 @@
 		popup.open()
 		onclose(usr, "show_dna")
 
+	else if(href_list["tag_datum"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_tag = locateUID(href_list["tag_datum"])
+		if(!datum_to_tag)
+			return
+		return add_tagged_datum(datum_to_tag)
+
+	else if(href_list["del_tag"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_remove = locateUID(href_list["del_tag"])
+		if(!datum_to_remove)
+			return
+		return remove_tagged_datum(datum_to_remove)
+
+	else if(href_list["show_tags"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/display_tags)
+
+	else if(href_list["mark_datum"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_mark = locateUID(href_list["mark_datum"])
+		if(!datum_to_mark)
+			return
+		return usr.client?.mark_datum(datum_to_mark)
+
 #undef POWER_ALL
 #undef REPAIR_ALL
 #undef REPAIR_AND_POWER_ALL
@@ -3953,35 +3978,19 @@
 /datum/admins/proc/mass_mindswap()
 	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
 		return
-
+	var/datum/action/cooldown/spell/pointed/mindswap/swap = new
 	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 		if(!human.mind)
 			continue
 
 		var/mob/living/target = safepick(GLOB.human_list - human)
-
 		if(!target \
-		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+		|| !swap.is_valid_target(target))
 			continue
-
-		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
-
+		swap.owner = human
+		swap.cast(target)
+	qdel(swap)
 	log_and_message_admins("Initiated mass mindswap")
-
-/datum/admins/proc/shuttle_start()
-	if(!SSticker)
-		tgui_alert(usr, "Пожалуйста подождите, необходимая подсистема еще не была запущенна.")
-		return FALSE
-
-	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
-		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential = TRUE)
-		return FALSE
-
-	SSticker.shuttle_start = !SSticker.shuttle_start
-	var/msg = "[usr.key] [SSticker.shuttle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
-	log_admin(msg)
-	message_admins(span_darkmblue(msg))
-	return TRUE
 
 /datum/admins/proc/change_lava_type()
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)

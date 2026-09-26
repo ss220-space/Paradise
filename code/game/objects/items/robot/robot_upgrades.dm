@@ -111,6 +111,9 @@
 		if(user)
 			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
+	if(robot.shell)
+		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("cant apply on a AI shell!")]")
+		return FALSE
 
 	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -267,10 +270,17 @@
 	if(!..())
 		return FALSE
 
+	var/is_orebag_upgraded
+
 	for(var/obj/item/storage/bag/ore/cyborg/orebag in robot.module.modules)
+		is_orebag_upgraded |= orebag.aoe
 		qdel(orebag)
 
-	robot.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	var/obj/item/storage/bag/ore/holding/cyborg/ore_soh = new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	if(is_orebag_upgraded)
+		ore_soh.aoe = TRUE
+
+	robot.module.modules += ore_soh
 	robot.module.rebuild()
 	return TRUE
 
@@ -485,8 +495,7 @@
 	icon_state = "cyborg_upgrade5"
 	require_module = TRUE
 	var/repair_amount = -1
-	var/repair_tick = 1
-	var/msg_cooldown = 0
+	var/repair_tick = TRUE
 	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
@@ -539,26 +548,27 @@
 /obj/item/borg/upgrade/selfrepair/proc/activate_sr()
 	START_PROCESSING(SSobj, src)
 	on = TRUE
+	balloon_alert(cyborg, "саморемонт начат")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
+	balloon_alert(cyborg, "саморемонт остановлен")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(!repair_tick)
-		repair_tick = 1
+		repair_tick = TRUE
 		return
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, span_warning("Self-repair module deactivated. Please, insert the power cell."))
 			deactivate_sr()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, span_notice("Self-repair module deactivated. Please recharge."))
+			balloon_alert(cyborg, "недостаточно энергии для саморемонта")
 			deactivate_sr()
 			return
 
@@ -573,18 +583,11 @@
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)
-		repair_tick = 0
 
-		if((world.time - 2000) > msg_cooldown)
-			var/msgmode = "standby"
-			if(cyborg.health < 0)
-				msgmode = "critical"
-			else if(cyborg.health < cyborg.maxHealth)
-				msgmode = "normal"
-			to_chat(cyborg, span_notice("Self-repair is active in [span_boldnotice("[msgmode]")] mode."))
-			msg_cooldown = world.time
-	else
-		deactivate_sr()
+		repair_tick = FALSE
+		return
+
+	deactivate_sr()
 
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"
@@ -604,6 +607,13 @@
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 
+	if(istype(robot.module, /obj/item/robot_module/janitor))
+		for(var/obj/item/storage/bag/trash/cyborg/bag in robot.module.modules)
+			qdel(bag)
+
+		robot.module.modules += new /obj/item/storage/bag/trash/bluespace/cyborg(robot.module)
+		robot.module.rebuild()
+
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
 		energy_storage.recharge_rate *= 2
@@ -620,6 +630,13 @@
 		satchel.upgraded = FALSE
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
+	if(istype(robot.module, /obj/item/robot_module/janitor))
+		for(var/obj/item/storage/bag/trash/bluespace/cyborg/bag in robot.module.modules)
+			qdel(bag)
+
+		robot.module.modules += new /obj/item/storage/bag/trash/cyborg(robot.module)
+		robot.module.rebuild()
 
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)
@@ -768,10 +785,10 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/reagent_containers/glass/bucket/container in robot.module.modules)
+	for(var/obj/item/reagent_containers/cup/bucket/container in robot.module.modules)
 		qdel(container)
 
-	robot.module.modules += new /obj/item/reagent_containers/glass/beaker/bluespace(robot.module)
+	robot.module.modules += new /obj/item/reagent_containers/cup/beaker/bluespace(robot.module)
 	robot.module.rebuild()
 	return TRUE
 
@@ -779,10 +796,10 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/reagent_containers/glass/beaker/bluespace/container2 in robot.module)
+	for(var/obj/item/reagent_containers/cup/beaker/bluespace/container2 in robot.module)
 		qdel(container2)
 
-	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
+	robot.module.modules += new /obj/item/reagent_containers/cup/bucket(robot.module)
 	robot.module.rebuild()
 	return TRUE
 
@@ -796,7 +813,7 @@
 	var/datum/action/innate/launch_riders/launch_action = new
 
 /obj/item/borg/upgrade/mounted_seat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль встроенного сидения",
 		GENITIVE = "модуля встроенного сидения",
 		DATIVE = "модулю встроенного сидения",
@@ -816,7 +833,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = TRUE
+	robot.AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Grant(robot, src)
 	if(emagged)
 		launch_action.Grant(robot, src)
@@ -826,7 +843,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = FALSE
+	robot.RemoveElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Remove(robot, src)
 	launch_action.Remove(robot, src) //REMOVE IT!!!
 	return TRUE
@@ -842,13 +859,9 @@
 
 	var/mob/living/silicon/robot/robot = usr
 	robot.toggle_seat()
-	switch(robot.can_buckle)
-		if(TRUE)
-			button_icon_state = "seat_on"
-			UpdateButtonIcon()
-		if(FALSE)
-			button_icon_state = "seat_off"
-			UpdateButtonIcon()
+
+	button_icon_state = robot.can_buckle ? "seat_on" : "seat_off"
+	UpdateButtonIcon()
 
 /datum/action/innate/launch_riders
 	name = "Выкинуть всех пассажиров"
@@ -863,4 +876,79 @@
 	robot.eject_riders_harmfull()
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
+	name = "VERY STRANGE robotic mounted seat module"
 	emagged = TRUE
+
+/obj/item/borg/upgrade/ai
+	name = "B.O.R.I.S. module"
+	desc = "Модуль Блюспейс Ориентированной Роботической Искусственной Сети. При установке в киборга, позволяет ИИ управлять им напрямую."
+	icon_state = "r_boris"
+
+/obj/item/borg/upgrade/ai/get_ru_names()
+	return alist(
+		NOMINATIVE = "модуль Б.О.Р.И.С.",
+		GENITIVE = "модуля Б.О.Р.И.С.",
+		DATIVE = "модулю Б.О.Р.И.С.",
+		ACCUSATIVE = "модуль Б.О.Р.И.С.",
+		INSTRUMENTAL = "модулем Б.О.Р.И.С.",
+		PREPOSITIONAL = "модуле Б.О.Р.И.С.",
+	)
+
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/robot, mob/living/user = usr)
+	. = ..()
+	if(!.)
+		return .
+	if(robot.key)
+		to_chat(user, span_warning("Зафиксированы активные вычислительные процессы. Подключение невозможно."))
+		return FALSE
+	robot.make_shell(src)
+
+/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/robot, mob/living/user = usr)
+	if(!..())
+		return FALSE
+
+	robot.undeploy()
+	robot.revert_shell()
+	return TRUE
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr
+	name = "mining cyborg satchel upgrade"
+	desc = "Магнитное улучшение сумки для руды, позволяющее собирать руду в области 3 на 3."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "magnets=3,materials=3;engineering=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/get_ru_names()
+	return alist(
+		NOMINATIVE = "модуль рудного магнита",
+		GENITIVE = "модуля рудного магнита",
+		DATIVE = "модулю рудного магнита",
+		ACCUSATIVE = "модуль рудного магнита",
+		INSTRUMENTAL = "модулем рудного магнита",
+		PREPOSITIONAL = "модуле рудного магнита",
+	)
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = TRUE
+		changed = TRUE
+
+	return changed
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = FALSE
+		changed = TRUE
+
+	return changed

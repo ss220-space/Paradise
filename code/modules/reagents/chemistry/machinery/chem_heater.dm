@@ -16,7 +16,7 @@
 	var/speed_increase = 0
 
 /obj/machinery/chem_heater/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический нагреватель",
 		GENITIVE = "химического нагревателя",
 		DATIVE = "химическому нагревателю",
@@ -81,7 +81,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")

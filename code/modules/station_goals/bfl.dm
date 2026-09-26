@@ -4,14 +4,14 @@
 	name = "BFL Mining laser"
 
 /datum/station_goal/bfl/get_report()
-	return {"<b>Mining laser construcion</b><br>
-	Our surveillance drone detected an enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
+	return {"<b>Установка добывающего лазера</b><br>
+	Наши дроны слежки засекли огромное месторождение, с которого сочится плазма. Нам надо чтобы вы сооружили систему ОБЛ для сбора плазмы и отправили полученные ресурсы на ЦК по шаттлу снабжения.
 	<br>
-	Its base parts should be available for shipping by your cargo shuttle.
+	Базовые запчасти должны быть доступны в консоли заказов.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and enjoy your reward.
+	Чтобы завершить миссию, вы должны заказать специальный заказ Награда за постройку ОБЛ, после чего наслаждайтесь наградой.
 	<br><br>
-	-Nanotrasen Naval Command"}
+	-Командование Флота \"Нанотрейзен\""}
 
 /datum/station_goal/bfl/on_report()
 	//Unlock BFL related things
@@ -92,7 +92,7 @@
 	var/emag = FALSE
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
-	var/obj/machinery/bfl_receiver/receiver = FALSE
+	var/datum/weakref/receiver_ref
 	var/list/obj/effect/bfl_laser/turf_lasers = list()
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
@@ -149,6 +149,8 @@
 	if(laser)
 		return
 
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
+
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
@@ -163,6 +165,7 @@
 				receiver.lens.deactivate_lens()
 
 /obj/machinery/power/bfl_emitter/proc/receiver_test()
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 	if(receiver)
 		if(receiver.state && receiver.lens)
 			receiver.lens.activate_lens()
@@ -176,24 +179,25 @@
 	location.ChangeTurf(location.baseturf)
 	working_sound()
 	var/turf/below = GET_TURF_BELOW(location)
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 	while(below)
 		var/obj/effect/bfl_laser/turf_laser = new(below)
 		turf_lasers += turf_laser
 		below = GET_TURF_BELOW(below) // dig deeper and try another laser
-
-	if(QDELETED(receiver))
-		receiver = null
 
 	if(!receiver)
 		for(var/obj/machinery/bfl_receiver/bfl_receiver in SSmachines.get_by_type(/obj/machinery/bfl_receiver))
 			var/turf/receiver_turf = get_turf(bfl_receiver)
 			if(receiver_turf.z == lavaland_z_lvl)
 				receiver = bfl_receiver
+				receiver_ref = WEAKREF(bfl_receiver)
 				break
 
 	receiver_test()
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
+
 	state = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	if(receiver)
@@ -288,7 +292,7 @@
 	var/last_light_state_number = 0
 
 /obj/machinery/bfl_receiver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "приёмник BFL",
 		GENITIVE = "приёмника BFL",
 		DATIVE = "приёмнику BFL",
@@ -444,7 +448,7 @@
 	var/state = FALSE
 
 /obj/machinery/bfl_lens/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "высокоточная линза",
 		GENITIVE = "высокоточной линзы",
 		DATIVE = "высокоточной линзе",
@@ -549,38 +553,29 @@
 	desc = "Гигантский лазер, предназначенный для добычи руды."
 	icon = 'icons/obj/machines/bfl/laser.dmi'
 	icon_state = "Laser_Red"
-	speed_process = TRUE
-	var/move = 0
-	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
-
-/obj/singularity/bfl_red/move(force_move)
-	if(!move_self)
-		return 0
-
-	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
-
-	if(force_move)
-		movement_dir = force_move
-		step(src, movement_dir)
-	else
-		move++
-		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, lavaland_z_lvl))
-
-/obj/singularity/bfl_red/expand()
-	. = ..()
-	icon = 'icons/obj/machines/bfl/laser.dmi'
-	icon_state = "Laser_Red"
 	pixel_x = -32
-	pixel_y = 0
-	grav_pull = 1
+	move_self = FALSE // we drive the sine-wave path ourselves in process()
+	dissipate = FALSE
+	maximum_stage = STAGE_ONE
+	ghost_notification_message = null // emitter announces the rise to lavaland viewers itself
+	speed_process = TRUE
+	/// Sine-wave step counter; emitter seeds this with the spawn x so the path varies per run.
+	var/move = 0
+	var/lavaland_z_lvl
 
-/obj/singularity/bfl_red/singularity_act()
-	return 0
-
-/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
-	starting_energy = 250
+/obj/singularity/bfl_red/Initialize(mapload)
+	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
-	. = ..(loc, starting_energy, temp)
+	var/datum/component/singularity/singularity = singularity_component?.resolve()
+	if(!singularity)
+		return
+	singularity.grav_pull = 1
+	singularity.consume_range = 0
+	singularity.bsa_targetable = FALSE
+
+/obj/singularity/bfl_red/process(seconds_per_tick)
+	move++
+	forceMove(locate((move % 255) + 1, (sin(move + 1) + 1) * 125 + 3, lavaland_z_lvl))
 
 /obj/effect/bfl_laser
 	name = "big laser beam"
@@ -589,7 +584,7 @@
 	icon_state = "laser"
 
 /obj/effect/bfl_laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "луч мегалазера",
 		GENITIVE = "луча мегалазера",
 		DATIVE = "лучу мегалазера",

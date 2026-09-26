@@ -1,17 +1,17 @@
-/proc/view_or_range(distance = world.view , center = usr , type)
+/proc/view_or_range(distance = world.view, center = usr, type)
 	switch(type)
-		if("view")
-			. = view(distance,center)
-		if("range")
-			. = range(distance,center)
-	return
+		if(SPELL_SELECTION_VIEW)
+			. = view(distance, center)
+		if(SPELL_SELECTION_RANGE)
+			. = range(distance, center)
 
-/proc/getviewsize(view)
-	if(!view) // Just to avoid any runtimes that could otherwise cause constant disconnect loops.
-		stack_trace("Missing value for 'view' in getviewsize(), defaulting to world.view!")
-		view = world.view
+/proc/getviewsize(view = world.view)
+	SHOULD_BE_PURE(TRUE)
 
 	if(isnum(view))
+		//resetting back to 0- this is the same as just checking !view but we want to be clear the point of the check.
+		if(view == 0)
+			return list(0, 0)
 		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
 		return list(totalviewrange, totalviewrange)
 	else

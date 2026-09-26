@@ -13,7 +13,7 @@
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
 /obj/machinery/defibrillator_mount/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крепление для дефибриллятора",
 		GENITIVE = "крепления для дефибриллятора",
 		DATIVE = "креплению для дефибриллятора",
@@ -29,15 +29,10 @@
 	if(defib)
 		return defib.get_cell()
 
-/obj/machinery/defibrillator_mount/New(location, direction, building = 0)
-	..()
-
-	if(location)
-		loc = location
-
+/obj/machinery/defibrillator_mount/Initialize(mapload, direction, building = FALSE)
+	. = ..()
 	if(direction)
 		setDir(direction)
-
 	if(building)
 		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
@@ -72,7 +67,7 @@
 		if(defib.powered)
 			. += "[defib.safety ? "online" : "emagged"]"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
-			ratio = CEILING(ratio * 4, 1) * 25
+			ratio = ceil(ratio * 4) * 25
 			. += "charge[ratio]"
 		if(clamps_locked)
 			. += "clamps"
@@ -171,7 +166,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/frame/defib_mount/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разобранное крепление для дефибриллятора",
 		GENITIVE = "разобранного крепления для дефибриллятора",
 		DATIVE = "разобранному креплению для дефибриллятора",
@@ -184,3 +179,7 @@
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(src)
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 32, 32)

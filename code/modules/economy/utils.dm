@@ -16,7 +16,7 @@
 		return acct
 
 /proc/get_card_account(mob/user)
-	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone))
+	if(issilicon(user) && !isdrone(user))
 		return GLOB.station_account
 	var/obj/item/card/id/id = null
 	var/mob/living/carbon/human/H = null
@@ -113,11 +113,10 @@
 		return 0
 
 	if(transaction_amount <= money)
-		//transfer the money
-		money -= transaction_amount
+		set_money(money - transaction_amount)
 		makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name)
 		if(dest)
-			dest.money += transaction_amount
+			dest.set_money(dest.money + transaction_amount)
 			dest.makeTransactionLog(transaction_amount,
 			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
 		return 1
@@ -132,22 +131,20 @@
 		return 0
 
 	if(transaction_amount <= money)
-		//transfer the money
-		money -= transaction_amount
+		set_money(money - transaction_amount)
 		if(dest)
-			dest.money += transaction_amount
+			dest.set_money(dest.money + transaction_amount)
 		return 1
 	else
 		return 0
 
 // Credit is for giving money to an account out of thin air. Suspension does not matter.
 /datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, date = GLOB.current_date_string, time = "")
-
-	money += transaction_amount
+	set_money(money + transaction_amount)
 	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)
 	return 1
 
 //phantom_credit is like the above without any log
 /datum/money_account/proc/phantom_credit(transaction_amount = 0)
-	money += transaction_amount
+	set_money(money + transaction_amount)
 	return 1

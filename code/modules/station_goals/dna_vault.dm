@@ -38,16 +38,16 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"<b>DNA Vault construction</b><br>
-	Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future. As such, we need you to construct a DNA Vault aboard your station.
+	return {"<b>Создание ДНК—хранилища</b><br>
+	Наши системы долгосрочного предсказывания говорят, что в ближайшем будущем с шансом 99% должен произойти катаклизм масштаба звёздной системы . Поэтому, нам нужно, чтобы вы построили ДНК-хранилище на вашей станции и сохранили образцы, необходимые для восстановления биологического разнообразия в случае катастрофы.
 	<br><br>
-	The DNA Vault needs to contain samples of:
+	ДНК хранилище должно иметь образцы:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	<li>[animal_count] unique animal data.</li>
-	<li>[plant_count] unique non-standard plant data.</li>
-	<li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] уникальных животных.</li>
+	<li>[plant_count] уникальных нестандартных растений.</li>
+	<li>[human_count] уникальных разумных гуманоидов.</li>
 	</ul>
-	The base vault parts should be available for shipping by your cargo shuttle."}
+	Базовые части хранилища должны быть доступны для заказа в отделе снабжения."}
 
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 	var/list/dna = list()
 
 /obj/item/dna_probe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК-семплер",
 		GENITIVE = "ДНК-семплера",
 		DATIVE = "ДНК-семплеру",
@@ -94,9 +94,9 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/lesser/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
-	if(!proximity || !target)
+	if(!proximity_flag || !target)
 		return
 	//tray plants
 	if(istype(target,/obj/machinery/hydroponics))
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/list/obj/structure/fillers = list()
 
 /obj/machinery/dna_vault/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК хранилище",
 		GENITIVE = "ДНК хранилища",
 		DATIVE = "ДНК хранилищу",
@@ -218,8 +218,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			plants_max = G.plant_count
 			dna_max = G.human_count
 			break
-
-	..()
 
 /obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
@@ -322,7 +320,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			to_chat(user, span_warning("[DECLENT_RU_CAP(probe, NOMINATIVE)] не содержит релевантных данных."))
 			return ATTACK_CHAIN_PROCEED
 		check_goal()
-		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> [declension_ru(uploaded,"запись","записи","записей")]!"))
+		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> запис[DECL_0_I_YEJ(uploaded)]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

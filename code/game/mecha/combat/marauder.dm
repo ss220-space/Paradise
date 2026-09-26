@@ -6,7 +6,7 @@
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
-	armor = list(MELEE = 50, BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 60, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, FIRE = 100, ACID = 100)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
@@ -19,8 +19,8 @@
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
-
 	mech_type = MECH_TYPE_MARAUDER
+	allowed_equipment = MECH_EQUIPMENT_MARAUDER
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -37,11 +37,11 @@
 /obj/mecha/combat/marauder/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
@@ -71,16 +71,18 @@
 			equipment -= ME
 			qdel(ME)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
 	ME.attach(src)
 
 /obj/mecha/combat/marauder/mauler
@@ -96,11 +98,11 @@
 /obj/mecha/combat/marauder/mauler/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)

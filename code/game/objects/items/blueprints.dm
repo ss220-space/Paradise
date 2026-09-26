@@ -68,11 +68,10 @@
 		return AREA_SPACE
 	var/static/list/special_areas = typecacheof(list(
 		/area/shuttle,
-		/area/admin,
+		/area/centcom/admin_room,
 		/area/centcom,
-		/area/asteroid,
-		/area/tdome,
-		/area/wizard_station,
+		/area/centcom/tdome,
+		/area/centcom/wizard_station,
 	))
 	if(is_type_in_typecache(check_area, special_areas))
 		return AREA_SPECIAL
@@ -125,6 +124,7 @@
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	allow_non_space_use = TRUE
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	var/list/showing = list()
 	var/client/viewing
 	/// Viewing the wire legend

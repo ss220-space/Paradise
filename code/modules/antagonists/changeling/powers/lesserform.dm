@@ -1,17 +1,12 @@
 /datum/action/changeling/lesserform
-	name = "Lesser form"
-	desc = "We debase ourselves and become lesser. We become a monkey. Costs 5 chemicals."
-	helptext = "The transformation greatly reduces our size, allowing us to slip out of cuffs and climb through vents."
+	name = "Низшая форма"
+	desc = "Мы трансформируемся в низшую форму."
+	helptext = "Мы уменьшаемся в размерах, что освободит нас от наручников, всей одежды и позволит лазить по вентиляции."
 	button_icon_state = "lesser_form"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	chemical_cost = 5
-	genetic_damage = 33
 	dna_cost = 1
 	req_human = TRUE
 
-/**
- * Transform into a monka.
- */
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -20,14 +15,14 @@
 		return FALSE
 
 	if(user.has_brain_worms())
-		to_chat(user, span_warning("Alien intelligence in our body prevents transformation!"))
+		user.balloon_alert(user, "в разуме паразит")
 		return FALSE
 
 	if(!user.dna.species.primitive_form)
-		to_chat(user, span_warning("We cannot perform this ability in this form!"))
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
-	user.visible_message(span_warning("[user] transforms!"), span_warning("Our genes cry out!"))
+	user.visible_message(span_warning("[user] трансформируется в низшую форму!"))
 	remove_changeling_mutations(user)
 	user.force_gene_block(GLOB.monkeyblock, TRUE)
 

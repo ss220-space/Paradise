@@ -89,25 +89,25 @@
 	det_time = newtime
 	to_chat(user, "Timer set for [newtime / 10] seconds.")
 
-/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag, params)
-	if(!flag)
+/obj/item/grenade/plastic/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
-	if(iscarbon(AM))
-		to_chat(user, span_warning("You can't get the [src] to stick to [AM]!"))
+	if(iscarbon(target))
+		to_chat(user, span_warning("You can't get the [src] to stick to [target]!"))
 		return
 
-	if(isobserver(AM))
-		to_chat(user, span_warning("Your hand just phases through [AM]!"))
+	if(isobserver(target))
+		to_chat(user, span_warning("Your hand just phases through [target]!"))
 		return
 
 	to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time / 10]..." : ""]"))
 
-	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
+	if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 		return
 	if(!user.drop_item_ground(src))
 		return
-	attach(AM, user)
+	attach(target, user)
 
 /obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	target = AM
@@ -179,7 +179,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)	// Set the explosion location to turf if planted directly on a wall or floor
 			else
 				location = get_atom_on_turf(target)	// Otherwise, make sure we're blowing up what's on top of the turf
@@ -188,7 +188,7 @@
 	if(location)
 		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range, cause = src)
 		location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
@@ -208,7 +208,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
@@ -223,13 +223,13 @@
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, cause = src)
 			location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
 
-/obj/item/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag, params)
-	aim_dir = get_dir(user,AM)
+/obj/item/grenade/plastic/x4/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	aim_dir = get_dir(user, target)
 	..()
 
 // Shaped charge
@@ -255,13 +255,13 @@
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
 			location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
 
-/obj/item/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag, params)
-	aim_dir = get_dir(user,AM)
+/obj/item/grenade/plastic/c4_shaped/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	aim_dir = get_dir(user, target)
 	..()
 
 /obj/item/grenade/plastic/c4_shaped/flash

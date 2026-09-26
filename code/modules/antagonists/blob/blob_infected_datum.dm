@@ -65,24 +65,24 @@
 		add_game_logs("has been deblobized", owner.current)
 	stop_process = TRUE
 	. = ..()
-	qdel(time_to_burst_display)
-	qdel(blob_talk_action)
-	qdel(blob_burst_action)
+	QDEL_NULL(time_to_burst_display)
+	QDEL_NULL(blob_talk_action)
+	QDEL_NULL(blob_burst_action)
 	return .
 
 /datum/antagonist/blob_infected/add_owner_to_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
-	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
+	if(add_to_mode && mode && !(owner in mode.blobs[BLOB_GROUP_INFECTED]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
-		mode.blobs["infected"] |= owner
+		mode.blobs[BLOB_GROUP_INFECTED] |= owner
 		mode.update_blob_objective()
 
 /datum/antagonist/blob_infected/remove_owner_from_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
-	if(add_to_mode && mode && (owner in mode.blobs["infected"]))
+	if(add_to_mode && mode && (owner in mode.blobs[BLOB_GROUP_INFECTED]))
 		if(!is_tranformed)
 			mode.blob_win_count -= BLOB_TARGET_POINT_PER_CORE
-		mode.blobs["infected"] -= owner
+		mode.blobs[BLOB_GROUP_INFECTED] -= owner
 		mode.update_blob_objective()
 
 /datum/antagonist/blob_infected/give_objectives()
@@ -95,6 +95,8 @@
 	add_blob_actions(user)
 	add_burst_display(user)
 	add_atmos_immunity(user)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
+	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
 	is_processing = TRUE
 	return user
 
@@ -103,6 +105,7 @@
 	remove_blob_actions(user)
 	remove_burst_display(user)
 	remove_atmos_immunity(user)
+	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_DEATH))
 	is_processing = FALSE
 	return user
 
@@ -125,6 +128,18 @@
 	SEND_SOUND(owner.current, sound('sound/magic/mutate.ogg'))
 	return messages
 
+/datum/antagonist/blob_infected/proc/on_movable_moved(mob/living/source, atom/oldloc, dir, forced)
+	SIGNAL_HANDLER
+	if(!ismob(source.loc) || source.dusted)
+		return
+	INVOKE_ASYNC(src, PROC_REF(burst_blob))
+
+/datum/antagonist/blob_infected/proc/on_death(mob/living/source)
+	SIGNAL_HANDLER
+	if(source.dusted)
+		return
+	INVOKE_ASYNC(src, PROC_REF(burst_blob))
+
 /datum/antagonist/blob_infected/proc/is_type_suitable(mob/living/affected)
 	return mob_type && istype(affected, mob_type)
 
@@ -142,7 +157,7 @@
 		message_time = 0
 	message_time += BURST_BLOB_TICK
 	if(burst_waited_time >= burst_wait_time)
-		burst_blob(owner, FALSE)
+		burst_blob()
 		return
 	if(burst_waited_time >= burst_wait_time * BURST_SECOND_STAGE_COEF)
 		player_message = SECOND_STAGE_WARN
@@ -173,15 +188,19 @@
 /datum/antagonist/blob_infected/proc/add_burst_display(mob/living/antag_mob)
 	if(!antag_mob)
 		return
+
 	if(!time_to_burst_display)
 		time_to_burst_display = new /atom/movable/screen()
 		time_to_burst_display.name = "time to burst"
 		time_to_burst_display.icon_state = "block"
 		time_to_burst_display.screen_loc = ui_internal
+
 	var/datum/hud/hud = antag_mob.hud_used
+
 	if(!hud)
 		addtimer(CALLBACK(src, PROC_REF(add_burst_display), antag_mob), 1 SECONDS)
 		return
+
 	hud.static_inventory += time_to_burst_display
 	hud.show_hud(hud.hud_version)
 
@@ -204,60 +223,72 @@
 		return TRUE
 	return FALSE
 
-/datum/antagonist/blob_infected/proc/burst_blob_in_space(warned=FALSE)
+/datum/antagonist/blob_infected/proc/burst_blob_in_space(warned = FALSE)
 	if(!owner || !owner.current)
 		return
-	var/mob/living/C = owner.current
+	var/mob/living/current_mob = owner.current
 	if(!warned || warn_blob)
-		to_chat(C, AWAY_STATION_WARN)
-		message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
+		to_chat(current_mob, AWAY_STATION_WARN)
+		message_admins("[key_name_admin(current_mob)] was in space when the blobs burst, and will die if [current_mob.p_they()] [current_mob.p_do()] not return to the station.")
 		addtimer(CALLBACK(src, PROC_REF(burst_blob_in_space), TRUE), AWAY_AFTER_WARN_TIME)
-	else
-		SSticker?.mode?.bursted_blobs_count++
-		log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
-		message_admins("[key_name_admin(C)] was in space when attempting to burst as a blob.")
-		C.was_bursted = TRUE
-		kill_borer_inside()
-		C.gib()
-		if(need_new_blob)
-			SSticker?.mode?.make_blobs(1, TRUE)
+		return
+	log_admin("[key_name(current_mob)] was in space when attempting to burst as a blob.")
+	message_admins("[key_name_admin(current_mob)] was in space when attempting to burst as a blob.")
+	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED, BLOB_INFECTED_TRAIT)
+	kill_borer_inside()
+	current_mob.gib()
+	if(need_new_blob)
+		SSticker?.mode?.make_blobs(1, TRUE)
 
 /datum/antagonist/blob_infected/proc/burst_blob()
 	var/client/blob_client = null
 	var/turf/location = null
-	var/mob/living/C = owner.current
-	if(!C || !istype(C))
+	var/mob/living/current_mob = owner?.current
+
+	if(!istype(current_mob))
 		return
-	if(!GLOB.directory[ckey(owner.key)] || C.was_bursted)
+
+	if(!GLOB.directory[ckey(owner.key)] || HAS_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED))
 		return
+
 	blob_client = GLOB.directory[ckey(owner.key)]
-	location = get_turf(C)
-	var/datum/game_mode/mode= SSticker.mode
-	if(ismob(C.loc))
-		var/mob/M = C.loc
-		M.gib()
+	location = get_turf(current_mob)
+	var/datum/game_mode/mode = SSticker.mode
+	if(ismob(current_mob.loc))
+		var/mob/absorber = current_mob.loc
+		absorber.gib()
+
+	if(!location)
+		return
+
 	if(!is_station_level(location.z) || isspaceturf(location))
 		burst_blob_in_space(!warn_blob)
 		return
-	if(blob_client && location)
-		mode.bursted_blobs_count++
-		C.was_bursted = TRUE
-		kill_borer_inside()
-		var/datum/antagonist/blob_overmind/overmind = transform_to_overmind()
-		owner.remove_antag_datum(/datum/antagonist/blob_infected)
-		C.gib()
-		var/obj/structure/blob/special/core/core = new(location, blob_client)
-		if(!(core.overmind && core.overmind.mind))
-			return
-		core.overmind.mind.add_antag_datum(overmind)
-		core.lateblobtimer()
-		notify_ghosts(
-			"A Blob host has burst in [get_area_name(core)]",
-			source = core,
-			title = "Blob Awakening!",
-		)
-		SSticker?.mode?.process_blob_stages()
-		mode.update_blob_objective()
+
+	if(!blob_client)
+		return
+
+	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED, BLOB_INFECTED_TRAIT)
+	kill_borer_inside()
+	var/datum/antagonist/blob_overmind/overmind = transform_to_overmind()
+	owner.remove_antag_datum(/datum/antagonist/blob_infected)
+	current_mob.gib()
+	var/obj/structure/blob/special/core/core = new(location, blob_client)
+	if(!(core.overmind && core.overmind.mind))
+		return
+	core.overmind.mind.add_antag_datum(overmind)
+	core.lateblobtimer()
+	notify_ghosts(
+		"A Blob host has burst in [get_area_name(core)]",
+		source = core,
+		title = "Blob Awakening!"
+	)
+
+	if(!mode)
+		return
+
+	mode.process_blob_stages()
+	mode.update_blob_objective()
 
 /datum/antagonist/blob_infected/proc/transform_to_overmind()
 	var/datum/antagonist/blob_overmind/overmind = new
@@ -268,36 +299,37 @@
 
 /datum/antagonist/blob_infected/proc/kill_borer_inside()
 	var/mob/living/simple_animal/borer/borer = owner?.current?.has_brain_worms()
-	if(borer)
-		borer.leave_host()
-		borer.death()
+	if(!borer)
+		return
+	borer.leave_host()
+	borer.death()
 
 /datum/antagonist/blob_infected/human
 	mob_type = /mob/living/carbon/human
 
 /datum/antagonist/blob_infected/human/add_atmos_immunity(mob/living/carbon/human/affected)
-	if(..(affected))
-		var/datum/species/S = affected.dna.species
+	if(..())
+		var/datum/species/affected_species = affected.dna.species
 		if(!HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
 			ADD_TRAIT(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
-		S.cold_level_1 = BLOB_INFECTED_MIN_BODY_TEMP
-		S.cold_level_2 = BLOB_INFECTED_MIN_BODY_TEMP
-		S.cold_level_3 = BLOB_INFECTED_MIN_BODY_TEMP
-		S.warning_low_pressure = BLOB_INFECTED_MIN_PRESSURE
-		S.hazard_low_pressure =  BLOB_INFECTED_MIN_PRESSURE
+		affected_species.cold_level_1 = BLOB_INFECTED_MIN_BODY_TEMP
+		affected_species.cold_level_2 = BLOB_INFECTED_MIN_BODY_TEMP
+		affected_species.cold_level_3 = BLOB_INFECTED_MIN_BODY_TEMP
+		affected_species.warning_low_pressure = BLOB_INFECTED_MIN_PRESSURE
+		affected_species.hazard_low_pressure =  BLOB_INFECTED_MIN_PRESSURE
 		return TRUE
 	return FALSE
 
 /datum/antagonist/blob_infected/human/remove_atmos_immunity(mob/living/carbon/human/affected)
-	if(..(affected))
-		var/datum/species/S = affected.dna.species
+	if(..())
+		var/datum/species/affected_species = affected.dna.species
 		if(HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
-			REMOVE_TRAIT_NOT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
-		S.cold_level_1 = initial(S.cold_level_1)
-		S.cold_level_2 = initial(S.cold_level_2)
-		S.cold_level_3 = initial(S.cold_level_3)
-		S.warning_low_pressure = initial(S.warning_low_pressure)
-		S.hazard_low_pressure = initial(S.hazard_low_pressure)
+			REMOVE_TRAIT(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
+		affected_species.cold_level_1 = initial(affected_species.cold_level_1)
+		affected_species.cold_level_2 = initial(affected_species.cold_level_2)
+		affected_species.cold_level_3 = initial(affected_species.cold_level_3)
+		affected_species.warning_low_pressure = initial(affected_species.warning_low_pressure)
+		affected_species.hazard_low_pressure = initial(affected_species.hazard_low_pressure)
 		return TRUE
 	return FALSE
 
@@ -307,7 +339,7 @@
 	var/list/old_atmos_requirements
 
 /datum/antagonist/blob_infected/simple_animal/add_atmos_immunity(mob/living/simple_animal/affected)
-	if(..(affected))
+	if(..())
 		old_atmos_requirements = affected.atmos_requirements
 		affected.atmos_requirements = BLOB_INFECTED_ATMOS_REC
 
@@ -319,7 +351,7 @@
 	return FALSE
 
 /datum/antagonist/blob_infected/simple_animal/remove_atmos_immunity(mob/living/simple_animal/affected)
-	if(..(affected))
+	if(..())
 		affected.atmos_requirements = old_atmos_requirements
 		var/datum/component/animal_temperature/temp = affected.GetComponent(/datum/component/animal_temperature)
 		temp?.minbodytemp = initial(temp?.minbodytemp)

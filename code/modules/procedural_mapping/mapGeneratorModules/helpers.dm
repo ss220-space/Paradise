@@ -10,16 +10,7 @@
 		return
 	var/list/map = mother.map
 	for(var/turf/simulated/T in map)
-		var/datum/gas_mixture/air = new()
-		air.set_oxygen(T.oxygen)
-		air.set_nitrogen(T.nitrogen)
-		air.set_carbon_dioxide(T.carbon_dioxide)
-		air.set_toxins(T.toxins)
-		air.set_sleeping_agent(T.sleeping_agent)
-		air.set_agent_b(T.agent_b)
-		air.set_hydrogen(T.hydrogen)
-		air.set_water_vapor(T.water_vapor)
-		air.set_temperature(T.temperature)
+		var/datum/gas_mixture/air = T.get_initial_air()
 		T.blind_set_air(air)
 
 //Only places atoms/turfs on area borders

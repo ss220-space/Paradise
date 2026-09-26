@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			var/mob/C = pick_n_take(candidates)
 			spawn_count--
 			if(C)
-				GLOB.respawnable_list -= C
+				C.remove_from_respawnable_list()
 				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 				M.possess_by_player(C.ckey) // must be before equipOutfit, or that will runtime due to lack of mind
 				M.equipOutfit(/datum/outfit/admin/sol_trader)
@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
 	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
 	messages.Add(M.mind.prepare_announce_objectives())
-	to_chat(M, chat_box_green(messages.Join("<br>")))
+	to_chat(M, custom_boxed_message("green_box", messages.Join("<br>")))
 	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()

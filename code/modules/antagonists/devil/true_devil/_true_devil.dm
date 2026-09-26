@@ -17,12 +17,13 @@
 	pixel_y_lying_offset = -20
 	hud_type = /datum/hud/devil
 	tts_seed = "Mannoroth"
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "истинный Дьявол",
 		GENITIVE = "истинного Дьявола",
 		DATIVE = "истинному Дьяволу",
@@ -72,7 +73,7 @@
 	drop_all_held_items()
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_notice("Это [icon2html(src, user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
+	var/msg = span_notice("Это [get_examine_icon(user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
@@ -114,7 +115,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity)
+/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	if(!ishuman(atom))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst
@@ -221,15 +222,15 @@
 	maxHealth = 800
 	var/list/bag_content
 	var/static/list/spell_list = list(
-		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus,
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt,
+		/datum/action/cooldown/spell/conjure_item/krampus_bag,
+		/datum/action/cooldown/spell/conjure_item/pitchfork/krampus,
+		/datum/action/cooldown/spell/pointed/projectile/fireball/hellish,
+		/datum/action/cooldown/spell/aoe/devil_fire,
+		/datum/action/cooldown/spell/jaunt/infernal_jaunt,
 	)
 
 /mob/living/carbon/true_devil/krampus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Крампус",
 		GENITIVE = "Крампуса",
 		DATIVE = "Крампусу",
@@ -241,8 +242,8 @@
 /mob/living/carbon/true_devil/krampus/Initialize(mapload, mob/living/carbon/dna_source)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SNOWSTORM_IMMUNE, INNATE_TRAIT)
-	for(var/spell in spell_list)
-		AddSpell(new spell)
+	for(var/datum/action/cooldown/spell/spell in spell_list)
+		AddSpell(spell)
 
 /mob/living/carbon/true_devil/krampus/Destroy()
 	var/turf/drop_loc = get_turf(src)

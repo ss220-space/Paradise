@@ -149,6 +149,26 @@
 	if(HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
 		return FALSE
 
+/datum/surgery/attach_robotic_limb/self_attach_ipc
+	name = "Самоприсоединение конечности (КПБ)"
+	desc = "Позволяет КПБ самостоятельно установить себе роботизированную конечность."
+	self_operable = TRUE 
+	lying_required = FALSE 
+	steps = list(/datum/surgery_step/limb/attach/robo/ipc_self)
+
+/datum/surgery/attach_robotic_limb/self_attach_ipc/can_start(mob/user, mob/living/carbon/target)
+	if(!..())
+		return FALSE
+	if(user != target)
+		return FALSE
+	if(!ismachineperson(user))
+		return FALSE
+
+	var/obj/item/organ/external/bodypart = user.get_active_hand()
+	if(!istype(bodypart) || !bodypart.is_robotic())
+		return FALSE
+	return TRUE
+
 /datum/surgery_step/limb
 
 /datum/surgery_step/limb/attach
@@ -230,6 +250,10 @@
 // THIS IS DISTINCT FROM USING A CYBORG LIMB TO CREATE A NEW LIMB ORGAN
 /datum/surgery_step/limb/attach/robo
 	name = "присоединить робо-конечность"
+
+/datum/surgery_step/limb/attach/robo/ipc_self
+	name = "самоприсоединение робо-конечности"
+	time = 6.4 SECONDS
 
 /datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/bodypart)
 	if(!bodypart.is_robotic())

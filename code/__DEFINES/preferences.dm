@@ -66,11 +66,11 @@
 #define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS (1<<20) // 1048576
 #define PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE (1<<21) // 2097152
 #define PREFTOGGLE_2_SPLIT_ADMIN_TABS (1<<22) // 4194304
-#define PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES (1<<23) // 8388608
+#define PREFTOGGLE_2_OFF_LEGACY_OUTPUT_MESSAGES (1<<23) // 8388608
 
 #define TOGGLES_2_TOTAL 16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_AUTO_AIM_MEDICINE|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_AUTO_AIM_MEDICINE|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS|PREFTOGGLE_2_MC_TAB)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -83,14 +83,15 @@
 
 #define PREFTOGGLE_3_DNR_AFTER_DEATH (1<<0) // 1
 #define PREFTOGGLE_3_UI_SCALE (1<<1) // 2
-#define PREFTOGGLE_3_FACING_TO_MOUSE (1<<2) // 4
+//#define PREFTOGGLE_3_FACING_TO_MOUSE (1<<2) // 4
 #define PREFTOGGLE_3_PAIN_BLURB (1<<3) // 8
 #define PREFTOGGLE_3_STORAGE_NEUTRAL (1<<4) // 16
 #define PREFTOGGLE_3_STORAGE_COLORFY (1<<5) // 32
+#define PREFTOGGLE_3_RUNECHAT_LOOC (1<<6) // 64
 
-#define TOGGLES_3_TOTAL 63 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL 127 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_RUNECHAT_LOOC)
 
 #if TOGGLES_3_TOTAL > 16777215
 #error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
@@ -150,14 +151,12 @@
 
 #define AGE_SHEET list(SPECIES_AGE_MIN = 18, SPECIES_AGE_MAX = 85, JOB_MIN_AGE_HIGH_ED = 30, JOB_MIN_AGE_COMMAND = 30)
 
-// Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
-// These dont need to be bitflags because there isnt going to be more than one at a time of these active
-// But its gonna piss off my OCD if it isnt bitflags, so deal with it, -affected
-#define PARALLAX_DISABLE 1
-#define PARALLAX_LOW 2
-#define PARALLAX_MED 4
-#define PARALLAX_HIGH 8
-#define PARALLAX_INSANE 16
+#define PARALLAX_DISABLE (1<<0)
+#define PARALLAX_BOOMER (1<<1)
+#define PARALLAX_LOW (1<<2)
+#define PARALLAX_MED (1<<3)
+#define PARALLAX_HIGH (1<<4)
+#define PARALLAX_INSANE (1<<5)
 
 // Defines for how detailed multi-z is.
 // The lower values should improve perfomance
@@ -228,10 +227,20 @@
 #define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
 #define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"
 
-/// This isnt in client_defines due to scoping issues
-#define DEFAULT_CLIENT_VIEWSIZE "17x15"
+/// Anonymous player display label
+#define ANON_KEY "(Anon)"
 
 // Used for alternate_option
 #define GET_RANDOM_JOB 0
 #define BE_ASSISTANT 1
 #define RETURN_TO_LOBBY 2
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_SPEC 2
+#define TAB_KEYS 3
+#define TAB_TOGGLES 4
+
+#define SCALING_METHOD_NORMAL "normal"
+#define SCALING_METHOD_DISTORT "distort"
+#define SCALING_METHOD_BLUR "blur"

@@ -9,8 +9,8 @@
 	glass_sheets_refunded = 1
 
 /obj/item/mounted/frame/newscaster_frame/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/newscaster/N = new /obj/machinery/newscaster(get_turf(src), get_dir(on_wall, user), 1)
-	N.pixel_y -= (loc.y - on_wall.y) * 32
-	N.pixel_x -= (loc.x - on_wall.x) * 32
-	N.add_fingerprint(user)
+	var/obj/machinery/newscaster/newscaster = new /obj/machinery/newscaster(get_turf(src), get_dir(on_wall, user), 1)
+	newscaster.pixel_y -= (loc.y - on_wall.y) * 32
+	newscaster.pixel_x -= (loc.x - on_wall.x) * 32
+	newscaster.add_fingerprint(user)
 	qdel(src)

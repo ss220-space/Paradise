@@ -20,6 +20,14 @@
 	/// The trigger sent when this event occurs
 	var/datum/port/output/trigger_port
 
+/obj/item/circuit_component/hear/Destroy()
+	on = null
+	message_port = null
+	speaker_name = null
+	speaker_port = null
+	trigger_port = null
+	. = ..()
+
 /obj/item/circuit_component/hear/populate_ports()
 	on = add_input_port("Вкл", PORT_TYPE_NUMBER, default = 1)
 	message_port = add_output_port("Сообщение", PORT_TYPE_STRING)

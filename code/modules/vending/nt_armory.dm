@@ -47,7 +47,7 @@
 		/obj/item/ammo_box/magazine/enforcer/lethal = 8,
 		/obj/item/ammo_box/magazine/sp8 = 8,
 
-		/obj/item/ammo_box/magazine/laser = 12,
+		/obj/item/ammo_box/magazine/ik60mag = 12,
 		/obj/item/ammo_box/magazine/wt550m9 = 20,
 		/obj/item/ammo_box/magazine/m556 = 12,
 		/obj/item/ammo_box/a40mm = 4,
@@ -68,7 +68,7 @@
 	tiltable = FALSE //no ert tilt
 
 /obj/machinery/vending/nta/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Ammunition",
 		GENITIVE = "торгового автомата NT Ammunition",
 		DATIVE = "торговому автомату NT Ammunition",
@@ -123,12 +123,12 @@
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/gun/projectile/automatic/lasercarbine = 3,
-		/obj/item/ammo_box/magazine/laser = 6,
+		/obj/item/gun/projectile/automatic/ik60 = 3,
+		/obj/item/ammo_box/magazine/ik60mag = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/sfg = 3,
+		/obj/item/gun/projectile/automatic/smg/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,
@@ -140,7 +140,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Medium Gear & Ammunition",
 		GENITIVE = "торгового автомата NT ERT Medium Gear & Ammunition",
 		DATIVE = "торговому автомату NT ERT Medium Gear & Ammunition",
@@ -165,7 +165,7 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 
 	products = list(
-		/obj/item/gun/projectile/automatic/ar = 3,
+		/obj/item/gun/projectile/automatic/arg = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
 		/obj/item/gun/projectile/automatic/m52 = 3,
 		/obj/item/ammo_box/magazine/m52mag = 6,
@@ -184,7 +184,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Heavy Gear & Ammunition",
 		GENITIVE = "торгового автомата NT ERT Heavy Gear & Ammunition",
 		DATIVE = "торговому автомату NT ERT Heavy Gear & Ammunition",
@@ -217,11 +217,12 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/gun/projectile/shotgun/winchester = 3,
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/gun/projectile/automatic/smg/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
 		/obj/item/melee/baton/telescopic = 4,
@@ -231,7 +232,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Light Gear & Ammunition",
 		GENITIVE = "торгового автомата NT ERT Light Gear & Ammunition",
 		DATIVE = "торговому автомату NT ERT Light Gear & Ammunition",
@@ -254,6 +255,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/gun/projectile/shotgun/winchester = 2,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_box/shotgun = 2,
 		/obj/item/ammo_box/magazine/enforcer = 6,
@@ -266,7 +268,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT CentComm prison guards' Gear & Ammunition",
 		GENITIVE = "торгового автомата NT CentComm prison guards' Gear & Ammunition",
 		DATIVE = "торговому автомату NT CentComm prison guards' Gear & Ammunition",
@@ -297,7 +299,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
 		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/a762x51/ap = 12,
+		/obj/item/ammo_box/magazine/l6saw/ap = 12,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
 		/obj/item/gun/energy/immolator = 6,
 		/obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12,
@@ -311,7 +313,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
 		GENITIVE = "торгового автомата NT ERT Death Wish Gear & Ammunition",
 		DATIVE = "торговому автомату NT ERT Death Wish Gear & Ammunition",
@@ -336,7 +338,8 @@
 
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
-		/obj/item/reagent_containers/applicator/dual = 2,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
+		/obj/item/reagent_containers/applicator/dual/syndi = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
@@ -357,11 +360,13 @@
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
 		/obj/item/roller/holo = 2,
+		/obj/item/clothing/gloves/color/latex/modified = 2,
+		/obj/item/clothing/gloves/color/latex/inugami = 2,
 	)
 	contraband = list()
 
 /obj/machinery/vending/nta/ertarmory/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Medical Gear",
 		GENITIVE = "торгового автомата NT ERT Medical Gear",
 		DATIVE = "торговому автомату NT ERT Medical Gear",
@@ -404,7 +409,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/engineer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Engineer Gear",
 		GENITIVE = "торгового автомата NT ERT Engineer Gear",
 		DATIVE = "торговому автомату NT ERT Engineer Gear",
@@ -447,7 +452,7 @@
 	)
 
 /obj/machinery/vending/nta/ertarmory/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Janitor Gear",
 		GENITIVE = "торгового автомата NT ERT Janitor Gear",
 		DATIVE = "торговому автомату NT ERT Janitor Gear",

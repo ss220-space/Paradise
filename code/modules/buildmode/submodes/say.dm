@@ -2,7 +2,7 @@
 	key = "say"
 
 /datum/buildmode_mode/say/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Сказать")] -> ЛКМ\n\
 		[span_bold("Издать эмоцию")] -> ПКМ"))
 	)

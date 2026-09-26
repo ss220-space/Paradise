@@ -48,7 +48,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/communications/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль связи",
 		GENITIVE = "консоли связи",
 		DATIVE = "консоли связи",
@@ -57,12 +57,14 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		PREPOSITIONAL = "консоли связи",
 	)
 
-/obj/machinery/computer/communications/New()
-	GLOB.shuttle_caller_list += src
-	..()
-
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
+	GLOB.shuttle_caller_list += src
+
+/obj/machinery/computer/communications/Destroy()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	return ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
@@ -76,7 +78,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	else
 		if(message)
 			to_chat(user, span_warning("Доступ запрещён."))
-			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+			playsound(src, SFX_BUTTON_DENIED, 20)
 		return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(new_level, force)
@@ -104,7 +106,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	if(action == "auth")
 		if(!ishuman(ui.user))
 			to_chat(ui.user, span_warning("Доступ запрещён."))
-			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+			playsound(src, SFX_BUTTON_DENIED, 20)
 			return FALSE
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
@@ -334,7 +336,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			if(!FULL_ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
-			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/cmd_admin_create_centcom_report)
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/create_command_report)
 
 		if("dispatch_ert")
 			if(!ADMIN_CHECK(ui.user))
@@ -388,8 +390,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				GLOB.major_announcement.announce(
 					message = params["text"],
 					new_title = ANNOUNCE_CCMSG_RU,
-					new_sound = 'sound/AI/commandreport.ogg',
-					new_subtitle = params["subtitle"]
+					new_sound = SSstation.announcer.get_rand_report_sound(),
+					new_subtitle = params["subtitle"],
+					color_override = "blue"
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
@@ -441,7 +444,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	GLOB.minor_announcement.announce(
 		message = "Отчёт был загружен и распечатан на всех консолях связи.",
 		new_title = ANNOUNCE_SECRETMSG_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -662,14 +665,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		display.update()
 
-/obj/machinery/computer/communications/Destroy()
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	return ..()
-
-/obj/item/circuitboard/communications/New()
+/obj/item/circuitboard/communications/Initialize(mapload)
+	. = ..()
 	GLOB.shuttle_caller_list += src
-	..()
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

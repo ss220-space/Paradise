@@ -3,10 +3,10 @@
 	////////////
 
 #define UPLOAD_LIMIT 10485760 //Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION 513 // Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION 516 // Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION 514 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD 1566 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION 516 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD 1682 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -116,6 +116,9 @@
 	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+	if(href_list["commandbar_typing"])
+		handle_commandbar_typing(href_list)
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -133,13 +136,13 @@
 	if(href_list["__keydown"])
 		var/keycode = href_list["__keydown"]
 		if(keycode)
-			KeyDown(keycode)
+			keyDown(keycode)
 		return
 
 	if(href_list["__keyup"])
 		var/keycode = href_list["__keyup"]
 		if(keycode)
-			KeyUp(keycode)
+			keyUp(keycode)
 		return
 
 	// Tgui Topic middleware
@@ -188,11 +191,27 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
+/client/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, holder))
+			return FALSE
+		if(NAMEOF(src, ckey))
+			return FALSE
+		if(NAMEOF(src, key))
+			return FALSE
+		if(NAMEOF(src, view))
+			view_size.setDefault(var_value)
+			return TRUE
+	return ..()
+
+/client/proc/rescale_view(change, min, max)
+	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
+
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential = TRUE)
+			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_U_Y_0(wait_time)] перед отправкой нового сообщения."), confidential = TRUE)
 			return 1
 		last_message_time = world.time
 	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, FALSE) && last_message == message)
@@ -232,9 +251,13 @@
 	pm_tracker = new(ckey)
 
 	//kill old tgui panel
-	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
-	tgui_panel = new(src, "chat_panel")
+	winset(src, OUTPUT_SELECTOR_LEGACY_OUTPUT_SELECTOR, "left=output_legacy")
+	tgui_panel = new(src, "browseroutput")
 	tgui_say = new(src, "tgui_say")
+
+	initialize_commandbar_spy()
+
+	set_right_click_menu_mode(TRUE)
 
 	if(connection != "seeker") //Invalid connection type.
 		return null
@@ -292,9 +315,6 @@
 
 	if(SSinput.initialized)
 		set_macros()
-
-	// Setup widescreen
-	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
@@ -361,6 +381,7 @@
 
 	// Initialize tgui say
 	tgui_say.initialize()
+	initialize_escape_menu()
 
 	donator_check()
 	check_ip_intel()
@@ -368,7 +389,6 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential = TRUE)
-		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -397,8 +417,18 @@
 
 	loot_panel = new(src)
 
+	skills_select_window = new()
+
+	view_size = new(src)
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	view_size.apply()
+
 	Master.UpdateTickRate()
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CLIENT_CONNECT, src)
+	fully_created = TRUE
+	set_fullscreen()
 
 	// Check total playercount
 	var/playercount = 0
@@ -426,13 +456,13 @@
 		return
 
 	tgui_panel.window.send_message("donations/load_data", list(
-		"month_donations" = SSdonations.month_donations,
-		"target_donation" = SSdonations.target_donation,
-		"tts_target_donation" = SSdonations.tts_target_donation,
-		"donations_text" = SSdonations.donations_text,
-		"boosty_url" = SSdonations.boosty_url,
-		"kofi_url" = SSdonations.kofi_url,
-		"discord_url"= SSdonations.discord_url,
+		"monthDonations" = SSdonations.month_donations,
+		"targetDonation" = SSdonations.target_donation,
+		"ttsTargetDonation" = SSdonations.tts_target_donation,
+		"donationsText" = SSdonations.donations_text,
+		"boostyUrl" = SSdonations.boosty_url,
+		"kofiUrl" = SSdonations.kofi_url,
+		"discordUrl"= SSdonations.discord_url,
 	))
 	check_donator_achivements()
 
@@ -452,10 +482,13 @@
 	if(amount >= BRONZE_LEVEL)
 		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
 
-	if(amount < PLATINUM_LEVEL)
+	if(amount >= PLATINUM_LEVEL)
+		give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+
+	if(amount < PROJECT_PILLAR_LEVEL)
 		return
 
-	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+	give_award(/datum/award/achievement/donations/project_pillar, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
@@ -469,6 +502,13 @@
 
 /client/Del()
 	if(!gc_destroyed)
+		gc_destroyed = world.time
+		if(!QDELING(src))
+			stack_trace("Client does not purport to be QDELING, this is going to cause bugs in other places!")
+
+		// Yes this is the same as what's found in qdel(). Yes it does need to be here
+		// Get off my back
+		SEND_SIGNAL(src, COMSIG_QDELETING, TRUE)
 		Destroy() //Clean up signals and timers.
 	return ..()
 
@@ -495,16 +535,20 @@
 		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
 		movingmob = null
 
+	sound_tokens = null
+
 	SSambience.remove_ambience_client(src)
 	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
+	SSsound_tokens.clients_needing_update -= src
+	SSsound_tokens.currentrun -= src
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
-	QDEL_LIST(parallax_layers_cached)
-	parallax_layers = null
+	QDEL_NULL(skills_select_window)
 	seen_messages = null
+	sound_tokens = null
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -574,6 +618,12 @@
 	if(is_guest_key(key))
 		return
 
+	#ifdef FAST_LOAD
+	donator_level = DONATOR_LEVEL_MAX
+	donor_loadout_points()
+	return
+	#endif
+
 	if(!SSdbcore.IsConnected())
 		return
 
@@ -599,11 +649,11 @@
 	if(query_donor_select.NextRow())
 		var/total = query_donor_select.item[1]
 		if(total >= 100)
-			donator_level = 1
+			donator_level = DONATOR_TIER_I
 		if(total >= 300)
-			donator_level = 2
+			donator_level = DONATOR_TIER_II
 		if(total >= 500)
-			donator_level = 3
+			donator_level = DONATOR_TIER_III
 		if(total >= 1000)
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
@@ -631,7 +681,8 @@
 			</script>
 			"})
 	browser.open(FALSE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
+	DIRECT_OUTPUT(src, link(url))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 10 SECONDS)
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -698,7 +749,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
-		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		GLOB.discord_manager.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
@@ -967,7 +1018,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected."))
-				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -980,7 +1031,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer"))
-				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if(cidcheck_spoofckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time"))
@@ -1092,6 +1143,7 @@
 			return
 		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
+	var/ab = FALSE
 	var/list/modifiers = params2list(params)
 
 	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
@@ -1099,6 +1151,9 @@
 	var/dragged = LAZYACCESS(modifiers, DRAG)
 	if(dragged && button_clicked != dragged)
 		return
+
+	if(object && IS_WEAKREF_OF(object, middle_drag_atom_ref) && button_clicked == LEFT_CLICK)
+		ab = max(0, 5 SECONDS - (world.time - middragtime) * 0.1)
 
 	var/mcl = CONFIG_GET(number/minute_click_limit)
 	if(!holder && mcl)
@@ -1111,15 +1166,18 @@
 			clicklimiter[CURRENT_MINUTE] = minute
 			clicklimiter[MINUTE_COUNT] = 0
 
-		clicklimiter[MINUTE_COUNT] += 1
+		clicklimiter[MINUTE_COUNT] += 1 + (ab)
 
 		if(clicklimiter[MINUTE_COUNT] > mcl)
 			var/msg = "Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за минуту."
 			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				clicklimiter[ADMINSWARNED_AT] = minute
 				msg += " Администраторы были уведомлены."
-				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+				if(ab)
+					add_game_logs("is using the middle click aimbot exploit.", src)
+					message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(usr)] [ADMIN_KICK(usr)] is using the middle click aimbot exploit."))
+				add_game_logs("has hit the per-minute click limit of [mcl] clicks in a given game minute.", src)
+				message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(usr)] has hit the per-minute click limit of [mcl] clicks in a given game minute."))
 			to_chat(src, span_danger("[msg]"), confidential = TRUE)
 			return
 
@@ -1133,7 +1191,7 @@
 			clicklimiter[CURRENT_SECOND] = second
 			clicklimiter[SECOND_COUNT] = 0
 
-		clicklimiter[SECOND_COUNT] += 1
+		clicklimiter[SECOND_COUNT] += 1 + (!!ab)
 
 		if(clicklimiter[SECOND_COUNT] > scl)
 			to_chat(src, span_danger("Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за секунду."), confidential = TRUE)
@@ -1192,84 +1250,68 @@
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
 
-/client/verb/toggle_fullscreen()
-	set name = "Полный экран"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_OOC)
 
 	fullscreen = !fullscreen
 
-	if(fullscreen)
-		winset(usr, "mainwindow", "on-size=")
-		winset(usr, "mainwindow", "titlebar=false")
-		winset(usr, "mainwindow", "can-resize=false")
-		winset(usr, "mainwindow", "menu=")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "is-maximized=true")
-	else
-		winset(usr, "mainwindow", "titlebar=true")
-		winset(usr, "mainwindow", "can-resize=true")
-		winset(usr, "mainwindow", "menu=menu")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "on-size=fitviewport")
+	set_fullscreen()
 
-	fit_viewport()
-
-/**
- * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
- *
- * Hardcoded to the ESC key.
- */
-/client/verb/reset_held_keys()
-	set name = "Reset Held Keys"
-	set hidden = TRUE
-	client_reset_held_keys()
+/client/proc/set_fullscreen()
+	winset(src, SKIN_MAINWINDOW, "is-fullscreen=[fullscreen ? "true" : "false"]")
+	attempt_auto_fit_viewport()
 
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
 	for(var/object in screen)
-		if(istype(object, /atom/movable/screen))
+		if(is_screen_atom(object))
 			var/atom/movable/screen/screen_object = object
 			if(!screen_object.clear_with_screen)
 				continue
-		if(istype(object, /atom/movable/render_plane_relay) || \
-			istype(object, /atom/movable/screen/parallax_layer) || \
-			istype(object, /atom/movable/screen/plane_master/))
-			continue
-
 		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
-/client/verb/fit_viewport()
-	set name = "Подгонка области видимости"
-	set desc = "Fit the size of the map window to match the viewport."
-	set category = VERB_CATEGORY_SPECIALVERBS
-
+GAME_VERB_DESC(/client, fit_viewport, "Подгонка области видимости", "Fit the size of the map window to match the viewport.", VERB_CATEGORY_SPECIALVERBS)
 	// Fetch aspect ratio
-	var/list/view_size = getviewsize(view)
+	var/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "[SKIN_MAINWINDOW_SPLIT];[SKIN_MAPWINDOW]", "size"))
 
-	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
-	if(!sizes["mapwindow.size"])
-		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+	// Client closed the window? Some other error? This is unexpected behaviour, let's
+	// CRASH with some info.
+	if(!sizes["[SKIN_MAPWINDOW].size"])
+		CRASH("sizes does not contain mapwindow.size key. This means a winget failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
 
-	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/map_size = splittext(sizes["[SKIN_MAPWINDOW].size"], "x")
 
-	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
-	// If we don't get our expected 2 outputs, let's give some useful error info.
-	if(length(map_size) != 2)
-		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+	var/split_size = splittext(sizes["[SKIN_MAINWINDOW_SPLIT].size"], "x")
+	var/split_width = text2num(split_size[1])
 
-	var/height = text2num(map_size[2])
-	var/desired_width = round(height * aspect_ratio)
-	if(text2num(map_size[1]) == desired_width)
-		// Nothing to do.
+	// Window is minimized, we can't get proper data so return to avoid division by 0
+	if(!split_width)
 		return
 
-	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
-	var/split_width = text2num(split_size[1])
+	// Gets the type of zoom we're currently using from our view datum
+	// If it's 0 we do our pixel calculations based off the size of the mapwindow
+	// If it's not, we already know how big we want our window to be, since zoom is the exact pixel ratio of the map
+	var/zoom_value = src.view_size?.zoom || 0
+
+	var/desired_width = 0
+	if(zoom_value)
+		desired_width = round(view_size[1] * zoom_value * ICON_SIZE_X)
+	else
+
+		// Looks like we expect mapwindow.size to be "ixj" where i and j are numbers.
+		// If we don't get our expected 2 outputs, let's give some useful error info.
+		if(length(map_size) != 2)
+			CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+		var/height = text2num(map_size[2])
+		desired_width = round(height * aspect_ratio)
+
+	if(text2num(map_size[1]) == desired_width)
+		// Nothing to do
+		return
 
 	// Avoid auto-resizing the statpanel and chat into nothing.
 	desired_width = min(desired_width, split_width - 300)
@@ -1277,55 +1319,54 @@
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
 	var/pct = 100 * (desired_width + 4) / split_width
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
 	// Apply an ever-lowering offset until we finish or fail
 	var/delta
 	for(var/safety in 1 to 10)
-		var/after_size = winget(src, "mapwindow", "size")
+		var/after_size = winget(src, SKIN_MAPWINDOW, "size")
 		map_size = splittext(after_size, "x")
-		var/produced_width = text2num(map_size[1])
+		var/got_width = text2num(map_size[1])
 
-		if(produced_width == desired_width)
-			// Success!
+		if(got_width == desired_width)
+			// success
 			return
 		else if(isnull(delta))
-			// Calculate a probably delta based on the difference
-			delta = 100 * (desired_width - produced_width) / split_width
-		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
-			// If we overshot, halve the delta and reverse direction
-			delta = -delta / 2
+			// calculate a probable delta value based on the difference
+			delta = 100 * (desired_width - got_width) / split_width
+		else if((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
+			// if we overshot, halve the delta and reverse direction
+			delta = -delta/2
 
-	pct += delta
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+		pct += delta
+		winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
-/client/verb/fix_stat_panel()
-	set name = "Fix Stat Panel"
-	set hidden = TRUE
+/// Attempt to automatically fit the viewport, assuming the user wants it
+/client/proc/attempt_auto_fit_viewport()
+	/*
+	if(!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
+		return
+	*/
+	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
+	if(fully_created)
+		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
 
+GAME_VERB_HIDDEN(/client, fix_stat_panel, "Fix Stat Panel")
 	init_verbs()
 
 /**
  * Reloads the titlescreen if it is bugged for someone.
  */
-/client/verb/fix_title_screen()
-	set name = "Починить меню лобби"
-	set desc = "Lobbyscreen broke? Press this."
-	set category = VERB_CATEGORY_SPECIALVERBS
-
-	if(istype(mob, /mob/new_player))
+GAME_VERB_DESC(/client, fix_title_screen, "Починить меню лобби", "Lobbyscreen broke? Press this.", VERB_CATEGORY_SPECIALVERBS)
+	if(isnewplayer(mob))
 		SStitle.show_title_screen_to(src)
 	else
 		SStitle.hide_title_screen_from(src)
 
-/client/verb/fitviewport() // wrapper for mainwindow
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, fitviewport, "")// wrapper for mainwindow
 	fit_viewport()
 
-/client/verb/link_discord_account()
-	set name = "Привязка Discord"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
+GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(!CONFIG_GET(string/discordurl))
 		return
@@ -1335,7 +1376,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs?.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("red_box center", span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1346,7 +1387,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice(span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("blue_box", span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1500,11 +1541,9 @@
 	if(prefs.sound & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
-
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
-
 	else
-		SSambience.ambience_listening_clients -= src
+		SSambience.remove_ambience_client(src)
 
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)
@@ -1514,6 +1553,7 @@
 
 	for(var/mob/dead/observer/observe in mob.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye
@@ -1584,6 +1624,17 @@
 		panel_tabs |= verb_to_init.category
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
 	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+	var/list/panel_verbs = list()
+	for(var/procpath/verb_to_init as anything in verbstoprocess)
+		if(!verb_to_init || verb_to_init.hidden)
+			continue
+		var/datum/verb_metadata/meta = SSverbs.verbs_by_verb_path[verb_to_init]
+		if(!meta && !SSadmin_verbs.admin_verbs_by_verb_path[verb_to_init])
+			continue
+		if(meta?.src_based)
+			continue
+		panel_verbs += list(SSverbs.serialize_verb(verb_to_init))
+	tgui_panel?.window?.send_message("verbs/init", list("verbs" = panel_verbs))
 
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
@@ -1621,7 +1672,7 @@
 				class = "subsystem"
 			else if(istype(stat_item, /datum/controller))
 				class = "controller"
-			else if(istype(stat_item, /datum))
+			else if(isdatum(stat_item))
 				class = "datum"
 			else
 				class = "unknown"
@@ -1691,6 +1742,27 @@
 /client/proc/get_award_status(achievement_type, mob/user, value = 1)
 	return persistent_client.achievements.get_achievement_status(achievement_type)
 
+/client/proc/set_right_click_menu_mode(shift_only)
+	if(shift_only)
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=true")
+		winset(src, "ShiftUp", "is-disabled=false")
+		winset(src, "Shift", "is-disabled=false")
+	else
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=false")
+		winset(src, SKIN_DEFAULT_SHIFT, "is-disabled=true")
+		winset(src, SKIN_DEFAULT_SHIFTUP, "is-disabled=true")
+
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filterrific = new /datum/filter_editor(in_atom)
+		holder.filterrific.ui_interact(mob)
+
+///opens the particle editor UI for the in_atom object for this client
+/client/proc/open_particle_editor(atom/movable/in_atom)
+	if(holder)
+		holder.particle_test = new /datum/particle_editor(in_atom)
+		holder.particle_test.ui_interact(mob)
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT
@@ -1700,3 +1772,8 @@
 
 #undef SUGGESTED_CLIENT_VERSION
 #undef SUGGESTED_CLIENT_BUILD
+
+GAME_VERB_DESC(/client, stop_client_sounds, "Stop Sounds", "Stop Current Sounds", VERB_CATEGORY_OOC)
+	SEND_SOUND(usr, sound(null))
+	tgui_panel?.stop_music()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Stop Self Sounds"))

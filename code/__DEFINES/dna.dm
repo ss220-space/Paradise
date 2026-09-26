@@ -67,6 +67,6 @@
 #define DNA2_BUF_SE 4
 
 //Types of usual mutations
-#define	POSITIVE 1
-#define	NEGATIVE 2
-#define	MINOR_NEGATIVE 3
+#define POSITIVE 1
+#define NEGATIVE 2
+#define MINOR_NEGATIVE 3

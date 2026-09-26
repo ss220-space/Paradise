@@ -139,11 +139,6 @@
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
-/obj/projectile/neurotox
-	name = "neurotoxin"
-	damage = 30
-	icon_state = "toxin"
-
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
 	melee_damage_lower = 0
@@ -156,13 +151,16 @@
 	icon_living = "maid"
 	icon_dead = "maid_dead"
 
+/mob/living/simple_animal/hostile/alien/maid/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/cleaning)
+
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message(span_notice("\The [src] cleans up \the [target]."))
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		M.clean_blood()
 		visible_message(span_notice("\The [src] polishes \the [target]."))
+		target.wash_tg(CLEAN_SCRUB)
+		if(istype(target, /obj/effect/decal/cleanable))
+			visible_message(span_notice("[src] cleans up \the [target]."))
+		else
+			visible_message(span_notice("[src] polishes \the [target]."))
 		return TRUE

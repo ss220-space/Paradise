@@ -1,5 +1,10 @@
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Section, NumberInput, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type AtmosPumpData = {
@@ -45,8 +50,9 @@ export const AtmosPump = (props: unknown) => {
                 step={step}
                 minValue={0}
                 maxValue={max_rate}
+                tickWhileDragging
                 value={rate}
-                onDrag={(value) =>
+                onChange={(value) =>
                   act('custom_rate', {
                     rate: value,
                   })

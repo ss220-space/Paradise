@@ -42,13 +42,13 @@
 	else
 		. += span_notice("Судя по всему, доставку уже осуществили.")
 
-/mob/living/simple_animal/pet/gondola/gondolapod/setOpened()
+/mob/living/simple_animal/pet/gondola/gondolapod/set_opened()
 	opened = TRUE
 	layer = initial(layer)
 	update_appearance()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/, setClosed)), 5 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/, set_closed)), 5 SECONDS)
 
-/mob/living/simple_animal/pet/gondola/gondolapod/setClosed()
+/mob/living/simple_animal/pet/gondola/gondolapod/set_closed()
 	opened = FALSE
 	layer = OBJ_LAYER
 	update_appearance()

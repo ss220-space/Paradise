@@ -17,7 +17,7 @@
 	var/obj/machinery/power/solar_control/control = null
 
 /obj/machinery/power/tracker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "солнечный датчик",
 		GENITIVE = "солнечного датчика",
 		DATIVE = "солнечному датчику",

@@ -3,21 +3,20 @@ SUBSYSTEM_DEF(instancing)
 	name = "Instancing"
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	wait = 30 SECONDS
-	flags = SS_KEEP_TIMING
-	cpu_display = SS_CPUDISPLAY_LOW
-	// This SS has the default init value since it needs to happen after the DB & redis
+	ss_flags = SS_KEEP_TIMING
+	dependencies = list(
+		/datum/controller/subsystem/dbcore,
+		/datum/controller/subsystem/redis,
+		/datum/controller/subsystem/mapping,
+	)
 
 	/// Associative list of registered commands. K = command name | V = command datum
 	var/list/datum/server_command/registered_commands = list()
 
 /datum/controller/subsystem/instancing/Initialize()
-	// Make sure no one broke things. This check will trip up CI
-	if(init_order >= SSredis.init_order)
-		CRASH("SSinstancing was set to init before SSredis. Who broke it?")
-
 	// Dont even bother if we arent connected to redis or the DB
 	if(!SSdbcore.IsConnected() || !SSredis.connected || !CONFIG_GET(flag/enable_multi_instance))
-		flags |= SS_NO_FIRE
+		ss_flags |= SS_NO_FIRE
 		return SS_INIT_NO_NEED
 
 	// Setup our commands

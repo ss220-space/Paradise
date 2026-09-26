@@ -4,6 +4,7 @@
 	gender = MALE
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
+	abstract_type = /obj/item/mod/module
 	/// If it can be removed
 	var/removable = TRUE
 	/// If it's passive, togglable, usable or active
@@ -59,13 +60,13 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_modules.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_modules.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_modules.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_modules.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_modules.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_modules.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_modules.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_modules.dmi',
 	)
 
 /obj/item/mod/module/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль МЭК",
 		GENITIVE = "модуля МЭК",
 		DATIVE = "модулю МЭК",
@@ -89,11 +90,13 @@
 	device.w_class = WEIGHT_CLASS_HUGE
 	device.materials = null
 
+	ADD_TRAIT(device, TRAIT_NODROP, MODSUIT_TRAIT)
 	RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
+	mod = null
 	if(device)
 		UnregisterSignal(device, COMSIG_QDELETING)
 		QDEL_NULL(device)
@@ -108,7 +111,7 @@
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += russian_list(slot_list, and_text = " или ")
 		. += span_notice("Совместимые элементы МЭК: <b>[russian_list(slot_strings)]</b>")
-	. += span_notice("Стоимость модуля: <b>[complexity]</b> единиц[declension_ru(complexity, "а", "ы", "")].")
+	. += span_notice("Стоимость модуля: <b>[complexity]</b> единиц[DECL_A_Y_0(complexity)].")
 
 /// Looks through the MODsuit's parts to see if it has the parts required to support this module
 /obj/item/mod/module/proc/has_required_parts(list/parts, need_active = FALSE)

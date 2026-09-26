@@ -60,11 +60,10 @@
 	var/channel_text = num2text(channel)
 	channels_playing[channel_text] = 100
 	last_channel_played = channel_text
-	for(var/i in hearing_mobs)
-		var/mob/M = i
+	for(var/mob/M in hearing_mobs)
 		if(!(M.client?.prefs?.sound & SOUND_INSTRUMENTS))
 			continue
-		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, null, channel, null, copy)
+		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, exponential_falloff, channel, null, copy)
 		// Could do environment and echo later but not for now
 
 /**
@@ -125,10 +124,8 @@
 		if(dead)
 			channels_playing -= channel
 			channels_idle += channel
-			for(var/i in hearing_mobs)
-				var/mob/M = i
+			for(var/mob/M in hearing_mobs)
 				M.stop_sound_channel(channelnumber)
 		else
-			for(var/i in hearing_mobs)
-				var/mob/M = i
+			for(var/mob/M in hearing_mobs)
 				M.set_sound_channel_volume(channelnumber, (current_volume * 0.01) * volume * using_instrument.volume_multiplier)

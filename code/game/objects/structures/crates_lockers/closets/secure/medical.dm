@@ -12,12 +12,12 @@
 	new /obj/item/storage/box/iv_bags(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/dropper(src)
-	new /obj/item/reagent_containers/glass/beaker(src)
-	new /obj/item/reagent_containers/glass/beaker(src)
-	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
-	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
-	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
-	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
+	new /obj/item/reagent_containers/cup/beaker(src)
+	new /obj/item/reagent_containers/cup/beaker(src)
+	new /obj/item/reagent_containers/cup/bottle/epinephrine(src)
+	new /obj/item/reagent_containers/cup/bottle/epinephrine(src)
+	new /obj/item/reagent_containers/cup/bottle/charcoal(src)
+	new /obj/item/reagent_containers/cup/bottle/charcoal(src)
 
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
@@ -99,7 +99,7 @@
 
 // Why the hell is this in the closets folder?
 /obj/item/storage/pill_bottle/psychiatrist/populate_contents()
-	for(var/I in 1 to 3)
+	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/pill/haloperidol(src)
 		new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 		new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
@@ -114,7 +114,7 @@
 /obj/structure/closet/secure_closet/psychiatrist/populate_contents()
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
-	new /obj/item/reagent_containers/glass/bottle/ether(src)
+	new /obj/item/reagent_containers/cup/bottle/ether(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
@@ -149,17 +149,19 @@
 	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator/advanced(src)
 	new /obj/item/storage/belt/medical(src)
+	new /obj/item/storage/belt/medical/surgery/loaded(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/autoimplanter/oneuse/med_hud(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
-	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
+	new /obj/item/reagent_containers/cup/glass/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/CMO(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/storage/firstaid/premium(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
@@ -208,10 +210,13 @@
 	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/sensor_device(src)
-	new /obj/item/key/ambulance(src)
+	new /obj/item/sensor_device(src)
+	new /obj/item/pinpointer/crew(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/tank/jetpack/carbondioxide(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/key/ambulance(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
@@ -221,9 +226,9 @@
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/structure/closet/secure_closet/reagents/populate_contents()
-	new /obj/item/reagent_containers/glass/bottle/reagent/phenol(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/ammonia(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/oil(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/acetone(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/acid(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/diethylamine(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/phenol(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/ammonia(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/oil(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/acetone(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/acid(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/diethylamine(src)

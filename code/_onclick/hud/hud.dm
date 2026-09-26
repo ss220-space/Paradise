@@ -6,11 +6,14 @@
 
 /datum/hud
 	var/mob/mymob
-
-	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
-	var/hud_version = 1				//Current displayed version of the HUD
-	var/inventory_shown = FALSE		//Equipped item inventory
-	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	/// Used for the HUD toggle (F12)
+	var/hud_shown = TRUE
+	/// Current displayed version of the HUD
+	var/hud_version = HUD_STYLE_STANDARD
+	/// Equipped item inventory
+	var/inventory_shown = FALSE
+	/// This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	var/hotkey_ui_hidden = FALSE
 
 	var/atom/movable/screen/lingchemdisplay
 	var/atom/movable/screen/lingstingdisplay
@@ -59,6 +62,7 @@
 	var/current_plane_offset = 0
 
 	var/atom/movable/screen/holomap/holomap
+	var/atom/movable/screen/holomap/mini_holomap
 
 	var/atom/movable/screen/button_palette/toggle_palette
 	var/atom/movable/screen/palette_scroll/down/palette_down
@@ -72,6 +76,10 @@
 	/// They typically use * in their render target. They exist solely so we can reuse them,
 	/// and avoid needing to make changes to all idk 300 consumers if we want to change the appearance
 	var/list/asset_refs_for_reuse = list()
+
+	/// Whether to use text or images for click hints.
+	/// Same behavior as `screentips_enabled`--very hot, updated when the preference is updated.
+	var/screentip_images = TRUE
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -89,11 +97,16 @@
 	main_group.attach_to(src)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
-		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
+		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
 	screentip_text = new(null, src)
 	static_inventory += screentip_text
+
+	// Register onto the global spacelight appearances
+	// So they can be render targeted by anything in the world
+	for(var/obj/starlight_appearance/starlight as anything in GLOB.starlight_objects)
+		register_reuse(starlight)
 
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
 	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
@@ -101,19 +114,82 @@
 	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_sightflags), override = TRUE)
 	update_sightflags(mymob, mymob.sight, NONE)
 
+/datum/hud/Destroy()
+	if(mymob.hud_used == src)
+		mymob.hud_used = null
+
+	QDEL_NULL(toggle_palette)
+	QDEL_NULL(palette_down)
+	QDEL_NULL(palette_up)
+	QDEL_NULL(palette_actions)
+	QDEL_NULL(listed_actions)
+	QDEL_LIST(floating_actions)
+
+	QDEL_NULL(module_store_icon)
+
+	QDEL_LIST(static_inventory)
+
+	LAZYCLEARLIST(inv_slots)
+	action_intent = null
+	zone_select = null
+	move_intent = null
+	LAZYCLEARLIST(hand_slots)
+
+	QDEL_LIST(toggleable_inventory)
+
+	QDEL_LIST(hotkeybuttons)
+
+	QDEL_LIST(infodisplay)
+
+	//clear mob refs to screen objects
+	mymob.throw_icon = null
+	mymob.healths = null
+	mymob.healthdoll = null
+	mymob.pullin = null
+	mymob.stamina_bar = null
+	mymob.nutrition_bar = null
+
+	//clear the rest of our reload_fullscreen
+	QDEL_NULL(lingchemdisplay)
+	QDEL_NULL(lingstingdisplay)
+	QDEL_NULL(blobpwrdisplay)
+	QDEL_NULL(alien_plasma_display)
+	QDEL_NULL(vampire_blood_display)
+	QDEL_NULL(ninja_energy_display)
+	QDEL_NULL(ninja_focus_display)
+	QDEL_NULL(wind_up_timer)
+	QDEL_NULL(nightvisionicon)
+	QDEL_NULL(devilsouldisplay)
+	QDEL_NULL(combo_display)
+
+	QDEL_LIST_ASSOC_VAL(master_groups)
+	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
+
+	mymob = null
+	QDEL_NULL(screentip_text)
+
+	QDEL_NULL(mini_holomap)
+	return ..()
+
 /datum/hud/proc/client_refresh(datum/source)
 	SIGNAL_HANDLER
+
 	var/client/client = mymob.canon_client
 	RegisterSignal(client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change))
 	on_eye_change(null, null, client.eye)
 
 /datum/hud/proc/clear_client(datum/source)
+	SIGNAL_HANDLER
+
 	var/client/client = mymob.canon_client
 	if(client)
 		UnregisterSignal(client, COMSIG_CLIENT_SET_EYE)
 
 /datum/hud/proc/on_eye_change(datum/source, atom/old_eye, atom/new_eye)
 	SIGNAL_HANDLER
+
+	SEND_SIGNAL(src, COMSIG_HUD_EYE_CHANGED, old_eye, new_eye)
+
 	if(old_eye)
 		UnregisterSignal(old_eye, COMSIG_MOVABLE_Z_CHANGED)
 	if(new_eye)
@@ -124,13 +200,15 @@
 	eye_z_changed(new_eye)
 
 /datum/hud/proc/update_sightflags(datum/source, new_sight, old_sight)
+	SIGNAL_HANDLER
+
 	// If neither the old and new flags can see turfs but not objects, don't transform the turfs
 	// This is to ensure parallax works when you can't see holder objects
 	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
 		return
 
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_planes_offset(src, current_plane_offset)
 
 /datum/hud/proc/should_use_scale()
@@ -154,73 +232,20 @@
 	current_plane_offset = new_offset
 
 	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_planes_offset(src, new_offset)
-
-/datum/hud/Destroy()
-	if(mymob.hud_used == src)
-		mymob.hud_used = null
-
-	QDEL_NULL(toggle_palette)
-	QDEL_NULL(palette_down)
-	QDEL_NULL(palette_up)
-	QDEL_NULL(palette_actions)
-	QDEL_NULL(listed_actions)
-	QDEL_LIST(floating_actions)
-
-	QDEL_NULL(module_store_icon)
-
-	QDEL_LIST(static_inventory)
-
-	inv_slots.Cut()
-	action_intent = null
-	zone_select = null
-	move_intent = null
-	hand_slots.Cut()
-
-	QDEL_LIST(toggleable_inventory)
-
-	QDEL_LIST(hotkeybuttons)
-
-	QDEL_LIST(infodisplay)
-
-	//clear mob refs to screen objects
-	mymob.throw_icon = null
-	mymob.healths = null
-	mymob.healthdoll = null
-	mymob.pullin = null
-	mymob.stamina_bar = null
-	mymob.nutrition_bar = null
-
-	//clear the rest of our reload_fullscreen
-	lingchemdisplay = null
-	lingstingdisplay = null
-	blobpwrdisplay = null
-	alien_plasma_display = null
-	vampire_blood_display = null
-	ninja_energy_display = null
-	ninja_focus_display = null
-	wind_up_timer = null
-	nightvisionicon = null
-	devilsouldisplay = null
-	combo_display = null
-
-	QDEL_LIST_ASSOC_VAL(master_groups)
-	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
-
-	mymob = null
-	QDEL_NULL(screentip_text)
-	return ..()
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
 	SIGNAL_HANDLER
+	for(var/i in old_max_offset + 1 to new_max_offset)
+		register_reuse(GLOB.starlight_objects[i + 1])
 	build_plane_groups(old_max_offset + 1, new_max_offset)
 
 /// Creates the required plane masters to fill out new z layers (because each "level" of multiz gets its own plane master set)
 /datum/hud/proc/build_plane_groups(starting_offset, ending_offset)
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_plane_masters(starting_offset, ending_offset)
 
 /// Returns the plane master that matches the input plane from the passed in group
@@ -256,6 +281,13 @@
 	hud_used = new_hud
 	new_hud.build_action_groups()
 
+/**
+ * Shows this hud's hud to some mob
+ *
+ * Arguments
+ * * version - denotes which style should be displayed. blank or 0 means "next version"
+ * * viewmob - what mob to show the hud to. Can be this hud's mob, can be another mob, can be null (will use this hud's mob if so)
+ */
 /datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
@@ -324,10 +356,10 @@
 	persistent_inventory_update(screenmob)
 	// Gives all of the actions the screenmob owes to their hud
 	screenmob.update_action_buttons(TRUE)
-	reorganize_alerts()
+	reorganize_alerts(screenmob)
 	reload_fullscreen()
 	if(screenmob == mymob)
-		update_parallax_pref(screenmob)
+		update_parallax_pref()
 	else
 		viewmob.hud_used.update_parallax_pref()
 
@@ -336,9 +368,10 @@
 	plane_masters_update()
 	// ensure observers get an accurate and up-to-date view
 	if(!viewmob)
-		for(var/M in mymob.inventory_observers)
-			show_hud(hud_version, M)
+		for(var/viewer in mymob.inventory_observers)
+			show_hud(hud_version, viewer)
 	else if(viewmob.hud_used)
+		viewmob.hide_other_mob_action_buttons(mymob)
 		viewmob.hud_used.plane_masters_update()
 		viewmob.show_other_mob_action_buttons(mymob)
 
@@ -384,17 +417,6 @@
 			asset_refs_for_reuse -= screen_ref
 			continue
 		show_to.client?.screen += reuse
-
-//Triggered when F12 is pressed (Unless someone changed something in the DMF)
-/mob/verb/button_pressed_F12()
-	set name = "F12"
-	set hidden = TRUE
-
-	if(hud_used && client)
-		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
-	else
-		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 
 /datum/hud/proc/update_locked_slots()
 	return
@@ -453,7 +475,7 @@
 			if(!our_client)
 				position_action(button, button.linked_action.default_button_position)
 				return
-			button.screen_loc = get_valid_screen_location(relative_to.screen_loc, ICON_SIZE_ALL, our_client.view) // Asks for a location adjacent to our button that won't overflow the map
+			button.screen_loc = button.screen_loc = get_valid_screen_location(relative_to.screen_loc, ICON_SIZE_ALL, our_client.view_size.getView()) // Asks for a location adjacent to our button that won't overflow the map
 			toggle_palette.update_state()
 
 	button.location = relative_to.location

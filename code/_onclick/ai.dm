@@ -41,7 +41,7 @@
 		var/message = "[key_name(src)] might be running a modified client! (failed can_see on AI click of [A]([COORD(pixel_turf)]))"
 		add_attack_logs(src, src, message, ATKLOG_ALL)
 		log_admin(message)
-		SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
+		GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
 
 	var/turf_visible
 	if(pixel_turf)
@@ -54,7 +54,7 @@
 				var/message = "[key_name(src)] might be running a modified client! (failed can_see on AI click of [A]([COORD(pixel_turf)]))"
 				add_attack_logs(src, src, message, ATKLOG_ALL)
 				log_admin(message)
-				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] might be running a modified client! (failed checkTurfVis on AI click of [A]([COORD(pixel_turf)]))")
 				return
 
 	var/list/modifiers = params2list(params)
@@ -77,7 +77,7 @@
 			return
 		MiddleClickOn(A)
 		if(controlled_mech)
-			controlled_mech.click_action(A, src, params)
+			controlled_mech.click_action(A, src, modifiers)
 		return
 
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
@@ -98,6 +98,16 @@
 		CtrlClickOn(A)
 		return
 
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(controlled_mech)
+			controlled_mech.click_action(A, src, modifiers)
+			return
+		var/secondary_result = A.attack_ai_secondary(src, modifiers)
+		if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
+			return
+		else if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+			CRASH("attack_ai_secondary did not return a SECONDARY_ATTACK_* define.")
+
 	if(world.time <= next_move)
 		return
 
@@ -106,9 +116,13 @@
 		aiCamera.captureimage(A, usr)
 		return
 
-	if(waypoint_mode)
+	if(setting_waypoint)
+		setting_waypoint = FALSE
 		set_waypoint(A)
-		waypoint_mode = 0
+		return
+
+	if(controlled_mech)
+		controlled_mech.click_action(A, src, modifiers)
 		return
 
 	A.add_hiddenprint(src)
@@ -116,18 +130,28 @@
 
 /*
 	AI has no need for the UnarmedAttack() and RangedAttack() procs,
-	because the AI code is not generic;	attack_ai() is used instead.
+	because the AI code is not generic; attack_ai() is used instead.
 	The below is only really for safety, or you can alter the way
 	it functions and re-insert it above.
 */
-/mob/living/silicon/ai/UnarmedAttack(atom/A)
+/mob/living/silicon/ai/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	A.attack_ai(src)
 
-/mob/living/silicon/ai/RangedAttack(atom/A, params)
+/mob/living/silicon/ai/RangedAttack(atom/A, list/modifiers)
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user)
 	return
+
+/**
+ * What happens when the AI holds right-click on an item. Returns a SECONDARY_ATTACK_* value.
+ *
+ * Arguments:
+ * * user The mob holding the right click
+ * * modifiers The list of the custom click modifiers
+ */
+/atom/proc/attack_ai_secondary(mob/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /*
 	Since the AI handles shift, ctrl, and alt-click differently
@@ -216,6 +240,11 @@
 		return
 	for(var/obj/machinery/door/airlock/A in area.machinery_cache)
 		A.AICtrlClick(user)
+
+/obj/machinery/power/apc/attack_ai_secondary(mob/living/silicon/user, list/modifiers)
+	if(can_use(user))
+		togglelock(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 // TURRETCONTROL
 

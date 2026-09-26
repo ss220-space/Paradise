@@ -52,7 +52,7 @@
 	var/light_power_on = 0.5
 
 /obj/machinery/smartfridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник SmartFridge",
 		GENITIVE = "холодильника SmartFridge",
 		DATIVE = "холодильнику SmartFridge",
@@ -202,7 +202,7 @@
 /obj/machinery/smartfridge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
 		balloon_alert(user, "невозможно!")
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -243,7 +243,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(storage.contents)
 		if(failed)
-			to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
+			to_chat(user, span_notice("[failed] предмет[DECL_0_A_OV(failed)] не был[DECL_0_I_I(failed)] загружен[DECL_0_Y_Y(failed)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	balloon_alert(user, "не подходит!")
@@ -261,19 +261,19 @@
 	return ..()
 
 //Drag pill bottle to fridge to empty it into the fridge
-/obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user, params)
+/obj/machinery/smartfridge/mouse_drop_receive(obj/over_object, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return TRUE
+		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return TRUE
+		return
 	if(stat & (BROKEN|NOPOWER))
 		balloon_alert(user, "не работает!")
-		return TRUE
+		return
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
 		balloon_alert(user, "нечего выгружать!")
-		return TRUE
+		return
 
 	add_fingerprint(user)
 	var/items_loaded = 0
@@ -289,8 +289,7 @@
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
-		to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
-	return TRUE
+		to_chat(user, span_notice("[failed] предмет[DECL_0_A_OV(failed)] не был[DECL_0_I_I(failed)] загружен[DECL_0_Y_Y(failed)]."))
 
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)
@@ -449,7 +448,7 @@
 	contents_overlay = "smartfridge-syndie"
 
 /obj/machinery/smartfridge/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный холодильник SmartFridge",
 		GENITIVE = "подозрительного холодильника SmartFridge",
 		DATIVE = "подозрительному холодильнику SmartFridge",
@@ -490,7 +489,7 @@
 	base_icon_state = "seeds"
 
 /obj/machinery/smartfridge/seeds/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический холодильник",
 		GENITIVE = "ботанического холодильника",
 		DATIVE = "ботаническому холодильнику",
@@ -535,7 +534,7 @@
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
 
 /obj/machinery/smartfridge/medbay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский холодильник",
 		GENITIVE = "медицинского холодильника",
 		DATIVE = "медицинскому холодильнику",
@@ -547,7 +546,7 @@
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
@@ -569,7 +568,7 @@
 	req_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для слаймовых экстрактов",
 		GENITIVE = "холодильника для слаймовых экстрактов",
 		DATIVE = "холодильнику для слаймовых экстрактов",
@@ -601,7 +600,7 @@
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
@@ -624,28 +623,28 @@
 
 /obj/machinery/smartfridge/secure/medbay_blood/Initialize(mapload)
 	starting_items = list(
-		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/APlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/AMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/BPlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/BMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/OPlus = 6,
-		/obj/item/reagent_containers/iv_bag/blood/OMinus = 8,
-		/obj/item/reagent_containers/iv_bag/blood/skrell = 8,
-		/obj/item/reagent_containers/iv_bag/blood/tajaran = 8,
-		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 8,
-		/obj/item/reagent_containers/iv_bag/blood/unathi = 8,
-		/obj/item/reagent_containers/iv_bag/blood/kidan = 8,
-		/obj/item/reagent_containers/iv_bag/blood/grey = 8,
-		/obj/item/reagent_containers/iv_bag/blood/diona = 8,
-		/obj/item/reagent_containers/iv_bag/blood/wryn = 8,
-		/obj/item/reagent_containers/iv_bag/blood/nian = 8,
-		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 8,
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/APlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/skrell = 4,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran = 4,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 4,
+		/obj/item/reagent_containers/iv_bag/blood/unathi = 4,
+		/obj/item/reagent_containers/iv_bag/blood/kidan = 4,
+		/obj/item/reagent_containers/iv_bag/blood/grey = 4,
+		/obj/item/reagent_containers/iv_bag/blood/diona = 4,
+		/obj/item/reagent_containers/iv_bag/blood/wryn = 4,
+		/obj/item/reagent_containers/iv_bag/blood/nian = 4,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 4,
 	)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
@@ -664,7 +663,7 @@
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический холодильник",
 		GENITIVE = "химического холодильника",
 		DATIVE = "химическому холодильнику",
@@ -693,8 +692,8 @@
 	starting_items = list(
 		/obj/item/reagent_containers/food/pill/epinephrine = 12,
 		/obj/item/reagent_containers/food/pill/charcoal = 5,
-		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
+		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 	)
 	. = ..()
 
@@ -717,7 +716,7 @@
 	contents_overlay = "smartfridge-organ"
 
 /obj/machinery/smartfridge/secure/medbay/organ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для органов",
 		GENITIVE = "холодильника для органов",
 		DATIVE = "холодильнику для органов",
@@ -752,7 +751,7 @@
 	icon_lightmask = "disktoaster"
 
 /obj/machinery/smartfridge/disks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хранилище для дискет",
 		GENITIVE = "хранилища для дискет",
 		DATIVE = "хранилищу для дискет",
@@ -793,7 +792,7 @@
 	icon_addon = "smartfridge-viro-overlay"
 
 /obj/machinery/smartfridge/secure/chemistry/virology/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для вирусных образцов",
 		GENITIVE = "холодильника для вирусных образцов",
 		DATIVE = "холодильнику для вирусных образцов",
@@ -806,8 +805,8 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/glass/bottle,
-		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/cup/beaker,
 	))
 
 /**
@@ -821,13 +820,13 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
-		/obj/item/reagent_containers/glass/bottle/cold = 1,
-		/obj/item/reagent_containers/glass/bottle/flu = 1,
-		/obj/item/reagent_containers/glass/bottle/sneezing = 1,
-		/obj/item/reagent_containers/glass/bottle/cough = 1,
-		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
-		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/reagent_containers/cup/bottle/cold = 1,
+		/obj/item/reagent_containers/cup/bottle/flu = 1,
+		/obj/item/reagent_containers/cup/bottle/sneezing = 1,
+		/obj/item/reagent_containers/cup/bottle/cough = 1,
+		/obj/item/reagent_containers/cup/bottle/mutagen = 1,
+		/obj/item/reagent_containers/cup/bottle/plasma = 1,
+		/obj/item/reagent_containers/cup/bottle/diphenhydramine = 1,
 	)
 	. = ..()
 
@@ -851,7 +850,7 @@
 	desc = "Это холодильник, предназначенный для хранения напитков."
 
 /obj/machinery/smartfridge/drinks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для напитков",
 		GENITIVE = "холодильника для напитков",
 		DATIVE = "холодильнику для напитков",
@@ -863,9 +862,9 @@
 /obj/machinery/smartfridge/drinks/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/condiment,
 	))
 
 /**
@@ -878,7 +877,7 @@
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
 
 /obj/machinery/smartfridge/dish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для еды",
 		GENITIVE = "холодильника для еды",
 		DATIVE = "холодильнику для еды",
@@ -890,9 +889,9 @@
 /obj/machinery/smartfridge/dish/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/kitchen,
-		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/food,
 	))
 
@@ -916,7 +915,7 @@
 	icon_lightmask = null
 
 /obj/machinery/smartfridge/drying_rack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сушильная стойка",
 		GENITIVE = "сушильной стойки",
 		DATIVE = "сушильной стойке",
@@ -1062,7 +1061,7 @@
 	primitive = TRUE
 
 /obj/machinery/smartfridge/drying_rack/ash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивная сушилка",
 		GENITIVE = "примитивной сушилки",
 		DATIVE = "примитивной сушилке",

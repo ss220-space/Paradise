@@ -1,3 +1,5 @@
+#define IRRADIATION_PROB 30
+
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
@@ -43,7 +45,7 @@
 			if(prob(1))
 				destiny(H, FALSE)
 
-			radiate(H, 4, 70)
+			radiate(H)
 
 		if(4)
 			H.AdjustJitter(2 SECONDS)
@@ -57,7 +59,7 @@
 			if(prob(1.5))
 				destiny(H, TRUE)
 
-			radiate(H, 6, 93)
+			radiate(H)
 
 		if(5)
 			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(affected_mob)]ся в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
@@ -82,23 +84,18 @@
 			continue
 		return organ_check
 
-/datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/H, rad_ammount = 2, rad_threshold = 47)
-	if(H.radiation < rad_threshold)
-		H.apply_effect(rad_ammount, IRRADIATE, negate_armor = TRUE)
-	if(H.getarmor(attack_flag = RAD) >= 100)
-		return
-	for(var/mob/living/carbon/L in range(1, H))
-		if(L == H)
-			continue
-		var/rad_block = L.getarmor(attack_flag = RAD)
-		if(rad_block >= 100)
-			continue
-		if(!rad_block)
-			to_chat(L, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [H.declent_ru(GENITIVE)]."))
-		L.apply_effect(rad_ammount, IRRADIATE, rad_block)
+/datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/human)
+	if(prob(IRRADIATION_PROB))
+		SSradiation.irradiate(human)
+	radiation_pulse(
+		source = human,
+		max_range = 1,
+		chance = IRRADIATION_PROB,
+	)
+
 
 /datum/disease/virus/nuclefication/proc/destiny(mob/living/carbon/H, silenced = FALSE)
-	var/destiny = rand(1,3) // What is your destiny?
+	var/destiny = rand(1, 3) // What is your destiny?
 	switch(destiny)
 		if(1)
 			var/obj/item/organ/external/limb = check_available_limbs(H, FALSE)
@@ -112,3 +109,5 @@
 		if(3)
 			var/obj/item/organ/internal/organ = check_available_organs(H)
 			organ?.necrotize()
+
+#undef IRRADIATION_PROB

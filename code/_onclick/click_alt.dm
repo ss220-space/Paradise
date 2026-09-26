@@ -78,3 +78,38 @@
 /atom/proc/click_alt(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
 	return NONE
+
+///Main proc for secondary alt click
+/mob/proc/AltClickSecondaryOn(atom/target)
+	base_click_alt_secondary(target)
+
+/**
+ * ### Base proc for alt click interaction right click.
+ *
+ * If you wish to add custom `click_alt_secondary` behavior for a single type, use that proc.
+ */
+/mob/proc/base_click_alt_secondary(atom/target)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	//Hook on the mob to intercept the click
+	if(SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON_SECONDARY, target) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
+	//Hook on the atom to intercept the click
+	if(SEND_SIGNAL(target, COMSIG_CLICK_ALT_SECONDARY, src) & COMPONENT_CANCEL_CLICK_ALT_SECONDARY)
+		return
+
+	// If it has a custom click_alt_secondary then do that
+	if(can_perform_action(target, target.interaction_flags_click | SILENT_ADJACENCY))
+		target.click_alt_secondary(src)
+
+/**
+ * ## Custom alt click secondary interaction
+ * Override this to change default alt right click behavior.
+ *
+ * ### Guard clauses
+ * Consider adding `interaction_flags_click` before adding unique guard clauses.
+ **/
+/atom/proc/click_alt_secondary(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE

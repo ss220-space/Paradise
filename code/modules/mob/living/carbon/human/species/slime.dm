@@ -41,11 +41,11 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		TRAIT_NO_DNA,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_HAIR
 	reagent_tag = ORGANIC
 
 	flesh_color = "#5fe8b1"
-	blood_color = "#0064C8"
+	blood_color = BLOOD_COLOR_SLIMEPERSON
 	exotic_blood = "slimejelly"
 
 	butt_sprite = "slime"
@@ -91,6 +91,12 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		JOB_MIN_AGE_COMMAND = 30,
 	)
 
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/engineering/atmos = 1,
+		/datum/skill/research/xenobiology = 4,
+	)
+
 /datum/species/slime/on_species_gain(mob/living/carbon/human/slime)
 	. = ..()
 	var/datum/action/innate/slime_people_action/actions = locate() in slime.actions
@@ -99,9 +105,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		actions.Grant(slime)
 	RegisterSignal(slime, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(slime)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_squish)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
-	add_verb(slime, /mob/living/carbon/human/proc/emote_pop)
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/slime)
 	. = ..()
@@ -109,9 +112,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	actions?.Remove(slime)
 
 	UnregisterSignal(slime, COMSIG_HUMAN_UPDATE_DNA)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_squish)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_bubble)
-	remove_verb(slime, /mob/living/carbon/human/proc/emote_pop)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/slime)
 	SIGNAL_HANDLER
@@ -131,15 +131,12 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in slime.bodyparts_by_name)
 				var/obj/item/organ/external/external_organ = slime.bodyparts_by_name[organname]
-				if(istype(external_organ) && external_organ.dna && istype(external_organ.dna.species, /datum/species/slime))
+				if(istype(external_organ) && external_organ.dna && isslimeperson(external_organ))
 					external_organ.sync_colour_to_human(slime)
 			slime.update_hair()
 			slime.update_body()
 			blend(slime)
 	..()
-
-/datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !HAS_TRAIT(user, TRAIT_DEAF)
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN

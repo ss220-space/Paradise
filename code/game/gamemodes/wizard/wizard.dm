@@ -155,7 +155,7 @@
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a>"))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
+	to_chat(wizard.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	return
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
@@ -190,10 +190,10 @@
 		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
 		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
+	wizard_mob.equip_or_collect(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, ITEM_SLOT_HAND_LEFT)
+	wizard_mob.equip_or_collect(spellbook, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -202,7 +202,7 @@
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
 	wizard_mob.mind.store_memory("<b>Remember:</b> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
-	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
+	wizard_mob.set_gene_stability(wizard_mob.gene_stability + DEFAULT_GENE_STABILITY) //magic
 	return TRUE
 
 /datum/game_mode/proc/equip_wizard_apprentice(mob/living/carbon/human/wizard_mob)
@@ -237,11 +237,11 @@
 		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
 		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, ITEM_SLOT_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/cup/glass/mugwort, ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_or_collect(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
+	wizard_mob.equip_or_collect(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -250,7 +250,7 @@
 	to_chat(wizard_mob, span_notice("В карманах вы найдёте свиток телепортации. Используйте его при необходимости."))
 	wizard_mob.mind.store_memory("<b>Помните:</b> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
-	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
+	wizard_mob.set_gene_stability(wizard_mob.gene_stability + DEFAULT_GENE_STABILITY) //magic
 	return TRUE
 
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
@@ -298,7 +298,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br>[span_bold(wizard.get_display_key())] was [span_bold(wizard.name)] ("
+			text += "<br>[span_bold(wizard.get_mind_key())] was [span_bold(wizard.name)] ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
@@ -331,7 +331,7 @@
 			if(LAZYLEN(wizard.spell_list))
 				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+				for(var/datum/action/cooldown/spell/spell as anything in wizard.spell_list)
 					text += "[spell.name]"
 					if(length(wizard.spell_list) > i)
 						text += ", "
@@ -341,7 +341,7 @@
 		if(length(apprentices))
 			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
-				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
+				text += "<br><b>[apprentice.get_mind_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
 					if(apprentice.current.stat == DEAD)
 						text += "died"
@@ -381,12 +381,12 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mind.spell_list)
 		mind.RemoveSpell(spell_to_remove)
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mob_spell_list)
 		RemoveSpell(spell_to_remove)
 
 /*Checks if the wizard can cast spells.

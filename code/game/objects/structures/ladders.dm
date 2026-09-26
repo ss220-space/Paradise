@@ -70,7 +70,7 @@
 	else	//wtf make your ladders properly assholes
 		icon_state = "ladder00"
 
-/obj/structure/ladder/singularity_pull()
+/obj/structure/ladder/singularity_pull(atom/singularity, current_size)
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
@@ -98,7 +98,7 @@
 	if(!length(tool_list))
 		to_chat(user, span_warning("[src] doesn't seem to lead anywhere!"))
 		return
-	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost)
+	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost, autopick_single_option = FALSE)
 	if(!is_ghost && !in_range(src, user))
 		return  // nice try
 	switch(result)

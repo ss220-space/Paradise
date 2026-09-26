@@ -7,8 +7,7 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
-
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -148,7 +147,8 @@ export const Reflector = (props) => {
                     maxValue={359}
                     step={1}
                     stepPixelSize={1}
-                    onDrag={(value) =>
+                    tickWhileDragging
+                    onChange={(value) =>
                       act('rotate', {
                         rotation_angle: value,
                       })

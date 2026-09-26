@@ -13,12 +13,12 @@
 	if(!is_admin_forced)
 		return
 	var/list/messages = greet()
-	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/contractor_pending/proc/greet()
 	// Greet them with the unique message
 	var/list/messages = list()
-	var/greet_text = "Контрактники отдают [CONTRACTOR_COST] телекристалл[DECL_CREDIT(CONTRACTOR_COST)] за возможность выполнять контракты на похищение, получая за это выплаты в виде ТК и кредитов. Это позволяет заработать гораздо больше, чем они имели раньше.<br>" \
+	var/greet_text = "Контрактники отдают [CONTRACTOR_COST] телекристалл[DECL_0_A_OV(CONTRACTOR_COST)] за возможность выполнять контракты на похищение, получая за это выплаты в виде ТК и кредитов. Это позволяет заработать гораздо больше, чем они имели раньше.<br>" \
 					+ "Если вы заинтересованы, просто зайдите в аплинк и выберите вкладку \"Заключение контракта\" для получения дополнительной информации.<br>"
 	messages.Add(span_fontsize3(span_red("<b>Вам предложили стать Контрактником.</b><br>")))
 	messages.Add(span_red("[greet_text]"))
@@ -49,7 +49,7 @@
 	var/obj/item/storage/box/syndie_kit/contractor/contractor_kit = new(user)
 	user.put_in_hands(contractor_kit)
 	var/obj/item/contractor_uplink/contractor_uplink = locate(/obj/item/contractor_uplink, contractor_kit)
-	contractor.contractor_uplink = contractor_uplink
+	contractor.contractor_uplink_ref = WEAKREF(contractor_uplink)
 	contractor_uplink.hub = new(user.mind, contractor_uplink)
 
 	// Remove the TC

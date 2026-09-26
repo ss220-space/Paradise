@@ -19,6 +19,7 @@
 		style.remove(human_owner)
 	else
 		style.teach(human_owner, TRUE)
+	return ..()
 
 /obj/item/implanter/krav_maga
 	name = "bio-chip implanter (krav maga)"

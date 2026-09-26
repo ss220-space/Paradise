@@ -16,7 +16,7 @@
 	if(objective.completed)
 		to_chat(ninja, span_warning("Вы уже заразили их системы вирусом. Повторная установка ничего не даст!"))
 		return INVALID_DRAIN
-	if(!istype(get_area(src), /area/toxins/server))
+	if(!istype(get_area(src), /area/station/science/server))
 		to_chat(usr, span_warning("Этот сервер, не используется станцией для хранения данных. Вирус не возымеет эффекта!"))
 		return INVALID_DRAIN
 

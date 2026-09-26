@@ -76,18 +76,20 @@
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact && !F.transparent_floor)
-			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
-				if(C.avail())
-					visible_message(span_warning("[src] chews through [C]. It's toast!"))
-					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-					toast() // mmmm toasty.
-				else
-					visible_message(span_warning("[src] chews through [C]."))
-				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
-				C.deconstruct()
+		var/turf/simulated/floor/our_floor = get_turf(src)
+		if(!istype(our_floor))
+			return
+		var/obj/structure/cable/thing_to_eat = locate() in our_floor
+		if(!(thing_to_eat && !HAS_TRAIT(thing_to_eat, TRAIT_UNDERFLOOR) && prob(15)))
+			return
+		if(thing_to_eat.avail())
+			visible_message(span_warning("[src] chews through [thing_to_eat]. It's toast!"))
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+			toast() // mmmm toasty.
+		else
+			visible_message(span_warning("[src] chews through [thing_to_eat]."))
+		investigate_log("was chewed through by a mouse at [COORD(our_floor)]", INVESTIGATE_WIRES)
+		thing_to_eat.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -119,16 +121,10 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-/mob/living/simple_animal/mouse/New()
-	..()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
-
-	if(is_available_for_anim())
-		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/shake)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/scratch)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/washup)
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-6, 6)
+	pixel_y = base_pixel_y + rand(0, 10)
 
 /mob/living/simple_animal/mouse/update_icons()
 	if(!jetpack)
@@ -247,7 +243,7 @@
 		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
-	if(istype(M, /mob/living/simple_animal/pet/cat))
+	if(iscat(M))
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
 			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы
@@ -270,7 +266,7 @@
 
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] Squeek!"))
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -309,39 +305,8 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
-/*
- * Mouse animation emotes
- */
-
-/mob/living/simple_animal/mouse/proc/sniff()
-	set name = "Понюхать"
-	set desc = "Пытаешься что-то почуять"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("msniff", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/shake()
-	set name = "Дрожать"
-	set desc = "Дрожит или дрыгается"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mshake", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/scratch()
-	set name = "Почесаться"
-	set desc = "Чешется"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mscratch", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/washup()
-	set name = "Умыться"
-	set desc = "Умывается"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mwashup", intentional = TRUE)
-
 /datum/emote/living/simple_animal/mouse/idle
+	name = "Понюхать (мышь)"
 	key = "msniff"
 	key_third_person = "msniffs"
 	message = "нюха%(ет,ют)%!"
@@ -351,7 +316,6 @@
 	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)
@@ -365,18 +329,21 @@
 	return user.squeak_sound
 
 /datum/emote/living/simple_animal/mouse/idle/shake
+	name = "Дрожать (мышь)"
 	key = "mshake"
 	key_third_person = "mshakes"
 	message = "дрож%(ит,ат)%!"
 	anim_type = SHAKE
 
 /datum/emote/living/simple_animal/mouse/idle/scratch
+	name = "Почесаться (мышь)"
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "чеш%(ет,ут)%ся!"
 	anim_type = SCRATCH
 
 /datum/emote/living/simple_animal/mouse/idle/washup
+	name = "Умыться"
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
@@ -598,7 +565,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 

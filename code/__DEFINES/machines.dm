@@ -7,10 +7,19 @@
 #define CHANNEL_STATIC_LIGHT 6
 #define CHANNEL_STATIC_ENVIRON 7
 
-//Power use
+
+// Power use
+/// dont use power
 #define NO_POWER_USE 0
+/// use idle_power_usage i.e. the power needed just to keep the machine on
 #define IDLE_POWER_USE 1
+/// use active_power_usage i.e. the power the machine consumes to perform a specific task
 #define ACTIVE_POWER_USE 2
+
+/// Base global power consumption for idling machines
+#define BASE_MACHINE_IDLE_CONSUMPTION (100 WATTS)
+/// Base global power consumption for active machines. The unit is ambiguous (joules or watts) depending on the use case for dynamic users.
+#define BASE_MACHINE_ACTIVE_CONSUMPTION (BASE_MACHINE_IDLE_CONSUMPTION * 10)
 
 //APC charging
 /// APC is not receiving power
@@ -36,9 +45,9 @@
 #define FILE_DRM (1<<4) // Some files want to not be copied/moved.  This is them complaining that you tried.
 #define NETWORK_FAILURE (1<<5)
 
-#define	IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
+#define IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
 #define PROTOLATHE (1<<1) //New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE (1<<2) //Uses glass/metal only.
+#define AUTOLATHE (1<<2) //Uses glass/metal only.
 #define CRAFTLATHE (1<<3) //Uses fuck if I know. For use eventually.
 #define MECHFAB (1<<4) //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define PODFAB (1<<5) //Used by the spacepod part fabricator. Same idea as the mechfab
@@ -200,9 +209,26 @@
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
 
+// Biogen categories
+#define BIOGEN_FOOD "Еда"
+#define BIOGEN_CUBES "Кубы"
+#define BIOGEN_LEATHER_CLOTH "Кожа и ткань"
+#define BIOGEN_ORGANIC "Органические материалы"
+#define BIOGEN_CHEMICALS "Ботанические реагенты"
+
+
+// Pod fabricator categories
+#define POD_FAB_CATEGORY_WEAPONRY "Вооружение"
+#define POD_FAB_CATEGORY_ARMOR "Броня"
+#define POD_FAB_CATEGORY_CARGO "Хранилища"
+#define POD_FAB_CATEGORY_PARTS "Детали"
+#define POD_FAB_CATEGORY_FRAME "Корпус"
+#define POD_FAB_CATEGORY_MISC "Разное"
+
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
 #define ENGTYPE_TESLA "Тесла"
+#define ENGTYPE_TEG "Термоэлектрический генератор"
 
 #define AALARM_MODE_FILTERING 1
 /// Makes draught
@@ -222,3 +248,23 @@
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
 
+// Air alarm build stages
+#define AIR_ALARM_BUILD_NO_CIRCUIT 0
+#define AIR_ALARM_BUILD_CIRCUIT 1
+#define AIR_ALARM_WIRED 2
+
+// Field generator construction defines
+#define FG_UNSECURED 0
+#define FG_SECURED 1
+#define FG_WELDED 2
+
+#define FG_OFFLINE 0
+#define FG_CHARGING 1
+#define FG_ONLINE 2
+
+#define HYPERTORUS_INACTIVE 0 // No or minimal energy
+#define HYPERTORUS_NOMINAL 1 // Normal operation
+#define HYPERTORUS_WARNING 2 // Integrity damaged
+#define HYPERTORUS_DANGER 3 // Integrity < 50%
+#define HYPERTORUS_EMERGENCY 4 // Integrity < 25%
+#define HYPERTORUS_MELTING 5 // Pretty obvious.

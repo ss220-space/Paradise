@@ -6,6 +6,7 @@
 #define BROKEN_NEEDS_SCREWDRIVER 2
 
 /obj/machinery/kitchen_machine
+	abstract_type = /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	density = TRUE
@@ -73,7 +74,7 @@
 
 /obj/machinery/kitchen_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
-		if(istype(I, /obj/item/reagent_containers))
+		if(is_reagent_container(I))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
 
@@ -88,13 +89,14 @@
 	// The machine is all dirty so can't be used!
 	if(dirty == MAX_DIRT)
 		// If they're trying to clean it then let them
-		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || istype(I, /obj/item/soap))
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || issoap(I))
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_YUT(user)] чистить [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете чистить [declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			CALCULATE_SKILL_MOD(user, COOKING_SPEED_MOD, cooking_skill_mod)
+			if(!do_after(user, 2 SECONDS * I.toolspeed * cooking_skill_mod, src, category = DA_CAT_TOOL))
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 			dirty = NO_DIRT // It's clean!
 			update_icon(UPDATE_ICON_STATE)
 			if(broken == BROKEN_NONE)
@@ -107,12 +109,12 @@
 
 		//Otherwise bad luck!!
 		balloon_alert(user, "нужно почистить!")
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	if(is_type_in_list(I, GLOB.cooking_ingredients[recipe_type]) || istype(I, /obj/item/mixing_bowl))
 		if(length(contents) >= max_n_of_items)
 			balloon_alert(user, "нет места!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		var/obj/item/stack/stack = I
 		if(!isstack(I) || stack.get_amount() <= 1)
 			if(!add_item(I, user))
@@ -129,19 +131,19 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	var/static/list/acceptable_containers = typecacheof(list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/condiment,
 	))
 	if(is_type_in_typecache(I, acceptable_containers))
 		var/obj/item/reagent_containers/container = I
 		if(!container.reagents || !container.reagents.total_volume)
 			balloon_alert(user, "ёмкость пуста!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[recipe_type]))
 				balloon_alert(user, "содержит непригодные вещества!")
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] добавля[PLUR_ET_YUT(user)] несколько ингредиентов из [container.declent_ru(GENITIVE)]."),
@@ -151,7 +153,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	to_chat(user, span_warning("Вы не представляете, как готовить [I.declent_ru(GENITIVE)]..."))
-	return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+	return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
@@ -163,7 +165,7 @@
 		return NONE
 
 	add_fingerprint(human)
-	cook()
+	cook(human)
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/kitchen_machine/CtrlShiftClick(mob/living/carbon/human/human)
@@ -271,6 +273,15 @@
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()
 
+/obj/machinery/kitchen_machine/wash_tg(clean_types)
+	. = ..()
+	if(operating || !(clean_types & CLEAN_SCRUB))
+		return .
+
+	dirty = 0
+	update_appearance()
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+
 /********************
 *   Machine Menu	*
 ********************/
@@ -325,7 +336,7 @@
 
 	switch(action)
 		if("start")
-			cook()
+			cook(usr)
 			return TRUE
 		if("eject")
 			dispose(usr)
@@ -335,12 +346,13 @@
 *   Machine Menu Handling/Cooking	*
 ************************************/
 
-/obj/machinery/kitchen_machine/proc/cook()
+/obj/machinery/kitchen_machine/proc/cook(mob/user)
 	if(use_power != NO_POWER_USE && stat & (NOPOWER|BROKEN))
 		return
+	CALCULATE_SKILL_MOD(user, COOKING_SPEED_MOD, cooking_skill_mod)
 	start()
 	if(reagents.total_volume==0 && !(locate(/obj) in contents)) //dry run
-		if(!wzhzhzh(10))
+		if(!wzhzhzh(10 * cooking_skill_mod))
 			abort()
 			return
 		stop()
@@ -353,38 +365,40 @@
 		//If there are multiple sources, this bit gets skipped.
 		if(can_be_dirty)
 			dirty += 1
-		if(prob(max(10,dirty*5)))	//chance to get so dirty we require cleaning before next use
-			if(!wzhzhzh(4))
+		CALCULATE_SKILL_MOD(user, COOKING_BROKE_MOD, broke_skill_mod)
+		var/broke_chance = max(10, dirty * 5) * broke_skill_mod //chance to get so dirty we require cleaning before next use
+		if(prob(broke_chance))
+			if(!wzhzhzh(4 * cooking_skill_mod))
 				abort()
 				return
 			muck_start()
-			wzhzhzh(4)
+			wzhzhzh(4 * cooking_skill_mod)
 			muck_finish()
 			fail()
 			return
 		else if(has_extra_item())	//if extra items present, break down and require repair before next use
-			if(!wzhzhzh(4))
+			if(!wzhzhzh(4 * cooking_skill_mod))
 				abort()
 				return
 			broke()
 			fail()
 			return
 		else	//otherwise just stop without requiring cleaning/repair
-			if(!wzhzhzh(10))
+			if(!wzhzhzh(10 * cooking_skill_mod))
 				abort()
 				return
 			stop()
 			fail()
 			return
 	else
-		if(!wzhzhzh(5))
+		if(!wzhzhzh(5 * cooking_skill_mod))
 			abort()
 			return
-		if(!wzhzhzh(5))
+		if(!wzhzhzh(5 * cooking_skill_mod))
 			abort()
 			fail()
 			return
-		make_recipes(recipes_to_make)
+		make_recipes(recipes_to_make, user)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
 	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
@@ -405,7 +419,7 @@
 	return recipes_to_make
 
 //make_recipes(recipes_to_make): cycles through the supplied list of recipes and creates each recipe associated with the "source" for that entry
-/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
+/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make, mob/user)
 	if(!recipes_to_make)
 		return
 	var/datum/reagents/temp_reagents = new(500)
@@ -426,7 +440,13 @@
 					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 				qdel(O)
 			source.reagents.clear_reagents()
-			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
+
+			var/actual_efficiency = efficiency
+			CALCULATE_SKILL_MOD(user, COOKING_EXTRA_COUNT_CHANCE, skill_addition_efficiency_chance)
+			if(prob(skill_addition_efficiency_chance))
+				actual_efficiency += 1
+
+			for(var/e in 1 to actual_efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
 				if(transfer_reagents_from_ingredients)
 					temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
@@ -548,7 +568,7 @@
 
 	switch(href_list["action"])
 		if("cook")
-			cook()
+			cook(usr)
 
 		if("dispose")
 			dispose(usr)

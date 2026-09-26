@@ -48,7 +48,7 @@
 	throwforce_on = 0,
 	throw_speed_on = 2,
 	sharp_on = FALSE,
-	hitsound_on = 'sound/weapons/blade1.ogg',
+	hitsound_on,
 	hitsound_off,
 	w_class_on = WEIGHT_CLASS_BULKY,
 	item_state_on,

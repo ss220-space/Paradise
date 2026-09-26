@@ -4,7 +4,7 @@
 	tick_interval = 2 SECONDS
 	stack_decay = 0.1
 	/// Holder of wet effect particles
-	var/obj/effect/abstract/particle_holder/wet_effect
+	var/obj/effect/abstract/particle_holder_tgmc/wet_effect
 
 /datum/status_effect/stacking/wet/Destroy()
 	if(wet_effect)
@@ -17,8 +17,7 @@
 			return
 		wet_effect = new(owner, /particles/droplets)
 	else
-		qdel(wet_effect)
-		wet_effect = null
+		QDEL_NULL(wet_effect)
 
 /datum/status_effect/stacking/wet/proc/combine_wet_and_fire()
 	var/buf_stacks = stacks
@@ -27,7 +26,7 @@
 
 /datum/status_effect/stacking/wet/proc/WetMob()
 	if(!HAS_TRAIT(owner, TRAIT_WET_IMMUNITY) && stacks > 0)
-		owner.AddComponent(/datum/component/slippery, 5 SECONDS)
+		owner.AddComponent(/datum/component/slippery, SLIPPERY_TIME_WATER)
 		update_wet()
 		SEND_SIGNAL(owner, COMSIG_LIVING_WET)
 		return TRUE

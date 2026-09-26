@@ -4,5 +4,4 @@ PROCESSING_SUBSYSTEM_DEF(fastprocess)
 	name = "Fast Processing"
 	wait = 2
 	stat_tag = "FP"
-	offline_implications = "Objects using the 'Fast Processing' processor will no longer process. Shuttle call recommended."
-	ss_id = "fast_processing"
+	ss_flags = parent_type::ss_flags & ~SS_HIBERNATE

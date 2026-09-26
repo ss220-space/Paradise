@@ -8,6 +8,7 @@
 	item_state = "syringe_0"
 	icon_state = "0"
 	belt_icon = "syringe"
+	fill_icon_state = "syringe"
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE
@@ -15,6 +16,7 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
+	fill_icon_thresholds = list(1, 5, 10 ,15)
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
@@ -24,7 +26,7 @@
 	var/ignores_pierceimmune = FALSE
 
 /obj/item/reagent_containers/syringe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц",
 		GENITIVE = "шприца",
 		DATIVE = "шприцу",
@@ -38,9 +40,6 @@
 		mode = SYRINGE_INJECT
 	. = ..()
 
-/obj/item/reagent_containers/syringe/on_reagent_change()
-	update_icon()
-
 /obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon()
@@ -53,6 +52,10 @@
 	mode = !mode
 	update_icon()
 
+/obj/item/reagent_containers/syringe/attack_self_secondary(mob/user)
+	if(has_variable_transfer_amount)
+		select_transfer_amount(user)
+
 /obj/item/reagent_containers/syringe/attack_hand()
 	..()
 	update_icon()
@@ -60,8 +63,8 @@
 /obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(!target.reagents)
 		return
@@ -110,7 +113,7 @@
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_SEC_MIN(reagents.total_volume)] вещества."))
+				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[DECL_YEJ_AMI_AMI(trans)] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_U_Y_0(reagents.total_volume)] вещества."))
 			if(reagents.holder_full())
 				mode = !mode
 				update_icon()
@@ -149,7 +152,7 @@
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			after_transfer(target)
-			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_SEC_MIN(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
+			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_U_Y_0(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
 				F.log_eating = TRUE
@@ -172,12 +175,6 @@
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
-	var/rounded_vol
-	if(reagents?.total_volume)
-		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
-		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling_overlay
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)
@@ -188,18 +185,13 @@
 		. += injoverlay
 		update_equipped_item(update_speedmods = FALSE)
 
-/obj/item/reagent_containers/syringe/traitor_random/Initialize(mapload)
-	list_reagents = list()
-	list_reagents[pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")] = volume
-	. = ..()
-
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Щприц с антибиотическим средством."
 	list_reagents = list("spaceacillin" = 15)
 
 /obj/item/reagent_containers/syringe/antiviral/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Космоциллин)",
 		GENITIVE = "шприца (Космоциллин)",
 		DATIVE = "шприцу (Космоциллин)",
@@ -214,7 +206,7 @@
 	list_reagents = list("charcoal" = 15)
 
 /obj/item/reagent_containers/syringe/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Активированный уголь)",
 		GENITIVE = "шприца (Активированный уголь)",
 		DATIVE = "шприцу (Активированный уголь)",
@@ -229,7 +221,7 @@
 	list_reagents = list("epinephrine" = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Эпинефрин)",
 		GENITIVE = "шприца (Эпинефрин)",
 		DATIVE = "шприцу (Эпинефрин)",
@@ -244,7 +236,7 @@
 	list_reagents = list("insulin" = 15)
 
 /obj/item/reagent_containers/syringe/insulin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Инсулин)",
 		GENITIVE = "шприца (Инсулин)",
 		DATIVE = "шприцу (Инсулин)",
@@ -259,7 +251,7 @@
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/syringe/calomel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Каломель)",
 		GENITIVE = "шприца (Каломель)",
 		DATIVE = "шприцу (Каломель)",
@@ -274,7 +266,7 @@
 	list_reagents = list("heparin" = 15)
 
 /obj/item/reagent_containers/syringe/heparin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Гепарин)",
 		GENITIVE = "шприца (Гепарин)",
 		DATIVE = "шприцу (Гепарин)",
@@ -289,7 +281,7 @@
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
 
 /obj/item/reagent_containers/syringe/bioterror/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Нейротоксины)",
 		GENITIVE = "шприца (Нейротоксины)",
 		DATIVE = "шприцу (Нейротоксины)",
@@ -306,7 +298,7 @@
 	list_reagents = list("gluttonytoxin" = 1)
 
 /obj/item/reagent_containers/syringe/gluttony/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Благословение Чревоугодия)",
 		GENITIVE = "шприца (Благословение Чревоугодия)",
 		DATIVE = "шприцу (Благословение Чревоугодия)",
@@ -321,7 +313,7 @@
 	list_reagents = list("capulettium_plus" = 15)
 
 /obj/item/reagent_containers/syringe/capulettium_plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Капулеттий+)",
 		GENITIVE = "шприца (Капулеттий+)",
 		DATIVE = "шприцу (Капулеттий+)",
@@ -336,7 +328,7 @@
 	list_reagents = list("sarin" = 15)
 
 /obj/item/reagent_containers/syringe/sarin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Зарин)",
 		GENITIVE = "шприца (Зарин)",
 		DATIVE = "шприцу (Зарин)",
@@ -351,7 +343,7 @@
 	list_reagents = list("pancuronium" = 15)
 
 /obj/item/reagent_containers/syringe/pancuronium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Панкуроний+)",
 		GENITIVE = "шприца (Панкуроний+)",
 		DATIVE = "шприцу (Панкуроний+)",
@@ -368,7 +360,7 @@
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
 
 /obj/item/reagent_containers/syringe/lethal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Смертельная инъекция)",
 		GENITIVE = "шприца (Смертельная инъекция)",
 		DATIVE = "шприцу (Смертельная инъекция)",
@@ -383,7 +375,7 @@
 	list_reagents = list("steroids" = 15)
 
 /obj/item/reagent_containers/syringe/steroids/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Стероиды)",
 		GENITIVE = "шприца (Стероиды)",
 		DATIVE = "шприцу (Стероиды)",

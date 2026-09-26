@@ -7,9 +7,11 @@
 SUBSYSTEM_DEF(new_player_info)
 	name = "New Players Info"
 	wait = LOBBY_WAIT_TIME
-	init_order = INIT_ORDER_NEW_PLAYERS_INFO
+	dependencies = list(
+		/datum/controller/subsystem/ticker,
+	)
 	priority = FIRE_PRIORITY_NEW_PLAYERS_INFO
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 
 /datum/controller/subsystem/new_player_info/Initialize()

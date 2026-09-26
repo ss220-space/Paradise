@@ -30,7 +30,7 @@
 	name = "alloyed ancient supply cache"
 
 /obj/structure/closet/crate/necropolis/ancient/crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний тайник с припасами",
 		GENITIVE = "древнего тайника с припасами",
 		DATIVE = "древнему тайнику с припасами",

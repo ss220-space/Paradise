@@ -24,7 +24,7 @@
 	spawner_gps_id = "Necropolis Tendril"
 
 /obj/structure/spawner/lavaland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щупальце некрополя",
 		GENITIVE = "щупальца некрополя",
 		DATIVE = "щупальцу некрополя",
@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 	var/obj/effect/light_emitter/tendril/emitted_light
 
 /obj/effect/collapse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разрушающееся щупальце некрополя",
 		GENITIVE = "разрушающегося щупальца некрополя",
 		DATIVE = "разрушающемуся щупальцу некрополя",

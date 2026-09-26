@@ -11,7 +11,7 @@
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
 
 /obj/item/bodybag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для трупов",
 		GENITIVE = "мешка для трупов",
 		DATIVE = "мешку для трупов",
@@ -69,13 +69,16 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
+	anchorable = FALSE
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
+	interaction_flags_mouse_drop = NEED_HANDS
+	ignore_shoves = TRUE
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
 /obj/structure/closet/body_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для трупов",
 		GENITIVE = "мешка для трупов",
 		DATIVE = "мешку для трупов",
@@ -103,12 +106,12 @@
 	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/closet/body_bag/open()
+/obj/structure/closet/body_bag/open(mob/living/user, force = FALSE)
 	. = ..()
 	if(.)
 		pull_push_slowdown = 0
 
-/obj/structure/closet/body_bag/close()
+/obj/structure/closet/body_bag/close(mob/living/user)
 	. = ..()
 	if(. && length(contents))
 		pull_push_slowdown = 1.3
@@ -140,20 +143,18 @@
 
 
 /obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
-		perform_fold(usr)
+	if(over_object != user || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!opened && !length(contents))
+		perform_fold(user)
 		qdel(src)
 		return FALSE
 
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
-		if(attempt_fold(usr))
-			perform_fold(usr)
-			qdel(src)
-			return FALSE
-	return ..()
-
-/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
+	if(attempt_fold(user))
+		perform_fold(user)
+		qdel(src)
+		return FALSE
 
 /obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
@@ -175,7 +176,7 @@
 	unfoldedbag_path = /obj/structure/closet/body_bag/biohazard
 
 /obj/item/bodybag/biohazard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для инфицированных трупов",
 		GENITIVE = "мешка для инфицированных трупов",
 		DATIVE = "мешку для инфицированных трупов",
@@ -193,7 +194,7 @@
 	foldedbag_path = /obj/item/bodybag/biohazard
 
 /obj/structure/closet/body_bag/biohazard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для инфицированных трупов",
 		GENITIVE = "мешка для инфицированных трупов",
 		DATIVE = "мешку для инфицированных трупов",
@@ -210,7 +211,7 @@
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/bodybag/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мешок для трупов",
 		GENITIVE = "блюспейс мешка для трупов",
 		DATIVE = "блюспейс мешку для трупов",
@@ -223,7 +224,7 @@
 	. = ..()
 	var/contents_number = length(contents)
 	if(contents_number)
-		. += span_notice("Вы можете разглядеть форм[declension_ru(contents_number, "у", "ы", "ы")] [contents_number] объект[declension_ru(contents_number, "а", "ов", "ов")] через ткань.")
+		. += span_notice("Вы можете разглядеть форм[DECL_U_Y_Y(contents_number)] [contents_number] объект[DECL_A_OV_OV(contents_number)] через ткань.")
 
 /obj/item/bodybag/bluespace/Destroy()
 	for(var/atom/movable/movable in contents)
@@ -246,16 +247,15 @@
 	move_to_null_space()
 	return item_bag
 
-/obj/item/bodybag/bluespace/container_resist(mob/living/user)
-	var/breakout_time = 10 SECONDS
+/obj/item/bodybag/bluespace/container_resist_act(mob/living/user)
 	if(user.incapacitated())
 		balloon_alert(user, "вы связаны!")
 		return
-	user.changeNext_move(breakout_time)
-	user.last_special = world.time + (breakout_time)
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
 	balloon_alert(user, "вы сопротивляетесь...")
 	visible_message(span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
-	if(!do_after(user, 12 SECONDS, src))
+	if(!do_after(user, 12 SECONDS, target = src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
@@ -275,7 +275,7 @@
 	foldedbag_path = /obj/item/bodybag/bluespace
 
 /obj/structure/closet/body_bag/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мешок для трупов",
 		GENITIVE = "блюспейс мешка для трупов",
 		DATIVE = "блюспейс мешку для трупов",
@@ -338,7 +338,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
 
 /obj/item/bodybag/environmental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок",
 		GENITIVE = "защитного мешка",
 		DATIVE = "защитному мешку",
@@ -355,7 +355,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
 /obj/item/bodybag/environmental/nanotrasen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элитный защитный мешок",
 		GENITIVE = "элитного защитного мешка",
 		DATIVE = "элитному защитному мешку",
@@ -372,7 +372,7 @@
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
 
 /obj/item/bodybag/environmental/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок для заключённых",
 		GENITIVE = "защитного мешка для заключённых",
 		DATIVE = "защитному мешку для заключённых",
@@ -393,7 +393,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
 /obj/item/bodybag/environmental/prisoner/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для заключённых синдиката",
 		GENITIVE = "мешка для заключённых синдиката",
 		DATIVE = "мешку для заключённых синдиката",
@@ -417,7 +417,7 @@
 	var/datum/gas_mixture/air_contents = null
 
 /obj/structure/closet/body_bag/environmental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок",
 		GENITIVE = "защитного мешка",
 		DATIVE = "защитному мешку",
@@ -479,7 +479,7 @@
 	weather_protection = list(TRAIT_WEATHER_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/nanotrasen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элитный защитный мешок",
 		GENITIVE = "элитного защитного мешка",
 		DATIVE = "элитному защитному мешку",
@@ -504,7 +504,7 @@
 	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 
 /obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок для заключённых",
 		GENITIVE = "защитного мешка для заключённых",
 		DATIVE = "защитному мешку для заключённых",
@@ -536,7 +536,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/closet/body_bag/environmental/prisoner/container_resist(mob/living/user)
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user, loc_required = TRUE)
 	// copy-pasted with changes because flavor text as well as some other misc stuff
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
@@ -548,7 +548,9 @@
 		span_hear("Вы слышите странное шуршание.")
 	)
 
-	if(!do_after(user,(breakout_time), target = src))
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	if(!do_after(user, (breakout_time), target = src))
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
 		return
@@ -563,7 +565,7 @@
 		)
 
 	user.balloon_alert(user, "вы вырываетесь!")
-	if(istype(loc, /obj/machinery/disposal))
+	if(isdisposalunit(loc))
 		return ..()
 	bust_open()
 
@@ -641,7 +643,7 @@
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/hardlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический защитный мешок",
 		GENITIVE = "голографического защитного мешка",
 		DATIVE = "голографическому защитному мешку",
@@ -664,7 +666,7 @@
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/prisoner/hardlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический защитный мешок для заключённых",
 		GENITIVE = "голографического защитного мешка для заключённых",
 		DATIVE = "голографическому защитному мешку для заключённых",

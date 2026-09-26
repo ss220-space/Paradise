@@ -18,7 +18,7 @@
 	var/used = FALSE
 
 /obj/item/survivalcapsule/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула блюспейс-убежища",
 		GENITIVE = "капсулы блюспейс-убежища",
 		DATIVE = "капсуле блюспейс-убежища",
@@ -110,7 +110,7 @@
 		var/x_component = abs(did_not_stand_back.x - deploy_location.x)
 		var/y_component = abs(did_not_stand_back.y - deploy_location.y)
 		if(ISDIAGONALDIR(dir_to_center))
-			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			throw_dist = ceil(MAGNITUDE(base_x_throw_distance, base_y_throw_distance) - MAGNITUDE(x_component, y_component))
 			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, throw_dist))
 		else if(dir_to_center & (NORTH|SOUTH))
 			throw_dist = base_y_throw_distance - y_component + 1
@@ -142,7 +142,7 @@
 	template_id = "shelter_beta"
 
 /obj/item/survivalcapsule/luxury/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула роскошного блюспейс-убежища",
 		GENITIVE = "капсулы роскошного блюспейс-убежища",
 		DATIVE = "капсуле роскошного блюспейс-убежища",
@@ -156,7 +156,7 @@
 	template_id = "shelter_charlie"
 
 /obj/item/survivalcapsule/luxuryelite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула элитного бара",
 		GENITIVE = "капсулы элитного бара",
 		DATIVE = "капсуле элитного бара",
@@ -179,7 +179,7 @@
 	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE
@@ -209,9 +209,6 @@
 	floor_tile = /obj/item/stack/tile/pod/light
 
 /turf/simulated/floor/pod/light/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -221,9 +218,6 @@
 	floor_tile = /obj/item/stack/tile/pod/dark
 
 /turf/simulated/floor/pod/dark/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -237,6 +231,10 @@
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/survival_pod/glass/secure
+	aiControlDisabled = TRUE
+	hackProof = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
@@ -255,6 +253,8 @@
 //Table
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	smoothing_groups = null
+	canSmoothWith = null
 	smooth = NONE
 	can_be_flipped = FALSE
 
@@ -290,7 +290,7 @@
 	contraband = list()
 
 /obj/machinery/vending/wallmed/survival_pod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский модуль аварийного убежища",
 		GENITIVE = "медицинского модуля аварийного убежища",
 		DATIVE = "медицинскому модулю аварийного убежища",
@@ -430,7 +430,7 @@
 	buildstackamount = 2
 
 /obj/structure/fans/tiny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система контроля среды",
 		GENITIVE = "системы контроля среды",
 		DATIVE = "системе контроля среды",
@@ -455,7 +455,7 @@
 	icon_state = "ntpod"
 
 /obj/structure/sign/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак шахтёрского корпуса НТ",
 		GENITIVE = "знака шахтёрского корпуса НТ",
 		DATIVE = "знаку шахтёрского корпуса НТ",
@@ -470,7 +470,7 @@
 	icon_state = "survival"
 
 /obj/structure/sign/mining/survival/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак убежища",
 		GENITIVE = "знака убежища",
 		DATIVE = "знаку убежища",
@@ -485,7 +485,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
 	anchored = TRUE
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -505,23 +505,25 @@
 	name = "expensive forgery"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	var/possible = list(/obj/item/ship_in_a_bottle,
-						/obj/item/gun/energy/pulse,
-						/obj/item/sleeping_carp_scroll,
-						/obj/item/shield/changeling,
-						/obj/item/lava_staff,
-						/obj/item/hierophant_club,
-						/obj/item/melee/energy_katana,
-						/obj/item/his_grace,
-						/obj/item/gun/projectile/automatic/l6_saw,
-						/obj/item/gun/magic/staff/chaos,
-						/obj/item/gun/magic/staff/spellblade,
-						/obj/item/gun/magic/wand/death,
-						/obj/item/gun/magic/wand/fireball,
-						/obj/item/stack/telecrystal/hundred,
-						/obj/item/banhammer)
+	var/possible = list(
+		/obj/item/ship_in_a_bottle,
+		/obj/item/gun/energy/pulse,
+		/obj/item/sleeping_carp_scroll,
+		/obj/item/shield/riot/changeling,
+		/obj/item/lava_staff,
+		/obj/item/hierophant_club,
+		/obj/item/melee/energy_katana,
+		/obj/item/his_grace,
+		/obj/item/gun/projectile/automatic/l6_saw,
+		/obj/item/gun/magic/staff/chaos,
+		/obj/item/gun/magic/staff/spellblade,
+		/obj/item/gun/magic/wand/death,
+		/obj/item/gun/magic/wand/fireball,
+		/obj/item/stack/telecrystal/hundred,
+		/obj/item/banhammer
+	)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)

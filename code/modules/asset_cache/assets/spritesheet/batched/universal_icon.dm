@@ -410,7 +410,7 @@
 /proc/get_flat_uni_icon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, parentcolor)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for(var/i in 1 to process.len) { \
+		for(var/i in 1 to length(process)) { \
 			var/image/current = process[i]; \
 			if(!current) { \
 				continue; \
@@ -429,7 +429,7 @@
 			if((current_layer >= TOPDOWN_LAYER && current_layer < EFFECTS_LAYER) || current_layer > TOPDOWN_LAYER + EFFECTS_LAYER) { \
 				current_layer -= TOPDOWN_LAYER; \
 			} \
-			for(var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to length(layers)) { \
 				var/compare_to = layers[index_to_compare_to]; \
 				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
@@ -458,7 +458,7 @@
 	var/curstate = appearance.icon_state || defstate
 	// Filter out 'runtime' icons (server-generated RSC cache icons)
 	// Write the icon to the filesystem so it can be used by iconforge
-	if(!isfile(curicon) || !length(string_curicon))
+	if(curicon &&(!isfile(curicon) || !length(string_curicon)))
 		var/file_path_tmp = "tmp/uni_icon-tmp-[rand(1, 999)].dmi" // this filename is temporary.
 		fcopy(curicon, file_path_tmp)
 		var/file_hash = rustlib_hash_file(RUSTLIB_HASH_MD5, file_path_tmp)
@@ -506,7 +506,7 @@
 	var/curblend = appearance.blend_mode || defblend
 
 
-	if(appearance.overlays.len || appearance.underlays.len)
+	if(length(appearance.overlays) || length(appearance.underlays))
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
 		var/image/copy

@@ -16,7 +16,7 @@
 	var/datum/contractor_hub/hub = null
 
 /obj/item/contractor_uplink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аплинк контрактника",
 		GENITIVE = "аплинка контрактника",
 		DATIVE = "аплинку контрактнику",
@@ -28,9 +28,6 @@
 /obj/item/contractor_uplink/Destroy()
 	// Right now, one uplink = one hub so this is fine.
 	if(hub)
-		var/datum/antagonist/contractor/antag = hub.owner?.has_antag_datum(/datum/antagonist/contractor)
-		if(antag)
-			antag.contractor_uplink = null
 		QDEL_NULL(hub)
 	return ..()
 
@@ -51,6 +48,6 @@
 	if(!istype(M))
 		return
 
-	to_chat(M, span_notice("[icon2html(src, M)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
+	to_chat(M, span_notice("[get_examine_icon(M)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
 	if(sndfile)
 		M.playsound_local(get_turf(M), sndfile, 30, FALSE)

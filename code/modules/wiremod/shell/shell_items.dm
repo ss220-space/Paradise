@@ -46,7 +46,7 @@
 	shell_to_spawn = /obj/structure/bot
 
 /obj/item/shell/bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот",
 		GENITIVE = "бота",
 		DATIVE = "боту",
@@ -61,7 +61,7 @@
 	shell_to_spawn = /obj/structure/money_bot
 
 /obj/item/shell/money_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-банкомат",
 		GENITIVE = "бота-банкомата",
 		DATIVE = "боту-банкомату",
@@ -77,7 +77,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/shell/drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый дрон",
 		GENITIVE = "программируемого дрона",
 		DATIVE = "программируемому дрону",
@@ -94,7 +94,7 @@
 	screw_delay = 10 SECONDS
 
 /obj/item/shell/server/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сервер",
 		GENITIVE = "сервера",
 		DATIVE = "серверу",
@@ -112,7 +112,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 
 /obj/item/shell/airlock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый шлюз",
 		GENITIVE = "программируемого шлюза",
 		DATIVE = "программируемому шлюзу",
@@ -127,7 +127,7 @@
 	shell_to_spawn = /obj/structure/dispenser_bot
 
 /obj/item/shell/dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-раздатчик",
 		GENITIVE = "бота-раздатчика",
 		DATIVE = "боту-раздатчику",
@@ -143,7 +143,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/shell/bci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерфейс \"Мозг-Компьютер\"",
 		GENITIVE = "интерфейса \"Мозг-Компьютер\"",
 		DATIVE = "интерфейсу \"Мозг-Компьютер\"",
@@ -158,7 +158,7 @@
 	shell_to_spawn = /obj/structure/wiremod_manipulator
 
 /obj/item/shell/manipulator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "манипулятор",
 		GENITIVE = "манипулятора",
 		DATIVE = "манипулятору",

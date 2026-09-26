@@ -4,34 +4,38 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Collapsible, Flex, Knob, Section } from 'tgui/components';
-import { toFixed } from 'common/math';
+import { useAtomValue } from 'jotai';
+import { Button, Collapsible, Flex, Knob, Section } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { useSettings } from '../settings/use-settings';
+import { metaAtom, playingAtom } from './atoms';
+import { player } from './handlers';
 
-import { useSettings } from '../settings';
-import { selectAudio } from './selectors';
+export function NowPlayingWidget(props) {
+  const { settings, updateSettings } = useSettings();
+  const meta = useAtomValue(metaAtom);
+  const {
+    album = 'Unknown Album',
+    artist = 'Unknown Artist',
+    duration,
+    link,
+    title,
+    upload_date = 'Unknown Data',
+  } = meta || {};
 
-export const NowPlayingWidget = (props: unknown) => {
-  const audio = useSelector(selectAudio),
-    dispatch = useDispatch(),
-    settings = useSettings(),
-    title = audio.meta?.title,
-    URL = audio.meta?.link,
-    Artist = audio.meta?.artist || 'Unknown Artist',
-    upload_date = audio.meta?.upload_date || 'Unknown Date',
-    album = audio.meta?.album || 'Unknown Album',
-    duration = audio.meta?.duration,
-    date = !isNaN(upload_date)
-      ? upload_date?.substring(0, 4) +
-        '-' +
-        upload_date?.substring(4, 6) +
-        '-' +
-        upload_date?.substring(6, 8)
-      : upload_date;
+  const playing = useAtomValue(playingAtom);
+
+  const date = !Number.isNaN(upload_date)
+    ? upload_date?.substring(0, 4) +
+      '-' +
+      upload_date?.substring(4, 6) +
+      '-' +
+      upload_date?.substring(6, 8)
+    : upload_date;
 
   return (
     <Flex align="center">
-      {(audio.playing && (
+      {playing ? (
         <Flex.Item
           mx={0.5}
           grow={1}
@@ -42,28 +46,28 @@ export const NowPlayingWidget = (props: unknown) => {
           }}
         >
           {
-            <Collapsible title={title || 'Unknown Track'} color={'blue'}>
+            <Collapsible title={title || 'Unknown Track'} color="blue">
               <Section>
-                {URL !== 'Song Link Hidden' && (
+                {link !== 'Ссылка скрыта' && (
                   <Flex.Item grow={1} color="label">
-                    URL: {URL}
+                    URL: <a href={link}>{link}</a>
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
                   Duration: {duration}
                 </Flex.Item>
-                {Artist !== 'Song Artist Hidden' &&
-                  Artist !== 'Unknown Artist' && (
+                {artist !== 'Исполнитель скрыт' &&
+                  artist !== 'Unknown Artist' && (
                     <Flex.Item grow={1} color="label">
-                      Artist: {Artist}
+                      Artist: {artist}
                     </Flex.Item>
                   )}
-                {album !== 'Song Album Hidden' && album !== 'Unknown Album' && (
+                {album !== 'Альбом скрыт' && album !== 'Unknown Album' && (
                   <Flex.Item grow={1} color="label">
                     Album: {album}
                   </Flex.Item>
                 )}
-                {upload_date !== 'Song Upload Date Hidden' &&
+                {upload_date !== 'Дата загрузки скрыта' &&
                   upload_date !== 'Unknown Date' && (
                     <Flex.Item grow={1} color="label">
                       Uploaded: {date}
@@ -73,22 +77,14 @@ export const NowPlayingWidget = (props: unknown) => {
             </Collapsible>
           }
         </Flex.Item>
-      )) || (
+      ) : (
         <Flex.Item grow={1} color="label">
           Nothing to play.
         </Flex.Item>
       )}
-      {audio.playing && (
+      {playing && (
         <Flex.Item mx={0.5} fontSize="0.9em">
-          <Button
-            tooltip="Stop"
-            icon="stop"
-            onClick={() =>
-              dispatch({
-                type: 'audio/stopMusic',
-              })
-            }
-          />
+          <Button tooltip="Stop" icon="stop" onClick={() => player.stop()} />
         </Flex.Item>
       )}
       <Flex.Item mx={0.5} fontSize="0.9em">
@@ -98,14 +94,15 @@ export const NowPlayingWidget = (props: unknown) => {
           value={settings.adminMusicVolume}
           step={0.0025}
           stepPixelSize={1}
-          format={(value) => toFixed(value * 100) + '%'}
-          onDrag={(e, value) =>
-            settings.update({
+          format={(value) => `${toFixed(value * 100)}%`}
+          onChange={(e, value) => {
+            updateSettings({
               adminMusicVolume: value,
-            })
-          }
+            });
+            player.setVolume(value);
+          }}
         />
       </Flex.Item>
     </Flex>
   );
-};
+}

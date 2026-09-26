@@ -27,7 +27,7 @@
 	mob_size = MOB_SIZE_SMALL
 
 /mob/living/simple_animal/crab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "краб",
 		GENITIVE = "краба",
 		DATIVE = "крабу",
@@ -35,6 +35,10 @@
 		INSTRUMENTAL = "крабом",
 		PREPOSITIONAL = "крабе",
 	)
+
+/mob/living/simple_animal/crab/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)
 
 /mob/living/simple_animal/crab/royal
 	name = "royal crab"
@@ -50,7 +54,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 
 /mob/living/simple_animal/crab/royal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "королевский краб",
 		GENITIVE = "королевского краба",
 		DATIVE = "королевскому крабу",
@@ -68,7 +72,7 @@
 	unique_pet = TRUE
 
 /mob/living/simple_animal/crab/Coffee/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Коффи",
 		GENITIVE = "Коффи",
 		DATIVE = "Коффи",
@@ -92,7 +96,7 @@
 	unique_pet = TRUE
 
 /mob/living/simple_animal/crab/billy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Билли Крабингтон",
 		GENITIVE = "Билли Крабингтона",
 		DATIVE = "Билли Крабингтону",
@@ -112,7 +116,7 @@
 	holder_type = /obj/item/holder/evilcrab
 
 /mob/living/simple_animal/crab/evil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "злой краб",
 		GENITIVE = "злого краба",
 		DATIVE = "злому крабу",

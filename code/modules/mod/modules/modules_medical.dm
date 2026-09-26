@@ -24,7 +24,7 @@
 	var/static/list/modes = list(HEALTH_SCAN, CHEM_SCAN)
 
 /obj/item/mod/module/health_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль анализатора здоровья",
 		GENITIVE = "модуля анализатора здоровья",
 		DATIVE = "модулю анализатора здоровья",
@@ -83,7 +83,7 @@
 	var/quick_carry_trait = TRAIT_QUICK_CARRY
 
 /obj/item/mod/module/quick_carry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль сильного хвата",
 		GENITIVE = "модуля сильного хвата",
 		DATIVE = "модулю сильного хвата",
@@ -107,7 +107,7 @@
 	quick_carry_trait = TRAIT_QUICKER_CARRY
 
 /obj/item/mod/module/quick_carry/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшенного хвата",
 		GENITIVE = "модуля улучшенного хвата",
 		DATIVE = "модулю улучшенного хвата",
@@ -132,7 +132,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/injector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль инъектора",
 		GENITIVE = "модуля инъектора",
 		DATIVE = "модулю инъектора",
@@ -152,7 +152,7 @@
 	ignores_pierceimmune = TRUE
 
 /obj/item/reagent_containers/syringe/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц-инъектор МЭК",
 		GENITIVE = "шприца-инъектора МЭК",
 		DATIVE = "шприцу-инъектору МЭК",
@@ -185,7 +185,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/defibrillator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль дефибриллятора",
 		GENITIVE = "модуля дефибриллятора",
 		DATIVE = "модулю дефибриллятора",
@@ -217,7 +217,7 @@
 	var/on_cooldown = FALSE
 
 /obj/item/mod_defib/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рукавицы-дефибрилляторы",
 		GENITIVE = "рукавиц-дефибрилляторов",
 		DATIVE = "рукавицам-дефибрилляторам",
@@ -264,7 +264,7 @@
 	device = /obj/item/mod_defib/syndicate
 
 /obj/item/mod/module/defibrillator/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль боевого дефибриллятора",
 		GENITIVE = "модуля боевого дефибриллятора",
 		DATIVE = "модулю боевого дефибриллятора",
@@ -281,7 +281,7 @@
 	defib_cooldown = 2.5 SECONDS
 
 /obj/item/mod_defib/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевые рукавицы-дефибрилляторы",
 		GENITIVE = "боевых рукавиц-дефибрилляторов",
 		DATIVE = "боевым рукавицам-дефибрилляторам",
@@ -306,7 +306,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/monitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль монитора экипажа",
 		GENITIVE = "модуля монитора экипажа",
 		DATIVE = "модулю монитора экипажа",
@@ -321,7 +321,7 @@
 			информацию о состоянии здоровья экипажа, считывая данные с их датчиков жизнеобеспечения."
 
 /obj/item/sensor_device/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной монитор экипажа",
 		GENITIVE = "ручного монитора экипажа",
 		DATIVE = "ручному монитору экипажа",
@@ -353,7 +353,7 @@
 	var/organ_list = list()
 
 /obj/item/mod/module/organizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль замены органов",
 		GENITIVE = "модуля замены органов",
 		DATIVE = "модулю замены органов",
@@ -386,62 +386,10 @@
 	var/obj/projectile/organ/projectile = new /obj/projectile/organ(mod.wearer.loc, fired_organ)
 	projectile.original = target
 	projectile.firer = mod.wearer
-	projectile.preparePixelProjectile(target, get_turf(target), mod.wearer)
-	projectile.fire()
+	projectile.preparePixelProjectile(target, mod.wearer)
 	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 	INVOKE_ASYNC(projectile, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_energy_cost)
-
-/obj/projectile/organ
-	name = "organ"
-	damage = 0
-	hitsound = 'sound/effects/attackblob.ogg'
-	hitsound_wall = 'sound/effects/attackblob.ogg'
-	/// A reference to the organ we "are".
-	var/obj/item/organ/internal/organ
-
-/obj/projectile/organ/Initialize(mapload, obj/item/stored_organ)
-	. = ..()
-	if(!stored_organ)
-		return INITIALIZE_HINT_QDEL
-	appearance = stored_organ.appearance
-	stored_organ.forceMove(src)
-	organ = stored_organ
-	ru_names = organ.get_ru_names()
-
-/obj/projectile/organ/Destroy()
-	organ = null
-	return ..()
-
-/obj/projectile/organ/on_hit(atom/target, blocked = 0, pierce_hit)
-	. = ..()
-	if(!isliving(target))
-		organ.forceMove(drop_location())
-		organ = null
-		return
-	var/mob/living/carbon/human/organ_receiver = target
-	var/succeed = FALSE
-	if(organ_receiver.surgeries.len)
-		for(var/datum/surgery/organ_manipulation/procedure in organ_receiver.surgeries)
-			if(procedure.location != organ.parent_organ_zone)
-				continue
-			if(!ispath(procedure.steps[procedure.step_number], /datum/surgery_step/proxy/manipulate_organs))
-				continue
-			succeed = TRUE
-			break
-
-	if(!succeed)
-		organ.forceMove(drop_location())
-		organ = null
-		return
-
-	var/list/organs_to_boot_out = organ_receiver.get_organ_slot(organ.parent_organ_zone)
-	for(var/obj/item/organ/internal/organ_evacced as anything in organs_to_boot_out)
-		organ_evacced.remove(target)
-		organ_evacced.forceMove(get_turf(target))
-
-	organ.insert(target)
-	organ = null
 
 // MARK: Patient transport
 /// Patient Transport - Generates hardlight bags you can put people in.
@@ -456,7 +404,7 @@
 	packup_time = 0.5 SECONDS
 
 /obj/item/mod/module/criminalcapture/patienttransport/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мешков для тел",
 		GENITIVE = "модуля мешков для тел",
 		DATIVE = "модулю мешков для тел",

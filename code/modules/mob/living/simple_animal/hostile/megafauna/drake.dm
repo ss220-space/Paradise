@@ -73,7 +73,7 @@ Difficulty: Medium
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельный дрейк",
 		GENITIVE = "пепельного дрейка",
 		DATIVE = "пепельному дрейку",
@@ -90,28 +90,28 @@ Difficulty: Medium
 	name = "Огненный конус"
 	button_icon = 'icons/obj/wizard.dmi'
 	button_icon_state = "fireball"
-	chosen_message = span_colossus("Вы стреляете огнём в цель.")
+	chosen_message = span_colossus_alt("Вы стреляете огнём в цель.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Огненный конус с метеорами"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы стреляете огнём в цель и обрушиваете огонь вокруг себя.")
+	chosen_message = span_colossus_alt("Вы стреляете огнём в цель и обрушиваете огонь вокруг себя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Массовая огненная атака"
 	button_icon = 'icons/effects/fire.dmi'
 	button_icon_state = "1"
-	chosen_message = span_colossus("Вы обрушиваете массовый огонь на цель.")
+	chosen_message = span_colossus_alt("Вы обрушиваете массовый огонь на цель.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Пикирующий удар"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "lavastaff_warn"
-	chosen_message = span_colossus("Вы пикируете и обрушиваете лаву на цель.")
+	chosen_message = span_colossus_alt("Вы пикируете и обрушиваете лаву на цель.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
@@ -422,7 +422,7 @@ Difficulty: Medium
 		return STATUS_UPDATE_NONE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -495,7 +495,7 @@ Difficulty: Medium
 	color = COLOR_DARK_ORANGE
 
 /obj/effect/temp_visual/drakewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный барьер",
 		GENITIVE = "огненного барьера",
 		DATIVE = "огненному барьеру",
@@ -525,7 +525,7 @@ Difficulty: Medium
 	color = "#FF0000"
 
 /obj/effect/temp_visual/dragon_swoop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "неизбежная смерть",
 		GENITIVE = "неизбежной смерти",
 		DATIVE = "неизбежной смерти",
@@ -579,7 +579,7 @@ Difficulty: Medium
 	pixel_z = 270
 
 /obj/effect/temp_visual/fireball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный шар",
 		GENITIVE = "огненного шара",
 		DATIVE = "огненному шару",
@@ -645,7 +645,7 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "младший пепельный дрейк",
 		GENITIVE = "младшего пепельного дрейка",
 		DATIVE = "младшему пепельному дрейку",
@@ -660,7 +660,7 @@ Difficulty: Medium
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
-		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_SEC_MIN((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
+		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_U_Y_0((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
 		return
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns
@@ -694,7 +694,7 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический дракон",
 		GENITIVE = "космического дракона",
 		DATIVE = "космическому дракону",
@@ -707,7 +707,8 @@ Difficulty: Medium
 	return
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))
+	var/datum/action/cooldown/spell/aoe/repulse/spacedragon/spell = new
+	spell.Grant(src)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
@@ -723,25 +724,6 @@ Difficulty: Medium
 		return
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
-
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
-	name = "Удар хвостом"
-	desc = "Отбрасывайте нападающих ударом хвоста."
-	sound = 'sound/magic/tail_swing.ogg'
-	base_cooldown = 15 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	invocation_type = "none"
-	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon_state = "tailsweep"
-	action_background_icon_state = "bg_alien"
-
-/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, 1)
-		C.spin(6, 1)
-	..(targets, user, 3 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return

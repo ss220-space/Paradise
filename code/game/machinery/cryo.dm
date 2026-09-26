@@ -13,14 +13,15 @@
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 30, ACID = 30)
 	vent_movement = VENTCRAWL_CAN_SEE
 	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay
-	var/obj/item/reagent_containers/glass/beaker
+	var/obj/item/reagent_containers/cup/beaker
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -32,7 +33,7 @@
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенная капсула",
 		GENITIVE = "криогенной капсулы",
 		DATIVE = "криогенной капсуле",
@@ -83,9 +84,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/on_construction()
-	..(dir,dir)
-
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -129,7 +127,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
@@ -138,36 +136,36 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
+		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
-		return TRUE
-	. = TRUE
-	if(put_mob(L))
-		if(L == user)
-			visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
-		else
-			visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
-			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
-			if(user.pulling == L)
-				user.stop_pulling()
-		SStgui.update_uis(src)
+		return
+	if(!put_mob(L))
+		return
+	if(L == user)
+		visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+	else
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+		add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
+		if(user.pulling == L)
+			user.stop_pulling()
+	SStgui.update_uis(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
@@ -262,7 +260,7 @@
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(beaker)
-		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
+		data["beakerLabel"] = DECLENT_RU_CAP(beaker, NOMINATIVE)
 		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
@@ -315,9 +313,9 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(iscup(I))
 		add_fingerprint(user)
-		var/obj/item/reagent_containers/glass/glass = I
+		var/obj/item/reagent_containers/cup/glass = I
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
@@ -496,11 +494,7 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Извлечь пациента"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
+GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
@@ -528,24 +522,6 @@
 	go_out()
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
-
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
 
 /datum/data/function/proc/reset()
 	return

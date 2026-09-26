@@ -9,8 +9,7 @@
 	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	var/datum/powernet/wire_powernet = powernet
 
-	var/turf/cable_turf = get_turf(src)
-	if((cable_turf.transparent_floor == TURF_TRANSPARENT) || cable_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(ninja, span_danger("You can't interact with something that's under the floor!"))
 		return INVALID_DRAIN
 	if(wire_powernet.avail <= 0 || wire_powernet.load <= 0)	// Если в проводах нет тока, то и начать сосать его мы не можем!

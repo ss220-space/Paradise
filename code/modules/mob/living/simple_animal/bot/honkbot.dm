@@ -29,7 +29,7 @@
 	var/arrest_type = FALSE
 
 /mob/living/simple_animal/bot/honkbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хонкобот",
 		GENITIVE = "хонкобота",
 		DATIVE = "хонкоботу",
@@ -126,7 +126,7 @@
 		retaliate(Proj.firer)
 	..()
 
-/mob/living/simple_animal/bot/honkbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/honkbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(emagged <= 1)

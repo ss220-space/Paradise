@@ -24,6 +24,17 @@
 	var/list/numbers
 	var/datum/weakref/counter_appearance
 
+/obj/item/circuit_component/counter_overlay/Destroy(force)
+	if(bci)
+		unregister_shell(bci)
+	counter_number = null
+	signal_update = null
+	image_pixel_x = null
+	image_pixel_y = null
+	QDEL_LIST(numbers)
+	QDEL_NULL(counter_appearance)
+	. = ..()
+
 /obj/item/circuit_component/counter_overlay/populate_ports()
 	counter_number = add_input_port("Число", PORT_TYPE_NUMBER)
 	signal_update = add_input_port("Обновление", PORT_TYPE_SIGNAL)
@@ -117,9 +128,3 @@
 
 	QDEL_LIST(numbers)
 	QDEL_NULL(counter_appearance)
-
-/obj/item/circuit_component/counter_overlay/Destroy(force)
-	QDEL_LIST(numbers)
-	QDEL_NULL(counter_appearance)
-
-	return ..()

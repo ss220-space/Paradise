@@ -10,8 +10,8 @@
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
 	desc = "Left-Click: Select a job to update all of your chameleon items to.<br>\
-			Middle-Click: Save your current chameleon setup as a custom outfit.<br>\
-			Alt-Click: Delete custom outfit."
+			Right-Click: Save your current chameleon setup as a custom outfit.<br>\
+			Ctrl-Click: Delete custom outfit."
 	button_icon_state = "chameleon_outfit"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE|AB_CHECK_HANDS_BLOCKED
 	/// Determines when we're in use
@@ -21,6 +21,8 @@
 	var/list/outfit_options
 	/// Assoc list of custom outfit names ("Custom outfit 1", "Custom outfit 2", etc) to list of all item typepaths saved in that outfit
 	var/list/custom_outfits
+	///First who changed outfit and only one who can see cham. actions later
+	var/datum/weakref/chameleon_master_ref = null
 
 /datum/action/chameleon_outfit/New(Target)
 	. = ..()
@@ -33,7 +35,7 @@
 		for(var/datum/outfit/found_outfit as anything in subtypesof(/datum/outfit/job))
 			if(initial(found_outfit.can_be_admin_equipped))
 				standard_outfit_options[initial(found_outfit.name)] = new found_outfit
-		sortTim(standard_outfit_options, cmp = /proc/cmp_text_asc)
+		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 
 	return standard_outfit_options
 
@@ -47,6 +49,20 @@
 	else
 		. = select_outfit(usr)
 	currently_in_use = FALSE
+
+/datum/action/chameleon_outfit/Grant(mob/grant_to)
+	var/mob/master = chameleon_master_ref?.resolve()
+	if(!master || master.stat == DEAD)
+		if(isliving(grant_to))
+			chameleon_master_ref = WEAKREF(grant_to)
+		else
+			return FALSE
+
+	master = chameleon_master_ref?.resolve()
+	if(master != grant_to)
+		return FALSE
+
+	return ..()
 
 /datum/action/chameleon_outfit/AltTrigger(mob/clicker, trigger_flags)
 	if(currently_in_use || !IsAvailable() || usr != owner)
@@ -164,6 +180,8 @@
 	var/obj/item/holder
 	/// Cooldown from when we started being EMP'd
 	COOLDOWN_DECLARE(emp_timer)
+	///First who changed outfit and only one who can see cham. actions later
+	var/datum/weakref/chameleon_master_ref = null
 
 /datum/action/item_action/chameleon/change/New(Target)
 	. = ..()
@@ -186,6 +204,7 @@
 
 /datum/action/item_action/chameleon/change/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
+	holder = null
 	return ..()
 
 /datum/action/item_action/chameleon/change/ui_host()
@@ -231,19 +250,43 @@
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 
+	chameleon_master_ref = null
+
+	if(owner)
+		var/datum/action/chameleon_outfit/outfit = locate() in owner.actions
+		if(outfit)
+			outfit.chameleon_master_ref = null
+
+		to_chat(owner, span_warning("Биометрическая защита [holder.declent_ru(GENITIVE)] была сброшена электромагнитным импульсом!"))
+
 	if(COOLDOWN_FINISHED(src, emp_timer))
 		emp_randomise()
 
-/datum/action/item_action/chameleon/change/Grant(mob/grant_to)
-	. = ..()
-	if(isnull(owner))
-		return
+/datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
+	var/mob/master = chameleon_master_ref?.resolve()
 
-	// Whenever a mob gains their first cham change action, they need to also gain the outfit action
+	if(!master || master.stat == DEAD)
+		if(isliving(grant_to))
+			chameleon_master_ref = WEAKREF(grant_to)
+			return TRUE
+		return FALSE
+
+	if(master != grant_to)
+		return FALSE
+
+	return TRUE
+
+/datum/action/item_action/chameleon/change/Grant(mob/grant_to)
+	if(!check_chameleon_access(grant_to))
+		return FALSE
+
+	. = ..()
+
 	if(locate(/datum/action/chameleon_outfit) in grant_to.actions)
 		return
 
 	var/datum/action/chameleon_outfit/outfit_action = new(owner)
+	outfit_action.chameleon_master_ref = chameleon_master_ref
 	outfit_action.Grant(owner)
 
 /datum/action/item_action/chameleon/change/Remove(mob/remove_from)
@@ -354,10 +397,7 @@
 
 	qdel(fake_item)
 
-/datum/action/item_action/chameleon/change/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return FALSE
-
+/datum/action/item_action/chameleon/change/do_effect(trigger_flags)
 	select_look(owner)
 	return TRUE
 

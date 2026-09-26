@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(radio)
 	name = "Radio"
-	flags = SS_NO_FIRE
-	ss_id = "radio"
+	ss_flags = SS_NO_FIRE
 
 	var/list/radiochannels = list(
 		PUB_FREQ_NAME = PUB_FREQ,
@@ -31,15 +30,21 @@ SUBSYSTEM_DEF(radio)
 		T1_FREQ_NAME = T1_FREQ,
 		T2_FREQ_NAME = T2_FREQ,
 		T3_FREQ_NAME = T3_FREQ,
+		VOX_RAID_FREQ_NAME = VOX_RAID_FREQ,
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
-	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
+	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ, VOX_RAID_FREQ)
 	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, PRS_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ, T1_FREQ, T2_FREQ, T3_FREQ)
-	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ)	//list of frequencies syndicate headset can't hear
+	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ, SYND_TAIPAN_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
 /datum/controller/subsystem/radio/Initialize()
+	for(var/name,new_frequency in radiochannels)
+		var/f_text = num2text(new_frequency)
+		var/datum/radio_frequency/frequency = new
+		frequency.frequency = new_frequency
+		frequencies[f_text] = frequency
 	return SS_INIT_SUCCESS
 
 // This is fucking disgusting and needs to die
@@ -93,6 +98,8 @@ SUBSYSTEM_DEF(radio)
 			return "t2radio"
 		if(T3_FREQ)
 			return "t3radio"
+		if(VOX_RAID_FREQ)
+			return "vox_raid"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)
@@ -107,6 +114,7 @@ SUBSYSTEM_DEF(radio)
 
 	if(!frequency)
 		frequency = new
+		frequency.custom = TRUE
 		frequency.frequency = new_frequency
 		frequencies[f_text] = frequency
 
@@ -125,7 +133,7 @@ SUBSYSTEM_DEF(radio)
 
 	frequency.remove_listener(device)
 	remove_radio(device, old_frequency)
-	if(length(frequency.devices) != 0)
+	if(!frequency.custom || length(frequency.devices) != 0)
 		return 1
 
 	qdel(frequency)

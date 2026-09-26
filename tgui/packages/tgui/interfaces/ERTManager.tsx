@@ -1,15 +1,16 @@
-import { useBackend } from '../backend';
+import { declension_ru } from 'common/l10n';
 import { useState } from 'react';
 import {
+  Box,
   Button,
   LabeledList,
-  Box,
   Section,
   Tabs,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { decodeHtmlEntities } from 'common/string';
 
 const TabList = {
   0: () => <SendERT />,
@@ -126,7 +127,7 @@ export const ERTOverview = (props: unknown) => {
 
 const SendERT = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
-  let slotOptions = [0, 1, 2, 3, 4, 5];
+  const slotOptions = [0, 1, 2, 3, 4, 5];
 
   const [silentERT, setSilentERT] = useState(false);
 
@@ -166,10 +167,10 @@ const SendERT = (props: unknown) => {
             {data.com ? 'Да' : 'Нет'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Боец">
+        <LabeledList.Item label="Штурмовик">
           {slotOptions.map((a, i) => (
             <Button
-              key={'sec' + a}
+              key={`sec${a}`}
               selected={data.sec === a}
               onClick={() =>
                 act('set_sec', {
@@ -184,7 +185,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Медик">
           {slotOptions.map((a, i) => (
             <Button
-              key={'med' + a}
+              key={`med${a}`}
               selected={data.med === a}
               onClick={() =>
                 act('set_med', {
@@ -199,7 +200,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Инженер">
           {slotOptions.map((a, i) => (
             <Button
-              key={'eng' + a}
+              key={`eng${a}`}
               selected={data.eng === a}
               onClick={() =>
                 act('set_eng', {
@@ -211,10 +212,10 @@ const SendERT = (props: unknown) => {
             </Button>
           ))}
         </LabeledList.Item>
-        <LabeledList.Item label="Паранормал">
+        <LabeledList.Item label="Экзорцист">
           {slotOptions.map((a, i) => (
             <Button
-              key={'par' + a}
+              key={`par${a}`}
               selected={data.par === a}
               onClick={() =>
                 act('set_par', {
@@ -226,10 +227,10 @@ const SendERT = (props: unknown) => {
             </Button>
           ))}
         </LabeledList.Item>
-        <LabeledList.Item label="Уборщик">
+        <LabeledList.Item label="Клининг-специалист">
           {slotOptions.map((a, i) => (
             <Button
-              key={'jan' + a}
+              key={`jan${a}`}
               selected={data.jan === a}
               onClick={() =>
                 act('set_jan', {
@@ -241,10 +242,10 @@ const SendERT = (props: unknown) => {
             </Button>
           ))}
         </LabeledList.Item>
-        <LabeledList.Item label="Борг">
+        <LabeledList.Item label="Робот">
           {slotOptions.map((a, i) => (
             <Button
-              key={'cyb' + a}
+              key={`cyb${a}`}
               selected={data.cyb === a}
               onClick={() =>
                 act('set_cyb', {
@@ -272,7 +273,8 @@ const SendERT = (props: unknown) => {
         </LabeledList.Item>
         <LabeledList.Item label="Текущие слоты">
           <Box color={data.total > data.spawnpoints ? 'red' : 'green'}>
-            {data.total} выбрано, против {data.spawnpoints} точек спавна
+            Выбрано {data.total} слот{declension_ru(data.total, '', 'а', 'ов')}
+            на {data.spawnpoints} точек спавна
           </Box>
         </LabeledList.Item>
         <LabeledList.Item label="Отправить">
@@ -295,7 +297,7 @@ const ReadERTRequests = (props: unknown) => {
 
   return (
     <Section>
-      {ert_request_messages && ert_request_messages.length ? (
+      {ert_request_messages?.length ? (
         ert_request_messages.map((request) => (
           <Section
             key={decodeHtmlEntities(request.time)}

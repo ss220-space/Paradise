@@ -7,16 +7,19 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
 
-/obj/item/malf_upgrade/afterattack(mob/living/silicon/ai/AI, mob/user, proximity, params)
-	if(!istype(AI))
+/obj/item/malf_upgrade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	var/mob/living/silicon/ai/ai_target = target
+
+	if(!istype(ai_target))
 		return
-	if(AI.malf_picker)
-		AI.malf_picker.processing_time += 50
-		to_chat(AI, span_userdanger("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))
+
+	if(ai_target.malf_picker)
+		ai_target.malf_picker.processing_time += 50
+		to_chat(ai_target, span_userdanger("[user] has attempted to upgrade you with combat software that you already possess. You gain 50 points to spend on Malfunction Modules instead."))
 	else
-		to_chat(AI, span_userdanger("[user] has upgraded you with combat software!"))
-		AI.add_malf_picker()
-	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
+		to_chat(ai_target, span_userdanger("[user] has upgraded you with combat software!"))
+		ai_target.add_malf_picker()
+	to_chat(user, span_notice("You upgrade [ai_target]. [src] is consumed in the process."))
 	qdel(src)
 
 //Lipreading
@@ -26,12 +29,15 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
 
-/obj/item/surveillance_upgrade/afterattack(mob/living/silicon/ai/AI, mob/user, proximity, params)
-	if(!istype(AI))
+/obj/item/surveillance_upgrade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	var/mob/living/silicon/ai/ai_target = target
+
+	if(!istype(ai_target))
 		return
-	if(AI.eyeobj)
-		AI.eyeobj.relay_speech = 1
-		to_chat(AI, span_userdanger("[user] has upgraded you with surveillance software!"))
-		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
-	to_chat(user, span_notice("You upgrade [AI]. [src] is consumed in the process."))
+
+	if(ai_target.eyeobj)
+		ai_target.eyeobj.relay_speech = 1
+		to_chat(ai_target, span_userdanger("[user] has upgraded you with surveillance software!"))
+		to_chat(ai_target, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
+	to_chat(user, span_notice("You upgrade [ai_target]. [src] is consumed in the process."))
 	qdel(src)

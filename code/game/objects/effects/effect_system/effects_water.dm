@@ -88,8 +88,8 @@
 	name = "steam"
 	icon_state = "extinguish"
 
-/obj/effect/particle_effect/steam/New()
-	..()
+/obj/effect/particle_effect/steam/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 20)
 
 /datum/effect_system/steam_spread

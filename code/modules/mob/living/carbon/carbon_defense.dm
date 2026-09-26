@@ -1,3 +1,5 @@
+#define DAMAGE_TO_SPRAY_BLOOD 10
+
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(skipcatch || !isitem(AM))
 		return ..()
@@ -36,7 +38,7 @@
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(!length(surgeries) || user.a_intent != INTENT_HELP)
 		return ..()
 
@@ -99,3 +101,17 @@
 	if(!affecting) //bruh where's your chest
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)
+
+/mob/living/carbon/bullet_act(obj/projectile/proj, def_zone)
+	//Armor
+	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
+	if(!proj.nodamage && !QDELETED(src))
+		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
+		var/final_damage = proj.damage * ((100 - armor) / 100)
+		if(proj.damage_type == BRUTE && final_damage > DAMAGE_TO_SPRAY_BLOOD)
+			spray_blood(get_dir(proj.starting, src), min(rand(1, max(1, floor(final_damage / 10))), 5), final_damage)
+		if(proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+	return proj.on_hit(src, armor, def_zone)
+
+#undef DAMAGE_TO_SPRAY_BLOOD

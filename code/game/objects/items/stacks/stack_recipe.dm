@@ -26,6 +26,8 @@
 	var/check_direction = FALSE
 	/// Resulting atom is a cult structure
 	var/cult_structure = FALSE
+	/// Modifier signal, use this signal (if not null) for calculate modifiers
+	var/modifier_name = null
 
 /datum/stack_recipe/New(
 		title,
@@ -39,7 +41,8 @@
 		is_fulltile = FALSE,
 		on_lattice = FALSE,
 		check_direction = FALSE,
-		cult_structure = FALSE
+		cult_structure = FALSE,
+		modifier_name = null
 	)
 	src.title = title
 	src.result_type = result_type
@@ -53,6 +56,7 @@
 	src.on_lattice = on_lattice
 	src.check_direction = check_direction || is_fulltile
 	src.cult_structure = cult_structure
+	src.modifier_name = modifier_name
 
 	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
@@ -67,6 +71,9 @@
 
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
+	if(!isnum(multiplier) || (multiplier < 1) || !IS_FINITE(multiplier)) // href exploit protection
+		CRASH("Invalid multiplier value in stack creation [multiplier], [user] is most likely attempting an exploit")
+
 	if(material.get_amount() < req_amount * multiplier)
 		if(req_amount * multiplier > 1)
 			to_chat(user, span_warning("You haven't got enough [material] to build [res_amount * multiplier] [title]\s!"))
@@ -110,7 +117,7 @@
 		if(!is_station_level(usr.z))
 			to_chat(usr, span_warning("The beacon cannot guide from this place! It must be on station!"))
 			return FALSE
-		if(istype(A, /area/space))
+		if(isspacearea(A))
 			to_chat(usr, span_warning("The beacon must be inside the station itself to properly work."))
 			return FALSE
 		if(!A.type == /area) //The only one that is made by blueprints
@@ -127,13 +134,21 @@
 			to_chat(usr, span_warning("You're too small to build this machinery."))
 			return FALSE
 
+	if(locate(/obj/machinery/atmospherics/reactor_chamber) in get_turf(material))
+		to_chat(user, span_warning("Building something here would get in the way of the reactor!"))
+		return FALSE
+
 	return TRUE
 
 /// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/material, multiplier, atom/result)
 	if(time)
 		to_chat(user, span_notice("Building [title]..."))
-		if(!do_after(user, time, target = material.loc))
+		var/calculated_time = time
+		if(modifier_name)
+			CALCULATE_SKILL_MOD(user, modifier_name, mod)
+			calculated_time = calculated_time * mod
+		if(!do_after(user, calculated_time, target = material.loc))
 			return FALSE
 
 	if(cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
@@ -199,7 +214,7 @@
 	if(istype(result, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = result
 		W.ini_dir = W.dir
-	else if(istype(result, /obj/structure/window))
+	else if(is_window(result))
 		var/obj/structure/window/W = result
 		W.ini_dir = W.dir
 		W.set_anchored(FALSE)

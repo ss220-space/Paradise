@@ -142,7 +142,7 @@
 	if(LAZYIN(extra_classes, "radio"))
 		var/icon/radio_icon = LAZYACCESS(chat_icons, "radio")
 		if(isnull(radio_icon))
-			radio_icon = icon('icons/effects/chat_icons.dmi', "radio")
+			radio_icon = icon('icons/ui/chat/chat_icons.dmi', "radio")
 			radio_icon.Scale(CHAT_MESSAGE_ICON_SIZE, CHAT_MESSAGE_ICON_SIZE)
 			LAZYSET(chat_icons, "radio", radio_icon)
 		LAZYADD(prefixes, "\icon[radio_icon]")
@@ -152,7 +152,7 @@
 	if(emote_message)
 		var/icon/emote_icon = LAZYACCESS(chat_icons, "emote")
 		if(isnull(emote_icon))
-			emote_icon = icon('icons/effects/chat_icons.dmi', "emote")
+			emote_icon = icon('icons/ui/chat/chat_icons.dmi', "emote")
 			emote_icon.Scale(CHAT_MESSAGE_ICON_SIZE, CHAT_MESSAGE_ICON_SIZE)
 			LAZYSET(chat_icons, "emote", emote_icon)
 		LAZYADD(prefixes, "\icon[emote_icon]")
@@ -168,7 +168,7 @@
 		target.chat_color_darkened = colorize_string(chat_color_name_to_use, 0.85, 0.85)
 		target.chat_color_name = chat_color_name_to_use
 
-	if(language?.runechat_span)	// we can use this for custom language icon prefixes later, like on emotes
+	if(language?.runechat_span) // we can use this for custom language icon prefixes later, like on emotes
 		LAZYADD(extra_classes, language.runechat_span)
 
 	text = "[prefixes?.Join("&nbsp;")][text]"

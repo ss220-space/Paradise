@@ -38,6 +38,7 @@
 /datum/async_input/proc/close()
 	if(popup)
 		popup.close()
+		QDEL_NULL(popup)
 	if(result && choices[result])
 		result = choices[result]
 	if(onCloseCb)

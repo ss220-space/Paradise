@@ -13,6 +13,7 @@
 	force = 15
 	harmful = TRUE
 	sharp = TRUE
+	module_type = MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_COMBAT
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
@@ -23,7 +24,7 @@
 
 	return chassis.Adjacent(target)
 
-/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(isspaceturf(target))
@@ -88,12 +89,6 @@
 		var/obj/mecha/working/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
 		R.collect_ore()
 
-/obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message(
 		span_danger("[chassis] is drilling [target] with [src]!"),
@@ -107,22 +102,26 @@
 		else
 			target.gib()
 	else
-		var/splatter_dir = get_angle(chassis, target)
+		var/splatter_angle = get_angle(chassis, target)
 		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			var/obj/item/organ/external/target_part = H.get_organ(ran_zone(BODY_ZONE_CHEST))
-			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE))
+			var/mob/living/carbon/human/target_human = target
+			var/obj/item/organ/external/target_part = target_human.get_organ(ran_zone(BODY_ZONE_CHEST))
+			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part, MELEE))
 
 			//blood splatters
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, H.dna.species.blood_color)
+			var/splatter_color = target_human.get_blood_color()
+			if(splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(), splatter_angle, splatter_color)
 
-					//organs go everywhere
+			//organs go everywhere
 			if(target_part && prob(10 * drill_level))
 				target_part.droplimb()
 		else
 			target.adjustBruteLoss(10)
 			if(isalien(target))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_dir)
+				var/splatter_color = target.get_blood_color()
+				if(splatter_color)
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, splatter_color)
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"
@@ -152,10 +151,10 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/mech)
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/mech)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
@@ -172,8 +171,8 @@
 		start_cooldown()
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
-	melee_attack_chain(chassis.occupant, target)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target, list/modifiers)
+	melee_attack_chain(chassis.occupant, target, modifiers)
 	return TRUE
 
 #undef DRILL_BASIC

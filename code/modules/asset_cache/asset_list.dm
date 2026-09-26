@@ -1,11 +1,11 @@
 //These datums are used to populate the asset cache, the proc "register()" does this.
 //Place any asset datums you create in asset_list_items.dm
 
-//all of our asset datums, used for referring to these later
+///all of our asset datums, used for referring to these later
 GLOBAL_LIST_EMPTY(asset_datums)
 
-//get an assetdatum or make a new one
-//does NOT ensure it's filled, if you want that use get_asset_datum()
+///get an assetdatum or make a new one
+///does NOT ensure it's filled, if you want that use get_asset_datum()
 /proc/load_asset_datum(type)
 	return GLOB.asset_datums[type] || new type()
 
@@ -18,8 +18,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if(!path)
 		return
 	if(isdatum(path))
-		var/datum/A = path
-		parse_path = A.type
+		var/datum/asset = path
+		parse_path = asset.type
 	else
 		parse_path = path
 	if(!ispath(parse_path))
@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return replacetext(replacetext("[parse_path]", "/obj/item/", ""), "/", "-")
 
 /datum/asset
-	var/_abstract = /datum/asset
+	abstract_type = /datum/asset
 	var/cached_serialized_url_mappings
 	var/cached_serialized_url_mappings_transport_type
 
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// If you don't need anything complicated.
 /datum/asset/simple
-	_abstract = /datum/asset/simple
+	abstract_type = /datum/asset/simple
 	/// list of assets for this datum in the form of:
 	/// asset_filename = asset_file. At runtime the asset_file will be
 	/// converted into a asset_cache datum.
@@ -115,8 +115,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/keep_local_name = FALSE
 
 /datum/asset/simple/register()
-	for(var/asset_name in assets)
-		var/datum/asset_cache_item/ACI = SSassets.transport.register_asset(asset_name, assets[asset_name])
+	for(var/asset_name, value in assets)
+		var/datum/asset_cache_item/ACI = SSassets.transport.register_asset(asset_name, value)
 		if(!ACI)
 			log_debug("ERROR: Invalid asset: [type]:[asset_name]:[ACI]")
 			continue
@@ -131,8 +131,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
-	for(var/asset_name in assets)
-		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
+	for(var/asset_name, value in assets)
+		.[asset_name] = SSassets.transport.get_asset_url(asset_name, value)
 
 /datum/asset/simple/unregister()
 	for(var/asset_name in assets)
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// For registering or sending multiple others at once
 /datum/asset/group
-	_abstract = /datum/asset/group
+	abstract_type = /datum/asset/group
 	var/list/children
 
 /datum/asset/group/register()
@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		asset.unregister()
 
 /datum/asset/changelog_item
-	_abstract = /datum/asset/changelog_item
+	abstract_type = /datum/asset/changelog_item
 	var/item_filename
 
 /datum/asset/changelog_item/New(date)
@@ -194,13 +194,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
 
 /datum/asset/music
-	_abstract = /datum/asset/music
+	abstract_type = /datum/asset/music
 	var/item_filename
 
-/datum/asset/music/New(path)
-	item_filename = SANITIZE_FILENAME(path)
-	SSassets.transport.register_asset(item_filename, file(path))
-	fdel(path)
+/// Downloads the track through yt-dlp and registers it as an asset.
+/// item_filename stays null if the download fails, so callers can detect it.
+/datum/asset/music/New(ytdl, url, sound_id)
+	var/datum/web_sound_download/download = download_web_sound(ytdl, url, sound_id)
+	if(!download.success)
+		log_world("Could not download web sound [url]: [download.error_message]")
+		return
+	item_filename = SANITIZE_FILENAME(download.file_path)
+	SSassets.transport.register_asset(item_filename, file(download.file_path))
+	fdel(download.file_path)
 
 /datum/asset/music/send(client)
 	if(!item_filename)
@@ -219,7 +225,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// Generates assets based on iconstates of a single icon
 /datum/asset/simple/icon_states
-	_abstract = /datum/asset/simple/icon_states
+	abstract_type = /datum/asset/simple/icon_states
 	var/icon
 	var/list/directions = list(SOUTH)
 	var/frame = 1
@@ -245,7 +251,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			SSassets.transport.register_asset(asset_name, asset)
 
 /datum/asset/simple/icon_states/multiple_icons
-	_abstract = /datum/asset/simple/icon_states/multiple_icons
+	abstract_type = /datum/asset/simple/icon_states/multiple_icons
 	var/list/icons
 
 /datum/asset/simple/icon_states/multiple_icons/register()
@@ -258,7 +264,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /// For example `blah.css` with asset `blah.png` will get loaded as `namespaces/a3d..14f/f12..d3c.css` and `namespaces/a3d..14f/blah.png`. allowing the css file to load `blah.png` by a relative url rather then compute the generated url with get_url_mappings().
 /// The namespace folder's name will change if any of the assets change. (excluding parent assets)
 /datum/asset/simple/namespaced
-	_abstract = /datum/asset/simple/namespaced
+	abstract_type = /datum/asset/simple/namespaced
 	/// parents - list of the parent asset or assets (in name = file assoicated format) for this namespace.
 	/// parent assets must be referenced by their generated url, but if an update changes a parent asset, it won't change the namespace's identity.
 	var/list/parents = list()
@@ -269,8 +275,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/hashlist = list()
 	var/list/sorted_assets = sortTim(assets, GLOBAL_PROC_REF(cmp_text_asc), TRUE)
 
-	for(var/asset_name in sorted_assets)
-		var/datum/asset_cache_item/ACI = new(asset_name, sorted_assets[asset_name])
+	for(var/asset_name, value in sorted_assets)
+		var/datum/asset_cache_item/ACI = new(asset_name, value)
 		if(!ACI?.hash)
 			log_debug("ERROR: Invalid asset: [type]:[asset_name]:[ACI]")
 			continue
@@ -278,23 +284,23 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		sorted_assets[asset_name] = ACI
 	var/namespace = md5(hashlist.Join())
 
-	for(var/asset_name in parents)
-		var/datum/asset_cache_item/ACI = new(asset_name, parents[asset_name])
+	for(var/asset_name, value in parents)
+		var/datum/asset_cache_item/ACI = new(asset_name, value)
 		if(!ACI?.hash)
 			log_debug("ERROR: Invalid asset: [type]:[asset_name]:[ACI]")
 			continue
 		ACI.namespace_parent = TRUE
 		sorted_assets[asset_name] = ACI
 
-	for(var/asset_name in sorted_assets)
-		var/datum/asset_cache_item/ACI = sorted_assets[asset_name]
+	for(var/asset_name, value in sorted_assets)
+		var/datum/asset_cache_item/ACI = value
 		if(!ACI?.hash)
 			log_debug("ERROR: Invalid asset: [type]:[asset_name]:[ACI]")
 			continue
 		ACI.namespace = namespace
 
 	assets = sorted_assets
-	..()
+	return ..()
 
 /datum/asset/simple/unregister()
 	for(var/asset_name in assets)
@@ -309,7 +315,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// A subtype to generate a JSON file from a list
 /datum/asset/json
-	_abstract = /datum/asset/json
+	abstract_type = /datum/asset/json
 	/// The filename, will be suffixed with ".json"
 	var/name
 

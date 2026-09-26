@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/Life(seconds, times_fired)
-	set invisibility = 0
+	set invisibility = FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
@@ -7,6 +7,11 @@
 	. = ..()
 
 	handle_equipment()
+	if(shell)
+		if(mainframe)
+			laws = mainframe.laws //AI shells must sync their laws with AI-pilot every tick!!!
+			if(!cell || (cell.charge <= 0))
+				evacuate_ai(DANGER_LVL_NONE)
 
 	// if Alive
 	if(.)

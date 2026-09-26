@@ -53,7 +53,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "Технологичный рюкзак, в сравнении с обычными, вмещает чрезмерно большое количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -62,7 +62,17 @@
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
+
+/obj/item/storage/backpack/holding/get_ru_names()
+	return alist(
+		NOMINATIVE = "блюспейс рюкзак",
+		GENITIVE = "блюспейс рюкзака",
+		DATIVE = "блюспейс рюкзаку",
+		ACCUSATIVE = "блюспейс рюкзак",
+		INSTRUMENTAL = "блюспейс рюкзаком",
+		PREPOSITIONAL = "блюспейс рюкзаке",
+	)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
@@ -70,8 +80,8 @@
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
-	if(response != "Yes")
+	var/response = tgui_alert(user, "Это создаст сингулярность, которая уничтожит вас и большую часть станции. Вы уверены?", "НЕИЗБЕЖНАЯ СМЕРТЬ!", list("Нет", "Да"))
+	if(response != "Да")
 		return .
 
 	user.visible_message(
@@ -103,17 +113,27 @@
 		span_italics("You hear the sound of scientific evil brewing!"),
 	)
 	qdel(I)
-	var/obj/singularity/singulo = new(get_turf(user))
-	singulo.energy = 300 //To give it a small boost
-	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+	var/obj/reality_tear/tear = new(get_turf(user))
+	tear.start_disaster()
+	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(tear)]!")
 	add_game_logs("created singularity using two bag of holding!", user)
 	qdel(src)
 
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
-	desc = "A satchel that opens into a localized pocket of Blue Space."
+	desc = "Технологичная сумка, в сравнении с обычными, вмещает чрезмерно большое количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	icon_state = "holdingsat"
 	item_state = "holdingsat"
+
+/obj/item/storage/backpack/holding/satchel/get_ru_names()
+	return alist(
+		NOMINATIVE = "блюспейс сумка",
+		GENITIVE = "блюспейс сумки",
+		DATIVE = "блюспейс сумке",
+		ACCUSATIVE = "блюспейс сумку",
+		INSTRUMENTAL = "блюспейс сумкой",
+		PREPOSITIONAL = "блюспейс сумке",
+	)
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2), 1)
@@ -121,19 +141,19 @@
 
 /obj/item/storage/backpack/holding/satchel/duffelbag
 	name = "Duffelbag of holding"
-	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
+	desc = "Очень большая и технологичная спортивная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	icon_state = "holdingduffelba"
 	item_state = "holdingduffelba"
 	max_combined_w_class = 40
 
-/obj/item/storage/backpack/duffelbag/get_ru_names()
-	return list(
-		NOMINATIVE = "блюспейс сумка хранения",
-		GENITIVE = "блюспейс сумки храненияя",
-		DATIVE = "блюспейс сумке хранения",
-		ACCUSATIVE = "блюспейс сумку хранения",
-		INSTRUMENTAL = "блюспейс сумкой хранения",
-		PREPOSITIONAL = "блюспейс сумке хранения"
+/obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
+	return alist(
+		NOMINATIVE = "блюспейс спортивная сумка",
+		GENITIVE = "блюспейс спортивная сумки",
+		DATIVE = "блюспейс спортивная сумке",
+		ACCUSATIVE = "блюспейс спортивная сумку",
+		INSTRUMENTAL = "блюспейс спортивная сумкой",
+		PREPOSITIONAL = "блюспейс спортивная сумке"
 	)
 
 /obj/item/storage/backpack/santabag
@@ -144,7 +164,7 @@
 	max_combined_w_class = 60
 
 /obj/item/storage/backpack/santabag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок с подарками",
 		GENITIVE = "мешка с подарками",
 		DATIVE = "мешку с подарками",
@@ -192,7 +212,7 @@
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/storage/fancy/crayons(src)
 	new /obj/item/reagent_containers/spray/waterflower(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+	new /obj/item/reagent_containers/cup/glass/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/clown_recorder(src)
@@ -244,7 +264,7 @@
 	item_state = "explorerpack"
 
 /obj/item/storage/backpack/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рюкзак исследователя",
 		GENITIVE = "рюкзака исследователя",
 		DATIVE = "рюкзаку исследователя",
@@ -418,7 +438,7 @@
 	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка исследователя",
 		GENITIVE = "сумки исследователя",
 		DATIVE = "сумке исследователя",
@@ -498,10 +518,7 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Перекинуть ремешок"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перекинуть ремешок", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -523,15 +540,9 @@
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 
-/obj/item/storage/backpack/satchel_flat/hide(intact)
-	if(intact)
-		invisibility = INVISIBILITY_MAXIMUM
-		set_anchored(TRUE) //otherwise you can start pulling, cover it, and drag around an invisible backpack.
-		icon_state = "[initial(icon_state)]2"
-	else
-		invisibility = initial(invisibility)
-		set_anchored(FALSE)
-		icon_state = initial(icon_state)
+/obj/item/storage/backpack/satchel_flat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/undertile, use_anchor = TRUE)
 
 /obj/item/storage/backpack/satchel_flat/populate_contents()
 	new /obj/item/stack/tile/plasteel(src)
@@ -599,7 +610,7 @@
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/ammo_box/magazine/a762x51(src)
+		new /obj/item/ammo_box/magazine/l6saw(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine
 	desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
@@ -608,11 +619,6 @@
 	new /obj/item/ammo_box/a40mm(src)
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
-
-/* UZI ammobag
-name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
@@ -626,7 +632,7 @@ TODO Use this name and desc for localisation*/
 	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в Шахтёра."
 
 /obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стартовый набор Шахтёра",
 		GENITIVE = "стартового набора Шахтёра",
 		DATIVE = "стартовому набору Шахтёра",
@@ -667,7 +673,7 @@ TODO Use this name and desc for localisation*/
 	desc = "Набор, содержащий всё необходимое для спасения ваших товарищей-шахтёров от неминуемой смерти."
 
 /obj/item/storage/backpack/duffel/vendor_ext/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для спасения и эвакуации",
 		GENITIVE = "набора для спасения и эвакуации",
 		DATIVE = "набору для спасения и эвакуации",
@@ -697,7 +703,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
-	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/gun/projectile/automatic/smg/c20r/auto(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
@@ -726,6 +732,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)
+	new /obj/item/reagent_containers/cup/bottle/atropine(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/populate_contents()
 	for(var/i in 1 to 10)
@@ -751,7 +758,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
 	new /obj/item/FixOVein(src)
-	new /obj/item/reagent_containers/glass/bottle/morphine(src)
+	new /obj/item/reagent_containers/cup/bottle/morphine(src)
 	new /obj/item/reagent_containers/syringe/antiviral(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
@@ -774,6 +781,11 @@ TODO Use this name and desc for localisation*/
 	if(prob(50))
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
+
+/obj/item/storage/backpack/duffel/syndie/bow/populate_contents()
+	new /obj/item/gun/projectile/bow/tactical(src)
+	new /obj/item/storage/backpack/quiver/modern/full(src)
+	new /obj/item/storage/backpack/quiver/modern/full(src)
 
 /obj/item/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
@@ -851,7 +863,7 @@ TODO Use this name and desc for localisation*/
 	name = "Wartime Emergency Kit"
 
 /obj/item/storage/backpack/duffel/security/war/populate_contents()
-	new /obj/item/gun/projectile/automatic/ar (src)
+	new /obj/item/gun/projectile/automatic/arg (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)

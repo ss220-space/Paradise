@@ -117,7 +117,7 @@
 	var/atom/item = new path(src)
 	tgui_data["icon_file"] = item.icon
 	tgui_data["icon_state"] = item.icon_state
-	var/list/names = item.ru_names || item.get_ru_names_cached()
+	var/alist/names = item.ru_names || item.get_ru_names_cached()
 	tgui_data["name"] = names ? names[NOMINATIVE] : item.name
 	return tgui_data
 

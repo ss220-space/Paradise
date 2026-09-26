@@ -31,7 +31,7 @@
 	var/datum/grace_tier/tier
 
 /obj/item/his_grace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "артистический ящик для инструментов",
 		GENITIVE = "артистического ящика для инструментов",
 		DATIVE = "артистическому ящику для инструментов",
@@ -67,6 +67,7 @@
 	GLOB.poi_list.Remove(src)
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
+	QDEL_NULL(tier)
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
@@ -87,12 +88,14 @@
 	return TRUE // tier updated.
 
 /obj/item/his_grace/proc/init_new_tier(typepath)
+	var/datum/grace_tier/old_tier = tier
 	if(typepath)
 		tier = new typepath()
 
 	if(!tier)
 		return FALSE // something bad occured, but we prevent runtimes
 
+	qdel(old_tier)
 	tier.link_tier(src)
 	tier.apply_tier()
 
@@ -162,11 +165,11 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		adjust_bloodthirst((1 + FLOOR(count_player_victims() * 0.3, 1)) * seconds_per_tick) //Maybe adjust this?
+		adjust_bloodthirst((1 + floor(count_player_victims() * 0.3)) * seconds_per_tick) //Maybe adjust this?
 	else
 		adjust_bloodthirst(1 * seconds_per_tick) //don't cool off rapidly once we're at the point where His Grace consumes all.
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
-	if(!isnull(master) && istype(master, /mob/living) && master.is_in_hands(src)) //required type check
+	if(!isnull(master) && isliving(master) && master.is_in_hands(src)) //required type check
 		switch(bloodthirst)
 			if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
 				consume_owner(master)

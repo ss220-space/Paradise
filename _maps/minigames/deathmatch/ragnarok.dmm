@@ -1,0 +1,1986 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ao" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"az" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"aF" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"aR" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"bU" = (
+/obj/structure/clockwork/wall_gear,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"cc" = (
+/obj/structure/flora/ash/rock/style_4,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"cM" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"da" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"dc" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"dl" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"dT" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"eb" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"ef" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/table/reinforced/brass,
+/obj/item/twohanded/ratvarian_spear,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"ep" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/mystery_box/tdome/lavaland,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"ey" = (
+/obj/item/flag/cult,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"eB" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"eQ" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"eR" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/bonfire/dense/prelit,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"fc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"fj" = (
+/obj/machinery/shield/cult/barrier,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"fL" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"fQ" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"fW" = (
+/turf/simulated/wall/indestructible/boss,
+/area/deathmatch)
+"fZ" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"ga" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"gh" = (
+/obj/structure/girder/cult,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"gj" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"gp" = (
+/obj/structure/flora/ash/rock,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"hm" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"ho" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"ht" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"hN" = (
+/turf/simulated/floor/chasm,
+/area/deathmatch)
+"hS" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"il" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"jd" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/chasm,
+/area/deathmatch)
+"jk" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"jp" = (
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"ju" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"jA" = (
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/deathmatch)
+"jQ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"kr" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"ks" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"kT" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"ld" = (
+/obj/structure/flora/ash/cacti,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"lG" = (
+/obj/structure/rack/skeletal_bar,
+/obj/item/shield/riot/templar,
+/turf/simulated/floor/engine/cult/holy,
+/area/deathmatch)
+"mt" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"mJ" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/mystery_box/tdome/lavaland,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"nj" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"nr" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"nF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"nO" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"qc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"rc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"rr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"rB" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"rD" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"rM" = (
+/obj/machinery/shield/cult/barrier,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"sC" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"sJ" = (
+/obj/effect/rune/wall,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"ta" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"tj" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"tu" = (
+/obj/structure/cult/functional/pylon/holy,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"tC" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"uu" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"uU" = (
+/obj/effect/clockwork/overlay/floor,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"ve" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue{
+	move_resist = 40000
+	},
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"vK" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"vW" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"wC" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"xR" = (
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding/cracked,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"xU" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"xX" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"yR" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/wrench/brass,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"zg" = (
+/turf/simulated/wall/cult,
+/area/deathmatch)
+"zA" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/clockwork/workshop,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"zH" = (
+/obj/item/twohanded/cult_spear,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"zT" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Al" = (
+/obj/item/clothing/shoes/cult,
+/obj/item/clothing/suit/hooded/cultrobes,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"Aw" = (
+/obj/structure/rack/skeletal_bar,
+/obj/item/reagent_containers/food/snacks/grown/holymelon,
+/turf/simulated/floor/engine/cult/holy,
+/area/deathmatch)
+"AW" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/mystery_box/tdome/lavaland,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"BH" = (
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"BM" = (
+/obj/effect/rune/narsie{
+	color = "#ff0000";
+	used = 1
+	},
+/obj/structure/cult/archives,
+/obj/item/twohanded/cult_spear,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"BR" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"BY" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Cg" = (
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"CC" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/mystery_box/tdome/lavaland,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"CR" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"CW" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Dx" = (
+/obj/structure/girder/cult,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"DU" = (
+/turf/simulated/floor/indestructible/beach/water,
+/area/deathmatch)
+"DW" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"EF" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/brass,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Go" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/gloves/clockwork_fake{
+	pixel_y = -4
+	},
+/obj/item/clothing/suit/armor/clockwork_fake{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/clothing/head/helmet/clockwork_fake{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/clothing/shoes/clockwork_fake,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Gz" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"Hm" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"HJ" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"HP" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/item/clockwork/fallen_armor,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Ih" = (
+/obj/structure/bonfire/dense/prelit,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"Ix" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"IG" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/window/reinforced/clockwork/fulltile,
+/obj/structure/grille/ratvar,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Jk" = (
+/obj/structure/flora/rock/basalt4,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Kc" = (
+/obj/structure/bonfire/dense/prelit,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"KX" = (
+/obj/structure/rack/skeletal_bar,
+/obj/item/clothing/head/helmet/riot/knight/templar,
+/turf/simulated/floor/engine/cult/holy,
+/area/deathmatch)
+"Lo" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Lt" = (
+/obj/structure/rack/skeletal_bar,
+/obj/item/clothing/suit/armor/riot/knight/templar,
+/turf/simulated/floor/engine/cult/holy,
+/area/deathmatch)
+"LZ" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"Mj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"Mp" = (
+/obj/structure/sacrificealtar,
+/obj/item/nullrod/claymore,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"MB" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"MJ" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"ML" = (
+/obj/structure/flora/rock/basalt3,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Nb" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"Nf" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"Nu" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/clockwork/wall_gear,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Nw" = (
+/obj/structure/flora/rock/lava2,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Nz" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"OJ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"OK" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Pq" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/grille/ratvar,
+/obj/structure/window/reinforced/clockwork/fulltile,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"PF" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/table/reinforced/brass,
+/obj/item/clockwork/shard,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Qt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Qv" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Qy" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"QH" = (
+/obj/effect/rune/wall,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"Sa" = (
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"So" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Su" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"SE" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/deathmatch)
+"SG" = (
+/obj/structure/flora/ash/rock/style_2,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"SU" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Tb" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/item/twohanded/ratvarian_spear,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Te" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Ti" = (
+/turf/simulated/wall/clockwork,
+/area/deathmatch)
+"Tv" = (
+/obj/structure/flora/ash/rock/style_3,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"TB" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"TK" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"Uw" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Vt" = (
+/turf/simulated/floor/engine/cult,
+/area/deathmatch)
+"VE" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/bonfire/dense/prelit,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"VM" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"VO" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Wl" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"Ws" = (
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"Ww" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"WD" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"WE" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"XK" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+"Yr" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass/jungle,
+/area/deathmatch)
+"YA" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/boss/air,
+/area/deathmatch)
+"YQ" = (
+/obj/structure/girder/cult,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
+"ZX" = (
+/obj/effect/clockwork/overlay/floor,
+/obj/structure/clockwork/altar,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deathmatch)
+
+(1,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(2,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+fW
+fW
+fW
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(3,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+kr
+uu
+YA
+AW
+fW
+fW
+fW
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(4,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+eB
+Ws
+CW
+Ws
+OJ
+kT
+Wl
+yR
+EF
+eB
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(5,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+eB
+Yr
+dl
+SU
+vW
+fW
+So
+rD
+hm
+aR
+WD
+Ws
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(6,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+eB
+Ws
+Ws
+Ww
+Ws
+ep
+So
+CR
+uu
+xX
+fL
+fW
+eB
+dl
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(7,1,1) = {"
+jA
+jA
+jA
+jA
+eB
+eB
+Ws
+OK
+Ws
+OJ
+fW
+mJ
+gj
+Hm
+sC
+VO
+fW
+WD
+eB
+Ww
+gp
+eB
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(8,1,1) = {"
+jA
+jA
+jA
+jA
+eB
+Ws
+zT
+Ws
+Ws
+Lo
+fW
+fW
+Nb
+ve
+jQ
+fL
+dT
+dc
+WD
+Ws
+dl
+Ws
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(9,1,1) = {"
+jA
+jA
+jA
+eB
+Ws
+Ww
+Ws
+Sa
+rB
+vW
+fW
+vK
+xU
+Nz
+il
+da
+DW
+cM
+fW
+eB
+Ws
+SU
+Ws
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(10,1,1) = {"
+jA
+jA
+jA
+eB
+Ws
+dl
+dl
+Ws
+OJ
+fW
+fW
+mJ
+mt
+fQ
+dc
+CC
+fW
+XK
+eB
+jp
+Nf
+jp
+jp
+Ih
+jA
+jA
+jA
+jA
+jA
+"}
+(11,1,1) = {"
+jA
+jA
+jA
+Ws
+Ws
+Ws
+Ww
+Kc
+Lo
+hS
+tC
+BY
+xR
+DW
+Uw
+fL
+WD
+jp
+eB
+jp
+jp
+DU
+DU
+jp
+jp
+jA
+jA
+jA
+jA
+"}
+(12,1,1) = {"
+jA
+jA
+jp
+Ih
+jp
+jp
+Nf
+jp
+Ww
+dl
+uu
+ao
+aF
+MB
+Te
+fZ
+WD
+jk
+BH
+Ix
+DU
+DU
+jp
+jp
+jp
+Nf
+jA
+jA
+jA
+"}
+(13,1,1) = {"
+jA
+jA
+DU
+DU
+DU
+DU
+DU
+jp
+ju
+jp
+jp
+wC
+jp
+fW
+rD
+fW
+jp
+jk
+BH
+Ix
+Cg
+jp
+jp
+cc
+jp
+tj
+jA
+jA
+jA
+"}
+(14,1,1) = {"
+jA
+jA
+DU
+DU
+DU
+DU
+SG
+jp
+jp
+qc
+cc
+jp
+ju
+jp
+WD
+jp
+Nf
+jk
+BH
+VM
+jp
+Ws
+jp
+jp
+jp
+eB
+jA
+jA
+jA
+"}
+(15,1,1) = {"
+jA
+jA
+jp
+jp
+ju
+jp
+jp
+Ih
+jp
+nO
+jp
+Cg
+jp
+jk
+Mj
+jp
+Tv
+jp
+jp
+Ws
+Ws
+Ww
+Ws
+zT
+Ws
+eB
+eB
+jA
+jA
+"}
+(16,1,1) = {"
+jA
+jA
+eB
+Ws
+Ws
+jp
+zg
+rM
+jp
+nO
+jp
+jp
+SG
+jk
+Gz
+VM
+qc
+qc
+az
+Qy
+BR
+Ws
+Ws
+Ws
+Ws
+eB
+jA
+jA
+jA
+"}
+(17,1,1) = {"
+jA
+jA
+eB
+Ww
+jp
+fj
+QH
+ju
+jp
+zg
+jp
+Nf
+jp
+jk
+fc
+rr
+SE
+BH
+tu
+BH
+SE
+ht
+Ws
+Ww
+Ww
+Ws
+jA
+jA
+jA
+"}
+(18,1,1) = {"
+jA
+jA
+eB
+Ws
+QH
+gh
+TK
+ks
+Vt
+jp
+jp
+Ws
+OK
+jp
+jp
+Qv
+Lt
+BH
+BH
+BH
+BH
+lG
+ld
+Ws
+Ws
+SU
+jA
+jA
+jA
+"}
+(19,1,1) = {"
+jA
+jA
+eB
+zg
+jp
+Vt
+Vt
+Vt
+zg
+Vt
+jp
+zg
+Ws
+Ww
+Kc
+eb
+BH
+BH
+Mp
+LZ
+BH
+ta
+Ww
+dl
+Ws
+Ws
+jA
+jA
+jA
+"}
+(20,1,1) = {"
+jA
+jA
+jA
+rB
+TK
+jp
+Vt
+Vt
+Vt
+Vt
+MJ
+jp
+jp
+Ws
+Ws
+Qv
+KX
+BH
+BH
+BH
+BH
+Aw
+Qt
+Ws
+WE
+eR
+jA
+jA
+jA
+"}
+(21,1,1) = {"
+jA
+jA
+jA
+eB
+ks
+Vt
+zg
+Vt
+BM
+Vt
+zg
+jp
+jp
+dl
+Ws
+HJ
+SE
+BH
+tu
+BH
+SE
+nF
+Ws
+WE
+ga
+jd
+jA
+jA
+jA
+"}
+(22,1,1) = {"
+jA
+jA
+ey
+Vt
+Vt
+zH
+Vt
+Vt
+Vt
+Vt
+Vt
+jp
+QH
+Ws
+Ws
+Ws
+rc
+nj
+nr
+rc
+rc
+zT
+WE
+ga
+jd
+hN
+jA
+jA
+jA
+"}
+(23,1,1) = {"
+jA
+jA
+Vt
+Vt
+zg
+sJ
+Vt
+Vt
+zg
+jp
+jp
+ks
+Ws
+zT
+Ww
+Ws
+Ww
+Ws
+Ws
+dl
+Ws
+WE
+ga
+jd
+hN
+hN
+jA
+jA
+jA
+"}
+(24,1,1) = {"
+jA
+jA
+jA
+ho
+Vt
+Vt
+Vt
+Al
+Vt
+jp
+YQ
+Ws
+Ws
+Ws
+Ws
+Ws
+dl
+Ws
+Ww
+Ws
+Ws
+eQ
+jd
+hN
+hN
+jA
+jA
+jA
+jA
+"}
+(25,1,1) = {"
+jA
+jA
+Vt
+TB
+Vt
+ho
+Vt
+Vt
+TK
+zg
+CW
+Ws
+SU
+dl
+Ww
+Ws
+Ws
+Ws
+zT
+Ws
+Ws
+VE
+hN
+hN
+jA
+jA
+jA
+jA
+jA
+"}
+(26,1,1) = {"
+jA
+jA
+jA
+Vt
+Vt
+TB
+jp
+jp
+QH
+Kc
+Ww
+Sa
+Ws
+Ws
+Ws
+ML
+bU
+eB
+HP
+Ti
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(27,1,1) = {"
+jA
+jA
+jA
+jA
+zg
+Vt
+tj
+zg
+Ws
+Ww
+Ws
+dl
+OK
+Jk
+eB
+jA
+eB
+Su
+Nw
+Tb
+uU
+Nu
+Ti
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(28,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jp
+Dx
+eB
+Ws
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+uU
+uU
+eB
+rB
+eB
+PF
+IG
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(29,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+Ti
+Nu
+uU
+ZX
+uU
+ef
+Pq
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(30,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+Pq
+zA
+Go
+Ti
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}
+(31,1,1) = {"
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+jA
+"}

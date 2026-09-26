@@ -1,7 +1,7 @@
 /// Makes sure items using GAGS have all the icon states needed to work
-/datum/game_test/greyscale_item_icon_states
+/datum/unit_test/greyscale_item_icon_states
 
-/datum/game_test/greyscale_item_icon_states/Run()
+/datum/unit_test/greyscale_item_icon_states/Run()
 	for(var/obj/item/item_path as anything in subtypesof(/obj/item))
 		var/held_icon_state = initial(item_path.item_state) || initial(item_path.icon_state)
 

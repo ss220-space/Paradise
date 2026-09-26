@@ -1,4 +1,5 @@
 /obj/structure/statue
+	abstract_type = /obj/structure/statue
 	name = "statue"
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
@@ -6,7 +7,7 @@
 	density = TRUE
 	max_integrity = 100
 	cares_about_temperature = TRUE
-	abstract_type = /obj/structure/statue
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -59,7 +60,7 @@
 		span_notice("You rub some dust off from the [name]'s surface.")
 	)
 
-/obj/structure/statue/CanAtmosPass(turf/T, vertical)
+/obj/structure/statue/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
@@ -74,11 +75,52 @@
 
 /obj/structure/statue/uranium
 	max_integrity = 300
-	light_range = 2
+	light_range = 3
+	light_power = 0.7
+	light_color = LIGHT_COLOR_NUCLEAR
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	abstract_type = /obj/structure/statue/uranium
-	var/last_event = 0
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
+
+/obj/structure/statue/uranium/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/obj/structure/statue/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	active = TRUE
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+	propagate_radiation_pulse()
+	active = FALSE
+
+/obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/statue/uranium/attackby(obj/item/item, mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/obj/structure/statue/uranium/Bumped(atom/movable/movable_atom)
+	radiate()
+	return ..()
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -89,14 +131,6 @@
 	name = "statue of an engineer"
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
-
-/obj/structure/statue/uranium/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
-	)
 
 /obj/structure/statue/plasma
 	max_integrity = 200
@@ -130,10 +164,10 @@
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(I.get_heat())
+		ignite(I.get_temperature())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -213,6 +247,22 @@
 /obj/structure/statue/silver/secborg
 	name = "statue of a security cyborg"
 	icon_state = "secborg"
+
+/obj/structure/statue/silver/secborg/piano
+	name = "piano robot"
+	desc = "Статуя робота во фраке сидящего за пианино в открытом космосе. Судя по всему он здесь уже давно. И у него отличный металлический блестящий зад."
+	icon = 'icons/mob/robots.dmi'
+	icon_state = "Robot-MAN"
+
+/obj/structure/statue/silver/secborg/piano/get_ru_names()
+	return alist(
+		NOMINATIVE = "робот-пианист в глубоком космосе",
+		GENITIVE = "робота-пианиста в глубоком космосе",
+		DATIVE = "роботу-пианисту в глубоком космосе",
+		ACCUSATIVE = "робота-пианиста в глубоком космосе",
+		INSTRUMENTAL = "роботом-пианистом в глубоком космосе",
+		PREPOSITIONAL = "роботе-пианисте в глубоком космосе",
+	)
 
 /obj/structure/statue/silver/medborg
 	name = "statue of a medical cyborg"
@@ -440,6 +490,17 @@
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
+///////////Elder Atmosian///////////////////////////////////////////
+
+/obj/structure/statue/elder_atmosian
+	name = "Elder Atmosian"
+	desc = "A statue of an Elder Atmosian, capable of bending the laws of thermodynamics to their will."
+	icon_state = "eng"
+	//custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 30, /datum/material/metalhydrogen = SHEET_MATERIAL_AMOUNT * 20, /datum/material/zaukerite = SHEET_MATERIAL_AMOUNT * 15)
+	max_integrity = 1000
+	//impressiveness = 100
+	//uncarveable = TRUE
+
 /obj/structure/statue/unknown
 	name = "Unknown hero"
 	desc = "A pedestal for an unknown soldier, perhaps he was somehow connected with the solar system."
@@ -457,7 +518,7 @@
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_temperature() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

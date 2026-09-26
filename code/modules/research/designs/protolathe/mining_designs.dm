@@ -78,7 +78,7 @@
 	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_PLASMA = 4)
 	build_type = PROTOLATHE | SMELTER
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
-	build_path = /obj/item/stack/fireproof_rods
+	build_path = /obj/item/stack/rods/fireproof
 	category = list(PROTOLATHE_CATEGORY_MINING)
 
 /datum/design/mining_charge

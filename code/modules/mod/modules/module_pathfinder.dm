@@ -13,7 +13,7 @@
 	var/obj/item/implant/mod/implant
 
 /obj/item/mod/module/pathfinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Первопроходец\"",
 		GENITIVE = "модуля \"Первопроходец\"",
 		DATIVE = "модулю \"Первопроходец\"",

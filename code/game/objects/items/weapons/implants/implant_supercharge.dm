@@ -23,6 +23,8 @@
 	imp_in.reagents.add_reagent("liquid_solder", 10)
 	imp_in.reagents.add_reagent("combatlube", 10)
 
+	. = ..()
+
 	if(!uses)
 		qdel(src)
 

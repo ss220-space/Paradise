@@ -10,7 +10,7 @@
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -71,9 +71,11 @@
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	block_chance = 50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/melee/claymore/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/claymore/ComponentInitialize()
 	. = ..()
@@ -111,9 +113,11 @@
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	block_chance = 50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/melee/katana/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/katana/ComponentInitialize()
 	. = ..()
@@ -134,12 +138,11 @@
 	icon_state = "basalt_katana"
 	item_state = "basalt_katana"
 	force = 30
-	block_chance = 30
 	var/faction_bonus_force = 30
 	var/nemesis_factions = list("mining", "boss")
 
 /obj/item/melee/katana/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "базальтовая катана",
 		GENITIVE = "базальтовой катаны",
 		DATIVE = "базальтовой катане",
@@ -147,6 +150,9 @@
 		INSTRUMENTAL = "базальтовой катаной",
 		PREPOSITIONAL = "базальтовой катане",
 	)
+
+/obj/item/melee/katana/basalt/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
@@ -270,7 +276,7 @@
 /obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	. = ..()
 	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
-		return FALSE
+		return HIT_RESULT_FAILED
 	var/obj/item/I = hitby
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
@@ -282,7 +288,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return TRUE
+				return HIT_RESULT_SUCCESS
 			else if(prob(30))
 				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся... и промахива[PLUR_ET_YUT(owner)]ся! Как неловко..."), span_warning("Вы замахиваетесь... и промахиваетесь! Вот чёрт!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
@@ -290,7 +296,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return FALSE
+				return HIT_RESULT_FAILED
 			else
 				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("Вы отбиваете [I.declent_ru(ACCUSATIVE)]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
@@ -299,7 +305,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return TRUE
+				return HIT_RESULT_SUCCESS
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able && can_deflect)
@@ -378,14 +384,10 @@
 		playsound(turf, 'sound/weapons/effects/batreflect1.ogg', 50, TRUE)
 	if(picksound == 2)
 		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, TRUE)
-	return 1
+	return REFLECT_NORMAL
 
 /obj/item/melee/baseball_bat/homerun/central_command
-	name = "тактическая бита Флота Nanotrasen"
-	description_info = "Выдвижная тактическая бита Центрального командования Nanotrasen. \
-	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
-	Выдаваясь только самым верным и эффективным офицерам Nanotrasen, это оружие является одновременно символом статуса \
-	и инструментом высшего правосудия."
+	name = "тактическая бита Флота \"Нанотрейзен\""
 	w_class = WEIGHT_CLASS_SMALL
 
 	can_deflect = FALSE
@@ -410,9 +412,16 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/list/attack_verb_on = list("шлёпнул", "ударил", "треснул", "поколотил")
 
+/obj/item/melee/baseball_bat/homerun/central_command/examine_more(mob/user)
+	. = ..()
+	. += span_notice("Выдвижная тактическая бита Центрального командования \"Нанотрейзен\". \
+	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
+	Выдаваясь только самым верным и эффективным офицерам \"Нанотрейзен\", это оружие является одновременно символом статуса \
+	и инструментом высшего правосудия.")
+
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
-	desc = "Выдвижная тактическая бита Центрального командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
+	desc = "Выдвижная тактическая бита Центрального командования \"Нанотрейзен\". Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
 	item_state = "srt_bat_0"
 	item_state_on = "srt_bat_1"
 	icon_state = "srt_bat_0"
@@ -464,10 +473,9 @@
 	force = 18
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 30
 
 /obj/item/melee/claymore/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной меч",
 		GENITIVE = "костяного меча",
 		DATIVE = "костяному мечу",
@@ -475,6 +483,9 @@
 		INSTRUMENTAL = "костяным мечом",
 		PREPOSITIONAL = "костяном мече",
 	)
+
+/obj/item/melee/claymore/bone/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/claymore/bone/ComponentInitialize()
 	. = ..()
@@ -500,7 +511,7 @@
 	var/stamina_damage = 22
 
 /obj/item/melee/nutcracker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колотушка",
 		GENITIVE = "колотушки",
 		DATIVE = "колотушке",
@@ -509,8 +520,8 @@
 		PREPOSITIONAL = "колотушке",
 	)
 
-/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
-	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!isliving(target) || !proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/victim = target

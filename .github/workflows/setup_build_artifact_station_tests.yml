@@ -4,20 +4,17 @@ on:
 jobs:
   setup_build_artifact_station_tests:
     name: Setup build artifact # MAP_TESTS
-    runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE']
+        byondtype: ["STABLE"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22.11.0
-          cache: 'yarn'
-          cache-dependency-path: ./tgui/yarn.lock
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
@@ -28,7 +25,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DMAP_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          tools/build/build.sh --ci dm -DMAP_TESTS -DMULTIINSTANCE -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
 
       - name: Setup variable for output path
         run: |
@@ -40,7 +37,7 @@ jobs:
 
       - name: Upload artifact
         if: success()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: build-artifact-station
           path: ${{ env.OUTPUT_DIR }}

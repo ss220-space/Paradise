@@ -27,7 +27,7 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоун",
 		GENITIVE = "клоуна",
 		DATIVE = "клоуну",
@@ -68,7 +68,7 @@
 	holder_type = /obj/item/holder/clowngoblin
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоун-гоблин",
 		GENITIVE = "клоуна-гоблина",
 		DATIVE = "клоуну-гоблину",
@@ -97,7 +97,7 @@
 	loot = list(/obj/item/clothing/mask/false_cluwne_mask, /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes) // We'd rather not give them ACTUAL cluwne stuff you know?
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "неуклюжий гоблин",
 		GENITIVE = "неуклюжего гоблина",
 		DATIVE = "неуклюжему гоблину",

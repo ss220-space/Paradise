@@ -32,13 +32,17 @@
 
 	product_categories = list(
 		list(
-			"name" = "Курительные приспособления",
+			"name" = "Никотиновая продукция",
 			"icon" = "smoking",
 			"products" = list(
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 8,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 8,
-				/obj/item/storage/fancy/cigarettes/cigpack_random = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 8,
+				/obj/item/storage/fancy/cigarettes/dromedaryco = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_richard = 8,
 				/obj/item/ecig = 4,
+				/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 			),
 		),
 		list(
@@ -54,7 +58,6 @@
 			"name" = "Другое",
 			"icon" = "ellipsis",
 			"products" = list(
-				/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 				/obj/item/storage/fancy/rollingpapers = 3,
 			),
 		),
@@ -69,7 +72,7 @@
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Deluxe",
 		GENITIVE = "торгового автомата ShadyCigs Deluxe",
 		DATIVE = "торговому автомату ShadyCigs Deluxe",
@@ -77,6 +80,9 @@
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
 		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
+
+/obj/machinery/vending/cigarette/free
+	all_products_free = TRUE
 
 /obj/machinery/vending/cigarette/syndicate
 	product_categories = list(
@@ -156,7 +162,7 @@
 	)
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
 		GENITIVE = "торгового автомата ShadyCigs Ultra",
 		DATIVE = "торговому автомату ShadyCigs Ultra",

@@ -155,8 +155,14 @@
 	messages.Add(span_notice("Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve."))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Abductor\">Абдуктор</a>"))
 	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	to_chat(abductor.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	log_game("[abductor] has become an abductor agent.")
+
+	mode_skill_bonuses[abductor] = list(
+		/datum/skill/medical/heal = SKILL_LEVEL_LEGEND,
+		/datum/skill/medical/surgery = SKILL_LEVEL_LEGEND,
+	)
+	abductor.refresh_skills()
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
@@ -170,9 +176,15 @@
 	messages.Add(span_notice("Use your tool and ship consoles to support the agent and retrieve human specimens."))
 	messages.Add(span_motd("For more information, check the wiki page: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Abductor\">Абдуктор</a>"))
 	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	to_chat(abductor.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 	log_game("[abductor] has become an abductor scientist.")
+
+	mode_skill_bonuses[abductor] = list(
+		/datum/skill/medical/heal = SKILL_LEVEL_LEGEND,
+		/datum/skill/medical/surgery = SKILL_LEVEL_LEGEND,
+	)
+	abductor.refresh_skills()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
@@ -246,7 +258,7 @@
 //No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
-	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[declension_ru(target_amount, "е", "ах", "ах")]."
+	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[DECL_YE_AH_AH(target_amount)]."
 
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number

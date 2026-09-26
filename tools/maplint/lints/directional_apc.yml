@@ -1,0 +1,47 @@
+help: "Use the specific directional subtypes for this apc."
+/obj/machinery/power/apc:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+    - name
+
+/obj/machinery/power/apc/important_area:
+  banned_variables:
+    - cell_type
+
+/obj/machinery/power/apc/generator:
+  banned_variables:
+    - cell_type
+    - shock_proof
+
+/obj/machinery/power/apc/worn_out:
+  banned_variables:
+    - cell_type
+
+=/obj/machinery/power/apc:
+  banned: TRUE
+=/obj/machinery/power/apc/generator:
+  banned: TRUE
+=/obj/machinery/power/apc/important_area:
+  banned: TRUE
+=/obj/machinery/power/apc/noalarm:
+  banned: TRUE
+=/obj/machinery/power/apc/syndicate:
+  banned: TRUE
+=/obj/machinery/power/apc/worn_out:
+  banned: TRUE
+
+# directional
+=/obj/machinery/power/apc/directional:
+  banned: TRUE
+=/obj/machinery/power/apc/generator/directional:
+  banned: TRUE
+=/obj/machinery/power/apc/important_area/directional:
+  banned: TRUE
+=/obj/machinery/power/apc/noalarm/directional:
+  banned: TRUE
+=/obj/machinery/power/apc/syndicate/directional:
+  banned: TRUE
+=/obj/machinery/power/apc/worn_out/directional:
+  banned: TRUE

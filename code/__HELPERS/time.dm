@@ -25,6 +25,17 @@
 	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
 	return "[date_portion]T[time_portion]"
 
+/// Returns UTC timestamp with the specifified format, with optionally deciseconds or optional IC time (year offset), AKA Nanotrasen Standard Time (NST)
+/proc/server_timestamp(format = "hh:mm:ss", show_ds, ic_time, twelve_hour_clock)
+	var/time_string = twelve_hour_clock ? time_to_twelve_hour(format, world.timeofday, world.timezone) : time2text(world.timeofday, format, world.timezone)
+	if(ic_time && findtext(format, "YYYY")) //if we have a year, replace the year
+		time_string = replacetext_char(time_string, "[GLOB.year_integer]", CURRENT_STATION_YEAR)
+	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
+
+/// Returns timestamp since the round started, AKA Pay Time (PT)
+/proc/round_timestamp(format = "hh:mm:ss", wtime = STATION_TIME_PASSED())
+	return time2text(wtime, format, NO_TIMEZONE)
+
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(wtime == null)
 		wtime = world.time
@@ -115,21 +126,21 @@
 		return "right now"
 	if(second < 60)
 		return "[second] second[(second != 1)? "s":""]"
-	var/minute = FLOOR(second / 60, 1)
+	var/minute = floor(second / 60)
 	second = FLOOR(MODULUS(second, 60), round_seconds_to)
 	var/secondT
 	if(second)
 		secondT = " and [second] second[(second != 1)? "s":""]"
 	if(minute < 60)
 		return "[minute] minute[(minute != 1)? "s":""][secondT]"
-	var/hour = FLOOR(minute / 60, 1)
+	var/hour = floor(minute / 60)
 	minute = MODULUS(minute, 60)
 	var/minuteT
 	if(minute)
 		minuteT = " and [minute] minute[(minute != 1)? "s":""]"
 	if(hour < 24)
 		return "[hour] hour[(hour != 1)? "s":""][minuteT][secondT]"
-	var/day = FLOOR(hour / 24, 1)
+	var/day = floor(hour / 24)
 	hour = MODULUS(hour, 24)
 	var/hourT
 	if(hour)

@@ -51,12 +51,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/spinningtoy
 	cost = 15
 
-/datum/prize_item/blinktoy
-	name = "Blink Toy"
-	desc = "Blink. Blink. Blink."
-	typepath = /obj/item/toy/blink
-	cost = 15
-
 /datum/prize_item/foam_darts
 	name = "Pack of Foam Darts"
 	desc = "Безвредный боезапас для донксофт оружия."
@@ -142,6 +136,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Время тусовок!"
 	typepath = /obj/item/grenade/confetti
 	cost = 50
+
+/datum/prize_item/paint_box
+	name = "Paint box"
+	desc = "Коробка со случайной краской для покраски мостика в более веселый цвет."
+	typepath = /obj/item/random_paint_box
+	cost = 75
 
 /datum/prize_item/AI
 	name = "Toy AI Unit"

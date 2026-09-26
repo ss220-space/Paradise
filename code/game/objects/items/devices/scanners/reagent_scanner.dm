@@ -17,22 +17,24 @@
 	var/scanning = TRUE
 	actions_types = list(/datum/action/item_action/print_report)
 
-/obj/item/reagent_scanner/afterattack(obj/O, mob/user, proximity, params)
+/obj/item/reagent_scanner/afterattack(obj/target, mob/user, proximity_flag, list/modifiers, status)
 	if(user.stat)
 		return
+
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
-	if(!istype(O))
+
+	if(!istype(target))
 		return
 
-	if(!isnull(O.reagents))
+	if(!isnull(target.reagents))
 		var/dat = ""
 		var/blood_type = ""
 		var/blood_species = ""
-		if(length(O.reagents.reagent_list) > 0)
-			var/one_percent = O.reagents.total_volume / 100
-			for(var/datum/reagent/R in O.reagents.reagent_list)
+		if(length(target.reagents.reagent_list) > 0)
+			var/one_percent = target.reagents.total_volume / 100
+			for(var/datum/reagent/R in target.reagents.reagent_list)
 				if(R.id != "blood")
 					dat += "<br>[TAB][span_notice("[R][details ? ": [R.volume / one_percent]%" : ""]")]"
 				else
@@ -44,10 +46,9 @@
 			datatoprint = dat
 			scanning = FALSE
 		else
-			to_chat(user, span_notice("No active chemical agents found in [O]."))
+			to_chat(user, span_notice("No active chemical agents found in [target]."))
 	else
-		to_chat(user, span_notice("No significant chemical agents found in [O]."))
-	return
+		to_chat(user, span_notice("No significant chemical agents found in [target]."))
 
 /obj/item/reagent_scanner/adv
 	name = "advanced reagent scanner"

@@ -1,30 +1,15 @@
 /turf/simulated
 	name = "station"
 	flags = NO_SCREENTIPS
-	abstract_type = /turf/simulated
-	var/wet = 0
-	var/image/wet_overlay = null
-	var/mutable_appearance/melting_olay
-
-	var/thermite = 0
+	rad_insulation = RAD_MEDIUM_INSULATION
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
-	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
-	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+	abstract_type = /turf/simulated
 
-	// LINDA
-	var/datum/excited_group/excited_group
-	var/excited = 0
-	var/recently_active = 0
-	var/archived_cycle = 0
-	var/current_cycle = 0
-	var/icy = 0
-	var/icyoverlay
+	var/mutable_appearance/melting_olay
+
 	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-
-	/// The temp we were when we got archived
-	var/temperature_archived
 
 	/// Current gas overlays.
 	var/list/atmos_overlay_types = null
@@ -53,7 +38,7 @@
 	return ..()
 
 /turf/simulated/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return
@@ -67,10 +52,10 @@
 	if(volume >= 3)
 		MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
-	quench(1000, 2)
+	quench(1000, 2, min_temperature =  temperature)
 
 /// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
-/turf/simulated/proc/quench(delta, divisor)
+/turf/simulated/proc/quench(delta, divisor, min_temperature = TCMB)
 	var/found = FALSE
 	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
@@ -80,13 +65,13 @@
 		return
 
 	var/datum/milla_safe/turf_cool/milla = new()
-	milla.invoke_async(src, delta, divisor)
+	milla.invoke_async(src, delta, divisor, min_temperature)
 
 /datum/milla_safe/turf_cool
 
-/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
-	var/datum/gas_mixture/air = get_turf_air(T)
-	air.set_temperature(max(min(air.temperature() - delta * divisor, air.temperature() / divisor), TCMB))
+/datum/milla_safe/turf_cool/on_run(turf/location, delta, divisor, min_temperature = TCMB)
+	var/datum/gas_mixture/air = get_turf_air(location)
+	air.set_temperature(max(min(air.temperature() - delta * divisor, air.temperature() / divisor), min_temperature))
 	air.react()
 
 /turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
@@ -94,6 +79,9 @@
 
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
+
+/turf/simulated/proc/is_wet()
+	return SEND_SIGNAL(src, COMSIG_TURF_IS_WET)
 
 /turf/simulated/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -109,15 +97,15 @@
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
 	. = ..()
-	ASSERT(istype(copy_to_turf, /turf/simulated))
+	ASSERT(issimulatedturf(copy_to_turf))
 	var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
 	if(slip)
 		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)
 		new_wet_floor_component.InheritComponent(slip)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
-	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
 
 /turf/simulated/AfterChange(flags, oldType)
 	..()
@@ -156,6 +144,19 @@
 		merged.set_agent_b(merged.agent_b() / turf_count)
 		merged.set_hydrogen(merged.hydrogen() / turf_count)
 		merged.set_water_vapor(merged.water_vapor() / turf_count)
+		merged.set_hypernoblium(merged.hypernoblium() / turf_count)
+		merged.set_nitrium(merged.nitrium() / turf_count)
+		merged.set_tritium(merged.tritium() / turf_count)
+		merged.set_bz(merged.bz() / turf_count)
+		merged.set_pluoxium(merged.pluoxium() / turf_count)
+		merged.set_miasma(merged.miasma() / turf_count)
+		merged.set_freon(merged.freon() / turf_count)
+		merged.set_healium(merged.healium() / turf_count)
+		merged.set_proto_nitrate(merged.proto_nitrate() / turf_count)
+		merged.set_zauker(merged.zauker() / turf_count)
+		merged.set_halon(merged.halon() / turf_count)
+		merged.set_helium(merged.helium() / turf_count)
+		merged.set_antinoblium(merged.antinoblium() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/simulated/proc/is_shielded()

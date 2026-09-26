@@ -14,7 +14,7 @@
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
 	/// Outdoor or invalid areas are filtered out.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => list(<area name>)
-	var/static/list/possible_zone_names = list(
+	var/static/alist/possible_zone_names = alist(
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
 			"Arrival Commercial West Hallway",
@@ -253,7 +253,7 @@
 	var/area/A = candidate_zones[difficulty]
 	extraction_zone = A
 	chosen_difficulty = difficulty
-	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_0_A_OV(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_0_A_OV(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**

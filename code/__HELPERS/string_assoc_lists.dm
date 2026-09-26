@@ -12,6 +12,9 @@ GLOBAL_LIST_EMPTY(string_assoc_lists)
 		cache_key_components += "[key]_[input_list[key]]"
 	var/cache_key = cache_key_components.Join("-")
 
+	if(!length(GLOB.string_assoc_lists)) // because we might be accessing this super early in some cases, it might not be set up yet!
+		GLOB.string_assoc_lists = list() // so do that now.
+
 	. = GLOB.string_assoc_lists[cache_key]
 
 	if(.)

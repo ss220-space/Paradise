@@ -14,12 +14,11 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
-	var/force_enabled = 15
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	hitsound = SFX_SWING_HIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -29,6 +28,13 @@
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/weldingtool_pickup.ogg'
+	light_system = OVERLAY_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
+	heat = T2500K
+	var/force_enabled = 15
 	var/maximum_fuel = 20
 	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/requires_fuel = TRUE
@@ -41,14 +47,11 @@
 	var/low_fuel_changes_icon = TRUE
 	/// Length of time between each "eye flash"
 	var/progress_flash_divisor = 10
-	light_system = MOVABLE_LIGHT
-	light_range = 2
-	light_power = 0.75
-	light_color = LIGHT_COLOR_FIRE
-	light_on = FALSE
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/weldingtool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сварочный аппарат",
 		GENITIVE = "сварочного аппарата",
 		DATIVE = "сварочному аппарату",
@@ -59,21 +62,30 @@
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
-	update_icon()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
+	update_appearance()
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE)
+	QDEL_NULL(middleman)
 	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
 		. += span_notice("Индикатор топливного бака: <b>[GET_FUEL]/[maximum_fuel]</b>.")
+
+/obj/item/weldingtool/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] заварива[PLUR_ET_YUT(user)] себе все лицевые отверстия! Это похоже на попытку самоубийства!"))
@@ -215,7 +227,7 @@
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL_CREDIT(amount_transferred)] топлива")
+		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL_0_A_OV(amount_transferred)] топлива")
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred
@@ -225,7 +237,7 @@
 /obj/item/weldingtool/update_icon_state()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		if(ratio == 100)
 			icon_state = initial(icon_state)
 		else
@@ -240,8 +252,8 @@
 	if(tool_enabled)
 		. += "[initial(icon_state)]-on"
 
-/obj/item/weldingtool/get_heat()
-	return tool_enabled * 2500
+/obj/item/weldingtool/get_temperature()
+	return tool_enabled * heat
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
@@ -254,7 +266,7 @@
 	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный сварочный аппарат",
 		GENITIVE = "промышленного сварочного аппарата",
 		DATIVE = "промышленному сварочному аппарату",
@@ -271,7 +283,7 @@
 	toolspeed = 0.5
 
 /obj/item/weldingtool/largetank/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -291,7 +303,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/mini/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аварийный сварочный аппарат",
 		GENITIVE = "аварийного сварочного аппарата",
 		DATIVE = "аварийному сварочному аппарату",
@@ -316,7 +328,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродный сварочный аппарат",
 		GENITIVE = "чужеродного сварочного аппарата",
 		DATIVE = "чужеродному сварочному аппарату",
@@ -337,7 +349,7 @@
 	origin_tech = "engineering=3;plasmatech=2"
 
 /obj/item/weldingtool/hugetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный сварочный аппарат",
 		GENITIVE = "улучшенного сварочного аппарата",
 		DATIVE = "улучшенному сварочному аппарату",
@@ -364,7 +376,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный сварочный аппарат",
 		GENITIVE = "экспериментального сварочного аппарата",
 		DATIVE = "экспериментальному сварочному аппарату",
@@ -384,7 +396,7 @@
 	light_intensity = 0
 
 /obj/item/weldingtool/experimental/mecha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -406,7 +418,7 @@
 	force_enabled = 10
 
 /obj/item/weldingtool/experimental/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный сварочный аппарат",
 		GENITIVE = "латунного сварочного аппарата",
 		DATIVE = "латунному сварочному аппарату",

@@ -6,7 +6,7 @@
 /obj/effect/decal/remains/acid_act()
 	visible_message(span_warning("[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!"))
 	playsound(src, 'sound/items/welder.ogg', 150, TRUE)
-	new /obj/effect/decal/cleanable/greenglow(drop_location())
+	new /obj/effect/decal/cleanable/greenglow/temp(drop_location())
 	qdel(src)
 
 /obj/effect/decal/remains/human
@@ -34,15 +34,15 @@
 	name = "You shouldn't see this"
 	desc = "Noooooooooooooooooooooo"
 
-/obj/effect/decal/remains/slime/New()
-	..()
+/obj/effect/decal/remains/slime/Initialize(mapload)
+	. = ..()
 	var/datum/reagents/R = new/datum/reagents(5)
 	var/obj/effect/particle_effect/water/W = new(get_turf(src))
 	W.reagents = R
 	R.my_atom = W
 	R.add_reagent("water", 5)
 	R.reaction(get_turf(src))
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/decal/remains/mouse
 	name = "remains"

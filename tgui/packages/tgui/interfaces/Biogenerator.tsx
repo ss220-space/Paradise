@@ -1,17 +1,16 @@
-import { useBackend, useSharedState } from '../backend';
 import {
-  Button,
-  Section,
   Box,
-  Stack,
-  Icon,
+  Button,
   Collapsible,
+  Icon,
   NumberInput,
   ProgressBar,
-} from '../components';
-import { Window } from '../layouts';
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { useBackend, useSharedState } from '../backend';
 import { Operating } from '../interfaces/common/Operating';
-import { Key } from 'react';
+import { Window } from '../layouts';
 
 type BiogeneratorProps = {
   processing: boolean;
@@ -28,7 +27,7 @@ type Product = {
   name: string;
   cost: number;
   needs_container: boolean;
-} & Key;
+};
 
 export const Biogenerator = (props: unknown) => {
   const { data, config } = useBackend<BiogeneratorProps>();
@@ -58,17 +57,17 @@ const Storage = (props: unknown) => {
   } = data;
 
   return (
-    <Section title="Storage">
+    <Section title="Хранилище">
       <Stack>
         <Stack.Item mr="20px" color="silver">
-          Biomass:
+          Биомасса:
         </Stack.Item>
         <Stack.Item mr="5px">{biomass}</Stack.Item>
         <Icon name="leaf" size={1.2} color="#3d8c40" />
       </Stack>
       <Stack height="21px" mt="8px" align="center">
         <Stack.Item mr="10px" color="silver">
-          Container:
+          Контейнер:
         </Stack.Item>
         {container ? (
           <ProgressBar
@@ -79,11 +78,11 @@ const Storage = (props: unknown) => {
               {container_curr_reagents +
                 ' / ' +
                 container_max_reagents +
-                ' units'}
+                ' единиц'}
             </Box>
           </ProgressBar>
         ) : (
-          <Stack.Item>None</Stack.Item>
+          <Stack.Item>Отсутствует</Stack.Item>
         )}
       </Stack>
     </Section>
@@ -95,7 +94,7 @@ const Controls = (props: unknown) => {
   const { has_plants, container } = data;
 
   return (
-    <Section title="Controls">
+    <Section title="Управление">
       <Stack>
         <Stack.Item width="30%">
           <Button
@@ -103,13 +102,11 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="power-off"
             disabled={!has_plants}
-            tooltip={
-              has_plants ? '' : 'There are no plants in the biogenerator.'
-            }
+            tooltip={has_plants ? '' : 'В биогенераторе нет растений.'}
             tooltipPosition="top-start"
             onClick={() => act('activate')}
           >
-            Activate
+            Включить
           </Button>
         </Stack.Item>
         <Stack.Item width="40%">
@@ -118,13 +115,11 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="flask"
             disabled={!container}
-            tooltip={
-              container ? '' : 'The biogenerator does not have a container.'
-            }
+            tooltip={container ? '' : 'В биогенераторе нет контейнера.'}
             tooltipPosition="top"
             onClick={() => act('detach_container')}
           >
-            Detach Container
+            Отсоединить
           </Button>
         </Stack.Item>
         <Stack.Item width="30%">
@@ -133,11 +128,11 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="eject"
             disabled={!has_plants}
-            tooltip={has_plants ? '' : 'There are no stored plants to eject.'}
+            tooltip={has_plants ? '' : 'В биогенераторе нет растений.'}
             tooltipPosition="top-end"
             onClick={() => act('eject_plants')}
           >
-            Eject Plants
+            Выгрузить
           </Button>
         </Stack.Item>
       </Stack>
@@ -149,17 +144,17 @@ const Products = (props: unknown) => {
   const { act, data } = useBackend<BiogeneratorProps>();
   const { biomass, product_list, container } = data;
 
-  let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
+  const [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
-  let content = Object.entries(product_list).map((kv, _i) => {
-    let category_items = Object.entries(kv[1]).map((kv2) => {
+  const content = Object.entries(product_list).map((kv, _i) => {
+    const category_items = Object.entries(kv[1]).map((kv2) => {
       return kv2[1];
     });
 
     return (
       <Collapsible key={kv[0]} title={kv[0]} open>
         {category_items.map((item) => (
-          <Stack key={item} py="2px" className="candystripe" align="center">
+          <Stack key={item.id} py="2px" className="candystripe" align="center">
             <Stack.Item width="50%" ml="2px">
               {item.name}
             </Stack.Item>
@@ -174,7 +169,7 @@ const Products = (props: unknown) => {
                   icon="flask"
                   tooltip="Вставьте любой контейнер для использования этой опции"
                 >
-                  No containe
+                  Отсутствует
                 </Button>
               ) : (
                 <Button
@@ -187,7 +182,7 @@ const Products = (props: unknown) => {
                     })
                   }
                 >
-                  Vend
+                  Печать
                 </Button>
               )}
             </Stack.Item>
@@ -199,14 +194,14 @@ const Products = (props: unknown) => {
 
   return (
     <Section
-      title="Products"
+      title="Продукты"
       fill
       scrollable
       height={32}
       buttons={
         <>
           <Box inline mr="5px" color="silver">
-            Amount to vend:
+            Количество:
           </Box>
           <NumberInput
             animated

@@ -772,7 +772,7 @@
 	var/obj/item/part_upper/lower/lower = null
 
 /obj/item/pinpointer/clock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "часовой целеуказатель",
 		GENITIVE = "часового целеуказателя",
 		DATIVE = "часовому целеуказателю",

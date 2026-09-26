@@ -13,7 +13,7 @@
 	range = MECHA_RANGED
 	var/tele_precision = 4
 
-/obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target, list/modifiers)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return FALSE
 	if(!is_faced_target(target))
@@ -32,7 +32,6 @@
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
 	energy_drain = 1000
 	tele_precision = 1
-
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator
@@ -44,7 +43,7 @@
 	energy_drain = 300
 	range = MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target, list/modifiers)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return FALSE
 	if(!is_faced_target(target))
@@ -79,9 +78,7 @@
 	chassis.investigate_log("[key_name_log(chassis.occupant)] used a Wormhole Generator at [COORD(loc)].", INVESTIGATE_TELEPORTATION)
 
 	start_cooldown()
-	spawn(rand(150,300))
-		qdel(P)
-
+	QDEL_IN(P, rand(15 SECONDS, 30 SECONDS))
 /////////////////////////////////////// GRAVITATIONAL CATAPULT ///////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult
@@ -95,7 +92,7 @@
 	var/atom/movable/locked
 	var/mode = CATAPULT_GRAVSLING
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -104,7 +101,7 @@
 	switch(mode)
 		if(CATAPULT_GRAVSLING)
 			if(!locked)
-				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
+				if(!istype(target) || target.anchored || ismecha(target))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target
@@ -128,7 +125,7 @@
 					continue
 				spawn(0)
 					var/iter = 5-get_dist(A,target)
-					for(var/i=0 to iter)
+					for(var/i in 0 to iter)
 						step_away(A,target)
 						sleep(2)
 			var/turf/T = get_turf(target)
@@ -150,7 +147,6 @@
 		if(mode > CATAPULT_GRAVPUSH)
 			mode = CATAPULT_GRAVSLING
 		return TRUE
-
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
@@ -186,7 +182,6 @@
 	if(action_checks(src))
 		start_cooldown()
 		return TRUE
-
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
@@ -207,9 +202,9 @@
 	chassis?.cut_overlay(droid_overlay)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/mech)
 	droid_overlay = new(icon, icon_state = "repair_droid")
-	M.add_overlay(droid_overlay)
+	mech.add_overlay(droid_overlay)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.cut_overlay(droid_overlay)
@@ -225,14 +220,14 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-	active = !active
+	set_active(!active)
 	chassis.add_overlay(droid_overlay)
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		active = FALSE
+		set_active(FALSE)
 		return
 	var/h_boost = health_boost
 	var/repaired = FALSE
@@ -250,14 +245,13 @@
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
-			active = FALSE
+			set_active(FALSE)
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
-		active = FALSE
+		set_active(FALSE)
 		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.add_overlay(droid_overlay)
-
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
@@ -306,12 +300,12 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
 	if(!chassis || chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		STOP_PROCESSING(SSobj, src)
-		active = FALSE
+		set_active(FALSE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
-		active = FALSE
+		set_active(FALSE)
 		occupant_message("No powercell detected.")
 		return
 	if(cur_charge < chassis.cell.maxcharge)
@@ -326,7 +320,6 @@
 				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
 				chassis.give_power(delta)
 				A.use_power(delta*coeff, pow_chan)
-
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/generator
@@ -342,8 +335,6 @@
 	var/fuel_per_cycle_idle = 10
 	var/fuel_per_cycle_active = 100
 	var/power_per_cycle = 30
-	/// Generator is generating
-	var/generation = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -353,14 +344,13 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/toggle_module()
-	generation = !generation
-
-	if(generation)
-		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
+	set_active(!active)
+	if(active)
+		to_chat(chassis.occupant, "[get_examine_icon(chassis.occupant)][span_warning("Power generation enabled.")]")
 		START_PROCESSING(SSobj, src)
 		return
 
-	to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation disabled.")]")
+	to_chat(chassis.occupant, "[get_examine_icon(chassis.occupant)][span_warning("Power generation disabled.")]")
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/get_snowflake_data()
@@ -368,7 +358,7 @@
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_GENERATOR,
 		"fuel_name" = fuel_name,
 		"fuel_amount" = fuel_amount,
-		"active" = generation
+		"active" = active
 	)
 
 	return data
@@ -378,7 +368,7 @@
 		toggle_module()
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/generator/action(target)
+/obj/item/mecha_parts/mecha_equipment/generator/action(target, list/modifiers)
 	if(!chassis)
 		return
 	load_fuel(target)
@@ -446,14 +436,17 @@
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(TRUE)
+		set_active(FALSE)
 		return
 	if(fuel_amount<=0)
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(TRUE)
+		set_active(FALSE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
 		set_ready_state(TRUE)
+		set_active(FALSE)
 		occupant_message("No powercell detected.")
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -462,26 +455,6 @@
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	name = "exonuclear reactor"
-	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	origin_tech = "powerstorage=4;engineering=4"
-	fuel_name = "uranium" // Our fuel name as a string
-	fuel_type = MAT_URANIUM
-	max_fuel = 50000
-	fuel_per_cycle_active = 30
-	power_per_cycle = 50
-	var/rad_per_cycle = 0.3
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
-	return
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
-	if(..())
-		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3), IRRADIATE, 0)
-
 /////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
@@ -491,17 +464,13 @@
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
 	selectable = MODULE_SELECTABLE_NONE
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_DURAND
 
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
-	if(M.strafe_allowed)
-		return FALSE
-	. = ..()
-
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
-	M.strafe_allowed = TRUE
-	M.actuator = src
-	if(M.occupant)
-		M.strafe_action.Grant(M.occupant, M)
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/mech)
+	mech.strafe_allowed = TRUE
+	mech.actuator = src
+	if(mech.occupant)
+		mech.strafe_action.Grant(mech.occupant, mech)
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
 	chassis.strafe_allowed = FALSE
@@ -518,7 +487,6 @@
 		if(chassis.occupant)
 			chassis.strafe_action.Remove(chassis.occupant)
 	. = ..()
-
 //LEG UPGRADE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
@@ -528,17 +496,12 @@
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
 	selectable = MODULE_SELECTABLE_NONE
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_DURAND
 	var/ripley_step_in = 2.5
 	var/odyss_step_in = 1.8
 	var/clarke_step_in = 1.5
 	var/durand_step_in = 3.3
 	var/locker_step_in = 2
-
-/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/durand))
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
 	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
@@ -553,8 +516,8 @@
 	if(istype(loc, /obj/mecha/combat/durand)) // dura
 		var/obj/mecha/combat/durand/D = loc
 		D.step_in = durand_step_in
-	if(istype(loc, /obj/mecha/combat/lockersyndie)) // syndilocker
-		var/obj/mecha/combat/lockersyndie/L = loc
+	if(istype(loc, /obj/mecha/makeshift/lockersyndie)) // syndilocker
+		var/obj/mecha/makeshift/lockersyndie/L = loc
 		L.step_in = locker_step_in
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
@@ -576,18 +539,15 @@
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
 	salvageable = FALSE
-	alert_category = "mecha_cage"
-
+	module_type = MECH_EQUIPMENT_COMBAT
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
 	///for custom icons
 	var/datum/action/innate/mecha/select_module/button
-	///wacky case
-	var/current_stage
 	var/obj/effect/supress/supress_effect
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Клетка SCS-3\"",
 		GENITIVE = "модуля \"Клетка SCS-3\"",
 		DATIVE = "модулю \"Клетка SCS-3\"",
@@ -595,16 +555,6 @@
 		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
 		PREPOSITIONAL = "модуле \"Клетка SCS-3\"",
 	)
-
-/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
-	if(..())
-		if(locate(src) in M.equipment)
-			return FALSE
-		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
-			return TRUE
-		else if(M.emagged == TRUE)
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/Destroy()
 	for(var/atom/movable/AM in src)
@@ -616,20 +566,7 @@
 	holding = null
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/cage/select_set_alert()
-	. = ..()
-	if(!.)
-		if(prisoner)
-			change_alert(CAGE_STAGE_THREE)
-		else if(holding)
-			if(!holding.handcuffed)
-				change_alert(CAGE_STAGE_ONE)
-			else
-				change_alert(CAGE_STAGE_TWO)
-		else
-			change_alert(CAGE_STAGE_ZERO)
-
-/obj/item/mecha_parts/mecha_equipment/cage/action(mob/living/carbon/target)
+/obj/item/mecha_parts/mecha_equipment/cage/action(mob/living/carbon/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!istype(target))
@@ -670,8 +607,6 @@
 		qdel(supress_effect)
 		supress_effect = null
 		return FALSE
-	if(!prisoner)
-		change_alert(CAGE_STAGE_ONE)
 	supress(target)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/handcuff_action(mob/living/carbon/target)
@@ -679,8 +614,6 @@
 	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает сковывать [target]."))
 	if(!do_after_cooldown(target))
 		return FALSE
-	if(!prisoner)
-		change_alert(CAGE_STAGE_TWO)
 	target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
 	occupant_message(span_notice("Вы успешно сковали [target]..."))
 	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] успешно сковал [target]."))
@@ -702,7 +635,6 @@
 		change_state("mecha_cage")
 		return FALSE
 	change_state("mecha_cage_activated")
-	change_alert(CAGE_STAGE_THREE)
 	prisoner = target
 	target.forceMove(src)
 	stop_supressing(target)
@@ -728,9 +660,6 @@
 	qdel(supress_effect)
 	supress_effect = null
 
-	if(!prisoner)
-		change_alert(CAGE_STAGE_ZERO)
-
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_moved(mob/living/carbon/target)
 	SIGNAL_HANDLER
 	stop_supressing(target)
@@ -739,13 +668,6 @@
 	SIGNAL_HANDLER
 	occupant_message(span_warning("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки."))
 	prisoner = null
-	if(holding)
-		if(holding.handcuffed)
-			change_alert(CAGE_STAGE_TWO)
-		else
-			change_alert(CAGE_STAGE_ONE)
-	else
-		change_alert(CAGE_STAGE_ZERO)
 	change_state("mecha_cage")
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 
@@ -753,16 +675,6 @@
 	button.button_icon_state = icon
 	flick(icon, button)
 	button.UpdateButtonIcon()
-
-/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(stage_define)
-	var/mob/living/carbon/H = chassis.occupant
-	for(var/I in subtypesof(/atom/movable/screen/alert/mech_cage))
-		var/atom/movable/screen/alert/mech_cage/alert = I
-		if(alert.stage_define == stage_define)
-			H.throw_alert(alert_category, alert)
-			break
-
-	current_stage = stage_define
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
 	supress_effect = new(target.loc)
@@ -785,13 +697,6 @@
 		return FALSE
 	if(!prisoner)
 		return FALSE
-	if(holding)
-		if(holding.handcuffed)
-			change_alert(CAGE_STAGE_TWO)
-		else
-			change_alert(CAGE_STAGE_ONE)
-	else
-		change_alert(CAGE_STAGE_ZERO)
 	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
 	prisoner.forceMove(get_turf(src))
 	if(!force)
@@ -825,7 +730,7 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/cage/container_resist()
+/obj/item/mecha_parts/mecha_equipment/cage/container_resist_act()
 	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
 		var/obj/item/clothing/suit/straight_jacket/H = prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		prisoner.cuff_resist(H, FALSE)
@@ -845,7 +750,7 @@
 	plane = ABOVE_GAME_PLANE
 
 /obj/effect/supress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "механические клешни",
 		GENITIVE = "механических клешней",
 		DATIVE = "механическим клешням",

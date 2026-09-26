@@ -21,6 +21,7 @@
 	. = ..()
 	if(!secured)
 		toggle_secure()
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotate))
 
 /obj/item/assembly/infra/Destroy()
 	if(first)
@@ -32,7 +33,6 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
-	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -131,7 +131,7 @@
 
 	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, triggered)
-	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*", hearing_distance = 3)
+	audible_message("[get_examine_icon(hearers(loc))] *beep* *beep* *beep*", hearing_distance = 3)
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
@@ -143,7 +143,7 @@
 	var/dat = {"<tt><b>Infrared Laser</b>
 				<b>Status</b>: [on ? "<a href='byond://?src=[UID()];state=0'>On</a>" : "<a href='byond://?src=[UID()];state=1'>Off</a>"]<br>
 				<b>Visibility</b>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</a>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</a>"]<br>
-				<b>Current Direction</b>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</a><br>
+				<b>Current Direction</b>: [capitalize(dir2text(dir))]<br>"
 				</tt>
 				<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>
 				<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"}
@@ -164,31 +164,14 @@
 		visible = !(visible)
 		if(first)
 			first.vis_spread(visible)
-	if(href_list["rotate"])
-		rotate(usr)
 	if(href_list["close"])
 		close_window(usr, "infra")
 		return
 	if(usr)
 		attack_self(usr)
 
-/obj/item/assembly/infra/click_alt(mob/user)
-	rotate(user)
-	return CLICK_ACTION_SUCCESS
 
-/obj/item/assembly/infra/verb/rotate_verb()
-	set name = "Повернуть"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-
-	rotate(usr)
-
-/obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	dir = turn(dir, 90)
-
+/obj/item/assembly/infra/proc/post_rotate(mob/living/user = usr)
 	if(user.machine == src)
 		interact(user)
 

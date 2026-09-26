@@ -52,19 +52,21 @@
 	/// How much weaken a successful ambush attack applies
 	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
+	var/datum/action/cooldown/spell/pointed/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
-	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
+	var/datum/action/cooldown/spell/morph_ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
-	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
+	var/datum/action/cooldown/spell/pointed/pass_airlock/pass_airlock_spell
 	/// The spell the morph uses to open vent when crawling in them
-	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
+	var/datum/action/cooldown/spell/aoe/open_vent/open_vent_spell
+	/// The spell the morph uses to reproduce
+	var/datum/action/cooldown/spell/morph_reproduce/reproduce_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 /mob/living/simple_animal/hostile/morph/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морф",
 		GENITIVE = "морфа",
 		DATIVE = "морфу",
@@ -78,7 +80,7 @@
 		GLOB.major_announcement.announce(
 			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
 			new_title = ANNOUNCE_BIOHAZARD_RU,
-			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE
@@ -87,25 +89,30 @@
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
-	AddSpell(mimic_spell)
 	ambush_spell = new
-	AddSpell(ambush_spell)
 	open_vent_spell = new
-	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
+	reproduce_spell = new
+	AddSpell(mimic_spell)
+	AddSpell(ambush_spell)
+	AddSpell(open_vent_spell)
 	AddSpell(pass_airlock_spell)
+	AddSpell(reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Destroy()
 	RemoveSpell(mimic_spell)
-	mimic_spell = null
 	RemoveSpell(ambush_spell)
-	ambush_spell = null
 	RemoveSpell(open_vent_spell)
-	open_vent_spell = null
 	RemoveSpell(pass_airlock_spell)
+	RemoveSpell(reproduce_spell)
+	mimic_spell = null
+	ambush_spell = null
 	pass_airlock_spell = null
+	open_vent_spell = null
+	reproduce_spell = null
+	GLOB.morphs_alive_list -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
@@ -121,12 +128,7 @@
  * * boolean - TRUE = enabled, FALSE = disabled
  */
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
-	if(boolean)
-		can_reproduce = TRUE
-		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
-	else
-		can_reproduce = FALSE
-		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
+	can_reproduce = boolean
 
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -139,7 +141,7 @@
 	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический морф",
 		GENITIVE = "магического морфа",
 		DATIVE = "магическому морфу",
@@ -148,14 +150,10 @@
 		PREPOSITIONAL = "магическом морфе",
 	)
 
-/mob/living/simple_animal/hostile/morph/wizard/New()
+/mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
-	var/obj/effect/proc_holder/spell/smoke/smoke = new
-	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
-	smoke.human_req = FALSE
-	forcewall.human_req = FALSE
-	AddSpell(smoke)
-	AddSpell(forcewall)
+	AddSpell(new /datum/action/cooldown/spell/smoke)
+	AddSpell(new /datum/action/cooldown/spell/forcewall)
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
@@ -218,8 +216,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	set_varspeed(MORPHED_SPEED)
-	ambush_spell.updateButtonIcon()
-	pass_airlock_spell.updateButtonIcon()
+	ambush_spell.UpdateButtonIcon()
+	pass_airlock_spell.UpdateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
@@ -234,7 +232,7 @@
 	if(ambush_prepared)
 		to_chat(src, span_warning("Потенциал засады исчез, когда вы принимаете свою истинную форму."))
 	failed_ambush()
-	pass_airlock_spell.updateButtonIcon()
+	pass_airlock_spell.UpdateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
@@ -245,14 +243,16 @@
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
-	ambush_spell.updateButtonIcon()
+	ambush_spell.UpdateButtonIcon()
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	add_to_all_human_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
+	remove_from_all_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
@@ -260,6 +260,7 @@
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
+	add_to_all_human_data_huds()
 	if(stat == DEAD && gibbed)
 		for(var/atom/movable/eaten_thing in src)
 			eaten_thing.forceMove(loc)
@@ -324,16 +325,16 @@
 		return TRUE
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/larva_attacker)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/alien_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/attack_tk(mob/user)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/slime_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
@@ -360,16 +361,25 @@
 	vision_range = initial(vision_range)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
-	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	var/list/not_allowed = list(
+		/atom/movable/screen,
+		/obj/singularity,
+		/obj/energy_ball,
+		/obj/god,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+	)
 	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
-		for(var/atom/movable/item_in_view in view(src))
+		for(var/atom/movable/item_in_view in oview(src))
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
+		if(!length(things))
+			return
 		var/atom/movable/picked_thing = pick(things)
 		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
@@ -429,10 +439,7 @@
 		mind.objectives += procreate
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
-	to_chat(src, chat_box_red(messages.Join("<br>")))
-
-/mob/living/simple_animal/hostile/morph/get_examine_time()
-	return morphed ? mimic_spell.selected_form.examine_time : ..()
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()

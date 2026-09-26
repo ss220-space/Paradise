@@ -7,7 +7,7 @@
 	// Bomb in here? (using same search as space transits searching for nuke disk)
 	var/list/bombs = search_contents_for(/obj/item/transfer_valve)
 	if(!isemptylist(bombs)) // You're fucked.
-		..(severity)
+		return ..(severity)
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
@@ -16,9 +16,9 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/food/condiment/flour(src)
-	new /obj/item/reagent_containers/food/condiment/rice(src)
-	new /obj/item/reagent_containers/food/condiment/sugar(src)
+		new /obj/item/reagent_containers/condiment/flour(src)
+	new /obj/item/reagent_containers/condiment/rice(src)
+	new /obj/item/reagent_containers/condiment/sugar(src)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -29,11 +29,10 @@
 	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
-	for(var/i = 0, i < 2, i++)
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
+	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 
 /obj/structure/closet/secure_closet/freezer/meat
@@ -62,8 +61,8 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 

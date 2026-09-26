@@ -32,6 +32,8 @@ Made by Xhuis
 
 */
 
+#define THRALL_COMBAT_SKILL_BONUS 2
+
 /proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
@@ -48,7 +50,7 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCCAPTAIN, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -89,7 +91,7 @@ Made by Xhuis
 			messages.Add(greet_shadow(shadow))
 			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
-			to_chat(shadow.current, chat_box_red(messages.Join("<br>")))
+			to_chat(shadow.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		//give_shadowling_abilities(shadow)
 	..()
 
@@ -112,7 +114,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
+	shadow_mind.AddSpell(new /datum/action/cooldown/spell/shadowling_hatch)
 	spawn(0)
 		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
@@ -130,8 +132,8 @@ Made by Xhuis
 		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		//If you add spells to thrall, be sure to remove them on dethrallize
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
+		new_thrall_mind.AddSpell(new /datum/action/cooldown/spell/shadowling_guise)
+		new_thrall_mind.AddSpell(new /datum/action/cooldown/spell/shadowling_vision)
 		var/list/messages = list()
 		messages.Add(span_shadowling("><b>Ты видишь правду. Ты понимаешь, каким дураком ты был..</b>"))
 		messages.Add(span_shadowling("<b>Тенелинги — твои хозяева.</b> Служи им превыше всего и следите за тем, чтобы они достигли своих целей."))
@@ -139,9 +141,17 @@ Made by Xhuis
 		messages.Add(span_shadowling("Твоё тело необратимо изменилось. Внимательный может это увидеть — ты можешь скрыть это, надев маску."))
 		messages.Add(span_shadowling("Хотя ты и не так силён, как твои хозяева, но ты обладаете некоторыми способностями."))
 		messages.Add(span_shadowling("Ты можете общаться со своими союзниками, используя Телепатическую сеть тенелингов. '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'."))
-		to_chat(new_thrall_mind.current, chat_box_red(messages.Join("<br>")))
+		to_chat(new_thrall_mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
+
+		var/datum/skill/best_skill = new_thrall_mind.get_highest_skill()
+		if(best_skill)
+			var/best_skill_name = best_skill.name
+			for(var/datum/mind/shadow_mind in shadows)
+				LAZYSET(mode_skill_additive_bonuses[shadow_mind], best_skill, (mode_skill_additive_bonuses[shadow_mind]?[best_skill] || 0) + 1)
+				shadow_mind.refresh_skills()
+				to_chat(shadow_mind.current, span_shadowling("Вы чувствуете, как знания вашего нового раба текут в вас. Вы стали лучше в навыке: [best_skill_name]."))
 
 		var/thralls = get_thralls()
 		var/victory_threshold = SSticker.mode.required_thralls
@@ -150,7 +160,6 @@ Made by Xhuis
 			for(var/mob/shadowling in GLOB.alive_mob_list)
 				if(!is_shadow(shadowling))
 					continue
-
 				to_chat(shadowling, span_shadowling("Ты чувствуешь нового раба под твоей волей. Тебе нужно [victory_threshold] рабов, но у тебя есть только [thralls] живых рабов."))
 
 		else if(thralls >= victory_threshold)
@@ -164,10 +173,32 @@ Made by Xhuis
 			GLOB.major_announcement.announce(
 				message = "Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
-				new_sound = 'sound/AI/commandreport.ogg'
+				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
+			for(var/datum/mind/thrall_mind as anything in shadowling_thralls)
+				grant_thrall_combat_bonus(thrall_mind)
+		else if(victory_warning_announced)
+			grant_thrall_combat_bonus(new_thrall_mind)
 		return 1
+
+/**
+ * Grants the passed thrall a bonus to every combat skill.
+ * Called for all thralls when the shadowling victory warning is announced.
+ */
+/datum/game_mode/proc/grant_thrall_combat_bonus(datum/mind/thrall_mind)
+	var/static/list/combat_skills = list(
+		/datum/skill/combat/accuracy,
+		/datum/skill/combat/bows,
+		/datum/skill/combat/fists,
+		/datum/skill/combat/guns,
+		/datum/skill/combat/melee,
+	)
+	for(var/datum/skill/combat_skill_type as anything in combat_skills)
+		LAZYSET(mode_skill_additive_bonuses[thrall_mind], combat_skill_type, (mode_skill_additive_bonuses[thrall_mind]?[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
+	thrall_mind.refresh_skills()
+	if(thrall_mind.current)
+		to_chat(thrall_mind.current, span_shadowling("Ты чувствуешь, как воля хозяев наполняет тебя силой. Твои боевые навыки возросли!"))
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, kill = 0)
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
@@ -177,8 +208,8 @@ Made by Xhuis
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
 	//If you add spells to thrall, be sure to remove them on dethrallize
-	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_guise)
-	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_vision/thrall)
+	thrall_mind.RemoveSpell(/datum/action/cooldown/spell/shadowling_guise)
+	thrall_mind.RemoveSpell(/datum/action/cooldown/spell/shadowling_vision)
 	thrall_mind.current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
@@ -211,7 +242,7 @@ Made by Xhuis
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
 				if(!isshadowling(H))
-					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
+					for(var/datum/action/cooldown/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
 						if(prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
 							var/shadow_nag_messages = list("Ты едва можешь терпеть эту низшую форму!», «Желание стать чем-то большим непреодолимо!», «Ты чувствуешь жгучую страсть освободиться от этой оболочки и обрести божественность».!")
@@ -231,12 +262,14 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
-	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in ling_mind.spell_list)
+		if(!spell.shadowling_spell)
+			continue
 		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message(span_notice("[M] lets out a short blip."))
-		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
+		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не тенелинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
 	else
 		M.visible_message(
 			span_big("[M] кричит и корчится!"), \
@@ -283,7 +316,7 @@ Made by Xhuis
 	if(length(shadows))
 		text += "<br>[span_big("<b>Тенелингами были:</b>")]"
 		for(var/datum/mind/shadow in shadows)
-			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
+			text += "<br>[shadow.get_mind_key()] was [shadow.name] ("
 			if(shadow.current)
 				if(shadow.current.stat == DEAD)
 					text += "мертвы"
@@ -298,7 +331,7 @@ Made by Xhuis
 		if(length(shadowling_thralls))
 			text += "<br>[span_big("<b>Рабами были:</b>")]"
 			for(var/datum/mind/thrall in shadowling_thralls)
-				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
+				text += "<br>[thrall.get_mind_key()] was [thrall.name] ("
 				if(thrall.current)
 					if(thrall.current.stat == DEAD)
 						text += "мертвы"
@@ -331,3 +364,5 @@ Made by Xhuis
 	required_thralls = clamp(thrall_scaling, 15, 25)
 	thrall_ratio = required_thralls / 15
 	warning_threshold = round(0.66 * required_thralls)
+
+#undef THRALL_COMBAT_SKILL_BONUS

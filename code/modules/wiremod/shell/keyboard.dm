@@ -2,12 +2,12 @@
 	name = "Keyboard Shell"
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small_keyboard"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/keyboard_shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оболочка клавиатуры",
 		GENITIVE = "оболочки клавиатуры",
 		DATIVE = "оболочке клавиатуры",
@@ -33,6 +33,12 @@
 	var/datum/port/output/entity
 	/// The string, entity typed and submitted
 	var/datum/port/output/output
+
+/obj/item/circuit_component/keyboard_shell/Destroy()
+	signal = null
+	entity = null
+	output = null
+	. = ..()
 
 /obj/item/circuit_component/keyboard_shell/examine(mob/user)
 	. = ..()

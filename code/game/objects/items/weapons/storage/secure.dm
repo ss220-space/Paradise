@@ -42,7 +42,8 @@
 
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume))
 		return .
 	open = !open
 	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
@@ -56,7 +57,8 @@
 		return .
 	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
 	l_hacking = TRUE
-	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 10 SECONDS * lockpick_mod, volume = I.tool_volume) || !open)
 		l_hacking = FALSE
 		return .
 	l_hacking = FALSE
@@ -114,9 +116,8 @@
 	return ..()
 
 /obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!try_to_open(usr))
-		return FALSE
-	return ..()
+	if(!try_to_open(user))
+		return
 
 /obj/item/storage/secure/proc/try_to_open(mob/living/user)
 	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -266,3 +267,9 @@
 
 /obj/item/storage/secure/safe/attack_hand(mob/user)
 	return attack_self(user)
+
+/obj/item/storage/secure/safe/CMO/populate_contents()
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/synaptizine(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/omnizine(src)

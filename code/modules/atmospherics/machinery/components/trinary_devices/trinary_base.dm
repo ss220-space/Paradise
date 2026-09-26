@@ -104,15 +104,15 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/trinary/build_network(remove_deferral = FALSE)
-	if(!parent1)
+	if(!parent1 && node1)
 		parent1 = new /datum/pipeline()
 		parent1.build_pipeline(src)
 
-	if(!parent2)
+	if(!parent2 && node2)
 		parent2 = new /datum/pipeline()
 		parent2.build_pipeline(src)
 
-	if(!parent3)
+	if(!parent3 && node3)
 		parent3 = new /datum/pipeline()
 		parent3.build_pipeline(src)
 	..()

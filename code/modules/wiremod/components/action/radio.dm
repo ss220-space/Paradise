@@ -36,12 +36,22 @@
 	/// How long of a cooldown we have before we can send another signal.
 	var/signal_cooldown_time = 1 SECONDS
 
+/obj/item/circuit_component/radio/Destroy(force)
+	if(parent_shell)
+		unregister_shell(parent_shell)
+	SSradio.remove_object(src, current_freq)
+	radio_connection = null
+	public_options = null
+	freq = null
+	code = null
+	. = ..()
+
 /obj/item/circuit_component/radio/examine(mob/user)
 	. = ..()
 	if(!signal_cooldown_time)
 		return
 
-	. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."
+	. += "Ещё [signal_cooldown_time * 0.1] секунд[DECL_A_Y_0(signal_cooldown_time * 0.1)] перезарядки между отправками сигнала."
 
 /obj/item/circuit_component/radio/register_shell(atom/movable/shell)
 	parent_shell = shell
@@ -68,10 +78,6 @@
 	// These are cleaned up on the parent
 	trigger_input = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 	trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/radio/Destroy(force)
-	SSradio.remove_object(src, current_freq)
-	return ..()
 
 /obj/item/circuit_component/radio/pre_input_received(datum/port/input/port)
 	freq.set_value(sanitize_frequency(freq.value, TRUE))

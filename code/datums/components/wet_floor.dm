@@ -91,16 +91,16 @@
 	lube_flags = SLIPPERY_TURF
 	switch(highest_strength)
 		if(TURF_WET_WATER)
-			intensity = 4 SECONDS
+			intensity = SLIPPERY_TIME_WATER
 			lube_flags |= NO_SLIP_WHEN_WALKING
 		if(TURF_WET_LUBE)
-			intensity = 4 SECONDS
+			intensity = SLIPPERY_TIME_LUBE
 			lube_flags |= (SLIDE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
 		if(TURF_WET_ICE)
-			intensity = 4 SECONDS
+			intensity = SLIPPERY_TIME_ICE
 			lube_flags |= (SLIDE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
 		if(TURF_WET_PERMAFROST)
-			intensity = 10 SECONDS
+			intensity = SLIPPERY_TIME_ICE
 			lube_flags |= (SLIDE_ICE|SLIP_IGNORE_NO_SLIP_WATER)
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))

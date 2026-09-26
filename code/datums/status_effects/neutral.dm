@@ -36,35 +36,6 @@
 	get_kill()
 	. = ..()
 
-/datum/status_effect/staring
-	id = "staring"
-	alert_type = null
-	var/mob/living/target
-	var/target_gender
-	var/target_species
-
-/datum/status_effect/staring/on_creation(mob/living/new_owner, new_duration, new_target, new_target_gender, new_target_species)
-	if(!new_duration)
-		qdel(src)
-		return
-	duration = new_duration
-	. = ..()
-	target = new_target
-	target_gender = new_target_gender
-	target_species = new_target_species
-
-/datum/status_effect/staring/proc/catch_look(mob/living/opponent)
-	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		var/list/loved_ones = list(MALE, FEMALE)
-		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
-			return
-		var/mob/living/carbon/human/human_owner = owner
-		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))
-			owner.emote("blush")
-			to_chat(owner, span_danger("Вы чувствуете что-то жгучее в груди..."))
-
 /datum/status_effect/high_five
 	id = "high_five"
 	duration = 10 SECONDS
@@ -80,6 +51,8 @@
 	var/obj/item/item_path = /obj/item/latexballon
 	/// Sound effect played when this emote is completed.
 	var/sound_effect = 'sound/weapons/slap.ogg'
+	/// Sound effect played when critical success
+	var/epic_sound_effect = 'sound/weapons/critical_slap.ogg'
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
@@ -103,10 +76,11 @@
 			user.visible_message(span_biggerdanger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
 			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-			explosion(get_turf(user), devastation_range = 5, heavy_impact_range = 2, light_impact_range = 1, flash_range = 3, cause = id)
+			explosion(get_turf(user), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 2, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")
+			playsound(user, epic_sound_effect, 100, ignore_walls = TRUE, pressure_affected = FALSE)
 			both_wiz = TRUE
 		user.do_attack_animation(check, no_effect = TRUE)
 		check.do_attack_animation(user, no_effect = TRUE)
@@ -343,22 +317,9 @@
 		var/current_effect = difference > 0 ? -temp_effect : temp_effect
 		owner.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
 
-/atom/movable/screen/alert/status_effect/leaning
-	name = "Прислонившись"
-	desc = "Вы прислонились к чему-то."
-	icon_state = "buckled"
-
-/atom/movable/screen/alert/status_effect/leaning/Click()
-	var/mob/living/L = usr
-	if(!istype(L))
-		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.stop_leaning()
-
 /datum/status_effect/leaning
 	id = "leaning"
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)
@@ -370,3 +331,179 @@
 /datum/status_effect/impact_immune
 	id = "impact_immune"
 	alert_type = null
+
+// heldup is for the person being aimed at
+/datum/status_effect/grouped/heldup
+	id = "heldup"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	alert_type = /atom/movable/screen/alert/status_effect/heldup
+
+/atom/movable/screen/alert/status_effect/heldup
+	name = "На мушке"
+	desc = "Любое движение спровоцирует выстрел!"
+	icon_state = "aimed"
+
+/datum/status_effect/grouped/heldup/on_apply()
+	owner.apply_status_effect(/datum/status_effect/grouped/surrender)
+	return ..()
+
+/datum/status_effect/grouped/heldup/on_remove()
+	var/has_other_heldup = FALSE
+	for(var/datum/status_effect/grouped/heldup/heldup_effect in owner.status_effects)
+		if(heldup_effect != src)
+			has_other_heldup = TRUE
+			break
+	if(!has_other_heldup)
+		owner.remove_status_effect(/datum/status_effect/grouped/surrender)
+	return ..()
+
+// holdup is for the person aiming
+/datum/status_effect/holdup
+	id = "holdup"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	alert_type = /atom/movable/screen/alert/status_effect/holdup
+
+/atom/movable/screen/alert/status_effect/holdup
+	name = "На прицеле"
+	desc = "Вы держите кого-то на мушке. Нажмите чтобы отменить."
+	icon_state = "aimed"
+	clickable_glow = TRUE
+
+/atom/movable/screen/alert/status_effect/holdup/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+
+	SEND_SIGNAL(owner, COMSIG_LIVING_GUNPOINT_CANCEL)
+
+//this effect gives the user an alert they can use to surrender quickly
+/datum/status_effect/grouped/surrender
+	id = "surrender"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/surrender
+
+/atom/movable/screen/alert/status_effect/surrender
+	name = "Сдаться"
+	desc = "Вас держат на мушке! Лучший вариант — сдаться!"
+	icon_state = "surrender"
+	clickable_glow = TRUE
+
+/atom/movable/screen/alert/status_effect/surrender/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/surrendered_mob = owner
+	if(surrendered_mob)
+		surrendered_mob.emote("surrender")
+
+
+/datum/status_effect/washing_regen
+	id = "shower_regen"
+	alert_type = /atom/movable/screen/alert/status_effect/washing_regen
+	/// How much stamina we regain from washing
+	var/stamina_heal_per_tick = -4
+	/// How much brute, tox and fie damage we heal from this
+	var/heal_per_tick = 0
+	/// The main reagent used for the shower (if no reagent is at least 70% of volume then it's null)
+	var/datum/reagent/shower_reagent
+
+/datum/status_effect/washing_regen/on_creation(mob/living/new_owner, shower_reagent)
+	if(!src.shower_reagent)
+		src.shower_reagent = shower_reagent
+	return ..()
+
+/datum/status_effect/washing_regen/on_apply()
+	. = ..()
+	if(istype(shower_reagent, /datum/reagent/blood))
+		if(HAS_TRAIT(owner, TRAIT_MORBID) || HAS_TRAIT(owner, TRAIT_EVIL) /*|| (owner.mob_biotypes & MOB_UNDEAD)*/)
+			alert_type = /atom/movable/screen/alert/status_effect/washing_regen/bloody_like
+		else
+			alert_type  = /atom/movable/screen/alert/status_effect/washing_regen/bloody_dislike
+	else if(istype(shower_reagent, /datum/reagent/water))
+		if(HAS_TRAIT(owner, TRAIT_WATER_HATER) && !HAS_TRAIT(owner, TRAIT_WATER_ADAPTATION))
+			alert_type = /atom/movable/screen/alert/status_effect/washing_regen/hater
+		else
+			alert_type = /atom/movable/screen/alert/status_effect/washing_regen
+	else if(!shower_reagent) // dirty shower
+		alert_type  = /atom/movable/screen/alert/status_effect/washing_regen/dislike
+
+/datum/status_effect/washing_regen/tick(seconds_between_ticks)
+	. = ..()
+
+	var/is_disgusted = FALSE
+
+	if(istype(shower_reagent, /datum/reagent/water))
+		var/water_adaptation = HAS_TRAIT(owner, TRAIT_WATER_ADAPTATION)
+		var/water_hater = HAS_TRAIT(owner, TRAIT_WATER_HATER)
+		var/stam_recovery = (water_hater && !water_adaptation ? -stamina_heal_per_tick : stamina_heal_per_tick) * seconds_between_ticks
+		var/recovery = heal_per_tick
+		if(water_adaptation)
+			recovery -= 1
+			stam_recovery *= 1.5
+		else if(water_hater)
+			recovery *= 0
+		recovery *= seconds_between_ticks
+
+		var/healed = 0
+		if(recovery) //very mild healing for those with the water adaptation trait (fish infusion)
+			healed += owner.adjustOxyLoss(recovery * (water_adaptation ? 1.5 : 1), updating_health = FALSE, /*required_biotype = MOB_ORGANIC*/)
+			healed += owner.adjustFireLoss(recovery, updating_health = FALSE, affect_robotic = FALSE/*required_bodytype = BODYTYPE_ORGANIC*/)
+			healed += owner.adjustToxLoss(recovery, updating_health = FALSE/*required_biotype = MOB_ORGANIC*/)
+			healed += owner.adjustBruteLoss(recovery, updating_health = FALSE, affect_robotic = FALSE/*required_bodytype = BODYTYPE_ORGANIC*/)
+		healed += owner.adjustStaminaLoss(stam_recovery, updating_health = FALSE)
+		if(healed)
+			owner.updatehealth()
+	else if(istype(shower_reagent, /datum/reagent/blood))
+		var/enjoy_bloody_showers = HAS_TRAIT(owner, TRAIT_MORBID) || HAS_TRAIT(owner, TRAIT_EVIL) /*|| (owner.mob_biotypes & MOB_UNDEAD)*/
+		is_disgusted = !enjoy_bloody_showers
+	else if(!shower_reagent) // dirty shower
+		is_disgusted = TRUE
+
+	if(is_disgusted)
+		owner.AdjustDisgust(2)
+
+/atom/movable/screen/alert/status_effect/washing_regen
+	name = "Washing"
+	desc = "A good wash fills me with energy!"
+	icon_state = "shower_regen"
+
+/atom/movable/screen/alert/status_effect/washing_regen/hater
+	desc = "Waaater... Fuck this WATER!!"
+	icon_state = "shower_regen_catgirl"
+
+/atom/movable/screen/alert/status_effect/washing_regen/dislike
+	desc = "This water feels dirty..."
+	icon_state = "shower_regen_dirty"
+
+/atom/movable/screen/alert/status_effect/washing_regen/bloody_like
+	desc = "Mhhhmmmm... the crimson red drops of life. How delightful."
+	icon_state = "shower_regen_blood_happy"
+
+/atom/movable/screen/alert/status_effect/washing_regen/bloody_dislike
+	desc = "Is that... blood? What the fuck!"
+	icon_state = "shower_regen_blood_bad"
+
+/datum/status_effect/washing_regen/hot_spring
+	alert_type = /atom/movable/screen/alert/status_effect/washing_regen/hotspring
+	stamina_heal_per_tick = -4.5
+	heal_per_tick = -0.4
+	shower_reagent = /datum/reagent/water
+
+/datum/status_effect/washing_regen/hot_spring/on_apply()
+	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_WATER_HATER) && !HAS_TRAIT(owner, TRAIT_WATER_ADAPTATION))
+		alert_type = /atom/movable/screen/alert/status_effect/washing_regen/hotspring/hater
+
+/datum/status_effect/washing_regen/hot_spring/tick(seconds_between_ticks)
+	. = ..()
+	owner.adjust_bodytemperature(10 * seconds_between_ticks, 0, T0C + 45)
+
+/atom/movable/screen/alert/status_effect/washing_regen/hotspring
+	name = "Hotspring"
+	desc = "Hot Springs are so relaxing..."
+	icon_state = "hotspring_regen"
+
+/atom/movable/screen/alert/status_effect/washing_regen/hotspring/hater
+	desc = "Waaater... FUCK THIS HOT WATER!!"
+	icon_state = "hotspring_regen_catgirl"

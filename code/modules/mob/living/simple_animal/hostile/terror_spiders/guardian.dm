@@ -36,7 +36,7 @@
 	web_type = /obj/structure/spider/terrorweb/purple
 	can_wrap = FALSE
 	delay_web = 20
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_shield)
+	special_abillity = list(/datum/action/cooldown/spell/conjure/terror_shield)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Защитником Ужаса, ваша задача — охрана гнезда, яиц, Принцесс и Королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создаёт временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти Принцессу, или Королеву, при этои обрекая себя на смерть — делайте это без раздумий!"
 	ai_spins_webs = FALSE
@@ -46,7 +46,7 @@
 	var/max_queen_range = 15
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Защитник Ужаса",
 		GENITIVE = "Защитника Ужаса",
 		DATIVE = "Защитнику Ужаса",
@@ -146,7 +146,7 @@
 	max_integrity = 40
 
 /obj/structure/spider/terrorweb/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "толстая паутина",
 		GENITIVE = "толстой паутины",
 		DATIVE = "толстой паутине",

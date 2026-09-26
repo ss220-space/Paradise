@@ -54,8 +54,8 @@
 	clear_holosign()
 	to_chat(user, span_notice("You clear active hologram."))
 
-/obj/item/signmaker/afterattack(atom/target, mob/living/user, proximity, params)
-	laser_act(target, user, params)
+/obj/item/signmaker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	laser_act(target, user, modifiers)
 
 /obj/item/signmaker/process()
 	var/recharge_chance = 20 - recharge_locked*5
@@ -173,7 +173,7 @@
 	var/obj/item/signmaker/projector = null
 
 /obj/structure/holosoap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографическое мыло",
 		GENITIVE = "голографического мыла",
 		DATIVE = "голографическому мылу",

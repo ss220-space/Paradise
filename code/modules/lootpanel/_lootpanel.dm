@@ -21,6 +21,8 @@
 	src.owner = owner
 
 /datum/lootpanel/Destroy(force)
+	SSlooting.backlog -= src
+	SSlooting.processing -= src
 	reset_contents()
 	owner = null
 	source_turf = null
@@ -34,12 +36,13 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/datum/lootpanel/ui_state(mob/user)
-	return GLOB.range_state
+/datum/lootpanel/ui_host(mob/user)
+	return source_turf
 
 /datum/lootpanel/ui_close(mob/user)
 	. = ..()
 
+	UnregisterSignal(source_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
 	source_turf = null
 	reset_contents()
 
@@ -47,31 +50,10 @@
 	var/list/data = list()
 
 	data["contents"] = get_contents()
+	data["is_blind"] = !!user.is_blind()
 	data["searching"] = length(to_image)
 
 	return data
-
-/datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
-	if(isobserver(user))
-		return UI_INTERACTIVE
-
-	if(isAI(user) && !user.stat)
-		var/mob/living/silicon/ai/AI = user
-		if(AI.can_see(source_turf))
-			return UI_INTERACTIVE
-		return UI_CLOSE
-
-	if(user.incapacitated())
-		return UI_DISABLED
-
-	var/dist = get_dist(source_turf, user)
-	if(dist <= 1)
-		return UI_INTERACTIVE
-
-	else if(dist <= 6)
-		return UI_UPDATE
-
-	return UI_CLOSE
 
 /datum/lootpanel/ui_act(action, list/params)
 	. = ..()
@@ -81,7 +63,5 @@
 	switch(action)
 		if("grab")
 			return grab(usr, params)
-		if("refresh")
-			return populate_contents()
 
 	return FALSE

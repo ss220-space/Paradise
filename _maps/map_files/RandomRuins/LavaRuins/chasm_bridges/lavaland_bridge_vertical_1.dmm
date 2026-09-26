@@ -5,11 +5,8 @@
 	},
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/turf/simulated/floor/clockwork{
-	baseturf = /turf/simulated/floor/lava/lava_land_surface;
-	temperature = 300;
-	oxygen = 14;
-	nitrogen = 23
+/turf/simulated/floor/clockwork/lavaland_air{
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 	},
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (

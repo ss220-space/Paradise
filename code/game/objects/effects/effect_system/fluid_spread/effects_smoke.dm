@@ -498,7 +498,7 @@
 
 	var/where = "[AREACOORD(location)]"
 	var/contained = length(contained_reagents) ? "\[[contained_reagents.Join(", ")]\] @ [chemholder.chem_temp]K" : null
-	if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
+	if(carry?.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 		var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
 		var/more = ""
 		if(M)

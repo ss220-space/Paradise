@@ -1,13 +1,14 @@
-import { useBackend } from '../backend';
 import {
-  Button,
-  Section,
-  LabeledList,
-  Slider,
   Box,
-  ProgressBar,
+  Button,
   Flex,
-} from '../components';
+  LabeledList,
+  ProgressBar,
+  Section,
+  Slider,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type PortablePumpData = {
@@ -22,6 +23,8 @@ export type PortableBaseData = {
   port_connected: boolean;
   on: boolean;
   holding_tank: Tank;
+  hasHypernobCrystal: BooleanLike;
+  reactionSuppressionEnabled: BooleanLike;
 };
 
 type Tank = {
@@ -54,11 +57,28 @@ export const PortablePump = (_props: unknown) => {
 
 const PumpSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortablePumpData>();
-  const { on, direction, port_connected } = data;
+  const {
+    on,
+    direction,
+    port_connected,
+    hasHypernobCrystal,
+    reactionSuppressionEnabled,
+  } = data;
 
   return (
     <Section title="Pump Settings">
       <LabeledList>
+        {!!hasHypernobCrystal && (
+          <LabeledList.Item label="Reaction Suppression">
+            <Button
+              icon={reactionSuppressionEnabled ? 'snowflake' : 'times'}
+              selected={reactionSuppressionEnabled}
+              onClick={() => act('reaction_suppression')}
+            >
+              {reactionSuppressionEnabled ? 'Enabled' : 'Disabled'}
+            </Button>
+          </LabeledList.Item>
+        )}
         <LabeledList.Item label="Power">
           <Button
             icon={on ? 'power-off' : 'power-off'}

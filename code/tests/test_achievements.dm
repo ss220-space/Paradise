@@ -1,7 +1,7 @@
 ///Checks that all achievements have an existing icon state in the achievements icon file.
-/datum/game_test/achievements
+/datum/unit_test/achievements
 
-/datum/game_test/achievements/Run()
+/datum/unit_test/achievements/Run()
 	for(var/datum/award/award as anything in subtypesof(/datum/award))
 		if(!initial(award.name)) //Skip abstract achievements types
 			continue

@@ -12,7 +12,6 @@
 	new /obj/item/areaeditor/blueprints/ce(src)
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
 	new /obj/item/radio/headset/heads/ce(src)
@@ -23,7 +22,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/rpd(src)
-	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
+	new /obj/item/reagent_containers/cup/glass/mug/ce(src)
 	new /obj/item/autoimplanter/oneuse/meson_eyes(src)
 	new /obj/item/clothing/glasses/meson/atmos(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
@@ -42,7 +41,6 @@
 	custom_door_overlay = "engelec"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)

@@ -44,7 +44,7 @@
 	COOLDOWN_DECLARE(hit_cooldown)
 
 /obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Кинезис\"",
 		GENITIVE = "модуля \"Кинезис\"",
 		DATIVE = "модулю \"Кинезис\"",
@@ -67,9 +67,7 @@
 	return ..()
 
 /*
-tier 1 - range 2-3
-tier 2 - range 5-6, can lift conscious with handcuffs on them
-tier 3 - range 7-8, can lift conscious
+range 2-3
 */
 
 /obj/item/mod/module/anomaly_locked/kinesis/update_core_powers()
@@ -81,10 +79,6 @@ tier 3 - range 7-8, can lift conscious
 
 	var/calculated_range = round((core.get_strength() / 20))
 	grab_range = min(calculated_range, maximum_grab_range)
-	if(core.get_strength() > 100)
-		stat_required = CONSCIOUS
-	if(core.get_strength() > 200)
-		incapacitated_required = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
 	. = ..()
@@ -114,7 +108,7 @@ tier 3 - range 7-8, can lift conscious
 	clear_grab(playsound = !deleting)
 
 /obj/item/mod/module/anomaly_locked/kinesis/process()
-	if(!mod.wearer.client || mod.wearer.incapacitated(INC_IGNORE_GRABBED))
+	if(!mod.wearer.client || mod.wearer.incapacitated(IGNORE_GRAB))
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))
@@ -208,9 +202,9 @@ tier 3 - range 7-8, can lift conscious
 /obj/item/mod/module/anomaly_locked/kinesis/proc/grab_atom(atom/movable/target)
 	grabbed_atom = target
 	if(isliving(grabbed_atom))
-		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), ref(src))
+		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 		RegisterSignal(grabbed_atom, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
-	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, ref(src))
+	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(grabbed_atom, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_setanchored))
 	playsound(grabbed_atom, 'sound/weapons/contractorbatonhit.ogg', 75, TRUE)
 	kinesis_icon = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1, appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM|KEEP_APART)
@@ -218,6 +212,7 @@ tier 3 - range 7-8, can lift conscious
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
 	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
+	RegisterSignal(kinesis_catcher, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(on_catcher_click))
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -234,11 +229,18 @@ tier 3 - range 7-8, can lift conscious
 	grabbed_atom.cut_overlay(kinesis_icon)
 	QDEL_NULL(kinesis_beam)
 	if(isliving(grabbed_atom))
-		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), ref(src))
+		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x, pixel_y = pre_pixel_y)
 	grabbed_atom = null
 	soundloop.stop()
+
+/obj/item/mod/module/anomaly_locked/kinesis/proc/on_catcher_click(atom/source, location, control, params, user)
+	SIGNAL_HANDLER
+
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		clear_grab()
 
 /obj/item/mod/module/anomaly_locked/kinesis/proc/range_check(atom/target)
 	if(!isturf(mod.wearer.loc))
@@ -302,7 +304,7 @@ tier 3 - range 7-8, can lift conscious
 	complexity = 0
 
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прототип модуля \"Кинезис\"",
 		GENITIVE = "прототипа модуля \"Кинезис\"",
 		DATIVE = "прототипу модуля \"Кинезис\"",
@@ -330,7 +332,7 @@ tier 3 - range 7-8, can lift conscious
 	mob_stun_time = 10 SECONDS
 
 /obj/item/mod/module/anomaly_locked/kinesis/plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Кинезис+\"",
 		GENITIVE = "модуля \"Кинезис+\"",
 		DATIVE = "модулю \"Кинезис+\"",

@@ -36,7 +36,7 @@
 /datum/gear/neck/mantle/job/chief_engineer
 	index_name = "mantle, chief engineer"
 	path = /obj/item/clothing/neck/mantle/chief_engineer
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/neck/mantle/job/chief_medical_officer
 	index_name = "mantle, chief medical officer"
@@ -74,7 +74,7 @@
 /datum/gear/neck/cloak/job/healer
 	index_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/neck/cloak/job/captain
 	index_name = "cloak, captain"
@@ -94,12 +94,12 @@
 /datum/gear/neck/cloak/job/chief_engineer
 	index_name = "cloak, chief engineer"
 	path = /obj/item/clothing/neck/cloak/chief_engineer
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/neck/cloak/job/chief_engineer/white
 	index_name = "cloak, chief engineer, white"
 	path = /obj/item/clothing/neck/cloak/chief_engineer/white
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/neck/cloak/job/chief_medical_officer
 	index_name = "cloak, chief medical officer"

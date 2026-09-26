@@ -21,7 +21,7 @@
 	var/static/hightech_recovery = FALSE
 
 /obj/machinery/computer/supplyquest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль запросов на поставку",
 		GENITIVE = "консоли запросов на поставку",
 		DATIVE = "консоли запросов на поставку",
@@ -107,7 +107,7 @@
 	data["quests"] += quest_storages
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
-	data["timeleft"] = SSshuttle.supply.timeLeft(600)
+	data["timeleft"] = SSshuttle.supply.getTimerStr()
 	return data
 
 /obj/machinery/computer/supplyquest/ui_assets(mob/user)
@@ -119,7 +119,7 @@
 	var/mob/user = usr
 	if(!allowed(user) && !user.can_admin_interact())
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	if(!SSshuttle)
@@ -173,20 +173,20 @@
 				return FALSE
 			if(quest.time_add_count > 4)
 				to_chat(user, span_warning("Достигнут предел продления времени!"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			quest.add_time()
 
 		if("buy_tech")
 			if(hightech_recovery)
 				to_chat(user, span_warning("Институт ЦК не может поделиться с вами данной технологий в данный момент."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 			var/attempt_pin = tgui_input_number(user, "Введите пароль", "Транзакция с ЦК")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", dest_name = "Институт \"Нанотрейзен\""))
 				hightech_recovery = TRUE
@@ -214,7 +214,6 @@
 		return
 
 /obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
-
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
@@ -228,15 +227,15 @@
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "форма запроса на поставку"
-	paper.ru_names = new /list(6)
-	paper.ru_names = list(
-		NOMINATIVE = "форма запроса о поставке",
-		GENITIVE = "формы запроса о поставке",
-		DATIVE = "форме запроса о поставке",
-		ACCUSATIVE = "форму запроса о поставке",
-		INSTRUMENTAL = "формой запроса о поставке",
-		PREPOSITIONAL = "форме запроса о поставке",
+	var/request_desc = "запроса о поставке"
+	paper.name = "форма [request_desc]"
+	paper.ru_names = alist(
+		NOMINATIVE = "форма [request_desc]",
+		GENITIVE = "формы [request_desc]",
+		DATIVE = "форме [request_desc]",
+		ACCUSATIVE = "форму [request_desc]",
+		INSTRUMENTAL = "формой [request_desc]",
+		PREPOSITIONAL = "форме [request_desc]",
 	)
 
 /obj/machinery/computer/supplyquest/workers
@@ -249,7 +248,7 @@
 	density = FALSE
 
 /obj/machinery/computer/supplyquest/workers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монитор запросов на поставку",
 		GENITIVE = "монитора запросов на поставку",
 		DATIVE = "монитору запросов на поставку",
@@ -264,7 +263,7 @@
 
 /obj/machinery/computer/supplyquest/workers/Destroy()
 	GLOB.cargo_announcers -= src
-	..()
+	return ..()
 
 /obj/machinery/computer/supplyquest/workers/print_order(datum/cargo_quests_storage/quest)
 	. = ..()
@@ -319,15 +318,15 @@
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "Отчёт о поставке"
-	paper.ru_names = new /list(6)
-	paper.ru_names = list(
-		NOMINATIVE = "отчёт о поставке",
-		GENITIVE = "отчёта о поставке",
-		DATIVE = "отчёту о поставке",
-		ACCUSATIVE = "отчёт о поставке",
-		INSTRUMENTAL = "отчётом о поставке",
-		PREPOSITIONAL = "отчёте о поставке",
+	var/report_desc = "о поставке"
+	paper.name = "отчёт [report_desc]"
+	paper.ru_names = alist(
+		NOMINATIVE = "отчёт [report_desc]",
+		GENITIVE = "отчёта [report_desc]",
+		DATIVE = "отчёту [report_desc]",
+		ACCUSATIVE = "отчёт [report_desc]",
+		INSTRUMENTAL = "отчётом [report_desc]",
+		PREPOSITIONAL = "отчёте [report_desc]",
 	)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
@@ -348,7 +347,7 @@
 	var/obj/machinery/computer/supplyquest/integrated_console = /obj/machinery/computer/supplyquest/iternal
 
 /obj/item/qm_quest_tablet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет Квартирмейстера",
 		GENITIVE = "планшета Квартирмейстера",
 		DATIVE = "планшету Квартирмейстера",
@@ -368,7 +367,9 @@
 	integrated_console.parent = src
 
 /obj/item/qm_quest_tablet/Destroy()
-	QDEL_NULL(integrated_console)
+	if(integrated_console)
+		integrated_console.parent = null
+		QDEL_NULL(integrated_console)
 	return ..()
 
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)
@@ -389,7 +390,7 @@
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
 
 /obj/item/qm_quest_tablet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет запросов на поставку",
 		GENITIVE = "планшета запросов на поставку",
 		DATIVE = "планшету запросов на поставку",

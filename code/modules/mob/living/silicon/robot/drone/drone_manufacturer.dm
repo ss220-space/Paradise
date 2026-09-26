@@ -12,7 +12,7 @@
 	var/time_last_drone = 500
 
 /obj/machinery/drone_fabricator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор дронов",
 		GENITIVE = "фабрикатора дронов",
 		DATIVE = "фабрикатору дронов",
@@ -60,7 +60,7 @@
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
+	if(produce_drones && drone_progress >= 100 && isdead(user) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
 		. += span_notice("<br><b>Дрон готов. Выберите 'Присоединиться как дрон' во вкладке Ghost, чтобы появиться как дрон обслуживания.</b>")
 
 /obj/machinery/drone_fabricator/proc/count_drones()
@@ -78,7 +78,7 @@
 	if(!produce_drones || !CONFIG_GET(flag/allow_drone_spawn) || count_drones() >= CONFIG_GET(number/max_maint_drones))
 		return
 
-	if(!player || !istype(player.mob,/mob/dead))
+	if(!player || !isdead(player.mob))
 		return
 
 	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
@@ -93,10 +93,7 @@
 /obj/machinery/drone_fabricator/attack_ghost(mob/dead/observer/user)
 	user.become_drone()
 
-/mob/dead/verb/join_as_drone()
-	set category = VERB_CATEGORY_GHOST
-	set name = "Стать дроном"
-	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
+GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone.", VERB_CATEGORY_GHOST)
 	become_drone(src)
 
 /mob/dead/proc/become_drone(mob/user)
@@ -121,7 +118,7 @@
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check,"день","дня","дней")]."))
+		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] д[DECL_EN_NYA_NEJ(player_age_check)]."))
 		return
 
 	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)
@@ -132,7 +129,7 @@
 
 	var/deathtime = world.time - src.timeofdeath
 	var/joinedasobserver = 0
-	if(istype(src,/mob/dead/observer))
+	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, span_warning("Используя antagHUD, вы отказались от возможности присоединиться к раунду."))
@@ -150,7 +147,7 @@
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_SEC_MIN(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_U_Y_0(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

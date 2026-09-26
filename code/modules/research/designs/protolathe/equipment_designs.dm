@@ -319,3 +319,11 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/meson/atmos
 	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)
+
+/datum/design/geiger
+	id = "geigercounter"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_MAGNETS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/geiger_counter
+	category = list(PROTOLATHE_CATEGORY_EQUIPMENT)

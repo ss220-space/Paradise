@@ -3,7 +3,6 @@
 	desc = "Used for scanning and alerting when someone enters a certain proximity."
 	icon_state = "prox"
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
-	bomb_name = "proximity mine"
 	/// Is it currently scanning in proximity
 	var/scanning = FALSE
 	/// Is it arming right now
@@ -13,7 +12,7 @@
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
-	proximity_monitor = new(src, _ignore_if_not_on_turf = FALSE)
+	proximity_monitor = new(src, works_when_not_on_turf = TRUE)
 
 /obj/item/assembly/prox_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -64,7 +63,7 @@
 
 	COOLDOWN_START(src, cooldown, cooldown_time)
 	pulse(FALSE, triggered)
-	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
+	audible_message("[get_examine_icon(hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/item/assembly/prox_sensor/process()

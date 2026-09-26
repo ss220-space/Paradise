@@ -1,0 +1,782 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bc" = (
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"bj" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"dj" = (
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"dq" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"dw" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"eH" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"fz" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"fD" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"gb" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"gC" = (
+/obj/structure/table/reinforced,
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"hy" = (
+/obj/item/ammo_box/magazine/m10mm/hp,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"in" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"jL" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"jN" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"jT" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"kf" = (
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"kn" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"kB" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"kE" = (
+/obj/item/ammo_box/magazine/m10mm/fire,
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"lB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"lI" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"lX" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"na" = (
+/obj/item/ammo_box/magazine/m10mm/hp,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"nn" = (
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"oV" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"rC" = (
+/obj/item/ammo_box/magazine/m10mm/ap,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"sn" = (
+/obj/structure/barricade/sandbags,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"ta" = (
+/turf/simulated/wall/indestructible/iron,
+/area/deathmatch)
+"tb" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"uc" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"vl" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"wa" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"xc" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"xf" = (
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"Bf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"Bk" = (
+/turf/simulated/wall,
+/area/deathmatch)
+"Bt" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"Ca" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"DM" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"ET" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood/fancy/light,
+/area/deathmatch)
+"Fm" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"GF" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"Hs" = (
+/obj/item/ammo_box/magazine/m10mm/fire,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"HQ" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"HV" = (
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"Id" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"JS" = (
+/obj/structure/table/reinforced,
+/obj/item/ammo_box/magazine/m10mm/fire,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"KI" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"LP" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood/fancy/oak,
+/area/deathmatch)
+"Ni" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"Oh" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/birch,
+/area/deathmatch)
+"Os" = (
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"Pr" = (
+/obj/item/ammo_box/magazine/m10mm/ap,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"SK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/ammo_box/magazine/m10mm/hp,
+/turf/simulated/floor/wood/cherry,
+/area/deathmatch)
+"Tw" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"Ui" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+"Vs" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/deathmatch)
+"XX" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/dark,
+/area/deathmatch)
+"Za" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/wood,
+/area/deathmatch)
+
+(1,1,1) = {"
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+"}
+(2,1,1) = {"
+ta
+wa
+jT
+jT
+jT
+lB
+jT
+jT
+jT
+jT
+jT
+jT
+jT
+jT
+SK
+jT
+jT
+jT
+jT
+jT
+jN
+ta
+"}
+(3,1,1) = {"
+ta
+fz
+bj
+xf
+ET
+Bk
+kf
+kf
+kf
+kf
+kf
+kf
+Ui
+kf
+kf
+GF
+kf
+kf
+kf
+kf
+Bf
+ta
+"}
+(4,1,1) = {"
+ta
+fz
+xf
+xf
+rC
+Bk
+Tw
+kf
+kf
+kf
+kf
+kf
+kf
+kf
+kn
+Bk
+bc
+bc
+Bk
+kn
+Bf
+ta
+"}
+(5,1,1) = {"
+ta
+fz
+xf
+xf
+xf
+Bk
+kf
+kf
+Ui
+kf
+kf
+kf
+kf
+kf
+kn
+bc
+bc
+Hs
+Bt
+Bk
+Bf
+ta
+"}
+(6,1,1) = {"
+ta
+kB
+jL
+Bk
+xf
+xf
+na
+kf
+kf
+GF
+kf
+kf
+kf
+kf
+Bk
+bc
+bc
+LP
+bc
+bc
+Bf
+ta
+"}
+(7,1,1) = {"
+ta
+fz
+kf
+sn
+kf
+kf
+kf
+Bk
+Bk
+Bk
+vl
+vl
+Bk
+kf
+Bk
+lX
+bc
+bc
+bc
+bc
+Bf
+ta
+"}
+(8,1,1) = {"
+ta
+fz
+kf
+Za
+Za
+Za
+kf
+dw
+Os
+Os
+Os
+Os
+Os
+kf
+kn
+bc
+HV
+bc
+bc
+Bk
+Bf
+ta
+"}
+(9,1,1) = {"
+ta
+fz
+kf
+kf
+kf
+kf
+kf
+Bk
+Os
+gC
+KI
+Fm
+Os
+kf
+kn
+Bk
+Bk
+Bk
+Bk
+kn
+Bf
+ta
+"}
+(10,1,1) = {"
+ta
+fz
+kf
+kf
+Ui
+kf
+kf
+Bk
+Os
+dq
+JS
+XX
+Bk
+kf
+kf
+eH
+kf
+Za
+kf
+kf
+Bf
+ta
+"}
+(11,1,1) = {"
+ta
+fz
+kf
+kf
+kf
+kf
+kf
+dw
+Os
+Os
+Os
+Os
+vl
+kf
+kf
+kf
+kf
+Za
+na
+kf
+Bf
+ta
+"}
+(12,1,1) = {"
+ta
+fz
+kf
+Za
+Za
+kf
+kf
+Bk
+vl
+vl
+Bk
+Bk
+Bk
+Tw
+kf
+Ui
+kf
+Za
+Za
+kf
+Bf
+ta
+"}
+(13,1,1) = {"
+ta
+fz
+kf
+kf
+Za
+kf
+kf
+eH
+kf
+kf
+kf
+Za
+Ca
+kf
+kf
+GF
+kf
+kf
+kf
+kf
+Bf
+ta
+"}
+(14,1,1) = {"
+ta
+fz
+kf
+kf
+Za
+GF
+kf
+kf
+kf
+Za
+kf
+Za
+kf
+kf
+kf
+Bk
+Bk
+lI
+lI
+Bk
+Bf
+ta
+"}
+(15,1,1) = {"
+ta
+fz
+Bk
+Ni
+Ni
+Bk
+Ni
+kf
+kf
+Za
+kf
+kf
+kf
+kf
+kf
+Bk
+nn
+nn
+nn
+Bk
+Bf
+ta
+"}
+(16,1,1) = {"
+ta
+fz
+dj
+dj
+dj
+dj
+Ni
+kf
+Bk
+Bk
+xf
+Bk
+jL
+kf
+kf
+lI
+nn
+gb
+Oh
+Bk
+Bf
+ta
+"}
+(17,1,1) = {"
+ta
+fz
+dj
+dj
+Pr
+dj
+Bk
+kf
+Bk
+xf
+uc
+xf
+jL
+kf
+kf
+lI
+nn
+Id
+kE
+Bk
+Bf
+ta
+"}
+(18,1,1) = {"
+ta
+fz
+dj
+oV
+Vs
+xc
+Bk
+Tw
+Bk
+fD
+ET
+hy
+jL
+Ui
+kf
+Bk
+nn
+nn
+nn
+nn
+Bf
+ta
+"}
+(19,1,1) = {"
+ta
+fz
+dj
+dj
+dj
+dj
+Bk
+kf
+Bk
+xf
+xf
+DM
+Bk
+Tw
+kf
+Bk
+Bk
+Bk
+Bk
+Bk
+Bf
+ta
+"}
+(20,1,1) = {"
+ta
+fz
+dj
+Bk
+Bk
+dj
+Bk
+kf
+Bk
+Bk
+xf
+xf
+Bk
+kf
+kf
+kf
+eH
+kf
+kf
+kf
+Bf
+ta
+"}
+(21,1,1) = {"
+ta
+HQ
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+tb
+in
+ta
+"}
+(22,1,1) = {"
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+ta
+"}

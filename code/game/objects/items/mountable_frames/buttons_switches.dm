@@ -15,7 +15,7 @@
 	name = "light switch frame"
 	desc = "Used for repairing or building light switches"
 	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "light-p"
+	icon_state = "light-nopower"
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 	metal_sheets_refunded = 1
 

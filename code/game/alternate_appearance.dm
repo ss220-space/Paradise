@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	QDEL_NULL(ghost_appearance)
 
 /datum/atom_hud/alternate_appearance/basic/track_mob(mob/new_viewer)
-	RegisterSignal(new_viewer, list(
+	RegisterSignals(new_viewer, list(
 		COMSIG_MOB_GHOSTIZE,
 		COMSIG_MIND_TRANSER_TO,
 		COMSIG_BODY_TRANSFER_TO,

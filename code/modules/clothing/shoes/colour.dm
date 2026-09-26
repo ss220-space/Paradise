@@ -198,7 +198,7 @@
 	update_equipped_item()
 
 /obj/item/clothing/shoes/color/orange/prison/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs))
+	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(shackles)
 			to_chat(user, span_warning("The [name] already has [shackles] attached."))
@@ -220,7 +220,7 @@
 	item_state = "prison_boots"
 
 /obj/item/clothing/shoes/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремные башмаки",
 		GENITIVE = "тюремные башмаки",
 		DATIVE = "тюремным башмакам",
@@ -236,7 +236,7 @@
 	item_state = "blackconvers"
 
 /obj/item/clothing/shoes/convers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрные высокие кеды",
 		GENITIVE = "чёрных высоких кедов",
 		DATIVE = "чёрным высоким кедам",
@@ -252,7 +252,7 @@
 	item_state = "redconvers"
 
 /obj/item/clothing/shoes/convers/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красные высокие кеды",
 		GENITIVE = "красных высоких кедов",
 		DATIVE = "красным высоким кедам",

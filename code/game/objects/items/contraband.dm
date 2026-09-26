@@ -34,6 +34,7 @@
 	has_special_eating_effects = TRUE
 
 /obj/item/reagent_containers/food/pill/random_drugs/Initialize(mapload)
+	. = ..()
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
 	name = "[pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_prefixes")] [pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_suffixes")]"
@@ -47,8 +48,6 @@
 	while(adulterants > 0)
 		adulterants--
 		reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_adulterants"), 3)
-
-	. = ..()
 
 /obj/item/reagent_containers/food/pill/random_drugs/on_mob_eating_effect(mob/drug_addict)
 	drug_addict.client.give_award(/datum/award/score/maintenance_pills, drug_addict) //Progresses score by one

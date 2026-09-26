@@ -27,7 +27,7 @@
 	)
 
 /obj/machinery/vending/syndicigs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Suspicious Cigarette Machine",
 		GENITIVE = "торгового автомата Suspicious Cigarette Machine",
 		DATIVE = "торговому автомату Suspicious Cigarette Machine",

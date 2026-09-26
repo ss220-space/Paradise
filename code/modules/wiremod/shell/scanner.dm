@@ -7,12 +7,12 @@
 	name = "scanner"
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wiremod_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер",
 		GENITIVE = "сканера",
 		DATIVE = "сканеру",
@@ -41,6 +41,11 @@
 	/// The entity being attacked
 	var/datum/port/output/attacking
 
+/obj/item/circuit_component/wiremod_scanner/Destroy()
+	signal = null
+	attacker = null
+	attacking = null
+	. = ..()
 
 /obj/item/circuit_component/wiremod_scanner/populate_ports()
 	attacker = add_output_port("Пользователь", PORT_TYPE_USER)

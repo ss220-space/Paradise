@@ -55,6 +55,8 @@
 #define GLAND_HUD "25"
 /// Pressure coloring for tiles
 #define PRESSURE_HUD "26"
+/// AI shell status
+#define DIAG_AISHELL_STAT_HUD "27"
 /// Telepathy bubbles
 #define THOUGHT_HUD "thoughts_hud"
 /// Kidan pheromones hud
@@ -108,9 +110,10 @@
 #define ANTAG_HUD_TEAM_1 29
 #define ANTAG_HUD_TEAM_2 30
 #define ANTAG_HUD_TEAM_3 31
-#define THOUGHTS_HUD 32
+#define ANTAG_HUD_VOX_RAIDER 32
+#define THOUGHTS_HUD 33
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 33
+#define DATA_HUD_KIDAN_PHEROMONES 34
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -178,3 +181,14 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// The filter name for the hover outline
+#define HOVER_OUTLINE_FILTER "hover_outline"
+
+//used to set the default viewport to the user's preference.
+#define VIEWPORT_USE_PREF "use_pref"
+#define WIDESCREEN_PARTIAL_VIEWPORT_SIZE "17x15"
+#define WIDESCREEN_VIEWPORT_SIZE "19x15"
+#define SQUARE_VIEWPORT_SIZE "15x15"
+/// Largest viewport possible, required for checking if someone can see an object
+#define LARGEST_VIEWPORT_SIZE WIDESCREEN_VIEWPORT_SIZE

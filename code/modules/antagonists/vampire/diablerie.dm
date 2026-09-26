@@ -98,16 +98,15 @@
  */
 /datum/diablerie/proc/apply_additional_bonuses()
 	vampire_datum.sucking_amount += DIABLERIE_SUCKING_AMOUNT
-	for(var/obj/effect/proc_holder/spell/power in vampire_datum.powers)
-		power.cooldown_handler.change_cooldowns(recharge_reduction = DIABLERIE_COOLDOWN_REDUCTION)
-
+	for(var/datum/action/cooldown/spell/power in vampire_datum.powers)
+		power.cooldown_time = power.cooldown_time - DIABLERIE_COOLDOWN_REDUCTION
 /**
  * Proc to properly remove bonuses from dibalerie level if it has been decreased
  */
 /datum/diablerie/proc/remove_additional_bonuses()
 	vampire_datum.sucking_amount = max(vampire_datum.sucking_amount - DIABLERIE_SUCKING_AMOUNT, initial(vampire_datum.sucking_amount))
-	for(var/obj/effect/proc_holder/spell/power in vampire_datum.powers)
-		power.cooldown_handler.change_cooldowns(recharge_reduction = -DIABLERIE_COOLDOWN_REDUCTION)
+	for(var/datum/action/cooldown/spell/power in vampire_datum.powers)
+		power.cooldown_time = power.cooldown_time + DIABLERIE_COOLDOWN_REDUCTION
 
 /**
  * Handles both cases of adding aura: just hud for vampires or the effect if we have ascended aura.
@@ -181,12 +180,12 @@
 	if(is_admin_level(vampire_turf.z))
 		return
 
-	RegisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED), PROC_REF(announce_vampire_fallen))
+	RegisterSignals(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED), PROC_REF(announce_vampire_fallen))
 	// We send an announcment and set station sec code to GAMMA so the crew can now legally fight the diablerie-ascended vampire
 	GLOB.major_announcement.announce("Сканерами дальнего действия зафиксирован мощный всплеск блюспейс энергии, \
 		указывающий на появление вампира особого класса. Его личность — [vampire.real_name]. Дальнейшее возвышение вампира должно быть немедленно предотвращено.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound(),
 	)
 	log_game("Vampire [key_name(vampire)] reached [diablerie_count] diablerie level. Setting security level to GAMMA.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
@@ -205,7 +204,7 @@
 	GLOB.major_announcement.announce("Сканеры дальнего действия более не фиксируют блюспейс сигнатуру вампира особого класса, \
 		возвышение было успешно предотвращено экипажем.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound(),
 	)
 	log_game("Diablerie ascended vampire [key_name(vampire)] was killed by the crew. Lowering security level to RED.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED), 5 SECONDS)
@@ -228,25 +227,25 @@
 /**
  * Upgrades glare spells cooldown charges
  */
-/datum/diablerie_level/proc/upgrade_glare_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/upgrade_glare_charges(datum/action/cooldown/spell/aoe/glare/spell)
 	return
 
 /**
  * Upgrade rejuvenate spells cooldown charges
  */
-/datum/diablerie_level/proc/upgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/upgrade_rejuvenate_charges()
 	return
 
 /**
  * Downgrade glare spells cooldown charges
  */
-/datum/diablerie_level/proc/downgrade_glare_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/downgrade_glare_charges(datum/action/cooldown/spell/aoe/glare/spell)
 	return
 
 /**
  * Downgrade rejuvenate spells cooldown charges
  */
-/datum/diablerie_level/proc/downgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/downgrade_rejuvenate_charges()
 	return
 
 /**
@@ -264,8 +263,9 @@
 
 	to_chat(vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и вы можете применять его больше раз. Кроме того, вам более не нужно дышать."))
 
-/datum/diablerie_level/level_one/upgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
-	charges.change_cooldowns(new_max_charges = (charges.max_charges + 1))
+/datum/diablerie_level/level_one/upgrade_rejuvenate_charges(datum/action/cooldown/spell/vamp_rejuvenate/spell)
+	spell.max_charges++
+	spell.current_charges = spell.max_charges
 
 /datum/diablerie_level/level_one/remove(datum/diablerie/diablerie)
 	. = ..()
@@ -274,8 +274,9 @@
 
 	REMOVE_TRAIT(diablerie.vampire, TRAIT_NO_BREATH, VAMPIRE_TRAIT)
 
-/datum/diablerie_level/level_one/downgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
-	charges.change_cooldowns(new_max_charges = (charges.max_charges - 1))
+/datum/diablerie_level/level_one/downgrade_rejuvenate_charges(datum/action/cooldown/spell/vamp_rejuvenate/spell)
+	spell.max_charges--
+	spell.current_charges = spell.max_charges
 
 /**
  * Upgrades glare charges to 3,
@@ -294,8 +295,9 @@
 
 	to_chat(vampire, span_boldnotice("Сила вашего взгляда возросла, и вы можете больше раз применять \"Вспышку\". Ваши глаза наливаются кроваво-красным светом."))
 
-/datum/diablerie_level/level_two/upgrade_glare_charges(datum/spell_cooldown/charges/charges)
-	charges.change_cooldowns(new_max_charges = (charges.max_charges + 1))
+/datum/diablerie_level/level_two/upgrade_glare_charges(datum/action/cooldown/spell/aoe/glare/spell)
+	spell.max_charges++
+	spell.current_charges = spell.max_charges
 
 /datum/diablerie_level/level_two/remove(datum/diablerie/diablerie)
 	. = ..()
@@ -307,8 +309,9 @@
 	REMOVE_TRAIT(vampire, TRAIT_RED_EYES, VAMPIRE_TRAIT)
 	vampire.change_eye_color(vampire.original_eye_color, FALSE)
 
-/datum/diablerie_level/level_two/downgrade_glare_charges(datum/spell_cooldown/charges/charges)
-	charges.change_cooldowns(new_max_charges = (charges.max_charges - 1))
+/datum/diablerie_level/level_two/downgrade_glare_charges(datum/action/cooldown/spell/aoe/glare/spell)
+	spell.max_charges--
+	spell.current_charges = spell.max_charges
 
 /**
  * Rejuvenate now heals internal bleedings,
@@ -347,7 +350,7 @@
 
 	vampire_datum.add_ability(/datum/vampire_passive/glare_aoe)
 
-	vampire_datum.add_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
+	vampire_datum.add_ability(/datum/action/cooldown/spell/pointed/raise_free_vampire)
 
 	if(istype(vampire_datum.subclass, SUBCLASS_GARGANTUA))
 		vampire.dna.species.unarmed = new /datum/unarmed_attack/claws
@@ -367,7 +370,7 @@
 
 	vampire_datum.remove_ability(/datum/vampire_passive/glare_aoe)
 
-	var/obj/effect/proc_holder/spell/vampire/raise_free_vampire/raise_free_vampire = locate() in vampire_datum.powers
+	var/datum/action/cooldown/spell/pointed/raise_free_vampire/raise_free_vampire = locate() in vampire_datum.powers
 	vampire_datum.remove_ability(raise_free_vampire)
 
 	if(istype(vampire_datum.subclass, SUBCLASS_GARGANTUA))

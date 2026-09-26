@@ -41,7 +41,7 @@
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
 	delay_web = 15
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
+	special_abillity = list(/datum/action/cooldown/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель — управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
 	datum_type = /datum/antagonist/terror_spider/main_spider/queen
@@ -59,12 +59,10 @@
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Anivia"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Королева Ужаса",
 		GENITIVE = "Королевы Ужаса",
 		DATIVE = "Королеве Ужаса",
@@ -73,17 +71,23 @@
 		PREPOSITIONAL = "Королеве Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
-	ventsmash_action = new()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action = new
 	ventsmash_action.Grant(src)
-	remoteview_action = new()
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action = new
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
 		spider_growinstantly = TRUE
 		spider_spawnfrequency = 150
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Destroy()
+	QDEL_NULL(queennest_action)
+	QDEL_NULL(queensense_action)
+	QDEL_NULL(queeneggs_action)
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
 	queennest_action = new()
@@ -161,7 +165,7 @@
 						// nesting in a hallway would be very stupid - crew would find and kill you almost instantly
 				var/numhostiles = 0
 				for(var/mob/living/H in oview(10, src))
-					if(!istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+					if(!isterrorspider(H))
 						if(H.stat != DEAD)
 							numhostiles += 1
 							// nesting RIGHT NEXT TO SOMEONE is even worse
@@ -365,20 +369,13 @@
 	. += span_notice("Она отложила [eggslaid] [eggslaid != 1 ? "яиц" : "яйцо"].")
 	. += span_notice("Она прожила [MinutesAlive()] минут.")
 
-/obj/projectile/terrorspider/queen
-	name = "queen venom"
-	icon_state = "toxin3"
-	damage = 40
-	stamina = 40
-	damage_type = BURN
-
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
 	desc = "Эта многослойная паутина, кажется, способна противостоять давлению воздуха."
 	max_integrity = 30
 
 /obj/structure/spider/terrorweb/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздухонепроницаемая паутина",
 		GENITIVE = "воздухонепроницаемой паутины",
 		DATIVE = "воздухонепроницаемой паутине",

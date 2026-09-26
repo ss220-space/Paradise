@@ -61,6 +61,7 @@
 		TRAIT_TEMPERATURE_MOVEMENT,
 		TRAIT_STRONG_PULLING,
 		TRAIT_RESIST_COLD,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -70,7 +71,7 @@
 	reagent_tag = ORGANIC
 	base_color = "#704300"
 	flesh_color = "#704300"
-	blood_color = "#FFFF99"
+	blood_color = BLOOD_COLOR_WRYN
 	blood_species = "Wryn"
 	//Default styles for created mobs.
 	default_hair = "Normal antennae"
@@ -82,6 +83,15 @@
 		SPECIES_AGE_MAX = 55,
 		JOB_MIN_AGE_HIGH_ED = 22,
 		JOB_MIN_AGE_COMMAND = 22,
+	)
+
+	max_select_skills = list(
+		/datum/skill/general/carrying = 3,
+		/datum/skill/combat/melee = 1,
+		/datum/skill/combat/fists = 1,
+		/datum/skill/engineering/building = 3,
+		/datum/skill/engineering/construction = 3,
+		/datum/skill/engineering/atmos = 1,
 	)
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)

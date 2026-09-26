@@ -97,21 +97,21 @@
 
 /datum/vendor_crit/pop_head/tip_crit_effect(obj/machinery/vending/machine, mob/living/carbon/victim)
 	// pop!
-	var/obj/item/organ/external/head/H = victim.get_organ(BODY_ZONE_HEAD)
-	var/obj/item/organ/internal/brain/B = victim.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-	if(H)
+	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
+	var/obj/item/organ/internal/brain/brain = victim.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+	if(head)
 		victim.visible_message(
-			span_danger("[H] gets crushed under [machine], and explodes in a shower of gore!"),
+			span_danger("[head] gets crushed under [machine], and explodes in a shower of gore!"),
 			span_userdanger("Oh f-"))
 		new /obj/effect/gibspawner/human(get_turf(victim))
-		H.drop_organs()
-		H.droplimb(TRUE)
-		H.disfigure()
 		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
+		head.drop_organs()
+		head.droplimb(TRUE)
+		head.disfigure()
 	else
-		H.visible_message(
+		victim.visible_message(
 			span_danger("[victim]'s head seems to be crushed under [machine]...but wait, they had none in the first place!"))
-	if(B in H)
+	if(brain in head)
 		victim.adjustBrainLoss(80)
 
 	return 0

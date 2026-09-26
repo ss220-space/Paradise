@@ -61,30 +61,6 @@ ALLOW_METADATA
 ## The time it takes for a round to start in seconds
 PREGAME_TIMESTART 240
 
-## allow players to initate a mode-change start
-#ALLOW_VOTE_MODE
-
-## min delay (deciseconds) between voting sessions (default 10 minutes)
-VOTE_DELAY 18000
-
-## time period (deciseconds) which voting session will last (default 1 minute)
-VOTE_PERIOD 600
-
-## autovote initial delay (deciseconds) before first automatic transfer vote call (default 180 minutes)
-VOTE_AUTOTRANSFER_INITIAL 72000
-
-##autovote delay (deciseconds) before sequential automatic transfer votes are called (default 60 minutes)
-VOTE_AUTOTRANSFER_INTERVAL 18000
-
-## prevents dead players from voting or starting votes
-#VOTE_NO_DEAD
-
-## prevents offstation players from voting or starting votes
-VOTE_NO_OFFSTATION_ROLE
-
-## players' votes default to "No vote" (otherwise,  default to "No change")
-DEFAULT_NO_VOTE
-
 ## allow AI job
 ALLOW_AI
 
@@ -307,8 +283,11 @@ PLAYER_REROUTE_CAP 0
 
 ## Uncomment this to shut down the world any time it would normally reboot
 #SHUTDOWN_ON_REBOOT
+## Also uncomment this to shut down the world by killing DreamDaemon/DreamSeeker instance. Overrides SHUTDOWN_SHELL_COMMAND config.
+#KILL_ON_SHUTDOWN
 ## A command to run prior to the world shutting down, only used if the above option is enabled
 ## This default value will kill Dream Daemon on Windows machines
+## Gets overriden by KILL_ON_SHUTDOWN
 #SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
@@ -500,6 +479,13 @@ CACHE_ASSETS 0
 ## or your package manager
 ## The default value assumes yt-dlp is in your system PATH
 # INVOKE_YOUTUBEDL yt-dlp
+
+## Allows players to request internet sounds via the OOC "Заказать музыку" verb.
+## Admins receive the request with a PLAY link that runs it through yt-dlp. Requires INVOKE_YOUTUBEDL.
+REQUEST_INTERNET_SOUND
+
+## Comma separated list of url patterns players may request. Each entry is matched as a regex (case-insensitive).
+REQUEST_INTERNET_ALLOWED youtube\.com\/watch?v=,youtu\.be\/,soundcloud\.com\/,bandcamp\.com\/track\/
 
 ## Enable the replay demo recording subsystem
 #DEMOS_ENABLED

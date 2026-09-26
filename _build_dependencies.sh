@@ -6,7 +6,7 @@ export NODE_VERSION=22.11.0
 # Stable Byond Major
 export STABLE_BYOND_MAJOR=516
 # Stable Byond Minor
-export STABLE_BYOND_MINOR=1666
+export STABLE_BYOND_MINOR=1682
 # Beta Byond Major
 #export BETA_BYOND_MAJOR=516
 # Beta Byond Minor
@@ -16,3 +16,13 @@ export RUSTG_VERSION=3.3.0-ss220
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.13.5
+
+# Bun version
+export BUN_VERSION=1.3.5
+
+
+#hypnagogic repo
+export CUTTER_REPO=spacestation13/hypnagogic
+
+#hypnagogic git tag
+export CUTTER_VERSION=v5.0.1

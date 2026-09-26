@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 100)
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
@@ -122,7 +122,8 @@
 			return ATTACK_CHAIN_PROCEED
 		glass.play_tool_sound(src)
 		to_chat(user, span_notice("You start replacing [src]'s glass panel..."))
-		if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || !broken || QDELETED(glass))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(!do_after(user, 2 SECONDS * glass.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || !broken || QDELETED(glass))
 			return ATTACK_CHAIN_PROCEED
 		if(!glass.use(2))
 			to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
@@ -164,7 +165,8 @@
 			qdel(src)
 	else
 		to_chat(user, span_notice("You start to [open ? "close":"open"] [src]."))
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 			return
 		to_chat(user,  span_notice("You [open ? "close":"open"] [src]."))
 		toggle_lock(user)
@@ -207,6 +209,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(istype(I, /obj/item/access_control))
 		add_fingerprint(user)
 		var/obj/item/access_control/control = I
@@ -218,7 +221,7 @@
 			return ATTACK_CHAIN_PROCEED
 		control.play_tool_sound(src)
 		to_chat(user, span_notice("You start installing [control] into [src]..."))
-		if(!do_after(user, 3 SECONDS * control.toolspeed, src, category = DA_CAT_TOOL) || electronics || control.emagged)
+		if(!do_after(user, 3 SECONDS * control.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || electronics || control.emagged)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(control, src))
 			return ..()
@@ -234,7 +237,7 @@
 			return ATTACK_CHAIN_PROCEED
 		glass.play_tool_sound(src)
 		to_chat(user, span_notice("You start adding [glass] to [src]..."))
-		if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(glass))
+		if(!do_after(user, 2 SECONDS * glass.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || QDELETED(glass))
 			return ATTACK_CHAIN_PROCEED
 		if(!glass.use(10))
 			to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have ten sheets before trying again."))
@@ -287,7 +290,7 @@
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
-	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
+	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol/stechkin
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
 
 /obj/structure/displaycase/dartgun

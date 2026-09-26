@@ -27,7 +27,7 @@
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/candy/candybar = 6,
-		/obj/item/reagent_containers/food/drinks/dry_ramen = 6,
+		/obj/item/reagent_containers/cup/glass/dry_ramen = 6,
 		/obj/item/reagent_containers/food/snacks/doshik = 6,
 		/obj/item/reagent_containers/food/snacks/doshik_spicy = 6,
 		/obj/item/reagent_containers/food/snacks/chips = 6,
@@ -43,7 +43,7 @@
 	)
 
 /obj/machinery/vending/snack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
 		GENITIVE = "торгового автомата Getmore Chocolate Corp",
 		DATIVE = "торговому автомату Getmore Chocolate Corp",

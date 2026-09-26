@@ -29,7 +29,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
 /mob/living/basic/cockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан",
 		GENITIVE = "таракана",
 		DATIVE = "таракану",
@@ -63,24 +63,6 @@
 		/datum/ai_planning_subtree/find_and_hunt_target/cockroach,
 	)
 
-/obj/projectile/glockroachbullet
-	damage = 8
-
-/obj/item/ammo_casing/caseless/glockroach
-	name = "0.9mm bullet casing"
-	desc = "Это... 0.9mm гильза? Чего?"
-	projectile_type = /obj/projectile/glockroachbullet
-
-/obj/item/ammo_casing/caseless/glockroach/get_ru_names()
-	return list(
-		NOMINATIVE = "гильза 0.9 мм",
-		GENITIVE = "гильзы 0.9 мм",
-		DATIVE = "гильзе 0.9 мм",
-		ACCUSATIVE = "гильзу 0.9 мм",
-		INSTRUMENTAL = "гильзой 0.9 мм",
-		PREPOSITIONAL = "гильзе 0.9 мм",
-	)
-
 /mob/living/basic/cockroach/glockroach
 	name = "glockroach"
 	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
@@ -91,7 +73,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
 /mob/living/basic/cockroach/glockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан с пушкой",
 		GENITIVE = "таракана с пушкой",
 		DATIVE = "таракану с пушкой",
@@ -132,7 +114,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
 
 /mob/living/basic/cockroach/hauberoach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан-солдат",
 		GENITIVE = "таракана-солдата",
 		DATIVE = "таракану-солдату",

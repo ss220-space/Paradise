@@ -42,7 +42,7 @@
 	var/toolbox_color = ""
 
 /mob/living/simple_animal/bot/floorbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ремонтный робот",
 		GENITIVE = "ремонтного робота",
 		DATIVE = "ремонтному роботу",
@@ -449,7 +449,7 @@
 	do_sparks(3, TRUE, src)
 	return ..()
 
-/mob/living/simple_animal/bot/floorbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/floorbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isturf(A))
 		repair(A)
 	else if(istype(A,/obj/item/stack/tile/plasteel))

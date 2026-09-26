@@ -98,13 +98,13 @@
 	block = GLOB.twitchblock
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
-	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
+	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS) && !H.stat)
 		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
 			if(2 to 3)
-				H.say("[prob(50) ? ";" : ""][pick("ГОВНО", "МОЧА", "БЛЯТЬ", "ПИЗДА", "ХУЕСОС", "ВЫБЛЯДОК", "ХУЙ", "ХОС ХУЕСОС", "СУКА", "ПОШЁЛ НАХУЙ", "ХЕРНЯ", "КОКПИТАН", "ДОЛБАЁБ", "ЕБЛЯ", "НАМ ПИЗДА")]")
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, say), "[prob(50) ? ";" : ""][pick("ГОВНО", "МОЧА", "БЛЯТЬ", "ПИЗДА", "ХУЕСОС", "ВЫБЛЯДОК", "ХУЙ", "ХОС ХУЕСОС", "СУКА", "ПОШЁЛ НАХУЙ", "ХЕРНЯ", "КОКПИТАН", "ДОЛБАЁБ", "ЕБЛЯ", "НАМ ПИЗДА")]")
 		var/x_offset_old = H.pixel_x
 		var/y_offset_old = H.pixel_y
 		var/x_offset = H.pixel_x + rand(-2, 2)
@@ -211,7 +211,7 @@
 /datum/dna/gene/disability/comic
 	name = "Комик"
 	desc = "Это принесет только смерть и разрушение."
-	activation_message = list(span_sans("Ой-йо!"))
+	activation_message = list(span_sans_alt("Ой-йо!"))
 	deactivation_message = list("Слава Святой Хонкоматери, с этим покончено.")
 	traits_to_add = list(TRAIT_COMIC)
 
@@ -222,7 +222,7 @@
 /datum/dna/gene/disability/wingdings
 	name = "Голос инопланетян"
 	desc = "Искажает голос субъекта, превращая его в непонятную речь."
-	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
+	activation_message = list(span_wingdings_alt("Vashi golosovyye svyazki kazhutsya chuzhimi."))
 	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)
@@ -364,12 +364,14 @@
 /datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_WATER_HATER, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
 
 /datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_WATER_HATER, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
 

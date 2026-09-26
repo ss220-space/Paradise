@@ -9,7 +9,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	can_open_with_hands = FALSE
@@ -55,7 +55,7 @@
 
 /obj/machinery/door/poddoor/update_icon_state()
 	icon_state = density ? "closed" : "open"
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
 	return
@@ -65,11 +65,10 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			if(!hasPower())
-				open()
-			else
-				to_chat(user, span_warning("[src] resists your efforts to force it!"))
+		if(!hasPower())
+			open()
+		else
+			to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 

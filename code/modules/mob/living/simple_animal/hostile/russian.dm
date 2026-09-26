@@ -47,4 +47,4 @@
 		/obj/effect/mob_spawn/human/corpse/russian/ranged,
 		/obj/item/gun/projectile/shotgun/boltaction,
 	)
-	casingtype = /obj/item/ammo_casing/a762
+	casingtype = /obj/item/ammo_casing/a762x54

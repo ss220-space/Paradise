@@ -16,7 +16,7 @@
 	var/saved_appearance = null
 
 /obj/item/chameleon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "\"Хамелеон\"-проектор",
 		GENITIVE = "\"Хамелеон\"-проектора",
 		DATIVE = "\"Хамелеон\"-проектору",
@@ -30,6 +30,10 @@
 	var/obj/item/cigbutt/butt = /obj/item/cigbutt
 	saved_appearance = initial(butt.appearance)
 
+/obj/item/chameleon/Destroy(force)
+	QDEL_NULL(active_dummy)
+	return ..()
+
 /obj/item/chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt()
@@ -41,24 +45,31 @@
 /obj/item/chameleon/attack_self(mob/user)
 	toggle(user)
 
-/obj/item/chameleon/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/chameleon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(!check_sprite(target))
 		return
+
 	if(target.alpha < 255)
 		return
+
 	if(target.invisibility)
 		return
-	if(!active_dummy)
-		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
-			to_chat(user, span_notice("Scanned [target]."))
-			var/obj/temp = new /obj()
-			temp.appearance = target.appearance
-			temp.layer = initial(target.layer)
-			SET_PLANE_EXPLICIT(temp, initial(plane), src)
-			saved_appearance = temp.appearance
+
+	if(active_dummy)
+		return
+
+	if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
+		to_chat(user, span_notice("Scanned [target]."))
+		var/obj/temp = new()
+		temp.appearance = target.appearance
+		temp.layer = initial(target.layer)
+		SET_PLANE_EXPLICIT(temp, initial(plane), src)
+		saved_appearance = temp.appearance
+		qdel(temp)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(icon_exists(target.icon, target.icon_state))
@@ -82,14 +93,17 @@
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
-	if(active_dummy)
-		do_sparks(5, FALSE, src)
-		eject_all()
-		if(delete_dummy)
-			qdel(active_dummy)
-		active_dummy = null
-		can_use = FALSE
-		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
+	if(!active_dummy)
+		return
+	do_sparks(5, FALSE, src)
+	eject_all()
+	if(delete_dummy)
+		qdel(active_dummy)
+	active_dummy = null
+	can_use = FALSE
+	if(QDELETED(active_dummy))
+		return
+	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -101,9 +115,14 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
+/obj/effect/dummy/chameleon/Destroy()
+	master?.disrupt(FALSE)
+	master = null
+	return ..()
+
 /obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
 	appearance = saved_appearance
-	if(istype(M.buckled, /obj/vehicle))
+	if(isvehicle(M.buckled))
 		var/obj/vehicle/V = M.buckled
 		V.unbuckle_mob(M, TRUE)
 	M.forceMove(src)
@@ -177,10 +196,6 @@
 				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
 		step(src, direction)
 	return
-
-/obj/effect/dummy/chameleon/Destroy()
-	master.disrupt(0)
-	return ..()
 
 /obj/item/borg_chameleon
 	name = "cyborg chameleon projector"
@@ -439,23 +454,7 @@
 			else
 				choice = last_disguise
 		to_chat(user, span_notice("You activate [src]."))
-		var/start = user.filters.len
-		var/X
-		var/Y
-		var/rsq
-		var/i
-		var/f
-		for(i in 1 to 7)
-			do
-				X = 60 * rand() - 30
-				Y = 60 * rand() - 30
-				rsq = X * X + Y * Y
-			while(rsq < 100 || rsq > 900)
-			user.filters += filter(type = "wave", x = X, y = Y, size = rand() * 2.5 + 0.5, offset = rand())
-		for(i in 1 to 7)
-			f = user.filters[start+i]
-			animate(f, offset = f:offset, time = 0, loop = 3, flags = ANIMATION_PARALLEL)
-			animate(offset = f:offset - 1, time = rand() * 20 + 10)
+		apply_wibbly_filters(user)
 		if(do_after(user, 5 SECONDS, user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, TRUE, -6)
 			to_chat(user, span_notice("You are now disguised as a Nanotrasen cyborg."))
@@ -463,10 +462,7 @@
 		else
 			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, length(user.filters))) // removing filters that are animating does nothing, we gotta stop the animations first
-				f = user.filters[start + i]
-				animate(f)
-		user.filters = null
+		remove_wibbly_filters(user)
 
 /obj/item/borg_chameleon/process()
 	if(S)

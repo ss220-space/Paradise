@@ -60,7 +60,7 @@
 	COOLDOWN_DECLARE(messages_cooldown)
 
 /obj/machinery/mineral/ore_redemption/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печь для руды",
 		GENITIVE = "печи для руды",
 		DATIVE = "печи для руды",
@@ -132,7 +132,7 @@
 	anyone_claim = TRUE
 
 /obj/machinery/mineral/ore_redemption/labor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печь для руды трудового лагеря",
 		GENITIVE = "печи для руды трудового лагеря",
 		DATIVE = "печи для руды трудового лагеря",
@@ -244,7 +244,7 @@
 	if(!powered())
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!try_insert_id(user))
 			return ..()
@@ -353,7 +353,7 @@
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
 				inserted_id.total_mining_points += points
-				to_chat(usr, span_notice("<b>[points] [declension_ru(points, "очко", "очка","очков")] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] [declension_ru(inserted_id.total_mining_points, "очко", "очка","очков")]</b>!"))
+				to_chat(usr, span_notice("<b>[points] очк[DECL_O_A_OV(points)] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] очк[DECL_O_A_OV(inserted_id.total_mining_points)]</b>!"))
 				points = 0
 			else
 				to_chat(usr, span_warning("Доступ запрещён."))

@@ -1,5 +1,5 @@
 /*
- * Наследуем от саботажника, чтобы иметь возможность легко интегрировать этому боргу свой хамелион проектор
+ * we inherit from sabouter module, so we have an ability to simply integrate  cyborg chamelon projector into our ninjaborg
  */
 /mob/living/silicon/robot/syndicate/saboteur/ninja
 	base_icon = "ninja"
@@ -13,14 +13,14 @@
 	playstyle_string = null
 	has_transform_animation = FALSE
 
-/mob/living/silicon/robot/syndicate/saboteur/ninja/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/saboteur/ninja/Initialize(mapload)
+	. = ..()
 	mmi = new /obj/item/mmi/robotic_brain/ninja(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	. = ..()
 	laws = new /datum/ai_laws/ninja_override(src)
-	QDEL_NULL(module)	//Удаление модуля саботёра который мы наследуем
+	QDEL_NULL(module)	// Deleting the sabouter module we inherited
 	module = new /obj/item/robot_module/ninja(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/ninja(src)
@@ -38,20 +38,3 @@
 /obj/item/radio/borg/ninja/Initialize(mapload)
 	. = ..()
 	set_frequency(NINJA_FREQ)
-
-/obj/item/gun/energy/shuriken_emitter/borg
-	name = "robotic shuriken emitter"
-	desc = "A device sneakily hidden inside your robotic hand. Shoots 3 energy shurikens that slows and temporary blinds their targets"
-	ammo_type = list(/obj/item/ammo_casing/energy/shuriken/borg)
-	// Эти два значения не нужны боргам — они не носят ниндзя костюм
-	cost = null
-	my_suit = null
-
-/obj/item/gun/energy/shuriken_emitter/borg/equip_to_best_slot(mob/M)
-	return
-
-/obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
-	return TRUE
-
-/obj/item/ammo_casing/energy/shuriken/borg
-	e_cost = 50

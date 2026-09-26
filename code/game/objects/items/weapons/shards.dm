@@ -12,7 +12,7 @@
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("уколол", "полоснул", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list(MELEE = 100, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
+	armor = list(MELEE = 100, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 50, ACID = 100)
 	max_integrity = 40
 	resistance_flags = ACID_PROOF
 	sharp = TRUE
@@ -48,13 +48,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!proximity || !(src in user))
+/obj/item/shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !(src in user))
 		return
-	if(isturf(AM))
+
+	if(isturf(target))
 		return
-	if(isstorage(AM))
+
+	if(isstorage(target))
 		return
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))

@@ -42,8 +42,8 @@
 			if(bomb?.bombtank)
 				bomb.bombtank.detonate()
 
-		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
-			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc
+		else if(istype(locloc, /obj/item/reagent_containers/cup/beaker))
+			var/obj/item/reagent_containers/cup/beaker/beakerbomb = locloc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
 
@@ -58,5 +58,5 @@
 		activate()
 	add_fingerprint(user)
 
-/obj/item/assembly/igniter/get_heat()
+/obj/item/assembly/igniter/get_temperature()
 	return 20000

@@ -102,8 +102,6 @@
 /// Time it takes for the server to start the game
 /datum/config_entry/number/pregame_timestart
 	default = 240
-/// allow votes to change mode
-/datum/config_entry/flag/allow_vote_mode
 
 /// minimum time between voting sessions (deciseconds, 10 minute default)
 /datum/config_entry/number/vote_delay
@@ -132,9 +130,6 @@
 /// offstation role people can't vote (tbi)
 /datum/config_entry/flag/vote_no_offstation_role
 	default = TRUE
-
-/// vote does not default to nochange/norestart (tbi)
-/datum/config_entry/flag/default_no_vote
 
 /// qdel's new players if they log before they spawn in
 /datum/config_entry/flag/del_new_on_log
@@ -237,9 +232,6 @@
 /datum/config_entry/string/medal_hub_address
 	default = null
 
-/datum/config_entry/string/medal_hub_password
-	default = null
-
 ///enables assistant limiting
 /datum/config_entry/flag/assistant_limit
 
@@ -284,7 +276,7 @@
 		SPECIES_DRASK,
 		SPECIES_GREY,
 		SPECIES_KIDAN,
-		SPECIES_MACNINEPERSON,
+		SPECIES_MACHINEPERSON,
 		SPECIES_NUCLEATION,
 		SPECIES_PLASMAMAN,
 		SPECIES_SLIMEPERSON,
@@ -435,7 +427,6 @@
 	default = 2 HOURS
 
 /datum/config_entry/number/antag_paradise_double_antag_chance
-	default = 10
 	max_val = 100
 	min_val = 0
 
@@ -444,6 +435,7 @@
 	default = list(
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
+		ROLE_CHANGELING,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_single_antags_weights
@@ -453,7 +445,7 @@
 		ROLE_TRAITOR = 60,
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
-		ROLE_CHANGELING = 0,
+		ROLE_CHANGELING = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights
@@ -590,6 +582,9 @@
 /datum/config_entry/flag/disable_ooc_emoji
 
 /datum/config_entry/flag/shutdown_on_reboot
+
+/datum/config_entry/flag/kill_on_shutdown
+	default = TRUE
 
 /datum/config_entry/flag/autoreconnect
 
@@ -823,6 +818,15 @@
 /datum/config_entry/string/invoke_youtubedl
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/// Allows players to request internet sounds (via the OOC verb) for admins to play.
+/datum/config_entry/flag/request_internet_sound
+	default = TRUE
+
+/// Comma separated list of url patterns players are allowed to request. Each entry is matched as a regex.
+/datum/config_entry/string/request_internet_allowed
+	protection = CONFIG_ENTRY_LOCKED
+	default = "youtube.com/watch,youtu.be/,soundcloud.com/,bandcamp.com/track/"
+
 /datum/config_entry/str_list/lobby_music
 
 /datum/config_entry/string/override_away_mission
@@ -853,7 +857,52 @@
 /datum/config_entry/string/internal_ip
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/datum/config_entry/keyed_list/positive_station_traits
+	default = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/negative_station_traits
+	default = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/neutral_station_traits
+	default = list("0" = 10, "1" = 10, "2" = 3, "2.5" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
 /datum/config_entry/flag/smart_cache_assets
 	default = TRUE
 
 /datum/config_entry/flag/generate_assets_in_init
+
+/// if the game appears on the hub or not
+/datum/config_entry/flag/hub
+	default = TRUE
+
+/datum/config_entry/flag/kick_inactive //force disconnect for inactive players
+
+/datum/config_entry/number/afk_period //time in ds until a player is considered inactive
+	default = 3000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/afk_period/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		config_entry_value *= 10 //documented as seconds in config.txt
+
+/// Pop requirement for the server to be removed from the hub
+/datum/config_entry/number/max_hub_pop
+	min_val = 0
+
+/// allow votes to change map
+/datum/config_entry/flag/allow_vote_map
+	default = TRUE
+
+/// allow votes to change game mode
+/datum/config_entry/flag/allow_vote_gamemode
+
+/datum/config_entry/flag/emojis
+	default = TRUE

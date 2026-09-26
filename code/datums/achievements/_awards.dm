@@ -116,7 +116,7 @@
 
 /datum/award/achievement/get_ui_data(list/award_data, datum/achievement_data/holder)
 	. = ..()
-	.["achieve_info"] = "Получи[declension_ru(times_achieved, "л", "ли", "ло")] [times_achieved] игрок[DECL_CREDIT(times_achieved)]."
+	.["achieve_info"] = "Получил[DECL_0_I_O(times_achieved)] [times_achieved] игрок[DECL_0_A_OV(times_achieved)]."
 
 	if(!SSachievements.most_unlocked_achievement)
 		.["achieve_tooltip"] = "Никто ещё не получил это достижение. Станьте первым за сегодня!"
@@ -127,7 +127,7 @@
 		return
 
 	var/percent = FLOOR(times_achieved / SSachievements.most_unlocked_achievement.times_achieved * 100, 0.01)
-	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Менее 0,01" : percent]% от показателя самого популярного достижения: \"[SSachievements.most_unlocked_achievement.name])\""
+	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Менее 0,01" : percent]% от показателя самого популярного достижения: \"[SSachievements.most_unlocked_achievement.name]\""
 
 /datum/award/achievement/parse_value(raw_value)
 	return raw_value > 0

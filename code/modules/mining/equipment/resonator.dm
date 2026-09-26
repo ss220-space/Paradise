@@ -23,7 +23,7 @@
 	var/adding_failure = 50
 
 /obj/item/resonator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резонатор",
 		GENITIVE = "резонатора",
 		DATIVE = "резонатору",
@@ -81,7 +81,7 @@
 	var/adding_failure
 
 /obj/effect/temp_visual/resonance/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резонансное поле",
 		GENITIVE = "резонансного поля",
 		DATIVE = "резонансному полю",
@@ -177,7 +177,7 @@
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 
 /obj/item/resonator/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный резонатор",
 		GENITIVE = "улучшенного резонатора",
 		DATIVE = "улучшенному резонатору",

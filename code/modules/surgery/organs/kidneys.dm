@@ -7,7 +7,7 @@
 	slot = INTERNAL_ORGAN_KIDNEYS
 
 /obj/item/organ/internal/kidneys/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки человека",
 		GENITIVE = "почек человека",
 		DATIVE = "почкам человека",
@@ -39,7 +39,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/kidneys/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетические почки",
 		GENITIVE = "кибернетических почек",
 		DATIVE = "кибернетическим почкам",

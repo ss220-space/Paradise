@@ -61,8 +61,8 @@
 	to_chat(H, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
-/obj/item/grown/nettle/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/grown/nettle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off

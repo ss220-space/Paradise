@@ -64,7 +64,7 @@
 
 	for(var/i = 0;i<name_count;i++)
 		new_name = ""
-		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
+		for(var/x = rand(floor(syllable_count/2),syllable_count);x>0;x--)
 			new_name += pick(syllables)
 		full_name += " [capitalize(lowertext(new_name))]"
 	return "[trim(full_name)]"
@@ -132,13 +132,16 @@
 		speaker_mask = speaker.name
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
-		if(istype(player,/mob/dead) && follow)
+		if(isdead(player) && follow)
 			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)]) [name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
+		else if(isdead(player) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
+
+			if(player.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				player.create_chat_message(speaker, "<i>[message]</i>", list("telepathy"), null)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
 	return TRUE
@@ -718,7 +721,7 @@
 	if(iscarbon(speaker))
 		var/mob/living/carbon/M = speaker
 		B = M.has_brain_worms()
-	else if(istype(speaker,/mob/living/simple_animal/borer))
+	else if(isborer(speaker))
 		B = speaker
 
 	if(B)
@@ -764,7 +767,7 @@
 			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/borg = S
-			if(borg.connected_ai?.name == speaker.name)
+			if(borg.check_binary_master(speaker))
 				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
 				var/list/big_font_suffix = list("</span>")
 				message_start = big_font_prefix + message_start
@@ -858,14 +861,14 @@
 
 //TBD
 /mob/proc/check_lang_data()
-	. = ""
+	. = list()
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
 
 /mob/living/check_lang_data()
-	. = ""
+	. = list()
 
 	if(default_language)
 		. += "Текущий язык по умолчанию: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br><br>"
@@ -877,13 +880,10 @@
 			else
 				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
-/mob/verb/check_languages()
-	set name = "Меню языков"
-	set category = VERB_CATEGORY_IC
-	set src = usr
+GAME_VERB(/mob, check_languages, "Меню языков", VERB_CATEGORY_IC)
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)
-	popup.set_content(check_lang_data())
+	popup.set_content(jointext(check_lang_data(), ""))
 	popup.open()
 
 /mob/living/Topic(href, href_list)

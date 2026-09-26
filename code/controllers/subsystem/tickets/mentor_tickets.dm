@@ -3,11 +3,9 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 /datum/controller/subsystem/tickets/mentor_tickets/New()
 	NEW_SS_GLOBAL(SSmentor_tickets)
 	PreInit()
-	ss_id = "mentor_tickets"
 
 /datum/controller/subsystem/tickets/mentor_tickets
 	name = "Mentor Tickets"
-	offline_implications = "Mentor tickets will no longer be marked as stale. No immediate action is needed."
 	ticket_system_name = MENTORHELP_SYSTEM_NAME
 	ticket_name = MENTORHELP_TICKET_NAME
 	span_class = "mentorhelp"
@@ -26,7 +24,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	return ..()
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
-	message_mentorTicket(chat_box_mhelp(msg), important)
+	message_mentorTicket(fieldset_block("<span class='[span_class]'>[ticket_name]</span>", msg, "boxed_message blue_box"), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
 	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.title)

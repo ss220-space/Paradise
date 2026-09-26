@@ -18,6 +18,10 @@
 	. = ..()
 	src.owner = owner
 
+/datum/anomaly_impulse/Destroy(force)
+	owner = null
+	return ..()
+
 /datum/anomaly_impulse/proc/impulse_cycle()
 	if(QDELETED(owner))
 		return FALSE

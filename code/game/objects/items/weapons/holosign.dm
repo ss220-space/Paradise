@@ -19,8 +19,8 @@
 	. = ..()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag, params)
-	if(flag)
+/obj/item/holosign_creator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(!check_allowed_items(target, 1))
 			return
 		var/turf/T = get_turf(target)
@@ -60,8 +60,8 @@
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")
 
-/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	afterattack(target, user, proximity_flag, click_parameters)
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, list/modifiers)
+	afterattack(target, user, TRUE, modifiers)
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
@@ -70,7 +70,7 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голо-проектор уборщика",
 		GENITIVE = "голо-проектора уборщика",
 		DATIVE = "голо-проектору уборщика",
@@ -91,7 +91,7 @@
 	. = ..()
 	. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
 
-/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
+/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
 		WS.wet_timer_start(src)
@@ -113,7 +113,7 @@
 	max_signs = 6
 
 /obj/item/holosign_creator/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голо-проектор службы безопасности",
 		GENITIVE = "голо-проектора службы безопасности",
 		DATIVE = "голо-проектору службы безопасности",
@@ -132,7 +132,7 @@
 	max_signs = 6
 
 /obj/item/holosign_creator/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инженерный голо-проектор",
 		GENITIVE = "инженерного голо-проектора",
 		DATIVE = "инженерному голо-проектору",
@@ -150,7 +150,7 @@
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "атмосферный голо-проектор",
 		GENITIVE = "атмосферного голо-проектора",
 		DATIVE = "атмосферному голо-проектору",
@@ -168,7 +168,7 @@
 	var/shock = 0
 
 /obj/item/holosign_creator/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проектор энерго-барьера",
 		GENITIVE = "проектора энерго-барьера",
 		DATIVE = "проектору энерго-барьера",

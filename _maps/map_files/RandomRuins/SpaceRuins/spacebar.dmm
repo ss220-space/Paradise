@@ -143,8 +143,7 @@
 /area/ruin/powered/space_bar)
 "aV" = (
 /obj/structure/chair{
-	dir = 4;
-	tag = "icon-chair (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
@@ -201,15 +200,12 @@
 /area/ruin/powered/space_bar)
 "bk" = (
 /obj/structure/chair{
-	dir = 8;
-	tag = "icon-chair (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "bl" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -230,10 +226,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/space_bar)
 "bn" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "bp" = (
@@ -259,7 +252,7 @@
 /area/ruin/powered/space_bar)
 "dG" = (
 /obj/structure/sink/puddle,
-/obj/item/toy/carpplushie/dehy_carp,
+/obj/item/toy/plushie/carp/dehy_carp,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "eb" = (
@@ -352,9 +345,7 @@
 /area/ruin/unpowered)
 "mN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "ng" = (
@@ -383,9 +374,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "nL" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/carpet/blue,
@@ -486,9 +475,7 @@
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
 "yO" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
 "zp" = (
@@ -520,8 +507,7 @@
 /area/ruin/powered/space_bar)
 "AN" = (
 /obj/structure/chair{
-	dir = 4;
-	tag = "icon-chair (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -598,9 +584,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Hm" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -624,7 +608,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ruin/powered/space_bar)
 "JK" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/powered/space_bar)
@@ -685,9 +669,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Lt" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "LV" = (
@@ -856,9 +838,9 @@
 /area/ruin/powered/space_bar)
 "Zx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/machinery/light/small{
 	dir = 8
 	},

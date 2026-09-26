@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/destination
 
 /obj/machinery/photocopier/faxmachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "факс",
 		GENITIVE = "факса",
 		DATIVE = "факсу",
@@ -49,10 +49,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		PREPOSITIONAL = "факсе",
 	)
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy(force)
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != UNKNOWN_STATUS_RUS)
@@ -101,7 +105,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(scan)
 			balloon_alert(user, "занято!")
@@ -314,7 +318,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return FALSE
 	if(!card)
 		var/obj/item/I = usr.get_active_hand()
-		if(!istype(I, /obj/item/card/id))
+		if(!is_id_card(I))
 			return FALSE
 		if(!usr.drop_transfer_item_to_loc(I, src))
 			return FALSE
@@ -329,9 +333,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	SStgui.update_uis(src)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set name = "Достать ID-карту"
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/photocopier/faxmachine, eject_id, oview(1), "Достать ID-карту", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -446,7 +448,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_colour = replacetext(font_colour, "#", "")
 		payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Fax at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/bundle = sent
 		for(var/obj/item/paper/P in bundle)
@@ -462,7 +464,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			embed.embed_content = P.log_text
 			payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Bundle Fax at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/photo))
 		var/obj/item/photo/P = sent
 		var/datum/discord_embed/embed = new()
@@ -471,7 +473,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_content = P.log_text
 		payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 
 /obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
 	var/text = "[paper.header][paper.info][paper.footer]"

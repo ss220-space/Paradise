@@ -7,14 +7,13 @@
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	icon_state = "contractor_baton"
-	affect_cyborgs = TRUE
+	affect_cyborg = TRUE
 	affect_bots = TRUE
 	cooldown = 2.5 SECONDS
 	clumsy_knockdown_time = 24 SECONDS
 	stamina_damage = 75
 	force = 5
 	extend_force = 20
-	block_chance = 30
 	force_say_chance = 80 //very high force say chance because it's funny
 	on_stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
@@ -25,7 +24,7 @@
 	var/cuffs_amount = 0
 
 /obj/item/melee/baton/telescopic/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дубинка контрактника",
 		GENITIVE = "дубинки контрактника",
 		DATIVE = "дубинке контрактника",
@@ -34,10 +33,13 @@
 		PREPOSITIONAL = "дубинке контрактника",
 	)
 
+/obj/item/melee/baton/telescopic/contractor/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS, _requires_activation = TRUE) // 2.3333 seconds of cooldown for 30% uptime
+
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
 	if(has_upgrade(UPGRADE_CUFFS))
-		. += span_notice("В нём остал[declension_ru(cuffs_amount, "а", "о", "о")]сь <b>[cuffs_amount]</b> стяж[declension_ru(cuffs_amount, "ка", "ки", "ек")].")
+		. += span_notice("В нём остал[DECL_A_O_O(cuffs_amount)]сь <b>[cuffs_amount]</b> стяж[DECL_KA_KI_EK(cuffs_amount)].")
 	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
 		. += span_notice("В нём установлен <b>[upgrade.declent_ru(NOMINATIVE)]</b>, который [upgrade.upgrade_examine].")
 
@@ -47,7 +49,7 @@
 		add_upgrade(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/restraints/handcuffs))
+	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(!has_upgrade(UPGRADE_CUFFS))
 			balloon_alert(user, "модуль стяжек не установлен!")
@@ -83,11 +85,11 @@
 		if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
 			CuffAttack(target, user)
 	if(has_upgrade(UPGRADE_FOCUS) && ishuman(target))
-		for(var/datum/antagonist/contractor/antag_datum in user.mind.antag_datums)
-			if(target == antag_datum?.contractor_uplink?.hub?.current_contract?.contract?.target.current)
-				target.apply_damage(30, STAMINA)
-				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
-				break
+		var/datum/antagonist/contractor/antag_datum = user.mind.has_antag_datum(/datum/antagonist/contractor)
+		var/obj/item/contractor_uplink/uplink = antag_datum?.contractor_uplink_ref?.resolve()
+		if(target == uplink?.hub?.current_contract?.contract?.target.current)
+			target.apply_damage(30, STAMINA)
+			target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
 
 /obj/item/melee/baton/telescopic/contractor/proc/add_upgrade(obj/item/baton_upgrade/new_upgrade, mob/user)
 	if(!istype(new_upgrade))
@@ -138,6 +140,11 @@
 
 /obj/item/melee/baton/telescopic/contractor/on_transform(obj/item/source, mob/user, active)
 	. = ..()
+	if(active)
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+
 	if(!has_upgrade(UPGRADE_ANTIDROP))
 		return .
 
@@ -161,7 +168,7 @@
 	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
 
 /obj/item/baton_upgrade/cuff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Стяжки\"",
 		GENITIVE = "модуля \"Стяжки\"",
 		DATIVE = "модулю \"Стяжки\"",
@@ -177,7 +184,7 @@
 	upgrade_examine = "лишает жертву способности говорить на некоторое время"
 
 /obj/item/baton_upgrade/mute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Безмолвие\"",
 		GENITIVE = "модуля \"Безмолвие\"",
 		DATIVE = "модулю \"Безмолвие\"",
@@ -193,7 +200,7 @@
 	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
 
 /obj/item/baton_upgrade/focus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Фокусировка\"",
 		GENITIVE = "модуля \"Фокусировка\"",
 		DATIVE = "модулю \"Фокусировка\"",
@@ -209,7 +216,7 @@
 	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
 
 /obj/item/baton_upgrade/antidrop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Защита от выпадения\"",
 		GENITIVE = "модуля \"Защита от выпадения\"",
 		DATIVE = "модулю \"Защита от выпадения\"",

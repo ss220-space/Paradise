@@ -1,6 +1,9 @@
 /// Number of deciseconds in a day
 #define MIDNIGHT_ROLLOVER 864000
 
+/// In-universe, SS13 is set 540 years in the future from the real-world day, hence this number for determining the year-offset for the in-game year.
+#define STATION_YEAR_OFFSET 540
+
 /// Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
@@ -8,8 +11,14 @@
 
 #define SHIFT_TIME_TEXT(...) ( "[SSticker.round_start_time > MIDNIGHT_ROLLOVER ? "[round(SSticker.round_start_time/MIDNIGHT_ROLLOVER)]:[shifttime2text()]" : shifttime2text()]" )
 
+///Returns the time that has passed since the game started
+#define STATION_TIME_PASSED(...) (world.time - SSticker.round_start_time)
+
 /// Macro that returns true if it's too early in a round to freely ghost out
 #define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (CONFIG_GET(number/round_abandon_penalty_period))))
+
+/// Define that just has the current in-universe year for use in whatever context you might want to display that in. (For example, 2022 -> 2562 given a 540 year offset)
+#define CURRENT_STATION_YEAR (GLOB.year_integer + STATION_YEAR_OFFSET)
 
 #define JANUARY 1
 #define FEBRUARY 2

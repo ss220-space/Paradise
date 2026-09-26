@@ -13,7 +13,7 @@
 	health = 80
 
 /mob/living/simple_animal/pig/Sanya/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Саня",
 		GENITIVE = "Сани",
 		DATIVE = "Сане",
@@ -30,7 +30,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/cow/Betsy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Бетси",
 		GENITIVE = "Бетси",
 		DATIVE = "Бетси",
@@ -48,7 +48,7 @@
 	health = 20
 
 /mob/living/simple_animal/chicken/Wife/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Галя",
 		GENITIVE = "Гали",
 		DATIVE = "Гале",
@@ -66,7 +66,7 @@
 	health = 40
 
 /mob/living/simple_animal/cock/Commandor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Коммандор Клакки",
 		GENITIVE = "Коммандора Клакки",
 		DATIVE = "Коммандору Клакки",
@@ -90,7 +90,7 @@
 	resting = TRUE
 
 /mob/living/simple_animal/goose/Scientist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Гусар",
 		GENITIVE = "Гусара",
 		DATIVE = "Гусару",
@@ -106,7 +106,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/cat/fat/Iriska/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ириска",
 		GENITIVE = "Ириски",
 		DATIVE = "Ириске",
@@ -126,7 +126,7 @@
 	tts_seed = "Widowmaker"
 
 /mob/living/simple_animal/pet/cat/white/Penny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Копейка",
 		GENITIVE = "Копейки",
 		DATIVE = "Копейке",
@@ -143,7 +143,7 @@
 	resting = TRUE
 
 /mob/living/simple_animal/pet/cat/birman/Crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Бедокур",
 		GENITIVE = "Бедокура",
 		DATIVE = "Бедокуру",
@@ -167,7 +167,7 @@
 	resting = TRUE
 
 /mob/living/simple_animal/mouse/wooly/rep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Господин Мышкин",
 		GENITIVE = "Господина Мышкина",
 		DATIVE = "Господину Мышкину",
@@ -225,7 +225,7 @@
 	holder_type = /obj/item/holder/library_owl
 
 /mob/living/simple_animal/pet/library_owl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сыч Слава",
 		GENITIVE = "сыча Славы",
 		DATIVE = "сычу Славе",
@@ -269,7 +269,7 @@
 	resting = TRUE
 
 /mob/living/simple_animal/mouse/rat/white/Brain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Брейн",
 		GENITIVE = "Брейна",
 		DATIVE = "Брейну",
@@ -285,7 +285,7 @@
 	anchored = TRUE
 
 /obj/effect/decal/remains/mouse/Pinkie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пинки",
 		GENITIVE = "Пинки",
 		DATIVE = "Пинки",
@@ -305,7 +305,7 @@
 	health = 20
 
 /mob/living/simple_animal/mouse/rat/Ratatui/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Рататуй",
 		GENITIVE = "Рататуя",
 		DATIVE = "Рататую",
@@ -326,7 +326,7 @@
 	transform = matrix(1.250, 0, 0, 0, 1, 0)	//толстячок на +2 пикселя
 
 /mob/living/simple_animal/mouse/rat/irish/Remi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Реми",
 		GENITIVE = "Реми",
 		DATIVE = "Реми",
@@ -343,7 +343,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Феня",
 		GENITIVE = "Фени",
 		DATIVE = "Фене",
@@ -361,7 +361,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/dog/brittany/Psycho/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Перрито",
 		GENITIVE = "Перрито",
 		DATIVE = "Перрито",
@@ -379,7 +379,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/dog/pug/Frank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Фрэнк",
 		GENITIVE = "Френка",
 		DATIVE = "Фрэнку",

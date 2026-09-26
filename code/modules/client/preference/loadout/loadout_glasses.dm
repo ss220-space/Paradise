@@ -39,6 +39,18 @@
 	index_name = "Prescription glasses"
 	path = /obj/item/clothing/glasses/regular
 
+/datum/gear/glasses/kamina
+	index_name = "Spiky Orange-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina
+
+/datum/gear/glasses/green
+	index_name = "Spiky Green-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina/green
+
+/datum/gear/glasses/threedglasses
+	index_name = "Threed Glasses"
+	path = /obj/item/clothing/glasses/threedglasses
+
 /datum/gear/glasses/sectacticool
 	index_name = "Security tactical glasses"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tacticool
@@ -47,12 +59,12 @@
 /datum/gear/glasses/medhudpatch
 	index_name = "Medical HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/health/patch
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
 
 /datum/gear/glasses/sechudpatch
 	index_name = "Security HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/security/patch
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_DETECTIVE)
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_DETECTIVE)
 
 /datum/gear/glasses/sechudpatch/read_only
 	index_name = "Security HUD eyepatch (read only)"
@@ -72,5 +84,8 @@
 /datum/gear/glasses/skillhudpatch
 	index_name = "Skills HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/skills/patch
-	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
+	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE)
 
+/datum/gear/glasses/goldblue
+	index_name = "round gold-rimmed glasses"
+	path = /obj/item/clothing/glasses/goldblue

@@ -18,6 +18,11 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/tonumber/Destroy()
+	input_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/tonumber/populate_ports()
 	input_port = add_input_port("Ввод", PORT_TYPE_STRING)
 	output = add_output_port("Результат", PORT_TYPE_NUMBER)

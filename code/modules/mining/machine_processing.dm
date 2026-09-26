@@ -23,7 +23,7 @@
 	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль производственного аппарата",
 		GENITIVE = "консоли производственного аппарата",
 		DATIVE = "консоли производственного аппарата",
@@ -100,7 +100,7 @@
 	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плавильная печь",
 		GENITIVE = "плавильной печи",
 		DATIVE = "плавильной печи",

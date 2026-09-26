@@ -56,6 +56,12 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+/obj/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, obj_flags))
+		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))
+			return FALSE
+	return ..()
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -74,6 +80,18 @@
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+	add_deep_lore()
+
+/obj/Destroy(force)
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
+	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
+	armor = null
+	return ..()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -97,16 +115,6 @@
 	// Nada
 	return
 
-/obj/Destroy(force)
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
-	return ..()
-
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
 //BRUTELOSS = 1
@@ -118,7 +126,7 @@
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
-	return FALSE
+	return NONE
 
 /obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, datum/gas_mixture/environment)
 	//Return: (NONSTANDARD)
@@ -147,7 +155,7 @@
 			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -188,6 +196,7 @@
 
 /mob/proc/unset_machine()
 	if(machine)
+		UnregisterSignal(machine, COMSIG_QDELETING)
 		machine.on_unset_machine(src)
 		machine = null
 
@@ -201,14 +210,12 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
+		RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
-
-/obj/proc/hide(h)
-	return
 
 /obj/proc/hear_talk(mob/speaker, list/message_pieces)
 	SHOULD_CALL_PARENT(TRUE)
@@ -229,7 +236,8 @@
 		return
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_integrity(max_integrity)
 		update_icon()
@@ -240,30 +248,34 @@
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
+	if(obj_flags & NODECONSTRUCT)
+		return FALSE
+
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(obj_flags & NODECONSTRUCT))
-		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
-		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
-			set_anchored(!anchored)
-		return TRUE
-	return FALSE
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
+	if(!I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
+		return FALSE
+
+	to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
+	set_anchored(!anchored)
+	return TRUE
 
 /obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size)
+/obj/singularity_pull(atom/singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src, S)
-
-/obj/proc/container_resist(mob/living)
-	return
+		step_towards(src, singularity)
 
 /obj/proc/on_mob_move(mob/user, dir)
 	return
@@ -282,15 +294,6 @@
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
 
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
-
 /obj/proc/check_uplink_validity()
 	return TRUE
 
@@ -299,6 +302,16 @@
 
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
+
+/obj/proc/set_cult_veil(veiled)
+	if(veiled)
+		ADD_TRAIT(src, TRAIT_CULT_CONCEALED, CULT_TRAIT)
+		SET_PLANE_IMPLICIT(src, CULT_VEIL_PLANE)
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		return
+	REMOVE_TRAIT(src, TRAIT_CULT_CONCEALED, CULT_TRAIT)
+	SET_PLANE_IMPLICIT(src, initial(plane))
+	mouse_opacity = initial(mouse_opacity)
 
 /obj/proc/is_mob_spawnable() //Called by spawners_menu methods to determine if you can use an object through spawn-menu
 	//just override it to return TRUE in your object if you want to use it through spawn menu
@@ -363,3 +376,33 @@
 /// ImageButton element in TGUI, for example
 /obj/proc/get_short_name()
 	return declent_ru(NOMINATIVE)
+
+/**
+ * Returns a list of obj's that should be displayed in the uplink purchase log.
+ * Override for specific types.
+ */
+/obj/proc/get_uplink_log_items()
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(FALSE)
+	return list(src)
+
+/// Adds icons of contents (with get_uplink_log_items()) into uplink
+/obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
+	if(!target_uplink || QDELETED(target_uplink))
+		return
+
+	var/new_purchase_logs = ""
+	var/list/items_to_log = get_uplink_log_items()
+	if(!length(items_to_log))
+		return
+
+	for(var/atom/atom_to_display in items_to_log)
+		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
+	target_uplink.purchase_log += new_purchase_logs
+
+/**
+ * Use this proc to attach `/datum/element/examine_lore` to an object.
+ * Override if needed.
+ */
+/obj/proc/add_deep_lore()
+	return

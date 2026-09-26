@@ -1,40 +1,29 @@
-/*
-	HOW DO I LOG RUNTIMES?
-	Firstly, start dreamdeamon if it isn't already running. Then select "world>Log Session" (or press the F3 key)
-	navigate the popup window to the data/logs/runtime/ folder from where your tgstation .dmb is located.
-	(you may have to make this folder yourself)
-
-	OPTIONAL:	you can select the little checkbox down the bottom to make dreamdeamon save the log everytime you
-				start a world. Just remember to repeat these steps with a new name when you update to a new revision!
-
-	Save it with the name of the revision your server uses (e.g. r3459.txt).
-	Game Masters will now be able to grant access any runtime logs you have archived this way!
-	This will allow us to gather information on bugs across multiple servers and make maintaining the TG
-	codebase for the entire /TG/station commuity a TONNE easier :3 Thanks for your help!
-*/
-
-ADMIN_VERB(get_server_logs, R_ADMIN, "Get Server Logs", "View or retrieve logfiles.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(get_server_logs, R_ADMIN|R_DEBUG, "Get Server Logs", "View or retrieve logfiles.", ADMIN_CATEGORY_MAIN)
 	user.browseserverlogs()
 
-//This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/browseserverlogs()
-	var/path = browse_files("data/logs/")
+ADMIN_VERB(get_current_logs, R_ADMIN|R_DEBUG, "Get Current Logs", "View or retrieve logfiles for the current round.", ADMIN_CATEGORY_MAIN)
+	user.browseserverlogs(current = TRUE)
+
+/// This proc allows download of past server logs saved within the data/logs/ folder.
+/client/proc/browseserverlogs(current = FALSE)
+	var/path = browse_files(current ? BROWSE_ROOT_CURRENT_LOGS : BROWSE_ROOT_ALL_LOGS)
 	if(!path)
 		return
 
 	if(file_spam_check())
 		return
 
-	message_admins("[key_name_admin(src)] accessed file: [path]")
+	message_admins(span_adminnotice("[key_name_admin(src)] accessed file: [path]"))
+	log_admin("[key_name(src)] accessed file: [path]")
 	switch(tgui_alert(usr, "View (in game), Open (in your system's text editor), or Download?", path, list("View", "Open", "Download")))
 		if("View")
 			var/datum/browser/popup = new(src, "viewfile.[path]", "Server Logs")
-			popup.set_content("<pre style='word-wrap: break-word;'>[html_encode(wrap_file2text(wrap_file(path)))]</pre>")
+			popup.set_content("<pre style='word-wrap: break-word;'>[html_encode(WRAP_FILE2TEXT(WRAP_FILE(path)))]</pre>")
 			popup.open(FALSE)
 		if("Open")
-			src << run(wrap_file(path))
+			src << run(WRAP_FILE(path))
 		if("Download")
-			src << ftp(wrap_file(path))
+			src << ftp(WRAP_FILE(path))
 		else
 			return
 	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.", confidential = TRUE)

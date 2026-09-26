@@ -4,7 +4,7 @@
 	desc = "Орган, который заменяет сердце тенелингам."
 
 /obj/item/organ/internal/heart/shadowling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "",
 		GENITIVE = "сердца тенелинга",
 		DATIVE = "сердцу тенелинга",
@@ -18,7 +18,7 @@
 	desc = "Основной орган центральной нервной системы гуманойдов. Фактически, именно здесь и находится разум. Этот принадлежал тенелингу."
 
 /obj/item/organ/internal/brain/shadowling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг тенелинга",
 		GENITIVE = "мозга тенелинга",
 		DATIVE = "мозгу тенелинга",
@@ -34,7 +34,7 @@
 	see_in_dark = 9
 
 /obj/item/organ/internal/eyes/shadowling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза тенелинга",
 		GENITIVE = "глаз тенелинга",
 		DATIVE = "глазам тенелинга",
@@ -49,7 +49,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали тенелингу."
 
 /obj/item/organ/internal/ears/shadowling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши тенелинга",
 		GENITIVE = "ушей тенелинга",
 		DATIVE = "ушам тенелинга",

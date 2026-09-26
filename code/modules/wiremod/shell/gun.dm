@@ -11,13 +11,13 @@
 	icon_state = "setup_gun"
 	ammo_type = list(/obj/item/ammo_casing/energy/wiremod_gun)
 	cell_type = /obj/item/stock_parts/cell/emproof/wiremod_gun
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
 /obj/item/gun/energy/wiremod_gun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сигнальная пушка",
 		GENITIVE = "сигнальной пушки",
 		DATIVE = "сигнальной пушке",
@@ -30,12 +30,6 @@
 	harmful = FALSE
 	select_name = "circuit"
 	fire_sound = 'sound/weapons/blaster.ogg'
-
-/obj/projectile/energy/wiremod_gun
-	name = "scanning beam"
-	icon_state = "ion"
-	nodamage = TRUE
-	range = 7
 
 /obj/item/stock_parts/cell/emproof/wiremod_gun
 	maxcharge = 2000
@@ -57,6 +51,12 @@
 	/// The entity being shot
 	var/datum/port/output/shot
 
+/obj/item/circuit_component/wiremod_gun/Destroy()
+	signal = null
+	shooter = null
+	shot = null
+	. = ..()
+
 /obj/item/circuit_component/wiremod_gun/Initialize(mapload)
 	. = ..()
 	shooter = add_output_port("Пользователь", PORT_TYPE_ATOM)
@@ -65,7 +65,7 @@
 
 /obj/item/circuit_component/wiremod_gun/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_PROJECTILE_ON_HIT, PROC_REF(handle_shot))
-	if(!istype(shell, /obj/item/gun/energy))
+	if(!isenergygun(shell))
 		return
 
 	RegisterSignal(shell, COMSIG_GUN_CHAMBER_PROCESSED, PROC_REF(handle_chamber))

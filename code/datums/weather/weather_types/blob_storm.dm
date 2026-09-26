@@ -4,9 +4,9 @@
 	desc = "Плотное облако из мельчайших спор блоба, проникающих через любую одежду."
 
 	telegraph_duration = 2 SECONDS
-	telegraph_message = span_danger("Вы замечаете мелкие частицы в воздухе")
+	telegraph_message = span_danger_alt("Вы замечаете мелкие частицы в воздухе")
 
-	weather_message = span_userdanger("<i>Вы ощущаете поток неизвестных мелких частиц, которые проникают сквозь любую одежду. Спасти вас может только чудо.</i>")
+	weather_message = span_userdanger_alt("<i>Вы ощущаете поток неизвестных мелких частиц, которые проникают сквозь любую одежду. Спасти вас может только чудо.</i>")
 	weather_overlay = "blob_storm"
 	weather_duration_lower = 30 SECONDS
 	weather_duration_upper = 1 MINUTES
@@ -16,15 +16,15 @@
 	weather_sound = 'sound/magic/mutate.ogg'
 
 	end_duration = 10 SECONDS
-	end_message = span_notice("Поток частиц осел.")
+	end_message = span_notice_alt("Поток частиц осел.")
 
 	area_type = /area
-	protected_areas = list(/area/space, /area/crew_quarters/sleep)
+	protected_areas = list(/area/space, /area/station/commons/sleep)
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
 /datum/weather/blob_storm/telegraph()
-	var/list/blobs = SSticker?.mode?.blobs["infected"] + SSticker?.mode?.blobs["offsprings"]
+	var/list/blobs = SSticker?.mode?.blobs[BLOB_GROUP_INFECTED] + SSticker?.mode?.blobs[BLOB_GROUP_OFFSPRINGS]
 	var/color
 	var/mass = 0
 	for(var/datum/mind/blob in blobs)
@@ -43,7 +43,7 @@
 	GLOB.major_announcement.announce(
 		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
 		new_title = ANNOUNCE_BIOHAZARD_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)

@@ -29,7 +29,7 @@ effective or pretty fucking useless.
 	var/charges = 3
 
 /obj/item/batterer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подавитель разума",
 		GENITIVE = "подавителя разума",
 		DATIVE = "подавителю разума",
@@ -40,7 +40,7 @@ effective or pretty fucking useless.
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[DECL_CREDIT(charges)].")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[DECL_0_A_OV(charges)].")
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
@@ -62,7 +62,7 @@ effective or pretty fucking useless.
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
-	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[DECL_CREDIT(charges)]."))
+	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[DECL_0_A_OV(charges)]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
@@ -99,7 +99,7 @@ effective or pretty fucking useless.
 	var/used = 0 // is it cooling down?
 
 /obj/item/rad_laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "анализатор здоровья",
 		GENITIVE = "анализатора здоровья",
 		DATIVE = "анализатору здоровья",
@@ -123,6 +123,7 @@ effective or pretty fucking useless.
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
+	to_chat(user, span_warning("[target] успешно облучен[GEND_A_O_Y(target)]."))
 	addtimer(CALLBACK(src, PROC_REF(delayed_effect), target), (wavelength + (intensity * 4)) SECONDS)
 
 /obj/item/rad_laser/proc/reset_cooldown()
@@ -133,8 +134,7 @@ effective or pretty fucking useless.
 	if(QDELETED(target))
 		return
 	if(intensity >= 5)
-		target.Paralyse((intensity * 40 / 3) SECONDS)
-		target.apply_effect(intensity * 10, IRRADIATE)
+		target.apply_effect(round(intensity / 0.075), EFFECT_UNCONSCIOUS) // to save you some math, this is a round(intensity * (4/3)) second long knockout
 
 /obj/item/rad_laser/attack_self(mob/user)
 	..()
@@ -173,12 +173,26 @@ effective or pretty fucking useless.
 	attack_self(usr)
 	add_fingerprint(usr)
 
+/// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
+/proc/is_within_radio_jammer_range(atom/source)
+	var/turf/source_turf = get_turf(source)
+	if(!source_turf)
+		return FALSE
+	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(!jammer_turf)
+			continue
+		if(IN_GIVEN_RANGE(source_turf, jammer_turf, jammer.range))
+			return TRUE
+	return FALSE
+
 /obj/item/jammer
 	name = "radio jammer"
 	desc = "Device used to disrupt nearby radio communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
+	/// The range of devices to disable while active
 	var/range = 12
 
 /obj/item/jammer/Destroy()
@@ -214,7 +228,7 @@ effective or pretty fucking useless.
 	var/flawless = FALSE
 
 /obj/item/teleporter/Destroy()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -302,7 +316,7 @@ effective or pretty fucking useless.
 	if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 		charges--
 		update_icon(UPDATE_ICON_STATE)
-		if(!isprocessing)
+		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSobj, src)
 
 	var/turf/destination = pick(turfs)
@@ -384,7 +398,7 @@ effective or pretty fucking useless.
 	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, 'sound/magic/disintegrate.ogg', 50, TRUE)
 	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
-	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/thing as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
 	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
@@ -421,13 +435,13 @@ effective or pretty fucking useless.
 	duration = 5
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \nThis one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
 
 /obj/item/teleporter/admin/update_icon_state()
-	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
+	icon_state = "[base_icon_state]-[ceil(charges / 2)]"
 
 #define ION_CALLER_AI_TARGETING "AI targeting"
 #define ION_CALLER_COMMS_TARGETING "Telecomms targeting"

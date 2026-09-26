@@ -1,0 +1,21 @@
+/obj/item/ammo_casing/energy/lasergun/old : /obj/item/ammo_casing/energy/laser/old {@OLD}
+/obj/item/ammo_casing/a762 : /obj/item/ammo_casing/a762x54 {@OLD}
+
+/obj/item/ammo_box/c10mm : /obj/item/ammo_box/m10mm {@OLD}
+/obj/item/ammo_box/a762 : /obj/item/ammo_box/a762x54 {@OLD}
+/obj/item/ammo_box/c9mmte : /obj/item/ammo_box/dot45NR {@OLD}
+/obj/item/ammo_box/n762 : /obj/item/ammo_box/n762x38 {@OLD}
+/obj/item/ammo_box/nagant : /obj/item/ammo_box/n762x38 {@OLD}
+/obj/item/ammo_box/ak814 : /obj/item/ammo_box/a545x39 {@OLD}
+/obj/item/ammo_box/ak814/fusty : /obj/item/ammo_box/a545x39/fusty {@OLD}
+
+/obj/item/ammo_box/magazine/aksu : /obj/item/ammo_box/magazine/aks74u {@OLD}
+/obj/item/ammo_box/magazine/a762x51 : /obj/item/ammo_box/magazine/l6saw {@OLD}
+/obj/item/ammo_box/magazine/laser : /obj/item/ammo_box/magazine/ik60mag {@OLD}
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/security : /obj/item/gun/projectile/automatic/pistol/enforcer {@OLD}
+/obj/item/gun/projectile/automatic/ar : /obj/item/gun/projectile/automatic/arg {@OLD}
+/obj/item/gun/projectile/automatic/lasercarbine : /obj/item/gun/projectile/automatic/ik60 {@OLD}
+/obj/item/gun/projectile/automatic/aksu/rusted : /obj/item/gun/projectile/automatic/aks74u/rusted {@OLD}
+
+/obj/projectile/hivebotbullet : /obj/projectile {@OLD}

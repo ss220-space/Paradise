@@ -11,6 +11,8 @@
 	holder_type = /obj/item/holder/pai
 	can_buckle_to = FALSE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_PAI
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -132,9 +134,7 @@
 	add_language(LANGUAGE_TRINARY, 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
-	add_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
-	add_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
-	add_verb(src, /mob/living/silicon/pai/proc/pai_change_voice)
+	ASSIGN_GAME_VERB(src, /mob/living/silicon/pai, choose_verbs)
 
 	var/datum/action/innate/pai_soft/pai_soft = new
 	var/datum/action/innate/pai_soft/pai_choose_chassis/pai_choose_chassis_action = new
@@ -168,6 +168,17 @@
 	integrated_records.req_access = list()
 
 	reset_software()
+
+/mob/living/silicon/pai/Destroy()
+	QDEL_LIST_ASSOC_VAL(installed_software)
+	QDEL_NULL(active_software)
+	QDEL_NULL(pda)
+	QDEL_NULL(sradio)
+	QDEL_NULL(integrated_console)
+	QDEL_NULL(integrated_records)
+	card = null
+	radio = null
+	return ..()
 
 /mob/living/silicon/pai/proc/reset_software()
 	QDEL_LIST_ASSOC_VAL(installed_software)
@@ -215,7 +226,7 @@
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/living/silicon/pai/init_subsystems()
-	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
+	gps = new(src, "pAI0", TRUE, FALSE)
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -296,10 +307,7 @@
 // Procs/code after this point is used to convert the stationary pai item into a
 // mobile pai mob. This also includes handling some of the general shit that can occur
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
-
-/mob/living/silicon/pai/verb/fold_out()
-	set category = VERB_CATEGORY_PAICOMMANDS
-	set name = "В мобильную форму"
+/mob/living/silicon/pai/proc/fold_out()
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -332,10 +340,7 @@
 	card.forceMove(src)
 	card.screen_loc = null
 
-/mob/living/silicon/pai/verb/fold_up()
-	set category = VERB_CATEGORY_PAICOMMANDS
-	set name = "Из мобильной формы"
-
+/mob/living/silicon/pai/proc/fold_up()
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
 
@@ -350,9 +355,6 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = VERB_CATEGORY_PAICOMMANDS
-	set name = "Мобильные формы"
-
 	var/list/my_choices = list()
 
 	//check for custom_sprite
@@ -396,25 +398,18 @@
 
 	chassis = my_choices[choice]
 
-/mob/living/silicon/pai/proc/choose_verbs()
-	set category = VERB_CATEGORY_PAICOMMANDS
-	set name = "Модуляция речи"
+GAME_VERB_PROC(/mob/living/silicon/pai, choose_verbs, "Модуляция речи", VERB_CATEGORY_PAICOMMANDS)
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
-	if(!choice) return
+	if(!choice)
+		return
 
 	var/list/sayverbs = possible_say_verbs[choice]
 	speak_statement = sayverbs[1]
 	speak_exclamation = sayverbs[(length(sayverbs)>1 ? 2 : length(sayverbs))]
 	speak_query = sayverbs[(length(sayverbs)>2 ? 3 : length(sayverbs))]
 
-	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
-
-/mob/living/silicon/pai/proc/pai_change_voice()
-	set name = "Сменить голос"
-	set desc = "Express yourself!"
-	set category = VERB_CATEGORY_PAICOMMANDS
-	change_voice()
+	UNASSIGN_GAME_VERB(src, /mob/living/silicon/pai, choose_verbs)
 
 /mob/living/silicon/pai/post_lying_on_rest()
 	if(stat == DEAD)
@@ -427,11 +422,7 @@
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-/mob/living/silicon/pai/verb/pAI_suicide()
-	set category = VERB_CATEGORY_PAICOMMANDS
-	set name = "Выгрузить личность"
-	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
-
+/mob/living/silicon/pai/proc/pAI_suicide()
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()
 	else
@@ -636,24 +627,22 @@
 	return H
 
 /mob/living/silicon/pai/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return ..()
+	if(!ishuman(user))
+		return
 
-	if(usr == src)
-		switch(tgui_alert(user, "[src] хочет, чтобы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
-			if("Да")
-				if(Adjacent(user))
-					get_scooped(user)
-				else
-					to_chat(src, span_warning("Вам нужно подойти поближе."))
-
-			if("Нет")
-				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
-	else
-		if(Adjacent(user))
+	if(user != src)
+		if(user.IsReachableBy(src))
 			get_scooped(user)
-		else
-			return ..()
+		return
+
+	switch(tgui_alert(user, "[src] хочет, чтобы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
+		if("Да")
+			if(!user.IsReachableBy(src))
+				to_chat(src, span_warning("Вам нужно подойти поближе."))
+				return
+			get_scooped(user)
+		if("Нет")
+			to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
@@ -705,7 +694,7 @@
 
 /datum/action/innate/pai_soft/pai_change_voice/Activate()
 	var/mob/living/silicon/pai/pai = owner
-	pai.pai_change_voice()
+	pai.change_voice()
 
 /datum/action/innate/pai_soft/pai_suicide
 	name = "Самоуничтожение"

@@ -1,5 +1,6 @@
 /atom/movable/screen/ai
 	icon = 'icons/mob/screen_ai.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/ai/aicore
 	name = "Ядро ИИ"
@@ -27,9 +28,7 @@
 /atom/movable/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = tgui_input_list(AI, "Выберите цель для отслеживания", "Объекты слежения", AI.trackable_mobs())
-		if(target_name)
-			AI.ai_camera_track(target_name)
+		AI.ai_camera_track()
 
 /atom/movable/screen/ai/camera_light
 	name = "Переключить освещение камеры"
@@ -160,6 +159,16 @@
 		var/mob/living/silicon/ai/AI = usr
 		AI.move_down()
 
+/atom/movable/screen/ai/connect_to_shell
+	name = "Подключиться к оболочке"
+	icon_state = "AIshell"
+
+/atom/movable/screen/ai/connect_to_shell/Click()
+	if(!isAI(usr))
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.deploy_to_shell()
+
 /datum/hud/ai/New(mob/owner)
 	..()
 
@@ -258,4 +267,9 @@
 //Move Down
 	using = new /atom/movable/screen/ai/move_down(null, src)
 	using.screen_loc = ui_ai_down
+	static_inventory += using
+
+//Connect to shell
+	using = new /atom/movable/screen/ai/connect_to_shell(null, src)
+	using.screen_loc = ui_ai_connect_to_shell
 	static_inventory += using

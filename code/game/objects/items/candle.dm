@@ -19,7 +19,7 @@
 	var/start_lit = FALSE
 	var/flickering = FALSE
 	light_color = "#E09D37"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = CANDLE_LUM
 	light_on = FALSE
 
@@ -45,11 +45,11 @@
 		return FALSE
 	return TRUE
 
-/obj/item/candle/get_heat()
-	return lit * 1000
+/obj/item/candle/get_temperature()
+	return lit * T1000K
 
 /obj/item/candle/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_temperature() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

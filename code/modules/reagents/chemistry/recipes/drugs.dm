@@ -124,4 +124,4 @@
 	result = "matedecoca"
 	required_reagents = list("cocaextract" = 1, "water"=5)
 	result_amount = 5
-	min_temp = 400
+	min_temp = T80C

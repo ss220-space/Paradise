@@ -7,7 +7,7 @@
 	slot = INTERNAL_ORGAN_EARS
 
 /obj/item/organ/internal/ears/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши человека",
 		GENITIVE = "ушей человека",
 		DATIVE = "ушам человека",
@@ -27,8 +27,9 @@
 	if(!istype(C))
 		return
 
-	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
-	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
+	// If we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here.
+	// Ear healing from earmuffs or chems happen elsewhere
+	if(HAS_TRAIT_NOT_FROM(owner, TRAIT_DEAF, EAR_DAMAGE))
 		return
 
 	if(is_dead())
@@ -42,6 +43,17 @@
 		if((H.l_ear && (H.l_ear.item_flags & HEALS_EARS)) || (H.r_ear && (H.r_ear.item_flags & HEALS_EARS)))
 			H.AdjustDeaf(-1 SECONDS)
 			heal_internal_damage(0.1)
+
+/obj/item/organ/internal/ears/insert(mob/living/carbon/organ_owner, special)
+	. = ..()
+	REMOVE_TRAIT(organ_owner, TRAIT_DEAF, NO_EARS)
+
+/obj/item/organ/internal/ears/remove(mob/living/carbon/organ_owner, special)
+	. = ..()
+	// Do not apply with special flag, even if it would ultimately be redundant by new ears being hot-swapped in.
+	// This is so we don't trip signal_addtrait when hot-swapping ears, which could cause inappropriate behavior like nuking sound effects.
+	if(!special)
+		ADD_TRAIT(organ_owner, TRAIT_DEAF, NO_EARS)
 
 /obj/item/organ/internal/ears/has_damage()
 	. = ..()
@@ -64,7 +76,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/ears/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетические уши",
 		GENITIVE = "кибернетических ушей",
 		DATIVE = "кибернетическим ушам",
@@ -75,6 +87,8 @@
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 
 	..()

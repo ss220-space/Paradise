@@ -70,7 +70,7 @@
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			return ATTACK_CHAIN_PROCEED
 
-		if(istype(I, /obj/item/stack/spacecash))
+		if(is_cash(I))
 			if(pay_with_cash(I, user, token_price, name))
 				tokens += 1
 				return ATTACK_CHAIN_PROCEED_SUCCESS

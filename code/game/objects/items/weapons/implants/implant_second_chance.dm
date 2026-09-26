@@ -34,6 +34,7 @@
 	else
 		to_chat(imp_in, span_userdanger("[src] is malfunctioning!"))
 		explosion(old_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 6, cause = imp_in)
+	. = ..()
 	qdel(src)
 
 /obj/item/implanter/second_chance

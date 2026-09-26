@@ -4,6 +4,7 @@
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
 	base_icon_state = "wheelchair"
+	interaction_flags_mouse_drop = ALLOW_RESTING
 	/// Overlay used to overlap buckled mob.
 	var/mutable_appearance/chair_overlay
 	/// Currently applied skin, it contains path, not an instance.
@@ -18,7 +19,7 @@
 	var/datum/action/innate/wheelchair/bell/bell_action
 
 /obj/vehicle/ridden/wheelchair/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инвалидная коляска",
 		GENITIVE = "инвалидной коляски",
 		DATIVE = "инвалидной коляске",
@@ -113,8 +114,7 @@
 	if(isgrenade(item))
 		grenade_act(item, user, params)
 		return ATTACK_CHAIN_BLOCKED | ATTACK_CHAIN_NO_AFTERATTACK
-	. = ..()
-	return
+	return ..()
 
 /obj/vehicle/ridden/wheelchair/proc/desk_bell_act(obj/item/item, mob/user, params)
 	if(exists_bell)
@@ -174,7 +174,7 @@
 		bell_sound()
 		return
 	detonation_delay = TRUE
-	for(var/i = 0; i < 5; i++)
+	for(var/i in 0 to 4)
 		addtimer(CALLBACK(src, PROC_REF(bell_sound)), (0.25 * i) SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(detonate_bomb)), 2 SECONDS)
 

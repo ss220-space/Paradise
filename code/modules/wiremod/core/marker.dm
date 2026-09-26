@@ -9,7 +9,7 @@
 	var/atom/marked_atom
 
 /obj/item/multitool/circuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мультиметр для схем",
 		GENITIVE = "мультиметра для схем",
 		DATIVE = "мультиметру для схем",
@@ -39,7 +39,7 @@
 
 	return ..()
 
-/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, list/modifiers)
 	if(marked_atom || !user.Adjacent(target))
 		return ..()
 

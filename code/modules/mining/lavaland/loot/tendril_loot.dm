@@ -8,7 +8,7 @@
 	cant_hold = list(/obj/item/storage/backpack/shared)
 
 /obj/item/storage/backpack/shared/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадоксальная сумка",
 		GENITIVE = "парадоксальной сумки",
 		DATIVE = "парадоксальной сумке",
@@ -39,7 +39,7 @@
 	var/obj/item/shared_storage/twin_storage
 
 /obj/item/shared_storage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадоксальная сумка",
 		GENITIVE = "парадоксальной сумки",
 		DATIVE = "парадоксальной сумке",
@@ -125,7 +125,7 @@
 	w_class = 2
 
 /obj/item/book_of_babel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Вавилонская книга",
 		GENITIVE = "Вавилонской книги",
 		DATIVE = "Вавилонской книге",
@@ -151,17 +151,17 @@
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
-/obj/item/reagent_containers/glass/bottle/potion
+/obj/item/reagent_containers/cup/bottle/potion
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "potionflask"
 
-/obj/item/reagent_containers/glass/bottle/potion/flight
+/obj/item/reagent_containers/cup/bottle/potion/flight
 	name = "strange elixir"
 	desc = "Флакон с едва ли не святой аурой, исходящей от него. Вы пытаетесь прочитать надпись на бутылке, но текст неразборчив."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/flight/get_ru_names()
-	return list(
+/obj/item/reagent_containers/cup/bottle/potion/flight/get_ru_names()
+	return alist(
 		NOMINATIVE = "странный эликсир",
 		GENITIVE = "странного эликсира",
 		DATIVE = "странному эликсиру",
@@ -170,7 +170,7 @@
 		PREPOSITIONAL = "странном эликсире",
 	)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
+/obj/item/reagent_containers/cup/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -206,7 +206,7 @@
 	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
@@ -237,7 +237,7 @@
 	desc = "Нерушимая небесная лестница, нарушающая законы физики."
 
 /obj/structure/ladder/unbreakable/jacob/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
@@ -257,11 +257,11 @@
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 /obj/item/wisp_lantern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткая лампа",
 		GENITIVE = "жуткой лампы",
 		DATIVE = "жуткой лампе",
@@ -283,29 +283,42 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
-
-		balloon_alert(user, "дух выпущен")
-		wisp.forceMove(user)
-		update_icon(UPDATE_ICON_STATE)
-		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
-		set_light_on(FALSE)
-
-		user.update_sight()
-
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
+		RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop), user)
+		free_wisp(user)
 	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+		return_wisp(user)
 
-		balloon_alert(user, "дух возвращён")
-		wisp.stop_orbit()
-		wisp.forceMove(src)
-		set_light_on(TRUE)
+/obj/item/wisp_lantern/proc/on_drop(obj/item, mob/user)
+	return_wisp(user)
 
-		user.update_sight()
+/obj/item/wisp_lantern/proc/free_wisp(mob/user)
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(on_drop), user)
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(return_wisp))
+	RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
-		update_icon(UPDATE_ICON_STATE)
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
+	balloon_alert(user, "дух выпущен")
+	wisp.forceMove(user)
+	update_icon(UPDATE_ICON_STATE)
+	INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
+	set_light_on(FALSE)
+
+	user.update_sight()
+	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
+
+/obj/item/wisp_lantern/proc/return_wisp(mob/user)
+	UnregisterSignal(src, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+
+	balloon_alert(user, "дух возвращён")
+	wisp.stop_orbit()
+	wisp.forceMove(src)
+	set_light_on(TRUE)
+
+	user.update_sight()
+	update_icon(UPDATE_ICON_STATE)
+	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -314,6 +327,7 @@
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
+		UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 		if(wisp.loc == src)
 			qdel(wisp)
 		else
@@ -334,7 +348,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/wisp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дружелюбный дух",
 		GENITIVE = "дружелюбного духа",
 		DATIVE = "дружелюбному духу",
@@ -352,7 +366,7 @@
 	var/obj/item/warp_cube/linked
 
 /obj/item/warp_cube/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий куб",
 		GENITIVE = "синего куба",
 		DATIVE = "синему кубу",
@@ -395,7 +409,7 @@
 	icon_state = "red_cube"
 
 /obj/item/warp_cube/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный куб",
 		GENITIVE = "красного куба",
 		DATIVE = "красному кубу",
@@ -404,8 +418,8 @@
 		PREPOSITIONAL = "красном кубе",
 	)
 
-/obj/item/warp_cube/red/New()
-	..()
+/obj/item/warp_cube/red/Initialize(mapload)
+	. = ..()
 	if(!linked)
 		var/obj/item/warp_cube/blue = new(src.loc)
 		linked = blue
@@ -425,7 +439,7 @@
 	force = 18
 
 /obj/item/gun/magic/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясной крюк",
 		GENITIVE = "мясного крюка",
 		DATIVE = "мясному крюку",
@@ -433,65 +447,6 @@
 		INSTRUMENTAL = "мясным крюком",
 		PREPOSITIONAL = "мясном крюке",
 	)
-
-/obj/item/ammo_casing/magic/hook
-	name = "hook"
-	desc = "Это хрюк."
-	projectile_type = /obj/projectile/hook
-	caliber = "hook"
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "hook"
-	muzzle_flash_effect = null
-
-/obj/item/ammo_casing/magic/hook/get_ru_names()
-	return list(
-		NOMINATIVE = "крюк",
-		GENITIVE = "крюка",
-		DATIVE = "крюку",
-		ACCUSATIVE = "крюк",
-		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке",
-	)
-
-/obj/projectile/hook
-	name = "hook"
-	icon_state = "hook"
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	damage = 25
-	armour_penetration = 100
-	hitsound = 'sound/effects/splat.ogg'
-	weaken = 2 SECONDS
-
-/obj/projectile/hook/get_ru_names()
-	return list(
-		NOMINATIVE = "крюк",
-		GENITIVE = "крюка",
-		DATIVE = "крюку",
-		ACCUSATIVE = "крюк",
-		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке",
-	)
-
-/obj/projectile/hook/fire(setAngle)
-	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
-	..()
-	//TODO: root the firer until the chain returns
-
-/obj/projectile/hook/on_hit(atom/target)
-	. = ..()
-	if(isliving(target))
-		var/turf/firer_turf = get_turf(firer)
-		var/mob/living/L = target
-		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[firer] зацепля[PLUR_ET_YUT(firer)] [L.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
-			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
-			L.forceMove(firer_turf)
-			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-
-/obj/projectile/hook/Destroy()
-	QDEL_NULL(chain)
-	return ..()
 
 //Immortality Talisman
 /obj/item/immortality_talisman
@@ -504,7 +459,7 @@
 	COOLDOWN_DECLARE(last_used_immortality_talisman)
 
 /obj/item/immortality_talisman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "талисман бессмертия",
 		GENITIVE = "талисмана бессмертия",
 		DATIVE = "талисману бессмертия",
@@ -579,8 +534,8 @@
 /obj/effect/immortality_talisman/singularity_act()
 	return
 
-/obj/effect/immortality_talisman/singularity_pull()
-	return 0
+/obj/effect/immortality_talisman/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/effect/immortality_talisman/Destroy(force)
 	if(!can_destroy && !force)

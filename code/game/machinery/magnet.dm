@@ -14,7 +14,7 @@
 
 /obj/machinery/magnetic_module
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "floor_magnet-f"
+	icon_state = "floor_magnet"
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
@@ -43,9 +43,8 @@
 /obj/machinery/magnetic_module/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
-	if(!T.transparent_floor)
-		hide(T.intact)
 	center = T
+	AddElement(/datum/element/undertile)
 
 	SSradio.add_object(src, freq, RADIO_MAGNETS)
 
@@ -55,15 +54,8 @@
 	SSradio.remove_object(src, freq)  // i have zero idea what the hell is going on
 	return ..()
 
-// update the invisibility and icon
-/obj/machinery/magnetic_module/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	update_icon(UPDATE_ICON_STATE)
-
 /obj/machinery/magnetic_module/update_icon_state()
-	// if invisible, set icon to faded version
-	// in case of being revealed by T-scanner
-	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"
+	icon_state = "floor_magnet[on ? "" : "0"]"
 
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]

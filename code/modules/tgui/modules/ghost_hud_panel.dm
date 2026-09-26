@@ -14,6 +14,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		"medical" = DATA_HUD_MEDICAL_ADVANCED,
 		"security" = DATA_HUD_SECURITY_ADVANCED,
 		"diagnostic" = DATA_HUD_DIAGNOSTIC,
+		"hydroponic" = DATA_HUD_HYDROPONIC,
 		"pressure" = DATA_HUD_PRESSURE,
 	)
 
@@ -57,21 +58,27 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 			if(!CONFIG_GET(flag/allow_antag_hud) && !ghost.client.holder)
 				to_chat(ghost, span_warning("Администраторы отключили это для данного раунда."))
 				return FALSE
+
+			var/datum/persistent_client/persistent = ghost.client?.persistent_client
+			if(!persistent)
+				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
-			if(check_rights(R_MENTOR, FALSE) && !check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.has_enabled_antagHUD && CONFIG_GET(flag/antag_hud_restricted))
+			if(check_rights(R_MENTOR, FALSE) && !check_rights(R_ADMIN | R_MOD, FALSE) && !persistent.antaghud_enabled && CONFIG_GET(flag/antag_hud_restricted))
 				var/response = tgui_alert(ghost, "Если вы включите эту функцию, вы не сможете принять участие в раунде.", "Вы уверены, что хотите включить антаг HUD?", list("Да", "Нет"))
 				if(response != "Да")
 					return FALSE
 
-				ghost.has_enabled_antagHUD = TRUE
+				persistent.antaghud_enabled = TRUE
+				persistent.respawn_eligible = FALSE
+
 				ghost.can_reenter_corpse = FALSE
-				GLOB.respawnable_list -= ghost
+				ghost.remove_from_respawnable_list()
 
 			ghost.antagHUD = TRUE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.show_to(ghost)
+			for(var/hud_key, hud_type in GLOB.huds)
+				astype(hud_type, /datum/atom_hud/antag)?.show_to(ghost)
 
 		if("ahud_off")
 			ghost.antagHUD = FALSE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.hide_from(ghost)
+			for(var/hud_key, hud_type in GLOB.huds)
+				astype(hud_type, /datum/atom_hud/antag)?.hide_from(ghost)

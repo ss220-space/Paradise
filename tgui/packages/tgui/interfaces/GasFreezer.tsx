@@ -1,13 +1,13 @@
-import { useBackend } from '../backend';
 import {
   Box,
-  Section,
-  ProgressBar,
   Button,
+  Flex,
   LabeledList,
   NumberInput,
-  Flex,
-} from '../components';
+  ProgressBar,
+  Section,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type GasFreezerData = {
@@ -109,7 +109,8 @@ export const GasFreezer = (props: unknown) => {
                 maxValue={Math.round(max)}
                 step={5}
                 stepPixelSize={3}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('temp', {
                     temp: value,
                   })

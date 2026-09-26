@@ -9,16 +9,16 @@
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	resistance_flags = ACID_PROOF
-	container_type = OPENCONTAINER
+	container_type = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	custom_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гипоспрей",
 		GENITIVE = "гипоспрея",
 		DATIVE = "гипоспрею",
@@ -55,10 +55,10 @@
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 	if(safety_hypo)
-		visible_message(span_warning("[user] вкалыва[PLUR_ET_YUT(user)] [target] <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества \"[primary_reagent_name]\"."))
+		visible_message(span_warning("[user] вкалыва[PLUR_ET_YUT(user)] [target] <b>[trans]</b> единиц[DECL_U_Y_0(trans)] вещества \"[primary_reagent_name]\"."))
 		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
 
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_U_Y_0(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
@@ -92,7 +92,7 @@
 	var/color_overlay = "colour_hypo"
 
 /obj/item/reagent_containers/hypospray/safety/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский гипоспрей",
 		GENITIVE = "медицинского гипоспрея",
 		DATIVE = "медицинскому гипоспрею",
@@ -117,10 +117,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.uses < 2)
 			balloon_alert(user, "недостаточно краски!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "покрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		paint_color = can.colour
@@ -128,7 +128,7 @@
 		update_state()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	if(istype(I, /obj/item/soap) && paint_color)
+	if(issoap(I) && paint_color)
 		add_fingerprint(user)
 		balloon_alert(user, "краска смыта")
 		paint_color = null
@@ -143,11 +143,11 @@
 	item_state = "upg_hypo"
 	icon_state = "upg_hypo"
 	volume = 60
-	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	possible_transfer_amounts = list(1, 2, 5, 10, 15, 20, 25, 30, 40, 60)
 	color_overlay = "colour_upgradedhypo"
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный медицинский гипоспрей",
 		GENITIVE = "улучшенного медицинского гипоспрея",
 		DATIVE = "улучшенному медицинскому гипоспрею",
@@ -167,7 +167,7 @@
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/safety/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский гипоспрей (Омнизин)",
 		GENITIVE = "медицинского гипоспрея (Омнизин)",
 		DATIVE = "медицинскому гипоспрею (Омнизин)",
@@ -178,12 +178,12 @@
 
 /obj/item/reagent_containers/hypospray/CMO
 	volume = 250
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,35,40,45,50)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50)
 	list_reagents = list("omnizine" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гипоспрей Главного Врача",
 		GENITIVE = "гипоспрея Главного Врача",
 		DATIVE = "гипоспрею Главного Врача",
@@ -203,14 +203,14 @@
 	name = "combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	icon_state = "combat_hypo"
 	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор",
 		GENITIVE = "боевого инъектора",
 		DATIVE = "боевому инъектору",
@@ -223,7 +223,7 @@
 	volume = 90
 	ignore_flags = 1
 	icon_state = "combat_hypo"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone
 	amount_per_transfer_from_this = 10
@@ -233,7 +233,7 @@
 	list_reagents = list("hydrocodone" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Гидрокодон)",
 		GENITIVE = "боевого инъектора (Гидрокодон)",
 		DATIVE = "боевому инъектору (Гидрокодон)",
@@ -250,7 +250,7 @@
 	list_reagents = list("perfluorodecalin" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Перфтодекалин)",
 		GENITIVE = "боевого инъектора (Перфтодекалин)",
 		DATIVE = "боевому инъектору (Перфтодекалин)",
@@ -266,7 +266,7 @@
 	list_reagents = list("pen_acid" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Пентетовая кислота)",
 		GENITIVE = "боевого инъектора (Пентетовая кислота)",
 		DATIVE = "боевому инъектору (Пентетовая кислота)",
@@ -282,7 +282,7 @@
 	list_reagents = list("epinephrine" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Эпинефрин)",
 		GENITIVE = "боевого инъектора (Эпинефрин)",
 		DATIVE = "боевому инъектору (Эпинефрин)",
@@ -298,7 +298,7 @@
 	list_reagents = list("mannitol" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Маннитол)",
 		GENITIVE = "боевого инъектора (Маннитол)",
 		DATIVE = "боевому инъектору (Маннитол)",
@@ -314,7 +314,7 @@
 	list_reagents = list("oculine" = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Окулин)",
 		GENITIVE = "боевого инъектора (Окулин)",
 		DATIVE = "боевому инъектору (Окулин)",
@@ -332,7 +332,7 @@
 	possible_transfer_amounts = list(10, 20, 30)
 
 /obj/item/reagent_containers/hypospray/ertm/omnisal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Разб. омнизин + Физраствор)",
 		GENITIVE = "боевого инъектора (Разб. омнизин + Физраствор)",
 		DATIVE = "боевому инъектору (Разб. омнизин + Физраствор)",
@@ -347,7 +347,7 @@
 	list_reagents = list("nanites" = 100)
 
 /obj/item/reagent_containers/hypospray/combat/nanites/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой инъектор (Боевые наниты)",
 		GENITIVE = "боевого инъектора (Боевые наниты)",
 		DATIVE = "боевому инъектору (Боевые наниты)",
@@ -363,7 +363,7 @@
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
@@ -378,7 +378,7 @@
 	var/spent = FALSE
 
 /obj/item/reagent_containers/hypospray/autoinjector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Эпинефрин)",
 		GENITIVE = "автоинъектора (Эпинефрин)",
 		DATIVE = "автоинъектору (Эпинефрин)",
@@ -427,10 +427,10 @@
 		if(can.capped)
 			balloon_alert(user, )
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.uses <= 0)
 			balloon_alert(user, "недостаточно краски!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		var/static/list/injector_icons = list(
 			"Completely Blue" = image('icons/obj/hypo.dmi', "ablueinjector"),
 			"Blue" = image('icons/obj/hypo.dmi', "blueinjector"),
@@ -443,7 +443,7 @@
 		)
 		var/choice = show_radial_menu(user, user, injector_icons, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
 		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated())
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "покрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		current_skin = choice
@@ -459,10 +459,6 @@
 	if(loc != user)
 		return FALSE
 	return TRUE
-
-/obj/item/reagent_containers/hypospray/autoinjector/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
@@ -484,48 +480,6 @@
 	else
 		. += span_notice("Использовано.")
 
-/obj/item/reagent_containers/hypospray/autoinjector/death_book
-	icon = 'icons/obj/death_book.dmi'
-	icon_state = null
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
-		balloon_alert(user, "не двигайся!")
-		return ATTACK_CHAIN_PROCEED
-	. = ..()
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror
-	name = "Зловещий зелёный инъектор"
-	desc = "Содержит в себе яйца настоящего ужаса, готового сокрушить станцию."
-	icon_state = "spider-injector"
-	list_reagents = list("terror_phantom_eggs" = 10)
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror/get_ru_names()
-	return list(
-		NOMINATIVE = "зловещий зелёный инъектор",
-		GENITIVE = "зловещего зелёного инъектора",
-		DATIVE = "зловещему зелёному инъектору",
-		ACCUSATIVE = "зловещий зелёный инъектор",
-		INSTRUMENTAL = "зловещим зелёным инъектором",
-		PREPOSITIONAL = "зловещем зелёном инъекторе",
-	)
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
-	name = "Зловещий фиолетовый инъектор"
-	desc = "Содержит в себе агрессивные ксеномикробы. Не облизывать!"
-	list_reagents = list("xenomicrobes_phantom" = 10)
-	icon_state = "xeno-injector"
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno/get_ru_names()
-	return list(
-		NOMINATIVE = "зловещий фиолетовый инъектор",
-		GENITIVE = "зловещего фиолетового инъектора",
-		DATIVE = "зловещему фиолетовому инъектору",
-		ACCUSATIVE = "зловещий фиолетовый инъектор",
-		INSTRUMENTAL = "зловещим фиолетовым инъектором",
-		PREPOSITIONAL = "зловещем фиолетовом инъекторе",
-	)
-
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу тепорона. Быстрый способ восстановления температуры тела до естественных показателей."
@@ -533,7 +487,7 @@
 	list_reagents = list("teporone" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Тепорон)",
 		GENITIVE = "автоинъектора (Тепорон)",
 		DATIVE = "автоинъектору (Тепорон)",
@@ -549,7 +503,7 @@
 	list_reagents = list("traneksam_acid" = 5)
 
 /obj/item/reagent_containers/hypospray/autoinjector/traneksam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Транексамовая кислота)",
 		GENITIVE = "автоинъектора (Транексамовая кислота)",
 		DATIVE = "автоинъектору (Транексамовая кислота)",
@@ -567,7 +521,7 @@
 	list_reagents = list("neuromatin" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Нейроматин)",
 		GENITIVE = "автоинъектора (Нейроматин)",
 		DATIVE = "автоинъектору (Нейроматин)",
@@ -585,7 +539,7 @@
 	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Стим-пак)",
 		GENITIVE = "автоинъектора (Стим-пак)",
 		DATIVE = "автоинъектору (Стим-пак)",
@@ -603,7 +557,7 @@
 	list_reagents = list("stimulants" = 50)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Стимуляторы)",
 		GENITIVE = "автоинъектора (Стимуляторы)",
 		DATIVE = "автоинъектору (Стимуляторы)",
@@ -614,7 +568,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
-	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "stimpen"
 	belt_icon = "survival_medipen"
 	volume = 42
@@ -622,7 +576,7 @@
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор выживания",
 		GENITIVE = "автоинъектора выживания",
 		DATIVE = "автоинъектору выживания",
@@ -633,14 +587,14 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
 	name = "luxury medipen"
-	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "redinjector"
 	volume = 40
 	amount_per_transfer_from_this = 40
 	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный автоинъектор выживания",
 		GENITIVE = "улучшенного автоинъектора выживания",
 		DATIVE = "улучшенному автоинъектору выживания",
@@ -670,7 +624,7 @@
 	list_reagents = list("nanocalcium" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный автоинъектор (Нано-Кальций)",
 		GENITIVE = "экспериментального автоинъектора (Нано-Кальций)",
 		DATIVE = "экспериментальному автоинъектору (Нано-Кальций)",
@@ -695,7 +649,7 @@
 	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельный автоинъектор",
 		GENITIVE = "самодельного автоинъектора",
 		DATIVE = "самодельному автоинъектору",
@@ -718,7 +672,7 @@
 	list_reagents = list("salbutamol" = 20)
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Сальбутамол)",
 		GENITIVE = "автоинъектора (Сальбутамол)",
 		DATIVE = "автоинъектору (Сальбутамол)",
@@ -734,7 +688,7 @@
 	list_reagents = list("radium" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Радий)",
 		GENITIVE = "автоинъектора (Радий)",
 		DATIVE = "автоинъектору (Радий)",
@@ -752,7 +706,7 @@
 	list_reagents = list("charcoal" = 20)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Активированный уголь)",
 		GENITIVE = "автоинъектора (Активированный уголь)",
 		DATIVE = "автоинъектору (Активированный уголь)",
@@ -770,7 +724,7 @@
 	list_reagents = list("sanguinius" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоинъектор (Сангвиний)",
 		GENITIVE = "автоинъектора (Сангвиний)",
 		DATIVE = "автоинъектору (Сангвиний)",

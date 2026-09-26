@@ -26,8 +26,17 @@ GLOBAL_PROTECT(href_token)
 	/// Tabs of secrets
 	var/current_tab = 0
 
+	var/datum/filter_editor/filterrific
+	var/datum/particle_editor/particle_test
+	var/datum/colorblind_tester/color_test
+	var/datum/plane_master_debug/plane_debug
+	var/datum/appearance_debugger/appearance_debug
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
+	var/datum/pathfind_debug/path_debug
+
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
 
 /datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
@@ -44,14 +53,18 @@ GLOBAL_PROTECT(href_token)
 		rights = initial_rights
 	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
+	plane_debug = new(src)
+	appearance_debug = new(src)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin rank deletion blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	QDEL_NULL(plane_debug)
+	QDEL_NULL(appearance_debug)
+	QDEL_NULL(path_debug)
+	return ..()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -62,9 +75,10 @@ GLOBAL_PROTECT(href_token)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
-		remove_verb(owner, /client/proc/readmin)
+		UNASSIGN_GAME_VERB(owner, /client, readmin)
 		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
+		//owner.set_stat_panel()
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -75,6 +89,7 @@ GLOBAL_PROTECT(href_token)
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
 		owner.init_verbs()
+		//owner.set_stat_panel()
 		owner.holder = null
 		owner = null
 
@@ -143,7 +158,7 @@ GLOBAL_PROTECT(href_token)
 		observer.update_admin_actions()
 	return TRUE
 
-//This proc checks whether subject has at least ONE of the rights specified in rights_required.
+/// This proc checks whether subject has at least ONE of the rights specified in rights_required.
 /proc/check_rights_for(client/subject, rights_required)
 	if(subject?.holder)
 		if(rights_required && !(rights_required & subject.holder.rights))

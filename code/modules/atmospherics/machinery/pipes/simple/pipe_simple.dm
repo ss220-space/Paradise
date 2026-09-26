@@ -66,9 +66,6 @@
 							node2 = target
 							break
 
-		var/turf/our_turf = loc
-		if(our_turf.transparent_floor == TURF_NONTRANSPARENT)
-			hide(our_turf.intact)	// hide if turf is not intact
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
@@ -108,6 +105,7 @@
 		node1.disconnect(src)
 		node1.defer_build_network()
 		node1 = null
+
 	if(node2)
 		node2.disconnect(src)
 		node2.defer_build_network()
@@ -160,7 +158,3 @@
 		return 0 // 0: No nodes exist
 	// 1: 1-2 nodes exist, we continue existing
 	return 1
-
-/obj/machinery/atmospherics/pipe/simple/hide(i)
-	if(level == 1 && issimulatedturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0

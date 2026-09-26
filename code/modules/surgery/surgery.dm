@@ -64,6 +64,7 @@
 			RegisterSignal(surgery_target, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_remove))
 		else
 			RegisterSignal(surgery_target, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_organ_insert))
+	SEND_SIGNAL(surgery_target, COMSIG_MOB_SURGERY_STARTED, src, surgery_location, surgery_bodypart)
 
 /datum/surgery/Destroy()
 	if(target)
@@ -116,7 +117,7 @@
 			return TRUE
 		// If it's a surgery initiator, make sure it calls its attack chain down the line.
 		// Make sure this comes after the operation though, especially for things like scalpels
-		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
+		if(tool && HAS_TRAIT(tool, TRAIT_SURGERY_INITIATOR))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
 			user.balloon_alert(user, "неподходящий инструмент!")
@@ -347,7 +348,10 @@
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
+	var/mob_mod = surgery.get_mob_surgery_speed_mod(target, user, tool)
+
 	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
+	speed_mod *= mob_mod
 	var/step_time = time
 
 	SEND_SIGNAL(user, COMSIG_SURGERY_STEP_INIT, &step_time)
@@ -371,6 +375,9 @@
 	prob_success *= pain_mod
 
 	var/step_result
+
+	CALCULATE_SKILL_MOD(user, SURGERY_SUCCESS_MOD, skill_success_mod)
+	prob_success *= skill_success_mod
 
 	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
@@ -591,3 +598,55 @@
 		for(var/reagent in chems_needed)
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
+
+
+/**
+ * Adds a speed modifier to this mob
+ *
+ * * id - id of the modifier, string
+ * * amount - the multiplier to apply to surgery speed.
+ * This is multiplicative with other modifiers.
+ * * duration - how long the modifier should last in deciseconds.
+ * If null, it will be permanent until removed.
+ */
+/mob/living/proc/add_surgery_speed_mod(id, amount, duration)
+	ASSERT(!isnull(id), "Surgery speed mod ID cannot be null")
+	ASSERT(isnum(amount), "Surgery speed mod amount must be a number")
+	ASSERT(isnum(duration) || isnull(duration), "Surgery speed mod duration must be a number or null")
+
+	var/existing = LAZYACCESS(mob_surgery_speed_mods, id)
+	if(existing == amount)
+		return
+
+	if(isnum(existing))
+		if(amount > 1 && existing > 1)
+			// both are speed decreases, take the better one
+			LAZYSET(mob_surgery_speed_mods, id, max(amount, existing))
+		else if(amount < 1 && existing < 1)
+			// both are speed increases, take the better one
+			LAZYSET(mob_surgery_speed_mods, id, min(amount, existing))
+		else
+			// one of each, just multiply them
+			LAZYSET(mob_surgery_speed_mods, id, amount * existing)
+	else
+		LAZYSET(mob_surgery_speed_mods, id, amount)
+
+	if(isnum(duration))
+		addtimer(CALLBACK(src, PROC_REF(remove_surgery_speed_mod), id), duration, TIMER_DELETE_ME|TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
+
+/**
+ * Removes a speed modifier from this mob
+ *
+ * * id - id of the modifier to remove, string
+ */
+/mob/living/proc/remove_surgery_speed_mod(id)
+	LAZYREMOVE(mob_surgery_speed_mods, id)
+
+/// Returns a time modifier based on the mob's status
+/datum/surgery/proc/get_mob_surgery_speed_mod(mob/living/patient, mob/living/surgeon, tool)
+	var/basemod = 1.0
+	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
+		basemod *= mod_amt
+	CALCULATE_SKILL_MOD(surgeon, SURGERY_DURATION_MOD, surgery_skill_mod)
+	basemod *= surgery_skill_mod
+	return basemod

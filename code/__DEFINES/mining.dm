@@ -1,0 +1,34 @@
+#define ALLOWED_MINING_SUIT_ITEMS list( \
+	/obj/item/tank, \
+	/obj/item/flashlight, \
+	/obj/item/extinguisher/mini, \
+	/obj/item/gps, \
+	/obj/item/mining_scanner, \
+	/obj/item/t_scanner/adv_mining_scanner, \
+	/obj/item/survivalcapsule, \
+	/obj/item/wormhole_jaunter, \
+	/obj/item/grenade/jaunter_grenade, \
+	/obj/item/extraction_pack, \
+	/obj/item/grenade/plastic/miningcharge, \
+	/obj/item/storage/bag/gem, \
+	/obj/item/storage/bag/ore, \
+	/obj/item/stack/ore, \
+	/obj/item/pickaxe, \
+	/obj/item/shovel, \
+	/obj/item/resonator, \
+	/obj/item/gun/energy/plasmacutter, \
+	/obj/item/gun/energy/kinetic_accelerator, \
+	/obj/item/twohanded/kinetic_crusher, \
+	/obj/item/kitchen/knife, \
+	/obj/item/twohanded/spear, \
+	/obj/item/twohanded/fireaxe/boneaxe, \
+	/obj/item/melee/energy/cleaving_saw, \
+	/obj/item/organ/internal/regenerative_core/legion, \
+	/obj/item/hierophant_club, \
+	/obj/item/gun/magic/hook, \
+	/obj/item/nullrod, \
+	/obj/item/rune_scimmy, \
+	/obj/item/wisp_lantern, \
+	/obj/item/warp_cube, \
+	/obj/item/immortality_talisman, \
+)

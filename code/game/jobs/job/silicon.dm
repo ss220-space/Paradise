@@ -14,6 +14,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SILICON
 	insurance_type = INSURANCE_TYPE_NONE
+	allow_bureaucratic_error = FALSE
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
@@ -35,8 +36,10 @@
 	minimal_player_age = 21
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
-	alt_titles = list("Robot")
 	insurance_type = INSURANCE_TYPE_NONE
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CYBORG,
+	)
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)

@@ -2,7 +2,7 @@
 /// Queues image generation for search objects without icons
 SUBSYSTEM_DEF(looting)
 	name = "Loot Icon Generation"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT|SS_HIBERNATE
 	priority = FIRE_PRIORITY_PROCESS
 	wait = 0.5 SECONDS
 	/// Backlog of items. Gets put into processing
@@ -10,12 +10,19 @@ SUBSYSTEM_DEF(looting)
 	/// Actively processing items
 	var/list/datum/lootpanel/processing = list()
 
+/datum/controller/subsystem/looting/PreInit()
+	. = ..()
+	hibernate_checks = list(
+		NAMEOF(src, backlog),
+		NAMEOF(src, processing),
+	)
+
 /datum/controller/subsystem/looting/stat_entry(msg)
 	msg = "P:[length(backlog)]"
 	return ..()
 
 /datum/controller/subsystem/looting/fire(resumed)
-	if(!length(backlog))
+	if(!length(backlog) && !length(processing))
 		return
 
 	if(!resumed)

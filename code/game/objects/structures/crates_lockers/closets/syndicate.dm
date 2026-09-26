@@ -45,7 +45,9 @@
 	desc = "It's a storage unit for an elite syndicate strike team's gear."
 
 /obj/structure/closet/syndicate/sst/populate_contents()
-	new /obj/item/ammo_box/magazine/a762x51(src)
+	new /obj/item/ammo_box/magazine/l6saw(src)
+	new /obj/item/ammo_box/magazine/l6saw(src)
+	new /obj/item/ammo_box/magazine/l6saw/bleeding(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/storage/belt/military/sst(src)
@@ -289,6 +291,6 @@
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
-	new /obj/item/reagent_containers/glass/rag(src)
+	new /obj/item/rag(src)
 	new /obj/item/storage/backpack/syndicate(src)
 	new /obj/item/storage/backpack/duffel/syndie(src)

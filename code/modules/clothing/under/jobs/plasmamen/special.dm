@@ -4,10 +4,10 @@
 	icon_state = "syndicate_centcomm_envirosuit"
 	item_state = "syndicate_centcomm_envirosuit"
 	item_color = "syndicate_centcomm_envirosuit"
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм офицера \"Синдиката\"",
 		GENITIVE = "защитного костюма офицера \"Синдиката\"",
 		DATIVE = "защитному костюму офицера \"Синдиката\"",
@@ -22,10 +22,10 @@
 	icon_state = "centcomm_envirosuit"
 	item_state = "centcomm_envirosuit"
 	item_color = "centcomm_envirosuit"
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/centcomm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм офицера ЦК \"Нанотрейзен\"",
 		GENITIVE = "защитного костюма офицера ЦК \"Нанотрейзен\"",
 		DATIVE = "защитному костюму офицера ЦК \"Нанотрейзен\"",

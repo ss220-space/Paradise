@@ -379,10 +379,7 @@
 	},
 /area/ruin/unpowered)
 "vS" = (
-/obj/machinery/power/apc/worn_out{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/rack,
 /obj/item/melee/baton/security/cattleprod,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -665,7 +662,7 @@
 "Jb" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack,
-/obj/item/reagent_containers/glass/bottle/mutagen,
+/obj/item/reagent_containers/cup/bottle/mutagen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -925,7 +922,7 @@
 /area/ruin/unpowered)
 "Xg" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
+/obj/item/reagent_containers/cup/bottle/liver_enhance_virion,
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

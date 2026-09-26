@@ -1,10 +1,11 @@
-import type { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 export type SubsystemData = {
   can_fire: BooleanLike;
   cost_ms: number;
   doesnt_fire: BooleanLike;
   init_order: number;
+  initialization_failure_message: string | undefined;
   initialized: BooleanLike;
   last_fire: number;
   name: string;

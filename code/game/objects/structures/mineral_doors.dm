@@ -8,8 +8,9 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 50, ACID = 50)
 	cares_about_temperature = TRUE
+	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -34,7 +35,7 @@
 	return ..()
 
 /obj/structure/mineral_door/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_SPARKS, -20, 10)
+	generate_debris_handler(DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -137,22 +138,7 @@
 		icon_state = initial_state
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe))
-		add_fingerprint(user)
-		var/obj/item/pickaxe/pickaxe = I
-		user.visible_message(
-			span_notice("[user] start digging into [src]."),
-			span_notice("You start digging into [src]..."),
-		)
-		I.play_tool_sound(src, 100)
-		if(!do_after(user, 4 SECONDS * pickaxe.toolspeed * hardness, src, category = DA_CAT_TOOL))
-			return ATTACK_CHAIN_PROCEED
-		I.play_tool_sound(src, 100)
-		user.visible_message(
-			span_notice("[user] finishes digging into [src]."),
-			span_notice("You have finished digging into [src]."),
-		)
-		deconstruct(TRUE)
+	if(pickaxe_door(user, I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(user.a_intent != INTENT_HARM)
@@ -160,6 +146,17 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/structure/mineral_door/proc/pickaxe_door(mob/living/user, obj/item/I) //override if the door isn't supposed to be a minable mineral.
+	if(!istype(user))
+		return
+	if(I.tool_behaviour != TOOL_MINING)
+		return
+	. = TRUE
+	to_chat(user, span_notice("You start digging [src]..."))
+	if(I.use_tool(src, user, 40, volume = 50))
+		to_chat(user, span_notice("You finish digging."))
+		deconstruct(TRUE)
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -178,11 +175,13 @@
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	max_integrity = 300
+	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/gold
 	name = "gold door"
 	icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
+	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
@@ -200,6 +199,7 @@
 /obj/structure/mineral_door/transparent
 	opacity = FALSE
 	is_opaque = FALSE
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"
@@ -207,7 +207,7 @@
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
-	var/hot_temp = I.get_heat()
+	var/hot_temp = I.get_temperature()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
@@ -229,6 +229,7 @@
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
+	rad_insulation = RAD_EXTREME_INSULATION
 
 /obj/structure/mineral_door/wood
 	name = "wood door"
@@ -237,9 +238,13 @@
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
+
+/obj/structure/mineral_door/wood/pickaxe_door(mob/living/user, obj/item/I)
+	return
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

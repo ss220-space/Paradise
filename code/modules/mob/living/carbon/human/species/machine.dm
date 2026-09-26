@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = SPECIES_MACNINEPERSON
+	name = SPECIES_MACHINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -99,6 +99,22 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/mech_drive = 3,
+		/datum/skill/general/cooking = 1,
+		/datum/skill/service/drink_mixing = 1,
+		/datum/skill/service/botany = 0,
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/engineering/construction = 3,
+		/datum/skill/engineering/electrician = 4,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
+		/datum/skill/research/research = 3,
+		/datum/skill/research/protolathe = 3,
+		/datum/skill/research/robotics = 3,
+		/datum/skill/research/xenobiology = 1,
+	)
+
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
@@ -110,14 +126,6 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.remove_atom_from_hud(human)
 
-	add_verb(human, list(
-		/mob/living/carbon/human/proc/emote_ping,
-		/mob/living/carbon/human/proc/emote_beep,
-		/mob/living/carbon/human/proc/emote_buzz,
-		/mob/living/carbon/human/proc/emote_buzz2,
-		/mob/living/carbon/human/proc/emote_yes,
-		/mob/living/carbon/human/proc/emote_no))
-
 /datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
@@ -128,14 +136,6 @@
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(human)
-
-	remove_verb(human, list(
-		/mob/living/carbon/human/proc/emote_ping,
-		/mob/living/carbon/human/proc/emote_beep,
-		/mob/living/carbon/human/proc/emote_buzz,
-		/mob/living/carbon/human/proc/emote_buzz2,
-		/mob/living/carbon/human/proc/emote_yes,
-		/mob/living/carbon/human/proc/emote_no))
 
 /datum/species/machine/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
 	. = ..()
@@ -168,7 +168,7 @@
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = tgui_input_color(H, "Выберите цвет оптики", H.m_colours["head"])
-		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+		if(H.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 			to_chat(H, span_warning("Ваша попытка сменить отображаемый цвет была прервана."))
 			return
 		if(!isnull(optic_colour))
@@ -198,7 +198,7 @@
 			return
 		var/new_color = tgui_input_color(usr, "Выберите цвет", "Цвет монитора", head_organ.hair_colour)
 
-		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+		if(H.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))
 			return
 

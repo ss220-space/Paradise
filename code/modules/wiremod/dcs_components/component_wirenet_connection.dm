@@ -57,8 +57,8 @@
 		set_tracked_movable(new_shell)
 		return
 
-	RegisterSignal(new_shell, list(COMSIG_ASSEMBLY_ATTACHED, COMSIG_ASSEMBLY_ADDED_TO_BUTTON), PROC_REF(on_assembly_shell_attached))
-	RegisterSignal(new_shell, list(COMSIG_ASSEMBLY_DETACHED, COMSIG_ASSEMBLY_REMOVED_FROM_BUTTON), PROC_REF(on_assembly_shell_detached))
+	RegisterSignals(new_shell, list(COMSIG_ASSEMBLY_ATTACHED, COMSIG_ASSEMBLY_ADDED_TO_BUTTON), PROC_REF(on_assembly_shell_attached))
+	RegisterSignals(new_shell, list(COMSIG_ASSEMBLY_DETACHED, COMSIG_ASSEMBLY_REMOVED_FROM_BUTTON), PROC_REF(on_assembly_shell_detached))
 
 /datum/component/circuit_component_wirenet_connection/proc/unset_shell()
 	SIGNAL_HANDLER

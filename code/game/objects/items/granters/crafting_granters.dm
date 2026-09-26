@@ -37,7 +37,7 @@
 	)
 
 /obj/item/book/granter/crafting_recipe/combat_baking/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поваренная книга анархиста",
 		GENITIVE = "поваренной книги анархиста",
 		DATIVE = "поваренной книге анархиста",

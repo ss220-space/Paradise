@@ -44,35 +44,6 @@
 		offset[2] += y_off
 	return offset_to_screen_loc(offset[1], offset[2], our_client?.view)
 
-/atom/movable/screen/movable/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(locked) //no! I am locked! begone!
-		return
-
-	var/list/modifiers = params2list(params)
-
-	//No screen-loc information? abort.
-	if(!LAZYACCESS(modifiers, SCREEN_LOC))
-		return
-
-	//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-	var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-
-	//Split X+Pixel_X up into list(X, Pixel_X)
-	var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-
-	//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-	var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-
-	if(snap2grid) //Discard Pixel Values
-		screen_loc = "[screen_loc_X[1]],[screen_loc_Y[1]]"
-
-	else //Normalise Pixel Values (So the object drops at the center of the mouse, not 16 pixels off)
-		var/pix_X = text2num(screen_loc_X[2]) + x_off
-		var/pix_Y = text2num(screen_loc_Y[2]) + y_off
-		screen_loc = "[screen_loc_X[1]]:[pix_X],[screen_loc_Y[1]]:[pix_Y]"
-
-	moved = screen_loc
-
 ADMIN_VERB(test_movable_UI, R_DEBUG, "Spawn Movable UI Object", "Spawn a movable UI object for testing.", ADMIN_CATEGORY_DEBUG)
 	var/atom/movable/screen/movable/M = new()
 	M.name = "Movable UI Object"

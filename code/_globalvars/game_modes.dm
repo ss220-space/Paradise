@@ -30,3 +30,5 @@ GLOBAL_LIST(antag_paradise_special_weights)
 GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 GLOBAL_VAR_INIT(respawn_delay, 20)
+
+GLOBAL_DATUM(deathmatch_game, /datum/deathmatch_controller) // Deathmatch Minigame controller

@@ -1,4 +1,4 @@
-import { useBackend } from '../../backend';
+import type { Placement } from '@floating-ui/react';
 import { useState } from 'react';
 import {
   BlockQuote,
@@ -6,6 +6,7 @@ import {
   Button,
   ByondUi,
   Collapsible,
+  DraggableControl,
   Flex,
   Icon,
   Input,
@@ -17,10 +18,9 @@ import {
   Slider,
   Tabs,
   Tooltip,
-} from '../../components';
-import { DraggableControl } from '../../components/DraggableControl';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { Placement } from '@popperjs/core';
 
 const COLORS_ARBITRARY = [
   'red',
@@ -288,7 +288,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Slider (onDrag)">
@@ -298,7 +299,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Knob (onDrag)">
@@ -310,7 +312,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
           <Knob
             ml={1}
@@ -322,7 +325,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Rotating Icon">
@@ -334,7 +338,8 @@ const KitchenSinkInput = (props: unknown) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDrag={(e, value) => setNumber(value)}
+              tickWhileDragging
+              onChange={(e, value) => setNumber(value)}
             >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>

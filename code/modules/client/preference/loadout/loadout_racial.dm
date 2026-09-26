@@ -7,7 +7,7 @@
 	if(!..()) // there's no point in being here.
 		return FALSE
 
-	if(!LAZYLEN(whitelisted_species)) // why are we here? allowed, but
+	if(!length(whitelisted_species)) // why are we here? allowed, but
 		stack_trace("Item with no racial list in loadout racial items: [index_name].")
 		return TRUE
 
@@ -46,7 +46,7 @@
 /datum/gear/racial/taj/job/sec
 	index_name = "veil, sleek"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tajblind
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE)
 
 /datum/gear/racial/taj/job/iaa
 	index_name = "veil, sleek(read-only)"
@@ -56,17 +56,17 @@
 /datum/gear/racial/taj/job/med
 	index_name = "veil, lightweight"
 	path = /obj/item/clothing/glasses/hud/health/tajblind
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
 
 /datum/gear/racial/taj/job/sci
 	index_name = "veil, hi-tech"
 	path = /obj/item/clothing/glasses/tajblind/sci
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
 
 /datum/gear/racial/taj/job/eng
 	index_name = "veil, industrial"
 	path = /obj/item/clothing/glasses/tajblind/eng
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/racial/taj/job/cargo
 	index_name = "veil, khaki"

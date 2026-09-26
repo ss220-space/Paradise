@@ -1,11 +1,14 @@
+/// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
-	icon = 'icons/obj/structures.dmi'
 	abstract_type = /obj/structure
+	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
 	pass_flags_self = PASSSTRUCTURE
 	pull_push_slowdown = 1.3
-	var/climbable
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	layer = BELOW_OBJ_LAYER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
 	var/mob/living/climber
@@ -14,40 +17,38 @@
 	var/light_process = 0
 	var/extinguish_timer_id
 
-/obj/structure/New()
-	..()
+/obj/structure/Initialize(mapload)
+	if(!armor)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
+
+	. = ..()
+
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			QUEUE_SMOOTH(src)
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
-
-/obj/structure/Initialize(mapload)
-	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	if(creates_cover && isturf(loc))
-		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	return ..()
 
 /obj/structure/Destroy(force)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
 		var/turf/T = get_turf(src)
-		spawn(0)
-			QUEUE_SMOOTH_NEIGHBORS(T)
+		QUEUE_SMOOTH_NEIGHBORS(T)
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/atom/old_loc = loc
@@ -64,29 +65,15 @@
 /obj/structure/has_prints()
 	return TRUE
 
-/obj/structure/attack_hand(mob/living/user)
+/obj/structure/attack_hand(mob/living/user, list/modifiers)
 	if(has_prints() && Adjacent(user))
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/attackby(obj/item/I, mob/user, params)
+/obj/structure/attackby(obj/item/I, mob/user, list/modifiers)
 	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
-
-/obj/structure/proc/climb_on()
-
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set src in oview(1)
-
-	do_climb(usr)
-
-/obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	. = ..()
-	if(!. && dropping == user)
-		do_climb(user)
-		return TRUE
 
 /obj/structure/proc/density_check(mob/living/user)
 	var/turf/source_turf = get_turf(src)
@@ -98,41 +85,6 @@
 			if((check.flags & ON_BORDER) && user.loc != loc && border_dir != check.dir)
 				continue
 			return check
-	return null
-
-/obj/structure/proc/do_climb(mob/living/user)
-	if(!can_touch(user) || !climbable)
-		return FALSE
-	if(user.has_status_effect(STATUS_EFFECT_LEANING))
-		return FALSE
-	var/blocking_object = density_check(user)
-	if(blocking_object)
-		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] — путь блокирует [blocking_object]!"))
-		return FALSE
-
-	var/turf/T = src.loc
-	if(!T || !istype(T))
-		return FALSE
-
-	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
-	climber = user
-	if(!do_after(user, 5 SECONDS, src))
-		climber = null
-		return FALSE
-
-	if(!can_touch(user) || !climbable)
-		climber = null
-		return FALSE
-
-	user.forceMove(get_turf(src))
-	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
-
-	clumse_stuff(climber)
-
-	climber = null
-
-	return TRUE
 
 /obj/structure/proc/clumse_stuff(mob/living/user)
 	if(!user)
@@ -142,13 +94,16 @@
 	var/force_mult = 0.1 //коэффицент уменьшения урона при сбрасывании предмета
 
 	switch(user.mob_size)
-		if(MOB_SIZE_LARGE) slopchance = 100
-		if(MOB_SIZE_SMALL) slopchance = 20
-		if(MOB_SIZE_TINY) slopchance = 10
+		if(MOB_SIZE_LARGE)
+			slopchance = 100
+		if(MOB_SIZE_SMALL)
+			slopchance = 20
+		if(MOB_SIZE_TINY)
+			slopchance = 10
 
 	if(LAZYIN(user.active_genes, /datum/dna/gene/disability/clumsy))
 		slopchance += 20
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		slopchance -= 30
 
 	slopchance = clamp(slopchance, 1, 100)
@@ -233,10 +188,6 @@
 		to_chat(user, span_notice("Для этого нужны свободные руки."))
 		return FALSE
 	return TRUE
-
-/obj/structure/proc/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
-
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -247,8 +198,6 @@
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
-	if(climbable)
-		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -260,6 +209,12 @@
 		if(0 to 25)
 			if(!broken)
 				. += span_warning("Оно разваливается на части!")
+
+/obj/structure/examine_descriptor(mob/user)
+	return "структура"
+
+/obj/structure/examine_descriptor_gender()
+	return "female"
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
