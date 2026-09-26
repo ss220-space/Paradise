@@ -78,7 +78,7 @@
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
-				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+				R.check_and_add(chemical, reagent_target_amount, inject_amount)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	var/turf/table_turf = get_turf(src)

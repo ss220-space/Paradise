@@ -33,8 +33,8 @@ Bonus
 				if(prob(10))
 					to_chat(M, span_notice(pick("Ваше тело кажется крепким.", "Вы чувствуете себя настороженно.")))
 	if(A.stage > 4 && M.health <= HEALTH_THRESHOLD_CRIT)
-		M.reagents.add_reagent("epinephrine", 0.5)
-	if(M.reagents.get_reagent_amount("epinephrine") > 20)
+		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 0.5)
+	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) > 20)
 		var/obj/item/organ/internal/heart/heart = M.get_int_organ(/obj/item/organ/internal/heart)
 		heart?.internal_receive_damage(1)
 	return

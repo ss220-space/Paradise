@@ -21,11 +21,11 @@
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	var/turf/T = get_turf(target)
 	create_reagents(1250)
-	reagents.add_reagent("thc", 250)
-	reagents.add_reagent("psilocybin", 250)
-	reagents.add_reagent("lsd", 250)
-	reagents.add_reagent("space_drugs", 250)
-	reagents.add_reagent("terror_black_toxin", 250)
+	reagents.add_reagent(/datum/reagent/thc, 250)
+	reagents.add_reagent(/datum/reagent/psilocybin, 250)
+	reagents.add_reagent(/datum/reagent/lsd, 250)
+	reagents.add_reagent(/datum/reagent/space_drugs, 250)
+	reagents.add_reagent(/datum/reagent/terror_black_toxin, 250)
 	smoke.set_up(range = 2, location = T, carry = reagents, silent = TRUE)
 	smoke.start()
 

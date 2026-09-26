@@ -274,10 +274,10 @@
 		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] жадно поглощает [G.declent_ru(ACCUSATIVE)].","Вы жадно пожираете [G.declent_ru(ACCUSATIVE)].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
-			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
+			if(G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) + G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter) < 1)
 				adjust_nutrition(2)
 			else
-				adjust_nutrition((G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")) * 2)
+				adjust_nutrition((G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) + G.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter)) * 2)
 			qdel(G)
 
 /mob/living/simple_animal/diona/proc/steal_blood()

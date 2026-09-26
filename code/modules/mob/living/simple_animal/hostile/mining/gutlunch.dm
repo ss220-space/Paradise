@@ -139,7 +139,7 @@
 	reagents.maximum_volume = 50
 
 /obj/item/udder/gutlunch/generateMilk()
-	reagents.add_reagent("bugmilk", rand(2, 5))
+	reagents.add_reagent(/datum/reagent/bugmilk, rand(2, 5))
 
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
