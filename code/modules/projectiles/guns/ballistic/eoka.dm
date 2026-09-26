@@ -37,7 +37,7 @@
 	)
 
 /obj/item/gun/projectile/eoka/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/ammo_casing))
+	if(!isammocasing(item))
 		return ..()
 
 	add_fingerprint(user)
