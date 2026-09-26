@@ -1,5 +1,5 @@
 #define CUSTOM_OUTFIT_SAVE_FORMAT "ss1984_custom_outfit"
-#define CUSTOM_OUTFIT_SAVE_VERSION 2
+#define CUSTOM_OUTFIT_SAVE_VERSION 3
 
 /datum/custom_outfit/proc/get_save_data()
 	. = list()
@@ -33,6 +33,22 @@
 	.["belt_contents"] = saved_belt
 	.["backpack_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BACKPACK)
 	.["belt_nested_contents"] = serialize_nested_for_save(CUSTOM_OUTFIT_CONTAINER_BELT)
+	.["mod_suit"] = serialize_mod_configuration()
+
+/// Serializes the MODsuit configuration into a list of type path strings.
+/datum/custom_outfit/proc/serialize_mod_configuration()
+	var/list/modules = list()
+	for(var/module_path in mod_module_paths)
+		if(CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path))
+			modules += "[module_path]"
+	var/list/deployed_parts = list()
+	for(var/part_path in mod_deployed_parts)
+		deployed_parts += "[part_path]"
+	return list(
+		"active" = mod_suit_active,
+		"modules" = modules,
+		"deployed_parts" = deployed_parts,
+	)
 
 /datum/custom_outfit/proc/save_to_client(mob/user)
 	if(!user.client)
@@ -92,7 +108,7 @@
 		return FALSE
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
-	if(!islist(data["id_card_data"]))
+	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
 		return FALSE
 	if(!islist(data["belt_contents"]))
 		return FALSE
@@ -105,6 +121,11 @@
 	if(!islist(data["backpack_nested_contents"]))
 		return FALSE
 	if(!islist(data["belt_nested_contents"]))
+		return FALSE
+	if(!islist(data["mod_suit"]))
+		return FALSE
+	var/list/mod_data = data["mod_suit"]
+	if(!islist(mod_data["modules"]) || !islist(mod_data["deployed_parts"]))
 		return FALSE
 	return TRUE
 
@@ -203,6 +224,7 @@
 
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit
+	apply_mod_save_data(save_data["mod_suit"])
 	external_augmentations = new_external
 	internal_augmentations = new_internal
 	arm_implant_sides = new_arm_sides
@@ -223,9 +245,41 @@
 		if(ispath(entry_path, type_path))
 			. += entry_path
 
+/// Restores the MODsuit configuration from saved data, discarding invalid entries.
+/datum/custom_outfit/proc/apply_mod_save_data(list/mod_data)
+	reset_mod_configuration()
+	if(!islist(mod_data))
+		return
+	mod_suit_active = mod_data["active"] ? TRUE : FALSE
+	var/list/valid_modules = list()
+	for(var/module_text in mod_data["modules"])
+		var/module_path = text2path(module_text)
+		if(!CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path))
+			continue
+		if(module_path in valid_modules)
+			continue
+		valid_modules += module_path
+	for(var/module_path in mod_module_paths)
+		if(!(module_path in valid_modules))
+			valid_modules += module_path
+	mod_module_paths = valid_modules
+	mod_active_modules = valid_modules.Copy()
+	var/valid_parts = get_mod_part_paths(get_mod_suit_path())
+	var/list/valid_deployed = list()
+	for(var/part_text in mod_data["deployed_parts"])
+		var/part_path = text2path(part_text)
+		if(!(part_path in valid_parts))
+			continue
+		valid_deployed += part_path
+	mod_deployed_parts = valid_deployed
+	mod_configured_for = get_mod_suit_path()
+
 /datum/custom_outfit/proc/sanitize_loaded_outfit(datum/outfit/loaded_outfit)
 	for(var/outfit_slot in slot_to_human_var)
 		var/loaded_path = loaded_outfit.vars[outfit_slot]
+		if(is_mod_part_type_path(loaded_path))
+			loaded_outfit.vars[outfit_slot] = null
+			loaded_path = null
 		if(loaded_path && !CUSTOM_OUTFIT_IS_ITEM_PATH(loaded_path))
 			loaded_outfit.vars[outfit_slot] = null
 		if(loaded_path && !item_fits_species(loaded_path, slot_to_item_flag[outfit_slot], target_mob))
@@ -239,8 +293,6 @@
 	if(loaded_outfit.box && !CUSTOM_OUTFIT_IS_ITEM_PATH(loaded_outfit.box))
 		loaded_outfit.box = null
 	if(loaded_outfit.head && CUSTOM_OUTFIT_IS_HARDSUIT_HELMET_PATH(loaded_outfit.head))
-		// Hardsuit helmets cannot be spawned standalone (their Initialize expects
-		// the parent suit), so they are not a valid head slot item.
 		loaded_outfit.head = null
 	loaded_outfit.implants = filter_path_list(loaded_outfit.implants, /obj/item/implant)
 	loaded_outfit.cybernetic_implants = filter_path_list(loaded_outfit.cybernetic_implants, /obj/item/organ/internal/cyberimp)
