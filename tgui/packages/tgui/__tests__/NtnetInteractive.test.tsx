@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 
 import {
+  FRAME_POLICY,
   frameAddress,
   isInteractive,
   tokenRequest,
@@ -77,7 +78,19 @@ describe('NTnet navigation request from the frame', () => {
 
 describe('NTnet site database handshake', () => {
   test('asks the sandbox for the connected policy', () => {
-    expect(frameAddress(GOOD)).toBe(`${GOOD}?csp=2`);
+    expect(frameAddress(GOOD)).toBe(`${GOOD}?csp=3`);
+  });
+
+  test('lets the frame reach the mirrors without Cloudflare', () => {
+    expect(FRAME_POLICY).toContain(
+      'img-src https://media.wiki-ss13.space https://media-ru.wiki-ss13.space data:',
+    );
+    expect(FRAME_POLICY).toContain(
+      'media-src https://media.wiki-ss13.space https://media-ru.wiki-ss13.space;',
+    );
+    expect(FRAME_POLICY).toContain(
+      'connect-src https://sandbox.wiki-ss13.space https://sandbox-ru.wiki-ss13.space;',
+    );
   });
 
   test('recognises only a token request', () => {
