@@ -626,18 +626,3 @@
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name
-
-/datum/job/service/explorer
-	title = JOB_TITLE_EXPLORER
-	flag = JOB_FLAG_EXPLORER
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-	hidden_from_job_prefs = TRUE
-
-/datum/outfit/job/explorer
-	// This outfit is never used, because there are no slots for this job.
-	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = JOB_TITLE_RU_EXPLORER
-	jobtype = /datum/job/service/explorer
-	uniform = /obj/item/clothing/under/color/random

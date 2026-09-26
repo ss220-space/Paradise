@@ -13,7 +13,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "combat=4;magnets=3;engineering=3"
 	hitsound = SFX_SWING_HIT
-	slot = ATTACHMENT_SLOT_SIBYL
+	slot = ATTACHMENT_SLOT_LOCKING_PIN
 	class = GUN_MODULE_CLASS_ENERGY_WEAPON
 	can_detach = FALSE // Disable standard removal using ALT+LMB
 
@@ -311,3 +311,32 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return
 	detach_without_check(gun, user, force = TRUE)
 	to_chat(user, span_notice("Вы успешно сняли [declent_ru(ACCUSATIVE)]."))
+
+
+/obj/item/gun_module/gategun
+	name = "gate gun module"
+	desc = "Проприетарный модуль от правоохранительной организации для энергетического оружия, подключающий его к системе Sibyl System"
+	icon_state = "supp"
+	item_state = "supp"
+	slot = ATTACHMENT_SLOT_LOCKING_PIN
+	class = GUN_MODULE_CLASS_LOCKING_PIN
+	can_detach = FALSE
+	exists_overlay = FALSE
+
+/obj/item/gun_module/gategun/on_attach(obj/item/gun/target_gun, mob/user)
+	RegisterSignal(target_gun, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag_act))
+	RegisterSignal(target_gun, COMSIG_GUN_CHECK_CAN_SHOOT, PROC_REF(on_check_can_shoot))
+	target_gun.desc = initial(target_gun.desc) + "\n" + span_notice("Установлена блокировка работы в секторе станции.")
+
+/obj/item/gun_module/gategun/on_detach(obj/item/gun/target_gun, mob/user)
+	UnregisterSignal(target_gun, COMSIG_ATOM_EMAG_ACT)
+	UnregisterSignal(target_gun, COMSIG_GUN_CHECK_CAN_SHOOT)
+	target_gun.desc = initial(target_gun.desc)
+
+/obj/item/gun_module/gategun/proc/on_emag_act(obj/item/source, mob/user)
+	return
+
+/obj/item/gun_module/gategun/proc/on_check_can_shoot(obj/item/source, mob/user)
+	if(user.loc && is_station_level(user.loc.z))
+		user.balloon_alert(user, "блокировка!")
+		return GUN_CHECK_CANCEL_ATTACK
