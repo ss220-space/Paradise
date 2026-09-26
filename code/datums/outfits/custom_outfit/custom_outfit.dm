@@ -2348,7 +2348,7 @@ datum/custom_outfit/proc/cleanup_orphan_mod_parts(mob/living/carbon/human/human_
 		if(!islist(module_entry))
 			continue
 		module_entry["path"] = "[module_path]"
-		module_entry["active"] = module_path in linked_outfit.mod_active_modules
+		module_entry["active"] = (module_path in linked_outfit.mod_active_modules)
 		module_info += list(module_entry)
 	data["module_info"] = module_info
 	var/list/available = list()
