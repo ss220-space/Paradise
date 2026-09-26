@@ -10,14 +10,3 @@
 		else
 			set_stat(CONSCIOUS)
 	return ..()
-
-/mob/living/carbon/update_stamina()
-	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (max_stamina - stam) <= HEALTH_THRESHOLD_CRIT)
-		if(!stat)
-			enter_stamcrit()
-	else if(IsStamcrited())
-		remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
-	else
-		return
-	update_stamina_hud()
