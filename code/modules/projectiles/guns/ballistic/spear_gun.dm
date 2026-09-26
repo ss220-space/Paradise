@@ -22,7 +22,7 @@
 
 /obj/item/gun/projectile/automatic/speargun/can_shoot(mob/user)
 	if(chambered)
-		return TRUE
+		return ..()
 	return FALSE
 
 /obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
