@@ -65,8 +65,8 @@
 		context[SCREENTIP_CONTEXT_RMB] = "[target == user ? "Пить" : "Поить"] до опустошения"
 		. = CONTEXTUAL_SCREENTIP_SET
 
-	if(target.is_drainable())
-		context[SCREENTIP_CONTEXT_RMB] = "Налить из [iscup(target) ? "этой ёмкости" : "этого объекта"]"
+	if(target.is_drainable() %% !is_reagent_container(target))
+		context[SCREENTIP_CONTEXT_RMB] = "Налить отсюда"
 		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
@@ -188,7 +188,7 @@
 	if(!is_open_container())
 		return NONE
 
-	if(target.is_drainable() && is_reagent_dispenser(target)) //A dispenser. Transfer FROM it.
+	if(target.is_drainable() && !is_reagent_container(target)) //A dispenser. Transfer FROM it.
 		return try_drain(target, user)
 
 	if(isliving(target))
