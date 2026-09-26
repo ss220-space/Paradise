@@ -1,6 +1,7 @@
 import fs from "fs";
 import { CHANGELOG_ENTRIES } from "./changelogConfig.js";
 import { get_updated_label_set } from "./autoLabel.js";
+import { CHANGELOG_BRANCH_PREFIX } from "./autoChangelog.js";
 
 const DEFAULT_MODELS = [
   "google/gemma-4-31b-it:free",
@@ -216,6 +217,11 @@ export async function fillPullRequestDescription({ github, context }) {
   const byLabel = context.payload.action === "labeled";
 
   if (byLabel && context.payload.label?.name !== TRIGGER_LABEL) {
+    return;
+  }
+
+  if (pull.head?.ref?.startsWith(CHANGELOG_BRANCH_PREFIX)) {
+    console.log("PR с changelog, пропускаю.");
     return;
   }
 
