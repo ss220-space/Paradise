@@ -131,7 +131,7 @@
 		return ITEM_INTERACT_SUCCESS
 	return NONE
 
-/// Tries to splash the target. Used on both right-click and normal click when in combat mode.
+/// Tries to splash the target, called when right-clicking with a reagent container.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
 	if(!is_open_container() || (container_type & NO_SPLASH))
 		return FALSE
@@ -173,10 +173,11 @@
 	if(!iscarbon(eater))
 		return FALSE
 	if(!reagents || !reagents.total_volume)
+		balloon_alert(user, "пусто!")
 		return FALSE
 	var/mob/living/carbon/as_carbon = eater
 	if(as_carbon.is_mouth_covered())
-		as_carbon.balloon_alert(user, "рот чем-то закрыт!")
+		balloon_alert(user, "рот чем-то закрыт!")
 		return FALSE
 	return TRUE
 

@@ -102,6 +102,9 @@
 	return ..()
 
 /obj/item/gun/dartgun/can_shoot(mob/user)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!cartridge)
 		return FALSE
 	return cartridge.darts
