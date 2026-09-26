@@ -2,20 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useBackend } from '../../backend';
 
-const SANDBOX_ORIGIN = 'https://sandbox.wiki-ss13.space';
+const SANDBOX_ORIGINS =
+  'https://sandbox.wiki-ss13.space https://sandbox-ru.wiki-ss13.space';
+const MEDIA_ORIGINS =
+  'https://media.wiki-ss13.space https://media-ru.wiki-ss13.space';
 const SANDBOX_URL =
   /^https:\/\/sandbox\.wiki-ss13\.space\/i\/[a-f0-9]{32}\/[a-z0-9][a-z0-9-]{0,62}$/;
 const SITE_ID = /^[a-f0-9]{32}$/;
 const PAGE_SLUG = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 const FRAME_SANDBOX = 'allow-scripts';
-const FRAME_POLICY = [
+export const FRAME_POLICY = [
   "default-src 'none'",
   "script-src 'unsafe-inline'",
   "style-src 'unsafe-inline'",
-  'img-src https://media.wiki-ss13.space data:',
-  'media-src https://media.wiki-ss13.space',
+  `img-src ${MEDIA_ORIGINS} data:`,
+  `media-src ${MEDIA_ORIGINS}`,
   'font-src data:',
-  `connect-src ${SANDBOX_ORIGIN}`,
+  `connect-src ${SANDBOX_ORIGINS}`,
   "form-action 'none'",
   "frame-src 'none'",
   "child-src 'none'",
@@ -24,7 +27,7 @@ const FRAME_POLICY = [
   "base-uri 'none'",
   'sandbox allow-scripts',
 ].join('; ');
-const FRAME_POLICY_VERSION = 2;
+const FRAME_POLICY_VERSION = 3;
 const PROBE_TIMEOUT = 700;
 const LAG_TICK = 1000;
 const LAG_LIMIT = 4000;
