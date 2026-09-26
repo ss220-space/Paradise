@@ -57,9 +57,27 @@
 
 /// Should never happen, but better safe than sorry
 /obj/effect/immovablerod/wizard/penetrate(mob/living/smeared_mob)
+	if(smeared_mob.can_block_magic())
+		smeared_mob.visible_message(
+			span_danger("[src] hits [smeared_mob], but it bounces back, then vanishes!"),
+			span_userdanger("[src] hits you... but it bounces back, then vanishes!"),
+			span_danger("You hear a weak, sad, CLANG.")
+			)
+		stop_travel()
+		return
+
 	if(smeared_mob == wizard)
 		return
 	return ..()
+
+/**
+ * Called when the wizard rod reaches its maximum distance
+ * or is otherwise stopped by something.
+ * Dumps out the wizard, and deletes.
+ */
+/obj/effect/immovablerod/wizard/proc/stop_travel()
+	eject_wizard()
+	qdel(src)
 
 /**
  * Set wizard as our_wizard, placing them in the rod
@@ -79,6 +97,7 @@
 	if(QDELETED(wizard))
 		wizard = null
 		return
+
 	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 	wizard.forceMove(get_turf(src))
 	wizard = null

@@ -138,7 +138,7 @@
 	name = "Защитная мембрана"
 	desc = "Толстая защитная мембрана, созданная Защитником Ужаса."
 	icon_state = "terror_shield"
-	lifetime = 16.5 SECONDS                       //max 2 shields existing at one time
+	initial_duration = 16.5 SECONDS                       //max 2 shields existing at one time
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/effect/forcefield/terror/CanAllowThrough(atom/movable/mover, border_dir)

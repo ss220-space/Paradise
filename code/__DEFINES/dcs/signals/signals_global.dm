@@ -57,3 +57,6 @@
 
 /// a client (re)connected, after all /client/New() checks have passed : (client/connected_client)
 #define COMSIG_GLOB_CLIENT_CONNECT "!client_connect"
+
+/// global signal when a global nullrod type is picked
+#define COMSIG_GLOB_NULLROD_PICKED "!nullrod_picked"
