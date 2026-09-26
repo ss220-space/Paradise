@@ -16,6 +16,7 @@
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
 #define CUSTOM_OUTFIT_ACTION_EDIT_ID "edit_id"
+#define CUSTOM_OUTFIT_ACTION_EDIT_MOD "edit_mod"
 
 #define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
 #define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
@@ -79,6 +80,23 @@
 	var/list/preset_storage_cache = list()
 	/// Cache of MOD control unit bag preset contents (path = count).
 	var/list/preset_mod_cache = list()
+	/// Installed MOD module type paths.
+	var/list/mod_module_paths = list()
+	/// Module type paths that should be turned on when the suit is applied.
+	var/list/mod_active_modules = list()
+	/// Part type paths that should be deployed when the suit is applied.
+	var/list/mod_deployed_parts = list()
+	/// If the suit should be powered on when the outfit is applied.
+	var/mod_suit_active = FALSE
+	/// Suit path the current module configuration was built for, so switching
+	/// suits restores the new suit's own defaults instead of carrying modules over.
+	var/mod_configured_for
+	/// Cache of MOD suit part type paths, keyed by MOD control unit path.
+	var/list/mod_part_path_cache = list()
+	/// Cache of engine-built MOD suit defaults, keyed by MOD control unit path.
+	var/list/mod_defaults_cache = list()
+	/// Editor window used to configure the MODsuit.
+	var/datum/custom_outfit_mod_editor/mod_editor
 	// Belt contents (list(path = count)) being edited, mirrors the backpack list.
 	var/list/belt_contents = list()
 	var/belt_dirty = FALSE
@@ -250,6 +268,12 @@
 	QDEL_NULL(dental_editor)
 	QDEL_NULL(dental_holder)
 	QDEL_NULL(id_card_editor)
+	QDEL_NULL(mod_editor)
+	LAZYCLEARLIST(mod_module_paths)
+	LAZYCLEARLIST(mod_active_modules)
+	LAZYCLEARLIST(mod_deployed_parts)
+	LAZYCLEARLIST(mod_part_path_cache)
+	LAZYCLEARLIST(mod_defaults_cache)
 	QDEL_NULL(edited_outfit)
 	LAZYCLEARLIST(external_augmentations)
 	LAZYCLEARLIST(internal_augmentations)
@@ -411,6 +435,10 @@
 			open_id_card_editor(user)
 			. = TRUE
 
+		if(CUSTOM_OUTFIT_ACTION_EDIT_MOD)
+			open_mod_editor(user)
+			. = TRUE
+
 	if(. && !QDELETED(ui))
 		preview_dirty = TRUE
 		SStgui.try_update_ui(user, src, ui)
@@ -469,6 +497,8 @@
 		var/obj/item/equipped_item = human_target.vars[human_slot]
 		if(!equipped_item)
 			continue
+		if(is_mod_part(equipped_item, human_target))
+			continue
 		edited_outfit.vars[outfit_slot] = equipped_item.type
 	capture_id_card_data(human_target)
 	capture_dental(human_target)
@@ -476,6 +506,7 @@
 	capture_belt(human_target)
 	capture_implants(human_target)
 	capture_augmentations(human_target)
+	capture_mod_suit(human_target)
 
 /datum/custom_outfit/proc/capture_id_card_data(mob/living/carbon/human/human_target)
 	var/obj/item/id_slot = human_target.wear_id
@@ -514,6 +545,196 @@
 		return mod_control.bag
 	return null
 
+/// Returns the MOD control unit type path currently configured in the back slot.
+/datum/custom_outfit/proc/get_mod_suit_path()
+	return edited_outfit.vars[CUSTOM_OUTFIT_SLOT_BACK]
+
+/// Returns TRUE if the back slot holds a MOD control unit.
+/datum/custom_outfit/proc/has_mod_suit()
+	return CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(get_mod_suit_path())
+
+/// Returns the type paths of the parts the given MOD control unit type is built from. Reads the theme directly so no suit has to be spawned.
+/datum/custom_outfit/proc/get_mod_part_paths(suit_path)
+	. = list()
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(suit_path))
+		return
+	if(suit_path in mod_part_path_cache)
+		return mod_part_path_cache[suit_path]
+	var/obj/item/mod/control/mod_ref = suit_path
+	var/theme_path = initial(mod_ref.theme)
+	if(!theme_path)
+		return
+	var/datum/mod_theme/theme = GLOB.mod_themes[theme_path]
+	if(isnull(theme))
+		return
+	var/skin = initial(mod_ref.skin) || theme.default_skin
+	if(ispath(suit_path, /obj/item/mod/control/pre_equipped))
+		var/obj/item/mod/control/pre_equipped/pre_ref = suit_path
+		skin = initial(pre_ref.applied_skin) || skin
+	var/variants = theme.variants[skin]
+	if(!variants)
+		variants = theme.variants[theme.default_skin]
+	if(!islist(variants))
+		return
+	for(var/part_path in variants)
+		if(ispath(part_path, /obj/item))
+			. += part_path
+	mod_part_path_cache[suit_path] = .
+	return .
+
+/datum/custom_outfit/proc/reset_mod_configuration(suit_path = null)
+	mod_suit_active = FALSE
+	LAZYCLEARLIST(mod_module_paths)
+	LAZYCLEARLIST(mod_active_modules)
+	LAZYCLEARLIST(mod_deployed_parts)
+	if(isnull(suit_path))
+		if(!has_mod_suit())
+			return
+		suit_path = get_mod_suit_path()
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(suit_path))
+		return
+	for(var/module_path in get_mod_suit_defaults(suit_path))
+		mod_module_paths += module_path
+	mod_active_modules = mod_module_paths.Copy()
+	mod_configured_for = suit_path
+
+/// Returns the module type paths the given MOD suit type is built with. The
+/// engine installs them in Initialize, so a temporary suit is spawned and read
+/// instead of inspecting the type, and the result is cached per suit type.
+/// Arguments:
+/// * suit_path - type path of the MOD control unit.
+datum/custom_outfit/proc/get_mod_suit_defaults(suit_path)
+	. = list()
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(suit_path))
+		return
+	if(suit_path in mod_defaults_cache)
+		return mod_defaults_cache[suit_path]
+	var/obj/item/mod/control/temporary_suit = new suit_path
+	for(var/obj/item/mod/module/module as anything in temporary_suit.modules)
+		. += module.type
+	qdel(temporary_suit)
+	mod_defaults_cache[suit_path] = .
+	return .
+
+/// Restores the suit defaults when the configured suit differs from the one the
+/// current module setup was built for. Safe to call on every apply.
+datum/custom_outfit/proc/ensure_mod_configuration()
+	if(!has_mod_suit())
+		reset_mod_configuration()
+		return
+	if(mod_configured_for == get_mod_suit_path())
+		return
+	reset_mod_configuration()
+
+/// Reads the current MOD configuration off the given human.
+/datum/custom_outfit/proc/capture_mod_suit(mob/living/carbon/human/human_target)
+	reset_mod_configuration()
+	var/obj/item/back_item = human_target.back
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(back_item?.type))
+		return
+	var/obj/item/mod/control/mod_control = back_item
+	mod_suit_active = mod_control.active
+	for(var/obj/item/mod/module/module as anything in mod_control.modules)
+		if(module.type in mod_module_paths)
+			continue
+		mod_module_paths += module.type
+	mod_active_modules = mod_module_paths.Copy()
+	for(var/obj/item/part as anything in mod_control.get_parts())
+		if(part.loc != mod_control)
+			mod_deployed_parts += part.type
+	mod_configured_for = back_item.type
+
+/datum/custom_outfit/proc/apply_mod_suit(mob/living/carbon/human/human_target)
+	var/obj/item/back_item = human_target.back
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(back_item?.type))
+		return
+	var/obj/item/mod/control/mod_control = back_item
+	ensure_mod_configuration()
+	mod_control.open = TRUE
+	apply_mod_modules(mod_control)
+	mod_control.open = FALSE
+	if(mod_suit_active && !mod_control.active)
+		mod_control.quick_activation()
+	if(!mod_suit_active && mod_control.active)
+		mod_control.control_activation(is_on = FALSE)
+	pin_mod_modules(mod_control, human_target)
+	apply_mod_deployed_parts(mod_control)
+
+/datum/custom_outfit/proc/pin_mod_modules(obj/item/mod/control/mod_control, mob/living/carbon/human/wearer)
+	for(var/obj/item/mod/module/module as anything in mod_control.modules)
+		if(module.pinned_to[wearer.UID()])
+			continue
+		module.pin(wearer)
+
+//// Returns TRUE if the given type path is present in a list of type paths.
+/// Arguments:
+/// * path - type path to look for.
+/// * paths - list of type paths to search.
+datum/custom_outfit/proc/is_path_configured(path, list/paths)
+	for(var/configured_path in paths)
+		if(configured_path == path)
+			return TRUE
+	return FALSE
+
+/datum/custom_outfit/proc/apply_mod_deployed_parts(obj/item/mod/control/mod_control)
+	for(var/obj/item/part as anything in mod_control.get_parts())
+		var/should_deploy = is_path_configured(part.type, mod_deployed_parts)
+		var/is_deployed = part.loc != mod_control
+		if(!should_deploy)
+			if(is_deployed)
+				mod_control.retract(null, part, instant = TRUE)
+			continue
+		if(!is_deployed)
+			mod_control.deploy(null, part, instant = TRUE)
+			continue
+		if(mod_control.active && !mod_control.get_part_datum(part).sealed)
+			mod_control.seal_part(part, is_sealed = TRUE)
+
+/datum/custom_outfit/proc/apply_mod_modules(obj/item/mod/control/mod_control)
+	for(var/obj/item/mod/module/module as anything in mod_control.modules.Copy())
+		if(module.type in mod_module_paths)
+			continue
+		mod_control.uninstall(module)
+		qdel(module)
+	for(var/module_path in mod_module_paths)
+		if(!CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path))
+			continue
+		if(get_installed_module(mod_control, module_path))
+			continue
+		mod_control.install(new module_path)
+
+/// Returns the installed module of the given type on the suit, if any.
+/datum/custom_outfit/proc/get_installed_module(obj/item/mod/control/mod_control, module_path)
+	for(var/obj/item/mod/module/module as anything in mod_control.modules)
+		if(module.type == module_path)
+			return module
+	return null
+
+/// Opens the MODsuit editor window for the given user.
+/datum/custom_outfit/proc/open_mod_editor(mob/user)
+	if(!has_mod_suit())
+		tgui_alert(user, "В слоте спины нет МЭК-костюма.")
+		return FALSE
+	ensure_mod_configuration()
+	if(QDELETED(mod_editor))
+		mod_editor = new /datum/custom_outfit_mod_editor(src)
+	mod_editor.ui_interact(user)
+	return TRUE
+
+/// Returns the list of all installable MOD module type paths keyed by a display label.
+/datum/custom_outfit/proc/get_mod_module_options()
+	var/list/module_options = list()
+	for(var/module_path in subtypesof(/obj/item/mod/module))
+		if(!CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path))
+			continue
+		var/obj/item/mod/module/module_ref = module_path
+		var/module_name = initial(module_ref.name)
+		if(!module_name)
+			continue
+		module_options["[module_name] ([module_path])"] = module_path
+	return module_options
+
+/// Reads the current dental implant contents off the given human.
 /datum/custom_outfit/proc/capture_dental(mob/living/carbon/human/human_target)
 	reagent_volumes = list()
 	for(var/obj/item/reagent_containers/food/pill/dental_implant/pill in human_target.contents)
@@ -670,6 +891,9 @@
 		var/list/id_entry = .[CUSTOM_OUTFIT_SLOT_ID]
 		if(islist(id_entry) && id_card_data)
 			id_entry["id_card"] = serialize_id_card_data()
+	var/list/back_entry = .[CUSTOM_OUTFIT_SLOT_BACK]
+	if(islist(back_entry))
+		back_entry["is_mod"] = has_mod_suit()
 
 /datum/custom_outfit/proc/serialize_backpack()
 	return serialize_container(CUSTOM_OUTFIT_CONTAINER_BACKPACK, edited_outfit.backpack_contents)
@@ -995,6 +1219,10 @@
 	human_target.equipOutfit(final_outfit)
 	restore_stashed_items(human_target, stashed_items)
 	apply_id_card_data(human_target)
+	if(has_mod_suit())
+		apply_mod_suit(human_target)
+	else
+		cleanup_orphan_mod_parts(human_target)
 
 	if(backpack_dirty && get_back_content_storage(human_target.back))
 		sync_existing_backpack(human_target, new_backpack_contents)
@@ -1023,6 +1251,11 @@
 			continue
 
 		var/outfit_path = final_outfit.vars[outfit_slot]
+
+		// MOD suit parts occupy normal clothing slots but belong to the suit in
+		// the back slot, so they are never treated as replaced equipment.
+		if(is_mod_part(current_item, human_target))
+			continue
 
 		if(outfit_path && current_item.type == outfit_path)
 			final_outfit.vars[outfit_slot] = null
@@ -1070,13 +1303,66 @@
 		if(holder_slot in to_delete)
 			delete_slot_item(human_target, holder_slot)
 
+/// Returns TRUE if the type is one of the parts a MOD suit is built from.
+/// Arguments:
+/// * item - the item to check.
+datum/custom_outfit/proc/is_mod_part_type(obj/item/item)
+	if(!item)
+		return FALSE
+	return is_mod_part_type_path(item.type)
+
+/// Returns TRUE if the type path is one of the parts a MOD suit is built from.
+/// Arguments:
+/// * path - the type path to check.
+datum/custom_outfit/proc/is_mod_part_type_path(path)
+	if(!path)
+		return FALSE
+	return ispath(path, /obj/item/clothing/head/mod) || ispath(path, /obj/item/clothing/gloves/mod) \
+		|| ispath(path, /obj/item/clothing/shoes/mod) || ispath(path, /obj/item/clothing/suit/mod)
+
+/// Returns TRUE if the item is one of the parts of the MOD suit the given
+/// human is wearing. Parts carry no control ref of their own, so the suit's
+/// own get_part_datums() is the source of truth.
+/// Arguments:
+/// * item - the item to check.
+/// * human_target - the wearer whose suit is checked.
+datum/custom_outfit/proc/is_mod_part(obj/item/item, mob/living/carbon/human/human_target = null)
+	if(!is_mod_part_type(item))
+		return FALSE
+	var/obj/item/mod/control/mod_control
+	if(ishuman(human_target))
+		mod_control = human_target.back
+	if(!CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(mod_control?.type))
+		return FALSE
+	for(var/datum/mod_part/part_datum as anything in mod_control.get_part_datums())
+		if(part_datum.part_item == item)
+			return TRUE
+	return FALSE
+
 /datum/custom_outfit/proc/delete_slot_item(mob/living/carbon/human/human_target, outfit_slot)
 	var/obj/item/current_item = human_target.vars[slot_to_human_var[outfit_slot]]
 	if(QDELETED(current_item))
 		return
+	// Parts of a MOD suit are managed by the suit itself. Deleting one would
+	// trigger on_part_destruction() and take the whole suit apart with it.
+	if(is_mod_part(current_item, human_target))
+		return
 	if(outfit_slot == CUSTOM_OUTFIT_SLOT_BACK && isstorage(current_item))
 		QDEL_LIST(current_item.contents)
 	qdel(current_item)
+
+/// Removes MOD suit parts left on the wearer when their suit is gone.
+/// Parts are matched by type, since the engine never fills in the part's
+/// control ref, and the owning suit is found through its part datums.
+/// Arguments:
+/// * human_target - the wearer to check.
+datum/custom_outfit/proc/cleanup_orphan_mod_parts(mob/living/carbon/human/human_target)
+	if(CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(human_target.back?.type))
+		return
+	for(var/obj/item/part as anything in human_target.contents)
+		if(!is_mod_part_type(part))
+			continue
+		qdel(part)
 
 /datum/custom_outfit/proc/restore_stashed_items(mob/living/carbon/human/human_target, list/stashed_items)
 	for(var/outfit_slot, human_slot in slot_to_human_var)
@@ -1725,6 +2011,8 @@
 				merge_mod_backpack_presets(choice)
 		else
 			edited_outfit.backpack_contents.Cut()
+		if(previous_back_path != choice)
+			reset_mod_configuration()
 	if(slot == CUSTOM_OUTFIT_SLOT_BELT)
 		belt_dirty = TRUE
 		if(CUSTOM_OUTFIT_IS_STORAGE_PATH(choice))
@@ -1743,6 +2031,7 @@
 	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
 		edited_outfit.backpack_contents.Cut()
+		reset_mod_configuration()
 	return TRUE
 
 /datum/custom_outfit/proc/copy_appearance(mob/living/carbon/human/source, mob/living/carbon/human/dummy)
@@ -2024,6 +2313,109 @@
 		SStgui.update_uis(linked_outfit)
 	return .
 
+/// Editor window used to configure a MODsuit placed in the back slot of an outfit.
+/datum/custom_outfit_mod_editor
+	var/datum/custom_outfit/linked_outfit
+
+/datum/custom_outfit_mod_editor/New(datum/custom_outfit/owner)
+	src.linked_outfit = owner
+
+/datum/custom_outfit_mod_editor/Destroy()
+	if(!QDELETED(linked_outfit))
+		linked_outfit.mod_editor = null
+
+/datum/custom_outfit_mod_editor/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/custom_outfit_mod_editor/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "CustomOutfitMod", "Редактор МЭК-костюма")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/custom_outfit_mod_editor/ui_close(mob/user)
+	qdel(src)
+
+/datum/custom_outfit_mod_editor/ui_data(mob/user)
+	var/data = list()
+	data["active"] = linked_outfit.mod_suit_active
+	var/list/module_info = list()
+	for(var/module_path in linked_outfit.mod_module_paths)
+		if(!CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path))
+			continue
+		var/module_entry = linked_outfit.entry(module_path)
+		if(!islist(module_entry))
+			continue
+		module_entry["path"] = "[module_path]"
+		module_entry["active"] = module_path in linked_outfit.mod_active_modules
+		module_info += list(module_entry)
+	data["module_info"] = module_info
+	var/list/available = list()
+	for(var/label, path in linked_outfit.get_mod_module_options())
+		if(path in linked_outfit.mod_module_paths)
+			continue
+		available += list(list("label" = label, "path" = "[path]"))
+	data["available_modules"] = available
+	data["part_info"] = list()
+	data["deployed_parts"] = list()
+	for(var/part_path in linked_outfit.get_mod_part_paths(linked_outfit.get_mod_suit_path()))
+		if(!ispath(part_path, /obj/item))
+			continue
+		var/obj/item/part_ref = part_path
+		var/part_name = initial(part_ref.name)
+		if(!part_name)
+			continue
+		data["part_info"] += list(list("name" = part_name, "path" = "[part_path]"))
+		if(part_path in linked_outfit.mod_deployed_parts)
+			data["deployed_parts"] += "[part_path]"
+	return data
+
+/datum/custom_outfit_mod_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(. || QDELETED(linked_outfit))
+		return
+	var/handled = TRUE
+	switch(action)
+		if("toggle_active")
+			linked_outfit.mod_suit_active = !linked_outfit.mod_suit_active
+
+		if("add_module")
+			var/module_path = text2path(params["path"])
+			if(CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(module_path) && !(module_path in linked_outfit.mod_module_paths))
+				linked_outfit.mod_module_paths += module_path
+				linked_outfit.mod_active_modules = linked_outfit.mod_module_paths.Copy()
+			else
+				handled = FALSE
+
+		if("remove_module")
+			var/module_path = text2path(params["path"])
+			if(module_path in linked_outfit.mod_module_paths)
+				linked_outfit.mod_module_paths -= module_path
+				linked_outfit.mod_active_modules = linked_outfit.mod_module_paths.Copy()
+			else
+				handled = FALSE
+
+		if("toggle_part")
+			var/part_path = text2path(params["path"])
+			if(part_path in linked_outfit.mod_deployed_parts)
+				linked_outfit.mod_deployed_parts -= part_path
+			else
+				linked_outfit.mod_deployed_parts += part_path
+
+		if("deploy_all_parts")
+			LAZYCLEARLIST(linked_outfit.mod_deployed_parts)
+			for(var/part_path in linked_outfit.get_mod_part_paths(linked_outfit.get_mod_suit_path()))
+				linked_outfit.mod_deployed_parts += part_path
+
+		if("retract_all_parts")
+			LAZYCLEARLIST(linked_outfit.mod_deployed_parts)
+
+	if(handled)
+		SStgui.try_update_ui(ui.user, src, ui)
+	SStgui.update_uis(linked_outfit)
+	return handled
+
 /datum/custom_outfit_item_picker
 	var/datum/custom_outfit/owner_outfit
 	var/picked_slot
@@ -2157,6 +2549,7 @@
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
 #undef CUSTOM_OUTFIT_ACTION_EDIT_ID
+#undef CUSTOM_OUTFIT_ACTION_EDIT_MOD
 
 #undef CUSTOM_OUTFIT_CHOICE_USE_ANYWAY
 #undef CUSTOM_OUTFIT_CHOICE_CANCEL
