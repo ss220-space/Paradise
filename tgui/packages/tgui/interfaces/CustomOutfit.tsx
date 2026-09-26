@@ -540,7 +540,6 @@ const OutfitSlot = (props: SlotDef) => {
           <Stack.Item>
             <Button
               fluid
-              size="1"
               icon="cog"
               content="Модули"
               onClick={() => act('edit_mod')}
