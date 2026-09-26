@@ -439,6 +439,8 @@
 	breath.set_nitrium(0)
 	if(prob(20))
 		breather.emote("burp")
+
+	if(prob(5))
 		breather.AdjustDizzy(1.5 SECONDS)
 
 	// Random chance to inflict side effects increases with pressure.
