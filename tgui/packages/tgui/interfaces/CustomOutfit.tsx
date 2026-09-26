@@ -28,6 +28,7 @@ type ItemStack = {
   name: string;
   icon: string;
   icon_state: string;
+  count?: number;
   is_storage?: BooleanLike;
   storage_items?: ItemStack[];
 };
@@ -180,7 +181,7 @@ export const CustomOutfit = () => {
   const idOutfit = data.outfit?.id;
 
   return (
-    <Window title="Custom Outfit" width={900} height={625} theme="admin">
+    <Window title="Custom Outfit" width={1000} height={725} theme="admin">
       <Window.Content>
         <Stack fill>
           <Stack.Item grow={5} basis={0}>
@@ -561,32 +562,54 @@ const ItemGrid = (props: ItemGridProps) => {
   } = props;
   return (
     <Stack wrap>
-      {items?.map((item) => (
-        <Stack.Item key={item.path} m={0.5}>
-          <Box
-            width="48px"
-            height="48px"
-            backgroundColor="rgba(0,0,0,0.3)"
-            style={{ borderRadius: '4px' }}
-          >
-            <Stack fill align="center" justify="center">
-              <Stack.Item>
-                <ImageButton
-                  imageSize={48}
-                  dmIcon={item.icon}
-                  dmIconState={item.icon_state}
-                  tooltip={item.name}
-                  onClick={() =>
-                    item.is_storage && onStorageClick
-                      ? onStorageClick(item)
-                      : onRemove(item)
-                  }
-                />
-              </Stack.Item>
-            </Stack>
-          </Box>
-        </Stack.Item>
-      ))}
+      {items?.map((item, index) => {
+        const count = item.count && item.count > 1 ? item.count : 0;
+        const tooltip = count ? `${item.name} (x${count})` : item.name;
+        return (
+          <Stack.Item key={`${item.path}-${index}`} m={0.5}>
+            <Box
+              width="48px"
+              height="48px"
+              backgroundColor="rgba(0,0,0,0.3)"
+              style={{ borderRadius: '4px', position: 'relative' }}
+            >
+              <Stack fill align="center" justify="center">
+                <Stack.Item>
+                  <ImageButton
+                    imageSize={48}
+                    dmIcon={item.icon}
+                    dmIconState={item.icon_state}
+                    tooltip={tooltip}
+                    onClick={() =>
+                      item.is_storage && onStorageClick
+                        ? onStorageClick(item)
+                        : onRemove(item)
+                    }
+                  />
+                </Stack.Item>
+              </Stack>
+              {count > 0 && (
+                <Box
+                  position="absolute"
+                  bottom="0px"
+                  right="0px"
+                  px={0.3}
+                  height="14px"
+                  minWidth="14px"
+                  textAlign="center"
+                  fontSize={0.6}
+                  lineHeight="14px"
+                  backgroundColor="#000"
+                  color="#fff"
+                  style={{ borderRadius: '7px 0 4px 0' }}
+                >
+                  {count}
+                </Box>
+              )}
+            </Box>
+          </Stack.Item>
+        );
+      })}
       <Stack.Item m={0.5}>
         <Box
           width="48px"
