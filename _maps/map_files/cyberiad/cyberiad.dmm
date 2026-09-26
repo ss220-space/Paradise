@@ -23083,7 +23083,7 @@
 	id = "Biohazard";
 	name = "Biohazard Shutter Control";
 	pixel_x = 5;
-	pixel_y = 32;
+	pixel_y = 27;
 	req_access = list(30)
 	},
 /obj/machinery/door_control{
@@ -23091,6 +23091,10 @@
 	name = "Privacy Shutters";
 	pixel_x = -6;
 	pixel_y = 36
+	},
+/obj/machinery/door_control/gateway{
+	pixel_y = 36;
+	pixel_x = 5
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/station/command/office/rd)
@@ -43815,6 +43819,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45800,6 +45805,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -53500,6 +53506,7 @@
 /area/station/maintenance/apmaint)
 "iRW" = (
 /obj/item/radio/intercom/directional/west,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53870,6 +53877,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59978,6 +59986,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65193,6 +65202,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -69156,6 +69166,9 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69618,6 +69631,7 @@
 /area/station/maintenance/asmaint2)
 "pxF" = (
 /obj/item/radio/intercom/directional/east,
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -82313,6 +82327,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -88242,6 +88257,12 @@
 /obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"wVw" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/command/gateway)
 "wVZ" = (
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -115487,7 +115508,7 @@ iRZ
 aSA
 gbr
 lvw
-cGS
+wVw
 ocT
 nKc
 qay
