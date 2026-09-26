@@ -391,6 +391,7 @@ research holder datum.
 	stored = null
 
 /obj/item/disk/tech_disk/loaded
+	abstract_type = /obj/item/disk/tech_disk/loaded
 	var/tech_name
 
 /obj/item/disk/tech_disk/loaded/Initialize(mapload)

@@ -16,7 +16,7 @@
 	var/cooktype
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
-	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/list/tastes  // for example list("crisps" = 2, "sodiumchloride" = 1)
 	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()

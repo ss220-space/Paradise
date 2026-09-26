@@ -85,7 +85,7 @@
 /area/syndicate_depot/outer)
 "ar" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -128,7 +128,7 @@
 	},
 /area/syndicate_depot/core)
 "ay" = (
-/obj/item/reagent_containers/food/drinks/flask/barflask,
+/obj/item/reagent_containers/cup/glass/flask/barflask,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -24,7 +24,13 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -11),
 	)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
-	var/cover_open = 0
+	var/cover_open = FALSE
+
+/obj/item/gun/projectile/automatic/l6_saw/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "[cover_open ? "За" : "От"]крыть крышку"
+		return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/projectile/automatic/l6_saw/get_ru_names()
 	return alist(

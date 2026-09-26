@@ -80,7 +80,7 @@ export function AppearanceInfo(props: AppearanceInfoProps) {
           </LabeledList.Item>
           <LabeledList.Item label="blend_mode">
             {Object.entries(blendToText)
-              .find((x) => appearance.data.blend_mode.toString() === x[0])
+              .find((x) => appearance.data.blend_mode?.toString() === x[0])
               ?.at(1) || 'ERROR'}
           </LabeledList.Item>
           {!!appearance.data.color && (

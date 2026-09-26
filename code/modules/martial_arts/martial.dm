@@ -173,9 +173,9 @@
 		D.visible_message(span_danger("[A] has weakened [D]!!"), \
 								span_userdanger("[A] has weakened [D]!"))
 		D.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
-		D.forcesay(GLOB.hit_appends)
+		D.force_say(GLOB.hit_appends)
 	else if(D.body_position == LYING_DOWN)
-		D.forcesay(GLOB.hit_appends)
+		D.force_say(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)

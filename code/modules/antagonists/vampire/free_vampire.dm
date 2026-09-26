@@ -4,10 +4,10 @@
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
 	antag_menu_name = "Свободный вампир"
 	upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/vampire/glare = 0,
+		/datum/action/cooldown/spell/vamp_rejuvenate = 0,
+		/datum/action/cooldown/spell/aoe/glare = 0,
 		/datum/vampire_passive/vision = 100,
-		/obj/effect/proc_holder/spell/vampire/self/specialize = 100,
+		/datum/action/cooldown/spell/vamp_specialize = 100,
 		/datum/vampire_passive/regen = 200,
 	)
 

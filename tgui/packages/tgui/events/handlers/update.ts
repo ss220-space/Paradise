@@ -1,6 +1,6 @@
+import { logger } from 'common/logging';
 import { perf } from 'common/perf';
 import { setupDrag } from '../../drag';
-import { logger } from 'common/logging';
 import { resumeRenderer } from '../../renderer';
 import {
   configAtom,

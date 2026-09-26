@@ -124,7 +124,7 @@
 		/obj/item/reagent_containers/applicator/burn = 1,
 		/obj/item/reagent_containers/hypospray/safety = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist

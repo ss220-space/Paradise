@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - spellcheck: "Исправлена очепятка в выборе масштабирования (PR #9821)"
