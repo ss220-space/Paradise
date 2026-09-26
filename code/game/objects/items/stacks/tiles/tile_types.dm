@@ -11,6 +11,7 @@
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
+	logistics_count_amount = TRUE
 	var/turf_type = null
 	var/mineralType = null
 

@@ -7,6 +7,7 @@
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 250
+	logistics_count_amount = TRUE
 	item_flags = NOBLUDGEON
 	origin_tech = "materials=6"
 

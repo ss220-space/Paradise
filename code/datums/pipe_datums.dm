@@ -400,6 +400,51 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list) //Some pipes we don't want to be dispensable by
 	pipe_id = PIPE_DISPOSALS_JUNCTION_LEFT
 	pipe_icon = "pipe-j2"
 
+/datum/pipes/logistics
+	pipe_type = PIPETYPE_LOGISTICS
+	pipe_icon_file = 'icons/obj/pipes_and_stuff/not_atmos/logistics.dmi'
+
+/datum/pipes/logistics/straight
+	pipe_name = "straight logistics pipe"
+	pipe_id = PIPE_LOGISTICS_STRAIGHT
+	orientations = 2
+	pipe_icon = "logi-s"
+	rpd_dispensable = TRUE
+
+/datum/pipes/logistics/bent
+	pipe_name = "bent logistics pipe"
+	pipe_id = PIPE_LOGISTICS_BENT
+	orientations = 4
+	bendy = TRUE
+	pipe_icon = "logi-c"
+	rpd_dispensable = TRUE
+
+/datum/pipes/logistics/junction
+	pipe_name = "logistics junction"
+	pipe_id = PIPE_LOGISTICS_JUNCTION_RIGHT
+	orientations = 4
+	pipe_icon = "logi-j1"
+	rpd_dispensable = TRUE
+
+/datum/pipes/logistics/y_junction
+	pipe_name = "logistics y-junction"
+	pipe_id = PIPE_LOGISTICS_Y_JUNCTION
+	orientations = 4
+	pipe_icon = "logi-y"
+	rpd_dispensable = TRUE
+
+/datum/pipes/logistics/trunk
+	pipe_name = "logistics trunk"
+	pipe_id = PIPE_LOGISTICS_TRUNK
+	orientations = 4
+	pipe_icon = "logi-t"
+	rpd_dispensable = TRUE
+
+/datum/pipes/logistics/left_junction
+	pipe_name = "logistics junction"
+	pipe_id = PIPE_LOGISTICS_JUNCTION_LEFT
+	pipe_icon = "logi-j2"
+
 /datum/pipes/atmospheric/temperature_gate
 	pipe_name = "temperature gate"
 	pipe_id = PIPE_TEMPERATURE_GATE

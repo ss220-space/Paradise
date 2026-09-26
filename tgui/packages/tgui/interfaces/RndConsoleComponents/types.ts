@@ -22,6 +22,7 @@ type RndData = Partial<
     linked_destroy: boolean;
     linked_lathe: boolean;
     linked_imprinter: boolean;
+    logistics_enabled: boolean;
     tech_levels: ResearchLevel[];
     disk_only: boolean;
   } & RndRouteData

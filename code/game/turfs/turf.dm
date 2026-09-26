@@ -234,6 +234,15 @@
 				return
 			our_rpd.create_disposals_pipe(user, src)
 
+		if(RPD_LOGISTICS_MODE)
+			for(var/obj/machinery/door/airlock/A in src)
+				if(!A.density)
+					continue
+
+				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
+				return
+			our_rpd.create_logistics_pipe(user, src)
+
 		if(RPD_ROTATE_MODE)
 			our_rpd.rotate_all_pipes(user, src)
 

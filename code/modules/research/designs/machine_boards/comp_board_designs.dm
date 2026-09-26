@@ -274,6 +274,14 @@
 	build_path = /obj/item/circuitboard/supplyquest
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
 
+/datum/design/logistics_core
+	id = "logistics_core"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_ENGINEERING = 6)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/logistics_core
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+
 /datum/design/questcons
 	id = "questcons"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2)
