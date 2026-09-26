@@ -23033,6 +23033,14 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/command/teleporter/abandoned)
+"eRn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/reactor_chamber,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "eRu" = (
 /obj/structure/chair{
 	dir = 4
@@ -29562,6 +29570,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -43493,6 +43502,7 @@
 /area/station/ai/satellite/exterior)
 "iDV" = (
 /obj/structure/chair/office/dark,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
 "iDY" = (
@@ -81545,6 +81555,7 @@
 "pCz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/bar)
 "pCG" = (
@@ -85774,6 +85785,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/science/sm_chamber)
 "qoK" = (
@@ -102371,6 +102383,10 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research/lobby)
+"tev" = (
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/engine/reactor)
 "tex" = (
 /obj/machinery/vending/cola,
 /obj/machinery/light{
@@ -111075,6 +111091,7 @@
 	name = "Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "uNq" = (
@@ -147665,7 +147682,7 @@ vPo
 mzY
 jUf
 sfA
-sfA
+eRn
 lXV
 sfA
 sfA
@@ -148450,7 +148467,7 @@ qYs
 jJN
 jJN
 aLN
-sHR
+tev
 iJc
 hDl
 hut

@@ -270,3 +270,21 @@
 	glow_color = null
 	rubble_type = RUBBLE_NONE
 	id = "seethrough"
+
+/datum/pod_style/swarmer
+	name = "Swarmer deploy pod"
+	ui_name = "Свармер"
+	desc = "Капсула \"Свармеров\", используемая для массовых высадок на объекты, подлежащие захвату."
+	has_door = FALSE
+	icon_state = "swarmer"
+	decal_icon = null
+	glow_color = "blue"
+	id = "swarmer"
+	ru_names = alist(
+		NOMINATIVE = "капсула высадки Свармеров",
+		GENITIVE = "капсулы высадки Свармеров",
+		DATIVE = "капсуле высадки Свармеров",
+		ACCUSATIVE = "капсулу высадки Свармеров",
+		INSTRUMENTAL = "капсулой высадки Свармеров",
+		PREPOSITIONAL = "капсуле высадки Свармеров",
+	)

@@ -7587,6 +7587,10 @@
 /obj/item/seeds/tomato,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/security/permabrig)
+"cIO" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/test_chamber)
 "cIY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -22651,6 +22655,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
 "izh" = (
@@ -42022,6 +42027,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "pHk" = (
@@ -103131,7 +103137,7 @@ vQs
 sBl
 pGn
 iBA
-iBA
+cIO
 uhH
 uhH
 iBA
