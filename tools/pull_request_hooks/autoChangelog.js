@@ -1,5 +1,7 @@
 import { parseChangelog } from "./changelogParser.js";
 
+export const CHANGELOG_BRANCH_PREFIX = "automation/changelog-pr-";
+
 const safeYml = (string) =>
   string.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
 
@@ -26,6 +28,11 @@ export function changelogToYml(changelog, login, prNumber) {
 
 export async function processAutoChangelog({ github, context }) {
   const pullRequest = context.payload.pull_request;
+  if (pullRequest.head?.ref?.startsWith(CHANGELOG_BRANCH_PREFIX)) {
+    console.log("changelog pull request, skipping");
+    return;
+  }
+
   const changelog = parseChangelog(pullRequest.body);
   if (!changelog || changelog.changes.length === 0) {
     console.log("no changelog found");
@@ -39,7 +46,7 @@ export async function processAutoChangelog({ github, context }) {
   );
   const { owner, repo } = context.repo;
   const base = pullRequest.base.ref;
-  const branch = `automation/changelog-pr-${pullRequest.number}`;
+  const branch = `${CHANGELOG_BRANCH_PREFIX}${pullRequest.number}`;
   const path = `html/changelogs/AutoChangeLog-pr-${pullRequest.number}.yml`;
   const params = { owner, repo, path };
 
