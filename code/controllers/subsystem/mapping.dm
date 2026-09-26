@@ -705,14 +705,17 @@ SUBSYSTEM_DEF(mapping)
 	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below
 
 /datum/controller/subsystem/mapping/proc/ensure_z_level_bookkeeping(z_value)
-	if(z_value <= length(z_level_to_plane_offset))
-		return
-	z_level_to_plane_offset.len = z_value
-	z_level_to_lowest_plane_offset.len = z_value
-	z_level_to_stack.len = z_value
-	z_level_to_plane_offset[z_value] = 0
-	z_level_to_lowest_plane_offset[z_value] = 0
-	z_level_to_stack[z_value] = list(z_value)
+	if(z_value > length(z_level_to_plane_offset))
+		z_level_to_plane_offset.len = z_value
+		z_level_to_lowest_plane_offset.len = z_value
+		z_level_to_stack.len = z_value
+		z_level_to_plane_offset[z_value] = 0
+		z_level_to_lowest_plane_offset[z_value] = 0
+		z_level_to_stack[z_value] = list(z_value)
+	if(z_value > length(multiz_levels))
+		multiz_levels.len = z_value
+	if(!multiz_levels[z_value])
+		multiz_levels[z_value] = new /list(LARGEST_Z_LEVEL_INDEX)
 
 /// Takes a z level datum, and tells the mapping subsystem to manage it
 /// Also handles things like plane offset generation, and other things that happen on a z level to z level basis
