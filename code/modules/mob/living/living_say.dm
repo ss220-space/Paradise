@@ -37,9 +37,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":u" = SUP_FREQ_NAME,				"#u" = SUP_FREQ_NAME,			"№u" = SUP_FREQ_NAME,			".u" = SUP_FREQ_NAME,
 	":z" = SRV_FREQ_NAME,				"#z" = SRV_FREQ_NAME,			"№z" = SRV_FREQ_NAME,			".z" = SRV_FREQ_NAME,
 	":p" = AI_FREQ_NAME,				"#p" = AI_FREQ_NAME,			"№p" = AI_FREQ_NAME,			".p" = AI_FREQ_NAME,
-	":e1" = EVENT_ALPHA_FREQ_NAME,		"#e1" = EVENT_ALPHA_FREQ_NAME,	"№e1" = EVENT_ALPHA_FREQ_NAME,	".e1" = EVENT_ALPHA_FREQ_NAME,
-	":e2" = EVENT_BETA_FREQ_NAME,		"#e2" = EVENT_BETA_FREQ_NAME,	"№e2" = EVENT_BETA_FREQ_NAME,	".e2" = EVENT_BETA_FREQ_NAME,
-	":e3" = EVENT_GAMMA_FREQ_NAME,		"#e3" = EVENT_GAMMA_FREQ_NAME,	"№e3" = EVENT_GAMMA_FREQ_NAME,	".e3" = EVENT_GAMMA_FREQ_NAME,
 
 	// English text uppercase
 	":R" = R_EAR_MODE,				"#R" = R_EAR_MODE,				"№R" = R_EAR_MODE,				".R" = R_EAR_MODE,
@@ -59,9 +56,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
 	":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
 	":." = PRS_FREQ_NAME,				"#." = PRS_FREQ_NAME,			"№." = PRS_FREQ_NAME,			".." = PRS_FREQ_NAME,
-	":E1" = EVENT_ALPHA_FREQ_NAME,		"#E1" = EVENT_ALPHA_FREQ_NAME,	"№E1" = EVENT_ALPHA_FREQ_NAME,	".E1" = EVENT_ALPHA_FREQ_NAME,
-	":E2" = EVENT_BETA_FREQ_NAME,		"#E2" = EVENT_BETA_FREQ_NAME,	"№E2" = EVENT_BETA_FREQ_NAME,	".E2" = EVENT_BETA_FREQ_NAME,
-	":E3" = EVENT_GAMMA_FREQ_NAME,		"#E3" = EVENT_GAMMA_FREQ_NAME,	"№E3" = EVENT_GAMMA_FREQ_NAME,	".E3" = EVENT_GAMMA_FREQ_NAME,
 
 	// Russian text lowercase
 	":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
@@ -83,9 +77,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
 	":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
 	":ю" = PRS_FREQ_NAME,				"#ю" = PRS_FREQ_NAME,			"№ю" = PRS_FREQ_NAME,			".ю" = PRS_FREQ_NAME,
-	":у1" = EVENT_ALPHA_FREQ_NAME,		"#у1" = EVENT_ALPHA_FREQ_NAME,	"№у1" = EVENT_ALPHA_FREQ_NAME,	".у1" = EVENT_ALPHA_FREQ_NAME,
-	":у2" = EVENT_BETA_FREQ_NAME,		"#у2" = EVENT_BETA_FREQ_NAME,	"№у2" = EVENT_BETA_FREQ_NAME,	".у2" = EVENT_BETA_FREQ_NAME,
-	":у3" = EVENT_GAMMA_FREQ_NAME,		"#у3" = EVENT_GAMMA_FREQ_NAME,	"№у3" = EVENT_GAMMA_FREQ_NAME,	".у3" = EVENT_GAMMA_FREQ_NAME,
 
 	// Russian text uppercase
 	":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
@@ -106,13 +97,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
 	":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
 	":Ю" = PRS_FREQ_NAME,				"#Ю" = PRS_FREQ_NAME,			"№Ю" = PRS_FREQ_NAME,			".Ю" = PRS_FREQ_NAME,
-	":У1" = EVENT_ALPHA_FREQ_NAME,		"#У1" = EVENT_ALPHA_FREQ_NAME,	"№У1" = EVENT_ALPHA_FREQ_NAME,	".У1" = EVENT_ALPHA_FREQ_NAME,
-	":У2" = EVENT_BETA_FREQ_NAME,		"#У2" = EVENT_BETA_FREQ_NAME,	"№У2" = EVENT_BETA_FREQ_NAME,	".У2" = EVENT_BETA_FREQ_NAME,
-	":У3" = EVENT_GAMMA_FREQ_NAME,		"#У3" = EVENT_GAMMA_FREQ_NAME,	"№У3" = EVENT_GAMMA_FREQ_NAME,	".У3" = EVENT_GAMMA_FREQ_NAME,
 
 	// English symbols no case
 	":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
 	":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
+	":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
+	":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
+	":3" = EVENT_GAMMA_FREQ_NAME,		"#3" = EVENT_GAMMA_FREQ_NAME,	"№3" = EVENT_GAMMA_FREQ_NAME,	".3" = EVENT_GAMMA_FREQ_NAME,
 	// Russian symbols no case
 		// None yet.
 

@@ -43,7 +43,7 @@
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
 /obj/item/ninja_chameleon_scanner/Destroy()
-	my_suit?.chameleon_scanner = null
+	my_suit.chameleon_scanner = null
 	my_suit = null
 	my_action = null
 	return ..()

@@ -1,0 +1,4 @@
+author: "L343-CJ"
+delete-after: True
+changes:
+  - qol: "теперь в portrait printer можно высыпать сразу всю корзину бумаги (PR #9605)"

@@ -30,10 +30,6 @@
 	. = ..()
 	SSaddition_goals.console_list += src
 
-/obj/machinery/computer/addition_goals/Destroy()
-	SSaddition_goals.console_list -= src
-	return ..()
-
 /obj/machinery/computer/addition_goals/attack_hand(mob/user)
 	. = ..()
 	if(.)

@@ -40,6 +40,19 @@
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
+"au" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/aquatic_kit/full,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/fish_eggs/salmon,
+/obj/item/fish_eggs/salmon,
+/obj/item/fish_eggs/shrimp,
+/obj/item/fish_eggs/shrimp,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "av" = (
 /obj/machinery/door/window/brigdoor{
 	color = "black"
@@ -139,6 +152,11 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"bs" = (
+/obj/structure/closet/crate/hydroponics/prespawned,
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/wood/fancy,
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "bB" = (
 /obj/machinery/vending/autodrobe,
 /turf/simulated/floor/carpet/red,
@@ -364,6 +382,14 @@
 /obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"dB" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/reagent_containers/food/drinks/bottle/cream,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "dE" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass,
@@ -517,6 +543,18 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
+"fb" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+/obj/item/reagent_containers/food/snacks/meat,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fc" = (
 /obj/effect/bump_teleporter{
 	id_target = "lab_lounge";
@@ -546,6 +584,12 @@
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"fr" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_w)
 "ft" = (
 /turf/simulated/floor/plasteel/stairs/right,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
@@ -605,6 +649,12 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"fO" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "fP" = (
 /obj/item/storage/backpack/santabag,
 /turf/simulated/floor/wood,
@@ -672,6 +722,12 @@
 /obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"gq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "gu" = (
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/storage/firstaid/fire,
@@ -803,6 +859,17 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
+"hr" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/vision_change_area/awaymission/evil_santa/mine)
+"hs" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mug/comms,
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "hu" = (
 /obj/item/stack/sheet/wood,
 /obj/effect/decal/snow/clean/edge,
@@ -851,6 +918,14 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
+"hJ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/vision_change_area/awaymission/evil_santa/hut_e)
 "hK" = (
 /obj/item/clothing/head/bearpelt/fluff,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -1025,11 +1100,6 @@
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"ja" = (
-/obj/item/reagent_containers/cup/bucket/wooden,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "jb" = (
 /obj/item/mining_scanner,
 /turf/simulated/floor/plating/asteroid,
@@ -1069,6 +1139,16 @@
 "jl" = (
 /turf/simulated/wall/indestructible/wood,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"jn" = (
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_w)
 "jo" = (
 /obj/item/gun/projectile/automatic/smg/saber,
 /turf/simulated/floor/wood/oak,
@@ -1135,6 +1215,14 @@
 	icon_state = "wood-broken7"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
+"jI" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366";
+	light_range = 3;
+	name = "Mining lantern"
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
+/area/vision_change_area/awaymission/evil_santa/end/santa)
 "jK" = (
 /turf/simulated/wall/indestructible/rock,
 /area/space)
@@ -1208,14 +1296,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"kv" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366";
-	light_range = 3;
-	name = "Mining lantern"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/vision_change_area/awaymission/evil_santa/mine)
 "kw" = (
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/floor/carpet/red,
@@ -1295,17 +1375,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"kU" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366";
-	light_range = 3;
-	name = "Mining lantern"
-	},
-/obj/item/decorations/sticky_decorations/flammable/tinsel/green{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
-/area/vision_change_area/awaymission/evil_santa/end/santa)
 "kV" = (
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacechips/c5000,
@@ -1318,23 +1387,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
-"lg" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_y = 12
-	},
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_w)
-"ln" = (
-/obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/glass/bottle/vodka,
-/obj/item/reagent_containers/cup/glass/bottle/vodka,
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "lo" = (
 /obj/machinery/vending/hatdispenser,
 /turf/simulated/floor/wood/fancy,
@@ -1370,11 +1422,6 @@
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
-"lD" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/mug/hos,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "lG" = (
 /obj/machinery/icemachine{
 	pixel_x = -4
@@ -1383,13 +1430,16 @@
 	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
-"lO" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
+"lP" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/storage/bag/tray,
+/obj/item/reagent_containers/food/drinks/bottle/milk{
+	pixel_x = -8;
+	pixel_y = 10
 	},
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/end/exit)
 "lQ" = (
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
@@ -1559,12 +1609,6 @@
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/carpet/orange,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"nk" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "no" = (
 /obj/effect/decal/remains/mouse,
 /obj/effect/decal/cleanable/dirt,
@@ -1771,12 +1815,6 @@
 	},
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"oA" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/vision_change_area/awaymission/evil_santa/mine)
 "oC" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -1801,6 +1839,13 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
+"oO" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "oT" = (
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -1996,12 +2041,6 @@
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
-"qG" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_e)
 "qJ" = (
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = -32
@@ -2011,6 +2050,15 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"qK" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/reagent_containers/food/drinks/bottle/milk{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/end/exit)
 "qO" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -2090,12 +2138,6 @@
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
-"rv" = (
-/obj/structure/table/wood,
-/obj/item/newspaper,
-/obj/item/reagent_containers/cup/glass/mug/hos,
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "rw" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -2158,6 +2200,32 @@
 	},
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"rW" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
+"sa" = (
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/structure/table/wood/fancy/red,
+/turf/simulated/floor/carpet/red,
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sf" = (
 /obj/structure/sink/directional/west,
 /obj/machinery/light{
@@ -2200,25 +2268,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
-"sv" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sy" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -2267,12 +2316,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
-"sS" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "sU" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/red,
@@ -2289,6 +2332,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"ti" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "tk" = (
 /obj/item/grown/log/tree,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -2372,15 +2434,6 @@
 /obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"um" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
-/obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/cup/beaker/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "uo" = (
 /mob/living/simple_animal/hostile/bear/brown{
 	faction = list("hostile","syndicate","winter")
@@ -2393,10 +2446,15 @@
 /obj/item/storage/backpack/guitarbag/with_guitar,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"uq" = (
-/obj/item/reagent_containers/cup/bucket/wooden,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
+"ur" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "ut" = (
 /mob/living/simple_animal/hostile/retaliate/goat,
 /turf/simulated/floor/plasteel{
@@ -2408,6 +2466,12 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
+"uw" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/oilcan/full,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "uJ" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
@@ -2456,6 +2520,14 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "uY" = (
 /turf/simulated/floor/plasteel/stairs/medium,
+/area/vision_change_area/awaymission/evil_santa/end/exit)
+"uZ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "vb" = (
 /obj/machinery/mineral/mint,
@@ -2538,30 +2610,6 @@
 	turf_type = /turf/simulated/floor/plating/asteroid
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
-"vN" = (
-/obj/item/storage/fancy/cigcase,
-/obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/cup/glass/shaker,
-/obj/item/grenade/confetti,
-/obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
-"vQ" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "vR" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -2749,6 +2797,14 @@
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
+"xv" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_w)
 "xy" = (
 /obj/structure/decorative_structures/garland,
 /obj/structure/decorative_structures/garland{
@@ -2788,15 +2844,11 @@
 /obj/structure/statue/cheese/cheesus,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
-"xL" = (
-/obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/cup/glass/bottle/juice/milk{
-	pixel_x = -5;
-	pixel_y = 10
-	},
-/obj/structure/decorative_structures/garland,
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/end/exit)
+"xJ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/mug/comms,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "xN" = (
 /turf/simulated/wall/shuttle,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -2842,6 +2894,11 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"yi" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/mug/hos,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "yj" = (
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 32
@@ -3003,6 +3060,22 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"zI" = (
+/obj/item/storage/fancy/cigcase,
+/obj/item/book/manual/barman_recipes,
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/grenade/confetti,
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "zL" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/wood/cold,
@@ -3047,11 +3120,6 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
-"Al" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/condiment/milk,
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "Ar" = (
 /mob/living/simple_animal/hostile/monkey_shaftminer,
 /turf/simulated/floor/plating/asteroid,
@@ -3295,16 +3363,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
-"CJ" = (
-/obj/structure/table/wood/fancy/green,
-/obj/item/storage/bag/tray,
-/obj/item/reagent_containers/cup/glass/bottle/juice/milk{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/obj/structure/decorative_structures/garland,
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/end/exit)
 "CM" = (
 /obj/machinery/gateway{
 	density = 0
@@ -3342,18 +3400,6 @@
 /obj/effect/decal/remains,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"Dn" = (
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/obj/structure/table/wood/fancy/red,
-/turf/simulated/floor/carpet/red,
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Do" = (
 /obj/item/grown/bananapeel,
 /turf/simulated/floor/grass,
@@ -3601,18 +3647,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"FO" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/enzyme{
-	layer = 5;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-/obj/item/reagent_containers/food/snacks/meat,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "FU" = (
 /obj/structure/decorative_structures/fireplace{
 	dir = 8;
@@ -3639,6 +3673,14 @@
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"Ga" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/vision_change_area/awaymission/evil_santa/hut_e)
 "Gb" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood/oak,
@@ -3719,14 +3761,12 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
-"Gx" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/oilcan,
-/obj/structure/decorative_structures/garland{
-	dir = 8
+"GA" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
 	},
-/turf/simulated/floor/vault,
-/area/vision_change_area/awaymission/evil_santa/end/exit)
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_e)
 "GD" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid,
@@ -3835,11 +3875,6 @@
 /obj/structure/decorative_structures/garland,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"Hv" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/mug/comms,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "Hw" = (
 /obj/item/clothing/gloves/fingerless,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -3911,16 +3946,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"If" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366";
-	light_range = 3;
-	name = "Mining lantern"
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
-	slowdown = 0
-	},
-/area/vision_change_area/awaymission/evil_santa/end/exit)
 "Ii" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
@@ -3986,12 +4011,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
-"IC" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/oilcan/full,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating/asteroid,
-/area/vision_change_area/awaymission/evil_santa/mine)
 "IF" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/snacks/gingercookie,
@@ -4004,11 +4023,6 @@
 /obj/item/clothing/head/snowman,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"IK" = (
-/obj/structure/closet/crate/hydroponics/prespawned,
-/obj/item/reagent_containers/cup/bucket,
-/turf/simulated/floor/wood/fancy,
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "IO" = (
 /obj/structure/window/reinforced{
 	color = "black";
@@ -4131,13 +4145,12 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
-"Ke" = (
+"Kc" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 11
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_y = 12
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "Ki" = (
 /obj/item/stack/medical/ointment/aloe,
@@ -4215,14 +4228,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
-"KM" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "KO" = (
 /obj/effect/decal/remains/mouse,
 /obj/effect/decal/cleanable/dust,
@@ -4282,6 +4287,16 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
+"Lj" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366";
+	light_range = 3;
+	name = "Mining lantern"
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/end/exit)
 "Lm" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -4452,6 +4467,17 @@
 /mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"MP" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366";
+	light_range = 3;
+	name = "Mining lantern"
+	},
+/obj/item/decorations/sticky_decorations/flammable/tinsel/green{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
+/area/vision_change_area/awaymission/evil_santa/end/santa)
 "MR" = (
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -4650,6 +4676,11 @@
 /obj/item/gift,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
+"Os" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ow" = (
 /obj/structure/decorative_structures/garland,
 /obj/structure/decorative_structures/garland{
@@ -4686,6 +4717,12 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
+"OJ" = (
+/obj/structure/table/wood,
+/obj/item/newspaper,
+/obj/item/reagent_containers/food/drinks/mug/hos,
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "OL" = (
 /obj/structure/bed,
 /turf/simulated/floor/carpet{
@@ -4900,22 +4937,8 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
-"QD" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_e)
 "QF" = (
 /obj/item/holder/monkey,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
-"QJ" = (
-/obj/item/reagent_containers/cup/bucket/wooden,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -5028,6 +5051,13 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
+"RE" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/sugar{
+	pixel_y = 10
+	},
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_w)
 "RJ" = (
 /obj/structure/decorative_structures/garland{
 	dir = 4
@@ -5127,14 +5157,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"Sx" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366";
-	light_range = 3;
-	name = "Mining lantern"
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
-/area/vision_change_area/awaymission/evil_santa/end/santa)
 "Sy" = (
 /obj/item/stack/ore/gold,
 /turf/simulated/floor/plating/asteroid,
@@ -5214,6 +5236,11 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine/terror_spider)
+"Tj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/milk,
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_w)
 "Tn" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/hypospray/autoinjector{
@@ -5276,6 +5303,14 @@
 "TE" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/vision_change_area/awaymission/evil_santa/mine)
+"TF" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366";
+	light_range = 3;
+	name = "Mining lantern"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -5344,14 +5379,6 @@
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
-"Uc" = (
-/obj/item/flashlight/lantern/on{
-	light_color = "#ffb366"
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_e)
 "Ue" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood,
@@ -5426,6 +5453,10 @@
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"US" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "UT" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing{
@@ -5642,19 +5673,6 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
-"WH" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/aquatic_kit/full,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/fish_eggs/salmon,
-/obj/item/fish_eggs/salmon,
-/obj/item/fish_eggs/shrimp,
-/obj/item/fish_eggs/shrimp,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "WJ" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -4;
@@ -5743,20 +5761,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
-"Xu" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Xv" = (
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
 /obj/effect/decal/cleanable/dirt,
@@ -5770,6 +5774,14 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"XD" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "XH" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/heart,
 /turf/simulated/floor/wood/oak,
@@ -5875,12 +5887,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"YK" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "YP" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet/green,
@@ -5944,24 +5950,12 @@
 	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
-"Zm" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/condiment/sugar{
-	pixel_y = 10
-	},
-/turf/simulated/floor/wood,
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "Zn" = (
 /obj/item/gun/projectile/bow,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
-"Zp" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/mug/comms,
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "Zt" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -5995,6 +5989,12 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
+"ZN" = (
+/obj/item/flashlight/lantern/on{
+	light_color = "#ffb366"
+	},
+/turf/simulated/floor/wood,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "ZO" = (
 /obj/item/stack/medical/bruise_pack,
 /turf/simulated/floor/carpet,
@@ -13149,8 +13149,8 @@ Oc
 Oc
 CO
 ZR
-sS
-Zm
+fr
+RE
 dw
 Kl
 ZR
@@ -13402,7 +13402,7 @@ Sp
 ZR
 Qs
 xr
-lg
+Kc
 ec
 Ww
 ZR
@@ -13923,7 +13923,7 @@ Ww
 Ww
 Ww
 nL
-Al
+Tj
 ny
 Sp
 Sp
@@ -14180,7 +14180,7 @@ ZR
 Ww
 KP
 bN
-Ke
+xv
 ny
 Sp
 Sp
@@ -14434,10 +14434,10 @@ Ww
 Ww
 Wg
 ZR
-sS
+fr
 Ww
 Ww
-ln
+jn
 ZR
 Sp
 Sp
@@ -15970,11 +15970,11 @@ qU
 qU
 Ww
 ZR
-sS
+fr
 Oc
 EX
 Oc
-sS
+fr
 ZR
 ZR
 ny
@@ -24805,7 +24805,7 @@ jK
 jK
 jK
 sV
-kU
+MP
 Ze
 RZ
 Tp
@@ -24826,7 +24826,7 @@ Ri
 Tp
 Rw
 Ze
-Sx
+jI
 yW
 Gn
 Gn
@@ -26076,7 +26076,7 @@ Xo
 sO
 il
 ov
-Gx
+uZ
 Ij
 Wm
 AV
@@ -26858,7 +26858,7 @@ CS
 CS
 RY
 Xj
-CJ
+lP
 Ij
 sV
 KU
@@ -27163,7 +27163,7 @@ mj
 ZD
 mj
 Bf
-lD
+yi
 xN
 jK
 zj
@@ -27615,10 +27615,10 @@ jK
 jK
 sO
 sO
-If
+Lj
 rC
 rC
-If
+Lj
 Ij
 OB
 CT
@@ -27733,7 +27733,7 @@ nA
 eS
 TR
 aS
-lO
+oO
 TR
 Sp
 Sp
@@ -28643,10 +28643,10 @@ jK
 jK
 sO
 sO
-If
+Lj
 rC
 rC
-If
+Lj
 Ij
 iZ
 JV
@@ -28753,7 +28753,7 @@ Sp
 Sp
 Sp
 TR
-nk
+ZN
 cO
 Ko
 TR
@@ -28961,7 +28961,7 @@ mj
 mj
 SZ
 mj
-Hv
+xJ
 Ew
 xN
 jK
@@ -29012,7 +29012,7 @@ Sp
 gk
 cO
 Ln
-Zp
+hs
 sy
 Vy
 Vy
@@ -29532,7 +29532,7 @@ cO
 DZ
 PB
 cO
-nk
+ZN
 TR
 Sp
 Sp
@@ -29685,7 +29685,7 @@ CS
 CS
 CS
 CS
-xL
+qK
 Ij
 sV
 vX
@@ -29783,7 +29783,7 @@ Sp
 TR
 wh
 ba
-rv
+OJ
 YX
 MJ
 TR
@@ -30296,7 +30296,7 @@ Sp
 Sp
 TR
 rK
-YK
+gq
 wZ
 Lm
 MJ
@@ -30556,7 +30556,7 @@ iT
 KQ
 KQ
 aZ
-vQ
+XD
 TR
 Sp
 Sp
@@ -31487,7 +31487,7 @@ jK
 jK
 jK
 sV
-kU
+MP
 Ze
 RZ
 Tp
@@ -31508,7 +31508,7 @@ Cl
 Tp
 Rw
 Ze
-Sx
+jI
 xG
 Gn
 Gn
@@ -32291,7 +32291,7 @@ Gn
 Gn
 Gn
 xN
-uq
+US
 ea
 HY
 RM
@@ -32556,7 +32556,7 @@ mj
 mj
 SQ
 mj
-QJ
+fO
 xN
 Gn
 Gn
@@ -33327,7 +33327,7 @@ mj
 RM
 HY
 RM
-ja
+Os
 xN
 Gn
 Gn
@@ -33834,7 +33834,7 @@ Gn
 Gn
 xN
 zG
-uq
+US
 HY
 mj
 RM
@@ -34347,7 +34347,7 @@ Gn
 Gn
 Gn
 xN
-uq
+US
 gH
 HY
 mj
@@ -34869,7 +34869,7 @@ aN
 mj
 HY
 CZ
-uq
+US
 xN
 Gn
 Gn
@@ -40126,7 +40126,7 @@ Sp
 Sp
 Sp
 EY
-qG
+GA
 dL
 XR
 EY
@@ -41669,7 +41669,7 @@ Sp
 Sp
 EY
 kB
-QD
+hJ
 ah
 od
 aJ
@@ -41929,7 +41929,7 @@ KE
 HO
 HO
 HO
-Uc
+Ga
 EY
 Sp
 sE
@@ -51895,7 +51895,7 @@ vv
 vv
 Zx
 Zx
-kv
+TF
 kJ
 kJ
 kJ
@@ -52482,7 +52482,7 @@ vv
 vv
 kJ
 wy
-IC
+uw
 TQ
 et
 oj
@@ -54045,7 +54045,7 @@ Zx
 wg
 Zx
 Zx
-kv
+TF
 kJ
 kJ
 vv
@@ -54546,7 +54546,7 @@ Bv
 vv
 vv
 vv
-kv
+TF
 Qy
 Zx
 Zx
@@ -55191,7 +55191,7 @@ Mx
 Mx
 Mx
 dc
-IK
+bs
 Mx
 iL
 jl
@@ -55432,7 +55432,7 @@ ZB
 ZB
 ZB
 jl
-vN
+zI
 Qb
 Pv
 Qb
@@ -55448,7 +55448,7 @@ Mx
 Mx
 Mx
 dc
-IK
+bs
 Mx
 Lv
 jl
@@ -55488,7 +55488,7 @@ vv
 vv
 vv
 vv
-kv
+TF
 qm
 vv
 Zx
@@ -55755,7 +55755,7 @@ kJ
 vv
 vv
 vv
-kv
+TF
 Zx
 Zx
 Zx
@@ -56095,7 +56095,7 @@ vv
 kJ
 kJ
 uL
-kv
+TF
 kJ
 kJ
 vv
@@ -56370,7 +56370,7 @@ Ar
 wg
 Zx
 Zx
-kv
+TF
 Zx
 Qy
 Ad
@@ -57111,7 +57111,7 @@ Zx
 Zx
 Zx
 Zx
-kv
+TF
 Bv
 Bv
 Bv
@@ -57130,7 +57130,7 @@ kJ
 Zx
 Zx
 Zx
-kv
+TF
 Zx
 kJ
 kJ
@@ -57234,7 +57234,7 @@ jl
 Hm
 wa
 pf
-Dn
+sa
 go
 VY
 go
@@ -57400,7 +57400,7 @@ Zx
 Zx
 wg
 Zx
-kv
+TF
 kJ
 Ad
 vv
@@ -57493,7 +57493,7 @@ mn
 YB
 VY
 Nm
-Dn
+sa
 Nm
 BA
 Sl
@@ -58005,7 +58005,7 @@ fM
 mn
 mn
 YB
-Dn
+sa
 go
 VY
 go
@@ -58016,7 +58016,7 @@ bf
 Mx
 Xg
 dV
-FO
+fb
 kl
 NH
 dV
@@ -58274,7 +58274,7 @@ gl
 Xg
 NH
 TC
-sv
+ti
 dV
 NH
 hF
@@ -58408,7 +58408,7 @@ vv
 kJ
 kJ
 zi
-oA
+hr
 kJ
 kJ
 kJ
@@ -58521,7 +58521,7 @@ mn
 YB
 VY
 Nm
-Dn
+sa
 Nm
 iS
 zC
@@ -58530,11 +58530,11 @@ lv
 Mx
 Xg
 dV
-Xu
-KM
+rW
+dB
 NH
 dV
-um
+ur
 jl
 ZB
 ZB
@@ -58653,7 +58653,7 @@ Zx
 Zx
 Zx
 Zx
-kv
+TF
 Bv
 Bv
 Bv
@@ -59033,7 +59033,7 @@ jl
 mn
 mn
 YB
-Dn
+sa
 go
 VY
 go
@@ -59292,7 +59292,7 @@ Vf
 UT
 VY
 Nm
-Dn
+sa
 Nm
 BA
 Tb
@@ -59820,7 +59820,7 @@ jl
 lU
 lU
 lU
-WH
+au
 jl
 ZB
 ZB
@@ -59942,7 +59942,7 @@ Bv
 Zx
 Zx
 Zx
-kv
+TF
 vv
 vv
 vv
@@ -60882,7 +60882,7 @@ vv
 vv
 vv
 vv
-kv
+TF
 hd
 Zx
 Zx
@@ -61241,7 +61241,7 @@ Zx
 Zx
 Zx
 uL
-kv
+TF
 kJ
 kJ
 kJ
@@ -61492,7 +61492,7 @@ kJ
 kJ
 kJ
 kJ
-kv
+TF
 Zx
 Zx
 Zx
@@ -62793,7 +62793,7 @@ Zx
 Zx
 GD
 Zx
-kv
+TF
 kJ
 kJ
 kJ

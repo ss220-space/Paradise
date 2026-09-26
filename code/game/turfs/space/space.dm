@@ -176,14 +176,13 @@ GLOBAL_LIST_EMPTY(starlight)
 		return .|ATTACK_CHAIN_SUCCESS
 
 /turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
 	if(!arrived || !(src in arrived.locs))
-		return ..()
+		return .
 
 	if(destination_z && destination_x && destination_y)
 		destination_z = check_taipan_availability(arrived, destination_z)
-		if(!arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED|ZMOVE_WITH_DELAY))
-			arrived.loc = old_loc
-			return ..()
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
 		var/atom/movable/current_pull = arrived.pulling
 		while(current_pull)
@@ -192,9 +191,6 @@ GLOBAL_LIST_EMPTY(starlight)
 			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
 				break
 			current_pull = current_pull.pulling
-		return ..()
-
-	. = ..()
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))

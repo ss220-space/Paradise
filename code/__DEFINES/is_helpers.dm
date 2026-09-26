@@ -154,15 +154,13 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define issyringe(A) (istype(A, /obj/item/reagent_containers/syringe))
 
-#define iscup(A) (istype(A, /obj/item/reagent_containers/cup))
+#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
 #define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
-
-#define is_door(A) (istype(A, /obj/machinery/door))
 
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
@@ -457,11 +455,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
 
-#define is_closet(A) (istype(A, /obj/structure/closet))
-#define is_secure_closet(A) (istype(A, /obj/structure/closet/secure_closet))
-
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
-#define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))

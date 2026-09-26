@@ -1,5 +1,4 @@
 /datum/map_template/ruin/lavaland
-	abstract_type = /datum/map_template/ruin/lavaland
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
 
 /datum/map_template/ruin/lavaland/biodome

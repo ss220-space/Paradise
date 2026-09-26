@@ -14,7 +14,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
  * MARK: Abstract Generator
  */
 /obj/machinery/gravity_generator
-	abstract_type = /obj/machinery/gravity_generator
 	name = "gravitational generator"
 	desc = "A device which produces a gravaton field when set up."
 	icon = 'icons/obj/machines/gravity_generator.dmi'
@@ -339,7 +338,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	on = FALSE
 	use_power = IDLE_POWER_USE
 
-	soundloop?.stop()
+	soundloop.stop()
 	QDEL_NULL(gravity_field)
 	var/old_gravity = gravity_in_level()
 	complete_state_update()

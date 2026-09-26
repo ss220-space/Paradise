@@ -8,6 +8,9 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	/obj/item/clothing/head/helmet/space/changeling,
 	/obj/item/clothing/suit/armor/changeling,
 	/obj/item/clothing/head/helmet/changeling,
+	/obj/item/organ/internal/cyberimp/eyes/shield/ling,
+	/obj/item/organ/internal/cyberimp/eyes/thermals/ling
+
 ))
 
 /datum/action/changeling
@@ -124,6 +127,4 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		changes_species = FALSE
 
 	user.change_dna(DNA, changes_species)
-	cling.current_form_job = cling.dna_roles[DNA] ? SSjobs.GetJob(cling.dna_roles[DNA]) : null
-	cling.owner.refresh_skills()
 

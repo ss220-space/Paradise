@@ -63,7 +63,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	ASSIGN_GAME_VERB(src, /mob/dead/observer, open_minigames_menu)
 
 	// Our new boo spell.
-	AddSpell(new /datum/action/cooldown/spell/pointed/Boo)
+	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -107,8 +107,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	show_me_the_hud(THOUGHTS_HUD)
-	if(ismob(body))
-		toggle_all_huds_on(body)
+	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
 
@@ -123,9 +122,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
-	UNASSIGN_GAME_VERB(src, /mob/dead/observer, dead_tele)
-	UNASSIGN_GAME_VERB(src, /mob/dead/observer, open_spawners_menu)
-	UNASSIGN_GAME_VERB(src, /mob/dead/observer, open_minigames_menu)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		ghostimage.loc = null

@@ -1,78 +1,57 @@
-/datum/action/cooldown/spell/umbrae_cloak
+/obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Покров тьмы"
 	desc = "Включает или выключает маскировку в темноте. Если вы замаскированы и находитесь в темноте, то ваша скорость увеличивается."
 	gain_desc = "Теперь вы можете маскировать себя во тьме, становясь почти невидимым и чрезвычайно проворным."
-	button_icon_state = "vampire_cloak"
-	background_icon_state = "bg_vampire"
-	cooldown_time = 2 SECONDS
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	school = SCHOOL_SANGUINE
+	action_icon_state = "vampire_cloak"
+	base_cooldown = 2 SECONDS
 
-/datum/action/cooldown/spell/umbrae_cloak/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src)
-	return handler
-
-/datum/action/cooldown/spell/umbrae_cloak/Grant(mob/grant_to)
-	. = ..()
-	var/datum/antagonist/vampire/V = grant_to?.mind?.has_antag_datum(/datum/antagonist/vampire)
+/obj/effect/proc_holder/spell/vampire/self/cloak/update_vampire_spell_name(mob/user = usr)
+	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(!V)
 		return
 
-	name = "[initial(name)] ([V.iscloaking ? "Деактивировать" : "Активировать"])"
-	build_all_button_icons()
+	var/new_name = "[initial(name)] ([V.iscloaking ? "Деактивировать" : "Активировать"])"
+	name = new_name
+	action?.name = new_name
+	action?.UpdateButtonIcon()
 
-/datum/action/cooldown/spell/umbrae_cloak/after_cast(atom/cast_on)
-	. = ..()
-	var/datum/antagonist/vampire/V = owner?.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(!V)
-		return
-
-	name = "[initial(name)] ([V.iscloaking ? "Деактивировать" : "Активировать"])"
-	build_all_button_icons()
-
-/datum/action/cooldown/spell/umbrae_cloak/cast(atom/cast_on)
-	. = ..()
-	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+/obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	V.iscloaking = !V.iscloaking
-	if(ishuman(owner))
-		var/mob/living/carbon/human/caster = owner
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
-			caster.physiology.burn_mod *= 1.3
-			owner.RegisterSignal(owner, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
+			H.physiology.burn_mod *= 1.3
+			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
-			owner.UnregisterSignal(owner, COMSIG_LIVING_IGNITED)
-			caster.physiology.burn_mod /= 1.3
+			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
+			H.physiology.burn_mod /= 1.3
 
-	to_chat(owner, span_notice("Теперь вы будете <b>[V.iscloaking ? "скрыты" : "видимы"]</b> в темноте."))
+	update_vampire_spell_name(user)
+	to_chat(user, span_notice("Теперь вы будете <b>[V.iscloaking ? "скрыты" : "видимы"]</b> в темноте."))
 
 /mob/living/proc/update_vampire_cloak()
 	SIGNAL_HANDLER
 	var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 	V.handle_vampire_cloak()
 
-/datum/action/cooldown/spell/pointed/shadow_snare
+/obj/effect/proc_holder/spell/vampire/shadow_snare
 	name = "Теневая ловушка"
 	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
 	gain_desc = "Вы получили способность вызывать ловушку, которая ослепит, захватит в капкан и выключит свет любому, кто пересечет ее."
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	school = SCHOOL_SANGUINE
-	button_icon_state = "shadow_snare"
-	background_icon_state = "bg_vampire"
-	background_icon_state_active = "bg_vampire"
-	cooldown_time = 10 SECONDS
-	var/required_blood = 15
+	required_blood = 15
+	action_icon_state = "shadow_snare"
+	need_active_overlay = TRUE
 
-/datum/action/cooldown/spell/pointed/shadow_snare/cast(atom/cast_on)
-	. = ..()
-	var/turf/target = get_turf(cast_on)
+/obj/effect/proc_holder/spell/vampire/shadow_snare/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /turf/simulated
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/vampire/shadow_snare/cast(list/targets, mob/user)
+	var/turf/target = targets[1]
 	new /obj/item/restraints/legcuffs/beartrap/shadow_snare(target)
-
-/datum/action/cooldown/spell/pointed/shadow_snare/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return handler
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
@@ -151,54 +130,47 @@
 	)
 	qdel(src)
 
-/datum/action/cooldown/spell/soul_anchor
+/obj/effect/proc_holder/spell/vampire/soul_anchor
 	name = "Теневой якорь"
 	desc = "Вы вызываете затемнённый якорь после задержки, повторное заклинание телепортирует вас обратно к якорю. Вы будете вынуждены вернуться назад через 2 минуты, если не произнесли повторное заклинание."
 	gain_desc = "Вы получили способность сохранять точку в пространстве и телепортироваться к ней по своему желанию. Если в течение 2 минут вы самостоятельно не телепортируетесь обратно в эту точку, вас телепортирует автоматически."
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	cooldown_time = 130 SECONDS
-	button_icon_state = "shadow_anchor"
-	background_icon_state = "bg_vampire"
+	required_blood = 20
+	centcom_cancast = FALSE
+	base_cooldown = 130 SECONDS
+	action_icon_state = "shadow_anchor"
+	should_recharge_after_cast = FALSE
+	deduct_blood_on_cast = FALSE
 	var/obj/structure/shadow_anchor/anchor
-	var/required_blood = 20
 	/// Are we making an anchor?
 	var/making_anchor = FALSE
 	/// Holds a reference to the timer until the caster is forced to recall
 	var/timer
 
-/datum/action/cooldown/spell/soul_anchor/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
-	return handler
+/obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
+	return new /datum/spell_targeting/self
 
-/datum/action/cooldown/spell/soul_anchor/before_cast(atom/cast_on)
-	. = ..()
-	if(!anchor)
-		cooldown_time = 0
-		return
-	cooldown_time = initial(cooldown_time)
-
-/datum/action/cooldown/spell/soul_anchor/cast(atom/cast_on)
-	. = ..()
+/obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
 	if(making_anchor) // second cast, but we are impatient
-		owner.balloon_alert(owner, "якорь не готов!")
+		balloon_alert(user, "якорь не готов!")
 		return
 
 	if(!making_anchor && !anchor) // first cast, setup the anchor
-		var/turf/anchor_turf = get_turf(owner)
+		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_after(owner, 5 SECONDS, owner, ALL)) // no checks, cant fail
-			make_anchor(owner, anchor_turf)
+		if(do_after(user, 5 SECONDS, user, ALL)) // no checks, cant fail
+			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return
 
 	if(anchor) // second cast, teleport us back
-		recall(owner)
+		recall(user)
 
-/datum/action/cooldown/spell/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
 	timer = addtimer(CALLBACK(src, PROC_REF(recall), user), 2 MINUTES, TIMER_STOPPABLE)
+	should_recharge_after_cast = TRUE
 
-/datum/action/cooldown/spell/soul_anchor/proc/recall(mob/user)
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
 	if(timer)
 		deltimer(timer)
 		timer = null
@@ -220,6 +192,7 @@
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
 	vampire.bloodusable -= blood_cost
+	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
 
 /proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
 	var/x_difference = end_turf.x - start_turf.x
@@ -256,29 +229,28 @@
 			PREPOSITIONAL = "теневом якоре",
 		)
 
-/datum/action/cooldown/spell/pointed/dark_passage
+/obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Шаг в тень"
 	desc = "Вы телепортируетесь на указанную площадку."
 	gain_desc = "Вы получили способность совершать молниеносный бросок на небольшое расстояние в сторону указанной площадки."
-	cooldown_time = 15 SECONDS
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	button_icon_state = "dark_passage"
-	background_icon_state = "bg_vampire"
-	background_icon_state_active = "bg_vampire"
-	school = SCHOOL_SANGUINE
+	base_cooldown = 15 SECONDS
+	required_blood = 20
+	centcom_cancast = FALSE
+	action_icon_state = "dark_passage"
 	sound = 'sound/magic/teleport_app.ogg'
-	var/required_blood = 20
+	need_active_overlay = TRUE
 
-/datum/action/cooldown/spell/pointed/dark_passage/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src, required_blood)
-	return handler
+/obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.allowed_type = /turf/simulated
+	return T
 
-/datum/action/cooldown/spell/pointed/dark_passage/cast(atom/cast_on)
-	. = ..()
-	var/turf/target = get_turf(cast_on)
-	new /obj/effect/temp_visual/vamp_mist_out(get_turf(owner))
-	owner.forceMove(target)
-	new /obj/effect/temp_visual/vamp_mist_in(get_turf(owner))
+/obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
+	var/turf/target = get_turf(targets[1])
+	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
+	user.forceMove(target)
+	new /obj/effect/temp_visual/vamp_mist_in(get_turf(user))
 
 /obj/effect/temp_visual/vamp_mist_out
 	duration = 2 SECONDS
@@ -289,74 +261,60 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mist_reappear"
 
-/datum/action/cooldown/spell/aoe/vamp_extinguish
+/obj/effect/proc_holder/spell/vampire/vamp_extinguish
 	name = "Погасить"
 	desc = "Вы гасите любой источник света в области вокруг себя."
 	gain_desc = "Вы получили способность гасить ближайшие источники света."
-	cooldown_time = 30 SECONDS
-	button_icon_state = "vampire_extinguish"
-	background_icon_state = "bg_vampire"
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	school = SCHOOL_SANGUINE
-	targeting_type = /datum/aoe_targeting/turfs
+	base_cooldown = 30 SECONDS
+	action_icon_state = "vampire_extinguish"
+	create_attack_logs = FALSE
+	create_custom_logs = TRUE
 
-/datum/action/cooldown/spell/aoe/vamp_extinguish/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src)
-	return handler
+/obj/effect/proc_holder/spell/vampire/vamp_extinguish/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new
+	return T
 
-/datum/action/cooldown/spell/aoe/vamp_extinguish/cast_on_thing_in_aoe(atom/victim, atom/caster)
-	var/turf/victim_turf = victim
-	victim_turf.extinguish_light(force = TRUE)
-	for(var/atom/atom in victim_turf.contents)
-		atom.extinguish_light(force = TRUE)
+/obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
+	for(var/turf/turf in targets)
+		turf.extinguish_light(force = TRUE)
+		for(var/atom/atom in turf.contents)
+			atom.extinguish_light(force = TRUE)
 
-/datum/action/cooldown/spell/pointed/shadow_boxing
+/obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Бой с тенью"
 	desc = "Нацельтесь на кого-нибудь, чтобы ваша тень избила его. Чтобы это сработало, вы должны находиться в пределах двух тайлов."
 	gain_desc = "Теперь вы можете заставить свою тень сражаться бок о бок с вами."
-	cooldown_time = 30 SECONDS
-	button_icon_state = "shadow_boxing"
-	background_icon_state = "bg_vampire"
-	background_icon_state_active = "bg_vampire"
-	school = SCHOOL_SANGUINE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	cast_range = 2
+	base_cooldown = 30 SECONDS
+	action_icon_state = "shadow_boxing"
+	required_blood = 30
+	need_active_overlay = TRUE
 	var/target_UID
-	var/required_blood = 30
 
-/datum/action/cooldown/spell/pointed/shadow_boxing/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src, required_blood)
-	return handler
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /mob/living
+	T.range = 2
+	T.try_auto_target = FALSE
+	return T
 
-/datum/action/cooldown/spell/pointed/shadow_boxing/is_valid_target(atom/cast_on)
-	return ..() && isliving(cast_on)
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/cast(list/targets, mob/user)
+	var/mob/living/target = targets[1]
+	target.apply_status_effect(STATUS_EFFECT_SHADOW_BOXING, user)
 
-/datum/action/cooldown/spell/pointed/shadow_boxing/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/target = cast_on
-	target.apply_status_effect(STATUS_EFFECT_SHADOW_BOXING, owner)
-
-/datum/action/cooldown/spell/eternal_darkness
+/obj/effect/proc_holder/spell/vampire/self/eternal_darkness
 	name = "Вечная тьма"
 	desc = "При включении вы окутываете пространство вокруг себя темнотой и медленно понижаете температуру тела находящихся рядом гуманоидов."
 	gain_desc = "Вы обрели способность окутывать всё вокруг себя тьмой. Только сильнейший свет сможет пронзить вашу нечестивую силу."
-	button_icon_state = "eternal_darkness"
-	background_icon_state = "bg_vampire"
-	school = SCHOOL_SANGUINE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	var/required_blood = 5
+	action_icon_state = "eternal_darkness"
+	required_blood = 5
 	var/shroud_power = -4
 
-/datum/action/cooldown/spell/eternal_darkness/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
-	return handler
-
-/datum/action/cooldown/spell/eternal_darkness/cast(atom/cast_on)
-	. = ..()
-	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+/obj/effect/proc_holder/spell/vampire/self/eternal_darkness/cast(list/targets, mob/user)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/mob/target = targets[1]
 	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))
 		V.force_add_ability(/datum/vampire_passive/eternal_darkness)
-		owner.set_light(6, shroud_power, COLOR_VOID_PURPLE)
+		target.set_light(6, shroud_power, COLOR_VOID_PURPLE)
 	else
 		for(var/datum/vampire_passive/eternal_darkness/E in V.powers)
 			V.remove_ability(E)

@@ -52,15 +52,15 @@
 	/// How much weaken a successful ambush attack applies
 	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/datum/action/cooldown/spell/pointed/mimic/morph/mimic_spell
+	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
-	var/datum/action/cooldown/spell/morph_ambush/ambush_spell
+	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
-	var/datum/action/cooldown/spell/pointed/pass_airlock/pass_airlock_spell
+	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
 	/// The spell the morph uses to open vent when crawling in them
-	var/datum/action/cooldown/spell/aoe/open_vent/open_vent_spell
+	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
 	/// The spell the morph uses to reproduce
-	var/datum/action/cooldown/spell/morph_reproduce/reproduce_spell
+	var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -89,30 +89,29 @@
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
-	ambush_spell = new
-	open_vent_spell = new
-	pass_airlock_spell = new
-	reproduce_spell = new
 	AddSpell(mimic_spell)
+	ambush_spell = new
 	AddSpell(ambush_spell)
+	open_vent_spell = new
 	AddSpell(open_vent_spell)
+	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
+	reproduce_spell = new
 	AddSpell(reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Destroy()
 	RemoveSpell(mimic_spell)
-	RemoveSpell(ambush_spell)
-	RemoveSpell(open_vent_spell)
-	RemoveSpell(pass_airlock_spell)
-	RemoveSpell(reproduce_spell)
 	mimic_spell = null
+	RemoveSpell(ambush_spell)
 	ambush_spell = null
-	pass_airlock_spell = null
+	RemoveSpell(open_vent_spell)
 	open_vent_spell = null
+	RemoveSpell(pass_airlock_spell)
+	pass_airlock_spell = null
+	RemoveSpell(reproduce_spell)
 	reproduce_spell = null
-	GLOB.morphs_alive_list -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
@@ -152,8 +151,12 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
-	AddSpell(new /datum/action/cooldown/spell/smoke)
-	AddSpell(new /datum/action/cooldown/spell/forcewall)
+	var/obj/effect/proc_holder/spell/smoke/smoke = new
+	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
+	smoke.human_req = FALSE
+	forcewall.human_req = FALSE
+	AddSpell(smoke)
+	AddSpell(forcewall)
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
@@ -216,8 +219,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	set_varspeed(MORPHED_SPEED)
-	ambush_spell.UpdateButtonIcon()
-	pass_airlock_spell.UpdateButtonIcon()
+	ambush_spell.updateButtonIcon()
+	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
@@ -232,7 +235,7 @@
 	if(ambush_prepared)
 		to_chat(src, span_warning("Потенциал засады исчез, когда вы принимаете свою истинную форму."))
 	failed_ambush()
-	pass_airlock_spell.UpdateButtonIcon()
+	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
@@ -243,7 +246,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
-	ambush_spell.UpdateButtonIcon()
+	ambush_spell.updateButtonIcon()
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)

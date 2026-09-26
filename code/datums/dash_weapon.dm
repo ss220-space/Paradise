@@ -69,4 +69,4 @@
 	if(!owner)
 		return
 	owner.update_action_buttons_icon()
-	owner.balloon_alert(owner, "[current_charges] заряд[DECL_0_A_OV(current_charges)] доступ[DECL_YEN_NO_NO(current_charges)]")
+	owner.balloon_alert(owner, "[declension_ru(current_charges, "[current_charges] заряд доступен", "[current_charges] заряда доступно", "[current_charges] зарядов доступно")]")

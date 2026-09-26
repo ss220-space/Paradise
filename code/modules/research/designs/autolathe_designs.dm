@@ -6,7 +6,7 @@
 	id = "bucket"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/reagent_containers/cup/bucket
+	build_path = /obj/item/reagent_containers/glass/bucket
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
 /datum/design/crowbar
@@ -217,7 +217,7 @@
 	id = "pet_bowl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/cup/pet_bowl
+	build_path = /obj/item/reagent_containers/glass/pet_bowl
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
 /datum/design/metal
@@ -299,35 +299,35 @@
 	id = "drinking_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/cup/glass/drinkingglass
+	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/shot_glass
 	id = "shot_glass"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 100)
-	build_path = /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass
+	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/shaker
 	id = "shaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1500)
-	build_path = /obj/item/reagent_containers/cup/glass/shaker
+	build_path = /obj/item/reagent_containers/food/drinks/shaker
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/coffeepot
 	id = "coffeepot"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
-	build_path = /obj/item/reagent_containers/cup/coffeepot
+	build_path = /obj/item/reagent_containers/glass/coffeepot
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/syrup_bottle
 	id = "syrup_bottle"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/cup/bottle/syrup_bottle
+	build_path = /obj/item/reagent_containers/glass/bottle/syrup_bottle
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/cultivator
@@ -369,21 +369,21 @@
 	id = "beaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/reagent_containers/cup/beaker
+	build_path = /obj/item/reagent_containers/glass/beaker
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/large_beaker
 	id = "large_beaker"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 2500)
-	build_path = /obj/item/reagent_containers/cup/beaker/large
+	build_path = /obj/item/reagent_containers/glass/beaker/large
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/vial
 	id = "vial"
 	build_type = AUTOLATHE
 	materials = list(MAT_GLASS = 250)
-	build_path = /obj/item/reagent_containers/cup/beaker/vial
+	build_path = /obj/item/reagent_containers/glass/beaker/vial
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/vial_storage_box

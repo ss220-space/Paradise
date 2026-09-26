@@ -187,6 +187,12 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
+"dB" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/space/graveyard/church)
 "dK" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -290,13 +296,6 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/ruin/space/graveyard/church)
-"gp" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/trophy/bronze_cup{
-	pixel_y = 15
-	},
-/turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "gL" = (
 /obj/effect/turf_decal{
@@ -490,6 +489,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
+"kr" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/carpet,
+/area/ruin/space/graveyard/church)
 "kv" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
@@ -502,19 +505,6 @@
 /obj/structure/grille,
 /turf/space,
 /area/space/nearstation)
-"kD" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/item/card/id/gorky17{
-	name = "Key card";
-	access = list(666);
-	layer = 2.7
-	},
-/turf/simulated/floor/carpet/black,
-/area/ruin/space/graveyard/church)
 "kG" = (
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
@@ -786,13 +776,6 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
-"qW" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
-/area/ruin/space/graveyard/church)
 "rb" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -942,10 +925,6 @@
 /obj/structure/pit/closed/graveyard_loot,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
-"un" = (
-/obj/item/flashlight/lantern/on,
-/turf/simulated/floor/grass,
-/area/ruin/space/graveyard/graves)
 "uo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1022,12 +1001,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
-"wi" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/cup/glass/oilcan,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/ruin/space/graveyard/church)
 "wm" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1043,6 +1016,21 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"wB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/obj/item/reagent_containers/food/snacks/sliceable/bread,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "wH" = (
@@ -1082,6 +1070,16 @@
 /obj/effect/spawner/lootdrop/bouquet_spawner,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
+"xm" = (
+/obj/item/flashlight/lantern/on{
+	pixel_x = -17;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ruin/space/graveyard/church)
 "xy" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box/full{
@@ -1102,6 +1100,16 @@
 "xA" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating/burnt,
+/area/ruin/space/graveyard/church)
+"xP" = (
+/obj/item/flashlight/lantern/on{
+	pixel_x = 15;
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
 /area/ruin/space/graveyard/church)
 "xR" = (
 /obj/structure/table/wood,
@@ -1147,16 +1155,6 @@
 /obj/effect/decal/remains/mouse,
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /turf/simulated/floor/plating,
-/area/ruin/space/graveyard/church)
-"zD" = (
-/obj/item/flashlight/lantern/on{
-	pixel_x = -17;
-	pixel_y = -10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
 /area/ruin/space/graveyard/church)
 "zJ" = (
 /obj/structure/table/wood,
@@ -1207,21 +1205,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
-"Bp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/obj/item/reagent_containers/food/snacks/sliceable/bread,
-/obj/item/reagent_containers/food/snacks/sliceable/bread,
-/obj/item/reagent_containers/food/snacks/sliceable/bread,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "Bu" = (
 /obj/machinery/crematorium{
 	id = "No1";
@@ -1409,10 +1392,10 @@
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
-"Ef" = (
+"Ej" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1424,6 +1407,13 @@
 "Eq" = (
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
+"Ew" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "EF" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
@@ -1540,6 +1530,19 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/graveyard/church)
+"Hm" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/card/id/gorky17{
+	name = "Key card";
+	access = list(666);
+	layer = 2.7
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/graveyard/church)
 "Hx" = (
 /obj/machinery/door/airlock/wood{
 	id_tag = "devil_right";
@@ -1605,6 +1608,21 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
+"IV" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"Jm" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "Jp" = (
 /obj/machinery/door_control/mimic{
 	name = "light fixture";
@@ -1650,14 +1668,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
-"Kc" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "Kk" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
@@ -1676,6 +1686,15 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid,
+/area/ruin/space/graveyard/church)
+"KR" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "KV" = (
 /obj/structure/railing/wooden/endr{
@@ -1764,13 +1783,10 @@
 /obj/machinery/door/airlock/public,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
-"Nu" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
-/area/ruin/space/graveyard/church)
+"NB" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/grass,
+/area/ruin/space/graveyard/graves)
 "NL" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/black,
@@ -1935,16 +1951,6 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"RO" = (
-/obj/item/flashlight/lantern/on{
-	pixel_x = 15;
-	pixel_y = -10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/ruin/space/graveyard/church)
 "RT" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -2004,14 +2010,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
-"SC" = (
+"SY" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
+/obj/item/reagent_containers/food/drinks/trophy/bronze_cup{
+	pixel_y = 15
 	},
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/obj/item/flashlight/lamp/green,
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "Ti" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2086,10 +2090,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
-"Uu" = (
-/obj/item/flashlight/lantern/on,
-/turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "Uv" = (
 /obj/item/kitchen/knife/combat/survival/bone,
@@ -2749,7 +2749,7 @@ kj
 Ap
 rb
 vN
-Bp
+wB
 tp
 NS
 tp
@@ -2998,7 +2998,7 @@ cu
 Qe
 EF
 ze
-wi
+dB
 rb
 kj
 rb
@@ -3029,9 +3029,9 @@ Ap
 Ap
 it
 it
-un
+NB
 XI
-un
+NB
 it
 it
 uo
@@ -3056,8 +3056,8 @@ rb
 qP
 qA
 eU
-Nu
-qW
+Ew
+Jm
 Zn
 Xt
 qA
@@ -3087,11 +3087,11 @@ YU
 sg
 Gh
 aj
-un
+NB
 Kk
 Fd
 eZ
-un
+NB
 it
 it
 Ap
@@ -3108,7 +3108,7 @@ wm
 Bw
 ey
 eU
-Ef
+Ej
 vg
 do
 qA
@@ -3208,7 +3208,7 @@ rb
 rb
 qP
 qA
-RO
+xP
 Xt
 qA
 qA
@@ -3442,10 +3442,10 @@ KY
 Cy
 YU
 ew
-un
+NB
 kf
 VQ
-un
+NB
 Kk
 Kk
 Fd
@@ -3515,7 +3515,7 @@ AN
 fM
 ib
 dS
-Uu
+kr
 ib
 ib
 nW
@@ -3620,7 +3620,7 @@ Ju
 yF
 yF
 ib
-gp
+SY
 ib
 dS
 vN
@@ -3668,7 +3668,7 @@ qA
 fM
 dS
 ib
-Uu
+kr
 ib
 ib
 nW
@@ -3697,10 +3697,10 @@ om
 Cy
 YU
 ew
-un
+NB
 TV
 HO
-un
+NB
 Kk
 Kk
 Vk
@@ -3917,7 +3917,7 @@ ts
 rb
 RT
 HY
-SC
+KR
 rb
 Bz
 qA
@@ -3973,7 +3973,7 @@ rb
 rb
 Bw
 qA
-zD
+xm
 do
 qA
 qA
@@ -4056,11 +4056,11 @@ YU
 Sy
 Gh
 KY
-un
+NB
 Fd
 Fd
 jr
-un
+NB
 it
 it
 tq
@@ -4075,8 +4075,8 @@ ow
 rb
 Dn
 Bw
-Nu
-qW
+Ew
+Jm
 eU
 Zn
 iM
@@ -4100,9 +4100,9 @@ Ap
 Ap
 it
 it
-un
+NB
 XI
-un
+NB
 it
 it
 uo
@@ -4113,20 +4113,20 @@ it
 it
 it
 rb
-Kc
+IV
 ow
 ow
 ow
 WD
 rb
-kD
+Hm
 xR
 ZF
 ow
 rb
 qA
 qA
-Ef
+Ej
 eU
 RH
 vg

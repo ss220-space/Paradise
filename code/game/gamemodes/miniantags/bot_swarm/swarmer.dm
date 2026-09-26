@@ -235,7 +235,7 @@
 /turf/simulated/floor/swarmer_act() //ex_act() on turf calls it on its contents, this is to prevent attacking mobs by DisIntegrate()'ing the floor
 	return FALSE
 
-/obj/structure/lattice/catwalk/fireproof/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("We have created these for our own benefit. Aborting."))
 	return FALSE
 
@@ -257,11 +257,9 @@
 	return FALSE
 
 /turf/simulated/floor/lava/swarmer_act()
-	if(is_safe())
-		return FALSE
-	if(locate(/obj/structure/lattice/catwalk/fireproof) in src)
-		return FALSE
-	new /obj/structure/lattice/catwalk/fireproof/swarmer_catwalk(src)
+	if(!is_safe())
+		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
+	return FALSE
 
 /obj/machinery/atmospherics/swarmer_act()
 	return FALSE

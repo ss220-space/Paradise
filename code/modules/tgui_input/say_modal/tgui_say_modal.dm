@@ -20,20 +20,10 @@
 /datum/tgui_say
 	/// The user who opened the window
 	var/client/client
-	/// Injury phrases to blurt out
-	var/static/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
-	/// Max message length
-	var/max_length = MAX_MESSAGE_LEN
 	/// The modal window
 	var/datum/tgui_window/window
 	/// Boolean for whether the tgui_say was opened by the user.
 	var/window_open
-	/// What text was present in the say box the last time save_text was called
-	var/saved_text = ""
-	/// What channel was in use in the say box the last time save_text was called
-	var/saved_channel
-	/// Speech suffuxes used for force_say after "-". Defaults to hurt_phrases
-	var/list/alter_phrases
 
 /** Creates the new input window to exist in the background. */
 /datum/tgui_say/New(client/client, id)
@@ -65,22 +55,19 @@
  */
 /datum/tgui_say/proc/load()
 	window_open = FALSE
-
-	winset(client, SKIN_TGUISAY, "pos=848,500;is-visible=0;")
-
+	winset(client, SKIN_TGUISAY, "pos=848,500;size=275,30;is-visible=0;")
 	window.send_message("props", list(
 		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
 		"scale" = (client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
-		"maxLength" = max_length,
+		"maxLength" = MAX_MESSAGE_LEN,
 	))
-
 	stop_thinking()
 	return TRUE
 
 /**
  * Sets the window as "opened" server side, though it is already
  * visible to the user. We do this to set local vars &
- * start typing (if enabled and in an IC channel). Logs the event.
+ * start typing (if enabled and in an IC channel).
  *
  * Arguments:
  * payload - A list containing the channel the window was opened in.
@@ -89,53 +76,48 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	saved_text = ""
-	if(payload["channel"] != OOC_CHANNEL && payload["channel"] != ADMIN_CHANNEL && payload["channel"] != PRAY_CHANNEL)
-		start_thinking()
-	/*
-	if(!client.typing_indicators)
-		log_speech_indicators("[key_name(client)] started typing at [loc_name(client.mob)], indicators DISABLED.")
-	*/
+	switch(payload["channel"])
+		if(ME_CHANNEL, RADIO_CHANNEL, SAY_CHANNEL, WHISPER_CHANNEL)
+			start_thinking()
 	return TRUE
 
 /**
  * Closes the window serverside. Closes any open chat bubbles
- * regardless of preference. Logs the event.
+ * regardless of preference.
  */
 /datum/tgui_say/proc/close()
 	window_open = FALSE
 	stop_thinking()
-	/*
-	if(!client.typing_indicators)
-		log_speech_indicators("[key_name(client)] stopped typing at [loc_name(client.mob)], indicators DISABLED.")
-	*/
+	stop_typing()
 
 /**
  * The equivalent of ui_act, this waits on messages from the window
  * and delegates actions.
  */
 /datum/tgui_say/proc/on_message(type, payload)
-	if(type == "ready")
-		load()
-		return TRUE
-	if(type == "open")
-		open(payload)
-		return TRUE
-	if(type == "close")
-		close()
-		return TRUE
-	if(type == "thinking")
-		if(payload["visible"] == TRUE)
-			start_thinking()
+	switch(type)
+		if("ready")
+			load()
 			return TRUE
-		if(payload["visible"] == FALSE)
-			stop_thinking()
+		if("open")
+			open(payload)
 			return TRUE
-		return FALSE
-	if(type == "typing")
-		start_typing()
-		return TRUE
-	if(type == "entry" || type == "force" || type == "save")
-		handle_entry(type, payload)
-		return TRUE
+		if("close")
+			close()
+			return TRUE
+		if("thinking")
+			if(payload?["visible"] == TRUE)
+				start_thinking()
+				return TRUE
+			if(payload?["visible"] == FALSE)
+				stop_thinking()
+				return TRUE
+			return FALSE
+		if("typing")
+			start_typing(payload?["isMeChannel"])
+			return TRUE
+		if("entry")
+			handle_entry(payload)
+			return TRUE
+
 	return FALSE

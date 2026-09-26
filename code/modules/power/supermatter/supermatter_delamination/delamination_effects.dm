@@ -146,7 +146,6 @@
 			message = "Во время перехода произошла критическая ошибка в канале связи эвакуационного шаттла. Невозможно восстановить соединение.",
 			new_title = "Сбой шаттла",
 			new_sound = 'sound/misc/announce_dig.ogg',
-			color_override = "grey"
 		)
 	else
 	// except if you are on it already, then you are safe c:

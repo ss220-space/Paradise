@@ -99,8 +99,6 @@
 /obj/item/clothing/suit/space/hardsuit/Destroy()
 	unequip_helmet()
 	helmet = null
-	taser_proof?.hardsuit = null
-	taser_proof = null
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()

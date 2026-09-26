@@ -234,12 +234,12 @@
 
 /obj/effect/energy_ball
 	name = "энергетический шар"
-	desc = "Миниатюрная, относительно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
+	desc = "Миниатюрная, отностилельно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
 	icon = 'icons/effects/anomalies.dmi'
 	icon_state = "energetic1"
 	gender = MALE
 	alpha = 0
-	light_power = 5
+	light = 5
 	/// Anomaly that src conected with.
 	var/obj/effect/anomaly/energetic/owner
 	/// The proportion of the size relative to the default size.
@@ -271,8 +271,7 @@
 
 /obj/effect/energy_ball/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	owner = null
-	return ..()
+	. = ..()
 
 /obj/effect/energy_ball/process()
 	if(QDELETED(owner) || owner.loc == null)
@@ -364,11 +363,8 @@
 
 /obj/effect/anomaly/energetic/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
-	var/turf/cur_turf = get_turf(src)
-	for(var/mob/living/mob as anything in GLOB.mob_living_list)
-		if(mob.z != cur_turf.z)
-			continue
 
+	for(var/mob/living/mob as anything in GLOB.player_list)
 		mob.electrocute_act(rand(5, 15), src)
 		if(mob.stat)
 			continue

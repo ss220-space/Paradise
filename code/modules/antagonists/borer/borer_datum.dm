@@ -66,7 +66,7 @@
 		return
 
 	var/need_points = focus.cost - evo_points
-	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[DECL_O_A_OV(need_points)] эволюции для получения [focus.name]."))
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.name]."))
 	return
 
 /datum/antagonist/borer/proc/entered_host(mob/source)
@@ -112,18 +112,17 @@
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	if(user)
-		UnregisterSignal(user, list(
-			COMSIG_BORER_ENTERED_HOST,
-			COMSIG_BORER_EARLY_LEFT_HOST,
-			COMSIG_LIVING_LIFE,
-			COMSIG_BORER_REPRODUCE,
-		))
+	UnregisterSignal(user, list(
+		COMSIG_BORER_ENTERED_HOST,
+		COMSIG_BORER_EARLY_LEFT_HOST,
+		COMSIG_LIVING_LIFE,
+		COMSIG_BORER_REPRODUCE,
+	))
 
 	pre_remove_movable_effect()
 
 	QDEL_NULL(borer_rank)
-	QDEL_LIST(learned_focuses)
+	QDEL_NULL(learned_focuses)
 	QDEL_NULL(scaling)
 
 	user = null

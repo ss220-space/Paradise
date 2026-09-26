@@ -69,9 +69,6 @@
  * * `sig_typeor_types` - Signal string key or list of signal keys to stop listening to specifically
  */
 /datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
-	if(!target)
-		for(var/signal in sig_type_or_types)
-			stack_trace("Tried to UnregisterSignal [signal] from null datum/target")
 	var/list/lookup = target._listen_lookup
 	if(!_signal_procs || !_signal_procs[target] || !lookup)
 		return
@@ -117,8 +114,6 @@
 	var/target = _listen_lookup[sigtype]
 	if(!length(target))
 		var/datum/listening_datum = target
-		if(!listening_datum._signal_procs || !length(listening_datum._signal_procs))
-			stack_trace("[listening_datum], [listening_datum.type] datum had empty _signal_procs list when tried to _SendSignal: [sigtype]")
 		return NONE | call(listening_datum, listening_datum._signal_procs[src][sigtype])(arglist(arguments))
 	. = NONE
 	// This exists so that even if one of the signal receivers unregisters the signal,

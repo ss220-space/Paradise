@@ -135,7 +135,7 @@
 	. = ..()
 	. += span_notice("В ступке находится [fluff_name] краска.")
 	if(uses > 0) //what if someone makes -1 uses for testing or smth
-		. += span_notice("Краски в ступке осталось на [uses] использовани[DECL_E_YA_J(uses)].")
+		. += span_notice("Краски в ступке осталось на [uses] использовани[declension_ru(uses, "е", "я", "й")].")
 
 /obj/item/lavaland_mortar/cinnabar_dyes
 	icon_state = "cinnabar_dyes"
@@ -187,7 +187,7 @@
 	if(!uses)
 		balloon_alert(user, "краска закончилась!")
 		qdel(src)
-		var/obj/item/reagent_containers/cup/glass/mushroom_bowl/bowl = new(loc)
+		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)
 
 /obj/item/lavaland_mortar/attack_obj(obj/object, mob/living/user, params)
@@ -210,5 +210,5 @@
 	if(!uses)
 		balloon_alert(user, "краска закончилась!")
 		qdel(src)
-		var/obj/item/reagent_containers/cup/glass/mushroom_bowl/bowl = new(loc)
+		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)

@@ -91,7 +91,6 @@
 
 	var/list/equipment = new
 	var/list/list/equipment_in_hands
-	// Associative list of "hand_define" = equipment
 	var/list/obj/item/mecha_parts/mecha_equipment/selected_equipment_in_hands = list()
 	var/max_equip = 3
 	var/turf/crashing = null
@@ -247,9 +246,9 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
-	QDEL_LIST_ASSOC_VAL(selected_equipment_in_hands)
+	LAZYCLEARLIST(selected_equipment_in_hands)
 	for(var/list/equipment in equipment_in_hands)
-		QDEL_LIST(equipment)
+		equipment.Cut()
 	QDEL_NULL(ui_view)
 	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
 	remove_from_all_data_huds()

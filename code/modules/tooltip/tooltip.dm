@@ -49,7 +49,6 @@ Notes:
 
 /datum/tooltip/Destroy(force)
 	last_target = null
-	owner = null
 	return ..()
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
@@ -109,9 +108,9 @@ Notes:
 /datum/tooltip/proc/do_hide()
 	winshow(owner, control, FALSE)
 
-/datum/tooltip/proc/on_target_qdel(atom/movable/target)
+/datum/tooltip/proc/on_target_qdel()
 	SIGNAL_HANDLER
-	UnregisterSignal(target, COMSIG_QDELETING)
+
 	INVOKE_ASYNC(src, PROC_REF(hide))
 	last_target = null
 

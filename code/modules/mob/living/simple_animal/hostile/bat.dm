@@ -56,7 +56,6 @@
 	speed = 1
 	harm_intent_damage = 25
 	maxHealth = 300
-	health = 300
 	melee_damage_upper = 30
 	pass_flags = PASSTABLE
 	universal_speak = 1

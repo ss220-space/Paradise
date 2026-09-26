@@ -89,7 +89,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(iscup(I))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
@@ -221,7 +221,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(iscup(I))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))
@@ -721,11 +721,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	create_reagents(80)
 	reagents.add_reagent("milk", 20)
 
-/obj/item/udder/Destroy(force)
-	reagents.my_atom = null
-	QDEL_NULL(reagents)
-	return ..()
-
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5
 	if(feeded)
@@ -734,7 +729,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(prob(probability))
 		reagents.add_reagent("milk", rand(5, 10))
 
-/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/cup/container, mob/user)
+/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
 	if(!container.reagents)
 		balloon_alert(user, "неподходящая ёмкость!")
 		return FALSE

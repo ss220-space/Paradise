@@ -25,6 +25,7 @@
 	track_duration = SSsounds.get_sound_length(boss_track)
 
 /datum/component/boss_music/Destroy(force)
+	. = ..()
 	for(var/callback in music_callbacks)
 		deltimer(callback)
 	music_callbacks = null
@@ -32,7 +33,6 @@
 	for(var/player_refs in players_listening_refs)
 		clear_target(player_refs)
 	players_listening_refs = null
-	return ..()
 
 /datum/component/boss_music/RegisterWithParent()
 	. = ..()

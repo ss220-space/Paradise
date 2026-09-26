@@ -885,7 +885,7 @@
 	if(destination)
 		. = doMove(destination)
 	else
-		CRASH("No valid destination passed into forceMove for [src], [src.type]")
+		CRASH("No valid destination passed into forceMove")
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE

@@ -15,7 +15,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/plastitanium/red/lavaland_air,
+/turf/template_noop,
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,

@@ -15,9 +15,6 @@
 
 /obj/effect/abstract/particle_holder_tgmc/Initialize(mapload, particle_path = null)
 	. = ..()
-	if(!particle_path)
-		stack_trace("particle holder tgmc was created with null particle_path!")
-		return INITIALIZE_HINT_QDEL
 	if(!loc)
 		stack_trace("particle holder tgmc was created with no loc!")
 		return INITIALIZE_HINT_QDEL
@@ -29,8 +26,10 @@
 	update_visual_contents(loc)
 
 /obj/effect/abstract/particle_holder_tgmc/Destroy(force)
-	var/atom/movable/attached = weak_attached?.resolve()
-	var/atom/movable/additional_attached = weak_additional?.resolve()
+	var/atom/movable/attached = weak_attached.resolve()
+	var/atom/movable/additional_attached
+	if(weak_additional)
+		additional_attached = weak_additional.resolve()
 	if(attached)
 		attached.vis_contents -= src
 		UnregisterSignal(loc, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))

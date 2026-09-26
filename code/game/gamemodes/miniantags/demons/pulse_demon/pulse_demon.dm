@@ -121,18 +121,6 @@
 	var/list/hijacked_apcs = list()
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
-	var/list/datum/action/cooldown/spell/spells = list(
-		/datum/action/cooldown/spell/pulse_demon_cycle_camera,
-		/datum/action/cooldown/spell/pulse_demon_toggle/do_drain,
-		/datum/action/cooldown/spell/pulse_demon_toggle/can_exit_cable,
-		/datum/action/cooldown/spell/pointed/pulse_demon/cablehop,
-		/datum/action/cooldown/spell/pointed/pulse_demon/emagtamper,
-		/datum/action/cooldown/spell/pointed/pulse_demon/emp,
-		/datum/action/cooldown/spell/pointed/pulse_demon/overload,
-		/datum/action/cooldown/spell/pointed/pulse_demon/remotehijack,
-		/datum/action/cooldown/spell/pointed/pulse_demon/remotedrain,
-		/datum/action/cooldown/spell/pulse_demon_menu,
-	)
 
 /mob/living/simple_animal/demon/pulse_demon/Initialize(mapload)
 	. = ..()
@@ -284,8 +272,16 @@
 	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
-	for(var/spell_type in spells)
-		AddSpell(new spell_type)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cablehop)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emagtamper)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emp)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/overload)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotehijack)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -321,7 +317,7 @@
 	forceMove(T)
 	Move(T)
 	if(!current_cable && !current_power)
-		var/datum/action/cooldown/spell/pulse_demon_toggle/can_exit_cable/S = locate() in actions
+		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
 		if(S && !S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
@@ -340,8 +336,11 @@
 
 	if((!prev && !controlling_area) || (prev && controlling_area))
 		return // only update icons when we get or no longer have ANY area
-	var/datum/action/action = locate() in actions
-	action.build_all_button_icons()
+	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+		if(!S.action || S.locked)
+			continue
+		if(S.requires_area)
+			S.action.UpdateButtonIcon()
 
 // can enter an apc at all?
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -473,8 +472,13 @@
 		charge_drained += realdelta
 
 	update_glow()
-	var/datum/action/action = locate() in actions
-	action.build_all_button_icons()
+	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+		if(!S.action || S.locked || !S.cast_cost)
+			continue
+		var/dist = S.cast_cost - orig
+		// only update icon if the amount is actually enough to change a spell's availability
+		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
+			S.action.UpdateButtonIcon()
 	return realdelta
 
 // logarithmic scale for glow strength, see table:

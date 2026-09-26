@@ -142,9 +142,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	if(newloc.z == z) //so these actions are Z-specific
 		if(islava(newloc))
 			var/turf/simulated/floor/lava/L = newloc
-			if(!L.is_safe() && !(locate(/obj/structure/lattice/catwalk/fireproof/swarmer_catwalk) in L))
+			if(!L.is_safe())
 				StartAction(20)
-				new /obj/structure/lattice/catwalk/fireproof/swarmer_catwalk(newloc)
+				new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
 				return FALSE
 
 		if(ischasm(newloc) && !throwing)
@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 //SWARMER CATWALKS
 //Used so they can survive lavaland better
-/obj/structure/lattice/catwalk/fireproof/swarmer_catwalk
+/obj/structure/lattice/catwalk/swarmer_catwalk
 	name = "swarmer catwalk"
 	desc = "A catwalk-like mesh, produced by swarmers to allow them to navigate hostile terrain."
 	icon = 'icons/obj/smooth_structures/swarmer_catwalk.dmi'

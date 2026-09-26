@@ -384,7 +384,7 @@
 		playsound(turf, 'sound/weapons/effects/batreflect1.ogg', 50, TRUE)
 	if(picksound == 2)
 		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, TRUE)
-	return REFLECT_NORMAL
+	return 1
 
 /obj/item/melee/baseball_bat/homerun/central_command
 	name = "тактическая бита Флота \"Нанотрейзен\""

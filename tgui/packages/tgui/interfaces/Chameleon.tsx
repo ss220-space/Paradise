@@ -10,7 +10,6 @@ type Data = {
   chameleon_name: string;
   icon: string;
   selected_appearance: string;
-  ui_theme: string;
 };
 
 type ChameleonSkin = {
@@ -20,10 +19,8 @@ type ChameleonSkin = {
 };
 
 export const Chameleon = (_props) => {
-  const { data } = useBackend<Data>();
-  const ui_theme = data.ui_theme || 'syndicate';
   return (
-    <Window width={431} height={500} theme={data.ui_theme}>
+    <Window width={431} height={500} theme="syndicate">
       <Window.Content>
         <ChameleonAppearances />
       </Window.Content>

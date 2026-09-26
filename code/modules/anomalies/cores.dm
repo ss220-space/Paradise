@@ -382,11 +382,6 @@
 	old_owner = get_external_loc()
 	update_gravity(TRUE)
 
-/obj/item/assembly/signaler/core/gravitational/tier3/Destroy()
-	old_owner?.remove_gravity_source("core_grav")
-	old_owner = null
-	return ..()
-
 // Mobs will be in reversed gravity. Items will be without gravity.
 /obj/item/assembly/signaler/core/gravitational/tier3/proc/update_gravity(restart = FALSE)
 	if(restart)

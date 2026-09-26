@@ -110,7 +110,7 @@
 				var/obj/structure/grille/grille_object = object
 				if(!grille_object.broken)
 					grille++
-			else if(is_door(object))
+			else if(istype(object, /obj/machinery/door))
 				door++
 			else if(ismachinery(object))
 				mach++

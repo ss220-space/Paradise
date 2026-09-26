@@ -56,7 +56,7 @@ const ContentsModal = (properties: ContentsModalProps) => {
     contentsModalTitle,
     setContentsModalTitle,
   } = properties;
-  if (contentsModal.length && contentsModalTitle !== '') {
+  if (contentsModal !== null && contentsModalTitle !== null) {
     return (
       <Modal
         maxWidth="75%"

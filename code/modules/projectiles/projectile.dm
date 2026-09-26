@@ -2,7 +2,6 @@
 #define MOVES_HITSCAN -1
 /// How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
 #define MUZZLE_EFFECT_PIXEL_INCREMENT 17
-#define DAMAGE_TO_BLOODSPLATTER 10
 
 /obj/projectile
 	abstract_type = /obj/projectile
@@ -249,7 +248,7 @@
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE && damage > DAMAGE_TO_BLOODSPLATTER)
+		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
@@ -713,4 +712,3 @@
 
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT
-#undef DAMAGE_TO_BLOODSPLATTER

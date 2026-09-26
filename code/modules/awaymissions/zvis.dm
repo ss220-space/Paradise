@@ -59,7 +59,6 @@
 
 /obj/effect/portal_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	owner = null
 	return ..()
 
 /obj/effect/portal_sensor/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)

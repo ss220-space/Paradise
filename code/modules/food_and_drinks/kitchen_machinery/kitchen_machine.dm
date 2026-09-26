@@ -6,7 +6,6 @@
 #define BROKEN_NEEDS_SCREWDRIVER 2
 
 /obj/machinery/kitchen_machine
-	abstract_type = /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	density = TRUE
@@ -131,9 +130,9 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	var/static/list/acceptable_containers = typecacheof(list(
-		/obj/item/reagent_containers/cup,
-		/obj/item/reagent_containers/cup/glass,
-		/obj/item/reagent_containers/condiment,
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/food/condiment,
 	))
 	if(is_type_in_typecache(I, acceptable_containers))
 		var/obj/item/reagent_containers/container = I

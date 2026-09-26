@@ -84,8 +84,5 @@
 /datum/gear/glasses/skillhudpatch
 	index_name = "Skills HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/skills/patch
-	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE)
+	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
-/datum/gear/glasses/goldblue
-	index_name = "round gold-rimmed glasses"
-	path = /obj/item/clothing/glasses/goldblue

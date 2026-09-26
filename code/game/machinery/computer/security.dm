@@ -58,7 +58,6 @@
 /obj/machinery/computer/secure_data/Destroy()
 	record_general = null
 	record_security = null
-	parent = null
 	return ..()
 
 /obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, params)

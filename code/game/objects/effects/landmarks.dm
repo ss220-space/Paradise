@@ -74,11 +74,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/awaystart/Initialize(mapload)
-	. = ..()
 	GLOB.awaydestinations.Add(src)
-
-/obj/effect/landmark/awaystart/Destroy()
-	GLOB.awaydestinations -= src
 	return ..()
 
 // MARK: SPAWNER
@@ -900,4 +896,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 					break
 			if(dense_object)
 				continue
-			hangover_debris += new /obj/item/reagent_containers/cup/soda_cans/beer/almost_empty(turf_to_spawn_on)
+			hangover_debris += new /obj/item/reagent_containers/food/drinks/cans/beer/almost_empty(turf_to_spawn_on)

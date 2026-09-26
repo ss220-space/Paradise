@@ -60,7 +60,7 @@
 
 /obj/mecha/working/gigadrill/go_out(forced, atom/newloc = loc)
 	..()
-	soundloop?.stop()
+	soundloop.stop()
 
 /*
 /obj/effect/decal/mecha_wreckage/gigadrill

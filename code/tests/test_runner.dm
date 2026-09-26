@@ -34,9 +34,7 @@
 	log_world("Test runner: unit tests.")
 	CHECK_TICK
 
-	var/list/tests_to_run = subtypesof(/datum/unit_test) - /datum/unit_test/room_test
-	sortTim(tests_to_run, GLOBAL_PROC_REF(cmp_unit_test_priority))
-	for(var/I in tests_to_run)
+	for(var/I in subtypesof(/datum/unit_test) - /datum/unit_test/room_test)
 		var/datum/unit_test/test = new I
 		test_logs[I] = list()
 

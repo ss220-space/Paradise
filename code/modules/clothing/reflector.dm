@@ -32,9 +32,9 @@
 
 /obj/item/clothing/gloves/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
-		return REFLECT_NOTHING
-
-	return prob(hit_reflect_chance)
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE
 
 /obj/item/clothing/head/helmet/reflector
 	name = "reflector hat"
@@ -77,9 +77,9 @@
 
 /obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
-		return REFLECT_NOTHING
-
-	return prob(hit_reflect_chance)
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE
 
 /obj/item/clothing/shoes/reflector
 	name = "reflector boots"
@@ -116,9 +116,9 @@
 
 /obj/item/clothing/shoes/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
-		return REFLECT_NOTHING
-
-	return prob(hit_reflect_chance)
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE
 
 /obj/item/clothing/suit/armor/reflector
 	name = "reflector coat"
@@ -158,6 +158,9 @@
 
 /obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
 	if(!(def_zone in reflect_zones))
-		return REFLECT_NOTHING
+		return FALSE
 
-	return prob(hit_reflect_chance)
+	if(prob(hit_reflect_chance))
+		return TRUE
+
+	return FALSE

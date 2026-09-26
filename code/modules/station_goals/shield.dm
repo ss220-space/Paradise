@@ -174,7 +174,7 @@
 
 /obj/machinery/satellite/meteor_shield/Destroy()
 	QDEL_NULL(proximity_monitor)
-	QDEL_LIST_ASSOC_VAL(proxies)
+	LAZYCLEARLIST(proxies)
 	if(!(active && emagged))
 		return ..()
 
@@ -306,8 +306,7 @@
 
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
 	QDEL_NULL(proximity_monitor)
-	parent?.proxies?.RemoveAll(src)
-	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED, COMSIG_QDELETING))
+	parent.proxies.RemoveAll(src)
 	parent = null
 	return ..()
 

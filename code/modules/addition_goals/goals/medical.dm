@@ -31,7 +31,7 @@
 		if(AGS_DIFFICULTY_HARD)
 			name = "Запрос большой медицинской помощи №[request_number]"
 			patiens_count = rand(8, 10)
-	description = "[name]. На станцию прибудет шаттл с [patiens_count] пациент[DECL_OM_AMI_AMI(patiens_count)] для проведения медицинских услуг."
+	description = "[name]. На станцию прибудет шаттл с [patiens_count] [declension_ru(patiens_count, "пациентом", "пациентами", "пациентами")] для проведения медицинских услуг."
 
 /datum/addition_goal/medical_patients/spawn_shuttle_contain(list/turf/shuttle_turfs)
 	spawner = new /obj/effect/mob_spawn/human/addition_goal/medical_patients(shuttle_turfs[1])
@@ -82,8 +82,8 @@
 	patient.InitializeAIController()
 
 /datum/addition_goal/medical_patients/format_accept_report(mob/user)
-	var/text = {"К вам был[DECL_0_O_O(patiens_count)] отправлен[DECL_0_O_O(patiens_count)] [patiens_count] душевнобольн[DECL_OJ_YH_YH(patiens_count)] с соседней психбольницы.<br>
-		Их необходимо полностью вылечить. Будьте осторожны, пациенты буйные.
+	var/text = {"К вам [declension_ru(patiens_count, "отправлен", "отправлено", "отправлено")] [patiens_count] [declension_ru(patiens_count, "больной", "больных", "больных")] с соседней психбольницы.<br>
+		Необходимо полностью вылечить пациентов. Будьте осторожны, пациенты буйные.
 		Список пациентов:<br>"}
 	var/number = 1
 	for(var/mob/living/patient as anything in patients)

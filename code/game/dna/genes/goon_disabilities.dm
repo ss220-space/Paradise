@@ -288,22 +288,25 @@
 	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
 	activation_messages = list("Вам вдруг становится очень жарко.")
 	deactivation_messages = list("Вы больше не чувствуете дискомфортного жара.")
-	spelltype = /datum/action/cooldown/spell/immolate
+	spelltype = /obj/effect/proc_holder/spell/immolate
 
 /datum/dna/gene/basic/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/datum/action/cooldown/spell/immolate
+/obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
-	cooldown_time = 60 SECONDS
-	spell_requirements = SPELL_REQUIRES_HUMAN
-	button_icon_state = "genetic_incendiary"
+	base_cooldown = 60 SECONDS
+	clothes_req = FALSE
+	var/list/compatible_mobs = list(/mob/living/carbon/human)
+	action_icon_state = "genetic_incendiary"
 
-/datum/action/cooldown/spell/immolate/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/L = cast_on
+/obj/effect/proc_holder/spell/immolate/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
+	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message(span_danger("[L.name] внезапно вспыхива[PLUR_ET_YUT(L)] пламенем!"))
 	L.IgniteMob()

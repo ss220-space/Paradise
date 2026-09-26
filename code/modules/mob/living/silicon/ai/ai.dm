@@ -170,12 +170,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		UNASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
-	. = ..()
-	if(!safety)//Only used by AIize() to successfully spawn an AI.
-		if(!B)//If there is no player/brain inside.
-			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
-			return INITIALIZE_HINT_QDEL
-
 	announcer = new(config_type = /datum/announcement_configuration/ai)
 	announcer.author = name
 
@@ -239,11 +233,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language(LANGUAGE_CLOWN, 1)
 	add_language(LANGUAGE_MOTH, 1)
 
-	if(!safety)
-		if(B?.brainmob?.mind)
-			B?.brainmob?.mind?.transfer_to(src)
+	if(!safety)//Only used by AIize() to successfully spawn an AI.
+		if(!B)//If there is no player/brain inside.
+			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			return INITIALIZE_HINT_QDEL
+		else
+			if(B.brainmob.mind)
+				B.brainmob.mind.transfer_to(src)
 
-		on_mob_init()
+			on_mob_init()
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src, src)
@@ -254,7 +252,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
-
+	. = ..()
 	AddElement(/datum/element/high_value_item)
 	update_appearance()
 
@@ -465,7 +463,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционн
 		return
 
 	if(!COOLDOWN_FINISHED(src, next_text_announcement))
-		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_U_Y_0(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
+		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
 	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)

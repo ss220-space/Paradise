@@ -1,5 +1,4 @@
 /obj/structure/blob/special // Generic type for nodes/factories/cores/resource
-	abstract_type = /obj/structure/blob/special
 	// Core and node vars: claiming, pulsing and expanding
 	/// The radius inside which (previously dead) blob tiles are 'claimed' again by the pulsing overmind. Very rarely used.
 	var/claim_range = 0

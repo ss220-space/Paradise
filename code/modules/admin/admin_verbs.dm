@@ -335,17 +335,18 @@ ADMIN_VERB(bless_in_list, R_ADMIN|R_EVENT, "Bless in List", "Bless a player with
 
 ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
 	VERB_ARG_TYPED(spell_recipient, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
-	
 	var/list/spell_list = list()
-	var/type_length = length("/datum/action/cooldown/spell") + 2
+	var/type_length = length("/obj/effect/proc_holder/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/datum/action/cooldown/spell/S = tgui_input_list(user, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
+	var/obj/effect/proc_holder/spell/S = tgui_input_list(user, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
 	if(!S)
 		return
 	S = spell_list[S]
-	S = new S
-	S.Grant(spell_recipient)
+	if(spell_recipient.mind)
+		spell_recipient.mind.AddSpell(new S)
+	else
+		spell_recipient.AddSpell(new S)
 
 	BLACKBOX_LOG_ADMIN_VERB("Give Spell")
 	log_and_message_admins("gave [key_name_log(spell_recipient)] the spell [S].")

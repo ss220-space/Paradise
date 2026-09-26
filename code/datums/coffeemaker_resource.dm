@@ -86,7 +86,7 @@
 /// Get examine string for this resource
 /datum/coffeemaker_resource/proc/get_examine_string()
 	if(current_amount >= 1)
-		return span_notice("Отсек для [section_name] содержит <b>[current_amount]</b> предмет[DECL_0_A_OV(current_amount)].")
+		return span_notice("Отсек для [section_name] содержит <b>[current_amount]</b> предмет[DECL_CREDIT(current_amount)].")
 	else
 		return span_notice("Отсек для [section_name] <b>пуст</b>.")
 
@@ -96,7 +96,7 @@
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"
-	item_type = /obj/item/reagent_containers/cup/glass/coffee_cup/small
+	item_type = /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small
 	radial_name = "Взять стакан"
 	resource_name = "стакан"
 	section_name = "стаканов"
@@ -116,7 +116,7 @@
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"
-	item_type = /obj/item/reagent_containers/cup/glass/coffee_cup/normal
+	item_type = /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
 	radial_name = "Взять стаканчик"
 	resource_name = "стаканчик"
 	section_name = "стаканчиков"
@@ -136,7 +136,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "sugar"
-	item_type = /obj/item/reagent_containers/condiment/pack/sugar
+	item_type = /obj/item/reagent_containers/food/condiment/pack/sugar
 	radial_name = "Взять сахар"
 	resource_name = "пакетик сахара"
 	section_name = "сахара"
@@ -147,7 +147,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "aspartame"
-	item_type = /obj/item/reagent_containers/condiment/pack/aspartame
+	item_type = /obj/item/reagent_containers/food/condiment/pack/aspartame
 	radial_name = "Взять аспартам"
 	resource_name = "пакетик аспартама"
 	section_name = "аспартама"
@@ -158,7 +158,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "creamer"
-	item_type = /obj/item/reagent_containers/condiment/pack/creamer
+	item_type = /obj/item/reagent_containers/food/condiment/pack/creamer
 	radial_name = "Взять сливки"
 	resource_name = "пакетик сливок"
 	section_name = "сливок"

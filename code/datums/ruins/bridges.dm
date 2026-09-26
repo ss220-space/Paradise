@@ -1,5 +1,4 @@
 /datum/map_template/ruin/bridge
-	abstract_type = /datum/map_template/ruin/bridge
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/chasm_bridges/"
 
 /datum/map_template/ruin/bridge/horizontal

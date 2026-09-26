@@ -104,8 +104,7 @@
 #define NON_PROJECTILE_ATTACKS ~PROJECTILE_ATTACK
 
 // the standard parry time out time
-#define PARRY_DEFAULT_TIMEOUT 5 SECONDS
-#define PARRY_SHIELD_TIMEOUT 10 SECONDS
+#define PARRY_DEFAULT_TIMEOUT 1 SECONDS
 
 //attack visual effects
 #define ATTACK_EFFECT_PUNCH "punch"
@@ -219,10 +218,6 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
 
-#define REFLECT_NOTHING 0
-#define REFLECT_NORMAL 1
-#define REFLECT_TOY 2
-
 //Autofire component
 /// Compatible firemode is in the gun. Wait until it's held in the user hands.
 #define AUTOFIRE_STAT_IDLE (1<<0)
@@ -324,7 +319,3 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define HIT_RESULT_FAILED 0
 #define HIT_RESULT_SUCCESS 1
 #define HIT_RESULT_REFLECY_BACK -1
-#define HIT_RESULT_PARRY -2
-
-#define PERFECT_PARRY_COEFFICIENT 0.2
-#define PERFECT_PARRY_MELEE_KNOCKDOWN 2 SECONDS

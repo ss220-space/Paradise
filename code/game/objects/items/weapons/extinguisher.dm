@@ -157,7 +157,7 @@
 		span_notice("Вы начинаете [safety ? "снимать" : "ставить"] предохранитель...")
 	)
 
-	if(!user || !do_after(user, 0.5 SECONDS, target = src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING) || QDELETED(src))
+	if(!user || !do_after(user, 0.5 SECONDS, target = src) || QDELETED(src))
 		return
 
 	safety = !safety
@@ -246,7 +246,7 @@
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_U_Y_0(transferred)]."))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power

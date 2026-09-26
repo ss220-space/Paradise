@@ -67,7 +67,6 @@
 	GLOB.poi_list.Remove(src)
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
-	QDEL_NULL(tier)
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
@@ -88,14 +87,12 @@
 	return TRUE // tier updated.
 
 /obj/item/his_grace/proc/init_new_tier(typepath)
-	var/datum/grace_tier/old_tier = tier
 	if(typepath)
 		tier = new typepath()
 
 	if(!tier)
 		return FALSE // something bad occured, but we prevent runtimes
 
-	qdel(old_tier)
 	tier.link_tier(src)
 	tier.apply_tier()
 

@@ -22,7 +22,6 @@
 		/obj/item/clothing/head/fedora = 10,
 		/obj/item/clothing/head/fez = 10,
 		/obj/item/clothing/head/beret = 10,
-		/obj/item/clothing/head/jew_hat = 10,
 	)
 	contraband = list(
 		/obj/item/clothing/head/bearpelt = 5,

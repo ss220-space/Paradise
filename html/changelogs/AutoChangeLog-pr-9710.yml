@@ -1,0 +1,4 @@
+author: "KefirTT"
+delete-after: True
+changes:
+  - bugfix: "Наушники опять вырубаются от эми (PR #9710)"

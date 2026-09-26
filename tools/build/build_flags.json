@@ -22,7 +22,7 @@
 			"id": "REAGENTS_TESTING",
 			"define": "REAGENTS_TESTING",
 			"label": "Reagents testing",
-			"category": "Testing",
+			"category": "Testineg",
 			"description": "(Not implemented)Debug messages for every reaction step (very spammy). Requires TESTING.",
 			"requires": ["TESTING"]
 		},
@@ -93,14 +93,14 @@
 			"define": "REFERENCE_DOING_IT_LIVE",
 			"label": "Reference tracking (live)",
 			"category": "Debugging",
-			"description": "Sets up the ref tracker for a live environment, logging hard-deletes to gc_debug.log. Uses fast reftracking but less accurate."
+			"description": "Sets up the ref tracker for a live environment, logging hard-deletes to harddels.log. Uses fast reftracking but less accurate."
 		},
 		{
 			"id": "REFERENCE_TRACKING_STANDARD",
 			"define": "REFERENCE_TRACKING_STANDARD",
 			"label": "Reference tracking (standard)",
 			"category": "Debugging",
-			"description": "Local hard-deletion hunting. Spends all its time searching (slower but thorough), logging to gc_debug.log.",
+			"description": "Local hard-deletion hunting. Spends all its time searching (slower but thorough), logging to harddels.log.",
 			"conflictsWith": ["REFERENCE_DOING_IT_LIVE"]
 		},
 		{
@@ -111,16 +111,16 @@
 			"description": "Caches datum vars so you can retrieve them later to see which vars changed. Implied by TESTING."
 		},
 		{
-			"id": "LOCAL_UNIT_TESTS",
-			"define": "LOCAL_UNIT_TESTS",
-			"label": "Local unit tests",
+			"id": "UNIT_TESTS",
+			"define": "UNIT_TESTS",
+			"label": "Unit tests",
 			"category": "Testing",
-			"description": "Locally runs all unit tests (without map tests), then shuts down."
+			"description": "Runs all unit tests, then shuts down."
 		},
 		{
-			"id": "MAP_UNIT_TESTS",
+			"id": "MAP_UNIT_TEST",
 			"define": "MAP_TESTS",
-			"label": "Map unit tests",
+			"label": "Map test mode",
 			"category": "Testing",
 			"description": "Runs all map unit tests, then shuts down."
 		},

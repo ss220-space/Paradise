@@ -16,10 +16,10 @@
 	item_state = "mender"
 	belt_icon = "mender"
 	volume = 200
-	has_variable_transfer_amount = FALSE
+	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
-	container_type = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
+	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
 	temperature_max = 350
 	pass_open_check = TRUE

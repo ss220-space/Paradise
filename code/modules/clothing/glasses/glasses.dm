@@ -950,19 +950,3 @@
 /obj/item/clothing/glasses/heart/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-
-/obj/item/clothing/glasses/goldblue
-	name = "round gold-rimmed glasses"
-	desc = "Круглые очки в золотистой оправе с тёмно-синими линзами."
-	icon_state = "goldblue"
-	item_state = "goldblue"
-
-/obj/item/clothing/glasses/goldblue/get_ru_names()
-	return alist(
-		NOMINATIVE = "очки в золотистой оправе",
-		GENITIVE = "очков в золотистой оправе",
-		DATIVE = "очкам в золотистой оправе",
-		ACCUSATIVE = "очки в золотистой оправе",
-		INSTRUMENTAL = "очками в золотистой оправе",
-		PREPOSITIONAL = "очках в золотистой оправе",
-	)

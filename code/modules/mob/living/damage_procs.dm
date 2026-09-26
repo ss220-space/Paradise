@@ -247,10 +247,6 @@
 		if(BRAIN)
 			return getBrainLoss()
 
-/// return the total damage of all types which update your health
-/mob/living/proc/get_total_damage(precision = DAMAGE_PRECISION)
-	return round(getBruteLoss() + getFireLoss() + getToxLoss() + getOxyLoss(), precision)
-
 /// Applies passed status effect
 /mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))

@@ -104,8 +104,9 @@
 
 /datum/beam/Destroy()
 	QDEL_LIST(elements)
-	visuals?.vis_contents.Cut()
-	QDEL_NULL(visuals)
+	if(visuals)
+		visuals.vis_contents.Cut()
+		QDEL_NULL(visuals)
 	UnregisterSignal(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	UnregisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	target = null

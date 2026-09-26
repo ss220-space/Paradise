@@ -1,6 +1,5 @@
 //The bigger ones lag like hell if there is more than one on a z-level, so cost 2 for them
 /datum/map_template/ruin/space
-	abstract_type = /datum/map_template/ruin/space
 	prefix = "_maps/map_files/RandomRuins/SpaceRuins/"
 	cost = 1
 	overmap_size = OVERMAP_RUIN_SIZE_MEDIUM

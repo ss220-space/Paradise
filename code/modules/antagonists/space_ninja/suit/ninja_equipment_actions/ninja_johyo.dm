@@ -59,10 +59,10 @@
 	)
 
 /obj/item/gun/magic/johyo/Destroy()
-	my_suit?.integrated_harpoon = null
+	my_suit.integrated_harpoon = null
 	my_suit = null
-	my_action?.action_ready = FALSE
-	my_action?.toggle_button_on_off()
+	my_action.action_ready = FALSE
+	my_action.toggle_button_on_off()
 	my_action = null
 	return ..()
 

@@ -89,7 +89,3 @@
 /datum/gear/shoes/footwraps/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
-
-/datum/gear/shoes/crocks
-	index_name = "crocks"
-	path = /obj/item/clothing/shoes/crocks

@@ -5,20 +5,19 @@
 	dna_cost = 1
 	button_icon_state = "augmented_eyesight"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	var/obj/item/organ/internal/cyberimp/eyes/shield/ling/eyes = new(null)
 
 /datum/action/changeling/augmented_eyesight/on_purchase(mob/user, /datum/antagonist/changeling/antag)
 	if(!..())
 		return FALSE
 
+	var/obj/item/organ/internal/cyberimp/eyes/shield/ling/eyes = new(null)
 	eyes.insert(user)
 
 /datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/user)
 	if(!istype(user))
 		return FALSE
 
-	delete_organ_item()
-
+	var/obj/item/organ/internal/cyberimp/eyes/eyes
 	if(active)
 		eyes = new /obj/item/organ/internal/cyberimp/eyes/shield/ling(null)
 		user.balloon_alert(user, "защитные мембраны")
@@ -30,14 +29,6 @@
 
 	eyes.insert(user)
 	return TRUE
-
-/datum/action/changeling/augmented_eyesight/Remove(mob/user)
-	delete_organ_item()
-	return ..()
-
-/datum/action/changeling/augmented_eyesight/proc/delete_organ_item(mob/living/carbon/user)
-	var/obj/item/thing = eyes.remove(user)
-	qdel(thing)
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling
 	name = "protective membranes"

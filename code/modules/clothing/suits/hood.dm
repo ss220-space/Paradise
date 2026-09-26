@@ -11,10 +11,7 @@
 
 /obj/item/clothing/suit/hooded/Destroy()
 	unequip_hood()
-	if(hood)
-		UnregisterSignal(hood, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_QDELETING))
-		qdel(hood)
-		hood = null
+	hood = null
 	return ..()
 
 /obj/item/clothing/suit/armor/reactive/ComponentInitialize()

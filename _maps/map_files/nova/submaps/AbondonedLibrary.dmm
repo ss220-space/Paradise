@@ -1,16 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "bc" = (
 /obj/machinery/door/window/westright{
 	dir = 1;
@@ -30,20 +18,6 @@
 	icon_state = "floorgrime"
 	},
 /area/station/maintenance/trading)
-"bJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/camera/emp_proof{
-	c_tag = "Particle Accellerator 2nd Floor";
-	dir = 4;
-	network = list("Engineering","SS13")
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "bU" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -54,14 +28,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"cp" = (
-/obj/structure/window/full/plasmareinforced,
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "cw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -144,20 +110,19 @@
 	},
 /area/station/maintenance/electrical_shop)
 "hb" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/turf/simulated/floor/glass/reinforced,
+/area/template_noop)
 "hc" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary,
 /turf/template_noop,
 /area/template_noop)
 "hK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
 /area/station/maintenance/trading)
 "hR" = (
 /obj/structure/cable{
@@ -194,7 +159,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)
 "jl" = (
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -271,18 +236,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"nh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
-"pi" = (
-/turf/space/openspace,
-/area/space)
 "pl" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dust,
@@ -386,13 +339,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"sB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space/openspace,
-/area/space)
 "tC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -429,7 +375,8 @@
 /turf/simulated/wall/rust,
 /area/station/maintenance/electrical_shop)
 "uN" = (
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
 "uY" = (
 /obj/structure/chair/comfy/brown{
@@ -450,7 +397,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -578,9 +524,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"Ap" = (
-/turf/simulated/openspace,
-/area/station/engineering/engine)
 "Ay" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -613,8 +556,18 @@
 	},
 /area/station/maintenance/electrical_shop)
 "AV" = (
-/turf/simulated/wall/r_wall,
-/area/station/engineering/engine)
+/obj/structure/table/wood,
+/obj/item/folder/yellow{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/lighter/zippo,
+/obj/effect/decal/cleanable/dust,
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/electrical_shop)
 "AY" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
@@ -679,7 +632,8 @@
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/electrical_shop)
 "DG" = (
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "DK" = (
 /obj/structure/table/wood,
@@ -726,15 +680,11 @@
 	},
 /area/station/maintenance/trading)
 "Fv" = (
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plating/airless,
-/area/space)
-"Gb" = (
-/obj/effect/decal/cleanable/dust,
-/obj/structure/closet/crate/secure/loot,
-/turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)
 "Hi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -744,10 +694,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical_shop)
-"HU" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "IK" = (
 /obj/structure/computerframe,
 /obj/item/stack/cable_coil{
@@ -781,11 +727,10 @@
 /turf/simulated/wall,
 /area/station/maintenance/trading)
 "Lq" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
+/area/station/maintenance/electrical_shop)
 "Lw" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -863,11 +808,12 @@
 /turf/simulated/wall/rust,
 /area/station/maintenance/trading)
 "Ny" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/maintenance/electrical_shop)
 "NH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -896,15 +842,14 @@
 	},
 /area/station/maintenance/electrical_shop)
 "Ov" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light{
+	dir = 4
 	},
-/obj/structure/cable/multiz{
-	color = "#eebb20"
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
+/area/station/maintenance/electrical_shop)
 "Ow" = (
 /obj/structure/table/wood,
 /obj/item/stack/sheet/glass{
@@ -955,14 +900,12 @@
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "Qn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/maintenance/electrical_shop)
+/obj/machinery/portable_atmospherics/scrubber,
+/turf/simulated/floor/plating,
+/area/station/maintenance/trading)
 "Rh" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary,
 /obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedLibrary/electronicsden,
@@ -1012,7 +955,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1051,16 +993,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"Te" = (
-/obj/structure/table/wood,
-/obj/item/folder/yellow{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/lighter/zippo,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
-/area/station/maintenance/electrical_shop)
 "TD" = (
 /obj/structure/closet/firecloset,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1075,6 +1007,9 @@
 /area/station/maintenance/trading)
 "Uk" = (
 /obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/item/stack/tape_roll,
 /obj/item/reagent_containers/food/snacks/muffin{
 	pixel_x = -5;
@@ -1106,15 +1041,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"Va" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "Vf" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1143,10 +1069,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/station/maintenance/trading)
-"WB" = (
-/obj/effect/spawner/random_spawners/fungus_30,
-/turf/simulated/wall/r_wall,
 /area/station/maintenance/trading)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1303,7 +1225,7 @@ hZ
 hZ
 hZ
 hZ
-uN
+LF
 SG
 DQ
 IQ
@@ -1345,7 +1267,7 @@ hZ
 hZ
 hZ
 hZ
-uN
+LF
 DK
 wG
 wM
@@ -1431,7 +1353,7 @@ hZ
 hZ
 uN
 uN
-uN
+PG
 ei
 gc
 IK
@@ -1471,8 +1393,8 @@ hZ
 hZ
 hZ
 hZ
-pi
-Fv
+hb
+hb
 uN
 Ux
 tT
@@ -1513,7 +1435,7 @@ hZ
 hZ
 hZ
 hZ
-sB
+hb
 hb
 uN
 sv
@@ -1522,7 +1444,7 @@ IQ
 IQ
 Vj
 Px
-Gb
+ea
 Lw
 DP
 zB
@@ -1555,8 +1477,8 @@ hZ
 hZ
 hZ
 hZ
-Ny
-Lq
+hb
+hb
 uN
 zY
 uY
@@ -1564,7 +1486,7 @@ jl
 pA
 ea
 ea
-Te
+Px
 Wj
 XR
 OR
@@ -1597,9 +1519,9 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
-uN
+hb
+hb
+LF
 AP
 qv
 lH
@@ -1639,12 +1561,12 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
+hb
+hb
 uN
 gs
 vq
-Qn
+IQ
 RS
 Px
 ea
@@ -1681,16 +1603,16 @@ hZ
 hZ
 hZ
 hZ
-HU
+hb
+hb
+uN
+Ux
+Fv
+Ov
+Ny
+ea
+AV
 Lq
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-PG
 Uk
 rn
 RM
@@ -1723,16 +1645,16 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
-cp
-nh
-Va
-aL
-bJ
-Ov
-Ap
-uN
+hb
+hb
+LF
+LF
+LF
+tZ
+LF
+LF
+LF
+PG
 tZ
 LF
 LF
@@ -1933,7 +1855,7 @@ hZ
 hZ
 hZ
 hZ
-DG
+bg
 Jk
 MU
 iS
@@ -1975,9 +1897,9 @@ hZ
 hZ
 hZ
 hZ
-DG
-DG
-WB
+bg
+bg
+Bl
 NH
 Sp
 NI
@@ -2017,9 +1939,9 @@ hZ
 hZ
 hZ
 hZ
-pi
-Fv
-DG
+hb
+hb
+bg
 NH
 Ox
 Ox
@@ -2059,7 +1981,7 @@ hZ
 hZ
 hZ
 hZ
-sB
+hb
 hb
 DG
 Ox
@@ -2101,8 +2023,8 @@ hZ
 hZ
 hZ
 hZ
-Ny
-Lq
+hb
+hb
 DG
 Ox
 Fp
@@ -2143,8 +2065,8 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
+hb
+hb
 DG
 NH
 Ox
@@ -2185,15 +2107,15 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
+hb
+hb
 DG
-el
+Ox
+WA
 NH
-yl
-iS
-sa
+NI
 NH
+AY
 hK
 TQ
 UK
@@ -2227,16 +2149,16 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
-AV
-AV
-AV
-AV
-AV
-AV
-AV
-Bl
+hb
+hb
+bg
+el
+NH
+yl
+iS
+sa
+NH
+Qn
 XT
 qA
 Db
@@ -2269,16 +2191,16 @@ hZ
 hZ
 hZ
 hZ
-HU
-Lq
-cp
-nh
-Va
-aL
-bJ
-Ov
-Ap
-DG
+hb
+hb
+bg
+bg
+MU
+bg
+bg
+bg
+MU
+Bl
 bg
 bg
 bg

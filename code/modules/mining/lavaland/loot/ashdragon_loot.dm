@@ -137,15 +137,15 @@
 	var/ghost_counter = ghost_check()
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message(
-		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
-		span_notice("Вы бьёте с силой [ghost_counter] мстительн[DECL_OGO_YH_YH(ghost_counter)] дух[DECL_A_OV_OV(ghost_counter)]!"),
+		span_danger("[user] нанос[PLUR_IT_YAT(user)] удар с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
+		span_notice("Вы бьёте с силой [ghost_counter] [declension_ru(ghost_counter,"мстительного духа","мстительных духов","мстительных духов")]!"),
 	)
 	return ..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] призрак[DECL_A_OV_OV(ghost_counter)]!"))
+	owner.visible_message(span_danger("[owner] защищён кольцом из [ghost_counter] [declension_ru(ghost_counter,"призрака","призраков","призраков")]!"))
 	return ..()
 
 // Blood
@@ -178,11 +178,12 @@
 			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
-				if(locate(/datum/action/cooldown/spell/shapeshift/dragon) in user.mind.spell_list)
+				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
 					to_chat(user, span_danger("Знакомая сила течёт по вашим жилам! Но вы уже умеете превращаться в дракона..."))
 				else
 					to_chat(user, span_danger("Сила переполняет вас! Теперь вы можете менять форму по желанию."))
-					user.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/dragon)
+					var/obj/effect/proc_holder/spell/shapeshift/dragon/shapeshift = new
+					user.mind.AddSpell(shapeshift)
 		if(3)
 			to_chat(user, span_danger("Кажется, теперь вы могли бы пройтись прямо сквозь лаву."))
 			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)

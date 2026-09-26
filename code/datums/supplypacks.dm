@@ -1333,51 +1333,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/armory/sparkle_a12
-	name = "Пистолет-пулемёты  А-12 \"Искра\""
+	name = "Пистолет-пулемёты A9 \"Искра\""
 	contains = list(
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 	)
 	cost = 50
-	containername = "ящик A12 \"Искра\""
+	containername = "ящик A9 \"Искра\""
 	container_ru_names = alist(
-		NOMINATIVE = "ящик A12 \"Искра\"",
-		GENITIVE = "ящика A12 \"Искра\"",
-		DATIVE = "ящику A12 \"Искра\"",
-		ACCUSATIVE = "ящик A12 \"Искра\"",
-		INSTRUMENTAL = "ящиком A12 \"Искра\"",
-		PREPOSITIONAL = "ящике A12 \"Искра\"",
+		NOMINATIVE = "ящик A9 \"Искра\"",
+		GENITIVE = "ящика A9 \"Искра\"",
+		DATIVE = "ящику A9 \"Искра\"",
+		ACCUSATIVE = "ящик A9 \"Искра\"",
+		INSTRUMENTAL = "ящиком A9 \"Искра\"",
+		PREPOSITIONAL = "ящике A9 \"Искра\"",
 	)
 
-/datum/supply_packs/security/armory/sparkle_a12_ammo
-	name = "Боеприпасы для пистолета-пулемёта А-12 \"Искра\""
-	contains = list(
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/magazine/sparkle_a12,
-		/obj/item/ammo_box/c9mm,
-		/obj/item/ammo_box/c9mm,
-		/obj/item/ammo_box/c9mm,
-		/obj/item/ammo_box/c9mm,
-		/obj/item/ammo_box/c9mm,
-		/obj/item/ammo_box/c9mm,
-	)
-	cost = 100
-	containername = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\""
-	container_ru_names = alist(
-		NOMINATIVE = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-		GENITIVE = "ящика боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-		DATIVE = "ящику боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-		ACCUSATIVE = "ящик боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-		INSTRUMENTAL = "ящиком боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-		PREPOSITIONAL = "ящике боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
-	)
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
@@ -2353,25 +2325,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике продвинутых мультиметров",
 	)
 
-/datum/supply_packs/engineering/atm_holosign
-	name = "Атмосферные голобарьеры"
-	containername = "ящик проекторов атмосферных голографических барьеров"
-	contains = list(
-		/obj/item/holosign_creator/atmos,
-		/obj/item/holosign_creator/atmos,
-		/obj/item/holosign_creator/atmos,
-	)
-	cost = 60
-	containername = "ящик проекторов атмосферных голографических барьеров"
-	container_ru_names = alist(
-		NOMINATIVE = "ящик проекторов атмосферных голографических барьеров",
-		GENITIVE = "ящика проекторов атмосферных голографических барьеров",
-		DATIVE = "ящику проекторов атмосферных голографических барьеров",
-		ACCUSATIVE = "ящик проекторов атмосферных голографических барьеров",
-		INSTRUMENTAL = "ящиком проекторов атмосферных голографических барьеров",
-		PREPOSITIONAL = "ящике проекторов атмосферных голографических барьеров",
-	)
-
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
@@ -2680,16 +2633,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical/supplies
 	name = "Медицинское снабжение"
 	contains = list(
-		/obj/item/reagent_containers/cup/bottle/charcoal,
-		/obj/item/reagent_containers/cup/bottle/charcoal,
-		/obj/item/reagent_containers/cup/bottle/epinephrine,
-		/obj/item/reagent_containers/cup/bottle/epinephrine,
-		/obj/item/reagent_containers/cup/bottle/morphine,
-		/obj/item/reagent_containers/cup/bottle/morphine,
-		/obj/item/reagent_containers/cup/bottle/toxin,
-		/obj/item/reagent_containers/cup/bottle/toxin,
-		/obj/item/reagent_containers/cup/beaker/large,
-		/obj/item/reagent_containers/cup/beaker/large,
+		/obj/item/reagent_containers/glass/bottle/charcoal,
+		/obj/item/reagent_containers/glass/bottle/charcoal,
+		/obj/item/reagent_containers/glass/bottle/epinephrine,
+		/obj/item/reagent_containers/glass/bottle/epinephrine,
+		/obj/item/reagent_containers/glass/bottle/morphine,
+		/obj/item/reagent_containers/glass/bottle/morphine,
+		/obj/item/reagent_containers/glass/bottle/toxin,
+		/obj/item/reagent_containers/glass/bottle/toxin,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/reagent_containers/iv_bag/salglu,
 		/obj/item/storage/box/beakers,
@@ -2847,22 +2800,22 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical/virus
 	name = "Вирусные образцы"
 	contains = list(
-		/obj/item/reagent_containers/cup/bottle/flu,
-		/obj/item/reagent_containers/cup/bottle/cold,
-		/obj/item/reagent_containers/cup/bottle/sneezing,
-		/obj/item/reagent_containers/cup/bottle/cough,
-		/obj/item/reagent_containers/cup/bottle/epiglottis_virion,
-		/obj/item/reagent_containers/cup/bottle/liver_enhance_virion,
-		/obj/item/reagent_containers/cup/bottle/fake_gbs,
-		/obj/item/reagent_containers/cup/bottle/magnitis,
-		/obj/item/reagent_containers/cup/bottle/pierrot_throat,
-		/obj/item/reagent_containers/cup/bottle/brainrot,
-		/obj/item/reagent_containers/cup/bottle/hullucigen_virion,
-		/obj/item/reagent_containers/cup/bottle/anxiety,
-		/obj/item/reagent_containers/cup/bottle/beesease,
+		/obj/item/reagent_containers/glass/bottle/flu,
+		/obj/item/reagent_containers/glass/bottle/cold,
+		/obj/item/reagent_containers/glass/bottle/sneezing,
+		/obj/item/reagent_containers/glass/bottle/cough,
+		/obj/item/reagent_containers/glass/bottle/epiglottis_virion,
+		/obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
+		/obj/item/reagent_containers/glass/bottle/fake_gbs,
+		/obj/item/reagent_containers/glass/bottle/magnitis,
+		/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+		/obj/item/reagent_containers/glass/bottle/brainrot,
+		/obj/item/reagent_containers/glass/bottle/hullucigen_virion,
+		/obj/item/reagent_containers/glass/bottle/anxiety,
+		/obj/item/reagent_containers/glass/bottle/beesease,
 		/obj/item/storage/box/syringes,
 		/obj/item/storage/box/beakers,
-		/obj/item/reagent_containers/cup/bottle/mutagen,
+		/obj/item/reagent_containers/glass/bottle/mutagen,
 	)
 	cost = 150
 	containertype = /obj/structure/closet/crate/secure/plasma
@@ -3344,7 +3297,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Бак масла"
 	contains = list(
 		/obj/structure/reagent_dispensers/oil,
-		/obj/item/reagent_containers/cup/glass/oilcan,
+		/obj/item/reagent_containers/food/drinks/oilcan,
 	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/large
@@ -3791,18 +3744,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/food
 	name = "Пищевые продукты"
 	contains = list(
-		/obj/item/reagent_containers/condiment/flour,
-		/obj/item/reagent_containers/condiment/rice,
-		/obj/item/reagent_containers/condiment/milk,
-		/obj/item/reagent_containers/condiment/soymilk,
-		/obj/item/reagent_containers/condiment/saltshaker,
-		/obj/item/reagent_containers/condiment/peppermill,
+		/obj/item/reagent_containers/food/condiment/flour,
+		/obj/item/reagent_containers/food/condiment/rice,
+		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/reagent_containers/food/condiment/soymilk,
+		/obj/item/reagent_containers/food/condiment/saltshaker,
+		/obj/item/reagent_containers/food/condiment/peppermill,
 		/obj/item/kitchen/rollingpin,
 		/obj/item/storage/fancy/egg_box,
 		/obj/item/mixing_bowl,
 		/obj/item/mixing_bowl,
-		/obj/item/reagent_containers/condiment/enzyme,
-		/obj/item/reagent_containers/condiment/sugar,
+		/obj/item/reagent_containers/food/condiment/enzyme,
+		/obj/item/reagent_containers/food/condiment/sugar,
 		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
 		/obj/item/reagent_containers/food/snacks/grown/banana,
@@ -3921,15 +3874,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Набор для вечеринки"
 	contains = list(
 		/obj/item/storage/box/drinkingglasses,
-		/obj/item/reagent_containers/cup/glass/shaker,
-		/obj/item/reagent_containers/cup/glass/bottle/patron,
-		/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
-		/obj/item/reagent_containers/cup/soda_cans/ale,
-		/obj/item/reagent_containers/cup/soda_cans/ale,
-		/obj/item/reagent_containers/cup/soda_cans/beer,
-		/obj/item/reagent_containers/cup/soda_cans/beer,
-		/obj/item/reagent_containers/cup/soda_cans/beer,
-		/obj/item/reagent_containers/cup/soda_cans/beer,
+		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/food/drinks/bottle/patron,
+		/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+		/obj/item/reagent_containers/food/drinks/cans/ale,
+		/obj/item/reagent_containers/food/drinks/cans/ale,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
 		/obj/item/grenade/confetti,
 		/obj/item/grenade/confetti,
 	)
@@ -3967,10 +3920,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/coffee_syrups
 	name = "Ящик кофейных сиропов"
 	contains = list(
-		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
-		/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
-		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
-		/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
 	)
 	cost = 20
 	containername = "ящик кофейных сиропов"
@@ -4609,8 +4562,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/reagent_containers/spray/plantbgone,
-		/obj/item/reagent_containers/cup/bottle/ammonia,
-		/obj/item/reagent_containers/cup/bottle/ammonia,
+		/obj/item/reagent_containers/glass/bottle/ammonia,
+		/obj/item/reagent_containers/glass/bottle/ammonia,
 		/obj/item/hatchet,
 		/obj/item/cultivator,
 		/obj/item/plant_analyzer,
@@ -5108,8 +5061,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/religious_supplies
 	name = "Религиозное снабжение"
 	contains = list(
-		/obj/item/reagent_containers/cup/glass/bottle/holywater,
-		/obj/item/reagent_containers/cup/glass/bottle/holywater,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater,
 		/obj/item/storage/bible/booze,
 		/obj/item/storage/bible/booze,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -5322,14 +5275,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/camera_film,
 		/obj/item/storage/photo_album,
 		/obj/item/stack/packageWrap,
-		/obj/item/reagent_containers/cup/paint/red,
-		/obj/item/reagent_containers/cup/paint/green,
-		/obj/item/reagent_containers/cup/paint/blue,
-		/obj/item/reagent_containers/cup/paint/yellow,
-		/obj/item/reagent_containers/cup/paint/violet,
-		/obj/item/reagent_containers/cup/paint/black,
-		/obj/item/reagent_containers/cup/paint/white,
-		/obj/item/reagent_containers/cup/paint/remover,
+		/obj/item/reagent_containers/glass/paint/red,
+		/obj/item/reagent_containers/glass/paint/green,
+		/obj/item/reagent_containers/glass/paint/blue,
+		/obj/item/reagent_containers/glass/paint/yellow,
+		/obj/item/reagent_containers/glass/paint/violet,
+		/obj/item/reagent_containers/glass/paint/black,
+		/obj/item/reagent_containers/glass/paint/white,
+		/obj/item/reagent_containers/glass/paint/remover,
 		/obj/item/poster/random_official,
 		/obj/item/stack/wrapping_paper,
 		/obj/item/stack/wrapping_paper,
@@ -5371,9 +5324,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/janitor
 	name = "Уборочное снабжение"
 	contains = list(
-		/obj/item/reagent_containers/cup/bucket,
-		/obj/item/reagent_containers/cup/bucket,
-		/obj/item/reagent_containers/cup/bucket,
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/glass/bucket,
 		/obj/item/mop,
 		/obj/item/caution,
 		/obj/item/caution,
@@ -5481,8 +5434,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/gas/mime,
 		/obj/item/clothing/head/beret,
 		/obj/item/clothing/suit/suspenders,
-		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
-		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
 	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
@@ -5599,7 +5552,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/misc/randomised/New()
-	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
+	manifest += "Содержит [num_contained] люб[declension_ru(num_contained, "ой предмет", "ых предмета", "ых предметов")] из списка:"
 	..()
 
 /datum/supply_packs/misc/foamforce
@@ -6590,7 +6543,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/contraband/randomised/contraband/New()
-	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
+	manifest += "Содержит [num_contained] люб[declension_ru(num_contained, "ой предмет", "ых предмета", "ых предметов")] из списка:"
 	..()
 
 /datum/supply_packs/contraband/foamforce/bonus

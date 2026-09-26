@@ -49,12 +49,12 @@
 
 	var/A
 
-	A = tgui_input_list(user, "Area to jump to", "BOOYEA", GLOB.teleportlocs)
+	A = tgui_input_list(user, "Area to jump to", "BOOYEA", SSmapping.teleportlocs)
 
 	if(!A)
 		return
 
-	var/area/thearea = GLOB.teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

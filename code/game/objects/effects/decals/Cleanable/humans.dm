@@ -1,6 +1,4 @@
 #define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
-#define DAMAGE_TO_PLAY_SOUND 20
-#define DAMAGE_TO_ADD_BLOOD 5
 
 /obj/effect/decal/cleanable/blood
 	name = "blood"
@@ -375,8 +373,6 @@
 	var/leave_blood = TRUE
 	/// The cached info about the blood
 	var/list/blood_dna_info
-	/// The final damage dealt to the mob (after armor), used to determine blood effects
-	var/damage_dealt = 0
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, splatter_strength)
 	. = ..()
@@ -393,9 +389,8 @@
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/expire()
 	if(isturf(loc) && !skip)
-		if(damage_dealt > DAMAGE_TO_PLAY_SOUND)
-			playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
-		if(blood_dna_info && damage_dealt > DAMAGE_TO_ADD_BLOOD)
+		playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
+		if(blood_dna_info)
 			loc.add_blood(blood_dna_info, basecolor)
 	if(!QDELETED(src))
 		qdel(src)
@@ -504,6 +499,3 @@
 	the_window.vis_contents += final_splatter
 	expire()
 	return TRUE
-
-#undef DAMAGE_TO_PLAY_SOUND
-#undef DAMAGE_TO_ADD_BLOOD

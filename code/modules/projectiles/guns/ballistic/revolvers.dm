@@ -99,6 +99,7 @@
 	can_holster = FALSE // Get your fingers out of there!
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
+	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_spin_cylinder = FALSE
@@ -110,15 +111,24 @@
 		DATIVE = "пальцам-пистолетам",
 		ACCUSATIVE = "пальцы-пистолеты",
 		INSTRUMENTAL = "пальцами-пистолетами",
-		PREPOSITIONAL = "пальцах-пистолетах",	)
+		PREPOSITIONAL = "пальцах-пистолетах",
+	)
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	parent_spell = new_parent_spell
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Ваши пальцы, превращённые в оружие. Безвредное оружие."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
+
+/obj/item/gun/projectile/revolver/fingergun/Destroy()
+	if(parent_spell)
+		parent_spell.current_gun = null
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_spell = null
+	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(mob/living/user)
 	balloon_alert(user, "нечем стрелять!")
@@ -126,7 +136,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_MIMING))
+	if(!user.mind?.miming)
 		balloon_alert(user, "вы не приняли обет молчания!")
 		return
 	return ..()

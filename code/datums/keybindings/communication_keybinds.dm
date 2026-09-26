@@ -101,5 +101,3 @@
 	name = PRAY_CHANNEL
 	command = VERB_PRAY
 
-/datum/keybinding/client/communication/pray/can_use(client/user)
-	return isliving(user.mob)

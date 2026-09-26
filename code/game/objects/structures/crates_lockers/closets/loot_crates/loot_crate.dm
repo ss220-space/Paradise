@@ -1,5 +1,4 @@
 /obj/structure/closet/loot_crate
-	abstract_type = /obj/structure/closet/loot_crate
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = null
 	locked = TRUE

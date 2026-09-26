@@ -192,6 +192,3 @@
 							)
 	gear_tweaks += new /datum/gear_tweak/path(holsters, src, TRUE)
 
-/datum/gear/accessory/wristwatch
-	index_name = "wristwatch"
-	path = /obj/item/clothing/accessory/wristwatch

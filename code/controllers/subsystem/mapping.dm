@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
+	/// List of all areas that can be accessed via IC means
+	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
 	///What do we have as the lavaland theme today?
@@ -216,7 +218,18 @@ SUBSYSTEM_DEF(mapping)
 	generate_z_level_linkages(GLOB.space_manager.z_list)
 
 	// Now we make a list of areas for teleport locs
-	process_teleport_locs()
+	teleportlocs = list()
+	for(var/area/AR as anything in get_sorted_areas())
+		if(AR.no_teleportlocs)
+			continue
+		if(teleportlocs[AR.name])
+			continue
+		if(!AR.has_contained_turfs())
+			continue
+		if(is_station_level(AR.z))
+			teleportlocs[AR.name] = AR
+
+	teleportlocs = sortAssoc(teleportlocs)
 
 	ghostteleportlocs = list()
 	for(var/area/AR as anything in get_sorted_areas())

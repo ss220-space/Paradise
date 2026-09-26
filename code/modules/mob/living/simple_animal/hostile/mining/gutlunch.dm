@@ -56,7 +56,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
 	if(udder)
-		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
+		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	QDEL_NULL(udder)
@@ -71,7 +71,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(iscup(I))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
@@ -136,7 +136,8 @@
 
 /obj/item/udder/gutlunch/Initialize(mapload)
 	. = ..()
-	reagents.maximum_volume = 50
+	reagents = new(50)
+	reagents.my_atom = src
 
 /obj/item/udder/gutlunch/generateMilk()
 	reagents.add_reagent("bugmilk", rand(2, 5))

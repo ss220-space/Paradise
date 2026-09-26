@@ -74,8 +74,8 @@
 		var/objects_removed = L.remove_all_embedded_objects()
 		if(objects_removed)
 			user.visible_message(
-				span_notice("[user] извлека[PLUR_ET_YUT(user)] [objects_removed] инородн[DECL_YJ_YH_YH(objects_removed)] объект[DECL_0_A_OV(objects_removed)] из [affected.declent_ru(GENITIVE)] [target]."),
-				span_notice("Вы извлекаете [objects_removed] инородн[DECL_YJ_YH_YH(objects_removed)] объект[DECL_0_A_OV(objects_removed)] из [affected.declent_ru(GENITIVE)] [target]."),
+				span_notice("[user] извлека[PLUR_ET_YUT(user)] [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
+				span_notice("Вы извлекаете [objects_removed] [declension_ru(objects_removed, "инородный объект", "инородных объекта", "инородных объектов")] из [affected.declent_ru(GENITIVE)] [target]."),
 				chat_message_type = MESSAGE_TYPE_COMBAT)
 		else
 			user.visible_message(

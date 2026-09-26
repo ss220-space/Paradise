@@ -753,7 +753,7 @@
 	else
 		visible_message(
 			span_warning("[name] пыта[PLUR_ET_YUT(src)]ся себя отстегнуть!"),
-			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[DECL_U_Y_0(breakout_time * 0.1)]."),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[DECL_SEC_MIN(breakout_time * 0.1)]."),
 		)
 
 	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,
@@ -805,7 +805,7 @@
 	if(user == src)
 		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
 			return FALSE
-		if(istype(toEat, /obj/item/reagent_containers/cup/glass))
+		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
 				return FALSE
 		else
@@ -843,7 +843,7 @@
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/cup/glass/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)

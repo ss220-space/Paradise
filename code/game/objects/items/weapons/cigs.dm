@@ -78,7 +78,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	var/mob/living/last_smoker = last_cig_smoker?.resolve()
 	if(last_smoker)
-		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
+		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 	last_cig_smoker = null
 	return ..()
 
@@ -211,7 +211,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/cup/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -237,15 +237,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		return
 
-	var/alist/real_ru_names = get_ru_names_cached()
+	if(!ru_names)
+		ru_names = get_ru_names_cached()
 
 	ru_names = alist(
-		NOMINATIVE = "[lit ? "прикуренная " : ""]" + real_ru_names[NOMINATIVE],
-		GENITIVE = "[lit ? "прикуренной " : ""]" + real_ru_names[GENITIVE],
-		DATIVE = "[lit ? "прикуренной " : ""]" + real_ru_names[DATIVE],
-		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + real_ru_names[ACCUSATIVE],
-		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + real_ru_names[INSTRUMENTAL],
-		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + real_ru_names[PREPOSITIONAL],
+		NOMINATIVE = "[lit ? "прикуренная " : ""]" + ru_names[NOMINATIVE],
+		GENITIVE = "[lit ? "прикуренной " : ""]" + ru_names[GENITIVE],
+		DATIVE = "[lit ? "прикуренной " : ""]" + ru_names[DATIVE],
+		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + ru_names[ACCUSATIVE],
+		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + ru_names[INSTRUMENTAL],
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
 /obj/item/clothing/mask/cigarette/get_temperature()
@@ -338,10 +339,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/equipped(mob/living/user, slot, initial)
 	. = ..()
 	if(!(slot & ITEM_SLOT_MASK))
-		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
+		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 		return
 	last_cig_smoker = WEAKREF(user)
-	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP), PROC_REF(drop_cig_from_mouth))
+	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED), PROC_REF(drop_cig_from_mouth))
 
 /obj/item/clothing/mask/cigarette/proc/drop_cig_from_mouth(mob/living/source)
 	SIGNAL_HANDLER
@@ -368,7 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)
-	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_ON_CARBON_SLIP))
+	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 	.=..()
 
 /obj/item/clothing/mask/cigarette/get_temperature()
