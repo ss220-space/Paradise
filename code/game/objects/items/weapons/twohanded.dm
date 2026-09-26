@@ -342,7 +342,7 @@
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		return TRUE
+		return REFLECT_NORMAL
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -1264,7 +1264,7 @@
 		if(istype(target, /obj/structure/girder))
 			var/obj/structure/G = target
 			G.take_damage(extra_girder_damage)
-		else if(istype(target, /obj/machinery/door))
+		else if(is_door(target))
 			var/obj/machinery/D = target
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)

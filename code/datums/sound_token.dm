@@ -19,6 +19,8 @@
 	VAR_PRIVATE/falloff_exponent
 	/// Sound falloff distance
 	VAR_PRIVATE/falloff_distance
+	/// Whether or not the sound volume is affected by pressure (e.g. whether you can hear it through vacuum).
+	VAR_PRIVATE/pressure_affected = TRUE
 	/// Frequency (playback speed) applied to the sound. Null keeps the default speed.
 	VAR_PRIVATE/frequency
 
@@ -49,6 +51,7 @@
 	volume = 50,
 	falloff_exponent = SOUND_FALLOFF_EXPONENT,
 	falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE,
+	pressure_affected = TRUE,
 	allowed_listeners,
 	sound_duration_override,
 	delete_on_end,
@@ -63,6 +66,7 @@
 	src.volume = volume
 	src.falloff_exponent = falloff_exponent
 	src.falloff_distance = falloff_distance
+	src.pressure_affected = pressure_affected
 	src.frequency = frequency
 	src.sound_duration_override = sound_duration_override
 
@@ -201,6 +205,7 @@
 		sound_to_use = sound,
 		max_distance = range,
 		falloff_distance = falloff_distance,
+		pressure_affected = pressure_affected,
 		use_reverb = TRUE,
 	))
 		sound.status = SOUND_UPDATE|SOUND_MUTE

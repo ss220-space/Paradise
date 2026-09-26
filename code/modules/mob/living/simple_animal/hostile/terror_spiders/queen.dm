@@ -41,7 +41,7 @@
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
 	delay_web = 15
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
+	special_abillity = list(/datum/action/cooldown/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель — управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
 	datum_type = /datum/antagonist/terror_spider/main_spider/queen

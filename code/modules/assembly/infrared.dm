@@ -143,7 +143,7 @@
 	var/dat = {"<tt><b>Infrared Laser</b>
 				<b>Status</b>: [on ? "<a href='byond://?src=[UID()];state=0'>On</a>" : "<a href='byond://?src=[UID()];state=1'>Off</a>"]<br>
 				<b>Visibility</b>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</a>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</a>"]<br>
-				<b>Current Direction</b>: capitalize(dir2text(dir))]<br>"
+				<b>Current Direction</b>: [capitalize(dir2text(dir))]<br>"
 				</tt>
 				<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>
 				<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"}

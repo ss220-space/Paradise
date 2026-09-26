@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL=2000, MAT_GLASS=2000, MAT_BLUESPACE=400)
 	origin_tech = "bluespace=4;biotech=5"
 	/// Tank with ready reagents.
-	var/obj/item/reagent_containers/glass/beaker/large/ready_reagents = new
+	var/obj/item/reagent_containers/cup/beaker/large/ready_reagents = new
 	/// A list synthesized reagents.
 	var/list/synth_reagents = list()
 	/// The amount of substance synthesized in a cycle.
@@ -85,12 +85,12 @@
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(item))
+	if(iscup(item))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
 
-		var/obj/item/reagent_containers/glass/RC = item
+		var/obj/item/reagent_containers/cup/RC = item
 		if(!RC.reagents.reagent_list)
 			return  ..()
 
@@ -145,10 +145,10 @@
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!isglassreagentcontainer(target))
+	if(!iscup(target))
 		return ..()
 
-	var/obj/item/reagent_containers/glass/G = target
+	var/obj/item/reagent_containers/cup/G = target
 	ready_reagents.reagents.trans_to(G, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/examine(mob/user)

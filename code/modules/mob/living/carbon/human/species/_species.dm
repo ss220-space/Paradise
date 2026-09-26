@@ -308,6 +308,12 @@
 	)
 	var/bonus_skill_free_points = 0
 
+	/**
+	 * Was on_species_gain ever actually called?
+	 * Species code is really odd...
+	 **/
+	var/properly_gained = FALSE
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
@@ -455,6 +461,8 @@
 	target.hud_used?.update_locked_slots()
 	gain_muscles(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
 	target.update_body(TRUE)
+
+	properly_gained = TRUE
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
 	target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
@@ -641,15 +649,17 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
+		damage *= skill_mod
+
 		var/delta = 0
 		var/list/deltas = list()
 		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, null)
 		for(var/addition in deltas)
 			delta += addition
+		damage += delta
 
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
-		damage *= skill_mod
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
@@ -695,9 +705,9 @@
 				span_userdanger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!")
 			)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
-			target.forcesay(GLOB.hit_appends)
+			target.force_say(GLOB.hit_appends)
 		else if(target.body_position == LYING_DOWN)
-			target.forcesay(GLOB.hit_appends)
+			target.force_say(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
@@ -1412,3 +1422,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	head_organ.h_style = "Bald"
 	target.update_hair()
 	target.update_fhair()
+
+/datum/species/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Gained / Owned: [properly_gained ? "Yes" : "No"]"

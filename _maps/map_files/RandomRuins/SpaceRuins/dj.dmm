@@ -475,6 +475,22 @@
 	icon_state = "dark"
 	},
 /area/djstation)
+"lA" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 28;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/djstation)
 "nc" = (
 /obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
@@ -630,6 +646,16 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"CY" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	id_tag = "dj_post"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
 "DI" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -699,16 +725,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"IK" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	dir = 8;
-	id_tag = "dj_post"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
 "JC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -717,22 +733,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"Lr" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 28;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkblue"
 	},
 /area/djstation)
@@ -1271,7 +1271,7 @@ ao
 ao
 aS
 aS
-IK
+CY
 ao
 ao
 YA
@@ -1450,7 +1450,7 @@ ao
 Uj
 Vm
 Fu
-Lr
+lA
 aX
 bR
 bR
