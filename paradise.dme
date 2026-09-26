@@ -2260,6 +2260,7 @@
 #include "code\modules\admin\verbs\serialization.dm"
 #include "code\modules\admin\verbs\space_transitions.dm"
 #include "code\modules\admin\verbs\special_verbs.dm"
+#include "code\modules\admin\verbs\sprite_state.dm"
 #include "code\modules\admin\verbs\striketeam.dm"
 #include "code\modules\admin\verbs\striketeam_syndicate.dm"
 #include "code\modules\admin\verbs\ticklag.dm"
