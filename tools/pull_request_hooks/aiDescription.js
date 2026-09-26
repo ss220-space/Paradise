@@ -2,7 +2,11 @@ import fs from "fs";
 import { CHANGELOG_ENTRIES } from "./changelogConfig.js";
 import { get_updated_label_set } from "./autoLabel.js";
 
-const DEFAULT_MODEL = "openrouter/free";
+const DEFAULT_MODELS = [
+  "google/gemma-4-31b-it:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+  "qwen/qwen3.8-27b:free",
+];
 const AI_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const DIFF_BUDGET = 60000;
 const FILE_PATCH_LIMIT = 8000;
@@ -180,7 +184,7 @@ async function generate(messages) {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      model: process.env.AI_MODEL || DEFAULT_MODEL,
+      ...(process.env.AI_MODEL ? { model: process.env.AI_MODEL } : { models: DEFAULT_MODELS }),
       messages,
       temperature: 0.2,
       response_format: { type: "json_object" },
