@@ -49,12 +49,6 @@
 	database_id = BOSS_MEDAL_LEGION
 	icon_state = "legion"
 
-/datum/award/achievement/boss/swarmer_beacon_kill
-	name = "Разрушитель Маяка Свармеров"
-	desc = "УБЕРИТЕ ИХ ОТ МЕНЯ!"
-	database_id = BOSS_MEDAL_SWARMERS
-	icon_state = "swarmer"
-
 /datum/award/achievement/boss/ancient_robot_kill
 	name = "Убийца Древного Робота"
 	desc = "Просто кусок металлолома!"
@@ -96,12 +90,6 @@
 	desc = "Вы победили Легиона с помощью крашера."
 	database_id = BOSS_MEDAL_LEGION_CRUSHER
 	icon_state = "legion"
-
-/datum/award/achievement/boss/swarmer_beacon_crusher
-	name = "Сокрушитель Маяка Свармеров"
-	desc = "Вы разрушили Маяк Свармеров с помощью крашера."
-	database_id = BOSS_MEDAL_SWARMERS_CRUSHER
-	icon_state = "swarmer"
 
 /datum/award/achievement/boss/ancient_robot_crusher
 	name = "Сокрушитель Древнего Робота"
