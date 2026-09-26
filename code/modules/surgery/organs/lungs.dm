@@ -438,7 +438,10 @@
 /obj/item/organ/internal/lungs/proc/too_much_nitrium(mob/living/carbon/breather, datum/gas_mixture/breath, nitrium_pp)
 	breath.set_nitrium(0)
 	if(prob(20))
-		breather.emote("burp")
+		if(prob(50))
+			breather.emote("burp")
+		else
+			breather.emote("fart")
 
 	// Random chance to inflict side effects increases with pressure.
 	if((prob(nitrium_pp) && (nitrium_pp > 15)))
