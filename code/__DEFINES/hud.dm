@@ -173,6 +173,12 @@
 #define ui_palette_scroll "WEST+1:8,NORTH-6:28"
 #define ui_palette_scroll_offset(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:28")
 
+// Ammo counter
+#define ui_ammo1 "EAST-1:28,CENTER+1:25"
+#define ui_ammo2 "EAST-1:28,CENTER+2:27"
+#define ui_ammo3 "EAST-1:28,CENTER+3:29"
+#define ui_ammo4 "EAST-1:28,CENTER+4:31"
+
 // Plane group keys, used to group swaths of plane masters that need to appear in subwindows
 /// The primary group, holds everything on the main window
 #define PLANE_GROUP_MAIN "main"

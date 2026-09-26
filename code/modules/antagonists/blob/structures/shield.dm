@@ -54,7 +54,7 @@
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."
 	damaged_desc = "A wall of twitching tendrils with a reflective glow."
 	icon_state = "blob_glow"
-	flags_ricochet = RICOCHET_SHINY
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_SPECIAL
 	explosion_block = 2
 	explosion_vertical_block = 1
 	brute_resist = BLOB_BRUTE_RESIST
