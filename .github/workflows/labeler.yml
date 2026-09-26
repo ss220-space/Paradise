@@ -1,12 +1,12 @@
 name: Pull Request Labeler
 on:
   pull_request_target:
-    types: [closed, opened, synchronize]
+    types: [closed, opened, synchronize, edited]
 jobs:
   # labeler must run before gbp because gbp calculates itself based on labels
   labeler:
     runs-on: ubuntu-24.04
-    if: github.event.action == 'opened' || github.event.action == 'synchronize'
+    if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'edited'
     permissions:
       pull-requests: write # to apply labels
       issues: write # to apply labels

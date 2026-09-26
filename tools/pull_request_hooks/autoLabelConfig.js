@@ -48,6 +48,13 @@ export const file_labels = {
 };
 
 /**
+ * Trigger Labels
+ *
+ * Labels that only start a workflow and must never stick to the PR
+ */
+export const trigger_labels = ['AI описание'];
+
+/**
  * Title Labels
  *
  * Add a label based on keywords in the title

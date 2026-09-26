@@ -1,5 +1,6 @@
 import fs from "fs";
 import { CHANGELOG_ENTRIES } from "./changelogConfig.js";
+import { get_updated_label_set } from "./autoLabel.js";
 
 const DEFAULT_MODEL = "openrouter/free";
 const AI_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
@@ -255,21 +256,42 @@ export async function fillPullRequestDescription({ github, context }) {
       })
     ).data.body || currentBody;
 
-  await github.rest.pulls.update({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    pull_number: pull.number,
-    body: fillBody(latestBody, generated),
-  });
+  const updatedPull = (
+    await github.rest.pulls.update({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: pull.number,
+      body: fillBody(latestBody, generated),
+    })
+  ).data;
 
-  if (byLabel) {
-    await github.rest.issues
-      .removeLabel({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: pull.number,
-        name: TRIGGER_LABEL,
-      })
-      .catch(() => {});
+  await refreshLabels({ github, context, updatedPull, byLabel });
+}
+
+async function refreshLabels({ github, context, updatedPull, byLabel }) {
+  const labelContext = Object.create(context);
+  labelContext.payload = { ...context.payload, pull_request: updatedPull };
+
+  try {
+    const labels = await get_updated_label_set({ github, context: labelContext });
+    await github.rest.issues.setLabels({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: updatedPull.number,
+      labels,
+    });
+    console.log(`Метки обновлены: ${labels}`);
+  } catch (error) {
+    console.error("Не удалось пересчитать метки:", error);
+    if (byLabel) {
+      await github.rest.issues
+        .removeLabel({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: updatedPull.number,
+          name: TRIGGER_LABEL,
+        })
+        .catch(() => {});
+    }
   }
 }
