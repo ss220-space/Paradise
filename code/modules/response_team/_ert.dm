@@ -391,6 +391,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	name = "centcomm bounced radio"
 	icon_state = "radio"
 	freqlock = TRUE
+	portable_broadcast_restriction = FALSE
 
 /obj/item/radio/centcom/Initialize(mapload)
 	. = ..()

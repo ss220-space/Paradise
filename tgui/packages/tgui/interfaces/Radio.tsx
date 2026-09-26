@@ -16,6 +16,7 @@ type RadioData = {
   canReset: boolean;
   listening: boolean;
   broadcasting: boolean;
+  can_broadcast: boolean;
   loudspeaker: boolean;
   has_loudspeaker: boolean;
   schannels: Record<string, BooleanLike>;
@@ -32,6 +33,7 @@ export const Radio = (_props: unknown) => {
     canReset,
     listening,
     broadcasting,
+    can_broadcast,
     loudspeaker,
     has_loudspeaker,
   } = data;
@@ -116,6 +118,7 @@ export const Radio = (_props: unknown) => {
                 }
                 onClick={() => act('listen')}
               />
+              {!!can_broadcast && (
               <Button
                 textAlign="center"
                 width="37px"
@@ -128,6 +131,7 @@ export const Radio = (_props: unknown) => {
                 }
                 onClick={() => act('broadcast')}
               />
+              )}
               {!!has_loudspeaker && (
                 <Button
                   ml={1}
