@@ -324,7 +324,22 @@
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser(src)
+		new /obj/item/gun/energy/laser/hitscan/carbine(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/pistols/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/hitscan/pistol(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/smg/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/hitscan/assault_mg(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/shotguns/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/hitscan/shotgun(src)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun
 	name = "security energy gun cabinet"
@@ -345,6 +360,76 @@
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/gun(src)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine
+	name = "security automatic laser gun cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных винтовок. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-винтовок",
+		GENITIVE = "шкафа автоматических энерго-винтовок",
+		DATIVE = "шкафу автоматических энерго-винтовок",
+		ACCUSATIVE = "шкаф автоматических энерго-винтовок",
+		INSTRUMENTAL = "шкафом автоматических энерго-винтовок",
+		PREPOSITIONAL = "шкафе автоматических энерго-винтовок",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/automatic/carbine(src)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/pistols/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/automatic/pistol(src)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/smg/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/automatic/assault_mg(src)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/shotguns/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/automatic/shotgun(src)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun
+	name = "security accumulator-energy gun cabinet"
+	desc = "Защищённый шкаф для хранения лазерных винтовок, работающих на аккумуляторах. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-винтовок",
+		GENITIVE = "шкафа аккумуляторных энерго-винтовок",
+		DATIVE = "шкафу аккумуляторных энерго-винтовок",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-винтовок",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-винтовок",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-винтовок",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/accumulator/energy_carbine(src)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/pistols/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/accumulator/energy_pistol(src)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/smg/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/accumulator/automatic(src)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/shotguns/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/accumulator/shotgun(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
