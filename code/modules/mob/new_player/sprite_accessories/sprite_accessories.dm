@@ -233,6 +233,11 @@
 	name = "Mens Kinky"
 	icon_state = "male_kinky"
 
+/datum/sprite_accessory/underwear/male/rust_rag
+	name = "Тряпичные боксеры"
+	icon_state = "male_rag"
+	species_allowed = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_MOTH)
+
 /datum/sprite_accessory/underwear/female
 	unsuitable_gender = MALE
 
@@ -320,6 +325,12 @@
 /datum/sprite_accessory/underwear/female/colorized/female_lingerie
 	name = "Ladies Lingerie"
 	icon_state = "female_lingerie"
+
+/datum/sprite_accessory/underwear/female/rust_rag
+	name = "Тряпичные слипы"
+	icon_state = "female_rag"
+	species_allowed = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_MOTH)
+
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////

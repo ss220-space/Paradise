@@ -1,0 +1,165 @@
+/// Delay before shot (trigger process)
+#define EOKA_SHOT_DELAY (0.6 SECONDS)
+/// Repair broken eoka duration with welder
+#define EOKA_REPAIR_DURATION (5 SECONDS)
+/// Chance of process fire on trigger (after do_after delay)
+#define EOKA_SHOT_CHANCE 50
+// Shot modifiers chances
+#define EOKA_BROKE_CHANCE 20
+#define EOKA_SELF_FIRE_CHANCE 20
+#define EOKA_MISFIRE_CHANCE 15
+
+// Eoka gun from rust
+/obj/item/gun/projectile/eoka
+	name = "eoka pistol"
+	gender = MALE
+	desc = "Собранное из подручных материалов оружие, отличающееся чрезвычайной ненадёжностью. \
+	Активируется искрой от камня, который ударяется о верхнюю часть оружия. \
+	Не взорвётся ли оно в руках стрелка после такого — предсказать сложно."
+	icon = 'icons/obj/weapons/handmade.dmi'
+	icon_state = "eoka"
+	item_state = "eoka"
+	mag_type = /obj/item/ammo_box/magazine/internal/eoka
+	fire_sound = 'sound/weapons/eoka/eoka-pistol-fire.wav'
+	w_class = WEIGHT_CLASS_SMALL
+	accuracy = GUN_ACCURACY_MINIMAL
+	recoil = GUN_RECOIL_MEGA
+	var/broken = FALSE
+
+/obj/item/gun/projectile/eoka/get_ru_names()
+	return alist(
+		NOMINATIVE = "самодельный пистолет",
+		GENITIVE = "самодельного пистолета",
+		DATIVE = "самодельному пистолету",
+		ACCUSATIVE = "самодельный пистолет",
+		INSTRUMENTAL = "самодельным пистолетом",
+		PREPOSITIONAL = "самодельном пистолете",
+	)
+
+/obj/item/gun/projectile/eoka/attackby(obj/item/item, mob/user, params)
+	if(!isammocasing(item))
+		return ..()
+
+	add_fingerprint(user)
+	if(chambered)
+		balloon_alert(user, "уже заряжено!")
+		return ATTACK_CHAIN_PROCEED
+
+	var/loaded = magazine.reload(item, user, silent = TRUE)
+	if(loaded)
+		chambered = magazine.get_round(TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	balloon_alert(user, "не удалось!")
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/projectile/eoka/welder_act(mob/user, obj/item/welder)
+	. = TRUE
+	if(!broken)
+		balloon_alert(user, "не требует ремонта!")
+		return
+
+	if(welder.use_tool(src, user, EOKA_REPAIR_DURATION, volume = welder.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		broken = FALSE
+		update_icon()
+
+/obj/item/gun/projectile/eoka/update_icon_state()
+	icon_state = initial(icon_state) + (broken ?  "-broken" : "")
+
+/obj/item/gun/projectile/eoka/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+	..(TRUE, TRUE)
+	chambered = null
+
+/obj/item/gun/projectile/eoka/get_ammo(countchambered = FALSE, countempties = FALSE)
+	return ..(countchambered, countempties)
+
+/obj/item/gun/projectile/eoka/can_shoot(mob/user)
+	. = ..()
+	if(broken)
+		return FALSE
+
+	if(!chambered)
+		return FALSE
+
+	return (chambered.BB ? TRUE : FALSE)
+
+/obj/item/gun/projectile/eoka/unload_act(mob/user)
+	chambered = null
+	var/atom/drop_loc = drop_location()
+	while(get_ammo(countempties = TRUE) > 0)
+		var/obj/item/ammo_casing/casing
+		casing = magazine.get_round(FALSE)
+		if(!casing)
+			continue
+
+		casing.forceMove(drop_loc)
+		casing.pixel_x = rand(-10, 10)
+		casing.pixel_y = rand(-10, 10)
+		casing.setDir(pick(GLOB.alldirs))
+		casing.update_appearance()
+		casing.SpinAnimation(10, 1)
+		playsound(drop_loc, casing.casing_drop_sound, 60, TRUE)
+
+	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+	update_icon()
+
+/obj/item/gun/projectile/eoka/chamber_round(spin = TRUE)
+	if(!magazine)
+		return
+
+	if(spin)
+		chambered = magazine.get_round(TRUE)
+		return
+
+	if(!length(magazine.stored_ammo))
+		return
+
+	chambered = magazine.stored_ammo[1]
+
+/obj/item/gun/projectile/eoka/process_fire(zone_override)
+	var/mob/living/user = gun_user
+	playsound(src, 'sound/weapons/eoka/eoka-pistol-charge.ogg', 100, TRUE)
+	if(!do_after(user, EOKA_SHOT_DELAY, user, interaction_key = src, timed_action_flags = DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+		return NONE
+
+	if(!prob(EOKA_SHOT_CHANCE)) //try again (with recusrion)
+		. = process_fire(zone_override)
+		//unload_act(user)
+		return
+
+	if(prob(EOKA_BROKE_CHANCE))
+		playsound(src, 'sound/weapons/eoka/eoka-pistol-fire.wav', 100, TRUE)
+		broken = TRUE
+		QDEL_NULL(chambered.BB)
+		unload_act(user)
+		return NONE
+
+	if(prob(EOKA_SELF_FIRE_CHANCE))
+		target = user
+		. = ..(BODY_ZONE_HEAD)
+		user.emote("scream")
+		return
+
+	if(prob(EOKA_MISFIRE_CHANCE))
+		balloon_alert(user, "осечка!")
+		playsound(src, 'sound/weapons/eoka/eoka-pistol-trigger.wav', 100, TRUE)
+		return NONE
+
+	. = ..()
+	unload_act(user)
+
+/obj/item/ammo_box/magazine/internal/eoka
+	name = "eoka pistol internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+	caliber = CALIBER_12G
+	max_ammo = 1
+	insert_sound = 'sound/weapons/eoka/eoka-pistol-recharge.ogg'
+	start_empty = TRUE
+
+#undef EOKA_SHOT_DELAY
+#undef EOKA_REPAIR_DURATION
+#undef EOKA_SHOT_CHANCE
+#undef EOKA_BROKE_CHANCE
+#undef EOKA_SELF_FIRE_CHANCE
+#undef EOKA_MISFIRE_CHANCE
