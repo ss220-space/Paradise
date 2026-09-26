@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 25
+	damage = 23
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -633,6 +633,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	icon_state = "blue_laser"
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	damage = 20
 
 /obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"

@@ -172,6 +172,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
 /// Enforcer accuracy
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
+/// Laser pistol accuracy
+#define GUN_ACCURACY_PISTOL_LASER new /datum/gun_accuracy/pistol/laser()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
 /// Scarecrow accuracy
