@@ -209,6 +209,8 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
 
 /obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	. = ..()
+	if(!ismob(loc))
+		play_liquid_slosh()
 	if(do_splash)
 		splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
 

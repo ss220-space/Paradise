@@ -256,6 +256,15 @@
 	drink_name = "стакан шоколадного молока"
 	taste_description = "шоколадного сока"
 
+/datum/reagent/consumable/drink/milk/kefir
+	name = "Кефир"
+	id = "kefir"
+	description = "Густой кисломолочный напиток, сброженный из молока кефирной закваской."
+	color = "#E8E6DA"
+	drink_name = "стакан кефира"
+	drink_desc = "Густой, кисленький и очень полезный."
+	taste_description = "кислого молока"
+
 /datum/reagent/consumable/drink/hot_coco
 	name = "Горячий шоколад"
 	id = "hot_coco"

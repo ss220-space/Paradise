@@ -699,6 +699,22 @@
 		PREPOSITIONAL = "пачке молока",
 	)
 
+/obj/item/reagent_containers/cup/glass/bottle/juice/kefir
+	name = "kefir"
+	desc = "Кисломолочный напиток. Щепотка его закваски превращает в кефир любое молоко."
+	icon_state = "kefir"
+	list_reagents = list("kefir" = 100)
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/kefir/get_ru_names()
+	return alist(
+		NOMINATIVE = "пачка кефира",
+		GENITIVE = "пачки кефира",
+		DATIVE = "пачке кефира",
+		ACCUSATIVE = "пачку кефира",
+		INSTRUMENTAL = "пачкой кефира",
+		PREPOSITIONAL = "пачке кефира",
+	)
+
 // MARK: Molotov
 /obj/item/reagent_containers/cup/glass/bottle/molotov
 	name = "molotov cocktail"

@@ -41,6 +41,16 @@
 	mix_message = "The mixture turns a nice brown color."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/kefir
+	name = "Kefir"
+	id = "kefir"
+	result = "kefir"
+	required_reagents = list("milk" = 10)
+	required_catalysts = list("kefir" = 1)
+	result_amount = 10
+	mix_message = "Молоко густеет и начинает кисло пахнуть."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/coffee
 	name = "Coffee"
 	id = "coffee"
