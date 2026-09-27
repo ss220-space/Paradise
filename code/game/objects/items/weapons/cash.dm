@@ -18,6 +18,7 @@
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	singular_name = "credit"
+	logistics_count_amount = TRUE
 	max_amount = CASHMAX
 	merge_type = /obj/item/stack/spacecash
 

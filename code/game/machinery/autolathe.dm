@@ -71,6 +71,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
+	AddElement(/datum/element/logistics_compatible)
 
 
 /obj/machinery/autolathe/upgraded/Initialize(mapload)
@@ -168,6 +169,7 @@
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len
+	data["logistics_enabled"] = logistics_board_installed()
 	return data
 
 /obj/machinery/autolathe/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -177,6 +179,8 @@
 	add_fingerprint(usr)
 
 	. = TRUE
+	if(try_logistics_ui_act(action, usr))
+		return
 	switch(action)
 		if("clear_queue")
 			queue = list()

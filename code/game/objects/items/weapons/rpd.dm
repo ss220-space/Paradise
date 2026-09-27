@@ -34,6 +34,7 @@
 	var/pipe_category = RPD_ATMOS_PIPING //For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
 	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
+	var/whatlpipe = PIPE_LOGISTICS_STRAIGHT
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
@@ -46,6 +47,7 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Logistics", "mode" = RPD_LOGISTICS_MODE, "icon" = "boxes"),
 		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
 		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
 		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
@@ -147,17 +149,34 @@
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
+/obj/item/rpd/proc/create_logistics_pipe(mob/user, turf/T)
+	if(!can_dispense_pipe(whatlpipe, PIPETYPE_LOGISTICS))
+		CRASH("Failed to spawn [get_pipe_name(whatlpipe, PIPETYPE_LOGISTICS)] - possible tampering detected")
+	var/rotate_dir = iconrotation ? iconrotation : user.dir
+	var/obj/structure/logistics_construct/construct = new(T, whatlpipe, rotate_dir)
+	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
+	var/obj/item/inactive_hand_item = user.get_inactive_hand()
+	if(auto_wrench)
+		construct.wrench_act(user, integrated_wrench)
+	else if(iswrench(inactive_hand_item) && (construct.IsReachableBy(user, inactive_hand_item.reach)))
+		construct.wrench_act(user, inactive_hand_item)
+	activate_rpd(TRUE)
+
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
+	for(var/obj/structure/logistics_construct/L in T)
+		L.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
+	for(var/obj/structure/logistics_construct/L in T)
+		L.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
@@ -173,6 +192,10 @@
 	for(var/obj/structure/disposalconstruct/D in T)
 		if(!D.anchored)
 			QDEL_NULL(D)
+			eaten = TRUE
+	for(var/obj/structure/logistics_construct/L in T)
+		if(!L.anchored)
+			QDEL_NULL(L)
 			eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
@@ -213,6 +236,7 @@
 	data["pipemenu"] = pipemenu
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
+	data["whatlpipe"] = whatlpipe
 	data["whatpipe"] = whatpipe
 	data["auto_wrench"] = auto_wrench
 	return data
@@ -233,12 +257,17 @@
 		if("whatdpipe")
 			if(isnum(params["whatdpipe"]))
 				whatdpipe = params["whatdpipe"]
+		if("whatlpipe")
+			var/id = text2num(params["whatlpipe"])
+			if(id)
+				whatlpipe = id
 		if("pipe_category")
 			if(isnum(params["pipe_category"]))
 				pipe_category = params["pipe_category"]
 		if("mode")
-			if(isnum(params["mode"]))
-				mode = params["mode"]
+			var/next_mode = text2num(params["mode"])
+			if(next_mode)
+				mode = next_mode
 		if("auto_wrench")
 			auto_wrench = !auto_wrench
 

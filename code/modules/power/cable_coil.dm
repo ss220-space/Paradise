@@ -12,6 +12,7 @@
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
+	logistics_count_amount = TRUE
 	color = CABLE_HEX_COLOR_RED
 	desc = "A coil of power cable."
 	w_class = WEIGHT_CLASS_SMALL
