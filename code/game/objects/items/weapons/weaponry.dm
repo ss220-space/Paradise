@@ -67,8 +67,8 @@
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
+	pickup_sound = SFX_KNIFE_PICKUP
+	drop_sound = SFX_KNIFE_DROP
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
@@ -107,8 +107,8 @@
 	sharp = 1
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
+	pickup_sound = 'sound/items/unsheath.ogg'
+	drop_sound = SFX_KNIFE_DROP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
@@ -233,6 +233,7 @@
 	sharp = 1
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"

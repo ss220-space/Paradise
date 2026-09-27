@@ -173,8 +173,8 @@
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
-	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/heart/cybernetic/get_ru_names()
 	return alist(

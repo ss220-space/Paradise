@@ -53,8 +53,8 @@
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
-	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboardbox_pickup.ogg'
 	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
 
 /obj/item/storage/fancy/donut_box/update_icon_state()
@@ -128,8 +128,8 @@
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
-	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboardbox_pickup.ogg'
 	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 
 /obj/item/storage/fancy/egg_box/populate_contents()

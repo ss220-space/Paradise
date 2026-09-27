@@ -15,8 +15,8 @@
 	force = 10
 	throwforce = 10
 	materials = list(MAT_METAL=50)
-	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/crowbar_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/crowbar_drop.ogg'
+	pickup_sound = 'sound/items/handling/tools/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("атаковал", "ударил", "огрел")
 	toolbox_radial_menu_compatibility = TRUE

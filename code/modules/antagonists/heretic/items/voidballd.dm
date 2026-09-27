@@ -4,8 +4,8 @@
 	gender = FEMALE
 	icon = 'icons/mob/actions/actions_ecult.dmi'
 	icon_state = "voidball"
-	pickup_sound = 'sound/items/handling/pickup/drinkglass_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/drinkglass_drop.ogg'
+	pickup_sound = 'sound/items/handling/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 
 
 /obj/item/void_prison/get_ru_names()

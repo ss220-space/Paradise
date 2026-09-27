@@ -408,8 +408,8 @@
 	desc = "A design disk containing a dizzying amount of designs and improvements for nuclear rod fabrication."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk5"
-	drop_sound = 'sound/items/handling/drop/disk_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/disk_pickup.ogg'
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 
 // MARK: Chamber Doors
 

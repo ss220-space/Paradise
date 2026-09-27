@@ -8,8 +8,8 @@
 	materials = list(MAT_GLASS=500)
 	max_integrity = 20
 	resistance_flags = ACID_PROOF
-	drop_sound = 'sound/items/handling/drop/drinkglass_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/get_ru_names()

@@ -18,8 +18,8 @@
 	attack_verb = list("огрел", "ударил", "вмазал")
 	use_sound = 'sound/items/handling/toolbox_open.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox/toolbox_pickup.ogg'
 	/// Chance to blurry the vision of attacked human
 	var/blurry_chance = 5
 	/// How many interactions are we currently performing
@@ -513,8 +513,8 @@
 	desc = "Небольшой кожанный футляр, предназначенный для хранения и транспортировки хирургических инструментов. От него исходит едва заметный запах пепла."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "surgery_bag"
-	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/backpack/backpack_pickup1.ogg'
+	drop_sound = 'sound/items/handling/backpack/backpack_drop1.ogg'
 	flags = NONE
 	force = 2
 	throwforce = 4

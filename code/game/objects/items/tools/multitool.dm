@@ -18,8 +18,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	usesound = 'sound/items/multitool.ogg'
-	drop_sound = 'sound/items/handling/drop/multitool_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/multitool_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/multitool_drop.ogg'
+	pickup_sound = 'sound/items/handling/tools/multitool_pickup.ogg'
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=2"
 	tool_behaviour = TOOL_MULTITOOL

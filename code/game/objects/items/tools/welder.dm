@@ -26,8 +26,8 @@
 	tool_enabled = FALSE
 	toolbox_radial_menu_compatibility = TRUE
 	usesound = 'sound/items/welder.ogg'
-	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/weldingtool_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/weldingtool_drop.ogg'
+	pickup_sound = 'sound/items/handling/tools/weldingtool_pickup.ogg'
 	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_power = 0.75
