@@ -146,7 +146,7 @@
 	//if area isn't specified use current
 	if(isarea(A))
 		areabeacon = A
-	SSticker.mode.clocker_objs.beacon_check()
+	get_clockwork_cult_team().clocker_objs.beacon_check()
 
 /obj/structure/clockwork/functional/beacon/process()
 	adjust_clockwork_power(CLOCK_POWER_BEACON)
@@ -182,7 +182,7 @@
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
-	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/M as anything in get_clockwork_cult_team()?.members)
 		to_chat(M.current, span_danger("You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]"))
 	return ..()
 
@@ -329,9 +329,7 @@
 				else
 					converting.take_overall_damage(5, 5)
 			if(17)
-				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-				cube.try_to_transfer(converting)
+				finish_convert(converting)
 	else if(first_stage)
 		stop_convert()
 
@@ -358,6 +356,24 @@
 		target.Weaken(10 SECONDS) //Accept new power... and new information
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
+
+/obj/structure/clockwork/functional/altar/proc/finish_convert(mob/living/carbon/human/target)
+	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+
+	var/list/invokers = list()
+	for(var/mob/living/clocker in range(1, src))
+		if(!isclocker(clocker))
+			continue
+		invokers += clocker
+
+	if(SEND_SIGNAL(target, COMSIG_LIVING_CLOCK_SACRIFICED, invokers) & DUST_SACRIFICE)
+		playsound(src, 'sound/magic/disintegrate.ogg', 100, TRUE)
+		target.dust()
+		stop_convert(TRUE)
+		return
+
+	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+	cube.try_to_transfer(target)
 
 /obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
@@ -401,20 +417,19 @@
 	return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
-	var/datum/game_mode/gamemode = SSticker.mode
-
 	if(GLOB.heart)
 		balloon_alert(user, "сердце уже призвано!")
 		return FALSE
 
-	if(gamemode.clocker_objs.clock_status < RATVAR_NEED_HEART)
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	if(clock_team.clocker_objs.clock_status < RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("<b>Ratvar</b> is not ready to be summoned yet!"))
 		return FALSE
-	if(gamemode.clocker_objs.clock_status > RATVAR_NEED_HEART)
+	if(clock_team.clocker_objs.clock_status > RATVAR_NEED_HEART)
 		to_chat(user, span_clockitalic("\"My fellow. There is no need for it anymore.\""))
 		return FALSE
 
-	var/list/summon_areas = gamemode.clocker_objs.obj_summon.ritual_spots
+	var/list/summon_areas = clock_team.clocker_objs.obj_summon.ritual_spots
 	if(!(A in summon_areas))
 		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE

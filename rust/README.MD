@@ -3,7 +3,7 @@
 ## Info
 
 These libraries allow rust code for things that are incredibly slow or outright impossible in DM.
-Think of it like a ParadiseSS13 specifiy version of [rust-g](https://github.com/tgstation/rust-g).
+Think of it like a SS13 specifiy version of [rust-g](https://github.com/tgstation/rust-g).
 
 It currently handles:
 

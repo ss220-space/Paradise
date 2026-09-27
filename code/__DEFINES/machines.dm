@@ -253,6 +253,8 @@
 #define AIR_ALARM_BUILD_CIRCUIT 1
 #define AIR_ALARM_WIRED 2
 
+#define AIR_ALARM_LIGHT_RANGE 1.5
+
 // Field generator construction defines
 #define FG_UNSECURED 0
 #define FG_SECURED 1

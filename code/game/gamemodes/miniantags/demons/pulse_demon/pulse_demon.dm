@@ -225,8 +225,8 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/make_pulse_antagonist(demon)
 	SIGNAL_HANDLER
 	mind.assigned_role = SPECIAL_ROLE_DEMON
-	mind.special_role = SPECIAL_ROLE_DEMON
-	give_objectives()
+	mind.wipe_memory()
+	mind.add_antag_datum(/datum/antagonist/demon/pulse)
 
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, charge))
@@ -258,30 +258,6 @@
 	if(iscell(loc))
 		var/obj/item/stock_parts/cell/C = loc
 		C.rigged = FALSE
-
-/mob/living/simple_animal/demon/pulse_demon/proc/give_objectives()
-	if(!mind)
-		return
-	mind.wipe_memory()
-	var/list/greeting = list()
-	greeting.Add(span_warningbig("<b>You are a pulse demon.</b></font>"))
-	greeting.Add(span_clock("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>"))
-	greeting.Add(span_clock("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>"))
-	greeting.Add(span_clock("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>"))
-	var/datum/objective/pulse_demon/infest/infestapc = new
-	var/datum/objective/pulse_demon/drain/drainpower = new
-	var/datum/objective/pulse_demon/tamper/tampermach = new
-	mind.objectives += infestapc
-	mind.objectives += drainpower
-	mind.objectives += tampermach
-	infestapc.owner = mind
-	drainpower.owner = mind
-	tampermach.owner = mind
-	greeting.Add(mind.prepare_announce_objectives(FALSE))
-	greeting.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a>"))
-	to_chat(src, custom_boxed_message("yellow_box", greeting.Join("<br>")))
-	SSticker.mode.traitors |= mind
-	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	for(var/spell_type in spells)
@@ -551,7 +527,7 @@
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
 /mob/living/simple_animal/demon/pulse_demon/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
-	if(check_mute(ckey, MUTE_IC))
+	if(check_mute(get_account_ckey(), MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return FALSE
 
@@ -654,7 +630,7 @@
 	return 20000 * clamp(hijacked_apcs, 0, 20) + 500000 * clamp(hijacked_apcs - 20, 0, 30) + 1000000 * clamp(hijacked_apcs - 50, 0, 50) + 500000000 * max(0, hijacked_apcs - 100)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
-	var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+	var/image/apc_image = image('icons/obj/machines/wallmounts.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 	SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
@@ -731,7 +707,7 @@
 		if(T.z != apc_turf.z)
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
-		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+		var/image/apc_image = image('icons/obj/machines/wallmounts.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image

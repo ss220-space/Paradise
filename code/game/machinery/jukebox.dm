@@ -82,12 +82,11 @@
 
 /obj/machinery/jukebox/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(music_player.active_song_sound)
-		underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 /obj/machinery/jukebox/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()

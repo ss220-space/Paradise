@@ -1,0 +1,2259 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ai" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"aI" = (
+/obj/item/bikehorn/airhorn,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"aM" = (
+/obj/item/bikehorn,
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"aP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/pie_smudge,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ba" = (
+/obj/structure/mecha_wreckage/honker,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bi" = (
+/obj/item/bikehorn,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bp" = (
+/turf/simulated/floor/indestructible/light,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"by" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bR" = (
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/hope,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"bU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"cw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"cM" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"cO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"cW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ed" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"eE" = (
+/obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"fh" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"gd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"gr" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"gy" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"gH" = (
+/obj/item/bikehorn,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"gK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"hK" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"hY" = (
+/turf/template_noop,
+/area/template_noop)
+"ij" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ik" = (
+/turf/simulated/floor/lava,
+/area/lavaland/surface/outdoors/virtual_domain)
+"iR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ki" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"kn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"lj" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/virtual_domain)
+"lm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"lr" = (
+/obj/item/bikehorn,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ly" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"lP" = (
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"mD" = (
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"mE" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"mF" = (
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"nE" = (
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"od" = (
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"oI" = (
+/obj/structure/table/glass,
+/obj/item/grown/bananapeel/bluespace,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"pl" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"pY" = (
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"qH" = (
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 1;
+	sortType = 3
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"qM" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"rg" = (
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"rH" = (
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 1;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"sq" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"tj" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"tq" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"tt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/indestructible/light,
+/area/lavaland/surface/outdoors/virtual_domain)
+"tv" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"tF" = (
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"tI" = (
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/item/coin/clown,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ui" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"uX" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"uY" = (
+/turf/simulated/mineral,
+/area/lavaland/surface/outdoors/virtual_domain)
+"uZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/structure/table,
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape,
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"wz" = (
+/obj/machinery/light/small{
+	dir = 2
+	},
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"xt" = (
+/obj/modular_map_root/safehouse{
+	key = "mine"
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"yd" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"yz" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"yS" = (
+/obj/structure/marker_beacon{
+	picked_color = "Yellow"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/virtual_domain)
+"yZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"zA" = (
+/obj/structure/statue/bananium/clown,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"zF" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ac" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Bi" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Cp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Cs" = (
+/obj/item/bikehorn,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"DL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/item/bikehorn,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ew" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Fb" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"Fp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"FI" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/structure/table/glass,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Gg" = (
+/obj/structure/table/glass,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Hq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"HQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ie" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"Iz" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"IN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"JB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ka" = (
+/obj/effect/decal/cleanable/pie_smudge,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Kd" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"KG" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"KI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Lv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Nl" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"NB" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"NL" = (
+/obj/machinery/disposal/deliveryChute{
+	desc = "The following is engraved upon the chute: A FATE WORSE THAN DEATH LIES WITHIN";
+	dir = 1;
+	name = "THE TRIAL OF HONKITUDE"
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ok" = (
+/obj/item/bikehorn,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ov" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"PJ" = (
+/obj/structure/disposalpipe/trunk,
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"PM" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/virtual_domain)
+"PQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/item/pickaxe,
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"QP" = (
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"QX" = (
+/obj/structure/closet/crate/secure/bitrunning/encrypted,
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Rh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Rx" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/structure/table,
+/obj/item/flashlight/lamp/bananalamp,
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Sg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/pie_smudge,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Sm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Tm" = (
+/obj/effect/decal/cleanable/pie_smudge,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Tx" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"TH" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"TK" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ug" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"UL" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"UN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/virtual_domain)
+"UQ" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Vx" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"VG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"VI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"VQ" = (
+/turf/simulated/floor/noslip,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Ww" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"WB" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/indestructible/medical_white,
+/area/lavaland/surface/outdoors/virtual_domain)
+"WT" = (
+/obj/machinery/door/airlock/bananium{
+	use_power = 0
+	},
+/turf/simulated/floor/carpet,
+/area/lavaland/surface/outdoors/virtual_domain)
+"Xp" = (
+/obj/machinery/light{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/bananium/lubed,
+/area/lavaland/surface/outdoors/virtual_domain)
+"ZR" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/virtual_domain)
+
+(1,1,1) = {"
+hY
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(2,1,1) = {"
+hY
+tF
+gd
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Vx
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(3,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+tF
+tF
+tF
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+nE
+nE
+nE
+nE
+nE
+tF
+tF
+tF
+tF
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(4,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+tF
+nE
+nE
+nE
+ik
+ik
+ik
+ik
+ik
+nE
+nE
+tF
+tF
+hY
+tF
+tF
+nE
+nE
+ik
+ik
+ik
+nE
+nE
+nE
+tF
+tF
+hY
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(5,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+nE
+nE
+ik
+ik
+ik
+Hq
+Sm
+Hq
+Sm
+ik
+nE
+nE
+tF
+tF
+tF
+nE
+nE
+ik
+ik
+tq
+mD
+ik
+ik
+nE
+nE
+tF
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(6,1,1) = {"
+hY
+tF
+Fb
+tF
+nE
+nE
+ik
+ik
+IN
+Tx
+bU
+ai
+yZ
+aP
+Sm
+ik
+nE
+nE
+nE
+nE
+nE
+yd
+lP
+tq
+ik
+ik
+ik
+ik
+ik
+nE
+nE
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(7,1,1) = {"
+hY
+tF
+Fb
+tF
+nE
+ik
+ik
+nE
+Bi
+cw
+UQ
+lr
+UQ
+Rh
+KI
+ik
+nE
+lP
+pl
+lP
+nE
+lP
+pl
+tv
+lP
+tq
+ik
+tq
+ik
+ik
+nE
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(8,1,1) = {"
+hY
+tF
+Fb
+nE
+nE
+ik
+IN
+Tm
+gK
+Ww
+cw
+UQ
+Sm
+KI
+KI
+nE
+tj
+pY
+lP
+pl
+pl
+lP
+pl
+lP
+lP
+lP
+nE
+ik
+mD
+ik
+nE
+nE
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(9,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+ik
+UN
+UQ
+Rh
+Ww
+KI
+TH
+KI
+cO
+Cp
+uY
+nE
+Ew
+pY
+lP
+nE
+nE
+pl
+nE
+lP
+lP
+lP
+tq
+ik
+ik
+ik
+nE
+tF
+Fb
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+"}
+(10,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+IN
+UQ
+UQ
+yZ
+bQ
+bQ
+KI
+cO
+cO
+cO
+KG
+uY
+nE
+nE
+pY
+lP
+lP
+pl
+lP
+lP
+gH
+pl
+Xp
+nE
+ik
+ik
+nE
+nE
+KI
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+by
+tF
+"}
+(11,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+yz
+fh
+UQ
+Rh
+KI
+Ww
+KI
+cO
+cO
+tt
+bp
+od
+pY
+pY
+pY
+lP
+nE
+lP
+lP
+pl
+pl
+lP
+lP
+ik
+tq
+ik
+nE
+nE
+iR
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+nE
+tF
+"}
+(12,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+Hq
+TK
+qM
+yZ
+Ww
+Ww
+KI
+cO
+PQ
+tt
+bp
+uY
+nE
+pY
+pY
+lP
+lP
+nE
+lP
+lP
+lP
+lP
+pl
+ik
+tq
+ik
+ik
+nE
+iR
+yS
+PM
+PM
+PM
+PM
+PM
+yS
+PM
+nE
+tF
+"}
+(13,1,1) = {"
+tF
+tF
+Fb
+nE
+ik
+UN
+UQ
+UQ
+DL
+Ww
+yz
+gK
+KI
+cO
+Lv
+od
+nE
+nE
+pY
+lP
+lP
+nE
+nE
+lP
+lP
+nE
+lP
+pl
+ik
+mD
+tq
+ik
+nE
+iR
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+nE
+tF
+"}
+(14,1,1) = {"
+tF
+nE
+KI
+nE
+nE
+mD
+cw
+UQ
+gK
+bq
+Tm
+UQ
+gK
+KI
+KI
+cw
+TK
+Sm
+nE
+nE
+nE
+zA
+rg
+nE
+sq
+lP
+pl
+gH
+lP
+ik
+tq
+ik
+nE
+iR
+PM
+QP
+QP
+QP
+QP
+QP
+xt
+PM
+nE
+tF
+"}
+(15,1,1) = {"
+tF
+nE
+ij
+hK
+nE
+nE
+yz
+UQ
+UQ
+UQ
+UQ
+bi
+UQ
+yZ
+bQ
+Iz
+kn
+Ww
+nE
+nE
+FI
+mF
+mF
+mF
+nE
+lP
+pl
+pl
+lP
+ik
+tq
+ik
+nE
+ZR
+PM
+QP
+QP
+QP
+QP
+QP
+QP
+PM
+nE
+tF
+"}
+(16,1,1) = {"
+tF
+nE
+VQ
+uX
+NL
+TK
+Tx
+UQ
+TK
+UQ
+cW
+TK
+Tm
+UQ
+yZ
+Nl
+bQ
+bq
+Rh
+nE
+Ug
+oI
+Gg
+mF
+nE
+nE
+pl
+lP
+lP
+ik
+tq
+ik
+nE
+PM
+PM
+QP
+QP
+QP
+QP
+QP
+QP
+PM
+nE
+tF
+"}
+(17,1,1) = {"
+tF
+nE
+VQ
+bR
+wz
+nE
+Hq
+UQ
+Sm
+cw
+Rh
+cw
+UQ
+UQ
+Tx
+gy
+bq
+Rh
+Iz
+TK
+NB
+mF
+aI
+mF
+WT
+lP
+pl
+lP
+nE
+ik
+tq
+ik
+nE
+PM
+PM
+QP
+QP
+QP
+QP
+QP
+QP
+PM
+nE
+tF
+"}
+(18,1,1) = {"
+tF
+nE
+VQ
+uX
+PJ
+TK
+qH
+kn
+bQ
+bQ
+KI
+bQ
+Ov
+UQ
+Rh
+Ok
+mE
+rH
+Nl
+nE
+mF
+Gg
+Gg
+mF
+nE
+lP
+lP
+lP
+lP
+ik
+tq
+ik
+nE
+PM
+PM
+QP
+QP
+QP
+QP
+QP
+QP
+PM
+nE
+tF
+"}
+(19,1,1) = {"
+tF
+nE
+zF
+uX
+nE
+nE
+nE
+Ww
+Ww
+Ww
+bQ
+bQ
+bQ
+pY
+bq
+Rh
+Ka
+KI
+Kd
+nE
+FI
+mF
+mF
+QX
+nE
+lP
+lP
+lP
+lP
+ik
+tq
+ik
+nE
+lj
+PM
+QP
+QP
+QP
+QP
+QP
+QP
+PM
+nE
+tF
+"}
+(20,1,1) = {"
+tF
+nE
+KI
+nE
+nE
+ik
+nE
+Ww
+Ww
+Cs
+bQ
+bQ
+KI
+nE
+nE
+bQ
+nE
+ba
+nE
+lP
+nE
+zA
+tI
+nE
+sq
+lP
+pl
+pl
+lP
+ik
+tq
+ik
+nE
+iR
+PM
+QP
+QP
+QP
+QP
+QP
+gr
+PM
+nE
+tF
+"}
+(21,1,1) = {"
+tF
+tF
+Fb
+nE
+ik
+nE
+nE
+bQ
+bQ
+bQ
+Ww
+bQ
+KI
+VG
+ed
+Ac
+nE
+UL
+Sm
+lP
+lP
+nE
+nE
+tv
+lP
+lP
+pl
+lP
+ik
+tq
+mD
+ik
+nE
+iR
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+nE
+tF
+"}
+(22,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+nE
+nE
+JB
+Sg
+KI
+Ww
+KI
+uZ
+cO
+bp
+bp
+uY
+nE
+bQ
+pY
+lP
+lP
+nE
+lP
+pl
+lP
+lP
+lP
+ik
+tq
+ik
+ik
+nE
+iR
+PM
+PM
+yS
+PM
+PM
+PM
+PM
+PM
+nE
+tF
+"}
+(23,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+cM
+eE
+gK
+KI
+ki
+Ww
+KI
+Rx
+cO
+bp
+bp
+WB
+TK
+gK
+nE
+lP
+lP
+pl
+pl
+pl
+lP
+aM
+Xp
+nE
+tq
+ik
+nE
+nE
+iR
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+nE
+tF
+"}
+(24,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+nE
+nE
+pY
+bQ
+bQ
+Cs
+bQ
+cO
+ui
+Fp
+od
+uY
+nE
+pY
+pY
+lP
+lP
+pl
+pl
+lP
+lP
+nE
+nE
+ik
+mD
+ik
+nE
+nE
+KI
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+tF
+"}
+(25,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+nE
+nE
+Nl
+bQ
+KI
+bQ
+KI
+KI
+VG
+lm
+uY
+nE
+Ew
+pY
+lP
+lP
+lP
+lP
+lP
+nE
+lP
+lP
+ik
+mD
+ik
+ik
+nE
+tF
+Fb
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+"}
+(26,1,1) = {"
+hY
+tF
+Fb
+nE
+ik
+ik
+nE
+tj
+bQ
+bQ
+bQ
+bq
+gK
+KI
+nE
+nE
+pY
+pY
+lP
+lP
+lP
+pl
+aM
+lP
+lP
+lP
+nE
+ik
+tq
+ik
+nE
+nE
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(27,1,1) = {"
+hY
+tF
+Fb
+nE
+nE
+ik
+nE
+nE
+bq
+gK
+HQ
+UQ
+UQ
+bU
+nE
+ik
+nE
+yd
+lP
+lP
+nE
+lP
+lP
+nE
+lP
+lP
+ik
+mD
+ik
+ik
+nE
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(28,1,1) = {"
+hY
+tF
+Fb
+tF
+nE
+nE
+ik
+ik
+nE
+mD
+nE
+Ka
+pY
+mD
+nE
+ik
+nE
+nE
+nE
+nE
+nE
+lP
+lP
+lP
+ik
+ik
+ik
+ik
+ik
+nE
+nE
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(29,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+nE
+nE
+ik
+ik
+ik
+tq
+tq
+tq
+nE
+ik
+nE
+nE
+tF
+tF
+tF
+nE
+nE
+ik
+ik
+mD
+tq
+ik
+ik
+nE
+nE
+tF
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(30,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+tF
+nE
+nE
+nE
+ik
+ik
+ik
+ik
+ik
+nE
+nE
+tF
+tF
+hY
+tF
+tF
+nE
+nE
+ik
+ik
+ik
+nE
+nE
+nE
+tF
+tF
+hY
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(31,1,1) = {"
+hY
+tF
+Fb
+tF
+tF
+tF
+tF
+tF
+nE
+nE
+nE
+nE
+nE
+nE
+nE
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+nE
+nE
+nE
+nE
+nE
+tF
+tF
+tF
+tF
+tF
+tF
+Fb
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(32,1,1) = {"
+hY
+tF
+VI
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+Ie
+ly
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}
+(33,1,1) = {"
+hY
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+tF
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+hY
+"}

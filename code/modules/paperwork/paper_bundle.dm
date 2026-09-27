@@ -170,13 +170,12 @@
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
-		if(user.is_literate())
-			show_content(user)
-		else
-			. += span_notice("You don't know how to read.")
-	else
+	if(!in_range(user, src))
 		. += span_notice("It is too far away.")
+		return
+	if(!user.is_literate())
+		. += span_notice("You don't know how to read.")
+	show_content(user)
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
 	var/dat = ""
@@ -196,7 +195,7 @@
 			dat+= "<div style='float;left; text-align:right; with:33.33333%'></div>"
 	if(istype(papers[page], /obj/item/paper))
 		var/obj/item/paper/P = W
-		dat += P.show_content(usr, view = 0)
+		dat += P.show_content(user, view = 0)
 		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", "", P.paper_width, P.paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(dat)

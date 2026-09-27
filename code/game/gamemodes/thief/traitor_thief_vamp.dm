@@ -1,7 +1,6 @@
 /datum/game_mode/traitor/thief/vampire
 	name = "traitor+thief+vampire"
 	config_tag = "traitorthiefvamp"
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 25
 	var/protected_species_vampire = list(SPECIES_MACHINEPERSON)
 
@@ -10,9 +9,6 @@
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров, вампиров и агентов \"Синдиката\". Не дайте агентам \"Синдиката\" и Вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</b>")
 
 /datum/game_mode/traitor/thief/vampire/pre_setup()
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
-
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -22,7 +18,7 @@
 	if(length(possible_vampires))
 		var/datum/mind/vampire = pick(possible_vampires)
 		pre_vampires += vampire
-		vampire.restricted_roles = restricted_jobs
+		vampire.restricted_roles = get_restricted_roles()
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		..()
 		return TRUE

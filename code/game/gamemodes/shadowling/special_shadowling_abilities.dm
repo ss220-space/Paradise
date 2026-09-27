@@ -242,11 +242,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	sleep(5 SECONDS)
 
-	if(!SSticker.mode.shadowling_ascended)
+	var/datum/team/shadowling/shadowlings = get_shadowling_team()
+	if(!shadowlings.ascended)
 		sleep(60 SECONDS)
 		SSticker?.mode?.end_game()
 
-	SSticker.mode.shadowling_ascended = TRUE
+	shadowlings.ascended = TRUE
+	ascendant.mind.RemoveSpell(src)
 
 /**
  * Testing purpose.
@@ -281,7 +283,5 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_revive_thrall)
 	mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
-	mind.special_role = SPECIAL_ROLE_SHADOWLING
-	SSticker.mode.shadows += mind
-	SSticker.mode.update_shadow_icons_added(mind)
+	mind.add_antag_datum(/datum/antagonist/shadowling)
 

@@ -1,5 +1,8 @@
+#define FLESH_DESIRE_CRAVED_FOOD (MEAT | GROSS)
+#define FLESH_DESIRE_REPULSIVE_FOOD (VEGETABLES | DAIRY | FRUIT | FRIED)
+
 /obj/item/reagent_containers/food
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	volume = 50 //Sets the default container amount for all food items.
 	visible_transfer_rate = FALSE
 	righthand_file = 'icons/mob/inhands/foods_righthand.dmi'
@@ -82,11 +85,19 @@
 
 	var/food_taste_reaction
 
-	if(foodtype & gourmand.dna.species.toxic_food)
+	var/toxic_food = gourmand.dna.species.toxic_food
+	var/disliked_food = gourmand.dna.species.disliked_food
+	var/liked_food = gourmand.dna.species.liked_food
+	if(HAS_TRAIT(gourmand, TRAIT_FLESH_DESIRE))
+		toxic_food = FLESH_DESIRE_REPULSIVE_FOOD
+		disliked_food &= ~FLESH_DESIRE_CRAVED_FOOD
+		liked_food = FLESH_DESIRE_CRAVED_FOOD
+
+	if(foodtype & toxic_food)
 		food_taste_reaction = FOOD_TOXIC
-	else if(foodtype & gourmand.dna.species.disliked_food)
+	else if(foodtype & disliked_food)
 		food_taste_reaction = FOOD_DISLIKED
-	else if(foodtype & gourmand.dna.species.liked_food)
+	else if(foodtype & liked_food)
 		food_taste_reaction = FOOD_LIKED
 
 	switch(food_taste_reaction)
@@ -146,3 +157,6 @@
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
 			. += span_notice("[R.name] — [R.volume] ед.")
+
+#undef FLESH_DESIRE_CRAVED_FOOD
+#undef FLESH_DESIRE_REPULSIVE_FOOD

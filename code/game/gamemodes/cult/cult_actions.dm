@@ -94,8 +94,9 @@
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker?.mode)
-		SSticker.mode.cult_objs.study(usr, TRUE)
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+	if(cult_team)
+		cult_team.cult_objs.study(usr, TRUE)
 	else
 		to_chat(usr, span_cultitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
 

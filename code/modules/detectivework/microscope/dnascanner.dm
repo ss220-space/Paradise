@@ -110,13 +110,12 @@
 
 /obj/machinery/dnaforensics/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(!panel_open && !(stat & (NOPOWER|BROKEN)))
 		if(scanning)
-			underlays += emissive_appearance(icon, "dna_lightmask_work", src)
+			. += emissive_appearance(icon, "dna_lightmask_work", src)
 		else
-			underlays += emissive_appearance(icon, "dna_lightmask", src)
+			. += emissive_appearance(icon, "dna_lightmask", src)
 
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)

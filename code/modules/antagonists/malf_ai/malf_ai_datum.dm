@@ -1,6 +1,6 @@
 /datum/antagonist/malf_ai
 	name = "Malfunctioning AI"
-	roundend_category = "traitors"
+	roundend_category = "Предателями"
 	job_rank = ROLE_MALF_AI
 	special_role = SPECIAL_ROLE_MALFAI
 	antag_hud_name = "hudsyndicate"
@@ -35,12 +35,6 @@
 		malf.remove_malf_abilities()
 		QDEL_NULL(malf.malf_picker)
 	return ..()
-
-/datum/antagonist/malf_ai/add_owner_to_gamemode()
-	SSticker.mode.traitors |= owner
-
-/datum/antagonist/malf_ai/remove_owner_from_gamemode()
-	SSticker.mode.traitors -= owner
 
 /datum/antagonist/malf_ai/give_objectives()
 	add_objective(/datum/objective/block)

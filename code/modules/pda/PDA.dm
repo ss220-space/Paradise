@@ -133,6 +133,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
  */
 /obj/item/pda/Initialize(mapload)
 	. = ..()
+	if(SSntnet.is_enabled())
+		programs += new /datum/data/pda/app/ntnet
 	silent = TRUE // We don't want to hear the first program start up
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)

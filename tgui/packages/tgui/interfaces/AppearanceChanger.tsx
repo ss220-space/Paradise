@@ -2,7 +2,17 @@ import { Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
+type StyleEntry = {
+  style: string;
+  icon: string;
+};
+
+type Species = {
+  specimen: string;
+};
+
 type AppearanceData = {
+  icon_prefix: string;
   change_race: string;
   species: Species[];
   specimen: string;
@@ -21,70 +31,35 @@ type AppearanceData = {
   change_body_marking_color: string;
   change_tail_marking_color: string;
   change_head_accessory: string;
-  head_accessory_styles: HeadAccessory[];
+  head_accessory_styles: StyleEntry[];
   head_accessory_style: string;
   change_hair: string;
-  hair_styles: Hairstyle[];
+  hair_styles: StyleEntry[];
   hair_style: string;
   change_hair_gradient: string;
   change_facial_hair: string;
-  facial_hair_styles: Facialhairstyle[];
+  facial_hair_styles: StyleEntry[];
   facial_hair_style: string;
   change_head_markings: string;
-  head_marking_styles: Headmarkingstyle[];
+  head_marking_styles: StyleEntry[];
   head_marking_style: string;
   change_body_markings: string;
-  body_marking_styles: Bodymarkingstyle[];
+  body_marking_styles: StyleEntry[];
   body_marking_style: string;
   change_tail_markings: string;
-  tail_marking_styles: Tailmarkingstyle[];
+  tail_marking_styles: StyleEntry[];
   tail_marking_style: string;
   change_body_accessory: string;
-  body_accessory_styles: Bodyaccessorystyle[];
+  body_accessory_styles: StyleEntry[];
   body_accessory_style: string;
   change_alt_head: string;
-  alt_head_styles: Altheadstyle[];
+  alt_head_styles: StyleEntry[];
   alt_head_style: string;
-};
-
-type Species = {
-  specimen: string;
-};
-
-type HeadAccessory = {
-  headaccessorystyle: string;
-};
-
-type Hairstyle = {
-  hairstyle: string;
-};
-
-type Facialhairstyle = {
-  facialhairstyle: string;
-};
-
-type Headmarkingstyle = {
-  headmarkingstyle: string;
-};
-
-type Bodymarkingstyle = {
-  bodymarkingstyle: string;
-};
-
-type Tailmarkingstyle = {
-  tailmarkingstyle: string;
-};
-
-type Bodyaccessorystyle = {
-  bodyaccessorystyle: string;
-};
-
-type Altheadstyle = {
-  altheadstyle: string;
 };
 
 export const AppearanceChanger = (props: unknown) => {
   const { act, data } = useBackend<AppearanceData>();
+
   const {
     change_race,
     species,
@@ -130,9 +105,7 @@ export const AppearanceChanger = (props: unknown) => {
     alt_head_style,
   } = data;
 
-  let has_colours = false;
-  // Yes this if statement is awful, but I would rather do it here than inside the template
-  if (
+  const has_colours =
     change_eye_color ||
     change_skin_tone ||
     change_skin_color ||
@@ -143,13 +116,10 @@ export const AppearanceChanger = (props: unknown) => {
     change_secondary_facial_hair_color ||
     change_head_marking_color ||
     change_body_marking_color ||
-    change_tail_marking_color
-  ) {
-    has_colours = true;
-  }
+    change_tail_marking_color;
 
   return (
-    <Window width={800} height={450}>
+    <Window width={800} height={600}>
       <Window.Content scrollable>
         <LabeledList>
           {!!change_race && (
@@ -191,34 +161,20 @@ export const AppearanceChanger = (props: unknown) => {
           )}
           {!!has_colours && <ColorContent />}
           {!!change_head_accessory && (
-            <LabeledList.Item label="Head accessory">
-              {head_accessory_styles.map((s) => (
-                <Button
-                  key={s.headaccessorystyle}
-                  selected={s.headaccessorystyle === head_accessory_style}
-                  onClick={() =>
-                    act('head_accessory', {
-                      head_accessory: s.headaccessorystyle,
-                    })
-                  }
-                >
-                  {s.headaccessorystyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Head accessory"
+              action="head_accessory"
+              styles={head_accessory_styles}
+              current={head_accessory_style}
+            />
           )}
           {!!change_hair && (
-            <LabeledList.Item label="Hair">
-              {hair_styles.map((s) => (
-                <Button
-                  key={s.hairstyle}
-                  selected={s.hairstyle === hair_style}
-                  onClick={() => act('hair', { hair: s.hairstyle })}
-                >
-                  {s.hairstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Hair"
+              action="hair"
+              styles={hair_styles}
+              current={hair_style}
+            />
           )}
           {!!change_hair_gradient && (
             <LabeledList.Item label="Hair Gradient">
@@ -235,98 +191,91 @@ export const AppearanceChanger = (props: unknown) => {
             </LabeledList.Item>
           )}
           {!!change_facial_hair && (
-            <LabeledList.Item label="Facial hair">
-              {facial_hair_styles.map((s) => (
-                <Button
-                  key={s.facialhairstyle}
-                  selected={s.facialhairstyle === facial_hair_style}
-                  onClick={() =>
-                    act('facial_hair', { facial_hair: s.facialhairstyle })
-                  }
-                >
-                  {s.facialhairstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Facial hair"
+              action="facial_hair"
+              styles={facial_hair_styles}
+              current={facial_hair_style}
+            />
           )}
           {!!change_head_markings && (
-            <LabeledList.Item label="Head markings">
-              {head_marking_styles.map((s) => (
-                <Button
-                  key={s.headmarkingstyle}
-                  selected={s.headmarkingstyle === head_marking_style}
-                  onClick={() =>
-                    act('head_marking', { head_marking: s.headmarkingstyle })
-                  }
-                >
-                  {s.headmarkingstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Head markings"
+              action="head_marking"
+              styles={head_marking_styles}
+              current={head_marking_style}
+            />
           )}
           {!!change_body_markings && (
-            <LabeledList.Item label="Body markings">
-              {body_marking_styles.map((s) => (
-                <Button
-                  key={s.bodymarkingstyle}
-                  selected={s.bodymarkingstyle === body_marking_style}
-                  onClick={() =>
-                    act('body_marking', { body_marking: s.bodymarkingstyle })
-                  }
-                >
-                  {s.bodymarkingstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Body markings"
+              action="body_marking"
+              styles={body_marking_styles}
+              current={body_marking_style}
+            />
           )}
           {!!change_tail_markings && (
-            <LabeledList.Item label="Tail markings">
-              {tail_marking_styles.map((s) => (
-                <Button
-                  key={s.tailmarkingstyle}
-                  selected={s.tailmarkingstyle === tail_marking_style}
-                  onClick={() =>
-                    act('tail_marking', { tail_marking: s.tailmarkingstyle })
-                  }
-                >
-                  {s.tailmarkingstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Tail markings"
+              action="tail_marking"
+              styles={tail_marking_styles}
+              current={tail_marking_style}
+            />
           )}
           {!!change_body_accessory && (
-            <LabeledList.Item label="Body accessory">
-              {body_accessory_styles.map((s) => (
-                <Button
-                  key={s.bodyaccessorystyle}
-                  selected={s.bodyaccessorystyle === body_accessory_style}
-                  onClick={() =>
-                    act('body_accessory', {
-                      body_accessory: s.bodyaccessorystyle,
-                    })
-                  }
-                >
-                  {s.bodyaccessorystyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Body accessory"
+              action="body_accessory"
+              styles={body_accessory_styles}
+              current={body_accessory_style}
+            />
           )}
           {!!change_alt_head && (
-            <LabeledList.Item label="Alternate head">
-              {alt_head_styles.map((s) => (
-                <Button
-                  key={s.altheadstyle}
-                  selected={s.altheadstyle === alt_head_style}
-                  onClick={() => act('alt_head', { alt_head: s.altheadstyle })}
-                >
-                  {s.altheadstyle}
-                </Button>
-              ))}
-            </LabeledList.Item>
+            <StyleContent
+              label="Alternate head"
+              action="alt_head"
+              styles={alt_head_styles}
+              current={alt_head_style}
+            />
           )}
         </LabeledList>
       </Window.Content>
     </Window>
+  );
+};
+
+type StyleContentProps = {
+  label: string;
+  action: string;
+  styles: StyleEntry[];
+  current: string;
+};
+
+const StyleContent = (props: StyleContentProps) => {
+  const { act, data } = useBackend<AppearanceData>();
+  const { label, action, styles = [], current } = props;
+  const { icon_prefix } = data;
+
+  return (
+    <LabeledList.Item label={label}>
+      {styles.map((entry) => (
+        <Button
+          key={entry.style}
+          tooltip={entry.style}
+          selected={entry.style === current}
+          verticalAlignContent="middle"
+          onClick={() => act(action, { [action]: entry.style })}
+        >
+          {!!entry.icon && (
+            <div
+              className={`${icon_prefix} ${entry.icon}`}
+              style={{ marginRight: '4px', verticalAlign: 'middle' }}
+            />
+          )}
+          {entry.style}
+        </Button>
+      ))}
+    </LabeledList.Item>
   );
 };
 

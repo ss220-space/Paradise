@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
+	var/cross_zlevel = FALSE
 
 /obj/item/radio/get_ru_names()
 	return alist(
@@ -592,7 +593,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!requires_tcomms && !handled)
 		// If they dont need tcomms for their signal, set the type to intercoms
 		tcm.data = SIGNALTYPE_INTERCOM_SBR
-		tcm.zlevels = list(position.z)
+		tcm.zlevels = cross_zlevel ? list(0) : list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
 			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
@@ -631,7 +632,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	if(!is_listening())
 		return -1
-	if(!(0 in level))
+	if(!cross_zlevel && !(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return -1

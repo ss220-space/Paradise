@@ -37,6 +37,10 @@
 	else
 		return "INVALID/(INVALID)"
 
+	var/account_ckey = C ? C.account_ckey : M?.get_account_ckey()
+	if(account_ckey && account_ckey != ckey(key))
+		key = account_ckey
+
 	. = ""
 
 	if(key)

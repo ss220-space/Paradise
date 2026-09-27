@@ -18,6 +18,7 @@ GLOBAL_ALIST_INIT(huds, alist(
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
 	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(),
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
+	ANTAG_HUD_REV_SLAVE = new/datum/atom_hud/antag(),
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
 	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(),
 	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(),
@@ -41,6 +42,8 @@ GLOBAL_ALIST_INIT(huds, alist(
 	ANTAG_HUD_VOX_RAIDER = new /datum/atom_hud/antag(),\
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),
+	ANTAG_HUD_HERETIC = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_LUNATIC = new/datum/atom_hud/antag(),
 	PACIFISM_HUD = new/datum/atom_hud/pacifism(),
 	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura(),
 ))

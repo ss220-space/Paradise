@@ -1,0 +1,87 @@
+$screen-glow: hsl(96, 80%, 55%);
+$screen-dim: hsl(96, 18%, 38%);
+
+.HeadphoneCase {
+  &__caseGlow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at 50% 62%,
+      hsla(96, 80%, 55%, 0.22),
+      transparent 62%
+    );
+  }
+
+  &__screen {
+    background: linear-gradient(hsl(120, 26%, 7%), hsl(120, 30%, 4%));
+    border: 2px inset hsl(220, 6%, 28%);
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-family: 'Consolas', monospace;
+    color: $screen-glow;
+    text-shadow: 0 0 6px hsla(96, 80%, 55%, 0.55);
+  }
+
+  &__screen--idle {
+    color: $screen-dim;
+    text-shadow: none;
+  }
+
+  &__title {
+    font-size: 1.1em;
+    line-height: 1.4em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__time {
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    opacity: 0.85;
+  }
+
+  &__bar {
+    margin-top: 4px;
+    height: 6px;
+    border: none;
+    background-color: hsla(96, 40%, 40%, 0.18) !important;
+
+    .ProgressBar__fill {
+      background-color: hsl(96, 55%, 45%) !important;
+      box-shadow: 0 0 5px hsla(96, 80%, 55%, 0.7);
+    }
+  }
+
+  &__equalizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 16px;
+    gap: 2px;
+  }
+
+  &__bandBar {
+    width: 3px;
+    height: 15%;
+    background: linear-gradient(hsl(96, 65%, 60%), hsl(96, 70%, 32%));
+  }
+
+  &__bandBar--playing {
+    animation: HeadphoneCase__pulse 900ms ease-in-out infinite;
+  }
+}
+
+@keyframes HeadphoneCase__pulse {
+  0%,
+  100% {
+    height: 20%;
+  }
+
+  50% {
+    height: 100%;
+  }
+}

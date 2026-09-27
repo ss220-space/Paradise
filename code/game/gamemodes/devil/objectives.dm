@@ -84,7 +84,7 @@
 	explanation_text = "Убедитесь, что хотя бы [target_amount] смертных было осквернено грехом."
 
 /datum/objective/devil/sintouch/check_completion()
-	return target_amount <= SSticker.mode.sintouched.len
+	return target_amount <= length(get_antag_minds(/datum/antagonist/sintouched))
 
 /datum/objective/devil/ascend
 	explanation_text = "Возвыситься до Архидьявола. Для ритуала возвышения вам понадобится 2 жертвы из списка."

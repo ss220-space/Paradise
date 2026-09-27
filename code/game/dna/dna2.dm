@@ -451,6 +451,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
+	destination.sync_organ_dna()
 
 	destination.UpdateAppearance()
+	destination.force_update_limbs()
 	destination.check_genes(MUTCHK_FORCED)

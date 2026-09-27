@@ -85,7 +85,7 @@
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(item))
+	if(iscup(item))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
@@ -145,7 +145,7 @@
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!isglassreagentcontainer(target))
+	if(!iscup(target))
 		return ..()
 
 	var/obj/item/reagent_containers/cup/G = target

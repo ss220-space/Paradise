@@ -1,0 +1,219 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"b" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"c" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"i" = (
+/turf/simulated/wall/mineral/titanium,
+/area/virtual_domain/safehouse)
+"k" = (
+/obj/modular_map_connector,
+/turf/simulated/wall/mineral/titanium,
+/area/virtual_domain/safehouse)
+"l" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"n" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer{
+	dir = 8;
+	name = "shuttle console";
+	icon_screen = "shuttle"
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"q" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/emergency,
+/obj/effect/turf_decal/tile/neutral,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"z" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"A" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"B" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"D" = (
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"E" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/shuttle/glass,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/white,
+/area/virtual_domain/safehouse)
+"H" = (
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"L" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"N" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/virtual_domain/safehouse)
+"O" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"U" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"W" = (
+/obj/effect/turf_decal/stripes/end,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"Y" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/generic,
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+i
+N
+a
+a
+N
+k
+"}
+(2,1,1) = {"
+a
+A
+o
+W
+D
+i
+"}
+(3,1,1) = {"
+i
+c
+H
+U
+r
+a
+"}
+(4,1,1) = {"
+E
+z
+H
+b
+Y
+i
+"}
+(5,1,1) = {"
+i
+c
+O
+b
+l
+a
+"}
+(6,1,1) = {"
+a
+q
+n
+L
+B
+i
+"}
+(7,1,1) = {"
+i
+i
+a
+a
+i
+i
+"}

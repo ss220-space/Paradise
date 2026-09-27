@@ -1,3 +1,4 @@
+import { capitalize } from 'tgui-core/string';
 import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
@@ -82,6 +83,7 @@ type ScanData = {
   reagentList: Reagent[];
   addictionList: Addiction[];
   implantDetect: string[];
+  traumaList: string[];
 };
 
 type DamageLocalization = {
@@ -507,6 +509,8 @@ export const Healthanalyzer = (props: unknown) => {
 
                 {!!scan_data.addictionList && <AddictionList />}
 
+                {!!scan_data.traumaList && <TraumaList />}
+
                 {!!scan_data.implantDetect && <ImplantList />}
 
                 <Section title="Страховка">
@@ -728,6 +732,24 @@ const AddictionList = (props: unknown) => {
           <LabeledList.Item label={addiction.name} key={index}>
             <Box>Стадия: {addiction.addiction_stage}/5</Box>
           </LabeledList.Item>
+        ))}
+      </LabeledList>
+    </Section>
+  );
+};
+
+const TraumaList = (props: unknown) => {
+  const { data } = useBackend<HealthanalyzerData>();
+
+  const { traumaList } = data.scan_data;
+
+  return (
+    <Section title="Обнаружены психические травмы:">
+      <LabeledList>
+        {traumaList.map((trauma, index) => (
+          <Box key={index} ml={1} color="#c51e1e" bold>
+            {capitalize(trauma)}
+          </Box>
         ))}
       </LabeledList>
     </Section>

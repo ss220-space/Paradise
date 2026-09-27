@@ -3,7 +3,8 @@
 // For "Actual traitors"
 /datum/antagonist/traitor
 	name = "Traitor"
-	roundend_category = "traitors"
+	roundend_category = "Предателями"
+	roundend_blackbox_key = "traitor"
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
@@ -22,8 +23,6 @@
 	/// Whether the traitor will receive only hijack objective.
 	var/is_hijacker = FALSE
 	var/datum/contractor_pending/contractor_pending
-	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
-	var/obj/item/uplink/hidden/hidden_uplink = null
 	var/antag_sound = 'sound/ambience/antag/tatoralert.ogg'
 
 /datum/antagonist/traitor/on_gain()
@@ -75,12 +74,6 @@
 		owner.som = null
 
 	if(hidden_uplink)
-		var/obj/item/uplink_holder = hidden_uplink.loc
-		if(!QDELETED(uplink_holder))
-			uplink_holder.hidden_uplink = null
-
-		QDEL_NULL(hidden_uplink)
-
 		for(var/obj/item/implant/uplink/uplink_implant in owner.current.contents)
 			if(QDELETED(uplink_implant))
 				continue
@@ -89,11 +82,36 @@
 
 	return ..()
 
-/datum/antagonist/traitor/add_owner_to_gamemode()
-	SSticker.mode.traitors |= owner
+/datum/antagonist/traitor/roundend_report_footer()
+	return "<b>Кодовые фразы:</b> [span_danger(jointext(GLOB.syndicate_code_phrase, ", "))]<br><b>Ответы на них:</b> [span_danger(jointext(GLOB.syndicate_code_response, ", "))]"
 
-/datum/antagonist/traitor/remove_owner_from_gamemode()
-	SSticker.mode.traitors -= owner
+/datum/antagonist/traitor/roundend_report_details()
+	var/list/details = list()
+	var/obj/item/uplink/traitor_uplink = owner.find_syndicate_uplink() || owner.find_uplink_by_key()
+	if(traitor_uplink && (traitor_uplink.used_TC > 0 || traitor_uplink.purchase_log != ""))
+		details += "(потрачено [traitor_uplink.used_TC] ТС) [traitor_uplink.purchase_log]"
+
+	var/datum/antagonist/contractor/contractor = owner.has_antag_datum(/datum/antagonist/contractor)
+	var/obj/item/contractor_uplink/contractor_uplink = contractor?.contractor_uplink_ref?.resolve()
+	if(!contractor_uplink)
+		return details
+
+	var/count = 1
+	for(var/datum/syndicate_contract/contract in contractor_uplink.hub.contracts)
+		var/list/locations = list()
+		for(var/area/candidate in contract.contract.candidate_zones)
+			locations += (candidate == contract.contract.extraction_zone ? "<b><u>[candidate.map_name]</u></b>" : candidate.map_name)
+
+		var/result = ""
+		if(contract.status == CONTRACT_STATUS_COMPLETED)
+			result = "<font color='green'><b>Успех!</b></font>"
+		else if(contract.status != CONTRACT_STATUS_INACTIVE)
+			result = "<font color='red'>Провал.</font>"
+		details += "<font color='orange'><b>Контракт #[count]</b></font>: похитить и вывезти [contract.target_name] в [english_list(locations, and_text = " или ")]. [result]"
+		count++
+
+	details += "<font color='orange'><b>С контрактов получено [contractor_uplink.hub.reward_tc_paid_out] ТС.</b></font>"
+	return details
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	if(HAS_TRAIT(owner, TRAIT_HIJACK))
@@ -117,7 +135,7 @@
 			add_objective(/datum/objective/get_equipment)
 
 	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && length(SSticker.mode.traitors) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
+	if(!SSticker.mode.exchange_blue && length(get_antag_minds(/datum/antagonist/traitor)) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
 		else
@@ -256,7 +274,12 @@
 /**
  * Gives a traitor their uplink, and uplink code.
  */
-/datum/antagonist/traitor/proc/give_uplink()
+/datum/antagonist/traitor/give_uplink()
+	. = ..()
+	if(hidden_uplink)
+		hidden_uplink.traitor = src
+
+/datum/antagonist/proc/give_uplink()
 	if(isAI(owner.current))
 		return FALSE
 
@@ -294,7 +317,6 @@
 
 		var/obj/item/uplink/hidden/new_uplink = new(target_radio)
 		hidden_uplink = new_uplink
-		hidden_uplink.traitor = src
 		target_radio.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
@@ -306,7 +328,6 @@
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
 		hidden_uplink = new_uplink
-		hidden_uplink.traitor = src
 		target_pda.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 

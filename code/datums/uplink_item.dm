@@ -2353,18 +2353,6 @@
 	item = /obj/item/implanter/fake_mindshield
 	cost = 5
 
-/datum/uplink_item/implants/neurotrainer
-	name = "Нейротренер небоевых навыков"
-	desc = "Нейротренер который позволяет улучший любой небоевой навык на ваш выбор."
-	item = /obj/item/neurotrainer/all_without_combat
-	cost = 8
-
-/datum/uplink_item/implants/combat_neurotrainer
-	name = "Нейротренер боевых навыков"
-	desc = "Нейротренер который позволяет улучший любой боевой навык на ваш выбор."
-	item = /obj/item/neurotrainer/combat
-	cost = 15
-
 /**
  * MARK: Cybernetic Implants
  */
@@ -2554,6 +2542,14 @@
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/bundles_TC/portal_gun
+	name = "Набор — Портальная пушка"
+	desc = "Коробка, в которой находятся: портальная пушка и два картриджа с квантовым транспортным раствором. \
+			Пушка пробивает пару связанных между собой порталов или проход в выбранную на карте локацию. \
+			Раствор расходуется с каждым выстрелом, но его можно синтезировать в химической лаборатории."
+	item = /obj/item/storage/box/syndie_kit/portal_gun
+	cost = 80
 
 /datum/uplink_item/bundles_TC/gun_mods
 	name = "Набор модулей для оружия"

@@ -1,5 +1,8 @@
 /datum/antagonist/ninja
 	name = "Space Ninja"
+	roundend_category = "Космическими Ниндзя"
+	roundend_blackbox_key = "ninja"
+	roundend_death_is_failure = TRUE
 	job_rank = ROLE_NINJA
 	special_role = SPECIAL_ROLE_SPACE_NINJA
 	antag_hud_name = "hudninja"
@@ -41,7 +44,6 @@
 	owner.offstation_role = TRUE
 	owner.set_original_mob(owner.current)
 
-	add_owner_to_gamemode()
 	apply_innate_effects()
 
 	if(generate_antags || antag_paradise_mode_chosen)
@@ -86,11 +88,10 @@
 
 	return TRUE
 
-/datum/antagonist/ninja/add_owner_to_gamemode()
-	SSticker.mode.space_ninjas |= owner
-
-/datum/antagonist/ninja/remove_owner_from_gamemode()
-	SSticker.mode.space_ninjas -= owner
+/datum/antagonist/ninja/roundend_report_details()
+	if(!purchased_abilities)
+		return ..()
+	return list("Купленные способности: [purchased_abilities]")
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ninja_greeting.ogg'))
@@ -277,11 +278,12 @@
 	switch(ninja_type)
 		if(NINJA_TYPE_PROTECTOR)
 			var/datum/game_mode/traitor/traitor_mode = new
+			var/list/restricted_roles = traitor_mode.get_restricted_roles()
 			for(var/mob/living/player in GLOB.alive_mob_list)
 				if(player.client && player.mind && player.stat != DEAD && ishuman(player) && !player.mind.special_role && \
 					!player.mind.offstation_role && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && \
 					!jobban_isbanned(player, ROLE_SYNDICATE) && player_old_enough_antag(player.client, ROLE_TRAITOR) && \
-					!(player.mind.assigned_role in (traitor_mode.restricted_jobs|traitor_mode.protected_jobs)))
+					!(player.mind.assigned_role in restricted_roles))
 
 					possible_antags |= player.mind
 
@@ -289,11 +291,12 @@
 
 		if(NINJA_TYPE_HACKER)
 			var/datum/game_mode/vampire/vampire_mode = new
+			var/list/restricted_roles = vampire_mode.get_restricted_roles()
 			for(var/mob/living/player in GLOB.alive_mob_list)
 				if(player.client && player.mind && player.stat != DEAD && ishuman(player) && !player.mind.special_role && \
 					!player.mind.offstation_role && (ROLE_VAMPIRE in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_VAMPIRE) && \
 					!jobban_isbanned(player, ROLE_SYNDICATE) && player_old_enough_antag(player.client, ROLE_VAMPIRE) && \
-					!(player.mind.assigned_role in (vampire_mode.restricted_jobs|vampire_mode.protected_jobs)) && \
+					!(player.mind.assigned_role in restricted_roles) && \
 					!(player.dna.species.name in vampire_mode.protected_species))
 
 					possible_antags |= player.mind
@@ -302,12 +305,13 @@
 
 		if(NINJA_TYPE_KILLER)
 			var/datum/game_mode/changeling/changeling_mode = new
+			var/list/restricted_roles = changeling_mode.get_restricted_roles()
 			for(var/mob/living/player in GLOB.alive_mob_list)
 				if(player.client && player.mind && player.stat != DEAD && ishuman(player) && !player.mind.special_role && \
 					!player.mind.offstation_role && (ROLE_CHANGELING in player.client.prefs.be_special) && \
 					!jobban_isbanned(player, ROLE_CHANGELING) && !jobban_isbanned(player, ROLE_SYNDICATE) && \
 					player_old_enough_antag(player.client, ROLE_CHANGELING) && \
-					!(player.mind.assigned_role in (changeling_mode.restricted_jobs|changeling_mode.protected_jobs)) && \
+					!(player.mind.assigned_role in restricted_roles) && \
 					!(player.dna.species.name in changeling_mode.protected_species))
 
 					possible_antags |= player.mind
@@ -503,7 +507,7 @@
 		return
 
 	// this part will only proceed in antag paradise gamemode, long after antags have been generated
-	var/list/all_traitors = (SSticker.mode.traitors|SSticker.mode.vampires|SSticker.mode.changelings)
+	var/list/all_traitors = (get_antag_minds(/datum/antagonist/traitor)|get_antag_minds(/datum/antagonist/vampire)|get_antag_minds(/datum/antagonist/changeling))
 	if(!length(all_traitors))
 		return
 
@@ -576,7 +580,7 @@
 /datum/antagonist/ninja/proc/try_blood_collect_objective()
 
 	// if its antag paradise gamemode vampires will generate later
-	var/vampires_amount = antag_paradise_mode_chosen ? length(SSticker.mode.vampires) : length(pre_antags)
+	var/vampires_amount = antag_paradise_mode_chosen ? length(get_antag_minds(/datum/antagonist/vampire)) : length(pre_antags)
 
 	var/datum/objective/collect_blood/blood_objective = add_objective(/datum/objective/collect_blood)
 	if(length(vampires_amount) < blood_objective.samples_to_win)	// no objective if there are fewer antagonists than needed
@@ -610,7 +614,7 @@
 /datum/antagonist/ninja/proc/try_vermit_hunt_objective()
 
 	// if its antag paradise gamemode changelingss will generate later
-	var/changelings_amount = antag_paradise_mode_chosen ? length(SSticker.mode.changelings) : length(pre_antags)
+	var/changelings_amount = antag_paradise_mode_chosen ? length(get_antag_minds(/datum/antagonist/changeling)) : length(pre_antags)
 
 	if(changelings_amount > 1)	// we will not hunt if only one ling is available
 		var/datum/objective/vermit_hunt/hunt_changelings = add_objective(/datum/objective/vermit_hunt)

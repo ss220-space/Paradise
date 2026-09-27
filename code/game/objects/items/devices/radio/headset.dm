@@ -860,6 +860,23 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре отдела снабжения",
 	)
 
+/obj/item/radio/headset/headset_cargo/virtual
+	name = "virtual supply headset"
+	desc = "Программная эмуляция гарнитуры снабжения. Квантовый сервер вытаскивает её сигнал из домена наружу, так что аватар остаётся на связи со станцией."
+	cross_zlevel = TRUE
+	requires_tcomms = FALSE
+	instant = TRUE
+
+/obj/item/radio/headset/headset_cargo/virtual/get_ru_names()
+	return alist(
+		NOMINATIVE = "виртуальная гарнитура снабжения",
+		GENITIVE = "виртуальную гарнитуру снабжения",
+		DATIVE = "виртуальной гарнитуры снабжения",
+		ACCUSATIVE = "виртуальную гарнитуру снабжения",
+		INSTRUMENTAL = "виртуальной гарнитурой снабжения",
+		PREPOSITIONAL = "виртуальной гарнитуре снабжения",
+	)
+
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"
 	desc = "Высокопрочная радиочастотная гарнитура, устойчивая к механическому и термическому воздействиям. \

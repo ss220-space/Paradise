@@ -292,7 +292,7 @@
  * * text - The text of the emote.
  */
 /proc/runechat_emote(atom/user, text)
-	var/list/can_see = get_hearers_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_hearers_in_view(1, user) || list()  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/viewer in can_see)
 		if(viewer.status_flags & PASSEMOTES)
@@ -487,7 +487,7 @@
 
 	if(intentional && only_unintentional)
 		return FALSE
-	if(user.client && check_mute(user.client.ckey, MUTE_EMOTE))
+	if(user.client && check_mute(user.client.account_ckey, MUTE_EMOTE))
 		to_chat(user, span_warning("You cannot send emotes (muted)."))
 		return FALSE
 
@@ -516,7 +516,7 @@
 			return FALSE
 	else
 		// deadchat handling
-		if(user.client && check_mute(user.client.ckey, MUTE_DEADCHAT))
+		if(user.client && check_mute(user.client.account_ckey, MUTE_DEADCHAT))
 			to_chat(user, span_warning("You cannot send deadchat emotes (muted)."))
 			return FALSE
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))

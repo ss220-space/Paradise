@@ -65,6 +65,22 @@
 	item_state = "clb_suit"
 	item_color = "cargotech_new"
 
+/obj/item/clothing/under/rank/bitrunner
+	name = "bitrunner's jumpsuit"
+	desc = "Кожаный комбинезон битраннера. Безвкусный, зато в нём не затекает спина за долгую смену в нетподе."
+	icon_state = "bitrunner"
+	item_state = "bl_suit"
+
+/obj/item/clothing/under/rank/bitrunner/get_ru_names()
+	return alist(
+		NOMINATIVE = "комбинезон битраннера",
+		GENITIVE = "комбинезона битраннера",
+		DATIVE = "комбинезону битраннера",
+		ACCUSATIVE = "комбинезон битраннера",
+		INSTRUMENTAL = "комбинезоном битраннера",
+		PREPOSITIONAL = "комбинезоне битраннера",
+	)
+
 /obj/item/clothing/under/rank/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
 	name = "chaplain's jumpsuit"

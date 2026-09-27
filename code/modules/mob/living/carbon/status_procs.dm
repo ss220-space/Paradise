@@ -11,3 +11,32 @@
 	add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
 	if(getStaminaLoss() < 120) // Puts you a little further into the initial stamcrit, makes stamcrit harder to outright counter with chems.
 		adjustStaminaLoss(30, FALSE)
+
+/mob/living/carbon/proc/get_traumas()
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	return brain ? brain.traumas : list()
+
+/mob/living/carbon/proc/has_trauma_type(brain_trauma_type, resilience)
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	return brain?.has_trauma_type(brain_trauma_type, resilience)
+
+/mob/living/carbon/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	if(!brain)
+		return
+	var/list/arguments = list()
+	if(length(args) > 2)
+		arguments = args.Copy(3)
+	return brain.brain_gain_trauma(trauma, resilience, arguments)
+
+/mob/living/carbon/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	return brain?.gain_trauma_type(brain_trauma_type, resilience)
+
+/mob/living/carbon/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	return brain?.cure_trauma_type(brain_trauma_type, resilience)
+
+/mob/living/carbon/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC)
+	var/obj/item/organ/internal/brain/brain = get_int_organ(/obj/item/organ/internal/brain)
+	return brain?.cure_all_traumas(resilience)

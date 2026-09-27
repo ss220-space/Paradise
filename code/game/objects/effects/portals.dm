@@ -83,8 +83,7 @@
 
 /obj/effect/portal/update_overlays()
 	. = ..()
-	underlays.Cut()
-	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+	. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /obj/effect/portal/singularity_pull(atom/singularity, current_size)
 	return
@@ -244,8 +243,7 @@
 
 /obj/effect/portal/wormhole_projector/update_overlays()
 	. = list()
-	underlays.Cut()
-	underlays += emissive_appearance(icon, "portal-syndicate_lightmask", src)
+	. += emissive_appearance(icon, "portal-syndicate_lightmask", src)
 
 #undef EFFECT_COOLDOWN
 #undef UNSTABLE_TIME_DELAY

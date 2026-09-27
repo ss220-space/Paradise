@@ -47,6 +47,7 @@
 #define JOB_TITLE_CARGOTECH "Cargo Technician"
 #define JOB_TITLE_MINER "Shaft Miner"
 #define JOB_TITLE_MINING_MEDIC "Mining Medic"
+#define JOB_TITLE_BITRUNNER "Bitrunner"
 
 // Service
 #define JOB_TITLE_HOP "Head of Personnel"

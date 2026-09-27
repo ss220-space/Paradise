@@ -234,16 +234,16 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 
 	if(automute)
 		muteunmute = "auto-muted"
-		force_add_mute(M.client.ckey, mute_type)
+		force_add_mute(M.client.account_ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].")
 		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.", confidential = TRUE)
 		BLACKBOX_LOG_ADMIN_VERB("Automute")
 		return
 
-	toggle_mute(M.client.ckey, mute_type)
+	toggle_mute(M.client.account_ckey, mute_type)
 
-	if(check_mute(M.client.ckey, mute_type))
+	if(check_mute(M.client.account_ckey, mute_type))
 		muteunmute = "muted"
 	else
 		muteunmute = "unmuted"

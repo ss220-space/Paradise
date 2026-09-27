@@ -19,11 +19,11 @@
 		removed(target, silent = TRUE)
 		qdel(src)
 
-	else if(iscultist(target) || is_head_revolutionary(target))
-		to_chat(target, span_warning("You feel the corporate tendrils of Nanotrasen try to invade your mind!"))
-
-	else if(is_revolutionary(target))
+	else if(is_revolution_slave(target))
 		SSticker.mode.remove_revolutionary(target.mind)
+
+	else if(iscultist(target) || is_revolutionary(target))
+		to_chat(target, span_warning("You feel the corporate tendrils of Nanotrasen try to invade your mind!"))
 
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))

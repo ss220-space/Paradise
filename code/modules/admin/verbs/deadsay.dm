@@ -3,7 +3,7 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 	if(!user.mob)
 		return
 
-	if(check_mute(user.ckey, MUTE_DEADCHAT))
+	if(check_mute(user.account_ckey, MUTE_DEADCHAT))
 		to_chat(user, span_danger("You cannot send DSAY messages (muted)."), confidential = TRUE)
 		return
 

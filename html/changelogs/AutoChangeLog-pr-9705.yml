@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - tweak: "С 3 уровня химии/смешивания больше не будет рандомных реагентов и лишнего объёма. (PR #9705)"

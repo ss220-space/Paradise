@@ -258,7 +258,6 @@
 /datum/action/cooldown/spell/pointed/shadowling_enthrall/cast(atom/cast_on)
 	. = ..()
 
-	list_clear_nulls(SSticker.mode.shadowling_thralls)
 	if(!is_shadow(owner))
 		return
 
@@ -301,7 +300,6 @@
 							span_warning("Фальшивые лица все <b>ТЁМНЫЕ не настоящие, не настоящие, не настоящие</b>!!!"))
 	target.setOxyLoss(0) //In case the shadowling was choking them out
 	SSticker.mode.add_thrall(target.mind)
-	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 
 /**
  * Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor.
@@ -341,8 +339,9 @@
 	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
 	eyes.insert(user)
 
+	var/datum/team/shadowling/shadowlings = get_shadowling_team()
 	var/thralls = get_thralls()
-	var/victory_threshold = SSticker.mode.required_thralls
+	var/victory_threshold = shadowlings.required_thralls
 
 	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, span_warning("Ваша концентрация нарушена."))
@@ -351,15 +350,15 @@
 	if(QDELETED(user))
 		return
 
-	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * shadowlings.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
 		user.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_blindness_smoke)
 
-	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
+	if(thralls >= ceil(3 * shadowlings.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
 		user.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_screech)
 
-	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * shadowlings.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
 		user.mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_revive_thrall)
 
@@ -386,58 +385,59 @@
 
 	return thralls
 /* unused
-/obj/effect/proc_holder/spell/shadowling_collective_mind/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
+/datum/action/cooldown/spell/shadowling_collective_mind/cast(atom/cast_on)
+	if(!shadowling_check(owner))
+		reset_spell_cooldown()
 		return
 
-	to_chat(user, span_shadowling("<b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b>"))
+	to_chat(owner, span_shadowling("<b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b>"))
 
+	var/datum/team/shadowling/shadowlings = get_shadowling_team()
 	var/thralls = get_thralls()
-	var/victory_threshold = SSticker.mode.required_thralls
+	var/victory_threshold = shadowlings.required_thralls
 
-	if(!do_after(user, 3 SECONDS, user))
-		to_chat(user, span_warning("Your concentration has been broken. The mental hooks you have sent out now retract into your mind."))
+	if(!do_after(owner, 3 SECONDS, owner))
+		to_chat(owner, span_warning("Your concentration has been broken. The mental hooks you have sent out now retract into your mind."))
 		return
 
-	if(QDELETED(user))
+	if(QDELETED(owner))
 		return
 
-	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * shadowlings.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
-		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
+		to_chat(owner, span_shadowling("<i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i>"))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
+		owner.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_blindness_smoke)
 
-	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
+	if(thralls >= ceil(3 * shadowlings.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
-		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging or sending power until repaired.</i>"))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
+		to_chat(owner, span_shadowling("<i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging or sending power until repaired.</i>"))
+		owner.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_screech)
 
-	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * shadowlings.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
-		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
+		to_chat(owner, span_shadowling("<i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i>"))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall(null))
+		owner.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_revive_thrall)
 
 	if(thralls < victory_threshold)
-		to_chat(user, span_shadowling("You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present."))
+		to_chat(owner, span_shadowling("You do not have the power to ascend. You require [victory_threshold] thralls, but only [thralls] living thralls are present."))
 
 	else if(thralls >= victory_threshold)
-		to_chat(user, span_shadowling("<b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i>"))
-		to_chat(user, span_shadowling("<b>You may find Ascendance in the Shadowling Evolution tab.</b>"))
+		to_chat(owner, span_shadowling("<b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i>"))
+		to_chat(owner, span_shadowling("<b>You may find Ascendance in the Shadowling Evolution tab.</b>"))
 
 		for(var/mob/shadowling in GLOB.alive_mob_list)
 			if(!is_shadow(shadowling))
 				continue
 
-			shadowling.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_hatch)
-			shadowling.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_ascend(null))
+			shadowling.mind.RemoveSpell(/datum/action/cooldown/spell/shadowling_hatch)
+			shadowling.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
-			if(shadowling == user)
+			if(shadowling == owner)
 				to_chat(shadowling, span_shadowling("<i>You project this power to the rest of the shadowlings.</i>"))
 			else
-				to_chat(shadowling, span_shadowling("<b>[user.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b>"))//Tells all the other
+				to_chat(shadowling, span_shadowling("<b>[owner.real_name] has coalesced the strength of the thralls. You can draw upon it at any time to ascend. (Shadowling Evolution Tab)</b>"))//Tells all the other
 */
 /datum/action/cooldown/spell/shadowling_blindness_smoke
 	name = "Blindness Smoke"
@@ -529,41 +529,41 @@
 	for(var/obj/structure/window/window in turf.contents)
 		window.take_damage(rand(80, 100))
 /* unused
-/obj/effect/proc_holder/spell/shadowling_null_charge
+/datum/action/cooldown/spell/shadowling_null_charge
 	name = "Null Charge"
 	desc = "Empties an APC, preventing it from recharging until fixed."
-	base_cooldown = 3 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "null_charge"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 3 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "null_charge"
+	background_icon_state = "bg_shadowling"
 	need_active_overlay = TRUE
 
-/obj/effect/proc_holder/spell/shadowling_null_charge/create_new_targeting()
+/datum/action/cooldown/spell/shadowling_null_charge/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = 0
 	T.range = 1
 	T.allowed_type = /obj/machinery/power/apc
 	return T
 
-/obj/effect/proc_holder/spell/shadowling_null_charge/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+/datum/action/cooldown/spell/shadowling_null_charge/can_cast_spell(feedback = TRUE)
+	if(owner.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-/obj/effect/proc_holder/spell/shadowling_null_charge/cast(list/targets, mob/living/carbon/human/user = usr)
-	if(!shadowling_check(user))
-		revert_cast(user)
+/datum/action/cooldown/spell/shadowling_null_charge/cast(atom/cast_on)
+	if(!shadowling_check(owner))
+		reset_spell_cooldown()
 		return
 
-	var/obj/machinery/power/apc/target_apc = targets[1]
+	var/obj/machinery/power/apc/target_apc = cast_on
 	if(!target_apc)
-		to_chat(user, span_warning("You must stand next to an APC to drain it!"))
-		revert_cast(user)
+		to_chat(owner, span_warning("You must stand next to an APC to drain it!"))
+		reset_spell_cooldown()
 		return
 
 	if(target_apc.cell?.charge <= 0)
-		to_chat(user, span_warning("APC must have a power to drain!"))
-		revert_cast(user)
+		to_chat(owner, span_warning("APC must have a power to drain!"))
+		reset_spell_cooldown()
 		return
 
 	target_apc.operating = FALSE
@@ -571,17 +571,17 @@
 	target_apc.update_icon()
 	target_apc.visible_message(span_warning("The [target_apc] flickers and begins to grow dark."))
 
-	to_chat(user, span_shadowling("You dim the APC's screen and carefully begin siphoning its power into the void."))
-	if(!do_after(user, 20 SECONDS, target_apc))
+	to_chat(owner, span_shadowling("You dim the APC's screen and carefully begin siphoning its power into the void."))
+	if(!do_after(owner, 20 SECONDS, target_apc))
 		//Whoops!  The APC's powers back on
-		to_chat(user, span_shadowling("Your concentration breaks and the APC suddenly repowers!"))
+		to_chat(owner, span_shadowling("Your concentration breaks and the APC suddenly repowers!"))
 		target_apc.operating = TRUE
 		target_apc.update()
 		target_apc.update_icon()
 		target_apc.visible_message(span_warning("The [target_apc] begins glowing brightly!"))
 	else
 		//We did it!
-		to_chat(user, span_shadowling("You sent the APC's power to the void while overloading all it's lights!"))
+		to_chat(owner, span_shadowling("You sent the APC's power to the void while overloading all it's lights!"))
 		target_apc.cell?.charge = 0	//Sent to the shadow realm
 		target_apc.chargemode = FALSE //Won't recharge either until an someone hits the button
 		target_apc.charging = APC_NOT_CHARGING
@@ -617,7 +617,7 @@
 			return
 
 		var/empowered_thralls = 0
-		for(var/datum/mind/thrall_mind in SSticker.mode.shadowling_thralls)
+		for(var/datum/mind/thrall_mind in get_antag_minds(/datum/antagonist/shadowling_thrall))
 			if(!ishuman(thrall_mind.current))
 				continue
 
@@ -700,63 +700,63 @@
 		to_chat(owner, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
 		reset_spell_cooldown()
 /* unused
-/obj/effect/proc_holder/spell/shadowling_extend_shuttle
+/datum/action/cooldown/spell/shadowling_extend_shuttle
 	name = "Destroy Engines"
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
-	clothes_req = FALSE
-	base_cooldown = 3 SECONDS
+	spell_requirements = NONE
+	cooldown_time = 3 SECONDS
 	selection_activated_message = span_notice_alt("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
-	action_icon_state = "extend_shuttle"
-	action_background_icon_state = "bg_shadowling"
+	button_icon_state = "extend_shuttle"
+	background_icon_state = "bg_shadowling"
 	need_active_overlay = TRUE
 	var/global/extend_limit_pressed = FALSE
 
-/obj/effect/proc_holder/spell/shadowling_extend_shuttle/create_new_targeting()
+/datum/action/cooldown/spell/shadowling_extend_shuttle/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = -1
 	T.range = 1
 	return T
 
-/obj/effect/proc_holder/spell/shadowling_extend_shuttle/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incorporeal_move == INCORPOREAL_NORMAL)
+/datum/action/cooldown/spell/shadowling_extend_shuttle/can_cast_spell(feedback = TRUE)
+	if(owner.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	. = ..()
 
-/obj/effect/proc_holder/spell/shadowling_extend_shuttle/valid_target(mob/living/carbon/human/target, user)
+/datum/action/cooldown/spell/shadowling_extend_shuttle/is_valid_target(mob/living/carbon/human/target, user)
 	return !target.stat && !is_shadow_or_thrall(target)
 
-/obj/effect/proc_holder/spell/shadowling_extend_shuttle/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/target = targets[1]
+/datum/action/cooldown/spell/shadowling_extend_shuttle/cast(atom/cast_on)
+	var/mob/living/carbon/human/target = cast_on
 
-	if(!shadowling_check(user))
+	if(!shadowling_check(owner))
 		return FALSE
 
 	if(extend_limit_pressed)
-		to_chat(user, span_warning("Shuttle was already delayed."))
+		to_chat(owner, span_warning("Shuttle was already delayed."))
 		return FALSE
 
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
-		to_chat(user, span_warning("The shuttle must be inbound only to the station."))
+		to_chat(owner, span_warning("The shuttle must be inbound only to the station."))
 		return FALSE
 
-	user.visible_message(span_warning("[user]'s eyes flash a bright red!"), \
+	owner.visible_message(span_warning("[owner]'s eyes flash a bright red!"), \
 						span_notice("You begin to draw [target]'s life force."))
 	target.visible_message(span_warning("[target]'s face falls slack, [target.p_their()] jaw slightly distending."), \
 						span_boldannounceic("You are suddenly transported... far, far away..."))
 	extend_limit_pressed = TRUE
 
-	if(!do_after(user, 15 SECONDS, target, max_interact_count = 1))
+	if(!do_after(owner, 15 SECONDS, target, max_interact_count = 1))
 		extend_limit_pressed = FALSE
 		to_chat(target, span_warning("You are snapped back to reality, your haze dissipating!"))
-		to_chat(user, span_warning("You have been interrupted. The draw has failed."))
+		to_chat(owner, span_warning("You have been interrupted. The draw has failed."))
 		return
 
-	if(QDELETED(target) || QDELETED(user))
-		revert_cast(user)
+	if(QDELETED(target) || QDELETED(owner))
+		reset_spell_cooldown()
 		return
 
-	to_chat(user, span_notice("You project [target]'s life force toward the approaching shuttle, extending its arrival duration!"))
+	to_chat(owner, span_notice("You project [target]'s life force toward the approaching shuttle, extending its arrival duration!"))
 	target.visible_message(span_warning("[target]'s eyes suddenly flare red. They proceed to collapse on the floor, not breathing."), \
 						span_warning("<b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all..."))
 	target.death()
@@ -769,7 +769,7 @@
 		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
-	user.mind.RemoveSpell(src)	//Can only be used once!
+	owner.mind.RemoveSpell(src)	//Can only be used once!
 */
 // ASCENDANT ABILITIES BEYOND THIS POINT //
 
@@ -840,8 +840,6 @@
 	to_chat(owner, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [GEND_HIS_HER(target)] в раба"))
 	to_chat(target, span_userdanger(span_fontsize3("Волна мучительной боли проникает в ваше сознание, и...")))
 	SSticker.mode.add_thrall(target.mind)
-	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
-	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
 /datum/action/cooldown/spell/jaunt/ascendant_phase_shift
 	name = "Phase Shift"

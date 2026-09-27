@@ -1,10 +1,6 @@
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
-	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCCAPTAIN, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
-	/// Basically all jobs, except AI.
-	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
 	required_enemies = 1
 	recommended_enemies = 4
 	/// Same as above for malf AI.
@@ -18,9 +14,6 @@
 
 /datum/game_mode/traitor/pre_setup()
 	. = FALSE
-
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 	var/list/possible_malfs = get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)
@@ -53,16 +46,14 @@
 		if(traitor == malf_AI_candidate)
 			if((ROLE_TRAITOR in traitor.current.client.prefs.be_special) && prob(50))	// If traitor is also enabled its 50/50 chance.
 				pre_traitors += traitor
-				traitor.restricted_roles = restricted_jobs
+				traitor.restricted_roles = get_restricted_roles()
 			else
 				pre_malf_AI = traitor
-				pre_malf_AI.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)	// All jobs are restricted for malf AI despite the config.
-				pre_malf_AI.restricted_roles -= JOB_TITLE_AI
 				traitor.special_role = SPECIAL_ROLE_MALFAI
-				SSjobs.new_malf = traitor.current
+				SSjobs.forced_occupations[traitor] = JOB_TITLE_AI
 		else
 			pre_traitors += traitor
-			traitor.restricted_roles = restricted_jobs
+			traitor.restricted_roles = get_restricted_roles()
 
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
@@ -82,104 +73,8 @@
 /datum/game_mode/traitor/process()
 	// Make sure all objectives are processed regularly, so that objectives
 	// which can be checked mid-round are checked mid-round.
-	for(var/datum/mind/traitor_mind in traitors)
+	for(var/datum/mind/traitor_mind in get_antag_minds(/datum/antagonist/traitor))
 		for(var/datum/objective/objective in traitor_mind.get_all_objectives())
 			objective.check_completion()
 	return FALSE
 
-/datum/game_mode/proc/auto_declare_completion_traitor()
-	if(length(traitors))
-		var/list/text = list(span_fontsize2(span_bold("The traitors were:<br>")))
-		for(var/datum/mind/traitor in traitors)
-			var/traitorwin = TRUE
-			text += printplayer(traitor) + "<br>"
-
-			var/TC_uses = 0
-			var/used_uplink = FALSE
-			var/purchases = ""
-
-			var/obj/item/uplink/traitor_uplink = traitor.find_syndicate_uplink() || traitor.find_uplink_by_key()
-
-			if(traitor_uplink && (traitor_uplink.used_TC > 0 || traitor_uplink.purchase_log != ""))
-				TC_uses += traitor_uplink.used_TC
-				purchases += traitor_uplink.purchase_log
-				used_uplink = TRUE
-
-			if(used_uplink)
-				text += " (used [TC_uses] TC) [purchases]"
-
-			var/all_objectives = traitor.get_all_objectives()
-
-			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
-				var/count = 1
-				for(var/datum/objective/objective in all_objectives)
-					if(objective.check_completion())
-						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
-						if(istype(objective, /datum/objective/steal))
-							var/datum/objective/steal/steal_objective = objective
-							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "SUCCESS"))
-						else
-							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
-					else
-						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						if(istype(objective, /datum/objective/steal))
-							var/datum/objective/steal/steal_objective = objective
-							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "FAIL"))
-						else
-							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
-						traitorwin = FALSE
-					count++
-
-			var/special_role_text
-			if(traitor.special_role)
-				special_role_text = lowertext(traitor.special_role)
-			else
-				special_role_text = "antagonist"
-
-			var/datum/antagonist/contractor/contractor = traitor?.has_antag_datum(/datum/antagonist/contractor)
-			var/obj/item/contractor_uplink/uplink = contractor?.contractor_uplink_ref?.resolve()
-			if(istype(contractor) && uplink)
-				var/count = 1
-				var/earned_tc = uplink.hub.reward_tc_paid_out
-				for(var/datum/syndicate_contract/s_contract in uplink.hub.contracts)
-					// Locations
-					var/locations = list()
-					for(var/area/c_area in s_contract.contract.candidate_zones)
-						locations += (c_area == s_contract.contract.extraction_zone ? "<b><u>[c_area.map_name]</u></b>" : c_area.map_name)
-					var/display_locations = english_list(locations, and_text = " or ")
-					// Result
-					var/result = ""
-					if(s_contract.status == CONTRACT_STATUS_COMPLETED)
-						result = "<font color='green'><b>Success!</b></font>"
-					else if(s_contract.status != CONTRACT_STATUS_INACTIVE)
-						result = "<font color='red'>Fail.</font>"
-					text += "<br><font color='orange'><b>Contract #[count]</b></font>: Kidnap and extract [s_contract.target_name] at [display_locations]. [result]"
-					count++
-				text += "<br><font color='orange'><b>[earned_tc] TC were earned from the contracts.</b></font>"
-
-			if(traitorwin)
-				text += "<br><font color='green'><b>The [special_role_text] was successful!</b></font><br>"
-				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
-			else
-				text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font><br>"
-				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
-
-		if(length(SSticker.mode.implanted))
-			text += "<br><br><span style='font-size: 2;'><b>The mindslaves were:</b></span><br>"
-			for(var/datum/mind/mindslave in SSticker.mode.implanted)
-				text += printplayer(mindslave)
-				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
-				text += " (slaved by: <b>[master_mind.name]</b>)<br>"
-
-		if(length(SSticker.mode.support))
-			text += "<br><br><span style='font-size: 2;'><b>The Contractor Support Units were:</b></span><br>"
-			for(var/datum/mind/csu in SSticker.mode.support)
-				text += "[printplayer(csu)]<br>"
-
-		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-		var/responses = jointext(GLOB.syndicate_code_response, ", ")
-
-		text += "<br><br><b>The code phrases were:</b> [span_danger(phrases)]<br>\
-					<b>The code responses were:</b> [span_danger(responses)]<br><br>"
-
-		return text.Join("")

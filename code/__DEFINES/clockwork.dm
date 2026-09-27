@@ -138,6 +138,7 @@ GLOBAL_LIST_INIT(minigun_spells, list(
 #define CLOCK_CREW_REVEAL_HIGH 0.25
 /// Default power for goal
 #define CLOCK_BASIC_POWER_GOAL 120
+#define CLOCK_POWER_REVEAL_RATIO 0.67
 
 // Text
 #define CLOCK_GREETING span_clocklarge("You catch a glimpse of the Realm of Ratvar, the Clockwork Justiciar. \
@@ -154,6 +155,8 @@ GLOBAL_LIST_INIT(minigun_spells, list(
 // Misc
 #define CLOCK_COLOR "#ffb700"
 #define CLOCK_CLOTHING list(/obj/item/clothing/suit/hooded/clockrobe, /obj/item/clothing/suit/armor/clockwork, /obj/item/clothing/gloves/clockwork, /obj/item/clothing/shoes/clockwork, /obj/item/clothing/head/helmet/clockwork)
+
+#define BRASS_BLADE_UNLOCKED "Brass Blade"
 
 // Clockwork objective status
 #define RATVAR_IS_ASLEEP 0

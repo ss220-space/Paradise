@@ -42,13 +42,12 @@
 
 /obj/machinery/flasher/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(stat & NOPOWER)
 		return
 
 	if(anchored)
 		. += "[base_icon_state]-s"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -71,7 +70,7 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[base_icon_state]_flash", src)
-	set_light(2, 1, COLOR_WHITE, TRUE)
+	set_light(2, 1, COLOR_WHITE, l_on = TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	COOLDOWN_START(src, flash_cooldown, flash_cooldown_duration)
 	use_power(1000)

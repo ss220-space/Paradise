@@ -73,6 +73,20 @@
 			newMsg += word
 	return jointext(newMsg, " ")
 
+/proc/emojisToDiscord(msg)
+	var/list/listmsg = splittext_char(msg, " ")
+	var/list/newMsg = list()
+	var/list/discordEmojis = CONFIG_GET(keyed_list/emoji)
+	for(var/word in listmsg)
+		var/emojiName = lowertext(word)
+		var/emoji = discordEmojis[emojiName]
+		if(!emoji)
+			newMsg += word
+			continue
+		var/emojiId = copytext(emoji, 1, findtext(emoji, "."))
+		newMsg += "<[findtext(emoji, ".gif") ? "a" : ""]:[emojiName]:[emojiId]>"
+	return jointext(newMsg, " ")
+
 /proc/generateDiscordEmojiTable()
 	var/const/itemsInRow = 7
 	var/discordEmojis = CONFIG_GET(keyed_list/emoji)

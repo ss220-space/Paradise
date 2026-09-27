@@ -5,6 +5,26 @@
 	var/power_goal = 1
 	var/beacon_goal = 1
 	var/clocker_goal = 1
+	var/list/unlocked_heretic_items = list(
+		BRASS_BLADE_UNLOCKED = FALSE,
+	)
+
+/datum/clockwork_objectives/proc/unlock_heretic_item()
+	var/list/still_locked = list()
+	for(var/item_name in unlocked_heretic_items)
+		if(!unlocked_heretic_items[item_name])
+			still_locked += item_name
+
+	if(!length(still_locked))
+		return
+
+	var/unlocked_item = pick(still_locked)
+	unlocked_heretic_items[unlocked_item] = TRUE
+	for(var/datum/mind/clocker_mind as anything in get_clockwork_cult_team().members)
+		if(!clocker_mind.current)
+			continue
+		SEND_SOUND(clocker_mind.current, 'sound/magic/clockwork/reconstruct.ogg')
+		to_chat(clocker_mind.current, span_clocklarge("Запретное знание перековано в шестерни. Культ научился создавать [unlocked_item]!"))
 
 /datum/clockwork_objectives/proc/setup()
 	if(clock_status != RATVAR_IS_ASLEEP)
@@ -20,7 +40,7 @@
 
 /datum/clockwork_objectives/proc/set_clocker_goal()
 	var/players = length(GLOB.player_list)
-	var/clockers = SSticker.mode.get_clockers()
+	var/clockers = get_clockwork_cult_team().get_clockers()
 	var/reveal_percent = CLOCK_CREW_REVEAL_LOW / 2
 	if(players >= CLOCK_POPULATION_THRESHOLD)
 		reveal_percent = CLOCK_CREW_REVEAL_HIGH / 2
@@ -48,7 +68,7 @@
 			if(!obj_demand.beacon_get)
 				to_chat(M, span_clock("The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]"))
 			if(!obj_demand.clockers_get)
-				to_chat(M, span_clock("Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]"))
+				to_chat(M, span_clock("Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [get_clockwork_cult_team().get_clockers()]/[clocker_goal]"))
 		if(RATVAR_NEED_HEART)
 			to_chat(M, span_clock("Завеса ослаблена! Однако, на сердце Ратвара все еще наложены печати, сковывающие нашего Повелителя. Нам необходимо призвать его сердце в наш мир и починить его!"))
 			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
@@ -68,7 +88,7 @@
 			to_chat(M, span_danger("Error: Clock cult objective status currently unknown. Something went wrong. Oof."))
 
 	if(display_members)
-		var/list/clock_cult = SSticker.mode.get_clockers(TRUE)
+		var/list/clock_cult = get_clockwork_cult_team().get_clockers(TRUE)
 		var/total_clockers = clock_cult[1] + clock_cult[2]
 
 		to_chat(M, span_clockitalic("<br><b>Current cult members: [total_clockers]</b>"))
@@ -91,7 +111,7 @@
 	else
 		need_heart()
 		adjust_clockwork_power(-0.6*power_goal)
-	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/clock_mind as anything in get_clockwork_cult_team().members)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, message)
@@ -106,13 +126,13 @@
 		message += span_clock("But there's still more tasks to do.")
 	else
 		need_heart()
-	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/clock_mind as anything in get_clockwork_cult_team().members)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, message)
 
 /datum/clockwork_objectives/proc/clockers_check()
-	var/clockers =SSticker.mode.get_clockers()
+	var/clockers = get_clockwork_cult_team().get_clockers()
 	if(clockers < clocker_goal)
 		return
 	obj_demand.clockers_get = TRUE
@@ -122,7 +142,7 @@
 		message += span_clock("But there's still more tasks to do.")
 	else
 		need_heart()
-	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/clock_mind as anything in get_clockwork_cult_team().members)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, message)
@@ -131,7 +151,7 @@
 	clock_status = RATVAR_NEED_HEART
 
 /datum/clockwork_objectives/proc/check_heart()
-	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/clock_mind as anything in get_clockwork_cult_team().members)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, span_clocklarge("Сердце призвано, теперь необходимо сломать печати. Да воссияет же Ратвар!"))
@@ -147,7 +167,7 @@
 	if(clock_status >= RATVAR_NEEDS_SUMMONING) //or already prepared or summoned
 		return
 	clock_status = RATVAR_NEEDS_SUMMONING
-	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+	for(var/datum/mind/clock_mind as anything in get_clockwork_cult_team().members)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, span_clock("Вам и другим аколитам удалось подготовить станцию к финальному ритуалу!"))
@@ -177,7 +197,8 @@
 	antag_menu_name = "Набрать силу"
 
 /datum/objective/demand_power/check_anatag_menu_ability()
-	return SSticker?.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	return clock_team?.clocker_objs.clock_status != RATVAR_IS_ASLEEP
 
 /datum/objective/demand_power/check_completion()
 	return (power_get && beacon_get && clockers_get) || completed
@@ -194,7 +215,8 @@
 	find_summon_locations()
 
 /datum/objective/clockgod/check_anatag_menu_ability()
-	return SSticker.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	return clock_team?.clocker_objs.clock_status != RATVAR_IS_ASLEEP
 
 /datum/objective/clockgod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)

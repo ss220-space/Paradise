@@ -6,7 +6,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling
 	name = "Changeling"
-	roundend_category = "changelings"
+	roundend_category = "Генокрадами"
+	roundend_blackbox_key = "changeling"
 	job_rank = ROLE_CHANGELING
 	special_role = SPECIAL_ROLE_CHANGELING
 	antag_hud_name = "hudchangeling"
@@ -75,7 +76,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
 
 /datum/antagonist/changeling/on_gain()
-	SSticker.mode.changelings |= owner
 	var/honorific = owner.current.gender == FEMALE ? "Ms." : "Mr."
 	if(length(GLOB.possible_changeling_IDs))
 		changelingID = pick(GLOB.possible_changeling_IDs)
@@ -94,11 +94,13 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	..()
 
 /datum/antagonist/changeling/Destroy()
-	SSticker.mode.changelings -= owner
 	chosen_sting = null
 	QDEL_LIST(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/datum/antagonist/changeling/roundend_report_details()
+	return list("<b>ID генокрада:</b> [changelingID].", "<b>Поглощено геномов:</b> [absorbed_count]")
 
 /datum/antagonist/changeling/greet()
 	..()
@@ -398,7 +400,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * * mob/living/carbon/user - the mob to absorb DNA from
  */
 /datum/antagonist/changeling/proc/absorb_dna(mob/living/carbon/user)
-	user.dna.real_name = user.real_name // Set this again, just to be sure that it's properly set.
+	user.dna.real_name = user.real_name
 	store_dna(user.dna.Clone())
 	add_new_languages(user.languages)
 	absorbed_count++

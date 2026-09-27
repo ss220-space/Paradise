@@ -176,6 +176,8 @@
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
 
+	var/list/imaginary_group
+
 	/// List of alpha changelog from various sources
 	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)
 

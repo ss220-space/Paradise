@@ -1,0 +1,54 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"u" = (
+/obj/effect/mob_spawn/human/miner,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"I" = (
+/mob/living/simple_animal/pet/dog/corgi,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"U" = (
+/obj/modular_map_root/safehouse{
+	key = "test_only"
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+I
+a
+a
+a
+U
+"}
+(2,1,1) = {"
+u
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+"}

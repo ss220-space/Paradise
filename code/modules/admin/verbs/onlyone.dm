@@ -14,17 +14,7 @@
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
-		SSticker.mode.traitors += H.mind
-		H.mind.special_role = SPECIAL_ROLE_TRAITOR
-
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = H.mind
-		H.mind.objectives += hijack_objective
-
-		var/list/messages = list()
-		messages.Add("<b>You are a Highlander. Kill all other Highlanders. There can be only one.</b>")
-		messages.Add(H.mind.prepare_announce_objectives(FALSE))
-		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>")))
+		H.mind.add_antag_datum(/datum/antagonist/highlander)
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
@@ -75,17 +65,7 @@
 		if(H.stat == 2 || !(H.client)) continue
 		if(is_special_character(H)) continue
 
-		SSticker.mode.traitors += H.mind
-		H.mind.special_role = "[H.real_name] Prime"
-
-		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-		hijack_objective.owner = H.mind
-		H.mind.objectives += hijack_objective
-
-		var/list/messages = list()
-		messages.Add("<b>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</b>")
-		messages.Add(H.mind.prepare_announce_objectives(FALSE))
-		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>")))
+		H.mind.add_antag_datum(/datum/antagonist/multiverse/prime/summoner)
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(ITEM_SLOT_ID)
 		qdel(slot_item_ID)

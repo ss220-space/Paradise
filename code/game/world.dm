@@ -89,6 +89,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 /world/proc/startup_procs()
 	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
+	load_launcher_aliases()
 	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
 	load_mode() // Loads up the gamemode
 

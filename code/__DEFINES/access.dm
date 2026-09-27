@@ -74,6 +74,7 @@
 #define ACCESS_MINERAL_STOREROOM 76
 #define ACCESS_NETWORK 77
 #define ACCESS_INVESTOR 78
+#define ACCESS_BITRUNNING 79
 
 #define ACCESS_WEAPONS 99 //Weapon authorization for secbots
 
@@ -132,6 +133,8 @@
 // de_kerberos 2
 #define ACCESS_CAPTAIN_REAL 310
 #define ACCESS_ARMORY_REAL 311
+
+#define ACCESS_HERETIC 320
 
 //Awaymissions
 #define ACCESS_AWAY01 271

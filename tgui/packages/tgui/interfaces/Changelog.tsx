@@ -196,18 +196,18 @@ export class Changelog extends Component<unknown, State> {
 
     const header = (
       <Section>
-        <h1>Paradise Station</h1>
+        <h1>Dark Paradise</h1>
         <p>
           <b>Thanks to: </b>
-          Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs,
-          FacepunchStation, GoonStation devs, the original SpaceStation
-          developers and Radithor for the title image. Also a thanks to anybody
-          who has contributed who is not listed here :( Ask to be added here on
-          irc.
+          Paradise Station, Baystation 12, /tg/station, /vg/station, NTstation,
+          CDK Station devs, FacepunchStation, GoonStation devs, the original
+          SpaceStation developers and Radithor for the title image. Also a
+          thanks to anybody who has contributed who is not listed here :( Ask to
+          be added here on irc.
         </p>
         <p>
           {'Recent GitHub contributors can be found '}
-          <a href="https://github.com/ss220-space/Paradise/pulse/monthly">
+          <a href="https://github.com/KINGDICE666/DarkParadise/pulse/monthly">
             here
           </a>
           .
@@ -309,7 +309,7 @@ export class Changelog extends Component<unknown, State> {
                               <Table.Cell className="Changelog__Cell">
                                 <a
                                   href={
-                                    'https://github.com/ss220-space/Paradise/pull/' +
+                                    'https://github.com/KINGDICE666/DarkParadise/pull/' +
                                     prMatch[0].substring(1)
                                   }
                                 >

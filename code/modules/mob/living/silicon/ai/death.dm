@@ -12,7 +12,7 @@
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 
-	if(mind in SSticker.mode.traitors)
+	if(mind?.has_antag_datum(/datum/antagonist/malf_ai))
 		GLOB.disable_robotics_consoles = FALSE
 
 	if(nuking)

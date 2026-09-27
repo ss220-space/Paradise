@@ -70,7 +70,7 @@
 /datum/action/innate/ai/return_to_core
 	name = "Return to Main Core"
 	desc = "Leave the APC you are shunted to, and return to your core."
-	button_icon = 'icons/obj/engines_and_power/power.dmi'
+	button_icon = 'icons/obj/machines/wallmounts.dmi'
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
@@ -691,7 +691,7 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
-	AI.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //Night-vision, without which X-ray would be very limited in power.
+	AI.lighting_cutoff = LIGHTING_CUTOFF_HIGH //Night-vision, without which X-ray would be very limited in power.
 	AI.update_sight()
 	var/upgraded_cameras = 0
 

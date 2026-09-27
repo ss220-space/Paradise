@@ -69,6 +69,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_CARGOTECH "Грузчик"
 #define JOB_TITLE_RU_MINER "Шахтёр"
 #define JOB_TITLE_RU_MINING_MEDIC "Шахтёрский врач"
+#define JOB_TITLE_RU_BITRUNNER "Битраннер"
 
 // Service
 #define JOB_TITLE_RU_HOP "Глава персонала"
@@ -185,6 +186,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_CARGOTECH = JOB_TITLE_RU_CARGOTECH,
 	JOB_TITLE_MINER = JOB_TITLE_RU_MINER,
 	JOB_TITLE_MINING_MEDIC = JOB_TITLE_RU_MINING_MEDIC,
+	JOB_TITLE_BITRUNNER = JOB_TITLE_RU_BITRUNNER,
 
 // Service
 	JOB_TITLE_HOP = JOB_TITLE_RU_HOP,
@@ -360,6 +362,9 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_LOGISTICS_DIRECTOR "Директор по логистике"
 // Cargo technician
 #define ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST "Логист"
+// Bitrunner
+#define ALT_JOB_TITLE_RU_VIRTUAL_DIVER "Виртуальный дайвер"
+#define ALT_JOB_TITLE_RU_DOMAIN_OPERATOR "Оператор доменов"
 
 // Nanotrasen representative
 #define ALT_JOB_TITLE_RU_NT_AUDITOR "Аудитор \"Нанотрейзен\""

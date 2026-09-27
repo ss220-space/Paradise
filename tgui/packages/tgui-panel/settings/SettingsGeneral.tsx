@@ -12,7 +12,7 @@ import {
 import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
 import { chatRenderer } from '../chat/renderer';
-import { FONTS } from './constants';
+import { DEFAULT_FONT, FONTS, FONTS_DISABLED } from './constants';
 import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { exportChatSettings, importChatSettings } from './settingsImExport';
 import { THEMES } from './themes';
@@ -82,7 +82,7 @@ export function SettingsGeneral(props) {
                     {FONTS.map((FONT) => (
                       <Button
                         key={FONT}
-                        fontFamily={FONT}
+                        fontFamily={FONT === FONTS_DISABLED ? DEFAULT_FONT : FONT}
                         selected={settings.fontFamily === FONT}
                         color="transparent"
                         onClick={() =>

@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define issyringe(A) (istype(A, /obj/item/reagent_containers/syringe))
 
-#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/cup))
+#define iscup(A) (istype(A, /obj/item/reagent_containers/cup))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
@@ -261,6 +261,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define islava(A) (istype(A, /turf/simulated/floor/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
+#define iscliffturf(A) (istype(A, /turf/simulated/floor/cliff))
 
 #define issingularity(atom) (istype(atom, /obj/singularity))
 
@@ -459,6 +460,14 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_closet(A) (istype(A, /obj/structure/closet))
 #define is_secure_closet(A) (istype(A, /obj/structure/closet/secure_closet))
+
+/// Heretic helpers.
+#define isplatingturf(A) (istype(A, /turf/simulated/floor/plating))
+#define issnowturf(A) (istype(A, /turf/simulated/floor/plating/asteroid/snow))
+#define IS_HERETIC(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define GET_HERETIC(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
 
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))

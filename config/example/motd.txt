@@ -1,6 +1,6 @@
 <h1>Добро пожаловать в Space Station 13!</h1>
 
-<i>Билд, используемый на данном сервере — форк билда <a href="https://www.paradisestation.org">Paradise</a>, разрабатываемый проектом SS1984.</i>
+<i>Билд, используемый на данном сервере, разрабатывается проектом Dark Paradise.</i>
 <br>
-<strong>Наш GitHub:</strong> <a href="https://github.com/ss220-space/Paradise">https://github.com/ss220-space/Paradise</a>
+<strong>Наш GitHub:</strong> <a href="https://github.com/KINGDICE666/DarkParadise">https://github.com/KINGDICE666/DarkParadise</a>
 <br>

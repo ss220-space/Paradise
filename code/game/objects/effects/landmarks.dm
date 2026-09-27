@@ -540,6 +540,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = JOB_TITLE_CARGOTECH
 	icon_state = "Cargo_Tech"
 
+/obj/effect/landmark/start/bitrunner
+	name = JOB_TITLE_BITRUNNER
+	icon_state = "Bitrunner"
+
 /obj/effect/landmark/start/shaft_miner
 	name = JOB_TITLE_MINER
 	icon_state = "Miner"
@@ -820,7 +824,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	GLOB.start_override_outfit = new paths[selected_outfit]
 
 /obj/effect/landmark/start_override/prisoner
-	connected_outfit = /datum/outfit/job/assistant/prisoner
+	connected_outfit = /datum/outfit/job/prisoner
 
 // MARK: Unit Tests
 /// Marks the bottom left of the testing zone.

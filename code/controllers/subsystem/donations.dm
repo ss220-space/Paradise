@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(donations)
 	var/datum/db_query/query = SSdbcore.NewQuery(
 		{"SELECT DATE_FORMAT(date_start, '%Y-%m') AS month,CAST(SUM(amount) as UNSIGNED INTEGER) AS total_amount
 		FROM [CONFIG_GET(string/utility_database)].budget
-		WHERE source NOT IN ('creator', 'virtual', 'contributor') AND is_valid IS TRUE AND DATE_FORMAT(date_start, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
+		WHERE source NOT IN ('creator', 'virtual', 'contributor', '[REFERRAL_BUDGET_SOURCE]') AND is_valid IS TRUE AND DATE_FORMAT(date_start, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
 		GROUP BY month
 		ORDER BY month DESC;"}
 	)
@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(donations)
 /datum/controller/subsystem/donations/proc/load_donators()
 	var/datum/db_query/query = SSdbcore.NewQuery(
 		{"SELECT ckey, CAST(SUM(amount) as UNSIGNED INTEGER) AS total_amount, COUNT(*) AS donations_count FROM [CONFIG_GET(string/utility_database)].budget
-		WHERE source NOT IN ('creator', 'virtual', 'contributor') AND is_valid IS TRUE
+		WHERE source NOT IN ('creator', 'virtual', 'contributor', '[REFERRAL_BUDGET_SOURCE]') AND is_valid IS TRUE
 		GROUP BY ckey
 		ORDER BY total_amount DESC;"}
 	)

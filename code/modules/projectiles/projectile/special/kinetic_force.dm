@@ -13,6 +13,7 @@
 	var/pressure_decrease = 0.25
 	/// We keep the KA here to use the properties of its modkits when projectile hit the target.
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
+	var/list/ignored_mob_types
 
 /obj/projectile/kinetic/get_ru_names()
 	return alist(
@@ -26,6 +27,14 @@
 
 /obj/projectile/kinetic/Destroy()
 	kinetic_gun = null
+	ignored_mob_types = null
+	return ..()
+
+/obj/projectile/kinetic/Bump(atom/bumped_atom)
+	if(is_type_in_typecache(bumped_atom, ignored_mob_types))
+		loc = get_turf(bumped_atom)
+		LAZYADD(permutated, bumped_atom)
+		return FALSE
 	return ..()
 
 /obj/projectile/kinetic/prehit(atom/target)
@@ -61,8 +70,7 @@
 		var/turf/simulated/mineral/mineral = target_turf
 		mineral.attempt_drill(firer, FALSE, power)
 		// If there is a mind, check for skill modifier to allow them to reload faster.
-		CALCULATE_SKILL_MOD(firer, MINING_SPEED_MOD, skill_modifier)
-		kinetic_gun.attempt_reload(kinetic_gun.overheat_time * skill_modifier) //If you hit a mineral, you might get a quicker reload. epic gamer style.
+		kinetic_gun.attempt_reload(kinetic_gun.overheat_time) //If you hit a mineral, you might get a quicker reload. epic gamer style.
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 

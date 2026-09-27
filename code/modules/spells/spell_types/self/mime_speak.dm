@@ -9,7 +9,7 @@
 
 // IDK how to do it
 /*
-/obj/effect/proc_holder/spell/mime/speak/Click()
+/datum/action/cooldown/spell/mime/speak/Click()
 	if(!usr)
 		return
 	if(!ishuman(usr))

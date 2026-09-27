@@ -1,0 +1,145 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1
+	},
+/area/virtual_domain/safehouse)
+"f" = (
+/turf/simulated/wall,
+/area/virtual_domain/safehouse)
+"p" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+"t" = (
+/obj/modular_map_connector,
+/turf/simulated/wall,
+/area/virtual_domain/safehouse)
+"w" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"B" = (
+/obj/structure/table,
+/obj/item/flashlight/lantern{
+	pixel_x = 8;
+	pixel_y = null
+	},
+/obj/item/flashlight/lantern{
+	pixel_y = 4
+	},
+/obj/item/flashlight/lantern{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+"C" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/structure/railing,
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"H" = (
+/obj/machinery/door/airlock/external/glass{
+	name = "Mining External Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+"K" = (
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+"P" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"T" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+"X" = (
+/obj/machinery/suit_storage_unit/mining,
+/turf/simulated/floor/plasteel/dark{
+	dir = 4
+	},
+/area/virtual_domain/safehouse)
+"Y" = (
+/obj/machinery/suit_storage_unit/mining,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 4
+	},
+/area/virtual_domain/safehouse)
+"Z" = (
+/obj/machinery/suit_storage_unit/mining,
+/turf/simulated/floor/plasteel/dark,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+f
+f
+f
+P
+P
+t
+"}
+(2,1,1) = {"
+P
+Z
+Y
+X
+B
+f
+"}
+(3,1,1) = {"
+f
+K
+K
+K
+a
+P
+"}
+(4,1,1) = {"
+H
+K
+K
+K
+a
+P
+"}
+(5,1,1) = {"
+f
+K
+K
+K
+a
+P
+"}
+(6,1,1) = {"
+P
+p
+w
+C
+T
+f
+"}
+(7,1,1) = {"
+f
+f
+f
+P
+P
+f
+"}

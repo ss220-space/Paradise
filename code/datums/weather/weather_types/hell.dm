@@ -42,14 +42,14 @@
 
 /datum/weather/hell/proc/transform_mobs()
 	var/list/devils
-	for(var/datum/mind/mind as anything in SSticker?.mode?.devils)
+	for(var/datum/mind/mind as anything in get_antag_minds(/datum/antagonist/devil))
 		LAZYADD(devils, mind.has_antag_datum(/datum/antagonist/devil))
 	transform_demons()
 	transform_imps(devils)
 	transform_shadows(devils)
 
 /datum/weather/hell/proc/transform_demons()
-	for(var/datum/mind/mind as anything in SSticker?.mode?.sintouched)
+	for(var/datum/mind/mind as anything in get_antag_minds(/datum/antagonist/sintouched))
 		if(!mind.current || mind.current.stat == DEAD)
 			continue
 		var/mob/mob = mind.current

@@ -1,6 +1,6 @@
 /datum/antagonist/krampus
 	name = "Krampus"
-	roundend_category = "devils"
+	roundend_category = "Дьяволами"
 	antag_menu_name = "Крампус"
 	job_rank = ROLE_KRAMPUS
 	special_role = ROLE_KRAMPUS

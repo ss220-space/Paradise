@@ -12,6 +12,9 @@
 
 /turf/simulated/floor/bluegrid
 	icon_state = "bcircuit"
+	light_range = 2
+	light_power = 1.5
+	light_color = LIGHT_COLOR_BABY_BLUE
 
 /turf/simulated/floor/bluegrid/telecomms
 	nitrogen = 100
@@ -23,13 +26,19 @@
 
 /turf/simulated/floor/greengrid
 	icon_state = "gcircuit"
+	light_range = 2
+	light_power = 1.5
+	light_color = LIGHT_COLOR_VIVID_GREEN
 
 /turf/simulated/floor/bluegrid/telecomms/mainframe
 	name = "Mainframe Floor"
 	icon_state = "dark"
+	light_range = 0
 
 /turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit
 	icon_state = "gcircuit"
+	light_range = 2
+	light_color = LIGHT_COLOR_VIVID_GREEN
 
 /turf/simulated/floor/greengrid/airless
 	name = "airless floor"
@@ -43,6 +52,9 @@
 
 /turf/simulated/floor/redgrid
 	icon_state = "rcircuit"
+	light_range = 2
+	light_power = 1.5
+	light_color = LIGHT_COLOR_INTENSE_RED
 
 /turf/simulated/floor/beach
 	name = "beach"
@@ -89,6 +101,18 @@
 		dug = TRUE
 		return .|ATTACK_CHAIN_SUCCESS
 
+/turf/simulated/floor/beach/coast
+	name = "coastline"
+	icon_state = "beach"
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
+	baseturf = /turf/simulated/floor/beach/coast
+
+/turf/simulated/floor/beach/coast/corner
+	icon_state = "beachcorner"
+
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
@@ -134,6 +158,11 @@
 	overlay_image.plane = GAME_PLANE
 	add_overlay(overlay_image)
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
+	RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(drop_pool_hooks))
+
+/turf/simulated/floor/beach/water/proc/drop_pool_hooks(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_ATOM_INITIALIZED_ON, COMSIG_TURF_CHANGE))
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

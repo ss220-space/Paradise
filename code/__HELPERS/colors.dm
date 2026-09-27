@@ -165,4 +165,13 @@ GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a
 		output_alpha * 255
 	)
 
+/proc/blend_cutoff_colors(list/first_color, list/second_color)
+	ASSERT(length(first_color) == 3, "First color must be a 3 length list, received [json_encode(first_color)]")
+	ASSERT(length(second_color) == 3, "Second color must be a 3 length list, received [json_encode(second_color)]")
+
+	var/list/output = new /list(3)
+	for(var/index in 1 to 3)
+		output[index] = (1 - (1 - first_color[index] / LIGHTING_CUTOFF_FULLBRIGHT) * (1 - second_color[index] / LIGHTING_CUTOFF_FULLBRIGHT)) * LIGHTING_CUTOFF_FULLBRIGHT
+	return output
+
 #undef ALPHA_COMPOSE

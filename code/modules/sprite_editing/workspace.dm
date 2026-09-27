@@ -300,7 +300,7 @@
 			layer_frames += list(layers[i]["data"]["[GLOB.alldirs_dmi_order[dir_index]]"])
 		var/pixels = reorder_pixels(width, height, grid_width, grid_height, layer_frames)
 		var/temp_path = "tmp/[temp_file_prefix]_layer[i].dmi"
-		var/result = rustg_dmi_create_png(temp_path, "[file_width]", "[file_height]", pixels)
+		var/result = rustlib_dmi_create_png(temp_path, "[file_width]", "[file_height]", pixels)
 		if(result)
 			stack_trace(result)
 			return TRUE
@@ -309,12 +309,10 @@
 			stack_trace(result)
 			return TRUE
 
-	var/datum/universal_icon/out_icon = uni_icon("tmp/[temp_file_prefix]_layer1.dmi", "")
+	var/icon/final_icon = icon("tmp/[temp_file_prefix]_layer1.dmi", "")
 
 	for(var/i in 2 to layer_count)
-		out_icon.blend_icon(uni_icon("tmp/[temp_file_prefix]_layer[i].dmi", ""), ICON_OVERLAY)
-
-	var/icon/final_icon = out_icon.to_icon()
+		final_icon.Blend(icon("tmp/[temp_file_prefix]_layer[i].dmi", ""), ICON_OVERLAY)
 
 	for(var/i in 1 to layer_count)
 		fdel("tmp/[temp_file_prefix]_layer[i].dmi")

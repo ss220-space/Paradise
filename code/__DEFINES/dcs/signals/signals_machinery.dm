@@ -20,3 +20,6 @@
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+///from base of obj/machinery/vending/do_vend(): (obj/item/vended_item)
+#define COMSIG_VENDING_DISPENSED "vending_dispensed"

@@ -1,4 +1,0 @@
-author: "Den109G"
-delete-after: True
-changes:
-  - bugfix: "Любой ценой запускается голосование за автошаттл (PR #9764)"

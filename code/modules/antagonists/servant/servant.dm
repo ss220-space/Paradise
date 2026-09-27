@@ -1,5 +1,6 @@
 #define MAX_DISTANCE 12
 /datum/antagonist/servant
+	roundend_category = "Слугами Гелиуса"
 	name = "Magic servant"
 	job_rank = ROLE_WIZARD
 	special_role = SPECIAL_ROLE_SERVANT

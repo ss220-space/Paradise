@@ -5,7 +5,7 @@ GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
 		return
 
 	if(client)
-		if(check_mute(client.ckey, MUTE_PRAY))
+		if(check_mute(client.account_ckey, MUTE_PRAY))
 			to_chat(src, span_warning("You cannot pray (muted)."))
 			return
 		if(client.handle_spam_prevention(message, MUTE_PRAY, OOC_COOLDOWN))

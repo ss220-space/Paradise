@@ -26,7 +26,7 @@
 
 	see_in_dark = DEFAULT_SEE_IN_DARK
 
-	/// Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
+	/// Backward compatibility var for determining nightvision like it used to be see_in_dark
 	var/nightvision = 0
 
 	/// On /mob so clientless mobs will throw alerts properly
@@ -173,7 +173,6 @@
 	/// For research scanner equipped mobs. Enable to show research data when examining.
 	var/research_scanner = 0
 
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs
 
 	var/in_throw_mode = FALSE

@@ -152,8 +152,6 @@
 		delta += addition
 
 	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-	CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
-	damage *= skill_mod
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
 	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))

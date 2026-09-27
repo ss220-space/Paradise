@@ -1,0 +1,118 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"i" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"j" = (
+/turf/simulated/wall,
+/area/virtual_domain/safehouse)
+"l" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"o" = (
+/obj/modular_map_connector,
+/turf/simulated/wall,
+/area/virtual_domain/safehouse)
+"q" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"t" = (
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"v" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"C" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"E" = (
+/obj/machinery/light/very_dim{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"I" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"M" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain/safehouse)
+"Y" = (
+/obj/machinery/light/very_dim{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+j
+j
+j
+j
+j
+o
+"}
+(2,1,1) = {"
+j
+i
+E
+a
+M
+j
+"}
+(3,1,1) = {"
+j
+v
+v
+v
+l
+j
+"}
+(4,1,1) = {"
+I
+v
+a
+C
+q
+j
+"}
+(5,1,1) = {"
+j
+a
+v
+v
+t
+j
+"}
+(6,1,1) = {"
+j
+a
+Y
+v
+t
+j
+"}
+(7,1,1) = {"
+j
+j
+j
+j
+j
+j
+"}

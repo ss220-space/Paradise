@@ -184,7 +184,7 @@
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log`)
 		VALUES (Now() , :uckey, :uip, :logtxt)"}, list(
-			"uckey" = usr.ckey,
+			"uckey" = usr.get_account_ckey(),
 			"uip" = usr.client.address,
 			"logtxt" = logtxt
 		))

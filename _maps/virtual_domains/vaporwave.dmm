@@ -1,0 +1,1001 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aA" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/airless,
+/area/virtual_domain)
+"bs" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/virtual_domain)
+"bF" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/virtual_domain)
+"bJ" = (
+/turf/simulated/wall/rust,
+/area/virtual_domain)
+"cz" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/virtual_domain)
+"cL" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"df" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs-l"
+	},
+/area/ruin/space/virtual_domain)
+"eq" = (
+/obj/structure/sign/poster/contraband/clown,
+/turf/simulated/wall,
+/area/virtual_domain)
+"eF" = (
+/turf/simulated/wall/indestructible/binary,
+/area/space)
+"fx" = (
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"fQ" = (
+/obj/structure/flora/tree/palm,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain)
+"gM" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/sunglasses/big{
+	name = "aesthetic sunglasses"
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"hN" = (
+/turf/simulated/floor/beach/water,
+/area/virtual_domain)
+"iP" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"kj" = (
+/obj/structure/window/basic{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/bitrunning/encrypted,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"ku" = (
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"kF" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs-r"
+	},
+/area/ruin/space/virtual_domain)
+"lu" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/rust,
+/area/virtual_domain)
+"lB" = (
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"lI" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"qm" = (
+/obj/structure/flora/tree/palm,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain)
+"qH" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/virtual_domain)
+"xb" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"xp" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"xK" = (
+/turf/simulated/wall,
+/area/virtual_domain)
+"zY" = (
+/turf/simulated/floor/beach/coast,
+/area/virtual_domain)
+"AX" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/virtual_domain)
+"Cq" = (
+/obj/item/instrument/eguitar,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain)
+"Cy" = (
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain)
+"Dk" = (
+/obj/structure/window/basic{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"Es" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"GA" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/virtual_domain)
+"Hf" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "recharge_floor_asteroid"
+	},
+/area/ruin/space/virtual_domain)
+"Hj" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/virtual_domain)
+"HV" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"Jr" = (
+/obj/structure/window/basic{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"KO" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"KY" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs-m"
+	},
+/area/ruin/space/virtual_domain)
+"LG" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"LJ" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/virtual_domain)
+"LP" = (
+/obj/structure/flora/tree/palm,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain)
+"Nz" = (
+/obj/structure/window/basic{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+"NT" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/space,
+/area/space/virtual_domain)
+"Pv" = (
+/turf/space,
+/area/space/virtual_domain)
+"Qh" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/virtual_domain)
+"Uy" = (
+/obj/modular_map_root/safehouse{
+	key = "shuttle_space"
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"UV" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/virtual_domain)
+"Vc" = (
+/obj/structure/flora/tree/palm,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/virtual_domain)
+"XJ" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/pod/dark,
+/area/virtual_domain)
+"YE" = (
+/mob/living/simple_animal/butterfly,
+/turf/simulated/floor/plasteel,
+/area/virtual_domain)
+
+(1,1,1) = {"
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+"}
+(2,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+NT
+eF
+"}
+(3,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(4,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(5,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Qh
+LJ
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(6,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Qh
+Qh
+LJ
+Qh
+Qh
+LJ
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(7,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Qh
+Qh
+Qh
+UV
+LJ
+Qh
+UV
+Qh
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(8,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Qh
+xK
+xK
+bJ
+bJ
+bJ
+xK
+lu
+bF
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(9,1,1) = {"
+eF
+Pv
+Pv
+Pv
+LJ
+qH
+xK
+fQ
+Cy
+qm
+zY
+hN
+xK
+aA
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(10,1,1) = {"
+eF
+Pv
+Pv
+Pv
+LJ
+UV
+bJ
+Jr
+Jr
+Jr
+Jr
+Jr
+xK
+Hj
+Vc
+Qh
+cz
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+ku
+Uy
+Pv
+eF
+"}
+(11,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+Qh
+xK
+xb
+fx
+fx
+fx
+fx
+xK
+Hj
+bs
+bF
+Qh
+Pv
+Pv
+Pv
+ku
+iP
+iP
+iP
+ku
+ku
+Pv
+eF
+"}
+(12,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+Qh
+eq
+fx
+fx
+fx
+fx
+fx
+xK
+Hf
+df
+bs
+Qh
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+ku
+ku
+Pv
+eF
+"}
+(13,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+LJ
+xK
+HV
+Es
+fx
+fx
+fx
+XJ
+GA
+KY
+GA
+bs
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+ku
+ku
+Pv
+eF
+"}
+(14,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+LJ
+bJ
+xp
+gM
+fx
+fx
+cL
+xK
+Hf
+kF
+GA
+bs
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+ku
+ku
+Pv
+eF
+"}
+(15,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+LJ
+bJ
+KO
+KO
+fx
+YE
+lI
+bJ
+Hj
+bs
+bF
+bF
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+lB
+ku
+Pv
+eF
+"}
+(16,1,1) = {"
+eF
+Pv
+Pv
+Pv
+LJ
+UV
+xK
+kj
+Dk
+Dk
+Dk
+Nz
+xK
+AX
+Vc
+Qh
+Qh
+Pv
+Pv
+Pv
+ku
+ku
+ku
+ku
+ku
+LG
+Pv
+eF
+"}
+(17,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+Qh
+bJ
+fQ
+Cq
+LP
+zY
+hN
+bJ
+aA
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(18,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Qh
+Qh
+xK
+xK
+bJ
+xK
+bJ
+bJ
+bJ
+bF
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(19,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Qh
+Qh
+Qh
+UV
+LJ
+qH
+UV
+Qh
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(20,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Qh
+LJ
+Qh
+Qh
+LJ
+Qh
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(21,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+LJ
+Qh
+Qh
+Qh
+Qh
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(22,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(23,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(24,1,1) = {"
+eF
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+Pv
+eF
+"}
+(25,1,1) = {"
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+eF
+"}

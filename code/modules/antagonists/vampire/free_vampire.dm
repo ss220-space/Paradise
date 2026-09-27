@@ -11,12 +11,6 @@
 		/datum/vampire_passive/regen = 200,
 	)
 
-/datum/antagonist/vampire/free_vampire/add_owner_to_gamemode()
-	SSticker.mode.vampires += owner
-
-/datum/antagonist/vampire/free_vampire/remove_owner_from_gamemode()
-	SSticker.mode.vampires -= owner
-
 /datum/antagonist/vampire/free_vampire/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 

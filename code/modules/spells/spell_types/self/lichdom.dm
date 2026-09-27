@@ -20,7 +20,7 @@
 /datum/action/cooldown/spell/lichdom/Destroy()
 	marked_item = null
 	current_body = null
-	for(var/datum/mind/w_mind in SSticker.mode.wizards) //Make sure no other bones are about
+	for(var/datum/mind/w_mind in get_antag_minds(/datum/antagonist/wizard)) //Make sure no other bones are about
 		for(var/datum/action/cooldown/spell/lichdom/spell in w_mind.spell_list)
 			if(spell != src && spell.existence_stops_round_end)
 				return ..()

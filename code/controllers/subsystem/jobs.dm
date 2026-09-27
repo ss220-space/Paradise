@@ -19,10 +19,7 @@ SUBSYSTEM_DEF(jobs)
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
-	/// Used to grant AI job if antag was rolled.
-	var/mob/new_player/new_malf
-	/// Used to grant prisoner job if antag was rolled.
-	var/list/mob/new_player/new_prisoners = list()
+	var/list/datum/mind/forced_occupations = list()
 	//Debug info
 	var/list/job_debug = list()
 
@@ -139,8 +136,6 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(!job.character_old_enough(player.client))
 			return FALSE
-		if(job.species_in_blacklist(player.client))
-			return FALSE
 		if(!job.check_custom_requirements(player.client))
 			return FALSE
 
@@ -204,11 +199,9 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(job_blocked_for(player.mind, job.title))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(job.species_in_blacklist(player.client))
-			Debug("FOC player character race isn't right for job, Player: [player]")
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
@@ -259,12 +252,8 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player character not old enough rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(job_blocked_for(player.mind, job.title))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
-			continue
-
-		if(job.species_in_blacklist(player.client))
-			Debug("GRJ player character race rendering them ineligible for job, Player: [player]")
 			continue
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
@@ -274,6 +263,7 @@ SUBSYSTEM_DEF(jobs)
 			break
 
 /datum/controller/subsystem/jobs/proc/ResetOccupations()
+	forced_occupations.Cut()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player?.mind)
 			player.mind.assigned_role = null
@@ -322,26 +312,19 @@ SUBSYSTEM_DEF(jobs)
 		var/mob/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
 
-/datum/controller/subsystem/jobs/proc/FillMalfAIPosition()
-	if(!CONFIG_GET(flag/allow_ai))
-		return FALSE
-
-	var/datum/job/job = GetJob(JOB_TITLE_AI)
-	if(!job)
-		return FALSE
-
-	if(new_malf && AssignRole(new_malf, JOB_TITLE_AI))
-		return TRUE
-
-/datum/controller/subsystem/jobs/proc/fill_prisoners_position()
-	var/datum/job/job = GetJob(JOB_TITLE_PRISONER)
-	if(!job)
-		return FALSE
-	for(var/mob/new_player/new_prisoner in new_prisoners)
-		if(!new_prisoner)
+/datum/controller/subsystem/jobs/proc/assign_forced_occupations()
+	for(var/datum/mind/mind as anything in forced_occupations)
+		if(!mind.current)
 			continue
-		AssignRole(new_prisoner, JOB_TITLE_PRISONER)
-	return TRUE
+		AssignRole(mind.current, forced_occupations[mind])
+
+/datum/controller/subsystem/jobs/proc/job_blocked_for(datum/mind/mind, job_title)
+	if(!mind)
+		return FALSE
+	var/forced_title = forced_occupations[mind]
+	if(forced_title)
+		return forced_title != job_title
+	return job_title in mind.restricted_roles
 
 /** Proc DivideOccupations
 *  fills var "assigned_role" for all ready players.
@@ -365,11 +348,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			var/datum/preferences/prefs = player.client.prefs
-			if(prefs.alternate_option == RETURN_TO_LOBBY && !prefs.skip_antag)
-				prefs.final_alternate_option = BE_ASSISTANT
-			else
-				prefs.final_alternate_option = prefs.alternate_option
 
 	Debug("DO, Len: [length(unassigned)]")
 	if(length(unassigned) == 0)
@@ -380,16 +358,10 @@ SUBSYSTEM_DEF(jobs)
 
 	HandleFeedbackGathering()
 
-	if(new_malf)	// code to assign malf AI before civs.
-		Debug("DO, Running AI Check")
-		FillMalfAIPosition()
-		Debug("DO, AI Check end")
-		new_malf = null
-
-	if(length(new_prisoners)) // code to assign traitor prisoner before civs.
-		Debug("DO, Running Traitor Prisoners Check")
-		fill_prisoners_position()
-		Debug("DO, Traitor Prisoners Check end")
+	if(length(forced_occupations))
+		Debug("DO, Running Forced Occupations Check")
+		assign_forced_occupations()
+		Debug("DO, Forced Occupations Check end")
 
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")
@@ -452,11 +424,8 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player character not old enough rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && (job.title in player.mind.restricted_roles))
+				if(job_blocked_for(player.mind, job.title))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
-					continue
-				if(job.species_in_blacklist(player.client))
-					Debug("DO player character race rendering them ineligible for job, Player: [player]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
@@ -473,7 +442,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.final_alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -483,7 +452,7 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.final_alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
 					AssignRole(player, JOB_TITLE_CIVILIAN)
@@ -492,10 +461,10 @@ SUBSYSTEM_DEF(jobs)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.final_alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
-		else if(player.client.prefs.final_alternate_option == RETURN_TO_LOBBY)
+		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
 			player.ready = 0
 			unassigned -= player
@@ -523,21 +492,21 @@ SUBSYSTEM_DEF(jobs)
 	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
 	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_notice(job.supervisors)]. </b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
-	if(job.is_service)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_SERVICE)
 		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
-	if(job.is_supply)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_SUPPLY)
 		L.Add("<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
-	if(job.is_command)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
 		L.Add("<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
-	if(job.is_legal)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_LEGAL)
 		L.Add("<b>Ваша должность требует полного знания <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Space_Law\">Космического Закона</a> и <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
-	if(job.is_engineering)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_ENGINEERING)
 		L.Add("<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
-	if(job.is_medical)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_MEDICAL)
 		L.Add("<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
-	if(job.is_science)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_SCIENCE)
 		L.Add("<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
-	if(job.is_security)
+	if(job.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
 		L.Add("<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Space_Law\">Космического Закона</a>, <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		L.Add("<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
@@ -965,7 +934,7 @@ SUBSYSTEM_DEF(jobs)
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
 			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
-			list("ckey" = C.ckey)
+			list("ckey" = C.account_ckey)
 		)
 
 		select_queries[C.ckey] = exp_read
@@ -1050,7 +1019,7 @@ SUBSYSTEM_DEF(jobs)
 			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
-				"ckey" = C.ckey
+				"ckey" = C.account_ckey
 			)
 		)
 
@@ -1061,7 +1030,7 @@ SUBSYSTEM_DEF(jobs)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(
-				"ckey" = C.ckey,
+				"ckey" = C.account_ckey,
 				"addedliving" = added_living,
 				"addedghost" = added_ghost
 			)

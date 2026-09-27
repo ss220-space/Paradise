@@ -133,6 +133,31 @@
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
 
+/obj/item/reagent_containers/food/snacks/canned_meat
+	name = "B&D canned meat"
+	desc = "Банка тушёнки от \"Bomboclat&Dimempers\". Состав стёрся, срок годности тоже."
+	icon_state = "canned_meat"
+	gender = FEMALE
+	trash = /obj/item/trash/canned_meat
+	filling_color = "#8E2420"
+	bitesize = 3
+	junkiness = 15
+	antable = FALSE
+	list_reagents = list("protein" = 6, "sodiumchloride" = 1, "vitamin" = 1)
+	tastes = list("тушёного мяса" = 3, "жести" = 1)
+	foodtype = JUNKFOOD | MEAT
+	opened = FALSE
+
+/obj/item/reagent_containers/food/snacks/canned_meat/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка тушёнки \"B&D\"",
+		GENITIVE = "банки тушёнки \"B&D\"",
+		DATIVE = "банке тушёнки \"B&D\"",
+		ACCUSATIVE = "банку тушёнки \"B&D\"",
+		INSTRUMENTAL = "банкой тушёнки \"B&D\"",
+		PREPOSITIONAL = "банке тушёнки \"B&D\"",
+	)
+
 //////////////////////
 //		Homemade	//
 //////////////////////

@@ -231,6 +231,42 @@
 	icon_state = "pizzabox_open"
 	open = TRUE
 
+/obj/item/pizzabox/infinite
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+	box_tag = "Ваша любимая"
+	var/static/list/pizza_preferences = list()
+	var/static/list/pizza_types = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza = 10,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza = 10,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita = 10,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza = 8,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 5,
+	)
+
+/obj/item/pizzabox/infinite/examine(mob/user)
+	if(!open && ishuman(user))
+		attune_pizza(user)
+	. = ..()
+	if(isobserver(user))
+		. += span_deadsay("Эта аномальная коробка создаёт бесконечную пиццу.")
+
+/obj/item/pizzabox/infinite/attack_self(mob/user)
+	if(ishuman(user))
+		attune_pizza(user)
+		to_chat(user, span_notice("В коробке тут же появляется ещё одна пицца. Как это вообще работает?"))
+	return ..()
+
+/obj/item/pizzabox/infinite/proc/attune_pizza(mob/living/carbon/human/user)
+	if(!user.ckey)
+		return
+	pizza_preferences[user.ckey] ||= pickweight(pizza_types)
+	var/pizza_type = pizza_preferences[user.ckey]
+	if(pizza?.type == pizza_type)
+		return
+	QDEL_NULL(pizza)
+	pizza = new pizza_type(src)
+	update_appearance(UPDATE_DESC | UPDATE_ICON)
+
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
@@ -390,4 +426,3 @@
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	box_tag = "Hawaiian feast"
 	. = ..()
-

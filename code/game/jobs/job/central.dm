@@ -2,6 +2,7 @@
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
 	title = JOB_TITLE_CCOFFICER
+	job_flags = JOB_ANTAG_PROTECTED
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	department = STATION_DEPARTMENT_OTHER
@@ -14,28 +15,6 @@
 	minimal_access = list()
 	admin_only = 1
 	outfit = /datum/outfit/job/ntnavyofficer
-	skill_levels = list(
-		/datum/skill/general/carrying = 3,
-		/datum/skill/general/mech_drive = 3,
-		/datum/skill/general/mod_use = 3,
-		/datum/skill/general/cooking = 3,
-		/datum/skill/service/drink_mixing = 3,
-		/datum/skill/service/botany = 3,
-		/datum/skill/service/cleaning = 3,
-		/datum/skill/combat/accuracy = 4,
-		/datum/skill/combat/guns = 4,
-		/datum/skill/combat/melee = 4,
-		/datum/skill/combat/fists = 4,
-		/datum/skill/medical/surgery = 3,
-		/datum/skill/medical/heal = 3,
-		/datum/skill/medical/chemistry = 3,
-		/datum/skill/medical/genetic = 3,
-		/datum/skill/medical/virusology = 3,
-		/datum/skill/research/research = 3,
-		/datum/skill/research/protolathe = 3,
-		/datum/skill/research/robotics = 3,
-		/datum/skill/research/xenobiology = 3,
-	)
 
 /datum/job/ntnavyofficer/get_access()
 	return get_centcom_access(title)
@@ -90,6 +69,7 @@
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
 	title = JOB_TITLE_CCSPECOPS
+	job_flags = JOB_ANTAG_PROTECTED
 	flag = JOB_FLAG_CENTCOM
 	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	department = STATION_DEPARTMENT_OTHER
@@ -103,28 +83,6 @@
 	admin_only = 1
 	spawn_ert = 1
 	outfit = /datum/outfit/job/ntspecops
-	skill_levels = list(
-		/datum/skill/general/carrying = 3,
-		/datum/skill/general/mech_drive = 3,
-		/datum/skill/general/mod_use = 3,
-		/datum/skill/general/cooking = 3,
-		/datum/skill/service/drink_mixing = 3,
-		/datum/skill/service/botany = 3,
-		/datum/skill/service/cleaning = 3,
-		/datum/skill/combat/accuracy = 4,
-		/datum/skill/combat/guns = 4,
-		/datum/skill/combat/melee = 4,
-		/datum/skill/combat/fists = 4,
-		/datum/skill/medical/surgery = 3,
-		/datum/skill/medical/heal = 3,
-		/datum/skill/medical/chemistry = 3,
-		/datum/skill/medical/genetic = 3,
-		/datum/skill/medical/virusology = 3,
-		/datum/skill/research/research = 3,
-		/datum/skill/research/protolathe = 3,
-		/datum/skill/research/robotics = 3,
-		/datum/skill/research/xenobiology = 3,
-	)
 
 /datum/job/ntspecops/get_access()
 	return get_centcom_access(title)

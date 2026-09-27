@@ -8,6 +8,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mass driver."
+	light_range = 1.5
+	light_power = 0.5
+	light_color = LIGHT_COLOR_VIVID_GREEN
 	var/id_tag = "default"
 	var/active = FALSE
 	anchored = TRUE
@@ -34,6 +37,7 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
+	update_icon()
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -47,8 +51,20 @@
 	radio_connection = null
 	return ..()
 
+/obj/machinery/driver_button/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
+
 /obj/machinery/driver_button/update_icon_state()
 	icon_state = active ? "launcheract" : "launcherbtt"
+	set_light_on(!(stat & (NOPOWER|BROKEN)))
+
+/obj/machinery/driver_button/update_overlays()
+	. = ..()
+	if(stat & (NOPOWER|BROKEN))
+		return
+	. += emissive_appearance(icon, "launcher_lightmask", src)
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -63,8 +79,7 @@
 
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return .
 	to_chat(user, span_notice("You detach [src] from the wall."))
 	new /obj/item/mounted/frame/driver_button(loc)
@@ -149,11 +164,18 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mounted igniter."
+	light_range = 1.5
+	light_power = 0.5
+	light_color = LIGHT_COLOR_VIVID_GREEN
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+/obj/machinery/ignition_switch/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)
@@ -191,6 +213,18 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/ignition_switch/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
+
 /obj/machinery/ignition_switch/update_icon_state()
 	icon_state = active ? "launcheract" : "launcherbtt"
+	set_light_on(!(stat & (NOPOWER|BROKEN)))
+
+/obj/machinery/ignition_switch/update_overlays()
+	. = ..()
+	if(stat & (NOPOWER|BROKEN))
+		return
+	. += emissive_appearance(icon, "launcher_lightmask", src)
 

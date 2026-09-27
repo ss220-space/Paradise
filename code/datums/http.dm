@@ -25,6 +25,7 @@
 	var/_raw_response
 	/// Callback for executing after async requests. Will be called with an argument of [/datum/http_response] as first argument
 	var/datum/callback/cb
+	var/sensitive = FALSE
 
 /datum/http_request/can_vv_get(var_name)
 	. = ..()

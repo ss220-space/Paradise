@@ -17,6 +17,8 @@
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
+	/// All heretic minds for the round (tg heretic port).
+	var/list/heretics = list()
 	/// Probablity for this mode in secret mode type.
 	var/probability = 0
 	/// Whether this mode can be voted by players.
@@ -30,6 +32,7 @@
 	var/list/restricted_jobs = list()
 	/// Jobs that can't be antags.
 	var/list/protected_jobs = list()
+	var/always_protect_roles = FALSE
 	/// Species that can't be antags.
 	var/list/protected_species = list()
 	/// Specified associative list of "antag - job" restrictions
@@ -49,112 +52,29 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/eventmiscs = list()
-	var/list/datum/mind/traders = list()
-	var/list/datum/mind/morphs = list()
-	var/list/datum/mind/swarmers = list()
-	var/list/datum/mind/guardians = list()
-	var/list/datum/mind/revenants = list()
-	var/list/datum/mind/headslugs = list()
-	var/list/datum/mind/deathsquad = list()
-	var/list/datum/mind/honksquad = list()
-	var/list/datum/mind/sst = list()
-	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 	/// A list of all station goals for this game mode
 	var/list/datum/station_goal/station_goals = list()
 
-	/// A list of all minds which have the traitor antag datum.
-	var/list/datum/mind/traitors = list()
-	/// An associative list with mindslave minds as keys and their master's minds as values.
-	var/list/datum/mind/implanted = list()
-	/// A list of all minds which have the changeling antag datum
-	var/list/datum/mind/changelings = list()
-	/// A list of all minds which have the vampire antag datum
-	var/list/datum/mind/vampires = list()
-	/// A list of all minds which are thralled by a vampire
-	var/list/datum/mind/vampire_enthralled = list()
-
-	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
+	/// A list containing references to the minds of soon-to-be traitors.
 	var/list/datum/mind/pre_traitors = list()
-	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
+	/// A list containing references to the minds of soon-to-be changelings.
 	var/list/datum/mind/pre_changelings = list()
 	///list of minds of soon to be vampires
 	var/list/datum/mind/pre_vampires = list()
 	/// A list containing references to the minds of soon-to-be mindflayers.
 	var/list/datum/mind/pre_mindflayers = list()
-	/// A list of all minds which have the wizard special role
-	var/list/datum/mind/wizards = list()
-	/// A list of all minds that are wizard apprentices
-	var/list/datum/mind/apprentices = list()
 
 	/// How many abductor teams do we have
 	var/abductor_teams = 0
-	/// A list which contains the minds of all abductors
-	var/list/datum/mind/abductors = list()
-	/// A list which contains the minds of all abductees
-	var/list/datum/mind/abductees = list()
 
 	/// A list of all the nuclear operatives' minds
 	var/list/datum/mind/syndicates = list()
 
-	/// A list of all the minds of head revolutionaries
-	var/list/datum/mind/head_revolutionaries = list()
-	/// A list of all the minds of revolutionaries
-	var/list/datum/mind/revolutionaries = list()
-
-	/// A list of all the minds with the superhero special role
-	var/list/datum/mind/superheroes = list()
-	/// A list of all the minds with the supervillain special role
-	var/list/datum/mind/supervillains = list()
-	/// A list of all the greyshirt minds
-	var/list/datum/mind/greyshirts = list()
-
-	/// A list of all the minds that have the ERT special role
-	var/list/datum/mind/ert = list()
-
-	/// The Contractor Support Units
-	var/list/datum/mind/support = list()
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
 	/// The number of contractors who accepted the offer.
 	var/contractor_accepted = 0
-
-	/// A list of all demon minds spawned via event or wizard artefact.
-	var/list/datum/mind/demons = list()
-
-	var/list/datum/mind/sintouched = list()
-	var/list/datum/mind/devils = list()
-
-	/// A list of all minds currently in the cult
-	var/list/datum/mind/cult = list()
-	var/datum/cult_objectives/cult_objs = new
-	/// Does the cult have glowing eyes
-	var/cult_risen = FALSE
-	/// Does the cult have halos
-	var/cult_ascendant = FALSE
-	/// How many crew need to be converted to rise
-	var/rise_number
-	/// How many crew need to be converted to ascend
-	var/ascend_number
-	/// Used for the CentComm announcement at ascension
-	var/ascend_percent
-	/// The number of ghost summons available to the cult.
-	var/ghost_summons = null
-
-	/// A list of all minds currently in the cult
-	var/list/datum/mind/clockwork_cult = list()
-	var/datum/clockwork_objectives/clocker_objs = new
-	/// Does the clockers have significant power stored
-	var/power_reveal = FALSE
-	/// Does the cult have halos
-	var/crew_reveal = FALSE
-	/// How many power need to be in supply to reveal
-	var/power_reveal_number
-	/// How many crew need to be converted to reveal
-	var/crew_reveal_number
-	/// Used for CentCom announcement when reached crew limit conversion
-	var/reveal_percent
 
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list(
@@ -182,29 +102,9 @@
 	/// Total blobs objective
 	var/datum/objective/blob_critical_mass/blob_objective
 
-	// LEGACY SHIT!
-	var/list/datum/mind/shadows = list()
-	var/list/datum/mind/shadowling_thralls = list()
-	var/list/shadow_objectives = list()
-	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
-	var/shadowling_ascended = 0 //If at least one shadowling has ascended
-	var/shadowling_dead = 0 //is shadowling kill
-	var/objective_explanation
-	var/warning_threshold
-	var/victory_warning_announced = FALSE
-	var/thrall_ratio = 1
-
-	var/list/datum/mind/thieves = list()
-
-	var/list/datum/mind/space_ninjas = list()
-
-	var/list/datum/mind/goon_vampires = list()
-	var/list/datum/mind/goon_vampire_enthralled = list()
-
 	var/syndies_didnt_escape = 0
 	var/nuke_off_station = 0
 
-	var/list/datum/mind/raiders = list() //Antags.
 	var/list/raid_objectives = list() //Raid objectives
 
 /datum/game_mode/proc/announce() //to be calles when round starts
@@ -212,6 +112,9 @@
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
 	return "Gamemode report for [name] not set. Contact a coder."
+
+/datum/game_mode/proc/allow_antag_events()
+	return TRUE
 
 /**
  * Checks to see if the game can be setup and ran with the current number of players or whatnot.
@@ -436,6 +339,15 @@
 
 	return FALSE
 
+/datum/game_mode/proc/get_restricted_roles()
+	. = restricted_jobs.Copy()
+	var/protect_roles = always_protect_roles || CONFIG_GET(flag/protect_roles_from_antagonist)
+	if(protect_roles)
+		. |= protected_jobs
+	for(var/datum/job/job as anything in SSjobs.occupations)
+		if((job.job_flags & JOB_ANTAG_BLACKLISTED) || (protect_roles && (job.job_flags & JOB_ANTAG_PROTECTED)))
+			. |= job.title
+
 /**
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
@@ -458,10 +370,11 @@
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	var/list/restricted_roles = get_restricted_roles()
 	for(var/mob/new_player/player in players)
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
-		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+		if(player.mind.assigned_role in restricted_roles)
 			continue
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
 		candidates += player.mind
@@ -497,10 +410,11 @@
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	var/list/restricted_roles = get_restricted_roles()
 	for(var/mob/living/carbon/human/player in players)
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
-		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+		if(player.mind.assigned_role in restricted_roles)
 			continue
 		if(length(forbidden_antag_jobs) && (player.mind.assigned_role in forbidden_antag_jobs[role]))
 			continue
@@ -849,41 +763,6 @@
 			continue
 
 		goal.print_result()
-
-/datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.join_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, "hudevent")
-
-/datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
-	antaghud.leave_hud(mob_mind.current)
-	set_antag_hud(mob_mind.current, null)
-
-/// Gets the value of all end of round stats through auto_declare and returns them
-/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
-	. = list()
-	. += auto_declare_completion_traitor()
-	. += auto_declare_completion_vampire()
-	. += auto_declare_completion_enthralled()
-	. += auto_declare_completion_changeling()
-	. += auto_declare_completion_wizard()
-	. += auto_declare_completion_revolution()
-	. += auto_declare_completion_abduction()
-	. += auto_declare_completion_morph()
-	. += auto_declare_completion_revenant()
-	. += auto_declare_completion_honksquad()
-	. += auto_declare_completion_deathsquad()
-	. += auto_declare_completion_sst()
-	. += auto_declare_completion_sit()
-	. += auto_declare_completion_blob()
-	. += auto_declare_completion_ninja()
-	. += auto_declare_completion_thief()
-	. += auto_declare_completion_goon_vampire()
-	. += auto_declare_completion_goon_enthralled()
-	. += auto_declare_completion_devil()
-	. += auto_declare_completion_sintouched()
-	list_clear_nulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/god/god, inevitable = FALSE)
 	if(istype(god, /obj/god/narsie))

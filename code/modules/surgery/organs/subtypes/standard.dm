@@ -273,6 +273,7 @@
 	icon_position = LEFT
 	parent_organ_zone = BODY_ZONE_L_LEG
 	amputation_point = "левую лодыжку"
+	paralysis_trait = TRAIT_PARALYSIS_L_LEG
 
 /obj/item/organ/external/foot/get_ru_names()
 	return alist(
@@ -293,9 +294,10 @@
 	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	var/was_usable = is_usable()
 	. = ..()
 	user.set_num_legs(user.num_legs - 1)
-	if(is_usable())
+	if(was_usable)
 		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
 	user.update_fractures_fall()
@@ -389,6 +391,7 @@
 	icon_position = RIGHT
 	parent_organ_zone = BODY_ZONE_R_LEG
 	amputation_point = "правую лодыжку"
+	paralysis_trait = TRAIT_PARALYSIS_R_LEG
 
 /obj/item/organ/external/foot/right/get_ru_names()
 	return alist(
@@ -417,6 +420,7 @@
 	parent_organ_zone = BODY_ZONE_L_ARM
 	amputation_point = "левое запястье"
 	can_grasp = TRUE
+	paralysis_trait = TRAIT_PARALYSIS_L_ARM
 
 /obj/item/organ/external/hand/get_ru_names()
 	return alist(
@@ -464,9 +468,10 @@
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
 
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	var/was_usable = is_usable()
 	. = ..()
 	user.set_num_hands(user.num_hands - 1)
-	if(is_usable())
+	if(was_usable)
 		user.set_usable_hands(user.usable_hands - 1, special, limb_zone)
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.gloves, force = TRUE)
@@ -524,6 +529,7 @@
 	limb_body_flag = HAND_RIGHT
 	parent_organ_zone = BODY_ZONE_R_ARM
 	amputation_point = "правое запястье"
+	paralysis_trait = TRAIT_PARALYSIS_R_ARM
 
 /obj/item/organ/external/hand/right/get_ru_names()
 	return alist(

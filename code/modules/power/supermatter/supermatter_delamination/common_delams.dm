@@ -84,7 +84,7 @@
 	var/cached_damage = sm.damage
 	if(sm.get_integrity_percent() > SUPERMATTER_DANGER_PERCENT)
 		sm.set_light(
-			l_range = 4 + clamp((450 - cached_damage) / 10, 1, 50),
+			l_range = ROUND_UP(4 + clamp((450 - cached_damage) / 10, 1, 50)),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
@@ -93,7 +93,7 @@
 		return
 
 	var/darkness_strength = clamp((cached_damage - 450) / 75, 1, 8) / 2
-	var/darkness_aoe = clamp((cached_damage - 450) / 25, 1, 25)
+	var/darkness_aoe = ROUND_UP(clamp((cached_damage - 450) / 25, 1, 25))
 	sm.set_light(
 		l_range = 4 + darkness_aoe,
 		l_power = -1 - darkness_strength,
@@ -170,7 +170,7 @@
 /datum/sm_delam/tesla/lights(obj/machinery/power/supermatter_crystal/sm)
 	..()
 	sm.set_light(
-		l_range = 4 + clamp(sm.damage * sm.internal_energy, 50, 500),
+		l_range = ROUND_UP(4 + clamp(sm.damage * sm.internal_energy, 50, 500)),
 		l_power = 3,
 		l_color = SUPERMATTER_TESLA_COLOUR,
 	)

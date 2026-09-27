@@ -108,6 +108,10 @@
 				log_admin("[key_name(usr)] has spawned a nuke team.")
 				if(!makeNukeTeam())
 					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential = TRUE)
+			if("16")
+				log_admin("[key_name(usr)] has spawned heretics.")
+				if(!makeHeretics())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential = TRUE)
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -2088,7 +2092,7 @@
 		if(!input)
 			return
 
-		for(var/datum/mind/H in SSticker.mode.cult)
+		for(var/datum/mind/H as anything in get_blood_cult_team()?.members)
 			if(H.current)
 				to_chat(H.current, "[span_cult("[SSticker.cultdat.entity_name] murmurs,")] \"[span_cultlarge(input)]\"")
 
@@ -2101,9 +2105,9 @@
 	else if(href_list["cult_adjustsacnumber"])
 		var/amount = tgui_input_number(usr, "Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2)
 		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.cult_objs.sacrifices_required
-			gamemode.cult_objs.sacrifices_required = amount
+			var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+			var/old = cult_team.cult_objs.sacrifices_required
+			cult_team.cult_objs.sacrifices_required = amount
 			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 
@@ -2111,9 +2115,9 @@
 		if(tgui_alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", list("Yes", "No")) != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(!gamemode.cult_objs.find_new_sacrifice_target())
-			gamemode.cult_objs.ready_to_summon()
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+		if(!cult_team.cult_objs.find_new_sacrifice_target())
+			cult_team.cult_objs.ready_to_summon()
 
 		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
@@ -2122,13 +2126,13 @@
 		if(tgui_alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", list("Yes", "No")) != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
-		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-			for(var/datum/mind/cult_mind in gamemode.cult)
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+		cult_team.cult_objs.obj_summon.find_summon_locations(TRUE)
+		if(cult_team.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/cult_mind as anything in cult_team.members)
 				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
-					to_chat(cult_mind.current, span_cult("Current goal : [gamemode.cult_objs.obj_summon.explanation_text]"))
+					to_chat(cult_mind.current, span_cult("Current goal : [cult_team.cult_objs.obj_summon.explanation_text]"))
 
 		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
@@ -2137,8 +2141,7 @@
 		if(tgui_alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", list("Yes", "No")) != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.cult_objs.ready_to_summon()
+		get_blood_cult_team().cult_objs.ready_to_summon()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
@@ -2147,7 +2150,7 @@
 		if(!input)
 			return
 
-		for(var/datum/mind/H in SSticker.mode.clockwork_cult)
+		for(var/datum/mind/H as anything in get_clockwork_cult_team()?.members)
 			if(H.current)
 				to_chat(H.current, "[span_clock("Ratvar murmurs,")] \"[span_clocklarge(input)]\"")
 
@@ -2160,27 +2163,27 @@
 	else if(href_list["clock_adjustpower"])
 		var/amount = tgui_input_number(usr, "Adjust the amount of power required before summoning Ratvar", "Power Adjustment", 50000)
 		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.clocker_objs.power_goal
-			gamemode.clocker_objs.power_goal = amount
+			var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+			var/old = clock_team.clocker_objs.power_goal
+			clock_team.clocker_objs.power_goal = amount
 			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult power required before summoning from [old] to [amount]")
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult power required before summoning from [old] to [amount]")
 
 	else if(href_list["clock_adjustbeacon"])
 		var/amount = tgui_input_number(usr, "Adjust the amount of beacon required before summoning Ratvar", "Beacon Adjustment", 10)
 		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.clocker_objs.beacon_goal
-			gamemode.clocker_objs.beacon_goal = amount
+			var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+			var/old = clock_team.clocker_objs.beacon_goal
+			clock_team.clocker_objs.beacon_goal = amount
 			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult beacon required before summoning from [old] to [amount]")
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult beacon required before summoning from [old] to [amount]")
 
 	else if(href_list["clock_adjustclocker"])
 		var/amount = tgui_input_number(usr, "Adjust the amount of clockers required before summoning Ratvar", "Clockers Adjustment", 10)
 		if(amount > 0)
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/old = gamemode.clocker_objs.clocker_goal
-			gamemode.clocker_objs.clocker_goal = amount
+			var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+			var/old = clock_team.clocker_objs.clocker_goal
+			clock_team.clocker_objs.clocker_goal = amount
 			message_admins("Admin [key_name_admin(usr)] has modified the amount of clock cult clocker required before summoning from [old] to [amount]")
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult clocker required before summoning from [old] to [amount]")
 
@@ -2188,13 +2191,13 @@
 		if(tgui_alert(usr, "Reroll the Clock cult's summoning locations?", "Clock Cult Debug", list("Yes", "No")) != "Yes")
 			return
 
-		var/datum/game_mode/gamemode = SSticker.mode
-		gamemode.clocker_objs.obj_summon.find_summon_locations(TRUE)
-		if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
-			for(var/datum/mind/clock_mind in gamemode.clockwork_cult)
+		var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+		clock_team.clocker_objs.obj_summon.find_summon_locations(TRUE)
+		if(clock_team.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/clock_mind as anything in clock_team.members)
 				if(clock_mind?.current)
 					to_chat(clock_mind.current, span_cult("The veil has shifted! Our summoning will need to take place elsewhere."))
-					to_chat(clock_mind.current, span_cult("Current goal : [gamemode.clocker_objs.obj_summon.explanation_text]"))
+					to_chat(clock_mind.current, span_cult("Current goal : [clock_team.clocker_objs.obj_summon.explanation_text]"))
 
 		message_admins("Admin [key_name_admin(usr)] has rerolled the Clock Cult's sacrifice target.")
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Clock Cult's sacrifice target.")
@@ -2203,7 +2206,7 @@
 		if(tgui_alert(usr, "Unlock the ability to summon Ratvar?", "Clock Cult Debug", list("Yes", "No")) != "Yes")
 			return
 
-		SSticker.mode.clocker_objs.ratvar_is_ready()
+		get_clockwork_cult_team().clocker_objs.ratvar_is_ready()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 
@@ -2340,6 +2343,18 @@
 		if(!link_url)
 			return
 		web_sound(usr.client, link_url, href_list["credit"])
+
+	else if(href_list["stop_headphones"])
+		if(!check_rights(R_SOUNDS))
+			return
+		var/obj/item/headphone_case/case = locateUID(href_list["stop_headphones"])
+		if(!istype(case))
+			return
+		case.stop_music()
+		case.powered = FALSE
+		case.update_icon(UPDATE_ICON_STATE)
+		log_admin("[key_name(usr)] stopped the music playing from [case] ([case.UID()])")
+		message_admins("[key_name_admin(usr)] stopped the music playing from a headphone case.")
 
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
@@ -3900,27 +3915,10 @@
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
 		D.implant(hunter_mob)
-	if(killthem)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = hunter_mind
-		kill_objective.target = H.mind
-		kill_objective.explanation_text = "Kill [H.real_name], the [H.mind.assigned_role]."
-		hunter_mind.objectives += kill_objective
-	else
-		var/datum/objective/protect/protect_objective = new
-		protect_objective.owner = hunter_mind
-		protect_objective.target = H.mind
-		protect_objective.explanation_text = "Protect [H.real_name], the [H.mind.assigned_role]."
-		hunter_mind.objectives += protect_objective
-	SSticker.mode.traitors |= hunter_mob.mind
-	to_chat(hunter_mob, "[span_danger("ATTENTION:")] You are now on a mission!")
-	to_chat(hunter_mob, "<b>Goal: [span_danger("[killthem ? "MURDER" : "PROTECT"] [H.real_name]")], currently in [get_area(H.loc)].</b>");
-	if(killthem)
-		to_chat(hunter_mob, "<b>If you kill [H.p_them()], [H.p_they()] cannot be revived.</b>");
-	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
-	var/datum/atom_hud/antag/tatorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	tatorhud.join_hud(hunter_mob)
-	set_antag_hud(hunter_mob, "hudsyndicate")
+	var/datum/antagonist/contracted_agent/agent_datum = new
+	agent_datum.contract_target = H.mind
+	agent_datum.lethal = killthem
+	hunter_mind.add_antag_datum(agent_datum)
 
 /**
  * Generates admin follow links for tracking specific atoms, with special handling for clients, AIs, and observer mobs

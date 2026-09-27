@@ -112,7 +112,7 @@ MEDICAL
 	item_state = "nvghud"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(10, 25, 10)
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/health/heart
@@ -185,7 +185,7 @@ MEDICAL
 			и анализа состояния здоровья окружающих существ."
 	icon_state = "mesonhealth"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(5, 15, 5)
 
 /obj/item/clothing/glasses/hud/health/meson/get_ru_names()
 	return alist(
@@ -250,7 +250,7 @@ DIAGNOSTIC
 	item_state = "nvghud"
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(10, 25, 10)
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -347,7 +347,7 @@ SECURITY
 	icon_state = "securityhudnight"
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	color_cutoffs = list(10, 25, 10)
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/security/sunglasses
@@ -423,7 +423,7 @@ SECURITY
 	icon_state = "jensenshades"
 	item_state = "jensenshades"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(10, 25, 10)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tajblind
 	name = "sleek veil"
@@ -516,7 +516,7 @@ HYDROPONIC
 	icon_state = "hydroponichudnight"
 	item_state = "nvghud"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(10, 25, 10)
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/hydroponic/sunglasses

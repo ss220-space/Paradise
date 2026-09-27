@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	vision_range = 10
 	aggro_vision_range = 10
 	nightvision = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
 	// HUD

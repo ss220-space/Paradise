@@ -65,3 +65,8 @@
 
 /datum/emote_panel/ui_state(mob/user)
 	return GLOB.always_state
+
+GAME_VERB(/mob, emote_panel, "Панель эмоций", VERB_CATEGORY_IC)
+	if(!GLOB.emote_panel)
+		GLOB.emote_panel = new
+	GLOB.emote_panel.ui_interact(usr)

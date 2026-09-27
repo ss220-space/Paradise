@@ -1,6 +1,6 @@
 /datum/action/changeling/panacea
 	name = "Анатомическая панацея"
-	desc = "Лечит болезни, генетические мутации, избавляет от паразитов, отрезвляет, очищает от токсинов. Требует 20 химикатов."
+	desc = "Лечит болезни, генетические мутации и травмы мозга, избавляет от паразитов, отрезвляет, очищает от токсинов. Требует 20 химикатов."
 	helptext = "Можно использовать будучи без сознания. Можно использовать в низшей форме."
 	button_icon_state = "panacea"
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -20,6 +20,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/c_user = user
 		c_user.remove_all_parasites(vomit_organs = TRUE)
+		c_user.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
 
 	user.reagents.add_reagent("mutadone", 2)
 	user.apply_status_effect(STATUS_EFFECT_PANACEA)

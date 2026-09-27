@@ -27,6 +27,7 @@
 	var/num_players = 0
 	var/traitorcount = 0
 	var/list/possible_traitors = list()
+	var/list/restricted_roles = get_restricted_roles()
 
 	for(var/mob/living/player in GLOB.mob_list)
 		if(!player.client || player.stat == DEAD)
@@ -43,9 +44,8 @@
 		if(!player.job || player.mind.offstation_role) //Golems, special events stuff, etc.
 			continue
 
-		for(var/job in restricted_jobs)
-			if(player.mind.assigned_role == job)
-				continue
+		if(player.mind.assigned_role in restricted_roles)
+			continue
 
 		if(!ishuman(player) || !(ROLE_TRAITOR in player.client.prefs.be_special) || player.client.prefs?.skip_antag \
 			|| jobban_isbanned(player, ROLE_TRAITOR) || jobban_isbanned(player, "Syndicate") \

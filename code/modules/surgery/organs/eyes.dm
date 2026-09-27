@@ -32,7 +32,8 @@
 	var/vision_flags = 0
 	var/see_in_dark = 2
 	var/see_invisible = SEE_INVISIBLE_LIVING
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	var/lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
+	var/list/color_cutoffs
 	/// Modifies examine time for living mobs. Uses in /mob/living/run_examinate(atom/target)
 	var/examine_mod = 1
 

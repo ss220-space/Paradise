@@ -3,7 +3,7 @@
 	for(var/source in alphas)
 		result *= alphas[source]
 
-	alpha = LIGHTING_PLANE_ALPHA_VISIBLE * result
+	alpha = ALPHA_OPAQUE * result
 
 /mob/living/proc/alpha_prepare(source)
 	if(!(source in alphas))

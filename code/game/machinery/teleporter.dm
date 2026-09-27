@@ -432,10 +432,9 @@
 
 /obj/machinery/teleport/hub/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(power_station?.engaged && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask", src)
+		. += emissive_appearance(icon, "tele1_lightmask", src)
 
 /obj/machinery/teleport/hub/power_change(forced = FALSE)
 	. = ..()
@@ -525,10 +524,9 @@
 
 /obj/machinery/teleport/perma/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask", src)
+		. += emissive_appearance(icon, "tele1_lightmask", src)
 
 /obj/machinery/teleport/perma/proc/update_lighting()
 	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
@@ -701,10 +699,9 @@
 
 /obj/machinery/teleport/station/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(!(stat & NOPOWER) && !panel_open)
-		underlays += emissive_appearance(icon, "controller_lightmask", src)
+		. += emissive_appearance(icon, "controller_lightmask", src)
 
 #undef REGIME_TELEPORT
 #undef REGIME_GATE

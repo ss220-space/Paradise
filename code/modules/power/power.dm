@@ -110,6 +110,8 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
+	if((old_stat & NOPOWER) != (stat & NOPOWER))
+		SEND_SIGNAL(src, (stat & NOPOWER) ? COMSIG_MACHINERY_POWER_LOST : COMSIG_MACHINERY_POWER_RESTORED)
 	return old_stat != stat || forced //performance saving for machines that use power_change() to update icons!
 
 // connect the machine to a powernet if a node cable is present on the turf

@@ -99,13 +99,13 @@ do { \
 /obj/item/clothing/glasses/chameleon/thermal
 	origin_tech = "magnets=3;syndicate=2"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(25, 8, 5)
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/chameleon/meson
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(5, 15, 5)
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	flash_protect = FLASH_PROTECTION_FLASH

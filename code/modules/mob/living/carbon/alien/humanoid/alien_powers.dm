@@ -13,7 +13,7 @@
 
 	if(!host.nightvision_enabled)
 		host.nightvision = 8
-		host.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		host.lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		host.nightvision_enabled = TRUE
 		host.balloon_alert(host, "термальное")
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
@@ -22,7 +22,7 @@
 
 	if(host.nightvision_enabled)
 		host.nightvision = initial(host.nightvision)
-		host.lighting_alpha = initial(host.lighting_alpha)
+		host.lighting_cutoff = initial(host.lighting_cutoff)
 		host.nightvision_enabled = FALSE
 		host.balloon_alert(host, "обычное")
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"

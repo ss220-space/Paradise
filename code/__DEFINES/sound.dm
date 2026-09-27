@@ -1,3 +1,5 @@
+#define SONG_CACHE_DIRECTORY "cache/songs"
+
 //max channel is 1024. Only go lower from here, because byond tends to pick the first availiable channel to play sounds on
 #define CHANNEL_LOBBYMUSIC 1024
 #define CHANNEL_ADMIN 1023
@@ -118,6 +120,8 @@
 #define SOUND_EFFECT_MEGAPHONE_ROBOT 5
 #define SOUND_EFFECT_MASKFILTER 6
 #define SOUND_EFFECT_RADIO_MASKFILTER 7
+
+#define TTS_PARTIAL_SUFFIX ".part"
 
 /**
  * Calculates the volume of a sound based on distance

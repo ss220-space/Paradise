@@ -568,7 +568,8 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 
 	var/vision_flags = 0
 	var/see_in_dark = 0
-	var/lighting_alpha
+	var/lighting_cutoff
+	var/list/color_cutoffs
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -1104,8 +1105,7 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		if(isnull(original_slowdown))
 			original_slowdown = slowdown
-		CALCULATE_SKILL_MOD(user, SPACESUIT_SLOWDOWN_MOD, skill_factor)
-		slowdown = original_slowdown * skill_factor
+		slowdown = original_slowdown
 		if(jetpack)
 			for(var/datum/action/action as anything in jetpack.actions)
 				action.Grant(user)
@@ -1434,9 +1434,9 @@ GAME_VERB_SRC(/obj/item/clothing/under, rollsuit, usr, "Сменить стил�
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
-			return HIT_RESULT_FAILED
+			return
 		H.forceMove(picked)
-		return HIT_RESULT_SUCCESS
+		return 1
 	return ..()
 
 /**

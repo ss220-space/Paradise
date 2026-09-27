@@ -17,7 +17,7 @@
 	if(required_rights && !check_rights(required_rights, FALSE, C.mob))
 		return
 
-	if(mute_category && check_mute(C.ckey, mute_category))
+	if(mute_category && check_mute(C.account_ckey, mute_category))
 		to_chat(C, span_danger("You cannot use [name] (muted)."), MESSAGE_TYPE_WARNING)
 		return
 

@@ -16,7 +16,7 @@
 	/// max spray distance mod
 	var/spray_maxrange_mod = 1
 	volume = 250
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	var/delay = CLICK_CD_RANGE * 2
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
@@ -84,8 +84,7 @@
 /obj/item/reagent_containers/spray/proc/spray(mob/user, atom/target)
 	var/obj/effect/decal/chempuff/puff_decal = new /obj/effect/decal/chempuff(get_turf(src))
 	puff_decal.create_reagents(amount_per_transfer_from_this)
-	CALCULATE_SKILL_MOD(user, CLEANING_DISTANCE, cleaning_skill_mod)
-	var/spray_currentrange = close_clean_mode ? 1 : max(1, round(spray_maxrange_mod * cleaning_skill_mod, 1))
+	var/spray_currentrange = close_clean_mode ? 1 : max(1, round(spray_maxrange_mod, 1))
 	reagents.trans_to(puff_decal, amount_per_transfer_from_this, 1/spray_currentrange)
 	puff_decal.color = mix_color_from_reagents(puff_decal.reagents.reagent_list)
 	var/turf/target_turf = get_turf(target)

@@ -171,10 +171,9 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	M.mind.current = M
 	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
-	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
-	SSticker.mode.ert += M.mind
+	M.mind.add_antag_datum(/datum/antagonist/ert)
 	M.forceMove(spawn_location)
 
 	SSjobs.CreateMoneyAccount(M, role, null)

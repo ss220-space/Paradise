@@ -216,6 +216,8 @@
 	enter_delay = 1
 	base_icon_state = "dispenser0"
 	hatch_state = TRANSIT_TUBE_OPEN
+	COOLDOWN_DECLARE(freight_output)
+	COOLDOWN_DECLARE(freight_message)
 
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
@@ -223,7 +225,6 @@
 	. += span_notice("Any pods arriving at this station will be reclaimed.")
 
 /obj/structure/transit_tube/station/dispenser/close_hatch()
-	. = ..()
 	return
 
 /obj/structure/transit_tube/station/dispenser/launch_pod()
@@ -235,15 +236,22 @@
 			return TRUE
 	return FALSE
 
-/obj/structure/transit_tube/station/dispenser/Bumped(mob/living/moving_living, skip_effect = TRUE)
+/obj/structure/transit_tube/station/dispenser/Bumped(atom/movable/moving_atom, skip_effect = TRUE)
 	. = ..()
-	if(!isliving(moving_living) || moving_living.dir != boarding_dir || moving_living.anchored || is_type_in_list(moving_living, disallowed_mobs))
+	if(!istype(moving_atom) || moving_atom.dir != boarding_dir || moving_atom.anchored || is_type_in_list(moving_atom, disallowed_mobs))
 		return .
+	if(!isliving(moving_atom))
+		if(!COOLDOWN_FINISHED(src, freight_output))
+			if(COOLDOWN_FINISHED(src, freight_message))
+				moving_atom.visible_message(span_notice("Диспенсер грузовых капсул перезаряжается. Пожалуйста, подождите."))
+				COOLDOWN_START(src, freight_message, 10 SECONDS)
+			return .
+		COOLDOWN_START(src, freight_output, 2 SECONDS)
 	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-	moving_living.visible_message(span_notice("[pod] forms around [moving_living]."), span_notice("[pod] materializes around you."))
+	moving_atom.visible_message(span_notice("Вокруг [moving_atom.declent_ru(GENITIVE)] формируется транспортная капсула."), span_notice("Вокруг вас материализуется транспортная капсула."))
 	playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
-	pod.dir = turn(dir, -90)
-	pod.move_into(moving_living)
+	pod.setDir(turn(dir, -90))
+	pod.move_into(moving_atom)
 	launch_pod()
 
 /obj/structure/transit_tube/station/dispenser/pod_stopped(obj/structure/transit_tube_pod/pod)
@@ -263,7 +271,7 @@
 	base_icon_state = "terminusdispenser0"
 
 /obj/structure/transit_tube/station/dispenser/reverse/init_tube_dirs()
-	tube_dirs = list(turn(dir, 90))
+	tube_dirs = list(turn(dir, -90))
 	boarding_dir = reverse_direction(dir)
 
 /obj/structure/transit_tube/station/dispenser/reverse/flipped

@@ -24,7 +24,7 @@
 
 	qdel(query)
 
-	if(usr.ckey in ranks)
+	if(usr.get_account_ckey() in ranks)
 		return
 
 	if(CONFIG_GET(flag/disable_localhost_admin))
@@ -33,7 +33,7 @@
 	if(!usr.client.is_connecting_from_localhost())
 		return
 
-	ranks[usr.ckey] = list(
+	ranks[usr.get_account_ckey()] = list(
 				"rank" = "!LOCALHOST!",
 				"rights" = R_HOST,
 			)

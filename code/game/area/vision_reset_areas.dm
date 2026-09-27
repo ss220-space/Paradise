@@ -13,8 +13,9 @@
 		C.set_invis_see(initial(C.see_invisible))
 		C.nightvision = initial(C.nightvision)
 		C.set_sight(initial(C.sight))
-		C.lighting_alpha = initial(C.lighting_alpha)
-		C.sync_lighting_plane_alpha()
+		C.lighting_cutoff = initial(C.lighting_cutoff)
+		C.lighting_color_cutoffs = list(C.lighting_cutoff_red, C.lighting_cutoff_green, C.lighting_cutoff_blue)
+		C.sync_lighting_plane_cutoff()
 		C.AddComponent(/datum/component/vision_reset)
 
 /area/vision_change_area/Exited(atom/movable/gone, direction)
@@ -39,8 +40,9 @@
 	my_mob.set_invis_see(initial(my_mob.see_invisible))
 	my_mob.nightvision = initial(my_mob.nightvision)
 	my_mob.set_sight(initial(my_mob.sight))
-	my_mob.lighting_alpha = initial(my_mob.lighting_alpha)
-	my_mob.sync_lighting_plane_alpha()
+	my_mob.lighting_cutoff = initial(my_mob.lighting_cutoff)
+	my_mob.lighting_color_cutoffs = list(my_mob.lighting_cutoff_red, my_mob.lighting_cutoff_green, my_mob.lighting_cutoff_blue)
+	my_mob.sync_lighting_plane_cutoff()
 
 /datum/component/vision_reset/Destroy(force)
 	UnregisterSignal(my_mob, COMSIG_MOB_UPDATE_SIGHT)

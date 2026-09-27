@@ -5,9 +5,11 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	/// The name of the antagonist.
 	var/name = "Antagonist"
 	/// Section of roundend report, datums with same category will be displayed together, also default header for the section.
-	var/roundend_category = "other antagonists"
+	var/roundend_category = "Прочими антагонистами"
 	/// Set to false to hide the antagonists from roundend report.
 	var/show_in_roundend = TRUE
+	var/roundend_blackbox_key
+	var/roundend_death_is_failure = FALSE
 	/// Mind that owns this datum.
 	var/datum/mind/owner
 	/// Silent will prevent the gain/lose texts to show.
@@ -16,6 +18,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/antag_datum_blacklist
 	/// If current antag datum should be deleted on mind deletion.
 	var/delete_on_mind_deletion = TRUE
+	var/obj/item/uplink/hidden/hidden_uplink = null
 	/// Used to determine if the player jobbanned from this role. Things like `SPECIAL_ROLE_TRAITOR` should go here to determine the role.
 	var/job_rank
 	/// Should we replace the role-banned player with a ghost?
@@ -26,6 +29,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/assigned_targets
 	/// Current antagonist teams
 	var/datum/team/team
+	var/default_team_type
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -48,8 +52,10 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/show_in_orbit = TRUE
 	/// Role name in antag menu
 	var/antag_menu_name
-	/// Is this antag datum gives skill bonus
-	var/has_skill_bonus = TRUE
+	var/greet_box_class = "red_box center"
+	var/stinger_sound
+	/// A weakref to the alt-appearance hud shown to this antag's teammates, created by `add_team_hud`.
+	var/datum/weakref/team_hud_ref
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -67,10 +73,18 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 
+	if(hidden_uplink)
+		var/obj/item/uplink_holder = hidden_uplink.loc
+		if(!QDELETED(uplink_holder))
+			uplink_holder.hidden_uplink = null
+
+		QDEL_NULL(hidden_uplink)
+
 	if(!silent)
 		farewell()
 
-	remove_innate_effects()
+	if(owner?.current)
+		remove_innate_effects()
 
 	antag_memory = null
 
@@ -151,12 +165,16 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/messages = list()
 	if(!silent)
 		messages.Add(greet())
-		messages.Add(owner.prepare_announce_objectives())
+		if(length(owner.get_all_objectives()))
+			messages.Add(owner.prepare_announce_objectives())
+		play_stinger()
 	apply_innate_effects()
 	messages.Add(finalize_antag())
-	if(wiki_page_name)
+	if(!silent && wiki_page_name)
 		messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/[wiki_page_name]\">[russian_wiki_name]"))
-	to_chat(owner.current, custom_boxed_message("red_box center", messages.Join("<br>")))
+	list_clear_nulls(messages)
+	if(length(messages))
+		to_chat(owner.current, custom_boxed_message(greet_box_class, messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
@@ -164,13 +182,13 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	return TRUE
 
 /**
- * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
+ * Adds the owner to their respective gamemode's list. For example `SSticker.mode.blobs[BLOB_GROUP_INFECTED] |= owner`.
  */
 /datum/antagonist/proc/add_owner_to_gamemode()
 	return
 
 /**
- * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
+ * Removes the owner from their respective gamemode's list. For example `SSticker.mode.blobs[BLOB_GROUP_INFECTED] -= owner`.
  */
 /datum/antagonist/proc/remove_owner_from_gamemode()
 	return
@@ -185,6 +203,11 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	. = messages
 	if(owner?.current && !silent)
 		messages.Add(span_userdanger("You are a [special_role]!"))
+
+/datum/antagonist/proc/play_stinger()
+	if(!stinger_sound)
+		return
+	owner.current.playsound_local(null, stinger_sound, 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -267,6 +290,33 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	set_antag_hud(antag_mob, null)
 
 /**
+ * Adds an alternate-appearance hud image on `antag_mob`, visible only to mobs the hud type deems teammates (Arguments below).
+ *
+ * Arguments:
+ * * antag_mob - the mob to draw the hud image on.
+ * * team_hud_type - the `/datum/atom_hud/alternate_appearance` subtype deciding who sees the image.
+ * * team_master - the mind identifying the team, passed through to the hud.
+ */
+/datum/antagonist/proc/add_team_hud(mob/living/antag_mob, team_hud_type, datum/mind/team_master)
+	remove_team_hud()
+	team_hud_ref = WEAKREF(antag_mob.add_alt_appearance(team_hud_type, "team_hud_[UID()]", hud_image_on(antag_mob), team_master))
+	// Show us the huds of teammates that were created before we joined.
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		if(istype(alt_hud, team_hud_type))
+			alt_hud.apply_to_new_mob(antag_mob)
+
+/datum/antagonist/proc/remove_team_hud()
+	var/datum/atom_hud/alternate_appearance/team_hud = team_hud_ref?.resolve()
+	team_hud_ref = null
+	if(team_hud)
+		qdel(team_hud)
+
+/datum/antagonist/proc/hud_image_on(mob/hud_loc)
+	var/image/hud = image('icons/mob/hud.dmi', hud_loc, antag_hud_name)
+	hud.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
+	return hud
+
+/**
  * Re-sets the antag hud and `special_role` of the owner to that of the previous antag datum they had before this one was added.
  *
  * For example, if the owner has a traitor datum and a vampire datum, both at index 1 and 2 respectively,
@@ -344,7 +394,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
+/datum/antagonist/proc/add_objective(objective_type, explanation_text = "", datum/mind/target_override = null)
 	var/datum/objective/new_objective = objective_type
 	if(ispath(objective_type))
 		new_objective = new objective_type(explanation_text)
@@ -439,32 +489,56 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		stack_trace("[name] datum has no owner")
 		return
 
-	var/list/report = list()
+	var/list/report = list("[owner.get_mind_key()] был [owner.name] ([get_roundend_status()])")
+	report += roundend_report_details()
 
-	report += printplayer(owner)
-
+	var/succeeded = !roundend_death_is_failure || (owner.current && owner.current.stat != DEAD)
 	var/count = 1
-	var/objectives_complete = TRUE
-	for(var/datum/objective/objective in objectives)
+	for(var/datum/objective/objective as anything in owner.get_all_objectives())
 		if(objective.check_completion())
-			report  += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
+			report += "<b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
+			record_objective_feedback(objective, "SUCCESS")
 		else
-			objectives_complete = FALSE
-			report  += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
+			report += "<b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
+			record_objective_feedback(objective, "FAIL")
+			succeeded = FALSE
 		count++
 
-	if(!length(objectives) || objectives_complete)
-		report += span_greentext("<big>The [name] was successful!</big>")
+	if(succeeded)
+		report += "<font color='green'><b>[antag_menu_name || name] — успех!</b></font>"
 	else
-		report += span_redtext("<big>The [name] has failed!</big>")
+		report += "<font color='red'><b>[antag_menu_name || name] — провал.</b></font>"
+
+	if(roundend_blackbox_key)
+		SSblackbox.record_feedback("tally", "[roundend_blackbox_key]_success", 1, succeeded ? "SUCCESS" : "FAIL")
 
 	return report.Join("<br>")
+
+/datum/antagonist/proc/get_roundend_status()
+	if(!owner.current)
+		return "тело уничтожено"
+	var/status = owner.current.stat == DEAD ? "погиб" : "выжил"
+	if(owner.current.real_name != owner.name)
+		status += " как [owner.current.real_name]"
+	return status
+
+/datum/antagonist/proc/roundend_report_details()
+	return list()
+
+/datum/antagonist/proc/record_objective_feedback(datum/objective/objective, result)
+	if(!roundend_blackbox_key)
+		return
+	if(istype(objective, /datum/objective/steal))
+		var/datum/objective/steal/steal_objective = objective
+		SSblackbox.record_feedback("nested tally", "[roundend_blackbox_key]_steal_objective", 1, list("Steal [steal_objective.steal_target]", result))
+		return
+	SSblackbox.record_feedback("nested tally", "[roundend_blackbox_key]_objective", 1, list("[objective.type]", result))
 
 /**
  * Displayed at the start of roundend_category section, default to roundend_category header.
  */
 /datum/antagonist/proc/roundend_report_header()
-	return	span_header("The [roundend_category] were:<br>")
+	return span_fontsize2("<b>[roundend_category] были:</b>")
 
 /**
  * Displayed at the end of roundend_category section.

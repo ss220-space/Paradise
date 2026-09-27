@@ -3,13 +3,14 @@
 
 	var/sight_flags = 0
 	var/see_in_dark = 0
-	var/lighting_alpha
+	var/lighting_cutoff
+	var/list/color_cutoffs
 
 	var/light_sensitive = 0
 
 /datum/vision_override/nightvision
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 
 /datum/vision_override/nightvision/thermals
 	sight_flags = SEE_MOBS

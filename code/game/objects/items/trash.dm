@@ -163,6 +163,22 @@
 		PREPOSITIONAL = "банке бобов",
 	)
 
+/obj/item/trash/canned_meat
+	name = "empty B&D can"
+	desc = "Пустая банка из-под тушёнки \"Bomboclat&Dimempers\"."
+	icon_state = "canned_meat"
+	gender = FEMALE
+
+/obj/item/trash/canned_meat/get_ru_names()
+	return alist(
+		NOMINATIVE = "пустая банка \"B&D\"",
+		GENITIVE = "пустой банки \"B&D\"",
+		DATIVE = "пустой банке \"B&D\"",
+		ACCUSATIVE = "пустую банку \"B&D\"",
+		INSTRUMENTAL = "пустой банкой \"B&D\"",
+		PREPOSITIONAL = "пустой банке \"B&D\"",
+	)
+
 /obj/item/spentcasing
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "buckshotshell"

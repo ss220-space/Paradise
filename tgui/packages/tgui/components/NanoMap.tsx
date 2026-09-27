@@ -121,6 +121,10 @@ export const NanoMap = (props: Props) => {
     setZCurrent(value);
   };
 
+  useEffect(() => {
+    setZCurrent(props.zCurrent ?? 0);
+  }, [props.zCurrent]);
+
   const handleReset = (e: Event) => {
     props.onOffsetChange?.(e, position);
     setPosition({ x: 0, y: 0 });

@@ -1,5 +1,6 @@
 /datum/job/head_of_staff
 	abstract_type = /datum/job/head_of_staff
+	job_flags = JOB_ANTAG_PROTECTED
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Капитаном"
@@ -15,6 +16,7 @@
 
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
+	job_flags = JOB_ANTAG_PROTECTED
 	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_COMMAND
@@ -24,13 +26,12 @@
 	department_head = list(JOB_TITLE_CCOFFICER)
 	selection_color = "#6691ff"
 	req_admin_notify = 1
-	is_command = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_COMMAND
 	access = list()	//See get_access()
 	minimal_access = list()	//See get_access()
 	law_level = LAW_LEVEL_CAPTAIN
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
-	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
@@ -38,14 +39,6 @@
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
-	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -92,9 +85,8 @@
 	department_flag = JOBCAT_KARMA
 	department = STATION_DEPARTMENT_COMMAND
 	selection_color = "#d1deff"
-	is_command = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_COMMAND
 	transfer_allowed = FALSE
-	blocked_race_for_job = list(SPECIES_VOX)
 	head_position = FALSE
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -121,10 +113,6 @@
 	)
 	outfit = /datum/outfit/job/nanotrasenrep
 	paycheck = PAYCHECK_MAX
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-	)
 
 /datum/outfit/job/nanotrasenrep
 	name = JOB_TITLE_RU_REPRESENTATIVE
@@ -144,6 +132,7 @@
 
 /datum/job/blueshield
 	title = JOB_TITLE_BLUESHIELD
+	job_flags = JOB_ANTAG_PROTECTED
 	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
 	department = STATION_DEPARTMENT_COMMAND
@@ -153,10 +142,9 @@
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
 	req_admin_notify = 1
-	is_command = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
@@ -176,16 +164,6 @@
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-	)
 
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_RU_BLUESHIELD
@@ -217,11 +195,10 @@
 	supervisors = "верховным судом \"Нанотрейзен\""
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#db6d92"
-	is_legal = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_LEGAL
 	transfer_allowed = FALSE
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
-	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
 	access = list(
@@ -241,12 +218,6 @@
 	)
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/judge
 	name = JOB_TITLE_RU_MAGISTRATE
@@ -277,7 +248,7 @@
 	department = STATION_DEPARTMENT_LEGAL
 	total_positions = 2
 	spawn_positions = 2
-	is_legal = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_LEGAL
 	supervisors = "Магистратом"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#edccd7"
@@ -287,15 +258,11 @@
 		ALT_JOB_TITLE_RU_LAWYER,
 	)
 	minimal_player_age = 30
-	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/lawyer
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/lawyer
 	name = JOB_TITLE_RU_LAWYER

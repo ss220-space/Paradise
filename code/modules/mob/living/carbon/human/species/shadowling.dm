@@ -9,6 +9,7 @@
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
+	fit_profile = null
 	blacklisted = TRUE
 
 	blood_color = BLOOD_COLOR_SHADOWLING

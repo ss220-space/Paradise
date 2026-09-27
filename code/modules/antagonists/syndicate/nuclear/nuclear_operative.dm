@@ -139,6 +139,7 @@
 	name = "Ядерный Оперативник — Одиночка"
 	antag_menu_name = "Ядерный Оперативник — Одиночка"
 	greet_name = "Ядерный Оперативник — Одиночка"
+	roundend_category = "Ядерными Оперативниками — Одиночками"
 	show_in_roundend = TRUE
 	show_in_orbit = TRUE
 	race_equipment = list(

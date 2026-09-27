@@ -10,6 +10,7 @@ import './styles/themes/cargo.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/infernal.scss';
+import './styles/themes/headphones.scss';
 import './styles/themes/honker.scss';
 import './styles/themes/hydroponics.scss';
 import './styles/themes/ntos_roboquest.scss';

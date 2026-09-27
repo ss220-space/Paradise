@@ -6,7 +6,7 @@
 
 /mob/living/captive_brain/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(client)
-		if(check_mute(client.ckey, MUTE_IC))
+		if(check_mute(client.account_ckey, MUTE_IC))
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
 

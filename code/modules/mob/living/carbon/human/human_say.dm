@@ -63,6 +63,9 @@
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
 
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_VOICE))
+		return UNKNOWN_NAME_RUS
+
 	return real_name
 
 /mob/living/carbon/human/GetTTSVoice()
@@ -103,7 +106,7 @@
 	return TRUE
 
 /mob/living/carbon/human/cannot_speak_loudly()
-	return getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS
+	return ..() || getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)

@@ -163,12 +163,12 @@
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
 	see_in_dark = initial(see_in_dark)
-	lighting_alpha = initial(lighting_alpha)
+	lighting_cutoff = initial(lighting_cutoff)
 	REMOVE_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/debug/proc/add_xray(mob/user)
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_FULLBRIGHT
 	ADD_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
 
 /obj/item/debug

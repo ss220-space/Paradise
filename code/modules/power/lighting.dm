@@ -176,6 +176,7 @@
 	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = FLY_LAYER
+	light_angle = 170
 	max_integrity = 10
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
@@ -194,7 +195,7 @@
 	/// Light intensity
 	var/brightness_power = 1
 	/// Light colour when on
-	var/brightness_color = COLOR_WHITE
+	var/brightness_color = LIGHT_COLOR_DEFAULT
 	/// Light fixture status (LIGHT_OK | LIGHT_EMPTY | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
@@ -224,9 +225,13 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0eeff"
+	var/nightshift_light_color = "#ffddcc"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#ff4e4e"
+	/// Light range while the area is on fire alert
+	var/fire_brightness = 9
+	/// The colour of the light while the area is on fire alert
+	var/fire_colour = COLOR_FIRE_LIGHT_RED
 
 	/// If true, the light is in emergency mode
 	var/emergency_mode = FALSE
@@ -248,9 +253,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light, 0, 0)
 	base_icon_state = "bulb"
 	fitting = "bulb"
 	brightness_range = 4
-	brightness_color = "#ffebb0"
+	brightness_color = LIGHT_COLOR_TUNGSTEN
 	nightshift_light_range = 4
-	nightshift_light_color = "#ffefa0"
+	fire_brightness = 4.5
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -272,8 +277,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 	deconstruct_type = /obj/machinery/light_construct/floor
 	brightness_range = 6
 	nightshift_light_range = 6
+	fire_brightness = 4.5
+	light_angle = 360
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
+
+/obj/machinery/light/floor/get_light_offset()
+	return list(0, 0)
 
 /obj/machinery/light/built
 	status = LIGHT_EMPTY
@@ -311,7 +321,19 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 			brightness_range = 6
 			if(prob(3))
 				break_light_tube(TRUE)
+	set_light(l_dir = REVERSE_DIR(dir))
 	update(FALSE, mapload ? FALSE : TRUE)
+
+/obj/machinery/light/setDir(newdir)
+	. = ..()
+	set_light(l_dir = REVERSE_DIR(dir))
+
+/obj/machinery/light/get_light_offset()
+	var/list/hand_back = ..()
+	var/list/dir_offset = dir2offset(REVERSE_DIR(dir))
+	hand_back[1] += dir_offset[1] * 0.5
+	hand_back[2] += dir_offset[2] * 0.5
+	return hand_back
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
@@ -371,14 +393,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 
 /obj/machinery/light/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(status != LIGHT_OK || !on)
 		return
-	if(nightshift_enabled || emergency_mode || fire_mode)
-		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
+	if(emergency_mode || fire_mode)
+		. += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
 	else
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /**
  * Updates the light's properties
@@ -601,11 +622,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !(I.flags & CONDUCT) || !has_power())
 		return
 
-	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
-	if(status != initial_status && prob(12 * prob_mod))	// Proceed only if changed `state` during `take_damage`.
+	if(status != initial_status && prob(12))	// Proceed only if changed `state` during `take_damage`.
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-	else if(status == LIGHT_EMPTY && prob(75 * prob_mod))
+	else if(status == LIGHT_EMPTY && prob(75))
 		to_chat(user, span_userdanger("You aimed right into the light socket."))
 		electrocute_mob(user, get_area(src), src, randfloat(0.7, 1), TRUE)
 		do_sparks(3, TRUE, src)
@@ -659,7 +679,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 		emergency_lights_off(current_area, current_apc)
 		return
 	if(fire_mode)
-		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour, l_on = TRUE)
+		set_light(fire_brightness, brightness_power, fire_colour, l_on = TRUE)
 		update_icon()
 		return
 	emergency_mode = TRUE

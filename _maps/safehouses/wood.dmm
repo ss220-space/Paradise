@@ -1,0 +1,130 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/wood,
+/area/virtual_domain/safehouse)
+"i" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"o" = (
+/turf/simulated/floor/carpet/green,
+/area/virtual_domain/safehouse)
+"p" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/virtual_domain/safehouse)
+"s" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"v" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/newspaper,
+/turf/simulated/floor/wood,
+/area/virtual_domain/safehouse)
+"w" = (
+/obj/modular_map_connector,
+/turf/simulated/wall/mineral/wood,
+/area/virtual_domain/safehouse)
+"x" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/virtual_domain/safehouse)
+"G" = (
+/turf/simulated/wall/mineral/wood,
+/area/virtual_domain/safehouse)
+"J" = (
+/obj/structure/railing,
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"K" = (
+/obj/structure/sign/poster/random,
+/turf/simulated/wall/mineral/wood,
+/area/virtual_domain/safehouse)
+"T" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/wood,
+/area/virtual_domain/safehouse)
+"X" = (
+/obj/machinery/door/airlock/wood/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/virtual_domain/safehouse)
+"Z" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+G
+G
+i
+G
+G
+w
+"}
+(2,1,1) = {"
+i
+Z
+a
+a
+Z
+i
+"}
+(3,1,1) = {"
+G
+p
+o
+o
+T
+G
+"}
+(4,1,1) = {"
+X
+a
+o
+o
+T
+G
+"}
+(5,1,1) = {"
+G
+a
+x
+o
+T
+G
+"}
+(6,1,1) = {"
+i
+s
+J
+a
+v
+i
+"}
+(7,1,1) = {"
+G
+G
+i
+K
+G
+G
+"}

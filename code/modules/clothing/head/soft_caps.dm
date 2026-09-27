@@ -172,7 +172,7 @@
 	item_color = "solgovcelite"
 
 /obj/item/clothing/head/tchaikowsky
-	species_restricted = list(SPECIES_HUMAN)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SWINE)
 	dog_fashion = null
 	var/flipped = TRUE
 

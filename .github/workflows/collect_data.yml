@@ -20,5 +20,5 @@ jobs:
       - name: Find Stations
         id: station_finder
         run: |
-          STATIONS='["cyberiad", "delta", "nova"]'
+          STATIONS='["cyberiad", "delta", "nova", "coldcolony"]'
           echo "stations=$STATIONS" >> $GITHUB_OUTPUT

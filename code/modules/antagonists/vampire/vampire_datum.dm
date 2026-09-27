@@ -3,6 +3,8 @@
 
 /datum/antagonist/vampire
 	name = "Vampire"
+	roundend_category = "Вампирами"
+	roundend_blackbox_key = "vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
 	job_rank = ROLE_VAMPIRE
@@ -64,6 +66,11 @@
 	QDEL_NULL(subclass)
 	QDEL_NULL(diablerie)
 	return ..()
+
+/datum/antagonist/vampire/roundend_report_details()
+	if(!subclass)
+		return ..()
+	return list("<b>Подкласс:</b> [subclass.name]")
 
 /datum/antagonist/vampire/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -759,6 +766,7 @@
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"
+	roundend_category = "Рабами вампира"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 	master_hud_icon = "vampire"

@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
+	fit_profile = /datum/species_fit/golem
 
 	inherent_traits = list(
 		TRAIT_NO_BLOOD,

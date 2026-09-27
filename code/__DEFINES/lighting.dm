@@ -28,6 +28,8 @@
 
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 
+#define MAXIMUM_LIGHT_RANGE 512
+
 /// light UNDER the floor. primarily used for starlight, shouldn't fuck with this
 #define LIGHTING_HEIGHT_SPACE -0.5
 /// light ON the floor
@@ -54,15 +56,6 @@
 #define LIGHT_RANGE_FIRE_BLOSSOM_HARVESTED 2.7
 #define LIGHT_POWER_FIRE_BLOSSOM_HARVESTED 1.5
 
-/////////////////////////////////////////////////////////
-#define LIGHTING_PLANE_ALPHA_VISIBLE 255
-#define LIGHTING_PLANE_ALPHA_NV_TRAIT 245
-#define LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE 192
-/// For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
-#define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128
-#define LIGHTING_PLANE_ALPHA_INVISIBLE 0
-//////////////////////////////////////////////////////
-
 // Lighting cutoff defines
 // These are a percentage of how much darkness to cut off (in rgb)
 #define LIGHTING_CUTOFF_VISIBLE 0
@@ -81,7 +74,9 @@
 /// Weight of overlay lighting, in percentage of contribution towards total light
 #define OVERLAY_LIGHTING_WEIGHT 0.4
 
-#define standartize_alpha(__alpha) (__alpha / LIGHTING_PLANE_ALPHA_VISIBLE)
+#define ALPHA_OPAQUE 255
+
+#define standartize_alpha(__alpha) (__alpha / ALPHA_OPAQUE)
 
 #define ALPHA_SOURCE_DEFAULT "default"
 #define ALPHA_SOURCE_CHAMELEON "chameleon_gene"

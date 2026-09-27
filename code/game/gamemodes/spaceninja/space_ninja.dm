@@ -25,7 +25,6 @@
 	return TRUE
 
 /datum/game_mode/space_ninja/pre_setup()
-	space_ninjas |= pre_ninja
 	pre_ninja.assigned_role = SPECIAL_ROLE_SPACE_NINJA //So they aren't chosen for other jobs.
 	pre_ninja.special_role = SPECIAL_ROLE_SPACE_NINJA
 	pre_ninja.offstation_role = TRUE //ninja can't be targeted as a victim for some pity traitors
@@ -44,7 +43,7 @@
 /datum/game_mode/space_ninja/check_finished()
 	var/ninjas_alive = 0
 
-	for(var/datum/mind/ninja in space_ninjas)
+	for(var/datum/mind/ninja in get_antag_minds(/datum/antagonist/ninja))
 		if(!iscarbon(ninja.current))
 			continue
 		if(ninja.current.stat == DEAD)
@@ -62,54 +61,9 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(length(space_ninjas)>1)?"и":""] убит[(length(space_ninjas)>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
+		var/ninja_count = length(get_antag_minds(/datum/antagonist/ninja))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[ninja_count > 1 ? "и" : ""] убит[ninja_count > 1 ? "ы" : ""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
 	..()
 	return TRUE
 
-/datum/game_mode/proc/auto_declare_completion_ninja()
-	if(!length(space_ninjas))
-		return FALSE
-
-	var/list/text = list(span_bold(span_fontsize3("<br>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:")))
-
-	for(var/datum/mind/ninja in space_ninjas)
-
-		text += "<br><b>[ninja.get_mind_key()]</b> был <b>[ninja.name]</b> ("
-		if(ninja.current)
-			if(ninja.current.stat == DEAD)
-				text += "Умер"
-			else
-				text += "Выжил"
-			if(ninja.current.real_name != ninja.name)
-				text += " как <b>[ninja.current.real_name]</b>"
-		else
-			text += "Тело уничтожено"
-		text += ")"
-		text += "<br>"
-
-		var/datum/antagonist/ninja/ninja_datum = ninja.has_antag_datum(/datum/antagonist/ninja)
-		if(ninja_datum)
-			text += "Выбранные способности: [ninja_datum.purchased_abilities]"
-
-		var/count = 1
-		var/ninjawin = TRUE
-		for(var/datum/objective/objective in ninja.get_all_objectives())
-			if(objective.check_completion())
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
-				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "SUCCESS"))
-			else
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
-				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "FAIL"))
-				ninjawin = FALSE
-			count++
-
-		if(ninja.current && ninja.current.stat != DEAD && ninjawin)
-			text += "<br><font color='green'><b>Ниндзя успешно выполнил свои задачи!</b></font>"
-			SSblackbox.record_feedback("tally", "ninja_success", 1, "SUCCESS")
-		else
-			text += "<br><font color='red'><b>Ниндзя провалился!</b></font>"
-			SSblackbox.record_feedback("tally", "ninja_success", 1, "FAIL")
-		text += "<br>"
-
-	return text.Join("")
 

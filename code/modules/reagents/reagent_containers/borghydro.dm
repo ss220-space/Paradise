@@ -6,7 +6,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
-	possible_transfer_amounts = null
+	has_variable_transfer_amount = FALSE
 	can_empty = FALSE
 	var/mode = 1
 	var/charge_cost = 50

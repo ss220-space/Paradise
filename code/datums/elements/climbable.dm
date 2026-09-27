@@ -76,6 +76,9 @@
 		adjusted_climb_time *= potential_spine.athletics_boost_multiplier
 		adjusted_climb_stun *= potential_spine.athletics_boost_multiplier
 	*/
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_climber = user
+		adjusted_climb_time *= human_climber.dna.species.climb_speed_mod
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //climbing takes twice as long without help from the hands.
 		adjusted_climb_time *= 2
 	if(isalien(user))

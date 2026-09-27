@@ -95,6 +95,9 @@
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox/armalis)
 
+/mob/living/carbon/human/swine/Initialize(mapload)
+	. = ..(mapload, /datum/species/swine)
+
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
@@ -404,6 +407,8 @@
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN) || HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))	//Magically concealed (e.g. heretic's shadow cloak) - fully anonymous
+		return UNKNOWN_NAME_RUS
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name(UNKNOWN_NAME_RUS)
 	if(head && (head.flags_inv & HIDENAME))
@@ -464,7 +469,7 @@
 
 	dna.species.update_sight(src)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	sync_lighting_plane_cutoff()
 
 /// Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -933,10 +938,7 @@
 	else
 		germ_level += n
 
-/**
- * Regenerate missing limbs/organs with defined in species datum.
- */
-/mob/living/carbon/human/proc/check_and_regenerate_organs()
+/mob/living/carbon/human/proc/regenerate_limbs()
 	var/datum/species/species = dna?.species
 	if(!species)
 		return FALSE
@@ -948,12 +950,21 @@
 			var/obj/item/organ/new_organ = new limb_path(src)
 			organ_data["descriptor"] = new_organ.name
 
-	for(var/organ_slot in species.has_organ)
+	recalculate_limbs_status()
+	return TRUE
+
+/**
+ * Regenerate missing limbs/organs with defined in species datum.
+ */
+/mob/living/carbon/human/proc/check_and_regenerate_organs()
+	if(!regenerate_limbs())
+		return FALSE
+
+	for(var/organ_slot in dna.species.has_organ)
 		if(!internal_organs_slot[organ_slot])
-			var/organ_path = species.has_organ[organ_slot]
+			var/organ_path = dna.species.has_organ[organ_slot]
 			new organ_path(src)
 
-	recalculate_limbs_status()
 	return TRUE
 
 /mob/living/carbon/human/revive()
@@ -1601,9 +1612,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return (health <= HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS)
 
 /mob/living/carbon/human/IsAdvancedToolUser()
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
+		return FALSE
 	if(dna.species.has_fine_manipulation || ischangeling(src) || BorerControlling())
 		return TRUE
 	return FALSE
+
+/mob/living/carbon/human/get_covered_body_zones()
+	var/covered_flags = NONE
+	for(var/obj/item/worn in get_equipped_items())
+		covered_flags |= worn.body_parts_covered
+
+	. = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(covered_flags & bodypart.limb_body_flag)
+			. += bodypart.limb_zone
 
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
@@ -1884,7 +1907,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	brains.original_body = WEAKREF(self_chest)
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 100
+	return !HAS_TRAIT(src, TRAIT_ILLITERATE) && getBrainLoss() < BRAIN_DAMAGE_SEVERE
 
 /mob/living/carbon/human/fakefire()
 	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)

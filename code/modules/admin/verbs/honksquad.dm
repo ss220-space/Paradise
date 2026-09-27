@@ -54,10 +54,10 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 				new_honksquad.internal = new_honksquad.s_store
 				new_honksquad.update_action_buttons_icon()
 
-			//So they don't forget their code or mission.
-			new_honksquad.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
-
-			to_chat(new_honksquad, span_notice("Вы [!honk_leader_selected ? "член" : "<b>ЛИДЕР</b>"] ХОНКсквада в подчинении Планеты Клоунов. Вас вызывают в случае крайне низкого уровня ХОНКа на объекте. Вы НЕ имеете права убивать.\nВаша текущая миссия: [span_danger("[input]")]"))
+			var/datum/antagonist/ert/honksquad/honker = new
+			honker.leader = honk_leader_selected
+			honker.mission = input
+			new_honksquad.mind.add_antag_datum(honker)
 
 			honksquad_number--
 
@@ -84,11 +84,8 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
-	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
-	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language(LANGUAGE_CLOWN)
 	new_honksquad.change_voice()
-	SSticker.mode.honksquad |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
 
@@ -139,9 +136,6 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
 	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
-	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
-	new_honksquad.mind.offstation_role = TRUE
-	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 
 	//экипируем уже готовы пресетом
 	if(honk_leader_selected)

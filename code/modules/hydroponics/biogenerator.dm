@@ -107,7 +107,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		if(panel_open)
 			to_chat(user, span_warning("Close the maintenance panel first."))
 			return ATTACK_CHAIN_PROCEED

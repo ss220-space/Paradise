@@ -31,6 +31,8 @@
 
 /obj/structure/closet/fireaxecabinet/populate_contents()
 	fireaxe = new(src)
+	if(!GLOB.bridge_axe && istype(get_area(src), /area/station/command/bridge))
+		GLOB.bridge_axe = fireaxe
 	has_axe = "full"
 	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
@@ -47,10 +49,9 @@
 
 	. = TRUE
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(locked)
 		to_chat(user, span_warning("Resetting circuitry..."))
-		if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume) || smashed || !locked)
+		if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || !locked)
 			return .
 		locked = FALSE
 		to_chat(user, span_caution("You disable the locking modules."))
@@ -64,7 +65,7 @@
 
 	to_chat(user, span_warning("Resetting circuitry..."))
 	playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
-	if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume) || smashed || locked)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || locked)
 		return .
 
 	locked = TRUE

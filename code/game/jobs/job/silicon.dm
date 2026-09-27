@@ -1,5 +1,6 @@
 /datum/job/ai
 	title = JOB_TITLE_AI
+	job_flags = JOB_ANTAG_BLACKLISTED
 	flag = JOB_FLAG_AI
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_SILICON
@@ -25,6 +26,7 @@
 
 /datum/job/cyborg
 	title = JOB_TITLE_CYBORG
+	job_flags = JOB_ANTAG_BLACKLISTED
 	flag = JOB_FLAG_CYBORG
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_SILICON

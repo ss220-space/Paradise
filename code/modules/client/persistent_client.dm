@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 	var/client/client
 	/// The mob this persistent client is currently bound to.
 	var/mob/mob
+	var/account_ckey
 
 	/// Major version of BYOND this client is using.
 	var/byond_version
@@ -45,6 +46,7 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 
 /datum/persistent_client/New(ckey, client)
 	src.client = client
+	account_ckey = ckey
 	achievements = new(ckey)
 	GLOB.persistent_clients_by_ckey[ckey] = src
 	GLOB.persistent_clients += src

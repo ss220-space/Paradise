@@ -3,6 +3,7 @@
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
+	fit_profile = /datum/species_fit/unathi
 	language = LANGUAGE_UNATHI
 	tail = "sogtail"
 	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3')
@@ -115,11 +116,6 @@
 	)
 	autohiss_exempt = list("Синт'Унати")
 
-	max_select_skills = list(
-		/datum/skill/combat/fists = 3,
-		/datum/skill/medical/heal = 1,
-		/datum/skill/medical/genetic = 1,
-	)
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_HOS
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
-	is_security = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SECURITY
 	selection_color = "#c25656"
 	access = list(
 		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
@@ -17,22 +17,11 @@
 		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
 	)
-	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	law_level = LAW_LEVEL_HOS
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
 	min_age_type = JOB_MIN_AGE_COMMAND
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/hos
 	name = JOB_TITLE_RU_HOS
@@ -67,14 +56,14 @@
 
 /datum/job/security
 	abstract_type = /datum/job/security
+	job_flags = JOB_ANTAG_PROTECTED
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
-	is_security = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SECURITY
 	supervisors = "Главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	minimal_player_age = 14
-	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 900
 	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
@@ -97,18 +86,6 @@
 	minimal_player_age = 21
 	exp_requirements = 2100
 	outfit = /datum/outfit/job/warden
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/warden
 	name = JOB_TITLE_RU_WARDEN
@@ -152,17 +129,7 @@
 		ALT_JOB_TITLE_RU_INVESTIGATOR,
 		ALT_JOB_TITLE_RU_CRIMINOLOGIST,
 	)
-	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/detective
 	name = JOB_TITLE_RU_DETECTIVE
@@ -219,27 +186,6 @@
 		ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET,
 	)
 	outfit = /datum/outfit/job/officer
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-	)
-	alt_skill_levels = alist(
-		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
-			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		),
-	)
 
 /datum/outfit/job/officer
 	name = JOB_TITLE_RU_OFFICER
@@ -287,18 +233,8 @@
 		ALT_JOB_TITLE_RU_SECURITY_MEDIC,
 		ALT_JOB_TITLE_RU_TACTICAL_MEDIC,
 	)
-	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/brigdoc
 	name = JOB_TITLE_RU_BRIGDOC
@@ -332,17 +268,6 @@
 	)
 	law_level = LAW_LEVEL_SEC
 	outfit = /datum/outfit/job/pilot
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/pilot
 	name = JOB_TITLE_RU_PILOT

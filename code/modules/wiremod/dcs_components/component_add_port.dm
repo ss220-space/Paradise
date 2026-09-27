@@ -85,7 +85,7 @@
 
 /datum/component/circuit_component_add_port/proc/on_data_loaded(datum/source, list/data)
 	SIGNAL_HANDLER
-	var/count = data["port_count"]
+	var/count = min(text2num(data["port_count"]), maximum_amount)
 
 	if(!count || count <= length(port_list))
 		return

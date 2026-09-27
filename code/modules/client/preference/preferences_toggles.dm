@@ -727,3 +727,13 @@ GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заг
 	enable_message = "Теперь цвет интерфейса хранилища зависит от цвета инвентаря."
 	disable_message = "Теперь цвет интерфейса хранилища не зависит от цвета инвентаря."
 	blackbox_message = "Toggle storage colorfy"
+
+/datum/preference_toggle/toggle_hide_other_cogs
+	name = "Скрыть шестерёнки действий у других"
+	description = "Переключает отображение шестерёнки над головами других существ, пока те заняты долгим действием."
+	preftoggle_bitflag = PREFTOGGLE_3_HIDE_OTHER_COGS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Теперь вы не будете видеть шестерёнки над головами других существ."
+	disable_message = "Теперь вы будете видеть шестерёнки над головами других существ."
+	blackbox_message = "Toggle other cogbars"

@@ -1195,6 +1195,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	for(var/x in 1 to width)
 		for(var/y in 1 to height)
 			var/pixel = I.GetPixel(x,height+1-y)
-			if(length(pixel) == 7)
+			if(!pixel)
+				pixel = "#00000000"
+			else if(length(pixel) == 7)
 				pixel += "ff"
 			grid[y][x] = pixel

@@ -24,6 +24,9 @@
 		b = UID_of(b)
 	return sorttext("[a]", "[b]")
 
+/proc/cmp_antag_category(datum/antagonist/a, datum/antagonist/b)
+	return sorttext(b.roundend_category, a.roundend_category)
+
 /proc/cmp_list_len_asc(list/a, list/b)
 	return length(a) - length(b)
 
@@ -98,6 +101,10 @@
 		return a.plane - b.plane
 	else
 		return a.layer - b.layer
+
+/// Orders heretic knowledge by priority.
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)
 
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
 	return sorttext(initial(b.name), initial(a.name))

@@ -60,7 +60,7 @@
 	var/datum/turf_reservation/reservation = SSmapping.request_turf_block_reservation(
 		width,
 		height,
-		bounds[MAP_MAXZ],
+		bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1,
 		noisy = FALSE,
 	)
 	if(!reservation)
@@ -75,16 +75,21 @@
 	var/list/obj/machinery/atmospherics/loaded_atmospherics = list()
 
 	var/num_z_levels = bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1
+	SSicon_smooth.add_halt_source(src)
 	for(var/z_idx = 1 to num_z_levels)
 		var/turf/bottom_left = reservation.bottom_left_turfs[z_idx]
 		var/turf/top_right = reservation.top_right_turfs[z_idx]
-		set_zlevel_freeze(bottom_left.z, TRUE)
+		var/datum/milla_safe/freeze_z_level/milla_freeze = new()
+		milla_freeze.invoke_async(bottom_left.z)
+		UNTIL(milla_freeze.done)
+		SSatoms.map_loader_begin()
 		GLOB.maploader.load_map(
 			file(load_path),
 			bottom_left.x,
 			bottom_left.y,
 			bottom_left.z,
 		)
+		SSatoms.map_loader_stop()
 		for(var/turf/turf as anything in block(bottom_left, top_right))
 			loaded_turfs += turf
 			loaded_areas |= get_area(turf)
@@ -96,8 +101,10 @@
 				else if(istype(thing, /obj/machinery/atmospherics))
 					loaded_atmospherics += thing
 				loaded_atom_movables |= thing
-		set_zlevel_freeze(bottom_left.z, FALSE)
+		var/datum/milla_safe_must_sleep/late_setup_level/milla_unfreeze = new()
+		milla_unfreeze.invoke_async(bottom_left, top_right, block(bottom_left, top_right))
 
+	SSicon_smooth.remove_halt_source(src)
 	SSatoms.InitializeAtoms(loaded_areas + loaded_atom_movables + loaded_turfs, FALSE)
 	SSlighting.setup_static_lighting_if_needed(loaded_turfs)
 	SSmachines.setup_template_powernets(loaded_cables)

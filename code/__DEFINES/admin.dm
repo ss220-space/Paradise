@@ -95,6 +95,7 @@
 #define ADMIN_SC(user,display) "<a href='byond://?_src_=holder;adminspawncookie=[user.UID()]'>[display]</a>"
 /// Displays "(PLAY)" in the chat, when clicked it tries to play internet sounds from the request.
 #define ADMIN_PLAY_INTERNET(text, credit) "(<a href='byond://?_src_=holder;play_internet=[url_encode(text)];credit=[url_encode(credit)]'>PLAY</a>)"
+#define ADMIN_STOP_HEADPHONES(case) "(<a href='byond://?_src_=holder;stop_headphones=[case.UID()]'>STOP</a>)"
 #define ADMIN_LOOKUP(user) "[key_name_admin(user)]([ADMIN_QUE(user,"?")])"
 #define ADMIN_LOOKUPFLW(user) "[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")])"
 #define ADMIN_FULLMONTY_NONAME(user) "([ADMIN_QUE(user,"?")]) ([ADMIN_PP(user,"PP")]) ([ADMIN_VV(user,"VV")]) ([ADMIN_SM(user,"SM")]) ([ADMIN_FLW(user,"FLW")]) ([ADMIN_TP(user,"TP")])"

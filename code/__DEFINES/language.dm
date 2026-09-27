@@ -39,6 +39,7 @@
 #define LANGUAGE_MONKEY_TAJARAN "Фарвный"
 #define LANGUAGE_MONKEY_VULPKANIN "Вульпинский"
 #define LANGUAGE_ANGEL "Ангельское пение"
+#define LANGUAGE_APHASIA "Бормотание"
 
 // Language flags
 #define WHITELISTED (1<<0) // Language is available if the speaker is whitelisted

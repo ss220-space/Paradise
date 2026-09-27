@@ -4,6 +4,9 @@
 	icon_state = "doorctrl"
 	base_icon_state = "doorctrl"
 	power_channel = ENVIRON
+	light_range = 1.5
+	light_power = 0.5
+	light_color = LIGHT_COLOR_VIVID_GREEN
 
 	anchored = TRUE
 	idle_power_usage = 2
@@ -115,8 +118,7 @@
 	if(!(open || allowed(user)))
 		to_chat(user, span_warning("Access Denied. The cover plate will not open."))
 		return
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
 		return
 
 	// Close the panel
@@ -147,8 +149,7 @@
 		to_chat(user, "You must take out the electronics first.")
 		return
 
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, delay = 3 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/door_control(get_turf(user))
@@ -270,15 +271,17 @@
 /obj/machinery/door_control/update_icon_state()
 	if(open)
 		icon_state = "doorctrl-panel"
+		set_light_on(FALSE)
 		return
 	if(stat & NOPOWER)
 		icon_state = "[base_icon_state]-p"
+		set_light_on(FALSE)
 		return
 	icon_state = is_animating ? "[base_icon_state]-inuse" : base_icon_state
+	set_light_on(TRUE)
 
 /obj/machinery/door_control/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(open)
 		// access_board overlay
 		if(access_electronics)
@@ -293,7 +296,7 @@
 	if(open || (stat & NOPOWER))
 		return
 
-	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+	. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
@@ -315,6 +318,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/secure, 24, 24)
 /obj/machinery/door_control/mimic
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern"
+	light_range = 0
 
 /obj/machinery/door_control/mimic/animate_activation()
 	audible_message("Something clicked.", hearing_distance = 1)

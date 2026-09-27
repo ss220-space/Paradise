@@ -65,10 +65,14 @@
 	if(defib)
 		. += "defib"
 		if(defib.powered)
-			. += "[defib.safety ? "online" : "emagged"]"
+			var/status_state = defib.safety ? "online" : "emagged"
+			. += status_state
+			. += emissive_appearance(icon, status_state, src)
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
 			ratio = ceil(ratio * 4) * 25
-			. += "charge[ratio]"
+			if(ratio)
+				. += "charge[ratio]"
+				. += emissive_appearance(icon, "charge[ratio]", src)
 		if(clamps_locked)
 			. += "clamps"
 

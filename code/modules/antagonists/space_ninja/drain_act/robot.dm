@@ -82,7 +82,6 @@
 		add_conversion_logs(ninja_borg, "Converted into ninja borg.")
 		qdel(src)
 		update_robot_icons_added(ninja_borg.mind)
-		SSticker.mode.space_ninjas += ninja_borg.mind
 		objective.completed = TRUE
 
 /mob/living/silicon/robot/proc/update_robot_icons_added(datum/mind/robot_mind)

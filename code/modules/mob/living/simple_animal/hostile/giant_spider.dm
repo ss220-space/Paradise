@@ -12,7 +12,7 @@
 	speak_chance = 5
 	turns_per_move = 5
 	nightvision = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -42,6 +42,7 @@
 		heat_damage = 20, \
 		cold_damage = 20, \
 	)
+	AddElement(/datum/element/cliff_walking)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()

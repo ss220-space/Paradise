@@ -1,4 +1,5 @@
 /datum/antagonist/space_carp
+	roundend_category = "Космическими карпами"
 	name = "Space Carp"
 	special_role = SPECIAL_ROLE_CARP
 	antag_menu_name = "Космический карп"

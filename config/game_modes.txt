@@ -19,7 +19,8 @@ TRAITOR_OBJECTIVES_AMOUNT 5
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
-PROBABILITY ANTAG-PARADISE 15
+PROBABILITY ANTAG-PARADISE 0
+PROBABILITY DYNAMIC 100
 PROBABILITY EXTEND-A-TRAITORMONGOUS 0
 PROBABILITY TRAITOR 0
 PROBABILITY TRAITORCHAN 0
@@ -31,12 +32,12 @@ PROBABILITY THIEFCHAN 0
 PROBABILITY THIEFVAMP 0
 PROBABILITY THIEF 0
 PROBABILITY REVOLUTION 0
-PROBABILITY SHADOWLING 2
-PROBABILITY CULT 2
+PROBABILITY SHADOWLING 0
+PROBABILITY CULT 0
 PROBABILITY CHANGELING 0
 PROBABILITY CHANGELINGTHIEF 0
 PROBABILITY DE_KERBEROS_2 0
-PROBABILITY WIZARD 1
+PROBABILITY WIZARD 0
 PROBABILITY BLOB 0
 PROBABILITY RAGINMAGES 0
 PROBABILITY METEOR 0
@@ -44,13 +45,14 @@ PROBABILITY HEIST 0
 PROBABILITY VAMPIRE 0
 PROBABILITY GOONVAMPIRE 0
 PROBABILITY VAMPIRETHIEF 0
-PROBABILITY EXTENDED 1
-PROBABILITY NUCLEAR 2
+PROBABILITY EXTENDED 0
+PROBABILITY NUCLEAR 0
 PROBABILITY ABDUCTION 0
-PROBABILITY CLOCKWORK 2
+PROBABILITY CLOCKWORK 0
 PROBABILITY SPACE-NINJA 0
 
 MINPLAYERS ANTAG-PARADISE 10
+MINPLAYERS DYNAMIC 1
 MINPLAYERS EXTEND-A-TRAITORMONGOUS 10
 MINPLAYERS TRAITOR 10
 MINPLAYERS TRAITORCHAN 20
@@ -124,3 +126,39 @@ ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS DEVIL 0
 
 ## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
 ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 0
+
+## Dynamic mode tuning.
+##
+## Dynamic picks a chaos tier for the round, then draws rulesets (antagonists) from a weighted pool.
+## Low population is handled on three levels: every ruleset has a min_pop below which it cannot be
+## drawn, so a lowpop round quietly ends up with traitors and thieves only; the tier halves or
+## quarters its ruleset count below 40 and 25 players; and every tier above Greenshift has its own
+## population floor, so lowpop rounds cannot roll a high tier in the first place.
+##
+## Tier weights. Defaults: greenshift 2, low chaos 8, low-medium chaos 46, medium-high chaos 34, high chaos 10.
+#DYNAMIC_TIER_WEIGHTS greenshift 2
+#DYNAMIC_TIER_WEIGHTS low chaos 8
+#DYNAMIC_TIER_WEIGHTS low-medium chaos 46
+#DYNAMIC_TIER_WEIGHTS medium-high chaos 34
+#DYNAMIC_TIER_WEIGHTS high chaos 10
+##
+## Tier population floors. Defaults: greenshift 0, low chaos 5, low-medium chaos 10,
+## medium-high chaos 15, high chaos 25. A tier is not drawn at all below its floor.
+## Below the low chaos floor only Greenshift is left, and Greenshift also suppresses the random
+## events that hand a ghost an antagonist (revenant, morph, demons, blob, lone op and friends).
+#DYNAMIC_TIER_MIN_POP low chaos 5
+#DYNAMIC_TIER_MIN_POP low-medium chaos 10
+#DYNAMIC_TIER_MIN_POP medium-high chaos 15
+#DYNAMIC_TIER_MIN_POP high chaos 25
+##
+## Ruleset weights. 0 disables a ruleset entirely, admins can still force it from the Dynamic Panel.
+#DYNAMIC_RULESET_WEIGHTS roundstart traitor 10
+#DYNAMIC_RULESET_WEIGHTS midround traitor 10
+#DYNAMIC_RULESET_WEIGHTS latejoin traitor 10
+##
+## Ruleset population floors. Built-in defaults: traitor and thief 5, prisoner 15, changeling and
+## vampire 15, revolution, wizard and hijacker 20, space ninja and midround heretic 25, everything
+## round-defining (cults, nukies, blob, shadowlings, malf AI, roundstart heretic) 30.
+## Setting one here overrides the per-tier defaults with a flat number.
+#DYNAMIC_RULESET_MIN_POP roundstart traitor 5
+#DYNAMIC_RULESET_MIN_POP roundstart nuclear 30

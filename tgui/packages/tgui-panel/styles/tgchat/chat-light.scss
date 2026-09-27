@@ -399,6 +399,26 @@ h2.alert {
 	color: hsl(0, 100%, 29%);
 }
 
+.phobia {
+  color: hsl(0, 100%, 43.3%);
+  font-weight: bold;
+  animation: phobia 750ms infinite;
+}
+
+@keyframes phobia {
+  0% {
+    color: hsl(0, 0%, 5.1%);
+  }
+
+  50% {
+    color: hsl(0, 100%, 43.3%);
+  }
+
+  100% {
+    color: hsl(0, 0%, 5.1%);
+  }
+}
+
 .hypnophrase {
 	color: hsl(0, 0%, 5.1%);
 	font-weight: bold;
@@ -426,6 +446,11 @@ h2.alert {
 	100% {
 		color: hsl(191.8, 63.3%, 52.9%);
 	}
+}
+
+.mansus {
+  color: hsl(114.8, 100%, 25.1%);
+  text-shadow: 0 0 6px hsl(114.8, 100%, 25.1%);
 }
 
 // MARK: Other colors

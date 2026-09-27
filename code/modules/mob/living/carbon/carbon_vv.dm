@@ -4,6 +4,8 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_ORGAN, "Add Organ")
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_ORGAN, "Remove Organ")
 	VV_DROPDOWN_OPTION(VV_HK_MARTIAL_ART, "Give Martial Arts")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_TRAUMA, "Give Brain Trauma")
+	VV_DROPDOWN_OPTION(VV_HK_CURE_TRAUMA, "Cure Brain Traumas")
 
 /mob/living/carbon/vv_do_topic(list/href_list)
 	. = ..()
@@ -34,6 +36,40 @@
 			MA.teach(src)
 			log_admin("[key_name(usr)] has taught [MA] to [key_name(src)].")
 			message_admins(span_notice("[key_name_admin(usr)] has taught [MA] to [key_name_admin(src)]."))
+
+	else if(href_list[VV_HK_GIVE_TRAUMA])
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
+
+		var/list/trauma_types = list()
+		for(var/datum/brain_trauma/trauma as anything in subtypesof(/datum/brain_trauma))
+			if(trauma::abstract_type == trauma)
+				continue
+			trauma_types += trauma
+
+		var/chosen_trauma = tgui_input_list(usr, "Choose the brain trauma to apply", "Traumatize", sort_list(trauma_types, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+		if(!chosen_trauma)
+			return
+
+		if(QDELETED(src))
+			to_chat(usr, span_notice("Mob doesn't exist anymore."))
+			return
+
+		var/datum/brain_trauma/applied_trauma = gain_trauma(chosen_trauma)
+		if(!applied_trauma)
+			to_chat(usr, span_notice("Mob cannot gain that trauma."))
+			return
+
+		log_admin("[key_name(usr)] has traumatized [key_name(src)] with [applied_trauma.name].")
+		message_admins(span_notice("[key_name_admin(usr)] has traumatized [key_name_admin(src)] with [applied_trauma.name]."))
+
+	else if(href_list[VV_HK_CURE_TRAUMA])
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
+
+		cure_all_traumas(TRAUMA_RESILIENCE_ABSOLUTE)
+		log_admin("[key_name(usr)] has cured all brain traumas of [key_name(src)].")
+		message_admins(span_notice("[key_name_admin(usr)] has cured all brain traumas of [key_name_admin(src)]."))
 
 	else if(href_list[VV_HK_ADD_ORGAN])
 		if(!check_rights(R_SPAWN))

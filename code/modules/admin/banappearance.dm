@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(appearance_keylist)	//to store the keys
 
 /proc/appearance_fullban(mob/M, reason)
 	if(!M || !M.key) return
-	GLOB.appearance_keylist.Add(text("[M.ckey] ## [reason]"))
+	GLOB.appearance_keylist.Add(text("[M.get_account_ckey()] ## [reason]"))
 	appearance_savebanfile()
 
 /proc/appearance_client_fullban(ckey)
@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(appearance_keylist)	//to store the keys
 /proc/appearance_isbanned(mob/M)
 	if(M)
 		for(var/s in GLOB.appearance_keylist)
-			if(findtext(s, "[M.ckey]") == 1)
+			if(findtext(s, "[M.get_account_ckey()]") == 1)
 				var/startpos = findtext(s, "## ") + 3
 				if(startpos && startpos < length(s))
 					var/text = copytext(s, startpos, 0)
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(appearance_keylist)	//to store the keys
 	to_chat(S["keys[0]"], GLOB.appearance_keylist)
 
 /proc/appearance_unban(mob/M)
-	appearance_remove("[M.ckey]")
+	appearance_remove("[M.get_account_ckey()]")
 	appearance_savebanfile()
 
 /proc/appearance_updatelegacybans()

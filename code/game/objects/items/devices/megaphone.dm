@@ -13,7 +13,7 @@
 	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ \"Синдиката\"!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА Синдикат!")
 
 /obj/item/megaphone/attack_self(mob/living/user)
-	if(check_mute(user.ckey, MUTE_IC))
+	if(check_mute(user.get_account_ckey(), MUTE_IC))
 		to_chat(src, span_warning("You cannot speak in IC (muted)."))
 		return
 	if(!ishuman(user))

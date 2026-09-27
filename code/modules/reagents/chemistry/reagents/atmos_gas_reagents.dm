@@ -3,7 +3,7 @@
 	id = "freon"
 	description = "A powerful heat absorbent."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM  // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "burning"
 	can_synth = FALSE
 
@@ -20,7 +20,7 @@
 	id = "halon"
 	description = "A fire suppression gas that removes oxygen and cools down the area"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "minty"
 	metabolized_traits = list(TRAIT_RESIST_HEAT)
 	can_synth = FALSE
@@ -38,7 +38,7 @@
 	id = "healium"
 	description = "A powerful sleeping agent with healing properties"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "rubbery"
 	can_synth = FALSE
 
@@ -59,7 +59,7 @@
 	id = "hypernoblium"
 	description = "A suppressive gas that stops gas reactions on those who inhale it."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hyper-nob are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "searingly cold"
 	can_synth = FALSE
 
@@ -73,7 +73,7 @@
 	id = "nitrium_high_metabolization"
 	description = "A highly reactive byproduct that stops you from sleeping, while dealing increasing toxin damage over time."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM  // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "E1A116"
+	color = "#E1A116"
 	taste_description = "sourness"
 	addiction_chance = 50
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE)
@@ -90,7 +90,7 @@
 	id = "nitrium_low_metabolization"
 	description = "A highly reactive gas that makes you feel faster."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "burning"
 	can_synth = FALSE
 
@@ -127,7 +127,7 @@
 	id = "zauker"
 	description = "An unstable gas that is toxic to all living beings."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	color = "90560B"
+	color = "#90560B"
 	taste_description = "bitter"
 	can_synth = FALSE
 

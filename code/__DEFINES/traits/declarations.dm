@@ -111,8 +111,11 @@
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Objects with this trait can cross chasm safe/
 #define TRAIT_CHASM_IGNORED "chasm_ignored"
+/// We can walk up or around cliffs, or at least we don't fall off of it
+#define TRAIT_CLIFF_WALKER "cliff_walker"
 /// This mob has red glowing eyes with special text upon examination
 #define TRAIT_RED_EYES "red_eyes"
+#define TRAIT_DREAMT_EYES "dreamt_eyes"
 /// This mob's hands will glow amber with special text upon examination
 #define TRAIT_CLOCK_HANDS "clock_hands"
 
@@ -311,12 +314,18 @@
 #define TRAIT_NO_PAIN "no_pain"
 /// This human mob will not feedback user about the damage done via HUD alerts
 #define TRAIT_NO_PAIN_HUD "no_pain_hud"
+/// This mob keeps acting normally while its health is below the crit threshold
+#define TRAIT_NOSOFTCRIT "nosoftcrit"
+/// This mob is not knocked out by the damage it took past the crit threshold
+#define TRAIT_NOHARDCRIT "nohardcrit"
 /// Another biotype thing
 #define TRAIT_PLANT_ORIGIN "plant_origin"
 /// Another damn biotype
 #define TRAIT_NO_INTORGANS "no_internal_organs"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob never builds up disgust (e.g. eating gross/raw food has no revulsion effect)
+#define TRAIT_NODISGUST "no_disgust"
 /// This mob is completely immune to viruses and diseases
 #define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine
@@ -396,6 +405,27 @@
 #define TRAIT_CAN_SEE_WIRES "can_see_wires"
 
 #define TRAIT_DECOY_BRAIN "decoy_brain"
+
+#define TRAIT_BRAIN_TRAUMA_IMMUNITY "brain_trauma_immunity"
+
+#define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost"
+
+#define TRAIT_DISCOORDINATED "discoordinated"
+
+#define TRAIT_DUMB "dumb"
+
+#define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible_speech"
+
+#define TRAIT_ITALIAN_TUMOR "italian_tumor"
+
+#define TRAIT_ILLITERATE "illiterate"
+
+#define TRAIT_PARALYSIS_L_ARM "paralysis_l_arm"
+#define TRAIT_PARALYSIS_R_ARM "paralysis_r_arm"
+#define TRAIT_PARALYSIS_L_LEG "paralysis_l_leg"
+#define TRAIT_PARALYSIS_R_LEG "paralysis_r_leg"
+
+#define TRAIT_ANTIMAGIC "antimagic"
 
 #define TRAIT_BAD_SOUL "bad_soul"
 
@@ -541,6 +571,9 @@
 /// eignore blindness or blurriness or nearsightedness
 #define TRAIT_SIGHT_BYPASS "perfect_sight"
 
+/// Mob hears the dead as if it was one of them
+#define TRAIT_SIXTHSENSE "sixthsense"
+
 // MARK: Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
@@ -614,6 +647,49 @@
 
 /// Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
+
+/// Object has been frozen solid by cryogenic effects. See /datum/element/frozen.
+#define TRAIT_FROZEN "frozen"
+
+// --- Heretic antagonist traits (ported from tg via Paradise-selfharm) ---
+// Heretic-internal traits (the heretic code both sets and checks these):
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+#define TRAIT_HERETIC_HOLY_LOCKED "heretic_holy_locked"
+#define TRAIT_HERETIC_SUMMON "heretic_summon"
+/// Blocks limb dismemberment (Blade "Stance of the Torn Champion" / duel_stance).
+#define TRAIT_NODISMEMBER "nodismember"
+#define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// Suppresses the visible eldritch aura a grown heretic radiates (e.g. while disguised). tg parity.
+#define TRAIT_HERETIC_AURA_HIDDEN "heretic_aura_hidden"
+/// Lock path final passive: the mansus grasp no longer goes on cooldown when used to open a lock.
+#define TRAIT_LOCK_GRASP_UPGRADED "lock_grasp_upgraded"
+#define TRAIT_LIVING_HEART "living_heart"
+#define TRAIT_RUSTY "rust_trait"
+#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+#define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
+#define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
+#define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+#define TRAIT_FLESH_DESIRE "flesh_desire"
+// Generic traits used by heretic content. NOTE: master220 may enforce these concepts via other
+// mechanisms; behavior wiring for the immunity traits is verified in the runtime phase.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+#define TRAIT_HYPOTHERMIC "body_hypothermic"
+#define TRAIT_DEATH_HUD "deathhud"
+#define TRAIT_EXAMINE_SKIP "examine_skip"
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
+#define TRAIT_NOCRITDAMAGE "no_crit"
+#define TRAIT_NO_STRIP "no_strip"
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+#define TRAIT_SOFTSPOKEN "softspoken"
+#define TRAIT_STUNIMMUNE "stun_immunity"
+#define TRAIT_UNKNOWN "unknown"
+/// Hides this mob's identity when seen/examined (face/floating name show as "Unknown"). Heretic shadow cloak.
+#define TRAIT_UNKNOWN_APPEARANCE "unknown_appearance"
+/// Hides this mob's identity when speaking (chat shows the speaker as "Unknown"). Heretic shadow cloak.
+#define TRAIT_UNKNOWN_VOICE "unknown_voice"
+/// Leaves no footprints in snow. Paradise has no snow-footprint mechanic yet, so this is currently inert (TG parity).
+#define TRAIT_NO_SNOWPRINTS "no_snowprints"
 
 ///Trait given to a mob with a ckey currently in a temporary body, allowing people to know someone will re-enter the round later.
 #define TRAIT_MIND_TEMPORARILY_GONE "temporarily_gone"

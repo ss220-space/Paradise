@@ -235,12 +235,12 @@
 
 /mob/living/carbon/alien/proc/nightvisiontoggle()
 	if(!nightvision_enabled)
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		nightvision = 8
 		nightvision_enabled = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
 	else if(nightvision_enabled)
-		lighting_alpha = initial(lighting_alpha)
+		lighting_cutoff = initial(lighting_cutoff)
 		nightvision_enabled = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
@@ -360,9 +360,10 @@ Des: Removes all infected images from the alien.
 	set_invis_see(initial(see_invisible))
 	set_sight(SEE_MOBS)
 	if(nightvision_enabled)
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	else
-		lighting_alpha = initial(lighting_alpha)
+		lighting_cutoff = initial(lighting_cutoff)
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 
 	if(client.eye != src)
 		var/atom/A = client.eye
@@ -375,11 +376,13 @@ Des: Removes all infected images from the alien.
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
-		if(!isnull(cyber_eyes.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
+		if(!isnull(cyber_eyes.lighting_cutoff))
+			lighting_cutoff = max(lighting_cutoff, cyber_eyes.lighting_cutoff)
+		if(length(cyber_eyes.color_cutoffs))
+			lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, cyber_eyes.color_cutoffs)
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	sync_lighting_plane_cutoff()
 
 #undef ALIEN_BURN_MOD
 #undef ALIEN_BRUTE_MOD

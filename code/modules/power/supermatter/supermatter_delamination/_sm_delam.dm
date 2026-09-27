@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /datum/sm_delam/proc/lights(obj/machinery/power/supermatter_crystal/sm)
 	var/cached_internal_energy = sm.internal_energy
 	sm.set_light(
-		l_range = 4 + cached_internal_energy / 200,
+		l_range = ROUND_UP(clamp(4 + cached_internal_energy / 200, 4, 30)),
 		l_power = 1 + cached_internal_energy / 1000,
 		l_color = sm.gas_heat_power_generation > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR,
 		l_on = !!cached_internal_energy,

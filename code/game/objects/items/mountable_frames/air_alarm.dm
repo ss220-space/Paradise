@@ -2,7 +2,7 @@
 /obj/item/mounted/frame/alarm_frame
 	name = "air alarm frame"
 	desc = "Used for building air alarms."
-	icon = 'icons/obj/machines/monitors.dmi'
+	icon = 'icons/obj/machines/wallmounts.dmi'
 	icon_state = "alarm_bitem"
 	materials = list(MAT_METAL = 2000)
 	metal_sheets_refunded = 1

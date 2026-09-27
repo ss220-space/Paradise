@@ -57,8 +57,8 @@ GLOBAL_LIST_INIT(human_tlv, list(
 
 /obj/machinery/alarm
 	name = "air alarm"
-	icon = 'icons/obj/machines/monitors.dmi'
-	icon_state = "alarm0"
+	icon = 'icons/obj/machines/wallmounts.dmi'
+	icon_state = "alarmp"
 	anchored = TRUE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 			setDir(direction)
 		buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(23, -23, 23, -23)
+		set_pixel_offsets_from_dir(27, -27, 27, -27)
 
 	GLOB.air_alarms += src
 	alarm_area.air_alarms += src
@@ -188,6 +188,8 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
 		req_access = list(ACCESS_SYNDICATE)
+
+	update_icon()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
@@ -303,41 +305,56 @@ GLOBAL_LIST_INIT(human_tlv, list(
 
 			environment.merge(gas)
 
-/obj/machinery/alarm/update_icon_state()
-	if(wiresexposed)
-		switch(buildstage)
-			if(AIR_ALARM_BUILD_NO_CIRCUIT)
-				icon_state = "alarm_b1"
-			if(AIR_ALARM_BUILD_CIRCUIT)
-				icon_state = "alarm_b2"
-			if(AIR_ALARM_WIRED)
-				icon_state = "alarmx"
-		return
+/obj/machinery/alarm/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
 
-	if((stat & (NOPOWER|BROKEN)) || shorted)
-		icon_state = "alarmp"
-		return
+/obj/machinery/alarm/update_icon(updates = ALL)
+	. = ..()
 
-	if(!alarm_area) // We wont have our alarm_area if we aint initialised
+	if(!alarm_area || wiresexposed || shorted || (stat & (NOPOWER|BROKEN)))
+		set_light_on(FALSE)
 		return
 
 	switch(max(danger_level, alarm_area.atmosalm - 1))
 		if(ATMOS_ALARM_NONE)
-			icon_state = "alarm0"
+			set_light(AIR_ALARM_LIGHT_RANGE, 1, "#00ffcc", l_on = TRUE)
 		if(ATMOS_ALARM_WARNING)
-			icon_state = "alarm2" //yes, alarm2 is yellow alarm
+			set_light(AIR_ALARM_LIGHT_RANGE, 1, "#ffaa00", l_on = TRUE)
 		if(ATMOS_ALARM_DANGER)
-			icon_state = "alarm1"
+			set_light(AIR_ALARM_LIGHT_RANGE, 1, "#ff0022", l_on = TRUE)
+
+/obj/machinery/alarm/update_icon_state()
+	if(!wiresexposed)
+		icon_state = "alarmp"
+		return
+
+	switch(buildstage)
+		if(AIR_ALARM_BUILD_NO_CIRCUIT)
+			icon_state = "alarm_b1"
+		if(AIR_ALARM_BUILD_CIRCUIT)
+			icon_state = "alarm_b2"
+		if(AIR_ALARM_WIRED)
+			icon_state = "alarmx"
 
 /obj/machinery/alarm/update_overlays()
 	. = ..()
-	underlays.Cut()
 
-	if(stat & NOPOWER || buildstage != AIR_ALARM_WIRED || wiresexposed || shorted)
+	if(!alarm_area || wiresexposed || shorted || buildstage != AIR_ALARM_WIRED || (stat & (NOPOWER|BROKEN)))
 		return
 
-	underlays += emissive_appearance(icon, "alarm_lightmask", src)
+	var/indicator
+	switch(max(danger_level, alarm_area.atmosalm - 1))
+		if(ATMOS_ALARM_NONE)
+			indicator = "alarm0"
+		if(ATMOS_ALARM_WARNING)
+			indicator = "alarm2" //yes, alarm2 is yellow alarm
+		if(ATMOS_ALARM_DANGER)
+			indicator = "alarm1"
 
+	. += indicator
+	. += emissive_appearance(icon, indicator, src)
 
 /obj/machinery/alarm/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -908,8 +925,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	if(!I.tool_start_check(src, user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	if(buildstage != AIR_ALARM_BUILD_CIRCUIT)
 		return
@@ -1067,14 +1083,14 @@ Just an object used in constructing air alarms
 #undef MIN_TEMPERATURE
 
 // MARK: Mapping Dir Helpers
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access/monitor, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate/pirate, 23, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access/monitor, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate/pirate, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 27, 27)

@@ -71,10 +71,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				M.equipOutfit(/datum/outfit/admin/sol_trader)
 				M.dna.species.after_equip_job(null, M)
 				M.mind.objectives += trader_objectives
-				M.mind.offstation_role = TRUE
-				greet_trader(M)
+				M.mind.add_antag_datum(/datum/antagonist/trader)
 				log_game("[M.ckey] has become TSF trader.")
-				SSticker.mode.traders |= M.mind
 				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5
@@ -87,15 +85,6 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			)
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
-
-/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
-	var/list/messages = list()
-	messages.Add(span_boldnotice("Вы — торговец!"))
-	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
-	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
-	messages.Add(M.mind.prepare_announce_objectives())
-	to_chat(M, custom_boxed_message("green_box", messages.Join("<br>")))
-	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

@@ -28,7 +28,6 @@
 
 	build_space_destination_arrays()
 	set_linkage(transition_type)
-	set_navbeacon()
 
 /datum/space_level/Destroy()
 	if(linkage == CROSSLINKED)

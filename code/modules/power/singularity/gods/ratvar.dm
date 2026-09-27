@@ -27,13 +27,15 @@
 	return span_ratvar(text)
 
 /obj/god/ratvar/announce_summon()
-	SSticker.mode?.clocker_objs.succesful_summon()
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	clock_team?.clocker_objs.succesful_summon()
 
 /obj/god/ratvar/announce_death()
-	SSticker.mode?.clocker_objs.ratvar_death()
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	clock_team?.clocker_objs.ratvar_death()
 
 /obj/god/ratvar/devotees()
-	return SSticker.mode?.clockwork_cult || list()
+	return get_clockwork_cult_team()?.members || list()
 
 /obj/god/ratvar/attack_ghost(mob/dead/observer/user)
 	if(!jobban_isbanned(user.ckey, ROLE_CLOCKER))

@@ -16,7 +16,7 @@
 	melee_damage_upper = 10
 	robust_searching = FALSE
 	gold_core_spawnable = NO_SPAWN
-	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
 	footstep_type = null
 
 /mob/living/simple_animal/hostile/zombie/retaliate

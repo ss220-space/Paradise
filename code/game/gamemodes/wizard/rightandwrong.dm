@@ -104,9 +104,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		if(iswizard(H))
 			return
 
-	if(prob(GLOB.summon_guns_triggered) && !(H.mind in SSticker.mode.traitors))
-		SSticker.mode.traitors += H.mind
-
+	if(prob(GLOB.summon_guns_triggered) && !H.mind.has_antag_datum(/datum/antagonist/survivalist) && !H.mind.has_antag_datum(/datum/antagonist/traitor))
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
 		add_conversion_logs(H, "was made into a survivalist")
 
@@ -125,9 +123,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		if(iswizard(H))
 			return
 
-	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors))
-		SSticker.mode.traitors += H.mind
-
+	if(prob(GLOB.summon_magic_triggered) && !H.mind.has_antag_datum(/datum/antagonist/survivalist) && !H.mind.has_antag_datum(/datum/antagonist/traitor))
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)
 		add_conversion_logs(H, "was made into a survivalist")
 

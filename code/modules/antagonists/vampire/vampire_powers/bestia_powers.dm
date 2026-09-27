@@ -1794,20 +1794,20 @@
 
 	set_invis_see(initial(see_invisible))
 	set_sight(initial(sight))
-	lighting_alpha = initial(lighting_alpha)
+	lighting_cutoff = initial(lighting_cutoff)
 	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
 			add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		else if(vamp.get_ability(/datum/vampire_passive/full))
 			add_sight(SEE_MOBS)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
 			add_sight(SEE_MOBS)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 
 	if(client.eye != src)
 		var/atom/A = client.eye
@@ -1815,7 +1815,7 @@
 			return
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	sync_lighting_plane_cutoff()
 
 	return ..()
 

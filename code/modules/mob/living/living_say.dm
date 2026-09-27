@@ -165,6 +165,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				S.message = stutter(S.message)
 			verb = "заика[PLUR_ET_YUT(src)]ся"
 
+		if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
+			S.message = unintelligize(S.message)
+
 		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
 			verb = "бормоч[PLUR_ET_UT(src)]"
@@ -195,7 +198,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(client)
 		client.check_say_flood(5)
-		if(check_mute(client.ckey, MUTE_IC))
+		if(check_mute(client.account_ckey, MUTE_IC))
 			to_chat(src, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 			return FALSE
 
@@ -449,7 +452,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return src
 
 /mob/living/proc/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
-	if(client && check_mute(client.ckey, MUTE_IC))
+	if(client && check_mute(client.account_ckey, MUTE_IC))
 		to_chat(src, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 		return
 

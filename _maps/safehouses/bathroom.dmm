@@ -1,0 +1,161 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"c" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"d" = (
+/obj/structure/sign/poster,
+/turf/simulated/wall/mineral/silver,
+/area/virtual_domain/safehouse)
+"e" = (
+/obj/effect/spawner/window,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"h" = (
+/obj/modular_map_connector,
+/turf/simulated/wall/mineral/silver,
+/area/virtual_domain/safehouse)
+"q" = (
+/obj/structure/urinal{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"s" = (
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"v" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/vehicle/ridden/wheelchair,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"x" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"z" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"D" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"G" = (
+/turf/simulated/wall/mineral/silver,
+/area/virtual_domain/safehouse)
+"J" = (
+/obj/structure/railing,
+/obj/effect/landmark/bitrunning/cache_goal_turf,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/bitrunning_transport,
+/area/virtual_domain/safehouse)
+"M" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"T" = (
+/obj/effect/landmark/bitrunning/hololadder_spawn,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"X" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/freezer,
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+"Z" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/virtual_domain/safehouse)
+
+(1,1,1) = {"
+G
+G
+G
+G
+G
+h
+"}
+(2,1,1) = {"
+G
+Z
+M
+q
+y
+G
+"}
+(3,1,1) = {"
+G
+c
+D
+a
+T
+G
+"}
+(4,1,1) = {"
+X
+a
+D
+D
+T
+G
+"}
+(5,1,1) = {"
+G
+c
+x
+a
+T
+G
+"}
+(6,1,1) = {"
+G
+s
+J
+z
+v
+e
+"}
+(7,1,1) = {"
+G
+G
+G
+d
+G
+G
+"}

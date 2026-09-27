@@ -169,13 +169,13 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	var/can_edit = TRUE
 
 	var/obj/item/implement = user.get_active_hand()
-	var/implement_color = get_paint_tool_color(implement)
+	var/implement_color = get_paint_tool_color(implement, canvas_color)
 	var/can_change_implement_color = can_change_paint_tool_color(implement)
 
 	if(implement_color)
 		editor_data["serverSelectedColor"] = implement_color
-		editor_data["serverPalette"] = get_paint_tool_palette(implement)
-		editor_data["maxServerColors"] = get_paint_tool_palette_capacity(implement)
+		editor_data["serverPalette"] = get_paint_tool_palette(implement, canvas_color)
+		editor_data["maxServerColors"] = get_paint_tool_palette_capacity(implement, canvas_color)
 		editor_data["onSelectServerColor"] = "onSelectColor"
 		editor_data["onAddServerColor"] = "onAddPaletteColor"
 		editor_data["onRemoveServerColor"] = "onRemovePaletteColor"
@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	SIGNAL_HANDLER
 	paint_color = copytext(paint_color, 1, 8)
 	var/obj/item/implement = usr.get_active_hand()
-	if(!implement || !((get_paint_tool_color(implement) == paint_color) || (paint_color in get_paint_tool_palette(implement))))
+	if(!implement || !((get_paint_tool_color(implement, canvas_color) == paint_color) || (paint_color in get_paint_tool_palette(implement, canvas_color))))
 		return COLOR_IS_INVALID
 
 /obj/item/canvas/proc/finalize(mob/user)
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	return data.Join("")
 
 //Todo make this element ?
-/obj/item/canvas/proc/get_paint_tool_color(obj/item/painting_implement)
+/proc/get_paint_tool_color(obj/item/painting_implement, cleaning_color)
 	if(!painting_implement)
 		return
 
@@ -452,31 +452,31 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 		var/obj/item/airlock_painter/decal/painter = painting_implement
 		return LOWER_TEXT(painter.selected_custom_color)
 
-	if(issoap(painting_implement) || istype(painting_implement, /obj/item/rag))
-		return LOWER_TEXT(canvas_color)
+	if(cleaning_color && (issoap(painting_implement) || istype(painting_implement, /obj/item/rag)))
+		return LOWER_TEXT(cleaning_color)
 
-/obj/item/canvas/proc/get_paint_tool_palette(obj/item/painting_implement)
+/proc/get_paint_tool_palette(obj/item/painting_implement, cleaning_color)
 	if(!painting_implement)
 		return list()
 	var/datum/component/palette/palette_comp = painting_implement.GetComponent(/datum/component/palette)
 	if(!palette_comp)
-		var/implement_color = get_paint_tool_color(painting_implement)
+		var/implement_color = get_paint_tool_color(painting_implement, cleaning_color)
 		return implement_color ? list(implement_color) : list()
 	return palette_comp.colors
 
-/obj/item/canvas/proc/get_paint_tool_palette_capacity(obj/item/painting_implement)
+/proc/get_paint_tool_palette_capacity(obj/item/painting_implement, cleaning_color)
 	if(!painting_implement)
 		return
 	var/datum/component/palette/palette_comp = painting_implement.GetComponent(/datum/component/palette)
 	if(!palette_comp)
-		return get_paint_tool_color(painting_implement) ? 1 : 0
+		return get_paint_tool_color(painting_implement, cleaning_color) ? 1 : 0
 	return palette_comp.max_colors
 
-/obj/item/canvas/proc/can_change_paint_tool_color(obj/item/painting_implement)
+/proc/can_change_paint_tool_color(obj/item/painting_implement)
 	if(!painting_implement)
 		return
 
-	if(istype(painting_metadata, /obj/item/paint_palette) || istype(painting_implement, /obj/item/airlock_painter/decal))
+	if(istype(painting_implement, /obj/item/paint_palette) || istype(painting_implement, /obj/item/airlock_painter/decal))
 		return TRUE
 
 	if(iscrayon(painting_implement))

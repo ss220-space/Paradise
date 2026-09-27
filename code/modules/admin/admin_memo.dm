@@ -19,7 +19,7 @@ ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", ADMIN
 		if("Write")
 			var/datum/db_query/query_memocheck = SSdbcore.NewQuery(
 				"SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE ckey=:ckey",
-				list("ckey" = ckey)
+				list("ckey" = account_ckey)
 			)
 
 			if(!query_memocheck.warn_execute())
@@ -39,7 +39,7 @@ ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", ADMIN
 			var/datum/db_query/query_memoadd = SSdbcore.NewQuery(
 				"INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("memo")] (ckey, memotext, timestamp) VALUES (:ckey, :memotext, NOW())",
 				list(
-					"ckey" = ckey,
+					"ckey" = account_ckey,
 					"memotext" = memotext
 				)
 			)
@@ -95,7 +95,7 @@ ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", ADMIN
 					"UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("memo")] SET memotext=:newmemo, last_editor=:lasteditor, edits=CONCAT(IFNULL(edits,''),:edittext) WHERE ckey=:targetckey",
 					list(
 						"newmemo" = new_memo,
-						"lasteditor" = ckey,
+						"lasteditor" = account_ckey,
 						"edittext" = edit_text,
 						"targetckey" = target_ckey
 					)

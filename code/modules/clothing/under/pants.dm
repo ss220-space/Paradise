@@ -43,7 +43,7 @@
 	desc = "Джинсы с низкой посадкой. Для бунтарей и желающих показать своё исподнее окружающим."
 	icon_state = "lowjeans"
 	item_color = "lowjeans"
-	species_restricted = list(SPECIES_HUMAN)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SWINE)
 	over_shoes = TRUE
 
 /obj/item/clothing/under/pants/lowjeans/get_ru_names()

@@ -29,7 +29,7 @@
 		return
 
 	update_icon(UPDATE_ICON_STATE)
-	if(user.mind && (user.mind in SSticker.mode.wizards))
+	if(iswizard(user))
 		ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_BROOM_TRAIT)
 		user.say("QUID 'ITCH")
 

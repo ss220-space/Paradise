@@ -121,6 +121,7 @@
 	if(use_voice && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
+	speaker_name = perceived_name(speaker, speaker_name)
 
 	var/message_clean = apply_message_emphasis(combine_message(message_pieces, speaker))
 	message_clean = replace_characters(message_clean, list("+"))
@@ -288,6 +289,9 @@
 			continue
 		if(piece.speaking?.runechat_span)
 			return piece.speaking
+
+/mob/proc/perceived_name(atom/movable/speaker, speaker_name)
+	return speaker_name
 
 /**
  * Returns speaker's name colored based on a hash of the name.

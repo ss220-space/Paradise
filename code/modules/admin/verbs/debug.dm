@@ -824,3 +824,15 @@ ADMIN_VERB(count_instances, R_DEBUG, "Count Atoms/Datums", "Count how many atom 
 	CRASH("count_datums not supported on OpenDream")
 #endif
 
+ADMIN_VERB(show_worn_sprite_source, R_DEBUG, "Show Worn Sprite Source", "Reports where every worn sprite of a human is coming from.", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living/carbon/human)
+	var/list/report = list()
+	for(var/obj/item/clothing_item as anything in target.get_equipped_items())
+		for(var/slot_string in clothing_item.onmob_sheets)
+			var/sheet = clothing_item.onmob_sheets[slot_string]
+			var/state_name = icon_exists(sheet, clothing_item.icon_state) ? clothing_item.icon_state : "[clothing_item.icon_state]_s"
+			report += "[clothing_item.name] ([slot_string], [state_name]): [get_worn_icon_source(target, clothing_item, sheet, state_name)]"
+	if(!length(report))
+		report += "nothing worn"
+	to_chat(user, boxed_message("<b>Worn sprite sources for [key_name_admin(target)]</b><br>" + report.Join("<br>")))
+	BLACKBOX_LOG_ADMIN_VERB("Show Worn Sprite Source")

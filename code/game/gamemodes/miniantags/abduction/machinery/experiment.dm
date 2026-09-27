@@ -140,15 +140,8 @@
 			if(3)
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
-		to_chat(H, span_warning("<b>Your mind snaps!</b>"))
 		to_chat(H, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
-		var/objtype = pick(subtypesof(/datum/objective/abductee/))
-		var/datum/objective/abductee/O = new objtype()
-		SSticker.mode.abductees += H.mind
-		H.mind.objectives += O
-		var/list/messages = H.mind.prepare_announce_objectives()
-		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>"))) // let the player know they have a new objective
-		SSticker.mode.update_abductor_icons_added(H.mind)
+		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()

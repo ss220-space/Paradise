@@ -473,3 +473,17 @@
 	animate(transform = translation_matrices[2], time = 0.01 SECONDS)
 	animate(transform = translation_matrices[3], time = 0.02 SECONDS)
 	animate(transform = translation_matrices[4], time = 0.03 SECONDS)
+
+/atom/proc/fade_into_nothing(life_time = 5 SECONDS, fade_time = 3 SECONDS)
+	QDEL_IN(src, life_time)
+	if(fade_time <= 0)
+		return
+
+	if(life_time > fade_time)
+		addtimer(CALLBACK(src, PROC_REF(fade_into_nothing_animate), fade_time), life_time - fade_time, TIMER_DELETE_ME)
+		return
+
+	fade_into_nothing_animate(fade_time)
+
+/atom/proc/fade_into_nothing_animate(fade_time)
+	animate(src, alpha = 0, time = fade_time, flags = ANIMATION_PARALLEL)

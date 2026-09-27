@@ -38,6 +38,7 @@ Mime=1
 
 Shaft Miner=6
 Cargo Technician=4
+Bitrunner=3
 Mining Medic=1
 
 Warden=1

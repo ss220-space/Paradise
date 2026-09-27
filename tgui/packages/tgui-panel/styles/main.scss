@@ -45,3 +45,6 @@
   --color-section: hsl(from var(--color-base) h s calc(l - 4.2));
   --base-gradient-spread: 0;
 }
+
+// Must stay last: overrides derived colours for engines that lack them
+@include meta.load-css('./legacy-colors.scss');

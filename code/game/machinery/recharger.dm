@@ -181,12 +181,11 @@
 
 /obj/machinery/recharger/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if((stat & NOPOWER) || panel_open)
 		return
 
-	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+	. += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
 	if(!C || C.charge >= C.maxcharge)

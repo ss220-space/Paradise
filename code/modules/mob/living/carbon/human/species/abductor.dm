@@ -4,6 +4,7 @@
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
+	fit_profile = /datum/species_fit/abductor
 	language = LANGUAGE_HIVE_ABDUCTOR
 	default_language = LANGUAGE_HIVE_ABDUCTOR
 	eyes = "blank_eyes"

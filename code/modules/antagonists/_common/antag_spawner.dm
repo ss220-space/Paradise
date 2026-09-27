@@ -173,6 +173,7 @@
 		just beyond the veil...")
 	var/objective_verb = "Kill"
 	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
+	var/datum/antagonist/demon/demon_datum_type = /datum/antagonist/demon/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -207,24 +208,13 @@
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/phased_mob/blood/holder = new /obj/effect/dummy/phased_mob/blood(T)
 	var/mob/living/simple_animal/demon/demon = new demon_type(holder)
-	demon.vialspawned = TRUE
 	demon.holder = holder
 	demon.possess_by_player(C.key)
 	demon.mind.assigned_role = ROLE_DEMON
-	demon.mind.special_role = SPECIAL_ROLE_DEMON
-	SSticker.mode.demons |= demon.mind
-	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = demon.mind
-	KillDaWiz.target = user.mind
-	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	demon.mind.objectives += KillDaWiz
-	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = demon.mind
-	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
-	KillDaCrew.completed = TRUE
-	demon.mind.objectives += KillDaCrew
-	var/list/messages = demon.mind.prepare_announce_objectives()
-	to_chat(demon, custom_boxed_message("red_box center", messages.Join("<br>")))
+	var/datum/antagonist/demon/demon_datum = new demon_datum_type
+	demon_datum.summoner = user.mind
+	demon_datum.objective_verb = objective_verb
+	demon.mind.add_antag_datum(demon_datum)
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -246,6 +236,7 @@
 	veil_msg = span_warning_alt("You sense a dark presence \
 		lurking in the shadows...")
 	demon_type = /mob/living/simple_animal/demon/shadow
+	demon_datum_type = /datum/antagonist/demon/shadow
 
 ///////////MORPH
 
@@ -289,25 +280,13 @@
 		to_chat(user, span_notice("The sludge does not respond to your attempt to awake it. Perhaps you should try again later."))
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
-	M.possess_by_player(C.key)
-	M.mind.assigned_role = SPECIAL_ROLE_MORPH
-	M.mind.special_role = SPECIAL_ROLE_MORPH
-	to_chat(M, M.playstyle_string)
-	SSticker.mode.traitors += M.mind
-	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = M.mind
-	KillDaWiz.target = user.mind
-	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
-	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
-	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
-	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	var/list/messages = M.mind.prepare_announce_objectives()
-	to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
-	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
+	var/mob/living/simple_animal/hostile/morph/wizard/morph = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
+	morph.possess_by_player(C.key)
+	morph.mind.assigned_role = SPECIAL_ROLE_MORPH
+	var/datum/antagonist/morph/wizard/morph_datum = new
+	morph_datum.summoner = user.mind
+	morph_datum.objective_verb = objective_verb
+	morph.mind.add_antag_datum(morph_datum)
 
 ///////////Pulse Demon
 
@@ -363,19 +342,12 @@
 	var/mob/living/simple_animal/demon/pulse_demon/demon = new(T)
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
-	player_mind.special_role = SPECIAL_ROLE_DEMON
 
-	var/datum/objective/assassinate/kill_wiz = new /datum/objective/assassinate
-	kill_wiz.owner = demon.mind
-	kill_wiz.target = user.mind
-	kill_wiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to free you."
-	demon.mind.objectives += kill_wiz
+	var/datum/antagonist/demon/pulse/demon_datum = player_mind.has_antag_datum(/datum/antagonist/demon/pulse)
+	demon_datum.summoner = user.mind
+	demon_datum.objective_verb = objective_verb
+	demon_datum.add_objective(/datum/objective/assassinate, "[objective_verb] [user.real_name], the one who was foolish enough to free you.", user.mind)
+	demon_datum.add_objective(/datum/objective/demon_rampage, "[objective_verb] everyone else while you're at it.")
 
-	var/datum/objective/kill_crew = new /datum/objective
-	kill_crew.owner = demon.mind
-	kill_crew.explanation_text = "[objective_verb] everyone else while you're at it."
-	kill_crew.completed = TRUE
-	demon.mind.objectives += kill_crew
-
-	var/list/messages = demon.mind.prepare_announce_objectives()
+	var/list/messages = player_mind.prepare_announce_objectives()
 	to_chat(demon, custom_boxed_message("red_box center", messages.Join("<br>")))

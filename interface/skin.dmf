@@ -71,6 +71,7 @@ window "mapwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		zoom-mode = distort
 		font-family = "Grand9K Pixel"
 		font-size = 6
 		text-color = none
@@ -156,7 +157,7 @@ window "infobuttons"
 		saved-params = "is-checked"
 		text = "Hotkeys"
 		command = "Hotkeys-Help"
-	elem "emotes"
+	elem "fullscreen-toggle"
 		type = BUTTON
 		pos = 185,2
 		size = 88x27
@@ -164,24 +165,14 @@ window "infobuttons"
 		anchor2 = 43,100
 		background-color = none
 		saved-params = "is-checked"
-		text = "Emotes"
-		command = "Emote-Panel"
-	elem "fullscreen-toggle"
+		text = "Полный экран"
+		command = "Полный-экран"
+	elem "reconnect"
 		type = BUTTON
 		pos = 277,2
 		size = 88x27
 		anchor1 = 43,0
 		anchor2 = 57,100
-		background-color = none
-		saved-params = "is-checked"
-		text = "Полный экран"
-		command = "Полный-экран"
-	elem "reconnect"
-		type = BUTTON
-		pos = 369,2
-		size = 88x27
-		anchor1 = 57,0
-		anchor2 = 71,100
 		background-color = none
 		saved-params = "is-checked"
 		text = "Reconnect"

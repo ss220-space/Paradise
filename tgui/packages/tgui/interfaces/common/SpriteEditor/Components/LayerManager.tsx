@@ -38,7 +38,7 @@ export const LayerManager = (props: LayerManagerProps) => {
           .slice(0, iconDirs)
           .map((dir) => `${dir}${i}`)
           .join(' ')} rightControls${i}"`,
-    ).toReversed(),
+    ).reverse(),
   ].join(' ');
   return (
     <Box {...rest}>

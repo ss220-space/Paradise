@@ -114,9 +114,10 @@
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_FULLBRIGHT
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 	set_invis_see(SEE_INVISIBLE_OBSERVER)
-	sync_lighting_plane_alpha()
+	sync_lighting_plane_cutoff()
 
 /mob/living/proc/handle_critical_condition()
 	return

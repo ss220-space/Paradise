@@ -93,6 +93,10 @@ GLOBAL_PROTECT(log_end)
 	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_ooc_discord(text, user_ckey)
+	if(CONFIG_GET(flag/log_ooc))
+		WRITE_LOG(GLOB.world_game_log, "OOC (Discord): [user_ckey]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_aooc(text, client/user)
 	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")

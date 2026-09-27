@@ -213,28 +213,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
-				var/list/messages = list()
-				if(prob(probability_evil))
-					messages.Add(span_warning("<b>With your new found power you could easily conquer the station!</b>"))
-					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-					hijack_objective.owner = usr.mind
-					usr.mind.objectives += hijack_objective
-					messages.Add(user.mind.prepare_announce_objectives(FALSE))
-					SSticker.mode.traitors += usr.mind
-					usr.mind.special_role = "[usr.real_name] Prime"
-					evil = TRUE
-				else
-					messages.Add(span_warning("<b>With your new found power you could easily defend the station!</b>"))
-					var/datum/objective/survive/new_objective = new /datum/objective/survive
-					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
-					new_objective.owner = usr.mind
-					usr.mind.objectives += new_objective
-					messages.Add(user.mind.prepare_announce_objectives(FALSE))
-					SSticker.mode.traitors += usr.mind
-					usr.mind.special_role = "[usr.real_name] Prime"
-					evil = FALSE
-				to_chat(user, custom_boxed_message("red_box center", messages.Join("<br>")))
+				evil = prob(probability_evil)
+				var/datum/antagonist/multiverse/prime/prime = new
+				prime.evil = evil
+				usr.mind.add_antag_datum(prime)
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -285,24 +267,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	equip_copy(M)
 
-	if(evil)
-		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-		hijack_objective.owner = usr.mind
-		usr.mind.objectives += hijack_objective
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
-		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
-	else
-		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
-		new_objective.owner = M.mind
-		M.mind.objectives += new_objective
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
-		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
+	var/datum/antagonist/multiverse/traveller = new
+	traveller.evil = evil
+	traveller.summoner = usr.mind
+	M.mind.add_antag_datum(traveller)
+	add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] [evil ? "hijack" : "protect the station"].", M)
 
 /obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 

@@ -1,5 +1,7 @@
 /datum/antagonist/thief
 	name = "Thief"
+	roundend_category = "Ворами в розыске"
+	roundend_blackbox_key = "thief"
 	job_rank = ROLE_THIEF
 	special_role = SPECIAL_ROLE_THIEF
 	antag_hud_type = ANTAG_HUD_THIEF
@@ -11,12 +13,6 @@
 	antag_menu_name = "Вор"
 	/// Whether our thief should get a special equipment box
 	var/give_kit = TRUE
-
-/datum/antagonist/thief/add_owner_to_gamemode()
-	SSticker.mode.thieves |= owner
-
-/datum/antagonist/thief/remove_owner_from_gamemode()
-	SSticker.mode.thieves -= owner
 
 /datum/antagonist/thief/give_objectives()
 	//Hard objective

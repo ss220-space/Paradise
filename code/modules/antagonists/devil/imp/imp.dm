@@ -28,7 +28,7 @@
 	melee_damage_upper = 15
 	nightvision = 8
 	fire_damage = 0
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	del_on_death = TRUE
 	deathmessage = "кричит в агонии, превращаясь в сернистый дым."
 	death_sound = 'sound/misc/demon_dies.ogg'

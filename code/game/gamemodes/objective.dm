@@ -1120,7 +1120,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 				if(HAS_TRAIT(player, TRAIT_NO_DNA))
 					continue
 
-				if(player.client && !(player.mind in SSticker.mode.changelings) && !(player.mind in get_owners()))
+				if(player.client && !ischangeling(player) && !(player.mind in get_owners()))
 					n_p++
 
 		target_amount = min(target_amount, n_p)
@@ -1560,12 +1560,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	..()
 
 /datum/objective/vermit_hunt/proc/update_objective(amount)
-	target_amount = max(1, round((amount || length(SSticker.mode.changelings)) / 2))
+	target_amount = max(1, round((amount || length(get_antag_minds(/datum/antagonist/changeling))) / 2))
 	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [target_amount] из них."
 
 /datum/objective/vermit_hunt/check_completion()
 	var/killed_vermits = 0
-	for(var/datum/mind/player in SSticker.mode.changelings)
+	for(var/datum/mind/player in get_antag_minds(/datum/antagonist/changeling))
 		if(!player || !player.current || !player.current.ckey || player.current.stat == DEAD || is_special_dead(player.current, check_silicon = TRUE))
 			killed_vermits++
 

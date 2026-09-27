@@ -5,6 +5,7 @@
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
+	fit_profile = /datum/species_fit/drask
 	language = LANGUAGE_DRASK
 	eyes = "drask_eyes_s"
 
@@ -98,13 +99,6 @@
 	)
 	autohiss_exempt = list("Орлуум")
 
-	max_select_skills = list(
-		/datum/skill/general/carrying = 3,
-		/datum/skill/general/mech_drive = 1,
-		/datum/skill/combat/melee = 1,
-		/datum/skill/combat/fists = 3,
-		/datum/skill/research/robotics = 1,
-	)
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

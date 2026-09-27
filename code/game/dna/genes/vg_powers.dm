@@ -48,13 +48,13 @@
 		//Alt heads.
 		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 			var/list/valid_alt_heads = M.generate_valid_alt_heads()
-			var/new_alt_head = tgui_input_list(usr, "Пожалуйста, выберите другую форму головы.", "Создание персонажа", valid_alt_heads, head_organ.alt_head)
+			var/new_alt_head = tgui_input_accessory(usr, "Пожалуйста, выберите другую форму головы.", "Создание персонажа", valid_alt_heads, head_organ.alt_head, ACCESSORY_CATEGORY_ALT_HEAD)
 			if(new_alt_head)
 				M.change_alt_head(new_alt_head)
 
 		// hair
 		var/list/valid_hairstyles = M.generate_valid_hairstyles()
-		var/new_style = tgui_input_list(usr, "Пожалуйста, выберите стиль прически.", "Создание персонажа", valid_hairstyles, head_organ.h_style)
+		var/new_style = tgui_input_accessory(usr, "Пожалуйста, выберите стиль прически.", "Создание персонажа", valid_hairstyles, head_organ.h_style, ACCESSORY_CATEGORY_HAIR)
 
 		// if new style selected (not cancel)
 		if(new_style)
@@ -72,7 +72,7 @@
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-		new_style = tgui_input_list(usr, "Пожалуйста, выберите тип лицевой растительности.", "Создание персонажа", valid_facial_hairstyles, head_organ.f_style)
+		new_style = tgui_input_accessory(usr, "Пожалуйста, выберите тип лицевой растительности.", "Создание персонажа", valid_facial_hairstyles, head_organ.f_style, ACCESSORY_CATEGORY_FACIAL_HAIR)
 
 		if(new_style)
 			M.change_facial_hair(new_style)
@@ -90,7 +90,7 @@
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
-			var/new_head_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для головы.", "Создание персонажа", valid_head_accessories, head_organ.ha_style)
+			var/new_head_accessory = tgui_input_accessory(usr, "Пожалуйста, выберите стиль аксессуаров для головы.", "Создание персонажа", valid_head_accessories, head_organ.ha_style, ACCESSORY_CATEGORY_HEAD_ACCESSORY)
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
@@ -102,7 +102,7 @@
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
-			var/new_body_accessory = tgui_input_list(usr, "Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", valid_body_accessories, M.body_accessory)
+			var/new_body_accessory = tgui_input_accessory(usr, "Пожалуйста, выберите стиль аксессуаров для тела.", "Создание персонажа", valid_body_accessories, M.body_accessory, ACCESSORY_CATEGORY_BODY_ACCESSORY)
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
 
@@ -110,7 +110,7 @@
 		//Head markings.
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
-			var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки головы.", "Создание персонажа", valid_head_markings, M.m_styles["head"])
+			var/new_marking = tgui_input_accessory(usr, "Пожалуйста, выберите стиль маркировки головы.", "Создание персонажа", valid_head_markings, M.m_styles["head"], ACCESSORY_CATEGORY_MARKING)
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
@@ -121,7 +121,7 @@
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
-		var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки тела.", "Создание персонажа", valid_body_markings, M.m_styles["body"])
+		var/new_marking = tgui_input_accessory(usr, "Пожалуйста, выберите стиль маркировки тела.", "Создание персонажа", valid_body_markings, M.m_styles["body"], ACCESSORY_CATEGORY_MARKING)
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
@@ -131,7 +131,7 @@
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
-		var/new_marking = tgui_input_list(usr, "Пожалуйста, выберите стиль маркировки хвоста.", "Создание персонажа", valid_tail_markings, M.m_styles["tail"])
+		var/new_marking = tgui_input_accessory(usr, "Пожалуйста, выберите стиль маркировки хвоста.", "Создание персонажа", valid_tail_markings, M.m_styles["tail"], ACCESSORY_CATEGORY_MARKING)
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 

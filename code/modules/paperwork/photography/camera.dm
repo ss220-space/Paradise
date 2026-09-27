@@ -221,6 +221,13 @@
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
+	var/list/mobs_seen = list()
+	for(var/turf/photographed as anything in turfs)
+		for(var/mob/living/subject in photographed)
+			if(subject.stat == DEAD || subject.invisibility)
+				continue
+			mobs_seen |= subject.UID()
+
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital) && ishuman(user))
 		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo")
@@ -237,6 +244,7 @@
 	P.fields["size"] = picture_size
 	P.fields["log"] = logs
 	P.fields["blueprints"] = have_blueprints
+	P.fields["mobs_seen"] = mobs_seen
 
 	return P
 

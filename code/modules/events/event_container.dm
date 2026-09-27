@@ -208,6 +208,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_CARP_MIGRATION, /datum/event/carp_migration, 200, list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_DRONE_MALFUNCTION, /datum/event/rogue_drone, 0, list(ASSIGNMENT_SECURITY = 20)),
+		new /datum/event_meta/bitrunning_glitch(
+			EVENT_LEVEL_MODERATE, EVENT_BITRUNNING_GLITCH, /datum/event/bitrunning_glitch, 50),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_SPACEVINE, /datum/event/spacevine, 250, list(ASSIGNMENT_ENGINEER = 10)),
 		new /datum/event_meta(
@@ -232,15 +234,17 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_SPIDER_INFESTATION, /datum/event/spider_infestation, 100,	list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_ION_TYPHOON, /datum/event/ion_typhoon, 100, list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_BORER_INFESTATION, /datum/event/borer_infestation, 40, list(ASSIGNMENT_SECURITY = 30), TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_HEADSLUG_INFESTATION, /datum/event/headslug_infestation, 40, list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_IMMOVABLE_ROD, /datum/event/immovable_rod, 0, list(ASSIGNMENT_ENGINEER = 30), TRUE),
 		// NON-BAY EVENTS
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_MASS_HALLUCINATION, /datum/event/mass_hallucination, 300),
+		new /datum/event_meta(
+			EVENT_LEVEL_MODERATE, EVENT_BRAIN_TRAUMA, /datum/event/brain_trauma, 100, list(ASSIGNMENT_MEDICAL = 30)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_DIGITAL_VIRUS, /datum/event/brand_intelligence, 50, list(ASSIGNMENT_ENGINEER = 25), TRUE),
 		new /datum/event_meta(
@@ -257,15 +261,15 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_WORMHOLES, /datum/event/wormholes, 150),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_ANOMALY, /datum/event/anomaly, 500, list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_SCIENTIST = 30)),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 150),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/spawn_swarmer, 0, is_one_shot = TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_MORPH, /datum/event/spawn_morph, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_ABDUCTORS, /datum/event/abductor/one_crew, 40, list(ASSIGNMENT_SECURITY = 3), TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_PULSE_DEMON, /datum/event/spawn_pulsedemon, 0),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_DISEASE_OUTBREAK, /datum/event/disease_outbreak, 0, list(ASSIGNMENT_MEDICAL = 150), TRUE),
@@ -273,14 +277,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_HEADCRABS, /datum/event/headcrabs, 0, list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_AIRLOCK_MALFUNCTION, /datum/event/door_runtime, 50, list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_SPACE_NINJA, /datum/event/space_ninja, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta/lone_operative(),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_DRIFTING_CONTRACTOR, /datum/event/drifting_contractor, 60, list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_TRADERS, /datum/event/traders, 85, is_one_shot = TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MODERATE, EVENT_VOX_RAIDERS, /datum/event/vox_raiders, 85, is_one_shot = TRUE),
 	)
 
@@ -293,23 +297,23 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MAJOR, EVENT_CARP_INFESTATION, /datum/event/carp_migration, 10, list(ASSIGNMENT_SECURITY = 3), TRUE), // 4.8% on high pop, 3.4% on low pop
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_APC_OVERLOAD, /datum/event/apc_overload, 0),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_BLOB, /datum/event/blob, 30, list(ASSIGNMENT_ENGINEER = 5), TRUE),	// 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_METEOR_WAVE_HUGE, /datum/event/meteor_wave, 30, list(ASSIGNMENT_ENGINEER = 5), TRUE), // 6.9% on high pop, 5.5% on low pop
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_ABDUCTORS, /datum/event/abductor, 20, list(ASSIGNMENT_SECURITY = 3), TRUE), // 5.8% on high pop, 4.5% on low pop
 		new /datum/event_meta/alien(
 			EVENT_LEVEL_MAJOR, EVENT_XENOMORPH_INFESTATION, /datum/event/alien_infestation, 20, list(ASSIGNMENT_SECURITY = 4), TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_TERROR_SPIDER, /datum/event/spider_terror, 20, list(ASSIGNMENT_SECURITY = 4), TRUE), // 7.1% on high pop, 5.3% on low pop
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_SLAUGHTER_DEMON, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE), // 3% on high pop, 2.1% on low pop
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_LAUGHTER_DEMON, /datum/event/spawn_slaughter/laughter,	20, is_one_shot = TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_SHADOW_DEMON, /datum/event/spawn_slaughter/shadow,	20, is_one_shot = TRUE),
-		new /datum/event_meta(
+		new /datum/event_meta/antag(
 			EVENT_LEVEL_MAJOR, EVENT_SPACE_DRAGON, /datum/event/space_dragon, 20, list(ASSIGNMENT_SECURITY = 4), TRUE),
 	)
 

@@ -9,16 +9,29 @@
 	if(!isemptylist(bombs)) // You're fucked.
 		return ..(severity)
 
+/obj/structure/closet/secure_closet/freezer/empty
+	name = "freezer"
+
+/obj/structure/closet/secure_closet/freezer/empty/open
+	req_access = null
+	locked = FALSE
+
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
 	req_access = list(ACCESS_KITCHEN)
 	icon_state = "kitchen"
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/condiment/flour(src)
 	new /obj/item/reagent_containers/condiment/rice(src)
 	new /obj/item/reagent_containers/condiment/sugar(src)
+
+/obj/structure/closet/secure_closet/freezer/kitchen/open
+	req_access = null
+	locked = FALSE
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()

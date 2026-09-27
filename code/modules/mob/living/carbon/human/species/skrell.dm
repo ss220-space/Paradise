@@ -3,6 +3,7 @@
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
+	fit_profile = /datum/species_fit/skrell
 	language = LANGUAGE_SKRELL
 	primitive_form = /datum/species/monkey/skrell
 

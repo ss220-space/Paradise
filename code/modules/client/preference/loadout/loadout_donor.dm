@@ -643,3 +643,17 @@
 	cost = 2
 	index_name = "meta-banhammer"
 	path = /obj/item/banhammer/meta_hammer
+
+/datum/gear/donor/headphone_case
+	donator_tier = 1
+	index_name = "a wireless earbuds case, select"
+	display_name = "Кейс беспроводных наушников"
+	path = /obj/item/headphone_case
+
+/datum/gear/donor/headphone_case/New()
+	..()
+	var/list/cases = list(
+		"white" = /obj/item/headphone_case,
+		"black" = /obj/item/headphone_case/black,
+	)
+	gear_tweaks += new /datum/gear_tweak/path(cases, src)

@@ -168,7 +168,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 		to_chat(user, span_warning("[receiver] без сознания и не мо[PLUR_JET_GUT(user)] принять предмет!"))
 		return
 	if(!receiver.IsAdvancedToolUser())
-		to_chat(user, span_warning("[receiver] недостаточно ловк[GEND_II_AYA_II_IE(receiver)] для передачи!"))
+		to_chat(user, span_warning("[receiver] недостаточно ловк[GEND_II_AYA_OE_IE(receiver)] для передачи!"))
 		return
 	var/obj/item/item = giving_item
 	if(!user.Adjacent(receiver))

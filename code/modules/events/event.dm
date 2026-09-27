@@ -18,10 +18,14 @@
 	var/list/role_weights = list()
 	/// Whether or not the event will be return to event container.
 	var/readd_to_rotation = TRUE
+	var/antag_event = FALSE
 	var/datum/event/event_type
 
 /datum/event_meta/force
 	readd_to_rotation = FALSE
+
+/datum/event_meta/antag
+	antag_event = TRUE
 
 /datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
 	name = event_name
@@ -38,12 +42,18 @@
 	if(!enabled)
 		return 0
 
+	if(antag_event && SSticker.mode && !SSticker.mode.allow_antag_events())
+		return 0
+
 	var/job_weight = 0
 	for(var/role in role_weights)
 		if(role in active_with_role)
 			job_weight += active_with_role[role] * role_weights[role]
 
 	return clamp((weight + job_weight) * weight_mod, min_weight, max_weight)
+
+/datum/event_meta/alien
+	antag_event = TRUE
 
 /datum/event_meta/alien/get_weight(list/active_with_role)
 	if(GLOB.aliens_allowed)

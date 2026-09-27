@@ -2,7 +2,7 @@
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
 	name = "Mindslave"
-	roundend_category = "mindslaves"
+	roundend_category = "Рабами"
 	job_rank = SPECIAL_ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
@@ -10,7 +10,6 @@
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	antag_menu_name = "Раб"
-	has_skill_bonus = FALSE
 	/// Whether mindslave uses special handling on transfer mind.
 	var/special = FALSE
 	/// Icon slave master will get, must be without "hud" prefix.
@@ -52,12 +51,10 @@
 	slaved.add_serv_hud(master, master_hud_icon)
 	return ..()
 
-/datum/antagonist/mindslave/add_owner_to_gamemode()
-	SSticker.mode.implanted[owner] = master
-
-/datum/antagonist/mindslave/remove_owner_from_gamemode()
-	SSticker.mode.implanted[owner] = null
-	SSticker.mode.implanted -= owner
+/datum/antagonist/mindslave/roundend_report_details()
+	if(!master?.current)
+		return ..()
+	return list("Хозяин: <b>[master.current]</b>")
 
 /datum/antagonist/mindslave/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	..()

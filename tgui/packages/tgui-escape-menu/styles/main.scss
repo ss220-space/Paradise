@@ -1,5 +1,17 @@
 @use 'sass:meta';
 
+@mixin text-outline($size) {
+  text-shadow:
+    -#{$size} -#{$size} 0 #000,
+    0 -#{$size} 0 #000,
+    #{$size} -#{$size} 0 #000,
+    #{$size} 0 0 #000,
+    #{$size} #{$size} 0 #000,
+    0 #{$size} 0 #000,
+    -#{$size} #{$size} 0 #000,
+    -#{$size} 0 0 #000;
+}
+
 @include meta.load-css('~tgui/styles/reset');
 @include meta.load-css('~tgui-core/styles/base.scss');
 @include meta.load-css('~tgui-core/styles/colors.scss');
@@ -39,8 +51,7 @@ body,
   height: 100%;
   font-family: 'Pixellari', 'Grand9K Pixel', monospace;
   color: white;
-  -webkit-text-stroke: 0.2rem black;
-  paint-order: stroke fill;
+  @include text-outline(0.08rem);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
   text-rendering: optimizeSpeed;
@@ -83,7 +94,7 @@ body,
   &__station-name {
     font-size: 5rem;
     font-weight: bold;
-    -webkit-text-stroke: 0.3rem black;
+    @include text-outline(0.12rem);
   }
 
   &__details {
@@ -103,7 +114,7 @@ body,
 
     &:hover {
       text-decoration: underline;
-      -webkit-text-stroke: 0;
+      text-shadow: none;
     }
   }
 
@@ -129,11 +140,11 @@ body,
     text-align: left;
     padding: 0.2rem 0.5rem;
     cursor: pointer;
-    -webkit-text-stroke: 0.3rem black;
+    @include text-outline(0.12rem);
 
     &:hover {
       text-decoration: underline;
-      -webkit-text-stroke: 0;
+      text-shadow: none;
     }
 
     &--disabled {
@@ -349,7 +360,7 @@ body,
 
     &:hover {
       text-decoration: underline;
-      -webkit-text-stroke: 0;
+      text-shadow: none;
     }
   }
 
@@ -370,7 +381,7 @@ body,
 
       &:hover {
         text-decoration: underline;
-        -webkit-text-stroke: 0;
+        text-shadow: none;
       }
     }
   }
@@ -407,3 +418,6 @@ body,
     transform: translateX(6rem);
   }
 }
+
+// Must stay last: overrides derived colours for engines that lack them
+@include meta.load-css('./legacy-colors.scss');

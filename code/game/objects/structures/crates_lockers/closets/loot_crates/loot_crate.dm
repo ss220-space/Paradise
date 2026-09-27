@@ -41,8 +41,7 @@
 
 	to_chat(user, span_notice("Вы начинаете взламывать кодовый замок"))
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-	if(!do_after(user, tier.open_time * lockpick_mod, src))
+	if(!do_after(user, tier.open_time, src))
 		return
 
 	balloon_alert(user, "взлом окончен")
@@ -54,8 +53,7 @@
 	if(locked || opened)
 		return ..()
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-	if(!do_after(user, 5 SECONDS * lockpick_mod, src))
+	if(!do_after(user, 5 SECONDS, src))
 		return
 
 	open()

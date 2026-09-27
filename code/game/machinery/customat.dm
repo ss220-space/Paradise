@@ -234,7 +234,6 @@
 /obj/machinery/customat/update_overlays()
 	. = ..()
 
-	underlays.Cut()
 
 	if((stat & NOPOWER) || force_no_power_icon_state || !COOLDOWN_FINISHED(src, emp_cooldown))
 		if(broken_overlay && (stat & BROKEN))
@@ -248,7 +247,7 @@
 		if(broken_overlay)
 			. += broken_overlay
 		if(broken_lightmask_overlay)
-			underlays += emissive_appearance(icon, broken_lightmask_overlay, src)
+			. += emissive_appearance(icon, broken_lightmask_overlay, src)
 		if(panel_overlay && panel_open)
 			. += panel_overlay
 		return
@@ -270,7 +269,7 @@
 			. += deny_lightmask
 
 	if(!lightmask_used && lightmask_overlay)
-		underlays += emissive_appearance(icon, lightmask_overlay, src)
+		. += emissive_appearance(icon, lightmask_overlay, src)
 
 	if(panel_overlay && panel_open)
 		. += panel_overlay
@@ -287,7 +286,6 @@
 /obj/machinery/customat/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
-		underlays.Cut()
 
 /obj/machinery/customat/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))

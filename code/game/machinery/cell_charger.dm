@@ -45,6 +45,7 @@
 
 	var/newlevel =	round(charging.percent() * 4 / 100)
 	. += "ccharger-o[newlevel]"
+	. += emissive_appearance(icon, "ccharger-o[newlevel]", src)
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()

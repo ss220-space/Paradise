@@ -11,6 +11,9 @@
 	var/mob/living/basic/basic_mob = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
+	if(ispath(targetting_datum))
+		targetting_datum = new targetting_datum()
+		controller.blackboard[targetting_datum_key] = targetting_datum
 
 	if(!targetting_datum.can_attack(basic_mob, target))
 		finish_action(controller, FALSE, target_key)
@@ -44,6 +47,9 @@
 	var/mob/living/basic/basic_mob = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
+	if(ispath(targetting_datum))
+		targetting_datum = new targetting_datum()
+		controller.blackboard[targetting_datum_key] = targetting_datum
 
 	if(!targetting_datum.can_attack(basic_mob, target))
 		finish_action(controller, FALSE, target_key)

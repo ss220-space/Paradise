@@ -94,6 +94,17 @@
 #define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
 #define APPEARANCE_ALL APPEARANCE_RACE|APPEARANCE_GENDER|APPEARANCE_SKIN|APPEARANCE_EYE_COLOR|APPEARANCE_ALL_HAIR|APPEARANCE_ALL_BODY
 
+#define ACCESSORY_CATEGORY_HAIR "hair"
+#define ACCESSORY_CATEGORY_FACIAL_HAIR "facial_hair"
+#define ACCESSORY_CATEGORY_HAIR_GRADIENT "hair_gradient"
+#define ACCESSORY_CATEGORY_HEAD_ACCESSORY "head_accessory"
+#define ACCESSORY_CATEGORY_MARKING "marking"
+#define ACCESSORY_CATEGORY_ALT_HEAD "alt_head"
+#define ACCESSORY_CATEGORY_BODY_ACCESSORY "body_accessory"
+#define ACCESSORY_CATEGORY_UNDERWEAR "underwear"
+#define ACCESSORY_CATEGORY_UNDERSHIRT "undershirt"
+#define ACCESSORY_CATEGORY_SOCKS "socks"
+
 #define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
@@ -251,6 +262,7 @@
 #define SPECIES_SKELETON "Skeleton"
 #define SPECIES_SKRELL "Skrell"
 #define SPECIES_SLIMEPERSON "Slime People"
+#define SPECIES_SWINE "Trottine"
 #define SPECIES_TAJARAN "Tajaran"
 
 #define SPECIES_UNATHI "Unathi"
@@ -308,6 +320,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_SKELETON = "скелет",
 	SPECIES_SKRELL = "скрелл",
 	SPECIES_SLIMEPERSON = "слаймолюд",
+	SPECIES_SWINE = "троттин",
 	SPECIES_TAJARAN = "таяран",
 	SPECIES_UNATHI = "унати",
 	SPECIES_ASHWALKER_BASIC = "пеплоходец",
@@ -603,6 +616,27 @@ GLOBAL_LIST_INIT(ru_species, list(
 
 // Megafauna
 #define MINER_DASH_RANGE 4
+
+#define BRAIN_DAMAGE_MILD 20
+#define BRAIN_DAMAGE_SEVERE 100
+#define BRAIN_DAMAGE_DEATH 200
+
+#define BRAIN_TRAUMA_MILD /datum/brain_trauma/mild
+#define BRAIN_TRAUMA_SEVERE /datum/brain_trauma/severe
+#define BRAIN_TRAUMA_SPECIAL /datum/brain_trauma/special
+#define BRAIN_TRAUMA_MAGIC /datum/brain_trauma/magic
+
+#define TRAUMA_RESILIENCE_BASIC 1
+#define TRAUMA_RESILIENCE_SURGERY 2
+#define TRAUMA_RESILIENCE_LOBOTOMY 3
+#define TRAUMA_RESILIENCE_MAGIC 4
+#define TRAUMA_RESILIENCE_ABSOLUTE 5
+
+#define TRAUMA_LIMIT_BASIC 3
+#define TRAUMA_LIMIT_SURGERY 2
+#define TRAUMA_LIMIT_LOBOTOMY 3
+#define TRAUMA_LIMIT_MAGIC 3
+#define TRAUMA_LIMIT_ABSOLUTE INFINITY
 
 // Used in living mob offset list for determining pixel offsets
 #define PIXEL_W_OFFSET "w"

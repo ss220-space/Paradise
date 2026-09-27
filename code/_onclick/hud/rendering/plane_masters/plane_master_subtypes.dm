@@ -274,11 +274,53 @@
 // MARK: Seethrough
 /atom/movable/screen/plane_master/seethrough
 	name = "Seethrough"
-	documentation = "Holds the seethrough versions (done using image overrides) of large objects. Mouse transparent, so you can click through them."
+	documentation = "Holds the seethrough versions (done using image overrides) of large objects/mobs. Mouse \
+		transparent, so you can click through them (e.g. the heretic Lock ascension form clicking through its \
+		own massive body, or seethrough trees). Hidden by default; revealed per-mob via unhide_plane()."
 	plane = SEETHROUGH_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 	start_hidden = TRUE
+
+// MARK: Camera Camo
+/atom/movable/screen/plane_master/camera_camo
+	name = "Camera Camo"
+	documentation = "Holds the render-target proxy of lock-heretic robe wearers (Shifting Guise). Relays to the \
+		game world exactly like the game plane, so the wearer looks and is lit normally in person, but every \
+		view that goes through a camera renders it at alpha 0: popup instances (security camera console feeds) \
+		are zeroed on creation, and main map instances zero themselves while the viewer's eye is a camera eye \
+		(the AI, advanced camera consoles). Kept clickable (the real body is render-target'd and not drawn, so \
+		the proxy has to catch the clicks - it inherits the body's id via VIS_INHERIT_ID, so they still resolve \
+		to the real mob)."
+	plane = CAMERA_CAMO_PLANE
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
+/atom/movable/screen/plane_master/camera_camo/set_home(datum/plane_master_group/home)
+	. = ..()
+	// Alpha, not force_hidden: a hidden plane master dumps anything drawn on it straight onto the output
+	// render, only alpha 0 actually swallows the contents.
+	if(istype(home, /datum/plane_master_group/popup))
+		if(istype(home, /datum/plane_master_group/popup/camera))
+			disable_alpha()
+		return
+	if(home)
+		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))
+		hud_changed(null, null, home.our_hud)
+
+/atom/movable/screen/plane_master/camera_camo/proc/hud_changed(datum/source, datum/hud/old_hud, datum/hud/new_hud)
+	SIGNAL_HANDLER
+	if(old_hud)
+		UnregisterSignal(old_hud, COMSIG_HUD_EYE_CHANGED)
+	if(new_hud)
+		RegisterSignal(new_hud, COMSIG_HUD_EYE_CHANGED, PROC_REF(eye_changed))
+		eye_changed(new_hud, null, new_hud.mymob?.canon_client?.eye)
+
+/atom/movable/screen/plane_master/camera_camo/proc/eye_changed(datum/hud/source, atom/old_eye, atom/new_eye)
+	SIGNAL_HANDLER
+	if(isAIEye(new_eye))
+		disable_alpha()
+	else
+		enable_alpha()
 
 // MARK: Default
 /**

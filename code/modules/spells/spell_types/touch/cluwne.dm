@@ -74,7 +74,7 @@
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, span_danger("You don't feel very funny."))
-	adjustBrainLoss(-120)
+	setBrainLoss(0)
 	set_nutrition(NUTRITION_LEVEL_STARVING)
 	overeatduration = 0
 	SetConfused(0)

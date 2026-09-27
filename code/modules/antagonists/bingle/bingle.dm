@@ -21,7 +21,7 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 1
 
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 
 	attacktext = "бьёт"
 	attack_sound = 'sound/effects/blobattack.ogg'

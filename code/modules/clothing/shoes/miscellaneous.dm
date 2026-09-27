@@ -679,7 +679,7 @@ GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr,
 	desc = "Сапоги с сильной аурой."
 	icon_state = "chadboots"
 	item_state = "chadboots"
-	species_restricted = list(SPECIES_HUMAN)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SWINE)
 
 /obj/item/clothing/shoes/chad/get_ru_names()
 	return alist(

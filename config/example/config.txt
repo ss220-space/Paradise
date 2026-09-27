@@ -3,7 +3,7 @@
 $include testing.txt
 
 ## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
-# SERVERNAME spacestation13
+SERVERNAME Dark Paradise
 
 ## Server tagline: This appears on the hub entry.
 #SERVER_TAG_LINE The Perfect Mix of RP & Action
@@ -114,6 +114,17 @@ PANIC_BUNKER_THRESHOLD 150
 ## URL to use for admins accessing the web-based tools menu
 #FORUM_PLAYERINFO_URL https://example.com/info.php?ckey=
 
+## Base URL of the launcher backend. Leave undefined to disable Steam launcher logins entirely.
+## Launcher clients connect as BYOND guests, so GUEST_BAN above has to be commented out for them to get in.
+#LAUNCHER_API_URL https://example.com/api
+## Shared secret sent to the launcher backend as the x-game-secret header.
+#LAUNCHER_API_SECRET changeme
+## Identifier of this server as it is known to the launcher backend.
+#LAUNCHER_SERVER_ID main
+## Refuse any guest connection that did not come from the launcher.
+## Enable this whenever GUEST_BAN is off, otherwise anyone can join as a plain guest and dodge bans.
+#LAUNCHER_REQUIRED
+
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
 
@@ -142,25 +153,25 @@ CHECK_RANDOMIZER
 # RULESURL http://example.org
 
 ## GitHub address
-# GITHUBURL http://example.org
+GITHUBURL https://github.com/KINGDICE666/DarkParadise
 
 ## Discord address
-# DISCORDURL http://example.org
+DISCORDURL https://discord.gg/5N55TJgTa9
 
 ## Discord address (forum-based invite)
-# DISCORDFORUMURL http://example.org
+DISCORDFORUMURL https://discord.gg/5N55TJgTa9
 
 ## Discord address (bug report)
-# DISCORDBUGREPORTURL http://example.org
+DISCORDBUGREPORTURL https://discord.gg/5N55TJgTa9
 
 ## Donations address
-# DONATIONSURL http://example.org
+DONATIONSURL https://boosty.to/king_dice
 
 ## Repository address
-# REPOSITORYURL http://example.org
+REPOSITORYURL https://github.com/KINGDICE666/DarkParadise
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
-# BANAPPEALS http://example.org
+BANAPPEALS https://discord.gg/5N55TJgTa9
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
@@ -183,7 +194,7 @@ ALLOW_HOLIDAYS
 TICKLAG 0.5
 
 ##Defines the fps for the players with 0 in preferences. -1 for synced with server fps.
-CLIENTFPS 65
+CLIENTFPS 120
 
 ## Whether the server will talk to other processes through socket_talk
 SOCKET_TALK 0
@@ -224,6 +235,7 @@ PLAYABLE_SPECIES Machine
 PLAYABLE_SPECIES Nucleation
 PLAYABLE_SPECIES Plasmaman
 PLAYABLE_SPECIES Slime People
+PLAYABLE_SPECIES Trottine
 PLAYABLE_SPECIES Vox
 PLAYABLE_SPECIES Wryn
 
@@ -362,6 +374,11 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## DISCORD_MENTOR_WEBHOOK_URLS https://url2
 #DISCORD_MENTOR_WEBHOOK_URLS
 
+## Webhook URLs for the OOC relay webhook. Separate multiple URLs with enter, like:
+## DISCORD_OOC_WEBHOOK_URLS https://url1
+## DISCORD_OOC_WEBHOOK_URLS https://url2
+#DISCORD_OOC_WEBHOOK_URLS
+
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
 #DISCORD_FORWARD_ALL_AHELPS
@@ -402,9 +419,9 @@ LOG_TIMERS_ON_BUCKET_RESET
 ## List of IP addresses (separated with space) to be ignored by the world/Topic rate limiting. Useful if you have other services
 TOPIC_FILTERING_WHITELIST 127.0.0.1
 
-## Silero Text-to-speech
-#TTS_TOKEN_SILERO mytoken
-#TTS_URL_SILERO https://example.com
+## nTTS Text-to-speech
+#TTS_TOKEN_NTTS mytoken
+#TTS_URL_NTTS https://ntts.fdev.team/api/v1/tts
 #TTS_ENABLED
 #TTS_CACHE
 
@@ -484,11 +501,26 @@ CACHE_ASSETS 0
 ## Admins receive the request with a PLAY link that runs it through yt-dlp. Requires INVOKE_YOUTUBEDL.
 REQUEST_INTERNET_SOUND
 
+## Allows players to play internet sounds through wireless earbuds cases.
+## Uses the same source whitelist as REQUEST_INTERNET_ALLOWED. Requires INVOKE_YOUTUBEDL.
+HEADPHONE_CASE_MUSIC
+
 ## Comma separated list of url patterns players may request. Each entry is matched as a regex (case-insensitive).
-REQUEST_INTERNET_ALLOWED youtube\.com\/watch?v=,youtu\.be\/,soundcloud\.com\/,bandcamp\.com\/track\/
+REQUEST_INTERNET_ALLOWED youtube\.com\/watch,youtu\.be\/,soundcloud\.com\/,bandcamp\.com\/track\/
 
 ## Enable the replay demo recording subsystem
 #DEMOS_ENABLED
+
+## NTnet: PDA browser for player-made websites shared between servers.
+## The app shows up in PDAs only when NTNET_ENABLED is set and both NTNET_API_URL and NTNET_SERVER_KEY are filled in.
+## The server key is issued by the NTnet service owner.
+#NTNET_ENABLED
+#NTNET_API_URL https://ntnet.wiki-ss13.space
+#NTNET_SERVER_KEY
+## Site editor link sent to players together with their login code.
+#NTNET_EDITOR_URL https://ntnet.wiki-ss13.space
+## Interactive pages run in a sandboxed frame. Set to 0 to show static pages only.
+#NTNET_INTERACTIVE 0
 
 ### INITIALIZATION SETTINGS ###
 ## This section contains settings directly affecting initializing progress. Uncomment these to make your world load faster.

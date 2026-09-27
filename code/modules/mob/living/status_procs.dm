@@ -108,6 +108,9 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, check_flags, force_apply) & COMPONENT_NO_EFFECT)
 		return TRUE
 
+	if(HAS_TRAIT(src, TRAIT_STUNIMMUNE))
+		return TRUE
+
 	// Do we have the correct flag set to allow this status?
 	// This checks that ALL flags are set, not just one of them.
 	if((status_flags & check_flags) == check_flags)
@@ -848,6 +851,9 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DISGUST, amount)
 
 /mob/living/proc/AdjustDisgust(amount, bound_lower = 0, bound_upper = INFINITY)
+	// Mobs immune to disgust (e.g. Path of Flesh heretics) never accrue it, but can still have it cleared.
+	if(amount > 0 && HAS_TRAIT(src, TRAIT_NODISGUST))
+		return
 	SetDisgust(directional_bounded_sum(AmountDisgust(), amount, bound_lower, bound_upper))
 
 //DEAFNESS

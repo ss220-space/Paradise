@@ -34,6 +34,7 @@
 				/obj/item/canvas/thirtysix_twentyfour = 3,
 				/obj/item/canvas/fortyfive_twentyseven = 3,
 				/obj/item/wallframe/painting/large = 5,
+				/obj/item/clothing/mask/painted = 5,
 			),
 		),
 		list(

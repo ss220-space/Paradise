@@ -11,7 +11,7 @@ import {
 } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
-import { FONTS } from './constants';
+import { DEFAULT_FONT, FONTS, FONTS_DISABLED } from './constants';
 import { useSettings } from './use-settings';
 
 const tabViews = ['default', 'classic', 'scrollable'];
@@ -66,7 +66,7 @@ export function SettingsStatPanel(props) {
                       {FONTS.map((FONT) => (
                         <Button
                           key={FONT}
-                          fontFamily={FONT}
+                          fontFamily={FONT === FONTS_DISABLED ? DEFAULT_FONT : FONT}
                           selected={settings.statFontFamily === FONT}
                           color="transparent"
                           onClick={() =>

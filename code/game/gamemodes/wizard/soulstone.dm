@@ -175,10 +175,11 @@
 
 /obj/item/soulstone/proc/do_capture(mob/living/user, mob/living/carbon/human/M)
 	if(is_sacrifice_target(M.mind))
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
 		if(iscultist(user))
-			SSticker.mode.cult_objs.succesful_sacrifice()
-		else if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
-			SSticker.mode.cult_objs.ready_to_summon()
+			cult_team.cult_objs.succesful_sacrifice()
+		else if(!cult_team.cult_objs.find_new_sacrifice_target())
+			cult_team.cult_objs.ready_to_summon()
 
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
@@ -471,7 +472,7 @@
 		var/datum/action/innate/cult/check_progress/D = new
 		CC.Grant(src)
 		D.Grant(src)
-		SSticker.mode.cult_objs.study(src) // Display objectives again
+		get_blood_cult_team().cult_objs.study(src) // Display objectives again
 		to_chat(src, span_userdanger("You are still bound to serve the cult, follow their orders and help them complete their goals at all costs."))
 	else
 		to_chat(src, span_userdanger("You are still bound to serve your creator, follow their orders and help them complete their goals at all costs."))
@@ -494,7 +495,6 @@
 	C.possess_by_player(target.key)
 	if(user && iscultist(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
-		SSticker.mode.update_cult_icons_added(C.mind)
 	if(user && iscultist(user))
 		to_chat(C, "<b>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</b>")
 	else
@@ -517,12 +517,12 @@
 
 		if(S.mind)
 			if(iswizard(user))
-				SSticker.mode.update_wiz_icons_added(S.mind)
-				S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+				var/datum/antagonist/wizard/apprentice/apprentice = new
+				apprentice.silent = TRUE
+				S.mind.add_antag_datum(apprentice)
 
 			if(iscultist(user))
 				SSticker.mode.add_cultist(S.mind)
-				S.mind.special_role = SPECIAL_ROLE_CULTIST
 				S.mind.store_memory("<b>Serve the cult's will.</b>")
 				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
 

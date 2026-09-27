@@ -1,7 +1,7 @@
 /datum/antagonist/sintouched
 	name = "Sintouched"
 	antag_menu_name = "Грешник"
-	roundend_category = "sintouched"
+	roundend_category = "Грешниками"
 	special_role = SPECIAL_ROLE_SINTOUCHED
 	antag_hud_type = ANTAG_HUD_SINTOUCHED
 	antag_hud_name = "hudsintouched"
@@ -28,12 +28,6 @@
 		LAZYADD(sins, sin)
 
 	add_objective(pick(sins))
-
-/datum/antagonist/sintouched/add_owner_to_gamemode()
-	LAZYADD(SSticker.mode.sintouched, owner)
-
-/datum/antagonist/sintouched/remove_owner_from_gamemode()
-	LAZYREMOVE(SSticker.mode.sintouched, owner)
 
 /datum/antagonist/sintouched/apply_innate_effects(mob/living/mob_override)
 	. = ..()

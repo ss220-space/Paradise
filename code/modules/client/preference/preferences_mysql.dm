@@ -1,4 +1,61 @@
+GLOBAL_LIST_INIT(character_setting_names, list(
+	"metadata" = "OOC-информация",
+	"real_name" = "имя",
+	"be_random_name" = "случайное имя",
+	"gender" = "пол",
+	"age" = "возраст",
+	"species" = "раса",
+	"language" = "дополнительный язык",
+	"h_style" = "причёска",
+	"h_colour" = "цвет причёски",
+	"h_sec_colour" = "дополнительный цвет причёски",
+	"h_grad_style" = "градиент причёски",
+	"h_grad_colour" = "цвет градиента причёски",
+	"h_grad_alpha" = "прозрачность градиента причёски",
+	"f_style" = "лицевая растительность",
+	"f_colour" = "цвет лицевой растительности",
+	"f_sec_colour" = "дополнительный цвет лицевой растительности",
+	"ha_style" = "аксессуары на голове",
+	"hacc_colour" = "цвет аксессуаров на голове",
+	"alt_head" = "тип головы",
+	"e_colour" = "цвет глаз",
+	"s_tone" = "тон кожи",
+	"s_colour" = "цвет кожи",
+	"underwear" = "нижнее бельё",
+	"underwear_color" = "цвет нижнего белья",
+	"undershirt" = "нательная рубашка",
+	"undershirt_color" = "цвет нательной рубашки",
+	"socks" = "носки",
+	"b_type" = "группа крови",
+	"nanotrasen_relation" = "отношение к \"Нанотрейзен\"",
+	"exoframe_type" = "каркас экзоскелета",
+	"autohiss_mode" = "уровень авто-акцента",
+	"flavor_text" = "описание внешности",
+	"med_record" = "медицинские записи",
+	"sec_record" = "записи службы безопасности",
+	"gen_record" = "записи отдела кадров",
+	"alternate_option" = "действие при неудачном выборе должности",
+	"disabilities" = "особенности персонажа",
+	"speciesprefs" = "расовые настройки",
+	"can_be_antagonist" = "возможность стать антагонистом"
+))
+
+GLOBAL_LIST_INIT(game_setting_names, list(
+	"achivements_sound" = "звук получения достижения",
+	"screentip_color" = "цвет всплывающей подсказки",
+	"viewrange" = "размер экрана",
+	"ghost_darkness_level" = "уровень освещения для призраков",
+	"lastchangelog" = "отметка о прочтении списка изменений"
+))
+
+/datum/preferences/proc/find_unset_setting(list/checked_settings)
+	for(var/setting in checked_settings)
+		if(isnull(vars[setting]))
+			return setting
+
 /datum/preferences/proc/load_preferences(client/C)
+	if(C.launcher_state == LAUNCHER_PENDING)
+		return FALSE
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
 					ooccolor,
@@ -28,7 +85,7 @@
 					achivements_sound
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
-						"ckey" = C.ckey
+						"ckey" = C.account_ckey
 					))
 
 	if(!query.warn_execute())
@@ -78,6 +135,7 @@
 	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, -1, 1000, initial(clientfps))
+	ghost_darkness_level = sanitize_integer(text2num(ghost_darkness_level), LIGHTING_CUTOFF_VISIBLE, LIGHTING_CUTOFF_FULLBRIGHT, initial(ghost_darkness_level))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
@@ -89,6 +147,14 @@
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
+	if(C.launcher_state == LAUNCHER_PENDING)
+		return
+
+	var/unset_setting = find_unset_setting(GLOB.game_setting_names)
+	if(unset_setting)
+		to_chat(C, span_warning("Настройки не сохранены: не выбран пункт «[GLOB.game_setting_names[unset_setting]]». Выберите значение и сохраните снова."))
+		stack_trace("[C.ckey] tried to save preferences with an unset setting: [unset_setting]")
+		return
 
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
@@ -144,7 +210,7 @@
 						"keybindings" = json_encode(keybindings_overrides),
 						"viewrange" = viewrange,
 						"ghost_darkness_level" = ghost_darkness_level,
-						"ckey" = C.ckey,
+						"ckey" = C.account_ckey,
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 						"screentip_mode" = screentip_mode,
 						"screentip_color" = screentip_color,
@@ -160,6 +226,9 @@
 	return 1
 
 /datum/preferences/proc/load_character(client/C, slot)
+	if(C.launcher_state == LAUNCHER_PENDING)
+		return FALSE
+
 	saved = FALSE
 
 	if(!slot)
@@ -169,7 +238,7 @@
 		default_slot = slot
 		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET default_slot=:slot WHERE ckey=:ckey", list(
 			"slot" = slot,
-			"ckey" = C.ckey
+			"ckey" = C.account_ckey
 		))
 		if(!firstquery.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
 			qdel(firstquery)
@@ -246,7 +315,7 @@
 					can_be_antagonist,
 					exoframe_type
 					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
-						"ckey" = C.ckey,
+						"ckey" = C.account_ckey,
 						"slot" = slot
 					))
 	if(!query.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
@@ -453,6 +522,14 @@
 		choosen_gears[gear] = new_gear
 
 /datum/preferences/proc/save_character(client/C)
+	if(C.launcher_state == LAUNCHER_PENDING)
+		return
+
+	var/unset_setting = find_unset_setting(GLOB.character_setting_names)
+	if(unset_setting)
+		to_chat(C, span_warning("Персонаж не сохранён: не выбран пункт «[GLOB.character_setting_names[unset_setting]]». Выберите значение и сохраните снова."))
+		stack_trace("[C.ckey] tried to save a character with an unset setting: [unset_setting]")
+		return
 
 	for(var/title in player_alt_titles)
 		var/datum/job/job = SSjobs.GetJob(title)
@@ -480,7 +557,7 @@
 		gearlist = list2params(savelist)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
-		"ckey" = C.ckey
+		"ckey" = C.account_ckey
 	))
 	if(!firstquery.warn_execute())
 		qdel(firstquery)
@@ -620,7 +697,7 @@
 													"custom_emotes" = json_encode(custom_emotes),
 													"can_be_antagonist" = can_be_antagonist,
 													"exoframe_type" = exoframe_type,
-													"ckey" = C.ckey,
+													"ckey" = C.account_ckey,
 													"slot" = default_slot
 												)
 												)
@@ -695,7 +772,7 @@
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
-		"ckey" = C.ckey,
+		"ckey" = C.account_ckey,
 		"slot" = default_slot,
 		"metadata" = metadata,
 		"name" = real_name,
@@ -773,7 +850,7 @@
 
 /datum/preferences/proc/load_random_character_slot(client/C)
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
-		"ckey" = C.ckey
+		"ckey" = C.account_ckey
 	))
 	var/list/saves = list()
 
@@ -795,7 +872,7 @@
 	. = FALSE
 	// Is there a character in that slot?
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
-		"ckey" = C.ckey,
+		"ckey" = C.account_ckey,
 		"slot" = default_slot
 	))
 
@@ -810,7 +887,7 @@
 	qdel(query)
 
 	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
-		"ckey" = C.ckey,
+		"ckey" = C.account_ckey,
 		"slot" = default_slot
 	))
 
@@ -836,7 +913,7 @@
 		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
 		list(
 			"volume_mixer" = serialize_volume_mixer(volume_mixer),
-			"ckey" = parent.ckey
+			"ckey" = parent.account_ckey
 		)
 	)
 

@@ -267,6 +267,8 @@ export async function get_updated_label_set({ github, context }) {
     updated_labels.delete("Merge Conflict");
   }
 */
+  autoLabelConfig.trigger_labels.forEach((label) => updated_labels.delete(label));
+
   // return the labels to the action, which will apply it
   return [...updated_labels];
 }

@@ -10,7 +10,8 @@
 	var/vision_flags = 0
 	var/see_in_dark = 0
 	var/see_invisible = SEE_INVISIBLE_LIVING
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	var/lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
+	var/list/color_cutoffs
 
 	var/eye_colour = "#000000" // Should never be null
 	var/flash_protect = FLASH_PROTECTION_NONE
@@ -62,7 +63,7 @@
 	icon_state = "mesonhud_implant"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/meson/insert(mob/living/carbon/human/user_human, special = FALSE)
@@ -80,7 +81,7 @@
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 
 /obj/item/organ/internal/cyberimp/eyes/thermals
 	name = "Thermals implant"
@@ -88,7 +89,7 @@
 	icon_state = "thermal_implant"
 	eye_colour = "#FFCC00"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."

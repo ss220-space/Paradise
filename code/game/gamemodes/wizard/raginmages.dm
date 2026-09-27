@@ -14,15 +14,10 @@
 	to_chat(world, "<b>The current game mode is - Ragin' Mages!</b>")
 	to_chat(world, "<b>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</b>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
-	var/list/messages = list()
-	if(you_are)
-		messages.Add(span_danger("You are the Space Wizard!"))
-	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
+/datum/game_mode/wizard/raginmages/greet_wizard()
+	var/list/messages = ..()
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	to_chat(wizard.current, custom_boxed_message("red_box center", messages.Join("<br>")))
-	return
+	return messages
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
@@ -32,7 +27,8 @@
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")
 
-	for(var/datum/mind/wizard in wizards)
+	var/list/datum/mind/live_wizards = get_antag_minds(/datum/antagonist/wizard, specific = TRUE)
+	for(var/datum/mind/wizard in live_wizards)
 		if(isnull(wizard.current))
 			continue
 		if(!iscarbon(wizard.current))
@@ -77,7 +73,7 @@
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(length(wizards) >= wizard_cap)
+		if(length(get_antag_minds(/datum/antagonist/wizard, specific = TRUE)) >= wizard_cap)
 			finished = 1
 			return 1
 		else
@@ -91,10 +87,12 @@
 	for(var/mob/living/L in A) // To hit non-wizard griefers
 		if(L.mind || L.client)
 			marked_for_death |= L
-	for(var/datum/mind/M in wizards)
+	for(var/datum/mind/M in get_antag_minds(/datum/antagonist/wizard, specific = TRUE))
 		if(istype(M.current) && istype(get_area(M.current), /area/centcom/wizard_station))
 			mages_made -= 1
-			wizards -= M // No, you don't get to occupy a slot
+			var/datum/antagonist/wizard/wizard = M.has_antag_datum(/datum/antagonist/wizard)
+			wizard.silent = TRUE
+			M.remove_antag_datum(/datum/antagonist/wizard) // No, you don't get to occupy a slot
 			marked_for_death |= M.current
 	for(var/mob/living/L in marked_for_death)
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious

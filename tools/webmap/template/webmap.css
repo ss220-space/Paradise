@@ -1,0 +1,121 @@
+:root {
+  --bg: #0a0b10;
+  --bar: #14161f;
+  --line: #262a38;
+  --text: #e6e8ef;
+  --dim: #8b90a3;
+  --accent: #6f8cff;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.map-page { display: flex; flex-direction: column; }
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+
+.bar h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bar .dim, .coords { color: var(--dim); font-weight: 400; }
+
+.coords {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 13px;
+  min-width: 190px;
+  text-align: right;
+}
+
+.back { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.back:hover { text-decoration: underline; }
+
+#map {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.leaflet-container {
+  background: var(--bg) url(space.png) repeat;
+}
+
+.leaflet-tile {
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.cursor-coords {
+  position: fixed;
+  z-index: 1200;
+  pointer-events: none;
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: rgba(20, 22, 31, 0.92);
+  color: var(--text);
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.leaflet-control-layers, .leaflet-bar a {
+  background: var(--bar);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.leaflet-bar a:hover { background: #1d2030; color: var(--text); }
+.leaflet-control-layers-list { padding: 4px 6px; }
+
+.index-page main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+.index-page h1 { font-size: 22px; margin: 0 0 24px; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--bar);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.card:hover { border-color: var(--accent); }
+.card-station { font-weight: 600; }
+.card-name { color: var(--dim); font-size: 13px; }

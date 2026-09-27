@@ -32,6 +32,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = traits)
 		z_list["[k]"] = S
 		levels_by_name[name] = S
+		S.set_navbeacon()
 		SSmapping.manage_z_level(S)
 		k++
 
@@ -39,7 +40,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	// They get the default linkage of SELFLOOPING
 	for(var/i = k, i <= world.maxz, i++)
 		milla_init_z(k)
-		z_list["[i]"] = new /datum/space_level(i)
+		var/datum/space_level/level = new /datum/space_level(i)
+		z_list["[i]"] = level
+		level.set_navbeacon()
 	initialized = 1
 
 /datum/zlev_manager/proc/get_zlev(z)
@@ -120,6 +123,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
+	S.set_navbeacon()
 	SSmapping.manage_z_level(S)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
 	return our_z

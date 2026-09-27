@@ -30,6 +30,7 @@ type SMGasMetadata = {
 
 type SupermatterProps = {
   sectionButton?: ReactNode;
+  vertical?: boolean;
   uid: number;
   area_name: string;
   integrity: number;
@@ -99,6 +100,7 @@ const SupermatterEntry = (props: SupermatterEntryProps) => {
 export const SupermatterContent = (props: SupermatterProps) => {
   const {
     sectionButton,
+    vertical,
     area_name,
     integrity,
     integrity_factors,
@@ -129,7 +131,7 @@ export const SupermatterContent = (props: SupermatterProps) => {
   gas_composition = sortBy(gas_composition, [([_, amount]) => -amount]);
 
   return (
-    <Stack height="100%">
+    <Stack vertical={vertical} height="100%">
       <Stack.Item grow>
         <Section fill scrollable title={`${area_name}`} buttons={sectionButton}>
           <Stack vertical>

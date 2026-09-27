@@ -351,6 +351,7 @@ SUBSYSTEM_DEF(title)
 		<hr>
 		<a class="menu_button" href='byond://?src=[player.UID()];sound_options=1'>Настройки громкости</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];poll_panel=1'>Открыть голосование</a>
+		<a class="menu_button" href='byond://?src=[player.UID()];referrals=1'>Реферальная система</a>
 	"}
 	if(!viewer?.prefs.discord_id || (viewer?.prefs.discord_id && length(viewer?.prefs.discord_id) == 32))
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}

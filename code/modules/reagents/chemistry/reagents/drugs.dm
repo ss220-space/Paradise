@@ -459,12 +459,16 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "нереальной бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
+	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
 	if(ishuman(user))
 		user.physiology.punch_damage_low += 5
 		user.physiology.punch_damage_high += 5
+	if(iscarbon(user))
+		rage = new
+		user.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -501,6 +505,7 @@
 	if(ishuman(user))
 		user.physiology.punch_damage_low -= 5
 		user.physiology.punch_damage_high -= 5
+	QDEL_NULL(rage)
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)

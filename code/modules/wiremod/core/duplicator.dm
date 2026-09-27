@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	var/list/circuit_data = general_data["components"]
 	var/list/identifiers_to_circuit = load_components(circuit_data, errors)
 
-	load_external_objects(general_data["external_objects"], errors, identifiers_to_circuit)
+	load_external_objects(general_data["external_objects"], identifiers_to_circuit, errors)
 
 	for(var/identifier in identifiers_to_circuit)
 		var/obj/item/circuit_component/component = identifiers_to_circuit[identifier]
@@ -196,6 +196,69 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 /obj/item/circuit_component/proc/load_data_from_list(list/component_data)
 	rel_x = component_data["rel_x"]
 	rel_y = component_data["rel_y"]
+
+#define MAX_IMPORTED_COMPONENT_COUNT 200
+
+/proc/sanitize_imported_circuit_data(list/general_data, list/stats)
+	if(!islist(general_data) || !islist(general_data["components"]))
+		return null
+
+	var/list/variables = general_data["variables"]
+	if(variables && !islist(variables))
+		return null
+
+	for(var/list/variable as anything in variables)
+		if(!islist(variable) || !istext(variable["name"]) || !istext(variable["datatype"]))
+			return null
+
+	var/list/sanitized_components = list()
+	for(var/identifier in general_data["components"])
+		var/list/component_data = general_data["components"][identifier]
+		if(!islist(component_data))
+			return null
+
+		var/obj/item/circuit_component/component_type = text2path(component_data["type"])
+		if(!ispath(component_type, /obj/item/circuit_component) || (initial(component_type.circuit_flags) & CIRCUIT_FLAG_ADMIN))
+			return null
+
+		stats["count"]++
+		stats["size"] += initial(component_type.circuit_size)
+		if(stats["count"] > MAX_IMPORTED_COMPONENT_COUNT)
+			return null
+
+		if(!isnull(component_data["integrated_circuit"]) && !sanitize_imported_module_data(component_data, stats))
+			return null
+
+		sanitized_components[identifier] = component_data
+
+	return list(
+		"components" = sanitized_components,
+		"variables" = variables,
+		"display_name" = general_data["display_name"],
+		"admin_only" = FALSE,
+	)
+
+#undef MAX_IMPORTED_COMPONENT_COUNT
+
+/proc/sanitize_imported_module_data(list/component_data, list/stats)
+	var/list/input_ports = component_data["input_ports"]
+	var/list/output_ports = component_data["output_ports"]
+	if(!islist(input_ports) || !islist(output_ports))
+		return FALSE
+
+	if(length(input_ports) > /obj/item/circuit_component/module::port_limit || length(output_ports) > /obj/item/circuit_component/module::port_limit)
+		return FALSE
+
+	for(var/list/port_data as anything in input_ports + output_ports)
+		if(!islist(port_data) || !istext(port_data["name"]) || !istext(port_data["type"]))
+			return FALSE
+
+	var/list/inner_circuit = sanitize_imported_circuit_data(safe_json_decode(component_data["integrated_circuit"]), stats)
+	if(!inner_circuit)
+		return FALSE
+
+	component_data["integrated_circuit"] = json_encode(inner_circuit)
+	return TRUE
 
 #define JSON_FROM_FILE "Файл"
 #define JSON_FROM_STRING "Прямой ввод"

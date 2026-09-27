@@ -329,7 +329,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.possess_by_player(R.ckey)
-		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
 		message += "<b>Вы медленно обретаете сознание по мере того, как ваше тело восстанавливается.</b><br>"
 		message += "<i>Так вот как ощущается клонирование...</i>"
@@ -512,20 +511,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	balloon_alert(user, "хонкнуто!")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
-/obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
-	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
-		SSticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
-		SSticker.mode.add_cult_actions(H.mind) // And all the actions
-		if(SSticker.mode.cult_risen)
-			SSticker.mode.rise(H)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(H)
-	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
-		SSticker.mode.update_shadow_icons_added(H.mind)
-
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
@@ -559,7 +544,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
-		update_clone_antag(occupant)
 		to_chat(occupant, span_userdanger("Вы не можете ничего вспомнить с момента вашей смерти!"))
 		to_chat(occupant, span_notice("<b>Ваши глаза озаряет яркая вспышка!</b><br>\
 			<i>Вы будто бы заново родились.</i>"))

@@ -31,7 +31,7 @@ class PencilTransaction implements LayerTransaction {
 
   getPreviewLayer(layer: StringLayer) {
     const outLayer = copyLayer(layer);
-    this.points.values().forEach(([x, y]) => {
+    this.points.forEach(([x, y]) => {
       outLayer[y][x] = this.color;
     });
     return outLayer;
@@ -46,7 +46,7 @@ class PencilTransaction implements LayerTransaction {
         layer: this.layer + 1,
         dir: `${this.dir}`,
         color: this.color,
-        points: this.points.values().toArray(),
+        points: Array.from(this.points.values()),
       },
     });
   }

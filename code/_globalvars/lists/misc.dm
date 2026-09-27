@@ -98,3 +98,11 @@ GLOBAL_LIST_EMPTY(ash_storm_sounds)
 GLOBAL_LIST_EMPTY(snowstorm_sounds)
 
 GLOBAL_LIST_EMPTY(world_flora)
+
+GLOBAL_LIST_INIT(most_common_words, init_most_common_words())
+
+/proc/init_most_common_words()
+	. = list()
+	for(var/word in world.file2list("strings/most_common_words.txt"))
+		if(word)
+			.[word] = TRUE

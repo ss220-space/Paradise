@@ -302,7 +302,7 @@
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind || iswizard(user))
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 			return
 
@@ -317,7 +317,7 @@
 /obj/item/dice/d20/fate/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 		user.drop_item_ground(src)
 

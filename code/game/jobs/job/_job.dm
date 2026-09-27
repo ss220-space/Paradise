@@ -16,6 +16,8 @@
 	var/department_flag = 0
 	var/department_head = list()
 
+	var/job_flags = NONE
+
 	/// How many players can be this job
 	var/total_positions = 0
 
@@ -42,15 +44,7 @@
 	/// If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
 
-	//Various Departmental identifiers
-	var/is_supply
-	var/is_service
-	var/is_command
-	var/is_legal
-	var/is_engineering
-	var/is_medical
-	var/is_science
-	var/is_security
+	var/departments_bitflags = NONE
 	var/is_novice
 
 	/// If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
@@ -68,7 +62,6 @@
 	var/transfer_allowed = TRUE
 	/// If true, job preferences screen never shows this job.
 	var/hidden_from_job_prefs = FALSE
-	var/list/blocked_race_for_job = list()
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -108,11 +101,6 @@
 	/// Traits added to the mind of the mob assigned this job
 	var/list/mind_traits
 
-	/// Skill levels by job list
-	var/list/skill_levels = list()
-	/// Skill levels by alt titles jobs
-	var/alist/alt_skill_levels = null
-	var/base_free_skill_point = BASIC_SKILL_POINTS_COUNT
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
@@ -149,7 +137,6 @@
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly)
 
-	H.mind?.recalculate_skills(ref_job = title)
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)
@@ -215,13 +202,6 @@
 	var/datum/species/species = GLOB.all_species[C.prefs.species]
 	if(C.prefs.age >= get_age_limits(species, min_age_type))
 		. = TRUE
-
-/datum/job/proc/species_in_blacklist(client/C)
-	if(!C)
-		return FALSE
-	if(C.prefs.species in blocked_race_for_job)
-		return TRUE
-	return FALSE
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
@@ -342,8 +322,6 @@
 		var/obj/item/mod/control/mod_control = H.back
 		mod_control.quick_activation()
 
-	INVOKE_ASYNC(src, PROC_REF(skill_select_offer), H)
-
 	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
@@ -380,12 +358,6 @@
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)
 
-/datum/outfit/job/proc/skill_select_offer(mob/living/carbon/human/user)
-	var/choice = tgui_alert(user, message = "Хотите настроить навыки?", title = "Настройка навыков", buttons = list("Да", "Позже"))
-	if(choice == "Да")
-		var/datum/ui_module/skills_select_win/tgui = new(user)
-		tgui.show(user, user)
-
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
 	if(allow_backbag_choice && backpack)
@@ -411,15 +383,3 @@
 			return FALSE
 	return TRUE
 
-/datum/job/proc/get_skill_level(skill_type, alt_job_title)
-	var/list/used_skill_table = skill_levels
-
-	if(alt_job_title && alt_skill_levels)
-		var/list/alt_skills = alt_skill_levels[alt_job_title]
-		if(alt_skills)
-			used_skill_table = alt_skills
-
-	var/level = used_skill_table[skill_type]
-	if(level == null)
-		return SKILL_LEVEL_NONE
-	return level

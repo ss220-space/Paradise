@@ -22,7 +22,6 @@
 #define COMSIG_KB_ADMIN_MC_DEBUG "keybinding_admin_mc_debug"
 
 //Carbon
-#define COMSIG_KB_CARBON_PARRY "keybinding_carbon_parry"
 #define COMSIG_KB_CARBON_INTENT(A) "keybinding_carbon_intent_[A]"
 
 //Client

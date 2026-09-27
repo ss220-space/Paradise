@@ -60,7 +60,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH //don't render darkness while wearing these
 	see_in_dark = 8
 	HUDType = MEDHUD
 	strip_delay = 130

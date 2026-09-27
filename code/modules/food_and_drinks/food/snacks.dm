@@ -94,6 +94,7 @@
 	. |= ATTACK_CHAIN_SUCCESS
 	bitecount++
 	On_Consume(target, user)
+	SEND_SIGNAL(target, COMSIG_FOOD_EATEN, src, user)
 
 /obj/item/reagent_containers/food/snacks/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	return

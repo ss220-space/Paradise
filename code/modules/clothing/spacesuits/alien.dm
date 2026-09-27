@@ -2,7 +2,7 @@
 /obj/item/clothing/head/helmet/space/skrell
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
-	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
+	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN, SPECIES_SWINE)
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
@@ -17,7 +17,7 @@
 /obj/item/clothing/suit/space/skrell
 	name = "Skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
-	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
+	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN, SPECIES_SWINE)
 
 /obj/item/clothing/suit/space/skrell/white
 	icon_state = "skrell_suit_white"

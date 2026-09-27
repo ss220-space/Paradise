@@ -2,6 +2,10 @@
 #define GHETTO_DISINFECT_AMOUNT 5
 /// Amount of mito necessary to revive an organ
 #define MITO_REVIVAL_COST 5
+/// Share of the brain's max damage healed by one pass of brain surgery.
+#define BRAIN_SURGERY_HEAL_PERCENT 0.25
+/// Share of the brain's max damage dealt by a botched pass of brain surgery.
+#define BRAIN_SURGERY_FAILURE_DAMAGE_PERCENT 0.3
 
 /datum/surgery/organ_manipulation
 	name = "Манипуляция с внутренними органами"
@@ -383,6 +387,8 @@
 		/datum/surgery/intermediate/manipulate/implant,
 		/datum/surgery/intermediate/manipulate/mend,
 		/datum/surgery/intermediate/manipulate/clean,
+		/datum/surgery/intermediate/manipulate/brain_repair,
+		/datum/surgery/intermediate/manipulate/lobotomy,
 		/datum/surgery/intermediate/bleeding,
 	)
 
@@ -437,6 +443,12 @@
 		organs = target.get_organs_zone(target_zone)
 
 	return organs
+
+/// Get the brain out of a zone, so brain-only operations don't fire on an open chest.
+/datum/surgery_step/internal/proc/get_operated_brain(target_zone, mob/living/carbon/target)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	for(var/obj/item/organ/internal/brain/brain in get_organ_list(target_zone, target, affected))
+		return brain
 
 /datum/surgery_step/internal/manipulate_organs
 	time = 6.4 SECONDS
@@ -545,6 +557,133 @@
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.damage && !(organ.tough))
 			organ.internal_receive_damage(dam_amt)
+
+	return SURGERY_STEP_RETRY
+
+/datum/surgery/intermediate/manipulate/brain_repair
+	possible_locs = list(BODY_ZONE_HEAD)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/brain_repair)
+
+/datum/surgery_step/internal/manipulate_organs/brain_repair
+	name = "операция на мозге"
+	time = 10 SECONDS
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	end_sound = 'sound/surgery/hemostat2.ogg'
+	fail_sound = 'sound/surgery/organ2.ogg'
+	allowed_tools = list(
+		TOOL_SCREWDRIVER = 100,
+		/obj/item/pen = 35,
+	)
+
+/datum/surgery_step/internal/manipulate_organs/brain_repair/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!get_operated_brain(target_zone, target))
+		user.balloon_alert(user, "мозг отсутствует!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] вправлять мозг [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете вправлять мозг [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+	)
+	target.custom_pain("Ваша голова разрывается от невыносимой боли!")
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/brain_repair/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/brain/brain = get_operated_brain(target_zone, target)
+	if(!brain)
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(
+		span_notice("[user] успешно вправля[PLUR_ET_YUT(user)] мозг [target]."),
+		span_notice("Вы успешно вправляете мозг [target]."),
+	)
+	target.adjustBrainLoss(-brain.max_damage * BRAIN_SURGERY_HEAL_PERCENT)
+	brain.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+	if(target.getBrainLoss())
+		to_chat(user, span_notice("Мозг [target] выглядит так, будто его можно вправить ещё лучше."))
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/brain_repair/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/brain/brain = get_operated_brain(target_zone, target)
+	if(!brain)
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(
+		span_warning("[user] задева[PLUR_ET_YUT(user)] здоровую часть мозга [target]!"),
+		span_warning("Вы задеваете здоровую часть мозга [target]!"),
+	)
+	target.apply_damage(brain.max_damage * BRAIN_SURGERY_FAILURE_DAMAGE_PERCENT, BRAIN)
+	brain.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
+
+	return SURGERY_STEP_RETRY
+
+/datum/surgery/intermediate/manipulate/lobotomy
+	possible_locs = list(BODY_ZONE_HEAD)
+	steps = list(/datum/surgery_step/internal/manipulate_organs/lobotomy)
+
+/datum/surgery_step/internal/manipulate_organs/lobotomy
+	name = "лоботомия"
+	time = 10 SECONDS
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 65,
+		/obj/item/shard = 45,
+	)
+
+/datum/surgery_step/internal/manipulate_organs/lobotomy/proc/cut_off_something_important(obj/item/organ/internal/brain/brain)
+	switch(rand(1, 3))
+		if(1)
+			brain.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)
+		if(2)
+			if(HAS_TRAIT(brain, TRAIT_SPECIAL_TRAUMA_BOOST) && prob(50))
+				brain.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
+			else
+				brain.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
+		if(3)
+			brain.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
+
+/datum/surgery_step/internal/manipulate_organs/lobotomy/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!get_operated_brain(target_zone, target))
+		user.balloon_alert(user, "мозг отсутствует!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] лоботомию [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете лоботомию [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+	)
+	target.custom_pain("Ваша голова разрывается от невыносимой боли!")
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/lobotomy/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/brain/brain = get_operated_brain(target_zone, target)
+	if(!brain)
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(
+		span_notice("[user] успешно провод[PLUR_IT_YAT(user)] лоботомию [target]."),
+		span_notice("Вы успешно проводите лоботомию [target]."),
+	)
+	to_chat(target, span_warning("Ваша голова на мгновение полностью немеет!"))
+	brain.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
+	if(prob(75))
+		cut_off_something_important(brain)
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/lobotomy/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/brain/brain = get_operated_brain(target_zone, target)
+	if(!brain)
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(
+		span_warning("[user] выреза[PLUR_ET_YUT(user)] не ту часть мозга, нанося ещё больше вреда!"),
+		span_warning("Вы вырезаете не ту часть мозга, нанося ещё больше вреда!"),
+	)
+	target.apply_damage(80, BRAIN)
+	cut_off_something_important(brain)
 
 	return SURGERY_STEP_RETRY
 
@@ -1152,3 +1291,5 @@
 
 #undef MITO_REVIVAL_COST
 #undef GHETTO_DISINFECT_AMOUNT
+#undef BRAIN_SURGERY_HEAL_PERCENT
+#undef BRAIN_SURGERY_FAILURE_DAMAGE_PERCENT

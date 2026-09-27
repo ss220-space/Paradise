@@ -224,13 +224,6 @@
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
 	layer = BACKGROUND_LAYER+20
 
-/atom/movable/screen/fullscreen/see_through_darkness
-	icon_state = "nightvision"
-	plane = LIGHTING_PLANE
-	layer = LIGHTING_ABOVE_ALL
-	blend_mode = BLEND_ADD
-	show_when_dead = TRUE
-
 /atom/movable/screen/fullscreen/fog
 	icon = 'icons/mob/screen_fog.dmi'
 	icon_state = "fog"

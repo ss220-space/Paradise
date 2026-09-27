@@ -1,6 +1,6 @@
 /datum/antagonist/contractor_support
 	name = "Агент поддержки Контрактника"
-	roundend_category = "Contractor Support"
+	roundend_category = "Агентами поддержки Контрактника"
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_menu_name = "Поддержка Контрактника"
 
@@ -13,7 +13,6 @@
 
 	objectives += generic_objective
 	update_contractor_support_icons()
-	SSticker.mode.support += owner
 	return ..()
 
 /datum/antagonist/contractor_support/proc/update_contractor_support_icons()

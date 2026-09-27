@@ -264,6 +264,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+	RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(drop_immerse_hooks))
 	AddElement(/datum/element/watery_tile)
 	return INITIALIZE_HINT_LATELOAD
 
@@ -272,6 +273,10 @@
 	effect = new(src)
 
 ///We lazily add the immerse element when something is spawned or crosses this turf and not before.
+/turf/simulated/floor/plasteel/reactor_pool/proc/drop_immerse_hooks(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_ATOM_INITIALIZED_ON, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, COMSIG_TURF_CHANGE))
+
 /turf/simulated/floor/plasteel/reactor_pool/proc/on_atom_inited(datum/source, atom/movable/movable)
 	SIGNAL_HANDLER
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)

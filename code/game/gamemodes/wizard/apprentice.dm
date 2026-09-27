@@ -110,10 +110,7 @@
 		new_objective:target = teacher.mind
 		new_objective.explanation_text = "Protect [teacher.real_name], the wizard teacher."
 		apprentice.mind.objectives += new_objective
-		SSticker.mode.apprentices += apprentice.mind
-		apprentice.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-		SSticker.mode.update_wiz_icons_added(apprentice.mind)
-		apprentice.faction = list("wizard")
+		apprentice.mind.add_antag_datum(/datum/antagonist/wizard/apprentice)
 		log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
 	else
 		used = FALSE

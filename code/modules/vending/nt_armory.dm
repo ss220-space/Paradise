@@ -83,7 +83,6 @@
 /obj/machinery/vending/nta/ertarmory/update_overlays()
 	. = list()
 
-	underlays.Cut()
 
 	. += base_icon_state
 
@@ -103,7 +102,7 @@
 		else if(flick_sequence & FLICK_DENY)
 			. += deny_overlay
 
-	underlays += emissive_appearance(icon, "nta_lightmask", src)
+	. += emissive_appearance(icon, "nta_lightmask", src)
 
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"

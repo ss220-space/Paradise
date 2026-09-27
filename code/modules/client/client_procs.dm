@@ -106,7 +106,7 @@
 		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
 			to_chat(usr, span_warning("Вы больше не можете воспользоваться этой функцией, так как с момента ответа администратора Discord прошло более 10 минут."), confidential = TRUE)
 			return
-		if(check_mute(ckey, MUTE_ADMINHELP))
+		if(check_mute(account_ckey, MUTE_ADMINHELP))
 			to_chat(usr, span_warning("Вы не можете воспользоваться этой функцией, поскольку ваш клиент был отключён от возможности отправлять сообщения администраторам в Discord."), confidential = TRUE)
 			return
 		cmd_admin_discord_pm()
@@ -243,12 +243,13 @@
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
 	TopicData = null //Prevent calls to client.Topic from connect
+	setup_account_ckey(tdata)
 
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
 	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
+	pm_tracker = new(account_ckey)
 
 	//kill old tgui panel
 	winset(src, OUTPUT_SELECTOR_LEGACY_OUTPUT_SELECTOR, "left=output_legacy")
@@ -277,14 +278,16 @@
 	// Actually sent to client much later, so it appears after MOTD.
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential = TRUE)
 
-	GLOB.directory[ckey] = src
+	GLOB.directory[account_ckey] = src
+	if(account_ckey != ckey)
+		GLOB.directory[ckey] = src
 
-	if(GLOB.persistent_clients_by_ckey[ckey])
-		persistent_client = GLOB.persistent_clients_by_ckey[ckey]
+	if(GLOB.persistent_clients_by_ckey[account_ckey])
+		persistent_client = GLOB.persistent_clients_by_ckey[account_ckey]
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
 	else
-		persistent_client = new(ckey)
+		persistent_client = new(account_ckey)
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
 
@@ -296,40 +299,32 @@
 	// Automatically makes localhost connection an admin
 	if(!CONFIG_GET(flag/disable_localhost_admin))
 		if(is_connecting_from_localhost())
-			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
-	holder = GLOB.admin_datums[ckey]
-	if(holder)
-		GLOB.admins += src
-		holder.owner = src
+			new /datum/admins("!LOCALHOST!", R_HOST, account_ckey) // Makes localhost rank
+	if(launcher_state != LAUNCHER_PENDING)
+		claim_admin_holder()
 
 	// We have a holder. Inform the relevant places
 	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
-	prefs = GLOB.preferences_datums[ckey]
-	if(!prefs)
+	if(launcher_state == LAUNCHER_PENDING)
 		prefs = new /datum/preferences(src)
-		GLOB.preferences_datums[ckey] = prefs
 	else
-		prefs.parent = src
+		prefs = GLOB.preferences_datums[account_ckey]
+		if(!prefs)
+			prefs = new /datum/preferences(src)
+			GLOB.preferences_datums[account_ckey] = prefs
+		else
+			prefs.parent = src
 
 	if(SSinput.initialized)
 		set_macros()
 
-	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(prefs.clientfps)
-		fps = prefs.clientfps
-	else
-		fps = CONFIG_GET(number/clientfps)
-
-	// Check if the client has or has not accepted TOS
-	check_tos_consent()
+	apply_preferences()
 
 	#ifdef MULTIINSTANCE
 	// This sleeps so it has to go here. Dont fucking move it.
-	SSinstancing.update_playercache(ckey)
+	SSinstancing.update_playercache(account_ckey)
 	#endif
 
 	// This has to go here to avoid issues
@@ -358,13 +353,16 @@
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	log_client_to_db(tdata)
+	check_launcher_link(tdata)
+	check_launcher_ban()
+	check_launcher_link_requests()
 	. = ..()	//calls mob.Login()
 
 	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
-	if(ckey in GLOB.clientmessages)
-		for(var/message in GLOB.clientmessages[ckey])
+	if(account_ckey in GLOB.clientmessages)
+		for(var/message in GLOB.clientmessages[account_ckey])
 			to_chat(src, message)
-		GLOB.clientmessages.Remove(ckey)
+		GLOB.clientmessages.Remove(account_ckey)
 
 	if(SSinput.initialized)
 		set_macros()
@@ -384,6 +382,7 @@
 	initialize_escape_menu()
 
 	donator_check()
+	INVOKE_ASYNC(src, PROC_REF(referral_payout_check))
 	check_ip_intel()
 	send_resources()
 
@@ -416,8 +415,6 @@
 		tooltips = new /datum/tooltip(src)
 
 	loot_panel = new(src)
-
-	skills_select_window = new()
 
 	view_size = new(src)
 	view_size.resetFormat()
@@ -467,8 +464,8 @@
 	check_donator_achivements()
 
 /client/proc/check_donator_achivements()
-	var/count = SSdonations.get_donations_count(ckey)
-	var/amount = SSdonations.get_donations_amount(ckey)
+	var/count = SSdonations.get_donations_count(account_ckey)
+	var/amount = SSdonations.get_donations_amount(account_ckey)
 
 	if(!count)
 		return
@@ -522,10 +519,14 @@
 		holder.owner = null
 		GLOB.admins -= src
 
-	GLOB.directory -= ckey
+	if(GLOB.directory[ckey] == src)
+		GLOB.directory -= ckey
+	if(GLOB.directory[account_ckey] == src)
+		GLOB.directory -= account_ckey
 	GLOB.clients -= src
 
-	persistent_client?.client = null
+	if(persistent_client?.client == src)
+		persistent_client.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -546,12 +547,30 @@
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
-	QDEL_NULL(skills_select_window)
 	seen_messages = null
 	sound_tokens = null
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+/client/proc/apply_preferences()
+	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
+	prefs.last_ip = address				//these are gonna be used for banning
+	prefs.last_id = computer_id			//these are gonna be used for banning
+	if(prefs.clientfps)
+		fps = prefs.clientfps
+	else
+		fps = CONFIG_GET(number/clientfps)
+
+	// Check if the client has or has not accepted TOS
+	check_tos_consent()
+
+/client/proc/claim_admin_holder()
+	holder = GLOB.admin_datums[account_ckey]
+	if(!holder)
+		return
+	GLOB.admins += src
+	holder.owner = src
 
 #define REDIS_ANNOUNCER_NAME "Смотритель"
 
@@ -564,7 +583,7 @@
 
 	if(check_rights(R_ADMIN, FALSE))
 		var/list/admincounter = staff_countup(R_ADMIN)
-		var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
+		var/msg = "<b>[account_ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
 		var/list/data = list()
 		data["author"] = REDIS_ANNOUNCER_NAME
 		data["source"] = CONFIG_GET(string/instance_id)
@@ -573,7 +592,7 @@
 
 	else if(check_rights(R_MENTOR, FALSE))
 		var/list/mentorcounter = staff_countup(R_MENTOR)
-		var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
+		var/msg = "<b>[account_ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
 		var/list/data = list()
 		data["author"] = REDIS_ANNOUNCER_NAME
 		data["source"] = CONFIG_GET(string/instance_id)
@@ -592,7 +611,7 @@
 		var/admin_count = admincounter[1]
 		if(!(holder.fakekey || is_afk()))
 			admin_count-- // Exclude ourself
-		var/msg = "<b>[ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
+		var/msg = "<b>[account_ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
 		var/list/data = list()
 		data["author"] = REDIS_ANNOUNCER_NAME
 		data["source"] = CONFIG_GET(string/instance_id)
@@ -604,7 +623,7 @@
 		var/mentor_count = mentorcounter[1]
 		if(!(holder.fakekey || is_afk()))
 			mentor_count-- // Exclude ourself
-		var/msg = "<b>[ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
+		var/msg = "<b>[account_ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
 		var/list/data = list()
 		data["author"] = REDIS_ANNOUNCER_NAME
 		data["source"] = CONFIG_GET(string/instance_id)
@@ -615,7 +634,7 @@
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		return
 
 	#ifdef FAST_LOAD
@@ -640,7 +659,7 @@
 			AND date_start <= NOW()
 			AND (NOW() < date_end OR date_end IS NULL)
 		GROUP BY ckey
-	"}, list("ckey" = ckey))
+	"}, list("ckey" = account_ckey))
 
 	if(!query_donor_select.warn_execute())
 		qdel(query_donor_select)
@@ -658,6 +677,11 @@
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
 	qdel(query_donor_select)
+
+	var/referral_tier = referral_reward_tier()
+	if(donator_level < referral_tier)
+		donator_level = referral_tier
+		donor_loadout_points()
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
@@ -686,14 +710,14 @@
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		return
 
 	if(!SSdbcore.IsConnected())
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey=:ckey", list(
-		"ckey" = ckey
+		"ckey" = account_ckey
 	))
 	if(!query.warn_execute())
 		qdel(query)
@@ -715,7 +739,7 @@
 		return
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
-		if(ckey != query_ip.item[1])
+		if(account_ckey != query_ip.item[1])
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
 	qdel(query_ip)
@@ -729,7 +753,7 @@
 
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
-		if(ckey != query_cid.item[1])
+		if(account_ckey != query_cid.item[1])
 			related_accounts_cid.Add("[query_cid.item[1]]")
 
 	qdel(query_cid)
@@ -746,7 +770,7 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
-	var/watchreason = check_watchlist(ckey)
+	var/watchreason = check_watchlist(account_ckey)
 	if(watchreason)
 		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
 		GLOB.discord_manager.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
@@ -768,7 +792,7 @@
 		if(CONFIG_GET(string/tutorial_server_url))
 			var/datum/db_query/exp_read = SSdbcore.NewQuery(
 				"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
-				list("ckey" = ckey)
+				list("ckey" = account_ckey)
 			)
 			exp_read.warn_execute()
 
@@ -781,7 +805,7 @@
 						"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
 						list(
 							"newexp" = list2params(exp),
-							"ckey" = ckey
+							"ckey" = account_ckey
 						)
 					)
 					update_query.warn_execute()
@@ -817,7 +841,7 @@
 		is_tutorial_needed = !!CONFIG_GET(string/tutorial_server_url)
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
-			"ckey" = ckey,
+			"ckey" = account_ckey,
 			"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 			"cid" = computer_id,
 			"rank" = admin_rank
@@ -832,7 +856,7 @@
 
 	// Log player connections to DB
 	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]` (`datetime`, `ckey`, `ip`, `computerid`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :server_id)", list(
-		"ckey" = ckey,
+		"ckey" = account_ckey,
 		"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = computer_id,
 		"server_id" = CONFIG_GET(string/instance_id)
@@ -856,7 +880,7 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
-		if(vpn_whitelist_check(ckey))
+		if(vpn_whitelist_check(account_ckey))
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
@@ -889,7 +913,7 @@
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
-		"ckey" = ckey
+		"ckey" = account_ckey
 	))
 	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
 	if(!query_find_token.warn_execute(log_error=FALSE))
@@ -901,10 +925,10 @@
 		return tkn
 	qdel(query_find_token)
 
-	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
+	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][account_ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 
 	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES(:ckey, :tokenstr)", list(
-		"ckey" = ckey,
+		"ckey" = account_ckey,
 		"tokenstr" = tokenstr,
 	))
 	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
@@ -917,7 +941,7 @@
 /client/proc/link_forum_account(fromban)
 	if(!CONFIG_GET(string/forum_link_url))
 		return
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		to_chat(src, "Guest keys cannot be linked.", confidential = TRUE)
 		return
 	if(prefs?.fuid)
@@ -925,7 +949,7 @@
 			to_chat(src, "Your forum account is already set.", confidential = TRUE)
 		return
 	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey=:ckey LIMIT 1", list(
-		"ckey" = ckey
+		"ckey" = account_ckey
 	))
 	if(!query_find_link.warn_execute())
 		qdel(query_find_link)
@@ -1043,7 +1067,7 @@
 
 	// Check for notes in the last day - only 1 note per 24 hours
 	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
-		"ckey" = ckey,
+		"ckey" = account_ckey,
 		"adminckey" = adminckey
 	))
 	if(!query_get_notes.warn_execute())
@@ -1056,7 +1080,7 @@
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
 	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
-		"ckey" = ckey
+		"ckey" = account_ckey
 	))
 	if(!query_get_note.warn_execute())
 		qdel(query_get_note)
@@ -1366,30 +1390,37 @@ GAME_VERB_DESC(/client, fix_title_screen, "Починить меню лобби"
 GAME_VERB_HIDDEN(/client, fitviewport, "")// wrapper for mainwindow
 	fit_viewport()
 
+/client/proc/needs_discord_link()
+	if(prefs?.discord_id && length(prefs.discord_id) < DISCORD_TOKEN_LENGTH)
+		return FALSE
+	if(is_launcher_client())
+		return TRUE
+	return CONFIG_GET(number/minimum_byondacc_age) && byondacc_age <= CONFIG_GET(number/minimum_byondacc_age)
+
 GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(!CONFIG_GET(string/discordurl))
 		return
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential = TRUE)
 		return
 	if(prefs)
-		prefs.load_preferences(usr)
+		prefs.load_preferences(src)
 	if(prefs?.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, custom_boxed_message("red_box center", span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("red_box center", span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("/отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
-		var/datum/db_query/query_update_token = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET discord_id=:token WHERE ckey =:ckey", list("token" = token, "ckey" = ckey))
+		var/datum/db_query/query_update_token = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET discord_id=:token WHERE ckey =:ckey", list("token" = token, "ckey" = account_ckey))
 		if(!query_update_token.warn_execute())
 			to_chat(usr, span_warning("Ошибка записи токена в БД! Обратитесь к администрации."), confidential = TRUE)
-			log_debug("link_discord_account: failed db update discord_id for ckey [ckey]")
+			log_debug("link_discord_account: failed db update discord_id for ckey [account_ckey]")
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, custom_boxed_message("blue_box", span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("blue_box", span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("/привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		if(prefs)
-			prefs.load_preferences(usr)
+			prefs.load_preferences(src)
 
 /client/proc/check_say_flood(rate = 5)
 	client_keysend_amount += rate
@@ -1472,6 +1503,9 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
  * * notify - Do we notify admins of this new accounts date
  */
 /client/proc/get_byond_account_date(notify = FALSE)
+	if(is_launcher_client())
+		return
+
 	// First we see if the client has a saved date in the DB
 	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
 		"ckey" = ckey
@@ -1578,7 +1612,7 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
 		return TRUE
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
-		"ckey" = ckey
+		"ckey" = account_ckey
 	))
 	if(!query.warn_execute())
 		qdel(query)
@@ -1726,7 +1760,7 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
 	if(byond_version >= 516)
 		return
 
-	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS13 будет 516, и 515 и ниже больше не будут работать.\
 	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
 	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
 	if(choice != "Обновиться сейчас")

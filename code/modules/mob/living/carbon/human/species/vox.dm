@@ -3,6 +3,7 @@
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+	fit_profile = /datum/species_fit/vox
 	dangerous_existence = TRUE
 	language = LANGUAGE_VOX
 	tail = "voxtail"
@@ -119,12 +120,6 @@
 	)
 	autohiss_exempt = list("Вокс-пиджин")
 
-	max_select_skills = list(
-		/datum/skill/general/carrying = 1,
-		/datum/skill/combat/fists = 1,
-		/datum/skill/engineering/electrician = 3,
-		/datum/skill/engineering/atmos = 3,
-	)
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -212,6 +207,7 @@
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
+	fit_profile = null
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 

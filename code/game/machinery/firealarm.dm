@@ -8,11 +8,14 @@ GLOBAL_LIST_EMPTY(firealarms)
 #define FIRE_ALARM_UNWIRED 1
 #define FIRE_ALARM_READY 2
 
+#define FIRE_ALARM_LIGHT_RANGE 1.6
+#define FIRE_ALARM_ALERT_LIGHT_RANGE 2.5
+
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/machines/monitors.dmi'
-	icon_state = "firealarm_on"
+	icon = 'icons/obj/machines/wallmounts.dmi'
+	icon_state = "fire0"
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
@@ -57,7 +60,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 		/obj/item/circuit_component/firealarm,
 	))
 
-	update_fire_light()
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()
@@ -75,41 +77,65 @@ GLOBAL_LIST_EMPTY(firealarms)
 /obj/machinery/firealarm/syndicate/taipan
 	report_fire_alarms = TRUE
 
-/obj/machinery/firealarm/update_icon_state()
-	if(wiresexposed)
-		icon_state = "firealarm_b[buildstage]"
-		return
-	if(stat & BROKEN)
-		icon_state = "firealarm_broken"
-		return
-	if(stat & NOPOWER)
-		icon_state = "firealarm_off"
+/obj/machinery/firealarm/update_icon(updates = ALL)
+	. = ..()
+
+	if(wiresexposed || (stat & (NOPOWER|BROKEN)))
+		set_light_on(FALSE)
 		return
 
-	var/area/area = get_area(src)
-	if(area?.fire)
-		icon_state = "firealarm_alarming"
+	if(emagged)
+		set_light(FIRE_ALARM_LIGHT_RANGE, 1, LIGHT_COLOR_BLUE, l_on = TRUE)
 		return
+
+	if(myArea?.fire)
+		set_light(FIRE_ALARM_ALERT_LIGHT_RANGE, 1.5, LIGHT_COLOR_INTENSE_RED, l_on = TRUE)
+		return
+
 	if(!detecting)
-		icon_state = "firealarm_detect"
+		set_light(FIRE_ALARM_LIGHT_RANGE, 1, COLOR_WHITE, l_on = TRUE)
 		return
-	else
-		icon_state = "firealarm_on"
+
+	if(!is_station_contact(z) || !show_alert_level)
+		set_light(FIRE_ALARM_LIGHT_RANGE, 1, LIGHT_COLOR_FAINT_BLUE, l_on = TRUE)
+		return
+
+	set_light(FIRE_ALARM_LIGHT_RANGE, 1, SSsecurity_level.current_security_level?.fire_alarm_light_color || LIGHT_COLOR_BLUEGREEN, l_on = TRUE)
+
+/obj/machinery/firealarm/update_icon_state()
+	if(wiresexposed)
+		icon_state = "fire_b[buildstage]"
+		return
+	if(stat & BROKEN)
+		icon_state = "firex"
+		return
+
+	icon_state = "fire0"
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
-	underlays.Cut()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(wiresexposed || (stat & (NOPOWER|BROKEN)))
 		return
 
-	if(is_station_contact(z) && show_alert_level)
+	if(emagged)
+		. += "fire_emag"
+		. += emissive_appearance(icon, "fire_emag_e", src)
+		return
 
-		. += "overlay_[SSsecurity_level.get_current_level_as_text()]"
-		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask", src)
+	if(myArea?.fire)
+		. += "fire_alerting"
+		. += emissive_appearance(icon, "fire_alerting_e", src)
+		return
 
-	if(!wiresexposed)
-		underlays += emissive_appearance(icon, "firealarm_lightmask", src)
+	if(!detecting)
+		. += "fire_disabled"
+	else if(is_station_contact(z) && show_alert_level)
+		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+	else
+		. += "fire_offstation"
+
+	. += emissive_appearance(icon, "fire_level_e", src)
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -117,6 +143,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		if(user)
 			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		update_icon()
 
 /obj/machinery/firealarm/temperature_expose(exposed_temperature, exposed_volume)
 	..()
@@ -174,8 +201,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(!I.tool_use_check(user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || buildstage != FIRE_ALARM_UNWIRED)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || buildstage != FIRE_ALARM_UNWIRED)
 		return
 	new /obj/item/firealarm_electronics(drop_location())
 	buildstage = FIRE_ALARM_FRAME
@@ -263,30 +289,14 @@ GLOBAL_LIST_EMPTY(firealarms)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/proc/update_fire_light()
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-		return
-
-	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
-		set_light(2, 1, COLOR_WHITE, TRUE)
-		return
-
-	if(myArea?.fire)
-		set_light(3, 1, "#ff3232", TRUE)
-	else
-		set_light_on(FALSE)
-
 /obj/machinery/firealarm/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
 	update_icon()
-	update_fire_light()
 
 /obj/machinery/firealarm/power_change(forced = FALSE)
 	. = ..()
 	if(.)
-		update_fire_light()
 		update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
@@ -426,6 +436,8 @@ Just a object used in constructing fire alarms
 #undef FIRE_ALARM_FRAME
 #undef FIRE_ALARM_UNWIRED
 #undef FIRE_ALARM_READY
+#undef FIRE_ALARM_LIGHT_RANGE
+#undef FIRE_ALARM_ALERT_LIGHT_RANGE
 
 // MARK: Mapping Dir Helpers
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26, 26)

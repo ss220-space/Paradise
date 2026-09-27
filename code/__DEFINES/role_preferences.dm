@@ -9,6 +9,7 @@
 #define ROLE_OPERATIVE "operative"
 #define ROLE_CHANGELING "changeling"
 #define ROLE_WIZARD "wizard"
+#define ROLE_HERETIC "heretic"
 #define ROLE_REV "revolutionary"
 #define ROLE_ALIEN "xenomorph"
 #define ROLE_THUNDERDOME "thunderdome"
@@ -30,6 +31,7 @@
 #define ROLE_TRADER "trader"
 #define ROLE_VAMPIRE "vampire"
 #define ROLE_THIEF "thief"
+#define ROLE_OBSESSED "obsessed"
 #define ROLE_TERROR_SPIDER "Terror Spider"
 #define ROLE_BINGLE "Bingle"
 // Role tags for EVERYONE!
@@ -46,6 +48,7 @@
 #define ROLE_DEATHSQUAD "deathsquad"
 #define ROLE_EVENTMISC "eventmisc"
 #define ROLE_GHOST "ghost role"
+#define ROLE_GLITCH "digital glitch"
 #define ROLE_ELITE "lavaland elite"
 #define ROLE_SPACE_DRAGON "space dragon"
 #define ROLE_MALF_AI "Malfunctioning AI"
@@ -66,8 +69,10 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CLOCKER = /datum/game_mode/clockwork, // Clockwork Cultist
 	ROLE_DEMON, // Demons (Slaughter/Laughter/Shadow)
 	ROLE_DEVIL, // Devil
+	ROLE_GLITCH, // Digital glitch
 	ROLE_GSPIDER, // Giant spider
 	ROLE_GUARDIAN, // Guardian
+	ROLE_HERETIC, // Heretic
 	ROLE_ELITE, // Lavaland Elite
 	ROLE_MALF_AI = /datum/game_mode/traitor, // Malf AI
 	ROLE_ESCAPING_PRISONER = /datum/game_mode/traitor, // Escaping Prisoner

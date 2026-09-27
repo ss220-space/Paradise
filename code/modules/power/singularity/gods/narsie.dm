@@ -29,13 +29,15 @@
 	return span_narsie(text)
 
 /obj/god/narsie/announce_summon()
-	SSticker.mode?.cult_objs.succesful_summon()
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+	cult_team?.cult_objs.succesful_summon()
 
 /obj/god/narsie/announce_death()
-	SSticker.mode?.cult_objs.narsie_death()
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+	cult_team?.cult_objs.narsie_death()
 
 /obj/god/narsie/devotees()
-	return SSticker.mode?.cult || list()
+	return get_blood_cult_team()?.members || list()
 
 /obj/god/narsie/attack_ghost(mob/dead/observer/user)
 	if(!jobban_isbanned(user.ckey, ROLE_CULTIST))

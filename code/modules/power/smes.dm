@@ -91,16 +91,23 @@
 	if((stat & BROKEN) || panel_open)
 		return
 
-	. += "smes-op[outputting]"
+	var/output_state = "smes-op[outputting]"
+	. += output_state
+	. += emissive_appearance(icon, "[output_state]_lightmask", src)
 
+	var/input_state
 	if(inputting)
-		. += "smes-oc[inputting]"
+		input_state = "smes-oc[inputting]"
 	else if(input_attempt)
-		. += "smes-oc0"
+		input_state = "smes-oc0"
+	if(input_state)
+		. += input_state
+		. += emissive_appearance(icon, "[input_state]_lightmask", src)
 
 	var/clevel = chargedisplay()
 	if(clevel > 0)
 		. += "smes-og[clevel]"
+		. += emissive_appearance(icon, "smes-og[clevel]_lightmask", src)
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -162,8 +169,7 @@
 	return TRUE
 
 /obj/machinery/power/smes/proc/check_electrocute(mob/user, power_source, obj/source)
-	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
-	if(prob(50 * prob_mod) && electrocute_mob(user, power_source, source, 1, TRUE))
+	if(prob(50) && electrocute_mob(user, power_source, source, 1, TRUE))
 		do_sparks(5, TRUE, src)
 		return TRUE
 	return FALSE

@@ -30,6 +30,8 @@ export const SETTINGS_TABS = [
 
 export const FONTS_DISABLED = 'Default';
 
+export const DEFAULT_FONT = 'Verdana';
+
 export const FONTS = [
   FONTS_DISABLED,
   'Verdana',

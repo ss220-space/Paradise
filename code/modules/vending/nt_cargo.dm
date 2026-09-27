@@ -24,7 +24,6 @@
 /obj/machinery/vending/ntc/update_overlays()
 	. = list()
 
-	underlays.Cut()
 
 	. += base_icon_state
 
@@ -44,7 +43,7 @@
 		else if(flick_sequence & FLICK_DENY)
 			. += deny_overlay
 
-	underlays += emissive_appearance(icon, "nta_lightmask", src)
+	. += emissive_appearance(icon, "nta_lightmask", src)
 
 /obj/machinery/vending/ntc/medal
 	name = "NT Cargo Encouragement"

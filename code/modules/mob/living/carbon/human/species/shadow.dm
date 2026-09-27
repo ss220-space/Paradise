@@ -9,6 +9,7 @@
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'
+	fit_profile = /datum/species_fit/shadow
 	dangerous_existence = TRUE
 	inherent_factions = list("faithless")
 

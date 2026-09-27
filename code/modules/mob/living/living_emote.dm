@@ -567,7 +567,7 @@
 
 	if(QDELETED(user))
 		return FALSE
-	else if(user.client && check_mute(user.client.ckey, MUTE_IC))
+	else if(user.client && check_mute(user.client.account_ckey, MUTE_IC))
 		to_chat(user, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 		return FALSE
 	else if(!params)

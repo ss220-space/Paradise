@@ -238,8 +238,12 @@
 
 	pai.reset_software()
 
-	SSticker.mode.update_cult_icons_removed(pai.mind)
-	SSticker.mode.update_rev_icons_removed(pai.mind)
+	for(var/antag_type in list(/datum/antagonist/cult, /datum/antagonist/rev))
+		var/datum/antagonist/antag = pai.mind?.has_antag_datum(antag_type)
+		if(!antag)
+			continue
+		antag.silent = TRUE
+		pai.mind.remove_antag_datum(antag_type)
 
 	var/list/welcome_message = list()
 	welcome_message.Add(span_notice("<b>Вы — персональный ИИ!</b>"))

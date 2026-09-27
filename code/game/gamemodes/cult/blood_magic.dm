@@ -446,6 +446,20 @@
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
 	if(L.can_block_magic())
+
+	if(IS_HERETIC(L))
+		L.AdjustKnockdown(0.5 SECONDS)
+		L.AdjustConfused(1.5 SECONDS, bound_upper = 3 SECONDS)
+		L.AdjustDizzy(1.5 SECONDS, bound_upper = 3 SECONDS)
+
+		L.mansus_absorbs_magic(user, "[DECLENT_RU_CAP(user, NOMINATIVE)] касается вас мерзкой магией, но Обитель поглощает большую часть эффектов!")
+		uses--
+		return ..()
+
+	var/obj/item/nullrod/N = locate() in target
+
+	if(N)
+
 		target.visible_message(
 			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),

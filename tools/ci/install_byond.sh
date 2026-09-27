@@ -35,7 +35,7 @@ else
   cd "$HOME/BYOND"
 
   if ! curl -L --fail --retry 3 \
-  	-H "User-Agent: ParadiseSS1984/Paradise CI" \
+  	-H "User-Agent: DarkParadise CI" \
     "http://www.byond.com/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" \
     -o byond.zip; then
     echo "Failed to download BYOND!"

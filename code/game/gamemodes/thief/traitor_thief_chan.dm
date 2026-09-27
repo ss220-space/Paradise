@@ -1,7 +1,6 @@
 /datum/game_mode/traitor/thief/changeling
 	name = "traitor+thief+changeling"
 	config_tag = "traitorthiefchan"
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 25
 	var/protected_species_changeling = list(SPECIES_MACHINEPERSON)
 
@@ -10,9 +9,6 @@
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров, генокрадов и агентов \"Синдиката\". Не дайте агентам \"Синдиката\" и Генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
 
 /datum/game_mode/traitor/thief/changeling/pre_setup()
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
-
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -22,7 +18,7 @@
 	if(length(possible_changelings))
 		var/datum/mind/changeling = pick(possible_changelings)
 		pre_changelings += changeling
-		changeling.restricted_roles = restricted_jobs
+		changeling.restricted_roles = get_restricted_roles()
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return ..()
 	else

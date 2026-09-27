@@ -12,7 +12,7 @@
 	//Флаги
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	see_in_dark = 8 //Base human is 2
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/current_mode = NINJA_NIGHTVISION
 	///The space ninja's mask.

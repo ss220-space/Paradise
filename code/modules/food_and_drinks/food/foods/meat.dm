@@ -283,6 +283,12 @@
 	filling_color = "#850808"
 	bitesize = 2
 
+/obj/item/reagent_containers/food/snacks/meat/humanoid/swine
+	name = "trottine meat"
+	list_reagents = list("protein" = 4, "porktonium" = 5)
+	tastes = list("salty meat" = 1)
+	filling_color = "#e2a0a0"
+
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."

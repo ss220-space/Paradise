@@ -87,6 +87,7 @@
 		JOB_TITLE_CARGOTECH = "supradio",
 		JOB_TITLE_MINER = "supradio",
 		JOB_TITLE_MINING_MEDIC = "supradio",
+		JOB_TITLE_BITRUNNER = "supradio",
 		// Service
 		JOB_TITLE_HOP = "comradio",
 		JOB_TITLE_BARTENDER = "srvradio",

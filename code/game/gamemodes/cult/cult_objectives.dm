@@ -4,6 +4,27 @@
 	var/datum/objective/eldergod/obj_summon = new
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
+	var/list/unlocked_heretic_items = list(
+		CURSED_BLADE_UNLOCKED = FALSE,
+		CRIMSON_MEDALLION_UNLOCKED = FALSE,
+	)
+
+/datum/cult_objectives/proc/unlock_heretic_item()
+	var/list/still_locked = list()
+	for(var/item_name in unlocked_heretic_items)
+		if(!unlocked_heretic_items[item_name])
+			still_locked += item_name
+
+	if(!length(still_locked))
+		return
+
+	var/unlocked_item = pick(still_locked)
+	unlocked_heretic_items[unlocked_item] = TRUE
+	for(var/datum/mind/cultist_mind as anything in get_blood_cult_team().members)
+		if(!cultist_mind.current)
+			continue
+		SEND_SOUND(cultist_mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
+		to_chat(cultist_mind.current, span_cultlarge("Запретное знание наполняет ваши кузни и архивы. Культ научился создавать [unlocked_item]!"))
 
 /datum/cult_objectives/proc/setup()
 	if(cult_status != NARSIE_IS_ASLEEP)
@@ -43,13 +64,14 @@
 			to_chat(M, span_danger("Error: Cult objective status currently unknown. Something went wrong. Oof."))
 
 	if(display_members)
-		var/list/cult = SSticker.mode.get_cultists(TRUE)
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+		var/list/cult = cult_team.get_cultists(TRUE)
 		var/total_cult = cult[1] + cult[2]
-		var/rise = SSticker.mode.rise_number - total_cult
-		var/ascend = SSticker.mode.ascend_number - total_cult
+		var/rise = cult_team.rise_number - total_cult
+		var/ascend = cult_team.ascend_number - total_cult
 
 		var/overview = span_cultitalic("<br><b>Current cult members: [total_cult]")
-		if(!SSticker.mode.cult_ascendant)
+		if(!cult_team.cult_ascendant)
 			if(rise > 0)
 				overview += " | Conversions until Rise: [rise]"
 			else if(ascend > 0)
@@ -77,7 +99,7 @@
 /datum/cult_objectives/proc/find_new_sacrifice_target(datum/mind/mind)
 	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.find_target())
-		for(var/datum/mind/cult_mind in SSticker.mode.cult)
+		for(var/datum/mind/cult_mind as anything in get_blood_cult_team().members)
 			if(cult_mind?.current)
 				to_chat(cult_mind.current, "[span_danger(SSticker.cultdat.entity_name)] murmurs, [span_cultlarge("Our goal is beyond your reach. Sacrifice [current_obj.target] instead...")]")
 		return TRUE
@@ -93,7 +115,7 @@
 		var/datum/objective/sacrifice/obj_sac = new
 		if(obj_sac.find_target())
 			presummon_objs += obj_sac
-			for(var/datum/mind/cult_mind in SSticker.mode.cult)
+			for(var/datum/mind/cult_mind as anything in get_blood_cult_team().members)
 				if(cult_mind?.current)
 					to_chat(cult_mind.current, span_cult("You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!"))
 					to_chat(cult_mind.current, span_cult("Current goal: [obj_sac.explanation_text]"))
@@ -102,7 +124,7 @@
 
 /datum/cult_objectives/proc/ready_to_summon()
 	cult_status = NARSIE_NEEDS_SUMMONING
-	for(var/datum/mind/cult_mind in SSticker.mode.cult)
+	for(var/datum/mind/cult_mind as anything in get_blood_cult_team().members)
 		if(cult_mind?.current)
 			to_chat(cult_mind.current, span_cult("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
 			to_chat(cult_mind.current, span_cult("Current goal: [obj_summon.explanation_text]"))
@@ -168,7 +190,8 @@
 	antag_menu_name = "Призвать [SSticker.cultdat.entity_name]"
 
 /datum/objective/eldergod/check_anatag_menu_ability()
-	return SSticker.mode.cult_objs.cult_status != NARSIE_IS_ASLEEP
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+	return cult_team?.cult_objs.cult_status != NARSIE_IS_ASLEEP
 
 /datum/objective/eldergod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)

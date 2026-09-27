@@ -466,7 +466,7 @@
 	desc = "Open the upgrades menu. Alt-click for descriptions and costs."
 	button_icon_state = "pd_upgrade"
 	var/static/list/upgrade_icons = list(
-		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "apcemag"),
+		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/machines/wallmounts.dmi', icon_state = "apcemag"),
 		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "ccharger1"),
 		PD_UPGRADE_MAX_HEALTH   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "bluespace_matter_bin"),
 		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),

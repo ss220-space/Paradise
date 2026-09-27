@@ -92,13 +92,13 @@
 /proc/download_web_sound(ytdl, url, sound_id)
 	var/datum/web_sound_download/download = new
 	var/scrubbed_url = shell_url_scrub(url)
-	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] -o \"cache/songs/%(id)s.%(ext)s\" \"[scrubbed_url]\"")
+	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] -o \"[SONG_CACHE_DIRECTORY]/%(id)s.%(ext)s\" \"[scrubbed_url]\"")
 	if(output[SHELLEO_ERRORLEVEL])
 		download.error_message = output[SHELLEO_STDERR]
 		return download
 
 	download.success = TRUE
-	download.file_path = "cache/songs/[sound_id].mp3"
+	download.file_path = "[SONG_CACHE_DIRECTORY]/[sound_id].mp3"
 	return download
 
 #undef YTDL_COMMON_ARGS

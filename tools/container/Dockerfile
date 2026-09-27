@@ -21,7 +21,7 @@ RUN apt-get update && \
 COPY _build_dependencies.sh .
 
 RUN . ./_build_dependencies.sh \
-    && curl -H "User-Agent: ParadiseSS1984/Paradise CI" "http://www.byond.com/download/build/${STABLE_BYOND_MAJOR}/${STABLE_BYOND_MAJOR}.${STABLE_BYOND_MINOR}_byond_linux.zip" -o byond.zip \
+    && curl -H "User-Agent: DarkParadise CI" "http://www.byond.com/download/build/${STABLE_BYOND_MAJOR}/${STABLE_BYOND_MAJOR}.${STABLE_BYOND_MINOR}_byond_linux.zip" -o byond.zip \
     && unzip byond.zip \
     && cd byond \
     && sed -i 's|install:|&\n\tmkdir -p $(MAN_DIR)/man6|' Makefile \

@@ -271,6 +271,11 @@
 /turf/simulated/floor/indestructible/beach/water/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
+	RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(drop_pool_hooks))
+
+/turf/simulated/floor/indestructible/beach/water/proc/drop_pool_hooks(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_ATOM_INITIALIZED_ON, COMSIG_TURF_CHANGE))
 
 /turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

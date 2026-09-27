@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
+	fit_profile = /datum/species_fit/slime
 	remains_type = /obj/effect/decal/remains/slime
 	inherent_factions = list("slime")
 
@@ -91,11 +92,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		JOB_MIN_AGE_COMMAND = 30,
 	)
 
-	max_select_skills = list(
-		/datum/skill/service/cleaning = 1,
-		/datum/skill/engineering/atmos = 1,
-		/datum/skill/research/xenobiology = 4,
-	)
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/slime)
 	. = ..()

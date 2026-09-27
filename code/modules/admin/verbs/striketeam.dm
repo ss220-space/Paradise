@@ -76,16 +76,13 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				R.mind.current = R
 				R.mind.set_original_mob(R)
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
-				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-				R.mind.offstation_role = TRUE
 				if(!(R.mind in SSticker.minds))
 					SSticker.minds += R.mind
-				SSticker.mode.deathsquad |= R.mind
 				R.possess_by_player(ghost_mob.key)
-				if(nuke_code)
-					R.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
-				R.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
-				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
+				var/datum/antagonist/ert/deathsquad/cyborg/commando_borg = new
+				commando_borg.mission = input
+				commando_borg.nuke_code = nuke_code
+				R.mind.add_antag_datum(commando_borg)
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 				new_commando.mind.key = ghost_mob.key
@@ -93,10 +90,11 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				new_commando.internal = new_commando.s_store
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()
-				if(nuke_code)
-					new_commando.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
-				new_commando.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
-				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<b>КОМАНДИР</b>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
+				var/datum/antagonist/ert/deathsquad/commando = new
+				commando.leader = is_leader
+				commando.mission = input
+				commando.nuke_code = nuke_code
+				new_commando.mind.add_antag_datum(commando)
 
 			is_leader = FALSE
 			commando_number--
@@ -173,9 +171,6 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	//Creates mind stuff.
 	new_commando.mind_initialize()
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
-	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-	new_commando.mind.offstation_role = TRUE
-	SSticker.mode.deathsquad |= new_commando.mind
 	if(is_leader)
 		new_commando.equipOutfit(/datum/outfit/admin/death_commando/officer)
 	else

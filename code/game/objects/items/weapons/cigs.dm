@@ -161,9 +161,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(item, /obj/item/melee/energy/sword/saber))
 		add_fingerprint(user)
-		if(!HAS_TRAIT(item, TRAIT_ITEM_ACTIVE))
+		var/obj/item/melee/energy/sword/saber/saber = item
+		if(!saber.active)
 			return ..()
-		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [item.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(item)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
+		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isigniter(item))
@@ -237,16 +238,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		return
 
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
+	var/alist/real_ru_names = get_ru_names_cached()
 
 	ru_names = alist(
-		NOMINATIVE = "[lit ? "прикуренная " : ""]" + ru_names[NOMINATIVE],
-		GENITIVE = "[lit ? "прикуренной " : ""]" + ru_names[GENITIVE],
-		DATIVE = "[lit ? "прикуренной " : ""]" + ru_names[DATIVE],
-		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + ru_names[ACCUSATIVE],
-		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + ru_names[INSTRUMENTAL],
-		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
+		NOMINATIVE = "[lit ? "прикуренная " : ""]" + real_ru_names[NOMINATIVE],
+		GENITIVE = "[lit ? "прикуренной " : ""]" + real_ru_names[GENITIVE],
+		DATIVE = "[lit ? "прикуренной " : ""]" + real_ru_names[DATIVE],
+		ACCUSATIVE = "[lit ? "прикуренную " : ""]" + real_ru_names[ACCUSATIVE],
+		INSTRUMENTAL = "[lit ? "прикуренной " : ""]" + real_ru_names[INSTRUMENTAL],
+		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + real_ru_names[PREPOSITIONAL],
 	)
 
 /obj/item/clothing/mask/cigarette/get_temperature()

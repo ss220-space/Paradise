@@ -82,20 +82,19 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	. += span_notice("<b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.")
-	if(user.is_literate())
-		if(in_range(user, src) || isobserver(user))
-			show_content(user)
-		else
-			. += span_notice("You have to go closer if you want to read it.")
-	else
+	if(!in_range(user, src) && !isobserver(user))
+		. += span_notice("You have to go closer if you want to read it.")
+		return
+	if(!user.is_literate())
 		. += span_notice("You don't know how to read.")
+	show_content(user)
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
 	var/data
-	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
+	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars || !user.is_literate()
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "[header][stars(info)][footer][stamps]"
 	else

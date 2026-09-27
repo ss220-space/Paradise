@@ -105,7 +105,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			return
 
 		if(sound_info.url)
-			web_sound_path = "cache/songs/[sound_info.id].mp3"
+			web_sound_path = "[SONG_CACHE_DIRECTORY]/[sound_info.id].mp3"
 			web_sound_url = sound_info.url
 			web_sound_id = sound_info.id
 			var/song_title = "[sound_info.title]"

@@ -14,6 +14,10 @@ Gunshots/explosions/opening doors/less rare audio (done)
 GLOBAL_LIST_INIT(minor_hallutinations, list("sounds"=25,"bolts_minor"=5,"whispers"=15,"message"=10,"hudscrew"=15))
 GLOBAL_LIST_INIT(medium_hallutinations, list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10))
 GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10))
+// Pre-merged pools so hot paths (heretic aura ticks, madness mask process()) don't reallocate
+// a concatenated list on every call.
+GLOBAL_LIST_INIT(minor_medium_hallutinations, GLOB.minor_hallutinations + GLOB.medium_hallutinations)
+GLOBAL_LIST_INIT(minor_medium_major_hallutinations, GLOB.minor_hallutinations + GLOB.medium_hallutinations + GLOB.major_hallutinations)
 
 /obj/effect/hallucination
 	invisibility = INVISIBILITY_OBSERVER

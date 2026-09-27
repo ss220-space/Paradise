@@ -1,0 +1,1705 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bK" = (
+/turf/simulated/wall/indestructible/abductor,
+/area/virtual_domain)
+"cp" = (
+/obj/structure/table/abductor,
+/obj/item/reagent_containers/food/snacks/soylentgreen{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"cr" = (
+/obj/item/flashlight/lantern{
+	pixel_x = 4;
+	pixel_y = -8;
+	light_on = 1
+	},
+/obj/item/flashlight/lantern{
+	pixel_x = -9;
+	pixel_y = 8;
+	light_on = 1
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"dM" = (
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"fk" = (
+/obj/effect/mob_spawn/human/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"ge" = (
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"gF" = (
+/obj/machinery/abductor/pad{
+	desc = "A funky looking disc, built into the floor."
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"gO" = (
+/obj/structure/table/abductor,
+/obj/item/poster/random_contraband{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"ih" = (
+/obj/structure/table/abductor,
+/obj/item/storage/belt/military/abductor{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/storage/belt/military/abductor{
+	pixel_x = -5;
+	pixel_y = -1
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"kl" = (
+/obj/structure/table_frame/abductor,
+/obj/item/organ/internal/lungs{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/item/shard{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"kt" = (
+/obj/structure/table/abductor,
+/obj/item/multitool/abductor{
+	pixel_y = 6;
+	pixel_x = 5
+	},
+/obj/item/screwdriver/abductor{
+	pixel_y = 8;
+	pixel_x = -1
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"kN" = (
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"lC" = (
+/obj/structure/table/abductor,
+/obj/item/clothing/head/helmet/abductor{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/abductor/silencer{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"lN" = (
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"lR" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"lW" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"mR" = (
+/obj/machinery/abductor/pad,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"nT" = (
+/obj/structure/table/abductor,
+/obj/item/reagent_containers/food/snacks/soylentgreen{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"oL" = (
+/obj/effect/landmark/bitrunning/mob_segment,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"pL" = (
+/turf/simulated/wall/indestructible,
+/area/virtual_domain)
+"pT" = (
+/obj/effect/decal/cleanable/blood/footprints,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"rw" = (
+/obj/structure/table/abductor,
+/obj/item/toy/plushie/greyplushie{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"rY" = (
+/obj/modular_map_root/safehouse{
+	key = "abductor"
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"sv" = (
+/obj/structure/table/abductor,
+/obj/item/crowbar/abductor,
+/obj/item/stock_parts/cell/infinite/abductor{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"to" = (
+/obj/effect/decal/cleanable/molten_object{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"uk" = (
+/obj/structure/table/abductor,
+/obj/item/wrench/abductor{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/wirecutters/abductor{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"uw" = (
+/obj/structure/bed/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"ux" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Command Center";
+	locked = 1
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"uD" = (
+/obj/machinery/computer/camera_advanced/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"vY" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Repair Bay"
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"vZ" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"xB" = (
+/turf/simulated/wall/indestructible/opsglass,
+/area/virtual_domain)
+"xM" = (
+/obj/effect/decal/cleanable/molten_object{
+	pixel_x = -6;
+	pixel_y = -7
+	},
+/obj/effect/landmark/bitrunning/cache_spawn,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"yt" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"zX" = (
+/obj/machinery/abductor/experiment,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"AG" = (
+/obj/item/shell/server,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Bj" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/indestructible,
+/area/virtual_domain)
+"Fy" = (
+/obj/effect/decal/cleanable/molten_object/large{
+	pixel_x = -5;
+	pixel_y = 14
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"GX" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"IC" = (
+/obj/structure/table/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"JR" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Experimentation Lab"
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"JU" = (
+/obj/structure/closet/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"KK" = (
+/obj/structure/bed/abductor,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"KX" = (
+/turf/simulated/floor/holofloor/space,
+/area/space/virtual_domain)
+"Lz" = (
+/obj/structure/table/abductor,
+/obj/item/melee/baton/abductor{
+	desc = "Even aliens can see the use of a good old-fashioned beating stick.";
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Mr" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"MC" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Ne" = (
+/obj/machinery/abductor/console,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"NW" = (
+/obj/structure/server,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Qp" = (
+/turf/template_noop,
+/area/template_noop)
+"QC" = (
+/obj/structure/chair/comfy/teal{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Rd" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Rg" = (
+/obj/structure/table/abductor,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/smg/c20r{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"RI" = (
+/obj/machinery/door/airlock/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Sd" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Ub" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Uf" = (
+/obj/item/flashlight/seclite{
+	pixel_x = 9;
+	pixel_y = -11
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"Us" = (
+/obj/structure/table/abductor,
+/obj/item/abductor/mind_device{
+	desc = "Just holding this makes your head ache.";
+	pixel_x = 3
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"UX" = (
+/obj/effect/landmark/bitrunning/cache_spawn,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Vl" = (
+/obj/machinery/optable/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"VE" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"VY" = (
+/obj/effect/mob_spawn/human/abductor{
+	pixel_x = 9;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/blood/xeno,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"We" = (
+/obj/structure/table/abductor,
+/obj/item/twohanded/dualsaber/green{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/gun/projectile/automatic/smg/c20r{
+	pixel_x = 8;
+	pixel_y = -6
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"Wk" = (
+/obj/structure/table/abductor,
+/obj/item/weldingtool/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"XU" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"Yq" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+"ZM" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/abductor,
+/area/virtual_domain)
+
+(1,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(2,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(3,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+lW
+uw
+IC
+IC
+uw
+lW
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(4,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(5,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+oL
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(6,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(7,1,1) = {"
+Qp
+lN
+lN
+lN
+lN
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+MC
+pL
+pL
+pL
+kN
+kN
+pL
+pL
+pL
+MC
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(8,1,1) = {"
+lN
+lN
+KX
+KX
+lN
+Qp
+Qp
+Qp
+pL
+pL
+lW
+kN
+kN
+pL
+pL
+pL
+bK
+pL
+kN
+kN
+pL
+pL
+pL
+pL
+pL
+kN
+kN
+lW
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(9,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+bK
+bK
+pL
+pL
+kN
+kN
+pL
+pL
+pL
+pL
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+"}
+(10,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+Qp
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+JU
+yt
+VY
+pL
+MC
+kN
+kN
+MC
+pL
+ih
+Yq
+JU
+pL
+pL
+UX
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+"}
+(11,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+pL
+pL
+UX
+kN
+kN
+pL
+pL
+Wk
+kN
+kN
+kN
+pL
+kN
+kN
+kN
+kN
+pL
+rw
+kN
+kN
+kN
+pL
+pL
+Vl
+kN
+MC
+pL
+pL
+Qp
+Qp
+"}
+(12,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+bK
+pL
+kN
+kN
+pL
+pL
+uk
+kN
+oL
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+kN
+kN
+JU
+pL
+pL
+pL
+pL
+pL
+pL
+Bj
+Qp
+"}
+(13,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+bK
+pL
+kN
+kN
+pL
+JU
+kN
+kN
+kN
+vY
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+RI
+kN
+kN
+XU
+gO
+pL
+pL
+pL
+AG
+pL
+pL
+pL
+"}
+(14,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+pL
+pL
+MC
+Vl
+pL
+UX
+kN
+MC
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+JU
+fk
+lC
+pL
+pL
+NW
+kN
+NW
+pL
+pL
+"}
+(15,1,1) = {"
+lN
+KX
+KX
+KX
+xB
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+MC
+kN
+kN
+ge
+ge
+ge
+ge
+ge
+rY
+kN
+kN
+MC
+pL
+pL
+pL
+pL
+pL
+NW
+kN
+NW
+pL
+pL
+"}
+(16,1,1) = {"
+lN
+KX
+KX
+xB
+xB
+uD
+ZM
+ZM
+kN
+Rd
+MC
+kN
+kN
+kN
+kN
+kN
+ge
+ge
+ge
+ge
+ge
+ge
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+xB
+xB
+xB
+pL
+pL
+"}
+(17,1,1) = {"
+lN
+KX
+KX
+xB
+Ne
+kN
+kN
+kN
+kN
+ux
+kN
+kN
+kN
+kN
+kN
+kN
+ge
+ge
+Uf
+cr
+ge
+ge
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+kN
+kN
+kN
+pL
+pL
+"}
+(18,1,1) = {"
+lN
+KX
+KX
+xB
+Lz
+kN
+kN
+kN
+kN
+Rd
+kN
+kN
+kN
+kN
+kN
+kN
+ge
+ge
+We
+Rg
+ge
+ge
+kN
+kN
+kN
+oL
+kN
+kN
+kN
+RI
+kN
+oL
+kN
+pL
+pL
+"}
+(19,1,1) = {"
+lN
+KX
+KX
+xB
+Ne
+kN
+kN
+kN
+kN
+ux
+kN
+kN
+kN
+kN
+kN
+kN
+ge
+ge
+ge
+ge
+ge
+ge
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+kN
+kN
+kN
+pL
+pL
+"}
+(20,1,1) = {"
+lN
+KX
+KX
+xB
+xB
+uD
+Ub
+Ub
+kN
+Rd
+MC
+kN
+kN
+kN
+kN
+kN
+ge
+ge
+ge
+ge
+dM
+ge
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+xB
+xB
+xB
+pL
+pL
+"}
+(21,1,1) = {"
+lN
+KX
+KX
+KX
+xB
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+MC
+kN
+kN
+ge
+ge
+ge
+ge
+ge
+lR
+kN
+kN
+MC
+pL
+pL
+pL
+pL
+bK
+NW
+kN
+NW
+pL
+pL
+"}
+(22,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+pL
+pL
+MC
+uw
+pL
+Mr
+kN
+uw
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+MC
+xM
+cp
+pL
+bK
+NW
+kN
+NW
+pL
+pL
+"}
+(23,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+bK
+pL
+UX
+kN
+pL
+uw
+kN
+kN
+pT
+JR
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+RI
+kN
+kN
+kN
+Us
+pL
+bK
+bK
+AG
+pL
+pL
+pL
+"}
+(24,1,1) = {"
+lN
+KX
+KX
+KX
+pL
+bK
+pL
+kN
+kN
+pL
+pL
+mR
+kN
+kN
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+Fy
+kN
+IC
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+Qp
+"}
+(25,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+kl
+kN
+kN
+KK
+pL
+kN
+kN
+kN
+kN
+pL
+VE
+to
+oL
+QC
+pL
+pL
+UX
+kN
+MC
+pL
+pL
+Qp
+Qp
+"}
+(26,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+Qp
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+uw
+MC
+vZ
+pL
+MC
+kN
+kN
+kN
+pL
+nT
+kN
+MC
+pL
+pL
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+"}
+(27,1,1) = {"
+lN
+KX
+KX
+KX
+lN
+Qp
+Qp
+pL
+pL
+gF
+kN
+kN
+pL
+pL
+pL
+pL
+pL
+pL
+kN
+kN
+pL
+pL
+pL
+pL
+pL
+pL
+kN
+kN
+gF
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+"}
+(28,1,1) = {"
+lN
+lN
+KX
+KX
+lN
+Qp
+Qp
+Qp
+pL
+pL
+lW
+oL
+kN
+pL
+pL
+pL
+bK
+pL
+kN
+kN
+pL
+bK
+pL
+pL
+pL
+kN
+kN
+lW
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(29,1,1) = {"
+Qp
+lN
+lN
+lN
+lN
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+MC
+pL
+pL
+pL
+kN
+kN
+pL
+pL
+pL
+MC
+kN
+kN
+oL
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(30,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(31,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(32,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+zX
+kN
+GX
+kN
+kN
+kN
+kN
+GX
+kN
+zX
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(33,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+Sd
+sv
+Sd
+kN
+kN
+Sd
+kt
+Sd
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(34,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}
+(35,1,1) = {"
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+Qp
+"}

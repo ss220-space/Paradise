@@ -51,7 +51,6 @@
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
-		underlays.Cut()
 		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
 
 /obj/machinery/computer/mouse_drop_receive(atom/dropping, mob/user, params)
@@ -96,7 +95,6 @@
 
 /obj/machinery/computer/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard && abductor)
@@ -111,14 +109,14 @@
 		if(icon_screen)
 			. += "[icon_screen]"
 		if(light_on)
-			underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+			. += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 	if(icon_keyboard && abductor)
 		. += "alien_key"
-		underlays += emissive_appearance(icon, "alien_key_lightmask", src)
+		. += emissive_appearance(icon, "alien_key_lightmask", src)
 	else if(icon_keyboard)
 		. += "[icon_keyboard]"
-		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
+		. += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
@@ -208,8 +206,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(circuit && !(obj_flags & NODECONSTRUCT))
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
+		if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 
 /obj/machinery/computer/hit_by_thrown_mob(mob/living/hit_by_thrown_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

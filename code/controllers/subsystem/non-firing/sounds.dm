@@ -84,6 +84,7 @@ SUBSYSTEM_DEF(sounds)
 	setup_available_channels()
 	find_all_available_sounds()
 	init_sound_keys()
+	clear_song_cache()
 
 	if(!(RUSTLIB))
 		to_chat(world, span_boldnotice("Sounds subsystem: No rustlib detected."))
@@ -96,6 +97,10 @@ SUBSYSTEM_DEF(sounds)
 	precache_sounds()
 
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/sounds/proc/clear_song_cache()
+	for(var/song_file in flist("[SONG_CACHE_DIRECTORY]/"))
+		fdel("[SONG_CACHE_DIRECTORY]/[song_file]")
 
 /// Sets up all available sound channels.
 /datum/controller/subsystem/sounds/proc/setup_available_channels()

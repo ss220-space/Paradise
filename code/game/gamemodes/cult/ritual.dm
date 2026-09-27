@@ -68,19 +68,19 @@
 	scribe_rune(user)
 
 /obj/item/melee/cultblade/dagger/proc/narsie_rune_check(mob/living/user, area/A)
-	var/datum/game_mode/gamemode = SSticker.mode
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
 
-	if(gamemode.cult_objs.cult_status < NARSIE_NEEDS_SUMMONING)
+	if(cult_team.cult_objs.cult_status < NARSIE_NEEDS_SUMMONING)
 		to_chat(user, span_cultitalic("<b>[SSticker.cultdat.entity_name]</b> is not ready to be summoned yet!"))
 		return FALSE
-	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(cult_team.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, span_cultlarge("\"I am already here. There is no need to try to summon me now.\""))
 		return FALSE
-	if(!(gamemode.cult_ascendant))
+	if(!cult_team.cult_ascendant)
 		to_chat(user, span_cultlarge("Not enough unfaithful know what awaits them! The cult must ascend first!"))
 		return FALSE
 
-	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+	var/list/summon_areas = cult_team.cult_objs.obj_summon.summon_spots
 	if(!(A in summon_areas))
 		to_chat(user, span_cultlarge("[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
@@ -147,7 +147,6 @@
 	// Check if the rune is allowed
 	var/area/A = get_area(src)
 	var/turf/runeturf = get_turf(user)
-	var/datum/game_mode/gamemode = SSticker.mode
 	if(ispath(rune, /obj/effect/rune/summon))
 		if(!is_station_level(runeturf.z) || isspacearea(A))
 			to_chat(user, span_cultitalic("The veil is not weak enough here to summon a cultist, you must be on station!"))
@@ -161,11 +160,11 @@
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
 			return // don't do shit
-		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+		var/list/summon_areas = get_blood_cult_team().cult_objs.obj_summon.summon_spots
 		if(!(A in summon_areas))  // Check again to make sure they didn't move
 			to_chat(user, span_cultlarge("The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!"))
 			return
-		for(var/datum/mind/M in gamemode.cult)
+		for(var/datum/mind/M as anything in get_blood_cult_team().members)
 			if(M.current)
 				SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
 		GLOB.major_announcement.announce(

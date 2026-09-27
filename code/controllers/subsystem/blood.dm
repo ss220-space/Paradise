@@ -81,7 +81,7 @@ SUBSYSTEM_DEF(blood)
 		return // death human can not restore blood
 	if(HAS_TRAIT(target, TRAIT_NO_BLOOD_RESTORE))
 		return // specific trait for disable restore blood
-	if(target.blood_volume >= BLOOD_VOLUME_NORMAL)
+	if(target.blood_volume >= BLOOD_VOLUME_NORMAL * target.dna.species.blood_volume_mod)
 		return // already max blood in body
 	var/regen_mod = calculate_reagents_regen_mod(target)
 	target.AdjustBlood(BLOOD_REGENERATION * regen_mod)
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(blood)
 	if(target.stat == DEAD)
 		return // dead humans can not have low blood effect
 
-	switch(target.blood_volume)
+	switch(target.blood_volume / target.dna.species.blood_volume_mod)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
 			target.adjust_blood_loss_damage(BLOOD_PALE_DAMAGE)
 
@@ -240,7 +240,7 @@ SUBSYSTEM_DEF(blood)
 	return mod
 
 /datum/controller/subsystem/blood/proc/get_bloodloss_speed_mod_by_volume(mob/living/carbon/human/target)
-	var/blood_volume_percent = clamp(target.blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
+	var/blood_volume_percent = clamp(target.blood_volume / (BLOOD_VOLUME_NORMAL * target.dna.species.blood_volume_mod), 0, 1)
 	return BLOODLOSS_SPEED_BY_VOLUME_MIN + (BLOODLOSS_SPEED_BY_VOLUME_MAX - BLOODLOSS_SPEED_BY_VOLUME_MIN) * blood_volume_percent
 
 /datum/controller/subsystem/blood/proc/get_bloodloss_speed_mod_by_temperature(mob/living/carbon/human/target)

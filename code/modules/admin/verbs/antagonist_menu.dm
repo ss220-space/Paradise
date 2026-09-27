@@ -20,7 +20,6 @@
 	cached_data = list()
 	cached_data["antagonists"] = list()
 	var/list/antagonists = cached_data["antagonists"]
-	prepare_nodatum_antags(cached_data, antagonists)
 	for(var/datum/antagonist/antagonist as anything in GLOB.antagonists)
 		var/datum/mind/antag_mind = antagonist.owner
 		if(!antag_mind || !antagonist.check_anatag_menu_ability())
@@ -95,7 +94,7 @@
 
 	cached_data["security"] = list()
 	var/list/security_list = SSticker.mode.get_all_sec()
-	security_list |= SSticker.mode.ert
+	security_list |= get_antag_minds(/datum/antagonist/ert)
 	for(var/mob/living/silicon/robot/robot in GLOB.silicon_mob_list)
 		if(robot.mind && istype(robot.module, /obj/item/robot_module/security))
 			security_list |= robot.mind

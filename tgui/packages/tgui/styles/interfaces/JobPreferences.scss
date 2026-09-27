@@ -1,0 +1,111 @@
+$options-padding: 0.3em;
+$priority-button-size: 18px;
+
+.JobPreferences {
+  padding-right: 3em;
+
+  &__column {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__PriorityHeaders {
+    height: 4.5em;
+    padding-right: calc(#{$options-padding} + var(--border-thickness-small));
+  }
+
+  &__PriorityHeader {
+    position: relative;
+    width: $priority-button-size;
+
+    > span {
+      position: absolute;
+      bottom: 0.4em;
+      left: 50%;
+      font-weight: bold;
+      white-space: nowrap;
+      transform: rotate(-45deg);
+      transform-origin: left center;
+    }
+  }
+
+  &__department {
+    margin-bottom: var(--space-m);
+
+    &--Command {
+      outline: var(--border-thickness-medium) outset hsla(60, 100%, 39.2%, 1);
+
+      .JobPreferences__job:first-child .JobPreferences__name {
+        font-size: 15px;
+      }
+    }
+  }
+
+  &__job {
+    display: flex;
+    align-items: center;
+    height: 1.9em;
+    background: var(--job-color);
+    border: var(--border-thickness-small) outset var(--job-color);
+    color: black;
+
+    &--head .JobPreferences__name {
+      font-weight: bold;
+    }
+
+    &--muted .JobPreferences__name,
+    &--restricted .JobPreferences__name {
+      opacity: 0.55;
+    }
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    padding-left: 0.3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__altTitle {
+    cursor: pointer;
+    text-decoration: underline dotted;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__options {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: none;
+    min-width: calc(4 * #{$priority-button-size} + 1.5em + #{$options-padding});
+    height: 100%;
+    padding-right: $options-padding;
+    background: hsla(0, 0%, 0%, 0.2);
+  }
+
+  &__restriction {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  &__priority {
+    border: var(--border-thickness-tiny) solid hsla(0, 0%, 0%, 0.3);
+
+    &--off::after {
+      content: '';
+      display: block;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 80%;
+      background: hsla(0, 0%, 0%, 0.2);
+      transform: translateX(-50%) translateY(-50%) rotate(40deg);
+    }
+  }
+}

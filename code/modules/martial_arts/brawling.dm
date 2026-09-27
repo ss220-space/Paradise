@@ -47,6 +47,83 @@
 			D.force_say(GLOB.hit_appends)
 	return 1
 
+/datum/martial_art/psychotic_brawling
+	name = "Psychotic Brawling"
+	has_dirslash = FALSE
+	change_musculs = FALSE
+	weight = 3
+
+/datum/martial_art/psychotic_brawling/can_use(mob/living/carbon/human/human)
+	return !HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED)
+
+/datum/martial_art/psychotic_brawling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return psycho_attack(A, D)
+
+/datum/martial_art/psychotic_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return psycho_attack(A, D, TRUE)
+
+/datum/martial_art/psychotic_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return psycho_attack(A, D)
+
+/datum/martial_art/psychotic_brawling/proc/psycho_attack(mob/living/carbon/human/A, mob/living/carbon/human/D, grab_attack = FALSE)
+	switch(rand(1, 8))
+		if(1)
+			D.help_shake_act(A)
+			add_attack_logs(A, D, "helped with [src]")
+			return TRUE
+		if(2)
+			A.emote("cry")
+			A.Stun(2 SECONDS)
+			return TRUE
+		if(3)
+			if(A.body_position == LYING_DOWN)
+				return FALSE
+			if(D.grabbedby(A, supress_message = TRUE))
+				D.visible_message(
+					span_danger("[A] в исступлении хватает [D]!"),
+					span_userdanger("[A] в исступлении хватает вас!")
+				)
+				if(grab_attack)
+					D.drop_l_hand()
+					D.drop_r_hand()
+			return TRUE
+		if(4)
+			var/damage = rand(5, 10)
+			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+			A.emote("flip")
+			D.visible_message(
+				span_danger("[A] бьёт [D] головой!"),
+				span_userdanger("[A] бьёт вас головой!")
+			)
+			playsound(D.loc, 'sound/weapons/punch1.ogg', 40, TRUE, -1)
+			D.apply_damage(damage, BRUTE, D.get_organ(BODY_ZONE_HEAD))
+			objective_damage(A, D, damage, BRUTE)
+			A.apply_damage(rand(5, 10), BRUTE, A.get_organ(BODY_ZONE_HEAD))
+			if(!istype(D.head, /obj/item/clothing/head/helmet))
+				D.adjustBrainLoss(5)
+			A.Stun(randfloat(1 SECONDS, 4.5 SECONDS))
+			D.Stun(randfloat(0.5 SECONDS, 3 SECONDS))
+			add_attack_logs(A, D, "headbutted with [src]")
+			return TRUE
+		if(5, 6)
+			var/atk_verb = pick("пинает", "бьёт", "впечатывает")
+			var/damage = rand(15, 30)
+			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+			D.visible_message(
+				span_danger("[A] [atk_verb] [D] с такой нечеловеческой силой, что [D] отлетает назад!"),
+				span_userdanger("[A] [atk_verb] вас с такой нечеловеческой силой, что вас отбрасывает назад!")
+			)
+			playsound(D.loc, 'sound/effects/meteorimpact.ogg', 25, TRUE, -1)
+			D.apply_damage(damage, BRUTE)
+			objective_damage(A, D, damage, BRUTE)
+			var/turf/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
+			D.throw_at(throwtarget, 4, 2, A)
+			D.Paralyse(6 SECONDS)
+			add_attack_logs(A, D, "Melee attacked with [src]")
+			return TRUE
+		if(7, 8)
+			return FALSE
+
 /datum/martial_art/drunk_brawling
 	name = "Drunken Brawling"
 	weight = 2

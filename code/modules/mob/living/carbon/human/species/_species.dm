@@ -118,6 +118,9 @@
 	var/list/default_genes
 	/// Species movement speed. Positive numbers make it move slower, negative numbers make it move faster
 	var/speed_mod = 0
+	var/blood_volume_mod = 1
+	var/equipment_slowdown_mod = 1
+	var/climb_speed_mod = 1
 
 	var/has_fine_manipulation = 1 // Can use small items.
 	var/fingers_count = 10
@@ -143,6 +146,8 @@
 	var/can_craft = TRUE //! Can this mob using crafting or not?
 
 	var/bodyflags = 0
+	var/list/worn_sheets
+	var/fit_profile
 
 	var/blood_color = BLOOD_COLOR_RED
 	var/flesh_color = "#d1aa2e" //Gold.
@@ -279,33 +284,6 @@
 
 	var/max_radiation = CARBON_MAX_RADIATION //! Maximum radiation species can hold
 
-	/// How many free skill points can be select for specific skill
-	var/list/max_select_skills = list(
-		/datum/skill/general/carrying = 2,
-		/datum/skill/general/mech_drive = 2,
-		/datum/skill/general/mod_use = 2,
-		/datum/skill/general/cooking = 2,
-		/datum/skill/service/drink_mixing = 2,
-		/datum/skill/service/botany = 2,
-		/datum/skill/service/cleaning = 2,
-		/datum/skill/combat/accuracy = 2,
-		/datum/skill/combat/guns = 2,
-		/datum/skill/combat/melee = 2,
-		/datum/skill/combat/fists = 2,
-		/datum/skill/engineering/building = 2,
-		/datum/skill/engineering/construction = 2,
-		/datum/skill/engineering/electrician = 2,
-		/datum/skill/engineering/atmos = 2,
-		/datum/skill/medical/surgery = 2,
-		/datum/skill/medical/heal = 2,
-		/datum/skill/medical/chemistry = 2,
-		/datum/skill/medical/genetic = 2,
-		/datum/skill/medical/virusology = 2,
-		/datum/skill/research/research = 2,
-		/datum/skill/research/protolathe = 2,
-		/datum/skill/research/robotics = 2,
-		/datum/skill/research/xenobiology = 2,
-	)
 	var/bonus_skill_free_points = 0
 
 /datum/species/New()
@@ -400,6 +378,9 @@
 	if(speed_mod)
 		target.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	if(blood_volume_mod != 1)
+		target.setBlood(target.blood_volume * blood_volume_mod)
+
 	if(toolspeedmod)
 		target.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
 
@@ -464,6 +445,9 @@
 
 	if(speed_mod)
 		human.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+
+	if(blood_volume_mod != 1)
+		human.setBlood(human.blood_volume / blood_volume_mod)
 
 	if(toolspeedmod)
 		human.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
@@ -535,6 +519,38 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !user.get_active_hand())
+			var/obj/item/organ/external/hand/active_hand = user.get_organ(user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			if(!active_hand || !active_hand.is_usable())
+				user.balloon_alert(user, "рука не работает!")
+				return TRUE
+			if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+				user.balloon_alert(user, "ваш рот закрыт!")
+				return TRUE
+			if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+				user.balloon_alert(user, "руки заняты!")
+				return TRUE
+
+			user.visible_message(
+				span_notice("[user] подносит пальцы ко рту..."),
+				span_notice("Вы начинаете давить на корень языка.")
+			)
+			if(!do_after(user, 2 SECONDS, target = user))
+				return TRUE
+			user.visible_message(
+				span_warning("[user] начинает давиться!"),
+				span_warning("Вас начинает мутить...")
+			)
+			if(!do_after(user, 3 SECONDS, target = user))
+				return TRUE
+
+			user.vomit()
+			return TRUE
+		else
+			return FALSE
+
+
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
@@ -648,8 +664,6 @@
 			delta += addition
 
 		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
-		damage *= skill_mod
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
@@ -729,8 +743,7 @@
 			var/obj/item/clothing/gloves/gloves = user.gloves
 			extra_knock_chance = gloves.extra_knock_chance
 	var/knockdown_chance = 5 + extra_knock_chance
-	CALCULATE_SKILL_MOD(user, FISTS_DISARM_MOD, disarm_skill_mod)
-	if(randn <= knockdown_chance * disarm_skill_mod)
+	if(randn <= knockdown_chance)
 		target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 		playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
@@ -787,13 +800,13 @@
 				return TRUE
 
 	var/moved = TRUE
-	var/shove_move_chance = 25 * disarm_skill_mod
+	var/shove_move_chance = 25
 	if(target.a_intent == INTENT_HELP || prob(shove_move_chance)) // Chance to move with shove
 		moved = target.Move(shove_to, shove_dir)
 
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
-		var/wall_hit_disarm_chance = 75 * disarm_skill_mod
+		var/wall_hit_disarm_chance = 75
 		if(prob(wall_hit_disarm_chance)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 			target.visible_message(
@@ -808,7 +821,7 @@
 				target.Stun(0.5 SECONDS)
 	else
 		var/obj/item/I = target.get_active_hand()
-		var/disarm_chance = 40 * disarm_skill_mod
+		var/disarm_chance = 40
 		if(I && prob(disarm_chance)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
@@ -1188,11 +1201,15 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		human.add_sight(eyes.vision_flags)
 		human.nightvision = eyes.see_in_dark
 		human.set_invis_see(eyes.see_invisible)
-		human.lighting_alpha = eyes.lighting_alpha
+		human.lighting_cutoff = eyes.lighting_cutoff
+		human.lighting_color_cutoffs = list(human.lighting_cutoff_red, human.lighting_cutoff_green, human.lighting_cutoff_blue)
+		if(length(eyes.color_cutoffs))
+			human.lighting_color_cutoffs = blend_cutoff_colors(human.lighting_color_cutoffs, eyes.color_cutoffs)
 	else
 		human.nightvision = initial(human.nightvision)
 		human.set_invis_see(initial(human.see_invisible))
-		human.lighting_alpha = initial(human.lighting_alpha)
+		human.lighting_cutoff = initial(human.lighting_cutoff)
+		human.lighting_color_cutoffs = list(human.lighting_cutoff_red, human.lighting_cutoff_green, human.lighting_cutoff_blue)
 
 	if(human.client && human.client.eye != human)
 		var/atom/atom = human.client.eye
@@ -1204,15 +1221,15 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(vamp.get_ability(/datum/vampire_passive/xray))
 			human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			human.nightvision += 8
-			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			human.lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		else if(vamp.get_ability(/datum/vampire_passive/full))
 			human.add_sight(SEE_MOBS)
 			human.nightvision += 8
-			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			human.lighting_cutoff = LIGHTING_CUTOFF_HIGH
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
 			human.add_sight(SEE_MOBS)
 			human.nightvision += 1 // base of 2, 2+1 is 3
-			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			human.lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in human.internal_organs)
 		human.add_sight(cyber_eyes.vision_flags)
@@ -1220,8 +1237,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			human.nightvision = max(human.nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			human.set_invis_see(min(human.see_invisible, cyber_eyes.see_invisible))
-		if(cyber_eyes.lighting_alpha)
-			human.lighting_alpha = min(human.lighting_alpha, cyber_eyes.lighting_alpha)
+		if(cyber_eyes.lighting_cutoff)
+			human.lighting_cutoff = max(human.lighting_cutoff, cyber_eyes.lighting_cutoff)
+		if(length(cyber_eyes.color_cutoffs))
+			human.lighting_color_cutoffs = blend_cutoff_colors(human.lighting_color_cutoffs, cyber_eyes.color_cutoffs)
 
 	// my glasses, I can't see without my glasses
 	if(human.glasses)
@@ -1231,8 +1250,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		human.set_invis_see(min(glasses.invis_view, human.see_invisible))
 
-		if(!isnull(glasses.lighting_alpha))
-			human.lighting_alpha = min(glasses.lighting_alpha, human.lighting_alpha)
+		if(!isnull(glasses.lighting_cutoff))
+			human.lighting_cutoff = max(glasses.lighting_cutoff, human.lighting_cutoff)
+		if(length(glasses.color_cutoffs))
+			human.lighting_color_cutoffs = blend_cutoff_colors(human.lighting_color_cutoffs, glasses.color_cutoffs)
 
 	// better living through hat trading
 	if(human.head)
@@ -1241,45 +1262,49 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			human.add_sight(hat.vision_flags)
 			human.nightvision = max(hat.see_in_dark, human.nightvision)
 
-			if(!isnull(hat.lighting_alpha))
-				human.lighting_alpha = min(hat.lighting_alpha, human.lighting_alpha)
+			if(!isnull(hat.lighting_cutoff))
+				human.lighting_cutoff = max(hat.lighting_cutoff, human.lighting_cutoff)
+			if(length(hat.color_cutoffs))
+				human.lighting_color_cutoffs = blend_cutoff_colors(human.lighting_color_cutoffs, hat.color_cutoffs)
 
 	if(human.vision_type)
 		human.add_sight(human.vision_type.sight_flags)
 		human.nightvision = max(human.nightvision, human.vision_type.see_in_dark)
 
-		if(!isnull(human.vision_type.lighting_alpha))
-			human.lighting_alpha = min(human.vision_type.lighting_alpha, human.lighting_alpha)
+		if(!isnull(human.vision_type.lighting_cutoff))
+			human.lighting_cutoff = max(human.vision_type.lighting_cutoff, human.lighting_cutoff)
+		if(length(human.vision_type.color_cutoffs))
+			human.lighting_color_cutoffs = blend_cutoff_colors(human.lighting_color_cutoffs, human.vision_type.color_cutoffs)
 
 		if(human.vision_type.light_sensitive)
 			human.weakeyes = TRUE
 
 	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
 		human.add_sight(SEE_TURFS)
-		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		human.lighting_cutoff = max(human.lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(human, TRAIT_THERMAL_VISION))
 		human.add_sight(SEE_MOBS)
-		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		human.lighting_cutoff = max(human.lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(human, TRAIT_XRAY_VISION))
 		human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
 	if(HAS_TRAIT(human, TRAIT_NIGHT_VISION))
 		human.nightvision = max(human.nightvision, 8)
-		human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		human.lighting_cutoff = max(human.lighting_cutoff, LIGHTING_CUTOFF_HIGH)
 
 	if(HAS_TRAIT(human, TRAIT_XRAY))
 		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
 
 	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
 		human.add_sight(SEE_TURFS)
-		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		human.lighting_cutoff = max(human.lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(human.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		human.set_invis_see(SEE_INVISIBLE_OBSERVER)
 
-	human.sync_lighting_plane_alpha()
+	human.sync_lighting_plane_cutoff()
 
 #define MAX_WATER_TEMPERATURE_CHANGE 10
 #define MIN_TEMPERATURE_DIFF 10

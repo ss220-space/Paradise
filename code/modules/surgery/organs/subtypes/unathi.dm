@@ -157,7 +157,7 @@
 	name = "ash walker eyes"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали пеплоходцу."
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 
 /obj/item/organ/internal/eyes/unathi/ash_walker/get_ru_names()
 	return alist(
@@ -173,7 +173,7 @@
 	name = "ash walker shaman eyes"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали шаману пеплоходцев."
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman/get_ru_names()
 	return alist(

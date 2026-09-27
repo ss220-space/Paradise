@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<link rel="icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../leaflet/leaflet.css?v={{LEAFLET_VERSION}}">
+<link rel="stylesheet" href="../webmap.css?v={{CSS_VERSION}}">
+</head>
+<body class="map-page">
+<header class="bar">
+  <a class="back" href="../">← Все карты</a>
+  <h1><span class="station">{{STATION_NAME}}</span><span class="dim">{{MAP_NAME}}</span></h1>
+  <div class="coords" id="coords"></div>
+</header>
+<div id="map"></div>
+<div class="cursor-coords" id="cursor-coords" hidden></div>
+<script src="../leaflet/leaflet.js?v={{LEAFLET_VERSION}}"></script>
+<script>
+const CONFIG = {{CONFIG}};
+const EMPTY_TILE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+const PPT = CONFIG.pixels_per_turf;
+
+const map = L.map("map", {
+  crs: L.CRS.Simple,
+  attributionControl: false,
+  zoomControl: true,
+  minZoom: 0,
+  maxZoom: CONFIG.levels[0].max_zoom + 2
+});
+
+function boundsFor(level) {
+  return L.latLngBounds(
+    map.unproject([0, level.height], level.max_zoom),
+    map.unproject([level.width, 0], level.max_zoom)
+  );
+}
+
+function latLngFor(level, turfX, turfY) {
+  return map.unproject(
+    [(turfX - 0.5) * PPT, level.height - (turfY - 0.5) * PPT],
+    level.max_zoom
+  );
+}
+
+const layers = {};
+const byZ = {};
+CONFIG.levels.forEach((level) => {
+  const layer = L.tileLayer("tiles/z" + level.z + "/{z}/{x}/{y}.png?v=" + level.version, {
+    tileSize: CONFIG.tile_size,
+    minZoom: 0,
+    maxZoom: level.max_zoom + 2,
+    maxNativeZoom: level.max_zoom,
+    noWrap: true,
+    bounds: boundsFor(level),
+    errorTileUrl: EMPTY_TILE
+  });
+  layers[level.label] = layer;
+  byZ[level.z] = { level: level, layer: layer };
+});
+
+let active = CONFIG.levels[0];
+
+function activate(level) {
+  Object.values(byZ).forEach((item) => {
+    if (item.level !== level && map.hasLayer(item.layer)) {
+      map.removeLayer(item.layer);
+    }
+  });
+  if (!map.hasLayer(byZ[level.z].layer)) {
+    byZ[level.z].layer.addTo(map);
+  }
+  active = level;
+  map.setMaxBounds(boundsFor(level).pad(0.25));
+}
+
+if (CONFIG.levels.length > 1) {
+  L.control.layers(layers, null, { collapsed: false }).addTo(map);
+  map.on("baselayerchange", (event) => {
+    const found = Object.values(byZ).find((item) => item.layer === event.layer);
+    if (found) {
+      active = found.level;
+      map.setMaxBounds(boundsFor(found.level).pad(0.25));
+      writeHash();
+    }
+  });
+}
+
+const parsed = /^#z(\d+)\/(-?\d+)\/(-?\d+)\/(\d+(?:\.\d+)?)$/.exec(location.hash);
+if (parsed && byZ[parsed[1]]) {
+  const level = byZ[parsed[1]].level;
+  activate(level);
+  map.setView(latLngFor(level, Number(parsed[2]), Number(parsed[3])), Number(parsed[4]));
+} else {
+  activate(active);
+  map.fitBounds(boundsFor(active));
+}
+
+function turfAt(latlng) {
+  const point = map.project(latlng, active.max_zoom);
+  return {
+    x: Math.floor(point.x / PPT) + 1,
+    y: Math.floor((active.height - point.y) / PPT) + 1
+  };
+}
+
+function writeHash() {
+  const turf = turfAt(map.getCenter());
+  history.replaceState(null, "", "#z" + active.z + "/" + turf.x + "/" + turf.y + "/" + map.getZoom());
+}
+
+const mapElement = document.getElementById("map");
+const parallaxAnchor = boundsFor(active).getNorthWest();
+
+function updateParallax() {
+  const point = map.latLngToContainerPoint(parallaxAnchor);
+  mapElement.style.backgroundPosition = (point.x * 0.35) + "px " + (point.y * 0.35) + "px";
+}
+
+map.on("move zoomend", updateParallax);
+updateParallax();
+
+const coords = document.getElementById("coords");
+const cursorCoords = document.getElementById("cursor-coords");
+
+map.on("mousemove", (event) => {
+  const turf = turfAt(event.latlng);
+  const maxX = active.width / PPT;
+  const maxY = active.height / PPT;
+  if (turf.x < 1 || turf.y < 1 || turf.x > maxX || turf.y > maxY) {
+    coords.textContent = "";
+    cursorCoords.hidden = true;
+    return;
+  }
+  coords.textContent = "X " + turf.x + "   Y " + turf.y + "   Z " + active.z;
+  cursorCoords.textContent = turf.x + ", " + turf.y;
+  cursorCoords.style.left = (event.originalEvent.clientX + 14) + "px";
+  cursorCoords.style.top = (event.originalEvent.clientY + 16) + "px";
+  cursorCoords.hidden = false;
+});
+
+map.on("mouseout", () => {
+  coords.textContent = "";
+  cursorCoords.hidden = true;
+});
+map.on("moveend zoomend", writeHash);
+</script>
+</body>
+</html>

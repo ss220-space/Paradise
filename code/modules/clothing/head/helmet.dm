@@ -70,7 +70,7 @@
 	desc = "A helmet with a built-in thermal scanning visor."
 	icon_state = "helmetthermals"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(25, 8, 5)
 
 /obj/item/clothing/head/helmet/meson
 	name = "meson visor helmet"
@@ -99,7 +99,7 @@
 	desc = "A helmet with a built-in pair of night vision goggles."
 	icon_state = "helmetNVG"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	color_cutoffs = list(10, 25, 10)
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
@@ -465,7 +465,7 @@
 	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
 	icon_state = "streetjudge_helmet"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -509,7 +509,7 @@
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY, SPECIES_SWINE)
 
 /obj/item/clothing/head/helmet/biker/Initialize(mapload)
 	. = ..()

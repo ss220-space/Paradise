@@ -182,6 +182,11 @@
 	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
 
+	var/obj/item/organ/internal/brain/sponge = target.get_int_organ(/obj/item/organ/internal/brain)
+	var/trauma_scan = sponge?.get_trauma_scan_data()
+	if(trauma_scan)
+		dat += "<font color='red'>\t[trauma_scan]</font><br>"
+
 	dat += "Paralysis Summary %: [target.AmountParalyzed()] ([round(target.AmountParalyzed() / 10)] seconds left!)<br>"
 	dat += "Body Temperature: [target.bodytemperature-T0C] &deg;C ([target.bodytemperature*1.8-459.67] &deg;F)<br>"
 

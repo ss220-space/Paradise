@@ -1754,7 +1754,7 @@
 	can_adjust = FALSE
 	icon_state = "chadsuit"
 	item_state = "chadsuit"
-	species_restricted = list(SPECIES_HUMAN)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SWINE)
 
 /obj/item/clothing/under/chad/get_ru_names()
 	return alist(

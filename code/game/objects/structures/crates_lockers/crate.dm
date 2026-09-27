@@ -55,12 +55,11 @@
 
 /obj/structure/closet/crate/update_overlays()
 	// . = ..() is not needed here because of different overlay handling logic for crates
-	underlays.Cut()
 	. = list()
 	if(manifest)
 		. += "manifest"
 	if(can_be_emissive)
-		underlays += emissive_appearance(icon, overlay_lightmask, src)
+		. += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()

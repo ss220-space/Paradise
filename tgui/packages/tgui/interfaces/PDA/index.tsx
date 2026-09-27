@@ -77,6 +77,9 @@ type App = {
   is_home: boolean;
   icon: string;
   template: string;
+  fullscreen: boolean;
+  window_width: number;
+  window_height: number;
 };
 
 export const PDA = () => {
@@ -100,8 +103,8 @@ export const PDA = () => {
 
   return (
     <Window
-      width={PDA_UI.window.width}
-      height={PDA_UI.window.height}
+      width={app.window_width || PDA_UI.window.width}
+      height={app.window_height || PDA_UI.window.height}
       theme={theme}
     >
       <Window.Content p={0}>
@@ -113,24 +116,32 @@ export const PDA = () => {
             overflow: 'hidden',
           }}
         >
-          <Box>
-            <PDAHeader />
-          </Box>
+          {app.fullscreen ? (
+            <Box style={{ flex: 1, minHeight: 0 }}>
+              <AppComponent />
+            </Box>
+          ) : (
+            <>
+              <Box>
+                <PDAHeader />
+              </Box>
 
-          <Box
-            style={{
-              flex: 1,
-              overflowY: 'auto',
-              minHeight: 0,
-            }}
-            p={0.75}
-          >
-            <AppComponent />
-          </Box>
+              <Box
+                style={{
+                  flex: 1,
+                  overflowY: 'auto',
+                  minHeight: 0,
+                }}
+                p={0.75}
+              >
+                <AppComponent />
+              </Box>
 
-          <Box>
-            <PDAFooter />
-          </Box>
+              <Box>
+                <PDAFooter />
+              </Box>
+            </>
+          )}
         </Box>
       </Window.Content>
     </Window>

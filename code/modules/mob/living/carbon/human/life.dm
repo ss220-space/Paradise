@@ -647,11 +647,11 @@
 
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+	if(getBrainLoss() >= BRAIN_DAMAGE_DEATH || (guaranteed_death_threshold) <= -500)
 		death()
 		return
 
-	if(getBrainLoss() >= 100) // braindeath
+	if(getBrainLoss() >= BRAIN_DAMAGE_SEVERE) // braindeath
 		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 		Weaken(60 SECONDS)
 
@@ -663,7 +663,8 @@
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(get_perceived_trauma(shock_reduction()) <= 0)
+			var/stays_conscious = HAS_TRAIT(src, TRAIT_NOHARDCRIT)
+			if(get_perceived_trauma(shock_reduction()) <= 0 && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				if(prob(5))
 					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
 				SetStuttering(10 SECONDS)
@@ -681,12 +682,14 @@
 					if(prob(health * -0.2))
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)
-					Paralyse(10 SECONDS)
+					if(!stays_conscious)
+						Paralyse(10 SECONDS)
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
 						to_chat(src, span_userdanger("Грудь пронзает боль..."))
-						Paralyse(4 SECONDS)
+						if(!stays_conscious)
+							Paralyse(4 SECONDS)
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)
 				if(-79 to -50)
@@ -699,8 +702,9 @@
 						D.Contract(src)
 					if(prob(6))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "себя очень плохо", "тепло", "покалывание", "себя очень, очень плохо", "себя кошмарно")]!"))
-						Weaken(6 SECONDS)
-					if(prob(3))
+						if(!stays_conscious)
+							Weaken(6 SECONDS)
+					if(prob(3) && !stays_conscious)
 						Paralyse(4 SECONDS)
 				if(-49 to 0)
 					adjustOxyLoss(1)
@@ -709,7 +713,8 @@
 						D.Contract(src)
 					if(prob(5))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
-						Knockdown(6 SECONDS)
+						if(!stays_conscious)
+							Knockdown(6 SECONDS)
 
 #define BODYPART_PAIN_REDUCTION 5
 
@@ -888,6 +893,8 @@
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == JOB_TITLE_DETECTIVE || H.mind.assigned_role == JOB_TITLE_CORONER))
 				continue //too cool for puke
+			if(HAS_TRAIT(H, TRAIT_MORBID))
+				continue
 			to_chat(H, span_warning("Вы чувствуете тошнотворный запах..."))
 			H.fakevomit()
 

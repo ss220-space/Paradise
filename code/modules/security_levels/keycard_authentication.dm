@@ -60,15 +60,16 @@
 /obj/machinery/keycard_auth/update_icon_state()
 	if(event_triggered_by || event_source)
 		icon_state = "auth_on"
+		set_light(2, 1, "#5668e1", l_on = TRUE)
 	else
 		icon_state = "auth_off"
+		set_light_on(FALSE)
 
 /obj/machinery/keycard_auth/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(event_triggered_by || event_source)
-		underlays += emissive_appearance(icon, "auth_lightmask", src)
+		. += emissive_appearance(icon, "auth_lightmask", src)
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)
 	if(!..())

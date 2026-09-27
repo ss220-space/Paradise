@@ -72,18 +72,25 @@
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 
-		if(length(SSticker.mode.head_revolutionaries) || length(SSticker.mode.revolutionaries))
+		var/list/datum/mind/head_revs = get_antag_minds(/datum/antagonist/rev/head)
+		var/list/datum/mind/volunteers = get_antag_minds(/datum/antagonist/rev/volunteer)
+		var/list/datum/mind/slaves = get_antag_minds(/datum/antagonist/rev/slave)
+		if(length(head_revs) || length(volunteers) || length(slaves))
 			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"
-			for(var/datum/mind/N in SSticker.mode.head_revolutionaries)
+			for(var/datum/mind/N in head_revs)
 				var/mob/M = N.current
 				if(!M)
 					dat += "<tr><td><i>Head Revolutionary not found!</i></td></tr>"
 				else
 					dat += check_antagonists_line(M, "(leader)")
-			for(var/datum/mind/N in SSticker.mode.revolutionaries)
+			for(var/datum/mind/N in volunteers)
 				var/mob/M = N.current
 				if(M)
-					dat += check_antagonists_line(M)
+					dat += check_antagonists_line(M, "(volunteer)")
+			for(var/datum/mind/N in slaves)
+				var/mob/M = N.current
+				if(M)
+					dat += check_antagonists_line(M, "(slave)")
 			dat += "</table><table cellspacing=5><tr><td><b>Target(s)</b></td><td></td><td><b>Location</b></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.get_living_heads())
 				var/mob/M = N.current
@@ -139,41 +146,34 @@
 
 			dat += "</table>"
 
-		if(length(SSticker.mode.changelings))
-			dat += check_role_table("Changelings", SSticker.mode.changelings)
+		dat += check_antag_role_tables(list(
+			"Changelings" = get_antag_minds(/datum/antagonist/changeling),
+			"Wizards" = get_antag_minds(/datum/antagonist/wizard, specific = TRUE),
+			"Apprentices" = get_antag_minds(/datum/antagonist/wizard/apprentice),
+			"Raiders" = get_antag_minds(/datum/antagonist/vox_raider),
+			"Ninjas" = get_antag_minds(/datum/antagonist/ninja),
+		))
 
-		if(length(SSticker.mode.wizards))
-			dat += check_role_table("Wizards", SSticker.mode.wizards)
-
-		if(length(SSticker.mode.apprentices))
-			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
-
-		if(length(SSticker.mode.raiders))
-			dat += check_role_table("Raiders", SSticker.mode.raiders)
-
-		if(length(SSticker.mode.space_ninjas))
-			dat += check_role_table("Ninjas", SSticker.mode.space_ninjas)
-
-		if(length(SSticker.mode.cult))
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/datum/objective/current_sac_obj = gamemode.cult_objs.current_sac_objective()
-			dat += check_role_table("Cultists", SSticker.mode.cult)
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+		if(length(cult_team?.members))
+			var/datum/objective/current_sac_obj = cult_team.cult_objs.current_sac_objective()
+			dat += check_role_table("Cultists", cult_team.members)
 			if(current_sac_obj)
 				dat += "<br>Current cult objective: <br>[current_sac_obj.explanation_text]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING)
+			else if(cult_team.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING)
 				dat += "<br>Current cult objective: Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+			else if(cult_team.cult_objs.cult_status == NARSIE_HAS_RISEN)
 				dat += "<br>Current cult objective: Feed [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
-			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_FALLEN)
+			else if(cult_team.cult_objs.cult_status == NARSIE_HAS_FALLEN)
 				dat += "<br>Current cult objective: Kill all non-cultists"
 			else
 				dat += "<br>Current cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
-			dat += "<br>Sacrifice objectives completed: [gamemode.cult_objs.sacrifices_done]"
-			dat += "<br>Sacrifice objectives needed for summoning: [gamemode.cult_objs.sacrifices_required]"
-			dat += "<br>Summoning locations: [english_list(gamemode.cult_objs.obj_summon.summon_spots)]"
+			dat += "<br>Sacrifice objectives completed: [cult_team.cult_objs.sacrifices_done]"
+			dat += "<br>Sacrifice objectives needed for summoning: [cult_team.cult_objs.sacrifices_required]"
+			dat += "<br>Summoning locations: [english_list(cult_team.cult_objs.obj_summon.summon_spots)]"
 			dat += "<br><a href='byond://?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 
-			if(gamemode.cult_objs.cult_status == NARSIE_DEMANDS_SACRIFICE)
+			if(cult_team.cult_objs.cult_status == NARSIE_DEMANDS_SACRIFICE)
 				dat += "<br><a href='byond://?src=[UID()];cult_adjustsacnumber=[UID()]'>Modify amount of sacrifices required</a>"
 				dat += "<br><a href='byond://?src=[UID()];cult_newtarget=[UID()]'>Reroll sacrifice target</a>"
 			else
@@ -183,27 +183,27 @@
 			dat += "<br><a href='byond://?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='byond://?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
 
-		if(length(SSticker.mode.clockwork_cult))
-			var/datum/game_mode/gamemode = SSticker.mode
-			var/datum/objective/cur_demand_obj = gamemode.clocker_objs.obj_demand
-			dat += check_role_table("Clockers", SSticker.mode.clockwork_cult)
+		var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+		if(length(clock_team?.members))
+			var/datum/objective/cur_demand_obj = clock_team.clocker_objs.obj_demand
+			dat += check_role_table("Clockers", clock_team.members)
 			if(cur_demand_obj)
 				dat += "<br>Current clock cult objective: <br>[cur_demand_obj.explanation_text]"
-			else if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING)
+			else if(clock_team.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING)
 				dat += "<br>Current clock cult objective: Summon Ratvar"
-			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
+			else if(clock_team.clocker_objs.clock_status == RATVAR_HAS_RISEN)
 				dat += "<br>Current clock cult objective: Bring to Ratvar"
-			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_FALLEN)
+			else if(clock_team.clocker_objs.clock_status == RATVAR_HAS_FALLEN)
 				dat += "<br>Current clock cult objective: Kill all non-clockers"
 			else
 				dat += "<br>Current clock cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
-			dat += "<br>Power needed: [GLOB.clockwork_power]/[gamemode.clocker_objs.power_goal]"
-			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[gamemode.clocker_objs.beacon_goal]"
-			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal] Reveal:[SSticker.mode.clocker_objs.clocker_goal]"
-			dat += "<br>Summoning locations: [english_list(gamemode.clocker_objs.obj_summon.ritual_spots)]"
+			dat += "<br>Power needed: [GLOB.clockwork_power]/[clock_team.clocker_objs.power_goal]"
+			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[clock_team.clocker_objs.beacon_goal]"
+			dat += "<br>Clockers needed: [clock_team.get_clockers()]/[clock_team.clocker_objs.clocker_goal] Reveal:[clock_team.clocker_objs.clocker_goal]"
+			dat += "<br>Summoning locations: [english_list(clock_team.clocker_objs.obj_summon.ritual_spots)]"
 			dat += "<br><a href='byond://?src=[UID()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
 
-			if(gamemode.clocker_objs.clock_status == RATVAR_DEMANDS_POWER)
+			if(clock_team.clocker_objs.clock_status == RATVAR_DEMANDS_POWER)
 				dat += "<br><a href='byond://?src=[UID()];clock_adjustpower=[UID()]'>POWER CHANGE</a>"
 				dat += "<br><a href='byond://?src=[UID()];clock_adjustbeacon=[UID()]'>BEACON CHANGE</a>"
 				dat += "<br><a href='byond://?src=[UID()];clock_adjustclocker=[UID()]'>CLOCKER CHANGE</a>"
@@ -213,59 +213,26 @@
 			dat += "<br><a href='byond://?src=[UID()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='byond://?src=[UID()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
 
-		if(length(SSticker.mode.traitors))
-			dat += check_role_table("Traitors", SSticker.mode.traitors)
-
-		if(length(SSticker.mode.implanted))
-			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
-
-		if(length(SSticker.mode.thieves))
-			dat += check_role_table("Thieves", SSticker.mode.thieves)
-
-		if(length(SSticker.mode.shadows))
-			dat += check_role_table("Shadowlings", SSticker.mode.shadows)
-
-		if(length(SSticker.mode.shadowling_thralls))
-			dat += check_role_table("Shadowling Thralls", SSticker.mode.shadowling_thralls)
-
-		if(length(SSticker.mode.abductors))
-			dat += check_role_table("Abductors", SSticker.mode.abductors)
-
-		if(length(SSticker.mode.abductees))
-			dat += check_role_table("Abductees", SSticker.mode.abductees)
-
-		if(length(SSticker.mode.goon_vampires))
-			dat += check_role_table("Goon Vampires", SSticker.mode.goon_vampires)
-
-		if(length(SSticker.mode.goon_vampire_enthralled))
-			dat += check_role_table("Goon Vampire Thralls", SSticker.mode.goon_vampire_enthralled)
-
-		if(length(SSticker.mode.vampires))
-			dat += check_role_table("Vampires", SSticker.mode.vampires)
-
-		if(length(SSticker.mode.vampire_enthralled))
-			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
-
-		if(length(SSticker.mode.demons))
-			dat += check_role_table("Demons", SSticker.mode.demons)
-
-		if(length(SSticker.mode.devils))
-			dat += check_role_table("Devils", SSticker.mode.devils)
-
-		if(length(SSticker.mode.superheroes))
-			dat += check_role_table("Superheroes", SSticker.mode.superheroes)
-
-		if(length(SSticker.mode.supervillains))
-			dat += check_role_table("Supervillains", SSticker.mode.supervillains)
-
-		if(length(SSticker.mode.greyshirts))
-			dat += check_role_table("Greyshirts", SSticker.mode.greyshirts)
-
-		if(length(SSticker.mode.eventmiscs))
-			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
-
-		if(length(SSticker.mode.ert))
-			dat += check_role_table("ERT", SSticker.mode.ert)
+		dat += check_antag_role_tables(list(
+			"Traitors" = get_antag_minds(/datum/antagonist/traitor),
+			"Mindslaves" = get_antag_minds(/datum/antagonist/mindslave, specific = TRUE),
+			"Thieves" = get_antag_minds(/datum/antagonist/thief),
+			"Shadowlings" = get_antag_minds(/datum/antagonist/shadowling),
+			"Shadowling Thralls" = get_antag_minds(/datum/antagonist/shadowling_thrall),
+			"Abductors" = get_antag_minds(/datum/antagonist/abductor),
+			"Abductees" = get_antag_minds(/datum/antagonist/abductee),
+			"Goon Vampires" = get_antag_minds(/datum/antagonist/vampire/goon_vampire),
+			"Goon Vampire Thralls" = get_antag_minds(/datum/antagonist/mindslave/thrall/goon_thrall),
+			"Vampires" = get_antag_minds(/datum/antagonist/vampire) - get_antag_minds(/datum/antagonist/vampire/goon_vampire),
+			"Vampire Thralls" = get_antag_minds(/datum/antagonist/mindslave/thrall/new_thrall),
+			"Demons" = get_antag_minds(/datum/antagonist/demon),
+			"Devils" = get_antag_minds(/datum/antagonist/devil),
+			"Superheroes" = get_antag_minds(/datum/antagonist/superhero, specific = TRUE),
+			"Supervillains" = get_antag_minds(/datum/antagonist/superhero/supervillain),
+			"Greyshirts" = get_antag_minds(/datum/antagonist/greyshirt),
+			"Event Roles" = get_antag_minds(/datum/antagonist/eventmisc),
+			"ERT" = get_antag_minds(/datum/antagonist/ert),
+		))
 
 		//list active security force count, so admins know how bad things are
 		var/list/sec_list = check_active_security_force()
@@ -284,6 +251,14 @@
 		onclose(usr, "roundstatus")
 	else
 		tgui_alert(usr, "The game hasn't started yet!")
+
+/datum/admins/proc/check_antag_role_tables(list/role_members)
+	var/txt = ""
+	for(var/role_name in role_members)
+		var/list/datum/mind/members = role_members[role_name]
+		if(length(members))
+			txt += check_role_table(role_name, members)
+	return txt
 
 /datum/admins/proc/check_role_table(name, list/members, show_objectives=1)
 	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
@@ -336,8 +311,9 @@
 			dat += check_security_line(mind.current)
 	dat += "</table>"
 
-	if(length(SSticker.mode.ert))
-		dat += check_role_table_sec("ERT", SSticker.mode.ert)
+	var/list/datum/mind/ert_members = get_antag_minds(/datum/antagonist/ert)
+	if(length(ert_members))
+		dat += check_role_table_sec("ERT", ert_members)
 
 	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 500, 600)
 	popup.set_content(dat)

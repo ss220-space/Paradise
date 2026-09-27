@@ -146,6 +146,58 @@
 	current_message_index++
 	addtimer(CALLBACK(src, PROC_REF(display_next_message), user), 1 SECONDS)
 
+// MARK: Eldritch book
+/obj/item/toy/eldritch_book
+	name = "Кодекс Истязания"
+	desc = "Игрушечная книга, до жути похожая на Кодекс Истязания. Обтянута искусственной полиэстеровой человеческой кожей, \
+			а на обложку приклеен огромный глаз-липучка. Руны — полная бессмыслица, и вызвать ими демонов не выйдет... Наверное."
+	gender = MALE
+	icon = 'icons/obj/eldritch.dmi'
+	base_icon_state = "book"
+	icon_state = "book"
+	item_state = "book"
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("принёс в жертву", "трансмутировал", "проклял")
+	var/book_open = FALSE
+	var/timer_id
+
+/obj/item/toy/eldritch_book/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кодекс Истязания",
+		GENITIVE = "Кодекса Истязания",
+		DATIVE = "Кодексу Истязания",
+		ACCUSATIVE = "Кодекс Истязания",
+		INSTRUMENTAL = "Кодексом Истязания",
+		PREPOSITIONAL = "Кодексе Истязания",
+	)
+
+/obj/item/toy/eldritch_book/Destroy()
+	deltimer(timer_id)
+	return ..()
+
+/obj/item/toy/eldritch_book/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
+
+	if(book_open)
+		close_animation()
+		return
+
+	open_animation()
+
+/obj/item/toy/eldritch_book/proc/open_animation()
+	icon_state = "[base_icon_state]_open"
+	flick("[base_icon_state]_opening", src)
+	book_open = TRUE
+	timer_id = addtimer(CALLBACK(src, PROC_REF(close_animation)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+
+/obj/item/toy/eldritch_book/proc/close_animation()
+	icon_state = base_icon_state
+	flick("[base_icon_state]_closing", src)
+	book_open = FALSE
+	deltimer(timer_id)
+
 // MARK: Mini gibber
 /obj/item/toy/minigibber
 	name = "miniature gibber"

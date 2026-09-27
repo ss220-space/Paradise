@@ -15,8 +15,9 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 /proc/jobban_fullban(mob/M, rank, reason)
 	if(!M || !M.key)
 		return
-	GLOB.jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
-	jobban_assoc_insert(M.ckey, rank, reason)
+	var/target_ckey = M.get_account_ckey()
+	GLOB.jobban_keylist.Add(text("[target_ckey] - [rank] ## [reason]"))
+	jobban_assoc_insert(target_ckey, rank, reason)
 	if(CONFIG_GET(flag/ban_legacy_system))
 		jobban_savebanfile()
 
@@ -34,11 +35,12 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return 0
 
 	if(CONFIG_GET(flag/guest_jobban) && guest_jobbans(rank))
-		if(is_guest_key(M.key))
+		if(is_guest_key(M.key) && !M.client?.has_persistent_identity())
 			return "Guest Job-ban"
 
-	if(GLOB.jobban_assoclist[M.ckey])
-		return GLOB.jobban_assoclist[M.ckey][rank]
+	var/target_ckey = M.get_account_ckey()
+	if(GLOB.jobban_assoclist[target_ckey])
+		return GLOB.jobban_assoclist[target_ckey][rank]
 	else
 		return 0
 
@@ -100,7 +102,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	S["keys[0]"] << GLOB.jobban_keylist
 
 /proc/jobban_unban(mob/M, rank)
-	jobban_remove("[M.ckey] - [rank]")
+	jobban_remove("[M.get_account_ckey()] - [rank]")
 
 /proc/jobban_unban_client(ckey, rank)
 	jobban_remove("[ckey] - [rank]")
@@ -142,7 +144,7 @@ GAME_VERB_DESC(/mob, displayjobbans, "Текущие джоббаны", "Display
 			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")]
 			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
 			ORDER BY bantime DESC LIMIT 100"},
-			list("ckey" = ckey)
+			list("ckey" = get_account_ckey())
 		)
 
 		if(!select_query.warn_execute())

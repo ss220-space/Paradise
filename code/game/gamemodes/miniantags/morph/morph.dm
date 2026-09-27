@@ -26,7 +26,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	nightvision = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	vision_range = 1 // Only attack when target is close
 	wander = 0
 	attacktext = "кусает"
@@ -397,43 +397,10 @@
 	if(. && morphed)
 		restore_form()
 
-/mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
+/mob/living/simple_animal/hostile/morph/proc/make_morph_antag()
 	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
-	mind.special_role = SPECIAL_ROLE_MORPH
-	SSticker.mode.morphs |= mind
-
-	var/list/messages = list()
-	messages.Add(span_fontsize3(span_red("<b>Вы — морф.<br></b>")))
-	messages.Add(span_sinister("Вы жаждете съесть живых существ и желаете размножаться. Достигните этой цели, устраивая засады на ничего не подозревающую добычу, используя свои способности."))
-	messages.Add(span_specialnotice("Будучи мерзостью, созданным в основном из клеток генокрада, вы можете принимать форму любого объекта поблизости, используя свою способность \"Мимикрия\""))
-	messages.Add(span_specialnotice("Преобразование не останется незамеченным для наблюдателей."))
-	messages.Add(span_specialnotice("В изменённой форме вы двигаетесь медленнее и наносите меньше урона."))
-	messages.Add(span_specialnotice("Кроме того, любой, кто находится в радиусе трёх тайлов, заметит нечто странное, если осмотрит вас."))
-	messages.Add(span_specialnotice("В этой форме вы можете \"Подготовить засаду\", используя свою способность."))
-	messages.Add(span_specialnotice("Это позволит вам нанести огромный урон при первом ударе."))
-	messages.Add(span_specialnotice("Если они коснутся вас, то ещё больше."))
-	messages.Add(span_specialnotice("Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — это 1/3 вашего максимального здоровья и добавят к вашему запасу пищи."))
-	messages.Add(span_specialnotice("Поедание предметов уменьшит ваш запас пищи.\n"))
-	messages.Add(span_motd("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></b>\n"))
-
-	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
-	if(give_default_objectives)
-		var/datum/objective/eat = new /datum/objective
-		eat.owner = mind
-		eat.explanation_text = "Съешьте как можно больше живых существ, чтобы утолить голод внутри вас."
-		eat.completed = TRUE
-		eat.needs_target = FALSE
-		mind.objectives += eat
-		var/datum/objective/procreate = new /datum/objective
-		procreate.owner = mind
-		procreate.explanation_text = "Породите как можно больше себе подобных!"
-		procreate.completed = TRUE
-		procreate.needs_target = FALSE
-		mind.objectives += procreate
-		messages.Add(mind.prepare_announce_objectives(FALSE))
-
-	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
+	mind.add_antag_datum(/datum/antagonist/morph)
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()

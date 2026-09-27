@@ -1,0 +1,38 @@
+{
+  "site_title": "Dark Paradise — карты станций",
+  "tile_size": 256,
+  "pixels_per_turf": 32,
+  "maps": [
+    {
+      "key": "cyberiad",
+      "name": "Cyberiad",
+      "station_name": "ИСН Кибериада",
+      "dmm": "_maps/map_files/cyberiad/cyberiad.dmm",
+      "levels": [{ "z": 1, "label": "Станция" }]
+    },
+    {
+      "key": "delta",
+      "name": "Delta",
+      "station_name": "ИСН Керберос",
+      "dmm": "_maps/map_files/Delta/delta.dmm",
+      "levels": [{ "z": 1, "label": "Станция" }]
+    },
+    {
+      "key": "nova",
+      "name": "Nova",
+      "station_name": "ИСН Нова",
+      "dmm": "_maps/map_files/nova/nova.dmm",
+      "levels": [
+        { "z": 1, "label": "Первый этаж" },
+        { "z": 2, "label": "Второй этаж" }
+      ]
+    },
+    {
+      "key": "coldcolony",
+      "name": "Malta",
+      "station_name": "ШОН Мальта",
+      "dmm": "_maps/map_files/event/Station/coldcolony.dmm",
+      "levels": [{ "z": 1, "label": "Поверхность" }]
+    }
+  ]
+}

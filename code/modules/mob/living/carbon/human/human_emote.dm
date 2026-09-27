@@ -1284,6 +1284,40 @@
 	sound = 'sound/voice/cat_purr_long.ogg'
 
 /**
+ * Trottine
+ */
+/datum/emote/living/carbon/human/swine
+	species_type_whitelist_typecache = list(/datum/species/swine)
+
+/datum/emote/living/carbon/human/swine/oink
+	key = "oink"
+	key_third_person = "oinks"
+	message = "хрюка%(ет,ют)%."
+	message_mime = "беззвучно хрюка%(ет,ют)%."
+	message_postfix = ", смотря на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("хрюкающие", "утробные")
+	age_based = TRUE
+	volume = 80
+	sound = list(
+		'sound/items/pig1.ogg',
+		'sound/items/pig2.ogg',
+		'sound/items/pig3.ogg',
+	)
+
+/datum/emote/living/carbon/human/swine/squeal
+	key = "squeal"
+	key_third_person = "squeals"
+	message = "визж%(ит,ат)%!"
+	message_mime = "беззвучно визж%(ит,ат)%!"
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("очень громкие", "визгливые")
+	age_based = TRUE
+	volume = 100
+	sound = 'sound/creatures/pig_death.ogg'
+
+/**
  * Cracking subtypes
  */
 /datum/emote/living/carbon/human/crack/slime

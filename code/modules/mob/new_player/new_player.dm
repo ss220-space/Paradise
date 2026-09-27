@@ -54,7 +54,7 @@
 
 	if(href_list["consent_signed"])
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
-			"ckey" = ckey
+			"ckey" = get_account_ckey()
 		))
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
 		query.warn_execute()
@@ -66,7 +66,7 @@
 		client.tos_consent = FALSE
 		to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
-			"ckey" = ckey
+			"ckey" = get_account_ckey()
 		))
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
 		query.warn_execute()
@@ -80,16 +80,22 @@
 	if(href_list["ready"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
+			return FALSE
+		if(client.launcher_state == LAUNCHER_PENDING)
+			to_chat(usr, span_warning("Вход через лаунчер ещё подтверждается, подождите пару секунд."))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
-			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
-				client.prefs.load_preferences(client)
+		if(client.needs_discord_link())
+			client.prefs.load_preferences(client)
+			if(client.needs_discord_link())
 				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
 				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
+		if(client.blocked_by_launcher_link())
+			return FALSE
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, span_warning("Вы не можете играть за выбранную расу персонажа, так как она в данный момент недоступна для вас! Пожалуйста, выберите другую расу."))
 			return FALSE
@@ -136,6 +142,9 @@
 	if(href_list["poll_panel"])
 		handle_player_polling()
 
+	if(href_list["referrals"])
+		client.referral_panel()
+
 	if(href_list["viewpoll"])
 		var/datum/poll_question/poll = locateUID(href_list["viewpoll"])
 		poll_player(poll)
@@ -150,16 +159,19 @@
 	if(href_list["observe"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
-			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
-				client.prefs.load_preferences(client)
+		if(client.needs_discord_link())
+			client.prefs.load_preferences(client)
+			if(client.needs_discord_link())
 				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
 				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
+		if(client.blocked_by_launcher_link())
+			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, span_warning("Пожалуйста, подождите, пока сервер полностью запустится, прежде чем присоединяться!"))
 			return FALSE
@@ -200,16 +212,19 @@
 	if(href_list["late_join"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
-		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
-			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
-				client.prefs.load_preferences(client)
+		if(client.needs_discord_link())
+			client.prefs.load_preferences(client)
+			if(client.needs_discord_link())
 				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
 				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
+		if(client.blocked_by_launcher_link())
+			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, span_warning("Раунд либо ещё не готов, либо в данный момент уже завершён..."))
 			return
@@ -388,6 +403,10 @@
 		to_chat(usr, span_notice("Администратор заблокировал вход в игру!"))
 		return FALSE
 
+	if(client.launcher_state == LAUNCHER_PENDING)
+		to_chat(usr, span_warning("Вход через лаунчер ещё подтверждается, подождите пару секунд."))
+		return FALSE
+
 	if("[client.prefs.default_slot]" in persistent_client.joined_as_slots)
 		tgui_alert(usr, "Вы уже играли за этого персонажа в этом раунде!")
 		return FALSE
@@ -416,12 +435,6 @@
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
 		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст — [get_age_limits(species, thisjob.min_age_type)]"
-		to_chat(src, span_warning(msg))
-		tgui_alert(usr, msg)
-		return FALSE
-
-	if(thisjob.species_in_blacklist(client))
-		var/msg = "Должность [rank] недоступна для данной расы. Пожалуйста, попробуйте другую."
 		to_chat(src, span_warning(msg))
 		tgui_alert(usr, msg)
 		return FALSE
@@ -746,7 +759,8 @@
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
 	close_window(src, "preferences") //closes preferences
-	close_window(src, "mob_occupation") //closes job selection
+	if(client?.prefs)
+		SStgui.close_uis(client.prefs.job_menu)
 
 /mob/new_player/proc/has_admin_rights()
 	return check_rights(R_ADMIN, FALSE, src)

@@ -69,7 +69,7 @@
 	var/ip
 
 	if(ismob(banned_mob) && banned_mob.ckey)
-		ckey = banned_mob.ckey
+		ckey = banned_mob.get_account_ckey()
 		if(banned_mob.client)
 			computerid = banned_mob.client.computer_id
 			ip = banned_mob.client.address
@@ -110,7 +110,7 @@
 	var/a_ip
 
 	if(src.owner && isclient(src.owner))
-		a_ckey = src.owner:ckey
+		a_ckey = src.owner:account_ckey
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
 
@@ -181,7 +181,7 @@
 		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
-		if(banned_mob?.client && banned_mob.client.ckey == banckey)
+		if(banned_mob?.client && banned_mob.client.account_ckey == ckey)
 			qdel(banned_mob.client)
 
 	if(isjobban)
@@ -294,7 +294,7 @@
 		qdel(query)
 		return
 
-	var/eckey = usr.ckey	//Editing admin ckey
+	var/eckey = usr.get_account_ckey()	//Editing admin ckey
 	var/pckey				//(banned) Player ckey
 	var/duration			//Old duration
 	var/reason				//Old reason
@@ -410,7 +410,7 @@
 	if(!src.owner || !isclient(src.owner))
 		return
 
-	var/unban_ckey = src.owner:ckey
+	var/unban_ckey = src.owner:account_ckey
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 

@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
-	is_supply = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SUPPLY
 	selection_color = "#9f8545"
 	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS,
 		ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO,
@@ -21,16 +21,6 @@
 	)
 	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
-	)
 
 /datum/outfit/job/qm
 	name = JOB_TITLE_RU_QUARTERMASTER
@@ -55,7 +45,7 @@
 	abstract_type = /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
-	is_supply = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SUPPLY
 	supervisors = "Квартирмейстером"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
@@ -74,14 +64,6 @@
 		ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST,
 	)
 	outfit = /datum/outfit/job/cargo_tech
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/cargo_tech
 	name = JOB_TITLE_RU_CARGOTECH
@@ -93,28 +75,38 @@
 	pda = /obj/item/pda/cargo
 	backpack = /obj/item/storage/backpack/cargo
 
+/datum/job/supply/bitrunner
+	title = JOB_TITLE_BITRUNNER
+	flag = JOB_FLAG_BITRUNNER
+	total_positions = 3
+	spawn_positions = 3
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_BITRUNNING, ACCESS_MINERAL_STOREROOM, ACCESS_MINING)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_BITRUNNING, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_VIRTUAL_DIVER,
+		ALT_JOB_TITLE_RU_DOMAIN_OPERATOR,
+	)
+	outfit = /datum/outfit/job/bitrunner
+
+/datum/outfit/job/bitrunner
+	name = JOB_TITLE_RU_BITRUNNER
+	jobtype = /datum/job/supply/bitrunner
+
+	uniform = /obj/item/clothing/under/rank/bitrunner
+	l_ear = /obj/item/radio/headset/headset_cargo
+	id = /obj/item/card/id/supply
+	pda = /obj/item/pda/cargo
+	backpack = /obj/item/storage/backpack/cargo
+
 /datum/job/supply/mining
 	title = JOB_TITLE_MINER
 	flag = JOB_FLAG_MINER
 	total_positions = 6
 	spawn_positions = 8
-	blocked_race_for_job = list(SPECIES_NUCLEATION)
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mining
 	insurance_type = INSURANCE_TYPE_EXTENDED
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
-	)
 
 /datum/outfit/job/mining
 	name = JOB_TITLE_RU_MINER
@@ -178,16 +170,6 @@
 	outfit = /datum/outfit/job/mining_medic
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_type = EXP_TYPE_MEDICAL
-	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/mining_medic
 	name = JOB_TITLE_RU_MINING_MEDIC

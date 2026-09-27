@@ -5,7 +5,6 @@
 	required_players = 30
 	required_enemies = 1
 	recommended_enemies = 1
-	restricted_jobs = BLOB_RESTRICTED_JOBS
 	protected_species = BLOB_RESTRICTED_SPECIES
 
 	/// Base count of roundstart blobs
@@ -28,7 +27,7 @@
 
 		var/datum/mind/blob = pick(possible_blobs)
 		blobs[BLOB_GROUP_INFECTED] += blob
-		blob.restricted_roles = restricted_jobs
+		blob.restricted_roles = get_restricted_roles()
 		add_game_logs("has been selected as a Blob", blob)
 		possible_blobs -= blob
 	var/list/blob_infected = blobs[BLOB_GROUP_INFECTED]
@@ -64,8 +63,8 @@
 				continue
 			if(!player.can_be_blob())
 				continue
-			var/blob_restricted_jobs = /datum/game_mode/blob::restricted_jobs
-			if(length(blob_restricted_jobs) && (player.mind.assigned_role in blob_restricted_jobs))
+			var/datum/job/player_job = SSjobs.GetJob(player.mind.assigned_role)
+			if(player_job?.job_flags & JOB_ANTAG_BLACKLISTED)
 				continue
 			var/turf/location = get_turf(player)
 			if(!location || !is_station_level(location.z) || isspaceturf(location))

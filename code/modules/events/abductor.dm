@@ -40,19 +40,16 @@
 
 		game_mode_ref.scientists.len = number
 		game_mode_ref.agents.len = number
-		game_mode_ref.abductors.len = 2 * number
+		game_mode_ref.pre_abductors.len = 2 * number
 		game_mode_ref.team_objectives.len = number
 		game_mode_ref.team_names.len = number
 		game_mode_ref.scientists[number] = scientist_mind
 		game_mode_ref.agents[number] = agent_mind
-		game_mode_ref.abductors |= list(agent_mind,scientist_mind)
+		game_mode_ref.pre_abductors |= list(agent_mind,scientist_mind)
 		game_mode_ref.make_abductor_team(number,preset_scientist=scientist_mind,preset_agent=agent_mind)
 		game_mode_ref.post_setup_team(number)
 
 		SSticker.mode.abductor_teams++
-
-	if(SSticker.mode.config_tag != "abduction")
-		SSticker.mode.abductors |= game_mode_ref.abductors
 
 	processing = 1
 	return TRUE

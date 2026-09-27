@@ -1,8 +1,7 @@
 /datum/game_mode/thief/vampire
 	name = "thief+vampire(less)"
 	config_tag = "thiefvamp"
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCCAPTAIN, JOB_TITLE_PRISONER)
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
+	protected_jobs = list(JOB_TITLE_CHAPLAIN)
 	required_players = 15
 	var/protected_species_vampire = list(SPECIES_MACHINEPERSON)
 
@@ -11,9 +10,6 @@
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и вампиров. Не дайте вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</b>")
 
 /datum/game_mode/thief/vampire/pre_setup()
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
-
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -23,7 +19,7 @@
 	if(length(possible_vampires))
 		var/datum/mind/vampire = pick(possible_vampires)
 		pre_vampires += vampire
-		vampire.restricted_roles = restricted_jobs
+		vampire.restricted_roles = get_restricted_roles()
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		..()
 		return TRUE

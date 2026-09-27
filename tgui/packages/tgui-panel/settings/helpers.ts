@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { FONTS_DISABLED } from './constants';
+import { DEFAULT_FONT, FONTS_DISABLED } from './constants';
 import { setClientTheme } from './themes';
 import type { SettingsState } from './types';
 
@@ -51,15 +51,15 @@ function setGlobalFontFamily(
   statFontFamily: string | undefined,
   statLinked: boolean,
 ): void {
-  overrideFontFamily = fontFamily === FONTS_DISABLED ? undefined : fontFamily;
-
   if (fontFamily === FONTS_DISABLED) {
-    fontFamily = undefined;
+    fontFamily = DEFAULT_FONT;
   }
 
   if (statFontFamily === FONTS_DISABLED) {
-    statFontFamily = undefined;
+    statFontFamily = DEFAULT_FONT;
   }
+
+  overrideFontFamily = fontFamily;
 
   clearInterval(statFamilyTimer);
   Byond.command(

@@ -855,6 +855,18 @@
 /datum/language/angel/format_message(message, mob/speaker)
 	return span_message("<span class='[get_spans(speaker)]'>[message]</span>")
 
+/datum/language/aphasia
+	name = LANGUAGE_APHASIA
+	desc = "Считается, что на этом языке способен заговорить любой, чей мозг повреждён достаточно сильно."
+	speech_verbs = list("бормоч%(ет,ут)%", "мыч%(ит,ат)%")
+	ask_verbs = list("вопросительно мыч%(ит,ат)%")
+	exclaim_verbs = list("невнятно выкрикива%(ет,ют)%")
+	whisper_verbs = list("невнятно шепч%(ет,ут)%")
+	key = "i"
+	flags = RESTRICTED | NOBABEL
+	space_chance = 75
+	syllables = list("м", "н", "гх", "х", "л", "с", "р", "а", "е", "и", "о", "у")
+
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)

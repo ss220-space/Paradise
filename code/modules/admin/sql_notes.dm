@@ -47,10 +47,10 @@
 			return
 
 	if(!adminckey)
-		adminckey = usr.ckey
+		adminckey = usr.get_account_ckey()
 		if(!adminckey)
 			return
-	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
+	else if(usr && (usr.get_account_ckey() == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
@@ -136,10 +136,10 @@
 		var/server
 		if(config && CONFIG_GET(string/servername))
 			server = CONFIG_GET(string/servername)
-		var/edit_text = "Last edit by [usr.ckey] at [SQLtime()][server ? " on [server]" : ""]"
+		var/edit_text = "Last edit by [usr.get_account_ckey()] at [SQLtime()][server ? " on [server]" : ""]"
 		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
 			"new_note" = new_note,
-			"akey" = usr.ckey,
+			"akey" = usr.get_account_ckey(),
 			"edit_text" = edit_text,
 			"note_id" = note_id
 		))
@@ -201,7 +201,7 @@
 			qdel(query_list_notes)
 			return
 		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
-		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
+		message_admins("[usr.get_account_ckey()] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
 			output += "<a href='byond://?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"

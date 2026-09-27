@@ -53,23 +53,7 @@
 	if(!..())
 		return
 
-	var/list/messages = list()
-	messages.Add(playstyle_string)
-	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Кровавый путь\" на луже крови, чтобы проявиться.</b>"))
-	SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-	if(vialspawned)
-		return
-
-	var/datum/objective/slaughter/objective = new
-	var/datum/objective/demonFluff/fluffObjective = new
-	objective.owner = mind
-	fluffObjective.owner = mind
-	//Paradise Port:I added the objective for one spawned like this
-	mind.objectives += objective
-	mind.objectives += fluffObjective
-	messages.Add(mind.prepare_announce_objectives(FALSE))
-	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
-	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
+	mind.add_antag_datum(/datum/antagonist/demon/slaughter)
 
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
@@ -168,18 +152,9 @@
 		var/client/C = M.client
 
 		S.possess_by_player(C.key)
-		S.mind.assigned_role = "Harbinger of the Slaughter"
-		S.mind.special_role = "Harbinger of the Slaughter"
-		to_chat(S, playstyle_string)
+		S.mind.assigned_role = SPECIAL_ROLE_SLAUGHTER_HARBINGER
 		SSticker.mode.add_cultist(S.mind)
-		var/datum/action/cooldown/spell/sense_victims/SV = new
-		SV.Grant(src)
-		var/datum/objective/new_objective = new /datum/objective
-		new_objective.owner = S.mind
-		new_objective.explanation_text = "Устройте Резню неверующим!"
-		S.mind.objectives += new_objective
-		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
-		to_chat(S, custom_boxed_message("red_box center", messages.Join("<br>")))
+		S.mind.add_antag_datum(/datum/antagonist/demon/slaughter/cult)
 		log_game("[S.key] has become Slaughter demon.")
 
 /**

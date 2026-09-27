@@ -11,8 +11,9 @@
 	var/client/user_client
 	/// The visible element to other players
 	var/obj/effect/overlay/vis/cog
-	/// The blank image that overlaps the cog - hides it from the source user
+	/// The blank image that overlaps the cog - hides it from the source user and from anyone who turned cogs off
 	var/image/blank
+	var/list/hidden_from = list()
 	/// The offset of the icon
 	var/offset_y
 	/// Icon path of the cog
@@ -45,7 +46,10 @@
 /datum/cogbar/Destroy()
 	if(user)
 		SSvis_overlays.remove_vis_overlay(user, user.managed_vis_overlays)
-		user_client?.images -= blank
+
+	for(var/client/viewer in hidden_from)
+		viewer.images -= blank
+	hidden_from = null
 
 	user = null
 	user_client = null
@@ -68,7 +72,16 @@
 	cog.pixel_y = ICON_SIZE_Y + offset_y
 	animate(cog, alpha = user.alpha, time = COGBAR_ANIMATION_TIME)
 
-	if(isnull(user_client))
+	if(user_client)
+		hidden_from += user_client
+
+	for(var/client/viewer in GLOB.clients)
+		if(viewer == user_client)
+			continue
+		if(viewer.prefs.toggles3 & PREFTOGGLE_3_HIDE_OTHER_COGS)
+			hidden_from += viewer
+
+	if(!length(hidden_from))
 		return
 
 	blank = image('icons/blanks/32x32.dmi', cog, "nothing")
@@ -76,7 +89,8 @@
 	blank.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	blank.override = TRUE
 
-	user_client.images += blank
+	for(var/client/viewer in hidden_from)
+		viewer.images += blank
 
 
 /// Removes the cog from the user

@@ -33,6 +33,7 @@
 	event_type = /datum/event/lone_operative
 	weight = 0
 	one_shot = TRUE
+	antag_event = TRUE
 	role_weights = list(ASSIGNMENT_SECURITY = 10)
 
 /datum/event_meta/lone_operative/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot, min_event_weight, max_event_weight)

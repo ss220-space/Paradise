@@ -78,3 +78,6 @@
 	gib.update_icon()
 	gib.blood_DNA[mob_dna.unique_enzymes] = mob_dna.blood_type
 	return TRUE
+
+/obj/effect/decal/cleanable/blood/gibs/torso
+	random_icon_states = list("gibtorso")

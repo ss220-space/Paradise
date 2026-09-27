@@ -472,7 +472,6 @@
 
 /obj/machinery/disposal/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	// flush handle
 	if(flush)
@@ -485,17 +484,17 @@
 	//	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
-		underlays += emissive_appearance(icon, "dispover-full", src)
+		. += emissive_appearance(icon, "dispover-full", src)
 		return
 
 	// charging and ready light
 	switch(mode)
 		if(CHARGING)
 			. += "dispover-charge"
-			underlays += emissive_appearance(icon, "dispover-lightmask", src)
+			. += emissive_appearance(icon, "dispover-lightmask", src)
 		if(CHARGED)
 			. += "dispover-ready"
-			underlays += emissive_appearance(icon, "dispover-lightmask", src)
+			. += emissive_appearance(icon, "dispover-lightmask", src)
 
 // timed process
 // charge the gas reservoir and perform flush if ready

@@ -73,9 +73,7 @@ ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комма�
 
 		H.mind_initialize()
 		H.mind.assigned_role = SPECIAL_ROLE_EVENTMISC
-		H.mind.special_role = SPECIAL_ROLE_EVENTMISC
-		SSticker.mode.eventmiscs += H.mind
-		SSticker.mode.update_eventmisc_icons_added(H.mind)
+		H.mind.add_antag_datum(is_syndicate ? /datum/antagonist/eventmisc/syndicate : /datum/antagonist/eventmisc)
 		H.mind.offstation_role = TRUE
 		H.possess_by_player(thisplayer.key)
 		H.change_voice()
@@ -84,9 +82,6 @@ ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комма�
 
 		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
 		H.mind.store_memory("<b>[themission]</b><br><br>")
-
-		if(is_syndicate)
-			SSticker.mode.traitors |= H.mind //Adds them to extra antag list
 
 		players_spawned++
 		if(players_spawned >= teamsize)

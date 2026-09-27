@@ -98,12 +98,11 @@ log transactions
 
 /obj/machinery/atm/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(stat & NOPOWER)
 		return
 
-	underlays += emissive_appearance(icon, "atm_lightmask", src)
+	. += emissive_appearance(icon, "atm_lightmask", src)
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())

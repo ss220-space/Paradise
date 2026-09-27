@@ -16,6 +16,7 @@
 	/obj/item/rpd, \
 	/obj/item/flashlight, \
 	/obj/item/radio, \
+	/obj/item/melee/sickly_blade/lock, \
 )
 
 /obj/item/storage/belt

@@ -165,35 +165,6 @@
 						var/datum/team/team = GLOB.antagonist_teams[team_type]
 						if(team.need_antag_hud)
 							other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
-					// Not-very-datumized antags follow
-					// Associative list of antag name => whether this mind is this antag
-					if(SSticker?.mode)
-						other_antags += list(
-							"Жертвы абдукторов — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
-							"Абдукторы — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),
-							"Демоны — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
-							"Ивент роли — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
-							"Культисты [SSticker.cultdat.entity_name] — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
-							"Культисты Ратвара — ([length(SSticker.mode.clockwork_cult)])" = (mind in SSticker.mode.clockwork_cult),
-							"Революционеры — ([length(SSticker.mode.revolutionaries)])" = (mind in SSticker.mode.revolutionaries),
-							"Главы революции — ([length(SSticker.mode.head_revolutionaries)])" = (mind in SSticker.mode.head_revolutionaries),
-							"Рабы теней — ([length(SSticker.mode.shadowling_thralls)])" = (mind in SSticker.mode.shadowling_thralls),
-							"Тени — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
-							"Маги — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
-							"Ученики магов — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
-							"Торговцы — ([length(SSticker.mode.traders)])" = (mind in SSticker.mode.traders),
-							"Морфы — ([length(SSticker.mode.morphs)])" = (mind in SSticker.mode.morphs),
-							"Свармеры — ([length(SSticker.mode.swarmers)])" = (mind in SSticker.mode.swarmers),
-							"Голопаразиты — ([length(SSticker.mode.guardians)])" = (mind in SSticker.mode.guardians),
-							"Ревенанты — ([length(SSticker.mode.revenants)])" = (mind in SSticker.mode.revenants),
-							"Воксы рейдеры — ([length(SSticker.mode.raiders)])" = (mind in SSticker.mode.raiders),
-							"Супергерои — ([length(SSticker.mode.superheroes)])" = (mind in SSticker.mode.superheroes),
-							"Суперзлодеи — ([length(SSticker.mode.supervillains)])" = (mind in SSticker.mode.supervillains),
-							"Отряд Смерти — ([length(SSticker.mode.deathsquad)])" = (mind in SSticker.mode.deathsquad),
-							"Хонксквад — ([length(SSticker.mode.honksquad)])" = (mind in SSticker.mode.honksquad),
-							"Ударный Отряд \"Синдиката\" — ([length(SSticker.mode.sst)])" = (mind in SSticker.mode.sst),
-							"Диверсионный Отряд \"Синдиката\" — ([length(SSticker.mode.sit)])" = (mind in SSticker.mode.sit),
-						)
 
 				for(var/antag_name in other_antags)
 					var/is_antag = other_antags[antag_name]

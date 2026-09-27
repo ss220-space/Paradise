@@ -230,7 +230,7 @@ export namespace SpriteEditor {
           if (onRemoveServerColor) {
             act(onRemoveServerColor, { index });
           } else {
-            setColors(colors.toSpliced(index, 1));
+            setColors(colors.filter((_, i) => i !== index));
           }
         }}
         maxColors={maxServerColors}

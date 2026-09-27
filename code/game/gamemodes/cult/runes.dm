@@ -249,6 +249,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(L, span_cultitalic("<b>You feel your life force draining. [SSticker.cultdat.entity_title3] is displeased.</b>"))
 	qdel(src)
 
+/mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
+	var/obj/item/nullrod/N = locate() in src
+	if(N)
+		return N
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		return src
+	return FALSE
+
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
@@ -328,8 +336,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		convertee.visible_message(span_warning("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
 									span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
 		SSticker.mode.add_cultist(convertee.mind)
-		SSticker.mode.ghost_summons += GHOST_SUMMONS_CONVERT
-		convertee.mind.special_role = "Cultist"
+		get_blood_cult_team().ghost_summons += GHOST_SUMMONS_CONVERT
 		to_chat(convertee, span_cultitalic("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, \
 											horrible, truth. The veil of reality has been ripped away and something evil takes root.</b>"))
 		to_chat(convertee, span_cultitalic("<b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. \
@@ -380,25 +387,33 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 
 	var/sacrifice_fulfilled
-	var/datum/game_mode/gamemode = SSticker.mode
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
-			SSticker.mode.ghost_summons += GHOST_SUMMONS_OBJECTIVE
+			cult_team.ghost_summons += GHOST_SUMMONS_OBJECTIVE
 
 	new /obj/effect/temp_visual/cult/sac(loc)
-	for(var/M in invokers)
-		if(sacrifice_fulfilled)
-			to_chat(M, span_cultlarge("\"Yes! This is the one I desire! You have done well.\""))
-		else
-			if(ishuman(offering) || isrobot(offering))
-				to_chat(M, span_cultlarge("\"I accept this sacrifice.\""))
+	var/signal_result = SEND_SIGNAL(offering, COMSIG_LIVING_CULT_SACRIFICED, invokers)
+	if(!(signal_result & SILENCE_SACRIFICE_MESSAGE))
+		for(var/M in invokers)
+			if(sacrifice_fulfilled)
+				to_chat(M, span_cultlarge("\"Yes! This is the one I desire! You have done well.\""))
 			else
-				to_chat(M, span_cultlarge("\"I accept this meager sacrifice.\""))
+				if(ishuman(offering) || isrobot(offering))
+					to_chat(M, span_cultlarge("\"I accept this sacrifice.\""))
+				else
+					to_chat(M, span_cultlarge("\"I accept this meager sacrifice.\""))
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+	if(signal_result & STOP_SACRIFICE)
+		return FALSE
+
+	if(signal_result & DUST_SACRIFICE)
+		offering.dust()
+		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
+	else if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
 		if(isrobot(offering))
 			var/mob/living/silicon/robot/robot = offering
 			if(robot.shell && robot.mainframe)
@@ -417,7 +432,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			offering.gib()
 		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	if(sacrifice_fulfilled)
-		gamemode.cult_objs.succesful_sacrifice()
+		cult_team.cult_objs.succesful_sacrifice()
 	return TRUE
 
 /obj/effect/rune/teleport
@@ -712,7 +727,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
 
-	for(var/datum/mind/M in SSticker.mode.cult)
+	for(var/datum/mind/M as anything in get_blood_cult_team().members)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists[M.current.real_name] = M.current
 	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)
@@ -855,9 +870,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<b>Amount of ghosts summoned:</b> [span_cultitalic("[ghosts]")]"
-		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic("[clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]")]"
+		var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+		. += "<b>Maximum amount of ghosts:</b> [span_cultitalic("[clamp(default_ghost_limit - cult_team.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]")]"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
-		. += "<b>Всего доступно призывов:</b>[span_cultitalic(" [SSticker.mode.ghost_summons]")]"
+		. += "<b>Всего доступно призывов:</b>[span_cultitalic(" [cult_team.ghost_summons]")]"
 
 /obj/effect/rune/manifest/invoke(list/invokers)
 	. = ..()
@@ -882,7 +898,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(user, span_cultitalic("Your body is too weak to manifest spirits, heal yourself first."))
 			fail_invoke()
 			return list()
-		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
+		if(ghosts >= clamp(default_ghost_limit - get_blood_cult_team().cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
 			to_chat(user, span_cultitalic("You are sustaining too many ghosts to summon more!"))
 			fail_invoke()
 			return list()
@@ -901,7 +917,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, span_cultitalic("There are no spirits near [src]!"))
 		fail_invoke()
 		return list()
-	if(!SSticker.mode.ghost_summons)
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
+	if(!cult_team.ghost_summons)
 		to_chat(user, span_cultitalic("У вашего культа закончились призывы!"))
 		return list()
 
@@ -921,7 +938,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
 	SSticker.mode.add_cultist(new_human.mind, 0)
-	SSticker.mode.ghost_summons = max(SSticker.mode.ghost_summons - 1, 0)
+	cult_team.ghost_summons = max(cult_team.ghost_summons - 1, 0)
 	to_chat(new_human, span_cultlarge("You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs."))
 
 	while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
@@ -1022,17 +1039,17 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	var/datum/game_mode/gamemode = SSticker.mode
+	var/datum/team/blood_cult/cult_team = get_blood_cult_team()
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		return
-	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(cult_team.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
 			to_chat(M, span_cultlarge("\"I am already here. There is no need to try to summon me now.\""))
 		return
 
 	//BEGIN THE SUMMONING
-	gamemode.cult_objs.succesful_summon()
+	cult_team.cult_objs.succesful_summon()
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()

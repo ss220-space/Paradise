@@ -11,6 +11,15 @@
 	girder_type = /obj/structure/girder/cult
 	var/holy = FALSE
 
+/turf/simulated/wall/ice
+	name = "ice wall"
+	desc = "Стена, покрытая толстым слоем льда."
+	icon = 'icons/turf/walls/icedmetal_wall.dmi'
+	icon_state = "icedmetal_wall-0"
+	base_icon_state = "icedmetal_wall"
+	canSmoothWith = SMOOTH_GROUP_WALLS_ICE
+	smoothing_groups = SMOOTH_GROUP_WALLS_ICE
+
 /turf/simulated/wall/cult_fake
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head remember school. Oh no.."

@@ -2140,6 +2140,69 @@
 	fire = 100
 	acid = 100
 
+/datum/mod_theme/glitch
+	name = "модели \"Глитч\""
+	desc = "МЭК элитных подразделений Кибер-Полиции, созданный для преследования, захвата и уничтожения органических вторженцев."
+	extended_desc = "Кибер-Полиция несёт службу в цифровых доменах, следя за соблюдением закона. Кибер-спецназ — элита из элит: \
+		его костюмы несут летальное вооружение и приводы повышенной подвижности, заточенные под подавление органических бунтов."
+	default_skin = MOD_VARIANT_GLITCH
+	armor_type = /datum/armor/mod_theme_glitch
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 3
+	siemens_coefficient = 0
+	slowdown_deployed = 0
+	inbuilt_modules = list(/obj/item/mod/module/welding/syndie, /obj/item/mod/module/hearing_protection)
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+	)
+	variants = list(
+		MOD_VARIANT_GLITCH = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR|HIDEHEADSETS,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				UNSEALED_MESSAGE = HELMET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = HELMET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT,
+				UNSEALED_MESSAGE = CHESTPLATE_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = CHESTPLATE_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = GAUNTLET_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = GAUNTLET_SEAL_MESSAGE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				CAN_OVERSLOT = TRUE,
+				UNSEALED_MESSAGE = BOOT_UNSEAL_MESSAGE,
+				SEALED_MESSAGE = BOOT_SEAL_MESSAGE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_glitch
+	melee = 40
+	bullet = 50
+	laser = 50
+	energy = 15
+	bomb = 65
+	bio = 100
+	fire = 100
+	acid = 100
+
 /datum/mod_theme/debug
 	name = "для тестирования"
 	desc = "Вызывает приступы ностальгии у кодеров ТГ."

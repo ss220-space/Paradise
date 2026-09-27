@@ -96,7 +96,7 @@
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list, head_organ.h_grad_style)
+				var/new_style = tgui_input_accessory(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list, head_organ.h_grad_style, ACCESSORY_CATEGORY_HAIR_GRADIENT)
 				if(new_style)
 					owner.change_hair_gradient(style = new_style)
 
@@ -205,10 +205,22 @@
 		ui = new(user, src, "AppearanceChanger", name)
 		ui.open()
 
+/datum/ui_module/appearance_changer/ui_assets(mob/user)
+	. = ..()
+	. += get_asset_datum(/datum/asset/spritesheet_batched/sprite_accessories)
+
+/datum/ui_module/appearance_changer/proc/build_style_list(category, list/styles)
+	var/datum/asset/spritesheet_batched/sprite_accessories/sheet = get_asset_datum(/datum/asset/spritesheet_batched/sprite_accessories)
+	. = list()
+	for(var/style in styles)
+		. += list(list("style" = style, "icon" = sheet.get_preview_key(category, style)))
+
 /datum/ui_module/appearance_changer/ui_data(mob/user)
 	generate_data(check_whitelist, whitelist, blacklist)
 	var/list/data = list()
 
+	var/datum/asset/spritesheet_batched/sprite_accessories/sheet = get_asset_datum(/datum/asset/spritesheet_batched/sprite_accessories)
+	data["icon_prefix"] = "[sheet.name][ICON_SIZE_X]x[ICON_SIZE_Y]"
 	data["specimen"] = owner.dna.species.name
 	data["gender"] = owner.gender
 	data["has_gender"] = owner.dna.species.has_gender
@@ -225,64 +237,40 @@
 	data["change_eye_color"] = can_change(APPEARANCE_EYE_COLOR)
 	data["change_head_accessory"] = can_change_head_accessory()
 	if(data["change_head_accessory"])
-		var/list/head_accessory_styles = list()
-		for(var/head_accessory_style in valid_head_accessories)
-			head_accessory_styles += list(list("headaccessorystyle" = head_accessory_style))
-		data["head_accessory_styles"] = head_accessory_styles
+		data["head_accessory_styles"] = build_style_list(ACCESSORY_CATEGORY_HEAD_ACCESSORY, valid_head_accessories)
 		data["head_accessory_style"] = head_organ ? head_organ.ha_style : "None"
 
 	data["change_hair"] = can_change(APPEARANCE_HAIR)
 	if(data["change_hair"])
-		var/list/hair_styles = list()
-		for(var/hair_style in valid_hairstyles)
-			hair_styles += list(list("hairstyle" = hair_style))
-		data["hair_styles"] = hair_styles
+		data["hair_styles"] = build_style_list(ACCESSORY_CATEGORY_HAIR, valid_hairstyles)
 		data["hair_style"] = head_organ ? head_organ.h_style : "Skinhead"
 
 	data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 	if(data["change_facial_hair"])
-		var/list/facial_hair_styles = list()
-		for(var/facial_hair_style in valid_facial_hairstyles)
-			facial_hair_styles += list(list("facialhairstyle" = facial_hair_style))
-		data["facial_hair_styles"] = facial_hair_styles
+		data["facial_hair_styles"] = build_style_list(ACCESSORY_CATEGORY_FACIAL_HAIR, valid_facial_hairstyles)
 		data["facial_hair_style"] = head_organ ? head_organ.f_style : "Shaved"
 
 	data["change_head_markings"] = can_change_markings("head")
 	if(data["change_head_markings"])
-		var/m_style = owner.m_styles["head"]
-		var/list/head_marking_styles = list()
-		for(var/head_marking_style in valid_head_marking_styles)
-			head_marking_styles += list(list("headmarkingstyle" = head_marking_style))
-		data["head_marking_styles"] = head_marking_styles
-		data["head_marking_style"] = m_style
+		data["head_marking_styles"] = build_style_list(ACCESSORY_CATEGORY_MARKING, valid_head_marking_styles)
+		data["head_marking_style"] = owner.m_styles["head"]
 
 	data["change_body_markings"] = can_change_markings("body")
 	if(data["change_body_markings"])
-		var/m_style = owner.m_styles["body"]
-		var/list/body_marking_styles = list()
-		for(var/body_marking_style in valid_body_marking_styles)
-			body_marking_styles += list(list("bodymarkingstyle" = body_marking_style))
-		data["body_marking_styles"] = body_marking_styles
-		data["body_marking_style"] = m_style
+		data["body_marking_styles"] = build_style_list(ACCESSORY_CATEGORY_MARKING, valid_body_marking_styles)
+		data["body_marking_style"] = owner.m_styles["body"]
 
 	data["change_tail_markings"] = can_change_markings("tail")
 	if(data["change_tail_markings"])
 		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
-		var/m_style = bodypart_tail.m_styles["tail"]
-		var/list/tail_marking_styles = list()
-		for(var/tail_marking_style in valid_tail_marking_styles)
-			tail_marking_styles += list(list("tailmarkingstyle" = tail_marking_style))
-		data["tail_marking_styles"] = tail_marking_styles
-		data["tail_marking_style"] = m_style
+		data["tail_marking_styles"] = build_style_list(ACCESSORY_CATEGORY_MARKING, valid_tail_marking_styles)
+		data["tail_marking_style"] = bodypart_tail.m_styles["tail"]
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
 		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
 		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
-		var/list/body_accessory_styles = list()
-		for(var/body_accessory_style in valid_body_accessories)
-			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
-		data["body_accessory_styles"] = body_accessory_styles
+		data["body_accessory_styles"] = build_style_list(ACCESSORY_CATEGORY_BODY_ACCESSORY, valid_body_accessories)
 		if(bodypart_tail)
 			data["body_accessory_style"] = (bodypart_tail.body_accessory ? bodypart_tail.body_accessory.name : "None")
 		if(bodypart_wing)
@@ -290,10 +278,7 @@
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
-		var/list/alt_head_styles = list()
-		for(var/alt_head_style in valid_alt_head_styles)
-			alt_head_styles += list(list("altheadstyle" = alt_head_style))
-		data["alt_head_styles"] = alt_head_styles
+		data["alt_head_styles"] = build_style_list(ACCESSORY_CATEGORY_ALT_HEAD, valid_alt_head_styles)
 		data["alt_head_style"] = head_organ.alt_head
 
 	data["change_head_accessory_color"] = can_change_head_accessory()

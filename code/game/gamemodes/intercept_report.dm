@@ -111,7 +111,7 @@
 		if(man.client && man.client.prefs.nanotrasen_relation == PREF_NTRELATION_OPPOSED)
 			//don't include suspects who can't possibly be the antag based on their job (no suspecting the captain of being a damned dirty tator)
 			if(man.mind && man.mind.assigned_role)
-				if((man.mind.assigned_role in SSticker.mode.protected_jobs) || (man.mind.assigned_role in SSticker.mode.restricted_jobs))
+				if(man.mind.assigned_role in SSticker.mode.get_restricted_roles())
 					return
 			//don't include suspects who can't possibly be the antag based on their species (no suspecting the machines of being sneaky changelings)
 			if(man.dna.species.name in SSticker.mode.protected_species)

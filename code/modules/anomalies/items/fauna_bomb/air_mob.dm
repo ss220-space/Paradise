@@ -51,7 +51,7 @@
 	if(data.appearance)
 		appearance = data.appearance
 
-	alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	alpha = 128
 	var/turf/simulated/turf = get_turf(spawner)
 	var/datum/gas_mixture/air = turf.get_readonly_air()
 	if(istype(turf) && air.toxins() > TOXINS_MIN_VISIBILITY_MOLES)

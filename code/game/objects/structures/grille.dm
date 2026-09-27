@@ -54,8 +54,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Деконструкция окна...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
-	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(RCD_COST_WINDOW * 2, user))
@@ -184,8 +183,7 @@
 	. = TRUE
 	if(shock(user, 100))
 		return
-	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
-	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	deconstruct()
 
@@ -195,8 +193,7 @@
 	. = TRUE
 	if(shock(user, 90))
 		return
-	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
-	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	set_anchored(!anchored)
 	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
@@ -236,8 +233,7 @@
 			to_chat(user, span_notice("There is already a window facing this way there."))
 			return
 	to_chat(user, span_notice("You start placing the window..."))
-	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
-	if(do_after(user, 2 SECONDS * building_mod, src))
+	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
@@ -286,8 +282,7 @@
 /obj/structure/grille/proc/shock(mob/user, prb)
 	if(!anchored || broken)		// unanchored/broken grilles are never connected
 		return FALSE
-	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
-	if(!prob(prb * prob_mod))
+	if(!prob(prb))
 		return FALSE
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
 		return FALSE

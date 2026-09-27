@@ -49,7 +49,7 @@ GAME_VERB(/mob, me_verb, VERB_ME, VERB_CATEGORY_IC)
 			to_chat(src, span_danger("Deadchat is globally muted."))
 			return
 
-		if(check_mute(client.ckey, MUTE_DEADCHAT))
+		if(check_mute(client.account_ckey, MUTE_DEADCHAT))
 			to_chat(src, span_warning("You cannot talk in deadchat (muted)."))
 			return
 

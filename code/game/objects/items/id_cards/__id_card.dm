@@ -30,6 +30,8 @@
 	var/mining_points = 0
 	/// Total mining points earned on the current Shift.
 	var/total_mining_points = 0
+	/// For redeeming at the bitrunning vendor
+	var/bitrunning_points = 0
 	var/list/access = list()
 	var/law_level = LAW_LEVEL_BASE
 	/// The name, registered on the card
@@ -125,6 +127,8 @@
 		. += span_notice("Причина выдачи: [guest_pass.reason].")
 	if(mining_points)
 		. += span_notice("Шахтёрских очков на аккаунте: <b>[mining_points]</b>. Всего заработано за смену: <b>[total_mining_points]</b>смену.")
+	if(bitrunning_points)
+		. += span_notice("Очков битраннера на аккаунте: <b>[bitrunning_points]</b>.")
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -303,6 +307,7 @@ GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гост�
 	data["owner"] = registered_name
 	data["mining"] = mining_points
 	data["total_mining"] = total_mining_points
+	data["bitrunning"] = bitrunning_points
 	return data
 
 /obj/item/card/id/deserialize(list/data)
@@ -318,6 +323,7 @@ GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гост�
 	registered_name = data["owner"]
 	mining_points = data["mining"]
 	total_mining_points = data["total_mining"]
+	bitrunning_points = data["bitrunning"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	update_label()
 	RebuildHTML()

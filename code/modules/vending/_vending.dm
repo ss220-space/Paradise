@@ -1294,6 +1294,7 @@
 		if(put_on_turf)
 			var/turf/target_turf = get_turf(src)
 			vended_item.forceMove(target_turf)
+		SEND_SIGNAL(src, COMSIG_VENDING_DISPENSED, vended_item)
 		return TRUE
 	return FALSE
 

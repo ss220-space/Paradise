@@ -34,8 +34,10 @@
 @include meta.load-css('./interfaces/Emojipedia.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/EventLogger.scss');
+@include meta.load-css('./interfaces/HeadphoneCase.scss');
 @include meta.load-css('./interfaces/HotKeysHelp.scss');
 @include meta.load-css('./interfaces/Hypertorus.scss');
+@include meta.load-css('./interfaces/JobPreferences.scss');
 @include meta.load-css('./interfaces/Loadout.scss');
 @include meta.load-css('./interfaces/ListInput.scss');
 @include meta.load-css('./interfaces/Minesweeper.scss');
@@ -72,3 +74,6 @@
 :root {
   --scaling-amount: 1;
 }
+
+// Must stay last: overrides derived colours for engines that lack them
+@include meta.load-css('./legacy-colors.scss');

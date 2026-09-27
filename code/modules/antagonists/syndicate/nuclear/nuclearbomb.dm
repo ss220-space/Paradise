@@ -107,13 +107,12 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(panel_open)
 		. += mutable_appearance(icon, "npanel_open")
 
 	if(!lighthack)
-		underlays += emissive_appearance(icon, "nuclearbomb_lightmask", src)
+		. += emissive_appearance(icon, "nuclearbomb_lightmask", src)
 
 /obj/machinery/nuclearbomb/process()
 	if(timing)

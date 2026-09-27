@@ -22,6 +22,14 @@
 		src.old_body_ref = WEAKREF(old_body)
 	src.delete_on_death = delete_on_death
 
+/datum/component/temporary_body/Destroy(force)
+	var/mob/living/old_body = old_body_ref?.resolve()
+	if(old_body)
+		REMOVE_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, UID())
+	old_mind_ref = null
+	old_body_ref = null
+	return ..()
+
 /datum/component/temporary_body/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_destroy))
 
@@ -29,7 +37,7 @@
 		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(on_parent_destroy))
 
 /datum/component/temporary_body/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_QDELETING)
+	UnregisterSignal(parent, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH))
 
 /**
  * Sends the mind of the temporary body back into their previous host
@@ -46,21 +54,16 @@
 	var/mob/living/old_body = old_body_ref?.resolve() || old_mind.current
 
 	var/mob/living/living_parent = parent
-	var/mob/dead/observer/ghost = living_parent.ghostize()
+	var/mob/dead/observer/ghost = living_parent.ghostize() || living_parent.get_ghost()
 	if(!ghost)
-		ghost = living_parent.get_ghost()
-	if(!ghost)
-		CRASH("[src] belonging to [parent] was completely unable to find a ghost to put back into a body!")
-	ghost.mind = old_mind
-	if(!isliving(old_body))
+		qdel(src)
 		return
-	if(old_body?.stat != DEAD)
-		old_mind.transfer_to(old_body)
-	else
-		old_mind.current = old_body
 
-	if(old_body)
-		REMOVE_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, src.UID())
+	ghost.mind = old_mind
+	if(isliving(old_body))
+		if(old_body.stat != DEAD)
+			old_mind.transfer_to(old_body)
+		else
+			old_mind.current = old_body
 
-	old_mind = null
-	old_body = null
+	qdel(src)

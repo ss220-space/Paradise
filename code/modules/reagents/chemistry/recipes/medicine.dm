@@ -268,6 +268,14 @@
 	result_amount = 3
 	mix_message = "The mixture bubbles slowly, making a slightly sweet odor."
 
+/datum/chemical_reaction/neurine
+	name = "Neurine"
+	id = "neurine"
+	result = "neurine"
+	required_reagents = list("mannitol" = 1, "acetone" = 1, "oxygen" = 1)
+	result_amount = 3
+	mix_message = "The mixture thins out, giving off a faint smell of ozone."
+
 /datum/chemical_reaction/mutadone
 	name = "Mutadone"
 	id = "mutadone"

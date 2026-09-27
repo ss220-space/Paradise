@@ -135,6 +135,15 @@
 				deplete_spell()
 				return
 
+			if(IS_HERETIC(living))
+				living.Knockdown(0.5 SECONDS)
+				living.apply_damage(15, STAMINA)
+				living.flash_eyes(1, TRUE)
+				living.mansus_absorbs_magic(user, "[DECLENT_RU_CAP(user, NOMINATIVE)] бьёт вас светом Ратвара, но Обитель поглощает большую часть эффектов!")
+				add_attack_logs(user, target, "Stunned by [src]")
+				deplete_spell()
+				return
+
 			living.Knockdown(3 SECONDS)
 			living.apply_damage(55, STAMINA)
 			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
@@ -227,14 +236,12 @@
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
+	block_chance = 20
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.spear_spells
-
-/obj/item/twohanded/ratvarian_spear/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2.5, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/twohanded/ratvarian_spear/update_icon_state()
 	icon_state = "ratvarian_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -318,14 +325,12 @@
 	force = 25
 	armour_penetration = 30
 	sharp = TRUE
+	block_chance = 25
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/clock_borg_spear/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.spear_spells
-
-/obj/item/clock_borg_spear/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2.2, _stamina_coefficient = 0.45, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/clock_borg_spear/update_overlays()
 	. = ..()
@@ -376,13 +381,11 @@
 	throwforce = 40
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
+	block_chance = 25
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.hammer_spells
-
-/obj/item/twohanded/clock_hammer/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2.2, _stamina_coefficient = 0.45, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/twohanded/clock_hammer/ComponentInitialize()
 	. = ..()
@@ -602,13 +605,11 @@
 	throw_range = 3
 	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
+	block_chance = 55
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.shield_spells
-
-/obj/item/shield/clock_buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/clock_buckler/update_overlays()
 	. = ..()
@@ -860,8 +861,8 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
-		return HIT_RESULT_SUCCESS
-	return HIT_RESULT_FAILED
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/suit/armor/clockwork/IsReflect(def_zone)
 	if(!ishuman(loc))
@@ -1152,7 +1153,7 @@
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_FLASH
-	lighting_alpha = null
+	lighting_cutoff = null
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1179,7 +1180,7 @@
 	icon_state = "judicial_visor_[active]"
 	flash_protect = !active
 	see_in_dark = active ? 8 : 0
-	lighting_alpha = active ? LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE : null
+	lighting_cutoff = active ? LIGHTING_CUTOFF_HIGH : null
 	switch(active)
 		if(TRUE)
 			to_chat(user, span_notice("You toggle [src], its lens begins to glow."))

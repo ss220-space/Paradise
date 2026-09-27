@@ -11,6 +11,7 @@
 	var/icon/tiny
 	var/photo_size = 3
 	var/log_text = "" //Used for sending to Discord and just logging
+	var/list/mobs_seen
 
 /obj/item/photo/examine(mob/user)
 	. = ..()
@@ -110,6 +111,7 @@
 	photo_size = photo.fields["size"]
 	log_text = photo.fields["log"]
 	blueprints = photo.fields["blueprints"]
+	mobs_seen = photo.fields["mobs_seen"]
 	if(blueprints)
 		AddElement(/datum/element/high_value_item)
 
@@ -123,6 +125,7 @@
 	new_photo.desc = desc
 	new_photo.scribble = scribble
 	new_photo.blueprints = blueprints
+	new_photo.mobs_seen = mobs_seen?.Copy()
 	if(blueprints)
 		new_photo.AddElement(/datum/element/high_value_item)
 

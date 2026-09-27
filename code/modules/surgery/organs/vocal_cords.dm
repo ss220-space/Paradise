@@ -35,6 +35,11 @@ GLOBAL_DATUM_INIT(clap_words, /regex, regex("clap|applaud|хлопай|апло�
 GLOBAL_DATUM_INIT(honk_words, /regex, regex("ho+nk|хонк")) //hooooooonk
 GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пластинка, детка"))
 
+#define VOICE_OF_GOD_NONE "none"
+#define VOICE_OF_GOD_STUN "stun"
+#define VOICE_OF_GOD_DAMAGE "damage"
+#define VOICE_OF_GOD_MEME "meme"
+
 /obj/item/organ/internal/vocal_cords //organs that are activated through speech with the :x channel
 	name = "vocal cords"
 	icon_state = "appendix"
@@ -179,12 +184,14 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 /obj/item/organ/internal/vocal_cords/colossus/handle_speech(list/message_pieces)
 	return ..(message_to_multilingual(uppertext(multilingual_to_message(message_pieces)), GLOB.all_languages[LANGUAGE_ANGEL]))
 
-/obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
+/proc/voice_of_god(message, mob/living/carbon/speaker, power_multiplier = 1, include_speaker = FALSE)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
+	playsound(get_turf(speaker), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
+  for(var/mob/living/L in get_hearers_in_view(8, speaker))
+		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.null_rod_check() && (include_speaker || L != speaker) && L.stat != DEAD)
 	for(var/mob/living/L in get_hearers_in_view(8, owner))
 		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.can_block_magic() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
@@ -194,24 +201,21 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			listeners += L
 
 	if(!length(listeners))
-		next_command = world.time + cooldown_none
-		return
+		return VOICE_OF_GOD_NONE
 
-	var/power_multiplier = base_multiplier
-
-	if(owner.mind)
+	if(speaker.mind)
 		//Holy characters are very good at speaking with the voice of god
-		if(owner.mind.isholy)
+		if(speaker.mind.isholy)
 			power_multiplier *= 2
 		//Command staff has authority
-		if(owner.mind.assigned_role in GLOB.command_positions)
+		if(speaker.mind.assigned_role in GLOB.command_positions)
 			power_multiplier *= 1.4
 		//Why are you speaking
-		if(owner.mind.assigned_role == JOB_TITLE_MIME)
+		if(speaker.mind.assigned_role == JOB_TITLE_MIME)
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
-	if(iscultist(owner))
+	if(iscultist(speaker))
 		power_multiplier *= 2
 
 	//Try to check if the speaker specified a name or a job to focus on
@@ -249,69 +253,69 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.Stun(6 SECONDS * power_multiplier)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//WEAKEN
 	else if(findtext(message, GLOB.weaken_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.Weaken(6 SECONDS * power_multiplier)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//SLEEP
 	else if((findtext(message, GLOB.sleep_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.Sleeping(4 SECONDS * power_multiplier)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//VOMIT
 	else if((findtext(message, GLOB.vomit_words)))
 		for(var/mob/living/carbon/C in listeners)
 			C.vomit(10 * power_multiplier)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//SILENCE
 	else if((findtext(message, GLOB.silence_words)))
 		for(var/mob/living/carbon/C in listeners)
-			if(owner.mind && (owner.mind.assigned_role == JOB_TITLE_LIBRARIAN || owner.mind.assigned_role == JOB_TITLE_MIME))
+			if(speaker.mind && (speaker.mind.assigned_role == JOB_TITLE_LIBRARIAN || speaker.mind.assigned_role == JOB_TITLE_MIME))
 				power_multiplier *= 3
 			C.AdjustSilence(20 SECONDS * power_multiplier)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//HALLUCINATE
 	else if((findtext(message, GLOB.hallucinate_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//WAKE UP
 	else if((findtext(message, GLOB.wakeup_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.SetSleeping(0)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//HEAL
 	else if((findtext(message, GLOB.heal_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.heal_overall_damage(10 * power_multiplier, 10 * power_multiplier, TRUE, 0, 0)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//BRUTE DAMAGE
 	else if((findtext(message, GLOB.hurt_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.apply_damage(15 * power_multiplier, def_zone = BODY_ZONE_CHEST)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//BLEED
 	else if((findtext(message, GLOB.bleed_words)))
 		for(var/mob/living/carbon/human/H in listeners)
 			H.bleed_rate += (5 * power_multiplier)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//FIRE
 	else if((findtext(message, GLOB.burn_words)))
@@ -319,15 +323,15 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			var/mob/living/L = V
 			L.adjust_fire_stacks(1 * power_multiplier)
 			L.IgniteMob()
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//REPULSE
 	else if((findtext(message, GLOB.repulse_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			var/throwtarget = get_edge_target_turf(owner, get_dir(owner, get_step_away(L, owner)))
+			var/throwtarget = get_edge_target_turf(speaker, get_dir(speaker, get_step_away(L, speaker)))
 			L.throw_at(throwtarget, 3 * power_multiplier, 1)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//WHO ARE YOU?
 	else if((findtext(message, GLOB.whoareyou_words)))
@@ -336,92 +340,92 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			/*if(L.mind && L.mind.devilinfo)
 				L.say("[L.mind.devilinfo.truename]")
 			else*/
-			if(SEND_SIGNAL(L, COMSIG_SAY_YOUR_NAME, owner) && SAY_NAME_BLOCK)
+			if(SEND_SIGNAL(L, COMSIG_SAY_YOUR_NAME, speaker) && SAY_NAME_BLOCK)
 				continue
 			L.say("[L.real_name]")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//SAY MY NAME
 	else if((findtext(message, GLOB.saymyname_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.say("[owner.name]!") //"Unknown!"
-		next_command = world.time + cooldown_meme
+			L.say("[speaker.name]!") //"Unknown!"
+		. = VOICE_OF_GOD_MEME
 
 	//KNOCK KNOCK
 	else if((findtext(message, GLOB.knockknock_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.say("Who's there?")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//STATE LAWS
 	else if((findtext(message, GLOB.statelaws_words)))
 		for(var/mob/living/silicon/S in listeners)
 			S.statelaws(S.laws)
-		next_command = world.time + cooldown_stun
+		. = VOICE_OF_GOD_STUN
 
 	//MOVE
 	else if((findtext(message, GLOB.move_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			step(L, pick(GLOB.cardinal))
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//WALK
 	else if((findtext(message, GLOB.walk_words)))
 		for(var/mob/living/listener as anything in listeners)
 			listener.toggle_move_intent(MOVE_INTENT_WALK)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//RUN
 	else if((findtext(message, GLOB.run_words)))
 		for(var/mob/living/listener as anything in listeners)
 			listener.toggle_move_intent(MOVE_INTENT_RUN)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//HELP INTENT
 	else if((findtext(message, GLOB.helpintent_words)))
 		for(var/mob/living/carbon/human/H in listeners)
 			H.a_intent_change(INTENT_HELP)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//DISARM INTENT
 	else if((findtext(message, GLOB.disarmintent_words)))
 		for(var/mob/living/carbon/human/H in listeners)
 			H.a_intent_change(INTENT_DISARM)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//GRAB INTENT
 	else if((findtext(message, GLOB.grabintent_words)))
 		for(var/mob/living/carbon/human/H in listeners)
 			H.a_intent_change(INTENT_GRAB)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//HARM INTENT
 	else if((findtext(message, GLOB.harmintent_words)))
 		for(var/mob/living/carbon/human/H in listeners)
 			H.a_intent_change(INTENT_HARM)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//THROW/CATCH
 	else if((findtext(message, GLOB.throwmode_words)))
 		for(var/mob/living/carbon/C in listeners)
 			C.throw_mode_on()
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//FLIP
 	else if((findtext(message, GLOB.flip_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.emote("flip")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//REST
 	else if((findtext(message, GLOB.rest_words)))
 		for(var/mob/living/listener as anything in listeners)
 			listener.set_resting(TRUE, instant = TRUE)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//GET UP
 	else if((findtext(message, GLOB.getup_words)))
@@ -432,7 +436,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			listener.SetParalysis(0) //i said get up i don't care if you're being tazed
 			listener.set_resting(FALSE, instant = TRUE)
 			listener.get_up(instant = TRUE)
-		next_command = world.time + cooldown_damage
+		. = VOICE_OF_GOD_DAMAGE
 
 	//SIT
 	else if((findtext(message, GLOB.sit_words)))
@@ -441,7 +445,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			for(var/obj/structure/chair/chair in get_turf(L))
 				chair.buckle_mob(L)
 				break
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//STAND UP
 	else if((findtext(message, GLOB.stand_words)))
@@ -449,14 +453,14 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			var/mob/living/L = V
 			if(L.buckled && istype(L.buckled, /obj/structure/chair))
 				L.buckled.unbuckle_mob(L)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//DANCE
 	else if((findtext(message, GLOB.dance_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.emote("dance")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//JUMP
 	else if((findtext(message, GLOB.jump_words)))
@@ -464,49 +468,65 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 			var/mob/living/L = V
 			L.say("НАСКОЛЬКО ВЫСОКО?!!")
 			L.emote("jump")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//SALUTE
 	else if((findtext(message, GLOB.salute_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.emote("salute")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//PLAY DEAD
 	else if((findtext(message, GLOB.deathgasp_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.emote("deathgasp")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//PLEASE CLAP
 	else if((findtext(message, GLOB.clap_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.emote("clap")
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	//HONK
 	else if((findtext(message, GLOB.honk_words)))
 		spawn(25)
-			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, TRUE)
-		if(owner.mind && owner.mind.assigned_role == JOB_TITLE_CLOWN)
+			playsound(get_turf(speaker), 'sound/items/bikehorn.ogg', 300, TRUE)
+		if(speaker.mind && speaker.mind.assigned_role == JOB_TITLE_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(14 SECONDS * power_multiplier)
-			next_command = world.time + cooldown_stun
+			. = VOICE_OF_GOD_STUN
 		else
-			next_command = world.time + cooldown_meme
+			. = VOICE_OF_GOD_MEME
 
 	//RIGHT ROUND
 	else if((findtext(message, GLOB.multispin_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.SpinAnimation(speed = 10, loops = 5)
-		next_command = world.time + cooldown_meme
+		. = VOICE_OF_GOD_MEME
 
 	else
-		next_command = world.time + cooldown_none
+		. = VOICE_OF_GOD_NONE
 
-	message_admins("[ADMIN_LOOKUPFLW(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
-	add_game_logs("has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].", owner)
+	message_admins("[ADMIN_LOOKUPFLW(speaker)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+	add_game_logs("has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].", speaker)
+
+/obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
+	switch(voice_of_god(message, owner, base_multiplier))
+		if(VOICE_OF_GOD_STUN)
+			next_command = world.time + cooldown_stun
+		if(VOICE_OF_GOD_DAMAGE)
+			next_command = world.time + cooldown_damage
+		if(VOICE_OF_GOD_MEME)
+			next_command = world.time + cooldown_meme
+		else
+			next_command = world.time + cooldown_none
+
+#undef VOICE_OF_GOD_NONE
+#undef VOICE_OF_GOD_STUN
+#undef VOICE_OF_GOD_DAMAGE
+#undef VOICE_OF_GOD_MEME

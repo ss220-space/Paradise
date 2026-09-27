@@ -1,0 +1,57 @@
+# Renders the station maps at full resolution, slices them into Leaflet tiles
+# and publishes the result to the webmap host.
+name: "Render WebMap"
+on:
+  schedule:
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_webmap:
+    name: "Build WebMap"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      DEPLOY_KEY: ${{ secrets.WEBMAP_DEPLOY_KEY }}
+      DEPLOY_HOST: ${{ secrets.WEBMAP_HOST }}
+      DEPLOY_PORT: ${{ secrets.WEBMAP_PORT }}
+      DEPLOY_USER: ${{ secrets.WEBMAP_USER }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pillow
+
+      - name: Install DMM-TOOLS
+        run: bash tools/ci/install_dmm_tools.sh
+
+      - name: Render maps
+        run: RENDERER=~/dmm-tools bash tools/webmap/render.sh
+
+      - name: Build tiles and pages
+        run: python tools/webmap/build.py --renders data/webmap-renders --out dist/webmap --skip-missing
+
+      - name: Upload build
+        uses: actions/upload-artifact@v7
+        with:
+          name: webmap
+          path: dist/webmap
+          retention-days: 7
+
+      - name: Deploy to host
+        if: env.DEPLOY_KEY != ''
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/webmap_key
+          chmod 600 ~/.ssh/webmap_key
+          ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          rsync -az --delete \
+            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/webmap_key" \
+            dist/webmap/ "$DEPLOY_USER@$DEPLOY_HOST:/var/www/webmap/"

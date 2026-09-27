@@ -15,7 +15,6 @@
 /obj/machinery/dye_generator/update_overlays()
 	. = ..()
 
-	underlays.Cut()
 
 	if(panel_open)
 		. += "[base_icon_state]_panel"
@@ -27,10 +26,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += "[base_icon_state]"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /obj/machinery/dye_generator/obj_break(damage_flag)
 	..()
@@ -45,7 +44,6 @@
 /obj/machinery/dye_generator/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
-		underlays.Cut()
 
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()

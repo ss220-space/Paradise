@@ -44,8 +44,8 @@
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
 			updatehealth(reason = "var edit")
-		if(NAMEOF(src, lighting_alpha))
-			sync_lighting_plane_alpha()
+		if(NAMEOF(src, lighting_cutoff))
+			sync_lighting_plane_cutoff()
 
 /mob/living/vv_get_header()
 	. = ..()

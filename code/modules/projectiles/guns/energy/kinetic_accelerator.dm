@@ -617,6 +617,7 @@
 	name = "minebot passthrough"
 	desc = "Модуль улучшения для кинетического акселератора. Позволяет выстрелам проходить сквозь шахтоботов."
 	cost = 0
+	denied_type = /obj/item/borg/upgrade/modkit/human_passthrough
 
 /obj/item/borg/upgrade/modkit/minebot_passthrough/get_ru_names()
 	return alist(
@@ -627,6 +628,25 @@
 		INSTRUMENTAL = "модификацией прохождения сквозь шахтоботов",
 		PREPOSITIONAL = "модификации прохождения сквозь шахтоботов"
 	)
+
+/obj/item/borg/upgrade/modkit/human_passthrough
+	name = "human passthrough"
+	desc = "Модуль улучшения для кинетического акселератора. Позволяет выстрелам проходить сквозь гуманоидов, не задевая союзников."
+	cost = 0
+	denied_type = /obj/item/borg/upgrade/modkit/minebot_passthrough
+
+/obj/item/borg/upgrade/modkit/human_passthrough/get_ru_names()
+	return alist(
+		NOMINATIVE = "модификация прохождения сквозь гуманоидов",
+		GENITIVE = "модификации прохождения сквозь гуманоидов",
+		DATIVE = "модификации прохождения сквозь гуманоидов",
+		ACCUSATIVE = "модификацию прохождения сквозь гуманоидов",
+		INSTRUMENTAL = "модификацией прохождения сквозь гуманоидов",
+		PREPOSITIONAL = "модификации прохождения сквозь гуманоидов"
+	)
+
+/obj/item/borg/upgrade/modkit/human_passthrough/modify_projectile(obj/projectile/kinetic/K)
+	K.ignored_mob_types = typecacheof(/mob/living/carbon/human)
 
 // MARK: Modkit - Hardness
 /obj/item/borg/upgrade/modkit/hardness

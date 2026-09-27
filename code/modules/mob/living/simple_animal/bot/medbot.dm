@@ -290,7 +290,7 @@
 		step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 		return .
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(locked)
 			balloon_alert(user, "техпанель заблокирована!")

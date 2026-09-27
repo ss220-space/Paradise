@@ -51,6 +51,7 @@
 	icon_state = "cart-e"
 	programs = list(
 		new/datum/data/pda/app/power,
+		new/datum/data/pda/app/supermatter_monitor,
 	)
 
 /obj/item/cartridge/atmos
@@ -193,6 +194,7 @@
 	icon_state = "cart-ce"
 	programs = list(
 		new/datum/data/pda/app/power,
+		new/datum/data/pda/app/supermatter_monitor,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/status_display,
 	)

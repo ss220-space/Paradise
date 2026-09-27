@@ -56,6 +56,11 @@
 	if(!smooth) // is it need?
 		update_appearance()
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+	RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(drop_immerse_hooks))
+
+/turf/simulated/floor/lava/proc/drop_immerse_hooks(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, list(COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, COMSIG_TURF_CHANGE))
 
 ///We lazily add the immerse element when something is spawned or crosses this turf and not before.
 /turf/simulated/floor/lava/proc/on_atom_inited(datum/source, atom/movable/movable)

@@ -256,7 +256,7 @@
 	light_range = 7
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	var/lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
@@ -336,8 +336,8 @@
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
 	user.add_sight(sight_flags)
-	if(!isnull(lighting_alpha))
-		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+	if(!isnull(lighting_cutoff))
+		user.lighting_cutoff = max(user.lighting_cutoff, lighting_cutoff)
 
 /obj/effect/wisp
 	name = "friendly wisp"

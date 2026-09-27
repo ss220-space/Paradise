@@ -124,7 +124,8 @@
 			adjust_nutrition(-lost_nutrition)
 
 			if(stun)
-				adjustToxLoss(-3)
+				adjustToxLoss(-5)
+				AdjustDrunk(-10 SECONDS)
 
 		if(mode & VOMIT_BLOOD)
 			add_splatter_floor(turf)
@@ -284,6 +285,8 @@
 			span_notice("[shaker] [pick("обнима[PLUR_ET_YUT(shaker)]", "тепло обнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди", "приобнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди голову", "приобнима[PLUR_ET_YUT(shaker)] за плечи")] [name]."),
 			span_notice("Вы обнимаете [name]."),
 		)
+
+	SEND_SIGNAL(shaker, COMSIG_CARBON_HELPED, src)
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/human_src = src
@@ -940,7 +943,8 @@ so that different stomachs can handle things in different ways VB*/
 
 	set_invis_see(initial(see_invisible))
 	set_sight(initial(sight))
-	lighting_alpha = initial(lighting_alpha)
+	lighting_cutoff = initial(lighting_cutoff)
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 	nightvision = initial(nightvision)
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
@@ -952,8 +956,10 @@ so that different stomachs can handle things in different ways VB*/
 		if(cyber_eyes.see_invisible)
 			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
 
-		if(!isnull(cyber_eyes.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
+		if(!isnull(cyber_eyes.lighting_cutoff))
+			lighting_cutoff = max(lighting_cutoff, cyber_eyes.lighting_cutoff)
+		if(length(cyber_eyes.color_cutoffs))
+			lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, cyber_eyes.color_cutoffs)
 
 	if(client.eye && client.eye != src)
 		var/atom/atom = client.eye
@@ -963,23 +969,23 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(HAS_TRAIT(src, TRAIT_XRAY))
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_HIGH)
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		add_sight(SEE_MOBS)
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
 		add_sight(SEE_TURFS)
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
 		nightvision = max(nightvision, 8)
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_HIGH)
 
 	if(HAS_TRAIT(src, TRAIT_ECHOLOCATOR))
 		add_sight(SEE_MOBS|SEE_TURFS)
-		lighting_alpha = max(lighting_alpha, LIGHTING_PLANE_ALPHA_INVISIBLE)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_FULLBRIGHT)
 
 	return ..()
 
@@ -1101,3 +1107,6 @@ so that different stomachs can handle things in different ways VB*/
 		if(!(covered & slot))
 			// /obj/item/wash() already updates our clothing slot
 			. = worn.wash_tg(clean_types) || .
+
+/mob/living/carbon/proc/get_covered_body_zones()
+	return list()

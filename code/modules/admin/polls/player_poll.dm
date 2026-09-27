@@ -46,7 +46,7 @@
 	var/datum/db_query/query_option_get_voted = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
-	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
+	"}, list("pollid" = poll.poll_id, "ckey" = get_account_ckey()))
 	if(!query_option_get_voted.warn_execute())
 		qdel(query_option_get_voted)
 		return
@@ -93,7 +93,7 @@
 	var/datum/db_query/query_text_get_replytext = SSdbcore.NewQuery({"
 		SELECT replytext FROM [format_table_name("poll_textreply")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
-	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
+	"}, list("pollid" = poll.poll_id, "ckey" = get_account_ckey()))
 	if(!query_text_get_replytext.warn_execute())
 		qdel(query_text_get_replytext)
 		return
@@ -133,7 +133,7 @@
 	var/datum/db_query/query_rating_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid, rating FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
-	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
+	"}, list("pollid" = poll.poll_id, "ckey" = get_account_ckey()))
 	if(!query_rating_get_votes.warn_execute())
 		qdel(query_rating_get_votes)
 		return
@@ -191,7 +191,7 @@
 	var/datum/db_query/query_multi_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
-	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
+	"}, list("pollid" = poll.poll_id, "ckey" = get_account_ckey()))
 	if(!query_multi_get_votes.warn_execute())
 		qdel(query_multi_get_votes)
 		return
@@ -270,7 +270,7 @@
 			(SELECT id FROM [format_table_name(table)] WHERE ckey = :ckey AND pollid = :pollid AND deleted = 0 LIMIT 1)
 		FROM [format_table_name("poll_question")]
 		WHERE NOW() BETWEEN starttime AND endtime AND deleted = 0 AND id = :pollid
-	"}, list("ckey" = ckey, "pollid" = sql_poll_id))
+	"}, list("ckey" = get_account_ckey(), "pollid" = sql_poll_id))
 	if(!query_validate_poll_vote.warn_execute())
 		qdel(query_validate_poll_vote)
 		return
@@ -323,7 +323,7 @@
 		"vote_id" = vote_id,
 		"poll_id" = sql_poll_id,
 		"option_id" = option.option_id,
-		"ckey" = ckey,
+		"ckey" = get_account_ckey(),
 		"admin_rank" = admin_rank,
 	))
 	if(!query_vote_option.warn_execute())
@@ -353,7 +353,7 @@
 	"}, list(
 		"vote_id" = vote_id,
 		"poll_id" = sql_poll_id,
-		"ckey" = ckey,
+		"ckey" = get_account_ckey(),
 		"reply_text" = reply_text,
 		"admin_rank" = admin_rank,
 	))
@@ -377,7 +377,7 @@
 	var/datum/db_query/query_get_rating_votes = SSdbcore.NewQuery({"
 		SELECT id, optionid FROM [format_table_name("poll_vote")]
 		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
-	"}, list("pollid" = sql_poll_id, "ckey" = ckey))
+	"}, list("pollid" = sql_poll_id, "ckey" = get_account_ckey()))
 	if(!query_get_rating_votes.warn_execute())
 		qdel(query_get_rating_votes)
 		return
@@ -397,7 +397,7 @@
 			"id" = votes["[option.option_id]"],
 			"pollid" = sql_poll_id,
 			"optionid" = option.option_id,
-			"ckey" = ckey,
+			"ckey" = get_account_ckey(),
 			"adminrank" = admin_rank,
 			"rating" = href_list[h]
 		))
@@ -434,14 +434,14 @@
 		sql_votes += list(list(
 			"pollid" = sql_poll_id,
 			"optionid" = option.option_id,
-			"ckey" = ckey,
+			"ckey" = get_account_ckey(),
 			"adminrank" = admin_rank
 		))
 	/*with revoting and poll editing possible there can be an edge case where a poll is changed to allow less multiple choice options than a user has already voted on
 	rather than trying to calculate which options should be updated and which deleted, we just delete all of a user's votes and re-insert as needed*/
 	var/datum/db_query/query_delete_multi_votes = SSdbcore.NewQuery({"
 		UPDATE [format_table_name("poll_vote")] SET deleted = 1 WHERE pollid = :pollid AND ckey = :ckey
-	"}, list("pollid" = sql_poll_id, "ckey" = ckey))
+	"}, list("pollid" = sql_poll_id, "ckey" = get_account_ckey()))
 	if(!query_delete_multi_votes.warn_execute())
 		qdel(query_delete_multi_votes)
 		return

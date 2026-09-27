@@ -244,6 +244,24 @@
 	name = "statue of a security officer"
 	icon_state = "sec"
 
+/obj/structure/statue/silver/loharca
+	name = "statue of Angelina Loskutnikova"
+	desc = "Серебряная литая статуя, посвящённая офицеру службы безопасности Ангелине Лоскутниковой, которая несла вахту до последнего вздоха. Скульптор не забыл ничего: тренчкот, цветок в волосах и даже наколку \"B-R5RB\", спрятанную под левой линзой очков."
+	icon_state = "loharca"
+	gender = FEMALE
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/silver/loharca/get_ru_names()
+	return alist(
+		NOMINATIVE = "серебряная статуя Ангелины Лоскутниковой",
+		GENITIVE = "серебряной статуи Ангелины Лоскутниковой",
+		DATIVE = "серебряной статуе Ангелины Лоскутниковой",
+		ACCUSATIVE = "серебряную статую Ангелины Лоскутниковой",
+		INSTRUMENTAL = "серебряной статуей Ангелины Лоскутниковой",
+		PREPOSITIONAL = "серебряной статуе Ангелины Лоскутниковой",
+	)
+
 /obj/structure/statue/silver/secborg
 	name = "statue of a security cyborg"
 	icon_state = "secborg"

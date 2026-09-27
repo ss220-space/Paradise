@@ -183,7 +183,7 @@
 	if(!user || !user.mind)
 		return
 
-	if(user.mind in SSticker.mode.wizards)
+	if(iswizard(user))
 		if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
 			set_light_on(FALSE)
 		else

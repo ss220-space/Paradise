@@ -20,6 +20,7 @@
 	var/ai_announcement_sound
 	/// Color of security level
 	var/color
+	var/fire_alarm_light_color = LIGHT_COLOR_BLUEGREEN
 	/// The status display that will be posted to all status displays on security level set
 	var/status_display_mode = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME
 	/// The status display data that will be posted to all status displays on security level set
@@ -68,6 +69,7 @@
 	elevating_to_sound = 'sound/misc/notice1.ogg'
 	ai_announcement_sound = 'sound/AI/blue.ogg'
 	color = "dodgerblue"
+	fire_alarm_light_color = LIGHT_COLOR_ELECTRIC_CYAN
 	lowering_to_announcement_title = "Внимание! Уровень угрозы понижен до Синего."
 	lowering_to_announcement_text = "Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, но может по-прежнему держать его на виду. Выборочные обыски запрещены."
 	elevating_to_announcement_title = "Внимание! Уровень угрозы повышен до Синего."
@@ -86,6 +88,7 @@
 	elevating_to_sound = 'sound/misc/notice3.ogg'
 	ai_announcement_sound = 'sound/AI/red.ogg'
 	color = "red"
+	fire_alarm_light_color = LIGHT_COLOR_FLARE
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "redalert"
 	lowering_to_announcement_title = "Внимание! Код Красный!"
@@ -107,6 +110,7 @@
 	elevating_to_sound = 'sound/effects/new_siren.ogg'
 	ai_announcement_sound = 'sound/AI/gamma.ogg'
 	color = "gold"
+	fire_alarm_light_color = LIGHT_COLOR_ORANGE
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "gammaalert"
 	lowering_to_announcement_title = "Внимание! Активирован код Гамма!"
@@ -129,6 +133,7 @@
 	elevating_to_sound = 'sound/effects/purge_siren.ogg'
 	ai_announcement_sound = 'sound/AI/epsilon.ogg'
 	color = "blueviolet"
+	fire_alarm_light_color = LIGHT_COLOR_LAVENDER
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "epsilonalert"
 	lowering_to_announcement_title = "Внимание! Активирован код Эпсилон!"
@@ -152,6 +157,7 @@
 	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'
 	color = "orangered"
+	fire_alarm_light_color = LIGHT_COLOR_INTENSE_RED
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Внимание! Активирован код Дельта!"
@@ -164,6 +170,7 @@
 	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'
 	color = "orangered"
+	fire_alarm_light_color = LIGHT_COLOR_INTENSE_RED
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"

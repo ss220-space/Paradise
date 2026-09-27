@@ -56,7 +56,7 @@
 /obj/effect/mob_spawn/swarmer/create(mob/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
 	. = ..()
 	var/mob/mob = .
-	SSticker.mode.swarmers |= mob.mind
+	mob.mind.add_antag_datum(/datum/antagonist/swarmer)
 
 ////The Mob itself////
 

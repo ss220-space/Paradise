@@ -22,8 +22,9 @@
 	var/see_in_dark = 2
 	/// Level of invisibility the wearer can see (default SEE_INVISIBLE_LIVING).
 	var/invis_view = SEE_INVISIBLE_LIVING
-	/// Alpha value for lighting plane when worn (affects darkness rendering).
-	var/lighting_alpha
+	/// How much darkness to cut off while worn, on a 0-100 scale.
+	var/lighting_cutoff
+	var/list/color_cutoffs
 	/// List of examine extensions (e.g., medical HUD, science HUD).
 	var/examine_extensions = EXAMINE_HUD_NONE
 	/// List of color matrix to override client.color while worn (e.g., grayscale).
@@ -139,7 +140,7 @@
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(5, 15, 5)
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -196,7 +197,7 @@
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	color_cutoffs = list(10, 35, 10)
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/night/get_ru_names()
@@ -312,7 +313,7 @@
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	color_cutoffs = list(30, 5, 15)
 
 /obj/item/clothing/glasses/science/heart
 	name = "heart science glasses"
@@ -369,7 +370,7 @@
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	color_cutoffs = list(10, 25, 10)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -452,7 +453,7 @@
 	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
 	origin_tech = null
 	vision_flags = NONE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_FULLBRIGHT
 
 /obj/item/clothing/glasses/material/lighting/Initialize(mapload)
 	. = ..()
@@ -725,7 +726,7 @@
 	item_state = "thermal"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(25, 8, 5)
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -806,7 +807,7 @@
 	see_in_dark = 8
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	flags_cover = null
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	var/double_eye = FALSE

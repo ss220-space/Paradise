@@ -24,3 +24,6 @@
 
 ///Called when turf no longer blocks light from passing through
 #define COMSIG_TURF_NO_LONGER_BLOCK_LIGHT "turf_no_longer_block_light"
+
+///from base of /datum/thrownthing/proc/finalize(): (atom/movable/thrownthing)
+#define COMSIG_TURF_MOVABLE_THROW_LANDED "turf_movable_throw_landed"

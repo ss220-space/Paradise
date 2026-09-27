@@ -144,6 +144,7 @@
 				/// quick weaken bypasses eye protection but has no eye flash
 				target.Weaken(6 SECONDS)
 			if(target.flash_eyes(1, TRUE))
+				. = TRUE
 				target.AdjustConfused(power)
 				target.Stun(2 SECONDS)
 				target.visible_message(
@@ -169,9 +170,10 @@
 					ignored_mobs = user,
 				)
 				target.balloon_alert(user, "не удалось ослепить!")
-			return
+			return .
 
-	if(target.flash_eyes())
+	. = target.flash_eyes()
+	if(.)
 		target.AdjustConfused(power)
 
 /obj/item/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

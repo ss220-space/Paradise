@@ -52,7 +52,6 @@
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	var/isBroken = stat & BROKEN
 	///Function is used to actually set the overlays
@@ -77,7 +76,7 @@
 			pressure_light = "can-0"
 
 	. += mutable_appearance(canister_overlay_file, pressure_light)
-	underlays += emissive_appearance(canister_overlay_file, pressure_light, src)
+	. += emissive_appearance(canister_overlay_file, pressure_light, src)
 	update_window()
 
 /obj/machinery/portable_atmospherics/canister/update_greyscale()

@@ -369,6 +369,11 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			M.emote("scream")
 			update_flags |= M.adjustFireLoss(1.5, updating_health = FALSE)
 
+		if(IS_HERETIC(M) && !HAS_TRAIT(M, TRAIT_ALLOW_HERETIC_CASTING) && !HAS_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED))
+			ADD_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED, HOLYWATER_TRAIT)
+			to_chat(M, span_mansus("Святая вода туманит ваш разум, отрезая его от Обители! Вам нужен фокус, чтобы вновь дотянуться до её сил."))
+
+
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))

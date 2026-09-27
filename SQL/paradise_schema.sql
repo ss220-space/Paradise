@@ -666,6 +666,26 @@ CREATE TABLE `budget`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `referral`
+--
+DROP TABLE IF EXISTS `referral`;
+CREATE TABLE `referral`
+(
+	`referred_ckey` VARCHAR(32) NOT NULL,
+	`referrer_ckey` VARCHAR(32) NOT NULL,
+	`date` DATETIME DEFAULT now() NOT NULL,
+	`referred_ip` VARCHAR(18) NULL DEFAULT NULL,
+	`referred_computerid` VARCHAR(32) NULL DEFAULT NULL,
+	`referred_discord_id` VARCHAR(32) NULL DEFAULT NULL,
+	`rewarded` BOOLEAN DEFAULT false NOT NULL,
+	`reward_date` DATETIME NULL DEFAULT NULL,
+	`revoked` BOOLEAN DEFAULT false NOT NULL,
+	PRIMARY KEY (`referred_ckey`),
+	UNIQUE KEY `referred_discord_id` (`referred_discord_id`),
+	KEY `referrer_ckey` (`referrer_ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
 --	Table structure for table `poll_question`
 --
 DROP TABLE IF EXISTS `poll_question`;
@@ -793,4 +813,33 @@ CREATE TABLE `achievement_metadata` (
 	`achievement_name` VARCHAR(64) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 	`achievement_description` VARCHAR(512) COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
 	PRIMARY KEY (`achievement_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `launcher_link`
+--
+DROP TABLE IF EXISTS `launcher_link`;
+CREATE TABLE `launcher_link` (
+	`steamid64` BIGINT UNSIGNED NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`nickname` VARCHAR(32) NULL DEFAULT NULL,
+	`first_seen` DATETIME DEFAULT now() NOT NULL,
+	`last_seen` DATETIME DEFAULT now() NOT NULL,
+	PRIMARY KEY (`steamid64`),
+	KEY `ckey` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `launcher_link_request`
+--
+
+DROP TABLE IF EXISTS `launcher_link_request`;
+CREATE TABLE `launcher_link_request` (
+	`launcher_ckey` VARCHAR(32) NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`requested` DATETIME DEFAULT now() NOT NULL,
+	`resolved` DATETIME NULL DEFAULT NULL,
+	`approved` TINYINT(1) NULL DEFAULT NULL,
+	PRIMARY KEY (`launcher_ckey`, `ckey`),
+	KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

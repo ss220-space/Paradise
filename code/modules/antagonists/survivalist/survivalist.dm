@@ -1,4 +1,5 @@
 /datum/antagonist/survivalist
+	roundend_category = "Выживальщиками"
 	name = "Survivalist"
 	special_role = "survivalist"
 	antag_menu_name = "Выживальщик"

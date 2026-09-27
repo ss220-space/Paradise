@@ -45,6 +45,7 @@
 	for(var/datum/action/A as anything in actions)
 		A.Remove(user)
 	actions.Cut()
+	GLOB.camera_console_watchers -= user
 	if(user.client)
 		user.reset_perspective(null)
 		eyeobj.RemoveImages()
@@ -113,6 +114,7 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	GLOB.camera_console_watchers |= user
 	if(should_supress_view_changes)
 		user.client.view_size.supress()
 	// Who passes control like this god I hate static code

@@ -436,13 +436,7 @@
 		return
 
 	var/datum/disease/virus/advance/advance_virus = disease
-	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
-	var/random_symptom = null
-	if(virusology_skill_level > SKILL_LEVEL_BASIC)
-		var/list/random_symptoms = advance_virus.GenerateSymptoms(level_max = virusology_skill_level, count_of_symptoms = (2 + (virusology_skill_level-SKILL_LEVEL_BASIC)))
-		random_symptom = tgui_input_list(usr, "Выберите симптом для добавления", "Добавление симптома", random_symptoms)
-	else
-		random_symptom = safepick(advance_virus.GenerateSymptoms(level_max = virusology_skill_level))
+	var/random_symptom = safepick(advance_virus.GenerateSymptoms())
 
 	if(random_symptom)
 		advance_virus.AddSymptom(random_symptom)
@@ -456,12 +450,7 @@
 		return
 
 	var/datum/disease/virus/advance/advance_virus = disease
-	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
-	var/random_symptom = null
-	if(virusology_skill_level > SKILL_LEVEL_BASIC)
-		random_symptom = tgui_input_list(usr, "Выберите симптом для удаления", "Удаление симптома", advance_virus.symptoms)
-	else
-		random_symptom = safepick(advance_virus.symptoms)
+	var/random_symptom = safepick(advance_virus.symptoms)
 
 	if(random_symptom)
 		advance_virus.RemoveSymptom(random_symptom)

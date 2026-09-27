@@ -240,6 +240,16 @@
 		p++//for each letter p is increased to find where the next letter will be.
 	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
 
+/proc/unintelligize(phrase)
+	var/static/regex/word_boundaries = regex(@"\b[\S]+\b", "g")
+	var/list/rearranged = list()
+	while(word_boundaries.Find(phrase))
+		if(length(word_boundaries.match))
+			rearranged += word_boundaries.match
+
+	shuffle_inplace(rearranged)
+	return jointext(rearranged, " ")
+
 /proc/robostutter(n) //for robutts
 	var/te = html_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
@@ -458,7 +468,7 @@ GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && (M.stat == DEAD || HAS_TRAIT(M, TRAIT_SIXTHSENSE))) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			var/display = get_display_key(subject?.client)

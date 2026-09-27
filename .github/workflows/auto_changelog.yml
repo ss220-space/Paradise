@@ -8,6 +8,7 @@ on:
       - master220
 permissions:
   contents: write
+  pull-requests: write
 jobs:
   auto_changelog:
     runs-on: ubuntu-24.04
@@ -15,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-        with:
-          allow-unsafe-pr-checkout: true
 
       - name: Generate App Token
         id: app-token-generation
@@ -35,7 +34,7 @@ jobs:
           script: |
             const { processAutoChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/autoChangelog.js')
             await processAutoChangelog({ github, context })
-          github-token: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN }}
+          github-token: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN || github.token }}
 
       - name: "Check for CHANGELOG_DISCORD_WEBHOOK secret"
         id: check_changelog_discord_webhook

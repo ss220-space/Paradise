@@ -190,7 +190,7 @@
 
 /// Default fps for clients with "0" in prefs. -1 for synced with server.
 /datum/config_entry/number/clientfps
-	default = 40
+	default = 120
 
 /// use socket_talk to communicate with other processes
 /datum/config_entry/number/socket_talk
@@ -280,6 +280,7 @@
 		SPECIES_NUCLEATION,
 		SPECIES_PLASMAMAN,
 		SPECIES_SLIMEPERSON,
+		SPECIES_SWINE,
 		SPECIES_VOX,
 		SPECIES_WRYN,
 	)
@@ -436,6 +437,7 @@
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
 		ROLE_CHANGELING,
+		ROLE_HERETIC,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_single_antags_weights
@@ -446,6 +448,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
+		ROLE_HERETIC = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights
@@ -456,6 +459,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
+		ROLE_HERETIC = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_tripple_antags_weights
@@ -466,6 +470,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
+		ROLE_HERETIC = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_special_antags_weights
@@ -479,6 +484,7 @@
 		"thief" = 10,
 		"nothing" = 20,
 		"devil" = 10,
+		"heretic" = 10,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_mode_subtypes
@@ -499,6 +505,26 @@
 		ANTAG_DOUBLE = 4,
 		ANTAG_TRIPPLE = 2,
 	)
+
+/datum/config_entry/keyed_list/dynamic_ruleset_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list()
+
+/datum/config_entry/keyed_list/dynamic_ruleset_min_pop
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list()
+
+/datum/config_entry/keyed_list/dynamic_tier_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list()
+
+/datum/config_entry/keyed_list/dynamic_tier_min_pop
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list()
 
 //Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_lower
@@ -646,6 +672,8 @@
 //Needs attention
 /// Webhook URLs for the requests webhook
 /datum/config_entry/str_list/discord_requests_webhook_urls
+
+/datum/config_entry/str_list/discord_ooc_webhook_urls
 
 /// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
 /// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
@@ -822,6 +850,9 @@
 /datum/config_entry/flag/request_internet_sound
 	default = TRUE
 
+/datum/config_entry/flag/headphone_case_music
+	default = TRUE
+
 /// Comma separated list of url patterns players are allowed to request. Each entry is matched as a regex.
 /datum/config_entry/string/request_internet_allowed
 	protection = CONFIG_ENTRY_LOCKED
@@ -897,6 +928,19 @@
 /datum/config_entry/number/max_hub_pop
 	min_val = 0
 
+/datum/config_entry/string/launcher_api_url
+	default = null
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/launcher_api_secret
+	default = null
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/launcher_server_id
+	default = null
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/launcher_required
 /// allow votes to change map
 /datum/config_entry/flag/allow_vote_map
 	default = TRUE
@@ -906,3 +950,16 @@
 
 /datum/config_entry/flag/emojis
 	default = TRUE
+
+/datum/config_entry/flag/ntnet_enabled
+
+/datum/config_entry/flag/ntnet_interactive
+	default = TRUE
+
+/datum/config_entry/string/ntnet_api_url
+
+/datum/config_entry/string/ntnet_server_key
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/ntnet_editor_url
+	default = "https://ntnet.wiki-ss13.space"

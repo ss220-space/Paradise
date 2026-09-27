@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/antag_datum_type
 	/// Is antag hud need to see this team in orbit
 	var/need_antag_hud = TRUE
+	var/sets_round_result = FALSE
 
 /datum/team/New(list/starting_members)
 	..()

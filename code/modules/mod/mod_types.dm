@@ -687,3 +687,18 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 	. = ..()
 	new /obj/item/clothing/mask/gas/syndicate(bag)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+
+/obj/item/mod/control/pre_equipped/glitch
+	theme = /datum/mod_theme/glitch
+	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_modules = list(
+		/obj/item/mod/module/storage,
+		/obj/item/mod/module/magnetic_harness,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/flashlight,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/jump_jet,
+	)

@@ -258,6 +258,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /// Maximum number of characters in the description of the circuit
 #define MAX_CHAR_IN_DESC 200
+/// Maximum number of characters in the name of the circuit
+#define MAX_CHAR_IN_NAME 30
+/// Maximum length of an imported base64 circuit payload
+#define MAX_IMPORT_LENGTH 100000
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit(mob/living/user, obj/item/circuit)
 	if(!can_save_circuit(user, circuit))
@@ -314,89 +318,63 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	update_static_data_for_all_viewers()
 
-/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_import(mob/living/user, list/data)
-	if(isnull(data) || !islist(data))
-		return FALSE
-	var/static/list/required_keys = list("dupe_data", "name", "Icon", "IconState", "desc")
-	for(var/key in required_keys)
-		if(!LAZYACCESS(data, key))
-			return FALSE
-	return TRUE
-
-#define MAX_COMPONENT_COUNT 200
-
-/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/living/user, list/data)
-	if(!can_save_circuit_by_import(user, data))
-		tgui_alert(user, "Невозможно сохранить схему!", "Ошибка импорта")
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/user, list/data)
+	if(!istext(data["name"]) || !istext(data["desc"]))
+		tgui_alert(user, "Некорректный файл схемы!", "Ошибка импорта")
 		return
 
-	var/list/dupe_data = data["dupe_data"]
-	if(istext(dupe_data))
-		dupe_data = json_decode(dupe_data)
+	var/list/stats = list("count" = 0, "size" = 0)
+	var/is_whole_circuit = istext(data["dupe_data"])
+	var/list/dupe_data
 
-	if(!islist(dupe_data) || !islist(dupe_data["components"]) || length(dupe_data["components"]) > MAX_COMPONENT_COUNT)
-		tgui_alert(user, "Некорректный формат данных схемы или превышен лимит компонентов!", "Ошибка импорта")
+	if(is_whole_circuit)
+		dupe_data = sanitize_imported_circuit_data(safe_json_decode(data["dupe_data"]), stats)
+	else if(islist(data["dupe_data"]))
+		dupe_data = data["dupe_data"]
+		stats["size"] += /obj/item/circuit_component/module::circuit_size
+		if(!sanitize_imported_module_data(dupe_data, stats))
+			dupe_data = null
+
+	if(!dupe_data)
+		tgui_alert(user, "Некорректные данные схемы или превышен лимит компонентов!", "Ошибка импорта")
 		return
 
-	for(var/list/component_data as anything in scanned_designs)
-		if(component_data["name"] == data["name"])
-			to_chat(user, span_alert("Название занято!"))
+	var/design_name = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
+	if(!design_name)
+		balloon_alert(user, "требуется название!")
+		return
+
+	for(var/list/saved_design as anything in scanned_designs)
+		if(saved_design["name"] == design_name)
+			balloon_alert(user, "название занято!")
 			return
 
-	var/current_size = 0
+	var/list/design_materials = list(MAT_GLASS = stats["size"] * cost_per_component)
+	if(is_whole_circuit)
+		var/datum/design/integrated_circuit/circuit_design = new
+		for(var/material_type in circuit_design.materials)
+			design_materials[material_type] += circuit_design.materials[material_type]
 
-	for(var/component_data, value in dupe_data["components"])
-		var/list/comp = value
+	var/list/design = list(
+		"name" = design_name,
+		"desc" = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC) || "Схема, импортированная пользователем \"[user]\".",
+		"dupe_data" = is_whole_circuit ? json_encode(dupe_data) : dupe_data,
+		"integrated_circuit" = is_whole_circuit,
+		"materials" = design_materials,
+		"Icon" = is_whole_circuit ? /obj/item/integrated_circuit::icon : /obj/item/circuit_component/module::icon,
+		"IconState" = is_whole_circuit ? /obj/item/integrated_circuit::icon_state : /obj/item/circuit_component/module::icon_state,
+	)
 
-		if(!islist(comp))
-			if(!islist(component_data))
-				continue
-			comp = component_data
+	LAZYADD(scanned_designs, list(design))
 
-		var/path = text2path(comp["type"])
-		if(!path || !ispath(path, /obj/item/circuit_component))
-			to_chat(user, span_alert("Неккоректные данные JSON!"))
-			return
-
-		var/obj/item/circuit_component/component_type = path
-
-		current_size += initial(component_type.circuit_size)
-
-	var/materials = list(MAT_GLASS = current_size * cost_per_component)
-
-	if(data["integrated_circuit"])
-		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
-		for(var/material_type, value in circuit_design.materials)
-			materials[material_type] += value
-		qdel(circuit_design)
-
-	data["materials"] = materials
-
-	var/obj/item/integrated_circuit/circuit = new /obj/item/integrated_circuit
-	data["Icon"] = circuit.icon
-	data["IconState"] = circuit.icon_state
-	qdel(circuit)
-
-	if(!length(data))
-		return
-
-	if(!data["name"])
-		to_chat(user, span_alert("Требуется название!"))
-		return
-
-	LAZYADD(scanned_designs, list(data))
-
-	to_chat(user, "Схема сохранена")
+	balloon_alert(user, "схема импортирована")
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 	update_static_data_for_all_viewers()
 
-#undef MAX_COMPONENT_COUNT
-
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
-	addtimer(CALLBACK(src, PROC_REF(finish_module_print), design), 1.6 SECONDS * skill_duration_mod)
+	addtimer(CALLBACK(src, PROC_REF(finish_module_print), design), 1.6 SECONDS)
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/finish_module_print(list/design)
 	var/atom/movable/created_atom
@@ -430,11 +408,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	return new design.build_path(drop_location())
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/try_use_materials(list/design_materials)
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_mod)
-	return materials.use_amount(design_materials, efficiency_coeff * skill_mod)
-
-/// Maximum number of characters in the name of the circuit
-#define MAX_CHAR_IN_NAME 30
+	return materials.use_amount(design_materials, efficiency_coeff)
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
@@ -466,67 +440,46 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			update_static_data_for_all_viewers()
 
 		if("export")
-			var/mob/user = ui.user
-			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-			/*
 			var/design_id = text2num(params["designId"])
 
 			if(design_id < 1 || design_id > length(scanned_designs))
 				return TRUE
 
 			var/list/design = LAZYACCESS(scanned_designs, design_id)
-
-			var/list/data = list(
-				"dupe_data" = design["dupe_data"],
+			var/list/payload = list(
 				"name" = design["name"],
 				"desc" = design["desc"],
-				"integrated_circuit" = design["integrated_circuit"],
-				"Icon" = design["Icon"],
-				"IconState" = design["IconState"]
+				"dupe_data" = design["dupe_data"],
 			)
 
-			var/json_base64 = rustg_encode_base64(json_encode(data))
-
-			if(!json_base64)
-				tgui_alert(user, message = "Ошибка экспорта!", title = "Ошибка!")
-				return
-
-			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
-			*/
+			var/temp_file = file("data/CircuitExportTempFile")
+			fdel(temp_file)
+			WRITE_FILE(temp_file, rustg_encode_base64(json_encode(payload)))
+			DIRECT_OUTPUT(ui.user.client, ftp(temp_file, "[design["name"]].txt"))
 
 		if("import")
 			var/mob/user = ui.user
-			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-			/*
 			var/json_base64 = params["import"]
-			if(!json_base64)
+
+			if(!istext(json_base64))
 				return TRUE
 
-			json_base64 = replacetext(json_base64, "\n", "")
-			json_base64 = trim(json_base64)
-
-			var/decoded = rustg_decode_base64(json_base64)
-			if(!decoded)
-				tgui_alert(user, "Не удалось декодировать Base64!", "Ошибка импорта")
+			if(length(json_base64) > MAX_IMPORT_LENGTH)
+				tgui_alert(user, "Файл схемы слишком большой!", "Ошибка импорта")
 				return TRUE
 
-			var/list/data = json_decode(decoded)
+			var/list/data = safe_json_decode(rustg_decode_base64(trim(replacetext(json_base64, "\n", ""))))
 			if(!islist(data))
-				tgui_alert(user, "Некорректный формат JSON!", "Ошибка импорта")
+				tgui_alert(user, "Некорректный файл схемы!", "Ошибка импорта")
 				return TRUE
-
-			if(data["name"])
-				data["name"] = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
-			if(data["desc"])
-				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
 
 			save_circuit_by_import(user, data)
-			*/
 
 	return TRUE
 
 #undef MAX_CHAR_IN_NAME
 #undef MAX_CHAR_IN_DESC
+#undef MAX_IMPORT_LENGTH
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()

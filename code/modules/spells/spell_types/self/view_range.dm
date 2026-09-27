@@ -37,6 +37,9 @@
 		return FALSE
 	return ..()
 
+/datum/action/cooldown/spell/view_range/proc/get_view_ranges()
+	return view_ranges
+
 /datum/action/cooldown/spell/view_range/Grant(mob/grant_to)
 	. = ..()
 	RegisterSignal(grant_to, COMSIG_LIVING_DEATH, PROC_REF(make_view_normal))
@@ -46,7 +49,7 @@
 	if(!ismob(cast_on))
 		return
 	var/mob/user = cast_on
-	var/new_view = tgui_input_list(user, "Выберите увеличение области видимости:", "Видимость", view_ranges, "default")
+	var/new_view = tgui_input_list(user, "Выберите увеличение области видимости:", "Видимость", get_view_ranges(), "default")
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")

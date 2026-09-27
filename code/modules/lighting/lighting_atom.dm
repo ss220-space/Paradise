@@ -95,6 +95,9 @@
 
 /// Setter for the light range of this atom.
 /atom/proc/set_light_range(new_range)
+	if(new_range > MAXIMUM_LIGHT_RANGE)
+		stack_trace("[type] asked for a light range of [new_range], clamped to [MAXIMUM_LIGHT_RANGE].")
+		new_range = MAXIMUM_LIGHT_RANGE
 	if(new_range == light_range || light_flags & LIGHT_FROZEN)
 		return
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_RANGE, new_range) & COMPONENT_BLOCK_LIGHT_UPDATE)

@@ -4,12 +4,21 @@ GLOBAL_VAR_INIT(devs_ooc_colour, "#129c00")
 GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
+GLOBAL_VAR_INIT(discord_ooc_colour, "#7289DA")
+
+GLOBAL_LIST_INIT(ooc_allowed_links, list("discord.gg/nGDfQuScM7", "github.com/KINGDICE666", "boosty.to/king_dice"))
+
+/proc/has_allowed_ooc_link(msg)
+	for(var/allowed_link in GLOB.ooc_allowed_links)
+		if(findtext(msg, allowed_link))
+			return TRUE
+	return FALSE
 
 GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 	if(!mob)
 		return
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		to_chat(src, span_danger("Guests may not use OOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
@@ -20,7 +29,7 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
 			to_chat(usr, span_danger("OOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
-		if(check_mute(ckey, MUTE_OOC))
+		if(check_mute(account_ckey, MUTE_OOC))
 			to_chat(src, span_danger("You cannot use OOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
@@ -48,11 +57,13 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 			message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 			return
 		if(findtext(msg, "https://") || findtext(msg, "http://"))
-			if(!findtext(msg, "ss220.space"))
+			if(!has_allowed_ooc_link(msg))
 				to_chat(src, "<b>Advertising other sites is not allowed.</b>")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	GLOB.discord_manager.queue_ooc(holder?.fakekey || display_key(), emojisToDiscord(msg))
 
 	msg = handle_emojis(msg)
 
@@ -78,7 +89,7 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
-			var/display_name = key
+			var/display_name = display_key()
 			var/list/key_tags
 			var/key_prefix = ""
 			var/visible_unlock = prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
@@ -99,7 +110,7 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder && C.holder.rights & R_ADMIN)
-						display_name = "[holder.fakekey]/([key])"
+						display_name = "[holder.fakekey]/([display_key()])"
 					else
 						display_name = holder.fakekey
 
@@ -125,7 +136,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 
 	if(!mob)
 		return
-	if(is_guest_key(key))
+	if(!has_persistent_identity())
 		to_chat(src, span_danger("Guests may not use LOOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
@@ -136,7 +147,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
 			to_chat(usr, span_danger("LOOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
-		if(check_mute(ckey, MUTE_OOC))
+		if(check_mute(account_ckey, MUTE_OOC))
 			to_chat(src, span_danger("You cannot use LOOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
@@ -160,7 +171,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 			message_admins("[key_name_admin(src)] has attempted to advertise in LOOC: [msg]")
 			return
 		if(findtext(msg, "https://") || findtext(msg, "http://"))
-			if(!findtext(msg, "ss220.space"))
+			if(!has_allowed_ooc_link(msg))
 				to_chat(src, "<b>Advertising other sites is not allowed.</b>")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
@@ -174,7 +185,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_hearers_in_view(7, source)
 
-	var/display_name = key
+	var/display_name = display_key()
 	if(holder?.fakekey)
 		display_name = holder.fakekey
 	if(mob.stat != DEAD)

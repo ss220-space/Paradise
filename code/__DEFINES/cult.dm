@@ -8,7 +8,7 @@
 #define RUNE_COLOR_RED COLOR_RED
 #define RUNE_COLOR_SUMMON COLOR_VIBRANT_LIME
 
-#define is_sacrifice_target(A) SSticker.mode?.cult_objs.is_sac_target(A)
+#define is_sacrifice_target(A) (get_blood_cult_team()?.cult_objs.is_sac_target(A))
 
 // Blood magic
 /// Maximum number of spells with an empowering rune
@@ -53,6 +53,9 @@
 	/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/space/cult, /obj/item/clothing/suit/hooded/cultrobes/cult_shield, \
 	/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, /obj/item/clothing/glasses/hud/health/night/cultblind \
 )
+
+#define CURSED_BLADE_UNLOCKED "Cursed Blade"
+#define CRIMSON_MEDALLION_UNLOCKED "Crimson Medallion"
 
 // Cult objective status
 #define NARSIE_IS_ASLEEP 0

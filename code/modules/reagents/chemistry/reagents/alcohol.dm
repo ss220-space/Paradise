@@ -525,10 +525,30 @@
 	drink_name = "Удар Бипски"
 	drink_desc = "Тяжелый, горячий и крепкий. Как железный кулак ПРАВОСУДИЯ."
 	taste_description = "правосудия"
+	overdose_threshold = 40
+	var/datum/brain_trauma/special/beepsky/beepsky_hallucination
+
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_add(mob/living/carbon/human/user)
+	. = ..()
+	if(!iscarbon(user))
+		return
+	beepsky_hallucination = new
+	user.gain_trauma(beepsky_hallucination, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_delete(mob/living/carbon/human/user)
+	. = ..()
+	QDEL_NULL(beepsky_hallucination)
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	M.drop_from_hands()
 	return ..()
+
+/datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/M)
+	. = ..()
+	if(!iscarbon(M))
+		return
+	var/mob/living/carbon/drinker = M
+	drinker.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Ирландские Сливки"
@@ -1769,11 +1789,11 @@
 
 /datum/reagent/consumable/ethanol/light/on_mob_life(mob/living/M)
 	. = ..()
-	if(M.lighting_alpha < LIGHTING_PLANE_ALPHA_NV_TRAIT)
+	if(M.lighting_cutoff > LIGHTING_CUTOFF_REAL_LOW)
 		return
-	M.lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+	M.lighting_cutoff = LIGHTING_CUTOFF_REAL_LOW
 	if(volume < 0.4)
-		M.lighting_alpha = initial(M.lighting_alpha)
+		M.lighting_cutoff = initial(M.lighting_cutoff)
 
 /datum/reagent/consumable/ethanol/bees_knees
 	name = "Пчелиные Колени"

@@ -418,9 +418,9 @@
 		return
 
 
-	/*//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
-	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
-		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
+	/*//var/datum/action/cooldown/spell/mime/speak/mask/mask_spell = null
+	for(var/datum/action/cooldown/spell/mime/speak/spell in user.mind.spell_list)
+		if(istype(spell, /datum/action/cooldown/spell/mime/speak/mask))
 			//mask_spell = spell
 			continue
 		if(spell)
@@ -430,7 +430,7 @@
 	// 	mask_spell.action.enable_invisibility(FALSE)
 	// 	return
 
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)*/
+	user.mind.AddSpell(new /datum/action/cooldown/spell/mime/speak/mask)*/
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -439,7 +439,7 @@
 		return
 
 
-	/*var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+	/*var/datum/action/cooldown/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
 	if(!spell)
 		return
 
@@ -957,7 +957,7 @@
 	item_state = "ghostface_mask"
 	flags_inv = HIDEGLASSES
 	flags_cover = HIDENAME|MASKCOVERSMOUTH|MASKCOVERSEYES
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION, SPECIES_SWINE)
 
 /obj/item/clothing/mask/gas/ghostface/get_ru_names()
 	return alist(

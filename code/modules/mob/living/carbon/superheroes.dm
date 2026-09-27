@@ -11,7 +11,6 @@
 	equip(H)
 	fixflags(H)
 	assign_id(H)
-	H.mind.special_role = SPECIAL_ROLE_SUPER
 
 /datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
@@ -42,11 +41,11 @@
 	if(class == "Superhero")
 		W.assignment = "Superhero"
 		W.rank = "Superhero"
-		SSticker.mode.superheroes += H.mind
+		H.mind.add_antag_datum(/datum/antagonist/superhero)
 	else if(class == "Supervillain")
 		W.assignment = "Supervillain"
 		W.rank = "Supervillain"
-		SSticker.mode.supervillains += H.mind
+		H.mind.add_antag_datum(/datum/antagonist/superhero/supervillain)
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.update_label()
@@ -143,7 +142,7 @@
 	cast_range = 1
 
 /datum/action/cooldown/spell/pointed/recruit/can_cast_spell(feedback)
-	if(length(SSticker.mode.greyshirts) >= 3)
+	if(length(get_antag_minds(/datum/antagonist/greyshirt)) >= 3)
 		if(feedback)
 			to_chat(owner, span_warning("You have already recruited the maximum number of henchmen."))
 		return FALSE
@@ -202,10 +201,9 @@
 
 	recruiting = FALSE
 	to_chat(user, span_notice("You have recruited <b>[target]</b> as your henchman!"))
-	to_chat(target, span_deadsay("<b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b>"))
-	to_chat(target, span_deadsay("<b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes."))
-	to_chat(target, span_deadsay("You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts."))
-	SSticker.mode.greyshirts += target.mind
+	var/datum/antagonist/greyshirt/greyshirt_datum = new
+	greyshirt_datum.boss = user.mind
+	target.mind.add_antag_datum(greyshirt_datum)
 	target.set_species(/datum/species/human)
 	var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
 	if(head_organ)

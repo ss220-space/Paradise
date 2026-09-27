@@ -32,7 +32,7 @@
 		update_tint()
 	if(our_glasses.prescription)
 		update_nearsighted_effects()
-	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
+	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_view || !isnull(our_glasses.lighting_cutoff) || length(our_glasses.color_cutoffs))
 		update_sight()
 		update_client_colour()
 	if(our_glasses.flags_cover & GLASSESCOVERSEYES)
@@ -105,7 +105,7 @@
 		if(forced || hat.tint || initial(hat.tint))
 			update_tint()
 
-		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
+		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_cutoff) || length(hat.color_cutoffs))
 			update_sight()
 
 	if(forced || \
@@ -710,6 +710,8 @@
 	for(var/obj/item/thing as anything in get_equipped_items())
 		if(!(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
+	if(. > 0)
+		. *= dna.species.equipment_slowdown_mod
 
 /// Returns if the carbon is wearing shock proof gloves
 /mob/living/carbon/human/proc/wearing_shock_proof_gloves()

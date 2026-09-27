@@ -224,10 +224,16 @@
 
   var isStyleSheetLoaded = function (node, url) {
     var styleSheet = node.sheet;
-    if (styleSheet) {
-      return styleSheet.rules.length > 0;
+    if (!styleSheet) {
+      return false;
     }
-    return false;
+    try {
+      return styleSheet.rules.length > 0;
+    } catch (err) {
+      // Engines that treat the sheet as cross-origin refuse to expose its
+      // rules, which is not a loading failure.
+      return true;
+    }
   };
 
   var injectNode = function (node) {
@@ -301,7 +307,6 @@
       var node = document.createElement('link');
       node.type = 'text/css';
       node.rel = 'stylesheet';
-      node.crossOrigin = 'anonymous';
       node.href = url;
       // Temporarily set media to something inapplicable
       // to ensure it'll fetch without blocking render

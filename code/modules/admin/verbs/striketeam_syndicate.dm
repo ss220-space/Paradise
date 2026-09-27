@@ -72,16 +72,11 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 			new_syndicate_commando.internal = new_syndicate_commando.s_store
 			new_syndicate_commando.update_action_buttons_icon()
 
-			//So they don't forget their code or mission.
-			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code]")].")
-			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> [span_warning("[input]")].")
-
-			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении \"Синдиката\". \nВаша миссия: [span_userdanger("[input]")]"))
-			new_syndicate_commando.faction += "syndicate"
-			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-			opshud.join_hud(new_syndicate_commando.mind.current)
-			set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
+			var/datum/antagonist/ert/syndicate_commando/commando = new
+			commando.leader = is_leader
+			commando.mission = input
+			commando.nuke_code = nuke_code
+			new_syndicate_commando.mind.add_antag_datum(commando)
 			new_syndicate_commando.regenerate_icons()
 			is_leader = FALSE
 			syndicate_commando_number--
@@ -109,10 +104,7 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 	//Creates mind stuff.
 	new_syndicate_commando.mind_initialize()
 	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
-	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
-	new_syndicate_commando.mind.offstation_role = TRUE
 	new_syndicate_commando.change_voice()
-	SSticker.mode.sst |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	if(is_leader)
 		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team/officer)
 	else

@@ -64,23 +64,15 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<b>Командир Диверсантов</b>"] в подчинении \"Синдиката\". \nВаша миссия: <b>[input]</b>"))
-		to_chat(new_syndicate_infiltrator, span_notice("Вы оснащены имплантом аплинка, который поможет вам достичь ваших целей. ((активируйте его с помощью кнопки в левом верхнем углу экрана))"))
-		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, span_danger("Как лидер отряда, вы должны организовать его! Отдайте роль кому-нибудь другому, если вы не можете с ней справиться."))
-		else
-			to_chat(new_syndicate_infiltrator, span_danger("Лидер отряда: [team_leader]. Он отвечает за миссию!"))
+		var/datum/antagonist/ert/syndicate_commando/infiltrator/infiltrator = new
+		infiltrator.leader = syndicate_leader_selected
+		infiltrator.mission = input
+		infiltrator.team_leader = team_leader
+		new_syndicate_infiltrator.mind.add_antag_datum(infiltrator)
 		teamsize--
-		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
-		new_syndicate_infiltrator.mind.store_memory("<b>Миссия:</b> [input] ")
-		new_syndicate_infiltrator.mind.store_memory("<b>Лидер:</b> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник \"Синдиката\" ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
-		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-		opshud.join_hud(new_syndicate_infiltrator.mind.current)
-		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
 		if(!teamsize)
@@ -102,10 +94,7 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 
 	//Creates mind stuff.
 	new_syndicate_infiltrator.mind_initialize()
-	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
-	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
-	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
-	SSticker.mode.sit |= new_syndicate_infiltrator.mind //Adds them to extra antag list
+	new_syndicate_infiltrator.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_INFILTRATOR
 	new_syndicate_infiltrator.change_voice()
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator

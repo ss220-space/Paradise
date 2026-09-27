@@ -117,7 +117,6 @@
 
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
 	set_light_on(FALSE)
-	underlays.Cut()
 
 /obj/machinery/smartfridge/obj_break(damage_flag)
 	..()
@@ -134,7 +133,6 @@
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(panel_open)
 		. += "[icon_state]_panel"
 	if(stat & (BROKEN|NOPOWER))
@@ -151,7 +149,7 @@
 	if(icon_addon)
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
+		. += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
 	switch(length(contents))
@@ -507,7 +505,6 @@
 /obj/machinery/smartfridge/seeds/update_overlays()
 	. = list()
 
-	underlays.Cut()
 
 	if(panel_open)
 		. += "[base_icon_state]_panel"
@@ -519,10 +516,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += base_icon_state
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /**
  * # Refrigerated Medicine Storage
@@ -768,7 +765,6 @@
 
 /obj/machinery/smartfridge/disks/update_overlays()
 	. = list()
-	underlays.Cut()
 	if(panel_open)
 		. += "[base_icon_state]_panel"
 	if(stat & (BROKEN|NOPOWER))
@@ -777,7 +773,7 @@
 		return
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
+		. += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 /**
  * # Smart Virus Storage

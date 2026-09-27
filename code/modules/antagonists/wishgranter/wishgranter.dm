@@ -1,4 +1,5 @@
 /datum/antagonist/wishgranter
+	roundend_category = "Исполнителями желаний"
 	name = "Wishgranter Avatar"
 	special_role = "Avatar of the Wish Granter"
 	antag_menu_name = "Аватар исполнителя желаний"

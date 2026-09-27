@@ -399,7 +399,7 @@
 	if(client)
 		if(check_enlighten() && !enlighten_message_done)
 			enlighten_message_done = TRUE
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 			update_sight()
 			to_chat(src, span_boldnotice("Похоже поедание бананов не прошло даром, теперь все вокруг могут понимать Вашу речь!"))
 		if(throw_impact)
@@ -498,7 +498,7 @@
 	is_waiting = FALSE
 	enlighten_message_done = FALSE
 	bananas_eaten = 0
-	lighting_alpha = initial(lighting_alpha)
+	lighting_cutoff = initial(lighting_cutoff)
 	update_sight()
 	LAZYCLEARLIST(friend2bananas)
 	if(master)

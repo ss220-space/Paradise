@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Сигареты не выпадают изо рта, если не упасть на мокром тайле. (PR #9757)"

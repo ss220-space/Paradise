@@ -69,6 +69,9 @@
 	var/template = ""
 	var/update = PDA_APP_UPDATE
 	var/has_back = 0
+	var/fullscreen = FALSE
+	var/window_width = 0
+	var/window_height = 0
 
 /datum/data/pda/app/New()
 	if(!title)

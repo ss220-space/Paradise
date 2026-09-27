@@ -401,7 +401,7 @@
 	item_state = "engineer_envirohelm"
 	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(5, 15, 5)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/get_ru_names()
 	return alist(
@@ -456,7 +456,7 @@
 	item_state = "atmos_envirohelm"
 	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(5, 15, 5)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics/get_ru_names()
@@ -780,7 +780,7 @@
 	icon_state = "syndicatecentcomm_envirohelm"
 	item_state = "syndicatecentcomm_envirohelm"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(10, 25, 10)
 
 /obj/item/clothing/head/helmet/space/plasmaman/syndicate/get_ru_names()
 	return alist(

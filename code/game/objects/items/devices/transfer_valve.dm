@@ -189,6 +189,11 @@
 
 /obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
+		// Cosmic heretics (level-2 passive): a cosmic field nearby stops the tanks from merging (tg parity).
+		for(var/obj/effect/forcefield/cosmic_field/potential_field as anything in GLOB.active_cosmic_fields)
+			if(get_dist(potential_field, src) < 3)
+				new /obj/effect/temp_visual/revenant(get_turf(src))
+				return
 		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 

@@ -60,12 +60,15 @@
 
 	if(!occupant)
 		. += "grjam"
+		. += emissive_appearance(icon, "grjam", src)
 
 	else if(operating)
 		. +=  "gruse"
+		. += emissive_appearance(icon, "gruse", src)
 
 	else
 		. += "gridle"
+		. += emissive_appearance(icon, "gridle", src)
 
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)

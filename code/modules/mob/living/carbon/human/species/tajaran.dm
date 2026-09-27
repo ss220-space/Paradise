@@ -94,10 +94,6 @@
 	)
 	autohiss_exempt = list("Сик'таир")
 
-	max_select_skills = list(
-		/datum/skill/general/cooking = 1,
-		/datum/skill/medical/surgery = 1,
-	)
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

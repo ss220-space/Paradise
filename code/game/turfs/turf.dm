@@ -9,6 +9,10 @@
 	/// Turf bitflags, see code/__DEFINES/flags.dm
 	var/turf_flags = NONE
 
+	/// How resistant this turf is to a heretic's rust. A turf only rusts if the heretic's rust_strength
+	/// is at least this high (see rust_heretic_act in heretic rust_turf.dm).
+	var/rust_resistance = RUST_RESISTANCE_BASIC
+
 	var/intact = TRUE
 
 	/// Can you interact or see underfloor things. Can be HIDDEN, VISIBLE and INTERACTABLE

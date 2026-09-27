@@ -1,0 +1,28 @@
+.theme-headphones:root {
+  --headphones-color: hsl(96, 53.4%, 45.1%);
+
+  // Base
+  --color-base: hsl(220, 8.5%, 13.9%);
+  --color-primary: var(--headphones-color);
+  --base-gradient-spread: 4;
+  --border-radius-unit: 0.17;
+
+  // Components
+  --button-background-default: hsl(220, 6.5%, 25.1%);
+  --button-background-disabled: hsl(220, 5%, 17.6%);
+  --button-background-selected: hsl(96, 53.4%, 35.3%);
+  --button-background-caution: hsl(38, 90%, 45%);
+  --button-background-danger: hsl(0, 65%, 42%);
+  --input-border-color: hsl(96, 40%, 40%);
+  --notice-box-background: hsl(220, 6.5%, 25.1%);
+  --progress-bar-background: hsla(0, 0%, 0%, 0.5);
+  --section-border-color: hsl(220, 6.5%, 25.1%);
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .TitleBar {
+    background-color: hsl(220, 8.5%, 19.6%);
+  }
+}

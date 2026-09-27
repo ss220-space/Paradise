@@ -195,6 +195,14 @@
 	build_path = /obj/item/storage/fancy/rollingpapers
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_ORGANIC)
 
+/datum/design/strange_seeds
+	name = "Странные семена"
+	id = "strange_seeds"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 5000)
+	build_path = /obj/item/seeds/random
+	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_ORGANIC)
+
 /datum/design/rice_hat
 	name = "Рисовая шляпа"
 	id = "rice_hat"

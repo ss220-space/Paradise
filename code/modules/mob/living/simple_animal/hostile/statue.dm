@@ -38,7 +38,7 @@
 
 	search_objects = 1 // So that it can see through walls
 
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG

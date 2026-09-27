@@ -16,7 +16,7 @@
 	map_format = SIDE_MAP // If you want to destroy reality, remove this. (Caution: Also breaks Multi-Z)
 	hub = "Exadv1.spacestation13"
 	hub_password = "kMZy3U5jJHSiBQjr"
-	name = "SS1984"
+	name = "Dark Paradise"
 
 #ifdef FIND_REF_NO_CHECK_TICK
 	loop_checks = FALSE

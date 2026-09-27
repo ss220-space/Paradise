@@ -3,6 +3,9 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 /datum/discord_manager
 	/// Last time the administrator ping was dropped. This ensures administrators cannot be mass pinged if a large chunk of ahelps go off at once (IE: tesloose)
 	var/last_administration_ping = 0
+	var/list/ooc_buffer = list()
+	var/ooc_buffer_size = 0
+	var/ooc_flush_scheduled = FALSE
 
 /// This is designed for ease of simplicity for sending quick messages from parts of the code
 /datum/discord_manager/proc/send2discord_simple(destination, content)
@@ -18,6 +21,8 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 			webhook_urls = CONFIG_GET(str_list/discord_main_webhook_urls)
 		if(DISCORD_WEBHOOK_MENTOR)
 			webhook_urls = CONFIG_GET(str_list/discord_mentor_webhook_urls)
+		if(DISCORD_WEBHOOK_OOC)
+			webhook_urls = CONFIG_GET(str_list/discord_ooc_webhook_urls)
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = content
@@ -69,6 +74,33 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 	dwp.webhook_content = message
 	for(var/url in CONFIG_GET(str_list/discord_admin_webhook_urls))
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+
+/datum/discord_manager/proc/queue_ooc(display_name, message)
+	if(!CONFIG_GET(flag/discord_webhooks_enabled))
+		return
+	if(!length(CONFIG_GET(str_list/discord_ooc_webhook_urls)))
+		return
+
+	var/line = "**[display_name]**: [message]"
+	if(ooc_buffer_size + length(line) > DISCORD_OOC_BATCH_LIMIT)
+		flush_ooc()
+
+	ooc_buffer += line
+	ooc_buffer_size += length(line) + 1
+
+	if(!ooc_flush_scheduled)
+		ooc_flush_scheduled = TRUE
+		addtimer(CALLBACK(src, PROC_REF(flush_ooc)), DISCORD_OOC_FLUSH_TIME)
+
+/datum/discord_manager/proc/flush_ooc()
+	ooc_flush_scheduled = FALSE
+	if(!length(ooc_buffer))
+		return
+
+	var/content = jointext(ooc_buffer, "\n")
+	ooc_buffer.Cut()
+	ooc_buffer_size = 0
+	send2discord_simple(DISCORD_WEBHOOK_OOC, content)
 
 /// Helper to make administrator ping easier
 /datum/discord_manager/proc/handle_administrator_ping()

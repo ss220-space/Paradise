@@ -12,6 +12,11 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
+	// Additive heretic hook (tg's COMSIG_ATOM_PRE_BULLET_ACT): a listener may re-aim the projectile
+	// and deflect it entirely - returning -1 keeps the projectile alive (see void ascension storm).
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_TRY_DEFLECT_BULLET, P, def_zone) & COMPONENT_BULLET_DEFLECTED)
+		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected")
+		return -1
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
@@ -31,13 +36,9 @@ emp_act
 			return -1
 
 	//Shields
-	var/shield_check_result = check_shields(P, P.damage, "[P.declent_ru(ACCUSATIVE)]", PROJECTILE_ATTACK, P.armour_penetration)
-	if(shield_check_result == HIT_RESULT_SUCCESS)
+	if(check_shields(P, P.damage, "[P.declent_ru(ACCUSATIVE)]", PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
 		return 2
-	else if(shield_check_result == HIT_RESULT_REFLECY_BACK)
-		P.reflect_back(src)
-		return -1
 
 	if(mind?.martial_art?.can_reflect) //Some martial arts users can even reflect projectiles!
 		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
@@ -244,41 +245,33 @@ emp_act
 	return 0
 
 //End Here
+
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "атаку", attack_type = ITEM_ATTACK, armour_penetration = 0, shields_penetration = 0)
-	var/obj/item/shield = get_best_shield()
-
-	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
-	if(shield_result >= HIT_RESULT_SUCCESS)
-		return HIT_RESULT_SUCCESS
-
-	if(shield_result == HIT_RESULT_REFLECY_BACK)
-		return HIT_RESULT_REFLECY_BACK
-
-	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
-		return HIT_RESULT_SUCCESS
-
-	if(w_uniform && w_uniform.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
-		return HIT_RESULT_SUCCESS
-
-	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
-		return HIT_RESULT_SUCCESS
-
+	var/block_chance_modifier = round(damage / -3) - shields_penetration
+	var/is_crawling = (body_position == LYING_DOWN)
+	if(l_hand && !isclothing(l_hand))
+		var/final_block_chance = is_crawling ? 0 : l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
+		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
+	if(r_hand && !isclothing(r_hand))
+		var/final_block_chance = is_crawling ? 0 : r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
+		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
+	if(wear_suit)
+		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
+	if(neck)
+		var/final_block_chance = neck.block_chance - (clamp((armour_penetration-neck.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
+	if(w_uniform)
+		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
-		return HIT_RESULT_SUCCESS
-	return HIT_RESULT_FAILED
-
-/mob/living/carbon/human/proc/get_best_shield()
-	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
-	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
-	if(!right_hand_parry && !left_hand_parry)
-		return null // no parry component
-
-	if(right_hand_parry && left_hand_parry)
-		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
-			return left_hand_parry.parent
-		else
-			return right_hand_parry.parent
-	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/item, visible_message, self_message)
 	if(mind?.martial_art)
@@ -553,8 +546,8 @@ emp_act
 					)
 					apply_effect(4 SECONDS, KNOCKDOWN, armor)
 					AdjustConfused(30 SECONDS)
-				if(mind?.special_role == SPECIAL_ROLE_REV && prob(item.force + ((100 - health)/2)) && src != user && item.damtype == BRUTE)
-					SSticker.mode.remove_revolutionary(mind)
+					if(item.damtype == BRUTE && !item.get_sharpness() && prob(10))
+						gain_trauma(/datum/brain_trauma/mild/concussion)
 
 			if(bloody)//Apply blood
 				if(wear_mask)

@@ -522,6 +522,7 @@
 				/obj/item/clothing/under/rank/cargotech = 10,
 				/obj/item/clothing/under/rank/cargotech/skirt = 10,
 				/obj/item/clothing/under/rank/cargotech/alt = 5,
+				/obj/item/clothing/under/rank/bitrunner = 10,
 				/obj/item/clothing/under/rank/miner/lavaland = 10,
 				/obj/item/clothing/under/overalls = 10,
 				/obj/item/clothing/under/rank/miner/alt = 5,

@@ -124,6 +124,22 @@
 	/// GeoIPdata about a current client
 	var/datum/geoip_data/geoip = null
 
+	var/account_ckey
+	var/launcher_claimed_ckey
+	var/launcher_link_target
+	var/steam_id = null
+	var/launcher_nickname = null
+	var/launcher_state = LAUNCHER_UNLINKED
+
+	var/ntnet_code
+	var/ntnet_code_expires = 0
+	var/ntnet_login_pending = FALSE
+	var/ntnet_login_retry = 0
+	var/ntnet_login_request = 0
+	var/ntnet_login_error
+	var/ntnet_light_theme = FALSE
+	var/list/ntnet_viewer_tokens = list()
+
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
@@ -131,6 +147,7 @@
 	var/donator_level = 0
 	/// Hold flag about shown donate offer
 	var/donate_offer_text_shown = FALSE
+	COOLDOWN_DECLARE(referral_apply_cooldown)
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
@@ -294,7 +311,6 @@
 	///Which ambient sound this client is currently being provided.
 	var/current_ambient_sound
 
-	var/datum/ui_module/skills_select_win/skills_select_window
 
 	var/commandbar_thinking = FALSE
 	var/commandbar_typing = FALSE

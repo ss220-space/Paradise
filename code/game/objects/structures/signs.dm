@@ -29,9 +29,8 @@
 /obj/structure/sign/update_overlays()
 	. = ..()
 
-	underlays.Cut()
 	if(does_emissive)
-		underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+		. += emissive_appearance(icon, "[icon_state]_lightmask", src)
 	if(random_number)
 		add_overlay(mutable_appearance(icon, "_num[pick("0","1","2","3","4","5","6","7","8","9","10","inf")]"))
 

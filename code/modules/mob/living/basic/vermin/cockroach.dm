@@ -84,7 +84,7 @@
 
 /mob/living/basic/cockroach/glockroach/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
+	AddComponent(/datum/component/ranged_attacks, casing_type = /obj/item/ammo_casing/caseless/glockroach, projectile_sound = 'sound/weapons/gunshots/gunshot3.ogg', cooldown_time = 1 SECONDS)
 
 /datum/ai_controller/basic_controller/cockroach/glockroach
 	planning_subtrees = list(

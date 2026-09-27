@@ -125,7 +125,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	item_flags = ABSTRACT|DROPDEL
 
 /obj/item/clothing/glasses/shadowling/Initialize(mapload)

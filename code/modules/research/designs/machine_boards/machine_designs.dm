@@ -426,6 +426,46 @@
 	build_path = /obj/item/circuitboard/mining_equipment_vendor
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
+/datum/design/quantum_server
+	id = "quantum_server"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BLUESPACE = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 2000)
+	build_path = /obj/item/circuitboard/machine/quantum_server
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
+/datum/design/quantum_console
+	id = "quantum_console"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BLUESPACE = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/quantum_console
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+
+/datum/design/netpod
+	id = "netpod"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 2000)
+	build_path = /obj/item/circuitboard/machine/netpod
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
+/datum/design/byteforge
+	id = "byteforge"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_MATERIALS = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/byteforge
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
+/datum/design/bitrunner_orders
+	id = "bitrunner_orders"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/bitrunner_orders
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
+
 /datum/design/clawgame
 	id = "clawgame"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 1)

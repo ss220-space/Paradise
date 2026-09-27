@@ -743,7 +743,6 @@ class ChatRenderer {
     Byond.saveBlob(blob, `ss13-chatlog-${timestamp}.html`, '.html');
   }
 }
-
 // Make chat renderer global so that we can continue using the same
 // instance after hot code replacement.
 if (!window.__chatRenderer__) {

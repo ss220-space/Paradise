@@ -11,6 +11,7 @@
  */
 /datum/antagonist/contractor
 	name = "Contractor"
+	show_in_roundend = FALSE
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR

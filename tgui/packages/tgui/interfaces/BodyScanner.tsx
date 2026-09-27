@@ -29,7 +29,6 @@ const abnormalities = [
     'В лобной доле обнаружено крупное образование,' +
       ' возможно, злокачественное. Рекомендуется хирургическое удаление.',
   ],
-  ['hasVirus', 'bad', 'Обнаружен вирус в кровотоке пациента.'],
   ['blind', 'average', 'Обнаружена катаракта.'],
   ['colourblind', 'average', 'Обнаружены нарушения в работе фоторецепторов'],
   ['nearsighted', 'average', 'Обнаружено смещение сетчатки.'],
@@ -116,11 +115,20 @@ type Occupant = {
   blind: boolean;
   colourblind: boolean;
   nearsighted: boolean;
-  hasVirus: boolean;
+  diseases: Disease[];
+  traumas: string[];
   implant_len: number;
   implant: Implant[];
   extOrgan: ExternalOrgan[];
   intOrgan: InternalOrgan[];
+};
+
+type Disease = {
+  name: string;
+  form: string;
+  stage: number;
+  maxStages: number;
+  cure: string;
 };
 
 type Organ = { name: string; germ_level: number; maxHealth: number };
@@ -255,7 +263,8 @@ const BodyScannerMainAbnormalities = (props: BodyScannerProps) => {
       occupant.blind ||
       occupant.colourblind ||
       occupant.nearsighted ||
-      occupant.hasVirus
+      occupant.diseases.length ||
+      occupant.traumas.length
     )
   ) {
     return (
@@ -276,6 +285,17 @@ const BodyScannerMainAbnormalities = (props: BodyScannerProps) => {
           );
         } else return '';
       })}
+      {occupant.diseases.map((disease) => (
+        <Box key={disease.name} color="bad" bold>
+          Обнаружено заболевание — {disease.name} ({disease.form}), стадия{' '}
+          {disease.stage}/{disease.maxStages}. Лечение: {disease.cure}.
+        </Box>
+      ))}
+      {occupant.traumas.map((trauma) => (
+        <Box key={trauma} color="average">
+          Обнаружена психическая травма — {trauma}.
+        </Box>
+      ))}
     </Section>
   );
 };

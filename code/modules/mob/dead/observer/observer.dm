@@ -145,7 +145,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!client)
 		return
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
-	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	lighting_cutoff = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	lighting_color_cutoffs = null
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
@@ -304,7 +305,7 @@ GAME_VERB_DESC(/mob/living, ghost, "Призрак", "Relinquish your life and e
 /mob/dead/observer/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE, update_dir = TRUE)
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = ICON_SIZE_ALL, update_dir = TRUE)
 	// only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
 	if(update_dir)
 		setDir(direct)
@@ -686,7 +687,8 @@ GAME_VERB(/mob/dead/observer, view_manifest, "Манифест экипажа", 
 
 	client.set_eye(mob_eye)
 	sight = mob_eye.sight
-	lighting_alpha = mob_eye.lighting_alpha
+	lighting_cutoff = mob_eye.lighting_cutoff
+	lighting_color_cutoffs = mob_eye.lighting_color_cutoffs
 	update_sight()
 
 	client.clear_screen()
@@ -703,7 +705,8 @@ GAME_VERB(/mob/dead/observer, view_manifest, "Манифест экипажа", 
 	cleanup_observe()
 
 	hud_used?.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
-	lighting_alpha = client?.prefs.ghost_darkness_level
+	lighting_cutoff = client?.prefs.ghost_darkness_level
+	lighting_color_cutoffs = null
 	update_sight()
 
 	if(do_observe_target)
@@ -728,7 +731,8 @@ GAME_VERB(/mob/dead/observer, view_manifest, "Манифест экипажа", 
 
 	// idk why, but we need to hold '?' here, else this runtimes sometimes
 	sight = do_observe_target?.sight
-	lighting_alpha = do_observe_target?.lighting_alpha
+	lighting_cutoff = do_observe_target?.lighting_cutoff
+	lighting_color_cutoffs = do_observe_target?.lighting_color_cutoffs
 	update_sight()
 
 GAME_VERB_DESC(/mob/dead/observer, toggle_ghostsee, "Видимость призраков", "Toggles your ability to see things only ghosts can see, like other ghosts", VERB_CATEGORY_GHOST)
@@ -755,20 +759,14 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_selfsee, "Видимость себя"
 
 GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "Choose how much darkness you want to see.", VERB_CATEGORY_GHOST)
 
-	var/list/ghost_darkness_levels = list(
-		"Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
-		"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
-		"Ярче" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
-		"Полное освещение" = LIGHTING_PLANE_ALPHA_INVISIBLE,
-	)
-	var/desired_dark = tgui_input_list(usr, "Выберите, на сколько хорошо вы хотите видеть", "Выбор освещения", ghost_darkness_levels)
+	var/desired_dark = tgui_input_list(usr, "Выберите, на сколько хорошо вы хотите видеть", "Выбор освещения", GLOB.ghost_lightings)
 	if(isnull(desired_dark))
 		return
 	if(!client)
 		return
-	client.prefs.ghost_darkness_level = ghost_darkness_levels[desired_dark]
-	client.prefs.save_preferences(src)
-	lighting_alpha = client.prefs.ghost_darkness_level
+	client.prefs.ghost_darkness_level = GLOB.ghost_lightings[desired_dark]
+	client.prefs.save_preferences(client)
+	lighting_cutoff = client.prefs.ghost_darkness_level
 	update_sight()
 
 /mob/dead/observer/update_sight()

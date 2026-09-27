@@ -38,6 +38,10 @@
 		// message_admins(span_notice("Failed Login: [key] - Guests not allowed"))
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
+	if(is_launcher_ckey(ckey))
+		log_adminwarn("Failed Login: [key] [computer_id] [address] - Reserved launcher prefix")
+		return list("reason"="reserved prefix", "desc"="\nПричина: этот префикс ключа зарезервирован за учётными записями лаунчера.")
+
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
 	if(check_ipintel && CONFIG_GET(string/ipintel_email) && CONFIG_GET(flag/ipintel_whitelist) && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")

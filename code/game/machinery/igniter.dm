@@ -34,7 +34,7 @@
 	update_icon()
 
 	if(on)
-		set_light(1, 1, "#ff821c", TRUE)
+		set_light(1, 1, "#ff821c", l_on = TRUE)
 	else
 		set_light_on(FALSE)
 
@@ -46,9 +46,8 @@
 
 /obj/machinery/igniter/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(on)
-		underlays += emissive_appearance(icon, "igniter_lightmask", src)
+		. += emissive_appearance(icon, "igniter_lightmask", src)
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()? // AA 2022-08-02 - I guess it cant go anywhere else?
 	if(on && !(stat & NOPOWER))

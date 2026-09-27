@@ -66,7 +66,8 @@
 /datum/action/innate/clockwork/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker?.mode)
-		SSticker.mode.clocker_objs.study(usr, TRUE)
+	var/datum/team/clockwork_cult/clock_team = get_clockwork_cult_team()
+	if(clock_team)
+		clock_team.clocker_objs.study(usr, TRUE)
 	else
 		to_chat(usr, span_clockitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))

@@ -234,7 +234,7 @@
 	name = "блюспейс коробка"
 	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	gender = FEMALE
-	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	default_alpha = ALPHA_OPAQUE
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
 	return alist(

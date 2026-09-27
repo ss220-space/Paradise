@@ -1,0 +1,2408 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"af" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space/fullbright)
+"al" = (
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"au" = (
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space/fullbright)
+"bb" = (
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"bc" = (
+/turf/simulated/floor/beach/coast{
+	dir = 10
+	},
+/area/virtual_domain/fullbright)
+"be" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"by" = (
+/obj/structure/flora/tree/palm,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"bA" = (
+/obj/effect/turf_decal/weather/dirt,
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"bI" = (
+/obj/structure/table/wood,
+/obj/item/gun/energy/laser{
+	pixel_y = 7
+	},
+/obj/item/gun/energy/laser{
+	pixel_y = 2
+	},
+/obj/item/gun/energy/laser{
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"cr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"cC" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"cX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/melee/energy/sword/pirate,
+/obj/item/clothing/head/bandana{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/structure/table/wood,
+/obj/item/gun/energy/laser{
+	pixel_y = -3
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"db" = (
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"dc" = (
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"dN" = (
+/obj/machinery/door/airlock/vault{
+	color = "#825427";
+	name = "Ye Olde Strong Door"
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"eP" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/beach/coast{
+	dir = 6
+	},
+/area/virtual_domain/protected_space)
+"fd" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"fh" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"fk" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"fR" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"gc" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"gf" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"gu" = (
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/beach/coast,
+/area/virtual_domain/fullbright)
+"gx" = (
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"gD" = (
+/obj/item/flashlight/flare/torch,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"gK" = (
+/obj/structure/flora/ausbushes,
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"hb" = (
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/fullbright)
+"hq" = (
+/obj/structure/closet/crate,
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"hX" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"jp" = (
+/obj/effect/landmark/bitrunning/cache_spawn,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"jE" = (
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"jN" = (
+/obj/structure/flora/tree/jungle,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"kN" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"lF" = (
+/obj/structure/table/wood,
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 10
+	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 4
+	},
+/obj/item/lighter{
+	pixel_x = 10;
+	pixel_y = -8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"lK" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"mp" = (
+/turf/simulated/floor/beach/coast{
+	dir = 4
+	},
+/area/virtual_domain/fullbright)
+"nb" = (
+/obj/structure/fermenting_barrel{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/effect/mob_spawn/human/alive/virtual_domain/pirate,
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"nr" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"nN" = (
+/obj/structure/flora/rock,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space/fullbright)
+"nQ" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/virtual_domain/protected_space/fullbright)
+"oL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"oM" = (
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"pi" = (
+/obj/structure/flora/rock,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"ps" = (
+/obj/machinery/smartfridge/drying_rack,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"py" = (
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/protected_space/fullbright)
+"qk" = (
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"qE" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"qS" = (
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"ri" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"rm" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"rn" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/flare/torch{
+	pixel_y = 10;
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/cup/glass{
+	pixel_y = -16;
+	pixel_x = 12
+	},
+/obj/machinery/recharger{
+	pixel_y = 6;
+	pixel_x = -5
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"ru" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/toy/plushie/nianplushie/beeplushie,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"sj" = (
+/obj/effect/mine/explosive,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"td" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/bitrunning/cache_spawn,
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"tw" = (
+/obj/structure/bookcase/random/adult,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"tA" = (
+/turf/simulated/mineral,
+/area/virtual_domain/protected_space)
+"tH" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/head/pirate,
+/obj/item/clothing/suit/pirate_black,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"tQ" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"ub" = (
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"uk" = (
+/obj/structure/flora/rock{
+	pixel_x = 7
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"uH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/flashlight/flare/torch{
+	pixel_y = 10
+	},
+/obj/item/flashlight/flare/torch{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"wj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"wu" = (
+/obj/structure/flora/grass/jungle{
+	pixel_x = -15;
+	pixel_y = 9
+	},
+/obj/structure/flora/rock/pile/largejungle{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"wP" = (
+/obj/structure/railing{
+	color = "#4C3117";
+	name = "wooden railing"
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"xg" = (
+/turf/template_noop,
+/area/template_noop)
+"xp" = (
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"xG" = (
+/turf/simulated/floor/beach/coast,
+/area/virtual_domain/fullbright)
+"yF" = (
+/obj/effect/light_emitter{
+	light_power = 3;
+	light_range = 5
+	},
+/turf/simulated/floor/beach/coast,
+/area/virtual_domain/fullbright)
+"zc" = (
+/obj/item/gun/energy/laser{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"zj" = (
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"zk" = (
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 12;
+	pixel_x = -10
+	},
+/obj/item/gun/energy/laser/retro,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"zR" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"zU" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"zW" = (
+/obj/structure/flora/ausbushes{
+	pixel_y = 8
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = -10
+	},
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"AF" = (
+/obj/item/storage/bag/money{
+	pixel_y = 13
+	},
+/obj/structure/rack,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"AP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"Bu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed{
+	pixel_x = 2;
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"BU" = (
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"BV" = (
+/obj/structure/bonfire,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"BX" = (
+/obj/structure/flora/ausbushes{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Ci" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/virtual_domain/fullbright)
+"Cu" = (
+/obj/item/twohanded/required/kirbyplants{
+	pixel_x = -8
+	},
+/obj/structure/filingcabinet{
+	pixel_x = 11
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"CL" = (
+/obj/structure/flora/rock/pile/largejungle,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"DM" = (
+/turf/simulated/mineral,
+/area/virtual_domain/fullbright)
+"EL" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"ER" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"FP" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/jukebox,
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"Gg" = (
+/turf/simulated/floor/beach/coast/corner,
+/area/virtual_domain/fullbright)
+"Gl" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Hn" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/virtual_domain)
+"HO" = (
+/obj/structure/table/wood,
+/mob/living/simple_animal/parrot{
+	name = "pepper";
+	faction = list("pirate")
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"Ia" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"ID" = (
+/obj/effect/landmark/bitrunning/cache_spawn,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Jq" = (
+/obj/structure/bed{
+	pixel_x = -10;
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"Jx" = (
+/obj/item/bedsheet/rainbow,
+/obj/structure/bed,
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"JK" = (
+/obj/structure/flora/ausbushes{
+	pixel_y = 13;
+	pixel_x = -8
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"JP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"JX" = (
+/turf/simulated/floor/beach/coast/corner{
+	dir = 1
+	},
+/area/virtual_domain/fullbright)
+"Ko" = (
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"KP" = (
+/obj/effect/baseturf_helper/virtual_domain,
+/turf/simulated/wall/indestructible/binary,
+/area/virtual_domain/protected_space/fullbright)
+"KS" = (
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/landmark/bitrunning/cache_spawn,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"KU" = (
+/obj/effect/light_emitter{
+	light_power = 3;
+	light_range = 5
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"KV" = (
+/obj/structure/flora/rock/pile{
+	pixel_x = -15;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Li" = (
+/turf/simulated/mineral,
+/area/virtual_domain/protected_space/fullbright)
+"LC" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"LK" = (
+/obj/structure/fermenting_barrel{
+	pixel_x = -4;
+	pixel_y = 17
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"Mf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"MG" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"NB" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"NE" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"NN" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/virtual_domain/fullbright)
+"NP" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/virtual_domain/fullbright)
+"NU" = (
+/obj/structure/flora/grass/jungle{
+	pixel_x = -13;
+	pixel_y = 18
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Oi" = (
+/obj/effect/mob_spawn/human/corpse/pirate,
+/turf/simulated/floor/plating/asteroid,
+/area/virtual_domain/protected_space)
+"Ov" = (
+/turf/simulated/floor/beach/coast{
+	dir = 6
+	},
+/area/virtual_domain/fullbright)
+"Ox" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"PX" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"QU" = (
+/obj/effect/mob_spawn/human/corpse/pirate,
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/fullbright)
+"QX" = (
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/structure/closet/cabinet,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"RJ" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"ST" = (
+/obj/structure/bed{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"To" = (
+/obj/structure/bookcase/random/fiction,
+/turf/simulated/floor/wood,
+/area/virtual_domain)
+"TM" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/turf/simulated/floor/beach/water,
+/area/virtual_domain/protected_space)
+"Ul" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/virtual_domain)
+"VG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"Wu" = (
+/obj/structure/fermenting_barrel{
+	pixel_x = -4;
+	pixel_y = 17
+	},
+/obj/structure/fermenting_barrel{
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/cup/glass{
+	pixel_y = -10
+	},
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"Xn" = (
+/obj/modular_map_root/safehouse{
+	key = "wood"
+	},
+/turf/template_noop,
+/area/virtual_domain/safehouse)
+"Xx" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
+/area/virtual_domain/protected_space/fullbright)
+"XP" = (
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/virtual_domain/fullbright)
+"XW" = (
+/obj/effect/mob_spawn/human/corpse/pirate,
+/turf/simulated/floor/beach/coast{
+	dir = 8
+	},
+/area/virtual_domain/fullbright)
+"Yr" = (
+/obj/effect/mob_spawn/human/corpse/pirate,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"YJ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	desc = "Rum with ghostly properties that can help the drinker enter the spirit realm. It has fermented under the sea of space for ages.";
+	name = "Ghost Pirate Rum";
+	pixel_x = -4;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/virtual_domain)
+"Za" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/beach/sand,
+/area/virtual_domain/fullbright)
+"Zq" = (
+/obj/structure/railing{
+	color = "#4C3117";
+	name = "wooden railing"
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+"Zt" = (
+/obj/effect/decal/cleanable/ash{
+	pixel_y = -5;
+	pixel_x = 8
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/wood,
+/area/virtual_domain/fullbright)
+
+(1,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(2,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+hb
+hb
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(3,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(4,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(5,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+gK
+fk
+sj
+DM
+DM
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(6,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+DM
+DM
+DM
+jN
+fk
+zW
+qS
+dc
+dc
+dc
+DM
+DM
+hb
+hb
+fR
+py
+py
+py
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(7,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+hb
+DM
+DM
+DM
+DM
+fh
+al
+al
+dc
+dc
+dc
+by
+dc
+Yr
+DM
+hb
+hb
+DM
+Li
+Li
+Li
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(8,1,1) = {"
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+al
+al
+NN
+LC
+dc
+dc
+sj
+dc
+dc
+dc
+dc
+sj
+hb
+hb
+DM
+Li
+Li
+Li
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(9,1,1) = {"
+xg
+xg
+xg
+hb
+hb
+DM
+Ci
+Ci
+Ci
+Ci
+Wu
+MG
+MG
+dc
+dc
+Gg
+mp
+mp
+mp
+mp
+mp
+mp
+mp
+Ov
+xp
+xp
+au
+au
+au
+py
+py
+py
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(10,1,1) = {"
+xg
+xg
+xg
+hb
+DM
+Ci
+Ci
+Bu
+RJ
+wj
+bb
+dc
+MG
+dc
+Yr
+gu
+JK
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+NE
+au
+au
+au
+au
+au
+nQ
+py
+py
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(11,1,1) = {"
+xg
+xg
+hb
+hb
+DM
+Ci
+ru
+oL
+Jq
+zj
+bb
+dc
+dc
+hX
+dc
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+pi
+au
+au
+au
+au
+au
+nQ
+bI
+cr
+py
+py
+py
+py
+py
+py
+py
+KP
+"}
+(12,1,1) = {"
+xg
+xg
+hb
+DM
+DM
+Ci
+jp
+gf
+bb
+ST
+Za
+dc
+wP
+XP
+Gg
+Ov
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+nN
+nQ
+rn
+cr
+JP
+ub
+ub
+ub
+ub
+ub
+Xn
+py
+"}
+(13,1,1) = {"
+hb
+hb
+hb
+DM
+DM
+DM
+Za
+dc
+dc
+dc
+dc
+dc
+lK
+Zt
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+QU
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+nN
+nQ
+QX
+oM
+zk
+ub
+ub
+ub
+ub
+ub
+ub
+py
+"}
+(14,1,1) = {"
+hb
+Ul
+Ul
+Ul
+Ul
+Ul
+Hn
+ps
+dc
+dc
+dc
+dc
+Zq
+Ci
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+nQ
+nQ
+oM
+kN
+ub
+ub
+ub
+ub
+ub
+ub
+py
+"}
+(15,1,1) = {"
+hb
+Ul
+tw
+To
+AF
+tH
+Ul
+nr
+dc
+BV
+dc
+dc
+bb
+ER
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+kN
+ub
+ub
+ub
+ub
+ub
+ub
+py
+"}
+(16,1,1) = {"
+hb
+Ul
+Cu
+jE
+EL
+AP
+dN
+dc
+dc
+dc
+dc
+dc
+dc
+Ci
+xG
+xp
+xp
+xp
+xp
+uk
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ub
+ub
+ub
+ub
+ub
+ub
+py
+"}
+(17,1,1) = {"
+hb
+Ul
+YJ
+ri
+VG
+KS
+Ul
+dc
+dc
+gx
+gx
+dc
+dc
+dc
+xG
+xp
+xp
+xp
+xp
+pi
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ub
+ub
+ub
+ub
+ub
+ub
+py
+"}
+(18,1,1) = {"
+hb
+Ul
+qE
+Ox
+BU
+td
+Ul
+Ci
+nb
+Mf
+gx
+tQ
+dc
+by
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+kN
+au
+ub
+ub
+ub
+ub
+ub
+zR
+py
+"}
+(19,1,1) = {"
+hb
+Ul
+lF
+HO
+BU
+Jx
+Ul
+Ci
+uH
+gx
+gx
+tQ
+dc
+dc
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+nQ
+JP
+au
+au
+au
+au
+au
+au
+py
+py
+"}
+(20,1,1) = {"
+hb
+Ul
+Ul
+Ul
+Ul
+Ul
+Ul
+XP
+cX
+gx
+NP
+tQ
+dc
+dc
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+Ia
+cr
+Xx
+au
+au
+au
+au
+au
+py
+xg
+"}
+(21,1,1) = {"
+hb
+hb
+hb
+DM
+DM
+dc
+dc
+Ci
+Ci
+FP
+tQ
+tQ
+dc
+dc
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+af
+nQ
+LK
+JP
+au
+au
+au
+au
+au
+py
+xg
+"}
+(22,1,1) = {"
+xg
+xg
+hb
+DM
+DM
+dc
+dc
+dc
+Ci
+Ci
+dc
+dc
+dc
+dc
+xG
+xp
+xp
+xp
+xp
+xp
+xp
+pi
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+Ia
+cr
+af
+au
+au
+au
+au
+au
+py
+xg
+"}
+(23,1,1) = {"
+xg
+xg
+hb
+DM
+DM
+DM
+dc
+dc
+dc
+dc
+dc
+dc
+dc
+dc
+JX
+bc
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+Li
+Li
+py
+xg
+"}
+(24,1,1) = {"
+xg
+xg
+hb
+DM
+DM
+DM
+DM
+Ci
+dc
+zU
+dc
+dc
+dc
+dc
+dc
+JX
+XW
+bc
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+Li
+Li
+py
+xg
+"}
+(25,1,1) = {"
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+dc
+dc
+dc
+dc
+dc
+dc
+nr
+dc
+gD
+yF
+KU
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+Li
+Li
+Li
+py
+xg
+"}
+(26,1,1) = {"
+xg
+xg
+xg
+hb
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+tA
+tA
+eP
+db
+tA
+tA
+hb
+hb
+xp
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+au
+py
+Li
+Li
+Li
+Li
+py
+xg
+"}
+(27,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+tA
+fd
+TM
+tA
+DM
+DM
+hb
+hb
+xp
+xp
+au
+au
+au
+au
+au
+au
+au
+au
+py
+py
+Li
+Li
+Li
+py
+py
+xg
+"}
+(28,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+tA
+KV
+TM
+tA
+tA
+DM
+DM
+hb
+hb
+hb
+py
+au
+au
+au
+au
+au
+au
+py
+py
+py
+py
+py
+py
+py
+xg
+xg
+"}
+(29,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+hb
+hb
+hb
+DM
+DM
+DM
+DM
+tA
+qk
+NB
+db
+tA
+tA
+tA
+DM
+DM
+DM
+py
+py
+py
+py
+py
+py
+py
+py
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(30,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+DM
+tA
+Gl
+qk
+NB
+PX
+db
+tA
+tA
+tA
+tA
+DM
+hb
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(31,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+tA
+tA
+qk
+qk
+Oi
+TM
+db
+be
+gc
+tA
+tA
+DM
+hb
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(32,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+tA
+tA
+qk
+CL
+NB
+db
+bA
+qk
+rm
+tA
+tA
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(33,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+DM
+tA
+fd
+qk
+wu
+NB
+Ko
+BX
+qk
+rm
+tA
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(34,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+DM
+DM
+tA
+tA
+qk
+qk
+NU
+cC
+hq
+zc
+ID
+tA
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(35,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+DM
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(36,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}
+(37,1,1) = {"
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+hb
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+xg
+"}

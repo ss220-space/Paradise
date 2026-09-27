@@ -56,7 +56,10 @@
 		"name" = current_app.title,
 		"icon" = current_app.icon,
 		"template" = current_app.template,
-		"has_back" = current_app.has_back)
+		"has_back" = current_app.has_back,
+		"fullscreen" = current_app.fullscreen,
+		"window_width" = current_app.window_width,
+		"window_height" = current_app.window_height)
 
 	data["current_theme"] = current_theme || "nanotrasen"
 

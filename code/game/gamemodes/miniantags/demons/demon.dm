@@ -21,11 +21,10 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	nightvision = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_HIGH
 	del_on_death = TRUE
 	dirslash_enabled = TRUE
 	slowed_by_pull_and_push = FALSE
-	var/vialspawned = FALSE
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action
 
@@ -54,8 +53,6 @@
 	)
 
 /mob/living/simple_animal/demon/Destroy()
-	if(mind)
-		SSticker.mode.demons -= mind
 	if(whisper_action)
 		whisper_action = null
 	return ..()

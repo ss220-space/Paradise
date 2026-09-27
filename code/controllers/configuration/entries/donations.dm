@@ -8,12 +8,12 @@
 
 /datum/config_entry/string/boosty_url
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
-	default = "https://boosty.to/ss220"
+	default = "https://boosty.to/king_dice"
 
 /datum/config_entry/string/kofi_url
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
-	default = " https://ko-fi.com/ss220"
+	default = null
 
 /datum/config_entry/string/discord_url
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
-	default = "https://discord.com/channels/617003227182792704/952603671475155035/952696004367495188"
+	default = "https://discord.gg/nGDfQuScM7"

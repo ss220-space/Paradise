@@ -24,3 +24,6 @@
 #define INCLUDE_POCKETS (1<<0)
 #define INCLUDE_ACCESSORIES (1<<1)
 #define INCLUDE_HELD (1<<2)
+
+/// TRUE if a hand index is a left hand (odd indices are left in tg's hand model).
+#define IS_LEFT_INDEX(value) (value % 2 != 0)

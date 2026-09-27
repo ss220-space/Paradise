@@ -8,7 +8,7 @@
 	maxHealth = 300
 	health = 300
 	move_resist = MOVE_FORCE_STRONG
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
@@ -218,27 +218,7 @@
 	if(!..())
 		return
 
-	var/list/messages = list()
-	messages.Add(span_fontsize3(span_red("Вы — Теневой Демон.<br></b>")))
-	messages.Add("<b>Вы — ужасное существо из иного измерения. У вас две цели: выжить и поджидать неосторожную добычу.</b>")
-	messages.Add("<b>Вы можете использовать способность \"Теневой Путь\" рядом с тёмными участками, появляясь и исчезая на станции по своему желанию.</b>")
-	messages.Add("<b>Ваша способность \"Теневой Захват\" позволяет вам притягивать живую добычу или притягиваться к объектам. Также она гасит все источники света в зоне удара.</b>")
-	messages.Add("<b>Вы можете оборачивать мёртвые гуманоидные тела, атакуя их. Используйте Alt+ЛКМ на теневом коконе, чтобы заманить больше жертв.</b>")
-	messages.Add("<b>Вы быстро двигаетесь и восстанавливаетесь в тенях, но любой источник света причиняет вам боль и может убить. ДЕРЖИТЕСЬ ПОДАЛЬШЕ ОТ СВЕТА!</b>")
-	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Теневой Путь\" рядом с тёмным участком.</b>"))
-	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a></span>"))
-	SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-	if(vialspawned)
-		return
-
-	var/datum/objective/wrap/wrap_objective = new
-	var/datum/objective/survive/survive_objective = new
-	wrap_objective.owner = mind
-	survive_objective.owner = mind
-	mind.objectives += wrap_objective
-	mind.objectives += survive_objective
-	messages.Add(mind.prepare_announce_objectives())
-	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
+	mind.add_antag_datum(/datum/antagonist/demon/shadow)
 
 /datum/objective/wrap
 	name = "Обёртывание"

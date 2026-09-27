@@ -210,10 +210,6 @@
 /obj/machinery/station_map/security/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"RU" = (
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Tl" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -222,6 +218,10 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"VP" = (
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Xa" = (
@@ -2526,7 +2526,7 @@ ay
 ay
 ay
 jk
-RU
+VP
 HE
 HE
 HE

@@ -1,6 +1,6 @@
 GAME_VERB(/client, adminhelp, "Запрос помощи", ADMIN_CATEGORY_TICKETS)
 	//handle muting and automuting
-	if(check_mute(ckey, MUTE_ADMINHELP))
+	if(check_mute(account_ckey, MUTE_ADMINHELP))
 		to_chat(src, span_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 

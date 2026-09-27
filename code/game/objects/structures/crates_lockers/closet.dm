@@ -73,6 +73,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/storage_capacity = 30
 	/// Maximum number of mobs that can be scooped up when the closet is closed. If `null`, there is no limit.
 	var/mob_storage_capacity
+	var/store_large_structures = FALSE
 	/// Material type dropped when the closet is deconstructed.
 	var/material_drop = /obj/item/stack/sheet/metal
 	/// Amount of material dropped upon deconstruction.
@@ -317,6 +318,17 @@ GLOBAL_LIST_EMPTY(closets)
 			I.forceMove(src)
 			itemcount++
 
+	if(store_large_structures)
+		for(var/obj/structure/structure in loc)
+			if(itemcount >= storage_capacity)
+				break
+			if(iscloset(structure))
+				continue
+			if(structure.anchored || structure.has_buckled_mobs())
+				continue
+			structure.forceMove(src)
+			itemcount++
+
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
@@ -364,6 +376,8 @@ GLOBAL_LIST_EMPTY(closets)
 		return open(user)
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
 	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
@@ -446,9 +460,11 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!used.tool_use_check(user, 0))
 		return
 	if(opened)
+		if(resistance_flags & INDESTRUCTIBLE)
+			to_chat(user, span_warning("Вам не под силу разрезать [declent_ru(ACCUSATIVE)]!"))
+			return
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		if(used.use_tool(src, user, 4 SECONDS * construction_mod, volume = used.tool_volume))
+		if(used.use_tool(src, user, 4 SECONDS, volume = used.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 			return
@@ -461,8 +477,7 @@ GLOBAL_LIST_EMPTY(closets)
 			span_notice("You begin welding [src] [adjective]..."),
 			span_warning("You hear welding.")
 		)
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		if(used.use_tool(src, user, 1.5 SECONDS * construction_mod, volume = used.tool_volume))
+		if(used.use_tool(src, user, 1.5 SECONDS, volume = used.tool_volume))
 			if(opened)
 				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return

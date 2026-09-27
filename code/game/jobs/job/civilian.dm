@@ -19,12 +19,6 @@
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 	paycheck = PAYCHECK_MIN
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/outfit/job/assistant
 	name = JOB_TITLE_RU_CIVILIAN
@@ -43,6 +37,7 @@
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
+	job_flags = JOB_ANTAG_PROTECTED
 	flag = JOB_FLAG_PRISONER
 	total_positions = ROLE_PRISONERS_MAX_COUNT
 	spawn_positions = ROLE_PRISONERS_MAX_COUNT
@@ -54,7 +49,7 @@
 		ALT_JOB_TITLE_RU_ARRESTEE,
 		ALT_JOB_TITLE_RU_CONVICT,
 	)
-	outfit = /datum/outfit/job/assistant/prisoner
+	outfit = /datum/outfit/job/prisoner
 	insurance_type = INSURANCE_TYPE_NONE
 
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
@@ -79,7 +74,7 @@
 		. += ", [crime]"
 	. += "."
 
-/datum/outfit/job/assistant/prisoner
+/datum/outfit/job/prisoner
 	name = JOB_TITLE_RU_PRISONER
 	allow_loadout = FALSE
 	jobtype = /datum/job/civilian/prisoner

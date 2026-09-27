@@ -269,16 +269,23 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
 
-		var/found_disease = FALSE
-		for(var/thing in occupant.diseases)
-			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER)
+		var/list/diseaseData = list()
+		for(var/datum/disease/disease as anything in occupant.diseases)
+			if(disease.visibility_flags & HIDDEN_SCANNER)
 				continue
-			if(istype(D, /datum/disease/critical))
+			if(istype(disease, /datum/disease/critical))
 				continue
-			found_disease = TRUE
-			break
-		occupantData["hasVirus"] = found_disease
+			diseaseData += list(list(
+				"name" = disease.name,
+				"form" = disease.form,
+				"stage" = disease.stage,
+				"maxStages" = disease.max_stages,
+				"cure" = disease.cure_text,
+			))
+		occupantData["diseases"] = diseaseData
+
+		var/obj/item/organ/internal/brain/sponge = occupant.get_int_organ(/obj/item/organ/internal/brain)
+		occupantData["traumas"] = sponge ? sponge.get_trauma_scan_list() : list()
 
 		occupantData["bruteLoss"] = occupant.getBruteLoss()
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
@@ -441,15 +448,15 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 				t1 = "мертв[GEND_A_O_Y(occupant)]"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
-		var/found_disease = FALSE
-		for(var/thing in occupant.diseases)
-			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER)
+		for(var/datum/disease/disease as anything in occupant.diseases)
+			if(disease.visibility_flags & HIDDEN_SCANNER)
 				continue
-			found_disease = TRUE
-			break
-		if(found_disease)
-			dat += "<font color='red'>У пациента выявлено заболевание</font><br>"
+			dat += "<font color='red'>У пациента выявлено заболевание: [disease.name] ([disease.form]), стадия [disease.stage]/[disease.max_stages]. Лечение: [disease.cure_text]</font><br>"
+
+		var/obj/item/organ/internal/brain/sponge = occupant.get_int_organ(/obj/item/organ/internal/brain)
+		var/trauma_scan = sponge?.get_trauma_scan_data()
+		if(trauma_scan)
+			dat += "<font color='red'>[trauma_scan]</font><br>"
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")

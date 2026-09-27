@@ -1,0 +1,3 @@
+DEFINE_BITFIELD(ruleset_flags, list(
+	"RULESET_HIGH_IMPACT" = RULESET_HIGH_IMPACT,
+))

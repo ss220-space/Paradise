@@ -1,6 +1,6 @@
 /datum/antagonist/devil
 	name = "Devil"
-	roundend_category = "devils"
+	roundend_category = "Дьяволами"
 	antag_menu_name = "Дьявол"
 	job_rank = ROLE_DEVIL
 	special_role = ROLE_DEVIL
@@ -205,12 +205,6 @@
 	for(var/i in 1 to (TRUE_SACRIFICE + ASCEND_SACRIFICE - BLOOD_SACRIFICE))
 		var/datum/objective/devil/sacrifice/security/sacrifice = new
 		add_objective(sacrifice)
-
-/datum/antagonist/devil/add_owner_to_gamemode()
-	LAZYADD(SSticker.mode.devils, owner)
-
-/datum/antagonist/devil/remove_owner_from_gamemode()
-	LAZYREMOVE(SSticker.mode.devils, owner)
 
 /datum/antagonist/devil/farewell()
 	to_chat(owner.current, span_userdanger("Ваша связь с адом пропадает. Вы более не дьявол!"))

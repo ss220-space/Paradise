@@ -142,6 +142,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Flags, that used in breakout do_after
 	var/breakout_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
+	var/block_chance = 0
 	var/block_type = ALL
 	/// If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 	var/hit_reaction_chance = 0
@@ -327,11 +328,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		determine_move_resist()
 
 	add_eatable_component()
-	add_parry_component()
 	scatter_item()
-
-/obj/item/proc/add_parry_component()
-	return
 
 /obj/item/proc/add_eatable_component()
 	AddElement(/datum/element/eatable)
@@ -532,6 +529,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
+	// Mob-side relay (heretic rune drawing etc.). No-op for mobs without listeners.
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, modifiers, status)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -692,12 +691,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!block_type || !(block_type & attack_type))
 		final_block_chance = 0
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)
-	var/block_successful = (signal_result & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance)
-	if(block_successful)
+	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
+	if(signal_result != 0)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
-		return signal_result || block_successful
-	return HIT_RESULT_FAILED
+		return signal_result
+	return FALSE
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
@@ -786,6 +784,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Called when the giver gives it to the receiver.
  */
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	return
+
+/obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
 	return
 
 /**
@@ -1495,8 +1496,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(!HAS_TRAIT(attacker, TRAIT_MELEE_WEAPON))
 		return final_force
 
-	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
-	return final_force * skill_mod
+	return final_force
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()

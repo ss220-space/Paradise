@@ -50,6 +50,7 @@
 	var/obj/item/organ/internal/replaced = target.get_organ_slot(slot)
 
 	if(replaced)
+		SEND_SIGNAL(replaced, COMSIG_ORGAN_BEING_REPLACED, src)
 		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 
 	owner = target
