@@ -9,6 +9,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;biotech=1"
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/list/datum/autopsy_data_scanner/wdata
 	var/list/chemtraces
 	var/target_UID = null

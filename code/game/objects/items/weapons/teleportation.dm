@@ -13,6 +13,9 @@
 	origin_tech = "magnets=3;bluespace=4"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/icon_state_inactive = "hand_tele_inactive"
 	var/active_portals = 0
 	/// Variable contains next time hand tele can be used to make it not EMP proof

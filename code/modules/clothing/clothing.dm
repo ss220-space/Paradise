@@ -369,6 +369,8 @@
 	attack_verb = list("на дуэль вызвал")
 	clothing_flags = FINGERS_COVERED
 	abstract_type = /obj/item/clothing/gloves
+	pickup_sound = 'sound/items/handling/glove_pick_up.ogg'
+	drop_sound = 'sound/items/handling/glove_drop.ogg'
 	var/transfer_prints = FALSE
 	var/pickpocket = FALSE //Master pickpocket?
 	var/clipped = FALSE
@@ -743,13 +745,15 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 	desc = "Comfortable-looking shoes."
 	abstract_type = /obj/item/clothing/shoes
 	gender = PLURAL //Carn: for grammatically correct text-parsing
+	sound_vary = TRUE
+	equip_sound = 'sound/items/equip/sneakers_equip1.ogg'
 	//var/chained = 0
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
-	pickup_sound = 'sound/items/handling/pickup/shoes_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/shoes_drop.ogg'
+	pickup_sound = 'sound/items/handling/shoes/sneakers_pickup1.ogg'
+	drop_sound = 'sound/items/handling/shoes/sneakers_drop1.ogg'
 
 	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY

@@ -17,6 +17,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 	interaction_flags_mouse_drop = ALLOW_RESTING | ALLOW_PAI | NEED_HANDS
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.

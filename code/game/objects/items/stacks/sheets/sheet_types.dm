@@ -252,6 +252,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
+	pickup_sound = 'sound/items/handling/materials/wood_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/wood_drop.ogg'
 
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -329,8 +331,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cloth
-	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
+	drop_sound = SFX_CLOTH_DROP
+	pickup_sound = SFX_CLOTH_PICKUP
 
 /obj/item/stack/sheet/cloth/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -361,7 +363,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
+	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -379,6 +381,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton
+	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	var/pull_effort = 30
 	var/loom_result = /obj/item/stack/sheet/cloth
 
@@ -425,6 +429,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	item_state = "sheet-card"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
+	pickup_sound = 'sound/items/handling/materials/cardboard_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/cardboard_drop.ogg'
 
 /obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -684,6 +690,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	desc = "Кто-то выпил их молоко."
 	force = 7
 	origin_tech = "materials=2;biotech=2"
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/bone/get_ru_names()
 	return alist(
@@ -708,6 +716,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	throw_range = 7
 	throwforce = 15
 	origin_tech = "materials=4;biotech=5"
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/razor_sharp_teeth/get_ru_names()
 	return alist(
@@ -809,6 +819,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
+	pickup_sound = 'sound/items/handling/materials/plastic_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/plastic_drop.ogg'
 
 /obj/item/stack/sheet/plastic/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -843,6 +855,8 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -865,6 +879,8 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 	max_amount = 15
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cheese
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/cheese/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -887,6 +903,8 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	force = 1
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/gingerbread
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/gingerbread/five
 	amount = 5

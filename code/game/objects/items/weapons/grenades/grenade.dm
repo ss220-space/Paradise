@@ -13,6 +13,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/grenade/grenade_pick_up.ogg'
+	drop_sound = 'sound/items/handling/grenade/grenade_drop.ogg'
 	/// Will it detonate soon?
 	var/active = FALSE
 	/// Time between activation and detonation

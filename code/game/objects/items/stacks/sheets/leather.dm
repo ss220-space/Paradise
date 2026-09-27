@@ -2,6 +2,8 @@
 	name = "hide"
 	desc = "Something went wrong."
 	origin_tech = "biotech=3"
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 
 /obj/item/stack/sheet/animalhide/human
 	name = "human skin"
@@ -100,6 +102,8 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 	origin_tech = ""
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/xenos_claw
 	name = "alien claw"
@@ -121,6 +125,8 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
 	origin_tech = ""
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 
 /obj/item/stack/sheet/hairlesshide/get_ru_names()
 	return alist(
@@ -139,6 +145,8 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	icon_state = "sheet-wetleather"
 	origin_tech = ""
 	cares_about_temperature = TRUE
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
@@ -158,6 +166,8 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
 	origin_tech = "materials=2"
+	pickup_sound = 'sound/items/handling/materials/skin_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/skin_drop.ogg'
 
 /obj/item/stack/sheet/leather/get_ru_names()
 	return alist(
@@ -197,6 +207,8 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	origin_tech = "biotech=4"
+	pickup_sound = 'sound/effects/meatslap.ogg'
+	drop_sound = 'sound/effects/meatslap.ogg'
 
 /obj/item/stack/sheet/sinew/get_ru_names()
 	return alist(
@@ -343,6 +355,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	singular_name = "cartilage plate"
 	item_flags = NOBLUDGEON
 	layer = MOB_LAYER
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/stack/sheet/cartilage_plate/get_ru_names()
 	return alist(

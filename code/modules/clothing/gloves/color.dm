@@ -11,6 +11,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 /obj/item/clothing/gloves/color/yellow/get_ru_names()
 	return alist(
@@ -279,6 +280,7 @@
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	clothing_traits = list(TRAIT_QUICK_CARRY)
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 /obj/item/clothing/gloves/color/latex/get_ru_names()
 	return alist(

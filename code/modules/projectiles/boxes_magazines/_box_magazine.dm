@@ -331,6 +331,8 @@
 	gender = MALE
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
+	pickup_sound = 'sound/items/handling/gun/ballistics/magazine/magazine_pickup1.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/magazine/magazine_drop1.ogg'
 	/// Name of the gun this magazine is for.
 	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
 	var/gun_name = ""

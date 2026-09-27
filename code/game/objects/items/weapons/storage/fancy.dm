@@ -240,6 +240,10 @@
 		/obj/item/lighter/zippo,
 	)
 	icon_type = "cigarette"
+	sound_vary = TRUE
+	pickup_sound = SFX_CIG_PACK_PICKUP
+	drop_sound = SFX_CIG_PACK_DROP
+	throw_drop_sound = SFX_CIG_PACK_THROW_DROP
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
 	var/static/list/cigpack_diseases = list(
 		"недоношенность", "онкозаболевания", "пародонтоз",

@@ -17,11 +17,12 @@
 	item_state = "medkit"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
-	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/medkit/medkit_drop.ogg'
+	pickup_sound = 'sound/items/handling/medkit/medkit_pick_up.ogg'
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
 	throw_range = 8
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
+	sound_vary = TRUE
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
@@ -605,8 +606,8 @@
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
 	use_sound = SFX_PILLBOTTLE
-	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
+	pickup_sound = 'sound/items/handling/pill_bottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/pill_bottle_place.ogg'
 	interaction_flags_mouse_drop = NEED_HANDS
 	var/base_name = ""
 	var/label_text = ""

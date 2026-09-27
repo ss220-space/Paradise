@@ -25,6 +25,8 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	full_window = /obj/structure/window/full/basic
 	merge_type = /obj/item/stack/sheet/glass
 	point_value = 1
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -98,6 +100,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	full_window = /obj/structure/window/full/reinforced
 	merge_type = /obj/item/stack/sheet/rglass
 	point_value = 4
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/rglass/fifty
 	amount = 50
@@ -147,6 +151,8 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	created_window = /obj/structure/window/plasmabasic
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
@@ -195,6 +201,8 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	created_window = /obj/structure/window/plasmareinforced
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/plasmarglass/fifty
 	amount = 50
@@ -220,6 +228,8 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/titaniumglass/fifty
 	amount = 50
@@ -245,6 +255,8 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/plastitanium
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/plastitaniumglass/fifty
 	amount = 50
@@ -271,6 +283,8 @@ GLOBAL_LIST_INIT(alglass_recipes, list (
 	resistance_flags = ACID_PROOF
 	created_window = /obj/structure/window/abductor
 	full_window = /obj/structure/window/full/abductor
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/abductorglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

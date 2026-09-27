@@ -21,6 +21,8 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	fire_delay = 1 SECONDS
+	pickup_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_pickup1.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_drop1.ogg'
 	/// Sound for pump action
 	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
 	/// Available reload animation (pump action animation)

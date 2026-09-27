@@ -4,6 +4,10 @@
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
+	sound_vary = TRUE
+	pickup_sound = SFX_HARD_HAT_PICKUP
+	drop_sound = SFX_HARD_HAT_DROP
+	equip_sound = SFX_HARD_HAT_EQUIP
 	var/on = FALSE
 	light_on = FALSE
 	light_range = 4

@@ -4,6 +4,9 @@
 	icon_state = "headphones0"
 	item_state = "headphones0"
 	actions_types = list(/datum/action/item_action/change_headphones_song)
+	equip_sound = SFX_HEADSET_EQUIP
+	pickup_sound = SFX_HEADSET_PICKUP
+	drop_sound = 'sound/items/handling/headset/headset_drop1.ogg'
 	var/datum/song/headphones/song
 	var/on = FALSE
 

@@ -99,10 +99,11 @@
 	gender = PLURAL
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	sound_vary = TRUE
 	var/rating = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	abstract_type = /obj/item/stock_parts
 
 /obj/item/stock_parts/Initialize(mapload)

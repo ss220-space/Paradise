@@ -100,6 +100,9 @@
 	force = 1
 	attack_verb = list("шлёпнул", "унизил", "ударил")
 	hitsound = 'sound/effects/snap.ogg'
+	sound_vary = TRUE
+	pickup_sound = SFX_FISH_PICKUP
+	drop_sound = 'sound/mobs/non-humanoids/fish/fish_drop1.ogg'
 
 /obj/item/fish/glofish
 	name = "glofish"

@@ -5,6 +5,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/on = FALSE
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL

@@ -20,6 +20,9 @@
 	light_range = 4
 	light_on = FALSE
 	toolbox_radial_menu_compatibility = TRUE
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	/// Should the flashlight start turned on?
 	var/on = FALSE
 	/// The sound the light makes when it's turned on/off

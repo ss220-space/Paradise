@@ -10,10 +10,11 @@
 	gender = FEMALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
+	drop_sound = 'sound/items/handling/id_card/id_card_drop1.ogg'
+	pickup_sound = 'sound/items/handling/id_card/id_card_pickup1.ogg'
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
+	sound_vary = TRUE
 	var/associated_account_number = 0
 	var/list/files = list()
 

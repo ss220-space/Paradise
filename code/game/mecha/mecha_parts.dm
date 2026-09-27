@@ -9,6 +9,9 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 
 /obj/item/mecha_parts/chassis
 	name="Mecha Chassis"

@@ -16,6 +16,9 @@
 	breakout_time = 2 MINUTES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	custom_price = PAYCHECK_MIN * 1.2
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/handcuffs/handcuffs_pick_up.ogg'
+	drop_sound = 'sound/items/handling/handcuffs/handcuffs_drop.ogg'
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	/// If TRUE, these cuffs are disposable
 	var/trashtype = null
@@ -151,6 +154,8 @@
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 	custom_price = PAYCHECK_MIN
 	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/restraints/handcuffs/cable/get_ru_names()
 	return alist(

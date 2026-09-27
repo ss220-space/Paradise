@@ -12,6 +12,8 @@
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = NOBLUDGEON
+	pickup_sound = 'sound/items/door_remote/door_remote_pick_up1.ogg'
+	drop_sound = 'sound/items/door_remote/door_remote_drop1.ogg'
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()

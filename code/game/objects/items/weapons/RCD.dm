@@ -18,6 +18,9 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	toolbox_radial_menu_compatibility = TRUE
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/tools/rcd_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/rcd_drop.ogg'
 
 	//RCD for the borgs or not?
 	// If this is a borg RCD we use power instead of matter

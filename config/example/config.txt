@@ -432,8 +432,8 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ## Example valid values: "0-3" or "1,4-7"
 #FFMPEG_CPUAFFINITY 0-3
 
-## Enable animations on item pickup and drop down
-# ITEM_ANIMATIONS_ENABLED
+## Animations on item pickup and drop down. Set to 0 to disable
+# ITEM_ANIMATIONS_ENABLED 0
 
 ## If the number of players is more or same than this, then we apply the highpop jobs config.
 JOBS_HIGH_POP_MODE_AMOUNT 80

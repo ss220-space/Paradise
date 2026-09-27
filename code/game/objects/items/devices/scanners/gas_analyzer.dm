@@ -17,6 +17,8 @@
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	origin_tech = "magnets=1;engineering=1"
 	tool_behaviour = TOOL_ANALYZER
+	pickup_sound = 'sound/items/handling/gas_analyzer/gas_analyzer_pickup.ogg'
+	drop_sound = 'sound/items/handling/gas_analyzer/gas_analyzer_drop.ogg'
 	/// Boolean whether this has a CD
 	var/cooldown = FALSE
 	/// The time in deciseconds

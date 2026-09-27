@@ -2,10 +2,12 @@
 	name = "radio headset"
 	desc = "Радиочастотная гарнитура общего назначения, использующая телекоммуникационные системы \
 			для поддержания двусторонней связи по основной частоте объекта."
+	pickup_sound = SFX_HEADSET_PICKUP
+	drop_sound = 'sound/items/handling/headset/headset_drop1.ogg'
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
+	equip_sound = SFX_HEADSET_EQUIP
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
