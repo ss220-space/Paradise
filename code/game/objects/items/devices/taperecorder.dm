@@ -8,8 +8,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 60, MAT_GLASS = 30)
 	force = 2
-	drop_sound = 'sound/items/handling/drop/taperecorder_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/taperecorder_pickup.ogg'
+	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	tts_seed = "Xenia"
 	/// If its currently recording.
 	var/recording = FALSE
@@ -365,8 +365,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 20, MAT_GLASS = 5)
 	force = 1
-	drop_sound = 'sound/items/handling/drop/tape_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_drop.ogg'
+	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	var/max_capacity = 600
 	var/used_capacity = 0
 	var/remaining_capacity = 600

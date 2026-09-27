@@ -9,6 +9,7 @@ const DEFAULT_MODELS = [
   "qwen/qwen3.8-27b:free",
 ];
 const AI_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+const MODEL_TIMEOUT_MS = 3 * 60 * 1000;
 const DIFF_BUDGET = 60000;
 const FILE_PATCH_LIMIT = 8000;
 const SECTION_WHAT = "Что этот ПР делает";
@@ -176,7 +177,7 @@ ${diff}`;
   ];
 }
 
-async function generate(messages) {
+async function requestModel(model, messages) {
   const response = await fetch(AI_ENDPOINT, {
     method: "POST",
     headers: {
@@ -185,11 +186,13 @@ async function generate(messages) {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      ...(process.env.AI_MODEL ? { model: process.env.AI_MODEL } : { models: DEFAULT_MODELS }),
+      model,
       messages,
       temperature: 0.2,
+      reasoning: { effort: "low" },
       response_format: { type: "json_object" },
     }),
+    signal: AbortSignal.timeout(MODEL_TIMEOUT_MS),
   });
 
   const text = await response.text();
@@ -208,8 +211,22 @@ async function generate(messages) {
   if (!content) {
     throw new Error(`Пустой ответ нейросети: ${text.slice(0, 1000)}`);
   }
-  console.log(`Модель: ${data.model ?? "?"}`);
+  console.log(`Модель: ${data.model ?? model}`);
   return normalizeGenerated(content);
+}
+
+async function generate(messages) {
+  const models = process.env.AI_MODEL ? [process.env.AI_MODEL] : DEFAULT_MODELS;
+  const errors = [];
+  for (const model of models) {
+    try {
+      return await requestModel(model, messages);
+    } catch (error) {
+      console.log(`${model}: ${error.message}`);
+      errors.push(`${model}: ${error.message}`);
+    }
+  }
+  throw new Error(`Ни одна модель не ответила:\n${errors.join("\n")}`);
 }
 
 export async function fillPullRequestDescription({ github, context }) {

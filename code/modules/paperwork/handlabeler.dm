@@ -4,8 +4,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler_off"
 	item_state = "labeler"
-	pickup_sound = 'sound/items/handling/pickup/tape_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/tape_drop.ogg'
+	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
+	drop_sound = 'sound/items/handling/tape_drop.ogg'
 	var/label = null
 	var/labels_left = 30
 	var/mode = FALSE
@@ -38,7 +38,7 @@
 		span_notice("You label [target] as [label].")
 	)
 	target.AddComponent(/datum/component/label, label)
-	playsound(target, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
+	playsound(target, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
 /obj/item/hand_labeler/update_icon_state()

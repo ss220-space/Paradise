@@ -58,8 +58,8 @@
 	throw_range = 5
 	attack_verb = list("бьёт", "проклинает")
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/book_pickup.ogg'
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound = 'sound/items/handling/book_pickup.ogg'
 	///what type of barrier do we spawn when used
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
 	/// Current charges remaining

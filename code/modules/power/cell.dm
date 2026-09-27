@@ -657,8 +657,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
-	pickup_sound = 'sound/items/handling/pickup/ammobox_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
+	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	var/obj/item/stock_parts/cell/internal_cell = new /obj/item/stock_parts/cell/laser
 
 /obj/item/weapon_cell/Initialize(mapload)

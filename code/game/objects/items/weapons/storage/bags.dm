@@ -31,9 +31,9 @@
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_SMALL
-	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/backpack/backpack_pickup1.ogg'
+	equip_sound = 'sound/items/equip/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack/backpack_drop1.ogg'
 	dynamic_storage_size = TRUE
 
 

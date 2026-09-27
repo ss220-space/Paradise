@@ -16,8 +16,8 @@
 	origin_tech = "materials=3;combat=3"
 	needs_permit = TRUE
 	attack_verb = list("ударил")
-	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
+	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	var/fire_sound = SFX_GUNSHOT
 	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'

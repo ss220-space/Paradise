@@ -452,8 +452,8 @@
 	icon_state = "duffel-med"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/backpack/backpack_pickup1.ogg'
+	drop_sound = 'sound/items/handling/backpack/backpack_drop1.ogg'
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10

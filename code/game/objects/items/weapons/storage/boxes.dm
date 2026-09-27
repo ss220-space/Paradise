@@ -31,8 +31,8 @@
 	item_state = "normal"
 	resistance_flags = FLAMMABLE
 	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
-	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
@@ -758,8 +758,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
-	drop_sound = 'sound/items/handling/drop/matchbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 	use_sound = SFX_PATCHPACK
 	custom_price = PAYCHECK_MIN * 0.5
@@ -999,7 +999,7 @@
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
 	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
-	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
+	playsound(loc, 'sound/items/handling/paper_pickup.ogg', 50, TRUE, -5)
 	qdel(src)
 
 /obj/item/storage/box/clown

@@ -9,8 +9,6 @@
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	weapon_weight = WEAPON_MEDIUM
 	sound_vary = TRUE
-	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
-	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell

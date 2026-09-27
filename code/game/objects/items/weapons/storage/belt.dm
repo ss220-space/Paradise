@@ -31,9 +31,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
-	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
-	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
-	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
 	dynamic_storage_size = TRUE

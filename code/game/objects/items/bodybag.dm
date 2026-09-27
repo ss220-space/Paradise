@@ -501,7 +501,7 @@
 	/// Whether or not the bag is sinched. Starts unsinched.
 	var/sinched = FALSE
 	/// The sound that plays when the bag is done sinching.
-	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	var/sinch_sound = 'sound/items/equip/toolbelt_equip.ogg'
 
 /obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
 	return alist(

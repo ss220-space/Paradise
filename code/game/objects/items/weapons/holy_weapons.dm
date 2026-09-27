@@ -239,6 +239,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	pickup_sound = 'sound/items/unsheath.ogg'
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -510,8 +511,8 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
+	pickup_sound = SFX_KNIFE_PICKUP
+	drop_sound = SFX_KNIFE_DROP
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/mob/living/carbon/wielder
 
