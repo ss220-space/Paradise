@@ -266,7 +266,7 @@ const MapTab = (props: { levels: number[] }) => {
   } = data;
   const [zoom, setZoom] = useState(1);
   const [zCurrent, setZCurrent] = useState(
-    props.levels[0] || stationLevelNum[0]
+    props.levels[0] || stationLevelNum[0],
   );
 
   return (
@@ -452,7 +452,7 @@ const NetworksTab = () => {
               {net.nodes
                 .map(
                   (node) =>
-                    `${node.name} (${node.mode === 'send' ? 'отправка' : 'приём'})`
+                    `${node.name} (${node.mode === 'send' ? 'отправка' : 'приём'})`,
                 )
                 .join(', ')}
             </Box>
@@ -469,7 +469,9 @@ const LogsTab = () => {
   const [filter, setFilter] = useState('');
 
   const filteredLogs = logs.filter((line) =>
-    `${line.net_name} ${line.text}`.toLowerCase().includes(filter.toLowerCase())
+    `${line.net_name} ${line.text}`
+      .toLowerCase()
+      .includes(filter.toLowerCase()),
   );
 
   return (
@@ -518,7 +520,7 @@ const LogsTab = () => {
               <Box color="label" fontSize="0.85em">
                 {entry.wanted
                   ?.map(
-                    (item) => `${item.name} ×${item.original || item.amount}`
+                    (item) => `${item.name} ×${item.original || item.amount}`,
                   )
                   .join(', ')}
                 {entry.finished_at ? ` · ${entry.finished_at}` : ''}

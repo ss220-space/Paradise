@@ -119,7 +119,7 @@ export const Logistics = (_props: unknown) => {
   const selectedDest = sortedNodes.find((n) => n.uid === destUid);
   const sourceMap = useMemo(
     () => stockMap(selectedSource?.stock || []),
-    [selectedSource]
+    [selectedSource],
   );
   const destAccepted = useMemo(() => {
     const set = new Set(selectedDest?.accepted || []);
@@ -180,7 +180,7 @@ export const Logistics = (_props: unknown) => {
         return prev.map((entry) =>
           entry.id === item.id
             ? { ...entry, amount: entry.amount + amount }
-            : entry
+            : entry,
         );
       }
       return [
@@ -202,7 +202,7 @@ export const Logistics = (_props: unknown) => {
       return;
     }
     setBuffer((prev) =>
-      prev.map((entry) => (entry.id === itemId ? { ...entry, amount } : entry))
+      prev.map((entry) => (entry.id === itemId ? { ...entry, amount } : entry)),
     );
   };
 

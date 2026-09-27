@@ -71,18 +71,11 @@
 			result |= REVERSE_DIR(dir)
 	return result
 
-/obj/structure/logistics_construct/proc/rotate(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return FALSE
+/obj/structure/logistics_construct/proc/rotate()
 	if(anchored)
-		if(user)
-			to_chat(user, span_warning("You must unfasten the [pipename] before rotating it."))
-		return FALSE
-	add_fingerprint(user)
+		return
 	setDir(turn(dir, -90))
 	update_appearance(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/structure/logistics_construct/proc/post_rotation(mob/user, degrees)
 	if(degrees == ROTATION_FLIP)
@@ -93,21 +86,14 @@
 			pipe_type = initial(temp.flip_type)
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/structure/logistics_construct/proc/flip(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return FALSE
+/obj/structure/logistics_construct/proc/flip()
 	if(anchored)
-		if(user)
-			to_chat(user, span_warning("You must unfasten the [pipename] before flipping it."))
-		return FALSE
-	add_fingerprint(user)
+		return
 	setDir(turn(dir, 180))
 	var/obj/structure/logistics_pipe/temp = pipe_type
 	if(initial(temp.flip_type))
 		pipe_type = initial(temp.flip_type)
 	update_appearance(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/structure/logistics_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -115,21 +101,21 @@
 	if(!isturf(our_turf))
 		return
 	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
-		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
-		return FALSE
+		to_chat(user, span_warning("Сначала снимите плитку пола!"))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
 		set_anchored(FALSE)
-		to_chat(user, "You detach the [pipename] from the underfloor.")
+		to_chat(user, span_notice("Вы откручиваете [declent_ru(ACCUSATIVE)] от пола."))
 	else
 		var/dpdir = get_logistics_dir()
 		for(var/obj/structure/logistics_pipe/pipe in our_turf)
 			if(pipe.dpdir & dpdir)
-				to_chat(user, span_warning("There is already a logistics pipe at that location!"))
-				return TRUE
+				to_chat(user, span_warning("Здесь уже есть логистическая труба!"))
+				return
 		set_anchored(TRUE)
-		to_chat(user, "You attach the [pipename] to the underfloor.")
+		to_chat(user, span_notice("Вы прикручиваете [declent_ru(ACCUSATIVE)] к полу."))
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/structure/logistics_construct/welder_act(mob/living/user, obj/item/I)
@@ -138,14 +124,14 @@
 	if(!isturf(our_turf))
 		return
 	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
-		to_chat(user, span_warning("You can only weld the [pipename] if the floor plating is removed."))
+		to_chat(user, span_warning("Сначала снимите плитку пола!"))
 		return
 	if(!anchored)
-		to_chat(user, span_warning("You need to attach [pipename] to the plating first!"))
+		to_chat(user, span_warning("Сначала прикрутите [declent_ru(ACCUSATIVE)] к полу!"))
 		return
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || !anchored)
 		return
-	to_chat(user, "The [pipename] has been welded in place!")
+	to_chat(user, span_notice("Вы привариваете [declent_ru(ACCUSATIVE)]."))
 	var/obj/built = new pipe_type(loc, src)
 	transfer_fingerprints_to(built)
 	qdel(src)

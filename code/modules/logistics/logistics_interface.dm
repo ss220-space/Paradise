@@ -56,8 +56,9 @@
 	if(machine.GetComponent(/datum/component/logistics_interface))
 		balloon_alert(user, "интерфейс уже установлен!")
 		return ITEM_INTERACT_BLOCKING
-	if(!user.drop_transfer_item_to_loc(src, machine))
+	if(!user.temporarily_remove_item_from_inventory(src))
 		return ITEM_INTERACT_BLOCKING
+	moveToNullspace()
 	if(!machine.component_parts)
 		machine.component_parts = list()
 	machine.component_parts += src
@@ -83,7 +84,7 @@
 		return null
 	if(!component_parts)
 		component_parts = list()
-	var/obj/item/logistics_interface/board = new(src)
+	var/obj/item/logistics_interface/board = new(null)
 	board.mode = mode
 	board.update_appearance(UPDATE_NAME | UPDATE_DESC)
 	component_parts += board

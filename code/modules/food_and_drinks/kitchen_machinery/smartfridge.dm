@@ -36,9 +36,7 @@
 	var/list/accepted_items_typecache
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/starting_items
-	/// Default circuit type inserted on mapload Initialize.
 	var/obj/item/circuitboard/fridge_circuit = /obj/item/circuitboard/smartfridge
-	/// How many matter bins to spawn with on mapload Initialize.
 	var/starting_matter_bins = 1
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
@@ -108,25 +106,6 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items += 1500 * B.rating
 
-/obj/machinery/smartfridge/proc/get_stored_item_count()
-	. = 0
-	for(var/obj/item/item in contents)
-		if(item in component_parts)
-			continue
-		.++
-
-/obj/machinery/smartfridge/proc/is_storage_item(obj/item/item)
-	return item && !(item in component_parts)
-
-/obj/machinery/smartfridge/proc/get_display_quantity(item_name)
-	. = 0
-	for(var/obj/item/item in contents)
-		if(!is_storage_item(item))
-			continue
-		if(item.declent_ru(NOMINATIVE) != item_name)
-			continue
-		. += logistics_item_units(item)
-
 /obj/machinery/smartfridge/proc/vend_units(item_name, amount, mob/user)
 	if(amount <= 0 || !item_name)
 		return FALSE
@@ -136,8 +115,6 @@
 	for(var/obj/item/item in contents)
 		if(remaining <= 0)
 			break
-		if(!is_storage_item(item))
-			continue
 		if(item.declent_ru(NOMINATIVE) != item_name)
 			continue
 		var/units = logistics_item_units(item)
@@ -150,8 +127,6 @@
 			given = stack.split(null, take)
 		else
 			item_quants[item_name] = max((item_quants[item_name] || 0) - 1, 0)
-		if(!given)
-			continue
 		given.forceMove(drop_loc)
 		adjust_item_drop_location(given)
 		if(try_hands)
@@ -370,10 +345,10 @@
 	data["logistics_enabled"] = logistics_board_installed()
 
 	var/list/samples = list()
+	var/list/quantities = list()
 	for(var/obj/item/stored in contents)
-		if(stored in component_parts)
-			continue
 		var/item_key = stored.declent_ru(NOMINATIVE)
+		quantities[item_key] += logistics_item_units(stored)
 		if(!samples[item_key])
 			samples[item_key] = stored
 
@@ -387,7 +362,7 @@
 		items.Add(list(list(
 			"display_name" = html_encode(capitalize(K)),
 			"vend" = i,
-			"quantity" = get_display_quantity(K),
+			"quantity" = quantities[K],
 			"icon" = sample?.icon,
 			"icon_state" = sample?.icon_state,
 		)))
@@ -439,7 +414,7 @@
 	if(!accept_check(I))
 		return FALSE
 
-	if(get_stored_item_count() >= max_n_of_items)
+	if(length(contents) >= max_n_of_items)
 		balloon_alert(user, "хранилище переполнено!")
 		return FALSE
 

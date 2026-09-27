@@ -258,16 +258,14 @@
 			if(isnum(params["whatdpipe"]))
 				whatdpipe = params["whatdpipe"]
 		if("whatlpipe")
-			var/id = text2num(params["whatlpipe"])
-			if(id)
-				whatlpipe = id
+			if(isnum(params["whatlpipe"]))
+				whatlpipe = params["whatlpipe"]
 		if("pipe_category")
 			if(isnum(params["pipe_category"]))
 				pipe_category = params["pipe_category"]
 		if("mode")
-			var/next_mode = text2num(params["mode"])
-			if(next_mode)
-				mode = next_mode
+			if(isnum(params["mode"]))
+				mode = params["mode"]
 		if("auto_wrench")
 			auto_wrench = !auto_wrench
 

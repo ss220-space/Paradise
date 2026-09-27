@@ -98,9 +98,6 @@
 	status = LOGISTICS_REQUEST_ACTIVE
 	return TRUE
 
-/datum/logistics_request/proc/unpause()
-	return execute()
-
 /datum/logistics_request/proc/cancel()
 	if(status == LOGISTICS_REQUEST_COMPLETE || status == LOGISTICS_REQUEST_CANCELLED)
 		return FALSE

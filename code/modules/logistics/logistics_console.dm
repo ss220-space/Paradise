@@ -43,6 +43,7 @@
 		station_level_names += level.name
 	data["stationLevelNum"] = station_level_numbers
 	data["stationLevelName"] = station_level_names
+	data["palette"] = LOGISTICS_NET_COLORS
 	return data
 
 /obj/machinery/computer/logistics_core/ui_data(mob/user)
@@ -53,7 +54,6 @@
 	data["archived"] = list()
 	data["map_nodes"] = list()
 	data["map_pipes"] = list()
-	data["palette"] = LOGISTICS_NET_COLORS
 
 	for(var/datum/logistics_net/net as anything in GLOB.logistics_nets)
 		var/list/net_interfaces = list()
@@ -80,7 +80,6 @@
 					"z" = T.z,
 				))
 
-		var/list/seen_links = list()
 		for(var/obj/structure/logistics_pipe/pipe as anything in net.pipes)
 			var/turf/pipe_turf = get_turf(pipe)
 			if(!pipe_turf)
@@ -88,12 +87,8 @@
 			for(var/obj/structure/logistics_pipe/neighbor as anything in pipe.get_neighbors())
 				if(neighbor.logistics_net != net)
 					continue
-				var/link_key = pipe.UID() > neighbor.UID() ? "[neighbor.UID()]|[pipe.UID()]" : "[pipe.UID()]|[neighbor.UID()]"
-				if(seen_links[link_key])
-					continue
-				seen_links[link_key] = TRUE
 				var/turf/neighbor_turf = get_turf(neighbor)
-				if(!neighbor_turf || neighbor_turf.z != pipe_turf.z)
+				if(neighbor_turf.x + neighbor_turf.y < pipe_turf.x + pipe_turf.y)
 					continue
 				data["map_pipes"] += list(list(
 					"x1" = pipe_turf.x,

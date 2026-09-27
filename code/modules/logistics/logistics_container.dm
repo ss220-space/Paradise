@@ -1,10 +1,6 @@
-/**
- * Smart Container — general-purpose item storage with logistics support.
- */
 /obj/machinery/smartfridge/smart_container
-	name = "Smart Container"
+	name = "smart container"
 	desc = "Умный контейнер для хранения любых предметов. Вместимость масштабируется с качеством matter bin."
-	max_n_of_items = 63
 	fridge_circuit = /obj/item/circuitboard/smart_container
 	starting_matter_bins = 4
 
@@ -35,10 +31,10 @@
 	max_n_of_items = max(1, round(21 * 3 * rating_sum / 4))
 
 /obj/machinery/smartfridge/smart_container/accept_check(obj/item/I)
-	return isitem(I)
+	return isitem(I) && !istype(I, /obj/item/holder)
 
 /obj/machinery/smartfridge/smart_container/update_fridge_contents()
-	var/stored = get_stored_item_count()
+	var/stored = length(contents)
 	if(stored <= 0)
 		fill_level = null
 		return

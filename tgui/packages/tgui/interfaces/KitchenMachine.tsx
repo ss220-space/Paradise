@@ -102,7 +102,7 @@ export const KitchenMachine = (props) => {
       <Window.Content>
         <Section
           title={
-            <Stack align="center" width="100%">
+            <Stack align="center">
               <Stack.Item>
                 <Icon name="temperature-high" />
               </Stack.Item>

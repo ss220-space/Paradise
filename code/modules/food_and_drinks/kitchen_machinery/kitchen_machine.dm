@@ -302,10 +302,7 @@
 
 	for(var/obj/O in contents)
 		var/display_name = DECLENT_RU_CAP(O, NOMINATIVE)
-		if(isitem(O))
-			items_counts[display_name] += logistics_item_units(O)
-		else
-			items_counts[display_name]++
+		items_counts[display_name]++
 
 	data["ingredients"] += list()
 	for(var/item_name in items_counts)

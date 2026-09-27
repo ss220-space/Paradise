@@ -34,6 +34,8 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 			interface.net = null
 	interfaces.Cut()
 	QDEL_LIST(requests)
+	for(var/obj/structure/logistics_holder/holder as anything in in_flight)
+		holder.origin_net = null
 	in_flight.Cut()
 	return ..()
 
@@ -266,9 +268,6 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		refresh_processing()
 		return TRUE
 	return FALSE
-
-/datum/logistics_net/proc/unpause_request(datum/logistics_request/request)
-	return execute_request(request)
 
 /datum/logistics_net/proc/move_request(datum/logistics_request/request, direction)
 	if(!request || !(request in requests))

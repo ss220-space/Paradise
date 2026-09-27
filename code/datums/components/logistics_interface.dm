@@ -32,12 +32,11 @@
 
 /datum/component/logistics_interface/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_qdel))
 	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR), PROC_REF(on_crowbar_act))
 	try_connect_pipe()
 
 /datum/component/logistics_interface/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_QDELETING, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR)))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR)))
 	disconnect_pipe()
 
 /datum/component/logistics_interface/Destroy()
@@ -51,11 +50,6 @@
 	var/mode_text = (mode == LOGISTICS_MODE_SEND) ? "отправка" : "приём"
 	examine_list += span_notice("Установлен логистический интерфейс «[interface_name]» ([mode_text]).")
 
-/datum/component/logistics_interface/proc/on_parent_qdel(datum/source)
-	SIGNAL_HANDLER
-	if(board && !QDELETED(board) && board.loc == parent)
-		board.forceMove(get_turf(parent))
-
 /datum/component/logistics_interface/proc/on_crowbar_act(datum/source, mob/living/user, obj/item/tool)
 	SIGNAL_HANDLER
 	var/obj/machinery/machine = parent
@@ -68,13 +62,11 @@
 	var/obj/machinery/machine = parent
 	var/obj/item/logistics_interface/removed = board
 	board = null
-	if(removed)
-		removed.mode = mode
-		machine.component_parts -= removed
-		removed.forceMove(get_turf(machine))
-		if(user && !user.put_in_hands(removed))
-			removed.forceMove(get_turf(machine))
-		removed.update_appearance(UPDATE_NAME | UPDATE_DESC)
+	machine.component_parts -= removed
+	removed.mode = mode
+	removed.update_appearance(UPDATE_NAME | UPDATE_DESC)
+	removed.forceMove(machine.drop_location())
+	user.put_in_hands(removed)
 	machine.balloon_alert(user, "интерфейс снят")
 	playsound(machine, 'sound/items/deconstruct.ogg', 50, TRUE)
 	qdel(src)

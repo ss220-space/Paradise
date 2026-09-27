@@ -153,7 +153,7 @@
 /obj/structure/logistics_pipe/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = loc
 	if(isturf(our_turf) && HAS_TRAIT(src, TRAIT_UNDERFLOOR))
-		to_chat(user, span_warning("You cannot interact with something that's under the floor!"))
+		to_chat(user, span_warning("Сначала снимите плитку пола!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -163,7 +163,7 @@
 		return
 	var/turf/our_turf = loc
 	if(isturf(our_turf) && HAS_TRAIT(src, TRAIT_UNDERFLOOR))
-		to_chat(user, span_warning("You can't interact with something that's under the floor!"))
+		to_chat(user, span_warning("Сначала снимите плитку пола!"))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
@@ -219,16 +219,14 @@
 	initialize_dirs = DISP_DIR_FLIP
 
 /obj/structure/logistics_pipe/trunk/nextdir(obj/structure/logistics_holder/holder)
+	if(length(holder.path_dirs))
+		return ..()
 	if(holder.dir == DOWN)
-		if(length(holder.path_dirs))
-			var/next = holder.path_dirs[1]
-			holder.path_dirs.Cut(1, 2)
-			return next
 		return dir
 	return NONE
 
 /obj/structure/logistics_pipe/trunk/transfer(obj/structure/logistics_holder/holder)
-	if(holder.dir == DOWN)
+	if(holder.dir == DOWN || length(holder.path_dirs))
 		return transfer_to_dir(holder, nextdir(holder))
 	if(linked_interface && holder.dest_interface == linked_interface)
 		holder.deliver(linked_interface)
