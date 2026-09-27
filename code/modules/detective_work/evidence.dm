@@ -7,6 +7,9 @@
 	icon_state = "evidenceobj"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/evidence_bag/evidence_bag_pickup.ogg'
+	drop_sound = 'sound/items/evidence_bag/evidence_bag_drop.ogg'
 
 /obj/item/evidencebag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || loc == target)

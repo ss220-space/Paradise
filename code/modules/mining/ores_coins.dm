@@ -11,6 +11,9 @@
 	icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
+	sound_vary = TRUE
+	pickup_sound = SFX_STONE_PICKUP
+	drop_sound = SFX_STONE_DROP
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays

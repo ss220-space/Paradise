@@ -121,6 +121,8 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/welder2.ogg'
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 
 /obj/item/razor/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || (user.zone_selected != BODY_ZONE_PRECISE_MOUTH && user.zone_selected != BODY_ZONE_HEAD))

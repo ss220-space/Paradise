@@ -356,6 +356,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 	var/currTag = 1

@@ -18,6 +18,9 @@
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	custom_price = PAYCHECK_LOWER
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/mode = 1
 	var/advanced = FALSE
 	var/theme

@@ -6,7 +6,7 @@
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	resistance_flags = NONE
-	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
+	equip_sound = SFX_GLASSES_EQUIP
 	strip_delay = 20 // but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	sprite_sheets = list(
@@ -16,6 +16,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	sound_vary = TRUE
+	pickup_sound = SFX_GLASSES_PICKUP
+	drop_sound = SFX_GLASSES_DROP
 	/// Bitflags for vision enhancements (e.g., SEE_TURFS, SEE_MOBS).
 	var/vision_flags = 0
 	/// How well the wearer can see in darkness (base human is 2).
@@ -153,6 +156,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/get_ru_names()
@@ -303,6 +309,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
@@ -382,6 +391,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
@@ -399,6 +411,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = null
+	drop_sound = null
+	equip_sound = null
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -436,6 +451,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 
 /obj/item/clothing/glasses/material/cyber
 	name = "eye replacement implant"
@@ -665,6 +683,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 
 /obj/item/clothing/glasses/welding/ComponentInitialize()
 	. = ..()
@@ -738,6 +759,9 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	pickup_sound = SFX_GOGGLES_PICKUP
+	drop_sound = SFX_GOGGLES_DROP
+	equip_sound = SFX_GOGGLES_EQUIP
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	if(ishuman(loc))

@@ -27,6 +27,9 @@
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	toolbox_radial_menu_compatibility = TRUE
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/tools/rpd_pickup.ogg'
+	drop_sound = 'sound/items/handling/tools/rpd_drop.ogg'
 	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes

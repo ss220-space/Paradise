@@ -651,6 +651,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
 	attack_verb = list("шлёпнул")
+	pickup_sound = SFX_CLOTH_PICKUP
+	drop_sound = SFX_CLOTH_DROP
 
 /obj/item/surgical_drapes/get_ru_names()
 	return alist(

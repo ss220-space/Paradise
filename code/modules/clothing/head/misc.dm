@@ -452,6 +452,8 @@
 	attack_verb = list("предупредил", "насторожил")
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
+	pickup_sound = 'sound/items/handling/materials/plastic_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/plastic_drop.ogg'
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

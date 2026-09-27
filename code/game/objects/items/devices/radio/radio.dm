@@ -57,6 +57,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/last_transmission
 	/// tune to frequency to unlock traitor supplies
 	var/traitor_frequency = 0

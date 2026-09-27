@@ -47,6 +47,8 @@
 	attack_verb = list("долбанул", "ударил")
 	/// Shield bash cooldown
 	COOLDOWN_DECLARE(cooldown)
+	pickup_sound = 'sound/items/handling/shield/plastic_shield_pick_up.ogg'
+	drop_sound = 'sound/items/handling/shield/plastic_shield_drop.ogg'
 
 /obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
 	if(isbaton(I) && COOLDOWN_FINISHED(src, cooldown))

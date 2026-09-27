@@ -29,6 +29,9 @@
 	throw_range = 20
 	materials = list(MAT_METAL=500)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/obj/item/disk/nuclear/the_disk = null
 	var/obj/machinery/nuclearbomb/the_bomb = null
 	var/obj/machinery/nuclearbomb/syndicate/the_s_bomb = null // used by syndicate pinpointers.

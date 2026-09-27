@@ -347,6 +347,8 @@
 	force_wielded = 10
 	throwforce = 13
 	throw_range = 4
+	pickup_sound = SFX_POTTED_PLANT_PICKUP
+	drop_sound = SFX_POTTED_PLANT_DROP
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished plant has been lit up
 	var/light_process = 0
 	/// Light range plant will get on init
