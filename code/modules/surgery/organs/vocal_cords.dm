@@ -190,7 +190,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	playsound(get_turf(speaker), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-  for(var/mob/living/L in get_hearers_in_view(8, speaker))
+	for(var/mob/living/L in get_hearers_in_view(8, speaker))
 		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.null_rod_check() && (include_speaker || L != speaker) && L.stat != DEAD)
 	for(var/mob/living/L in get_hearers_in_view(8, owner))
 		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.can_block_magic() && L != owner && L.stat != DEAD)
