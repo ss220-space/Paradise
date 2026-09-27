@@ -423,6 +423,10 @@
 	if(force_update || (update & 1)) // Updating the icon state
 		..(UPDATE_ICON_STATE)
 
+	if(update_state & UPSTATE_BLUESCREEN)
+		..(UPDATE_OVERLAYS)
+		return
+
 	if(!(update_state & UPSTATE_ALLGOOD))
 		if(managed_overlays)
 			..(UPDATE_OVERLAYS)
@@ -446,14 +450,15 @@
 	else if(update_state & UPSTATE_BROKE)
 		icon_state = "apc-b"
 	else if(update_state & UPSTATE_BLUESCREEN)
-		icon_state = "apcemag"
+		icon_state = "apc0"
 	else if(update_state & UPSTATE_WIREEXP)
 		icon_state = "apcewires"
 
 /obj/machinery/power/apc/update_overlays()
 	. = ..()
 
-	if(update_state & UPSTATE_BLUESCREEN)
+	if((update_state & UPSTATE_BLUESCREEN) && !(update_state & UPSTATE_BROKE))
+		. += mutable_appearance(icon, "apcemag")
 		. += emissive_appearance(icon, "emit_apcemag", src)
 		return
 
@@ -573,7 +578,7 @@
 				INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery, flicker))
 			CHECK_TICK
 	else
-		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
+		flick_overlay_view(mutable_appearance(icon, "apcemag"), 1 SECONDS) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 1 SECONDS)
 
 	return TRUE
