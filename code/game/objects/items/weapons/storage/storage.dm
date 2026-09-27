@@ -784,11 +784,8 @@
 
 	if(new_location)
 		if(ismob(new_location) || get(new_location, /mob))
-			if(usr && !get(loc, /mob) && CONFIG_GET(flag/item_animations_enabled))
-				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
-				W.pixel_x = pixel_x
-				W.pixel_y = pixel_y
-				W.do_pickup_animation(usr)
+			if(usr && !get(loc, /mob))
+				W.do_pickup_animation(usr, get_turf(src))
 			W.layer = ABOVE_HUD_LAYER
 			SET_PLANE_EXPLICIT(W, ABOVE_HUD_PLANE, src)
 			W.pixel_y = initial(W.pixel_y)

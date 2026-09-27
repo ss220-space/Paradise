@@ -365,6 +365,9 @@ Just a object used in constructing fire alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	usesound = 'sound/items/deconstruct.ogg'
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 
 /obj/item/circuit_component/firealarm
 	display_name = "Пожарная сигнализация"

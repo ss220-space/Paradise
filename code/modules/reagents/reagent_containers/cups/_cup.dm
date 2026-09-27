@@ -2,6 +2,7 @@
 /obj/item/reagent_containers/cup
 	name = " "
 	abstract_type = /obj/item/reagent_containers/cup
+	reagent_container_liquid_sound = SFX_DEFAULT_LIQUID_SLOSH
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
@@ -239,6 +240,9 @@
 	custom_price = PAYCHECK_MIN / 5
 	can_lid = TRUE
 	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/beaker_pickup.ogg'
+	drop_sound = 'sound/items/handling/beaker_place.ogg'
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 

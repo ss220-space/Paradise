@@ -9,6 +9,7 @@
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12
+	sound_vary = TRUE
 	/// Whether this baton is active or not.
 	var/active = TRUE
 	/// Default wait time until can stun again.
@@ -334,6 +335,8 @@
 	attack_verb = "ткнул"
 	clumsy_knockdown_time = 15 SECONDS
 	activated_word = "выдвинута"
+	pickup_sound = 'sound/items/baton/telescopic_baton_folded_pickup.ogg'
+	drop_sound = 'sound/items/baton/telescopic_baton_folded_drop.ogg'
 	/// The sound effect played when our baton is extended.
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
 	/// The inhand iconstate used when our baton is extended.
@@ -408,6 +411,8 @@
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	activated_word = "включена"
+	pickup_sound = 'sound/items/baton/stun_baton_inactive_pickup.ogg'
+	drop_sound = 'sound/items/baton/stun_baton_inactive_drop.ogg'
 	/// Time passed between a hit and knockdown effect.
 	var/knockdown_delay_time = 4 SECONDS
 	/// Chance for the baton to stun when thrown at someone.

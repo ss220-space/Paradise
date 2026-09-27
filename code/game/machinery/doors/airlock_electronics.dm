@@ -8,6 +8,9 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 	multitool_menu_type = /datum/multitool_menu/idtag/airlock_electronics
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 
 	var/obj/item/access_control/access_electronics = null
 	var/id

@@ -134,6 +134,8 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throw_range = 5
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	pickup_sound = SFX_STONE_PICKUP
+	drop_sound = SFX_STONE_DROP
 
 /obj/item/stack/sheet/mineral/sandstone/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -483,6 +485,8 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	force = 1
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow
+	pickup_sound = 'sound/items/handling/materials/snow_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/snow_drop.ogg'
 
 /obj/item/stack/sheet/mineral/snow/fifty
 	amount = 50

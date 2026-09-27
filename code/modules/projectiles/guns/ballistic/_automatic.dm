@@ -7,6 +7,8 @@
 	extra_delay = 0.1 SECONDS
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
 	weapon_weight = WEAPON_MEDIUM
+	pickup_sound = 'sound/items/handling/gun/ballistics/smg/smg_pickup1.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/smg/smg_drop1.ogg'
 
 /obj/item/gun/projectile/automatic/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()

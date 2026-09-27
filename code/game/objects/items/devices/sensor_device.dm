@@ -9,6 +9,9 @@
 	origin_tech = "programming=3;materials=3;magnets=3"
 	custom_price = PAYCHECK_CREW
 	interaction_flags_mouse_drop = NEED_HANDS
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/get_ru_names()

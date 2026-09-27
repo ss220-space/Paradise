@@ -6,6 +6,9 @@
 	origin_tech = "combat=2;materials=2"
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/gun/gun_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 	/// Type of magazine compatible with this gun.
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm
 	/// Currently inserted magazine.

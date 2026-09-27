@@ -31,6 +31,10 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
+	sound_vary = TRUE
+	pickup_sound = SFX_HARD_HAT_PICKUP
+	drop_sound = SFX_HARD_HAT_DROP
+	equip_sound = SFX_HARD_HAT_EQUIP
 	/// Name icon_state, which is used for painting
 	var/paint = null
 
@@ -258,6 +262,9 @@
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	light_range = 2 //luminosity when on
+	pickup_sound = null
+	drop_sound = null
+	equip_sound = null
 
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"

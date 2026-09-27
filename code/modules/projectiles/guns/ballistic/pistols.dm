@@ -17,6 +17,8 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 	fire_delay = 0.4 SECONDS
+	pickup_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_pickup1.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_drop1.ogg'
 	/// Magazine icon (if exists on pistol, null for disable this feature)
 	var/magazine_icon = "pistol_mag"
 

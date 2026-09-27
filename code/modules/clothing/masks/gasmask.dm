@@ -30,6 +30,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
+	sound_vary = TRUE
+	pickup_sound = SFX_GAS_MASK_PICKUP
+	drop_sound = SFX_GAS_MASK_DROP
+	equip_sound = SFX_GAS_MASK_EQUIP
 
 /obj/item/clothing/mask/gas/get_ru_names()
 	return alist(

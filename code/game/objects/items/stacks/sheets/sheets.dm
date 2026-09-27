@@ -5,6 +5,9 @@
 	throw_speed = 1
 	throw_range = 3
 	attack_verb = list("ударил")
+	sound_vary = TRUE
+	pickup_sound = 'sound/items/handling/materials/metal_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/metal_drop.ogg'
 	var/perunit = MINERAL_MATERIAL_AMOUNT
 	var/sheettype = null //this is used for girders in the creation of walls/false walls
 	var/point_value = 0 //turn-in value for the gulag stacker - loosely relative to its rarity.

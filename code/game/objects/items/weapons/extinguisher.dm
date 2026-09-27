@@ -21,6 +21,8 @@
 	attack_verb = list("огрел", "ударил", "стукнул")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
+	pickup_sound = 'sound/items/handling/gas_tank/gas_tank_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gas_tank/gas_tank_drop.ogg'
 	/// The max amount of water this extinguisher can hold.
 	var/max_water = 50
 	/// Does the welder extinguisher start with water.

@@ -6,6 +6,7 @@
 	icon_state = "cleaner"
 	item_state = "cleaner"
 	belt_icon = "cleaner"
+	reagent_container_liquid_sound = SFX_DEFAULT_LIQUID_SLOSH
 	item_flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
@@ -276,6 +277,8 @@
 	volume = 40
 	spray_maxrange_mod = 2
 	list_reagents = list("condensedcapsaicin" = 40)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
 	return alist(

@@ -70,6 +70,7 @@
 				/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice = 4,
 				/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice = 4,
 				/obj/item/reagent_containers/cup/glass/bottle/juice/cream = 4,
+				/obj/item/reagent_containers/cup/glass/bottle/juice/kefir = 4,
 				/obj/item/reagent_containers/cup/soda_cans/tonic = 7,
 				/obj/item/reagent_containers/cup/soda_cans/cola = 7,
 				/obj/item/reagent_containers/cup/soda_cans/sodawater = 7,

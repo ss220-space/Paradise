@@ -40,6 +40,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	interaction_flags_mouse_drop = NEED_HANDS
+	sound_vary = TRUE
+	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
+	drop_sound = SFX_GENERIC_DEVICE_DROP
 
 	//Main variables
 	var/owner = null

@@ -18,6 +18,8 @@
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	available_reload_animation = FALSE
+	pickup_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_pickup1.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_drop1.ogg'
 
 /obj/item/gun/projectile/shotgun/boltaction/get_ru_names()
 	return alist(

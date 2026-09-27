@@ -260,6 +260,8 @@
 	desc = "Вы не должны были это увидеть, сообщите о баге."
 	icon = 'icons/obj/eldritch.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.
 	var/crucible_tip = "Не делает абсолютно ничего."
 	/// Typepath to the status effect this applies

@@ -21,9 +21,10 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi',
 	) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
-	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
-	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	equip_sound = 'sound/items/equip/backpack_equip.ogg'
+	pickup_sound = 'sound/items/handling/backpack/backpack_pickup1.ogg'
+	drop_sound = 'sound/items/handling/backpack/backpack_drop1.ogg'
+	sound_vary = TRUE
 
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -63,6 +64,8 @@
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
+	pickup_sound = null
+	drop_sound = null
 
 /obj/item/storage/backpack/holding/get_ru_names()
 	return alist(

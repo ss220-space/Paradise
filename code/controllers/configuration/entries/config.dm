@@ -717,6 +717,7 @@
 	default = null
 
 /datum/config_entry/flag/item_animations_enabled
+	default = TRUE
 
 /datum/config_entry/flag/disable_taipan
 

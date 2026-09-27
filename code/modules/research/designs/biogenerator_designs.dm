@@ -50,6 +50,14 @@
 	build_path = /obj/item/reagent_containers/cup/glass/bottle/juice/cream
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
+/datum/design/kefir_carton
+	name = "Упаковка кефира"
+	id = "kefir_carton"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/reagent_containers/cup/glass/bottle/juice/kefir
+	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
+
 /datum/design/salt_shaker
 	name = "Солонка"
 	id = "salt_shaker"

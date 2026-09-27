@@ -344,6 +344,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, dirslash_enabling, "Атака п�
 	icon_state = "boxing"
 	item_state = "boxing"
 	put_on_delay = 60
+	equip_sound = 'sound/items/equip/glove_equip.ogg'
 
 	var/datum/martial_art/boxing/style
 

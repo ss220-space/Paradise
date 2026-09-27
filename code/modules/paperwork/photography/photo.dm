@@ -5,6 +5,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	pickup_sound = 'sound/items/handling/pickup/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
 	var/blueprints = 0 // Does this have the blueprints?
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
