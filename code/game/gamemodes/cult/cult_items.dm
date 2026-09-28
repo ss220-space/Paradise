@@ -706,7 +706,7 @@
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"

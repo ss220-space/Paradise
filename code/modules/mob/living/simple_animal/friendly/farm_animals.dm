@@ -721,6 +721,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	create_reagents(80)
 	reagents.add_reagent("milk", 20)
 
+/obj/item/udder/Destroy(force)
+	reagents.my_atom = null
+	QDEL_NULL(reagents)
+	return ..()
+
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5
 	if(feeded)

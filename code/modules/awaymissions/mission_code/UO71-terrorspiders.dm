@@ -178,6 +178,9 @@
 	selfcharge = TRUE	// Selfcharge is enabled and disabled, and used as the away mission tracker
 
 /obj/item/gun/energy/laser/awaymission_aeg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
+	// We are in the nullspace
+	if(!new_turf)
+		return
 	if(is_away_level(new_turf?.z))
 		if(ismob(loc))
 			to_chat(loc, span_notice("Your [src] activates, starting to draw power from a nearby wireless power source."))

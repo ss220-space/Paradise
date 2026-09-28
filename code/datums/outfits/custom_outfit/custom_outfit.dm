@@ -46,11 +46,18 @@
 
 #define CUSTOM_OUTFIT_SIMPLE_EQUIP_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_FEET|ITEM_SLOT_GLOVES|ITEM_SLOT_NECK|ITEM_SLOT_BACK|ITEM_SLOT_EARS)
 
+/**
+ * Stores and edits a custom outfit for a human mob.
+ *
+ * This datum manages outfit slots, equipment contents, augmentations,
+ * ID card data and serialized custom outfit files.
+ */
 /datum/custom_outfit
 	var/mob/target_mob
 	var/datum/outfit/edited_outfit
 	var/list/external_augmentations = list()
 	var/list/internal_augmentations = list()
+	var/list/arm_implant_sides = list()
 	var/list/reagent_volumes = list()
 	var/list/id_card_data = null
 	var/body_dirty = FALSE
@@ -246,6 +253,7 @@
 	QDEL_NULL(edited_outfit)
 	LAZYCLEARLIST(external_augmentations)
 	LAZYCLEARLIST(internal_augmentations)
+	LAZYCLEARLIST(arm_implant_sides)
 	LAZYCLEARLIST(reagent_volumes)
 	return ..()
 
@@ -312,8 +320,7 @@
 
 	switch(action)
 		if(CUSTOM_OUTFIT_ACTION_LOAD_DATA)
-			load_from_json(user, params["json"])
-			. = TRUE
+			. = load_from_json(user, params["json"])
 
 		if(CUSTOM_OUTFIT_ACTION_SAVE)
 			save_to_client(user)
@@ -343,7 +350,7 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_BELT_ITEM)
-			if(remove_belt_item(get_path_param(params)))
+			if(remove_belt_item(user, get_path_param(params)))
 				belt_dirty = TRUE
 			. = TRUE
 
@@ -353,7 +360,7 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_STORAGE_ITEM)
-			if(remove_nested_storage_item(params["container"], params["parent"], get_path_param(params)))
+			if(remove_nested_storage_item(user, params["container"], params["parent"], get_path_param(params)))
 				mark_container_dirty(params["container"])
 			. = TRUE
 
@@ -362,11 +369,12 @@
 			if(implant_path && ((implant_path in edited_outfit.implants) || (implant_path in edited_outfit.cybernetic_implants)))
 				edited_outfit.implants -= implant_path
 				edited_outfit.cybernetic_implants -= implant_path
+				arm_implant_sides -= implant_path
 				body_dirty = TRUE
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_BACKPACK_ITEM)
-			if(remove_backpack_item(get_path_param(params)))
+			if(remove_backpack_item(user, get_path_param(params)))
 				backpack_dirty = TRUE
 			. = TRUE
 
@@ -631,6 +639,8 @@
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs)
 		if(!(cyberimp_organ.type in edited_outfit.cybernetic_implants))
 			edited_outfit.cybernetic_implants += cyberimp_organ.type
+		if(is_arm_cyberimp_path(cyberimp_organ.type))
+			arm_implant_sides[cyberimp_organ.type] = cyberimp_organ.parent_organ_zone
 /datum/custom_outfit/proc/capture_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_body_zones)
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
@@ -976,6 +986,8 @@
 
 	var/list/fitting_cyber = list()
 	for(var/organ_path in final_outfit.cybernetic_implants)
+		if(is_arm_cyberimp_path(organ_path))
+			continue
 		if(organ_fits_species(organ_path, human_target))
 			fitting_cyber += organ_path
 	final_outfit.cybernetic_implants = fitting_cyber
@@ -1158,14 +1170,37 @@
 					limb.robotize(make_tough = TRUE, company = company, convert_all = FALSE)
 
 /datum/custom_outfit/proc/apply_internal_augmentations(mob/living/carbon/human/human_target)
+	var/list/paths_to_apply = list()
+	var/list/seen_arm_slots = list()
+	var/chosen_side
 	for(var/organ_path in internal_augmentations)
+		paths_to_apply += organ_path
+	for(var/cyberimp_path in edited_outfit.cybernetic_implants)
+		if(is_arm_cyberimp_path(cyberimp_path))
+			paths_to_apply += cyberimp_path
+	for(var/organ_path in paths_to_apply)
 		if(!CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(organ_path))
 			continue
 		var/obj/item/organ/organ_template = organ_path
+		if(is_arm_cyberimp_path(organ_path))
+			chosen_side = get_arm_implant_side(organ_path)
+			if(chosen_side in seen_arm_slots)
+				continue
+			seen_arm_slots += chosen_side
 		var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
 		if(parent_zone && !human_target.get_organ(parent_zone))
 			continue
-		new organ_path(human_target)
+		var/obj/item/organ/internal/new_organ = new organ_path
+		if(is_arm_cyberimp_path(organ_path))
+			new_organ.parent_organ_zone = chosen_side
+			new_organ.slot = chosen_side + "_device"
+		if(!new_organ.can_insert(null, human_target))
+			qdel(new_organ)
+			continue
+		if(human_target.get_organ_slot(new_organ.slot))
+			qdel(new_organ)
+			continue
+		new_organ.insert(human_target, ORGAN_MANIPULATION_NOEFFECT)
 
 /datum/custom_outfit/proc/apply_reagent_pill(mob/living/carbon/human/human_target)
 	for(var/obj/item/reagent_containers/food/pill/dental_implant/old_pill in human_target.contents)
@@ -1198,6 +1233,20 @@
 		preview_view.display_to(viewer, tgui_window)
 	return preview_view.assigned_map
 
+/datum/custom_outfit/proc/prompt_item_amount(mob/user, message, current_count = 0)
+	var/prompt = message
+	if(current_count > 0)
+		prompt = "[message] (сейчас: [current_count])"
+	var/amount = tgui_input_number(user, prompt, "Количество", default = 1, max_value = CUSTOM_OUTFIT_MAX_ITEM_COUNT, min_value = 1)
+	if(QDELETED(src) || QDELETED(user) || isnull(amount))
+		return
+	amount = round(amount)
+	if(amount < 1)
+		amount = 1
+	if(amount > CUSTOM_OUTFIT_MAX_ITEM_COUNT)
+		amount = CUSTOM_OUTFIT_MAX_ITEM_COUNT
+	return amount
+
 /datum/custom_outfit/proc/choose_backpack_item(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
 		tgui_alert(user, "Target is no longer valid.")
@@ -1211,7 +1260,11 @@
 		return FALSE
 	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
-	edited_outfit.backpack_contents[chosen_path] = (edited_outfit.backpack_contents[chosen_path] || 0) + 1
+	var/current_count = edited_outfit.backpack_contents[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить в рюкзак?", current_count)
+	if(isnull(amount))
+		return FALSE
+	edited_outfit.backpack_contents[chosen_path] = current_count + amount
 	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BACKPACK, chosen_path)
 	return TRUE
@@ -1229,37 +1282,57 @@
 		return FALSE
 	if(!CUSTOM_OUTFIT_IS_ITEM_PATH(chosen_path))
 		return FALSE
-	belt_contents[chosen_path] = (belt_contents[chosen_path] || 0) + 1
+	var/current_count = belt_contents[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить на пояс?", current_count)
+	if(isnull(amount))
+		return FALSE
+	belt_contents[chosen_path] = current_count + amount
 	if(CUSTOM_OUTFIT_IS_STORAGE_PATH(chosen_path))
 		ensure_nested_presets(CUSTOM_OUTFIT_CONTAINER_BELT, chosen_path)
 	return TRUE
 
-/// Decrements one item of the given path in a path = count list.
+/// Removes the given amount of items of a path from a path = count list.
+/// Returns FALSE when the item is not stored or the amount is not positive.
 /// Arguments:
 /// * storage_list - list(path = count) to remove from.
 /// * item_path - type path of the item to remove.
-/datum/custom_outfit/proc/decrement_list_entry(list/storage_list, item_path)
+/// * amount - how many to remove.
+/datum/custom_outfit/proc/decrement_list_entry(list/storage_list, item_path, amount = 1)
 	if(!item_path || !(item_path in storage_list))
+		return FALSE
+	if(!isnum(amount) || amount < 1)
 		return FALSE
 	var/count = storage_list[item_path]
 	if(!isnum(count))
 		storage_list -= item_path
 		return TRUE
-	count -= 1
+	count -= amount
 	if(count <= 0)
 		storage_list -= item_path
 	else
 		storage_list[item_path] = count
 	return TRUE
 
-/datum/custom_outfit/proc/remove_backpack_item(item_path)
-	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path)
+/datum/custom_outfit/proc/remove_backpack_item(mob/user, item_path)
+	var/current_count = edited_outfit.backpack_contents[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать из рюкзака?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(edited_outfit.backpack_contents, item_path, amount)
 	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BACKPACK, "[item_path]")
 	return removed
 
-/datum/custom_outfit/proc/remove_belt_item(item_path)
-	var/removed = decrement_list_entry(belt_contents, item_path)
+/datum/custom_outfit/proc/remove_belt_item(mob/user, item_path)
+	var/current_count = belt_contents[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать с пояса?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(belt_contents, item_path, amount)
 	if(removed && CUSTOM_OUTFIT_IS_STORAGE_PATH(item_path))
 		forget_nested_contents(CUSTOM_OUTFIT_CONTAINER_BELT, "[item_path]")
 	return removed
@@ -1290,7 +1363,11 @@
 		return FALSE
 	var/list/container_nested = nested_storage_contents[container_key]
 	var/list/children = container_nested[parent_path] || list()
-	children[chosen_path] = (children[chosen_path] || 0) + 1
+	var/current_count = children[chosen_path] || 0
+	var/amount = prompt_item_amount(user, "Сколько предметов добавить в контейнер?", current_count)
+	if(isnull(amount))
+		return FALSE
+	children[chosen_path] = current_count + amount
 	container_nested[parent_path] = children
 	return TRUE
 
@@ -1299,12 +1376,18 @@
 /// * container_key - "backpack" or "belt".
 /// * parent_path - the parent storage item's type path in string form.
 /// * item_path - the item type path to remove.
-/datum/custom_outfit/proc/remove_nested_storage_item(container_key, parent_path, item_path)
+/datum/custom_outfit/proc/remove_nested_storage_item(mob/user, container_key, parent_path, item_path)
 	var/list/container_nested = nested_storage_contents[container_key]
 	var/list/children = container_nested ? container_nested[parent_path] : null
 	if(!children)
 		return FALSE
-	var/removed = decrement_list_entry(children, item_path)
+	var/current_count = children[item_path]
+	if(!isnum(current_count))
+		return FALSE
+	var/amount = prompt_item_amount(user, "Сколько предметов убрать из контейнера?", current_count)
+	if(isnull(amount))
+		return FALSE
+	var/removed = decrement_list_entry(children, item_path, amount)
 	if(!removed)
 		return FALSE
 	if(!length(children))
@@ -1339,6 +1422,8 @@
 		var/implant_type = all_options[label]
 		if(base_path == /obj/item/organ/internal/cyberimp && !organ_fits_species(implant_type, target_mob))
 			continue
+		if(base_path == /obj/item/organ/internal/cyberimp && is_arm_cyberimp_path(implant_type) && copytext("[implant_type]", -2) == "/l")
+			continue
 		options[label] = implant_type
 	if(!length(options))
 		to_chat(user, span_warning("No implants found."))
@@ -1351,11 +1436,65 @@
 	var/implant_path = options[choice]
 	if(!ispath(implant_path, base_path))
 		return FALSE
+	if(base_path == /obj/item/organ/internal/cyberimp && is_arm_cyberimp_path(implant_path))
+		return add_arm_cyberimp(user, implant_path)
 	var/list/destination = (base_path == /obj/item/organ/internal/cyberimp) ? edited_outfit.cybernetic_implants : edited_outfit.implants
 	if(implant_path in destination)
 		return FALSE
 	destination += implant_path
 	return TRUE
+
+/datum/custom_outfit/proc/is_arm_cyberimp_path(implant_path)
+	return ispath(implant_path, /obj/item/organ/internal/cyberimp/arm)
+
+/datum/custom_outfit/proc/add_arm_cyberimp(mob/user, implant_path)
+	var/side_options = list(
+		"Правая рука" = BODY_ZONE_R_ARM,
+		"Левая рука" = BODY_ZONE_L_ARM,
+	)
+	var/side_choice = tgui_input_list(user, "В какую руку установить имплант?", "Имплант", side_options)
+	if(QDELETED(src) || QDELETED(user) || !side_choice)
+		return FALSE
+	var/side = side_options[side_choice]
+	if(!(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)))
+		return FALSE
+	var/occupied_path
+	for(var/existing_path in edited_outfit.cybernetic_implants)
+		if(!is_arm_cyberimp_path(existing_path))
+			continue
+		if(get_arm_implant_side(existing_path) == side)
+			occupied_path = existing_path
+			break
+	if(occupied_path)
+		var/replace_options = list(
+			"Отменить добавление" = FALSE,
+			"Заменить старый имплант" = TRUE,
+		)
+		var/replace_choice = tgui_input_list(user, "В выбранной руке уже установлен имплант", "Конфликт имплантов", replace_options)
+		if(QDELETED(src) || QDELETED(user) || !replace_choice)
+			return FALSE
+		if(!replace_options[replace_choice])
+			return FALSE
+		remove_arm_cyberimp(occupied_path)
+	if(implant_path in edited_outfit.cybernetic_implants)
+		return FALSE
+	edited_outfit.cybernetic_implants += implant_path
+	arm_implant_sides[implant_path] = side
+	return TRUE
+
+/datum/custom_outfit/proc/get_arm_implant_side(implant_path)
+	var/side = arm_implant_sides[implant_path]
+	if(side in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
+		return side
+	var/obj/item/organ/internal/organ_ref = implant_path
+	return organ_ref.parent_organ_zone
+
+/// Drops an arm implant and its stored side from the outfit.
+/// Arguments:
+/// * implant_path - type path of the arm implant.
+/datum/custom_outfit/proc/remove_arm_cyberimp(implant_path)
+	edited_outfit.cybernetic_implants -= implant_path
+	arm_implant_sides -= implant_path
 
 /datum/custom_outfit/proc/choose_augmentation(mob/user)
 	var/list/type_options = list(
@@ -1448,7 +1587,7 @@
 	for(var/organ_path in typesof(cyber_base_path))
 		var/obj/item/organ/internal/organ_ref = organ_path
 		var/organ_name = initial(organ_ref.name)
-		if(!organ_name)
+		if(!organ_name || (copytext("[organ_path]", -2) == "/l"))
 			continue
 		if(!organ_fits_species(organ_path, target_mob))
 			continue
@@ -1464,6 +1603,33 @@
 	var/organ_path = organ_paths[variant_choice]
 	if(!organ_path)
 		return FALSE
+	if(ispath(organ_path, /obj/item/organ/internal/cyberimp/arm))
+		var/side_options = list(
+			"Правая рука" = BODY_ZONE_R_ARM,
+			"Левая рука" = BODY_ZONE_L_ARM,
+		)
+		var/side_choice = tgui_input_list(user, "В какую руку установить имплант?", "Имплант", side_options)
+		if(QDELETED(src) || QDELETED(user) || !side_choice)
+			return FALSE
+		var/side = side_options[side_choice]
+		var/occupied_path
+		for(var/existing_path in internal_augmentations)
+			if(arm_implant_sides[existing_path] == side && ispath(existing_path, /obj/item/organ/internal/cyberimp/arm))
+				occupied_path = existing_path
+				break
+		if(occupied_path)
+			var/replace_options = list(
+				"Отменить добавление" = FALSE,
+				"Заменить старый имплант" = TRUE,
+			)
+			var/replace_choice = tgui_input_list(user, "В выбранной руке уже установлен имплант", "Конфликт имплантов", replace_options)
+			if(QDELETED(src) || QDELETED(user) || !replace_choice)
+				return FALSE
+			if(!replace_options[replace_choice])
+				return FALSE
+			internal_augmentations -= occupied_path
+			arm_implant_sides -= occupied_path
+		arm_implant_sides[organ_path] = side
 	internal_augmentations[organ_path] = TRUE
 	return TRUE
 

@@ -124,7 +124,7 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернут�
 		verbs -= /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
-	return get_ammo(FALSE, FALSE)
+	return get_ammo(FALSE, FALSE) && ..()
 
 /obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	. = ..()

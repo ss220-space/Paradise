@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "Навык безоружного боя влияет только на базовый урон кулаком. (PR #9802)"

@@ -59,6 +59,11 @@
 	for(var/obj/item/I in loc)
 		I.loc = src
 
+/mob/living/simple_animal/hostile/mimic/crate/Destroy()
+	for(var/obj/item/item in contents)
+		item.forceMove(loc)
+	return ..()
+
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))

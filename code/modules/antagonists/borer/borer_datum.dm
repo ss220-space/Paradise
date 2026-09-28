@@ -112,17 +112,18 @@
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	UnregisterSignal(user, list(
-		COMSIG_BORER_ENTERED_HOST,
-		COMSIG_BORER_EARLY_LEFT_HOST,
-		COMSIG_LIVING_LIFE,
-		COMSIG_BORER_REPRODUCE,
-	))
+	if(user)
+		UnregisterSignal(user, list(
+			COMSIG_BORER_ENTERED_HOST,
+			COMSIG_BORER_EARLY_LEFT_HOST,
+			COMSIG_LIVING_LIFE,
+			COMSIG_BORER_REPRODUCE,
+		))
 
 	pre_remove_movable_effect()
 
 	QDEL_NULL(borer_rank)
-	QDEL_NULL(learned_focuses)
+	QDEL_LIST(learned_focuses)
 	QDEL_NULL(scaling)
 
 	user = null

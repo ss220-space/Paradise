@@ -6,6 +6,11 @@
 	var/obj/item/clothing/suit/space/hardsuit/hardsuit = null
 	var/ert_mindshield_locked = FALSE
 
+/obj/item/hardsuit_taser_proof/Destroy(force)
+	hardsuit?.taser_proof = null
+	hardsuit = null
+	return ..()
+
 /obj/item/hardsuit_taser_proof/ert_locked
 	desc = "Данное улучшение позволяет хардсьюту поглащать слабые энергетические снаряды. Для использования хардсьюта необходим ЕРТ МЩ имплант."
 	ert_mindshield_locked = TRUE

@@ -154,6 +154,10 @@
 	. = ..()
 	install_sibyl()
 
+/obj/item/gun/energy/gun/nuclear/gate
+	starting_attachment_types = list(/obj/item/gun_module/gategun)
+
+
 // MARK: Laser Gatling gun
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
