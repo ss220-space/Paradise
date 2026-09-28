@@ -21,56 +21,28 @@ changes:
   - add: "Adds more stuff (PR #93)"`,
 );
 
-const notFound = () => Object.assign(new Error("Not found"), { status: 404 });
-const calls = [];
-const github = {
-  rest: {
-    repos: {
-      getContent: async ({ ref }) => {
-        calls.push(`getContent:${ref}`);
-        throw notFound();
+const writes = [];
+await processAutoChangelog({
+  github: {
+    rest: {
+      repos: {
+        createOrUpdateFileContents: async (params) => writes.push(params),
       },
-      createOrUpdateFileContents: async ({ branch, content }) => {
-        calls.push(`write:${branch}`);
-        assert.match(Buffer.from(content, "base64").toString(), /PR #93/);
-      },
-    },
-    git: {
-      getRef: async ({ ref }) => {
-        calls.push(`getRef:${ref}`);
-        if (ref === "heads/master220") {
-          return { data: { object: { sha: "base-sha" } } };
-        }
-        throw notFound();
-      },
-      createRef: async ({ ref }) => calls.push(`createRef:${ref}`),
-    },
-    pulls: {
-      list: async () => ({ data: [] }),
-      create: async ({ base, head }) => calls.push(`createPR:${head}:${base}`),
     },
   },
-};
-await processAutoChangelog({
-  github,
   context: {
     repo: { owner: "KINGDICE666", repo: "DarkParadise" },
     payload: {
       pull_request: {
         number: 93,
-        base: { ref: "master220" },
         user: { login: "KINGDICE666" },
         body: ":cl:\nadd: Adds new stuff\n/:cl:",
       },
     },
   },
 });
-assert.deepEqual(calls, [
-  "getContent:master220",
-  "getRef:heads/automation/changelog-pr-93",
-  "getRef:heads/master220",
-  "createRef:refs/heads/automation/changelog-pr-93",
-  "getContent:automation/changelog-pr-93",
-  "write:automation/changelog-pr-93",
-  "createPR:automation/changelog-pr-93:master220",
-]);
+assert.equal(writes.length, 1);
+assert.equal(writes[0].path, "html/changelogs/AutoChangeLog-pr-93.yml");
+assert.equal(writes[0].branch, undefined);
+assert.match(writes[0].message, /\[ci skip\]$/);
+assert.match(Buffer.from(writes[0].content, "base64").toString(), /PR #93/);
