@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - admin: "Новая меню редактирования спеллов в ВВ. (PR #115)"
