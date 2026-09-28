@@ -861,6 +861,9 @@
 /area/planetoid/lazarus/maintenance/research/science
 	name = "Science Maintenance"
 
+/area/planetoid/lazarus/maintenance/water_purification
+	name = "Water Purification Plant"
+
 // MARK: Medical
 /area/planetoid/lazarus/medical
 	ambience_index = AMBIENCE_MEDICAL
