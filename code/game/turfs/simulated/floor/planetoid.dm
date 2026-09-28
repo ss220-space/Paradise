@@ -14,7 +14,6 @@
 	heavyfootstep = FOOTSTEP_SAND
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	baseturf = /turf/simulated/floor/planetoid
-	layer = SPACE_LAYER
 
 /turf/simulated/floor/planetoid/ex_act(severity, target)
 	return

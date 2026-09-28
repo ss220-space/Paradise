@@ -62,6 +62,7 @@
 		idle_sound.stop()
 	QDEL_NULL(idle_sound)
 	QDEL_NULL(storage)
+	QDEL_NULL(particles)
 	motorbike_cover = null
 	return ..()
 
@@ -141,7 +142,6 @@
 		fuel_count = 0
 		stall_engine()
 
-
 /// Revs the engine via RMB while riding the bike. Costs a bit of fuel.
 /obj/vehicle/ridden/motorbike/attack_hand_secondary(mob/user, list/modifiers)
 	if(!(user in buckled_mobs))
@@ -183,7 +183,6 @@
 	inserted_key = null
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/vehicle/ridden/motorbike/attackby(obj/item/I, mob/user, params)
 	// Keys always go to the base ignition logic, never into storage
 	if(is_key(I))
@@ -219,7 +218,6 @@
 	balloon_alert(user, "[round(fuel_count / fuel_max * 100)]%")
 	to_chat(user, span_notice("Залито <b>[pour_amount]</b> ед. топлива ([round(fuel_count / fuel_max * 100)]% бака)."))
 
-
 /obj/vehicle/ridden/motorbike/welder_act(mob/living/user, obj/item/welder)
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -247,15 +245,15 @@
 		balloon_alert(user, "ремонт прерван")
 
 /obj/vehicle/ridden/motorbike/obj_break(damage_flag)
-	START_PROCESSING(SSobj, src)
+	if(!particles)
+		particles = new /particles/smoke/burning()
+		particles.position = list(0, 0, 0)
 	return ..()
 
 /obj/vehicle/ridden/motorbike/process()
 	if(obj_integrity > integrity_failure)
+		QDEL_NULL(particles)
 		return PROCESS_KILL
-	if(prob(20))
-		return
-	do_smoke(0, holder = src, location = get_turf(src), smoke_type = /obj/effect/particle_effect/fluid/smoke/transparent)
 
 /obj/vehicle/ridden/motorbike/obj_destruction(damage_flag)
 	explosion(get_turf(src), 0, 0, 2, 0)

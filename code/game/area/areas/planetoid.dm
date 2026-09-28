@@ -19,13 +19,13 @@
 	name = "lazarus"
 	holomap_should_draw = TRUE
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	outdoors = FALSE
 
 // MARK: Command Nexus
 /area/planetoid/lazarus/nexus
 	name = "Command Nexus"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 	sound_environment = SOUND_ENVIRONMENT_HALLWAY
-	outdoors = TRUE
 
 /area/planetoid/lazarus/nexus/maintenance
 	name = "Command Nexus maintenance"
@@ -39,8 +39,9 @@
 	icon_state = "escape"
 	holomap_should_draw = TRUE
 	holomap_color = HOLOMAP_AREACOLOR_ESCAPE
+	outdoors = FALSE
 
-/area/planetoid/escape/escape_shuttle
+/area/planetoid/escape_shuttle
 	name = "LZ Escape Shuttle"
 
 /area/planetoid/escape/command
@@ -302,6 +303,10 @@
 	icon_state = "Theatre"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
+/area/planetoid/lazarus/commons/fishing_room
+	name = "Fishing room"
+	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
+
 /area/planetoid/lazarus/commons/arcade
 	name = "Arcade"
 	icon_state = "arcade"
@@ -395,6 +400,7 @@
 
 /area/planetoid/lazarus/engineering/mechanic_workshop/hangar
 	name = "Hangаr Bay"
+	sound_environment = SOUND_ENVIRONMENT_MOUNTAINS
 
 /area/planetoid/lazarus/engineering/supermatter/engine
 	name = "Supermatter Engine"
@@ -1325,37 +1331,37 @@
 	icon_state = "tcomms"
 
 // Another
-/area/planetoid/lazarus/spaceport
+/area/planetoid/spaceport
 	name = "Spaceport"
 
-/area/planetoid/lazarus/lz_ert
+/area/planetoid/lz_ert
 	name = "LZ ERT"
 
-/area/planetoid/lazarus/lz_sol
+/area/planetoid/lz_sol
 	name = "LZ Sol"
 
-/area/planetoid/lazarus/lz_addition_goals
+/area/planetoid/lz_addition_goals
 	name = "LZ Addition Goals"
 
-/area/planetoid/lazarus/lz_ferry
+/area/planetoid/lz_ferry
 	name = "LZ Ferry"
 
-/area/planetoid/lazarus/lz_centcomm
+/area/planetoid/lz_centcomm
 	name = "LZ CentComm"
 
-/area/planetoid/lazarus/lz_escape_pod_one
+/area/planetoid/lz_escape_pod_one
 	name = "LZ Escape Pod One"
 
-/area/planetoid/lazarus/lz_escape_pod_two
+/area/planetoid/lz_escape_pod_two
 	name = "LZ Escape Pod Two"
 
-/area/planetoid/lazarus/lz_escape_pod_tree
+/area/planetoid/lz_escape_pod_tree
 	name = "LZ Escape Pod Tree"
 
-/area/planetoid/lazarus/lz_escape_pod_four
+/area/planetoid/lz_escape_pod_four
 	name = "LZ Escape Pod Four"
 
-/area/planetoid/lazarus/lz_pods_ship
+/area/planetoid/lz_pods_ship
 	name = "LZ Pods Ship"
 
 //
@@ -1376,6 +1382,8 @@
 
 /area/planetoid/caves/underground_lake
 	name = "Underground Lake"
+	sound_environment = SOUND_ENVIRONMENT_ALLEY
+	ambience_index = null
 
 //
 /area/planetoid/lakes
@@ -1403,15 +1411,59 @@
 /area/planetoid/lakes/east_brig
 	name = "East Brid"
 
+
 /area/planetoid/jungle
 	ambient_buzz = 'sound/ambience/misc/ambience_strata.ogg'
 	ambient_buzz_vol = 60
+	sound_environment = SOUND_ENVIRONMENT_FOREST
+
+/area/planetoid/jungle/west
+	name = "West Jungle"
+
+/area/planetoid/jungle/north
+	name = "North Jungle"
+
+/area/planetoid/jungle/east
+	name = "East Jungle"
+
+/area/planetoid/jungle/south
+	name = "South Jungle"
+
+/area/planetoid/jungle/colony
+	name = "Colony Jungle"
+
+/area/planetoid/jungle/colony_roads
+	name = "Colony Roads"
+
+/area/planetoid/jungle/containers_street
+	name = "Container's Street Storage"
+
+/area/planetoid/jungle/orbital_strike
+	name = "Orbital strike impact site"
 
 /area/planetoid/jungle/temple_inner
 	name = "Temple Inner"
+	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 
-/area/planetoid/jungle/temple_inner
+/area/planetoid/jungle/temple_outer
 	name = "Temple Outer"
 
 /area/planetoid/jungle/test_jungle
 	name = "Test Jungle"
+
+/area/planetoid/lazarus/abandoned_building
+	holomap_should_draw = FALSE
+	sound_environment = SOUND_ENVIRONMENT_ROOM
+
+/area/planetoid/lazarus/abandoned_building/weather_station
+	name = "Abandoned Weather Station"
+
+/area/planetoid/lazarus/abandoned_building/barracks
+	name = "Abandoned Barracks"
+
+/area/planetoid/lazarus/abandoned_building/temple_room
+	name = "Temple room"
+	sound_environment = SOUND_ENVIRONMENT_STONEROOM
+
+/area/planetoid/lazarus/abandoned_building/secpost
+	name = "Abandoned Security room"
