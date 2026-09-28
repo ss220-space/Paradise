@@ -457,3 +457,6 @@
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
+	pickup_sound = null
+	drop_sound = null
+	equip_sound = null

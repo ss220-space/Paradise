@@ -7,6 +7,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
+	sound_vary = TRUE
 	var/amount_per_transfer_from_this = 5
 	var/visible_transfer_rate = TRUE
 	/// Does this container allow changing transfer amounts at all, the container can still have only one possible transfer value in `possible_transfer_amounts` at some point even if this is true

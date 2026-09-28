@@ -721,6 +721,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	sound_vary = TRUE
 	pickup_sound = SFX_TRAY_PICKUP
 	drop_sound = SFX_TRAY_DROP
 
