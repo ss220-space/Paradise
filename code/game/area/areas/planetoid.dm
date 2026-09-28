@@ -1411,6 +1411,8 @@
 /area/planetoid/lakes/east_brig
 	name = "East Brid"
 
+/area/planetoid/lakes/containers_street
+	name = "Container's Street Storage"
 
 /area/planetoid/jungle
 	ambient_buzz = 'sound/ambience/misc/ambience_strata.ogg'
@@ -1434,9 +1436,6 @@
 
 /area/planetoid/jungle/colony_roads
 	name = "Colony Roads"
-
-/area/planetoid/jungle/containers_street
-	name = "Container's Street Storage"
 
 /area/planetoid/jungle/orbital_strike
 	name = "Orbital strike impact site"
