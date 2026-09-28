@@ -25,4 +25,4 @@ jobs:
         with:
           script: |
             const { fillPullRequestDescription } = await import('${{ github.workspace }}/tools/pull_request_hooks/aiDescription.js')
-            await fillPullRequestDescription({ github, context })
+            await fillPullRequestDescription({ github, context, core })
