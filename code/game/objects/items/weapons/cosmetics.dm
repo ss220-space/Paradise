@@ -121,6 +121,7 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/welder2.ogg'
+	sound_vary = TRUE
 	pickup_sound = SFX_GENERIC_DEVICE_PICKUP
 	drop_sound = SFX_GENERIC_DEVICE_DROP
 

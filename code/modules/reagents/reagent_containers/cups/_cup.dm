@@ -240,7 +240,6 @@
 	custom_price = PAYCHECK_MIN / 5
 	can_lid = TRUE
 	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
-	sound_vary = TRUE
 	pickup_sound = 'sound/items/handling/beaker_pickup.ogg'
 	drop_sound = 'sound/items/handling/beaker_place.ogg'
 	var/obj/item/assembly_holder/assembly = null
