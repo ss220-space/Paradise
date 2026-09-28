@@ -8,32 +8,37 @@
 		return
 
 	if(href_list[VV_HK_SPELL_CREATOR])
-		if(!check_rights(R_VAREDIT))
+		if(!check_rights(R_EVENT))
 			return
-		usr.client?.open_spell_creator(src)
-
-/client/proc/open_spell_creator(mob/living/target)
-	var/datum/admin_spell_creator/creator = new(src, target)
-	creator.ui_interact(mob)
+		var/datum/admin_spell_creator/creator = new(src)
+		creator.ui_interact(usr)
 
 /datum/admin_spell_creator
-	var/client/owner
 	var/datum/weakref/target_ref
 	var/base_type
 	var/datum/action/cooldown/spell/preview_spell
+	var/icon_preview
+	var/static/list/requirement_flags = list(
+		"wizard_garb" = SPELL_REQUIRES_WIZARD_GARB,
+		"requires_human" = SPELL_REQUIRES_HUMAN,
+		"castable_as_brain" = SPELL_CASTABLE_AS_BRAIN,
+		"no_antimagic" = SPELL_REQUIRES_NO_ANTIMAGIC,
+		"no_centcom" = SPELL_REQUIRES_NO_CENTCOM,
+		"requires_mind" = SPELL_REQUIRES_MIND,
+		"mime_vow" = SPELL_REQUIRES_MIME_VOW,
+		"castable_without_invocation" = SPELL_CASTABLE_WITHOUT_INVOCATION,
+	)
 
-/datum/admin_spell_creator/New(client/user, mob/living/target)
-	owner = user
+/datum/admin_spell_creator/New(mob/living/target)
 	target_ref = WEAKREF(target)
 
 /datum/admin_spell_creator/Destroy(force)
-	owner = null
 	target_ref = null
 	QDEL_NULL(preview_spell)
 	return ..()
 
 /datum/admin_spell_creator/ui_state(mob/user)
-	return ADMIN_STATE(R_VAREDIT)
+	return ADMIN_STATE(R_EVENT)
 
 /datum/admin_spell_creator/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -45,14 +50,13 @@
 	. = ..()
 	QDEL_IN(src, 0)
 
-/// Sent once; the client filters this static list locally.
 /datum/admin_spell_creator/ui_static_data(mob/user)
 	var/list/data = list()
 
 	var/list/names_to_paths = list()
-	for(var/path in subtypesof(/datum/action/cooldown/spell))
+	for(var/path in GLOB.spells)
 		var/datum/action/cooldown/spell/spell_type = path
-		var/display_name = "[initial(spell_type.name)] ([path])"
+		var/display_name = "[spell_type::name] ([path])"
 		names_to_paths[display_name] = "[path]"
 
 	var/list/sorted_names = sort_list(names_to_paths)
@@ -76,41 +80,33 @@
 	if(preview_spell)
 		data["name"] = preview_spell.name
 		data["desc"] = preview_spell.desc
-		data["cooldown"] = round(preview_spell.cooldown_time / 10, 0.1) // deciseconds -> seconds
+		data["cooldown"] = round(preview_spell.cooldown_time / (1 SECONDS), 0.1)
 		data["invocation"] = preview_spell.invocation || ""
 		data["has_invocation"] = preview_spell.invocation_type != INVOCATION_NONE
 		data["icon_state"] = preview_spell.button_icon_state
-		data["icon_preview"] = get_icon_preview()
-		data["flags"] = list(
-			"wizard_garb" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_WIZARD_GARB),
-			"requires_human" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_HUMAN),
-			"castable_as_brain" = !!(preview_spell.spell_requirements & SPELL_CASTABLE_AS_BRAIN),
-			"no_antimagic" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC),
-			"no_centcom" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_NO_CENTCOM),
-			"requires_mind" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_MIND),
-			"mime_vow" = !!(preview_spell.spell_requirements & SPELL_REQUIRES_MIME_VOW),
-			"castable_without_invocation" = !!(preview_spell.spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION),
-		)
+		data["icon_preview"] = icon_preview
+		var/list/flags = list()
+		for(var/flag_name in requirement_flags)
+			flags[flag_name] = !!(preview_spell.spell_requirements & requirement_flags[flag_name])
+		data["flags"] = flags
 
 	return data
 
-/// Builds a base64 preview of what the action button will actually look like,
-/// layering background/button/overlay the same way build_button_icon() does.
 /datum/admin_spell_creator/proc/get_icon_preview()
 	if(!preview_spell)
 		return null
 
 	var/icon/preview_icon
 	if(preview_spell.background_icon && preview_spell.background_icon_state && icon_exists(preview_spell.background_icon, preview_spell.background_icon_state))
-		preview_icon = icon(preview_spell.background_icon, preview_spell.background_icon_state)
+		preview_icon = icon(preview_spell.background_icon, preview_spell.background_icon_state, dir = SOUTH, frame = 1)
 	if(preview_spell.button_icon && preview_spell.button_icon_state && icon_exists(preview_spell.button_icon, preview_spell.button_icon_state))
-		var/icon/button_layer = icon(preview_spell.button_icon, preview_spell.button_icon_state)
+		var/icon/button_layer = icon(preview_spell.button_icon, preview_spell.button_icon_state, dir = SOUTH, frame = 1)
 		if(preview_icon)
 			preview_icon.Blend(button_layer, ICON_OVERLAY)
 		else
 			preview_icon = button_layer
 	if(preview_spell.overlay_icon && preview_spell.overlay_icon_state && icon_exists(preview_spell.overlay_icon, preview_spell.overlay_icon_state) && preview_icon)
-		preview_icon.Blend(icon(preview_spell.overlay_icon, preview_spell.overlay_icon_state), ICON_OVERLAY)
+		preview_icon.Blend(icon(preview_spell.overlay_icon, preview_spell.overlay_icon_state, dir = SOUTH, frame = 1), ICON_OVERLAY)
 
 	if(!preview_icon)
 		return null
@@ -121,7 +117,7 @@
 	if(.)
 		return
 
-	if(!check_rights(R_VAREDIT))
+	if(!check_rights(R_EVENT))
 		return FALSE
 
 	switch(action)
@@ -134,6 +130,7 @@
 			QDEL_NULL(preview_spell)
 			base_type = picked_path
 			preview_spell = new real_path()
+			icon_preview = get_icon_preview()
 			return TRUE
 
 		if("set_field")
@@ -154,6 +151,7 @@
 					if(!length(value))
 						return FALSE
 					preview_spell.button_icon_state = value
+					icon_preview = get_icon_preview()
 				if("cooldown")
 					var/new_cooldown = text2num(value)
 					if(!isnum(new_cooldown) || new_cooldown < 0)
@@ -166,39 +164,32 @@
 		if("toggle_invocation")
 			if(!preview_spell)
 				return FALSE
-			preview_spell.invocation_type = (preview_spell.invocation_type == INVOCATION_NONE) ? INVOCATION_SHOUT : INVOCATION_NONE
+			if(preview_spell.invocation_type != INVOCATION_NONE)
+				preview_spell.invocation_type = INVOCATION_NONE
+				return TRUE
+			var/base_invocation_type = initial(preview_spell.invocation_type)
+			preview_spell.invocation_type = base_invocation_type == INVOCATION_NONE ? INVOCATION_SHOUT : base_invocation_type
 			return TRUE
 
 		if("pick_icon_file")
 			if(!preview_spell)
 				return FALSE
+			var/datum/action/cooldown/spell/edited_spell = preview_spell
 			var/new_icon = input(usr, "Выберите файл иконки", "Icon") as null|icon
 			if(isnull(new_icon))
 				return FALSE
+			var/new_icon_state = tgui_input_list(usr, "Выберите состояние иконки", "Icon", icon_states(new_icon))
+			if(isnull(new_icon_state) || preview_spell != edited_spell)
+				return FALSE
 			preview_spell.button_icon = new_icon
+			preview_spell.button_icon_state = new_icon_state
+			icon_preview = get_icon_preview()
 			return TRUE
 
 		if("toggle_flag")
 			if(!preview_spell)
 				return FALSE
-			var/flag_bit
-			switch(params["flag"])
-				if("wizard_garb")
-					flag_bit = SPELL_REQUIRES_WIZARD_GARB
-				if("requires_human")
-					flag_bit = SPELL_REQUIRES_HUMAN
-				if("castable_as_brain")
-					flag_bit = SPELL_CASTABLE_AS_BRAIN
-				if("no_antimagic")
-					flag_bit = SPELL_REQUIRES_NO_ANTIMAGIC
-				if("no_centcom")
-					flag_bit = SPELL_REQUIRES_NO_CENTCOM
-				if("requires_mind")
-					flag_bit = SPELL_REQUIRES_MIND
-				if("mime_vow")
-					flag_bit = SPELL_REQUIRES_MIME_VOW
-				if("castable_without_invocation")
-					flag_bit = SPELL_CASTABLE_WITHOUT_INVOCATION
+			var/flag_bit = requirement_flags[params["flag"]]
 			if(!flag_bit)
 				return FALSE
 			preview_spell.spell_requirements ^= flag_bit
@@ -210,13 +201,13 @@
 				return FALSE
 
 			var/datum/action/cooldown/spell/final_spell = preview_spell
-			preview_spell = null // ownership moves to the spell system, don't let Destroy() qdel it
+			preview_spell = null
 			final_spell.datum_flags |= DF_VAR_EDITED
 			final_spell.Grant(target)
 
-			log_admin("[key_name(usr)] created a custom spell '[final_spell.name]' (base: [base_type]) and gave it to [key_name(target)].")
-			message_admins(span_adminnotice("[key_name_admin(usr)] created a custom spell '[final_spell.name]' and gave it to [key_name(target)]."))
-			to_chat(usr, span_notice("Спелл '[final_spell.name]' выдан [target.name]."))
+			BLACKBOX_LOG_ADMIN_VERB("Spell Creator")
+			log_and_message_admins("created a custom spell '[final_spell.name]' (base: [base_type]) and gave it to [key_name_log(target)].")
+			to_chat(usr, span_notice("Спелл '[final_spell.name]' выдан [target.declent_ru(DATIVE)]."), confidential = TRUE)
 
 			SStgui.close_uis(src)
 			return TRUE

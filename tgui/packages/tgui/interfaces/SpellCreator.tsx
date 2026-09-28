@@ -94,7 +94,6 @@ export const SpellCreator = (_props: unknown) => {
 
           <Stack.Item grow>
             <Stack fill>
-              {/* Левая колонка: выбор базового спелла и флаги */}
               <Stack.Item basis="45%">
                 <Stack fill vertical>
                   <Stack.Item grow>
@@ -192,7 +191,7 @@ export const SpellCreator = (_props: unknown) => {
                                 placeholder="icon_state"
                                 disabled={!hasBase}
                                 value={icon_state}
-                                onChange={(value) =>
+                                onBlur={(value) =>
                                   act('set_field', {
                                     field: 'icon_state',
                                     value,
@@ -218,7 +217,6 @@ export const SpellCreator = (_props: unknown) => {
                 </Stack>
               </Stack.Item>
 
-              {/* Правая колонка: редактируемые поля выбранного спелла */}
               <Stack.Item grow>
                 <Stack fill vertical>
                   <Stack.Item grow>
@@ -229,7 +227,7 @@ export const SpellCreator = (_props: unknown) => {
                             fluid
                             disabled={!hasBase}
                             value={name}
-                            onChange={(value) =>
+                            onBlur={(value) =>
                               act('set_field', { field: 'name', value })
                             }
                           />
@@ -240,7 +238,7 @@ export const SpellCreator = (_props: unknown) => {
                             height="80px"
                             disabled={!hasBase}
                             value={desc}
-                            onChange={(value) =>
+                            onBlur={(value) =>
                               act('set_field', { field: 'desc', value })
                             }
                           />
@@ -275,7 +273,7 @@ export const SpellCreator = (_props: unknown) => {
                             fluid
                             disabled={!hasBase || !has_invocation}
                             value={invocation}
-                            onChange={(value) =>
+                            onBlur={(value) =>
                               act('set_field', {
                                 field: 'invocation',
                                 value,
