@@ -19,6 +19,8 @@
 
 	faction = ROLE_SWARMER
 
+	// Not realy invulnerable, used to not get parent's emp effects
+	emp_vulnerable = FALSE
 	targetting_is_configurable = FALSE
 	check_arrest = FALSE
 	check_records = FALSE
@@ -62,14 +64,31 @@
 /obj/machinery/porta_turret/swarmer/proc/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	if(!is_builderswarmer(swarmer))
 		return FALSE
+
+	var/required_range = GLOB.swarmer_objects_minimum_distance[type]
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!anchored && required_range && team && !team.check_objs_of_type_in_range(get_turf(src), required_range, type))
+		swarmer.balloon_alert(swarmer, "слишком близко!")
+		// [name] intended, russian wouldn't translate correctly
+		to_chat(swarmer, span_warning("Минимальное расстояние между [name] — [required_range]!"))
+		return FALSE
+
 	var/message = anchored ? "открепляем..." : "прикрепляем..."
 	swarmer.balloon_alert(swarmer, message)
 	if(!do_after(swarmer, 5 SECONDS, src, max_interact_count = 1))
 		swarmer.balloon_alert(swarmer, "сбито!")
 		return FALSE
+
+	// before and after checks, unfortunately. too costy to do in do after callback
+	if(!anchored && required_range && team && !team.check_objs_of_type_in_range(get_turf(src), required_range, type))
+		swarmer.balloon_alert(swarmer, "слишком близко!")
+		to_chat(swarmer, span_warning("Минимальное расстояние между [name] — [required_range]!"))
+		return FALSE
+
 	swarmer.balloon_alert(swarmer, "успех!")
 	playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 	set_anchored(!anchored)
+	enabled = !enabled
 	return
 
 /// Special intent handling for swarmer clicks on swarmer turrets. Override as needed.
@@ -88,11 +107,9 @@
 	disintegrate_effect.adjust_size(src)
 	qdel(src)
 
-/// Swarmers can access the control panel
 /obj/machinery/porta_turret/swarmer/isLocked(mob/user)
-	return isswarmer(user)
+	return FALSE
 
-/// No one should be able to access the control panel
 /obj/machinery/porta_turret/swarmer/allowed(mob/M)
 	return FALSE
 

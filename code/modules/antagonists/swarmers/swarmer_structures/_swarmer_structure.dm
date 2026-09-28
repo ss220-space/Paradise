@@ -86,11 +86,27 @@
 /obj/structure/swarmer/proc/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	if(!is_builderswarmer(swarmer))
 		return FALSE
+
+	var/required_range = GLOB.swarmer_objects_minimum_distance[type]
+	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!anchored && required_range && team && !team.check_objs_of_type_in_range(get_turf(src), required_range, type))
+		swarmer.balloon_alert(swarmer, "слишком близко!")
+		// [name] intended, russian wouldn't translate correctly
+		to_chat(swarmer, span_warning("Минимальное расстояние между [name] — [required_range]!"))
+		return FALSE
+
 	var/message = anchored ? "открепляем..." : "прикрепляем..."
 	swarmer.balloon_alert(swarmer, message)
 	if(!do_after(swarmer, 3 SECONDS, src, max_interact_count = 1))
 		swarmer.balloon_alert(swarmer, "сбито!")
 		return FALSE
+
+	// before and after checks, unfortunately. too costy to do in do after callback
+	if(!anchored && required_range && team && !team.check_objs_of_type_in_range(get_turf(src), required_range, type))
+		swarmer.balloon_alert(swarmer, "слишком близко!")
+		to_chat(swarmer, span_warning("Минимальное расстояние между [name] — [required_range]!"))
+		return FALSE
+
 	swarmer.balloon_alert(swarmer, "успех!")
 	playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
 	set_anchored(!anchored)

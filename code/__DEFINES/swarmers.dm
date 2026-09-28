@@ -43,9 +43,6 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		),
 	))
 
-/// List containing all swarmer mobs.
-GLOBAL_LIST_EMPTY(swarmers)
-
 // MARK: Swarmer spawn values
 /// How often based on organic resources do we spawn a swarmer
 #define SWARMER_SPAWN_VALUE 60

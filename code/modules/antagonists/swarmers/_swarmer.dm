@@ -1,3 +1,6 @@
+/// List containing all swarmer mobs.
+GLOBAL_LIST_EMPTY(swarmers)
+
 /// How many organic resources are given if the analyze was failed and we teleported a carbon mob
 #define SWARMER_CARBON_MOB_TELEPORT_REWARD 5
 

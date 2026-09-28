@@ -302,6 +302,32 @@
 
 	return potential_hubs
 
+/**
+ * # Helper proc to check if we have an object of swarmer type in given range.
+ *
+ * Arguments:
+ * * target_turf - turf to check the range from
+ * * range - the range to check the distance for
+ * * obj_type - type of objects we are looking for
+ * * check_unanchored - whether we ignore unanchored objects, TRUE by default
+ */
+/datum/team/swarmer_team/proc/check_objs_of_type_in_range(turf/target_turf, range, obj_type, check_unanchored = TRUE)
+	if(!LAZYACCESS(swarmer_objects, obj_type))
+		return TRUE
+
+	. = TRUE
+	var/list/same_obj_uids = swarmer_objects[obj_type]
+	for(var/obj_uid in same_obj_uids)
+		var/obj/obj = locateUID(obj_uid)
+		if(QDELETED(obj))
+			continue
+
+		if(check_unanchored && !obj.anchored)
+			continue
+
+		if(IN_GIVEN_RANGE(target_turf, obj, range))
+			return FALSE
+
 /datum/team/swarmer_team/proc/on_nanobot_fabricator_init(obj/structure/swarmer/nanobot_fabricator/fabricator)
 	return
 

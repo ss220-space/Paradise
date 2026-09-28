@@ -1,3 +1,10 @@
+/// Minimum distance required on wrenching and building swarmer structures
+GLOBAL_LIST_INIT(swarmer_objects_minimum_distance, list(
+	/obj/structure/swarmer/acp_turret = 2,
+	/obj/machinery/porta_turret/swarmer/turret = 3,
+	/obj/machinery/porta_turret/swarmer/sniper = 5,
+	))
+
 /// How many metallic resources does it cost to make a barricade
 #define SWARMER_BLOCKADE_COST 7
 /// How many metallic resources does it cost to make a trap
@@ -49,16 +56,13 @@
 	var/build_type = /obj/structure/swarmer
 	/// How long does it take to build
 	var/build_time = 0
-	/// Do we check if there are structures of the same type in given distance?
-	var/check_for_distance = FALSE
-	/// Minimum distance that we can build the same structure
-	var/distance_per_structure
 
 /// Updates description to include material cost.
 /datum/action/cooldown/swarmer/build/New(Target, original = TRUE)
 	. = ..()
-	if(check_for_distance)
-		desc = "[desc]\n Минимальное расстояние между друг-другом — [distance_per_structure] тайлов."
+	var/minimum_range = GLOB.swarmer_objects_minimum_distance[build_type]
+	if(minimum_range)
+		desc = "[desc]\n Минимальное расстояние между друг-другом — [minimum_range] тайлов."
 
 /datum/action/cooldown/swarmer/build/Activate(mob/living/simple_animal/hostile/swarmer/target)
 	. = ..()
@@ -87,7 +91,7 @@
 	if(!check_for_distance(spawn_turf))
 		target.balloon_alert(target, "слишком близко!")
 		var/obj/build_prototype = build_type // cant use ru_names
-		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [distance_per_structure]!"))
+		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [GLOB.swarmer_objects_minimum_distance[build_type]]!"))
 		return
 
 	if(!adjust_swarmer_metallic_resources(-action_cost))
@@ -103,7 +107,7 @@
 	if(!check_for_distance(spawn_turf))
 		target.balloon_alert(target, "слишком близко!")
 		var/obj/build_prototype = build_type // cant use ru_names
-		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [distance_per_structure]!"))
+		to_chat(target, span_warning("Минимальное расстояние между [build_prototype::name] — [GLOB.swarmer_objects_minimum_distance[build_type]]!"))
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
 
@@ -145,23 +149,15 @@
 
 /// Checks if we have the same structure type in given range
 /datum/action/cooldown/swarmer/build/proc/check_for_distance(turf/spawn_turf)
-	if(!check_for_distance)
+	var/required_range = GLOB.swarmer_objects_minimum_distance[build_type]
+	if(!required_range)
 		return TRUE
 
 	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
 	if(!team) // no objects inited
 		return TRUE
 
-	var/list/swarmer_objects = team.swarmer_objects
-	if(!LAZYACCESS(swarmer_objects, build_type)) // none built at all
-		return TRUE
-
-	. = TRUE
-	var/list/same_obj_uids = swarmer_objects[build_type]
-	for(var/obj_uid in same_obj_uids)
-		var/obj/obj = locateUID(obj_uid)
-		if(IN_GIVEN_RANGE(spawn_turf, obj, distance_per_structure))
-			return FALSE
+	return team.check_objs_of_type_in_range(spawn_turf, required_range, build_type)
 
 /// Proc for custom checks based on what is being built, returns TRUE on default
 /datum/action/cooldown/swarmer/build/proc/custom_build_checks(mob/living/user, list/turfs_to_check)
@@ -260,8 +256,6 @@
 	build_type = /obj/machinery/porta_turret/swarmer/turret
 	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
-	check_for_distance = TRUE
-	distance_per_structure = 3
 
 /datum/action/cooldown/swarmer/build/sniper_turret
 	name = "Создать снайперскую турель"
@@ -270,8 +264,6 @@
 	build_type = /obj/machinery/porta_turret/swarmer/sniper
 	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
-	check_for_distance = TRUE
-	distance_per_structure = 5
 
 /datum/action/cooldown/swarmer/build/acp_turret
 	name = "Создать установку ACP"
@@ -280,8 +272,6 @@
 	build_type = /obj/structure/swarmer/acp_turret
 	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
-	check_for_distance = TRUE
-	distance_per_structure = 2
 
 /datum/action/cooldown/swarmer/build/nanobot_fabricator
 	name = "Создать фабрикатор наноботов"
@@ -293,7 +283,7 @@
 // Action for moving the core to any available transport hub
 /datum/action/cooldown/swarmer/move_core
 	name = "Переместить ядро"
-	desc = "Перемещает ядро на выбранный \"Хаб\", при этом уничтожая его."
+	desc = "Используйте перед ядром для телепортации его на любой из хабов. Хаб будет уничтожен."
 	button_icon_state = "swarmer_core_swap"
 	cooldown_time = 1 MINUTES
 	action_cost = SWARMER_CORE_MOVE_COST
