@@ -6,9 +6,12 @@ const DEFAULT_MODELS = [
   "google/gemma-4-31b-it:free",
   "nvidia/nemotron-3-super-120b-a12b:free",
   "qwen/qwen3.8-27b:free",
+  "openrouter/free",
 ];
 const AI_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL_TIMEOUT_MS = 3 * 60 * 1000;
+const RETRY_DELAYS_MS = [30 * 1000, 90 * 1000];
+const GENERATE_DEADLINE_MS = 11 * 60 * 1000;
 const DIFF_BUDGET = 60000;
 const FILE_PATCH_LIMIT = 8000;
 const SECTION_WHAT = "Что этот ПР делает";
@@ -214,21 +217,35 @@ async function requestModel(model, messages) {
   return normalizeGenerated(content);
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function generate(messages) {
   const models = process.env.AI_MODEL ? [process.env.AI_MODEL] : DEFAULT_MODELS;
-  const errors = [];
-  for (const model of models) {
-    try {
-      return await requestModel(model, messages);
-    } catch (error) {
-      console.log(`${model}: ${error.message}`);
-      errors.push(`${model}: ${error.message}`);
+  const deadline = Date.now() + GENERATE_DEADLINE_MS;
+  for (let round = 0; round <= RETRY_DELAYS_MS.length; round++) {
+    if (round > 0) {
+      const delay = RETRY_DELAYS_MS[round - 1];
+      if (Date.now() + delay > deadline) {
+        break;
+      }
+      console.log(`Все модели заняты, повтор через ${delay / 1000} с.`);
+      await sleep(delay);
+    }
+    for (const model of models) {
+      if (Date.now() > deadline) {
+        break;
+      }
+      try {
+        return await requestModel(model, messages);
+      } catch (error) {
+        console.log(`${model}: ${error.message}`);
+      }
     }
   }
-  throw new Error(`Ни одна модель не ответила:\n${errors.join("\n")}`);
+  return null;
 }
 
-export async function fillPullRequestDescription({ github, context }) {
+export async function fillPullRequestDescription({ github, context, core }) {
   const pull = context.payload.pull_request;
   const byLabel = context.payload.action === "labeled";
 
@@ -263,6 +280,13 @@ export async function fillPullRequestDescription({ github, context }) {
 
   const diff = await collectDiff({ github, context });
   const generated = await generate(buildMessages({ title: pull.title, authorText, diff }));
+
+  if (!generated) {
+    const message = `Бесплатные модели OpenRouter перегружены, описание не заполнено. Повесьте метку «${TRIGGER_LABEL}», чтобы попробовать ещё раз.`;
+    core?.warning(message);
+    console.log(message);
+    return;
+  }
 
   if (!generated.what) {
     throw new Error("Модель вернула пустое описание.");
