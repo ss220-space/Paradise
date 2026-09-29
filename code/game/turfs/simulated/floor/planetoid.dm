@@ -14,7 +14,27 @@
 	heavyfootstep = FOOTSTEP_SAND
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	baseturf = /turf/simulated/floor/planetoid
-	layer = SPACE_LAYER
+	intact = FALSE
+
+/turf/simulated/floor/planetoid/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_underfloor_atom_inited))
+
+/// Sand and grass conceal underground structures.
+/turf/simulated/floor/planetoid/levelupdate()
+	for(var/obj/object in src)
+		if(object.level == 1 && (object.flags & INITIALIZED))
+			underfloor_cover(object)
+
+/turf/simulated/floor/planetoid/proc/underfloor_cover(obj/object)
+	if(!istype(object, /obj/machinery/atmospherics/pipe) && !istype(object, /obj/structure/disposalpipe) && !istype(object, /obj/structure/cable))
+		return
+	SET_PLANE_IMPLICIT(object, FLOOR_PLANE)
+	object.invisibility = INVISIBILITY_MAXIMUM
+
+/turf/simulated/floor/planetoid/proc/on_underfloor_atom_inited(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
+	underfloor_cover(arrived)
 
 /turf/simulated/floor/planetoid/ex_act(severity, target)
 	return
@@ -318,7 +338,6 @@
 	icon_state = "grassdirt_edge"
 	baseturf = /turf/simulated/floor/planetoid/grass/sandedge
 
-
 /turf/simulated/floor/planetoid/grass/sandedge/south
 	dir = SOUTH
 
@@ -418,7 +437,6 @@
 /turf/simulated/floor/planetoid/grass/beachedge
 	icon_state = "grassbeach"
 	baseturf = /turf/simulated/floor/planetoid/grass/beachedge
-
 
 /turf/simulated/floor/planetoid/grass/beachedge/south
 	dir = SOUTH
@@ -548,7 +566,6 @@
 /turf/simulated/floor/planetoid/grass/scorched2
 	icon_state = "grass1_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2
-
 
 /turf/simulated/floor/planetoid/grass/scorched2/scorched_alt
 	icon_state = "grass2_scorched2"

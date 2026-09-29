@@ -18,7 +18,8 @@
 	target_trait = ZTRAIT_RAIN
 	protected_areas = list(
 		/area/planetoid/caves,
-		/area/planetoid/lazarus
+		/area/planetoid/lazarus,
+		/area/planetoid/escape,
 	)
 
 	probability = 50

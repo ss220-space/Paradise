@@ -259,7 +259,7 @@
 /obj/structure/sign/nucleationplague
 	name = "фотография нуклеации"
 	desc = "На фотографии — мужчина в строгом деловом костюме ТСФ с розой в волосах. На шее видна татуировка Кристалла Суперматерии.\nРядом подпись:\nВ благодарность за помощь в создании станции \"Лазарь\"."
-	icon_state = "artemystout"
+	icon_state = "nucleationplague"
 
 /obj/structure/sign/mech
 	name = "картина меха"

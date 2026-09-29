@@ -230,8 +230,14 @@
 	icon = 'icons/obj/bonfire.dmi'
 	icon_state = "campfire"
 
+/obj/structure/bonfire/prelit/campfire/update_icon_state()
+	icon_state = "campfire[burning ? "_on_fire" : ""]"
+
 /obj/structure/bonfire/prelit/brazier
 	icon = 'icons/obj/bonfire.dmi'
 	icon_state = "brazier"
+
+/obj/structure/bonfire/prelit/brazier/update_icon_state()
+	icon_state = "brazier[burning ? "_on_fire" : ""]"
 
 #undef BONFIRE_FIRE_STACK_STRENGTH
