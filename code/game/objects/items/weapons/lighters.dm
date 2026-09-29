@@ -576,8 +576,8 @@
 	matchburnout()
 
 /obj/item/match/update_icon_state()
-	icon_state = lit ? "match_lit" : "match_burnt"
-	item_state = lit ? "match_lit" : "match_burnt"
+	icon_state = lit ? "match_lit" : burnt ? "match_burnt" : "match_unlit"
+	item_state = icon_state
 
 /obj/item/match/update_name(updates = ALL)
 	. = ..()
