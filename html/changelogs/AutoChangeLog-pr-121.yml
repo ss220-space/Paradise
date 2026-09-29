@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - admin: "Спелл крейтору добавлен экспорт/инпорт джсон файла созданных спеллов (PR #121)"
