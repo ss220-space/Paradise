@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type ChangeEvent, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -72,7 +72,41 @@ export const SpellCreator = (_props: unknown) => {
   } = data;
 
   const [searchText, setSearchText] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const hasBase = !!base_type;
+
+  const exportPreset = () => {
+    if (!base_type || !flags) {
+      return;
+    }
+
+    const preset = {
+      base_type,
+      flags,
+      name,
+      desc,
+      cooldown,
+      has_invocation,
+      invocation,
+      icon_state: icon_state || undefined,
+    };
+
+    const blob = new Blob([JSON.stringify(preset, null, 2)], {
+      type: 'application/json',
+    });
+    Byond.saveBlob(blob, `${name || 'spell'}.json`, '.json');
+  };
+
+  const onPresetSelected = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) {
+      return;
+    }
+    try {
+      act('load_preset', { json: await file.text() });
+    } catch {}
+  };
 
   const filteredSpells = spells.filter(
     createSearch(searchText, (spell: SpellEntry) => spell.name),
@@ -131,9 +165,7 @@ export const SpellCreator = (_props: unknown) => {
                   <Stack.Item>
                     <Section
                       title={
-                        hasBase
-                          ? 'Флаги'
-                          : 'Флаги (выберите базовый спелл)'
+                        hasBase ? 'Флаги' : 'Флаги (выберите базовый спелл)'
                       }
                     >
                       <Stack vertical>
@@ -283,6 +315,37 @@ export const SpellCreator = (_props: unknown) => {
                         </LabeledList.Item>
                       </LabeledList>
                     </Section>
+                  </Stack.Item>
+
+                  <Stack.Item>
+                    <Stack>
+                      <Stack.Item grow basis={0}>
+                        <Button
+                          fluid
+                          icon="file-upload"
+                          onClick={() => fileInputRef.current?.click()}
+                        >
+                          Загрузить пресет
+                        </Button>
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept=".json,application/json"
+                          style={{ display: 'none' }}
+                          onChange={onPresetSelected}
+                        />
+                      </Stack.Item>
+                      <Stack.Item grow basis={0}>
+                        <Button
+                          fluid
+                          disabled={!hasBase || !flags}
+                          icon="download"
+                          onClick={exportPreset}
+                        >
+                          Сохранить пресет
+                        </Button>
+                      </Stack.Item>
+                    </Stack>
                   </Stack.Item>
 
                   <Stack.Item>
