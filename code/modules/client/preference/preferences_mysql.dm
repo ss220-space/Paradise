@@ -82,7 +82,9 @@ GLOBAL_LIST_INIT(game_setting_names, list(
 					toggles_3,
 					screentip_mode,
 					screentip_color,
-					achivements_sound
+					achivements_sound,
+					zoom,
+					zoom_mode
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.account_ckey
@@ -119,6 +121,8 @@ GLOBAL_LIST_INIT(game_setting_names, list(
 		screentip_mode = query.item[23]
 		screentip_color = query.item[24]
 		achivements_sound = query.item[25]
+		zoom = text2num(query.item[26])
+		zoom_mode = query.item[27]
 
 	qdel(query)
 
@@ -143,6 +147,9 @@ GLOBAL_LIST_INIT(game_setting_names, list(
 	discord_name = sanitize_text(discord_name, initial(discord_name))
 	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, default = initial(screentip_color))
+	zoom = clamp(zoom, 0, 9)
+	zoom_mode = sanitize_inlist(zoom_mode, GLOB.zoom_modes, initial(zoom_mode))
+	parent?.view_size?.setZoomMode()
 	parent?.view_size?.setDefault(VIEWPORT_USE_PREF)
 	return TRUE
 
@@ -189,7 +196,9 @@ GLOBAL_LIST_INIT(game_setting_names, list(
 					toggles_3=:toggles3,
 					screentip_mode=:screentip_mode,
 					screentip_color=:screentip_color,
-					achivements_sound=:achivements_sound
+					achivements_sound=:achivements_sound,
+					zoom=:zoom,
+					zoom_mode=:zoom_mode
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -214,7 +223,9 @@ GLOBAL_LIST_INIT(game_setting_names, list(
 						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 						"screentip_mode" = screentip_mode,
 						"screentip_color" = screentip_color,
-						"achivements_sound" = achivements_sound
+						"achivements_sound" = achivements_sound,
+						"zoom" = zoom,
+						"zoom_mode" = zoom_mode
 					)
 					)
 
