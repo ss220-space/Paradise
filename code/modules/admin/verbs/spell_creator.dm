@@ -1,3 +1,7 @@
+#define SPELL_CREATOR_MAX_PRESET_LENGTH 262144
+#define SPELL_CREATOR_MAX_COOLDOWN 3600
+#define IS_PRESET_BOOLEAN(value) (isnum(value) && (value == TRUE || value == FALSE))
+
 /mob/living/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION(VV_HK_SPELL_CREATOR, "Create Spell From...")
@@ -112,15 +116,28 @@
 		return null
 	return icon2base64(preview_icon)
 
+/datum/admin_spell_creator/proc/set_base_type(spell_path)
+	QDEL_NULL(preview_spell)
+	base_type = "[spell_path]"
+	preview_spell = new spell_path()
+	icon_preview = get_icon_preview()
+
+/datum/admin_spell_creator/proc/set_invocation_enabled(enabled)
+	if(!enabled)
+		preview_spell.invocation_type = INVOCATION_NONE
+		return
+	var/base_invocation_type = initial(preview_spell.invocation_type)
+	preview_spell.invocation_type = base_invocation_type == INVOCATION_NONE ? INVOCATION_SHOUT : base_invocation_type
+
 /datum/admin_spell_creator/proc/load_preset(json_text)
-	if(!istext(json_text) || !length(json_text) || length(json_text) > 262144)
+	if(!istext(json_text) || !length(json_text) || length(json_text) > SPELL_CREATOR_MAX_PRESET_LENGTH)
 		return FALSE
 
-	var/preset_data = safe_json_decode(json_text)
+	var/list/preset_data = safe_json_decode(json_text)
 	if(!islist(preset_data))
 		return FALSE
 
-	var/list/allowed_keys = list("base_type", "flags", "name", "desc", "cooldown", "has_invocation", "invocation")
+	var/static/list/allowed_keys = list("base_type", "flags", "name", "desc", "cooldown", "has_invocation", "invocation", "icon_state")
 	for(var/key in preset_data)
 		if(!(key in allowed_keys))
 			return FALSE
@@ -129,56 +146,49 @@
 	if(!istext(picked_path))
 		return FALSE
 	var/real_path = text2path(picked_path)
-	if(!ispath(real_path, /datum/action/cooldown/spell) || !(real_path in GLOB.spells))
+	if(!ispath(real_path, /datum/action/cooldown/spell))
 		return FALSE
 
-	var/flags_data = preset_data["flags"]
+	var/list/flags_data = preset_data["flags"]
 	if("flags" in preset_data)
 		if(!islist(flags_data))
 			return FALSE
 		for(var/flag_name in flags_data)
-			var/flag_bit = requirement_flags[flag_name]
-			var/flag_value = flags_data[flag_name]
-			if(!flag_bit || !isnum(flag_value) || (flag_value != FALSE && flag_value != TRUE))
+			if(!istext(flag_name) || !(flag_name in requirement_flags) || !IS_PRESET_BOOLEAN(flags_data[flag_name]))
 				return FALSE
 
 	if(("name" in preset_data) && (!istext(preset_data["name"]) || !length(preset_data["name"])))
 		return FALSE
 	if(("desc" in preset_data) && !istext(preset_data["desc"]))
 		return FALSE
-	if(("cooldown" in preset_data) && (!isnum(preset_data["cooldown"]) || preset_data["cooldown"] < 0 || preset_data["cooldown"] > 3600))
+	if(("cooldown" in preset_data) && (!isnum(preset_data["cooldown"]) || preset_data["cooldown"] < 0 || preset_data["cooldown"] > SPELL_CREATOR_MAX_COOLDOWN))
 		return FALSE
-	if(("has_invocation" in preset_data) && (!isnum(preset_data["has_invocation"]) || (preset_data["has_invocation"] != FALSE && preset_data["has_invocation"] != TRUE)))
+	if(("has_invocation" in preset_data) && !IS_PRESET_BOOLEAN(preset_data["has_invocation"]))
 		return FALSE
 	if(("invocation" in preset_data) && !istext(preset_data["invocation"]))
 		return FALSE
+	if(("icon_state" in preset_data) && (!istext(preset_data["icon_state"]) || !length(preset_data["icon_state"])))
+		return FALSE
 
-	var/datum/action/cooldown/spell/new_preview_spell = new real_path()
-	if("flags" in preset_data)
-		for(var/flag_name in flags_data)
-			var/flag_bit = requirement_flags[flag_name]
-			var/current_value = !!(new_preview_spell.spell_requirements & flag_bit)
-			if(current_value != flags_data[flag_name])
-				new_preview_spell.spell_requirements ^= flag_bit
-	if("name" in preset_data)
-		new_preview_spell.name = preset_data["name"]
-	if("desc" in preset_data)
-		new_preview_spell.desc = preset_data["desc"]
-	if("cooldown" in preset_data)
-		new_preview_spell.cooldown_time = preset_data["cooldown"] SECONDS
-	if("has_invocation" in preset_data)
-		if(preset_data["has_invocation"])
-			var/base_invocation_type = initial(new_preview_spell.invocation_type)
-			new_preview_spell.invocation_type = base_invocation_type == INVOCATION_NONE ? INVOCATION_SHOUT : base_invocation_type
+	set_base_type(real_path)
+	for(var/flag_name in flags_data)
+		if(flags_data[flag_name])
+			preview_spell.spell_requirements |= requirement_flags[flag_name]
 		else
-			new_preview_spell.invocation_type = INVOCATION_NONE
+			preview_spell.spell_requirements &= ~requirement_flags[flag_name]
+	if("name" in preset_data)
+		preview_spell.name = preset_data["name"]
+	if("desc" in preset_data)
+		preview_spell.desc = preset_data["desc"]
+	if("cooldown" in preset_data)
+		preview_spell.cooldown_time = preset_data["cooldown"] SECONDS
+	if("has_invocation" in preset_data)
+		set_invocation_enabled(preset_data["has_invocation"])
 	if("invocation" in preset_data)
-		new_preview_spell.invocation = preset_data["invocation"]
-
-	QDEL_NULL(preview_spell)
-	preview_spell = new_preview_spell
-	base_type = picked_path
-	icon_preview = get_icon_preview()
+		preview_spell.invocation = preset_data["invocation"]
+	if("icon_state" in preset_data)
+		preview_spell.button_icon_state = preset_data["icon_state"]
+		icon_preview = get_icon_preview()
 	return TRUE
 
 /datum/admin_spell_creator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -191,27 +201,19 @@
 
 	switch(action)
 		if("load_preset")
-			var/preset_file = input(usr, "Выберите файл пресета", "Загрузить пресет") as null|file
-			if(isnull(preset_file))
+			if(!load_preset(params["json"]))
+				to_chat(usr, span_warning("Не удалось загрузить пресет: некорректный JSON или неподдерживаемые значения."), confidential = TRUE)
 				return FALSE
 
-			if(!load_preset(file2text(preset_file)))
-				to_chat(usr, span_warning("Не удалось загрузить пресет: некорректный JSON или неподдерживаемые значения."))
-				return FALSE
-
-			to_chat(usr, span_notice("Пресет загружен."))
+			to_chat(usr, span_notice("Пресет загружен."), confidential = TRUE)
 			return TRUE
 
 		if("select_base")
-			var/picked_path = params["path"]
-			var/real_path = text2path(picked_path)
+			var/real_path = text2path(params["path"])
 			if(!ispath(real_path, /datum/action/cooldown/spell))
 				return FALSE
 
-			QDEL_NULL(preview_spell)
-			base_type = picked_path
-			preview_spell = new real_path()
-			icon_preview = get_icon_preview()
+			set_base_type(real_path)
 			return TRUE
 
 		if("set_field")
@@ -235,7 +237,7 @@
 					icon_preview = get_icon_preview()
 				if("cooldown")
 					var/new_cooldown = text2num(value)
-					if(!isnum(new_cooldown) || new_cooldown < 0)
+					if(!isnum(new_cooldown) || new_cooldown < 0 || new_cooldown > SPELL_CREATOR_MAX_COOLDOWN)
 						return FALSE
 					preview_spell.cooldown_time = new_cooldown SECONDS
 				else
@@ -245,11 +247,7 @@
 		if("toggle_invocation")
 			if(!preview_spell)
 				return FALSE
-			if(preview_spell.invocation_type != INVOCATION_NONE)
-				preview_spell.invocation_type = INVOCATION_NONE
-				return TRUE
-			var/base_invocation_type = initial(preview_spell.invocation_type)
-			preview_spell.invocation_type = base_invocation_type == INVOCATION_NONE ? INVOCATION_SHOUT : base_invocation_type
+			set_invocation_enabled(preview_spell.invocation_type == INVOCATION_NONE)
 			return TRUE
 
 		if("pick_icon_file")
@@ -292,3 +290,7 @@
 
 			SStgui.close_uis(src)
 			return TRUE
+
+#undef SPELL_CREATOR_MAX_PRESET_LENGTH
+#undef SPELL_CREATOR_MAX_COOLDOWN
+#undef IS_PRESET_BOOLEAN
