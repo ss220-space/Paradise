@@ -130,10 +130,8 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 #define SWARMER_ANALYZE_NONE (1<<0)
 /// Bitflag sent if the analyzers are currently busy
 #define SWARMER_ANALYZE_BUSY (1<<1)
-/// Bitflag sent if the mob was sent too many times already
-#define SWARMER_ANALYZE_TOO_MUCH (1<<2)
 /// Bitflag sent if there is a free analyzer
-#define SWARMER_ANALYZE_FOUND (1<<3)
+#define SWARMER_ANALYZE_FOUND (1<<2)
 
 
 // MARK: Processer return bitflags

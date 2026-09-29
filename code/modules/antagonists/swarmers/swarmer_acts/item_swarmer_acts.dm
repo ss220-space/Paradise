@@ -17,3 +17,7 @@
 
 /obj/item/soulscythe/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_DAMAGE
+
+/obj/item/storage/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
+	drop_inventory()
+	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_CONSUME

@@ -345,8 +345,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 		balloon_alert(src, "нету анализаторов, телепорт!")
 	else if(analyze_result & SWARMER_ANALYZE_BUSY)
 		balloon_alert(src, "анализаторы заняты, телепорт!")
-	else if(analyze_result & SWARMER_ANALYZE_TOO_MUCH)
-		balloon_alert(src, "уже анализирован, телепорт!")
 	else
 		CRASH("Swarmer team try_analyze_proc returned none of the supposed bitflags. Return value: [analyze_result]")
 

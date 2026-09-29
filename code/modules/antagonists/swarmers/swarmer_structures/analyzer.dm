@@ -99,7 +99,7 @@
  * Returns TRUE if we have space.
  * Returns FALSE otherwise.
  */
-/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(mob/living/target)
+/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(mob/living/target, qdel_on_end = FALSE)
 	if(!anchored)
 		return FALSE
 	if(occupant)
@@ -107,7 +107,7 @@
 
 	occupant = target
 	var/delay = SWARMER_ANALYZE_DELAY(occupant)
-	addtimer(CALLBACK(src, PROC_REF(finish_analyzing)), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+	addtimer(CALLBACK(src, PROC_REF(finish_analyzing), qdel_on_end), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 	occupant.Paralyse(delay + 1 SECONDS, TRUE) // Extra second just incase
 	occupant.Sleeping(delay + 1 SECONDS) // Extra second just incase
 	occupant.forceMove(src)
@@ -125,7 +125,7 @@
  * adjusts swarmer resources,
  * teleports the target to a safe place.
  */
-/obj/structure/swarmer/organic_analyzer/proc/finish_analyzing()
+/obj/structure/swarmer/organic_analyzer/proc/finish_analyzing(should_qdel = FALSE)
 	if(QDELETED(occupant))
 		occupant = null
 		return
@@ -137,13 +137,20 @@
 	refresh_air()
 	sound_loop.stop()
 	animate(src, transform=matrix())
-	take_random_organs()
 	adjust_resources()
+
+	if(should_qdel)
+		QDEL_NULL(occupant)
+		update_icon(UPDATE_ICON_STATE)
+		return
+
+	take_random_organs()
 	teleport_to_safe()
 	if(iscarbon(occupant))
 		var/mob/living/carbon/target = occupant
 		if(target.handcuffed)
 			target.clear_cuffs(target.handcuffed)
+
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 

@@ -196,13 +196,14 @@
 	if(!LAZYACCESS(swarmer_objects, /obj/structure/swarmer/organic_analyzer))
 		return SWARMER_ANALYZE_NONE
 
+	var/qdel_on_end = FALSE
 	var/target_uid = target.UID()
 	if(LAZYACCESS(analyzer_mob_list, target_uid) >= ANALYZER_SEND_LIMIT)
-		return SWARMER_ANALYZE_TOO_MUCH
+		qdel_on_end = TRUE
 
 	for(var/analyzer_uid in swarmer_objects[/obj/structure/swarmer/organic_analyzer])
 		var/obj/structure/swarmer/organic_analyzer/analyzer = locateUID(analyzer_uid)
-		if(analyzer?.try_load_mob(target))
+		if(analyzer?.try_load_mob(target, qdel_on_end))
 			LAZYADDASSOC(analyzer_mob_list, target_uid, 1)
 			return SWARMER_ANALYZE_FOUND
 
