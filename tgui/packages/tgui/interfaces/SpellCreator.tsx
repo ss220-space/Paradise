@@ -74,6 +74,32 @@ export const SpellCreator = (_props: unknown) => {
   const [searchText, setSearchText] = useState('');
   const hasBase = !!base_type;
 
+  const exportPreset = () => {
+    if (!base_type || !flags) {
+      return;
+    }
+
+    const preset = {
+      base_type,
+      flags,
+      name,
+      desc,
+      cooldown,
+      has_invocation,
+      invocation,
+    };
+
+    const file = new Blob([JSON.stringify(preset, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(file);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'spell-preset.json';
+    link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
   const filteredSpells = spells.filter(
     createSearch(searchText, (spell: SpellEntry) => spell.name),
   );
@@ -131,9 +157,7 @@ export const SpellCreator = (_props: unknown) => {
                   <Stack.Item>
                     <Section
                       title={
-                        hasBase
-                          ? 'Флаги'
-                          : 'Флаги (выберите базовый спелл)'
+                        hasBase ? 'Флаги' : 'Флаги (выберите базовый спелл)'
                       }
                     >
                       <Stack vertical>
@@ -286,6 +310,21 @@ export const SpellCreator = (_props: unknown) => {
                   </Stack.Item>
 
                   <Stack.Item>
+                    <Button
+                      fluid
+                      icon="folder-open"
+                      onClick={() => act('load_preset')}
+                    >
+                      Загрузить JSON из файла
+                    </Button>
+                    <Button
+                      fluid
+                      disabled={!hasBase || !flags}
+                      icon="download"
+                      onClick={exportPreset}
+                    >
+                      Скачать JSON-пресет
+                    </Button>
                     <Button.Confirm
                       fluid
                       height="2.2em"
