@@ -20,6 +20,7 @@
 		/area/planetoid/caves,
 		/area/planetoid/lazarus,
 		/area/planetoid/escape,
+		/area/planetoid/abandoned_building,
 	)
 
 	probability = 50
