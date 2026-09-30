@@ -32,7 +32,7 @@
 /obj/structure/decor/platform/ancient_temple/corner/north
 	dir = NORTH
 
-/obj/structure/decor/platform/ancient_temple/corner/ast
+/obj/structure/decor/platform/ancient_temple/corner/east
 	dir = EAST
 
 /obj/structure/decor/platform/ancient_temple/corner/west

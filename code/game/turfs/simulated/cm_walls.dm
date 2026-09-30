@@ -83,8 +83,9 @@
 				wall_dirs += direction
 				break
 
-	for(var/neighbor in wall_dirs)
-		neighbors_bitfield |= neighbor
+	neighbors_bitfield = NONE
+	for(var/connected_direction in wall_dirs)
+		neighbors_bitfield |= connected_direction
 
 	wall_connections = cm_dirs_to_corner_states(wall_dirs)
 
