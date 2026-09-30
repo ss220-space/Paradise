@@ -851,7 +851,7 @@ SUBSYSTEM_DEF(mapping)
 	for(var/level_name in GLOB.space_manager.z_list)
 		var/datum/space_level/level = GLOB.space_manager.z_list[level_name]
 		var/z = level.zpos
-		if(is_admin_level(z) || is_station_level(z) || is_mining_level(z) || is_taipan(z))
+		if(!is_level_reachable(z))
 			continue
 
 		var/turf/place_turf = null

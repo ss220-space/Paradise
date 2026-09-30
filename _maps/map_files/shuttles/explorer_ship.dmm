@@ -274,6 +274,15 @@
 	dir = 4;
 	luminosity = 3
 	},
+/obj/docking_port/mobile{
+	id = "explorer_ship";
+	preferred_direction = 4;
+	port_direction = 4;
+	width = 9;
+	height = 14;
+	dwidth = 4;
+	roundstart_move = "explorer_ship_home";
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/explorer_ship)
 "L" = (

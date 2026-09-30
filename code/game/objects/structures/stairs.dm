@@ -222,6 +222,8 @@
 /obj/structure/stairs/perspective
 	icon = 'icons/obj/perspective_stairs.dmi'
 	icon_state = "np_stair"
+	force_open_above = TRUE
+	terminator_mode = STAIR_TERMINATOR_NO
 
 /obj/structure/stairs/perspective/full
 	icon_state = "p_stair_full"

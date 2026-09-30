@@ -174,6 +174,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/giant_lizard/proc/growl(atom/target_mob, ignore_cooldown = FALSE)
+	if(stat == DEAD)
+		return
 	if(!COOLDOWN_FINISHED(src, growl_message) && !ignore_cooldown)
 		return
 	if(target_mob)
@@ -244,6 +246,9 @@
 /mob/living/simple_animal/hostile/giant_lizard/death(gibbed)
 	playsound(loc, 'sound/effects/giant_lizard_death.ogg', 70)
 	GLOB.giant_lizards_alive -= src
+	stance = LIZARD_STANCE_IDLE
+	enemies = list()
+	lose_target()
 	return ..()
 
 /mob/living/simple_animal/hostile/giant_lizard/Destroy()
@@ -312,6 +317,9 @@
 		flee_from_fire()
 
 /mob/living/simple_animal/hostile/giant_lizard/Life(seconds, times_fired)
+	if(stat == DEAD)
+		return ..()
+
 	if(aggression_value > 0)
 		aggression_value--
 
@@ -333,8 +341,10 @@
 		bleed_ticks--
 		add_splatter_floor(loc, is_small_pool)
 
-	if(stance == LIZARD_STANCE_IDLE && !client)
+	if(stance == LIZARD_STANCE_IDLE)
 		stop_automated_movement = FALSE
+
+	if(stance == LIZARD_STANCE_IDLE && !client)
 		var/mob/living/carbon/friend = locate(/mob/living/carbon) in get_turf(src)
 		if(friend && faction_check_mob(friend) && resting)
 			chance_to_rest = 0
@@ -348,6 +358,7 @@
 	. = ..()
 
 	if(client)
+		stop_moving()
 		if(stance != LIZARD_STANCE_IDLE)
 			enemies = list()
 			lose_target()
@@ -841,7 +852,7 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_VISIBLE
 
 /datum/emote/living/giant_lizard/flicktongue
-	name = :"Язык"
+	name = "Язык"
 	key = "flicktongue"
 	message = null
 	emote_type = EMOTE_VISIBLE
