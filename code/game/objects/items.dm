@@ -171,6 +171,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// A time in ticks, multiplied by the w_class.
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
 	var/embedded_ignore_throwspeed_threshold = FALSE
+	/// If our item actually embeds into human
+	var/can_actually_embed = TRUE
 
 	/// What kind of tool are we?
 	var/tool_behaviour = NONE
@@ -1572,3 +1574,6 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.update_clothing(slot_flags)
+
+/obj/item/proc/on_human_ebedded(/mob/living/carbon/human/our_target)
+	return

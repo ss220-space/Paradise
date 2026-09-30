@@ -124,7 +124,6 @@
 	if(isnull(target))
 		return
 	if(get_dist(source, target) > 9)
-		user.balloon_alert(user, "слишком далеко!")
 		cancel_hook()
 
 /obj/item/grapple_gun/proc/apply_throw_traits(mob/living/source, list/arguements)
