@@ -26,6 +26,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 )))
 
 /mob/living/carbon/human/proc/should_strip(mob/user)
+	if(istype(user, /mob/living))
+		var/mob/living/user_living = user
+		if(user_living.mob_size <= MOB_SIZE_SMALL)
+			return FALSE
+
 	if(user.pulling != src)
 		return TRUE
 
