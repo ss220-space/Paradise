@@ -50,10 +50,9 @@
 
 	if(!user.can_strip)
 		return
-	if(istype(user, /mob/living))
-		var/mob/living/user_living = user
-		if(user_living.mob_size <= MOB_SIZE_SMALL)
-			return
+	var/mob/living/user_living = user
+	if(user_living?.mob_size <= MOB_SIZE_SMALL)
+		return
 
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
