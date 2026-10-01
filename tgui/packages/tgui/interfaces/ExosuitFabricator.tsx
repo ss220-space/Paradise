@@ -34,7 +34,6 @@ type ExosuitFabricatorData = {
   categories: string[];
   designs: DesignData[];
   syncing: boolean;
-  logistics_enabled: boolean;
 };
 
 type DesignData = {
@@ -132,7 +131,7 @@ const Materials = (properties) => {
 
 const Designs = (properties) => {
   const { act, data } = useBackend<ExosuitFabricatorData>();
-  const { curCategory, categories, designs, syncing, logistics_enabled } = data;
+  const { curCategory, categories, designs, syncing } = data;
   const [searchText, setSearchText] = useState('');
   const searcher = createSearch<DesignData>(searchText, (design) => {
     return design.name;
@@ -159,7 +158,7 @@ const Designs = (properties) => {
           </Stack.Item>
           <Stack.Item grow />
           <Stack.Item>
-            <LogisticsButton enabled={!!logistics_enabled} />
+            <LogisticsButton />
           </Stack.Item>
           <Stack.Item>
             <Button

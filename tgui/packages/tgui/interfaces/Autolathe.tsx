@@ -58,7 +58,6 @@ type AutolatheData = {
   showhacked: boolean;
   busyamt: number;
   fill_percent: number;
-  logistics_enabled: boolean;
 };
 
 export const Autolathe = (props: unknown) => {
@@ -146,7 +145,7 @@ export const Autolathe = (props: unknown) => {
               buttons={
                 <Stack>
                   <Stack.Item>
-                    <LogisticsButton enabled={!!data.logistics_enabled} />
+                    <LogisticsButton />
                   </Stack.Item>
                   <Stack.Item>
                     <Dropdown

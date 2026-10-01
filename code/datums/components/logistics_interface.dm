@@ -33,10 +33,11 @@
 /datum/component/logistics_interface/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR), PROC_REF(on_crowbar_act))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	try_connect_pipe()
 
 /datum/component/logistics_interface/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR)))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR), COMSIG_MOVABLE_MOVED))
 	disconnect_pipe()
 
 /datum/component/logistics_interface/Destroy()
@@ -48,15 +49,25 @@
 /datum/component/logistics_interface/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	var/mode_text = (mode == LOGISTICS_MODE_SEND) ? "отправка" : "приём"
-	examine_list += span_notice("Установлен логистический интерфейс «[interface_name]» ([mode_text]).")
+	examine_list += span_notice("Установлен логистический интерфейс «[html_encode(interface_name)]» ([mode_text]).")
 
 /datum/component/logistics_interface/proc/on_crowbar_act(datum/source, mob/living/user, obj/item/tool)
 	SIGNAL_HANDLER
 	var/obj/machinery/machine = parent
 	if(!machine.panel_open || !board)
 		return NONE
+	if(!machine.allowed(user))
+		machine.balloon_alert(user, "нет доступа!")
+		return ITEM_INTERACT_BLOCKING
 	remove_board(user)
 	return ITEM_INTERACT_SUCCESS
+
+/datum/component/logistics_interface/proc/on_moved(datum/source, atom/old_loc, movement_dir, forced, list/old_locs)
+	SIGNAL_HANDLER
+	var/obj/structure/logistics_pipe/old_pipe = linked_pipe
+	disconnect_pipe()
+	old_pipe?.try_link_interface()
+	try_connect_pipe()
 
 /datum/component/logistics_interface/proc/remove_board(mob/user)
 	var/obj/machinery/machine = parent
@@ -241,12 +252,16 @@
 	. = ..()
 	if(.)
 		return
+	var/obj/machinery/machine = parent
+	if(!machine.allowed(usr))
+		to_chat(usr, span_warning("Отказано в доступе."))
+		return TRUE
 	switch(action)
 		if("set_name")
-			var/new_name = tgui_input_text(usr, "Название устройства в логистической сети", "Логистика", interface_name, MAX_NAME_LEN)
-			if(!new_name)
+			var/new_name = trim(tgui_input_text(usr, "Название устройства в логистической сети", "Логистика", interface_name, MAX_NAME_LEN, encode = FALSE))
+			if(!new_name || QDELETED(src) || ui_status(usr, state) != UI_INTERACTIVE)
 				return TRUE
-			interface_name = trim(new_name)
+			interface_name = new_name
 			return TRUE
 		if("toggle_export")
 			allow_export = !allow_export
@@ -273,7 +288,7 @@
 					continue
 				if(!istext(stock_id) || !length(stock_id))
 					continue
-				cleaned[stock_id] = round(amount)
+				cleaned[stock_id] = min(round(amount), LOGISTICS_MAX_REQUEST_AMOUNT)
 			if(!length(cleaned))
 				return TRUE
 			var/datum/component/logistics_interface/dest

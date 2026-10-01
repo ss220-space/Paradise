@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	var/list/obj/structure/logistics_holder/in_flight = list()
 	var/list/logs = list()
 	var/list/archived_orders = list()
+	var/list/map_segments
 	var/rebuilding = FALSE
 	var/net_id
 	var/net_name
@@ -55,10 +56,11 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		archived_orders.Cut(LOGISTICS_MAX_ARCHIVE + 1)
 
 /datum/logistics_net/proc/add_pipe(obj/structure/logistics_pipe/pipe)
-	if(!pipe || (pipe in pipes))
+	if(!pipe || pipe.logistics_net == src)
 		return
 	pipes += pipe
 	pipe.logistics_net = src
+	map_segments = null
 	pipe.try_link_interface()
 
 /datum/logistics_net/proc/add_interface(datum/component/logistics_interface/interface)
@@ -73,14 +75,12 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		interface.net = null
 
 /datum/logistics_net/proc/remove_pipe(obj/structure/logistics_pipe/pipe)
-	if(rebuilding)
-		pipes -= pipe
-		if(pipe.logistics_net == src)
-			pipe.logistics_net = null
-		return
 	pipes -= pipe
+	map_segments = null
 	if(pipe.logistics_net == src)
 		pipe.logistics_net = null
+	if(rebuilding)
+		return
 	if(!length(pipes))
 		qdel(src)
 		return
@@ -115,22 +115,16 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	refresh_processing()
 
 /datum/logistics_net/proc/split_if_needed()
-	rebuilding = TRUE
-	var/list/remaining = pipes.Copy()
+	var/list/visited = list()
 	var/list/groups = list()
-	while(length(remaining))
-		var/obj/structure/logistics_pipe/seed = remaining[1]
-		var/list/group = flood_pipes(seed)
-		groups += list(group)
-		remaining -= group
-	rebuilding = FALSE
+	for(var/obj/structure/logistics_pipe/seed as anything in pipes)
+		if(visited[seed])
+			continue
+		groups += list(flood_pipes(seed, visited))
 	if(length(groups) <= 1)
 		refresh_interfaces()
 		return
-	var/list/keep = groups[1]
-	pipes = keep
-	for(var/obj/structure/logistics_pipe/pipe as anything in keep)
-		pipe.logistics_net = src
+	pipes = groups[1]
 	refresh_interfaces()
 	for(var/i in 2 to length(groups))
 		var/datum/logistics_net/new_net = new
@@ -171,20 +165,50 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		target_net.requests += request
 		target_net.refresh_processing()
 
-/datum/logistics_net/proc/flood_pipes(obj/structure/logistics_pipe/start)
-	. = list()
-	if(!start)
-		return
+/datum/logistics_net/proc/flood_pipes(obj/structure/logistics_pipe/start, list/visited)
 	var/list/queue = list(start)
+	visited[start] = TRUE
 	var/idx = 1
 	while(idx <= length(queue))
 		var/obj/structure/logistics_pipe/current = queue[idx++]
-		if(current in .)
-			continue
-		. += current
 		for(var/obj/structure/logistics_pipe/neighbor as anything in current.get_neighbors())
-			if(!(neighbor in .) && (neighbor in pipes))
-				queue += neighbor
+			if(visited[neighbor] || neighbor.logistics_net != src)
+				continue
+			visited[neighbor] = TRUE
+			queue += neighbor
+	return queue
+
+/datum/logistics_net/proc/get_map_segments()
+	if(map_segments)
+		return map_segments
+	map_segments = list()
+	for(var/obj/structure/logistics_pipe/pipe as anything in pipes)
+		var/turf/pipe_turf = get_turf(pipe)
+		if(!pipe_turf)
+			continue
+		for(var/obj/structure/logistics_pipe/neighbor as anything in pipe.get_neighbors())
+			if(neighbor.logistics_net != src)
+				continue
+			var/turf/neighbor_turf = get_turf(neighbor)
+			if(neighbor_turf.x + neighbor_turf.y < pipe_turf.x + pipe_turf.y)
+				continue
+			map_segments += list(list(
+				"x1" = pipe_turf.x,
+				"y1" = pipe_turf.y,
+				"x2" = neighbor_turf.x,
+				"y2" = neighbor_turf.y,
+				"z" = pipe_turf.z,
+				"net_color" = net_color,
+			))
+	return map_segments
+
+/datum/logistics_net/proc/get_incoming(datum/component/logistics_interface/dest)
+	. = list()
+	for(var/obj/structure/logistics_holder/holder as anything in in_flight)
+		if(holder.dest_ref?.resolve() != dest)
+			continue
+		for(var/stock_name in holder.shipment_manifest)
+			.[stock_name] += holder.shipment_manifest[stock_name]
 
 /datum/logistics_net/proc/refresh_interfaces()
 	var/list/datum/component/logistics_interface/found = list()
@@ -286,17 +310,14 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		return PROCESS_KILL
 	if(world.time < next_dispatch_at)
 		return
-	var/packets_sent = 0
 	var/list/claimed = list()
 	var/has_active = FALSE
 	for(var/datum/logistics_request/request as anything in requests.Copy())
 		if(QDELETED(request) || request.status != LOGISTICS_REQUEST_ACTIVE)
 			continue
 		has_active = TRUE
-		packets_sent += try_fulfill(request, claimed)
+		try_fulfill(request, claimed)
 		try_complete_request(request)
-		if(packets_sent > 0)
-			break
 	if(!has_active)
 		return PROCESS_KILL
 	next_dispatch_at = world.time + LOGISTICS_SHIPMENT_INTERVAL
@@ -320,14 +341,13 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	return TRUE
 
 /datum/logistics_net/proc/try_fulfill(datum/logistics_request/request, list/claimed)
-	. = 0
 	if(length(in_flight) >= LOGISTICS_MAX_IN_FLIGHT)
 		return
 	var/datum/component/logistics_interface/dest = request.get_dest()
-	if(request.dest_ref && QDELETED(dest))
+	if(!dest)
 		cancel_request(request)
 		return
-	if(!dest || dest.net != src)
+	if(dest.net != src)
 		return
 
 	var/list/datum/component/logistics_interface/candidate_sources = list()
@@ -338,10 +358,8 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 			candidate_sources |= source
 
 	for(var/datum/component/logistics_interface/source as anything in candidate_sources)
-		if(length(in_flight) >= LOGISTICS_MAX_IN_FLIGHT)
-			return
 		if(dispatch_shipment_batch(request, source, dest, claimed))
-			return 1
+			return
 
 /datum/logistics_net/proc/dispatch_shipment_batch(datum/logistics_request/request, datum/component/logistics_interface/source, datum/component/logistics_interface/dest, list/claimed)
 	if(!source || !dest || !request)
@@ -354,6 +372,10 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	var/remaining_capacity = LOGISTICS_MAX_SHIPMENT_ITEMS
 	var/list/packed = list()
 	var/total_packed = 0
+	var/list/incoming = get_incoming(dest)
+	var/incoming_total = 0
+	for(var/stock_name in incoming)
+		incoming_total += incoming[stock_name]
 
 	for(var/stock_name in request.wanted)
 		if(remaining_capacity <= 0)
@@ -368,9 +390,9 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		if(!dest.adapter.can_accept_stock(stock_name))
 			continue
 		var/send_amount = min(request.wanted[stock_name], available, remaining_capacity)
-		var/accept_cap = dest.adapter.get_accept_capacity(stock_name)
+		var/accept_cap = dest.adapter.get_accept_capacity(stock_name) - incoming[stock_name]
 		if(dest.adapter.uses_shared_unit_capacity())
-			accept_cap = min(accept_cap, dest.adapter.get_free_sheets() - total_packed)
+			accept_cap = min(accept_cap, dest.adapter.get_free_sheets() - incoming_total - total_packed)
 		send_amount = min(send_amount, accept_cap)
 		if(send_amount <= 0)
 			continue
@@ -381,34 +403,25 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	if(!total_packed)
 		return FALSE
 
-	var/local_transfer = (start == goal)
-	var/list/path_dirs
-	if(!local_transfer)
-		path_dirs = logistics_build_path(start, goal)
-		if(isnull(path_dirs))
-			return FALSE
+	var/list/path_dirs = logistics_build_path(start, goal)
+	if(isnull(path_dirs))
+		return FALSE
 
-	var/atom/holder_loc = local_transfer ? source.parent : start
-	var/obj/structure/logistics_holder/holder = new(holder_loc)
-	holder.dest_interface = dest
+	var/obj/structure/logistics_holder/holder = new(start)
+	holder.dest_ref = WEAKREF(dest)
 	holder.origin_net = src
 	holder.request_num = request.request_num
 	holder.request_ref = WEAKREF(request)
 
 	for(var/stock_name in packed)
-		var/want = packed[stock_name]
-		var/extracted = source.extract_into(stock_name, want, holder)
+		var/extracted = source.extract_into(stock_name, packed[stock_name], holder)
 		if(extracted <= 0)
-			packed -= stock_name
 			continue
-		if(extracted < want)
-			packed[stock_name] = extracted
-		var/claim_key = "[source.UID()]|[stock_name]"
-		claimed[claim_key] += extracted
+		claimed["[source.UID()]|[stock_name]"] += extracted
 		request.reserve(stock_name, extracted)
 		holder.shipment_manifest[stock_name] += extracted
 
-	if(!length(holder.contents) && !length(holder.shipment_manifest))
+	if(!length(holder.shipment_manifest))
 		qdel(holder)
 		return FALSE
 
@@ -417,11 +430,6 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	for(var/stock_name in holder.shipment_manifest)
 		manifest_parts += "[holder.shipment_manifest[stock_name]] x [logistics_stock_display_name(stock_name)]"
 	var/manifest_text = manifest_parts.Join(", ")
-
-	if(local_transfer)
-		holder.deliver(dest)
-		add_log("Заказ #[request.request_num]: локальная передача [manifest_text]: [source.interface_name] -> [dest.interface_name].")
-		return TRUE
 
 	holder.path_dirs = path_dirs
 	in_flight += holder
@@ -436,18 +444,11 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		if(forced && forced.can_export(stock_name) && forced != dest)
 			. += forced
 		return
-	var/list/primary = list()
-	var/list/fallback = list()
 	for(var/datum/component/logistics_interface/interface as anything in interfaces)
-		if(interface == dest)
+		if(interface == dest || interface.mode != LOGISTICS_MODE_SEND)
 			continue
-		if(!interface.can_export(stock_name))
-			continue
-		if(interface.mode == LOGISTICS_MODE_SEND)
-			primary += interface
-		else
-			fallback += interface
-	. = primary + fallback
+		if(interface.can_export(stock_name))
+			. += interface
 
 /proc/logistics_get_creator_name(mob/user)
 	if(!user)
@@ -487,7 +488,7 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 				came_from[next] = current
 				came_dir[next] = dir_iter
 				queue += next
-	if(start != goal && !came_from[goal])
+	if(!came_from[goal])
 		return null
 	var/list/dirs = list()
 	var/obj/structure/logistics_pipe/walk = goal

@@ -36,7 +36,7 @@
 	var/list/accepted_items_typecache
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/starting_items
-	var/obj/item/circuitboard/fridge_circuit = /obj/item/circuitboard/smartfridge
+	var/fridge_circuit = /obj/item/circuitboard/smartfridge
 	var/starting_matter_bins = 1
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
@@ -344,28 +344,16 @@
 	data["drying"] = drying
 	data["logistics_enabled"] = logistics_board_installed()
 
-	var/list/samples = list()
 	var/list/quantities = list()
 	for(var/obj/item/stored in contents)
-		var/item_key = stored.declent_ru(NOMINATIVE)
-		quantities[item_key] += logistics_item_units(stored)
-		if(!samples[item_key])
-			samples[item_key] = stored
+		quantities[stored.declent_ru(NOMINATIVE)] += logistics_item_units(stored)
 
 	var/list/items = list()
 	for(var/i in 1 to length(item_quants))
 		var/K = item_quants[i]
 		var/count = item_quants[K]
-		if(count <= 0)
-			continue
-		var/obj/item/sample = samples[K]
-		items.Add(list(list(
-			"display_name" = html_encode(capitalize(K)),
-			"vend" = i,
-			"quantity" = quantities[K],
-			"icon" = sample?.icon,
-			"icon_state" = sample?.icon_state,
-		)))
+		if(count > 0)
+			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = quantities[K])))
 
 	if(length(items))
 		data["contents"] = items

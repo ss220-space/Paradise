@@ -5,6 +5,7 @@
 	icon_screen = "logistics_core"
 	light_color = LIGHT_COLOR_BLUE
 	circuit = /obj/item/circuitboard/logistics_core
+	req_access = list(ACCESS_CARGO)
 
 /obj/machinery/computer/logistics_core/get_ru_names()
 	return alist(
@@ -80,24 +81,7 @@
 					"z" = T.z,
 				))
 
-		for(var/obj/structure/logistics_pipe/pipe as anything in net.pipes)
-			var/turf/pipe_turf = get_turf(pipe)
-			if(!pipe_turf)
-				continue
-			for(var/obj/structure/logistics_pipe/neighbor as anything in pipe.get_neighbors())
-				if(neighbor.logistics_net != net)
-					continue
-				var/turf/neighbor_turf = get_turf(neighbor)
-				if(neighbor_turf.x + neighbor_turf.y < pipe_turf.x + pipe_turf.y)
-					continue
-				data["map_pipes"] += list(list(
-					"x1" = pipe_turf.x,
-					"y1" = pipe_turf.y,
-					"x2" = neighbor_turf.x,
-					"y2" = neighbor_turf.y,
-					"z" = pipe_turf.z,
-					"net_color" = net.net_color,
-				))
+		data["map_pipes"] += net.get_map_segments()
 
 		data["networks"] += list(list(
 			"uid" = net.UID(),
@@ -131,6 +115,9 @@
 		return
 	add_fingerprint(usr)
 	. = TRUE
+	if(!allowed(usr))
+		to_chat(usr, span_warning("Отказано в доступе."))
+		return
 
 	switch(action)
 		if("execute_request")
@@ -154,10 +141,10 @@
 			var/datum/logistics_net/net = locateUID(params["uid"])
 			if(!istype(net))
 				return
-			var/new_name = tgui_input_text(usr, "Название логистической сети", "Сети", net.net_name, MAX_NAME_LEN)
-			if(!new_name || QDELETED(net))
+			var/new_name = trim(tgui_input_text(usr, "Название логистической сети", "Сети", net.net_name, MAX_NAME_LEN, encode = FALSE))
+			if(!new_name || QDELETED(net) || ui_status(usr, GLOB.default_state) != UI_INTERACTIVE)
 				return
-			net.net_name = trim(new_name)
+			net.net_name = new_name
 			net.add_log("Сеть переименована в «[net.net_name]».")
 		if("set_net_color")
 			var/datum/logistics_net/net = locateUID(params["uid"])
@@ -167,6 +154,7 @@
 			if(!(new_color in LOGISTICS_NET_COLORS))
 				return
 			net.net_color = new_color
+			net.map_segments = null
 		if("toggle_auto_execute")
 			var/datum/logistics_net/net = locateUID(params["uid"])
 			if(!istype(net))
@@ -181,10 +169,10 @@
 			var/datum/component/logistics_interface/interface = locateUID(params["uid"])
 			if(!istype(interface))
 				return
-			var/new_name = tgui_input_text(usr, "Название устройства в сети", "Логистика", interface.interface_name, MAX_NAME_LEN)
-			if(!new_name || QDELETED(interface))
+			var/new_name = trim(tgui_input_text(usr, "Название устройства в сети", "Логистика", interface.interface_name, MAX_NAME_LEN, encode = FALSE))
+			if(!new_name || QDELETED(interface) || ui_status(usr, GLOB.default_state) != UI_INTERACTIVE)
 				return
-			interface.interface_name = trim(new_name)
+			interface.interface_name = new_name
 
 /obj/item/circuitboard/logistics_core
 	board_name = "Logistics Core Console"

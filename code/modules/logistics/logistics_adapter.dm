@@ -32,12 +32,6 @@
 /datum/logistics_adapter/proc/can_insert_item(obj/item/item)
 	return FALSE
 
-/datum/logistics_adapter/proc/item_matches_stock(obj/item/item, stock_id)
-	if(!item || !stock_id)
-		return FALSE
-	var/path = logistics_stock_path(stock_id)
-	return path && istype(item, path)
-
 /proc/logistics_item_units(obj/item/item)
 	if(!item)
 		return 0

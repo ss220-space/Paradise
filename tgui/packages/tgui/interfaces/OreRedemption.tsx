@@ -47,7 +47,6 @@ type OreRedemptionData = {
   disk: Disk;
   sheets: Ore[];
   alloys: Ore[];
-  logistics_enabled: boolean;
 };
 
 type ID = {
@@ -74,7 +73,7 @@ type SectionProps = ComponentProps<typeof Section>;
 
 const IdDisk = (properties: SectionProps) => {
   const { act, data } = useBackend<OreRedemptionData>();
-  const { id, points, disk, logistics_enabled } = data;
+  const { id, points, disk } = data;
   const { ...rest } = properties;
   return (
     <Section
@@ -83,7 +82,7 @@ const IdDisk = (properties: SectionProps) => {
         <Stack align="center" width="100%">
           <Stack.Item grow>Статус</Stack.Item>
           <Stack.Item>
-            <LogisticsButton enabled={!!logistics_enabled} />
+            <LogisticsButton />
           </Stack.Item>
         </Stack>
       }

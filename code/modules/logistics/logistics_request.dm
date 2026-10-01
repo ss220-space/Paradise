@@ -145,7 +145,7 @@
 		"net_id" = net?.net_id,
 		"net_name" = net?.net_name,
 		"net_color" = net?.net_color,
-		"source" = req_source ? req_source.interface_name : "Any",
+		"source" = req_source ? req_source.interface_name : "Любой",
 		"dest" = req_dest ? req_dest.interface_name : "?",
 		"wanted" = wanted_ui,
 		"creator" = creator_name,

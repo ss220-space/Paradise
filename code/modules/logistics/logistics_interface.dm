@@ -53,6 +53,9 @@
 	if(!machine.panel_open)
 		balloon_alert(user, "откройте панель!")
 		return ITEM_INTERACT_BLOCKING
+	if(!machine.allowed(user))
+		balloon_alert(user, "нет доступа!")
+		return ITEM_INTERACT_BLOCKING
 	if(machine.GetComponent(/datum/component/logistics_interface))
 		balloon_alert(user, "интерфейс уже установлен!")
 		return ITEM_INTERACT_BLOCKING

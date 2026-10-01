@@ -105,19 +105,23 @@
 		return
 	for(var/obj/machinery/machine in loc)
 		var/datum/component/logistics_interface/interface = machine.GetComponent(/datum/component/logistics_interface)
-		if(!interface)
+		if(!interface || interface.linked_pipe)
 			continue
 		interface.connect_pipe(src)
 		return
 
 /obj/structure/logistics_pipe/proc/transfer(obj/structure/logistics_holder/holder)
-	if(should_deliver(holder))
-		holder.deliver(holder.dest_interface)
+	var/datum/component/logistics_interface/dest = holder.dest_ref?.resolve()
+	if(!dest)
+		expel(holder, get_turf(src))
+		return
+	if(should_deliver(holder, dest))
+		holder.deliver(dest)
 		return
 	return transfer_to_dir(holder, nextdir(holder))
 
-/obj/structure/logistics_pipe/proc/should_deliver(obj/structure/logistics_holder/holder)
-	if(!holder.dest_interface || holder.dest_interface.linked_pipe != src)
+/obj/structure/logistics_pipe/proc/should_deliver(obj/structure/logistics_holder/holder, datum/component/logistics_interface/dest)
+	if(dest.linked_pipe != src)
 		return FALSE
 	if(holder.dir == DOWN || holder.dir == NONE)
 		return FALSE
@@ -137,9 +141,9 @@
 /obj/structure/logistics_pipe/proc/expel(obj/structure/logistics_holder/holder, turf/expel_to, direction)
 	if(!expel_to)
 		expel_to = get_turf(src)
-	var/turf/target = expel_to
+	var/turf/target
 	if(direction)
-		target = get_ranged_target_turf(expel_to, direction, 5)
+		target = get_ranged_target_turf(expel_to, direction, LOGISTICS_EJECT_RANGE)
 	if(COOLDOWN_FINISHED(src, eject_effects_cd))
 		COOLDOWN_START(src, eject_effects_cd, 1 SECONDS)
 		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE)
@@ -147,7 +151,8 @@
 		var/turf/simulated/floor/floor_turf = expel_to
 		if(floor_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 			floor_turf.remove_tile(null, TRUE, TRUE)
-	holder.expel_contents(target)
+	holder.release_remaining_reservations()
+	pipe_eject(holder, direction, !!direction, target, LOGISTICS_EJECT_RANGE)
 	qdel(holder)
 
 /obj/structure/logistics_pipe/attackby(obj/item/I, mob/user, params)
@@ -177,11 +182,6 @@
 		construct.set_anchored(TRUE)
 		transfer_fingerprints_to(construct)
 	spew_forth()
-	return ..()
-
-/obj/structure/logistics_pipe/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
-	if(mode == RPD_DELETE_MODE)
-		return FALSE
 	return ..()
 
 /obj/structure/logistics_pipe/segment
@@ -228,8 +228,9 @@
 /obj/structure/logistics_pipe/trunk/transfer(obj/structure/logistics_holder/holder)
 	if(holder.dir == DOWN || length(holder.path_dirs))
 		return transfer_to_dir(holder, nextdir(holder))
-	if(linked_interface && holder.dest_interface == linked_interface)
-		holder.deliver(linked_interface)
+	var/datum/component/logistics_interface/dest = holder.dest_ref?.resolve()
+	if(dest && dest == linked_interface)
+		holder.deliver(dest)
 		return
 	expel(holder, get_turf(src), dir)
 
@@ -242,7 +243,7 @@
 	var/active = FALSE
 	var/count = LOGISTICS_MAX_STEPS
 	var/list/path_dirs = list()
-	var/datum/component/logistics_interface/dest_interface
+	var/datum/weakref/dest_ref
 	var/datum/logistics_net/origin_net
 	var/request_num = 0
 	var/datum/weakref/request_ref
@@ -257,7 +258,7 @@
 	active = FALSE
 	origin_net?.in_flight -= src
 	origin_net = null
-	dest_interface = null
+	dest_ref = null
 	request_ref = null
 	current_pipe = null
 	last_pipe = null
@@ -300,7 +301,10 @@
 	SIGNAL_HANDLER
 	current_pipe = null
 	last_pipe = null
-	active = FALSE
+	if(QDELETED(src) || !active)
+		active = FALSE
+		return
+	abort_shipment()
 
 /obj/structure/logistics_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -344,50 +348,23 @@
 
 /obj/structure/logistics_holder/proc/deliver(datum/component/logistics_interface/interface)
 	active = FALSE
-	var/datum/logistics_request/request = request_ref?.resolve()
-	var/list/manifest = shipment_manifest?.Copy() || list()
 	if(QDELETED(interface))
 		expel_contents(get_turf(src))
 		qdel(src)
 		return
 
+	var/list/manifest = shipment_manifest.Copy()
 	var/list/undelivered = list()
 	var/turf/drop_turf = get_turf(interface.parent)
-	for(var/stock_name in manifest)
-		var/need = manifest[stock_name]
-		var/delivered_now = 0
-		for(var/obj/item/item in contents)
-			if(delivered_now >= need)
-				break
-			if(!interface.adapter?.item_matches_stock(item, stock_name))
-				continue
-			var/units = logistics_item_units(item)
-			var/take = min(units, need - delivered_now)
-			if(take <= 0)
-				continue
-			if(isstack(item) && take < units)
-				var/obj/item/stack/stack = item
-				if(!stack.logistics_count_amount)
-					continue
-				var/obj/item/stack/piece = stack.split(null, take)
-				if(!interface.try_insert_item(piece))
-					if(!QDELETED(piece))
-						piece.forceMove(src)
-						if(!QDELETED(stack))
-							piece.merge(stack)
-					continue
-				delivered_now += take
-				continue
-			if(!interface.try_insert_item(item))
-				continue
-			delivered_now += take
-		var/failed = max(need - delivered_now, 0)
-		if(failed > 0)
-			undelivered[stock_name] = failed
+	for(var/obj/item/item in contents)
+		var/stock_id = logistics_stock_id_for_item(item)
+		if(interface.try_insert_item(item))
+			continue
+		if(manifest[stock_id])
+			undelivered[stock_id] += logistics_item_units(item)
+		item.forceMove(drop_turf)
 
-	for(var/obj/item/leftover in contents)
-		leftover.forceMove(drop_turf)
-
+	var/datum/logistics_request/request = request_ref?.resolve()
 	if(request)
 		request.finalize_shipment(manifest, undelivered)
 		shipment_manifest.Cut()

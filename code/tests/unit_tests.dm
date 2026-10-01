@@ -28,6 +28,7 @@
 #include "test_heretic_knowledge.dm"
 #include "test_heretic_rituals.dm"
 #include "test_init_sanity.dm"
+#include "test_logistics.dm"
 #include "test_map_templates.dm"
 #include "test_modsuit.dm"
 #include "test_missing_icons.dm"
