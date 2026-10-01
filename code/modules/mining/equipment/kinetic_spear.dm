@@ -22,6 +22,10 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	var/obj/item/mining_spear_core/core
 	/// Timer for our spear to return to user
 	var/spear_return_timer = 1 SECONDS
+	/// Bonus fauna damage, used in cores
+	var/bonus_fauna_damage = 0
+	/// Cashed throwforce, that we check after throwforce
+	var/cached_throwforce
 
 /obj/item/twohanded/mining_spear/standart
 	core = /obj/item/mining_spear_core/standart
@@ -59,12 +63,6 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/twohanded/mining_spear/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
-
-	if(!thrower)
-		return
-	if(recall_after_miss)
-		returner = thrower
-		RegisterSignal(src, COMSIG_MOVABLE_THROW_LANDED, PROC_REF(return_spear_to_user))
 	//point the spear in the direction it's being thrown
 	var/angle = get_angle(target, thrower)
 	var/matrix/turn_matrix = matrix(transform)
@@ -72,11 +70,18 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	turn_matrix.Turn(135) //because the javelin sprite itself is angled
 	transform = turn_matrix
 
+	if(!thrower)
+		return ..()
+	if(recall_after_miss)
+		returner = thrower
+		RegisterSignal(src, COMSIG_MOVABLE_THROW_LANDED, PROC_REF(return_spear_to_user))
+
 	return ..()
 
 /obj/item/twohanded/mining_spear/after_throw(datum/callback/callback)
 	var/matrix/turn_matrix = matrix()
 	transform = turn_matrix
+	throwforce = cached_throwforce
 	return ..()
 
 /obj/item/twohanded/mining_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -85,7 +90,29 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		sharp = FALSE
 		return ..()
 	var/turf/target_turf = get_turf(hit_atom)
+	var/mob/user = throwingdatum.get_thrower()
+	if(user)
+		returner = user
+
 	new /obj/effect/temp_visual/kinetic_blast(target_turf)
+
+	// we are changing our throwforce, so before all that, we need to remember it
+	cached_throwforce = throwforce
+
+	if(ismineralturf(hit_atom))
+		var/turf/simulated/mineral/hit_rock = hit_atom
+		if(!recall_after_miss)
+			return_spear_to_user()
+		if(user)
+			hit_rock.attempt_drill(user, FALSE, 1)
+		return ..()
+
+	if(is_lavaland_fauna(hit_atom) || ismegafauna(hit_atom))
+		throwforce = cached_throwforce + bonus_fauna_damage
+		if(!recall_after_miss)
+			return_spear_to_user()
+		return ..()
+
 	return ..()
 
 //obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
@@ -124,6 +151,7 @@ Spear cores. Gives spear special abilities and quirks
 	var/spear_armour_penetration = 10
 	var/spear_sharp = TRUE
 	var/spear_embed_chance = 50
+	var/spear_bonus_fauna_damage = 30
 
 /obj/item/mining_spear_core/get_ru_names()
 	return alist(
@@ -142,7 +170,8 @@ Spear cores. Gives spear special abilities and quirks
 	spear.throwforce = spear_throwforce
 	spear.armour_penetration = spear_armour_penetration
 	spear.sharp = spear_sharp
-	embed_chance = spear_embed_chance
+	spear.embed_chance = spear_embed_chance
+	spear.bonus_fauna_damage = spear_bonus_fauna_damage
 
 /obj/item/mining_spear_core/proc/on_remove(obj/item/twohanded/mining_spear/spear)
 	spear.force = initial(spear.force)
@@ -152,6 +181,7 @@ Spear cores. Gives spear special abilities and quirks
 	spear.armour_penetration = initial(spear.armour_penetration)
 	spear.sharp = initial(spear.sharp)
 	spear.embed_chance = initial(spear.embed_chance)
+	spear.bonus_fauna_damage = initial(spear.bonus_fauna_damage)
 
 /obj/item/mining_spear_core/standart
 	name = "standart spear core"

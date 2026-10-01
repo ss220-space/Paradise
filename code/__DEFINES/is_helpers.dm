@@ -70,6 +70,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 // Simple animals
 #define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
+#define is_lavaland_fauna(A) (istype(A, /mob/living/simple_animal/hostile/asteroid))
+
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
