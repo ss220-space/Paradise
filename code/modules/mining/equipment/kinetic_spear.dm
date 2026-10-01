@@ -12,12 +12,16 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	can_actually_embed = FALSE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	///The mob to return the spear to if thrown
 	var/mob/living/carbon/returner
 	/// Did our spear return to us, when we miss?
 	var/recall_after_miss = FALSE
 	/// Core of our spear, without it it's just a dud
 	var/obj/item/mining_spear_core/core
+	/// Timer for our spear to return to user
+	var/spear_return_timer = 1 SECONDS
 
 /obj/item/twohanded/mining_spear/standart
 	core = /obj/item/mining_spear_core/standart
@@ -80,6 +84,8 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		throwforce = 0 //more like sanity check, because all that stuff already should be stated when core is removed
 		sharp = FALSE
 		return ..()
+	var/turf/target_turf = get_turf(hit_atom)
+	new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	return ..()
 
 //obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
@@ -87,7 +93,14 @@ Kinetic spear - alternative mining weapon, used as... spear.
 /obj/item/twohanded/mining_spear/proc/return_spear_to_user()
 	SIGNAL_HANDLER
 	UnregisterSignal(src, COMSIG_MOVABLE_THROW_LANDED)
-	if(returner)
+	if(!returner)
+		return
+	addtimer(CALLBACK(src, PROC_REF(actual_spear_return)), spear_return_timer)
+
+/obj/item/twohanded/mining_spear/proc/actual_spear_return()
+	var/turf/spear_turf = get_turf(src)
+	if(returner) //double check
+		spear_turf.Beam(returner, "spear_recall", time = 0.2 SECONDS)
 		returner.put_in_hands(src)
 		returner = null
 
@@ -103,6 +116,14 @@ Spear cores. Gives spear special abilities and quirks
 	icon_state = "standart_core"
 	/// Spear overlay, that we use
 	var/spear_overlay = "overlay_blue"
+	/// All force variables, that used to modify spear
+	var/spear_force = 10
+	var/spear_force_unwielded = 10
+	var/spear_force_wielded = 18
+	var/spear_throwforce = 15
+	var/spear_armour_penetration = 10
+	var/spear_sharp = TRUE
+	var/spear_embed_chance = 50
 
 /obj/item/mining_spear_core/get_ru_names()
 	return alist(
@@ -115,13 +136,13 @@ Spear cores. Gives spear special abilities and quirks
 	)
 
 /obj/item/mining_spear_core/proc/on_insert(obj/item/twohanded/mining_spear/spear)
-	spear.force = 10
-	spear.force_unwielded = 10
-	spear.force_wielded = 18
-	spear.throwforce = 15
-	spear.armour_penetration = 10
-	spear.sharp = TRUE
-	embed_chance = 50
+	spear.force = spear_force
+	spear.force_unwielded = spear_force_unwielded
+	spear.force_wielded = spear_force_wielded
+	spear.throwforce = spear_throwforce
+	spear.armour_penetration = spear_armour_penetration
+	spear.sharp = spear_sharp
+	embed_chance = spear_embed_chance
 
 /obj/item/mining_spear_core/proc/on_remove(obj/item/twohanded/mining_spear/spear)
 	spear.force = initial(spear.force)
