@@ -29562,6 +29562,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -43493,6 +43494,7 @@
 /area/station/ai/satellite/exterior)
 "iDV" = (
 /obj/structure/chair/office/dark,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
 "iDY" = (
@@ -53460,6 +53462,10 @@
 	icon_state = "dark"
 	},
 /area/station/service/bar)
+"kvU" = (
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/engine/reactor)
 "kwh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
@@ -81545,6 +81551,7 @@
 "pCz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/bar)
 "pCG" = (
@@ -85774,6 +85781,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/science/sm_chamber)
 "qoK" = (
@@ -94336,6 +94344,14 @@
 "rOd" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/podbay)
+"rOn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/reactor_chamber,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "rOu" = (
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp{
@@ -111075,6 +111091,7 @@
 	name = "Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "uNq" = (
@@ -147665,7 +147682,7 @@ vPo
 mzY
 jUf
 sfA
-sfA
+rOn
 lXV
 sfA
 sfA
@@ -148450,7 +148467,7 @@ qYs
 jJN
 jJN
 aLN
-sHR
+kvU
 iJc
 hDl
 hut

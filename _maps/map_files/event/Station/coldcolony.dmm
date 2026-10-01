@@ -4104,6 +4104,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
+"bue" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/test_chamber)
 "bug" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "execution"
@@ -22651,6 +22655,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
 "izh" = (
@@ -42022,6 +42027,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "pHk" = (
@@ -103131,7 +103137,7 @@ vQs
 sBl
 pGn
 iBA
-iBA
+bue
 uhH
 uhH
 iBA

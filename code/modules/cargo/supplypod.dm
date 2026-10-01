@@ -265,6 +265,14 @@
 
 	SSticker.mode.end_game()
 
+/obj/structure/closet/supplypod/swarmer
+	style = /datum/pod_style/swarmer
+	bluespace = TRUE
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 0 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 3 SECONDS, POD_LEAVING = 0 SECONDS)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	specialised = TRUE
+
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
 	if(!loc)
@@ -427,9 +435,9 @@
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
 	resistance_flags = initial(resistance_flags)
 	set_density(TRUE) //Density is originally false so the pod doesn't block anything while it's still falling through the air
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
 	if(effectShrapnel)
-		SEND_SIGNAL(src, COMSIG_SUPPLYPOD_LANDED)
+		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_LANDED)
 	for(var/mob/living/target_living in turf_underneath)
 		if(iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			if(effectLimb && !effectOrgans && ishuman(target_living))
@@ -497,6 +505,7 @@
 	if(opened) //This is to ensure we don't open something that has already been opened
 		return
 	holder.set_opened()
+	SEND_SIGNAL(holder, COMSIG_SUPPLYPOD_OPENED)
 	var/turf/turf_underneath = get_turf(holder) //Get the turf of whoever's contents we're talking about
 	if(ismob(holder)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		var/mob/holder_as_mob = holder
