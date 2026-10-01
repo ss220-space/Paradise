@@ -692,6 +692,8 @@
 	return
 
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
+	if(!can_trigger_gun(user))
+		return
 	var/old_target = src.target
 	var/old_user = gun_user
 	var/list/old_modifiers = modifiers
