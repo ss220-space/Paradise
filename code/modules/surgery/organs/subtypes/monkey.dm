@@ -4,6 +4,7 @@
 	name = "monkey heart"
 	desc = "Орган, качающий кровь и обеспечивающий кровообращение. Это принадлежало обезьяне."
 	item_state = "lesser_heart-on"
+	icon_state = "lesser_heart-on"
 	item_base = "lesser_heart"
 	dead_icon = "lesser_heart-off"
 
@@ -85,6 +86,7 @@
 	name = "monkey lungs"
 	desc = "Парный орган, отвечающий за газообмен между средой и кровью. Это принадлежало обезьяне."
 	item_state = "lesser_lungs"
+	icon_state = "lesser_lungs"
 
 /obj/item/organ/internal/lungs/monkey/get_ru_names()
 	return alist(
@@ -164,6 +166,7 @@
 	name = "monkey liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Это принадлежало обезьяне."
 	item_state = "lesser_liver"
+	icon_state = "lesser_liver"
 	alcohol_intensity = 2
 
 /obj/item/organ/internal/liver/monkey/get_ru_names()
@@ -244,6 +247,7 @@
 	name = "monkey kidneys"
 	desc = "Парный орган, фильтрующий кровоток и выводящий из организма токсины и отходы. Это принадлежало обезьяне."
 	item_state = "lesser_kidneys"
+	icon_state = "lesser_kidneys"
 
 /obj/item/organ/internal/kidneys/monkey/get_ru_names()
 	return alist(
@@ -323,6 +327,7 @@
 	name = "monkey brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Это принадлежало обезьяне."
 	item_state = "lesser_brain2"
+	icon_state = "lesser_brain2"
 
 /obj/item/organ/internal/brain/monkey/get_ru_names()
 	return alist(
@@ -407,6 +412,7 @@
 	name = "monkey eyeballs"
 	desc = "Парный орган, отвечающий за зрение и его обработку мозгом. Это принадлежало обезьяне."
 	item_state = "lesser_eyes"
+	icon_state = "lesser_eyes"
 
 /obj/item/organ/internal/eyes/monkey/get_ru_names()
 	return alist(
@@ -453,7 +459,6 @@
 	species_type = /datum/species/monkey
 	name = "monkey ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали обезьяне."
-	item_state = "ears"
 
 /obj/item/organ/internal/ears/monkey/get_ru_names()
 	return alist(
