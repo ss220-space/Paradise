@@ -485,3 +485,6 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 			damaged.Add(organ)
 
 	return damaged
+
+#undef ORGAN_ROTT_FILTER
+#undef ORGAN_ROTT_FILTER_PRIORITY
