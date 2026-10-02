@@ -269,6 +269,25 @@
 		else
 			. += span_notice("Серьёзно повреждено.")
 
+/**
+ * Appends the owner's species name to this organ's Russian names.
+ *
+ * Generic bodyparts such as [/obj/item/organ/external/leg] are shared between every
+ * species, so on their own they read as "левая нога". This bolts the species name onto
+ * every grammatical case, producing "левая нога человека" and "левой ноги человека".
+ */
+/obj/item/organ/proc/apply_species_name()
+	if(species_type)
+		return
+	if(!dna?.species)
+		return
+
+	var/suffix = dna.species.get_bodypart_name_suffix()
+	if(!suffix)
+		return
+
+	set_ru_names_suffix(suffix)
+
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
