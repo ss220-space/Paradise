@@ -15,13 +15,6 @@
 
 
 // MARK: Upgrade skill defines
-/// Countf of free skill points by default
-#define BASIC_SKILL_POINTS_COUNT 5
-/// Countf of free skill points for some roles
-#define ADVANCED_SKILL_POINTS_COUNT 10
-/// Countf of free skill points for antags
-#define BASIC_ANTAG_SKILL_POINTS_BONUS 1
-
 /// Default limit for use free skill points on single skill
 #define DEFAULT_FREE_POINTS_USE_LIMIT 2
 /// Round start free points for all jobs
@@ -30,6 +23,10 @@
 #define DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS 12
 /// Round start free points for command and civilian jobs
 #define DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS 15
+/// Count of free skill points for antags
+#define BASIC_ANTAG_SKILL_POINTS_BONUS 5
+/// Default value for not prepared free skill points count
+#define ACTUAL_FREE_SKILL_POINTS_NOT_SET -1
 
 /// Basic prices for upgrade skill
 GLOBAL_LIST_INIT(skill_upgrade_prices_default, alist(

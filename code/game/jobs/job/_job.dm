@@ -112,7 +112,7 @@
 	var/list/skill_levels = list()
 	/// Skill levels by alt titles jobs
 	var/alist/alt_skill_levels = null
-	var/base_free_skill_point = BASIC_SKILL_POINTS_COUNT
+	var/base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
