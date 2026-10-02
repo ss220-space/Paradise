@@ -528,10 +528,6 @@ SUBSYSTEM_DEF(air)
 					var/turf/simulated/wall/wall = neighbour
 					if(istype(wall))
 						wall.adjacent_fire_act(radiated_temperature)
-					else
-						var/obj/structure/blob/blob = locate(/obj/structure/blob) in neighbour
-						if(blob)
-							blob.adjacent_fire_act_from_air(radiated_temperature)
 
 				for(var/atom/movable/item in turf)
 					if(item.cares_about_temperature || !isnull(item.reagents))

@@ -46,7 +46,7 @@
 	if(owner_overmind && isovermind(owner_overmind))
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
-	if(atmosblock)
+	if(update_atmosblock())
 		recalculate_atmos_connectivity()
 	ConsumeTile()
 	update_blob()
@@ -57,9 +57,10 @@
 	overmind.blobs_legit |= src
 
 /obj/structure/blob/Destroy()
-	if(atmosblock)
-		atmosblock = FALSE
-		recalculate_atmos_connectivity()
+	for(var/direction in GLOB.cardinal)
+		var/obj/structure/blob/neighbour = locate(/obj/structure/blob) in get_step(src, direction)
+		if(neighbour?.update_atmosblock(src))
+			neighbour.recalculate_atmos_connectivity()
 	SSticker?.mode?.remove_blob_tile(src)
 	if(overmind)
 		overmind.all_blobs -= src
@@ -92,16 +93,24 @@
 /obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
+// Blob tiles surrounded by other blob tiles are sealed off, so nothing burns inside them.
+// Tiles on the edge of a blob let gases through, so adjacent fire can ignite them and damage the structure the normal way, through /obj/fire_act().
+/obj/structure/blob/proc/update_atmosblock(obj/structure/blob/ignore_blob = null)
+	var/should_block = TRUE
+	for(var/direction in GLOB.cardinal)
+		var/obj/structure/blob/tile = locate(/obj/structure/blob) in get_step(src, direction)
+		if(isnull(tile) || tile == ignore_blob)
+			should_block = FALSE
+			break
+	if(should_block == atmosblock)
+		return FALSE
+	atmosblock = should_block
+	return TRUE
+
 /obj/structure/blob/get_superconductivity(direction)
 	if(atmosblock)
 		return FALSE
 	return ..()
-
-/obj/structure/blob/proc/adjacent_fire_act_from_air(radiated_temperature)
-	if(overmind?.blobstrain?.fire_based || (resistance_flags & FIRE_PROOF))
-		return
-	if(radiated_temperature > BLOB_ADJACENT_FIRE_MAX_TEMP)
-		take_damage(rand(1, 6) * (radiated_temperature / BLOB_ADJACENT_FIRE_MAX_TEMP), BURN, FIRE)
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
 	. = ..()
