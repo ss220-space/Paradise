@@ -617,7 +617,6 @@
 	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "neara headpocket"
 	desc = "Недоразвившееся мышечное образование на голове неары, которое можно использовать как место хранения небольших предметов."
-	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "lesser_headpocket"
 
 /obj/item/organ/internal/headpocket/monkey/skrell/get_ru_names()
