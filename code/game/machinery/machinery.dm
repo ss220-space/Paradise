@@ -234,7 +234,7 @@
 /obj/machinery/proc/set_frequency()
 	return
 
-/obj/machinery/process() // If you dont use process or power why are you here
+/obj/machinery/process(seconds_per_tick) // If you dont use process or power why are you here
 	return PROCESS_KILL
 
 /obj/machinery/proc/process_atmos(seconds) //If you dont use process why are you here

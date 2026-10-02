@@ -6339,6 +6339,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -19317,6 +19318,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -22881,13 +22883,8 @@
 	},
 /area/station/security/medical)
 "dGF" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31405,6 +31402,9 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
+/obj/item/gun/energy/gun/nuclear/gate,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -39869,6 +39869,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -64414,6 +64415,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/door_control/gateway{
+	pixel_x = 36
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -80508,6 +80512,9 @@
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108607,6 +108614,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -111706,6 +111714,7 @@
 /area/station/commons/fitness)
 "rfi" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -122318,6 +122327,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 1
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -129590,6 +129600,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -134233,6 +134244,11 @@
 /obj/item/multitool,
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/stock_parts/cell/high,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -142337,6 +142353,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -153826,14 +153843,11 @@
 	},
 /area/station/maintenance/fpmaint)
 "xuj" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/personal/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

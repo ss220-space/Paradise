@@ -247,6 +247,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 		"1020" = 100, // CHANNEL_HEARTBEAT
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
+		"1017" = 100, // CHANNEL_WEATHER
 		"1014" = 50, // CHANNEL_TTS_LOCAL
 		"1013" = 20, // CHANNEL_TTS_RADIO
 		"1012" = 50, // CHANNEL_RADIO_NOISE
@@ -2425,7 +2426,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/options = list()
 					for(var/key, value in GLOB.zoom_modes)
 						options[value] = key
-					var/result = tgui_input_list(user, "ВЫберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
+					var/result = tgui_input_list(user, "Выберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
 					if(!result)
 						return
 					zoom_mode = options[result] || zoom_mode
@@ -2435,7 +2436,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/options = list()
 					for(var/key in 0 to 9 step 0.5)
 						options += key
-					var/result = tgui_input_list(user, "ВЫберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
+					var/result = tgui_input_list(user, "Выберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
 					if(isnull(result))
 						return
 
