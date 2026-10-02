@@ -117,7 +117,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/tajaran,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/tajaran,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey/tajaran, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/tajaran,
 	)
 
@@ -164,7 +164,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/vulpkanin,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/vulpkanin,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/vulpkanin/wolpin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/monkey/vulpkanin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/vulpkanin,
 	)
 
@@ -219,6 +219,7 @@
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey/skrell,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/skrell,
+		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket/monkey/skrell,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/neara

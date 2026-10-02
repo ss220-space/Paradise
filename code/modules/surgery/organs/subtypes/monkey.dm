@@ -1,6 +1,46 @@
 /// Internal organs of monkeys and their lesser forms.
+/// Yellow-Blue colorblindness. Tajarans/Farwas have this.
+#define TRITANOPIA_COLOR_REPLACE list( \
+	"red" = "rebeccapurple", \
+	"blue" = "darkslateblue", \
+	"green" = "darkolivegreen", \
+	"orange" = "darkkhaki", \
+	"yellow" = "darkkhaki", \
+	"brown" = "rebeccapurple", \
+	"gold" = "darkkhaki", \
+	"cyan" = "darkseagreen", \
+	"magenta" = "darkslateblue", \
+	"purple" = "darkslateblue", \
+	"pink" = "lightgrey" \
+)
+
+#define MATRIX_TAJ_CBLIND list(\
+	0.95, 0.07, 0,\
+	0, 0.44, 0.52,\
+	0.05, 0.49, 0.48)
+
+/// Red colorblindness. Vulpkanins/Wolpins have this.
+#define PROTANOPIA_COLOR_REPLACE list( \
+	"red" = "darkolivegreen", \
+	"green" = "darkslategrey", \
+	"orange" = "goldenrod", \
+	"yellow" = "goldenrod", \
+	"brown" = "darkolivegreen", \
+	"gold" = "goldenrod", \
+	"cyan" = "steelblue", \
+	"magenta" = "blue", \
+	"purple" = "darkslategrey", \
+	"pink" = "beige" \
+)
+
+#define MATRIX_VULP_CBLIND list(\
+	0.51, 0.4, 0.12,\
+	0.49, 0.41, 0.12,\
+	0, 0.2, 0.76)
+
 /obj/item/organ/internal/heart/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey heart"
 	desc = "Орган, качающий кровь и обеспечивающий кровообращение. Это принадлежало обезьяне."
 	item_state = "lesser_heart-on"
@@ -83,6 +123,7 @@
 	)
 /obj/item/organ/internal/lungs/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey lungs"
 	desc = "Парный орган, отвечающий за газообмен между средой и кровью. Это принадлежало обезьяне."
 	item_state = "lesser_lungs"
@@ -163,6 +204,7 @@
 	)
 /obj/item/organ/internal/liver/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Это принадлежало обезьяне."
 	item_state = "lesser_liver"
@@ -244,6 +286,7 @@
 	)
 /obj/item/organ/internal/kidneys/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey kidneys"
 	desc = "Парный орган, фильтрующий кровоток и выводящий из организма токсины и отходы. Это принадлежало обезьяне."
 	item_state = "lesser_kidneys"
@@ -324,6 +367,7 @@
 	)
 /obj/item/organ/internal/brain/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Это принадлежало обезьяне."
 	item_state = "lesser_brain2"
@@ -409,6 +453,7 @@
 
 /obj/item/organ/internal/eyes/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey eyeballs"
 	desc = "Парный орган, отвечающий за зрение и его обработку мозгом. Это принадлежало обезьяне."
 	item_state = "lesser_eyes"
@@ -422,6 +467,42 @@
 		ACCUSATIVE = "глаза обезьяны",
 		INSTRUMENTAL = "глазами обезьяны",
 		PREPOSITIONAL = "глазах обезьяны",
+	)
+
+/obj/item/organ/internal/eyes/monkey/tajaran
+	species_type = /datum/species/monkey/tajaran
+	name = "farwa eyeballs"
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
+	icon = 'icons/obj/species_organs/tajaran.dmi'
+	colourmatrix = MATRIX_TAJ_CBLIND
+	replace_colours = TRITANOPIA_COLOR_REPLACE
+
+/obj/item/organ/internal/eyes/monkey/tajaran/get_ru_names()
+	return alist(
+		NOMINATIVE = "глаза фарвы",
+		GENITIVE = "глаз фарвы",
+		DATIVE = "глазам фарвы",
+		ACCUSATIVE = "глаза фарвы",
+		INSTRUMENTAL = "глазами фарвы",
+		PREPOSITIONAL = "глазах фарвы",
+	)
+
+/obj/item/organ/internal/eyes/monkey/vulpkanin
+	species_type = /datum/species/monkey/vulpkanin
+	name = "wolpin eyeballs"
+	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
+	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	colourmatrix = MATRIX_VULP_CBLIND
+	replace_colours = PROTANOPIA_COLOR_REPLACE
+
+/obj/item/organ/internal/eyes/monkey/vulpkanin/get_ru_names()
+	return alist(
+		NOMINATIVE = "глаза вульпина",
+		GENITIVE = "глаз вульпина",
+		DATIVE = "глазам вульпина",
+		ACCUSATIVE = "глаза вульпина",
+		INSTRUMENTAL = "глазами вульпина",
+		PREPOSITIONAL = "глазах вульпина",
 	)
 
 /obj/item/organ/internal/eyes/monkey/skrell
@@ -457,6 +538,7 @@
 	)
 /obj/item/organ/internal/ears/monkey
 	species_type = /datum/species/monkey
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
 	name = "monkey ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали обезьяне."
 
@@ -529,3 +611,22 @@
 		INSTRUMENTAL = "ушами стока",
 		PREPOSITIONAL = "ушах стока",
 	)
+
+/obj/item/organ/internal/headpocket/monkey/skrell
+	species_type = /datum/species/monkey/skrell
+	species_restrictions = list(SPECIES_MONKEY, SPECIES_FARWA, SPECIES_WOLPIN, SPECIES_NEARA, SPECIES_STOK)
+	name = "neara headpocket"
+	desc = "Недоразвившееся мышечное образование на голове неары, которое можно использовать как место хранения небольших предметов."
+	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon_state = "lesser_headpocket"
+
+/obj/item/organ/internal/headpocket/monkey/skrell/get_ru_names()
+	return alist(
+		NOMINATIVE = "головной карман неары",
+		GENITIVE = "головного кармана неары",
+		DATIVE = "головному карману неары",
+		ACCUSATIVE = "головной карман неары",
+		INSTRUMENTAL = "головным карманом неары",
+		PREPOSITIONAL = "головном кармане неары",
+	)
+
