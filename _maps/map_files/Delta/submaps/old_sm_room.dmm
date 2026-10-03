@@ -824,8 +824,6 @@
 /area/template_noop)
 "rx" = (
 /obj/structure/safe/floor,
-/obj/item/spacepod_equipment/weaponry/laser,
-/obj/item/spacepod_equipment/locators/basic_pod_locator,
 /obj/item/stock_parts/cell/super,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1952,7 +1950,7 @@
 	},
 /area/template_noop)
 "ZT" = (
-/obj/spacepod/civilian/damaged,
+/obj/spacepod/template/one_engine/civilian/damaged,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"

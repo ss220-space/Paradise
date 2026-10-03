@@ -4931,7 +4931,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
 	dir = 1
 	},
-/obj/item/spacepod_equipment/cargo/ore,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "rF" = (
@@ -5717,9 +5716,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/item/spacepod_equipment/sec_cargo/chair,
-/obj/item/spacepod_equipment/sec_cargo/chair,
-/obj/item/spacepod_equipment/sec_cargo/loot_box,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "uy" = (
@@ -7893,8 +7889,6 @@
 /obj/item/pod_parts/core,
 /obj/item/pod_parts/armor,
 /obj/structure/closet/crate,
-/obj/item/spacepod_equipment/weaponry/mining_laser_basic,
-/obj/item/spacepod_equipment/cargo/crate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "Cc" = (

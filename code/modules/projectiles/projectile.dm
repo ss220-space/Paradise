@@ -338,6 +338,12 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
+
+/obj/projectile/can_pass_after_bump(atom/bumped_atom)
+	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))))
+		return TRUE
+	return ..()
+
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
 
@@ -351,8 +357,8 @@
 			range = initial(range)
 			return TRUE
 	if(firer && !ignore_source_check)
-		if(bumped_atom == firer || (bumped_atom == firer.loc && ismecha(bumped_atom))) //cannot shoot yourself or your mech
-			loc = bumped_atom.loc
+		if(bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))) //cannot shoot yourself or your mech
+			// loc = bumped_atom.loc
 			return FALSE
 
 	var/turf/bumped_turf = get_turf(bumped_atom)

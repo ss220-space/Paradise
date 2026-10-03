@@ -188,7 +188,6 @@
 /turf/space,
 /area/space)
 "aqN" = (
-/obj/item/spacepod_equipment/weaponry/mining_laser_basic,
 /turf/space,
 /area/space)
 "arr" = (
@@ -262,7 +261,6 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "aum" = (
-/obj/item/spacepod_equipment/weaponry/laser,
 /turf/space,
 /area/space)
 "auB" = (

@@ -270,8 +270,7 @@
 
 	if(isspacepod(loc))
 		var/obj/spacepod/S = loc
-		status_tab_data[++status_tab_data.len] = list("Заряд челнока:", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "Батарея отсутствует"]")
-		status_tab_data[++status_tab_data.len] = list("Целостность челнока:", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
+		status_tab_data[++status_tab_data.len] = list("Целостность челнока:", "[!S.obj_integrity ? "0" : "[(S.obj_integrity / S.max_integrity) * 100]"]%")
 
 /// Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))

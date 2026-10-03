@@ -868,6 +868,9 @@
 			return .
 	bumped_atom.Bumped(src)
 
+/atom/movable/proc/can_pass_after_bump(atom/bumped_atom)
+	return movement_type & PHASING
+
 /// Sets the currently_z_moving variable to a new value. Used to allow some zMovement sources to have precedence over others.
 /atom/movable/proc/set_currently_z_moving(new_z_moving_value, forced = FALSE)
 	if(forced)
