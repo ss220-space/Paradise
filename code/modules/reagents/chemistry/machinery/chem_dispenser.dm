@@ -117,7 +117,7 @@
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
 	var/static/alist/dispense_amounts = alist(
-		SKILL_LEVEL_NONE = 			list(10, 100),
+		SKILL_LEVEL_NONE = 			list(30, 100),
 		SKILL_LEVEL_BEGINNER = 		list(30, 50, 100),
 		SKILL_LEVEL_BASIC = 		list(10, 30, 50, 100),
 		SKILL_LEVEL_ADVANCED = 		list(1, 10, 30, 50, 100),
