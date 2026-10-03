@@ -38,14 +38,30 @@
 	///Unique ID for this spawner
 	var/string_gen
 
-	///Chance of cells starting closed
-	var/initial_closed_chance = 45
-	///Amount of smoothing iterations
-	var/smoothing_iterations = 20
-	///How much neighbours does a dead cell need to become alive
-	var/birth_limit = 4
-	///How little neighbours does a alive cell need to die
-	var/death_limit = 3
+	///Minimum size of a BSP leaf. Bigger values make nigger pockets, but also wider corridors
+	var/min_bsp_size = 25
+	///Aspect ratio a BSP leaf may reach before it is forced to split the other way
+	var/max_ratio = 1.5
+	///Empty space a room keeps to the edge of its BSP leaf
+	var/padding = 1
+	///How much of its BSP leaf a room may fill, in percent
+	var/room_fill_percent = 30
+	///Minimum width of a carved corridor(smoothing can widen it further)
+	var/corridor_width = 3
+	///Chance for an extra corridor between two rooms that are already connected, in percent
+	var/loop_percent = 5
+	///Chance for a cell to start as floor before smoothing, in percent
+	var/noise_percent = 40
+	///Amount of cellular automata smoothing passes
+	var/ca_steps = 8
+	///Neighbours a wall needs to turn into floor
+	var/birth_limit = 5
+	///Neighbours a floor tile needs to stay floor
+	var/survival_limit = 4
+	///Whether cells outside the map count as floor while smoothing, which opens tunnels towards the map edge
+	var/edges_are_alive = TRUE
+	///Whether already placed ruins are handed to the generator, so terrain blends into them
+	var/use_ruin_prefabs = TRUE
 
 /datum/map_generator/cave_generator/New()
 	. = ..()
@@ -70,19 +86,58 @@
 	if(!(generate_in.area_flags & CAVES_ALLOWED))
 		return
 	var/start_time = REALTIMEOFDAY
-	string_gen = rustg_cnoise_generate("[initial_closed_chance]", "[smoothing_iterations]", "[birth_limit]", "[death_limit]", "[world.maxx]", "[world.maxy]") //Generate the raw CA data
+	string_gen = generate_cave(generate_in)
+	if(length(string_gen) != world.maxx * world.maxy)
+		stack_trace("[name] did not get a usable cave layout for [generate_in]. TERRAIN GENERATION SKIPPED.")
+		return
 
 	for(var/turf/gen_turf as anything in turfs) //Go through all the turfs and generate them
 
-		var/closed = string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x] != "0"
-		var/turf/new_turf = pick(closed ? wall_turf_types : simulated_turf_types)
+		var/closed = string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x] != "1"
+		var/spawn_type = closed ? get_wall_turf(gen_turf) : pick(simulated_turf_types)
 		// The assumption is this will be faster then changeturf, and changeturf isn't required since by this point
 		// The old tile hasn't got the chance to init yet
-		new_turf = new new_turf(gen_turf)
+		var/turf/new_turf = new spawn_type(gen_turf)
+		if(gen_turf.turf_flags & NO_RUINS)
+			new_turf.turf_flags |= NO_RUINS
 
 	var/message = "[name] terrain generation finished in [(REALTIMEOFDAY - start_time)/10]s!"
 	log_startup_progress_global("Mapping", message)
 	log_world(message)
+
+/datum/map_generator/cave_generator/proc/generate_cave(area/generate_in)
+	var/list/prefabs = list()
+	if(use_ruin_prefabs)
+		for(var/obj/effect/landmark/ruin/ruin_landmark as anything in GLOB.ruin_landmarks)
+			var/datum/map_template/ruin/ruin = ruin_landmark.ruin_template
+			if(!ruin || ruin_landmark.z != generate_in.z)
+				continue
+			var/ruin_padding = ruin.terrain_padding
+			prefabs += list(list(
+				"x" = max(1, ruin_landmark.x - round(ruin.width / 2) - ruin_padding),
+				"y" = max(1, ruin_landmark.y - round(ruin.height / 2) - ruin_padding),
+				"w" = ruin.width + ruin_padding * 2,
+				"h" = ruin.height + ruin_padding * 2,
+				"isEnclosed" = ruin.enclosed_for_terrain,
+			))
+
+	var/list/settings = list(
+		"min_bsp_size" = min_bsp_size,
+		"max_ratio" = max_ratio,
+		"padding" = padding,
+		"room_fill_percent" = room_fill_percent,
+		"corridor_width" = corridor_width,
+		"loop_percent" = loop_percent,
+		"noise_percent" = noise_percent,
+		"ca_steps" = ca_steps,
+		"birth_limit" = birth_limit,
+		"survival_limit" = survival_limit,
+		"edge_is_alive" = edges_are_alive,
+	)
+	return rustlib_cave_system_generator_generate(world.maxx, world.maxy, json_encode(prefabs), json_encode(settings))
+
+/datum/map_generator/cave_generator/proc/get_wall_turf(turf/gen_turf)
+	return pick(wall_turf_types)
 
 /datum/map_generator/cave_generator/populate_terrain(list/turfs, area/generate_in)
 
