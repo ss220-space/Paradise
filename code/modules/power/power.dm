@@ -29,6 +29,10 @@
 // Machines should use add_load(), surplus(), avail()
 // Non-machines should use add_delayedload(), delayed_surplus(), newavail()
 
+//override this if the machine needs special functionality for making wire nodes appear, ie emitters, generators, etc.
+/obj/machinery/power/proc/should_have_node()
+	return FALSE
+
 /obj/machinery/power/proc/add_avail(amount)
 	if(powernet)
 		powernet.newavail += amount
@@ -159,18 +163,15 @@
 
 	. = list()
 
-	var/cdir
 	var/turf/T
 
 	for(var/card in GLOB.cardinal)
 		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
 
 		for(var/obj/structure/cable/C in T)
 			if(C.powernet)
 				continue
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
+			. += C
 	return .
 
 //returns all the cables in neighbors turfs,
@@ -179,16 +180,13 @@
 
 	. = list()
 
-	var/cdir
 	var/turf/T
 
 	for(var/card in GLOB.cardinal)
 		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
 
 		for(var/obj/structure/cable/C in T)
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
+			. += C
 	return .
 
 //returns all the NODES (O-X) cables WITHOUT a powernet in the turf the machine is located at
@@ -197,7 +195,7 @@
 	for(var/obj/structure/cable/C in loc)
 		if(C.powernet)
 			continue
-		if(C.d1 == 0) // the cable is a node cable
+		if(C.node)
 			. += C
 	return .
 
@@ -228,40 +226,34 @@
 			var/obj/structure/cable/C = AM
 
 			if(!unmarked || !C.powernet)
-				if(C.d1 == d || C.d2 == d)
-					. += C
+				. += C
 	return .
 
-//remove the old powernet and replace it with a new one throughout the network.
-/proc/propagate_network(obj/O, datum/powernet/PN)
-	var/list/worklist = list()
+///remove the old powernet and replace it with a new one throughout the network.
+/proc/propagate_network(obj/structure/cable/C, datum/powernet/PN, skip_assigned_powernets = FALSE)
 	var/list/found_machines = list()
+	var/list/cables = list()
 	var/index = 1
-	var/obj/P = null
+	var/obj/structure/cable/working_cable
 
-	worklist[O] = TRUE //start propagating from the passed object
+	cables[C] = TRUE //associated list for performance reasons
 
-	while(index<=length(worklist)) //until we've exhausted all power objects
-		P = worklist[index] //get the next power object found
+	while(index <= length(cables))
+		working_cable = cables[index]
 		index++
 
-		if(istype(P, /obj/structure/cable))
-			var/obj/structure/cable/C = P
-			if(C.powernet != PN) //add it to the powernet, if it isn't already there
-				PN.add_cable(C)
-			//worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
-			for(var/i in C.get_connections())
-				worklist[i] = TRUE
+		var/list/connections = working_cable.get_cable_connections(skip_assigned_powernets)
 
-		else if(P.anchored && istype(P, /obj/machinery/power))
-			var/obj/machinery/power/M = P
-			found_machines[P] = M //we wait until the powernet is fully propagates to connect the machines
+		for(var/obj/structure/cable/cable_entry in connections)
+			if(!cables[cable_entry]) //Since it's an associated list, we can just do an access and check it's null before adding; prevents duplicate entries
+				cables[cable_entry] = TRUE
 
-		else
-			continue
+	for(var/obj/structure/cable/cable_entry in cables)
+		PN.add_cable(cable_entry)
+		found_machines += cable_entry.get_machine_connections(skip_assigned_powernets)
 
 	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM as anything in found_machines)
+	for(var/obj/machinery/power/PM in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
 
@@ -365,11 +357,12 @@
 
 // return a knot cable (O-X) if one is present in the turf
 // null if there's none
-/turf/proc/get_cable_node()
+/turf/proc/get_cable_node(cable_layer = CABLE_LAYER_ALL)
 	if(!can_have_cabling())
 		return null
 	for(var/obj/structure/cable/C in src)
-		if(C.d1 == 0)
+		if(C.cable_layer & cable_layer)
+			C.update_appearance() // I hate this. it's here because update_icon_state SCANS nearby turfs for objects to connect to. Wastes cpu time
 			return C
 	return null
 
