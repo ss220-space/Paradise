@@ -133,6 +133,14 @@ const Help = (_properties) => {
     <Section
       className="Safe--help"
       title="Инструкция по открытию сейфа. (потому что вы всё время забываете)"
+      style={{
+        position: 'absolute',
+        top: 'auto',
+        bottom: '25px',
+        left: '25px',
+        right: 'auto',
+        zIndex: 5,
+      }}
     >
       <Box>
         1. Поверните циферблат влево на первую цифру.
