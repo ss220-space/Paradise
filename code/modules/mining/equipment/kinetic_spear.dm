@@ -14,7 +14,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	can_actually_embed = FALSE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
-	///The mob to return the spear to if thrown
+	/// The mob to return the spear to if thrown
 	var/mob/living/carbon/returner
 	/// Did our spear return to us, when we miss?
 	var/recall_after_miss = FALSE
@@ -28,6 +28,12 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	var/cached_throwforce
 	/// Can our spear skip lavaland pressure check? Used in syndie-core
 	var/can_hurt_on_station = FALSE
+	/// Spear charges. Getting 3 of them adds special effect to user of fauna that we are attacking
+	var/charges = 0
+	/// Maximum spear charges
+	var/max_charges = 3
+	/// Is our spear got all needed charges?
+	var/charged = FALSE
 
 /obj/item/twohanded/mining_spear/standart
 	core = /obj/item/mining_spear_core/standart
@@ -70,6 +76,10 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		return
 
 	. += "[recall_after_miss ? "Любой бросок копья" : "Успешное попадание по фауне, гуманоиду или горной породе"] [can_hurt_on_station ? "где угодно" : "в разряженной атмосфере"] приведёт к возвращению копья в ваши руки."
+	. += "Успешное попадание по фауне три раза подряд приводит к тому, что все последующие попадания вызовут особый эффект."
+	. += "Особый эффект зависит от установленого внутрь ядра, а успешное применение эффекта сохраняет счётчик попаданий."
+	. += "текущий эффект:"
+	. += span_notice("[core.get_effect_description()]")
 
 /obj/item/twohanded/mining_spear/attackby(obj/item/item, mob/living/user, params)
 	if(!is_mining_spear_core(item))
@@ -94,6 +104,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	core.on_remove(src)
 	core.forceMove(get_turf(user))
 	core = null
+	remove_all_charges()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/twohanded/mining_spear/equipped(mob/user, slot, initial)
@@ -160,22 +171,46 @@ Kinetic spear - alternative mining weapon, used as... spear.
 			return_spear_to_user()
 		if(user)
 			hit_rock.attempt_drill(user, FALSE, 1)
+		remove_all_charges()
 		return ..()
 
-	if(isliving(hit_atom) && (can_hurt_on_station || lavaland_equipment_pressure_check(target_turf)))
+	if(iscarbon(hit_atom) && (can_hurt_on_station || lavaland_equipment_pressure_check(target_turf)))
+		if(charged && can_hurt_on_station)
+			core.charged_effect(hit_atom, src, user)
 		if(!recall_after_miss)
 			return_spear_to_user()
 		return ..()
 
 	if(is_lavaland_fauna(hit_atom) || ismegafauna(hit_atom))
 		throwforce = cached_throwforce + bonus_fauna_damage
+		if(charged)
+			core.charged_effect(hit_atom, src, user)
 		if(!recall_after_miss)
 			return_spear_to_user()
+		add_charge()
 		return ..()
+
+	else // if we miss or hit people on station
+		remove_all_charges()
 
 	return ..()
 
-//obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
+/obj/item/twohanded/mining_spear/proc/add_charge()
+	if(!core)
+		return
+	charges++
+	if(!(charges >= max_charges))
+		return
+	if(!charged)
+		add_filter("charge_glow", 2, list("type" = "outline", "color" = core.charged_glow_color, "size" = 1))
+	charged = TRUE
+	charges = 0
+
+/obj/item/twohanded/mining_spear/proc/remove_all_charges()
+	charges = 0
+	if(charged)
+		remove_filter("charge_glow")
+	charged = FALSE
 
 /obj/item/twohanded/mining_spear/proc/return_spear_to_user()
 	SIGNAL_HANDLER
@@ -195,6 +230,8 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		returner.put_in_hands(src)
 		returner = null
 
+//obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
+
 /*
 MARK: Spear core
 Spear cores. Gives spear special abilities and quirks
@@ -207,6 +244,9 @@ Spear cores. Gives spear special abilities and quirks
 	icon_state = "standart_core"
 	/// Spear overlay, that we use
 	var/spear_overlay = "overlay_blue"
+	/// Spear glow color. Usually same color as spear overlay
+	var/charged_glow_color = "#92E8C0"
+
 	/// All force variables, that used to modify spear
 	var/spear_force = 10
 	var/spear_force_unwielded = 10
@@ -215,7 +255,7 @@ Spear cores. Gives spear special abilities and quirks
 	var/spear_armour_penetration = 10
 	var/spear_sharp = TRUE
 	var/spear_embed_chance = 50
-	var/spear_bonus_fauna_damage = 30
+	var/spear_bonus_fauna_damage = 20
 	var/spear_recall_after_miss = FALSE
 	var/spear_can_hurt_on_station = FALSE
 
@@ -253,6 +293,12 @@ Spear cores. Gives spear special abilities and quirks
 	spear.recall_after_miss = initial(spear.recall_after_miss)
 	spear.can_hurt_on_station = initial(spear.can_hurt_on_station)
 
+/obj/item/mining_spear_core/proc/get_effect_description()
+	return "не делает ничего. Грустненько!!"
+
+/obj/item/mining_spear_core/proc/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
+	return
+
 /obj/item/mining_spear_core/standart
 	name = "standart spear core"
 	desc = "Стандартное ядро кинетического копья. Не имеет явных особенностей по сравнению с другими ядрами."
@@ -267,9 +313,30 @@ Spear cores. Gives spear special abilities and quirks
 			PREPOSITIONAL = "стандартном ядре прото-кинетического копья",
 	)
 
+/obj/item/mining_spear_core/standart/get_effect_description()
+	return "Вызывает кровотечение у фауны, нанося ей массивные повреждения."
+
+/obj/item/mining_spear_core/standart/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/user)
+	if(!(is_lavaland_fauna(victim) || ismegafauna(victim)))
+		return
+	var/datum/status_effect/saw_bleed/bloodletting/our_effect = victim.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!our_effect)
+		victim.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+	else
+		our_effect.add_bleed(6)
+
 /obj/item/mining_spear_core/recall
 	name = "advanced spear core"
 	icon_state = "recall_core"
-	desc = "Улучшенное ядро кинетического копья, позволяющее пользователю вернуть копье в руки даже в случае промаха по цели."
+	desc = "Улучшенное ядро кинетического копья, позволяющее пользователю вернуть копье в руки даже в случае промаха по цели. Данное ядро принято считать тренировочным из-за его эффектов."
 	spear_recall_after_miss = TRUE
 	spear_overlay = "overlay_green"
+	charged_glow_color = "#63AB3F"
+	/// How much do we heal in our charged effect?
+	var/heal_amount = 10
+
+/obj/item/mining_spear_core/recall/get_effect_description()
+	return "Лечит пользователя от травм и ожогов."
+
+/obj/item/mining_spear_core/recall/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
+	user.heal_overall_damage(heal_amount, heal_amount, affect_robotic = TRUE)
