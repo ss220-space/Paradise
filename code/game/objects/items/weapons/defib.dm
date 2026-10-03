@@ -349,7 +349,7 @@
 	var/obj/item/defibrillator/defib
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
-	var/requires_main_unit = TRUE
+	var/req_defib = TRUE
 
 /obj/item/twohanded/shockpaddles/get_ru_names()
 	return alist(
@@ -398,7 +398,7 @@
 
 /obj/item/twohanded/shockpaddles/Initialize(mapload, obj/item/defibrillator/mainunit)
 	. = ..()
-	if(requires_main_unit && QDELETED(mainunit))
+	if(req_defib && QDELETED(mainunit))
 		return INITIALIZE_HINT_QDEL
 	add_defib_component(mainunit)
 
@@ -494,7 +494,7 @@
 /obj/item/twohanded/shockpaddles/borg
 	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
 	var/safety = TRUE
-	requires_main_unit = FALSE
+	req_defib = FALSE
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
