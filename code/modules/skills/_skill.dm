@@ -77,5 +77,4 @@ GAME_VERB(/mob, view_skills_win, "Навыки персонажа", VERB_CATEGOR
 	// 	return
 	// GLOB.skills_window.ui_interact(usr)
 
-	var/datum/ui_module/skills_upgrade_win/tgui = new(usr)
-	tgui.show(usr, src)
+	GLOB.skills_upgrade_window.show(usr, src)
