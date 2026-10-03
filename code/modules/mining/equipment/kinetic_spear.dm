@@ -96,6 +96,11 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	core = null
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/twohanded/mining_spear/equipped(mob/user, slot, initial)
+	. = ..()
+	if(returner) //don't teleport spear back if it was taken by someone
+		returner = null
+
 /obj/item/twohanded/mining_spear/update_overlays()
 	. = ..()
 	cut_overlays()
@@ -268,4 +273,3 @@ Spear cores. Gives spear special abilities and quirks
 	desc = "Улучшенное ядро кинетического копья, позволяющее пользователю вернуть копье в руки даже в случае промаха по цели."
 	spear_recall_after_miss = TRUE
 	spear_overlay = "overlay_green"
-
