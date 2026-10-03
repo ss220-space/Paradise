@@ -62,8 +62,12 @@
 	return list()
 
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
-	if(!listening)
-		return
+	// убран ранний выход if(!listening) return
+	// Из-за него гарнитура, побывавшая на полу, оставалась глухой навсегда:
+	// при поднятии proc выходил раньше, чем успевал включить динамик.
+	// Выбор игрока не перетирается: если он сам выключил динамик,
+	// should_be_listening будет FALSE и гарнитура останется выключенной.
+
 	if(ismob(loc))
 		set_listening(should_be_listening)
 	else
