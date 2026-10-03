@@ -901,7 +901,7 @@ SUBSYSTEM_DEF(air)
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode. This version allows for sleeping if it's absolutely necessary.
 /datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe_must_sleep/callback)
-	if(length(sleepers))
+	if(length(sleepers) || milla_idle)
 		sleepers += callback
 		// This is one of four intended places to call this otherwise-unsafe proc.
 		callback.private_unsafe_invoke()
