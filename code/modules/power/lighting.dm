@@ -984,7 +984,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 			to_chat(user, span_warning("The [syringe.name] is empty."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You have injected the solution into [src]."))
-		if(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5))
+		if(syringe.reagents.has_reagent(/datum/reagent/plasma, 5) || syringe.reagents.has_reagent(/datum/reagent/plasma_dust, 5))
 			rigged = TRUE
 			log_admin("LOG: [key_name(user)] injected [src] with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected [src] with plasma, rigging it to explode.")

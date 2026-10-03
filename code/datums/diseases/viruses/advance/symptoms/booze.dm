@@ -30,7 +30,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				M.reagents.add_reagent(pick("rum", "vodka", "whiskey", "ale", "cider", "mead", "tequila", "wine", "beer"), 5) //somewhat safe drinks
+				var/datum/reagent/random_alcohol = pick(/datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/ethanol/cider, /datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/beer)
+				M.reagents.add_reagent(random_alcohol, 5) //somewhat safe drinks
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, span_notice(pick("Вы чувствуете тепло.", "Вы чувствуете радость.", "Вы расслабляетесь на мгновение.")))

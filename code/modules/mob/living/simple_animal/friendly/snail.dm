@@ -57,7 +57,7 @@
 
 /mob/living/simple_animal/snail/proc/make_wet_floor(atom/oldLoc)
 	if(oldLoc != src.loc)
-		reagents.add_reagent("water",10)
+		reagents.add_reagent(/datum/reagent/water, 10)
 		reagents.reaction(oldLoc, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 		reagents.remove_any(10)
 
@@ -68,7 +68,7 @@
 
 /mob/living/simple_animal/snail/lube/make_wet_floor(atom/oldLoc)
 	if(oldLoc != src.loc)
-		reagents.add_reagent("lube",10)
+		reagents.add_reagent(/datum/reagent/lube, 10)
 		reagents.reaction(oldLoc, REAGENT_TOUCH, 10)
 		reagents.remove_any(10)
 

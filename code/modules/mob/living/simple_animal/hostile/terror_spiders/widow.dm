@@ -55,7 +55,7 @@
 	L.AdjustSilence(10 SECONDS)
 	if(!poisonable)
 		return TRUE
-	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
+	if(!ckey && (!(target in enemies) || L.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60)))
 		step_away(src, L)
 		step_away(src, L)
 		lose_target()
@@ -78,9 +78,8 @@
 
 /obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
-		if(!C.reagents.has_reagent("terror_black_toxin", 60))
+		if(!C.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60))
 			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в тебя!"))
-				C.reagents.add_reagent("terror_black_toxin", 45)
-
+				C.reagents.add_reagent(/datum/reagent/terror_black_toxin, 45)

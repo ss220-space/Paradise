@@ -11,7 +11,7 @@
 	icon_state = "cartridge_basic"
 	w_class = WEIGHT_CLASS_SMALL
 	var/charges = 4
-	var/list/drink_type = list("coffee" = 150)
+	var/list/drink_type = list(/datum/reagent/consumable/drink/coffee = 150)
 
 /obj/item/coffee_cartridge/get_ru_names()
 	return alist(

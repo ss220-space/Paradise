@@ -185,14 +185,14 @@
 		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 
 		fireflash(target_turf, min(max(0, volume / 40), 8))
 		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
 		smoke.set_up(amount = 1, location = target_turf)
 		smoke.start()
 		if(!QDELETED(old_holder))
-			old_holder.add_reagent("ash", round(volume * 0.5))
+			old_holder.add_reagent(/datum/reagent/ash, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/target_turf, volume)
 	if(volume >= 3 && !isspaceturf(target_turf) && !locate(/obj/effect/decal/cleanable/blood/oil) in target_turf)
@@ -709,9 +709,30 @@
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
 /datum/reagent/bugmilk/on_mob_life(mob/living/target_mob)
-	target_mob.reagents.add_reagent("cream", 0.4)
-	target_mob.reagents.add_reagent("salglu_solution", 0.4)
+	target_mob.reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, 0.4)
+	target_mob.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 0.4)
 	return ..()
+
+/datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
+	name = "Странная чёрная жидкость"
+	id = "blindness_smoke"
+	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
+	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
+
+/datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!is_shadow_or_thrall(M))
+		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
+		M.EyeBlind(10 SECONDS)
+		if(prob(25))
+			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_UT(M)] свои глаза!"))
+			M.Stun(4 SECONDS)
+	else
+		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
+		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustToxLoss(-10, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
 	name = "Smart Foaming Agent"

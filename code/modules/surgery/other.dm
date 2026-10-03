@@ -307,7 +307,7 @@
 	if(!.)
 		return FALSE
 	var/obj/item/reagent_containers/container = tool
-	if(!container.reagents.has_reagent("mitocholide"))
+	if(!container.reagents.has_reagent(/datum/reagent/medicine/mitocholide))
 		user.visible_message(
 			span_notice("[user] нерешительно смотр[PLUR_IT_YAT(user)] на [tool.declent_ru(ACCUSATIVE)], ничего не предпринимая."),
 			span_notice("Вы нерешительно смотрите на [tool.declent_ru(ACCUSATIVE)]. Кажется, что [GEND_HE_SHE(tool)] не содержат митоколида."),
@@ -337,7 +337,7 @@
 	var/obj/item/reagent_containers/container = tool
 	var/mitocholide = FALSE
 
-	if(container.reagents.has_reagent("mitocholide"))
+	if(container.reagents.has_reagent(/datum/reagent/medicine/mitocholide))
 		mitocholide = TRUE
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)

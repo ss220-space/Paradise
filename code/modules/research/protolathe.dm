@@ -91,7 +91,7 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
-		A = reagents.get_reagent_amount(M)
+		A = reagents.get_reagent_amount_by_id(M)
 		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))

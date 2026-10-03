@@ -293,7 +293,7 @@
 		//bad recipe, ruins the drink
 		var/contents = pick("thick goop", "pungent sludge", "unspeakable slurry", "gross-looking concoction", "eldritch abomination of liquids")
 		visible_message(span_warning("The [con_type] fills with \an [contents]..."))
-		drink_container.reagents.add_reagent(pick("????", "toxic_slurry", "meatslurry", "glowing_slurry", "fishwater"), pick(30, 50))
+		drink_container.reagents.add_reagent(pick(/datum/reagent/questionmark, /datum/reagent/toxic_slurry, /datum/reagent/consumable/meatslurry, /datum/reagent/glowing_slurry, /datum/reagent/fishwater), pick(30, 50))
 		drink_container.name = "Liquid Mistakes"
 		drink_container.desc = "WARNING: CONTENTS MAY BE AWFUL, DRINK AT OWN RISK."
 	else

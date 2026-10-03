@@ -35,7 +35,7 @@
 		if(length(target.reagents.reagent_list) > 0)
 			var/one_percent = target.reagents.total_volume / 100
 			for(var/datum/reagent/R in target.reagents.reagent_list)
-				if(R.id != "blood")
+				if(R.type != /datum/reagent/blood)
 					dat += "<br>[TAB][span_notice("[R][details ? ": [R.volume / one_percent]%" : ""]")]"
 				else
 					blood_species = R.data["blood_species"]

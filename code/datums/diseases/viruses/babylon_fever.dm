@@ -6,7 +6,7 @@
 	spread_flags = AIRBORNE
 	visibility_flags = HIDDEN_HUD
 	cure_text = "Маннитол и Митоколид"
-	cures = list("mannitol", "mitocholide")
+	cures = list(/datum/reagent/medicine/mannitol, /datum/reagent/medicine/mitocholide)
 	cure_prob = 30
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_MEDIUM

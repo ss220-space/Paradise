@@ -41,7 +41,7 @@
 	//We don't tolerate ANY other reagent.
 	for(var/datum/reagent/R in our_mob.reagents.reagent_list)
 		if(R != src)
-			our_mob.reagents.remove_reagent(R.id,5)
+			our_mob.reagents.remove_reagent(R.type, 5)
 	switch(current_cycle)
 		if(1 to 20)
 			if(prob(10))

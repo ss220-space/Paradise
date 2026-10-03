@@ -73,7 +73,7 @@
 	. = ..()
 	if(!. || !HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))
 		return .
-	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_id()]
+	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_type()]
 	if(!istype(blood_reagent) || !isturf(loc))
 		return .
 	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
@@ -98,7 +98,7 @@
 	. = ..()
 	if(!. || !HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))
 		return .
-	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_id()]
+	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_type()]
 	if(!istype(blood_reagent) || !isturf(loc))
 		return .
 	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
@@ -154,13 +154,13 @@
 	if(blood_volume < amount)
 		amount = blood_volume
 
-	var/blood_id = get_blood_id()
-	if(!blood_id)
+	var/blood_type = get_blood_type()
+	if(!blood_type)
 		return 0
 
 	AdjustBlood(-amount)
 
-	var/list/blood_data = get_blood_data(blood_id)
+	var/list/blood_data = get_blood_data(blood_type)
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
@@ -169,44 +169,44 @@
 				if(V.spread_flags < BLOOD)
 					continue
 				V.Contract(C)
-		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
-			if(blood_id == "blood") //normal blood
+		if(blood_type == C.get_blood_type() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
+			if(blood_type == /datum/reagent/blood) //normal blood
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
-					C.reagents.add_reagent("toxin", amount * 0.5)
+					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return 1
 
 			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
 			return 1
 
-	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
+	AM.reagents.add_reagent(blood_type, amount, blood_data, bodytemperature)
 	return 1
 
 /// Returns the color of the mob's blood, or null if the mob has no blood.
 /mob/living/proc/get_blood_color()
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return null
-	var/blood_id = get_blood_id()
-	var/list/blood_data = get_blood_data(blood_id)
+	var/blood_type = get_blood_type()
+	var/list/blood_data = get_blood_data(blood_type)
 	var/blood_color = LAZYACCESS(blood_data, "blood_color")
 	if(blood_color)
 		return blood_color
-	var/datum/reagent/exotic = GLOB.chemical_reagents_list[blood_id]
+	var/datum/reagent/exotic = GLOB.chemical_reagents_list[blood_type]
 	return exotic?.color
 
-/mob/living/proc/get_blood_data(blood_id)
+/mob/living/proc/get_blood_data(blood_type)
 	return
 
-/mob/living/carbon/human/get_blood_data(blood_id)
+/mob/living/carbon/human/get_blood_data(blood_type)
 	var/blood_data = list()
-	if(blood_id in GLOB.diseases_carrier_reagents)
+	if(blood_type in GLOB.diseases_carrier_reagents)
 		blood_data["diseases"] = list()
 		for(var/datum/disease/D in diseases)
 			blood_data["diseases"] += D.Copy()
 		if(LAZYLEN(resistances))
 			blood_data["resistances"] = resistances.Copy()
 
-	switch(blood_id)
-		if("blood")
+	switch(blood_type)
+		if(/datum/reagent/blood)
 			blood_data["donor"] = src
 			blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
 			var/list/temp_chem = list()
@@ -227,30 +227,30 @@
 			blood_data["factions"] = faction
 			blood_data["dna"] = dna.Clone()
 
-		if("slimejelly")
+		if(/datum/reagent/slimejelly)
 			blood_data["colour"] = dna.species.blood_color
 			blood_data["blood_color"] = dna.species.blood_color
 
-		if("cryoxadone")
+		if(/datum/reagent/medicine/cryoxadone)
 			blood_data["blood_color"] = dna.species.blood_color
 
 	return blood_data
 
 //get the id of the substance this mob use as blood.
-/mob/proc/get_blood_id()
+/mob/proc/get_blood_type()
 	return ""
 
-/mob/living/simple_animal/get_blood_id()
+/mob/living/simple_animal/get_blood_type()
 	if(blood_volume)
-		return "blood"
+		return /datum/reagent/blood
 	return ""
 
-/mob/living/carbon/human/get_blood_id()
+/mob/living/carbon/human/get_blood_type()
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return ""
 	if(HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))	//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	return "blood"
+	return /datum/reagent/blood
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
@@ -278,8 +278,8 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
-	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
-	var/check_blood = get_blood_id()
+	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
+	var/check_blood = get_blood_type()
 	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return
 	if(!T)

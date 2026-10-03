@@ -205,7 +205,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOI
 			to_chat(user, span_warning("[DECLENT_RU_CAP(container, NOMINATIVE)] уже полный..."))
 			balloon_alert(user, "уже полный")
 			return ATTACK_CHAIN_PROCEED
-		container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
+		container.reagents.add_reagent(/datum/reagent/fishwater/toiletwater, min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
 		to_chat(user, span_notice("Вы заполняете [container.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

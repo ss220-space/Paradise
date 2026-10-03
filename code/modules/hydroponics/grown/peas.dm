@@ -16,7 +16,7 @@
 	icon_dead = "peas-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/peas/laugh)
-	reagents_add = list ("vitamin" = 0.1, "nutriment" = 0.05, "water" = 0.05)
+	reagents_add = list (/datum/reagent/consumable/nutriment/vitamin = 0.1, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/water = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/peas
 	seed = /obj/item/seeds/peas
@@ -44,7 +44,7 @@
 	icon_dead = "laughpeas-dead"
 	genes = list (/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/purple, /datum/plant_gene/trait/plant_laughter)
 	mutatelist = list (/obj/item/seeds/peas/laugh/peace)
-	reagents_add = list ("laughter" = 0.05, "sugar" = 0.05, "nutriment" = 0.07)
+	reagents_add = list (/datum/reagent/consumable/laughter = 0.05, /datum/reagent/consumable/sugar = 0.05, /datum/reagent/consumable/nutriment = 0.07)
 	rarity = 25 //It actually might make Central Command Officials loosen up a smidge, eh?
 
 /obj/item/reagent_containers/food/snacks/grown/peaslaugh
@@ -72,7 +72,7 @@
 	icon_grow = "worldpeas-grow"
 	icon_dead = "worldpeas-dead"
 	genes = list (/datum/plant_gene/trait/glow/blue)
-	reagents_add = list ("fomepizole" = 0.1, "love" = 0.1, "nutriment" = 0.15)
+	reagents_add = list (/datum/reagent/medicine/fomepizole = 0.1, /datum/reagent/love = 0.1, /datum/reagent/consumable/nutriment = 0.15)
 	rarity = 50 // This absolutely will make even the most hardened Syndicate Operators relax.
 	mutatelist = list()
 
