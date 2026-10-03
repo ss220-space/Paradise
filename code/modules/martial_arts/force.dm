@@ -25,9 +25,9 @@
 	COOLDOWN_DECLARE(force_grab)
 
 /datum/martial_art/force/Destroy()
-	QDEL_NULL(recall_mob)
-	QDEL_NULL(bound_esword)
-	QDEL_NULL(force_grab_target)
+	recall_mob = null
+	bound_esword = null
+	force_grab_target = null
 	QDEL_NULL(esword_pull_action)
 	return ..()
 
@@ -149,6 +149,7 @@
 
 /datum/action/innate/force_esword_pull/Remove(mob/removed_from)
 	var/datum/martial_art/force/force_art = target
+	force_art.bound_esword = null
 	force_art.recall_mob = null
 	return ..()
 
@@ -193,12 +194,15 @@
 	var/mob/living/carbon/human/human = mob
 	human.put_in_active_hand(esword)
 	recall_mob = null
+	return TRUE
 
 /datum/martial_art/force/proc/unbind_esword()
 	var/obj/item/esword = bound_esword?.resolve()
 	if(esword)
 		UnregisterSignal(esword, COMSIG_QDELETING)
+
 	bound_esword = null
+	recall_mob = null
 
 /datum/martial_art/force/proc/try_force_recall(mob/living/carbon/human/user)
 	if(!user)
@@ -213,15 +217,17 @@
 	if(esword in user)
 		return
 
+	var/turf/esword_turf = get_turf(esword)
+	if(!(esword_turf in view(user)))
+		to_chat(user, span_warning("Вы ощущаете присутствие вашего оружия в [esword_turf.loc.name]."))
+		return
+
 	if(ismob(esword.loc))
 		var/mob/holder = esword.loc
 		if(!holder.drop_item_ground(esword, force = TRUE))
 			esword.forceMove(get_turf(esword))
 	else if(!isturf(esword.loc))
 		esword.forceMove(get_turf(esword))
-
-	if(!(esword in view(user)))
-		return
 
 	SEND_SIGNAL(esword, COMSIG_ITEM_RECALL, user)
 

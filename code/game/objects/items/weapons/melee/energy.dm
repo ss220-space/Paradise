@@ -132,16 +132,13 @@
 	name = "energy sword"
 	desc = "May the force be within you."
 	icon_state = "sword0"
-	force = 3
-	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	hitsound = SFX_SWING_HIT
 	embed_chance = 0
-	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
-	sharp = 1
+	sharp = TRUE
 	var/hacked = FALSE
 
 /obj/item/melee/energy/sword/ComponentInitialize()
@@ -172,12 +169,12 @@
 		return
 
 	var/mob/living/carbon/human/victim = hit_atom
-	var/mob/thrower = throwingdatum.thrower?.resolve()
+	var/mob/thrower = throwingdatum.get_thrower()
 	if(!thrower)
 		return
 
 	var/force_user = istype(thrower.mind?.martial_art, /datum/martial_art/force)
-	if(!force_user)
+	if(!force_user || thrower == hit_atom)
 		return
 
 	var/zone = throwingdatum.target_zone
