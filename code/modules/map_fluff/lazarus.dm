@@ -1,19 +1,19 @@
 /datum/map/lazarus
 	name = "lazarus"
 	map_path = "_maps/map_files/lazarus/lazarus.dmm"
+	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 	linkage = SELFLOOPING
 
-	station_name = "NSS lazarus"
-	english_station_name = "NSS lazarus"
-	station_short = "lazarus"
-	dock_name = "ASV lazarus"
-	company_name = "1984"
-	company_short = "1984"
-	starsys_name = "Unknown System"
+	station_name = "ИСН Лазарь"
+	english_station_name = "NSS Lazarus"
+	station_short = "Лазарь"
+	dock_name = "АКН Трурль"
+	company_name = "\"Нанотрейзен\""
+	company_short = "НТ"
+	starsys_name = "Эпсилон Лукуста"
 
 	admin_only = TRUE
-	disables = DISABLE_ALL
 
 	traits = list(
-		list(MAIN_STATION, STATION_LEVEL = "Station", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
+		list(MAIN_STATION, STATION_LEVEL = "Surface", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
 	)
