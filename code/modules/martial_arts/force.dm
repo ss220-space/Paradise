@@ -188,13 +188,13 @@
 /datum/martial_art/force/proc/on_impact(obj/item/esword, atom/hit_atom)
 	SIGNAL_HANDLER
 	var/mob/living/mob = recall_mob?.resolve()
-	if(!mob || !hit_atom)
+	if(!mob || !hit_atom || !(hit_atom == mob))
 		return
 
 	var/mob/living/carbon/human/human = mob
 	human.put_in_active_hand(esword)
 	recall_mob = null
-	return TRUE
+	return COMPONENT_MOVABLE_IMPACT_NEVERMIND
 
 /datum/martial_art/force/proc/unbind_esword()
 	var/obj/item/esword = bound_esword?.resolve()
