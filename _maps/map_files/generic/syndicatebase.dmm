@@ -17381,6 +17381,7 @@
 /obj/item/clothing/head/kitty,
 /obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/item/clothing/accessory/corset/red,
+/obj/item/neurotrainer/all_without_combat,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "qhP" = (
@@ -18767,6 +18768,7 @@
 /obj/item/clothing/head/kitty/mouse,
 /obj/item/clothing/suit/storage/blacktrenchcoat,
 /obj/item/clothing/accessory/corset,
+/obj/item/neurotrainer/all_without_combat,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "rnz" = (
@@ -19321,6 +19323,8 @@
 	},
 /obj/structure/closet/secure_closet/syndicate/comms_officer,
 /obj/structure/extinguisher_cabinet/directional/north,
+/obj/item/neurotrainer/combat,
+/obj/item/neurotrainer/combat,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "rMu" = (
