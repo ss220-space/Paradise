@@ -117,14 +117,14 @@
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
 	var/static/alist/dispense_amounts = alist(
-		SKILL_LEVEL_NONE = list(10, 50, 100),
-		SKILL_LEVEL_BEGINNER = list(5, 10, 50, 100),
-		SKILL_LEVEL_BASIC = list(5, 10, 30, 50, 100),
-		SKILL_LEVEL_ADVANCED = list(5, 10, 20, 30, 50, 100),
-		SKILL_LEVEL_PROFESSIONAL = list(1, 5, 10, 20, 30, 50, 100),
-		SKILL_LEVEL_EXPERT = list(1, 3, 5, 10, 20, 30, 50, 100),
-		SKILL_LEVEL_LEGEND = list(1, 3, 5, 10, 15, 20, 30, 50, 100),
-		SKILL_LEVEL_UNAVAILABLE = list(50),
+		SKILL_LEVEL_NONE = 			list(10, 100),
+		SKILL_LEVEL_BEGINNER = 		list(1, 10, 100),
+		SKILL_LEVEL_BASIC = 		list(1, 10, 30, 100),
+		SKILL_LEVEL_ADVANCED = 		list(1, 10, 30, 50, 100),
+		SKILL_LEVEL_PROFESSIONAL = 	list(1, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_EXPERT = 		list(1, 10, 20, 25, 30, 50, 100),
+		SKILL_LEVEL_LEGEND = 		list(1, 10, 20, 25, 30, 50, 100),
+		SKILL_LEVEL_UNAVAILABLE = 	list(100),
 	)
 	var/list/data = list()
 
@@ -494,9 +494,9 @@
 	ui_title = "Ботанический ХимРаздатчик"
 	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
-	base_skill = /datum/skill/service/drink_mixing
-	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
-	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
+	base_skill = /datum/skill/service/botany
+	dispence_skill_name = BOTANY_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = BOTANY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/botanical/get_ru_names()
 	return alist(
@@ -551,9 +551,9 @@
 		"diethylamine",
 	)
 	upgrade_reagents = list()
-	base_skill = /datum/skill/service/drink_mixing
-	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
-	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
+	base_skill = /datum/skill/service/botany
+	dispence_skill_name = BOTANY_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = BOTANY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
 	return alist(
