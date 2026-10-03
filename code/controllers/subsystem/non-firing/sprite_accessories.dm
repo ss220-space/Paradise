@@ -14,7 +14,7 @@
 /// A sprite accessory is something that we add to a human sprite to make them look different. This is hair, facial hair, underwear, mutant bits, etc.
 SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	name = "Sprite Accessories"
-	ss_flags = SS_NO_FIRE | SS_NO_INIT
+	ss_flags = SS_NO_FIRE
 
 	// HOLY SHIT COMPACT THIS INTO ASSOCIATED LISTS SO WE STOP ADDING VARIABLES
 	//Hairstyles
@@ -60,6 +60,11 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	setup_lists()
 	init_hair_gradients()
 	//init_hair_masks()
+	initialized = TRUE
+
+/datum/controller/subsystem/accessories/Initialize()
+	if(initialized)
+		return SS_INIT_SUCCESS
 
 /// Sets up all of the lists for later utilization in the round and building sprites.
 /// In an ideal world we could tack everything that just needed `DEFAULT_SPRITE_LIST` into static variables on the top, but due to the initialization order
