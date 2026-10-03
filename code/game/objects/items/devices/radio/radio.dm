@@ -209,8 +209,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		recalculate_channels()
 		return
 
-	reset_channels()
-
+	// Раньше здесь вызывался reset_channels(), который обнулял radio_connection
+	// и secure_radio_connections, из-за чего переставал работать микрофон.
+	// Приём при этом отключает receive_range() - он проверяет is_listening().
 /**
  * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
  * hearing sensitive in this case only matters for the purposes of listening for words said in nearby tiles, talking into us directly bypasses hearing
@@ -253,7 +254,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(new_frequency)
 		frequency = new_frequency
 
-	if(listening && on)
+	if(on) // было: if(listening && on). При выключенном динамике передача умирала.
 		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
 /obj/item/radio/emag_act(mob/user)
@@ -750,8 +751,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	load_channel_configs()
 
-	if(!listening)
-		return
+	// убран ранний выход if(!listening) return
+	// Он оставлял рацию без подключений, если каналы пересобирались
+	// при выключенном динамике (вставка ключа, выбор модуля боргом, создание).
+	// Приём это не включает: receive_range() проверяет is_listening()
 
 	for(var/channel_name in channels)
 		if(!SSradio)
