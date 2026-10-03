@@ -478,7 +478,7 @@
 "afx" = (
 /obj/effect/hunter/ancient_temple/deco_border,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "afz" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -907,7 +907,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "akz" = (
 /obj/machinery/firealarm/directional/west,
@@ -1265,7 +1265,7 @@
 /turf/simulated/floor/planetoid/grass/sandcorner/west,
 /area/planetoid/lakes/beach)
 "aoG" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "aoI" = (
 /obj/structure/cargo_shelf,
@@ -1552,7 +1552,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid/jungle/east)
 "asv" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid)
 "asx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -1891,7 +1891,7 @@
 "avC" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/post,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/explorer_ship)
 "avD" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -2157,7 +2157,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "ayt" = (
 /obj/structure/flora/jungle/planttop1,
@@ -2537,7 +2537,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/ancient_temple/floor_3/northwest,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aDs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2833,7 +2833,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_8,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aHT" = (
 /obj/structure/railing{
 	dir = 5
@@ -3060,7 +3060,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/cargo/miningdock)
 "aLk" = (
 /obj/structure/lattice/catwalk,
@@ -3074,7 +3074,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "aLt" = (
 /obj/effect/decal/snow/sand/edge{
@@ -3270,7 +3270,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aOu" = (
 /obj/structure/girder,
 /obj/structure/vine,
@@ -3872,7 +3872,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "aWv" = (
 /obj/effect/decal/cleanable/dust,
@@ -4038,7 +4038,7 @@
 "aYd" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aYj" = (
 /obj/machinery/optable,
 /obj/effect/landmark/start/hangover,
@@ -4066,7 +4066,7 @@
 /area/planetoid/lazarus/security/prison/perma)
 "aYH" = (
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aYP" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -4126,7 +4126,7 @@
 "aZe" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_12,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "aZf" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -4521,7 +4521,7 @@
 /obj/structure/vine/heavy,
 /mob/living/simple_animal/hostile/giant_lizard,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bcU" = (
 /obj/structure/sign/poster/contraband/lostcat,
 /turf/simulated/wall,
@@ -4957,7 +4957,7 @@
 "bhI" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_6,
 /turf/simulated/floor/planetoid/desert/beachedge/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bhN" = (
 /obj/structure/table,
 /obj/item/floor_painter{
@@ -5079,7 +5079,7 @@
 "biX" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bjc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5782,7 +5782,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "bqE" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -6004,7 +6004,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bsJ" = (
 /obj/effect/landmark/start/chief_engineer,
 /obj/item/radio/intercom/directional/east,
@@ -6084,7 +6084,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple/deco_border,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "btz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc/directional/east,
@@ -6371,7 +6371,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bvT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -6702,7 +6702,7 @@
 "bzr" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_7,
 /turf/simulated/floor/planetoid/grass/sandcorner2/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bzy" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6914,7 +6914,7 @@
 /area/planetoid/caves/underground_lake)
 "bDi" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/caves)
 "bDo" = (
 /obj/structure/flora/rock/basalt3,
@@ -7016,7 +7016,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bEt" = (
 /obj/structure/decor/container/upp/mid,
 /turf/simulated/floor/planetoid/grass,
@@ -8124,7 +8124,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_6,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bQk" = (
 /obj/effect/landmark/spawner/late/cryo,
 /obj/effect/turf_decal/stripes/line{
@@ -8196,7 +8196,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/service/library/game_zone)
 "bQZ" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/commons/mrchangs)
 "bRa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8242,7 +8242,7 @@
 /obj/structure/vine/medium,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bRK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -8512,7 +8512,7 @@
 	icon_state = "rampbottom";
 	dir = 1
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "bUJ" = (
 /obj/machinery/dna_scannernew,
 /obj/machinery/status_display{
@@ -8593,7 +8593,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "bVM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -9281,7 +9281,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_6,
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ccn" = (
 /obj/machinery/light{
 	dir = 1
@@ -9348,9 +9348,9 @@
 "cdl" = (
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "cdn" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/lazarus/engineering/engine/reactor)
 "cdx" = (
 /obj/structure/window/reinforced{
@@ -9457,7 +9457,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_7,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ceR" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/disposalpipe/segment,
@@ -9482,7 +9482,7 @@
 "ceZ" = (
 /obj/structure/fence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_tree)
 "cfc" = (
 /obj/structure/railing,
@@ -9640,7 +9640,7 @@
 	dir = 4
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "cgO" = (
 /turf/simulated/floor/plasteel{
@@ -9925,7 +9925,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "cjO" = (
 /obj/item/flag/atmos{
@@ -10157,7 +10157,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "cmU" = (
 /obj/structure/disposalpipe/segment{
@@ -10504,7 +10504,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/orbital_strike)
 "cqw" = (
 /obj/structure/chair{
@@ -10701,7 +10701,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "cti" = (
 /obj/structure/fence/meshfence/slim,
@@ -10787,7 +10787,7 @@
 	},
 /area/planetoid/lazarus/security/hallway/armory)
 "ctC" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/lakes/containers_street)
 "ctJ" = (
 /turf/simulated/floor/planetoid/desert/beachcorner2{
@@ -11296,7 +11296,7 @@
 /area/planetoid/lazarus/legal/office/magistrate)
 "czl" = (
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "czr" = (
 /turf/simulated/wall/r_wall,
@@ -11412,7 +11412,7 @@
 /area/planetoid/lazarus/medical/sleeper)
 "cBm" = (
 /obj/structure/vine/heavy,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/south)
 "cBp" = (
 /obj/structure/chair/comfy/red{
@@ -11901,7 +11901,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/decor/platform/ancient_temple/corner/north,
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge/east,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "cIA" = (
 /obj/structure/flora/jungle/thickbush,
 /turf/simulated/floor/planetoid/grass,
@@ -12674,7 +12674,7 @@
 "cQA" = (
 /obj/structure/vine/heavy,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "cQB" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -12835,7 +12835,7 @@
 /area/planetoid/lazarus/hydroponics)
 "cRT" = (
 /obj/structure/railing,
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/service/chapel)
 "cRX" = (
 /obj/machinery/ai_status_display,
@@ -12936,7 +12936,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "cSU" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/medical/virology/lab)
@@ -13403,7 +13403,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "cYE" = (
 /obj/effect/turf_decal/sand,
 /obj/structure/vine,
@@ -13555,7 +13555,7 @@
 "daj" = (
 /obj/structure/vine/medium,
 /turf/simulated/wall/cm/sandstone/runed,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dao" = (
 /obj/effect/turf_decal/tile/dark_red,
 /obj/effect/turf_decal/tile/dark_red{
@@ -13833,7 +13833,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "ddR" = (
 /obj/structure/cable{
@@ -14185,9 +14185,6 @@
 /obj/structure/flora/ausbushes/fullgrass/hell,
 /turf/simulated/floor/planetoid/grass/grass3,
 /area/planetoid/lazarus/nexus)
-"dgE" = (
-/turf/simulated/floor/plating,
-/area/planetoid)
 "dgS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -15648,7 +15645,7 @@
 "dxd" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/cargo/miningdock)
 "dxi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -15889,7 +15886,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_7,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dAk" = (
 /turf/simulated/floor/wood/fancy/oak{
 	icon_state = "fancy-wood-oak-broken5"
@@ -15984,7 +15981,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dCe" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/planetoid/grass/sandedge/south,
@@ -16181,7 +16178,7 @@
 	color = "#b29082"
 	},
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dEC" = (
 /obj/structure/vine/medium,
 /obj/structure/flora/ausbushes/brflowers,
@@ -16372,7 +16369,7 @@
 	},
 /area/planetoid/lazarus/telecomms/server)
 "dGY" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/lakes/west)
 "dHe" = (
 /obj/structure/vine/medium,
@@ -16562,7 +16559,7 @@
 /obj/effect/hunter/ancient_temple,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_3,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dJh" = (
 /obj/structure/bed/mattress,
 /obj/item/trash/disk,
@@ -16902,7 +16899,7 @@
 "dNH" = (
 /obj/structure/flora/ausbushes/fullgrass/hell,
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dNN" = (
 /obj/machinery/r_n_d/protolathe,
 /obj/item/stack/sheet/metal{
@@ -17138,7 +17135,7 @@
 /area/planetoid/jungle/orbital_strike)
 "dRM" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves/east_rnd_cave)
 "dRO" = (
 /obj/structure/window/reinforced,
@@ -17315,7 +17312,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/vine/heavy,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "dUo" = (
 /obj/structure/rack,
 /obj/item/storage/box/barrier,
@@ -19072,7 +19069,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ero" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -19139,7 +19136,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "esh" = (
 /obj/effect/decal/ants,
@@ -19223,7 +19220,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_sol)
 "ets" = (
 /turf/simulated/floor/indestructible/cargo_floor,
@@ -19454,7 +19451,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "evU" = (
 /obj/structure/closet/secure_closet/cabinet/detective,
@@ -19485,7 +19482,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "ewm" = (
 /obj/structure/lattice/catwalk,
@@ -19817,7 +19814,7 @@
 "ezL" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ezR" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
@@ -19911,7 +19908,7 @@
 "eAt" = (
 /obj/structure/vine,
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "eAw" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -20314,7 +20311,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/post,
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_sol)
 "eFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -20515,7 +20512,7 @@
 /obj/structure/flora/jungle/alienplant1,
 /obj/effect/hunter/ancient_temple/rubble/rubble_7,
 /turf/simulated/floor/planetoid/desert/beachedge/south,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "eIJ" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -20574,7 +20571,7 @@
 "eJv" = (
 /obj/effect/hunter/ancient_temple,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "eJC" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/planetoid/grass/sandedge/north,
@@ -20584,7 +20581,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "eJJ" = (
 /obj/structure/table,
@@ -20965,7 +20962,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/effect/hunter/ancient_temple/rubble/rubble_7,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "eOY" = (
 /obj/structure/chair/comfy/blue{
 	dir = 1
@@ -22216,7 +22213,7 @@
 /area/planetoid/jungle/colony)
 "fbF" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/commons/mrchangs)
 "fbK" = (
 /obj/structure/cable{
@@ -22378,7 +22375,7 @@
 	dir = 4
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "fda" = (
 /obj/machinery/floodlight/colony,
@@ -22683,14 +22680,14 @@
 /area/planetoid/lazarus/service/chapel/office)
 "fgW" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fgY" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2/north,
 /area/planetoid/jungle/temple_outer)
 "fhk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/post,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_addition_goals)
 "fhp" = (
 /obj/structure/sign/medbay,
@@ -22791,7 +22788,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/science/break_room)
 "fiS" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/caves)
 "fiX" = (
 /obj/structure/vine,
@@ -23170,7 +23167,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/orbital_strike)
 "fmV" = (
 /obj/structure/vine/heavy,
@@ -23253,7 +23250,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fnV" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -23342,7 +23339,7 @@
 /obj/structure/fence,
 /obj/structure/fence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_four)
 "foQ" = (
 /obj/structure/vine/medium,
@@ -23375,7 +23372,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "fpk" = (
 /obj/structure/flora/rock/jungle,
@@ -23649,7 +23646,7 @@
 "frN" = (
 /obj/structure/prop/hunter/ancient_temple/fountain_head/flowing,
 /turf/simulated/floor/water/beach,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fse" = (
 /obj/structure/closet/wardrobe/red,
 /obj/machinery/requests_console{
@@ -24399,7 +24396,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/cargo/miningdock)
 "fCn" = (
 /obj/effect/spawner/window/reinforced,
@@ -24439,7 +24436,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fCC" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "chem"
@@ -25384,7 +25381,7 @@
 /obj/structure/vine/medium,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fPh" = (
 /obj/machinery/pdapainter,
 /turf/simulated/floor/wood/fancy/light,
@@ -25712,7 +25709,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_3,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fUT" = (
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/caves)
@@ -26065,7 +26062,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_4,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fZo" = (
 /turf/simulated/floor/planetoid/desert/desert3,
 /area/planetoid/jungle/temple_outer)
@@ -26120,7 +26117,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_7,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "fZU" = (
 /obj/structure/chair/office{
 	dir = 1;
@@ -26210,7 +26207,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "gaR" = (
 /obj/structure/table,
@@ -26422,7 +26419,7 @@
 /area/planetoid/lazarus/service/chapel)
 "gdE" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/caves)
 "gdP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -26498,7 +26495,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_9,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "geu" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -27017,7 +27014,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "gju" = (
 /obj/docking_port/stationary{
@@ -27370,7 +27367,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "gnm" = (
 /obj/structure/chair/office/dark{
@@ -27674,7 +27671,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /obj/structure/decor/platform/ancient_temple/corner/north,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "gpG" = (
 /obj/machinery/light_switch/directional/east,
 /obj/machinery/light{
@@ -28324,7 +28321,7 @@
 /area/planetoid/lazarus/security/customs/secondary)
 "gxI" = (
 /obj/structure/lattice,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "gxM" = (
 /obj/machinery/door/firedoor,
@@ -29563,7 +29560,7 @@
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3,
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "gOC" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/railing/wooden{
@@ -29941,7 +29938,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/ancient_temple/floor_3/southeast,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "gSi" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -30028,7 +30025,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "gTe" = (
 /turf/simulated/floor/plasteel{
@@ -30142,7 +30139,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "gUV" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -30300,7 +30297,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "gWV" = (
 /obj/effect/turf_decal/tile/dark_red{
@@ -30489,7 +30486,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "had" = (
 /turf/simulated/floor/wood/fancy/oak,
@@ -30631,7 +30628,7 @@
 "hcV" = (
 /obj/structure/vine,
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "hcZ" = (
 /obj/structure/railing/corner{
@@ -31143,7 +31140,7 @@
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/engineering/atmos)
 "him" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "hip" = (
 /turf/simulated/wall,
@@ -31947,7 +31944,7 @@
 "hqU" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/ancient_temple/damaged/damage_7,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hqX" = (
 /obj/structure/sign/med{
 	pixel_y = 32
@@ -32369,7 +32366,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "hvk" = (
 /obj/effect/decal/cleanable/ash,
@@ -32627,7 +32624,7 @@
 	},
 /obj/structure/vine/heavy,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hyA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -32676,7 +32673,7 @@
 "hyQ" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/ruined,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hyS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/navbeacon{
@@ -33541,7 +33538,7 @@
 "hJp" = (
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/grass/sandedge,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hJs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -33584,7 +33581,7 @@
 "hJD" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hJE" = (
 /obj/structure/vine,
 /obj/structure/flora/junglebush,
@@ -34123,7 +34120,7 @@
 /obj/effect/hunter/ancient_temple,
 /obj/structure/decor/platform/ancient_temple/corner/alt/east,
 /turf/simulated/floor/planetoid/desert/beachcorner,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hON" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/security/hallway/execution)
@@ -34512,7 +34509,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "hTk" = (
 /obj/machinery/door/firedoor,
@@ -34619,7 +34616,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "hVb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/meshfence,
@@ -34629,7 +34626,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "hVc" = (
 /obj/machinery/door/airlock{
@@ -34677,7 +34674,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "hVt" = (
 /obj/structure/table,
@@ -34832,10 +34829,8 @@
 /turf/simulated/wall,
 /area/planetoid/lazarus/service/bar/atrium)
 "hWQ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/spaceport/explorer_ship)
+/turf/simulated/floor/planetoid/grass/dirtcorner/north,
+/area/planetoid/jungle/colony)
 "hWW" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment,
@@ -34852,7 +34847,7 @@
 /area/planetoid/caves/underground_lake)
 "hXh" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/west)
 "hXj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -35278,20 +35273,6 @@
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall,
 /area/planetoid/lazarus/medical/east_hallway)
-"idc" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 3
-	},
-/obj/structure/fence/meshfence,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/planetoid/spaceport/escape_shuttle)
 "idg" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/medical,
@@ -35461,7 +35442,7 @@
 "ieB" = (
 /obj/structure/vine/medium,
 /turf/simulated/wall/cm/sandstone/runed/decor,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ieF" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -35529,7 +35510,7 @@
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/caves/north_rnd_cave)
 "ifI" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/hallway/secondary/garden)
 "ifV" = (
 /obj/effect/turf_decal/stripes/white/corner,
@@ -36539,7 +36520,7 @@
 "itv" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_4,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "itx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -36652,7 +36633,7 @@
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/giant_lizard,
 /turf/simulated/floor/ancient_temple/floor_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ivi" = (
 /obj/structure/girder,
 /obj/item/stack/rods,
@@ -36713,7 +36694,7 @@
 "ivS" = (
 /obj/structure/vine,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "iwa" = (
 /obj/structure/sink/directional/east,
 /obj/effect/landmark/start/chef,
@@ -36967,7 +36948,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "iyr" = (
 /obj/machinery/camera{
@@ -36990,7 +36971,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/ancient_temple/floor_3/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "iyC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
@@ -37096,7 +37077,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/lakes/containers_street)
+/area/planetoid/caves/central_cave_network)
 "iAk" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -37779,7 +37760,7 @@
 /turf/simulated/floor/wood/birch,
 /area/planetoid/lazarus/security/detectives_office)
 "iJe" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/south)
 "iJj" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -38679,7 +38660,7 @@
 "iSz" = (
 /obj/structure/fence/meshfence/dark,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ferry)
 "iSJ" = (
 /obj/structure/table/reinforced,
@@ -39038,7 +39019,7 @@
 "iXk" = (
 /obj/structure/vine,
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "iXs" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -39297,7 +39278,7 @@
 /area/planetoid/lazarus/maintenance/research/science)
 "jbf" = (
 /turf/simulated/wall/cm/sandstone/runed/decor,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jbh" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -39489,7 +39470,7 @@
 	dir = 1
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "jdi" = (
 /obj/effect/turf_decal/siding/wood{
@@ -39767,7 +39748,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_4,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jgf" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -39873,7 +39854,7 @@
 "jhs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_sol)
 "jht" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -40456,7 +40437,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "jnX" = (
 /turf/simulated/floor/planetoid/desert/beachedge/west,
@@ -40658,7 +40639,7 @@
 "jql" = (
 /obj/structure/vine,
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/caves/east_rnd_cave)
 "jqp" = (
 /obj/machinery/computer/card/minor/cmo{
@@ -40952,7 +40933,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge{
 	dir = 1
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "juk" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/geranium,
@@ -41171,7 +41152,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "jwG" = (
 /obj/machinery/door/airlock/external{
@@ -41242,7 +41223,7 @@
 /area/planetoid/lazarus/command/office/ce)
 "jyl" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "jyo" = (
 /obj/structure/table,
@@ -41288,7 +41269,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "jyA" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
@@ -41682,7 +41663,7 @@
 /area/planetoid/lazarus/medical/virology/lab)
 "jBY" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/jungle/temple_outer)
 "jCe" = (
 /obj/effect/spawner/window/reinforced,
@@ -41925,7 +41906,7 @@
 /area/planetoid/lazarus/science/hallway/arrivals)
 "jEz" = (
 /turf/simulated/floor/planetoid/grass/sandcorner/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jEF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/newscaster/directional/north,
@@ -42307,7 +42288,7 @@
 	icon_state = "rampbottom";
 	dir = 1
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jKL" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -42570,7 +42551,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "jOb" = (
 /obj/machinery/r_n_d/experimentor,
@@ -42636,7 +42617,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jPd" = (
 /obj/structure/chair/comfy/blue{
 	dir = 4
@@ -42861,7 +42842,7 @@
 "jRx" = (
 /obj/structure/vine,
 /turf/simulated/floor/ancient_temple/damaged/damage_5,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "jRH" = (
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/delivery/hollow,
@@ -43039,7 +43020,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_tree)
 "jUf" = (
 /obj/effect/spawner/random_spawners/rodent,
@@ -43054,7 +43035,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "jUI" = (
 /obj/machinery/computer/teleporter,
@@ -43100,7 +43081,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/orbital_strike)
 "jVB" = (
 /obj/machinery/hologram/holopad,
@@ -43174,7 +43155,7 @@
 	dir = 1
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "jWh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -43830,7 +43811,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "kfg" = (
 /obj/structure/chair/sofa/pew{
@@ -44901,7 +44882,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_12,
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kpl" = (
 /obj/structure/mirror{
 	pixel_y = 32
@@ -44968,7 +44949,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/planetoid/desert/beachcorner/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kpW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -45808,7 +45789,7 @@
 "kxL" = (
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/orbital_strike)
 "kxQ" = (
 /obj/effect/decal/snow/sand/edge{
@@ -45999,7 +45980,7 @@
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
 /obj/structure/vine/medium,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "kAA" = (
 /obj/structure/rack{
@@ -46188,7 +46169,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "kCY" = (
 /obj/structure/table,
@@ -46355,7 +46336,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "kEE" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
@@ -46468,7 +46449,7 @@
 	},
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kFT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -46785,7 +46766,7 @@
 	},
 /obj/structure/cable,
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "kIQ" = (
 /obj/structure/disposalpipe/segment{
@@ -46800,7 +46781,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "kIY" = (
 /obj/machinery/bodyscanner,
@@ -47043,7 +47024,7 @@
 /area/planetoid/lazarus/science/explab)
 "kLG" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/south)
 "kLT" = (
 /obj/structure/cable{
@@ -47615,7 +47596,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kTJ" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/planetoid/grass/scorched3,
@@ -47880,7 +47861,7 @@
 	color = "gray";
 	icon_state = "rampbottom"
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kWE" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -47955,7 +47936,7 @@
 	},
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "kXm" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -48011,7 +47992,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_addition_goals)
 "kYo" = (
 /obj/item/cigbutt{
@@ -48203,7 +48184,7 @@
 "laF" = (
 /obj/structure/vine,
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/west)
 "laW" = (
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -48562,7 +48543,7 @@
 "lex" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/indestructible/asteroid,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/explorer_ship)
 "leC" = (
 /obj/machinery/door/firedoor,
@@ -48653,7 +48634,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "lfQ" = (
 /obj/effect/decal/cleanable/dust,
@@ -49718,7 +49699,7 @@
 /area/planetoid/lazarus/engineering/engine/reactor)
 "lsR" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/west)
 "lsW" = (
 /obj/effect/turf_decal/siding/wood{
@@ -50253,7 +50234,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "lzz" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
@@ -50388,7 +50369,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge{
 	dir = 4
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "lBs" = (
 /obj/machinery/light{
 	dir = 8
@@ -50778,7 +50759,7 @@
 /area/planetoid/lazarus/science/toxins/mixing)
 "lGz" = (
 /obj/structure/sign/poster/official/spiders,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/lazarus/engineering/atmos)
 "lGB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -51395,7 +51376,7 @@
 /area/planetoid/lazarus/science/server)
 "lNz" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "lNE" = (
 /obj/machinery/door/airlock/glass{
@@ -51547,7 +51528,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "lQh" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/item/radio/intercom/directional/west,
@@ -51623,7 +51604,7 @@
 /obj/effect/hunter/ancient_temple/deco_border,
 /obj/structure/vine/heavy,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "lQT" = (
 /obj/effect/hunter/ancient_temple,
 /turf/simulated/floor/planetoid/desert/desert,
@@ -52015,8 +51996,8 @@
 /area/planetoid/lazarus/medical/west_hallway)
 "lWd" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/turf/simulated/wall/cm/indestructible/jungle,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "lWq" = (
 /obj/structure/railing{
 	dir = 8
@@ -52695,7 +52676,7 @@
 "mdm" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mdq" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -52836,7 +52817,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mfN" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/planetoid/grass/sandcorner/north,
@@ -53041,7 +53022,7 @@
 /area/planetoid/lazarus/security/processing)
 "mjL" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/jungle/east)
 "mjM" = (
 /obj/structure/cable{
@@ -53335,7 +53316,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ert)
 "moi" = (
 /obj/effect/turf_decal/delivery/red/partial,
@@ -53630,7 +53611,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/legal/office/magistrate)
 "mru" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/commons/fishing_room)
 "mrF" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -53902,7 +53883,7 @@
 /obj/structure/prop/hunter/ancient_temple/small_statue/grey,
 /obj/structure/vine/heavy,
 /turf/simulated/floor/ancient_temple/floor_3/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "muh" = (
 /turf/simulated/floor/planetoid/desert/beachedge,
 /area/planetoid/lakes/west)
@@ -54422,7 +54403,7 @@
 "mAN" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mAR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -54580,7 +54561,7 @@
 	dir = 1
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "mBY" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -54735,7 +54716,7 @@
 	},
 /area/planetoid/lazarus/ai/satellite/chamber)
 "mDO" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/lazarus/engineering/atmos)
 "mDU" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
@@ -55164,7 +55145,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mJq" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/flora/rock/jungle,
@@ -55277,7 +55258,7 @@
 /area/planetoid/lakes/east)
 "mKO" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_4,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mKV" = (
 /obj/structure/fence/post,
 /turf/simulated/floor/planetoid/grass/sandedge,
@@ -55717,7 +55698,7 @@
 /area/planetoid/lazarus/command/gateway)
 "mRe" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mRo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -55821,7 +55802,7 @@
 "mSN" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_tree)
 "mSV" = (
 /obj/machinery/light{
@@ -55887,7 +55868,7 @@
 /area/planetoid/lazarus/service/bar)
 "mUg" = (
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "mUk" = (
 /obj/item/radio/intercom/directional/east,
@@ -56205,7 +56186,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "mYy" = (
 /obj/item/shard{
@@ -56257,7 +56238,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/grass/sandcorner2/south,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "mZb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57504,7 +57485,7 @@
 /area/planetoid/lazarus/science/hallway/arrivals)
 "noJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/caves/underground_lake)
 "noP" = (
 /obj/item/flag/nt,
@@ -57645,7 +57626,7 @@
 /area/planetoid/lazarus/science/toxins)
 "nqI" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_2,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "nqU" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2/south,
 /area/planetoid/jungle/colony)
@@ -57879,7 +57860,7 @@
 /area/planetoid/lazarus/science/server)
 "ntl" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/west)
 "ntN" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -58023,7 +58004,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/explorer_ship)
 "nvR" = (
 /obj/machinery/door/firedoor,
@@ -58102,7 +58083,7 @@
 	},
 /area/planetoid/lazarus/science/hallway/main)
 "nwH" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/service/chapel)
 "nxa" = (
 /obj/structure/chair/stool/bar{
@@ -58123,7 +58104,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "nxf" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8;
@@ -58186,7 +58167,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "nxR" = (
 /obj/structure/disposalpipe/segment{
@@ -58610,7 +58591,7 @@
 /area/planetoid/lazarus/hydroponics)
 "nCS" = (
 /turf/simulated/floor/planetoid/desert/desert_dug,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "nDg" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
@@ -59165,7 +59146,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /obj/structure/decor/platform/ancient_temple/alt/west,
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner/east,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "nLv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -59517,7 +59498,7 @@
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/engineering/engine/reactor)
 "nPx" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves/underground_lake)
 "nPB" = (
 /obj/structure/cable{
@@ -59897,7 +59878,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ert)
 "nUO" = (
 /obj/structure/cable/orange{
@@ -60293,7 +60274,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/floor_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "nZR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -60464,7 +60445,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_7,
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "obD" = (
 /obj/machinery/suit_storage_unit/qm,
 /obj/effect/turf_decal/plaque{
@@ -60502,7 +60483,7 @@
 /turf/simulated/wall,
 /area/planetoid/lazarus/cargo/office)
 "obP" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/west)
 "obT" = (
 /turf/simulated/wall,
@@ -61677,7 +61658,7 @@
 /area/planetoid/lazarus/medical/virology/lab)
 "oqX" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "ora" = (
 /obj/structure/table/reinforced,
@@ -61740,8 +61721,8 @@
 /area/planetoid/lazarus/maintenance/research/robotics)
 "orl" = (
 /obj/structure/vine/heavy,
-/turf/simulated/wall/cm/invulnerable/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/turf/simulated/wall/cm/indestructible/jungle,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "orr" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_home";
@@ -61901,7 +61882,7 @@
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "otM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -61936,7 +61917,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "otS" = (
 /obj/structure/vine,
@@ -62386,7 +62367,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ozH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62602,7 +62583,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "oCf" = (
 /obj/effect/turf_decal/delivery,
@@ -62847,7 +62828,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "oFD" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -63116,7 +63097,7 @@
 "oIC" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_6,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "oIF" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
@@ -63208,7 +63189,7 @@
 "oKb" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_2,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "oKj" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/flasher/portable,
@@ -63823,7 +63804,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_12,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "oSc" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/planetoid/grass/sandcorner/north,
@@ -64321,7 +64302,7 @@
 	},
 /area/planetoid/lazarus/medical/virology/lab)
 "oZy" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/service/chapel/office)
 "oZA" = (
 /turf/simulated/floor/planetoid/grass/sandedge/north,
@@ -65315,7 +65296,7 @@
 "plD" = (
 /obj/structure/vine,
 /turf/simulated/wall/cm/sandstone/runed,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "plM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -65869,7 +65850,7 @@
 /area/planetoid/lazarus/engineering/mechanic_workshop)
 "prC" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "prE" = (
 /obj/machinery/field/generator,
@@ -66064,7 +66045,7 @@
 "ptL" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_3,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ptO" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -66272,7 +66253,7 @@
 	},
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pxe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66339,7 +66320,7 @@
 /area/planetoid/lazarus/command/office/cmo)
 "pxF" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "pxW" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2,
@@ -66356,7 +66337,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/meshfence,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "pym" = (
 /obj/structure/table/reinforced,
@@ -66619,7 +66600,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/ancient_temple/deco/dark,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pAH" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -66641,7 +66622,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "pAY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -67721,7 +67702,7 @@
 /obj/structure/fence/end{
 	dir = 1
 	},
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "pOm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67968,7 +67949,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "pRv" = (
 /obj/docking_port/stationary{
@@ -68049,7 +68030,7 @@
 /area/planetoid/lazarus/security/hallway/armory)
 "pRS" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/east)
 "pSq" = (
 /obj/structure/barricade/security,
@@ -68059,7 +68040,7 @@
 "pSs" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pSx" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -68486,7 +68467,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "pXA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -68562,7 +68543,7 @@
 "pYA" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pYC" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/structure/vine,
@@ -68570,7 +68551,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pYD" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -68675,7 +68656,7 @@
 "pZB" = (
 /obj/structure/vine,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "pZR" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -68763,7 +68744,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "qas" = (
 /obj/structure/cable{
@@ -68904,7 +68885,7 @@
 /obj/structure/vine/medium,
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qbP" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -69040,7 +69021,7 @@
 	},
 /obj/structure/decor/platform/ancient_temple/corner/north,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qen" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Cargo Bay";
@@ -69341,7 +69322,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_11,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qhL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -69419,7 +69400,7 @@
 	},
 /obj/structure/vine/heavy,
 /turf/simulated/floor/planetoid/grass/sandcorner2/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qiF" = (
 /obj/structure/railing{
 	dir = 4
@@ -69545,7 +69526,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ert)
 "qkl" = (
 /obj/effect/turf_decal/siding/white{
@@ -69577,7 +69558,7 @@
 	},
 /area/planetoid/lazarus/hallway/primary/aft/south)
 "qkx" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/spaceport)
 "qky" = (
 /obj/structure/window/reinforced{
@@ -70136,7 +70117,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "qqp" = (
 /obj/structure/table/glass,
@@ -70478,7 +70459,7 @@
 /area/planetoid/lakes/beach)
 "qtZ" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/commons/fishing_room)
 "qub" = (
 /obj/effect/decal/cleanable/dust,
@@ -70499,7 +70480,7 @@
 "quH" = (
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "quP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -70628,7 +70609,7 @@
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/commons/serviceyard)
 "qvV" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid)
 "qvY" = (
 /obj/structure/disposalpipe/segment{
@@ -71121,7 +71102,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/planetoid/grass/grass1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qBb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71834,7 +71815,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/floor_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qJe" = (
 /obj/effect/decal/cleanable/cobweb{
 	icon_state = "cobweb2"
@@ -72047,10 +72028,10 @@
 	id = "pod4_home";
 	name = "pod4 home dock";
 	width = 5;
-	area_type = /area/planetoid
+	area_type = /area/planetoid/spaceport/lz_escape_pod_four
 	},
 /turf/simulated/floor/plating,
-/area/planetoid)
+/area/planetoid/spaceport/lz_escape_pod_four)
 "qMj" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -72175,7 +72156,7 @@
 "qOK" = (
 /obj/structure/fence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "qOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -72338,7 +72319,7 @@
 "qQW" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_5,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qQX" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -72389,7 +72370,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/science)
 "qRA" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "qRW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -72537,7 +72518,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "qTI" = (
 /obj/machinery/power/apc/directional/south,
@@ -72706,7 +72687,7 @@
 /obj/structure/vine/medium,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qVE" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -72800,7 +72781,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/falsewall/wood,
 /obj/effect/mine/stun,
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/caves/underground_lake)
 "qXr" = (
 /obj/machinery/door/poddoor/preopen{
@@ -72835,7 +72816,7 @@
 	icon_state = "cobweb2"
 	},
 /turf/simulated/floor/ancient_temple/floor_3/northeast,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qXJ" = (
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Security's Office"
@@ -72974,7 +72955,7 @@
 /area/planetoid/jungle/colony)
 "qZk" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "qZm" = (
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -73061,7 +73042,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rao" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /turf/simulated/floor/planetoid/desert/desert,
@@ -73511,7 +73492,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_addition_goals)
 "rfc" = (
 /obj/structure/cable{
@@ -73549,7 +73530,7 @@
 /obj/structure/vine/heavy,
 /obj/structure/mineral_door/sandstone,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rfr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74027,7 +74008,7 @@
 /obj/structure/vine/medium,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rjQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -74151,7 +74132,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /obj/effect/hunter/ancient_temple/rubble/rubble_2,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rlm" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/security/hallway/reception)
@@ -74339,7 +74320,7 @@
 /area/planetoid/lazarus/science/genetics)
 "roi" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/south)
 "roD" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -74612,7 +74593,7 @@
 	dir = 4;
 	icon_state = "rampbottom"
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rtA" = (
 /obj/structure/table,
 /obj/item/folder{
@@ -74955,7 +74936,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "rza" = (
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
@@ -75312,7 +75293,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rEe" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
@@ -75422,7 +75403,7 @@
 	},
 /obj/structure/decor/platform/ancient_temple/alt/west,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rFw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -75561,7 +75542,7 @@
 /area/planetoid/lazarus/service/clown)
 "rHF" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rHI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76002,7 +75983,7 @@
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3,
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/ancient_temple/damaged/damage_4,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rLW" = (
 /obj/structure/girder,
 /turf/simulated/floor/planetoid/desert/desert,
@@ -76546,7 +76527,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "rSP" = (
 /obj/structure/disposalpipe/segment{
@@ -77063,7 +77044,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_6,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rYI" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -77168,7 +77149,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "rZG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -77441,7 +77422,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "scV" = (
 /obj/structure/sign/doors,
@@ -79593,7 +79574,7 @@
 	},
 /obj/structure/decor/platform/ancient_temple/corner/alt/east,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sCN" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
@@ -79610,7 +79591,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/planetoid/lazarus/command/office/rd)
 "sDr" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "sDu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -79699,7 +79680,7 @@
 "sEn" = (
 /obj/structure/decor/platform/ancient_temple/corner/alt/east,
 /turf/simulated/floor/ancient_temple/damaged/damage_2,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sEM" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -79857,7 +79838,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sGr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -80247,7 +80228,7 @@
 	icon_state = "cobweb2"
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_4,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sKN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -80285,7 +80266,7 @@
 /area/planetoid/jungle/west)
 "sLd" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/orbital_strike)
 "sLg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -80421,7 +80402,7 @@
 "sMF" = (
 /obj/effect/hunter/ancient_temple,
 /turf/simulated/floor/ancient_temple/damaged/damage_2,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sMG" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Tech Storage";
@@ -80471,7 +80452,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sNk" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
@@ -80731,7 +80712,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "sQz" = (
 /obj/structure/chair/office/dark{
@@ -81481,7 +81462,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_2,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "sXZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81797,7 +81778,7 @@
 "tbe" = (
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/grass/sandcorner2/south,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tbj" = (
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/planetoid/desert/desert,
@@ -82491,7 +82472,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_1,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tiU" = (
 /turf/simulated/wall,
 /area/planetoid/lazarus/engineering/break_room)
@@ -82663,7 +82644,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "tkM" = (
 /obj/structure/window/reinforced{
@@ -82990,7 +82971,7 @@
 /obj/structure/vine/heavy,
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3,
 /turf/simulated/floor/planetoid/grass/sandcorner2/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tnq" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plasteel{
@@ -83007,7 +82988,7 @@
 "tnJ" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_5,
 /turf/simulated/floor/planetoid/desert/desert_dug,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tnM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -83186,11 +83167,11 @@
 /turf/simulated/floor/planetoid/grass/sandedge{
 	dir = 8
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tqt" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/post,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_sol)
 "tqx" = (
 /turf/simulated/floor/wood/birch,
@@ -83266,7 +83247,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "trX" = (
 /turf/simulated/floor/plasteel{
@@ -83338,7 +83319,7 @@
 "ttc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_7,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ttf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83469,7 +83450,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_4,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tuJ" = (
 /turf/simulated/wall,
 /area/planetoid/lazarus/engineering/storage/secure)
@@ -83491,7 +83472,7 @@
 /turf/simulated/floor/grass,
 /area/planetoid/lazarus/security/prison/perma)
 "tuW" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/commons/arcade)
 "tuZ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -83548,7 +83529,7 @@
 /area/planetoid/caves/central_cave_network)
 "twk" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "twt" = (
 /obj/structure/disposalpipe/segment{
@@ -83582,7 +83563,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "twP" = (
 /obj/structure/cable/orange{
@@ -83617,7 +83598,7 @@
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
 /obj/structure/vine,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/orbital_strike)
 "txk" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -84040,14 +84021,14 @@
 	},
 /area/planetoid/lazarus/hydroponics)
 "tDb" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/east)
 "tDr" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_3,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tDv" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -84198,9 +84179,7 @@
 /area/planetoid/lazarus/medical/sleeper)
 "tFE" = (
 /obj/structure/falsewall/wood,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/caves/underground_lake)
 "tFL" = (
 /obj/effect/decal/cleanable/dust,
@@ -84730,7 +84709,7 @@
 /area/planetoid/lazarus/medical/east_hallway)
 "tLD" = (
 /turf/simulated/wall/cm/sandstone/runed,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tLK" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/planetoid/dirt,
@@ -85147,7 +85126,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_four)
 "tQg" = (
 /obj/machinery/door/airlock/research/glass{
@@ -85239,11 +85218,11 @@
 "tRd" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_7,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tRq" = (
 /obj/structure/vine/heavy,
 /turf/simulated/floor/ancient_temple/floor_3/southwest,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "tRr" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/planetoid/desert/beachedge/east,
@@ -85984,7 +85963,7 @@
 "uan" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_four)
 "uar" = (
 /obj/machinery/light{
@@ -86857,7 +86836,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "uly" = (
 /obj/effect/decal/cleanable/dirt,
@@ -86925,7 +86904,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/ai/satellite/maintenance)
 "umE" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/jungle/south)
 "umG" = (
 /obj/structure/table/wood,
@@ -87003,7 +86982,7 @@
 	icon_state = "rampbottom";
 	dir = 1
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "unC" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -87083,7 +87062,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "uot" = (
 /obj/structure/mineral_door/wood,
@@ -87170,9 +87149,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/prisoner_shuttle)
-"upd" = (
-/turf/simulated/wall/indestructible/rock,
-/area/planetoid/caves/east_rnd_cave)
 "uph" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/planetoid/grass/grass1,
@@ -87232,7 +87208,7 @@
 	},
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "upC" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -88113,7 +88089,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "uzc" = (
 /obj/effect/landmark/start/hangover,
@@ -88665,7 +88641,7 @@
 "uFS" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "uGg" = (
 /obj/structure/rack,
@@ -88988,7 +88964,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "uJI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -89576,7 +89552,7 @@
 /obj/effect/hunter/ancient_temple,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "uPz" = (
 /obj/vehicle/ridden/wheelchair{
 	desc = "Это кресло осталось от одного из предыдущих детективов. Говорят, что тот открыл в себе псионические способности и ушёл работать в федерацию магов.";
@@ -90248,7 +90224,7 @@
 /obj/structure/decor/platform/ancient_temple/alt/west,
 /obj/structure/vine,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "uXi" = (
 /turf/simulated/floor/planetoid/grass/sandcorner/west,
 /area/planetoid/jungle/west)
@@ -90848,7 +90824,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/caves/north_rnd_cave)
 "veP" = (
 /obj/structure/fence/door/opened{
@@ -90979,7 +90955,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge{
 	dir = 1
 	},
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vgr" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery/hollow,
@@ -91214,7 +91190,7 @@
 /obj/effect/hunter/ancient_temple,
 /obj/structure/vine/medium,
 /turf/simulated/floor/ancient_temple/floor_3/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vjv" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
@@ -91282,7 +91258,7 @@
 "vkr" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vkt" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Isolator";
@@ -91929,7 +91905,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vrQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -92383,7 +92359,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vyT" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/mask/breath,
@@ -92420,7 +92396,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_2,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vzL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -92713,7 +92689,7 @@
 	},
 /obj/structure/fence/meshfence,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "vDj" = (
 /obj/structure/fence,
@@ -92725,7 +92701,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "vDk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93694,7 +93670,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_1,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vOF" = (
 /turf/simulated/floor/planetoid/desert/beachcorner2,
 /area/planetoid/lakes/beach)
@@ -94132,7 +94108,7 @@
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "vTM" = (
 /obj/effect/landmark/start/hop,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -94379,7 +94355,7 @@
 /area/planetoid/spaceport/escape_shuttle)
 "vWD" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/west)
 "vWI" = (
 /obj/structure/disposalpipe/segment{
@@ -94404,7 +94380,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_tree)
 "vXq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -94556,8 +94532,9 @@
 	},
 /area/planetoid/lazarus/hallway/primary/aft/south)
 "vYU" = (
-/turf/simulated/wall/indestructible/rock/dark,
-/area/planetoid/caves)
+/obj/structure/vine,
+/turf/simulated/floor/plating,
+/area/planetoid/jungle/colony)
 "vZd" = (
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/east)
@@ -94663,7 +94640,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "wbq" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_3,
@@ -94857,7 +94834,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/service/chapel)
 "wef" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/orbital_strike)
 "weh" = (
 /obj/machinery/light{
@@ -95360,7 +95337,7 @@
 /area/planetoid/lazarus/service/chapel)
 "wkn" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "wkv" = (
 /obj/structure/fence/corner{
@@ -95695,7 +95672,7 @@
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid/jungle/east)
 "woL" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/temple_outer)
 "woW" = (
 /obj/structure/disposalpipe/junction/reversed{
@@ -95853,7 +95830,7 @@
 /area/planetoid/lazarus/commons/serviceyard)
 "wpL" = (
 /turf/simulated/floor/ancient_temple/damaged/damage_7,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wpM" = (
 /obj/structure/dresser,
 /obj/machinery/light,
@@ -96041,7 +96018,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "wst" = (
 /obj/structure/window/reinforced,
@@ -96188,7 +96165,7 @@
 /obj/structure/vine/medium,
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3,
 /turf/simulated/floor/planetoid/grass/sandcorner/west,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wtW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -96233,7 +96210,7 @@
 /area/planetoid/lazarus/engineering/storage/tech)
 "wuA" = (
 /obj/structure/vine,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "wuE" = (
 /obj/machinery/suit_storage_unit/medical,
@@ -96804,7 +96781,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/water/jungle,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wBy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -96818,7 +96795,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /obj/structure/decor/platform/ancient_temple/alt/west,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wBW" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
@@ -97533,7 +97510,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/colony)
 "wKF" = (
 /obj/structure/cable/yellow{
@@ -97804,7 +97781,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wMR" = (
 /obj/machinery/newscaster/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -98152,7 +98129,7 @@
 "wPW" = (
 /obj/effect/hunter/ancient_temple,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wQd" = (
 /turf/simulated/floor/planetoid/grass/sandedge{
 	dir = 1
@@ -98364,7 +98341,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/ancient_temple/damaged/damage_2,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wSe" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/simulated/floor/plasteel{
@@ -98417,7 +98394,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "wSE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -99250,7 +99227,7 @@
 	},
 /obj/structure/cable,
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "xbi" = (
 /obj/structure/railing{
@@ -99674,7 +99651,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "xhc" = (
 /obj/structure/table/wood,
@@ -100113,7 +100090,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/ancient_temple/deco/dark,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "xlV" = (
 /obj/structure/table/reinforced,
 /obj/item/grenade/nuclear_starter{
@@ -100388,7 +100365,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "xoj" = (
 /turf/simulated/floor/plasteel{
@@ -100510,7 +100487,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "xqb" = (
 /obj/effect/turf_decal/siding/white{
@@ -100658,7 +100635,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_centcomm)
 "xrW" = (
 /obj/machinery/light,
@@ -100786,7 +100763,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "xtt" = (
 /obj/structure/cable/orange{
@@ -101120,7 +101097,7 @@
 /area/planetoid/jungle/west)
 "xxA" = (
 /obj/structure/lattice/catwalk,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "xxE" = (
 /obj/machinery/power/apc/directional/south,
@@ -101159,7 +101136,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "xxT" = (
 /turf/simulated/wall/r_wall,
@@ -101259,7 +101236,7 @@
 "xyX" = (
 /obj/structure/vine/medium,
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/east)
 "xzx" = (
 /obj/machinery/vending/snack,
@@ -101630,7 +101607,7 @@
 /area/planetoid/lazarus/commons/serviceyard)
 "xEz" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/lakes/east)
 "xEI" = (
 /obj/effect/spawner/window/reinforced,
@@ -102296,7 +102273,7 @@
 "xMg" = (
 /obj/structure/fence,
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_addition_goals)
 "xMi" = (
 /obj/machinery/recharge_station,
@@ -102366,7 +102343,7 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "xND" = (
 /obj/structure/table/wood,
 /obj/item/stack/spacecash/ussp/c100,
@@ -102375,7 +102352,7 @@
 "xOb" = (
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "xOd" = (
 /obj/structure/sign/electricshock{
 	pixel_x = 32
@@ -102704,7 +102681,7 @@
 	name = "Human remains"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/cm/indestructible/rock,
 /area/planetoid/caves)
 "xSw" = (
 /obj/structure/railing/corner{
@@ -102761,7 +102738,7 @@
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/engineering/engine/reactor)
 "xTl" = (
-/turf/simulated/wall/cm/invulnerable/jungle,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/west)
 "xTo" = (
 /obj/effect/turf_decal/siding/wood{
@@ -102851,7 +102828,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_sol)
 "xTS" = (
 /obj/structure/closet/crate,
@@ -102870,7 +102847,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/fence/meshfence,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
 "xUg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -103027,7 +103004,7 @@
 "xVc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/meshfence/dark,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ferry)
 "xVf" = (
 /obj/structure/vine,
@@ -103088,7 +103065,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner,
 /obj/structure/prop/hunter/ancient_temple/small_statue/sandstone,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "xWd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -103760,7 +103737,7 @@
 /obj/structure/vine/medium,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/ancient_temple/floor_3,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "ydd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -103857,7 +103834,7 @@
 "yep" = (
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "yez" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4;
@@ -104180,7 +104157,7 @@
 "yhg" = (
 /obj/structure/vine,
 /turf/simulated/wall/cm/sandstone/runed/decor,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "yhi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -104369,13 +104346,13 @@
 	},
 /area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "yiw" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/mineral/wood,
 /area/planetoid/caves/underground_lake)
 "yiE" = (
 /obj/structure/prop/hunter/ancient_temple/small_statue/grey,
 /obj/structure/vine,
 /turf/simulated/floor/ancient_temple/floor_3/north,
-/area/planetoid/abandoned_building/temple_inner)
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "yiR" = (
 /turf/simulated/floor/planetoid/desert/desert_dug,
 /area/planetoid/jungle/temple_outer)
@@ -104682,522 +104659,520 @@
 /area/planetoid/jungle/west)
 
 (1,1,1) = {"
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
 "}
 (2,1,1) = {"
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
 "}
 (3,1,1) = {"
-vYU
-vYU
 qRA
 qRA
 qRA
@@ -105449,12 +105424,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
 "}
 (4,1,1) = {"
-vYU
-vYU
 qRA
 qRA
 qRA
@@ -105706,12 +105681,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
 "}
 (5,1,1) = {"
-vYU
-vYU
 qRA
 qRA
 qRA
@@ -105963,12 +105938,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
 "}
 (6,1,1) = {"
-vYU
-vYU
 qRA
 qRA
 qRA
@@ -106220,12 +106195,14 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
 "}
 (7,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -106477,12 +106454,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (8,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -106734,12 +106711,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (9,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -106991,12 +106968,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (10,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -107248,12 +107225,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (11,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -107505,12 +107482,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (12,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -107762,12 +107739,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (13,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -108019,12 +107996,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (14,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -108276,12 +108253,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (15,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -108533,12 +108510,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (16,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -108790,12 +108767,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (17,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -109047,12 +109024,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (18,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -109304,12 +109281,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (19,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -109561,12 +109538,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (20,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -109818,12 +109795,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (21,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -110075,12 +110052,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (22,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -110332,12 +110309,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (23,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -110589,12 +110566,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (24,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -110846,12 +110823,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (25,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -111103,12 +111080,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (26,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -111360,12 +111337,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (27,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -111617,12 +111594,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (28,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -111874,12 +111851,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (29,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -112131,12 +112108,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (30,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -112338,7 +112315,7 @@ vkN
 xrD
 eFd
 rJg
-iHt
+tOf
 iHt
 iHt
 fuo
@@ -112388,12 +112365,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (31,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -112645,12 +112622,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (32,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -112902,12 +112879,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (33,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -113159,12 +113136,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (34,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -113416,12 +113393,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (35,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -113673,12 +113650,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (36,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -113930,12 +113907,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (37,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -114187,12 +114164,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (38,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -114444,12 +114421,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (39,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -114701,12 +114678,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (40,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -114958,12 +114935,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (41,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -115215,12 +115192,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (42,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -115472,12 +115449,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (43,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -115557,9 +115534,9 @@ qRA
 qRA
 opQ
 dcy
-dgE
-dgE
-dgE
+qhP
+qhP
+qhP
 mxc
 opQ
 uan
@@ -115729,12 +115706,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (44,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -115813,11 +115790,11 @@ kPc
 flL
 qRA
 lZy
-dgE
-dgE
-dgE
-dgE
-dgE
+qhP
+qhP
+qhP
+qhP
+qhP
 ggc
 uan
 qVb
@@ -115986,12 +115963,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (45,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -116070,11 +116047,11 @@ kPc
 qRA
 qRA
 lZy
-dgE
-dgE
-dgE
-dgE
-dgE
+qhP
+qhP
+qhP
+qhP
+qhP
 ggc
 uan
 qVb
@@ -116243,12 +116220,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (46,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -116327,11 +116304,11 @@ kPc
 qRA
 qRA
 lZy
-dgE
-dgE
-dgE
-dgE
-dgE
+qhP
+qhP
+qhP
+qhP
+qhP
 ggc
 uan
 qVb
@@ -116500,12 +116477,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (47,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -116584,11 +116561,11 @@ kPc
 jee
 qRA
 lZy
-dgE
-dgE
-dgE
-dgE
-dgE
+qhP
+qhP
+qhP
+qhP
+qhP
 ggc
 uan
 qVb
@@ -116757,12 +116734,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (48,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -116842,9 +116819,9 @@ kPc
 qRA
 opQ
 bjd
-dgE
+qhP
 qLD
-dgE
+qhP
 vqE
 opQ
 foN
@@ -117014,12 +116991,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (49,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -117271,12 +117248,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (50,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -117528,12 +117505,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (51,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -117785,12 +117762,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (52,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -118042,12 +118019,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (53,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -118299,12 +118276,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (54,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -118556,12 +118533,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (55,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -118813,12 +118790,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (56,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -119070,12 +119047,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (57,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -119267,7 +119244,7 @@ jcH
 dvl
 bKJ
 wsZ
-kpe
+vYU
 nxy
 nxy
 rrB
@@ -119327,12 +119304,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (58,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -119584,12 +119561,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (59,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -119841,12 +119818,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (60,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -120098,12 +120075,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (61,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -120355,12 +120332,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (62,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -120612,12 +120589,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (63,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -120869,12 +120846,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (64,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -121126,12 +121103,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (65,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -121383,12 +121360,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (66,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -121515,9 +121492,9 @@ bKJ
 dvr
 lCn
 dvr
-stX
-lTS
-lTS
+wsZ
+nxy
+aRt
 lTS
 lTS
 lTS
@@ -121640,12 +121617,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (67,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -121772,9 +121749,9 @@ bKJ
 dvr
 lCn
 dvr
-ktp
-gNk
-gNk
+wsZ
+nxy
+ucl
 gNk
 gNk
 gNk
@@ -121897,12 +121874,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (68,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -122029,9 +122006,9 @@ bKJ
 dvr
 lCn
 dvr
-eKk
-gTu
-gTu
+wsZ
+nxy
+hWQ
 gTu
 gTu
 gTu
@@ -122154,12 +122131,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (69,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -122411,12 +122388,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (70,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -122668,12 +122645,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (71,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -122925,12 +122902,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (72,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -123182,12 +123159,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (73,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -123439,12 +123416,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (74,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -123696,12 +123673,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (75,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -123953,12 +123930,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (76,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -124210,12 +124187,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (77,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -124467,12 +124444,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (78,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -124724,12 +124701,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (79,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -124981,12 +124958,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (80,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -125238,12 +125215,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (81,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -125495,12 +125472,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (82,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -125752,12 +125729,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (83,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -126009,12 +125986,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (84,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -126266,12 +126243,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (85,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -126523,12 +126500,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (86,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -126780,12 +126757,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (87,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -127037,12 +127014,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (88,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -127294,12 +127271,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (89,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -127551,12 +127528,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (90,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -127808,12 +127785,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (91,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -128065,12 +128042,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (92,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -128322,12 +128299,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (93,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -128579,12 +128556,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (94,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -128836,12 +128813,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (95,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -129093,12 +129070,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (96,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -129350,12 +129327,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (97,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -129607,12 +129584,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (98,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -129864,12 +129841,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (99,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -130121,12 +130098,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (100,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -130378,12 +130355,12 @@ fiS
 fiS
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (101,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -130635,12 +130612,12 @@ fiS
 fiS
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (102,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -130892,12 +130869,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (103,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -131149,12 +131126,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (104,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -131406,12 +131383,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (105,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -131481,7 +131458,7 @@ lBH
 vYQ
 lBH
 lBH
-uBe
+lBH
 uBe
 hMu
 akc
@@ -131663,12 +131640,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (106,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -131738,7 +131715,7 @@ lBH
 lBH
 lBH
 lBH
-uBe
+lBH
 uBe
 hMu
 akc
@@ -131920,12 +131897,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (107,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -131995,7 +131972,7 @@ qRA
 lBH
 lBH
 qRA
-uBe
+lBH
 uBe
 hMu
 akc
@@ -132177,12 +132154,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (108,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -132434,12 +132411,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (109,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -132691,12 +132668,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (110,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -132948,12 +132925,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (111,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -133205,12 +133182,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (112,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -133462,12 +133439,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (113,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -133719,12 +133696,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (114,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -133976,12 +133953,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (115,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -134233,12 +134210,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (116,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -134490,12 +134467,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (117,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -134747,12 +134724,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (118,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -135004,12 +134981,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (119,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -135261,12 +135238,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (120,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -135518,12 +135495,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (121,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -135775,12 +135752,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (122,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -136032,12 +136009,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (123,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -136289,12 +136266,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (124,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -136546,12 +136523,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (125,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -136803,12 +136780,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (126,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -136879,7 +136856,7 @@ qRA
 lBH
 lBH
 lBH
-uBe
+lBH
 hMu
 iLU
 oqh
@@ -137060,12 +137037,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (127,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -137136,7 +137113,7 @@ lBH
 lBH
 lBH
 lBH
-uBe
+lBH
 hMu
 uBe
 akc
@@ -137317,12 +137294,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (128,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -137393,7 +137370,7 @@ lBH
 lBH
 lBH
 qRA
-eXn
+wAn
 hMu
 uBe
 akc
@@ -137574,12 +137551,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (129,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -137831,12 +137808,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (130,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -138088,12 +138065,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (131,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -138345,12 +138322,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (132,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -138602,12 +138579,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (133,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -138859,12 +138836,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (134,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -139116,12 +139093,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (135,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -139373,12 +139350,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (136,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -139630,12 +139607,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (137,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -139887,12 +139864,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (138,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -140144,12 +140121,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (139,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -140401,12 +140378,12 @@ fiS
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (140,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -140658,12 +140635,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (141,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -140915,12 +140892,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (142,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -141172,12 +141149,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (143,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -141429,12 +141406,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (144,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -141686,12 +141663,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (145,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -141943,12 +141920,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (146,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -142200,12 +142177,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (147,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -142457,12 +142434,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (148,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -142714,12 +142691,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (149,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -142971,12 +142948,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (150,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -143228,12 +143205,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (151,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -143485,12 +143462,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (152,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -143742,12 +143719,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (153,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -143999,12 +143976,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (154,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -144256,12 +144233,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (155,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -144513,12 +144490,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (156,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -144770,12 +144747,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (157,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -145027,12 +145004,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (158,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -145284,12 +145261,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (159,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -145541,12 +145518,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (160,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -145798,12 +145775,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (161,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -146055,12 +146032,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (162,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -146312,12 +146289,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (163,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -146569,12 +146546,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (164,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -146826,12 +146803,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (165,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -147083,12 +147060,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (166,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -147340,12 +147317,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (167,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -147597,12 +147574,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (168,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -147854,12 +147831,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (169,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -148111,12 +148088,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (170,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -148368,12 +148345,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (171,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -148625,12 +148602,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (172,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -148832,7 +148809,7 @@ akP
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 eUk
 eUk
@@ -148882,12 +148859,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (173,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -149089,7 +149066,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 opY
 sHp
@@ -149139,12 +149116,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (174,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -149396,12 +149373,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (175,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -149603,7 +149580,7 @@ oHs
 unr
 jnP
 bCN
-hWQ
+lex
 eUk
 sHp
 hsG
@@ -149653,12 +149630,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (176,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -149860,7 +149837,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 sHp
 hsG
@@ -149910,12 +149887,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (177,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -150167,12 +150144,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (178,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -150374,7 +150351,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 opY
 hsG
@@ -150424,12 +150401,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (179,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -150631,7 +150608,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 sHp
 hsG
@@ -150681,12 +150658,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (180,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -150938,12 +150915,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (181,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -151145,7 +151122,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 sHp
 hsG
@@ -151195,12 +151172,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (182,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -151402,7 +151379,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 sHp
 hsG
@@ -151452,12 +151429,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (183,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -151709,12 +151686,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (184,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -151916,7 +151893,7 @@ oHs
 unr
 jnP
 dtC
-hWQ
+lex
 eUk
 eUk
 eUk
@@ -151966,12 +151943,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (185,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -152193,7 +152170,7 @@ nvM
 nvM
 nvM
 nvM
-gpU
+hsG
 bYw
 dDk
 dDk
@@ -152223,12 +152200,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (186,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -152480,12 +152457,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (187,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -152737,12 +152714,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (188,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -152994,12 +152971,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (189,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -153251,12 +153228,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (190,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -153508,12 +153485,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (191,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -153765,12 +153742,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (192,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -154022,12 +153999,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (193,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -154279,12 +154256,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (194,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -154536,12 +154513,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (195,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -154793,12 +154770,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (196,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -155050,12 +155027,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (197,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -155267,7 +155244,7 @@ kYh
 kYh
 kYh
 kYh
-kOG
+jMq
 bYw
 dDk
 dDk
@@ -155307,12 +155284,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (198,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -155564,12 +155541,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (199,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -155821,12 +155798,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (200,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -156078,12 +156055,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (201,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -156335,12 +156312,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (202,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -156592,12 +156569,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (203,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -156849,12 +156826,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (204,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -157106,12 +157083,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (205,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -157254,7 +157231,7 @@ vZd
 vZd
 vZd
 vZd
-idc
+ctb
 enB
 dLK
 lYz
@@ -157363,12 +157340,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (206,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -157620,12 +157597,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (207,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -157877,12 +157854,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (208,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -158134,12 +158111,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (209,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -158391,12 +158368,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (210,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -158648,12 +158625,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (211,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -158905,12 +158882,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (212,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -159162,12 +159139,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (213,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -159419,12 +159396,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (214,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -159676,12 +159653,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (215,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -159933,12 +159910,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (216,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -160190,12 +160167,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (217,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -160447,12 +160424,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (218,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -160704,12 +160681,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (219,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -160961,12 +160938,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (220,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -161042,7 +161019,7 @@ qRA
 dVf
 oBp
 xLR
-upd
+qRA
 qRA
 qRA
 qRA
@@ -161218,12 +161195,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (221,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -161475,12 +161452,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (222,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -161732,12 +161709,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (223,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 gxI
 qRA
 qRA
@@ -161989,12 +161966,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (224,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -162246,12 +162223,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (225,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -162503,12 +162480,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (226,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -162760,12 +162737,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (227,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -163017,12 +162994,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (228,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -163274,12 +163251,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (229,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -163531,12 +163508,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (230,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -163788,12 +163765,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (231,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -164045,12 +164022,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (232,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -164302,12 +164279,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (233,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -164559,12 +164536,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (234,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -164816,12 +164793,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (235,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -165073,12 +165050,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (236,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -165330,12 +165307,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (237,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -165587,12 +165564,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (238,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -165844,12 +165821,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (239,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -166101,12 +166078,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (240,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -166358,12 +166335,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (241,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -166615,12 +166592,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (242,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -166872,12 +166849,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (243,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -167129,12 +167106,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (244,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -167386,12 +167363,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (245,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -167643,12 +167620,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (246,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -167900,12 +167877,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (247,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -168157,12 +168134,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (248,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -168414,12 +168391,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (249,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -168671,12 +168648,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (250,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -168928,12 +168905,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (251,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -169185,12 +169162,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (252,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -169442,12 +169419,12 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (253,1,1) = {"
-vYU
-vYU
+qRA
+qRA
 qRA
 qRA
 qRA
@@ -169699,520 +169676,520 @@ qRA
 qRA
 qRA
 qRA
-vYU
-vYU
+qRA
+qRA
 "}
 (254,1,1) = {"
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
 "}
 (255,1,1) = {"
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
-vYU
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
+qRA
 "}
