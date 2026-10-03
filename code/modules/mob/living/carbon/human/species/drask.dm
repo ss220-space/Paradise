@@ -3,6 +3,7 @@
 /datum/species/drask
 	name = SPECIES_DRASK
 	name_plural = "Drask"
+	ru_genitive = "драска"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
 	language = LANGUAGE_DRASK

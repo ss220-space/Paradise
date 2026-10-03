@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 /datum/species/slime
 	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
+	ru_genitive = "слаймолюда"
 	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'

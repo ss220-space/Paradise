@@ -1,6 +1,7 @@
 /datum/species/diona
 	name = SPECIES_DIONA
 	name_plural = "Dionaea"
+	ru_genitive = "дионы"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	language = LANGUAGE_DIONA

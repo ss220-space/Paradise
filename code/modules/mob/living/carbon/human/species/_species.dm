@@ -5,6 +5,10 @@
 	var/name_plural
 	/// the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
 	var/a = "a"
+	/// Russian name of the species in the genitive case.
+	/// Appended to bodypart names, so a severed limb reads "левая нога человека" rather
+	/// than a bare "левая нога".
+	var/ru_genitive
 
 	/// Normal icon set.
 	var/icobase = 'icons/mob/human_races/r_human.dmi'
@@ -323,6 +327,20 @@
 
 /datum/species/proc/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
 	return TRUE
+
+/**
+ * Returns the species name in the genitive case, ready to be appended to a bodypart name.
+ *
+ * The result is already spaced, so it can be passed straight into
+ * [/atom/proc/set_ru_names_suffix].
+ *
+ * Returns:
+ * * `string` - " человека", or null if the species shouldn't be named in bodypart names.
+ */
+/datum/species/proc/get_bodypart_name_suffix()
+	if(!ru_genitive)
+		return null
+	return " [ru_genitive]"
 
 /proc/get_age_limits(datum/species/species, list/tags)
 	if(!islist(tags))
