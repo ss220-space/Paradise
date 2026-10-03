@@ -543,7 +543,7 @@
 
 ///Add an ammo hud to the user informing of the ammo count of ammo_owner
 /datum/hud/proc/add_ammo_hud(datum/ammo_owner, ammo_count, ammo_overlay, ammo_colour)
-	if(length(ammo_hud_list) >= 4)
+	if(length(ammo_hud_list) >= MAXHUD_POSSIBLE)
 		return
 
 	if(ammo_hud_list[ammo_owner])

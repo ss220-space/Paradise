@@ -1856,7 +1856,7 @@
 /area/awaymission/spacebattle/hallway3)
 "fQ" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
 	pixel_y = 6

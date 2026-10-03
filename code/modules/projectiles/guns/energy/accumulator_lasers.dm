@@ -44,11 +44,11 @@
 	return ..()
 
 /obj/item/gun/energy/accumulator/update_icon_state()
-	if(!magazine)
-		icon_state = "[initial(icon_state)]-e"
-		item_state = "[initial(icon_state)]-e"
-	else
-		. = ..()
+	if(magazine)
+		return ..()
+
+	icon_state = "[initial(icon_state)]-e"
+	item_state = "[initial(icon_state)]-e"
 
 /obj/item/gun/energy/accumulator/attackby(obj/item/item, mob/user, params)
 	if(!is_energy_gun_cell(item))

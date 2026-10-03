@@ -179,6 +179,8 @@
 #define ui_ammo3 "EAST-1:28,CENTER+3:29"
 #define ui_ammo4 "EAST-1:28,CENTER+4:31"
 
+#define MAXHUD_POSSIBLE 4
+
 // Plane group keys, used to group swaths of plane masters that need to appear in subwindows
 /// The primary group, holds everything on the main window
 #define PLANE_GROUP_MAIN "main"

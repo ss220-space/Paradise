@@ -25,7 +25,7 @@
 	flash_holder.icon_state = "frame"
 	flash_holder.icon = icon
 	flash_holder.vis_flags = VIS_INHERIT_PLANE
-	flash_holder.layer = layer+0.001
+	flash_holder.layer = layer + 0.001
 	flash_holder.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	vis_contents += flash_holder
 

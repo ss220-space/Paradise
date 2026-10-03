@@ -14935,7 +14935,7 @@
 "Tx" = (
 /obj/structure/rack,
 /obj/item/gun/energy/taser,
-/obj/item/gun/energy/laser/hitscan{
+/obj/item/gun/energy/laser/hitscan/carbine{
 	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{

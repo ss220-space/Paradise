@@ -5831,10 +5831,10 @@
 /area/awaymission/BMPship/Bath)
 "GT" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser/hitscan{
+/obj/item/gun/energy/laser/hitscan/carbine{
 	pixel_x = -8
 	},
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{
 	layer = 3.1
@@ -7110,7 +7110,7 @@
 /obj/effect/mob_spawn/human/corpse/tacticool{
 	layer = 4
 	},
-/obj/item/gun/energy/laser/hitscan{
+/obj/item/gun/energy/laser/hitscan/carbine{
 	pixel_x = -5
 	},
 /turf/simulated/floor/plating/asteroid/airless,

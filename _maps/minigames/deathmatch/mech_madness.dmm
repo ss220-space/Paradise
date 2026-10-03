@@ -528,7 +528,7 @@
 /area/deathmatch)
 "US" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /turf/simulated/floor/carpet/black,
 /area/deathmatch)
 "UW" = (

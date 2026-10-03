@@ -2052,7 +2052,7 @@
 /area/holodeck/source_basketball)
 "zm" = (
 /obj/structure/table/wood,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine/carbine,
 /obj/item/gun/energy/laser/awaymission_aeg,
 /obj/item/gun/energy/laser/cyborg,
 /obj/item/gun/energy/laser/practice,
@@ -2268,7 +2268,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -30
@@ -2531,7 +2531,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 3;
@@ -2627,7 +2627,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 3;
@@ -2662,7 +2662,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -30
@@ -2814,7 +2814,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 3;
@@ -2982,7 +2982,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 30
@@ -3368,7 +3368,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 30
@@ -4086,7 +4086,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan/carbine,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 3;

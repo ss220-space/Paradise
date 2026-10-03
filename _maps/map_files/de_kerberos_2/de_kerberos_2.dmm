@@ -29040,11 +29040,11 @@
 "fXx" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/gun/energy/laser/hitscan{
+/obj/item/gun/energy/laser/hitscan/carbine{
 	pixel_x = -6
 	},
-/obj/item/gun/energy/laser/hitscan,
-/obj/item/gun/energy/laser/hitscan{
+/obj/item/gun/energy/laser/hitscan/carbine,
+/obj/item/gun/energy/laser/hitscan/carbine{
 	pixel_x = 6
 	},
 /obj/structure/window/reinforced{

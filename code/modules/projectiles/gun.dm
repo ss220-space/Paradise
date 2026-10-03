@@ -939,7 +939,7 @@
 		COOLDOWN_START(src, gun_sound_cooldown, sound_cooldown_time)
 		playsound(loc, windup_sound, 30, TRUE)
 
-	if(!do_after(gun_user, windup_delay, src, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
+	if(!do_after(gun_user, windup_delay, src, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "busy_danger"))
 		return FALSE
 	return TRUE
 

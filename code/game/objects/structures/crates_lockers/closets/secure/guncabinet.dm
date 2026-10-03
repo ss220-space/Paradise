@@ -12,11 +12,19 @@
 		/obj/item/gun/projectile/automatic/smg/sp91rc = "sp91",
 		/obj/item/gun/projectile/automatic/smg/sparkle_a12 = "sp91",
 	)
+	/// Which weapon are we storing inside?
+	var/stored_weapon
 
 /obj/structure/closet/secure_closet/guncabinet/Initialize(mapload)
 	. = ..()
 	// we need to update our guns inside, after closet is filled
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1 SECONDS)
+
+/obj/structure/closet/secure_closet/guncabinet/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new stored_weapon(src)
+
 
 /obj/structure/closet/secure_closet/guncabinet/apply_contents_overlays()
 	. = ..()
