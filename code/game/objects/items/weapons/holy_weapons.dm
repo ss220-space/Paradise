@@ -1,45 +1,48 @@
+// CHAPLAIN NULLROD AND CUSTOM WEAPONS //
+
+GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
+
+/proc/init_nullrod_variants()
+	var/list/rods = list()
+	for(var/obj/item/nullrod/nullrod_type as anything in subtypesof(/obj/item/nullrod))
+		if(nullrod_type::reskin_selectable != TRUE)
+			continue
+		if(!nullrod_type::chaplain_spawnable)
+			continue
+		rods[nullrod_type] = nullrod_type::menu_description
+
+	return rods
+
 /obj/item/nullrod
 	name = "null rod"
-	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
+	desc = "A rod of pure obsidian; its very presence disrupts and dampens 'magical forces'. That's what the guidebook says, anyway."
 	icon_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
 	item_state = "nullrod"
-	force = 15
+	force = 18
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_TINY
-	/// Null rod variant names, used for the radial menu
-	var/static/list/variant_names = list()
-	/// Null rod variant icons, used for the radial menu
-	var/static/list/variant_icons = list()
-	/// Has the null rod been reskinned yet
-	var/reskinned = FALSE
-	/// Is this variant selectable through the reskin menu (Set to FALSE for fluff items)
+	/// boolean on whether it's allowed to be picked from the nullrod's transformation ability
+	var/chaplain_spawnable = TRUE
+	/// Short description of what this item is capable of, for radial menu uses.
+	var/menu_description = "A standard chaplain's weapon. Fits in pockets. Can be worn on the belt."
+	/// Affects GLOB.holy_weapon_type. Disable to allow null rods to change at will and without affecting the station's type.
+	var/station_holy_item = TRUE
 	var/reskin_selectable = TRUE
-	/// Does this null rod have fluff variants available
-	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
-	/// List which defines if a container with nullrod should be spawned instead of new nullrod itself
-	var/static/list/container_paths = list(
-		/obj/item/nullrod/claymore = /obj/item/storage/belt/claymore,
-		/obj/item/nullrod/claymore/darkblade = /obj/item/storage/belt/claymore/dark
-	)
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	if(!length(variant_names))
-		for(var/I in typesof(/obj/item/nullrod))
-			var/obj/item/nullrod/rod = I
-			if(initial(rod.reskin_selectable))
-				variant_names[initial(rod.name)] = rod
-				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
+	AddElement(/datum/element/nullrod_core, chaplain_spawnable)
 
-/obj/item/nullrod/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
-	return BRUTELOSS|FIRELOSS
+	if((GLOB.holy_weapon_type && station_holy_item) || type != /obj/item/nullrod)
+		return
+	AddComponent(/datum/component/subtype_picker, GLOB.nullrod_variants, CALLBACK(src, PROC_REF(on_holy_weapon_picked)))
 
 /obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -68,61 +71,24 @@
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 		return FALSE
-
 	return ..()
-
-/obj/item/nullrod/attack_self(mob/user)
-	if(user.mind?.isholy && !reskinned && reskin_selectable)
-		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
 	if(sanctify_force)
 		. += span_notice("It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'")
 
-/obj/item/nullrod/proc/reskin_holy_weapon(mob/user)
-	if(!ishuman(user))
+/// Callback for subtype picker, invoked when the chaplain picks a new nullrod
+/obj/item/nullrod/proc/on_holy_weapon_picked(obj/item/nullrod/new_holy_weapon, mob/living/picker)
+	if(!station_holy_item)
 		return
-	for(var/I in fluff_transformations) // If it's a fluffy null rod
-		var/obj/item/nullrod/rod = I
-		variant_names[initial(rod.name)] = rod
-		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
-	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
-	if(!choice || !radial_check(H))
-		return
+	GLOB.holy_weapon_type = new_holy_weapon.type
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NULLROD_PICKED)
+	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[new_holy_weapon.name]")
 
-	var/picked_type = variant_names[choice]
-	if(picked_type in container_paths)
-		var/storage_path = container_paths[picked_type]
-		var/obj/item/storage/storage = new storage_path(get_turf(user))
-		SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
-		var/obj/item/nullrod/new_rod = locate(picked_type) in storage
-		if(new_rod)
-			new_rod.reskinned = TRUE
-			qdel(src)
-			user.put_in_active_hand(storage)
-			if(sanctify_force)
-				new_rod.sanctify_force = sanctify_force
-				new_rod.name = "sanctified " + new_rod.name
-			return
-
-	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
-
-	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
-
-	if(new_rod)
-		new_rod.reskinned = TRUE
-		qdel(src)
-		user.put_in_active_hand(new_rod)
-		if(sanctify_force)
-			new_rod.sanctify_force = sanctify_force
-			new_rod.name = "sanctified " + new_rod.name
-
-/obj/item/nullrod/proc/radial_check(mob/living/carbon/human/user)
-	if(!src || !user.is_type_in_hands(src) || user.incapacitated() || reskinned)
-		return FALSE
-	return TRUE
+/obj/item/nullrod/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
+	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
@@ -134,8 +100,12 @@
 		var/mob/living/L = target
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
-/obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
-	reskin_selectable = FALSE
+/obj/item/nullrod/non_station
+	station_holy_item = FALSE
+	chaplain_spawnable = FALSE
+
+/// Claymore Variant
+/// This subtype possesses a block chance and is sharp.
 
 /obj/item/nullrod/ert // ERT subtype, applies sanctified property to any derived rod
 	name = "inquisitor null rod"
@@ -276,7 +246,6 @@
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -371,7 +340,6 @@
 	icon_state = "hammeron"
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
-	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
@@ -423,7 +391,6 @@
 	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
-	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
@@ -738,7 +705,6 @@
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
 	desc = "It has a mysterious, protective aura."
-	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
 	item_state = "godstaff-red"
