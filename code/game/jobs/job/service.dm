@@ -38,6 +38,8 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = /datum/skill/service
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 
 /datum/outfit/job/hop
@@ -69,6 +71,8 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_CREW
+	discount_skill_category = /datum/skill/service
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 /datum/job/service/bartender
 	title = JOB_TITLE_BARTENDER

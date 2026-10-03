@@ -128,7 +128,11 @@
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
 	/// Available free skill points
-	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	var/free_skill_points = DEFAULT_FREE_POINTS
+	/// Actual free skill points
+	var/actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
+	/// Discount skills category
+	var/datum/skill/discount_skill_category = /datum/skill/general
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
 	var/list/selected_skills_levels = list()
