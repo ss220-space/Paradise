@@ -74,7 +74,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/awaystart/Initialize(mapload)
+	. = ..()
 	GLOB.awaydestinations.Add(src)
+
+/obj/effect/landmark/awaystart/Destroy()
+	GLOB.awaydestinations -= src
 	return ..()
 
 // MARK: SPAWNER
@@ -571,6 +575,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start/investor
 	name = JOB_TITLE_INVESTOR
 	icon_state = "Investor"
+
+/obj/effect/landmark/start/explorer
+	name = JOB_TITLE_EXPLORER
+	icon_state = "Explorer"
 
 // MARK: COSTUME
 /// Costume spawner, selects a random subclass and disappears

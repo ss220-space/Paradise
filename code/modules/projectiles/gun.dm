@@ -104,14 +104,14 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
-		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+		ATTACHMENT_SLOT_LOCKING_PIN = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
 		ATTACHMENT_SLOT_UNDER,
-		ATTACHMENT_SLOT_SIBYL
+		ATTACHMENT_SLOT_LOCKING_PIN,
 	)
 
 	var/suppressed = FALSE
@@ -229,12 +229,11 @@
 	LAZYCLEARLIST(attachment_overlays)
 	QDEL_NULL(azoom)
 	QDEL_NULL(chambered)
-	if(sound_loop)
-		QDEL_NULL(sound_loop)
-	if(accuracy)
-		QDEL_NULL(accuracy)
-	if(recoil)
-		QDEL_NULL(recoil)
+	QDEL_NULL(sound_loop)
+	QDEL_NULL(accuracy)
+	QDEL_NULL(recoil)
+	gun_user = null
+	target = null
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/target)
@@ -327,7 +326,8 @@
 			continue
 		var/obj/item/gun_module/module = new module_path(src)
 		attachments_by_slot[module.slot] = module
-		add_attachment_overlay(module)
+		if(module.exists_overlay)
+			add_attachment_overlay(module)
 		module.gun = src
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
@@ -613,7 +613,9 @@
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot(mob/user)
-	return TRUE
+	SHOULD_CALL_PARENT(TRUE)
+	var/response = SEND_SIGNAL(src, COMSIG_GUN_CHECK_CAN_SHOOT, user)
+	return !(response & GUN_CHECK_CANCEL_ATTACK)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
@@ -690,6 +692,8 @@
 	return
 
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
+	if(!can_trigger_gun(user))
+		return
 	var/old_target = src.target
 	var/old_user = gun_user
 	var/list/old_modifiers = modifiers

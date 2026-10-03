@@ -41,7 +41,6 @@
 	/// Pass open check in empty verb
 	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
-	var/can_empty = TRUE
 
 /obj/item/reagent_containers/get_ru_names_cached()
 	if(chem_master_made)
@@ -69,8 +68,6 @@
 		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
 	update_icon()
-	if(can_empty)
-		verbs |= /obj/item/reagent_containers/proc/empty
 
 /obj/item/reagent_containers/examine()
 	. = ..()
@@ -79,11 +76,6 @@
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
 		else if(possible_transfer_amounts.len)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
-
-/obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM)
-		return ATTACK_CHAIN_PROCEED
-	return ..()
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
@@ -100,6 +92,21 @@
 
 /obj/item/reagent_containers/proc/mode_change_message(mob/user)
 	return
+
+/obj/item/reagent_containers/proc/select_transfer_amount(mob/user)
+	if(!possible_transfer_amounts)
+		return
+
+	var/default = null
+	if(amount_per_transfer_from_this in possible_transfer_amounts)
+		default = amount_per_transfer_from_this
+	var/amount = tgui_input_list(user, "Объём перемещения отсюда:", DECLENT_RU_CAP(src, NOMINATIVE), possible_transfer_amounts, default)
+
+	if(!amount)
+		return
+
+	amount_per_transfer_from_this = amount
+	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]")
 
 /obj/item/reagent_containers/proc/change_transfer_amount(mob/user, direction = FORWARD)
 	var/list_len = length(possible_transfer_amounts)
@@ -118,15 +125,15 @@
 	mode_change_message(user)
 
 /obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
-	if(user.intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM)
 		return NONE // non-combat-mode-rmb allows for stuff like opening containers or attacking (bottle breaking)
 	if(try_splash(user, interacting_with))
 		return ITEM_INTERACT_SUCCESS
 	return NONE
 
-/// Tries to splash the target. Used on both right-click and normal click when in combat mode.
+/// Tries to splash the target, called when right-clicking with a reagent container.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if(!is_open_container())
+	if(!is_open_container() || (container_type & NO_SPLASH))
 		return FALSE
 
 	if(!reagents?.total_volume)
@@ -162,23 +169,17 @@
 
 	return TRUE
 
-GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	if(tgui_alert(usr, "Вы уверены?", "Вылить содержимое", list("Да", "Нет")) != "Да")
-		return
-	if(!usr.Adjacent(src) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	if(isturf(usr.loc) && loc == usr)
-		if(!is_open_container() && !pass_open_check)
-			balloon_alert(usr, "сначала откройте!")
-			return
-		if(reagents.total_volume)
-			balloon_alert(usr, "содержимое вылито")
-			splash_reagents(usr.loc)
-		else
-			balloon_alert(usr, "пусто, нечего выливать!")
+/obj/item/reagent_containers/proc/can_consume(mob/eater, mob/user)
+	if(!iscarbon(eater))
+		return FALSE
+	if(!reagents || !reagents.total_volume)
+		balloon_alert(user, "пусто!")
+		return FALSE
+	var/mob/living/carbon/as_carbon = eater
+	if(as_carbon.is_mouth_covered())
+		balloon_alert(user, "рот чем-то закрыт!")
+		return FALSE
+	return TRUE
 
 /obj/item/reagent_containers/ex_act()
 	if(reagents)
@@ -216,7 +217,7 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
  * * throwingdatum - The throwingdatum behind the throw if the
  */
 /obj/item/reagent_containers/proc/splash_reagents(atom/target, mob/splasher, was_thrown = FALSE, allow_closed_splash = FALSE)
-	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash))
+	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (container_type & NO_SPLASH))
 		return
 
 	if(ismob(target) && target.reagents)
@@ -321,3 +322,39 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
 	filling.color = reagent_color_and_contrast_matrix
 
 	. += filling
+
+/// Transfering from `src` to `target`.
+/obj/item/reagent_containers/proc/try_refill(atom/target, mob/living/user)
+	if(!reagents.total_volume)
+		balloon_alert(user, "нечего выливать!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(target.reagents.holder_full())
+		balloon_alert(user, "нет места!")
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
+	if(trans)
+		balloon_alert(user, UNLINT("перелито [trans] ед."))
+	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_TO, target)
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS
+
+/// Transfering from `target` to `src`.
+/obj/item/reagent_containers/proc/try_drain(atom/target, mob/living/user)
+	if(!target.reagents.total_volume)
+		balloon_alert(user, "нечего наливать!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(reagents.holder_full())
+		balloon_alert(user, "нет места!")
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, SFX_LIQUID_POUR, 50, TRUE)
+	if(trans)
+		balloon_alert(user, UNLINT("налито [trans] ед."))
+	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_FROM, target)
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS

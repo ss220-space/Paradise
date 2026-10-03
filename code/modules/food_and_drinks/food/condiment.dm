@@ -1,17 +1,13 @@
+#define CONSUME_AMOUNT 10
 
-///////////////////////////////////////////////Condiments
-//Notes by Darem: The condiments food-subtype is for stuff you don't actually eat but you use to modify existing food. They all
-//	leave empty containers when used up and can be filled/re-filled with other items. Formatting for first section is identical
-//	to mixed-drinks code. If you want an object that starts pre-loaded, you need to make it in addition to the other code.
-
-//Food items that aren't eaten normally and leave an empty container behind.
+// MARK: Condiment container
 /obj/item/reagent_containers/condiment
 	name = "condiment container"
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
-	possible_transfer_amounts = list(1, 5)
+	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
 		"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
@@ -27,73 +23,61 @@
 	)
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/condiment/attack_self(mob/user)
-	return
+/obj/item/reagent_containers/condiment/proc/try_eat(atom/target, mob/living/user)
+	if(!can_consume(target, user))
+		return ITEM_INTERACT_BLOCKING
 
-/obj/item/reagent_containers/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!iscarbon(target))
-		return ..()
-
-	. = ATTACK_CHAIN_PROCEED
-
-	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("None of [src] left, oh no!"))
-		return .
-
-	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
-		if(target == user)
-			to_chat(user, span_warning("Your face is obscured."))
-		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
-		return .
-
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(target == user)
-		to_chat(target, span_notice("You swallow some of [src] contents."))
+		user.visible_message(
+			span_notice("[user] глота[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)]."),
+			span_notice("Вы глотаете содержимое [declent_ru(GENITIVE)]."),
+		)
 	else
-		user.visible_message(
-			span_warning("[user] attempts to feed [target] from [src]."),
-			span_notice("You attempt to feed [target] from [src]..."),
+		target.visible_message(
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся скормить [target.declent_ru(ACCUSATIVE)] содержимое [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся скормить вам содержимое [declent_ru(GENITIVE)]!"),
 		)
-		if(!do_after(user, 3 SECONDS, target, NONE) || !get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH) || !reagents || !reagents.total_volume)
-			return .
-		user.visible_message(
-			span_warning("[user] feeds [target] from [src]."),
-			span_notice("You have fed [target] from [src]."),
+		if(!do_after(user, 3 SECONDS, target, DA_IGNORE_USER_LOC_CHANGE))
+			return ITEM_INTERACT_BLOCKING
+		if(!reagents || !reagents.total_volume)
+			return ITEM_INTERACT_BLOCKING // The condiment might be empty after the delay.
+		target.visible_message(
+			span_danger("[user] скормил[GEND_A_O_I(user)] [target.declent_ru(ACCUSATIVE)] содержимое [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] скормил[GEND_A_O_I(user)] вам содержимое [declent_ru(GENITIVE)]!"),
 		)
-		add_attack_logs(user, target, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+	reagents.trans_to(target, CONSUME_AMOUNT)
+	reagents.reaction(target, REAGENT_INGEST)
+	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
+	return ITEM_INTERACT_SUCCESS
 
-	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(target, REAGENT_INGEST, fraction)
-	reagents.trans_to(target, 10)
-	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
-	return .|ATTACK_CHAIN_SUCCESS
+/obj/item/reagent_containers/condiment/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
 
-/obj/item/reagent_containers/condiment/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	if(!is_open_container())
+		return NONE
+
+	if(target.is_refillable()) //Something like a glass or a food item. Player probably wants to transfer TO it.
+		return try_refill(target, user)
+
+	if(isliving(target)) // Eating directly from the ketchup packet
+		return try_eat(target, user)
+
+	return NONE
+
+/obj/item/reagent_containers/condiment/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	if(!is_open_container())
+		return NONE
+
 	if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+		return try_drain(target, user)
 
-		if(!target.reagents.total_volume)
-			to_chat(user, span_warning("[target] is empty!"))
-			return
-
-		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, span_warning("[src] is full!"))
-			return
-
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
-
-	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
-		if(!reagents.total_volume)
-			to_chat(user, span_warning("[src] is empty!"))
-			return
-		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, span_warning("you can't add anymore to [target]!"))
-			return
-		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
+	return NONE
 
 /obj/item/reagent_containers/condiment/on_reagent_change()
 	if(!length(possible_states))
@@ -119,6 +103,7 @@
 		name = "condiment bottle"
 		desc = "An empty condiment bottle."
 
+// MARK: Container types
 /obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
 	desc = "Used in cooking various dishes."
@@ -270,8 +255,7 @@
 	list_reagents = list("herbsmix" = 50)
 	possible_states = list()
 
-//Food packs. To easily apply deadly toxi... delicious sauces to your food!
-
+// MARK: Condiment pack
 /obj/item/reagent_containers/condiment/pack
 	name = "condiment pack"
 	desc = "A small plastic pack with condiments to put on your food."
@@ -294,27 +278,25 @@
 		"chocolate_sprinkle" = list("condi_chocolate", "Chocolate sprinkle", "The amount of sugar that's already there wasn't enough for you?"),
 	)
 
-/obj/item/reagent_containers/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
+/obj/item/reagent_containers/condiment/pack/try_eat(atom/target, mob/living/user)
+	return NONE
 
-/obj/item/reagent_containers/condiment/pack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
-
+/obj/item/reagent_containers/condiment/pack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
-			to_chat(user, span_warning("You tear open [src], but there's nothing in it."))
+			to_chat(user, span_warning("Вы разрываете [declent_ru(ACCUSATIVE)], но внутри ничего нет!."))
 			qdel(src)
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, span_warning("You tear open [src], but [target] is stacked so high that it just drips off!")) //Not sure if food can ever be full, but better safe than sorry.
+			to_chat(user, span_warning("Вы разрываете [declent_ru(ACCUSATIVE)], но на [target.declent_ru(PREPOSITIONAL)] нет места!")) //Not sure if food can ever be full, but better safe than sorry.
 			qdel(src)
 			return
-		else
-			to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
-			reagents.trans_to(target, amount_per_transfer_from_this)
-			qdel(src)
+		to_chat(user, span_notice("Вы разрываете [declent_ru(ACCUSATIVE)] над [target.declent_ru(PREPOSITIONAL)], высыпая содержимое."))
+		reagents.trans_to(target, amount_per_transfer_from_this)
+		qdel(src)
+		return ITEM_INTERACT_SUCCESS
+	return ..()
 
 /obj/item/reagent_containers/condiment/pack/update_desc(updates = ALL)
 	. = ..()
@@ -343,6 +325,7 @@
 /obj/item/reagent_containers/condiment/pack/on_reagent_change()
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
+// MARK: Pack types
 /obj/item/reagent_containers/condiment/pack/ketchup
 	name = "ketchup pack"
 	originalname = "ketchup"
@@ -385,7 +368,6 @@
 /obj/item/reagent_containers/condiment/animalfeed/on_reagent_change()
 	return
 
-// MARK: Creamer pack
 /obj/item/reagent_containers/condiment/pack/creamer
 	name = "creamer pack"
 	originalname = "creamer"
@@ -405,7 +387,6 @@
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "creamer")
 
-// MARK: Sugar pack
 /obj/item/reagent_containers/condiment/pack/sugar
 	name = "sugar pack"
 	originalname = "sugar"
@@ -425,7 +406,6 @@
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "sugar")
 
-// MARK: Aspartame pack
 /obj/item/reagent_containers/condiment/pack/aspartame
 	name = "aspartame pack"
 	originalname = "aspartame"
@@ -445,7 +425,6 @@
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "aspartame")
 
-// MARK: Chocolate sprinkle
 /obj/item/reagent_containers/condiment/pack/chocolate
 	name = "chocolate sprinkle pack"
 	originalname = "chocolate sprikle"
@@ -460,3 +439,5 @@
 		INSTRUMENTAL = "пакетиком шоколадной посыпки",
 		PREPOSITIONAL = "пакетике шоколадной посыпки"
 	)
+
+#undef CONSUME_AMOUNT

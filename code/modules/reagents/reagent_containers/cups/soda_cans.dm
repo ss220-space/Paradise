@@ -5,7 +5,6 @@
 	icon = 'icons/obj/drinks.dmi'
 	var/canopened = FALSE
 	container_type = NONE
-	var/is_glass = 0
 	var/is_plastic = 0
 	var/times_shaken = 0
 	var/can_shake = TRUE
@@ -19,12 +18,6 @@
 		return declent_ru(NOMINATIVE)
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
-
-/obj/item/reagent_containers/cup/soda_cans/empty()
-	if(!canopened)
-		balloon_alert(usr, "сначала откройте!")
-		return
-	..()
 
 /obj/item/reagent_containers/cup/soda_cans/examine(mob/user)
 	. = ..()
@@ -116,7 +109,7 @@
 /obj/item/reagent_containers/cup/soda_cans/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
+	if(is_reagent_dispenser(target) && !canopened)
 		balloon_alert(user, "сначала откройте!")
 		return
 	else if(target.is_open_container() && !canopened)

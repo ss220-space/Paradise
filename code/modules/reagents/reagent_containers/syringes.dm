@@ -52,6 +52,10 @@
 	mode = !mode
 	update_icon()
 
+/obj/item/reagent_containers/syringe/attack_self_secondary(mob/user)
+	if(has_variable_transfer_amount)
+		select_transfer_amount(user)
+
 /obj/item/reagent_containers/syringe/attack_hand()
 	..()
 	update_icon()

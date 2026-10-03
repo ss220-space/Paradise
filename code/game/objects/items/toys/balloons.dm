@@ -25,7 +25,7 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/waterballoon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!istype(target, /obj/structure/reagent_dispensers))
+	if(!is_reagent_dispenser(target))
 		return
 
 	var/obj/structure/reagent_dispensers/dispencer = target

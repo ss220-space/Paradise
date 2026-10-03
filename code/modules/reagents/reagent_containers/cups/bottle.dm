@@ -12,7 +12,7 @@
 	materials = list(MAT_GLASS = 1000)
 	custom_price = PAYCHECK_MIN * 0.6
 	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
-	isGlass = TRUE
+	is_glass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/get_ru_names()
 	return alist(

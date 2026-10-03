@@ -7,7 +7,6 @@
 	item_state = "hypo"
 	icon_state = "borghypo"
 	has_variable_transfer_amount = FALSE
-	can_empty = FALSE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
@@ -23,6 +22,10 @@
 		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+
+/obj/item/reagent_containers/borghypo/Destroy(force)
+	QDEL_LIST(reagent_list)
+	return ..()
 
 /obj/item/reagent_containers/borghypo/get_ru_names()
 	return alist(
