@@ -172,19 +172,18 @@
 		return
 
 	var/mob/living/carbon/human/victim = hit_atom
-	var/mob/thrower = throwingdatum.thrower
+	var/mob/thrower = throwingdatum.thrower?.resolve()
 	if(!thrower)
 		return
 
 	var/force_user = istype(thrower.mind?.martial_art, /datum/martial_art/force)
-
 	if(!force_user)
 		return
 
 	var/zone = throwingdatum.target_zone
-	var/list/vital_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+	var/static/list/vital_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	if(zone in vital_zones)
-		var/list/no_vital_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		var/static/list/no_vital_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 		zone = pick(no_vital_zones)
 
 	var/obj/item/organ/external/limb = victim.get_organ(zone)
