@@ -68,42 +68,22 @@
 	warned = FALSE
 	rounds = num2text(rounds)
 
-	//Handle the amount of rounds. Probably we could do it better, but i don't know how
+	var/list/temporary_list = list()
 	switch(length(rounds))
 		if(1)
-			var/image/overlay_image_1 = image('icons/hud/gun_hud.dmi', src, "o[rounds[1]]")
-			overlay_image_1.color = backing_color
-			overlays += overlay_image_1
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "o[rounds[1]]")
 		if(2)
-			var/image/overlay_image_2 = image('icons/hud/gun_hud.dmi', src, "o[rounds[2]]")
-			overlay_image_2.color = backing_color
-			overlays += overlay_image_2
-
-			var/image/second_overlay_image_2 = image('icons/hud/gun_hud.dmi', src, "t[rounds[1]]")
-			second_overlay_image_2.color = backing_color
-			overlays += second_overlay_image_2
-
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "o[rounds[2]]")
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "t[rounds[1]]")
 		if(3)
-			var/image/overlay_image_3 = image('icons/hud/gun_hud.dmi', src, "o[rounds[3]]")
-			overlay_image_3.color = backing_color
-			overlays += overlay_image_3
-
-			var/image/second_overlay_image_3 = image('icons/hud/gun_hud.dmi', src, "t[rounds[2]]")
-			second_overlay_image_3.color = backing_color
-			overlays += second_overlay_image_3
-
-			var/image/third_overlay_image_3 = image('icons/hud/gun_hud.dmi', src, "h[rounds[1]]")
-			third_overlay_image_3.color = backing_color
-			overlays += third_overlay_image_3
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "o[rounds[3]]")
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "t[rounds[2]]")
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "h[rounds[1]]")
 		else //"0" is still length 1 so this means it's over 999
-			var/image/overlay_image_4 = image('icons/hud/gun_hud.dmi', src, "o9")
-			overlay_image_4.color = backing_color
-			overlays += overlay_image_4
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "o9")
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "t9")
+			temporary_list += image('icons/hud/gun_hud.dmi', src, "h9")
 
-			var/image/second_overlay_image_4 = image('icons/hud/gun_hud.dmi', src, "t9")
-			second_overlay_image_4.color = backing_color
-			overlays += second_overlay_image_4
-
-			var/image/third_overlay_image_4 = image('icons/hud/gun_hud.dmi', src, "h9")
-			third_overlay_image_4.color = backing_color
-			overlays += third_overlay_image_4
+	for(var/image/our_image in temporary_list)
+		our_image.color = backing_color
+		overlays += our_image
