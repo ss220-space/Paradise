@@ -62,8 +62,7 @@
 	return list()
 
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
-	if(!listening)
-		return
+
 	if(ismob(loc))
 		set_listening(should_be_listening)
 	else
