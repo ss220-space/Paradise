@@ -1,14 +1,8 @@
 /mob/dead/observer/move_up()
-	set name = "Подняться"
-	set category = VERB_CATEGORY_IC
-
 	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
 /mob/dead/observer/move_down()
-	set name = "Опуститься"
-	set category = VERB_CATEGORY_IC
-
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("Вы двигаетесь вниз."))
 

@@ -1,4 +1,5 @@
 /datum/emote/living
+	abstract_type = /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
@@ -10,16 +11,18 @@
 	message_postfix = " на %t."
 
 /datum/emote/living/should_play_sound(mob/user, intentional)
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		return FALSE  // shh
 	return ..()
 
 /datum/emote/living/blush
+	name = "Краснеть"
 	key = "blush"
 	key_third_person = "blushes"
 	message = "красне%(ет,ют)%."
 
 /datum/emote/living/bow
+	name = "Поклониться"
 	key = "bow"
 	key_third_person = "bows"
 	message = "кланя%(ет,ют)%ся."
@@ -27,6 +30,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/burp
+	name = "Рыгнуть"
 	key = "burp"
 	key_third_person = "burps"
 	message = "отрыгива%(ет,ют)%."
@@ -35,6 +39,7 @@
 	muzzled_noises = list("своеобразные")
 
 /datum/emote/living/choke
+	name = "Подавиться"
 	key = "choke"
 	key_third_person = "chokes"
 	message = "подавил%(ся,ась,ось,ись)%!"
@@ -54,6 +59,7 @@
 		return ..()
 
 /datum/emote/living/collapse
+	name = "Рухнуть"
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "пада%(ет,ют)% без сознания!"
@@ -64,6 +70,7 @@
 		user.Paralyse(4 SECONDS)
 
 /datum/emote/living/dance
+	name = "Танцевать"
 	key = "dance"
 	key_third_person = "dances"
 	message = "радостно танцу%(ет,ют)%."
@@ -82,11 +89,38 @@
 		user.do_jitter_animation(rand(8 SECONDS, 16 SECONDS), dance_time / 4)
 
 /datum/emote/living/jump
+	name = "Прыгать"
 	key = "jump"
 	key_third_person = "jumps"
 	message = "прыга%(ет,ют)%!"
+	audio_cooldown = EMOTE_COOLDOWN
+	muzzle_ignore = TRUE
+	hands_use_check = TRUE
+
+/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	jump_animation(user)
+
+/datum/emote/living/jump/proc/jump_animation(mob/user)
+	var/original_transform = user.transform
+	animate(user, transform = user.transform.Translate(0, 4), time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+
+/datum/emote/living/jump/get_sound(mob/user)
+	return 'sound/weapons/thudswoosh.ogg'
+
+/datum/emote/living/jump/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(. && ishuman(user) && !check_legs(user))
+		return FALSE
+
+/datum/emote/living/proc/check_legs(mob/living/carbon/human/human_for_check, leg_amount = 1)
+	if(!human_for_check.get_organ(BODY_ZONE_PRECISE_R_FOOT) && !human_for_check.get_organ(BODY_ZONE_PRECISE_L_FOOT)) // At least 1 foot required
+		return FALSE
+	return TRUE
 
 /datum/emote/living/deathgasp
+	name = "Предсмертный вздох"
 	key = "deathgasp"
 	key_third_person = "deathgasps"
 	emote_type = EMOTE_AUDIBLE|EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
@@ -153,18 +187,21 @@
 	playsound(user.loc, sound_path, sound_volume, TRUE, -8, frequency = user.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/drool
+	name = "Нести чепуху"
 	key = "drool"
 	key_third_person = "drools"
 	message = "нес%(ёт,ут)% чепуху."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/quiver
+	name = "Трепетать"
 	key = "quiver"
 	key_third_person = "quivers"
 	message = "трепещ%(ет,ут)%."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/frown
+	name = "Хмуриться"
 	key = "frown"
 	key_third_person = "frowns"
 	message = "хмур%(ит,ят)%ся."
@@ -172,6 +209,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/gag
+	name = "Выворачивать наизнанку"
 	key = "gag"
 	key_third_person = "gags"
 	message = "выворачивает."
@@ -181,12 +219,14 @@
 	muzzled_noises = list("рвотные", "громкие")
 
 /datum/emote/living/glare
+	name = "Свирепо смотреть"
 	key = "glare"
 	key_third_person = "glares"
 	message = "свирепо смотр%(ит,ят)%."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/grin
+	name = "Оскалиться в улыбке"
 	key = "grin"
 	key_third_person = "grins"
 	message = "скал%(ит,ят)%ся в улыбке."
@@ -194,17 +234,20 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/grimace
+	name = "Гримасничать"
 	key = "grimace"
 	key_third_person = "grimaces"
 	message = "гримаснича%(ет,ют)%."
 
 /datum/emote/living/look
+	name = "Смотреть"
 	key = "look"
 	key_third_person = "looks"
 	message = "смотр%(ит,ят)%."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/bshake
+	name = "Трястись"
 	key = "bshake"
 	key_third_person = "bshakes"
 	message = "тряс%(ёт,ут)%ся."
@@ -217,12 +260,14 @@
 	user.Jitter(5 SECONDS)
 
 /datum/emote/living/shudder
+	name = "Содрогнуться"
 	key = "shudder"
 	key_third_person = "shudders"
 	message = "содрога%(ет,ют)%ся."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/point
+	name = "Указать пальцем"
 	key = "point"
 	key_third_person = "points"
 	message = "указыва%(ет,ют)%."
@@ -247,11 +292,13 @@
 	return ..()
 
 /datum/emote/living/pout
+	name = "Надуть губы"
 	key = "pout"
 	key_third_person = "pouts"
 	message = "надува%(ет,ют)% губы."
 
 /datum/emote/living/scream
+	name = "Кричать"
 	key = "scream"
 	key_third_person = "screams"
 	message = "крич%(ит,ат)%!"
@@ -276,17 +323,20 @@
 	return ..()
 
 /datum/emote/living/shake
+	name = "Трясти головой"
 	key = "shake"
 	key_third_person = "shakes"
 	message = "тряс%(ёт,ут)% головой."
 
 /datum/emote/living/shiver
+	name = "Дрожать"
 	key = "shiver"
 	key_third_person = "shivers"
 	message = "дрож%(ит,ат)%."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/sigh
+	name = "Вздохнуть"
 	key = "sigh"
 	key_third_person = "sighs"
 	message = "вздыха%(ет,ют)%."
@@ -306,6 +356,7 @@
 		return ..()
 
 /datum/emote/living/sigh/happy
+	name = "Удовлетворённо вздохнуть"
 	key = "hsigh"
 	key_third_person = "hsighs"
 	message = "удовлетворённо вздыха%(ет,ют)%."
@@ -313,11 +364,13 @@
 	muzzled_noises = list("довольные", "удовлетворённые")
 
 /datum/emote/living/sit
+	name = "Сесть"
 	key = "sit"
 	key_third_person = "sits"
 	message = "сад%(ит,ят)%ся."
 
 /datum/emote/living/smile
+	name = "Улыбнуться"
 	key = "smile"
 	key_third_person = "smiles"
 	message = "улыба%(ет,ют)%ся."
@@ -326,6 +379,7 @@
 	species_type_blacklist_typecache = list(/datum/species/skrell)	// they got their own
 
 /datum/emote/living/wsmile
+	name = "Слабо улыбнуться"
 	key = "wsmile"
 	key_third_person = "wsmiles"
 	message = "слабо улыба%(ет,ют)%ся."
@@ -334,6 +388,7 @@
 	species_type_blacklist_typecache = list(/datum/species/skrell)
 
 /datum/emote/living/smug
+	name = "Ухмыльнуться"
 	key = "smug"
 	key_third_person = "smugs"
 	message = "самодовольно ухмыля%(ет,ют)%ся."
@@ -341,6 +396,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/sniff
+	name = "Нюхать"
 	key = "sniff"
 	key_third_person = "sniffs"
 	message = "нюха%(ет,ют)%."
@@ -357,6 +413,7 @@
 	return 'sound/voice/sniff_male.ogg'
 
 /datum/emote/living/snore
+	name = "Храпеть"
 	key = "snore"
 	key_third_person = "snores"
 	message = "храп%(ит,ят)%."
@@ -377,6 +434,7 @@
 		return ..()
 
 /datum/emote/living/nightmare
+	name = "Ночной кошмар"
 	key = "nightmare"
 	message = "содрога%(ет,ют)%ся во сне."
 	stat_allowed = UNCONSCIOUS
@@ -391,28 +449,33 @@
 	user.dir = pick(GLOB.cardinal)
 
 /datum/emote/living/stare
+	name = "Пялиться"
 	key = "stare"
 	key_third_person = "stares"
 	message = "пял%(ит,ят)%ся."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/strech
+	name = "Размять конечности"
 	key = "stretch"
 	key_third_person = "stretches"
 	message = "размина%(ет,ют)% конечности."
 	message_robot = "проверя%(ет,ют)% приводы."
 
 /datum/emote/living/sulk
+	name = "Дуться"
 	key = "sulk"
 	key_third_person = "sulks"
 	message = "ду%(ет,ют)%ся."
 
 /datum/emote/living/sway
+	name = "Кружиться"
 	key = "sway"
 	key_third_person = "sways"
 	message = "умопомрачительно круж%(ит,ат)%ся."
 
 /datum/emote/living/swear
+	name = "Ругаться"
 	key = "swear"
 	key_third_person = "swears"
 	message = "руга%(ет,ют)%ся!"
@@ -429,27 +492,32 @@
 	)
 
 /datum/emote/living/tilt
+	name = "Наклонить голову на бок"
 	key = "tilt"
 	key_third_person = "tilts"
 	message = "наклоня%(ет,ют)% голову на бок."
 
 /datum/emote/living/tremble
+	name = "Дрожать в ужасе"
 	key = "tremble"
 	key_third_person = "trembles"
 	message = "дрож%(ит,ат)% в ужасе!"
 
 /datum/emote/living/twitch
+	name = "Дёргаться (сильно)"
 	key = "twitch"
 	key_third_person = "twitches"
 	message = "сильно дёрга%(ет,ют)%ся."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/twitch_s
+	name = "Дёргаться"
 	key = "twitch_s"
 	message = "дёрга%(ет,ют)%ся."
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/whimper
+	name = "Хныкать"
 	key = "whimper"
 	key_third_person = "whimpers"
 	message = "хныч%(ет,ут)%."
@@ -458,6 +526,7 @@
 	muzzled_noises = list("тихие", "жалкие")
 
 /datum/emote/living/surrender
+	name = "Сдаться"
 	key = "surrender"
 	key_third_person = "surrenders"
 	message = "поднима%(ет,ют)% руки вверх и сда%(ёт,ют)%ся!"
@@ -472,6 +541,7 @@
 		SEND_SIGNAL(living, COMSIG_LIVING_GUNPOINT_CANCEL)
 
 /datum/emote/living/custom
+	name = "Пользовательская эмоция"
 	key = "me"
 	key_third_person = "custom"
 	message = null
@@ -522,4 +592,3 @@
 	. = ..()
 	message = initial(message)
 	emote_type = initial(emote_type)
-

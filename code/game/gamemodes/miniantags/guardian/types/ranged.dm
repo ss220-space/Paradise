@@ -86,10 +86,7 @@
 
 	to_chat(src, span_notice("[msg]"))
 
-/mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
-	set name = "Установить ловушку"
-	set category = VERB_CATEGORY_GUARDIAN
-	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
+GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/ranged, Snare, "Установить ловушку", "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5", VERB_CATEGORY_GUARDIAN)
 	if(length(snares) <6)
 		var/turf/snare_loc = get_turf(loc)
 		var/obj/item/effect/snare/snare = new(snare_loc, src)
@@ -99,10 +96,7 @@
 	else
 		to_chat(src, span_danger("У вас установлено слишком много ловушек. Сначала удалите некоторые."))
 
-/mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Удалить ловушку"
-	set category = VERB_CATEGORY_GUARDIAN
-	set desc = "Обезвреживание нежелательных ловушек слежения."
+GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/ranged, DisarmSnare, "Удалить ловушку", "Обезвреживание нежелательных ловушек слежения.", VERB_CATEGORY_GUARDIAN)
 	var/picked_snare = tgui_input_list(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку", snares)
 	if(picked_snare)
 		snares -= picked_snare

@@ -12,6 +12,7 @@
 	volume = 5
 	pass_open_check = TRUE
 	custom_price = PAYCHECK_MIN * 0.2
+	fill_icon_thresholds = list(10, 25, 50, 75, 100)
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return alist(
@@ -22,31 +23,6 @@
 		INSTRUMENTAL = "пипеткой",
 		PREPOSITIONAL = "пипетке",
 	)
-
-/obj/item/reagent_containers/dropper/update_overlays()
-	. = ..()
-	underlays.Cut()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 90)
-				filling.icon_state = "[icon_state]75"
-			if(91 to INFINITY)
-				filling.icon_state = "[icon_state]100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
-/obj/item/reagent_containers/dropper/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
@@ -83,7 +59,7 @@
 				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
 
-				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_U_Y_0(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 				return
 
 		user.visible_message(span_danger("[user] закапыва[PLUR_ET_YUT(user)] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
@@ -96,7 +72,7 @@
 		add_attack_logs(user, C, "Dripped with [src] containing ([contained]), transfering [to_transfer]")
 
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
-		to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_U_Y_0(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 	if(isobj(target))
 		if(!target.reagents)
@@ -113,7 +89,7 @@
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
 			after_transfer(target)
-			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_SEC_MIN(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_U_Y_0(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
 			if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
@@ -126,7 +102,7 @@
 
 			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "ей", "ами", "ами")] вещества."))
+			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[DECL_YEJ_AMI_AMI(to_transfer)] вещества."))
 
 /obj/item/reagent_containers/dropper/get_sound_for_reagent_containers()
 	return SFX_DROPPERPOUR

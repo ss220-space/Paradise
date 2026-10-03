@@ -1,23 +1,29 @@
 /datum/emote/living/carbon
+	abstract_type = /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
+	keybind_category = KB_CATEGORY_EMOTE_CARBON
 
 /datum/emote/living/carbon/blink
+	name = "Моргать"
 	key = "blink"
 	key_third_person = "blinks"
 	message = "морга%(ет,ют)%."
 
 /datum/emote/living/carbon/blink_r
+	name = "Моргать (быстро)"
 	key = "blink_r"
 	message = "быстро морга%(ет,ют)%."
 
 /datum/emote/living/carbon/cross
+	name = "Скрестить руки"
 	key = "cross"
 	key_third_person = "crosses"
 	message = "скрещива%(ет,ют)% руки."
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/chuckle
+	name = "Усмехнуться"
 	key = "chuckle"
 	key_third_person = "chuckles"
 	message = "усмеха%(ет,ют)%ся."
@@ -26,6 +32,7 @@
 	muzzled_noises = list("радостные", "оживлённые")
 
 /datum/emote/living/carbon/cough
+	name = "Кашлять"
 	key = "cough"
 	key_third_person = "coughs"
 	message = "кашля%(ет,ют)%!"
@@ -36,6 +43,7 @@
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/smoking
+	name = "Затянуться"
 	key = "smoking"
 	key_third_person = "smoked"
 	message = "затягивается и выдыхает облако табачного дыма."
@@ -43,6 +51,7 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
 /datum/emote/living/carbon/finish_smoking
+	name = "Докурить"
 	key = "finish_smoking"
 	key_third_person = "finished_smoking"
 	message = "делает сильную затяжку и выкидывает окурок."
@@ -59,6 +68,7 @@
 		return ..()
 
 /datum/emote/living/carbon/moan
+	name = "Стонать"
 	key = "moan"
 	key_third_person = "moans"
 	message = "стон%(ет,ут)%!"
@@ -79,6 +89,7 @@
 		return ..()
 
 /datum/emote/living/carbon/giggle
+	name = "Хихикать"
 	key = "giggle"
 	key_third_person = "giggles"
 	message = "хихика%(ет,ют)%."
@@ -98,6 +109,7 @@
 		return ..()
 
 /datum/emote/living/carbon/gurgle
+	name = "Булькать"
 	key = "gurgle"
 	key_third_person = "gurgles"
 	message = "изда%(ет,ют)% неприятное бульканье."
@@ -106,6 +118,7 @@
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/inhale
+	name = "Вдохнуть"
 	key = "inhale"
 	key_third_person = "inhales"
 	message = "вдыха%(ет,ют)%."
@@ -113,16 +126,19 @@
 	muzzled_noises = list("хриплые")
 
 /datum/emote/living/carbon/inhale/deep
+	name = "Глубоко вдохнуть"
 	key = "inhale_d"
 	message = "дела%(ет,ют)% глубокий вдох."
 
 /datum/emote/living/carbon/exhale
+	name = "Выдохнуть"
 	key = "exhale"
 	key_third_person = "exhales"
 	message = "выдыха%(ет,ют)%."
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 
 /datum/emote/living/carbon/kiss
+	name = "Отправить воздушный поцелуй"
 	key = "kiss"
 	key_third_person = "kisses"
 	message = "посыла%(ет,ют)% воздушный поцелуй."
@@ -131,6 +147,7 @@
 	muzzled_noises = list("чмокающие")
 
 /datum/emote/living/carbon/wave
+	name = "Махать"
 	key = "wave"
 	key_third_person = "waves"
 	message = "маш%(ет,ут)%."
@@ -139,6 +156,7 @@
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/yawn
+	name = "Зевать"
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "зева%(ет,ют)%."
@@ -156,6 +174,7 @@
 	return ..()
 
 /datum/emote/living/carbon/laugh
+	name = "Смеяться"
 	key = "laugh"
 	key_third_person = "laughs"
 	message = "сме%(ёт,ют)%ся."
@@ -177,12 +196,14 @@
 		return ..()
 
 /datum/emote/living/carbon/scowl
+	name = "Мрачно смотреть"
 	key = "scowl"
 	key_third_person = "scowls"
 	message = "мрачно смотр%(ит,ят)%."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 /datum/emote/living/carbon/groan
+	name = "Болезненно вздохнуть"
 	key = "groan"
 	key_third_person = "groans"
 	message = "болезненно вздыха%(ет,ют)%."
@@ -194,6 +215,7 @@
 	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/sign
+	name = "Показать число руками"
 	key = "sign"
 	key_third_person = "signs"
 	message = "пыта%(ет,ют)%ся что-то показать."
@@ -204,6 +226,7 @@
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
 /datum/emote/living/carbon/faint
+	name = "Потерять сознание"
 	key = "faint"
 	key_third_person = "faints"
 	message = "пада%(ет,ют)% в обморок!"
@@ -214,6 +237,7 @@
 		user.AdjustSleeping(4 SECONDS)
 
 /datum/emote/living/carbon/twirl
+	name = "Вертеть в руках"
 	key = "twirl"
 	key_third_person = "twirls"
 	hands_use_check = TRUE

@@ -1,6 +1,6 @@
-import { Key } from 'react';
+import type { Key } from 'react';
+import { Box, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { LabeledList, Section, Box } from '../../components';
 
 type SupplyRecordsData = {
   supply: SupplyRecord;

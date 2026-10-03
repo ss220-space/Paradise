@@ -85,7 +85,7 @@
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message(span_danger("[src] deflects [P] with their shield!"), \
-		span_danger("You block [P] with your shield!"), projectile_message = TRUE)
+		span_danger("You block [P] with your shield!"))
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
@@ -94,11 +94,9 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/clockwork/marauder/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
 	if(can_change_intents)
 		switch(input)
-			if(INTENT_HELP,INTENT_DISARM,INTENT_HARM)
+			if(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 				a_intent = input
 			if("right")
 				if(a_intent == INTENT_HELP)

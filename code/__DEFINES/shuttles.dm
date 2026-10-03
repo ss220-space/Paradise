@@ -1,8 +1,8 @@
 // these define the time taken for the shuttle to get to SS13
 // and the time before it leaves again
-#define SHUTTLE_CALLTIME 6000 //10 minutes = 6000 deciseconds - time taken for emergency shuttle to reach the station when called (in deciseconds)
-#define SHUTTLE_DOCKTIME 1800 //3 minutes = 1800 deciseconds - time taken for emergency shuttle to leave again once it has docked (in deciseconds)
-#define SHUTTLE_ESCAPETIME 1200 //2 minutes = 1200 deciseconds - time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
+#define SHUTTLE_CALLTIME 10 MINUTES //time taken for emergency shuttle to reach the station when called
+#define SHUTTLE_DOCKTIME 3 MINUTES //time taken for emergency shuttle to leave again once it has docked
+#define SHUTTLE_ESCAPETIME 2 MINUTES //time taken for emergency shuttle to reach a safe distance after leaving station
 
 //shuttle mode defines
 /// Shuttles "ingites" checking for transit zone

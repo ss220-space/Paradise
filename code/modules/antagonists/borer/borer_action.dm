@@ -73,7 +73,7 @@
 /datum/action/innate/borer/make_chems
 	name = "Secrete Chemicals"
 	desc = "Push some chemicals into your host's bloodstream."
-	button_icon_state = "fleshmend"
+	button_icon_state = "red_cross"
 
 /datum/action/innate/borer/make_chems/Activate()
 	var/mob/living/simple_animal/borer/borer = owner
@@ -92,7 +92,7 @@
 		return
 
 	if(borer.chemicals < cost)
-		to_chat(borer.host, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для размножения!")
+		to_chat(borer.host, "Вам требуется [cost] химикат[DECL_0_A_OV(cost)] для размножения!")
 		return
 
 	borer.chemicals -= cost
@@ -123,7 +123,7 @@
 	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
 
 	if(borer.chemicals < total_cost)
-		to_chat(owner, "Вам требуется [total_cost] химикат[DECL_CREDIT(total_cost)] для вызова психической агонии!")
+		to_chat(owner, "Вам требуется [total_cost] химикат[DECL_0_A_OV(total_cost)] для вызова психической агонии!")
 		return
 
 	borer.chemicals -= total_cost

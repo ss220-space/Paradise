@@ -513,10 +513,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
-/obj/machinery/crematorium/verb/cremate_verb()
-	set name = "Cremate"
-	set src in oview(1)
-
+GAME_VERB_SRC(/obj/machinery/crematorium, cremate_verb, oview(1), "Кремировать", VERB_CATEGORY_HIDDEN)
 	try_cremate(usr)
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)

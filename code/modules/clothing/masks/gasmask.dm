@@ -86,6 +86,7 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
+	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -416,7 +417,8 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+
+	/*//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
 	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
 		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
 			//mask_spell = spell
@@ -428,7 +430,7 @@
 	// 	mask_spell.action.enable_invisibility(FALSE)
 	// 	return
 
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)*/
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -436,7 +438,8 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+
+	/*var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
 	if(!spell)
 		return
 
@@ -444,9 +447,9 @@
 	// 	spell.action.enable_invisibility(TRUE)
 	// 	return
 
-	if(user.mind.miming)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		spell.cast(list(user))
-	user.mind.RemoveSpell(spell)
+	user.mind.RemoveSpell(spell)*/
 
 /obj/item/clothing/mask/gas/mime/sad
 	name = "sad mime mask"
@@ -652,7 +655,7 @@
 	var/aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 	var/safety = 1
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/halt)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 
@@ -714,6 +717,7 @@
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 10, ACID = 30)
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
@@ -735,6 +739,7 @@
 	desc = "Тактический противогаз чёрного цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "hosmask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
@@ -755,6 +760,7 @@
 	desc = "Тактический противогаз синего цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "wardenmask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
@@ -775,6 +781,7 @@
 	desc = "Тактический противогаз с более агрессивным Подчи-о-натором 3000."
 	icon_state = "officermask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
@@ -796,6 +803,7 @@
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE

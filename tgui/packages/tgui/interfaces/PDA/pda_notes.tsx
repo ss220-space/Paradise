@@ -1,11 +1,11 @@
+import { Box, Button, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, Section } from '../../components';
 
 type NoteData = {
   note: string;
 };
 
-export const pda_notes = (props: unknown) => {
+export const pda_notes = (_props: unknown) => {
   const { act, data } = useBackend<NoteData>();
 
   const { note } = data;

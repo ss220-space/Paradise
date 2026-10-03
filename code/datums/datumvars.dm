@@ -79,6 +79,11 @@
 		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
 			return
 		usr.client.holder.modify_traits(src)
+	if(href_list[VV_HK_DEBUG_APPEARANCE]) // On base datum as it is shared by atoms and mutable_appearance/image VVs
+		if(!check_rights(R_DEBUG))
+			return
+		usr.client.holder.appearance_debug.set_target(src)
+		usr.client.holder.appearance_debug.ui_interact(usr)
 	return TRUE
 
 /datum/proc/vv_get_header()

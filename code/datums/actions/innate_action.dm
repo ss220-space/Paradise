@@ -16,7 +16,7 @@
 		return FALSE
 	// We're a click action, trigger just sets it as active or not
 	if(click_action)
-		if(owner.click_intercept == src)
+		if(owner.client.click_intercept == src)
 			unset_ranged_ability(owner, disable_text)
 		else
 			set_ranged_ability(owner, enable_text)
@@ -38,7 +38,7 @@
 
 /datum/action/innate/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	if(click_action)
-		return current_button.our_hud?.mymob?.click_intercept == src
+		return current_button.our_hud?.mymob?.client?.click_intercept == src
 	else
 		return active
 
@@ -63,7 +63,7 @@
 		on_who.update_mouse_pointer()
 	if(text_to_show)
 		to_chat(on_who, text_to_show)
-	on_who.click_intercept = src
+	on_who.client?.click_intercept = src
 
 /// Removes this action as the active ability of the passed mob
 /datum/action/innate/proc/unset_ranged_ability(mob/living/on_who, text_to_show)
@@ -72,7 +72,7 @@
 		on_who.update_mouse_pointer()
 	if(text_to_show)
 		to_chat(on_who, text_to_show)
-	on_who.click_intercept = null
+	on_who.client?.click_intercept = null
 
 /// Handles whenever a mob clicks on something
 /datum/action/innate/proc/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
@@ -89,7 +89,7 @@
 	return FALSE
 
 /datum/action/innate/Remove(mob/removed_from)
-	if(removed_from.click_intercept == src)
+	if(removed_from.client?.click_intercept == src)
 		unset_ranged_ability(removed_from)
 	return ..()
 

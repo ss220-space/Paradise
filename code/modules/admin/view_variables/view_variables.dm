@@ -3,7 +3,8 @@
 /// This dmi has null-named icon_state, allowing it to show a sprite on vv editor.
 #define ICON_STATE_NULL 2
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", datum/thing in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", /datum)
+	VERB_ARG_TYPED(thing, VERB_ARG_TYPE_DATUM, VERB_ARG_SOURCE_WORLD, /datum)
 	user.debug_variables(thing)
 
 /client/proc/debug_variables(datum/thing)

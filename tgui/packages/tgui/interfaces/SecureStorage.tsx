@@ -1,5 +1,5 @@
+import { Box, Button, Flex, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Section, Button, Flex, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type SecureStorageData = {

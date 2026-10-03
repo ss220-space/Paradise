@@ -3,100 +3,75 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use 'sass:color';
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ *
+ * If you're looking for a color palette,
+ * see tgui-core - https://github.com/tgstation/tgui-core/tree/main/styles
+ * Files: vars-colors.scss | vars-components.scss | vars-values.scss
+ */
+
 @use 'sass:map';
-@use 'sass:meta';
-
-// Base colors
-$black: hsl(0, 0%, 0%) !default;
-$white: hsl(0, 0%, 100%) !default;
-$red: hsl(0, 72%, 50%) !default;
-$orange: hsl(24, 89%, 54%) !default;
-$yellow: hsl(52, 97%, 52%) !default;
-$olive: hsl(68, 76%, 45%) !default;
-$green: hsl(136, 70%, 41%) !default;
-$teal: hsl(178, 100%, 35%) !default;
-$blue: hsl(208, 65%, 47%) !default;
-$violet: hsl(259, 60%, 50%) !default;
-$purple: hsl(288, 60%, 49%) !default;
-$pink: hsl(326, 71%, 56%) !default;
-$brown: hsl(24, 47%, 45%) !default;
-$grey: hsl(0, 0%, 47%) !default;
-$light-grey: hsl(0, 0%, 67%) !default;
-
-$primary: hsl(210, 37%, 46%) !default;
-$good: hsl(94, 63%, 41%) !default;
-$average: hsl(33, 89%, 50%) !default;
-$bad: hsl(0, 72%, 50%) !default;
-$label: hsl(210, 18%, 58%) !default;
-$gold: hsl(42, 89%, 52%) !default;
 
 // Department colors
-$dept-command: #526aff;
-$dept-procedure: #e3027a;
-$dept-security: #cf0000;
-$dept-engineering: #a66300;
-$dept-medical: #009190;
-$dept-science: #993399;
-$dept-service: #80a000;
-$dept-supply: #9f8545;
-$dept-centcom: #78789b;
-$dept-other: #c38312;
-
-// Background and foreground color lightness ratios
-$bg-lightness: -15% !default;
-$fg-lightness: 10% !default;
-
-@function bg($color) {
-  @return color.scale($color, $lightness: $bg-lightness);
-}
-
-@function fg($color) {
-  @return color.scale($color, $lightness: $fg-lightness);
+:root {
+	--color-dept-command: #526aff;
+	--color-dept-procedure: #e3027a;
+	--color-dept-security: #cf0000;
+	--color-dept-engineering: #a66300;
+	--color-dept-medical: #009190;
+	--color-dept-science: #993399;
+	--color-dept-service: #80a000;
+	--color-dept-supply: #9f8545;
+	--color-dept-centcom: #78789b;
+	--color-dept-other: #c38312;
 }
 
 // Mappings of color names
 
+$color-map: ();
 $_gen_map: (
-  'black': $black,
-  'white': $white,
-  'red': $red,
-  'orange': $orange,
-  'yellow': $yellow,
-  'olive': $olive,
-  'green': $green,
-  'teal': $teal,
-  'blue': $blue,
-  'violet': $violet,
-  'purple': $purple,
-  'pink': $pink,
-  'brown': $brown,
-  'grey': $grey,
-  'light-grey': $light-grey,
-  'good': $good,
-  'average': $average,
-  'bad': $bad,
-  'label': $label,
-  'gold': $gold,
+	'black': var(--color-black),
+	'white': var(--color-white),
+	'red': var(--color-red),
+	'orange': var(--color-orange),
+	'yellow': var(--color-yellow),
+	'olive': var(--color-olive),
+	'green': var(--color-green),
+	'teal': var(--color-teal),
+	'blue': var(--color-blue),
+	'violet': var(--color-violet),
+	'purple': var(--color-purple),
+	'pink': var(--color-pink),
+	'brown': var(--color-brown),
+	'grey': var(--color-grey),
+	'gray': var(--color-grey),
+	'light-grey': var(--color-light-grey),
+	'light-gray': var(--color-light-grey),
+	'good': var(--color-good),
+	'average': var(--color-average),
+	'bad': var(--color-bad),
+	'label': var(--color-label),
 );
+$low-contrast-color-map: ('yellow', 'white');
 
-// Foreground color names for which to generate a color map
-$fg-map-keys: map.keys($_gen_map) !default;
-// Background color names for which to generate a color map
-$bg-map-keys: map.keys($_gen_map) !default;
-
-$fg-map: ();
-@each $color-name in $fg-map-keys {
-  // prettier-ignore
-  $fg-map: map.merge($fg-map, (
-     $color-name: fg(map.get($_gen_map, $color-name)),
-   ));
+// Color names for which to generate a color map
+$color-map-keys: map.keys($_gen_map) !default;
+@each $color-name in $color-map-keys {
+	// prettier-ignore
+	$color-map: map.merge($color-map, (
+      $color-name: map.get($_gen_map, $color-name),
+    ));
 }
 
-$bg-map: ();
-@each $color-name in $bg-map-keys {
-  // prettier-ignore
-  $bg-map: map.merge($bg-map, (
-     $color-name: bg(map.get($_gen_map, $color-name)),
-   ));
+/**
+   * Background and foreground color lightness ratios
+   */
+@function bg($color) {
+	@return hsl(from $color h s calc(l - var(--adjust-color)));
+}
+
+@function fg($color) {
+	@return hsl(from $color h s calc(l + var(--adjust-color)));
 }

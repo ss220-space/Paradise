@@ -478,7 +478,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater = 1,
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -518,7 +518,7 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
@@ -547,7 +547,7 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,

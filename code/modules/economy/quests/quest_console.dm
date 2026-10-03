@@ -107,7 +107,7 @@
 	data["quests"] += quest_storages
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
-	data["timeleft"] = SSshuttle.supply.timeLeft(600)
+	data["timeleft"] = SSshuttle.supply.getTimerStr()
 	return data
 
 /obj/machinery/computer/supplyquest/ui_assets(mob/user)

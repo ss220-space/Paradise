@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useBackend } from '../../backend';
 
 type RndRouteProps = {
@@ -11,8 +11,8 @@ export const RndRoute = (properties: RndRouteProps) => {
   const { menu, submenu } = data;
 
   const compare = (
-    comparator: ((n: number) => boolean) | number,
-    item: number
+    comparator: ((n: number) => boolean) | number |undefined,
+    item: number,
   ) => {
     if (comparator === null || comparator === undefined) {
       return true;
@@ -23,8 +23,8 @@ export const RndRoute = (properties: RndRouteProps) => {
     return comparator === item; // strings or ints?
   };
 
-  let match =
-    compare(properties.menu, menu as number) &&
+  const match =
+   compare(properties.menu, menu as number) &&
     compare(properties.submenu, submenu as number);
 
   if (!match) {

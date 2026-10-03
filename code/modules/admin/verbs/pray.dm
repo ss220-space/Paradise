@@ -1,16 +1,14 @@
-/mob/living/verb/pray(msg as text)
-	set category = VERB_CATEGORY_IC
-	set name = "Молиться"
-
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-	if(!msg)
+GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
+	VERB_ARG(message, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+	message = sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN))
+	if(!message)
 		return
 
 	if(client)
 		if(check_mute(client.ckey, MUTE_PRAY))
-			to_chat(usr, span_warning("You cannot pray (muted)."))
+			to_chat(src, span_warning("You cannot pray (muted)."))
 			return
-		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
+		if(client.handle_spam_prevention(message, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
 	var/image/cross = image('icons/obj/library.dmi',"bible")
@@ -23,7 +21,7 @@
 		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = CHAPLAIN_PRAYER
-	else if(iscultist(usr))
+	else if(iscultist(src))
 		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
 		prayer_type = CULT_PRAYER
@@ -31,16 +29,16 @@
 	else if(HAS_TRAIT(src, TRAIT_EVIL))
 		prayer_type = EVIL_PRAYER
 
-	add_game_logs("Prayed to the gods: [msg]", usr)
-	GLOB.requests.pray(client, msg, job == JOB_TITLE_CHAPLAIN)
+	add_game_logs("Prayed to the gods: [message]", src)
+	GLOB.requests.pray(client, message, job == JOB_TITLE_CHAPLAIN)
 
-	msg = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind?.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [msg]"
+	message = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind?.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [message]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT, FALSE, X.mob))
-			to_chat(X, "[span_notice("[icon2html(cross, X.mob)] [msg]")]")
+			to_chat(X, "[span_notice("[icon2html(cross, X.mob)] [message]")]")
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
 				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
-	to_chat(usr, "Your prayers have been received by the gods.")
+	to_chat(src, "Your prayers have been received by the gods.")
 
 	BLACKBOX_LOG_ADMIN_VERB("Pray")
 

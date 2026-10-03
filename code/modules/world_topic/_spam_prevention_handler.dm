@@ -46,23 +46,3 @@
 	last_request = world.time
 	return FALSE
 
-/*
-
-Uncomment this if you modify the topic limiter, trust me, youll need to test it
-
-/client/verb/debug_limiter()
-	if(!GLOB.world_topic_spam_prevention_handlers[address])
-		GLOB.world_topic_spam_prevention_handlers[address] = new /datum/world_topic_spam_prevention_handler
-
-	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[address]
-	var/result = sph.check_lockout()
-	to_chat(usr, "Strikes: [sph.strikes]")
-	to_chat(usr, "Last request: [sph.last_request]")
-	to_chat(usr, "Locked out: [sph.locked_out]")
-	to_chat(usr, "Unlock time: [sph.unlock_time]")
-	to_chat(usr, "SPH Result: [result]")
-	to_chat(usr, "World.time: [world.time]")
-	to_chat(usr, "LR DIFF: [(sph.last_request - world.time)/10]s")
-	to_chat(usr, "LO DIFF: [(sph.unlock_time - world.time)/10]s")
-	to_chat(usr, "<hr>")
-*/

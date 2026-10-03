@@ -8,8 +8,8 @@ import {
   Section,
   Stack,
   VirtualList,
-} from 'tgui/components';
-import { useFuzzySearch } from 'common/fuzzysearch';
+} from 'tgui-core/components';
+import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 
 import { useBackend } from '../../backend';
 import { CreateObjectSettings } from './CreateObjectSettings';
@@ -20,13 +20,13 @@ import type {
   SpawnPanelPreferences,
 } from './types';
 
-interface SpawnPanelData {
+type SpawnPanelData = {
   icon: string;
   iconState: string;
   selected_object?: string;
   copied_type?: string;
   preferences?: SpawnPanelPreferences;
-}
+};
 
 interface SpawnPreferences {
   hide_icons: boolean;
@@ -41,7 +41,7 @@ export const CreateObject = (props: CreateObjectProps) => {
   const { act, data } = useBackend<SpawnPanelData>();
   const { setAdvancedSettings, iconSettings, objList = { atoms: {} } } = props;
 
-  const [tooltipIcon, setTooltipIcon] = useState(false);
+  const [tooltipIcon, _] = useState(false);
   const [selectedObj, setSelectedObj] = useState<string | null>(null);
   const [searchBy, setSearchBy] = useState(false);
   const [sortBy, setSortBy] = useState(listTypes.Objects);
@@ -61,7 +61,7 @@ export const CreateObject = (props: CreateObjectProps) => {
       if (!item) return key;
       return searchBy ? key : `${key} ${item.name || ''}`;
     },
-    [searchBy, allObjects]
+    [searchBy, allObjects],
   );
 
   const { query, setQuery, results } = useFuzzySearch({
@@ -167,7 +167,7 @@ export const CreateObject = (props: CreateObjectProps) => {
   }, [data.iconState]);
 
   const sendUpdatedSettings = (
-    changedSettings: Partial<Record<string, unknown>> = {}
+    changedSettings: Partial<Record<string, unknown>> = {},
   ) => {
     act('update-settings', changedSettings);
   };
@@ -335,7 +335,7 @@ export const CreateObject = (props: CreateObjectProps) => {
                   {
                     listNames[
                       Object.keys(listTypes).find(
-                        (key) => listTypes[key] === sortBy
+                        (key) => listTypes[key] === sortBy,
                       ) || 'Objects'
                     ]
                   }

@@ -8,7 +8,7 @@ import {
   LabeledList,
   NumberInput,
   Stack,
-} from '../../components';
+} from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
@@ -131,7 +131,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
 
   if (gradientSpace) {
     const match = Object.keys(SpaceToNum).find(
-      (space) => SpaceToNum[space] === gradientSpace.space
+      (space) => SpaceToNum[space] === gradientSpace.space,
     );
     if (match) {
       space_type = match;
@@ -188,12 +188,12 @@ export const EntryGradient = (props: EntryGradientProps) => {
                 <Input
                   key={index}
                   maxWidth={'70px'}
-                  value={entry?.toString() ?? ''}
+                  value={entry.toString()}
                   onBlur={(value) =>
                     act('edit', {
                       var: var_name,
                       new_value: gradient!.map((x, i) =>
-                        i === index ? value : x
+                        i === index ? value : x,
                       ),
                     })
                   }
@@ -209,7 +209,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
                   }
                 />
               </>
-            )
+            ),
           )}
         </Stack.Item>
         <Stack.Item>
@@ -272,7 +272,7 @@ export const EntryTransform = (props: EntryTransformProps) => {
                 act('edit', {
                   var: var_name,
                   new_value: transform!.map((x, i) =>
-                    i === index ? value : x
+                    i === index ? value : x,
                   ),
                 })
               }
@@ -336,7 +336,7 @@ export const EntryIcon = (props: EntryIconStateProps) => {
           ))
         ) : (
           <>
-            <Stack.Item>{icon_state as string}</Stack.Item>
+            <Stack.Item>{icon_state}</Stack.Item>
             <Stack.Item>
               <Box> = </Box>
             </Stack.Item>
@@ -421,8 +421,8 @@ export const EntryIconState = (props: EntryIconStateProps) => {
                       var: var_name,
                       new_value: Object.fromEntries(
                         Object.entries(icon_state).filter(
-                          ([key]) => key !== iconstate
-                        )
+                          ([key]) => key !== iconstate,
+                        ),
                       ),
                     })
                   }
@@ -433,7 +433,7 @@ export const EntryIconState = (props: EntryIconStateProps) => {
         ) : (
           <>
             <Input
-              value={icon_state ? (icon_state as string) : 'None'}
+              value={icon_state ? icon_state : 'None'}
               onBlur={(value) =>
                 act('edit', {
                   var: var_name,

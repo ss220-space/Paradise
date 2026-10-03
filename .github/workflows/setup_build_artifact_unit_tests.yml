@@ -13,11 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22.11.0
-          cache: "yarn"
-          cache-dependency-path: ./tgui/yarn.lock
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
@@ -28,7 +25,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          tools/build/build.sh --ci dm -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
 
       - name: Setup variable for output path
         run: |

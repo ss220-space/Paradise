@@ -215,7 +215,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/charge_amount = round(cell.charge / (shot.e_cost * burst_amount))
 
-	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> [declension_ru(charge_amount, "выстрел", "выстрела", "выстрелов")].")
+	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> выстрел[DECL_0_A_OV(charge_amount)].")
 
 /obj/item/gun/energy/gun/minigun/pulse
 	name = "Pulse gatling gun"

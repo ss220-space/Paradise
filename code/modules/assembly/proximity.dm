@@ -3,7 +3,6 @@
 	desc = "Used for scanning and alerting when someone enters a certain proximity."
 	icon_state = "prox"
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
-	bomb_name = "proximity mine"
 	/// Is it currently scanning in proximity
 	var/scanning = FALSE
 	/// Is it arming right now

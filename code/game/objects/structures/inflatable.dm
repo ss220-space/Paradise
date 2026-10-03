@@ -73,16 +73,6 @@
 	transfer_fingerprints_to(R)
 	qdel(src)
 
-/obj/structure/inflatable/verb/hand_deflate()
-	set name = "Сдуть"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	deconstruct(TRUE)
-
 /obj/item/inflatable/door
 	name = "inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation."

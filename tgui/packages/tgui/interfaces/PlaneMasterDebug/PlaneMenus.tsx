@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Button, Dropdown, Modal, Section, Stack } from '../../components';
-
+import { Button, Dropdown, Modal, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
 import { BlendModes, type Plane } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
@@ -76,7 +75,7 @@ const AddConnectionModal = () => {
           <Stack.Item>
             <Dropdown
               options={Object.keys(BlendModes).filter((x) =>
-                Number.isNaN(Number(x))
+                Number.isNaN(Number(x)),
               )}
               selected={selectedBlend}
               width="300px"
@@ -233,9 +232,9 @@ const InfoModal = () => {
         quite powerful. <br />
         Even just setting alpha to show and hide things can be quite useful.{' '}
         <br />
+        <br />I won&apos;t get into every effect we do here, you can learn more
+        about each plane by clicking on the little button in their top right.{' '}
         <br />
-        I won&apos;t get into every effect we do here, you can learn more about
-        each plane by clicking on the little button in their top right. <br />
         <br />
       </Section>
     </Modal>

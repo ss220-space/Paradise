@@ -212,6 +212,8 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_KNIFE_SWING "knife_swing"
 #define SFX_RAPIER_SWING "rapier_swing"
 #define SFX_POLAROID_PHOTO_PRINTING "polaroid"
+#define SFX_BLOODCRAWL_EMERGE "bloodcrawl_emerge"
+#define SFX_HEAVYFOOTSTEP "heavy_footstep"
 // Below is a list copied from TG, most of their defines are empty (without datum and sounds). But there are also those used by us.
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"

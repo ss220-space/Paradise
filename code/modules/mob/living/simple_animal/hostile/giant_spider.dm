@@ -43,6 +43,11 @@
 		cold_damage = 20, \
 	)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/web_giant_spider/web_action = new()
+	web_action.Grant(src)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
@@ -76,6 +81,10 @@
 		null, \
 		list(BODY_ZONE_CHEST, BODY_ZONE_HEAD), \
 		)
+	var/datum/action/innate/wrap_giant_spider/wrap_action = new()
+	wrap_action.Grant(src)
+	var/datum/action/innate/lay_eggs_giant_spider/egg_action = new()
+	egg_action.Grant(src)
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -178,11 +187,17 @@
 		busy = 0
 		stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
-	set name = "Lay Web"
-	set category = VERB_CATEGORY_SPIDER
-	set desc = "Spread a sticky web to slow down prey."
+/datum/action/innate/web_giant_spider
+	name = "Lay Web"
+	desc = "Spread a sticky web to slow down prey."
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "stickyweb1"
 
+/datum/action/innate/web_giant_spider/Activate()
+	var/mob/living/simple_animal/hostile/poison/giant_spider/user = owner
+	user.Web()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/Web()
 	var/T = src.loc
 
 	if(busy != SPINNING_WEB)
@@ -195,11 +210,17 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
-	set name = "Wrap"
-	set category = VERB_CATEGORY_SPIDER
-	set desc = "Wrap up prey to feast upon and objects for safe keeping."
+/datum/action/innate/wrap_giant_spider
+	name = "Wrap"
+	desc = "Wrap up prey to feast upon and objects for safe keeping."
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon_large1"
 
+/datum/action/innate/wrap_giant_spider/Activate()
+	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner
+	user.Wrap()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/Wrap()
 	if(!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in view(1, src))
@@ -265,11 +286,17 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
-	set name = "Lay Eggs"
-	set category = VERB_CATEGORY_SPIDER
-	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
+/datum/action/innate/lay_eggs_giant_spider
+	name = "Lay Eggs"
+	desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "eggs"
 
+/datum/action/innate/lay_eggs_giant_spider/Activate()
+	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner
+	user.LayEggs()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/LayEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
 		to_chat(src, span_notice("There is already a cluster of eggs here!"))

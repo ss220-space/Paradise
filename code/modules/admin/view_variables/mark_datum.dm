@@ -13,8 +13,9 @@
 	holder.RegisterSignal(holder.marked_datum, COMSIG_QDELETING, TYPE_PROC_REF(/datum/admins, handle_marked_del))
 	vv_update_display(datum, "marked", VV_MSG_MARKED)
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(mark_datum, R_NONE, "Mark Object", datum/target as mob|obj|turf|area in view())
-	user.mark_datum(target)
+ADMIN_VERB_ONLY_CONTEXT_MENU(mark_datum, R_VIEWRUNTIMES|R_ADMIN, "Mark Object", /datum)
+	VERB_ARG_TYPED(target_datum, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF | VERB_ARG_TYPE_AREA, VERB_ARG_SOURCE_VIEW, /datum)
+	user.mark_datum(target_datum)
 
 /datum/admins/proc/handle_marked_del(datum/source)
 	SIGNAL_HANDLER

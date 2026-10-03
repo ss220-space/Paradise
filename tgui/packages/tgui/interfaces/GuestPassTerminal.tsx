@@ -1,18 +1,15 @@
-import { useBackend } from '../backend';
 import {
+  Box,
   Button,
+  NumberInput,
   Section,
   Stack,
-  Input,
-  NumberInput,
-  Box,
   Tabs,
-  Icon,
-  LabeledList,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessList, Access } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 interface GuestPassData {
   mode: number;

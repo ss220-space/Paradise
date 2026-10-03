@@ -391,7 +391,7 @@
 			flashed_client = player_mob.client
 	if(!flashed_client || !(flashed_client.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
-	winset(flashed_client, "mainwindow", "flash=5")
+	winset(flashed_client, SKIN_MAINWINDOW, "flash=5")
 
 /**
  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments

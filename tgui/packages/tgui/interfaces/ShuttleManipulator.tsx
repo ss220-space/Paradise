@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, LabeledList, Box, Section, Tabs } from '../components';
+import { Box, Button, LabeledList, Section, Tabs } from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type ShuttleManipulatorData = {
@@ -180,7 +180,7 @@ const ModificationView = (_props: unknown) => {
   return (
     <Box>
       {existing_shuttle ? (
-        <Section title={'Selected Shuttle: ' + existing_shuttle.name}>
+        <Section title={`Selected Shuttle: ${existing_shuttle.name}`}>
           <LabeledList>
             <LabeledList.Item label="Status">
               {existing_shuttle.status}
@@ -207,7 +207,7 @@ const ModificationView = (_props: unknown) => {
       )}
 
       {selected ? (
-        <Section title={'Selected Template: ' + selected.name}>
+        <Section title={`Selected Template: ${selected.name}`}>
           <LabeledList>
             {selected.description && (
               <LabeledList.Item label="Description">

@@ -1,4 +1,4 @@
-import { sendAct as act } from 'tgui/backend';
+import { sendAct as act } from 'tgui/events/act';
 import { parseHexColorString } from '../../colorSpaces';
 import {
   bresenhamLine,
@@ -67,7 +67,7 @@ export class Eraser extends Tool {
     data: SpriteData,
     x: number,
     y: number,
-    isRightClick: boolean
+    isRightClick: boolean,
   ) {
     const { selectedDir, selectedLayer, setPreviewLayer, setPreviewData } =
       context;
@@ -79,15 +79,15 @@ export class Eraser extends Tool {
       this.currentTransaction.addPoint(
         px,
         py,
-        getDataPixel(data, selectedLayer, selectedDir, px, py)
+        getDataPixel(data, selectedLayer, selectedDir, px, py),
       );
     }
     this.lastPoint = [px, py];
     setPreviewLayer(selectedLayer);
     setPreviewData(
       this.currentTransaction.getPreviewLayer(
-        layers[selectedLayer].data[selectedDir]!
-      )
+        layers[selectedLayer].data[selectedDir]!,
+      ),
     );
     return true;
   }
@@ -96,7 +96,7 @@ export class Eraser extends Tool {
     context: SpriteEditorToolContext,
     data: SpriteData,
     x: number,
-    y: number
+    y: number,
   ) {
     const { currentTransaction, lastPoint } = this;
     if (!currentTransaction) return;
@@ -112,12 +112,12 @@ export class Eraser extends Tool {
       currentTransaction.addPoint(
         x,
         y,
-        getDataPixel(data, selectedLayer, selectedDir, x, y)
+        getDataPixel(data, selectedLayer, selectedDir, x, y),
       );
     });
     this.lastPoint = [px, py];
     setPreviewData(
-      currentTransaction.getPreviewLayer(layers[layer].data[dir]!)
+      currentTransaction.getPreviewLayer(layers[layer].data[dir]!),
     );
   }
 
@@ -125,7 +125,7 @@ export class Eraser extends Tool {
     context: SpriteEditorToolContext,
     data: SpriteData,
     x: number,
-    y: number
+    y: number,
   ) {
     if (!this.currentTransaction) return;
     if (this.currentTransaction.points.size !== 0) {

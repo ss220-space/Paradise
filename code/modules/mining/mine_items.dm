@@ -238,6 +238,13 @@
 	inserted_gem.set_light_on(FALSE)
 	refresh_lantern_lights()
 
+/obj/item/flashlight/lantern/on
+	on = TRUE
+
+/obj/item/flashlight/lantern/on/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar

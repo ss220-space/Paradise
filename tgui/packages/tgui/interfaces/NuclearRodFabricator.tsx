@@ -8,7 +8,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from 'tgui/components';
+} from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -55,8 +55,8 @@ export const NuclearRodFabricator = (props) => {
     { key: 'coolant_rods', title: 'Coolant Rods' },
   ];
 
-  const [selectedRod, setSelectedRod] = useState<Rod>(null);
-  const [hoveredRod, setHoveredRod] = useState(null);
+  const [selectedRod, setSelectedRod] = useState<Rod>();
+  const [hoveredRod, setHoveredRod] = useState<Rod>();
   const [activeTab, setActiveTab] = useState(TABS.FABRICATE);
   const [categoryTab, setCategoryTab] = useState('fuel_rods');
 
@@ -143,7 +143,7 @@ export const NuclearRodFabricator = (props) => {
                             }}
                             onClick={() => setSelectedRod(rod)}
                             onMouseEnter={() => setHoveredRod(rod)}
-                            onMouseLeave={() => setHoveredRod(null)}
+                            onMouseLeave={() => setHoveredRod(undefined)}
                           >
                             <Box bold>{rod.name}</Box>
                             <Box fontSize="0.85em" color="label">
@@ -275,7 +275,7 @@ export const NuclearRodFabricator = (props) => {
                                 {selectedRod.neighbor_requirements.map(
                                   (requirement, idx) => (
                                     <Box key={idx}>{requirement}</Box>
-                                  )
+                                  ),
                                 )}
                               </Box>
                             </>
@@ -301,9 +301,9 @@ export const NuclearRodFabricator = (props) => {
                                 ([matName, matAmt], i) => {
                                   // Check if we have enough of this material
                                   const availableResource = Object.entries(
-                                    data.resources || {}
+                                    data.resources || {},
                                   ).find(
-                                    ([resName, resData]) => resName === matName
+                                    ([resName, resData]) => resName === matName,
                                   );
                                   const availableAmount = availableResource
                                     ? availableResource[1].amount
@@ -336,7 +336,7 @@ export const NuclearRodFabricator = (props) => {
                                       </Table.Cell>
                                     </Table.Row>
                                   );
-                                }
+                                },
                               )}
                             </Table>
                           )}
@@ -420,7 +420,7 @@ export const NuclearRodFabricator = (props) => {
                             </Button>
                           </Table.Cell>
                         </Table.Row>
-                      )
+                      ),
                     )}
                   </Table>
                 )}

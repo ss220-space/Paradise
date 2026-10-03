@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(ticker)
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
+	var/list/round_start_events
 	/// Time that the round started
 	var/time_game_started = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
@@ -13,7 +14,11 @@ SUBSYSTEM_DEF(ticker)
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
+	#ifdef AUTOSTART_GAME
+	var/force_start = TRUE
+	#else
 	var/force_start = FALSE
+	#endif
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -92,7 +97,7 @@ SUBSYSTEM_DEF(ticker)
 			var/pregame_timestart = CONFIG_GET(number/pregame_timestart)
 			round_start_time = world.time + (pregame_timestart SECONDS)
 			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
-			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_SEC_MIN(pregame_timestart)].")
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_U_Y_0(pregame_timestart)].")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -122,7 +127,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.start_vote(new /datum/vote/crew_transfer)
+				SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer", forced = TRUE)
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
 			var/game_finished = SSshuttle.emergency?.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -158,7 +163,7 @@ SUBSYSTEM_DEF(ticker)
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
 					if("vote")
-						SSvote.start_vote(new /datum/vote/map)
+						SSvote.initiate_vote(/datum/vote/map, "Map Rotation", forced = TRUE)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
@@ -221,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL_CREDIT(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
+		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL_0_A_OV(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
 		mode = null
 		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
@@ -315,6 +320,11 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+
+	for(var/datum/callback/callback as anything in round_start_events)
+		callback.InvokeAsync()
+
+	LAZYCLEARLIST(round_start_events)
 
 	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
@@ -750,7 +760,7 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = restart_timeout
 
-	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_SEC_MIN(delay/10)]. [reason]"))
+	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_U_Y_0(delay/10)]. [reason]"))
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
@@ -778,6 +788,13 @@ SUBSYSTEM_DEF(ticker)
 
 	log_debug("Initiating world reboot from Ticker subsystem...")
 	world.Reboot()
+
+//These callbacks will fire after roundstart key transfer
+/datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
+	if(!HasRoundStarted())
+		LAZYADD(round_start_events, cb)
+	else
+		cb.InvokeAsync()
 
 // Timers invoke this async
 /datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()

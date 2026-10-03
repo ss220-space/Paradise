@@ -13,6 +13,11 @@ GREEN = "\033[0;32m"
 BLUE = "\033[0;34m"
 NC = "\033[0m"  # No Color
 
+IGNORED_TYPES = [
+    "/datum/asset/simple/tgui",
+    "/datum/asset/simple/tgui_panel",
+]
+
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
         print(f"::error file={filename},line={line_number},title=Restricted Type in File::{filename}:{line_number}: {RED}{message}{NC}")
@@ -48,6 +53,8 @@ if __name__ == "__main__":
                     all_types[typepath].append(Location(code_filepath, idx + 1))
 
     for key, value_list in all_types.items():
+        if key in IGNORED_TYPES:
+            continue
         if len(value_list) > 1:
             for location in value_list:
                 print_error(f"Found a duplicate definition of {key}.", location.filename, location.lineno)

@@ -1,5 +1,11 @@
+import {
+  Box,
+  Button,
+  Divider,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Divider } from '../components';
 import { Window } from '../layouts';
 
 type PollListPanelData = {

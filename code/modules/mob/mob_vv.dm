@@ -93,15 +93,14 @@
 
 		var/list/possibleverbs = list()
 		possibleverbs += "Cancel" // One for the top...
-		possibleverbs += typesof(/mob/proc, /mob/verb, /mob/living/proc, /mob/living/verb)
+		possibleverbs += typesof(/datum/verb_metadata/mob, /datum/verb_metadata/mob/living)
 		switch(type)
 			if(/mob/living/carbon/human)
-				possibleverbs += typesof(/mob/living/carbon/proc, /mob/living/carbon/verb, /mob/living/carbon/human/verb, /mob/living/carbon/human/proc)
+				possibleverbs += typesof(/datum/verb_metadata/mob/living/carbon, /datum/verb_metadata/mob/living/carbon/human)
 			if(/mob/living/silicon/robot)
-				possibleverbs += typesof(/mob/living/silicon/proc, /mob/living/silicon/robot/proc, /mob/living/silicon/robot/verb)
+				possibleverbs += typesof(/datum/verb_metadata/mob/living/silicon, /datum/verb_metadata/mob/living/silicon/robot)
 			if(/mob/living/silicon/ai)
-				possibleverbs += typesof(/mob/living/silicon/proc, /mob/living/silicon/ai/proc, /mob/living/silicon/ai/verb)
-		possibleverbs -= verbs
+				possibleverbs += typesof(/datum/verb_metadata/mob/living/silicon, /datum/verb_metadata/mob/living/silicon/ai)
 		possibleverbs += "Cancel" // ...And one for the bottom
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
@@ -111,7 +110,7 @@
 		if(!verb || verb == "Cancel")
 			return
 
-		add_verb(src, verb)
+		ASSIGN_GAME_VERB_DIRECT(src, verb)
 		message_admins("[key_name_admin(usr)] has given [key_name_admin(src)] the verb [verb]")
 		log_admin("[key_name(usr)] has given [key_name(src)] the verb [verb]")
 

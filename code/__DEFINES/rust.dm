@@ -187,6 +187,8 @@
 
 #define rustlib_clear_uuid_storage(...) RUSTLIB_CALL(clear_uuid_storage)
 
+#define rustlib_exit_byond_process(...) RUSTLIB_CALL(exit_byond_process)
+
 #define RUSTLIB_ICONFORGE_BLEND_COLOR "BlendColor"
 #define RUSTLIB_ICONFORGE_BLEND_ICON "BlendIcon"
 #define RUSTLIB_ICONFORGE_CROP "Crop"

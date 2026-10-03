@@ -7,7 +7,7 @@
 	if(data["source"] == CONFIG_GET(string/instance_id)) // Ignore self messages
 		return
 
-	var/emoji_msg = handleDiscordEmojis(data["message"])
+	var/emoji_msg = handle_emojis(data["message"])
 
 	for(var/client/client as anything in GLOB.admins)
 		if(R_ADMIN & client.holder.rights)

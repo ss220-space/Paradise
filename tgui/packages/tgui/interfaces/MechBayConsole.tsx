@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Button,
@@ -6,7 +5,8 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type MechBayConsoleData = {
@@ -32,14 +32,14 @@ type Cell = {
 export const MechBayConsole = (props: unknown) => {
   const { act, data } = useBackend<MechBayConsoleData>();
   const { recharge_port } = data;
-  const mech = recharge_port && recharge_port.mech;
-  const cell = mech && mech.cell;
-  const name = mech && mech.name;
+  const mech = recharge_port?.mech;
+  const cell = mech?.cell;
+  const name = mech?.name;
   return (
     <Window width={400} height={150}>
       <Window.Content>
         <Section
-          title={!name ? 'Mech status' : 'Mech status: ' + name}
+          title={!name ? 'Mech status' : `Mech status: ${name}`}
           textAlign="center"
           buttons={
             <Button icon="sync" onClick={() => act('reconnect')}>
@@ -78,7 +78,7 @@ export const MechBayConsole = (props: unknown) => {
                     }}
                   >
                     <AnimatedNumber value={cell.charge} />
-                    {' / ' + cell.maxcharge}
+                    {` / ${cell.maxcharge}`}
                   </ProgressBar>
                 )}
             </LabeledList.Item>

@@ -137,9 +137,6 @@
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
-	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
-	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
-
 /mob/living/simple_animal/borer/get_ru_names()
 	return alist(
 		NOMINATIVE = "мозговой червь",
@@ -258,10 +255,7 @@
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
-/mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Говорить носителю"
-	set category = VERB_CATEGORY_BORER
-	set desc = "Toggle whether you will be able to say audible messages while inside your host."
+GAME_VERB_DESC(/mob/living/simple_animal/borer, toggle_silence_inside_host, "Разрешить говорить носителю", "Toggle whether you will be able to say audible messages while inside your host.", VERB_CATEGORY_BORER)
 
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
@@ -799,15 +793,16 @@
 	toggle_hide_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
-	mind.AddSpell(infest_spell)
-	mind.AddSpell(dominate_spell)
+	AddSpell(new /datum/action/cooldown/spell/pointed/borer_infest)
+	AddSpell(new /datum/action/cooldown/spell/pointed/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
-	mind.deactivate_spell(infest_spell)
-	mind.deactivate_spell(dominate_spell)
+	RemoveSpell(/datum/action/cooldown/spell/pointed/borer_infest)
+	RemoveSpell(/datum/action/cooldown/spell/pointed/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
-	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
+	var/datum/action/cooldown/spell/borer_force_say/say_spell = new
+	AddSpell(say_spell)
 	talk_to_host_action.Grant(src)
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
@@ -816,7 +811,9 @@
 	torment_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
-	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
+	var/datum/action/cooldown/spell/borer_force_say/say_spell = locate() in actions
+	RemoveSpell(say_spell)
+	qdel(say_spell)
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)

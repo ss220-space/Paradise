@@ -1,7 +1,7 @@
-import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Tabs, Image } from '../components';
-import { Window } from '../layouts';
 import { useState } from 'react';
+import { Box, Button, Image, Section, Stack, Tabs } from 'tgui-core/components';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 const PickTab = (index: number) => {
   switch (index) {
@@ -118,7 +118,7 @@ const Scans = (_properties) => {
               <Stack.Item>
                 {
                   <Image
-                    src={`data:image/jpeg;base64,${scans[scanIndex]['icon']}`}
+                    src={`data:image/jpeg;base64,${scans[scanIndex].icon}`}
                     style={{
                       width: '64px',
                       margin: '0px',
@@ -126,25 +126,23 @@ const Scans = (_properties) => {
                   />
                 }
               </Stack.Item>
-              <Stack.Item>Существо: {scans[scanIndex]['name']}</Stack.Item>
-              <Stack.Item>Здоровье: {scans[scanIndex]['health']}</Stack.Item>
+              <Stack.Item>Существо: {scans[scanIndex].name}</Stack.Item>
+              <Stack.Item>Здоровье: {scans[scanIndex].health}</Stack.Item>
               <Stack.Item>
-                Минимальный урон: {scans[scanIndex]['dmg_low']}
+                Минимальный урон: {scans[scanIndex].dmg_low}
               </Stack.Item>
               <Stack.Item>
-                Максимальный урон: {scans[scanIndex]['dmg_high']}
+                Максимальный урон: {scans[scanIndex].dmg_high}
               </Stack.Item>
               <Stack.Item>
-                Урон по объектам: {scans[scanIndex]['dmg_obj']}
+                Урон по объектам: {scans[scanIndex].dmg_obj}
               </Stack.Item>
-              <Stack.Item>
-                Требует заряда: {scans[scanIndex]['cost']}
-              </Stack.Item>
+              <Stack.Item>Требует заряда: {scans[scanIndex].cost}</Stack.Item>
               <Stack.Item>
                 <Button
                   onClick={() =>
                     act('create', {
-                      index: scans[scanIndex]['index'],
+                      index: scans[scanIndex].index,
                     })
                   }
                 >
@@ -153,7 +151,7 @@ const Scans = (_properties) => {
                 <Button
                   onClick={() =>
                     act('kill', {
-                      index: scans[scanIndex]['index'],
+                      index: scans[scanIndex].index,
                     })
                   }
                 >
@@ -162,7 +160,7 @@ const Scans = (_properties) => {
                 <Button
                   onClick={() =>
                     act('forget', {
-                      index: scans[scanIndex]['index'],
+                      index: scans[scanIndex].index,
                     })
                   }
                 >

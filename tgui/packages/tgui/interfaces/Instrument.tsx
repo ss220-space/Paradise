@@ -1,5 +1,4 @@
-import { round } from 'common/math';
-import { useBackend } from '../backend';
+import type { ReactNode } from 'react';
 import {
   Box,
   Button,
@@ -10,10 +9,11 @@ import {
   Section,
   Slider,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
-export const Instrument = (properties) => {
+export const Instrument = (_properties: unknown) => {
   return (
     <Window width={600} height={505}>
       <InstrumentHelp />
@@ -66,7 +66,7 @@ const InstrumentHelp = (properties) => {
   return (
     <Modal
       maxWidth="75%"
-      height={window.innerHeight * 0.75 + 'px'}
+      height={`${window.innerHeight * 0.75}px`}
       mx="auto"
       py="0"
       px="0.5rem"
@@ -493,7 +493,7 @@ const InstrumentStatusAdvanced = (properties) => {
         value={sustainLinearDuration}
         step={0.5}
         stepPixelSize={85}
-        format={(v) => round(v * 100, 0) / 100 + ' seconds'}
+        format={(v) => `${round(v * 100, 0) / 100} seconds`}
         onChange={(_e, v) =>
           act('setlinearfalloff', {
             new: v / 10,
@@ -509,7 +509,7 @@ const InstrumentStatusAdvanced = (properties) => {
         maxValue={10}
         value={sustainExponentialDropoff}
         step={0.01}
-        format={(v) => round(v * 1000, 0) / 1000 + '% per decisecond'}
+        format={(v) => `${round(v * 1000, 0) / 1000}% per decisecond`}
         onChange={(_e, v) =>
           act('setexpfalloff', {
             new: v,

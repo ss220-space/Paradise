@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -11,10 +9,12 @@ import {
   Section,
   Stack,
   Tooltip,
-} from '../components';
-import { formatSiUnit } from '../format';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
 
 type CanisterData = {
   portConnected: boolean;
@@ -88,7 +88,7 @@ export const Canister = (_props: unknown) => {
                 value={tankPressure}
                 format={(value) => {
                   if (value < 10000) {
-                    return toFixed(value) + ' kPa';
+                    return `${toFixed(value)} kPa`;
                   }
                   return formatSiUnit(value * 1000, 1, 'Pa');
                 }}

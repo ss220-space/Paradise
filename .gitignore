@@ -43,6 +43,7 @@ fast_paradise.dme
 !config/logs.txt
 !config/maps.txt
 !config/motd.txt
+!config/votes.txt
 
 # ignore cfg, an internal BYOND folder
 /cfg/*
@@ -59,6 +60,9 @@ stddef.dm
 .atom-build.json
 .idea/
 */node_modules/*
+
+# JavaScript tools
+**/node_modules
 
 /tools/bootstrap/.cache/
 

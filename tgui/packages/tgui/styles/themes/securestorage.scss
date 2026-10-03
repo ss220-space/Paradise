@@ -1,28 +1,10 @@
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: hsl(120, 34.1%, 33.9%),
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: hsl(52.3, 40.3%, 84.9%),
-  $color-bg-grad-spread: 6%,
-  $border-radius: 2px
-);
-
-.theme-securestorage {
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: (
-      'background-color': hsl(52.3, 40.3%, 84.9%),
-      'text-color': hsl(60, 6.4%, 9.2%)
-    )
-  );
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../components/Section.scss');
+.theme-securestorage:root {
+  // Base
+  --color-base: hsl(52, 40%, 85%);
+  --color-primary: hsl(120, 34%, 34%);
+  --color-text: hsl(60, 6%, 9%);
+  --base-gradient-spread: 6;
+  --border-radius-unit: 0.17;
 
   .Layout__content {
     background-image: none;

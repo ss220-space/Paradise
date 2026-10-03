@@ -297,6 +297,10 @@
 	var/on = 0
 	var/activation_sound = 'sound/items/buttonclick.ogg'
 
+/obj/item/toy/desk/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_rotation)
+
 /obj/item/toy/desk/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
@@ -309,21 +313,6 @@
 		playsound(src.loc, activation_sound, 75, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
-
-/obj/item/toy/desk/verb/rotate()
-	set name = "Повернуть"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, span_warning("Сейчас ты не можешь этого сделать!"))
-		return
-	dir = turn(dir, 270)
-	return TRUE
-
-/obj/item/toy/desk/click_alt(mob/user)
-	rotate()
-	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"

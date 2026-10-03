@@ -1,5 +1,11 @@
+import {
+  Box,
+  Button,
+  DmIcon,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList, Section, DmIcon } from '../../components';
 
 type DeconstructionData = {
   loaded_item: DeconstructedItem;
@@ -56,7 +62,7 @@ export const DeconstructionMenu = (properties) => {
       <LabeledList>
         {loaded_item.origin_tech.map((item) => {
           return (
-            <LabeledList.Item label={'- ' + item.name} key={item.name}>
+            <LabeledList.Item label={`- ${item.name}`} key={item.name}>
               {item.object_level}{' '}
               {item.current_level ? (
                 <>(На текущий момент: {item.current_level})</>

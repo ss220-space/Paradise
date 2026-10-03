@@ -1,0 +1,122 @@
+//Signals
+
+//General
+#define COMSIG_KB_ACTIVATED (1<<0)
+#define COMSIG_KB_EMOTE "keybinding_emote_down"
+#define UNBOUND_KEY "Unbound"
+
+///Signal sent when a keybind is deactivated
+#define DEACTIVATE_KEYBIND(A) "[A]_DEACTIVATED"
+
+//Admin
+#define COMSIG_KB_ADMIN_TOGGLEBUILDMODE_DOWN "keybinding_admin_togglebuildmode_down"
+#define COMSIG_KB_ADMIN_AGHOST_DOWN "keybinding_admin_aghost_down"
+#define COMSIG_KB_ADMIN_PLAYERPANELNEW_DOWN "keybinding_admin_playerpanelnew_down"
+#define COMSIG_KB_ADMIN_STEALTHMODETOGGLE_DOWN "keybinding_admin_stealthmodetoggle_down"
+#define COMSIG_KB_ADMIN_INVISIMINTOGGLE_DOWN "keybinding_admin_invisimintoggle_down"
+#define COMSIG_KB_ADMIN_DEADMIN_DOWN "keybinding_admin_deadmin_down"
+#define COMSIG_KB_ADMIN_READMIN_DOWN "keybinding_admin_readmin_down"
+#define COMSIG_KB_ADMIN_VIEWTAGS_DOWN "keybinding_admin_viewtags_down"
+#define COMSIG_KB_ADMIN_VERBPANEL_DOWN "keybinding_admin_verbpanel_down"
+#define COMSIG_KB_ADMIN_PM "keybinding_admin_pm"
+#define COMSIG_KB_ADMIN_MC_DEBUG "keybinding_admin_mc_debug"
+
+//Carbon
+#define COMSIG_KB_CARBON_PARRY "keybinding_carbon_parry"
+#define COMSIG_KB_CARBON_INTENT(A) "keybinding_carbon_intent_[A]"
+
+//Client
+#define COMSIG_KB_CLIENT_GETHELP_DOWN "keybinding_client_gethelp_down"
+#define COMSIG_KB_CLIENT_SCREENSHOT_DOWN "keybinding_client_screenshot_down"
+#define COMSIG_KB_CLIENT_SCREENSHOT_AS_DOWN "keybinding_client_screenshot_as_down"
+#define COMSIG_KB_CLIENT_FULLSCREEN_DOWN "keybinding_client_fullscreen_down"
+#define COMSIG_KB_CLIENT_MINIMALHUD_DOWN "keybinding_client_minimalhud_down"
+#define COMSIG_KB_CLIENT_CLOSEUI_DOWN "keybinding_client_closeui_down"
+
+//Communication
+#define COMSIG_KB_CLIENT_COMMUNICATION(A) "keybinding_client_communication_[A]"
+
+#define COMSIG_KB_EMOTE_KEY(A) "keybinding_emote_[A]"
+
+//Human
+#define COMSIG_KB_HUMAN_QUICKEQUIP_DOWN "keybinding_human_quickequip_down"
+#define COMSIG_KB_HUMAN_QUICKEQUIPBELT_DOWN "keybinding_human_quickequipbelt_down"
+#define COMSIG_KB_HUMAN_BAGEQUIP_DOWN "keybinding_human_bagequip_down"
+#define COMSIG_KB_HUMAN_SUITEQUIP_DOWN "keybinding_human_suitequip_down"
+#define COMSIG_KB_HUMAN_LPOCKETEQUIP_DOWN "keybinding_human_lpocketequip_down"
+#define COMSIG_KB_HUMAN_RPOCKETEQUIP_DOWN "keybinding_human_rpocketequip_down"
+#define COMSIG_KB_HUMAN_TOGGLEHOLSTER_DOWN "keybinding_human_toggleholster_down"
+
+//Living
+#define COMSIG_KB_LIVING_RESIST_DOWN "keybinding_living_resist_down"
+#define COMSIG_KB_LIVING_LOOKUP_DOWN "keybinding_living_lookup_down"
+#define COMSIG_KB_LIVING_LOOKDOWN_DOWN "keybinding_living_lookdown_down"
+#define COMSIG_KB_LIVING_REST_DOWN "keybinding_living_rest_down"
+#define COMSIG_KB_LIVING_TOGGLEMOVEINTENT_DOWN "keybinding_mob_togglemoveintent_down"
+#define COMSIG_KB_LIVING_TOGGLEMOVEINTENTALT_DOWN "keybinding_mob_togglemoveintentalt_down"
+#define COMSIG_KB_LIVING_TOGGLETHROWMODE_DOWN "keybinding_living_togglethrowmode_down"
+#define COMSIG_KB_LIVING_HOLDTHROWMODE_DOWN "keybinding_living_holdthrowmode_down"
+#define COMSIG_KB_LIVING_GIVEITEM_DOWN "keybinding_living_giveitem_down"
+
+//Mob
+#define COMSIG_KB_MOB_STOPPULLING_DOWN "keybinding_mob_stoppulling_down"
+#define COMSIG_KB_MOB_CYCLEINTENTRIGHT_DOWN "keybinding_mob_cycleintentright_down"
+#define COMSIG_KB_MOB_SWAPHANDS_DOWN "keybinding_mob_swaphands_down"
+#define COMSIG_KB_MOB_SELECTRIGHTHAND_DOWN "keybinding_mob_selectrighthand_down"
+#define COMSIG_KB_MOB_SELECTLEFTHAND_DOWN "keybinding_mob_selectlefthand_down"
+#define COMSIG_KB_MOB_ACTIVATEINHAND_DOWN "keybinding_mob_activateinhand_down"
+#define COMSIG_KB_MOB_DROPITEM_DOWN "keybinding_mob_dropitem_down"
+#define COMSIG_KB_MOB_TARGETCYCLEHEAD_DOWN "keybinding_mob_targetcyclehead_down"
+#define COMSIG_KB_MOB_TARGETCYCLECHEST_DOWN "keybinding_mob_targetcyclechest_down"
+#define COMSIG_KB_MOB_TARGETCYCLELEFTARM_DOWN "keybinding_mob_targetcycle_l_arm_down"
+#define COMSIG_KB_MOB_TARGETCYCLERIGHTARM_DOWN "keybinding_mob_targetcycle_r_arm_down"
+#define COMSIG_KB_MOB_TARGETCYCLELEFTLEG_DOWN "keybinding_mob_targetcycle_l_leg_down"
+#define COMSIG_KB_MOB_TARGETCYCLERIGHTLEG_DOWN "keybinding_mob_targetcycle_r_leg_down"
+#define COMSIG_KB_MOB_TARGETCYCLEGROIN_DOWN "keybinding_mob_targetcyclegroin_down"
+#define COMSIG_KB_MOB_TARGETHEAD_DOWN "keybinding_mob_targethead_down"
+#define COMSIG_KB_MOB_TARGETEYES_DOWN "keybinding_mob_targeteyes_down"
+#define COMSIG_KB_MOB_TARGETMOUTH_DOWN "keybinding_mob_targetmouth_down"
+#define COMSIG_KB_MOB_TARGETRIGHTARM_DOWN "keybinding_mob_targetrightarm_down"
+#define COMSIG_KB_MOB_TARGETBODYCHEST_DOWN "keybinding_mob_targetbodychest_down"
+#define COMSIG_KB_MOB_TARGETLEFTARM_DOWN "keybinding_mob_targetleftarm_down"
+#define COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN "keybinding_mob_targetrightleg_down"
+#define COMSIG_KB_MOB_TARGETBODYGROIN_DOWN "keybinding_mob_targetbodygroin_down"
+#define COMSIG_KB_MOB_TARGETLEFTLEG_DOWN "keybinding_mob_targetleftleg_down"
+#define COMSIG_KB_MOB_TARGETRIGHTHAND_DOWN "keybinding_mob_targetrighthand_down"
+#define COMSIG_KB_MOB_TARGETLEFTHAND_DOWN "keybinding_mob_targetlefthand_down"
+#define COMSIG_KB_MOB_TARGETRIGHTFOOT_DOWN "keybinding_mob_targetrightfoot_down"
+#define COMSIG_KB_MOB_TARGETLEFTFOOT_DOWN "keybinding_mob_targetleftfoot_down"
+#define COMSIG_KB_MOB_BLOCKMOVEMENT_DOWN "keybinding_mob_blockmovement_down"
+#define COMSIG_KB_MOB_FAST_EQUIP_FROM_BELT_DOWN "keybinding_mob_fast_equip_from_belt_down"
+#define COMSIG_KB_MOB_TOGGLE_GUN_SIGHT_DOWN "keybinding_mob_toggle_gun_sight_down"
+#define COMSIG_KB_MOB_TOGGLE_LASER_SIGHT_DOWN "keybinding_mob_toggle_laser_sight_down"
+#define COMSIG_KB_MOB_TOGGLE_FACING_TO_MOUSE_DOWN "keybinding_mob_toggle_facing_to_mouse_down"
+
+//Robot
+#define COMSIG_KB_SILICON_TOGGLEMODULEONE_DOWN "keybinding_silicon_togglemoduleone_down"
+#define COMSIG_KB_SILICON_TOGGLEMODULETWO_DOWN "keybinding_silicon_togglemoduletwo_down"
+#define COMSIG_KB_SILICON_TOGGLEMODULETHREE_DOWN "keybinding_silicon_togglemodulethree_down"
+#define COMSIG_KB_ROBOT_CYCLE_MODULES_DOWN "keybinding_robot_cycle_modules_down"
+#define COMSIG_KB_ROBOT_DROP_HELD_OBJECT_DOWN "keybinding_robot_drop_held_object_down"
+
+//Movement
+#define COMSIG_KB_MOVEMENT_NORTH_DOWN "keybinding_movement_north_down"
+#define COMSIG_KB_MOVEMENT_SOUTH_DOWN "keybinding_movement_south_down"
+#define COMSIG_KB_MOVEMENT_WEST_DOWN "keybinding_movement_west_down"
+#define COMSIG_KB_MOVEMENT_EAST_DOWN "keybinding_movement_east_down"
+#define COMSIG_KB_MOVEMENT_ZLEVEL_MOVEUP_DOWN "keybinding_mob_zlevel_moveup_down"
+#define COMSIG_KB_MOVEMENT_ZLEVEL_MOVEDOWN_DOWN "keybinding_mob_zlevel_movedown_down"
+
+//AI
+#define COMSIG_KB_AI_CAM1_DOWN "keybinding_ai_cam1_down"
+#define COMSIG_KB_AI_CAM2_DOWN "keybinding_ai_cam2_down"
+#define COMSIG_KB_AI_CAM3_DOWN "keybinding_ai_cam3_down"
+#define COMSIG_KB_AI_CAM4_DOWN "keybinding_ai_cam4_down"
+#define COMSIG_KB_AI_CAM5_DOWN "keybinding_ai_cam5_down"
+#define COMSIG_KB_AI_CAM6_DOWN "keybinding_ai_cam6_down"
+#define COMSIG_KB_AI_CAM7_DOWN "keybinding_ai_cam7_down"
+#define COMSIG_KB_AI_CAM8_DOWN "keybinding_ai_cam8_down"
+#define COMSIG_KB_AI_CAM9_DOWN "keybinding_ai_cam9_down"
+#define COMSIG_KB_AI_CAM10_DOWN "keybinding_ai_cam10_down"
+#define COMSIG_KB_AI_NEXT_CAMERA_DOWN "keybinding_ai_next_camera_down"
+#define COMSIG_KB_AI_PREV_CAMERA_DOWN "keybinding_ai_prev_camera_down"

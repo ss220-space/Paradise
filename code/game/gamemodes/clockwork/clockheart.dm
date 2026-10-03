@@ -13,6 +13,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/list/obj/structure/fillers = list()
 	var/pulse_range = 3
 	mouse_drag_pointer = MOUSE_DROP_POINTER
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	var/cur_enchant = null
 	var/list/enchants
 	var/list/enchanted_before = FALSE
@@ -298,6 +299,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "thisisfuckingstupid"
 	alpha = 1
+	// hide it from the list of atoms available via a right-click.
+	invisibility = INVISIBILITY_MAXIMUM
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	plane = ABOVE_GAME_PLANE
 

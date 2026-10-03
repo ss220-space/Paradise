@@ -384,10 +384,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else			return INTENT_HARM
 
 //change a mob's act-intent. Input the intent as a string such as "help" or use "right"/"left
-/mob/verb/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
-
+/mob/proc/a_intent_change(input as text)
 	if(can_change_intents)
 		if(ishuman(src) || isalienadult(src) || isbrain(src) || isdevil(src))
 			switch(input)
@@ -414,9 +411,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				else
 					hud_used.action_intent.icon_state = "help"
 
-/mob/living/verb/mob_sleep()
-	set name = "Спать"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 
 	if(IsSleeping())
 		to_chat(src, span_notice("Вы уже спите."))

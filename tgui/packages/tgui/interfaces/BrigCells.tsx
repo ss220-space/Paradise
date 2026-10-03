@@ -1,6 +1,12 @@
-import { Window } from '../layouts';
-import { TimeDisplay, Button, Section, Stack, Table } from '../components';
+import {
+  Button,
+  Section,
+  Stack,
+  Table,
+  TimeDisplay,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 type Cell = {
   cell_id: string;

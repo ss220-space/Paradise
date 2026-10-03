@@ -11,22 +11,6 @@
 		air.set_nitrogen(nitrogen)
 		air.set_toxins(toxins)
 		air.set_sleeping_agent(sleeping_agent)
-		air.set_agent_b(agent_b)
-		air.set_hydrogen(hydrogen)
-		air.set_water_vapor(water_vapor)
-		air.set_tritium(tritium)
-		air.set_bz(bz)
-		air.set_pluoxium(pluoxium)
-		air.set_miasma(miasma)
-		air.set_freon(freon)
-		air.set_nitrium(nitrium)
-		air.set_healium(healium)
-		air.set_proto_nitrate(proto_nitrate)
-		air.set_zauker(zauker)
-		air.set_halon(halon)
-		air.set_helium(helium)
-		air.set_antinoblium(antinoblium)
-		air.set_hypernoblium(hypernoblium)
 		air.set_temperature(temperature)
 		return air
 	air.set_oxygen(0)
@@ -55,7 +39,6 @@
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
-	QDEL_NULL(wet_overlay)
 	QDEL_NULL(wind_effect)
 	return ..()
 
@@ -193,22 +176,22 @@
 		nitrogen,
 		toxins,
 		sleeping_agent,
-		agent_b,
-		hydrogen,
-		water_vapor,
-		tritium,
-		bz,
-		pluoxium,
-		miasma,
-		freon,
-		nitrium,
-		healium,
-		proto_nitrate,
-		zauker,
-		halon,
-		helium,
-		antinoblium,
-		hypernoblium,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
 		temperature
 	)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]

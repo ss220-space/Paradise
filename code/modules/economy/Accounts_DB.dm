@@ -92,6 +92,17 @@ GLOBAL_VAR(current_date_string)
 				data["money"] = detailed_account_view.money
 				data["suspended"] = detailed_account_view.suspended
 
+				var/salary_mod = 0
+				var/salary_mod_uid = ""
+				var/datum/economy_process/payment/this_modifier = detailed_account_view.payment_process
+
+				if(this_modifier)
+					salary_mod = this_modifier.modifier;
+					salary_mod_uid = this_modifier.UID()
+
+				data["salary_modifier"] = salary_mod
+				data["salary_modifier_uid"] = salary_mod_uid
+
 				var/list/transactions = list()
 				for(var/datum/transaction/T in detailed_account_view.transaction_log)
 					transactions.Add(list(list(
@@ -130,9 +141,12 @@ GLOBAL_VAR(current_date_string)
 
 		if("toggle_suspension")
 			if(detailed_account_view)
-				detailed_account_view.suspended = !detailed_account_view.suspended
+				detailed_account_view.set_suspended(!detailed_account_view.suspended)
 
 		if("create_new_account")
+			if(GLOB.station_account.suspended)
+				to_chat(usr, span_warning("Ошибка: счет станции был заморожен."))
+				return
 			current_page = AUT_ACCNEW
 
 		if("finalise_create_account")
@@ -244,6 +258,17 @@ GLOBAL_VAR(current_date_string)
 			P.info = text
 			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
+
+		if("set_salary_modifier")
+			var/salary_modifier = clamp(params[SUBSCRIPTION_PARAM_MODIFIER], 0, 1.9)
+			var/sub_uid = params["salary_modifier_uid"]
+
+			var/datum/economy_process/payment/target = locateUID(sub_uid)
+
+			if(!target)
+				return
+
+			target.modifier = salary_modifier
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF

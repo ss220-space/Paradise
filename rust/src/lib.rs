@@ -1,5 +1,6 @@
 mod dmi;
 mod error;
+mod exit;
 mod file;
 mod hash;
 mod iconforge;

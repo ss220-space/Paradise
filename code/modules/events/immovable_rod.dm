@@ -130,9 +130,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		return .
 
 	. += "<span class='notice'>Этот стержень установил следующий счёт: \n\
-		\t<b>[num_mobs_hit]</b> [declension_ru(num_mobs_hit, "живое существо", "живых существа", "живых существ")], \n\
-		\t<b>[num_sentient_mobs_hit]</b> из которых [declension_ru(num_sentient_mobs_hit, "обладало", "обладали", "обладали")] разумом, и \n\
-		\t<b>[num_sentient_people_hit]</b> из них [declension_ru(num_sentient_people_hit, "было гуманоидом", "были гуманоидами", "были гуманоидами")].</span>"
+		\t<b>[num_mobs_hit]</b> жив[DECL_OJE_YH_YH(num_mobs_hit)] существ[DECL_O_A_0(num_mobs_hit)], \n\
+		\t<b>[num_sentient_mobs_hit]</b> из которых обладал[DECL_O_I_I(num_sentient_mobs_hit)] разумом, и \n\
+		\t<b>[num_sentient_people_hit]</b> из них был[DECL_O_I_I(num_sentient_people_hit)] гуманоид[DECL_OM_AMI_AMI(num_sentient_people_hit)].</span>"
 
 /obj/effect/immovablerod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!loc)

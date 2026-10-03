@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 
 export const pages = {
@@ -40,7 +40,7 @@ type RequestConsoleData = Partial<{
 
 export const RequestConsole = (_props: unknown) => {
   const { data } = useBackend<RequestConsoleData>();
-  const { screen } = data;
+  const { screen = -1 } = data;
 
   const renderPage = pages[screen] || pages.default;
 
@@ -53,7 +53,7 @@ export const RequestConsole = (_props: unknown) => {
 
 const MainMenu = (_props: unknown) => {
   const { act, data } = useBackend<RequestConsoleData>();
-  const { newmessagepriority, announcementConsole, silent } = data;
+  const { newmessagepriority = 0, announcementConsole, silent } = data;
   let messageInfo: ReactNode;
   if (newmessagepriority === 1) {
     messageInfo = <Box color="red">There are new messages</Box>;
@@ -144,19 +144,19 @@ const DepartmentList = (props: DepartmentListProps) => {
   const { act, data } = useBackend<RequestConsoleData>();
   const { department } = data;
 
-  let list2iterate: string[];
-  let sectionTitle: string;
+  let list2iterate: string[] = [];
+  let sectionTitle: string = '';
   switch (props.purpose) {
     case 'ASSISTANCE':
-      list2iterate = data.assist_dept;
+      list2iterate = data.assist_dept || [];
       sectionTitle = 'Request assistance from another department';
       break;
     case 'SUPPLIES':
-      list2iterate = data.supply_dept;
+      list2iterate = data.supply_dept || [];
       sectionTitle = 'Request supplies from another department';
       break;
     case 'INFO':
-      list2iterate = data.info_dept;
+      list2iterate = data.info_dept || [];
       sectionTitle = 'Relay information to another department';
       break;
   }
@@ -203,7 +203,7 @@ type MessageResponseProps = {
 const MessageResponse = (props: MessageResponseProps) => {
   const { act } = useBackend();
 
-  let sectionTitle: string;
+  let sectionTitle: string = '';
   switch (props.type) {
     case 'SUCCESS':
       sectionTitle = 'Message sent successfully';
@@ -235,15 +235,15 @@ type MessageLogProps = {
 const MessageLog = (props: MessageLogProps) => {
   const { act, data } = useBackend<RequestConsoleData>();
 
-  let list2iterate: string[];
-  let sectionTitle: string;
+  let list2iterate: string[] = [];
+  let sectionTitle: string = '';
   switch (props.type) {
     case 'MESSAGES':
-      list2iterate = data.message_log;
+      list2iterate = data.message_log || [];
       sectionTitle = 'Message Log';
       break;
     case 'SHIPPING':
-      list2iterate = data.shipping_log;
+      list2iterate = data.shipping_log || [];
       sectionTitle = 'Shipping label print log';
       break;
   }
@@ -380,7 +380,7 @@ const PrintShippingLabel = (_props: unknown) => {
       </Button>
       <Section title="Destinations" mt={1}>
         <LabeledList>
-          {ship_dept.map((d) => (
+          {ship_dept?.map((d) => (
             <LabeledList.Item label={d} key={d}>
               <Button
                 selected={shipDest === d}

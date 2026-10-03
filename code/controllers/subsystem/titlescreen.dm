@@ -279,7 +279,7 @@ SUBSYSTEM_DEF(title)
 	if(!viewer)
 		return
 
-	var/current_theme = color2tguitheme[winget(viewer, "mainwindow", "background-color")]// we sleep here and can loose client
+	var/current_theme = color2tguitheme[winget(viewer, SKIN_MAINWINDOW, "background-color")]// we sleep here and can loose client
 	if(!viewer)
 		return
 

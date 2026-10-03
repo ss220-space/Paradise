@@ -6,8 +6,6 @@
 	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = FALSE
 
-	bomb_name = "contact mine"
-
 /obj/item/assembly/mousetrap/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
@@ -152,13 +150,6 @@
 /obj/item/assembly/mousetrap/click_alt(mob/user)
 	hide_under(user)
 	return CLICK_ACTION_SUCCESS
-
-/obj/item/assembly/mousetrap/verb/hide_under_verb()
-	set src in oview(1)
-	set name = "Спрятать"
-	set category = VERB_CATEGORY_OBJECT
-
-	hide_under(usr)
 
 /obj/item/assembly/mousetrap/proc/hide_under(mob/user = usr)
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

@@ -39,8 +39,18 @@ export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
 export const MESSAGE_TYPE_DEBUG = 'debug';
 
+type MessageType = {
+  type: string;
+  name: string;
+  description: string;
+} & Partial<{
+  selector: string;
+  important: boolean;
+  admin: boolean;
+}>;
+
 // Metadata for each message type
-export const MESSAGE_TYPES = [
+export const MESSAGE_TYPES: MessageType[] = [
   // Always-on types
   {
     type: MESSAGE_TYPE_SYSTEM,
@@ -139,13 +149,14 @@ export const MESSAGE_TYPES = [
     name: 'Admin Log',
     description:
       'ADMIN LOG: Vasya the Pedalique has jumped to coordinates X, Y, Z',
-    selector: '.log_message',
+    selector: '.admin',
     admin: true,
   },
   {
     type: MESSAGE_TYPE_ATTACKLOG,
     name: 'Attack Log',
     description: 'Vasya the Pedalique has shot Rob Uster',
+	selector: '.admin_attack ',
     admin: true,
   },
   {

@@ -303,14 +303,14 @@
 	. = ..()
 	if(!used)
 		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 			return
 
 		if(!reusable)
 			used = TRUE
 
 		var/turf/T = get_turf(src)
-		T.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] ярко вспыхива[PLUR_ET_YUT(src)]!"))
+		T.visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] ярко вспыхива[PLUR_ET_YUT(src)]!"))
 
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
@@ -318,7 +318,7 @@
 	. = ..()
 
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"))
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)

@@ -1,5 +1,5 @@
-import { Button, ColorBox, Flex, Section, Stack } from 'tgui/components';
-import type { BooleanLike } from 'common/react';
+import { Button, ColorBox, Flex, Section, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -60,14 +60,14 @@ export const DecalPainter = (props) => {
   } = data;
 
   const active_category_info = categories.find(
-    (category) => category.category === active_category
+    (category) => category.category === active_category,
   );
   const decal_list = active_category_info?.decal_list || [];
   const color_list = active_category_info?.color_list || [];
   const dir_list = active_category_info?.dir_list || [];
 
   const custom_color_selected = !color_list.some(
-    (color) => color.color === current_color
+    (color) => color.color === current_color,
   );
 
   // Handle custom color icon correctly

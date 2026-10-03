@@ -73,13 +73,14 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
-		AddElement(/datum/element/surgery_initiator)
+		AddComponent(/datum/component/surgery_initiator)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+	add_deep_lore()
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -246,18 +247,22 @@
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
+	if(obj_flags & NODECONSTRUCT)
+		return FALSE
+
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(obj_flags & NODECONSTRUCT))
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
-		if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
-			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
-			set_anchored(!anchored)
-		return TRUE
-	return FALSE
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
+	if(!I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
+		return FALSE
+
+	to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
+	set_anchored(!anchored)
+	return TRUE
 
 /obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -318,7 +323,7 @@
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
-		AddElement(/datum/element/surgery_initiator)
+		AddComponent(/datum/component/surgery_initiator)
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
@@ -393,3 +398,10 @@
 	for(var/atom/atom_to_display in items_to_log)
 		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
 	target_uplink.purchase_log += new_purchase_logs
+
+/**
+ * Use this proc to attach `/datum/element/examine_lore` to an object.
+ * Override if needed.
+ */
+/obj/proc/add_deep_lore()
+	return

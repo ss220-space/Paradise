@@ -1,36 +1,32 @@
-/obj/effect/proc_holder/spell/borer_infest
+/datum/action/cooldown/spell/pointed/borer_infest
 	name = "Infest"
 	desc = "Infest a suitable humanoid host."
-	base_cooldown = 0
-	clothes_req = FALSE
-	action_icon_state = "infest"
-	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice_alt("Вы приготовились заразить жертву. <b>Left-click чтобы применить способность!</b>")
-	selection_deactivated_message = span_notice_alt("Вы прекратили свои попытки заразить жертву.")
-	need_active_overlay = TRUE
-	human_req = FALSE
+	spell_requirements = NONE
+	button_icon_state = "infest"
+	background_icon_state = "bg_alien"
+	background_icon_state_active = "bg_alien"
+	active_msg = span_notice_alt("Вы приготовились заразить жертву. <b>Left-click чтобы применить способность!</b>")
+	deactive_msg = span_notice_alt("Вы прекратили свои попытки заразить жертву.")
+	cast_range = 1
 	var/infesting = FALSE
 	var/cast_time = 5 SECONDS
 
-/obj/effect/proc_holder/spell/borer_infest/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.range = 1
-	T.click_radius = -1
-	return T
-
-/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-
+/datum/action/cooldown/spell/pointed/borer_infest/can_cast_spell(feedback)
+	if(!isborer(owner))
+		return FALSE
+	var/mob/living/simple_animal/borer/user = owner
 	if(is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
+	return ..()
 
-	. = ..()
-
-/obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
+/datum/action/cooldown/spell/pointed/borer_infest/is_valid_target(atom/cast_on)
+	var/mob/living/carbon/human/target = cast_on
 	return istype(target) && target.stat != DEAD && !ismachineperson(target) && !isdevilantag(target)
 
-/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user)
-	var/mob/living/carbon/human/target = targets[1]
-
+/datum/action/cooldown/spell/pointed/borer_infest/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
+	var/mob/living/simple_animal/borer/user = owner
 	if(!target)
 		return
 
@@ -61,70 +57,60 @@
 	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
 	SEND_SIGNAL(user, COMSIG_BORER_ENTERED_HOST)
 
-/obj/effect/proc_holder/spell/borer_dominate
+/datum/action/cooldown/spell/pointed/borer_dominate
 	name = "Dominate Victim"
 	desc = "Freeze the limbs of a potential host with supernatural fear."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "genetic_cryo"
-	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice_alt("Вы приготовились поразить жертву. <b>Left-click чтобы применить способность!</b>")
-	selection_deactivated_message = span_notice_alt("Вы решили дать своей жертве шанс. Пока что.")
-	need_active_overlay = TRUE
-	human_req = FALSE
-
+	cooldown_time = 30 SECONDS
+	spell_requirements = NONE
+	button_icon_state = "genetic_cryo"
+	background_icon_state = "bg_alien"
+	background_icon_state_active = "bg_alien"
+	active_msg = span_notice_alt("Вы приготовились поразить жертву. <b>Left-click чтобы применить способность!</b>")
+	deactive_msg = span_notice_alt("Вы решили дать своей жертве шанс. Пока что.")
+	cast_range = 3
 	var/weaken_time = 6 SECONDS
 
-/obj/effect/proc_holder/spell/borer_dominate/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.range = 3
-	T.click_radius = -1
-	return T
-
-/obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-	if(is_ventcrawling(user) || !src || user.stat)
+/datum/action/cooldown/spell/pointed/borer_dominate/can_cast_spell(feedback)
+	var/mob/living/simple_animal/borer/user = owner
+	if(!istype(user)|| is_ventcrawling(user) || user.stat)
 		return FALSE
+	return ..()
 
-	. = ..()
-
-/obj/effect/proc_holder/spell/borer_dominate/valid_target(mob/living/carbon/human/target, user)
+/datum/action/cooldown/spell/pointed/borer_dominate/is_valid_target(atom/cast_on)
+	var/mob/living/carbon/human/target = cast_on
 	return istype(target) && target.stat != DEAD
 
-/obj/effect/proc_holder/spell/borer_dominate/cast(list/targets, mob/living/simple_animal/borer/user)
-	var/mob/living/carbon/human/target = targets[1]
+/datum/action/cooldown/spell/pointed/borer_dominate/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
 
 	if(target.has_brain_worms())
-		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
+		to_chat(owner, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
 		return
 
-	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [GEND_HIS_HER(target)] конечности волной первородного ужаса!"))
+	to_chat(owner, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [GEND_HIS_HER(target)] конечности волной первородного ужаса!"))
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(weaken_time)
 
-/obj/effect/proc_holder/spell/borer_force_say
+/datum/action/cooldown/spell/borer_force_say
 	name = "Speak as host"
 	desc = "Force your host to say something."
+	cooldown_time = 15
+	spell_requirements = NONE
+	check_flags = NONE
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	background_icon_state = "bg_alien"
+	button_icon_state = "god_transmit"
 
-	base_cooldown = 15
-
-	clothes_req = FALSE
-	human_req = FALSE
-
-	action_icon = 'icons/mob/actions/actions_animal.dmi'
-	action_background_icon_state = "bg_alien"
-	action_icon_state = "god_transmit"
-	need_active_overlay = TRUE
-
-/obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if(user.stat || user.host?.stat)
+/datum/action/cooldown/spell/borer_force_say/can_cast_spell(feedback)
+	var/mob/living/simple_animal/borer/user = owner
+	if(!istype(user) || user.stat || user.host?.stat)
 		return FALSE
+	return ..()
 
+/datum/action/cooldown/spell/borer_force_say/cast(atom/cast_on)
 	. = ..()
-
-/obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
+	var/mob/living/simple_animal/borer/user = owner
 	var/force_say_content = tgui_input_text(user, "Content:", "Host forcesay")
 
 	if(!force_say_content)
@@ -135,3 +121,6 @@
 
 	user.host.say(force_say_content)
 	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
+
+/datum/action/cooldown/spell/borer_force_say/get_caster_from_target(atom/target)
+	return target

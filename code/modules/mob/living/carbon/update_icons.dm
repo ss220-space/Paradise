@@ -37,8 +37,9 @@
 		var/is_vertical = !lying_angle || !rotate_on_lying
 		var/new_translation = get_transform_translation_size(resize * current_size)
 		///scaling also affects translation, so we've to undo the old translate beforehand.
-		if(translate && is_vertical)
-			ntransform.Translate(0, -translate)
+		if(is_vertical)
+			var/old_translation = get_transform_translation_size(current_size)
+			ntransform.Translate(0, -old_translation)
 		ntransform.Scale(resize)
 		current_size *= resize
 		//Update the height of the maptext according to the size of the mob so they don't overlap.

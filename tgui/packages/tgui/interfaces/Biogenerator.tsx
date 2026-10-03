@@ -1,17 +1,16 @@
-import { useBackend, useSharedState } from '../backend';
 import {
-  Button,
-  Section,
   Box,
-  Stack,
-  Icon,
+  Button,
   Collapsible,
+  Icon,
   NumberInput,
   ProgressBar,
-} from '../components';
-import { Window } from '../layouts';
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { useBackend, useSharedState } from '../backend';
 import { Operating } from '../interfaces/common/Operating';
-import { Key } from 'react';
+import { Window } from '../layouts';
 
 type BiogeneratorProps = {
   processing: boolean;
@@ -28,7 +27,7 @@ type Product = {
   name: string;
   cost: number;
   needs_container: boolean;
-} & Key;
+};
 
 export const Biogenerator = (props: unknown) => {
   const { data, config } = useBackend<BiogeneratorProps>();
@@ -145,17 +144,17 @@ const Products = (props: unknown) => {
   const { act, data } = useBackend<BiogeneratorProps>();
   const { biomass, product_list, container } = data;
 
-  let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
+  const [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
-  let content = Object.entries(product_list).map((kv, _i) => {
-    let category_items = Object.entries(kv[1]).map((kv2) => {
+  const content = Object.entries(product_list).map((kv, _i) => {
+    const category_items = Object.entries(kv[1]).map((kv2) => {
       return kv2[1];
     });
 
     return (
       <Collapsible key={kv[0]} title={kv[0]} open>
         {category_items.map((item) => (
-          <Stack key={item} py="2px" className="candystripe" align="center">
+          <Stack key={item.id} py="2px" className="candystripe" align="center">
             <Stack.Item width="50%" ml="2px">
               {item.name}
             </Stack.Item>

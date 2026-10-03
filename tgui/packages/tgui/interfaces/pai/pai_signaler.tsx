@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Signaler, SignalerProps } from '../common/Signaler';
+import { Signaler, type SignalerProps } from '../common/Signaler';
 
 export const pai_signaler = (props: unknown) => {
   const { data } = useBackend<PaiData<SignalerProps>>();

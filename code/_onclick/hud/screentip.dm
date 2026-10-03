@@ -13,8 +13,6 @@
 
 /atom/movable/screen/screentip/proc/update_view(datum/source)
 	SIGNAL_HANDLER
-	if(!hud?.mymob?.client) // Might not have been initialized by now
+	if(!hud || !hud.mymob.canon_client?.view_size) // Might not have been initialized by now
 		return
-	var/list/view_size = getviewsize(hud.mymob.client.view)
-	var/view = "[view_size[1]]x[view_size[2]]"
-	maptext_width = view_to_pixels(view)[1]
+	maptext_width = view_to_pixels(hud.mymob.canon_client.view_size.getView())[1]

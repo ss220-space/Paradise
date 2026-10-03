@@ -1,15 +1,15 @@
-import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
-  Button,
-  LabeledList,
   Box,
-  Section,
+  Button,
   Collapsible,
   Input,
+  LabeledList,
+  Section,
   Stack,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const windows = {
@@ -154,7 +154,7 @@ const AuthBlock = (props: unknown) => {
                   disabled={noauthbutton}
                   onClick={() => act('auth')}
                 >
-                  {authenticated ? 'Выйти (' + authReadable + ')' : 'Войти'}
+                  {authenticated ? `Выйти (${authReadable})` : 'Войти'}
                 </Button>
               </LabeledList.Item>
             )}
@@ -330,14 +330,14 @@ const PlayerPage = (props: unknown) => {
 
   let announceText = 'Сделать приоритетное оповещение';
   if (msg_cooldown > 0) {
-    announceText += ' (' + msg_cooldown + 's)';
+    announceText += ` (${msg_cooldown}s)`;
   }
 
   let ccMessageText = emagged ? 'Сообщение [НЕИЗВЕСТНО]' : 'Сообщение ЦК';
   let nukeRequestText = 'Запросить коды аутентификации';
   if (cc_cooldown > 0) {
-    ccMessageText += ' (' + cc_cooldown + 's)';
-    nukeRequestText += ' (' + cc_cooldown + 's)';
+    ccMessageText += ` (${cc_cooldown}s)`;
+    nukeRequestText += ` (${cc_cooldown}s)`;
   }
 
   return (
@@ -425,7 +425,7 @@ const PlayerPage = (props: unknown) => {
                 disabled={!authhead}
                 onClick={() => act('messagelist')}
               >
-                {'Просмотреть (' + messages.length + ')'}
+                {`Просмотреть (${messages.length})`}
               </Button>
             </LabeledList.Item>
           </LabeledList>
@@ -440,7 +440,7 @@ const StatusScreens = (props: unknown) => {
 
   const { stat_display, authhead } = data;
 
-  let presetButtons = stat_display.presets.map((pb) => {
+  const presetButtons = stat_display.presets.map((pb) => {
     return (
       <Button
         key={pb.name}
@@ -452,7 +452,7 @@ const StatusScreens = (props: unknown) => {
       </Button>
     );
   });
-  let iconButtons = stat_display.alerts.map((ib) => {
+  const iconButtons = stat_display.alerts.map((ib) => {
     return (
       <Button
         key={ib.alert}
@@ -529,7 +529,7 @@ const MessageView = (props: unknown) => {
       </Stack.Item>
     );
   } else {
-    let messageRows = messages.map((m) => {
+    const messageRows = messages.map((m) => {
       return (
         <LabeledList.Item key={m.id} label={m.title}>
           <Button

@@ -1028,3 +1028,32 @@
 /datum/sprite_accessory/hair/lord
 	name = "The Lord of Hongyuan"
 	icon_state = "lord_of_hongyuan"
+
+/datum/sprite_accessory/hair/dumbass
+	name = "Dumbass"
+	icon_state = "dumbass"
+	unsuitable_gender = MALE
+	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/skuf_cut
+	name = "Skuf Cut"
+	icon_state = "skuf_cut"
+	unsuitable_gender = MALE
+	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/elban
+	name = "Elban"
+	icon_state = "elban"
+	unsuitable_gender = MALE
+	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/braindead
+	name = "Braindead"
+	icon_state = "braindead"
+	unsuitable_gender = MALE
+	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/chainsmoker
+	name = "Chain Smoker"
+	icon_state = "chainsmoker"
+	species_allowed = list(SPECIES_HUMAN)

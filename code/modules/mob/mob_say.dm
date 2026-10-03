@@ -5,10 +5,8 @@
 /mob/proc/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
-/mob/verb/whisper_verb(message as text)
-	set name = "Шептать"
-	set category = VERB_CATEGORY_IC
-	set instant = TRUE
+GAME_VERB(/mob, whisper_verb, VERB_WHISPER, VERB_CATEGORY_IC)
+	VERB_ARG(message, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 
 	if(!message)
 		return
@@ -18,10 +16,8 @@
 /mob/proc/whisper(message)
 	return
 
-/mob/verb/say_verb(message as text)
-	set name = "Сказать"
-	set category = VERB_CATEGORY_IC
-	set instant = TRUE
+GAME_VERB(/mob, say_verb, VERB_SAY, VERB_CATEGORY_IC)
+	VERB_ARG(message, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
 	set_typing_indicator(FALSE)
@@ -31,9 +27,8 @@
 
 	QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, TYPE_PROC_REF(/mob, say), message), SSspeech_controller)
 
-/mob/verb/me_verb(message as text)
-	set name = "Эмоция"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, me_verb, VERB_ME, VERB_CATEGORY_IC)
+	VERB_ARG(message, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 
 	message = strip_html_properly(message)
 
@@ -48,7 +43,7 @@
 		QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, TYPE_PROC_REF(/mob, emote), "me", 1, message, TRUE), SSspeech_controller)
 
 /mob/proc/say_dead(message)
-	message = handleDiscordEmojis(apply_message_emphasis(message))
+	message = handle_emojis(apply_message_emphasis(message))
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))

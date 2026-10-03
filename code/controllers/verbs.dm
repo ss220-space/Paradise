@@ -25,7 +25,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 	name = text
 	return src
 
-ADMIN_VERB(restart_controller, R_DEBUG, "Restart Controller", "Restart one of the various periodic loop controllers for the game (be careful!)", ADMIN_CATEGORY_DEBUG, controller in list("Master", "Failsafe"))
+
+ADMIN_VERB(restart_controller, R_DEBUG, "Restart Controller", "Restart one of the various periodic loop controllers for the game (be careful!)", ADMIN_CATEGORY_DEBUG)
+	VERB_ARG_LIST(controller, list("Master", "Failsafe"))
 	switch(controller)
 		if("Master")
 			Recreate_MC()

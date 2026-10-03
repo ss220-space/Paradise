@@ -159,7 +159,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)
 "jl" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

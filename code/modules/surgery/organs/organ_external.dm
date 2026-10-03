@@ -150,7 +150,7 @@
 	else
 		application_surgery = /datum/surgery/reattach_synth
 
-	AddElement(/datum/element/surgery_initiator/limb, forced_surgery = application_surgery)
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
 /obj/item/organ/external/Destroy()
 	if(parent)
@@ -1192,8 +1192,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// override the existing initiator
 
 	if(!is_robotic())
-		RemoveElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach)
-		AddElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
+		qdel(GetComponent(/datum/component/surgery_initiator/limb))
+		AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)

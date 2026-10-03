@@ -23,7 +23,7 @@
 	anchored = TRUE
 
 	/// The coffee pot currently in the machine
-	var/obj/item/reagent_containers/glass/coffeepot/coffeepot
+	var/obj/item/reagent_containers/cup/coffeepot/coffeepot
 	/// Whether the machine is currently brewing
 	var/brewing = FALSE
 	/// Time required to brew coffee
@@ -86,12 +86,12 @@
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n" + span_notice("- Скорость варки — <b>[speed * 100]</b>%.")
 		if(coffeepot?.reagents.total_volume)
-			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[DECL_SEC_MIN(coffeepot.reagents.total_volume)] вещества.")
+			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[DECL_U_Y_0(coffeepot.reagents.total_volume)] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
 				. += span_notice("- Картридж <b>пуст</b>.")
 			else
-				. += span_notice("- Картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[declension_ru(cartridge.charges, "е", "я", "й")].")
+				. += span_notice("- Картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[DECL_E_YA_J(cartridge.charges)].")
 	else
 		. += span_boldwarning("Дисплей не работает!")
 
@@ -102,7 +102,7 @@
 
 	if(!uses_cartridges)
 		if(length(coffee))
-			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[declension_ru(length(coffee), "ю", "и", "й")] кофе.")
+			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[DECL_YU_I_J(length(coffee))] кофе.")
 		else
 			. += span_notice("Отсек для зёрен <b>пуст</b>.")
 
@@ -114,7 +114,7 @@
 	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
+	if(istype(attack_item, /obj/item/reagent_containers/cup/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
 		handle_coffeepot_insertion(user, attack_item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -144,7 +144,7 @@
 	update_appearance(UPDATE_OVERLAYS)
 	return item_slot
 
-/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/glass/coffeepot/new_coffeepot)
+/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/cup/coffeepot/new_coffeepot)
 	coffeepot = handle_item_replacement(user, new_coffeepot, coffeepot, "кофейник заменён", "кофейник вставлен", "кофейник извлечён")
 
 /obj/machinery/coffeemaker/proc/replace_cartridge(mob/living/user, obj/item/coffee_cartridge/new_cartridge)
@@ -226,7 +226,7 @@
 		balloon_alert(user, "техпанель открыта!")
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/reagent_containers/glass/coffeepot/new_pot = inserting_item
+	var/obj/item/reagent_containers/cup/coffeepot/new_pot = inserting_item
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!user.transfer_item_to_loc(new_pot, src))
@@ -299,7 +299,7 @@
 	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
-		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
+		coffeepot = new /obj/item/reagent_containers/cup/coffeepot(src)
 		cartridge = new /obj/item/coffee_cartridge(src)
 
 	component_parts = list()
@@ -376,7 +376,7 @@
 	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
-		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
+		coffeepot = new /obj/item/reagent_containers/cup/coffeepot(src)
 		cartridge = null
 
 	component_parts = list()

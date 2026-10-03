@@ -30,8 +30,10 @@ GLOBAL_PROTECT(href_token)
 	var/datum/particle_editor/particle_test
 	var/datum/colorblind_tester/color_test
 	var/datum/plane_master_debug/plane_debug
+	var/datum/appearance_debugger/appearance_debug
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
+	var/datum/pathfind_debug/path_debug
 
 	/// A lazylist of tagged datums, for quick reference with the View Tags verb
 	var/list/tagged_datums
@@ -52,6 +54,7 @@ GLOBAL_PROTECT(href_token)
 	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 	plane_debug = new(src)
+	appearance_debug = new(src)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
@@ -59,6 +62,8 @@ GLOBAL_PROTECT(href_token)
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
 	QDEL_NULL(plane_debug)
+	QDEL_NULL(appearance_debug)
+	QDEL_NULL(path_debug)
 	return ..()
 
 /datum/admins/proc/associate(client/C)
@@ -70,9 +75,10 @@ GLOBAL_PROTECT(href_token)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
-		remove_verb(owner, /client/proc/readmin)
+		UNASSIGN_GAME_VERB(owner, /client, readmin)
 		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
+		//owner.set_stat_panel()
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -83,6 +89,7 @@ GLOBAL_PROTECT(href_token)
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
 		owner.init_verbs()
+		//owner.set_stat_panel()
 		owner.holder = null
 		owner = null
 

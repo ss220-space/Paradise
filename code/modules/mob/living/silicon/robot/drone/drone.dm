@@ -53,10 +53,10 @@
 	holder_type = /obj/item/holder/drone
 
 	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor,
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon/robot, self_diagnosis),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
 	)
 	hat_offset_y = -15
 	isCentered = TRUE
@@ -106,7 +106,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
+	UNASSIGN_GAME_VERB(src, /mob/living/silicon/robot, Namepick)
 	module = new /obj/item/robot_module/drone(src)
 
 	//Allows Drones to hear the Engineering channel.
@@ -213,7 +213,7 @@
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[DECL_SEC_MIN(cooldown_time)]."))
+				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[DECL_U_Y_0(cooldown_time)]."))
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
 				span_warning("[user] провёл[GEND_A_O_I(user)] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
@@ -417,10 +417,12 @@
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	add_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		ASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	remove_verb(src, silicon_subsystems)
+	for(var/verb in silicon_subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(src, verb)
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)

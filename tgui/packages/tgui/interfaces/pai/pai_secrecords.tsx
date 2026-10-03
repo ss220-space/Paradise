@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { RecordsProps, SimpleRecords } from '../common/SimpleRecords';
+import { type RecordsProps, SimpleRecords } from '../common/SimpleRecords';
 
-export const pai_secrecords = (props: unknown) => {
+export const pai_secrecords = (_props: unknown) => {
   const { data } = useBackend<PaiData<RecordsProps>>();
-  return <SimpleRecords recordType="SEC" {...data.app_data} />;
+  return <SimpleRecords typeOfRecord="SEC" {...data.app_data} />;
 };

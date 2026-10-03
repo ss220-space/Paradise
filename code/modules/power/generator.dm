@@ -17,9 +17,12 @@
 
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+	/// Looping ambient sound of the thermoelectric generator.
+	var/datum/looping_sound/thermogenerator/soundloop
 
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
+	soundloop = new(src, FALSE)
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 	connect()
 
@@ -29,6 +32,7 @@
 
 /obj/machinery/power/generator/Destroy()
 	disconnect()
+	QDEL_NULL(soundloop)
 	return ..()
 
 /obj/machinery/power/generator/proc/disconnect()
@@ -85,9 +89,11 @@
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
+		soundloop.stop()
 		return
 
 	if(!cold_circ || !hot_circ)
+		soundloop.stop()
 		return
 
 	lastgen = 0
@@ -145,6 +151,11 @@
 		lastgenlev = genlev
 		lastcirc = circ
 		update_icon(UPDATE_OVERLAYS)
+
+	if(lastgen > 0)
+		soundloop.start()
+	else
+		soundloop.stop()
 
 	updateDialog()
 

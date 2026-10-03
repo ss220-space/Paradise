@@ -22,10 +22,6 @@
 	index_name = "top hat"
 	path = /obj/item/clothing/head/that
 
-/datum/gear/hat/flatcap
-	index_name = "flat cap"
-	path = /obj/item/clothing/head/flatcap
-
 /datum/gear/hat/ushanka
 	index_name = "ushanka"
 	path = /obj/item/clothing/head/ushanka
@@ -165,6 +161,30 @@
 	path = /obj/item/clothing/head/beret/atmos
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
+/datum/gear/hat/blacksombrero
+	index_name = "Black Sombrero"
+	path = /obj/item/clothing/head/fluff/blacksombrero
+
+/datum/gear/hat/guardhelm
+	index_name = "Plastic Guard helm"
+	path = /obj/item/clothing/head/fluff/guardhelm
+
+/datum/gear/hat/goldtophat
+	index_name = "Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat
+
+/datum/gear/hat/goldtophat/red
+	index_name = "Red Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/red
+
+/datum/gear/hat/goldtophat/blue
+	index_name = "Blue Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/blue
+
+/datum/gear/hat/mushhat
+	index_name = "Mushroom Hat"
+	path = /obj/item/clothing/head/fluff/mushhat
+
 /datum/gear/hat/surgicalcap
 	index_name = "surgical cap, select"
 	display_name = "Хирургическая шапочка"
@@ -227,3 +247,11 @@
 /datum/gear/hat/headband/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/hat/jew_hat
+	index_name = "jew hat"
+	path = /obj/item/clothing/head/jew_hat
+
+/datum/gear/hat/flatcap
+	index_name = "flatcap"
+	path = /obj/item/clothing/head/flatcap

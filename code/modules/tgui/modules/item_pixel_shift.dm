@@ -1,6 +1,4 @@
-/obj/item/verb/shift_position()
-	set name = "Shift Item Pixel Position"
-	set src in oview(1)
+GAME_VERB_SRC(/obj/item, shift_position, oview(1), "Shift Item Pixel Position", VERB_CATEGORY_HIDDEN)
 
 	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
 		return

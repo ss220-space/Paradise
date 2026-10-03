@@ -68,3 +68,7 @@
 
 	return ..()
 
+/obj/item/implantcase/examine(mob/user)
+	. = ..()
+	if(imp)
+		. += span_notice("Внутри содержится [imp.declent_ru(NOMINATIVE)]")

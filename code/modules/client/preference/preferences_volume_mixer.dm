@@ -111,9 +111,7 @@
 		return 1
 	return clamp(volume_mixer[channel] / 100, 0, 1)
 
-/client/verb/volume_mixer()
-	set name = "Микшер громкости"
-	set category = VERB_CATEGORY_SPECIALVERBS
+GAME_VERB(/client, volume_mixer, "Микшер громкости", VERB_CATEGORY_SPECIALVERBS)
 
 	var/datum/ui_module/volume_mixer/VM = new()
 	VM.ui_interact(usr)

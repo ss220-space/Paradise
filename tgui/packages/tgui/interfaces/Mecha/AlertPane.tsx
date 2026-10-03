@@ -1,5 +1,4 @@
-import { Box, Button, Dimmer, Icon, Section, Stack } from '../../components';
-
+import { Box, Button, Icon, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
 import type { MainData } from './data';
 import { useHonk } from './honk';
@@ -53,7 +52,7 @@ export const AlertPane = (props) => {
                   {honk(
                     internal_damage & internal_damage_keys[t]
                       ? InternalDamageToDamagedDesc[t]
-                      : InternalDamageToNormalDesc[t]
+                      : InternalDamageToNormalDesc[t],
                   )}
                 </Box>
               </Stack.Item>

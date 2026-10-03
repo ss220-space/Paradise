@@ -11,6 +11,8 @@
 	var/datum/action/innate/camera_multiz_up/move_up_action = new
 	var/datum/action/innate/camera_multiz_down/move_down_action = new
 	var/list/actions = list()
+	///Should we supress any view changes?
+	var/should_supress_view_changes = TRUE
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
@@ -50,6 +52,7 @@
 	user.remote_control = null
 
 	current_user = null
+	user.client.view_size.unsupress()
 	user.unset_machine()
 	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
 		plane_static.hide_plane(user)
@@ -110,6 +113,8 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	if(should_supress_view_changes)
+		user.client.view_size.supress()
 	// Who passes control like this god I hate static code
 	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
 		plane_static.unhide_plane(user)

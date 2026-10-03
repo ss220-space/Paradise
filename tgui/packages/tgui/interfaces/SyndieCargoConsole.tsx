@@ -1,25 +1,24 @@
-import { flow } from 'common/fp';
-
-import { filter, sortBy } from 'common/collections';
-import { useBackend, useSharedState } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
 import {
-  Button,
-  LabeledList,
   Box,
-  Section,
+  Button,
   Dropdown,
   Input,
-  Table,
+  LabeledList,
   Modal,
-} from '../components';
+  Section,
+  Table,
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
-import { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
+import type { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
 
 export const SyndieCargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>(null);
-  const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
+  const [contentsModal, setContentsModal] = useState<string[]>([]);
+  const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
 
   return (
     <Window width={900} height={800} theme="syndicate">
@@ -57,12 +56,12 @@ const ContentsModal = (properties: ContentsModalProps) => {
     contentsModalTitle,
     setContentsModalTitle,
   } = properties;
-  if (contentsModal !== null && contentsModalTitle !== null) {
+  if (contentsModal.length && contentsModalTitle !== '') {
     return (
       <Modal
         maxWidth="75%"
-        width={window.innerWidth + 'px'}
-        maxHeight={window.innerHeight * 0.75 + 'px'}
+        width={`${window.innerWidth}px`}
+        maxHeight={`${window.innerHeight * 0.75}px`}
         mx="auto"
       >
         <Box width="100%" bold>
@@ -77,8 +76,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
         <Box m={2}>
           <Button
             onClick={() => {
-              setContentsModal(null);
-              setContentsModalTitle(null);
+              setContentsModal([]);
+              setContentsModalTitle('');
             }}
           >
             Close
@@ -121,9 +120,9 @@ const StatusPane = (_properties) => {
     dynamicTooltip = 'Pads are cooling off...';
     block = 1;
     if (wait_time !== 1) {
-      statusText = '' + telepads_status + ' (ETA: ' + wait_time + ' seconds)';
+      statusText = `${telepads_status} (ETA: ${wait_time} seconds)`;
     } else {
-      statusText = '' + telepads_status + ' (ETA: ' + wait_time + ' second)';
+      statusText = `${telepads_status} (ETA: ${wait_time} second)`;
     }
   }
 
@@ -181,29 +180,28 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const packSearch = createSearch<SupplyPack>(
     searchText,
-    (crate) => crate.name
+    (crate) => crate.name,
   );
 
   const cratesToShow = flow([
     (supply_packs: SupplyPack[]) =>
-      filter(
-        supply_packs,
+      supply_packs.filter(
         (pack) =>
           pack.cat ===
           (categories.filter((c) => c.name === category)[0].category ||
-            searchText)
+            searchText),
       ),
     (supply_packs: SupplyPack[]) =>
-      searchText ? filter(supply_packs, packSearch) : supply_packs,
+      searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs: SupplyPack[]) =>
-      sortBy(supply_packs, (pack) => pack.name.toLowerCase()),
+      sortBy(supply_packs, [(pack) => pack.name.toLowerCase()]),
   ])(supply_packs);
 
   let titleText = 'Crate Catalogue';
   if (searchText) {
-    titleText = "Results for '" + searchText + "':";
+    titleText = `Results for '${searchText}':`;
   } else if (category) {
-    titleText = 'Browsing ' + category;
+    titleText = `Browsing ${category}`;
   }
   return (
     <Section

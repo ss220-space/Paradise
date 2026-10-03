@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Button, ProgressBar, Section, Table } from '../components';
-
+import { Button, ProgressBar, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { SupermatterContent, type SupermatterData } from './Supermatter';

@@ -37,51 +37,21 @@
 			to_chat(owner, span_warning("[name] has run out of uses!"))
 		qdel(src)
 
-//Framework for ranged abilities that can have different effects by left-clicking stuff.
+/// Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
 	name = "Ranged AI Action"
 	auto_use_uses = FALSE //This is so we can do the thing and disable/enable freely without having to constantly add uses
-	var/obj/effect/proc_holder/ranged_ai/linked_ability //The linked proc holder that contains the actual ability code
-	var/linked_ability_type //The path of our linked ability
-
-/datum/action/innate/ai/ranged/New()
-	if(!linked_ability_type)
-		WARNING("Ranged AI action [name] attempted to spawn without a linked ability!")
-		qdel(src) //uh oh!
-		return
-	linked_ability = new linked_ability_type()
-	linked_ability.attached_action = src
-	..()
+	click_action = TRUE
 
 /datum/action/innate/ai/ranged/adjust_uses(amt, silent)
 	uses += amt
 	if(!silent && uses)
-		to_chat(owner, span_notice("[name] now has <b>[uses]</b> use[uses > 1 ? "s" : ""] remaining."))
+		to_chat(owner, span_notice("[name] now has <b>[uses]</b> use\s remaining."))
 	if(!uses)
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, span_warning("[name] has run out of uses!"))
 		Remove(owner)
-		QDEL_IN(src, 100) //let any active timers on us finish up
-
-/datum/action/innate/ai/ranged/Destroy()
-	QDEL_NULL(linked_ability)
-	return ..()
-
-/datum/action/innate/ai/ranged/Activate()
-	linked_ability.toggle(owner)
-	return TRUE
-
-//The actual ranged proc holder.
-/obj/effect/proc_holder/ranged_ai
-	var/enable_text = span_notice_alt("Hello World!") //Appears when the user activates the ability
-	var/disable_text = span_danger_alt("Goodbye Cruel World!") //Context clues!
-	var/datum/action/innate/ai/ranged/attached_action
-
-/obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
-	if(active)
-		remove_ranged_ability(user, disable_text)
-	else
-		add_ranged_ability(user, enable_text)
+		QDEL_IN(src, 10 SECONDS) //let any active timers on us finish up
 
 /datum/action/innate/ai/choose_modules
 	name = "Choose Modules"
@@ -467,49 +437,48 @@
 	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = span_notice_alt("You enable the ability for the station's APCs to direct intense energy into machinery.")
 
+
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
 	desc = "Overheats a machine, causing a small explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 2
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
+	enable_text = span_notice_alt("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
+	disable_text = span_notice_alt("You release your hold on the powernet.")
 
 /datum/action/innate/ai/ranged/overload_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
 
-/datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
-	if(M && !QDELETED(M))
-		explosion(get_turf(M), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 1, flash_range = 0, cause = "AI Machine Overload")
-		if(M) //to check if the explosion killed it before we try to delete it
-			qdel(M)
-
-/obj/effect/proc_holder/ranged_ai/overload_machine
-	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
-	enable_text = span_notice_alt("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
-	disable_text = span_notice_alt("You release your hold on the powernet.")
-
-/obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
-	if(..())
-		return
-	if(ranged_ability_user.incapacitated())
-		remove_ranged_ability()
-		return
-	if(!istype(target))
-		to_chat(ranged_ability_user, span_warning("You can only overload machines!"))
-		return
-	if(target.resistance_flags & NO_MALF_EFFECT)
-		to_chat(ranged_ability_user, span_warning("That machine can't be overloaded!"))
+/datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(mob/living/clicker, obj/machinery/to_explode)
+	if(QDELETED(to_explode))
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, SFX_SPARKS, 50, FALSE, use_reverb = FALSE)
-	attached_action.adjust_uses(-1)
-	if(attached_action?.uses)
-		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
-		attached_action.UpdateButtonIcon()
-	target.audible_message(span_italics("You hear a loud electrical buzzing sound coming from [target]!"))
-	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
-	remove_ranged_ability(ranged_ability_user, span_warning("Overloading machine circuitry..."))
+	var/turf/machine_turf = get_turf(to_explode)
+	message_admins("[ADMIN_LOOKUPFLW(clicker)] overloaded [to_explode.name] ([to_explode.type]) at [ADMIN_VERBOSEJMP(machine_turf)].")
+	explosion(to_explode, heavy_impact_range = 2, light_impact_range = 3)
+	if(!QDELETED(to_explode)) //to check if the explosion killed it before we try to delete it
+		qdel(to_explode)
+
+/datum/action/innate/ai/ranged/overload_machine/do_ability(mob/living/clicker, atom/clicked_on)
+	if(!ismachinery(clicked_on))
+		to_chat(clicker, span_warning("You can only overload machines!"))
+		return FALSE
+	var/obj/machinery/clicked_machine = clicked_on
+
+	if((clicked_machine.resistance_flags & INDESTRUCTIBLE) || clicked_machine.resistance_flags & NO_MALF_EFFECT)
+		to_chat(clicker, span_warning("You cannot overload that device!"))
+		return FALSE
+
+	clicker.playsound_local(clicker, SFX_SPARKS, 50, 0)
+	adjust_uses(-1)
+	if(uses)
+		desc = "[initial(desc)] It has [uses] use\s remaining."
+		build_all_button_icons()
+
+	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
+	addtimer(CALLBACK(src, PROC_REF(detonate_machine), clicker, clicked_machine), 5 SECONDS) //kaboom!
+	unset_ranged_ability(clicker, span_danger("Overcharging machine..."))
 	return TRUE
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
@@ -526,43 +495,40 @@
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	button_icon_state = "override_machine"
 	uses = 4
-	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
-
-/datum/action/innate/ai/ranged/override_machine/New()
-	..()
-	desc = "[desc] It has [uses] use\s remaining."
-
-/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
-	if(M && !QDELETED(M))
-		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
-
-/obj/effect/proc_holder/ranged_ai/override_machine
-	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
 	enable_text = span_notice_alt("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
 	disable_text = span_notice_alt("You release your hold on the powernet.")
 
-/obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
-	if(..())
-		return
-	if(ranged_ability_user.incapacitated())
-		remove_ranged_ability()
-		return
-	if(!istype(target))
-		to_chat(ranged_ability_user, span_warning("You can only animate machines!"))
-		return
-	if(target.resistance_flags & NO_MALF_EFFECT)
-		to_chat(ranged_ability_user, span_warning("That machine can't be overridden!"))
+/datum/action/innate/ai/ranged/override_machine/New()
+	. = ..()
+	desc = "[desc] It has [uses] use\s remaining."
+
+/datum/action/innate/ai/ranged/override_machine/do_ability(mob/living/clicker, atom/clicked_on)
+	if(!ismachinery(clicked_on))
+		to_chat(clicker, span_warning("You can only animate machines!"))
+		return FALSE
+	var/obj/machinery/clicked_machine = clicked_on
+
+	if((clicked_machine.resistance_flags & INDESTRUCTIBLE) || clicked_machine.resistance_flags & NO_MALF_EFFECT)
+		to_chat(clicker, span_warning("That machine can't be overridden!"))
+		return FALSE
+
+	clicker.playsound_local(clicker, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
+
+	clicked_machine.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [clicked_machine]!"))
+	addtimer(CALLBACK(src, PROC_REF(animate_machine), clicker, clicked_machine), 5 SECONDS) //kabeep!
+	unset_ranged_ability(clicker, span_danger("Sending override signal..."))
+	adjust_uses(-1) //adjust after we unset the active ability since we may run out of charges, thus deleting the ability
+
+	if(uses)
+		desc = "[initial(desc)] It has [uses] use\s remaining."
+		build_all_button_icons()
+	return TRUE
+
+/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(mob/living/clicker, obj/machinery/to_animate)
+	if(QDELETED(to_animate))
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
-	attached_action.adjust_uses(-1)
-	if(attached_action?.uses)
-		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
-		attached_action.UpdateButtonIcon()
-	target.audible_message(span_userdanger("You hear a loud electrical buzzing sound coming from [target]!"))
-	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
-	remove_ranged_ability(ranged_ability_user, span_danger("Sending override signal..."))
-	return TRUE
+	new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(to_animate), to_animate, owner, 1)
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/large/place_cyborg_transformer

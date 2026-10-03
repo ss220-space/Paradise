@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 	var/id_tag
-	var/shockedby = list()
+	var/list/shockedby
 	///the command the door is currently attempting to complete
 	var/cur_command = null
 	var/heat_resistance = 1500
@@ -317,10 +317,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
-			shockedby += text("\[[time_stamp()]\] - [user](ckey:[user.ckey])")
+			LAZYADD(shockedby, "\[[time_stamp()]\] - [user](ckey:[user.ckey])")
 			add_attack_logs(user, src, "Electrified", ATKLOG_ALL)
 		else
-			shockedby += text("\[[time_stamp()]\] - EMP)")
+			LAZYADD(shockedby, "\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)

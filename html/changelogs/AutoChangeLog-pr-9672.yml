@@ -1,4 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - tweak: "Всем радиальным меню возвращены tooltips (PR #9672)"

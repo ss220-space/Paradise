@@ -98,5 +98,5 @@
 	SIGNAL_HANDLER
 
 	var/turf/simulated/t_loc = get_turf(src)
-	if(istype(t_loc) && t_loc.wet)
+	if(istype(t_loc) && t_loc.is_wet())
 		t_loc.MakeDry(TURF_WET_WATER)

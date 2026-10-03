@@ -1,8 +1,7 @@
-import { Box, Button, LabeledList, Section } from 'tgui/components';
-
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
 
 const addcommas = (x) => {
   return x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -45,7 +44,7 @@ export const TEG = (_props) => {
   return (
     <Window width={500} height={400}>
       <Window.Content>
-        <Section title={'Cold Loop (' + data.cold_dir + ')'}>
+        <Section title={`Cold Loop (${data.cold_dir})`}>
           <LabeledList>
             <LabeledList.Item label="Cold Inlet">
               {addcommas(data.cold_inlet_temp)} K,{' '}
@@ -57,7 +56,7 @@ export const TEG = (_props) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={'Hot Loop (' + data.hot_dir + ')'}>
+        <Section title={`Hot Loop (${data.hot_dir})`}>
           <LabeledList>
             <LabeledList.Item label="Hot Inlet">
               {addcommas(data.hot_inlet_temp)} K,{' '}

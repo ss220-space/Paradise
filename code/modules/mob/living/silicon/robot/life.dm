@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/Life(seconds, times_fired)
-	set invisibility = 0
+	set invisibility = FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return

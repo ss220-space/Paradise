@@ -340,10 +340,7 @@
 		return FALSE
 	return check_table.straight_table_check(direction)
 
-/obj/structure/table/verb/do_flip()
-	set name = "Flip/Unflip table"
-	set desc = "Flips or unflips a table"
-	set src in oview(1)
+GAME_VERB_SRC(/obj/structure/table, do_flip, oview(1), "Flip/Unflip table", VERB_CATEGORY_HIDDEN)
 	actual_flip(usr)
 
 /// Used to determine whether the table can be flipped over.
@@ -670,6 +667,7 @@
 	buildstack = /obj/item/stack/sheet/plasteel
 	max_integrity = 200
 	integrity_failure = 50
+	can_be_flipped = FALSE
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, FIRE = 80, ACID = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
@@ -696,7 +694,6 @@
 	icon_state = "brass_table-0"
 	base_icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass

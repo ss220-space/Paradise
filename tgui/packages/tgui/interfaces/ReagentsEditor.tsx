@@ -1,8 +1,8 @@
 import { Component } from 'react';
+import { Button, Input, Section, Stack, Table } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 
 type StaticReagentInformation = {
   name: string;
@@ -33,8 +33,8 @@ type ReagentsEditorState = {
 
 // The linter is raising false-positives for unused state
 
-export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
-  constructor(props: {}) {
+export class ReagentsEditor extends Component<unknown, ReagentsEditorState> {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       searchText: '',
@@ -59,7 +59,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
           ...reagent,
           ...reagentsInformation[reagentID],
           id: reagentID,
-        })
+        }),
       )
       .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -71,15 +71,15 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
             ([reagentID, reagent]): FilteredReagentInformation => ({
               ...reagent,
               id: reagentID,
-            })
+            }),
           )
-          .sort((a, b) => a.name.localeCompare(b.name))
+          .sort((a, b) => a.name.localeCompare(b.name)),
       );
     }
 
     const reagentsRows = reagents
       .filter(({ id: reagentID, name }) =>
-        createSearch(searchText, () => `${reagentID}|${name}`)({})
+        createSearch(searchText, () => `${reagentID}|${name}`)({}),
       )
       .map((reagent) => {
         const { volume, uid } = reagent;

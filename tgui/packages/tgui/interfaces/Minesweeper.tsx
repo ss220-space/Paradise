@@ -1,11 +1,12 @@
-import { MouseEvent } from 'react';
-import { useBackend } from '../backend';
+import type { MouseEvent } from 'react';
 import { useState } from 'react';
-import { Box, Button, Stack, Section } from '../components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type MinesweeperData = {
-  matrix: boolean[][][];
+  matrix: BooleanLike[][][];
   showMessage: string;
   tokens: number;
   uiWidth: number;
@@ -30,23 +31,23 @@ export const Minesweeper = (props: unknown) => {
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
     row: string,
-    cell: string
+    cell: string,
   ) => {
     if (e.button !== 0 && e.button !== 2) {
       return;
     }
     act('Square', {
-      'X': row,
-      'Y': cell,
-      'mode': e.button === 2 ? altMode[currentMode] : currentMode,
+      X: row,
+      Y: cell,
+      mode: e.button === 2 ? altMode[currentMode] : currentMode,
     });
   };
 
   const [currentMode, setMode] = useState('bomb');
 
   const altMode = {
-    'flag': 'bomb',
-    'bomb': 'flag',
+    flag: 'bomb',
+    bomb: 'flag',
   };
 
   return (
@@ -74,7 +75,7 @@ export const Minesweeper = (props: unknown) => {
                 />
                 <Button
                   icon="cog"
-                  onClick={() => act('Mode', { 'mode': '16x30' })}
+                  onClick={() => act('Mode', { mode: '16x30' })}
                 />
               </>
             }
@@ -89,36 +90,36 @@ export const Minesweeper = (props: unknown) => {
                     height="30px"
                     width="30px"
                     className={
-                      matrix[row][cell]['open']
+                      matrix[row][cell].open
                         ? 'Minesweeper__open'
                         : 'Minesweeper__closed'
                     }
                     bold
                     color="transparent"
                     icon={
-                      matrix[row][cell]['open']
-                        ? matrix[row][cell]['bomb']
+                      matrix[row][cell].open
+                        ? matrix[row][cell].bomb
                           ? 'bomb'
                           : ''
-                        : matrix[row][cell]['flag']
+                        : matrix[row][cell].flag
                           ? 'flag'
                           : ''
                     }
                     textColor={
-                      matrix[row][cell]['open']
-                        ? matrix[row][cell]['bomb']
+                      matrix[row][cell].open
+                        ? matrix[row][cell].bomb
                           ? 'black'
-                          : NumColor[matrix[row][cell]['around']]
-                        : matrix[row][cell]['flag']
+                          : NumColor[matrix[row][cell].around]
+                        : matrix[row][cell].flag
                           ? 'red'
                           : 'gray'
                     }
                     onMouseDown={(e) => handleClick(e, row, cell)}
                   >
-                    {!!matrix[row][cell]['open'] &&
-                    !matrix[row][cell]['bomb'] &&
-                    matrix[row][cell]['around']
-                      ? matrix[row][cell]['around']
+                    {matrix[row][cell].open &&
+                    !matrix[row][cell].bomb &&
+                    matrix[row][cell].around
+                      ? matrix[row][cell].around
                       : ' '}
                   </Button>
                 ))}

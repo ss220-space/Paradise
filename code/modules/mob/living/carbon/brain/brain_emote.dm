@@ -1,9 +1,10 @@
 /datum/emote/living/carbon/brain
+	abstract_type = /datum/emote/living/carbon/brain
 	mob_type_allowed_typecache = list(/mob/living/carbon/brain)
 	mob_type_blacklist_typecache = null
+	keybind_category = KB_CATEGORY_EMOTE_BRAIN
 	/// The message that will be displayed to themselves, since brains can't really see their own emotes
 	var/self_message
-
 /datum/emote/living/carbon/brain/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
@@ -19,6 +20,7 @@
 		return FALSE
 
 /datum/emote/living/carbon/brain/alarm
+	name = "Издать аварийный сигнал"
 	key = "alarm"
 	key_third_person = "alarms"
 	message = "изда%(ёт,ют)% аварийный сигнал."
@@ -26,6 +28,7 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/brain/alert
+	name = "Издать тревожный шум"
 	key = "alert"
 	key_third_person = "alerts"
 	message = "изда%(ёт,ют)% тревожный шум."
@@ -33,6 +36,7 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/brain/notice
+	name = "Играть громкий мотив"
 	key = "notice"
 	key_third_person = "notices"
 	message = "игра%(ет,ют)% громкий мотив."
@@ -40,12 +44,14 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/brain/flash
+	name = "Моргать лампочками"
 	key = "flash"
 	key_third_person = "flashes"
 	message = "начина%(ет,ют)% быстро моргать лампочками!"
 	self_message = "You starts flashing your lights!"
 
 /datum/emote/living/carbon/brain/whistle
+	name = "Свистеть"
 	key = "whistle"
 	key_third_person = "whistles"
 	message = "свист%(ит,ят)%."
@@ -54,6 +60,7 @@
 	sound = 'sound/voice/whistle.ogg'
 
 /datum/emote/living/carbon/brain/beep
+	name = "Бипать"
 	key = "beep"
 	key_third_person = "beeps"
 	message = "изда%(ёт,ют)% длинный гудок."
@@ -62,10 +69,10 @@
 	sound = 'sound/machines/twobeep.ogg'
 
 /datum/emote/living/carbon/brain/boop
+	name = "Бупать"
 	key = "boop"
 	key_third_person = "boops"
 	message = "изда%(ёт,ют)% короткий гудок."
 	self_message = "You boop."
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/machines/boop.ogg'
-

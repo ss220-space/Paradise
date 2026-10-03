@@ -64,6 +64,7 @@
 			RegisterSignal(surgery_target, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_remove))
 		else
 			RegisterSignal(surgery_target, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_organ_insert))
+	SEND_SIGNAL(surgery_target, COMSIG_MOB_SURGERY_STARTED, src, surgery_location, surgery_bodypart)
 
 /datum/surgery/Destroy()
 	if(target)

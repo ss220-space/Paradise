@@ -1,4 +1,4 @@
-import { sendAct as act } from 'tgui/backend';
+import { sendAct as act } from 'tgui/events/act';
 import { colorToHexString } from '../../colorSpaces';
 import { bresenhamLine, constrainToIconGrid, copyLayer } from '../../helpers';
 import { Tool } from '../Tool';
@@ -63,7 +63,7 @@ export class Pencil extends Tool {
     data: SpriteData,
     x: number,
     y: number,
-    isRightClick: boolean
+    isRightClick: boolean,
   ) {
     const {
       selectedDir,
@@ -78,7 +78,7 @@ export class Pencil extends Tool {
     this.currentTransaction = new PencilTransaction(
       selectedDir,
       selectedLayer,
-      colorToHexString(currentColor)
+      colorToHexString(currentColor),
     );
     if (inBounds) {
       this.currentTransaction.addPoint(px, py);
@@ -87,8 +87,8 @@ export class Pencil extends Tool {
     setPreviewLayer(selectedLayer);
     setPreviewData(
       this.currentTransaction.getPreviewLayer(
-        layers[selectedLayer].data[selectedDir]!
-      )
+        layers[selectedLayer].data[selectedDir]!,
+      ),
     );
     return true;
   }
@@ -97,7 +97,7 @@ export class Pencil extends Tool {
     context: SpriteEditorToolContext,
     data: SpriteData,
     x: number,
-    y: number
+    y: number,
   ) {
     const { currentTransaction, lastPoint } = this;
     if (!currentTransaction) return;
@@ -114,7 +114,7 @@ export class Pencil extends Tool {
     });
     this.lastPoint = [px, py];
     setPreviewData(
-      currentTransaction.getPreviewLayer(layers[layer].data[dir]!)
+      currentTransaction.getPreviewLayer(layers[layer].data[dir]!),
     );
   }
 
@@ -122,7 +122,7 @@ export class Pencil extends Tool {
     context: SpriteEditorToolContext,
     data: SpriteData,
     x: number,
-    y: number
+    y: number,
   ) {
     if (!this.currentTransaction) return;
     if (this.currentTransaction.points.size !== 0) {

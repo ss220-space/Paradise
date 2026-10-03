@@ -1,14 +1,14 @@
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import {
-  Button,
-  LabeledList,
-  Flex,
   Box,
+  Button,
+  DmIcon,
+  Flex,
+  LabeledList,
   Section,
   Table,
-  DmIcon,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 type PDAPainterData = {
   statusLabel: string;

@@ -23,7 +23,7 @@
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 1200
+	callTime = 2 MINUTES
 
 	dir = 8
 	width = 12
@@ -274,7 +274,7 @@
 
 	if(crate_count > 0)
 		pointsEarned = round(crate_count * SSshuttle.points_per_crate)
-		msg += "[span_good("+[pointsEarned]")]: Получен[declension_ru(crate_count, "", "ы", "о")] [crate_count] ящик[DECL_CREDIT(crate_count)].<br>"
+		msg += "[span_good("+[pointsEarned]")]: Получен[DECL_0_Y_O(crate_count)] [crate_count] ящик[DECL_0_A_OV(crate_count)].<br>"
 		SSshuttle.points += pointsEarned
 
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
@@ -422,7 +422,7 @@
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = WEAKREF(slip)
 		CR.update_appearance()
-		CR.announce_beacons = object.announce_beacons.Copy()
+		CR.announce_beacons = object.announce_beacons
 
 	return Crate
 
@@ -540,7 +540,7 @@
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
-	data["timeleft"] = SSshuttle.supply.timeLeft(600)
+	data["timeleft"] = SSshuttle.supply.getTimerStr()
 	data["can_launch"] = !SSshuttle.supply.canMove()
 
 	return data

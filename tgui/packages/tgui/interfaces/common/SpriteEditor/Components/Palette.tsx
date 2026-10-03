@@ -1,7 +1,7 @@
 import transparency_checkerboard from 'tgui/assets/transparency_checkerboard.svg';
-import { Button, Section, Stack } from 'tgui/components';
-import { KEY_DELETE } from 'common/keycodes';
-import type { BooleanStyleMap, StringStyleMap } from 'common/ui';
+import { Button, Section, Stack } from 'tgui-core/components';
+import { KEY_DELETE } from 'tgui-core/keycodes';
+import type { BooleanStyleMap, StringStyleMap } from 'tgui-core/ui';
 
 import { colorsAreEqual, colorToCssString } from '../colorSpaces';
 import type { EditorColor } from '../Types/types';
@@ -66,7 +66,7 @@ export const Palette = (props: PaletteProps) => {
               disabled={
                 colors.length === maxColors ||
                 colors.findIndex((color) =>
-                  colorsAreEqual(color, selectedColor)
+                  colorsAreEqual(color, selectedColor),
                 ) !== -1
               }
               icon="plus"

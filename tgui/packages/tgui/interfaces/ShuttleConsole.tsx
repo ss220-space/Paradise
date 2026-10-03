@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,7 +7,8 @@ import {
   LabeledList,
   Modal,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type ShuttleConsoleData = {
@@ -82,13 +82,13 @@ const getLocationIdByName = (locations: Location[], name: string) => {
 };
 
 const STATUS_COLOR_KEYS = {
-  'In Transit': 'good',
-  'Idle': 'average',
-  'Igniting': 'average',
-  'Recharging': 'average',
-  'Missing': 'bad',
-  'Unauthorized Access': 'bad',
-  'Locked': 'bad',
+  'В пути': 'good',
+  'Ожидание': 'average',
+  'Запуск': 'average',
+  'Зарядка': 'average',
+  'Потерянный': 'bad',
+  'Несанкционированный доступ': 'bad',
+  'Заблокирован': 'bad',
 };
 
 export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
@@ -110,21 +110,23 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
       </Box>
       <Box textAlign="center" fontSize="14px" mb={1}>
         <Box inline bold>
-          STATUS:
+          Статус:
         </Box>
         <Box inline color={STATUS_COLOR_KEYS[status] || 'bad'} ml={1}>
           {status || 'Not Available'}
         </Box>
       </Box>
       <Section
-        title={type === 'shuttle' ? 'Shuttle Controls' : 'Base Launch Controls'}
+        title={
+          type === 'shuttle' ? 'Управление шаттлом' : 'Base Launch Controls'
+        }
       >
         <LabeledList>
-          <LabeledList.Item label="Location">
-            {docked_location || 'Not Available'}
+          <LabeledList.Item label="Местоположение">
+            {docked_location || 'Недоступно'}
           </LabeledList.Item>
           <LabeledList.Item
-            label="Destination"
+            label="Место назначения"
             buttons={
               type !== 'shuttle' &&
               locations.length === 0 &&
@@ -142,7 +144,7 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
           >
             {(locations.length === 0 && (
               <Box mb={1.7} color="bad">
-                Not Available
+                Недоступно
               </Box>
             )) ||
               (locations.length === 1 && (
@@ -151,14 +153,12 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
                 </Box>
               )) || (
                 <Dropdown
-                  mb={1.7}
                   over
-                  width="240px"
                   options={locations.map((location) => location.name)}
                   disabled={locked || authorization_required}
                   selected={
                     getLocationNameById(locations, destination) ||
-                    'Select a Destination'
+                    'Выбрать место назначения'
                   }
                   onSelected={(value) =>
                     act('set_destination', {
@@ -168,6 +168,7 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
                 />
               )}
           </LabeledList.Item>
+          <LabeledList.Item />
         </LabeledList>
         <Button
           fluid
@@ -175,7 +176,7 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
             !getLocationNameById(locations, destination) ||
             locked ||
             authorization_required ||
-            status !== 'Idle'
+            status !== 'Ожидание'
           }
           icon="arrow-up"
           textAlign="center"
@@ -185,7 +186,7 @@ export const ShuttleConsoleContent = (props: ShuttleConsoleProps) => {
             })
           }
         >
-          Depart
+          Отправить
         </Button>
       </Section>
     </Section>

@@ -8,4 +8,4 @@
 	if(name == "alien vector")
 		name = "alien vector ([rand(1, 1000)])"
 	real_name = name
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/impregnate)
+	AddSpell(new /datum/action/cooldown/spell/list_target/impregnate)

@@ -67,6 +67,10 @@
 	/// so we cut down on filter creation and appearance update costs by editing *this* list, and then assigning ours to itCollapse commentComment on lines R60 to R62Ghommie commented on Sep 21, 2025 Ghommieon Sep 21, 2025MemberMore actionsThat's nigh accursed. But I shouldn't expect less from images and mutable appearances having the "same" variables as atoms when datums strangely don't.ReactWrite a replyResolve comment
 	var/list/filter_cache
 
+	#ifdef DATUMVAR_DEBUGGING_MODE
+	var/list/cached_vars
+	#endif
+
 #ifdef TESTING
 	var/running_find_references
 	var/last_find_references = 0
@@ -229,3 +233,30 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+#ifdef DATUMVAR_DEBUGGING_MODE
+/datum/proc/save_vars()
+	cached_vars = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		cached_vars[i] = vars[i]
+
+/datum/proc/check_changed_vars()
+	. = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		if(cached_vars[i] != vars[i])
+			.[i] = list(cached_vars[i], vars[i])
+
+/datum/proc/txt_changed_vars()
+	var/list/l = check_changed_vars()
+	var/t = "[src]([src.UID()]) changed vars:"
+	for(var/i in l)
+		t += "\"[i]\" \[[l[i][1]]\] --> \[[l[i][2]]\] "
+	t += "."
+
+/datum/proc/to_chat_check_changed_vars(target = world)
+	to_chat(target, txt_changed_vars())
+#endif

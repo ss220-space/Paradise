@@ -67,15 +67,6 @@
 		return ..()
 	shock(user)
 
-/obj/structure/chair/e_chair/verb/activate_e_chair()
-	set name = "Вкл/выкл эл. стул"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	shock(usr)
-
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
 	if(isliving(user) && (user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return

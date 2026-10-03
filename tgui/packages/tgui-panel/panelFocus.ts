@@ -8,16 +8,18 @@
  */
 
 import { focusMap } from 'tgui/focus';
-import { canStealFocus, globalEvents } from 'common/events';
-import { vecLength, vecSubtract } from 'common/vector';
+import { canStealFocus, globalEvents } from 'tgui-core/events';
+import { vecLength, vecSubtract } from 'tgui-core/vector';
 
 // Empyrically determined number for the smallest possible
 // text you can select with the mouse.
 const MIN_SELECTION_DISTANCE = 10;
 
-const deferredFocusMap = () => setTimeout(() => focusMap());
+function deferredFocusMap(): void {
+  setTimeout(focusMap);
+}
 
-export const setupPanelFocusHacks = () => {
+export function setupPanelFocusHacks(): void {
   let focusStolen = false;
   let clickStartPos: number[] | null = null;
   window.addEventListener('focusin', (e) => {
@@ -47,4 +49,4 @@ export const setupPanelFocusHacks = () => {
     }
     deferredFocusMap();
   });
-};
+}

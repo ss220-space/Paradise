@@ -1,32 +1,37 @@
-import { BooleanLike, classes } from 'common/react';
-import { useBackend } from '../backend';
-import React, { CSSProperties, ReactNode, useState } from 'react';
+import type React from 'react';
+import {
+  type ComponentProps,
+  type CSSProperties,
+  type ReactNode,
+  useState,
+} from 'react';
 import {
   Box,
   Button,
   Divider,
   Dropdown,
   Icon,
-  Input,
   Image,
+  Input,
   LabeledList,
   Modal,
   Section,
   Stack,
   TextArea,
-} from '../components';
-import { timeAgo, DEPARTMENTS_RU } from '../constants';
+} from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
+import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import {
   ComplexModal,
+  type ModalType,
   modalAnswer,
   modalClose,
   modalOpen,
   modalRegisterBodyOverride,
-  ModalType,
 } from './common/ComplexModal';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { BoxProps } from '../components/Box';
 
 const HEADLINE_MAX_LENGTH = 128;
 
@@ -110,7 +115,7 @@ type FullStoriesProps = Partial<{
   setFullStories: React.Dispatch<React.SetStateAction<string[]>>;
 }>;
 
-export const Newscaster = (properties) => {
+export const Newscaster = (_properties: unknown) => {
   const { act, data } = useBackend<NewscasterData>();
   const {
     is_security,
@@ -145,7 +150,11 @@ export const Newscaster = (properties) => {
   }
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
   return (
-    <Window theme={is_security && 'security'} width={800} height={600}>
+    <Window
+      theme={is_security ? 'security' : undefined}
+      width={800}
+      height={600}
+    >
       {viewingPhoto ? (
         <PhotoZoom />
       ) : (
@@ -220,7 +229,7 @@ export const Newscaster = (properties) => {
                     <MenuButton
                       security
                       icon={censorMode ? 'minus-square' : 'minus-square-o'}
-                      title={'Режим Цензуры: ' + (censorMode ? 'Вкл' : 'Выкл')}
+                      title={`Режим Цензуры: ${censorMode ? 'Вкл' : 'Выкл'}`}
                       mb="0.5rem"
                       onClick={() => setCensorMode(!censorMode)}
                     />
@@ -247,7 +256,7 @@ export const Newscaster = (properties) => {
                 />
                 <MenuButton
                   icon={is_silent ? 'volume-mute' : 'volume-up'}
-                  title={'Заглушить: ' + (is_silent ? 'Вкл' : 'Выкл')}
+                  title={`Заглушить: ${is_silent ? 'Вкл' : 'Выкл'}`}
                   onClick={() => act('toggle_mute')}
                 />
               </Stack.Item>
@@ -272,7 +281,7 @@ type MenuButtonProps = Partial<{
   title: string;
   children: ReactNode;
 }> &
-  BoxProps;
+  ComponentProps<typeof Box>;
 
 const MenuButton = (properties: MenuButtonProps) => {
   const {
@@ -308,7 +317,7 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
   const {
     screen,
     is_admin,
-    channel_idx,
+    channel_idx = -1,
     channel_can_manage,
     channels,
     stories,
@@ -344,14 +353,13 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
             .slice()
             .reverse()
             .map((story) =>
-              !fullStories.includes(story.uid) &&
+              !fullStories?.includes(story.uid) &&
               story.body.length + 3 > HEADLINE_MAX_LENGTH
                 ? {
                     ...story,
-                    body_short:
-                      story.body.substring(0, HEADLINE_MAX_LENGTH - 4) + '...',
+                    body_short: `${story.body.substring(0, HEADLINE_MAX_LENGTH - 4)}...`,
                   }
-                : story
+                : story,
             )
             .map((story, index) => (
               <Story
@@ -441,7 +449,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
   const { jobs, wanted } = data;
   const numOpenings = Object.entries(jobs).reduce(
     (a, [k, v]) => a + v.length,
-    0
+    0,
   );
   const { censorMode, fullStories, setFullStories } = properties;
   return (
@@ -476,7 +484,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
               Object.assign({}, jobOpeningCategories[catId], {
                 id: catId,
                 jobs: jobs[catId],
-              })
+              }),
             )
             .filter((cat) => !!cat && cat.jobs.length > 0)
             .map((cat) => (
@@ -484,7 +492,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
                 key={cat.id}
                 className={classes([
                   'Newscaster__jobCategory',
-                  'Newscaster__jobCategory--' + cat.id,
+                  `Newscaster__jobCategory--${cat.id}`,
                 ])}
                 title={cat.title}
                 buttons={
@@ -561,7 +569,7 @@ const Story = (properties: StoryProps) => {
           {wanted && <Icon name="exclamation-circle" mr="0.5rem" />}
           {(story.censor_flags & 2 && '[ОТРЕДАКТИРОВАНО]') ||
             story.title ||
-            'News from ' + story.author}
+            `News from ${story.author}`}
         </>
       }
       buttons={
@@ -605,7 +613,7 @@ const Story = (properties: StoryProps) => {
           <>
             {!!story.has_photo && (
               <PhotoThumbnail
-                name={'story_photo_' + story.uid + '.png'}
+                name={`story_photo_${story.uid}.png`}
                 style={{ float: 'right', marginLeft: '0.5rem' }}
               />
             )}
@@ -615,7 +623,9 @@ const Story = (properties: StoryProps) => {
             {story.body_short && (
               <Button
                 mt="0.5rem"
-                onClick={() => setFullStories([...fullStories, story.uid])}
+                onClick={() =>
+                  setFullStories?.([...(fullStories || []), story.uid])
+                }
               >
                 Читать далее..
               </Button>
@@ -670,13 +680,14 @@ type ManageChannelModalArgs = {
 };
 // This handles both creation and editing
 const manageChannelModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { data } = useBackend<NewscasterData>();
   // Additional data
-  const channel =
-    !!modal.args.uid &&
-    data.channels.filter((c) => c.uid === modal.args.uid).pop();
+  const channel: Chanel =
+    (!!modal.args.uid &&
+      data.channels.filter((c) => c.uid === modal.args.uid).pop()) ||
+    data.channels[0];
   if (modal.id === 'manage_channel' && !channel) {
     modalClose(); // ?
     return;
@@ -685,21 +696,21 @@ const manageChannelModalBodyOverride = (
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
   // Temp data
-  const [author, setAuthor] = useState(
-    channel?.author || scannedUser || 'Неавторизованный'
+  const [author, setAuthor] = useState<string>(
+    channel?.author || scannedUser || 'Неавторизованный',
   );
   const [name, setName] = useState(channel?.name || '');
   const [description, setDescription] = useState(channel?.description || '');
   const [icon, setIcon] = useState(channel?.icon || 'newspaper');
   const [isPublic, setIsPublic] = useState(
-    isEditing ? !!channel?.public : false
+    isEditing ? !!channel?.public : false,
   );
   const [adminLocked, setAdminLocked] = useState(channel?.admin || false);
   return (
     <Section
       m="-1rem"
       pb="1.5rem"
-      title={isEditing ? 'Управление: ' + channel.name : 'Создать новый канал'}
+      title={isEditing ? `Управление: ${channel.name}` : 'Создать новый канал'}
     >
       <Stack vertical mx="0.5rem">
         <Stack.Item>
@@ -805,14 +816,14 @@ const manageChannelModalBodyOverride = (
 };
 
 const createStoryModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { act, data } = useBackend<NewscasterData>();
   const { photo, channels, channel_idx = -1 } = data;
   // Additional data
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
-  let availableChannels = channels
+  const availableChannels = channels
     .slice()
     .sort((a, b) => {
       if (channel_idx < 0) {
@@ -823,15 +834,15 @@ const createStoryModalBodyOverride = (
         return -1;
       } else if (selected.uid === b.uid) {
         return 1;
-      }
+      } else return 0;
     })
     .filter(
-      (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public))
+      (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public)),
     );
   // Temp data
   const [author, setAuthor] = useState(scannedUser || 'Unknown');
   const [channel, setChannel] = useState(
-    availableChannels.length > 0 ? availableChannels[0].name : ''
+    availableChannels.length > 0 ? availableChannels[0].name : '',
   );
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -900,7 +911,7 @@ const createStoryModalBodyOverride = (
               }
               onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
             >
-              {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
+              {photo ? `Достать: ${photo.name}` : 'Вставить фото'}
             </Button>
           </LabeledList.Item>
         </Stack.Item>
@@ -921,7 +932,7 @@ const createStoryModalBodyOverride = (
                 <Box mt="0.5rem">
                   {!!photo && (
                     <PhotoThumbnail
-                      name={'inserted_photo_' + photo.uid + '.png'}
+                      name={`inserted_photo_${photo.uid}.png`}
                       style={{ float: 'right' }}
                     />
                   )}
@@ -981,7 +992,7 @@ const createStoryModalBodyOverride = (
 };
 
 const wantedNoticeModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { act, data } = useBackend<NewscasterData>();
   const { photo, wanted } = data;
@@ -990,7 +1001,7 @@ const wantedNoticeModalBodyOverride = (
   const scannedUser = modal.args.scanned_user;
   // Temp data
   const [author, setAuthor] = useState(
-    wanted?.author || scannedUser || 'Неавторизованный'
+    wanted?.author || scannedUser || 'Неавторизованный',
   );
   const [name, setName] = useState(wanted?.title.substring(8) || '');
   const [description, setDescription] = useState(wanted?.body || '');
@@ -1039,14 +1050,14 @@ const wantedNoticeModalBodyOverride = (
               tooltipPosition="top"
               onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
             >
-              {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
+              {photo ? `Достать: ${photo.name}` : 'Вставить фото'}
             </Button>
           </LabeledList.Item>
         </Stack.Item>
         <Stack.Item>
           {!!photo && (
             <PhotoThumbnail
-              name={'inserted_photo_' + photo.uid + '.png'}
+              name={`inserted_photo_${photo.uid}.png`}
               style={{ float: 'right' }}
             />
           )}

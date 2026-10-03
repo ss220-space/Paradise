@@ -1,8 +1,8 @@
-import { CSSProperties, Key } from 'react';
+import type { CSSProperties } from 'react';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, Stack } from '../components';
-import { Window } from '../layouts';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
 
 type GasMix = {
   name: string;
@@ -45,7 +45,7 @@ export const GasAnalyzerContent = (props: unknown) => {
       ) : (
         <LabeledList>
           <LabeledList.Item label={'Total Moles'}>
-            {(gasmixes[0].total_moles ? gasmixes[0].total_moles : '-') + ' mol'}
+            {`${gasmixes[0].total_moles ? gasmixes[0].total_moles : '-'} mol`}
           </LabeledList.Item>
 
           {GASES.map((gas, i) => {
@@ -75,14 +75,14 @@ export const GasAnalyzerContent = (props: unknown) => {
               ' K)'}
           </LabeledList.Item>
           <LabeledList.Item label={'Volume'}>
-            {(gasmixes[0].total_moles ? gasmixes[0].volume : '-') + ' L'}
+            {`${gasmixes[0].total_moles ? gasmixes[0].volume : '-'} L`}
           </LabeledList.Item>
           <LabeledList.Item label={'Pressure'}>
             {(gasmixes[0].total_moles ? gasmixes[0].pressure.toFixed(2) : '-') +
               ' kPa'}
           </LabeledList.Item>
           <LabeledList.Item label={'Heat Capacity'}>
-            {gasmixes[0].heat_capacity + ' / K'}
+            {`${gasmixes[0].heat_capacity} / K`}
           </LabeledList.Item>
           <LabeledList.Item label={'Thermal Energy'}>
             {gasmixes[0].thermal_energy}

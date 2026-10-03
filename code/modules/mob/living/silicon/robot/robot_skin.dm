@@ -1107,3 +1107,30 @@
 /datum/robot_skin/wide/drake/syn
 	icon_base_prefix = "drakesyn"
 	eye_prefix = "drakesyn"
+
+/datum/robot_skin/kerfus
+	name = "Kerfus"
+
+/datum/robot_skin/kerfus/nt
+	icon_base_prefix = "kerfusNT"
+	eye_prefix = "kerfusNT"
+
+/datum/robot_skin/kerfus/med
+	icon_base_prefix = "kerfusMed"
+	eye_prefix = "kerfusMed"
+
+/datum/robot_skin/kerfus/flushed
+	icon_base_prefix = "kerfusFlushed"
+	eye_prefix = "kerfusFlushed"
+
+/datum/robot_skin/kerfus/noerp
+	icon_base_prefix = "kerfusNoERP"
+	eye_prefix = "kerfusNoERP"
+
+/datum/robot_skin/kerfus/maid
+	icon_base_prefix = "kerfusMaid"
+	eye_prefix = "kerfusMaid"
+
+/datum/robot_skin/kerfus/cargo
+	icon_base_prefix = "kerfusCargo"
+	eye_prefix = "kerfusCargo"

@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type KeycardAuthData = {
@@ -14,7 +14,7 @@ type KeycardAuthData = {
 };
 export const KeycardAuth = (props: unknown) => {
   const { act, data } = useBackend<KeycardAuthData>();
-  let infoBox = (
+  const infoBox = (
     <Section title="Keycard Authentication Device">
       <Box>
         This device is used to trigger certain high security events. It requires
@@ -34,7 +34,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="exclamation-triangle"
                   disabled={!data.redAvailable}
                   onClick={() =>
-                    act('triggerevent', { 'triggerevent': 'Red Alert' })
+                    act('triggerevent', { triggerevent: 'Red Alert' })
                   }
                 >
                   Red Alert
@@ -45,7 +45,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="broadcast-tower"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Emergency Response Team',
+                      triggerevent: 'Emergency Response Team',
                     })
                   }
                 >
@@ -57,7 +57,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-open"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Grant Emergency Maintenance Access',
+                      triggerevent: 'Grant Emergency Maintenance Access',
                     })
                   }
                 >
@@ -67,7 +67,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-closed"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Revoke Emergency Maintenance Access',
+                      triggerevent: 'Revoke Emergency Maintenance Access',
                     })
                   }
                 >
@@ -79,7 +79,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-open"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Activate Station-Wide Emergency Access',
+                      triggerevent: 'Activate Station-Wide Emergency Access',
                     })
                   }
                 >
@@ -89,8 +89,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-closed"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent':
-                        'Deactivate Station-Wide Emergency Access',
+                      triggerevent: 'Deactivate Station-Wide Emergency Access',
                     })
                   }
                 >

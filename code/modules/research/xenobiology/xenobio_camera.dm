@@ -311,7 +311,7 @@
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys--
-			to_chat(owner, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[declension_ru(X.monkeys,"ка","ки","ек")].")
+			to_chat(owner, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[DECL_KA_KI_EK(X.monkeys)].")
 	else
 		to_chat(owner, span_notice("Цель не рядом с камерой. Действие невозможно."))
 
@@ -392,7 +392,7 @@
 	to_chat(owner, "Ctrl+ЛКМ по слайму — сканировать.")
 	to_chat(owner, "Alt+ЛКМ по слайму — накормить зельем.")
 	to_chat(owner, "Ctrl+ЛКМ по мертвой мартышке — утилизировать, по полу — разместить новую.")
-	to_chat(owner, "В [X.declent_ru(GENITIVE)] сейчас [X.monkeys] мартыш[declension_ru(X.monkeys,"ка","ки","ек")].")
+	to_chat(owner, "В [X.declent_ru(GENITIVE)] сейчас [X.monkeys] мартыш[DECL_KA_KI_EK(X.monkeys)].")
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console
@@ -530,7 +530,7 @@
 			SSmobs.cubemonkeys += food
 			X.monkeys--
 			X.monkeys = round(X.monkeys, 0.1)
-			to_chat(user, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[declension_ru(X.monkeys,"ка","ки","ек")].")
+			to_chat(user, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[DECL_KA_KI_EK(X.monkeys)].")
 
 //Pick up monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
