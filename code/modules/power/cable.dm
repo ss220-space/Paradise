@@ -5,21 +5,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 )))
 
 /**
- * # Cable directions (d1 and d2)
- *
- * 9   1   5
- *   \ | /
- * 8 - 0 - 4
- *   / | \
- * 10  2   6
- *
- * If d1 = 0 and d2 = 0, there's no cable
- * If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
- * If d1 = dir1 and d2 = dir2, it's a full X-X cable, getting from dir1 to dir2
- * By design, d1 is the smallest direction and d2 is the highest
- */
-
-/**
  * # /obj/structure/cable
  *
  * The red wire thingies you see on the ground all over the station in maintenance
@@ -90,8 +75,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 	AddElement(/datum/element/undertile)
 
 /obj/structure/cable/LateInitialize()
-	node = check_nodeness()
-	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
+	check_nodeness()
 
 /obj/structure/cable/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = NONE
@@ -118,6 +102,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 			if(power_node.should_have_node())
 				node = TRUE
 				break
+	update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 	return node
 
 /obj/structure/cable/Destroy()
@@ -145,8 +130,10 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 		icon_state = "circle"
 	else if(banned_links == ALL)
 		icon_state = "why do this- ill render something but why"
-	else
+	else if(node)
 		icon_state = "node"
+	else
+		icon_state = "connected_nonode" //no sprite, we have overlays at that point
 
 /obj/structure/cable/update_overlays()
 	. = ..()

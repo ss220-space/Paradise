@@ -1,5 +1,16 @@
 #define HEALPERCABLE 3
 #define MAXCABLEPERHEAL 8
+
+// Craft stuff
+#define CABLE_CRAFT_RESTRAINS "cable restraints (15)"
+#define CABLE_CRAFT_TOURNIQUET "самодельный жгут (20)"
+#define CABLE_CRAFT_LAYER_ONE "проводка двигателя"
+#define CABLE_CRAFT_LAYER_TWO "проводка станции"
+#define CABLE_CRAFT_LAYER_THREE "проводка отдела"
+#define CABLE_CRAFT_CABLE_HUB "мост для проводов"
+#define CABLE_CRAFT_MULTIZ_CABLE_HUB "multi z cable hub (10)"
+#define CABLE_CRAFT_RECOLOUR_CABLE "change color"
+
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	singular_name = "cable"
@@ -35,6 +46,16 @@
 		CABLE_HEX_COLOR_RED = "red",
 		CABLE_HEX_COLOR_WHITE = "white",
 		CABLE_HEX_COLOR_YELLOW = "yellow"
+	)
+
+	var/craft_choices = list(
+		CABLE_CRAFT_RESTRAINS,
+		CABLE_CRAFT_TOURNIQUET,
+		CABLE_CRAFT_LAYER_ONE,
+		CABLE_CRAFT_LAYER_TWO,
+		CABLE_CRAFT_LAYER_THREE,
+		CABLE_CRAFT_CABLE_HUB,
+		CABLE_CRAFT_MULTIZ_CABLE_HUB,
 	)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
@@ -100,35 +121,23 @@
 		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
-
-#define CABLE_CRAFT_RESTRAINS "cable restraints (15)"
-#define CABLE_CRAFT_TOURNIQUET "самодельный жгут (20)"
-#define CABLE_CRAFT_LAYER_ONE "проводка двигателя"
-#define CABLE_CRAFT_LAYER_TWO "проводка станции"
-#define CABLE_CRAFT_LAYER_THREE "проводка отдела"
-#define CABLE_CRAFT_CABLE_HUB "мост для проводов"
-#define CABLE_CRAFT_MULTIZ_CABLE_HUB "multi z cable hub (10)"
-
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
 /obj/item/stack/cable_coil/attack_self(mob/user)
-	var/image/restraints_icon = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white")
-	var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet")
-	var/image/layer_one_icon = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-yellow")
-	var/image/layer_two_icon = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-red")
-	var/image/layer_three_icon = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-blue")
-	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
-	var/choices = list(
-		CABLE_CRAFT_RESTRAINS = restraints_icon,
-		CABLE_CRAFT_TOURNIQUET = tourniquet_icon,
-		CABLE_CRAFT_LAYER_ONE = layer_one_icon,
-		CABLE_CRAFT_LAYER_TWO = layer_two_icon,
-		CABLE_CRAFT_LAYER_THREE = layer_three_icon,
-		CABLE_CRAFT_CABLE_HUB = multiz_icon,
-		CABLE_CRAFT_MULTIZ_CABLE_HUB = multiz_icon,
+	var/static/list/all_choices = list(
+		CABLE_CRAFT_RESTRAINS = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white"),
+		CABLE_CRAFT_TOURNIQUET = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet"),
+		CABLE_CRAFT_LAYER_ONE = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-yellow"),
+		CABLE_CRAFT_LAYER_TWO = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-red"),
+		CABLE_CRAFT_LAYER_THREE = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-blue"),
+		CABLE_CRAFT_CABLE_HUB = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge"),
+		CABLE_CRAFT_MULTIZ_CABLE_HUB = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge"),
+		CABLE_CRAFT_RECOLOUR_CABLE = image(icon = 'icons/obj/items.dmi', icon_state = "paint_green"),
 	)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+
+	var/avaiable_choices =  all_choices & craft_choices // borgs have unique craft menu
+	var/choice = show_radial_menu(user, src, avaiable_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 
@@ -176,6 +185,11 @@
 				to_chat(user, span_notice("You place hub cable onto the floor."))
 				new /obj/structure/cable/multilayer/multiz(T)
 
+		if(CABLE_CRAFT_RECOLOUR_CABLE)
+			var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))
+			color = cablecolor
+			update_appearance(UPDATE_ICON_STATE)
+
 		if(CABLE_CRAFT_RESTRAINS)
 			if(get_amount() < 15)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
@@ -220,11 +234,6 @@
 
 #undef CABLE_CRAFT_RESTRAINS
 #undef CABLE_CRAFT_TOURNIQUET
-#undef CABLE_CRAFT_LAYER_ONE
-#undef CABLE_CRAFT_LAYER_TWO
-#undef CABLE_CRAFT_LAYER_THREE
-#undef CABLE_CRAFT_CABLE_HUB
-#undef CABLE_CRAFT_MULTIZ_CABLE_HUB
 
 //you can use wires to heal robotics
 /obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -514,11 +523,22 @@
 	name = "cyborg cable coil"
 	is_cyborg = TRUE
 	energy_type = /datum/robot_energy_storage/wire
+	craft_choices = list(,
+		CABLE_CRAFT_LAYER_ONE,
+		CABLE_CRAFT_LAYER_TWO,
+		CABLE_CRAFT_LAYER_THREE,
+		CABLE_CRAFT_CABLE_HUB,
+		CABLE_CRAFT_MULTIZ_CABLE_HUB,
+		CABLE_CRAFT_RECOLOUR_CABLE,
+	)
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))
-	color = cablecolor
-	update_icon()
+
+#undef CABLE_CRAFT_LAYER_ONE
+#undef CABLE_CRAFT_LAYER_TWO
+#undef CABLE_CRAFT_LAYER_THREE
+#undef CABLE_CRAFT_CABLE_HUB
+#undef CABLE_CRAFT_MULTIZ_CABLE_HUB
+#undef CABLE_CRAFT_RECOLOUR_CABLE
 
 #undef MAXCABLEPERHEAL
 #undef HEALPERCABLE
