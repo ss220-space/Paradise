@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - balance: "Теперь влияет дальность от цели попадания эми выстрелом. (PR #9850)"
