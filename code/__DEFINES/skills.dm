@@ -85,6 +85,10 @@ GLOBAL_LIST_INIT(skill_upgrade_prices_discount, alist(
 #define DRINKS_DISPENSE_RAND_SIZE "drinks_dispense_rand_size"
 /// Сhance to dispense a random reagent
 #define DRINKS_DISPENSE_RAND_REAGENT_PROB "drinks_dispense_rand_reagent_prob"
+/// Dispense random size modifier for botany skill
+#define BOTANY_DISPENSE_RAND_SIZE "botany_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define BOTANY_DISPENSE_RAND_REAGENT_PROB "botany_dispense_rand_reagent_prob"
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
