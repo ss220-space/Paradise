@@ -105,7 +105,7 @@
 		if(is_internal_organ_brain(victim_brain))
 			var/obj/item/organ/internal/brain/o_brain = victim_brain
 			living = o_brain.brainmob
-		if(istype(victim_brain, /obj/item/organ/external/head))
+		if(ishead(victim_brain))
 			var/obj/item/organ/external/head/head = victim_brain
 			var/obj/item/organ/internal/brain/h_brain = locate(/obj/item/organ/internal/brain) in head.contents
 			if(!h_brain)

@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - balance: "Нерф нитриума. (PR #9827)"
