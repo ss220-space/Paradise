@@ -1,4 +1,7 @@
 #define DAMAGE_ON_IMPACT 20
+#define MAXIMUM_RANGE 9
+#define DIR_TO_TURN_MIN 175
+#define DIR_TO_TURN_MAX 190
 
 /obj/item/grapple_gun
 	name = "grapple gun"
@@ -29,7 +32,6 @@
 	var/datum/looping_sound/zipline/zipline_sound
 	/// our initial matrix
 	var/matrix/initial_matrix
-	///
 
 /obj/item/grapple_gun/get_ru_names()
 	return alist(
@@ -46,6 +48,12 @@
 	zipline_sound = new(src)
 	update_appearance()
 
+/obj/item/grapple_gun/Destroy(force)
+	QDEL_NULL(zipline)
+	QDEL_NULL(zipliner)
+	QDEL_NULL(zipline_sound)
+	return ..()
+
 /obj/item/grapple_gun/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(isgroundlessturf(target))
 		return NONE
@@ -54,7 +62,7 @@
 	if(!lavaland_equipment_pressure_check(get_turf(user)) && !(emagged))
 		user.balloon_alert(user, "неподходящее давление!")
 		return ITEM_INTERACT_BLOCKING
-	if(get_dist(user, target) > 9)
+	if(get_dist(user, target) > MAXIMUM_RANGE)
 		user.balloon_alert(user, "слишком далеко!")
 		return ITEM_INTERACT_BLOCKING
 
@@ -123,7 +131,7 @@
 	var/atom/target = zipline.target
 	if(isnull(target))
 		return
-	if(get_dist(source, target) > 9)
+	if(get_dist(source, target) > MAXIMUM_RANGE)
 		cancel_hook()
 
 /obj/item/grapple_gun/proc/apply_throw_traits(mob/living/source, list/arguements)
@@ -133,7 +141,7 @@
 	if(isnull(target_atom))
 		return
 	var/dir_to_turn = get_angle(source, target_atom)
-	if(dir_to_turn > 175 && dir_to_turn < 190)
+	if(dir_to_turn > DIR_TO_TURN_MIN && dir_to_turn < DIR_TO_TURN_MAX)
 		dir_to_turn = 0
 	source.add_traits(traits_on_zipline, LEAPING_TRAIT)
 	initial_matrix = source.transform
@@ -148,7 +156,7 @@
 	new /obj/effect/temp_visual/mook_dust(drop_location())
 	RegisterSignal(my_user, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_target))
 	my_user.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-	my_user.throw_at(target = target_atom, range = 9, speed = 1, spin = FALSE, callback = CALLBACK(src, PROC_REF(post_land)))
+	my_user.throw_at(target = target_atom, range = MAXIMUM_RANGE, speed = 1, spin = FALSE, callback = CALLBACK(src, PROC_REF(post_land)))
 
 /obj/item/grapple_gun/proc/strike_target(mob/living/source, mob/living/victim, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
@@ -196,7 +204,7 @@
 	icon_state = "grapple_hook"
 	damage = 0
 	speed = 0.2
-	range = 9
+	range = MAXIMUM_RANGE
 	can_hit_turfs = TRUE
 	hitsound = 'sound/weapons/zipline/zipline_hit.ogg'
 
@@ -209,5 +217,7 @@
 	mid_sounds = list('sound/weapons/zipline/zipline_mid.ogg' = 1)
 	volume = 5
 
-
 #undef DAMAGE_ON_IMPACT
+#undef MAXIMUM_RANGE
+#undef DIR_TO_TURN_MIN
+#undef DIR_TO_TURN_MAX

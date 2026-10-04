@@ -55,10 +55,16 @@ Kinetic spear - alternative mining weapon, used as... spear.
 
 /obj/item/twohanded/mining_spear/Initialize(mapload)
 	. = ..()
-	if(core)
-		core = new core(src)
-		core.on_insert(src)
-		update_icon(UPDATE_OVERLAYS)
+	if(!core)
+		return
+	core = new core(src)
+	core.on_insert(src)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/twohanded/mining_spear/Destroy(force)
+	returner = null
+	QDEL_NULL(core)
+	return ..()
 
 /obj/item/twohanded/mining_spear/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
