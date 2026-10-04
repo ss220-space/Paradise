@@ -1,33 +1,3 @@
-//Preferences stuff
-	//Head accessory styles
-GLOBAL_LIST_EMPTY(head_accessory_styles_list) //stores /datum/sprite_accessory/head_accessory indexed by name
-	//Marking styles
-GLOBAL_LIST_EMPTY(marking_styles_list) //stores /datum/sprite_accessory/body_markings indexed by name
-	//Hairstyles
-GLOBAL_LIST_EMPTY(hair_styles_public_list)			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list)
-GLOBAL_LIST_EMPTY(hair_styles_female_list)
-GLOBAL_LIST_EMPTY(hair_styles_full_list) //fluff hair styles
-GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)
-GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)
-GLOBAL_LIST_EMPTY(skin_styles_female_list)		//unused
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-	//Underwear
-GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
-GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
-GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
-	//Undershirts
-GLOBAL_LIST_EMPTY(undershirt_list)	//stores /datum/sprite_accessory/undershirt indexed by name
-GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
-GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
-	//Socks
-GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
-GLOBAL_LIST_EMPTY(socks_m)	 //stores only socks name
-GLOBAL_LIST_EMPTY(socks_f)	 //stores only socks name
-	//Alt Heads
-GLOBAL_LIST_EMPTY(alt_heads_list)	//stores /datum/sprite_accessory/alt_heads indexed by name
-
 GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons/taser.ogg','sound/weapons/armbomb.ogg','sound/voice/hiss1.ogg','sound/voice/hiss2.ogg', \
 'sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg', \
 'sound/items/welder.ogg','sound/items/welder2.ogg','sound/machines/airlock_open.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'))

@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "SSaccessories больше не плодит рантаймы. (PR #9854)"

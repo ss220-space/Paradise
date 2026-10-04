@@ -187,18 +187,18 @@
 								/obj/item/storage/belt/military/traitor/hacker = 1,							// 10 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/flashlight/emp = 1),												// 20 TK
-			"Darklord" = list("Name" = "'Darklord' bundle",	// 100-122 TK
+			"Darklord" = list("Name" = "'Darklord' bundle",	// 140-162 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
 /*								/obj/item/t_scanner = 1,
 								/obj/item/clothing/gloves/color/yellow/power = 1,*/		// Plan B fot 'coming soon' Martial Art. // I suppose its not coming
 								/obj/item/melee/energy/sword/saber/red = 2,									// 80 TK
-								/obj/item/dnainjector/telemut/darkbundle = 1,								// 0 TK
 								/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,							// 0 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
 								/obj/item/clothing/mask/chameleon = 1,										// 0-20 TK
-								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-
+								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
+								/obj/item/midichlorian_injector = 1,											// 40 TK
+							),
 			"Professional" = list("Name" = "'Professional' Bundle",	// 180-187 TK
 								"Desc" = "Suit up and handle yourself like a professional with a long-distance sniper rifle, additional .50 standard and penetrator rounds and thermal glasses to easily scope out your target.",
 								/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator = 1,   // 100 TK

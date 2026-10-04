@@ -31,6 +31,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
 	)
+	discount_skill_category = /datum/skill/engineering
 
 /datum/outfit/job/chief_engineer
 	name = JOB_TITLE_RU_CHIEF_ENGINEER
@@ -69,6 +70,7 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	paycheck = PAYCHECK_CREW
 	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
+	discount_skill_category = /datum/skill/engineering
 
 /datum/job/engineering/engineer
 	title = JOB_TITLE_ENGINEER

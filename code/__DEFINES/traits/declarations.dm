@@ -119,6 +119,7 @@
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
+
 /// This mob heals from ash tendril
 #define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
@@ -133,6 +134,8 @@
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
 #define TRAIT_CULT_VEIL_SIGHT "cult_veil_sight"
 #define TRAIT_CULT_CONCEALED "cult_concealed"
+/// This mob heals from swarmer cores.
+#define TRAIT_HEALS_FROM_SWARMER_CORES "heals_from_swarmer_cores"
 
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
@@ -414,6 +417,8 @@
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
 
+/// If a mob is grasped with force grab
+#define TRAIT_FORCE_GRASPED "force_grasped"
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
@@ -458,6 +463,12 @@
 
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
+/// Block any stamina regeneration for mob
+#define TRAIT_BLOCK_STAMINA_REGEN "block_stamina_regen"
+
+/// Block reagent metabolization for mob
+#define TRAIT_BLOCK_METABOLIZE "block_metabolize"
+
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
 /// GLOB trait, applied whenever something in the world wants to use the distortion plane
@@ -475,6 +486,9 @@
 #define STATION_TRAIT_POST_WAR_TRASH "station_trait_post_war_trash"
 #define STATION_TRAIT_CRAMPED_INTERNALS "station_trait_cramped_internals"
 #define STATION_TRAIT_LOOTED_ARMORY "station_trait_looted_armory"
+#define STATION_TRAIT_HITSCAN_ARMORY "station_trait_hitscan_armory"
+#define STATION_TRAIT_ACCUMULATOR_RIFLE_ARMORY "station_trait_accumulator_rifle_armory"
+#define STATION_TRAIT_AUTOMATIC_LASER_ARMORY "station_trait_automatic_laser_armory"
 #define STATION_TRAIT_SPIKED_DRINKS "station_trait_spiked_drinks"
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
 #define STATION_TRAIT_MIMANIUM_SHIPMENTS "station_trait_mimanium_shipments"
