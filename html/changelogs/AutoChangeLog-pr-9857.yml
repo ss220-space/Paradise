@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Хвосты с отметками теперь отображаются корректно. (PR #9857)"
