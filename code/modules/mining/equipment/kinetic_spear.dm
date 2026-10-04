@@ -460,7 +460,7 @@ Spear cores. Gives spear special abilities and quirks
 
 /obj/item/mining_spear_core/syndie
 	name = "syndicate spear core"
-	desc = "Сильно модифицированное ядро, позволяющее пользователю вести охоту на самую опасную добычу - на человека."
+	desc = "Сильно модифицированное ядро, позволяющее пользователю вести охоту на самую опасную добычу — на человека."
 	icon_state = "syndie_core"
 	spear_overlay = "overlay_red"
 	charged_glow_color = "#B22C20"
