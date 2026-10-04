@@ -46,8 +46,8 @@ export const Safe = (_properties) => {
               }}
             />
           )}
+          {!open && <Help />}
         </Box>
-        {!open && <Help />}
       </Window.Content>
     </Window>
   );

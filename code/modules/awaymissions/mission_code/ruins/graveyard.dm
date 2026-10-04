@@ -104,7 +104,7 @@
 			qdel(O)
 		else
 			O.forceMove(get_turf(src))
-	..()
+	return ..()
 
 /obj/item/storage/funeral_urn/with_ash
 

@@ -7,6 +7,10 @@
 	var/datum/mind/target
 	item_flags = NOBLUDGEON
 
+/obj/item/paper/contract/Destroy(force)
+	target = null
+	return ..()
+
 /obj/item/paper/contract/proc/update_text()
 	return
 
@@ -68,6 +72,12 @@
 		PREPOSITIONAL = "адском контракте [contract.contract_subject]",
 	)
 	update_text()
+
+/obj/item/paper/contract/infernal/Destroy(force)
+	contract = null
+	devilinfo = null
+	owner = null
+	return ..()
 
 /obj/item/paper/contract/infernal/suicide_act(mob/user)
 	if(signed && (user == target.current) && ishuman(user))

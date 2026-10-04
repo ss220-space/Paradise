@@ -336,23 +336,70 @@
 	return !length(target_list)
 
 /**
- * Checks if an atom is of a type present in the given list
+ * Checks for specific types in a list.
+ *
+ * If using zebra mode the list should be an assoc list with truthy/falsey values.
+ * The check short circuits so earlier entries in the input list will take priority.
+ * Ergo, subtypes should come before parent types.
+ * Notice that this is the opposite priority of [/proc/typecacheof].
  *
  * Arguments:
- * * checked_atom - The atom to check the type of
- * * target_list - The list of types to check against
- * * check_subtypes - If TRUE, includes subtypes in the check
+ * - [type_to_check][/datum]: An instance to check.
+ * - [list_to_check][/list]: A list of typepaths to check the type_to_check against.
+ * - check_subtypes: Whether we check for subtypes.
+ * - zebra: Whether to use the value of the matching type (if check_subtypes is TRUE, closest to our type) in the list instead of just returning true when a match is found.
+ * - return_first_match: If zebra is true and check_subtypes is true, this will return the first match found, instead of the value of closest type
  */
-/proc/is_type_in_list(atom/checked_atom, list/target_list, check_subtypes = TRUE)
-	if(!checked_atom || !length(target_list) || !checked_atom)
+/proc/is_type_in_list(datum/type_to_check, list/list_to_check, check_subtypes = TRUE, zebra = FALSE, return_first_match = FALSE)
+	if(!LAZYLEN(list_to_check) || !type_to_check)
 		return FALSE
-	for(var/target_type in target_list)
-		if(check_subtypes)
-			if(istype(checked_atom, target_type))
-				return TRUE
-		else
-			if(checked_atom.type == target_type)
-				return TRUE
+
+	if(!check_subtypes)
+		for(var/type in list_to_check)
+			if(type_to_check.type == type)
+				return !zebra || list_to_check[type]
+		return FALSE
+
+	. = FALSE
+	var/highest_matched_type
+	for(var/type in list_to_check)
+		if(!istype(type_to_check, type))
+			continue
+		if(!zebra)
+			return TRUE
+		if(return_first_match || type == type_to_check.type)
+			return list_to_check[type]
+		if(!highest_matched_type || ispath(type, highest_matched_type))
+			. = list_to_check[type]
+			highest_matched_type = type
+
+/**
+ * Checks for specific paths in a list.
+ *
+ * If using zebra mode the list should be an assoc list with truthy/falsey values.
+ * The check short circuits so earlier entries in the input list will take priority.
+ * Ergo, subpaths should come before parent paths.
+ * Notice that this is the opposite priority of [/proc/typecacheof].
+ *
+ * Arguments:
+ * - path_to_check: A typepath to check.
+ * - [list_to_check][/list]: A list of typepaths to check the path_to_check against.
+ * - check_subpaths: Whether we check for subpaths.
+ * - zebra: Whether to use the value of the mathing path in the list instead of just returning true when a match is found.
+ */
+/proc/is_path_in_list(path_to_check, list/list_to_check, check_subpaths = TRUE, zebra = FALSE)
+	if(!LAZYLEN(list_to_check) || !path_to_check)
+		return FALSE
+
+	if(check_subpaths)
+		for(var/path in list_to_check)
+			if(ispath(path_to_check, path))
+				return !zebra || list_to_check[path]
+		return FALSE
+
+	for(var/path in list_to_check)
+		if(path_to_check == path)
+			return !zebra || list_to_check[path]
 	return FALSE
 
 /**

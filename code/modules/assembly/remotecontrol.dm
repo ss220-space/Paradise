@@ -46,6 +46,19 @@
 		else
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 
+/obj/item/assembly/control/gateway
+	name = "gateway controller"
+	desc = "A small electronic device able to control a gateway remotely."
+	configurable = FALSE
+
+/obj/item/assembly/control/gateway/activate()
+	if(!..())
+		return
+	var/obj/machinery/gateway/centerstation/gateway = GLOB.the_gateway
+	if(safety_z_check && gateway.z != loc.z)
+		return
+	INVOKE_ASYNC(gateway, TYPE_PROC_REF(/obj/machinery/gateway/centerstation, toggle_remotely), usr, src)
+
 /obj/item/assembly/control/airlock
 	name = "airlock controller"
 	desc = "A small electronic device able to control an airlock remotely."

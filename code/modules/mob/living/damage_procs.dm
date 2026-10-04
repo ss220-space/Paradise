@@ -725,6 +725,9 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, STAMINA, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return STATUS_UPDATE_NONE
 
+	if(!forced && amount < 0 && HAS_TRAIT(src, TRAIT_BLOCK_STAMINA_REGEN))
+		return STATUS_UPDATE_NONE
+    
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, STAMINA, used_weapon = used_weapon)
@@ -754,14 +757,15 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
+	var/old_stamloss = getStaminaLoss()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_stamloss = getStaminaLoss()
 		staminaloss = 0
 		if(old_stamloss != 0)
 			updatehealth("setStaminaLoss")
 		return STATUS_UPDATE_NONE
 
 	var/old_amount = getStaminaLoss()
+  
 	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	var/delta = old_amount - staminaloss
 	if(delta <= 0 && amount >= DAMAGE_PRECISION)

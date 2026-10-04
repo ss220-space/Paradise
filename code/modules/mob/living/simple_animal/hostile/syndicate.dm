@@ -95,6 +95,11 @@
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Destroy()
+	depotarea = null
+	spawn_turf = null
+	return ..()
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
 	return ListTargets()
