@@ -7,6 +7,10 @@
 	var/datum/mind/target
 	item_flags = NOBLUDGEON
 
+/obj/item/paper/contract/Destroy(force)
+	target = null
+	return ..()
+
 /obj/item/paper/contract/proc/update_text()
 	return
 
@@ -69,10 +73,16 @@
 	)
 	update_text()
 
+/obj/item/paper/contract/infernal/Destroy(force)
+	contract = null
+	devilinfo = null
+	owner = null
+	return ..()
+
 /obj/item/paper/contract/infernal/suicide_act(mob/user)
 	if(signed && (user == target.current) && ishuman(user))
 		var/mob/living/carbon/human/human = user
-		human.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
+		human.force_say("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
 		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [GEND_HE_SHE(human)] пытается покончить с собой!"))
 		human.adjust_fire_stacks(20)
 		human.IgniteMob()

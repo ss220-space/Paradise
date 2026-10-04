@@ -151,16 +151,16 @@
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
-/obj/item/reagent_containers/glass/bottle/potion
+/obj/item/reagent_containers/cup/bottle/potion
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "potionflask"
 
-/obj/item/reagent_containers/glass/bottle/potion/flight
+/obj/item/reagent_containers/cup/bottle/potion/flight
 	name = "strange elixir"
 	desc = "Флакон с едва ли не святой аурой, исходящей от него. Вы пытаетесь прочитать надпись на бутылке, но текст неразборчив."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/flight/get_ru_names()
+/obj/item/reagent_containers/cup/bottle/potion/flight/get_ru_names()
 	return alist(
 		NOMINATIVE = "странный эликсир",
 		GENITIVE = "странного эликсира",
@@ -170,7 +170,7 @@
 		PREPOSITIONAL = "странном эликсире",
 	)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
+/obj/item/reagent_containers/cup/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else

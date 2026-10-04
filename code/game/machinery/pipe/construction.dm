@@ -5,7 +5,7 @@
 	desc = "A pipe"
 	var/pipe_type = 0
 	var/pipename
-	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
+	var/list/connect_types = list(1) //1=regular, 2=supply, 3=scrubber
 	force = 7
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 	icon_state = "simple"
@@ -135,7 +135,7 @@
 
 	update(make_from)
 	//Flipping handled manually due to custom handling for trinary pipes
-	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING, post_rotation_proccall = PROC_REF(fixdir))
+	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING, post_rotation_proccall = PROC_REF(post_rotate))
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
@@ -182,6 +182,14 @@
 		return
 
 	setDir(turn(src.dir, -90))
+
+	fixdir()
+
+/obj/item/pipe/proc/post_rotate()
+	if(pipe_type == PIPE_CIRCULATOR)
+		dir = SOUTH
+		flip()
+		return
 
 	fixdir()
 

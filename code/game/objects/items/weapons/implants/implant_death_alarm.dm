@@ -25,7 +25,7 @@
 			message = "[mobname] умер-ррр-р-р во-во-во..."
 			destroy = TRUE
 		if("emp")
-			var/name = prob(50) ? mob_area.name : pick(SSmapping.teleportlocs)
+			var/name = prob(50) ? mob_area.name : pick(GLOB.teleportlocs)
 			message = "Потерян сигнал жизнедеятельности от [mobname] в [name]!"
 		else
 			if(is_type_in_typecache(mob_area, stealth_areas))

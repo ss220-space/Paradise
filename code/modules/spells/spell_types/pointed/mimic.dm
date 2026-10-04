@@ -1,0 +1,274 @@
+/datum/action/cooldown/spell/pointed/mimic
+	name = "Мимикрия"
+	desc = "Овладейте новой формой для подражания или трансформируйтесь в уже знакомую вам форму."
+	spell_requirements = NONE
+	cooldown_time = 3 SECONDS
+	active_msg = span_sinister_alt("Кликните на цель, чтобы запомнить её форму. Кликните на себя, чтобы изменить свою форму.")
+	button_icon_state = "genetic_morph"
+	cast_range = 20
+	aim_assist = FALSE
+	/// Which form is currently selected
+	var/datum/mimic_form/selected_form
+	/// Which forms the user can become
+	var/list/available_forms = list()
+	/// How many forms the user can remember
+	var/max_forms = 5
+	/// Which index will be overriden next when the user wants to remember another form
+	var/next_override_index = 1
+	/// If a message is shown when somebody examines the user from close range
+	var/perfect_disguise = FALSE
+	/// Var to store user ru_names to restore them later when they stop mimicking
+	var/user_ru_names
+
+	var/static/list/black_listed_form_types = list(
+		/atom/movable/screen,
+		/obj/singularity,
+		/obj/effect,
+		/mob/living/simple_animal/hostile/megafauna,
+		/obj/machinery/dna_vault,
+		/obj/machinery/power/bluespace_tap,
+		/obj/structure/sign/barsign,
+		/obj/machinery/atmospherics/unary/cryo_cell,
+		/obj/machinery/gravity_generator
+	)
+
+/datum/action/cooldown/spell/pointed/mimic/is_valid_target(atom/cast_on)
+	if(is_type_in_list(cast_on, black_listed_form_types))
+		return FALSE
+	if(istype(cast_on, /atom/movable))
+		var/atom/movable/AM = cast_on
+		if(AM.bound_height > ICON_SIZE_Y || AM.bound_width > ICON_SIZE_X)
+			return FALSE // No multitile structures
+	if(owner != cast_on && ismorph(cast_on))
+		return FALSE
+	return TRUE
+
+/datum/action/cooldown/spell/pointed/mimic/cast(atom/cast_on)
+	. = ..()
+	var/atom/movable/A = cast_on
+	if(A == owner)
+		INVOKE_ASYNC(src, PROC_REF(pick_form), owner)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(remember_form), A, owner)
+
+/datum/action/cooldown/spell/pointed/mimic/proc/remember_form(atom/movable/A, mob/user)
+	if(A.declent_ru(NOMINATIVE) in available_forms)
+		user.balloon_alert(user, "эта форма уже изучена!")
+		reset_spell_cooldown(user)
+		return
+
+	if(length(available_forms) >= max_forms)
+		to_chat(user, span_warning("Вы начинаете забывать форму \"[available_forms[next_override_index]]\", чтобы изучить новую."))
+
+	to_chat(user, span_sinister("Вы начинаете запоминать форму [A.declent_ru(GENITIVE)]."))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		user.balloon_alert(user, "не двигайтесь!")
+		return
+
+	// Forget the old form if needed
+	if(length(available_forms) >= max_forms)
+		qdel(available_forms[available_forms[next_override_index]]) // Delete the value using the key
+		available_forms[next_override_index++] = A.declent_ru(NOMINATIVE)
+		// Reset if needed
+		if(next_override_index > max_forms)
+			next_override_index = 1
+
+	available_forms[A.declent_ru(NOMINATIVE)] = new /datum/mimic_form(A, user)
+	user.balloon_alert(user, "форма изучена")
+
+/datum/action/cooldown/spell/pointed/mimic/proc/pick_form(mob/user)
+	if(!length(available_forms) && !selected_form)
+		to_chat(user, span_warning("Нет доступных форм. Используйте способность на других существах или предметах для изучения новых форм."))
+		user.balloon_alert(user, "нет доступных форм!")
+		reset_spell_cooldown(user)
+		return
+
+	var/list/forms = list()
+	if(selected_form)
+		forms += "Оригинальная форма"
+
+	forms += available_forms.Copy()
+	var/what = tgui_input_list(user, "В какую форму вы хотите превратиться?", "Мимикрия", forms)
+	if(!what)
+		to_chat(user, span_notice("Вы решаете не менять форму."))
+		reset_spell_cooldown(user)
+		return
+
+	if(what == "Оригинальная форма")
+		restore_form(user)
+		return
+	to_chat(user, span_sinister("Вы начинаете превращаться в [what]."))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		to_chat(user, span_warning("Вы теряете концентрацию."))
+		return
+	take_form(available_forms[what], user)
+
+/datum/action/cooldown/spell/pointed/mimic/proc/take_form(datum/mimic_form/form, mob/user)
+	var/old_name = "[user]"
+	var/is_human = ishuman(user)
+	var/first_mimic = !selected_form
+
+	if(first_mimic)
+		user_ru_names = user.ru_names
+
+	if(is_human)
+		// Not fully finished yet
+		// 03.07.2026: I'm too lazy to finish this
+		var/mob/living/carbon/human/human = user
+		human.name_override = form.name
+	else
+		user.ru_names = form.form_ru_names
+		user.appearance = form.appearance
+		user.transform = initial(user.transform)
+		user.pixel_y = initial(user.pixel_y)
+		user.pixel_x = initial(user.pixel_x)
+		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.invisibility = initial(user.invisibility)
+		SET_PLANE_IMPLICIT(user, initial(user.plane))
+		user.appearance_flags = initial(user.appearance_flags)
+		user.density = form.density
+
+	playsound(user, SFX_BONEBREAK, 75, TRUE)
+	show_change_form_message(user, old_name, "[user]")
+	user.create_log(MISC_LOG, "Mimicked into [user]")
+
+	if(first_mimic)
+		RegisterSignal(user, COMSIG_ATOM_EXAMINE, PROC_REF(examine_override))
+		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+
+	selected_form = form
+
+/datum/action/cooldown/spell/pointed/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
+	return user.visible_message(
+		span_warning("[old_name] искажается и медленно превращается в [new_name]!"),
+		span_sinister("Вы принимаете форму [new_name]."),
+		span_hear("Вы слышите громкие хрустящие звуки!"),
+	)
+
+/datum/action/cooldown/spell/pointed/mimic/proc/restore_form(mob/user, show_message = TRUE)
+	selected_form = null
+	var/old_name = "[user]"
+	var/is_human = ishuman(user)
+
+	user.cut_overlays()
+	user.icon = initial(user.icon)
+	user.icon_state = initial(user.icon_state)
+	user.density = initial(user.density)
+	if(is_human)
+		var/mob/living/carbon/human/human = user
+		human.name_override = null
+		human.regenerate_icons()
+	else
+		user.name = initial(user.name)
+		user.desc = initial(user.desc)
+		user.color = initial(user.color)
+		user.transform = initial(user.transform)
+		user.pixel_x = initial(user.pixel_x)
+		user.pixel_y = initial(user.pixel_y)
+		user.layer = initial(user.layer)
+		user.invisibility = initial(user.invisibility)
+		SET_PLANE_IMPLICIT(user, initial(user.plane))
+		user.appearance_flags = initial(user.appearance_flags)
+
+	if(!is_human)
+		user.ru_names = length(user_ru_names) ? user_ru_names : null
+		user_ru_names = null
+
+	playsound(user, SFX_BONEBREAK, 150, TRUE)
+	if(show_message)
+		show_restore_form_message(user, old_name, "[user.declent_ru(GENITIVE)]")
+	UnregisterSignal(user, list(COMSIG_ATOM_EXAMINE, COMSIG_MOB_DEATH))
+
+/datum/action/cooldown/spell/pointed/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
+	return user.visible_message(
+		span_warning("[old_name] дёргается и искажается, быстро превращаясь в [new_name]!"),
+		span_sinister("Вы возвращаетесь к своей обычной форме."),
+		span_hear("Вы слышите громкие хрустящие звуки!"),
+	)
+
+/datum/action/cooldown/spell/pointed/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
+	examine_list.Cut()
+	examine_list += selected_form.examine_text
+	if(!perfect_disguise && get_dist(user, source) <= 3)
+		examine_list += span_warning("При ближайшем рассмотрении оно выглядит не совсем естественно...")
+
+/datum/action/cooldown/spell/pointed/mimic/proc/on_death(mob/user, gibbed)
+	if(!gibbed)
+		restore_form(user, FALSE)
+		show_death_message(user)
+
+/datum/action/cooldown/spell/pointed/mimic/proc/show_death_message(mob/user)
+	return user.visible_message(
+		span_warning("[user] дёргается и искажается, когда умирает, возвращаясь к своей истинной форме!"),
+		span_deadsay("Ваша маскировка исчезает, когда ваши жизненные силы угасают."),
+		span_hear("Вы слышите громкие хрустящие звуки, за которыми следует глухой удар!"),
+	)
+
+/datum/mimic_form
+	/// What the visible species of the form is (Only for human forms)?
+	var/examine_species = UNKNOWN_STATUS_RUS
+	/// What the visible gender of the form is (Only for human forms)?
+	var/examine_gender
+	/// What is the examine text paired with this form?
+	var/examine_text
+	/// How does the form look like?
+	var/appearance
+	/// What the name of the form is?
+	var/name
+	/// What the ru names of the form is?
+	var/alist/form_ru_names
+	/// If the form has density
+	var/density
+
+/datum/mimic_form/New(atom/movable/form, mob/user)
+	examine_gender = form.get_visible_gender()
+	examine_text = form.examine(user)
+	appearance = form.appearance
+	name = form.name
+	density = form.density
+	form_ru_names = form.ru_names || form.get_ru_names_cached()
+	// if no ru_names found, we just fill it with default name
+	if(!length(form_ru_names))
+		form_ru_names = alist()
+		for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+			form_ru_names[case_id] = form.declent_ru(case_id)
+	if(isliving(form))
+		var/mob/living/form_living = form
+		examine_species = form_living.get_visible_species()
+
+/datum/action/cooldown/spell/pointed/mimic/morph
+	background_icon_state = "bg_morph"
+	background_icon_state_active = "bg_morph"
+	button_icon_state = "morph_mimic"
+
+/datum/action/cooldown/spell/pointed/mimic/morph/create_new_handler()
+	var/datum/spell_handler/morph/H = new
+	return H
+
+/datum/action/cooldown/spell/pointed/mimic/morph/take_form(datum/mimic_form/form, mob/living/simple_animal/hostile/morph/user)
+	..()
+	user.assume()
+
+/datum/action/cooldown/spell/pointed/mimic/morph/restore_form(mob/living/simple_animal/hostile/morph/user, show_message = TRUE)
+	..()
+	user.restore()
+
+/datum/action/cooldown/spell/pointed/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
+	return user.visible_message(
+		span_warning("[old_name] внезапно искажается и меняет форму, становясь копией [new_name]!"),
+		span_notice("Вы искажаете своё тело и принимаете форму [new_name]."),
+	)
+
+/datum/action/cooldown/spell/pointed/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
+	return user.visible_message(
+		span_warning("[old_name] внезапно сжимается, превращаясь в кучу зелёной плоти!"),
+		span_notice("Вы возвращаетесь к своей обычной форме."),
+	)
+
+/datum/action/cooldown/spell/pointed/mimic/morph/show_death_message(mob/user)
+	return user.visible_message(
+		span_warning("[user] искажается и превращается в кучу зелёной плоти!"),
+		span_userdanger("Ваша кожа разрывается! Ваша плоть распадается! Никакая маскировка не спасёт от смер.."),
+	)
+

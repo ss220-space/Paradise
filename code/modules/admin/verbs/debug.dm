@@ -394,6 +394,15 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", /mob
 	log_and_message_admins(span_notice("changed the equipment of [key_name_admin(M)] to [dresscode]."))
 	BLACKBOX_LOG_ADMIN_VERB("Select Equipment")
 
+ADMIN_VERB_ONLY_CONTEXT_MENU(custom_equipment, R_EVENT, "Custom Equipment", /mob)
+	VERB_ARG_TYPED(human_target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+	if(!ishuman(human_target) && !isobserver(human_target))
+		tgui_alert(user, "Неподходящее существо")
+		return
+
+	var/datum/custom_outfit/tgui = new(human_target)
+	tgui.ui_interact(user.mob)
+
 /client/proc/robust_dress_shop()
 	var/list/outfits = list(
 		"Naked",
@@ -573,7 +582,7 @@ ADMIN_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Displa
 			dellog += "<li>Ignored force: [item.no_respect_force]</li>"
 		if(item.no_hint)
 			dellog += "<li>No hint: [item.no_hint]</li>"
-		if(length(item.extra_details))
+		if(LAZYLEN(item.extra_details))
 			var/details = item.extra_details.Join("</li><li>")
 			dellog += "<li>Extra Info: <ul><li>[details]</li></ul>"
 		dellog += "</ul></li>"

@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[name], src)
 
-/obj/effect/mob_spawn/Destroy()
+/obj/effect/mob_spawn/Destroy(force)
 	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
@@ -866,7 +866,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/black/forensics
-	belt = /obj/item/gun/projectile/automatic/pistol
+	belt = /obj/item/gun/projectile/automatic/pistol/stechkin
 	mask = /obj/item/clothing/mask/balaclava
 	suit = /obj/item/clothing/suit/armor/vest/combat
 

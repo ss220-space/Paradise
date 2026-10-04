@@ -336,7 +336,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			if(!FULL_ADMIN_CHECK(ui.user))
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
-			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/cmd_admin_create_centcom_report)
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/create_command_report)
 
 		if("dispatch_ert")
 			if(!ADMIN_CHECK(ui.user))
@@ -391,7 +391,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 					message = params["text"],
 					new_title = ANNOUNCE_CCMSG_RU,
 					new_sound = SSstation.announcer.get_rand_report_sound(),
-					new_subtitle = params["subtitle"]
+					new_subtitle = params["subtitle"],
+					color_override = "blue"
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else

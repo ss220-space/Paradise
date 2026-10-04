@@ -131,6 +131,12 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
+#define is_energygun(A) (istype(A, /obj/item/gun/energy))
+
+#define is_projectilegun(A) (istype(A, /obj/item/gun/projectile))
+
+#define is_swarmerprojectile(A) (istype(A, /obj/projectile/beam/disabler/swarmer))
+
 #define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
@@ -154,13 +160,17 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define issyringe(A) (istype(A, /obj/item/reagent_containers/syringe))
 
-#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
+#define iscup(A) (istype(A, /obj/item/reagent_containers/cup))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
+
+#define is_energy_gun_cell(A) (istype(A, /obj/item/weapon_cell/energy_gun))
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
 #define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
+
+#define is_door(A) (istype(A, /obj/machinery/door))
 
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
@@ -187,6 +197,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 #define isdisposalunit(A) (istype(A, /obj/machinery/disposal))
 
 #define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
+
+#define is_laser_modification_case(A) (istype(A, /obj/item/laser_modification_case))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -312,6 +324,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isgroin(A) (istype(A, /obj/item/organ/external/groin))
 
+#define ishead(A) (istype(A, /obj/item/organ/external/head))
+
 /// in some situations we can't rely on dynamic typing and use if(statement)
 #define istrue(statement) (statement == TRUE)
 
@@ -325,6 +339,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ismouse(A) (istype(A, /mob/living/simple_animal/mouse))
 #define isbot(A) (istype(A, /mob/living/simple_animal/bot))
 #define isswarmer(A) (istype(A, /mob/living/simple_animal/hostile/swarmer))
+#define is_basicswarmer(A) (istype(A, /mob/living/simple_animal/hostile/swarmer/basic))
+#define is_roverswarmer(A) (istype(A, /mob/living/simple_animal/hostile/swarmer/rover))
+#define is_builderswarmer(A) (istype(A, /mob/living/simple_animal/hostile/swarmer/builder))
 #define isguardian(A) (istype(A, /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A) (istype(A, /mob/living/simple_animal/diona))
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
@@ -412,6 +429,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 // Antag
 #define IS_CHANGELING(A) (A?.mind?.has_antag_datum(/datum/antagonist/changeling))
 
+#define is_esword(A) (istype(A, /obj/item/melee/energy/sword))
+#define is_dualsaber(A) (istype(A, /obj/item/twohanded/dualsaber))
+
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
@@ -455,7 +475,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
 
+#define is_closet(A) (istype(A, /obj/structure/closet))
+#define is_secure_closet(A) (istype(A, /obj/structure/closet/secure_closet))
+
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
+#define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))

@@ -15,6 +15,10 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
+	if(length(GLOB.newplayer_start))
+		forceMove(pick(GLOB.newplayer_start))
+	else
+		forceMove(locate(1,1,1))
 	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
@@ -76,6 +80,7 @@
 	if(href_list["ready"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -146,6 +151,7 @@
 	if(href_list["observe"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -196,6 +202,7 @@
 	if(href_list["late_join"])
 		if(!client.tos_consent)
 			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
+			privacy_consent()
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -679,12 +686,13 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 
 	client.prefs.copy_to(new_character)
 

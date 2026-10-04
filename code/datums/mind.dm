@@ -89,7 +89,6 @@
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
-	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
 	/// this mind's ANTAG_HUD should have this icon_state
@@ -145,6 +144,7 @@
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
+
 
 /datum/mind/New(new_key)
 	key = new_key
@@ -575,6 +575,15 @@
 		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
 
+/datum/mind/proc/memory_edit_swarmers()
+	. = _memory_edit_header("swarmers")
+	var/datum/antagonist/swarmer/swarmer_datum = has_antag_datum(/datum/antagonist/swarmer/)
+	if(swarmer_datum)
+		. += "|<b><font color='red'>Свармер</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];swarmer=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_SWARMER)
+
 /datum/mind/proc/memory_edit_xenomorphs()
 	. = _memory_edit_header("xenomorphs")
 	var/datum/antagonist/xenomorph/xeno_datum = has_antag_datum(/datum/antagonist/xenomorph)
@@ -797,9 +806,11 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
-		sections["blob"] = memory_edit_blob(current)
+		sections["blob"] = memory_edit_blob()
 	if(isterrorspider(current))
-		sections["terror_spiders"] = memory_edit_terrors(current)
+		sections["terror_spiders"] = memory_edit_terrors()
+	if(isswarmer(current))
+		sections["swarmers"] = memory_edit_swarmers()
 	if(isalien(current))
 		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))
@@ -1726,7 +1737,7 @@
 					vamp.clear_subclass()
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 				else
-					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.upgrade_tiers -= /datum/action/cooldown/spell/vamp_specialize
 					vamp.change_subclass(subclass_type)
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 
@@ -3006,34 +3017,32 @@
 	if(ishuman(current))
 		return /datum/antagonist/blob_infected/human
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+/datum/mind/proc/AddSpell(datum/action/cooldown/spell/spell)
 	if(!istype(spell))
 		return
 	LAZYADD(spell_list, spell)
-	spell.action.Grant(current)
-	spell.on_spell_gain(current)
+	spell.Grant(current)
 
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
+/datum/mind/proc/RemoveSpell(datum/action/cooldown/spell/instance_or_path) //To remove a specific spell from a mind
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
 		if(spell.type == instance_or_path)
-			spell.on_spell_removed(current)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
-/datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
+/datum/mind/proc/deactivate_spell(datum/action/cooldown/spell/instance_or_path)
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
 
-	var/obj/effect/proc_holder/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
+	var/datum/action/cooldown/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
 
 	if(!spell)
 		return FALSE
 
 	LAZYREMOVE(spell_list, spell)
 
-	spell.action.Remove(current)
+	spell.Remove(current)
 
 	return TRUE
 
@@ -3045,11 +3054,11 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
-		spell.action.Grant(new_character)
+	for(var/datum/action/cooldown/spell/spell as anything in new_character.mind.spell_list)
+		new_character.mind.AddSpell(spell)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
 		var/exception = FALSE
 		for(var/typepath in exceptions)
 			if(istype(spell, typepath))
@@ -3057,9 +3066,9 @@
 				break
 		if(exception)
 			continue
-		if(spell.cooldown_handler)
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
-		spell.updateButtonIcon()
+		if(spell.cooldown_time)
+			INVOKE_ASYNC(spell, TYPE_PROC_REF(/datum/action/cooldown, StartCooldown), delay)
+		spell.UpdateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)

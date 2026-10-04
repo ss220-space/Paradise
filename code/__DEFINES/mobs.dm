@@ -609,3 +609,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define PIXEL_X_OFFSET "x"
 #define PIXEL_Y_OFFSET "y"
 #define PIXEL_Z_OFFSET "z"
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)

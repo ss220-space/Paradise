@@ -48,6 +48,12 @@
 	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 		return
 
+	if(!user.can_strip)
+		return
+	var/mob/living/user_living = user
+	if(user_living?.mob_size <= MOB_SIZE_SMALL)
+		return
+
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
@@ -270,7 +276,7 @@
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!strip_delay)
 		strip_delay = item.strip_delay
-	if(!do_after(user, strip_delay, source, max_interact_count = 1))
+	if(!do_after(user, strip_delay, source))
 		return FALSE
 
 	return TRUE
@@ -405,6 +411,9 @@
 
 	var/mob/living/user = ui.user
 	if(!isliving(ui.user) || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return
+
+	if(!user.can_strip || user.mob_size <= MOB_SIZE_SMALL)
 		return
 
 	. = TRUE

@@ -218,7 +218,7 @@
 			continue
 
 		//Service
-		if(istype(module, /obj/item/reagent_containers/food/condiment/enzyme))
+		if(istype(module, /obj/item/reagent_containers/condiment/enzyme))
 			if(module.reagents.get_reagent_amount("enzyme") < 50)
 				module.reagents.add_reagent("enzyme", 2 * coeff)
 			continue

@@ -19,7 +19,7 @@ RSF
 	if(use_rsf_list)
 		configured_items = list(
 			list("Dosh", 1000, /obj/item/stack/spacecash/c10),
-			list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass),
+			list("Drinking Glass", 50, /obj/item/reagent_containers/cup/glass/drinkingglass),
 			list("Paper", 50, /obj/item/paper),
 			list("Pen", 50, /obj/item/pen),
 			list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice),
@@ -40,7 +40,7 @@ RSF
 	configured_items = list(
 		list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles),
 		list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut),
-		list("Chiken soup", 3000, /obj/item/reagent_containers/food/drinks/chicken_soup),
+		list("Chiken soup", 3000, /obj/item/reagent_containers/cup/glass/chicken_soup),
 		list("Tofu burger", 3000, /obj/item/reagent_containers/food/snacks/tofuburger),
 		list("Admiral Yamomoto's carp", 3000, /obj/item/reagent_containers/food/snacks/chinese/tao),
 		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),

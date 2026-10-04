@@ -275,7 +275,7 @@
 	if(surgery_location != last_user.zone_selected)
 		return
 
-	if(!isnull(last_user))
+	if(!isnull(last_user) && source != last_user)
 		source.balloon_alert(last_user, "someone else started a surgery!")
 	SStgui.close_uis(src)
 

@@ -263,7 +263,7 @@
 
 /obj/machinery/computer/supplyquest/workers/Destroy()
 	GLOB.cargo_announcers -= src
-	..()
+	return ..()
 
 /obj/machinery/computer/supplyquest/workers/print_order(datum/cargo_quests_storage/quest)
 	. = ..()

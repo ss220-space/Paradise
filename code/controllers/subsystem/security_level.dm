@@ -108,14 +108,16 @@ SUBSYSTEM_DEF(security_level)
 			selected_level.lowering_to_announcement_text,
 			selected_level.lowering_to_announcement_title,
 			new_sound = selected_level.lowering_to_sound,
-			new_sound2 = selected_level.ai_announcement_sound
+			new_sound2 = selected_level.ai_announcement_sound,
+			color_override = selected_level.announcement_color
 		)
 		return
 	GLOB.security_announcement.announce(
 		selected_level.elevating_to_announcement_text,
 		selected_level.elevating_to_announcement_title,
 		new_sound = selected_level.elevating_to_sound,
-		new_sound2 = selected_level.ai_announcement_sound
+		new_sound2 = selected_level.ai_announcement_sound,
+		color_override = selected_level.announcement_color
 	)
 
 /**

@@ -33,8 +33,8 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
-	// taste data can sometimes be ("salt" = 3, "chips" = 1)
-	// and we want it to be in the form ("salt" = 0.75, "chips" = 0.25)
+	// taste data can sometimes be ("sodiumchloride" = 3, "chips" = 1)
+	// and we want it to be in the form ("sodiumchloride" = 0.75, "chips" = 0.25)
 	// which is called "normalizing"
 	if(!supplied_data)
 		supplied_data = data
@@ -328,10 +328,10 @@
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
 			if(victim.head)
-				if(victim.head.flags_cover & MASKCOVERSEYES)
+				if(victim.head.flags_cover & HEADCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags_cover & MASKCOVERSMOUTH)
+				if(victim.head.flags_cover & HEADCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
 				if(isclothing(victim.head))

@@ -16,51 +16,51 @@
 
 // Department colors
 :root {
-  --color-dept-command: #526aff
-  --color-dept-procedure: #e3027a;
-  --color-dept-security: #cf0000;
-  --color-dept-engineering: #a66300;
-  --color-dept-medical: #009190;
-  --color-dept-science: #993399;
-  --color-dept-service: #80a000;
-  --color-dept-supply: #9f8545;
-  --color-dept-centcom: #78789b;
-  --color-dept-other: #c38312;
+	--color-dept-command: #526aff;
+	--color-dept-procedure: #e3027a;
+	--color-dept-security: #cf0000;
+	--color-dept-engineering: #a66300;
+	--color-dept-medical: #009190;
+	--color-dept-science: #993399;
+	--color-dept-service: #80a000;
+	--color-dept-supply: #9f8545;
+	--color-dept-centcom: #78789b;
+	--color-dept-other: #c38312;
 }
 
 // Mappings of color names
 
 $color-map: ();
 $_gen_map: (
-  'black': var(--color-black),
-  'white': var(--color-white),
-  'red': var(--color-red),
-  'orange': var(--color-orange),
-  'yellow': var(--color-yellow),
-  'olive': var(--color-olive),
-  'green': var(--color-green),
-  'teal': var(--color-teal),
-  'blue': var(--color-blue),
-  'violet': var(--color-violet),
-  'purple': var(--color-purple),
-  'pink': var(--color-pink),
-  'brown': var(--color-brown),
-  'grey': var(--color-grey),
-  'gray': var(--color-grey),
-  'light-grey': var(--color-light-grey),
-  'light-gray': var(--color-light-grey),
-  'good': var(--color-good),
-  'average': var(--color-average),
-  'bad': var(--color-bad),
-  'label': var(--color-label),
+	'black': var(--color-black),
+	'white': var(--color-white),
+	'red': var(--color-red),
+	'orange': var(--color-orange),
+	'yellow': var(--color-yellow),
+	'olive': var(--color-olive),
+	'green': var(--color-green),
+	'teal': var(--color-teal),
+	'blue': var(--color-blue),
+	'violet': var(--color-violet),
+	'purple': var(--color-purple),
+	'pink': var(--color-pink),
+	'brown': var(--color-brown),
+	'grey': var(--color-grey),
+	'gray': var(--color-grey),
+	'light-grey': var(--color-light-grey),
+	'light-gray': var(--color-light-grey),
+	'good': var(--color-good),
+	'average': var(--color-average),
+	'bad': var(--color-bad),
+	'label': var(--color-label),
 );
 $low-contrast-color-map: ('yellow', 'white');
 
 // Color names for which to generate a color map
 $color-map-keys: map.keys($_gen_map) !default;
 @each $color-name in $color-map-keys {
-  // prettier-ignore
-  $color-map: map.merge($color-map, (
+	// prettier-ignore
+	$color-map: map.merge($color-map, (
       $color-name: map.get($_gen_map, $color-name),
     ));
 }
@@ -69,9 +69,9 @@ $color-map-keys: map.keys($_gen_map) !default;
    * Background and foreground color lightness ratios
    */
 @function bg($color) {
-  @return hsl(from $color h s calc(l - var(--adjust-color)));
+	@return hsl(from $color h s calc(l - var(--adjust-color)));
 }
 
 @function fg($color) {
-  @return hsl(from $color h s calc(l + var(--adjust-color)));
+	@return hsl(from $color h s calc(l + var(--adjust-color)));
 }

@@ -768,7 +768,7 @@
 			to_chat(user, span_warning("The [reagent_source.name] is empty."))
 			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
-		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
+		if(iscup(reagent_source) && !reagent_source.is_open_container() && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, span_warning("You need to open [reagent_source] first."))
 			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
@@ -925,8 +925,7 @@
 			plant_health = 0
 			if(harvest)
 				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
-			qdel(myseed)
-			myseed = null
+			QDEL_NULL(myseed)
 			plant_hud_set_health()
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds

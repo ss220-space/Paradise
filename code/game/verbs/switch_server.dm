@@ -42,5 +42,5 @@ GAME_VERB_DESC(/client, switch_server, "Switch Server", "Switch to a different P
 
 	// Formulate a connection URL
 	var/target = "byond://[world.internet_address]:[formatted_servers[selected_server]]"
-	src << link(target)
+	DIRECT_OUTPUT(src, link(target))
 #endif

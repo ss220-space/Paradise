@@ -149,13 +149,14 @@ export const MESSAGE_TYPES: MessageType[] = [
     name: 'Admin Log',
     description:
       'ADMIN LOG: Vasya the Pedalique has jumped to coordinates X, Y, Z',
-    selector: '.log_message',
+    selector: '.admin',
     admin: true,
   },
   {
     type: MESSAGE_TYPE_ATTACKLOG,
     name: 'Attack Log',
     description: 'Vasya the Pedalique has shot Rob Uster',
+	selector: '.admin_attack ',
     admin: true,
   },
   {

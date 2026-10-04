@@ -6,7 +6,7 @@
 	var/list/id_to_item = list()
 	var/datum/icon_transformer/transform = new()
 	transform.scale(42, 42)
-	id_to_item[path2assetID(/obj/item/reagent_containers/glass/beaker/large)] = new /obj/item/reagent_containers/glass/beaker/large
+	id_to_item[path2assetID(/obj/item/reagent_containers/cup/beaker/large)] = new /obj/item/reagent_containers/cup/beaker/large
 	id_to_item[path2assetID(/obj/item/storage/box)] = new /obj/item/storage/box
 	for(var/quest_thing_path in subtypesof(/datum/cargo_quest/thing))
 		var/datum/cargo_quest/thing/quest_thing = new quest_thing_path(null, TRUE)

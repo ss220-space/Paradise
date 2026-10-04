@@ -46,6 +46,14 @@
 	var/base_icon_state
 	/// The active icon state of the spell's button icon, used for editing the icon "on"
 	var/active_icon_state
+	/// The max number of charges a spell can have.
+	var/max_charges = 1
+	/// The number of charges we currently have.
+	var/current_charges = 0
+	/// The cooldown between uses of charges.
+	var/cooldown_between_charges = 0
+	var/charge_restore_time = 0
+	var/recharging = FALSE
 
 /datum/action/cooldown/New(Target, original = TRUE)
 	. = ..()
@@ -61,6 +69,8 @@
 
 	if(original)
 		create_sequence_actions()
+
+	current_charges = max_charges
 
 /datum/action/cooldown/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
@@ -106,7 +116,7 @@
 	return ..()
 
 /datum/action/cooldown/is_action_active(atom/movable/screen/movable/action_button/current_button)
-	return click_to_activate && current_button.our_hud?.mymob?.click_intercept == src  //TODO vakons actions: add click_intercept to mob
+	return click_to_activate && current_button.our_hud?.mymob?.client?.click_intercept == src  //TODO vakons actions: add click_intercept to mob
 
 /datum/action/cooldown/Destroy()
 	QDEL_LIST(initialized_actions)
@@ -125,14 +135,16 @@
 
 /datum/action/cooldown/Remove(mob/removed_from)
 	UnregisterSignal(removed_from, COMSIG_HOSTILE_PRE_ATTACKINGTARGET)
-	if(click_to_activate && removed_from.click_intercept == src)
+	if(click_to_activate && removed_from.client?.click_intercept == src)
 		unset_click_ability(removed_from, refund_cooldown = FALSE)
 	for(var/datum/action/cooldown/ability as anything in initialized_actions)
 		ability.Remove(removed_from)
 	return ..()
 
 /datum/action/cooldown/IsAvailable(feedback = FALSE)
-	return ..() && (next_use_time <= world.time)
+	if(max_charges == 1)
+		return ..() && (next_use_time <= world.time)
+	return current_charges > 0 && next_use_time <= world.time && ..()
 
 /// Initializes any sequence actions
 /datum/action/cooldown/proc/create_sequence_actions()
@@ -166,15 +178,31 @@
 /// Starts a cooldown time for this ability only
 /// Will use default cooldown time if an override is not specified
 /datum/action/cooldown/proc/StartCooldownSelf(override_cooldown_time)
+	var/cooldown = cooldown_time
 	if(isnum(override_cooldown_time))
-		next_use_time = world.time + override_cooldown_time
-	else
-		next_use_time = world.time + cooldown_time
+		cooldown = override_cooldown_time
+	if(max_charges > 1)
+		current_charges--
+		if(current_charges > 0)
+			cooldown = cooldown_between_charges
+	next_use_time = world.time + cooldown
 	// Don't start a cooldown if we have a cooldown time of 0 seconds
 	if(next_use_time == world.time)
 		return
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
+	if(!recharging)
+		recharging = TRUE
+		addtimer(CALLBACK(src, PROC_REF(restore_charge)), charge_restore_time)
 	START_PROCESSING(SSfastprocess, src)
+
+/datum/action/cooldown/proc/restore_charge()
+	if(current_charges < max_charges)
+		current_charges++
+		addtimer(CALLBACK(src, PROC_REF(restore_charge)), charge_restore_time)
+		owner.balloon_alert(owner, "[name]: +1 заряд")
+		build_all_button_icons(UPDATE_BUTTON_STATUS)
+		return
+	recharging = FALSE
 
 /// Starts a cooldown time for other abilities that share a cooldown with this. Has some niche usage with more complicated attack ai!
 /// Will use default cooldown time if an override is not specified
@@ -232,7 +260,7 @@
 			// For automatic / mob handling
 			return InterceptClickOn(user, null, target)
 
-		var/datum/action/cooldown/already_set = user.click_intercept
+		var/datum/action/cooldown/already_set = user.client.click_intercept
 		if(already_set == src)
 			// if we clicked ourself and we're already set, unset and return
 			return unset_click_ability(user, refund_cooldown = TRUE)
@@ -306,7 +334,7 @@
 /datum/action/cooldown/proc/set_click_ability(mob/on_who)
 	SHOULD_CALL_PARENT(TRUE)
 
-	on_who.click_intercept = src
+	on_who.client.click_intercept = src
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = ranged_mousepointer
 		on_who.update_mouse_pointer()
@@ -322,7 +350,7 @@
 /datum/action/cooldown/proc/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	on_who.click_intercept = null
+	on_who.client.click_intercept = null
 	if(ranged_mousepointer)
 		on_who.client?.mouse_override_icon = initial(on_who.client?.mouse_override_icon)
 		on_who.update_mouse_pointer()
@@ -350,7 +378,7 @@
 		stat_panel_data[PANEL_DISPLAY_STATUS] = ""
 
 	// It's a toggle-active ability, show if it's active
-	else if(click_to_activate && owner.click_intercept == src)
+	else if(click_to_activate && owner.client.click_intercept == src)
 		stat_panel_data[PANEL_DISPLAY_STATUS] = "ACTIVE"
 
 	// It's on cooldown, show the cooldown

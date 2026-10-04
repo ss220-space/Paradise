@@ -1,5 +1,5 @@
-import { focusMap } from '../../focus';
 import { logger } from 'common/logging';
+import { focusMap } from '../../focus';
 import { suspendRenderer } from '../../renderer';
 import {
   configAtom,

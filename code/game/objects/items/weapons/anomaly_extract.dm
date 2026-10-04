@@ -37,63 +37,66 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ATTACK_CHAIN_PROCEED
 
-/obj/effect/proc_holder/spell/slime_degradation
+/datum/action/cooldown/spell/slime_degradation
 	name = "Slime degradation"
 	desc = "Transform into anomaly slime and back!"
-	action_icon_state = "slime_degradation"
-	action_background_icon_state = "bg_default"
+	button_icon_state = "slime_degradation"
+	background_icon_state = "bg_default"
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
-	human_req = FALSE
-	clothes_req = FALSE
+	spell_requirements = NONE
+	var/active_transform = FALSE
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 
-/obj/effect/proc_holder/spell/slime_degradation/Destroy()
+/datum/action/cooldown/spell/slime_degradation/Destroy()
 	original_body = null
 	return ..()
 
-/obj/effect/proc_holder/spell/slime_degradation/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/slime_degradation/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+/datum/action/cooldown/spell/slime_degradation/can_cast_spell(feedback)
+	var/mob/living/caster = owner
 	if(!original_body && is_transformed)
 		stack_trace("No original body in spell [src]!")
 		return FALSE
 
-	if(!user.mind)
+	if(!caster.mind)
 		return
 
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
-		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+	if(caster.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+		if(feedback)
+			to_chat(caster, span_warning("You can't use this ability right now!"))
 		return FALSE
 
-	if(ishuman(user) && user.health <= 0)
-		if(show_message)
-			to_chat(user, span_warning("You are too weak to use this ability!"))
+	if(ishuman(caster) && caster.health <= 0)
+		if(feedback)
+			to_chat(caster, span_warning("You are too weak to use this ability!"))
 		return FALSE
 
-	if(!isturf(user.loc))
-		if(show_message)
-			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
+	if(!isturf(caster.loc))
+		if(feedback)
+			to_chat(caster, span_warning("You can't use this ability inside [caster.loc]!"))
 		return FALSE
 
 	return ..()
 
-/obj/effect/proc_holder/spell/slime_degradation/before_cast(list/targets, mob/user)
+/datum/action/cooldown/spell/slime_degradation/before_cast(atom/cast_on)
 	. = ..()
 	if(is_transformed)
-		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
+		cooldown_time = COOLDOWN_TO_SLIME_MOB
 	else
-		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIMEPERSON
+		cooldown_time = COOLDOWN_TO_SLIMEPERSON
 
-/obj/effect/proc_holder/spell/slime_degradation/cast(list/targets, mob/living/carbon/human/user = usr)
+/datum/action/cooldown/spell/slime_degradation/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/user = cast_on
 	if(!is_transformed && istype(user))
 		slime_transform(user)
 	else if(is_transformed && original_body)
 		slime_transform_back(user)
 
-/obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
+/datum/action/cooldown/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
+	if(active_transform)
+		return
+	active_transform = TRUE
 	for(var/obj/item/check as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		user.drop_item_ground(check, force = TRUE)
 
@@ -128,13 +131,17 @@
 
 	slimeme.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
+	active_transform = FALSE
 
-/obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform_back(mob/living/simple_animal/slime/invalid/user, death_provoked = FALSE)
+/datum/action/cooldown/spell/slime_degradation/proc/slime_transform_back(mob/living/simple_animal/slime/invalid/user, death_provoked = FALSE)
+	if(active_transform)
+		return
+	active_transform = TRUE
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
 	if(death_provoked)
-		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
-		cooldown_handler.start_recharge()
+		cooldown_time = COOLDOWN_TO_SLIME_MOB
+		StartCooldown()
 		playsound(get_turf(usr), sound, 50, TRUE)
 	user.set_density(FALSE)
 	original_body.dir = SOUTH
@@ -160,48 +167,44 @@
 	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	original_body = null
+	active_transform = FALSE
 
-/obj/effect/proc_holder/spell/slime_selfheat
+/datum/action/cooldown/spell/slime_selfheat
 	name = "Slime heat"
 	desc = "Heats up your body a little."
-	action_icon_state = "slime_selfheat"
-	action_background_icon_state = "bg_default"
+	button_icon_state = "slime_selfheat"
+	background_icon_state = "bg_default"
 	sound = 'sound/goonstation/misc/fuse.ogg'
-	human_req = FALSE
-	clothes_req = FALSE
-	base_cooldown = 30 SECONDS
+	spell_requirements = NONE
+	cooldown_time = 30 SECONDS
 
-/obj/effect/proc_holder/spell/slime_selfheat/Destroy()
-	return ..()
-
-/obj/effect/proc_holder/spell/slime_selfheat/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/slime_selfheat/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!user.mind)
+/datum/action/cooldown/spell/slime_selfheat/can_cast_spell(feedback)
+	var/mob/living/caster = owner
+	if(!caster.mind)
 		return
 
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
-		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+	if(caster.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+		if(feedback)
+			to_chat(caster, span_warning("You can't use this ability right now!"))
 		return FALSE
 
-	if(ishuman(user) && user.health <= 0)
-		if(show_message)
-			to_chat(user, span_warning("You are too weak to use this ability!"))
+	if(ishuman(caster) && caster.health <= 0)
+		if(feedback)
+			to_chat(caster, span_warning("You are too weak to use this ability!"))
 		return FALSE
 
-	if(!isturf(user.loc))
-		if(show_message)
-			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
+	if(!isturf(caster.loc))
+		if(feedback)
+			to_chat(caster, span_warning("You can't use this ability inside [caster.loc]!"))
 		return FALSE
 
 	return ..()
 
-/obj/effect/proc_holder/spell/slime_selfheat/cast(list/targets, mob/living/carbon/human/user = usr)
-	user.adjust_bodytemperature(50)
-	var/self_message = isslime(user) ? span_notice("You feel nothing can stop you right now.") : span_userdanger("You feel HOT inside yourself.")
-	to_chat(user, self_message)
+/datum/action/cooldown/spell/slime_selfheat/cast(atom/cast_on)
+	. = ..()
+	owner.adjust_bodytemperature(50)
+	var/self_message = isslime(owner) ? span_notice("You feel nothing can stop you right now.") : span_userdanger("You feel HOT inside yourself.")
+	to_chat(owner, self_message)
 
 /obj/item/organ/internal/heart/slime/anomaly
 	name = "anomaly slime heart"
@@ -210,14 +213,12 @@
 
 /obj/item/organ/internal/heart/slime/anomaly/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	var/obj/effect/proc_holder/spell/slime_degradation/degrad = new
-	var/obj/effect/proc_holder/spell/slime_selfheat/heat = new
-	M.mind.AddSpell(degrad)
-	M.mind.AddSpell(heat)
+	M.mind.AddSpell(new /datum/action/cooldown/spell/slime_degradation)
+	M.mind.AddSpell(new /datum/action/cooldown/spell/slime_selfheat)
 
 /obj/item/organ/internal/heart/slime/anomaly/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_degradation)
-	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_selfheat)
+	M.mind.RemoveSpell(/datum/action/cooldown/spell/slime_degradation)
+	M.mind.RemoveSpell(/datum/action/cooldown/spell/slime_selfheat)
 	. = ..()
 
 #undef COOLDOWN_TO_SLIMEPERSON

@@ -57,7 +57,6 @@
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
-	add_deep_lore()
 
 /obj/item/melee/baton/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
@@ -70,7 +69,7 @@
 	var/list/readout = list()
 
 	if(affect_cyborg)
-		readout += "- При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_SEC_MIN(round((stun_time_cyborg/10), 1))]."
+		readout += "- При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_U_Y_0(round((stun_time_cyborg/10), 1))]."
 
 	readout += "- [active ? span_boldwarning(capitalize("[activated_word] и способна оглушать.")) : span_boldnotice("Не [activated_word] и не способна оглушать.")]"
 
@@ -79,11 +78,8 @@
 		return readout.Join("\n")
 
 	if(active)
-		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_CREDIT(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
+		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_0_A_OV(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
 	return readout.Join("\n")
-
-/obj/item/melee/baton/proc/add_deep_lore()
-	return
 
 /obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
 	SIGNAL_HANDLER
@@ -215,7 +211,7 @@
 	else
 		if(ishuman(target) && prob(force_say_chance))
 			var/mob/living/carbon/human/human_target = target
-			human_target.forcesay(GLOB.hit_appends)
+			human_target.force_say(GLOB.hit_appends)
 		target.apply_damage(stamina_damage, STAMINA)
 		if(!trait_check)
 			target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
@@ -254,7 +250,7 @@
 	else
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
-			human_user.forcesay(GLOB.hit_appends)
+			human_user.force_say(GLOB.hit_appends)
 		if(!trait_check)
 			user.Knockdown(clumsy_knockdown_time)
 		user.apply_damage(stamina_damage, STAMINA)

@@ -1,6 +1,6 @@
 // MARK: 7.62x51mm - L6 SAW
 /obj/item/ammo_box/magazine/l6saw
-	gun_name = "пулемёта L6 SAW"
+	gun_name = "ручного пулемёта L6 SAW"
 	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a762x51/weak

@@ -108,6 +108,8 @@
 /// Prevents you from automatically grabbing walls to stop moving in space.
 #define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced
 
+#define STATUS_EFFECT_MUTATION /datum/status_effect/mutation
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -153,6 +155,12 @@
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few seconds
 
 #define STATUS_EFFECT_VOMIT /datum/status_effect/tox_vomit // When carbon got enough tox damage - he will vomit.
+
+/// Makes the mob unable to adjust stamina (Duration is changeable on creation)
+#define STATUS_EFFECT_STAMINAREGEN_BLOCK /datum/status_effect/staminaregen_block
+
+/// Makes the mob unable to metabolize reagents (Duration is changeable on creation)
+#define STATUS_EFFECT_METABOLIZE_BLOCK /datum/status_effect/metabolize_block
 
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings

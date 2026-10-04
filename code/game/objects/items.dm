@@ -153,7 +153,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/datum/snake_fashion/snake_fashion = null
 
 	/// UID of a /mob that threw the item.
-	var/thrownby
+	var/datum/weakref/thrownby = null
 
 	/// So items can have custom embedd values
 	/// Because customisation is king
@@ -694,6 +694,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		final_block_chance = 0
 	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)
 	var/block_successful = (signal_result & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance)
+	if((signal_result & COMPONENT_BLOCK_PERFECT) && attack_type == ITEM_ATTACK)
+		owner.visible_message(span_danger("[owner] контратаку[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
+		return HIT_RESULT_PARRY
 	if(block_successful)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
 		return signal_result || block_successful
@@ -980,7 +983,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
  * This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
  */
 /obj/item/proc/IsReflect(def_zone)
-	return FALSE
+	return REFLECT_NOTHING
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
@@ -1065,7 +1068,9 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(QDELETED(hit_atom))
 		return
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	if(signal_result & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return
 
 	var/itempush = TRUE
 	if(w_class < WEIGHT_CLASS_BULKY)

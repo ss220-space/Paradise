@@ -10,6 +10,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Direction } from './common/Direction';
 
 const decideTab = (index: number) => {
   switch (index) {
