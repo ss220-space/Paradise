@@ -25,7 +25,7 @@
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "переворачивается на спину, изо рта идёт пена, после чего замирает."
-	var/poison_type = "spore"
+	var/poison_type = /datum/reagent/toxin/spore
 	var/poison_per_bite = 5
 	var/buttmad = FALSE
 	var/melee_damage_lower_angery0 = 13
@@ -64,7 +64,7 @@
 			melee_damage_upper = melee_damage_upper_angery1
 			move_to_delay = anger_move_to_delay
 			set_varspeed(anger_speed)
-			poison_type = "venom"
+			poison_type = /datum/reagent/venom
 			poison_per_bite = 6
 	else
 		if(health > maxHealth/2)
@@ -164,7 +164,7 @@
 	melee_damage_lower = 10 //stronger venom, but weaker attack.
 	melee_damage_upper = 13
 
-	poison_type = "frostoil"
+	poison_type = /datum/reagent/consumable/frostoil
 
 	crusher_loot = /obj/item/crusher_trophy/gland
 

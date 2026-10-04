@@ -78,7 +78,7 @@
 /datum/reagent/consumable/drink/cold/energy/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustStaminaLoss(-1, FALSE)
-	if(M.reagents.get_reagent_amount("coffee") > 0)
+	if(M.reagents.get_reagent_amount(/datum/reagent/consumable/drink/coffee) > 0)
 		if(prob(0.5))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M

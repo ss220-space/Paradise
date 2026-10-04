@@ -25,6 +25,6 @@ Pacifist Syndrome
 				to_chat(M, span_notice(pick("Как прекрасен этот мир...", "Вам хочется обнять кого-нибудь.", "Вы чувствуете себя оооочень хорошо!", "Вам тепло.", "Вам хочется улыбнуться всем вокруг.")))
 			if(4)
 				to_chat(M, span_notice(pick("Вы чувствуете любовь ко всему миру!", "Вы не хотите причинять никому боль.", "Вам хочется поделиться своими чувствами!", "Вы чувствуете желание распространять любовь!", "Вы переполнены любовью и хотите поделиться ею.")))
-	if(A.stage > 4 && M.reagents.get_reagent_amount("love") < 4)
-		M.reagents.add_reagent("love", 1)
+	if(A.stage > 4 && M.reagents.get_reagent_amount(/datum/reagent/love) < 4)
+		M.reagents.add_reagent(/datum/reagent/love, 1)
 	return

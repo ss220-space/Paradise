@@ -269,7 +269,7 @@
 
 	var/plants_processed = length(stored_plants)
 	for(var/obj/plant as anything in stored_plants)
-		var/plant_biomass = plant.reagents.get_reagent_amount("nutriment") + plant.reagents.get_reagent_amount("plantmatter")
+		var/plant_biomass = plant.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) + plant.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/plantmatter)
 		biomass += max(plant_biomass, 0.1) * 10 * productivity
 		qdel(plant)
 

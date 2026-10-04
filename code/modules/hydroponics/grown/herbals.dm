@@ -9,7 +9,7 @@
 	maturation = 3
 	growthstages = 1
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list("styptic_powder" = 0.1)
+	reagents_add = list(/datum/reagent/medicine/styptic_powder = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/comfrey
 	seed = /obj/item/seeds/comfrey
@@ -39,7 +39,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "aloe-grow"
 	icon_dead = "aloe-dead"
-	reagents_add = list("silver_sulfadiazine" = 0.1)
+	reagents_add = list(/datum/reagent/medicine/silver_sulfadiazine = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/aloe
 	seed = /obj/item/seeds/aloe

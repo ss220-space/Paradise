@@ -5,7 +5,7 @@
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "food"
 	var/overlay_sprite
-	list_reagents = list("nutriment" = 2, "vitamin" = 4, "protein" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/nutriment/protein = 2)
 
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat
 	name = "soft meat cut"
@@ -13,7 +13,7 @@
 	gender = FEMALE
 	icon_state = "soft_meat_cut"
 	item_state = "soft_meat_cut"
-	list_reagents = list("nutriment" = 1, "vitamin" = 3, "protein" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3, /datum/reagent/consumable/nutriment/protein = 3)
 	filling_color = "#D49284"
 	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
@@ -34,7 +34,7 @@
 	gender = NEUTER
 	icon_state = "eel_filet"
 	item_state = "eel_filet"
-	list_reagents = list("nutriment" = 2, "menthol" = 3, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/medicine/menthol = 3, /datum/reagent/consumable/nutriment/protein = 4)
 	filling_color = "#414F71"
 	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
@@ -54,7 +54,7 @@
 	desc = "Достаточно большой кусок мяса, добытый из хищной рыбы. Не рекомендуется к употреблению в сыром виде."
 	icon_state = "predatory_fish_slice"
 	item_state = "predatory_fish_slice"
-	list_reagents = list("nutriment" = 2, "toxin" = 2, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/toxin = 2, /datum/reagent/consumable/nutriment/protein = 4)
 	bitesize = 3
 	filling_color = "#BE7C64"
 	tastes = list("очень горького мяса" = 1)
@@ -76,7 +76,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "soft_meat_cubes"
-	list_reagents = list("nutriment" = 2, "vitamin" = 3, "protein" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3, /datum/reagent/consumable/nutriment/protein = 3)
 	bitesize = 3
 	filling_color = "#BE7C64"
 	tastes = list("нежного мяса" = 1)
@@ -97,7 +97,7 @@
 	desc = "Кусок мяса хищной рыбы, обжаренный в печи. Пригоден к употреблению."
 	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "predatory_fish_slab"
-	list_reagents = list("nutriment" = 4, "protein" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/protein = 6)
 	bitesize = 3
 	filling_color = "#BE7C64"
 	tastes = list("мяса" = 1)
@@ -119,7 +119,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "eel_ringlets"
-	list_reagents = list("nutriment" = 4, "protein" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/protein = 6)
 	bitesize = 3
 	filling_color = "#BE7C64"
 	tastes = list("нежного мяса" = 1)
@@ -252,7 +252,7 @@
 	righthand_file = 'icons/mob/inhands/lavaland/food_righthand.dmi'
 	item_state = "food"
 	bitesize = 100 //eat whole thing down
-	list_reagents = list("nutriment" = 6, "protein" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/protein = 6)
 	tastes = list("вкусной еды" = 1)
 	has_special_eating_effects = TRUE
 	eat_time = 5 SECONDS
@@ -271,7 +271,7 @@
 	name = "fine meal"
 	desc = "Мясо Голиафа, обжаренное в соку кактусового фрукта. Невероятно вкусное и питательное."
 	gender = FEMALE
-	list_reagents = list("vitfro" = 6, "protein" = 7, "vitamin" = 3)
+	list_reagents = list(/datum/reagent/consumable/vitfro = 6, /datum/reagent/consumable/nutriment/protein = 7, /datum/reagent/consumable/nutriment/vitamin = 3)
 	tastes = list("сбалансированной еды" = 1)
 	foodtype = MEAT|FRUIT
 
@@ -315,7 +315,7 @@
 	name = "veggie meal"
 	desc = "Обычно пеплоходцы питаются мясом местной фауны, однако, если правильно смешать нужные вещества, то получится крайне полезное растительное блюдо. Хотя на вкус оно так себе."
 	icon_state = "veggie_meal"
-	list_reagents = list("spaceacillin" = 10, "lavaland_extract" = 2, "vitfro" = 20, "sal_acid" = 15)
+	list_reagents = list(/datum/reagent/medicine/spaceacillin = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/consumable/vitfro = 20, /datum/reagent/medicine/sal_acid = 15)
 	tastes = list("трав" = 1)
 	foodtype = FRUIT|VEGETABLES
 
@@ -358,7 +358,7 @@
 	name = "yum-grub"
 	desc = "Мясо златожора, обжаренное вместе с грибами. Говорят, что оно благотворно воздействует на здоровье нервной системы и сенсорных органов."
 	icon_state = "yum_grub"
-	list_reagents = list("oculine" = 12, "mannitol" = 12, "vitamin" = 3)
+	list_reagents = list(/datum/reagent/medicine/oculine = 12, /datum/reagent/medicine/mannitol = 12, /datum/reagent/consumable/nutriment/vitamin = 3)
 /obj/item/reagent_containers/food/snacks/lavaland_food/yum_grub/get_ru_names()
 	return alist(
 		NOMINATIVE = "блюдо \"Ям-Граб\"",
@@ -374,7 +374,7 @@
 	desc = "Несколько жизненно-важных органов, грубо удаленных из тела и насаженных на железный стержень. Настолько же первобытно, насколько и вкусно!"
 	icon_state = "ashie_kebab"
 	item_state = "ashie_kebab"
-	list_reagents = list("nutriment" = 6, "protein" = 6, "ephedrine" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/medicine/ephedrine = 10)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab/get_ru_names()
 	return alist(
@@ -487,7 +487,7 @@
 	name = "goli-kernels"
 	desc = "небольшой мясной шарик на \"подносе\" из грибной шляпки. Вкуснятина!"
 	icon_state = "goli_kernels"
-	list_reagents = list("nutriment" = 2, "protein" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 2)
 	eat_time = 0 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels/get_ru_names()
@@ -515,7 +515,7 @@
 	desc = "Кусок мяса, срезанный с массивного постамента в честь славной охоты. Невероятно вкусно."
 	gender = FEMALE
 	icon_state = "grace_of_lazis"
-	list_reagents = list("protein" = 4, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
 	eat_time = 0 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis/get_ru_names()
@@ -532,7 +532,7 @@
 	name = "beer grub stew"
 	desc = "Алкогольное рагу, приготовленное с использованием мяса златожора. Питательно!"
 	icon_state = "beer_grub_stew"
-	list_reagents = list("nutriment" = 4, "protein" = 6, "beer" = 7)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/consumable/ethanol/beer = 7)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/beer_grub_stew/get_ru_names()
 	return alist(
@@ -554,7 +554,7 @@
 	desc = "Отвратительно выглядящая на вид вязкая красная паста, сделанная из ошмётков тел. На вкус невероятно омерзительно."
 	gender = FEMALE
 	icon_state = "thick_red_paste"
-	list_reagents = list("protein" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/thick_red_paste/get_ru_names()
 	return alist(
@@ -577,7 +577,7 @@
 	gender = FEMALE
 	icon_state = "black_blood_sausage"
 	item_state = "black_blood_sausage"
-	list_reagents = list("nutriment" = 4, "protein" = 3, "ashiezine" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/medicine/ashiezine = 6)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/black_blood_sausage/get_ru_names()
 	return alist(
@@ -615,7 +615,7 @@
 	name = "filet madras"
 	desc = "Нежное филе рыбы, обжаренное вместе с грибами. Невероятно вкусно."
 	icon_state = "filet_madras"
-	list_reagents = list("nutriment" = 3, "protein" = 2, "pen_acid" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/medicine/pen_acid = 4)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/filet_madras/get_ru_names()
 	return alist(
@@ -631,7 +631,7 @@
 	name = "eel katigo"
 	desc = "Филе донного угря с травяными приправами и \"соусом\" в виде собранных кусков мяса. Питательно!"
 	icon_state = "eel_katigo"
-	list_reagents = list("nutriment" = 3, "protein" = 2, "nicotine" = 6, "menthol" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/nicotine = 6, /datum/reagent/medicine/menthol = 15)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/eel_katigo/get_ru_names()
 	return alist(
@@ -647,7 +647,7 @@
 	name = "predatory chowder"
 	desc = "Суп, приготовленный с использованием рыбного мяса, приправ и человеческих органов. Вкусно!"
 	icon_state = "predatory_chowder"
-	list_reagents = list("nutriment" = 3, "protein" = 2, "godblood" = 20)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/medicine/omnizine_diluted/godblood = 20)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/predatory_chowder/get_ru_names()
 	return alist(

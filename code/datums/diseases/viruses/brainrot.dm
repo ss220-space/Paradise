@@ -4,11 +4,11 @@
 	desc = "Эта болезнь разрушает клетки мозга, вызывая его воспаление, некроз и общую интоксикацию."
 	max_stages = 4
 	spread_flags = CONTACT
-	cures = list("mannitol")
+	cures = list(/datum/reagent/medicine/mannitol)
 	cure_prob = 15
 	required_organs = list(/obj/item/organ/internal/brain)
 	severity = DISEASE_SEVERITY_HARMFUL
-	mutation_reagents = list("mutagen", "neurotoxin2")
+	mutation_reagents = list(/datum/reagent/mutagen, /datum/reagent/neurotoxin2)
 	possible_mutations = list(/datum/disease/kuru, /datum/disease/virus/advance/preset/mind_restoration, /datum/disease/virus/transformation/jungle_fever)
 
 /datum/disease/virus/brainrot/stage_act()

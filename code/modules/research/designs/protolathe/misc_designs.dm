@@ -110,7 +110,7 @@
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_TOXINS = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
-	reagents_list = list("firefighting_foam" = 1)
+	reagents_list = list(/datum/reagent/firefighting_foam = 1)
 	build_path = /obj/item/extinguisher_refill
 	category = list(PROTOLATHE_CATEGORY_MISC)
 

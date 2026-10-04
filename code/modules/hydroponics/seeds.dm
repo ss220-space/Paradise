@@ -184,9 +184,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		var/amount = 1 + round(potency * reagents_add[rid], 1)
 
 		var/list/data = null
-		if(rid == "blood") // Hack to make blood in plants always O- but always Human
+		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O- but always Human
 			data = list("blood_type" = "O-", "blood_species" = "Human")
-		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
+		var/datum/plant_gene/reagent/R = new(get_random_reagent_type(), random_amount)
 		if(R.can_add(src))
 			genes += R
 		else

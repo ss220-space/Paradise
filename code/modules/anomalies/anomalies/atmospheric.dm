@@ -30,7 +30,7 @@
 		mob.adjust_bodytemperature(-100)
 		mob.apply_status_effect(/datum/status_effect/freon)
 		if(ishuman(mob))
-			mob.reagents.add_reagent("frostoil", 5)
+			mob.reagents.add_reagent(/datum/reagent/consumable/frostoil, 5)
 
 	var/turf/simulated/turf = get_turf(src)
 	if(istype(turf))
