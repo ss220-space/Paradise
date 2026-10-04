@@ -99,7 +99,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		user.balloon_alert(user, "снимите старое ядро!")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(!do_after(user, 2 SECONDS, src))
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!user.drop_transfer_item_to_loc(item, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
