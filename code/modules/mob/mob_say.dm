@@ -43,7 +43,8 @@ GAME_VERB(/mob, me_verb, VERB_ME, VERB_CATEGORY_IC)
 		QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, TYPE_PROC_REF(/mob, emote), "me", 1, message, TRUE), SSspeech_controller)
 
 /mob/proc/say_dead(message)
-	message = handle_emojis(apply_message_emphasis(message))
+	var/runechat_message = apply_message_emphasis(message)
+	message = handle_emojis(runechat_message)
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))
@@ -69,7 +70,7 @@ GAME_VERB(/mob, me_verb, VERB_ME, VERB_CATEGORY_IC)
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src)
+	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src, runechat_message)
 	add_deadchat_logs(src, message)
 
 /**
