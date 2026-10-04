@@ -1610,6 +1610,12 @@
 	item = /obj/item/storage/belt/grenade/frag
 	cost = 10
 
+/datum/uplink_item/explosives/contact_frag_grenade
+	name = "Пояс боевых контактных осколочных гранат"
+	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
+	item = /obj/item/storage/belt/grenade/frag/contact
+	cost = 20
+
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
 	desc = "Пояс, наполненный 26 разнообразными гранатами, включает в себя: 4 дымовых шашки, 2 ЭМИ гранаты, 4 глюонные гранаты, 1 кислотную гранату, \
