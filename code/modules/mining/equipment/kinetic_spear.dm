@@ -250,7 +250,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 /obj/item/embedded/spear
 	name = "spear tip"
 	desc = "наконечник копья, сделанный из чистой энергии. Очень острый."
-	icon_state = "overlay_red"
+	icon_state = "spear_tip"
 	icon = 'icons/obj/mining.dmi'
 	item_state = "flare-on"
 	throwforce = 10
