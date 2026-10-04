@@ -8,7 +8,6 @@ mod automata;
 mod config;
 mod generator;
 mod layout;
-mod rng;
 
 use self::config::GeneratorConfig;
 use self::generator::generate_cave_system;

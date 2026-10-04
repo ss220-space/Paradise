@@ -1,4 +1,6 @@
-use super::rng::CaveRng;
+use rand::distr::{Bernoulli, Distribution, Uniform};
+use rand::Rng;
+
 use super::{DEF_ALIVE, DEF_DEAD};
 
 pub(super) struct BSPNode {
@@ -40,14 +42,15 @@ impl BSPNode {
         }
     }
 
-    pub(super) fn split(&mut self, min_size: usize, max_ratio: f64, rng: &mut CaveRng) {
+    pub(super) fn split(&mut self, min_size: usize, max_ratio: f64, rng: &mut impl Rng) {
         let can_split_h = self.h > min_size * 2;
         let can_split_v = self.w > min_size * 2;
         if !can_split_h && !can_split_v {
             return;
         }
 
-        let mut split_horizontal = rng.chance(50.0);
+        let coin = Bernoulli::new(0.5).unwrap();
+        let mut split_horizontal = coin.sample(rng);
         if self.h > 0 && (self.w as f64 / self.h as f64) >= max_ratio {
             split_horizontal = false;
         }
@@ -68,7 +71,9 @@ impl BSPNode {
         }
 
         if split_horizontal {
-            let split_y = rng.range(min_size, self.h - min_size);
+            let split_y = Uniform::new(min_size, self.h - min_size)
+                .unwrap()
+                .sample(rng);
             let mut left = BSPNode::new(self.x, self.y, self.w, split_y);
             let mut right = BSPNode::new(self.x, self.y + split_y, self.w, self.h - split_y);
             left.split(min_size, max_ratio, rng);
@@ -76,7 +81,9 @@ impl BSPNode {
             self.left = Some(Box::new(left));
             self.right = Some(Box::new(right));
         } else {
-            let split_x = rng.range(min_size, self.w - min_size);
+            let split_x = Uniform::new(min_size, self.w - min_size)
+                .unwrap()
+                .sample(rng);
             let mut left = BSPNode::new(self.x, self.y, split_x, self.h);
             let mut right = BSPNode::new(self.x + split_x, self.y, self.w - split_x, self.h);
             left.split(min_size, max_ratio, rng);
@@ -104,7 +111,7 @@ pub(super) fn generate_room(
     leaf: &BSPNode,
     padding: usize,
     size_scale: f64,
-    rng: &mut CaveRng,
+    rng: &mut impl Rng,
 ) -> Option<Room> {
     let max_w = leaf.w.saturating_sub(padding * 2);
     let max_h = leaf.h.saturating_sub(padding * 2);
@@ -114,21 +121,43 @@ pub(super) fn generate_room(
 
     let lo_w = ((max_w as f64 * 0.3) as usize).max(1);
     let hi_w = (max_w as f64 * size_scale) as usize;
-    let rw = (rng.range(lo_w, hi_w)).max(3).min(max_w);
+    let rw = (if hi_w > lo_w {
+        Uniform::new(lo_w, hi_w).unwrap().sample(rng)
+    } else {
+        lo_w
+    })
+    .max(3)
+    .min(max_w);
 
     let lo_h = ((max_h as f64 * 0.3) as usize).max(1);
     let hi_h = (max_h as f64 * size_scale) as usize;
-    let rh = (rng.range(lo_h, hi_h)).max(3).min(max_h);
+    let rh = (if hi_h > lo_h {
+        Uniform::new(lo_h, hi_h).unwrap().sample(rng)
+    } else {
+        lo_h
+    })
+    .max(3)
+    .min(max_h);
 
     let rx = {
         let lo = padding;
         let hi = leaf.w.saturating_sub(rw + padding);
-        leaf.x + rng.range(lo, hi)
+        let offset = if hi > lo {
+            Uniform::new(lo, hi).unwrap().sample(rng)
+        } else {
+            lo
+        };
+        leaf.x + offset
     };
     let ry = {
         let lo = padding;
         let hi = leaf.h.saturating_sub(rh + padding);
-        leaf.y + rng.range(lo, hi)
+        let offset = if hi > lo {
+            Uniform::new(lo, hi).unwrap().sample(rng)
+        } else {
+            lo
+        };
+        leaf.y + offset
     };
 
     Some(Room {
@@ -179,13 +208,14 @@ pub(super) fn kruskal_mst(
     n: usize,
     edges: &[MSTEdge],
     loop_percent: usize,
-    rng: &mut CaveRng,
+    rng: &mut impl Rng,
 ) -> Vec<MSTEdge> {
     let mut sorted = edges.to_vec();
     sorted.sort_by(|a, b| a.dist.partial_cmp(&b.dist).unwrap());
 
     let mut parent: Vec<usize> = (0..n).collect();
     let mut result = Vec::with_capacity(sorted.len());
+    let loop_coin = Bernoulli::new((loop_percent as f64 / 100.0).clamp(0.0, 1.0)).unwrap();
 
     for edge in &sorted {
         let ru = uf_find(&parent, edge.u);
@@ -193,7 +223,7 @@ pub(super) fn kruskal_mst(
         if ru != rv {
             uf_union(&mut parent, edge.u, edge.v);
             result.push(*edge);
-        } else if rng.chance(loop_percent as f64) {
+        } else if loop_coin.sample(rng) {
             result.push(*edge);
         }
     }
@@ -221,9 +251,10 @@ pub(super) fn carve_corridor(
     start: (usize, usize),
     end: (usize, usize),
     cw: usize,
-    rng: &mut CaveRng,
+    rng: &mut impl Rng,
 ) {
-    let go_x_first = rng.chance(50.0);
+    let coin = Bernoulli::new(0.5).unwrap();
+    let go_x_first = coin.sample(rng);
     let mut cx = start.0 as i32;
     let mut cy = start.1 as i32;
     let tx = end.0 as i32;

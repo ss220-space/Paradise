@@ -25,7 +25,6 @@ pub(super) struct GeneratorConfig {
     pub(super) survival_limit: usize,
     #[serde(deserialize_with = "de_byond_bool")]
     pub(super) edge_is_alive: bool,
-    pub(super) seed: Option<u64>,
 }
 
 impl Default for GeneratorConfig {
@@ -42,7 +41,6 @@ impl Default for GeneratorConfig {
             birth_limit: 6,
             survival_limit: 4,
             edge_is_alive: true,
-            seed: None,
         }
     }
 }

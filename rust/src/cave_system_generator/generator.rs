@@ -1,7 +1,8 @@
+use rand::distr::{Bernoulli, Distribution};
+
 use super::automata::{ca_step, flood_fill_island_removal};
 use super::config::{GeneratorConfig, PrefabConfig};
 use super::layout::{build_adjacency_edges, carve_corridor, collect_leaves, generate_room, kruskal_mst, BSPNode};
-use super::rng::{random_seed, CaveRng};
 use super::{Result, ALIVE, DEAD, DEF_ALIVE, DEF_DEAD};
 
 pub(super) fn generate_cave_system(
@@ -32,11 +33,10 @@ pub(super) fn generate_cave_system(
         birth_limit,
         survival_limit,
         edge_is_alive,
-        seed,
     } = config;
 
     let size_scale = (room_fill_percent as f64 / 100.0).clamp(0.0, 1.0);
-    let mut rng = CaveRng::new(seed.unwrap_or_else(random_seed));
+    let mut rng = rand::rng();
     let mut grid: Vec<Vec<u8>> = vec![vec![DEAD; height]; width];
     let mut fixed: Vec<Vec<bool>> = vec![vec![false; height]; width];
 
@@ -82,14 +82,11 @@ pub(super) fn generate_cave_system(
             );
         }
     }
+    let prob = Bernoulli::new((noise_percent as f64 / 100.0).clamp(0.0, 1.0)).unwrap();
     for x in 0..width {
         for y in 0..height {
             if !fixed[x][y] {
-                grid[x][y] = if rng.chance(noise_percent as f64) {
-                    ALIVE
-                } else {
-                    DEAD
-                };
+                grid[x][y] = if prob.sample(&mut rng) { ALIVE } else { DEAD };
             }
         }
     }
