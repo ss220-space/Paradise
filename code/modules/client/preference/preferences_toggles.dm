@@ -317,6 +317,16 @@ GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заг
 	disable_message = "Теперь вы не будете видеть Runechat облака с LOOC-сообщениями."
 	blackbox_message = "Toggle Runechat LOOC"
 
+/datum/preference_toggle/toggle_hide_deadchat_runechat
+	name = "Скрыть Runechat-дедчат"
+	description = "Переключает видимость Runechat облаков с сообщениями из чата мёртвых."
+	preftoggle_bitflag = PREFTOGGLE_3_HIDE_DEADCHAT_RUNECHAT
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
+	enable_message = "Теперь вы не будете видеть Runechat облака с сообщениями из чата мёртвых."
+	disable_message = "Теперь вы будете видеть Runechat облака с сообщениями из чата мёртвых."
+	blackbox_message = "Toggle Runechat Deadchat"
+
 /datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Уведомление о смерти — Призрак"
 	description = "Включает уведомления о смерти игроков."

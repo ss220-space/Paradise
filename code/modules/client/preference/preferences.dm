@@ -2224,6 +2224,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						return
 					zoom_mode = options[result] || zoom_mode
 					user?.client?.view_size?.setZoomMode()
+					save_preferences(user.client)
 
 				if("zoom_scale")
 					var/list/options = list()
@@ -2235,6 +2236,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					
 					zoom = result
 					user?.client?.view_size?.resetFormat()
+					save_preferences(user.client)
 
 				if("gender")
 					if(!S.has_gender)

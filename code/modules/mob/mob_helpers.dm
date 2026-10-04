@@ -449,7 +449,7 @@ GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 //Direct dead say used both by emote and say
 //It is somewhat messy. I don't know what to do.
 //I know you can't see the change, but I rewrote the name code. It is significantly less messy now
-/proc/say_dead_direct(message, mob/subject = null)
+/proc/say_dead_direct(message, mob/subject = null, runechat_message)
 	var/name
 	var/keyname
 	if(subject?.client)
@@ -488,6 +488,8 @@ GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 					lname = name
 				lname = "[span_name("[lname]")] "
 			to_chat(M, span_deadsay("[follow][lname][message]"))
+			if(runechat_message && subject && (isobserver(M) || M.see_invisible >= subject.invisibility) && (M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !(M.client.prefs.toggles3 & PREFTOGGLE_3_HIDE_DEADCHAT_RUNECHAT))
+				M.create_chat_message(subject, runechat_message, list("italics"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/ghost in GLOB.player_list)
