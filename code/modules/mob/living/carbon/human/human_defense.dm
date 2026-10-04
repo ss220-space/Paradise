@@ -656,6 +656,7 @@ emp_act
 
 	else if(item && (((throwingdatum ? throwingdatum.speed : item.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || item.embedded_ignore_throwspeed_threshold) && can_embed(item) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(item.embed_chance))
 		embed_item_inside(item)
+		item.on_human_ebedded(src)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item
 

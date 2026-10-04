@@ -70,6 +70,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 // Simple animals
 #define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
+#define is_lavaland_fauna(A) (istype(A, /mob/living/simple_animal/hostile/asteroid))
+
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
@@ -483,3 +485,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 #define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))
+
+#define is_mining_spear_core(A) (istype(A, /obj/item/mining_spear_core))
