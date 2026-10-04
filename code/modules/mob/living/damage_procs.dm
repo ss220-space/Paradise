@@ -727,7 +727,7 @@
 
 	if(!forced && amount < 0 && HAS_TRAIT(src, TRAIT_BLOCK_STAMINA_REGEN))
 		return STATUS_UPDATE_NONE
-    
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, STAMINA, used_weapon = used_weapon)
@@ -765,7 +765,7 @@
 		return STATUS_UPDATE_NONE
 
 	var/old_amount = getStaminaLoss()
-  
+
 	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	var/delta = old_amount - staminaloss
 	if(delta <= 0 && amount >= DAMAGE_PRECISION)
