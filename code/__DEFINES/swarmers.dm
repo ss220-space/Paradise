@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 
 // MARK: Swarmer weaknesses
 /// How much swarmers and swarmer structures get damaged on emp
-#define SWARMER_EMP_DAMAGE(severity) (severity ? EMP_HEAVY : 25 : 15)
+#define SWARMER_EMP_DAMAGE(severity) ((severity == EMP_HEAVY) ? 25 : 15)
 /// For how long do swarmer structures get disabled for on emp_act
 #define SWARMER_STRUCTURE_EMP_DURATION 10 SECONDS
 /// For how long swarmers get stunned on melee flash attack
