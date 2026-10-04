@@ -45,7 +45,7 @@
 		if(distance < heavy_range)
 			will_affect = T.emp_act(EMP_HEAVY)
 
-		else if(heavy_range && distance == heavy_range)
+		else if(distance == heavy_range)
 			if(prob(50))
 				will_affect = T.emp_act(EMP_HEAVY)
 			else

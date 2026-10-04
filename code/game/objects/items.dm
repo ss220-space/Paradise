@@ -1070,7 +1070,9 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(QDELETED(hit_atom))
 		return
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	if(signal_result & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return
 
 	var/itempush = TRUE
 	if(w_class < WEIGHT_CLASS_BULKY)

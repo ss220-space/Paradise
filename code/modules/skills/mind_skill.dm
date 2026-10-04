@@ -169,8 +169,10 @@
 		current_job = SSjobs.GetJob(ref_job)
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
 	refresh_skills(ref_job)
-	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
+	var/job_free_skill_points = current_job?.base_free_skill_point || DEFAULT_FREE_POINTS
 	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
+	if(current_job)
+		discount_skill_category = current_job.discount_skill_category
 
 /**
  * Returns the typepath of the highest-level skill on this mind.

@@ -1618,6 +1618,12 @@
 	item = /obj/item/storage/belt/grenade/frag
 	cost = 10
 
+/datum/uplink_item/explosives/contact_frag_grenade
+	name = "Пояс боевых контактных осколочных гранат"
+	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
+	item = /obj/item/storage/belt/grenade/frag/contact
+	cost = 20
+
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
 	desc = "Пояс, наполненный 26 разнообразными гранатами, включает в себя: 4 дымовых шашки, 2 ЭМИ гранаты, 4 глюонные гранаты, 1 кислотную гранату, \
@@ -1804,6 +1810,14 @@
 			Однако, они не отличаются стабильностью, и маскировка отключается примерно через 30 минут."
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
 	cost = 6
+
+/datum/uplink_item/stealthy_tools/midichlorian_injector
+	name = "Инъектор мидихлориан"
+	desc = "Всего одна инъекция наделит любой организм связью с Силой, а также дарует мастерство владения энергетическим мечом. \
+			Энергетический меч в комплекте."
+	item = /obj/item/storage/box/syndie_kit/midichlorian
+	cost = 60
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /**
  * MARK: Devices & Tools
