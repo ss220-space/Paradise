@@ -158,7 +158,7 @@
 	cooldown_time = 8 SECONDS
 	sound = 'sound/creatures/terrorspiders/attack2.ogg'
 	smoke_type = /datum/effect_system/fluid_spread/smoke
-	smoke_range = 5
+	smoke_range = 7
 
 /datum/action/cooldown/spell/smoke/terror/can_cast_spell(feedback)
 	if(!isturf(owner.loc))
