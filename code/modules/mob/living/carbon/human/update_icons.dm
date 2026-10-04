@@ -972,7 +972,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(bodypart_tail.m_styles["tail"] != "None" && (bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = bodypart_tail.m_styles["tail"]
-		tail_marking_style = SSaccessories.alt_heads_list[tail_marking]
+		tail_marking_style = SSaccessories.body_markings_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(bodypart_tail.m_colours["tail"], ICON_ADD)
 
