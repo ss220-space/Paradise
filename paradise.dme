@@ -631,6 +631,7 @@
 #include "code\controllers\subsystem\non-firing\ping.dm"
 #include "code\controllers\subsystem\non-firing\radio.dm"
 #include "code\controllers\subsystem\non-firing\sounds.dm"
+#include "code\controllers\subsystem\non-firing\sprite_accessories.dm"
 #include "code\controllers\subsystem\processing\ai_basic_avoidance.dm"
 #include "code\controllers\subsystem\processing\ai_behaviors.dm"
 #include "code\controllers\subsystem\processing\ai_controllers.dm"
