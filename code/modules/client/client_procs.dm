@@ -246,6 +246,7 @@
 
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
+	emote_panel = new(src, "statemotes")
 
 	// Create a PM tracker bound to this ckey.
 	pm_tracker = new(ckey)

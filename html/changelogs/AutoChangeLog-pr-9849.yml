@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - bugfix: "Медборг снова получает электроды дефибриллятора при выборе модуля. (PR #9849)"

@@ -1,93 +1,49 @@
-
-////HUD NONSENSE////
 /atom/movable/screen/swarmer
-	icon = 'icons/mob/swarmer.dmi'
+	icon = 'icons/mob/screen_swarmer.dmi'
 
-/atom/movable/screen/swarmer/FabricateTrap
-	icon_state = "ui_trap"
-	name = "Создать ловушку (Стоимость: 5 ресурсов)"
-	desc = "Создаёт ловушку, которая наносит нелетальный разряд всем не-свармерам, при попытке пройти через неё. (Стоимость: 5 ресурсов)"
+/atom/movable/screen/swarmer/Click()
+	if(!isswarmer(usr))
+		return FALSE
+	return TRUE
 
-/atom/movable/screen/swarmer/FabricateTrap/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.CreateTrap()
-
-/atom/movable/screen/swarmer/Barricade
-	icon_state = "ui_barricade"
-	name = "Создать баррикаду (Стоимость: 5 ресурсов)"
-	desc = "Создаёт разрушаемую баррикаду, которая блокирует проход для всех, кроме роевиков. Также пропускает лучи дизейблера. (Стоимость: 5 ресурсов)"
-
-/atom/movable/screen/swarmer/Barricade/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.CreateBarricade()
-
-/atom/movable/screen/swarmer/Replicate
-	icon_state = "ui_replicate"
-	name = "Репликация (Стоимость: 100 ресурсов)"
-	desc = "Создаёт ещё одного представителя нашего вида."
-
-/atom/movable/screen/swarmer/Replicate/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.CreateSwarmer()
-
-/atom/movable/screen/swarmer/RepairSelf
-	icon_state = "ui_self_repair"
-	name = "Самовосстановление"
-	desc = "Чинит повреждения нашего тела."
-
-/atom/movable/screen/swarmer/RepairSelf/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.RepairSelf()
-
-/atom/movable/screen/swarmer/ToggleLight
+/atom/movable/screen/swarmer/toggle_light
 	icon_state = "ui_light"
 	name = "Переключить свет"
 	desc = "Включает или выключает встроенную подсветку."
 
-/atom/movable/screen/swarmer/ToggleLight/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/swarmer = usr
-		swarmer.ToggleLight()
+/atom/movable/screen/swarmer/toggle_light/Click()
+	if(!..())
+		return
+	var/mob/living/simple_animal/hostile/swarmer/swarmer = usr
+	swarmer.toggle_light()
 
-/atom/movable/screen/swarmer/ContactSwarmers
+/atom/movable/screen/swarmer/contact_swarmers
 	icon_state = "ui_contact_swarmers"
 	name = "Связь роя"
 	desc = "Отправить сообщение всем свармерам, если они, конечно, есть."
 
-/atom/movable/screen/swarmer/ContactSwarmers/Click()
-	if(isswarmer(usr))
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.ContactSwarmers()
+/atom/movable/screen/swarmer/contact_swarmers/Click()
+	if(!..())
+		return
+	var/mob/living/simple_animal/hostile/swarmer/swarmer = usr
+	swarmer.contact_swarmers()
 
 /datum/hud/swarmer/New(mob/owner)
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/swarmer/FabricateTrap(null, src)
-	using.screen_loc = ui_rhand
+	mymob.healthdoll = new /atom/movable/screen/healthdoll/living(null, src)
+	infodisplay += mymob.healthdoll
+
+	using = new /atom/movable/screen/act_intent/swarmer(null, src)
+	using.icon_state = mymob.a_intent
+	static_inventory += using
+	action_intent = using
+
+	using = new /atom/movable/screen/swarmer/toggle_light(null, src)
+	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/Barricade(null, src)
-	using.screen_loc = ui_lhand
-	static_inventory += using
-
-	using = new /atom/movable/screen/swarmer/Replicate(null, src)
-	using.screen_loc = ui_zonesel
-	static_inventory += using
-
-	using = new /atom/movable/screen/swarmer/RepairSelf(null, src)
-	using.screen_loc = ui_storage1
-	static_inventory += using
-
-	using = new /atom/movable/screen/swarmer/ToggleLight(null, src)
-	using.screen_loc = ui_back
-	static_inventory += using
-
-	using = new /atom/movable/screen/swarmer/ContactSwarmers(null, src)
+	using = new /atom/movable/screen/swarmer/contact_swarmers(null, src)
 	using.screen_loc = ui_inventory
 	static_inventory += using
-

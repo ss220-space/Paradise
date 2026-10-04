@@ -1,0 +1,5 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - add: "Добавлены органы для низших форм (PR #9841)"
+  - tweak: "Запрет на пересадку органов низших форм (PR #9841)"

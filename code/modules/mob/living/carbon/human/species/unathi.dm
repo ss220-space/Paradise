@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = SPECIES_UNATHI
 	name_plural = "Unathi"
+	ru_genitive = "унатха"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = LANGUAGE_UNATHI

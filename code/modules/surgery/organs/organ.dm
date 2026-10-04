@@ -147,6 +147,7 @@
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
 
+	var/old_damage = damage
 	damage = max_damage
 	bleeding_amount = 0
 	status |= ORGAN_DEAD
@@ -157,6 +158,8 @@
 
 	if(owner && vital)
 		owner.death()
+
+	update_damage_overlay(old_damage)
 
 	return TRUE
 
@@ -269,6 +272,25 @@
 		else
 			. += span_notice("Серьёзно повреждено.")
 
+/**
+ * Appends the owner's species name to this organ's Russian names.
+ *
+ * Generic bodyparts such as [/obj/item/organ/external/leg] are shared between every
+ * species, so on their own they read as "левая нога". This bolts the species name onto
+ * every grammatical case, producing "левая нога человека" and "левой ноги человека".
+ */
+/obj/item/organ/proc/apply_species_name()
+	if(species_type)
+		return
+	if(!dna?.species)
+		return
+
+	var/suffix = dna.species.get_bodypart_name_suffix()
+	if(!suffix)
+		return
+
+	set_ru_names_suffix(suffix)
+
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
@@ -294,6 +316,7 @@
 			parent.germ_level += germs_amount
 
 /obj/item/organ/proc/rejuvenate()
+	var/old_damage = damage
 	damage = 0
 	germ_level = 0
 	bleeding_amount = 0
@@ -304,6 +327,8 @@
 		status = NONE
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+	update_damage_overlay(old_damage)
 
 /obj/item/organ/proc/is_damaged(brute = TRUE, burn = TRUE)
 	if(isexternalorgan(src))
@@ -350,7 +375,9 @@
 
 	. = TRUE
 
+	var/old_damage = damage
 	damage = clamp(round(damage + amount, DAMAGE_PRECISION), 0, max_damage)
+	update_damage_overlay(old_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ_zone && amount > 0)
@@ -366,11 +393,17 @@
 	if(is_robotic() && !robo_repair)
 		return
 
+	var/old_damage = damage
 	damage = max(damage - amount, 0)
+	update_damage_overlay(old_damage)
 
 /obj/item/organ/proc/robotize(make_tough = FALSE) //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
 	status |= ORGAN_ROBOT
+	update_damage_overlay(damage)
+
+/obj/item/organ/proc/update_damage_overlay(old_damage)
+	return
 
 /obj/item/organ/proc/shock_organ(intensity)
 	return

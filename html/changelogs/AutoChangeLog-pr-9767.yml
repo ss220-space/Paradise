@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - tweak: "изменение механики падения об мокрых мобов (PR #9767)"

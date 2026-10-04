@@ -166,7 +166,7 @@ emp_act
 					damtype = DROPLIMB_BLUNT
 				if(BURN)
 					damtype = DROPLIMB_BURN
-		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
+		if(P.dismember_head && ishead(affecting))
 			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
@@ -409,7 +409,7 @@ emp_act
 			continue
 		if(affecting.brute_dam != brute_was || affecting.burn_dam != burn_was)
 			should_update_health = TRUE
-		if(!istype(affecting, /obj/item/organ/external/head) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
+		if(!ishead(affecting) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
 			continue
 		var/obj/item/organ/external/head/head_organ = affecting
 		if(has_pain())
@@ -656,6 +656,7 @@ emp_act
 
 	else if(item && (((throwingdatum ? throwingdatum.speed : item.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || item.embedded_ignore_throwspeed_threshold) && can_embed(item) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(item.embed_chance))
 		embed_item_inside(item)
+		item.on_human_ebedded(src)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item
 

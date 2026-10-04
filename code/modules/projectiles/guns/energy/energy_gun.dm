@@ -143,7 +143,7 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
