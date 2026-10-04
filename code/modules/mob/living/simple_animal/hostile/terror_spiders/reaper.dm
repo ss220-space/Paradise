@@ -6,13 +6,14 @@
 	icon_state = "terror_reaper"
 	icon_living = "terror_reaper"
 	icon_dead = "terror_reaper_dead"
-	maxHealth = 130
-	health = 130
+	maxHealth = 110
+	health = 110
+	damage_coeff = list(BRUTE = 0.85, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	move_resist = MOVE_FORCE_STRONG
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death3.ogg'
 	regeneration = 0
-	melee_damage_lower = 25
+	melee_damage_lower = 20
 	melee_damage_upper = 25
 	armour_penetration = 15
 	obj_damage = 50
@@ -44,4 +45,4 @@
 
 	if(L.stat != DEAD) //no healing when biting corpses
 		L.bleed(25) //bloodsucker
-		adjustBruteLoss(-30)   //vampirism
+		adjustBruteLoss(-15)   //vampirism
