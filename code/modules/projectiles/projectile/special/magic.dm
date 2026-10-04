@@ -27,6 +27,8 @@
 
 /obj/projectile/magic/prehit(atom/target)
 	. = ..()
+	if(QDELETED(src))
+		return
 
 	if(isliving(target))
 		var/mob/living/victim = target
