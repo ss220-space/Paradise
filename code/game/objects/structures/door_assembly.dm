@@ -294,6 +294,9 @@
 		door.has_access_electronics = FALSE
 
 	door.update_appearance()
+	if(istype(door, /obj/machinery/door/airlock/external/docking))
+		var/obj/machinery/door/airlock/external/docking/dock_door = door
+		dock_door.configure_overmap_dock(user)
 	qdel(src)
 
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)

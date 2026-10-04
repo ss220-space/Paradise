@@ -45,25 +45,18 @@
 	data["current_initialisation_phase"] = current_initialisation_phase
 	data["end_terminal"] = s_TGUI_initialized
 
-	var/obj/docking_port/mobile/ninja_shuttle_port = SSshuttle.getShuttle(shuttle_controller.shuttleId)
-	var/shuttle_status = ninja_shuttle_port ? ninja_shuttle_port.getStatusText() : null
-	shuttle_status += ": [ninja_shuttle_port.x], [ninja_shuttle_port.y], [ninja_shuttle_port.z]"
+	var/obj/machinery/computer/shuttle/ninja/console = ensure_shuttle_controller()
+	var/shuttle_id = console?.shuttleId || "ombra"
+	var/obj/docking_port/mobile/ninja_shuttle_port = SSshuttle.getShuttle(shuttle_id)
+	var/shuttle_status
+	if(ninja_shuttle_port)
+		var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[ninja_shuttle_port]
+		shuttle_status = vessel ? vessel.get_helm_status_text() : ninja_shuttle_port.getStatusText()
+		shuttle_status += ": [ninja_shuttle_port.x], [ninja_shuttle_port.y], [ninja_shuttle_port.z]"
 	data["status"] = shuttle_status
 	if(user.lastarea)	//Сейф чек. Вызывает рантаймы если только заспавнился и открыл интерфейс, ни сделав ни шага
 		data["player_pos"] = "[user.lastarea.name]: [user.x], [user.y], [user.z]"
-	if(ninja_shuttle_port)
-		data["shuttle"] = TRUE	//this should just be boolean, right?
-		var/list/docking_ports = list()
-		data["docking_ports"] = docking_ports
-		var/list/options = params2list(shuttle_controller.possible_destinations)
-		for(var/obj/docking_port/stationary/ninja_stationary_shuttle_port in SSshuttle.stationary)
-			if(!options.Find(ninja_stationary_shuttle_port.id))
-				continue
-			if(!ninja_shuttle_port.check_dock(ninja_stationary_shuttle_port))
-				continue
-			docking_ports[++docking_ports.len] = list("name" = ninja_stationary_shuttle_port.name, "id" = ninja_stationary_shuttle_port.id)
-		data["docking_ports_len"] = docking_ports.len
-		data["admin_controlled"] = shuttle_controller.admin_controlled
+	data["shuttle"] = !!ninja_shuttle_port
 
 	if(suit_tgui_state == NINJA_TGUI_LOADING_STATE)
 		data["randomPercent"] = pick(rand(1,100), 100)
@@ -81,10 +74,46 @@
 
 	return data
 
+/obj/item/clothing/suit/space/space_ninja/proc/on_ninja_shuttle_console(datum/source, obj/machinery/computer/shuttle/ninja/console)
+	SIGNAL_HANDLER
+	if(QDELETED(shuttle_controller))
+		shuttle_controller = console
+
+/obj/item/clothing/suit/space/space_ninja/proc/linked_overmap_vessel()
+	var/obj/machinery/computer/shuttle/ninja/console = ensure_shuttle_controller()
+	var/shuttle_id = console?.shuttleId || "ombra"
+	if(!SSovermap)
+		return null
+	return SSovermap.shuttle_vessels[SSshuttle.getShuttle(shuttle_id)]
+
+/obj/item/clothing/suit/space/space_ninja/proc/ensure_remote_overmap(obj/overmap/entity/vessel)
+	if(!vessel)
+		return FALSE
+	if(QDELETED(remote_helm))
+		remote_helm = new(null)
+	remote_helm.bind_target(vessel)
+	if(QDELETED(remote_sensors))
+		remote_sensors = new(null)
+	remote_sensors.bind_target(vessel)
+	if(QDELETED(remote_transponder))
+		remote_transponder = new(null)
+	remote_transponder.bind_target(vessel)
+	return TRUE
+
+/obj/item/clothing/suit/space/space_ninja/proc/ensure_shuttle_controller()
+	if(!QDELETED(shuttle_controller))
+		return shuttle_controller
+	shuttle_controller = null
+	for(var/obj/machinery/computer/shuttle/ninja/shuttle as anything in SSmachines.get_by_type(/obj/machinery/computer/shuttle/ninja))
+		if(QDELETED(shuttle))
+			continue
+		shuttle_controller = shuttle
+		return shuttle_controller
+	return null
+
 /obj/item/clothing/suit/space/space_ninja/ui_act(action, list/params)
 	if(..())
 		return
-	var/list/options = params2list(shuttle_controller.possible_destinations)
 	var/mob/living/carbon/human/ninja = usr
 	switch(action)
 		if("initialise_suit")
@@ -167,23 +196,27 @@
 				heal_chems = ninja_action
 			ninja_datum.purchased_abilities += "<big>[icon2html(ability_icon, ninja)]</big>"
 			addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
-		if("move")
-			var/destination = params["move"]
-			if(!options.Find(destination))
-				message_admins("[span_boldannounceic("EXPLOIT: [ADMIN_LOOKUPFLW(usr)]")] attempted to move [shuttle_controller.shuttleId] to an invalid location! [ADMIN_COORDJMP(src)]")
+		if("open_helm")
+			var/obj/overmap/entity/vessel = linked_overmap_vessel()
+			if(!ensure_remote_overmap(vessel))
+				to_chat(usr, span_warning("Шаттл не найден."))
 				return
-			switch(SSshuttle.moveShuttle(shuttle_controller.shuttleId, destination, TRUE, usr))
-				if(0)
-					atom_say("Шаттл отправляется!")
-					usr.create_log(MISC_LOG, "remotedly used [shuttle_controller] to call the [shuttle_controller.shuttleId] shuttle")
-					if(!shuttle_controller.moved)
-						shuttle_controller.moved = TRUE
-					add_fingerprint(usr)
-					return TRUE
-				if(1)
-					to_chat(usr, span_warning("Invalid shuttle requested."))
-				else
-					to_chat(usr, span_notice("Unable to comply."))
+			remote_helm.ui_interact(usr)
+			return TRUE
+		if("open_transponder")
+			var/obj/overmap/entity/vessel = linked_overmap_vessel()
+			if(!ensure_remote_overmap(vessel))
+				to_chat(usr, span_warning("Шаттл не найден."))
+				return
+			remote_transponder.ui_interact(usr)
+			return TRUE
+		if("open_sensors")
+			var/obj/overmap/entity/vessel = linked_overmap_vessel()
+			if(!ensure_remote_overmap(vessel))
+				to_chat(usr, span_warning("Шаттл не найден."))
+				return
+			remote_sensors.ui_interact(usr)
+			return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_ability_buy_block()
 	return bying_ability = bying_ability ? FALSE : TRUE

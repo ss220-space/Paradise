@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(addition_goals)
 		return
 	if(!is_shuttle_in_centcom())
 		return
-	var/shutte_turfs = get_shuttle_turfs()
+	var/shutte_turfs = get_empty_shuttle_turfs()
 	if(!goal.spawn_shuttle_contain(shutte_turfs))
 		return
 	goal_state = AGS_STATE_GOAL_PREPARE
