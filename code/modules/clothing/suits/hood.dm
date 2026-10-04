@@ -89,8 +89,6 @@
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
-	icon_state = icon_state + "_hood"
-	item_state = item_state + "_hood"
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(wearer, span_notice("You adjust the hood on [src]."))
 	wearer.update_worn_oversuit()
@@ -101,24 +99,22 @@
 	unequip_hood()
 	if(!suit_adjusted)
 		return FALSE
+	var/mob/living/carbon/human/wearer = loc
 	. = TRUE
 	suit_adjusted = FALSE
 	update_icon(UPDATE_ICON_STATE)
+	wearer.update_worn_oversuit()
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
 /obj/item/clothing/suit/hooded/proc/unequip_hood()
 	if(!hood || hood.loc == src)
 		return
-	icon_state = replacetext("[icon_state]", "_hood", "")
-	item_state = replacetext("[item_state]", "_hood", "")
-	update_icon(UPDATE_ICON_STATE)
 	var/mob/living/carbon/human/wearer = hood.loc
 	if(!ishuman(wearer))
 		hood.forceMove(src)
 		return
 	wearer.transfer_item_to_loc(hood, src, force = TRUE)
-	wearer.update_worn_oversuit()
 
 /obj/item/clothing/head/hooded
 	flags_inv = HIDEHAIR
