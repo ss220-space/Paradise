@@ -221,7 +221,7 @@
 	var/turf/T = get_turf(src)
 	T.visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] медленно затихает и замирает. Защёлка [declent_ru(GENITIVE)] с громким щелчком захлопывается."))
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
-	animate(src, transform=matrix())
+	animate(src, transform = matrix())
 	gender = initial(gender)
 	awakened = FALSE
 	bloodthirst = 0

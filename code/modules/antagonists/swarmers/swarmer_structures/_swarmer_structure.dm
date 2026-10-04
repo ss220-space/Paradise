@@ -47,7 +47,7 @@
 	. = ..()
 	diag_hud_set_health()
 
-/obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+/obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = NONE)
 	switch(damage_type)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
@@ -140,7 +140,7 @@
 // All swarmer structures get damaged on emp_act.
 /obj/structure/swarmer/emp_act(severity)
 	..()
-	take_damage(SWARMER_EMP_DAMAGE)
+	take_damage(SWARMER_EMP_DAMAGE(severity))
 
 // Extra info shown to swarmers
 /obj/structure/swarmer/examine(mob/user)

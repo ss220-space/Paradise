@@ -218,47 +218,48 @@
 	if(..())
 		return
 
-	switch(action)
-		if("select_class")
-			var/mob/living/simple_animal/hostile/swarmer/old_swarmer = ui.user
-			var/confirm = tgui_alert(old_swarmer, "Вы уверены, что хотите выбрать данный класс?", "Выбор класса", list("Да", "Нет"))
-			if(confirm == "Нет")
-				return
+	if(action != "select_class")
+		return
 
-			var/swarmer_path = text2path(params["class"])
-			if(!ispath(swarmer_path, /mob/living/simple_animal/hostile/swarmer))
-				log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into [swarmer_path]. This can't be a false alarm.")
-				return
+	var/mob/living/simple_animal/hostile/swarmer/old_swarmer = ui.user
+	var/confirm = tgui_alert(old_swarmer, "Вы уверены, что хотите выбрать данный класс?", "Выбор класса", list("Да", "Нет"))
+	if(confirm == "Нет")
+		return
 
-			var/mob/living/simple_animal/hostile/swarmer/new_swarmer = swarmer_path
-			if(new_swarmer::can_swap_to == FALSE)
-				log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into non-possible swarmer class. This can't be a false alarm.")
-				return
+	var/swarmer_path = text2path(params["class"])
+	if(!ispath(swarmer_path, /mob/living/simple_animal/hostile/swarmer))
+		log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into [swarmer_path]. This can't be a false alarm.")
+		return
 
-			var/swap_cost = is_basicswarmer(old_swarmer) ? new_swarmer::swap_resource_cost : round(new_swarmer::swap_resource_cost / 2)// swarmer classes cost less on non-basic swap
-			if(!adjust_swarmer_metallic_resources(-swap_cost))
-				old_swarmer.balloon_alert(old_swarmer, "недостаточно ресурсов!")
-				return
+	var/mob/living/simple_animal/hostile/swarmer/new_swarmer = swarmer_path
+	if(new_swarmer::can_swap_to == FALSE)
+		log_and_message_admins("[old_swarmer.ckey] attempted to href exploit swarmer core swap into non-possible swarmer class. This can't be a false alarm.")
+		return
 
-			var/turf/spawn_turf = get_turf(old_swarmer)
-			if(!spawn_turf)
-				return
+	var/swap_cost = is_basicswarmer(old_swarmer) ? new_swarmer::swap_resource_cost : round(new_swarmer::swap_resource_cost / 2)// swarmer classes cost less on non-basic swap
+	if(!adjust_swarmer_metallic_resources(-swap_cost))
+		old_swarmer.balloon_alert(old_swarmer, "недостаточно ресурсов!")
+		return
 
-			ui.close()
-			new_swarmer = new swarmer_path(spawn_turf)
-			// Handle mmi transfer to new swarmer
-			if(old_swarmer.mmi)
-				old_swarmer.mmi.forceMove(new_swarmer)
-				new_swarmer.mmi = old_swarmer.mmi
-				old_swarmer.mmi = null
+	var/turf/spawn_turf = get_turf(old_swarmer)
+	if(!spawn_turf)
+		return
 
-			// Adjust health based on old swarmer health
-			new_swarmer.health *= old_swarmer.health / old_swarmer.maxHealth
-			old_swarmer.mind.transfer_to(new_swarmer)
-			new_swarmer.balloon_alert(new_swarmer, "успех!")
-			add_conversion_logs(old_swarmer, "Converted in core into [new_swarmer.name].")
-			spark_system.start()
-			qdel(old_swarmer)
+	ui.close()
+	new_swarmer = new swarmer_path(spawn_turf)
+	// Handle mmi transfer to new swarmer
+	if(old_swarmer.mmi)
+		old_swarmer.mmi.forceMove(new_swarmer)
+		new_swarmer.mmi = old_swarmer.mmi
+		old_swarmer.mmi = null
+
+	// Adjust health based on old swarmer health
+	new_swarmer.health *= old_swarmer.health / old_swarmer.maxHealth
+	old_swarmer.mind.transfer_to(new_swarmer)
+	new_swarmer.balloon_alert(new_swarmer, "успех!")
+	add_conversion_logs(old_swarmer, "Converted in core into [new_swarmer.name].")
+	spark_system.start()
+	qdel(old_swarmer)
 
 /// Generates classes selection array in TGUI
 /obj/structure/swarmer/core/proc/generate_class_selection()

@@ -1,6 +1,9 @@
 /// How much time does it take for an organic analyzer to finish (non-carbon mobs take less time)
 #define SWARMER_ANALYZE_DELAY(target) (iscarbon(target) ? 45 SECONDS : 15 SECONDS)
 
+/// Multiplier of resources we get if carbon target has no mind
+#define SWARMER_ANALYZE_NO_MIND_CARBON_MODIFIER 0.3
+
 /// How many organic resources we get on analyzing a carbon mob
 #define SWARMER_ANALYZE_CARBON_GAIN (rand(60, 80))
 /// How many organic resources we get on analyzing a hostile mob (/mob/living/simple_animal/hostile)
@@ -81,7 +84,7 @@
 
 	sound_loop.stop()
 	addtimer(CALLBACK(sound_loop, TYPE_PROC_REF(/datum/looping_sound, start)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
-	animate(src, transform=matrix())
+	animate(src, transform = matrix())
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(animate_recoil), src), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 
 	var/new_delay = SWARMER_ANALYZE_DELAY(occupant) + SWARMER_STRUCTURE_EMP_DURATION * severity
@@ -126,17 +129,15 @@
  * teleports the target to a safe place.
  */
 /obj/structure/swarmer/organic_analyzer/proc/finish_analyzing(should_qdel = FALSE)
-	if(QDELETED(occupant))
+	if(QDELETED(occupant) || !(occupant in contents))
 		occupant = null
-		return
-	if(!(locate(occupant) in src))
-		occupant = null
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	balloon_alert_to_viewers("обработано!")
 	refresh_air()
 	sound_loop.stop()
-	animate(src, transform=matrix())
+	animate(src, transform = matrix())
 	adjust_resources()
 
 	if(should_qdel)
@@ -163,7 +164,7 @@
 	if(ismachineperson(occupant))
 		return adjust_swarmer_metallic_resources(SWARMER_ANALYZE_MACHINE_GAIN)
 	if(iscarbon(occupant))
-		var/modifier = occupant.mind ? 1 : 0.3 // Much less from carbons with no mind
+		var/modifier = occupant.mind ? 1 : SWARMER_ANALYZE_NO_MIND_CARBON_MODIFIER
 		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_CARBON_GAIN * modifier)
 	if(ishostile(occupant))
 		return adjust_swarmer_organic_resources(SWARMER_ANALYZE_HOSTILE_GAIN)
@@ -259,6 +260,7 @@
 	)
 
 #undef SWARMER_ANALYZE_DELAY
+#undef SWARMER_ANALYZE_NO_MIND_CARBON_MODIFIER
 #undef SWARMER_ANALYZE_CARBON_GAIN
 #undef SWARMER_ANALYZE_HOSTILE_GAIN
 #undef SWARMER_ANALYZE_LIVING_GAIN

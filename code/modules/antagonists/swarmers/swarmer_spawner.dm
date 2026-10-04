@@ -38,9 +38,9 @@
 	. = ..()
 	// I want these to get destroyed immediately
 	RegisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED, PROC_REF(on_core_destroy))
-	var/area/A = get_area(src)
-	if(A)
-		notify_ghosts("Оболочка свамера была создана в [A.name].", 'sound/effects/bin_close.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+	var/area/loc_area = get_area(src)
+	if(loc_area)
+		notify_ghosts("Оболочка свамера была создана в [loc_area.name].", 'sound/effects/bin_close.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 /obj/effect/mob_spawn/swarmer/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)

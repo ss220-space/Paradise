@@ -117481,7 +117481,6 @@
 	name = "Blast Door"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "vWG" = (

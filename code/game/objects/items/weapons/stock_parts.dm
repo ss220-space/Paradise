@@ -78,10 +78,10 @@
 
 		hide_from(user)
 
-	var/turf/T = get_turf(src)
-	for(var/obj/item/stock_parts/I in contents)
-		if(I.rating <= empty_mode)
-			remove_from_storage(I, T)
+	var/turf/loc_turf = get_turf(src)
+	for(var/obj/item/stock_parts/part in contents)
+		if(part.rating <= empty_mode)
+			remove_from_storage(part, loc_turf)
 			CHECK_TICK
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()

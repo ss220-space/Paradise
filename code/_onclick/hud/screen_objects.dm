@@ -133,7 +133,7 @@
 		var/list/modifiers = params2list(params)
 		var/_x = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-		if(_x<=16 && _y<=16)
+		if(_x <= 16 && _y <= 16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x <= 16 && _y >= 17)
 			usr.a_intent_change(INTENT_HELP)

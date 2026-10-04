@@ -163,37 +163,37 @@
 			something.loc = get_turf(src)
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
-	if(isdog(M))
-		var/mob/living/simple_animal/pet/dog/D = M
-		D.changeNext_move(CLICK_CD_MELEE)
-		if(world.time < (D.last_eaten + 300))
-			to_chat(D, span_notice("You are too full to try eating [src] right now."))
+/obj/item/reagent_containers/food/snacks/attack_animal(mob/target_mob)
+	if(isdog(target_mob))
+		var/mob/living/simple_animal/pet/dog/dog = target_mob
+		dog.changeNext_move(CLICK_CD_MELEE)
+		if(world.time < (dog.last_eaten + 300))
+			to_chat(dog, span_notice("You are too full to try eating [src] right now."))
 			return
 		if(bitecount >= 4)
-			D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",span_notice("You swallow up the last part of [src]."))
+			dog.visible_message("[dog] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",span_notice("You swallow up the last part of [src]."))
 			playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
-			D.adjustHealth(-10)
-			D.last_eaten = world.time
-			D.taste(reagents)
+			dog.adjustHealth(-10)
+			dog.last_eaten = world.time
+			dog.taste(reagents)
 			qdel(src)
 			return
-		D.visible_message("[D] takes a bite of [src].",span_notice("You take a bite of [src]."))
+		dog.visible_message("[dog] takes a bite of [src].",span_notice("You take a bite of [src]."))
 		playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
 		bitecount++
-		D.last_eaten = world.time
-		D.taste(reagents)
+		dog.last_eaten = world.time
+		dog.taste(reagents)
 		return
 
-	if(!ismouse(M))
+	if(!ismouse(target_mob))
 		return ..()
 
-	var/mob/living/simple_animal/mouse/N = M
-	to_chat(N, span_notice("You nibble away at [src]."))
+	var/mob/living/simple_animal/mouse/mouse = target_mob
+	to_chat(mouse, span_notice("You nibble away at [src]."))
 	if(prob(50))
-		N.visible_message("[N] nibbles away at [src].", "")
-	N.adjustHealth(-2)
-	N.taste(reagents)
+		mouse.visible_message("[mouse] nibbles away at [src].", "")
+	mouse.adjustHealth(-2)
+	mouse.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()

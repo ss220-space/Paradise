@@ -18,7 +18,7 @@
 		stack_trace("This antag datum cannot be attached to a mob of this type.")
 	var/mob/living/simple_animal/hostile/swarmer/swarmer = owner.current
 	swarmer_class_info = span_bold("Ваш класс: [initial(swarmer.name)]!") + "\n" + swarmer.swarmer_class_info
-	. = ..()
+	return ..()
 
 /datum/antagonist/swarmer/roundend_report_header()
 	return

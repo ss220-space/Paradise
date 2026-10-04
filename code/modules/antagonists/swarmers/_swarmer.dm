@@ -42,6 +42,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	pull_force = PULL_FORCE_DEFAULT
 	pressure_resistance = 100
 	allows_unconscious = TRUE
+	slowed_by_pull_and_push = FALSE
 	/// Text used in core tgui and sent to client to tell about current class abilities
 	var/swarmer_class_info = "Вы не должны это видеть."
 	/// How much time does it take to dismantle a machine
@@ -131,6 +132,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(!mmi || !mind)
 		return
 
+	mind.remove_antag_datum(/datum/antagonist/swarmer)
 	mind.transfer_to(mmi.brainmob)
 	mmi.forceMove(get_turf(src))
 	addtimer(CALLBACK(mmi.brainmob, TYPE_PROC_REF(/mob, offer_ghostize)), 10 SECONDS, TIMER_DELETE_ME)
@@ -152,7 +154,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	)
 
 /mob/living/simple_animal/hostile/swarmer/proc/updatename()
-	real_name = "[name] [rand(100,999)]-[pick(GLOB.greek_letters)]"
+	real_name = "[name] [rand(100, 999)] — [pick(GLOB.greek_letters)]"
 	name = real_name
 
 /mob/living/simple_animal/hostile/swarmer/get_status_tab_items()
@@ -163,9 +165,9 @@ GLOBAL_LIST_EMPTY(swarmers)
 		status_tab_data[++status_tab_data.len] = list("Здоровье ядра: ", "[team.swarmer_core.obj_integrity]/[team.swarmer_core.max_integrity]")
 
 /// Swarmers get damaged on emp
-/mob/living/simple_animal/hostile/swarmer/emp_act()
+/mob/living/simple_animal/hostile/swarmer/emp_act(severity)
 	..()
-	adjustHealth(SWARMER_EMP_DAMAGE, forced = TRUE)
+	adjustHealth(SWARMER_EMP_DAMAGE(severity), forced = TRUE)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(!(flags & SHOCK_TESLA))

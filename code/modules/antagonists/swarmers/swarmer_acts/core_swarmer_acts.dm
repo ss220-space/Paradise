@@ -52,8 +52,7 @@
 	plant_health = 0
 	if(harvest)
 		harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
-	qdel(myseed)
-	myseed = null
+	QDEL_NULL(myseed)
 	plant_hud_set_health()
 	plant_hud_set_status()
 	update_state()

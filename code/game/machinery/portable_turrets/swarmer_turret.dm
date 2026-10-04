@@ -133,7 +133,7 @@
 
 /obj/machinery/porta_turret/swarmer/emp_act(severity)
 	..()
-	take_damage(SWARMER_EMP_DAMAGE)
+	take_damage(SWARMER_EMP_DAMAGE(severity))
 
 /obj/machinery/porta_turret/swarmer/get_ru_names()
 	return alist(

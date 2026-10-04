@@ -871,6 +871,11 @@
 	damage = 50
 	knockdown = 1 SECONDS
 
+/// How much of current charge is drained for energy guns.
+#define ENERGYGUN_DRAIN_PERCENTAGE 0.25
+/// How much of current charge is drained for ion carbines.
+#define ION_ENERGYGUN_DRAIN_PERCENTAGE 0.5
+
 /// Resets sybils, switches modes, unloads guns
 /obj/projectile/beam/disabler/swarmer/sabotage
 	name = "sabotage swarmer laser"
@@ -878,39 +883,48 @@
 	damage = 22
 
 /**
- * If target has an energy gun, it either
- * resets the sibyls, or swaps the mode to disabler.
  * If target has a projectile gun, it either unloads the magazine,
  * or empties it fully.
+ *
+ * If it has an ion ammo type,
  */
 /obj/projectile/beam/disabler/swarmer/sabotage/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(!isliving(target) || !.)
 		return
+
 	var/mob/living/target_mob = target
 	var/obj/item/gun/gun = target_mob.is_type_in_hands(/obj/item/gun)
 	if(!gun)
 		return
-	if(is_energygun(gun))
+
+	if(is_projectilegun(gun))
+		handle_projectilegun(gun, target_mob)
+	else if(is_energygun(gun))
 		handle_energygun(gun)
-		return
-	if(!is_projectilegun(gun))
-		return
-	handle_projectilegun(gun, target_mob)
 
 /**
  * Proc used to handle energy gun sabotaging.
  *
- * If the gun has sibyls, it resets them. Otherwise,
- * tries setting the mode to disabler, if present.
+ * Resets shooting mode to disabler, resets sibyls,
+ * and discharges the battery.
  */
 /obj/projectile/beam/disabler/swarmer/sabotage/proc/handle_energygun(obj/item/gun/energy/gun)
-	var/obj/item/gun_module/sibyl/sibyl_mod = gun.sibyl_mod
-	if(sibyl_mod)
-		sibyl_mod.lock()
-		return
-	// This sets mode to non-lethal
 	gun.select_fire()
+
+	var/obj/item/gun_module/sibyl/sibyl_mod = gun.sibyl_mod
+	sibyl_mod?.lock()
+
+	var/obj/item/stock_parts/cell/cell = gun.get_cell()
+	if(!cell)
+		return
+
+	var/cell_discharge_percentage = ENERGYGUN_DRAIN_PERCENTAGE
+	if(is_path_in_list(/obj/item/ammo_casing/energy/ion, gun.ammo_type))
+		cell_discharge_percentage = ION_ENERGYGUN_DRAIN_PERCENTAGE
+
+	cell.use(round(cell.maxcharge * cell_discharge_percentage))
+	gun.update_icon()
 
 /**
  * Proc used to handle projectile gun sabotaging.
@@ -922,7 +936,12 @@
 	var/obj/item/ammo_box/magazine/magazine = gun.magazine
 	if(!magazine)
 		return
+
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal))
 		gun.unload_act(target)
 		return
+
 	magazine.empty_magazine() // If the magazine is built in, empty it instead
+
+#undef ENERGYGUN_DRAIN_PERCENTAGE
+#undef ION_ENERGYGUN_DRAIN_PERCENTAGE

@@ -13,7 +13,7 @@
 /obj/structure/swarmer/acp_turret
 	name = "swarmer ACP turret"
 	desc = "Стационарная установка \"Свармеров\", способная оглушать и влиять на магнитное поле целей."
-	swarmer_examine = "Бьёт всех по области, нанося урон стамине и останавливая метаболизацию реагентов."
+	swarmer_examine = "Бьёт всех по области, нанося урон стамине и останавливая метаболизацию реагентов. Не работает в открученном состоянии."
 	icon_state = "turret_acp"
 	max_integrity = 200
 	/// Overlay set on targets if we hit them
@@ -61,8 +61,9 @@
 
 /// Updates targets on proximity
 /obj/structure/swarmer/acp_turret/proc/handle_interloper(atom/movable/entity)
-	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) // Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY))
 		return
+
 	if(!isliving(entity) || isswarmer(entity))
 		return
 

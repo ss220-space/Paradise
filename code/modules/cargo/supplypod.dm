@@ -436,7 +436,7 @@
 	resistance_flags = initial(resistance_flags)
 	set_density(TRUE) //Density is originally false so the pod doesn't block anything while it's still falling through the air
 	if(effectShrapnel)
-		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_magnitude)
 	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_LANDED)
 	for(var/mob/living/target_living in turf_underneath)
 		if(iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):

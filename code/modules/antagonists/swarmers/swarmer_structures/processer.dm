@@ -38,8 +38,8 @@
 /obj/structure/swarmer/organic_processer/Destroy(force)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(sound_loop)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(loc)
+	for(var/atom/movable/atom_movable as anything in contents)
+		atom_movable.forceMove(loc)
 	return ..()
 
 // Restarts the process timer after a while
@@ -50,7 +50,7 @@
 
 	sound_loop.stop()
 	addtimer(CALLBACK(sound_loop, TYPE_PROC_REF(/datum/looping_sound, start)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
-	animate(src, transform=matrix())
+	animate(src, transform = matrix())
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(animate_rumble), src), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 
 	var/new_delay = SWARMER_ORGANIC_ITEM_PROCESS_DELAY + SWARMER_STRUCTURE_EMP_DURATION * severity
@@ -71,7 +71,7 @@
 		sound_loop.start()
 	if(item) // Sometimes we are putting "nothing", which is intended. Example: Clearing out hydroponic trays.
 		item.forceMove(src)
-	currently_processing += 1
+	currently_processing++
 	spark_system.start()
 	animate_rumble(src)
 	return TRUE
@@ -92,14 +92,14 @@
 	balloon_alert_to_viewers("обработано!")
 	spark_system.start()
 	adjust_swarmer_organic_resources(SWARMER_ORGANIC_ITEM_PROCESS_GAIN)
-	currently_processing -= 1
+	currently_processing--
 	if(currently_processing) // Restart the timer
 		addtimer(CALLBACK(src, PROC_REF(finish_processing)), SWARMER_ORGANIC_ITEM_PROCESS_DELAY, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 		return
 
 	sound_loop.stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-	animate(src, transform=matrix()) // Reset animation if no work
+	animate(src, transform = matrix()) // Reset animation if no work
 
 /obj/structure/swarmer/organic_processer/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	if(!currently_processing)

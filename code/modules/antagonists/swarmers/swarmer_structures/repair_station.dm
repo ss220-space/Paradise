@@ -94,14 +94,11 @@
 	swarmer.balloon_alert(swarmer, "занято, не уничтожить!")
 
 /obj/structure/swarmer/repair_station/process(seconds_per_tick)
-	if(QDELETED(occupant))
+	if(QDELETED(occupant) || !(occupant in contents))
 		occupant = null
 		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		return PROCESS_KILL
-	if(!(locate(occupant) in src)) // Extra precaution
-		occupant = null
-		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
-		return PROCESS_KILL
+
 	if(occupant.health == occupant.maxHealth) // Prevent afkers in repair stations
 		to_chat(occupant, span_notice("Мы полностью вылечены! Выходим из ремонтной станции..."))
 		go_out()
