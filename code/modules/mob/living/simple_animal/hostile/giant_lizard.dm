@@ -647,7 +647,6 @@
 	is_ravaging = TRUE
 	visible_message(span_danger("<B>[src]</B> яростно терзает [target_living.declent_ru(ACCUSATIVE)]!"))
 
-	var/successful_attacks = 0
 	for(var/times_to_attack = 3, times_to_attack > 0, times_to_attack--)
 		if(body_position == LYING_DOWN)
 			is_ravaging = FALSE
@@ -673,7 +672,6 @@
 			do_attack_animation(target_living)
 			face_atom(target_living)
 			sleep(0.5 SECONDS)
-			successful_attacks++
 	is_ravaging = FALSE
 
 // MARK: Pounce

@@ -135,96 +135,103 @@
 
 // ==================== INDESTRUCTIBLE (TURF_HULL) ====================
 
-/turf/simulated/wall/cm/invulnerable
-	abstract_type = /turf/simulated/wall/cm/invulnerable
+/turf/simulated/wall/cm/indestructible
+	abstract_type = /turf/simulated/wall/cm/indestructible
 	resistance_flags = INDESTRUCTIBLE
 
-/turf/simulated/wall/cm/invulnerable/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+/turf/simulated/wall/cm/indestructible/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	return
 
-/turf/simulated/wall/cm/invulnerable/dismantle_wall(devastated = FALSE, explode = FALSE)
+/turf/simulated/wall/cm/indestructible/dismantle_wall(devastated = FALSE, explode = FALSE)
 	return
 
-/turf/simulated/wall/cm/invulnerable/ex_act(severity, target)
+/turf/simulated/wall/cm/indestructible/ex_act(severity, target)
 	return
 
-/turf/simulated/wall/cm/invulnerable/blob_act(obj/structure/blob/B)
+/turf/simulated/wall/cm/indestructible/blob_act(obj/structure/blob/B)
 	return
 
-/turf/simulated/wall/cm/invulnerable/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/cm/indestructible/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/turf/simulated/wall/cm/invulnerable/attack_animal(mob/living/M)
+/turf/simulated/wall/cm/indestructible/attack_animal(mob/living/M)
 	return
 
-/turf/simulated/wall/cm/invulnerable/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+/turf/simulated/wall/cm/indestructible/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
-/turf/simulated/wall/cm/invulnerable/attack_hand(mob/user, list/modifiers)
+/turf/simulated/wall/cm/indestructible/attack_hand(mob/user, list/modifiers)
 	return
 
-/turf/simulated/wall/cm/invulnerable/welder_act(mob/user, obj/item/I)
+/turf/simulated/wall/cm/indestructible/welder_act(mob/user, obj/item/I)
 	return
 
-/turf/simulated/wall/cm/invulnerable/thermitemelt(mob/user, time)
+/turf/simulated/wall/cm/indestructible/thermitemelt(mob/user, time)
 	return
 
-/turf/simulated/wall/cm/invulnerable/singularity_act()
+/turf/simulated/wall/cm/indestructible/singularity_act()
 	return
 
-/turf/simulated/wall/cm/invulnerable/singularity_pull(atom/singularity, current_size)
+/turf/simulated/wall/cm/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
-/turf/simulated/wall/cm/invulnerable/narsie_act()
+/turf/simulated/wall/cm/indestructible/narsie_act()
 	return
 
-/turf/simulated/wall/cm/invulnerable/ratvar_act()
+/turf/simulated/wall/cm/indestructible/ratvar_act()
 	return
 
-/turf/simulated/wall/cm/invulnerable/burn_down()
+/turf/simulated/wall/cm/indestructible/burn_down()
 	return
 
-/turf/simulated/wall/cm/invulnerable/acid_act(acidpwr, acid_volume)
+/turf/simulated/wall/cm/indestructible/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/wall/cm/invulnerable/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+/turf/simulated/wall/cm/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 // ==================== STRATA (TURF_HULL в CMSS13) ====================
-/turf/simulated/wall/cm/invulnerable/strata_ice
+/turf/simulated/wall/cm/indestructible/strata_ice
 	name = "ice columns"
-	desc = "An absolutely massive collection of columns made of ice. The longer you stare, the deeper the ice seems to go."
+	desc = "Огромнейшее скопление ледяных колонн. Чем дольше вглядываешься, тем глубже, кажется, уходит лёд."
 	icon = 'icons/turf/walls/cm/strata_ice.dmi'
 	icon_state = "strata_ice"
 	walltype = "strata_ice"
 
-/turf/simulated/wall/cm/invulnerable/strata_ice/dirty
+/turf/simulated/wall/cm/indestructible/strata_ice/dirty
 	name = "dirty ice columns"
 	icon_state = "strata_ice_dirty"
 	walltype = "strata_ice_dirty"
 
-/turf/simulated/wall/cm/invulnerable/jungle
+/turf/simulated/wall/cm/indestructible/jungle
 	name = "jungle vegetation"
-	desc = "Exceptionally dense vegetation that you can't see through."
+	desc = "Чрезвычайно густая растительность, сквозь которую ничего не видно."
 	icon = 'icons/turf/walls/cm/jungle_veg.dmi'
 	icon_state = "jungle_veg"
 	walltype = "jungle_veg"
 
-/turf/simulated/wall/cm/invulnerable/forest
+/turf/simulated/wall/cm/indestructible/rock
+	name = "stone wall"
+	desc = "Сплошная скала. Никакая кирка не могла оставить на ней даже следа..."
+	icon = 'icons/turf/walls/cm/jungle_soro_rock_walls.dmi'
+	icon_state = "strata_ice"
+	walltype = "strata_ice"
+
+/turf/simulated/wall/cm/indestructible/forest
 	name = "forest vegetation"
-	desc = "Exceptionally dense vegetation that you can't see through."
+	desc = "Чрезвычайно густая растительность, сквозь которую ничего не видно."
 	icon = 'icons/turf/walls/cm/forest_veg.dmi'
 	icon_state = "forest_veg"
 	walltype = "forest_veg"
 
-/turf/simulated/wall/cm/invulnerable/forest/rock
+/turf/simulated/wall/cm/indestructible/forest/rock
 	name = "rock columns"
-	desc = "Exceptionally dense rock formations."
+	desc = "Исключительно плотные горные породы."
 	icon_state = "rock_forest"
 	walltype = "rock_forest"
 
-/turf/simulated/wall/cm/invulnerable/forest/rock/dirty
+/turf/simulated/wall/cm/indestructible/forest/rock/dirty
 	icon_state = "rock_forest_dirty"
 	walltype = "rock_forest_dirty"
 

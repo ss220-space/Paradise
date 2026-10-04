@@ -3125,7 +3125,6 @@
 #include "code\modules\map_fluff\lazarus.dm"
 #include "code\modules\map_fluff\multiz.dm"
 #include "code\modules\map_fluff\nova.dm"
-#include "code\modules\map_fluff\planetoid.dm"
 #include "code\modules\map_fluff\unit_tests.dm"
 #include "code\modules\mapmanip\delta.dm"
 #include "code\modules\mapmanip\effects.dm"

@@ -1376,8 +1376,10 @@
 
 /area/planetoid/jungle/colony_roads
 	name = "Colony Roads"
+	holomap_should_draw = TRUE
+	holomap_color = HOLOMAP_AREACOLOR_ROAD
 
-/area/planetoid/abandoned_building/temple_inner
+/area/planetoid/lazarus/abandoned_building/temple_inner
 	name = "Temple Inner"
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 

@@ -4,6 +4,10 @@
 	icon = 'icons/obj/structures/platforms.dmi'
 	icon_state = "ancient_platform"
 
+/obj/structure/decor/platform/ancient_temple/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+
 /obj/structure/decor/platform/ancient_temple/north
 	dir = NORTH
 

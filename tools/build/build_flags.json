@@ -1,7 +1,13 @@
 {
 	"$comment": "Single source of truth for build/debug flags and presets. Edit flags and presets HERE. Consumed by the build-flags picker extension and by tools/build/generate_flag_configs (which regenerates the static fallback launch configs). Every flag should have a fitting define",
 	"version": 1,
-	"categories": ["Map", "Testing", "Debugging", "Performance", "Misc"],
+	"categories": [
+		"Map",
+		"Testing",
+		"Debugging",
+		"Performance",
+		"Misc"
+	],
 	"flags": [
 		{
 			"id": "AUTOSTART_GAME",
@@ -17,14 +23,15 @@
 			"category": "Testing",
 			"description": "Enables testing() debug messages. Also turns on DATUMVAR_DEBUGGING_MODE, atmos/lighting update visualisers and max-share tracking."
 		},
-
 		{
 			"id": "REAGENTS_TESTING",
 			"define": "REAGENTS_TESTING",
 			"label": "Reagents testing",
 			"category": "Testineg",
 			"description": "(Not implemented)Debug messages for every reaction step (very spammy). Requires TESTING.",
-			"requires": ["TESTING"]
+			"requires": [
+				"TESTING"
+			]
 		},
 		{
 			"id": "FORCE_MAP",
@@ -35,17 +42,46 @@
 			"valueFormat": "quoted",
 			"description": "Overrides the map loaded at round start.",
 			"options": [
-				{ "value": "", "label": "default" },
-				{ "value": "/datum/map/cyberiad", "label": "Cyberiad" },
-				{ "value": "/datum/map/de_kerberos_2", "label": "de_kerberos_2" },
-				{ "value": "/datum/map/delta", "label": "Delta" },
-				{ "value": "/datum/map/coldcolony", "label": "Malta" },
-				{ "value": "/datum/map/fast_load_multiz", "label": "fast load multiz" },
-				{ "value": "/datum/map/multiz", "label": "Multiz" },
-				{ "value": "/datum/map/nova", "label": "Nova" },
-				{ "value": "/datum/map/test_tiny", "label": "Test Tiny" },
-				{ "value": "/datum/map/planetoid", "label": "Planetoid" },
-				{ "value": "/datum/map/lazarus", "label": "Lazarus" }
+				{
+					"value": "",
+					"label": "default"
+				},
+				{
+					"value": "/datum/map/cyberiad",
+					"label": "Cyberiad"
+				},
+				{
+					"value": "/datum/map/de_kerberos_2",
+					"label": "de_kerberos_2"
+				},
+				{
+					"value": "/datum/map/delta",
+					"label": "Delta"
+				},
+				{
+					"value": "/datum/map/coldcolony",
+					"label": "Malta"
+				},
+				{
+					"value": "/datum/map/fast_load_multiz",
+					"label": "fast load multiz"
+				},
+				{
+					"value": "/datum/map/multiz",
+					"label": "Multiz"
+				},
+				{
+					"value": "/datum/map/nova",
+					"label": "Nova"
+				},
+				{
+					"value": "/datum/map/test_tiny",
+					"label": "Test Tiny"
+				},
+				{
+					"value": "/datum/map/lazarus",
+					"label": "Lazarus"
+				}
 			]
 		},
 		{
@@ -103,7 +139,9 @@
 			"label": "Reference tracking (standard)",
 			"category": "Debugging",
 			"description": "Local hard-deletion hunting. Spends all its time searching (slower but thorough), logging to harddels.log.",
-			"conflictsWith": ["REFERENCE_DOING_IT_LIVE"]
+			"conflictsWith": [
+				"REFERENCE_DOING_IT_LIVE"
+			]
 		},
 		{
 			"id": "DATUMVAR_DEBUGGING_MODE",
@@ -181,7 +219,9 @@
 			"label": "Force verb overtime",
 			"category": "Performance",
 			"description": "(Not Implemented)Forces all verbs to run into overtime all of the time, negating the reserve 2%.",
-			"requires": ["VERB_STRESS_TEST"]
+			"requires": [
+				"VERB_STRESS_TEST"
+			]
 		},
 		{
 			"id": "ALL_TEMPLATES",
@@ -210,7 +250,9 @@
 			"label": "Minimal CentCom",
 			"category": "Map",
 			"description": "(Not Implemented)Uses a mini centcom. Required for runtimestation minimal and cant be used without it.",
-			"requiresValues": { "force_map": "runtimestation_minimal" }
+			"requiresValues": {
+				"force_map": "runtimestation_minimal"
+			}
 		}
 	],
 	"presets": [
@@ -223,7 +265,9 @@
 				"SKIP_TAIPAN",
 				"SKIP_AWAY_MISSION"
 			],
-			"values": { "force_map": "/datum/map/fast_load_multiz" }
+			"values": {
+				"force_map": "/datum/map/fast_load_multiz"
+			}
 		},
 		{
 			"id": "ABSOLUTE_MINIMUM",
@@ -236,12 +280,18 @@
 				"AUTOSTART_GAME",
 				"FAST_LOAD"
 			],
-			"values": { "force_map": "/datum/map/fast_load_multiz" }
+			"values": {
+				"force_map": "/datum/map/fast_load_multiz"
+			}
 		},
 		{
 			"id": "TESTING",
 			"label": "Testing",
-			"flags": ["TESTING", "TIMER_DEBUG", "REFERENCE_DOING_IT_LIVE"]
+			"flags": [
+				"TESTING",
+				"TIMER_DEBUG",
+				"REFERENCE_DOING_IT_LIVE"
+			]
 		},
 		{
 			"id": "TESTING_LOW_MEMORY",
@@ -255,12 +305,17 @@
 				"TIMER_DEBUG",
 				"REFERENCE_DOING_IT_LIVE"
 			],
-			"values": { "force_map": "/datum/map/fast_load_multiz" }
+			"values": {
+				"force_map": "/datum/map/fast_load_multiz"
+			}
 		},
 		{
 			"id": "MAP_TESTING",
 			"label": "Map testing",
-			"flags": ["TESTING", "MAP_TEST"]
+			"flags": [
+				"TESTING",
+				"MAP_TEST"
+			]
 		}
 	]
 }

@@ -30,6 +30,7 @@
 		/area/coldcolony/malta/security/brig,
 		/area/coldcolony/malta/security/securehallway,
 		/area/coldcolony/malta/hallway/cargo_escape/exit,
+		/area/planetoid/caves,
 	)
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
