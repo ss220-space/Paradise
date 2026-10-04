@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - add: "Реворк свармеров (PR #8157)"
