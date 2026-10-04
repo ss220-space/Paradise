@@ -162,6 +162,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
+/obj/effect/landmark/spawner/swarmer
+	name = "swarmer_spawn"
+	icon_state = "swarmer_spawn"
+
+/obj/effect/landmark/spawner/swarmer/Initialize(mapload)
+	spawner_list = GLOB.swarmer_spawn
+	return ..()
+
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
 	icon_state = "ninjastart"
@@ -575,6 +583,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start/investor
 	name = JOB_TITLE_INVESTOR
 	icon_state = "Investor"
+
+/obj/effect/landmark/start/explorer
+	name = JOB_TITLE_EXPLORER
+	icon_state = "Explorer"
 
 // MARK: COSTUME
 /// Costume spawner, selects a random subclass and disappears

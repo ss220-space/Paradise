@@ -9,3 +9,7 @@
 #define COMSIG_GUN_USER_SET "gun_user_set"
 #define COMSIG_MOB_GUN_FIRED "mob_gun_fired"
 #define COMSIG_MOB_GUN_COOLDOWN "mob_gun_cooldown"
+/// Gun can shoot check signal (/mob/user)
+#define COMSIG_GUN_CHECK_CAN_SHOOT "gun_can_shoot_check"
+	///Return this in response if you want cancel gun attack
+	#define GUN_CHECK_CANCEL_ATTACK (1<<0)

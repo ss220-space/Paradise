@@ -1,5 +1,6 @@
 //DIONA: Sprites by skittles below
 /datum/sprite_accessory/hair/diona
+	abstract_type = /datum/sprite_accessory/hair/diona
 	icon = 'icons/mob/sprite_accessories/diona/diona_hair.dmi'
 	species_allowed = list(SPECIES_DIONA)
 	glasses_over = 1
