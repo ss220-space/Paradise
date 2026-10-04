@@ -5,6 +5,7 @@
 #define VENDOR_PLASMA_CUTTER_KIT "Комплект плазменного резака"
 #define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
 #define VENDOR_CRUSHER_KIT "Комплект крушителя"
+#define VENDOR_SPEAR_KIT "Комплект кинетического копья"
 #define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
 #define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КА"
 
@@ -241,6 +242,10 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/storage/box/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
+		if(VENDOR_SPEAR_KIT)
+			new /obj/item/twohanded/mining_spear(drop_location)
+			new /obj/item/mining_spear_core/recall(drop_location)
+			new /obj/item/reagent_containers/hypospray/autoinjector/survival(drop_location)
 		if(VENDOR_CONSCRIPTION_KIT)
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 		if(VENDOR_KA_UPGRADE_KIT)
@@ -454,6 +459,7 @@
 #undef VENDOR_PLASMA_CUTTER_KIT
 #undef VENDOR_EXPLOSIVES_KIT
 #undef VENDOR_CRUSHER_KIT
+#undef VENDOR_SPEAR_KIT
 #undef VENDOR_CONSCRIPTION_KIT
 #undef VENDOR_KA_UPGRADE_KIT
 
