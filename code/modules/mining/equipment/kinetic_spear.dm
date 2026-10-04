@@ -7,6 +7,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 	desc = "Экспериментальный прототип кинетического энергокопья, используемый шахтерами для охоты на фауну и уничтожения породы."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_spear"
+	item_state = "mining_spear"
 	attack_verb = list("атаковал", "ткнул", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -89,6 +90,8 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(!user.drop_transfer_item_to_loc(item, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!do_after(user, 2 SECONDS, src))
+		return
 	user.balloon_alert(user, "ядро установлено!")
 	core = item
 	update_icon(UPDATE_OVERLAYS)
@@ -98,6 +101,9 @@ Kinetic spear - alternative mining weapon, used as... spear.
 /obj/item/twohanded/mining_spear/crowbar_act(mob/living/user, obj/item/tool)
 	if(!core)
 		user.balloon_alert(user, "нечего снимать!")
+		return
+
+	if(!do_after(user, 2 SECONDS, src))
 		return
 
 	user.balloon_alert(user, "ядро снято")
@@ -138,7 +144,7 @@ Kinetic spear - alternative mining weapon, used as... spear.
 
 	if(!thrower)
 		return ..()
-	if(recall_after_miss && lavaland_equipment_pressure_check(target_turf))
+	if(recall_after_miss && (lavaland_equipment_pressure_check(target_turf) || can_hurt_on_station))
 		returner = thrower
 		RegisterSignal(src, COMSIG_MOVABLE_THROW_LANDED, PROC_REF(return_spear_to_user))
 
@@ -221,8 +227,8 @@ Kinetic spear - alternative mining weapon, used as... spear.
 
 /obj/item/twohanded/mining_spear/proc/actual_spear_return()
 	var/turf/spear_turf = get_turf(src)
-	if(returner) //double check
-		spear_turf.Beam(returner, "spear_recall", time = 0.2 SECONDS)
+	if(returner && core) //double check
+		spear_turf.Beam(returner, "spear_recall", time = 0.2 SECONDS, beam_color = core.charged_glow_color)
 		returner.visible_message(
 			span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] возвращается в руку [returner]!"),
 			span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] возвращается вам в руку!"),
@@ -230,7 +236,25 @@ Kinetic spear - alternative mining weapon, used as... spear.
 		returner.put_in_hands(src)
 		returner = null
 
-//obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
+/obj/item/twohanded/mining_spear/on_human_ebedded(mob/living/carbon/human/target)
+	if(!can_hurt_on_station)
+		return
+	var/obj/item/embedded/spear/spear_tip = new /obj/item/embedded/spear(target.loc)
+	target.embed_item_inside(spear_tip)
+
+/obj/item/embedded/spear
+	name = "spear tip"
+	desc = "наконечник копья, сделанный из чистой энергии. Очень острый."
+	icon_state = "overlay_red"
+	icon = 'icons/obj/mining.dmi'
+	item_state = "flare-on"
+	throwforce = 10
+	throw_speed = EMBED_THROWSPEED_THRESHOLD
+	embed_chance = 70
+	embedded_fall_chance = 1
+	w_class = WEIGHT_CLASS_SMALL
+	sharp = TRUE
+	hitsound = 'sound/weapons/pierce.ogg'
 
 /*
 MARK: Spear core
@@ -255,7 +279,7 @@ Spear cores. Gives spear special abilities and quirks
 	var/spear_armour_penetration = 10
 	var/spear_sharp = TRUE
 	var/spear_embed_chance = 50
-	var/spear_bonus_fauna_damage = 20
+	var/spear_bonus_fauna_damage = 30
 	var/spear_recall_after_miss = FALSE
 	var/spear_can_hurt_on_station = FALSE
 
@@ -328,15 +352,131 @@ Spear cores. Gives spear special abilities and quirks
 /obj/item/mining_spear_core/recall
 	name = "advanced spear core"
 	icon_state = "recall_core"
-	desc = "Улучшенное ядро кинетического копья, позволяющее пользователю вернуть копье в руки даже в случае промаха по цели. Данное ядро принято считать тренировочным из-за его эффектов."
+	desc = "Улучшенное ядро кинетического копья, позволяющее пользователю вернуть копье в руки даже в случае промаха по цели."
 	spear_recall_after_miss = TRUE
+	spear_overlay = "overlay_yellow"
+	charged_glow_color = "#F0B541"
+
+/obj/item/mining_spear_core/recall/get_ru_names()
+	return alist(
+			NOMINATIVE = "улучшенное ядро прото-кинетического копья",
+			GENITIVE = "улучшенного ядра прото-кинетического копья",
+			DATIVE = "улучшенному ядру прото-кинетического копья",
+			ACCUSATIVE = "улучшенное ядро прото-кинетического копья",
+			INSTRUMENTAL = "улучшенным ядром прото-кинетического копья",
+			PREPOSITIONAL = "улучшенном ядре прото-кинетического копья",
+	)
+
+/obj/item/mining_spear_core/recall/get_effect_description()
+	return "Копье всегда будет призвано обратно, даже в случае промаха."
+
+/obj/item/mining_spear_core/hunting //stats exactly like chitin spear
+	name = "hunting spear core"
+	icon_state = "hunt_core"
+	desc = "Модифицированное ядро кинетического копья, предназначенное для охоты на более опасную добычу."
+	spear_overlay = "overlay_orange"
+	charged_glow_color = "#FF8933"
+	spear_force = 15
+	spear_force_unwielded = 15
+	spear_force_wielded = 24
+	spear_throwforce = 26
+	spear_bonus_fauna_damage = 45
+
+/obj/item/mining_spear_core/hunting/get_ru_names()
+	return alist(
+			NOMINATIVE = "охотничье ядро прото-кинетического копья",
+			GENITIVE = "охотничьего ядра прото-кинетического копья",
+			DATIVE = "охотничьему ядру прото-кинетического копья",
+			ACCUSATIVE = "охотничье ядро прото-кинетического копья",
+			INSTRUMENTAL = "охотничьим ядром прото-кинетического копья",
+			PREPOSITIONAL = "охотничьем ядре прото-кинетического копья",
+	)
+
+/obj/item/mining_spear_core/hunting/get_effect_description()
+	return "Усиливает ущерб от попаданий по фауне."
+
+/obj/item/mining_spear_core/hunting/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
+	spear.throwforce *= 1.2
+
+/obj/item/mining_spear_core/healing
+	name = "healing spear core"
+	icon_state = "heal_core"
+	desc = "Модифицированное ядро кинетического копья, выбрасывающее рой лечебных нанитов при полной зарядке ядра. Эффективность нанитов не слишком высока.."
 	spear_overlay = "overlay_green"
 	charged_glow_color = "#63AB3F"
 	/// How much do we heal in our charged effect?
 	var/heal_amount = 10
 
-/obj/item/mining_spear_core/recall/get_effect_description()
-	return "Лечит пользователя от травм и ожогов."
+/obj/item/mining_spear_core/healing/get_ru_names()
+	return alist(
+			NOMINATIVE = "лечебное ядро прото-кинетического копья",
+			GENITIVE = "лечебного ядра прото-кинетического копья",
+			DATIVE = "лечебному ядру прото-кинетического копья",
+			ACCUSATIVE = "лечебное ядро прото-кинетического копья",
+			INSTRUMENTAL = "лечебным ядром прото-кинетического копья",
+			PREPOSITIONAL = "лечебном ядре прото-кинетического копья",
+	)
 
-/obj/item/mining_spear_core/recall/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
+/obj/item/mining_spear_core/healing/get_effect_description()
+	return "Лечит пользователя за каждое успешное попадание по фауне."
+
+/obj/item/mining_spear_core/healing/charged_effect(mob/living/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
 	user.heal_overall_damage(heal_amount, heal_amount, affect_robotic = TRUE)
+
+/obj/item/mining_spear_core/aoe_effect
+	name = "explosive spear core"
+	icon_state = "explosive_core"
+	desc = "Модифицированное ядро кинетического копья, наносящее ущерб всей фауне поблизости. Безопасно для использования рядом с гуманоидами."
+	spear_overlay = "overlay_purple"
+	charged_glow_color = "#CC2F7B"
+
+/obj/item/mining_spear_core/aoe_effect/get_ru_names()
+	return alist(
+			NOMINATIVE = "взрывное ядро прото-кинетического копья",
+			GENITIVE = "взрывного ядра прото-кинетического копья",
+			DATIVE = "взрывному ядру прото-кинетического копья",
+			ACCUSATIVE = "взрывное ядро прото-кинетического копья",
+			INSTRUMENTAL = "взрывным ядром прото-кинетического копья",
+			PREPOSITIONAL = "взрывном ядре прото-кинетического копья",
+	)
+
+/obj/item/mining_spear_core/aoe_effect/get_effect_description()
+	return "Наносит ущерб и накладывает кровотечение всей фауне в радиусе пяти тайлов от места попадания."
+
+/obj/item/mining_spear_core/aoe_effect/charged_effect(mob/living/simple_animal/hostile/victim, obj/item/twohanded/mining_spear/spear, mob/living/user)
+	for(var/mob/living/simple_animal/hostile/hostile_animal in range(5, victim) - victim)
+		victim.Beam(hostile_animal, "tesla[rand(1,12)]", beam_color = charged_glow_color, time = 1.5 SECONDS)
+		hostile_animal.adjustFireLoss(45)
+		var/datum/status_effect/saw_bleed/our_effect = hostile_animal.has_status_effect(STATUS_EFFECT_SAWBLEED)
+		if(!our_effect)
+			hostile_animal.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+		else
+			our_effect.add_bleed(6)
+
+/obj/item/mining_spear_core/syndie
+	name = "syndicate spear core"
+	desc = "Сильно модифицированное ядро, позволяющее пользователю вести охоту на самую опасную добычу - на человека."
+	icon_state = "syndie_core"
+	spear_overlay = "overlay_red"
+	charged_glow_color = "#B22C20"
+	spear_force = 15
+	spear_force_unwielded = 15
+	spear_force_wielded = 24
+	spear_throwforce = 26
+	spear_bonus_fauna_damage = 25
+	spear_recall_after_miss = TRUE
+	spear_can_hurt_on_station = TRUE
+
+/obj/item/mining_spear_core/syndie/get_ru_names()
+	return alist(
+			NOMINATIVE = "синди-ядро прото-кинетического копья",
+			GENITIVE = "синди-ядра прото-кинетического копья",
+			DATIVE = "синди-ядру прото-кинетического копья",
+			ACCUSATIVE = "синди-ядро прото-кинетического копья",
+			INSTRUMENTAL = "синди-ядром прото-кинетического копья",
+			PREPOSITIONAL = "синди-ядре прото-кинетического копья",
+	)
+
+/obj/item/mining_spear_core/syndie/get_effect_description()
+	return "Позволяет вести охоту на людей на станции. При поподании по гуманоиду лезвие копья отделяется и застревает в вашей жертве."
+
