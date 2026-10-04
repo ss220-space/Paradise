@@ -1,6 +1,7 @@
 /datum/species/abductor
 	name = SPECIES_ABDUCTOR
 	name_plural = "Abductors"
+	ru_genitive = "абдуктора"
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'

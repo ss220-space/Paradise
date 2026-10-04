@@ -4373,6 +4373,7 @@
 #include "code\modules\surgery\organs\subtypes\grey.dm"
 #include "code\modules\surgery\organs\subtypes\kidan.dm"
 #include "code\modules\surgery\organs\subtypes\machine.dm"
+#include "code\modules\surgery\organs\subtypes\monkey.dm"
 #include "code\modules\surgery\organs\subtypes\moth.dm"
 #include "code\modules\surgery\organs\subtypes\nucleation.dm"
 #include "code\modules\surgery\organs\subtypes\plasmaman.dm"

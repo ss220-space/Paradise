@@ -518,7 +518,7 @@
 				span_notice("[user] восстанавлива[PLUR_ET_YUT(user)] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 			)
-			organ.damage = 0
+			organ.heal_internal_damage(organ.damage, robo_repair = TRUE)
 			organ.surgeryize()
 
 	return SURGERY_STEP_CONTINUE
