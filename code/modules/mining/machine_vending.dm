@@ -207,7 +207,18 @@
  * * redeemer - The person holding it
  */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT, VENDOR_KA_UPGRADE_KIT)
+	var/items = list(
+		VENDOR_EXPLORER_WEBBING,
+		VENDOR_RESONATOR_KIT,
+		VENDOR_MINEBOT_KIT,
+		VENDOR_EXTRACTION_KIT,
+		VENDOR_PLASMA_CUTTER_KIT,
+		VENDOR_EXPLOSIVES_KIT,
+		VENDOR_CRUSHER_KIT,
+		VENDOR_SPEAR_KIT,
+		VENDOR_CONSCRIPTION_KIT,
+		VENDOR_KA_UPGRADE_KIT,
+	)
 
 	var/selection = tgui_input_list(redeemer, "Выберите снаряжение", "Шахтёрский ваучер", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -270,7 +281,16 @@
 
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
-	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
+	categories = list(
+		"Gear",
+		"Consumables",
+		"Kinetic Accelerator",
+		"Kinetic Spear",
+		"Digging Tools",
+		"Minebot",
+		"Miscellaneous",
+		"Extra",
+	)
 
 /obj/machinery/mineral/equipment_vendor/golem/get_ru_names()
 	return alist(

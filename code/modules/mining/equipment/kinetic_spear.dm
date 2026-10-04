@@ -39,6 +39,10 @@ Kinetic spear - alternative mining weapon, used as... spear.
 /obj/item/twohanded/mining_spear/standart
 	core = /obj/item/mining_spear_core/standart
 
+/obj/item/twohanded/mining_spear/syndie
+	icon_state = "syndie_spear"
+	core = /obj/item/mining_spear_core/syndie
+
 /obj/item/twohanded/mining_spear/get_ru_names()
 	return alist(
 			NOMINATIVE = "прото-кинетическое копьё",
