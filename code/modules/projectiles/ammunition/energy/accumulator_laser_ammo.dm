@@ -37,12 +37,12 @@
 // MARK: accumulator shotgun
 /obj/item/ammo_casing/energy/disabler/scatter/energy_shotgun
 	projectile_type = /obj/projectile/beam/disabler/scatter/energy_shotgun
-	e_cost = 120
+	e_cost = 200
 	select_name = "scatter-disabler"
 
 /obj/item/ammo_casing/energy/laser/scatter/energy_shotgun
 	projectile_type = /obj/projectile/beam/scatter/energy_shotgun
-	e_cost = 120
+	e_cost = 200
 	select_name = "scatter-lethal"
 
 // MARK: accumulator pistol

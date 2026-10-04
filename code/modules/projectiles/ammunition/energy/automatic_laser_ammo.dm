@@ -36,13 +36,13 @@
 	variance = 15
 	delay = 0.6 SECONDS
 	select_name = "scatter-disabler"
-	e_cost = 100 //15 shots
+	e_cost = 150 //10 shots
 
 /obj/item/ammo_casing/energy/laser/scatter/automatic_shotgun
 	projectile_type = /obj/projectile/beam/scatter/automatic_shotgun
 	pellets = 4
 	variance = 15
-	e_cost = 125 //12 shots
+	e_cost = 250 //6 shots
 	select_name = "scatter-lethal"
 
 // MARK: automatic laser sniper

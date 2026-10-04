@@ -9,7 +9,7 @@
 // MARK: Hitscan shotgun
 /obj/item/ammo_casing/energy/laser/hitscan/laser_shotgun
 	delay = 1.5 SECONDS
-	e_cost = 150
+	e_cost = 200 //6 shots
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_shotgun
 	fire_sound = 'sound/weapons/gunshots/lasershotgun.ogg'
 	select_name = "precise hitscan"

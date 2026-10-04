@@ -7,14 +7,14 @@
 	tracer_type = /obj/effect/projectile/tracer/laser/heavy
 	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
 	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 60
+	damage = 70
 
 /obj/projectile/beam/laser/hitscan/laser_rifle/armorpierce
 	tracer_type = /obj/effect/projectile/tracer/laser/armorpierce
 	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
 	impact_type = /obj/effect/projectile/impact/laser/armorpierce
 	armour_penetration = 50
-	damage = 40
+	damage = 45
 	forcedodge = 2
 	ricochet_chance = 0
 

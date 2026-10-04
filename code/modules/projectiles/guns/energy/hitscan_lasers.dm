@@ -11,28 +11,16 @@
 		return ..()
 
 	var/choosen_weapon
-	var/list/upgradable_variants = list(
-		"карабин «Страж»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasergun"),
-		"пистолет «Шершень»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "laserpistol"),
-		"автомат «Зенит»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasermg"),
-		"дробовик «Фокус»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasershotgun"),
-		"снайперская винтовка «Игла»" = image(icon = 'icons/obj/weapons/guns_48x32.dmi', icon_state = "laserrifle"),
-	)
+	var/list/upgradable_variants = list()
+	for(var/our_type in subtypesof(/datum/energy_weapon_type/hitscan))
+		var/datum/energy_weapon_type/hitscan/our_datum = new our_type()
+		upgradable_variants[our_datum.chosen_type] = image(icon = our_datum.icon, icon_state = our_datum.icon_state)
+
 	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!choosen_type || !check_menu(user) || item.loc != user)
 		return ATTACK_CHAIN_PROCEED
 
-	switch(choosen_type)
-		if("карабин «Страж»")
-			choosen_weapon = /obj/item/gun/energy/laser/hitscan/carbine
-		if("пистолет «Шершень»")
-			choosen_weapon = /obj/item/gun/energy/laser/hitscan/pistol
-		if("автомат «Зенит»")
-			choosen_weapon = /obj/item/gun/energy/laser/hitscan/assault_mg
-		if("дробовик «Фокус»")
-			choosen_weapon = /obj/item/gun/energy/laser/hitscan/shotgun
-		if("снайперская винтовка «Игла»")
-			choosen_weapon = /obj/item/gun/energy/laser/hitscan/sniper_rifle
+	choosen_weapon = choosen_type
 
 	if(!choosen_weapon)
 		return ATTACK_CHAIN_PROCEED
@@ -42,7 +30,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	user.balloon_alert(user, "модификация оружия...")
-	if(!do_after(user, 10 SECONDS))
+	if(!do_after(user, 6 SECONDS))
 		return ATTACK_CHAIN_PROCEED
 
 	var/turf/spawn_turf = get_turf(user)
