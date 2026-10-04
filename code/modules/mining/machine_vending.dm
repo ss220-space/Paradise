@@ -19,7 +19,15 @@
 	density = TRUE
 	anchored = TRUE
 	var/obj/item/card/id/inserted_id
-	var/list/categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous")
+	var/list/categories = list(
+		"Gear",
+		"Consumables",
+		"Kinetic Accelerator",
+		"Kinetic Spear",
+		"Digging Tools",
+		"Minebot",
+		"Miscellaneous",
+	)
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
