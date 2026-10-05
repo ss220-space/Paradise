@@ -5,7 +5,7 @@
  * Used to easily make an item that can be attack_self'd to gain force or change mode.
  *
  * Only values passed on initialize will update when the item is activated (except the icon_state).
- * The icon_state of the item will swap between "[icon_state]" and "[icon_state]_on".
+ * The icon_state of the item will swap between "[icon_state]" and "[icon_state]_on" (if manual_icon_state_change FALSE as it is by default)
  */
 /datum/component/transforming
 	/// Whether the weapon is transformed
@@ -20,24 +20,34 @@
 	var/throw_speed_on
 	/// Weight class of the weapon when active
 	var/w_class_on
-	/// Item will be sharp only when transformed
-	var/sharp_on
+	/// The sharpness of the weapon when active
+	var/sharpness_on
 	/// Hitsound played when active
 	var/hitsound_on
-	/// Hitsound played when inactive
-	var/hitsound_off
-	/// List of the original attack verbs the item has.
+	/// Force when the weapon is inactive
+	var/force_off
+	/// Throwforce when the weapon is inactive
+	var/throwforce_off
+	/// Throw speed of the weapon when inactive
+	var/throw_speed_off
+	/// Weight class of the weapon when inactive
+	var/w_class_off
+	/// The sharpness of the weapon when inactive
+	var/sharpness_off
+	/// List of the original simple attack verbs the item has.
 	var/list/attack_verb_off
-	/// List of attack verbs used when the weapon is enabled
+	/// List of simple attack verbs used when the weapon is enabled
 	var/list/attack_verb_on
-	/// Whether clumsy people need to succeed an RNG check defined here to turn it on without hurting themselves
-	var/clumsy_check_prob
+	/// Whether clumsy people need to succeed an RNG check to turn it on without hurting themselves
+	var/clumsy_check
 	/// Amount of damage to deal to clumsy people
 	var/clumsy_damage
 	/// If we get sharpened with a whetstone, save the bonus here for later use if we un/redeploy
 	var/sharpened_bonus = 0
-	/// Item state, when active
-	var/item_state_on
+	/// Dictate whether we change inhands or not
+	var/inhand_icon_change = TRUE
+	/// Disable auto "_on" adding for icon state if TRUE (FALSE by default). Use on_transform proc for icon_state change.
+	var/manual_icon_state_change = FALSE
 	/// Cooldown in between transforms
 	COOLDOWN_DECLARE(transform_cooldown)
 
@@ -47,14 +57,14 @@
 	force_on = 0,
 	throwforce_on = 0,
 	throw_speed_on = 2,
-	sharp_on = FALSE,
-	hitsound_on,
-	hitsound_off,
+	sharpness_on = NONE,
+	hitsound_on = 'sound/weapons/blade1.ogg',
 	w_class_on = WEIGHT_CLASS_BULKY,
-	item_state_on,
-	clumsy_check_prob = 50,
+	clumsy_check = TRUE,
 	clumsy_damage = 10,
 	list/attack_verb_on,
+	inhand_icon_change = TRUE,
+	manual_icon_state_change = FALSE,
 )
 
 	if(!isitem(parent))
@@ -66,15 +76,19 @@
 	src.force_on = force_on
 	src.throwforce_on = throwforce_on
 	src.throw_speed_on = throw_speed_on
-	src.sharp_on = sharp_on
+	src.sharpness_on = sharpness_on
 	src.hitsound_on = hitsound_on
-	src.hitsound_off = hitsound_off
 	src.w_class_on = w_class_on
-	src.clumsy_check_prob = clumsy_check_prob
+	src.clumsy_check = clumsy_check
 	src.clumsy_damage = clumsy_damage
+	src.inhand_icon_change = inhand_icon_change
+	src.manual_icon_state_change = manual_icon_state_change
 
-	if(item_state_on)
-		src.item_state_on = item_state_on
+	src.force_off = item_parent.force
+	src.throwforce_off = item_parent.throwforce
+	src.throw_speed_off = item_parent.throw_speed
+	//src.sharpness_off = item_parent.sharpness // Raw value, not via the getter
+	src.w_class_off = item_parent.w_class
 
 	if(attack_verb_on)
 		src.attack_verb_on = attack_verb_on
@@ -84,15 +98,77 @@
 		toggle_active(parent)
 
 /datum/component/transforming/RegisterWithParent()
-	var/obj/item/item_parent = parent
+	// var/obj/item/item_parent = parent
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
-	if(item_parent.sharp || sharp_on)
+	// if(item_parent.sharpness || sharpness_on)
+	// 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
+	if(sharpness_on)
 		RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 
+	//RegisterSignal(parent, COMSIG_DETECTIVE_SCANNED, PROC_REF(on_scan))
+	//RegisterSignal(parent, COMSIG_ITEM_APPLY_FANTASY_BONUSES, PROC_REF(apply_fantasy_bonuses))
+	//RegisterSignal(parent, COMSIG_ITEM_REMOVE_FANTASY_BONUSES, PROC_REF(remove_fantasy_bonuses))
+	//RegisterSignal(parent, COMSIG_ATOM_FINALIZE_MATERIAL_EFFECTS, PROC_REF(on_materials_updated))
+	//RegisterSignal(parent, COMSIG_ATOM_FINALIZE_REMOVE_MATERIAL_EFFECTS, PROC_REF(on_materials_updated))
+	//RegisterSignal(parent, COMSIG_ATOM_SINGLE_MATERIAL_EFFECT_APPLY, PROC_REF(on_material_apply))
+	//RegisterSignal(parent, COMSIG_ATOM_SINGLE_MATERIAL_EFFECT_REMOVE, PROC_REF(on_material_remove))
+
+/// Not ported stuff.
+
+// /datum/component/transforming/proc/apply_fantasy_bonuses(obj/item/source, bonus)
+// 	SIGNAL_HANDLER
+// 	active = FALSE
+// 	set_inactive(source)
+// 	force_on = source.modify_fantasy_variable("force_on", force_on, bonus)
+// 	throwforce_on = source.modify_fantasy_variable("throwforce_on", throwforce_on, bonus)
+
+// /datum/component/transforming/proc/remove_fantasy_bonuses(obj/item/source, bonus)
+// 	SIGNAL_HANDLER
+// 	active = FALSE
+// 	set_inactive(source)
+// 	force_on = source.reset_fantasy_variable("force_on", force_on)
+// 	throwforce_on = source.reset_fantasy_variable("throwforce_on", throwforce_on)
+
+// /datum/component/transforming/proc/on_material_apply(obj/item/source, datum/material/material, amount, multiplier)
+// 	SIGNAL_HANDLER
+// 	// Opposite state's force needs to be calculated for each material's effect
+// 	if (active)
+// 		force_off *= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, initial(source.sharpness)), multiplier)
+// 		throwforce_off *= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, initial(source.sharpness)), multiplier)
+// 	else
+// 		force_on *= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, sharpness_on), multiplier)
+// 		throwforce_on *= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, sharpness_on), multiplier)
+
+// /datum/component/transforming/proc/on_material_remove(obj/item/source, datum/material/material, amount, multiplier)
+// 	SIGNAL_HANDLER
+// 	// Same as appliation but inversed
+// 	if (active)
+// 		force_off /= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, initial(source.sharpness)), multiplier)
+// 		throwforce_off /= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, initial(source.sharpness)), multiplier)
+// 	else
+// 		force_on /= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, sharpness_on), multiplier)
+// 		throwforce_on /= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, sharpness_on), multiplier)
+
+// /datum/component/transforming/proc/on_materials_updated(obj/item/source, list/materials, datum/material/main_material)
+// 	SIGNAL_HANDLER
+// 	// Current force can be set directly
+// 	if (active)
+// 		force_on = source.force
+// 		throwforce_on = source.throwforce
+// 	else
+// 		force_off = source.force
+// 		throwforce_off = source.throwforce
+
+// /datum/component/transforming/proc/on_scan(datum/source, mob/user, datum/detective_scanner_log/entry)
+// 	SIGNAL_HANDLER
+
+// 	entry.add_data_entry(DETSCAN_CATEGORY_NOTES, "Readings suggest some form of state changing.")
+
 /datum/component/transforming/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK_SELF, COMSIG_ATOM_UPDATE_ICON, COMSIG_ITEM_SHARPEN_ACT))
+	//UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_SHARPEN_ACT, COMSIG_DETECTIVE_SCANNED, COMSIG_ATOM_FINALIZE_MATERIAL_EFFECTS, COMSIG_ATOM_FINALIZE_REMOVE_MATERIAL_EFFECTS))
+	UnregisterSignal(parent, list(COMSIG_ITEM_SHARPEN_ACT, COMSIG_ITEM_ATTACK_SELF))
+
 
 /*
  * Called on [COMSIG_ITEM_ATTACK_SELF].
@@ -108,7 +184,7 @@
 	SIGNAL_HANDLER
 
 	if(!COOLDOWN_FINISHED(src, transform_cooldown))
-		source.balloon_alert(user, "идёт перезарядка!")
+		to_chat(user, span_warning("Wait a bit before trying to use [source] again!"))
 		return
 
 	if(SEND_SIGNAL(source, COMSIG_TRANSFORMING_PRE_TRANSFORM, user, active) & COMPONENT_BLOCK_TRANSFORM)
@@ -125,7 +201,7 @@
  * Also starts the [transform_cooldown] if we have a set [transform_cooldown_time].
  *
  * source - the item being transformed / parent
- * user - the mob transforming the item
+ * user - the mob transforming the item (can be null)
  *
  * returns TRUE.
  */
@@ -133,7 +209,8 @@
 	toggle_active(source)
 	if(!(SEND_SIGNAL(source, COMSIG_TRANSFORMING_ON_TRANSFORM, user, active) & COMPONENT_NO_DEFAULT_MESSAGE))
 		default_transform_message(source, user)
-
+	// if(!isnull(user))
+	// 	SEND_SIGNAL(user, COMSIG_MOB_TRANSFORMING_ITEM, source, active)
 	if(isnum(transform_cooldown_time))
 		COOLDOWN_START(src, transform_cooldown, transform_cooldown_time)
 	if(user)
@@ -148,7 +225,7 @@
  */
 /datum/component/transforming/proc/default_transform_message(obj/item/source, mob/user)
 	if(user)
-		source.balloon_alert(user, "[active ? "активно" : "не активно"]")
+		source.balloon_alert(user, "[active ? "активно" : "не активно"] [source]")
 	playsound(source, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
 /*
@@ -172,22 +249,30 @@
  */
 /datum/component/transforming/proc/set_active(obj/item/source)
 	ADD_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
-	if(sharp_on)
+	// if(!isnull(sharpness_on))
+	// 	source.sharpness = sharpness_on
+	if(sharpness_on)
 		source.set_sharpness(TRUE)
-	if(force_on)
-		source.force = force_on + (source.sharp ? sharpened_bonus : 0)
-	if(throwforce_on)
-		source.throwforce = throwforce_on + (source.sharp ? sharpened_bonus : 0)
-	if(throw_speed_on)
+	if(!isnull(force_on))
+		source.force = force_on
+	if(!isnull(throwforce_on))
+		source.throwforce = throwforce_on
+	if(!isnull(throw_speed_on))
 		source.throw_speed = throw_speed_on
-
+	if(!isnull(w_class_on))
+		source.w_class = w_class_on
 	if(LAZYLEN(attack_verb_on))
 		source.attack_verb = attack_verb_on
 
 	source.hitsound = hitsound_on
-	source.w_class = w_class_on
-	source.update_appearance()
-	source.update_equipped_item()
+	if(!manual_icon_state_change)
+		source.icon_state = "[source.icon_state]_on"
+	// if(inhand_icon_change && source.inhand_icon_state)
+	// 	source.inhand_icon_state = "[source.inhand_icon_state]_on"
+	if(inhand_icon_change)
+		source.item_state = "[source.item_state]_on"
+	source.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+	//source.update_inhand_icon()
 
 /*
  * Set our transformed item into its inactive state.
@@ -197,25 +282,33 @@
  */
 /datum/component/transforming/proc/set_inactive(obj/item/source)
 	REMOVE_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
-	if(sharp_on)
-		source.set_sharpness(FALSE)
-	if(force_on)
-		source.force = initial(source.force) + (source.sharp ? sharpened_bonus : 0)
-	if(throwforce_on)
-		source.throwforce = initial(source.throwforce) + (source.sharp ? sharpened_bonus : 0)
-	if(throw_speed_on)
-		source.throw_speed = initial(source.throw_speed)
+	// if(!isnull(sharpness_on))
+	// 	source.sharpness = sharpness_off
 
-	if(LAZYLEN(attack_verb_on))
+	/// No TG sharpness system so doing this
+	if(sharpness_on)
+		source.set_sharpness(FALSE)
+
+	if(!isnull(force_on))
+		source.force = force_off
+	if(!isnull(throwforce_on))
+		source.throwforce = throwforce_off
+	if(!isnull(throw_speed_on))
+		source.throw_speed = throw_speed_off
+	if(!isnull(w_class_on))
+		source.w_class = w_class_off
+	if(LAZYLEN(attack_verb_off))
 		source.attack_verb = attack_verb_off
 
-	source.hitsound = hitsound_off
-	source.w_class = initial(source.w_class)
-	source.update_appearance()
-	source.update_equipped_item()
+	source.hitsound = initial(source.hitsound)
+	source.icon_state = source.base_icon_state ? source.base_icon_state : initial(source.icon_state)
+	// source.inhand_icon_state = initial(source.inhand_icon_state)
+	source.item_state = initial(source.item_state)
+	source.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+	//source.update_inhand_icon()
 
 /*
- * If [clumsy_check_prob] is set to anything but 0, attempt to cause a side effect for clumsy people activating this item.
+ * If [clumsy_check] is set to TRUE, attempt to cause a side effect for clumsy people activating this item.
  * Called after the transform is done, meaning [active] var has already updated.
  *
  * user - the clumsy mob, transforming our item (parent)
@@ -223,53 +316,23 @@
  * Returns TRUE if side effects happened, FALSE otherwise
  */
 /datum/component/transforming/proc/clumsy_transform_effect(mob/living/user)
-	if(!clumsy_check_prob || !isnum(clumsy_check_prob))
+	if(!clumsy_check)
 		return FALSE
 
 	if(!user || !HAS_TRAIT(user, TRAIT_CLUMSY))
 		return FALSE
 
-	if(!active || !prob(clumsy_check_prob))
-		return FALSE
+	if(active && prob(50))
+		var/hurt_self_verb = LAZYLEN(attack_verb_on) ? pick(attack_verb_on) : "вмазал"
+		user.visible_message(
+			span_warning("[user] triggers [parent] while holding it backwards and [hurt_self_verb] themself, like a doofus!"),
+			span_warning("You trigger [parent] while holding it backwards and [hurt_self_verb] yourself, like a doofus!"),
+		)
+		var/obj/item/item_parent = parent
+		user.apply_damage(clumsy_damage, item_parent.damtype)
+		return TRUE
 
-	var/obj/item/item_parent = parent
-	var/hurt_verb = LAZYLEN(attack_verb_on) ? pick(attack_verb_on) : "ударил"
-	user.visible_message(
-		span_warning("[user] triggers [item_parent] while holding it backwards and [hurt_verb] themself, like a doofus!"),
-		span_warning("You trigger [item_parent] while holding it backwards and accidentally [hurt_verb] yourself!"),
-	)
-	switch(item_parent.damtype)
-		if(STAMINA)
-			user.adjustStaminaLoss(clumsy_damage)
-		if(OXY)
-			user.adjustOxyLoss(clumsy_damage)
-		if(TOX)
-			user.adjustToxLoss(clumsy_damage)
-		if(BRUTE)
-			user.adjustBruteLoss(clumsy_damage)
-		if(BURN)
-			user.adjustFireLoss(clumsy_damage)
-	return TRUE
-
-/**
- * on_update_icon triggers on call to update parent items icon
- *
- * Updates item's icon_state and item_state if inhand_icon_change is set to `TRUE`
- */
-/datum/component/transforming/proc/on_update_icon(obj/item/source)
-	SIGNAL_HANDLER
-
-	var/initial_icon_state = replacetext("[source.icon_state]", "_on", "")
-	if(active)
-		source.icon_state = "[initial_icon_state]_on"
-		if(item_state_on)
-			source.item_state = item_state_on
-	else
-		source.icon_state = initial_icon_state
-		if(item_state_on)
-			source.item_state = initial(source.item_state)
-
-	return COMSIG_ATOM_NO_UPDATE_ICON_STATE
+	return FALSE
 
 /*
  * Called on [COMSIG_ITEM_SHARPEN_ACT].
@@ -290,11 +353,11 @@
 	if(force_on + increment > max)
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	sharpened_bonus = increment
-	if(active)
-		var/obj/item/item_parent = parent
-		if(force_on)
-			item_parent.force = initial(item_parent.force) + (item_parent.sharp ? sharpened_bonus : 0)
-		if(throwforce_on)
-			item_parent.throwforce = initial(item_parent.throwforce) + (item_parent.sharp ? sharpened_bonus : 0)
-	return COMPONENT_BLOCK_SHARPEN_APPLIED
-
+	force_on += sharpened_bonus
+	throwforce_on += sharpened_bonus
+	force_off += sharpened_bonus
+	throwforce_off += sharpened_bonus
+	/// Mimics base whetstone effect for the on state
+	//sharpness_on = SHARP_EDGED
+	if(!active)
+		return COMPONENT_BLOCK_SHARPEN_BLOCKED
