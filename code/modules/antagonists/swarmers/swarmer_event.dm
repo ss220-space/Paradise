@@ -1,5 +1,5 @@
 /// Minimum amount of players required to start this event
-#define SWARMERS_MINPLAYERS_TRIGGER 30
+#define SWARMERS_MINPLAYERS_TRIGGER 0
 /// Amount of swarmers spawned
 #define SWARMERS_SPAWN_AMOUNT 4
 
@@ -12,6 +12,8 @@
 	var/shields_radius = 2
 	/// How long the shields last
 	var/shields_duration = 15 SECONDS
+	/// How many swarmers were actually spawned
+	var/amount_of_swarmers_spawned
 
 /datum/event/swarmers/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
@@ -38,17 +40,18 @@
 /datum/event/swarmers/proc/create_swarmers()
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_type = spawn_type // for source variable
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 30 SECONDS, source = swarmer_type)
-	if(length(candidates) < SWARMERS_SPAWN_AMOUNT)
-		message_admins("Warning: not enough players volunteered to be swarmers. Only [length(candidates)] out of [SWARMERS_SPAWN_AMOUNT]!")
+	if(!length(candidates))
+		message_admins("Warning: nobody volunteered to be swarmers.")
 		return FALSE
 
 	var/obj/structure/closet/supplypod/pod = initialize_pod()
-	for(var/i in 1 to SWARMERS_SPAWN_AMOUNT)
+	for(var/i in 1 to min(length(candidates), SWARMERS_SPAWN_AMOUNT))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		var/mob/living/simple_animal/hostile/swarmer/swarmer = new spawn_type(pod)
 		swarmer.possess_by_player(candidate.key)
 		swarmer.add_datum_if_not_exist()
 		log_game("[swarmer.key] has become [swarmer].")
+		amount_of_swarmers_spawned++
 
 	return TRUE
 
@@ -79,7 +82,12 @@
 	SIGNAL_HANDLER
 	var/turf/pod_turf = get_turf(pod)
 	new /obj/structure/swarmer/core(pod_turf)
+	for(var/ddir in GLOB.alldirs)
+		new /obj/structure/swarmer/blockade(get_step(pod_turf, ddir))
+
 	swarmer_shield_around_turf(pod_turf, shields_radius, shields_duration)
+	for(var/i = 1, i <= (SWARMERS_SPAWN_AMOUNT - amount_of_swarmers_spawned), i++) // on purpose
+		new /obj/effect/mob_spawn/swarmer(pod_turf)
 
 /// Cleans up signals and stuff
 /datum/event/swarmers/proc/on_pod_qdel(obj/structure/closet/supplypod/pod)
