@@ -32564,21 +32564,6 @@
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"fEd" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/grille,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
 "fEv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -33181,13 +33166,13 @@
 "fPy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/effect/spawner/random_spawners/grille_13,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/girder_13,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "fPA" = (
@@ -44899,7 +44884,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/grille,
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "jZz" = (
@@ -72648,13 +72633,13 @@
 /area/station/medical/surgery/north)
 "uqc" = (
 /obj/structure/cable,
-/obj/effect/spawner/random_spawners/grille_13,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/girder_13,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "uqe" = (
@@ -76553,7 +76538,6 @@
 /turf/simulated/floor/plating,
 /area/station/ai/satellite/hallway)
 "vOG" = (
-/obj/effect/spawner/random_spawners/grille_13,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -76564,6 +76548,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/girder_13,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "vOH" = (
@@ -121256,7 +121241,7 @@ lPI
 bje
 aKn
 aLA
-fEd
+eXl
 kKR
 bdT
 bdT

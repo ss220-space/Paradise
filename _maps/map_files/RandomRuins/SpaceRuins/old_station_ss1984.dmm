@@ -565,7 +565,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "bY" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/template_noop,
 /area/template_noop)
 "ca" = (
@@ -595,7 +595,7 @@
 /area/ruin/space/ancientstation/theta_mine)
 "cg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "ch" = (
@@ -624,7 +624,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "cp" = (
 /mob/living/simple_animal/hostile/hivebot/strong,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "cv" = (
@@ -1112,7 +1112,7 @@
 /area/ruin/space/ancientstation/charlie_secintel)
 "ea" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -2093,7 +2093,7 @@
 /area/template_noop)
 "ia" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "ic" = (
@@ -2325,7 +2325,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2742,7 +2742,7 @@
 	},
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "kL" = (
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "kM" = (
@@ -3127,7 +3127,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "ma" = (
@@ -3178,7 +3178,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_north)
 "mi" = (
@@ -3620,7 +3620,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "og" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_north)
 "oi" = (
@@ -4172,7 +4172,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
@@ -4326,7 +4326,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
 "qN" = (
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "qQ" = (
@@ -4918,7 +4918,7 @@
 /area/ruin/space/ancientstation/theta_exit)
 "tg" = (
 /obj/machinery/power/port_gen/pacman/mrs,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/item/stack/sheet/mineral/diamond,
 /obj/item/stack/sheet/mineral/diamond,
 /obj/item/stack/sheet/mineral/diamond,
@@ -5456,7 +5456,7 @@
 /area/ruin/space/ancientstation/theta_storage)
 "va" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_north)
 "vb" = (
@@ -5724,7 +5724,7 @@
 "wj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "wk" = (
@@ -5803,7 +5803,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "wt" = (
@@ -6112,7 +6112,7 @@
 	name = "Engineering External Access";
 	req_access = list(271)
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "xB" = (
@@ -6699,7 +6699,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "zJ" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_north)
 "zK" = (
@@ -7018,7 +7018,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/gloves/color/fyellow/old,
 /obj/item/storage/backpack/old,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/item/clothing/under/retro/engineering,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
@@ -7050,7 +7050,7 @@
 	name = "Engineering External Access";
 	req_access = list(271)
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "Bf" = (
@@ -8080,7 +8080,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "Fq" = (
@@ -8422,7 +8422,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "GD" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "GE" = (
@@ -9201,7 +9201,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "Jr" = (
 /obj/item/solar_assembly,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -9219,7 +9219,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/item/stack/cable_coil/orange,
 /obj/item/stack/cable_coil/orange,
 /turf/simulated/floor/plating,
@@ -9567,7 +9567,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "KZ" = (
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
@@ -11454,7 +11454,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/circuitboard/pacman/super,
 /obj/item/broken_device,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "Ss" = (
@@ -11520,7 +11520,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/item/stack/cable_coil/orange,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
@@ -12704,7 +12704,7 @@
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /obj/machinery/power/solar_control/old_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
@@ -12728,7 +12728,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "YD" = (

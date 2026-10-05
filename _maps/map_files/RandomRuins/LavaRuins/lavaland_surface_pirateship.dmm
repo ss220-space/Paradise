@@ -804,8 +804,8 @@
 /area/ruin/powered/pirateship)
 "ru" = (
 /obj/item/trash/chips,
-/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dust,
+/obj/structure/cable/multilayer/connected,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
 "rE" = (
@@ -1507,9 +1507,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/cable/cyan,
-/obj/structure/cable/layer3,
 /obj/effect/decal/cleanable/dust,
+/obj/structure/cable/multilayer/connected,
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "Ja" = (
@@ -1799,6 +1798,7 @@
 /obj/item/trash/sosjerky,
 /obj/item/trash/raisins,
 /obj/item/trash/pistachios,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "OE" = (
@@ -2126,8 +2126,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable/orange,
-/obj/structure/cable/layer1,
+/obj/structure/cable/multilayer/connected,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "UD" = (
@@ -2178,11 +2177,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/cable/white,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/multilayer/connected,
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "Vz" = (

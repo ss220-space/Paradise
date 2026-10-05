@@ -12156,11 +12156,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "cMo" = (
@@ -23329,7 +23329,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint2)
 "fgs" = (
 /obj/structure/chair/office/dark{
@@ -39289,7 +39289,7 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/brig)
 "izM" = (
 /obj/structure/table/reinforced,
@@ -49845,6 +49845,11 @@
 	},
 /turf/space,
 /area/station/maintenance/ai)
+"kKt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/fpmaint)
 "kKu" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -50549,7 +50554,7 @@
 "kTe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "kTn" = (
 /turf/simulated/floor/plasteel{
@@ -54600,7 +54605,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/brig)
 "lKD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -60837,7 +60842,6 @@
 /area/hydroponics)
 "mZq" = (
 /obj/structure/barricade/wooden,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/research{
@@ -62989,7 +62993,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille,
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "nwR" = (
@@ -64357,7 +64361,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "nMl" = (
 /obj/effect/landmark/spawner/xeno,
@@ -64655,6 +64659,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/cargo/storage)
+"nPB" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/engineering)
 "nPC" = (
 /turf/simulated/floor/wood/fancy/light,
 /area/station/command/office/ntrep)
@@ -76014,7 +76022,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/engineering)
 "qgA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82878,6 +82886,10 @@
 /obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/station/security/detectives_office)
+"rBA" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint2)
 "rBC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -92534,14 +92546,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/grille,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/structure/girder,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/engineering)
 "ttA" = (
 /obj/effect/turf_decal/delivery,
@@ -93236,6 +93248,9 @@
 	icon_state = "white"
 	},
 /area/station/medical/sleeper)
+"tAs" = (
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/fpmaint)
 "tAB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
@@ -96002,7 +96017,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "uiS" = (
 /obj/structure/grille,
@@ -96224,7 +96239,7 @@
 "ulT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/brig)
 "ulW" = (
 /obj/machinery/firealarm/directional/south,
@@ -111735,7 +111750,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "xzh" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -143984,7 +143999,7 @@ baF
 baF
 baF
 baF
-hjR
+tAs
 nMk
 itO
 aaq
@@ -146560,7 +146575,7 @@ hes
 bDf
 kCr
 baF
-myD
+kKt
 xyP
 eZv
 aDn
@@ -146854,7 +146869,7 @@ gMC
 gMC
 rNf
 oMI
-fvi
+nPB
 tty
 vua
 vua
@@ -148954,7 +148969,7 @@ cvB
 cvB
 sSB
 fgm
-hLo
+rBA
 jYw
 umo
 lCh

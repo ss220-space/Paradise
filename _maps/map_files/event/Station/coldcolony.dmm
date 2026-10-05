@@ -22848,13 +22848,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"jeW" = (
-/obj/structure/fence{
-	dir = 4
-	},
-/obj/structure/cable/orange,
-/turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/unpowered/coldcolony_outside)
 "jfm" = (
 /obj/structure/holosign/barrier/engineering,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90743,7 +90736,7 @@ rSb
 abG
 rSb
 nTT
-nTT
+rSb
 abG
 rSb
 rSb
@@ -90992,15 +90985,15 @@ tsF
 nCO
 rSb
 hBQ
+nTT
+rSb
 rSb
 rSb
 nTT
-rSb
 nTT
 nTT
 nTT
 nTT
-rSb
 nTT
 nTT
 nTT
@@ -91248,12 +91241,12 @@ tvq
 tvq
 poS
 okL
-rSb
-rSb
 nTT
 nTT
 nTT
-rSb
+nTT
+nTT
+nTT
 rSb
 abG
 rSb
@@ -91505,8 +91498,8 @@ vCe
 nCO
 nCO
 rMu
-nTT
-nTT
+rSb
+rSb
 rSb
 rSb
 xOz
@@ -92806,7 +92799,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+nTT
 hIm
 nTT
 rSb
@@ -93065,7 +93058,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+nTT
 nTT
 rSb
 xcr
@@ -93582,7 +93575,7 @@ xcr
 rSb
 nTT
 nTT
-rSb
+nTT
 hBQ
 rSb
 rSb
@@ -94095,8 +94088,8 @@ eDF
 rSb
 rSb
 xcr
-nTT
 rSb
+nTT
 rSb
 rSb
 rSb
@@ -94611,7 +94604,7 @@ rSb
 xcr
 rSb
 rSb
-rSb
+nTT
 nTT
 nTT
 abG
@@ -95129,7 +95122,7 @@ rSb
 rSb
 xcr
 nTT
-nTT
+rSb
 nTT
 rSb
 rSb
@@ -96186,7 +96179,7 @@ rSb
 dkR
 rSb
 pQd
-jeW
+vHn
 vHn
 vHn
 vHn
@@ -96439,7 +96432,7 @@ xcr
 rSb
 rSb
 rSb
-rSb
+nTT
 nTT
 nTT
 tTj

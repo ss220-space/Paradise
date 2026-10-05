@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 	on_blueprints = TRUE
 	name = "power cable"
 	desc = "A flexible superconducting cable for heavy-duty power transfer"
-	icon = 'icons/obj/engines_and_power/power_cond/power_cond_white.dmi'
+	icon = 'icons/obj/engines_and_power/power_cond/layer_cable.dmi'
 	icon_state = "node_all" // icon for mappers
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = CABLE_HEX_COLOR_RED
@@ -126,33 +126,24 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 ///////////////////////////////////
 
 /obj/structure/cable/update_icon_state()
-	if(!linked_dirs)
-		icon_state = "circle"
-	else if(banned_links == ALL)
-		icon_state = "why do this- ill render something but why"
-	else if(node)
-		icon_state = "node"
-	else
-		icon_state = "connected_nonode" //no sprite, we have overlays at that point
+	icon_state = get_dir_string(linked_dirs)
 
 /obj/structure/cable/update_overlays()
 	. = ..()
-	var/list/cable_list = get_dir_strings(linked_dirs)
-	if(!cable_list)
+	if(!node)
 		return
-	for(var/overlay_state in cable_list)
-		. += "0-[overlay_state]"
+	. += "node"
 
 /obj/structure/cable/proc/get_dir_string(links)
 	if(!links)
-		return "l[cable_layer]-noconnection"
+		return "circle"
+	if(banned_links == ALL)
+		return "mapper is using this as decorative piece for some reason"
 
 	var/list/dir_icon_list = get_dir_strings(links)
 
 	var/dir_string = dir_icon_list.Join("-")
-	if(length(dir_icon_list) == 1 || !node)
-		return "l[cable_layer]-[dir_string]"
-	return "l[cable_layer]-[dir_string]-node"
+	return "[dir_string]"
 
 /obj/structure/cable/proc/get_dir_strings(links)
 	if(!links)
@@ -283,7 +274,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 		if(!(check_dir & (linked_dirs | banned_links)))
 			continue
 
-		choices[capitalize(dir2text(check_dir))] = icon(icon, "0-[check_dir]")
+		choices[capitalize(dir2text(check_dir))] = icon(icon, "[check_dir]")
 
 	var/choice = show_radial_menu(user, src, choices, require_near = TRUE, tooltips = TRUE)
 	if(!choice)
