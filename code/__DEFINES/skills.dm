@@ -24,7 +24,7 @@
 /// Round start free points for command and civilian jobs
 #define DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS 15
 /// Count of free skill points for antags
-#define BASIC_ANTAG_SKILL_POINTS_BONUS 5
+#define BASIC_ANTAG_SKILL_POINTS_BONUS 6
 /// Default value for not prepared free skill points count
 #define ACTUAL_FREE_SKILL_POINTS_NOT_SET -1
 
