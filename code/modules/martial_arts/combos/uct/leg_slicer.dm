@@ -32,7 +32,7 @@
 	if(affected.has_fracture() && affected.fracture == FRACTURE_TYPE_CLOSED)
 		fracture_type = FRACTURE_TYPE_OPEN
 
-	if(affected.fracture(new_fracture = fracture_type))
+	if(affected.fracture(fracture_type = fracture_type))
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 	else
 		target.apply_damage(40, BRUTE, selected_zone)
