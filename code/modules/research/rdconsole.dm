@@ -75,6 +75,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
 	/// Linked Circuit Imprinter
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
+	//
+	var/list/circuit_components = list()
+	var/datum/design/saved_wire_design = null
+
 
 	/// Which screen is currently showing.
 	var/screen = 1
@@ -178,6 +182,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/rd_interface))
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	if(is_taipan(z))
@@ -189,10 +194,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		id = 0027
 		update_icon()
 
+		return ..()
+
 	SyncRDevices()
+
 
 /obj/machinery/computer/rdconsole/Destroy()
 	QDEL_NULL(files)
+	QDEL_LIST(circuit_components)
+	saved_wire_design = null
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
 	LAZYCLEARLIST(matching_designs)
