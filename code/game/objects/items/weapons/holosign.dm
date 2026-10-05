@@ -210,4 +210,4 @@
 	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
-		balloon_alert(user, "голограммы удалены")123
+		balloon_alert(user, "голограммы удалены")
