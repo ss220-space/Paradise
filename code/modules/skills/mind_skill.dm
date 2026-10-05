@@ -174,6 +174,7 @@
 	if(current_job)
 		discount_skill_category = current_job.discount_skill_category
 		if(is_antag)
+			discount_skill_category = list(current_job.discount_skill_category)
 			discount_skill_category += /datum/skill/combat
 
 /**
