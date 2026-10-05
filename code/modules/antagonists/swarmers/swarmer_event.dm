@@ -87,7 +87,10 @@
 
 	swarmer_shield_around_turf(pod_turf, shields_radius, shields_duration)
 	var/swarmer_shells_to_spawn = SWARMERS_SPAWN_AMOUNT - amount_of_swarmers_spawned
-	for(var/i = 1, i <= swarmer_shells_to_spawn, i++)
+	if(swarmer_shells_to_spawn <= 0)
+		return
+
+	for(var/i in 1 to swarmer_shells_to_spawn)
 		new /obj/effect/mob_spawn/swarmer(pod_turf)
 
 /// Cleans up signals and stuff
