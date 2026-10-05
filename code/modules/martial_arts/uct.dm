@@ -22,6 +22,8 @@
 /mob/living/carbon/human/proc/refresh_uct()
 	GET_SKILL_LEVEL(src, /datum/skill/combat/fists, skill_level)
 	if(skill_level < SKILL_LEVEL_BASIC)
+		if(mind.martial_art != null && istype(mind.martial_art, /datum/martial_art/uct))
+			mind.martial_art.remove(src)
 		return
 
 	var/datum/martial_art/uct/martial_art = null
