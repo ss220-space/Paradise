@@ -8517,15 +8517,14 @@
 	},
 /area/planetoid/lazarus/engineering/atmos)
 "bUE" = (
-/obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/cobweb{
 	layer = 4
 	},
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom";
-	dir = 1
+/obj/structure/stairs/perspective/full{
+	dir = 1;
+	color = "#b29082"
 	},
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "bUJ" = (
 /obj/machinery/dna_scannernew,
@@ -17328,7 +17327,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/grassybush,
-/obj/effect/spawner/window,
+/obj/structure/window/full,
 /turf/simulated/floor/indestructible/grass,
 /area/planetoid/lazarus/cargo/lobby)
 "dTU" = (
@@ -42360,12 +42359,11 @@
 	},
 /area/planetoid/lazarus/medical/storage)
 "jKA" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom";
-	dir = 1
+/obj/structure/stairs/perspective/full{
+	color = "#b29082";
+	dir = 5
 	},
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "jKL" = (
 /obj/machinery/door/firedoor,
@@ -47938,11 +47936,10 @@
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/engineering/storage/secure)
 "kWB" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom"
+/obj/structure/stairs/perspective/full{
+	color = "#b29082"
 	},
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "kWE" = (
 /obj/machinery/power/apc/directional/east,
@@ -55301,7 +55298,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/palebush,
-/obj/effect/spawner/window,
+/obj/structure/window/full,
 /turf/simulated/floor/indestructible/grass,
 /area/planetoid/lazarus/cargo/lobby)
 "mKc" = (
@@ -58135,7 +58132,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood/dark,
 /area/planetoid/lazarus/service/library/game_zone)
 "nwo" = (
 /obj/structure/table,
@@ -68600,7 +68597,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/planetoid/lazarus/security/processing)
 "pYj" = (
 /turf/simulated/wall,
@@ -74688,12 +74687,12 @@
 	},
 /area/planetoid/lazarus/engineering/teg)
 "rtt" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	color = "gray";
+/obj/structure/stairs/perspective/full{
 	dir = 4;
-	icon_state = "rampbottom"
+	color = "#b29082"
 	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "rtA" = (
 /obj/structure/table,
@@ -87088,12 +87087,11 @@
 /area/planetoid/jungle/north)
 "uny" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom";
-	dir = 1
+/obj/structure/stairs/perspective/full{
+	dir = 1;
+	color = "#b29082"
 	},
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "unC" = (
 /obj/effect/turf_decal/siding/wood/corner{
@@ -87177,10 +87175,10 @@
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "uot" = (
-/obj/structure/mineral_door/wood,
-/obj/structure/mineral_door/wood,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/service/library)
+/obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_4,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/planetoid/desert/desert,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "uow" = (
 /obj/structure/railing{
 	dir = 8
@@ -87199,7 +87197,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/effect/spawner/window,
+/obj/structure/window/full,
 /turf/simulated/floor/indestructible/grass,
 /area/planetoid/lazarus/cargo/lobby)
 "uoD" = (
@@ -92507,6 +92505,7 @@
 "vzh" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_5,
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_2,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "vzL" = (
@@ -92630,7 +92629,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/bush,
-/obj/effect/spawner/window,
+/obj/structure/window/full,
 /turf/simulated/floor/indestructible/grass,
 /area/planetoid/lazarus/cargo/lobby)
 "vBp" = (
@@ -92808,7 +92807,6 @@
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "vDj" = (
-/obj/structure/fence,
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -101632,6 +101630,13 @@
 /obj/structure/flora/jungle/thickbush,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/lakes/east)
+"xCO" = (
+/obj/structure/stairs/perspective/full{
+	color = "#b29082";
+	dir = 6
+	},
+/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "xCP" = (
 /turf/simulated/floor/planetoid/grass/sandedge/north,
 /area/planetoid/jungle/orbital_strike)
@@ -129889,7 +129894,7 @@ ssj
 qQD
 jkg
 dXd
-uot
+dXd
 jkg
 dcI
 vRz
@@ -159352,7 +159357,7 @@ daj
 jRx
 jKA
 rtt
-kWB
+xCO
 xNA
 daj
 qZk
@@ -162179,7 +162184,7 @@ nLq
 sEn
 nqI
 pYA
-yep
+uot
 gpt
 wBL
 hOq
@@ -162436,7 +162441,7 @@ bhI
 biX
 ozA
 tDr
-pSs
+vrF
 oKb
 eOS
 eIn
