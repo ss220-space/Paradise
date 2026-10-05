@@ -86,29 +86,21 @@
 		),
 	)
 
-/datum/skill/service/mining
-	id = "service.mining"
-	name = "Горное дело"
-	desc = "Влияет на скорость копки, перезарядку кинетических устройств копки(только при копке породы) и шанс на скан руды при копке с помощью кирки или ее альтернативы."
+/datum/skill/service/cooking
+	id = "service.cooking"
+	name = "Готовка"
+	desc = "Влияет на готовку."
+	duration_mod_names = list(COOKING_SPEED_MOD, BUTCHERING_SPEED_MOD)
+	quality_mod_names = list(COOKING_BROKE_MOD)
 	skills_mods = alist(
-		MINING_SPEED_MOD = alist(
-			SKILL_LEVEL_NONE = 1.2,
-			SKILL_LEVEL_BEGINNER = 1.1,
-			SKILL_LEVEL_BASIC = 1,
-			SKILL_LEVEL_ADVANCED = 0.9,
-			SKILL_LEVEL_PROFESSIONAL = 0.8,
-			SKILL_LEVEL_EXPERT = 0.6,
-			SKILL_LEVEL_LEGEND = 0.5,
-			SKILL_LEVEL_UNAVAILABLE = 4,
-		),
-		MINING_PROBS_MOD = alist(
-			SKILL_LEVEL_NONE = 10,
-			SKILL_LEVEL_BEGINNER = 15,
-			SKILL_LEVEL_BASIC = 20,
+		COOKING_EXTRA_COUNT_CHANCE = alist(
+			SKILL_LEVEL_NONE = 0,
+			SKILL_LEVEL_BEGINNER = 5,
+			SKILL_LEVEL_BASIC = 10,
 			SKILL_LEVEL_ADVANCED = 25,
-			SKILL_LEVEL_PROFESSIONAL = 30,
-			SKILL_LEVEL_EXPERT = 35,
-			SKILL_LEVEL_LEGEND = 40,
-			SKILL_LEVEL_UNAVAILABLE = 0,
+			SKILL_LEVEL_PROFESSIONAL = 50,
+			SKILL_LEVEL_EXPERT = 75,
+			SKILL_LEVEL_LEGEND = 100,
+			SKILL_LEVEL_UNAVAILABLE = 0.001,
 		),
 	)
