@@ -86,7 +86,8 @@
 		new /obj/structure/swarmer/blockade(get_step(pod_turf, ddir))
 
 	swarmer_shield_around_turf(pod_turf, shields_radius, shields_duration)
-	for(var/i = 1, i <= (SWARMERS_SPAWN_AMOUNT - amount_of_swarmers_spawned), i++) // on purpose
+	var/swarmer_shells_to_spawn = SWARMERS_SPAWN_AMOUNT - amount_of_swarmers_spawned
+	for(var/i = 1, i <= swarmer_shells_to_spawn, i++)
 		new /obj/effect/mob_spawn/swarmer(pod_turf)
 
 /// Cleans up signals and stuff
