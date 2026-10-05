@@ -1,4 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - bugfix: "Теперь на боргов нормально устанавливаются модификаторы КА. (PR #9856)"
