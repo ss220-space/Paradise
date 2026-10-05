@@ -187,7 +187,6 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 	)
-	base_free_skill_point = DEFAULT_FREE_POINTS
 	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mod_use, /datum/skill/general/carrying, /datum/skill/medical/heal)
 
 /datum/outfit/job/blueshield
