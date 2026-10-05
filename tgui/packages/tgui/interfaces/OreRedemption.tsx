@@ -12,6 +12,7 @@ import {
 import { classes } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
@@ -75,7 +76,17 @@ const IdDisk = (properties: SectionProps) => {
   const { id, points, disk } = data;
   const { ...rest } = properties;
   return (
-    <Section {...rest}>
+    <Section
+      {...rest}
+      title={
+        <Stack align="center" width="100%">
+          <Stack.Item grow>Статус</Stack.Item>
+          <Stack.Item>
+            <LogisticsButton />
+          </Stack.Item>
+        </Stack>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="ID-карта">
           {id ? (

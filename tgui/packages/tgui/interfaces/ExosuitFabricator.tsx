@@ -15,6 +15,7 @@ import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Countdown } from '../components';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 // __DEFINES/construction.dm, L73
 const MINERAL_MATERIAL_AMOUNT = 2000;
@@ -156,6 +157,9 @@ const Designs = (properties) => {
             />
           </Stack.Item>
           <Stack.Item grow />
+          <Stack.Item>
+            <LogisticsButton />
+          </Stack.Item>
           <Stack.Item>
             <Button
               icon="plus"

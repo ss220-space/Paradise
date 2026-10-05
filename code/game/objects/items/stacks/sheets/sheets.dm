@@ -5,6 +5,7 @@
 	throw_speed = 1
 	throw_range = 3
 	attack_verb = list("ударил")
+	logistics_count_amount = TRUE
 	sound_vary = TRUE
 	pickup_sound = 'sound/items/handling/materials/metal_pick_up.ogg'
 	drop_sound = 'sound/items/handling/materials/metal_drop.ogg'

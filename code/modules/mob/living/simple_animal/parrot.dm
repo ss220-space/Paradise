@@ -517,6 +517,8 @@
 
 		// Can we find a path to it?
 		var/turf/T = get_turf(O)
+		if(!T)
+			continue
 		if(my_turf != T)
 			var/cache_id = "[my_turf.UID()]_[T.UID()]"
 			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T)

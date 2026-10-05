@@ -1,4 +1,5 @@
 import { Box } from 'tgui-core/components';
+import { LogisticsButton } from '../common/LogisticsButton';
 import { MENU, SUBMENU } from '../RndConsole';
 import { RndNavButton, RndRoute } from './index';
 
@@ -62,6 +63,7 @@ export const RndNavbar = () => (
       submenu={SUBMENU.MAIN}
       render={() => (
         <Box>
+          <LogisticsButton />
           <RndNavButton submenu={SUBMENU.LATHE_MAT_STORAGE} icon="arrow-up">
             Хранилище материалов
           </RndNavButton>

@@ -11,6 +11,7 @@
 	icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
+	logistics_count_amount = TRUE
 	sound_vary = TRUE
 	pickup_sound = SFX_STONE_PICKUP
 	drop_sound = SFX_STONE_DROP

@@ -36,6 +36,8 @@
 	var/list/accepted_items_typecache
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/starting_items
+	var/fridge_circuit = /obj/item/circuitboard/smartfridge
+	var/starting_matter_bins = 1
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
@@ -69,10 +71,13 @@
 	reagents.set_reacting(FALSE)
 	// Components
 	component_parts = list()
-	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(null, type)
+	var/obj/item/circuitboard/board = new fridge_circuit(null)
+	if(istype(board, /obj/item/circuitboard/smartfridge))
+		var/obj/item/circuitboard/smartfridge/fridge_board = board
+		fridge_board.set_type(null, type)
 	component_parts += board
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	for(var/i in 1 to starting_matter_bins)
+		component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 	// Wires
 	if(is_secure)
@@ -87,6 +92,7 @@
 				var/obj/item/newitem = new typekey(src)
 				item_quants[newitem.declent_ru(NOMINATIVE)] += 1
 	update_icon(UPDATE_OVERLAYS)
+	AddElement(/datum/element/logistics_compatible)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -99,6 +105,38 @@
 	max_n_of_items = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items += 1500 * B.rating
+
+/obj/machinery/smartfridge/proc/vend_units(item_name, amount, mob/user)
+	if(amount <= 0 || !item_name)
+		return FALSE
+	var/remaining = amount
+	var/try_hands = amount == 1 && user && Adjacent(user) && !issilicon(user)
+	var/turf/drop_loc = get_turf(src)
+	for(var/obj/item/item in contents)
+		if(remaining <= 0)
+			break
+		if(item.declent_ru(NOMINATIVE) != item_name)
+			continue
+		var/units = logistics_item_units(item)
+		var/take = min(units, remaining)
+		if(take <= 0)
+			continue
+		var/obj/item/given = item
+		if(isstack(item) && take < units)
+			var/obj/item/stack/stack = item
+			given = stack.split(null, take)
+		else
+			item_quants[item_name] = max((item_quants[item_name] || 0) - 1, 0)
+		given.forceMove(drop_loc)
+		adjust_item_drop_location(given)
+		if(try_hands)
+			user.put_in_hands(given, ignore_anim = FALSE)
+			try_hands = FALSE
+		remaining -= take
+	if(remaining < amount)
+		update_icon(UPDATE_OVERLAYS)
+		return TRUE
+	return FALSE
 
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
@@ -304,13 +342,18 @@
 	data["secure"] = is_secure
 	data["can_dry"] = can_dry
 	data["drying"] = drying
+	data["logistics_enabled"] = logistics_board_installed()
+
+	var/list/quantities = list()
+	for(var/obj/item/stored in contents)
+		quantities[stored.declent_ru(NOMINATIVE)] += logistics_item_units(stored)
 
 	var/list/items = list()
 	for(var/i in 1 to length(item_quants))
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
-			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = count)))
+			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = quantities[K])))
 
 	if(length(items))
 		data["contents"] = items
@@ -327,6 +370,9 @@
 
 	add_fingerprint(user)
 
+	if(try_logistics_ui_act(action, user))
+		return
+
 	switch(action)
 		if("vend")
 			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
@@ -341,29 +387,9 @@
 			var/count = item_quants[K]
 			if(count == 0) // Sanity check, there are probably ways to press the button when it shouldn't be possible.
 				return FALSE
-
-			item_quants[K] = max(count - amount, 0)
-
-			var/i = amount
-			if(i <= 0)
+			if(amount <= 0)
 				return
-			if(i == 1 && Adjacent(user) && !issilicon(user))
-				for(var/obj/O in contents)
-					if(O.declent_ru(NOMINATIVE) == K)
-						O.forceMove(get_turf(src))
-						adjust_item_drop_location(O)
-						user.put_in_hands(O, ignore_anim = FALSE)
-						update_icon(UPDATE_OVERLAYS)
-						break
-			else
-				for(var/obj/O in contents)
-					if(O.declent_ru(NOMINATIVE) == K)
-						O.forceMove(loc)
-						adjust_item_drop_location(O)
-						update_icon(UPDATE_OVERLAYS)
-						i--
-						if(i <= 0)
-							return TRUE
+			vend_units(K, amount, user)
 
 /**
  * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].

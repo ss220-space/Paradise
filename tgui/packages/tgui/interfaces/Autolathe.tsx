@@ -13,6 +13,7 @@ import { flow } from 'tgui-core/fp';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 const canBeMade = (
   recipe: Recipe,
@@ -142,12 +143,19 @@ export const Autolathe = (props: unknown) => {
               scrollable
               title={rText}
               buttons={
-                <Dropdown
-                  width="150px"
-                  options={categories}
-                  selected={category.toString()}
-                  onSelected={(val) => setCategory(val)}
-                />
+                <Stack>
+                  <Stack.Item>
+                    <LogisticsButton />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Dropdown
+                      width="150px"
+                      options={categories}
+                      selected={category.toString()}
+                      onSelected={(val) => setCategory(val)}
+                    />
+                  </Stack.Item>
+                </Stack>
               }
             >
               <Input

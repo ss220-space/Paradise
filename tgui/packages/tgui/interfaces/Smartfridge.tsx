@@ -8,6 +8,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 type SmartfridgeData = {
   secure: boolean; // secure fridge notice
@@ -39,16 +40,19 @@ export const Smartfridge = (_props: unknown) => {
             scrollable
             title={can_dry ? 'Сушильная стойка' : 'Содержимое'}
             buttons={
-              !!can_dry && (
-                <Button
-                  width={11}
-                  icon={drying ? 'power-off' : 'times'}
-                  selected={drying}
-                  onClick={() => act('drying')}
-                >
-                  {drying ? 'Начать сушку' : 'Закончить сушку'}
-                </Button>
-              )
+              <>
+                <LogisticsButton />
+                {!!can_dry && (
+                  <Button
+                    width={11}
+                    icon={drying ? 'power-off' : 'times'}
+                    selected={drying}
+                    onClick={() => act('drying')}
+                  >
+                    {drying ? 'Начать сушку' : 'Закончить сушку'}
+                  </Button>
+                )}
+              </>
             }
           >
             {!contents && (
