@@ -111,7 +111,7 @@
 	/// Skill levels by job list
 	var/list/skill_levels = list()
 	/// Discount skills category
-	var/datum/skill/discount_skill_category = /datum/skill/general
+	var/list/datum/skill/discount_skill_category = list(/datum/skill/general)
 	/// Skill levels by alt titles jobs
 	var/alist/alt_skill_levels = null
 	var/base_free_skill_point = DEFAULT_FREE_POINTS

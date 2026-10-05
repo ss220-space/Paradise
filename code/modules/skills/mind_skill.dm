@@ -173,6 +173,8 @@
 	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 	if(current_job)
 		discount_skill_category = current_job.discount_skill_category
+		if(is_antag)
+			discount_skill_category += /datum/skill/combat
 
 /**
  * Returns the typepath of the highest-level skill on this mind.

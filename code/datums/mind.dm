@@ -132,7 +132,7 @@
 	/// Actual free skill points
 	var/actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
 	/// Discount skills category
-	var/datum/skill/discount_skill_category = /datum/skill/general
+	var/list/datum/skill/discount_skill_category = list(/datum/skill/general)
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
 	var/list/selected_skills_levels = list()

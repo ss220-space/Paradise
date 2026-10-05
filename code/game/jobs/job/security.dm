@@ -33,7 +33,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
-	discount_skill_category = /datum/skill/combat
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general)
 
 /datum/outfit/job/hos
 	name = JOB_TITLE_RU_HOS
@@ -82,7 +82,7 @@
 	disabilities_allowed_slightly = 0
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_CREW
-	discount_skill_category = /datum/skill/combat
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mech_drive)
 
 /datum/job/security/warden
 	title = JOB_TITLE_WARDEN
@@ -301,7 +301,7 @@
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 	)
-	discount_skill_category = /datum/skill/medical
+	discount_skill_category = list(/datum/skill/medical, /datum/skill/general/mod_use, /datum/skill/general/carrying)
 
 /datum/outfit/job/brigdoc
 	name = JOB_TITLE_RU_BRIGDOC
@@ -346,6 +346,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mod_use, /datum/skill/general/mech_drive)
 
 /datum/outfit/job/pilot
 	name = JOB_TITLE_RU_PILOT
