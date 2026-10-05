@@ -1100,7 +1100,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -5328,7 +5328,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6054,8 +6054,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/machinery/power/apc/directional/north,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16561,12 +16561,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58962,6 +58962,11 @@
 	icon_state = "dark"
 	},
 /area/station/service/bar/atrium)
+"kfP" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/layer1,
+/turf/simulated/floor/plating,
+/area/station/engineering/gravity_generator)
 "kfS" = (
 /obj/structure/morgue,
 /obj/effect/turf_decal/delivery/blue,
@@ -77575,7 +77580,7 @@
 	pixel_x = 32
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/gravity_generator)
 "nqx" = (
@@ -78586,10 +78591,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -81728,6 +81733,7 @@
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -113029,7 +113035,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -132720,7 +132726,7 @@
 	pixel_x = -32
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/gravity_generator)
 "wFO" = (
@@ -133477,10 +133483,10 @@
 	},
 /area/station/hallway/primary/central/nw)
 "wNl" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "wNp" = (
@@ -139624,13 +139630,13 @@
 "xLE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Foyer";
 	req_access = list(10);
 	security_level = 6
 	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -239144,7 +239150,7 @@ fqa
 hkV
 oxg
 xzj
-cWR
+kfP
 sMw
 rcD
 gsJ
@@ -239658,7 +239664,7 @@ ivi
 jRC
 oxg
 xFf
-cWR
+kfP
 wFc
 rcD
 gsJ

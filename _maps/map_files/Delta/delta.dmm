@@ -26901,8 +26901,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "fTG" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable/layer3,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -41920,11 +41920,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/tourist)
 "jbH" = (
-/obj/structure/cable,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/power/smes/full,
+/obj/structure/cable/layer3,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "jbI" = (
@@ -71848,6 +71848,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/layer3,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "ppk" = (
@@ -72538,7 +72539,6 @@
 	},
 /area/station/security/checkpoint/south)
 "pwg" = (
-/obj/structure/cable,
 /obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -72546,6 +72546,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/obj/structure/cable/layer3,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "pwn" = (
@@ -83050,8 +83051,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "rDq" = (
-/obj/structure/cable,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable/layer3,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "rDt" = (
