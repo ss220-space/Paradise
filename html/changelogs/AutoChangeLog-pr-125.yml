@@ -1,0 +1,4 @@
+author: "Qwzar21-max"
+delete-after: True
+changes:
+  - tweak: "Изменено количество голограмм у голофана атмоса с 3 до 6. (PR #125)"
