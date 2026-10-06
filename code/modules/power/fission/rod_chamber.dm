@@ -64,7 +64,6 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
-	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(deep_examine))
 	return INITIALIZE_HINT_LATELOAD
 
 // Needs to be late so it does not initialize before the reactor or the other neighbors are ready
@@ -114,7 +113,6 @@
 	QDEL_NULL(held_rod)
 	if(linked_reactor)
 		desync()
-	UnregisterSignal(src, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /obj/machinery/atmospherics/reactor_chamber/update_icon_state()
@@ -362,7 +360,67 @@
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	show_deep_examine(user)
+	ui_interact(user)
+
+/obj/machinery/atmospherics/reactor_chamber/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		for(var/datum/tgui/other_ui in user.tgui_open_uis?.Copy())
+			if(other_ui.interface == "ReactorChamber")
+				other_ui.close()
+		ui = new(user, src, "ReactorChamber", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui.open()
+
+/obj/machinery/atmospherics/reactor_chamber/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/reactor_chamber/ui_data(mob/user)
+	var/list/data = list()
+	data["chamber_down"] = (chamber_state == CHAMBER_DOWN)
+	data["linked"] = !!linked_reactor
+
+	if(!held_rod)
+		data["has_rod"] = FALSE
+		return data
+	data["has_rod"] = TRUE
+
+	data["rod_name"] = DECLENT_RU_CAP(held_rod, NOMINATIVE)
+	data["durability_percent"] = round((held_rod.durability / held_rod.max_durability) * 100, 0.1)
+	data["depleted"] = held_rod.durability <= 0
+	data["operational"] = operational
+
+	var/operating_rate = linked_reactor ? linked_reactor.operating_rate() : 0
+	var/durability_mod = held_rod.get_durability_mod()
+	data["has_power"] = !!(power_total && operational)
+	data["power_output"] = round((power_total * operating_rate * durability_mod) / 1000, 0.1)
+	data["power_mod"] = power_mod_total
+	data["has_heat"] = !!heat_total
+	data["heat_output"] = round(heat_total * HEAT_MODIFIER * operating_rate * durability_mod, 0.1)
+	data["heat_mod"] = heat_mod_total
+
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+		var/obj/item/nuclear_rod/fuel/fuel_rod = held_rod
+		var/chamber_is_down = (chamber_state == CHAMBER_DOWN)
+
+		data["is_fuel"] = TRUE
+		data["has_power_enrichment"] = !!fuel_rod.power_enrich_result
+		data["has_heat_enrichment"] = !!fuel_rod.heat_enrich_result
+
+		data["power_enriched"] = !!fuel_rod.power_enrich_result && (fuel_rod.power_enrich_progress >= fuel_rod.enrichment_cycles)
+		data["heat_enriched"] = !!fuel_rod.heat_enrich_result && (fuel_rod.heat_enrich_progress >= fuel_rod.enrichment_cycles)
+
+		data["power_enriching"] = chamber_is_down \
+			&& !!fuel_rod.power_enrich_result \
+			&& fuel_rod.power_enrich_progress < fuel_rod.enrichment_cycles \
+			&& (power_mod_total * operating_rate) > fuel_rod.power_enrich_threshold
+		data["heat_enriching"] = chamber_is_down \
+			&& !!fuel_rod.heat_enrich_result \
+			&& fuel_rod.heat_enrich_progress < fuel_rod.enrichment_cycles \
+			&& (heat_mod_total * operating_rate) > fuel_rod.heat_enrich_threshold
+	else
+		data["is_fuel"] = FALSE
+
+	return data
 
 /obj/machinery/atmospherics/reactor_chamber/proc/get_deep_examine_info()
 	if(chamber_state != CHAMBER_DOWN)
@@ -422,10 +480,6 @@
 
 	to_chat(user, boxed_message(info.Join("<br>")))
 	return TRUE
-
-/obj/machinery/atmospherics/reactor_chamber/proc/deep_examine(datum/source, mob/user, list/examine_list)
-	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
-	show_deep_examine(user)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
