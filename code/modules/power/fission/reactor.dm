@@ -54,9 +54,8 @@
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
 	density = TRUE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
 	pixel_x = -32
-	resistance_flags = parent_type::resistance_flags | NO_MALF_EFFECT
 
 	/// Holds the list for the connected reactor chambers to take data from
 	var/list/connected_chambers = list()

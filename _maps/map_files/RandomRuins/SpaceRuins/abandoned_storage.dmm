@@ -127,9 +127,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	brightness_range = 2;
 	dir = 8
@@ -280,9 +278,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "eR" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 5
@@ -586,9 +582,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/unpowered)
 "ku" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/stack/sheet/wood{
 	amount = 5
 	},
@@ -958,9 +952,7 @@
 /area/ruin/unpowered)
 "po" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "pt" = (
@@ -1046,9 +1038,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "rj" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/north{
 	req_access = list(128,121)
 	},
@@ -1203,9 +1193,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "sZ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)

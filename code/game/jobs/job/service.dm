@@ -38,6 +38,8 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = list(/datum/skill/service, /datum/skill/general)
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 
 /datum/outfit/job/hop
@@ -69,6 +71,8 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_CREW
+	discount_skill_category = list(/datum/skill/service)
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 /datum/job/service/bartender
 	title = JOB_TITLE_BARTENDER
@@ -131,6 +135,7 @@
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
 	)
+	discount_skill_category = list(/datum/skill/service, /datum/skill/general/cooking)
 
 /datum/outfit/job/chef
 	name = JOB_TITLE_RU_CHEF
@@ -490,6 +495,7 @@
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_PROFESSIONAL,
 	)
+	discount_skill_category = list(/datum/skill/service, /datum/skill/general/carrying)
 
 /datum/outfit/job/janitor
 	name = JOB_TITLE_RU_JANITOR
@@ -555,6 +561,7 @@
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)
+	discount_skill_category = list(/datum/skill/service, /datum/skill/general/carrying, /datum/skill/combat/melee)
 
 /datum/outfit/job/chaplain
 	name = JOB_TITLE_RU_CHAPLAIN
@@ -626,18 +633,3 @@
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name
-
-/datum/job/service/explorer
-	title = JOB_TITLE_EXPLORER
-	flag = JOB_FLAG_EXPLORER
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-	hidden_from_job_prefs = TRUE
-
-/datum/outfit/job/explorer
-	// This outfit is never used, because there are no slots for this job.
-	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = JOB_TITLE_RU_EXPLORER
-	jobtype = /datum/job/service/explorer
-	uniform = /obj/item/clothing/under/color/random

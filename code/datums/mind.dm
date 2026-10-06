@@ -128,7 +128,11 @@
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
 	/// Available free skill points
-	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	var/free_skill_points = DEFAULT_FREE_POINTS
+	/// Actual free skill points
+	var/actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
+	/// Discount skills category
+	var/list/discount_skill_category = list()
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
 	var/list/selected_skills_levels = list()
@@ -575,6 +579,15 @@
 		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
 
+/datum/mind/proc/memory_edit_swarmers()
+	. = _memory_edit_header("swarmers")
+	var/datum/antagonist/swarmer/swarmer_datum = has_antag_datum(/datum/antagonist/swarmer/)
+	if(swarmer_datum)
+		. += "|<b><font color='red'>Свармер</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];swarmer=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_SWARMER)
+
 /datum/mind/proc/memory_edit_xenomorphs()
 	. = _memory_edit_header("xenomorphs")
 	var/datum/antagonist/xenomorph/xeno_datum = has_antag_datum(/datum/antagonist/xenomorph)
@@ -797,9 +810,11 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
-		sections["blob"] = memory_edit_blob(current)
+		sections["blob"] = memory_edit_blob()
 	if(isterrorspider(current))
-		sections["terror_spiders"] = memory_edit_terrors(current)
+		sections["terror_spiders"] = memory_edit_terrors()
+	if(isswarmer(current))
+		sections["swarmers"] = memory_edit_swarmers()
 	if(isalien(current))
 		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))

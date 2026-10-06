@@ -94,6 +94,7 @@
 	invocation = "YOU SHALL NOT PASS!"
 	spell_requirements = NONE
 	wall_type = /obj/effect/forcefield/wizard/guardian
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /obj/effect/forcefield/wizard/guardian
 	desc = "Непробиваемый барьер неизвестной сущности."

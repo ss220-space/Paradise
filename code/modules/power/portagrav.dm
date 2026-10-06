@@ -69,6 +69,9 @@
 		cell = null
 	return ..()
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/portagrav/RefreshParts()
 	. = ..()
 	var/capacitor_rating = 0

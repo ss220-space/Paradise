@@ -6,6 +6,7 @@
 /datum/species/shadow
 	name = SPECIES_SHADOW_BASIC
 	name_plural = "Shadows"
+	ru_genitive = "тени"
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'

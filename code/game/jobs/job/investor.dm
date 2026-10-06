@@ -31,7 +31,7 @@
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS
 
 /datum/job/investor/check_custom_requirements(client/target)
 	. = ..()
