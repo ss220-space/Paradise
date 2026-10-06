@@ -1,10 +1,4 @@
-import {
-  Box,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-} from 'tgui-core/components';
+import { Icon, LabeledList, ProgressBar, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -88,7 +82,7 @@ export const ReactorChamber = () => {
                       bad: [-Infinity, 0.3],
                     }}
                   >
-                    {durability_percent + '%'}
+                    {`${durability_percent}%`}
                   </ProgressBar>
                 </LabeledList.Item>
                 {isDepleted && (
