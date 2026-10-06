@@ -133,7 +133,7 @@
 // /datum/component/transforming/proc/on_material_apply(obj/item/source, datum/material/material, amount, multiplier)
 // 	SIGNAL_HANDLER
 // 	// Opposite state's force needs to be calculated for each material's effect
-// 	if (active)
+// 	if(active)
 // 		force_off *= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, initial(source.sharpness)), multiplier)
 // 		throwforce_off *= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, initial(source.sharpness)), multiplier)
 // 	else
@@ -143,7 +143,7 @@
 // /datum/component/transforming/proc/on_material_remove(obj/item/source, datum/material/material, amount, multiplier)
 // 	SIGNAL_HANDLER
 // 	// Same as appliation but inversed
-// 	if (active)
+// 	if(active)
 // 		force_off /= GET_MATERIAL_MODIFIER(source.get_material_force_modifier(material, initial(source.sharpness)), multiplier)
 // 		throwforce_off /= GET_MATERIAL_MODIFIER(source.get_material_throwforce_modifier(material, initial(source.sharpness)), multiplier)
 // 	else
@@ -153,7 +153,7 @@
 // /datum/component/transforming/proc/on_materials_updated(obj/item/source, list/materials, datum/material/main_material)
 // 	SIGNAL_HANDLER
 // 	// Current force can be set directly
-// 	if (active)
+// 	if(active)
 // 		force_on = source.force
 // 		throwforce_on = source.throwforce
 // 	else
