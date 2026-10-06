@@ -4,8 +4,8 @@
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 	linkage = SELFLOOPING
 
-	station_name = "ИСН Лазарь"
-	english_station_name = "NSS Lazarus"
+	station_name = "НКН Лазарь"
+	english_station_name = "NSC Lazarus"
 	station_short = "Лазарь"
 	dock_name = "АКН Трурль"
 	company_name = "\"Нанотрейзен\""
