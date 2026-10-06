@@ -58,9 +58,7 @@
 /turf/space,
 /area/template_noop)
 "t" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/space,
 /area/space)
 "u" = (
@@ -97,9 +95,7 @@
 /turf/space,
 /area/space)
 "D" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/burnt,
 /area/space)
 "E" = (

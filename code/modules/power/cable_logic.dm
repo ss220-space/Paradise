@@ -12,11 +12,9 @@
 	if(!input)
 		var/turf/T = get_step(src, dir)
 		if(T)
-			var/inv_dir = turn(dir, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					input = C
-					return 1
+				input = C
+				return 1
 
 	return 0	//If it gets to here, it means no suitable wire to link to was found.
 
@@ -49,11 +47,9 @@
 	if(!output)
 		var/turf/T = get_step(src, dir)
 		if(T)
-			var/inv_dir = turn(dir, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					output = C
-					return 1
+				output = C
+				return 1
 
 	return 0	//If it gets to here, it means no suitable wire to link to was found.
 
@@ -91,18 +87,14 @@
 	if(!input)
 		var/turf/T = get_step(src, dir_input)
 		if(T)
-			var/inv_dir = turn(dir_input, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					input = C
+				input = C
 
 	if(!output)
 		var/turf/T = get_step(src, dir_output)
 		if(T)
-			var/inv_dir = turn(dir_output, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					output = C
+				output = C
 
 	return 0	//On the process() call, where everything is still being searched for, it returns 0. It will return 1 on the next process() call.
 
@@ -146,26 +138,20 @@
 	if(!input1)
 		var/turf/T = get_step(src, dir_input1)
 		if(T)
-			var/inv_dir = turn(dir_input1, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					input1 = C
+				input1 = C
 
 	if(!input2)
 		var/turf/T = get_step(src, dir_input2)
 		if(T)
-			var/inv_dir = turn(dir_input2, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					input2 = C
+				input2 = C
 
 	if(!output)
 		var/turf/T = get_step(src, dir_output)
 		if(T)
-			var/inv_dir = turn(dir_output, 180)
 			for(var/obj/structure/cable/C in T)
-				if(C.d1 == inv_dir || C.d2 == inv_dir)
-					output = C
+				output = C
 
 	return 0	//On the process() call, where everything is still being searched for, it returns 0. It will return 1 on the next process() call.
 
