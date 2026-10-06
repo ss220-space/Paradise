@@ -172,12 +172,14 @@
 	var/job_free_skill_points = current_job?.base_free_skill_point || DEFAULT_FREE_POINTS
 	free_skill_points = job_free_skill_points + (is_antag ? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 	actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
-	if(current_job)
-		discount_skill_category = current_job.discount_skill_category
-		if(is_antag)
-			discount_skill_category = list()
-			discount_skill_category += current_job.discount_skill_category
-			discount_skill_category |= GLOB.discount_categories_antag
+	if(!current_job)
+		return
+	discount_skill_category = current_job.discount_skill_category
+	if(!is_antag)
+		return
+	discount_skill_category = list()
+	discount_skill_category += current_job.discount_skill_category
+	discount_skill_category |= GLOB.discount_categories_antag
 
 /**
  * Returns the typepath of the highest-level skill on this mind.
