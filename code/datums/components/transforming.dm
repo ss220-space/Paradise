@@ -44,9 +44,9 @@
 	var/clumsy_damage
 	/// If we get sharpened with a whetstone, save the bonus here for later use if we un/redeploy
 	var/sharpened_bonus = 0
-	/// Dictate whether we change inhands or not
-	var/inhand_icon_change = TRUE
-	/// Disable auto "_on" adding for icon state if TRUE (FALSE by default). Use on_transform proc for icon_state change.
+	/// Disable auto "_on" adding for **item state** if TRUE (FALSE by default). Use on_transform proc for icon_state change.
+	var/manual_item_state_change = FALSE
+	/// Disable auto "_on" adding for **icon state** if TRUE (FALSE by default). Use on_transform proc for icon_state change.
 	var/manual_icon_state_change = FALSE
 	/// Cooldown in between transforms
 	COOLDOWN_DECLARE(transform_cooldown)
@@ -63,7 +63,7 @@
 	clumsy_check = TRUE,
 	clumsy_damage = 10,
 	list/attack_verb_on,
-	inhand_icon_change = TRUE,
+	manual_item_state_change = FALSE,
 	manual_icon_state_change = FALSE,
 )
 
@@ -81,7 +81,7 @@
 	src.w_class_on = w_class_on
 	src.clumsy_check = clumsy_check
 	src.clumsy_damage = clumsy_damage
-	src.inhand_icon_change = inhand_icon_change
+	src.manual_item_state_change = manual_item_state_change
 	src.manual_icon_state_change = manual_icon_state_change
 
 	src.force_off = item_parent.force
@@ -269,7 +269,7 @@
 		source.icon_state = "[source.icon_state]_on"
 	// if(inhand_icon_change && source.inhand_icon_state)
 	// 	source.inhand_icon_state = "[source.inhand_icon_state]_on"
-	if(inhand_icon_change)
+	if(!manual_item_state_change)
 		source.item_state = "[source.item_state]_on"
 	source.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	//source.update_inhand_icon()

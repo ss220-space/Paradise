@@ -376,7 +376,6 @@
 /obj/item/melee/baton/telescopic/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
-	src.active = active
 	if(user)
 		balloon_alert(user, "[active ? "разложено" : "сложено"]")
 	playsound(src, extend_sound, 50, TRUE)
