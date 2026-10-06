@@ -1,2 +1,3 @@
-/obj/item/pen/multi/gold : /obj/item/pen/fountain
-/obj/item/pen/fancy : /obj/item/pen/fountain
+/obj/item/pen/multi/gold : /obj/item/pen/fountain{@OLD}
+/obj/item/pen/fancy : /obj/item/pen/fountain{@OLD}
+/obj/item/pen/multi/fountain : /obj/item/pen/fountain{@OLD}

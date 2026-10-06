@@ -361,7 +361,7 @@
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		clumsy_check = FALSE, \
 		attack_verb_on = list("ударил", "вмазал", "врезал"), \
-		inhand_icon_change = FALSE, \
+		manual_item_state_change = TRUE, \
 	)
 
 /obj/item/melee/baton/telescopic/Initialize(mapload)

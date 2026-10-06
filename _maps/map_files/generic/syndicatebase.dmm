@@ -4131,7 +4131,7 @@
 "egm" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
 	dir = 4

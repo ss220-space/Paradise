@@ -535,7 +535,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/paper/crumpled/bloody{
 	desc = "Badly crumpled paper, heavily stained with blood. The full text cannot be understood, however, from fragments of words it becomes clear that this is a death note.";
 	layer = 2.9
@@ -1352,7 +1352,7 @@
 	pixel_x = -2;
 	pixel_y = 7
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)

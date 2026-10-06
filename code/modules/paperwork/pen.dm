@@ -38,7 +38,7 @@
 		sharpness_on = NONE, \
 		w_class_on = w_class, \
 		manual_icon_state_change = TRUE, \
-		inhand_icon_change = NONE, \
+		manual_item_state_change = TRUE, \
 	)
 
 /*
@@ -302,7 +302,7 @@
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		hitsound_on = 'sound/weapons/blade1.ogg', \
 		attack_verb_on = list("полоснул", "уколол", "поранил", "порезал"), \
-		inhand_icon_change = NONE, \
+		manual_item_state_change = TRUE, \
 	)
 
 /*

@@ -249,7 +249,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 3;
 	pixel_y = 9
 	},
@@ -866,7 +866,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 3;
 	pixel_y = 9
 	},

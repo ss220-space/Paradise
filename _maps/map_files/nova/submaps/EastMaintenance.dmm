@@ -1565,7 +1565,7 @@
 	},
 /area/station/maintenance/abandonedoffices)
 "tm" = (
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
 /area/station/maintenance/abandonedoffices)
@@ -3345,7 +3345,7 @@
 "KB" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 3
 	},
 /turf/simulated/floor/carpet/blue,
@@ -3557,11 +3557,6 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/station/maintenance/abandonedoffices)
-"NV" = (
-/obj/item/pen/multi/fountain,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/carpet/black,
 /area/station/maintenance/abandonedoffices)
 "NY" = (
 /obj/effect/spawner/lootdrop{
@@ -7694,7 +7689,7 @@ MC
 tN
 wc
 GE
-NV
+tm
 rY
 WA
 Xw
