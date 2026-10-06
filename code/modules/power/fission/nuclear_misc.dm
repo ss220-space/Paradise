@@ -36,7 +36,7 @@
 
 /obj/machinery/computer/fission_monitor
 	name = "NGCR monitoring console"
-	desc = "Следит за состоянием газоохлаждаемого реактора деления корпорации Нанотрейзен."
+	desc = "Следит за состоянием газоохлаждаемого реактора деления корпорации \"Нанотрейзен\"."
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
 	circuit = /obj/item/circuitboard/fission_monitor
