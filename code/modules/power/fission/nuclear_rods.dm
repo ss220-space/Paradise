@@ -610,9 +610,6 @@
 	heat_amp_mod = 6.5
 	power_amp_mod = 3.3
 	reactor_overheat_modifier = 100
-	craftable = TRUE
-	upgrade_required = TRUE
-	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -637,10 +634,7 @@
 	heat_amp_mod = 8
 	power_amp_mod = 3.9
 	reactor_overheat_modifier = 300
-	craftable = TRUE
-	upgrade_required = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
-	materials = list(MAT_TITANIUM = 1000, MAT_GOLD = 2000)
 
 /obj/item/nuclear_rod/moderator/platinum_plating/get_ru_names()
 	return alist(
@@ -822,9 +816,6 @@
 	power_amp_mod = 1.3
 	max_durability = INFINITY
 	reactor_overheat_modifier = 200
-	craftable = TRUE
-	upgrade_required = TRUE
-	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
 
 /obj/item/nuclear_rod/coolant/bluespace_displacer/get_ru_names()
@@ -844,13 +835,10 @@
 	heat_amp_mod = 0.1
 	max_durability = 10000
 	reactor_overheat_modifier = 300
-	craftable = TRUE
-	upgrade_required = TRUE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,
 	)
-	materials = list(MAT_TITANIUM = 1000, MAT_SILVER = 2000)
 
 /obj/item/nuclear_rod/coolant/iridium_conductor/get_ru_names()
 	return alist(
@@ -868,9 +856,6 @@
 	icon_state = "coolant_spacematter"
 	heat_amount = -1500
 	heat_amp_mod = 0.2
-	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
-	craftable = TRUE
-	upgrade_required = TRUE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel/enriched_plutonium,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
