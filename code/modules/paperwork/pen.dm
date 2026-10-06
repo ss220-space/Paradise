@@ -22,8 +22,6 @@
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
 	var/fake_signing = FALSE //do we always write like [sign]?
-	/// The mind of the first user who activated the pen. Used to lock its special functions to the original owner.
-	var/datum/weakref/first_activated_mind_weakref
 	/// At what angle head of pen now
 	var/degrees
 
@@ -58,16 +56,6 @@
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	icon_state = (base_icon_state ? base_icon_state : initial(icon_state)) + (active ? "_retracted" : "") // base_icon_state for skins support
 	return COMPONENT_NO_DEFAULT_MESSAGE
-
-/obj/item/pen/proc/handle_mind_check(mob/user)
-	if(!first_activated_mind_weakref)
-		first_activated_mind_weakref = WEAKREF(user.mind)
-		return TRUE
-
-	var/first_activated_mind_resolved = first_activated_mind_weakref.resolve()
-	if(first_activated_mind_weakref && first_activated_mind_resolved != user.mind)
-		return FALSE
-	return TRUE
 
 /obj/item/pen/CtrlClick(mob/living/carbon/user)
 	if(loc != user)
@@ -320,7 +308,6 @@
 	item_state = active ? "edagger" : initial(item_state)
 	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 5, TRUE)
 	set_light_on(active)
-	handle_mind_check(user)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -402,7 +389,6 @@
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	safety = !safety
-	handle_mind_check(user)
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
