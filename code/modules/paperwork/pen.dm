@@ -407,7 +407,7 @@
 /// Assassin pen's gun stuff
 /obj/item/gun/projectile/revolver/assassin_pen_gun
 	name = "assassin pen's gun"
-	desc = "Кодовая затычка для работы ручки ассасина. Если вы её увидели - пишите багрепорт с описанием получения."
+	desc = "Кодовая затычка для работы ручки ассасина. Если вы её увидели — пишите багрепорт с описанием получения."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/assassin_pen_mag
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
