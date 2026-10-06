@@ -412,43 +412,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
-"bR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/table/wood/fancy/royalblack,
-/obj/item/pen/fountain,
-/obj/item/paper/crumpled/bloody{
-	desc = "Badly crumpled paper, heavily stained with blood. The full text cannot be understood, however, from fragments of words it becomes clear that this is a death note.";
-	layer = 2.9
-	},
-/obj/item/gun/energy/gun/mini{
-	layer = 2.8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood-broken"
-	},
-/area/awaymission/BMPship/Fore)
-"bT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Buffer)
-"bU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "bW" = (
 /obj/machinery/gateway,
 /obj/effect/decal/cleanable/blood/tracks,
