@@ -35,6 +35,7 @@
 		/datum/skill/research/robotics = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
 	)
+	discount_skill_category = /datum/skill/research
 
 /datum/outfit/job/rd
 	name = JOB_TITLE_RU_RD
@@ -73,6 +74,7 @@
 	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
+	discount_skill_category = /datum/skill/research
 
 /datum/job/science/scientist
 	title = JOB_TITLE_SCIENTIST

@@ -176,6 +176,9 @@
 	if(!bodypart)
 		return FALSE
 
+	if(!thing.can_actually_embed)
+		return FALSE
+
 	bodypart.add_embedded_object(thing)
 	thing.add_mob_blood(src)	// it embedded itself in you, of course it's bloody!
 	apply_damage(thing.w_class * thing.embedded_impact_pain_multiplier, def_zone = bodypart, silent = silent)

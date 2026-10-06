@@ -110,9 +110,11 @@
 
 	/// Skill levels by job list
 	var/list/skill_levels = list()
+	/// Discount skills category
+	var/datum/skill/discount_skill_category = /datum/skill/general
 	/// Skill levels by alt titles jobs
 	var/alist/alt_skill_levels = null
-	var/base_free_skill_point = BASIC_SKILL_POINTS_COUNT
+	var/base_free_skill_point = DEFAULT_FREE_POINTS
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
@@ -383,8 +385,8 @@
 /datum/outfit/job/proc/skill_select_offer(mob/living/carbon/human/user)
 	var/choice = tgui_alert(user, message = "Хотите настроить навыки?", title = "Настройка навыков", buttons = list("Да", "Позже"))
 	if(choice == "Да")
-		var/datum/ui_module/skills_select_win/tgui = new(user)
-		tgui.show(user, user)
+		var/datum/ui_module/skills_upgrade_win/skills_win = new()
+		skills_win.show(user, user)
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
