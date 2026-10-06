@@ -1368,7 +1368,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_0_A_OV(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return
@@ -1406,7 +1406,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!istype(head_organ))
 		return
-	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair/hair_style = SSaccessories.hairstyles_list[head_organ.h_style]
 	var/mutable_appearance/MA
 	if(hair_style)
 		var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
@@ -1646,12 +1646,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/cup/glass) && (ismachineperson(src)))))
 			balloon_alert(user, "у цели нет рта!")
 			return FALSE
 	return ..()
 
-/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/cup/glass/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			balloon_alert(src, "у вас нет рта!")

@@ -194,7 +194,9 @@
 	return ..()
 
 /obj/structure/chair/comfy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest", ABOVE_MOB_LAYER)
+	var/mutable_appearance/comfy_armrest = mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest", ABOVE_MOB_LAYER, appearance_flags = KEEP_APART | RESET_COLOR)
+	comfy_armrest.color = color
+	return comfy_armrest
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)

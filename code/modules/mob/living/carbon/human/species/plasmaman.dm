@@ -1,6 +1,7 @@
 /datum/species/plasmaman
 	name = SPECIES_PLASMAMAN
 	name_plural = "Plasmamen"
+	ru_genitive = "плазмолюда"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
 	dangerous_existence = TRUE //So so much

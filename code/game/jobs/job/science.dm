@@ -35,6 +35,7 @@
 		/datum/skill/research/robotics = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
 	)
+	discount_skill_category = /datum/skill/research
 
 /datum/outfit/job/rd
 	name = JOB_TITLE_RU_RD
@@ -73,6 +74,7 @@
 	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
+	discount_skill_category = /datum/skill/research
 
 /datum/job/science/scientist
 	title = JOB_TITLE_SCIENTIST
@@ -273,3 +275,38 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+
+/datum/job/science/explorer
+	title = JOB_TITLE_EXPLORER
+	flag = JOB_FLAG_EXPLORER
+	total_positions = 3
+	spawn_positions = 3
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_RESEARCH)
+	alt_titles = list(ALT_JOB_TITLE_RU_SPACE_EXPLORER)
+	outfit = /datum/outfit/job/explorer
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+	)
+
+/datum/outfit/job/explorer
+	name = JOB_TITLE_RU_EXPLORER
+	jobtype = /datum/job/science/explorer
+	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	head = /obj/item/clothing/head/beret/black
+	suit = /obj/item/clothing/suit/armor/vest
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/research
+	l_pocket = /obj/item/kitchen/knife/combat/survival
+	pda = /obj/item/pda/toxins
+	backpack_contents = list(
+		/obj/item/storage/firstaid/doctor = 1,
+	)

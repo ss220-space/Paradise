@@ -64,6 +64,7 @@
 
 /obj/machinery/r_n_d/server/Destroy()
 	griefProtection()
+	QDEL_NULL(files)
 	return ..()
 
 /obj/machinery/r_n_d/server/RefreshParts()

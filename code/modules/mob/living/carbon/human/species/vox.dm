@@ -1,6 +1,7 @@
 /datum/species/vox
 	name = SPECIES_VOX
 	name_plural = "Vox"
+	ru_genitive = "вокса"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE

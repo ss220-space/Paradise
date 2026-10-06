@@ -32,7 +32,7 @@
 	},
 /area/ruin/powered/lavaland)
 "i" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plating/asteroid{
 	name = "dirt"
 	},

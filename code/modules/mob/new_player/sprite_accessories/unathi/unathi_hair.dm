@@ -1,4 +1,5 @@
 /datum/sprite_accessory/hair/unathi
+	abstract_type = /datum/sprite_accessory/hair/unathi
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_hair.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_DRACONOID)
 	glasses_over = 1

@@ -518,7 +518,7 @@
 				span_notice("[user] восстанавлива[PLUR_ET_YUT(user)] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 			)
-			organ.damage = 0
+			organ.heal_internal_damage(organ.damage, robo_repair = TRUE)
 			organ.surgeryize()
 
 	return SURGERY_STEP_CONTINUE
@@ -764,12 +764,12 @@
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
-		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
-		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/cup/bottle = 90,
+		/obj/item/reagent_containers/cup/glass/drinkingglass = 85,
+		/obj/item/reagent_containers/cup/glass/bottle = 80,
+		/obj/item/reagent_containers/cup/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
-		/obj/item/reagent_containers/glass/bucket = 50,
+		/obj/item/reagent_containers/cup/bucket = 50,
 	)
 
 /datum/surgery_step/internal/manipulate_organs/clean/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

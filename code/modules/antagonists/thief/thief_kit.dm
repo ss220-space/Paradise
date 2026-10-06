@@ -297,8 +297,8 @@
 		/obj/item/reagent_containers/syringe/pancuronium,
 		/obj/item/reagent_containers/syringe/capulettium_plus,
 		/obj/item/reagent_containers/syringe/capulettium_plus,
-		/obj/item/reagent_containers/glass/bottle/ether,
-		/obj/item/reagent_containers/glass/bottle/ether,
+		/obj/item/reagent_containers/cup/bottle/ether,
+		/obj/item/reagent_containers/cup/bottle/ether,
 	)
 
 /datum/thief_kit/mutant

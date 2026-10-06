@@ -380,8 +380,10 @@
 /atom/proc/check_eye(mob/user)
 	return
 
+/// Updates the icon of the container when the reagents change. Eats signal args.
 /atom/proc/on_reagent_change()
-	return
+	SIGNAL_HANDLER
+	update_appearance()
 
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
@@ -421,6 +423,10 @@
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
+
+/// Can we dunk stuff into this container?
+/atom/proc/is_dunkable()
+	return reagents && (reagents.flags & DUNKABLE)
 
 ///Is this atom within 1 tile of another atom
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)

@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - add: "Добавляет анимацию для эмоции прыжка. (PR #9683)"
