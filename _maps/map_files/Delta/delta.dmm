@@ -50190,6 +50190,18 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
+"kOB" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	name = "exterior access button";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/space,
+/area/space)
 "kOI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -51036,6 +51048,24 @@
 	icon_state = "yellowfull"
 	},
 /area/station/maintenance/electrical)
+"kWZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "atmos_tank_airlock";
+	name = "exterior access button";
+	pixel_x = 20;
+	pixel_y = -20;
+	req_access = list(10,13)
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
 "kXm" = (
 /obj/structure/closet/crate,
 /obj/item/stack/rods{
@@ -131163,7 +131193,7 @@ aaq
 coE
 aaq
 coE
-aaq
+acF
 acF
 acF
 acF
@@ -135010,7 +135040,7 @@ coE
 coE
 coE
 coE
-tco
+fFy
 kZF
 abM
 rIW
@@ -135267,7 +135297,7 @@ aaq
 coE
 aaq
 aaq
-tco
+kWZ
 qgk
 eRJ
 kaI
@@ -135524,7 +135554,7 @@ coE
 coE
 coE
 coE
-tco
+fFy
 kZF
 uHO
 rIW
@@ -161329,7 +161359,7 @@ qwR
 uzM
 fSU
 rmI
-acF
+kOB
 acF
 acF
 coE
@@ -177684,7 +177714,7 @@ acF
 cIV
 acF
 acF
-acF
+cIV
 cIV
 acF
 coE
