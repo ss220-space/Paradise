@@ -291,6 +291,19 @@
 
 	set_ru_names_suffix(suffix)
 
+/**
+ * Returns the declined Russian name of the organ WITHOUT the species suffix
+ * added by apply_species_name()
+ * Uses the cached type-level declension, which set_ru_names_suffix() never modifies.
+ */
+/obj/item/organ/proc/declent_ru_base(case_id)
+	if(case_id < NOMINATIVE || case_id > PREPOSITIONAL)
+		return initial(name)
+	var/alist/names = get_ru_names_cached()
+	if(length(names))
+		return names[case_id] || initial(name)
+	return initial(name)
+
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
