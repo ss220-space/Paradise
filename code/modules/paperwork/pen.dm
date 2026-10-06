@@ -121,11 +121,9 @@
  * Clicks and change color.
  */
 /obj/item/pen/multi/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
 	if(user)
 		balloon_alert(user, "*клик*")
-	select_colour(user)
+	INVOKE_ASYNC(src, PROC_REF(select_colour), user)
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
@@ -158,8 +156,6 @@
  * Just CLICKS and nothing more.
  */
 /obj/item/pen/fountain/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
 	if(user)
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
@@ -180,8 +176,6 @@
  * Just CLICKS and nothing more too.
  */
 /obj/item/pen/survival/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
 	if(user)
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
@@ -301,8 +295,6 @@
  * Handles special sounds and light.
  */
 /obj/item/pen/edagger/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
 	on = !on // Need for special logic at attack() proc
 	icon_state = active ? "edagger" : initial(icon_state)
 	item_state = active ? "edagger" : initial(item_state)
@@ -383,8 +375,6 @@
 	return ..()
 
 /obj/item/pen/assassin/on_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
-
 	if(user)
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
