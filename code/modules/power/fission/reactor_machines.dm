@@ -3,7 +3,7 @@
 /// MARK: Centrifuge
 /obj/machinery/nuclear_centrifuge
 	name = "Fuel Enrichment Centrifuge"
-	desc = "An advanced device capable of separating and collecting fissile materials from enriched fuel rods."
+	desc = "Продвинутое устройство, отделяющее и собирающее делящиеся материалы из обогащённых топливных стержней."
 	icon = 'icons/obj/fission/reactor_machines.dmi'
 	icon_state = "centrifuge_empty"
 	idle_power_usage = 200
@@ -26,6 +26,16 @@
 
 	COOLDOWN_DECLARE(enrichment_timer)
 
+/obj/machinery/nuclear_centrifuge/get_ru_names()
+	return alist(
+		NOMINATIVE = "центрифуга обогащения топлива",
+		GENITIVE = "центрифуги обогащения топлива",
+		DATIVE = "центрифуге обогащения топлива",
+		ACCUSATIVE = "центрифугу обогащения топлива",
+		INSTRUMENTAL = "центрифугой обогащения топлива",
+		PREPOSITIONAL = "центрифуге обогащения топлива",
+	)
+
 /obj/machinery/nuclear_centrifuge/Initialize(mapload)
 	. = ..()
 	soundloop = new(src, FALSE)
@@ -41,7 +51,7 @@
 /obj/machinery/nuclear_centrifuge/examine(mob/user)
 	. = ..()
 	if(held_rod)
-		. += span_notice("The current fuel rod may be removed with <b>Alt-Click</b>.")
+		. += span_notice("Текущий топливный стержень можно извлечь с помощью <b>Alt-ЛКМ</b>.")
 
 /obj/machinery/nuclear_centrifuge/Destroy()
 	QDEL_NULL(soundloop)
@@ -61,10 +71,10 @@
 	if(stat & NOPOWER)
 		return ITEM_INTERACT_SUCCESS
 	if(panel_open)
-		to_chat(user, span_warning("You must close the access panel first!"))
+		to_chat(user, span_warning("Сначала закройте обслуживаемую панель!"))
 		return ITEM_INTERACT_SUCCESS
 	if(use_power == ACTIVE_POWER_USE) // dont start a new cycle when on
-		to_chat(user, span_warning("There is already a fuel rod being processed!"))
+		to_chat(user, span_warning("Топливный стержень уже обрабатывается!"))
 		return ITEM_INTERACT_SUCCESS
 	var/obj/item/nuclear_rod/fuel/rod = used
 	var/list/enrichment_to_name = list()
@@ -79,7 +89,7 @@
 		enrichment_to_name["[rod_enrichment::name]"] = rod_enrichment
 		radial_list["[rod_enrichment::name]"] = image(icon = rod_enrichment::icon, icon_state = rod_enrichment::icon_state)
 	if(!length(radial_list))
-		to_chat(user, span_warning("This rod has no potential for enrichment!"))
+		to_chat(user, span_warning("Этот стержень нельзя обогатить!"))
 		return ITEM_INTERACT_SUCCESS
 	var/enrichment_choice = show_radial_menu(user, src, radial_list, src, radius = 30, require_near = TRUE)
 	if(!enrichment_choice)
@@ -94,7 +104,7 @@
 	if(!held_rod)
 		return
 	if(use_power == ACTIVE_POWER_USE)
-		to_chat(user, span_warning("You cannot remove the fuel rod while the machine is running!"))
+		to_chat(user, span_warning("Нельзя извлечь топливный стержень, пока машина работает!"))
 		return
 	held_rod.forceMove(get_turf(src))
 	held_rod = null
@@ -128,7 +138,7 @@
 /obj/machinery/nuclear_centrifuge/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(held_rod)
-		to_chat(user, span_warning("The machine cannot be opened while it contains a fuel rod!"))
+		to_chat(user, span_warning("Устройство нельзя открыть, пока в нем находится топливный стержень.!"))
 		return TRUE
 	default_deconstruction_screwdriver(user, I = I)
 	update_appearance(UPDATE_ICON_STATE)
@@ -159,7 +169,7 @@
 
 /obj/machinery/nuclear_rod_fabricator
 	name = "Nuclear Fuel Rod Fabricator"
-	desc = "A highly specialized fabricator for crafting nuclear rods."
+	desc = "Высоко специализированная фабрика для изготовления ядерных стержней."
 	icon = 'icons/obj/fission/reactor_machines.dmi'
 	icon_state = "rod_fab"
 	idle_power_usage = 50
@@ -186,6 +196,16 @@
 	var/work_time
 
 	COOLDOWN_DECLARE(fabrication_timer)
+
+/obj/machinery/nuclear_rod_fabricator/get_ru_names()
+	return alist(
+		NOMINATIVE = "фабрикатор ядерных стержней",
+		GENITIVE = "фабрикатора ядерных стержней",
+		DATIVE = "фабрикатору ядерных стержней",
+		ACCUSATIVE = "фабрикатор ядерных стержней",
+		INSTRUMENTAL = "фабрикатором ядерных стержней",
+		PREPOSITIONAL = "фабрикаторе ядерных стержней",
+	)
 
 /obj/machinery/nuclear_rod_fabricator/upgraded
 	upgraded = TRUE
@@ -222,15 +242,15 @@
 
 /obj/machinery/nuclear_rod_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
-		to_chat(user, span_warning("You can't load [src] while it's opened!"))
+		to_chat(user, span_warning("Нельзя загружать [declent_ru(ACCUSATIVE)], пока обслуживаемая панель открыта!"))
 		return FALSE
 
 	if(stat & BROKEN)
-		to_chat(user, span_warning("[src] is broken."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сломан."))
 		return FALSE
 
 	if(stat & NOPOWER)
-		to_chat(user, span_warning("[src] has no power."))
+		to_chat(user, span_warning("У [DECLENT_RU_CAP(src, GENITIVE)] нет питания."))
 		return FALSE
 
 	return TRUE
@@ -250,7 +270,7 @@
 /obj/machinery/nuclear_rod_fabricator/proc/check_mat(obj/item/nuclear_rod/being_built, material)
 	var/amount = materials.amount(material)
 	if(!amount)
-		visible_message(span_warning("Something has gone very wrong. Alert a developer."))
+		visible_message(span_warning("Что-то пошло не так. Сообщите разработчикам."))
 		return
 	else
 		amount /= max(1, (being_built.materials[material] * efficiency_coeff))
@@ -261,7 +281,7 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, span_warning("You can't load [src] while the maintenance panel is opened."))
+		to_chat(user, span_warning("Нельзя загружать [declent_ru(ACCUSATIVE)], пока обслуживаемая панель открыта!"))
 		return TRUE
 
 	if(istype(used, /obj/item/rod_fabricator_upgrade))
@@ -349,7 +369,7 @@
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()
 	if(panel_open)
-		to_chat(user, span_warning("You can't access [src] while it's opened!"))
+		to_chat(user, span_warning("Нельзя пользоваться [declent_ru(INSTRUMENTAL)], пока обслуживаемая панель открыта!"))
 		return
 
 /obj/machinery/nuclear_rod_fabricator/ui_state(mob/user)
@@ -358,7 +378,7 @@
 /obj/machinery/nuclear_rod_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "NuclearRodFabricator", name)
+		ui = new(user, src, "NuclearRodFabricator", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/nuclear_rod_fabricator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -381,7 +401,7 @@
 				return FALSE
 
 			if(use_power == ACTIVE_POWER_USE)
-				to_chat(usr, span_warning("A rod is already being fabricated!"))
+				to_chat(usr, span_warning("Один стержень уже изготавливается!"))
 				return FALSE
 
 			// Check if we have enough materials
@@ -390,13 +410,13 @@
 			qdel(temp_rod)
 
 			if(!required_materials || !length(required_materials))
-				to_chat(usr, span_warning("This rod design has no material requirements defined - please create an issue report!"))
+				to_chat(usr, span_warning("У этой конструкции стержня не заданы требования к материалам — пожалуйста, сообщите о баге!"))
 				return FALSE
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
 				if(materials.amount(mat_id) < required_amount)
-					to_chat(usr, span_warning("Not enough materials! Need [required_amount] units of [mat_id]!"))
+					to_chat(usr, span_warning("Недостаточно материалов! Требуется [required_amount] единиц [mat_id]!"))
 					return FALSE
 
 			// Spend materials
@@ -405,7 +425,7 @@
 				materials_to_use[mat_id] = required_materials[mat_id] * efficiency_coeff
 
 			if(!materials.use_amount(materials_to_use))
-				to_chat(usr, span_warning("Failed to deduct materials!"))
+				to_chat(usr, span_warning("Не удалось списать материалы!"))
 				return FALSE
 
 			// Begin Process
@@ -425,9 +445,9 @@
 				var/datum/material/material = materials.materials[material_id]
 				var/max_sheets = round(material.amount / MINERAL_MATERIAL_AMOUNT)
 				if(max_sheets <= 0)
-					to_chat(usr, span_warning("Not enough [material.name] to eject!"))
+					to_chat(usr, span_warning("Недостаточно [material.name] для извлечения!"))
 					return FALSE
-				desired_sheets = tgui_input_number(usr, "How many sheets do you want to eject?", "Ejecting [material.name]", 1, max_sheets, 1)
+				desired_sheets = tgui_input_number(usr, "Сколько листов вы хотите извлечь?", "Извлечение [material.name]", 1, max_sheets, 1)
 				if(isnull(desired_sheets))
 					return FALSE
 			else
@@ -436,7 +456,7 @@
 			desired_sheets = max(0, round(desired_sheets))
 			if(desired_sheets > 0)
 				materials.retrieve_sheets(desired_sheets, material_id, get_turf(src))
-				to_chat(usr, span_notice("[src] ejects [desired_sheets] sheets."))
+				to_chat(usr, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выгружает [desired_sheets] листов."))
 
 			return TRUE
 
@@ -455,7 +475,7 @@
 /obj/machinery/nuclear_rod_fabricator/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(use_power == ACTIVE_POWER_USE)
-		to_chat(user, span_warning("The machine cannot be opened while it is operating!"))
+		to_chat(user, span_warning("Нельзя открыть устройство, пока она работает!"))
 		return TRUE
 	default_deconstruction_screwdriver(user, I = I)
 	update_appearance(UPDATE_ICON_STATE)
@@ -470,7 +490,7 @@
 	update_use_power(IDLE_POWER_USE)
 	update_appearance(UPDATE_ICON_STATE)
 	var/obj/item/nuclear_rod/new_rod = new schematic(get_turf(src))
-	src.visible_message(span_notice("[src] fabricates \a [new_rod.name]."))
+	src.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] изготавливает [new_rod.declent_ru(ACCUSATIVE)]."))
 	playsound(src, 'sound/machines/ping.ogg', 50, TRUE)
 
 /obj/machinery/nuclear_rod_fabricator/proc/abort_fabrication()

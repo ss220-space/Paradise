@@ -2,7 +2,7 @@
 
 /obj/machinery/atmospherics/reactor_chamber
 	name = "rod housing chamber"
-	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
+	desc = "Камера для размещения ядерных стержней различных типов, необходимых для протекания реакции деления."
 	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
 	layer = BELOW_OBJ_LAYER
@@ -43,6 +43,16 @@
 	/// Holds our previous overlay.
 	var/previous_durability_level
 
+/obj/machinery/atmospherics/reactor_chamber/get_ru_names()
+	return alist(
+		NOMINATIVE = "камера размещения стержней",
+		GENITIVE = "камеры размещения стержней",
+		DATIVE = "камере размещения стержней",
+		ACCUSATIVE = "камеру размещения стержней",
+		INSTRUMENTAL = "камерой размещения стержней",
+		PREPOSITIONAL = "камере размещения стержней",
+	)
+
 /obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
 	. = ..()
 	dupe_check()
@@ -77,9 +87,9 @@
 
 /obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] can be sealed/unsealed from its base with a lit welder using harm intent, but only while the chamber is lowered.")
-	. += span_notice("RMB to open and close the shielding while the chamber is raised.")
-	. += span_notice("Click on the chamber while it is closed to raise and lower it.")
+	. += span_notice("[DECLENT_RU_CAP(src, ACCUSATIVE)] можно опечатать и вскрыть с помощью включённой сварки в режиме вреда, но только когда камера опущена.")
+	. += span_notice("ПКМ — открыть и закрыть защитный кожух, пока камера поднята.")
+	. += span_notice("Кликните по камере в закрытом состоянии, чтобы поднять или опустить её.")
 
 	if(!isobserver(user))
 		return
@@ -176,17 +186,17 @@
 /obj/machinery/atmospherics/reactor_chamber/proc/dupe_check()
 	var/obj/machinery/atmospherics/reactor_chamber/chamber = locate() in range(0, src)
 	if(chamber && chamber != src)
-		visible_message(span_warning("[src] has no room to deploy and breaks apart!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не помещается здесь и разрушается!"))
 		chamber.deconstruct()
 
 /obj/machinery/atmospherics/reactor_chamber/attack_hand(mob/user)
 	if(!user)
 		return
 	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, span_warning("An unusual force prevents you from moving the chamber!"))
+		to_chat(user, span_warning("Необычная сила мешает вам переместить камеру!"))
 		return
 	if(stat & NOPOWER)
-		to_chat(user, span_warning("The chamber's locks wont disengage without power!"))
+		to_chat(user, span_warning("Замки камеры не разблокируются без питания!"))
 		return
 
 	if(!is_mecha_occupant(user))
@@ -197,7 +207,7 @@
 			if(!IsReachableBy(user))
 				return
 			if(welded)
-				to_chat(user, span_warning("[src] is welded shut. It wont budge!"))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] приварена наглухо — она не сдвинется с места!"))
 				return
 			if(!density_check(user))
 				return
@@ -227,7 +237,7 @@
 			if(issilicon(user)) // Handled seperately. Dont pull out this way
 				return
 			if(!held_rod)
-				to_chat(user, span_warning("There is no rod inside of the chamber to remove!"))
+				to_chat(user, span_warning("В камере нет стержня, который можно извлечь!"))
 				return
 			if(user.put_in_hands(held_rod))
 				held_rod.add_fingerprint(user)
@@ -236,10 +246,10 @@
 				update_icon(UPDATE_OVERLAYS)
 				return
 
-			to_chat(user, span_warning("Your hands are currently full!"))
+			to_chat(user, span_warning("Ваши руки сейчас заняты!"))
 			return
 		if(CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, span_alert("The chamber lockdowns have been engaged, preventing it from being raised!"))
+			to_chat(user, span_alert("Блокировка камеры включена — поднять её невозможно!"))
 			return
 	update_icon(UPDATE_OVERLAYS)
 
@@ -252,7 +262,7 @@
 		return
 
 	if(linked_reactor && linked_reactor.admin_intervention)
-		to_chat(user, span_warning("An unusual force prevents you from manipulating the chamber!"))
+		to_chat(user, span_warning("Необычная сила мешает вам работать с камерой!"))
 		return
 
 	if(chamber_state == CHAMBER_UP)
@@ -264,7 +274,7 @@
 		return
 
 	if(panel_open == TRUE)
-		to_chat(user, span_warning("You must close the maintenance panel before the chamber can be sealed!"))
+		to_chat(user, span_warning("Перед тем как запечатать камеру, закройте обслуживаемую панель!"))
 		return
 
 	if(!lockout)
@@ -275,7 +285,7 @@
 		if(thing == src)
 			continue
 		if(thing.density)
-			to_chat(user, span_warning("The chamber is being blocked from opening!"))
+			to_chat(user, span_warning("Камере что-то мешает открыться!"))
 			return FALSE
 	return TRUE
 
@@ -291,11 +301,11 @@
 		return
 
 	if(held_rod)
-		to_chat(user, span_warning("There is already a rod inside of the chamber!"))
+		to_chat(user, span_warning("В камере уже есть стержень!"))
 		return ITEM_INTERACT_SUCCESS
 
 	if(panel_open)
-		to_chat(user, span_warning("The open maintenance panel prevents the rod from slotting inside!"))
+		to_chat(user, span_warning("Открытая обслуживаемая панель мешает вставить стержень!"))
 		return ITEM_INTERACT_SUCCESS
 
 	if(!user.transfer_item_to_loc(used, src, force = TRUE))
@@ -311,13 +321,13 @@
 		return
 	. = TRUE
 	if(chamber_state != CHAMBER_OPEN)
-		to_chat(user, span_alert("[src] must be raised and opened first!"))
+		to_chat(user, span_alert("Сначала поднимите и откройте [declent_ru(ACCUSATIVE)]!"))
 		return
 	if(linked_reactor && !linked_reactor.offline)
-		to_chat(user, span_alert("The safety locks prevent maintenance while the reactor is on!"))
+		to_chat(user, span_alert("Пока реактор включён, предохранительные замки не позволяют проводить обслуживание!"))
 		return
 	if(held_rod)
-		to_chat(user, span_alert("You cannot reach the maintenance panel if there is a rod inside!"))
+		to_chat(user, span_alert("К обслуживаемой панели нельзя подобраться, если внутри стержень!"))
 		return
 	default_deconstruction_screwdriver(user, "chamber_maint", "chamber_open", I)
 
@@ -328,11 +338,11 @@
 /obj/machinery/atmospherics/reactor_chamber/welder_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		if(chamber_state == CHAMBER_OVERLOAD_IDLE || chamber_state == CHAMBER_OVERLOAD_ACTIVE)
-			to_chat(user, span_warning("You probably shouldn't try to weld it right now."))
+			to_chat(user, span_warning("Вряд ли стоит пытаться сварить это прямо сейчас."))
 			return TRUE
 		if(chamber_state != CHAMBER_DOWN)
 			return TRUE
-		to_chat(user, span_warning("You begin [welded ? "unwelding" : "welding"] [src]"))
+		to_chat(user, span_warning("Вы начинаете [welded ? "разваривать" : "приваривать"] [declent_ru(ACCUSATIVE)]..."))
 		if(!I.use_tool(src, user, (6 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return TRUE
 		if(welded)
@@ -342,12 +352,12 @@
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	if(obj_integrity < max_integrity)
-		to_chat(user, span_warning("You begin repairing [src]."))
+		to_chat(user, span_warning("Вы начинаете ремонтировать [declent_ru(ACCUSATIVE)]."))
 		if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return TRUE
 		obj_integrity = max_integrity // Lets make sure we can keep these healthy if need be
 	else
-		to_chat(user, span_warning("[src] is not in need of repair."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не нуждается в ремонте."))
 		return TRUE
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
@@ -358,50 +368,50 @@
 	if(chamber_state != CHAMBER_DOWN)
 		return null
 	if(!held_rod)
-		return list(span_warning("There is no nuclear rod inside this housing chamber."))
+		return list(span_warning("В этой камере размещения нет ядерного стержня."))
 	if(!linked_reactor)
-		return list(span_warning("This chamber is not connected to a reactor."))
+		return list(span_warning("Эта камера не подключена к реактору."))
 
 	var/operating_rate = linked_reactor.operating_rate()
 	var/durability_mod = held_rod.get_durability_mod()
 	var/list/message = list()
-	message += span_notice("[held_rod] is currently contained within this chamber.")
+	message += span_notice("Сейчас в камере находится <b>[held_rod.declent_ru(NOMINATIVE)]</b>.")
 
 	message += ""
 
 	if(held_rod.durability == 0)
-		message += span_notice("The rod has been fully depleted and rendered inert.")
+		message += span_notice("Стержень полностью исчерпан и утратил активность.")
 		return message
 	else
-		message += span_notice("Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.")
+		message += span_notice("Целостность стержня составляет: [(held_rod.durability / held_rod.max_durability) * 100]%.")
 
 	message += ""
 
 	if(power_total && operational)
-		message += span_notice("The chamber is currently producing [(power_total * operating_rate * durability_mod) / 1000] KiloWatts of energy.")
-		message += span_notice("The chamber has a power modifier of [power_mod_total].")
+		message += span_notice("Камера сейчас вырабатывает [(power_total * operating_rate * durability_mod) / 1000] кВт энергии.")
+		message += span_notice("Множитель мощности камеры: [power_mod_total].")
 	else
-		message += span_notice("The chamber is producing no power.")
+		message += span_notice("Камера не вырабатывает энергию.")
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-			message += span_notice("[held_rod] has been power enriched")
+			message += span_notice("[held_rod.declent_ru(NOMINATIVE)] прошёл энергетическое обогащение.")
 		else
-			message += span_notice("[held_rod] has not yet finished a power enrichment process.")
+			message += span_notice("[held_rod.declent_ru(NOMINATIVE)] ещё не завершил энергетическое обогащение.")
 
 	message += ""
 
 	if(heat_total)
-		message += span_notice("The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.")
-		message += span_notice("The chamber has a heat modifier of [heat_mod_total].")
+		message += span_notice("Камера сейчас вырабатывает [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] джоулей тепла.")
+		message += span_notice("Множитель тепла камеры: [heat_mod_total].")
 	else
-		message += span_notice("The chamber is producing no heat.")
+		message += span_notice("Камера не вырабатывает тепла.")
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
-			message += span_notice("[held_rod] has been heat enriched")
+			message += span_notice("[held_rod.declent_ru(NOMINATIVE)] прошёл тепловое обогащение.")
 		else
-			message += span_notice("[held_rod] has not yet finished a heat enrichment process.")
+			message += span_notice("[held_rod.declent_ru(NOMINATIVE)] ещё не завершил тепловое обогащение.")
 
 	return message
 
@@ -688,7 +698,7 @@
 	if(location.density)
 		var/turf/did_it_melt = location.ChangeTurf(location.baseturf)
 		if(!did_it_melt.density) // In case some joker finds way to place these on indestructible walls
-			chamber.visible_message(span_warning("[chamber] melts through [location]!"))
+			chamber.visible_message(span_warning("[DECLENT_RU_CAP(chamber, NOMINATIVE)] проплавляет [location.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	var/heat_capacity = environment.heat_capacity()
@@ -741,7 +751,7 @@
 	held_rod = null
 	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
-	audible_message(span_userdanger("POW!"))
+	audible_message(span_userdanger("БАБАХ!"))
 
 /obj/machinery/atmospherics/reactor_chamber/proc/weld_shut()
 	welded = TRUE
@@ -790,10 +800,20 @@
 
 /obj/effect/immovablerod/nuclear_rod
 	name = "Nuclear Coolant Rod"
-	desc = "Getting hit by this might make you wish you got radiation sickness instead."
+	desc = "Если вас ударит этим, вы, возможно, пожалеете, что не получили лучевую болезнь."
 	notify = FALSE
 	var/turf/end
 	var/obj/held_rod
+
+/obj/effect/immovablerod/nuclear_rod/get_ru_names()
+	return alist(
+		NOMINATIVE = "ядерный охлаждающий стержень",
+		GENITIVE = "ядерного охлаждающего стержня",
+		DATIVE = "ядерному охлаждающему стержню",
+		ACCUSATIVE = "ядерный охлаждающий стержень",
+		INSTRUMENTAL = "ядерным охлаждающим стержнем",
+		PREPOSITIONAL = "ядерном охлаждающем стержне",
+	)
 
 /obj/effect/immovablerod/nuclear_rod/Initialize(mapload, atom/target_atom, move_delay, force_looping)
 	end = get_turf(target_atom)
