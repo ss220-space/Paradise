@@ -24,7 +24,7 @@
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 	)
-	discount_skill_category = /datum/skill/medical
+	discount_skill_category = list(/datum/skill/medical, /datum/skill/general)
 
 /datum/outfit/job/cmo
 	name = JOB_TITLE_RU_CMO
@@ -60,7 +60,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
 	paycheck = PAYCHECK_CREW
-	discount_skill_category = /datum/skill/medical
+	discount_skill_category = list(/datum/skill/medical)
 
 /datum/job/medical/doctor
 	title = JOB_TITLE_DOCTOR
@@ -424,6 +424,7 @@
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = list(/datum/skill/medical, /datum/skill/general/mod_use, /datum/skill/general/mech_drive)
 
 /datum/outfit/job/paramedic
 	name = JOB_TITLE_RU_PARAMEDIC

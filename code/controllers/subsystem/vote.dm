@@ -7,8 +7,6 @@ SUBSYSTEM_DEF(vote)
 	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
-	/// A list of all generated action buttons
-	var/list/datum/action/generated_actions = list()
 	/// All votes that we can possible vote for.
 	var/list/datum/vote/possible_votes = list()
 	/// The vote we're currently voting on.
@@ -54,7 +52,8 @@ SUBSYSTEM_DEF(vote)
 	current_vote?.reset()
 	current_vote = null
 
-	QDEL_LIST(generated_actions)
+	for(var/mob/voter as anything in GLOB.player_list)
+		voter.clear_alert("vote")
 
 	SStgui.update_uis(src)
 
@@ -210,7 +209,7 @@ SUBSYSTEM_DEF(vote)
 	// No valid vote found? No vote
 	if(!istype(to_vote))
 		if(vote_initiator)
-			to_chat(vote_initiator, span_warning("Invalid voting choice."))
+			to_chat(vote_initiator, span_warning("Неверный вариант голосования."))
 		return FALSE
 
 	// Vote can't be initiated in our circumstances? No vote
@@ -237,18 +236,17 @@ SUBSYSTEM_DEF(vote)
 
 	log_vote(to_display)
 	to_chat(world, custom_boxed_message("purple_box center", span_infoplain(vote_font("[span_bold(to_display)]<br>\
-		Type <b>vote</b> or click <a href='byond://winset?command=Голосования'>here</a> to place your votes.\n\
-		You have [DisplayTimeText(duration)] to vote."))))
+		Кликните <a href='byond://winset?command=Голосования'><b>сюда</b></a> чтобы проголосовать.\n\
+		Время на голосование: [DisplayTimeText(duration)]."))))
 
-	// And now that it's going, give everyone a voter action
-	for(var/client/new_voter as anything in GLOB.clients)
-		var/datum/action/vote/voting_action = new()
-		voting_action.name = "Vote: [current_vote.override_question || current_vote.name]"
-		voting_action.Grant(new_voter.mob)
-
-		new_voter.persistent_client.player_actions += voting_action
-		generated_actions += voting_action
-		SEND_SOUND(new_voter, sound(current_vote.vote_sound))
+	var/vote_title = "Голосование: [current_vote.override_question || current_vote.name]"
+	for(var/mob/voter as anything in GLOB.player_list)
+		var/atom/movable/screen/alert/notify_vote/vote_alert = voter.throw_alert( \
+			"vote", /atom/movable/screen/alert/notify_vote, timeout_override = duration)
+		if(vote_alert)
+			vote_alert.name = vote_title
+			vote_alert.icon_state = current_vote.alert_icon_state
+		SEND_SOUND(voter, sound(current_vote.vote_sound))
 
 	return TRUE
 
@@ -264,7 +262,7 @@ SUBSYSTEM_DEF(vote)
 	// Even if it's forced we can't vote before we're set up
 	if(!MC_RUNNING(init_stage))
 		if(vote_initiator)
-			to_chat(vote_initiator, span_warning("You cannot start a vote now, the server is not done initializing."))
+			to_chat(vote_initiator, span_warning("Сейчас нельзя начать голосование, сервер ещё не завершил инициализацию."))
 		return FALSE
 
 	if(forced)
@@ -273,12 +271,12 @@ SUBSYSTEM_DEF(vote)
 	var/next_allowed_time = last_vote_time + CONFIG_GET(number/vote_delay)
 	if(next_allowed_time > world.time)
 		if(vote_initiator)
-			to_chat(vote_initiator, span_warning("A vote was initiated recently. You must wait [DisplayTimeText(next_allowed_time - world.time)] before a new vote can be started!"))
+			to_chat(vote_initiator, span_warning("Голосование недавно было запущено. Подождите [DisplayTimeText(next_allowed_time - world.time)] перед запуском нового голосования!"))
 		return FALSE
 
 	if(current_vote)
 		if(vote_initiator)
-			to_chat(vote_initiator, span_warning("There is already a vote in progress! Please wait for it to finish."))
+			to_chat(vote_initiator, span_warning("Голосование уже идёт! Дождитесь его окончания."))
 		return FALSE
 
 	return TRUE
@@ -448,33 +446,5 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/ui_close(mob/user)
 	voting -= user.client?.ckey
-
-/// Datum action given to mobs that allows players to vote on the current vote.
-/datum/action/vote
-	name = "Vote!"
-	button_icon_state = "vote"
-	show_to_observers = FALSE
-
-/datum/action/vote/IsAvailable(feedback = FALSE)
-	return TRUE // Democracy is always available to the free people
-
-/datum/action/vote/Trigger(mob/clicker, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
-	owner.vote()
-	Remove(owner)
-
-// We also need to remove our action from the player actions when we're cleaning up.
-/datum/action/vote/Remove(mob/removed_from)
-	if(removed_from.persistent_client)
-		removed_from.persistent_client.player_actions -= src
-
-	else if(removed_from.ckey)
-		var/datum/persistent_client/persistent_client = GLOB.persistent_clients_by_ckey[removed_from.ckey]
-		persistent_client?.player_actions -= src
-
-	return ..()
 
 #undef vote_font

@@ -317,7 +317,7 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E as anything in occupant.bodyparts)
 			var/organData[0]
-			organData["name"] = E.declent_ru(NOMINATIVE)
+			organData["name"] = E.declent_ru_base(NOMINATIVE)
 			organData["open"] = E.open
 			organData["germ_level"] = E.germ_level
 			organData["bruteLoss"] = E.brute_dam
