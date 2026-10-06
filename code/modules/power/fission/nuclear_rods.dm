@@ -402,7 +402,7 @@
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
-	desc = "Самый весёлый из топливных стержней, лишённый каких-либо твёрдых свойств. Кто знает, что из него выйдет!"
+	desc = "Самый весёлый из топливных стержней, лишённый каких-либо постоянных свойств. Кто знает, что из него выйдет!"
 	icon_state = "fuel_clown"
 	radiation_treshhold = RAD_MEDIUM_INSULATION
 	radiation_chance = 50
