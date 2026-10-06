@@ -370,6 +370,7 @@
 
 /obj/item/melee/baton/telescopic/Destroy()
 	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
+	return ..()
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
