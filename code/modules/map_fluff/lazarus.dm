@@ -1,7 +1,7 @@
 /datum/map/lazarus
 	name = "lazarus"
 	map_path = "_maps/map_files/lazarus/lazarus.dmm"
-	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
+	lavaland_path = "_maps/map_files/lazarus/Lavaland.dmm"
 	linkage = SELFLOOPING
 
 	station_name = "НКН Лазарь"
