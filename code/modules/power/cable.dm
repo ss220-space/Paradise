@@ -66,10 +66,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
-	if(cable_layer < CABLE_LAYER_2)
-		src.transform = TRANSLATE_MATRIX(4, 4)
-	else if(cable_layer > CABLE_LAYER_2)
-		src.transform = TRANSLATE_MATRIX(-4, -4)
+	adjust_cable_layer()
 	connect_cable()
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 	AddElement(/datum/element/undertile)
@@ -88,6 +85,12 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 		if(TOOL_MULTITOOL)
 			context[SCREENTIP_CONTEXT_LMB] = "Проверить напряженние"
 			return CONTEXTUAL_SCREENTIP_SET
+
+/obj/structure/cable/proc/adjust_cable_layer()
+	if(cable_layer < CABLE_LAYER_2)
+		transform = TRANSLATE_MATRIX(4, 4)
+	else if(cable_layer > CABLE_LAYER_2)
+		transform = TRANSLATE_MATRIX(-4, -4)
 
 /obj/structure/cable/proc/check_nodeness()
 	node = !!banned_links

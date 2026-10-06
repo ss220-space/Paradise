@@ -13,6 +13,9 @@
 	color = CABLE_HEX_COLOR_WHITE
 	return
 
+/obj/structure/cable/multilayer/adjust_cable_layer()
+	return
+
 /obj/structure/cable/multilayer/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
 	return
