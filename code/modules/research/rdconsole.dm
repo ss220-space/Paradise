@@ -194,10 +194,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		id = 0027
 		update_icon()
 
-		return ..()
-
 	SyncRDevices()
-
 
 /obj/machinery/computer/rdconsole/Destroy()
 	QDEL_NULL(files)

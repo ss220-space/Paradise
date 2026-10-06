@@ -1,7 +1,8 @@
 /obj/item/circuit_component/rd_interface
 	display_name = "Интерфейс R&D консоли"
 	desc = "Позволяет удаленно искать шаблоны по техническому ID и отправлять их на печать по USB."
-	category = "Машины"
+
+	category = "Utility"
 	circuit_flags = 0
 
 	var/datum/port/input/tech_id
@@ -60,6 +61,10 @@
 	found_signal.set_output(FALSE)
 	search_error_signal.set_output(FALSE)
 
+	if(!attached_console)
+		search_error_signal.set_output(TRUE)
+		return
+
 	var/search_value = tech_id.value
 	if(!search_value || search_value == "" || search_value == "null")
 		search_error_signal.set_output(TRUE)
@@ -86,7 +91,7 @@
 	printed_signal.set_output(FALSE)
 	print_error_signal.set_output(FALSE)
 
-	if(!attached_console.saved_wire_design)
+	if(!attached_console || !attached_console.saved_wire_design)
 		print_error_signal.set_output(TRUE)
 		return
 
