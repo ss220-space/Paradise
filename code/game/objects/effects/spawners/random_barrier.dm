@@ -82,7 +82,7 @@
 	icon_state = "girder"
 	result = list(
 		/obj/structure/girder = 8,
-		/obj/item/stack/sheet = 5,
+		/obj/item/stack/sheet/metal = 5,
 		/turf/simulated/floor/plating = 2,
 	)
 
@@ -91,6 +91,6 @@
 	icon_state = "girder"
 	result = list(
 		/obj/structure/girder = 2,
-		/obj/item/stack/sheet = 8,
+		/obj/item/stack/sheet/metal = 8,
 		/turf/simulated/floor/plating = 5,
 	)
