@@ -1,7 +1,7 @@
 /**
- * Контроль коленом: граб, граб, харм, граб
- * Только по лежачей цели, наносит 50 урона стамине, берет цель в синий захват и наносит 30 окси урона.
- * Требует 5 уровень безоружного боя.
+ * Knee Pin (Knee on Belly): grab, grab, harm, grab
+ * Only works on prone targets, deals 50 stamina damage, applies a blue grab and deals 30 oxygen damage.
+ * Requires Level 5 Unarmed Combat skill.
  */
 /datum/martial_combo/uct/knee_on_belly
 	name = "Контроль коленом"

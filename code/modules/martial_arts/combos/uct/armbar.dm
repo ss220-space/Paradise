@@ -1,7 +1,7 @@
 /**
- * Загиб руки за спину: граб, дизарм, граб, харм
- * Обезоруживает цель (обе руки) и берет его сразу в красный захват
- * Требует 6 уровень безоружного боя.
+ * Armbar (Behind-the-back arm lock): grab, disarm, grab, harm
+ * Disarms the target (both hands) and immediately puts them into a red grab.
+ * Requires Level 6 Unarmed Combat skill.
  */
 /datum/martial_combo/uct/armbar
 	name = "Загиб руки за спину"

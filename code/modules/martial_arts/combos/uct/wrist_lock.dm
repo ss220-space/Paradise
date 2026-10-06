@@ -1,7 +1,7 @@
 /**
- * Скручивание кисти: дизарм, граб, дизарм
- * Выбивает оружие с рук, наносит по 5 брут урона нацеленной или случайной кисти.
- * Требует 3 уровень безоружного боя.
+ * Wrist Twist: disarm, grab, disarm
+ * Disarms the target, dealing 5 brute damage to the targeted or a random hand.
+ * Requires Level 3 Unarmed Combat skill.
  */
 /datum/martial_combo/uct/wrist_lock
 	name = "Скручивание кисти"

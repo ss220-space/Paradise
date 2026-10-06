@@ -1,7 +1,7 @@
 /**
- * Подсечка: граб, харм, дизарм
- * Роняет цель на пол на 3 секунды, наносит 25 урона стамине
- * Требует 4 уровень безоружного боя.
+ * Foot Sweep: grab, harm, disarm
+ * Drops the target on the floor for 3 seconds, dealing 25 stamina damage.
+ * Requires Level 4 Unarmed Combat skill.
  */
 /datum/martial_combo/uct/foot_swep
 	name = "Подсечка"

@@ -1,8 +1,8 @@
 /**
- * Дробилка: дизарм, граб, харм, граб, харм
- * Ломает (вешает закрытый перелом, если уже есть перелом закрытый — усугубляет его до открытого) нацеленную конечность (руки, ноги, пятки, кисти).
- * Если выбрана другая часть тела — ломает случайную из конечностей.
- * Требует 7 уровень безоружного боя.
+ * Crusher (Leg Slicer / Bone Break): disarm, grab, harm, grab, harm
+ * Breaks the targeted limb (arms, legs, feet, hands). Applies a closed fracture; if a closed fracture already exists, worsens it to an open fracture.
+ * If a non-limb body part is targeted, breaks a random limb instead.
+ * Requires Level 7 Unarmed Combat skill.
  */
 /datum/martial_combo/uct/leg_slicer
 	name = "Дробилка"
