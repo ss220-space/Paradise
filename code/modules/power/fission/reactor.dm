@@ -800,7 +800,7 @@
 		radio_announce(
 			"<b>[safe_alert] Целостность: [get_reactor_integrity()]%</b>",
 			DECLENT_RU_CAP(src, NOMINATIVE),
-			ENG_FREQ,
+			PUB_FREQ,
 			src
 		)
 		send_message = FALSE // Only stop sending alerts when no damage has been taken
@@ -811,28 +811,28 @@
 			radio_announce(
 				"<b>[warning_alert] Целостность: [get_reactor_integrity()]%</b>",
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_DANGER)
 			radio_announce(
 				"<b>[warning_alert] Целостность: [get_reactor_integrity()]%</b>",
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_EMERGENCY)
 			radio_announce(
 				span_big("[warning_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_MELTDOWN)
 			radio_announce(
 				span_big("[emergency_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 
@@ -875,7 +875,7 @@
 		radio_announce(
 			"<b>Аварийное восстановление реактора успешно завершено. Целостность: [get_reactor_integrity()]%</b>",
 			DECLENT_RU_CAP(src, NOMINATIVE),
-			ENG_FREQ,
+			PUB_FREQ,
 			src
 		)
 		send_message = FALSE
@@ -944,7 +944,7 @@
 	radio_announce(
 		speaking,
 		DECLENT_RU_CAP(src, NOMINATIVE),
-		ENG_FREQ,
+		PUB_FREQ,
 		src
 	)
 	for(var/i in NGCR_COUNTDOWN_TIME to 0 step (-1 SECONDS))
@@ -956,7 +956,7 @@
 			radio_announce(
 				span_big("[safe_alert]"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 			final_countdown = FALSE
@@ -972,7 +972,7 @@
 		radio_announce(
 				speaking,
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		sleep(1 SECONDS)
@@ -1076,7 +1076,7 @@
 	radio_announce(
 		"<b>ВНИМАНИЕ: Отказ управляющих стержней! Осталось исправных управляющих стержней: [control_rods_remaining]</b>",
 		DECLENT_RU_CAP(src, NOMINATIVE),
-		ENG_FREQ,
+		PUB_FREQ,
 		src
 	)
 	update_icon(UPDATE_OVERLAYS)
