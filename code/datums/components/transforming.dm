@@ -184,7 +184,7 @@
 	SIGNAL_HANDLER
 
 	if(!COOLDOWN_FINISHED(src, transform_cooldown))
-		to_chat(user, span_warning("Wait a bit before trying to use [source] again!"))
+		source.balloon_alert(user, "идёт перезарядка!")
 		return
 
 	if(SEND_SIGNAL(source, COMSIG_TRANSFORMING_PRE_TRANSFORM, user, active) & COMPONENT_BLOCK_TRANSFORM)
@@ -249,8 +249,6 @@
  */
 /datum/component/transforming/proc/set_active(obj/item/source)
 	ADD_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
-	// if(!isnull(sharpness_on))
-	// 	source.sharpness = sharpness_on
 	if(sharpness_on)
 		source.set_sharpness(TRUE)
 	if(!isnull(force_on))
@@ -267,12 +265,9 @@
 	source.hitsound = hitsound_on
 	if(!manual_icon_state_change)
 		source.icon_state = "[source.icon_state]_on"
-	// if(inhand_icon_change && source.inhand_icon_state)
-	// 	source.inhand_icon_state = "[source.inhand_icon_state]_on"
 	if(!manual_item_state_change)
 		source.item_state = "[source.item_state]_on"
 	source.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
-	//source.update_inhand_icon()
 
 /*
  * Set our transformed item into its inactive state.
@@ -282,10 +277,6 @@
  */
 /datum/component/transforming/proc/set_inactive(obj/item/source)
 	REMOVE_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
-	// if(!isnull(sharpness_on))
-	// 	source.sharpness = sharpness_off
-
-	/// No TG sharpness system so doing this
 	if(sharpness_on)
 		source.set_sharpness(FALSE)
 
@@ -302,10 +293,8 @@
 
 	source.hitsound = initial(source.hitsound)
 	source.icon_state = source.base_icon_state ? source.base_icon_state : initial(source.icon_state)
-	// source.inhand_icon_state = initial(source.inhand_icon_state)
 	source.item_state = initial(source.item_state)
 	source.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
-	//source.update_inhand_icon()
 
 /*
  * If [clumsy_check] is set to TRUE, attempt to cause a side effect for clumsy people activating this item.
@@ -357,7 +346,5 @@
 	throwforce_on += sharpened_bonus
 	force_off += sharpened_bonus
 	throwforce_off += sharpened_bonus
-	/// Mimics base whetstone effect for the on state
-	//sharpness_on = SHARP_EDGED
 	if(!active)
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED

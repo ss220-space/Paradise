@@ -32,6 +32,10 @@
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 	create_transform_component()
 
+/obj/item/pen/Destroy(force)
+	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
+	return ..()
+
 /obj/item/pen/proc/create_transform_component()
 	AddComponent( \
 		/datum/component/transforming, \
@@ -53,8 +57,6 @@
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	icon_state = (base_icon_state ? base_icon_state : initial(icon_state)) + (active ? "_retracted" : "") // base_icon_state for skins support
-	//update_appearance(UPDATE_ICON)
-
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/pen/proc/handle_mind_check(mob/user)
@@ -318,7 +320,6 @@
 	item_state = active ? "edagger" : initial(item_state)
 	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 5, TRUE)
 	set_light_on(active)
-	//update_appearance(UPDATE_ICON|UPDATE_NAME)
 	handle_mind_check(user)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
@@ -382,52 +383,55 @@
 /*
  * MARK: Assassin pen
  */
-/obj/item/pen/assassin_pen
+/obj/item/pen/assassin
 	var/safety = TRUE
 	var/obj/item/gun/projectile/revolver/assassin_pen_gun/oneuse_10mm
 
-/obj/item/pen/assassin_pen/Initialize(mapload)
+/obj/item/pen/assassin/Initialize(mapload)
 	. = ..()
 	oneuse_10mm = new(src)
 
-/obj/item/pen/assassin_pen/Destroy(force)
+/obj/item/pen/assassin/Destroy(force)
 	QDEL_NULL(oneuse_10mm)
 	return ..()
 
-/obj/item/pen/assassin_pen/on_transform(obj/item/source, mob/user, active)
+/obj/item/pen/assassin/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
 
+	if(user)
+		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
-	safety = !safety //Because of special attack. Need to check something at attack() proc
-	//update_appearance(UPDATE_ICON_STATE|UPDATE_NAME) // Cant handle icon and name changes here because icon and name permanentrly changes exactly after fast_fire(). So used update_icon_state() and update_name()
+	safety = !safety
 	handle_mind_check(user)
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
-/obj/item/pen/assassin_pen/update_icon_state()
+/obj/item/pen/assassin/update_icon_state()
 	if(!oneuse_10mm.chambered.BB)
 		icon_state = "assassin_pen0"
 		return
-	icon_state = safety ? initial(icon_state) : "assassin_pen1" // No skins so only initial(icon_state)
+	icon_state = safety ? initial(icon_state) : "assassin_pen1"
 
-/obj/item/pen/assassin_pen/update_name(updates)
+/obj/item/pen/assassin/update_name(updates)
 	. = ..()
 	if(!oneuse_10mm.chambered.BB)
 		name = "used assassin's pen"
 		return
 	name = safety ? initial(name) : "assassin's pen"
 
-/obj/item/pen/assassin_pen/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
+/obj/item/pen/assassin/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	if(safety || !user.Adjacent(target) || !oneuse_10mm.chambered.BB)
 		return ..()
 	oneuse_10mm.chambered.BB.forced_accuracy = TRUE
 	oneuse_10mm.fast_fire(target, user)
-	//update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /// Assassin pen's gun stuff
 /obj/item/gun/projectile/revolver/assassin_pen_gun
 	name = "assassin pen's gun"
-	desc = "Кодовая затычка для работы ручки ассассина. Если вы её увидели - пишите багрепорт с описанием получения."
+	desc = "Кодовая затычка для работы ручки ассасина. Если вы её увидели - пишите багрепорт с описанием получения."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/assassin_pen_mag
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN

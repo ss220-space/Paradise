@@ -368,6 +368,9 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
+/obj/item/melee/baton/telescopic/Destroy()
+	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
+
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
  *

@@ -1474,6 +1474,13 @@
 	item = /obj/item/toy/plushie/carp/dehy_carp
 	cost = 7
 
+/datum/uplink_item/stealthy_weapons/assassin_pen
+	name = "Ручка ассасина"
+	desc = "Небольшое одноразовое устройство в корпусе ручки, способное тихо выстрелить встроенным десяти миллиметровым экспансивным патроном при ударе в ближнем бою. \
+			Особо эффективно против незащищённых целей. Перед выстрелом необходимо взвести щёлкнув кнопкой ручки."
+	item = /obj/item/pen/assassin
+	cost = 5
+
 /**
  * MARK: Grenades & Explosives
  */
