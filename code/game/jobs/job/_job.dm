@@ -111,7 +111,7 @@
 	/// Skill levels by job list
 	var/list/skill_levels = list()
 	/// Discount skills category
-	var/datum/skill/discount_skill_category = /datum/skill/general
+	var/list/discount_skill_category = list()
 	/// Skill levels by alt titles jobs
 	var/alist/alt_skill_levels = null
 	var/base_free_skill_point = DEFAULT_FREE_POINTS
@@ -125,6 +125,13 @@
 
 	min_start_money = paycheck
 	max_start_money = paycheck * MAX_START_MONEY_MULTIPLIER
+
+	var/typecache_key = discount_skill_category.Join("-")
+	if(typecache_key in GLOB.discount_categories_typecaches)
+		discount_skill_category = GLOB.discount_categories_typecaches[typecache_key]
+		return
+	discount_skill_category = typecacheof(discount_skill_category)
+	GLOB.discount_categories_typecaches[typecache_key] = discount_skill_category
 
 #undef MAX_START_MONEY_MULTIPLIER
 

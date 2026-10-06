@@ -61,7 +61,7 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 		category["id"] = category_name
 		category["name"] = category_name
 		category["color"] = category_skills[1].category_color
-		var/category_has_discount = istype(category_skills[1], target_user.mind.discount_skill_category)
+		var/category_has_discount = is_path_in_typecache(category_skills[1].type:parent_type, target_user.mind.discount_skill_category)
 		category["has_discount"] = category_has_discount
 
 		var/list/current_mob_skills = target_user?.mind?.get_skills_for_skills_select()
@@ -78,10 +78,14 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 			var/skill_level_color = GLOB.skill_level_colors[actual_skill_level]
 			skill_data["level_color"] = skill_level_color
 			skill_data["desc"] = skill.desc
+			var/skill_discount = category_has_discount
+			if(!skill_discount)
+				skill_discount = is_type_in_typecache(skill, target_user.mind.discount_skill_category)
 			var/skill_price = GLOB.skill_upgrade_prices_default[actual_skill_level + 1]
-			if(category_has_discount)
+			if(skill_discount)
 				skill_price = GLOB.skill_upgrade_prices_discount[actual_skill_level + 1]
 			skill_data["price"] = skill_price
+			skill_data["discount"] = !category_has_discount && skill_discount
 			skill_data["can_purchase"] = skill_price <= skill_points && actual_skill_level < SKILL_LEVEL_LEGEND
 			skills.Add(list(skill_data))
 
@@ -111,8 +115,8 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	var/datum/mind/user_mind = user.mind
 	GET_SKILL_LEVEL(target_user, skill, skill_level)
 	var/skill_price = GLOB.skill_upgrade_prices_default[skill_level + 1]
-	var/category_has_discount = ispath(skill, user_mind.discount_skill_category)
-	if(category_has_discount)
+	var/skill_has_discount = is_path_in_typecache(skill, user_mind.discount_skill_category)
+	if(skill_has_discount)
 		skill_price = GLOB.skill_upgrade_prices_discount[skill_level + 1]
 	// discount here
 	var/skill_points = target_user.mind.actual_free_skill_points
@@ -128,3 +132,4 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	user_mind.selected_skills_levels[skill] = actual + 1
 	target_user.mind.actual_free_skill_points -= skill_price
 	user_mind.refresh_skills()
+
