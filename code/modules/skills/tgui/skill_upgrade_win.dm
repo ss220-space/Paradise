@@ -61,11 +61,7 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 		category["id"] = category_name
 		category["name"] = category_name
 		category["color"] = category_skills[1].category_color
-		var/category_has_discount = FALSE
-		for(var/discount_type in target_user.mind.discount_skill_category)
-			if(istype(category_skills[1], discount_type) && category_skills[1].type != discount_type)
-				category_has_discount = TRUE
-				break
+		var/category_has_discount = is_path_in_typecache(category_skills[1].type:parent_type, target_user.mind.discount_skill_category)
 		category["has_discount"] = category_has_discount
 
 		var/list/current_mob_skills = target_user?.mind?.get_skills_for_skills_select()
@@ -84,10 +80,7 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 			skill_data["desc"] = skill.desc
 			var/skill_discount = category_has_discount
 			if(!skill_discount)
-				for(var/discount_type in target_user.mind.discount_skill_category)
-					if(istype(skill, discount_type))
-						skill_discount = TRUE
-						break
+				skill_discount = is_type_in_typecache(skill, target_user.mind.discount_skill_category)
 			var/skill_price = GLOB.skill_upgrade_prices_default[actual_skill_level + 1]
 			if(skill_discount)
 				skill_price = GLOB.skill_upgrade_prices_discount[actual_skill_level + 1]
@@ -122,12 +115,8 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	var/datum/mind/user_mind = user.mind
 	GET_SKILL_LEVEL(target_user, skill, skill_level)
 	var/skill_price = GLOB.skill_upgrade_prices_default[skill_level + 1]
-	var/category_has_discount = FALSE
-	for(var/discount_type in user_mind.discount_skill_category)
-		if(ispath(skill, discount_type))
-			category_has_discount = TRUE
-			break
-	if(category_has_discount)
+	var/skill_has_discount = is_path_in_typecache(skill, user_mind.discount_skill_category)
+	if(skill_has_discount)
 		skill_price = GLOB.skill_upgrade_prices_discount[skill_level + 1]
 	// discount here
 	var/skill_points = target_user.mind.actual_free_skill_points

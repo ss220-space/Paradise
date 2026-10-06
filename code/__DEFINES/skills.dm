@@ -256,3 +256,7 @@ GLOBAL_LIST_INIT(antag_skills, list(
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_ADVANCED,
 ))
+
+GLOBAL_LIST_INIT(discount_categories_antag, typecacheof(/datum/skill/combat))
+
+GLOBAL_LIST_EMPTY(discount_categories_typecaches)

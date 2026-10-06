@@ -177,7 +177,7 @@
 		if(is_antag)
 			discount_skill_category = list()
 			discount_skill_category += current_job.discount_skill_category
-			discount_skill_category |= /datum/skill/combat
+			discount_skill_category |= GLOB.discount_categories_antag
 
 /**
  * Returns the typepath of the highest-level skill on this mind.
