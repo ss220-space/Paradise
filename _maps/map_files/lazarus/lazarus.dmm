@@ -10560,14 +10560,6 @@
 	icon_state = "white"
 	},
 /area/planetoid/lazarus/medical/sleeper)
-"crg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet/red,
-/area/planetoid/lazarus/commons/dorms)
 "crq" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -13454,6 +13446,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/nexus)
+"cZj" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet/red,
+/area/planetoid/lazarus/commons/dorms)
 "cZu" = (
 /turf/simulated/wall,
 /area/planetoid/lazarus/commons/dorms)
@@ -14970,11 +14971,6 @@
 	icon_state = "darkred"
 	},
 /area/planetoid/lazarus/security/processing)
-"dpL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/ninja_teleport,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "dpN" = (
 /obj/item/seeds/ambrosia,
 /obj/effect/decal/cleanable/dirt,
@@ -16230,11 +16226,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/planetoid/lazarus/nexus)
-"dFi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "dFo" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -18169,10 +18160,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/water/beach,
 /area/planetoid/lakes/east)
-"eeK" = (
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/security/prison/perma)
 "eeO" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/bed/wooden,
@@ -19153,14 +19140,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
-"esg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/carpet/red,
-/area/planetoid/lazarus/commons/dorms)
 "esh" = (
 /obj/effect/decal/ants,
 /obj/effect/spawner/random_spawners/rodent,
@@ -20679,10 +20658,6 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/planetoid/grass/sandedge/south,
 /area/planetoid/lakes/beach)
-"eLj" = (
-/obj/structure/vine/medium,
-/turf/simulated/wall/cm/sandstone/runed,
-/area/planetoid/jungle/south)
 "eLn" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -31214,6 +31189,12 @@
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel/dark,
 /area/planetoid/lazarus/engineering/engine/reactor)
+"hiR" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "hiV" = (
 /obj/effect/turf_decal/plaque,
 /obj/structure/statue/sandstone/venus,
@@ -31973,6 +31954,14 @@
 	icon_state = "dark"
 	},
 /area/planetoid/lazarus/cargo/restroom)
+"hqR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/carpet/red,
+/area/planetoid/lazarus/commons/dorms)
 "hqS" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -34018,6 +34007,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/lobby)
+"hNA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/ninja_teleport,
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "hND" = (
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/grass/sandcorner/north,
@@ -34193,6 +34187,14 @@
 	icon_state = "darkyellowalt"
 	},
 /area/planetoid/lazarus/nexus)
+"hPx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/revenant,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "hPM" = (
 /obj/machinery/alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -37319,12 +37321,6 @@
 	icon_state = "dark"
 	},
 /area/planetoid/lazarus/engineering/teg)
-"iDo" = (
-/obj/effect/landmark/start/explorer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/planetoid/lazarus/command/gateway)
 "iDr" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "courtroom"
@@ -44303,6 +44299,10 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/planetoid/lazarus/command/office/ntrep)
+"kjJ" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/research/robotics)
 "kjL" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -45548,6 +45548,10 @@
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/planetoid/grass/sandcorner/east,
 /area/planetoid/lakes/central)
+"kuX" = (
+/obj/structure/vine/medium,
+/turf/simulated/wall/cm/sandstone/runed,
+/area/planetoid/jungle/south)
 "kvh" = (
 /obj/machinery/door/airlock/silver{
 	name = "Captain's Bathroom"
@@ -47988,14 +47992,6 @@
 	icon_state = "blue"
 	},
 /area/planetoid/lazarus/security/medical)
-"kXz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/swarmer,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "kXG" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/security/podbay)
@@ -50696,14 +50692,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/hallway/reception)
-"lFw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/revenant,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "lFF" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/planetoid/grass,
@@ -53982,6 +53970,12 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/planetoid/lazarus/science/robotics/chargebay)
+"mvI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/planetoid/lazarus/commons/dorms)
 "mvO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/effect/spawner/window/reinforced,
@@ -54851,6 +54845,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/jungle/south)
+"mGj" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/planetoid/lazarus/command/gateway)
 "mGk" = (
 /obj/effect/landmark/start/intern,
 /obj/item/radio/intercom/directional/west,
@@ -59880,10 +59880,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/carpet/arcade,
 /area/planetoid/lazarus/commons/arcade)
-"nUv" = (
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/research/robotics)
 "nUx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -61584,13 +61580,6 @@
 	icon_state = "bluefull"
 	},
 /area/planetoid/lazarus/science/toxins)
-"oqn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "oqq" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -63299,6 +63288,11 @@
 	icon_state = "red"
 	},
 /area/planetoid/lazarus/security/courtroom)
+"oLg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/xeno,
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "oLq" = (
 /turf/simulated/wall/mineral/wood,
 /area/planetoid/lazarus/security/courtroom)
@@ -67284,7 +67278,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/planetoid/lazarus/commons/sleep)
+/area/shuttle/arrival/station)
 "pJs" = (
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/planetoid/grass,
@@ -71605,6 +71599,10 @@
 	icon_state = "dark"
 	},
 /area/planetoid/lazarus/science/robotics/chargebay)
+"qGa" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/security/prison/perma)
 "qGe" = (
 /obj/effect/landmark/start/hangover,
 /obj/structure/cable{
@@ -71698,6 +71696,14 @@
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/planetoid/lazarus/abandoned_building/barracks)
+"qHo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/red,
+/area/planetoid/lazarus/commons/dorms)
 "qHp" = (
 /obj/effect/turf_decal/tile/neutral/diagonal_edge,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_centre,
@@ -76399,6 +76405,13 @@
 /obj/structure/vine/medium,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/east)
+"rQv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "rQG" = (
 /obj/structure/fence{
 	dir = 4
@@ -86186,12 +86199,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/science)
-"ucR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/maintenance/abandonedhangar)
 "ucU" = (
 /obj/structure/sign/poster/official/love_ian{
 	pixel_x = -32
@@ -91429,6 +91436,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/electrical)
+"vmi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/swarmer,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/planetoid/lazarus/maintenance/abandonedhangar)
 "vmj" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -96078,12 +96093,6 @@
 /obj/structure/rack,
 /turf/simulated/floor/planetoid/grass/sandcorner/south,
 /area/planetoid/caves/east_rnd_cave)
-"wrK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/planetoid/lazarus/commons/dorms)
 "wsg" = (
 /obj/structure/table/wood/fancy/green,
 /obj/effect/spawner/new_year/gift,
@@ -102039,15 +102048,6 @@
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/jungle/south)
-"xIA" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/carpet/red,
-/area/planetoid/lazarus/commons/dorms)
 "xIC" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -118059,9 +118059,9 @@ ozn
 uqJ
 pxx
 rjr
-dFi
-lFw
-oqn
+oLg
+hPx
+rQv
 hQg
 tLA
 xjQ
@@ -118831,9 +118831,9 @@ pxx
 pxx
 oFg
 tJJ
-kXz
+vmi
 tLA
-dpL
+hNA
 xjQ
 xlM
 oFg
@@ -119088,7 +119088,7 @@ pxx
 fnV
 xjQ
 xjQ
-ucR
+hiR
 sJG
 sJG
 cxz
@@ -119859,7 +119859,7 @@ lya
 wLR
 wLR
 wLR
-wrK
+mvI
 wLR
 rlU
 kLr
@@ -120116,7 +120116,7 @@ vbW
 dxs
 gLa
 dlO
-xIA
+cZj
 gLa
 wLR
 kzC
@@ -120881,13 +120881,13 @@ mzX
 kmQ
 xgT
 mQg
-crg
-crg
-crg
-crg
-crg
-crg
-esg
+qHo
+qHo
+qHo
+qHo
+qHo
+qHo
+hqR
 iub
 axs
 jCg
@@ -124767,7 +124767,7 @@ nxy
 sDr
 qhj
 fyD
-eeK
+qGa
 iLr
 fIv
 xpc
@@ -145186,8 +145186,8 @@ sHJ
 asv
 sIQ
 uwN
-iDo
-iDo
+mGj
+mGj
 nVX
 pbo
 pAY
@@ -155488,7 +155488,7 @@ wyh
 gRT
 hLn
 gri
-nUv
+kjJ
 uhY
 feX
 ihw
@@ -164382,7 +164382,7 @@ ami
 hMJ
 slG
 ujB
-eLj
+kuX
 roi
 roi
 roi
@@ -164637,7 +164637,7 @@ roi
 ujB
 mDa
 bJa
-eLj
+kuX
 roi
 roi
 fiS
