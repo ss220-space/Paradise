@@ -19,17 +19,20 @@
 		switch(choice)
 			if("Underwear")
 				var/list/valid_underwear = list()
-				for(var/underwear in GLOB.underwear_list)
-					var/datum/sprite_accessory/S = GLOB.underwear_list[underwear]
+				for(var/underwear, underwear_object in SSaccessories.underwear_list)
+					var/datum/sprite_accessory/S = underwear_object
+					if(!S)
+						valid_underwear += underwear
+						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
-					valid_underwear[underwear] = GLOB.underwear_list[underwear]
+					valid_underwear[underwear] = S
 				if(!LAZYLEN(valid_underwear))
 					to_chat(user, "There are no underwear for [H.dna.species.name].")
 					return
 				var/new_underwear = tgui_input_list(user, "Choose your underwear:", "Changing", valid_underwear)
 				if(new_underwear)
-					var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[new_underwear]
+					var/datum/sprite_accessory/underwear/uwear = SSaccessories.underwear_list[new_underwear]
 					if(uwear.allow_change_color)
 						var/new_underwear_color = tgui_input_color(user, "Choose your underwear color, else color will be white:", "Changing", "#ffffff")
 						H.color_underwear = isnull(new_underwear_color) ? "#ffffff" : new_underwear_color
@@ -37,17 +40,20 @@
 
 			if("Undershirt")
 				var/list/valid_undershirts = list()
-				for(var/undershirt in GLOB.undershirt_list)
-					var/datum/sprite_accessory/S = GLOB.undershirt_list[undershirt]
+				for(var/undershirt, undershirt_object in SSaccessories.undershirt_list)
+					var/datum/sprite_accessory/S = undershirt_object
+					if(!S)
+						valid_undershirts += undershirt
+						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
-					valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+					valid_undershirts[undershirt] = S
 				if(!LAZYLEN(valid_undershirts))
 					to_chat(user, "There are no undershirts for [H.dna.species.name].")
 					return
 				var/new_undershirt = tgui_input_list(user, "Choose your undershirt:", "Changing", valid_undershirts)
 				if(new_undershirt)
-					var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[new_undershirt]
+					var/datum/sprite_accessory/undershirt/ushirt = SSaccessories.undershirt_list[new_undershirt]
 					if(ushirt.allow_change_color)
 						var/new_undershirt_color = tgui_input_color(user, "Choose your undershirt color, else color will be white:", "Changing", "#ffffff")
 						H.color_undershirt = isnull(new_undershirt_color) ? "#ffffff" : new_undershirt_color
@@ -55,11 +61,14 @@
 
 			if("Socks")
 				var/list/valid_sockstyles = list()
-				for(var/sockstyle in GLOB.socks_list)
-					var/datum/sprite_accessory/S = GLOB.socks_list[sockstyle]
+				for(var/sockstyle, sockstyle_object in SSaccessories.socks_list)
+					var/datum/sprite_accessory/S = sockstyle_object
+					if(!S)
+						valid_sockstyles += sockstyle
+						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
-					valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
+					valid_sockstyles[sockstyle] = S
 				if(!LAZYLEN(valid_sockstyles))
 					to_chat(user, "There are no socks for [H.dna.species.name].")
 					return

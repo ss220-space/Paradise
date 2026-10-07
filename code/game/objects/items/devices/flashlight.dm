@@ -699,7 +699,7 @@
 		if(ismob(target))
 			var/mob/mob_target = target
 			add_attack_logs(user, mob_target, "Hit with EMP-light")
-		balloon_alert(user, "осталось [emp_cur_charges] использовани[declension_ru(emp_cur_charges, "е", "я", "й")]")
+		balloon_alert(user, "осталось [emp_cur_charges] использовани[DECL_E_YA_J(emp_cur_charges)]")
 		target.emp_act(1)
 	else
 		balloon_alert(user, "перезарядка!")

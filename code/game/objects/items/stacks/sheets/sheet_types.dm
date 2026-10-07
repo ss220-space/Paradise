@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 4 SECONDS),
 		new /datum/stack_recipe("torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS),
-		new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
+		new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/cup/bucket/wooden, 3, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 		new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal),
 		new /datum/stack_recipe("painting frame", /obj/item/wallframe/painting, 1, time = 1 SECONDS),
@@ -723,12 +723,12 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe_list("storage", list(
 		new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
-		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/glass/beaker/drugs, 1, on_floor = TRUE),
+		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs, 1, on_floor = TRUE),
 		new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("fluid containers", list(
-		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty, on_floor = TRUE),
-		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
+		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/empty, on_floor = TRUE),
+		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),

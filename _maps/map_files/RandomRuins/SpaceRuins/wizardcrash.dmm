@@ -224,7 +224,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aP" = (
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/cup/glass/oilcan,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

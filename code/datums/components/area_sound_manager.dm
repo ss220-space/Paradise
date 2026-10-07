@@ -75,14 +75,17 @@
 	var/new_loop_type = area_to_looping_type[our_area]
 
 	if(!new_loop_type)
+		next_loop_time = null
 		return
 
 	our_loop = new new_loop_type(parent, FALSE, TRUE, skip_start)
 
 	// We're not ready to start another loop, wait before changing the sound so we don't double up
-	if(next_loop_time > world.time && old_channel != our_loop.sound_channel)
+	var/same_channel = (old_channel != null && old_channel == our_loop.sound_channel)
+	if(next_loop_time && next_loop_time > world.time && !same_channel)
 		addtimer(CALLBACK(src, PROC_REF(start_looping_sound)), next_loop_time - world.time, TIMER_UNIQUE | TIMER_CLIENT_TIME | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME, SSsound_loops)
 		return
+
 	next_loop_time = null
 	start_looping_sound()
 

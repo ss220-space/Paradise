@@ -292,12 +292,12 @@
 	name = "обработка омертвелых тканей"
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
-		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
-		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/cup/bottle = 90,
+		/obj/item/reagent_containers/cup/glass/drinkingglass = 85,
+		/obj/item/reagent_containers/cup/glass/bottle = 80,
+		/obj/item/reagent_containers/cup/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
-		/obj/item/reagent_containers/glass/bucket = 50,
+		/obj/item/reagent_containers/cup/bucket = 50,
 	)
 
 	time = 2.4 SECONDS
@@ -348,8 +348,8 @@
 			affected.unnecrotize()
 
 		user.visible_message(
-			span_notice("[user] вылива[PLUR_ET_YUT(user)] [trans] единиц[DECL_SEC_MIN(trans)] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
-			span_notice("Вы выливаете [trans] единиц[DECL_SEC_MIN(trans)] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+			span_notice("[user] вылива[PLUR_ET_YUT(user)] [trans] единиц[DECL_U_Y_0(trans)] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
+			span_notice("Вы выливаете [trans] единиц[DECL_U_Y_0(trans)] вещества из [tool.declent_ru(GENITIVE)] на омертвелые ткани в [affected.declent_ru(PREPOSITIONAL)] [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -367,8 +367,8 @@
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 	user.visible_message(
-		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, проливая [trans] единиц[DECL_SEC_MIN(trans)] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
-		span_warning("Вы дёргаете рукой, проливая [trans] единиц[DECL_SEC_MIN(trans)] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, проливая [trans] единиц[DECL_U_Y_0(trans)] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, проливая [trans] единиц[DECL_U_Y_0(trans)] вещества из [tool.declent_ru(GENITIVE)] мимо раны на [affected.declent_ru(PREPOSITIONAL)] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 

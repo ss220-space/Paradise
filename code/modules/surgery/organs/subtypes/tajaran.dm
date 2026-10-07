@@ -1,23 +1,3 @@
-/// Yellow-Blue colorblindness. Tajarans/Farwas have this.
-#define TRITANOPIA_COLOR_REPLACE list( \
-	"red" = "rebeccapurple", \
-	"blue" = "darkslateblue", \
-	"green" = "darkolivegreen", \
-	"orange" = "darkkhaki", \
-	"yellow" = "darkkhaki", \
-	"brown" = "rebeccapurple", \
-	"gold" = "darkkhaki", \
-	"cyan" = "darkseagreen", \
-	"magenta" = "darkslateblue", \
-	"purple" = "darkslateblue", \
-	"pink" = "lightgrey" \
-)
-
-#define MATRIX_TAJ_CBLIND list(\
-	0.95, 0.07, 0,\
-	0, 0.44, 0.52,\
-	0.05, 0.49, 0.48)
-
 /obj/item/organ/internal/liver/tajaran
 	species_type = /datum/species/tajaran
 	name = "tajaran liver"
@@ -69,23 +49,6 @@
 		ACCUSATIVE = "уши таярана",
 		INSTRUMENTAL = "ушами таярана",
 		PREPOSITIONAL = "ушах таярана",
-	)
-
-/obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
-	species_type = /datum/species/monkey/tajaran
-	name = "farwa eyeballs"
-	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали фарве."
-	colourmatrix = MATRIX_TAJ_CBLIND
-	replace_colours = TRITANOPIA_COLOR_REPLACE
-
-/obj/item/organ/internal/eyes/tajaran/farwa/get_ru_names()
-	return alist(
-		NOMINATIVE = "глаза фарвы",
-		GENITIVE = "глаз фарвы",
-		DATIVE = "глазам фарвы",
-		ACCUSATIVE = "глаза фарвы",
-		INSTRUMENTAL = "глазами фарвы",
-		PREPOSITIONAL = "глазах фарвы",
 	)
 
 /obj/item/organ/internal/heart/tajaran
@@ -173,6 +136,3 @@
 		INSTRUMENTAL = "хвостом таярана",
 		PREPOSITIONAL = "хвосте таярана",
 	)
-
-#undef TRITANOPIA_COLOR_REPLACE
-#undef MATRIX_TAJ_CBLIND

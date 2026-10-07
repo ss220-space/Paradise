@@ -25,10 +25,10 @@
 /obj/effect/spawner/abandoned_crate/booze
 	name = "alcohol loot spawner"
 	loot = list(
-		/obj/item/reagent_containers/food/drinks/bottle/rum = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/rum = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/whiskey = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/drugs
@@ -52,8 +52,8 @@
 /obj/effect/spawner/abandoned_crate/science_equipment
 	name = "science equipment loot spawner"
 	loot = list(
-		/obj/item/reagent_containers/glass/beaker/bluespace = 1,
-		/obj/item/reagent_containers/glass/beaker/noreact = 3,
+		/obj/item/reagent_containers/cup/beaker/bluespace = 1,
+		/obj/item/reagent_containers/cup/beaker/noreact = 3,
 	)
 
 /obj/effect/spawner/abandoned_crate/diamonds
@@ -160,7 +160,7 @@
 		/obj/item/bikehorn = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/mime_kit
@@ -175,7 +175,7 @@
 		/obj/item/clothing/head/beret = 1,
 		/obj/item/clothing/suit/suspenders = 1,
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/tacticool_gear

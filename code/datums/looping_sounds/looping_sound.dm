@@ -198,7 +198,7 @@
 			sound_token_instance.set_volume(play_volume, FALSE) // Don't update, we'll do that after.
 			sound_token_instance.update_sound(soundfile, TRUE)
 		else
-			sound_token_instance = new /datum/sound_token(parent, soundfile, SOUND_RANGE + extra_range, play_volume, falloff_exponent, falloff_distance)
+			sound_token_instance = new /datum/sound_token(parent, soundfile, SOUND_RANGE + extra_range, play_volume, falloff_exponent, falloff_distance, pressure_affected)
 		return
 
 	var/sound/sound_to_play = sound(soundfile)
@@ -223,6 +223,11 @@
 		use_reverb = use_reverb,
 		channel = sound_channel || SSsounds.random_available_channel(),
 	)
+
+/// Setter for volume, forwarding to the live sound token if one exists.
+/datum/looping_sound/proc/set_volume(new_volume)
+	volume = new_volume
+	sound_token_instance?.set_volume(volume)
 
 /// Returns the sound we should now be playing.
 /datum/looping_sound/proc/get_sound(_mid_sounds)

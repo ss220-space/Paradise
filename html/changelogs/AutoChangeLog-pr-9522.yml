@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - add: "В аплинк добавлено новое би \"силы\". (PR #9522)"

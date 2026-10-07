@@ -13,9 +13,11 @@
 	/// View ranges to apply
 	var/static/list/view_ranges = list(
 		"default",
-		"17x17",
-		"19x19",
-		"21x21",
+		1,
+		2,
+		3,
+		4,
+		5,
 	)
 
 /datum/action/cooldown/spell/view_range/Destroy(force)
@@ -44,7 +46,7 @@
 	if(!ismob(cast_on))
 		return
 	var/mob/user = cast_on
-	var/new_view = tgui_input_list(user, "Выберите область видимости:", "Видимость", view_ranges, "default")
+	var/new_view = tgui_input_list(user, "Выберите увеличение области видимости:", "Видимость", view_ranges, "default")
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")

@@ -11,6 +11,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Direction } from './common/Direction';
 
 type SelectableTileProps = {
   icon: string;
@@ -39,10 +40,10 @@ const SelectableTile = (props: SelectableTileProps) => {
 };
 
 const Dir = {
-  NORTH: 1,
-  SOUTH: 2,
-  EAST: 4,
-  WEST: 8,
+  NORTH: Direction.NORTH,
+  SOUTH: Direction.SOUTH,
+  EAST: Direction.EAST,
+  WEST: Direction.WEST,
 };
 
 type FloorPainterData = {
@@ -108,12 +109,12 @@ export const FloorPainter = (props: unknown) => {
           <LabeledList>
             <LabeledList.Item label="Direction">
               <Table style={{ display: 'inline' }}>
-                {[Dir.NORTH, null, Dir.SOUTH].map((latitude) => (
+                {[Direction.NORTH, null, Direction.SOUTH].map((latitude) => (
                   <Table.Row key={latitude}>
                     {[
-                      latitude || 0 + Dir.WEST,
+                      (latitude || 0) | Dir.WEST,
                       latitude,
-                      latitude || 0 + Dir.EAST,
+                      (latitude || 0) | Dir.EAST,
                     ].map((dir) => (
                       <Table.Cell
                         key={dir}

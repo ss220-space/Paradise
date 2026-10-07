@@ -369,7 +369,7 @@
 /area/awaymission/example)
 "bf" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -578,7 +578,7 @@
 /area/awaymission/example)
 "bH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/sodawater,
+/obj/item/reagent_containers/cup/soda_cans/sodawater,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -622,7 +622,7 @@
 /area/awaymission/example)
 "bM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

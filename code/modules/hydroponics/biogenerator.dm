@@ -12,7 +12,7 @@
 	/// Is the biogenerator curretly grinding up plants?
 	var/processing = FALSE
 	/// The container that is used to store reagents from certain products.
-	var/obj/item/reagent_containers/glass/container
+	var/obj/item/reagent_containers/cup/container
 	/// The amount of biomass stored in the machine.
 	var/biomass = 0
 	/// Used to modify the cost of producing items. A higher number means cheaper costs.
@@ -107,7 +107,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		if(panel_open)
 			to_chat(user, span_warning("Close the maintenance panel first."))
 			return ATTACK_CHAIN_PROCEED

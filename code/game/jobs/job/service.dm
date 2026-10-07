@@ -38,6 +38,8 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = /datum/skill/service
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 
 /datum/outfit/job/hop
@@ -69,6 +71,8 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_CREW
+	discount_skill_category = /datum/skill/service
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS
 
 /datum/job/service/bartender
 	title = JOB_TITLE_BARTENDER
@@ -238,7 +242,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clown_recorder = 1,
 	)
@@ -450,7 +454,7 @@
 	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1,
 	)
 	backpack = /obj/item/storage/backpack/mime
@@ -626,18 +630,3 @@
 
 	if(SSticker)
 		SSticker.Bible_deity_name = bible.deity_name
-
-/datum/job/service/explorer
-	title = JOB_TITLE_EXPLORER
-	flag = JOB_FLAG_EXPLORER
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-	hidden_from_job_prefs = TRUE
-
-/datum/outfit/job/explorer
-	// This outfit is never used, because there are no slots for this job.
-	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = JOB_TITLE_RU_EXPLORER
-	jobtype = /datum/job/service/explorer
-	uniform = /obj/item/clothing/under/color/random

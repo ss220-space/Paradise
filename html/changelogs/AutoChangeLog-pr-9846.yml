@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - balance: "Новая механика прокачки навыков. (PR #9846)"

@@ -159,12 +159,6 @@
 	icon_state = "bunny"
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
-/obj/item/clothing/head/flatcap
-	name = "flat cap"
-	desc = "A working man's cap."
-	icon_state = "flat_cap"
-	item_state = "detective"
-
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
 	desc = "Yarr."
@@ -751,3 +745,35 @@
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
+/obj/item/clothing/head/jew_hat
+	name = "Jew hat"
+	desc = "Плоская синяя кипа. Вы чувствуете внезапное желание изучать древние тексты и спорить о природе вселенной. Мазл тов!"
+	icon_state = "jew_hat"
+	item_state = "jew_hat"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/head/jew_hat/get_ru_names()
+	return alist(
+		NOMINATIVE = "кипа",
+		GENITIVE = "кипы",
+		DATIVE = "кипе",
+		ACCUSATIVE = "кипу",
+		INSTRUMENTAL = "кипой",
+		PREPOSITIONAL = "кипе",
+	)
+
+/obj/item/clothing/head/flatcap
+	name = "flat cap"
+	desc = "Острый козырёк, плоский верх. Стоит надеть — и вас охватывает непреодолимое желание курить и спрашивать у прохожих время."
+	icon_state = "flatcap"
+	item_state = "flatcap"
+
+/obj/item/clothing/head/flatcap/get_ru_names()
+	return alist(
+		NOMINATIVE = "картуз",
+		GENITIVE = "картуза",
+		DATIVE = "картузу",
+		ACCUSATIVE = "картуз",
+		INSTRUMENTAL = "картузом",
+		PREPOSITIONAL = "картузе",
+	)

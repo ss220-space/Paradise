@@ -113,6 +113,13 @@
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return HIT_RESULT_FAILED
 
+/obj/item/twohanded/dualsaber/toy/IsReflect()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		return REFLECT_TOY
+
+/obj/item/twohanded/dualsaber/toy/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = UNARMED_ATTACK, _parry_cooldown = (1 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Неоправданно слабая в настольных играх."
@@ -329,7 +336,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_CREDIT(fake_bullets)].")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_0_A_OV(fake_bullets)].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)

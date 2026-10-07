@@ -77,6 +77,11 @@ GLOBAL_DATUM_INIT(move_manager, /datum/move_manager, new)
 		qdel(loop)
 	existing_loops.Cut()
 	existing_loops = null //Catch anyone modifying this post del
+
+	var/datum/controller/subsystem/movement/current_subsystem = running_loop?.controller
+	current_subsystem?.remove_loop(running_loop)
+	running_loop = null
+
 	return ..()
 
 ///Adds a loop to our parent. Returns the created loop if a success, null otherwise

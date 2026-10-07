@@ -3,16 +3,16 @@
 	ground_offset_x = 7
 	ground_offset_y = 6
 	var/max_container_volume = 0
-	var/obj/item/reagent_containers/glass/beaker/first_part
-	var/obj/item/reagent_containers/glass/beaker/second_part
+	var/obj/item/reagent_containers/cup/beaker/first_part
+	var/obj/item/reagent_containers/cup/beaker/second_part
 	var/locked = FALSE
 
 /obj/item/warhead/update_icon_state()
 	icon_state = initial(icon_state) + ((locked)? "_locked" : ((first_part || second_part)? "_ass" : ""))
 
 /obj/item/warhead/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass/beaker))
-		var/obj/item/reagent_containers/glass/beaker/beaker = I
+	if(istype(I, /obj/item/reagent_containers/cup/beaker))
+		var/obj/item/reagent_containers/cup/beaker/beaker = I
 		if(beaker.reagents.maximum_volume > max_container_volume)
 			to_chat(user, "[I] is too big to use in this warhead.")
 			return ..()

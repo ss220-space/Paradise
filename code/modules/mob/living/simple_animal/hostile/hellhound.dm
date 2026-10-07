@@ -139,7 +139,7 @@
 	knockspell.invocation_type = INVOCATION_NONE
 	AddSpell(knockspell)
 	// Defense
-	var/datum/action/cooldown/spell/forcewall/greater/wallspell = new
+	var/datum/action/cooldown/spell/forcewall/greater/noclothes/wallspell = new
 	wallspell.spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	wallspell.invocation_type = INVOCATION_NONE
 	AddSpell(wallspell)
