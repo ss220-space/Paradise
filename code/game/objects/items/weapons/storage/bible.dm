@@ -46,6 +46,10 @@
 		PREPOSITIONAL = "Библии",
 	)
 
+/obj/item/storage/bible/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
 	user.dust()
