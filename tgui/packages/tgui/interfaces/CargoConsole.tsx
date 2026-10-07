@@ -4,7 +4,9 @@ import { useState } from 'react';
 import {
   Box,
   Button,
+  DmIcon,
   Dropdown,
+  Icon,
   Input,
   LabeledList,
   Modal,
@@ -17,8 +19,28 @@ import { createSearch } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
+export type CargoPackContent = {
+  name: string;
+  icon?: string | null;
+  icon_state?: string | null;
+};
+
+type CargoSupplyPack = SupplyPack & {
+  contents: CargoPackContent[];
+  cost: number;
+  creditsCost: number;
+  ref: string;
+  has_sale: boolean;
+  is_enough_techs: boolean;
+};
+
+type CargoCatalogueData = {
+  categories: Category[];
+  supply_packs: CargoSupplyPack[];
+};
+
 export const CargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>([]);
+  const [contentsModal, setContentsModal] = useState<CargoPackContent[]>([]);
   const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
 
   return (
@@ -43,14 +65,14 @@ export const CargoConsole = (_props: unknown) => {
   );
 };
 
-export type ContentsModalProps = {
-  contentsModal: string[];
-  setContentsModal: React.Dispatch<React.SetStateAction<string[]>>;
+export type ContentsModalProps<T = string> = {
+  contentsModal: T[];
+  setContentsModal: React.Dispatch<React.SetStateAction<T[]>>;
   contentsModalTitle: string;
   setContentsModalTitle: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ContentsModal = (properties: ContentsModalProps) => {
+const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
   const {
     contentsModal,
     setContentsModal,
@@ -70,10 +92,26 @@ const ContentsModal = (properties: ContentsModalProps) => {
           <h1>Содержимое {contentsModalTitle}:</h1>
         </Box>
         <Box>
-          {contentsModal.map((i) => (
-            // This needs keying. I hate it.
-            <Box key={i}>- {i}</Box>
-          ))}
+          <Table m="0.5rem">
+            {contentsModal.map((i, index) => (
+              <Table.Row key={`${i.name}-${index}`}>
+                <Table.Cell width="42px">
+                  {i.icon && i.icon_state ? (
+                    <DmIcon
+                      icon={i.icon}
+                      icon_state={i.icon_state}
+                      fallback={<Icon name="box" color="gray" />}
+                      width="32px"
+                      height="32px"
+                    />
+                  ) : (
+                    <Icon name="box" color="gray" />
+                  )}
+                </Table.Cell>
+                <Table.Cell>{i.name}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
         </Box>
         <Box m={2}>
           <Button
@@ -144,13 +182,13 @@ const StatusPane = (_properties) => {
   );
 };
 
-export type CataloguePaneProps = {
-  setContentsModal: React.Dispatch<React.SetStateAction<string[]>>;
+export type CataloguePaneProps<T = string> = {
+  setContentsModal: React.Dispatch<React.SetStateAction<T[]>>;
   setContentsModalTitle: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CataloguePane = (properties: CataloguePaneProps) => {
-  const { act, data } = useBackend<CataloguePaneData>();
+const CataloguePane = (properties: CataloguePaneProps<CargoPackContent>) => {
+  const { act, data } = useBackend<CargoCatalogueData>();
   const { categories, supply_packs } = data;
 
   const [category, setCategory] = useSharedState(
@@ -162,9 +200,8 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const { setContentsModal, setContentsModalTitle } = properties;
 
-  const packSearch = createSearch<SupplyPack>(
-    searchText,
-    (crate) => crate.name,
+  const packSearch = createSearch<CargoSupplyPack>(searchText, (crate) =>
+    [crate.name, ...crate.contents.map((content) => content.name)].join('|'),
   );
 
   const targetCategory = !searchText
@@ -173,7 +210,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const cratesToShow = flow([
     (supply_packs) =>
-      supply_packs.filter((pack: SupplyPack) => {
+      supply_packs.filter((pack: CargoSupplyPack) => {
         if (searchText) {
           return true;
         }
@@ -182,7 +219,9 @@ const CataloguePane = (properties: CataloguePaneProps) => {
     (supply_packs) =>
       searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs) =>
-      sortBy<SupplyPack>(supply_packs, [(pack) => pack.name.toLowerCase()]),
+      sortBy<CargoSupplyPack>(supply_packs, [
+        (pack) => pack.name.toLowerCase(),
+      ]),
   ])(supply_packs);
 
   let titleText = 'Перечень грузов для заказа';
