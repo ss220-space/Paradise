@@ -78,7 +78,7 @@
 		chambered.forceMove(src)
 
 /obj/item/gun/projectile/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
-	. = ..()
+	. = ..(TRUE, FALSE) //Count that chambered ammo
 
 /obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0

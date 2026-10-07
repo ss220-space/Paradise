@@ -512,9 +512,6 @@
 	valid_alt_heads["None"] = SSaccessories.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
 	for(var/alternate_head, alternate_head_object in SSaccessories.alt_heads_list)
 		var/datum/sprite_accessory/alt_heads/head = alternate_head_object
-		if(!head)
-			valid_alt_heads += alternate_head
-			continue
 
 		if(!(H.dna.species.name in head.species_allowed))
 			continue

@@ -1474,6 +1474,13 @@
 	item = /obj/item/toy/plushie/carp/dehy_carp
 	cost = 7
 
+/datum/uplink_item/stealthy_weapons/assassin_pen
+	name = "Ручка ассасина"
+	desc = "Небольшое одноразовое устройство в корпусе ручки, способное тихо выстрелить встроенным десяти миллиметровым экспансивным патроном при ударе в ближнем бою. \
+			Особо эффективно против незащищённых целей. Перед выстрелом необходимо взвести щёлкнув кнопкой ручки."
+	item = /obj/item/pen/assassin
+	cost = 5
+
 /**
  * MARK: Grenades & Explosives
  */
@@ -2379,13 +2386,13 @@
 	name = "Нейротренер небоевых навыков"
 	desc = "Нейротренер который позволяет улучший любой небоевой навык на ваш выбор."
 	item = /obj/item/neurotrainer/all_without_combat
-	cost = 8
+	cost = 2
 
 /datum/uplink_item/implants/combat_neurotrainer
 	name = "Нейротренер боевых навыков"
 	desc = "Нейротренер который позволяет улучший любой боевой навык на ваш выбор."
 	item = /obj/item/neurotrainer/combat
-	cost = 15
+	cost = 10
 
 /**
  * MARK: Cybernetic Implants

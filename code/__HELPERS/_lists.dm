@@ -414,6 +414,11 @@
 		return FALSE
 	return type_cache[checked_atom.type]
 
+/proc/is_path_in_typecache(atom_type, list/type_cache)
+	if(!type_cache || !length(type_cache) || !atom_type)
+		return FALSE
+	return type_cache[atom_type]
+
 /**
  * Returns a new list with only atoms that are in the provided typecache
  *

@@ -663,9 +663,7 @@
 	},
 /area/awaymission/centcom_away/cafe)
 "cc" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/solar{
 	id = "centcomawaysolar";
 	name = "Starboard Solar Array"
@@ -817,9 +815,7 @@
 /area/awaymission/centcom_away/maint)
 "cz" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/maint)
 "cA" = (
@@ -829,9 +825,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcom_away/hangar)
 "cB" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/maint)
 "cC" = (
@@ -886,34 +880,11 @@
 /area/awaymission/centcom_away/cafe)
 "cL" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/centcom_away/maint)
-"cM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "cN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/awaymission/centcom_away/maint)
-"cO" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/awaymission/centcom_away/maint)
@@ -1003,12 +974,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/awaymission/centcom_away/cafe)
-"dc" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "dd" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -1054,9 +1019,6 @@
 	track = 1
 	},
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/maint)
 "dm" = (
@@ -1258,15 +1220,6 @@
 	icon_state = "red"
 	},
 /area/awaymission/centcom_away/cafe)
-"dQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "dR" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -1290,16 +1243,6 @@
 	icon_state = "floor2"
 	},
 /area/awaymission/centcom_away/hangar)
-"dU" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/awaymission/centcom_away/maint)
 "dV" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/stripes/line{
@@ -1375,13 +1318,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcom_away/cafe)
-"eh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/awaymission/centcom_away/maint)
 "ei" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
@@ -1478,12 +1414,6 @@
 	icon_state = "redfull"
 	},
 /area/awaymission/centcom_away/cafe)
-"ev" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "ew" = (
 /obj/structure/bed,
 /obj/machinery/light{
@@ -1538,9 +1468,6 @@
 	locked = 0;
 	req_access = list();
 	start_charge = 100
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -1609,10 +1536,7 @@
 	req_access = list();
 	start_charge = 100
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1744,9 +1668,7 @@
 /area/awaymission/centcom_away/cafe)
 "fq" = (
 /obj/machinery/door/airlock/centcom,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1988,9 +1910,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -2111,9 +2031,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "gu" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -2274,15 +2192,6 @@
 	icon_state = "whitepurple"
 	},
 /area/awaymission/centcom_away/general)
-"gP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "gQ" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel,
@@ -2293,9 +2202,7 @@
 /area/awaymission/centcom_away/general)
 "gS" = (
 /obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/maint)
 "gT" = (
@@ -2324,12 +2231,6 @@
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
-"gZ" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/centcom_away/maint)
 "ha" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -2360,9 +2261,7 @@
 	name = "Engineering Access";
 	req_access = list(10)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/general)
 "hf" = (
@@ -2376,15 +2275,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "hh" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
-"hi" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "hj" = (
@@ -2429,9 +2320,7 @@
 /area/awaymission/centcom_away/general)
 "hp" = (
 /obj/machinery/door/airlock/centcom,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -2460,9 +2349,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "hu" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall,
 /area/awaymission/centcom_away/courtroom)
 "hv" = (
@@ -2566,20 +2453,12 @@
 /obj/item/paper_bin,
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcom_away/hangar)
-"hM" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
 "hN" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "hO" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/monitor,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -2590,12 +2469,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "hQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -2675,9 +2549,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "hZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blackcorner"
@@ -2751,17 +2623,9 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcom_away/courtroom)
-"ik" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
 "il" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "im" = (
@@ -2776,15 +2640,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/centcom_away/general)
-"io" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
 "ip" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -2796,9 +2651,7 @@
 	name = "Engineering";
 	req_access = list(32)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "ir" = (
@@ -2808,13 +2661,7 @@
 	req_access = list();
 	start_charge = 100
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "is" = (
@@ -2945,9 +2792,7 @@
 	inputting = 0;
 	output_level = 100000
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "iM" = (
@@ -2958,9 +2803,7 @@
 /turf/simulated/floor/bluegrid,
 /area/awaymission/centcom_away/hangar)
 "iO" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -2973,9 +2816,7 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "iQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -2997,23 +2838,12 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/centcom_away/general)
-"iU" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
 "iV" = (
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -3027,18 +2857,14 @@
 	},
 /area/awaymission/centcom_away/general)
 "iX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
 /area/awaymission/centcom_away/general)
 "iY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purplecorner"
@@ -3063,15 +2889,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcom_away/courtroom)
-"jc" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/centcom_away/general)
 "jd" = (
 /obj/structure/sign/medbay,
 /turf/simulated/wall/r_wall,
@@ -3081,18 +2898,14 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
 	},
 /area/awaymission/centcom_away/general)
 "jf" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -3144,10 +2957,7 @@
 	req_access = list();
 	start_charge = 100
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3181,33 +2991,25 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "jq" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
 /area/awaymission/centcom_away/hangar)
 "jr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcom_away/hangar)
 "js" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access = list(101)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/maint)
 "jt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -3226,9 +3028,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "jw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 2
 	},
@@ -3250,21 +3050,14 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/centcom_away/courtroom)
 "jA" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "jB" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -3406,9 +3199,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
@@ -3624,9 +3415,7 @@
 	},
 /area/awaymission/centcom_away/courtroom)
 "kA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -3735,9 +3524,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "kT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "greencorner"
@@ -3798,26 +3585,20 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "kZ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
 /area/awaymission/centcom_away/general)
 "la" = (
 /obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
 /area/awaymission/centcom_away/general)
 "lb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blackcorner"
@@ -3830,12 +3611,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/awaymission/centcom_away/general)
-"ld" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "le" = (
 /obj/structure/table/reinforced,
@@ -3865,9 +3640,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "li" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcom_away/general)
 "lj" = (
@@ -3900,9 +3673,7 @@
 /area/awaymission/centcom_away/maint)
 "ln" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "lo" = (
@@ -4063,9 +3834,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/general)
 "lJ" = (
@@ -4142,9 +3911,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "lT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -4352,9 +4119,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "mw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
 	},
@@ -4469,9 +4234,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/general)
 "mQ" = (
@@ -4533,9 +4296,7 @@
 	id_tag = "XCCsec3";
 	name = "XCC Main Access Shutters"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
@@ -4658,14 +4419,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/hangar)
-"nt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
-/area/awaymission/centcom_away/general)
 "nu" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/pamphlet/ccaInfo,
@@ -4711,9 +4464,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "nA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -4822,9 +4573,7 @@
 /area/awaymission/centcom_away/general)
 "nQ" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -4844,9 +4593,7 @@
 /area/awaymission/centcom_away/general)
 "nT" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/general)
 "nU" = (
@@ -4892,9 +4639,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "ob" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/general)
 "oc" = (
@@ -4941,9 +4686,7 @@
 /area/awaymission/centcom_away/thunderdome)
 "oi" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/thunderdome)
 "oj" = (
@@ -12606,7 +12349,7 @@ ag
 ag
 ag
 ag
-cM
+cB
 dD
 eF
 hd
@@ -12736,7 +12479,7 @@ ag
 ag
 ag
 ag
-cM
+cB
 bl
 eF
 jO
@@ -12866,7 +12609,7 @@ eF
 eF
 eF
 eF
-cM
+cB
 eH
 eF
 hf
@@ -12996,7 +12739,7 @@ eO
 eO
 iE
 eF
-cM
+cB
 nC
 eF
 hf
@@ -13126,7 +12869,7 @@ eO
 eO
 eO
 eF
-cM
+cB
 eJ
 eF
 eF
@@ -13256,7 +12999,7 @@ eO
 il
 iL
 eF
-cM
+cB
 ag
 eF
 hg
@@ -13383,10 +13126,10 @@ eF
 eO
 eO
 eO
-ik
-ik
+hh
+hh
 eF
-cM
+cB
 gI
 eF
 jP
@@ -13512,11 +13255,11 @@ fi
 eF
 ge
 hh
-hM
-io
+hh
+hh
 iO
 eF
-cM
+cB
 gI
 eF
 jR
@@ -13771,10 +13514,10 @@ ak
 fi
 eF
 gc
-hi
+hh
 hQ
 iq
-iU
+hh
 jt
 jA
 kl
@@ -14554,7 +14297,7 @@ fY
 hj
 hY
 eO
-ik
+hh
 go
 gx
 gN
@@ -14684,7 +14427,7 @@ fY
 fg
 eO
 eO
-ik
+hh
 go
 gy
 jE
@@ -14814,7 +14557,7 @@ gu
 hp
 hZ
 ir
-jc
+hh
 go
 gw
 jF
@@ -14829,26 +14572,26 @@ li
 nc
 lI
 lT
-hM
-hM
-hM
+hh
+hh
+hh
 mw
 mN
-hM
-hM
-hM
-hM
-hM
-hM
-hM
-hM
-hM
-nt
+hh
+hh
+hh
+hh
+hh
+hh
+hh
+hh
+hh
+kZ
 mN
 nA
 nA
 nA
-hM
+hh
 mw
 nQ
 gu
@@ -15084,7 +14827,7 @@ hB
 hR
 fJ
 kw
-ik
+hh
 eF
 lu
 eF
@@ -15344,7 +15087,7 @@ jv
 jv
 jv
 jG
-ik
+hh
 lj
 hg
 lj
@@ -15594,17 +15337,17 @@ eW
 fh
 eU
 it
-hi
+hh
 jw
 jB
 kA
-hM
+hh
 jV
-hM
+hh
 hZ
-hM
-hM
-ld
+hh
+hh
+hh
 eF
 aa
 eF
@@ -15856,7 +15599,7 @@ eU
 iv
 eO
 eF
-cM
+cB
 gT
 fU
 fy
@@ -15986,7 +15729,7 @@ eU
 fN
 gh
 eF
-cM
+cB
 gT
 fU
 fy
@@ -16116,7 +15859,7 @@ eU
 eU
 eU
 eF
-cM
+cB
 gT
 fU
 fy
@@ -16246,7 +15989,7 @@ eU
 iw
 fh
 eF
-cM
+cB
 gT
 fU
 fy
@@ -16376,7 +16119,7 @@ ht
 ix
 ht
 eF
-cM
+cB
 gT
 fU
 fy
@@ -16631,12 +16374,12 @@ au
 au
 ak
 cB
-dc
-dc
-dc
-dc
-dc
-ev
+cB
+cB
+cB
+cB
+cB
+cB
 gU
 gT
 fS
@@ -16760,7 +16503,7 @@ ak
 ak
 ak
 ak
-cM
+cB
 fj
 fj
 fj
@@ -16890,7 +16633,7 @@ eX
 eY
 ak
 eH
-cM
+cB
 fj
 id
 iz
@@ -17020,7 +16763,7 @@ dW
 eZ
 ak
 eI
-cM
+cB
 fj
 ia
 fQ
@@ -17150,7 +16893,7 @@ dW
 fd
 ak
 bd
-cM
+cB
 fj
 fx
 fQ
@@ -17280,7 +17023,7 @@ dX
 ak
 ak
 ag
-cM
+cB
 fj
 fj
 iC
@@ -17536,11 +17279,11 @@ ag
 ag
 cB
 eC
-dc
-dc
-dc
-dc
-gP
+cB
+cB
+cB
+cB
+cB
 fj
 fy
 fy
@@ -17657,20 +17400,20 @@ ag
 ag
 ag
 cB
-dc
+cB
 dk
-dc
-dc
-dQ
-dc
-dc
-ev
+cB
+cB
+cB
+cB
+cB
+cB
 ab
 ab
 ab
 ab
 eJ
-gZ
+cB
 hu
 ij
 fy
@@ -17916,12 +17659,12 @@ aa
 aa
 aa
 ab
-cM
+cB
 ab
 aa
 aa
 ab
-cM
+cB
 ab
 aa
 aa
@@ -18181,8 +17924,8 @@ bm
 aa
 aa
 bm
-dU
-eh
+cN
+cN
 eo
 bm
 bm
@@ -18306,12 +18049,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -18436,12 +18179,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -18566,12 +18309,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -18696,12 +18439,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -18826,12 +18569,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -18956,12 +18699,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19086,12 +18829,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19216,12 +18959,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19346,12 +19089,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19476,12 +19219,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19606,12 +19349,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19736,12 +19479,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19866,12 +19609,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -19996,12 +19739,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20126,12 +19869,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20256,12 +19999,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20386,12 +20129,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20516,12 +20259,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20646,12 +20389,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
@@ -20776,12 +20519,12 @@ aa
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
 cc
-cO
+cN
 cc
 aa
 aa
