@@ -12339,7 +12339,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/nexus)
