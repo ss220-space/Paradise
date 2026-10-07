@@ -70,6 +70,9 @@
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
 		var/turf/current_turf = get_turf(src)

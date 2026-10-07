@@ -373,7 +373,7 @@
 /area/shuttle/freegolem)
 "ta" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "tc" = (

@@ -536,3 +536,11 @@
 		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range = 2, silent = TRUE)
 
 	do_sparks(15, TRUE, src)
+
+/obj/effect/temp_visual/shadowling_phase
+	icon_state = "blank"
+	duration = 2 SECONDS
+
+/obj/effect/temp_visual/shadowling_phase/Initialize(mapload)
+	. = ..()
+	animate(src, alpha = 0, time = 2 SECONDS)

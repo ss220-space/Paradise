@@ -353,7 +353,7 @@
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
 				inserted_id.total_mining_points += points
-				to_chat(usr, span_notice("<b>[points] [declension_ru(points, "очко", "очка","очков")] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] [declension_ru(inserted_id.total_mining_points, "очко", "очка","очков")]</b>!"))
+				to_chat(usr, span_notice("<b>[points] очк[DECL_O_A_OV(points)] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] очк[DECL_O_A_OV(inserted_id.total_mining_points)]</b>!"))
 				points = 0
 			else
 				to_chat(usr, span_warning("Доступ запрещён."))

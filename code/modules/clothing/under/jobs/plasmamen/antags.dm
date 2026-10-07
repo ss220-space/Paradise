@@ -4,6 +4,7 @@
 	icon_state = "wizard_envirosuit"
 	item_state = "wizard_envirosuit"
 	item_color = "wizard_envirosuit"
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/under/plasmaman/wizard/get_ru_names()
 	return alist(

@@ -287,7 +287,9 @@ const ChoicesPanel = (props) => {
                 user.multiSelection[user.ckey.concat(choice.name)] === 1 ? (
                   <Icon align="right" mr={2} color="blue" name="vote-yea" />
                 ) : null}
-                {choice.votes} Votes
+                {currentVote.displayStatistics || user.isUpperAdmin
+                  ? `${choice.votes} Votes`
+                  : null}
               </LabeledList.Item>
               <LabeledList.Divider />
             </Box>

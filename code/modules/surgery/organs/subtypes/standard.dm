@@ -636,8 +636,8 @@
 			. += span_notice("Выглядит относительно целой, внутри что-то есть.")
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
-	if(alt_head && GLOB.alt_heads_list[alt_head])
-		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[alt_head]
+	if(alt_head && SSaccessories.alt_heads_list[alt_head])
+		var/datum/sprite_accessory/alt_heads/alternate_head = SSaccessories.alt_heads_list[alt_head]
 		if(alternate_head.icon_state)
 			icon_name = alternate_head.icon_state
 		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".
@@ -711,7 +711,7 @@
 
 /obj/item/organ/external/tail/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
-	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
+	var/datum/sprite_accessory/tail_marking_style = SSaccessories.body_markings_list[H.m_styles["tail"]]
 	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
 		body_accessory = body_accessory
 	if(body_accessory)

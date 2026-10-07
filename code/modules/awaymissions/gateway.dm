@@ -1,4 +1,13 @@
 GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
+/// Gateway open cooldown id
+#define COOLDOWN_GATEWAY_OPEN "gateway_open"
+/// Gateway lock cooldown id
+#define COOLDOWN_GATEWAY_LOCK "gateway_lock"
+/// Roundstart gate lock duration (and between openings)
+#define GATE_LOCK_DURATION 15 MINUTES
+/// Max open duration
+#define GATE_OPEN_DURATION 5 MINUTES
+
 /obj/machinery/gateway
 	name = "gateway"
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
@@ -8,6 +17,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = FALSE
+	req_access = list(ACCESS_RD, ACCESS_ARMORY)
 
 /obj/machinery/gateway/Initialize(mapload)
 	. = ..()
@@ -37,7 +47,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		GLOB.the_gateway = src
 
 	update_icon(UPDATE_ICON_STATE)
-	wait = world.time + CONFIG_GET(number/gateway_delay)
+	wait = world.time + CONFIG_GET(number/gateway_delay) + GATE_LOCK_DURATION
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/Destroy()
@@ -54,7 +64,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/update_icon_state()
 	icon_state = active ? "oncenter" : "offcenter"
 
-/obj/machinery/gateway/centerstation/process()
+/obj/machinery/gateway/centerstation/process(seconds_per_tick)
 	if(stat & (NOPOWER))
 		if(active)
 			toggleoff()
@@ -64,6 +74,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(GLOB.full_lockdown)
 			toggleoff()
 		use_power(5000)
+
+	if(active && !TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_OPEN))
+		toggleoff()
 
 /obj/machinery/gateway/centerstation/proc/detect()
 	linked = list()	//clear the list
@@ -107,6 +120,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = TRUE
 		G.update_icon()
 	active = TRUE
+	TIMER_COOLDOWN_START(src, COOLDOWN_GATEWAY_OPEN, GATE_OPEN_DURATION)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
@@ -114,14 +128,37 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		G.active = FALSE
 		G.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
+	TIMER_COOLDOWN_START(src, COOLDOWN_GATEWAY_LOCK, GATE_LOCK_DURATION)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user)
 	add_fingerprint(user)
+	if(!allowed(user))
+		balloon_alert(user, "нет доступа!")
+		return
 	if(!ready)
 		detect()
 		return
 	if(!active)
+		if(TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_LOCK))
+			balloon_alert(user, "идет процесс зарядки...")
+			return
+		toggleon(user)
+		return
+	toggleoff()
+
+
+/obj/machinery/gateway/centerstation/proc/toggle_remotely(mob/user, atom/remote_device)
+	if(!allowed(user))
+		remote_device.balloon_alert(user, "нет доступа!")
+		return
+	if(!ready)
+		detect()
+		return
+	if(!active)
+		if(TIMER_COOLDOWN_RUNNING(src, COOLDOWN_GATEWAY_LOCK))
+			remote_device.balloon_alert(user, "идет процесс зарядки...")
+			return
 		toggleon(user)
 		return
 	toggleoff()
@@ -266,3 +303,21 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	to_chat(user, "[span_boldnotice("Recalibration successful! ")][span_notice("This gate's systems have been fine tuned. Travel to this gate will now be on target.")]")
 	calibrated = TRUE
 
+
+/obj/machinery/door_control/gateway
+	name = "gateway door control"
+	desc = "Use this button for toggle gateway."
+	req_access = list(ACCESS_RD)
+	id = 1
+
+/obj/machinery/door_control/gateway/build_device()
+	var/obj/item/assembly/control/gateway/gateway_device = new(src)
+	gateway_device.ids = get_ids()
+	gateway_device.safety_z_check = safety_z_check
+	device = gateway_device
+
+
+#undef COOLDOWN_GATEWAY_OPEN
+#undef COOLDOWN_GATEWAY_LOCK
+#undef GATE_LOCK_DURATION
+#undef GATE_OPEN_DURATION

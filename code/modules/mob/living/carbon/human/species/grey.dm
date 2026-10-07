@@ -4,6 +4,7 @@
 /datum/species/grey
 	name = SPECIES_GREY
 	name_plural = "Greys"
+	ru_genitive = "серого"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	language = LANGUAGE_GREY

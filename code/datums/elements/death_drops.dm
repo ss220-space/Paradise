@@ -20,8 +20,8 @@
 	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
 /datum/element/death_drops/Detach(datum/target)
-	. = ..()
 	UnregisterSignal(target, COMSIG_LIVING_DEATH)
+	return ..()
 
 ///signal called by the stat of the target changing
 /datum/element/death_drops/proc/on_death(mob/living/target, gibbed)

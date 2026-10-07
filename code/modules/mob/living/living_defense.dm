@@ -425,7 +425,7 @@
 				ignored_mobs = grabber,
 			)
 			to_chat(grabber, span_danger("Вы хватаете [name] за шею!"))
-			if(!buckled)
+			if(!buckled && !HAS_TRAIT(src, TRAIT_FORCE_GRASPED))
 				Move(grabber.loc)
 		if(GRAB_KILL)
 			add_attack_logs(grabber, src, "strangled (kill grab)", ATKLOG_ALL)
@@ -436,7 +436,7 @@
 				ignored_mobs = grabber,
 			)
 			to_chat(grabber, span_danger("Вы душите [name]!"))
-			if(!buckled)
+			if(!buckled && !HAS_TRAIT(src, TRAIT_FORCE_GRASPED))
 				Move(grabber.loc)
 	grabber.set_pull_offsets(src, grabber.grab_state)
 	return TRUE

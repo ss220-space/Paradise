@@ -8,11 +8,11 @@
 		As this set lacks any form of healing or resurrection, healing items should be acquired from the station, and you should be careful to avoid being hurt in the first place. <br><br> \
 		</i>Provides Mutate, Ethereal Jaunt, Blink, Magic Missile, and Disintegrate.<i>"
 	spells_path = list(
-		/obj/effect/proc_holder/spell/genetic/mutate,
-		/obj/effect/proc_holder/spell/ethereal_jaunt,
-		/obj/effect/proc_holder/spell/turf_teleport/blink,
-		/obj/effect/proc_holder/spell/projectile/magic_missile,
-		/obj/effect/proc_holder/spell/touch/disintegrate,
+		/datum/action/cooldown/spell/mutate,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+		/datum/action/cooldown/spell/aoe/magic_missile,
+		/datum/action/cooldown/spell/touch/disintegrate,
 	)
 
 /datum/spellbook_entry/loadout/lich
@@ -22,12 +22,12 @@
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
 		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
 	spells_path = list(
-		/obj/effect/proc_holder/spell/lichdom,
-		/obj/effect/proc_holder/spell/ethereal_jaunt,
-		/obj/effect/proc_holder/spell/fireball,
-		/obj/effect/proc_holder/spell/rod_form,
-		/obj/effect/proc_holder/spell/emplosion/disable_tech,
-		/obj/effect/proc_holder/spell/forcewall/greater,
+		/datum/action/cooldown/spell/lichdom,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/pointed/projectile/fireball,
+		/datum/action/cooldown/spell/rod_form,
+		/datum/action/cooldown/spell/emplosion/disable_tech,
+		/datum/action/cooldown/spell/forcewall/greater,
 	)
 	is_ragin_restricted = TRUE
 
@@ -39,11 +39,11 @@
 		</i>Provides a Belt of Wands, Charge, Ethereal Jaunt, Blink, Repulse, and Disintegrate.<i>"
 	items_path = list(/obj/item/storage/belt/wands/full)
 	spells_path = list(
-		/obj/effect/proc_holder/spell/charge,
-		/obj/effect/proc_holder/spell/ethereal_jaunt,
-		/obj/effect/proc_holder/spell/turf_teleport/blink,
-		/obj/effect/proc_holder/spell/aoe/repulse,
-		/obj/effect/proc_holder/spell/touch/disintegrate,
+		/datum/action/cooldown/spell/charge,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/touch/disintegrate,
 	)
 
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
@@ -62,20 +62,20 @@
 		/obj/item/stack/tape_roll,
 	)
 	spells_path = list(
-		/obj/effect/proc_holder/spell/ethereal_jaunt,
-		/obj/effect/proc_holder/spell/turf_teleport/blink,
-		/obj/effect/proc_holder/spell/area_teleport/teleport,
-		/obj/effect/proc_holder/spell/touch/mime_malaise,
-		/obj/effect/proc_holder/spell/aoe/knock,
-		/obj/effect/proc_holder/spell/aoe/conjure/timestop,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+		/datum/action/cooldown/spell/teleport/area_teleport/wizard,
+		/datum/action/cooldown/spell/touch/mime_malaise,
+		/datum/action/cooldown/spell/aoe/knock,
+		/datum/action/cooldown/spell/conjure/timestop,
+		/datum/action/cooldown/spell/mime,
 	)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		user.mind.miming = TRUE
+		ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
 	..()
 
 /datum/spellbook_entry/loadout/gunreaper
@@ -93,17 +93,17 @@
 		/obj/item/clothing/under/syndicate,
 	)
 	spells_path = list(
-		/obj/effect/proc_holder/spell/ethereal_jaunt,
-		/obj/effect/proc_holder/spell/turf_teleport/blink,
-		/obj/effect/proc_holder/spell/summonitem,
-		/obj/effect/proc_holder/spell/noclothes,
-		/obj/effect/proc_holder/spell/lichdom/gunslinger,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+		/datum/action/cooldown/spell/summon_item,
+		/datum/action/cooldown/spell/no_clothes,
+		/datum/action/cooldown/spell/lichdom/gunslinger,
 	)
 	category = "Unique"
 	destroy_spellbook = TRUE
 	is_ragin_restricted = TRUE
 
-/obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/user)
+/datum/action/cooldown/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/user)
 	user.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(user), ITEM_SLOT_CLOTH_OUTER)
 	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(user), ITEM_SLOT_FEET)
 	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(user), ITEM_SLOT_GLOVES)

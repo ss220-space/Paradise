@@ -35,6 +35,7 @@
 		/datum/skill/research/robotics = 3,
 		/datum/skill/research/xenobiology = 3,
 	)
+	discount_skill_category = list(/datum/skill/combat)
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)

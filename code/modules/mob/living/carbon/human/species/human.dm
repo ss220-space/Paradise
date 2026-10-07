@@ -1,6 +1,7 @@
 /datum/species/human
 	name = SPECIES_HUMAN
 	name_plural = "Humans"
+	ru_genitive = "человека"
 	primitive_form = /datum/species/monkey
 	language = LANGUAGE_SOL_COMMON
 	inherent_traits = list(

@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 25
+	damage = 23
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -12,7 +12,7 @@
 	reflectability = REFLECTABILITY_ENERGY
 	light_system = OVERLAY_LIGHT
 	light_range = 2
-	light_color = COLOR_SOFT_RED
+	light_color = COLOR_RED_LIGHT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
@@ -170,6 +170,11 @@
 		INSTRUMENTAL = "дизейблером",
 		PREPOSITIONAL = "дизейблере",
 	)
+
+/obj/projectile/beam/disabler/scatter
+	name = "disabler pellet"
+	icon_state = "scatter_disabler"
+	damage = 5
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
@@ -633,6 +638,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	icon_state = "blue_laser"
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	damage = 20
 
 /obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
@@ -808,3 +814,140 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
+
+/**
+ * This projectile deals burn damage to silicons and
+ * applies a stamina regeneration block on hit.
+ */
+/obj/projectile/beam/disabler/swarmer
+	name = "swarmer laser"
+	icon_state = "default_swarmer"
+	/// For how long this disables stamina regeneration on hit
+	var/staminaregen_block_duration = 1 SECONDS
+
+/**
+ * Deals burn damage instead of stamina if the target is not human.
+ * Applies stamina regenerate block on hit.
+ */
+/obj/projectile/beam/disabler/swarmer/on_hit(atom/target, blocked, hit_zone)
+	if(isswarmer(target))
+		return FALSE
+
+	if(!isliving(target))
+		return ..()
+
+	if(!ishuman(target))
+		var/mob/living/difficult_target = target
+		return difficult_target.apply_damage(damage, BURN, hit_zone, blocked)
+
+	var/mob/living/carbon/human/human_target = target
+	human_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
+	return ..()
+
+/// Used in small swarmer turrets, is shooted three times
+/obj/projectile/beam/disabler/swarmer/weak_turret
+	name = "weak turret laser"
+	damage = 10
+
+/// Used in big swarmer turrets
+/obj/projectile/beam/disabler/swarmer/strong_turret
+	name = "strong turret laser"
+	damage = 45
+	armour_penetration = 30
+	forcedodge = 2
+
+/// Used in mega-swarmer minigun
+/obj/projectile/beam/disabler/swarmer/minigun
+	damage = 15
+
+/// Basic projectile
+/obj/projectile/beam/disabler/swarmer/generalist
+	damage = 20
+
+/// Used in double shots
+/obj/projectile/beam/disabler/swarmer/double
+	name = "double swarmer laser"
+	icon_state = "double_shot_swarmer"
+	damage = 22
+
+/// Applies knockdown on hit
+/obj/projectile/beam/disabler/swarmer/empowered
+	name = "strong swarmer laser"
+	icon_state = "charged_shot_swarmer"
+	damage = 50
+	knockdown = 1 SECONDS
+
+/// How much of current charge is drained for energy guns.
+#define ENERGYGUN_DRAIN_PERCENTAGE 0.25
+/// How much of current charge is drained for ion carbines.
+#define ION_ENERGYGUN_DRAIN_PERCENTAGE 0.5
+
+/// Resets sybils, switches modes, unloads guns
+/obj/projectile/beam/disabler/swarmer/sabotage
+	name = "sabotage swarmer laser"
+	icon_state = "sabotage_shot_swarmer"
+	damage = 22
+
+/**
+ * If target has a projectile gun, it either unloads the magazine,
+ * or empties it fully.
+ *
+ * If it has an ion ammo type,
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(!isliving(target) || !.)
+		return
+
+	var/mob/living/target_mob = target
+	var/obj/item/gun/gun = target_mob.is_type_in_hands(/obj/item/gun)
+	if(!gun)
+		return
+
+	if(is_projectilegun(gun))
+		handle_projectilegun(gun, target_mob)
+	else if(is_energygun(gun))
+		handle_energygun(gun)
+
+/**
+ * Proc used to handle energy gun sabotaging.
+ *
+ * Resets shooting mode to disabler, resets sibyls,
+ * and discharges the battery.
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/proc/handle_energygun(obj/item/gun/energy/gun)
+	gun.select_fire()
+
+	var/obj/item/gun_module/sibyl/sibyl_mod = gun.sibyl_mod
+	sibyl_mod?.lock()
+
+	var/obj/item/stock_parts/cell/cell = gun.get_cell()
+	if(!cell)
+		return
+
+	var/cell_discharge_percentage = ENERGYGUN_DRAIN_PERCENTAGE
+	if(is_path_in_list(/obj/item/ammo_casing/energy/ion, gun.ammo_type))
+		cell_discharge_percentage = ION_ENERGYGUN_DRAIN_PERCENTAGE
+
+	cell.use(round(cell.maxcharge * cell_discharge_percentage))
+	gun.update_icon()
+
+/**
+ * Proc used to handle projectile gun sabotaging.
+ *
+ * If the gun has an internal magazine, it unloads the magazine fully.
+ * Otherwise, unload the magazine instead.
+ */
+/obj/projectile/beam/disabler/swarmer/sabotage/proc/handle_projectilegun(obj/item/gun/projectile/gun, mob/living/target)
+	var/obj/item/ammo_box/magazine/magazine = gun.magazine
+	if(!magazine)
+		return
+
+	if(!istype(magazine, /obj/item/ammo_box/magazine/internal))
+		gun.unload_act(target)
+		return
+
+	magazine.empty_magazine() // If the magazine is built in, empty it instead
+
+#undef ENERGYGUN_DRAIN_PERCENTAGE
+#undef ION_ENERGYGUN_DRAIN_PERCENTAGE

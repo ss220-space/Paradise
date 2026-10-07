@@ -16,7 +16,7 @@
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
-	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
+	new /obj/item/reagent_containers/cup/glass/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/storage/garmentbag/captains(src)
 	new /obj/item/clothing/accessory/holster(src)
@@ -36,7 +36,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
-	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
+	new /obj/item/reagent_containers/cup/glass/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
 	new /obj/item/clothing/accessory/holster(src)
@@ -65,12 +65,12 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
-	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
+	new /obj/item/reagent_containers/cup/glass/mug/hos(src)
 	new /obj/item/autoimplanter/oneuse/sec_hud(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/aviators(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
-	new /obj/item/reagent_containers/food/drinks/flask(src)
+	new /obj/item/reagent_containers/cup/glass/flask(src)
 	new /obj/item/storage/garmentbag/hos(src)
 	new /obj/item/camera_bug/security(src)
 
@@ -166,6 +166,7 @@
 	name = "security WT-550 PDW gun cabinet"
 	desc = "Защищённый шкаф для хранения пистолетов пулемётов WT-550. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/smg/wt550
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/get_ru_names()
 	return alist(
@@ -177,15 +178,11 @@
 		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/smg/wt550(src)
-
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"
 	desc = "Защищённый шкаф для хранения пистолетов пулемётов SP-91-RC. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/smg/sp91rc
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/get_ru_names()
 	return alist(
@@ -197,15 +194,11 @@
 		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
-
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
 	desc = "Защищённый шкаф для хранения пистолетов пулемётов А9 \"Искра\". Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/smg/sparkle_a12
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/get_ru_names()
 	return alist(
@@ -217,15 +210,11 @@
 		PREPOSITIONAL = "шкафе пистолет пулемёта А9 \"Искра\""
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
-
 /obj/structure/closet/secure_closet/guncabinet/sfg
 	name = "security SFG-5 SMG gun cabinet"
 	desc = "Защищённый шкаф для хранения пистолетов-пулемётов SFG-5. Внутри хранится дизайн диск для печати магазинов."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/smg/sfg
 
 /obj/structure/closet/secure_closet/guncabinet/sfg/get_ru_names()
 	return alist(
@@ -238,15 +227,14 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sfg/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/smg/sfg(src)
+	. = ..()
 	new /obj/item/disk/design_disk/security/sfg5_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/saber
 	name = "Nanotrasen Saber SMG gun cabinet"
 	desc = "Защищённый шкаф для хранения пистолетов-пулемётов Saber. Внутри хранится дизайн диск для печати магазинов."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/smg/saber/rubber
 
 /obj/structure/closet/secure_closet/guncabinet/saber/get_ru_names()
 	return alist(
@@ -259,15 +247,14 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/saber/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/smg/saber/rubber(src)
+	. = ..()
 	new /obj/item/disk/design_disk/security/saber_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/ak814
 	name = "Soviet AK-814 gun cabinet"
 	desc = "Защищённый шкаф для хранения штурмовых винтовок АК-814. В отсеке для хранения дискет заметна большая вмятина."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/ak814/weakened
 
 /obj/structure/closet/secure_closet/guncabinet/ak814/get_ru_names()
 	return alist(
@@ -280,9 +267,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/ak814/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/ak814/weakened(src)
+	. = ..()
 	new /obj/item/disk/design_disk/security/ak814_mag(src)
 	new /obj/item/disk/design_disk/security/aksu_ammo(src)
 
@@ -290,6 +275,7 @@
 	name = "security telescopic energy spear cabinet"
 	desc = "Защищённый шкаф для хранения энергетических копий. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/twohanded/spear/secspear
 
 /obj/structure/closet/secure_closet/guncabinet/secspear/get_ru_names()
 	return alist(
@@ -301,15 +287,11 @@
 		PREPOSITIONAL = "шкафе энергетических копий",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/secspear/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/twohanded/spear/secspear(src)
-
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/energy/laser/hitscan/carbine
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/get_ru_names()
 	return alist(
@@ -321,15 +303,56 @@
 		PREPOSITIONAL = "шкафе лазерных винтовок",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser(src)
+/obj/structure/closet/secure_closet/guncabinet/lasergun/pistols
+	name = "security laser pistols cabinet"
+	desc = "Защищённый шкаф для хранения лазерных пистолетов. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/hitscan/pistol
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/pistol/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф лазерных пистолетов",
+		GENITIVE = "шкафа лазерных пистолетов",
+		DATIVE = "шкафу лазерных пистолетов",
+		ACCUSATIVE = "шкаф лазерных пистолетов",
+		INSTRUMENTAL = "шкафом лазерных пистолетов",
+		PREPOSITIONAL = "шкафе лазерных пистолетов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/smg
+	name = "security laser smg cabinet"
+	desc = "Защищённый шкаф для хранения лазерных автоматов. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/hitscan/assault_mg
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/smg/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф лазерных автоматов",
+		GENITIVE = "шкафа лазерных автоматов",
+		DATIVE = "шкафу лазерных автоматов",
+		ACCUSATIVE = "шкаф лазерных автоматов",
+		INSTRUMENTAL = "шкафом лазерных автоматов",
+		PREPOSITIONAL = "шкафе лазерных автоматов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/shotguns
+	name = "security laser shotguns cabinet"
+	desc = "Защищённый шкаф для хранения лазерных дробовиков. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/hitscan/shotgun
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/shotguns/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф лазерных дробовиков",
+		GENITIVE = "шкафа лазерных дробовиков",
+		DATIVE = "шкафу лазерных дробовиков",
+		ACCUSATIVE = "шкаф лазерных дробовиков",
+		INSTRUMENTAL = "шкафом лазерных дробовиков",
+		PREPOSITIONAL = "шкафе лазерных дробовиков",
+	)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun
 	name = "security energy gun cabinet"
 	desc = "Защищённый шкаф для хранения энергетических карабинов. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/energy/gun
 
 /obj/structure/closet/secure_closet/guncabinet/energygun/get_ru_names()
 	return alist(
@@ -341,15 +364,134 @@
 		PREPOSITIONAL = "шкафе энергетических карабинов",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/energygun/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/gun(src)
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine
+	name = "security automatic laser gun cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных винтовок. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/energy/laser/automatic/carbine
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-винтовок",
+		GENITIVE = "шкафа автоматических энерго-винтовок",
+		DATIVE = "шкафу автоматических энерго-винтовок",
+		ACCUSATIVE = "шкаф автоматических энерго-винтовок",
+		INSTRUMENTAL = "шкафом автоматических энерго-винтовок",
+		PREPOSITIONAL = "шкафе автоматических энерго-винтовок",
+	)
+
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/pistols
+	name = "security automatic laser pistol cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных пистолетов. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/automatic/pistol
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/pistols/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-пистолетов",
+		GENITIVE = "шкафа автоматических энерго-пистолетов",
+		DATIVE = "шкафу автоматических энерго-пистолетов",
+		ACCUSATIVE = "шкаф автоматических энерго-пистолетов",
+		INSTRUMENTAL = "шкафом автоматических энерго-пистолетов",
+		PREPOSITIONAL = "шкафе автоматических энерго-пистолетов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/smg
+	name = "security automatic laser smg cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных автоматов. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/automatic/assault_mg
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/smg/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-автоматов",
+		GENITIVE = "шкафа автоматических энерго-автоматов",
+		DATIVE = "шкафу автоматических энерго-автоматов",
+		ACCUSATIVE = "шкаф автоматических энерго-автоматов",
+		INSTRUMENTAL = "шкафом автоматических энерго-автоматов",
+		PREPOSITIONAL = "шкафе автоматических энерго-автоматов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/shotguns
+	name = "security automatic laser shotgun cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных дробовикоы. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/laser/automatic/shotgun
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/shotguns/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-дробовиков",
+		GENITIVE = "шкафа автоматических энерго-дробовиков",
+		DATIVE = "шкафу автоматических энерго-дробовиков",
+		ACCUSATIVE = "шкаф автоматических энерго-дробовиков",
+		INSTRUMENTAL = "шкафом автоматических энерго-дробовиков",
+		PREPOSITIONAL = "шкафе автоматических энерго-дробовиков",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun
+	name = "security accumulator-energy gun cabinet"
+	desc = "Защищённый шкаф для хранения лазерных винтовок, работающих на аккумуляторах. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/energy/accumulator/energy_carbine
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-винтовок",
+		GENITIVE = "шкафа аккумуляторных энерго-винтовок",
+		DATIVE = "шкафу аккумуляторных энерго-винтовок",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-винтовок",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-винтовок",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-винтовок",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/pistols
+	name = "security accumulator-energy pistols cabinet"
+	desc = "Защищённый шкаф для хранения лазерных пистолетов, работающих на аккумуляторах. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/accumulator/energy_pistol
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/pistols/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-пистолетов",
+		GENITIVE = "шкафа аккумуляторных энерго-пистолетов",
+		DATIVE = "шкафу аккумуляторных энерго-пистолетов",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-пистолетов",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-пистолетов",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-пистолетов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/smg
+	name = "security accumulator-energy smg cabinet"
+	desc = "Защищённый шкаф для хранения лазерных автоматов, работающих на аккумуляторах. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/accumulator/automatic
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/smg/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-автоматов",
+		GENITIVE = "шкафа аккумуляторных энерго-автоматов",
+		DATIVE = "шкафу аккумуляторных энерго-автоматов",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-автоматов",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-автоматов",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-автоматов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/shotguns
+	name = "security accumulator-energy shotguns cabinet"
+	desc = "Защищённый шкаф для хранения лазерных дробовиков, работающих на аккумуляторах. Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/accumulator/shotgun
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/shotguns/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-дробовиков",
+		GENITIVE = "шкафа аккумуляторных энерго-дробовиков",
+		DATIVE = "шкафу аккумуляторных энерго-дробовиков",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-дробовиков",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-дробовиков",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-дробовиков",
+	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок LR-30. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/lr30
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/get_ru_names()
 	return alist(
@@ -361,15 +503,11 @@
 		PREPOSITIONAL = "шкафе лазерных винтовок LR-30",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/lr30(src)
-
 /obj/structure/closet/secure_closet/guncabinet/lasercarbine
 	name = "security IK-60 gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных карабинов IK-60. Внутри хранится диск для печати магазинов и боеприпасов."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/automatic/ik60
 
 /obj/structure/closet/secure_closet/guncabinet/lasercarbine/get_ru_names()
 	return alist(
@@ -382,14 +520,13 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasercarbine/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/ik60(src)
+	. = ..()
 	new /obj/item/disk/design_disk/security/laser_carbine_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/plasma_pistols
 	name = "plasma pistol gun cabinet"
 	desc = "Защищённый шкаф для хранения плазменных пистолетов модели \"Щитобой\" Шкаф прикручен к полу."
+	stored_weapon = /obj/item/gun/energy/plasma_pistol
 
 /obj/structure/closet/secure_closet/guncabinet/plasma_pistols/get_ru_names()
 	return alist(
@@ -400,11 +537,6 @@
 		INSTRUMENTAL = "шкафом плазменных пистолетов",
 		PREPOSITIONAL = "шкафе плазменных пистолетов",
 	)
-
-/obj/structure/closet/secure_closet/guncabinet/plasma_pistols/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
-	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/plasma_pistol(src)
 
 /obj/item/disk/design_disk/security
 	name = "security design disk"
@@ -499,6 +631,7 @@
 	name = "security riot shotgun cabinet"
 	desc = "Защищённый шкаф для хранения помповых дробовиков."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/shotgun/riot
 
 /obj/structure/closet/secure_closet/guncabinet/riot_shotgun/get_ru_names()
 	return alist(
@@ -510,15 +643,11 @@
 		PREPOSITIONAL = "шкафе помповых дробовиков",
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/riot_shotgun/populate_contents()
-	new /obj/item/gun/projectile/shotgun/riot(src)
-	new /obj/item/gun/projectile/shotgun/riot(src)
-	new /obj/item/gun/projectile/shotgun/riot(src)
-
 /obj/structure/closet/secure_closet/guncabinet/winchester
 	name = "security lever action shotgun cabinet"
 	desc = "Защищённый шкаф для хранения рычажных дробовиков."
 	req_access = list(ACCESS_ARMORY)
+	stored_weapon = /obj/item/gun/projectile/shotgun/winchester
 
 /obj/structure/closet/secure_closet/guncabinet/winchester/get_ru_names()
 	return alist(
@@ -529,11 +658,6 @@
 		INSTRUMENTAL = "шкафом рычажных дробовиков",
 		PREPOSITIONAL = "шкафе рычажных дробовиков",
 	)
-
-/obj/structure/closet/secure_closet/guncabinet/winchester/populate_contents()
-	new /obj/item/gun/projectile/shotgun/winchester(src)
-	new /obj/item/gun/projectile/shotgun/winchester(src)
-	new /obj/item/gun/projectile/shotgun/winchester(src)
 
 
 /obj/structure/closet/secure_closet/brigdoc

@@ -428,7 +428,7 @@
 		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
 	owning_hub.contractor_uplink?.message_holder(
 		"Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. " \
-		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_CREDIT(creds)].", \
+		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[DECL_0_A_OV(creds)].", \
 		'sound/machines/terminal_prompt_confirm.ogg'
 	)
 
@@ -541,7 +541,7 @@
 	|| /obj/item/reagent_containers/food/snacks/breadslice/stale
 	// Supply them with some chow. How generous is the Syndicate?
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new bread_type(food_turf)
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(food_turf)
+	var/obj/item/reagent_containers/cup/glass/drinkingglass/drink = new(food_turf)
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 	temp_objs = list(food, drink)
 

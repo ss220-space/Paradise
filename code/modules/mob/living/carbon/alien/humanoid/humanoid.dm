@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	add_language(LANGUAGE_XENOS)
 	add_language(LANGUAGE_HIVE_XENOS)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
+	AddSpell(new /datum/action/cooldown/spell/regurgitate)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 	update_icons()

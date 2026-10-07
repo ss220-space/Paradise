@@ -67,6 +67,7 @@
 	GLOB.poi_list.Remove(src)
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
+	QDEL_NULL(tier)
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
@@ -87,12 +88,14 @@
 	return TRUE // tier updated.
 
 /obj/item/his_grace/proc/init_new_tier(typepath)
+	var/datum/grace_tier/old_tier = tier
 	if(typepath)
 		tier = new typepath()
 
 	if(!tier)
 		return FALSE // something bad occured, but we prevent runtimes
 
+	qdel(old_tier)
 	tier.link_tier(src)
 	tier.apply_tier()
 
@@ -210,7 +213,7 @@
 	if(!awakened)
 		return
 
-	spasm_animation()
+	animate_rumble(src)
 
 /obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
 	if(!awakened || ascended)
@@ -218,7 +221,7 @@
 	var/turf/T = get_turf(src)
 	T.visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] медленно затихает и замирает. Защёлка [declent_ru(GENITIVE)] с громким щелчком захлопывается."))
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
-	animate(src, transform=matrix())
+	animate(src, transform = matrix())
 	gender = initial(gender)
 	awakened = FALSE
 	bloodthirst = 0

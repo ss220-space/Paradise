@@ -761,7 +761,7 @@
 /area/awaymission/beach)
 "cX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},

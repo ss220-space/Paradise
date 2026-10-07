@@ -32,7 +32,7 @@
 	add_language(LANGUAGE_HIVE_XENOS)
 	hide_action = new
 	hide_action.Grant(src)
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/larva)
+	AddSpell(new /datum/action/cooldown/spell/evolve/larva)
 
 /mob/living/carbon/alien/larva/Destroy()
 	if(hide_action)

@@ -131,7 +131,6 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/table/wood,
-/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "fO" = (
@@ -711,7 +710,7 @@
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/bottle/morphine{
+/obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_x = 13;
 	pixel_y = 12
 	},
@@ -800,7 +799,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
@@ -933,7 +932,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/plant_analyzer,
 /obj/item/cultivator,
 /obj/item/hatchet,
@@ -953,7 +952,6 @@
 	},
 /obj/machinery/alarm/directional/south,
 /obj/structure/table/wood,
-/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ul" = (

@@ -49,8 +49,10 @@
 		GLOB.deliverybeacontags += location
 
 /obj/machinery/navbeacon/Destroy()
-	GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
-	GLOB.deliverybeacons -= src
+	if("patrol" in codes)
+		GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
+	if("delivery" in codes)
+		GLOB.deliverybeacons -= src
 	return ..()
 
 /obj/machinery/navbeacon/serialize()

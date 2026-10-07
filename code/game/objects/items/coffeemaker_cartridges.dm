@@ -30,7 +30,7 @@
 /obj/item/coffee_cartridge/examine(mob/user)
 	. = ..()
 	if(charges)
-		. += span_notice("Хватит ещё на <b>[charges]</b> использовани[declension_ru(charges, "е", "я", "й")].")
+		. += span_notice("Хватит ещё на <b>[charges]</b> использовани[DECL_E_YA_J(charges)].")
 	else
 		. += span_notice("<b>Пусто</b>.")
 

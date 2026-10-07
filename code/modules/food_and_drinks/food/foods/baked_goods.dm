@@ -535,11 +535,11 @@
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
 		reagents.add_reagent("omnizine", 5)
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
 	name = "xeno-pie"
@@ -867,7 +867,7 @@
 	desc = "Creamy satisfaction"
 	icon_state = "sundae"
 	filling_color = "#F5DEB8"
-	list_reagents = list("nutriment" = 4, "plantmatter" = 2, "bananajucie" = 4, "cream" = 3)
+	list_reagents = list("nutriment" = 4, "plantmatter" = 2, "banana" = 4, "cream" = 3)
 	tastes = list("banana" = 1, "cherry" = 1, "cream" = 1)
 	bitesize = 5
 	foodtype = GRAIN | FRUIT

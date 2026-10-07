@@ -72,9 +72,9 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/static/list/containers = list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/condiment,
 	)
 	if(is_type_in_list(I, containers))
 		add_fingerprint(user)
@@ -92,7 +92,7 @@
 		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] перелива[PLUR_ET_YUT(user)] содержимое [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы переливаете [transfered_amount] единиц[DECL_SEC_MIN(transfered_amount)] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы переливаете [transfered_amount] единиц[DECL_U_Y_0(transfered_amount)] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

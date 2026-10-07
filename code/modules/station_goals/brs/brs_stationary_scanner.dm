@@ -86,6 +86,9 @@
 	connect_to_network()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return TRUE
+
 /obj/machinery/power/brs_stationary_scanner/Destroy()
 	GLOB.bluespace_rifts_scanner_list.Remove(src)
 	GLOB.poi_list.Remove(src)

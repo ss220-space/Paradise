@@ -122,6 +122,8 @@
 /datum/component/proc/_RemoveFromParent()
 	var/datum/parent = src.parent
 	var/list/parents_components = parent._datum_components
+	if(!parents_components || !length(parents_components))
+		stack_trace("Component [src] has null or empty parent's _datum_components list")
 	for(var/i_type in _GetInverseTypeList())
 		var/list/components_of_type = parents_components[i_type]
 

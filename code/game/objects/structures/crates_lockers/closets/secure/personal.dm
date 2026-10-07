@@ -83,3 +83,14 @@
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+/obj/structure/closet/secure_closet/personal/explorer
+	name = "personal explorer's cabinet"
+
+/obj/structure/closet/secure_closet/personal/explorer/populate_contents()
+	new /obj/item/kitchen/knife/combat/survival(src)
+	new /obj/item/radio/headset/headset_sci(src)
+	new /obj/item/clothing/under/color/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/head/beret/black(src)
+	new /obj/item/clothing/suit/armor/vest(src)

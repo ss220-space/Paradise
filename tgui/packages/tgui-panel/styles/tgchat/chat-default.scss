@@ -351,7 +351,8 @@ h2.alert {
 	font-weight: bold;
 }
 
-.admin {
+.admin,
+.admin_attack {
 	color: hsl(225, 100%, 61%);
 	font-weight: bold;
 }
@@ -1291,6 +1292,27 @@ $border-width-px: $border-width * 1px;
 			$space: hsl
 		);
 	}
+}
+
+// MARK: Swarmer
+.swarmer {
+	color: hsl(210, 100%, 50%);
+}
+
+.swarmerbold {
+	color: hsl(240, 100%, 40%);
+	font-weight: bold;
+}
+
+.swarmeritalic {
+	color: hsl(210, 100%, 50%);
+	font-style: italic;
+}
+
+.swarmerboldlarge {
+	color: hsl(210, 100%, 50%);
+	font-size: 120%;
+	font-weight: bold;
 }
 
 /**

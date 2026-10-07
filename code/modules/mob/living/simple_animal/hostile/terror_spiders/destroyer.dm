@@ -30,8 +30,8 @@
 	web_type = null
 	tts_seed = "Zuljin"
 	special_abillity = list(
-		/obj/effect/proc_holder/spell/emplosion/terror_emp,
-		/obj/effect/proc_holder/spell/explosion/terror_burn,
+		/datum/action/cooldown/spell/emplosion/terror_emp,
+		/datum/action/cooldown/spell/explosion/terror_spider,
 	)
 	spider_intro_text = "Будучи Разрушителем Ужаса, ваша цель — саботировать станцию. Выбивайте заваренную вентиляцию, ломайте канистры с опасными газами, уничтожайте АПЦ и любое оборудование, до которого доберётесь. Помните, вы — не боевой паук, хоть вы и можете справиться с небольшой угрозой, убийства это не ваша забота!"
 

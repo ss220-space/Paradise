@@ -28,9 +28,6 @@
 		countdown.start()
 
 /obj/structure/clockwork/functional/celestial_gateway/Destroy()
-	if(QDELETED(src))
-		return ..()
-
 	STOP_PROCESSING(SSprocessing, src)
 
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)

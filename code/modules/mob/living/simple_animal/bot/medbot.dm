@@ -19,7 +19,7 @@
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 	/// Can be set to draw from this for reagents.
-	var/obj/item/reagent_containers/glass/reagent_glass = null
+	var/obj/item/reagent_containers/cup/reagent_glass = null
 	/// Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/skin = null
 	var/mob/living/carbon/patient = null
@@ -290,7 +290,7 @@
 		step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 		return .
 
-	if(isglassreagentcontainer(I))
+	if(iscup(I))
 		add_fingerprint(user)
 		if(locked)
 			balloon_alert(user, "техпанель заблокирована!")

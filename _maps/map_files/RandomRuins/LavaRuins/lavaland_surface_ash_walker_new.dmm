@@ -219,7 +219,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "hM" = (
@@ -330,7 +330,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jO" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "jU" = (
@@ -414,11 +414,11 @@
 "mx" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/rack/wooden,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/cup/glass/mushroom_bowl{
 	pixel_x = 2;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/cup/glass/mushroom_bowl{
 	pixel_x = -4;
 	pixel_y = -8
 	},
@@ -478,11 +478,11 @@
 "nv" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/rack/wooden,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/cup/glass/mushroom_bowl{
 	pixel_x = 4;
 	pixel_y = -7
 	},
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/cup/glass/mushroom_bowl{
 	pixel_x = -2;
 	pixel_y = 5
 	},
@@ -1114,7 +1114,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl,
+/obj/item/reagent_containers/cup/glass/mushroom_bowl,
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
 	pixel_x = -9;
 	pixel_y = -7
@@ -2053,7 +2053,7 @@
 "ZJ" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+/obj/item/reagent_containers/cup/glass/mushroom_bowl{
 	pixel_x = 4;
 	pixel_y = -3
 	},
