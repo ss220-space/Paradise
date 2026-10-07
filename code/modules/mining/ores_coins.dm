@@ -799,7 +799,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			)
 
 /obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/mob/thrower = throwingdatum?.thrower
+	var/mob/thrower = throwingdatum?.thrower.resolve()
 	if(istype(thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
 		thrower.say(pick("Сдачу, пожалуйста!", "За сущие копейки!", "Сдачу!", "Кэшбек в кредит!"))
 		embed_chance = 30

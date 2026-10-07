@@ -177,14 +177,14 @@
 		return ..()
 
 /obj/item/toy/balloon/hitby(atom/movable/hit_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	var/mob/thrower = throwingdatum?.thrower
+	var/mob/thrower = throwingdatum?.thrower.resolve()
 	if(ismonkey(thrower) && istype(hit_atom, /obj/projectile/bullet/reusable/foam_dart))
 		pop_balloon(monkey_pop = TRUE)
 	else
 		return ..()
 
 /obj/item/toy/balloon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	var/mob/thrower = throwingdatum?.thrower
+	var/mob/thrower = throwingdatum?.thrower.resolve()
 	if(ismonkey(thrower) && istype(AM, /obj/projectile/bullet/reusable/foam_dart))
 		pop_balloon(monkey_pop = TRUE)
 	else

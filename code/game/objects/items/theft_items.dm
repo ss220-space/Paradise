@@ -267,7 +267,7 @@
 	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
-		var/mob/user = throwingdatum.thrower
+		var/mob/user = throwingdatum.thrower.resolve()
 		add_attack_logs(user, victim, "[victim] consumed by [src] thrown by [user] ")
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
 		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", INVESTIGATE_ENGINE)

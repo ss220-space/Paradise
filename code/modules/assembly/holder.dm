@@ -172,7 +172,7 @@
 	..()
 	var/triggered
 	if(throwing?.thrower)
-		triggered = throwing.thrower
+		triggered = throwing.thrower.resolve()
 	process_movement(triggered)
 
 /obj/item/assembly_holder/attack_hand(mob/user)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
