@@ -25,6 +25,16 @@
 	/// At what angle head of pen now
 	var/degrees
 
+/obj/item/pen/get_ru_names()
+	return alist(
+		NOMINATIVE = "ручка",
+		GENITIVE = "ручки",
+		DATIVE = "ручке",
+		ACCUSATIVE = "ручку",
+		INSTRUMENTAL = "ручкой",
+		PREPOSITIONAL = "ручке",
+	)
+
 /obj/item/pen/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
@@ -111,6 +121,16 @@
 		"yellow" = list(1, 1, 0))
 	var/pen_color_iconstate = "pencolor"
 
+/obj/item/pen/multi/get_ru_names()
+	return alist(
+		NOMINATIVE = "многоцветная ручка",
+		GENITIVE = "многоцветной ручки",
+		DATIVE = "многоцветной ручке",
+		ACCUSATIVE = "многоцветную ручку",
+		INSTRUMENTAL = "многоцветной ручкой",
+		PREPOSITIONAL = "многоцветной ручке",
+	)
+
 /obj/item/pen/multi/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
@@ -146,6 +166,16 @@
 	desc = "Дорого выглядящая ручка. Для самых богатых."
 	icon_state = "pen-fountain"
 
+/obj/item/pen/fountain/get_ru_names()
+	return alist(
+		NOMINATIVE = "перьевая ручка",
+		GENITIVE = "перьевой ручки",
+		DATIVE = "перьевой ручке",
+		ACCUSATIVE = "перьевую ручку",
+		INSTRUMENTAL = "перьевой ручкой",
+		PREPOSITIONAL = "перьевой ручке",
+	)
+
 /obj/item/pen/fountain/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/pen/fountain)
@@ -163,12 +193,22 @@
 
 /obj/item/pen/survival
 	name = "survival pen"
-	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
+	desc = "Последнее слово в портативных технологиях выживания, эта ручка была разработана как миниатюрная алмазная кирка."
 	icon_state = "digging_pen"
 	tool_behaviour = TOOL_MINING //For the classic "digging out of prison with a spoon but you're in space so this analogy doesn't work" situation.
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
 	usesound = 'sound/effects/picaxe1.ogg'
+
+/obj/item/pen/survival/get_ru_names()
+	return alist(
+		NOMINATIVE = "ручка выживания",
+		GENITIVE = "ручки выживания",
+		DATIVE = "ручке выживания",
+		ACCUSATIVE = "ручку выживания",
+		INSTRUMENTAL = "ручкой выживания",
+		PREPOSITIONAL = "ручке выживания",
+	)
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -415,6 +455,16 @@
 	can_air_shoot = FALSE
 	suppressed = TRUE
 	damage_mod = 2
+
+/obj/item/gun/projectile/revolver/assassin_pen_gun/get_ru_names() // Just in case if we get some shoot message
+	return alist(
+		NOMINATIVE = "ручка ассасина",
+		GENITIVE = "ручки ассасина",
+		DATIVE = "ручке ассасина",
+		ACCUSATIVE = "ручку ассасина",
+		INSTRUMENTAL = "ручкой ассасина",
+		PREPOSITIONAL = "ручке ассасина",
+	)
 
 /obj/item/ammo_box/magazine/internal/cylinder/assassin_pen_mag
 	name = "assassin pen mag"
