@@ -116,6 +116,13 @@
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
 
+	if(!ishuman(current))
+		return
+
+	// for unarmed combat technique
+	var/mob/living/carbon/human/human_current = current
+	human_current.refresh_uct()
+
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
 	var/bonus_level = 0
 	for(var/datum/antagonist/antag as anything in antag_datums)
