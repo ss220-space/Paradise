@@ -13,7 +13,7 @@
 	"pink" = "light grey" \
 )
 
-/obj/item/organ/internal/eyes
+/obj/item/organ/internal/eyess
 	name = "eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
 	gender = PLURAL
