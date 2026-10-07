@@ -12041,7 +12041,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
