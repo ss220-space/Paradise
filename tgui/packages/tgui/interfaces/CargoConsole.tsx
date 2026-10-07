@@ -21,6 +21,7 @@ import { Window } from '../layouts';
 
 export type CargoPackContent = {
   name: string;
+  name_en?: string | null;
   icon?: string | null;
   icon_state?: string | null;
 };
@@ -201,7 +202,13 @@ const CataloguePane = (properties: CataloguePaneProps<CargoPackContent>) => {
   const { setContentsModal, setContentsModalTitle } = properties;
 
   const packSearch = createSearch<CargoSupplyPack>(searchText, (crate) =>
-    [crate.name, ...crate.contents.map((content) => content.name)].join('|'),
+    [
+      crate.name,
+      ...crate.contents.flatMap((content) => [
+        content.name,
+        content.name_en ?? '',
+      ]),
+    ].join('|'),
   );
 
   const targetCategory = !searchText

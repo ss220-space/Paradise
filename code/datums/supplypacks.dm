@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 			continue
 		var/atom/movable/dummy = new path(locate(1, 1, 1))
 		var/content_name = dummy.declent_ru(NOMINATIVE)
-		// Icon info for TGUI (DmIcon). Only static rsc icons are renderable, runtime icons get skipped
+		var/content_name_en = "[dummy.name]"
 		var/content_icon = ""
 		var/content_icon_state = ""
 		if(isfile(dummy.icon) && length("[dummy.icon]"))
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		qdel(dummy)
 		manifest += "<li>[content_name]</li>"
 		// Add the entry to the UI manifest (name + icon for the cargo console contents modal)
-		ui_manifest += list(list("name" = content_name, "icon" = content_icon, "icon_state" = content_icon_state))
+		ui_manifest += list(list("name" = content_name, "name_en" = content_name_en, "icon" = content_icon, "icon_state" = content_icon_state))
 	manifest += "</ul>"
 
 /datum/supply_packs/proc/can_approve(mob/user)
