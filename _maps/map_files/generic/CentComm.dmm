@@ -2562,10 +2562,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/trader_station/sol)
 "bsK" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = -8;
-	pixel_y = 4
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/item/syndicatedetonator{
 	pixel_x = 4
 	},
@@ -10375,10 +10372,7 @@
 /obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	pixel_x = -7;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
 	color = "#791500";
@@ -10543,7 +10537,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/centcom/ninja/outside)
 "fhS" = (
-/obj/item/reagent_containers/glass/bucket/wooden/shit{
+/obj/item/reagent_containers/cup/bucket/wooden/shit{
 	pixel_x = 9;
 	pixel_y = -2
 	},
@@ -10555,10 +10549,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/vox_station)
 "fhT" = (
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/clothing/gloves/botanic_leather,
 /obj/structure/table/reinforced,
@@ -11611,7 +11605,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -15867,12 +15861,6 @@
 "hLh" = (
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/ninja/outside)
-"hLm" = (
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/syndicate_base/cargo)
 "hLq" = (
 /obj/structure/railing{
 	dir = 8;
@@ -16549,17 +16537,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
-"ieJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 30
-	},
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/centcom/syndicate_base)
 "ieK" = (
 /obj/structure/chair/comfy/red{
 	dir = 8
@@ -23206,10 +23183,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/glass/bottle/rum{
-	pixel_x = 6;
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base)
@@ -23768,10 +23742,7 @@
 	pixel_x = 11;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = 4;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -23831,10 +23802,7 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/accessory/holster,
 /obj/item/storage/backpack/satcheldeluxe,
-/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
-	pixel_x = -4;
-	pixel_y = 8
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 12
@@ -32565,10 +32533,7 @@
 /area/centcom/syndicate_base/infiltrators)
 "oTc" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
-	pixel_x = 8;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
@@ -35254,10 +35219,7 @@
 /area/centcom/central_command_areas/special_operations)
 "qik" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/wine{
-	pixel_x = -5;
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/carpet,
 /area/centcom/syndicate_base/infiltrators)
 "qim" = (
@@ -39939,18 +39901,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/infiltrators)
-"scE" = (
-/obj/item/reagent_containers/cup/bucket/wooden/shit{
-	pixel_x = 9;
-	pixel_y = -2
-	},
-/obj/item/paper/crumpled{
-	pixel_x = -9;
-	pixel_y = 2
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/vox_station)
 "scN" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -40598,15 +40548,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
-"stP" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access = list(31)
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/shuttle,
-/area/shuttle/supply)
 "sub" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -41722,10 +41663,7 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = -5;
-	pixel_y = 9
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -42983,10 +42921,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/cup/glass/bottle/wine{
-	pixel_x = -12;
-	pixel_y = 10
-	},
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -44911,15 +44846,6 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
-"umP" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/outside)
 "umX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44938,18 +44864,6 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/syndicate_base/control)
-"unz" = (
-/obj/item/reagent_containers/cup/bottle/nutrient/ez,
-/obj/item/reagent_containers/spray/pestspray,
-/obj/item/reagent_containers/cup/bottle/nutrient/ez,
-/obj/item/reagent_containers/cup/bottle/nutrient/ez,
-/obj/item/reagent_containers/spray/pestspray,
-/obj/item/clothing/gloves/botanic_leather,
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/centcom/central_command_areas/prison)
 "unC" = (
 /obj/machinery/door_control/secure{
 	id = "CC_supply_space";
@@ -47407,10 +47321,7 @@
 /area/centcom/syndicate_base/control)
 "vqb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
-	pixel_x = 8;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/reagent_containers/syringe/bioterror{
 	pixel_x = -5;
 	pixel_y = -3
@@ -47627,6 +47538,7 @@
 	roundstart_move = "explorer_ship_home";
 	preferred_direction = 4;
 	port_direction = 4;
+
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/explorer_ship)
@@ -49130,17 +49042,6 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/central_command_areas/zone/three)
-"weX" = (
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/item/syndicatedetonator{
-	pixel_x = 4
-	},
-/obj/structure/table/wood/poker,
-/turf/simulated/floor/carpet/black,
-/area/centcom/syndicate_base)
 "wfo" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -56951,7 +56852,7 @@ gCR
 uZY
 qDr
 vas
-scE
+fhS
 uZY
 jKn
 jKn
@@ -59353,7 +59254,7 @@ sAE
 ciV
 kdD
 lws
-hLm
+fQq
 vHT
 xhG
 ciV
@@ -59610,7 +59511,7 @@ vlN
 ciV
 dMF
 gLq
-hLm
+fQq
 gtw
 xhG
 ciV
@@ -62422,7 +62323,7 @@ kMy
 euh
 hXg
 xNs
-ieJ
+fFm
 eTj
 keo
 vPe
@@ -65757,7 +65658,7 @@ nYK
 keo
 wPq
 xBV
-weX
+bsK
 lWc
 wXg
 keo
@@ -95108,7 +95009,7 @@ tGz
 tGz
 nkc
 pqb
-unz
+fhT
 kCu
 wAV
 wAV
@@ -108164,7 +108065,7 @@ rOB
 ihm
 rOB
 rOB
-stP
+hZS
 sEs
 scN
 kOD
@@ -108678,7 +108579,7 @@ rOB
 hqD
 rOB
 rOB
-stP
+hZS
 dEV
 gbo
 fon

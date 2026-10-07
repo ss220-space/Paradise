@@ -196,7 +196,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/animalfeed,
+/obj/item/reagent_containers/condiment/animalfeed,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/commons/arcade)
 "acC" = (
@@ -1137,7 +1137,7 @@
 	pixel_y = 4
 	},
 /obj/item/clothing/accessory/holster,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /obj/item/toy/russian_revolver,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -1353,10 +1353,8 @@
 /area/planetoid/jungle/colony_roads)
 "apV" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/condiment/milk,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lakes/beach)
 "apW" = (
@@ -1518,14 +1516,9 @@
 /area/planetoid/escape/command)
 "arN" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -2411,7 +2404,7 @@
 /area/planetoid/lakes/beach)
 "aBG" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/cup/bottle/ether,
 /obj/item/reagent_containers/syringe{
 	pixel_x = -1;
 	pixel_y = 11
@@ -2419,9 +2412,7 @@
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -7
 	},
-/obj/item/reagent_containers/glass/bottle/reagent/morphine{
-	pixel_x = 9
-	},
+/obj/item/reagent_containers/cup/bottle/reagent/morphine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluealt"
@@ -2642,11 +2633,11 @@
 /obj/item/storage/bag/trash,
 /obj/item/storage/bag/trash,
 /obj/item/storage/bag/trash,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/structure/sign/poster/contraband/phosphorusammo{
 	pixel_x = -32
 	},
@@ -3297,11 +3288,9 @@
 	pixel_x = -1;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/bottle/ether,
-/obj/item/reagent_containers/glass/bottle/ether,
-/obj/item/reagent_containers/glass/bottle/reagent/morphine{
-	pixel_x = 9
-	},
+/obj/item/reagent_containers/cup/bottle/ether,
+/obj/item/reagent_containers/cup/bottle/ether,
+/obj/item/reagent_containers/cup/bottle/reagent/morphine,
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -7
 	},
@@ -4204,13 +4193,9 @@
 	dir = 6
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer{
-	pixel_x = -10
-	},
-/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer{
-	pixel_x = 10
-	},
-/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/lazarus/service/bar)
 "aZV" = (
@@ -5583,7 +5568,7 @@
 	},
 /area/planetoid/lazarus/engineering/break_room)
 "boz" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/machinery/light/small{
 	dir = 4;
@@ -8224,7 +8209,7 @@
 /obj/item/folder/blue{
 	layer = 3.1
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle{
+/obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = -8
 	},
 /obj/structure/table/wood,
@@ -8441,7 +8426,7 @@
 /area/planetoid/lazarus/nexus)
 "bTW" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /turf/simulated/floor/carpet,
 /area/planetoid/lazarus/security/courtroom)
 "bUa" = (
@@ -9205,10 +9190,7 @@
 /turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "cbF" = (
-/obj/item/reagent_containers/food/drinks/cans/ale{
-	pixel_y = 15;
-	pixel_x = 5
-	},
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lakes/west)
 "cbH" = (
@@ -10711,14 +10693,8 @@
 /area/planetoid/lakes/west_bridge)
 "ctk" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
-	pixel_x = -7;
-	pixel_y = 3
-	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
 /obj/item/storage/fancy/coffee_cart_rack{
 	pixel_x = 8
 	},
@@ -11228,7 +11204,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 /obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -12709,8 +12685,8 @@
 /obj/item/reagent_containers/food/pill/patch/styptic,
 /obj/item/storage/pill_bottle/painkillers,
 /obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/charcoal,
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/ointment,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -13498,14 +13474,8 @@
 /area/planetoid/lazarus/security/prison/cell_block/secondary)
 "cZQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
-	pixel_x = -7;
-	pixel_y = 3
-	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
 /obj/item/storage/fancy/coffee_cart_rack{
 	pixel_x = 8
 	},
@@ -13765,7 +13735,7 @@
 "ddh" = (
 /obj/structure/table/wood,
 /obj/item/razor,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/cup/glass/flask/gold,
 /obj/machinery/light_switch/directional/east,
 /obj/structure/sign/poster/official/pinup_b{
 	pixel_y = 32
@@ -14855,7 +14825,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer/almost_empty,
+/obj/item/reagent_containers/cup/soda_cans/beer/almost_empty,
 /turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "doW" = (
@@ -14965,17 +14935,9 @@
 	pixel_x = -1;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/glass/bottle/reagent/hairgrownium{
-	pixel_x = -6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/frostoil{
-	pixel_x = 5;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/mutagen{
-	pixel_y = 6
-	},
+/obj/item/reagent_containers/cup/bottle/reagent/hairgrownium,
+/obj/item/reagent_containers/cup/bottle/frostoil,
+/obj/item/reagent_containers/cup/bottle/mutagen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -15344,7 +15306,7 @@
 	},
 /area/planetoid/lazarus/command/office/cmo)
 "duu" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/robotics)
@@ -18377,7 +18339,7 @@
 	pixel_x = -15;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "ehJ" = (
@@ -18964,10 +18926,10 @@
 /area/planetoid/spaceport/lz_ert)
 "eoZ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/item/reagent_containers/food/snacks/icecreamsandwich,
 /obj/item/reagent_containers/food/snacks/icecream,
 /obj/item/reagent_containers/food/snacks/icecream,
@@ -19019,7 +18981,7 @@
 /area/planetoid/caves/underground_lake)
 "epJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood,
@@ -19516,11 +19478,11 @@
 /area/planetoid/lazarus/engineering/atmos)
 "ewy" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "ewI" = (
@@ -21782,17 +21744,9 @@
 /area/planetoid/lazarus/security/hallway/execution)
 "eWF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/ale{
-	pixel_y = 5;
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/food/drinks/cans/ale{
-	pixel_y = 5;
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/food/drinks/cans/ale{
-	pixel_y = 3
-	},
+/obj/item/reagent_containers/cup/soda_cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lakes/west)
 "eWJ" = (
@@ -22146,12 +22100,9 @@
 	},
 /area/planetoid/lazarus/medical/surgery/north)
 "faJ" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
-	pixel_x = 8;
-	pixel_y = 7
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -23818,7 +23769,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer/almost_empty,
+/obj/item/reagent_containers/cup/soda_cans/beer/almost_empty,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/caves/underground_lake)
 "fuT" = (
@@ -24857,7 +24808,7 @@
 "fIv" = (
 /obj/structure/sink/directional/west,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bottle/ammonia,
+/obj/item/reagent_containers/cup/bottle/ammonia,
 /obj/item/storage/bag/trash,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/prison/perma)
@@ -26518,7 +26469,7 @@
 /area/planetoid/lazarus/medical/sleeper)
 "geC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "geI" = (
@@ -28300,7 +28251,7 @@
 /area/planetoid/lazarus/engineering/storage/secure)
 "gxs" = (
 /obj/structure/sink/directional/north,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /obj/effect/landmark/start/janitor,
 /turf/simulated/floor/plasteel{
@@ -28811,7 +28762,7 @@
 /obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/reagent_containers/dropper/precision,
 /obj/machinery/light{
 	dir = 4
@@ -30371,7 +30322,7 @@
 "gXy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/aquatic_kit/full,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/shrimp,
@@ -30660,10 +30611,10 @@
 /area/planetoid/lazarus/science/hallway/main)
 "hdo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31040,7 +30991,7 @@
 /obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/reagent_containers/dropper/precision,
 /obj/machinery/light{
 	dir = 4
@@ -31368,7 +31319,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
@@ -32036,11 +31987,11 @@
 /area/planetoid/lazarus/service/mime)
 "hst" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
 	},
@@ -33235,7 +33186,7 @@
 "hFn" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/mineral/plasma,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/reagent_containers/dropper,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
@@ -33950,7 +33901,7 @@
 /obj/item/soap{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -34037,7 +33988,7 @@
 /area/planetoid/lakes/west)
 "hOc" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -35055,8 +35006,8 @@
 	color = "#996633"
 	},
 /obj/item/lighter/zippo/detective,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/flask/detflask,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/security/detectives_office)
@@ -35882,22 +35833,10 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5;
-	pixel_y = 1
-	},
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/item/reagent_containers/applicator{
 	pixel_x = 6;
 	pixel_y = 7
@@ -36745,7 +36684,7 @@
 /area/planetoid/lazarus/commons/arcade)
 "iwO" = (
 /obj/structure/sink/directional/east,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 4
 	},
@@ -37405,11 +37344,8 @@
 /area/planetoid/jungle/east)
 "iEI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = 5;
-	pixel_y = 15
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -37716,14 +37652,8 @@
 /area/planetoid/lazarus/commons/storage/primary)
 "iIK" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/sulfonal{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_x = 8;
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/cup/bottle/sulfonal,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
@@ -38084,7 +38014,7 @@
 /area/coldcolony/malta/bridge/nuke_storage)
 "iMG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/cultivator,
 /turf/simulated/floor/planetoid/grass/dirtedge/west,
 /area/planetoid/jungle/colony)
@@ -38991,7 +38921,7 @@
 /area/planetoid/caves/north_eng_cave)
 "iWP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug/eng,
+/obj/item/reagent_containers/cup/glass/mug/eng,
 /obj/item/toy/plushie/pizdosik,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/break_room)
@@ -39658,7 +39588,7 @@
 /area/planetoid/lazarus/security/brig)
 "jff" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 8;
 	pixel_y = 11
 	},
@@ -39931,14 +39861,8 @@
 /obj/machinery/coffeemaker/impressa{
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
-	pixel_x = 6;
-	pixel_y = -10
-	},
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
-	pixel_x = -7;
-	pixel_y = -10
-	},
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/caramel,
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/liqueur,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41497,10 +41421,10 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 100000
 	},
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/lighter/zippo/nt_rep,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/folder/documents,
 /obj/machinery/light/small{
 	dir = 4
@@ -42382,7 +42306,7 @@
 /obj/effect/mapping_helpers/table_flip{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
+/obj/item/reagent_containers/cup/beaker/waterbottle/empty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46402,7 +46326,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -50715,7 +50639,7 @@
 /area/planetoid/lazarus/science/hallway/aest_arrivals)
 "lGa" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/animalfeed,
+/obj/item/reagent_containers/condiment/animalfeed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -51109,7 +51033,7 @@
 /area/planetoid/lazarus/science/security)
 "lJR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/snacks/proteinbar_banana,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/abandonedhangar)
@@ -51705,7 +51629,7 @@
 /area/planetoid/lazarus/command/bridge)
 "lSD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/coffeepot,
+/obj/item/reagent_containers/cup/coffeepot,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -52084,7 +52008,7 @@
 /area/planetoid/lazarus/science/hallway/arrivals)
 "lWN" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/turf_decal/tile/neutral/diagonal_edge,
 /obj/effect/turf_decal/tile/dark_blue/diagonal_centre,
 /obj/effect/turf_decal/tile/dark/diagonal_edge,
@@ -52176,7 +52100,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/mug/sci,
+/obj/item/reagent_containers/cup/glass/mug/sci,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -53415,8 +53339,8 @@
 /area/planetoid/lazarus/science/research/lobby)
 "mpl" = (
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -53579,14 +53503,8 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 8;
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/cup/bottle/charcoal,
+/obj/item/reagent_containers/cup/bottle/epinephrine,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -54199,7 +54117,7 @@
 /area/planetoid/lakes/east)
 "mzz" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -56332,7 +56250,7 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/experimentor,
 /obj/machinery/alarm/directional/west,
-/obj/item/reagent_containers/food/drinks/mug/sci,
+/obj/item/reagent_containers/cup/glass/mug/sci,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/science/explab)
 "nab" = (
@@ -56764,7 +56682,7 @@
 "ngl" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -56974,7 +56892,7 @@
 /area/planetoid/jungle/east)
 "nix" = (
 /obj/structure/sink/directional/north,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -57911,18 +57829,9 @@
 /area/planetoid/lazarus/engineering/storage/secure)
 "nuW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 8;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 1;
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -58019,7 +57928,7 @@
 /area/planetoid/jungle/south)
 "nvT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bottle/nutrient/rh,
+/obj/item/reagent_containers/cup/bottle/nutrient/rh,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/abandonedhangar)
 "nwc" = (
@@ -58420,11 +58329,11 @@
 	pixel_x = 9;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -58758,7 +58667,7 @@
 /area/planetoid/lazarus/security/detectives_office)
 "nFQ" = (
 /obj/structure/closet/secure_closet/medical3,
-/obj/item/reagent_containers/food/drinks/mug/med,
+/obj/item/reagent_containers/cup/glass/mug/med,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -58894,10 +58803,7 @@
 	},
 /area/planetoid/spaceport/escape_shuttle)
 "nHc" = (
-/obj/item/reagent_containers/food/drinks/cans/ale{
-	pixel_y = 15;
-	pixel_x = 5
-	},
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/caves/underground_lake)
 "nHf" = (
@@ -59093,11 +58999,11 @@
 /area/planetoid/lazarus/service/bar)
 "nKp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -59124,7 +59030,7 @@
 /obj/item/camera,
 /obj/item/storage/box/gloves,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/reagent_containers/cup/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59722,11 +59628,11 @@
 /area/planetoid/lazarus/command/meeting_room)
 "nSD" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -61579,7 +61485,7 @@
 /area/planetoid/lazarus/engineering/atmos)
 "oqr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -62240,10 +62146,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/mug/sec{
-	pixel_x = 3;
-	pixel_y = 14
-	},
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /obj/item/storage/fancy/vials{
 	pixel_x = -6
 	},
@@ -62867,7 +62770,7 @@
 /obj/structure/closet/chefcloset,
 /obj/item/soap,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -65184,9 +65087,7 @@
 /area/planetoid/jungle/west)
 "pkh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug/med{
-	pixel_y = 5
-	},
+/obj/item/reagent_containers/cup/glass/mug/med,
 /obj/item/coin/gold{
 	pixel_x = 8;
 	pixel_y = -5
@@ -65767,11 +65668,11 @@
 	pixel_x = 9;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -67276,11 +67177,11 @@
 /area/planetoid/lazarus/cargo/office)
 "pJE" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -67681,10 +67582,7 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
-	pixel_x = 5;
-	pixel_y = -3
-	},
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -68185,11 +68083,8 @@
 "pUs" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = 7;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -69648,10 +69543,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/reagent_containers/food/drinks/mug/hos{
-	pixel_x = -6;
-	pixel_y = 16
-	},
+/obj/item/reagent_containers/cup/glass/mug/hos,
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet/red,
 /area/planetoid/lazarus/command/office/hos)
@@ -70071,7 +69963,7 @@
 "qpO" = (
 /obj/item/stamp/solgov,
 /obj/structure/safe,
-/obj/item/reagent_containers/food/drinks/bottle/jagermeister,
+/obj/item/reagent_containers/cup/glass/bottle/jagermeister,
 /obj/item/clothing/accessory/head_strip/federal,
 /obj/item/id_decal/federal,
 /obj/item/coin/silver,
@@ -70530,7 +70422,7 @@
 /area/planetoid/lazarus/service/kitchen)
 "qvg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 8;
 	pixel_y = 1
 	},
@@ -71406,7 +71298,7 @@
 /area/planetoid/spaceport/explorer_ship)
 "qEg" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -71469,13 +71361,10 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/planetoid/lazarus/service/bar/atrium)
 "qFa" = (
-/obj/item/reagent_containers/food/drinks/zaza{
-	pixel_x = 8;
-	pixel_y = 8
-	},
+/obj/item/reagent_containers/cup/glass/zaza,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/snacks/tofukabob,
@@ -72094,18 +71983,18 @@
 /area/planetoid/spaceport/lz_ert)
 "qNL" = (
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/gin,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/gin,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /turf/simulated/floor/wood,
@@ -72197,12 +72086,12 @@
 /area/planetoid/lazarus/science/hallway/aest_arrivals)
 "qPa" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -4;
 	pixel_y = 11
 	},
@@ -72845,13 +72734,11 @@
 	},
 /area/planetoid/lazarus/science/hallway/main)
 "qXY" = (
-/obj/item/reagent_containers/food/drinks/bottle/patron{
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /obj/structure/table/wood{
@@ -74387,10 +74274,10 @@
 /area/planetoid/spaceport)
 "rqt" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -74904,9 +74791,7 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_y = 2
-	},
+/obj/item/reagent_containers/cup/bottle/epinephrine,
 /obj/machinery/camera{
 	c_tag = "Medbay Exam Room South";
 	dir = 1;
@@ -75932,9 +75817,9 @@
 /area/planetoid/lazarus/engineering/mechanic_workshop)
 "rLr" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/clothing/gloves/botanic_leather,
@@ -75943,8 +75828,8 @@
 /obj/item/shovel/spade,
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79853,10 +79738,7 @@
 "sGw" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/junglesalad,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
-	pixel_y = 3;
-	pixel_x = 8
-	},
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/lazarus/commons/fishing_room)
 "sGH" = (
@@ -80499,11 +80381,11 @@
 /area/planetoid/spaceport/lz_addition_goals)
 "sNH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -80758,11 +80640,11 @@
 /area/planetoid/lazarus/security/courtroom)
 "sQJ" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/carpet/green,
 /area/planetoid/lazarus/commons/mrchangs)
 "sQL" = (
@@ -82050,8 +81932,8 @@
 /area/planetoid/lazarus/commons/dorms)
 "teu" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/condiment/tomatosauce,
-/obj/item/reagent_containers/food/condiment/herbs,
+/obj/item/reagent_containers/condiment/tomatosauce,
+/obj/item/reagent_containers/condiment/herbs,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -83890,9 +83772,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_y = 8
-	},
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -85312,7 +85192,7 @@
 	},
 /area/planetoid/lazarus/engineering/storage/tech)
 "tSN" = (
-/obj/item/reagent_containers/food/drinks/cans/beer/almost_empty,
+/obj/item/reagent_containers/cup/soda_cans/beer/almost_empty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb{
 	layer = 4
@@ -85784,10 +85664,10 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
 /obj/machinery/newscaster/directional/west,
@@ -85945,11 +85825,11 @@
 /obj/item/candle{
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -86911,7 +86791,7 @@
 /obj/item/folder/red{
 	layer = 3.1
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle{
+/obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = 8
 	},
 /obj/item/book/manual/security_space_law,
@@ -87306,13 +87186,11 @@
 "uqi" = (
 /obj/machinery/firealarm/directional/east,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/patron{
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -87671,16 +87549,16 @@
 "uug" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -90092,11 +89970,11 @@
 /area/planetoid/lakes/containers_street)
 "uWk" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /obj/item/clothing/head/rice_hat,
 /turf/simulated/floor/carpet/green,
 /area/planetoid/lazarus/commons/mrchangs)
@@ -90120,7 +89998,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 5
 	},
@@ -90417,9 +90295,9 @@
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/mask/muzzle,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda,
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda,
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -90479,7 +90357,7 @@
 /area/planetoid/lazarus/commons/dorms)
 "uZH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/ce,
+/obj/item/reagent_containers/cup/glass/mug/ce,
 /obj/item/flashlight/lamp,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -90519,7 +90397,7 @@
 	},
 /area/planetoid/lazarus/ai/satellite/interior)
 "val" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/planetoid/dirt,
 /area/planetoid/jungle/west)
 "vaE" = (
@@ -93162,7 +93040,7 @@
 "vIW" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood,
@@ -93175,14 +93053,8 @@
 /area/planetoid/lazarus/janitor)
 "vJw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/flask/thermos{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/drinks/guarana{
-	pixel_x = 7;
-	pixel_y = 3
-	},
+/obj/item/reagent_containers/cup/glass/flask/thermos,
+/obj/item/reagent_containers/cup/glass/guarana,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -94009,7 +93881,7 @@
 /area/planetoid/lazarus/engineering/atmos)
 "vSN" = (
 /obj/structure/sink/directional/west,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/camera{
 	c_tag = "Hydroponics South";
 	dir = 4
@@ -97096,10 +96968,7 @@
 	pixel_x = -6;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/drinks/mug/hos{
-	pixel_x = 9;
-	pixel_y = 1
-	},
+/obj/item/reagent_containers/cup/glass/mug/hos,
 /obj/item/toy/figure/hos{
 	pixel_x = 7;
 	pixel_y = 7
@@ -98052,8 +97921,8 @@
 "wOX" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/applicator/burn,
-/obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/cup/bottle/charcoal,
+/obj/item/reagent_containers/cup/bottle/charcoal,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple";
@@ -98116,7 +97985,7 @@
 /turf/simulated/floor/water/beach,
 /area/planetoid/lakes/west)
 "wPT" = (
-/obj/item/reagent_containers/glass/pet_bowl,
+/obj/item/reagent_containers/cup/pet_bowl,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/commons/arcade)
 "wPV" = (
@@ -101348,10 +101217,7 @@
 "xAC" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/sunglasses/big,
-/obj/item/reagent_containers/food/drinks/cans/cola{
-	pixel_x = -12;
-	pixel_y = 13
-	},
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lakes/beach)
 "xAD" = (
@@ -101595,11 +101461,11 @@
 	pixel_x = -9;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -101680,11 +101546,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/vomit,
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -102651,7 +102517,7 @@
 /area/planetoid/jungle/west)
 "xRG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/chocolate,
+/obj/item/reagent_containers/cup/glass/chocolate,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -104101,9 +103967,7 @@
 /area/planetoid/lazarus/service/chapel)
 "ygS" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mug/serv{
-	pixel_x = 10
-	},
+/obj/item/reagent_containers/cup/glass/mug/serv,
 /obj/item/flashlight/lamp{
 	pixel_x = -3;
 	pixel_y = 13
