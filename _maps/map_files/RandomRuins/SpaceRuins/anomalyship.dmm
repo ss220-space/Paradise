@@ -1726,8 +1726,8 @@
 /area/ae13/asteroid)
 "PF" = (
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
+/obj/item/pen/fountain,
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/decal/cleanable/dirt,
