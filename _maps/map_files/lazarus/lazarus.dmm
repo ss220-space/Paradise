@@ -13454,7 +13454,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/nexus)
@@ -24745,7 +24745,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -26049,7 +26049,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26908,7 +26908,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35379,7 +35379,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/nexus)
@@ -40818,7 +40818,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/cargo/lobby)
@@ -50969,7 +50969,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -56901,7 +56901,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/cargo/storage)
@@ -59625,7 +59625,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61139,7 +61139,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/cargo/storage)
@@ -68773,7 +68773,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/meeting_room)
@@ -69032,7 +69032,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/cargo/storage)
@@ -72786,7 +72786,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/meeting_room)
@@ -72917,7 +72917,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -84009,7 +84009,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/nexus)
@@ -89794,7 +89794,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/cargo/storage)
@@ -96046,7 +96046,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
-	id_tag = Nex_lockdown
+	id_tag = "Nex_lockdown"
 	},
 /obj/structure/vine,
 /turf/simulated/floor/plating,
