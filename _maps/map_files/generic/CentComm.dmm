@@ -47522,7 +47522,7 @@
 	roundstart_move = "explorer_ship_home";
 	preferred_direction = 4;
 	port_direction = 4;
-
+	
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/explorer_ship)
