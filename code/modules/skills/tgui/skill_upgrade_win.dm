@@ -126,10 +126,9 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	if(skill_level >= SKILL_LEVEL_LEGEND)
 		to_chat(user, span_notice("Нельзя больше прокачать навык!"))
 		return
+	target_user.mind.actual_free_skill_points -= skill_price
 	var/actual = user_mind.selected_skills_levels[skill]
 	if(!actual)
 		actual = 0
 	user_mind.selected_skills_levels[skill] = actual + 1
-	target_user.mind.actual_free_skill_points -= skill_price
 	user_mind.refresh_skills()
-
