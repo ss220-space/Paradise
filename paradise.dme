@@ -1143,6 +1143,7 @@
 #include "code\datums\storage\storage_interface.dm"
 #include "code\datums\storage\storage.dm"
 #include "code\datums\storage\subtypes\backpacks.dm"
+#include "code\datums\storage\subtypes\pockets.dm"
 #include "code\datums\weather\weather.dm"
 #include "code\datums\weather\weather_types\ash_storm.dm"
 #include "code\datums\weather\weather_types\blob_storm.dm"

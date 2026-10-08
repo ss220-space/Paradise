@@ -210,7 +210,7 @@
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 
-		if(src != speaker || isrobot(src) || isAI(src))
+		if(speaker != null && (src != speaker || isrobot(src) || isAI(src)))
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, SOUND_EFFECT_RADIO, null, null, 'sound/effects/radio_chatter.ogg', speaker)
 
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
