@@ -178,6 +178,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/rd_search,
+	))
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	if(is_taipan(z))
@@ -919,6 +922,38 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	return FALSE
+/obj/machinery/computer/rdconsole/proc/usb_find_design(design_id)
+	if(!files || !design_id)
+		return null
+	var/datum/design/D = files.known_designs[design_id]
+	if(!D)
+		return null
+	var/valid_mask = 0
+	if(linked_lathe)
+		valid_mask |= PROTOLATHE
+	if(linked_imprinter)
+		valid_mask |= IMPRINTER
+	if(D.build_type & valid_mask)
+		// Фикс 1: Подменяем имя самого объекта-чертежа на его ID,
+		// чтобы в интерфейсе Wiremod вместо "Name" писался чистый ID (например, scalpel)
+		D.name = D.id
+		return D
+	return null
+
+/obj/machinery/computer/rdconsole/proc/usb_get_all_designs()
+	if(!files)
+		return list()
+	var/valid_mask = 0
+	if(linked_lathe)
+		valid_mask |= PROTOLATHE
+	if(linked_imprinter)
+		valid_mask |= IMPRINTER
+	var/list/all_ids = list()
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
+		if(D && (D.build_type & valid_mask))
+			all_ids += D.id // Берем чистый английский ID вместо build_object_name
+	return all_ids
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
