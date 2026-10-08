@@ -100460,14 +100460,6 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/aft)
-"vfz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/structure/closet/crate,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint3)
 "vfF" = (
 /obj/structure/cable,
 /obj/structure/cable/layer1,
@@ -137637,7 +137629,7 @@ mts
 xjW
 ifW
 mts
-vfz
+oIr
 nCX
 mts
 aWj
