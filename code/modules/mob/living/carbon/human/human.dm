@@ -582,7 +582,7 @@
 			if(prob(bodypart.fracture.reattach_chance)) //success
 				bodypart.fracture = FRACTURE_TYPE_CLOSED
 				return
-			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] горит огнем!")
 			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
 			bodypart.bleeding_amount = min(bodypart.bleeding_amount, bodypart.max_bleeding_amount)
 			return
