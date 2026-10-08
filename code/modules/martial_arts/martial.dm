@@ -253,7 +253,8 @@
 /datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
 	UNASSIGN_GAME_VERB(old_human, /mob/living/carbon/human, martial_arts_help)
 	UNASSIGN_GAME_VERB(old_human, /mob/living/carbon/human, dirslash_enabling)
-	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
+	if(istype(old_human))
+		old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.

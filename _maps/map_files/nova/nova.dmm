@@ -16186,7 +16186,7 @@
 /obj/item/paper_bin/nanotrasen{
 	pixel_y = 9
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/effect/turf_decal/stripes/gold{
 	dir = 8
 	},
@@ -22410,7 +22410,7 @@
 /obj/item/paper_bin/nanotrasen{
 	pixel_y = 9
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/red,
 /area/station/legal/office/law)
 "dSd" = (
@@ -51665,7 +51665,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/pen/multi/gold{
+/obj/item/pen/fountain{
 	pixel_x = 6;
 	pixel_y = -4
 	},
@@ -52623,7 +52623,7 @@
 /area/station/engineering/atmos)
 "jaN" = (
 /obj/structure/table/wood,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/magistrate,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/structure/cable,
@@ -64700,7 +64700,7 @@
 /obj/item/paper_bin{
 	pixel_y = 6
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
@@ -71379,7 +71379,7 @@
 "moC" = (
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/office/magistrate)
@@ -80862,7 +80862,7 @@
 "nPu" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper/safe_code{
 	owner = "captain";
 	pixel_x = -6;
@@ -90284,7 +90284,7 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -95981,7 +95981,7 @@
 	pixel_y = 6
 	},
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "qwq" = (
@@ -101823,7 +101823,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/cup/glass/mug/hop{
@@ -108009,7 +108009,7 @@
 /obj/item/paper_bin{
 	pixel_y = 6
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_y = 3
 	},
 /obj/item/stamp/granted{
@@ -114456,7 +114456,7 @@
 /obj/item/flashlight/lamp/bananalamp{
 	pixel_y = 22
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/cable,
 /obj/item/desk_bell{
 	anchored = 1;
@@ -122904,7 +122904,7 @@
 /area/station/hallway/primary/central/second/west)
 "uZE" = (
 /obj/structure/table,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -127529,7 +127529,7 @@
 /obj/item/paper_bin{
 	pixel_y = 6
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_y = 3
 	},
 /turf/simulated/floor/carpet,

@@ -120,7 +120,7 @@
 			"Agent 007" = list("Name" = "'Agent 007' bundle",	// 152.5-154.5 TK
 								"Desc" = "Find and eliminate your targets quietly and effectively with this kit.",
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,						// 10 TK
-								/obj/item/pen/fancy/bomb = 1,												// 30 TK
+								/obj/item/pen/fountain/bomb = 1,												// 30 TK
 								/obj/item/gun/projectile/automatic/pistol/stechkin = 1,								// 20 TK
 								/obj/item/gun_module/muzzle/suppressor = 1,													// 5 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK

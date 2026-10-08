@@ -2512,15 +2512,15 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -2836,7 +2836,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -7940,7 +7940,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/zone/two)
 "dZe" = (
@@ -8380,7 +8380,7 @@
 /area/centcom/ninja/outside)
 "eiF" = (
 /obj/structure/table,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -9541,7 +9541,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/chameleon,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
@@ -9803,7 +9803,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -10026,7 +10026,7 @@
 /obj/item/paper_bin/syndicate{
 	pixel_y = 7
 	},
-/obj/item/pen/multi/gold{
+/obj/item/pen/fountain{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -15383,7 +15383,7 @@
 /obj/item/paper_bin/syndicate{
 	pixel_y = 7
 	},
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/control)
@@ -18421,7 +18421,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /turf/simulated/floor/carpet,
@@ -18852,7 +18852,7 @@
 "jfB" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/paper_bin/ussp,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ussp/secretariat)
 "jfM" = (
@@ -18888,7 +18888,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /obj/effect/turf_decal/siding{
@@ -19512,7 +19512,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -19683,11 +19683,11 @@
 /obj/item/paper_bin{
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = -3;
 	pixel_y = 8
 	},
@@ -20893,7 +20893,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "jVq" = (
@@ -22163,7 +22163,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /turf/simulated/floor/carpet,
@@ -22901,7 +22901,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /obj/structure/window/reinforced{
@@ -23372,7 +23372,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/central_command_areas/zone/two)
 "kYe" = (
@@ -26132,7 +26132,7 @@
 "mhP" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/syndicate,
-/obj/item/pen/multi/gold{
+/obj/item/pen/fountain{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -29356,7 +29356,7 @@
 "nzG" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/centcom{
 	pixel_x = -5;
 	pixel_y = -7
@@ -30327,7 +30327,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -31479,7 +31479,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /obj/effect/turf_decal/siding{
@@ -31730,7 +31730,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "oCt" = (
@@ -32620,7 +32620,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
 "oUC" = (
@@ -34368,7 +34368,7 @@
 "pOU" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredalt"
@@ -34735,7 +34735,7 @@
 "pWj" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/syndicate,
-/obj/item/pen/multi/gold{
+/obj/item/pen/fountain{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -37516,8 +37516,8 @@
 /area/centcom/central_command_areas/prison)
 "rft" = (
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
+/obj/item/pen/fountain,
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/table/wood/fancy/orange,
 /turf/simulated/floor/carpet/royalblack,
@@ -38681,11 +38681,11 @@
 	pixel_x = -5;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 5;
 	pixel_y = 2
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 5;
 	pixel_y = 2
 	},
@@ -40130,7 +40130,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "sjQ" = (
@@ -45545,7 +45545,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
 "uDv" = (
@@ -47109,7 +47109,7 @@
 /obj/item/paper_bin/syndicate{
 	pixel_y = 7
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/centcom/syndicate_base/control)
 "vlH" = (
@@ -47964,7 +47964,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/pen/fancy{
+/obj/item/pen/fountain{
 	pixel_x = 8
 	},
 /obj/structure/disposalpipe/segment{
@@ -48056,7 +48056,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "vIY" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/centcom{
 	pixel_x = -5;
 	pixel_y = 5
@@ -48362,7 +48362,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "vOU" = (
@@ -49068,7 +49068,7 @@
 "wgc" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
 	dir = 4
@@ -50233,7 +50233,7 @@
 "wSy" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/lighter/zippo/blue{
 	pixel_x = 5;
 	pixel_y = 8
@@ -50427,7 +50427,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "wVt" = (
@@ -51069,7 +51069,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "xhc" = (
