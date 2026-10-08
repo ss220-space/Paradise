@@ -7348,6 +7348,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"bGG" = (
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prisoner_shuttle)
 "bGM" = (
 /obj/structure/cable,
 /obj/structure/closet/jcloset,
@@ -48938,7 +48946,6 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69319,7 +69326,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/restraints/handcuffs/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -70154,14 +70160,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"oYV" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prisoner_shuttle)
 "oZo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -106104,6 +106102,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
+/obj/item/restraints/handcuffs/cable,
 /obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -172480,7 +172479,7 @@ ufP
 jHL
 qhb
 jHL
-oYV
+bGG
 qJT
 xtG
 xEU
