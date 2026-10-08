@@ -56,6 +56,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define BUILD_POWER 2000
 #define DECONSTRUCT_POWER 250
 
+/obj/item/circuit_component/rd_lathe
 /obj/machinery/computer/rdconsole
 	name = "R&D console"
 	icon_screen = "rdcomp"
@@ -180,6 +181,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/rd_search,
+		/obj/item/circuit_component/rd_lathe,
 	))
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
@@ -429,28 +431,38 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, span_danger("Выбранное оборудование не подключено!"))
-		return
+		if(usr)
+			to_chat(usr, span_danger("Выбранное оборудование не подключено!"))
+		return FALSE
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, span_danger("Неподходящий тип подключённого оборудования!"))
-		return
+		if(usr)
+			to_chat(usr, span_danger("Неподходящий тип подключённого оборудования!"))
+		return FALSE
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
-		return
+		if(usr)
+			to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
+		return FALSE
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
-		return
+		if(usr)
+			to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
+		return FALSE
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, skill_rand_prob)
+	// ФИКС: Фиксируем, кем вызвана печать — живым игроком или платой Wiremod (usr == null)
+	var/is_automation = !usr
+
+	var/skill_rand_prob = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, calculated_prob)
+		skill_rand_prob = calculated_prob
 	skill_rand_prob *= 100
-	if(prob(skill_rand_prob))
+	if(usr && prob(skill_rand_prob))
 		being_built = pick(matching_designs)
 
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
@@ -459,22 +471,27 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
 		if(being_built && console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
-			add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
-			to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
-			return
+			if(usr)
+				add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
+				to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
+			return FALSE
 	connected_servers -= null
 
-	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
+	if(usr && !(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
+		return FALSE
 
-	if(length(being_built.make_reagents)) // build_type should equal BIOGENERATOR though..
-		return
+	if(length(being_built.make_reagents))
+		return FALSE
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
-	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, protolathe_skill_level)
+
+	var/protolathe_skill_level = SKILL_LEVEL_BASIC
+	if(usr)
+		GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, calculated_level)
+		protolathe_skill_level = calculated_level
 	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
 		amount += rand(0, 3)
 
@@ -483,50 +500,63 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
-	// goes down (1 -> 0.4) with upgrades
+	var/skill_duration_mod = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, calculated_duration)
+		skill_duration_mod = calculated_duration
 	var/coeff = machine.efficiency_coeff
 
 	var/time_to_construct = 0
 	if(is_imprinter)
 		time_to_construct = IMPRINTER_DELAY * amount * skill_duration_mod
 	else
-		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount ** 0.8
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * (amount ** 0.8)
 
 	if(is_lathe)
-		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
+		if(usr)
+			add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 	else
-		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
+		if(usr)
+			add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
-		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1)
 
 	machine.busy = TRUE
 	use_power(power)
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
+	var/skill_resource_mod = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, calculated_resource)
+		skill_resource_mod = calculated_resource
 	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff
 
 	var/enough_materials = TRUE
-
 	if(!machine.materials.has_materials(efficient_mats, amount))
-		balloon_alert_to_viewers("недостаточно материала для печати!")
+		if(usr)
+			balloon_alert_to_viewers("недостаточно материала для печати!")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
-			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
-				balloon_alert_to_viewers("недостаточно реагентов для печати!")
+			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R] * coeff))
+				if(usr)
+					balloon_alert_to_viewers("недостаточно реагентов для печати!")
 				enough_materials = FALSE
 
-	if(enough_materials)
-		machine.materials.use_amount(efficient_mats, amount)
-		for(var/R in being_built.reagents_list)
-			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
+	if(!enough_materials)
+		machine.busy = FALSE
+		return FALSE
 
-	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
+	machine.materials.use_amount(efficient_mats, amount)
+	for(var/R in being_built.reagents_list)
+		machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
+
+	// Передаем флаг автоматики четвертым аргументом (вместо enough_materials, или расширяем сигнатуру)
+	// Для безопасности мы передаем старый usr, но добавим скрытую метку автоматики в CALLBACK
+	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff, is_automation), time_to_construct)
 
 	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		if(S.disabled)
@@ -534,26 +564,35 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(syndicate != S.syndicate)
 			continue
 		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			S.add_usage_log(usr, being_built, machine)
+			if(usr)
+				S.add_usage_log(usr, being_built, machine)
+	return TRUE
 
-/obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
+/obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff, is_automation = FALSE)
 	if(machine)
 		if(enough_materials && being_built)
-			investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
+			if(user && !is_automation)
+				investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 
 			var/locked = being_built.locked && !is_taipan(z)
 			for(var/i in 1 to amount)
 				var/obj/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
+					if(user && !is_automation)
+						new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
 
-				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet))
 					var/obj/item/new_item_item = new_item
 					new_item_item.update_materials_coeff(coeff)
 
+				// ОБЩАЯ ЛОГИКА ЗАЩИТЫ: Если чертеж требует кейса (оружие), пакуем его всегда!
 				if(locked && isitem(new_item))
 					var/obj/item/real_item = new_item
-					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
+
+					// Спавним кейс строго там, где нужно конвейеру:
+					// Если это автоматика — внутри консоли (src), если игрок — на полу у станка (machine.loc)
+					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(is_automation ? src : machine.loc)
+
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
 					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
@@ -572,16 +611,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/lockbox_access
 					for(var/A in lockbox.req_access)
 						lockbox_access += "[get_access_desc(A)] "
-					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \"[lockbox_access]\"."
+					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \[...\]"
+
+					// ИНТЕГРАЦИЯ С WIREMOD: Передаем плате ссылку на получившийся КЕЙС с пушкой внутри
+					if(is_automation)
+						SEND_SIGNAL(src, "usb_print_complete", lockbox)
+
 				else
-					new_item.loc = machine.loc
+					// Если кейс не нужен (обычная деталь или плата)
+					if(is_automation)
+						SEND_SIGNAL(src, "usb_print_complete", new_item) // Оставляем лежать в src
+					else
+						new_item.loc = machine.loc // Выкидываем на пол игроку
 
 		machine.busy = FALSE
-	if(istype(machine, /obj/machinery/r_n_d/protolathe))
-		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
+		if(istype(machine, /obj/machinery/r_n_d/protolathe))
+			playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
-	clear_wait_message()
-	SStgui.update_uis(src)
+		clear_wait_message()
+		SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())
@@ -922,37 +970,39 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	return FALSE
+
 /obj/machinery/computer/rdconsole/proc/usb_find_design(design_id)
 	if(!files || !design_id)
 		return null
-	var/datum/design/D = files.known_designs[design_id]
-	if(!D)
-		return null
-	var/valid_mask = 0
-	if(linked_lathe)
-		valid_mask |= PROTOLATHE
-	if(linked_imprinter)
-		valid_mask |= IMPRINTER
-	if(D.build_type & valid_mask)
-		// Фикс 1: Подменяем имя самого объекта-чертежа на его ID,
-		// чтобы в интерфейсе Wiremod вместо "Name" писался чистый ID (например, scalpel)
-		D.name = D.id
-		return D
+
+	var/search_id = lowertext(design_id)
+
+	// Перебираем всю базу проученных технологий
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
+		if(!D || lowertext(D.id) != search_id)
+			continue
+
+		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
+			D.name = D.id // Фикс Name в тултипе Wiremod
+			return D
+
 	return null
 
 /obj/machinery/computer/rdconsole/proc/usb_get_all_designs()
 	if(!files)
 		return list()
-	var/valid_mask = 0
-	if(linked_lathe)
-		valid_mask |= PROTOLATHE
-	if(linked_imprinter)
-		valid_mask |= IMPRINTER
+
 	var/list/all_ids = list()
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
-		if(D && (D.build_type & valid_mask))
-			all_ids += D.id // Берем чистый английский ID вместо build_object_name
+		if(!D || !D.id)
+			continue
+
+		// Повторяем ту же кастомную чистую маску для выдачи списка
+		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
+			all_ids += D.id
+
 	return all_ids
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
