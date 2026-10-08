@@ -21518,9 +21518,7 @@
 /area/station/maintenance/asmaint4)
 "eNx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/atmospherics/reactor_chamber,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
