@@ -27834,10 +27834,10 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/apmaint)
 "dQn" = (
-/obj/effect/spawner/random_spawners/fungus_30,
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/wall,
-/area/station/maintenance/engineering)
+/obj/structure/cable/layer3,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/ai/satellite/chamber)
 "dQq" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
@@ -30638,6 +30638,7 @@
 	name = "AI Core Door";
 	req_access = list(16)
 	},
+/obj/structure/cable/layer3,
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ePZ" = (
@@ -36301,9 +36302,7 @@
 	},
 /area/station/medical/sleeper)
 "gSw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/atmospherics)
@@ -40811,6 +40810,7 @@
 	},
 /obj/machinery/newscaster/security_unit/directional/west,
 /obj/effect/landmark/start/ai,
+/obj/structure/cable/layer3,
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ixr" = (
@@ -81905,10 +81905,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"xNF" = (
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/wall,
-/area/station/maintenance/engineering)
 "xNP" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -106407,8 +106403,8 @@ uTI
 uTI
 cLi
 ttt
-dQn
-xNF
+tcn
+cLi
 lPb
 cOc
 cLi
@@ -113605,7 +113601,7 @@ cTO
 cOf
 dhv
 ujr
-dhv
+jHr
 lvn
 dhv
 dhv
@@ -113862,11 +113858,11 @@ fuE
 cOf
 mEF
 ujr
+ujr
+kHp
+kHp
 gSw
-kHp
-kHp
-fpR
-dhv
+ujr
 dhv
 dhv
 dhv
@@ -114121,8 +114117,8 @@ dcq
 dhv
 dhv
 dXD
-kHp
-kHp
+fpR
+fpR
 kHp
 dhv
 cmQ
@@ -118796,7 +118792,7 @@ tON
 tpS
 ePK
 ixe
-drI
+dQn
 lDQ
 mKr
 umC
