@@ -182,6 +182,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/rd_search,
 		/obj/item/circuit_component/rd_lathe,
+		/obj/item/circuit_component/rd_destructor,
 	))
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
@@ -384,50 +385,55 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech, mob/user)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech, mob/user, is_automation = FALSE)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
-		return
+		return FALSE
 
-	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
-	var/success = prob(100 * skill_chance_mod)
+	var/success = TRUE
+	if(user && !is_automation)
+		CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
+		success = prob(100 * skill_chance_mod)
+
+	var/actually_increased = FALSE
+
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
+			if(user && !is_automation)
+				to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else if(success)
 			var/tech_log
 			for(var/T in temp_tech)
 				var/new_level = files.UpdateTech(T, temp_tech[T])
 				if(new_level)
 					tech_log += "[T] [new_level], "
-			if(tech_log)
+					actually_increased = TRUE
+			if(tech_log && user && !is_automation)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
-		else // item destroyed, but tech level not increase if skill check failed
-			linked_destroy.add_shared_particles(/particles/smoke)
-			addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/atom/movable, remove_shared_particles), /particles/smoke), 3 SECONDS)
-		send_mats()
-		linked_destroy.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
-		for(var/mob/M in I.contents)
-			M.death()
-		if(istype(I, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
-			var/obj/item/stack/sheet/S = I
-			if(S.amount > 1)
-				S.amount--
-				linked_destroy.loaded_item = S
-			else
-				qdel(S)
-		else if(!(I in linked_destroy.component_parts))
-			qdel(I)
+			// Физическое уничтожение содержимого деструктора
+			for(var/obj/I in linked_destroy.contents)
+				for(var/mob/M in I.contents)
+					M.death()
+				if(istype(I, /obj/item/stack/sheet))
+					var/obj/item/stack/sheet/S = I
+					if(S.amount > 1)
+						S.amount--
+						linked_destroy.loaded_item = S
+					else
+						qdel(S)
+				else if(!(I in linked_destroy.component_parts))
+					qdel(I)
 
-	linked_destroy.loaded_item = null
-	linked_destroy.busy = FALSE
-	linked_destroy.update_icon(UPDATE_ICON_STATE)
-	use_power(DECONSTRUCT_POWER)
-	menu = MENU_MAIN
-	submenu = SUBMENU_MAIN
-	SStgui.update_uis(src)
+			linked_destroy.loaded_item = null
+			linked_destroy.busy = FALSE
+			linked_destroy.update_icon(UPDATE_ICON_STATE)
+			use_power(DECONSTRUCT_POWER)
+			menu = MENU_MAIN
+			submenu = SUBMENU_MAIN
+			SStgui.update_uis(src)
+
+	return actually_increased
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
@@ -454,7 +460,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return FALSE
 
-	// ФИКС: Фиксируем, кем вызвана печать — живым игроком или платой Wiremod (usr == null)
 	var/is_automation = !usr
 
 	var/skill_rand_prob = 1
@@ -613,12 +618,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						lockbox_access += "[get_access_desc(A)] "
 					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \[...\]"
 
-					// ИНТЕГРАЦИЯ С WIREMOD: Передаем плате ссылку на получившийся КЕЙС с пушкой внутри
 					if(is_automation)
 						SEND_SIGNAL(src, "usb_print_complete", lockbox)
 
 				else
-					// Если кейс не нужен (обычная деталь или плата)
 					if(is_automation)
 						SEND_SIGNAL(src, "usb_print_complete", new_item) // Оставляем лежать в src
 					else
@@ -977,14 +980,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/search_id = lowertext(design_id)
 
-	// Перебираем всю базу проученных технологий
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
 		if(!D || lowertext(D.id) != search_id)
 			continue
 
 		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
-			D.name = D.id // Фикс Name в тултипе Wiremod
+			D.name = D.id
 			return D
 
 	return null
@@ -999,11 +1001,45 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!D || !D.id)
 			continue
 
-		// Повторяем ту же кастомную чистую маску для выдачи списка
 		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
 			all_ids += D.id
 
 	return all_ids
+
+/obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/I)
+	if(!linked_destroy || linked_destroy.busy)
+		return -1
+
+	if(I)
+		I.forceMove(linked_destroy)
+		linked_destroy.loaded_item = I
+	else
+		I = linked_destroy.loaded_item
+
+	if(!I || QDELETED(I))
+		return -1
+
+	if(istype(I, /obj/item/storage/lockbox/research))
+		var/obj/item/storage/lockbox/research/box = I
+		var/obj/item/gun/weapon_inside = locate() in box
+		if(weapon_inside)
+			weapon_inside.forceMove(linked_destroy)
+			qdel(box)
+			I = weapon_inside
+			linked_destroy.loaded_item = I
+
+	var/list/temp_tech = linked_destroy.ConvertReqString2List(I.origin_tech)
+
+	var/will_increase = FALSE
+	if(temp_tech && length(temp_tech))
+		for(var/T in temp_tech)
+			if(!files.IsTechHigher(T, temp_tech[T]))
+				will_increase = TRUE
+				break
+
+	finish_destroyer(temp_tech, user = null, is_automation = TRUE)
+
+	return will_increase
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()

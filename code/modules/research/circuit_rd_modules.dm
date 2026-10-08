@@ -20,7 +20,7 @@
 	output_found = add_output_port("Чертеж найден", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка поиска", PORT_TYPE_SIGNAL)
 	output_design = add_output_port("Выход чертежа", PORT_TYPE_DATUM)
-	output_all_designs = add_output_port("Список всех чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	output_all_designs = add_output_port("Список доступных чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/rd_search/register_usb_parent(atom/movable/shell)
 	. = ..()
@@ -38,6 +38,13 @@
 	if(!attached_console)
 		return
 
+	if(!COMPONENT_TRIGGERED_BY(input_search, port) && port != input_search)
+		return
+
+	output_design.set_output(null)
+	output_found.set_output(FALSE)
+	output_error.set_output(FALSE)
+
 	var/search_id = input_id.value
 	if(!search_id || search_id == "")
 		output_error.set_output(TRUE)
@@ -45,6 +52,7 @@
 
 	var/datum/design/D = attached_console.usb_find_design(lowertext(search_id))
 	if(D)
+
 		output_design.set_output(D)
 		output_found.set_output(TRUE)
 	else
@@ -62,8 +70,8 @@
 	return ..()
 
 /obj/item/circuit_component/rd_lathe
-	display_name = "Интерфейс печати НИО"
-	desc = "Модуль автоматической печати чертежей на подключенном оборудовании НИО."
+	display_name = "Интерфейс печати РНД"
+	desc = "Модуль автоматической печати чертежей на подключенном оборудовании РНД."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/input/input_design
@@ -85,7 +93,7 @@
 
 	output_printed = add_output_port("Предмет распечатан", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка печати", PORT_TYPE_SIGNAL)
-	output_item = add_output_port("Хранящийся предмет", PORT_TYPE_DATUM)
+	output_item = add_output_port("Предмет хранения", PORT_TYPE_DATUM)
 
 /obj/item/circuit_component/rd_lathe/register_usb_parent(atom/movable/shell)
 	. = ..()
@@ -159,8 +167,65 @@
 		return
 
 	held_item = printed_result
-	// Передаем чистый физический объект. Движок Wiremod сам заглянет внутрь предмета
-	// и напишет в тултипе его настоящее имя (например, Скальпель или toner cartridge) вместо entity/null!
+
 	output_item.set_output(held_item)
 	output_printed.set_output(TRUE)
 
+/obj/item/circuit_component/rd_destructor
+	display_name = "Интерфейс деконструктора РНД"
+	desc = "Модуль автоматического разбора предметов для поднятия тех-уровней РНД."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
+
+	var/datum/port/input/input_item
+	var/datum/port/input/input_recycle
+
+	var/datum/port/output/output_tech_up
+	var/datum/port/output/output_error
+
+	var/obj/machinery/computer/rdconsole/attached_console
+
+/obj/item/circuit_component/rd_destructor/populate_ports()
+	input_item = add_input_port("Предмет разбора", PORT_TYPE_DATUM)
+	input_recycle = add_input_port("Разбор обьекта", PORT_TYPE_SIGNAL, trigger = PROC_REF(do_recycle))
+
+	output_tech_up = add_output_port("Повышение технологий", PORT_TYPE_SIGNAL)
+	output_error = add_output_port("Провал изучений", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/rd_destructor/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/computer/rdconsole))
+		attached_console = shell
+
+/obj/item/circuit_component/rd_destructor/unregister_usb_parent(atom/movable/shell)
+	attached_console = null
+	return ..()
+
+/obj/item/circuit_component/rd_destructor/proc/do_recycle(datum/port/input/port, list/return_values)
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+
+	if(!attached_console)
+		return
+
+	var/obj/item/I = input_item.value
+
+	var/result = attached_console.usb_recycle_item(I)
+
+	if(result == -1)
+
+		output_error.set_output(TRUE)
+		return
+
+	if(result == TRUE)
+
+		output_tech_up.set_output(TRUE)
+	else
+
+		output_error.set_output(TRUE)
+
+	var/obj/item/circuit_component/rd_lathe/lathe = locate() in attached_console
+	if(lathe)
+		lathe.held_item = null
+		if(lathe.output_item)
+			lathe.output_item.set_output(null)
+		lathe.desc = initial(lathe.desc)
