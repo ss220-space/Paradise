@@ -70,7 +70,7 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 			var/list/skill_data = list()
 			skill_data["id"] = skill.type
 			skill_data["name"] = skill.name
-			var/skill_level = current_mob_skills[skill.type]
+			var/skill_level = target_user?.mind.get_skill_level(skill.type) //current_mob_skills[skill.type]
 			var/actual_skill_level = skill_level
 			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
 			skill_data["level"] = actual_skill_level
