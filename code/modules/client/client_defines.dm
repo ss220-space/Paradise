@@ -310,6 +310,9 @@
 	var/datum/escape_menu/escape_menu
 	var/datum/tgui_window/emote_panel
 
+	/// Images of the path created by navigate().
+	var/list/navigation_images = list()
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

@@ -1,0 +1,3 @@
+/obj/effect/landmark/navigate_destination:
+  banned_neighbors:
+    - /obj/effect/landmark/navigate_destination
