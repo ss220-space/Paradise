@@ -30,9 +30,9 @@ GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 	var/can_go_down = check_level_trait(z, ZTRAIT_DOWN)
 	var/can_go_up = check_level_trait(z, ZTRAIT_UP)
 	if(can_go_down)
-		destination_list["Nearest Way Down"] = DOWN
+		destination_list["Ближайший спуск"] = DOWN
 	if(can_go_up)
-		destination_list["Nearest Way Up"] = UP
+		destination_list["Ближайший подъём"] = UP
 
 	if(!length(destination_list))
 		balloon_alert(src, "нет навигационных сигналов!")
