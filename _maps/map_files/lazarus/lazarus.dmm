@@ -37235,12 +37235,10 @@
 /area/planetoid/lazarus/command/gateway)
 "jrp" = (
 /obj/machinery/floodlight/colony,
-/obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/colony)
 "jrq" = (
 /obj/structure/lattice/catwalk,
@@ -37644,14 +37642,12 @@
 	pixel_y = 2
 	},
 /obj/item/paper/tcommskey,
-/obj/machinery/keycard_auth{
-	pixel_y = 32
-	},
 /obj/structure/cable,
 /obj/item/phone{
 	pixel_x = 12;
 	pixel_y = -4
 	},
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39797,7 +39793,6 @@
 /turf/simulated/floor/planetoid/grass/sandsingle,
 /area/planetoid/spaceport/escape_shuttle)
 "kbD" = (
-/obj/machinery/power/apc/worn_out/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -39805,6 +39800,7 @@
 	dir = 10
 	},
 /obj/structure/cable,
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/robotics)
 "kbL" = (
@@ -50476,10 +50472,8 @@
 /area/planetoid/caves/underground_lake)
 "mMJ" = (
 /obj/machinery/floodlight/colony,
-/obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/colony)
 "mMN" = (
 /turf/simulated/floor/grass,
@@ -84880,6 +84874,10 @@
 	icon_state = "barber"
 	},
 /area/planetoid/lazarus/commons/dorms)
+"vIa" = (
+/obj/machinery/floodlight/colony,
+/turf/simulated/floor/planetoid/grass,
+/area/planetoid)
 "vIh" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/science/hallway/aest_arrivals)
@@ -117450,7 +117448,7 @@ dJm
 qhj
 iEm
 iEm
-avg
+iEm
 avg
 iEm
 iEm
@@ -121544,7 +121542,7 @@ fGC
 nxy
 nxy
 nxy
-uvr
+oVK
 itG
 nxy
 kXG
@@ -122310,7 +122308,7 @@ kAk
 xyy
 nVf
 eul
-iGv
+vIa
 wDd
 kXG
 ooH
