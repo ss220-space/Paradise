@@ -54,6 +54,7 @@
 	speak_emote = list("шипит")
 	emote_hear = list("шипит.", "рычит.")
 	emote_see = list("мотает головой.", "виляет хвостом.", "зевает.", "облизывает глазное яблоко.")
+	response_help = "гладит"
 
 	melee_damage_lower = 15
 	melee_damage_upper = 30
@@ -635,7 +636,7 @@
 	return .
 
 /mob/living/simple_animal/hostile/giant_lizard/resist_fire()
-	visible_message(span_notice("[src] отчаянно катается по земле, пытаясь потушить себя!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] отчаянно катается по земле, пытаясь потушить себя!"))
 	adjust_fire_stacks(-10)
 	Knockdown(2)
 	Stun(2)
@@ -645,7 +646,7 @@
 	if(is_ravaging || !isliving(target_living))
 		return
 	is_ravaging = TRUE
-	visible_message(span_danger("<B>[src]</B> яростно терзает [target_living.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("<B>[DECLENT_RU_CAP(src, NOMINATIVE)]</B> яростно терзает [target_living.declent_ru(ACCUSATIVE)]!"))
 
 	for(var/times_to_attack = 3, times_to_attack > 0, times_to_attack--)
 		if(body_position == LYING_DOWN)
@@ -743,7 +744,7 @@
 	if(stat != CONSCIOUS)
 		return
 
-	if(!istype(pounced_target, /obj/structure/table) && !istype(pounced_target, /obj/structure/rack))
+	if(!istable(pounced_target))
 		pounced_target.hitby(src)
 
 ///Ranged right click is dispatched here, adjacent right click arrives through OnUnarmedAttack() with RIGHT_CLICK.
@@ -788,7 +789,7 @@
 	COOLDOWN_START(src, food_cooldown, 30 SECONDS)
 
 /mob/living/simple_animal/hostile/giant_lizard/proc/handle_food_client(obj/item/reagent_containers/food/snacks/food)
-	visible_message("[src] начинает грызть [food.declent_ru(ACCUSATIVE)].")
+	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает грызть [food.declent_ru(ACCUSATIVE)].")
 	playsound(loc, 'sound/items/eatfood.ogg', 25, 1)
 	is_eating = TRUE
 	if(!do_after(src, 4 SECONDS, src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING|DA_IGNORE_HELD_ITEM, max_interact_count = 1))
