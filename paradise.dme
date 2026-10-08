@@ -1253,6 +1253,7 @@
 #include "code\game\area\areas\moonoutpost19.dm"
 #include "code\game\area\areas\shuttles.dm"
 #include "code\game\area\areas\space_areas.dm"
+#include "code\game\area\areas\syndicatebase.dm"
 #include "code\game\area\areas\taipan.dm"
 #include "code\game\area\areas\____needs_to_be_removed\coldcolony.dm"
 #include "code\game\area\areas\___aways_need_to_move_and_clean\away_content.dm"
