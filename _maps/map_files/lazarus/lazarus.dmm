@@ -58956,7 +58956,6 @@
 	dir = 5
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/command/office/qm)
 "oMO" = (
@@ -59072,7 +59071,6 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "SecMedPrivOutside"
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/medical)
@@ -59237,7 +59235,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59371,7 +59368,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -59601,7 +59597,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59761,7 +59756,6 @@
 	name = "Bridge Lockdown"
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/bridge)
 "oXu" = (
@@ -59905,7 +59899,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -60091,7 +60084,6 @@
 	name = "Security Checkpoint";
 	req_access = list(63)
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -60778,7 +60770,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=V4";
 	location = "V3"
@@ -60973,7 +60964,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluealt"
@@ -60985,8 +60975,6 @@
 	id_tag = "Warden";
 	name = "Warden Privacy Shutters"
 	},
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/warden)
@@ -61394,7 +61382,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61742,7 +61729,6 @@
 	dir = 5
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -61782,7 +61768,6 @@
 	dir = 9
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/carpet/royalblack,
 /area/planetoid/lazarus/command/meeting_room)
 "pzc" = (
@@ -61804,8 +61789,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -61977,7 +61960,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62633,7 +62615,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -62660,7 +62641,6 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/science/robotics/showroom)
@@ -62784,7 +62764,6 @@
 	},
 /area/planetoid/lazarus/commons/serviceyard)
 "pLN" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/processing)
@@ -63009,7 +62988,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -63125,8 +63103,6 @@
 /area/planetoid/jungle/colony)
 "pRa" = (
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	name = "Visiting Room";
@@ -63238,7 +63214,6 @@
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "pSx" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/prison/cell_block)
@@ -63419,14 +63394,11 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_ert)
 "pWk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/wood/cherry,
 /area/planetoid/lazarus/legal/office/law)
@@ -63444,7 +63416,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -63586,8 +63557,6 @@
 	req_access = list(41)
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/command/office/qm)
@@ -63861,7 +63830,6 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "conferenceroomwindows"
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	name = "Nexus Lockdown";
@@ -65624,7 +65592,6 @@
 /area/planetoid/lazarus/abandoned_building/barracks)
 "qwD" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -67333,8 +67300,6 @@
 	dir = 5
 	},
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/wood/cherry,
 /area/planetoid/lazarus/legal/office/law)
 "qTI" = (
@@ -67357,7 +67322,6 @@
 	name = "Secure Armory";
 	req_access = list(3)
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -69451,7 +69415,6 @@
 	req_access = list(71)
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -69568,7 +69531,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -69672,7 +69634,6 @@
 	},
 /obj/machinery/power/smes,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/science/smes)
 "rzB" = (
@@ -69683,7 +69644,6 @@
 /area/planetoid/lazarus/security/range)
 "rzI" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/medical/virology/lab)
@@ -69734,7 +69694,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -70875,7 +70834,6 @@
 /area/planetoid/lazarus/security/prison/perma)
 "rOV" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -70934,7 +70892,6 @@
 "rPJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/medical)
@@ -71202,9 +71159,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -71242,7 +71196,6 @@
 	name = "Lawyer Privacy Shutters"
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/legal/office/law)
 "rTN" = (
@@ -71276,7 +71229,6 @@
 /area/planetoid/lazarus/science/server)
 "rUo" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -71555,7 +71507,6 @@
 /area/planetoid/jungle/colony)
 "rYn" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -71813,7 +71764,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -72048,7 +71998,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -73190,12 +73139,9 @@
 "ssv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/prison/cell_block)
 "ssE" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -73293,7 +73239,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
@@ -73840,7 +73785,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -73864,7 +73808,6 @@
 "sBS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -73974,7 +73917,6 @@
 	},
 /area/planetoid/lazarus/science/hallway/main)
 "sEh" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -74208,7 +74150,6 @@
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/security/hallway/execution)
 "sHh" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -74504,7 +74445,6 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74606,7 +74546,6 @@
 	dir = 5
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/planetoid/lazarus/science/server)
 "sLX" = (
@@ -74680,7 +74619,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -74842,7 +74780,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -75113,8 +75050,6 @@
 	id = "execution"
 	},
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/hallway/execution)
 "sRU" = (
@@ -75176,7 +75111,6 @@
 /turf/simulated/floor/planetoid/grass/grass2,
 /area/planetoid/jungle/south)
 "sSC" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -75261,7 +75195,6 @@
 /turf/simulated/floor/planetoid/grass/sandcorner2/east,
 /area/planetoid/jungle/colony_roads)
 "sUo" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -75604,7 +75537,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/hallway/reception)
@@ -75625,7 +75557,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -75799,7 +75730,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -75968,8 +75898,6 @@
 /area/planetoid/lazarus/service/chapel)
 "tcg" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/escape/security)
@@ -76204,7 +76132,6 @@
 /obj/item/seeds/apple,
 /obj/item/seeds/apple,
 /obj/item/seeds/apple,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/grass,
 /area/planetoid/lazarus/security/prison/perma)
@@ -76509,7 +76436,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76666,7 +76592,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -76845,7 +76770,6 @@
 	name = "Engineering Lockdown"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
@@ -77051,7 +76975,6 @@
 /obj/item/flag/species,
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -77211,7 +77134,6 @@
 	pixel_x = 34
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -77318,7 +77240,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77557,8 +77478,6 @@
 /area/planetoid/lazarus/command/office/hos)
 "twK" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/fence/meshfence,
 /turf/simulated/floor/plating,
@@ -78351,7 +78270,6 @@
 "tHP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -78471,7 +78389,6 @@
 "tJk" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -78595,7 +78512,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -80550,8 +80466,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/hallway/execution)
 "ukE" = (
@@ -80638,7 +80552,6 @@
 "ulv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/fence/meshfence,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
@@ -80718,7 +80631,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/door/airlock/command/glass{
 	id = "hos";
@@ -80841,7 +80753,6 @@
 	},
 /obj/structure/fence/meshfence,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
 "uot" = (
@@ -80904,7 +80815,6 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81039,7 +80949,6 @@
 	id_tag = "SecMedPrivOutside"
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/medical)
 "uqc" = (
@@ -81074,8 +80983,6 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/lazarus/command/meeting_room)
 "uqj" = (
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -81452,7 +81359,6 @@
 /area/planetoid/lazarus/engineering/storage/secure)
 "uuP" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable,
@@ -81699,7 +81605,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -81777,10 +81682,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/lobby)
@@ -81834,7 +81735,6 @@
 	req_access = list(70)
 	},
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -82121,7 +82021,6 @@
 /area/planetoid/lazarus/science/hallway/main)
 "uCN" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -82246,7 +82145,6 @@
 	pixel_x = 3;
 	pixel_y = -4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/planetoid/lazarus/legal/office/magistrate)
@@ -82723,7 +82621,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83211,8 +83108,6 @@
 /area/planetoid/lazarus/commons/serviceyard)
 "uQO" = (
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Telecommunications";
@@ -83352,7 +83247,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -83469,7 +83363,6 @@
 "uUO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/planetoid/lazarus/service/chapel)
@@ -84286,8 +84179,6 @@
 	name = "HoS Office Privacy Shutters"
 	},
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/office/hos)
 "vee" = (
@@ -84397,7 +84288,6 @@
 /area/planetoid/lazarus/hallway/primary/aft/south)
 "vgh" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
@@ -84480,7 +84370,6 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/carpet/royalblack,
 /area/planetoid/lazarus/command/meeting_room)
@@ -85025,7 +84914,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -85261,7 +85149,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85523,7 +85410,6 @@
 /turf/simulated/floor/indestructible/grime_floor,
 /area/planetoid/spaceport/lz_ert)
 "vvr" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/chair/plastic{
 	dir = 8
@@ -86050,7 +85936,6 @@
 "vDj" = (
 /obj/structure/fence/meshfence,
 /obj/structure/lattice/catwalk,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/escape_shuttle)
@@ -86707,7 +86592,6 @@
 	dir = 6
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -87255,7 +87139,6 @@
 	},
 /obj/effect/landmark/start/roboticist,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -87518,7 +87401,6 @@
 	},
 /area/planetoid/lazarus/science/hallway/arrivals)
 "vVv" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -88033,7 +87915,6 @@
 /area/planetoid/lazarus/security/prison/cell_block)
 "wdy" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/science/smes)
 "wdz" = (
@@ -88123,7 +88004,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88560,7 +88440,6 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/planetoid/lazarus/command/office/captain/bedroom)
 "wkR" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -89296,7 +89175,6 @@
 /area/planetoid/jungle/orbital_strike)
 "wut" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable,
@@ -89408,7 +89286,6 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -89539,7 +89416,6 @@
 	},
 /obj/item/storage/belt/medical,
 /obj/item/clothing/glasses/hud/health,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -89731,7 +89607,6 @@
 	},
 /area/planetoid/lazarus/engineering/atmos)
 "wzS" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -90015,8 +89890,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90034,7 +89907,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -90696,7 +90568,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91389,7 +91260,6 @@
 /area/planetoid/lazarus/engineering/engine/reactor)
 "wTR" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -91630,8 +91500,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -91695,7 +91563,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/command/office/cmo)
@@ -92321,7 +92188,6 @@
 /area/planetoid/lazarus/ai/satellite/chamber)
 "xeB" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
@@ -92821,7 +92687,6 @@
 /area/planetoid/lazarus/science/hallway/main)
 "xlt" = (
 /obj/machinery/power/smes/full,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/engineering/engine/reactor)
@@ -93700,8 +93565,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93835,7 +93698,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -94574,7 +94436,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/light/floor,
 /obj/structure/disposalpipe/segment{
@@ -95508,7 +95369,6 @@
 	dir = 2
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/science/robotics/showroom)
 "xVc" = (
@@ -95823,7 +95683,6 @@
 /area/planetoid/lazarus/command/meeting_room)
 "xYP" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/lazarus/command/meeting_room)
 "xYQ" = (
@@ -96042,8 +95901,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -96549,7 +96406,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -96578,11 +96434,8 @@
 /area/planetoid/lazarus/medical/west_hallway)
 "yho" = (
 /obj/structure/cable,
-/obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -96748,7 +96601,6 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -96796,7 +96648,6 @@
 	id_tag = "ceprivacy1";
 	name = "CE Privacy Shutters"
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/office/ce)
@@ -96888,7 +96739,6 @@
 /area/planetoid/lazarus/security/courtroom)
 "ykl" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -96904,7 +96754,6 @@
 /area/planetoid/lazarus/medical/virology/lab)
 "ykm" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/indestructible/grime_floor,
 /area/planetoid/jungle/south)
