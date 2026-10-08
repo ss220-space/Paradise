@@ -64,7 +64,6 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 		var/category_has_discount = is_path_in_typecache(category_skills[1].type:parent_type, target_user.mind.discount_skill_category)
 		category["has_discount"] = category_has_discount
 
-		var/list/current_mob_skills = target_user?.mind?.get_skills_for_skills_select()
 		var/list/skills = list()
 		for(var/datum/skill/skill as anything in category_skills)
 			var/list/skill_data = list()
