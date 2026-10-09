@@ -240,8 +240,7 @@
 /area/station/command/office/hop)
 "adq" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/cable,
-/obj/machinery/power/apc/directional/south,
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7350,8 +7349,8 @@
 /area/station/hallway/secondary/exit)
 "bGG" = (
 /obj/structure/closet/secure_closet/brig,
-/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/firealarm/directional/west,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9350,16 +9349,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/hallway/secure)
-"cdA" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/light/floor,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prisoner_shuttle)
 "cdD" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
@@ -11639,9 +11628,14 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "cEz" = (
-/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12217,12 +12211,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "cMU" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
 /obj/item/radio/intercom/locked/prison/directional/west,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/station/security/prisoner_shuttle)
 "cMV" = (
@@ -16171,9 +16164,10 @@
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "dIm" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "darkred"
 	},
 /area/station/security/prisoner_shuttle)
@@ -24803,19 +24797,18 @@
 	},
 /area/station/maintenance/library)
 "fwE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/door_control{
+	desc = "A remote control-switch for the pod doors.";
+	id = "secpilot";
+	layer = 3.3;
+	name = "Pod Door Control";
+	pixel_x = -26;
+	pixel_y = 26;
+	req_access = list(71)
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/station/security/prison/perma)
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/station/security/podbay)
 "fwF" = (
 /obj/machinery/light{
 	dir = 1
@@ -25605,13 +25598,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "fGM" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
 /obj/structure/cable,
 /obj/effect/landmark/start/security_officer,
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 1;
+	icon_state = "darkred"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "darkred"
 	},
 /area/station/security/prisoner_shuttle)
@@ -34553,11 +34550,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint3)
 "hAj" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	icon_state = "dark"
 	},
 /area/station/security/prison/perma)
 "hAp" = (
@@ -38318,11 +38313,8 @@
 	pixel_x = 5
 	},
 /obj/item/pen,
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
 /obj/machinery/light,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39482,10 +39474,6 @@
 	},
 /area/station/hallway/primary/central/north)
 "iCy" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -42141,6 +42129,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44574,7 +44563,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "jHL" = (
-/obj/effect/turf_decal/delivery/red/hollow,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51002,13 +50991,6 @@
 	icon_state = "yellowfull"
 	},
 /area/station/maintenance/electrical)
-"kXh" = (
-/obj/structure/cable,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/station/security/prisoner_shuttle)
 "kXm" = (
 /obj/structure/closet/crate,
 /obj/item/stack/rods{
@@ -56159,6 +56141,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57712,6 +57695,15 @@
 /obj/machinery/camera{
 	c_tag = "Brig Hangar";
 	network = list("SS13","Security")
+	},
+/obj/machinery/door_control{
+	desc = "A remote control-switch for the pod doors.";
+	id = "secpilot";
+	layer = 3.3;
+	name = "Pod Door Control";
+	pixel_x = 26;
+	pixel_y = 26;
+	req_access = list(71)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -60932,14 +60924,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
-"nac" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prisoner_shuttle)
 "nai" = (
 /obj/structure/chair/sofa,
 /turf/simulated/floor/plasteel{
@@ -61341,7 +61325,9 @@
 /area/station/hallway/secondary/entry/commercial)
 "neO" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/computer/prisoner{
+	req_access = list(2)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63221,8 +63207,7 @@
 /obj/structure/cable,
 /obj/machinery/light/floor,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
+	icon_state = "dark"
 	},
 /area/station/security/prisoner_shuttle)
 "nzF" = (
@@ -71900,6 +71885,7 @@
 /area/station/maintenance/asmaint2)
 "ppL" = (
 /obj/machinery/computer/shuttle/labor,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74733,10 +74719,11 @@
 	},
 /area/station/hallway/primary/central/north)
 "pTi" = (
-/obj/machinery/computer/security,
-/obj/machinery/newscaster/security_unit/directional/west,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/station/security/prisoner_shuttle)
 "pTj" = (
@@ -81457,14 +81444,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/telecomms/chamber)
-"rkL" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prison/perma)
 "rkM" = (
 /obj/structure/cable,
 /obj/structure/bed/dogbed,
@@ -84811,19 +84790,6 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"rSh" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/door_control{
-	desc = "A remote control-switch for the pod doors.";
-	id = "secpilot";
-	layer = 3.3;
-	name = "Pod Door Control";
-	pixel_x = -26;
-	pixel_y = 26;
-	req_access = list(71)
-	},
-/turf/space,
-/area/station/security/podbay)
 "rSl" = (
 /obj/structure/safe/floor,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
@@ -85469,15 +85435,6 @@
 "rYc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/door_control{
-	desc = "A remote control-switch for the pod doors.";
-	id = "secpilot";
-	layer = 3.3;
-	name = "Pod Door Control";
-	pixel_x = 26;
-	pixel_y = 26;
-	req_access = list(71)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -94894,7 +94851,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 10
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -100701,8 +100658,9 @@
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "vhO" = (
-/obj/machinery/computer/brigcells,
 /obj/structure/cable,
+/obj/machinery/computer/security,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -169936,9 +169894,9 @@ hZC
 mlr
 fVf
 nxQ
-fwE
-bCa
-rkL
+dFV
+hAj
+uAV
 ybT
 mXT
 xcD
@@ -171478,9 +171436,9 @@ nOj
 gyH
 fVf
 wYQ
-fwE
-bCa
+dFV
 hAj
+ybT
 eji
 mXT
 xcD
@@ -172762,10 +172720,10 @@ pWW
 dOi
 buB
 pYz
-nac
+dHI
 dHI
 lZz
-cdA
+eAG
 eAG
 rBf
 lAc
@@ -173790,7 +173748,7 @@ coE
 cqb
 vhO
 fGM
-kXh
+qhb
 nzz
 aoi
 oEg
@@ -177149,8 +177107,8 @@ aaq
 aaq
 aaq
 coE
-coE
-rSh
+fwE
+rrd
 rrd
 coE
 coE
