@@ -1082,7 +1082,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -3404,7 +3403,6 @@
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/spaceport)
 "aUB" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -20269,7 +20267,6 @@
 	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/monitor)
 "far" = (
@@ -20589,7 +20586,6 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "courtroom"
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -28446,7 +28442,6 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/lazarus/abandoned_building/barracks)
 "hhc" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -32719,9 +32714,6 @@
 	},
 /area/planetoid/lazarus/engineering/teg)
 "iiw" = (
-/obj/structure/chair/sofa/pew{
-	dir = 1
-	},
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
@@ -34549,12 +34541,6 @@
 	icon_state = "darkbluealt"
 	},
 /area/planetoid/lazarus/nexus)
-"iJJ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/planetoid/lakes/east_brig)
 "iJM" = (
 /obj/machinery/light{
 	dir = 1;
@@ -36975,7 +36961,6 @@
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
 	name = "Труба дыхательной смеси"
 	},
-/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -44363,10 +44348,6 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/east)
-"lhE" = (
-/obj/structure/cable,
-/turf/simulated/wall/r_wall,
-/area/planetoid/lazarus/command/office/rd)
 "lhQ" = (
 /turf/simulated/wall/r_wall/coated,
 /area/planetoid/lazarus/command/gateway)
@@ -46665,7 +46646,6 @@
 	},
 /area/planetoid/lazarus/cargo/restroom)
 "lMU" = (
-/obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -48021,7 +48001,6 @@
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/jungle/colony_roads)
 "mfE" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -54528,19 +54507,7 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Exam Room South";
 	dir = 1;
-	network = list("SS13","Medical");
-	pixel_x = 30
-	},
-/obj/machinery/camera{
-	c_tag = "Medbay Exam Room South";
-	dir = 1;
 	network = list("SS13","Medical")
-	},
-/obj/machinery/camera{
-	c_tag = "Medbay Exam Room South";
-	dir = 1;
-	network = list("SS13","Medical");
-	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -71764,7 +71731,6 @@
 	req_access = list(2);
 	security_level = 1
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -72823,7 +72789,6 @@
 	pixel_y = -22;
 	req_access = list(39)
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable,
@@ -73130,7 +73095,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -75283,7 +75247,6 @@
 	name = "Engineering Lockdown"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
 	},
@@ -79119,7 +79082,6 @@
 	name = "Head of Security";
 	req_access = list(58)
 	},
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -79838,7 +79800,6 @@
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/engineering/storage/secure)
 "uuP" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable,
@@ -132282,7 +132243,7 @@ tbB
 vEU
 bda
 bUk
-lhE
+ifp
 bwF
 aSt
 oRi
@@ -139249,7 +139210,7 @@ upq
 upq
 upq
 upq
-iJJ
+upq
 hah
 feb
 feb
