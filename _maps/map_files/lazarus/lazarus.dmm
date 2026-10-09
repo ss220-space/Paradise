@@ -16818,7 +16818,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -18267,7 +18266,6 @@
 /area/planetoid/lazarus/cargo/dock)
 "eAY" = (
 /obj/item/radio/intercom/directional/north,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -18343,7 +18341,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -48207,7 +48204,6 @@
 	name = "Courtroom"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
@@ -52247,25 +52243,6 @@
 	icon_state = "dark"
 	},
 /area/planetoid/lazarus/engineering/teg)
-"noW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/planetoid/lazarus/engineering/atmos/control)
 "npk" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -52846,13 +52823,6 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/robotics)
-"nxN" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/structure/fence/meshfence,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/planetoid/spaceport/escape_shuttle)
 "nxR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -112600,7 +112570,7 @@ eNk
 qhz
 dpp
 jpn
-noW
+eBt
 cOY
 nDt
 jvu
@@ -144071,7 +144041,7 @@ luf
 enB
 xHd
 wbe
-nxN
+pxZ
 dDk
 rqq
 dDk
