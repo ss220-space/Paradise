@@ -21,6 +21,8 @@
 	if(!isliving(cast_on))
 		return FALSE
 	var/mob/living/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
 	return target.stat != DEAD && target.key && target.mind && !HAS_TRAIT(target, TRAIT_MIND_TEMPORARILY_GONE)
 
 /*
