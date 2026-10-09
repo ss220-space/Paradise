@@ -644,7 +644,7 @@
 	if(is_ravaging || !isliving(target_living))
 		return
 	is_ravaging = TRUE
-	visible_message(span_danger("<B>[DECLENT_RU_CAP(src, NOMINATIVE)]</B> яростно терзает [target_living.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] яростно терзает [target_living.declent_ru(ACCUSATIVE)]!"))
 
 	for(var/times_to_attack = 3, times_to_attack > 0, times_to_attack--)
 		if(body_position == LYING_DOWN)
@@ -757,7 +757,7 @@
 	visible_message("[src] начинает грызть [food.declent_ru(ACCUSATIVE)].")
 	is_eating = TRUE
 	for(var/times_to_eat = rand(4, 6), times_to_eat--)
-		sleep(rand(1.7, 2.5) SECONDS)
+		sleep(rand(1, 3) SECONDS)
 		if(check_food_loc(food) || stance > LIZARD_STANCE_ALERT || stat == DEAD)
 			return
 		face_atom(food)
