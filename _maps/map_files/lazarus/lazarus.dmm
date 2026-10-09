@@ -21621,7 +21621,9 @@
 	},
 /area/planetoid/spaceport)
 "frN" = (
-/obj/structure/prop/hunter/ancient_temple/fountain_head/flowing,
+/obj/structure/prop/hunter/ancient_temple/fountain_head/flowing{
+	pixel_y = 16
+	},
 /turf/simulated/floor/water/beach,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "fse" = (
@@ -76412,7 +76414,7 @@
 /area/planetoid/lazarus/medical/sleeper)
 "tFE" = (
 /obj/structure/falsewall/wood,
-/turf/simulated/wall/mineral/wood,
+/turf/simulated/floor/wood,
 /area/planetoid/caves/underground_lake)
 "tFL" = (
 /obj/effect/decal/cleanable/dust,
