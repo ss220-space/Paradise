@@ -13,6 +13,7 @@
 	starsys_name = "Эпсилон Лукуста"
 
 	admin_only = TRUE
+	planetary = TRUE
 
 	traits = list(
 		list(MAIN_STATION, STATION_LEVEL = "Surface", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
