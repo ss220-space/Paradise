@@ -281,8 +281,7 @@
 	width = 9;
 	height = 14;
 	dwidth = 4;
-	roundstart_move = "explorer_ship_home";
-	
+	roundstart_move = "explorer_ship_home"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/explorer_ship)
