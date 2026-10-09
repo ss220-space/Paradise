@@ -434,7 +434,7 @@ GAME_VERB(/mob/living/simple_animal/bot/secbot, toggle_flashing_lights, "Вкл/
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
+			if(!Adjacent(target) || !isturf(target.loc) || target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 
