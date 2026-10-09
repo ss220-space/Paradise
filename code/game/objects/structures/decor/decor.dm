@@ -8,7 +8,7 @@
 
 /obj/structure/decor/ifv
 	name = "destroyed M34 IFV"
-	desc = "Уничтоженная БМП. Так просто не поднять – сорок шесть тонн..."
+	desc = "Уничтоженная БМП. Так просто не поднять — сорок шесть тонн..."
 	icon = 'icons/obj/structures/ifv_prop.dmi'
 	icon_state = "ifv_destroyed"
 	resistance_flags = INDESTRUCTIBLE
