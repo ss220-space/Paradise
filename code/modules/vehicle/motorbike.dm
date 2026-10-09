@@ -1,9 +1,7 @@
 /obj/vehicle/ridden/motorbike
 	name = "motorbike"
 	desc = "Внедорожный мотоцикл для передвижения по пересечённой местности."
-	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "motorbike"
-	max_integrity = 300
 	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 40, BIO = 100, FIRE = 80, ACID = 50)
 	integrity_failure = 150
 	key_type = /obj/item/key/motorbike
@@ -270,5 +268,4 @@
 	name = "внутреннее хранилище"
 	desc = "Небольшие отсеки для хранения вещей, встроенные в мотоцикл."
 	storage_slots = 4
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 8

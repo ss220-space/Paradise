@@ -105,7 +105,6 @@
 	weather_overlay = "light_rain"
 
 	end_message = span_notice_alt("Морось прекращается. Небо снова проясняется.")
-	end_overlay = "light_rain"
 
 	aesthetic = TRUE
 

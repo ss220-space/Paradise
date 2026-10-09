@@ -115,9 +115,6 @@
 	icon_state = "hunter_red_4"
 
 /turf/simulated/floor/hunter/tile/red4/glow
-	icon_state = "hunter_red_4"
-	light_on = TRUE
-	light_power = 1
 	light_range = 2
 	light_color = "#ff0000"
 
@@ -155,8 +152,6 @@
 	icon_state = "hunter_glow"
 
 /turf/simulated/floor/hunter/red_glow/on
-	icon_state = "hunter_glow"
-	light_on = TRUE
 	light_power = 2
 	light_range = 3
 	light_color = "#ff0000"
@@ -165,7 +160,6 @@
 	icon_state = "hunter_tile_1"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_1/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_1/north
 	dir = NORTH
@@ -180,7 +174,6 @@
 	icon_state = "hunter_tile_2"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_2/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_2/north
 	dir = NORTH
@@ -195,7 +188,6 @@
 	icon_state = "hunter_tile_3"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_3/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_3/north
 	dir = NORTH
@@ -210,7 +202,6 @@
 	icon_state = "hunter_tile_4"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_4/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_4/north
 	dir = NORTH
@@ -225,7 +216,6 @@
 	icon_state = "hunter_tile_5"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_5/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_5/north
 	dir = NORTH
@@ -240,7 +230,6 @@
 	icon_state = "hunter_tile_6"
 
 /turf/simulated/floor/hunter/tile/hunter_tile_6/south
-	dir = SOUTH
 
 /turf/simulated/floor/hunter/tile/hunter_tile_6/north
 	dir = NORTH
@@ -284,7 +273,6 @@
 
 /turf/simulated/floor/plating/ancient_temple
 	icon = 'icons/turf/hunter/ancientfloor.dmi'
-	icon_state = "plating"
 
 /turf/simulated/floor/plating/ancient_temple/damage_1
 	icon_state = "platingdmg1"
@@ -299,11 +287,7 @@
 	icon_state = "platingdmg4"
 
 /turf/simulated/floor/ancient_temple
-	name = "floor"
 	icon = 'icons/turf/hunter/ancientfloor.dmi'
-	icon_state = "floor1"
-
-/turf/simulated/floor/ancient_temple/floor_1
 	icon_state = "floor1"
 
 /turf/simulated/floor/ancient_temple/floor_2
@@ -606,9 +590,6 @@
 	dir = WEST
 
 /turf/simulated/floor/ancient_temple/damaged
-	icon_state = "damaged1"
-
-/turf/simulated/floor/ancient_temple/damaged/damage_1
 	icon_state = "damaged1"
 
 /turf/simulated/floor/ancient_temple/damaged/damage_2

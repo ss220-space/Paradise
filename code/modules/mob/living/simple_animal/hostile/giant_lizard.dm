@@ -59,8 +59,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	obj_damage = 10
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	attack_same = FALSE
 	retaliate_only = TRUE
 	vision_range = 16
 	aggro_vision_range = 16
@@ -854,7 +852,6 @@
 	name = "Язык"
 	key = "flicktongue"
 	message = null
-	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/giant_lizard/flicktongue/run_emote(mob/user, params, type_override, intentional = FALSE)
 	. = ..()

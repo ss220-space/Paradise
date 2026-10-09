@@ -61,7 +61,6 @@
 /obj/structure/fence/door/mesh
 	desc = "Прочная сетчатая дверь между двумя металлическими столбами. Дешёвый способ отделить зоны, сохраняя обзор."
 	icon = 'icons/obj/electric_fence_alt_door.dmi'
-	icon_state = "door_closed"
 	max_integrity = 70
 
 /obj/structure/fence/door/mesh/update_door_status()
