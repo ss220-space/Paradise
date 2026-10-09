@@ -152,8 +152,8 @@
 /datum/surgery/attach_robotic_limb/self_attach_ipc
 	name = "Самоприсоединение конечности (КПБ)"
 	desc = "Позволяет КПБ самостоятельно установить себе роботизированную конечность."
-	self_operable = TRUE 
-	lying_required = FALSE 
+	self_operable = TRUE
+	lying_required = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo/ipc_self)
 
 /datum/surgery/attach_robotic_limb/self_attach_ipc/can_start(mob/user, mob/living/carbon/target)
@@ -197,10 +197,10 @@
 		user.balloon_alert(user, "несовместимо!")
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
-	if(isnull(organ_data))
+	if(isnull(organ_data) && user.zone_selected != BODY_ZONE_TAIL && user.zone_selected != BODY_ZONE_WING)
 		user.balloon_alert(user, "несовместимо с организмом!")
 		return SURGERY_BEGINSTEP_ABORT
-	if(!istype(bodypart, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
+	if(organ_data && !istype(bodypart, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
