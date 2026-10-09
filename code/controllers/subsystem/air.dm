@@ -524,7 +524,8 @@ SUBSYSTEM_DEF(air)
 				turf.temperature_expose(temperature)
 				var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE
 				for(var/direction in GLOB.cardinal)
-					var/turf/simulated/wall/wall = get_step(turf, direction)
+					var/turf/neighbour = get_step(turf, direction)
+					var/turf/simulated/wall/wall = neighbour
 					if(istype(wall))
 						wall.adjacent_fire_act(radiated_temperature)
 
