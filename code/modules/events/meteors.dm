@@ -7,6 +7,9 @@
 /datum/event/meteor_wave/setup()
 	waves = severity * rand(1,3)
 
+/datum/event/meteor_wave/start()
+	SSaugury?.register_storm(src)
+
 /datum/event/meteor_wave/announce(false_alarm)
 	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
 		GLOB.minor_announcement.announce(
@@ -29,6 +32,7 @@
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
 
 /datum/event/meteor_wave/end()
+	SSaugury?.unregister_storm(src)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.minor_announcement.announce(

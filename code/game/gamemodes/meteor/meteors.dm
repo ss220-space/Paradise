@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor
 	name = "the concept of meteor"
-	desc = "You should probably run instead of gawking at this."
+	desc = "Тебе, наверное, стоит бежать, а не глазеть на это.."
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 //Fake
 /obj/effect/meteor/fake
 	name = "simulated meteor"
-	desc = "A simulated meteor for testing shield satellites. How did you see this, anyway?"
+	desc = "Имитатор метеора для испытания спутников с защитным полем. Кстати, как ты его заметил?"
 	invisibility = INVISIBILITY_MAXIMUM
 	density = FALSE
 	pass_flags = NONE
@@ -339,6 +339,16 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	dropamt = 3
 	threat = 5
 
+/obj/effect/meteor/medium/get_ru_names()
+	return alist(
+		NOMINATIVE = "метеор",
+		GENITIVE = "метеора",
+		DATIVE = "метеору",
+		ACCUSATIVE = "метеор",
+		INSTRUMENTAL = "метеором",
+		PREPOSITIONAL = "метеоре",
+	)
+
 /obj/effect/meteor/medium/meteor_effect()
 	. = ..()
 	explosion(loc, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, adminlog = FALSE, cause = src)
@@ -351,6 +361,16 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hits = 6
 	dropamt = 4
 	threat = 10
+
+/obj/effect/meteor/big/get_ru_names()
+	return alist(
+		NOMINATIVE = "большой метеор",
+		GENITIVE = "большого метеора",
+		DATIVE = "большому метеору",
+		ACCUSATIVE = "большой метеор",
+		INSTRUMENTAL = "большим метеором",
+		PREPOSITIONAL = "большом метеоре",
+	)
 
 /obj/effect/meteor/big/meteor_effect()
 	. = ..()
@@ -366,6 +386,16 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	meteordrop = /obj/item/stack/ore/plasma
 	threat = 20
 
+/obj/effect/meteor/flaming/get_ru_names()
+	return alist(
+		NOMINATIVE = "пылающий метеор",
+		GENITIVE = "пылающего метеора",
+		DATIVE = "пылающему метеору",
+		ACCUSATIVE = "пылающий метеор",
+		INSTRUMENTAL = "пылающим метеором",
+		PREPOSITIONAL = "пылающем метеоре",
+	)
+
 /obj/effect/meteor/flaming/meteor_effect()
 	. = ..()
 	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE, flame_range = 5, cause = src)
@@ -373,12 +403,22 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 //Radiation meteor
 /obj/effect/meteor/irradiated
 	name = "glowing meteor"
-	desc = "An irradiated chunk of space rock. You could probably stop and appreciate its incandescent green glow, if it weren't moving so fast."
+	desc = "Облученный кусок космической породы. Наверное, можно было бы остановиться и полюбоваться его ярко-зеленым свечением, если бы он не двигался с такой скоростью."
 	icon_state = "glowing"
 	heavy = TRUE
 	hits = 9
 	meteordrop = /obj/item/stack/ore/uranium
 	threat = 35
+
+/obj/effect/meteor/irradiated/get_ru_names()
+	return alist(
+		NOMINATIVE = "сияющий метеор",
+		GENITIVE = "сияющего метеора",
+		DATIVE = "сияющему метеору",
+		ACCUSATIVE = "сияющий метеор",
+		INSTRUMENTAL = "сияющим метеором",
+		PREPOSITIONAL = "сияющем метеоре",
+	)
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
@@ -391,13 +431,23 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/tunguska
 	name = "tunguska meteor"
 	icon_state = "flaming"
-	desc = "Your life briefly passes before your eyes the moment you lay them on this monstruosity."
+	desc = "В тот миг, когда ваш взгляд падает на это чудовище, вся жизнь проносится перед глазами.."
 	hits = 30
 	hitpwr = EXPLODE_DEVASTATE
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = /obj/item/stack/ore/plasma
 	threat = 50
+
+/obj/effect/meteor/tunguska/get_ru_names()
+	return alist(
+		NOMINATIVE = "тунгусский метеорит",
+		GENITIVE = "тунгусского метеорита",
+		DATIVE = "тунгусскому метеориту",
+		ACCUSATIVE = "тунгусский метеорит",
+		INSTRUMENTAL = "тунгусским метеоритом",
+		PREPOSITIONAL = "тунгусском метеорите",
+	)
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	. = ..()
@@ -420,6 +470,16 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	meteordrop = /obj/item/reagent_containers/food/snacks/meat
 	var/meteorgibs = /obj/effect/gibspawner/generic
 	threat = 2
+
+/obj/effect/meteor/gore/get_ru_names()
+	return alist(
+		NOMINATIVE = "органические остатки",
+		GENITIVE = "органических остатков",
+		DATIVE = "органическим остаткам",
+		ACCUSATIVE = "органические остатки",
+		INSTRUMENTAL = "органическими остатками",
+		PREPOSITIONAL = "органических остатках",
+	)
 
 /obj/effect/meteor/gore/make_debris()
 	. = ..()
@@ -450,6 +510,16 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hitpwr = EXPLODE_DEVASTATE
 	threat = 30
 
+/obj/effect/meteor/gore/ops/get_ru_names()
+	return alist(
+		NOMINATIVE = "метеоритный оперативник",
+		GENITIVE = "метеоритного оперативника",
+		DATIVE = "метеоритному оперативнику",
+		ACCUSATIVE = "метеоритного оперативника",
+		INSTRUMENTAL = "метеоритным оперативником",
+		PREPOSITIONAL = "метеоритном оперативнике",
+	)
+
 /obj/effect/meteor/gore/pigops
 	name = "pigOps"
 	icon = 'icons/mob/animal.dmi'
@@ -459,10 +529,20 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	shake_chance = 20
 	threat = 25
 
+/obj/effect/meteor/gore/pigops/get_ru_names()
+	return alist(
+		NOMINATIVE = "поросячий оперативник",
+		GENITIVE = "поросячьего оперативника",
+		DATIVE = "поросячьему оперативнику",
+		ACCUSATIVE = "поросячьего оперативника",
+		INSTRUMENTAL = "поросячьим оперативником",
+		PREPOSITIONAL = "поросячьем оперативнике",
+	)
+
 //Dust
 /obj/effect/meteor/dust
 	name = "dust"
-	desc = "Dust in space."
+	desc = "Космическая пыль."
 	icon_state = "dust"
 	pass_flags = PASSTABLE|PASSGRILLE
 	hits = 1
@@ -471,15 +551,35 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	meteordrop = /obj/item/stack/ore/glass
 	threat = 1
 
+/obj/effect/meteor/dust/get_ru_names()
+	return alist(
+		NOMINATIVE = "пыль",
+		GENITIVE = "пыли",
+		DATIVE = "пыли",
+		ACCUSATIVE = "пыль",
+		INSTRUMENTAL = "пылью",
+		PREPOSITIONAL = "пыли",
+	)
+
 // Space Dust
 /obj/effect/meteor/space_dust
 	name = "space dust"
-	desc = "Dust in space."
+	desc = "Космическая пыль."
 	icon_state = "space_dust"
 	heavy = TRUE
 	hits = 2
 	meteordrop = null
 	threat = 5
+
+/obj/effect/meteor/space_dust/get_ru_names()
+	return alist(
+		NOMINATIVE = "космическая пыль",
+		GENITIVE = "космической пыли",
+		DATIVE = "космической пыли",
+		ACCUSATIVE = "космическую пыль",
+		INSTRUMENTAL = "космической пылью",
+		PREPOSITIONAL = "космической пыли",
+	)
 
 /obj/effect/meteor/space_dust/ex_act(severity, target)
 	qdel(src)
