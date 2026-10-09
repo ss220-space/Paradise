@@ -56,7 +56,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define BUILD_POWER 2000
 #define DECONSTRUCT_POWER 250
 
-/obj/item/circuit_component/rd_lathe
 /obj/machinery/computer/rdconsole
 	name = "R&D console"
 	icon_screen = "rdcomp"
@@ -1019,27 +1018,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!I || QDELETED(I))
 		return -1
 
-	if(istype(I, /obj/item/storage/lockbox/research))
-		var/obj/item/storage/lockbox/research/box = I
-		var/obj/item/gun/weapon_inside = locate() in box
-		if(weapon_inside)
-			weapon_inside.forceMove(linked_destroy)
-			qdel(box)
-			I = weapon_inside
-			linked_destroy.loaded_item = I
-
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(I.origin_tech)
 
-	var/will_increase = FALSE
-	if(temp_tech && length(temp_tech))
-		for(var/T in temp_tech)
-			if(!files.IsTechHigher(T, temp_tech[T]))
-				will_increase = TRUE
-				break
+	var/tech_upgraded = finish_destroyer(temp_tech, user = null, is_automation = TRUE)
 
-	finish_destroyer(temp_tech, user = null, is_automation = TRUE)
-
-	return will_increase
+	return tech_upgraded
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()

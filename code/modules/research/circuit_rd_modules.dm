@@ -95,6 +95,12 @@
 	output_error = add_output_port("Ошибка печати", PORT_TYPE_SIGNAL)
 	output_item = add_output_port("Предмет хранения", PORT_TYPE_DATUM)
 
+/obj/item/circuit_component/rd_lathe/Destroy()
+	if(attached_console)
+		UnregisterSignal(attached_console, "usb_print_complete")
+	attached_console = null
+	return ..()
+
 /obj/item/circuit_component/rd_lathe/register_usb_parent(atom/movable/shell)
 	. = ..()
 	if(istype(shell, /obj/machinery/computer/rdconsole))
@@ -111,7 +117,7 @@
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
-	if(!attached_console || held_item)
+	if(!attached_console || QDELETED(attached_console) || held_item)
 		output_error.set_output(TRUE)
 		return
 
@@ -120,11 +126,16 @@
 		output_error.set_output(TRUE)
 		return
 
-	last_printed_design = D
-
 	var/obj/machinery/r_n_d/target_machine = attached_console.linked_lathe
 	if(D.build_type & IMPRINTER)
 		target_machine = attached_console.linked_imprinter
+
+	// СТРАХОВКА: Если станок уничтожен C4 или занят ручной печатью
+	if(!target_machine || QDELETED(target_machine) || target_machine.busy)
+		output_error.set_output(TRUE)
+		return
+
+	last_printed_design = D
 
 	var/mob/old_usr = usr
 	usr = null
@@ -191,6 +202,10 @@
 	output_tech_up = add_output_port("Повышение технологий", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Провал изучений", PORT_TYPE_SIGNAL)
 
+/obj/item/circuit_component/rd_destructor/Destroy()
+	attached_console = null
+	return ..()
+
 /obj/item/circuit_component/rd_destructor/register_usb_parent(atom/movable/shell)
 	. = ..()
 	if(istype(shell, /obj/machinery/computer/rdconsole))
@@ -204,23 +219,24 @@
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
-	if(!attached_console)
+	if(!attached_console || QDELETED(attached_console))
+		output_error.set_output(TRUE)
+		return
+
+	if(!attached_console.linked_destroy || QDELETED(attached_console.linked_destroy))
+		output_error.set_output(TRUE)
 		return
 
 	var/obj/item/I = input_item.value
-
 	var/result = attached_console.usb_recycle_item(I)
 
 	if(result == -1)
-
 		output_error.set_output(TRUE)
 		return
 
 	if(result == TRUE)
-
 		output_tech_up.set_output(TRUE)
 	else
-
 		output_error.set_output(TRUE)
 
 	var/obj/item/circuit_component/rd_lathe/lathe = locate() in attached_console
@@ -229,3 +245,4 @@
 		if(lathe.output_item)
 			lathe.output_item.set_output(null)
 		lathe.desc = initial(lathe.desc)
+
