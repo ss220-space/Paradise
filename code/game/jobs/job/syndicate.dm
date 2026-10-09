@@ -17,7 +17,7 @@
 		/datum/skill/general/carrying = 3,
 		/datum/skill/general/mech_drive = 3,
 		/datum/skill/general/mod_use = 3,
-		/datum/skill/general/cooking = 3,
+		/datum/skill/service/cooking = 3,
 		/datum/skill/service/drink_mixing = 3,
 		/datum/skill/service/botany = 3,
 		/datum/skill/service/cleaning = 3,

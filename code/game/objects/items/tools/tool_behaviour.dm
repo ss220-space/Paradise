@@ -14,7 +14,7 @@
 		CALCULATE_SKILL_MOD(user, MINING_PROBS_MOD, skill_prob)
 		CALCULATE_SKILL_MOD(user, MINING_SPEED_MOD, skill_modifier_temp)
 		skill_modifier = skill_modifier_temp
-		GET_SKILL_LEVEL(user, /datum/skill/service/mining, skill_level)
+		GET_SKILL_LEVEL(user, /datum/skill/general/mining, skill_level)
 		if(skill_level >= SKILL_LEVEL_ADVANCED && prob(skill_prob)) // we check if the skill level is greater than Journeyman and then we check for the probality for that specific level.
 			mineral_scan_pulse(get_turf(user), SKILL_LEVEL_ADVANCED - 2) //SKILL_LEVEL_JOURNEYMAN = 3 So to get range of 1+ we have to subtract 2 from it,.
 

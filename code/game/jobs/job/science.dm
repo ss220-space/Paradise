@@ -94,7 +94,7 @@
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
@@ -107,7 +107,7 @@
 		ALT_JOB_TITLE_RU_XENOBIOLOGIST = list(
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
@@ -118,7 +118,7 @@
 		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
 			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
@@ -129,7 +129,7 @@
 		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER = list(
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
@@ -174,7 +174,7 @@
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
@@ -215,7 +215,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
@@ -250,7 +250,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
@@ -290,7 +290,7 @@
 	outfit = /datum/outfit/job/explorer
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
