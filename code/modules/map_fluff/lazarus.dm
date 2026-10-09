@@ -16,5 +16,5 @@
 	planetary = TRUE
 
 	traits = list(
-		list(MAIN_STATION, STATION_LEVEL = "Surface", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
+		list(MAIN_STATION, STATION_CONTACT, REACHABLE, AI_OK, STATION_LEVEL = "Surface", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
 	)
