@@ -68551,7 +68551,6 @@
 "rDd" = (
 /obj/machinery/door/airlock/glass,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
