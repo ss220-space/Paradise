@@ -18,7 +18,6 @@
 /area/planetoid/lazarus/abandoned_building
 	holomap_should_draw = FALSE
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-	outdoors = FALSE
 
 /area/planetoid/lazarus/ai
 	ambientsounds = list(
@@ -32,7 +31,6 @@
 /area/planetoid/lazarus/cargo
 	name = "Quartermasters"
 	icon_state = "quart"
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_CARGO
 
 /area/planetoid/lazarus/commons
@@ -48,13 +46,11 @@
 
 /area/planetoid/lazarus/hallway
 	valid_territory = FALSE
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/planetoid/lazarus/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/planetoid/lazarus/janitor
@@ -88,7 +84,6 @@
 
 /area/planetoid/lazarus/medical
 	ambience_index = AMBIENCE_MEDICAL
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_MEDICAL
 
 /area/planetoid/lazarus/nexus
@@ -97,12 +92,10 @@
 	sound_environment = SOUND_ENVIRONMENT_HALLWAY
 
 /area/planetoid/lazarus/science
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/planetoid/lazarus/security
 	ambience_index = AMBIENCE_DANGER
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/planetoid/lazarus/telecomms
@@ -175,7 +168,6 @@
 	ambientsounds = list(
 		'sound/ambience/misc/signal.ogg',
 	)
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/planetoid/lazarus/command/eva
@@ -199,7 +191,6 @@
 /area/planetoid/lazarus/command/server
 	name = "Messaging Server Room"
 	icon_state = "server"
-	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/planetoid/lazarus/command/teleporter
 	name = "Teleporter"
@@ -666,7 +657,7 @@
 /area/planetoid/lazarus/science/smes
 	name = "Research SMES"
 
-/area/planetoid/lazarus/science/storage
+/area/planetoid/lazarus/science/tox_storage
 	name = "Toxins Storage"
 	icon_state = "toxstorage"
 
@@ -1456,10 +1447,6 @@
 
 /area/planetoid/escape/security
 	name = "LZ Escape Security Checkpoint"
-
-// MARK: Satellite
-/area/planetoid/spaceport/escape_shuttle
-	name = "LZ Escape Shuttle"
 
 // MARK: Lakes and rivers
 /area/planetoid/lakes

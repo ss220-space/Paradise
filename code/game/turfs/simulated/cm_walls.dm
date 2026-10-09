@@ -6,7 +6,6 @@
 #define CORNER_CLOCKWISE 4
 
 /turf/simulated/wall/cm
-	name = "wall"
 	abstract_type = /turf/simulated/wall/cm
 	desc = "A wall."
 	icon_state = "blank"

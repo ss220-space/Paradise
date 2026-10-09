@@ -2,17 +2,24 @@
 	name = "cargo container"
 	desc = "Огромный промышленный грузовой контейнер.\nВам не положено это видеть."
 	icon = 'icons/obj/structures/container.dmi'
-	bound_width = 32
 	bound_height = 64
-	density = TRUE
 	max_integrity = 200
 	opacity = TRUE
-	anchored = TRUE
 	armor = list(MELEE = 0, BULLET = 80, LASER = 80, ENERGY = 0, BOMB = -100, BIO = 0, FIRE = 90, ACID = 90)
 
+/obj/structure/decor/container/get_ru_names()
+	return alist(
+	NOMINATIVE = "контейнер \"[initial(name)]\"",
+	GENITIVE = "контейнера \"[initial(name)]\"",
+	DATIVE = "контейнеру \"[initial(name)]\"",
+	ACCUSATIVE = "контейнер \"[initial(name)]\"",
+	INSTRUMENTAL = "контейнером \"[initial(name)]\"",
+	PREPOSITIONAL = "контейнере \"[initial(name)]\"",
+	)
+
 /obj/structure/decor/container/watatsumi
-	name = "Watatsumi Cargo Container"
-	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит компании Watatsumi, производящей разнообразную электронику и механические изделия.\nПо крайней мере, так написано на самом контейнере. Вы же до этого момента ровным счетом ничего не слышали об этой фирме."
+	name = "Watatsumi"
+	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит компании \"Watatsumi\", производящей разнообразную электронику и механические изделия.\nПо крайней мере, так написано на самом контейнере. Вы же до этого момента ровным счетом ничего не слышали об этой фирме."
 
 /obj/structure/decor/container/watatsumi/left
 	icon_state = "watatsumi_l"
@@ -30,8 +37,8 @@
 	icon_state = "watatsumi_r"
 
 /obj/structure/decor/container/grant
-	name = "Grant Corporation Cargo Container"
-	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит корпорации \"Грант\" — производителю компонентов для медицинской и биотехнологической отраслей.\nВы припоминаете, что слышали об одном из их новейших препаратов и о том, насколько он был опасен, — хотя в компании утверждали, что уже близки к решению проблемы."
+	name = "Grant Corporation"
+	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит корпорации \"Grant\" — производителю компонентов для медицинской и биотехнологической отраслей.\nВы припоминаете, что слышали об одном из их новейших препаратов и о том, насколько он был опасен, — хотя в компании утверждали, что уже близки к решению проблемы."
 
 /obj/structure/decor/container/grant/left
 	icon_state = "grant_l"
@@ -46,8 +53,8 @@
 	icon_state = "grant_r"
 
 /obj/structure/decor/container/arious
-	name = "Arious Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from Arious, a computer parts and motion detector manufacturer.\nYou still wonder why we have a container of old Motion Detectors, and if they even still work."
+	name = "Arious"
+	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит компании \"Arious\" — производителя компьютерных комплектующих и датчиков движения.\nВы всё ещё гадаете, откуда у нас контейнер со старыми датчиками движения и работают ли они вообще."
 
 /obj/structure/decor/container/arious/left
 	icon_state = "arious_l"
@@ -65,8 +72,8 @@
 	icon_state = "arious_r"
 
 /obj/structure/decor/container/wy
-	name = "Weyland-Yutani Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from The Weyland-Yutani Corporation, you have probably heard of them before."
+	name = "Weyland-Yutani"
+	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит корпорации \"Weyland-Yutani\"\ — вы наверняка о ней слышали."
 
 /obj/structure/decor/container/wy/left
 	icon_state = "wy_l"
@@ -78,8 +85,8 @@
 	icon_state = "wy_r"
 
 /obj/structure/decor/container/wy2
-	name = "Weyland-Yutani Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from The Weyland-Yutani Corporation, you have probably heard of them before."
+	name = "Weyland-Yutani"
+	desc = "Огромный промышленный грузовой контейнер.\nОн принадлежит корпорации \"Weyland-Yutani\"\ — вы наверняка о ней слышали."
 
 /obj/structure/decor/container/wy2/left
 	icon_state = "wy2_l"
@@ -91,8 +98,8 @@
 	icon_state = "wy2_r"
 
 /obj/structure/decor/container/armat
-	name = "Armat Cargo Container"
-	desc = "A large industrial container. This one is from Armat, the defense contractors behind the M41A and other marine weaponry."
+	name = "Armat"
+	desc = "Крупный промышленный контейнер. Этот экземпляр — от компании \"Armat\", оборонного подрядчика, разработавшего вооружение для пехоты."
 
 /obj/structure/decor/container/armat/left
 	icon_state = "armat_l"
@@ -104,8 +111,8 @@
 	icon_state = "armat_r"
 
 /obj/structure/decor/container/hd
-	name = "Hyperdyne Systems Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from Hyperdyne Systems, a manufacturer of synthetics, prosthetics, and weapons.\nWe don't speak about their former affiliations with the UPP."
+	name = "Hyperdyne Systems"
+	desc = "Огромный промышленный транспортный контейнер.\nЭтот — производства \"Hyperdyne Systems\", компании, выпускающей синтетиков, протезы и оружие."
 
 /obj/structure/decor/container/hd/left
 	icon_state = "hd_l"
@@ -126,8 +133,8 @@
 	icon_state = "hd_r_alt"
 
 /obj/structure/decor/container/trijent
-	name = "Trijent Corporation Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from The Trijent Corporation's mining operations.\nIf this breaks open, you figure you probably shouldn't breathe in what's inside."
+	name = "Trijent Corporation"
+	desc = "Огромный промышленный грузовой контейнер.\nЭтот — с объектов добычи корпорации \"Trijent\".\nЕсли он вскроется, лучше не вдыхать то, что находится внутри."
 
 /obj/structure/decor/container/trijent/left
 	icon_state = "trijent_l"
@@ -148,8 +155,8 @@
 	icon_state = "trijent_r_alt"
 
 /obj/structure/decor/container/kelland
-	name = "Kelland Mining Company Cargo Container"
-	desc = "A small industrial shipping container.\nYou haven't heard much about Kelland Mining, besides the incident at LV-178's mining operation."
+	name = "Kelland Mining Company"
+	desc = "Небольшой промышленный грузовой контейнер. Вам мало что известно о компании \"Kelland Mining\" — разве что об инциденте на добывающем объекте LV-178."
 	bound_height = 32
 	layer = WALL_OBJ_LAYER
 
@@ -160,8 +167,8 @@
 	icon_state = "kelland_r"
 
 /obj/structure/decor/container/ferret
-	name = "Ferret Heavy Industries Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from Ferret Heavy Industries, a manufacturer of terrestrial crawlers and powerloaders.\nUnfortunately, the company went bankrupt. Fortunately, these containers are really cheap now."
+	name = "Ferret Heavy Industries"
+	desc = "Огромный промышленный грузовой контейнер.\nЭтот экземпляр — от компании \"Ferret Heavy Industries\", производителя наземных гусеничных машин и силовых погрузчиков.\nК сожалению, компания обанкротилась. К счастью, теперь такие контейнеры стоят очень дешево."
 
 /obj/structure/decor/container/ferret/left
 	icon_state = "ferret_l"
@@ -173,8 +180,8 @@
 	icon_state = "ferret_r"
 
 /obj/structure/decor/container/lockmart
-	name = "Lockmart Corporation Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from Lockheed Martin, a manufacturer of spaceships and spaceship parts.\nThey made the USCSS Nostromo... whatever happened to that ship, anyways?"
+	name = "Lockmart Corporation"
+	desc = "Огромный промышленный транспортный контейнер.\nЭтот — от компании \"Lockheed Martin\", производителя космических кораблей и комплектующих для них."
 
 /obj/structure/decor/container/lockmart/left
 	icon_state = "lockmart_l"
@@ -186,8 +193,8 @@
 	icon_state = "lockmart_r"
 
 /obj/structure/decor/container/seegson
-	name = "Seegson Corporation Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from Seegson, they makes just about anything and everything.\nYou notice this container has a peeling note on it, saying all contents were transferred from another station decades ago, how long has it been here?"
+	name = "Seegson Corporation"
+	desc = "Огромный промышленный грузовой контейнер.\nОн произведен компанией \"Seegson\" — они выпускают практически всё что угодно."
 
 /obj/structure/decor/container/seegson/left
 	icon_state = "seegson_l"
@@ -199,8 +206,8 @@
 	icon_state = "seegson_r"
 
 /obj/structure/decor/container/canc
-	name = "CANC Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from the Chinese/Asian–Nation Cooperative, which was absorded into the UPP. Their massive industrial output has ensured that cargo containers bearing their symbols and name won't be disappearing any time soon."
+	name = "CANC"
+	desc = "Огромный промышленный грузовой контейнер. \nЭтот экземпляр — родом из \"Кооператива китайских и азиатских наций\""
 
 /obj/structure/decor/container/canc/left
 	icon_state = "canc_g_l"
@@ -210,10 +217,6 @@
 
 /obj/structure/decor/container/canc/right
 	icon_state = "canc_g_r"
-
-/obj/structure/decor/container/canc/tan
-	name = "CANC Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from the Chinese/Asian–Nation Cooperative, which was absorded into the UPP. Their massive industrial output has ensured that cargo containers bearing their symbols and name won't be disappearing any time soon."
 
 /obj/structure/decor/container/canc/tan/left
 	icon_state = "canc_t_l"
@@ -225,8 +228,8 @@
 	icon_state = "canc_t_r"
 
 /obj/structure/decor/container/upp
-	name = "UPP Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from the Union of Progressive Peoples, as indicated by the massive symbol on the side."
+	name = "UPP"
+	desc = "Огромный промышленный грузовой контейнер.\nЭтот — из Союза прогрессивных народов, о чём свидетельствует массивный символ на борту."
 
 /obj/structure/decor/container/upp/left
 	icon_state = "upp_l"
@@ -236,10 +239,6 @@
 
 /obj/structure/decor/container/upp/right
 	icon_state = "upp_r"
-
-/obj/structure/decor/container/upp/tan
-	name = "UPP Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one is from the Union of Progressive Peoples, as indicated by the massive symbol on the side."
 
 /obj/structure/decor/container/upp/tan/left
 	icon_state = "upp_t_l"
@@ -251,8 +250,8 @@
 	icon_state = "upp_t_r"
 
 /obj/structure/decor/container/upp/mk6
-	name = "Ministry of Space Security Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one belongs to the UPP's Ministry of Space Security."
+	name = "Ministry of Space Security"
+	desc = "Огромный промышленный грузовой контейнер.\nЭтот принадлежит Министерству космической безопасности UPP."
 
 /obj/structure/decor/container/upp/mk6/left
 	icon_state = "mk6_l"
@@ -264,52 +263,40 @@
 	icon_state = "mk6_r"
 
 /obj/structure/decor/container/uscm
-	name = "United States Colonial Marines Cargo Container"
-	desc = "A huge industrial shipping container.\nThis one belongs to the UA's United States Marine Corps."
+	name = "United States Colonial Marines"
+	desc = "Огромный промышленный грузовой контейнер.\nЭтот принадлежит Корпусу морской пехоты."
 
 /obj/structure/decor/container/uscm/sanfran/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm1_l"
 
 /obj/structure/decor/container/uscm/sanfran/mid
 	icon_state = "uscm1_m"
 
 /obj/structure/decor/container/uscm/borodino/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm2_l"
 
 /obj/structure/decor/container/uscm/borodino/mid
 	icon_state = "uscm2_m"
 
 /obj/structure/decor/container/uscm/tartarus/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm3_l"
 
 /obj/structure/decor/container/uscm/tartarus/mid
 	icon_state = "uscm3_m"
 
 /obj/structure/decor/container/uscm/chinook/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm4_l"
 
 /obj/structure/decor/container/uscm/chinook/mid
 	icon_state = "uscm4_m"
 
 /obj/structure/decor/container/uscm/crestus/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm5_l"
 
 /obj/structure/decor/container/uscm/crestus/mid
 	icon_state = "uscm5_m"
 
 /obj/structure/decor/container/uscm/micor/left
-	name = "United States Colonial Marines Cargo Container"
-
 	icon_state = "uscm6_l"
 
 /obj/structure/decor/container/uscm/mid
@@ -319,8 +306,8 @@
 	icon_state = "uscm_r"
 
 /obj/structure/decor/container/upp_small
-	name = "UPP Cargo Container"
-	desc = "A small industrial shipping container.\nThis one is from the Union of Progressive Peoples, as indicated by the red star symbol on the side."
+	name = "UPP"
+	desc = "Небольшой промышленный грузовой контейнер.\nЭтот экземпляр принадлежит Союзу прогрессивных народов, о чём свидетельствует символ красной звезды на боковой стенке"
 	bound_height = 32
 	layer = WALL_OBJ_LAYER
 
@@ -446,14 +433,13 @@
 
 /// MARK: Horizontal
 /obj/structure/decor/container/horizontal
-	name = "Cargo Container"
 	desc = "A huge industrial shipping container."
 	icon = 'icons/obj/structures/containHorizont.dmi'
 	bound_width = 64
 
 /obj/structure/decor/container/horizontal/blue
-	name = "Generic Cargo Container"
-	desc = "A huge industrial shipping container.\nDespite the logo clearly being on the side, you cannot see it, as the logo is not facing south."
+	name = "Generic"
+	desc = "Огромный промышленный грузовой контейнер.\nНесмотря на то, что логотип отчетливо виден на боковой стороне, разглядеть его невозможно, так как он не обращен на юг."
 	bound_height = 32
 	bound_width = 32
 
@@ -467,133 +453,113 @@
 	icon_state = "blue_b"
 
 /// MARK: Extended
-/obj/structure/cargo_container/containersextended
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended
 	desc = "A cargo container."
 	icon = 'icons/obj/structures/containersextended.dmi'
 	icon_state = "blackwyleft"
-	bound_height = 32
-	bound_width = 32
 	layer = ABOVE_MOB_LAYER
 
-/obj/structure/cargo_container/containersextended/blueleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/blueleft
 	icon_state = "blueleft"
 
-/obj/structure/cargo_container/containersextended/blueright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/blueright
 	icon_state = "blueright"
 
-/obj/structure/cargo_container/containersextended/greenleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greenleft
 	icon_state = "greenleft"
 
-/obj/structure/cargo_container/containersextended/greenright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greenright
 	icon_state = "greenright"
 
-/obj/structure/cargo_container/containersextended/tanleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/tanleft
 	icon_state = "tanleft"
 
-/obj/structure/cargo_container/containersextended/tanright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/tanright
 	icon_state = "tanright"
 
-/obj/structure/cargo_container/containersextended/redleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/redleft
 	icon_state = "redleft"
 
-/obj/structure/cargo_container/containersextended/redright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/redright
 	icon_state = "redright"
 
-/obj/structure/cargo_container/containersextended/greywyleft
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greywyleft
+	name = "Weyland-Yutani"
 	icon_state = "greywyleft"
 
-/obj/structure/cargo_container/containersextended/greywyright
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greywyright
+	name = "Weyland-Yutani"
 	icon_state = "greywyright"
 
-/obj/structure/cargo_container/containersextended/lightgreywyleft
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/lightgreywyleft
+	name = "Weyland-Yutani"
 	icon_state = "lightgreywyleft"
 
-/obj/structure/cargo_container/containersextended/lightgreywyright
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/lightgreywyright
+	name = "Weyland-Yutani"
 	icon_state = "lightgreywyright"
 
-/obj/structure/cargo_container/containersextended/blackwyleft
-	name = "Weyland-Yutani cargo container"
-	icon_state = "blackwyleft"
+/obj/structure/decor/container/cargo_container/containersextended/blackwyleft
+	name = "Weyland-Yutani"
 
-/obj/structure/cargo_container/containersextended/blackwyright
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/blackwyright
+	name = "Weyland-Yutani"
 	icon_state = "blackwyright"
 
-/obj/structure/cargo_container/containersextended/whitewyleft
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/whitewyleft
+	name = "Weyland-Yutani"
 	icon_state = "whitewyleft"
 
-/obj/structure/cargo_container/containersextended/whitewyright
-	name = "Weyland-Yutani cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/whitewyright
+	name = "Weyland-Yutani"
 	icon_state = "whitewyright"
 
-/obj/structure/cargo_container/containersextended/tanwywingsleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/tanwywingsleft
 	icon_state = "tanwywingsleft"
 
-/obj/structure/cargo_container/containersextended/tanwywingsright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/tanwywingsright
 	icon_state = "tanwywingsright"
 
-/obj/structure/cargo_container/containersextended/greenwywingsleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greenwywingsleft
 	icon_state = "greenwywingsleft"
 
-/obj/structure/cargo_container/containersextended/greenwywingsright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/greenwywingsright
 	icon_state = "greenwywingsright"
 
-/obj/structure/cargo_container/containersextended/bluewywingsleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/bluewywingsleft
 	icon_state = "bluewywingsleft"
 
-/obj/structure/cargo_container/containersextended/bluewywingsright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/bluewywingsright
 	icon_state = "bluewywingsright"
 
-/obj/structure/cargo_container/containersextended/redwywingsleft
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/redwywingsleft
 	icon_state = "redwywingsleft"
 
-/obj/structure/cargo_container/containersextended/redwywingsright
-	name = "cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/redwywingsright
 	icon_state = "redwywingsright"
 
-/obj/structure/cargo_container/containersextended/medicalleft
-	name = "medical cargo containers"
+/obj/structure/decor/container/cargo_container/containersextended/medicalleft
+	name = "medical"
 	icon_state = "medicalleft"
 
-/obj/structure/cargo_container/containersextended/medicalright
-	name = "medical cargo containers"
+/obj/structure/decor/container/cargo_container/containersextended/medicalright
+	name = "medical"
 	icon_state = "medicalright"
 
-/obj/structure/cargo_container/containersextended/emptymedicalleft
-	name = "medical cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/emptymedicalleft
+	name = "medical"
 	icon_state = "emptymedicalleft"
 
-/obj/structure/cargo_container/containersextended/emptymedicalright
-	name = "medical cargo container"
+/obj/structure/decor/container/cargo_container/containersextended/emptymedicalright
+	name = "medical"
 	icon_state = "emptymedicalright"
 
-/obj/structure/cargo_container/containersextended/kelland_left
-	name = "Kelland Mining Company cargo container"
-	desc = "A small industrial shipping container.\nYou haven't heard much about Kelland Mining, besides the incident at LV-178's mining operation."
+/obj/structure/decor/container/cargo_container/containersextended/kelland_left
+	name = "Kelland Mining Company"
+	desc = "Небольшой промышленный грузовой контейнер. Вам мало что известно о компании \"Kelland Mining\" — разве что об инциденте на добывающем объекте LV-178."
 	icon_state = "kelland_alt_l"
 
-/obj/structure/cargo_container/containersextended/kelland_right
-	name = "Kelland Mining Company cargo container"
-	desc = "A small industrial shipping container.\nYou haven't heard much about Kelland Mining, besides the incident at LV-178's mining operation."
+/obj/structure/decor/container/cargo_container/containersextended/kelland_right
+	name = "Kelland Mining Company"
+	desc = "Небольшой промышленный грузовой контейнер. Вам мало что известно о компании \"Kelland Mining\" — разве что об инциденте на добывающем объекте LV-178."
 	icon_state = "kelland_alt_r"

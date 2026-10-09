@@ -95,7 +95,6 @@
 // MARK: DESERT
 /turf/simulated/floor/planetoid/desert
 	name = "desert"
-	icon_state = "desert"
 	baseturf = /turf/simulated/floor/planetoid/desert
 	var/obj/item/stack/dig_result = /obj/item/stack/ore/glass
 	var/dug
@@ -154,7 +153,6 @@
 	icon_state ="beach"
 
 /turf/simulated/floor/planetoid/desert/beachedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/desert/beachedge/north
 	dir = NORTH
@@ -175,7 +173,6 @@
 	icon_state ="beachcorner"
 
 /turf/simulated/floor/planetoid/desert/beachcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/desert/beachcorner/north
 	dir = NORTH
@@ -195,7 +192,6 @@
 	icon_state ="beachcorner2"
 
 /turf/simulated/floor/planetoid/desert/beachcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/desert/beachcorner2/north
 	dir = NORTH
@@ -272,7 +268,6 @@
 	)
 
 /turf/simulated/floor/planetoid/grass/grass1
-	icon_state = "grass1"
 
 /turf/simulated/floor/planetoid/grass/grass2
 	icon_state = "grass2"
@@ -294,7 +289,6 @@
 		icon_state = "dgrass[rand(0, 4)]"
 
 /turf/simulated/floor/planetoid/grass/dgrass/dgrass0
-	icon_state = "dgrass0"
 
 /turf/simulated/floor/planetoid/grass/dgrass/dgrass1
 	icon_state = "dgrass1"
@@ -319,7 +313,6 @@
 		icon_state = "fullgrass[rand(0, 4)]"
 
 /turf/simulated/floor/planetoid/grass/fullgrass/fullgrass0
-	icon_state = "fullgrass0"
 
 /turf/simulated/floor/planetoid/grass/fullgrass/fullgrass1
 	icon_state = "fullgrass1"
@@ -339,7 +332,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/sandedge
 
 /turf/simulated/floor/planetoid/grass/sandedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/sandedge/north
 	dir = NORTH
@@ -356,7 +348,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/sandcorner
 
 /turf/simulated/floor/planetoid/grass/sandcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/sandcorner/north
 	dir = NORTH
@@ -372,7 +363,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/sandcorner2
 
 /turf/simulated/floor/planetoid/grass/sandcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/sandcorner2/north
 	dir = NORTH
@@ -389,7 +379,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtedge
 
 /turf/simulated/floor/planetoid/grass/dirtedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/dirtedge/north
 	dir = NORTH
@@ -406,7 +395,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtcorner
 
 /turf/simulated/floor/planetoid/grass/dirtcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/dirtcorner/north
 	dir = NORTH
@@ -422,7 +410,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtcorner2
 
 /turf/simulated/floor/planetoid/grass/dirtcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/dirtcorner2/north
 	dir = NORTH
@@ -439,7 +426,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/beachedge
 
 /turf/simulated/floor/planetoid/grass/beachedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/beachedge/north
 	dir = NORTH
@@ -456,7 +442,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/beachcorner
 
 /turf/simulated/floor/planetoid/grass/beachcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/beachcorner/north
 	dir = NORTH
@@ -484,7 +469,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandedge
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandedge/north
 	dir = NORTH
@@ -501,7 +485,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandcorner
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner/north
 	dir = NORTH
@@ -517,7 +500,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandcorner2
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/north
 	dir = NORTH
@@ -534,7 +516,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/beachedge
 
 /turf/simulated/floor/planetoid/grass/scorched1/beachedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched1/beachedge/north
 	dir = NORTH
@@ -551,7 +532,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/beachcorner
 
 /turf/simulated/floor/planetoid/grass/scorched1/beachcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched1/beachcorner/north
 	dir = NORTH
@@ -579,7 +559,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandedge
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandedge/north
 	dir = NORTH
@@ -596,7 +575,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner/north
 	dir = NORTH
@@ -612,7 +590,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/north
 	dir = NORTH
@@ -629,7 +606,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/beachedge
 
 /turf/simulated/floor/planetoid/grass/scorched2/beachedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched2/beachedge/north
 	dir = NORTH
@@ -646,7 +622,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/beachcorner
 
 /turf/simulated/floor/planetoid/grass/scorched2/beachcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched2/beachcorner/north
 	dir = NORTH
@@ -674,7 +649,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandedge
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandedge/north
 	dir = NORTH
@@ -691,7 +665,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandcorner
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner/north
 	dir = NORTH
@@ -707,7 +680,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/north
 	dir = NORTH
@@ -724,7 +696,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/beachedge
 
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge/north
 	dir = NORTH
@@ -741,7 +712,6 @@
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/beachcorner
 
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner/south
-	dir = SOUTH
 
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner/north
 	dir = NORTH

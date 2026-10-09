@@ -757,7 +757,6 @@
 /obj/structure/flora/jungle
 	name = "jungle foliage"
 	icon = 'icons/turf/ground_map.dmi'
-	density = FALSE
 	anchored = TRUE
 	var/indestructible = FALSE
 

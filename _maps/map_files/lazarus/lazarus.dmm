@@ -454,7 +454,7 @@
 /area/planetoid/lazarus/engineering/atmos)
 "afx" = (
 /obj/effect/hunter/ancient_temple/deco_border,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "afz" = (
 /obj/effect/turf_decal/siding/wood{
@@ -527,7 +527,7 @@
 /area/planetoid/lazarus/security/lobby)
 "agI" = (
 /obj/structure/vine/medium,
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "agO" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -2441,7 +2441,7 @@
 /obj/structure/bed/old,
 /obj/item/paper{
 	desc = "Мятый лист бумаги в пыли и мазуте.";
-	info = "НЕ ЗАБЫТЬ<hr>Последнюю партию больше через старую дорогу не тащим. Патрули начали ходить дальше на север, не знаю что они там вынюхивают, но лучше не светиться<br><br>Новый маршрут: старая тропа - озеро - метеостанция - восточный сектор<br><br>На метеостанции людей почти не бывает. Если дверь закрыта — ждать до следующего окна связи.<br><br>Груз прятать не возле станции, а дальше по тропе. В прошлый раз кто-то полез в старый склад и едва не нашёл следы.<br><br>И еще:<br>Если начинается дождь - не выходить<br>В прошлый раз один из наших решил, что это обычная гроза. Через десять минут кожа на руках пошла пятнами, а металлический контейнер пришлось выбросить.<br>Не знаю, что там творится с атмосферой, но метеорологи явно что-то скрывают.<br><br>К.";
+	info = "НЕ ЗАБЫТЬ<hr>Последнюю партию больше через старую дорогу не тащим. Патрули начали ходить дальше на север, не знаю что они там вынюхивают, но лучше не светиться<br><br>Новый маршрут: старая тропа — озеро — метеостанция — восточный сектор<br><br>На метеостанции людей почти не бывает. Если дверь закрыта — ждать до следующего окна связи.<br><br>Груз прятать не возле станции, а дальше по тропе. В прошлый раз кто-то полез в старый склад и едва не нашёл следы.<br><br>И еще:<br>Если начинается дождь — не выходить<br>В прошлый раз один из наших решил, что это обычная гроза. Через десять минут кожа на руках пошла пятнами, а металлический контейнер пришлось выбросить.<br>Не знаю, что там творится с атмосферой, но метеорологи явно что-то скрывают.<br><br>К.";
 	name = "Записка"
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -4663,7 +4663,7 @@
 /area/planetoid/lazarus/medical/psych)
 "biX" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "bjc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5058,7 +5058,7 @@
 /obj/structure/torch_holder/ancient{
 	pixel_y = 32
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/jungle/temple_outer)
 "bnJ" = (
 /obj/structure/vine,
@@ -5565,7 +5565,7 @@
 "btr" = (
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple/deco_border,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "btz" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -5846,7 +5846,7 @@
 	},
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "bvT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7341,7 +7341,7 @@
 /area/planetoid/lazarus/hallway/primary/aft/south)
 "bOT" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "bOU" = (
 /obj/structure/disposalpipe/segment{
@@ -8724,7 +8724,7 @@
 "ceO" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_7,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "ceR" = (
 /obj/machinery/door/airlock/public/glass,
@@ -12283,7 +12283,7 @@
 "cYD" = (
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "cYE" = (
 /obj/effect/turf_decal/sand,
@@ -16003,7 +16003,7 @@
 "dVS" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_3,
 /obj/structure/bonfire/prelit/brazier,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/jungle/temple_outer)
 "dVW" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -20089,7 +20089,7 @@
 /obj/item/paper{
 	desc = "Лист бумаги в идеальном состоянии";
 	info = "<h1>МЕТЕОРОЛОГИЧЕСКАЯ СТАНЦИЯ #1-LV624<br>ОТЧЕТ О СОСТОЯНИИ АТМОСФЕРНЫХ ОСАДКОВ</h1><hr>Дата: 21.06.2567<br>Ответственный наблюдатель: Джордж Уиззерсмит<br><br>За последний период наблюдений в северо-восточном секторе неоднократно зарегистрированы осадки с повышенной кислотностью.<br><br>Обычный показатель pH дождевой воды составляет 5,4-5,8. Во время отдельных эпизодов показатель снижался до 3,1-3,6<br><br>Анализ проб выявил повышенное содержание сульфат- и нитрат-ионов. Предполагается, что явление связано с присутствием в атмосфере аэрозольных соединений неизвестного происхождения.<br><br>Несмотря на повышенную кислотность осадков, заметного ущерба местной флоре не обнаружено. Растительность региона демонстрирует высокую устойчивость к подобным условиям, предположительно вследствие длительной адаптации.<br><br>Наибольшую опасность осадки представляют для человека, металлических конструкций и оборудования.<br><br>Рекомендуется избегать нахождения под открытым небом во время осадков с pH ниже 3,5.<br><br><br>Примечание:Причина периодического повышения кислотности атмосферы пока не установлена. Продолжить сбор проб.";
-	name = "Отчет метеостанции - кислотные осадки"
+	name = "Отчет метеостанции — кислотные осадки"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/abandoned_building/weather_station)
@@ -30374,7 +30374,7 @@
 "hDu" = (
 /obj/effect/decal/snow/sand/edge,
 /obj/structure/vine/medium,
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "hDw" = (
 /obj/item/caution,
@@ -30875,7 +30875,7 @@
 /area/planetoid/lazarus/service/kitchen)
 "hJD" = (
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "hJE" = (
 /obj/structure/vine,
@@ -31842,7 +31842,7 @@
 	},
 /obj/structure/vine,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "hVc" = (
 /obj/machinery/door/airlock{
@@ -32121,7 +32121,7 @@
 /area/planetoid/lazarus/commons/sleep)
 "hYm" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/caves/east_rnd_cave)
 "hYp" = (
 /turf/simulated/floor/planetoid/grass/sandcorner2/north,
@@ -36103,7 +36103,7 @@
 /obj/structure/prop/hunter/ancient_temple/small_statue{
 	dir = 4
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/jungle/temple_outer)
 "jcM" = (
 /obj/effect/spawner/random_barrier/possibly_welded_airlock{
@@ -46993,7 +46993,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "lQh" = (
 /obj/effect/turf_decal/siding/wood,
@@ -47355,7 +47355,7 @@
 /area/planetoid/lazarus/nexus)
 "lVe" = (
 /obj/structure/vine,
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "lVn" = (
 /obj/item/flag/species/human,
@@ -48154,7 +48154,7 @@
 /obj/effect/hunter/ancient_temple/deco_border{
 	dir = 1
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "mfN" = (
 /obj/structure/flora/rock/jungle,
@@ -56865,7 +56865,7 @@
 "ozA" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "ozH" = (
 /turf/simulated/floor/plasteel{
@@ -58195,7 +58195,7 @@
 	},
 /area/planetoid/jungle/colony_roads)
 "oSh" = (
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/colony)
 "oSi" = (
 /obj/effect/turf_decal{
@@ -60786,7 +60786,7 @@
 /obj/structure/table,
 /obj/item/paper{
 	desc = "Похоже на вырванный лист из журнала записей поста охраны, на обратной стороне бумаги дата: 02.06.2567";
-	info = "<h1>Сержант Барнс</h1><hr>КПП-1.<br>03:10 - грузовой транспорт, разрешение имеется.<br>05:40 - инженерная бригада, пропущены.<br>08:15 - начальство приказало не пропускать никого в сектор.<br>08:47 - поступил приказ снять пост.<br>09:05 - пост покинут.";
+	info = "<h1>Сержант Барнс</h1><hr>КПП-1.<br>03:10 — грузовой транспорт, разрешение имеется.<br>05:40 — инженерная бригада, пропущены.<br>08:15 — начальство приказало не пропускать никого в сектор.<br>08:47 — поступил приказ снять пост.<br>09:05 — пост покинут.";
 	name = "Записка"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -61077,7 +61077,7 @@
 	},
 /area/planetoid/lazarus/science/chem_lab)
 "pEM" = (
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/caves/east_rnd_cave)
 "pES" = (
 /obj/effect/turf_decal/stripes/line,
@@ -62523,7 +62523,7 @@
 /area/planetoid/lazarus/science/toxins/test)
 "pZB" = (
 /obj/structure/vine,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "pZR" = (
 /obj/effect/turf_decal/siding/wood/corner{
@@ -66129,7 +66129,7 @@
 /obj/structure/table/wood,
 /obj/item/paper{
 	desc = "Мятый лист бумаги.";
-	info = "Илаясу<hr> Салли так и не вернул деньги за те две бутылки виски. Ты к нему слишком добр, Илаяс! Этот кретин просто бухает за наш счет, судя по слухам он должен денег чуть ли не половине инженеров. Вот увидишь, его арестуют и вышлют к черту отсюда еще к завершению строительства. <br><br> Ах да, на этот раз он еще и стойку нам заблевал, а после сбежал пъяный от охраны куда-то в сторону джунглей за церковью. Пока не вернет 8 сотен - больше этому уроду не наливай! <br><br><br><br> - Боб.";
+	info = "Илаясу<hr> Салли так и не вернул деньги за те две бутылки виски. Ты к нему слишком добр, Илаяс! Этот кретин просто бухает за наш счет, судя по слухам он должен денег чуть ли не половине инженеров. Вот увидишь, его арестуют и вышлют к черту отсюда еще к завершению строительства. <br><br> Ах да, на этот раз он еще и стойку нам заблевал, а после сбежал пъяный от охраны куда-то в сторону джунглей за церковью. Пока не вернет 8 сотен — больше этому уроду не наливай! <br><br><br><br> — Боб.";
 	name = "Записка"
 	},
 /obj/item/radio/intercom/directional/east,
@@ -66800,7 +66800,7 @@
 "rdf" = (
 /obj/effect/hunter/ancient_temple,
 /obj/structure/vine,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/caves/east_rnd_cave)
 "rdi" = (
 /obj/machinery/door/window/eastright{
@@ -68875,7 +68875,7 @@
 	},
 /area/planetoid/lazarus/service/clown)
 "rHF" = (
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "rHI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73514,7 +73514,7 @@
 	},
 /area/planetoid/lazarus/service/library)
 "sPY" = (
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/jungle/temple_outer)
 "sQc" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
@@ -75138,7 +75138,7 @@
 "tiT" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_1,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "tiU" = (
 /turf/simulated/wall,
@@ -76573,7 +76573,7 @@
 /obj/effect/hunter/ancient_temple/rubble/rubble_3,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "tDv" = (
 /obj/structure/closet/crate,
@@ -82670,7 +82670,7 @@
 /area/planetoid/lazarus/science/hallway/main)
 "vcq" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/jungle/temple_outer)
 "vct" = (
 /obj/machinery/door/window/brigdoor{
@@ -84192,7 +84192,7 @@
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3{
 	dir = 4
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "vyT" = (
 /obj/structure/closet/crate/internals,
@@ -85429,7 +85429,7 @@
 /obj/effect/hunter/ancient_temple/deco_border/deco_border3{
 	dir = 8
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "vOE" = (
 /mob/living/simple_animal/hostile/panther,
@@ -86135,7 +86135,7 @@
 	},
 /area/planetoid/lazarus/service/chapel)
 "vXN" = (
-/turf/simulated/wall/indestructible/jungle/jungle5,
+/turf/simulated/wall/cm/indestructible/jungle,
 /area/planetoid/jungle/north)
 "vXS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -88413,7 +88413,7 @@
 "wDG" = (
 /obj/structure/vine/heavy,
 /obj/structure/mineral_door/sandstone,
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/caves/east_rnd_cave)
 "wDJ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -92523,7 +92523,7 @@
 	color = "#b29082";
 	dir = 6
 	},
-/turf/simulated/floor/ancient_temple/damaged/damage_1,
+/turf/simulated/floor/ancient_temple/damaged,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "xCP" = (
 /turf/simulated/floor/planetoid/grass/sandedge/north,

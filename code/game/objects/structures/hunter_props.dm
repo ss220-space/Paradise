@@ -13,7 +13,6 @@
 	layer = MID_TURF_LAYER
 	plane = FLOOR_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 
 // Bridge borders
 /obj/effect/hunter/bridge_border
@@ -55,9 +54,6 @@
 
 // Ancient temple rubble
 /obj/effect/hunter/ancient_temple
-	icon_state = "rubble0"
-
-/obj/effect/hunter/ancient_temple/rubble
 	icon_state = "rubble0"
 
 /obj/effect/hunter/ancient_temple/rubble/rubble_1
@@ -228,14 +224,11 @@
 /obj/structure/prop/hunter/stairs/border
 	name = "stair border"
 	icon_state = "border_stairs"
-	density = FALSE
 	anchored = TRUE
 
 /obj/structure/prop/hunter/stairs/border/rune
 	icon_state = "border_stairs_rune"
-	light_on = TRUE
 	light_color = "#ff0000"
-	light_power = 1
 	light_range = 1
 
 /obj/structure/prop/hunter/stairs/border/stair_cut
@@ -243,9 +236,7 @@
 
 /obj/structure/prop/hunter/stairs/border/stair_cut/rune
 	icon_state = "border_stair_rune_cut"
-	light_on = TRUE
 	light_color = "#ff0000"
-	light_power = 1
 	light_range = 1
 
 // Misc props
@@ -268,9 +259,7 @@
 /obj/effect/hunter/rune
 	name = "rune"
 	icon_state = "hunter_rune"
-	light_on = TRUE
 	light_color = "#ff0000"
-	light_power = 1
 	light_range = 1
 
 /obj/effect/hunter/rune/corner
@@ -328,11 +317,7 @@
 	desc = "Богато украшенное основание статуи, покрытое искусной резьбой в виде декоративных рун и символов."
 	icon = 'icons/obj/structures/hunter/ancientsatuebase.dmi'
 	icon_state = "statue_base_big"
-	anchored = TRUE
 	layer = BELOW_MOB_LAYER
-	density = TRUE
-	bound_height = 64
-	bound_width = 64
 
 /obj/structure/prop/hunter/ancient_temple/giant_statue/base/colorable
 	icon_state = "statue_base_big_colorable"
@@ -372,7 +357,6 @@
 	icon = 'icons/obj/structures/hunter/32x32_hunter_props.dmi'
 	icon_state = "fountain_head_static"
 	anchored = TRUE
-	density = FALSE
 
 /obj/structure/prop/hunter/ancient_temple/fountain_head/flowing
 	desc = "Огромная высеченная из камня голова неведомого существа; из её пасти льется вода."
