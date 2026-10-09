@@ -21,6 +21,7 @@
 	..()
 
 /datum/game_mode/meteor/proc/sendmeteors()
+	SSaugury?.register_storm(src)
 	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
 	var/waitduration = rand(3000,6000)
 	while(waveduration - world.time > 0)
@@ -31,6 +32,7 @@
 	sendmeteors()
 
 /datum/game_mode/meteor/declare_completion()
+	SSaugury?.unregister_storm(src)
 	var/text
 	var/survivors = 0
 	for(var/mob/living/player in GLOB.player_list)
