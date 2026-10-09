@@ -88892,7 +88892,6 @@
 	},
 /area/planetoid/lazarus/security/prison/cell_block)
 "wNY" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
