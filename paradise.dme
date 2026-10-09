@@ -3903,6 +3903,7 @@
 #include "code\modules\projectiles\guns\ballistic\_automatic.dm"
 #include "code\modules\projectiles\guns\ballistic\_revolver.dm"
 #include "code\modules\projectiles\guns\ballistic\_shotgun.dm"
+#include "code\modules\projectiles\guns\ballistic\_turret.dm"
 #include "code\modules\projectiles\guns\ballistic\auto_rifles.dm"
 #include "code\modules\projectiles\guns\ballistic\bolt_action_rifles.dm"
 #include "code\modules\projectiles\guns\ballistic\bow.dm"
