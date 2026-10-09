@@ -1453,10 +1453,7 @@ GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
-	pod.pod_paint_effect = null
-	pod.can_paint = FALSE
-	pod.has_paint = FALSE
-	pod.update_icons()
+	pod.update_icon()
 	used = 1
 	qdel(src)
 

@@ -530,12 +530,6 @@
 /obj/machinery/suit_storage_unit/security/pod_pilot,
 /turf/simulated/floor/plasteel,
 /area/station/security/podbay)
-"aeD" = (
-/obj/spacepod/sec{
-	req_access = list(71)
-	},
-/turf/simulated/floor/engine,
-/area/station/security/podbay)
 "aeG" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/prisoner_shuttle)
@@ -1631,18 +1625,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
-"amP" = (
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/item/paper/monitorkey,
-/obj/item/spacepod_equipment/key{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/turf/simulated/floor/carpet,
-/area/station/command/office/hos)
 "amQ" = (
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
@@ -2170,22 +2152,6 @@
 	icon_state = "bar"
 	},
 /area/station/security/prison/perma)
-"aqH" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/jacket/pilot,
-/obj/item/clothing/head/beret/sec,
-/obj/machinery/light_switch/directional/west,
-/obj/item/spacepod_equipment/key{
-	id = 100000
-	},
-/obj/item/gps,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/podbay)
 "aqJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -8881,13 +8847,6 @@
 "blM" = (
 /turf/simulated/wall,
 /area/station/commons/locker)
-"blN" = (
-/obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/station/engineering/mechanic_workshop)
 "blQ" = (
 /turf/simulated/wall,
 /area/station/maintenance/port)
@@ -17936,15 +17895,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
-"crD" = (
-/obj/structure/closet/secure_closet/security,
-/obj/structure/cable,
-/obj/item/spacepod_equipment/weaponry/laser,
-/obj/machinery/power/apc/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/podbay)
 "crE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -27833,11 +27783,6 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/engine,
 /area/station/maintenance/apmaint)
-"dQn" = (
-/obj/structure/cable/layer3,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/ai/satellite/chamber)
 "dQq" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
@@ -30632,15 +30577,6 @@
 	icon_state = "stage_bleft"
 	},
 /area/station/maintenance/cafeteria)
-"ePK" = (
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "AI Core Door";
-	req_access = list(16)
-	},
-/obj/structure/cable/layer3,
-/turf/simulated/floor/bluegrid,
-/area/station/ai/satellite/chamber)
 "ePZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock/public/glass,
@@ -30718,6 +30654,14 @@
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"eSa" = (
+/obj/structure/closet/secure_closet/security,
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/podbay)
 "eSq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -36301,11 +36245,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
-"gSw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/station/maintenance/atmospherics)
 "gSz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -37159,6 +37098,11 @@
 	icon_state = "stage_bleft"
 	},
 /area/station/maintenance/cafeteria)
+"hiA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/maintenance/atmospherics)
 "hiI" = (
 /obj/machinery/power/terminal,
 /obj/machinery/light/small{
@@ -40797,22 +40741,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"ixe" = (
-/obj/item/radio/intercom/custom/directional/west,
-/obj/item/radio/intercom/private/directional/east,
-/obj/item/radio/intercom/directional/south,
-/obj/machinery/requests_console{
-	department = "AI";
-	departmentType = 5;
-	name = "AI Requests Console";
-	pixel_x = 32;
-	pixel_y = -32
-	},
-/obj/machinery/newscaster/security_unit/directional/west,
-/obj/effect/landmark/start/ai,
-/obj/structure/cable/layer3,
-/turf/simulated/floor/bluegrid,
-/area/station/ai/satellite/chamber)
 "ixr" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -41408,6 +41336,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"iIk" = (
+/obj/structure/table/wood,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/item/paper/monitorkey,
+/obj/item/spacepod_key{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/turf/simulated/floor/carpet,
+/area/station/command/office/hos)
 "iIm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -41531,6 +41471,16 @@
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
+"iKx" = (
+/obj/machinery/firealarm/directional/south,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/station/engineering/mechanic_workshop)
 "iLa" = (
 /obj/machinery/door_control{
 	id = "toilet_unitb";
@@ -43676,6 +43626,22 @@
 "jzp" = (
 /turf/simulated/wall,
 /area/station/security/prison/cell_block/secondary)
+"jzA" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/jacket/pilot,
+/obj/item/clothing/head/beret/sec,
+/obj/machinery/light_switch/directional/west,
+/obj/item/spacepod_key{
+	id = 100000
+	},
+/obj/item/gps,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/podbay)
 "jzQ" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/wall,
@@ -57753,6 +57719,12 @@
 /obj/effect/landmark/start/nanotrasen_rep,
 /turf/simulated/floor/carpet,
 /area/station/command/office/ntrep)
+"oLp" = (
+/obj/spacepod/template/two_engine/raptor{
+	req_access = list(71)
+	},
+/turf/simulated/floor/engine,
+/area/station/security/podbay)
 "oLR" = (
 /obj/item/vending_refill/snack{
 	pixel_y = 12
@@ -69842,14 +69814,6 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
-"tpP" = (
-/obj/machinery/light/small,
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/station/engineering/mechanic_workshop)
 "tpS" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73011,6 +72975,22 @@
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
+"uxd" = (
+/obj/item/radio/intercom/custom/directional/west,
+/obj/item/radio/intercom/private/directional/east,
+/obj/item/radio/intercom/directional/south,
+/obj/machinery/requests_console{
+	department = "AI";
+	departmentType = 5;
+	name = "AI Requests Console";
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/obj/machinery/newscaster/security_unit/directional/west,
+/obj/effect/landmark/start/ai,
+/obj/structure/cable/layer3,
+/turf/simulated/floor/bluegrid,
+/area/station/ai/satellite/chamber)
 "uxi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/scientist,
@@ -73806,6 +73786,11 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
+"uNB" = (
+/obj/structure/cable/layer3,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/ai/satellite/chamber)
 "uOh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -76371,6 +76356,15 @@
 	icon_state = "bar"
 	},
 /area/station/maintenance/cafeteria)
+"vLD" = (
+/obj/machinery/door/window/southright{
+	dir = 1;
+	name = "AI Core Door";
+	req_access = list(16)
+	},
+/obj/structure/cable/layer3,
+/turf/simulated/floor/bluegrid,
+/area/station/ai/satellite/chamber)
 "vLJ" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -80040,6 +80034,15 @@
 	icon_state = "yellow"
 	},
 /area/station/maintenance/engineering)
+"xbZ" = (
+/obj/machinery/light/small,
+/obj/structure/extinguisher_cabinet/directional/east,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/station/engineering/mechanic_workshop)
 "xcb" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable,
@@ -104337,7 +104340,7 @@ lJc
 dMV
 qhC
 czB
-blN
+iKx
 cNS
 gVS
 fHl
@@ -104594,7 +104597,7 @@ jdW
 jni
 rwP
 lJc
-tpP
+xbZ
 cNS
 fPy
 tPz
@@ -113861,7 +113864,7 @@ ujr
 ujr
 kHp
 kHp
-gSw
+hiA
 ujr
 dhv
 dhv
@@ -117602,7 +117605,7 @@ azp
 qek
 aCG
 tvv
-amP
+iIk
 nLo
 fgz
 apO
@@ -118790,9 +118793,9 @@ tYK
 nUF
 tON
 tpS
-ePK
-ixe
-dQn
+vLD
+uxd
+uNB
 lDQ
 mKr
 umC
@@ -118891,7 +118894,7 @@ and
 and
 cTR
 apX
-aqH
+jzA
 mRe
 sYD
 ajb
@@ -119144,7 +119147,7 @@ lTl
 ajb
 adw
 and
-aeD
+oLp
 and
 aoS
 apW
@@ -119662,7 +119665,7 @@ and
 and
 aky
 apX
-crD
+eSa
 aPz
 asF
 ajb
