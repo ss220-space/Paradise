@@ -2068,7 +2068,6 @@
 /obj/effect/turf_decal/siding/green{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -2516,7 +2515,6 @@
 	},
 /area/planetoid/lazarus/security/courtroom)
 "aGt" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
@@ -15988,10 +15986,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 32
-	},
+/obj/item/radio/intercom/custom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20108,7 +20103,6 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -23461,7 +23455,6 @@
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/prison/perma)
 "fSy" = (
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -32671,13 +32664,10 @@
 /area/planetoid/lakes/beach)
 "iib" = (
 /obj/structure/chair/wood,
-/obj/item/radio/intercom/locked/confessional/directional{
-	dir = 8;
-	pixel_x = -30
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/radio/intercom/locked/confessional/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38910,13 +38900,10 @@
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/telecomms/server)
 "jPs" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 32
-	},
 /obj/machinery/computer/teleporter{
 	dir = 8
 	},
+/obj/item/radio/intercom/custom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39887,7 +39874,6 @@
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/caves/north_eng_cave)
 "keK" = (
-/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
 	name = "Prison Lockdown Blast Doors"
@@ -40269,7 +40255,6 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/planetoid/lazarus/commons/serviceyard)
 "kjg" = (
-/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
 	name = "Prison Lockdown Blast Doors"
@@ -40555,7 +40540,6 @@
 /turf/simulated/floor/plasteel,
 /area/planetoid/escape/security)
 "kmn" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -42012,22 +41996,6 @@
 "kCB" = (
 /turf/simulated/floor/planetoid/desert/beachcorner/north,
 /area/planetoid/lakes/east)
-"kCC" = (
-/obj/structure/cable,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "CMO Shutters";
-	name = "CMO Privacy Shutters"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
-/obj/structure/cable,
-/obj/structure/vine,
-/turf/simulated/floor/plating,
-/area/planetoid/lazarus/command/office/cmo)
 "kCE" = (
 /obj/structure/chair/office{
 	dir = 1;
@@ -45064,10 +45032,7 @@
 	},
 /area/planetoid/lazarus/medical/sleeper)
 "lrg" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54170,7 +54135,6 @@
 	},
 /area/planetoid/lazarus/medical/break_room)
 "nQM" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable,
@@ -54958,7 +54922,6 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/office/qm)
 "obE" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -55731,9 +55694,7 @@
 /turf/simulated/floor/planetoid/desert/desert_dug,
 /area/planetoid/jungle/orbital_strike)
 "omQ" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58477,7 +58438,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "courtroom"
 	},
@@ -59512,10 +59472,7 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
 	},
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 32
-	},
+/obj/item/radio/intercom/custom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -70774,16 +70731,6 @@
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/east)
 "sjx" = (
-/obj/item/radio/intercom/custom{
-	pixel_y = 25
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/obj/item/radio/intercom/private{
-	pixel_x = -28;
-	pixel_y = -10
-	},
 /obj/effect/landmark/spawner/tripai,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -70792,6 +70739,8 @@
 	name = "AI Core Door";
 	req_access = list(16)
 	},
+/obj/item/radio/intercom/private/directional/west,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80020,7 +79969,6 @@
 	},
 /area/planetoid/lazarus/nexus)
 "uxS" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -86511,16 +86459,6 @@
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/caves/underground_lake)
 "whh" = (
-/obj/item/radio/intercom/custom{
-	pixel_y = 25
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/obj/item/radio/intercom/private{
-	pixel_x = 28;
-	pixel_y = -10
-	},
 /obj/effect/landmark/spawner/tripai,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -86529,6 +86467,8 @@
 	name = "AI Core Door";
 	req_access = list(16)
 	},
+/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom/private/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87503,7 +87443,6 @@
 /turf/simulated/floor/planetoid/desert/dark/desert3,
 /area/planetoid/jungle/orbital_strike)
 "wut" = (
-/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable,
@@ -91005,13 +90944,10 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/item/radio/intercom/locked/confessional/directional{
-	dir = 8;
-	pixel_x = -30
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/radio/intercom/locked/confessional/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91882,10 +91818,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/science)
 "xxh" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94708,7 +94641,6 @@
 	},
 /area/planetoid/lazarus/medical/west_hallway)
 "yho" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable,
@@ -129451,7 +129383,7 @@ thb
 hYD
 hKZ
 kNx
-kCC
+ksb
 kVp
 kVp
 kVp
