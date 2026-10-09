@@ -200,9 +200,6 @@
 
 	var/holder_type = null
 
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
 
 	/// Cooldown for projectile miss sound (5 deciseconds)
