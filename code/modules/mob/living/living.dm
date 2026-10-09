@@ -507,7 +507,7 @@
 			return projectile_allow_through(mover, border_dir)
 		return TRUE
 	if(mover.throwing)
-		return body_position == LYING_DOWN || mover.throwing.thrower == src
+		return body_position == LYING_DOWN || mover.throwing.thrower.resolve() == src
 	if(pulling && pulling == mover && grab_state >= GRAB_NECK)	// pulled mob can step through us
 		return TRUE
 	if(buckled == mover)

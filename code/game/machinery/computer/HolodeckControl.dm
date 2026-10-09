@@ -519,8 +519,8 @@
 /obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
 	if(!isitem(mover) || isprojectile(mover))
 		return ..()
-
-	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) || prob(50))
+	var/mob/thrower_mob_resolved = mover.throwing.thrower.resolve()
+	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(thrower_mob_resolved, TRAIT_BADASS)) || prob(50))
 		mover.forceMove(get_turf(src))
 		visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 
@@ -549,7 +549,8 @@
 	if(!isitem(AM) || isprojectile(AM))
 		return ..()
 
-	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
+	var/mob/thrower_mob_resolved = throwingdatum.thrower.resolve()
+	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(thrower_mob_resolved, TRAIT_BADASS)))
 		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 		return ..()
 
