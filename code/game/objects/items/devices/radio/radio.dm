@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/dummy/Initialize(mapload)
 	. = ..()
 	// this is just dummy. We minimalize memmory usage for this object
-	Destroy()
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/radio/dummy/Destroy(force)
 	if(GLOB.global_announcer == src)
