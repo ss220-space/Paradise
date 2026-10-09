@@ -865,7 +865,7 @@ SUBSYSTEM_DEF(mapping)
 					continue
 				var/footprint_clear = TRUE
 				for(var/turf/T in block(corner_a, corner_b))
-					if(!istype(T, /turf/space) && !istype(T, /turf/simulated/floor/plating/airless))
+					if(!isspaceturf(T) && !istype(T, /turf/simulated/floor/plating/airless))
 						footprint_clear = FALSE
 						break
 					if(locate(/obj/docking_port) in T)

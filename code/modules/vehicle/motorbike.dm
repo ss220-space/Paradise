@@ -134,6 +134,10 @@
 	return ..()
 
 /obj/vehicle/ridden/motorbike/relaydrive(mob/living/user, direction)
+	if(isliving(user.pulling))
+		var/mob/living/towed = user.pulling
+		user.stop_pulling()
+		towed.Knockdown(2 SECONDS)
 	. = ..()
 	if(!.)
 		return
@@ -189,7 +193,7 @@
 		return ..()
 
 	// Refueling from any reagent container holding fuel
-	if(istype(I, /obj/item/reagent_containers))
+	if(is_reagent_container(I))
 		var/obj/item/reagent_containers/fuel_container = I
 		if(fuel_container.reagents?.has_reagent("fuel"))
 			pour_fuel(fuel_container, user)
