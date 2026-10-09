@@ -93,7 +93,6 @@ SUBSYSTEM_DEF(augury)
 /atom/movable/screen/alert/augury
 	name = "Авто-отслеживание обломков"
 	desc = "Нажмите, чтобы включить или выключить автоматическое отслеживание обломков."
-	timeout = 0
 	click_master = FALSE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/mutable_appearance/tracking_overlay
