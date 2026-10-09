@@ -18,6 +18,7 @@
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
+	portable_broadcast_restriction = FALSE
 
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
@@ -102,6 +103,15 @@
 		return ..()
 
 	return FALSE
+
+/obj/item/radio/headset/set_broadcasting(new_broadcasting, actual_setting = TRUE)
+	if(new_broadcasting)
+		return
+	..(new_broadcasting, actual_setting)
+
+/obj/item/radio/headset/click_alt(mob/user)
+	balloon_alert(user, "не поддерживает трансляцию")
+	return NONE
 
 /obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/encryptionkey))
@@ -1281,3 +1291,6 @@
 	to_chat(user, span_notice("Вы модифицировали гарнитуру в [headset.declent_ru(ACCUSATIVE)]. Теперь она защищает ваши органы слуха от громких звуков."))
 	qdel(src)
 	qdel(mask)
+
+/obj/item/radio/headset/can_toggle_broadcast(mob/user)
+	return FALSE
