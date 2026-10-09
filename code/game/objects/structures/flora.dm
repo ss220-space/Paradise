@@ -512,7 +512,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = ABOVE_OBJ_LAYER
-	var/indestructable = FALSE
+	var/indestructible = FALSE
 	var/stump = 0
 
 /obj/structure/bush/Initialize(mapload)
@@ -537,7 +537,7 @@
 
 	if(istype(I, /obj/item/hatchet))	//hatchets can clear away undergrowth
 		add_fingerprint(user)
-		if(indestructable)
+		if(indestructible)
 			//this bush marks the edge of the map, you can't destroy it
 			to_chat(user, span_warning("You flail away at the undergrowth, but it's too thick here."))
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -752,3 +752,80 @@
 		INSTRUMENTAL = "остановленным стерженем",
 		PREPOSITIONAL = "остановленном стержене",
 	)
+
+// Planetoid
+/obj/structure/flora/jungle
+	name = "jungle foliage"
+	icon = 'icons/turf/ground_map.dmi'
+	anchored = TRUE
+	var/indestructible = FALSE
+
+/obj/structure/flora/jungle/proceed_attack_results(obj/item/item, mob/user, list/modifiers)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	playsound(src.loc, 'sound/effects/vegetation_hit.ogg', 25, TRUE)
+	if(indestructible || !item.sharp)
+		return .
+	var/damage = rand(10, 15)
+	if(istype(item, /obj/item/kitchen/knife/combat) || istype(item, /obj/item/hatchet))
+		damage = rand(20, 25)
+	take_damage(damage, item.damtype, MELEE, FALSE, get_dir(user, src), item.armour_penetration)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return .
+
+/obj/structure/flora/jungle/shrub
+	desc = "Заросли довольно густые; чтобы их расчистить, понадобятся острый инструмент и немалая решимость."
+	icon_state = "grass4"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/flora/jungle/shrub/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	playsound(src.loc, SFX_VEGETATION_WALK, 25, TRUE)
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		living_mover.Slowed(1 SECONDS)
+
+/obj/structure/flora/jungle/plantbot1
+	name = "strange tree"
+	desc = "Какое-то причудливое инопланетное дерево. Из него сочится болезненно-желтый сок."
+	icon_state = "plantbot1"
+
+/obj/structure/flora/jungle/cart_wreck
+	name = "old janicart"
+	desc = "Похоже, чистить он уже особо не будет."
+	icon_state = "cart_wreck"
+	density = TRUE
+
+/obj/structure/flora/jungle/alienplant1
+	name = "strange tree"
+	desc = "Какое-то причудливое инопланетное дерево. Из него сочится болезненно-желтый сок."
+	icon_state = "alienplant1"
+	light_range = 2
+
+/obj/structure/flora/jungle/planttop1
+	name = "strange tree"
+	desc = "Какое-то причудливое инопланетное дерево. Из него сочится болезненно-желтый сок."
+	icon_state = "planttop1"
+
+/obj/structure/flora/jungle/thickbush
+	name = "dense vegetation"
+	desc = "Заросли довольно густые; чтобы их расчистить, понадобятся острый инструмент и немалая решимость."
+	icon = 'icons/obj/flora/jungleplants.dmi'
+	icon_state = "bush_1"
+
+/obj/structure/flora/jungle/thickbush/New()
+	..()
+	if(prob(75))
+		opacity = TRUE
+	setDir(pick(NORTH, EAST, SOUTH, WEST))
+
+/obj/structure/flora/jungle/thickbush/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isliving(mover) && prob(50))
+		to_chat(mover, span_danger("Вы на мгновение застреваете в [DECLENT_RU_CAP(src, PREPOSITIONAL)]"))
+		return FALSE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		living_mover.Slowed(2 SECONDS)
+	playsound(loc, SFX_VEGETATION_WALK, 25, TRUE)
+

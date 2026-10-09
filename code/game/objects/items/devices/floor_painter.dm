@@ -31,7 +31,7 @@
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding", "darkpurple", "darkpurplecorners", "darkpurplefull", "darkred", "darkredcorners",
 		"darkredfull", "darkblue", "darkbluecorners", "darkbluefull", "darkgreen", "darkgreencorners", "darkgreenfull", "darkyellow", "darkyellowcorners",
-		"darkyellowfull", "darkbrown", "darkbrowncorners", "darkbrownfull", "stairs-l", "stairs-m", "stairs-r",
+		"darkyellowfull", "darkbrown", "darkbrowncorners", "darkbrownfull", "stairs-l", "stairs-m", "stairs-r", "stairs_wood",
 		"warnwhitecornerred", "warnwhitecornerorange", "warnwhitecornerblue", "warnwhitecornerwhite", "warnwhitecornercamo",
 		"warnwhitered", "warnwhiteorange", "warnwhiteblue", "warnwhitewhite", "warnwhitecamo", "blackfull", "brownoldfull", "escapefull",
 		"navyblue", "navybluecorners", "navybluefull", "darkgrey", "darkgreycamo", "darkgreynavyblue", "darkgreynavybluecorner")

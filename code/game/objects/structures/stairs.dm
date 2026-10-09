@@ -219,6 +219,36 @@
 
 	return ..()
 
+/obj/structure/stairs/perspective
+	icon = 'icons/obj/perspective_stairs.dmi'
+	icon_state = "np_stair"
+	force_open_above = TRUE
+	terminator_mode = STAIR_TERMINATOR_NO
+
+/obj/structure/stairs/perspective/full
+	icon_state = "p_stair_full"
+
+/obj/structure/stairs/perspective/nf
+	icon_state = "p_stair_NF"
+
+/obj/structure/stairs/perspective/ew_full_cap
+	icon_state = "p_stair_ew_full_cap"
+
+/obj/structure/stairs/perspective/ew_half_cap
+	icon_state = "p_stair_ew_half_cap"
+
+/obj/structure/stairs/perspective/ew_solo_cap
+	icon_state = "p_stair_ew_solo_cap"
+
+/obj/structure/stairs/perspective/sn_full_cap
+	icon_state = "p_stair_sn_full_cap"
+
+/obj/structure/stairs/perspective/sn_half_cap
+	icon_state = "p_stair_sn_half_cap"
+
+/obj/structure/stairs/perspective/sn_solo_cap
+	icon_state = "p_stair_sn_solo_cap"
+
 #undef STAIR_TERMINATOR_AUTOMATIC
 #undef STAIR_TERMINATOR_NO
 #undef STAIR_TERMINATOR_YES

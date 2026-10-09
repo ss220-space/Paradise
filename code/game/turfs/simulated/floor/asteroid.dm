@@ -280,3 +280,11 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/snow/temperature
 	temperature = 255.37
+
+/turf/simulated/floor/plating/planetoid_surface
+	name = "planet surface"
+	desc = "Поверхность обитаемой планеты."
+	icon_state = "asteroid0"
+	baseturf = /turf/simulated/floor/plating/asteroid
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_PLANETOID

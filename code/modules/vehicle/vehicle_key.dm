@@ -33,4 +33,19 @@
 /obj/item/key/snowmobile
 	name = "snowmobile key"
 	desc = "A keyring with a small steel key, and tag with a red cross on it; clearly it's not implying you're going to the hospital for this..."
+
+/obj/item/key/motorbike
+	name = "motorbike key"
+	desc = "A small steel key for starting and operating motorbikes."
+
 	icon_state = "keydoc" //get a better icon, sometime
+
+/obj/item/key/motorbike/get_ru_names()
+	return alist(
+		NOMINATIVE = "ключ от мотоцикла",
+		GENITIVE = "ключа от мотоцикла",
+		DATIVE = "ключу от мотоцикла",
+		ACCUSATIVE = "ключ от мотоцикла",
+		INSTRUMENTAL = "ключом от мотоцикла",
+		PREPOSITIONAL = "ключе от мотоцикла",
+	)

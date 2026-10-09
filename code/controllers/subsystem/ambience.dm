@@ -115,14 +115,15 @@ SUBSYSTEM_DEF(ambience)
 		return
 
 	// Station ambience is dependent on a functioning and charged APC with environment power enabled.
-	for(var/obj/machinery/power/apc/current_apc as anything in my_area.apc)
-		if(!is_mining_level(my_area.z) && ((!current_apc || !current_apc.operating || !current_apc.cell?.charge && my_area.requires_power || !my_area.power_environ)))
-			SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = CHANNEL_BUZZ))
-			client.current_ambient_sound = null
-			return
+	if(length(my_area.apc))
+		for(var/obj/machinery/power/apc/current_apc as anything in my_area.apc)
+			if(!is_mining_level(my_area.z) && ((!current_apc || !current_apc.operating || !current_apc.cell?.charge && my_area.requires_power || !my_area.power_environ)))
+				SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = CHANNEL_BUZZ))
+				client.current_ambient_sound = null
+				return
 
-		if(sound_to_use == client.current_ambient_sound) // Don't reset current loops
-			return
+	if(sound_to_use == client.current_ambient_sound) // Don't reset current loops
+		return
 
-		client.current_ambient_sound = sound_to_use
-		SEND_SOUND(src, sound(my_area.ambient_buzz, repeat = 1, wait = 0, volume = my_area.ambient_buzz_vol * volume_modifier, channel = CHANNEL_BUZZ))
+	client.current_ambient_sound = sound_to_use
+	SEND_SOUND(src, sound(my_area.ambient_buzz, repeat = 1, wait = 0, volume = my_area.ambient_buzz_vol * volume_modifier, channel = CHANNEL_BUZZ))

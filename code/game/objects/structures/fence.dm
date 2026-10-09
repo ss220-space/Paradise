@@ -40,6 +40,9 @@
 		if(LARGE_HOLE)
 			. += span_warning("\The [src] has been completely cut through.")
 
+/obj/structure/fence/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	playsound(src.loc, 'sound/effects/fencehit.ogg', 25, TRUE)
+
 /obj/structure/fence/end
 	icon_state = "end"
 	cuttable = FALSE

@@ -57,6 +57,8 @@
 	var/self_fire = FALSE
 	var/weather_cooldown_upper = 10 MINUTES
 	var/weather_cooldown_lower = 5 MINUTES
+	/// Per-tick chance (0-100) of thunder playing during the storm
+	var/lightning_chance = 0
 
 /datum/weather/New(z_levels)
 	..()
@@ -174,6 +176,24 @@
 
 /datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
 	return
+
+/// Per-tick processes: currently just thunder. Plays for players on impacted z-levels.
+/datum/weather/proc/handle_weather_process()
+	if(!lightning_chance || !prob(lightning_chance))
+		return
+	var/sound/thunder = sound(pick('sound/ambience/planetoid/thunderclap1.ogg', 'sound/ambience/planetoid/thunderclap2.ogg'))
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
+			continue
+		mob.playsound_local(mob, null, 100, FALSE, 0, null, 0, FALSE, thunder)
+		var/area/mob_area = get_area(mob)
+		if(mob_area?.outdoors)
+			mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
+	addtimer(CALLBACK(src, PROC_REF(clear_lightning_flash)), 0.05 SECONDS)
+
+/datum/weather/proc/clear_lightning_flash()
+	for(var/mob/mob as anything in GLOB.player_list)
+		mob.clear_fullscreen("lightning_flash")
 
 /datum/weather/proc/update_areas()
 	var/list/new_overlay_cache = generate_overlay_cache()
