@@ -41,6 +41,29 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
+/obj/effect/mob_spawn/human/corpse/syndicatehazmat
+	name = "Неизвестный"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
+	id_job = "Карта доступа 03-c"
+	id_access_list = list(ACCESS_SYNDICATE)
+	outfit = /datum/outfit/syndicatehazmatcorpse
+
+/obj/effect/mob_spawn/human/corpse/syndicatehazmat/Initialize(mapload)
+	mob_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]"
+	return ..()
+
+/datum/outfit/syndicatehazmatcorpse
+	name = "Syndicate Operative Hazmat Corpse"
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/radiation
+	head = /obj/item/clothing/head/radiation
+	mask = /obj/item/clothing/mask/gas
+	shoes = /obj/item/clothing/shoes/jackboots
+	gloves = /obj/item/clothing/gloves/color/black
+	l_ear = /obj/item/radio/headset
+	id = /obj/item/card/id/guest_cover
+
 /obj/effect/mob_spawn/human/clown/corpse
 	instant = TRUE
 

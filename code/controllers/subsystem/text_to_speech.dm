@@ -217,6 +217,11 @@ SUBSYSTEM_DEF(tts)
 			"[SOUND_EFFECT_RADIO]" = SOUND_EFFECT_RADIO_MASKFILTER,
 			"[SOUND_EFFECT_MEGAPHONE]" = SOUND_EFFECT_MEGAPHONE
 		),
+		"[SOUND_EFFECT_OLD_VOCODER]" = list(
+			"[SOUND_EFFECT_NONE]" = SOUND_EFFECT_OLD_VOCODER,
+			"[SOUND_EFFECT_RADIO]" = SOUND_EFFECT_OLD_VOCODER,
+			"[SOUND_EFFECT_MEGAPHONE]" = SOUND_EFFECT_MEGAPHONE
+		)
 	)
 
 /datum/controller/subsystem/tts/Initialize()
@@ -405,6 +410,8 @@ SUBSYSTEM_DEF(tts)
 			voice = "[filename]_maskfilter.ogg"
 		if(SOUND_EFFECT_RADIO_MASKFILTER)
 			voice = "[filename]_radio_maskfilter.ogg"
+		if(SOUND_EFFECT_OLD_VOCODER)
+			voice = "[filename]_old_vocoder.ogg"
 		else
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
