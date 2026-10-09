@@ -25462,13 +25462,10 @@
 	},
 /area/planetoid/lazarus/security/evidence)
 "gqR" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/command/office/hop)
 "gqZ" = (
@@ -25948,10 +25945,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/planetoid/lazarus/security/customs/secondary)
-"gxI" = (
-/obj/structure/lattice,
-/turf/simulated/wall/cm/indestructible/rock,
-/area/planetoid/caves)
 "gxM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -31740,10 +31733,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/security/prison/perma)
-"hUM" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/planetoid/spaceport/lz_centcomm)
 "hUN" = (
 /turf/simulated/floor/greengrid,
 /area/coldcolony/malta/bridge/nuke_storage)
@@ -36617,10 +36606,6 @@
 	icon_state = "whitegreen"
 	},
 /area/planetoid/lazarus/medical/virology/lab)
-"jky" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/planetoid/spaceport/lz_ert)
 "jkz" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -46313,10 +46298,7 @@
 	dir = 4
 	},
 /obj/machinery/tcomms/core/station,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -50209,10 +50191,6 @@
 /obj/structure/window/full,
 /turf/simulated/floor/indestructible/grass,
 /area/planetoid/lazarus/cargo/lobby)
-"mKc" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/planetoid/spaceport/lz_sol)
 "mKd" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -51015,10 +50993,7 @@
 	},
 /area/planetoid/lazarus/security/processing)
 "mXQ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -54822,10 +54797,7 @@
 	dir = 8
 	},
 /obj/machinery/newscaster/security_unit/directional/west,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -55629,10 +55601,8 @@
 /area/planetoid/lazarus/cargo/storage)
 "ole" = (
 /obj/structure/cable,
-/obj/machinery/firealarm/directional/north{
-	pixel_x = 6
-	},
 /obj/machinery/power/apc/directional/south,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69213,7 +69183,6 @@
 	},
 /area/planetoid/lazarus/security/podbay)
 "rMT" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/planetoid/spaceport/lz_ert)
@@ -75200,10 +75169,7 @@
 	pixel_y = -1
 	},
 /obj/item/multitool,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91929,10 +91895,6 @@
 /obj/structure/vine,
 /turf/simulated/floor/planetoid/grass/dirtedge/south,
 /area/planetoid/jungle/west)
-"xxA" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/cm/indestructible/rock,
-/area/planetoid/caves)
 "xxE" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -111949,7 +111911,7 @@ eCJ
 uTu
 uTu
 uTu
-xxA
+qRA
 qRA
 hBn
 oon
@@ -137518,7 +137480,7 @@ aEc
 unr
 frK
 xqO
-mKc
+fui
 xTF
 xTF
 xTF
@@ -140843,7 +140805,7 @@ dDk
 dDk
 dDk
 dDk
-jky
+xPZ
 mog
 mog
 mog
@@ -140851,7 +140813,7 @@ mog
 mog
 mog
 mog
-jky
+xPZ
 dDk
 dDk
 dDk
@@ -141100,7 +141062,7 @@ dDk
 tNl
 dDk
 rMT
-jky
+xPZ
 fmw
 cEX
 cEX
@@ -141108,7 +141070,7 @@ cEX
 cEX
 cEX
 cEX
-jky
+xPZ
 rMT
 dDk
 dDk
@@ -144698,7 +144660,7 @@ bjM
 jum
 dDk
 rMT
-jky
+xPZ
 vKR
 cEX
 lzj
@@ -144706,7 +144668,7 @@ fmq
 lzj
 cEX
 oIH
-jky
+xPZ
 rMT
 dDk
 dDk
@@ -146510,7 +146472,7 @@ evT
 evT
 evT
 evT
-hUM
+oCX
 nxz
 iTo
 mSp
@@ -150681,7 +150643,7 @@ qRA
 (217,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -150938,7 +150900,7 @@ qRA
 (218,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -151195,7 +151157,7 @@ qRA
 (219,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -151452,7 +151414,7 @@ qRA
 (220,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -151709,7 +151671,7 @@ qRA
 (221,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -151966,7 +151928,7 @@ qRA
 (222,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
@@ -152223,7 +152185,7 @@ qRA
 (223,1,1) = {"
 qRA
 qRA
-gxI
+qRA
 qRA
 qRA
 qRA
