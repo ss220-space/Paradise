@@ -13,16 +13,44 @@
 /// Skill level if not exists skill datum
 #define DEFAULT_SKILL_LEVEL 1
 
-/// Countf of free skill points by default
-#define BASIC_SKILL_POINTS_COUNT 5
-/// Countf of free skill points for some roles
-#define ADVANCED_SKILL_POINTS_COUNT 10
-/// Countf of free skill points for antags
-#define BASIC_ANTAG_SKILL_POINTS_BONUS 1
 
-
+// MARK: Upgrade skill defines
 /// Default limit for use free skill points on single skill
 #define DEFAULT_FREE_POINTS_USE_LIMIT 2
+/// Round start free points for all jobs
+#define DEFAULT_FREE_POINTS 10
+/// Round start free points for service jobs
+#define DEFAULT_FREE_POINTS_FOR_SERVICE_JOBS 12
+/// Round start free points for command and civilian jobs
+#define DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS 15
+/// Count of free skill points for antags
+#define BASIC_ANTAG_SKILL_POINTS_BONUS 6
+/// Default value for not prepared free skill points count
+#define ACTUAL_FREE_SKILL_POINTS_NOT_SET -1
+
+/// Basic prices for upgrade skill
+GLOBAL_LIST_INIT(skill_upgrade_prices_default, alist(
+	SKILL_LEVEL_NONE = 1,
+	SKILL_LEVEL_BEGINNER = 1,
+	SKILL_LEVEL_BASIC = 2,
+	SKILL_LEVEL_ADVANCED = 4,
+	SKILL_LEVEL_PROFESSIONAL = 8,
+	SKILL_LEVEL_EXPERT = 16,
+	SKILL_LEVEL_LEGEND = 16,
+	SKILL_LEVEL_UNAVAILABLE = 1,
+))
+/// Discount prices for upgrade skill
+GLOBAL_LIST_INIT(skill_upgrade_prices_discount, alist(
+	SKILL_LEVEL_NONE = 1,
+	SKILL_LEVEL_BEGINNER = 1,
+	SKILL_LEVEL_BASIC = 1,
+	SKILL_LEVEL_ADVANCED = 1,
+	SKILL_LEVEL_PROFESSIONAL = 2,
+	SKILL_LEVEL_EXPERT = 4,
+	SKILL_LEVEL_LEGEND = 16,
+	SKILL_LEVEL_UNAVAILABLE = 1,
+))
+
 
 // MARK: Engineering
 /// Speed modifier for building skill
@@ -57,6 +85,10 @@
 #define DRINKS_DISPENSE_RAND_SIZE "drinks_dispense_rand_size"
 /// Сhance to dispense a random reagent
 #define DRINKS_DISPENSE_RAND_REAGENT_PROB "drinks_dispense_rand_reagent_prob"
+/// Dispense random size modifier for botany skill
+#define BOTANY_DISPENSE_RAND_SIZE "botany_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define BOTANY_DISPENSE_RAND_REAGENT_PROB "botany_dispense_rand_reagent_prob"
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
@@ -159,6 +191,8 @@
 // MARK: Not skills mod sources
 #define STRENGTH_MOD_SOURCE "strength_mod_source"
 
+
+// MARK: Utility functions
 /// Calculate skill modifier by signal
 #define CALCULATE_SKILL_MOD(user, mod_name, mod) var/mod = 1;\
 	var/alist/mod##_s = alist();\
@@ -166,6 +200,7 @@
 		SEND_SIGNAL(user, COMSIG_GET_SKILL_MOD(mod_name), (mod##_s), (mod_name));\
 		mod = values_product((mod##_s));\
 	}
+
 /// Get skill level by signal
 #define GET_SKILL_LEVEL(user, skill_type, lvl) var/lvl = SKILL_LEVEL_BASIC;\
 	if(user){\
@@ -175,9 +210,12 @@
 			lvl = m_level;\
 		}\
 	}
+
 /// Get skill level by signal
 #define AVAILABLE_SKILL(user, skill_type) (SEND_SIGNAL(user, COMSIG_SKILL_AVAILABLE, skill_type) == SKILL_AVAILABLE_RESULT)
 
+
+// MARK: Global lists
 GLOBAL_LIST_INIT(skill_level_names, alist(
 	SKILL_LEVEL_NONE = "нет навыка",
 	SKILL_LEVEL_BEGINNER = "начальный навык",
@@ -218,3 +256,7 @@ GLOBAL_LIST_INIT(antag_skills, list(
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_ADVANCED,
 ))
+
+GLOBAL_LIST_INIT(discount_categories_antag, typecacheof(/datum/skill/combat))
+
+GLOBAL_LIST_EMPTY(discount_categories_typecaches)

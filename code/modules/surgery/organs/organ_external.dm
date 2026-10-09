@@ -132,6 +132,8 @@
 		icobase = dna.species.icobase
 		deform = dna.species.deform
 
+	apply_species_name()
+
 	if(ishuman(loc))
 		replaced(loc, special)
 		sync_colour_to_human(loc)

@@ -112,6 +112,8 @@
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
+	/// If our projectile can ricochet from any walls
+	var/can_ricochet_from_everything = FALSE
 
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
@@ -169,6 +171,23 @@
 	var/impact_light_range = 2
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
+	/// If true directly targeted turfs can be hit
+	var/can_hit_turfs = FALSE
+
+	// Homing
+	/// If the projectile is currently homing. Warning - this changes projectile's processing logic, reverting it to segmented processing instead of new raymarching logic
+	/// This does not actually set up the projectile to home in on a target - you need to set that up with set_homing_target() on the projectile!
+	VAR_FINAL/homing = FALSE
+	/// Target the projectile is homing on
+	var/atom/homing_target
+	/// Angles per move segment, distance is based on SSprojectiles.pixels_per_decisecond
+	/// With pixels_per_decisecond set to 16 and homing_turn_speed, the projectile can turn up to 20 pixels per turf passed
+	var/homing_turn_speed = 10
+	// Allowed leeway in pixels
+	var/homing_inaccuracy_min = 0
+	var/homing_inaccuracy_max = 0
+	var/homing_offset_x = 0
+	var/homing_offset_y = 0
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -338,6 +357,28 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
+/// Makes projectile home onto the passed target with minor inaccuracy
+/obj/projectile/proc/set_homing_target(atom/target)
+	if(!target || (!isturf(target) && !isturf(target.loc)))
+		return FALSE
+	homing = TRUE
+	homing_target = target
+	homing_offset_x = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	homing_offset_y = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	if(prob(50))
+		homing_offset_x = -homing_offset_x
+	if(prob(50))
+		homing_offset_y = -homing_offset_y
+
+/obj/projectile/proc/process_homing()
+	if(!homing_target)
+		return
+	var/datum/point/new_point = RETURN_PRECISE_POINT(homing_target)
+	new_point.x += homing_offset_x
+	new_point.y += homing_offset_y
+	var/new_angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), new_point))
+	set_angle(Angle + clamp(new_angle, -homing_turn_speed, homing_turn_speed))
+
 
 /obj/projectile/can_pass_after_bump(atom/bumped_atom)
 	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && (ismecha(bumped_atom) || isspacepod(bumped_atom)))))
@@ -437,6 +478,8 @@
 		return
 	last_projectile_move = world.time
 	// Keep on course
+	if(homing)
+		process_homing()
 	if(!hitscanning)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
@@ -465,6 +508,8 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
+		if(can_hit_turfs && isturf(original) && loc == get_turf(original)  && !(original in permutated))
+			Bump(original)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
@@ -566,6 +611,9 @@
 		return TRUE
 
 	if(flag == BULLET && (A.flags_ricochet & RICOCHET_BALLISTIC))
+		return TRUE
+
+	if((can_ricochet_from_everything) && (A.flags_ricochet & RICOCHET_SPECIAL))
 		return TRUE
 
 	return FALSE

@@ -99,7 +99,7 @@
 		if(!damaged_organ)
 			continue
 
-		pain(damaged_organ.declent_ru(PREPOSITIONAL), maxdam)
+		pain(damaged_organ.declent_ru_base(PREPOSITIONAL), maxdam)
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)

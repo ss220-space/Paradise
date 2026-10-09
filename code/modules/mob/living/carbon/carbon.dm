@@ -365,20 +365,20 @@
 
 		var/msg
 		if(!length(part_statuses))
-			msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
+			msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] в порядке.")
 		else
 			var/status_text = russian_list(part_statuses, "")
-			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status_text].")
+			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] [status_text].")
 
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru_base(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
-			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN)
-			status_list += "\t <a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_YOURS(bodypart)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_YOURS(bodypart)] [bodypart.declent_ru_base(GENITIVE)] торчит кость!</a>"
 
 	if(LAZYLEN(missing))
 		for(var/limb_part in missing)

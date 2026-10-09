@@ -45,7 +45,8 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general, /datum/skill/service)
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -186,6 +187,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 	)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mod_use, /datum/skill/general/carrying, /datum/skill/medical/heal)
 
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_RU_BLUESHIELD

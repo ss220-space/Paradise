@@ -37,6 +37,7 @@
 	return ..()
 
 /obj/item/gun/magic/can_shoot(mob/user)
+	. = ..()
 	return charges
 
 /obj/item/gun/magic/newshot(params)
