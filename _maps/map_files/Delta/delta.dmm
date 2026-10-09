@@ -22854,7 +22854,7 @@
 /obj/item/coin/plasma{
 	pixel_x = 10
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/item/stamp/captain,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
@@ -68184,7 +68184,7 @@
 "oCx" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper/safe_code{
 	owner = "captain";
 	pixel_x = -6;
@@ -84382,7 +84382,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/stamp/hop,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -98874,7 +98874,7 @@
 "uNa" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/station/command/meeting_room)
 "uNc" = (
@@ -107154,7 +107154,7 @@
 /area/station/maintenance/consarea_virology)
 "wAR" = (
 /obj/structure/table/wood,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/magistrate,
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
@@ -113173,7 +113173,7 @@
 "xNn" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/rep,
 /obj/item/lighter/zippo/nt_rep,
 /obj/structure/window/reinforced,

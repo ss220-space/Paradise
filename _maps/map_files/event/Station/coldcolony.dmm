@@ -2613,7 +2613,7 @@
 "aXc" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/captain)
 "aXI" = (
@@ -7387,7 +7387,7 @@
 "cRn" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/rep,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
@@ -21253,7 +21253,7 @@
 "iwl" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper/safe_code{
 	owner = "captain";
 	pixel_x = -6;
@@ -36775,7 +36775,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/stamp/hop,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -39116,7 +39116,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -45791,7 +45791,7 @@
 "stp" = (
 /obj/structure/table/wood,
 /obj/item/stamp/magistrate,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/lighter/zippo/engraved{
 	pixel_x = 8
 	},
@@ -47314,7 +47314,7 @@
 "sYr" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/machinery/light{
 	dir = 1
 	},
