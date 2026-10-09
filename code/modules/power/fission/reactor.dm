@@ -48,9 +48,10 @@
 
 #define MOLE_BONUS_THRESHOLD 800 //! The minimum number of moles needed to begin accruing multiplier.
 #define MOLE_BONUS_COMPONENT 250 //! How many moles are required for one "unit" of modifier increase. Used in the math calculation.
+
 /obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
-	desc = "An ancient yet reliable form of power generation utilizing fissile materials to generate heat."
+	desc = "Древняя, но надёжная технология выработки энергии, использующая делящиеся материалы для получения тепла."
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
 	density = TRUE
@@ -88,11 +89,11 @@
 	/// The amount of heat created by averaging total heat against all rods
 	var/average_heatgen = 0
 	/// The alert we send when we've reached warning_point
-	var/warning_alert = "Danger! Reactor core chamber meltdown in progress!"
+	var/warning_alert = "ВНИМАНИЕ! Происходит расплав активной зоны реактора!"
 	/// Our "Shit is no longer fucked" message. We send it when temp_damage is 0
-	var/safe_alert = "Reactor conditions stabilized within operating parameters. Core meltdown averted."
+	var/safe_alert = "Состояние реактора стабилизировано в пределах рабочих параметров. Расплав активной зоны предотвращён."
 	/// The alert we send when we've reached emergency_point
-	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT."
+	var/emergency_alert = "РАСПЛАВ АКТИВНОЙ ЗОНЫ РЕАКТОРА НЕИЗБЕЖЕН."
 	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
 	/// A boolean value for if we need to send out an alert. (usually during meltdowns)
@@ -150,39 +151,49 @@
 	var/pressure_damage_rate = 2
 	var/active_meltdown = FALSE
 
+/obj/machinery/atmospherics/fission_reactor/get_ru_names()
+	return alist(
+		NOMINATIVE = "ядерный реактор деления",
+		GENITIVE = "ядерного реактора деления",
+		DATIVE = "ядерному реактору деления",
+		ACCUSATIVE = "ядерный реактор деления",
+		INSTRUMENTAL = "ядерным реактором деления",
+		PREPOSITIONAL = "ядерном реакторе деления",
+	)
+
 /obj/machinery/atmospherics/fission_reactor/roundstart
 	primary_engine = TRUE
 
 /obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
 	if(stat & BROKEN)
-		. += "A burning hole remains where the NGCR Reactor housed its core. It's inoperable in this state. The acrid smell permeates through even the thickest of suits."
+		. += "Там, где в реакторе NGCR находилась сердцевина, зияет раскалённая дыра. В таком состоянии он неработоспособен. Едкий запах проникает даже сквозь самые толстые костюмы."
 		switch(repair_step)
 			if(REACTOR_NEEDS_DIGGING)
-				. += span_notice("A shovel will be needed to extract all of the melted corium.")
+				. += span_notice("Чтобы выкопать весь расплавленный корий, понадобится лопата.")
 			if(REACTOR_NEEDS_CROWBAR)
-				. += span_notice("The old broken plating needs to be removed with a crowbar.")
+				. += span_notice("Старую разрушенную обшивку нужно снять монтажкой.")
 			if(REACTOR_NEEDS_PLASTITANIUM)
-				. += span_notice("The reactor requires a new plastitanium core.")
+				. += span_notice("Реактору нужна новая сердцевина из пластитана.")
 			if(REACTOR_NEEDS_WRENCH)
-				. += span_notice("The new plastitanium core needs to be wrenched into place.")
+				. += span_notice("Новую сердцевину из пластитана нужно зафиксировать ключом.")
 			if(REACTOR_NEEDS_WELDING)
-				. += span_notice("The new plastitanium core needs to be welded into place.")
+				. += span_notice("Новую сердцевину из пластитана нужно приварить сваркой.")
 			if(REACTOR_NEEDS_PLASTEEL)
-				. += span_notice("The new plastitanium core needs a new plasteel housing cover.")
+				. += span_notice("Новой сердцевине из пластитана нужна новая обечайка из пластали.")
 			if(REACTOR_NEEDS_SCREWDRIVER)
-				. += span_notice("The plasteel housing cover needs screwed into place.")
+				. += span_notice("Обечайку из пластали нужно прикрутить отвёрткой.")
 		return
 	if(venting)
-		. += span_notice("A crowbar can be used to close the malfunctioning vent.")
+		. += span_notice("Неисправную вентиляцию можно закрыть с помощью монтажки.")
 
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
-	. += "The NGCR-5600 Nuclear Reactor was first actualized as a replacement for older, static nuclear or coal models before the discovery of supermatter harvesting techniques. \
-	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that possessed basic engineering infrastructure."
+	. += "Ядерный реактор деления NGCR-5600 был создан как замена старым статичным ядерным и угольным моделям ещё до открытия методов добычи энергии из суперматтерии. \
+	Этот реактор получил широкое распространение благодаря модульности и простоте использования существующих станционных материалов, что позволяло устанавливать его на большинстве станций с базовой инженерной инфраструктурой."
 	. += ""
-	. += "However, despite the popularity of the engine, the need for frequent upkeep and higher energy demands led to innovations in newer, more advanced energy sources. \
-	This engine soon became a relic of the past, but still remains a staple in many stations due to what Nanotrasen calls its 'long term reliability'."
+	. += "Однако, несмотря на популярность этой установки, потребность в частом обслуживании и высокие энергозатраты привели к появлению более новых и продвинутых источников энергии. \
+	Скоро эта установка стала реликтом прошлого, но по-прежнему остаётся основой многих станций благодаря тому, что \"Нанотрейзен\" называет её \"долгосрочной надёжностью\"."
 
 /obj/machinery/atmospherics/fission_reactor/Initialize(mapload)
 	. = ..()
@@ -288,33 +299,33 @@
 			new /obj/item/slag(loc)
 			if(prob(20))
 				repair_step++
-				to_chat(creature, span_notice("No more melted slag remains in the chamber."))
+				to_chat(creature, span_notice("В камере больше не осталось расплавленного шлака."))
 			else
-				to_chat(creature, span_notice("There seems to be additional slag clogging the ruined reactor core."))
+				to_chat(creature, span_notice("Похоже, обломки шлака по-прежнему забивают разрушенную сердцевину реактора."))
 		return ITEM_INTERACT_SUCCESS
 
 	if(iscoil(used))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = used
 		if(!panel_open)
-			to_chat(user, span_warning("You should open the cover to attach the cables."))
+			to_chat(user, span_warning("Чтобы подсоединить кабели, сначала откройте крышку."))
 			return ATTACK_CHAIN_PROCEED
 		var/turf/host_turf = get_step(src, get_dir(src, user))
 		if(locate(/obj/machinery/power/reactor_power) in host_turf) // it already have terminal
-			to_chat(user, span_warning("This reactor is already wired."))
+			to_chat(user, span_warning("Этот реактор уже подключён к кабелю."))
 			return ATTACK_CHAIN_PROCEED
 		if(!host_turf)
 			. = ATTACK_CHAIN_PROCEED
 			CRASH("attackby on reactor when it's not on a turf")
 		if(!host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
-			to_chat(user, span_warning("You should remove the floor plating in front of the reactor first."))
+			to_chat(user, span_warning("Сначала снимите напольное покрытие перед реактором."))
 			return ATTACK_CHAIN_PROCEED
 		if(coil.get_amount() < 10)
-			to_chat(user, span_warning("You need at least ten lengths of cable to wire the reactor."))
+			to_chat(user, span_warning("Для подключения реактора нужно не менее десяти отрезков кабеля."))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user.name] starts to construct the cable terminal beneath the reactor."),
-			span_notice("You start to construct the cable terminal beneath the reactor..."),
+			span_notice("[user.name] начина[PLUR_ET_YUT(user)] прокладку кабельного терминала под реактором."),
+			span_notice("Вы начинаете прокладку кабельного терминала под реактором..."),
 		)
 		coil.play_tool_sound(src)
 		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || panel_open || !host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || QDELETED(coil))
@@ -325,11 +336,11 @@
 			do_sparks(5, TRUE, src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!coil.use(10))
-			to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
+			to_chat(user, span_warning("В какой-то момент вы потеряли часть кабеля. Убедитесь, что у вас есть десять отрезков, и попробуйте снова."))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user.name] has finished the construction of the cable terminal beneath the reactor."),
-			span_notice("You have finished the construction of the cable terminal beneath the reactor."),
+			span_notice("[user.name] закончил[GEND_A_O_I(user)] прокладку кабельного терминала под реактором."),
+			span_notice("Вы закончили прокладку кабельного терминала под реактором."),
 		)
 		var/obj/machinery/power/reactor_power/terminal = new(host_turf)
 		terminal.setDir(dir)
@@ -340,31 +351,31 @@
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
 		if(plastitanium.amount < 5)
-			to_chat(creature, span_warning("You need at least five sheets of plastitanium to reform the reactor core structure!"))
+			to_chat(creature, span_warning("Для восстановления структуры сердцевины реактора нужно не менее пяти листов пластитана!"))
 			return ITEM_INTERACT_SUCCESS
 
 		if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
 			if(do_after(creature, 3 SECONDS, src))
 				if(plastitanium.amount < 5)
-					to_chat(creature, span_warning("You need at least five sheets of plastitanium to reform the reactor core structure!"))
+					to_chat(creature, span_warning("Для восстановления структуры сердцевины реактора нужно не менее пяти листов пластитана!"))
 					return ITEM_INTERACT_SUCCESS
 				plastitanium.use(5)
-				to_chat(creature, span_notice("You reform the control rod housing and slot the structure into place."))
+				to_chat(creature, span_notice("Вы восстанавливаете корпус управляющего стержня и устанавливаете конструкцию на место."))
 				repair_step++
 				update_appearance(UPDATE_ICON_STATE)
 				return
 
 		if(!offline)
-			to_chat(creature, span_warning("The reactor must be off to repair it!"))
+			to_chat(creature, span_warning("Чтобы чинить реактор, его нужно выключить!"))
 			return ITEM_INTERACT_SUCCESS
 
 		if(damage == 0)
-			to_chat(creature, span_warning("The reactor has nothing left to repair!"))
+			to_chat(creature, span_warning("В реакторе больше нечего чинить!"))
 			return ITEM_INTERACT_SUCCESS
 
 		var/obj/item/item = creature.get_inactive_hand()
 		if(!iswelder(item))
-			to_chat(creature, span_warning("A functional welder is required to adhere the plastitanium."))
+			to_chat(creature, span_warning("Для приплавления пластитана нужен работающий сварочный аппарат."))
 			return ITEM_INTERACT_SUCCESS
 
 		if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
@@ -379,12 +390,12 @@
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
 		if(plasteel.amount < 5)
-			to_chat(user, span_warning("You need at least five sheets of plasteel to reform the reactor core structure!"))
+			to_chat(user, span_warning("Для восстановления структуры сердцевины реактора нужно не менее пяти листов пластали!"))
 			return ITEM_INTERACT_SUCCESS
 		if(do_after(user, 3 SECONDS, TRUE, src))
 			repair_step++
 			plasteel.use(5)
-			to_chat(user, span_notice("You attach a layer of radiation shielding around the reactor core."))
+			to_chat(user, span_notice("Вы укладываете слой радиационной защиты вокруг сердцевины реактора."))
 		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
@@ -392,7 +403,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, span_notice("You remove any remaining damaged structure from the housing."))
+			to_chat(user, span_notice("Вы удаляете остатки повреждённой конструкции из корпуса."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return TRUE
 
@@ -406,7 +417,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, span_notice("You secure the new plastitanium structure in place."))
+			to_chat(user, span_notice("Вы фиксируете новую конструкцию из пластитана на месте."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return TRUE
 
@@ -421,7 +432,7 @@
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, TRUE)
-			to_chat(user, span_notice("You secure the radiation shielding into place."))
+			to_chat(user, span_notice("Вы закрепляете радиационную защиту на месте."))
 			set_fixed()
 		return TRUE
 
@@ -430,7 +441,7 @@
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, span_notice("You weld together the framing, ensuring an airtight seal within the core."))
+			to_chat(user, span_notice("Вы привариваете каркас, обеспечивая герметичность сердцевины."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return TRUE
 
@@ -475,11 +486,11 @@
 	if(location.density)
 		var/turf/did_it_melt = location.ChangeTurf(location.baseturf)
 		if(!did_it_melt.density) // In case some joker finds way to place these on indestructible walls
-			reactor.visible_message(span_notice("[src] melts through [location]!"))
+			reactor.visible_message(span_notice("[DECLENT_RU_CAP(reactor, NOMINATIVE)] проплавляет [location.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	for(var/obj/structure/holosign/barrier/atmos/fan in reactor.loc.contents)
-		reactor.visible_message(span_notice("[src] violently ruptures through [fan]!"))
+		reactor.visible_message(span_notice("[DECLENT_RU_CAP(reactor, NOMINATIVE)] прорывается сквозь [fan.declent_ru(ACCUSATIVE)]!"))
 		fan.Destroy()
 		return
 
@@ -787,9 +798,9 @@
 	lastwarning = REALTIMEOFDAY
 	if(!new_damage)
 		radio_announce(
-			"<b>[safe_alert] Integrity: [get_reactor_integrity()]%</b>",
+			"<b>[safe_alert] Целостность: [get_reactor_integrity()]%</b>",
 			DECLENT_RU_CAP(src, NOMINATIVE),
-			ENG_FREQ,
+			PUB_FREQ,
 			src
 		)
 		send_message = FALSE // Only stop sending alerts when no damage has been taken
@@ -798,30 +809,30 @@
 	switch(get_status())
 		if(REACTOR_WARNING)
 			radio_announce(
-				"<b>[warning_alert] Integrity: [get_reactor_integrity()]%</b>",
+				"<b>[warning_alert] Целостность: [get_reactor_integrity()]%</b>",
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_DANGER)
 			radio_announce(
-				"<b>[warning_alert] Integrity: [get_reactor_integrity()]%</b>",
+				"<b>[warning_alert] Целостность: [get_reactor_integrity()]%</b>",
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_EMERGENCY)
 			radio_announce(
-				span_big("[warning_alert] Integrity: [get_reactor_integrity()]%"),
+				span_big("[warning_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				null,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_MELTDOWN)
 			radio_announce(
-				span_big("[emergency_alert] Integrity: [get_reactor_integrity()]%"),
+				span_big("[emergency_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				null,
+				PUB_FREQ,
 				src
 			)
 
@@ -862,9 +873,9 @@
 	startloop.stop()
 	if(send_message)
 		radio_announce(
-			"<b>Reactor SCRAM completed successfully. Integrity: [get_reactor_integrity()]%</b>",
+			"<b>Аварийное восстановление реактора успешно завершено. Целостность: [get_reactor_integrity()]%</b>",
 			DECLENT_RU_CAP(src, NOMINATIVE),
-			ENG_FREQ,
+			PUB_FREQ,
 			src
 		)
 		send_message = FALSE
@@ -925,7 +936,7 @@
 	if(final_countdown)
 		return
 	final_countdown = TRUE
-	var/speaking = span_reallybig("[emergency_alert] Reactor structural stability compromised. ")
+	var/speaking = span_reallybig("[emergency_alert] Нарушена конструктивная целостность реактора. ")
 	for(var/mob/player in GLOB.player_list) // For ALL players
 		var/turf/location = get_turf(player)
 		if(istype(location) && atoms_share_level(location, src)) // If the player is on the same zlevel as the SM shared
@@ -933,7 +944,7 @@
 	radio_announce(
 		speaking,
 		DECLENT_RU_CAP(src, NOMINATIVE),
-		null,
+		PUB_FREQ,
 		src
 	)
 	for(var/i in NGCR_COUNTDOWN_TIME to 0 step (-1 SECONDS))
@@ -945,7 +956,7 @@
 			radio_announce(
 				span_big("[safe_alert]"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				null,
+				PUB_FREQ,
 				src
 			)
 			final_countdown = FALSE
@@ -955,13 +966,13 @@
 			sleep(1 SECONDS)
 			continue
 		else if(i > (5 SECONDS))
-			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before full reactor core meltdown.</b>"
+			speaking = "<b>До полного расплавления активной зоны реактора остается [i / 10] секунд[DECL_U_Y_0(i / 10)].</b>"
 		else
 			speaking = span_reallybig("[i * 0.1]...")
 		radio_announce(
 				speaking,
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				null,
+				PUB_FREQ,
 				src
 			)
 		sleep(1 SECONDS)
@@ -1010,7 +1021,7 @@
 	GLOB.enter_allowed = 0
 	SSticker.station_explosion_cinematic()
 	SSticker.mode.station_was_nuked = TRUE
-	to_chat(world, span_bold("The station was destroyed from a nuclear meltdown!"))
+	to_chat(world, span_bold("Станция была разрушена в результате расплавления активной зоны ядерного реактора!"))
 
 	if(!SSticker.mode.check_finished()) // If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
 		SSticker.reboot_helper("Station destroyed by nuclear fission meltdown.", "nuke - unhandled ending")
@@ -1063,9 +1074,9 @@
 	playsound(src, 'sound/effects/meteorimpact.ogg', 80, FALSE)
 	control_rods_remaining--
 	radio_announce(
-		"<b>ALERT: Control rod failure! [control_rods_remaining] functional control rods remaining.</b>",
+		"<b>ВНИМАНИЕ: Отказ управляющих стержней! Осталось исправных управляющих стержней: [control_rods_remaining]</b>",
 		DECLENT_RU_CAP(src, NOMINATIVE),
-		ENG_FREQ,
+		PUB_FREQ,
 		src
 	)
 	update_icon(UPDATE_OVERLAYS)
@@ -1200,8 +1211,8 @@
 		return
 	sleep(5 SECONDS)
 	radio_announce(
-		span_big("Response teams are to cease all on-station activities and route towards the nuclear fission reactor for manual detonation unless otherwise instructed by CentComm faculty."),
-		"Automated Announcement",
+		span_big("ОБР должны прекратить все работы на своих постах и ​​направиться к ядерному реактору для осуществления подрыва вручную, если не поступит иных указаний от руководства Центрального командования."),
+		"Автоматическое оповещение",
 		DTH_FREQ,
 		src
 	)
@@ -1220,7 +1231,7 @@
 	update_appearance(UPDATE_ICON_STATE)
 	radiation_pulse(src, 10, threshold = RAD_EXTREME_INSULATION, chance = 100)
 	var/obj/effect/landmark/nuclear_waste_spawner/waste = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src))
-	relay('sound/machines/fission/meltdown.ogg', span_userdanger("You hear a horrible metallic hissing."))
+	relay('sound/machines/fission/meltdown.ogg', span_userdanger("Вы слышите ужасное металлическое шипение.."))
 	waste.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/apc as anything in GLOB.apcs)
 		if((apc.z == z) && prob(70))
@@ -1264,12 +1275,22 @@
 
 /obj/effect/decal/nuclear_waste
 	name = "Plutonium sludge"
-	desc = "A writhing pool of heavily irradiated, spent reactor fuel. You probably shouldn't step through this..."
+	desc = "Бурлящая масса сильно облученного отработавшего ядерного топлива. Пожалуй, не стоит в это ступать..."
 	icon = 'icons/obj/fission/waste.dmi'
 	icon_state = "nuclearwaste"
 	alpha = 150
 	light_color = LIGHT_COLOR_CYAN
 	color = "#ff9eff"
+
+/obj/effect/decal/nuclear_waste/get_ru_names()
+	return alist(
+		NOMINATIVE = "плутониевая жижа",
+		GENITIVE = "плутониевой жижи",
+		DATIVE = "плутониевой жиже",
+		ACCUSATIVE = "плутониевую жижу",
+		INSTRUMENTAL = "плутониевой жижей",
+		PREPOSITIONAL = "плутониевой жиже",
+	)
 
 /obj/effect/decal/nuclear_waste/Initialize(mapload)
 	. = ..()
@@ -1285,6 +1306,16 @@
 
 /obj/effect/decal/nuclear_waste/epicenter
 	name = "Dense nuclear sludge"
+
+/obj/effect/decal/nuclear_waste/epicenter/get_ru_names()
+	return alist(
+		NOMINATIVE = "концентрированная ядерная жижа",
+		GENITIVE = "концентрированной ядерной жижи",
+		DATIVE = "концентрированной ядерной жиже",
+		ACCUSATIVE = "концентрированную ядерную жижу",
+		INSTRUMENTAL = "концентрированной ядерной жижей",
+		PREPOSITIONAL = "концентрированной ядерной жиже",
+	)
 
 /obj/effect/landmark/nuclear_waste_spawner
 	name = "Nuclear waste spawner"
@@ -1310,19 +1341,19 @@
 /obj/effect/decal/nuclear_waste/attackby(obj/item/tool, mob/user)
 	if(istype(tool, /obj/item/shovel))
 		radiation_pulse(src, 5, 90) //MORE RADS
-		to_chat(user, span_notice("You start to clear [src]..."))
+		to_chat(user, span_notice("Вы начинаете убирать [declent_ru(ACCUSATIVE)]..."))
 		if(tool.use_tool(src, user, 50, volume = 100))
-			to_chat(user, span_notice("You clear [src]."))
+			to_chat(user, span_notice("Вы убираете [declent_ru(ACCUSATIVE)]."))
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /datum/weather/rad_storm/nuclear_fallout
 	name = "nuclear fallout"
-	desc = "Irradiated dust falls down everywhere."
+	desc = "Радиоактивная пыль оседает повсюду"
 	telegraph_duration = 5 SECONDS
-	telegraph_message = span_danger_alt("The air suddenly becomes dusty..")
-	weather_message = span_userdanger_alt("<i>You feel a wave of hot ash fall down on you.</i>")
+	telegraph_message = span_danger_alt("Воздух внезапно становится пыльным...")
+	weather_message = span_userdanger_alt("<i>Вы чувствуете, как на вас обрушивается волна горячего пепла.</i>")
 	weather_overlay = "light_ash"
 	weather_sound = 'sound/weather/falloutwind.ogg'
 	protected_areas = list(
@@ -1332,7 +1363,7 @@
 		/area/station/hallway/primary/starboard,
 		/area/shuttle,
 	)
-	end_message = span_notice_alt("The ash stops falling.")
+	end_message = span_notice_alt("Пепел перестаёт падать.")
 	radiation_treshhold = RAD_HEAVY_INSULATION
 
 #undef REACTOR_NEEDS_DIGGING
