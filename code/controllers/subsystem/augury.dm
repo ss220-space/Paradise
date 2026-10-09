@@ -96,7 +96,6 @@ SUBSYSTEM_DEF(augury)
 	timeout = 0
 	click_master = FALSE
 	mouse_over_pointer = MOUSE_HAND_POINTER
-	/// Outline overlay shown while tracking is enabled - the same one used by candidate poll alerts
 	var/mutable_appearance/tracking_overlay
 
 /atom/movable/screen/alert/augury/Initialize(mapload)
