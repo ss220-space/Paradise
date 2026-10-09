@@ -64,7 +64,6 @@
 /area/mine/storage)
 "as" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "au" = (
@@ -560,7 +559,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -2579,7 +2577,6 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
@@ -3203,7 +3200,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -6599,7 +6595,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
@@ -6902,7 +6897,6 @@
 "Pr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -7769,7 +7763,6 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -8022,7 +8015,6 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable/layer1,
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
