@@ -58,7 +58,7 @@
 		mob_user = user
 
 	var/storage_loc = storage.loc
-	if(isstorage(storage_loc) && !istype(src, /obj/item/storage/backpack/holding))
+	if(isstorage(storage_loc) && !istype(storage_loc, /obj/item/storage/backpack/holding))
 		mob_user?.balloon_alert(mob_user, "не хватит места!")
 		return BLOCK_INSERTING_ITEM
 
