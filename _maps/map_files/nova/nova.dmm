@@ -54391,6 +54391,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "jpU" = (
@@ -99993,7 +99994,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
 "rdQ" = (
-/obj/structure/cable/layer1,
 /obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -104534,6 +104534,12 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/library)
+"rRR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/engine)
 "rRT" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/delivery/hollow,
@@ -258517,7 +258523,7 @@ oUp
 wyH
 gtj
 qEC
-wyH
+rRR
 jGI
 uNo
 jjb

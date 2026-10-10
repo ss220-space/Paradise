@@ -64,13 +64,12 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 		var/category_has_discount = is_path_in_typecache(category_skills[1].type:parent_type, target_user.mind.discount_skill_category)
 		category["has_discount"] = category_has_discount
 
-		var/list/current_mob_skills = target_user?.mind?.get_skills_for_skills_select()
 		var/list/skills = list()
 		for(var/datum/skill/skill as anything in category_skills)
 			var/list/skill_data = list()
 			skill_data["id"] = skill.type
 			skill_data["name"] = skill.name
-			var/skill_level = current_mob_skills[skill.type]
+			var/skill_level = target_user?.mind.get_skill_level(skill.type) //current_mob_skills[skill.type]
 			var/actual_skill_level = skill_level
 			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
 			skill_data["level"] = actual_skill_level
@@ -126,10 +125,9 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	if(skill_level >= SKILL_LEVEL_LEGEND)
 		to_chat(user, span_notice("Нельзя больше прокачать навык!"))
 		return
+	target_user.mind.actual_free_skill_points -= skill_price
 	var/actual = user_mind.selected_skills_levels[skill]
 	if(!actual)
 		actual = 0
 	user_mind.selected_skills_levels[skill] = actual + 1
-	target_user.mind.actual_free_skill_points -= skill_price
 	user_mind.refresh_skills()
-
