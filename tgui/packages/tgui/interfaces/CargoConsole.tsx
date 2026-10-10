@@ -15,7 +15,7 @@ import {
   Table,
 } from 'tgui-core/components';
 import { flow } from 'tgui-core/fp';
-import { createSearch } from 'tgui-core/string';
+import { capitalize, createSearch } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
@@ -132,7 +132,9 @@ const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
               {groupedContents.map(({ content, count }, index) => {
                 const dividerStyle =
                   index < groupedContents.length - 1
-                    ? { borderBottom: 'var(--divider-border)' }
+                    ? {
+                        borderBottom: 'var(--divider-border)',
+                      }
                     : undefined;
                 return (
                   <Table.Row
@@ -157,7 +159,7 @@ const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
                       )}
                     </Table.Cell>
                     <Table.Cell verticalAlign="middle" style={dividerStyle}>
-                      {content.name}
+                      {capitalize(content.name)}
                     </Table.Cell>
                     <Table.Cell
                       collapsing
@@ -312,66 +314,96 @@ const CataloguePane = (properties: CataloguePaneProps<CargoPackContent>) => {
         />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">
           <Table m="0.5rem">
-            {cratesToShow.map((c) => (
-              <Table.Row key={c.name}>
-                <Table.Cell bold>
-                  <Box
-                    color={
-                      !c.is_enough_techs
-                        ? 'red'
-                        : c.has_sale
-                          ? 'good'
-                          : 'default'
-                    }
+            {cratesToShow.map((c, index) => {
+              const firstContent = c.contents[0];
+              const dividerStyle =
+                index < cratesToShow.length - 1
+                  ? { borderBottom: 'var(--divider-border)' }
+                  : undefined;
+              return (
+                <Table.Row key={c.name}>
+                  <Table.Cell
+                    collapsing
+                    width="42px"
+                    verticalAlign="middle"
+                    style={dividerStyle}
                   >
-                    {c.name} (
-                    {c.cost
-                      ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
-                      : ''}
-                    {c.creditsCost && c.cost ? ' ' : ''}
-                    {c.creditsCost
-                      ? c.creditsCost +
-                        ' Кредит' +
-                        declension_ru(c.creditsCost, '', 'а', 'ов')
-                      : ''}
-                    )
-                  </Box>
-                </Table.Cell>
-                <Table.Cell textAlign="right" pr={1}>
-                  <Button
-                    icon="shopping-cart"
-                    onClick={() =>
-                      act('order', {
-                        crate: c.ref,
-                        multiple: 0,
-                      })
-                    }
+                    {firstContent?.icon && firstContent.icon_state ? (
+                      <DmIcon
+                        icon={firstContent.icon}
+                        icon_state={firstContent.icon_state}
+                        fallback={<Icon name="box" color="gray" />}
+                        width="32px"
+                        height="32px"
+                      />
+                    ) : (
+                      <Icon name="box" color="gray" />
+                    )}
+                  </Table.Cell>
+                  <Table.Cell bold verticalAlign="middle" style={dividerStyle}>
+                    <Box
+                      color={
+                        !c.is_enough_techs
+                          ? 'red'
+                          : c.has_sale
+                            ? 'good'
+                            : 'default'
+                      }
+                    >
+                      {c.name} (
+                      {c.cost
+                        ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
+                        : ''}
+                      {c.creditsCost && c.cost ? ' ' : ''}
+                      {c.creditsCost
+                        ? c.creditsCost +
+                          ' Кредит' +
+                          declension_ru(c.creditsCost, '', 'а', 'ов')
+                        : ''}
+                      )
+                    </Box>
+                  </Table.Cell>
+                  <Table.Cell
+                    textAlign="right"
+                    pr={1}
+                    verticalAlign="middle"
+                    style={dividerStyle}
                   >
-                    Заказать 1
-                  </Button>
-                  <Button
-                    icon="cart-plus"
-                    onClick={() =>
-                      act('order', {
-                        crate: c.ref,
-                        multiple: 1,
-                      })
-                    }
-                  >
-                    Заказать несколько
-                  </Button>
-                  <Button
-                    icon="search"
-                    onClick={() => {
-                      setContentsModal(c.contents);
-                      setContentsModalTitle(c.name);
-                    }}
-                  >
-                    Содержимое
-                  </Button>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+                    <Button
+                      icon="shopping-cart"
+                      onClick={() =>
+                        act('order', {
+                          crate: c.ref,
+                          multiple: 0,
+                        })
+                      }
+                    >
+                      Заказать 1
+                    </Button>
+                    <Button
+                      icon="cart-plus"
+                      onClick={() =>
+                        act('order', {
+                          crate: c.ref,
+                          multiple: 1,
+                        })
+                      }
+                    >
+                      Заказать несколько
+                    </Button>
+                    <Button
+                      icon="search"
+                      onClick={() => {
+                        setContentsModal(c.contents);
+                        setContentsModalTitle(c.name);
+                      }}
+                    >
+                      Содержимое
+                    </Button>
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
           </Table>
         </Box>
       </Section>
