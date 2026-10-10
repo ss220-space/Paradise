@@ -178,6 +178,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/rd_search,
+		/obj/item/circuit_component/rd_lathe,
+		/obj/item/circuit_component/rd_destructor,
+	))
 	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	if(is_taipan(z))
@@ -382,72 +387,79 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech, mob/user)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
-		return
+		return FALSE
 
-	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
-	var/success = prob(100 * skill_chance_mod)
+	var/success = TRUE
+	if(user)
+		CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
+		success = prob(100 * skill_chance_mod)
+
+	var/actually_increased = FALSE
+
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
+			if(user)
+				to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else if(success)
 			var/tech_log
 			for(var/T in temp_tech)
 				var/new_level = files.UpdateTech(T, temp_tech[T])
 				if(new_level)
 					tech_log += "[T] [new_level], "
-			if(tech_log)
+					actually_increased = TRUE
+			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
-		else // item destroyed, but tech level not increase if skill check failed
-			linked_destroy.add_shared_particles(/particles/smoke)
-			addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/atom/movable, remove_shared_particles), /particles/smoke), 3 SECONDS)
-		send_mats()
-		linked_destroy.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
-		for(var/mob/M in I.contents)
-			M.death()
-		if(istype(I, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
-			var/obj/item/stack/sheet/S = I
-			if(S.amount > 1)
-				S.amount--
-				linked_destroy.loaded_item = S
-			else
-				qdel(S)
-		else if(!(I in linked_destroy.component_parts))
-			qdel(I)
+			for(var/obj/I in linked_destroy.contents)
+				for(var/mob/M in I.contents)
+					M.death()
+				if(istype(I, /obj/item/stack/sheet))
+					var/obj/item/stack/sheet/S = I
+					if(S.amount > 1)
+						S.amount--
+						linked_destroy.loaded_item = S
+					else
+						qdel(S)
+				else if(!(I in linked_destroy.component_parts))
+					qdel(I)
 
-	linked_destroy.loaded_item = null
-	linked_destroy.busy = FALSE
-	linked_destroy.update_icon(UPDATE_ICON_STATE)
-	use_power(DECONSTRUCT_POWER)
-	menu = MENU_MAIN
-	submenu = SUBMENU_MAIN
-	SStgui.update_uis(src)
+			linked_destroy.loaded_item = null
+			linked_destroy.busy = FALSE
+			linked_destroy.update_icon(UPDATE_ICON_STATE)
+			use_power(DECONSTRUCT_POWER)
+			menu = MENU_MAIN
+			submenu = SUBMENU_MAIN
+			SStgui.update_uis(src)
+
+	return actually_increased
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
 		to_chat(usr, span_danger("Выбранное оборудование не подключено!"))
-		return
+		return FALSE
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
 		to_chat(usr, span_danger("Неподходящий тип подключённого оборудования!"))
-		return
+		return FALSE
 
 	if(machine.busy)
 		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
-		return
+		return FALSE
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
-		return
+		return FALSE
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, skill_rand_prob)
+	var/skill_rand_prob = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, calculated_prob)
+		skill_rand_prob = calculated_prob
 	skill_rand_prob *= 100
-	if(prob(skill_rand_prob))
+	if(usr && prob(skill_rand_prob))
 		being_built = pick(matching_designs)
 
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
@@ -459,19 +471,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 			to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
-			return
+			return FALSE
 	connected_servers -= null
 
-	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
+	if(usr && !(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
+		return FALSE
 
-	if(length(being_built.make_reagents)) // build_type should equal BIOGENERATOR though..
-		return
+	if(length(being_built.make_reagents))
+		return FALSE
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
-	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, protolathe_skill_level)
+
+	var/protolathe_skill_level = SKILL_LEVEL_BASIC
+	if(usr)
+		GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, calculated_level)
+		protolathe_skill_level = calculated_level
 	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
 		amount += rand(0, 3)
 
@@ -480,48 +496,57 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
-	// goes down (1 -> 0.4) with upgrades
+	var/skill_duration_mod = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, calculated_duration)
+		skill_duration_mod = calculated_duration
 	var/coeff = machine.efficiency_coeff
 
 	var/time_to_construct = 0
 	if(is_imprinter)
 		time_to_construct = IMPRINTER_DELAY * amount * skill_duration_mod
 	else
-		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount ** 0.8
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * (amount ** 0.8)
 
 	if(is_lathe)
-		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
+		if(usr)
+			add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 	else
-		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
+		if(usr)
+			add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
-		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1)
 
 	machine.busy = TRUE
 	use_power(power)
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
+	var/skill_resource_mod = 1
+	if(usr)
+		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, calculated_resource)
+		skill_resource_mod = calculated_resource
 	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff
 
 	var/enough_materials = TRUE
-
 	if(!machine.materials.has_materials(efficient_mats, amount))
 		balloon_alert_to_viewers("недостаточно материала для печати!")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
-			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
+			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R] * coeff))
 				balloon_alert_to_viewers("недостаточно реагентов для печати!")
 				enough_materials = FALSE
 
-	if(enough_materials)
-		machine.materials.use_amount(efficient_mats, amount)
-		for(var/R in being_built.reagents_list)
-			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
+	if(!enough_materials)
+		machine.busy = FALSE
+		return FALSE
+
+	machine.materials.use_amount(efficient_mats, amount)
+	for(var/R in being_built.reagents_list)
+		machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
@@ -531,49 +556,66 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(syndicate != S.syndicate)
 			continue
 		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			S.add_usage_log(usr, being_built, machine)
+			if(usr)
+				S.add_usage_log(usr, being_built, machine)
+	return TRUE
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
-	if(machine)
-		if(enough_materials && being_built)
-			investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
+	if(!machine || !enough_materials || !being_built)
+		if(machine)
+			machine.busy = FALSE
+		return
 
-			var/locked = being_built.locked && !is_taipan(z)
-			for(var/i in 1 to amount)
-				var/obj/new_item = new being_built.build_path(src)
-				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
+	if(user)
+		investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 
-				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
-					var/obj/item/new_item_item = new_item
-					new_item_item.update_materials_coeff(coeff)
+	var/locked = being_built.locked && !is_taipan(z)
 
-				if(locked && isitem(new_item))
-					var/obj/item/real_item = new_item
-					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
-					real_item.forceMove(lockbox)
-					lockbox.name += " ([real_item.name])"
-					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
-					lockbox.ru_names = alist(
-						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
-						GENITIVE = "защищённого кейса ([real_item_ru_name])",
-						DATIVE = "защищённому кейсу ([real_item_ru_name])",
-						ACCUSATIVE = "защищённый кейс ([real_item_ru_name])",
-						INSTRUMENTAL = "защищённым кейсом ([real_item_ru_name])",
-						PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
-					)
-					lockbox.origin_tech = real_item.origin_tech
-					lockbox.req_access = being_built.access_requirement
-					lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
+	for(var/i in 1 to amount)
 
-					var/list/lockbox_access
-					for(var/A in lockbox.req_access)
-						lockbox_access += "[get_access_desc(A)] "
-					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \"[lockbox_access]\"."
-				else
-					new_item.loc = machine.loc
+		var/obj/new_item = new being_built.build_path(!user ? src : machine.loc)
 
-		machine.busy = FALSE
+		if(istype(new_item, /obj/item/storage/backpack/holding) && user)
+			new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
+
+		if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet))
+			var/obj/item/new_item_item = new_item
+			new_item_item.update_materials_coeff(coeff)
+
+		if(locked && isitem(new_item))
+			var/obj/item/real_item = new_item
+			var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(!user ? src : machine.loc)
+
+			real_item.forceMove(lockbox)
+			lockbox.name += " ([real_item.name])"
+			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
+			lockbox.ru_names = alist(
+				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
+				GENITIVE = "защищённого кейса ([real_item_ru_name])",
+				DATIVE = "защищённому кейсу ([real_item_ru_name])",
+				ACCUSATIVE = "защищённый кейс ([real_item_ru_name])",
+				INSTRUMENTAL = "защищённым кейсом ([real_item_ru_name])",
+				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
+			)
+			lockbox.origin_tech = real_item.origin_tech
+			lockbox.req_access = being_built.access_requirement
+			lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
+
+			var/list/lockbox_access
+			for(var/A in lockbox.req_access)
+				lockbox_access += "[get_access_desc(A)] "
+
+			lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \[[lockbox_access]\]."
+
+			if(!user)
+				SEND_SIGNAL(src, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, lockbox)
+		else
+			if(!user)
+				SEND_SIGNAL(src, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, new_item)
+			else
+				new_item.loc = machine.loc
+
+	machine.busy = FALSE
 	if(istype(machine, /obj/machinery/r_n_d/protolathe))
 		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
@@ -919,6 +961,57 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	return FALSE
+
+/obj/machinery/computer/rdconsole/proc/usb_find_design(design_id)
+	if(!files || !design_id)
+		return null
+
+	var/search_id = lowertext(design_id)
+
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
+		if(!D || lowertext(D.id) != search_id)
+			continue
+
+		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
+			D.name = D.id
+			return D
+
+	return null
+
+/obj/machinery/computer/rdconsole/proc/usb_get_all_designs()
+	if(!files)
+		return list()
+
+	var/list/all_ids = list()
+	for(var/v in files.known_designs)
+		var/datum/design/D = files.known_designs[v]
+		if(!D || !D.id)
+			continue
+
+		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
+			all_ids += D.id
+
+	return all_ids
+
+/obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/I)
+	if(!linked_destroy || linked_destroy.busy)
+		return -1
+
+	if(I)
+		I.forceMove(linked_destroy)
+		linked_destroy.loaded_item = I
+	else
+		I = linked_destroy.loaded_item
+
+	if(!I || QDELETED(I))
+		return -1
+
+	var/list/temp_tech = linked_destroy.ConvertReqString2List(I.origin_tech)
+
+	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
+
+	return tech_upgraded
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
