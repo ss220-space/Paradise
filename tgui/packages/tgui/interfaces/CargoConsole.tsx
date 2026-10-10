@@ -1,6 +1,6 @@
 import { declension_ru } from 'common/l10n';
 import { sortBy } from 'es-toolkit';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Box,
   Button,
@@ -81,6 +81,30 @@ const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
     setContentsModalTitle,
   } = properties;
 
+  const groupedContents = useMemo(() => {
+    const grouped = new Map<
+      string,
+      { content: CargoPackContent; count: number }
+    >();
+
+    for (const content of contentsModal) {
+      const key = `${content.icon}|${content.icon_state}|${content.name}`;
+      const existing = grouped.get(key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        grouped.set(key, { content, count: 1 });
+      }
+    }
+
+    return sortBy(
+      [...grouped.values()],
+      [(entry) => entry.content.name.toLowerCase()],
+    );
+  }, [contentsModal]);
+
+  const totalItems = contentsModal.length;
+
   if (contentsModal.length && contentsModalTitle !== '') {
     return (
       <Modal
@@ -89,41 +113,70 @@ const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
         maxHeight={`${window.innerHeight * 0.75}px`}
         mx="auto"
       >
-        <Box width="100%" bold>
-          <h1>Содержимое {contentsModalTitle}:</h1>
-        </Box>
-        <Box>
-          <Table m="0.5rem">
-            {contentsModal.map((i, index) => (
-              <Table.Row key={`${i.name}-${index}`}>
-                <Table.Cell width="42px">
-                  {i.icon && i.icon_state ? (
-                    <DmIcon
-                      icon={i.icon}
-                      icon_state={i.icon_state}
-                      fallback={<Icon name="box" color="gray" />}
-                      width="32px"
-                      height="32px"
-                    />
-                  ) : (
-                    <Icon name="box" color="gray" />
-                  )}
-                </Table.Cell>
-                <Table.Cell>{i.name}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table>
-        </Box>
-        <Box m={2}>
-          <Button
-            onClick={() => {
-              setContentsModal([]);
-              setContentsModalTitle('');
-            }}
-          >
-            Close
-          </Button>
-        </Box>
+        <Section
+          title={`Содержимое: ${contentsModalTitle}`}
+          buttons={
+            <Button
+              icon="times"
+              onClick={() => {
+                setContentsModal([]);
+                setContentsModalTitle('');
+              }}
+            >
+              Закрыть
+            </Button>
+          }
+        >
+          <Box maxHeight="20rem" overflowY="auto" overflowX="hidden">
+            <Table>
+              {groupedContents.map(({ content, count }, index) => {
+                const dividerStyle =
+                  index < groupedContents.length - 1
+                    ? { borderBottom: 'var(--divider-border)' }
+                    : undefined;
+                return (
+                  <Table.Row
+                    key={`${content.icon}|${content.icon_state}|${content.name}`}
+                  >
+                    <Table.Cell
+                      collapsing
+                      width="42px"
+                      verticalAlign="middle"
+                      style={dividerStyle}
+                    >
+                      {content.icon && content.icon_state ? (
+                        <DmIcon
+                          icon={content.icon}
+                          icon_state={content.icon_state}
+                          fallback={<Icon name="box" color="gray" />}
+                          width="32px"
+                          height="32px"
+                        />
+                      ) : (
+                        <Icon name="box" color="gray" />
+                      )}
+                    </Table.Cell>
+                    <Table.Cell verticalAlign="middle" style={dividerStyle}>
+                      {content.name}
+                    </Table.Cell>
+                    <Table.Cell
+                      collapsing
+                      textAlign="right"
+                      verticalAlign="middle"
+                      style={dividerStyle}
+                    >
+                      {count > 1 && (
+                        <Box color="good" bold>
+                          {`× ${count} шт.`}
+                        </Box>
+                      )}
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table>
+          </Box>
+        </Section>
       </Modal>
     );
   } else {

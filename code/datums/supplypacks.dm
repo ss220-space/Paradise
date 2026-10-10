@@ -68,8 +68,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		if(!path)
 			continue
 		var/atom/movable/dummy = new path(locate(1, 1, 1))
-		var/content_name = dummy.declent_ru(NOMINATIVE)
-		var/content_name_en = "[dummy.name]"
+		var/content_name = DECLENT_RU_CAP(dummy, NOMINATIVE)
+		var/content_name_en = "[capitalize(dummy.name)]"
 		var/content_icon = ""
 		var/content_icon_state = ""
 		if(isfile(dummy.icon) && length("[dummy.icon]"))
