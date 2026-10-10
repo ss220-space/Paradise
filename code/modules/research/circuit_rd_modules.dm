@@ -15,7 +15,6 @@
 
 /obj/item/circuit_component/rd_search/populate_ports()
 	input_id = add_input_port("ID Чертежа", PORT_TYPE_STRING)
-	input_search = add_input_port("Поиск", PORT_TYPE_SIGNAL, trigger = PROC_REF(do_search))
 
 	output_found = add_output_port("Чертеж найден", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка поиска", PORT_TYPE_SIGNAL)
@@ -31,14 +30,28 @@
 	attached_console = null
 	return ..()
 
-/obj/item/circuit_component/rd_search/proc/do_search(datum/port/input/port, list/return_values)
+/obj/item/circuit_component/rd_search/input_received(datum/port/input/port)
+	if(port == input_search)
+		execute_search()
+
+/obj/item/circuit_component/rd_search/trigger_component()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
 	if(!attached_console)
-		return
+		return ..()
 
-	if(!COMPONENT_TRIGGERED_BY(input_search, port) && port != input_search)
+	var/list/designs_list = attached_console.usb_get_all_designs()
+	output_all_designs.set_output(designs_list)
+
+	execute_search()
+	return ..()
+
+/obj/item/circuit_component/rd_search/proc/execute_search()
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+
+	if(!attached_console)
 		return
 
 	output_design.set_output(null)
@@ -52,22 +65,10 @@
 
 	var/datum/design/D = attached_console.usb_find_design(lowertext(search_id))
 	if(D)
-
 		output_design.set_output(D)
 		output_found.set_output(TRUE)
 	else
 		output_error.set_output(TRUE)
-
-/obj/item/circuit_component/rd_search/trigger_component()
-	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
-		attached_console = loc
-
-	if(!attached_console)
-		return ..()
-
-	var/list/designs_list = attached_console.usb_get_all_designs()
-	output_all_designs.set_output(designs_list)
-	return ..()
 
 /obj/item/circuit_component/rd_lathe
 	display_name = "Интерфейс печати РНД"
@@ -88,8 +89,8 @@
 
 /obj/item/circuit_component/rd_lathe/populate_ports()
 	input_design = add_input_port("Вход чертежа", PORT_TYPE_DATUM)
-	input_print = add_input_port("Печать", PORT_TYPE_SIGNAL, trigger = PROC_REF(do_print))
-	input_eject = add_input_port("Выброс", PORT_TYPE_SIGNAL, trigger = PROC_REF(do_eject))
+	input_print = add_input_port("Печать", PORT_TYPE_SIGNAL)
+	input_eject = add_input_port("Выброс", PORT_TYPE_SIGNAL)
 
 	output_printed = add_output_port("Предмет распечатан", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка печати", PORT_TYPE_SIGNAL)
@@ -97,7 +98,7 @@
 
 /obj/item/circuit_component/rd_lathe/Destroy()
 	if(attached_console)
-		UnregisterSignal(attached_console, "usb_print_complete")
+		UnregisterSignal(attached_console, COMSIG_CIRCUIT_RND_PRINT_COMPLETE)
 	attached_console = null
 	return ..()
 
@@ -105,15 +106,28 @@
 	. = ..()
 	if(istype(shell, /obj/machinery/computer/rdconsole))
 		attached_console = shell
-		RegisterSignal(attached_console, "usb_print_complete", PROC_REF(on_print_finished))
+		RegisterSignal(attached_console, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, PROC_REF(on_print_finished))
 
 /obj/item/circuit_component/rd_lathe/unregister_usb_parent(atom/movable/shell)
 	if(attached_console)
-		UnregisterSignal(attached_console, "usb_print_complete")
+		UnregisterSignal(attached_console, COMSIG_CIRCUIT_RND_PRINT_COMPLETE)
 	attached_console = null
 	return ..()
 
-/obj/item/circuit_component/rd_lathe/proc/do_print(datum/port/input/port, list/return_values)
+/obj/item/circuit_component/rd_lathe/input_received(datum/port/input/port)
+	if(port == input_print)
+		execute_print()
+	if(port == input_eject)
+		execute_eject()
+
+/obj/item/circuit_component/rd_lathe/trigger_component()
+	if(input_print.value)
+		execute_print()
+	if(input_eject.value)
+		execute_eject()
+	return ..()
+
+/obj/item/circuit_component/rd_lathe/proc/execute_print()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
@@ -130,7 +144,6 @@
 	if(D.build_type & IMPRINTER)
 		target_machine = attached_console.linked_imprinter
 
-	// СТРАХОВКА: Если станок уничтожен C4 или занят ручной печатью
 	if(!target_machine || QDELETED(target_machine) || target_machine.busy)
 		output_error.set_output(TRUE)
 		return
@@ -147,14 +160,14 @@
 	if(!print_success)
 		output_error.set_output(TRUE)
 
-/obj/item/circuit_component/rd_lathe/proc/do_eject(datum/port/input/port, list/return_values)
+// Внутренний чистый прок физического выброса предмета
+/obj/item/circuit_component/rd_lathe/proc/execute_eject()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
 	if(!attached_console || !held_item || held_item.loc != attached_console)
 		held_item = null
 		output_item.set_output(null)
-		desc = initial(desc)
 		output_error.set_output(TRUE)
 		return
 
@@ -178,8 +191,11 @@
 		return
 
 	held_item = printed_result
-
 	output_item.set_output(held_item)
+
+	if(held_item)
+		desc = "Production module. Stored item: [held_item.name]"
+
 	output_printed.set_output(TRUE)
 
 /obj/item/circuit_component/rd_destructor
@@ -197,7 +213,7 @@
 
 /obj/item/circuit_component/rd_destructor/populate_ports()
 	input_item = add_input_port("Предмет разбора", PORT_TYPE_DATUM)
-	input_recycle = add_input_port("Разбор обьекта", PORT_TYPE_SIGNAL, trigger = PROC_REF(do_recycle))
+	input_recycle = add_input_port("Разбор объекта", PORT_TYPE_SIGNAL)
 
 	output_tech_up = add_output_port("Повышение технологий", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Провал изучений", PORT_TYPE_SIGNAL)
@@ -215,7 +231,16 @@
 	attached_console = null
 	return ..()
 
-/obj/item/circuit_component/rd_destructor/proc/do_recycle(datum/port/input/port, list/return_values)
+/obj/item/circuit_component/rd_destructor/input_received(datum/port/input/port)
+	if(port == input_recycle)
+		execute_recycle()
+
+/obj/item/circuit_component/rd_destructor/trigger_component()
+	if(input_recycle.value)
+		execute_recycle()
+	return ..()
+
+/obj/item/circuit_component/rd_destructor/proc/execute_recycle()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
@@ -245,4 +270,3 @@
 		if(lathe.output_item)
 			lathe.output_item.set_output(null)
 		lathe.desc = initial(lathe.desc)
-
