@@ -25607,10 +25607,6 @@
 	dir = 1;
 	icon_state = "darkred"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
 /area/station/security/prisoner_shuttle)
 "fGV" = (
 /obj/effect/spawner/window/reinforced,
