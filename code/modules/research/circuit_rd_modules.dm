@@ -15,6 +15,7 @@
 
 /obj/item/circuit_component/rd_search/populate_ports()
 	input_id = add_input_port("ID Чертежа", PORT_TYPE_STRING)
+	input_search = add_input_port("Поиск", PORT_TYPE_SIGNAL)
 
 	output_found = add_output_port("Чертеж найден", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка поиска", PORT_TYPE_SIGNAL)
