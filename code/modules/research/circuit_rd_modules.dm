@@ -1,5 +1,5 @@
 /obj/item/circuit_component/rd_search
-	display_name = "Интерфейс поиска РНД"
+	display_name = "Интерфейс Поиска РНД"
 	desc = "Модуль для удаленного поиска чертежей на консоли РНД через USB-соединение."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -72,7 +72,7 @@
 		output_error.set_output(TRUE)
 
 /obj/item/circuit_component/rd_lathe
-	display_name = "Интерфейс печати РНД"
+	display_name = "Интерфейс Печати РНД"
 	desc = "Модуль автоматической печати чертежей на подключенном оборудовании РНД."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -200,7 +200,7 @@
 	output_printed.set_output(TRUE)
 
 /obj/item/circuit_component/rd_destructor
-	display_name = "Интерфейс деконструктора РНД"
+	display_name = "Интерфейс Деконструктора РНД"
 	desc = "Модуль автоматического разбора предметов для поднятия тех-уровней РНД."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
