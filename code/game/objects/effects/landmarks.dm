@@ -913,3 +913,153 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 			if(dense_object)
 				continue
 			hangover_debris += new /obj/item/reagent_containers/cup/soda_cans/beer/almost_empty(turf_to_spawn_on)
+
+// MARK: NAVIGATE
+
+//Landmark that creates destinations for the navigate verb to path to
+/obj/effect/landmark/navigate_destination
+	name = "navigate verb destination"
+	icon_state = "navigate"
+	var/location
+
+/obj/effect/landmark/navigate_destination/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/landmark/navigate_destination/LateInitialize()
+	if(!location)
+		var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
+		location = airlock ? format_text(airlock.declent_ru(ACCUSATIVE)) : get_area_name(src, apply_formatting = TRUE)
+
+	GLOB.navigate_destinations[loc] = location
+
+	qdel(src)
+
+//Command
+/obj/effect/landmark/navigate_destination/bridge
+	location = "Мостик"
+
+/obj/effect/landmark/navigate_destination/hop
+	location = "Кабинет главы персонала"
+
+/obj/effect/landmark/navigate_destination/vault
+	location = "Хранилище"
+
+/obj/effect/landmark/navigate_destination/teleporter
+	location = "Телепортер"
+
+/obj/effect/landmark/navigate_destination/gateway
+	location = "Врата"
+
+/obj/effect/landmark/navigate_destination/eva
+	location = "Хранилище ВКД"
+
+/obj/effect/landmark/navigate_destination/aiupload
+	location = "Загрузочная ИИ"
+
+/obj/effect/landmark/navigate_destination/minisat_access_ai
+	location = "Доступ к мини-спутнику ИИ"
+
+/obj/effect/landmark/navigate_destination/minisat_access_tcomms
+	location = "Доступ к мини-спутнику телекоммуникаций"
+
+/obj/effect/landmark/navigate_destination/minisat_access_tcomms_ai
+	location = "Доступ к мини-спутнику ИИ и телекоммуникаций"
+
+/obj/effect/landmark/navigate_destination/tcomms
+	location = "Телекоммуникации"
+
+//Departments
+/obj/effect/landmark/navigate_destination/sec
+	location = "Служба безопасности"
+
+/obj/effect/landmark/navigate_destination/det
+	location = "Кабинет детектива"
+
+/obj/effect/landmark/navigate_destination/research
+	location = "Научный отдел"
+
+/obj/effect/landmark/navigate_destination/engineering
+	location = "Инженерный отдел"
+
+/obj/effect/landmark/navigate_destination/techstorage
+	location = "Технический склад"
+
+/obj/effect/landmark/navigate_destination/atmos
+	location = "Атмосферный отсек"
+
+/obj/effect/landmark/navigate_destination/med
+	location = "Медицинский отдел"
+
+/obj/effect/landmark/navigate_destination/chemistry
+	location = "Химическая лаборатория"
+
+/obj/effect/landmark/navigate_destination/cargo
+	location = "Снабжение"
+
+//Common areas
+/obj/effect/landmark/navigate_destination/bar
+	location = "Бар"
+
+/obj/effect/landmark/navigate_destination/dorms
+	location = "Дормитории"
+
+/obj/effect/landmark/navigate_destination/court
+	location = "Зал суда"
+
+/obj/effect/landmark/navigate_destination/tools
+	location = "Склад инструментов"
+
+/obj/effect/landmark/navigate_destination/library
+	location = "Библиотека"
+
+/obj/effect/landmark/navigate_destination/chapel
+	location = "Часовня"
+
+/obj/effect/landmark/navigate_destination/minisat_access_chapel_library
+	location = "Доступ к мини-спутнику часовни и библиотеки"
+
+//Service
+/obj/effect/landmark/navigate_destination/kitchen
+	location = "Кухня"
+
+/obj/effect/landmark/navigate_destination/hydro
+	location = "Гидропоника"
+
+/obj/effect/landmark/navigate_destination/janitor
+	location = "Подсобка уборщика"
+
+/obj/effect/landmark/navigate_destination/lawyer
+	location = "Кабинет адвоката"
+
+//Shuttle docks
+/obj/effect/landmark/navigate_destination/dockarrival
+	location = "Док челнока прибытия"
+
+/obj/effect/landmark/navigate_destination/dockesc
+	location = "Док челнока эвакуации"
+
+/obj/effect/landmark/navigate_destination/dockescpod
+	location = "Док эвакуационной капсулы"
+
+/obj/effect/landmark/navigate_destination/dockescpod1
+	location = "Док эвакуационной капсулы 1"
+
+/obj/effect/landmark/navigate_destination/dockescpod2
+	location = "Док эвакуационной капсулы 2"
+
+/obj/effect/landmark/navigate_destination/dockescpod3
+	location = "Док эвакуационной капсулы 3"
+
+/obj/effect/landmark/navigate_destination/dockescpod4
+	location = "Док эвакуационной капсулы 4"
+
+/obj/effect/landmark/navigate_destination/dockaux
+	location = "Вспомогательный док"
+
+//Maint
+/obj/effect/landmark/navigate_destination/incinerator
+	location = "Мусоросжигатель"
+
+/obj/effect/landmark/navigate_destination/disposals
+	location = "Утилизация"
