@@ -8609,7 +8609,7 @@
 "bjQ" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/security_space_law,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/station/legal/office/magistrate)
 "bjR" = (
@@ -11900,7 +11900,7 @@
 "bEN" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/station/command/meeting_room)
@@ -27834,10 +27834,10 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/apmaint)
 "dQn" = (
-/obj/effect/spawner/random_spawners/fungus_30,
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/wall,
-/area/station/maintenance/engineering)
+/obj/structure/cable/layer3,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/ai/satellite/chamber)
 "dQq" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
@@ -30638,6 +30638,7 @@
 	name = "AI Core Door";
 	req_access = list(16)
 	},
+/obj/structure/cable/layer3,
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ePZ" = (
@@ -33097,7 +33098,7 @@
 	name = "Desk Door";
 	req_access = list(73)
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/rep,
 /turf/simulated/floor/carpet,
 /area/station/command/office/ntrep)
@@ -34587,7 +34588,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/toy/figure/hop,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/carpet,
@@ -36301,9 +36302,7 @@
 	},
 /area/station/medical/sleeper)
 "gSw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/atmospherics)
@@ -38998,7 +38997,7 @@
 	dir = 1
 	},
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/machinery/door_control{
 	id = "captainofficedoor";
 	name = "Office Door";
@@ -40811,6 +40810,7 @@
 	},
 /obj/machinery/newscaster/security_unit/directional/west,
 /obj/effect/landmark/start/ai,
+/obj/structure/cable/layer3,
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ixr" = (
@@ -77725,7 +77725,7 @@
 /area/station/maintenance/asmaint)
 "wkv" = (
 /obj/structure/table,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wkz" = (
@@ -81905,10 +81905,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"xNF" = (
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/wall,
-/area/station/maintenance/engineering)
 "xNP" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -106407,8 +106403,8 @@ uTI
 uTI
 cLi
 ttt
-dQn
-xNF
+tcn
+cLi
 lPb
 cOc
 cLi
@@ -113605,7 +113601,7 @@ cTO
 cOf
 dhv
 ujr
-dhv
+jHr
 lvn
 dhv
 dhv
@@ -113862,11 +113858,11 @@ fuE
 cOf
 mEF
 ujr
+ujr
+kHp
+kHp
 gSw
-kHp
-kHp
-fpR
-dhv
+ujr
 dhv
 dhv
 dhv
@@ -114121,8 +114117,8 @@ dcq
 dhv
 dhv
 dXD
-kHp
-kHp
+fpR
+fpR
 kHp
 dhv
 cmQ
@@ -118796,7 +118792,7 @@ tON
 tpS
 ePK
 ixe
-drI
+dQn
 lDQ
 mKr
 umC

@@ -85,7 +85,7 @@
 	/// The typepath of the smoke to create on cast.
 	var/smoke_type
 	/// The amount of smoke to create on cast. This is a range, so a value of 5 will create enough smoke to cover everything within 5 steps.
-	var/smoke_amt = 0
+	var/smoke_range = 0
 	/// Which spell_handler is used in addition to the normal spells behaviour, can be null. Set this in create_new_handler if needed
 	var/datum/spell_handler/custom_handler
 	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
@@ -395,7 +395,7 @@
 		do_sparks(sparks_amt, FALSE, get_turf(owner))
 	if(ispath(smoke_type, /datum/effect_system/fluid_spread/smoke))
 		var/datum/effect_system/fluid_spread/smoke/smoke = new smoke_type()
-		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
+		smoke.set_up(smoke_range, holder = owner, location = get_turf(owner))
 		smoke.start()
 	custom_handler?.after_cast(cast_on, owner, src)
 

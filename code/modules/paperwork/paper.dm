@@ -346,6 +346,9 @@
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !iscrayon(item_write))
 		return
+	if(HAS_TRAIT(item_write, TRAIT_TRANSFORM_ACTIVE))
+		balloon_alert(user, "защёлкнуто!")
+		return
 	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
 		return // If paper is not in usr, then it must be near them
 

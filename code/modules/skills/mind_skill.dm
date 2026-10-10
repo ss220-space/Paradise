@@ -112,9 +112,16 @@
 			level = max(min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_neurotrainer_bonuses)
 			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
-		if(level == SKILL_LEVEL_UNAVAILABLE)
-			skill.remove_from_mob(current)
+
+		level = min(level, SKILL_LEVEL_LEGEND)
 		set_skill_level(skill_type, level)
+
+	if(!ishuman(current))
+		return
+
+	// for unarmed combat technique
+	var/mob/living/carbon/human/human_current = current
+	human_current.refresh_uct()
 
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
 	var/bonus_level = 0
