@@ -10891,6 +10891,24 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
+"cvt" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	name = "exterior access button";
+	master_tag = "atmos_tank_airlock";
+	frequency = 1379;
+	pixel_x = 20;
+	pixel_y = -20;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space)
 "cvw" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -95910,6 +95928,18 @@
 	icon_state = "whiteredfull"
 	},
 /area/station/security/medical)
+"uix" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	name = "exterior access button";
+	pixel_x = 21;
+	pixel_y = 21
+	},
+/turf/space,
+/area/space)
 "uiz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -135201,7 +135231,7 @@ aaq
 coE
 aaq
 aaq
-tco
+cvt
 qgk
 eRJ
 kaI
@@ -161263,7 +161293,7 @@ qwR
 uzM
 fSU
 rmI
-acF
+uix
 acF
 acF
 coE
@@ -176573,7 +176603,7 @@ acF
 cIV
 acF
 acF
-acF
+cIV
 cIV
 acF
 coE
