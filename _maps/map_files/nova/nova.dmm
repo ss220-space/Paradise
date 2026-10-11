@@ -20798,6 +20798,7 @@
 	req_access = list(1);
 	use_power = 0
 	},
+/obj/effect/landmark/navigate_destination/gamma_armory,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/secure)
 "dBK" = (
@@ -28717,7 +28718,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/virology,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -54392,6 +54393,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/singulo,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "jpU" = (
@@ -66427,7 +66429,6 @@
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/secure)
 "ltT" = (
@@ -69158,7 +69159,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/sci_chem,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79979,6 +79980,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination/supermatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -86973,6 +86975,7 @@
 	name = "Morgue";
 	req_access = list(5)
 	},
+/obj/effect/landmark/navigate_destination/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96479,6 +96482,10 @@
 /obj/structure/sign/xenobio,
 /turf/simulated/wall/r_wall/rust,
 /area/station/maintenance/xenozoo)
+"qzm" = (
+/obj/effect/landmark/navigate_destination/mining_shuttle,
+/turf/simulated/floor/plasteel,
+/area/station/cargo/miningdock)
 "qzq" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/regular{
@@ -100682,7 +100689,6 @@
 	name = "Armory Security Shutters"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -112637,7 +112643,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Theatre"
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/theatre,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "tkG" = (
@@ -112719,7 +112725,7 @@
 	name = "Robotics Lab";
 	req_access = list(29)
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/robo,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "tlt" = (
@@ -113735,6 +113741,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/navigate_destination/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113900,7 +113907,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/xenobiology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -114510,6 +114517,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination/mechanic,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/mechanic_workshop)
 "tBz" = (
@@ -118672,7 +118680,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/permabrig,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -122903,7 +122911,6 @@
 	id_tag = "Cargo_lockdown";
 	name = "Cargo Lockdown"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -133536,7 +133543,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/sec_pod_pilot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -139753,7 +139760,7 @@
 	security_level = 6
 	},
 /obj/structure/cable/layer1,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/gravity_generator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -249580,7 +249587,7 @@ edu
 fzT
 qiZ
 xIf
-jNF
+qzm
 oZt
 iog
 olm

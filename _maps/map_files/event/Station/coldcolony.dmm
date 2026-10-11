@@ -10068,6 +10068,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/navigate_destination/theatre,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "dUv" = (
@@ -14976,7 +14977,6 @@
 	id_tag = "ArmorySecAccess";
 	name = "Armory Security Shutters"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17017,6 +17017,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/engine)
+"gLr" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/landmark/navigate_destination/mining_shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom"
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "gLG" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -24631,7 +24639,7 @@
 	name = "Mech Bay";
 	req_access = list(29)
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/robo,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -33432,7 +33440,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "nvt" = (
@@ -39293,7 +39300,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/permabrig,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45436,16 +45443,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/break_room)
-"slB" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Miners bar";
-	req_access = list(48)
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/quartermaster/miningbar)
 "slE" = (
 /obj/effect/landmark/start/hangover,
 /obj/machinery/shower/directional/west,
@@ -47826,7 +47823,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49446,7 +49442,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -51082,7 +51078,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Morgue"
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/morgue,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/medical/morgue)
 "uuI" = (
@@ -59409,7 +59405,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/virology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82180,7 +82176,7 @@ vPw
 nZO
 qEM
 uyc
-gqN
+gLr
 rSb
 rSb
 rSb
@@ -93746,7 +93742,7 @@ xcr
 jpa
 sGS
 vOt
-slB
+vJY
 beh
 uOT
 kGe

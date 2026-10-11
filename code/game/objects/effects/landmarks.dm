@@ -1019,18 +1019,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/navigate_destination/minisat_access_chapel_library
 	location = "Доступ к мини-спутнику часовни и библиотеки"
 
-//Service
-/obj/effect/landmark/navigate_destination/kitchen
-	location = "Кухня"
-
-/obj/effect/landmark/navigate_destination/hydro
-	location = "Гидропоника"
-
-/obj/effect/landmark/navigate_destination/janitor
-	location = "Подсобка уборщика"
-
-/obj/effect/landmark/navigate_destination/lawyer
-	location = "Кабинет адвоката"
+/obj/effect/landmark/navigate_destination/theatre
+	location = "Театр"
 
 //Shuttle docks
 /obj/effect/landmark/navigate_destination/dockarrival
@@ -1063,3 +1053,69 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/navigate_destination/disposals
 	location = "Утилизация"
+
+//Service
+/obj/effect/landmark/navigate_destination/kitchen
+	location = "Кухня"
+
+/obj/effect/landmark/navigate_destination/hydro
+	location = "Гидропоника"
+
+/obj/effect/landmark/navigate_destination/janitor
+	location = "Подсобка уборщика"
+
+//Sec
+/obj/effect/landmark/navigate_destination/gamma_armory
+	location = "Оружейная \"Гамма\""
+
+/obj/effect/landmark/navigate_destination/permabrig
+	location = "Пермабриг"
+
+/obj/effect/landmark/navigate_destination/lawyer
+	location = "Кабинет адвоката"
+
+/obj/effect/landmark/navigate_destination/sec_pod_pilot
+	location = "Ангар пилота СБ"
+
+//Med
+/obj/effect/landmark/navigate_destination/virology
+	location = "Вирусология"
+
+/obj/effect/landmark/navigate_destination/morgue
+	location = "Морг"
+
+/obj/effect/landmark/navigate_destination/genetics
+	location = "Генетика"
+
+//Engi
+/obj/effect/landmark/navigate_destination/supermatter
+	location = "Двигатель Суперматерии"
+
+/obj/effect/landmark/navigate_destination/nfr
+	location = "Реактор ядерного распада"
+
+/obj/effect/landmark/navigate_destination/singulo
+	location = "Двигатель сингулярности/теслы"
+
+/obj/effect/landmark/navigate_destination/gravity_generator
+	location = "Генератор гравитации"
+
+/obj/effect/landmark/navigate_destination/turbine
+	location = "Турбина"
+
+//Cargo
+/obj/effect/landmark/navigate_destination/mining_shuttle
+	location = "Шахтёрский шаттл"
+
+//Sci
+/obj/effect/landmark/navigate_destination/robo
+	location = "Отдел робототехники"
+
+/obj/effect/landmark/navigate_destination/sci_chem
+	location = "Химическая лаборатория НИО"
+
+/obj/effect/landmark/navigate_destination/xenobiology
+	location = "Ксенобиология"
+
+/obj/effect/landmark/navigate_destination/mechanic
+	location = "Ангар механика"

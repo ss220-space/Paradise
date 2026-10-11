@@ -4446,6 +4446,7 @@
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown"
 	},
+/obj/effect/landmark/navigate_destination/gamma_armory,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/secure)
 "aYv" = (
@@ -24203,6 +24204,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26891,7 +26893,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/virology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31933,6 +31935,7 @@
 	name = "Security Pods";
 	req_access = list(71)
 	},
+/obj/effect/landmark/navigate_destination/sec_pod_pilot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35149,6 +35152,17 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"hGx" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	name = "Mining Dock Airlock";
+	req_access = list(48)
+	},
+/obj/structure/fans/tiny,
+/obj/effect/landmark/navigate_destination/mining_shuttle,
+/turf/simulated/floor/plasteel,
+/area/station/cargo/miningdock)
 "hGy" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -35289,7 +35303,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -35572,6 +35585,7 @@
 /area/station/maintenance/asmaint2)
 "hLF" = (
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -39049,7 +39063,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/robo,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -43659,6 +43673,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/navigate_destination/supermatter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
 "jwk" = (
@@ -55817,6 +55832,18 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/sw)
+"lVZ" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Mechanic Workshop";
+	req_access = list(70)
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/mechanic,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/mechanic_workshop)
 "lWi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -61927,7 +61954,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/permabrig,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63873,7 +63900,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/nfr,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "nGT" = (
@@ -68609,7 +68636,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/gravity_generator,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "oGy" = (
@@ -71481,6 +71508,7 @@
 	req_access = list(47)
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/xenobiology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71584,6 +71612,10 @@
 	icon_state = "cmo"
 	},
 /area/station/medical/ward)
+"pmv" = (
+/obj/effect/landmark/navigate_destination/theatre,
+/turf/simulated/floor/wood/fancy/light,
+/area/station/commons/serviceyard)
 "pmw" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -82939,7 +82971,6 @@
 	req_access = list(1);
 	use_power = 0
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/secure)
 "rBn" = (
@@ -83708,6 +83739,7 @@
 	dir = 10
 	},
 /obj/structure/cable/layer1,
+/obj/effect/landmark/navigate_destination/turbine,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93219,6 +93251,7 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/singulo,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -96974,7 +97007,7 @@
 	name = "Chemical Toxins";
 	req_access = list(47)
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/sci_chem,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -112253,7 +112286,6 @@
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/miningdock)
 "xDL" = (
@@ -148179,7 +148211,7 @@ nqS
 hcz
 myV
 dek
-ebT
+pmv
 gGj
 hva
 gVX
@@ -155344,7 +155376,7 @@ noh
 geg
 pHI
 ljU
-pCT
+lVZ
 ljU
 fYg
 eQT
@@ -160017,7 +160049,7 @@ lya
 oJe
 ntU
 ntU
-cnr
+hGx
 ntU
 ntU
 oJe

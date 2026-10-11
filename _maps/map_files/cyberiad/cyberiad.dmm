@@ -2674,7 +2674,6 @@
 	id_tag = "Prison Gate";
 	name = "Prison Lockdown Blast Doors"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -23526,6 +23525,7 @@
 	id_tag = "Prison Gate";
 	name = "Prison Lockdown Blast Doors"
 	},
+/obj/effect/landmark/navigate_destination/permabrig,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
 "dbE" = (
@@ -27208,6 +27208,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/navigate_destination/gravity_generator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31157,6 +31158,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/sci_chem,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -33510,7 +33512,6 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -41267,7 +41268,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/turbine,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "iDV" = (
@@ -46323,6 +46324,7 @@
 	id_tag = "robotics";
 	name = "Robotics Lab Shutters"
 	},
+/obj/effect/landmark/navigate_destination/robo,
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
 "kxX" = (
@@ -47385,6 +47387,7 @@
 	},
 /area/station/maintenance/engineering)
 "kQO" = (
+/obj/effect/landmark/navigate_destination/mining_shuttle,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/miningdock)
 "kRg" = (
@@ -48413,6 +48416,7 @@
 	req_access = list(39)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/navigate_destination/virology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48942,7 +48946,6 @@
 	use_power = 0
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53174,6 +53177,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/navigate_destination/xenobiology,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -66561,7 +66565,6 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66684,7 +66687,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -67546,7 +67548,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination/mechanic,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/mechanic_workshop)
 "swa" = (
@@ -67920,7 +67922,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71444,6 +71445,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/sec_pod_pilot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71640,6 +71642,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/navigate_destination/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78147,6 +78150,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -79956,6 +79960,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/singulo,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -83039,6 +83044,7 @@
 	use_power = 0
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination/gamma_armory,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
