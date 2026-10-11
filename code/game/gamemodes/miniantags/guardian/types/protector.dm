@@ -92,6 +92,7 @@
 	name = "Голографическая силовая стена"
 	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
 	invocation = "YOU SHALL NOT PASS!"
+	spell_requirements = NONE
 	wall_type = /obj/effect/forcefield/wizard/guardian
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 

@@ -36,6 +36,7 @@
 		/datum/skill/research/robotics = 3,
 		/datum/skill/research/xenobiology = 3,
 	)
+	discount_skill_category = list(/datum/skill)
 
 /datum/job/ntnavyofficer/get_access()
 	return get_centcom_access(title)
@@ -125,6 +126,7 @@
 		/datum/skill/research/robotics = 3,
 		/datum/skill/research/xenobiology = 3,
 	)
+	discount_skill_category = list(/datum/skill)
 
 /datum/job/ntspecops/get_access()
 	return get_centcom_access(title)

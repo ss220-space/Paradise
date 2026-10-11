@@ -24,7 +24,7 @@
 /// Round start free points for command and civilian jobs
 #define DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS 15
 /// Count of free skill points for antags
-#define BASIC_ANTAG_SKILL_POINTS_BONUS 5
+#define BASIC_ANTAG_SKILL_POINTS_BONUS 6
 /// Default value for not prepared free skill points count
 #define ACTUAL_FREE_SKILL_POINTS_NOT_SET -1
 
@@ -256,3 +256,7 @@ GLOBAL_LIST_INIT(antag_skills, list(
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_ADVANCED,
 ))
+
+GLOBAL_LIST_INIT(discount_categories_antag, typecacheof(/datum/skill/combat))
+
+GLOBAL_LIST_EMPTY(discount_categories_typecaches)

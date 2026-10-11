@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Добавлена иконка для экшена голосования. (PR #9843)"

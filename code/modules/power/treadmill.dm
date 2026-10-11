@@ -26,6 +26,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return TRUE
+
 /obj/machinery/power/treadmill/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 

@@ -2825,7 +2825,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'Agent 007' Bundle"
 	contains = list(
 		/obj/item/clothing/glasses/hud/security/chameleon,
-		/obj/item/pen/fancy/bomb,
+		/obj/item/pen/fountain/bomb,
 		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/ammo_box/magazine/m10mm,

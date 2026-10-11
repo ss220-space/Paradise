@@ -497,33 +497,17 @@
 	var/turf/new_turf = get_turf(M)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
 		return reset()
-	var/fdirn = turn(Dir, 180)
 	for(var/obj/structure/cable/LC in new_turf)		// check to make sure there's not a cable there already
-		if(LC.d1 == fdirn || LC.d2 == fdirn)
-			return reset()
+		return reset()
 	if(!use_cable(1))
 		return reset()
 	var/obj/structure/cable/NC = new(new_turf)
-	NC.cable_color("red")
-	NC.d1 = 0
-	NC.d2 = fdirn
+	NC.cable_color(CABLE_HEX_COLOR_RED)
 	NC.update_icon(UPDATE_ICON_STATE)
 
-	var/datum/powernet/PN
-	if(last_piece && last_piece.d2 != Dir)
-		last_piece.d1 = min(last_piece.d2, Dir)
-		last_piece.d2 = max(last_piece.d2, Dir)
-		last_piece.update_icon(UPDATE_ICON_STATE)
-		PN = last_piece.powernet
-
-	if(!PN)
-		PN = new()
-	NC.powernet = PN
-	PN.cables += NC
-	NC.mergeConnectedNetworks(NC.d2)
+	NC.mergeConnectedNetworks(NC)
 
 	//NC.mergeConnectedNetworksOnTurf()
-	last_piece = NC
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher

@@ -63,9 +63,6 @@
 	addtimer(CALLBACK(src, PROC_REF(spawn_swarmer_from_ghost)), FREE_SWARMER_SPAWN_TIMER, TIMER_LOOP | TIMER_DELETE_ME)
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
 
-	for(var/ddir in GLOB.alldirs)
-		new /obj/structure/swarmer/blockade(get_step(src, ddir))
-
 /obj/structure/swarmer/core/ComponentInitialize()
 	AddComponent( \
 		/datum/component/aura_healing, \

@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - add: "БИ для навыка безоружного боя (PR #9860)"

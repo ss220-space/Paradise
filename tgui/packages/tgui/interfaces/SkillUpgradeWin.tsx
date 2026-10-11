@@ -143,6 +143,7 @@ type Skill = {
   level_name: string;
   level_color: string;
   price: number;
+  discount: boolean;
   can_purchase: number;
 };
 
@@ -167,6 +168,18 @@ const SkillView = (category: SkillCategory, skill: Skill) => {
         >
           <Box ml="5px" mt="5px">
             <b>{skill.name}</b>
+            {skill.discount ? (
+              <i
+                style={{
+                  color: 'yellow',
+                }}
+              >
+                {'  '}
+                Скидка!
+              </i>
+            ) : (
+              ''
+            )}
           </Box>
         </Table.Cell>
       </Table.Row>

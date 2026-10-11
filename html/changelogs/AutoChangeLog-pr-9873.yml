@@ -1,0 +1,5 @@
+author: "L343-CJ"
+delete-after: True
+changes:
+  - bugfix: "Исправлен спавн демонов (PR #9873)"
+  - bugfix: "Исправлена стена голопаразита протектора (PR #9873)"
