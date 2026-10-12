@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "Понижение цены нейротренеров в аплинке. (PR #9861)"
