@@ -39,7 +39,9 @@ GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 		for(var/datum/objective/objective as anything in all_objectives)
 			if(!objective.special_object_spawn_area)
 				continue
-			destination_list[objective.special_object_spawn_area.name] = objective.special_object_spawn_area.get_center_turf()
+			var/area/target_area = objective.special_object_spawn_area
+			var/antag_destination = target_area.apc ? pick(target_area.apc) : target_area.get_center_turf()
+			destination_list[target_area.name] = antag_destination
 
 	if(!length(destination_list))
 		balloon_alert(src, "нет навигационных сигналов!")
