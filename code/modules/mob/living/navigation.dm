@@ -40,7 +40,7 @@ GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 			if(!objective.special_object_spawn_area)
 				continue
 			var/area/target_area = objective.special_object_spawn_area
-			var/antag_destination = target_area.apc ? pick(target_area.apc) : target_area.get_center_turf()
+			var/antag_destination = length(target_area.apc) ? pick(target_area.apc) : target_area.get_center_turf()
 			destination_list[target_area.name] = antag_destination
 
 	if(!length(destination_list))
