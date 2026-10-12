@@ -34,6 +34,13 @@ GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 	if(can_go_up)
 		destination_list["Ближайший подъём"] = UP
 
+	if(isAntag(src))
+		var/all_objectives = mind.get_all_objectives()
+		for(var/datum/objective/objective as anything in all_objectives)
+			if(!objective.special_object_spawn_area)
+				continue
+			destination_list[objective.special_object_spawn_area.name] = objective.special_object_spawn_area.get_center_turf()
+
 	if(!length(destination_list))
 		balloon_alert(src, "нет навигационных сигналов!")
 		return
