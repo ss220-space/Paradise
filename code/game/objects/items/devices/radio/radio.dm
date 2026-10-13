@@ -163,7 +163,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/radio/dummy/Destroy(force)
-	GLOB.global_announcer = null
+	if(GLOB.global_announcer == src)
+		GLOB.global_announcer = null
 	return ..()
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
