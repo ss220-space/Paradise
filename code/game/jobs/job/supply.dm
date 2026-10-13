@@ -31,7 +31,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mining = SKILL_LEVEL_ADVANCED,
 	)
-	discount_skill_category = list(/datum/skill/general, /datum/skill/service/mining)
+	discount_skill_category = list(/datum/skill/general)
 
 /datum/outfit/job/qm
 	name = JOB_TITLE_RU_QUARTERMASTER
@@ -117,7 +117,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mining = SKILL_LEVEL_ADVANCED,
 	)
-	discount_skill_category = list(/datum/skill/combat, /datum/skill/service/mining, /datum/skill/general/carrying)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mining, /datum/skill/general/carrying)
 
 /datum/outfit/job/mining
 	name = JOB_TITLE_RU_MINER

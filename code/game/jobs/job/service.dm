@@ -135,7 +135,7 @@
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
 	)
-	discount_skill_category = list(/datum/skill/service, /datum/skill/general/cooking)
+	discount_skill_category = list(/datum/skill/service)
 
 /datum/outfit/job/chef
 	name = JOB_TITLE_RU_CHEF
