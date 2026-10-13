@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Исправлена невозможность стрелять в РПГ. (PR #9867)"
