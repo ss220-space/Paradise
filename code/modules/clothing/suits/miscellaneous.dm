@@ -1469,6 +1469,7 @@
 	item_flags = SKIP_ATTACK_MESSAGE
 	body_parts_covered = LOWER_TORSO | UPPER_TORSO
 	var/drop_amount = 3
+	var/wet_stacks_removed = 5
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1513,6 +1514,9 @@
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
 
 /obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
+	if(QDELETED(target) || QDELETED(user) || QDELETED(src))
+		return
+
 	if(target == user)
 		user.visible_message(
 			span_warning("[user] вытира[PLUR_ET_YUT(user)] себя [declent_ru(INSTRUMENTAL)]."),
@@ -1524,15 +1528,18 @@
 			span_notice("Вы начинаете вытирать [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
 			ignored_mobs = target,
 		)
-		target.balloon_alert(target, "вас вытирают...")
+		target.balloon_alert(target, "вас вытирают")
 
-	if(!do_after(user, 5 SECONDS, target))
-		return
+	while(!QDELETED(target) && !QDELETED(user) && !QDELETED(src) && target.get_wet_stacks() > 0)
+		if(!do_after(user, 2.5 SECONDS, target))
+			return
+		if(QDELETED(target) || QDELETED(user) || QDELETED(src))
+			return
+		var/wet_stacks_before = target.get_wet_stacks()
+		target.adjust_wet_stacks(-wet_stacks_removed)
+		if(target.get_wet_stacks() >= wet_stacks_before)
+			return
 
-	if(!istype(target) || !target.get_wet_stacks())
-		return
-
-	target.DryMob()
 	to_chat(user, span_notice("Вы вытерли [target == user ? "себя" : target.declent_ru(ACCUSATIVE)] досуха."))
 
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
