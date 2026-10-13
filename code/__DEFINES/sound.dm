@@ -63,6 +63,7 @@
 #define AMBIENCE_REEBE "reebe"
 #define AMBIENCE_CREEPY "creepy"
 #define AMBIENCE_PLANETOID "planetoid"
+#define AMBIENCE_CAVES "caves"
 
 //default byond sound environments
 #define SOUND_ENVIRONMENT_NONE -1
@@ -331,3 +332,6 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_MENDER "mender"
 #define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"
 #define SFX_VEGETATION_WALK "vegetation_walk"
+#define SFX_THUNDER_HEAVY "thunder_heavy"
+#define SFX_THUNDER_MEDIUM "thunder_medium"
+#define SFX_THUNDER_LOW "thunder_low"

@@ -60,6 +60,21 @@
 	/// Per-tick chance (0-100) of thunder playing during the storm
 	var/lightning_chance = 0
 
+	/// Relative frequency of each thunder severity, keyed by the SFX_THUNDER_* sound keys
+	var/list/thunder_severity_weights = list(
+		SFX_THUNDER_LOW = 6,
+		SFX_THUNDER_MEDIUM = 3,
+		SFX_THUNDER_HEAVY = 1,
+	)
+
+	/// How bright the lightning flash is (0-255) per thunder severity. Heavy thunder lights up
+	/// the whole screen, a distant rumble only faintly.
+	var/list/thunder_flash_alphas = list(
+		SFX_THUNDER_LOW = 77, // 30%
+		SFX_THUNDER_MEDIUM = 154, // 60%
+		SFX_THUNDER_HEAVY = 255, // 100%
+	)
+
 /datum/weather/New(z_levels)
 	..()
 	impacted_z_levels = z_levels
@@ -181,14 +196,18 @@
 /datum/weather/proc/handle_weather_process()
 	if(!lightning_chance || !prob(lightning_chance))
 		return
-	var/sound/thunder = sound(pick('sound/ambience/planetoid/thunderclap1.ogg', 'sound/ambience/planetoid/thunderclap2.ogg'))
+	var/thunder_key = pickweight(thunder_severity_weights)
+	var/thunder_sound = sound(get_sfx(thunder_key))
+	var/flash_alpha = thunder_flash_alphas[thunder_key] || 255
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
 			continue
-		mob.playsound_local(mob, null, 100, FALSE, 0, null, 0, FALSE, thunder)
+		mob.playsound_local(mob, null, 100, FALSE, 0, null, 0, FALSE, thunder_sound)
 		var/area/mob_area = get_area(mob)
 		if(mob_area?.outdoors)
-			mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
+			var/atom/movable/screen/fullscreen/flash = mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
+			if(flash)
+				flash.alpha = flash_alpha
 	addtimer(CALLBACK(src, PROC_REF(clear_lightning_flash)), 0.05 SECONDS)
 
 /datum/weather/proc/clear_lightning_flash()
