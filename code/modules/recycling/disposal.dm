@@ -585,7 +585,7 @@
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		var/mob/thrower_mob_resolved = mover.throwing.thrower.resolve()
+		var/mob/thrower_mob_resolved = mover.throwing.get_thrower()
 		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(thrower_mob_resolved, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
 			SEND_SIGNAL(mover, COMSIG_DISPOSAL_INJECT, src)
