@@ -68,7 +68,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_ninja()
 	if(!length(space_ninjas))
-		return FALSE
+		return
 
 	var/list/text = list(span_bold(span_fontsize3("<br>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:")))
 

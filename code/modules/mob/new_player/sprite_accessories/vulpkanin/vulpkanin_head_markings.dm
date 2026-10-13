@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/head/vulpkanin
+	abstract_type = /datum/sprite_accessory/body_markings/head/vulpkanin
 	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
 	species_allowed = list(SPECIES_VULPKANIN)
 

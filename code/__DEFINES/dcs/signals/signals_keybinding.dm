@@ -23,7 +23,6 @@
 
 //Carbon
 #define COMSIG_KB_CARBON_PARRY "keybinding_carbon_parry"
-#define COMSIG_KB_CARBON_INTENT(A) "keybinding_carbon_intent_[A]"
 
 //Client
 #define COMSIG_KB_CLIENT_GETHELP_DOWN "keybinding_client_gethelp_down"
@@ -57,6 +56,7 @@
 #define COMSIG_KB_LIVING_TOGGLETHROWMODE_DOWN "keybinding_living_togglethrowmode_down"
 #define COMSIG_KB_LIVING_HOLDTHROWMODE_DOWN "keybinding_living_holdthrowmode_down"
 #define COMSIG_KB_LIVING_GIVEITEM_DOWN "keybinding_living_giveitem_down"
+#define COMSIG_KB_LIVING_INTENT(A) "keybinding_living_intent_[A]"
 
 //Mob
 #define COMSIG_KB_MOB_STOPPULLING_DOWN "keybinding_mob_stoppulling_down"

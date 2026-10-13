@@ -572,6 +572,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/chameleon_counterfeiter(src)
 	new /obj/item/chameleon_counterfeiter(src)
 
+/obj/item/storage/box/syndie_kit/midichlorian
+	name = "Набор мидихлориан"
+	desc = "Коробка, содержащая инъектор мидихлориан и энергетический меч."
+
+/obj/item/storage/box/syndie_kit/midichlorian/populate_contents()
+	new /obj/item/melee/energy/sword/saber(src)
+	new /obj/item/midichlorian_injector(src)
+
 /obj/item/storage/box/syndie_kit/pistol_ammo
 	name = "10mm ammunition kit"
 	desc = "Коробка, содержащая 2 магазина патронов калибра 10 мм."

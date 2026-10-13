@@ -677,6 +677,10 @@
 	for(var/I in 1 to 4)
 		new /obj/item/grenade/frag(src)
 
+/obj/item/storage/belt/grenade/frag/contact/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag/contact(src)
+
 /obj/item/storage/belt/grenade/demolitionist/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/frag(src)

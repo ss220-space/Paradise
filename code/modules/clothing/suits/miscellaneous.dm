@@ -1597,7 +1597,7 @@
 		PREPOSITIONAL = "чёрном балахоне",
 	)
 
-/obj/item/clothing/suit/hooded/update_icon_state()
+/obj/item/clothing/suit/hooded/ghostfacesuit/update_icon_state()
 	return
 
 /obj/item/clothing/head/hooded/ghostface

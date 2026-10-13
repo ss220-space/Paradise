@@ -1,4 +1,0 @@
-author: "anon1mka"
-delete-after: True
-changes:
-  - bugfix: "Исправлена невозможность ставить импланты в обе руки в Custom Outfit (PR #9825)"

@@ -1405,11 +1405,9 @@
 		/obj/item/pen/red = 10,
 		/obj/item/pen/gray = 10,
 		/obj/item/pen/invisible = 5,
-		/obj/item/pen/fancy = 5,
+		/obj/item/pen/fountain = 5,
 		/obj/item/pen/multi = 3,
-		/obj/item/pen/multi/fountain = 3,
 		/obj/item/pen/survival = 3,
-		/obj/item/pen/multi/gold = 1,
 	)
 
 /obj/item/storage/box/pen_case/get_ru_names()

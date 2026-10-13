@@ -1,4 +1,5 @@
 /datum/sprite_accessory/head_accessory/tajara
+	abstract_type = /datum/sprite_accessory/head_accessory/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_accessories.dmi' // Nearly all head accessories are head markings, however this is the default for consistency sake
 	species_allowed = list(SPECIES_TAJARAN)
 

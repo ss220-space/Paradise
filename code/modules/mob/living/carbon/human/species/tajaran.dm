@@ -1,6 +1,7 @@
 /datum/species/tajaran
 	name = SPECIES_TAJARAN
 	name_plural = "Tajaran"
+	ru_genitive = "таярана"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = LANGUAGE_TAJARAN

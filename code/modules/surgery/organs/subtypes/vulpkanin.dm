@@ -1,22 +1,3 @@
-/// Red colorblindness. Vulpkanins/Wolpins have this.
-#define PROTANOPIA_COLOR_REPLACE list( \
-	"red" = "darkolivegreen", \
-	"green" = "darkslategrey", \
-	"orange" = "goldenrod", \
-	"yellow" = "goldenrod", \
-	"brown" = "darkolivegreen", \
-	"gold" = "goldenrod", \
-	"cyan" = "steelblue", \
-	"magenta" = "blue", \
-	"purple" = "darkslategrey", \
-	"pink" = "beige" \
-)
-
-#define MATRIX_VULP_CBLIND list(\
-	0.51, 0.4, 0.12,\
-	0.49, 0.41, 0.12,\
-	0, 0.2, 0.76)
-
 /obj/item/organ/external/head/vulpkanin
 	species_type = /datum/species/vulpkanin
 
@@ -59,23 +40,6 @@
 		ACCUSATIVE = "глаза вульпканина",
 		INSTRUMENTAL = "глазами вульпканина",
 		PREPOSITIONAL = "глазах вульпканина",
-	)
-
-/obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
-	species_type = /datum/species/monkey/vulpkanin
-	name = "wolpin eyeballs"
-	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
-	colourmatrix = MATRIX_VULP_CBLIND
-	replace_colours = PROTANOPIA_COLOR_REPLACE
-
-/obj/item/organ/internal/eyes/vulpkanin/wolpin/get_ru_names()
-	return alist(
-		NOMINATIVE = "глаза вульпина",
-		GENITIVE = "глаз вульпина",
-		DATIVE = "глазам вульпина",
-		ACCUSATIVE = "глаза вульпина",
-		INSTRUMENTAL = "глазами вульпина",
-		PREPOSITIONAL = "глазах вульпина",
 	)
 
 /obj/item/organ/internal/ears/vulpkanin
@@ -178,6 +142,3 @@
 		INSTRUMENTAL = "хвостом вульпканина",
 		PREPOSITIONAL = "хвосте вульпканина",
 	)
-
-#undef PROTANOPIA_COLOR_REPLACE
-#undef MATRIX_VULP_CBLIND

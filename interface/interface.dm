@@ -67,6 +67,7 @@ GAME_VERB_HIDDEN(/client, emote_panel, "Emote Panel")
 
 	if(!isliving(mob) && !isobserver(mob))
 		to_chat(mob, span_notice("Вам не доступны эмоции!"))
+		winset(src, "statwindow.statemotes", "is-visible=false")
 		return
 
 	if(!GLOB.emote_panel)

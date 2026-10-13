@@ -122,7 +122,7 @@
 /datum/skill/combat/fists
 	id = "combat.fists"
 	name = "Безоружный бой"
-	desc = "Влияет на урон кулаками, шансы обезоруживания и скорость грабов."
+	desc = "Влияет на урон кулаками, шансы обезоруживания и скорость грабов. На высоких уровнях добавляет новое боевое исскуство."
 	duration_mod_names = list(FISTS_GRAB_MOD)
 	quality_mod_names = list(FISTS_DISARM_MOD)
 	skills_mods = alist(

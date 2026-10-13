@@ -147,7 +147,7 @@
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	max_signs = 3
+	max_signs = 6
 
 /obj/item/holosign_creator/atmos/get_ru_names()
 	return alist(

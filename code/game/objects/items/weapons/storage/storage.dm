@@ -898,8 +898,10 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/proc/drop_inventory(user)
+	if(user)
+		hide_from(user)
+
 	var/turf/current_turf = get_turf(src)
-	hide_from(user)
 	for(var/obj/item/item in contents)
 		remove_from_storage(item, current_turf)
 		CHECK_TICK

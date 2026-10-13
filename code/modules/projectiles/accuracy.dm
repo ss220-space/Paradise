@@ -114,7 +114,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	hands = 50
 	foots = 50
 	other = 50
-	dual_wield_spread = 15 // less spread with dual wield, pistol are small item
 	min_spread = 3
 	max_spread = 15
 	spread_increase_step = 3
@@ -123,6 +122,11 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 /datum/gun_accuracy/pistol/enforcer
 	min_spread = 2
 	max_spread = 11
+
+/datum/gun_accuracy/pistol/laser
+	min_spread = 1
+	max_spread = 8
+	spread_increase_step = 2
 
 /datum/gun_accuracy/pistol/uplink
 	head = 80
@@ -157,7 +161,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	spread_restore_duration = 1 SECONDS
 
 /datum/gun_accuracy/rifle/laser
-	max_spread = 0
+	max_spread = 5
+	spread_increase_step = 1
 
 /datum/gun_accuracy/rifle/uplink
 	head = 95
