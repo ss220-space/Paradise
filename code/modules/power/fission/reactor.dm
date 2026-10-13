@@ -825,14 +825,14 @@
 			radio_announce(
 				span_big("[warning_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		if(REACTOR_MELTDOWN)
 			radio_announce(
 				span_big("[emergency_alert] Целостность: [get_reactor_integrity()]%"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 
@@ -944,7 +944,7 @@
 	radio_announce(
 		speaking,
 		DECLENT_RU_CAP(src, NOMINATIVE),
-		ENG_FREQ,
+		PUB_FREQ,
 		src
 	)
 	for(var/i in NGCR_COUNTDOWN_TIME to 0 step (-1 SECONDS))
@@ -956,7 +956,7 @@
 			radio_announce(
 				span_big("[safe_alert]"),
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 			final_countdown = FALSE
@@ -972,7 +972,7 @@
 		radio_announce(
 				speaking,
 				DECLENT_RU_CAP(src, NOMINATIVE),
-				ENG_FREQ,
+				PUB_FREQ,
 				src
 			)
 		sleep(1 SECONDS)
