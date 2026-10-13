@@ -75573,10 +75573,6 @@
 	},
 /area/station/commons/sleep)
 "pYS" = (
-/obj/structure/chair/office/light{
-	dir = 1;
-	pixel_y = 3
-	},
 /obj/structure/logistics_pipe/segment{
 	dir = 1
 	},
