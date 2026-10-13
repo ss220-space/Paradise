@@ -55,10 +55,9 @@ SUBSYSTEM_DEF(augury)
 			biggest_doom = d
 			biggest_threat = threat
 
-	for(var/db in storm_sources)
-		var/datum/d = db
-		if(!d || QDELETED(d))
-			storm_sources -= d
+	for(var/datum/source as anything in storm_sources)
+		if(QDELETED(source))
+			storm_sources -= source
 
 	if(length(doombringers) || length(storm_sources))
 		for(var/i in GLOB.player_list)
@@ -73,15 +72,12 @@ SUBSYSTEM_DEF(augury)
 			if(istype(tracked))
 				tracked.clear_alert(ALERT_AUGURY)
 		watchers.Cut()
-		for(var/i in GLOB.player_list)
-			if(isobserver(i))
-				var/mob/dead/observer/ghost = i
-				ghost.clear_alert(ALERT_AUGURY)
+		for(var/mob/dead/observer/ghost in GLOB.player_list)
+			ghost.clear_alert(ALERT_AUGURY)
 
-	for(var/w in watchers)
-		var/mob/dead/observer/tracked = w
+	for(var/mob/dead/observer/tracked as anything in watchers.Copy())
 		if(QDELETED(tracked))
-			watchers -= w
+			watchers -= tracked
 			continue
 		if(biggest_doom && (!tracked.orbiting || tracked.orbiting != biggest_doom))
 			tracked.ManualFollow(biggest_doom)
