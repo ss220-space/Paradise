@@ -52600,10 +52600,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/commons/serviceyard)
-"nus" = (
-/obj/structure/railing/pool_lining,
-/turf/simulated/floor/plasteel/reactor_pool,
-/area/planetoid/lazarus/engineering/engine/reactor)
 "nuE" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/particle_accelerator/particle_emitter/left{
@@ -104819,7 +104815,7 @@ gMI
 sJe
 hQO
 hQO
-nus
+hQO
 qYT
 lGO
 wZC
@@ -106875,7 +106871,7 @@ gMI
 sJe
 hQO
 hQO
-nus
+hQO
 tgm
 sRe
 tjg
