@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Убирает врезание моба в бросившего его человека при броске вперед. (PR #9879)"
