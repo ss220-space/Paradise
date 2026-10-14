@@ -50,7 +50,7 @@
 	projectile_type = /obj/projectile/beam/disabler/automatic_sniper
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
 	e_cost = 150 //8 shots
-	delay = 4 SECONDS
+	delay = 5 SECONDS
 	select_name = "heavy-disabler"
 	smart_bullet = TRUE
 
