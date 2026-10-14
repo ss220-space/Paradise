@@ -18,18 +18,17 @@
 	spawning = 0
 	width = 800
 	height = 800
-	count = 8000
-
-	lifespan = 30 SECONDS
-	fade = 1 SECONDS
-	fadein = 0.5 SECONDS
-
+	count = 16000
+	// Droplets only need enough life to cross the view; anything longer just parks off-screen drops in count.
+	lifespan = 3 SECONDS
 	/// Horizontal wind applied to gravity x each severity tick. Positive blows right, negative left.
 	var/wind_strength = 0
 	/// Minimum spawned particles per tick at the lowest non-zero severity (for gentle easing in/out).
 	var/min_spawn = 0
 	/// Maximum spawned particles per tick at full severity.
 	var/max_spawn = 0
+	/// Constant horizontal acceleration superimposed on the wind. For slanted rain.
+	var/base_gravity_x = 0
 
 /**
  * Adjusts the intensity of this particle field. Severity should be between 0 and 1 (0 stops spawning entirely).
@@ -43,14 +42,15 @@
 	var/wind = wind_strength * severity * wind_sign
 	spawning = LERP(min_spawn, max_spawn, severity)
 	if(islist(gravity) && length(gravity))
-		gravity[1] = wind
+		gravity[1] = base_gravity_x + wind
 	else
-		gravity = list(wind)
+		gravity = list(base_gravity_x + wind)
 
+// MARK: Rain
 /particles/weather/rain
 	icon = 'icons/effects/particles/generic.dmi'
-	icon_state = "drop"
-	color = "#ccffff"
+	icon_state = list("dot" = 1, "drop" = 4)
+	color = "#f4ffff"
 	position = generator(GEN_BOX, list(-510, -256, 0), list(400, 512, 0))
 	grow = list(-0.01, -0.01)
 	gravity = list(0, -10, 0.5)
@@ -58,5 +58,26 @@
 	friction = 0.3
 	min_spawn = 50
 	max_spawn = 300
-	wind_strength = 5
-	spin = 0
+	wind_strength = 2
+
+/particles/weather/rain/light
+	lifespan = 5 SECONDS
+	grow = list(-0.04, -0.04)
+	gravity = list(0, -9, 0.5)
+	friction = 0.35
+	min_spawn = 1
+	max_spawn = 70
+
+/particles/weather/rain/heavy
+	icon_state = list("drop" = 2, "long_drop" = 5)
+	scale = list(1.6, 1.2)
+	grow = list(-0.016, -0.032)
+	gravity = list(5, -20, 0.5)
+	base_gravity_x = 5
+	friction = 0.15
+	rotation = -30
+	min_spawn = 100
+	max_spawn = 600
+
+/particles/weather/rain/heavy/acid
+	color = "#b7ffc9"

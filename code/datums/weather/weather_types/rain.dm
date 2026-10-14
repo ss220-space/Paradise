@@ -1,20 +1,13 @@
 /datum/weather/particle/rain
-	particle_type = /particles/weather/rain
+	particle_type = /particles/weather/rain/heavy
 	overlay_planes = list()
 	name = "rain"
 	desc = "Мягкий дождь омывает поверхность планеты, создавая умиротворяющую атмосферу."
-
 	telegraph_message = span_notice_alt("Небо темнеет, первые капли дождя начинают падать...")
-	telegraph_overlay = "light_rain"
-
 	weather_message = span_notice_alt("<i>Дождь льёт как из ведра. Приятное журчание воды наполняет воздух.</i>")
-	weather_overlay = "rain"
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 180 SECONDS
-
 	end_message = span_notice_alt("Дождь заканчивается. Последние капли падают на землю.")
-	end_overlay = "light_rain"
-	weather_color = COLOR_PALE_BLUE_GRAY
 
 	area_type = /area/planetoid
 	target_trait = ZTRAIT_RAIN
@@ -27,7 +20,6 @@
 
 	probability = 50
 	lightning_chance = 5
-
 	barometer_predictable = TRUE
 
 	var/list/weak_sounds = list()
@@ -95,21 +87,16 @@
 /datum/weather/particle/rain/weather_act(mob/living/target)
 	if(!iscarbon(target) || (wetness_counter % soak_interval))
 		return
-
 	var/mob/living/carbon/carbon_target = target
 	carbon_target.water_act(15, T20C, src)
 
 /datum/weather/particle/rain/drizzle
+	particle_type = /particles/weather/rain/light
 	name = "drizzle"
 	desc = "Проходящий дождь задевает планету краем, оставляя лишь лёгкую морось."
-
 	weather_message = span_notice_alt("<i>Морось тихо шепчет по крышам. Похоже, дождь обошёл вас стороной...</i>")
-	weather_overlay = "light_rain"
-
 	end_message = span_notice_alt("Морось прекращается. Небо снова проясняется.")
-
 	aesthetic = TRUE
-
 	probability = 10
 
 /datum/weather/particle/rain/drizzle/update_audio(next_stage)
@@ -125,6 +112,7 @@
 			GLOB.rain_sounds -= weak_sounds
 
 /datum/weather/particle/rain/acid
+	particle_type = /particles/weather/rain/heavy/acid
 	name = "acid rain"
 	desc = "Кислотный дождь пропитывает поверхность планеты едкой жидкостью."
 	telegraph_message = span_boldwarning_alt("Небо наливается болезненно-зелёным оттенком. Воздух обжигает горло — немедленно найдите укрытие!")
@@ -136,18 +124,14 @@
 	var/acid_reagent_dose = 0.2
 
 /datum/weather/particle/rain/acid/weather_act(mob/living/target)
-	if(target.stat == DEAD)
-		return
 	if(!ishuman(target))
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	if(human_target.head && human_target.wear_suit)
-		return
 	var/static/list/acid_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/zone in acid_zones)
-		human_target.apply_damage((1 - min(human_target.getarmor(zone, ACID), 100) / 100) * (burn_per_second / length(acid_zones)), BURN, zone)
+		human_target.apply_damage((2 - min(human_target.getarmor(zone, ACID), 100) / 100) * (burn_per_second / length(acid_zones)), BURN, zone)
 
 	if(human_target.reagents)
-		var/acid_multiplier = (1 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100) / 100)
-		human_target.reagents.add_reagent(/datum/reagent/acid, acid_reagent_dose * acid_multiplier)
+		var/acid_multiplier = (6 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100) / 100)
+		human_target.reagents.add_reagent(/datum/reagent/fluorine, acid_reagent_dose * acid_multiplier)

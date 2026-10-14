@@ -62,11 +62,14 @@
 		switch(stage)
 			if(STARTUP_STAGE)
 				new_severity += rand() * severity_variation * (1 - severity / min_severity)
+				new_severity = clamp(new_severity, min_severity, max_severity)
 			if(MAIN_STAGE)
 				new_severity += LERP(-severity_variation * clamp(INVERSE_LERP(min_severity, optimal_severity, severity), 0, 1), severity_variation * clamp(INVERSE_LERP(max_severity, optimal_severity, severity), 0, 1), rand())
-				new_severity = clamp(new_severity, min(new_severity, min_severity), max_severity)
+				new_severity = clamp(new_severity, min_severity, max_severity)
 			if(WIND_DOWN_STAGE)
 				new_severity += rand() * -severity_variation * 4 * max(severity / min_severity, 1)
+
+		new_severity = clamp(new_severity, 0, max_severity)
 
 		animate_severity(new_severity)
 

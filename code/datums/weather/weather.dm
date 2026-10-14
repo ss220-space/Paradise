@@ -63,8 +63,8 @@
 
 	/// Relative frequency of each thunder severity, keyed by the SFX_THUNDER_* sound keys
 	var/list/thunder_severity_weights = list(
-		SFX_THUNDER_LOW = 6,
-		SFX_THUNDER_MEDIUM = 3,
+		SFX_THUNDER_LOW = 15,
+		SFX_THUNDER_MEDIUM = 6,
 		SFX_THUNDER_HEAVY = 1,
 	)
 
@@ -202,7 +202,7 @@
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
 			continue
-		mob.playsound_local(mob, null, 100, FALSE, 0, null, CHANNEL_WEATHER, FALSE, thunder_sound)
+		mob.playsound_local(mob, null, 80, FALSE, 0, null, 0, FALSE, thunder_sound)
 		var/area/mob_area = get_area(mob)
 		if(mob_area?.outdoors)
 			var/atom/movable/screen/fullscreen/flash = mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
