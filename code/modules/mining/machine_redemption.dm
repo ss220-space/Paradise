@@ -333,7 +333,7 @@
 		var/datum/design/D = files.known_designs[v]
 		alloys += list(list(
 			"id" = D.id,
-			"name" = D.build_object_name,
+			"name" = CallMaterialName(D.id),
 			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))

@@ -2,7 +2,7 @@
 
 /obj/machinery/atmospherics/unary/reactor_gas_node
 	name = "reactor gas intake"
-	desc = "A sturdy-looking gas inlet that injects gas into the reactor."
+	desc = "Надёжный газовый впуск, подающий газ в реактор."
 	icon = 'icons/obj/fission/reactor_machines.dmi'
 	icon_state = "gas_node"
 	layer = GAS_PIPE_VISIBLE_LAYER
@@ -15,9 +15,29 @@
 	/// Is this vent taking air in or out. TRUE by default.
 	var/intake_vent = TRUE
 
+/obj/machinery/atmospherics/unary/reactor_gas_node/get_ru_names()
+	return alist(
+		NOMINATIVE = "впуск газа реактора",
+		GENITIVE = "впуска газа реактора",
+		DATIVE = "впуску газа реактора",
+		ACCUSATIVE = "впуск газа реактора",
+		INSTRUMENTAL = "впуском газа реактора",
+		PREPOSITIONAL = "впуске газа реактора",
+	)
+
 /obj/machinery/atmospherics/unary/reactor_gas_node/output
 	name = "Reactor Gas Extractor"
 	intake_vent = FALSE
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/output/get_ru_names()
+	return alist(
+		NOMINATIVE = "выпуск газа реактора",
+		GENITIVE = "выпуска газа реактора",
+		DATIVE = "выпуску газа реактора",
+		ACCUSATIVE = "выпуск газа реактора",
+		INSTRUMENTAL = "выпуском газа реактора",
+		PREPOSITIONAL = "выпуске газа реактора",
+	)
 
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
@@ -38,8 +58,8 @@
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/examine(mob/user)
 	. = ..()
-	. += span_notice("A wrench can be used to alter the direction of the node.")
-	. += span_notice("Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.")
+	. += span_notice("Монтировкой можно изменить направление работы узла.")
+	. += span_notice("Газовые узлы связываются с реактором только находясь лицом к нему со стороны, противоположной впускной трубе.")
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/proc/get_reactor_gas()
 	return linked_reactor.air_contents
@@ -93,19 +113,19 @@
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
-	to_chat(user, span_notice("You begin to pry out the internal piping..."))
+	to_chat(user, span_notice("Вы начинаете вытаскивать внутренние трубы..."))
 	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
-	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
+	var/list/choices = list("Запад" = WEST, "Восток" = EAST, "Юг" = SOUTH, "Север" = NORTH)
+	var/selected = tgui_input_list(user, "Выберите направление соединителя.", "Направление соединителя", choices)
 	if(!selected)
 		return TRUE
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return TRUE
 	if(!IsReachableBy(user))
-		to_chat(user, span_warning("You moved away before construction was finished!"))
+		to_chat(user, span_warning("Вы отошли, не дождавшись завершения работ!"))
 		return TRUE
 	dir = choices[selected]
 	initialize_directions = dir
@@ -130,23 +150,49 @@
 		return
 	if(!linked_reactor)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		audible_message(span_notice("The gas node buzzes as it fails to connect to a reactor."))
+		audible_message(span_notice("Газовый узел издаёт гудок, не сумев подключиться к реактору."))
 	else
 		playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-		audible_message(span_notice("The gas node pings as it connects to the reactor."))
+		audible_message(span_notice("Газовый узел издаёт сигнал, подключаясь к реактору."))
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, span_notice("You begin to reverse the gas flow direction..."))
+	to_chat(user, span_notice("Вы начинаете изменить направление потока газа..."))
 	if(do_after(user, 1 SECONDS, src))
 		intake_vent = !intake_vent
 		if(intake_vent)
 			name = "Reactor Gas Intake"
+			ru_names = alist(
+				NOMINATIVE = "впуск газа реактора",
+				GENITIVE = "впуска газа реактора",
+				DATIVE = "впуску газа реактора",
+				ACCUSATIVE = "впуск газа реактора",
+				INSTRUMENTAL = "впуском газа реактора",
+				PREPOSITIONAL = "впуске газа реактора",
+			)
 		else
 			name = "Reactor Gas Extractor"
+			ru_names = alist(
+				NOMINATIVE = "выпуск газа реактора",
+				GENITIVE = "выпуска газа реактора",
+				DATIVE = "выпуску газа реактора",
+				ACCUSATIVE = "выпуск газа реактора",
+				INSTRUMENTAL = "выпуском газа реактора",
+				PREPOSITIONAL = "выпуске газа реактора",
+			)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/moderator
 	name = "Reactor Gas Moderator"
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/moderator/get_ru_names()
+	return alist(
+		NOMINATIVE = "газовый модератор реактора",
+		GENITIVE = "газового модератора реактора",
+		DATIVE = "газовому модератору реактора",
+		ACCUSATIVE = "газовый модератор реактора",
+		INSTRUMENTAL = "газовым модератором реактора",
+		PREPOSITIONAL = "газовом модераторе реактора",
+	)
 
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/moderator/Initialize(mapload)
