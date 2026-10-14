@@ -67,8 +67,7 @@
 		SFX_THUNDER_HEAVY = 1,
 	)
 
-	/// How bright the lightning flash is (0-255) per thunder severity. Heavy thunder lights up
-	/// the whole screen, a distant rumble only faintly.
+	/// How bright the lightning flash is (0-255) per thunder severity. Heavy thunder lights up the whole screen, a distant rumble only faintly.
 	var/list/thunder_flash_alphas = list(
 		SFX_THUNDER_LOW = 77, // 30%
 		SFX_THUNDER_MEDIUM = 154, // 60%
@@ -202,12 +201,12 @@
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
 			continue
-		mob.playsound_local(mob, null, 100, FALSE, 0, null, 0, FALSE, thunder_sound)
+		mob.playsound_local(mob, null, 100, FALSE, 0, CHANNEL_WEATHER, 0, FALSE, thunder_sound)
 		var/area/mob_area = get_area(mob)
 		if(mob_area?.outdoors)
 			var/atom/movable/screen/fullscreen/flash = mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
-			if(flash)
-				flash.alpha = flash_alpha
+			flash.alpha = flash_alpha
+			flash.color = "#c6e6ff"
 	addtimer(CALLBACK(src, PROC_REF(clear_lightning_flash)), 0.05 SECONDS)
 
 /datum/weather/proc/clear_lightning_flash()
