@@ -1320,7 +1320,9 @@
 	icon_state = "cave"
 	outdoors = FALSE
 	sound_environment = SOUND_ENVIRONMENT_CAVE
-	ambience_index = AMBIENCE_REEBE
+	ambient_buzz = 'sound/ambience/misc/sfx_ambience_cave.ogg'
+	ambient_buzz_vol = 60
+	ambience_index = AMBIENCE_CAVES
 
 /area/planetoid/caves/central_cave_network
 	name = "Central Cave Network"

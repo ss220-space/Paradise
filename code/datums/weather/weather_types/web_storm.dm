@@ -10,7 +10,7 @@
 	weather_duration_lower = 30 SECONDS
 	weather_duration_upper = 1 MINUTES
 	overlay_layer = MOB_LAYER
-	overlay_plane = GAME_PLANE
+	overlay_planes = list(GAME_PLANE)
 	weather_sound = 'sound/creatures/terrorspiders/queen_shriek.ogg'
 
 	end_duration = 10 SECONDS

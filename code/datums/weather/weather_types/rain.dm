@@ -1,18 +1,13 @@
-/datum/weather/rain
+/datum/weather/particle/rain
+	particle_type = /particles/weather/rain
+	overlay_planes = list()
 	name = "rain"
 	desc = "Мягкий дождь омывает поверхность планеты, создавая умиротворяющую атмосферу."
-
 	telegraph_message = span_notice_alt("Небо темнеет, первые капли дождя начинают падать...")
-	telegraph_overlay = "light_rain"
-
 	weather_message = span_notice_alt("<i>Дождь льёт как из ведра. Приятное журчание воды наполняет воздух.</i>")
-	weather_overlay = "rain"
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 180 SECONDS
-
 	end_message = span_notice_alt("Дождь заканчивается. Последние капли падают на землю.")
-	end_overlay = "light_rain"
-	weather_color = COLOR_PALE_BLUE_GRAY
 
 	area_type = /area/planetoid
 	target_trait = ZTRAIT_RAIN
@@ -25,15 +20,19 @@
 
 	probability = 50
 	lightning_chance = 5
-
 	barometer_predictable = TRUE
+
+	min_severity = 5
+	optimal_severity = 85
+	max_severity = 100
+	severity_variation = 2
 
 	var/list/weak_sounds = list()
 	var/list/strong_sounds = list()
 	var/wetness_counter = 0
 	var/soak_interval = 10
 
-/datum/weather/rain/proc/update_eligible_areas()
+/datum/weather/particle/rain/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
@@ -49,7 +48,7 @@
 			weak_sounds[place] = /datum/looping_sound/weak_inside_rain
 			strong_sounds[place] = /datum/looping_sound/active_inside_rain
 
-/datum/weather/rain/proc/update_audio(next_stage)
+/datum/weather/particle/rain/proc/update_audio(next_stage)
 	switch(next_stage)
 		if(STARTUP_STAGE)
 			GLOB.rain_sounds += weak_sounds
@@ -65,7 +64,7 @@
 		if(END_STAGE)
 			GLOB.rain_sounds -= weak_sounds
 
-/datum/weather/rain/telegraph()
+/datum/weather/particle/rain/telegraph()
 	if(stage == STARTUP_STAGE)
 		return TRUE
 	update_eligible_areas()
@@ -75,42 +74,41 @@
 		update_audio(END_STAGE)
 		SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_END(type), src)
 
-/datum/weather/rain/start()
+/datum/weather/particle/rain/start()
 	update_audio(MAIN_STAGE)
 	. = ..()
 
-/datum/weather/rain/wind_down()
+/datum/weather/particle/rain/wind_down()
 	update_audio(WIND_DOWN_STAGE)
 	. = ..()
 
-/datum/weather/rain/end()
+/datum/weather/particle/rain/end()
 	update_audio(END_STAGE)
 	. = ..()
 
-/datum/weather/rain/fire()
+/datum/weather/particle/rain/fire()
 	wetness_counter++
 
-/datum/weather/rain/weather_act(mob/living/target)
+/datum/weather/particle/rain/weather_act(mob/living/target)
 	if(!iscarbon(target) || (wetness_counter % soak_interval))
 		return
-
 	var/mob/living/carbon/carbon_target = target
 	carbon_target.water_act(15, T20C, src)
 
-/datum/weather/rain/drizzle
+/datum/weather/particle/rain/drizzle
+	particle_type = /particles/weather/rain
 	name = "drizzle"
 	desc = "Проходящий дождь задевает планету краем, оставляя лишь лёгкую морось."
-
 	weather_message = span_notice_alt("<i>Морось тихо шепчет по крышам. Похоже, дождь обошёл вас стороной...</i>")
-	weather_overlay = "light_rain"
-
 	end_message = span_notice_alt("Морось прекращается. Небо снова проясняется.")
-
 	aesthetic = TRUE
-
 	probability = 10
+	min_severity = 5
+	optimal_severity = 20
+	max_severity = 25
+	severity_variation = 2
 
-/datum/weather/rain/drizzle/update_audio(next_stage)
+/datum/weather/particle/rain/drizzle/update_audio(next_stage)
 	switch(next_stage)
 		if(STARTUP_STAGE, WIND_DOWN_STAGE)
 			GLOB.rain_sounds += weak_sounds
@@ -122,7 +120,8 @@
 		if(END_STAGE)
 			GLOB.rain_sounds -= weak_sounds
 
-/datum/weather/rain/acid
+/datum/weather/particle/rain/acid
+	particle_type = /particles/weather/rain/acid
 	name = "acid rain"
 	desc = "Кислотный дождь пропитывает поверхность планеты едкой жидкостью."
 	telegraph_message = span_boldwarning_alt("Небо наливается болезненно-зелёным оттенком. Воздух обжигает горло — немедленно найдите укрытие!")
@@ -133,19 +132,15 @@
 	var/burn_per_second = 1
 	var/acid_reagent_dose = 0.2
 
-/datum/weather/rain/acid/weather_act(mob/living/target)
-	if(target.stat == DEAD)
-		return
+/datum/weather/particle/rain/acid/weather_act(mob/living/target)
 	if(!ishuman(target))
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	if(human_target.head && human_target.wear_suit)
-		return
 	var/static/list/acid_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/zone in acid_zones)
-		human_target.apply_damage((1 - min(human_target.getarmor(zone, ACID), 100) / 100) * (burn_per_second / length(acid_zones)), BURN, zone)
+		human_target.apply_damage((2 - min(human_target.getarmor(zone, ACID), 100) / 100) * (burn_per_second / length(acid_zones)), BURN, zone)
 
 	if(human_target.reagents)
-		var/acid_multiplier = (1 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100) / 100)
-		human_target.reagents.add_reagent(/datum/reagent/acid, acid_reagent_dose * acid_multiplier)
+		var/acid_multiplier = (6 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100) / 100)
+		human_target.reagents.add_reagent(/datum/reagent/fluorine, acid_reagent_dose * acid_multiplier)

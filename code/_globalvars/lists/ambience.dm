@@ -193,8 +193,6 @@ GLOBAL_LIST_INIT(creepy_ambience, list(
 ))
 
 GLOBAL_LIST_INIT(planetoid_ambience, list(
-	'sound/ambience/planetoid/deepcave1.ogg',
-	'sound/ambience/planetoid/deepcave2.ogg',
 	'sound/ambience/planetoid/derelict_plateau_1.ogg',
 	'sound/ambience/planetoid/derelict_plateau_2.ogg',
 	'sound/ambience/planetoid/wind1.ogg',
@@ -229,6 +227,13 @@ GLOBAL_LIST_INIT(planetoid_ambience, list(
 	'sound/ambience/planetoid/windy_caverns_3.ogg',
 ))
 
+GLOBAL_LIST_INIT(caves_ambience, list(
+	'sound/ambience/planetoid/sfx_breakdown_cave_01.ogg',
+	'sound/ambience/planetoid/sfx_breakdown_cave_02.ogg',
+	'sound/ambience/planetoid/sfx_breakdown_cave_03.ogg',
+	'sound/ambience/planetoid/sfx_breakdown_cave_04.ogg',
+))
+
 GLOBAL_LIST_INIT(ambience_assoc, list(
 	AMBIENCE_AWAY = GLOB.away_ambience,
 	AMBIENCE_CREEPY = GLOB.creepy_ambience,
@@ -246,4 +251,5 @@ GLOBAL_LIST_INIT(ambience_assoc, list(
 	AMBIENCE_SPACE = GLOB.space_ambience,
 	AMBIENCE_SPOOKY = GLOB.spooky_ambience,
 	AMBIENCE_PLANETOID = GLOB.planetoid_ambience,
+	AMBIENCE_CAVES = GLOB.caves_ambience,
 ))

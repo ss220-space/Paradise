@@ -786,3 +786,32 @@
 		'sound/effects/footstep/heavy1.ogg',
 		'sound/effects/footstep/heavy2.ogg',
 	)
+
+/datum/sound_effect/thunder_heavy
+	key = SFX_THUNDER_HEAVY
+	file_paths = list(
+		'sound/ambience/weather/rain/thunder/sfx_thunder_heavy_1.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_heavy_2.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_heavy_3.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_heavy_4.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_heavy_5.ogg',
+	)
+
+/datum/sound_effect/thunder_medium
+	key = SFX_THUNDER_MEDIUM
+	file_paths = list(
+		'sound/ambience/weather/rain/thunder/sfx_thunder_medium_1.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_medium_2.ogg',
+	)
+
+/datum/sound_effect/thunder_low
+	key = SFX_THUNDER_LOW
+	file_paths = list(
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_1.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_2.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_3.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_4.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_5.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_6.ogg',
+		'sound/ambience/weather/rain/thunder/sfx_thunder_low_7.ogg',
+	)
