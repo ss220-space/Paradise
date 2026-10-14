@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - bugfix: "Чинит бесконечное выпадение множества черепов легиона из легионов при их смерти. (PR #9894)"

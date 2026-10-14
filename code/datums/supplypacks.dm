@@ -69,10 +69,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 			continue
 		var/atom/movable/dummy = new path(locate(1, 1, 1))
 		var/content_name = dummy.declent_ru(NOMINATIVE)
+		var/content_name_en = "[dummy.name]"
+		var/content_icon = ""
+		var/content_icon_state = ""
+		if(isfile(dummy.icon) && length("[dummy.icon]"))
+			content_icon = "[dummy.icon]"
+			content_icon_state = "[dummy.icon_state]"
 		qdel(dummy)
 		manifest += "<li>[content_name]</li>"
-		// Add the name to the UI manifest
-		ui_manifest += "[content_name]"
+		// Add the entry to the UI manifest (name + icon for the cargo console contents modal)
+		ui_manifest += list(list("name" = content_name, "name_en" = content_name_en, "icon" = content_icon, "icon_state" = content_icon_state))
 	manifest += "</ul>"
 
 /datum/supply_packs/proc/can_approve(mob/user)
@@ -4740,7 +4746,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
-	name = "Оборудование для плеловодства"
+	name = "Оборудование для пчеловодства"
 	contains = list(
 		/obj/structure/beebox/unwrenched,
 		/obj/item/honey_frame,
@@ -4751,14 +4757,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/suit/beekeeper_suit,
 		/obj/item/melee/flyswatter,
 	)
-	containername = "ящик с оборудованием для плеловодства"
+	containername = "ящик с оборудованием для пчеловодства"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик с оборудованием для плеловодства",
-		GENITIVE = "ящика с оборудованием для плеловодства",
-		DATIVE = "ящику с оборудованием для плеловодства",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства",
+		NOMINATIVE = "ящик с оборудованием для пчеловодства",
+		GENITIVE = "ящика с оборудованием для пчеловодства",
+		DATIVE = "ящику с оборудованием для пчеловодства",
+		ACCUSATIVE = "ящик с оборудованием для пчеловодства",
+		INSTRUMENTAL = "ящиком с оборудованием для пчеловодства",
+		PREPOSITIONAL = "ящике с оборудованием для пчеловодства",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
@@ -4770,14 +4776,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/suit/beekeeper_suit,
 	)
 	cost = 10
-	containername = "ящик с костюмами плеловода"
+	containername = "ящик с костюмами пчеловода"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик с костюмами плеловода",
-		GENITIVE = "ящика с костюмами плеловода",
-		DATIVE = "ящику с костюмами плеловода",
-		ACCUSATIVE = "ящик с костюмами плеловода",
-		INSTRUMENTAL = "ящиком с костюмами плеловода",
-		PREPOSITIONAL = "ящике с костюмами плеловода",
+		NOMINATIVE = "ящик с костюмами пчеловода",
+		GENITIVE = "ящика с костюмами пчеловода",
+		DATIVE = "ящику с костюмами пчеловода",
+		ACCUSATIVE = "ящик с костюмами пчеловода",
+		INSTRUMENTAL = "ящиком с костюмами пчеловода",
+		PREPOSITIONAL = "ящике с костюмами пчеловода",
 	)
 
 //Bottler

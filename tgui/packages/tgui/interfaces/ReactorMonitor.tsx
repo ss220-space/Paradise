@@ -67,13 +67,13 @@ export const ReactorMonitor = (props) => {
     ...filteredModeratorGases.map((gas) => gas.portion),
   );
   return (
-    <Window width={550} height={500}>
+    <Window width={650} height={500}>
       <Window.Content>
         <Stack fill>
-          <Stack.Item width="270px">
-            <Section fill scrollable title="Metrics">
+          <Stack.Item width="320px">
+            <Section fill scrollable title="Показатели">
               <LabeledList>
-                <LabeledList.Item label="Integrity">
+                <LabeledList.Item label="Целостность">
                   <ProgressBar
                     value={NGCR_integrity / 100}
                     ranges={{
@@ -83,7 +83,7 @@ export const ReactorMonitor = (props) => {
                     }}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Power Generation">
+                <LabeledList.Item label="Выработка энергии">
                   <ProgressBar
                     value={NGCR_power}
                     minValue={0}
@@ -102,10 +102,10 @@ export const ReactorMonitor = (props) => {
                   >
                     {toFixed(
                       NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000,
-                    ) + (NGCR_power < 10000 ? ' KW' : ' MW')}
+                    ) + (NGCR_power < 10000 ? ' кВт' : ' МВт')}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Reactivity Coefficient">
+                <LabeledList.Item label="Коэффициент реактивности">
                   <ProgressBar
                     value={NGCR_coefficient}
                     minValue={1}
@@ -119,7 +119,7 @@ export const ReactorMonitor = (props) => {
                     {NGCR_coefficient.toFixed(2)}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Temperature">
+                <LabeledList.Item label="Температура">
                   <ProgressBar
                     value={logScale(NGCR_ambienttemp)}
                     minValue={0}
@@ -131,10 +131,10 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(1000), Infinity],
                     }}
                   >
-                    {`${toFixed(NGCR_ambienttemp)} K`}
+                    {`${toFixed(NGCR_ambienttemp)} К`}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Pressure">
+                <LabeledList.Item label="Давление">
                   <ProgressBar
                     value={logScale(NGCR_ambientpressure)}
                     minValue={0}
@@ -145,10 +145,10 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(3000), Infinity],
                     }}
                   >
-                    {`${toFixed(NGCR_ambientpressure)} kPa`}
+                    {`${toFixed(NGCR_ambientpressure)} кПа`}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Control Rod Limiter">
+                <LabeledList.Item label="Ограничитель">
                   <ProgressBar
                     value={NGCR_operatingpower}
                     minValue={0}
@@ -164,7 +164,7 @@ export const ReactorMonitor = (props) => {
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
-              <Section title="Desired Control Rod Limit" textAlign="center">
+              <Section title="Целевой лимит" textAlign="center">
                 <Knob
                   size={5}
                   value={NGCR_throttle}
@@ -188,11 +188,13 @@ export const ReactorMonitor = (props) => {
                 <Section
                   fill
                   scrollable
-                  title="Gases"
+                  title="Газы"
                   buttons={
                     <Button
                       icon={'power-off'}
-                      content={venting ? 'Vent Open' : 'Vent Closed'}
+                      content={
+                        venting ? 'Вентиляция открыта' : 'Вентиляция закрыта'
+                      }
                       selected={venting}
                       onClick={() => act('toggle_vent')}
                     />
@@ -219,7 +221,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={gasMaxAmount}
                         >
-                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
+                          {`${toFixed(gas.amount)} моль (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}
@@ -227,7 +229,7 @@ export const ReactorMonitor = (props) => {
                 </Section>
               </Stack.Item>
               <Stack.Item grow>
-                <Section fill scrollable title="Moderator Gases">
+                <Section fill scrollable title="Газы-модераторы">
                   <LabeledList>
                     {filteredModeratorGases.map((gas) => (
                       <LabeledList.Item
@@ -249,7 +251,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={moderatorGasMaxAmount}
                         >
-                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
+                          {`${toFixed(gas.amount)} моль (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}
