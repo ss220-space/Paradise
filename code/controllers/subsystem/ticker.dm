@@ -374,11 +374,13 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
-	SEND_SOUND(world, sound(
-			SSstation.announcer.get_rand_welcome_sound(),
-			channel = CHANNEL_ANNOUNCER,
-			volume = 40,
-		))
+	var/welcome_sound = SSstation.announcer.get_rand_welcome_sound()
+	for(var/client/client as anything in GLOB.clients)
+		SEND_SOUND(client, sound(
+				welcome_sound,
+				channel = CHANNEL_ANNOUNCER,
+				volume = 100 * client.prefs.get_channel_volume(CHANNEL_ANNOUNCER),
+			))
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))

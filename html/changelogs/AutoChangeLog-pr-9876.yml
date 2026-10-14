@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - tweak: "Убрано замыливание экрана у шутостерона (PR #9876)"

@@ -1,3 +1,7 @@
+/datum/gear/towel
+	index_name = "towel"
+	path = /obj/item/clothing/suit/towel/short
+
 /datum/gear/dice
 	index_name = "a d20"
 	path = /obj/item/dice/d20

@@ -525,6 +525,19 @@
 		return TRUE
 	create_area(usr)
 
+/atom/movable/screen/navigate
+	name = "navigate menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
+
 /atom/movable/screen/inventory
 	/// The identifier for the slot. It has nothing to do with ID cards.
 	var/slot_id
