@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Ноль теперь не будет показываться в конце игры (PR #9895)"

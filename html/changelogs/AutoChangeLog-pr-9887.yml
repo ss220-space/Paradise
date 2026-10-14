@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Фикс раскладываемых ручек. (PR #9887)"
