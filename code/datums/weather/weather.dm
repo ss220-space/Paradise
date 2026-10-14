@@ -36,8 +36,9 @@
 
 	/// Since it's above everything else, this is the layer used by default.
 	var/overlay_layer = AREA_LAYER
-	/// Plane for the overlay
-	var/overlay_plane = WEATHER_PLANE
+	/// Plane the weather tile overlay renders to. Particle weather overrides this to list() so the tiles
+	/// don't render at all and the in-world particle emitters become the only visual.
+	var/list/overlay_planes = list(WEATHER_PLANE)
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	/// Used by mobs (or movables containing mobs, such as enviro bags) to prevent them from being affected by the weather.
 	var/immunity_type
@@ -201,12 +202,14 @@
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
 			continue
-		mob.playsound_local(mob, null, 100, FALSE, 0, CHANNEL_WEATHER, 0, FALSE, thunder_sound)
+		mob.playsound_local(mob, null, 100, FALSE, 0, null, CHANNEL_WEATHER, FALSE, thunder_sound)
 		var/area/mob_area = get_area(mob)
 		if(mob_area?.outdoors)
 			var/atom/movable/screen/fullscreen/flash = mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
 			flash.alpha = flash_alpha
 			flash.color = "#c6e6ff"
+			if(thunder_key == SFX_THUNDER_HEAVY)
+				shake_camera(mob, 1, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_lightning_flash)), 0.05 SECONDS)
 
 /datum/weather/proc/clear_lightning_flash()
@@ -255,8 +258,9 @@
 	// Yes this is a bit annoying, but it's too slow to calculate and store these from turfs, and it shouldn't (I hope) look weird
 	var/list/gen_overlay_cache = list()
 	for(var/offset in 0 to SSmapping.max_plane_offset)
-		var/mutable_appearance/new_weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
-		new_weather_overlay.color = weather_color
-		gen_overlay_cache += new_weather_overlay
+		for(var/overlay_plane in overlay_planes)
+			var/mutable_appearance/new_weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
+			new_weather_overlay.color = weather_color
+			gen_overlay_cache += new_weather_overlay
 
 	return gen_overlay_cache

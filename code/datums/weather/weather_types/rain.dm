@@ -1,4 +1,6 @@
-/datum/weather/rain
+/datum/weather/particle/rain
+	particle_type = /particles/weather/rain
+	overlay_planes = list()
 	name = "rain"
 	desc = "Мягкий дождь омывает поверхность планеты, создавая умиротворяющую атмосферу."
 
@@ -33,7 +35,7 @@
 	var/wetness_counter = 0
 	var/soak_interval = 10
 
-/datum/weather/rain/proc/update_eligible_areas()
+/datum/weather/particle/rain/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += SSmapping.areas_in_z["[z]"]
@@ -49,7 +51,7 @@
 			weak_sounds[place] = /datum/looping_sound/weak_inside_rain
 			strong_sounds[place] = /datum/looping_sound/active_inside_rain
 
-/datum/weather/rain/proc/update_audio(next_stage)
+/datum/weather/particle/rain/proc/update_audio(next_stage)
 	switch(next_stage)
 		if(STARTUP_STAGE)
 			GLOB.rain_sounds += weak_sounds
@@ -65,7 +67,7 @@
 		if(END_STAGE)
 			GLOB.rain_sounds -= weak_sounds
 
-/datum/weather/rain/telegraph()
+/datum/weather/particle/rain/telegraph()
 	if(stage == STARTUP_STAGE)
 		return TRUE
 	update_eligible_areas()
@@ -75,29 +77,29 @@
 		update_audio(END_STAGE)
 		SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_END(type), src)
 
-/datum/weather/rain/start()
+/datum/weather/particle/rain/start()
 	update_audio(MAIN_STAGE)
 	. = ..()
 
-/datum/weather/rain/wind_down()
+/datum/weather/particle/rain/wind_down()
 	update_audio(WIND_DOWN_STAGE)
 	. = ..()
 
-/datum/weather/rain/end()
+/datum/weather/particle/rain/end()
 	update_audio(END_STAGE)
 	. = ..()
 
-/datum/weather/rain/fire()
+/datum/weather/particle/rain/fire()
 	wetness_counter++
 
-/datum/weather/rain/weather_act(mob/living/target)
+/datum/weather/particle/rain/weather_act(mob/living/target)
 	if(!iscarbon(target) || (wetness_counter % soak_interval))
 		return
 
 	var/mob/living/carbon/carbon_target = target
 	carbon_target.water_act(15, T20C, src)
 
-/datum/weather/rain/drizzle
+/datum/weather/particle/rain/drizzle
 	name = "drizzle"
 	desc = "Проходящий дождь задевает планету краем, оставляя лишь лёгкую морось."
 
@@ -110,7 +112,7 @@
 
 	probability = 10
 
-/datum/weather/rain/drizzle/update_audio(next_stage)
+/datum/weather/particle/rain/drizzle/update_audio(next_stage)
 	switch(next_stage)
 		if(STARTUP_STAGE, WIND_DOWN_STAGE)
 			GLOB.rain_sounds += weak_sounds
@@ -122,7 +124,7 @@
 		if(END_STAGE)
 			GLOB.rain_sounds -= weak_sounds
 
-/datum/weather/rain/acid
+/datum/weather/particle/rain/acid
 	name = "acid rain"
 	desc = "Кислотный дождь пропитывает поверхность планеты едкой жидкостью."
 	telegraph_message = span_boldwarning_alt("Небо наливается болезненно-зелёным оттенком. Воздух обжигает горло — немедленно найдите укрытие!")
@@ -133,7 +135,7 @@
 	var/burn_per_second = 1
 	var/acid_reagent_dose = 0.2
 
-/datum/weather/rain/acid/weather_act(mob/living/target)
+/datum/weather/particle/rain/acid/weather_act(mob/living/target)
 	if(target.stat == DEAD)
 		return
 	if(!ishuman(target))

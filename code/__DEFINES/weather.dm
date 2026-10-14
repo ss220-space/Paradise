@@ -2,3 +2,5 @@
 #define MAIN_STAGE 2
 #define WIND_DOWN_STAGE 3
 #define END_STAGE 4
+
+#define MAXIMUM_WEATHER_SEVERITY 100
