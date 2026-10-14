@@ -1,5 +1,5 @@
 /datum/weather/particle/rain
-	particle_type = /particles/weather/rain/heavy
+	particle_type = /particles/weather/rain
 	overlay_planes = list()
 	name = "rain"
 	desc = "Мягкий дождь омывает поверхность планеты, создавая умиротворяющую атмосферу."
@@ -21,6 +21,11 @@
 	probability = 50
 	lightning_chance = 5
 	barometer_predictable = TRUE
+
+	min_severity = 5
+	optimal_severity = 85
+	max_severity = 100
+	severity_variation = 2
 
 	var/list/weak_sounds = list()
 	var/list/strong_sounds = list()
@@ -91,13 +96,17 @@
 	carbon_target.water_act(15, T20C, src)
 
 /datum/weather/particle/rain/drizzle
-	particle_type = /particles/weather/rain/light
+	particle_type = /particles/weather/rain
 	name = "drizzle"
 	desc = "Проходящий дождь задевает планету краем, оставляя лишь лёгкую морось."
 	weather_message = span_notice_alt("<i>Морось тихо шепчет по крышам. Похоже, дождь обошёл вас стороной...</i>")
 	end_message = span_notice_alt("Морось прекращается. Небо снова проясняется.")
 	aesthetic = TRUE
 	probability = 10
+	min_severity = 5
+	optimal_severity = 20
+	max_severity = 25
+	severity_variation = 2
 
 /datum/weather/particle/rain/drizzle/update_audio(next_stage)
 	switch(next_stage)
@@ -112,7 +121,7 @@
 			GLOB.rain_sounds -= weak_sounds
 
 /datum/weather/particle/rain/acid
-	particle_type = /particles/weather/rain/heavy/acid
+	particle_type = /particles/weather/rain/acid
 	name = "acid rain"
 	desc = "Кислотный дождь пропитывает поверхность планеты едкой жидкостью."
 	telegraph_message = span_boldwarning_alt("Небо наливается болезненно-зелёным оттенком. Воздух обжигает горло — немедленно найдите укрытие!")

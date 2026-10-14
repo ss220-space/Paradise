@@ -13,17 +13,25 @@
 	var/min_severity = 1
 	/// Maximum possible severity, (0~100].
 	var/max_severity = MAXIMUM_WEATHER_SEVERITY
-	/// Maximum variation in severity each weather frame.
+	/// Amplitude of the random jitter layered on top of the deterministic severity curve.
 	var/severity_variation = 5
-	/// Optimal severity the weather tries to gravitate towards during the main stage.
+	/// Optimal severity the weather reaches at the peak of its main stage.
 	var/optimal_severity = 70
 	/// How often (in deciseconds) severity may change. Don't set this too low or it'll look jank.
-	var/severity_cooldown = 5 SECONDS
+	var/severity_cooldown = 2 SECONDS
+	/// Fraction of min_severity the telegraph starts at, so drops never stop spawning mid-storm.
+	var/severity_telegraph_floor = 0.2
 
 	/// Current weather severity (0 to max_severity).
 	var/severity = 0
 	/// world.time of the last severity change.
 	var/last_severity_tick = 0
+	/// world.time the current stage began, so severity can follow a curve tied to the stage's real duration.
+	var/stage_started_at = 0
+	/// Stage we last saw, used to detect stage transitions.
+	var/last_stage = END_STAGE
+	/// Severity at the moment the current stage began, so wind-down can decay from wherever the storm actually got to.
+	var/stage_start_severity = 0
 	/// Per-player emitter sets we created, keyed by mob. Each entry is a list of /obj/effect/abstract/weather_holder.
 	var/list/player_emitters = list()
 	/// Current wind direction sign (-1 or 1), picked once per storm.
@@ -52,23 +60,36 @@
 		remove_all_emitters()
 
 /**
- * Adjusts severity by a random amount biased by the current stage, then applies it to the emitters,
- * and keeps every player's emitter set following them. Called by SSweather every fire (weather frame).
+ * Walks severity along a deterministic curve tied to each stage's real duration, applies it to the emitters, and
+ * keeps every player's emitter set following them. Called by SSweather every fire (weather frame).
  */
 /datum/weather/particle/proc/process_particles()
+	// Stage transitions are driven by addtimer() in the base weather procs, so latch the clock here.
+	if(stage != last_stage)
+		last_stage = stage
+		stage_started_at = world.time
+		stage_start_severity = severity
+
 	if(last_severity_tick + severity_cooldown <= world.time)
 		last_severity_tick = world.time
+		var/stage_progress = 0
 		var/new_severity = severity
 		switch(stage)
 			if(STARTUP_STAGE)
-				new_severity += rand() * severity_variation * (1 - severity / min_severity)
-				new_severity = clamp(new_severity, min_severity, max_severity)
+				// Ease up from a whisper to min_severity across the telegraph. Never touches 0, or spawning cuts out.
+				stage_progress = INVERSE_LERP(0, max(telegraph_duration, 1), world.time - stage_started_at)
+				new_severity = min_severity * (severity_telegraph_floor + (1 - severity_telegraph_floor) * stage_progress)
 			if(MAIN_STAGE)
-				new_severity += LERP(-severity_variation * clamp(INVERSE_LERP(min_severity, optimal_severity, severity), 0, 1), severity_variation * clamp(INVERSE_LERP(max_severity, optimal_severity, severity), 0, 1), rand())
-				new_severity = clamp(new_severity, min_severity, max_severity)
+				// Climb to optimal_severity over the first half of the storm, then hold the peak for the rest.
+				stage_progress = min(INVERSE_LERP(0, max(weather_duration * 0.5, 1), world.time - stage_started_at), 1)
+				new_severity = LERP(min_severity, optimal_severity, stage_progress)
 			if(WIND_DOWN_STAGE)
-				new_severity += rand() * -severity_variation * 4 * max(severity / min_severity, 1)
+				// Fade from wherever the storm actually got to, so short storms don't jump back up.
+				stage_progress = INVERSE_LERP(0, max(end_duration, 1), world.time - stage_started_at)
+				new_severity = stage_start_severity * (1 - stage_progress)
 
+		// A little symmetric jitter so the rain doesn't fall metronomically.
+		new_severity += (rand() * severity_variation) - (severity_variation * 0.5)
 		new_severity = clamp(new_severity, 0, max_severity)
 
 		animate_severity(new_severity)

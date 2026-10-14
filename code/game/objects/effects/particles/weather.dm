@@ -18,17 +18,34 @@
 	spawning = 0
 	width = 800
 	height = 800
-	count = 16000
+	count = 24000
 	// Droplets only need enough life to cross the view; anything longer just parks off-screen drops in count.
 	lifespan = 3 SECONDS
-	/// Horizontal wind applied to gravity x each severity tick. Positive blows right, negative left.
+	/// Random horizontal acceleration layered on top of the gravity curve each severity tick.
 	var/wind_strength = 0
-	/// Minimum spawned particles per tick at the lowest non-zero severity (for gentle easing in/out).
+	/// Spawn rate per tick at severity 0, so the weather eases in instead of snapping on.
 	var/min_spawn = 0
-	/// Maximum spawned particles per tick at full severity.
+	/// Spawn rate per tick at severity 1.
 	var/max_spawn = 0
-	/// Constant horizontal acceleration superimposed on the wind. For slanted rain.
-	var/base_gravity_x = 0
+	/// Horizontal gravity at severity 0. Positive drifts east.
+	var/gravity_x_min = 0
+	/// Horizontal gravity at severity 1.
+	var/gravity_x_max = 0
+	/// Vertical gravity at severity 0. Negative falls down.
+	var/gravity_y_min = -6
+	/// Vertical gravity at severity 1.
+	var/gravity_y_max = -14
+	/// Depth gravity. Not animated by severity.
+	var/gravity_z = 0.5
+	/// Sprite rotation at severity 0, in degrees clockwise. Keeps near-vertical drops from carrying a steep icon.
+	var/rotation_min = 0
+	/// Sprite rotation at severity 1, in degrees clockwise.
+	var/rotation_max = 0
+
+/particles/weather/New()
+	. = ..()
+	gravity = list(gravity_x_min, gravity_y_min, gravity_z)
+	rotation = rotation_min
 
 /**
  * Adjusts the intensity of this particle field. Severity should be between 0 and 1 (0 stops spawning entirely).
@@ -41,10 +58,8 @@
 
 	var/wind = wind_strength * severity * wind_sign
 	spawning = LERP(min_spawn, max_spawn, severity)
-	if(islist(gravity) && length(gravity))
-		gravity[1] = base_gravity_x + wind
-	else
-		gravity = list(base_gravity_x + wind)
+	rotation = LERP(rotation_min, rotation_max, severity)
+	gravity = list(LERP(gravity_x_min, gravity_x_max, severity) + wind, LERP(gravity_y_min, gravity_y_max, severity), gravity_z)
 
 // MARK: Rain
 /particles/weather/rain
@@ -52,32 +67,19 @@
 	icon_state = list("dot" = 1, "drop" = 4)
 	color = "#f4ffff"
 	position = generator(GEN_BOX, list(-510, -256, 0), list(400, 512, 0))
-	grow = list(-0.01, -0.01)
-	gravity = list(0, -10, 0.5)
-	drift = generator(GEN_CIRCLE, 0, 1)
-	friction = 0.3
-	min_spawn = 50
-	max_spawn = 300
-	wind_strength = 2
-
-/particles/weather/rain/light
-	lifespan = 5 SECONDS
-	grow = list(-0.04, -0.04)
-	gravity = list(0, -9, 0.5)
-	friction = 0.35
-	min_spawn = 1
-	max_spawn = 70
-
-/particles/weather/rain/heavy
-	icon_state = list("drop" = 2, "long_drop" = 5)
 	scale = list(1.6, 1.2)
 	grow = list(-0.016, -0.032)
-	gravity = list(5, -20, 0.5)
-	base_gravity_x = 5
-	friction = 0.15
-	rotation = -30
-	min_spawn = 100
-	max_spawn = 600
+	rotation_min = 0
+	rotation_max = -30
+	drift = generator(GEN_CIRCLE, 0, 1)
+	friction = 0.2
+	wind_strength = 0
+	min_spawn = 30
+	max_spawn = 500
+	gravity_x_min = 0
+	gravity_x_max = 8
+	gravity_y_min = -10
+	gravity_y_max = -14
 
-/particles/weather/rain/heavy/acid
+/particles/weather/rain/acid
 	color = "#b7ffc9"

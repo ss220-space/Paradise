@@ -101,7 +101,7 @@
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
-		return TRUE	// If weather already active, don't need to mark it as invalid. More at `/datum/controller/subsystem/weather/fire()`
+		return TRUE
 	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_TELEGRAPH(type), src)
 	generate_area_list()
 	if(!length(impacted_areas))
@@ -163,7 +163,6 @@
 	for(var/area/impacted_area as anything in impacted_areas)
 		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_ENDED_IN_AREA(type), src)
 
-/// Can this weather impact a mob?
 /datum/weather/proc/can_weather_act(mob/living/mob_to_check)
 	var/turf/mob_turf = get_turf(mob_to_check)
 	if(!mob_turf)
@@ -189,7 +188,7 @@
 /datum/weather/proc/fire()
 	return
 
-/datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
+/datum/weather/proc/weather_act(mob/living/target)
 	return
 
 /// Per-tick processes: currently just thunder. Plays for players on impacted z-levels.
@@ -202,8 +201,9 @@
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(isnewplayer(mob) || !(mob.z in impacted_z_levels))
 			continue
-		mob.playsound_local(mob, null, 80, FALSE, 0, null, 0, FALSE, thunder_sound)
 		var/area/mob_area = get_area(mob)
+		var/thunder_volume = mob_area?.outdoors ? THUNDER_VOLUME : THUNDER_VOLUME * 0.5
+		mob.playsound_local(mob, null, thunder_volume, FALSE, 0, null, 0, FALSE, thunder_sound)
 		if(mob_area?.outdoors)
 			var/atom/movable/screen/fullscreen/flash = mob.overlay_fullscreen("lightning_flash", /atom/movable/screen/fullscreen/lighting_backdrop)
 			flash.alpha = flash_alpha
@@ -222,18 +222,15 @@
 		if(length(overlay_cache))
 			impacted.overlays -= overlay_cache
 			if(impacted_areas_blend_modes[impacted])
-				// revert the blend mode to the old state
 				impacted.blend_mode = impacted_areas_blend_modes[impacted]
 				impacted_areas_blend_modes[impacted] = null
 		if(!length(new_overlay_cache))
 			continue
 
 		impacted.overlays += new_overlay_cache
-		// only change the blend mode if it's not default or overlay
 		if(impacted.blend_mode <= BLEND_OVERLAY)
 			continue
 
-		// save the old blend mode state
 		impacted_areas_blend_modes[impacted] = impacted.blend_mode
 		impacted.blend_mode = BLEND_OVERLAY
 
@@ -241,7 +238,6 @@
 
 /// Returns a list of visual offset -> overlays to use
 /datum/weather/proc/generate_overlay_cache()
-	// We're ending, so no overlays at all
 	if(stage == END_STAGE)
 		return list()
 
@@ -254,8 +250,6 @@
 		if(WIND_DOWN_STAGE)
 			weather_state = end_overlay
 
-	// Use all possible offsets
-	// Yes this is a bit annoying, but it's too slow to calculate and store these from turfs, and it shouldn't (I hope) look weird
 	var/list/gen_overlay_cache = list()
 	for(var/offset in 0 to SSmapping.max_plane_offset)
 		for(var/overlay_plane in overlay_planes)
