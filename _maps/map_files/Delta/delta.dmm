@@ -1,4 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aaa" = (
+/obj/machinery/power/turbine{
+	dir = 8;
+	luminosity = 2
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/structure/cable/layer1,
+/turf/simulated/floor/engine,
+/area/station/maintenance/turbine)
 "aac" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -27434,19 +27448,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/cargo/sorting)
-"gaS" = (
-/obj/machinery/power/turbine{
-	dir = 8;
-	luminosity = 2
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/maintenance/turbine)
 "gaV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -133439,7 +133440,7 @@ wrL
 qvX
 coE
 gmr
-gaS
+aaa
 gmr
 aaq
 coE
