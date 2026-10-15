@@ -46,7 +46,11 @@
 /obj/item/spacepod_module/Initialize(mapload)
 	. = ..()
 	integrity = max_integrity
-	name = "module \"[module_name]\""
+	update_appearance(UPDATE_NAME)
+
+/obj/item/spacepod_module/update_name(updates)
+	. = ..()
+	name = "Модуль \"[module_name]\""
 
 /obj/item/spacepod_module/proc/install_to(mob/living/user, obj/spacepod/pod)
 	return FALSE
@@ -161,6 +165,7 @@
 		return FALSE
 	src.caption = caption
 	src.module_name = fueltank_name
+	update_appearance(UPDATE_NAME)
 	return TRUE
 
 
@@ -249,6 +254,7 @@
 	src.module_name = pump_name
 	src.source_tank = source_fueltank
 	src.destination_tank = destination_fueltank
+	update_appearance(UPDATE_NAME)
 	return TRUE
 
 /obj/item/spacepod_module/fuel_pump/process_work(seconds_per_tick)
@@ -324,6 +330,7 @@
 	src.id = engine_id
 	src.caption = caption
 	src.module_name = engine_name
+	update_appearance(UPDATE_NAME)
 	return TRUE
 
 /obj/item/spacepod_module/fuel_tank/engine/proc/get_rpm_percent()
@@ -496,7 +503,7 @@
 // MARK: Weapon
 /obj/item/spacepod_module/weapon
 	id = "weapon"
-	module_name = "Модуль вооружения"
+	module_name = "Вооружение"
 	desc = "Оружейная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
 	icon_state = "weapon"
 	caption = "WPN"
@@ -607,23 +614,13 @@
 
 /obj/item/spacepod_module/weapon/course
 	id = "weapon_course"
-	module_name = "Модуль курсового вооружения"
+	module_name = "Курсовое вооружение"
 	desc = "Оружейная установка курсового огня с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
 	only_course_fire = TRUE
 
-/obj/item/spacepod_module/weapon/course/get_ru_names()
-	return alist(
-		NOMINATIVE = "модуль курсового вооружения",
-		GENITIVE = "модуля курсового вооружения",
-		DATIVE = "модулю курсового вооружения",
-		ACCUSATIVE = "модуль курсового вооружения",
-		INSTRUMENTAL = "модулем курсового вооружения",
-		PREPOSITIONAL = "модуле курсового вооружения",
-	)
-
 /obj/item/spacepod_module/weapon/turret
 	id = "weapon_turret"
-	module_name = "Модуль турельного вооружения"
+	module_name = "Турельное вооружение"
 	desc = "Турельная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
 
 
@@ -631,7 +628,7 @@
 /obj/item/spacepod_module/armor
 	id = "armor"
 	caption = "ARM"
-	module_name = "модуль брони"
+	module_name = "Броня челнока"
 	icon_state = "armor"
 	hit_weight = POD_MODULE_HIT_CHANCE_EXTRA_LARGE
 	max_integrity = 75
@@ -656,12 +653,12 @@
 
 /obj/item/spacepod_module/armor/light
 	id = "armor_light"
-	module_name = "Модуль лёгкой брони"
+	module_name = "Лёгкая броня"
 	desc = "Лёгкая бронепластина для защиты корпуса челнока. Небольшой вес, но ограниченная прочность."
 
 /obj/item/spacepod_module/armor/heavy
 	id = "armor_heavy"
-	module_name = "Модуль тяжёлой брони"
+	module_name = "Тяжёлая броня"
 	desc = "Усиленная бронепластина с высоким сопротивлением урону. Значительно тяжелее лёгкой, но выдерживает прямые попадания."
 	icon_state = "armor_heavy"
 	max_integrity = 150
@@ -672,7 +669,7 @@
 /obj/item/spacepod_module/life_support
 	id = "life_support"
 	caption = "AIR"
-	module_name = "Модуль жизнеобеспечения"
+	module_name = "Жизнеобеспечение"
 	desc = "Поддерживает пригодную для дыхания атмосферу и температуру в кабине шаттла."
 	icon_state = "life_support"
 	mass = 40
@@ -732,7 +729,7 @@
 /obj/item/spacepod_module/fire_extingusher
 	id = "fire_extinguisher"
 	caption = "FIRE"
-	module_name = "модуль пожаротушения"
+	module_name = "Пожаротушение"
 	desc = "Система тушения пожара. Распыляет огнетушащий состав при обнаружении возгорания."
 	icon_state = "fire_extinguisher"
 	hit_weight = 0
@@ -755,7 +752,7 @@
 /obj/item/spacepod_module/key_lock
 	id = "key_lock"
 	caption = "LOCK"
-	module_name = "Модуль замка"
+	module_name = "Замок челнока"
 	desc = "Электронный замок, блокирующий доступ к челноку. Для посадки требуется специальный ключ изготовленный из заготовки."
 	icon_state = "lock_tumbler"
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
@@ -813,7 +810,7 @@
 /obj/item/spacepod_module/catapult_module
 	id = "catapult"
 	caption = "CAT"
-	module_name = "Модуль аварийного катапультирования"
+	module_name = "Аварийное катапультирование"
 	desc = "Система экстренной эвакуации пилота. Автоматически выбрасывает пилота в направлении, противоположном курсу челнока в случае критического повреждения корпуса."
 	icon_state = "cargo_crate"
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
@@ -832,7 +829,7 @@
 /obj/item/spacepod_module/tracker
 	id = "tracker"
 	caption = "TR"
-	module_name = "Модуль маячка"
+	module_name = "GPS маячок"
 	desc = "Модуль маячка, позволяет находить челнок с помощью специальной консоли."
 	icon_state = "lock_card"
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
