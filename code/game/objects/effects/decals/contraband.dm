@@ -628,6 +628,36 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/lusty_xenomorp
 	desc = "Хлебом единым жив человек."
 	icon_state = "bread"
 
+/obj/structure/sign/poster/contraband/cone
+	name = "Конус"
+	desc = "Реклама джазововой сессии \"человека с дорожным конусом\"."
+	icon_state = "cone"
+
+/obj/structure/sign/poster/contraband/felinid_smokers
+	name = "Курящие фелиниды"
+	desc = "Плакат с фелинидами, отдыхающими на вашей станции"
+	icon_state = "felinid_smokers"
+
+/obj/structure/sign/poster/contraband/kerberos_show
+	name = "Шоу Кербероса"
+	desc = "\"Помни, что всё это, как и твоя жизнь, — неправда.\""
+	icon_state = "kerberos_show"
+
+/obj/structure/sign/poster/contraband/valve
+	name = "Вентиль"
+	desc = "Постер призывающий открыть свои глаза и разум."
+	icon_state = "valve"
+
+/obj/structure/sign/poster/contraband/night_cat_blues
+	name = ""
+	desc = ""
+	icon_state = "night_cat_blues"
+
+/obj/structure/sign/poster/contraband/worm
+	name = ""
+	desc = ""
+	icon_state = "worm"
+
 //MARK: Official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
