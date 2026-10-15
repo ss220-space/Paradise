@@ -60,6 +60,8 @@
 
 	/// Weapon balloon alert cooldown
 	COOLDOWN_DECLARE(weapon_balloon_cooldown)
+	/// Repairing spacepod flag
+	var/repairing = FALSE
 
 /obj/spacepod/get_ru_names()
 	return alist(
@@ -195,6 +197,37 @@
 	else
 		hatch_opened = TRUE
 		balloon_alert(user, "люк техобслуживания открыт")
+
+
+/obj/spacepod/welder_act(mob/living/user, obj/item/welder)
+	if(user.a_intent == INTENT_HARM)
+		return
+	if(!assemble_process && !hatch_opened)
+		return
+	. = TRUE
+	if(!welder.tool_use_check(user, 0))
+		return
+	if((obj_integrity >= max_integrity))
+		balloon_alert(user, "челнок целый!")
+		return
+	if(repairing)
+		balloon_alert(user, "челнок уже ремонтируется!")
+		return
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	repairing = TRUE
+	while(obj_integrity < max_integrity)
+		if(!welder.use_tool(src, user, 15, volume = welder.tool_volume))
+			break
+		if(obj_integrity < max_integrity)
+			user.visible_message(
+				span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
+				span_notice("Вы частично отремонтировали [name].")
+			)
+			repair_damage(min(10, max_integrity - obj_integrity))
+
+	if(obj_integrity >= max_integrity)
+		balloon_alert(user, "челнок полностью отремонтирован!")
+	repairing = FALSE
 
 //MARK: attackby
 /obj/spacepod/attackby(obj/item/item, mob/living/user, list/modifiers)

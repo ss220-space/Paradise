@@ -52,8 +52,33 @@
 	. = ..()
 	name = "Модуль \"[module_name]\""
 
+/obj/item/spacepod_module/examine(mob/user)
+	. = ..()
+	. += span_notice("Прочность [round(integrity / max_integrity)]%")
+
+/obj/item/spacepod_module/welder_act(mob/living/user, obj/item/tool)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!tool.tool_use_check(user, 0))
+		return
+	if((integrity >= max_integrity))
+		balloon_alert(user, "модуль целый!")
+		return
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	while(integrity < max_integrity)
+		if(!tool.use_tool(src, user, 15, volume = tool.tool_volume))
+			break
+		integrity = min(integrity + 20, max_integrity)
+		user.visible_message(
+			span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
+			span_notice("Вы частично отремонтировали [name].")
+		)
+	if(integrity >= max_integrity)
+		balloon_alert(user, "модуль полностью отремонтирован!")
+
 /obj/item/spacepod_module/proc/install_to(mob/living/user, obj/spacepod/pod)
-	return FALSE
+	return TRUE
 
 /obj/item/spacepod_module/proc/on_install(obj/spacepod/pod)
 	return TRUE
@@ -601,8 +626,8 @@
 		var/obj/item/gun/projectile/gun = weapon
 		if(gun.chambered && gun.chambered.BB == null)
 			gun.process_chamber(TRUE, TRUE)
-			balloon_alert(user, "затвор передёрнут")
-			playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+			pod.balloon_alert(user, "затвор передёрнут")
+			playsound(pod.loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
 			return
 
 		for(var/obj/item/ammo_box/magazine/magazine in pod.cargo_hold.contents)
