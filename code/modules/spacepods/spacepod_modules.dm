@@ -599,6 +599,12 @@
 
 	if(isprojectilegun(weapon))
 		var/obj/item/gun/projectile/gun = weapon
+		if(gun.chambered && gun.chambered.BB == null)
+			gun.process_chamber(TRUE, TRUE)
+			balloon_alert(user, "затвор передёрнут")
+			playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+			return
+
 		for(var/obj/item/ammo_box/magazine/magazine in pod.cargo_hold.contents)
 			if(!istype(magazine, gun.mag_type))
 				continue
