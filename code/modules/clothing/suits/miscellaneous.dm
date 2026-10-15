@@ -1463,11 +1463,13 @@
 
 /obj/item/clothing/suit/towel
 	name = "towel"
-	desc = "A soft cotton towel."
+	desc = "Мягкое хлопковое полотенце."
 	icon_state = "towel_long"
 	item_state = "towel"
+	item_flags = SKIP_ATTACK_MESSAGE
 	body_parts_covered = LOWER_TORSO | UPPER_TORSO
 	var/drop_amount = 3
+	var/wet_stacks_removed = 5
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1483,12 +1485,22 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
 
+/obj/item/clothing/suit/towel/get_ru_names()
+	return alist(
+		NOMINATIVE = "полотенце",
+		GENITIVE = "полотенца",
+		DATIVE = "полотенцу",
+		ACCUSATIVE = "полотенце",
+		INSTRUMENTAL = "полотенцем",
+		PREPOSITIONAL = "полотенце",
+	)
+
 /obj/item/clothing/suit/towel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/towel/attack_self(mob/living/carbon/user)
-	if(!istype(user) || !user.wetlevel)
+	if(!istype(user) || !user.get_wet_stacks())
 		return ..()
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
@@ -1496,22 +1508,39 @@
 /obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!istype(target) || !target.wetlevel)
+	if(!istype(target) || !target.get_wet_stacks())
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
 
 /obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
-	user.visible_message(span_warning("[user] begins to wipe [target == user ? target.p_themselves() : target] with [src]."))
-
-	if(!do_after(user, 5 SECONDS, target))
+	if(QDELETED(target) || QDELETED(user) || QDELETED(src))
 		return
 
-	if(!istype(target) || !target.wetlevel)
-		return
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] вытира[PLUR_ET_YUT(user)] себя [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы вытираетесь [declent_ru(INSTRUMENTAL)]."),
+		)
+	else
+		user.visible_message(
+			span_warning("[user] начина[PLUR_ET_YUT(user)] вытирать [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы начинаете вытирать [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+			ignored_mobs = target,
+		)
+		target.balloon_alert(target, "вас вытирают")
 
-	target.wetlevel = 0
-	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
+	while(!QDELETED(target) && !QDELETED(user) && !QDELETED(src) && target.get_wet_stacks() > 0)
+		if(!do_after(user, 2.5 SECONDS, target))
+			return
+		if(QDELETED(target) || QDELETED(user) || QDELETED(src))
+			return
+		var/wet_stacks_before = target.get_wet_stacks()
+		target.adjust_wet_stacks(-wet_stacks_removed)
+		if(target.get_wet_stacks() >= wet_stacks_before)
+			return
+
+	to_chat(user, span_notice("Вы вытерли [target == user ? "себя" : target.declent_ru(ACCUSATIVE)] досуха."))
 
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -1523,7 +1552,7 @@
 	var/obj/item/stack/sheet/cloth/cloth = new(drop_location(), drop_amount)
 	transfer_fingerprints_to(cloth)
 	cloth.add_fingerprint(user)
-	to_chat(user, span_notice("You tear [src] up."))
+	to_chat(user, span_notice("Вы разрываете [declent_ru(ACCUSATIVE)] на куски."))
 	qdel(src)
 
 /obj/item/clothing/suit/towel/alt
