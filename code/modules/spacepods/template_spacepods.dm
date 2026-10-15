@@ -337,7 +337,6 @@
 	systems.add_module(src, bottom_side_armor)
 
 /obj/spacepod/template/two_engine/cobra/create_misc_modules()
-	. = ..()
 	systems.add_module(src, new /obj/item/spacepod_module/life_support(src))
 	systems.add_module(src, new /obj/item/spacepod_module/fire_extingusher/five_charges(src))
 
