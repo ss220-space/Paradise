@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - balance: "Удален элитный мэк с депота. (PR #9904)"
