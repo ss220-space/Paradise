@@ -102,6 +102,8 @@
 
 /obj/structure/logistics_pipe/proc/try_link_interface()
 	if(linked_interface)
+		if(logistics_net && linked_interface.linked_pipe == src)
+			logistics_net.add_interface(linked_interface)
 		return
 	for(var/obj/machinery/machine in loc)
 		var/datum/component/logistics_interface/interface = machine.GetComponent(/datum/component/logistics_interface)

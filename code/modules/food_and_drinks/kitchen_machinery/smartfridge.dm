@@ -44,6 +44,8 @@
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
 	var/broken_overlay = "smartfridge_broken"
+	/// Icon state prefix for the overlays. Null = icon_state, which lets a subtype keep its own base spritr.
+	var/status_overlay
 	/// Additional overlay on top, like hazard symbol for smartfringe in virology.
 	var/icon_addon
 	/// Used to calculate smartfridge fullness while updating overlays.
@@ -198,10 +200,11 @@
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
 	underlays.Cut()
+	var/status_state = status_overlay || icon_state
 	if(panel_open)
-		. += "[icon_state]_panel"
+		. += "[status_state]_panel"
 	if(stat & (BROKEN|NOPOWER))
-		. += "[icon_state]_off"
+		. += "[status_state]_off"
 		if(icon_addon)
 			. += "[icon_addon]"
 		if(stat & BROKEN)

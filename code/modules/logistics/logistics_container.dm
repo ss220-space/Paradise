@@ -4,6 +4,8 @@
 /obj/machinery/smartfridge/smart_container
 	name = "Smart Container"
 	desc = "Умный контейнер для хранения любых предметов. Вместимость масштабируется с качеством matter bin."
+	icon_state = "smart_container"
+	status_overlay = "smartfridge"
 	max_n_of_items = 63
 	fridge_circuit = /obj/item/circuitboard/smart_container
 	starting_matter_bins = 4
@@ -21,12 +23,6 @@
 /obj/machinery/smartfridge/smart_container/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(/obj/item)
-
-/obj/machinery/smartfridge/smart_container/logistics
-
-/obj/machinery/smartfridge/smart_container/logistics/Initialize(mapload)
-	. = ..()
-	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
 
 /obj/machinery/smartfridge/smart_container/RefreshParts()
 	var/rating_sum = 0

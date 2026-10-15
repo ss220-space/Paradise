@@ -76,6 +76,12 @@
 /obj/machinery/proc/logistics_board_installed()
 	return !!GetComponent(/datum/component/logistics_interface)
 
+/obj/machinery/proc/try_install_logistics_preset()
+	var/preset = logistics_interface_preset
+	if(preset != LOGISTICS_MODE_SEND && preset != LOGISTICS_MODE_RECEIVE)
+		return FALSE
+	return !!install_logistics_interface(preset)
+
 /obj/machinery/proc/install_logistics_interface(mode = LOGISTICS_MODE_SEND)
 	if(!HAS_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE))
 		return null

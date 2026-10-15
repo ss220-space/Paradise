@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	var/net_id
 	var/net_name
 	var/net_color
-	var/auto_execute = FALSE
+	var/auto_execute = TRUE
 	var/next_request_num = 1
 	var/next_dispatch_at = 0
 
