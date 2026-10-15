@@ -3,6 +3,7 @@
  * Contains modules and encapsulates the logic of interaction between modules.
  */
 /datum/spacepod_systems
+	var/obj/spacepod/pod = null
 	var/list/obj/item/spacepod_module/modules = list()
 	var/obj/item/spacepod_module/battery/battery = null
 	var/list/obj/item/spacepod_module/fuel_tank/fuel_tanks = list()
@@ -20,6 +21,7 @@
 
 /datum/spacepod_systems/Destroy(force)
 	. = ..()
+	pod = null
 	battery = null
 	fuel_tanks.Cut()
 	fuel_pumps.Cut()
@@ -41,18 +43,18 @@
 		. += span_notice("Отсутствует аккумуляторная батарея.")
 	if(fuel_tanks == null || length(fuel_tanks) == 0)
 		. += span_notice("Отсутствуют топливные баки.")
-	if(fuel_pumps == null || length(fuel_pumps) == 0)
-		. += span_notice("Отсутствуют топливные насосы.")
 	var/exists_engine = FALSE
 	if(engines)
 		for(var/obj/item/spacepod_module/fuel_tank/engine/engine in engines)
 			if(!engine.is_apu())
 				exists_engine = TRUE
 				break
-	if(!exists_engine)
-		. += span_notice("Отсутствуют двигатели.")
 	if(apu == null)
 		. += span_notice("Отсутствует вспомогательная силовая установка.")
+	if(!exists_engine)
+		. += span_notice("Отсутствуют двигатели.")
+	if(fuel_pumps == null || length(fuel_pumps) == 0)
+		. += span_notice("Отсутствуют топливные насосы.")
 	if(gyroscope == null)
 		. += span_notice("Отсутствует гироскопический стабилизатор.")
 

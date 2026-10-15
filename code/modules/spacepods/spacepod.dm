@@ -91,6 +91,7 @@
 
 /obj/spacepod/proc/create_internal_system()
 	systems = new()
+	systems.pod = src
 	return systems
 
 /obj/spacepod/proc/add_cabin()

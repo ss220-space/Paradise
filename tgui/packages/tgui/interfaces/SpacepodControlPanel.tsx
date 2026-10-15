@@ -742,6 +742,7 @@ const IntegrityPanel = (props: unknown) => {
 type MiscPanelData = {
   key_lock: KeyLockData;
   catapult: CatapultData;
+  tracker: TrackerData;
 };
 
 type KeyLockData = {
@@ -749,6 +750,11 @@ type KeyLockData = {
 };
 
 type CatapultData = {
+  id: string;
+  enable: boolean;
+};
+
+type TrackerData = {
   id: string;
   enable: boolean;
 };
@@ -793,6 +799,24 @@ const MiscPanel = (props: unknown) => {
                 caption="Ручное катапультирование"
                 text="Активировать"
                 clicked={() => act('catapult_pilot')}
+              />
+            </Table>
+          </Section>
+        </Stack.Item>
+      ) : (
+        ''
+      )}
+      {/* Tracker section */}
+      {misc.tracker !== null ? (
+        <Stack.Item>
+          <Section title="Модуль GPS маячка" ml="0" mr="0">
+            <Table>
+              <ToggleButtonRow
+                caption="Маячок"
+                enable={misc.tracker.enable}
+                enable_text="Включен"
+                disable_text="Выключен"
+                clicked={() => act('switch_enable', { id: misc.tracker.id })}
               />
             </Table>
           </Section>
@@ -1136,6 +1160,28 @@ const InstrumentalPanel = (props: unknown) => {
                         caption="MAN"
                         failure={false}
                         clicked={() => act('catapult_pilot')}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+                <Divider />
+              </>
+            ) : (
+              ''
+            )}
+            {/* Tracker */}
+            {misc.tracker !== null ? (
+              <>
+                <Stack.Item>
+                  <Box pb="5px">TRK</Box>
+                  <Stack>
+                    <Stack.Item>
+                      <TumblerButton
+                        caption="GPS"
+                        enable={misc.tracker.enable}
+                        clicked={() =>
+                          act('switch_enable', { id: misc.tracker.id })
+                        }
                       />
                     </Stack.Item>
                   </Stack>

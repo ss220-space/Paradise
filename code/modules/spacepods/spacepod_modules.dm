@@ -99,13 +99,18 @@
 
 /obj/item/spacepod_module/proc/deal_damage(damage_amount)
 	var/absorbed_damage = min(integrity, damage_amount)
+	if(absorbed_damage <= 0)
+		return 0
 	integrity -= absorbed_damage
 	if(integrity > 0 && fire_on_hit_chance > 0 && prob(damage_amount * fire_on_hit_chance / 100))
 		fire = TRUE
-	if(integrity <= 0 && enable)
-		enable = FALSE
+	if(integrity <= 0)
+		on_destroy_module()
 	return damage_amount - absorbed_damage
 
+/obj/item/spacepod_module/proc/on_destroy_module()
+	enable = FALSE
+	error_text = "Модуль уничтожен"
 
 // MARK: Fuel tank
 /obj/item/spacepod_module/fuel_tank
@@ -134,6 +139,10 @@
 
 	fuel_amount -= amount
 	return amount
+
+/obj/item/spacepod_module/fuel_tank/on_destroy_module()
+	. = ..()
+	fuel_amount = 0
 
 /obj/item/spacepod_module/fuel_tank/full/New(id)
 	. = ..()
@@ -213,6 +222,9 @@
 /obj/item/spacepod_module/battery/proc/accumulate_power(amount)
 	power = min(power + amount, power_capacity)
 
+/obj/item/spacepod_module/battery/on_destroy_module()
+	power = 0
+	error_text = "Модуль уничтожен"
 
 // MARK: Fuel pump
 /obj/item/spacepod_module/fuel_pump
@@ -379,6 +391,11 @@
 		return
 	current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
 
+/obj/item/spacepod_module/fuel_tank/engine/on_destroy_module()
+	. = ..()
+	current_rpm = 0
+	generator_enable = FALSE
+
 /obj/item/spacepod_module/fuel_tank/engine/heavy
 	module_name = "Форсажный двигатель челнока"
 	desc = "Двигатель челнока повышенной тяги. Значительно мощнее базового, но быстрее расходует топливо. Требуется вспомогательная силовая установка для запуска данного двигателя."
@@ -467,7 +484,7 @@
 	/// Current rotations per minutes
 	var/current_rpm = 0
 	/// Ignition acceleration (rpm increase per units)
-	var/ignition_acceleration = 1000
+	var/ignition_acceleration = 10000
 
 /obj/item/spacepod_module/gyroscope/New(loc, ...)
 	. = ..()
@@ -477,7 +494,7 @@
 	if(!enable) // slowly stoping
 		if(current_rpm == 0)
 			return
-		current_rpm = max(current_rpm - ignition_acceleration * seconds_per_tick, 0)
+		current_rpm = max(current_rpm - ignition_acceleration/2 * seconds_per_tick, 0)
 		return
 	if(!process_power(seconds_per_tick))
 		if(!connection_power_net)
@@ -497,7 +514,7 @@
 	return TRUE
 
 /obj/item/spacepod_module/gyroscope/proc/is_working()
-	return current_rpm > max_rpm / 2
+	return current_rpm > max_rpm * 0.25
 
 
 // MARK: Weapon

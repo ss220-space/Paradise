@@ -85,14 +85,14 @@
 			"icon" = "crosshairs",
 		))
 	tabs += list(list(
-		"id" = TAB_INTEGRITY,
-		"name" = "Прочность",
-		"icon" = "heart",
-	))
-	tabs += list(list(
 		"id" = TAB_MISC,
 		"name" = "Прочие",
 		"icon" = "plus",
+	))
+	tabs += list(list(
+		"id" = TAB_INTEGRITY,
+		"name" = "Прочность",
+		"icon" = "heart",
 	))
 	return tabs
 
@@ -319,6 +319,13 @@
 		panel["catapult"] = catapult
 	else
 		panel["catapult"] = null
+	if(pod.systems.tracker != null)
+		var/tracker_data = list()
+		tracker_data["id"] = pod.systems.tracker.id
+		tracker_data["enable"] = pod.systems.tracker.enable
+		panel["tracker"] = tracker_data
+	else
+		panel["tracker"] = null
 	return panel
 
 
