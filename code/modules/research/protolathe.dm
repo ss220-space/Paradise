@@ -77,6 +77,12 @@ Note: Must be placed west/left of and R&D console to function.
 		linked_console.linked_lathe = null
 	return ..()
 
+/obj/machinery/r_n_d/protolathe/logistics
+
+/obj/machinery/r_n_d/protolathe/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
 	for(var/obj/item/reagent_containers/cup/G in component_parts)

@@ -124,8 +124,6 @@
 	var/processing_flags = START_PROCESSING_ON_INIT
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
-	/// 0 = no logistics interface, 1 = send, 2 = receive
-	var/logistics_interface_preset = LOGISTICS_MODE_NONE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)

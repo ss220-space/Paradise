@@ -2599,9 +2599,7 @@
 /area/station/science/sm_chamber)
 "aCZ" = (
 /obj/structure/cable,
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /obj/structure/logistics_pipe/trunk{
 	dir = 4
 	},
@@ -9154,9 +9152,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/mechanic_workshop/expedition)
 "bYY" = (
-/obj/machinery/autolathe{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/autolathe/logistics,
 /obj/structure/logistics_pipe/trunk{
 	dir = 1
 	},
@@ -9892,9 +9888,7 @@
 	},
 /area/hydroponics)
 "cgs" = (
-/obj/machinery/smartfridge{
-	logistics_interface_preset = 1
-	},
+/obj/machinery/smartfridge/logistics,
 /obj/machinery/door/window/eastleft{
 	dir = 8;
 	name = "Hydroponics Desk";
@@ -14668,9 +14662,7 @@
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
 	},
-/obj/machinery/mineral/ore_redemption{
-	logistics_interface_preset = 1
-	},
+/obj/machinery/mineral/ore_redemption/logistics,
 /obj/structure/logistics_pipe/trunk,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/miningdock)
@@ -29321,9 +29313,7 @@
 /obj/structure/logistics_pipe/trunk{
 	dir = 1
 	},
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -30859,10 +30849,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/r_n_d/circuit_imprinter{
+/obj/machinery/r_n_d/circuit_imprinter/logistics{
 	pixel_x = -1;
-	pixel_y = 3;
-	logistics_interface_preset = 2
+	pixel_y = 3
 	},
 /obj/machinery/requests_console{
 	department = "Research";
@@ -31092,9 +31081,7 @@
 	amount = 10
 	},
 /obj/structure/cable,
-/obj/machinery/autolathe{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/autolathe/logistics,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "researchdesk1";
 	name = "Research Desk Shutters"
@@ -32993,9 +32980,7 @@
 	dir = 8
 	},
 /obj/structure/logistics_pipe/trunk,
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/storage)
 "hes" = (
@@ -36737,9 +36722,7 @@
 	},
 /area/station/medical/sleeper)
 "hSh" = (
-/obj/machinery/autolathe/security{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/autolathe/security/logistics,
 /obj/machinery/light_switch/directional/north,
 /obj/structure/logistics_pipe/trunk{
 	dir = 1
@@ -45633,9 +45616,7 @@
 	},
 /area/station/engineering/supermatter/room)
 "jNw" = (
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /obj/structure/logistics_pipe/trunk{
 	dir = 1
 	},
@@ -74130,9 +74111,7 @@
 	},
 /area/station/medical/cloning)
 "pEr" = (
-/obj/machinery/smartfridge/medbay{
-	logistics_interface_preset = 1
-	},
+/obj/machinery/smartfridge/medbay/logistics,
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	desc = "You have the public fridge, pal, lube off.";
@@ -80134,9 +80113,7 @@
 "qNo" = (
 /obj/item/radio/intercom/directional/north,
 /obj/machinery/alarm/directional/west,
-/obj/machinery/mecha_part_fabricator{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/mecha_part_fabricator/logistics,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -89303,9 +89280,7 @@
 	},
 /area/station/service/chapel)
 "syr" = (
-/obj/machinery/mecha_part_fabricator{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/mecha_part_fabricator/logistics,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -90938,9 +90913,7 @@
 /obj/structure/logistics_pipe/trunk{
 	dir = 1
 	},
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -96937,9 +96910,7 @@
 /area/station/security/prisoner_shuttle)
 "ufT" = (
 /obj/structure/logistics_pipe/trunk,
-/obj/machinery/smartfridge/smart_container{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -98102,9 +98073,7 @@
 /area/station/maintenance/asmaint4)
 "usE" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/autolathe{
-	logistics_interface_preset = 2
-	},
+/obj/machinery/autolathe/logistics,
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Autolathe";
@@ -114214,9 +114183,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/r_n_d/protolathe{
-	pixel_y = 2;
-	logistics_interface_preset = 2
+/obj/machinery/r_n_d/protolathe/logistics{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -116149,9 +116117,8 @@
 /turf/simulated/floor/plating,
 /area/station/security/interrogation)
 "ycT" = (
-/obj/machinery/smartfridge/dish{
-	opacity = 1;
-	logistics_interface_preset = 1
+/obj/machinery/smartfridge/dish/logistics{
+	opacity = 1
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";

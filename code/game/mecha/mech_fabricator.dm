@@ -102,6 +102,12 @@
 		MECH_FAB_CATEGORY_MISC,
 	)
 
+/obj/machinery/mecha_part_fabricator/logistics
+
+/obj/machinery/mecha_part_fabricator/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()

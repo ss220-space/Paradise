@@ -102,6 +102,12 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/mineral/ore_redemption/logistics
+
+/obj/machinery/mineral/ore_redemption/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_SEND)
+
 /**
  * # Ore Redemption Machine (Golem)
  *

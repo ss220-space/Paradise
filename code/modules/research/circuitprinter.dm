@@ -61,6 +61,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		linked_console.linked_imprinter = null
 	return ..()
 
+/obj/machinery/r_n_d/circuit_imprinter/logistics
+
+/obj/machinery/r_n_d/circuit_imprinter/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)

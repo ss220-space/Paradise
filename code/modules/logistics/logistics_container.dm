@@ -24,6 +24,12 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(/obj/item)
 
+/obj/machinery/smartfridge/smart_container/logistics
+
+/obj/machinery/smartfridge/smart_container/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_SEND)
+
 /obj/machinery/smartfridge/smart_container/RefreshParts()
 	var/rating_sum = 0
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)

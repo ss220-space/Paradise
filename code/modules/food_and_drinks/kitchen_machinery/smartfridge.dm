@@ -230,6 +230,12 @@
 		if(76 to INFINITY)
 			fill_level = 3
 
+/obj/machinery/smartfridge/logistics
+
+/obj/machinery/smartfridge/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 //// broken smartfridge for decorations
 /obj/machinery/smartfridge/broken
 
@@ -623,6 +629,12 @@
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
 
+/obj/machinery/smartfridge/medbay/logistics
+
+/obj/machinery/smartfridge/medbay/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /**
  * # Slime Extract Storage
  *
@@ -960,6 +972,12 @@
 		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/food,
 	))
+
+/obj/machinery/smartfridge/dish/logistics
+
+/obj/machinery/smartfridge/dish/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
 
 /**
  * # Drying Rack

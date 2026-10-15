@@ -85,6 +85,12 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/autolathe/logistics
+
+/obj/machinery/autolathe/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
@@ -520,3 +526,9 @@
 		INSTRUMENTAL = "автолатом службы безопасности",
 		PREPOSITIONAL = "автолате службы безопасности",
 	)
+
+/obj/machinery/autolathe/security/logistics
+
+/obj/machinery/autolathe/security/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)

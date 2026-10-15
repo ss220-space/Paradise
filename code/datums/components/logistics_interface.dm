@@ -21,7 +21,9 @@
 	adapter = make_adapter(machine)
 	if(!adapter)
 		return COMPONENT_INCOMPATIBLE
-	interface_name = machine.name
+	var/zone = get_area_name(machine)
+	var/type_name = machine.declent_ru(NOMINATIVE)
+	interface_name = zone ? "[zone] - [type_name]" : type_name
 
 /datum/component/logistics_interface/proc/make_adapter(obj/machinery/machine)
 	if(istype(machine, /obj/machinery/smartfridge))
