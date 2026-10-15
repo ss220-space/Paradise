@@ -107,7 +107,7 @@
 		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
 		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
 		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
-		)
+	)
 	mid_length = 10 SECONDS
 	end_sound = list(
 		'sound/ambience/weather/rain/outside/sfx_rain_external_light_1.ogg' = 1,
@@ -137,7 +137,7 @@
 		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_1.ogg' = 1,
 		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_2.ogg' = 1,
 		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_3.ogg' = 1,
-		)
+	)
 	mid_length = 10 SECONDS
 	end_sound = list(
 		'sound/ambience/weather/rain/outside/sfx_rain_external_light_1.ogg' = 1,
