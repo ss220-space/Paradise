@@ -649,13 +649,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/lusty_xenomorp
 	icon_state = "valve"
 
 /obj/structure/sign/poster/contraband/night_cat_blues
-	name = ""
-	desc = ""
+	name = "Полуночный кот"
+	desc = "Минималистичное изображение растягивающегося кота в сумерках Венеры"
 	icon_state = "night_cat_blues"
 
 /obj/structure/sign/poster/contraband/worm
-	name = ""
-	desc = ""
+	name = "Черви"
+	desc = "Шанс появиться в каждом яблоке и сердце!"
 	icon_state = "worm"
 
 //MARK: Official posters
