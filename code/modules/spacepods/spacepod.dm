@@ -248,21 +248,21 @@
 			to_chat(user, span_notice("Нет нужного топлива!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		var availableFuel = fuel_tank.air_contents.toxins() * 10
+		var availableFuel = fuel_tank.air_contents.toxins() * POD_FUEL_COEFFICIENT
 		var/last_fuel = systems.fill_fuel_tanks(availableFuel)
-		fuel_tank.air_contents.set_toxins(last_fuel / 10)
+		fuel_tank.air_contents.set_toxins(last_fuel / POD_FUEL_COEFFICIENT)
 		to_chat(user, span_notice("Заправлено [availableFuel - last_fuel] топлива из [availableFuel]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// charge battery
 	if(iscell(item) && systems.battery != null)
-		var/charge_rate = 0.1
 		var/obj/item/stock_parts/cell/cell_item = item
 		var/free_charge = systems.battery.power_capacity - systems.battery.power
-		var/used_charge = min(cell_item.charge * charge_rate, free_charge)
+		var/used_charge = min(cell_item.charge * POD_POWER_COEFFICIENT, free_charge)
 		systems.battery.power += used_charge
-		cell_item.charge -= used_charge / charge_rate
+		cell_item.charge -= used_charge / POD_POWER_COEFFICIENT
 		to_chat(user, span_notice("Аккумуляторная батарея заряжена на [used_charge] Ватт."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 

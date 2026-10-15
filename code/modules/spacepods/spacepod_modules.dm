@@ -176,7 +176,7 @@
 	mass = 80
 	enable = TRUE
 	/// Battery capacity in watt
-	var/power_capacity = 5000 //watt
+	var/power_capacity = 10000 //watt
 	/// Current power level in watt
 	var/power = 0
 
@@ -291,8 +291,6 @@
 	mass = 150
 	fuel_capacity = 30
 	var/thrust = 3500
-	/// How many fuel consume in units per tick on 100% of power
-	var/fuel_consume_amount = 1
 	/// Maximal rotations per minutes
 	var/max_rpm = 15000
 	/// Current rotations per minutes
@@ -300,10 +298,10 @@
 	/// Ignition acceleration (rpm increase per units)
 	var/ignition_acceleration = 1000
 	/// How many fuel consume in units per seconds
-	var/fuel_consume_speed = 2 // unit/sec
+	var/fuel_consume_speed = 1.5 // unit/sec
 	var/generator_enable = FALSE
 	/// How many powers generate on 100% rpm per seconds in watt
-	var/generate_power = 100
+	var/generate_power = 250
 	/// Receiving external rotation
 	var/external_rotation = FALSE
 
@@ -379,7 +377,7 @@
 	desc = "Двигатель челнока повышенной тяги. Значительно мощнее базового, но быстрее расходует топливо. Требуется вспомогательная силовая установка для запуска данного двигателя."
 	icon_state = "engine_speedy"
 	thrust = 6000
-	fuel_consume_amount = 2
+	fuel_consume_speed = 2
 	mass = 170
 
 
@@ -392,8 +390,9 @@
 	icon_state = "apu"
 	thrust = 0
 	mass = 100
-	consume_power = 1000
-	generate_power = 50
+	consume_power = 500
+	generate_power = 200
+	fuel_consume_speed = 1
 	var/obj/item/spacepod_module/fuel_tank/engine/rpm_destination_engine = null
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/is_apu()

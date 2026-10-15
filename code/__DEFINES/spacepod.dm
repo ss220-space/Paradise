@@ -32,5 +32,11 @@
 /// Spacepod frame mass in kg
 #define POD_FRAME_MASS 300
 
+/// Spacepod fuel coefficient
+#define POD_FUEL_COEFFICIENT 10
+/// Spacepod power coefficient
+#define POD_POWER_COEFFICIENT 0.25
+
+
 /// List of active trackers
 GLOBAL_LIST_EMPTY(pod_trackers)
