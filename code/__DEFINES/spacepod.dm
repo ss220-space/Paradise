@@ -25,9 +25,9 @@
 /// Passenger seats by one engine
 #define POD_PASSENGERS_BY_ENGINE 1
 /// Max engines for pod
-#define POD_MAX_ENGINES 3
+#define POD_MAX_ENGINES 5
 /// Max fuel tanks for pod
-#define POD_MAX_FUEL_TANKS 4
+#define POD_MAX_FUEL_TANKS 5
 
 /// Spacepod frame mass in kg
 #define POD_FRAME_MASS 300
