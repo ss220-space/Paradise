@@ -54,6 +54,9 @@
 	return TRUE
 
 /obj/item/spacepod_module/proc/on_remove(obj/spacepod/pod)
+	module.enable = FALSE
+	module.fire = FALSE
+	module.connection_power_net = FALSE
 	return TRUE
 
 /obj/item/spacepod_module/proc/fire_process()
@@ -182,6 +185,10 @@
 		to_chat(user, span_notice("Аккумуляторная батарея уже установлена в космическом челноке!"))
 		return FALSE
 	return TRUE
+
+/obj/item/spacepod_module/battery/on_remove(obj/spacepod/pod)
+	module.fire = FALSE
+	module.connection_power_net = FALSE
 
 /obj/item/spacepod_module/battery/proc/consume_power(amount)
 	if(!connection_power_net)
@@ -687,6 +694,7 @@
 	pod.max_passengers += 1
 
 /obj/item/spacepod_module/passenger_seat/on_remove(obj/spacepod/pod)
+	. = ..()
 	pod.max_passengers -= 1
 
 /obj/item/spacepod_module/fire_extingusher
@@ -793,6 +801,7 @@
 	return TRUE
 
 /obj/item/spacepod_module/tracker/on_remove(obj/spacepod/pod)
+	. = ..()
 	src.pod = null
 	GLOB.pod_trackers -= src
 	return TRUE

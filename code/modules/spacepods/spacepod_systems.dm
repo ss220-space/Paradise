@@ -90,9 +90,6 @@
 
 /datum/spacepod_systems/proc/remove_module(obj/spacepod/pod, obj/item/spacepod_module/module)
 	module.on_remove(pod)
-	module.enable = FALSE
-	module.fire = FALSE
-	module.connection_power_net = FALSE
 	module.systems = null
 	modules -= module
 	if(istype(module, /obj/item/spacepod_module/battery))
