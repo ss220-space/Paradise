@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(augury)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
 			ghost.clear_alert(ALERT_AUGURY)
 
-	for(var/mob/dead/observer/tracked as anything in watchers.Copy())
+	for(var/mob/dead/observer/tracked as anything in watchers)
 		if(QDELETED(tracked))
 			watchers -= tracked
 			continue
