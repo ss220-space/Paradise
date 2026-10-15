@@ -24,7 +24,6 @@
 
 	min_severity = 5
 	optimal_severity = 85
-	max_severity = 100
 	severity_variation = 2
 
 	var/list/weak_sounds = list()
@@ -96,17 +95,14 @@
 	carbon_target.water_act(15, T20C, src)
 
 /datum/weather/particle/rain/drizzle
-	particle_type = /particles/weather/rain
 	name = "drizzle"
 	desc = "Проходящий дождь задевает планету краем, оставляя лишь лёгкую морось."
 	weather_message = span_notice_alt("<i>Морось тихо шепчет по крышам. Похоже, дождь обошёл вас стороной...</i>")
 	end_message = span_notice_alt("Морось прекращается. Небо снова проясняется.")
 	aesthetic = TRUE
 	probability = 10
-	min_severity = 5
 	optimal_severity = 20
 	max_severity = 25
-	severity_variation = 2
 
 /datum/weather/particle/rain/drizzle/update_audio(next_stage)
 	switch(next_stage)

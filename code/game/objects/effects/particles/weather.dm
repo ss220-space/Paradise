@@ -69,17 +69,13 @@
 	position = generator(GEN_BOX, list(-510, -256, 0), list(400, 512, 0))
 	scale = list(1.6, 1.2)
 	grow = list(-0.016, -0.032)
-	rotation_min = 0
 	rotation_max = -30
 	drift = generator(GEN_CIRCLE, 0, 1)
 	friction = 0.2
-	wind_strength = 0
 	min_spawn = 30
 	max_spawn = 500
-	gravity_x_min = 0
 	gravity_x_max = 8
 	gravity_y_min = -10
-	gravity_y_max = -14
 
 /particles/weather/rain/acid
 	color = "#b7ffc9"
