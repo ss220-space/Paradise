@@ -105,3 +105,5 @@
 	if(human_target.bleed_rate && ismachineperson(human_target))
 		human_target.bleed_rate = 0
 
+/obj/item/stack/nanopaste/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
