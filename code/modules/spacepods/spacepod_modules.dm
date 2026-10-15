@@ -293,7 +293,8 @@
 	if(pumped <= 0)
 		return
 	source_tank.fuel_amount -= pumped
-	destination_tank.fuel_amount += pumped
+	if(destination_tank.integrity > 0)
+		destination_tank.fuel_amount += pumped
 
 
 // MARK: Engines
@@ -354,6 +355,9 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/proc/ignite()
 	if(enable)
+		return FALSE
+	if(integrity <= 0)
+		error_text = "Модуль уничтожен"
 		return FALSE
 	if(current_rpm <= 0) //no rotation - no ignition, provde rotations from apu
 		error_text = "Нет оборотов для запуска"
@@ -430,6 +434,9 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/ignite()
 	if(enable || current_rpm > 0)
+		return FALSE
+	if(integrity <= 0)
+		error_text = "Модуль уничтожен"
 		return FALSE
 	if(!process_power(1)) // can not ignite, because low power
 		if(!connection_power_net)

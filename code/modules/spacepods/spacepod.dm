@@ -58,6 +58,8 @@
 	// tgui
 	var/datum/ui_module/spacepod_control_panels/control_panels
 
+	/// Weapon balloon alert cooldown
+	COOLDOWN_DECLARE(weapon_balloon_cooldown)
 
 /obj/spacepod/get_ru_names()
 	return alist(
@@ -600,8 +602,17 @@
 
 	if(selected_gun == null)
 		return // selected gun not exists
-	if(selected_gun.safety || selected_gun.charging)
-		return // safety or charging process
+	if(selected_gun.safety)
+		if(COOLDOWN_FINISHED(src, weapon_balloon_cooldown))
+			balloon_alert(user, "оружие на предохранителе!")
+			COOLDOWN_START(src, weapon_balloon_cooldown, 1 SECONDS)
+
+		return
+	if(selected_gun.charging)
+		if(COOLDOWN_FINISHED(src, weapon_balloon_cooldown))
+			balloon_alert(user, "оружие заряжается!")
+			COOLDOWN_START(src, weapon_balloon_cooldown, 1 SECONDS)
+		return
 
 	selected_gun.weapon.fast_fire(target, user)
 

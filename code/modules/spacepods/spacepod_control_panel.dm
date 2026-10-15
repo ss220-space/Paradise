@@ -405,7 +405,7 @@
 		if(id == module.id)
 			target_module = module
 			break
-	if(!target_module)
+	if(!target_module || target_module.integrity <= 0)
 		return
 	if(target_module.enable)
 		target_module.turn_off()
