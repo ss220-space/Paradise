@@ -207,7 +207,7 @@
 	. = TRUE
 	if(!welder.tool_use_check(user, 0))
 		return
-	if((obj_integrity >= max_integrity))
+	if(obj_integrity >= max_integrity)
 		balloon_alert(user, "челнок целый!")
 		return
 	if(repairing)
@@ -289,7 +289,7 @@
 			to_chat(user, span_notice("Нет нужного топлива!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		var availableFuel = fuel_tank.air_contents.toxins() * POD_FUEL_COEFFICIENT
+		var/availableFuel = fuel_tank.air_contents.toxins() * POD_FUEL_COEFFICIENT
 		var/last_fuel = systems.fill_fuel_tanks(availableFuel)
 		fuel_tank.air_contents.set_toxins(last_fuel / POD_FUEL_COEFFICIENT)
 		to_chat(user, span_notice("Заправлено [availableFuel - last_fuel] топлива из [availableFuel]."))

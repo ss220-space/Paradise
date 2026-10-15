@@ -62,7 +62,7 @@
 	. = TRUE
 	if(!tool.tool_use_check(user, 0))
 		return
-	if((integrity >= max_integrity))
+	if(integrity >= max_integrity)
 		balloon_alert(user, "модуль целый!")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
