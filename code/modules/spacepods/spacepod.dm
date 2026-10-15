@@ -179,6 +179,7 @@
 		systems.remove_module(src, extracted_module)
 		extracted_module.forceMove(src.loc)
 		to_chat(user, span_notice("Модуль [extracted_module.module_name] извлечен."))
+		return
 
 	if(!unlocked)
 		balloon_alert(user, "замок закрыт")
@@ -239,6 +240,10 @@
 	if(ismultitool(item))
 		to_chat(user, span_notice("Системы космического челнока переведены в режим сборки."))
 		assemble_process = TRUE
+		if(systems.battery != null && systems.battery.connection_power_net && systems.battery.power > 0)
+			// do not switch to assembly mod if your battery online!
+			do_sparks(5, TRUE, src)
+			user.electrocute_act(systems.battery.power / 50, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// refill fuel
@@ -261,6 +266,7 @@
 		var/used_charge = min(cell_item.charge * POD_POWER_COEFFICIENT, free_charge)
 		systems.battery.power += used_charge
 		cell_item.charge -= used_charge / POD_POWER_COEFFICIENT
+		cell_item.update_appearance()
 		to_chat(user, span_notice("Аккумуляторная батарея заряжена на [used_charge] Ватт."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
