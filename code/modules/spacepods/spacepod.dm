@@ -111,6 +111,11 @@
 	return internal_tank
 
 /obj/spacepod/Destroy()
+	if(pilot)
+		eject_pilot()
+	if(passengers)
+		for(var/mob/passenger in passengers)
+			eject_passenger(passenger)
 	QDEL_NULL(cargo_hold)
 	QDEL_NULL(systems)
 	QDEL_NULL(cabin_air)
@@ -122,11 +127,7 @@
 	QDEL_NULL(misc_action)
 	QDEL_NULL(control_panels)
 	occupant_sanity_check()
-	if(pilot)
-		eject_pilot()
-	if(passengers)
-		for(var/mob/passenger in passengers)
-			eject_passenger(passenger)
+
 	GLOB.spacepods_list -= src
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -253,7 +254,7 @@
 			return ..()
 		var/obj/item/spacepod_module/installed_module = module_obj.install_to(user, src)
 		if(!installed_module)
-			item.forceMove(src.loc)
+			item.forceMove(src)
 			return ..()
 		systems.add_module(src, module_obj)
 		to_chat(user, span_notice("Модуль [module_obj.module_name] установлен."))
@@ -670,7 +671,18 @@
 
 /obj/spacepod/obj_destruction(damage_flag)
 	catapult_pilot()
+	var/turf/location = get_turf(src)
+	var/list/badlist = list(internal_tank, cargo_hold)
+	var/list/true_contents = (contents + cargo_hold.contents) - badlist
+	for(var/obj/item in true_contents)
+		item.loc = location
+		item.random_throw(range_low = 1)
+		if(istype(item, /obj/item/spacepod_module))
+			var/obj/item/spacepod_module/module = item
+			module.deal_damage(rand(5, 100))
+			systems.remove_module(src, module)
 	. = ..()
+	explosion(location, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, cause = "Spacepod destroy")
 
 
 // MARK: Environment
