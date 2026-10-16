@@ -35,13 +35,11 @@
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	dynamic_storage_size = TRUE
-	var/bag_with_item_size = WEIGHT_CLASS_NORMAL
-
 
 /obj/item/storage/bag/ComponentInitialize()
 	. = ..()
 	if(dynamic_storage_size)
-		AddComponent(/datum/component/differentiate_storage_size, bag_with_item_size)
+		AddComponent(/datum/component/differentiate_storage_size, storage_with_item_size)
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -57,7 +55,6 @@
 	storage_slots = 30
 	max_combined_w_class = 30
 	cant_hold = list(/obj/item/disk/nuclear)
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
@@ -135,7 +132,6 @@
 	slot_flags_2 = NONE
 	display_contents_with_number = FALSE //or else this will lead to stupid behavior.
 	cant_hold = list(/obj/item/disk/nuclear)
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))
@@ -179,7 +175,6 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 	var/aoe = FALSE
 	var/mob/listening_to
 
@@ -314,6 +309,7 @@
 	storage_slots = 48
 	max_combined_w_class = 48
 	can_hold = list(/obj/item/gem)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/gem/get_ru_names()
 	return alist(
@@ -472,7 +468,6 @@
 		/obj/item/reagent_containers/food/snacks/grown,
 	)
 	resistance_flags = FLAMMABLE
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
@@ -636,6 +631,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/coin,
 		/obj/item/stack/spacecash,
 	)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 ////////////////////////////////////////
 // MARK:	Book bag
@@ -659,6 +655,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/spellbook,
 	)
 	resistance_flags = FLAMMABLE
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/books/get_ru_names()
 	return alist(
@@ -697,6 +694,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/access_control,
 	)
 	resistance_flags = FLAMMABLE
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/construction/get_ru_names()
 	return alist(
@@ -728,7 +726,6 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 	pickup_sound = SFX_TRAY_PICKUP
 	drop_sound = SFX_TRAY_DROP
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/bag/tray/get_ru_names()
 	return alist(
@@ -913,7 +910,6 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/reagent_containers/hypospray/autoinjector,
 	)
 	resistance_flags = FLAMMABLE
-	bag_with_item_size = WEIGHT_CLASS_BULKY
 
 ////////////////////////////////////////
 // MARK:	Pouch
@@ -934,6 +930,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/stack/sheet/cartilage_plate,
 		/obj/item/stack/sheet/razor_sharp_teeth,
 	)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/medpouch/get_ru_names()
 	return alist(

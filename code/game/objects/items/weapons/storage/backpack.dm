@@ -10,8 +10,7 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
+	slot_flags = ITEM_SLOT_BACK
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -29,7 +28,7 @@
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
 	if(dynamic_storage_size)
-		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
+		AddComponent(/datum/component/differentiate_storage_size, storage_with_item_size)
 
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -541,10 +540,11 @@ GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перек
 	name = "smuggler's satchel"
 	desc = "A very slim satchel that can easily fit into tight spaces."
 	icon_state = "satchel-flat"
-	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
+	w_class = WEIGHT_CLASS_SMALL //Can fit in backpacks itself.
 	max_combined_w_class = 15
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/backpack/satchel_flat/Initialize(mapload)
 	. = ..()
