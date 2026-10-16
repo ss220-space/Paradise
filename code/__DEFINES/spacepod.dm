@@ -33,7 +33,7 @@
 #define POD_FRAME_MASS 300
 
 /// Spacepod fuel coefficient
-#define POD_FUEL_COEFFICIENT 10
+#define POD_FUEL_COEFFICIENT 20
 /// Spacepod power coefficient
 #define POD_POWER_COEFFICIENT 0.25
 
