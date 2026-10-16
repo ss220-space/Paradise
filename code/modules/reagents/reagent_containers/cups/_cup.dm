@@ -73,9 +73,9 @@
 	. = ..()
 	if(can_lid)
 		if(has_lid)
-			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы снять её.")
+			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+SHIFT+ЛКМ")], чтобы снять её.")
 		else
-			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы надеть её.")
+			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+SHIFT+ЛКМ")], чтобы надеть её.")
 
 // TODO: заменить после порта `edible` компонента с ТГ
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/eater)
@@ -164,6 +164,9 @@
 
 	return ITEM_INTERACT_SUCCESS
 
+/obj/item/reagent_containers/cup/attack_self(mob/user)
+	interact_with_atom(user, user, null)
+
 /obj/item/reagent_containers/cup/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
@@ -211,7 +214,7 @@
 /obj/item/reagent_containers/cup/is_dunkable()
 	return ..() && !has_lid
 
-/obj/item/reagent_containers/cup/click_alt(mob/user)
+/obj/item/reagent_containers/cup/AltShiftClick(mob/user)
 	if(!can_lid)
 		return NONE
 
