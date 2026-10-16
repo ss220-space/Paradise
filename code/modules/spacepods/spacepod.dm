@@ -52,8 +52,8 @@
 	// Actions
 	var/datum/action/innate/pod/pod_eject/eject_action = new
 	var/datum/action/innate/pod/pod_eject/passanger_eject = new
-	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
 	var/datum/action/innate/pod/pod_panel/panel_action = new
+	var/datum/action/innate/pod/misc/misc_action = new
 
 	// tgui
 	var/datum/ui_module/spacepod_control_panels/control_panels
@@ -118,8 +118,8 @@
 	QDEL_NULL(ion_trail)
 	QDEL_NULL(eject_action)
 	QDEL_NULL(passanger_eject)
-	QDEL_NULL(lights_action)
 	QDEL_NULL(panel_action)
+	QDEL_NULL(misc_action)
 	QDEL_NULL(control_panels)
 	occupant_sanity_check()
 	if(pilot)
@@ -761,15 +761,91 @@
 		move_delay *=  POD_GRAVITY_SPEED_MOD
 	return move_delay
 
+
+// MARK: Misc actions
+/obj/spacepod/proc/toggle_doors(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(user != pilot)
+		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
+		return
+	for(var/obj/machinery/door/poddoor/multi_tile/poddoor in orange(3, src))
+		var/mob/living/carbon/human/human_user = user
+
+		if(poddoor.check_access(human_user.get_active_hand()) || poddoor.check_access(human_user.wear_id))
+			if(poddoor.density)
+				poddoor.open()
+				return TRUE
+			else
+				poddoor.close()
+				return TRUE
+
+		for(var/mob/living/carbon/human/passenger_human in passengers)
+			if(poddoor.check_access(passenger_human.get_active_hand()) || poddoor.check_access(passenger_human.wear_id))
+				if(poddoor.density)
+					poddoor.open()
+					return TRUE
+				else
+					poddoor.close()
+					return TRUE
+
+		balloon_alert(user, "нет доступа!")
+		return
+
+	to_chat(user, span_warning("Рядом нет шлюзов."))
+
+/obj/spacepod/proc/check_seat(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	to_chat(user, span_notice("Вы начинаете искать потерянные вещи под сиденьем."))
+	if(do_after(user, 4 SECONDS, src))
+		var/list/badlist = list(internal_tank, cargo_hold, pilot) + passengers + systems.modules
+		if(systems.weapon != null)
+			if(systems.weapon.primary.weapon != null)
+				badlist += systems.weapon.primary.weapon
+			if(systems.weapon.secondary.weapon != null)
+				badlist += systems.weapon.secondary.weapon
+		var/list/true_contents = contents - badlist
+		if(length(true_contents) > 0)
+			var/obj/item = pick(true_contents)
+			if(user.put_in_any_hand_if_possible(item))
+				src.contents -= item
+				to_chat(user, span_notice("Вы находите [item.declent_ru(ACCUSATIVE)] [pick("под сиденьем", "под консолью", "в техническом отсеке")]!"))
+			else
+				to_chat(user, span_notice("Вы заметили что-то блестящее, но не можете достать!"))
+		else
+			to_chat(user, span_notice("Вы не нашли ничего ценного."))
+			balloon_alert(user, "пусто!")
+	else
+		to_chat(user, span_notice("Вы решаете не обыскивать [declent_ru(ACCUSATIVE)]."))
+
+/obj/spacepod/proc/toggle_lights(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(user != pilot)
+		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
+		return
+
+	lights = !lights
+
+	if(lights)
+		set_light(lights_power, l_on = TRUE)
+	else
+		set_light_on(FALSE)
+
+	visible_message("Прожекторы [lights ? "включены" : "выключены"].")
+
 // MARK: Actions
 /obj/spacepod/proc/grant_pilot_actions(mob/living/user)
 	eject_action.Grant(user, src)
-	lights_action.Grant(user, src)
 	//fire_action.Grant(user, src)
 	panel_action.Grant(user, src)
+	misc_action.Grant(user, src)
 
 /obj/spacepod/proc/remove_pilot_actions(mob/living/user)
 	eject_action.Remove(user)
-	lights_action.Remove(user)
 	//fire_action.Remove(user)
 	panel_action.Remove(user)
+	misc_action.Remove(user)
