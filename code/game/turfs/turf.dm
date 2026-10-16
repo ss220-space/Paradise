@@ -211,6 +211,15 @@
 	if(!.)
 		user.Move_Pulled(src)
 
+/turf/attack_hand_secondary(mob/user)
+	. = ..()
+	if(!(iscarbon(user)))
+		return
+
+	for(var/obj/item/item in src)
+		if(user.put_in_active_hand(item))
+			return
+
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
