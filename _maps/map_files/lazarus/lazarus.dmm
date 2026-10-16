@@ -2706,16 +2706,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/command/office/blueshield)
-"aKe" = (
-/obj/effect/turf_decal/arrows/black{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/partial{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/dockesc,
-/turf/simulated/floor/plasteel,
-/area/planetoid/spaceport/escape_shuttle)
 "aKn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -11547,6 +11537,7 @@
 "cQa" = (
 /obj/machinery/power/apc/worn_out/directional/east,
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -21005,6 +20996,10 @@
 	dir = 8
 	},
 /area/planetoid/jungle/colony)
+"fkK" = (
+/obj/effect/landmark/spawner/ninja_teleport,
+/turf/simulated/floor/wood/fancy/oak,
+/area/planetoid/lazarus/commons/fishing_room)
 "fkP" = (
 /obj/machinery/door/poddoor{
 	id_tag = "engstorage";
@@ -21973,6 +21968,10 @@
 	icon_state = "white"
 	},
 /area/planetoid/lazarus/medical/break_room)
+"fxh" = (
+/obj/effect/landmark/navigate_destination/chapel,
+/turf/simulated/floor/carpet,
+/area/planetoid/lazarus/service/chapel)
 "fxj" = (
 /obj/structure/sign/poster/contraband/graytech{
 	pixel_y = -32
@@ -22730,20 +22729,6 @@
 	icon_state = "grimy"
 	},
 /area/planetoid/lazarus/service/library)
-"fHX" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access = list(1);
-	use_power = 0
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Secure Gate";
-	name = "Security Blast Door"
-	},
-/obj/structure/cable,
-/obj/effect/landmark/navigate_destination/gamma_armory,
-/turf/simulated/floor/indestructible/grime_floor,
-/area/planetoid/lazarus/security/hallway/armory)
 "fIc" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -37978,6 +37963,22 @@
 	icon_state = "white"
 	},
 /area/planetoid/lazarus/science/genetics)
+"jBS" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Upload";
+	req_access = list(30)
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/aiupload,
+/turf/simulated/floor/plasteel/dark,
+/area/planetoid/lazarus/ai/upload/chamber)
 "jBX" = (
 /obj/structure/vine,
 /turf/simulated/wall/r_wall/coated,
@@ -38874,12 +38875,26 @@
 /area/planetoid/lazarus/service/library)
 "jOv" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plasma,
 /obj/machinery/vending/wallmed{
 	pixel_x = -26
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/integrated_circuit/loaded/hello_world{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/integrated_circuit/loaded/speech_relay{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/compact_remote{
+	pixel_x = 7
+	},
+/obj/item/compact_remote{
+	pixel_x = -4;
+	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -39607,6 +39622,16 @@
 	icon_state = "redfull"
 	},
 /area/planetoid/lazarus/service/kitchen)
+"kaa" = (
+/obj/effect/turf_decal/arrows/black{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/dockesc,
+/turf/simulated/floor/plasteel,
+/area/planetoid/spaceport/escape_shuttle)
 "kaj" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop,
@@ -55092,16 +55117,6 @@
 	icon_state = "darkyellow"
 	},
 /area/planetoid/lazarus/command/office/ce)
-"odL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/research,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplefull"
-	},
-/area/planetoid/lazarus/science/hallway/main)
 "odP" = (
 /obj/structure/rack,
 /obj/item/grenade/barrier,
@@ -56886,10 +56901,6 @@
 "oCX" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/spaceport/lz_centcomm)
-"oDm" = (
-/obj/effect/landmark/navigate_destination/chapel,
-/turf/simulated/floor/carpet,
-/area/planetoid/lazarus/service/chapel)
 "oDn" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/planetoid/grass/dirtedge/north,
@@ -74110,9 +74121,15 @@
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/jungle/colony_roads)
 "sZu" = (
-/obj/effect/landmark/spawner/carp,
-/turf/simulated/floor/water/beach,
-/area/planetoid/lakes/beach)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/research,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplefull"
+	},
+/area/planetoid/lazarus/science/hallway/main)
 "sZx" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/medical,
@@ -82324,22 +82341,6 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/planetoid/grass/sandedge/south,
 /area/planetoid/jungle/north)
-"vbz" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "AI Upload";
-	req_access = list(30)
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/aiupload,
-/turf/simulated/floor/plasteel/dark,
-/area/planetoid/lazarus/ai/upload/chamber)
 "vbE" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/delivery/hollow,
@@ -87788,6 +87789,9 @@
 	pixel_x = 28
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/item/disk/tech_disk{
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -93128,6 +93132,20 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/commons/storage/primary)
+"xPb" = (
+/obj/machinery/door/airlock/hatch/gamma{
+	locked = 1;
+	req_access = list(1);
+	use_power = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/obj/structure/cable,
+/obj/effect/landmark/navigate_destination/gamma_armory,
+/turf/simulated/floor/indestructible/grime_floor,
+/area/planetoid/lazarus/security/hallway/armory)
 "xPj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -104190,7 +104208,7 @@ cLB
 cLB
 cLw
 cLB
-ewh
+cLB
 pIL
 qVb
 gCs
@@ -106017,7 +106035,7 @@ cLw
 cLB
 aPn
 vfU
-sZu
+aPn
 aPn
 aPn
 aPn
@@ -111373,7 +111391,7 @@ cLB
 cLB
 cLB
 cLB
-ewh
+cLB
 gao
 hpL
 emB
@@ -113453,7 +113471,7 @@ oRN
 dof
 spg
 dof
-oDm
+fxh
 gyG
 nwH
 qju
@@ -120758,7 +120776,7 @@ hEl
 kdv
 czw
 czw
-fHX
+xPb
 pxA
 dAA
 ykm
@@ -125504,7 +125522,7 @@ pYj
 ukK
 pEU
 pEU
-fTp
+pEU
 pEU
 pEU
 pEU
@@ -130879,7 +130897,7 @@ snr
 whO
 whO
 whO
-vbz
+jBS
 whO
 whO
 whO
@@ -136554,7 +136572,7 @@ bbM
 bKd
 pEU
 pEU
-fTp
+pEU
 pEU
 pEU
 pEU
@@ -138843,7 +138861,7 @@ lRT
 nay
 lyH
 lYG
-odL
+sZu
 vPn
 ybS
 qlM
@@ -141437,7 +141455,7 @@ qUJ
 sKP
 wyv
 wyv
-vdk
+wyv
 wyv
 wyv
 wyv
@@ -142020,7 +142038,7 @@ enB
 cme
 lBc
 lBc
-aKe
+kaa
 lBc
 lBc
 hwk
@@ -148905,7 +148923,7 @@ jue
 xqe
 uMf
 uMf
-uMf
+fkK
 fpK
 mru
 kBn
@@ -152505,7 +152523,7 @@ wyv
 wyv
 wyv
 wyv
-vdk
+wyv
 wyv
 wyv
 wyv
