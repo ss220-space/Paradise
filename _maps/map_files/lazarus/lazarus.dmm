@@ -2706,6 +2706,16 @@
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/command/office/blueshield)
+"aKe" = (
+/obj/effect/turf_decal/arrows/black{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/dockesc,
+/turf/simulated/floor/plasteel,
+/area/planetoid/spaceport/escape_shuttle)
 "aKn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -5034,22 +5044,6 @@
 "bnQ" = (
 /turf/simulated/floor/planetoid/desert/beachcorner2/west,
 /area/planetoid/caves/underground_lake)
-"bnZ" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "AI Upload";
-	req_access = list(30)
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/aiupload,
-/turf/simulated/floor/plasteel/dark,
-/area/planetoid/lazarus/ai/upload/chamber)
 "bof" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -5612,10 +5606,6 @@
 "bub" = (
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/jungle/temple_outer)
-"bue" = (
-/obj/effect/landmark/navigate_destination/chapel,
-/turf/simulated/floor/carpet,
-/area/planetoid/lazarus/service/chapel)
 "buo" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -13523,6 +13513,7 @@
 /area/planetoid/lakes/west)
 "dnV" = (
 /obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/caves/east_rnd_cave)
 "dof" = (
@@ -22739,6 +22730,20 @@
 	icon_state = "grimy"
 	},
 /area/planetoid/lazarus/service/library)
+"fHX" = (
+/obj/machinery/door/airlock/hatch/gamma{
+	locked = 1;
+	req_access = list(1);
+	use_power = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/obj/structure/cable,
+/obj/effect/landmark/navigate_destination/gamma_armory,
+/turf/simulated/floor/indestructible/grime_floor,
+/area/planetoid/lazarus/security/hallway/armory)
 "fIc" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -55087,6 +55092,16 @@
 	icon_state = "darkyellow"
 	},
 /area/planetoid/lazarus/command/office/ce)
+"odL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/research,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplefull"
+	},
+/area/planetoid/lazarus/science/hallway/main)
 "odP" = (
 /obj/structure/rack,
 /obj/item/grenade/barrier,
@@ -56871,6 +56886,10 @@
 "oCX" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/spaceport/lz_centcomm)
+"oDm" = (
+/obj/effect/landmark/navigate_destination/chapel,
+/turf/simulated/floor/carpet,
+/area/planetoid/lazarus/service/chapel)
 "oDn" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/planetoid/grass/dirtedge/north,
@@ -60472,6 +60491,7 @@
 /area/planetoid/lazarus/nexus)
 "pAn" = (
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/planetoid/grass/sandedge,
 /area/planetoid/caves/east_rnd_cave)
 "pAo" = (
@@ -62187,7 +62207,7 @@
 /obj/structure/vine,
 /obj/effect/hunter/ancient_temple,
 /obj/structure/closet/crate/wooden,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "pYD" = (
@@ -64137,16 +64157,6 @@
 	icon_state = "neutralfull"
 	},
 /area/planetoid/lazarus/hallway/primary/aft/south)
-"qwE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/research,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplefull"
-	},
-/area/planetoid/lazarus/science/hallway/main)
 "qwN" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery/hollow,
@@ -75150,20 +75160,6 @@
 "tmc" = (
 /turf/simulated/floor/planetoid/grass/sandedge/south,
 /area/planetoid/jungle/temple_outer)
-"tmd" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access = list(1);
-	use_power = 0
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Secure Gate";
-	name = "Security Blast Door"
-	},
-/obj/structure/cable,
-/obj/effect/landmark/navigate_destination/gamma_armory,
-/turf/simulated/floor/indestructible/grime_floor,
-/area/planetoid/lazarus/security/hallway/armory)
 "tmh" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/planetoid/grass,
@@ -77446,6 +77442,7 @@
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "tRq" = (
 /obj/structure/vine/heavy,
+/obj/item/gun/projectile/bow/ashen,
 /turf/simulated/floor/ancient_temple/floor_3/southwest,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "tRr" = (
@@ -80112,16 +80109,6 @@
 	icon_state = "darkyellow"
 	},
 /area/planetoid/lazarus/engineering/mechanic_workshop)
-"uzy" = (
-/obj/effect/turf_decal/arrows/black{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/partial{
-	dir = 4
-	},
-/obj/effect/landmark/navigate_destination/dockesc,
-/turf/simulated/floor/plasteel,
-/area/planetoid/spaceport/escape_shuttle)
 "uzE" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -82337,6 +82324,22 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/planetoid/grass/sandedge/south,
 /area/planetoid/jungle/north)
+"vbz" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Upload";
+	req_access = list(30)
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/aiupload,
+/turf/simulated/floor/plasteel/dark,
+/area/planetoid/lazarus/ai/upload/chamber)
 "vbE" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/delivery/hollow,
@@ -87286,6 +87289,7 @@
 /area/planetoid/jungle/orbital_strike)
 "wrI" = (
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/planetoid/grass/sandcorner/south,
 /area/planetoid/caves/east_rnd_cave)
 "wsg" = (
@@ -92993,7 +92997,7 @@
 /obj/effect/hunter/ancient_temple/tile_edge_corner/tile_edge_corner_3,
 /obj/structure/vine,
 /obj/structure/closet/crate/wooden,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "xND" = (
@@ -113449,7 +113453,7 @@ oRN
 dof
 spg
 dof
-bue
+oDm
 gyG
 nwH
 qju
@@ -120754,7 +120758,7 @@ hEl
 kdv
 czw
 czw
-tmd
+fHX
 pxA
 dAA
 ykm
@@ -130875,7 +130879,7 @@ snr
 whO
 whO
 whO
-bnZ
+vbz
 whO
 whO
 whO
@@ -138839,7 +138843,7 @@ lRT
 nay
 lyH
 lYG
-qwE
+odL
 vPn
 ybS
 qlM
@@ -142016,7 +142020,7 @@ enB
 cme
 lBc
 lBc
-uzy
+aKe
 lBc
 lBc
 hwk
@@ -150141,7 +150145,7 @@ qRA
 qRA
 xLR
 xLR
-dnV
+kNH
 qRA
 qRA
 qRA
