@@ -169,6 +169,17 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернут�
 		span_cultlarge("[user] поднима[PLUR_ET_YUT(user)] дуло вверх и стреля[PLUR_ET_YUT(user)], используя [declent_ru(ACCUSATIVE)]!"),
 		ignored_mobs = user
 	)
-
 	playsound(user, fire_sound, 120, FALSE)
 	update_icon()
+
+	if(prob(10))
+		falling_pipe(user)
+
+/obj/item/gun/projectile/revolver/proc/falling_pipe(mob/user)
+	var/turf/gun_turf = get_turf(user)
+	if(isspaceturf(gun_turf))
+		return
+
+	for(var/turf/simulated/floor/landing_turf in shuffle(RANGE_TURFS(3, gun_turf)))
+		new /obj/effect/falling_pipe(landing_turf, user)
+		break
