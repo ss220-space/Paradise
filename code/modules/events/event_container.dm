@@ -185,8 +185,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MUNDANE, EVENT_SCARCE_NEWS, /datum/event/trivial_news, 400),
 		new /datum/event_meta(
 			EVENT_LEVEL_MUNDANE, EVENT_STANDARD_NEWS, /datum/event/mundane_news, 300),
-		new /datum/event_meta(
-			EVENT_LEVEL_MUNDANE, EVENT_PEST_INFESTATION, /datum/event/infestation, 100, list(ASSIGNMENT_JANITOR = 100)),
+//		new /datum/event_meta(
+//			EVENT_LEVEL_MUNDANE, EVENT_PEST_INFESTATION, /datum/event/infestation, 100, list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MUNDANE, EVENT_SENTIENT_CREATURE, /datum/event/sentience, 50),
 		new /datum/event_meta(
