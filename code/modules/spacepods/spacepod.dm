@@ -629,6 +629,9 @@
 	if(systems.weapon == null)
 		return // weapons not installed
 
+	if(user != pilot)
+		return // only pilot can fire from weapons
+
 	if(!systems.weapon.connection_power_net || !systems.weapon.enable)
 		return // weapon module offline
 
