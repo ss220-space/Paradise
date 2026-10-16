@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/wirecutter_act(mob/living/user, obj/item/tool)
 	if(get_amount() < FLOOR_TILE_COST)
-		user.balloon_alert(user, "не хватает!")
+		user.balloon_alert(user, "не хватает металла!")
 		return ITEM_INTERACT_BLOCKING
 
 	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/wirecutter_act_secondary(mob/living/user, obj/item/tool)
 	if(get_amount() < METALL_ROD_COST)
-		user.balloon_alert(user, "не хватает!")
+		user.balloon_alert(user, "не хватает металла!")
 		return ITEM_INTERACT_BLOCKING
 
 	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
@@ -179,7 +179,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		user.balloon_alert(user, "нельзя поставить здесь!")
 		return ITEM_INTERACT_BLOCKING
 	if(get_amount() < MACHINE_FRAME_COST)
-		user.balloon_alert(user, "не хватает!")
+		user.balloon_alert(user, "не хватает металла!")
 		return ITEM_INTERACT_BLOCKING
 
 	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		user.balloon_alert(user, "нельзя поставить здесь!")
 		return ITEM_INTERACT_BLOCKING
 	if(get_amount() < COMPUTER_FRAME_COST)
-		user.balloon_alert(user, "не хватает!")
+		user.balloon_alert(user, "не хватает металла!")
 		return ITEM_INTERACT_BLOCKING
 
 	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	var/cost = WALL_GIRDER_COST
 	var/time = WALL_GIRDER_TIME * mod
 	if(get_amount() < cost)
-		user.balloon_alert(user, "нужно [cost] лист[DECL_0_A_OV(cost)] металла!")
+		user.balloon_alert(user, "не хватает металла!")
 		return ITEM_INTERACT_BLOCKING
 	if(!do_after(user, time, build_on))
 		return ITEM_INTERACT_BLOCKING
