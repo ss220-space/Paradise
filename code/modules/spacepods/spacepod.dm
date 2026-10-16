@@ -324,6 +324,9 @@
 #define ACTION_REMOVE_SECONDARY_WEAPON "Извлечь дополнительное вооружение"
 
 /obj/spacepod/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(user.a_intent == INTENT_GRAB && unlocked)
 		eject_any_occupant(user)
 

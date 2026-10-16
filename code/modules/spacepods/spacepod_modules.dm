@@ -55,6 +55,8 @@
 /obj/item/spacepod_module/examine(mob/user)
 	. = ..()
 	. += span_notice("Прочность [round(integrity / max_integrity * 100)]%")
+	if(mass > 0)
+		. += span_notice("Вес [mass] кг.")
 
 /obj/item/spacepod_module/welder_act(mob/living/user, obj/item/tool)
 	if(user.a_intent == INTENT_HARM)
@@ -158,6 +160,11 @@
 	. = ..()
 	id = "fuel_tank_[module_id_counter++]"
 
+/obj/item/spacepod_module/fuel_tank/examine(mob/user)
+	. = ..()
+	. += span_notice("Емкость [fuel_capacity] л.")
+	. += span_notice("Заправлено на [fuel_amount] л.")
+
 /obj/item/spacepod_module/fuel_tank/proc/consume_fuel(amount)
 	if(amount > fuel_amount)
 		amount = fuel_amount
@@ -224,6 +231,11 @@
 	power = power_capacity
 	id = "battery_[module_id_counter++]"
 
+/obj/item/spacepod_module/battery/examine(mob/user)
+	. = ..()
+	. += span_notice("Емкость [power_capacity] Ватт.")
+	. += span_notice("Заряжено на [power] Ватт.")
+
 /obj/item/spacepod_module/battery/install_to(mob/living/user, obj/spacepod/pod)
 	if(pod.systems.battery != null)
 		to_chat(user, span_notice("Аккумуляторная батарея уже установлена в космическом челноке!"))
@@ -272,6 +284,10 @@
 /obj/item/spacepod_module/fuel_pump/New(loc, ...)
 	. = ..()
 	id = "fuel_pump_[module_id_counter++]"
+
+/obj/item/spacepod_module/fuel_pump/examine(mob/user)
+	. = ..()
+	. += span_notice("Перекачивает [pump_speed] л. топлива в секунду.")
 
 /obj/item/spacepod_module/fuel_pump/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.fuel_tanks) == 0)
@@ -353,6 +369,11 @@
 /obj/item/spacepod_module/fuel_tank/engine/New(loc, ...)
 	. = ..()
 	id = "engine_[module_id_counter++]"
+
+/obj/item/spacepod_module/fuel_tank/engine/examine(mob/user)
+	. = ..()
+	. += span_notice("Тяга [3500] кгс")
+	. += span_notice("Потряебяет [fuel_consume_speed] л. топлива в секунду.")
 
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.engines) >= POD_MAX_ENGINES)
