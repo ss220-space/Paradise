@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Кнопка навигации для всех стилей ХУДов и переезд этой кнопки в другое место. (PR #9900)"
