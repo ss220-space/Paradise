@@ -466,6 +466,7 @@
 /obj/spacepod/proc/eject_passenger(mob/living/passenger)
 	passenger.forceMove(get_turf(src))
 	passanger_eject.Remove(passenger)
+	panel_action.Remove(passenger)
 	passengers -= passenger
 
 /obj/spacepod/proc/eject_any_occupant(mob/user)
@@ -561,6 +562,7 @@
 		passengers += user
 		user.forceMove(src)
 		passanger_eject.Grant(user, src)
+		panel_action.Grant(user, src)
 		add_fingerprint(user)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	else

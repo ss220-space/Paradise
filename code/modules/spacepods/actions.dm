@@ -27,7 +27,7 @@
 /datum/action/innate/pod/pod_toggle_lights/Activate()
 	if(!owner || !pod || pod.pilot != owner)
 		return
-	// pod.toggleLights(owner)
+	//pod.toggleLights(owner)
 	button_icon_state = "mech_lights_[pod.lights ? "on" : "off"]"
 	UpdateButtonIcon()
 
@@ -36,6 +36,6 @@
 	button_icon_state = "mech_misc"
 
 /datum/action/innate/pod/pod_panel/Activate()
-	if(!owner || !pod || pod.pilot != owner)
+	if(!pod)
 		return
-	pod.control_panels.ui_interact(owner)
+	pod.control_panels.ui_interact(usr)

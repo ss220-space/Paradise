@@ -16,7 +16,7 @@
 
 /datum/ui_module/spacepod_control_panels/ui_state(mob/user)
 	if(isobserver(user))
-		return ..()
+		return GLOB.observer_state
 	return GLOB.not_incapacitated_state
 
 /datum/ui_module/spacepod_control_panels/ui_host(mob/user)
@@ -349,6 +349,9 @@
 
 // MARK: ui_act
 /datum/ui_module/spacepod_control_panels/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(usr != pod.pilot)
+		return FALSE
+
 	. = TRUE
 
 	playsound(pod.loc, SFX_TERMINAL_TYPE, 25, TRUE)
