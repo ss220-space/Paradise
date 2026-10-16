@@ -36164,13 +36164,10 @@
 /turf/simulated/floor/planetoid/grass/sandedge/east,
 /area/planetoid/jungle/orbital_strike)
 "jfe" = (
-/obj/effect/decal/remains/human{
-	desc = "Эти человеческие кости уже довольно старые. Видимо этого парня тут давным давно забыли.";
-	name = "Human remains"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/decal/remains/human/lazarus,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/security/brig)
 "jff" = (
@@ -43508,10 +43505,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light/floor,
-/obj/structure/statue/gold/hop{
-	name = "Статуя высокого человека в костюме";
-	desc = "Это статуя олицетворяет высокого мужчину человека, одетого в корпоративную одежду НТ. Одного из руководителей реконструкции колонии Лазарь, после индциндента 2550 года. Статуя полностью вылета из золота."
-	},
+/obj/structure/statue/gold/hop/lazarus,
 /turf/simulated/floor/planetoid/grass/grass3,
 /area/planetoid/lazarus/command/bridge)
 "kVV" = (
@@ -47016,10 +47010,7 @@
 /obj/structure/flora/ausbushes/sparsegrass/hell,
 /obj/structure/flora/ausbushes/hell,
 /obj/machinery/light/floor,
-/obj/structure/statue/gold/tajaran{
-	name = "Статуя неизвестной таяры";
-	desc = "Это статуя олицетворяет девушку таяру. Одну из руководителей реконструкции колонии Лазарь, после индциндента 2550 года. Статуя полностью вылета из золота."
-	},
+/obj/structure/statue/gold/tajaran/lazarus,
 /turf/simulated/floor/planetoid/grass/grass3,
 /area/planetoid/lazarus/command/bridge)
 "lSD" = (
@@ -67483,12 +67474,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/atmosia_independence{
-	pixel_x = -32;
-	name = "Документ об основании колонии Лазарь";
-	desc = "Реликвия прошлого. Этот документ датируется 2544 годом. В нем описывается как колония Лазарь была основана Транс-Солнечной Федерацией и восхволяешь мужество и патриотизм колонистов."
-	},
 /obj/structure/statue/trava,
+/obj/structure/sign/poster/contraband/atmosia_independence/lazarus{
+	pixel_x = -32
+	},
 /turf/simulated/floor/planetoid/grass/grass3,
 /area/planetoid/lazarus/command/bridge)
 "rnN" = (
