@@ -1,7 +1,6 @@
 
 // MARK: Papers
 /obj/item/paper/lazarus/guard_log
-	name = "Записка"
 	desc = "Похоже на вырванный лист из журнала записей поста охраны, на обратной стороне бумаги дата: 02.06.2567"
 	info = "<h1>Сержант Барнс</h1><hr>КПП-1.<br>\
 			03:10 — грузовой транспорт, разрешение имеется.<br>\
@@ -11,7 +10,6 @@
 			09:05 — пост покинут."
 
 /obj/item/paper/lazarus/last_survivor
-	name = "Записка"
 	desc = "Лист бумаги в пыли."
 	info = "Дата 15 Месяц 9 Год 2568 <hr>Нас было шестеро на этом наблюдательном посту, включая меня.<br><br>\
 			Двое из них предали нас. Они направили оружие против собственных товарищей. Я не знаю, по какой причине.<br><br>\
@@ -24,7 +22,6 @@
 			Прощайте."
 
 /obj/item/paper/lazarus/route_note
-	name = "Записка"
 	desc = "Мятый лист бумаги в пыли и мазуте."
 	info = "НЕ ЗАБЫТЬ<hr>Последнюю партию больше через старую дорогу не тащим. Патрули начали ходить дальше на север, не знаю что они там вынюхивают, но лучше не светиться<br><br>\
 			Новый маршрут: старая тропа — озеро — метеостанция — восточный сектор<br><br>\
@@ -37,7 +34,6 @@
 			К."
 
 /obj/item/paper/lazarus/meteo_report
-	name = "Отчёт метеостанции — кислотные осадки"
 	desc = "Лист бумаги в идеальном состоянии."
 	info = "<h1>МЕТЕОРОЛОГИЧЕСКАЯ СТАНЦИЯ #1-LV624<br>ОТЧЕТ О СОСТОЯНИИ АТМОСФЕРНЫХ ОСАДКОВ</h1><hr>\
 			Дата: 21.06.2567<br>\
@@ -51,7 +47,6 @@
 			Примечание: причина периодического повышения кислотности атмосферы пока не установлена. Продолжить сбор проб."
 
 /obj/item/paper/lazarus/meteo_daily
-	name = "Системный отчёт метеостанции"
 	desc = "Лист бумаги, в идеальном состоянии."
 	info = "<h1>АВТОМАТИЧЕСКИЙ СУТОЧНЫЙ ОТЧЕТ</h1><hr>\
 			20.06.2567.<br>\
@@ -75,10 +70,7 @@
 			Ах да, на этот раз он еще и стойку нам заблевал, а после сбежал пъяный от охраны куда-то в сторону джунглей за церковью. Пока не вернет 8 сотен — больше этому уроду не наливай!<br><br><br><br>\
 			— Боб."
 
-// MARK: Corpses
-/obj/structure/decorative_structures/corpse/leto
-	name = "Leto"
-
+/// MARK: Trifles
 /obj/structure/decorative_structures/corpse/leto/get_ru_names()
 	return alist(
 		NOMINATIVE = "тело Лето",
@@ -88,9 +80,6 @@
 		INSTRUMENTAL = "телом Лето",
 		PREPOSITIONAL = "теле Лето",
 	)
-
-/obj/structure/decorative_structures/corpse/sally
-	name = "Sally"
 
 /obj/structure/decorative_structures/corpse/sally/get_ru_names()
 	return alist(
@@ -102,10 +91,6 @@
 		PREPOSITIONAL = "теле Салли",
 	)
 
-/// MARK: Trifles
-/obj/item/reagent_containers/food/snacks/boiledrice/lazarus_bowl
-	name = "Миска рис"
-
 /obj/item/reagent_containers/food/snacks/boiledrice/lazarus_bowl/get_ru_names()
 	return alist(
 		NOMINATIVE = "миска рис",
@@ -115,10 +100,6 @@
 		INSTRUMENTAL = "миска рис",
 		PREPOSITIONAL = "миска рис",
 	)
-
-/obj/item/toy/plushie/cat/ricehat/lazarus_wife
-	name = "Кошка жена"
-
 /obj/item/toy/plushie/cat/ricehat/lazarus_wife/get_ru_names()
 	return alist(
 		NOMINATIVE = "плюшевая кошка жена",
@@ -130,7 +111,6 @@
 	)
 
 /obj/item/storage/funeral_urn/with_ash/lazarus_donny
-	name = "Пустая кофейная урна Донни"
 	desc = "Эта металлическая тара отчаянно пытается притворяться ритуальной чашей. Судя по характерной красно-синей расцветке, это тот самый «умеренно приглянувшийся сосуд», который ассистенты стащили со склада торговых автоматов в жилом блоке планетарной колонии. Внутри до сих пор пахнет дешевым синтетическим кофе и... чьим-то прахом?"
 
 /obj/item/storage/funeral_urn/with_ash/lazarus_donny/get_ru_names()
@@ -142,3 +122,45 @@
 		INSTRUMENTAL = "пустой кофейной урной Донни",
 		PREPOSITIONAL = "пустой кофейной урне Донни",
 	)
+
+/obj/structure/sign/poster/contraband/atmosia_independence/lazarus
+	desc = "Реликвия прошлого. Этот документ датируется 2544 годом. В нем описывается как колония Лазарь была основана Транс-Солнечной Федерацией и восхволяешь мужество и патриотизм колонистов."
+
+/obj/structure/sign/poster/contraband/atmosia_independence/lazarus/get_ru_names()
+	return alist(
+		NOMINATIVE = "документ об основании колонии Лазарь",
+		GENITIVE = "документа об основании колонии Лазарь",
+		DATIVE = "документу об основании колонии Лазарь",
+		ACCUSATIVE = "документ об основании колонии Лазарь",
+		INSTRUMENTAL = "документом об основании колонии Лазарь",
+		PREPOSITIONAL = "документе об основании колонии Лазарь",
+	)
+
+/obj/structure/statue/gold/hop/lazarus
+	desc = "Это статуя олицетворяет высокого мужчину человека, одетого в корпоративную одежду НТ. Одного из руководителей реконструкции колонии Лазарь, после индциндента 2550 года. Статуя полностью вылета из золота."
+
+/obj/structure/statue/gold/hop/lazarus/get_ru_names()
+	return alist(
+		NOMINATIVE = "статуя высокого человека в костюме",
+		GENITIVE = "статуи высокого человека в костюме",
+		DATIVE = "статуе высокого человека в костюме",
+		ACCUSATIVE = "статую высокого человека в костюме",
+		INSTRUMENTAL = "статуей высокого человека в костюме",
+		PREPOSITIONAL = "статуе высокого человека в костюме",
+	)
+
+/obj/structure/statue/gold/tajaran/lazarus
+	desc = "Это статуя олицетворяет девушку таяру. Одну из руководителей реконструкции колонии Лазарь, после индциндента 2550 года. Статуя полностью вылета из золота."
+
+/obj/structure/statue/gold/tajaran/lazarus/get_ru_names()
+	return alist(
+		NOMINATIVE = "статуя неизвестной таяры",
+		GENITIVE = "статуи неизвестной таяры",
+		DATIVE = "статуе неизвестной таяры",
+		ACCUSATIVE = "статую неизвестной таяры",
+		INSTRUMENTAL = "статуей неизвестной таяры",
+		PREPOSITIONAL = "статуе неизвестной таяры",
+	)
+
+/obj/effect/decal/remains/human/lazarus
+	desc = "Эти человеческие кости уже довольно старые. Видимо этого парня тут давным давно забыли."
