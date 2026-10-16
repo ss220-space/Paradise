@@ -213,6 +213,7 @@
 
 /turf/attack_hand_secondary(mob/user)
 	. = ..()
+
 	if(!(iscarbon(user)))
 		return
 
