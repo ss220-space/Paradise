@@ -50,8 +50,7 @@
 	pixel_x = 1;
 	dir = 4
 	},
-/obj/structure/decorative_structures/corpse{
-	name = "Leto";
+/obj/structure/decorative_structures/corpse/leto{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/birch,
@@ -1413,9 +1412,8 @@
 	},
 /area/planetoid/lazarus/service/kitchen)
 "arY" = (
-/obj/structure/decorative_structures/corpse{
-	dir = 4;
-	name = "Sally"
+/obj/structure/decorative_structures/corpse/sally{
+	dir = 4
 	},
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/west)
@@ -2426,11 +2424,7 @@
 "aFg" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/bed/old,
-/obj/item/paper{
-	desc = "Мятый лист бумаги в пыли и мазуте.";
-	info = "НЕ ЗАБЫТЬ<hr>Последнюю партию больше через старую дорогу не тащим. Патрули начали ходить дальше на север, не знаю что они там вынюхивают, но лучше не светиться<br><br>Новый маршрут: старая тропа — озеро — метеостанция — восточный сектор<br><br>На метеостанции людей почти не бывает. Если дверь закрыта — ждать до следующего окна связи.<br><br>Груз прятать не возле станции, а дальше по тропе. В прошлый раз кто-то полез в старый склад и едва не нашёл следы.<br><br>И еще:<br>Если начинается дождь — не выходить<br>В прошлый раз один из наших решил, что это обычная гроза. Через десять минут кожа на руках пошла пятнами, а металлический контейнер пришлось выбросить.<br>Не знаю, что там творится с атмосферой, но метеорологи явно что-то скрывают.<br><br>К.";
-	name = "Записка"
-	},
+/obj/item/paper/lazarus/route_note,
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/caves/underground_lake)
 "aFm" = (
@@ -3246,6 +3240,7 @@
 	req_access = list(25)
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5039,6 +5034,22 @@
 "bnQ" = (
 /turf/simulated/floor/planetoid/desert/beachcorner2/west,
 /area/planetoid/caves/underground_lake)
+"bnZ" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Upload";
+	req_access = list(30)
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/aiupload,
+/turf/simulated/floor/plasteel/dark,
+/area/planetoid/lazarus/ai/upload/chamber)
 "bof" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -5601,6 +5612,10 @@
 "bub" = (
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/jungle/temple_outer)
+"bue" = (
+/obj/effect/landmark/navigate_destination/chapel,
+/turf/simulated/floor/carpet,
+/area/planetoid/lazarus/service/chapel)
 "buo" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -5638,6 +5653,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
+/obj/effect/landmark/navigate_destination/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5965,6 +5981,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/nfr,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/command/office/ntrep)
 "bxK" = (
@@ -6362,6 +6379,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/janitor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -6498,6 +6516,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/navigate_destination/dorms,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6915,6 +6934,7 @@
 	name = "Escape Pod Airlock"
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/dockescpod4,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_four)
 "bKd" = (
@@ -7935,14 +7955,10 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/item/reagent_containers/food/snacks/boiledrice{
-	name = "Миска рис"
-	},
-/obj/item/toy/plushie/cat/ricehat{
-	name = "Кошка жена"
-	},
 /obj/item/weaponcrafting/revolverbarrel,
 /obj/item/gun/projectile/revolver/improvised,
+/obj/item/reagent_containers/food/snacks/boiledrice/lazarus_bowl,
+/obj/item/toy/plushie/cat/ricehat/lazarus_wife,
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/caves)
 "bWw" = (
@@ -10339,6 +10355,7 @@
 	name = "Hangar";
 	req_access = list(18,47,48,70,71)
 	},
+/obj/effect/landmark/navigate_destination/eva,
 /turf/simulated/floor/indestructible/grime_floor,
 /area/planetoid/spaceport/explorer_ship)
 "czK" = (
@@ -12437,6 +12454,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/atmos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13219,6 +13237,7 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/landmark/navigate_destination/sec,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -14298,6 +14317,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/theatre,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14417,6 +14437,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/xenobiology,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -14659,6 +14680,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/navigate_destination/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17191,6 +17213,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19000,6 +19023,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/lawyer,
 /turf/simulated/floor/wood/cherry,
 /area/planetoid/lazarus/legal/office/law)
 "eMI" = (
@@ -20027,11 +20051,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/paper{
-	desc = "Лист бумаги в идеальном состоянии";
-	info = "<h1>МЕТЕОРОЛОГИЧЕСКАЯ СТАНЦИЯ #1-LV624<br>ОТЧЕТ О СОСТОЯНИИ АТМОСФЕРНЫХ ОСАДКОВ</h1><hr>Дата: 21.06.2567<br>Ответственный наблюдатель: Джордж Уиззерсмит<br><br>За последний период наблюдений в северо-восточном секторе неоднократно зарегистрированы осадки с повышенной кислотностью.<br><br>Обычный показатель pH дождевой воды составляет 5,4-5,8. Во время отдельных эпизодов показатель снижался до 3,1-3,6<br><br>Анализ проб выявил повышенное содержание сульфат- и нитрат-ионов. Предполагается, что явление связано с присутствием в атмосфере аэрозольных соединений неизвестного происхождения.<br><br>Несмотря на повышенную кислотность осадков, заметного ущерба местной флоре не обнаружено. Растительность региона демонстрирует высокую устойчивость к подобным условиям, предположительно вследствие длительной адаптации.<br><br>Наибольшую опасность осадки представляют для человека, металлических конструкций и оборудования.<br><br>Рекомендуется избегать нахождения под открытым небом во время осадков с pH ниже 3,5.<br><br><br>Примечание:Причина периодического повышения кислотности атмосферы пока не установлена. Продолжить сбор проб.";
-	name = "Отчет метеостанции — кислотные осадки"
-	},
+/obj/item/paper/lazarus/meteo_report,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/abandoned_building/weather_station)
 "eXY" = (
@@ -23809,6 +23829,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/robo,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -25436,6 +25457,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -27314,6 +27336,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination/virology,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -30515,11 +30538,7 @@
 	pixel_x = 6;
 	pixel_y = -8
 	},
-/obj/item/paper{
-	desc = "Лист бумаги, в идеальном состоянии";
-	info = "<h1>АВТОМАТИЧЕСКИЙ СУТОЧНЫЙ ОТЧЕТ</h1><hr>20.06.2567.<br>Температура: 27,4 °C<br>Влажность: 91%<br>Давление: 748 мм рт. ст.<br>Ветер: 6,2 м/с, северо-восточное направление<br>Осадки: 14,7 мм<br>Средний pH осадков: 5,2<br>Грозовая активность: отсутствует<br><br><h1>";
-	name = "Системный отчет метеостанции"
-	},
+/obj/item/paper/lazarus/meteo_daily,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/abandoned_building/weather_station)
 "hFU" = (
@@ -32086,6 +32105,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34783,6 +34803,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/hydro,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -35522,6 +35543,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/det,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/security/detectives_office)
 "iWg" = (
@@ -37548,6 +37570,7 @@
 	name = "Escape Pod Airlock"
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/dockescpod3,
 /turf/simulated/floor/plating,
 /area/planetoid/spaceport/lz_escape_pod_tree)
 "jwR" = (
@@ -39188,6 +39211,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/disposals,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/disposal)
 "jTk" = (
@@ -47706,6 +47730,7 @@
 	req_access = list(47)
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/sci_chem,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52149,6 +52174,7 @@
 	id_tag = "courtroombolts";
 	name = "Courtroom"
 	},
+/obj/effect/landmark/navigate_destination/court,
 /turf/simulated/floor/wood/dark,
 /area/planetoid/lazarus/security/courtroom)
 "nnT" = (
@@ -59388,6 +59414,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -60532,12 +60559,8 @@
 /area/planetoid/lazarus/medical/virology/lab)
 "pBn" = (
 /obj/structure/table,
-/obj/item/paper{
-	desc = "Похоже на вырванный лист из журнала записей поста охраны, на обратной стороне бумаги дата: 02.06.2567";
-	info = "<h1>Сержант Барнс</h1><hr>КПП-1.<br>03:10 — грузовой транспорт, разрешение имеется.<br>05:40 — инженерная бригада, пропущены.<br>08:15 — начальство приказало не пропускать никого в сектор.<br>08:47 — поступил приказ снять пост.<br>09:05 — пост покинут.";
-	name = "Записка"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper/lazarus/guard_log,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -61437,11 +61460,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/item/paper{
-	desc = "Мятый лист бумаги. От одного вида на него у вас начинается головокружение.";
-	info = "<h1>ПОМОГИТЕ МНЕ</h1><hr><br><large><large><b>ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ ПОМОГИТЕМНЕ МНЕ ПОМОГИТЕМНЕПОМОГИТЕ МНЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕПОМОГИТЕМНЕ ПОМОГИТЕПОМОГИТЕПОМОГИТЕ МНЕПОМОГИТЕМНЕМНЕ ПОМОГИТЕМНЕМНЕПОМОГИТЕ </b></large></large>";
-	name = "Странные записи"
-	},
+/obj/item/paper/crumpled/bloody/lazarus/strange_records,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62652,6 +62671,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64117,6 +64137,16 @@
 	icon_state = "neutralfull"
 	},
 /area/planetoid/lazarus/hallway/primary/aft/south)
+"qwE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/research,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplefull"
+	},
+/area/planetoid/lazarus/science/hallway/main)
 "qwN" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery/hollow,
@@ -65569,6 +65599,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/teleporter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65851,12 +65882,8 @@
 /area/planetoid/escape/command)
 "qUt" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	desc = "Мятый лист бумаги.";
-	info = "Илаясу<hr> Салли так и не вернул деньги за те две бутылки виски. Ты к нему слишком добр, Илаяс! Этот кретин просто бухает за наш счет, судя по слухам он должен денег чуть ли не половине инженеров. Вот увидишь, его арестуют и вышлют к черту отсюда еще к завершению строительства. <br><br> Ах да, на этот раз он еще и стойку нам заблевал, а после сбежал пъяный от охраны куда-то в сторону джунглей за церковью. Пока не вернет 8 сотен — больше этому уроду не наливай! <br><br><br><br> — Боб.";
-	name = "Записка"
-	},
 /obj/item/radio/intercom/directional/east,
+/obj/item/paper/lazarus/bob_note,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66228,6 +66255,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -66963,6 +66991,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/effect/landmark/navigate_destination/permabrig,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67051,6 +67080,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -67863,6 +67893,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/sec_pod_pilot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68296,6 +68327,7 @@
 	dir = 10
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/tools,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/commons/storage/primary)
 "rDf" = (
@@ -71421,11 +71453,9 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/storage/secure)
 "srs" = (
-/obj/item/storage/funeral_urn/with_ash{
-	name = "Пустая кофейная урна Донни";
+/obj/item/storage/funeral_urn/with_ash/lazarus_donny{
 	pixel_x = 16;
-	pixel_y = 9;
-	desc = "Эта металлическая тара отчаянно пытается притворяться ритуальной чашей. Судя по характерной красно-синей расцветке, это тот самый «умеренно приглянувшийся сосуд», который ассистенты стащили со склада торговых автоматов в жилом блоке планетарной колонии. Внутри до сих пор пахнет дешевым синтетическим кофе и... чьим-то прахом?"
+	pixel_y = 9
 	},
 /turf/simulated/floor/planetoid/desert/beachcorner/north,
 /area/planetoid/lakes/east)
@@ -72983,6 +73013,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/techstorage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73680,6 +73711,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/library,
 /turf/simulated/floor/carpet,
 /area/planetoid/lazarus/service/library)
 "sUW" = (
@@ -73876,6 +73908,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/bridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74385,6 +74418,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/navigate_destination/hop,
 /turf/simulated/floor/wood/fancy/light,
 /area/planetoid/lazarus/command/office/hop)
 "tdi" = (
@@ -75116,6 +75150,20 @@
 "tmc" = (
 /turf/simulated/floor/planetoid/grass/sandedge/south,
 /area/planetoid/jungle/temple_outer)
+"tmd" = (
+/obj/machinery/door/airlock/hatch/gamma{
+	locked = 1;
+	req_access = list(1);
+	use_power = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Secure Gate";
+	name = "Security Blast Door"
+	},
+/obj/structure/cable,
+/obj/effect/landmark/navigate_destination/gamma_armory,
+/turf/simulated/floor/indestructible/grime_floor,
+/area/planetoid/lazarus/security/hallway/armory)
 "tmh" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/planetoid/grass,
@@ -80064,6 +80112,16 @@
 	icon_state = "darkyellow"
 	},
 /area/planetoid/lazarus/engineering/mechanic_workshop)
+"uzy" = (
+/obj/effect/turf_decal/arrows/black{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination/dockesc,
+/turf/simulated/floor/plasteel,
+/area/planetoid/spaceport/escape_shuttle)
 "uzE" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -81725,12 +81783,7 @@
 /area/planetoid/lazarus/medical/sleeper)
 "uVz" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/paper{
-	desc = "Лист бумаги в пыли.";
-	info = "Дата 15 Месяц 9 Год 2568 <hr>Нас было шестеро на этом наблюдательном посту, включая меня.<br><br> Двое из них предали нас. Они направили оружие против собственных товарищей. Я не знаю, по какой причине.<br><br> Мы вступили в бой прямо внутри базы. Трое солдат погибли. Я пытался удерживать позицию и ждать помощи, но после взрыва главный выход оказался завален. Связи с внешним миром больше нет. <br><br> Предатели сбежали. Я не знаю живы они или нет <br><br> Нас оставили здесь.<br><br> Пути наружу больше нет. Надежды на помощь тоже нет. <br><br> Я последний в живых. Я не стану ждать смерти в этой темноте. <br><br> Если кто-нибудь найдёт эту запись, пусть помнит: погибшие здесь выполнили свой долг. <br><br> Прощайте.";
-	name = "Записка";
-	pixel_y = -8
-	},
+/obj/item/paper/lazarus/last_survivor,
 /turf/simulated/floor/carpet/red,
 /area/planetoid/caves)
 "uVE" = (
@@ -86635,6 +86688,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination/tcomms,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90970,6 +91024,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination/mining_shuttle,
 /turf/simulated/floor/plasteel{
 	dir = 10
 	},
@@ -92495,6 +92550,7 @@
 	name = "Mechanic Workshop";
 	req_access = list(70)
 	},
+/obj/effect/landmark/navigate_destination/mechanic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113393,7 +113449,7 @@ oRN
 dof
 spg
 dof
-dof
+bue
 gyG
 nwH
 qju
@@ -120698,7 +120754,7 @@ hEl
 kdv
 czw
 czw
-dAA
+tmd
 pxA
 dAA
 ykm
@@ -130819,7 +130875,7 @@ snr
 whO
 whO
 whO
-xhZ
+bnZ
 whO
 whO
 whO
@@ -138783,7 +138839,7 @@ lRT
 nay
 lyH
 lYG
-mIs
+qwE
 vPn
 ybS
 qlM
@@ -141960,7 +142016,7 @@ enB
 cme
 lBc
 lBc
-lBc
+uzy
 lBc
 lBc
 hwk
