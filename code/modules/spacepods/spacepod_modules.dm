@@ -54,7 +54,7 @@
 
 /obj/item/spacepod_module/examine(mob/user)
 	. = ..()
-	. += span_notice("Прочность [round(integrity / max_integrity)]%")
+	. += span_notice("Прочность [round(integrity / max_integrity * 100)]%")
 
 /obj/item/spacepod_module/welder_act(mob/living/user, obj/item/tool)
 	if(user.a_intent == INTENT_HARM)
