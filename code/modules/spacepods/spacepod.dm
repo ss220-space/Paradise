@@ -773,6 +773,25 @@
 		move_delay *=  POD_GRAVITY_SPEED_MOD
 	return move_delay
 
+/obj/spacepod/Bump(atom/bumped_atom)
+	. = ..()
+	if(.)
+		return .
+	var/target_dir = get_dir(get_turf(src), bumped_atom)
+	if(isobj(bumped_atom))
+		var/obj/bumped_object = bumped_atom
+		if(!bumped_object.anchored)
+			step(bumped_atom, target_dir)
+	else if(ismob(bumped_atom))
+		var/static/list/mecha_hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
+		var/target_turf = get_distant_turf(get_turf(src), target_dir, 3)
+		var/mob/bumped_mob = bumped_atom
+		if(!bumped_mob.throw_at(target_turf, 2, 3, src, TRUE, 7))
+			step(bumped_mob, target_dir)
+		else
+			playsound(src, pick(mecha_hit_sound), 50, FALSE)
+	return .
+
 
 // MARK: Misc actions
 /obj/spacepod/proc/toggle_doors(mob/user)
