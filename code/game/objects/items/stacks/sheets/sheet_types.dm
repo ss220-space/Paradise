@@ -1,3 +1,15 @@
+#define WALL_GIRDER_COST 2
+#define COMPUTER_FRAME_COST 5
+#define MACHINE_FRAME_COST 5
+#define FLOOR_TILE_COST 1
+#define METALL_ROD_COST 1
+
+#define WALL_GIRDER_TIME 5 SECONDS
+#define COMPUTER_FRAME_TIME 2.5 SECONDS
+#define MACHINE_FRAME_TIME 2.5 SECONDS
+#define FLOOR_TILE_TIME 0.5 SECONDS
+#define METALL_ROD_TIME 0.5 SECONDS
+
 // MARK: METAL
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe_list("sofas", list(
@@ -50,19 +62,19 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	)),
 	new /datum/stack_recipe_list("construction", list(
 		new /datum/stack_recipe("crate shelf parts", /obj/item/rack_parts/cargo_shelf, modifier_name = CONSTRUCTING_SPEED_MOD),
-		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20, time = 0.5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
-		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50, time = 0.5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, FLOOR_TILE_COST, 4, 20, time = FLOOR_TILE_TIME, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, METALL_ROD_COST, 2, 50, time = METALL_ROD_TIME, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("gun rack parts", /obj/item/rack_parts/gunrack_parts, time = 1 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
-		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
-		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, COMPUTER_FRAME_COST, time = COMPUTER_FRAME_TIME, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, MACHINE_FRAME_COST, time = MACHINE_FRAME_TIME, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("floor light fixture frame", /obj/item/mounted/frame/light_fixture/floor, 3, time = 2 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
 		new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 		new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
-		new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
+		new /datum/stack_recipe("wall girders", /obj/structure/girder, WALL_GIRDER_COST, time = WALL_GIRDER_TIME, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
 		new /datum/stack_recipe("stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = BUILDING_SPEED_MOD),
 	)),
 	new /datum/stack_recipe_list("airlock assemblies", list(
@@ -130,6 +142,102 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.metal_recipes
+
+/obj/item/stack/sheet/metal/wirecutter_act(mob/living/user, obj/item/tool)
+	if(get_amount() < FLOOR_TILE_COST)
+		user.balloon_alert(user, "не хватает!")
+		return ITEM_INTERACT_BLOCKING
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
+	var/calculated_time = FLOOR_TILE_TIME * mod
+
+	if(tool.use_tool(src, user, delay = calculated_time, volume = tool.tool_volume))
+		var/obj/item/stack/tile/plasteel/four/new_item = new(user.loc)
+		use(FLOOR_TILE_COST)
+		user.put_in_inactive_hand(new_item)
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/stack/sheet/metal/wirecutter_act_secondary(mob/living/user, obj/item/tool)
+	if(get_amount() < METALL_ROD_COST)
+		user.balloon_alert(user, "не хватает!")
+		return ITEM_INTERACT_BLOCKING
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
+	var/calculated_time = METALL_ROD_TIME * mod
+
+	if(tool.use_tool(src, user, delay = calculated_time, volume = tool.tool_volume))
+		var/obj/item/stack/rods/two/new_item = new(user.loc)
+		use(METALL_ROD_COST)
+		user.put_in_inactive_hand(new_item)
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/stack/sheet/metal/wrench_act(mob/living/user, obj/item/tool)
+	var/turf/simulated/floor/build_on = get_turf(user)
+	if(!user.Adjacent(build_on))
+		return ITEM_INTERACT_BLOCKING
+	if(!issimulatedturf(build_on))
+		user.balloon_alert(user, "нельзя поставить здесь!")
+		return ITEM_INTERACT_BLOCKING
+	if(get_amount() < MACHINE_FRAME_COST)
+		user.balloon_alert(user, "не хватает!")
+		return ITEM_INTERACT_BLOCKING
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
+	var/calculated_time = MACHINE_FRAME_TIME * mod
+
+	if(tool.use_tool(src, user, delay = calculated_time, volume = tool.tool_volume))
+		new /obj/machinery/constructable_frame/machine_frame(user.loc)
+		use(MACHINE_FRAME_COST)
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/stack/sheet/metal/wrench_act_secondary(mob/living/user, obj/item/tool)
+	var/turf/simulated/floor/build_on = get_turf(user)
+	if(!user.Adjacent(build_on))
+		return ITEM_INTERACT_BLOCKING
+	if(!issimulatedturf(build_on))
+		user.balloon_alert(user, "нельзя поставить здесь!")
+		return ITEM_INTERACT_BLOCKING
+	if(get_amount() < COMPUTER_FRAME_COST)
+		user.balloon_alert(user, "не хватает!")
+		return ITEM_INTERACT_BLOCKING
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
+	var/calculated_time = COMPUTER_FRAME_TIME * mod
+
+	if(tool.use_tool(src, user, delay = calculated_time, volume = tool.tool_volume))
+		new /obj/structure/computerframe(user.loc)
+		use(COMPUTER_FRAME_COST)
+		return ITEM_INTERACT_SUCCESS
+
+/obj/item/stack/sheet/metal/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isfloorturf(interacting_with))
+		return NONE
+	var/turf/simulated/floor/build_on = interacting_with
+	if(!user.Adjacent(build_on))
+		return ITEM_INTERACT_BLOCKING
+	if(isgroundlessturf(build_on))
+		user.balloon_alert(user, "нельзя поставить здесь!")
+		return ITEM_INTERACT_BLOCKING
+	if(build_on.is_blocked_turf())
+		user.balloon_alert(user, "что-то мешает!")
+		return ITEM_INTERACT_BLOCKING
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, mod)
+	var/cost = WALL_GIRDER_COST
+	var/time = WALL_GIRDER_TIME * mod
+	if(get_amount() < cost)
+		user.balloon_alert(user, "нужно [cost] лист[DECL_0_A_OV(cost)] металла!")
+		return ITEM_INTERACT_BLOCKING
+	if(!do_after(user, time, build_on))
+		return ITEM_INTERACT_BLOCKING
+	if(build_on.is_blocked_turf())
+		user.balloon_alert(user, "что-то мешает!")
+		return ITEM_INTERACT_BLOCKING
+	if(!use(cost))
+		user.balloon_alert(user, "не хватает!")
+		return ITEM_INTERACT_BLOCKING
+	new /obj/structure/girder(build_on)
+	return ITEM_INTERACT_SUCCESS
 
 // MARK: PLASTEEL
 GLOBAL_LIST_INIT(plasteel_recipes, list(
@@ -897,3 +1005,15 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 /obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.gingerbread_recipes
+
+#undef WALL_GIRDER_COST
+#undef COMPUTER_FRAME_COST
+#undef MACHINE_FRAME_COST
+#undef FLOOR_TILE_COST
+#undef METALL_ROD_COST
+
+#undef WALL_GIRDER_TIME
+#undef COMPUTER_FRAME_TIME
+#undef MACHINE_FRAME_TIME
+#undef FLOOR_TILE_TIME
+#undef METALL_ROD_TIME
