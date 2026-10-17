@@ -42,3 +42,6 @@
 			visible_message(span_notice("[M] punches [src], but doesn't leave a dent."), \
 						span_notice("[M] punches [src], but doesn't leave a dent."))
 	return FALSE
+
+/mob/living/silicon/received_stamina_damage(current_level, amount_actual, amount)
+	return
