@@ -196,21 +196,18 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  */
 /obj/item/radio/proc/set_listening(new_listening, actual_setting = TRUE)
 	if(!on)
-		return
-	var/old_listening = listening
+		return FALSE
+	new_listening = !!new_listening
+	if(listening == new_listening)
+		return FALSE
 	listening = new_listening
-
-	if(old_listening == listening)
-		return
-
 	if(actual_setting)
 		should_be_listening = listening
-
 	if(listening)
 		recalculate_channels()
-		return
-
-	reset_channels()
+	else
+		reset_channels()
+	return TRUE
 
 /**
  * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
@@ -221,16 +218,18 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  */
 /obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
 	if(!on)
-		return
-
+		return FALSE
+	new_broadcasting = !!new_broadcasting
+	if(broadcasting == new_broadcasting)
+		return FALSE
 	broadcasting = new_broadcasting
 	if(actual_setting)
 		should_be_broadcasting = broadcasting
-
-	if(broadcasting) //we dont need hearing sensitivity if we arent broadcasting, because talk_into doesnt care about hearing
+	if(broadcasting)
 		become_hearing_sensitive(INNATE_TRAIT)
-		return
-	lose_hearing_sensitivity(INNATE_TRAIT)
+	else
+		lose_hearing_sensitivity(INNATE_TRAIT)
+	return TRUE
 
 /obj/item/radio/proc/get_internal_channels()
 	return GLOB.default_internal_channels
