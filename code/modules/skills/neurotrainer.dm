@@ -126,7 +126,7 @@
 		/datum/skill/general/carrying,
 		/datum/skill/general/mech_drive,
 		/datum/skill/general/mod_use,
-		/datum/skill/general/cooking,
+		/datum/skill/general/mining,
 	)
 
 /obj/item/neurotrainer/general/carrying
@@ -141,9 +141,9 @@
 	manual_title = "Внекорабельная деятельность"
 	skill_types = /datum/skill/general/mod_use
 
-/obj/item/neurotrainer/general/cooking
-	manual_title = "Кулинария"
-	skill_types = /datum/skill/general/cooking
+/obj/item/neurotrainer/general/mining
+	manual_title = "Горное дело"
+	skill_types = /datum/skill/general/mining
 
 // MARK: Service
 /obj/item/neurotrainer/service
@@ -152,8 +152,12 @@
 		/datum/skill/service/drink_mixing,
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
-		/datum/skill/service/mining,
+		/datum/skill/service/cooking,
 	)
+
+/obj/item/neurotrainer/service/cooking
+	manual_title = "Кулинария"
+	skill_types = /datum/skill/service/cooking
 
 /obj/item/neurotrainer/service/drink_mixing
 	manual_title = "Напитки"
@@ -166,10 +170,6 @@
 /obj/item/neurotrainer/service/cleaning
 	manual_title = "Клининг"
 	skill_types = /datum/skill/service/cleaning
-
-/obj/item/neurotrainer/service/mining
-	manual_title = "Горное дело"
-	skill_types = /datum/skill/service/mining
 
 // MARK: Combat
 /obj/item/neurotrainer/combat
