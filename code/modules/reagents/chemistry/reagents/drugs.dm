@@ -1212,4 +1212,4 @@
 	if(overdosed)
 		user.next_move_modifier /= 0.75
 	user.next_move_modifier *= 1.5
-	. = ..()
+	return ..()
