@@ -207,7 +207,7 @@
 	var/datum/port/input/input_item
 	var/datum/port/input/input_recycle
 
-	var/datum/port/output/output_tech_upon_print_finished
+	var/datum/port/output/output_tech_up
 	var/datum/port/output/output_error
 
 	var/obj/machinery/computer/rdconsole/attached_console
