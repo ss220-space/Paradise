@@ -151,9 +151,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	QDEL_NULL(wires)
 	lose_hearing_sensitivity(ROUNDSTART_TRAIT)
 	set_on(FALSE)
-	SSradio?.remove_object_all(src)
-	LAZYCLEARLIST(secure_radio_connections)
-	radio_connection = null
+	unsubscribe()
 	GLOB.global_radios -= src
 	return ..()
 
@@ -788,9 +786,12 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/proc/reset_channels()
 	channels = list()
-	secure_radio_connections = null
-	radio_connection = null
+	unsubscribe()
+
+/obj/item/radio/proc/unsubscribe()
 	SSradio.remove_object_all(src)
+	radio_connection = null
+	secure_radio_connections = null
 
 ///////////////////////////////
 //////////Borg Radios//////////
