@@ -36,21 +36,6 @@
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	register_item_context()
 
-/obj/item/wrench/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
-	. = ..()
-
-	if(!(istype(target, /obj/item/stack/sheet/metal)))
-		return
-
-	var/obj/item/stack/stack_target = target
-	if(stack_target.get_amount() > COMPUTER_FRAME_COST)
-		context[SCREENTIP_CONTEXT_LMB] = "Сделать корпус механизма"
-		. = CONTEXTUAL_SCREENTIP_SET
-
-	if(stack_target.get_amount() > MACHINE_FRAME_COST)
-		context[SCREENTIP_CONTEXT_RMB] = "Сделать корпус компьютера"
-		. = CONTEXTUAL_SCREENTIP_SET
-
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] избива[PLUR_ET_YUT(user)] себя до смерти [declent_ru(INSTRUMENTAL)]! Это похоже на попытку самоубийства!"))
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)

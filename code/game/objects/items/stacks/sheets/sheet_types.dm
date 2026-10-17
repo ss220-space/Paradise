@@ -141,6 +141,36 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. += span_notice("Используйте <b>ЛКМ</b> гаечным ключом, чтобы сделать корпус механизма.")
 	. += span_notice("Используйте <b>ПКМ</b> гаечным ключом, чтобы сделать корпус компьютера.")
 
+/obj/item/wrench/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(!(istype(target, /obj/item/stack/sheet/metal)))
+		return
+
+	var/obj/item/stack/stack_target = target
+	if(stack_target.get_amount() > COMPUTER_FRAME_COST)
+		context[SCREENTIP_CONTEXT_LMB] = "Сделать корпус механизма"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(stack_target.get_amount() > MACHINE_FRAME_COST)
+		context[SCREENTIP_CONTEXT_RMB] = "Сделать корпус компьютера"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/wirecutters/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(!(istype(target, /obj/item/stack/sheet/metal)))
+		return
+
+	var/obj/item/stack/stack_target = target
+	if(stack_target.get_amount() > FLOOR_TILE_COST)
+		context[SCREENTIP_CONTEXT_LMB] = "Сделать плитку пола"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(stack_target.get_amount() > METALL_ROD_COST)
+		context[SCREENTIP_CONTEXT_RMB] = "Сделать металические стержни"
+		. = CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
 	cyborg_construction_stack = /obj/item/stack/sheet/metal
@@ -1026,6 +1056,11 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	recipes = GLOB.gingerbread_recipes
 
 #undef WALL_GIRDER_COST
+#undef COMPUTER_FRAME_COST
+#undef MACHINE_FRAME_COST
+#undef FLOOR_TILE_COST
+#undef METALL_ROD_COST
+
 #undef WALL_GIRDER_TIME
 #undef COMPUTER_FRAME_TIME
 #undef MACHINE_FRAME_TIME
