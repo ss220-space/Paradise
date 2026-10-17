@@ -238,6 +238,10 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	energy_type = /datum/robot_energy_storage/metal
+
+/obj/item/stack/tile/plasteel/four
+	amount = 4
+
 // LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
