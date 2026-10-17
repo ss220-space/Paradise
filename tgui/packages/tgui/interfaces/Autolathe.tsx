@@ -13,6 +13,7 @@ import { flow } from 'tgui-core/fp';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 const canBeMade = (
   recipe: Recipe,
@@ -57,6 +58,7 @@ type AutolatheData = {
   showhacked: boolean;
   busyamt: number;
   fill_percent: number;
+  logistics_enabled: boolean;
 };
 
 export const Autolathe = (props: unknown) => {
@@ -142,12 +144,19 @@ export const Autolathe = (props: unknown) => {
               scrollable
               title={rText}
               buttons={
-                <Dropdown
-                  width="150px"
-                  options={categories}
-                  selected={category.toString()}
-                  onSelected={(val) => setCategory(val)}
-                />
+                <Stack>
+                  <Stack.Item>
+                    <LogisticsButton enabled={!!data.logistics_enabled} />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Dropdown
+                      width="150px"
+                      options={categories}
+                      selected={category.toString()}
+                      onSelected={(val) => setCategory(val)}
+                    />
+                  </Stack.Item>
+                </Stack>
               }
             >
               <Input
