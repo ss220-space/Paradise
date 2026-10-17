@@ -643,3 +643,9 @@
 	cost = 2
 	index_name = "meta-banhammer"
 	path = /obj/item/banhammer/meta_hammer
+
+/datum/gear/donor/oldhumanhead
+	donator_tier = 1
+	cost = 1
+	index_name = "old human head"
+	path = /obj/item/clothing/head/oldhuman_head
