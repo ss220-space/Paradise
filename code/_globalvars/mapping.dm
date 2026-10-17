@@ -83,6 +83,7 @@ GLOBAL_LIST_EMPTY(nukespawn)
 GLOBAL_LIST_EMPTY(captain_body_spawns)
 GLOBAL_LIST_EMPTY(armory_body_spawns)
 GLOBAL_LIST_EMPTY(airdrops_points)
+GLOBAL_LIST_EMPTY(navigate_destinations) //list of all destinations used by the navigation
 GLOBAL_LIST_INIT(battle_teams_spawns, list(
 	JOB_TITLE_TEAM1 = list(),
 	JOB_TITLE_TEAM2 = list(),

@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - balance: "Уменьшено количество дыма у абилки дефайлеров. (PR #9807)"

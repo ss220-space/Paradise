@@ -118,6 +118,7 @@
 #define SOUND_EFFECT_MEGAPHONE_ROBOT 5
 #define SOUND_EFFECT_MASKFILTER 6
 #define SOUND_EFFECT_RADIO_MASKFILTER 7
+#define SOUND_EFFECT_OLD_VOCODER 8
 
 /**
  * Calculates the volume of a sound based on distance

@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - bugfix: "Исправлен абуз с аномальным кристаллом. (PR #9864)"
