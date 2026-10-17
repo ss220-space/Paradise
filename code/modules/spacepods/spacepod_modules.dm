@@ -222,7 +222,7 @@
 	mass = 80
 	enable = TRUE
 	/// Battery capacity in watt
-	var/power_capacity = 10000 //watt
+	var/power_capacity = 10000 WATTS
 	/// Current power level in watt
 	var/power = 0
 
