@@ -750,7 +750,7 @@
 	var/is_left_hand = user.l_hand == src
 	bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
 	if(user.buckled)
-		bonus_spread += 45
+		bonus_spread += user.buckled.buckle_bonus_spread
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
