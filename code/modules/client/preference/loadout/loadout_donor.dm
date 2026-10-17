@@ -646,6 +646,5 @@
 
 /datum/gear/donor/oldhumanhead
 	donator_tier = 1
-	cost = 1
 	index_name = "old human head"
 	path = /obj/item/clothing/head/oldhuman_head
