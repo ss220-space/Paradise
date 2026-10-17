@@ -213,7 +213,6 @@
 
 /turf/attack_hand_secondary(mob/user)
 	. = ..()
-
 	if(!(iscarbon(user)))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
