@@ -19015,6 +19015,7 @@
 	},
 /area/station/service/chapel/office)
 "cxX" = (
+/obj/machinery/computer/logistics_core,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -52781,6 +52782,14 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/storage)
 "mMC" = (

@@ -84,6 +84,7 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	AddElement(/datum/element/logistics_compatible)
 	// Special access for built on Taipan machines
 	var/area/area = get_area(src)
 	if(istype(area, /area/syndicate/unpowered/syndicate_space_base))
@@ -100,6 +101,12 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+/obj/machinery/mineral/ore_redemption/logistics
+
+/obj/machinery/mineral/ore_redemption/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_SEND)
 
 /**
  * # Ore Redemption Machine (Golem)
@@ -338,6 +345,7 @@
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
+	data["logistics_enabled"] = logistics_board_installed()
 
 	return data
 
@@ -346,6 +354,8 @@
 		return
 
 	. = TRUE
+	if(try_logistics_ui_act(action, usr))
+		return
 	switch(action)
 		if("claim")
 			if(!inserted_id || !points)
