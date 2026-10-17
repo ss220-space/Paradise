@@ -17,6 +17,7 @@
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
 
 /datum/event/meteor_wave/goreop/end()
+	SSaugury?.unregister_storm(src)
 	GLOB.minor_announcement.announce(
 		message = "Все метеориты мертвы. Безоговорочная победа станции.",
 		new_title = ANNOUNCE_METEOR_RU,

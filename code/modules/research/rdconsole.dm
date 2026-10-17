@@ -116,14 +116,42 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /proc/CallMaterialName(return_name)
 	switch(return_name)
+		if("metal")
+			return_name = "Сталь"
+		if("glass")
+			return_name = "Стекло"
+		if("silver")
+			return_name = "Серебро"
+		if("gold")
+			return_name = "Золото"
+		if("diamond")
+			return_name = "Алмаз"
+		if("uranium")
+			return_name = "Уран"
+		if("titanium")
+			return_name = "Титан"
+		if("plastic")
+			return_name = "Пластик"
+		if("bananium")
+			return_name = "Бананиум"
+		if("tranquillite")
+			return_name = "Транквилит"
 		if("plasma")
 			return_name = "Твёрдая плазма"
-		if("clown")
-			return_name = "Бананиум"
-		if("mime")
-			return_name = "Транквилит"
 		if("bluespace")
 			return_name = "Блюспейс-пыль"
+		if("rglass")
+			return_name = "Армированное стекло"
+		if("plasteel")
+			return_name = "Пласталь"
+		if("plastitanium")
+			return_name = "Пластитан"
+		if("plasmaglass")
+			return_name = "Плазменное стекло"
+		if("titaniumglass")
+			return_name = "Титановое стекло"
+		if("plastitaniumglass")
+			return_name = "Пластитановое стекло"
 		else
 			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
 			if(our_reagent && initial(our_reagent.id) == return_name)

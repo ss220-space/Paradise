@@ -35,6 +35,7 @@ const canBeMade = (
 type Recipe = {
   requirements: Record<string, number>;
   name: string;
+  name_en: string;
   desc: string;
   category: string[];
   hacked: boolean;
@@ -89,7 +90,10 @@ export const Autolathe = (props: unknown) => {
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
 
-  const testSearch = createSearch(searchText, (recipe: Recipe) => recipe.name);
+  const testSearch = createSearch(
+    searchText,
+    (recipe: Recipe) => `${recipe.name}|${recipe.name_en}`,
+  );
 
   let buildQueueItems: React.JSX.Element[] = [];
   if (buildQueueLen > 0) {
