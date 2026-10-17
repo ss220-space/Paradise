@@ -1,6 +1,6 @@
 /obj/item/circuit_component/rd_search
-	display_name = "Интерфейс Поиска РНД"
-	desc = "Модуль для удаленного поиска чертежей на консоли РНД через USB-соединение."
+	display_name = "Интерфейс Поиска НИО"
+	desc = "Модуль для удаленного поиска чертежей на консоли НИО через USB-соединение."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/input/input_id
@@ -72,8 +72,8 @@
 		output_error.set_output(TRUE)
 
 /obj/item/circuit_component/rd_lathe
-	display_name = "Интерфейс Печати РНД"
-	desc = "Модуль автоматической печати чертежей на подключенном оборудовании РНД."
+	display_name = "Интерфейс Печати НИО"
+	desc = "Модуль автоматической печати чертежей на подключенном оборудовании НИО."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/input/input_design
@@ -195,19 +195,19 @@
 	output_item.set_output(held_item)
 
 	if(held_item)
-		desc = "Production module. Stored item: [held_item.name]"
+		desc = "Модуль печати. Хранящийся предмет: [held_item.name]"
 
 	output_printed.set_output(TRUE)
 
 /obj/item/circuit_component/rd_destructor
-	display_name = "Интерфейс Деконструктора РНД"
-	desc = "Модуль автоматического разбора предметов для поднятия тех-уровней РНД."
+	display_name = "Интерфейс Деконструктора НИО"
+	desc = "Модуль автоматической разборки предметов, повышающий уровень технологий НИО"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/input/input_item
 	var/datum/port/input/input_recycle
 
-	var/datum/port/output/output_tech_up
+	var/datum/port/output/output_tech_upon_print_finished
 	var/datum/port/output/output_error
 
 	var/obj/machinery/computer/rdconsole/attached_console
