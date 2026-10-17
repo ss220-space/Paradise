@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Замена викена на кнокдаун для предметов на полу. (PR #9912)"

@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - map: "Добавлен кабель на Нове, ведущий от СМа к остальной станции. (PR #9903)"
