@@ -122,6 +122,25 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 
+/obj/item/stack/sheet/metal/Initialize(mapload)
+	. = ..()
+	register_item_context()
+
+/obj/item/stack/sheet/metal/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(get_amount() > WALL_GIRDER_COST)
+		context[SCREENTIP_CONTEXT_RMB] = "Сделать балку"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/stack/sheet/metal/examine(mob/user)
+	. = ..()
+	. += span_notice("Используйте <b>ПКМ</b> на пустом тайле, чтобы построить балку.")
+	. += span_notice("Используйте <b>ЛКМ</b> кусачками, чтобы сделать плитку пола.")
+	. += span_notice("Используйте <b>ПКМ</b> кусачками, чтобы сделать металические стержни.")
+	. += span_notice("Используйте <b>ЛКМ</b> гаечным ключом, чтобы сделать корпус механизма.")
+	. += span_notice("Используйте <b>ПКМ</b> гаечным ключом, чтобы сделать корпус компьютера.")
+
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
 	cyborg_construction_stack = /obj/item/stack/sheet/metal
@@ -1007,11 +1026,6 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	recipes = GLOB.gingerbread_recipes
 
 #undef WALL_GIRDER_COST
-#undef COMPUTER_FRAME_COST
-#undef MACHINE_FRAME_COST
-#undef FLOOR_TILE_COST
-#undef METALL_ROD_COST
-
 #undef WALL_GIRDER_TIME
 #undef COMPUTER_FRAME_TIME
 #undef MACHINE_FRAME_TIME

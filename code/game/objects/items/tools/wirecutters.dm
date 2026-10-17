@@ -63,6 +63,22 @@
 		item_state = null
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+	register_item_context()
+
+/obj/item/wirecutters/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(!(istype(target, /obj/item/stack/sheet/metal)))
+		return
+
+	var/obj/item/stack/stack_target = target
+	if(stack_target.get_amount() > FLOOR_TILE_COST)
+		context[SCREENTIP_CONTEXT_LMB] = "Сделать плитку пола"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(stack_target.get_amount() > METALL_ROD_COST)
+		context[SCREENTIP_CONTEXT_RMB] = "Сделать металические стержни"
+		. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
