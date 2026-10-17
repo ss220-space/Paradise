@@ -680,6 +680,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	return null
 
+
+/obj/item/radio/proc/deliver()
+	return get_hearers_in_LOS(canhear_range, src)
+
 /obj/item/radio/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) || loc == user)

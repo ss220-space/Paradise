@@ -329,7 +329,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.permanent_radio_listeners
+	var/list/receive = list()
+	for(var/obj/item/radio/radio in radios)
+		receive |= radio.deliver()
+	receive |= GLOB.permanent_radio_listeners
 
 	/* ###### Organize the receivers into categories for displaying the message ###### */
 
