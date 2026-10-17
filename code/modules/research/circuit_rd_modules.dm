@@ -201,7 +201,7 @@
 
 /obj/item/circuit_component/rd_destructor
 	display_name = "Интерфейс Деконструктора НИО"
-	desc = "Модуль автоматической разборки предметов, повышающий уровень технологий НИО"
+	desc = "Модуль автоматической разборки предметов, повышающий уровень технологий НИО."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/input/input_item
