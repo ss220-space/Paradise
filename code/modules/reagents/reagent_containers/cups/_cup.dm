@@ -39,11 +39,11 @@
 
 	if(isnull(held_item) || held_item == src)
 		if(can_lid)
-			context[SCREENTIP_CONTEXT_ALT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
+			context[SCREENTIP_CONTEXT_CTRL_SHIFT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
 			. = CONTEXTUAL_SCREENTIP_SET
 		if(has_variable_transfer_amount)
-			context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
-			context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
+			context[SCREENTIP_CONTEXT_ALT_LMB] = "Перемещать больше"
+			context[SCREENTIP_CONTEXT_ALT_RMB] = "Перемещать меньше"
 			. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
@@ -73,9 +73,9 @@
 	. = ..()
 	if(can_lid)
 		if(has_lid)
-			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+SHIFT+ЛКМ")], чтобы снять её.")
+			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("CTRL+SHIFT+ЛКМ")], чтобы снять её.")
 		else
-			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+SHIFT+ЛКМ")], чтобы надеть её.")
+			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("CTRL+SHIFT+ЛКМ")], чтобы надеть её.")
 
 // TODO: заменить после порта `edible` компонента с ТГ
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/eater)
@@ -214,7 +214,7 @@
 /obj/item/reagent_containers/cup/is_dunkable()
 	return ..() && !has_lid
 
-/obj/item/reagent_containers/cup/AltShiftClick(mob/user)
+/obj/item/reagent_containers/cup/CtrlShiftClick(mob/user)
 	if(!can_lid)
 		return NONE
 
