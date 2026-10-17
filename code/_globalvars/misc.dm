@@ -77,6 +77,8 @@ GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(full_lockdown, FALSE)
 
+GLOBAL_LIST_EMPTY(giant_lizards_alive)
+
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
 
 ///All currently running polls held as datums
@@ -98,5 +100,3 @@ GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)
 
 GLOBAL_DATUM(main_fission_reactor, /obj/machinery/atmospherics/fission_reactor)
-
-GLOBAL_LIST_EMPTY(giant_lizards_alive)
