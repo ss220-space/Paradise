@@ -135,6 +135,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/examine(mob/user)
 	. = ..()
+
 	. += span_notice("Используйте <b>ПКМ</b> на пустом тайле, чтобы построить балку.")
 	. += span_notice("Используйте <b>ЛКМ</b> кусачками, чтобы сделать плитку пола.")
 	. += span_notice("Используйте <b>ПКМ</b> кусачками, чтобы сделать металические стержни.")
