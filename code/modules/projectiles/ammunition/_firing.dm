@@ -45,6 +45,14 @@
 	if(!smart_bullet)
 		return
 
+	if(isgun(firer_source_atom))
+		var/obj/item/gun/smart_gun = firer_source_atom
+		var/atom/iff_target = smart_gun.get_iff_homing_target(user)
+		if(iff_target)
+			BB.set_homing_target(iff_target)
+			new /obj/effect/temp_visual/smartgun_target(get_turf(iff_target))
+			return
+
 	if(!isturf(target))
 		BB.set_homing_target(target)
 		new /obj/effect/temp_visual/smartgun_target(get_turf(target))
