@@ -228,6 +228,25 @@
 		A.soundloop.start()
 		A.set_light_on(TRUE)
 
+/datum/action/vehicle/ridden/motorbike/engine_toggle
+	name = "Завести двигатель"
+	desc = "Завести или заглушить двигатель мотоцикла. Для запуска нужен ключ и топливо."
+	button_icon = 'icons/obj/vehicles/vehicles.dmi'
+	button_icon_state = "key"
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
+
+/datum/action/vehicle/ridden/motorbike/engine_toggle/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
+
+	var/obj/vehicle/ridden/motorbike/bike = vehicle_ridden_target
+
+	if(!istype(bike))
+		return FALSE
+
+	bike.toggle_engine(owner)
+	return TRUE
+
 /datum/looping_sound/ambulance_alarm
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)

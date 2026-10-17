@@ -12,7 +12,7 @@
 	weather_duration_upper = 1 MINUTES
 	weather_color = COLOR_PALE_GREEN_GRAY
 	overlay_layer = MOB_LAYER
-	overlay_plane = GAME_PLANE
+	overlay_planes = list(GAME_PLANE)
 	weather_sound = 'sound/magic/mutate.ogg'
 
 	end_duration = 10 SECONDS

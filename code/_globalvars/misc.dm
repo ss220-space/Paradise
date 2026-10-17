@@ -77,6 +77,8 @@ GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(full_lockdown, FALSE)
 
+GLOBAL_LIST_EMPTY(giant_lizards_alive)
+
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
 
 ///All currently running polls held as datums

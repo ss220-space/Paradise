@@ -201,6 +201,12 @@
 			sound_token_instance = new /datum/sound_token(parent, soundfile, SOUND_RANGE + extra_range, play_volume, falloff_exponent, falloff_distance, pressure_affected)
 		return
 
+	if(direct && ismob(parent))
+		var/mob/listener = parent
+		var/mixer_mult = listener.client?.prefs?.get_channel_volume(sound_channel)
+		if(!isnull(mixer_mult))
+			play_volume *= mixer_mult
+
 	var/sound/sound_to_play = sound(soundfile)
 	sound_to_play.channel = sound_channel || SSsounds.random_available_channel()
 	sound_to_play.volume = play_volume

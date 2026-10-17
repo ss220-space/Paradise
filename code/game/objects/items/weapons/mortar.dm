@@ -319,6 +319,11 @@
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
 	add_game_logs("fired an explosive shell from a mortar to ([target.x], [target.y], [target.z]).", usr)
 	message_admins("[usr] set mortar target to ([target.x], [target.y], [target.z]).[ADMIN_JMP(target)] [ADMIN_FLW(usr, usr)].")
+	if(istype(get_area(target), /area/planetoid/caves))
+		handle_cave_impact(target)
+		qdel(shell)
+		firing = FALSE
+		return
 	if(!shell.silent)
 		handle_messages(target)
 	else
@@ -326,6 +331,16 @@
 	shell.detonate(target)
 	qdel(shell)
 	firing = FALSE
+
+/obj/structure/mortar/proc/handle_cave_impact(turf/target)
+	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 15, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(cave_impact_aftermath), target), 4 SECONDS)
+
+/obj/structure/mortar/proc/cave_impact_aftermath(turf/target)
+	playsound(target, SSexplosions.creaking_explosion_sound, 40, TRUE)
+	for(var/mob/mob in range(6, target))
+		shake_camera(mob, 2, 1)
+	visible_message(span_danger("The shell impact thuds dully somewhere in the caves."))
 
 /obj/structure/mortar/proc/handle_messages(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 50, TRUE)
