@@ -221,12 +221,7 @@
 		if(isbaton(human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
 			human.drop_r_hand()
 
-	if(has_explaination_verb)
-		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, martial_arts_help)
-
-	if(has_dirslash)
-		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, dirslash_enabling)
-		human.dirslash_enabled = TRUE
+	add_martial_art_verbs(human)
 
 	human.mind.known_martial_arts.Add(src)
 	human.mind.martial_art = get_highest_weight(human)
@@ -247,6 +242,8 @@
 	human.mind.martial_art = get_highest_weight(human)
 	remove_martial_art_verbs(human)
 	REMOVE_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+	if(human.mind.martial_art)
+		human.mind.martial_art.add_martial_art_verbs(human)
 	human.update_body(TRUE)
 	return TRUE
 
@@ -256,6 +253,14 @@
 	if(istype(old_human))
 		old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
+
+/datum/martial_art/proc/add_martial_art_verbs(mob/living/carbon/human/human)
+	if(has_explaination_verb)
+		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, martial_arts_help)
+
+	if(has_dirslash)
+		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, dirslash_enabling)
+		human.dirslash_enabled = TRUE
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
 /datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/human)

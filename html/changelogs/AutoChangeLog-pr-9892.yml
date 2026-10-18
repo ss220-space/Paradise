@@ -1,0 +1,4 @@
+author: "KefirTT"
+delete-after: True
+changes:
+  - add: "Добавлены новые стены и моб в щитспавн. (PR #9892)"

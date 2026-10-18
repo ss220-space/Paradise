@@ -9,7 +9,7 @@
 
 	var/obj/item/nuclear_rod/rod_path = path
 
-	metadata["name"] = initial(rod_path.name)
+	metadata["name"] = capitalize(rod_ru_name(rod_path))
 	metadata["desc"] = initial(rod_path.desc)
 	metadata["icon"] = initial(rod_path.icon)
 	metadata["icon_state"] = initial(rod_path.icon_state)
@@ -54,7 +54,7 @@
 		// Get enrichment result names
 		if(initial(fuel_rod_path.power_enrich_result))
 			var/obj/item/nuclear_rod/power_result = initial(fuel_rod_path.power_enrich_result)
-			metadata["power_enrichment"] = initial(power_result.name)
+			metadata["power_enrichment"] = capitalize(rod_ru_name(power_result))
 			metadata["power_enrichment_requirement"] = initial(fuel_rod_path.power_enrich_threshold)
 		else
 			metadata["power_enrichment"] = null
@@ -62,7 +62,7 @@
 
 		if(initial(fuel_rod_path.heat_enrich_result))
 			var/obj/item/nuclear_rod/heat_result = initial(fuel_rod_path.heat_enrich_result)
-			metadata["heat_enrichment"] = initial(heat_result.name)
+			metadata["heat_enrichment"] = capitalize(rod_ru_name(heat_result))
 			metadata["heat_enrichment_requirement"] = initial(fuel_rod_path.heat_enrich_threshold)
 		else
 			metadata["heat_enrichment"] = null
@@ -82,8 +82,7 @@
 
 		// Count occurrences of each requirement type
 		for(var/req_path in requirements)
-			var/obj/item/nuclear_rod/req = req_path
-			var/req_name = initial(req.name)
+			var/req_name = capitalize(rod_ru_name(req_path))
 			if(req_counts[req_name])
 				req_counts[req_name]++
 			else
@@ -95,9 +94,9 @@
 			temp_reqs += "[count]x [req_name]"
 
 		metadata["neighbor_requirements"] = temp_reqs
-		metadata["adjacent_requirements_display"] = english_list(temp_reqs, and_text = ", ")
+		metadata["adjacent_requirements_display"] = russian_list(temp_reqs, and_text = ", ")
 	else
 		metadata["neighbor_requirements"] = list()
-		metadata["adjacent_requirements_display"] = "None"
+		metadata["adjacent_requirements_display"] = "Нет"
 
 	return TRUE

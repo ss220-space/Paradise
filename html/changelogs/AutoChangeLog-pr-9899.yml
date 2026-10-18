@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - bugfix: "Между ударами по хранилищу топора добавлена КД. (PR #9899)"

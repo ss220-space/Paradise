@@ -215,3 +215,8 @@
 	/// Modify this via add_offsets and remove_offsets,
 	/// NOT directly (and definitely avoid modifying offsets directly)
 	VAR_PRIVATE/list/offsets
+
+	/// Are we currently pathfinding for the navigate verb?
+	var/navigating = FALSE
+	/// Cooldown of the navigate() verb.
+	COOLDOWN_DECLARE(navigate_cooldown)
