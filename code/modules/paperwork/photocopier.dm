@@ -208,7 +208,7 @@
  */
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
-		if(toner_cartridge.charges < 5)
+		if(!toner_cartridge.charges)
 			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
@@ -319,7 +319,7 @@
 		else if(istype(thing, /obj/item/photo))
 			thing = photocopy(thing, bundled = TRUE)
 			if(use_toner && thing)
-				use_toner(5)
+				use_toner(1)
 		if(!thing)
 			break
 		thing.forceMove(P)
@@ -428,7 +428,7 @@
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
-			use_toner(5)
+			use_toner(1)
 			count_of_copies++
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print)
@@ -445,7 +445,7 @@
 			if(!copyass())
 				balloon_alert(usr, "нельзя отсканировать!")
 				break
-			use_toner(5)
+			use_toner(1)
 			count_of_copies++
 		finish_copying()
 	else if(istype(C, /obj/item/craft_blueprints))
@@ -466,6 +466,7 @@
 		playsound(loc, pick(print_sounds), 50, TRUE)
 		return
 	balloon_alert(usr, "нельзя отсканировать!")
+	finish_copying()
 
 /obj/machinery/photocopier/proc/finish_copying()
 	copying = FALSE
@@ -649,7 +650,7 @@
 		p.desc += "Ксерокопия была сделана [tempAI.name]"
 	else
 		p.desc += " – Ксерокопия была сделана [tempAI.name]"
-	use_toner(5)
+	use_toner(1)
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, time_to_print)
 
