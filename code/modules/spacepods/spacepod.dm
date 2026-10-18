@@ -51,9 +51,10 @@
 
 	// Actions
 	var/datum/action/innate/pod/pod_eject/eject_action = new
-	var/datum/action/innate/pod/pod_eject/passanger_eject = new
 	var/datum/action/innate/pod/pod_panel/panel_action = new
 	var/datum/action/innate/pod/misc/misc_action = new
+	/// list of passengers actions (one list by one passenger)
+	var/alist/passangers_actions = new
 
 	// tgui
 	var/datum/ui_module/spacepod_control_panels/control_panels
@@ -122,7 +123,6 @@
 	QDEL_NULL(internal_tank)
 	QDEL_NULL(ion_trail)
 	QDEL_NULL(eject_action)
-	QDEL_NULL(passanger_eject)
 	QDEL_NULL(panel_action)
 	QDEL_NULL(misc_action)
 	QDEL_NULL(control_panels)
@@ -469,8 +469,7 @@
 
 /obj/spacepod/proc/eject_passenger(mob/living/passenger)
 	passenger.forceMove(get_turf(src))
-	passanger_eject.Remove(passenger)
-	panel_action.Remove(passenger)
+	remove_passenger_actions(passenger)
 	passengers -= passenger
 
 /obj/spacepod/proc/eject_any_occupant(mob/user)
@@ -565,8 +564,7 @@
 	if(length(passengers) < max_passengers)
 		passengers += user
 		user.forceMove(src)
-		passanger_eject.Grant(user, src)
-		panel_action.Grant(user, src)
+		grant_passenger_actions(user)
 		add_fingerprint(user)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	else
@@ -868,15 +866,35 @@
 
 	visible_message("Прожекторы [lights ? "включены" : "выключены"].")
 
+/obj/spacepod/attack_ghost(mob/dead/observer/user)
+	control_panels.ui_interact(user)
+	return TRUE
+
+
 // MARK: Actions
 /obj/spacepod/proc/grant_pilot_actions(mob/living/user)
 	eject_action.Grant(user, src)
-	//fire_action.Grant(user, src)
 	panel_action.Grant(user, src)
 	misc_action.Grant(user, src)
 
 /obj/spacepod/proc/remove_pilot_actions(mob/living/user)
 	eject_action.Remove(user)
-	//fire_action.Remove(user)
 	panel_action.Remove(user)
 	misc_action.Remove(user)
+
+/obj/spacepod/proc/grant_passenger_actions(mob/living/user)
+	var/list/passenger_actions = list()
+	var/datum/action/innate/pod/pod_eject/passenger_eject_action = new
+	passenger_eject_action.Grant(user, src)
+	passenger_actions += passenger_eject_action
+	var/datum/action/innate/pod/pod_panel/passenger_panel_action = new
+	passenger_panel_action.Grant(user, src)
+	passenger_actions += passenger_panel_action
+	passangers_actions[user] = passenger_actions
+
+/obj/spacepod/proc/remove_passenger_actions(mob/living/user)
+	var/list/passenger_actions = passangers_actions[user]
+	if(!passenger_actions)
+		return
+	for(var/datum/action/passenger_action in passenger_actions)
+		passenger_action.Remove(user)
