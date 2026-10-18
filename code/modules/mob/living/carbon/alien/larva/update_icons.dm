@@ -4,26 +4,25 @@
 	update_icons()
 
 /mob/living/carbon/alien/larva/update_icons()
-	var/state = 0
-	switch(evolution_points)
-		if(-INFINITY to 50)
-			state = 0
-		if(51 to 150)
-			state = 1
-		if(151 to INFINITY)
-			state = 2
-
+	var/prefix = evolution_points > 150 ? "bloody_larva" : "larva"
 	var/incapacitated = HAS_TRAIT(src, TRAIT_INCAPACITATED)
+
 	if(stat == DEAD)
-		icon_state = "larva[state]_dead"
-	else if(handcuffed || legcuffed) //This should be an overlay. Who made this an icon_state?
-		icon_state = "larva[state]_cuff"
-	else if(!incapacitated && body_position == LYING_DOWN)
-		icon_state = "larva[state]_sleep"
-	else if(incapacitated)
-		icon_state = "larva[state]_stun"
+		icon_state = "[prefix]_dead"
+	else if(handcuffed || legcuffed)
+		icon_state = "[prefix]_idle"
+	else if(body_position == LYING_DOWN || incapacitated)
+		icon_state = "[prefix]_sleep"
+	else if(m_intent == MOVE_INTENT_RUN)
+		icon_state = "[prefix]_run"
 	else
-		icon_state = "larva[state]"
+		icon_state = "[prefix]_idle"
+
+/mob/living/carbon/alien/larva/toggle_move_intent(new_move_intent)
+	var/old_m_intent = m_intent
+	. = ..()
+	if(old_m_intent != m_intent)
+		update_icons()
 
 /mob/living/carbon/alien/larva/update_transform() //All this is handled in update_icons()
 	. = ..()

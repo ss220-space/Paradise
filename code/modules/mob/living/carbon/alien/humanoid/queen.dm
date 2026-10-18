@@ -7,7 +7,7 @@
 	status_flags = CANPARALYSE
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	caste_movement_delay = 3
+	caste_movement_delay = 0.8
 	ventcrawler_trait = null
 	attack_damage = 40
 	disarm_stamina_damage = 50

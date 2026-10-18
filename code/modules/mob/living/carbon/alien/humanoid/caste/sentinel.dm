@@ -6,6 +6,8 @@
 	attack_damage = 25
 	time_to_open_doors = 0.2 SECONDS
 	icon_state = "aliens_s"
+	ventcrawler_trait = null
+	caste_movement_delay = -0.2
 	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
 
@@ -36,7 +38,7 @@
 	status_flags = CANPARALYSE
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	caste_movement_delay = 1
+	caste_movement_delay = 0.4
 	ventcrawler_trait = null
 	attack_damage = 30
 	disarm_stamina_damage = 34

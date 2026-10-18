@@ -71,28 +71,3 @@
 /datum/action/innate/alien/sprite_toggle/praetorian
 	small_icon_state = "aliens_running"
 
-/*******************
-//Leap toggle
-********************/
-
-/datum/action/innate/alien/leap_toggle
-	name = "Переключить прыжок"
-	button_icon_state = "leap_off"
-	check_flags = AB_CHECK_CONSCIOUS
-	var/mob/living/carbon/alien/humanoid/hunter/alien_hunter
-
-/datum/action/innate/alien/leap_toggle/UpdateButtonIcon()
-	. = ..()
-	alien_hunter = owner
-	button_icon_state = alien_hunter.leap_on_click ? initial(button_icon_state) : "leap_on"
-
-/datum/action/innate/alien/leap_toggle/Trigger(mob/clicker, trigger_flags)
-	. = ..()
-
-	if(!isalienhunter(owner))
-		return
-
-	UpdateButtonIcon()
-	alien_hunter = owner
-	alien_hunter.toggle_leap()
-

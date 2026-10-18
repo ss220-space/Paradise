@@ -9,6 +9,7 @@
 	bubble_icon = "alienroyal"
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
+	caste_movement_delay = 0.8
 	obj_damage = 100
 	time_to_open_doors = 0.2 SECONDS
 	attack_damage = 50

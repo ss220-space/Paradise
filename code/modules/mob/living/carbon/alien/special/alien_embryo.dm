@@ -3,8 +3,8 @@
 
 /obj/item/organ/internal/body_egg/alien_embryo
 	name = "alien embryo"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "larva0_dead"
+	icon = 'icons/mob/xeno/larva.dmi'
+	icon_state = "embryo"
 	var/stage = 0
 	var/polling = FALSE
 	var/mob/candidate = null

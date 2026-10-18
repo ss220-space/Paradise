@@ -8,11 +8,11 @@
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
-	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0
-	var/pounce_cooldown = 0
-	var/pounce_cooldown_time = 3 SECONDS
-	var/leap_on_click = FALSE
+	/// If set, this caste uses its own icon file with "[prefix]_[pose]" icon_states (e.g. "hunter_run")
+	/// and the shared alien_wounded_*/alien_fire* overlays contained in it. Empty means the legacy
+	/// "alien[caste]_[pose]" states from 'icons/mob/alien.dmi' are used and no wound overlays exist.
+	var/caste_icon_prefix = ""
 
 GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 		/datum/strippable_item/hand/left,

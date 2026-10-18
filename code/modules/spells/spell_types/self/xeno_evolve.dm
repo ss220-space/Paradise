@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/evolve
-	name = "Evolve"
-	desc = "Evolve into reporting this issue."
+	name = "Эволюционировать"
+	desc = "Эволюционируйте, чтобы сообщить об этой проблеме."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "larva2"
 	button_icon = 'icons/mob/alien.dmi'
@@ -13,18 +13,55 @@
 	return handler
 
 /datum/action/cooldown/spell/evolve/larva
-	desc = "Evolve into a fully grown Alien."
+	desc = "Эволюционируйте во взрослого Ксеноморфа."
 	button_icon_state = "alienh_running"
 
 /datum/action/cooldown/spell/evolve/praetorian
-	desc = "Become a Praetorian, Royal Guard to the Queen."
+	desc = "Станьте преторианцем — стражем Королевы."
 	button_icon_state = "aliens_running"
 	evolution_path = /mob/living/carbon/alien/humanoid/praetorian
 
 /datum/action/cooldown/spell/evolve/queen
-	desc = "Evolve into an Alien Queen."
+	desc = "Эволюционируйте в Королеву Ксеноморфов."
 	button_icon_state = "alienq_running"
 	evolution_path = /mob/living/carbon/alien/humanoid/queen/large
+
+/datum/action/cooldown/spell/evolve/resin_drone
+	desc = "Станьте смоляным рабочим — улучшенной кастой рабочих, способной возводить толстые смоляные стены."
+	button_icon_state = "drone_run"
+	evolution_path = /mob/living/carbon/alien/humanoid/drone/resin_drone
+
+/datum/action/cooldown/spell/evolve/drone
+	desc = "Эволюционируйте в касту рабочих."
+	button_icon_state = "drone_run"
+
+/datum/action/cooldown/spell/evolve/drone/cast(atom/cast_on)
+	var/mob/living/carbon/alien/xeno = cast_on
+	if(!xeno)
+		return
+	to_chat(cast_on, span_boldnotice("Вы эволюционируете в продвинутую касту рабочих! Пришло время выбрать свой путь."))
+	to_chat(cast_on, span_notice("Есть два пути на выбор:"))
+	to_chat(cast_on, span_notice("<b>Королева</b> — матриарх улья, способная откладывать яйца и производить новых ксеносов."))
+	to_chat(cast_on, span_notice("<b>Смоляной дрон</b> — улучшенный строитель, способный возводить толстые смоляные стены."))
+	var/static/list/to_evolve = list("Queen" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienq_running"),
+		"Resin Drone" = image(icon = 'icons/mob/xeno/drone.dmi', icon_state = "resin_drone_walk"))
+	var/choosen_type = show_radial_menu(cast_on, cast_on, to_evolve, src, radius = 40)
+	if(!choosen_type)
+		return
+	var/datum/team/xenomorph/team = locate(/datum/team/xenomorph) in GLOB.antagonist_teams
+	switch(choosen_type)
+		if("Queen")
+			if(xeno.queen_count >= xeno.queen_maximum)
+				to_chat(cast_on, span_warning("У нас уже есть королева."))
+				return
+			if(team?.current_queen?.current && team.current_queen.current.stat != DEAD)
+				to_chat(cast_on, span_warning("Королева всё ещё жива."))
+				return
+			evolution_path = /mob/living/carbon/alien/humanoid/queen/large
+			xeno.queen_count++
+		if("Resin Drone")
+			evolution_path = /mob/living/carbon/alien/humanoid/drone/resin_drone
+	..()
 
 /datum/action/cooldown/spell/evolve/can_cast_spell(feedback)
 	if(!..())
@@ -34,17 +71,17 @@
 	var/mob/living/carbon/alien/humanoid/xeno = owner
 	if(!xeno.can_evolve)
 		if(feedback)
-			to_chat(xeno, span_warning("We have nowhere to evolve further!"))
+			to_chat(xeno, span_warning("Нам больше некуда эволюционировать!"))
 		return FALSE
 
 	if(xeno.evolution_points < xeno.max_evolution_points)
 		if(feedback)
-			to_chat(xeno, span_warning("We are not ready to evolve yet!"))
+			to_chat(xeno, span_warning("Мы ещё не готовы эволюционировать!"))
 		return FALSE
 
 	if(xeno.has_brain_worms())
 		if(feedback)
-			to_chat(xeno, span_warning("We cannot perform this ability at the present time!"))
+			to_chat(xeno, span_warning("Мы не можем применить эту способность в данный момент!"))
 		return FALSE
 	return TRUE
 
@@ -52,8 +89,8 @@
 	. = ..()
 	var/mob/living/carbon/alien/user = cast_on
 
-	to_chat(user, span_noticealien("You begin to evolve!"))
-	user.visible_message(span_alertalien("[user] begins to twist and contort!"))
+	to_chat(user, span_noticealien("Вы начинаете эволюционировать!"))
+	user.visible_message(span_alertalien("[user] начинает извиваться и корчиться!"))
 
 	var/mob/living/carbon/alien/new_xeno = new evolution_path(get_turf(user))
 	user.mind.transfer_to(new_xeno)
@@ -82,11 +119,11 @@
 	qdel(user)
 
 /datum/action/cooldown/spell/evolve/larva/cast(atom/cast_on)
-	to_chat(cast_on, span_boldnotice("You are growing into a beautiful alien! It is time to choose a caste."))
-	to_chat(cast_on, span_notice("There are three to choose from:"))
-	to_chat(cast_on, span_notice("<b>Hunters</b> are strong and agile, able to hunt away from the hive and rapidly move through ventilation shafts. Hunters generate plasma slowly and have low reserves."))
-	to_chat(cast_on, span_notice("<b>Sentinels</b> are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters."))
-	to_chat(cast_on, span_notice("<b>Drones</b> are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen."))
+	to_chat(cast_on, span_boldnotice("Вы превращаетесь в прекрасного чужого! Пришло время выбрать касту."))
+	to_chat(cast_on, span_notice("Есть три на выбор:"))
+	to_chat(cast_on, span_notice("<b>Охотники</b> сильны и ловки, способны охотиться вдали от улья и быстро перемещаться по вентиляционным шахтам. Охотники медленно вырабатывают плазму и имеют небольшой запас."))
+	to_chat(cast_on, span_notice("<b>Стражи</b> отвечают за защиту улья и смертоносны как вблизи, так и на расстоянии. Они не так быстры, как охотники."))
+	to_chat(cast_on, span_notice("<b>Дроны</b> — рабочий класс, обладающий наибольшим запасом и выработкой плазмы. Это единственная каста, которая может эволюционировать снова, превратившись в грозную королеву чужих."))
 	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_running"),
 								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliens_running"),
 								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_running"))
@@ -115,7 +152,7 @@
 	if(spell_owner.praetorian_count < (living_players_count / XENO_PLAYERS_FOR_PRAETORIAN))
 		..()
 	else
-		to_chat(spell_owner, span_warning("We have too many praetorians."))
+		to_chat(spell_owner, span_warning("У нас слишком много преторианцев."))
 
 /datum/action/cooldown/spell/evolve/queen/can_cast_spell(feedback)
 	if(!..())
@@ -123,7 +160,7 @@
 	var/mob/living/carbon/alien/humanoid/xeno = owner
 	if(xeno.queen_count >= xeno.queen_maximum)
 		if(feedback)
-			to_chat(xeno, span_warning("We already have a queen."))
+			to_chat(xeno, span_warning("У нас уже есть королева."))
 		return FALSE
 	var/datum/team/xenomorph/team = locate(/datum/team/xenomorph) in GLOB.antagonist_teams
 	if(team?.current_queen?.current && team.current_queen.current.stat != DEAD)

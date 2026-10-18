@@ -15,6 +15,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/nightvision_enabled = FALSE
 	nightvision = 4
+	rotate_on_lying = 0
 
 	verb_say = "шипит"
 	verb_ask = "вопросительно шипит"
@@ -41,7 +42,6 @@
 
 	var/large = FALSE
 	var/heat_protection = 0.5
-	var/leaping = FALSE
 	dirslash_enabled = TRUE
 
 	var/antag_datum_type = /datum/antagonist/xenomorph
@@ -54,6 +54,10 @@
 	/// See [/proc/genderize_decode] for more info.
 	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	/// Icon state of this xeno's gib animation stored in its own icon file. Null uses the legacy shared gib animation.
+	var/gib_icon_state
+	/// Icon state of the remains left after gibbing, stored in this xeno's own icon file. Null leaves no caste specific remains.
+	var/gib_remains_icon_state
 
 	var/datum/action/innate/alien/thermal_toogle/thermal_toogle
 	var/static/praetorian_count = 0

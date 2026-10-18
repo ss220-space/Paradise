@@ -1,13 +1,18 @@
 /mob/living/carbon/alien/larva
 	name = "alien larva"
 	real_name = "alien larva"
-	icon_state = "larva0"
+	desc = "Ой, какая милашка!"
+	icon = 'icons/mob/xeno/larva.dmi'
+	icon_state = "larva_idle"
 	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE | PASSDOOR
 	mob_size = MOB_SIZE_SMALL
+	caste_movement_delay = -0.2
+	gib_icon_state = "larva_gib"
+	gib_remains_icon_state = "larva_corpse"
 	attack_damage = 3
 	obj_damage = 10
-	maxHealth = 25
-	health = 25
+	maxHealth = 50
+	health = 50
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	rotate_on_lying = FALSE

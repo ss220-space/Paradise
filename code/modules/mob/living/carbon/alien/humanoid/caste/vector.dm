@@ -1,6 +1,6 @@
 /mob/living/carbon/alien/humanoid/hunter/vector
 	name = "alien vector"
-	icon_state = "alienh_running"
+	icon_state = "hunter_run"
 	role_text = "Вы — Вектор. Вы являетесь особой версией Охотника, способной заражать носителей без помощи лицехватов. Ваша основная задача — добыча носителей и заражение их грудоломами."
 
 /mob/living/carbon/alien/humanoid/hunter/vector/Initialize(mapload)
