@@ -90,7 +90,7 @@
 	. = ..()
 	if(. & ITEM_INTERACT_ANY_BLOCKER)
 		return .
-	if(isstorage(interacting_with))
+	if(isstorage(interacting_with) || istable(interacting_with))
 		return .
 
 	trashbag_interact(interacting_with, user)
