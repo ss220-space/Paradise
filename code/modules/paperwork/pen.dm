@@ -10,8 +10,8 @@
  * MARK: Pens
  */
 /obj/item/pen
-	desc = "It's a normal black ink pen."
 	name = "pen"
+	desc = "Простая ручка с чёрными чернилами."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
@@ -88,28 +88,28 @@
 
 /obj/item/pen/blue
 	name = "blue-ink pen"
-	desc = "It's a normal blue ink pen."
+	desc = "Простая ручка с синими чернилами."
 	icon_state = "pen_blue"
 	colour = "blue"
 
 /obj/item/pen/red
 	name = "red-ink pen"
-	desc = "It's a normal red ink pen."
+	desc = "Простая ручка с красными чернилами."
 	icon_state = "pen_red"
 	colour = "red"
 
 /obj/item/pen/gray
 	name = "gray-ink pen"
-	desc = "It's a normal gray ink pen."
+	desc = "Простая ручка с серыми чернилами."
 	colour = "gray"
 
 /obj/item/pen/invisible
-	desc = "It's an invisble pen marker."
+	desc = "Ручка с \"невидимыми\" чернилами."
 	colour = "white"
 
 /obj/item/pen/multi
 	name = "multicolor pen"
-	desc = "It's a cool looking pen. Lots of colors!"
+	desc = "Круто выглядящая ручка с пятью стержнями стержнями разного цвета!"
 	icon_state = "multicolor"
 
 	// these values are for the overlay
@@ -148,7 +148,7 @@
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/pen/multi/proc/select_colour(mob/user)
-	. = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices, colour)
+	. = tgui_input_list(user, "Какой цвет вы хотите использовать?", name, colour_choices, colour)
 	if(.)
 		colour = .
 		playsound(loc, 'sound/effects/pop.ogg', 50, TRUE)
@@ -293,7 +293,7 @@
 	var/transfered = 0
 	if(reagents.total_volume && target.reagents)
 		transfered = reagents.trans_to(target, 50)
-	to_chat(user, span_warning("You sneakily stab [target] with the pen."))
+	to_chat(user, span_warning("Вы аккуратно укололи ручкой [target]."))
 	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 
 /obj/item/pen/sleepy/Initialize(mapload)
