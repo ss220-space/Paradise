@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { NanoMap } from 'tgui/components';
 import {
   Box,
   Button,
+  Collapsible,
   ColorBox,
   Input,
   Section,
@@ -31,6 +32,9 @@ type Request = {
   net_color: string;
   source: string;
   dest: string;
+  source_uid?: string | null;
+  dest_uid?: string | null;
+  creator_uid?: string | null;
   wanted: WantedItem[];
   creator?: string;
 };
@@ -40,6 +44,7 @@ type NetNode = {
   name: string;
   mode: string;
   allow_export: boolean;
+  blocked: boolean;
   fill_percent?: number | null;
 };
 
@@ -60,6 +65,7 @@ type MapNode = {
   name: string;
   mode: string;
   allow_export: boolean;
+  blocked: boolean;
   net_id: number;
   net_color: string;
   x: number;
@@ -100,6 +106,17 @@ type LogisticsCoreData = {
 };
 
 const PIXELS_PER_TURF = 2;
+
+const formatFill = (value: number | null | undefined) =>
+  typeof value === 'number' ? `${value}%` : '—';
+
+const requestStatusText = (status: number) =>
+  status === STATUS_ACTIVE ? 'выполняется' : status === STATUS_PAUSED ? 'пауза' : 'ожидает';
+
+const isNodeRelated = (entry: Request, uid: string) =>
+  entry.source_uid === uid ||
+  entry.dest_uid === uid ||
+  entry.creator_uid === uid;
 
 export const LogisticsCore = (_props: unknown) => {
   const { data } = useBackend<LogisticsCoreData>();
@@ -355,6 +372,7 @@ const InterfaceMarker = (props: {
   const size = Math.max(8, PIXELS_PER_TURF * zoom + 4);
   const isSend = node.mode === 'send';
   const filled = isSend || node.allow_export;
+  const borderColor = node.blocked ? '#e74c3c' : node.net_color;
 
   return (
     <NanoMap.Marker
@@ -363,7 +381,9 @@ const InterfaceMarker = (props: {
       z={node.z}
       z_current={z_current}
       zoom={zoom}
-      tooltip={`${node.name} (${isSend ? 'отправка' : 'приём'})`}
+      tooltip={`${node.name} (${isSend ? 'отправка' : 'приём'})${
+        node.blocked ? ' · ЗАБЛОКИРОВАН' : ''
+      }`}
       onClick={onClick}
     >
       <Box
@@ -371,7 +391,7 @@ const InterfaceMarker = (props: {
           width: `${size}px`,
           height: `${size}px`,
           backgroundColor: filled ? node.net_color : 'transparent',
-          border: `2px solid ${node.net_color}`,
+          border: `2px solid ${borderColor}`,
           borderRadius: isSend ? '2px' : '50%',
           position: 'relative',
           top: '50%',
@@ -385,8 +405,13 @@ const InterfaceMarker = (props: {
 };
 
 const NetworksTab = () => {
-  const { act, data } = useBackend<LogisticsCoreData>();
-  const { networks = [], palette = [] } = data;
+  const { data } = useBackend<LogisticsCoreData>();
+  const {
+    networks = [],
+    palette = [],
+    requests = [],
+    archived = [],
+  } = data;
 
   return (
     <Section fill scrollable title="Логистические сети">
@@ -394,72 +419,269 @@ const NetworksTab = () => {
         <Box color="average">Сетей пока нет. Постройте трубы.</Box>
       )}
       {networks.map((net) => (
-        <Box
+        <NetworkCard
           key={net.uid}
-          mb={1}
-          p={1}
-          style={{
-            border: `1px solid ${net.color}`,
-            borderRadius: '4px',
-          }}
-        >
-          <Stack align="center">
-            <Stack.Item>
-              <ColorBox color={net.color} />
-            </Stack.Item>
-            <Stack.Item grow>
-              <Box bold>
-                {net.name}{' '}
-                <Box inline color="label">
-                  #{net.id}
-                </Box>
-              </Box>
-              <Box color="label">
-                Труб: {net.pipes} · Интерфейсов: {net.interfaces} · Заказов:{' '}
-                {net.requests}
-              </Box>
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                icon="pen"
-                onClick={() => act('set_net_name', { uid: net.uid })}
-              >
-                Имя
-              </Button>
-              <Button.Checkbox
-                checked={net.auto_execute}
-                onClick={() => act('toggle_auto_execute', { uid: net.uid })}
-              >
-                Автовыполнение
-              </Button.Checkbox>
-            </Stack.Item>
-          </Stack>
-          <Stack mt={0.5} wrap>
-            {palette.map((color) => (
-              <Stack.Item key={color}>
-                <Button
-                  selected={net.color === color}
-                  onClick={() => act('set_net_color', { uid: net.uid, color })}
-                >
-                  <ColorBox color={color} />
-                </Button>
-              </Stack.Item>
-            ))}
-          </Stack>
-          {!!net.nodes?.length && (
-            <Box mt={0.5} color="label">
-              Узлы:{' '}
-              {net.nodes
-                .map(
-                  (node) =>
-                    `${node.name} (${node.mode === 'send' ? 'отправка' : 'приём'})`
-                )
-                .join(', ')}
-            </Box>
-          )}
-        </Box>
+          net={net}
+          palette={palette}
+          requests={requests}
+          archived={archived}
+        />
       ))}
     </Section>
+  );
+};
+
+const NetworkCard = (props: {
+  net: Network;
+  palette: string[];
+  requests: Request[];
+  archived: Archived[];
+}) => {
+  const { act } = useBackend<LogisticsCoreData>();
+  const { net, palette, requests, archived } = props;
+  const [expandedNode, setExpandedNode] = useState<string | null>(null);
+
+  const nodes = useMemo(
+    () => [...(net.nodes || [])].sort((a, b) => a.name.localeCompare(b.name)),
+    [net.nodes]
+  );
+
+  return (
+    <Box
+      mb={1}
+      p={1}
+      style={{
+        border: `1px solid ${net.color}`,
+        borderRadius: '4px',
+      }}
+    >
+      <Stack align="center">
+        <Stack.Item>
+          <ColorBox color={net.color} />
+        </Stack.Item>
+        <Stack.Item grow>
+          <Box bold>
+            {net.name}{' '}
+            <Box inline color="label">
+              #{net.id}
+            </Box>
+          </Box>
+          <Box color="label">
+            Труб: {net.pipes} · Интерфейсов: {net.interfaces} · Заказов:{' '}
+            {net.requests}
+          </Box>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            icon="pen"
+            onClick={() => act('set_net_name', { uid: net.uid })}
+          >
+            Имя
+          </Button>
+          <Button.Checkbox
+            checked={net.auto_execute}
+            onClick={() => act('toggle_auto_execute', { uid: net.uid })}
+          >
+            Автовыполнение
+          </Button.Checkbox>
+        </Stack.Item>
+      </Stack>
+      <Stack mt={0.5} wrap>
+        {palette.map((color) => (
+          <Stack.Item key={color}>
+            <Button
+              selected={net.color === color}
+              onClick={() => act('set_net_color', { uid: net.uid, color })}
+            >
+              <ColorBox color={color} />
+            </Button>
+          </Stack.Item>
+        ))}
+      </Stack>
+      <Box mt={0.5}>
+        <Collapsible title={`Машинерия (${nodes.length})`} icon="warehouse">
+          <NodeHeader />
+          {!nodes.length && (
+            <Box color="average" px={0.5}>
+              Нет подключённых интерфейсов
+            </Box>
+          )}
+          {nodes.map((node) => (
+            <Box key={node.uid}>
+              <NodeRow
+                node={node}
+                expanded={expandedNode === node.uid}
+                onToggleOrders={() =>
+                  setExpandedNode(expandedNode === node.uid ? null : node.uid)
+                }
+              />
+              {expandedNode === node.uid && (
+                <NodeOrders
+                  node={node}
+                  requests={requests}
+                  archived={archived}
+                />
+              )}
+            </Box>
+          ))}
+        </Collapsible>
+      </Box>
+    </Box>
+  );
+};
+
+const NODE_ACTION_WIDTH = '16em';
+
+const NodeHeader = () => (
+  <Stack
+    align="center"
+    px={0.5}
+    style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}
+  >
+    <Stack.Item grow basis="0">
+      <Box bold>Интерфейс</Box>
+    </Stack.Item>
+    <Stack.Item width="7em">
+      <Box bold>Режим</Box>
+    </Stack.Item>
+    <Stack.Item width="7em">
+      <Box bold>Заполнено</Box>
+    </Stack.Item>
+    <Stack.Item width={NODE_ACTION_WIDTH} textAlign="right">
+      <Box bold>Действия</Box>
+    </Stack.Item>
+  </Stack>
+);
+
+const NodeRow = (props: {
+  node: NetNode;
+  expanded: boolean;
+  onToggleOrders: () => void;
+}) => {
+  const { act } = useBackend<LogisticsCoreData>();
+  const { node, expanded, onToggleOrders } = props;
+  const isSend = node.mode === 'send';
+
+  return (
+    <Stack align="center" px={0.5} py={0.2}>
+      <Stack.Item grow basis="0">
+        <Box bold inline>
+          {node.name}
+        </Box>
+        {!!node.blocked && (
+          <Box inline color="bad" bold ml={1}>
+            ЗАБЛОКИРОВАН
+          </Box>
+        )}
+      </Stack.Item>
+      <Stack.Item width="7em">
+        <Box color="label">{isSend ? 'Отправка' : 'Приём'}</Box>
+      </Stack.Item>
+      <Stack.Item width="7em">
+        <Box color="label">{formatFill(node.fill_percent)}</Box>
+      </Stack.Item>
+      <Stack.Item width={NODE_ACTION_WIDTH} textAlign="right">
+        <Button
+          icon="pen"
+          tooltip="Переименовать"
+          onClick={() => act('rename_interface', { uid: node.uid })}
+        />
+        <Button
+          icon="clipboard-list"
+          selected={expanded}
+          tooltip="Заказы"
+          onClick={onToggleOrders}
+        />
+        <Button
+          icon="sign-in-alt"
+          tooltip="Открыть"
+          onClick={() => act('open_interface', { uid: node.uid })}
+        />
+        <Button
+          icon={node.allow_export ? 'toggle-on' : 'toggle-off'}
+          color={node.allow_export ? 'good' : 'bad'}
+          tooltip={node.allow_export ? 'Экспорт включён' : 'Экспорт выключен'}
+          onClick={() => act('toggle_interface_export', { uid: node.uid })}
+        />
+        <Button
+          icon={node.blocked ? 'lock' : 'unlock'}
+          color={node.blocked ? 'bad' : undefined}
+          tooltip={
+            node.blocked
+              ? 'Разблокировать'
+              : 'Заблокировать'
+          }
+          onClick={() => act('toggle_interface_block', { uid: node.uid })}
+        />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const NodeOrders = (props: {
+  node: NetNode;
+  requests: Request[];
+  archived: Archived[];
+}) => {
+  const { node, requests, archived } = props;
+  const active = requests.filter((entry) => isNodeRelated(entry, node.uid));
+  const past = archived.filter((entry) => isNodeRelated(entry, node.uid));
+
+  return (
+    <Box
+      mb={0.5}
+      p={1}
+      style={{
+        border: '1px solid rgba(255,255,255,0.15)',
+        borderRadius: '4px',
+      }}
+    >
+      <Box bold mb={0.3}>
+        Текущие заказы
+      </Box>
+      {active.length ? (
+        active.map((entry) => (
+          <Box key={entry.uid} mb={0.3}>
+            <ColorBox color={entry.net_color} mr={1} />
+            <b>#{entry.num}</b> {entry.source} → {entry.dest} ·{' '}
+            {entry.wanted
+              .map((item) => `${item.name} ×${item.amount}`)
+              .join(', ')}{' '}
+            ·{' '}
+            <Box
+              inline
+              color={entry.status === STATUS_ACTIVE ? 'good' : 'label'}
+            >
+              {requestStatusText(entry.status)}
+            </Box>
+          </Box>
+        ))
+      ) : (
+        <Box color="average">Нет текущих заказов.</Box>
+      )}
+      <Box bold mt={0.5} mb={0.3}>
+        Прошедшие заказы
+      </Box>
+      {past.length ? (
+        past.slice(0, 10).map((entry, index) => (
+          <Box key={`${entry.uid}-${index}`} mb={0.3}>
+            <ColorBox color={entry.net_color} mr={1} />
+            <b>#{entry.num}</b> {entry.source} → {entry.dest} ·{' '}
+            <Box inline color={entry.result === 'выполнен' ? 'good' : 'bad'}>
+              {entry.result}
+            </Box>
+            {entry.finished_at ? (
+              <Box inline color="label">
+                {' '}
+                · {entry.finished_at}
+              </Box>
+            ) : null}
+          </Box>
+        ))
+      ) : (
+        <Box color="average">Нет прошедших заказов.</Box>
+      )}
+    </Box>
   );
 };
 

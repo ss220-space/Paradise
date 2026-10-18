@@ -65,6 +65,7 @@
 				"name" = interface.interface_name,
 				"mode" = (interface.mode == LOGISTICS_MODE_SEND) ? "send" : "receive",
 				"allow_export" = interface.allow_export,
+				"blocked" = interface.orders_blocked,
 				"fill_percent" = interface.adapter ? interface.adapter.get_fill_percent() : null,
 			))
 			if(T)
@@ -73,6 +74,7 @@
 					"name" = interface.interface_name,
 					"mode" = (interface.mode == LOGISTICS_MODE_SEND) ? "send" : "receive",
 					"allow_export" = interface.allow_export,
+					"blocked" = interface.orders_blocked,
 					"net_id" = net.net_id,
 					"net_color" = net.net_color,
 					"x" = T.x,
@@ -190,6 +192,23 @@
 			if(!new_name || QDELETED(interface))
 				return
 			interface.interface_name = trim(new_name)
+		if("toggle_interface_export")
+			var/datum/component/logistics_interface/interface = locateUID(params["uid"])
+			if(!istype(interface))
+				return
+			interface.allow_export = !interface.allow_export
+			interface.net?.add_log("Экспорт «[interface.interface_name]» [interface.allow_export ? "включён" : "выключен"].")
+		if("toggle_interface_block")
+			var/datum/component/logistics_interface/interface = locateUID(params["uid"])
+			if(!istype(interface))
+				return
+			interface.orders_blocked = !interface.orders_blocked
+			interface.net?.add_log("Интерфейс «[interface.interface_name]» [interface.orders_blocked ? "заблокирован" : "разблокирован"].")
+		if("open_interface")
+			var/datum/component/logistics_interface/interface = locateUID(params["uid"])
+			if(!istype(interface) || QDELETED(interface.parent))
+				return
+			interface.ui_interact(usr)
 
 /obj/item/circuitboard/logistics_core
 	board_name = "Logistics Core Console"

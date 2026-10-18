@@ -60,6 +60,7 @@ type LogisticsData = {
   allow_export: boolean;
   notify_status: boolean;
   sound_notify: boolean;
+  blocked: boolean;
   uid: string;
   fill_percent: number | null;
   network_id: number | null;
@@ -88,6 +89,7 @@ export const Logistics = (_props: unknown) => {
     allow_export,
     notify_status,
     sound_notify,
+    blocked,
     fill_percent,
     network_id,
     local_stock = [],
@@ -223,7 +225,10 @@ export const Logistics = (_props: unknown) => {
       dest: destUid,
       wanted: JSON.stringify(wanted),
     });
-    setBuffer([]);
+    // A blocked interface refuses the order on the server side, so keep the draft for the player.
+    if (!blocked) {
+      setBuffer([]);
+    }
   };
 
   return (
@@ -286,8 +291,15 @@ export const Logistics = (_props: unknown) => {
                 </Box>
                 <Box className="Logistics__StatusCell">
                   <Box color="label">Подключение</Box>
-                  <Box color={connected ? 'good' : 'bad'}>
-                    {connected ? 'подключён' : 'не подключён'}
+                  <Box
+                    color={blocked ? 'bad' : connected ? 'good' : 'bad'}
+                    bold={blocked}
+                  >
+                    {blocked
+                      ? 'ЗАБЛОКИРОВАН'
+                      : connected
+                        ? 'подключён'
+                        : 'не подключён'}
                   </Box>
                 </Box>
                 <Box className="Logistics__StatusCell">

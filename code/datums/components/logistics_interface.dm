@@ -9,6 +9,7 @@
 	var/notify_status = FALSE
 	var/sound_notify = FALSE
 	var/interface_name
+	var/orders_blocked = FALSE
 
 /datum/component/logistics_interface/Initialize(obj/item/logistics_interface/installed_board)
 	if(!ismachinery(parent))
@@ -164,6 +165,20 @@
 	var/atom/host = parent
 	return host.ui_status(user, state)
 
+/datum/component/logistics_interface/ui_state(mob/user)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/ai_user = user
+			if(!ai_user.lacks_power() || ai_user.apc_override)
+				return GLOB.always_state
+		else if(isrobot(user))
+			return GLOB.always_state
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/logistics_core/console in range(1, user))
+			if(!console.stat)
+				return GLOB.always_state
+	return ..()
+
 /datum/component/logistics_interface/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -179,6 +194,7 @@
 	data["allow_export"] = allow_export
 	data["notify_status"] = notify_status
 	data["sound_notify"] = sound_notify
+	data["blocked"] = orders_blocked
 	data["uid"] = UID()
 	data["fill_percent"] = adapter ? adapter.get_fill_percent() : null
 	data["network_id"] = net ? net.net_id : null
@@ -268,6 +284,9 @@
 			sound_notify = !sound_notify
 			return TRUE
 		if("create_request")
+			if(orders_blocked)
+				to_chat(usr, span_warning("Интерфейс заблокирован."))
+				return TRUE
 			if(!net)
 				to_chat(usr, span_warning("Нет подключения к логистической сети."))
 				return TRUE
