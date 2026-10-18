@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Добавлен кабель под турбину дельты (PR #9898)"

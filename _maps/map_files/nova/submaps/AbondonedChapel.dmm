@@ -745,6 +745,7 @@
 	name = "Waste Incinerator";
 	req_access = list(12,24,39)
 	},
+/obj/effect/landmark/navigate_destination/incinerator,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "Be" = (
