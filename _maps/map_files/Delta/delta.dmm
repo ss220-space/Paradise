@@ -45748,6 +45748,16 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
+"jVx" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/station/security/hallway/secure)
 "jVy" = (
 /obj/structure/barricade/security,
 /obj/effect/decal/cleanable/dirt,
@@ -173893,13 +173903,13 @@ pYz
 rwn
 uDE
 jrn
-lrM
+jVx
 sHl
+aAx
 uDE
 aAx
-aAx
 rJC
-aAx
+uDE
 aAx
 aAx
 aAx
