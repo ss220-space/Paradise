@@ -626,42 +626,29 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	broadcast_message(tcm)
 	qdel(tcm) // Delete the message datum
 
-/obj/item/radio/proc/receive_range(freq, level)
-	// check if this radio can receive on the given frequency, and if so,
-	// what the range is in which mobs will hear the radio
-	// returns: -1 if can't receive, range otherwise
-
+/obj/item/radio/proc/can_receive(freq, level)
 	if(!is_listening())
-		return -1
+		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
-			return -1
+			return FALSE
 	if(freq in SSradio.ANTAG_FREQS)
-		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
-			return -1
-
-	if(!freq) //received on main frequency
+		if(!syndiekey)
+			return FALSE
+	if(!freq)
 		if(!listening)
-			return -1
-	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))
-		return canhear_range
-	else
-		var/accept = (freq == frequency && listening)
-		if(!accept)
-			for(var/ch_name in channels)
-				var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
-				if(RF.frequency==freq && (channels[ch_name]&FREQ_LISTENING))
-					accept = 1
-					break
-		if(!accept)
-			return -1
-	return canhear_range
-
-/obj/item/radio/proc/send_hear(freq, level)
-	var/range = receive_range(freq, level)
-	if(range > -1)
-		return get_hearers_in_view(canhear_range, src)
+			return FALSE
+		return TRUE
+	if(syndiekey && !(freq in SSradio.syndicate_blacklist))
+		return TRUE
+	if(freq == frequency && listening)
+		return TRUE
+	for(var/ch_name in channels)
+		var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
+		if(RF && RF.frequency == freq && (channels[ch_name] & FREQ_LISTENING))
+			return TRUE
+	return FALSE
 
 /obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
