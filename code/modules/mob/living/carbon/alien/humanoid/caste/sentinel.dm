@@ -1,15 +1,20 @@
 /mob/living/carbon/alien/humanoid/sentinel
 	name = "alien sentinel"
 	caste = "s"
-	maxHealth = 250
-	health = 250
+	maxHealth = 350
+	health = 350
 	attack_damage = 25
 	time_to_open_doors = 0.2 SECONDS
-	icon_state = "aliens_s"
+	icon = 'icons/mob/xeno/warrior.dmi'
+	icon_state = "sentinel"
+	caste_icon_prefix = "sentinel"
+	gib_icon_state = "sentinel_gib"
+	gib_remains_icon_state = "sentinel_corpse"
 	ventcrawler_trait = null
-	caste_movement_delay = -0.2
+	caste_movement_delay = 0.7
 	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
+	pixel_x = -16
 
 /mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
 	if(name == "alien sentinel")
@@ -27,18 +32,20 @@
 		/obj/item/organ/internal/xenos/neurotoxin/sentinel
 	)
 
+
 /mob/living/carbon/alien/humanoid/praetorian
 	name = "alien praetorian"
-	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "aliens_s"
+	icon = 'icons/mob/xeno/warrior.dmi'
+	icon_state = "praetorian"
+	caste_icon_prefix = "praetorian"
 	caste = "s"
 	pixel_x = -16
-	maxHealth = 420
-	health = 420
+	maxHealth = 550
+	health = 550
 	status_flags = CANPARALYSE
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	caste_movement_delay = 0.4
+	caste_movement_delay = 1.5
 	ventcrawler_trait = null
 	attack_damage = 30
 	disarm_stamina_damage = 34
@@ -47,23 +54,14 @@
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	role_text = "Вы — Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача — защита гнезда от непрошенных гостей."
-	var/datum/action/innate/alien/sprite_toggle/praetorian/action_sprite
 
 /mob/living/carbon/alien/humanoid/praetorian/Initialize(mapload)
 	. = ..()
 	if(name == "alien praetorian")
 		name = text("alien praetorian ([rand(1, 1000)])")
 	real_name = name
-	action_sprite = new
-	action_sprite.Grant(src)
 	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	praetorian_count++
-
-/mob/living/carbon/alien/humanoid/praetorian/Destroy()
-	if(action_sprite)
-		action_sprite.Remove(src)
-		action_sprite = null
-	return ..()
 
 /mob/living/carbon/alien/humanoid/praetorian/death(gibbed)
 	// Only execute the below if we successfully died
@@ -82,16 +80,5 @@
 		/obj/item/organ/internal/xenos/neurotoxin
 	)
 
-/mob/living/carbon/alien/humanoid/praetorian/update_icons()
-	cut_overlays()
 
-	if(stat == DEAD)
-		icon_state = "alien[caste]_dead"
-	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "alien[caste]_sleep"
-	else
-		icon_state = "alien[caste]_s"
 
-	update_held_items()
-	update_pockets()
-	update_fire()

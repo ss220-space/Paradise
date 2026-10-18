@@ -18,6 +18,9 @@
 	var/mob/living/carbon/user = owner
 	if(user.get_plasma() < plasma_cost)
 		unset_click_ability(user, FALSE)
+	if(istype(owner, /mob/living/carbon/alien/humanoid/queen))
+		var/mob/living/carbon/alien/humanoid/queen/queen_owner = owner
+		queen_owner.play_spit_overlay()
 
 
 /datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/create_new_handler()

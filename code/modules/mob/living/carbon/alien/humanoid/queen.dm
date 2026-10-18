@@ -1,13 +1,18 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 640
-	health = 640
-	icon_state = "alienq_s"
+	maxHealth = 750
+	health = 750
+	icon = 'icons/mob/xeno/queen.dmi'
+	icon_state = "queen"
+	caste_icon_prefix = "queen"
+	gib_icon_state = "queen_gib"
+	gib_remains_icon_state = "queen_corpse"
+	base_pixel_x = -28
 	status_flags = CANPARALYSE
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	caste_movement_delay = 0.8
+	caste_movement_delay = 1.5
 	ventcrawler_trait = null
 	attack_damage = 40
 	disarm_stamina_damage = 50
@@ -15,9 +20,10 @@
 	obj_damage = 80
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	pressure_resistance = 200
 	antag_datum_type = /datum/antagonist/xenomorph/queen
 	tts_seed = "Queen"
+	var/mutable_appearance/spit_overlay
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	//there should only be one queen
@@ -33,6 +39,25 @@
 	real_name = src.name
 	grant_all_babel_languages()
 	. = ..()
+
+
+/mob/living/carbon/alien/humanoid/queen/proc/play_spit_overlay()
+	if(spit_overlay)
+		cut_overlay(spit_overlay)
+	spit_overlay = mutable_appearance(icon, "queen_spit", FLOAT_LAYER)
+	add_overlay(spit_overlay)
+	addtimer(CALLBACK(src, PROC_REF(clear_spit_overlay)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/mob/living/carbon/alien/humanoid/queen/proc/clear_spit_overlay()
+	if(!spit_overlay)
+		return
+	cut_overlay(spit_overlay)
+	spit_overlay = null
+
+/mob/living/carbon/alien/humanoid/queen/update_icons()
+	. = ..()
+	if(spit_overlay && stat != DEAD)
+		add_overlay(spit_overlay)
 
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()
@@ -53,33 +78,3 @@
 
 /mob/living/carbon/alien/humanoid/queen/is_strong()
 	return TRUE
-
-/mob/living/carbon/alien/humanoid/queen/large
-	icon = 'icons/mob/alienlarge.dmi'
-	pixel_x = -16
-	var/datum/action/innate/alien/sprite_toggle/action_sprite
-
-/mob/living/carbon/alien/humanoid/queen/large/Initialize(mapload)
-	. = ..()
-	action_sprite = new
-	action_sprite.Grant(src)
-
-/mob/living/carbon/alien/humanoid/queen/large/Destroy()
-	if(action_sprite)
-		action_sprite.Remove(src)
-		action_sprite = null
-	return ..()
-
-/mob/living/carbon/alien/humanoid/queen/large/update_icons()
-	cut_overlays()
-
-	if(stat == DEAD)
-		icon_state = "alien[caste]_dead"
-	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "alien[caste]_sleep"
-	else
-		icon_state = "alien[caste]_s"
-
-	update_held_items()
-	update_pockets()
-	update_fire()

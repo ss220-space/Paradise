@@ -24,7 +24,7 @@
 /datum/action/cooldown/spell/evolve/queen
 	desc = "Эволюционируйте в Королеву Ксеноморфов."
 	button_icon_state = "alienq_running"
-	evolution_path = /mob/living/carbon/alien/humanoid/queen/large
+	evolution_path = /mob/living/carbon/alien/humanoid/queen
 
 /datum/action/cooldown/spell/evolve/resin_drone
 	desc = "Станьте смоляным рабочим — улучшенной кастой рабочих, способной возводить толстые смоляные стены."
@@ -57,7 +57,7 @@
 			if(team?.current_queen?.current && team.current_queen.current.stat != DEAD)
 				to_chat(cast_on, span_warning("Королева всё ещё жива."))
 				return
-			evolution_path = /mob/living/carbon/alien/humanoid/queen/large
+			evolution_path = /mob/living/carbon/alien/humanoid/queen
 			xeno.queen_count++
 		if("Resin Drone")
 			evolution_path = /mob/living/carbon/alien/humanoid/drone/resin_drone
