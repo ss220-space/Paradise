@@ -23,12 +23,12 @@
 		return .
 
 	if(!istype(interacting_with, /obj/item/storage/bag/ore))
-		to_chat(user, span_notice("[DECLENT_RU_CAP(src, ACCUSATIVE)] можно крепить только на сумки для руды!"))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] можно крепить только на сумки для руды!"))
 		return ITEM_INTERACT_FAILURE
 
 	var/obj/item/storage/bag/ore/ore_bag = interacting_with
 	if(ore_bag.aoe)
-		to_chat(user, span_notice("[DECLENT_RU_CAP(ore_bag, ACCUSATIVE)] уже улучшена!"))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(ore_bag, NOMINATIVE)] уже улучшена!"))
 		return ITEM_INTERACT_FAILURE
 
 	add_fingerprint(user)

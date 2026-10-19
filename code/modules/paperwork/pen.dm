@@ -19,11 +19,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	materials = list(MAT_METAL=10)
-	var/colour = "black"	//what colour the ink is!
+	var/colour = COLOR_BLACK	//what colour the ink is!
 	pressure_resistance = 2
 	var/fake_signing = FALSE //do we always write like [sign]?
 	/// At what angle head of pen now
 	var/degrees
+	/// Is the pen clicked out (extended) to allow writing
+	var/can_write = TRUE
 
 /obj/item/pen/get_ru_names()
 	return alist(
@@ -65,6 +67,7 @@
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	icon_state = (base_icon_state ? base_icon_state : initial(icon_state)) + (active ? "_retracted" : "") // base_icon_state for skins support
+	can_write = !can_write
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/pen/CtrlClick(mob/living/carbon/user)
@@ -90,22 +93,22 @@
 	name = "blue-ink pen"
 	desc = "Простая ручка с синими чернилами."
 	icon_state = "pen_blue"
-	colour = "blue"
+	colour = COLOR_BLUE
 
 /obj/item/pen/red
 	name = "red-ink pen"
 	desc = "Простая ручка с красными чернилами."
 	icon_state = "pen_red"
-	colour = "red"
+	colour = COLOR_RED
 
 /obj/item/pen/gray
 	name = "gray-ink pen"
 	desc = "Простая ручка с серыми чернилами."
-	colour = "gray"
+	colour = COLOR_GRAY
 
 /obj/item/pen/invisible
 	desc = "Ручка с \"невидимыми\" чернилами."
-	colour = "white"
+	colour = COLOR_WHITE
 
 /obj/item/pen/multi
 	name = "multicolor pen"
@@ -113,12 +116,13 @@
 	icon_state = "multicolor"
 
 	// these values are for the overlay
-	var/list/colour_choices = list(
-		"black" = list(0.25, 0.25, 0.25),
-		"red" = list(1, 0.25, 0.25),
-		"green" = list(0, 1, 0),
-		"blue" = list(0.5, 0.5, 1),
-		"yellow" = list(1, 1, 0))
+	var/static/list/colour_choices = list(
+		"Чёрный" = COLOR_BLACK,
+		"Красный" = COLOR_RED,
+		"Зелёный" = COLOR_GREEN,
+		"Синий" = COLOR_BLUE,
+		"Жёлтый" = COLOR_YELLOW,
+	)
 	var/pen_color_iconstate = "pencolor"
 
 /obj/item/pen/multi/get_ru_names()
@@ -148,17 +152,16 @@
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/pen/multi/proc/select_colour(mob/user)
-	. = tgui_input_list(user, "Какой цвет вы хотите использовать?", name, colour_choices, colour)
-	if(.)
-		colour = .
+	var/colour_ru = tgui_input_list(user, "Какой цвет вы хотите использовать?", DECLENT_RU_CAP(src, NOMINATIVE), colour_choices, colour)
+	if(colour_ru)
+		colour = colour_choices[colour_ru]
 		playsound(loc, 'sound/effects/pop.ogg', 50, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/update_overlays()
 	. = ..()
 	var/icon/color_overlay = new(icon, pen_color_iconstate)
-	var/list/colors = colour_choices[colour]
-	color_overlay.SetIntensity(colors[1], colors[2], colors[3])
+	color_overlay.Blend(colour, ICON_MULTIPLY)
 	. += color_overlay
 
 /obj/item/pen/fountain
@@ -293,7 +296,7 @@
 	var/transfered = 0
 	if(reagents.total_volume && target.reagents)
 		transfered = reagents.trans_to(target, 50)
-	to_chat(user, span_warning("Вы аккуратно укололи ручкой [target]."))
+	to_chat(user, span_warning("Вы аккуратно укололи ручкой [target.declent_ru(ACCUSATIVE)]."))
 	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 
 /obj/item/pen/sleepy/Initialize(mapload)
@@ -336,6 +339,7 @@
  */
 /obj/item/pen/edagger/on_transform(obj/item/source, mob/user, active)
 	on = !on // Need for special logic at attack() proc
+	can_write = !can_write
 	icon_state = active ? "edagger" : initial(icon_state)
 	item_state = active ? "edagger" : initial(item_state)
 	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 5, TRUE)
@@ -419,6 +423,7 @@
 		balloon_alert(user, "*клик*")
 	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	safety = !safety
+	can_write = !can_write
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
