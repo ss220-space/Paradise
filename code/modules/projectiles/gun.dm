@@ -698,7 +698,7 @@
 /obj/item/gun/emp_act(severity, pre_calculated_protection = null)
 	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
 	var/obj/item/gun/energy/energy_gun
-	if(istype(src, /obj/item/gun/energy))
+	if(isenergygun(src))
 		energy_gun = src
 	// Strange: the flags weren't getting through via the parent emp_act(), so we’re passing them explicitly.
 	..(severity, protection)

@@ -46,7 +46,6 @@
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE
-	emp_proof = TRUE
 	aug_message = "Мембраны приспосабливаются для защиты глаз от яркого света."
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/get_ru_names()
