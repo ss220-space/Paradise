@@ -764,9 +764,9 @@
 /obj/machinery/customat/emp_act(severity)
 	. = ..()
 	switch(severity)
-		if(EMP_LIGHT)
-			COOLDOWN_START(src, emp_cooldown, weak_emp_cooldown)
 		if(EMP_HEAVY)
+			COOLDOWN_START(src, emp_cooldown, weak_emp_cooldown)
+		if(EMP_LIGHT)
 			COOLDOWN_START(src, emp_cooldown, strong_emp_cooldown)
 
 /obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
