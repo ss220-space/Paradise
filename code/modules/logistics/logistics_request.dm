@@ -132,6 +132,7 @@
 /datum/logistics_request/proc/ui_serialize()
 	var/datum/component/logistics_interface/req_source = get_source()
 	var/datum/component/logistics_interface/req_dest = get_dest()
+	var/datum/component/logistics_interface/req_creator = get_creator_interface()
 	var/list/wanted_ui = list()
 	for(var/stock_id in original_wanted)
 		var/remaining = (wanted[stock_id] || 0) + (reserved[stock_id] || 0)
@@ -152,7 +153,7 @@
 		"dest" = req_dest ? req_dest.interface_name : "?",
 		"source_uid" = req_source?.UID(),
 		"dest_uid" = req_dest?.UID(),
-		"creator_uid" = get_creator_interface()?.UID(),
+		"creator_uid" = req_creator?.UID(),
 		"wanted" = wanted_ui,
 		"creator" = creator_name,
 		"created_at" = created_at,
