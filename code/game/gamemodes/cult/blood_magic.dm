@@ -207,7 +207,7 @@
 		span_warning("[owner]'s body flashes a bright blue!"), \
 		span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body.")
 	)
-	owner.emp_act(2)
+	owner.emp_act(EMP_LIGHT)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)

@@ -900,3 +900,8 @@ emp_act
 		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
 			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
 			to_chat(src, span_danger("Вязкий напалм обволакивает ваши конечности, и вы с трудом двигаетесь сквозь пламя!"))
+
+/mob/living/carbon/human/get_emp_protection()
+	. = ..()
+	for(var/obj/item/clothing/each_clothing in get_equipped_items())
+		. += each_clothing.emp_protection

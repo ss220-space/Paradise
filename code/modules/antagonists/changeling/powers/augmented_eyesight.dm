@@ -46,6 +46,7 @@
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE
+	emp_proof = TRUE
 	aug_message = "Мембраны приспосабливаются для защиты глаз от яркого света."
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/get_ru_names()
@@ -57,9 +58,6 @@
 		INSTRUMENTAL = "защитными мембранами",
 		PREPOSITIONAL = "защитных мембранах",
 	)
-
-/obj/item/organ/internal/cyberimp/eyes/shield/ling/emp_act(severity)
-	return
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	if(!QDELETED(owner))
@@ -91,6 +89,7 @@
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE
+	emp_proof = TRUE
 	aug_message = "Рецепторы фокусируются и позволяют нам лучше видеть в темноте и сквозь препятствия."
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/get_ru_names()
@@ -102,9 +101,6 @@
 		INSTRUMENTAL = "тепловыми рецепторами",
 		PREPOSITIONAL = "тепловых рецепторах",
 	)
-
-/obj/item/organ/internal/cyberimp/eyes/thermals/ling/emp_act(severity)
-	return
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

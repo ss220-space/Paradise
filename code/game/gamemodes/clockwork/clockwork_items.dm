@@ -1225,9 +1225,7 @@
 		apc = loc
 	else
 		stack_trace("Invalid location for Integration cog")
-
-/obj/machinery/integration_cog/emp_act(severity)
-	return
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/machinery/integration_cog/process(seconds_per_tick)
 	if(apc.cell?.charge > 0 && apc.operating)

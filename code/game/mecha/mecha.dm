@@ -885,6 +885,7 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
+	. = ..()
 	if(emp_protection)
 		return FALSE
 	if(get_charge())

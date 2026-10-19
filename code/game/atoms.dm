@@ -442,12 +442,14 @@
  *
  * We then return the protection value
  */
-/atom/proc/emp_act(severity)
+/atom/proc/emp_act(severity, pre_calculated_protection = null)
 	SHOULD_CALL_PARENT(TRUE)
-	var/protection = SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity)
-	var/datum/wires/wires = src.vars["wires"]
-	if(!(protection & EMP_PROTECT_WIRES) && istype(wires, /datum/wires))
-		wires.emp_pulse()
+	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
+	if("wires" in src.vars)
+		var/wires = src.vars["wires"]
+		if(!(protection & EMP_PROTECT_WIRES) && istype(wires, /datum/wires))
+			var/datum/wires/wire_datum = wires
+			wire_datum.emp_pulse()
 /*
 	if(flags_1 & HOLOGRAM_1) // holograms should ignore EMP_PROTECT flags (since the protection itself is also a hologram)
 		if(prob(75 / severity))

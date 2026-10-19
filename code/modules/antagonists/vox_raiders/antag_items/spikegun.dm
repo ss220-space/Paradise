@@ -15,8 +15,9 @@
 	var/can_reload = TRUE
 	var/is_vox_private = FALSE
 
-/obj/item/gun/energy/spike/emp_act()
-	return
+/obj/item/gun/energy/spike/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/spike/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(can_reload && istype(item, cell_type) && user && user.temporarily_remove_item_from_inventory(item))
@@ -86,4 +87,3 @@
 		playsound(src, 'sound/weapons/m79_reload.ogg', 25, 1)
 
 	return ..()
-
