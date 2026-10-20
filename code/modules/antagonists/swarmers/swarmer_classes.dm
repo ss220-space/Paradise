@@ -198,6 +198,7 @@
 		set_varspeed(increased_speed)
 		return
 
+	cached_swarmer_obj = null
 	set_varspeed(initial(speed))
 
 /mob/living/simple_animal/hostile/swarmer/combat/get_ru_names()
