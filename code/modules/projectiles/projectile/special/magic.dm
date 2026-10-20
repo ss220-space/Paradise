@@ -27,13 +27,12 @@
 
 /obj/projectile/magic/prehit(atom/target)
 	. = ..()
-	if(QDELETED(src))
-		return
 
 	if(isliving(target))
 		var/mob/living/victim = target
 		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
 			visible_message(span_warning("[src] fizzles on contact with [victim]!"))
+			prehit_cancelled = TRUE
 			qdel(src)
 			return
 /*

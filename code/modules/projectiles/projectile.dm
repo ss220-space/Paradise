@@ -71,6 +71,9 @@
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
 	var/nodamage = FALSE
+	/// Set when prehit effects should prevent this projectile from hitting its target.
+	// TODO: Port PROJECTILE_DELETE_WITHOUT_HITTING from TG
+	var/prehit_cancelled = FALSE
 	/// Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/flag = BULLET
 	///How much armor this projectile pierces.
@@ -419,6 +422,8 @@
 		return
 
 	prehit(bumped_atom)
+	if(prehit_cancelled)
+		return FALSE
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
@@ -436,6 +441,8 @@
 			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
+				if(prehit_cancelled)
+					return FALSE
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
