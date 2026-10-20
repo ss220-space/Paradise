@@ -59,11 +59,6 @@
 		if(ITEM_SLOT_POCKET_LEFT)
 			l_store = I
 			update_pockets()
-		if(ITEM_SLOT_HANDCUFFED)
-			set_handcuffed(I)
-		if(ITEM_SLOT_LEGCUFFED)
-			set_legcuffed(I)
-			update_legcuffed_status()
 
 	return I.equipped(src, slot, initial)
 
@@ -162,7 +157,7 @@
 
 /mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_flag)
 	switch(slot_flag)
-		if(ITEM_SLOT_BACK, ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_HAND_LEFT, ITEM_SLOT_HAND_RIGHT, ITEM_SLOT_HANDS, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKETS, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED)
+		if(ITEM_SLOT_BACK, ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_HAND_LEFT, ITEM_SLOT_HAND_RIGHT, ITEM_SLOT_HANDS, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKETS)
 			return TRUE
 		else
 			return FALSE

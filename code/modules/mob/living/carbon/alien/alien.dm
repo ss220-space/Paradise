@@ -32,9 +32,9 @@
 
 	status_flags = CANPARALYSE |CANPUSH| CANUNCONSCIOUS
 
-	var/attack_damage = 20
+	var/attack_damage = 30
 	var/armour_penetration = 20
-	var/disarm_stamina_damage = 20
+	var/disarm_stamina_damage = 35
 	var/obj_damage = 60
 	var/devour_time = 3 SECONDS
 	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -54,15 +54,13 @@
 	/// See [/proc/genderize_decode] for more info.
 	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
-	/// Icon state of this xeno's gib animation stored in its own icon file. Null uses the legacy shared gib animation.
-	var/gib_icon_state
-	/// Icon state of the remains left after gibbing, stored in this xeno's own icon file. Null leaves no caste specific remains.
-	var/gib_remains_icon_state
 
 	var/datum/action/innate/alien/thermal_toogle/thermal_toogle
 	var/static/praetorian_count = 0
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
+
+	var/datum/action/innate/alien/toggle_queen_arrow/queen_arrow
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
@@ -77,14 +75,19 @@
 	if(caste_movement_delay)
 		update_alien_speed()
 
-/mob/living/carbon/alien/Initialize(mapload)
-	. = ..()
+	if(!istype(src, /mob/living/carbon/alien/humanoid/queen))
+		queen_arrow = new
+		queen_arrow.Grant(src)
+
 	GLOB.aliens_list += src
 
 /mob/living/carbon/alien/Destroy()
 	if(thermal_toogle)
 		thermal_toogle.Remove(src)
 		thermal_toogle = null
+	if(queen_arrow)
+		queen_arrow.Remove(src)
+		queen_arrow = null
 	GLOB.aliens_list -= src
 	return ..()
 

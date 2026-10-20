@@ -8,12 +8,11 @@
 	icon = 'icons/mob/xeno/warrior.dmi'
 	icon_state = "sentinel"
 	caste_icon_prefix = "sentinel"
-	gib_icon_state = "sentinel_gib"
-	gib_remains_icon_state = "sentinel_corpse"
 	ventcrawler_trait = null
 	caste_movement_delay = 0.7
 	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
+	base_pixel_x = -16
 	pixel_x = -16
 
 /mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
@@ -44,7 +43,6 @@
 	health = 550
 	status_flags = CANPARALYSE
 	large = TRUE
-	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 1.5
 	ventcrawler_trait = null
 	attack_damage = 30

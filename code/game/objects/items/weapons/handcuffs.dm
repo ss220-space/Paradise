@@ -47,6 +47,10 @@
 		balloon_alert(user, "цель уже скована!")
 		return .
 
+	if(isalien(target))
+		balloon_alert(user, "нельзя заковать!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(!target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 		balloon_alert(user, "у цели нет рук!")
 		return .

@@ -403,6 +403,15 @@
 #undef RESIN_DOOR_CLOSED
 #undef RESIN_DOOR_OPENED
 
+/obj/structure/alien/resin/door/thick
+	name = "thick resin door"
+	icon_state = "thickresindoor"
+	icon_closed = "thickresindoor"
+	icon_opened = "thickresindooropen"
+	icon_closing = "thickresindoorclosing"
+	icon_opening = "thickresindooropening"
+	max_integrity = 320
+
 /*
  * Weeds
  */

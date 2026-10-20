@@ -6,12 +6,10 @@
 	icon = 'icons/mob/xeno/queen.dmi'
 	icon_state = "queen"
 	caste_icon_prefix = "queen"
-	gib_icon_state = "queen_gib"
-	gib_remains_icon_state = "queen_corpse"
 	base_pixel_x = -28
+	pixel_x = -28
 	status_flags = CANPARALYSE
 	large = TRUE
-	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 1.5
 	ventcrawler_trait = null
 	attack_damage = 40

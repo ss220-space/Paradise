@@ -7,8 +7,6 @@
 	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE | PASSDOOR
 	mob_size = MOB_SIZE_SMALL
 	caste_movement_delay = -0.2
-	gib_icon_state = "larva_gib"
-	gib_remains_icon_state = "larva_corpse"
 	attack_damage = 3
 	obj_damage = 10
 	maxHealth = 50

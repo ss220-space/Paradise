@@ -2,6 +2,7 @@
 #define ALIEN_RESIN_WALL "Resin Wall (60)"
 #define ALIEN_RESIN_DOOR "Resin Door (50)"
 #define ALIEN_RESIN_THICK_WALL "Resin Thick Wall (60)"
+#define ALIEN_RESIN_THICK_DOOR "Resin Thick Door (50)"
 #define ALIEN_RESIN_NEST "Resin Nest (30)"
 
 /datum/action/cooldown/spell/build_resin
@@ -36,30 +37,35 @@
 	if(is_resin_drone)
 		resin_params["Plasma Amount"] = list(
 			ALIEN_RESIN_THICK_WALL		= 60,
+			ALIEN_RESIN_THICK_DOOR		= 50,
 			ALIEN_RESIN_DOOR		= 50,
 			ALIEN_RESIN_NEST		= 30
 		)
 
 		resin_params["Process Time"] = list(
-			ALIEN_RESIN_THICK_WALL		= 2 SECONDS,
-			ALIEN_RESIN_DOOR		= 5 SECONDS,
+			ALIEN_RESIN_THICK_WALL		= 3 SECONDS,
+			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
+			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 1 SECONDS
 		)
 
 		resin_params["Cooldown"] = list(
-			ALIEN_RESIN_THICK_WALL		= 3 SECONDS,
-			ALIEN_RESIN_DOOR		= 10 SECONDS,
+			ALIEN_RESIN_THICK_WALL		= 5 SECONDS,
+			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
+			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 2 SECONDS
 		)
 
 		resin_params["Structure"] = list(
 			ALIEN_RESIN_THICK_WALL		= /obj/structure/alien/resin/wall/thick,
+			ALIEN_RESIN_THICK_DOOR		= /obj/structure/alien/resin/door/thick,
 			ALIEN_RESIN_DOOR		= /obj/structure/alien/resin/door,
 			ALIEN_RESIN_NEST		= /obj/structure/bed/nest
 		)
 
 		resin_params["Image"] = list(
 			ALIEN_RESIN_THICK_WALL		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "thickresin"),
+			ALIEN_RESIN_THICK_DOOR		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "thickresindoor"),
 			ALIEN_RESIN_DOOR		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "resindoor"),
 			ALIEN_RESIN_NEST		= image(icon = 'icons/mob/alien.dmi', icon_state = "nest")
 		)
@@ -71,14 +77,14 @@
 		)
 
 		resin_params["Process Time"] = list(
-			ALIEN_RESIN_WALL		= 2 SECONDS,
-			ALIEN_RESIN_DOOR		= 5 SECONDS,
+			ALIEN_RESIN_WALL		= 1.5 SECONDS,
+			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 1 SECONDS
 		)
 
 		resin_params["Cooldown"] = list(
-			ALIEN_RESIN_WALL		= 3 SECONDS,
-			ALIEN_RESIN_DOOR		= 10 SECONDS,
+			ALIEN_RESIN_WALL		= 2 SECONDS,
+			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 2 SECONDS
 		)
 
@@ -154,4 +160,6 @@
 #undef ALIEN_RESIN_WALL
 #undef ALIEN_RESIN_DOOR
 #undef ALIEN_RESIN_THICK_WALL
+#undef ALIEN_RESIN_THICK_DOOR
 #undef ALIEN_RESIN_NEST
+

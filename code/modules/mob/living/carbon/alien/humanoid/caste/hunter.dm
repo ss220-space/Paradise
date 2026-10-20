@@ -8,10 +8,9 @@
 	icon_state = "hunter"
 	caste_icon_prefix = "hunter"
 	caste_movement_delay = -0.8
-	gib_icon_state = "hunter_gib"
-	gib_remains_icon_state = "hunter_corpse"
 	rotate_on_lying = FALSE
 	role_text = "Вы — Охотник. Ваша основная задача — добыча носителей для заражения их грудоломами."
+	base_pixel_x = -8
 	pixel_x = -8
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)

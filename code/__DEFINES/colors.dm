@@ -248,7 +248,7 @@
 // Colors for blood greyscale sprites.
 #define BLOOD_COLOR_RED "#aa1010"
 #define BLOOD_COLOR_LIZARD "#035a00"
-#define BLOOD_COLOR_XENO "#dffc00"
+#define BLOOD_COLOR_XENO "#d9f500"
 #define BLOOD_COLOR_OIL "#2c2c2c"
 #define BLOOD_COLOR_MACHINE "#1f181f"
 #define BLOOD_COLOR_BLACK "#1f1a00"

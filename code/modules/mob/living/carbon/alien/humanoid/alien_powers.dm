@@ -38,3 +38,51 @@
 	playsound(object_turf, pick('sound/creatures/alien/xeno_resin_build1.ogg', \
 								'sound/creatures/alien/xeno_resin_build2.ogg', \
 								'sound/creatures/alien/xeno_resin_build3.ogg'), 30)
+
+/datum/action/innate/alien/toggle_queen_arrow
+	name = "Расположение королевы"
+	desc = "Включить/выключить указатель направления к Королеве"
+	button_icon_state = "queen_arrow"
+	var/atom/movable/screen/navigate_arrow/arrow
+
+/datum/action/innate/alien/toggle_queen_arrow/Activate()
+	if(!IsAvailable())
+		return
+	var/mob/living/carbon/alien/host = owner
+	if(!host.client)
+		return
+
+	if(arrow)
+		host.client.screen -= arrow
+		qdel(arrow)
+		arrow = null
+		host.balloon_alert(host, "выключено")
+		return
+
+	var/mob/living/carbon/alien/humanoid/queen/Q = locate() in GLOB.aliens_list
+	if(!Q || Q.stat == DEAD)
+		host.balloon_alert(host, "королевы нет!")
+		return
+
+	arrow = new
+	host.client.screen += arrow
+	update_arrow()
+	host.balloon_alert(host, "включено")
+
+/datum/action/innate/alien/toggle_queen_arrow/proc/update_arrow()
+	if(!arrow || !owner?.client)
+		return
+	var/mob/living/carbon/alien/humanoid/queen/Q = locate() in GLOB.aliens_list
+	if(!Q || Q.stat == DEAD)
+		owner.client.screen -= arrow
+		qdel(arrow)
+		arrow = null
+		owner.balloon_alert(owner, "королева мертва!")
+		return
+	arrow.start_effect(get_turf(Q), "#947BA1", owner)
+
+/datum/action/innate/alien/toggle_queen_arrow/Destroy()
+	if(arrow)
+		owner?.client?.screen -= arrow
+		QDEL_NULL(arrow)
+	return ..()
