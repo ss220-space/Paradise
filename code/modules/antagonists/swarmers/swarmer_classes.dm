@@ -56,8 +56,8 @@
 	icon_living = "swarmer_general"
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	health = 150
-	maxHealth = 150
+	health = 80
+	maxHealth = 80
 	speed = 0
 	ranged = TRUE
 	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
@@ -65,8 +65,10 @@
 	projectilesound = 'sound/weapons/taser2.ogg'
 	swap_resource_cost = GENERALIST_SWAP_COST
 	can_swap_to = TRUE
+	slowed_by_pull_and_push = FALSE
 	swarmer_class_info = "Данный класс является базовой боевой единицей, оснащённой пушкой, а также способностью строить мелкие туррели, баррикады и ловушки.\n\
-		Скорость равна человеческой."
+		Скорость равна человеческой.\n\
+		Не замедляется при перемещении существ и объектов."
 
 /mob/living/simple_animal/hostile/swarmer/generalist/get_ru_names()
 	return alist(
@@ -100,26 +102,19 @@
 	pass_flags = PASSTABLE | PASSMOB
 	swarmer_class_info = "Данный класс является разведовательной единицей, оснащённой колёсами вместо ног, а также мощным тараном, способным сбивать целей с ног.\n\
 		Способен строить ловушки и \"хабы\", между которыми смогут перемещаться все \"Свармеры\".\n\
+		Мгновенно строит ловушки.\n\
 		Достаточно маленький для того, чтобы проползать под столами и шлюзами."
 	/// For how long do we knockdown on hit
 	var/knockdown_time = 3 SECONDS
 
-/mob/living/simple_animal/hostile/swarmer/rover/Initialize(mapload)
+// Additional knockdown on attack
+/mob/living/simple_animal/hostile/swarmer/rover/AttackingTarget()
 	. = ..()
-	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(on_attack))
-
-/mob/living/simple_animal/hostile/swarmer/rover/Destroy(force)
-	UnregisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET)
-	return ..()
-
-/// Signal proc, additional knockdown on attack
-/mob/living/simple_animal/hostile/swarmer/rover/proc/on_attack(datum/source, mob/living/target, result)
-	SIGNAL_HANDLER
-	if(!result)
+	if(!. || !isliving(target))
 		return
-	if(!istype(target))
-		return
-	target.Knockdown(knockdown_time)
+
+	var/mob/living/living_target = target
+	living_target.Knockdown(knockdown_time)
 
 /mob/living/simple_animal/hostile/swarmer/rover/get_ru_names()
 	return alist(
@@ -130,6 +125,9 @@
 		INSTRUMENTAL = "свармер — ровером",
 		PREPOSITIONAL = "свармер — ровере",
 	)
+
+/// Range we check for combat swarmer speed reduction
+#define COMBAT_SWARMER_STRUCTURE_RANGE 7
 
 /**
  * Combat Swarmer
@@ -144,10 +142,10 @@
 	icon_living = "swarmer_combat"
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	health = 175
-	maxHealth = 175
+	health = 120
+	maxHealth = 120
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
-	speed = 0.5
+	speed = 0.25
 	ranged = TRUE
 	swap_resource_cost = COMBAT_SWAP_COST
 	can_swap_to = TRUE
@@ -158,15 +156,17 @@
 		3. Саботажный выстрел — у баллистики разряжает боезапас, у энергетических сбивает сибилы, режим стрельбы и разряжает батарею.\n\
 		Менять тип выстрела на ПКМ по самому себе.\n\
 		Способен строить баррикады.\n\
-		Чинится автоматически у ядра, становится быстрее у ядра."
-	/// What speed do we have if there is any swarmer structure nearby
-	var/increased_speed = -0.25
+		Чинится автоматически у ядра, становится быстрее, находясь рядом с любой из структур Свармеров."
 	/// List of all modes used in ranged_mob_switcher element
 	var/static/list/combat_modes = list(
 		/datum/ranged_mob_switcher_mode/combat_swarmer_double,
 		/datum/ranged_mob_switcher_mode/combat_swarmer_strong,
 		/datum/ranged_mob_switcher_mode/combat_swarmer_sabotage,
 	)
+	/// What speed do we have if there is any swarmer structure nearby
+	var/increased_speed = -0.15
+	/// Cached structure we found nearby to check for distance
+	var/obj/cached_swarmer_obj
 
 /mob/living/simple_animal/hostile/swarmer/combat/Initialize(mapload)
 	. = ..()
@@ -174,7 +174,7 @@
 	AddElement(/datum/element/ranged_mob_switcher, combat_modes)
 
 /mob/living/simple_animal/hostile/swarmer/combat/Destroy()
-	REMOVE_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
+	cached_swarmer_obj = null
 	return ..()
 
 /// Increases speed if any swarmer structure is nearby
@@ -183,7 +183,18 @@
 	if(!.)
 		return
 
-	if(locate(/obj/structure/swarmer) in range(7, src))
+	if(!QDELETED(cached_swarmer_obj))
+		if(IN_GIVEN_RANGE(src, cached_swarmer_obj, COMBAT_SWARMER_STRUCTURE_RANGE))
+			set_varspeed(increased_speed)
+			return
+
+	// Doing this because we check for 2 types
+	var/list/cached_range = range(COMBAT_SWARMER_STRUCTURE_RANGE, src)
+	for(var/atom in cached_range)
+		if(!is_swarmer_object(atom))
+			continue
+
+		cached_swarmer_obj = atom
 		set_varspeed(increased_speed)
 		return
 
@@ -199,6 +210,8 @@
 		PREPOSITIONAL = "свармер — бойце",
 	)
 
+#undef COMBAT_SWARMER_STRUCTURE_RANGE
+
 /**
  * Builder Swarmer
  *
@@ -212,20 +225,18 @@
 	icon_living = "swarmer_builder"
 	melee_damage_lower = 40
 	melee_damage_upper = 40
-	health = 175
-	maxHealth = 175
+	health = 120
+	maxHealth = 120
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
-	ranged = TRUE
-	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
-	ranged_cooldown_time = 2 SECONDS
-	projectilesound = 'sound/weapons/taser2.ogg'
 	swap_resource_cost = BUILDER_SWAP_COST
 	can_swap_to = TRUE
 	mob_size = MOB_SIZE_HUMAN
+	slowed_by_pull_and_push = FALSE
 	swarmer_class_info = "Данный класс является строительной единицей, способной строить множество различных конструкций.\n\
 		Является самым важным классом среди \"Свармеров\", без которого выполнение цели является невозможным.\n\
 		Чинит в два раза быстрее и больше остальных, а также способен перемещать структуры, включая ядро.\n\
-		Медленно чинится сам по себе, и обладает наибольшим уроном вблизи."
+		Медленно чинится сам по себе, и обладает наибольшим уроном вблизи.\n\
+		Не замедляется от переноски существ и объектов."
 	/// Builder swarmers heal passively by a little bit
 	var/auto_repair_amount = 1
 
@@ -278,23 +289,21 @@
 
 /mob/living/simple_animal/hostile/swarmer/mega/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, PROC_REF(on_attack))
 	acp = new(src)
 	configure_acp()
 
 /mob/living/simple_animal/hostile/swarmer/mega/Destroy(force)
-	UnregisterSignal(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET)
-	qdel(acp)
+	QDEL_NULL(acp)
 	return ..()
 
-/// Signal proc, additional knockdown on attack
-/mob/living/simple_animal/hostile/swarmer/mega/proc/on_attack(datum/source, mob/living/target, result)
-	SIGNAL_HANDLER
-	if(!result)
+// Additional knockdown on attack
+/mob/living/simple_animal/hostile/swarmer/mega/AttackingTarget()
+	. = ..()
+	if(!. || !isliving(target))
 		return
-	if(!istype(target))
-		return
-	target.Knockdown(knockdown_time)
+
+	var/mob/living/living_target = target
+	living_target.Knockdown(knockdown_time)
 
 // Reflects projectiles with a set chance
 /mob/living/simple_animal/hostile/swarmer/mega/bullet_act(obj/projectile/proj)
