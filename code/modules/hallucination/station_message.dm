@@ -28,6 +28,8 @@
 	if(sound_file)
 		hallucinator.playsound_local(null, sound_file, 100)
 
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, hallucinator, message, null, TRUE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM)
+
 /datum/hallucination/station_message/blob_alert
 
 /datum/hallucination/station_message/blob_alert/do_fake_alert()
