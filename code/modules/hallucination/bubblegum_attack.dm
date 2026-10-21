@@ -92,8 +92,8 @@
 		step_away(hallucinator, fake_bubbles)
 		shake_camera(hallucinator, 4, 3)
 		hallucinator.visible_message(
-			span_warning("[hallucinator] jumps backwards, falling on the ground!"),
-			span_userdanger("[fake_bubbles] slams into you!"),
+			span_warning("[hallucinator] отпрыгива[PLUR_ET_UT(hallucinator)] назад, падая на землю!"),
+			span_userdanger("[DECLENT_RU_CAP(fake_bubbles, NOMINATIVE)] врезается в тебя!"),
 		)
 		QDEL_IN(src, 3 SECONDS)
 

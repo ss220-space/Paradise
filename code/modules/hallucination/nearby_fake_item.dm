@@ -85,6 +85,16 @@
 
 /datum/hallucination/nearby_fake_item/arm_blade/generate_fake_image(mob/living/carbon/human/holder, file)
 	hallucinator.playsound_local(get_turf(holder), pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg'), 35, TRUE)
+	var/changeling_speech = pick(
+		"Вот ты и попался!",
+		"Ну поехали!",
+		"Резня!!!",
+		"Ой...",
+		"А я всё думаю, где же ты прячешься?!",
+		"Ну начнём!",
+		"АХАХАХАХАХАХА!!!",
+	)
+	to_chat(hallucinator, holder, pick(changeling_speech))
 	return ..()
 
 /datum/hallucination/nearby_fake_item/arm_blade/remove_image(mob/living/carbon/human/holder)

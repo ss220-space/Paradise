@@ -262,7 +262,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(stab_loop), hits_done + 1), CLICK_CD_MELEE)
 
-/// A hallucination of a arm blade revving nearby.
+/// A hallucination of a cqc revving nearby.
 /datum/hallucination/battle/cqc_fight
 
 /datum/hallucination/battle/cqc_fight/start()
@@ -273,7 +273,7 @@
 	addtimer(CALLBACK(src, PROC_REF(stab_loop), 0, rand(4, 8)), CLICK_CD_MELEE)
 	return TRUE
 
-/// The main sound loop of someone being mauled by an arm blade.
+/// The main sound loop of someone being cqc
 /datum/hallucination/battle/cqc_fight/proc/stab_loop(hits_done = 0, stabs_total = 6)
 	if(QDELETED(src) || QDELETED(hallucinator))
 		return
@@ -283,6 +283,62 @@
 		return
 
 	hallucinator.playsound_local(source_turf, pick('sound/weapons/cqchit1.ogg', 'sound/weapons/cqchit2.ogg'), 55, TRUE)
+
+	if(prob(20))
+		hallucinator.playsound_local(source_turf, SFX_BONEBREAK, 40, TRUE)
+
+	addtimer(CALLBACK(src, PROC_REF(stab_loop), hits_done + 1), CLICK_CD_MELEE)
+
+/// A hallucination of a terror spider attack revving nearby.
+/datum/hallucination/battle/terror_spider
+
+/datum/hallucination/battle/terror_spider/start()
+	. = ..()
+	if(!.)
+		return
+
+	hallucinator.playsound_local(source_turf, 'sound/creatures/terrorspiders/mod_attack.ogg', 50, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(stab_loop), 0, rand(4, 8)), CLICK_CD_MELEE)
+	return TRUE
+
+/// The main sound loop of someone being terror spider attack
+/datum/hallucination/battle/terror_spider/proc/stab_loop(hits_done = 0, stabs_total = 6)
+	if(QDELETED(src) || QDELETED(hallucinator))
+		return
+
+	if(hits_done >= stabs_total)
+		qdel(src)
+		return
+
+	hallucinator.playsound_local(source_turf, pick('sound/creatures/terrorspiders/bite.ogg', 'sound/creatures/terrorspiders/bite2.ogg'), 55, TRUE)
+
+	if(prob(20))
+		hallucinator.playsound_local(source_turf, SFX_BONEBREAK, 40, TRUE)
+
+	addtimer(CALLBACK(src, PROC_REF(stab_loop), hits_done + 1), CLICK_CD_MELEE)
+
+/// A hallucination of a slaughter demon revving nearby.
+/datum/hallucination/battle/slaughter_demon
+
+/datum/hallucination/battle/slaughter_demon/start()
+	. = ..()
+	if(!.)
+		return
+
+	hallucinator.playsound_local(source_turf, 'sound/misc/exit_blood.ogg', 50, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(stab_loop), 0, rand(4, 8)), CLICK_CD_MELEE)
+	return TRUE
+
+/// The main sound loop of someone being terror spider attack
+/datum/hallucination/battle/slaughter_demon/proc/stab_loop(hits_done = 0, stabs_total = 6)
+	if(QDELETED(src) || QDELETED(hallucinator))
+		return
+
+	if(hits_done >= stabs_total)
+		qdel(src)
+		return
+
+	hallucinator.playsound_local(source_turf, 'sound/misc/demon_attack1.ogg', 55, TRUE)
 
 	if(prob(20))
 		hallucinator.playsound_local(source_turf, SFX_BONEBREAK, 40, TRUE)

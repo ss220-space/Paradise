@@ -62,11 +62,11 @@
 		parent.hallucinator.playsound_local(get_turf(target), hal_hitsound, 100, TRUE)
 
 	if(target == parent.hallucinator)
-		to_chat(parent.hallucinator, span_userdanger("[target] поражён [src] в грудь!"))
+		to_chat(parent.hallucinator, span_userdanger("[target] поражён[GEND_A_O_I(target)] [declent_ru(ACCUSATIVE)] в грудь!"))
 		if(stamina_damage)
 			target.adjustStaminaLoss(stamina_damage)
 	else if(target in view(parent.hallucinator))
-		to_chat(parent.hallucinator, span_danger("[target] поражён [src] в грудь!"))
+		to_chat(parent.hallucinator, span_danger("[target] поражён[GEND_A_O_I(target)] [declent_ru(ACCUSATIVE)] в грудь!"))
 
 	qdel(src)
 

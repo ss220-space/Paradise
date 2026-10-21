@@ -247,9 +247,3 @@
 		'sound/voice/hiss3.ogg',
 		'sound/voice/hiss4.ogg',
 	)
-
-/datum/hallucination/fake_sound/weird/radio_static
-	volume = 75
-	no_source = TRUE
-	sound_vary = FALSE
-	sound_type = 'sound/effects/radio_chatter.ogg'

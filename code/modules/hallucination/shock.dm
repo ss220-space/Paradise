@@ -5,7 +5,6 @@
 
 	var/electrocution_icon = 'icons/mob/human.dmi'
 	var/electrocution_icon_state = "electrocuted_base"
-	var/image/shock_image
 	var/image/electrocution_skeleton_anim
 
 /datum/hallucination/shock/New(mob/living/hallucinator)
@@ -13,9 +12,6 @@
 	return ..()
 
 /datum/hallucination/shock/Destroy()
-	if(shock_image)
-		hallucinator.client?.images -= shock_image
-		shock_image = null
 	if(electrocution_skeleton_anim)
 		hallucinator.client?.images -= electrocution_skeleton_anim
 		electrocution_skeleton_anim = null
@@ -23,20 +19,13 @@
 	return ..()
 
 /datum/hallucination/shock/start()
-	shock_image = image(hallucinator, hallucinator, dir = hallucinator.dir)
-	shock_image.appearance_flags |= KEEP_APART
-	shock_image.color = rgb(0, 0, 0)
-	shock_image.override = TRUE
-
 	electrocution_skeleton_anim = image(electrocution_icon, hallucinator, icon_state = electrocution_icon_state, layer = ABOVE_MOB_LAYER)
 	electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
 
-	SET_PLANE_EXPLICIT(shock_image, ABOVE_GAME_PLANE, hallucinator)
 	SET_PLANE_EXPLICIT(electrocution_skeleton_anim, ABOVE_GAME_PLANE, hallucinator)
 
 	to_chat(hallucinator, span_userdanger("Вы чувствуете мощный разряд, пронзающий ваше тело!"))
 	hallucinator.visible_message(span_warning("[hallucinator] падает на землю, сотрясаясь!"), ignored_mobs = hallucinator)
-	hallucinator.client?.images |= shock_image
 	hallucinator.client?.images |= electrocution_skeleton_anim
 
 	hallucinator.playsound_local(get_turf(src), SFX_SPARKS, 100, TRUE)
@@ -52,9 +41,6 @@
 /datum/hallucination/shock/proc/reset_shock_animation()
 	if(QDELETED(hallucinator))
 		return
-
-	hallucinator.client?.images -= shock_image
-	shock_image = null
 
 	hallucinator.client?.images -= electrocution_skeleton_anim
 	electrocution_skeleton_anim = null

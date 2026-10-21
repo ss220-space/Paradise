@@ -997,10 +997,20 @@
 	/// The cooldown for when the next hallucination can occur
 	COOLDOWN_DECLARE(hallucination_cooldown)
 
+	/// How intense the hallucinations are (0-10 stacks). Accumulates.
+	var/hallucination_stacks = 0
+	var/initial_duration = 0
+	/// How fast stacks decay per second.
+	var/stack_decay = 0.5
+
 /datum/status_effect/transient/hallucination/on_apply()
 	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
 		return FALSE
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
+
+	initial_duration = duration
+	// VERYSPECIAL only when stacked for 10 minutes
+	hallucination_stacks = clamp(round(duration / 60 SECONDS), 1, 10)
 
 	return TRUE
 
@@ -1013,6 +1023,12 @@
 		COMSIG_LIVING_HEALTHSCAN,
 		SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE),
 	))
+
+/// Add more stacks when a new dose is applied while the effect is already active.
+/datum/status_effect/transient/hallucination/proc/add_stacks(amount)
+	hallucination_stacks = clamp(hallucination_stacks + amount, 0, 10)
+	if(duration > initial_duration)
+		initial_duration = duration
 
 /datum/status_effect/transient/hallucination/tick(seconds_between_ticks)
 	. = ..()
@@ -1028,22 +1044,42 @@
 	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
 		return
 
+	hallucination_stacks -= stack_decay * seconds_between_ticks
+	if(hallucination_stacks <= 0)
+		qdel(src)
+		return
+
+	if(duration > initial_duration)
+		var/added_duration = duration - initial_duration
+		var/new_stacks = clamp(round(added_duration / 30 SECONDS), 0, 5)
+		hallucination_stacks = clamp(hallucination_stacks + new_stacks, 0, 10)
+		initial_duration = duration
+
+	var/progress = 0
+	if(initial_duration > 0)
+		progress = 1 - (duration / initial_duration)
+
+	var/multiplier = 1.0
+	if(progress < 0.25 || progress > 0.75)
+		multiplier = 0.5
+
+	var/effective_stacks = round(hallucination_stacks * multiplier)
+
 	var/lower_cd = lower_tick_interval
 	var/upper_cd = upper_tick_interval
 	if(variable_tier)
-		var/seconds_left = duration / 10
-		switch(seconds_left)
-			if(0 to 20)
+		switch(effective_stacks)
+			if(0 to 2)
 				max_hallucination_tier = HALLUCINATION_TIER_COMMON
-				lower_tick_interval *= 1.2
-				upper_tick_interval *= 1.2
-			if(20 to 60)
+				lower_cd *= 1.2
+				upper_cd *= 1.2
+			if(3 to 5)
 				max_hallucination_tier = prob(10) ? HALLUCINATION_TIER_RARE : HALLUCINATION_TIER_UNCOMMON
-			if(60 to 120)
+			if(6 to 8)
 				max_hallucination_tier = HALLUCINATION_TIER_RARE
 				lower_cd *= 0.75
 				upper_cd *= 0.75
-			if(120 to INFINITY)
+			if(9 to 10)
 				max_hallucination_tier = HALLUCINATION_TIER_VERYSPECIAL
 				lower_cd *= 0.5
 				upper_cd *= 0.5
