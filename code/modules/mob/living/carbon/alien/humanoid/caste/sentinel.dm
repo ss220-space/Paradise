@@ -10,10 +10,20 @@
 	caste_icon_prefix = "sentinel"
 	ventcrawler_trait = null
 	caste_movement_delay = 0.7
-	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
+	role_text = "Вы — Страж. Ваша основная задача — защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
 	base_pixel_x = -16
 	pixel_x = -16
+
+/mob/living/carbon/alien/humanoid/sentinel/get_ru_names()
+	return alist(
+		NOMINATIVE = "ксеноморф-страж",
+		GENITIVE = "ксеноморфа-стража",
+		DATIVE = "ксеноморфу-стражу",
+		ACCUSATIVE = "ксеноморфа-стража",
+		INSTRUMENTAL = "ксеноморфом-стражем",
+		PREPOSITIONAL = "ксеноморфе-страже",
+	)
 
 /mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
 	if(name == "alien sentinel")
@@ -52,6 +62,16 @@
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	role_text = "Вы — Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача — защита гнезда от непрошенных гостей."
+
+/mob/living/carbon/alien/humanoid/praetorian/get_ru_names()
+	return alist(
+		NOMINATIVE = "ксеноморф-преторианец",
+		GENITIVE = "ксеноморфа-преторианца",
+		DATIVE = "ксеноморфу-преторианцу",
+		ACCUSATIVE = "ксеноморфа-преторианца",
+		INSTRUMENTAL = "ксеноморфом-преторианцем",
+		PREPOSITIONAL = "ксеноморфе-преторианце",
+	)
 
 /mob/living/carbon/alien/humanoid/praetorian/Initialize(mapload)
 	. = ..()

@@ -23,6 +23,16 @@
 	tts_seed = "Queen"
 	var/mutable_appearance/spit_overlay
 
+/mob/living/carbon/alien/humanoid/queen/get_ru_names()
+	return alist(
+		NOMINATIVE = "королева ксеноморфов",
+		GENITIVE = "королевы ксеноморфов",
+		DATIVE = "королеве ксеноморфов",
+		ACCUSATIVE = "королеву ксеноморфов",
+		INSTRUMENTAL = "королевой ксеноморфов",
+		PREPOSITIONAL = "королеве ксеноморфов",
+	)
+
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)

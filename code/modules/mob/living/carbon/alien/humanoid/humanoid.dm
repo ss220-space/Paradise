@@ -72,38 +72,14 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 	take_overall_damage(b_loss, f_loss)
 
-/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
-	return ..(I, cuff_break = TRUE)
-
-/mob/living/carbon/alien/humanoid/lying_angle_on_lying_down(new_lying_angle)
-	set_lying_angle(LYING_ANGLE_EAST)	// it had to be 90, looks silly otherwise
-
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
-
-/mob/living/carbon/alien/humanoid/toggle_move_intent(new_move_intent) //because with movement intent change our pose changes
-	var/old_m_intent = m_intent
-	. = ..()
-	if(old_m_intent != m_intent)
-		update_icons()
 
 /mob/living/carbon/alien/humanoid/examine(mob/user)
 	. = ..()
 	if(!key)
-		. += span_deadsay("[p_their(TRUE)] eyes have no spark of life.")
+		. += span_deadsay("В глазах нет искры жизни.")
 		. += "<br>"
-
-	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with zipties!")
-		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] restrained with cable!")
-		else
-			. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(handcuffed, user)] handcuffed!")
-
-	if(legcuffed)
-		. += span_warning("[p_they(TRUE)] [p_are()] [icon2html(legcuffed, user)] restrained with [legcuffed]!")
 
 /mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()

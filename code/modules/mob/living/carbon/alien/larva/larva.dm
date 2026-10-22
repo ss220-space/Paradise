@@ -24,6 +24,16 @@
 	var/datum/action/innate/hide/alien_larva/hide_action
 	var/temperature_resistance = T0C+75
 
+/mob/living/carbon/alien/larva/get_ru_names()
+	return alist(
+		NOMINATIVE = "грудолом",
+		GENITIVE = "грудолома",
+		DATIVE = "грудолому",
+		ACCUSATIVE = "грудолома",
+		INSTRUMENTAL = "грудоломом",
+		PREPOSITIONAL = "грудоломе",
+	)
+
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
 	. = ..()

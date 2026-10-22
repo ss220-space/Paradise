@@ -3,7 +3,7 @@
 /obj/structure/bed/nest
 	name = "alien nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
-	icon = 'icons/mob/alien.dmi'
+	icon = 'icons/mob/xeno/structures.dmi'
 	icon_state = "nest"
 	max_integrity = 120
 	elevation = 0
@@ -15,7 +15,7 @@
 
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
-	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=BELOW_MOB_LAYER)
+	nest_overlay = image('icons/mob/xeno/structures.dmi', "nest_overlay", layer = BELOW_MOB_LAYER)
 
 /obj/structure/bed/nest/Destroy()
 	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)

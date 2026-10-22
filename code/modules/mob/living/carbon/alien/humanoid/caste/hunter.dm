@@ -13,6 +13,16 @@
 	base_pixel_x = -8
 	pixel_x = -8
 
+/mob/living/carbon/alien/humanoid/hunter/get_ru_names()
+	return alist(
+		NOMINATIVE = "ксеноморф-охотник",
+		GENITIVE = "ксеноморфа-охотника",
+		DATIVE = "ксеноморфу-охотнику",
+		ACCUSATIVE = "ксеноморфа-охотника",
+		INSTRUMENTAL = "ксеноморфом-охотником",
+		PREPOSITIONAL = "ксеноморфе-охотнике",
+	)
+
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
 

@@ -43,8 +43,8 @@
 	to_chat(cast_on, span_notice("Есть два пути на выбор:"))
 	to_chat(cast_on, span_notice("<b>Королева</b> — матриарх улья, способная откладывать яйца и производить новых ксеносов."))
 	to_chat(cast_on, span_notice("<b>Смоляной дрон</b> — улучшенный строитель, способный возводить толстые смоляные стены."))
-	var/static/list/to_evolve = list("Queen" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienq_running"),
-		"Resin Drone" = image(icon = 'icons/mob/xeno/drone.dmi', icon_state = "resin_drone_walk"))
+	var/static/list/to_evolve = list("Queen" = image(icon = 'icons/mob/xeno/radial_xenos.dmi', icon_state = "queen"),
+		"Resin Drone" = image(icon = 'icons/mob/xeno/radial_xenos.dmi', icon_state = "drone"))
 	var/choosen_type = show_radial_menu(cast_on, cast_on, to_evolve, src, radius = 40)
 	if(!choosen_type)
 		return
@@ -124,9 +124,9 @@
 	to_chat(cast_on, span_notice("<b>Охотники</b> сильны и ловки, способны охотиться вдали от улья и быстро перемещаться по вентиляционным шахтам. Охотники медленно вырабатывают плазму и имеют небольшой запас."))
 	to_chat(cast_on, span_notice("<b>Стражи</b> отвечают за защиту улья и смертоносны как вблизи, так и на расстоянии. Они не так быстры, как охотники."))
 	to_chat(cast_on, span_notice("<b>Дроны</b> — рабочий класс, обладающий наибольшим запасом и выработкой плазмы. Это единственная каста, которая может эволюционировать снова, превратившись в грозную королеву чужих."))
-	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_running"),
-								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliens_running"),
-								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_running"))
+	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/xeno/radial_xenos.dmi', icon_state = "hunter"),
+								"Sentinel" = image(icon = 'icons/mob/xeno/radial_xenos.dmi', icon_state = "sentinel"),
+								"Drone" = image(icon = 'icons/mob/xeno/radial_xenos.dmi', icon_state = "drone"))
 	var/choosen_type = show_radial_menu(cast_on, cast_on, to_evolve, src, radius = 40)
 	if(!choosen_type)
 		return

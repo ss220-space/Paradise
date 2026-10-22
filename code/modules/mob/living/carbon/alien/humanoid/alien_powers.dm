@@ -56,7 +56,6 @@
 		host.client.screen -= arrow
 		qdel(arrow)
 		arrow = null
-		host.balloon_alert(host, "выключено")
 		return
 
 	var/mob/living/carbon/alien/humanoid/queen/Q = locate() in GLOB.aliens_list
@@ -67,7 +66,6 @@
 	arrow = new
 	host.client.screen += arrow
 	update_arrow()
-	host.balloon_alert(host, "включено")
 
 /datum/action/innate/alien/toggle_queen_arrow/proc/update_arrow()
 	if(!arrow || !owner?.client)

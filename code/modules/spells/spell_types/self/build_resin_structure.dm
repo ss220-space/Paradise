@@ -38,36 +38,31 @@
 		resin_params["Plasma Amount"] = list(
 			ALIEN_RESIN_THICK_WALL		= 60,
 			ALIEN_RESIN_THICK_DOOR		= 50,
-			ALIEN_RESIN_DOOR		= 50,
 			ALIEN_RESIN_NEST		= 30
 		)
 
 		resin_params["Process Time"] = list(
 			ALIEN_RESIN_THICK_WALL		= 3 SECONDS,
 			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
-			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 1 SECONDS
 		)
 
 		resin_params["Cooldown"] = list(
 			ALIEN_RESIN_THICK_WALL		= 5 SECONDS,
 			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
-			ALIEN_RESIN_DOOR		= 3 SECONDS,
 			ALIEN_RESIN_NEST		= 2 SECONDS
 		)
 
 		resin_params["Structure"] = list(
 			ALIEN_RESIN_THICK_WALL		= /obj/structure/alien/resin/wall/thick,
 			ALIEN_RESIN_THICK_DOOR		= /obj/structure/alien/resin/door/thick,
-			ALIEN_RESIN_DOOR		= /obj/structure/alien/resin/door,
 			ALIEN_RESIN_NEST		= /obj/structure/bed/nest
 		)
 
 		resin_params["Image"] = list(
-			ALIEN_RESIN_THICK_WALL		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "thickresin"),
-			ALIEN_RESIN_THICK_DOOR		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "thickresindoor"),
-			ALIEN_RESIN_DOOR		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "resindoor"),
-			ALIEN_RESIN_NEST		= image(icon = 'icons/mob/alien.dmi', icon_state = "nest")
+			ALIEN_RESIN_THICK_WALL		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_wall"),
+			ALIEN_RESIN_THICK_DOOR		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_door"),
+			ALIEN_RESIN_NEST			= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
 		)
 	else
 		resin_params["Plasma Amount"] = list(
@@ -95,9 +90,9 @@
 		)
 
 		resin_params["Image"] = list(
-			ALIEN_RESIN_WALL		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "resin"),
-			ALIEN_RESIN_DOOR		= image(icon = 'icons/mob/xeno/structures.dmi', icon_state = "resindoor"),
-			ALIEN_RESIN_NEST		= image(icon = 'icons/mob/alien.dmi', icon_state = "nest")
+			ALIEN_RESIN_WALL		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_wall"),
+			ALIEN_RESIN_DOOR		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_door"),
+			ALIEN_RESIN_NEST		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
 		)
 
 	var/choice = show_radial_menu(host, host, resin_params["Image"], radius = 40, custom_check = CALLBACK(src, PROC_REF(check_availability), host))

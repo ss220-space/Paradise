@@ -388,5 +388,10 @@ Des: Removes all infected images from the alien.
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+/mob/living/carbon/alien/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
+    if(istype(puller, /mob/living/carbon/alien))
+        return TRUE
+    return ..()
+
 #undef ALIEN_BURN_MOD
 #undef ALIEN_BRUTE_MOD
