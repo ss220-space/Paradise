@@ -139,6 +139,8 @@
 				/obj/item/clothing/under/ussptracksuit_blue = 10,
 				/obj/item/clothing/under/dress50s = 10,
 				/obj/item/clothing/under/tourist_suit = 10,
+				/obj/item/clothing/under/maleclub = 10,
+				/obj/item/clothing/under/girlclub = 10,
 			),
 		),
 		list(
@@ -170,6 +172,7 @@
 				/obj/item/clothing/suit/draculacoat = 10,
 				/obj/item/clothing/suit/hooded/ghostfacesuit = 10,
 				/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 10,
+				/obj/item/clothing/suit/red_jacket = 10,
 			),
 		),
 		list(
