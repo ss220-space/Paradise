@@ -211,6 +211,19 @@
 	if(!.)
 		user.Move_Pulled(src)
 
+/turf/attack_hand_secondary(mob/user)
+	. = ..()
+	if(!(iscarbon(user)))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+	for(var/obj/item/item in src)
+		if(item.anchored)
+			continue
+		if(user.put_in_active_hand(item))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
