@@ -815,21 +815,16 @@
 		return .
 	if(HAS_TRAIT(src, TRAIT_DEAF))
 		return HEARING_PROTECTION_TOTAL
-	if(head)
-		if(head.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(head.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
-	if(l_ear)
-		if(l_ear.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(l_ear.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
-	if(r_ear)
-		if(r_ear.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(r_ear.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
+
+	if(!(l_ear || r_ear || head))
+		return
+
+	if((head && head?.item_flags & HEARING_PROTECTION_TOTAL) || (l_ear && l_ear?.item_flags & HEARING_PROTECTION_TOTAL) || (r_ear && r_ear?.item_flags & HEARING_PROTECTION_TOTAL))
+		return HEARING_PROTECTION_TOTAL
+
+	if((head && head?.item_flags & BANGPROTECT_MINOR) || (l_ear && l_ear?.item_flags & BANGPROTECT_MINOR) || (r_ear && r_ear?.item_flags & BANGPROTECT_MINOR))
+		return BANGPROTECT_MINOR
+
 
 /mob/living/carbon/human/abiotic(full_body = FALSE)
 	if(full_body && ((src.l_hand && !(src.l_hand.item_flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.item_flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
