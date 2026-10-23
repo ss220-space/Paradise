@@ -540,11 +540,12 @@ GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перек
 	name = "smuggler's satchel"
 	desc = "A very slim satchel that can easily fit into tight spaces."
 	icon_state = "satchel-flat"
-	w_class = WEIGHT_CLASS_SMALL //Can fit in backpacks itself.
+	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
 	max_combined_w_class = 15
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
-	storage_with_item_size = WEIGHT_CLASS_NORMAL
+	dynamic_storage_size = FALSE
+
 
 /obj/item/storage/backpack/satchel_flat/Initialize(mapload)
 	. = ..()
