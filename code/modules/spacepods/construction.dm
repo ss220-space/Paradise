@@ -10,7 +10,7 @@
 	. = ..()
 	bound_width = 64
 	bound_height = 64
-	construct = new /datum/construction/reversible2/pod(src)
+	construct = new /datum/construction/reversible2/custom_pod(src)
 	dir = EAST
 
 /obj/structure/spacepod_frame/Destroy()
@@ -26,13 +26,10 @@
 /obj/structure/spacepod_frame/attack_hand()
 	return
 
-/////////////////////////////////
-// CONSTRUCTION STEPS
-/////////////////////////////////
-/datum/construction/reversible2/pod
-	result = /obj/spacepod/civilian
+
+/datum/construction/reversible2/custom_pod
+	result = /obj/spacepod
 	base_icon="pod"
-	//taskpath = /datum/job_objective/make_pod
 	steps = list(
 		// 1. Initial state
 		list(
@@ -210,8 +207,3 @@
 			),
 		),
 	)
-
-/datum/construction/reversible2/pod/spawn_result(mob/user as mob)
-	..()
-	SSblackbox.record_feedback("amount", "spacepod_created", 1)
-	return
