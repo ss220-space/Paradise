@@ -15,6 +15,10 @@
 #define PLANE_SPACE -21
 #define PLANE_SPACE_PARALLAX -20
 
+/// Transparent mask plane used to cut particle weather effects out of areas unaffected by weather
+#define WEATHER_MASK_PLANE -13
+#define WEATHER_MASK_RENDER_TARGET "*WEATHER_MASK_RENDER_TARGET"
+
 #define DISPLACEMENT_PLANE -12
 #define DISPLACEMENT_RENDER_TARGET "*DISPLACEMENT_RENDER_TARGET"
 
@@ -45,6 +49,8 @@
 #define MASSIVE_OBJ_PLANE 3
 #define GHOST_PLANE 4
 #define POINT_PLANE 5
+#define RENDER_PLANE_PARTICLE_WEATHER 7
+#define RENDER_PLANE_EMISSIVE_PARTICLE_WEATHER 8
 
 //---------- LIGHTING -------------
 /// Normal 1 per turf dynamic lighting underlays

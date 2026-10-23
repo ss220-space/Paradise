@@ -6,4 +6,5 @@
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"Nova_nanomap_z1.png"			= 'icons/_nanomaps/Nova_nanomap_z1.png',
 		"Nova_nanomap_z2.png"			= 'icons/_nanomaps/Nova_nanomap_z2.png',
+		"lazarus_nanomap_z1.png" = 'icons/_nanomaps/lazarus_nanomap_z1.png',
 	)

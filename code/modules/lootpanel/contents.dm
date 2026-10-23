@@ -40,9 +40,9 @@
 	if(thing.IsObscured())
 		return
 	if(thing.invisibility > owner.mob.see_invisible)
-		return
-	if(from_signal && (!source_turf || !(thing in source_turf.contents)))
-		return
+		var/turf/tile = thing.loc
+		if(thing.level != 1 || !istype(tile) || tile.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
+			return
 
 	// convert
 	var/datum/search_object/index = new(owner, thing)
@@ -57,7 +57,6 @@
 
 	if(length(to_image))
 		SSlooting.backlog += src
-
 
 /// For: Resetting to empty. Ignores the searchable qdel event
 /datum/lootpanel/proc/reset_contents()

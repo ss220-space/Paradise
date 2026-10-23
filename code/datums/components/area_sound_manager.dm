@@ -65,11 +65,9 @@
 	var/old_channel = our_loop?.sound_channel
 
 	if(existing_loop_id)
-		// Time left will sometimes return negative values, just ignore them and start a new sound loop now
 		next_loop_time = world.time + max(timeleft(existing_loop_id, SSsound_loops) || 0, 0)
 	else
 		next_loop_time = null
-
 
 	QDEL_NULL(our_loop)
 

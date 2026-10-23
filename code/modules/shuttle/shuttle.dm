@@ -180,6 +180,12 @@
 	height = 31
 	width = 17
 
+// Preset for explorer ship docks. Created at runtime by SSmapping.create_explorer_docks() for every accessible z-level
+/obj/docking_port/stationary/explorer_ship
+	width = 9
+	height = 14
+	dwidth = 4
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
@@ -520,12 +526,24 @@
 	var/turf_type = old_dock?.turf_type || /turf/space
 	var/area_type = old_dock?.area_type || /area/space
 
+	if(ispath(turf_type, /turf/simulated/floor/planetoid))
+		area_type = /area/planetoid
+
 	//close and lock the dock's airlocks
 	mobile_port.closePortDoors(old_dock)
 
 	var/area/shuttle/areaInstance = mobile_port.areaInstance
 
 	var/list/old_turfs = mobile_port.return_ordered_turfs(mobile_port.x, mobile_port.y, mobile_port.z, mobile_port.dir, areaInstance)
+	// Fallback: if we'd restore the departure area to space, but the departure z-level
+	// has a ZTRAIT_BASETURF (e.g. planetoid), restore to that instead.
+	if(ispath(turf_type, /turf/space) || turf_type == /turf/baseturf_bottom)
+		for(var/turf/departure_turf as anything in old_turfs)
+			if(istype(departure_turf))
+				var/prioritized_baseturf = check_level_trait(departure_turf.z, ZTRAIT_BASETURF)
+				if(prioritized_baseturf && ispath(prioritized_baseturf, /turf/simulated/floor) && !ispath(prioritized_baseturf, /turf/space))
+					turf_type = prioritized_baseturf
+					break
 	var/list/new_turfs = mobile_port.return_ordered_turfs(new_dock.x, new_dock.y, new_dock.z, new_dock.dir)
 
 	var/rotation = 0
@@ -1092,6 +1110,13 @@
 	desc = "Используется для отзыва шаттла големов."
 	possible_destinations = "freegolem_lavaland"
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/shuttle/explorer
+	name = "Explorer Ship Console"
+	desc = "Используется для управления исследовательским кораблём."
+	circuit = /obj/item/circuitboard/explorer_shuttle
+	shuttleId = "explorer_ship"
+	possible_destinations = null // Filled at runtime: one dock per accessible z-level, see SSmapping.create_explorer_docks()
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

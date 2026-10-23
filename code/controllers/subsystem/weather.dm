@@ -22,9 +22,13 @@ SUBSYSTEM_DEF(weather)
 	// process active weather
 	for(var/V in processing)
 		var/datum/weather/our_event = V
+		if(istype(our_event, /datum/weather/particle))
+			var/datum/weather/particle/particle_event = our_event
+			particle_event.process_particles()
 		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
 		our_event.fire()
+		our_event.handle_weather_process()
 		if(our_event.self_fire)
 			continue
 		for(var/mob/living/act_on as anything in GLOB.mob_living_list)
