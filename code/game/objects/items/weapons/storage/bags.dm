@@ -36,11 +36,10 @@
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	dynamic_storage_size = TRUE
 
-
 /obj/item/storage/bag/ComponentInitialize()
 	. = ..()
 	if(dynamic_storage_size)
-		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
+		AddComponent(/datum/component/differentiate_storage_size, storage_with_item_size)
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -310,6 +309,7 @@
 	storage_slots = 48
 	max_combined_w_class = 48
 	can_hold = list(/obj/item/gem)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/gem/get_ru_names()
 	return alist(
@@ -631,6 +631,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/coin,
 		/obj/item/stack/spacecash,
 	)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 ////////////////////////////////////////
 // MARK:	Book bag
@@ -654,6 +655,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/spellbook,
 	)
 	resistance_flags = FLAMMABLE
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/books/get_ru_names()
 	return alist(
@@ -692,6 +694,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/access_control,
 	)
 	resistance_flags = FLAMMABLE
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/construction/get_ru_names()
 	return alist(
@@ -927,6 +930,7 @@ GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, 
 		/obj/item/stack/sheet/cartilage_plate,
 		/obj/item/stack/sheet/razor_sharp_teeth,
 	)
+	storage_with_item_size = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/bag/medpouch/get_ru_names()
 	return alist(
