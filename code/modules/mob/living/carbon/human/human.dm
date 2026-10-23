@@ -815,6 +815,11 @@
 		return .
 	if(HAS_TRAIT(src, TRAIT_DEAF))
 		return HEARING_PROTECTION_TOTAL
+	if(head)
+		if(head.item_flags & BANGPROTECT_TOTAL)
+			return HEARING_PROTECTION_TOTAL
+		if(head.item_flags & BANGPROTECT_MINOR)
+			return HEARING_PROTECTION_MINOR
 	if(l_ear)
 		if(l_ear.item_flags & BANGPROTECT_TOTAL)
 			return HEARING_PROTECTION_TOTAL
@@ -824,11 +829,6 @@
 		if(r_ear.item_flags & BANGPROTECT_TOTAL)
 			return HEARING_PROTECTION_TOTAL
 		if(r_ear.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
-	if(head)
-		if(head.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(head.item_flags & BANGPROTECT_MINOR)
 			return HEARING_PROTECTION_MINOR
 
 /mob/living/carbon/human/abiotic(full_body = FALSE)
