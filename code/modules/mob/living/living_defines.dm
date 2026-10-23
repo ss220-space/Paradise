@@ -185,6 +185,11 @@
 	/// If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
 
+	/// FOV view that is applied from either nativeness or traits
+	var/fov_view
+	/// Lazy list of FOV traits that will apply a FOV view when handled.
+	var/list/fov_traits
+
 	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
 

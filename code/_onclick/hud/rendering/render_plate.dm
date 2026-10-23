@@ -389,7 +389,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 
 /atom/movable/screen/plane_master/rendering_plate/unmasked_game_plate/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
-	add_filter("fov_handled", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(FIELD_OF_VISION_BLOCKER_RENDER_TARGET, offset), flags = MASK_INVERSE))
+	add_filter("fov_handled", 1, alpha_mask_filter(render_source = FIELD_OF_VISION_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE))
 
 /atom/movable/screen/plane_master/rendering_plate/unmasked_game_plate/show_to(mob/mymob)
 	. = ..()
@@ -423,7 +423,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 /atom/movable/screen/plane_master/rendering_plate/masked_game_plate/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	add_filter("fov_blur", 1, gauss_blur_filter(1.8))
-	add_filter("fov_handled_space", 2, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(FIELD_OF_VISION_BLOCKER_RENDER_TARGET, offset)))
+	add_filter("fov_handled_space", 2, alpha_mask_filter(render_source = FIELD_OF_VISION_BLOCKER_RENDER_TARGET))
 	add_filter("fov_matrix", 3, color_matrix_filter(list(0.5,-0.15,-0.15,0, -0.15,0.5,-0.15,0, -0.15,-0.15,0.5,0, 0,0,0,1, 0,0,0,0)))
 
 /atom/movable/screen/plane_master/rendering_plate/masked_game_plate/show_to(mob/mymob)

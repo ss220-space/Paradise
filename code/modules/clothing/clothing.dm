@@ -235,6 +235,7 @@
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint = up ? tint_up : initial(tint)
+	SEND_SIGNAL(src, COMSIG_CLOTHING_VISOR_TOGGLE, up)
 	update_appearance()
 
 // Aurora forensics port.

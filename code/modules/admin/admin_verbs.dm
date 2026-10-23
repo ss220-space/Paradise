@@ -203,7 +203,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(bless, R_EVENT, "Bless", /mob/living)
 	if(!istype(M))
 		to_chat(user, span_warning("This can only be used on instances of type /mob/living"), confidential = TRUE)
 		return
-	var/bless_types = list("To Arrivals", "Moderate Heal")
+	var/bless_types = list("To Arrivals", "Moderate Heal", "Убрать FOV")
 	var/mob/living/carbon/human/H
 	if(ishuman(M))
 		H = M
@@ -323,6 +323,14 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(bless, R_EVENT, "Bless", /mob/living)
 			else
 				to_chat(user, span_warning("ERROR: [H] is not wearing an ID card."), confidential = TRUE)
 			logmsg = "all access."
+		if("Убрать FOV")
+			if(!M.fov_traits || !M.fov_traits["admin_fov"])
+				to_chat(user, span_warning("У цели нет FOV от администратора."))
+				return
+			M.remove_fov_trait("admin_fov", M.fov_traits["admin_fov"])
+			M.update_fov()
+			to_chat(M, span_userdanger("Ваше зрение восстановлено!"))
+			logmsg = "removed FOV."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
@@ -335,7 +343,7 @@ ADMIN_VERB(bless_in_list, R_ADMIN|R_EVENT, "Bless in List", "Bless a player with
 
 ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
 	VERB_ARG_TYPED(spell_recipient, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
-	
+
 	var/list/spell_list = list()
 	var/type_length = length("/datum/action/cooldown/spell") + 2
 	for(var/A in GLOB.spells)

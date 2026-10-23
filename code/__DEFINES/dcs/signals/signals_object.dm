@@ -394,3 +394,5 @@
 	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
 
 #define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"
+
+#define COMSIG_CLOTHING_VISOR_TOGGLE "clothing_visor_toggle"
