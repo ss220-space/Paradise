@@ -597,6 +597,22 @@
 	target.put_in_any_hand_if_possible(self_control_watermelon)
 	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
 
+// MARK: Add FOV
+/datum/smite/add_fov
+	name = SMITE_ADD_FOV
+	desc = "Ограничить FOV."
+	logmsg = null
+	category = SMITE_CATEGORY_CONTROL
+	permissions = R_ADMIN|R_EVENT
+
+/datum/smite/add_fov/apply_effect(mob/living/target, reason)
+	if(target.fov_traits && target.fov_traits["admin_fov"])
+		to_chat(usr, span_warning("У цели уже есть ограничение FOV."))
+		return
+	target.add_fov_trait("admin_fov", FOV_90_DEGREES)
+	to_chat(target, span_userdanger("Ваше зрение ограничено! Боги наказали вас за [reason]!"))
+	logmsg = "added FOV."
+
 // MARK: Admin smite proc
 ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", /mob/living)
 	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)

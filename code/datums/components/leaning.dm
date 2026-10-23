@@ -81,6 +81,7 @@
 
 	if(density == TRUE) //no point in giving the trait if we are already undense
 		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+	ADD_TRAIT(src, TRAIT_EXPANDED_FOV, TRAIT_LEANING)
 
 	visible_message(
 		span_notice("[src] прислоня[PLUR_ET_YUT(src)]ся к [lean_target.declent_ru(DATIVE)]."),
@@ -103,6 +104,8 @@
 	RegisterSignal(lean_target, COMSIG_MOVABLE_MOVED, PROC_REF(fall_into_ex_turf))
 	RegisterSignal(lean_target, COMSIG_VEHICLE_MOVE, PROC_REF(fall_into_ex_turf))
 
+	update_fov()
+
 /mob/living/proc/stop_leaning(atom/parent)
 	SIGNAL_HANDLER
 	remove_status_effect(/datum/status_effect/leaning)
@@ -122,6 +125,8 @@
 	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
 	leaned_object = null
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+	REMOVE_TRAIT(src, TRAIT_EXPANDED_FOV, TRAIT_LEANING)
+	update_fov()
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
 
 /// You fall on your face if you get teleported while leaning

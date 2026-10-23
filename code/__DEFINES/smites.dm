@@ -31,6 +31,7 @@
 #define SMITE_MACHINERY "Разумная машинерия"
 #define SMITE_HEADHIT "Головой об шлюзы"
 #define SMITE_SELF_CONTROL "Самоконтроль"
+#define SMITE_ADD_FOV "Добавить FOV"
 
 GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_LIGHTING = /datum/smite/lighting,
@@ -47,6 +48,7 @@ GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_JACKBOOTS = /datum/smite/jackbots,
 	SMITE_MACHINERY = /datum/smite/machinery,
 	SMITE_HEADHIT = /datum/smite/headhit,
+	SMITE_ADD_FOV = /datum/smite/add_fov,
 ))
 
 GLOBAL_LIST_INIT(smites_human, list(
