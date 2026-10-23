@@ -325,6 +325,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
+	. = ..()
 	if(world.time > next_emp_message)
 		atom_say("Предупреждение: зафиксирован мощный электро-магнитный импульс. Защитная система предотвратила возможное повреждение оборудования.")
 		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)

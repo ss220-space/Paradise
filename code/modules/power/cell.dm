@@ -26,6 +26,8 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
+	// Damage multiplier the cells take from emps to prevent stuff like bluespace cells taking 40 shots to drain.
+	var/emp_damage_modifier = 1
 
 /obj/item/stock_parts/cell/get_ru_names()
 	return alist(
@@ -184,12 +186,18 @@
 	if(prob(10))
 		rigged = TRUE //broken batterys are dangerous
 
-/obj/item/stock_parts/cell/emp_act(severity)
-	charge -= 1000 / severity
-	if(charge < 0)
-		charge = 0
-	update_icon(UPDATE_OVERLAYS)
-	return ..()
+/obj/item/stock_parts/cell/emp_act(severity, resistance_modifier = 1)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	var/atom/container = loc
+	while(container)
+		if(SEND_SIGNAL(container, COMSIG_ATOM_PRE_EMP_ACT, severity) & EMP_PROTECT_CONTENTS)
+			return
+		container = container.loc
+	use(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier / resistance_modifier))
+	if(!QDELETED(src))
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
 	. = ..()
@@ -463,13 +471,14 @@
 		PREPOSITIONAL = "ЭМИ-защищённой батарее А",
 	)
 
+/obj/item/stock_parts/cell/emproof/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
+
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/stock_parts/cell/emproof/emp_act(severity)
-	return
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
@@ -515,6 +524,7 @@
 	maxcharge = 53000
 	rating = 3
 	chargerate = 1500
+	emp_damage_modifier = 0.5
 
 /obj/item/stock_parts/cell/pulse/get_ru_names()
 	return alist(

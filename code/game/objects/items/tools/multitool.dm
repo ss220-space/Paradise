@@ -30,7 +30,6 @@
 	/// Simple machine buffer for device linkage
 	var/obj/machinery/buffer
 	var/datum/multitool_menu_host/menu
-	var/emp_shielded = FALSE
 	var/broken_type = /obj/item/multitool_broken
 
 /obj/item/multitool/get_ru_names()
@@ -48,7 +47,8 @@
 	menu = new(src)
 
 /obj/item/multitool/emp_act(severity)
-	if(emp_shielded)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 	var/obj/item/broken_item = new broken_type(drop_location())
 	if(ismob(loc))
@@ -116,11 +116,11 @@
 	/// Glows yellow when inside
 	var/rangewarning = 20
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
-	emp_shielded = TRUE
 
 /obj/item/multitool/ai_detect/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/multitool/ai_detect/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -178,7 +178,10 @@
 /obj/item/multitool/cyborg
 	desc = "Оптимизированная компактная версия стандартного мультиметра."
 	toolspeed = 0.5
-	emp_shielded = TRUE
+
+/obj/item/multitool/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/multitool/abductor
 	name = "alien multimeter"
@@ -189,7 +192,10 @@
 	usesound = 'sound/items/multitool2.ogg'
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
-	emp_shielded = TRUE
+
+/obj/item/multitool/abductor/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/multitool/abductor/get_ru_names()
 	return alist(
@@ -208,7 +214,10 @@
 	icon_state = "multitool_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	emp_shielded = TRUE
+
+/obj/item/multitool/brass/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/multitool/brass/get_ru_names()
 	return alist(
@@ -226,7 +235,10 @@
 			Выглядит весьма устаревшим."
 	icon_state = "multitool_old_wire"
 	belt_icon = "multitool_old_wire"
-	emp_shielded = TRUE
+
+/obj/item/multitool/old/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/multitool/old/get_ru_names()
 	return alist(

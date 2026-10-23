@@ -342,6 +342,7 @@
 				deal_damage(50)
 
 /obj/spacepod/emp_act(severity)
+	. = ..()
 	occupant_sanity_check()
 	cargo_hold.emp_act(severity)
 
@@ -352,9 +353,9 @@
 		COOLDOWN_START(src, cooldown_emp, 80 SECONDS / severity)
 
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			message_to_riders(span_warning("Консоль челнока мигает: ОБНАРУЖЕНА МОЩНАЯ ЭМИ-ВОЛНА!"))
-		if(2)
+		if(EMP_LIGHT)
 			message_to_riders(span_warning("Консоль челнока мигает: ОБНАРУЖЕНА ЭМИ-ВОЛНА!"))
 
 /obj/spacepod/proc/play_sound_to_riders(mysound)

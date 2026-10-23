@@ -9,6 +9,10 @@
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE|BIOCHIP_TRIGGER_NOT_WHEN_GIBBED
 	implant_data = /datum/implant_fluff/dust
 
+/obj/item/implant/dust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
+
 /obj/item/implant/dust/death_trigger(mob/source, force)
 	activate("death")
 
@@ -23,9 +27,6 @@
 	to_chat(imp_in, span_notice("Your dusting bio-chip activates!"))
 	imp_in.visible_message(span_warning("[imp_in] burns up in a flash!"))
 	imp_in.dust()
-
-/obj/item/implant/dust/emp_act(severity)
-	return
 
 /obj/item/implanter/dust
 	name = "bio-chip implanter (Dust-on-death)"
