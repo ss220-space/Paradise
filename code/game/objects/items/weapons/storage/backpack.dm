@@ -546,7 +546,6 @@ GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перек
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 	dynamic_storage_size = FALSE
 
-
 /obj/item/storage/backpack/satchel_flat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/undertile, use_anchor = TRUE)
