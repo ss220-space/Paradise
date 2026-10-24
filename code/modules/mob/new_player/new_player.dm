@@ -187,9 +187,8 @@
 
 			if(client.prefs.be_random_name || HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
-			else
-				observer.real_name = client.prefs.real_name
-				observer.name = observer.real_name
+			observer.real_name = client.prefs.real_name
+			observer.name = observer.real_name
 			observer.possess_by_player(key)
 			observer.persistent_client.time_of_death = world.time
 			if(CONFIG_GET(flag/respawn_observer))
