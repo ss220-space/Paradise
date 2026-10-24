@@ -185,10 +185,11 @@
 				observer.icon = client.prefs.preview_icon
 			observer.alpha = 127
 
-			if(client.prefs.be_random_name || HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
+			if(client.prefs.be_random_name)
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
-			observer.real_name = client.prefs.real_name
-			observer.name = observer.real_name
+			if(!HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
+				observer.real_name = client.prefs.real_name
+				observer.name = observer.real_name
 			observer.possess_by_player(key)
 			observer.persistent_client.time_of_death = world.time
 			if(CONFIG_GET(flag/respawn_observer))
