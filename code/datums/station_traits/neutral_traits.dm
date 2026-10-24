@@ -222,6 +222,7 @@
 	report_message = "На прошлой смене на этой станции умерло много экипажа, и инквизиторы не смогли упокоить их души. Не смотрите в глаза мёртвым."
 	show_in_report = TRUE
 	weight = 2
+	trait_to_give = STATION_TRAIT_GRAVEYARD_SHIFT
 
 /datum/station_trait/graveyard_shift/on_round_start()
 	. = ..()

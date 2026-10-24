@@ -180,14 +180,16 @@
 			var/obj/O = locate(/obj/effect/landmark/observer_start)
 			to_chat(src, span_notice("Телепортация."))
 			observer.abstract_move(get_turf(O))
-			client.prefs.update_preview_icon(1)
-			observer.icon = client.prefs.preview_icon
+			if(!HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
+				client.prefs.update_preview_icon(1)
+				observer.icon = client.prefs.preview_icon
 			observer.alpha = 127
 
-			if(client.prefs.be_random_name)
+			if(client.prefs.be_random_name || HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
-			observer.real_name = client.prefs.real_name
-			observer.name = observer.real_name
+			else
+				observer.real_name = client.prefs.real_name
+				observer.name = observer.real_name
 			observer.possess_by_player(key)
 			observer.persistent_client.time_of_death = world.time
 			if(CONFIG_GET(flag/respawn_observer))
