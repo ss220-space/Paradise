@@ -75,21 +75,27 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		location = get_turf(body)				//Where is the body located?
 
-		var/mutable_appearance/MA = copy_appearance(body)
-		if(body.mind && body.mind.name)
-			MA.name = body.mind.name
-		else if(body.real_name)
-			MA.name = body.real_name
-		else
-			if(gender == MALE)
-				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
-			else
-				MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
-
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
-		appearance = MA
+		if(!HAS_TRAIT(SSstation, STATION_TRAIT_GRAVEYARD_SHIFT))
+			var/mutable_appearance/MA = copy_appearance(body)
+			if(body.mind && body.mind.name)
+				MA.name = body.mind.name
+			else if(body.real_name)
+				MA.name = body.real_name
+			else
+				if(gender == MALE)
+					MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
+				else
+					MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
+
+			appearance = MA
+
+	if(name == initial(name))							//To prevent nameless ghosts
+		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
+	real_name = name
 
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
+	ghostimage.name = real_name
 	ghostimage.overlays = overlays
 	ghostimage.dir = dir
 	ghostimage.appearance_flags |= KEEP_TOGETHER
@@ -101,9 +107,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!location)
 		location = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
-	if(!name)							//To prevent nameless ghosts
-		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
-	real_name = name
 
 	//starts ghosts off with all HUDs.
 	show_me_the_hud(THOUGHTS_HUD)
