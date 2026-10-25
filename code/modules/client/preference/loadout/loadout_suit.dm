@@ -288,3 +288,7 @@
 /datum/gear/suit/bomber/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/suit/red_jacket
+	index_name = "red jacket"
+	path = /obj/item/clothing/suit/red_jacket
