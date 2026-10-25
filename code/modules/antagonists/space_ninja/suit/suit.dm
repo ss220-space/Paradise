@@ -304,9 +304,11 @@
 	smoke_system = new
 	smoke_system.attach(src)
 
+	//Shuttle Init
 	RegisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_NINJA_CONSOLE, PROC_REF(on_ninja_shuttle_console))
 	ensure_shuttle_controller()
 
+	//Cloning Init
 	if(!mapload)
 		for(var/obj/machinery/ninja_clonepod/clonepod in SSmachines.get_by_type(/obj/machinery/ninja_clonepod))
 			cloning_ref = clonepod

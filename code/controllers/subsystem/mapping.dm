@@ -180,6 +180,7 @@ SUBSYSTEM_DEF(mapping)
 	empty_z_traits |= UNIT_TEST_LEVEL
 #endif
 
+	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel(EMPTY_AREA, linkage = CROSSLINKED, traits = empty_z_traits)
 
 	// Setup the Z-level linkage
@@ -247,7 +248,8 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
-	var/list/world_turf_contents_by_z = GLOB.areas_by_type[world.area].turfs_by_zlevel
+	var/area/world_area = GLOB.areas_by_type[world.area]
+	var/list/world_turf_contents_by_z = world_area.turfs_by_zlevel
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
 	while(index < length(lists_to_reserve))
@@ -256,25 +258,24 @@ SUBSYSTEM_DEF(mapping)
 		while(packetlen)
 			if(MC_TICK_CHECK)
 				if(index)
-					lists_to_reserve.Cut(1, index)
+					lists_to_reserve.Cut(1, index + 1)
 				return
 			var/turf/reserving_turf = packet[packetlen]
-			reserving_turf.empty(RESERVED_TURF_TYPE, null, TRUE)
+			reserving_turf.empty(istype(reserving_turf, /turf/space/basic) ? null : RESERVED_TURF_TYPE, null, TRUE)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
 			unused_turfs["[reserving_turf.z]"] |= reserving_turf
 			var/area/old_area = reserving_turf.loc
-			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
-			old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
+			if(old_area != world_area)
+				LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
+				old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
 			reserving_turf.turf_flags |= UNUSED_RESERVATION_TURF
 			LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
-			world_turf_contents_by_z[reserving_turf.z] += reserving_turf
+			world_turf_contents_by_z[reserving_turf.z] |= reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
 		index++
-		// If we're here, we're done with that lad
-		lists_to_reserve.len--
-	lists_to_reserve.Cut(1, index)
+	lists_to_reserve.Cut(1, index + 1)
 
 /datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
 	if(clearing_reserved_turfs || !initialized)			//in either case this is just not needed.
@@ -585,6 +586,7 @@ SUBSYSTEM_DEF(mapping)
 	reservation_type = /datum/turf_reservation,
 	turf_type_override = null,
 	noisy = TRUE,
+	max_z_level = null,
 )
 	UNTIL((!z_reservation || reservation_ready["[z_reservation]"]) && !clearing_reserved_turfs)
 	var/datum/turf_reservation/reserve = new reservation_type
@@ -597,6 +599,9 @@ SUBSYSTEM_DEF(mapping)
 			if(reserve.reserve(width, height, z_size, i))
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
+		if(!isnull(max_z_level) && world.maxz >= max_z_level)
+			qdel(reserve)
+			return null
 		var/new_reserved_z = add_reservation_zlevel()
 		initialize_reserved_level(new_reserved_z, noisy)
 		if(reserve.reserve(width, height, z_size, new_reserved_z))

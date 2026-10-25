@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(engine_consoles)
+
 /obj/machinery/computer/engines
 	name = "engines control console"
 	desc = "Удалённое управление двигателями космического аппарата."

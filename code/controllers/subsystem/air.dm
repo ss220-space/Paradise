@@ -765,7 +765,6 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-
 /datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
 	for(var/obj/machinery/atmospherics/AM as anything in atmos_machines)
 		AM.atmos_init()
@@ -879,7 +878,6 @@ SUBSYSTEM_DEF(air)
 	turf_air.readonly = null
 	turf_air.dirty = FALSE
 	turf_air.synchronized = FALSE
-
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/callback)

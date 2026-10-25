@@ -404,7 +404,6 @@
 
 #define TRAIT_BALD "bald"
 
-
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_XRAY_VISION "xray_vision"
 #define TRAIT_THERMAL_VISION "thermal_vision"
@@ -414,7 +413,6 @@
 
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
-
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"

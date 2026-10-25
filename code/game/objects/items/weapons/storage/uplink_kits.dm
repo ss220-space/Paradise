@@ -1046,7 +1046,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/stack/medical/bruise_pack/military(src)
 	new /obj/item/storage/box/syndie_kit/bonerepair(src)
 
-
 /obj/item/storage/box/syndie_kit/scarecrow
 	name = "scarecrow kit"
 	desc = "Компактный набор с пистолетом «Пугало» и снаряжением."
@@ -1067,7 +1066,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
-
 
 /obj/item/storage/box/syndie_kit/chameleon_base
 	name = "chameleon kit"
@@ -1093,7 +1091,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/card/id/syndicate(src)
 
-
 /obj/item/storage/belt/grenade/grenadier
 	name = "grenadier's belt"
 	desc = "Пояс, набитый разнообразными гранатами для создания хаоса."
@@ -1116,7 +1113,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/grenade/empgrenade(src)
 		new /obj/item/grenade/chem_grenade/lube(src)
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
-
 
 /obj/item/storage/box/syndie_kit/knife
 	name = "knife kit"

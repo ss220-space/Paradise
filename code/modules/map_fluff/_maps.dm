@@ -38,6 +38,7 @@
 
 	/// Used to disable ruins, lavaland, etc. for a specific map.
 	var/disables = NONE
+	var/overmap_physical_docks = FALSE
 
 	/// Boolean that tells us if this is a planetary station. (like Malta)
 	var/planetary = FALSE

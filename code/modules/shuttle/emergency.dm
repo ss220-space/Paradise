@@ -29,7 +29,7 @@
 			to_chat(user, span_warning("Недостаточный уровень доступа."))
 			return ATTACK_CHAIN_PROCEED
 
-		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
+		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(!choice || !Adjacent(user) || QDELETED(id_card) || id_card.loc != user || SSshuttle.emergency.mode != SHUTTLE_DOCKED)
 			return ATTACK_CHAIN_PROCEED
 
@@ -45,7 +45,7 @@
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.announce(
-							message = "Осталось получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] для досрочного запуска шаттла.",
+							message = "Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.",
 							color_override = "red"
 						)
 					else
@@ -60,7 +60,7 @@
 			if("Repeal")
 				if(authorized.Remove(id_card.registered_name))
 					GLOB.minor_announcement.announce(
-						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))]."
+						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].",
 					)
 
 			if("Abort")
@@ -316,10 +316,11 @@
 
 			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || length(SSshuttle.hostile_environment)))
 				overmap_launch_escape_pods()
+				//now move the actual emergency shuttle to its transit dock
 				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_progress_sound)
-				var/destination_dock = "emergency_away"
+				var/destination_dock = force_hijacked ? "emergency_syndicate" : "emergency_away"
 				overmap_escape_dock = destination_dock
 				mode = SHUTTLE_ESCAPE
 				overmap_leg_started = TRUE
@@ -336,6 +337,8 @@
 		if(SHUTTLE_ESCAPE)
 			if(overmap_leg_started || time_left <= 0)
 				overmap_launch_escape_pods()
+				// now move the actual emergency shuttle to centcomm
+				// unless the shuttle is "hijacked"
 				var/destination_dock = overmap_escape_dock || "emergency_away"
 				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
 				if(isnull(overmap_result))

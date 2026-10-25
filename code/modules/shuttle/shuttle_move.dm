@@ -1,9 +1,7 @@
-/**
- * Turf transfer for docking_port/mobile.
- * dock() waits for MILLA(atmos), then runs collect > preflight > takeoff > restore > postflight.
- */
-
+/// this is the main proc. It instantly moves our mobile port to stationary port new_dock
+/// it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
 /obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/new_dock, force = FALSE, transit = FALSE)
+	// Crashing this ship with NO SURVIVORS
 	if(new_dock.get_docked() == src)
 		remove_ripples()
 		SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
@@ -19,18 +17,15 @@
 			remove_ripples()
 			return DOCKING_IMMOBILIZED
 
-	SEND_SIGNAL(src, COMSIG_SHUTTLE_PRE_DOCK, new_dock)
-
 	transfer_busy = TRUE
 	var/datum/milla_safe_must_sleep/docking_port_dock/job = new()
 	job.invoke_async(src, new_dock, force, transit)
 	if(!job.finished && Master?.current_runlevel)
 		var/deadline = world.time + 2 MINUTES
 		UNTIL(job.finished || world.time > deadline)
-	transfer_busy = FALSE
 	if(!job.finished)
-		job.finished = TRUE
-		job.result = DOCKING_IMMOBILIZED
+		transfer_busy = FALSE
+		return DOCKING_IMMOBILIZED
 	return job.result
 
 /datum/milla_safe_must_sleep/docking_port_dock
@@ -41,6 +36,7 @@
 	result = DOCKING_BLOCKED
 	if(!QDELETED(mobile_port) && !QDELETED(new_dock))
 		result = mobile_port.run_dock_transfer(src, new_dock, force, transit)
+	mobile_port.transfer_busy = FALSE
 	finished = TRUE
 
 /obj/docking_port/mobile/proc/run_dock_transfer(datum/milla_safe_must_sleep/docking_port_dock/job, obj/docking_port/stationary/new_dock, force, transit)
@@ -72,13 +68,15 @@
 	if(!has_dest)
 		return DOCKING_NULL_DESTINATION
 
+	//close and lock the dock's airlocks
 	closePortDoors(old_dock)
-	if(old_dock)
-		SEND_SIGNAL(src, COMSIG_SHUTTLE_UNDOCK, old_dock)
 
+	// Removes ripples
 	remove_ripples()
+	//move or squish anything in the way ship at destination
 	shuttle_smash(old_turfs, new_turfs, move_data["move_dir"], move_data["use_hull"])
 
+	// begin transition
 	var/list/touched = takeoff_turfs(job, old_turfs, new_turfs, move_data)
 	restore_origin_turfs(old_turfs, old_dock, touched)
 	job.flush_shuttle_atmos(touched)
@@ -88,7 +86,7 @@
 /obj/docking_port/mobile/proc/collect_move_pairs(obj/docking_port/stationary/new_dock)
 	. = list()
 	var/use_hull = uses_hull_fit()
-	var/list/origin = overmap_origin()
+	var/list/origin = overmap_docking_origin(new_dock)
 	var/turf/origin_turf = origin[1]
 	var/origin_dir = origin[2]
 	if(!origin_turf)
@@ -131,15 +129,18 @@
 		if(!use_hull)
 			for(var/turf/oldT in old_turfs)
 				if(oldT)
-					fallback_area.contents += oldT
+					var/area/old_place = get_area(oldT)
+					if(old_place != fallback_area)
+						oldT.change_area(old_place, fallback_area)
 
 	for(var/i in 1 to length(old_turfs))
-		var/turf/oldT = old_turfs[i]
+		/* CHECKING */
+		var/turf/oldT = old_turfs[i] //old turf
 		if(!oldT)
 			continue
 		if(use_hull && !overmap_is_hull_turf(oldT))
 			continue
-		var/turf/newT = new_turfs[i]
+		var/turf/newT = new_turfs[i] //new turf
 		if(!newT)
 			continue
 
@@ -151,26 +152,36 @@
 			if(areaInstance && new_place != areaInstance)
 				newT.change_area(new_place, areaInstance)
 		else if(areaInstance)
-			areaInstance.contents += newT
+			var/area/new_place = get_area(newT)
+			if(new_place != areaInstance)
+				newT.change_area(new_place, areaInstance)
 
+		/* TAKEOFF */
 		var/should_transit = !is_turf_blacklisted_for_transit(oldT)
-		if(should_transit)
-			for(var/mob/living/mob in oldT)
+		if(should_transit) // Only move over stuff if the transfer actually happened
+			for(var/mob/living/mob in oldT) //check for people leaned on anything
 				if(mob.leaned_object)
 					mob.stop_leaning()
 			oldT.copyTurf(newT)
+			//copy over air
 			if(issimulatedturf(newT))
 				job.get_turf_air(newT).copy_from(job.get_turf_air(oldT))
+			//move mobile to new location
 			for(var/atom/movable/moving as anything in oldT)
 				if(!moving.beforeShuttleMove(newT, rotation, src))
 					continue
 				moving.onShuttleMove(oldT, newT, rotation, last_caller)
 			SEND_SIGNAL(oldT, COMSIG_TURF_ON_SHUTTLE_MOVE, newT)
+			//rotate turf
 			if(rotation)
 				newT.shuttleRotate(rotation)
 
-		var/turf/new_ceiling = GET_TURF_ABOVE(newT)
-		if(new_ceiling && (isspaceturf(new_ceiling) || isopenspaceturf(new_ceiling)))
+		/* END TAKEOFF */
+
+		/* GIVE CEILING */
+		var/turf/new_ceiling = GET_TURF_ABOVE(newT) // Do it before atmos readjust.
+		if(new_ceiling && (isspaceturf(new_ceiling) || isopenspaceturf(new_ceiling))) //Check for open one, not wall
+			// generate ceiling
 			new_ceiling.ChangeTurf(/turf/simulated/floor/engine/hull/ceiling)
 			.[new_ceiling] = TRUE
 
@@ -185,11 +196,14 @@
 		var/turf/oldT = old_turfs[i]
 		if(!oldT)
 			continue
+		/* REMOVE OLD CEILING */
 		var/turf/old_ceiling = GET_TURF_ABOVE(oldT)
-		if(old_ceiling && istype(old_ceiling, /turf/simulated/floor/engine/hull/ceiling))
+		if(old_ceiling && istype(old_ceiling, /turf/simulated/floor/engine/hull/ceiling)) // check if a ceiling was generated previously
+			// remove old ceiling
 			var/turf/simulated/floor/engine/hull/ceiling/old_shuttle_ceiling = old_ceiling
 			old_shuttle_ceiling.ChangeTurf(old_shuttle_ceiling.old_turf_type)
 			touched[old_ceiling] = TRUE
+		/* RESTORE OLD TURF */
 		oldT.ChangeTurf(turf_type, keep_icon = FALSE)
 		touched[oldT] = TRUE
 
@@ -197,13 +211,17 @@
 	for(var/turf/spot as anything in turfs)
 		if(!spot)
 			continue
-		spot.lighting_build_overlay()
+		var/area/spot_area = spot.loc
+		if(!spot.space_lit && spot_area.static_lighting)
+			spot.lighting_build_overlay()
 		var/list/connectivity = spot.private_unsafe_recalculate_atmos_connectivity()
 		set_tile_airtight(spot, connectivity[1])
 		reset_superconductivity(spot)
 		reduce_superconductivity(spot, connectivity[2])
 
+
 /obj/docking_port/mobile/proc/postflight_dock(obj/docking_port/stationary/new_dock, list/new_turfs, list/move_data, transit)
+	overmap_hull_rotation = SIMPLIFY_DEGREES(overmap_hull_rotation + move_data["rotation"])
 	var/in_hyperspace = transit || istype(new_dock, /obj/docking_port/stationary/transit)
 	for(var/area/shuttle/place as anything in shuttle_areas)
 		place.moving = in_hyperspace
@@ -222,6 +240,7 @@
 	loc = new_dock.loc
 	dir = move_data["move_dir"]
 	#ifndef SKIP_LAVALAND
+	// Update mining and labor shuttle ash storm audio
 	if((id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/storm = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)

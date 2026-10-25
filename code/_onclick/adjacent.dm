@@ -31,7 +31,11 @@ Adjacency (to turf):
 		return TRUE
 
 	if(get_dist(src, T0) > 1 || z != T0.z) //too far
-		return FALSE
+		if(!T0 || !length(SSovermap.flying_vessels))
+			return FALSE
+		T0 = SSovermap.mirror_turf(T0, src)
+		if(!T0 || get_dist(src, T0) > 1)
+			return FALSE
 
 	// Non diagonal case
 	if(T0.x == x || T0.y == y)

@@ -11,6 +11,13 @@
 	if(!usr || !over)
 		return
 
+	if(src == usr && isliving(usr))
+		var/obj/effect/abstract/hull_proxy_tile/proxy = over
+		var/turf/target = istype(proxy) ? proxy.source_turf() : (isturf(over) ? over : null)
+		if(target && (!istype(proxy) || !fog_hides_from(usr.client, target)) && SSovermap.frame_owner(target) && SSovermap.frame_owner(get_turf(usr)))
+			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(overmap_board_from_drag), usr, target)
+			return
+
 	var/client/usr_client = GET_CLIENT(usr)
 	var/proximity_check = usr_client.check_drag_proximity(src, over, src_location, over_location, src_control, over_control, params)
 	if(proximity_check)

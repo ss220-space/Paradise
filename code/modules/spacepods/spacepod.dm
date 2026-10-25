@@ -185,6 +185,11 @@
 		SSovermap.get_or_register_pod(src)
 
 /obj/spacepod/Destroy()
+	occupant_sanity_check()
+	if(pilot)
+		eject_pilot()
+	for(var/mob/passenger as anything in passengers.Copy())
+		eject_passenger(passenger)
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)
 	QDEL_NULL(equipment_system)
@@ -206,14 +211,7 @@
 	QDEL_NULL(overmap_engine)
 	QDEL_NULL(overmap_sensors)
 	QDEL_NULL(overmap_sensor_array)
-	if(overmap_vessel)
-		QDEL_NULL(overmap_vessel)
-	occupant_sanity_check()
-	if(pilot)
-		eject_pilot()
-	if(passengers)
-		for(var/mob/M in passengers)
-			eject_passenger(M)
+	QDEL_NULL(overmap_vessel)
 	GLOB.spacepods_list -= src
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -279,14 +277,18 @@
 		eject_passenger(target)
 
 /obj/spacepod/proc/eject_pilot()
-	pilot.forceMove(get_turf(src))
+	if(!release_rider(pilot))
+		return FALSE
 	RemoveActions(pilot)
 	pilot = null
+	return TRUE
 
 /obj/spacepod/proc/eject_passenger(mob/living/passenger)
-	passenger.forceMove(get_turf(src))
+	if(!release_rider(passenger))
+		return FALSE
 	passanger_eject.Remove(passenger)
 	passengers -= passenger
+	return TRUE
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -321,14 +323,18 @@
 		play_sound_to_riders('sound/effects/engine_alert2.ogg')
 	if(oldhealth > health && !health)
 		play_sound_to_riders('sound/effects/engine_alert1.ogg')
-	if(!health)
+	if(!health && oldhealth > 0)
 		spawn(0)
 			message_to_riders(span_userdanger("Обнаружены критические повреждения! Взрыв ядра неизбежен!"))
+			var/count = 3
 			for(var/i in 1 to 3)
-				var/count = 3
+				if(QDELETED(src))
+					return
 				message_to_riders(span_warning("[count]"))
 				count--
 				sleep(10)
+			if(QDELETED(src))
+				return
 			if(LAZYLEN(pilot) || LAZYLEN(passengers))
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
@@ -883,7 +889,7 @@
 		balloon_alert(user, "двери заблокированы!")
 		return FALSE
 
-	if(get_dist(src, user) > 2)
+	if(boarding_distance(user) > 2)
 		balloon_alert(user, "слишком далеко!")
 		return FALSE
 
@@ -907,11 +913,13 @@
 
 	if(length(passengers) <= max_passengers)
 		visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
-		if(do_after(user, 4 SECONDS, src))
+		if(do_after(user, 4 SECONDS, src, extra_checks = CALLBACK(src, PROC_REF(can_board_now), user)) && can_board_now(user))
 			if(!pilot || pilot == null)
 				pilot = user
 				user.forceMove(src)
 				GrantActions(user)
+				if(overmap_vessel?.in_free_flight())
+					overmap_vessel.flight.take_pilot(user, overmap_helm)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 				return
@@ -958,10 +966,14 @@
 		if(!do_after(user, 2 MINUTES, src))
 			return
 
+	var/exited = FALSE
 	if(user == pilot)
-		eject_pilot()
+		exited = eject_pilot()
 	else if(user in passengers)
-		eject_passenger(user)
+		exited = eject_passenger(user)
+	if(!exited)
+		to_chat(user, span_warning("Нет свободного места для выхода."))
+		return
 
 	to_chat(user, span_notice("Вы выбрались из [declent_ru(GENITIVE)]."))
 
@@ -988,30 +1000,18 @@
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
 		return
 
-	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3, src))
-		var/mob/living/carbon/human/L = user
-
-		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-			if(P.density)
-				P.open()
-				return TRUE
-			else
-				P.close()
-				return TRUE
-
-		for(var/mob/living/carbon/human/O in passengers)
-			if(P.check_access(O.get_active_hand()) || P.check_access(O.wear_id))
-				if(P.density)
-					P.open()
-					return TRUE
-				else
-					P.close()
-					return TRUE
-
-		balloon_alert(user, "нет доступа!")
-		return
-
-	to_chat(user, span_warning("Рядом нет шлюзов."))
+	var/obj/machinery/door/poddoor/multi_tile/door = nearest_hangar_door()
+	if(!door)
+		to_chat(user, span_warning("Рядом нет шлюзов отсека."))
+		return FALSE
+	for(var/mob/living/carbon/human/rider in list(pilot) + passengers)
+		if(!door.check_access(rider.get_active_hand()) && !door.check_access(rider.wear_id))
+			continue
+		if(door.density)
+			return door.open()
+		return door.close()
+	to_chat(user, span_warning("Нет доступа к ближайшему шлюзу отсека."))
+	return FALSE
 
 /obj/spacepod/proc/fireWeapon(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -1025,7 +1025,7 @@
 		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет оружия!"))
 		return
 
-	equipment_system.weapon_system.fire_weapons()
+	equipment_system.weapon_system.fire_weapons(user)
 
 /obj/spacepod/proc/unload(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -1299,6 +1299,8 @@
 	return TRUE	// obviously
 
 /obj/spacepod/relaymove(mob/user, direction)
+	if(overmap_vessel?.overmap_pod)
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, spacepod_move_cooldown))
 		return FALSE
 
@@ -1311,7 +1313,7 @@
 			to_chat(user, span_warning("Зажигание. Управление заблокировано."))
 		else
 			to_chat(user, span_warning("Управление корпусом заблокировано: челнок в гиперпространстве."))
-		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS) // Don't make it spam
 		return FALSE
 
 	. = TRUE

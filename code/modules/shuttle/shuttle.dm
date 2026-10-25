@@ -312,6 +312,7 @@
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
 	var/overmap_force_dock = FALSE
+	var/overmap_hull_rotation = 0
 	var/obj/machinery/door/airlock/external/docking/overmap_collar
 	var/mapped_width
 	var/mapped_height
@@ -338,6 +339,8 @@
 	highlight("#0f0")
 	#endif
 
+	if(SSovermap?.is_loading_admin_shuttle(src))
+		timid = TRUE
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -375,7 +378,7 @@
 	if(!SSshuttle)
 		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
-	SSshuttle.mobile += src
+	SSshuttle.mobile |= src
 	if(!id)
 		id = "[length(SSshuttle.mobile)]"
 	if(SSshuttle.assoc_mobile[id] && SSshuttle.assoc_mobile[id] != src)
@@ -396,13 +399,25 @@
 		previous = null
 		QDEL_NULL(assigned_transit) //don't need it where we're goin'!
 		shuttle_areas = null
+		if(SSovermap)
+			qdel(SSovermap.shuttle_vessels[src])
+			SSovermap.area_shuttles.Cut()
+			SSovermap.area_shuttle_cache_ready = FALSE
 	return ..()
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	if(SEND_SIGNAL(src, COMSIG_SHUTTLE_SHOULD_MOVE) & BLOCK_SHUTTLE_MOVE)
-		return FALSE
-	return TRUE
+	return !has_collar_guests() //0 means we can move // FALSE should've mean YOU CAN'T MOVE WTF
+
+/obj/docking_port/mobile/proc/has_collar_guests()
+	if(length(SSovermap?.shuttle_vessels[src]?.docked_guests))
+		return TRUE
+	for(var/area/place as anything in shuttle_areas)
+		for(var/obj/machinery/door/airlock/external/docking/collar in place)
+			var/obj/docking_port/mobile/guest = collar.owns_overmap_pad ? collar.overmap_pad?.get_docked() : null
+			if(guest && guest != src)
+				return TRUE
+	return FALSE
 
 /obj/docking_port/mobile/proc/uses_hull_fit()
 	switch(shuttle_fit)
@@ -412,6 +427,7 @@
 			return TRUE
 	return overmap_uses_area_hull()
 
+//this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
 	if(locked_move)
 		return SHUTTLE_LOCKED
@@ -425,6 +441,7 @@
 		return SHUTTLE_CAN_DOCK
 	var/hull_fit = uses_hull_fit() || S.dock_airlock || istype(S, /obj/docking_port/stationary/overmap)
 	if(!hull_fit)
+		//check dock is big enough to contain us
 		if(dwidth > S.dwidth)
 			return SHUTTLE_DWIDTH_TOO_LARGE
 		if(width-dwidth > S.width-S.dwidth)
@@ -433,9 +450,12 @@
 			return SHUTTLE_DHEIGHT_TOO_LARGE
 		if(height-dheight > S.height-S.dheight)
 			return SHUTTLE_HEIGHT_TOO_LARGE
+	//check the dock isn't occupied
 	var/turf/pad_turf = get_turf(S)
 	if(pad_turf)
 		for(var/obj/docking_port/mobile/other in pad_turf)
+			// This isn't an error, per se, but we can't let the shuttle code
+			// attempt to move us where we currently are, it will get weird.
 			if(other == src)
 				return SHUTTLE_ALREADY_DOCKED
 			if(S.is_overmap_host_mobile(other))
@@ -444,6 +464,7 @@
 				var/obj/docking_port/stationary/their_pad = other.get_docked()
 				if(their_pad && their_pad != S)
 					continue
+			// by someone other than us
 			return SHUTTLE_SOMEONE_ELSE_DOCKED
 	if(hull_fit || S.overmap_host_uid)
 		if(overmap_hull_blocked(S))
@@ -453,6 +474,11 @@
 /obj/docking_port/mobile/proc/overmap_dest_tile_blocked(turf/newT, obj/docking_port/stationary/S)
 	if(!newT || newT.x <= 1 || newT.y <= 1 || newT.x >= world.maxx || newT.y >= world.maxy)
 		return TRUE
+	var/obj/docking_port/stationary/overmap/landing/landing = S
+	if(istype(landing) && landing.landing_bounds)
+		var/list/bounds = landing.landing_bounds
+		if(newT.x < bounds[1] || newT.y < bounds[2] || newT.x > bounds[3] || newT.y > bounds[4])
+			return TRUE
 	if(shuttle_areas && shuttle_areas[newT.loc])
 		return FALSE
 	if(istype(S, /obj/docking_port/stationary/overmap/landing) && overmap_lavaland_landing_blocked(newT))
@@ -529,7 +555,6 @@
 		if(SHUTTLE_IDLE, SHUTTLE_IGNITING, SHUTTLE_RECHARGING)
 			destination = S
 			mode = SHUTTLE_IGNITING
-			SEND_SIGNAL(src, COMSIG_SHUTTLE_IGNITION)
 			setTimer(ignitionTime)
 	return FALSE
 
@@ -551,7 +576,6 @@
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
-			SEND_SIGNAL(src, COMSIG_SHUTTLE_TRANSIT, S1)
 			return TRUE
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
@@ -655,15 +679,19 @@
 /obj/docking_port/mobile/proc/closePortDoors(obj/docking_port/stationary/old_dock)
 	if(!istype(old_dock) || isnull(old_dock.id))
 		return
-	for(var/obj/machinery/door/airlock/A as anything in GLOB.airlocks_by_id_tag[old_dock.id])
-		A.close()
-		A.lock()
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+		if(A.id_tag == old_dock.id)
+			A.close()
+			A.lock()
+	var/obj/machinery/door/airlock/external/docking/host_collar = old_dock.dock_airlock
+	if(host_collar?.owns_overmap_pad && is_area_shuttle(get_area(host_collar)))
+		INVOKE_ASYNC(host_collar, TYPE_PROC_REF(/obj/machinery/door, close), 0, 1)
 
 /obj/docking_port/mobile/proc/unlockPortDoors(obj/docking_port/stationary/new_dock)
 	if(!istype(new_dock) || isnull(new_dock.id))
 		return
-	for(var/obj/machinery/door/airlock/A as anything in GLOB.airlocks_by_id_tag[new_dock.id])
-		if(A.locked)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+		if(A.id_tag == new_dock.id && A.locked)
 			A.unlock(TRUE)
 
 //used by shuttle subsystem to check timers
@@ -841,11 +869,6 @@
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 	var/overmap_request_console = FALSE
-	var/atom/movable/screen/map_view/camera/overmap_cam_screen
-	var/datum/overmap_map_view/overmap_map_camera
-	var/turf/overmap_last_map_turf
-	var/overmap_map_zoom = 1
-	var/list/atom/movable/screen/overmap_sensor_blip/overmap_contact_blips
 	var/obj/overmap/entity/overmap_bound_vessel
 
 /obj/machinery/computer/shuttle/Initialize(mapload, obj/item/circuitboard/shuttle/C)
@@ -868,16 +891,9 @@
 	GLOB.overmap_request_consoles -= src
 	UnregisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_VESSEL_REGISTERED)
 	if(overmap_bound_vessel)
-		UnregisterSignal(overmap_bound_vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(overmap_bound_vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
 		overmap_bound_vessel = null
-	QDEL_LIST(overmap_contact_blips)
-	QDEL_NULL(overmap_map_camera)
-	QDEL_NULL(overmap_cam_screen)
 	return ..()
-
-/obj/machinery/computer/shuttle/ui_close(mob/user)
-	. = ..()
-	overmap_cam_screen?.hide_from(user)
 
 /obj/machinery/computer/shuttle/proc/connect()
 	var/obj/docking_port/mobile/mobile_docking_port

@@ -1,6 +1,5 @@
 GLOBAL_LIST_EMPTY(ship_engines)
 GLOBAL_LIST_EMPTY(helm_computers)
-GLOBAL_LIST_EMPTY(engine_consoles)
 GLOBAL_LIST_EMPTY(transponders)
 GLOBAL_LIST_EMPTY(sensor_computers)
 GLOBAL_LIST_EMPTY(sensor_arrays)
@@ -10,7 +9,7 @@ GLOBAL_LIST_EMPTY(overmap_intercoms)
 
 SUBSYSTEM_DEF(overmap)
 	name = "Overmap"
-	wait = 10
+	wait = OVERMAP_FLIGHT_TICK
 	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	dependencies = list(
@@ -20,6 +19,13 @@ SUBSYSTEM_DEF(overmap)
 	)
 
 	var/list/datum/overmap_sector/sectors = list()
+
+	var/list/datum/overmap_sector/sector_order = list()
+
+	var/galaxy_revision = 0
+	var/list/galaxy_positions
+
+	var/list/galaxy_unknown
 	var/datum/overmap_sector/local_sector
 	var/datum/overmap_sector/station_sector
 	var/datum/overmap_sector/service_sector
@@ -36,14 +42,28 @@ SUBSYSTEM_DEF(overmap)
 	var/list/obj/overmap/feature/hazard/hazards = list()
 	var/list/datum/overmap_feature/ruin_sites = list()
 	var/list/ruin_space_zs = list()
+	var/list/ruin_lighting_turfs = list()
+	var/scatter_revision = 0
 	var/list/datum/overmap_space_region/pooled_medium_cells = list()
 	var/list/datum/overmap_space_region/pooled_large_cells = list()
 	var/list/transit_space_zs = list()
 	var/list/datum/component/overmap_flight/flights = list()
+	var/list/client/drifting_viewers = list()
+
+	var/list/client_eyes = list()
+	var/list/datum/overmap_bubble/bubbles = list()
+	var/list/obj/overmap/entity/flying_vessels = list()
+	var/list/obj/overmap/entity/flight_reservations = list()
+	var/datum/turf_reservation/spare_bubble_space
+	var/mirroring_explosion = FALSE
+	var/preparing_bubble_space = FALSE
+	var/list/datum/overmap_bubble/bubbles_by_reservation = list()
+	var/list/datum/overmap_bubble/bubbles_by_z = list()
 	var/list/datum/component/overmap_dock_host/dock_hosts = list()
 	var/list/obj/docking_port/mobile/area_shuttles = list()
 	var/area_shuttle_cache_ready = FALSE
 	var/last_fire_time = 0
+	var/slow_elapsed = 0
 	var/iff_key_centcom
 	var/iff_key_syndicate
 
@@ -55,7 +75,6 @@ SUBSYSTEM_DEF(overmap)
 		. += copytext(alphabet, index, index + 1)
 
 /datum/controller/subsystem/overmap/Initialize()
-	log_world("Overmap: initializing (lighting initialized: [SSlighting.initialized], maxz: [world.maxz]).")
 	iff_key_centcom = generate_overmap_iff_key()
 	iff_key_syndicate = generate_overmap_iff_key()
 	while(iff_key_syndicate == iff_key_centcom)
@@ -63,6 +82,7 @@ SUBSYSTEM_DEF(overmap)
 	station_sector = new /datum/overmap_sector/station
 	local_sector = station_sector
 	sectors[station_sector.id] = station_sector
+	sector_order |= station_sector
 	seed_reserved_space()
 	spawn_lavaland()
 	spawn_station()
@@ -75,22 +95,36 @@ SUBSYSTEM_DEF(overmap)
 	relink_hardware()
 	ensure_station_transponder()
 	station_sector?.populate_roundstart()
-	spawn_roundstart_ruin_sites()
+	for(var/datum/overmap_sector/sector as anything in sector_order)
+		for(var/list/group as anything in overmap_hazard_clusters(sector))
+			overmap_hazard_contours(sector, group)
+			for(var/obj/overmap/feature/hazard/field as anything in group)
+				field.generate_scatter()
+			CHECK_TICK
+	register_roundstart_pods()
+	create_local_spaces()
+	create_station_docking_zone()
 	spawn_taipan()
 	start_programmed_roundstart_routes()
 	snap_roundstart_docks()
 	seed_shuttle_helm_waypoints()
 	refresh_ruin_space_lighting()
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(mirror_explosion))
 	last_fire_time = world.time
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/overmap/proc/refresh_ruin_space_lighting()
 	if(!SSlighting?.initialized)
 		return
-	for(var/z_level in ruin_space_zs)
-		for(var/turf/spot as anything in Z_TURFS(z_level))
-			if(spot.space_lit)
-				continue
+	var/list/pending = ruin_lighting_turfs
+	ruin_lighting_turfs = list()
+	for(var/turf/spot as anything in pending)
+		for(var/atom/movable/source as anything in spot)
+			if(!source.light && source.light_system == COMPLEX_LIGHT && source.light_on && source.light_range && source.light_power)
+				source.update_light()
+			if(source.light)
+				source.light.force_update()
+		if(!spot.space_lit)
 			var/atom/movable/lighting_object/object = spot.lighting_object
 			if(object)
 				if(!object.needs_update)
@@ -98,21 +132,28 @@ SUBSYSTEM_DEF(overmap)
 					SSlighting.objects_queue += object
 			else
 				new /atom/movable/lighting_object(null, spot)
-			CHECK_TICK
-
-/datum/controller/subsystem/overmap/proc/refresh_sector_views(datum/overmap_sector/sector)
-	if(!sector)
-		return
-	for(var/obj/overmap/entity/vessel as anything in vessels)
-		if(QDELETED(vessel) || vessel.sector != sector)
-			continue
-		SEND_SIGNAL(vessel, COMSIG_OVERMAP_DISPLAY_CHANGED)
+		CHECK_TICK
 
 /datum/controller/subsystem/overmap/fire(resumed)
 	var/elapsed = world.time - last_fire_time
 	last_fire_time = world.time
 	if(elapsed <= 0)
 		return
+	slow_elapsed += elapsed
+	if(slow_elapsed >= OVERMAP_SLOW_TICK)
+		process_slow_tick(slow_elapsed)
+		slow_elapsed = 0
+	for(var/datum/component/overmap_flight/flight as anything in flights)
+		if(QDELETED(flight))
+			continue
+		flight.process_tick(elapsed)
+	process_flight_views(elapsed)
+	update_proxy_huds()
+	process_sector_projectiles(elapsed)
+	draw_sector_projectiles(elapsed)
+	push_radars()
+
+/datum/controller/subsystem/overmap/proc/process_slow_tick(elapsed)
 	for(var/obj/overmap/entity/vessel as anything in vessels)
 		if(QDELETED(vessel))
 			continue
@@ -120,21 +161,11 @@ SUBSYSTEM_DEF(overmap)
 			vessel.process_transponder_fx()
 		vessel.process_sensors()
 		vessel.programmed_mission?.process_mission()
-	for(var/datum/component/overmap_flight/flight as anything in flights)
-		if(QDELETED(flight))
-			continue
-		flight.process_tick(elapsed)
 	for(var/obj/overmap/feature/hazard/hazard as anything in hazards)
 		if(QDELETED(hazard))
 			continue
 		hazard.process_tick(elapsed)
-
-/datum/controller/subsystem/overmap/proc/create_sector(sector_id, sector_name, size, access_flags)
-	if(sectors[sector_id])
-		return sectors[sector_id]
-	var/datum/overmap_sector/sector = new(sector_id, sector_name, size, access_flags)
-	sectors[sector_id] = sector
-	return sector
+	expire_bubbles()
 
 /datum/controller/subsystem/overmap/proc/create_typed_sector(sector_type)
 	var/datum/overmap_sector/sector = new sector_type
@@ -142,6 +173,8 @@ SUBSYSTEM_DEF(overmap)
 		qdel(sector)
 		return sectors[sector.id]
 	sectors[sector.id] = sector
+	sector_order |= sector
+	bump_galaxy()
 	return sector
 
 /datum/controller/subsystem/overmap/proc/spawn_station()
@@ -157,7 +190,6 @@ SUBSYSTEM_DEF(overmap)
 	station_entity.status = OVERMAP_STATUS_OVERMAP
 	station_entity.apply_overmap_identity(station_name(), COLOR_WHITE, "station", FALSE, TRUE, null, TRUE)
 	local_sector.add_object(station_entity, spawn_turf)
-	log_world("Overmap: station token spawned at [spawn_turf.x],[spawn_turf.y] on sector [local_sector.id].")
 
 /datum/controller/subsystem/overmap/proc/lavaland_enabled()
 	if(CONFIG_GET(flag/disable_lavaland))
@@ -186,7 +218,6 @@ SUBSYSTEM_DEF(overmap)
 	lavaland_entity.movable = FALSE
 	lavaland_entity.halted = TRUE
 	local_sector.add_object(lavaland_entity, outpost_turf)
-	log_world("Overmap: Lavaland centered at [origin.x],[origin.y] 4×4, mining station at [outpost_turf.x],[outpost_turf.y].")
 
 /datum/controller/subsystem/overmap/proc/rebuild_area_shuttle_cache()
 	area_shuttles = list()
@@ -227,8 +258,6 @@ SUBSYSTEM_DEF(overmap)
 	if(existing && !QDELETED(existing))
 		ensure_shuttle_overmap_placement(existing)
 		return existing
-	// Request consoles LateInitialize before sectors exist. Creating a token
-	// here leaves loc/sector null forever because register_roundstart returns existing.
 	if(!overmap_world_ready())
 		return null
 	var/obj/overmap/entity/shuttle/vessel = new /obj/overmap/entity/shuttle
@@ -253,7 +282,7 @@ SUBSYSTEM_DEF(overmap)
 /datum/controller/subsystem/overmap/proc/register_roundstart_pods()
 	for(var/obj/spacepod/craft as anything in GLOB.spacepods_list)
 		if(!QDELETED(craft))
-			get_or_register_pod(craft)
+			attach_pod_to_host(get_or_register_pod(craft))
 
 /datum/controller/subsystem/overmap/proc/get_or_register_pod(obj/spacepod/craft)
 	if(!craft)
@@ -265,6 +294,7 @@ SUBSYSTEM_DEF(overmap)
 	vessel.pod = craft
 	vessel.name = craft.name || "spacepod"
 	craft.overmap_vessel = vessel
+	craft.anchored = TRUE
 	pod_vessels[craft] = vessel
 	var/list/pod_iff
 	var/pod_broadcast = TRUE
@@ -289,6 +319,9 @@ SUBSYSTEM_DEF(overmap)
 	var/turf/spot = get_turf(craft)
 	if(!spot)
 		return null
+	var/datum/overmap_space_region/region = get_space_region(spot)
+	if(region?.token)
+		return region.token
 	if(is_station_level(spot.z))
 		return station_entity
 	if(is_mining_level(spot.z))
@@ -302,10 +335,9 @@ SUBSYSTEM_DEF(overmap)
 		return
 	var/obj/overmap/entity/host = resolve_pod_host(vessel.pod)
 	if(!host || host == vessel)
-		if(local_sector && !isturf(vessel.loc))
-			var/turf/fallback = local_sector.get_random_open_turf()
-			local_sector.add_object(vessel, fallback)
-			vessel.status = OVERMAP_STATUS_OVERMAP
+		vessel.sector?.remove_object(vessel)
+		vessel.moveToNullspace()
+		vessel.status = OVERMAP_STATUS_DOCKED
 		return
 	vessel.nest_inside(host)
 	if(host.sector)
@@ -339,20 +371,6 @@ SUBSYSTEM_DEF(overmap)
 			return candidate
 	return null
 
-/datum/controller/subsystem/overmap/proc/host_key_for(obj/overmap/entity/host)
-	if(!host)
-		return null
-	if(host == station_entity)
-		return OVERMAP_HOST_STATION
-	if(host == lavaland_entity)
-		return OVERMAP_HOST_LAVALAND
-	if(host == taipan_entity)
-		return OVERMAP_HOST_TAIPAN
-	var/obj/overmap/entity/service_site/site = host
-	if(istype(site))
-		return site.site_id
-	return null
-
 /datum/controller/subsystem/overmap/proc/stamp_pad_hosts()
 	if(!SSshuttle)
 		return
@@ -374,7 +392,7 @@ SUBSYSTEM_DEF(overmap)
 	else if(!host_key && is_taipan(pad.z))
 		host_key = OVERMAP_HOST_TAIPAN
 	if(!host_key)
-		var/obj/overmap/entity/service_site/site = get_service_site(pad)
+		var/obj/overmap/entity/site = get_ruin_host(pad) || get_service_site(pad)
 		if(site)
 			pad.overmap_host_uid = site.UID()
 			return site
@@ -397,6 +415,9 @@ SUBSYSTEM_DEF(overmap)
 		return null
 	if(is_admin_level(spot.z))
 		return get_host_by_key(GLOB.overmap_shuttle_admin_hosts[shuttle.id])
+	var/datum/overmap_space_region/region = get_space_region(spot)
+	if(region?.token)
+		return region.token
 	if(is_station_level(spot.z))
 		return station_entity
 	if(is_mining_level(spot.z))
@@ -452,7 +473,6 @@ SUBSYSTEM_DEF(overmap)
 			continue
 		var/obj/overmap/entity/service_site/site = new site_path(spot)
 		service_sector.add_object(site, spot)
-		log_world("Overmap: service site [site.site_id] at [spot.x],[spot.y] on sector [service_sector.id].")
 
 /datum/controller/subsystem/overmap/proc/spawn_wilderness()
 	if(sectors[OVERMAP_SECTOR_ID_WILDERNESS_A])
@@ -461,7 +481,6 @@ SUBSYSTEM_DEF(overmap)
 	if(!wilderness_sector)
 		log_world("Overmap: failed to create wilderness sector.")
 		return
-	log_world("Overmap: wilderness sector '[wilderness_sector.name]' created ([wilderness_sector.size]x[wilderness_sector.size]).")
 	spawn_station_wilderness_relays()
 	wilderness_sector.populate_roundstart()
 
@@ -525,9 +544,6 @@ SUBSYSTEM_DEF(overmap)
 	for(var/obj/machinery/computer/helm/helm as anything in GLOB.helm_computers)
 		if(!QDELETED(helm) && !helm.vessel)
 			helm.link_vessel()
-	for(var/obj/machinery/computer/engines/console as anything in GLOB.engine_consoles)
-		if(!QDELETED(console) && !console.vessel)
-			console.link_vessel()
 	for(var/obj/machinery/transponder/transponder as anything in GLOB.transponders)
 		if(!QDELETED(transponder) && !transponder.vessel)
 			transponder.link_vessel()
@@ -586,23 +602,7 @@ SUBSYSTEM_DEF(overmap)
 	local_sector.add_object(taipan_entity, spawn_turf)
 	stamp_pad_hosts()
 	relink_hardware()
-	log_world("Overmap: Taipan token spawned at [spawn_turf.x],[spawn_turf.y] on sector [local_sector.id].")
-
-/datum/controller/subsystem/overmap/proc/spawn_portal(datum/overmap_sector/from_sector, dest_sector_id, portal_name, required_flags, dest_x, dest_y)
-	if(!from_sector)
-		from_sector = local_sector
-	var/datum/overmap_sector/target = sectors[dest_sector_id]
-	if(!target)
-		return null
-	var/turf/here = from_sector.get_random_open_turf()
-	var/obj/overmap/portal/portal = new(here)
-	portal.name = portal_name || "warp portal"
-	portal.destination_sector = target
-	portal.destination_x = dest_x || round(target.size / 2)
-	portal.destination_y = dest_y || round(target.size / 2)
-	portal.required_vessel_flags = required_flags
-	from_sector.add_object(portal, here)
-	return portal
+	clear_scatter_for_host(taipan_entity)
 
 /datum/controller/subsystem/overmap/proc/overmap_coord_label(obj/overmap/token)
 	if(!token)

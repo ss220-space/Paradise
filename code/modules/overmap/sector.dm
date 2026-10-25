@@ -12,6 +12,7 @@
 
 	var/ruin_spawn_weight = 0
 
+	var/list/hazard_clusters
 	var/hazard_spawn_weight = 0
 	var/list/obj/overmap/objects = list()
 	var/area/overmap/map_area
@@ -94,6 +95,7 @@
 		if(in_map && istype(new_turf, /turf/simulated/floor/indestructible/overmap))
 			var/turf/simulated/floor/indestructible/overmap/map_turf = new_turf
 			map_turf.add_edge_numbers()
+		CHECK_TICK
 
 /datum/overmap_sector/proc/locate_local(local_x, local_y)
 	return locate(origin_x + local_x - 1, origin_y + local_y - 1, z_level)
@@ -141,43 +143,12 @@
 			return TRUE
 	return FALSE
 
-/datum/overmap_sector/proc/chebyshev_to_rect(turf/spot, min_x, min_y, max_x, max_y)
-	if(!spot)
-		return INFINITY
-	var/dx = 0
-	var/dy = 0
-	if(spot.x < min_x)
-		dx = min_x - spot.x
-	else if(spot.x > max_x)
-		dx = spot.x - max_x
-	if(spot.y < min_y)
-		dy = min_y - spot.y
-	else if(spot.y > max_y)
-		dy = spot.y - max_y
-	return max(dx, dy)
-
 /datum/overmap_sector/proc/get_centered_footprint_origin(footprint)
 	var/local_x = 1 + round((size - footprint) / 2)
 	var/local_y = 1 + round((size - footprint) / 2)
 	local_x = clamp(local_x, OVERMAP_EDGE + 1, size - OVERMAP_EDGE - footprint + 1)
 	local_y = clamp(local_y, OVERMAP_EDGE + 1, size - OVERMAP_EDGE - footprint + 1)
 	return locate_local(local_x, local_y)
-
-/datum/overmap_sector/proc/get_turf_at_range_from_rect(min_x, min_y, max_x, max_y, min_dist, max_dist)
-	var/low_x = origin_x + OVERMAP_EDGE
-	var/low_y = origin_y + OVERMAP_EDGE
-	var/high_x = origin_x + size - OVERMAP_EDGE - 1
-	var/high_y = origin_y + size - OVERMAP_EDGE - 1
-	var/list/candidates = list()
-	for(var/turf/open_turf as anything in block(locate(low_x, low_y, z_level), locate(high_x, high_y, z_level)))
-		if(turf_occupied(open_turf))
-			continue
-		var/dist = chebyshev_to_rect(open_turf, min_x, min_y, max_x, max_y)
-		if(dist >= min_dist && dist <= max_dist)
-			candidates += open_turf
-	if(length(candidates))
-		return pick(candidates)
-	return get_random_open_turf()
 
 /datum/overmap_sector/proc/get_turf_near(turf/anchor, min_dist, max_dist, obj/overmap/planet/avoid_planet)
 	if(!anchor)
@@ -212,43 +183,6 @@
 	if(!length(candidates))
 		return locate(rand(low_x, high_x), rand(low_y, high_y), z_level)
 	return pick(candidates)
-
-/datum/overmap_sector/proc/find_footprint_origin(footprint, turf/avoid, min_dist, max_dist)
-	var/low = OVERMAP_EDGE + 1
-	var/high = size - OVERMAP_EDGE - footprint + 1
-	if(high < low)
-		return null
-	var/list/preferred = list()
-	var/list/fallback = list()
-	for(var/local_x in low to high)
-		for(var/local_y in low to high)
-			var/turf/origin = locate_local(local_x, local_y)
-			if(!origin)
-				continue
-			var/blocked = FALSE
-			var/closest = INFINITY
-			for(var/spot_x in local_x to local_x + footprint - 1)
-				for(var/spot_y in local_y to local_y + footprint - 1)
-					var/turf/spot = locate_local(spot_x, spot_y)
-					if(turf_occupied(spot))
-						blocked = TRUE
-						break
-					if(avoid)
-						closest = min(closest, max(abs(avoid.x - spot.x), abs(avoid.y - spot.y)))
-				if(blocked)
-					break
-			if(blocked)
-				continue
-			if(avoid && closest <= 1)
-				continue
-			fallback += origin
-			if(!avoid || (closest >= min_dist && closest <= max_dist))
-				preferred += origin
-	if(length(preferred))
-		return pick(preferred)
-	if(length(fallback))
-		return pick(fallback)
-	return null
 
 /datum/overmap_sector/proc/get_edge_band_turf(min_inset = 2, max_inset = 3)
 	var/low_x = origin_x + OVERMAP_EDGE
@@ -291,12 +225,21 @@
 	return best || start
 
 /datum/overmap_sector/proc/add_object(obj/overmap/overmap_object, turf/target)
+	if(istype(overmap_object, /obj/overmap/feature/hazard))
+		hazard_clusters = null
+		hazard_shapes = null
 	overmap_object.sector = src
 	objects |= overmap_object
 	if(target)
 		overmap_object.forceMove(target)
+	if(istype(overmap_object, /obj/overmap/entity))
+		var/obj/overmap/entity/token = overmap_object
+		SSovermap?.ensure_host_space(token)
 
 /datum/overmap_sector/proc/remove_object(obj/overmap/overmap_object)
+	if(istype(overmap_object, /obj/overmap/feature/hazard))
+		hazard_clusters = null
+		hazard_shapes = null
 	objects -= overmap_object
 	if(overmap_object.sector == src)
 		overmap_object.sector = null
@@ -320,7 +263,8 @@
 	name = "Эпсилон Лукусты"
 	ruin_spawn_weight = 0.7
 	hazard_spawn_weight = 0.3
-	tile_travel = 2
+
+	tile_travel = OVERMAP_STATION_CELL_TILES / OVERMAP_TILE_SPAN
 
 /datum/overmap_sector/service
 	id = OVERMAP_SECTOR_ID_SERVICE
@@ -333,7 +277,7 @@
 	size = OVERMAP_SECTOR_WILDERNESS_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_WILDERNESS
 	ruin_spawn_weight = 2
-	hazard_spawn_weight = 2
+	hazard_spawn_weight = 1
 	tile_travel = 3
 
 /datum/overmap_sector/wilderness/populate_roundstart()
@@ -343,8 +287,3 @@
 /datum/overmap_sector/wilderness/alpha
 	id = OVERMAP_SECTOR_ID_WILDERNESS_A
 	name = "Рубеж Альфа"
-/*
-/datum/overmap_sector/wilderness/beta
-	id = OVERMAP_SECTOR_ID_WILDERNESS_B
-	name = "Рубеж Бета"
-*/

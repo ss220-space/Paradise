@@ -76,13 +76,7 @@
 /turf/simulated/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors)
 "ao" = (
-/obj/machinery/computer/shuttle/labor/one_way{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ap" = (
@@ -186,9 +180,9 @@
 	},
 /area/mine/living_quarters)
 "aJ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "aK" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -300,26 +294,19 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/door_control{
-	id = "Labor";
-	name = "Labor Camp Lockdown";
-	pixel_y = 25;
-	req_access = list(2)
-	},
-/obj/machinery/flasher_button{
-	id = "labor";
-	pixel_y = 34
-	},
-/turf/simulated/floor/plasteel,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "ba" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
 	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Shuttle Cockpit";
-	req_access = list(2)
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/machinery/computer/shuttle/labor/one_way{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -1759,9 +1746,10 @@
 	},
 /area/mine/living_quarters)
 "gu" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking/support{
-	id_tag = "laborcamp_away"
+/obj/machinery/door/airlock/external/docking{
+	id_tag = "laborcamp_away";
+	dock_name = "Каторга";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -2019,11 +2007,8 @@
 	},
 /area/mine/eva)
 "hQ" = (
-/obj/machinery/door/airlock/external/docking/support{
-	id_tag = "laborcamp_away"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "hU" = (
 /obj/structure/disposalpipe/segment,
@@ -2479,8 +2464,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ks" = (
-/turf/simulated/wall,
-/area/lavaland/surface/outdoors/explored)
+/obj/machinery/door_control{
+	id = "Labor";
+	name = "Labor Camp Lockdown";
+	pixel_y = 25;
+	req_access = list(2)
+	},
+/obj/machinery/flasher_button{
+	id = "labor";
+	pixel_y = 34
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "kv" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -5820,11 +5815,8 @@
 	},
 /area/mine/production)
 "FF" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	id_tag = "laborcamp_away";
-	dock_name = "Каторга";
-	dir = 8
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "laborcamp_away"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -12110,11 +12102,11 @@ aj
 fw
 No
 No
-ks
 No
 No
 No
-ks
+No
+No
 No
 No
 fw
@@ -13652,12 +13644,12 @@ qT
 aq
 tZ
 aq
-FF
+hQ
 aq
+gu
 aq
 hQ
 hQ
-aq
 ty
 vC
 ty
@@ -13911,8 +13903,8 @@ aP
 aq
 aZ
 aq
+ks
 aq
-bk
 aJ
 aq
 sq
@@ -14166,11 +14158,11 @@ aq
 sP
 aQ
 aq
-gu
 aq
 aq
-hQ
-hQ
+FF
+aq
+aq
 aq
 tL
 eV
@@ -14424,7 +14416,7 @@ aL
 ap
 tZ
 ba
-aq
+bk
 ao
 HJ
 Cy

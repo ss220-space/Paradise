@@ -28,6 +28,11 @@
 
 	var/moving_hazard = FALSE
 
+	var/hazard_density = 3
+
+/obj/overmap/feature/hazard/proc/roll_density()
+	return rand(2, 4)
+
 /obj/overmap/feature/hazard/Initialize(mapload)
 	. = ..()
 	SSovermap?.hazards |= src
@@ -42,11 +47,68 @@
 /obj/overmap/feature/hazard/proc/process_tick(elapsed)
 	if(movable)
 		process_movement(elapsed)
-	var/turf/here = loc
-	if(!isturf(here))
+	return
+
+/proc/overmap_hazard_clusters(datum/overmap_sector/sector)
+	. = list()
+	if(!sector)
 		return
-	for(var/obj/overmap/entity/vessel in here)
-		try_affect(vessel)
+	if(sector.hazard_clusters)
+		return sector.hazard_clusters
+	var/list/all = list()
+	var/list/by_cell = list()
+	for(var/obj/overmap/feature/hazard/hazard in sector.objects)
+		var/turf/spot = hazard.loc
+		if(!isturf(spot))
+			continue
+		all += hazard
+		var/cell_key = "[spot.x],[spot.y]"
+		var/list/bucket = by_cell[cell_key]
+		if(!bucket)
+			bucket = list()
+			by_cell[cell_key] = bucket
+		bucket += hazard
+	var/list/taken = list()
+	for(var/obj/overmap/feature/hazard/seed as anything in all)
+		if(taken[seed])
+			continue
+		taken[seed] = TRUE
+		var/list/group = list(seed)
+		var/index = 1
+		while(index <= length(group))
+			var/obj/overmap/feature/hazard/current = group[index]
+			index++
+			var/turf/here = current.loc
+			if(!isturf(here))
+				continue
+			for(var/offset_x in -1 to 1)
+				for(var/offset_y in -1 to 1)
+					var/list/bucket = by_cell["[here.x + offset_x],[here.y + offset_y]"]
+					if(!bucket)
+						continue
+					for(var/obj/overmap/feature/hazard/other as anything in bucket)
+						if(taken[other] || other.icon_state != seed.icon_state)
+							continue
+						taken[other] = TRUE
+						group += other
+		. += list(group)
+	sector.hazard_clusters = .
+
+/proc/overmap_hazard_cluster_density(list/group)
+	if(!length(group))
+		return 0
+	var/total = 0
+	for(var/obj/overmap/feature/hazard/point as anything in group)
+		total += point.hazard_density
+	return round(total / length(group))
+
+/proc/overmap_hazard_cluster_of(datum/overmap_sector/sector, obj/overmap/feature/hazard/hazard)
+	if(!sector || !hazard)
+		return list()
+	for(var/list/group as anything in overmap_hazard_clusters(sector))
+		if(hazard in group)
+			return group
+	return list()
 
 /obj/overmap/feature/hazard/proc/try_affect(obj/overmap/entity/vessel)
 	if(!vessel || QDELETED(vessel) || vessel.overmap_hazard_immune)
@@ -71,16 +133,22 @@
 	return OVERMAP_HAZARD_HIT_CHANCE_CAP * clamp((speed - OVERMAP_HAZARD_SAFE_SPEED) / span, 0, 1)
 
 /obj/overmap/feature/hazard/proc/should_strike_moving(obj/overmap/entity/vessel)
-	if(vessel.is_moving())
-		return prob(movement_hit_chance(vessel))
+	if(world.time < vessel.next_overmap_hazard_hit)
+		return FALSE
+	var/chance = vessel.is_moving() ? movement_hit_chance(vessel) : 0
 	if(moving_hazard)
-		return prob(OVERMAP_HAZARD_IDLE_HIT_CHANCE)
-	return FALSE
+		chance = max(chance, OVERMAP_HAZARD_IDLE_HIT_CHANCE)
+	if(!prob(chance))
+		return FALSE
+	vessel.next_overmap_hazard_hit = world.time + OVERMAP_HAZARD_HIT_COOLDOWN
+	return TRUE
 
 /obj/overmap/feature/hazard/proc/is_open_void(turf/spot)
 	return isspaceturf(spot)
 
 /obj/overmap/feature/hazard/proc/collect_ship_turfs(obj/overmap/entity/vessel)
+	if(vessel.overmap_pod)
+		return list(get_turf(vessel.overmap_pod.pod()))
 	. = list()
 	if(vessel.shuttle)
 		for(var/area/place as anything in vessel.shuttle.shuttle_areas)
@@ -177,10 +245,13 @@
 
 /obj/overmap/feature/hazard/asteroid
 	name = "пояс астероидов"
-	desc = "Каменный поток. Имеется шанс врезаться в астероид на болшой скорости."
+	desc = "Каменный поток. Имеется шанс врезаться в астероид на большой скорости."
 	icon_state = OVERMAP_HAZARD_ICON_ASTEROID
 	map_color = "#8a7a68"
 	color = null
+
+/obj/overmap/feature/hazard/asteroid/roll_density()
+	return text2num(pickweight(list("1" = 16, "2" = 26, "3" = 24, "4" = 16, "5" = 9, "6" = 5, "7" = 3, "8" = 1)))
 
 /obj/overmap/feature/hazard/asteroid/get_ru_names()
 	return alist(
@@ -220,6 +291,9 @@
 	map_color = "#6ec4ff"
 	color = null
 
+/obj/overmap/feature/hazard/emp/roll_density()
+	return rand(2, 5)
+
 /obj/overmap/feature/hazard/emp/get_ru_names()
 	return alist(
 		NOMINATIVE = "ЭМИ-шторм",
@@ -231,8 +305,6 @@
 	)
 
 /obj/overmap/feature/hazard/emp/affect_vessel(obj/overmap/entity/vessel)
-	if(!should_strike_moving(vessel))
-		return
 	INVOKE_ASYNC(src, PROC_REF(do_emp_strike), vessel)
 
 /obj/overmap/feature/hazard/emp/proc/do_emp_strike(obj/overmap/entity/vessel)
@@ -249,7 +321,6 @@
 
 /obj/overmap/feature/hazard/emp/proc/strike_lightning(turf/epicenter, obj/overmap/entity/vessel)
 	tesla_zap(source = epicenter, zap_range = rand(4, 8), power = 8e3, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
-	spawn_meteor_at(vessel)
 	var/turf/cursor = epicenter
 	for(var/step_i in 1 to rand(2, 4))
 		cursor = get_step(cursor, pick(GLOB.cardinal))
@@ -263,6 +334,9 @@
 	icon_state = OVERMAP_HAZARD_ICON_CARP
 	map_color = "#3cb89a"
 	color = null
+
+/obj/overmap/feature/hazard/carp/roll_density()
+	return rand(1, 4)
 
 /obj/overmap/feature/hazard/carp/get_ru_names()
 	return alist(
@@ -345,8 +419,18 @@
 	if(overmap_hazard_spawn_blocked(sector, spot))
 		return null
 	var/obj/overmap/feature/hazard/hazard = new hazard_type(spot)
+	hazard.hazard_density = overmap_hazard_cluster_fill(spot, hazard)
 	sector.add_object(hazard, spot)
 	return hazard
+
+/proc/overmap_hazard_cluster_fill(turf/spot, obj/overmap/feature/hazard/hazard)
+	for(var/turf/neighbour in orange(1, spot))
+		if(neighbour.z != spot.z)
+			continue
+		for(var/obj/overmap/feature/hazard/other in neighbour)
+			if(other.icon_state == hazard.icon_state)
+				return other.hazard_density
+	return hazard.roll_density()
 
 /proc/overmap_hazard_paint_line(hazard_type, datum/overmap_sector/sector, turf/start, length, dir, wobble = FALSE)
 	. = 0
@@ -486,10 +570,9 @@
 	if(!sector || sector.hazard_spawn_weight <= 0)
 		return
 	var/scale = sector.hazard_spawn_weight * (sector.size / OVERMAP_DEFAULT_SIZE)
-	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/asteroid, max(1, round(rand(4, 6) * scale)))
-	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/emp, max(1, round(rand(2, 4) * scale)))
-	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/carp, max(1, round(rand(2, 4) * scale)))
-	log_world("Overmap: static hazards placed on sector [sector.id].")
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/asteroid, max(1, round(rand(2, 3) * scale)))
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/emp, max(1, round(rand(1, 2) * scale)))
+	scatter_overmap_hazard_type(sector, /obj/overmap/feature/hazard/carp, max(1, round(rand(1, 2) * scale)))
 
 /proc/scatter_overmap_hazard_type(datum/overmap_sector/sector, hazard_type, amount)
 	for(var/i in 1 to amount)
@@ -497,6 +580,3 @@
 		if(!start)
 			break
 		overmap_hazard_paint_random(hazard_type, sector, start)
-
-/proc/spawn_moving_overmap_hazards(datum/overmap_sector/sector)
-	return

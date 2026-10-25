@@ -154,7 +154,7 @@
 		if(foundfoam)
 			continue
 
-		if(is_type_in_typecache(spread_turf, blacklisted_turfs))
+		if(is_type_in_typecache(spread_turf, blacklisted_turfs) || is_hyperspace_turf(spread_turf))
 			continue
 
 		for(var/mob/living/foaming in spread_turf)
@@ -312,7 +312,7 @@
 
 /obj/effect/particle_effect/fluid/foam/metal/make_result() //Smart foam adheres to area borders for walls
 	var/turf/simulated/location = loc
-	if(make_floor && is_space_or_openspace(location) && !istype(location, /turf/space/transit))
+	if(make_floor && is_space_or_openspace(location) && !is_hyperspace_turf(location))
 		location.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 	. = ..()
 

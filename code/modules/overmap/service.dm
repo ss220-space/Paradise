@@ -1,6 +1,7 @@
 /obj/overmap/entity/service_site
 	abstract_type = /obj/overmap/entity/service_site
 	name = "service site"
+	project_terrain = FALSE
 	movable = FALSE
 	halted = TRUE
 	vessel_mass = OVERMAP_MASS_STATION
@@ -21,7 +22,7 @@
 
 /obj/overmap/entity/service_site/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)
-	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root, FALSE)
+	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root, FALSE, TRUE)
 
 /obj/overmap/entity/service_site/get_overmap_display_name()
 	return identity_name || name

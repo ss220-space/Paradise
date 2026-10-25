@@ -64,5 +64,6 @@
 #define AGS_FUNERAL_SHUTTLE_AWAY_DOCK "graveyard_dock"
 
 #define PARALLAX_LOOP_TIME 25
+#define PARALLAX_TILE_SIZE (ICON_SIZE_ALL * 15)
 
 GLOBAL_LIST_EMPTY(airlocks_by_id_tag)

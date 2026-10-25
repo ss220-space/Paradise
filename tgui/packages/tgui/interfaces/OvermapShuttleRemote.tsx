@@ -1,4 +1,4 @@
-import { Box, Button, ByondUi, NoticeBox, Section, Stack } from 'tgui-core/components';
+import { Box, Button, NoticeBox, Section, Stack } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
@@ -10,14 +10,10 @@ type ProgrammedRoute = {
   selected: BooleanLike;
 };
 
-type Data = {
+import { OvermapScope, type OvermapScopeData } from './overmap/OvermapScope';
+
+type Data = OvermapScopeData & {
   linked: BooleanLike;
-  mapRef: string;
-  map_zoom: number;
-  map_tiles_x?: number;
-  map_tiles_y?: number;
-  map_px_w?: number;
-  map_px_h?: number;
   vessel_name: string;
   status: string;
   x: number;
@@ -40,12 +36,6 @@ export const OvermapShuttleRemote = () => {
   const { act, data } = useBackend<Data>();
   const {
     linked,
-    mapRef,
-    map_zoom,
-    map_tiles_x = 19,
-    map_tiles_y = 15,
-    map_px_w = 608,
-    map_px_h = 480,
     vessel_name,
     status,
     x,
@@ -66,8 +56,8 @@ export const OvermapShuttleRemote = () => {
   return (
     <OvermapFrame
       title="Запрос шаттла"
-      width={map_px_w + 48}
-      height={map_px_h + 240}
+      width={656}
+      height={720}
       linked={linked}
       rail={
         <OvermapRail
@@ -86,24 +76,16 @@ export const OvermapShuttleRemote = () => {
           <Section
             fitted
             className="OvermapMapSection"
-            title={map_jammed ? 'Помехи' : `Карта шаттла ${map_tiles_x}×${map_tiles_y}`}
+            title={map_jammed ? 'Помехи' : 'Радар шаттла'}
           >
             <div
               className="OvermapMinimap OvermapMinimap--exact"
-              style={{ width: `${map_px_w}px`, height: `${map_px_h}px` }}
+              style={{ width: '608px', height: '480px' }}
             >
-              {map_jammed ? (
+              {map_jammed && !data.radar_locked ? (
                 <NoticeBox danger>Связь потеряна.</NoticeBox>
               ) : (
-                <ByondUi
-                  height={`${map_px_h}px`}
-                  width={`${map_px_w}px`}
-                  params={{
-                    id: mapRef,
-                    type: 'map',
-                    zoom: map_zoom ?? 1,
-                  }}
-                />
+                <OvermapScope data={data} />
               )}
             </div>
           </Section>

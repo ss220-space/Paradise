@@ -54,17 +54,21 @@
 			return
 	dump_in_space(arrived)
 
+///Dump a movable in a random valid spacetile
 /proc/dump_in_space(atom/movable/dumpee)
 	var/turf/origin = get_turf(dumpee)
-	if(istype(origin, /turf/space/transit))
+	if(is_hyperspace_turf(origin))
 		var/obj/spacepod/craft = dumpee
-		if(craft?.overmap_vessel?.overmap_pod)
+		if(isspacepod(craft) && craft.overmap_vessel?.overmap_pod)
 			craft.overmap_vessel.overmap_pod.rescue_from_transit()
 			return
 		var/datum/turf_reservation/reservation = SSmapping.used_turfs[origin]
+		var/obj/overmap/entity/vessel = SSovermap.flight_reservations[reservation]
+		if(vessel?.eject_to_bubble(dumpee, origin))
+			return
 		var/obj/docking_port/mobile/shuttle = get_shuttle_for_transit_reservation(reservation)
 		var/turf/shuttle_turf = shuttle && get_turf(shuttle)
-		if(shuttle_turf && !istype(shuttle_turf, /turf/space/transit))
+		if(shuttle_turf && !is_hyperspace_turf(shuttle_turf))
 			dump_near_shuttle_in_real_space(dumpee, shuttle)
 			return
 		if(hyperspace_too_close_to_border(origin))
@@ -83,7 +87,7 @@
 	return list(bottom_left.x, bottom_left.y, top_right.x, top_right.y)
 
 /proc/hyperspace_too_close_to_border(turf/spot)
-	if(!istype(spot, /turf/space/transit))
+	if(!is_hyperspace_turf(spot))
 		return FALSE
 	var/datum/turf_reservation/reservation = SSmapping.used_turfs[spot]
 	var/list/bounds = hyperspace_reservation_bounds(reservation)
@@ -104,11 +108,11 @@
 /proc/nearest_real_space_turf(turf/origin)
 	if(!origin)
 		return null
-	if(isspaceturf(origin) && !istype(origin, /turf/space/transit))
+	if(isspaceturf(origin) && !is_hyperspace_turf(origin))
 		return origin
 	for(var/range_out in 1 to 24)
 		for(var/turf/candidate in range(range_out, origin))
-			if(isspaceturf(candidate) && !istype(candidate, /turf/space/transit))
+			if(isspaceturf(candidate) && !is_hyperspace_turf(candidate))
 				return candidate
 	return null
 
@@ -123,8 +127,8 @@
 /proc/expose_to_hyperspace(atom/movable/dumpee)
 	if(HAS_TRAIT(dumpee, TRAIT_HYPERSPACE_DRIFT))
 		return
-	ADD_TRAIT(dumpee, TRAIT_HYPERSPACE_DRIFT, "hyperspace_turf")
-	addtimer(TRAIT_CALLBACK_REMOVE(dumpee, TRAIT_HYPERSPACE_DRIFT, "hyperspace_turf"), 3 SECONDS)
+	ADD_TRAIT(dumpee, TRAIT_HYPERSPACE_DRIFT, "hyperspace")
+	addtimer(TRAIT_CALLBACK_REMOVE(dumpee, TRAIT_HYPERSPACE_DRIFT, "hyperspace"), 3 SECONDS)
 	dumpee.newtonian_move(dumpee.dir || pick(GLOB.alldirs))
 
 /proc/dump_near_shuttle_in_real_space(atom/movable/dumpee, obj/docking_port/mobile/shuttle)
@@ -138,7 +142,7 @@
 			clamp(origin.y + rand(-16, 16), TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1),
 			origin.z,
 		)
-		if(isspaceturf(candidate) && !istype(candidate, /turf/space/transit))
+		if(isspaceturf(candidate) && !is_hyperspace_turf(candidate))
 			dumpee.forceMove(candidate)
 			dumpee.newtonian_move(dumpee.dir)
 			return
@@ -147,6 +151,7 @@
 /proc/dump_to_linked_space_edge(atom/movable/dumpee, forced_z)
 	var/max = world.maxx - TRANSITIONEDGE
 	var/min = 1 + TRANSITIONEDGE
+	//now select coordinates for a border turf
 	var/_x
 	var/_y
 	switch(dumpee.dir)
@@ -185,6 +190,10 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /turf/space/transit/update_icon_state()
+	if(istype(loc, /area/spacepod/hyperspace) || SSovermap.flight_reservations[SSmapping.used_turfs[src]])
+		icon_state = "space"
+		transform = matrix()
+		return
 	var/p = 9
 	var/angle = 0
 	var/state = 1
@@ -209,7 +218,4 @@
 	transform = turn(matrix(), angle)
 
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = icon
-	underlay_appearance.icon_state = icon_state
-	underlay_appearance.transform = transform
-	return TRUE
+	. = ..()

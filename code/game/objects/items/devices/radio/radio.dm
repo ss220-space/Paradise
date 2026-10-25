@@ -576,6 +576,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	tcm.sender_rank = rankname
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
+	tcm.source_position = position
 	tcm.freq = connection.frequency
 	tcm.vmask = voicemask
 	tcm.needs_tcomms = requires_tcomms
@@ -628,7 +629,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	broadcast_message(tcm)
 	qdel(tcm) // Delete the message datum
 
-/obj/item/radio/proc/receive_range(freq, level)
+/obj/item/radio/proc/receive_range(freq, level, obj/machinery/tcomms/core/network = null)
 	// check if this radio can receive on the given frequency, and if so,
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
@@ -637,7 +638,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || (network ? !network.position_reachable(position) : !(position.z in level)))
 			return -1
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys

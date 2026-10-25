@@ -84,18 +84,12 @@
 /obj/docking_port/mobile/proc/overmap_dir_rotation(from_dir, to_dir)
 	if(!from_dir || !to_dir || from_dir == to_dir)
 		return 0
-	var/angle = round((dir2angle(to_dir) - dir2angle(from_dir)) / 90, 1) * 90
-	while(angle < 0)
-		angle += 360
-	while(angle >= 360)
-		angle -= 360
-	return angle
+	return SIMPLIFY_DEGREES(round((dir2angle(to_dir) - dir2angle(from_dir)) / 90, 1) * 90 + 360)
 
 /obj/docking_port/mobile/proc/overmap_rotate_vec(dx, dy, rotation)
-	while(rotation < 0)
+	rotation = SIMPLIFY_DEGREES(rotation)
+	if(rotation < 0)
 		rotation += 360
-	while(rotation >= 360)
-		rotation -= 360
 	switch(rotation)
 		if(90)
 			return list(dy, -dx)
@@ -106,7 +100,7 @@
 	return list(dx, dy)
 
 /obj/docking_port/mobile/proc/overmap_dest_turf(obj/docking_port/stationary/S)
-	if(istype(S, /obj/docking_port/stationary/overmap/landing))
+	if(istype(S, /obj/docking_port/stationary/overmap/landing) || istype(S, /obj/docking_port/stationary/overmap/formation))
 		return get_turf(S)
 	if(S?.dock_airlock)
 		return get_step(S.dock_airlock, S.dock_airlock.dir) || get_turf(S)
@@ -115,22 +109,31 @@
 /obj/docking_port/mobile/proc/overmap_hull_center(list/hull)
 	if(!length(hull))
 		return null
-	var/sx = 0
-	var/sy = 0
+	var/min_x = world.maxx
+	var/max_x = 1
+	var/min_y = world.maxy
+	var/max_y = 1
 	var/turf/sample
 	for(var/turf/tile as anything in hull)
 		if(!tile)
 			continue
-		sx += tile.x
-		sy += tile.y
+		min_x = min(min_x, tile.x)
+		max_x = max(max_x, tile.x)
+		min_y = min(min_y, tile.y)
+		max_y = max(max_y, tile.y)
 		sample = tile
 	if(!sample)
 		return null
-	return locate(round(sx / length(hull)), round(sy / length(hull)), sample.z)
+	return locate(round((min_x + max_x) / 2), round((min_y + max_y) / 2), sample.z)
+
+/obj/docking_port/mobile/proc/overmap_transit_dir(origin_dir)
+	return angle2dir(dir2angle(origin_dir) - overmap_hull_rotation)
 
 /obj/docking_port/mobile/proc/overmap_dest_dir(obj/docking_port/stationary/S, origin_dir)
-	if(istype(S, /obj/docking_port/stationary/transit) || istype(S, /obj/docking_port/stationary/overmap/landing))
-		return origin_dir
+	if(istype(S, /obj/docking_port/stationary/transit))
+		return overmap_transit_dir(origin_dir)
+	if(istype(S, /obj/docking_port/stationary/overmap/landing) || istype(S, /obj/docking_port/stationary/overmap/formation))
+		return S.dir
 	if(S?.dock_airlock)
 		return S.dock_airlock.dir
 	return S.dir
@@ -191,16 +194,17 @@
 	dwidth = -min_right
 	dheight = -min_forward
 
-/obj/docking_port/mobile/proc/overmap_move_pairs(obj/docking_port/stationary/S)
+/obj/docking_port/mobile/proc/overmap_move_pairs(obj/docking_port/stationary/S, list/hull)
 	. = list(list(), list())
 	if(!S)
 		return
-	var/list/origin = overmap_origin()
+	var/list/origin = overmap_docking_origin(S)
 	var/turf/origin_turf = origin[1]
 	var/origin_dir = origin[2]
 	if(!origin_turf)
 		return
-	var/list/hull = overmap_collect_hull(origin_turf)
+	if(!hull)
+		hull = overmap_collect_hull(origin_turf)
 	overmap_fit_bounds(origin_turf, origin_dir, hull)
 	var/turf/proj_origin = origin_turf
 	if(istype(S, /obj/docking_port/stationary/overmap/landing))
@@ -219,25 +223,6 @@
 		new_turfs += newT
 
 /obj/docking_port/mobile/proc/overmap_preview_turfs(obj/docking_port/stationary/S)
-	. = list()
-	if(!S)
-		return
-	overmap_restore_mapped_bounds()
-	var/list/origin = overmap_origin()
-	var/turf/origin_turf = origin[1]
-	var/origin_dir = origin[2]
-	var/turf/dest = overmap_dest_turf(S)
-	if(!origin_turf || !dest)
-		return
-	var/dest_dir = overmap_dest_dir(S, origin_dir)
-	for(var/turf/oldT as anything in return_turfs())
-		if(!oldT || is_turf_blacklisted_for_transit(oldT))
-			continue
-		var/turf/newT = overmap_project_turf(oldT, origin_turf, origin_dir, dest, dest_dir)
-		if(newT)
-			. += newT
-
-/obj/docking_port/mobile/proc/overmap_dest_turfs(obj/docking_port/stationary/S)
 	var/list/pairs = overmap_move_pairs(S)
 	return pairs[2]
 

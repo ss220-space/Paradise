@@ -51,6 +51,8 @@
 #define RUSTLIB (__rustlib || __detect_rustlib())
 #define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]")(args)
 
+#define FOG_OF_WAR_USE_RUSTLIB
+
 /// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
@@ -102,7 +104,6 @@
 #ifdef RUSTLIB_OVERRIDE_BUILTINS
 	#define md5(thing) (isfile(thing) ? rustlib_hash_file(RUSTLIB_HASH_MD5, "[thing]") : rustlib_hash_string(RUSTLIB_HASH_MD5, thing))
 #endif
-
 
 /// Generates a spritesheet at: [file_path][spritesheet_name]_[size_id].[png or dmi]
 /// The resulting spritesheet arranges icons in a random order, with the position being denoted in the "sprites" return value.
@@ -233,7 +234,6 @@
 
 	sound_cache[file_path] = ret
 	return ret
-
 
 #define RUSTG_SOUNDLEN_SUCCESSES "successes"
 #define RUSTG_SOUNDLEN_ERRORS "errors"

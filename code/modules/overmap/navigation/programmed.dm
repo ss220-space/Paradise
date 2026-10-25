@@ -18,6 +18,16 @@
 	for(var/shuttle_id in GLOB.overmap_programmed_profiles)
 		.[shuttle_id] = TRUE
 
+/proc/is_overmap_programmed_dock(dock_id)
+	var/static/list/programmed_docks
+	if(isnull(programmed_docks))
+		programmed_docks = list()
+		for(var/shuttle_id in GLOB.overmap_programmed_profiles)
+			var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[shuttle_id]
+			for(var/profile_dock in profile.dock_ids())
+				programmed_docks[profile_dock] = TRUE
+	return programmed_docks[dock_id]
+
 GLOBAL_LIST_INIT(overmap_programmed_profiles, build_overmap_programmed_profiles())
 GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttle_ids())
 
@@ -43,6 +53,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/block_if_canMove = FALSE
 	var/block_move_message
 	var/needs_virtual_engine = TRUE
+	var/manual_helm = FALSE
 	var/list/datum/overmap_programmed_leg/legs
 
 /datum/overmap_programmed_profile/New()
@@ -82,6 +93,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 
 /datum/overmap_programmed_profile/mining
 	shuttle_id = "mining"
+	manual_helm = TRUE
 
 /datum/overmap_programmed_profile/mining/setup_legs()
 	add_leg("mining_home", "mining_west")
@@ -89,6 +101,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 
 /datum/overmap_programmed_profile/laborcamp
 	shuttle_id = "laborcamp"
+	manual_helm = TRUE
 
 /datum/overmap_programmed_profile/laborcamp/setup_legs()
 	add_leg("laborcamp_home", "labor_west")
@@ -165,14 +178,18 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	return istype(shuttle, /obj/docking_port/mobile/pod)
 
 /obj/overmap/entity/proc/programmed_pad_label(pad_id)
-	var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id, warn = FALSE)
 	if(!pad)
 		return pad_id
 	if(!pad.overmap_dock_label)
 		pad.apply_overmap_dock_role()
-	return pad.overmap_dock_label || pad.name || pad_id
+	var/label = pad.overmap_dock_label || pad.name || pad_id
+	var/obj/overmap/entity/host = SSovermap.host_for_pad(pad)
+	var/area/location = get_area(pad)
+	return host ? "[label] ([host.get_overmap_display_name()])" : "[label] ([location.name])"
 
 /obj/overmap/entity/proc/programmed_profile()
+	RETURN_TYPE(/datum/overmap_programmed_profile)
 	if(!shuttle?.id)
 		return null
 	return GLOB.overmap_programmed_profiles[shuttle.id]
@@ -193,7 +210,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		ensure_virtual_engine()
 
 /obj/overmap/entity/proc/is_programmed_locked()
-	if(!programmed)
+	if(!programmed || programmed_profile()?.manual_helm)
 		return FALSE
 	return world.time >= programmed_emag_until
 
@@ -211,7 +228,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	. = list()
 	if(!shuttle || !programmed_has_routes)
 		return
-	var/current_id = programmed_current_pad()
+	var/current_id = status == OVERMAP_STATUS_DOCKED ? shuttle.getDockedId() : null
 	var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[shuttle.id]
 	var/list/pads = profile?.dock_ids(FALSE)
 	if(!pads)
@@ -221,7 +238,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 			continue
 		if(length(allowed_ids) && !(pad_id in allowed_ids))
 			continue
-		var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id)
+		var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id, warn = FALSE)
 		if(!pad || istype(pad, /obj/docking_port/stationary/transit))
 			continue
 		. += list(list(
@@ -282,7 +299,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		var/list/pads = profile?.dock_ids(FALSE)
 		if(!pads)
 			return "Маршрут недоступен."
-		if(dock_id == programmed_current_pad())
+		if(status == OVERMAP_STATUS_DOCKED && dock_id == shuttle.getDockedId())
 			return "Шаттл уже на этой площадке."
 		if(!dock_id || !(dock_id in pads) || (length(allowed_ids) && !(dock_id in allowed_ids)))
 			var/list/routes = programmed_route_list(allowed_ids)
@@ -293,11 +310,12 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	else if(dock_id && dock_id == shuttle.getDockedId() && status == OVERMAP_STATUS_DOCKED)
 		snap_physical_redock()
 		return TRUE
-	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id, warn = FALSE)
 	if(!pad)
 		return "Маршрут недоступен."
 	if(profile?.skip_windup)
 		skip_windup = TRUE
+	var/departure_dock = hull_needs_transit_undock() ? programmed_current_pad() : null
 	if(profile?.instant_undock && status == OVERMAP_STATUS_DOCKED)
 		var/undock_result = begin_physical_undock(TRUE)
 		if(undock_result != TRUE)
@@ -306,7 +324,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	apply_programmed_collar(dock_id)
 	if(flight)
 		flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-	programmed_mission = new(src, dock_id, skip_windup)
+	programmed_mission = new(src, dock_id, skip_windup, departure_dock)
 	if(profile?.persist_until_dock)
 		programmed_mission.persist_until_dock = TRUE
 	if(status != OVERMAP_STATUS_DOCKED && (profile?.skip_windup || skip_windup))
@@ -320,34 +338,14 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	return TRUE
 
 /obj/overmap/entity/proc/start_request_route(dock_id)
-	if(!shuttle || !dock_id)
-		return "Маршрут недоступен."
-	if(programmed_mission)
-		return "Маршрут недоступен."
-	if(is_programmed_emagged())
-		return "Нет ответа от объекта."
-	if(programmed)
-		return start_programmed_route(dock_id)
-	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
-	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
-		return "Маршрут недоступен."
-	if(dock_id == programmed_current_pad() && status == OVERMAP_STATUS_DOCKED)
-		return "Шаттл уже на этой площадке."
-	ensure_virtual_engine()
-	programmed_selected_dock = dock_id
-	apply_programmed_collar(dock_id)
-	if(flight)
-		flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-	programmed_mission = new(src, dock_id, FALSE)
-	programmed_mission.cancellable = TRUE
-	programmed_mission.persist_until_dock = FALSE
-	announce_programmed("Маршрут принят. Отправление через 10 секунд.")
-	return TRUE
+	if(!programmed_profile()?.leg_for(dock_id))
+		return "Запрограммированный маршрут отсутствует."
+	return start_programmed_route(dock_id)
 
 /obj/overmap/entity/proc/abort_programmed_mission()
 	QDEL_NULL(programmed_mission)
 	if(flight)
-		flight.autopilot = FALSE
+		flight.set_autopilot(FALSE, manual = FALSE)
 
 /obj/overmap/entity/proc/abort_cancellable_mission()
 	if(!programmed_mission?.cancellable)
@@ -360,7 +358,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	SEND_SIGNAL(src, COMSIG_OVERMAP_NOTICE, text)
 
 /obj/overmap/entity/proc/emag_programmed(mob/user)
-	if(!programmed)
+	if(!programmed || programmed_profile()?.manual_helm)
 		return FALSE
 	if(world.time < programmed_emag_ready)
 		to_chat(user, span_warning("Навигация ещё в защитном цикле."))
@@ -374,7 +372,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	else
 		programmed_emag_resume_dock = programmed_emag_dest_dock || programmed_emag_home_dock
 	abort_programmed_mission()
-	var/emag_time = (shuttle?.id == "emergency") ? OVERMAP_PROGRAMMED_EMAG_EMERGENCY_TIME : OVERMAP_PROGRAMMED_EMAG_TIME
+	var/emag_time = OVERMAP_PROGRAMMED_EMAG_TIME
 	programmed_emag_until = world.time + emag_time
 	addtimer(CALLBACK(src, PROC_REF(finish_programmed_emag)), emag_time)
 	var/obj/docking_port/mobile/emergency/evac = shuttle
@@ -397,7 +395,6 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	programmed_emag_ready = world.time + OVERMAP_PROGRAMMED_EMAG_CD
 	if(flight)
 		flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-		flight.clear_held_thrust()
 		flight.held_brake = FALSE
 		flight.engines_state = TRUE
 	halted = FALSE
@@ -441,18 +438,28 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/next_nav_warn = 0
 	var/persist_until_dock = FALSE
 	var/cancellable = FALSE
+	var/processing = FALSE
 
-/datum/overmap_programmed_mission/New(obj/overmap/entity/owner, target_dock, skip_windup)
+/datum/overmap_programmed_mission/New(obj/overmap/entity/owner, target_dock, skip_windup, source_dock)
 	vessel = owner
+	QDEL_NULL(owner.docking_approach)
+	if(owner.flight)
+		owner.flight.release_pilot()
+		owner.flight.set_autopilot(FALSE, manual = FALSE)
+		owner.flight.navigation_target = null
+		owner.flight.held_brake = TRUE
 	dock_id = target_dock
 	var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[owner.shuttle?.id]
 	collar_id = profile?.leg_for(target_dock)?.collar_id
-	dest_host = SSovermap?.host_for_pad(SSshuttle.getDock(target_dock), owner.shuttle)
+	dest_host = SSovermap?.host_for_pad(SSshuttle.getDock(target_dock, warn = FALSE), owner.shuttle)
 	if(!dest_host)
-		dest_host = SSovermap?.resolve_nest_host(owner.shuttle, SSshuttle.getDock(target_dock))
+		dest_host = SSovermap?.resolve_nest_host(owner.shuttle, SSshuttle.getDock(target_dock, warn = FALSE))
 	started_at = world.time
 	home_dock = owner.programmed_current_pad()
+	departure_dock_id = source_dock
+	departure_pending = !!source_dock
 	persist_until_dock = profile?.persist_until_dock
+	cancellable = !!profile?.manual_helm
 	if(skip_windup)
 		phase = OVERMAP_PROG_UNDOCK
 		windup_end = world.time
@@ -461,6 +468,9 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		windup_end = world.time + OVERMAP_PROGRAMMED_WINDUP
 
 /datum/overmap_programmed_mission/Destroy()
+	if(vessel?.programmed_mission == src)
+		vessel.flight?.set_autopilot(FALSE, manual = FALSE)
+		QDEL_NULL(vessel.docking_approach)
 	if(vessel?.programmed_mission == src)
 		vessel.programmed_mission = null
 	vessel = null
@@ -475,8 +485,14 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	return "[add_zero(num2text(round(seconds / 60)), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
 /datum/overmap_programmed_mission/proc/process_mission()
-	if(QDELETED(vessel) || QDELETED(src))
+	set waitfor = FALSE
+	if(processing || QDELETED(vessel) || QDELETED(src))
 		return
+	processing = TRUE
+	advance_phase()
+	processing = FALSE
+
+/datum/overmap_programmed_mission/proc/advance_phase()
 	if(vessel.is_overmap_jammed() && phase != OVERMAP_PROG_JUMP)
 		return
 	switch(phase)
@@ -516,7 +532,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	RETURN_TYPE(/obj/overmap/entity)
 	if(!QDELETED(dest_host))
 		return dest_host
-	dest_host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id), vessel.shuttle)
+	dest_host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id, warn = FALSE), vessel.shuttle)
 	return dest_host
 
 /datum/overmap_programmed_mission/proc/needs_hyperrelay()
@@ -527,18 +543,13 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		return FALSE
 	return host.sector != vessel.sector
 
-/datum/overmap_programmed_mission/proc/nav_turf()
-	if(!vessel.sector)
-		return null
-	if(needs_hyperrelay())
-		if(vessel.hyperrelay_on_tile())
-			return vessel.get_overmap_turf()
-		return vessel.nearest_hyperrelay()?.get_overmap_turf()
-	var/turf/dest = resolved_dest_host()?.get_overmap_turf()
-	var/turf/here = vessel.get_overmap_turf()
-	if(!dest || !here || dest.z != here.z)
-		return null
-	return dest
+/datum/overmap_programmed_mission/proc/route_relay()
+	RETURN_TYPE(/obj/overmap/entity/hyperrelay)
+	return vessel.nearest_hyperrelay(resolved_dest_host()?.sector)
+
+/datum/overmap_programmed_mission/proc/on_route_relay()
+	var/obj/overmap/entity/hyperrelay/relay = route_relay()
+	return relay && vessel.hyperrelay_on_tile() == relay
 
 /datum/overmap_programmed_mission/proc/ensure_free_for_flight()
 	if(QDELETED(vessel))
@@ -552,6 +563,8 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	vessel.halted = FALSE
 	if(vessel.flight)
 		vessel.flight.engines_state = TRUE
+	if(!vessel.free_flight_view && vessel.in_free_flight())
+		vessel.set_free_flight_view(TRUE)
 	if(!isturf(vessel.loc) || !SSovermap)
 		return
 	var/datum/overmap_sector/here_sector = SSovermap.sector_for_turf(vessel.loc)
@@ -568,33 +581,28 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	ensure_free_for_flight()
 	if(vessel.status == OVERMAP_STATUS_DOCKED)
 		return
+	if(departure_pending && continue_departure())
+		return
 	var/turf/here = vessel.get_overmap_turf()
 	if(needs_hyperrelay())
-		if(vessel.hyperrelay_on_tile() && OVERMAP_SPEED_STOPPED(vessel.get_speed()))
+		if(on_route_relay() && OVERMAP_SPEED_STOPPED(vessel.get_speed()))
 			on_overmap_arrived()
 			return
-		var/turf/relay_turf = vessel.nearest_hyperrelay()?.get_overmap_turf()
+		var/turf/relay_turf = route_relay()?.get_overmap_turf()
 		if(!relay_turf || !here || relay_turf.z != here.z)
 			return
 		if(vessel.flight)
 			vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-		vessel.set_autopilot(TRUE, vessel.sector.coord_x(relay_turf), vessel.sector.coord_y(relay_turf))
+		var/obj/overmap/entity/hyperrelay/relay = route_relay()
+		vessel.flight.navigate_world(relay.get_world_x(), relay.get_world_y())
 		return
-	var/turf/goal = nav_turf()
-	if(!goal || !vessel.sector || !here || goal.z != here.z)
-		return
-	if(vessel.get_overmap_turf() == goal && OVERMAP_SPEED_STOPPED(vessel.get_speed()))
-		on_overmap_arrived()
-		return
-	if(vessel.flight)
-		vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-	vessel.set_autopilot(TRUE, vessel.sector.coord_x(goal), vessel.sector.coord_y(goal))
+	continue_navigation()
 
 /datum/overmap_programmed_mission/proc/on_overmap_arrived()
 	if(phase != OVERMAP_PROG_FLY && phase != OVERMAP_PROG_JUMP)
 		return
 	if(needs_hyperrelay())
-		if(!vessel.hyperrelay_on_tile())
+		if(!on_route_relay())
 			phase = OVERMAP_PROG_FLY
 			return
 		phase = OVERMAP_PROG_JUMP
@@ -611,7 +619,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		phase = OVERMAP_PROG_FLY
 		try_fly()
 		return
-	if(!needs_hyperrelay() || !vessel.hyperrelay_on_tile())
+	if(!needs_hyperrelay() || !on_route_relay())
 		phase = OVERMAP_PROG_FLY
 		return
 	if(vessel.begin_hyperrelay_jump(TRUE) == TRUE)
@@ -619,28 +627,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	phase = OVERMAP_PROG_FLY
 
 /datum/overmap_programmed_mission/proc/try_dock()
-	if(vessel.status == OVERMAP_STATUS_DOCKED && vessel.shuttle?.getDockedId() == dock_id)
-		var/datum/overmap_programmed_profile/done_profile = GLOB.overmap_programmed_profiles[vessel.shuttle.id]
-		done_profile?.announce_arrive(dock_id)
-		qdel(src)
-		return
-	if(!persist_until_dock && vessel.shuttle?.mode != SHUTTLE_IDLE && vessel.shuttle?.mode != SHUTTLE_RECHARGING)
-		return
-	if(vessel.shuttle?.mode == SHUTTLE_IGNITING)
-		return
-	if(!OVERMAP_SPEED_STOPPED(vessel.get_speed()))
-		return
-	if(world.time < next_dock_try)
-		return
-	if(!vessel.get_dock_host())
-		fail_dock("Нет площадки на этой клетке.")
-		return
-	vessel.apply_programmed_collar(dock_id)
-	vessel.selected_dock_id = dock_id
-	var/result = vessel.begin_physical_dock(TRUE)
-	if(result == TRUE)
-		return
-	fail_dock(result)
+	dock_from_navigation()
 
 /datum/overmap_programmed_mission/proc/fail_dock(reason)
 	dock_tries++
@@ -666,22 +653,40 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	vessel.announce_programmed("[text] Повторная стыковка через 15 секунд.")
 	vessel.announce_sensor_event("[vessel.get_overmap_display_name()]: стыковка не удалась. [text] Повтор через 15 секунд.", "dock_fail")
 
-/obj/overmap/entity/proc/nearest_hyperrelay()
+/obj/overmap/entity/proc/nearest_hyperrelay(datum/overmap_sector/goal_sector)
 	RETURN_TYPE(/obj/overmap/entity/hyperrelay)
-	if(!sector)
+	if(!sector || !goal_sector || goal_sector == sector)
 		return null
+	var/list/hops_to_goal = list()
+	hops_to_goal[goal_sector] = 0
+	var/list/queue = list(goal_sector)
+	while(length(queue))
+		var/datum/overmap_sector/current = popleft(queue)
+		for(var/obj/overmap/overmap_object as anything in current.objects)
+			var/obj/overmap/entity/hyperrelay/relay = overmap_object
+			if(!istype(relay) || QDELETED(relay.paired) || !relay.paired.sector)
+				continue
+			if(!isnull(hops_to_goal[relay.paired.sector]))
+				continue
+			hops_to_goal[relay.paired.sector] = hops_to_goal[current] + 1
+			queue += relay.paired.sector
 	var/turf/here = get_overmap_turf()
 	var/obj/overmap/entity/hyperrelay/best
+	var/best_hops = INFINITY
 	var/best_dist = INFINITY
 	for(var/obj/overmap/overmap_object as anything in sector.objects)
 		var/obj/overmap/entity/hyperrelay/relay = overmap_object
 		if(!istype(relay) || QDELETED(relay.paired))
 			continue
+		var/hops = hops_to_goal[relay.paired.sector]
+		if(isnull(hops))
+			continue
 		var/turf/there = relay.get_overmap_turf()
 		if(!there || !here)
 			continue
 		var/dist = max(abs(here.x - there.x), abs(here.y - there.y))
-		if(dist < best_dist)
+		if(hops < best_hops || (hops == best_hops && dist < best_dist))
+			best_hops = hops
 			best_dist = dist
 			best = relay
 	return best
@@ -717,7 +722,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 				return
 	else
 		. += OVERMAP_PROGRAMMED_WINDUP + 8 SECONDS
-	var/obj/overmap/entity/host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id), shuttle)
+	var/obj/overmap/entity/host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id, warn = FALSE), shuttle)
 	if(!host && mission)
 		host = mission.dest_host
 	var/turf/here = get_overmap_turf()
@@ -725,19 +730,14 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		. += 90 SECONDS
 		return
 	if(sector && host.sector && sector != host.sector)
-		var/obj/overmap/entity/hyperrelay/relay = nearest_hyperrelay()
+		var/obj/overmap/entity/hyperrelay/relay = nearest_hyperrelay(host.sector)
 		var/turf/relay_turf = relay?.get_overmap_turf()
 		if(relay_turf)
 			. += estimate_overmap_leg(here, relay_turf, sector)
 		if(mission?.phase != OVERMAP_PROG_JUMP)
-			. += OVERMAP_HYPERRELAY_JUMP_TIME
+			. += relay ? hyperrelay_jump_duration(relay) : OVERMAP_HYPERRELAY_JUMP_TIME
 		var/turf/dest = host.get_overmap_turf()
-		var/turf/other_relay
-		for(var/obj/overmap/overmap_object as anything in host.sector?.objects)
-			var/obj/overmap/entity/hyperrelay/pair = overmap_object
-			if(istype(pair))
-				other_relay = pair.get_overmap_turf()
-				break
+		var/turf/other_relay = relay?.paired?.get_overmap_turf()
 		if(dest && other_relay)
 			. += estimate_overmap_leg(other_relay, dest, host.sector)
 		. += 8 SECONDS

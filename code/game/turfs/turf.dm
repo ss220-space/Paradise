@@ -254,6 +254,11 @@
 // Enter, but hypothetical.
 /turf/proc/can_enter(atom/movable/mover)
 	var/atom/mover_loc = mover.loc
+	if(length(SSovermap.flying_pods))
+		var/obj/spacepod/pod = SSovermap.pod_blocker(src, mover)
+		if(pod)
+			mover.Bump(pod)
+			return FALSE
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
 	if(!can_pass_self)

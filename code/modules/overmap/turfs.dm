@@ -76,9 +76,6 @@
 		sensors = usr?.machine
 	if(istype(sensors) && sensors.try_map_click(usr, src))
 		return
-	var/obj/machinery/computer/helm/helm = usr?.machine
-	if(istype(helm) && helm.mark_atom(usr, src))
-		return
 	return ..()
 
 /turf/simulated/floor/indestructible/overmap/edge
@@ -107,7 +104,7 @@
 	color = "#000000"
 	name = "map void"
 
-/turf/simulated/floor/indestructible/hyperspace //123123123
+/turf/simulated/floor/indestructible/hyperspace
 	name = "hyperspace"
 	icon = 'icons/turf/space.dmi'
 	icon_state = "black"
@@ -129,7 +126,9 @@
 /proc/overmap_seal_block_with_hyperspace(turf/bottom_left, turf/top_right)
 	if(!bottom_left || !top_right || bottom_left.z != top_right.z)
 		return
-	for(var/turf/spot as anything in block(bottom_left, top_right))
-		if(spot.x != bottom_left.x && spot.x != top_right.x && spot.y != bottom_left.y && spot.y != top_right.y)
-			continue
+	var/width = top_right.x - bottom_left.x + 1
+	var/height = top_right.y - bottom_left.y + 1
+	var/list/edges = (width <= 2 || height <= 2) ? block(bottom_left, top_right) : CORNER_OUTLINE(locate(bottom_left.x + 1, bottom_left.y + 1, bottom_left.z), width - 2, height - 2)
+	for(var/turf/spot as anything in edges)
 		spot.ChangeTurf(/turf/simulated/floor/indestructible/hyperspace, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
+		CHECK_TICK

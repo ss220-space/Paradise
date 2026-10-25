@@ -23,8 +23,10 @@
 
 /obj/machinery/computer/sensors/attackby(obj/item/item, mob/living/user, params)
 	if(can_dump && istype(item, /obj/item/paper) && !istype(item, /obj/item/paper_bundle))
-		insert_dump_paper(item, user)
-		return
+		add_fingerprint(user)
+		if(insert_dump_paper(item, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 /obj/machinery/computer/sensors/attack_ai(mob/user)
@@ -39,33 +41,13 @@
 	if(!ui)
 		ui = new(user, src, "OvermapSensors", name)
 		ui.open()
-		cam_screen.display_to(user, ui.window)
-		if(ui.window)
-			RegisterSignal(ui.window, COMSIG_TGUI_WINDOW_VISIBLE, PROC_REF(on_sensor_window_visible), override = TRUE)
-	else if(ui.window)
-		cam_screen.display_to(user, ui.window)
-	update_map_view()
-	register_sensor_map_overlays()
-
-/obj/machinery/computer/sensors/proc/on_sensor_window_visible(datum/tgui_window/window, client/show_to)
-	SIGNAL_HANDLER
-	update_map_view(TRUE)
-	register_sensor_map_overlays()
+	vessel?.watch_radar(ui)
+	update_scan_info()
 
 /obj/machinery/computer/sensors/ui_close(mob/user)
 	. = ..()
-	cam_screen?.hide_from(user)
 	if(user.machine == src)
 		user.unset_machine()
-
-/obj/machinery/computer/sensors/ui_status(mob/user, datum/ui_state/state)
-	if(stat & (NOPOWER|BROKEN))
-		return UI_CLOSE
-	if(user.incapacitated())
-		return UI_CLOSE
-	if(!user.Adjacent(src) && !user.has_unlimited_silicon_privilege)
-		return UI_CLOSE
-	return UI_INTERACTIVE
 
 /obj/machinery/computer/sensors/proc/play_sensor_alert(kind)
 	if(!kind || (stat & (NOPOWER|BROKEN)))
@@ -89,8 +71,9 @@
 
 /obj/machinery/computer/sensors/ui_data(mob/user)
 	var/list/data = list()
+	if(vessel)
+		vessel.fill_radar_data(data)
 	data["linked"] = !!vessel
-	data["mapRef"] = cam_screen?.assigned_map
 	data["view_mode"] = view_mode
 	data["has_long"] = vessel?.has_working_sensor(OVERMAP_SENSOR_KIND_LONG)
 	data["has_short"] = vessel?.has_working_sensor(OVERMAP_SENSOR_KIND_SHORT)
@@ -100,6 +83,17 @@
 	data["scanning"] = scanning
 	data["scan_error"] = scan_error
 	data["scan"] = scan_info
+	var/obj/overmap/entity/radar_subject = vessel
+	data["scan_radar"] = FALSE
+	if(scan_finished && !vessel?.relay_jump_from)
+		var/obj/overmap/entity/subject = scan_subject(scanning_target)
+		if(istype(subject) && subject.shuttle)
+			if(!length(subject.hull_turfs))
+				subject.map_hull()
+			radar_subject = subject
+			subject.fill_radar_data(data)
+			data["scan_radar"] = TRUE
+	overmap_watch_radar(src, user, radar_subject)
 	data["scan_done"] = scan_finished
 	data["can_print"] = can_print
 	data["can_dump"] = can_dump
@@ -115,8 +109,6 @@
 		else
 			data["scan_progress"] = clamp((world.time - scan_started_at) / OVERMAP_SENSOR_SCAN_TIME, 0, 1)
 	data["selected"] = selected_uid
-	data["map_zoom"] = map_zoom
-	data["map_revision"] = map_revision
 	data["map_jammed"] = !!vessel?.is_overmap_jammed()
 	data["journal"] = vessel?.sensor_journal || list()
 	var/list/alerts = list()
@@ -188,8 +180,7 @@
 			scanning_target = null
 			scan_finished = FALSE
 			scan_info = null
-			map_revision++
-			update_map_view(TRUE)
+			update_scan_info(TRUE)
 			. = TRUE
 		if("toggle")
 			if(view_mode == OVERMAP_SENSOR_KIND_LONG)
@@ -204,7 +195,7 @@
 					scanning = FALSE
 					scanning_target = null
 					scan_finished = FALSE
-			update_map_view()
+			update_scan_info()
 			. = TRUE
 		if("select")
 			selected_uid = params["ref"]
@@ -215,6 +206,17 @@
 			var/obj/overmap/target = resolve_scan_target()
 			if(!start_short_scan(target))
 				to_chat(usr, span_warning("Нет цели в зоне сканирования."))
+			. = TRUE
+		if("scan_point")
+			var/world_x = text2num(params["x"])
+			var/world_y = text2num(params["y"])
+			if(isnum(world_x) && isnum(world_y) && vessel?.sector)
+				for(var/obj/overmap/feature/hazard/field in vessel.sector.objects)
+					if(!vessel.can_short_scan(field) || !field.cloud_owns_point(world_x, world_y) || field.cloud_strength(world_x, world_y) <= 0)
+						continue
+					selected_uid = field.UID()
+					start_short_scan(field)
+					break
 			. = TRUE
 		if("print_scan")
 			if(!print_scan_report())
@@ -237,12 +239,8 @@
 			scan_error = null
 			scan_info = null
 			scan_finished = FALSE
-			map_revision++
 			scan_started_at = 0
-			scan_min_x = 0
-			scan_min_y = 0
-			hide_sensor_fog()
-			update_map_view(TRUE)
+			update_scan_info(TRUE)
 			. = TRUE
 
 /obj/machinery/computer/sensors/process()
@@ -253,13 +251,13 @@
 		if(vessel && !scanning)
 			var/turf/here = vessel.get_overmap_turf()
 			if(here != last_map_turf)
-				update_map_view()
+				update_scan_info()
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/sensors/power_change(forced = FALSE)
 	. = ..()
 	sync_peel_loop()
-	update_map_view()
+	update_scan_info()
 
 /obj/machinery/computer/sensors/long_range
 
@@ -293,7 +291,7 @@
 	vessel = craft.overmap_vessel
 	vessel.register_sensor(src)
 	view_mode = OVERMAP_SENSOR_KIND_SHORT
-	update_map_view()
+	update_scan_info()
 
 /obj/machinery/computer/sensors/short_range/pod/ui_status(mob/user, datum/ui_state/state)
 	if(!overmap_pod_user_ok(user, loc))

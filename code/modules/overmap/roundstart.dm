@@ -1,5 +1,7 @@
 /obj/overmap/entity/proc/ensure_virtual_engine()
-	if(length(engines))
+	if(!programmed && !programmed_mission && !admin_virtual_engine)
+		return
+	if(length(engines) && !admin_virtual_engine)
 		return
 	if(virtual_engine && !QDELETED(virtual_engine))
 		return
@@ -13,9 +15,6 @@
 	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
 		return FALSE
 	shuttle.unlockPortDoors(pad)
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
-		if(A.id_tag == pad.id && A.locked)
-			A.unlock(TRUE)
 	for(var/area/place as anything in shuttle.shuttle_areas)
 		for(var/obj/machinery/door/airlock/external/docking/door in place)
 			if(door.locked)
@@ -45,7 +44,7 @@
 /obj/overmap/entity/proc/seed_helm_waypoint_from_dock(dock_id)
 	if(!dock_id)
 		return
-	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id, warn = FALSE)
 	if(!pad)
 		return
 	var/obj/overmap/entity/host = SSovermap?.host_for_pad(pad, shuttle)
@@ -92,8 +91,16 @@
 	return null
 
 /obj/docking_port/mobile/emergency/proc/overmap_launch_escape_pods()
-	for(var/obj/docking_port/mobile/pod/pod as anything in SSshuttle.mobile)
+	for(var/obj/docking_port/mobile/pod/pod as anything in SSshuttle.mobile.Copy())
 		if(!istype(pod) || !is_station_level(pod.z))
 			continue
-		if(pod.overmap_follow_programmed_leg("[pod.id]_away") == FALSE)
-			pod.enterTransit()
+		INVOKE_ASYNC(pod, TYPE_PROC_REF(/obj/docking_port/mobile/pod, launch_overmap_escape))
+
+/obj/docking_port/mobile/pod/proc/launch_overmap_escape()
+	if(!is_station_level(z))
+		return
+	if(overmap_follow_programmed_leg("[id]_away") == FALSE)
+		enterTransit()
+		return
+	var/obj/overmap/entity/vessel = SSovermap.shuttle_vessels[src]
+	vessel?.programmed_mission?.process_mission()

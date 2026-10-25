@@ -9868,6 +9868,13 @@
 	icon_state = "whitehall"
 	},
 /area/station/science/xenobiology)
+"cfm" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "mining_home";
+	nav_order = 2
+	},
+/turf/space,
+/area/space)
 "cfn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -10172,15 +10179,9 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "ciC" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/station/medical/secondary)
+/obj/machinery/computer/navmap,
+/turf/simulated/wall,
+/area/station/hallway/primary/central/nw)
 "ciH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11548,6 +11549,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"cxd" = (
+/obj/structure/lattice,
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "mining_home";
+	nav_order = 3
+	},
+/turf/space,
+/area/space)
 "cxh" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/delivery/hollow,
@@ -12594,9 +12603,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/library)
-"cIV" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "cIY" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -14619,11 +14625,10 @@
 /area/station/maintenance/fpmaint)
 "dhz" = (
 /obj/structure/table/reinforced,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/machinery/computer/navmap,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17263,6 +17268,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
+"dKh" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "laborcamp_home";
+	nav_order = 2
+	},
+/turf/space,
+/area/space)
 "dKj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17929,6 +17941,10 @@
 	icon_state = "green"
 	},
 /area/hydroponics)
+"dSm" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall,
+/area/station/medical/surgery/north)
 "dSp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -20315,6 +20331,15 @@
 /obj/item/slime_extract/bluespace,
 /turf/simulated/floor/plating,
 /area/station/command/teleporter/abandoned)
+"erG" = (
+/obj/machinery/power/solar{
+	id = "portsolar";
+	name = "West Solar Array"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/station/solars/starboard/fore)
 "erI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -21396,13 +21421,10 @@
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/security/prisoner_shuttle)
 "eDh" = (
@@ -27718,17 +27740,15 @@
 	},
 /area/station/science/research)
 "fOy" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North";
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31173,6 +31193,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -31497,6 +31518,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos/mixing_atmos)
+"gww" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "laborcamp_home";
+	nav_order = 3
+	},
+/turf/space,
+/area/space)
 "gwC" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -46020,9 +46048,13 @@
 	},
 /area/station/command/office/cmo)
 "jgl" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/grille,
-/turf/space,
+/obj/machinery/door/airlock/external/docking{
+	id_tag = "laborcamp_home";
+	dir = 4;
+	dock_name = "Док шаттла каторги"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/space)
 "jgy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -47626,9 +47658,6 @@
 /area/station/engineering/engine)
 "jvZ" = (
 /obj/machinery/computer/atmoscontrol,
-/obj/machinery/status_display{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -48144,22 +48173,15 @@
 	},
 /area/station/service/kitchen)
 "jBd" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	layer = 3.3;
-	master_tag = "solar_chapel_airlock";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access = list(10,13)
-	},
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
-/turf/space,
-/area/station/solars/starboard/fore)
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/station/security/prisoner_shuttle)
 "jBf" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -50981,6 +51003,13 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass,
 /area/station/medical/cryo)
+"kaC" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "laborcamp_home";
+	dir = 8
+	},
+/turf/space,
+/area/space)
 "kaF" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -56948,11 +56977,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"ldX" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/floor,
-/turf/simulated/floor/plating,
-/area/station/security/prisoner_shuttle)
 "leb" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/plasteel{
@@ -67879,6 +67903,14 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/commercial)
+"nei" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "supply_home";
+	nav_order = 3;
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "nek" = (
 /obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -69192,6 +69224,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/west)
+"npD" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "emergency_home"
+	},
+/turf/space,
+/area/space)
 "npH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -70908,6 +70946,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
+"nFw" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/command/office/hos)
 "nFN" = (
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
@@ -74721,6 +74763,13 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/arrival/station)
+"oqR" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "mining_home";
+	nav_order = 4
+	},
+/turf/space,
+/area/space)
 "orc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -81127,7 +81176,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "pzf" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown"
@@ -81138,6 +81186,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/security/prisoner_shuttle)
 "pzl" = (
@@ -81638,6 +81687,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
+"pEj" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/command/vip)
 "pEr" = (
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/eastright{
@@ -81886,6 +81939,11 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/machinery/power/apc/directional/east,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -98881,16 +98939,10 @@
 	},
 /area/station/cargo/delivery)
 "sCE" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown"
-	},
-/obj/machinery/door/airlock/external/docking/support{
-	id_tag = "laborcamp_home"
-	},
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
-/area/station/security/prisoner_shuttle)
+/area/space)
 "sCG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -100728,6 +100780,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
+"sSg" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos/control)
 "sSk" = (
 /obj/machinery/door/airlock{
 	name = "Toilet"
@@ -107982,6 +108038,7 @@
 	pixel_x = 8;
 	pixel_y = 6
 	},
+/obj/item/spacepod_equipment/weaponry/ion,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -108197,6 +108254,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
+"uoF" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/science/explab)
 "uoG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -108381,7 +108442,7 @@
 	},
 /area/station/science/chem_lab)
 "uqh" = (
-/obj/machinery/status_display/supply_display,
+/obj/machinery/computer/navmap,
 /turf/simulated/wall/r_wall,
 /area/station/command/office/qm)
 "uqj" = (
@@ -108976,12 +109037,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "uvz" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-8"
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "supply_home";
+	nav_order = 2;
+	dir = 4
 	},
 /turf/space,
-/area/station/solars/starboard/fore)
+/area/space)
 "uvS" = (
 /turf/simulated/wall/rust,
 /area/station/maintenance/asmaint)
@@ -110857,6 +110919,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/tourist)
+"uNv" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "supply_home";
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "uNy" = (
 /turf/simulated/wall,
 /area/station/engineering/transit_tube)
@@ -112838,19 +112907,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint3)
-"vfE" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown"
-	},
-/obj/machinery/door/airlock/external/docking{
-	id_tag = "laborcamp_home";
-	dir = 4;
-	dock_name = "Док шаттла каторги"
-	},
-/turf/simulated/floor/plating,
-/area/station/security/prisoner_shuttle)
 "vfO" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -116529,6 +116585,10 @@
 	icon_state = "dark"
 	},
 /area/station/commons/serviceyard)
+"vQy" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/command/teleporter)
 "vQA" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -117422,6 +117482,10 @@
 	icon_state = "caution"
 	},
 /area/station/maintenance/bar)
+"vYq" = (
+/obj/machinery/computer/navmap,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "vYv" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/research)
@@ -119227,6 +119291,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
+"wqh" = (
+/obj/effect/landmark/overmap_navigation_beacon{
+	dock_id = "mining_home";
+	dir = 2
+	},
+/turf/space,
+/area/space)
 "wqk" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -127867,14 +127938,9 @@
 	},
 /area/station/cargo/delivery)
 "xVG" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/station/science/research)
+/obj/machinery/computer/navmap,
+/turf/simulated/wall/r_wall,
+/area/station/command/office/hop)
 "xVI" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -154097,7 +154163,7 @@ knQ
 syd
 syd
 syd
-syd
+sSg
 syd
 syd
 ksn
@@ -158772,8 +158838,8 @@ sKJ
 dug
 cEf
 jiC
-xBO
-xVG
+uoF
+tcB
 pqb
 gtb
 dHE
@@ -162573,7 +162639,7 @@ qJa
 xch
 ikK
 vok
-prd
+ciC
 bee
 djA
 djA
@@ -162591,7 +162657,7 @@ uwC
 pRe
 jXS
 noF
-xKn
+xVG
 xKn
 xKn
 xKn
@@ -162602,7 +162668,7 @@ wBy
 xKn
 xKn
 fYi
-fYi
+pEj
 iuP
 vVm
 bLu
@@ -164976,7 +165042,7 @@ awj
 eSt
 msT
 aED
-jaI
+vYq
 mug
 oBK
 wuL
@@ -166004,7 +166070,7 @@ eJy
 eSt
 msT
 aED
-jaI
+vYq
 mug
 oBK
 muO
@@ -170826,7 +170892,7 @@ wCr
 kVk
 wCr
 wCr
-wCr
+vQy
 kIi
 cEg
 jMq
@@ -171449,7 +171515,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+npD
 aaq
 aaq
 aaq
@@ -171882,8 +171948,8 @@ phw
 phw
 jEX
 hol
-ciC
-slh
+oNN
+dSm
 slh
 llH
 yeg
@@ -174368,9 +174434,9 @@ aaq
 aaq
 aaq
 aaq
+acF
 aaq
-aaq
-aaq
+acF
 aaq
 aaq
 aaq
@@ -174600,17 +174666,17 @@ aaq
 aaq
 aaq
 aaq
-coE
-coE
+aaq
+aaq
 aaq
 aaq
 fQF
 hCo
 fQF
-coE
 aaq
 aaq
-coE
+aaq
+aaq
 chA
 asV
 mgd
@@ -174624,11 +174690,11 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+acF
+coE
+coE
+coE
+acF
 aaq
 aaq
 aaq
@@ -174854,20 +174920,20 @@ aaq
 aaq
 aaq
 aaq
-dZq
-dZq
 coE
 coE
+nxJ
+nxJ
+nxJ
+nxJ
+nxJ
+aaq
+fxq
 aaq
 aaq
 aaq
 coE
-jBd
-coE
-coE
 aaq
-aaq
-coE
 chA
 qFl
 bMO
@@ -174881,16 +174947,16 @@ aaq
 aaq
 aaq
 aaq
+acF
+aaq
+aaq
+aaq
+acF
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+coE
 aaq
 coE
 coE
@@ -175111,19 +175177,19 @@ aaq
 aaq
 aaq
 aaq
-dZq
+coE
+acF
+fWh
+bji
+bji
+bji
+bji
+vMJ
+fxq
+aaq
+aaq
 coE
 coE
-aaq
-aaq
-aaq
-coE
-coE
-tMO
-aaq
-aaq
-aaq
-aaq
 aaq
 ezH
 rSu
@@ -175134,26 +175200,26 @@ xrM
 ezH
 coE
 dZq
+coE
+coE
+coE
+coE
+acF
+coE
+coE
+coE
+acF
+coE
+coE
+coE
+coE
+aaq
+aaq
+coE
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-dZq
-dZq
-dZq
 coE
 aaq
 aaq
@@ -175162,7 +175228,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+coE
 iVg
 uyg
 vqF
@@ -175366,22 +175432,22 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
 dZq
 coE
+coE
 aaq
+lWs
+lWs
+lWs
+lWs
+lWs
 aaq
+fxq
 aaq
 coE
 coE
 aaq
-uvz
 aaq
-aaq
-aaq
-aaq
-coE
 ezH
 rSu
 hoW
@@ -175395,28 +175461,28 @@ aaq
 aaq
 aaq
 aaq
+acF
+aaq
+aaq
+aaq
+acF
 aaq
 aaq
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-dZq
 coE
 aaq
 aaq
 aaq
+coE
 aaq
 aaq
+aaq
+acF
+acF
+acF
 aaq
 aaq
 aaq
@@ -175623,22 +175689,22 @@ aaq
 aaq
 aaq
 aaq
+dZq
+coE
+aaq
+aaq
 aaq
 aaq
 coE
-coE
-nxJ
-nxJ
-nxJ
-nxJ
-nxJ
+aaq
+aaq
 aaq
 fxq
-aaq
-aaq
-aaq
 coE
 coE
+aaq
+aaq
+aaq
 ezH
 rSu
 xNA
@@ -175652,29 +175718,29 @@ aaq
 aaq
 aaq
 aaq
+acF
+coE
+cxd
+coE
+acF
 aaq
 aaq
 aaq
 aaq
 aaq
 aaq
+acF
+acF
+acF
+acF
+oqR
+coE
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-dZq
 coE
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
+coE
 aaq
 aaq
 iVg
@@ -175880,21 +175946,21 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
+dZq
 coE
-acF
-fWh
-bji
-bji
-bji
-bji
-vMJ
+aaq
+nxJ
+nxJ
+nxJ
+nxJ
+nxJ
+aaq
+fxq
+fxq
+fxq
 fxq
 aaq
 aaq
-coE
-coE
 aaq
 bMO
 pOU
@@ -175909,16 +175975,11 @@ aaq
 aaq
 aaq
 aaq
+acF
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+acF
 aaq
 aaq
 aaq
@@ -175929,8 +175990,13 @@ coE
 aaq
 aaq
 aaq
+coE
 aaq
 aaq
+aaq
+acF
+acF
+acF
 aaq
 aaq
 aaq
@@ -176137,21 +176203,21 @@ aaq
 aaq
 aaq
 aaq
-dZq
-coE
-coE
 aaq
-lWs
-lWs
-lWs
-lWs
-lWs
-aaq
+coE
+acF
+fWh
+bji
+bji
+bji
+bji
+vMJ
 fxq
 aaq
-coE
-coE
 aaq
+tWY
+fjI
+coE
 aaq
 bMO
 ykf
@@ -176167,14 +176233,9 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+coE
+nei
+coE
 aaq
 aaq
 aaq
@@ -176187,10 +176248,15 @@ aaq
 aaq
 aaq
 aaq
+coE
 aaq
 aaq
 aaq
 aaq
+aaq
+aaq
+aaq
+coE
 iVg
 mda
 mZm
@@ -176393,22 +176459,22 @@ aaq
 aaq
 aaq
 aaq
-aaq
 dZq
 coE
-aaq
-aaq
-aaq
-aaq
 coE
 aaq
-aaq
+lWs
+lWs
+lWs
+lWs
+lWs
 aaq
 fxq
-coE
-coE
 aaq
 aaq
+haj
+peY
+hiJ
 aaq
 acF
 aaq
@@ -176423,28 +176489,28 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-dZq
-dZq
-aaq
-aaq
-dZq
-dZq
-dZq
-coE
-coE
-coE
 acF
-jgl
+aaq
+coE
+aaq
 acF
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+coE
+aaq
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
 coE
 coE
 coE
@@ -176650,23 +176716,23 @@ aaq
 aaq
 aaq
 aaq
-aaq
 dZq
 coE
 aaq
-nxJ
-nxJ
-nxJ
-nxJ
-nxJ
 aaq
-fxq
-fxq
-fxq
+aaq
+aaq
+coE
+aaq
+aaq
+aaq
 fxq
 aaq
 aaq
-coE
+haj
+peY
+hiJ
+aaq
 coE
 aaq
 coE
@@ -176682,14 +176748,14 @@ aaq
 aaq
 aaq
 aaq
+coE
 aaq
 aaq
 aaq
 aaq
 aaq
 aaq
-dZq
-dZq
+aaq
 coE
 coE
 coE
@@ -176907,45 +176973,45 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-coE
-acF
-fWh
-bji
-bji
-bji
-bji
-vMJ
-fxq
-aaq
-aaq
-tWY
-fjI
-coE
-coE
-acF
-aaq
-acF
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
 dZq
+coE
+aaq
+nxJ
+nxJ
+nxJ
+nxJ
+nxJ
+aaq
+aaq
+fxq
+coE
+coE
+haj
+peY
+hiJ
+aaq
+acF
+aaq
+acF
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+coE
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 coE
 coE
 mQA
@@ -177164,17 +177230,17 @@ aaq
 aaq
 aaq
 aaq
-dZq
-coE
-coE
 aaq
-lWs
-lWs
-lWs
-lWs
-lWs
+coE
+acF
+fWh
+bji
+bji
+bji
+bji
+vMJ
 aaq
-fxq
+cNg
 aaq
 aaq
 haj
@@ -177196,7 +177262,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+coE
 aaq
 aaq
 aaq
@@ -177424,18 +177490,18 @@ aaq
 dZq
 coE
 aaq
+erG
+lWs
+lWs
+lWs
+lWs
 aaq
-aaq
-aaq
-coE
-aaq
-aaq
-aaq
-fxq
+dDV
+sff
 aaq
 aaq
 haj
-peY
+nDW
 hiJ
 aaq
 aaq
@@ -177680,20 +177746,20 @@ aaq
 aaq
 dZq
 coE
+dZq
 aaq
-nxJ
-nxJ
-nxJ
-nxJ
-nxJ
+coE
 aaq
 aaq
-fxq
+aaq
+aaq
+tMO
+aaq
+aaq
+aaq
 coE
 coE
-haj
-peY
-hiJ
+aaq
 aaq
 aaq
 aaq
@@ -177936,21 +178002,21 @@ aaq
 aaq
 aaq
 aaq
-coE
-acF
-fWh
-bji
-bji
-bji
-bji
-vMJ
-fxq
-fxq
+aaq
+dZq
+dZq
 aaq
 aaq
-haj
-peY
-hiJ
+aaq
+aaq
+aaq
+cuj
+aaq
+aaq
+aaq
+aaq
+dZq
+aaq
 aaq
 aaq
 aaq
@@ -178191,23 +178257,23 @@ aaq
 aaq
 aaq
 aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 dZq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 coE
-coE
-aaq
-lWs
-lWs
-lWs
-lWs
-lWs
-aaq
-fxq
 aaq
 aaq
+dZq
 aaq
-haj
-nDW
-hiJ
 aaq
 aaq
 aaq
@@ -178448,20 +178514,20 @@ aaq
 aaq
 aaq
 aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+dZq
+dZq
 dZq
 coE
 aaq
-aaq
-aaq
 coE
-aaq
-aaq
-aaq
-aaq
-fxq
-fxq
-fxq
-aaq
+dZq
+dZq
+dZq
 aaq
 coE
 aaq
@@ -178705,24 +178771,24 @@ aaq
 aaq
 aaq
 aaq
-dZq
-coE
-aaq
-nxJ
-nxJ
-nxJ
-nxJ
-nxJ
 aaq
 aaq
-fxq
 aaq
-tWY
-fjI
-coE
-coE
-coE
-dZq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -178963,23 +179029,6 @@ aaq
 aaq
 aaq
 aaq
-coE
-acF
-fWh
-bji
-bji
-bji
-bji
-vMJ
-fxq
-fxq
-aaq
-haj
-peY
-hiJ
-aaq
-coE
-dZq
 aaq
 aaq
 aaq
@@ -178995,6 +179044,23 @@ aaq
 aaq
 aaq
 aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+cfm
 aaq
 aaq
 aaq
@@ -179219,24 +179285,24 @@ aaq
 aaq
 aaq
 aaq
-dZq
-coE
-aaq
-lWs
-lWs
-lWs
-lWs
-lWs
 aaq
 aaq
-cNg
 aaq
-haj
-peY
-hiJ
 aaq
-dZq
-dZq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -179476,23 +179542,6 @@ aaq
 aaq
 aaq
 aaq
-dZq
-coE
-aaq
-aaq
-aaq
-coE
-aaq
-aaq
-aaq
-dDV
-sff
-coE
-haj
-peY
-hiJ
-aaq
-coE
 aaq
 aaq
 aaq
@@ -179504,6 +179553,23 @@ aaq
 aaq
 aaq
 aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+uvz
 aaq
 aaq
 aaq
@@ -179734,22 +179800,22 @@ aaq
 aaq
 aaq
 aaq
-coE
-dZq
 aaq
 aaq
-coE
-coE
-coE
-aaq
-tMO
 aaq
 aaq
-haj
-peY
-hiJ
 aaq
-dZq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -179992,21 +180058,21 @@ aaq
 aaq
 aaq
 aaq
-dZq
-dZq
-coE
-coE
-aaq
-coE
-coE
-cuj
 aaq
 aaq
-haj
-nDW
-hiJ
 aaq
-dZq
+aaq
+aaq
+aaq
+aaq
+uNv
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -180252,18 +180318,18 @@ aaq
 aaq
 aaq
 aaq
-dZq
 aaq
 aaq
-coE
-coE
-coE
+aaq
+wqh
 aaq
 aaq
-coE
 aaq
 aaq
-dZq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -180509,18 +180575,18 @@ aaq
 aaq
 aaq
 aaq
-dZq
-dZq
-dZq
-coE
 aaq
-coE
-coE
-dZq
-dZq
-dZq
-coE
-coE
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -187012,7 +187078,7 @@ fOe
 ugp
 svp
 rmp
-kML
+nFw
 kML
 coE
 aaq
@@ -189572,7 +189638,7 @@ ilk
 bms
 fYw
 fOy
-ilk
+jBd
 pGn
 fYw
 svV
@@ -189826,12 +189892,12 @@ aaq
 pYz
 pYz
 eDb
-mOF
-pzf
 pYz
 pzf
 mOF
 pzf
+pYz
+eDb
 pYz
 pYz
 coE
@@ -190082,13 +190148,13 @@ aaq
 aaq
 coE
 coE
-pzf
-ldX
-pzf
+aaq
 aaq
 pzf
-ldX
+sCE
 pzf
+aaq
+aaq
 coE
 coE
 coE
@@ -190339,15 +190405,15 @@ aaq
 aaq
 coE
 coE
-bmD
-vfE
-bmD
 aaq
-bmD
-sCE
-bmD
+aaq
+eDb
+jgl
+eDb
+aaq
+aaq
 coE
-coE
+aaq
 aaq
 aaq
 aaq
@@ -190589,20 +190655,20 @@ aaq
 coE
 coE
 coE
-acF
-cIV
-acF
 coE
 coE
 coE
+coE
+coE
+aaq
+coE
 aaq
 aaq
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
+coE
 aaq
 coE
 aaq
@@ -190850,21 +190916,21 @@ aaq
 aaq
 aaq
 aaq
+coE
+aaq
+acF
+acF
+acF
+acF
+aaq
+acF
+acF
+acF
 aaq
 coE
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-coE
-bCI
-aaq
-aaq
+acF
+acF
 aaq
 aaq
 aaq
@@ -191106,20 +191172,20 @@ aaq
 aaq
 aaq
 aaq
+acF
 aaq
+coE
+aaq
+aaq
+aaq
+coE
 aaq
 coE
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-coE
-bCI
+acF
 aaq
 aaq
 aaq
@@ -191363,20 +191429,20 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-coE
-aaq
-aaq
-aaq
-aaq
+acF
 aaq
 aaq
 aaq
 aaq
 aaq
 coE
-bCI
+gww
+coE
+aaq
+aaq
+aaq
+aaq
+acF
 aaq
 aaq
 aaq
@@ -191386,7 +191452,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+dKh
 aaq
 aaq
 aaq
@@ -191620,20 +191686,20 @@ aaq
 aaq
 aaq
 aaq
+acF
 aaq
+coE
+aaq
+aaq
+aaq
+coE
 aaq
 coE
 aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-coE
-aaq
+acF
 aaq
 aaq
 aaq
@@ -191878,21 +191944,21 @@ aaq
 aaq
 aaq
 aaq
-aaq
-coE
-coE
-acF
-cIV
-acF
-acF
-acF
-cIV
-acF
-coE
 coE
 aaq
+acF
+acF
+acF
+acF
 aaq
+acF
+acF
+acF
 aaq
+coE
+aaq
+acF
+acF
 aaq
 aaq
 aaq
@@ -192135,18 +192201,18 @@ aaq
 aaq
 aaq
 aaq
+coE
+aaq
+coE
 aaq
 aaq
 aaq
 aaq
 aaq
 aaq
+coE
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+coE
 aaq
 aaq
 aaq
@@ -192392,17 +192458,17 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
+coE
 aaq
 aaq
 aaq
@@ -193956,7 +194022,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+kaC
 aaq
 aaq
 aaq

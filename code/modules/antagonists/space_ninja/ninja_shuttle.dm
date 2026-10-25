@@ -51,7 +51,7 @@
 	. = ..()
 	stat &= ~NOPOWER
 	if(vessel)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
 		vessel.helms -= src
 		vessel = null
 
@@ -70,14 +70,12 @@
 	if(!target)
 		return
 	if(vessel && vessel != target)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
 		vessel.helms -= src
 	vessel = target
 	target.helms |= src
-	RegisterSignal(target, COMSIG_OVERMAP_MOVED, PROC_REF(on_overmap_moved), override = TRUE)
 	RegisterSignal(target, COMSIG_OVERMAP_NOTICE, PROC_REF(on_overmap_notice), override = TRUE)
 	RegisterSignal(target, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
-	update_map_view()
 
 /obj/machinery/computer/sensors/virtual
 	name = "remote sensors"
@@ -130,7 +128,7 @@
 			view_mode = OVERMAP_SENSOR_KIND_LONG
 		else if(target.has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
 			view_mode = OVERMAP_SENSOR_KIND_SHORT
-	update_map_view()
+	update_scan_info()
 
 /obj/machinery/transponder/virtual
 	name = "remote transponder"

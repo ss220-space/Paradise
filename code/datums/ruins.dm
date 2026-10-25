@@ -70,7 +70,6 @@
 		if(!valid)
 			continue
 
-		log_world("Ruin \"[name]\" placed at ([COORD(central_turf)])")
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i
@@ -138,6 +137,7 @@
 		loaded++
 		for(var/turf/marked as anything in get_affected_turfs(central_turf, TRUE))
 			marked.turf_flags |= NO_RUINS
+			SSovermap.ruin_lighting_turfs += marked
 		cell.register_ruin_footprint(central_turf, width, height)
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return TRUE

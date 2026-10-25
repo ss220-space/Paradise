@@ -190,7 +190,7 @@ export const overmapKindLabel = (kind?: string) => {
     case 'portal':
       return 'портал';
     case 'ruin':
-      return 'руина';
+      return 'руины';
     case 'hazard':
       return 'угроза';
     case 'relay':
@@ -202,6 +202,41 @@ export const overmapKindLabel = (kind?: string) => {
   }
 };
 
+export const overmapKindIcon = (kind?: string) => {
+  switch (kind) {
+    case 'station':
+      return 'building';
+    case 'shuttle':
+      return 'shuttle-space';
+    case 'pod':
+      return 'rocket';
+    case 'planet':
+      return 'globe';
+    case 'portal':
+      return 'circle-half-stroke';
+    case 'ruin':
+      return 'mound';
+    case 'hazard':
+      return 'triangle-exclamation';
+    case 'relay':
+      return 'satellite-dish';
+    default:
+      return 'circle-question';
+  }
+};
+
+export const OVERMAP_KIND_ORDER = [
+  'station',
+  'shuttle',
+  'pod',
+  'relay',
+  'ruin',
+  'portal',
+  'planet',
+  'hazard',
+  'unknown',
+] as const;
+
 export const OvermapList = (props: { children: ReactNode }) => (
   <div className="OvermapList">{props.children}</div>
 );
@@ -209,7 +244,7 @@ export const OvermapList = (props: { children: ReactNode }) => (
 export const OvermapRow = (props: {
   title: ReactNode;
   meta?: ReactNode;
-  tag?: string;
+  tag?: ReactNode;
   selected?: BooleanLike;
   muted?: BooleanLike;
   bad?: BooleanLike;
@@ -252,8 +287,15 @@ export const OvermapStick = (props: {
   disabled?: BooleanLike;
   onChange: (x: number, y: number, power: number) => void;
 }) => {
-  const { x, y, power = 0, heading = 0, speedRatio = 0, disabled, onChange } =
-    props;
+  const {
+    x,
+    y,
+    power = 0,
+    heading = 0,
+    speedRatio = 0,
+    disabled,
+    onChange,
+  } = props;
   const ref = useRef<HTMLDivElement>(null);
   const lastSent = useRef(0);
   const [drag, setDrag] = useState<{
@@ -290,8 +332,7 @@ export const OvermapStick = (props: {
     const rect = node.getBoundingClientRect();
     const nx =
       (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-    const ny =
-      (rect.top + rect.height / 2 - event.clientY) / (rect.height / 2);
+    const ny = (rect.top + rect.height / 2 - event.clientY) / (rect.height / 2);
     const length = Math.hypot(nx, ny);
     const cx = length > 1 ? nx / length : nx;
     const cy = length > 1 ? ny / length : ny;

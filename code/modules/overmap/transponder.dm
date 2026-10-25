@@ -250,18 +250,13 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		ui = new(user, src, "OvermapTransponder", name)
 		ui.open()
 
-/obj/machinery/transponder/ui_status(mob/user, datum/ui_state/state)
-	if(stat & (NOPOWER|BROKEN))
-		return UI_CLOSE
-	if(user.incapacitated())
-		return UI_CLOSE
-	if(!user.Adjacent(src) && !user.has_unlimited_silicon_privilege)
-		return UI_CLOSE
-	return UI_INTERACTIVE
-
 /obj/machinery/transponder/ui_data(mob/user)
-	var/list/data = list()
+	var/list/data = transponder_data()
 	data["linked"] = !!vessel
+	return data
+
+/obj/machinery/transponder/proc/transponder_data()
+	var/list/data = list()
 	data["broadcast_name"] = broadcast_name
 	data["broadcast_color"] = broadcast_color
 	data["broadcasting"] = broadcasting
@@ -295,6 +290,12 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return TRUE
+	if(action == "relink")
+		link_vessel()
+		return TRUE
+	return handle_action(action, params, usr)
+
+/obj/machinery/transponder/proc/handle_action(action, list/params, mob/user)
 	switch(action)
 		if("set_name")
 			if(identity_locked)
@@ -342,13 +343,13 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		if("add_key")
 			var/id = overmap_iff_id_for_key(params["key"])
 			if(!id)
-				to_chat(usr, span_warning("Ключ шифрования не принят."))
+				to_chat(user, span_warning("Ключ шифрования не принят."))
 				return TRUE
 			if(find_iff_channel(id))
-				to_chat(usr, span_notice("Этот ключ уже в списке."))
+				to_chat(user, span_notice("Этот ключ уже в списке."))
 				return TRUE
 			iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), FALSE, TRUE, FALSE)
-			to_chat(usr, span_notice("Ключ принят: [overmap_iff_label_for_id(id)]."))
+			to_chat(user, span_notice("Ключ принят: [overmap_iff_label_for_id(id)]."))
 			push_to_vessel()
 			. = TRUE
 		if("remove_channel")
@@ -362,9 +363,5 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		if("toggle_distress")
 			set_distress(!distress)
 			. = TRUE
-		if("relink")
-			link_vessel()
-			. = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)
-

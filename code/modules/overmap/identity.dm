@@ -16,7 +16,6 @@ GLOBAL_LIST_INIT(overmap_shuttle_profiles, build_overmap_shuttle_profiles())
 	var/identity_distress = FALSE
 	var/identity_broadcasting = TRUE
 	var/identity_locked = FALSE
-	/// Faction keys. `list(OVERMAP_IFF_SYNDICATE)` TX on; `list(OVERMAP_IFF_SYNDICATE = FALSE)` listen-only. Global TX = identity_broadcasting.
 	var/list/identity_iff_ids
 
 /datum/overmap_shuttle_profile/proc/apply_to(obj/overmap/entity/vessel)

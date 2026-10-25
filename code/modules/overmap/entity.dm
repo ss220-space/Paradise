@@ -5,6 +5,7 @@
 	overmap_kind = OVERMAP_KIND_STATION
 	map_color = "#7ec8e3"
 
+	var/project_terrain = TRUE
 	var/vessel_flags = OVERMAP_VESSEL_STATION
 	var/status = OVERMAP_STATUS_OVERMAP
 	var/vessel_mass = 10000
@@ -12,6 +13,7 @@
 	var/obj/overmap/entity/docked_to
 	var/obj/docking_port/mobile/shuttle
 	var/list/obj/machinery/computer/helm/helms = list()
+
 	var/list/obj/machinery/computer/engines/engine_consoles = list()
 	var/list/obj/machinery/computer/sensors/sensors = list()
 	var/list/obj/machinery/sensor_array/sensor_arrays = list()
@@ -35,7 +37,6 @@
 	var/identity_distress = FALSE
 	var/identity_broadcasting = TRUE
 	var/identity_locked = FALSE
-	/// Faction IFF ids. `list(OVERMAP_IFF_SYNDICATE)` = listen+TX. Assoc FALSE = key loaded, TX off. Global TX is identity_broadcasting.
 	var/list/identity_iff_ids
 	var/overmap_icon_preset = "station"
 	var/overmap_icon_file = OVERMAP_ICON_FILE
@@ -50,6 +51,7 @@
 	var/overmap_jammed_until = 0
 	var/overmap_jam_was_halted = FALSE
 	var/next_overmap_hazard_carp = 0
+	var/next_overmap_hazard_hit = 0
 	var/programmed = FALSE
 	var/datum/overmap_programmed_mission/programmed_mission
 	var/programmed_emag_until = 0
@@ -61,13 +63,62 @@
 	var/programmed_selected_dock
 	var/programmed_has_routes = TRUE
 	var/obj/machinery/ship_engine/virtual_engine
+	var/admin_virtual_engine = FALSE
+	var/free_flight_view = FALSE
+	var/list/hull_turfs
+
+	var/list/hull_area_turfs
+	var/list/hull_watch
+	var/hull_dirty = FALSE
+
+	var/hull_version = 0
+
+	var/next_hull_resync = 0
+	var/list/hull_edge
+	var/hull_inertia = 1
+	var/hull_center_x
+	var/hull_center_y
+	var/hull_z
+	var/hull_radius = 0
+	var/list/flight_bounds
+	var/list/datum/hull_proxy/neighbor_proxies = list()
+	var/list/obj/overmap/entity/nearby_ships = list()
+	var/next_moved_signal = 0
+	var/list/obj/effect/abstract/hull_proxy_tile/drifter_mirrors = list()
+	var/list/hull_collars
+	var/list/radar_shape
+	var/datum/turf_reservation/flight_reservation
+	var/obj/overmap/entity/docked_ship
+	var/list/obj/overmap/entity/docked_guests = list()
+	var/dock_hull_x
+	var/dock_hull_y
+	var/dock_facing_offset
+	var/dock_collar_angle
+	var/turf/dock_host_collar
+	var/list/undock_origin
+
+	var/datum/overmap_bubble/physical_space
+
+	var/obj/overmap/entity/undock_host
+	var/datum/overmap_bubble/local_space
+	var/datum/terrain_mirror/terrain_view
+	var/last_world_x
+	var/last_world_y
+	var/last_facing = 0
+	var/next_ram_effect = 0
+	var/jump_spool_end = 0
+	var/jump_start_time = 0
+	var/jump_duration
+	var/list/jump_origin
+	var/list/jump_target
+	var/list/obj/effect/abstract/dock_seal/dock_seals = list()
 
 /obj/overmap/entity/shuttle
 	name = "shuttle"
 	icon_state = "shuttle_c"
 	overmap_kind = OVERMAP_KIND_SHUTTLE
 	vessel_flags = OVERMAP_VESSEL_SHUTTLE
-	vessel_mass = 500
+	vessel_mass = 500 * OVERMAP_DYNAMIC_MASS_MULTIPLIER
 	map_color = "#e3c56e"
 	overmap_icon_preset = "shuttle_c"
 	status = OVERMAP_STATUS_DOCKED
@@ -121,6 +172,18 @@
 	AddComponent(/datum/component/overmap_shuttle)
 
 /obj/overmap/entity/Destroy()
+	for(var/datum/tgui/ui as anything in radar_uis.Copy())
+		unwatch_radar(ui)
+	QDEL_NULL(programmed_mission)
+	QDEL_NULL(docking_approach)
+	if(docked_ship)
+		undock_ship()
+	for(var/obj/overmap/entity/guest as anything in docked_guests.Copy())
+		guest.undock_ship()
+	docked_guests.Cut()
+	if(physical_space?.host == src)
+		QDEL_NULL(physical_space)
+	undock_host = null
 	SSovermap.vessels -= src
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
 		if(engine.vessel == src)
@@ -132,10 +195,6 @@
 		if(helm.vessel == src)
 			helm.vessel = null
 	helms.Cut()
-	for(var/obj/machinery/computer/engines/console as anything in engine_consoles)
-		if(console.vessel == src)
-			console.vessel = null
-	engine_consoles.Cut()
 	for(var/obj/machinery/computer/sensors/sensor as anything in sensors)
 		if(sensor.vessel == src)
 			sensor.vessel = null
@@ -150,6 +209,7 @@
 		transponder.vessel = null
 	transponder = null
 	QDEL_LIST(virtual_iff_channels)
+	clear_encounter_visuals()
 	return ..()
 
 /obj/overmap/entity/proc/register_engine(obj/machinery/ship_engine/engine)
@@ -158,6 +218,8 @@
 
 /obj/overmap/entity/proc/unregister_engine(obj/machinery/ship_engine/engine)
 	engines -= engine
+	flight?.engine_torques -= engine
+	flight?.engine_vectors -= engine
 	if(engine.vessel == src)
 		engine.vessel = null
 
@@ -304,9 +366,14 @@
 	SEND_SIGNAL(src, COMSIG_OVERMAP_DISPLAY_CHANGED)
 
 /obj/overmap/entity/sync_inspect_follow()
+	if(world.time < next_moved_signal)
+		return
+	next_moved_signal = world.time + OVERMAP_SLOW_TICK
 	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
 
 /obj/overmap/entity/on_overmap_loc_changed()
+	if(radar_transitioning)
+		return
 	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
 
 /obj/overmap/entity/proc/update_overmap_visibility()
@@ -343,7 +410,7 @@
 	if(!shuttle)
 		return FALSE
 	var/obj/docking_port/stationary/pad = shuttle.get_docked()
-	return pad && !istype(pad, /obj/docking_port/stationary/transit)
+	return pad && !istype(pad, /obj/docking_port/stationary/transit) && !istype(pad, /obj/docking_port/stationary/overmap/formation)
 
 /obj/overmap/entity/proc/hull_needs_transit_undock()
 	if(!shuttle)
@@ -383,34 +450,10 @@
 		return "Стоит"
 	return "Дрейф"
 
-/obj/overmap/entity/proc/get_shuttle_phase_text()
-	if(!shuttle)
-		return null
-	switch(shuttle.mode)
-		if(SHUTTLE_IDLE)
-			return "Готов"
-		if(SHUTTLE_IGNITING)
-			return "Зажигание двигателей"
-		if(SHUTTLE_CALL)
-			return "В пути"
-		if(SHUTTLE_DOCKED)
-			return "На площадке"
-		if(SHUTTLE_RECHARGING)
-			return "Перезарядка"
-		if(SHUTTLE_RECALL)
-			return "Возврат"
-		if(SHUTTLE_ENDGAME)
-			return "Конец"
-		if(SHUTTLE_ESCAPE)
-			return "Эвакуация"
-		if(SHUTTLE_STRANDED)
-			return "Заблокирован"
-	return shuttle.mode
-
 /obj/overmap/entity/proc/can_helm_undock()
 	if(overmap_pod)
 		return overmap_pod.is_landed() && overmap_pod.can_undock_here()
-	return overmap_shuttle && is_physically_docked()
+	return overmap_shuttle && !overmap_shuttle.preparing_undock && !shuttle?.transfer_busy && is_physically_docked()
 
 /obj/overmap/entity/proc/can_helm_physical_dock()
 	if(overmap_pod)
@@ -422,5 +465,73 @@
 /obj/overmap/entity/proc/can_helm_edge_dock()
 	return overmap_pod?.can_edge_dock() && overmap_pod.can_physical_dock()
 
-/obj/overmap/entity/proc/can_helm_custom_dock()
-	return overmap_shuttle && shuttle && allows_custom_landing()
+/obj/overmap/entity/proc/ship_power_report()
+	. = list(
+		"apc_charge" = 0,
+		"apc_max" = 0,
+		"smes_charge" = 0,
+		"smes_max" = 0,
+		"sources" = 0,
+	)
+	if(!shuttle)
+		return
+	for(var/area/place as anything in shuttle.shuttle_areas)
+		for(var/obj/machinery/power/apc/unit as anything in place.apc)
+			var/obj/item/stock_parts/cell/cell = unit.cell
+			if(!cell)
+				continue
+			.["sources"]++
+			.["apc_charge"] += cell.charge
+			.["apc_max"] += cell.maxcharge
+		for(var/obj/machinery/power/smes/battery in place)
+			.["sources"]++
+			.["smes_charge"] += battery.charge
+			.["smes_max"] += battery.capacity
+
+/obj/overmap/entity/proc/autopilot_eta()
+	var/datum/component/overmap_flight/nav = flight
+	if(!nav || !nav.autopilot || isnull(nav.autopilot_x) || isnull(nav.autopilot_y) || !sector)
+		return 0
+	var/turf/here = get_overmap_turf()
+	var/turf/target = sector.get_turf_at(nav.autopilot_x, nav.autopilot_y)
+	if(!here || !target || here.z != target.z)
+		return 0
+	var/span = OVERMAP_TILE_SPAN * (sector.tile_travel || 1)
+	var/distance = sqrt((target.x * span - get_world_x()) ** 2 + (target.y * span - get_world_y()) ** 2)
+	var/speed = max(get_speed(), nav.cruise_speed) * span
+	if(speed <= 0)
+		return 0
+	return round(distance / speed)
+
+/obj/overmap/entity/proc/thrust_diagnosis()
+	var/datum/component/overmap_flight/nav = flight
+	if(!nav)
+		return "нет полётного компонента"
+	if(!length(engines))
+		return "на борту нет двигателей"
+	if(!nav.engines_state)
+		return "двигатели заглушены"
+	if(nav.thrust_limit <= 0)
+		return "общий лимит тяги 0%"
+	var/working = 0
+	var/off = 0
+	var/dead = 0
+	for(var/obj/machinery/ship_engine/engine as anything in engines)
+		if(!engine.on)
+			off++
+			continue
+		if(engine.stat & (BROKEN|NOPOWER))
+			dead++
+			continue
+		working++
+	if(!working)
+		if(off && dead)
+			return "двигатели выключены, часть без питания или повреждена"
+		if(off)
+			return "все двигатели выключены"
+		if(dead)
+			return "двигатели без питания или повреждены"
+		return "двигатели не дают тяги"
+	if(!nav.omni_thrust && !nav.strongest_thrust())
+		return "двигатели не дают тяги ни в одну сторону"
+	return ""

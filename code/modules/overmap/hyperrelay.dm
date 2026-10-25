@@ -11,6 +11,22 @@
 	overmap_hazard_immune = TRUE
 	var/obj/overmap/entity/hyperrelay/paired
 	var/pair_id
+	var/link_distance
+
+/obj/overmap/entity/hyperrelay/proc/get_link_distance()
+	if(!link_distance)
+		link_distance = paired?.link_distance || rand(300, 1800)
+	if(paired)
+		paired.link_distance = link_distance
+	return max(1, link_distance)
+
+/obj/overmap/entity
+	var/obj/overmap/entity/hyperrelay/relay_jump_from
+	var/relay_jump_started = 0
+	var/relay_jump_ends = 0
+
+/obj/overmap/entity/proc/hyperrelay_jump_duration(obj/overmap/entity/hyperrelay/relay)
+	return max(15 SECONDS, round(OVERMAP_HYPERRELAY_JUMP_TIME * relay.get_link_distance() / 1000))
 
 /obj/overmap/entity/hyperrelay/Initialize(mapload)
 	. = ..()
@@ -18,6 +34,7 @@
 	update_overmap_visibility()
 
 /obj/overmap/entity/hyperrelay/Destroy()
+	SSovermap?.bump_galaxy()
 	if(paired)
 		if(paired.paired == src)
 			paired.paired = null
@@ -65,7 +82,7 @@
 	station_relay.paired = service_relay
 	service_sector.add_object(service_relay, service_spot)
 	station_sector.add_object(station_relay, station_spot)
-	log_world("Overmap: hyperrelay pair at service [service_spot.x],[service_spot.y] and station [station_spot.x],[station_spot.y].")
+	SSovermap.bump_galaxy()
 
 /datum/controller/subsystem/overmap/proc/spawn_station_wilderness_relays()
 	if(!station_sector || !wilderness_sector)
@@ -83,7 +100,7 @@
 	wild_relay.paired = station_relay
 	station_sector.add_object(station_relay, station_spot)
 	wilderness_sector.add_object(wild_relay, wilderness_spot)
-	log_world("Overmap: hyperrelay pair at station [station_spot.x],[station_spot.y] (top) and wilderness [wilderness_spot.x],[wilderness_spot.y] (bottom).")
+	SSovermap.bump_galaxy()
 
 /datum/controller/subsystem/overmap/proc/pick_hyperrelay_edge_turf(datum/overmap_sector/sector, at_top)
 	if(!sector)
@@ -143,24 +160,26 @@
 	if(istype(nested))
 		return nested
 
-	for(var/atom/thing as anything in here.contents)
-		var/obj/overmap/entity/hyperrelay/relay = thing
-		if(istype(relay) && relay != src && !QDELETED(relay))
-			return relay
 	if(!sector)
 		return null
+	var/obj/overmap/entity/hyperrelay/nearest
+	var/nearest_distance = max(OVERMAP_TILE_SPAN / 2, hull_radius + 12)
 	for(var/obj/overmap/overmap_object as anything in sector.objects)
 		var/obj/overmap/entity/hyperrelay/relay = overmap_object
 		if(!istype(relay) || relay == src || QDELETED(relay))
 			continue
-		if(relay.get_overmap_turf() == here)
-			return relay
-	return null
+		var/distance = sqrt((relay.get_world_x() - get_world_x()) ** 2 + (relay.get_world_y() - get_world_y()) ** 2)
+		if(relay.paired && distance <= nearest_distance)
+			nearest = relay
+			nearest_distance = distance
+	return nearest
 
 /obj/overmap/entity/proc/can_hyperrelay_jump()
 	if(overmap_kind != OVERMAP_KIND_SHUTTLE)
 		return FALSE
 	if(is_overmap_jammed())
+		return FALSE
+	if(relay_jump_from || is_jumping() || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
 		return FALSE
 	if(!OVERMAP_SPEED_STOPPED(get_speed()))
 		return FALSE
@@ -169,7 +188,7 @@
 	var/obj/overmap/entity/hyperrelay/relay = hyperrelay_on_tile()
 	if(!relay?.paired || QDELETED(relay.paired))
 		return FALSE
-	return contact_identified(relay)
+	return iff_detects(relay) || contact_identified(relay)
 
 /obj/overmap/entity/proc/begin_hyperrelay_jump(forced = FALSE)
 	var/obj/overmap/entity/hyperrelay/relay = hyperrelay_on_tile()
@@ -188,22 +207,31 @@
 	halted = TRUE
 	speed[1] = 0
 	speed[2] = 0
-	set_autopilot(FALSE)
-	overmap_jammed_until = world.time + OVERMAP_HYPERRELAY_JUMP_TIME
+	flight?.set_autopilot(FALSE, manual = FALSE)
+	flight?.release_pilot()
+	QDEL_NULL(docking_approach)
+	var/duration = hyperrelay_jump_duration(relay)
+	relay_jump_from = relay
+	relay_jump_started = world.time
+	relay_jump_ends = world.time + duration
+	radar_epoch++
+	overmap_jammed_until = relay_jump_ends
 	for(var/obj/machinery/computer/helm/helm as anything in helms)
-		if(QDELETED(helm))
-			continue
-		for(var/mob/viewer as anything in helm.viewers.Copy())
-			helm.unlook(viewer)
-		helm.update_map_view(TRUE)
+		if(!QDELETED(helm))
+			SStgui.update_uis(helm)
 	for(var/obj/machinery/computer/sensors/sensor as anything in sensors)
 		if(!QDELETED(sensor))
-			sensor.update_map_view(TRUE)
-	start_hyperrelay_transit_fx()
-	addtimer(CALLBACK(src, PROC_REF(finish_hyperrelay_jump), relay), OVERMAP_HYPERRELAY_JUMP_TIME)
+			sensor.update_scan_info(TRUE)
+			SStgui.update_uis(sensor)
+	start_hyperrelay_transit_fx(duration)
+	addtimer(CALLBACK(src, PROC_REF(finish_hyperrelay_jump), relay), duration)
 	return TRUE
 
 /obj/overmap/entity/proc/finish_hyperrelay_jump(obj/overmap/entity/hyperrelay/from_relay)
+	relay_jump_from = null
+	relay_jump_started = 0
+	relay_jump_ends = 0
+	radar_epoch++
 	overmap_jammed_until = 0
 	halted = FALSE
 	stop_hyperrelay_transit_fx()
@@ -220,21 +248,23 @@
 	sector?.remove_object(src)
 	dest_relay.sector?.add_object(src, dest)
 	position = list(0, 0)
+	remember_pose()
+	QDEL_NULL(terrain_view)
+	QDEL_LIST_ASSOC_VAL(neighbor_proxies)
+	nearby_ships = list()
 	update_overmap_pixel()
-	set_autopilot(FALSE)
+	flight?.set_autopilot(FALSE, manual = FALSE)
 	refresh_sensor_displays()
-	for(var/obj/machinery/computer/helm/helm as anything in helms)
-		if(!QDELETED(helm))
-			helm.update_map_view(TRUE)
 	play_shuttle_sound('sound/effects/hyperspace_end.ogg')
 	shake_shuttle(8, 2)
 	shuttle_visible_message(span_warning("Корпус дёргается и снова становится неподвижным."))
-	programmed_mission?.try_fly()
+	programmed_mission?.resume_after_relay()
 
-/obj/overmap/entity/proc/play_shuttle_sound(soundfile)
+/obj/overmap/entity/proc/play_shuttle_sound(soundfile, volume = 100)
 	if(!soundfile || !shuttle)
 		return
 	var/sound/clip = sound(soundfile)
+	clip.volume = volume
 	if(shuttle.areaInstance)
 		SEND_SOUND(shuttle.areaInstance, clip)
 	for(var/area/place as anything in shuttle.shuttle_areas)
@@ -287,17 +317,159 @@
 			home.parallax_movedir = parallax_dir
 	refresh_shuttle_parallax()
 
-/obj/overmap/entity/proc/start_hyperrelay_transit_fx()
+/obj/overmap/entity/proc/start_hyperrelay_transit_fx(duration = OVERMAP_HYPERRELAY_JUMP_TIME)
 	set_shuttle_hyperspace_visuals(TRUE)
 	play_shuttle_sound('sound/effects/hyperspace_begin.ogg')
 	shuttle_visible_message(span_warning("Палуба вздрагивает, вы чувствуете странную вибрацию судна."))
 	shake_shuttle(8, 2)
 	flicker_shuttle_lights()
-	addtimer(CALLBACK(src, PROC_REF(play_shuttle_sound), 'sound/effects/hyperspace_progress.ogg'), 1.5 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 5, 1), 2.5 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 5, 1), 5 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 6, 1), 7.5 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(flicker_shuttle_lights)), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(play_shuttle_sound), 'sound/effects/hyperspace_progress.ogg'), duration * 0.15)
+	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 5, 1), duration * 0.25)
+	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 5, 1), duration * 0.5)
+	addtimer(CALLBACK(src, PROC_REF(shake_shuttle), 6, 1), duration * 0.75)
+	addtimer(CALLBACK(src, PROC_REF(flicker_shuttle_lights)), duration * 0.5)
 
 /obj/overmap/entity/proc/stop_hyperrelay_transit_fx()
 	set_shuttle_hyperspace_visuals(FALSE)
+
+/datum/controller/subsystem/overmap/proc/bump_galaxy()
+	galaxy_revision++
+	galaxy_positions = null
+
+/datum/controller/subsystem/overmap/proc/sector_neighbours(datum/overmap_sector/sector)
+	. = list()
+	if(!sector)
+		return
+	for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
+		var/datum/overmap_sector/other = relay.paired?.sector
+		if(!other || other == sector || (other in .))
+			continue
+		. += other
+
+/datum/controller/subsystem/overmap/proc/galaxy_positions()
+	if(galaxy_positions)
+		return galaxy_positions
+	galaxy_positions = list()
+	if(station_sector)
+		galaxy_positions[station_sector.id] = list(0, 0)
+	for(var/datum/overmap_sector/sector as anything in sector_order)
+		if(galaxy_positions[sector.id])
+			continue
+		var/list/center = list(0, 0)
+		var/distance = 1000
+		for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
+			var/datum/overmap_sector/neighbor = relay.paired?.sector
+			if(neighbor && galaxy_positions[neighbor.id])
+				center = galaxy_positions[neighbor.id]
+				distance = relay.get_link_distance()
+				break
+		galaxy_positions[sector.id] = galaxy_random_position(center, 1.5 + sqrt(distance / 1000) * 2)
+	for(var/pass in 1 to 40)
+		for(var/datum/overmap_sector/sector as anything in sector_order)
+			if(sector == station_sector)
+				continue
+			var/list/spot = galaxy_positions[sector.id]
+			for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
+				var/datum/overmap_sector/neighbor = relay.paired?.sector
+				var/list/other = neighbor && galaxy_positions[neighbor.id]
+				if(!other)
+					continue
+				var/dx = spot[1] - other[1]
+				var/dy = spot[2] - other[2]
+				var/actual = max(sqrt(dx * dx + dy * dy), 0.01)
+				var/desired = 1.5 + sqrt(relay.get_link_distance() / 1000) * 2
+				var/change = (desired - actual) / actual * 0.08
+				spot[1] += dx * change
+				spot[2] += dy * change
+	return galaxy_positions
+
+/datum/controller/subsystem/overmap/proc/galaxy_random_position(list/center, radius = 2)
+	while(TRUE)
+		for(var/attempt in 1 to 24)
+			var/angle = rand(0, 35999) / 100
+			var/distance = rand(100, 180) / 100 * radius
+			var/x = center[1] + cos(angle) * distance
+			var/y = center[2] + sin(angle) * distance
+			if(galaxy_slot_free(x, y))
+				return list(x, y)
+		radius += 1
+
+/datum/controller/subsystem/overmap/proc/galaxy_slot_free(x, y)
+	for(var/id in galaxy_positions)
+		var/list/spot = galaxy_positions[id]
+		if((spot[1] - x) ** 2 + (spot[2] - y) ** 2 < 2.25)
+			return FALSE
+	for(var/list/entry as anything in galaxy_unknown)
+		if((entry["x"] - x) ** 2 + (entry["y"] - y) ** 2 < 2.25)
+			return FALSE
+	return TRUE
+
+/datum/controller/subsystem/overmap/proc/galaxy_unknown()
+	if(galaxy_unknown)
+		return galaxy_unknown
+	galaxy_positions()
+	galaxy_unknown = list()
+	for(var/index in 1 to 10)
+		var/list/spot = galaxy_random_position(list(0, 0))
+		galaxy_unknown += list(list(
+			"id" = "unknown_[index]",
+			"name" = "Неизвестный сектор",
+			"kind" = "unknown",
+			"x" = spot[1],
+			"y" = spot[2],
+			"links" = list(),
+			"contacts" = 0,
+			"distress" = FALSE,
+			"unknown" = TRUE,
+		))
+	return galaxy_unknown
+
+/datum/controller/subsystem/overmap/proc/galaxy_map(obj/overmap/entity/viewer)
+	. = list("revision" = galaxy_revision, "center" = station_sector?.id, "sectors" = list(), "transits" = list())
+	var/list/positions = galaxy_positions()
+	var/slot = 0
+	for(var/datum/overmap_sector/sector as anything in sector_order)
+		if(!sector)
+			continue
+		var/list/spot = positions[sector.id]
+		if(!spot)
+
+			slot++
+			spot = list(0, 6 + slot * 2)
+			positions[sector.id] = spot
+		var/list/links = list()
+		var/list/signal_links = list()
+		var/list/distances = list()
+		for(var/datum/overmap_sector/neighbour as anything in sector_neighbours(sector))
+			links += neighbour.id
+		for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
+			if(relay.paired?.sector)
+				distances[relay.paired.sector.id] = relay.get_link_distance()
+			if(relay.paired?.sector && (!viewer || (viewer.sector == sector && viewer.iff_detects(relay))))
+				signal_links |= relay.paired.sector.id
+		var/contacts = 0
+		var/distress = FALSE
+		for(var/obj/overmap/entity/vessel in sector.objects)
+			contacts++
+			if(vessel.identity_distress)
+				distress = TRUE
+		.["sectors"] += list(list(
+			"id" = sector.id,
+			"name" = sector.name,
+			"kind" = sector.sector_kind,
+			"x" = spot[1],
+			"y" = spot[2],
+			"links" = links,
+			"signal_links" = signal_links,
+			"distances" = distances,
+			"contacts" = contacts,
+			"distress" = distress,
+			"unknown" = FALSE,
+		))
+	for(var/list/entry as anything in galaxy_unknown())
+		.["sectors"] += list(entry)
+	for(var/obj/overmap/entity/vessel as anything in vessels)
+		var/obj/overmap/entity/hyperrelay/relay = vessel.relay_jump_from
+		if(!relay?.paired?.sector || vessel.relay_jump_ends <= world.time)
+			continue
+		.["transits"] += list(list("id" = vessel.UID(), "from" = relay.sector.id, "to" = relay.paired.sector.id, "progress" = clamp((world.time - vessel.relay_jump_started) / max(1, vessel.relay_jump_ends - vessel.relay_jump_started), 0, 1), "remaining" = (vessel.relay_jump_ends - world.time) * 100, "own" = vessel == viewer))

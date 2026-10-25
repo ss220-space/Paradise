@@ -27,6 +27,7 @@
 	if(!.)
 		return
 	INVOKE_ASYNC(src, PROC_REF(close), 0, 1)
+	// Close any nearby airlocks as well
 	for(var/obj/machinery/door/airlock/nearby in orange(1, src))
 		INVOKE_ASYNC(nearby, PROC_REF(close), 0, 1)
 	if(id_tag == "s_docking_airlock" || istype(src, /obj/machinery/door/airlock/external/docking))

@@ -113,7 +113,7 @@
 	if(tcm.reject || !active || (stat & NOPOWER) || ion)
 		return FALSE
 	// Kill the signal if its on a z-level that isnt reachable
-	if(!zlevel_reachable(tcm.source_level))
+	if(tcm.source_position ? !position_reachable(tcm.source_position) : !zlevel_reachable(tcm.source_level))
 		return FALSE
 
 	// Now we can run NTTC
@@ -125,7 +125,8 @@
 		return TRUE
 
 	// Now we generate the list of where that signal should go to
-	tcm.zlevels = reachable_zlevels
+	tcm.network = src
+	tcm.zlevels = reachable_zlevels.Copy()
 	tcm.zlevels |= tcm.source_level
 
 	// Now check if they actually have pieces, if so, broadcast
@@ -143,6 +144,7 @@
  *
  */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
+	coverage_tick = -1
 	if(QDELING(src))
 		return
 	// Refresh the list

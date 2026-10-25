@@ -1842,6 +1842,9 @@
 #undef APC_MALF_SHUNTED_HERE
 #undef APC_MALF_SHUNTED_OTHER
 
+/obj/machinery/power/apc/proc/can_supply_equipment()
+	return operating && !shorted && !(stat & BROKEN) && equipment_channel >= CHANNEL_SETTING_ON && cell?.charge > 0
+
 #undef CHANNEL_SETTING_OFF
 #undef CHANNEL_SETTING_AUTO_OFF
 #undef CHANNEL_SETTING_ON

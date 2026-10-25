@@ -902,7 +902,7 @@ export const ShuttleConsole = (_properties) => {
           <LabeledList.Item label="Ваша позиция">
             {data.player_pos}
           </LabeledList.Item>
-          {!!data.shuttle && (
+          {!!data.shuttle && ( // only show this stuff if there's a shuttle
             <>
               <LabeledList.Item label="Управление">
                 <Button icon="compass" onClick={() => act('open_helm')}>

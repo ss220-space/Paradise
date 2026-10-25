@@ -1026,7 +1026,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return TRUE
 	return FALSE
 
-
 /datum/objective/steal/with_special_items
 	allow_special_items = TRUE
 

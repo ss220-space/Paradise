@@ -104,6 +104,7 @@
 
 	proximity_monitor = new(src, scan_range)
 	setup()
+	ship_weapon = AddComponent(/datum/component/ship_weapon)
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)
 	handleInterloper(AM)
@@ -521,6 +522,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/process()
+	if(ship_weapon?.process_turret())
+		return
 	//the main machinery process
 
 	if(stat & (NOPOWER|BROKEN))
@@ -594,7 +597,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L)
 	return assess_living(L)
 
-/obj/machinery/porta_turret/proc/assess_living(mob/living/L)
+/obj/machinery/porta_turret/proc/assess_living(mob/living/L, world_range_checked = FALSE)
 	if(!L)
 		return TURRET_NOT_TARGET
 
@@ -607,7 +610,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
+	if(!world_range_checked && get_dist(src, L) > scan_range) //if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest

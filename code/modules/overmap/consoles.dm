@@ -34,7 +34,7 @@
 	var/obj/overmap/entity/vessel = shuttle_vessel()
 	var/obj/overmap/entity/here_host = SSovermap?.resolve_vessel(src)
 	for(var/dock_id in ids)
-		var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+		var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id, warn = FALSE)
 		if(!pad || istype(pad, /obj/docking_port/stationary/transit))
 			continue
 		if(here_host && SSovermap.host_for_pad(pad, vessel?.shuttle) == here_host)
@@ -46,12 +46,6 @@
 		return
 	GLOB.overmap_request_consoles |= src
 	RegisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_VESSEL_REGISTERED, PROC_REF(on_overmap_vessel_registered), override = TRUE)
-	if(!overmap_cam_screen)
-		var/map_name = "overmap_shuttle_[src.UID()]_map"
-		overmap_cam_screen = new
-		overmap_cam_screen.generate_view(map_name)
-		overmap_map_camera = new(overmap_cam_screen)
-		overmap_contact_blips = list()
 	bind_overmap_notices()
 
 /obj/machinery/computer/shuttle/proc/on_overmap_vessel_registered(datum/source, obj/overmap/entity/vessel)
@@ -62,13 +56,12 @@
 /obj/machinery/computer/shuttle/proc/bind_overmap_notices()
 	var/obj/overmap/entity/vessel = shuttle_vessel()
 	if(overmap_bound_vessel && overmap_bound_vessel != vessel)
-		UnregisterSignal(overmap_bound_vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(overmap_bound_vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
 		overmap_bound_vessel = null
 	if(!vessel)
 		return
 	overmap_bound_vessel = vessel
 	RegisterSignal(vessel, COMSIG_OVERMAP_NOTICE, PROC_REF(on_overmap_notice), override = TRUE)
-	RegisterSignal(vessel, COMSIG_OVERMAP_MOVED, PROC_REF(on_overmap_request_moved), override = TRUE)
 	RegisterSignal(vessel, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
 
 /obj/machinery/computer/shuttle/proc/on_overmap_notice(datum/source, text)
@@ -76,13 +69,8 @@
 	if(text)
 		atom_say(text)
 
-/obj/machinery/computer/shuttle/proc/on_overmap_request_moved()
-	SIGNAL_HANDLER
-	update_overmap_request_map()
-
 /obj/machinery/computer/shuttle/proc/on_overmap_display_changed()
 	SIGNAL_HANDLER
-	update_overmap_request_map(TRUE)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/shuttle/proc/shuttle_vessel()
@@ -93,29 +81,6 @@
 		return null
 	return SSovermap.get_or_register_shuttle(shuttle)
 
-/obj/machinery/computer/shuttle/proc/update_overmap_request_map(force = FALSE)
-	if(!overmap_map_camera)
-		return
-	var/obj/overmap/entity/vessel = shuttle_vessel()
-	if(!vessel?.sector || vessel.is_overmap_jammed())
-		overmap_map_camera.clear()
-		overmap_last_map_turf = null
-		overmap_contact_blips = overmap_paint_sensor_ghosts(null, overmap_contact_blips, null, null, null, 0, open_uis)
-		return
-	overmap_map_camera.refresh_rect(vessel, OVERMAP_VIEW_WIDTH, OVERMAP_VIEW_HEIGHT, force)
-	overmap_map_zoom = overmap_map_camera.fit_zoom(OVERMAP_CONSOLE_MAP_PX_W, OVERMAP_CONSOLE_MAP_PX_H)
-	overmap_last_map_turf = overmap_map_camera.last_center
-	var/view_range = max(round((OVERMAP_VIEW_WIDTH - 1) / 2), round((OVERMAP_VIEW_HEIGHT - 1) / 2))
-	overmap_contact_blips = overmap_paint_sensor_ghosts(
-		vessel,
-		overmap_contact_blips,
-		overmap_cam_screen?.assigned_map,
-		overmap_map_camera.map_view_min_x,
-		overmap_map_camera.map_view_min_y,
-		view_range,
-		open_uis,
-	)
-
 /obj/machinery/computer/shuttle/proc/overmap_request_ui_interact(mob/user, datum/tgui/ui)
 	if(!user.client)
 		return
@@ -123,23 +88,15 @@
 	if(!ui)
 		ui = new(user, src, "OvermapShuttleRemote", name)
 		ui.open()
-		overmap_cam_screen?.display_to(user, ui.window)
-		if(ui.window)
-			RegisterSignal(ui.window, COMSIG_TGUI_WINDOW_VISIBLE, PROC_REF(on_overmap_request_window_visible), override = TRUE)
-	update_overmap_request_map()
-
-/obj/machinery/computer/shuttle/proc/on_overmap_request_window_visible(datum/tgui_window/window, client/show_to)
-	SIGNAL_HANDLER
-	update_overmap_request_map(TRUE)
-	if(show_to)
-		overmap_cam_screen?.display_to(show_to.mob, window)
+	shuttle_vessel()?.watch_radar(ui)
 
 /obj/machinery/computer/shuttle/proc/overmap_request_ui_data(mob/user)
 	var/list/data = list()
 	var/obj/overmap/entity/vessel = shuttle_vessel()
+	overmap_watch_radar(src, user, vessel)
+	if(vessel)
+		vessel.fill_radar_data(data)
 	data["linked"] = !!vessel
-	data["mapRef"] = overmap_cam_screen?.assigned_map
-	data["map_zoom"] = overmap_map_zoom
 	if(!vessel)
 		return data
 	vessel.fill_programmed_ui(data, params2list(possible_destinations))
@@ -150,10 +107,6 @@
 	data["y"] = vessel.sector && here ? vessel.sector.coord_y(here) : here?.y
 	data["sector_name"] = vessel.sector?.name
 	data["map_jammed"] = vessel.is_overmap_jammed()
-	data["map_tiles_x"] = OVERMAP_VIEW_WIDTH
-	data["map_tiles_y"] = OVERMAP_VIEW_HEIGHT
-	data["map_px_w"] = OVERMAP_CONSOLE_MAP_PX_W
-	data["map_px_h"] = OVERMAP_CONSOLE_MAP_PX_H
 	data["request_only"] = uses_overmap_request_ui()
 	var/recall_id = request_call_dock_id()
 	data["recall_id"] = recall_id
@@ -196,8 +149,6 @@
 	. = ..()
 	if(!uses_overmap_remote_ui())
 		return
-	if(shuttle_vessel())
-		update_overmap_request_map()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/shuttle/mining
@@ -264,11 +215,6 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/navmap
 	var/obj/overmap/entity/vessel
-	var/atom/movable/screen/map_view/camera/cam_screen
-	var/datum/overmap_map_view/map_camera
-	var/turf/last_map_turf
-	var/map_zoom = 1
-	var/list/atom/movable/screen/overmap_sensor_blip/contact_blips
 
 /obj/machinery/computer/navmap/get_ru_names()
 	return alist(
@@ -283,24 +229,16 @@
 /obj/machinery/computer/navmap/Initialize(mapload)
 	. = ..()
 	GLOB.navmap_computers += src
-	if(!pixel_x && !pixel_y)
-		set_pixel_offsets_from_dir(32, -32, 32, -32)
-	var/map_name = "overmap_monitor_[src.UID()]_map"
-	cam_screen = new
-	cam_screen.generate_view(map_name)
-	map_camera = new(cam_screen)
-	contact_blips = list()
+	pixel_x = 0
+	pixel_y = 0
 	if(SSovermap?.initialized)
 		link_vessel()
 
 /obj/machinery/computer/navmap/Destroy()
 	GLOB.navmap_computers -= src
 	if(vessel)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_DISPLAY_CHANGED))
 	vessel = null
-	QDEL_LIST(contact_blips)
-	QDEL_NULL(map_camera)
-	QDEL_NULL(cam_screen)
 	return ..()
 
 /obj/machinery/computer/navmap/update_overlays()
@@ -320,43 +258,16 @@
 /obj/machinery/computer/navmap/proc/link_vessel()
 	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)
 	if(vessel && vessel != resolved)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_MOVED, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_DISPLAY_CHANGED))
 	vessel = resolved
 	if(vessel)
-		RegisterSignal(vessel, COMSIG_OVERMAP_MOVED, PROC_REF(on_overmap_moved), override = TRUE)
+		if(!vessel.shuttle && !vessel.overmap_pod)
+			vessel.local_space = SSovermap.ensure_host_space(vessel)
 		RegisterSignal(vessel, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
-	update_map_view()
-
-/obj/machinery/computer/navmap/proc/on_overmap_moved()
-	SIGNAL_HANDLER
-	update_map_view()
 
 /obj/machinery/computer/navmap/proc/on_overmap_display_changed()
 	SIGNAL_HANDLER
-	update_map_view(TRUE)
 	SStgui.update_uis(src)
-
-/obj/machinery/computer/navmap/proc/update_map_view(force = FALSE)
-	if(!map_camera)
-		return
-	if(!vessel?.sector || vessel.is_overmap_jammed())
-		map_camera.clear()
-		last_map_turf = null
-		contact_blips = overmap_paint_sensor_ghosts(null, contact_blips, null, null, null, 0, open_uis)
-		return
-	map_camera.refresh_rect(vessel, OVERMAP_VIEW_WIDTH, OVERMAP_VIEW_HEIGHT, force)
-	map_zoom = map_camera.fit_zoom(OVERMAP_CONSOLE_MAP_PX_W, OVERMAP_CONSOLE_MAP_PX_H)
-	last_map_turf = map_camera.last_center
-	var/view_range = max(round((OVERMAP_VIEW_WIDTH - 1) / 2), round((OVERMAP_VIEW_HEIGHT - 1) / 2))
-	contact_blips = overmap_paint_sensor_ghosts(
-		vessel,
-		contact_blips,
-		cam_screen?.assigned_map,
-		map_camera.map_view_min_x,
-		map_camera.map_view_min_y,
-		view_range,
-		open_uis,
-	)
 
 /obj/machinery/computer/navmap/attack_hand(mob/user)
 	if(..())
@@ -375,35 +286,15 @@
 	if(!ui)
 		ui = new(user, src, "OvermapMonitor", name)
 		ui.open()
-		cam_screen.display_to(user, ui.window)
-		if(ui.window)
-			RegisterSignal(ui.window, COMSIG_TGUI_WINDOW_VISIBLE, PROC_REF(on_monitor_window_visible), override = TRUE)
-	update_map_view()
-
-/obj/machinery/computer/navmap/proc/on_monitor_window_visible(datum/tgui_window/window, client/show_to)
-	SIGNAL_HANDLER
-	update_map_view(TRUE)
-	if(show_to)
-		cam_screen.display_to(show_to.mob, window)
-
-/obj/machinery/computer/navmap/ui_close(mob/user)
-	. = ..()
-	cam_screen?.hide_from(user)
-
-/obj/machinery/computer/navmap/ui_status(mob/user, datum/ui_state/state)
-	if(stat & (NOPOWER|BROKEN))
-		return UI_CLOSE
-	if(user.incapacitated())
-		return UI_CLOSE
-	if(!user.Adjacent(src) && !user.has_unlimited_silicon_privilege)
-		return UI_CLOSE
-	return UI_INTERACTIVE
+	vessel?.watch_radar(ui)
 
 /obj/machinery/computer/navmap/ui_data(mob/user)
+	overmap_watch_radar(src, user, vessel)
 	var/list/data = list()
+	data["radar_show_self"] = !vessel?.shuttle && !vessel?.overmap_pod
+	if(vessel)
+		vessel.fill_radar_data(data)
 	data["linked"] = !!vessel
-	data["mapRef"] = cam_screen?.assigned_map
-	data["map_zoom"] = map_zoom
 	if(!vessel)
 		return data
 	var/turf/here = vessel.get_overmap_turf()
@@ -413,10 +304,6 @@
 	data["y"] = vessel.sector && here ? vessel.sector.coord_y(here) : here?.y
 	data["sector_name"] = vessel.sector?.name
 	data["map_jammed"] = vessel.is_overmap_jammed()
-	data["map_tiles_x"] = OVERMAP_VIEW_WIDTH
-	data["map_tiles_y"] = OVERMAP_VIEW_HEIGHT
-	data["map_px_w"] = OVERMAP_CONSOLE_MAP_PX_W
-	data["map_px_h"] = OVERMAP_CONSOLE_MAP_PX_H
 	return data
 
 /obj/machinery/computer/navmap/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -430,8 +317,6 @@
 	if(..())
 		if(!vessel)
 			link_vessel()
-		else
-			update_map_view()
 		SStgui.update_uis(src)
 
 /proc/overmap_ninja_vessel(mob/user)

@@ -142,6 +142,13 @@
 		RestrainedClickOn(A)
 		return
 
+	var/obj/item/overmap_hull_grip/hull_grip = get_active_hand()
+	if(istype(hull_grip) && (isturf(A) || istype(A, /obj/structure) || istype(A, /obj/machinery/door) || istype(A, /obj/effect/abstract/hull_proxy_tile)))
+		hull_grip.afterattack(A, src, TRUE, modifiers)
+		return
+	if(length(SSovermap.flying_vessels) && (isturf(A) || istype(A, /obj/structure) || istype(A, /obj/machinery/door)) && overmap_grab_hull(src, get_turf(A)))
+		return
+
 	if(in_throw_mode)
 		if(throw_item(A))
 			changeNext_move(CLICK_CD_THROW)

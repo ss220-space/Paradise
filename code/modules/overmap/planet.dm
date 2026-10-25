@@ -7,6 +7,7 @@
 	plane = FLOOR_PLANE
 	layer = ABOVE_OPEN_TURF_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	visible_without_scanner = TRUE
 	overmap_kind = OVERMAP_KIND_PLANET
 	hidden_from_contacts = TRUE
 	scannable = FALSE
@@ -107,6 +108,7 @@
 	)
 
 /obj/overmap/entity/planet_station
+	project_terrain = FALSE
 	name = "planetary outpost"
 	movable = FALSE
 	halted = TRUE

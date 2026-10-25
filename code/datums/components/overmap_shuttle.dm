@@ -2,6 +2,8 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/list/owned_dock_ids_cache
 	var/owned_docks_dirty = TRUE
+	var/preparing_undock = FALSE
+	var/list/obj/machinery/door/airlock/external/docking/collar_cache
 
 /datum/component/overmap_shuttle/Initialize()
 	if(!istype(parent, /obj/overmap/entity))
@@ -17,6 +19,7 @@
 		token.overmap_shuttle = null
 	if(token.shuttle)
 		UnregisterSignal(token.shuttle, COMSIG_SHUTTLE_DOCK)
+	reset_collar_cache()
 
 /datum/component/overmap_shuttle/proc/bind(obj/docking_port/mobile/port)
 	var/obj/overmap/entity/vessel = parent
@@ -44,7 +47,7 @@
 	for(var/area/place as anything in vessel.shuttle.shuttle_areas)
 		for(var/turf/hull in place)
 			turfs++
-	vessel.vessel_mass = OVERMAP_MASS_BASE + turfs * OVERMAP_MASS_PER_TURF
+	vessel.vessel_mass = (OVERMAP_MASS_BASE + turfs * OVERMAP_MASS_PER_TURF) * OVERMAP_DYNAMIC_MASS_MULTIPLIER
 
 /datum/component/overmap_shuttle/proc/play_area_sound(soundfile)
 	var/obj/overmap/entity/vessel = parent
@@ -144,11 +147,12 @@
 		return null
 	vessel.shuttle.overmap_sync_bounds(TRUE)
 	var/obj/docking_port/mobile/port = vessel.shuttle
+	var/transit_dir = port.overmap_transit_dir(port.overmap_origin()[2])
 	var/obj/docking_port/stationary/transit/pad = port.assigned_transit
 	if(pad && !QDELETED(pad) && pad.reserved_area)
 		var/need_w = SHUTTLE_TRANSIT_BORDER * 2
 		var/need_h = SHUTTLE_TRANSIT_BORDER * 2
-		switch(pad.dir)
+		switch(transit_dir)
 			if(NORTH, SOUTH)
 				need_w += port.width
 				need_h += port.height
@@ -156,8 +160,7 @@
 				need_w += port.height
 				need_h += port.width
 		if(pad.reserved_area.width >= need_w && pad.reserved_area.height >= need_h)
-			var/list/origin = port.overmap_origin()
-			if(!port.overmap_uses_area_hull() || pad.dir == origin[2])
+			if(!port.overmap_uses_area_hull() || pad.dir == transit_dir)
 				return pad
 		port.assigned_transit = null
 		qdel(pad, TRUE)
@@ -192,11 +195,11 @@
 	var/pad_id = vessel.selected_dock_id
 	var/obj/docking_port/stationary/pad
 	if(pad_id)
-		pad = SSshuttle.getDock(pad_id)
+		pad = SSshuttle.getDock(pad_id, warn = FALSE)
 		if(pad && vessel.pad_matches_host(pad, host) && pad_can_use(pad))
 			return pad
 	if(vessel.shuttle.id == "emergency")
-		var/obj/docking_port/stationary/hijack_pad = SSshuttle.getDock("emergency_syndicate")
+		var/obj/docking_port/stationary/hijack_pad = SSshuttle.getDock("emergency_syndicate", warn = FALSE)
 		if(hijack_pad && vessel.pad_matches_host(hijack_pad, host) && pad_can_use(hijack_pad))
 			return hijack_pad
 	var/obj/docking_port/stationary/custom_pad = get_custom_dock(host)
@@ -222,7 +225,7 @@
 	if(custom_pad && pad_id == custom_pad.id)
 		vessel.selected_dock_id = pad_id
 		return TRUE
-	var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(pad_id, warn = FALSE)
 	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
 		return FALSE
 	if(!vessel.pad_matches_host(pad, host))
@@ -277,7 +280,7 @@
 	var/current_id = vessel.shuttle.getDockedId()
 	var/chosen_id = vessel.selected_dock_id || vessel.last_dock_id
 	var/obj/docking_port/stationary/custom_pad = get_custom_dock(host)
-	if(host?.dock_host?.allow_custom_landing)
+	if(host?.dock_host?.allow_custom_landing && !vessel.in_station_docking_zone())
 		. += list(list(
 			"id" = OVERMAP_DOCK_ID_CUSTOM,
 			"name" = "Произвольная точка ([host.name])",
@@ -324,15 +327,28 @@
 	. += here_rows + free_rows + busy_rows + small_rows
 
 /datum/component/overmap_shuttle/proc/shuttle_collars()
-	. = list()
 	var/obj/overmap/entity/vessel = parent
 	if(!vessel.shuttle)
-		return
+		return list()
+	if(!isnull(collar_cache))
+		return collar_cache
+	collar_cache = list()
 	for(var/area/place as anything in vessel.shuttle.shuttle_areas)
 		for(var/obj/machinery/door/airlock/external/docking/door in place)
 			if(door.overmap_is_support)
 				continue
-			. += door
+			collar_cache += door
+			RegisterSignal(door, COMSIG_QDELETING, PROC_REF(forget_collar))
+	return collar_cache
+
+/datum/component/overmap_shuttle/proc/forget_collar(obj/machinery/door/airlock/external/docking/door)
+	SIGNAL_HANDLER
+	collar_cache -= door
+
+/datum/component/overmap_shuttle/proc/reset_collar_cache()
+	for(var/obj/machinery/door/airlock/external/docking/door as anything in collar_cache)
+		UnregisterSignal(door, COMSIG_QDELETING)
+	collar_cache = null
 
 /datum/component/overmap_shuttle/proc/ensure_default_collar()
 	var/obj/overmap/entity/vessel = parent
@@ -390,6 +406,17 @@
 		))
 
 /datum/component/overmap_shuttle/proc/begin_physical_undock(instant = FALSE)
+	if(preparing_undock)
+		return "Гиперпространство ещё готовится."
+	preparing_undock = TRUE
+	try
+		. = prepare_physical_undock(instant)
+	catch(var/exception/error)
+		preparing_undock = FALSE
+		throw error
+	preparing_undock = FALSE
+
+/datum/component/overmap_shuttle/proc/prepare_physical_undock(instant = FALSE)
 	var/obj/overmap/entity/vessel = parent
 	if(vessel.overmap_kind != OVERMAP_KIND_SHUTTLE)
 		return "Судно уже в открытом космосе."
@@ -401,6 +428,8 @@
 	if(!vessel.hull_needs_transit_undock())
 		vessel.release_to_overmap()
 		return TRUE
+	if(vessel.shuttle.has_collar_guests())
+		return "К стыковочному шлюзу пристыкован другой корабль. Сначала он должен отстыковаться."
 	if(!instant && vessel.shuttle.mode != SHUTTLE_IDLE && vessel.shuttle.mode != SHUTTLE_RECHARGING)
 		return "Шаттл уже выполняет манёвр."
 	var/datum/overmap_programmed_profile/profile = vessel.programmed_profile()
@@ -408,6 +437,7 @@
 		return profile.block_move_message || "Шаттл не может перемещаться с текущим грузом."
 	vessel.last_dock_id = vessel.shuttle.getDockedId()
 	vessel.selected_dock_id = null
+	vessel.record_undock_origin()
 	var/obj/docking_port/stationary/undock_pad = get_undock_pad()
 	if(!undock_pad)
 		return "Гиперпространство ещё не готово."
@@ -488,11 +518,22 @@
 	if(port != vessel.shuttle || QDELETED(new_dock))
 		return
 	owned_docks_dirty = TRUE
+	reset_collar_cache()
+	if(vessel.formation_transfer)
+		return
+	var/obj/docking_port/stationary/overmap/landing/previous_stop = SSshuttle.getDock(vessel.last_dock_id, warn = FALSE)
+	if(istype(previous_stop) && previous_stop.temporary_stop && previous_stop != new_dock && !previous_stop.get_docked())
+		qdel(previous_stop, TRUE)
 	if(istype(new_dock, /obj/docking_port/stationary/transit))
 		vessel.status = OVERMAP_STATUS_OVERMAP
 		vessel.halted = FALSE
 		if(!isturf(vessel.loc))
 			vessel.release_to_overmap()
+		if(!vessel.free_flight_view && vessel.in_free_flight())
+			vessel.set_free_flight_view(TRUE)
+		var/obj/docking_port/mobile/emergency/evac = port
+		if(istype(evac) && vessel.last_dock_id == "emergency_home")
+			INVOKE_ASYNC(evac, TYPE_PROC_REF(/obj/docking_port/mobile/emergency, overmap_launch_escape_pods))
 		return
 	if(!istype(new_dock, /obj/docking_port/stationary/overmap/landing))
 		salvage_transit_leftovers(port)
@@ -538,7 +579,7 @@
 				continue
 			if(hyperspace_too_close_to_border(spot))
 				var/obj/spacepod/pod_to_rescue = thing
-				if(pod_to_rescue?.overmap_vessel?.overmap_pod)
+				if(isspacepod(pod_to_rescue) && pod_to_rescue.overmap_vessel?.overmap_pod)
 					pod_to_rescue.overmap_vessel.overmap_pod.rescue_from_transit()
 				else
 					delete_lost_in_hyperspace(thing)
@@ -555,17 +596,17 @@
 				dy = spot.y - hull_max_y
 			if(max(dx, dy) > OVERMAP_HYPERSPACE_HULL_KEEP)
 				var/obj/spacepod/stray_pod = thing
-				if(stray_pod?.overmap_vessel?.overmap_pod)
+				if(isspacepod(stray_pod) && stray_pod.overmap_vessel?.overmap_pod)
 					stray_pod.overmap_vessel.overmap_pod.rescue_from_transit()
 				else
 					delete_lost_in_hyperspace(thing)
 				continue
 			var/turf/dest = locate(port.x + (thing.x - pad.x), port.y + (thing.y - pad.y), port.z)
-			if(istype(dest, /turf/space/transit))
+			if(is_hyperspace_turf(dest))
 				dest = null
 			if(!dest)
 				var/turf/here = get_turf(port)
-				if(isspaceturf(here) && !istype(here, /turf/space/transit))
+				if(isspaceturf(here) && !is_hyperspace_turf(here))
 					dest = nearest_real_space_turf(here)
 			if(!dest)
 				delete_lost_in_hyperspace(thing)
@@ -604,11 +645,13 @@
 	position = list(0, 0)
 	update_overmap_pixel()
 	hidden_from_contacts = TRUE
+	if(free_flight_view)
+		set_free_flight_view(FALSE)
 	update_overmap_visibility()
-	SEND_SIGNAL(src, COMSIG_OVERMAP_NESTED, host)
 	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
 
-/obj/overmap/entity/proc/release_to_overmap(turf/open_turf)
+/obj/overmap/entity/proc/release_to_overmap(turf/open_turf, list/world_position, initial_facing = null)
+	radar_transitioning = TRUE
 	if(!open_turf)
 		open_turf = docked_to?.get_overmap_turf() || get_overmap_turf()
 	var/datum/overmap_sector/dest_sector = docked_to?.sector || sector || SSovermap?.sector_for_turf(open_turf) || SSovermap?.local_sector
@@ -633,8 +676,15 @@
 	if(saved_position)
 		position = saved_position
 		update_overmap_pixel()
+	if(world_position)
+		set_world_position(world_position[1], world_position[2])
+		if(!isnull(initial_facing))
+			flight?.set_facing(initial_facing)
+	if(!free_flight_view && ((shuttle && undock_origin && in_free_flight()) || (overmap_pod && world_position)))
+		set_free_flight_view(TRUE)
+	radar_epoch++
+	radar_transitioning = FALSE
 	update_overmap_visibility()
-	SEND_SIGNAL(src, COMSIG_OVERMAP_RELEASED)
 	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
 
 /obj/overmap/entity/proc/get_owned_dock_ids()

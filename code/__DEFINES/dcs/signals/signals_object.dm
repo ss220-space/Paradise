@@ -120,7 +120,6 @@
 /// from /obj/machinery/light_switch/set_lights(), sent to every switch in the area: (status)
 #define COMSIG_LIGHT_SWITCH_SET "light_switch_set"
 
-
 // /obj/item/gun signals
 ///called in /obj/item/gun/process_chamber (src)
 #define COMSIG_GUN_CHAMBER_PROCESSED "gun_chamber_processed"
@@ -311,7 +310,6 @@
 ///called on implants being implanted into someone with an uplink implant: (datum/component/uplink)
 #define COMSIG_IMPLANT_EXISTING_UPLINK "implant_uplink_exists"
 	//This uses all return values of COMSIG_IMPLANT_OTHER
-
 
 // /obj/mecha signals
 ///sent from mecha action buttons to the mecha they're linked to

@@ -65,7 +65,7 @@
 			if(!landing_z_allowed(num_level))
 				continue
 			if(is_mining_level(num_level))
-				var/obj/docking_port/stationary/mining_pad = SSshuttle.getDock("mining_away")
+				var/obj/docking_port/stationary/mining_pad = SSshuttle.getDock("mining_away", warn = FALSE)
 				if(mining_pad && mining_pad.z == num_level)
 					start = get_turf(mining_pad)
 					break
@@ -168,37 +168,3 @@
 	helm.vessel.custom_docks[bound_host.UID()] = my_port
 	helm.vessel.selected_dock_id = my_port.id
 	helm.vessel.overmap_shuttle?.owned_docks_dirty = TRUE
-
-/atom/movable/screen/overmap_dock_ghost
-	name = "shuttle footprint"
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "green"
-	alpha = 160
-	layer = ABOVE_HUD_LAYER
-	plane = GAME_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	del_on_map_removal = FALSE
-	appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART
-
-/atom/movable/screen/overmap_nav_blip
-	name = "nav mark"
-	icon = OVERMAP_ICON_FILE
-	icon_state = OVERMAP_NAV_MARKER_STATE
-	alpha = 0
-	layer = ABOVE_HUD_LAYER
-	plane = GAME_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	del_on_map_removal = FALSE
-	appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART
-	color = "#5ad1ff"
-
-/atom/movable/screen/overmap_self_ghost
-	name = "local vessel"
-	icon = OVERMAP_ICON_FILE
-	icon_state = OVERMAP_ICON_SHUTTLE_C
-	layer = ABOVE_HUD_LAYER
-	plane = GAME_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	del_on_map_removal = FALSE
-	alpha = 0
-	appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART

@@ -39,7 +39,7 @@
 	var/turf/spot = parent.get_turf_at(coord_x, coord_y)
 	if(!spot)
 		return FALSE
-	overmap_clear_tile_for_feature(parent, spot)
+	overmap_clear_tile_for_feature(spot)
 	var/obj/overmap/placed = new token_type(spot)
 	parent.add_object(placed, spot)
 	token = placed
@@ -93,7 +93,7 @@
 			spot = parent.get_random_open_turf()
 		if(!spot)
 			continue
-		overmap_clear_tile_for_feature(parent, spot)
+		overmap_clear_tile_for_feature(spot)
 		var/obj/overmap/entity/feature/ruin/ruin_token = new(spot)
 		ruin_token.configure(src, cell)
 		parent.add_object(ruin_token, spot)
@@ -142,7 +142,8 @@
 	if(space_reservation && length(space_reservation.bottom_left_turfs))
 		bottom_left = space_reservation.bottom_left_turfs[1]
 	if(!bottom_left)
-		CRASH("Overmap: failed to reserve landing space for ruin cell [site?.id || "ruin"] q[quadrant].")
+		qdel(src)
+		return FALSE
 	space_origin_x = bottom_left.x
 	space_origin_y = bottom_left.y
 	space_z = bottom_left.z
@@ -165,6 +166,7 @@
 		else
 			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/hyperspace, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
 		new_turf.change_area(old_area, space_area)
+		CHECK_TICK
 
 /datum/overmap_space_region/proc/playable_min_x()
 	return space_origin_x + pad
@@ -233,13 +235,6 @@
 		return null
 	return locate(new_x, new_y, space_z)
 
-/datum/overmap_space_region/proc/near_playable_edge(turf/spot, range = OVERMAP_POD_WRAP_RANGE)
-	if(!contains_space_turf(spot))
-		return FALSE
-	var/dx = min(spot.x - playable_min_x(), playable_max_x() - spot.x)
-	var/dy = min(spot.y - playable_min_y(), playable_max_y() - spot.y)
-	return min(dx, dy) <= range
-
 /datum/overmap_space_region/proc/covers_reserved_turf(turf/spot)
 	if(!spot || spot.z != space_z)
 		return FALSE
@@ -248,28 +243,6 @@
 
 /datum/overmap_space_region/proc/center_turf()
 	return locate(playable_min_x() + round(size / 2), playable_min_y() + round(size / 2), space_z)
-
-/datum/overmap_space_region/proc/pick_edge_space_turf()
-	var/min_x = playable_min_x() + OVERMAP_POD_WRAP_RANGE
-	var/max_x = playable_max_x() - OVERMAP_POD_WRAP_RANGE
-	var/min_y = playable_min_y() + OVERMAP_POD_WRAP_RANGE
-	var/max_y = playable_max_y() - OVERMAP_POD_WRAP_RANGE
-	if(min_x >= max_x || min_y >= max_y)
-		return clamp_space_turf(center_turf())
-	for(var/i in 1 to OVERMAP_POD_LANDING_TRIES)
-		var/turf/spot
-		switch(pick(NORTH, SOUTH, EAST, WEST))
-			if(NORTH)
-				spot = locate(rand(min_x, max_x), max_y, space_z)
-			if(SOUTH)
-				spot = locate(rand(min_x, max_x), min_y, space_z)
-			if(EAST)
-				spot = locate(max_x, rand(min_y, max_y), space_z)
-			if(WEST)
-				spot = locate(min_x, rand(min_y, max_y), space_z)
-		if(overmap_pod_2x2_free(spot))
-			return spot
-	return center_turf()
 
 /obj/overmap/entity/feature
 	name = "аномалия"
@@ -329,7 +302,7 @@
 /obj/overmap/entity/feature/update_icon_state()
 	icon_state = overmap_icon_preset || "event"
 
-/proc/overmap_clear_tile_for_feature(datum/overmap_sector/sector, turf/spot)
+/proc/overmap_clear_tile_for_feature(turf/spot)
 	if(!spot)
 		return
 	for(var/obj/overmap/feature/hazard/hazard in spot)
@@ -339,7 +312,6 @@
 	return max(OVERMAP_RUIN_REGION_SIZE, world.maxx - 16)
 
 /datum/controller/subsystem/overmap/proc/seed_reserved_space()
-	var/watch = start_watch()
 	pooled_medium_cells = list()
 	pooled_large_cells = list()
 	transit_space_zs = list()
@@ -354,7 +326,6 @@
 		var/transit_z = SSmapping.add_reservation_zlevel()
 		SSmapping.initialize_reserved_level(transit_z)
 		transit_space_zs += transit_z
-	log_world("Overmap: reserved space pool medium=[length(pooled_medium_cells)] large=[length(pooled_large_cells)] transit_z=[length(transit_space_zs)] in [stop_watch(watch)]s.")
 
 /datum/controller/subsystem/overmap/proc/claim_space_region(size, datum/overmap_feature/ruin/site, quadrant)
 	var/datum/overmap_space_region/cell
@@ -369,7 +340,7 @@
 		pooled_medium_cells.Cut(1, 2)
 	else if(world.maxz < OVERMAP_RUIN_MAX_Z_LEVEL)
 		cell = new /datum/overmap_space_region(site, quadrant, size)
-	if(!cell)
+	if(QDELETED(cell))
 		return null
 	cell.site = site
 	cell.quadrant = quadrant || 1
@@ -377,9 +348,6 @@
 		cell.space_area.name = "Космос — [site?.name || "точка интереса"] ([cell.quadrant]/[site?.quadrants || OVERMAP_RUIN_QUADRANTS])"
 		cell.space_area.region = cell
 	return cell
-
-/datum/controller/subsystem/overmap/proc/spawn_roundstart_ruin_sites()
-	return
 
 /datum/controller/subsystem/overmap/proc/overmap_ruin_pool_for_sector(datum/overmap_sector/sector)
 	if(sector?.sector_kind == OVERMAP_SECTOR_KIND_WILDERNESS)
@@ -413,6 +381,11 @@
 /datum/controller/subsystem/overmap/proc/spawn_overmap_ruins(datum/overmap_sector/sector)
 	if(!sector || sector.ruin_spawn_weight <= 0)
 		return
+	#ifdef SKIP_SPACE_LEVELS
+	return
+	#endif
+	if(CONFIG_GET(flag/disable_space_ruins) || (SSmapping.map_datum.disables & DISABLE_SPACE_RUINS))
+		return
 	var/pool = overmap_ruin_pool_for_sector(sector)
 	var/medium_count = clamp(round(sector.size * sector.ruin_spawn_weight / 7), 1, 12)
 	var/large_count = clamp(round(medium_count / 4), 0, 2)
@@ -430,7 +403,6 @@
 		place_overmap_ruin_site(sector, ruin, FALSE)
 
 /datum/controller/subsystem/overmap/proc/place_overmap_ruin_site(datum/overmap_sector/sector, datum/map_template/ruin/space/ruin, large)
-	var/watch = start_watch()
 	var/turf/spot = sector.get_random_open_turf()
 	if(!spot)
 		return FALSE
@@ -450,10 +422,12 @@
 			ruin.loaded++
 			for(var/turf/marked as anything in ruin.get_affected_turfs(load_at, TRUE))
 				marked.turf_flags |= NO_RUINS
+				ruin_lighting_turfs += marked
 			cell.register_ruin_footprint(load_at, ruin.width, ruin.height)
 			new /obj/effect/landmark/ruin(load_at, ruin)
 	scatter_small_overmap_ruins(cell, overmap_ruin_pool_for_sector(sector), large)
-	log_world("Overmap: placed [large ? "large" : "medium"] ruin [ruin.id] in sector [sector.id] ([stop_watch(watch)]s).")
+	if(initialized)
+		refresh_ruin_space_lighting()
 	return TRUE
 
 /datum/controller/subsystem/overmap/proc/cell_footprint_free(datum/overmap_space_region/cell, datum/map_template/ruin/ruin, turf/load_at)
@@ -481,15 +455,15 @@
 		ruin.try_to_place_in_region(cell, OVERMAP_RUIN_SCATTER_MARGIN)
 
 /datum/controller/subsystem/overmap/proc/reserve_ruin_space(width, height)
-	if(!length(ruin_space_zs))
-		ruin_space_zs += SSmapping.add_ruin_space_zlevel()
 	for(var/z_level in ruin_space_zs)
-		var/datum/turf_reservation/block = SSmapping.request_turf_block_reservation(width, height, 1, z_reservation = z_level, turf_type_override = /turf/space, noisy = FALSE)
+		var/datum/turf_reservation/block = SSmapping.request_turf_block_reservation(width, height, 1, z_reservation = z_level, turf_type_override = /turf/space/overmap_region, noisy = FALSE)
 		if(block)
 			return block
+	if(world.maxz >= OVERMAP_SPAWN_MAX_Z_LEVEL)
+		return null
 	var/new_z = SSmapping.add_ruin_space_zlevel()
 	ruin_space_zs += new_z
-	return SSmapping.request_turf_block_reservation(width, height, 1, z_reservation = new_z, turf_type_override = /turf/space, noisy = FALSE)
+	return SSmapping.request_turf_block_reservation(width, height, 1, z_reservation = new_z, turf_type_override = /turf/space/overmap_region, noisy = FALSE)
 
 /datum/controller/subsystem/overmap/proc/get_space_region(atom/thing)
 	var/turf/spot = get_turf(thing)

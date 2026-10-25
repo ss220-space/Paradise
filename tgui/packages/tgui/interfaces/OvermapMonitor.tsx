@@ -1,17 +1,12 @@
-import { ByondUi, NoticeBox, Section } from 'tgui-core/components';
+import { NoticeBox, Section } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
 import { OvermapFrame, OvermapRail } from './overmap/OvermapChrome';
+import { OvermapScope, type OvermapScopeData } from './overmap/OvermapScope';
+import { RadarViewport } from './overmap/RadarViewport';
 
-type Data = {
+type Data = OvermapScopeData & {
   linked: BooleanLike;
-  mapRef: string;
-  map_zoom: number;
-  map_tiles_x?: number;
-  map_tiles_y?: number;
-  map_px_w?: number;
-  map_px_h?: number;
   vessel_name: string;
   status: string;
   x: number;
@@ -22,62 +17,41 @@ type Data = {
 
 export const OvermapMonitor = () => {
   const { act, data } = useBackend<Data>();
-  const {
-    linked,
-    mapRef,
-    map_zoom,
-    map_tiles_x = 19,
-    map_tiles_y = 15,
-    map_px_w = 608,
-    map_px_h = 480,
-    vessel_name,
-    status,
-    x,
-    y,
-    sector_name,
-    map_jammed,
-  } = data;
-
+  const { linked, vessel_name, status, x, y, sector_name, map_jammed } = data;
   return (
     <OvermapFrame
-      title="Монитор"
-      width={map_px_w + 48}
-      height={map_px_h + 96}
+      title="Тактический радар"
+      width={1040}
+      height={820}
       linked={linked}
       onRelink={() => act('relink')}
       rail={
         <OvermapRail
-          name={vessel_name || 'Монитор'}
+          name={vessel_name || 'Тактический радар'}
           sector={sector_name}
           xy={linked ? `${x}:${y}` : undefined}
           lamps={[{ label: status || 'оффлайн', on: !!linked }]}
         />
       }
+      actions={
+        <div className="OvermapScopeLegend">
+          <span>че сюда писать придумать надо</span>
+        </div>
+      }
     >
       <Section
         fill
         fitted
-        className="OvermapMapSection"
-        title={`Только просмотр, ${map_tiles_x}×${map_tiles_y}`}
+        className="OvermapMapSection OvermapScopePanel"
+        title="Обстановка сектора"
       >
-        <div
-          className="OvermapMinimap OvermapMinimap--exact"
-          style={{ width: `${map_px_w}px`, height: `${map_px_h}px` }}
-        >
-          {map_jammed ? (
+        <RadarViewport>
+          {map_jammed && !data.radar_locked ? (
             <NoticeBox danger>Связь потеряна.</NoticeBox>
           ) : (
-            <ByondUi
-              height={`${map_px_h}px`}
-              width={`${map_px_w}px`}
-              params={{
-                id: mapRef,
-                type: 'map',
-                zoom: map_zoom ?? 1,
-              }}
-            />
+            <OvermapScope data={data} />
           )}
-        </div>
+        </RadarViewport>
       </Section>
     </OvermapFrame>
   );

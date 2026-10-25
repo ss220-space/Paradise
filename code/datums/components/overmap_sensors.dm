@@ -124,7 +124,7 @@
 		return FALSE
 	var/dx = a.x - b.x
 	var/dy = a.y - b.y
-	return (dx * dx + dy * dy) <= (range * (range + 1))
+	return (dx * dx + dy * dy) <= range * range
 
 /datum/component/overmap_sensors/proc/always_sees(obj/overmap/other)
 	var/obj/overmap/entity/vessel = parent
@@ -169,7 +169,7 @@
 	var/obj/overmap/entity/vessel = parent
 	if(!has_working_sensor(OVERMAP_SENSOR_KIND_LONG) || !vessel.long_sensors_on)
 		return FALSE
-	if(!isturf(other.loc))
+	if(other.hidden_from_sensors || !isturf(other.loc))
 		return FALSE
 	var/turf/here = vessel.get_overmap_turf()
 	var/turf/there = other.get_overmap_turf()
@@ -191,7 +191,7 @@
 	var/hit = peel_hit_times[other.UID()]
 	if(!hit)
 		return FALSE
-	return (world.time - hit) < peel_cycle_len()
+	return world.time >= hit && (world.time - hit) < peel_cycle_len()
 
 /datum/component/overmap_sensors/proc/peel_alpha(obj/overmap/other)
 	if(!other)
@@ -229,21 +229,17 @@
 	var/obj/overmap/entity/vessel = parent
 	if(!has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) || !vessel.short_sensors_on)
 		return FALSE
-	if(!isturf(other.loc))
+	if(other.hidden_from_sensors || !isturf(other.loc))
 		return FALSE
 	var/turf/here = vessel.get_overmap_turf()
 	var/turf/there = other.get_overmap_turf()
 	if(!here || !there || here.z != there.z)
 		return FALSE
-	return max(abs(here.x - there.x), abs(here.y - there.y)) <= OVERMAP_SENSOR_SHORT_VIEW
+	var/span = OVERMAP_TILE_SPAN * (vessel.sector?.tile_travel || 1)
+	return sqrt(((there.x + other.position[1]) * span - vessel.get_world_x()) ** 2 + ((there.y + other.position[2]) * span - vessel.get_world_y()) ** 2) <= OVERMAP_SENSOR_SHORT_VIEW * span
 
 /datum/component/overmap_sensors/proc/can_short_scan(obj/overmap/other)
-	var/obj/overmap/entity/vessel = parent
-	if(!other || other == vessel || !in_short_view(other))
-		return FALSE
-	var/turf/here = vessel.get_overmap_turf()
-	var/turf/there = other.get_overmap_turf()
-	return max(abs(here.x - there.x), abs(here.y - there.y)) <= OVERMAP_SENSOR_SHORT_VIEW
+	return other && other != parent && in_short_view(other)
 
 /datum/component/overmap_sensors/proc/short_knows(obj/overmap/other)
 	return !!(short_identified?[other.UID()])
@@ -272,6 +268,20 @@
 		short_identified = list()
 	short_identified[other.UID()] = TRUE
 	refresh_sensor_displays()
+
+/datum/component/overmap_sensors/proc/identify_short_many(list/others)
+	if(!length(others))
+		return
+	if(!short_identified)
+		short_identified = list()
+	var/changed = FALSE
+	for(var/obj/overmap/other as anything in others)
+		if(QDELETED(other) || short_identified[other.UID()])
+			continue
+		short_identified[other.UID()] = TRUE
+		changed = TRUE
+	if(changed)
+		refresh_sensor_displays()
 
 /datum/component/overmap_sensors/proc/export_short_dump()
 	. = list()
@@ -311,7 +321,7 @@
 		return TRUE
 	if(sees_foreign_peel(other))
 		return TRUE
-	if(!isturf(other.loc))
+	if(other.hidden_from_sensors || !isturf(other.loc))
 		return FALSE
 	return peel_active(other)
 
@@ -390,15 +400,17 @@
 	SEND_SIGNAL(vessel, COMSIG_OVERMAP_DISPLAY_CHANGED)
 
 /datum/component/overmap_sensors/proc/refresh_sensor_blips()
-	var/obj/overmap/entity/vessel = parent
-	for(var/obj/machinery/computer/helm/helm as anything in vessel.helms)
-		if(QDELETED(helm) || helm.helm_tab == "dock")
-			continue
-		helm.update_sensor_ghosts(FALSE)
-	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
-		if(QDELETED(console) || console.scanning)
-			continue
-		console.update_contact_blips()
+	return
+
+/datum/component/overmap_sensors/proc/queue_peel_hit(obj/overmap/other, delay, peak)
+	LAZYINITLIST(peel_hit_times)
+	LAZYINITLIST(peel_peak)
+	var/uid = other.UID()
+	var/hit = world.time + delay
+	if(peel_hit_times[uid] > world.time && peel_hit_times[uid] <= hit)
+		return
+	peel_hit_times[uid] = hit
+	peel_peak[uid] = peak
 
 /datum/component/overmap_sensors/proc/emit_sensor_peel()
 	var/obj/overmap/entity/vessel = parent
@@ -412,9 +424,6 @@
 	if(!peel_hit_times)
 		peel_hit_times = list()
 	refresh_sensor_blips()
-	for(var/obj/machinery/computer/helm/helm as anything in vessel.helms)
-		if(!QDELETED(helm) && length(helm.viewers))
-			helm.play_inspect_radar(vessel)
 	var/turf/here = vessel.get_overmap_turf()
 	if(here && vessel.sector)
 		for(var/obj/overmap/other as anything in vessel.sector.objects)
@@ -428,7 +437,7 @@
 			if(!there)
 				continue
 			var/delay = max(OVERMAP_SENSOR_TIME_DELAY * overmap_euclid_dist(here, there), 1)
-			addtimer(CALLBACK(src, PROC_REF(peel_hit), other, 255), delay)
+			queue_peel_hit(other, delay, 255)
 	peel_timer = addtimer(CALLBACK(src, PROC_REF(emit_sensor_peel)), OVERMAP_SENSOR_PEEL_INTERVAL, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 
 /datum/component/overmap_sensors/proc/emit_short_peel()
@@ -457,27 +466,8 @@
 			var/dist = max(abs(here.x - there.x), abs(here.y - there.y))
 			var/peak = dist <= OVERMAP_SENSOR_PING_RANGE ? 255 : OVERMAP_SENSOR_PEEL_FAR_ALPHA
 			var/delay = max(OVERMAP_SENSOR_TIME_DELAY * overmap_euclid_dist(here, there), 1)
-			addtimer(CALLBACK(src, PROC_REF(peel_hit), other, peak), delay)
+			queue_peel_hit(other, delay, peak)
 	short_peel_timer = addtimer(CALLBACK(src, PROC_REF(emit_short_peel)), OVERMAP_SENSOR_PEEL_INTERVAL, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
-
-/datum/component/overmap_sensors/proc/animate_contact_peel(obj/overmap/other, peak_alpha = 255)
-	if(!other)
-		return
-	var/uid = other.UID()
-	var/obj/overmap/entity/vessel = parent
-	for(var/obj/machinery/computer/helm/helm as anything in vessel.helms)
-		if(QDELETED(helm))
-			continue
-		for(var/atom/movable/screen/overmap_sensor_blip/blip as anything in helm.sensor_blips)
-			if(blip.contact_uid == uid)
-				overmap_play_peel_blip(blip, peak_alpha)
-		helm.animate_inspect_peel(other, peak_alpha)
-	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
-		if(QDELETED(console))
-			continue
-		for(var/atom/movable/screen/overmap_sensor_blip/blip as anything in console.contact_blips)
-			if(blip.contact_uid == uid)
-				overmap_play_peel_blip(blip, peak_alpha)
 
 /datum/component/overmap_sensors/proc/peel_hit(obj/overmap/other, peak_alpha = 255)
 	if(QDELETED(src) || QDELETED(other))
@@ -490,7 +480,6 @@
 	peel_peak[other.UID()] = peak_alpha
 	remember_contact(other)
 	refresh_sensor_blips()
-	animate_contact_peel(other, peak_alpha)
 
 /datum/component/overmap_sensors/proc/prune_peel_hits()
 	if(!peel_hit_times)
@@ -699,6 +688,9 @@
 
 /obj/overmap/entity/proc/identify_short(obj/overmap/other)
 	sensor_pack?.identify_short(other)
+
+/obj/overmap/entity/proc/identify_short_many(list/others)
+	sensor_pack?.identify_short_many(others)
 
 /obj/overmap/entity/proc/export_short_dump()
 	return sensor_pack?.export_short_dump() || list()
