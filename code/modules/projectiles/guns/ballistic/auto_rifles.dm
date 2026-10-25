@@ -232,7 +232,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 2
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 6),
@@ -267,7 +267,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 1
 	fire_delay = 0.4 SECONDS
-	accuracy = GUN_ACCURACY_RIFLE_LASER
+	accuracy = GUN_ACCURACY_PISTOL_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 9),

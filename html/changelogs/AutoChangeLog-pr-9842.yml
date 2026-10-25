@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Исправлена улетевшая бумажка в ТГУИ сейфа. (PR #9842)"

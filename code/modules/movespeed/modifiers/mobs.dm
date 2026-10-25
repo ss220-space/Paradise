@@ -226,3 +226,8 @@
 /datum/movespeed_modifier/stunned_crawling
 	multiplicative_slowdown = 4 //it's added to crawling
 	flags = IGNORE_NOSLOW
+  
+/datum/movespeed_modifier/zombie
+	multiplicative_slowdown = 1
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)

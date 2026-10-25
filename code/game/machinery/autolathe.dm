@@ -137,6 +137,7 @@
 
 			recipes.Add(list(list(
 				"name" = D.build_object_name,
+				"name_en" = created_object.name,
 				"desc" = D.build_object_desc,
 				"category" = categories,
 				"uid" = D.UID(),

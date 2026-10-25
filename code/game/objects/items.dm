@@ -171,6 +171,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// A time in ticks, multiplied by the w_class.
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
 	var/embedded_ignore_throwspeed_threshold = FALSE
+	/// If our item actually embeds into human
+	var/can_actually_embed = TRUE
 
 	/// What kind of tool are we?
 	var/tool_behaviour = NONE
@@ -569,6 +571,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//if(anchored)
 	//	return
 
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return
+
 	if(loc == user)
 		if(!allow_attack_hand_drop(user))
 			return
@@ -582,7 +587,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(!do_after(user, equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
 				return
 
-		if(!user.temporarily_remove_item_from_inventory(src, silent = FALSE))
+		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.temporarily_remove_item_from_inventory(src, silent = FALSE))
 			return
 
 	else if(isliving(loc))
@@ -1574,3 +1579,6 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.update_clothing(slot_flags)
+
+/obj/item/proc/on_human_ebedded(/mob/living/carbon/human/our_target)
+	return

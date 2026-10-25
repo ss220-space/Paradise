@@ -46,6 +46,7 @@
 				continue
 			spawn_area_type = area_type
 			spawn_on_turfs(turfs)
+			return // we want only one area, not whole station
 
 	log_debug("Failed to locate area for infestation event!")
 	kill()

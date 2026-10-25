@@ -1,6 +1,7 @@
 /datum/species/skeleton
 	name = SPECIES_SKELETON
 	name_plural = "Skeletons"
+	ru_genitive = "скелета"
 
 	blurb = "Spoopy and scary."
 

@@ -102,6 +102,9 @@
 	if(clevel > 0)
 		. += "smes-og[clevel]"
 
+/obj/machinery/power/smes/should_have_node()
+	return TRUE
+
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -450,9 +453,9 @@
 		if(prob(15)) //Power drain
 			do_sparks(3, TRUE, src)
 			if(prob(50))
-				emp_act(1)
+				emp_act(EMP_HEAVY)
 			else
-				emp_act(2)
+				emp_act(EMP_LIGHT)
 		if(prob(5)) //smoke only
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
 			smoke.set_up(amount = 3, location = src.loc)

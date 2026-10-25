@@ -21,9 +21,6 @@
 				var/list/valid_underwear = list()
 				for(var/underwear, underwear_object in SSaccessories.underwear_list)
 					var/datum/sprite_accessory/S = underwear_object
-					if(!S)
-						valid_underwear += underwear
-						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
 					valid_underwear[underwear] = S
@@ -42,9 +39,6 @@
 				var/list/valid_undershirts = list()
 				for(var/undershirt, undershirt_object in SSaccessories.undershirt_list)
 					var/datum/sprite_accessory/S = undershirt_object
-					if(!S)
-						valid_undershirts += undershirt
-						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
 					valid_undershirts[undershirt] = S
@@ -63,9 +57,6 @@
 				var/list/valid_sockstyles = list()
 				for(var/sockstyle, sockstyle_object in SSaccessories.socks_list)
 					var/datum/sprite_accessory/S = sockstyle_object
-					if(!S)
-						valid_sockstyles += sockstyle
-						continue
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
 					valid_sockstyles[sockstyle] = S

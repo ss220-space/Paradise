@@ -30,6 +30,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 
+/obj/item/stack/rods/two
+	amount = 2
+
 /obj/item/stack/rods/ten
 	amount = 10
 

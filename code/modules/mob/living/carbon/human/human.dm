@@ -582,7 +582,7 @@
 			if(prob(bodypart.fracture.reattach_chance)) //success
 				bodypart.fracture = FRACTURE_TYPE_CLOSED
 				return
-			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] горит огнем!")
 			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
 			bodypart.bleeding_amount = min(bodypart.bleeding_amount, bodypart.max_bleeding_amount)
 			return
@@ -815,21 +815,15 @@
 		return .
 	if(HAS_TRAIT(src, TRAIT_DEAF))
 		return HEARING_PROTECTION_TOTAL
-	if(l_ear)
-		if(l_ear.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(l_ear.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
-	if(r_ear)
-		if(r_ear.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(r_ear.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
-	if(head)
-		if(head.item_flags & BANGPROTECT_TOTAL)
-			return HEARING_PROTECTION_TOTAL
-		if(head.item_flags & BANGPROTECT_MINOR)
-			return HEARING_PROTECTION_MINOR
+
+	if(!(l_ear || r_ear || head))
+		return
+
+	if((head && head?.item_flags & HEARING_PROTECTION_TOTAL) || (l_ear && l_ear?.item_flags & HEARING_PROTECTION_TOTAL) || (r_ear && r_ear?.item_flags & HEARING_PROTECTION_TOTAL))
+		return HEARING_PROTECTION_TOTAL
+
+	if((head && head?.item_flags & BANGPROTECT_MINOR) || (l_ear && l_ear?.item_flags & BANGPROTECT_MINOR) || (r_ear && r_ear?.item_flags & BANGPROTECT_MINOR))
+		return BANGPROTECT_MINOR
 
 /mob/living/carbon/human/abiotic(full_body = FALSE)
 	if(full_body && ((src.l_hand && !(src.l_hand.item_flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.item_flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
@@ -955,31 +949,6 @@
 
 	recalculate_limbs_status()
 	return TRUE
-
-/mob/living/carbon/human/revive()
-	//Fix up all organs and replace lost ones.
-	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
-	surgeries.Cut() //End all surgeries.
-
-	var/update_appearance = FALSE
-	if(remove_skeleton(update_appearance = FALSE))
-		update_appearance = TRUE
-	if(cure_husk(update_appearance = FALSE))
-		update_appearance = TRUE
-	if(update_appearance)
-		UpdateAppearance()
-	revive_no_clone_removal()
-
-	if(!client || !key) //Don't boot out anyone already in the mob.
-		for(var/obj/item/organ/internal/brain/H in world)
-			if(H.brainmob)
-				if(H.brainmob.real_name == src.real_name)
-					if(H.brainmob.mind)
-						H.brainmob.mind.transfer_to(src)
-						qdel(H)
-
-	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
@@ -1325,6 +1294,9 @@ GAME_VERB_SRC(/mob/living/carbon/human, check_pulse, view(1), "Проверит�
 /mob/living/carbon/human/get_default_language()
 	if(default_language)
 		return default_language
+
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages[LANGUAGE_ZOMBIE]
 
 	if(!dna.species)
 		return null
@@ -2182,3 +2154,9 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 			[wear_mask?.icon] [wear_mask?.icon_state] \
 			[back?.icon] [back?.icon_state] \
 			[belt?.icon] [belt?.icon_state]"
+
+/mob/living/carbon/human/proc/get_unarmed_attack()
+	var/datum/antagonist/zombie/zombie = mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(!istype(zombie))
+		return dna.species.unarmed
+	return zombie.claw_attack

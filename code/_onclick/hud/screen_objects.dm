@@ -120,7 +120,7 @@
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
+		usr.drop_from_active_hand()
 
 /atom/movable/screen/act_intent
 	name = "intent"
@@ -524,6 +524,19 @@
 		to_chat(usr, span_warning("Здесь уже есть обозначенная зона."))
 		return TRUE
 	create_area(usr)
+
+/atom/movable/screen/navigate
+	name = "navigate menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
 
 /atom/movable/screen/inventory
 	/// The identifier for the slot. It has nothing to do with ID cards.

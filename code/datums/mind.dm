@@ -100,7 +100,6 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
-	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
@@ -128,7 +127,11 @@
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
 	/// Available free skill points
-	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	var/free_skill_points = DEFAULT_FREE_POINTS
+	/// Actual free skill points
+	var/actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
+	/// Discount skills category
+	var/list/discount_skill_category = list()
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
 	var/list/selected_skills_levels = list()
@@ -739,6 +742,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
 
+/datum/mind/proc/memory_edit_zombie(mob/living/human)
+	. = _memory_edit_header("zombie", list())
+	if(has_antag_datum(/datum/antagonist/zombie))
+		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		return
+	if(current.HasDisease(/datum/disease/virus/zombie))
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -791,6 +804,8 @@
 		sections["traitor"] = memory_edit_traitor()
 		/** VOX RAIDER ***/
 		sections["vox raider"] = memory_edit_vox_raider()
+		/** Zombies **/
+		sections["zombie"] = memory_edit_zombie(H)
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -1928,6 +1943,49 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
+
+	else if(href_list["zombie"])
+		switch(href_list["zombie"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/zombie))
+					return
+				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure()
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
+				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
+
+			if("zombie")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				add_antag_datum(/datum/antagonist/zombie)
+				message_admins("[key_name_admin(usr)] has zombie'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has zombie'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an zombie by [key_name_admin(usr)]")
+
+			if("zombievirus")
+				if(has_antag_datum(/datum/antagonist/zombie) || !ishuman(current))
+					return
+				var/datum/disease/virus/zombie/virus = new
+				virus.Contract(current)
+				message_admins("[key_name_admin(usr)] has given a zombie virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a zombie virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a zombie virus by [key_name_admin(usr)]")
+
+			if("zombievirusno")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure()
+				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")

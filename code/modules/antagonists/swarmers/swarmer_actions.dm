@@ -140,12 +140,11 @@ GLOBAL_LIST_INIT(swarmer_objects_minimum_distance, list(
 
 	. = TRUE
 	for(var/turf/target_turf as anything in turfs_to_check)
-		if((locate(/obj/structure/swarmer) in target_turf))
-			user.balloon_alert(user, "нельзя строить сверху существующего!")
-			return FALSE
-		if((locate(/obj/machinery/porta_turret/swarmer) in target_turf))
-			user.balloon_alert(user, "нельзя строить сверху существующего!")
-			return FALSE
+		// is_swarmer_object checks for two types
+		for(var/atom in target_turf.contents)
+			if(is_swarmer_object(atom))
+				user.balloon_alert(user, "нельзя строить сверху существующего!")
+				return FALSE
 
 /// Checks if we have the same structure type in given range
 /datum/action/cooldown/swarmer/build/proc/check_for_distance(turf/spawn_turf)
@@ -179,12 +178,13 @@ GLOBAL_LIST_INIT(swarmer_objects_minimum_distance, list(
 	action_cost = SWARMER_TRAP_COST
 	build_time = SWARMER_FAST_BUILD_DELAY
 
-/// Trap is built immediately for rover swarmers, and instead has cooldown
+/// Trap is built immediately for rover swarmers
 /datum/action/cooldown/swarmer/build/trap/Grant(mob/granted_to)
 	. = ..()
-	if(is_roverswarmer(granted_to))
-		cooldown_time = build_time
-		build_time = 0
+	if(!is_roverswarmer(granted_to))
+		return
+
+	build_time = 0
 
 /datum/action/cooldown/swarmer/build/transport_hub
 	name = "Создать Хаб"

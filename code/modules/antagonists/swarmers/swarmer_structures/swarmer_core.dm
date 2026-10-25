@@ -5,7 +5,7 @@
 /// What is the range of healing aura component
 #define HEALING_AURA_RANGE 5
 /// How often we spawn a swarmer for free
-#define FREE_SWARMER_SPAWN_TIMER 3 MINUTES
+#define FREE_SWARMER_SPAWN_TIMER 8 MINUTES
 
 /obj/structure/swarmer/core
 	name = "swarmer core"
@@ -62,9 +62,6 @@
 	START_PROCESSING(SSfastprocess, src)
 	addtimer(CALLBACK(src, PROC_REF(spawn_swarmer_from_ghost)), FREE_SWARMER_SPAWN_TIMER, TIMER_LOOP | TIMER_DELETE_ME)
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
-
-	for(var/ddir in GLOB.alldirs)
-		new /obj/structure/swarmer/blockade(get_step(src, ddir))
 
 /obj/structure/swarmer/core/ComponentInitialize()
 	AddComponent( \

@@ -5,6 +5,10 @@
 	var/name_plural
 	/// the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
 	var/a = "a"
+	/// Russian name of the species in the genitive case.
+	/// Appended to bodypart names, so a severed limb reads "левая нога человека" rather
+	/// than a bare "левая нога".
+	var/ru_genitive
 
 	/// Normal icon set.
 	var/icobase = 'icons/mob/human_races/r_human.dmi'
@@ -324,6 +328,20 @@
 /datum/species/proc/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
 	return TRUE
 
+/**
+ * Returns the species name in the genitive case, ready to be appended to a bodypart name.
+ *
+ * The result is already spaced, so it can be passed straight into
+ * [/atom/proc/set_ru_names_suffix].
+ *
+ * Returns:
+ * * `string` - " человека", or null if the species shouldn't be named in bodypart names.
+ */
+/datum/species/proc/get_bodypart_name_suffix()
+	if(!ru_genitive)
+		return null
+	return " [ru_genitive]"
+
 /proc/get_age_limits(datum/species/species, list/tags)
 	if(!islist(tags))
 		tags = list(tags)
@@ -590,6 +608,7 @@
 		to_chat(user, span_warning("Вы не хотите навредить [target.declent_ru(DATIVE)]!"))
 		return FALSE
 
+
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
@@ -623,7 +642,7 @@
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
-		var/datum/unarmed_attack/attack = user.dna.species.unarmed
+		var/datum/unarmed_attack/attack = user.get_unarmed_attack()
 		var/attack_species = pick(attack.attack_verb)
 
 		//вносим проверку что это не диона, ведь у дионы свои атаки
@@ -846,6 +865,9 @@
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[PLUR_ET_YUT(M)]ся коснуться [H.declent_ru(ACCUSATIVE)]!"))
+		return FALSE
+
+	if(SEND_SIGNAL(M, COMSIG_HUMAN_UNARMED_ATTACK, H) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 
 	switch(M.a_intent)

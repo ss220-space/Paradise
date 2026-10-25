@@ -27,7 +27,7 @@
 		to_chat(owner, "Somehow, you are mindless. This should never happen. Report this bug.")
 		return
 
-	if(!owner.mind.isholy)
+	if(!HAS_MIND_TRAIT(owner, TRAIT_HOLY))
 		to_chat(owner, "Somehow, you are not holy enough to use this ability. This should never happen. Report this bug.")
 		return
 

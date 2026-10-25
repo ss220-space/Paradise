@@ -1603,7 +1603,7 @@
 		to_chat(user, span_notice("В этом гробу лежит один из наших сородичей, было бы разумно защитить его."))
 		return FALSE
 
-	if(user.mind?.isholy)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_warning("Вы знаете, что в этом гробу находится один из нечестивых вампиров, было бы разумно уничтожить его!"))
 		return FALSE
 

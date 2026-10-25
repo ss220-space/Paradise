@@ -626,11 +626,6 @@
 	if(iscoil(used))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = used
-		for(var/obj/structure/cable/local_cable in src)
-			if(local_cable.d1 == 0 || local_cable.d2 == 0)
-				local_cable.attackby(coil, user, params)
-				. |= (ATTACK_CHAIN_BLOCKED_ALL)
-				return .
 		coil.place_turf(src, user)
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)
 		return .
@@ -641,11 +636,6 @@
 		if(!rcl.loaded)
 			to_chat(user, span_warning("The [rcl.name] has no cable!"))
 			return .
-		for(var/obj/structure/cable/local_cable in src)
-			if(local_cable.d1 == 0 || local_cable.d2 == 0)
-				local_cable.attackby(rcl, user, params)
-				. |= (ATTACK_CHAIN_BLOCKED_ALL)
-				return .
 		rcl.loaded.place_turf(src, user)
 		rcl.is_empty(user)
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)

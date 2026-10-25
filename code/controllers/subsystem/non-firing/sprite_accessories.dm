@@ -174,10 +174,12 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	for(var/path in valid_subtypesof(prototype))
 		var/datum/sprite_accessory/accessory = new path
 
-		if(accessory.icon_state)
-			returnable_list[DEFAULT_SPRITE_LIST][accessory.name] = accessory
-		else
-			returnable_list[DEFAULT_SPRITE_LIST] += accessory.name
+		//if(accessory.icon_state)
+			//returnable_list[DEFAULT_SPRITE_LIST][accessory.name] = accessory
+		//else
+			//returnable_list[DEFAULT_SPRITE_LIST] += accessory.name
+
+		returnable_list[DEFAULT_SPRITE_LIST][accessory.name] = accessory
 
 		switch(accessory.gender)
 			if(MALE)

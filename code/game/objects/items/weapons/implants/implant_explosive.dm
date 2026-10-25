@@ -20,7 +20,7 @@
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || QDELETED(imp_in))
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && tgui_alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", list("Yes", "No")) != "Yes")
 		return FALSE
 	if(detonating)
 		return FALSE

@@ -344,6 +344,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/icon/head_accessory_s = icon(head_accessory.icon, "[head_accessory.icon_state]_s")
 	if(head_accessory.do_colouration)
 		head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		head_accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+		head_accessory_s.SetIntensity(0.7)
 	//head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
 	//Having it this way preserves animations. Useful for animated antennae.
 	head_accessory_standing = head_accessory_s
@@ -380,10 +383,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/MA = new()
 	MA.appearance_flags = KEEP_TOGETHER
 	MA.layer = -HAIR_LAYER
-
+	var/icon/hair_icon = new /icon(hair.icon, "[hair.icon_state]_s")
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		hair_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+		hair_icon.SetIntensity(0.7)
 	// Base hair
-	var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
-	if(head_organ.dna.species.name == SPECIES_SLIMEPERSON)
+	var/mutable_appearance/img_hair = mutable_appearance(hair_icon)
+	if(!HAS_TRAIT(src, TRAIT_I_WANT_BRAINS) && head_organ.dna.species.name == SPECIES_SLIMEPERSON)
 		img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
 	else if(hair.do_colouration)
 		img_hair.color = COLOR_MATRIX_ADD(head_organ.hair_colour)
@@ -938,12 +944,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(dna.species.optional_body_accessory)
 			return
 		bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
-
-	var/mutable_appearance/wings = mutable_appearance(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state, layer = -WING_LAYER)
+	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+		wings_icon.SetIntensity(0.7)
+	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
 	overlays_standing[WING_LAYER] = wings
 
 	if(bodypart_wing.body_accessory.has_behind)
-		var/mutable_appearance/under_wing = mutable_appearance(bodypart_wing.body_accessory.icon, "[bodypart_wing.body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
+		var/icon/under_wing_icon = new /icon(body_accessory.icon, "[body_accessory.icon_state]_BEHIND")
+		if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+			under_wing_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+			under_wing_icon.SetIntensity(0.7)
+		var/mutable_appearance/under_wing = mutable_appearance(under_wing_icon, layer = -WING_UNDERLIMBS_LAYER)
 		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
 
 		var/icon/accessory_s = icon(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state)
@@ -972,18 +985,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(bodypart_tail.m_styles["tail"] != "None" && (bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = bodypart_tail.m_styles["tail"]
-		tail_marking_style = SSaccessories.alt_heads_list[tail_marking]
+		tail_marking_style = SSaccessories.body_markings_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(bodypart_tail.m_colours["tail"], ICON_ADD)
 
 	if(bodypart_tail.body_accessory)
 		if(bodypart_tail.body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = bodypart_tail.body_accessory.icon, "icon_state" = bodypart_tail.body_accessory.icon_state)
-			if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-				if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
-					accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
-			if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
-				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
+			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+				accessory_s.SetIntensity(0.7)
+			else
+				if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
+					if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+						accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
+				if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
+					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
@@ -1027,11 +1044,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_dgrn_s")
 				else  //Default behaviour
 					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_s")
-			if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
-				if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
-					tail_s.Blend(bodypart_tail.s_col, ICON_ADD)
-			if(tail_marking_icon && !tail_marking_style.tails_allowed)
-				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
+			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				tail_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+				tail_s.SetIntensity(0.7)
+			else
+				if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
+					if(!(bodypart_tail.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+						tail_s.Blend(bodypart_tail.s_col, ICON_ADD)
+				if(tail_marking_icon && !tail_marking_style.tails_allowed)
+					tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")

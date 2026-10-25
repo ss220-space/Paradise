@@ -966,7 +966,7 @@
 "jY" = (
 /obj/item/paper_bin/nanotrasen,
 /obj/structure/table/wood/poker,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/chameleon,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"

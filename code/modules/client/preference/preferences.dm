@@ -1889,9 +1889,6 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						valid_alt_heads["None"] = SSaccessories.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head, alternate_head_object in SSaccessories.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = alternate_head_object
-							if(!head)
-								valid_alt_heads += alternate_head
-								continue
 							if(!(species in head.species_allowed))
 								continue
 
@@ -2075,9 +2072,6 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/valid_underwear = list()
 					for(var/underwear, underwear_object in SSaccessories.underwear_list)
 						var/datum/sprite_accessory/SA = underwear_object
-						if(!SA)
-							valid_underwear += underwear
-							continue
 
 						if(SA.gender && gender != SA.gender)
 							continue
@@ -2099,9 +2093,6 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/valid_undershirts = list()
 					for(var/undershirt, undershirt_object in SSaccessories.undershirt_list)
 						var/datum/sprite_accessory/SA = undershirt_object
-						if(!SA)
-							valid_undershirts += undershirt
-							continue
 						if(SA.gender && gender != SA.gender)
 							continue
 						if(!(species in SA.species_allowed))
@@ -2122,9 +2113,6 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle, sockstyle_object in SSaccessories.socks_list)
 						var/datum/sprite_accessory/SA = sockstyle_object
-						if(!SA)
-							valid_sockstyles += sockstyle
-							continue
 						if(SA.gender && gender != SA.gender)
 							continue
 						if(!(species in SA.species_allowed))

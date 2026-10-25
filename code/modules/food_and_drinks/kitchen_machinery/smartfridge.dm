@@ -472,6 +472,7 @@
 		balloon_alert(user, "механизм блокировки взломан!")
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
+	. = ..()
 	if(!emagged && prob(40 / severity))
 		playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 		emagged = TRUE

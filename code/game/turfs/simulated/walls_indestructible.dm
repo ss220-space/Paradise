@@ -223,6 +223,16 @@
 /turf/simulated/wall/indestructible/rock/dark
 	color = "#91857C"
 
+/turf/simulated/wall/indestructible/reinforced_rock
+	name = "reinforced rock wall"
+	desc = "Плотное скопление вулканических булыжников. Очень твёрдое."
+	icon = 'icons/turf/walls/reinforced_rock.dmi'
+	icon_state = "porous_rock"
+	base_icon_state = "porous_rock"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_REINFORCED_ROCK_WALLS
+	smoothing_groups = SMOOTH_GROUP_REINFORCED_ROCK_WALLS
+
 /turf/simulated/wall/indestructible/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
@@ -232,6 +242,16 @@
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALLS
 	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALLS
+
+/turf/simulated/wall/indestructible/sandstone_wall_n
+	name = "sandstone brick wall"
+	desc = "Древняя стена, состоящая из аккуратно выложенных кирпичей."
+	icon = 'icons/turf/walls/sandstone_wall_n.dmi'
+	icon_state = "sandstone_n"
+	base_icon_state = "sandstone_n"
+	smooth = SMOOTH_BITMASK 	
+	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALL_N
+	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALL_N
 
 /turf/simulated/wall/indestructible/iron
 	name = "rough metal wall"
