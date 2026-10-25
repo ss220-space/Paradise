@@ -1428,3 +1428,30 @@
 	playsound(src, unsheath_sound, 20)
 
 #undef ALLOWED_TOOL_BELT_ITEMS
+
+/obj/item/storage/belt/plague_talisman
+	name = "Runic Belt"
+	desc = "Пояс, предназначенный для безопасного хранения чумных талисманов. Лучше надеяться, что он не начнёт протекать..."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 5
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/plague_talisman
+	)
+
+/obj/item/storage/belt/plague_talisman/get_ru_names()
+	return alist(
+		NOMINATIVE = "рунический пояс",
+		GENITIVE = "рунического пояса",
+		DATIVE = "руническому поясу",
+		ACCUSATIVE = "рунический пояс",
+		INSTRUMENTAL = "руническим поясом",
+		PREPOSITIONAL = "руническом поясе",
+	)
+
+/obj/item/storage/belt/plague_talisman/populate_contents()
+	for(var/count in 1 to storage_slots)
+		new /obj/item/plague_talisman(src)
+	update_icon()
+

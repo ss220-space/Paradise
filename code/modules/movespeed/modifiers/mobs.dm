@@ -222,3 +222,8 @@
 /datum/movespeed_modifier/swimming_deep
 	blacklisted_movetypes = MOVETYPES_NOT_TOUCHING_GROUND
 	multiplicative_slowdown = 7
+
+/datum/movespeed_modifier/zombie
+	multiplicative_slowdown = 1
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)

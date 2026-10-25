@@ -15,7 +15,7 @@
 /obj/item/implant/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting bio-chip? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && tgui_alert(imp_in, "Are you sure you want to activate your dusting bio-chip? This will turn you to ash!", "Dusting Confirmation", list("Yes", "No")) != "Yes")
 		return FALSE
 
 	. = ..()

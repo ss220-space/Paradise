@@ -423,7 +423,7 @@
 			mybeacon.toggle()
 	if(portal_enabled)
 		portal_enabled = FALSE
-		update_portal()
+		INVOKE_ASYNC(src, PROC_REF(update_portal))
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/findbeacon()
 	if(mybeacon)

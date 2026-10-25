@@ -581,7 +581,8 @@ This function completely restores a damaged organ to perfect condition.
 	burn_dam = 0
 	bleeding_amount = 0
 	bleedsuppress = 0
-	open = ORGAN_CLOSED //Closing all wounds.
+	if(!HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN)) // zombies's wounds don't close. Because thats cool.
+		open = ORGAN_CLOSED //Closing all wounds.
 	fracture = null
 
 	// handle internal organs
@@ -600,6 +601,9 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
 	if(is_robotic())
 		status = ORGAN_ROBOT
+		return
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN))
+		status = ORGAN_DEAD
 		return
 	if(flags_to_heal & ORGAN_MUTATED)
 		unmutate()
@@ -774,6 +778,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(HAS_TRAIT(owner, TRAIT_GODMODE))
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
 		return
 
 	if(!silent)
@@ -1207,7 +1215,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(convert_all || (convertable_children && (bodypart.type in convertable_children)))
 			bodypart.robotize(make_tough, company, convert_all)
 
-/obj/item/organ/external/necrotize(silent = FALSE)
+/obj/item/organ/external/necrotize(silent = FALSE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
 	. = is_usable()
@@ -1219,7 +1227,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!silent)
 			owner.balloon_alert(owner, "конечность не двигается!")
 			to_chat(owner, span_danger("Вы перестаёте чувствовать [GEND_YOUR(src)] [declent_ru(ACCUSATIVE)]!"))
-		if(vital)
+		if(vital && !ignore_vital_death)
 			owner.death()
 
 /obj/item/organ/external/unnecrotize()
@@ -1270,6 +1278,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_usable()
 	if((is_robotic() && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return FALSE
+	if(owner && HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+		return TRUE
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()

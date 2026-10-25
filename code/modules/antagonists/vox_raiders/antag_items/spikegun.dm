@@ -1,6 +1,6 @@
 /// Шипомет перезаряжаемый через "вокс батарейки"
 /obj/item/gun/energy/spike
-	name = "\improper Vox spike gun"
+	name = "Vox spike gun"
 	desc = "Оружие причудливой формы с яркими пурпурными энергетическими светочами. Рукоять предназначена для когтистой руки. Выстреливает энергетическими кристаллами."
 	icon = 'icons/obj/weapons/vox_guns.dmi'
 	icon_state = "spike"
@@ -38,7 +38,7 @@
 	item_state = new_item_state
 
 /obj/item/gun/energy/spike/long
-	name = "\improper Vox spike longgun"
+	name = "Vox spike longgun"
 	desc = "Оружие причудливой формы с яркими пурпурными энергетическими светочами. Рукоять предназначена для когтистой руки. Выстреливает длинными энергетическими самовосстановимыми кристаллами с увеличенной проникающей способностью."
 	icon_state = "spike_long"
 	item_state = "spike_long"
@@ -54,7 +54,7 @@
 	return ..()
 
 /obj/item/gun/energy/spike/bio
-	name = "\improper Vox spike biogun"
+	name = "Vox spike biogun"
 	desc = "Оружие причудливой формы с шипами-трубками для нанизывания на руку. Рукоять предназначена для когтистой руки и имеет заостренные полые шипы. Выстреливает большими энергетическими распадающимися заостренными кристаллами, выматывающие цель и рикошетящую о поверхность."
 	icon_state = "spike_bio"
 	item_state = "spike_bio"
