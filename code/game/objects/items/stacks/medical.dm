@@ -322,6 +322,7 @@
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
+	playsound(user, 'sound/items/bandage.ogg', 30, TRUE)
 	affecting.germ_level = 0
 	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
 		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
@@ -529,6 +530,8 @@
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
+
+	playsound(user, 'sound/items/ointment_spreading.ogg', 30, TRUE)
 
 	affecting.germ_level = 0
 	human_heal(target, user)
@@ -1020,6 +1023,9 @@
 	target.UpdateDamageIcon()
 	update_icon()
 	tourniquet_timer_id = addtimer(CALLBACK(src, PROC_REF(tourniquet_duration_end), target), tourniquet_duration, TIMER_STOPPABLE)
+
+/obj/item/tourniquet/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
 
 /obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
