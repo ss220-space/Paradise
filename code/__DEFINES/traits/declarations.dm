@@ -684,3 +684,14 @@
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
+/// The mob is holy and resistance to cult magic
+#define TRAIT_HOLY "holy"
+/// This mob is antimagic, and immune to spells / cannot cast spells
+#define TRAIT_ANTIMAGIC "anti_magic"
+/// This allows a person who has antimagic to cast spells without getting blocked
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+
+/// Trait that allows an item to perform holy rites akin to a nullrod
+#define TRAIT_NULLROD_ITEM "nullrod_item"

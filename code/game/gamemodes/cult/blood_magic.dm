@@ -405,6 +405,11 @@
 		uses = 0
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, span_danger("[user] absorbs your spell!"))
+		uses = 0
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
@@ -446,9 +451,7 @@
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
-	var/obj/item/nullrod/N = locate() in target
-
-	if(N)
+	if(L.can_block_magic())
 		target.visible_message(
 			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
