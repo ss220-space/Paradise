@@ -131,6 +131,8 @@
 	return jump_spool_end || jump_start_time
 
 /obj/overmap/entity/proc/start_jump()
+	if(sector?.sector_kind == OVERMAP_SECTOR_KIND_SERVICE)
+		return "Недоступно."
 	if(is_jumping())
 		return "Прыжок уже идёт."
 	if(!in_free_flight())

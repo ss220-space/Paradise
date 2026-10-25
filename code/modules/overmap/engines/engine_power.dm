@@ -11,6 +11,10 @@
 				power_apc = candidate
 				return candidate
 
+/obj/machinery/ship_engine/proc/requires_apc_power()
+	var/area/place = get_area(src)
+	return requires_apc && (!place || place.requires_power)
+
 /obj/machinery/ship_engine/proc/valid_wall_mount()
 	if(!istype(loc, /turf/simulated/wall))
 		return FALSE
@@ -30,7 +34,7 @@
 	return TRUE
 
 /obj/machinery/ship_engine/proc/resource_fraction(elapsed)
-	if(!requires_apc || !active_power_usage || !thrust_limit)
+	if(!requires_apc_power() || !active_power_usage || !thrust_limit)
 		return 1
 	var/cost = active_power_usage * thrust_limit * elapsed / (1 SECONDS) * GLOB.CELLRATE
 	return clamp(get_power_apc()?.cell?.charge / max(cost, 0.001), 0, 1)
@@ -57,7 +61,7 @@
 		. += span_notice("Продвинутая система сопел даёт полную тягу во все четыре стороны.")
 	else
 		. += span_notice("Выхлоп направлен [dir2text(dir)], тяга — в противоположную сторону.")
-	if(requires_apc)
+	if(requires_apc_power())
 		var/obj/machinery/power/apc/apc = get_power_apc()
 		. += span_notice("Потребление при полной тяге: [active_power_usage] Вт. APC: [apc ? "[apc.name], заряд [round(apc.cell?.percent() || 0)]%" : "не найден"].")
 	if(side_thrust_fraction && !omnidirectional)

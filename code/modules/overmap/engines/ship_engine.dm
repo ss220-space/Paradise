@@ -80,7 +80,7 @@
 /obj/machinery/ship_engine/proc/can_burn()
 	if(!on || (stat & BROKEN) || (wall_mounted && !valid_wall_mount()))
 		return FALSE
-	if(requires_apc && !get_power_apc()?.can_supply_equipment())
+	if(requires_apc_power() && !get_power_apc()?.can_supply_equipment())
 		return FALSE
 	return fuel_available()
 
@@ -94,7 +94,7 @@
 		return 0
 	var/thrust = get_thrust()
 	var/fraction = resource_fraction(elapsed)
-	if(requires_apc && !get_power_apc()?.cell?.use(active_power_usage * thrust_limit * elapsed / (1 SECONDS) * GLOB.CELLRATE * fraction))
+	if(requires_apc_power() && !get_power_apc()?.cell?.use(active_power_usage * thrust_limit * elapsed / (1 SECONDS) * GLOB.CELLRATE * fraction))
 		return 0
 	if(!consume_fuel(elapsed * fraction))
 		return 0
@@ -126,7 +126,7 @@
 		return "Выключен"
 	if(wall_mounted && !valid_wall_mount())
 		return "Нужна внешняя стена"
-	if(requires_apc)
+	if(requires_apc_power())
 		var/obj/machinery/power/apc/apc = get_power_apc()
 		if(!apc)
 			return "Нет APC на шаттле"

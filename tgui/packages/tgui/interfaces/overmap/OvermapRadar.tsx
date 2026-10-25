@@ -1560,6 +1560,7 @@ export const OvermapRadar = (props: {
     hazardFields = [],
   } = props;
   const scope = useRef<HTMLDivElement>(null);
+  const requestedReach = useRef<number | undefined>(undefined);
   const sectorSpan = Math.max(cellSpan * sectorSize, cellSpan * 4);
   const radius = props.locked
     ? galaxyBandFor(sectorSpan) * 1.15
@@ -1614,7 +1615,13 @@ export const OvermapRadar = (props: {
       ? Math.min(128, Math.max(32, Math.round(radius * 1.1)))
       : 32;
   useEffect(() => {
-    onReach?.(reach);
+    if (!onReach) {
+      requestedReach.current = undefined;
+      return;
+    }
+    if (requestedReach.current === reach) return;
+    requestedReach.current = reach;
+    onReach(reach);
   }, [onReach, reach]);
   const north =
     followHeading && !galaxyBand ? ((-facing % 360) + 360) % 360 : 0;

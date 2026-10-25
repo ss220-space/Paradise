@@ -190,7 +190,7 @@
 	var/list/center = local_space.to_bubble(get_world_x(), get_world_y())
 	for(var/obj/docking_port/stationary/pad as anything in SSshuttle.stationary)
 		var/obj/machinery/door/airlock/external/docking/airlock = pad.dock_airlock
-		if(!airlock || pad.z != local_space.bubble_z || abs(pad.x - center[1]) > reach || abs(pad.y - center[2]) > reach || (!include_busy && pad.get_docked()) || is_overmap_programmed_dock(pad.id))
+		if(!airlock || pad.z != local_space.bubble_z || abs(pad.x - center[1]) > reach || abs(pad.y - center[2]) > reach || (!include_busy && pad.get_docked()))
 			continue
 		var/obj/overmap/entity/owner = SSovermap.shuttle_vessels[SSovermap.get_shuttle_at(airlock)]
 		. += list(list(airlock, get_turf(pad), airlock.dir, pad, owner?.get_overmap_display_name() || airlock.get_helm_label()))

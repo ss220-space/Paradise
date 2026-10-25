@@ -38,6 +38,9 @@ export class RadarTimeline {
       last.frame = frame;
       return;
     }
+    if (arrival - last.arrival > 2000) {
+      this.timing = [];
+    }
     this.timing.push({ time, arrival });
     if (this.timing.length > 10) this.timing.shift();
     const first = this.timing[0];
@@ -54,9 +57,15 @@ export class RadarTimeline {
 
   at(arrival: number) {
     const last = this.frames[this.frames.length - 1];
-    const target =
-      last.time + (arrival - last.arrival) * this.rate - this.delay;
-    const elapsed = Math.max(0, Math.min(100, arrival - this.renderedAt));
+    const target = Math.min(
+      last.time + this.prediction,
+      last.time + (arrival - last.arrival) * this.rate - this.delay,
+    );
+    let elapsed = Math.max(0, arrival - this.renderedAt);
+    if (target - this.playhead > 500) {
+      this.playhead = target;
+      elapsed = 0;
+    }
     const correction = Math.max(
       0.1,
       Math.min(1.3, 1 + (target - this.playhead) / 500),

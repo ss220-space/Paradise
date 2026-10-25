@@ -54,7 +54,7 @@
 	data["pilot_name"] = vessel.flight?.pilot?.name
 	data["ship_docked_to"] = vessel.docked_ship?.get_overmap_display_name()
 	data["ship_guests"] = length(vessel.docked_guests)
-	data["can_jump"] = vessel.in_free_flight()
+	data["can_jump"] = vessel.in_free_flight() && vessel.sector?.sector_kind != OVERMAP_SECTOR_KIND_SERVICE
 	data["local_space"] = !!vessel.local_space
 	if(vessel.jump_spool_end)
 		data["jump_left"] = round((vessel.jump_spool_end - world.time) / (1 SECONDS))
@@ -200,7 +200,7 @@
 		if(!vessel)
 			return TRUE
 
-	if(vessel.is_programmed_locked() && !(action in list("select_programmed", "execute_programmed", "relink", "helm_tab", "select_weapon", "weapon_auto")) && !(length(selected_weapons) && (action in list("radar_point", "set_dest"))))
+	if(vessel.is_programmed_locked() && !(action in list("select_programmed", "execute_programmed", "relink", "helm_tab", "helm_radar_reach", "select_weapon", "weapon_auto")) && !(length(selected_weapons) && (action in list("radar_point", "set_dest"))))
 		to_chat(usr, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return TRUE
 
@@ -310,8 +310,10 @@
 				vessel.flight.avoid_obstacles = !vessel.flight.avoid_obstacles
 			. = TRUE
 		if("helm_radar_reach")
-
-			radar_reach = clamp(round(text2num(params["reach"])), 32, OVERMAP_RADAR_TERRAIN_MAX)
+			var/reach = clamp(round(text2num(params["reach"])), 32, OVERMAP_RADAR_TERRAIN_MAX)
+			if(radar_reach == reach)
+				return FALSE
+			radar_reach = reach
 			. = TRUE
 		if("set_thrust_limit")
 			if(vessel.flight)
