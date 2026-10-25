@@ -190,12 +190,12 @@
 		total_mass += module.mass
 	return total_mass
 
-/datum/spacepod_systems/proc/get_total_thrust()
+/datum/spacepod_systems/proc/get_total_thrust(has_gravity)
 	if(!length(engines))
 		return 0
 	var/total_thrust = 0
 	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
 		if(engine.is_apu())
 			continue
-		total_thrust += engine.thrust * engine.current_rpm / engine.max_rpm
+		total_thrust += engine.get_thrust(has_gravity) * engine.current_rpm / engine.max_rpm
 	return total_thrust

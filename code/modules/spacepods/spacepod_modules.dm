@@ -366,7 +366,6 @@
 	/// Receiving external rotation
 	var/external_rotation = FALSE
 
-
 /obj/item/spacepod_module/fuel_tank/engine/New(loc, ...)
 	. = ..()
 	id = "engine_[module_id_counter++]"
@@ -396,6 +395,11 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/proc/get_rpm_percent()
 	return round(current_rpm / max_rpm * 100, 1)
+
+/obj/item/spacepod_module/fuel_tank/engine/proc/get_thrust(has_gravity)
+	if(has_gravity)
+		return thrust / POD_GRAVITY_SPEED_MOD
+	return thrust
 
 /obj/item/spacepod_module/fuel_tank/engine/turn_on()
 	error_text = null
@@ -455,6 +459,15 @@
 	thrust = 6000
 	fuel_consume_speed = 2
 	mass = 170
+
+/obj/item/spacepod_module/fuel_tank/engine/grav_engine
+	module_name = "Гравитационный двигатель челнока"
+	desc = "Двигатель челнока, который работает только в присутствии гравитации. В безгравитационном пространстве не выдает тяги. Требуется вспомогательная силовая установка для запуска данного двигателя."
+
+/obj/item/spacepod_module/fuel_tank/engine/grav_engine/get_thrust(has_gravity)
+	if(!has_gravity)
+		return 0
+	return thrust
 
 
 // MARK: APU

@@ -729,7 +729,7 @@
 
 	. = TRUE
 
-	var/thrust = systems.get_total_thrust()
+	var/thrust = systems.get_total_thrust(!no_gravity(src.loc))
 	if(thrust <= 0)
 		. = FALSE
 
@@ -766,8 +766,6 @@
 	var/mass = systems.get_total_mass()
 	var/thrust_ratio = mass / thrust
 	var/move_delay = clamp(pod_speed_coeff * thrust_ratio, POD_MOVE_MIN_DELAY, POD_MOVE_MAX_DELAY)
-	if(!no_gravity(loc))
-		move_delay *=  POD_GRAVITY_SPEED_MOD
 	return move_delay
 
 /obj/spacepod/Bump(atom/bumped_atom)
