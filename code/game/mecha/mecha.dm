@@ -58,8 +58,6 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
-	/// emp protection
-	var/emp_protection = FALSE
 	/// mech equipment types
 	var/allowed_equipment = MECH_EQUIPMENT_WORKING
 
@@ -886,8 +884,8 @@
 //TODO
 /obj/mecha/emp_act(severity)
 	. = ..()
-	if(emp_protection)
-		return FALSE
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)

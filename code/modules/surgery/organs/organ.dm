@@ -149,7 +149,9 @@
 	return TRUE
 
 /obj/item/organ/emp_act(severity)
-	return ..()
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 
 /obj/item/organ/proc/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
