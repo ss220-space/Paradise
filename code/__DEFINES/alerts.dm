@@ -20,6 +20,7 @@
 #define ALERT_GHOST_NEST "ghost_nest"
 
 /** Mob related */
+#define ALERT_AUGURY "augury"
 #define ALERT_BLEEDING "bleeding"
 #define ALERT_BUCKLED "buckled"
 #define ALERT_DIRECTION_LOCK "direction_lock"
