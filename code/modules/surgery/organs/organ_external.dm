@@ -523,19 +523,21 @@
 	external_receive_damage(max_damage, forced = TRUE)
 
 /obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
+		return .
 	if(emp_shielded(severity))
-		return
+		. |= EMP_PROTECT_SELF
+		return .
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
-			if(1)
+			if(EMP_HEAVY)
 				// 44 total burn damage with 11 augmented limbs
 				if(owner)
 					owner.apply_damage(8 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 8)
-			if(2)
+			if(EMP_LIGHT)
 				// 22 total burn damage with 11 augmented limbs
 				if(owner)
 					owner.apply_damage(6 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
@@ -567,6 +569,7 @@
 					owner.apply_damage(7 * owner.emp_damage_multiplier_external, BURN, def_zone = src)
 				else
 					external_receive_damage(0, 7)
+	return .
 
 /*
 This function completely restores a damaged organ to perfect condition.

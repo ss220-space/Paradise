@@ -123,7 +123,7 @@
 			icon_flick()
 			var/obj/machinery/camera/C = target
 			if(prob(20))
-				C.emp_act(1)
+				C.emp_act(EMP_HEAVY)
 				visible_message(span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!"))
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")

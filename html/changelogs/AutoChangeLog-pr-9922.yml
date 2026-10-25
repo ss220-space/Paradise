@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - refactor: "Рефактор почти всех емп актов под ТГ вариант. (PR #9922)"

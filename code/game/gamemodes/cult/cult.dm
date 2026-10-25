@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE // Go away Ratvar
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
-	if(mind.isholy)
+	if(HAS_TRAIT(mind, TRAIT_HOLY))
 		return FALSE
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current

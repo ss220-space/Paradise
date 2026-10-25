@@ -154,16 +154,20 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
+		return .
 	if(emp_shielded(severity))
-		return
-
+		. |= EMP_PROTECT_SELF
+		return .
+	if(istype(src, /obj/item/organ/internal/cyberimp))
+		return .
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			internal_receive_damage(20 * owner.emp_damage_multiplier_internal, silent = TRUE)
-		if(2)
+		if(EMP_LIGHT)
 			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
+	return .
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	insert(target)
