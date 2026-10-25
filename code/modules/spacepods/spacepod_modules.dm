@@ -195,6 +195,7 @@
 
 /obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.fuel_tanks) >= POD_MAX_FUEL_TANKS)
+		to_chat(user, span_notice("Установлено максимальное количество топливных баков в космическом челноке!"))
 		return FALSE
 	var/fueltank_id = "fueltank_[length(pod.systems.fuel_tanks) + 1]"
 	var/fueltank_name = tgui_input_text(user, "Название топливного бака", "Назвать топливный бак", default=fueltank_id, max_length = MAX_NAME_LEN, encode = TRUE)
@@ -377,6 +378,7 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.engines) >= POD_MAX_ENGINES)
+		to_chat(user, span_notice("Установлено максимальное количество двигателей в космическом челноке!"))
 		return FALSE
 	var/engine_id = "engine_[length(pod.systems.engines) + 1]"
 	var/engine_name = tgui_input_text(user, "Название двигателя", "Назвать двигатель", default=engine_id, max_length = MAX_NAME_LEN, encode = TRUE)

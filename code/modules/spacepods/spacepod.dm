@@ -250,11 +250,10 @@
 	if(assemble_process && istype(item, /obj/item/spacepod_module))
 		var/obj/item/spacepod_module/module_obj = item
 		add_fingerprint(user)
-		if(!user.drop_transfer_item_to_loc(item, src))
-			return ..()
 		var/obj/item/spacepod_module/installed_module = module_obj.install_to(user, src)
 		if(!installed_module)
-			item.forceMove(src)
+			return ..()
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ..()
 		systems.add_module(src, module_obj)
 		to_chat(user, span_notice("Модуль [module_obj.module_name] установлен."))
