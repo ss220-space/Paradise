@@ -36,7 +36,6 @@
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	dynamic_storage_size = TRUE
 
-
 /obj/item/storage/bag/ComponentInitialize()
 	. = ..()
 	if(dynamic_storage_size)
@@ -91,7 +90,14 @@
 	. = ..()
 	if(. & ITEM_INTERACT_ANY_BLOCKER)
 		return .
+	if(isstorage(interacting_with) || istable(interacting_with))
+		return .
+
 	trashbag_interact(interacting_with, user)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/storage/bag/trash/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	return NONE // So you can easily place trashbag on table or something else
 
 /obj/item/storage/bag/trash/proc/trashbag_interact(atom/target, mob/user)
 	var/turf/target_turf = get_turf(target)
@@ -239,7 +245,6 @@
 			if(QDELETED(ore))
 				continue
 
-			ore.do_pickup_animation(user)
 			if(pickup_ore(ore, user, box))
 				continue
 
@@ -252,6 +257,11 @@
 		handle_item_insertion(ore, prevent_warning = TRUE)
 		return TRUE
 	return FALSE
+
+/obj/item/storage/bag/ore/examine(mob/user)
+	. = ..()
+	if(aoe)
+		. += span_notice("Сумка улучшена рудным магнитом.")
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
