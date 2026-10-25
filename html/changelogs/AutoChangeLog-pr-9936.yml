@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Фикс возможности подъема предметов от зомби. (PR #9936)"
