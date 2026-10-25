@@ -20,6 +20,7 @@
 /obj/machinery/computer/syndicate_depot/Initialize(mapload)
 	. = ..()
 	depotarea = get_area(src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/computer/syndicate_depot/Destroy()
 	depotarea = null
@@ -30,9 +31,6 @@
 		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
-
-/obj/machinery/computer/syndicate_depot/emp_act(severity)
-	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
 	if(user)
