@@ -75,9 +75,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(notify)
 		notify_ghosts("Приближается [name]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
-	if(SSaugury)
-		SSaugury.register_doom(src, 2000)
-
 	if(special_target)
 		GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 	else
