@@ -87,7 +87,7 @@
 		return TRUE
 
 	//Holy characters are resistant to vampire powers
-	if(target.mind?.isholy)
+	if(HAS_MIND_TRAIT(target, TRAIT_HOLY))
 		return FALSE
 
 	return TRUE
