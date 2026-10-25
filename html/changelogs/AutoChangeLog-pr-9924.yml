@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - balance: "Ребаланс свармеров (PR #9924)"

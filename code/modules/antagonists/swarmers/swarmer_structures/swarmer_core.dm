@@ -5,7 +5,7 @@
 /// What is the range of healing aura component
 #define HEALING_AURA_RANGE 5
 /// How often we spawn a swarmer for free
-#define FREE_SWARMER_SPAWN_TIMER 3 MINUTES
+#define FREE_SWARMER_SPAWN_TIMER 8 MINUTES
 
 /obj/structure/swarmer/core
 	name = "swarmer core"
