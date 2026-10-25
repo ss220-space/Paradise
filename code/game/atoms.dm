@@ -454,7 +454,7 @@
 	if(flags & HOLOGRAM) // holograms should ignore EMP_PROTECT flags (since the protection itself is also a hologram)
 		if(prob(75 / severity))
 			// avoid spamming messages for anything inside the holodeck directly
-			if(!istype(get_area(src), /area/station/holodeck))
+			if(!istype(get_area(src), /area/holodeck))
 				visible_message(span_warning("[src] fades away!"))
 			animate(alpha = 0, time = 1 SECONDS)
 			QDEL_IN(src, 1 SECONDS)
