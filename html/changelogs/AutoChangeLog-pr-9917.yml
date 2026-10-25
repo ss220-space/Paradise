@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Починен ивент Нашествие вредителей. (PR #9917)"

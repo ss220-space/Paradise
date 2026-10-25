@@ -266,6 +266,12 @@ emp_act
 	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return HIT_RESULT_SUCCESS
 
+	if(l_hand && l_hand.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(r_hand && r_hand.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return HIT_RESULT_SUCCESS
 	return HIT_RESULT_FAILED
