@@ -862,7 +862,7 @@
 	ask_verbs = list("стона%(ет,ют)%")
 	exclaim_verbs = list("кричи%(ет,ют)%")
 	colour = "zombie"
-	key = "w"
+	key = "zz"
 	flags = RESTRICTED | NOBABEL
 	syllables = list("Мозги", "Мозгииии", "Плоть", "Гррр", "Хннг", "Мооозги", "Мооозгиии")
 	english_names = TRUE
