@@ -283,7 +283,7 @@
 			if(!iscarbon(target))
 				return
 			var/mob/living/carbon/carbon = target
-			if(carbon.mind?.isholy)
+			if(carbon.mind && HAS_MIND_TRAIT(carbon, TRAIT_HOLY))
 				to_chat(carbon, span_danger("You feel as foreigner thoughts tries to pierce your mind..."))
 				deplete_spell()
 				return
@@ -344,7 +344,7 @@
 			if(!iscarbon(target))
 				return
 			var/mob/living/carbon/carbon = target
-			if(carbon.mind?.isholy)
+			if(carbon.mind && HAS_MIND_TRAIT(carbon, TRAIT_HOLY))
 				to_chat(carbon, span_danger("You feel as foreigner thoughts tries to pierce your mind..."))
 				deplete_spell()
 				return

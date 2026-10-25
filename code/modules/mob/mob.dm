@@ -1468,7 +1468,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		is_magic_blocked = TRUE
 	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
 		is_magic_blocked = TRUE
-	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_TRAIT(src, TRAIT_HOLY))
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_MIND_TRAIT(src, TRAIT_HOLY))
 		is_magic_blocked = TRUE
 
 	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))

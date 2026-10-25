@@ -405,6 +405,11 @@
 		uses = 0
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, span_danger("[user] absorbs your spell!"))
+		uses = 0
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name

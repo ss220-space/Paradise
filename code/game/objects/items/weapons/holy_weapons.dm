@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 		return .
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && user.mind.isholy)
+	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
 		switch(vamp.nullification)
 			if(OLD_NULLIFICATION)
@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 		return .
 
 /obj/item/nullrod/pickup(mob/living/user)
-	if(sanctify_force && !user.mind?.isholy)
+	if(sanctify_force && !user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		user.take_overall_damage(force, sanctify_force)
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
@@ -451,7 +451,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	hitsound = 'sound/weapons/bite.ogg'
 
 /obj/item/nullrod/carp/attack_self(mob/living/user)
-	if(user.mind && !(user.mind.isholy || user.mind.isblessed))
+	if(user.mind && !(HAS_MIND_TRAIT(user, TRAIT_HOLY) || user.mind.isblessed))
 		return
 	if("carp" in user.faction)
 		to_chat(user, "You are already blessed by Carp-Sie.")
@@ -552,7 +552,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_notice("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return .
 
@@ -632,7 +632,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_notice("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return
 
