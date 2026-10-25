@@ -875,7 +875,7 @@
 	amt_req_cures = 3
 
 /datum/chemical_reaction/zombie/second/get_possible_cures()
-	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "happiness", "morphine", "teporone")
+	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "morphine", "teporone")
 
 /datum/chemical_reaction/zombie/third
 	name = "Anti-Plague Sequence Gamma"
