@@ -39,9 +39,8 @@
 	return cybereyes_icon
 
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
-	if(!owner || emp_proof)
-		return
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !owner)
 		return
 
 	if(severity > 1)
@@ -93,10 +92,8 @@
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
-/obj/item/organ/internal/cyberimp/eyes/thermals/empproof/emp_act(severity)
-	if(emp_shielded(severity))
-		return
-	return
+/obj/item/organ/internal/cyberimp/eyes/thermals/empproof
+	emp_proof = TRUE
 
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
@@ -168,12 +165,8 @@
 	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	flash_protect = FLASH_PROTECTION_WELDER
+	emp_proof = TRUE
 	// Welding with thermals will still hurt your eyes a bit.
-
-/obj/item/organ/internal/cyberimp/eyes/shield/emp_act(severity)
-	if(emp_shielded(severity))
-		return
-	return
 
 /obj/item/organ/internal/cyberimp/eyes/hud/universal
 	name = "universal HUD implant"
@@ -497,4 +490,3 @@
 	create_overlays_entry(extra_overlays, "Crew members", icon_name = "crew", markers = crew_members)
 	create_overlays_entry(extra_overlays, "Nuclear authentification disk", icon_name = "nuclear_disk", markers = nuclear_disks)
 	return extra_overlays
-

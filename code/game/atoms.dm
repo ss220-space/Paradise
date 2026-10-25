@@ -432,8 +432,35 @@
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
-/atom/proc/emp_act(severity)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+/**
+ * React to an EMP of the given severity
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_PRE_EMP_ACT] and [COMSIG_ATOM_EMP_ACT] signal
+ *
+ * If the pre-signal does not return protection, and there are attached wires then we call
+ * [emp_pulse][/datum/wires/proc/emp_pulse] on the wires
+ *
+ * We then return the protection value
+ */
+/atom/proc/emp_act(severity, pre_calculated_protection = null)
+	SHOULD_CALL_PARENT(TRUE)
+	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
+	if("wires" in src.vars)
+		var/wires = src.vars["wires"]
+		if(!(protection & EMP_PROTECT_WIRES) && istype(wires, /datum/wires))
+			var/datum/wires/wire_datum = wires
+			wire_datum.emp_pulse()
+
+	if(flags & HOLOGRAM) // holograms should ignore EMP_PROTECT flags (since the protection itself is also a hologram)
+		if(prob(75 / severity))
+			// avoid spamming messages for anything inside the holodeck directly
+			if(!istype(get_area(src), /area/holodeck))
+				visible_message(span_warning("[src] fades away!"))
+			animate(alpha = 0, time = 1 SECONDS)
+			QDEL_IN(src, 1 SECONDS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity, protection)
+	return protection // Pass the protection value collected here upwards
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)

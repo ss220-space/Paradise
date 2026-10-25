@@ -138,6 +138,7 @@
 	. = ..()
 	if(!holds_charge)
 		empty()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
@@ -179,9 +180,6 @@
 
 	deltimer(recharge_timerid)
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time, TIMER_STOPPABLE)
-
-/obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
 
 /obj/item/gun/energy/kinetic_accelerator/robocharge()
 	return

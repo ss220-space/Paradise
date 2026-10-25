@@ -242,8 +242,9 @@
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 
-/obj/item/gun/energy/ionrifle/emp_act(severity)
-	return
+/obj/item/gun/energy/ionrifle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
