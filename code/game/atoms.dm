@@ -1088,11 +1088,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			GLOB.blood_splatter_icons["[blood_color]"] = params
 		add_filter("blood_splatter", 1, params)
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		if(type_override)
+			type = type_override
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)

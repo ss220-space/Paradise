@@ -120,7 +120,7 @@
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
+		usr.drop_from_active_hand()
 
 /atom/movable/screen/act_intent
 	name = "intent"

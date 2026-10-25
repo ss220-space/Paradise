@@ -760,30 +760,48 @@
 	if(QDELETED(src))
 		return FALSE
 	rejuvenate()
-	if(iscarbon(src))
-		var/mob/living/carbon/C = src
 
-		if(C.handcuffed && !initial(C.handcuffed))
-			C.drop_item_ground(C.handcuffed, TRUE)
+/mob/living/carbon/revive()
+	if(reagents)
+		reagents.clear_reagents()
+		QDEL_LIST(reagents.addiction_list)
+		reagents.addiction_threshold_accumulated.Cut()
 
-		if(C.legcuffed && !initial(C.legcuffed))
-			C.drop_item_ground(C.legcuffed, TRUE)
+	if(iscultist(src))
+		if(SSticker.mode.cult_risen)
+			SSticker.mode.rise(src)
+		if(SSticker.mode.cult_ascendant)
+			SSticker.mode.ascend(src)
 
-		if(C.reagents)
-			C.reagents.clear_reagents()
-			QDEL_LIST(C.reagents.addiction_list)
-			C.reagents.addiction_threshold_accumulated.Cut()
-		if(iscultist(src))
-			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(src)
+	QDEL_LIST(processing_patches)
+	..()
 
-		QDEL_LIST(C.processing_patches)
+/mob/living/carbon/human/revive()
+	//Fix up all organs and replace lost ones.
+	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
+
+	var/update_appearance = FALSE
+	if(remove_skeleton(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(cure_husk(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(update_appearance)
+		UpdateAppearance()
+	revive_no_clone_removal()
+
+	if(!client || !key) //Don't boot out anyone already in the mob.
+		for(var/obj/item/organ/internal/brain/H in world)
+			if(H.brainmob)
+				if(H.brainmob.real_name == src.real_name)
+					if(H.brainmob.mind)
+						H.brainmob.mind.transfer_to(src)
+						qdel(H)
+
+	..()
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
-/mob/living/proc/rejuvenate()
+/mob/living/proc/rejuvenate(remove_disease = TRUE)
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
 	// shut down various types of badness
@@ -823,30 +841,12 @@
 	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
-	CureAllDiseases(FALSE)
-	fire_stacks = 0
-	fire_stacks = 0
-	on_fire = 0
+	if(remove_disease)
+		CureAllDiseases(FALSE)
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
 		buckled.unbuckle_mob(src, force = TRUE)
 
-	if(iscarbon(src))
-		var/mob/living/carbon/C = src
-		C.uncuff()
-
-		for(var/thing in C.diseases)
-			var/datum/disease/D = thing
-			D.cure(need_immunity = FALSE)
-
-		// restore all of the human's blood and reset their shock stage
-		if(ishuman(src))
-			human_mob = src
-			human_mob.set_heartattack(FALSE)
-			human_mob.restore_blood()
-			human_mob.decaylevel = 0
-			human_mob.remove_all_embedded_objects()
-			human_mob.remove_all_parasites()
 	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
@@ -865,6 +865,17 @@
 		human_mob.update_eyes()
 		human_mob.update_dna()
 	return
+
+/mob/living/carbon/rejuvenate(remove_disease = TRUE)
+	. = ..()
+	uncuff()
+
+/mob/living/carbon/human/rejuvenate(remove_disease = TRUE)
+	. = ..()
+	set_heartattack(FALSE)
+	decaylevel = 0
+	remove_all_embedded_objects()
+	remove_all_parasites()
 
 /mob/living/proc/remove_CC()
 	SetWeakened(0)
@@ -2396,4 +2407,13 @@ GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
 	remove_status_effect(/datum/status_effect/gene_instability)
 
 /mob/living/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
+	return
+
+/mob/living/proc/vomit(
+	lost_nutrition = VOMIT_NUTRITION_LOSS,
+	mode = NONE,
+	stun = VOMIT_STUN_TIME,
+	distance = VOMIT_DISTANCE,
+	message = TRUE
+)
 	return

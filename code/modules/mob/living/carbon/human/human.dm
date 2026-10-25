@@ -950,31 +950,6 @@
 	recalculate_limbs_status()
 	return TRUE
 
-/mob/living/carbon/human/revive()
-	//Fix up all organs and replace lost ones.
-	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
-	surgeries.Cut() //End all surgeries.
-
-	var/update_appearance = FALSE
-	if(remove_skeleton(update_appearance = FALSE))
-		update_appearance = TRUE
-	if(cure_husk(update_appearance = FALSE))
-		update_appearance = TRUE
-	if(update_appearance)
-		UpdateAppearance()
-	revive_no_clone_removal()
-
-	if(!client || !key) //Don't boot out anyone already in the mob.
-		for(var/obj/item/organ/internal/brain/H in world)
-			if(H.brainmob)
-				if(H.brainmob.real_name == src.real_name)
-					if(H.brainmob.mind)
-						H.brainmob.mind.transfer_to(src)
-						qdel(H)
-
-	..()
-
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
 	if(!L)
@@ -1319,6 +1294,9 @@ GAME_VERB_SRC(/mob/living/carbon/human, check_pulse, view(1), "Проверит�
 /mob/living/carbon/human/get_default_language()
 	if(default_language)
 		return default_language
+
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages[LANGUAGE_ZOMBIE]
 
 	if(!dna.species)
 		return null
@@ -2176,3 +2154,9 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 			[wear_mask?.icon] [wear_mask?.icon_state] \
 			[back?.icon] [back?.icon_state] \
 			[belt?.icon] [belt?.icon_state]"
+
+/mob/living/carbon/human/proc/get_unarmed_attack()
+	var/datum/antagonist/zombie/zombie = mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(!istype(zombie))
+		return dna.species.unarmed
+	return zombie.claw_attack

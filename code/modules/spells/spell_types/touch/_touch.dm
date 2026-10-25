@@ -322,7 +322,7 @@
  */
 
 /obj/item/melee/touch_attack
-	name = "\improper outstretched hand"
+	name = "outstretched hand"
 	desc = "High Five?"
 	item_state = "lgloves"
 	w_class = WEIGHT_CLASS_HUGE

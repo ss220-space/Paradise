@@ -30,10 +30,6 @@
 	/// Sets color matrix for timestop effect.
 	var/color_matrix = COLOR_MATRIX_INVERT
 
-/obj/effect/timestop/wizard
-	duration = 10 SECONDS
-	antimagic_flags = MAGIC_RESISTANCE
-
 /obj/effect/timestop/slowing
 	duration = 10 SECONDS
 	timefreeze = TRUE
@@ -42,6 +38,10 @@
 ///indefinite version, but only if no immune atoms move.
 /obj/effect/timestop/channelled
 	channelled = TRUE
+
+/obj/effect/timestop/magic
+	duration = 10 SECONDS
+	antimagic_flags = MAGIC_RESISTANCE
 
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE, silent = FALSE) //Immune atoms assoc list atom = TRUE
 	. = ..()

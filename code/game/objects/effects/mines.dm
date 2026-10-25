@@ -14,6 +14,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
+	set waitfor = FALSE
 	to_chat(victim, span_danger("*click*"))
 
 /obj/effect/mine/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
