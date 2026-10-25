@@ -1437,7 +1437,7 @@
 	storage_slots = 5
 	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/plague_talisman
+		/obj/item/plague_talisman,
 	)
 
 /obj/item/storage/belt/plague_talisman/get_ru_names()

@@ -90,7 +90,8 @@
 	return "[verb]: \"[message]\""
 
 /mob/proc/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
-	SHOULD_NOT_SLEEP(TRUE)
+	set waitfor = FALSE
+
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
 
 	if(!client)

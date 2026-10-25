@@ -5,7 +5,6 @@
 	background_icon_state = "bg_vampire"
 	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_ANTIMAGIC
 	//antimagic_flags = NONE
-	cooldown_time = 0 SECONDS
 	var/list/our_claws = list()
 	var/infection_stage = 1 // mostly for adminbus and testing
 	var/disease

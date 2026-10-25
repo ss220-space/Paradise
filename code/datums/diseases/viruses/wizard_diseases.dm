@@ -21,7 +21,6 @@
 
 /datum/disease/virus/grut_gut
 	name = "Желудочная гниль"
-	max_stages = 5
 	stage_prob = 5
 	cure_text = "Пиротехнические стабилизирующий агент"
 	agent = "Eruca Stomachum"
@@ -32,7 +31,6 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/grut_gut/wizard_variant
-	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/virus/grut_gut/stage_act()
 	if(!..())
@@ -92,7 +90,6 @@
 
 /datum/disease/virus/wand_rot
 	name = "Гниль жезла"
-	max_stages = 5
 	stage_prob = 5
 	cure_text = "Ацетальдегид"
 	agent = "nasum magicum"
@@ -103,7 +100,6 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/wand_rot/wizard_variant
-	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/virus/wand_rot/stage_act()
 	if(!..())
@@ -159,7 +155,6 @@
 
 /datum/disease/virus/mystic_malaise
 	name = "Мистический недуг"
-	max_stages = 5
 	stage_prob = 5
 	cure_text = "жидкая тёмная материя"
 	agent = "Spatio Ventrem"
@@ -170,7 +165,6 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/mystic_malaise/wizard_variant
-	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/virus/mystic_malaise/stage_act()
 	if(!..())
