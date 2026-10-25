@@ -22166,6 +22166,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

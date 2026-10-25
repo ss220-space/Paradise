@@ -487,3 +487,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))
 
 #define is_mining_spear_core(A) (istype(A, /obj/item/mining_spear_core))
+
+#define is_swarmer_object(A) (istype(A, /obj/structure/swarmer) || istype(A, /obj/machinery/porta_turret/swarmer))
