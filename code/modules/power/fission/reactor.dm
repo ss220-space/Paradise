@@ -392,7 +392,7 @@
 		if(plasteel.amount < 5)
 			to_chat(user, span_warning("Для восстановления структуры сердцевины реактора нужно не менее пяти листов пластали!"))
 			return ITEM_INTERACT_SUCCESS
-		if(do_after(user, 3 SECONDS, TRUE, src))
+		if(do_after(user, 3 SECONDS, src))
 			repair_step++
 			plasteel.use(5)
 			to_chat(user, span_notice("Вы укладываете слой радиационной защиты вокруг сердцевины реактора."))

@@ -389,7 +389,6 @@
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
 		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/mod/control/pre_equipped/traitor_elite = 1,
 	)
 
 // Layout-affecting spawns
