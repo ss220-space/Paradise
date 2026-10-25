@@ -1544,6 +1544,8 @@
 						H.AdjustBlood(30)
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/datum/disease/virus/zombie/zomb in H.diseases)
+						zomb.cure() // experimental B). Won't save you from the dead organs.
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-6, FALSE)
 					update_flags |= M.adjustToxLoss(-2, FALSE)
@@ -1796,3 +1798,47 @@
 	user.adjustBruteLoss(6)
 	user.set_bloody_screen(6 SECONDS)
 
+// First level, prevents scratches from infecting you and cures stage 1 zombie infections.
+/datum/reagent/zombie_cure
+	name = "Противовирусная сыворотка Альфа"
+	id = "zombiecure1"
+	description = "Первый шаг к лечению некротизирующей чумы. Предотвращает простое заражение от царапин."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	color = "#003602"
+	var/cure_level = 1
+
+// Weakens a zombie's claws when in their system. Cures stage 1-3 infections.
+/datum/reagent/zombie_cure/second
+	name = "Противовирусная сыворотка Бета"
+	id = "zombiecure2"
+	description = "Лечит слабо развившееся заражение. Ослабляет зомби, находясь в их организме."
+	color = "#006238"
+	cure_level = 2
+
+// Significantly weakens a zombie's healing ability. Cures 1-5 infections and significantly slows the advance of the stage 6 infection
+/datum/reagent/zombie_cure/third
+	name = "Противовирусная сыворотка Гамма"
+	id = "zombiecure3"
+	description = "Не даёт зомби оживать, но не мешает им исцеляться. Лечит умеренно развившееся заражение."
+	color = "#029779"
+	cure_level = 3
+
+// Final cure, completely cures being a zombie. Revives all rotten limbs.
+/datum/reagent/zombie_cure/fourth
+	name = "Противовирусная сыворотка Омега"
+	id = "zombiecure4"
+	description = "Лечит все случаи некротизирующей чумы. Не даёт зомби оживать."
+	color = "#001d4d"
+	cure_level = 4
+
+/datum/reagent/zombie_cure/fourth/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/human = M
+	if(istype(human) && prob(20))
+		for(var/obj/item/organ/limb as anything in human.bodyparts)
+			if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+				limb.status &= ~ORGAN_DEAD
+				human.update_body()
+				break
+	return ..() | update_flags

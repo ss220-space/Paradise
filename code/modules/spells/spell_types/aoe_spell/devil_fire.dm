@@ -30,6 +30,8 @@
 	cast_on_turf(victim)
 
 /datum/action/cooldown/spell/aoe/devil_fire/proc/cast_on_mob(mob/living/victim)
+	if(victim.can_block_magic(antimagic_flags))
+		return
 	victim.Slowed(slow_time)
 
 /datum/action/cooldown/spell/aoe/devil_fire/proc/cast_on_turf(turf/target)

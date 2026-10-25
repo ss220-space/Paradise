@@ -697,9 +697,19 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, pb_knockback, 2)
 
-/obj/item/gun/emp_act(severity)
-	for(var/obj/O in contents)
-		O.emp_act(severity)
+/obj/item/gun/emp_act(severity, pre_calculated_protection = null)
+	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
+	var/obj/item/gun/energy/energy_gun
+	if(isenergygun(src))
+		energy_gun = src
+	// Strange: the flags weren't getting through via the parent emp_act(), so we’re passing them explicitly.
+	..(severity, protection)
+	if(!(protection & EMP_PROTECT_CONTENTS))
+		for(var/obj/inside in contents)
+			if(energy_gun && inside == energy_gun.cell)
+				continue
+			inside.emp_act(severity)
+	return protection
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))

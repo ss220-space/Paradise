@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Динамический размер для мешков, рюкзаков и сумок. (PR #9911)"

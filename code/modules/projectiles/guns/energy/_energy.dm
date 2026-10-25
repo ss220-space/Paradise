@@ -38,6 +38,9 @@
 	/// If our charge overlay is dependent for shot colour
 	var/colour_denendent = FALSE
 
+	/// Divisor for EMP damage to the weapon's cell. Higher values mean more resistance.
+	var/emp_resistance = 1
+
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(sibyl_mod)
@@ -119,14 +122,20 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 		sibyl_mod.toggle_voice(usr)
 
 /obj/item/gun/energy/emp_act(severity)
-	cell?.use(round(cell.charge / severity))
-	if(chambered)//phil235
-		if(chambered.BB)
-			qdel(chambered.BB)
-			chambered.BB = null
-		chambered = null
-	newshot() //phil235
-	update_icon()
+	var/protection = SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity)
+	// Strange: the flags weren't getting through via the parent emp_act(), so we’re passing them explicitly.
+	..(severity, protection)
+	if(!(protection & EMP_PROTECT_CONTENTS))
+		cell?.emp_act(severity, emp_resistance)
+	if(protection & EMP_PROTECT_SELF)
+		return protection
+	if(chambered?.BB)
+		qdel(chambered.BB)
+		chambered.BB = null
+	chambered = null
+	newshot()
+	update_appearance()
+	return protection
 
 /obj/item/gun/energy/get_cell()
 	return cell

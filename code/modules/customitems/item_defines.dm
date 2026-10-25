@@ -1245,16 +1245,6 @@ GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
 
-/obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)
-
-/obj/item/nullrod/fluff/chronx/scythe
-	name = "Soul Collector"
-	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chronx_scythe"
-	item_state = "chronx_scythe"
-
 /obj/item/clothing/head/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Hood"
 	desc = "Hood worn by the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"

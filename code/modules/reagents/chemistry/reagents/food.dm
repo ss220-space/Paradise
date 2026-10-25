@@ -12,7 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!isvampire(M))
+	if(!isvampire(M) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		M.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
@@ -27,7 +27,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!isvampire(M))
+	if(!isvampire(M) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-burn_heal, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
