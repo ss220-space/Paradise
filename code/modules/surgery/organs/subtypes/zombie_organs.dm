@@ -25,5 +25,5 @@
 	for(var/obj/item/organ/limb as anything in human?.bodyparts)
 		if(limb.status & ORGAN_DEAD && !limb.is_robotic())
 			limb.status &= ~ORGAN_DEAD
-	human.update_body()
+	human?.update_body()
 	return ..()
