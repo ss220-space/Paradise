@@ -348,6 +348,11 @@
 	targeting_type = /datum/aoe_targeting/human_affects_vamp
 	var/required_blood = 25
 
+/datum/action/cooldown/spell/aoe/hysteria/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+
 /datum/action/cooldown/spell/aoe/hysteria/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
 	SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))

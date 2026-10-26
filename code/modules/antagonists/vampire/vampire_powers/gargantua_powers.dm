@@ -32,6 +32,10 @@
 	var/required_blood = 10
 	var/max_range = 4
 
+/datum/action/cooldown/spell/stomp/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
 /datum/action/cooldown/spell/stomp/can_cast_spell(feedback)
 	var/mob/living/carbon/user = owner
 	return ..() && !user.legcuffed
@@ -125,6 +129,10 @@
 	button_icon_state = "blood_rush"
 	background_icon_state = "bg_vampire"
 	var/required_blood = 10
+
+/datum/action/cooldown/spell/blood_rush/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/blood_rush/cast(atom/cast_on)
 	. = ..()
