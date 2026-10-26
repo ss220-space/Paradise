@@ -12,8 +12,15 @@
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
+
+/datum/component/charge_shot/RegisterWithParent()
+	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_gun_dropped))
 	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_gun_deleted))
+
+/datum/component/charge_shot/UnregisterFromParent()
+	. = ..()
+	UnregisterSignal(parent, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 
 /datum/component/charge_shot/Destroy()
 	charge_started = 0

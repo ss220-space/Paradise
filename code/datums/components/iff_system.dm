@@ -8,8 +8,15 @@
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
+
+/datum/component/iff_system/RegisterWithParent()
+	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_click_alt))
+
+/datum/component/iff_system/UnregisterFromParent()
+	. = ..()
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_CLICK_ALT))
 
 /datum/component/iff_system/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
