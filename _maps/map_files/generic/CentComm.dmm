@@ -26671,7 +26671,7 @@
 "mxD" = (
 /obj/machinery/conveyor{
 	dir = 1;
-	id = "CC_crate"s"
+	id = "CC_crate"
 	},
 /obj/structure/plasticflaps,
 /obj/machinery/door/poddoor{
