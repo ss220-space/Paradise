@@ -44,6 +44,16 @@
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/proc/do_jaunt(mob/living/cast_on)
 	// Makes sure they don't die or get jostled or something during the jaunt entry
 	// Honestly probably not necessary anymore, but better safe than sorry
+	if(iscarbon(cast_on))
+		cast_on.SetSleeping(0)
+		cast_on.SetParalysis(0)
+		cast_on.SetStunned(0)
+		cast_on.SetWeakened(0)
+		cast_on.SetKnockdown(0)
+		cast_on.setStaminaLoss(0)
+		cast_on.set_resting(FALSE, instant = TRUE)
+		cast_on.get_up(instant = TRUE)
+
 	ADD_TRAIT(cast_on, TRAIT_NO_TRANSFORM, MAGIC_TRAIT)
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(cast_on)
 	REMOVE_TRAIT(cast_on, TRAIT_NO_TRANSFORM, MAGIC_TRAIT)
