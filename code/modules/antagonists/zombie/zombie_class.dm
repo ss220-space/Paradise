@@ -49,18 +49,16 @@
 /datum/zombie_class/tank
 	name = "Танк"
 	desc = "Очень медленный, но невероятно живучий зомби. Наносит огромный урон и выдерживает множество попаданий. Умеет топать, создавая ударную волну."
-	healing_factor_mod = 2
-	brute_mod = 0.4
-	burn_mod = 0.4
-	stamina_mod = 0.4
-	damage_mod = 2.5
-	healing_factor_mod = 2
+	brute_mod = 0.5
+	burn_mod = 0.5
+	stamina_mod = 0.5
+	damage_mod = 1.7
 	movespeed_modifier = /datum/movespeed_modifier/zombie/slow
 	special_skill = /datum/action/cooldown/spell/stomp/zombie
 
 /datum/zombie_class/smoker
 	name = "Тень"
-	desc = "Медленный зомби со средним уроном и неплохой живучестью. Выпускает крайне вонючий дым, а его полупрозрачная кожа делает его трудноразличимым."
+	desc = "Медленный зомби со средним уроном и неплохой живучестью. Выпускает крайне вонючий дым, а его полупрозрачная кожа делает его трудноразличимым в темноте."
 	healing_factor_mod = 2
 	burn_mod = 4
 	brute_mod = 0.9
@@ -70,12 +68,10 @@
 
 /datum/zombie_class/smoker/apply(mob/living/carbon/human/zombie)
 	. = ..()
-	animate(zombie, time = 0.5 SECONDS, alpha = 50)
-	zombie.alpha_set(standartize_alpha(50), ALPHA_SOURCE_ZOMBIE)
+	zombie.AddElement(/datum/element/dark_invisibility)
 
 /datum/zombie_class/smoker/remove(mob/living/carbon/human/zombie)
-	animate(zombie, time = 0.5 SECONDS, alpha = 255)
-	zombie.alpha_set(1, ALPHA_SOURCE_ZOMBIE)
+	zombie.RemoveElement(/datum/element/dark_invisibility)
 	return ..()
 
 /datum/zombie_class/spitter

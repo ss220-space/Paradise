@@ -975,6 +975,7 @@
 #include "code\datums\elements\climbable.dm"
 #include "code\datums\elements\coffeemaker_element_loader.dm"
 #include "code\datums\elements\connect_loc.dm"
+#include "code\datums\elements\dark_invisibility.dm"
 #include "code\datums\elements\death_drops.dm"
 #include "code\datums\elements\devil_banishment.dm"
 #include "code\datums\elements\devil_regen.dm"

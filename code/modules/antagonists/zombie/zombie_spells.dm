@@ -58,7 +58,7 @@
 	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL
 	gender = PLURAL
 	force = 21 // allows them to break down doors aka NOT FUCKING AROUND
 	armour_penetration = -10
@@ -91,10 +91,6 @@
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	if(new_parent_spell)
 		parent_spell = new_parent_spell
-
-/obj/item/zombie_claw/proc/dispel(mob/user)
-	if(user && user.get_active_hand() == src)
-		qdel(src)
 
 /obj/item/zombie_claw/Destroy()
 	if(parent_spell)
@@ -154,7 +150,6 @@
 	to_chat(target, span_userdanger("Ваш [brain_holder.name] жестоко вскрыт!"))
 	user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] жестоко раскалывает [brain_holder.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)]!"), span_danger(span_zombie("Мы раскалываем [brain_holder.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)]!")))
 	return TRUE
-
 
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
 	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
@@ -255,7 +250,6 @@
 	button_icon_state = "parasmoke"
 	background_icon_state = "bg_vampire"
 	smoke_type = /datum/effect_system/fluid_spread/smoke/zombie
-	smoke_range = 7
 
 /datum/action/cooldown/spell/pointed/projectile/acid_spit
 	name = "Кислотный плевок"
