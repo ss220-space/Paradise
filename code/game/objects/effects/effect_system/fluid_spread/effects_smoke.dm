@@ -413,8 +413,16 @@
 	victim.vomit()
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
 
+/obj/effect/particle_effect/fluid/smoke/vomiting/zombie/smoke_mob(mob/living/carbon/victim)
+	if(HAS_TRAIT(victim, TRAIT_I_WANT_BRAINS))
+		return FALSE
+	return ..()
+
 /datum/effect_system/fluid_spread/smoke/vomiting
 	effect_type = /obj/effect/particle_effect/fluid/smoke/vomiting
+
+/datum/effect_system/fluid_spread/smoke/zombie
+	effect_type = /obj/effect/particle_effect/fluid/smoke/vomiting/zombie
 
 /////////////////////////////////////////////
 // Chem smoke

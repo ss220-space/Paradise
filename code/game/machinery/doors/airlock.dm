@@ -838,7 +838,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
 	if(ishuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
-		if((H.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_AIRLOCK_HIT)) && Adjacent(user))
+		if((!H.check_brain_for_complex_interactions() || HAS_TRAIT(user, TRAIT_AIRLOCK_HIT)) && Adjacent(user))
 			playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
