@@ -1856,7 +1856,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	brains.original_body = WEAKREF(self_chest)
 
 /mob/living/carbon/human/is_literate()
-	return !check_brain_for_complex_interactions()
+	return check_brain_for_complex_interactions()
 
 /mob/living/carbon/human/fakefire()
 	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
