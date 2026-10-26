@@ -31,6 +31,7 @@
 	cooldown_time = 30 SECONDS
 	var/required_blood = 10
 	var/max_range = 4
+	var/vampire_check = TRUE
 
 /datum/action/cooldown/spell/stomp/can_cast_spell(feedback)
 	var/mob/living/carbon/user = owner
@@ -57,7 +58,7 @@
 		if(L.throwing) // no double hits
 			continue
 
-		if(!L.affects_vampire(user))
+		if(!target_validation(L, user))
 			continue
 
 		if(L.move_resist > MOVE_FORCE_VERY_STRONG)
@@ -72,12 +73,16 @@
 	if(new_range <= max_range)
 		addtimer(CALLBACK(src, PROC_REF(hit_check), new_range, start_turf, user, safe_targets), 0.2 SECONDS)
 
+/datum/action/cooldown/spell/stomp/proc/target_validation(mob/living/target, mob/user)
+	return target.affects_vampire(user)
+
 /obj/effect/temp_visual/stomp
 	icon = 'icons/effects/seismic_stomp_effect.dmi'
 	icon_state = "stomp_effect"
 	duration = 0.8 SECONDS
 	pixel_y = -16
 	pixel_x = -16
+
 
 /obj/effect/temp_visual/stomp/Initialize(mapload)
 	. = ..()

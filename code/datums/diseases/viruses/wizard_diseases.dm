@@ -1,23 +1,30 @@
 /datum/disease/virus/beesease/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/fluspanish/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/kingstons_advanced/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/dna_retrovirus/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/tuberculosis/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/wizarditis/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/anxiety/wizard_variant
 	spread_flags = NON_CONTAGIOUS
+	show_in_records = FALSE
 
 /datum/disease/virus/grut_gut
 	name = "Желудочная гниль"
@@ -31,6 +38,7 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/grut_gut/wizard_variant
+	show_in_records = FALSE
 
 /datum/disease/virus/grut_gut/stage_act()
 	if(!..())
@@ -100,6 +108,7 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/wand_rot/wizard_variant
+	show_in_records = FALSE
 
 /datum/disease/virus/wand_rot/stage_act()
 	if(!..())
@@ -165,6 +174,7 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/virus/mystic_malaise/wizard_variant
+	show_in_records = FALSE
 
 /datum/disease/virus/mystic_malaise/stage_act()
 	if(!..())

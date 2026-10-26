@@ -28,7 +28,7 @@
 		target.apply_damage(20, BRUTE, user.zone_selected)
 
 		for(var/datum/disease/virus/virus in user.diseases)
-			virus.Contract(target, BLOOD|BITES)
+			virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = user.zone_selected)
 
 		target.Dizzy(10 SECONDS)
 		target.Confused(10 SECONDS)
@@ -66,7 +66,7 @@
 	user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] вонзает когти в [brain_house.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)], поедая [eat_brain.declent_ru(ACCUSATIVE)]!"), span_danger(span_zombie("Мы пируем мозгами [target].")))
 
 	for(var/datum/disease/virus/virus in user.diseases)
-		virus.Contract(target, BLOOD|BITES, need_protection_check = FALSE)
+		virus.Contract(target, BLOOD|BITES, need_protection_check = FALSE, zone = user.zone_selected)
 
 	if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		for(var/datum/disease/virus/zombie/zomb in target.diseases)

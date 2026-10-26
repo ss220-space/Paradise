@@ -8,6 +8,7 @@
 	var/list/our_claws = list()
 	var/infection_stage = 1 // mostly for adminbus and testing
 	var/disease
+	var/damage_mod = 1
 
 /datum/action/cooldown/spell/zombie_claws/Destroy()
 	QDEL_LIST_CONTENTS(our_claws)
@@ -24,6 +25,8 @@
 	else
 		claws = new /obj/item/zombie_claw(owner.loc, src)
 		claws.infection_stage = infection_stage
+
+	claws.force *= damage_mod
 
 	if(owner.put_in_hands(claws))
 		our_claws += claws
@@ -167,7 +170,7 @@
 	if(prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
 		return // Armor blocks zombies trying to eat your brains!
 	for(var/datum/disease/virus/virus as anything in user.diseases)
-		virus.Contract(target, BLOOD|BITES)
+		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = user.zone_selected)
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
 	if(target.HasDisease(/datum/disease/virus/zombie))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
@@ -224,9 +227,9 @@
 	cooldown_time = 60 SECONDS
 
 /datum/action/cooldown/spell/pointed/zombie_leap/before_cast(atom/cast_on)
-	var/mob/living/living_owner = owner
-	if(IS_HORIZONTAL(living_owner))
-		return SPELL_CANCEL_CAST
+	if(iscarbon(owner))
+		var/mob/living/carbon/caster = owner
+		return ..() && caster.body_position != LYING_DOWN
 	return ..()
 
 /datum/action/cooldown/spell/pointed/zombie_leap/cast(list/targets, mob/user)
@@ -237,3 +240,56 @@
 		var/mob/living/L = user
 		L.apply_status_effect(STATUS_EFFECT_CHARGING)
 		L.throw_at(target, 5, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+
+/datum/action/cooldown/spell/stomp/zombie/target_validation(mob/living/target, mob/user)
+	return !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS)
+
+/datum/action/cooldown/spell/stomp/zombie/create_new_handler()
+	return NONE
+
+/datum/action/cooldown/spell/smoke/zombie
+	name = "Тошнотворный дым"
+	desc = "Вы испускаете зловонный дым, заставляющий всех вокруг блевать."
+	button_icon_state = "parasmoke"
+	background_icon_state = "bg_vampire"
+	smoke_type = /datum/effect_system/fluid_spread/smoke/zombie
+	smoke_range = 7
+
+/datum/action/cooldown/spell/pointed/projectile/acid_spit
+	name = "Кислотный плевок"
+	desc = "Эта способность позволяет вам плеваться кислотой. При попадании наносит урон токсинами."
+	cooldown_time = 5 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS
+	active_msg = span_noticealien_alt("<b>Вы подготавливаете немного кислоты!</b>")
+	deactive_msg = span_noticealien_alt("<b>Вы перевариваете подготовленную кислоту.</b>")
+	projectile_type = /obj/projectile/bullet/acid_split
+	button_icon_state = "alien_neurotoxin_0"
+	background_icon_state = "bg_vampire"
+	sound = 'sound/creatures/terrorspiders/spit2.ogg'
+	unset_after_click = FALSE
+
+/datum/action/cooldown/spell/select_zombie_class
+	name = "Выбрать класс"
+	desc = "Выберите, каким зомби вы хотите стать."
+	school = SCHOOL_SANGUINE
+	button_icon_state = "select_class"
+	background_icon_state = "bg_vampire"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	gain_desc = "Теперь вы можете выбрать, каким зомби вы хотите стать."
+
+/datum/action/cooldown/spell/select_zombie_class/before_cast(atom/cast_on)
+	var/mob/living/living_owner = owner
+	if(!living_owner?.mind?.has_antag_datum(/datum/antagonist/zombie))
+		return SPELL_CANCEL_CAST
+	return ..()
+
+/datum/action/cooldown/spell/select_zombie_class/cast(atom/cast_on)
+	var/mob/living/living_owner = owner
+	var/datum/antagonist/zombie/datum = living_owner.mind.has_antag_datum(/datum/antagonist/zombie)
+	var/selected_class = tgui_input_list(owner, "Выберите класс зомби", "Класс зомби", GLOB.zombie_classes)
+	if(isnull(selected_class))
+		return ..()
+	datum.class = GLOB.zombie_classes[selected_class]
+	datum.class.apply(living_owner)
+	qdel(src)

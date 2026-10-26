@@ -124,10 +124,6 @@
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
