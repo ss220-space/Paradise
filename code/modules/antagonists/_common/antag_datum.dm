@@ -1,5 +1,6 @@
 GLOBAL_LIST_EMPTY(antagonists)
 GLOBAL_LIST_EMPTY(antagonists_datums)
+#define SUCCESSFUL_DETACH "dont touch this string numbnuts"
 
 /datum/antagonist
 	/// The name of the antagonist.
@@ -67,29 +68,36 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		if(!objective.team)
 			qdel(objective)
 
-	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 
+	if(!QDELETED(owner) && detach_from_owner() != SUCCESSFUL_DETACH)
+		stack_trace("[src] ([type]) failed to detach from owner! This is very bad!")
+
+	return ..()
+
+/**
+ * Removes owner's dependencies on this antag datum.
+ * For example: removal of antag datum from owner's `antag_datums`, antag datum related teams etc.
+ * If your `/datum/antagonist`  subtype adds more dependencies on `owner` - they should be cleared there.
+ */
+/datum/antagonist/proc/detach_from_owner()
+	SHOULD_CALL_PARENT(TRUE)
+
+	remove_owner_from_gamemode()
 	if(!silent)
 		farewell()
-
 	remove_innate_effects()
-
 	antag_memory = null
-
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
-
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
 
 		if(!LAZYLEN(owner.antag_datums)) // that one was the last antag datum.
 			handle_last_instance_removal()
-
 	restore_last_hud_and_role()
 	owner = null
-
-	return ..()
+	return SUCCESSFUL_DETACH
 
 /**
  * Loops through the owner's `antag_datums` list and determines if this one is blacklisted by any others.
@@ -513,3 +521,5 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	if(current_form_job)
 		return current_form_job.get_skill_level(skill_type)
 	return 0
+
+#undef SUCCESSFUL_DETACH

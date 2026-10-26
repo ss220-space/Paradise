@@ -229,3 +229,8 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+/obj/item/reagent_containers/food/snacks/grown/proc/get_plant_seed()
+	if(seed)
+		return seed
+	return null

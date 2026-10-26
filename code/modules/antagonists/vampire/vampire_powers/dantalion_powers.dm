@@ -97,7 +97,7 @@
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
-	if(C.mind.isholy)
+	if(HAS_MIND_TRAIT(C, TRAIT_HOLY))
 		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return

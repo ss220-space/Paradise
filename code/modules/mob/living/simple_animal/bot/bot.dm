@@ -528,6 +528,9 @@
 	return ..()
 
 /mob/living/simple_animal/bot/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	var/was_on = on
 	stat |= EMPED
 	var/obj/effect/overlay/pulse2 = new/obj/effect/overlay(loc)

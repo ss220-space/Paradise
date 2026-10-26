@@ -46,6 +46,10 @@
 		PREPOSITIONAL = "Библии",
 	)
 
+/obj/item/storage/bible/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
 	user.dust()
@@ -112,7 +116,7 @@
 
 	god_forgive()
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает шипеть в ваших руках."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(0, 10)
@@ -191,16 +195,16 @@
 
 	if(isfloorturf(target))
 		to_chat(user, span_notice("Вы ударяете пол [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(is_airlock(target))
 		to_chat(user, span_notice("Вы ударяете шлюз [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
-	if(user.mind?.isholy && target.reagents)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY) && target.reagents)
 		add_holy_water(user, target)
 
 /obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
@@ -218,7 +222,7 @@
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
-	if(!customisable || !user.mind?.isholy)
+	if(!customisable || !(HAS_MIND_TRAIT(user, TRAIT_HOLY)))
 		return
 
 	var/list/skins = list()
@@ -244,7 +248,7 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user?.mind.isholy || !ishuman(user))
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(!src || !H.is_type_in_hands(src) || H.incapacitated())

@@ -254,6 +254,7 @@ effective or pretty fucking useless.
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/teleporter/emp_act(severity)
+	. = ..()
 	if(!prob(50 / severity))
 		return
 
