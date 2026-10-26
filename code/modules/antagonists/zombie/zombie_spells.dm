@@ -58,7 +58,7 @@
 	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL
 	gender = PLURAL
 	force = 21 // allows them to break down doors aka NOT FUCKING AROUND
 	armour_penetration = -10
@@ -178,11 +178,6 @@
 /obj/item/zombie_claw/attack_self(mob/user)
 	. = ..()
 	qdel(src)
-
-/obj/item/zombie_claw/dropped(mob/user, slot, silent)
-	. = ..()
-	if(!QDELETED(src))
-		qdel(src)
 
 //wizard plague zombie claws
 /datum/action/cooldown/spell/zombie_claws/plague_claws
