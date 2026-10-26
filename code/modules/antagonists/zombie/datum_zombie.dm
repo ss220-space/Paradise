@@ -39,7 +39,7 @@
 		owner.RemoveSpell(/datum/action/cooldown/spell/zombie_claws/plague_claws)
 		owner.RemoveSpell(/datum/action/cooldown/spell/pointed/zombie_leap)
 	else
-		owner.RemoveSpell(/datum/action/cooldown/spell/zombie_claws)
+		owner.RemoveSpell(/datum/action/cooldown/spell/select_zombie_class)
 	class?.remove(owner.current)
 	return ..()
 
