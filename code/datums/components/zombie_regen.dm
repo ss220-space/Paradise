@@ -92,7 +92,12 @@
 
 	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
 		if(!zomboid.get_active_hand())
-			zomboid.put_in_hands(new /obj/item/zombie_claw())
+			var/datum/antagonist/zombie/datum = zomboid.mind.has_antag_datum(/datum/antagonist/zombie)
+			var/obj/item/zombie_claw/claws = new()
+			if(datum?.class)
+				claws.damage_mod = datum?.class.damage_mod
+				claws.force *= datum?.class.damage_mod
+			zomboid.put_in_hands(claws)
 		zomboid.a_intent = INTENT_HARM
 		zomboid.ClickOn(target)
 		return

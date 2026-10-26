@@ -29,6 +29,7 @@
 	else
 		owner.AddSpell(new /datum/action/cooldown/spell/select_zombie_class)
 	claw_attack = new /datum/unarmed_attack/claws()
+	owner.current.drop_item_ground()
 
 /datum/antagonist/zombie/Destroy(force, ...)
 	QDEL_NULL(claw_attack)

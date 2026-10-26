@@ -27,6 +27,7 @@
 		claws.infection_stage = infection_stage
 
 	claws.force *= damage_mod
+	claws.damage_mod = damage_mod
 
 	if(owner.put_in_hands(claws))
 		our_claws += claws
@@ -72,6 +73,7 @@
 	var/force_weak = 10
 	var/infection_stage = 1
 	var/claw_disease
+	var/damage_mod = 1
 
 /obj/item/zombie_claw/get_ru_names()
 	return alist(
@@ -107,7 +109,7 @@
 		if(user.reagents.has_reagent(/datum/reagent/zombie_cure/second))
 			force = force_weak
 		else
-			force = initial(force)
+			force = initial(force) * damage_mod
 	return ..()
 
 /obj/item/zombie_claw/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
