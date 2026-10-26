@@ -7426,12 +7426,13 @@
 /turf/simulated/floor/engine,
 /area/centcom/central_command_areas/special_operations)
 "dOj" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "CC_crate"
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowaltstrip"
+	dir = 1;
+	icon_state = "darkyellowalt"
 	},
 /area/centcom/central_command_areas/supply)
 "dPr" = (
@@ -8657,14 +8658,13 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "esb" = (
-/obj/machinery/vending/ntcrates{
-	req_access = list(114)
-	},
 /obj/machinery/conveyor{
-	id = "CC_crate"
+	id = "CC_crate";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkyellowalt"
 	},
 /area/centcom/central_command_areas/supply)
 "esq" = (
@@ -9792,15 +9792,14 @@
 	},
 /area/shuttle/funeral)
 "eQj" = (
+/obj/machinery/conveyor{
+	id = "CC_crate"
+	},
 /obj/structure/plasticflaps,
 /obj/machinery/door/poddoor{
 	id_tag = "CC_supply_space";
 	locked = 2;
 	name = "Supply Blastdoor"
-	},
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16352,9 +16351,9 @@
 	},
 /area/centcom/ninja/outpost)
 "idQ" = (
-/obj/machinery/conveyor/inverted{
-	dir = 10;
-	id = "CC_crate"
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22369,6 +22368,19 @@
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
 /turf/simulated/floor/carpet,
 /area/centcom/wizard_station)
+"kEj" = (
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 8
+	},
+/obj/machinery/vending/ntcrates{
+	req_access = list(114)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/central_command_areas/supply)
 "kEk" = (
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
@@ -26656,6 +26668,21 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/syndicate_base)
+"mxD" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "CC_crate"s"
+	},
+/obj/structure/plasticflaps,
+/obj/machinery/door/poddoor{
+	id_tag = "CC_supply_space";
+	locked = 2;
+	name = "Supply Blastdoor"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/central_command_areas/supply)
 "mxQ" = (
 /obj/structure/sink/directional/east,
 /obj/structure/mirror{
@@ -31579,9 +31606,9 @@
 	},
 /area/centcom/central_command_areas/supply)
 "oDS" = (
-/obj/machinery/conveyor/inverted{
-	dir = 9;
-	id = "CC_crate"
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38281,7 +38308,8 @@
 /area/centcom/central_command_areas/zone/three)
 "rzx" = (
 /obj/machinery/conveyor{
-	id = "CC_crate"
+	id = "CC_crate";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42905,8 +42933,8 @@
 /area/centcom/central_command_areas/special_operations)
 "tBG" = (
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "CC_crate"
+	id = "CC_crate";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -105908,7 +105936,7 @@ hjZ
 afP
 lLE
 aWc
-dOj
+ifZ
 ifZ
 ofy
 srE
@@ -106164,7 +106192,7 @@ qOk
 cSc
 afP
 afP
-esb
+rzx
 rzx
 oDS
 pzN
@@ -108478,8 +108506,8 @@ gls
 gls
 gls
 lLm
-afP
-dZk
+mxD
+esb
 fon
 jHX
 xOy
@@ -108736,7 +108764,7 @@ rOB
 rOB
 nnz
 afP
-dZk
+dOj
 fon
 jHX
 oUw
@@ -108993,7 +109021,7 @@ rOB
 rOB
 sbw
 afP
-dZk
+kEj
 fon
 jHX
 cgv
