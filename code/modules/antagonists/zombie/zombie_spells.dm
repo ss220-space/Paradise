@@ -92,10 +92,6 @@
 	if(new_parent_spell)
 		parent_spell = new_parent_spell
 
-/obj/item/zombie_claw/proc/dispel(mob/user)
-	if(user && user.get_active_hand() == src)
-		qdel(src)
-
 /obj/item/zombie_claw/Destroy()
 	if(parent_spell)
 		parent_spell.UnregisterSignal(parent_spell.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
@@ -155,7 +151,6 @@
 	user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] жестоко раскалывает [brain_holder.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)]!"), span_danger(span_zombie("Мы раскалываем [brain_holder.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)]!")))
 	return TRUE
 
-
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
 	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		return
@@ -183,6 +178,11 @@
 /obj/item/zombie_claw/attack_self(mob/user)
 	. = ..()
 	qdel(src)
+
+/obj/item/zombie_claw/dropped(mob/user, slot, silent)
+	. = ..()
+	if(!QDELETED(src))
+		qdel(src)
 
 //wizard plague zombie claws
 /datum/action/cooldown/spell/zombie_claws/plague_claws
@@ -255,7 +255,6 @@
 	button_icon_state = "parasmoke"
 	background_icon_state = "bg_vampire"
 	smoke_type = /datum/effect_system/fluid_spread/smoke/zombie
-	smoke_range = 7
 
 /datum/action/cooldown/spell/pointed/projectile/acid_spit
 	name = "Кислотный плевок"

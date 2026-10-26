@@ -20,7 +20,7 @@
 
 /obj/item/organ/internal/zombietumor/remove(mob/living/carbon/target, special = 0)
 	for(var/datum/disease/virus/zombie/disease in target?.diseases)
-		disease.cure()
+		disease.cure(need_immunity = FALSE)
 	var/mob/living/carbon/human/human = target
 	for(var/obj/item/organ/limb as anything in human?.bodyparts)
 		if(limb.status & ORGAN_DEAD && !limb.is_robotic())

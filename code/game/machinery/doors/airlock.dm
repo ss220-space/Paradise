@@ -842,7 +842,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				H.Weaken(10 SECONDS)
+				H.Knockdown(10 SECONDS)
 				H.apply_damage(10, def_zone = BODY_ZONE_HEAD)
 			else
 				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
