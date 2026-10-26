@@ -58,7 +58,7 @@
 	if(!affected_mob)
 		return
 
-	if((!(spread_flags & CONTACT|AIRBORNE)) && !force_spread)
+	if(!(spread_flags & CONTACT|AIRBORNE) && !force_spread)
 		return
 
 	if(affected_mob.reagents?.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
