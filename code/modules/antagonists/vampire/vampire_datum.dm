@@ -300,7 +300,7 @@
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				for(var/datum/disease/virus/virus as anything in vampire.diseases)
-					virus.Contract(target, BLOOD|BITES)
+					virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = vampire.zone_selected)
 				time_per_action = suck_rate_final
 				continue
 

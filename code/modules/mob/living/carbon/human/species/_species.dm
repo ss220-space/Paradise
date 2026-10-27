@@ -668,7 +668,7 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+		var/damage = rand((user.dna.species.punchdamagelow + user.physiology.punch_damage_low) * user.physiology.punch_damage_low_mod, (user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) * user.physiology.punch_damage_high_mod)
 		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
 		damage *= skill_mod
 
@@ -701,7 +701,7 @@
 		//check user's defense in attacking zone (hands or mouth)
 		for(var/datum/disease/virus/V in target.diseases)
 			var/is_infected = FALSE
-			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
+			if(attack.is_bite && (V.spread_flags & ~NON_CONTAGIOUS))
 				//infected blood contacts with mouth, ignore protection & spread_flags
 				is_infected = V.Contract(user, need_protection_check = FALSE)
 			if(!is_infected && (V.spread_flags & CONTACT))

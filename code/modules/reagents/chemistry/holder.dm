@@ -403,7 +403,7 @@
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
-			for(var/reaction in GLOB.chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.id] | GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
 
@@ -420,7 +420,7 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
-					if((B == "blood") && (C.required_blood_group || C.required_blood_species))
+					if((B == "blood" || B == /datum/reagent/blood) && (C.required_blood_group || C.required_blood_species))
 						if(C.required_blood_group)
 							if(!find_blood_group(C))
 								break

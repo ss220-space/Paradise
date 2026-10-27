@@ -58,7 +58,7 @@
 	if(!affected_mob)
 		return
 
-	if((spread_flags <= BLOOD) && !force_spread)
+	if(!(spread_flags & (CONTACT|AIRBORNE)) && !force_spread)
 		return
 
 	if(affected_mob.reagents?.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
@@ -101,3 +101,9 @@
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
 	return russian_list(spread, "Неизвестено", " и ")
+
+/datum/disease/virus/CanContract(mob/living/M, act_type, need_protection_check, zone)
+	. = FALSE
+	if(act_type && !(spread_flags & act_type))
+		return FALSE
+	return ..()

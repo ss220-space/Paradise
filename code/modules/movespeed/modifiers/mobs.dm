@@ -227,3 +227,11 @@
 	multiplicative_slowdown = 1
 	movetypes = GROUND
 	blacklisted_movetypes = (FLOATING|FLYING)
+
+/datum/movespeed_modifier/zombie/fast
+	multiplicative_slowdown = -1
+	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST
+
+/datum/movespeed_modifier/zombie/slow
+	multiplicative_slowdown = 3
+	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST

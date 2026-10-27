@@ -131,6 +131,7 @@
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	var/required_blood = 10
 	school = SCHOOL_SANGUINE
+	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "blood_tendrils"
 	background_icon_state = "bg_vampire"

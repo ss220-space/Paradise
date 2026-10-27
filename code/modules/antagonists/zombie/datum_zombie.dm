@@ -7,10 +7,12 @@
 	clown_removal_text = "Вы снова чувствуете себя забавным."
 	wiki_page_name = "Zombie"
 	russian_wiki_name = "Зомби"
+	has_skill_bonus = FALSE
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
 	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NO_BREATH)
 	var/datum/unarmed_attack/claws/claw_attack
 	var/chosen_disease
+	var/datum/zombie_class/class
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)
 // ability to find nearby brains to eat (like cling/vamp ability to track people around them)
@@ -26,8 +28,9 @@
 		owner.AddSpell(plague_claws)
 		owner.AddSpell(new /datum/action/cooldown/spell/pointed/zombie_leap)
 	else
-		owner.AddSpell(new /datum/action/cooldown/spell/zombie_claws)
+		owner.AddSpell(new /datum/action/cooldown/spell/select_zombie_class)
 	claw_attack = new /datum/unarmed_attack/claws()
+	owner.current.drop_item_ground()
 
 /datum/antagonist/zombie/Destroy(force, ...)
 	QDEL_NULL(claw_attack)
@@ -38,7 +41,8 @@
 		owner.RemoveSpell(/datum/action/cooldown/spell/zombie_claws/plague_claws)
 		owner.RemoveSpell(/datum/action/cooldown/spell/pointed/zombie_leap)
 	else
-		owner.RemoveSpell(/datum/action/cooldown/spell/zombie_claws)
+		owner.RemoveSpell(/datum/action/cooldown/spell/select_zombie_class)
+	class?.remove(owner.current)
 	return ..()
 
 /datum/antagonist/zombie/greet()
@@ -67,20 +71,16 @@
 		L.remove_language(lang.name)
 	L.add_language(LANGUAGE_ZOMBIE)
 	L.default_language = GLOB.all_languages[LANGUAGE_ZOMBIE]
-	L.add_movespeed_modifier(/datum/movespeed_modifier/zombie)
+	L.add_movespeed_modifier(class?.movespeed_modifier || /datum/movespeed_modifier/zombie)
 	if(!HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
 		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
 	if(!L.HasDisease(/datum/disease/virus/zombie))
-		var/datum/disease/virus/zombie/zomb = new /datum/disease/virus/zombie()
+		var/datum/disease/virus/zombie/zomb = new ()
 		zomb.Contract(L)
 		zomb = locate(/datum/disease/virus/zombie) in L.diseases
 		zomb.stage = 7
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.physiology.stamina_mod *= 0.5
 
 /datum/antagonist/zombie/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -93,10 +93,6 @@
 	for(var/datum/language/lang as anything in old_languages)
 		L.add_language(lang.name)
 	L.default_language = null
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.physiology.stamina_mod /= 0.5
 
 /datum/antagonist/zombie/add_owner_to_gamemode()
 	SSticker.mode.zombies |= owner
