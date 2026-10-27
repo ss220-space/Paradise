@@ -1,10 +1,3 @@
-/obj/projectile
-	var/ship_penetrations = 0
-	var/ship_penetration_chance = 100
-	var/ship_penetration_decay = 1
-	var/ship_piercing = FALSE
-	var/list/ship_pierced_tiles
-
 /obj/projectile/proc/ship_pierce(atom/target)
 	if(!ship_penetrations || ismob(target) || (!isturf(target) && !isstructure(target) && !ismachinery(target)) || !target.density)
 		return FALSE

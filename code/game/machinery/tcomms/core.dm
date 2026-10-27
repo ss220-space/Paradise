@@ -30,6 +30,8 @@
 	var/link_password
 	/// What tab of the UI were currently on
 	var/ui_tab = UI_TAB_CONFIG
+	var/coverage_tick = -1
+	var/list/coverage_nodes = list()
 
 /obj/machinery/tcomms/core/get_ru_names()
 	return alist(

@@ -1,9 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/obj/overmap/entity/station_docking_zone/station_docking_zone
-
-/obj/overmap/entity
-	var/obj/overmap/entity/station_docking_zone/undock_zone
-
 /obj/overmap/entity/station_docking_zone
 	name = "Блюспейс-зона стыковки"
 	icon_state = "event"

@@ -124,11 +124,8 @@
 	return ..()
 
 /obj/machinery/ship_engine/pod
-	requires_apc = FALSE
 	name = "pod overmap drive"
 	generated_thrust = OVERMAP_POD_THRUST * 4
-	omnidirectional = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 	density = FALSE

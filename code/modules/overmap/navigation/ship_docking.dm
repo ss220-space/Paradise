@@ -1,12 +1,7 @@
-/obj/overmap/entity
-	var/formation_transfer = FALSE
-	var/obj/docking_port/stationary/overmap/formation/formation_pad
-
 /obj/docking_port/stationary/overmap/formation
 	name = "ship docking collar"
 	turf_type = /turf/space
 	area_type = /area/shuttle/transit
-	lock_shuttle_doors = FALSE
 
 /obj/overmap/entity/proc/formation_capacity()
 	return length(flight_reservation?.reserved_turfs)

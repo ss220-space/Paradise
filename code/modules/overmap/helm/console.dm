@@ -14,6 +14,7 @@
 	var/helm_tab = "flight"
 
 	var/radar_reach = OVERMAP_RADAR_TERRAIN_RANGE
+	var/list/selected_weapons = list()
 
 /obj/machinery/computer/helm/get_ru_names()
 	return alist(

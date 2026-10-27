@@ -33,10 +33,14 @@
 	var/avoid_obstacles = TRUE
 
 	var/autopilot_status = ""
-
-
-
 	var/cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_CRUISE_DEFAULT)
+	var/datum/overmap_navigation/navigation
+	var/navigation_world_x
+	var/navigation_world_y
+	var/navigation_facing
+	var/obj/overmap/entity/navigation_host
+	var/obj/overmap/entity/navigation_target
+	var/matching_velocity = FALSE
 
 /datum/component/overmap_flight/Initialize()
 	if(!istype(parent, /obj/overmap/entity))

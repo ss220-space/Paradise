@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(fog_of_war)
 /datum/controller/subsystem/fog_of_war/proc/disable()
 	for(var/client/viewer as anything in GLOB.fog_attached_views)
 		var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
-		for(var/key as anything in views)
+		for(var/key in views)
 			var/datum/fog_view/view = views[key]
 			if(QDELETED(view))
 				continue
@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(fog_of_war)
 		if(QDELETED(attached) || !length(views))
 			GLOB.fog_attached_views -= attached
 			continue
-		for(var/key as anything in views)
+		for(var/key in views)
 			var/datum/fog_view/attached_view = views[key]
 			if(QDELETED(attached_view))
 				views -= key
@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(fog_of_war)
 	for(var/client/key as anything in GLOB.fog_attached_views)
 		var/list/datum/fog_view/views = GLOB.fog_attached_views[key]
 		if(QDELETED(key))
-			for(var/frame_key as anything in views)
+			for(var/frame_key in views)
 				var/datum/fog_view/view = views[frame_key]
 				view?.clear()
 				qdel(view)
@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(fog_of_war)
 				qdel(orphan)
 				GLOB.fog_proxy_backdrops -= key
 			continue
-		for(var/frame_key as anything in views)
+		for(var/frame_key in views)
 			var/datum/fog_view/view = views[frame_key]
 			if(!QDELETED(view) && view.owner)
 				continue
@@ -169,3 +169,5 @@ SUBSYSTEM_DEF(fog_of_war)
 			GLOB.fog_attached_views -= key
 
 			fog_update_backdrop(key)
+
+#undef FOG_OF_WAR_DIRTY_BATCH

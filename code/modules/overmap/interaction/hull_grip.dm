@@ -1,6 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/list/obj/item/overmap_hull_grip/hull_grips = list()
-
 /obj/item/overmap_hull_grip
 	name = "захват обшивки"
 	desc = "Вы держитесь за обшивку."

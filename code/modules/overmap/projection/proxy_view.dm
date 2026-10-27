@@ -1,20 +1,3 @@
-/obj/effect/abstract/hull_proxy_tile
-	name = "hull proxy tile"
-	invisibility = 0
-
-	var/turf/shown_turf
-
-	var/turf/frame_turf
-
-	var/lit = FALSE
-
-	var/list/frame = list()
-	var/turf/watched_source
-	var/list/watched_multitile
-	var/list/offset_visuals
-	var/obj/effect/abstract/hull_proxy_tile/projected/projected_turf
-	var/list/hud_sources
-
 /obj/effect/abstract/hull_proxy_tile/Destroy()
 	SSovermap.proxy_hud_tiles -= src
 	hud_sources = null

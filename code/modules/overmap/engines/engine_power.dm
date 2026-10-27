@@ -1,4 +1,4 @@
-/obj/machinery/ship_engine/proc/get_power_apc()
+/obj/machinery/ship_engine/proc/get_power_apc() as /obj/machinery/power/apc
 	if(!QDELETED(power_apc) && (power_apc.area == get_area(src) || vessel?.shuttle?.shuttle_areas[power_apc.area]) && (!vessel?.shuttle || vessel.shuttle.overmap_is_hull_turf(get_turf(power_apc))))
 		return power_apc
 	power_apc = null
@@ -16,7 +16,7 @@
 	return requires_apc && (!place || place.requires_power)
 
 /obj/machinery/ship_engine/proc/valid_wall_mount()
-	if(!istype(loc, /turf/simulated/wall))
+	if(!iswallturf(loc))
 		return FALSE
 	var/turf/exhaust = get_step(src, dir)
 	return isspaceturf(exhaust)
@@ -76,6 +76,7 @@
 	icon_state = "nozzle"
 	color = "#9ecfff"
 	opacity = FALSE
+	engine_board = /obj/item/circuitboard/ship_engine_ion
 
 /obj/machinery/ship_engine/ion/large
 	name = "large ion engine"
@@ -87,6 +88,7 @@
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST
 	active_power_usage = 6000
 	side_thrust_fraction = 0
+	engine_board = /obj/item/circuitboard/ship_engine_ion/large
 
 /obj/machinery/ship_engine/thruster/rcs
 	name = "RCS ion thruster"

@@ -22,18 +22,6 @@
 	build_path = /obj/machinery/ship_engine/plasma/large
 	req_components = list(/obj/item/stock_parts/matter_bin = 4, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/cable_coil = 10)
 
-/obj/machinery/ship_engine/ion
-	engine_board = /obj/item/circuitboard/ship_engine_ion
-
-/obj/machinery/ship_engine/ion/large
-	engine_board = /obj/item/circuitboard/ship_engine_ion/large
-
-/obj/machinery/ship_engine/plasma
-	engine_board = /obj/item/circuitboard/ship_engine_plasma
-
-/obj/machinery/ship_engine/plasma/large
-	engine_board = /obj/item/circuitboard/ship_engine_plasma/large
-
 /obj/machinery/ship_engine/proc/create_engine_parts()
 	if(!engine_board)
 		return
@@ -62,7 +50,7 @@
 	color = "#a7dfff"
 
 /obj/item/ship_engine_mount/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!istype(target, /turf/simulated/wall) || !proximity_flag)
+	if(!iswallturf(target) || !proximity_flag)
 		return
 	var/turf/wall = target
 	var/turf/standing = SSovermap.mirror_turf(get_turf(user), wall) || get_turf(user)
@@ -74,7 +62,7 @@
 		return
 	if(!do_after(user, 2 SECONDS, target = wall))
 		return
-	if(!istype(wall, /turf/simulated/wall) || !isspaceturf(get_step(wall, exhaust_dir)))
+	if(!iswallturf(wall) || !isspaceturf(get_step(wall, exhaust_dir)))
 		return
 	if(locate(/obj/machinery/ship_engine/thruster) in wall)
 		return

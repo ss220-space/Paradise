@@ -191,6 +191,16 @@
 	var/homing_inaccuracy_max = 0
 	var/homing_offset_x = 0
 	var/homing_offset_y = 0
+	var/ship_penetrations = 0
+	var/ship_penetration_chance = 100
+	var/ship_penetration_decay = 1
+	var/ship_piercing = FALSE
+	var/list/ship_pierced_tiles
+	var/overmap_persistent = FALSE
+	var/overmap_velocity = 50
+	var/overmap_radar_visible = FALSE
+	var/overmap_effect_until = 0
+	var/obj/overmap/entity/overmap_firer_vessel
 
 /obj/projectile/Initialize(mapload)
 	. = ..()

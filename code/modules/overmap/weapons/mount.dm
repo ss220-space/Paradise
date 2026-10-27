@@ -1,10 +1,5 @@
 GLOBAL_LIST_EMPTY(overmap_weapons)
 
-/obj/machinery
-	var/obj/overmap/entity/virtual_structure/virtual_weapon_owner
-	var/virtual_weapon_x
-	var/virtual_weapon_y
-
 /datum/component/ship_weapon
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/arc = 180
@@ -141,10 +136,6 @@ GLOBAL_LIST_EMPTY(overmap_weapons)
 		log_attack("[key_name(user)] fired [gun] from [vessel.get_overmap_display_name()] at overmap [vessel.sector.id] ([round(x, 0.1)], [round(y, 0.1)]).")
 	return TRUE
 
-/datum/controller/subsystem/overmap
-	var/weapon_targets_until = 0
-	var/list/weapon_targets = list()
-
 /datum/controller/subsystem/overmap/proc/ship_weapon_targets(datum/overmap_sector/sector)
 	if(world.time >= weapon_targets_until)
 		weapon_targets = list()
@@ -192,9 +183,6 @@ GLOBAL_LIST_EMPTY(overmap_weapons)
 			fire_at(vessel, aim[1], aim[2], FALSE, null, best)
 	return TRUE
 
-/obj/machinery/porta_turret
-	var/datum/component/ship_weapon/ship_weapon
-
 /obj/machinery/porta_turret/shuttleRotate(rotation, params)
 	. = ..()
 	if(ship_weapon)
@@ -210,8 +198,6 @@ GLOBAL_LIST_EMPTY(overmap_weapons)
 	name = "portable bluespace artillery"
 	desc = "Корабельное блюспейс-орудие с узким сектором обстрела. Управляется через Helm."
 	icon_state = "emitter_center"
-	density = TRUE
-	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 300
 

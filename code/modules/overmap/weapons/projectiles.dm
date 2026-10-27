@@ -1,15 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/projectile_snapshot_tick = -1
-	var/list/projectile_snapshots = list()
-	var/list/datum/overmap_projectile/sector_projectiles = list()
-
-/obj/projectile
-	var/overmap_persistent = FALSE
-	var/overmap_velocity = 50
-	var/overmap_radar_visible = FALSE
-	var/overmap_effect_until = 0
-	var/obj/overmap/entity/overmap_firer_vessel
-
 /obj/projectile/proc/sector_target_at(turf/spot, ignore_structure = FALSE)
 	if(!ignore_structure && spot.density && !(spot in permutated))
 		return spot

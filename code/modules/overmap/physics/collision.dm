@@ -9,9 +9,6 @@
 #define OVERMAP_RAM_MAX_THROW 4
 #define OVERMAP_RAM_EFFECT_COOLDOWN (1 SECONDS)
 
-/obj/overmap/entity
-	var/next_ram_damage = 0
-
 /proc/overmap_impact_damage(impact_speed)
 	return clamp(impact_speed * 2, 0, 60) * 10
 
@@ -21,7 +18,7 @@
 	if(istype(spot, /turf/simulated/wall/indestructible))
 		return 1000000
 	var/health = isspaceturf(spot) ? 0 : 25
-	if(istype(spot, /turf/simulated/wall))
+	if(iswallturf(spot))
 		var/turf/simulated/wall/wall = spot
 		health = max(1, wall.damage_cap - wall.damage)
 	else if(spot.density)
@@ -44,9 +41,9 @@
 /proc/overmap_damage_turf(turf/spot, damage)
 	if(!spot || damage <= 0)
 		return
-	var/was_wall = istype(spot, /turf/simulated/wall)
+	var/was_wall = iswallturf(spot)
 	var/hit_object = FALSE
-	if(istype(spot, /turf/simulated/wall) && !istype(spot, /turf/simulated/wall/indestructible))
+	if(iswallturf(spot) && !istype(spot, /turf/simulated/wall/indestructible))
 		var/turf/simulated/wall/wall = spot
 		var/x = spot.x
 		var/y = spot.y
@@ -69,7 +66,7 @@
 		victim.apply_damage(damage, BRUTE)
 	if(was_wall || hit_object)
 		return
-	if(istype(spot, /turf/simulated/floor) && damage >= 25)
+	if(isfloorturf(spot) && damage >= 25)
 		spot.ex_act(EXPLODE_DEVASTATE)
 	else if(damage >= 250)
 		spot.ex_act(EXPLODE_DEVASTATE)

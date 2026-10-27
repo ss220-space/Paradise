@@ -1,6 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/list/admin_shuttle_spawns = list()
-
 /datum/controller/subsystem/overmap/proc/is_loading_admin_shuttle(obj/docking_port/mobile/port)
 	return length(admin_shuttle_spawns) && admin_shuttle_spawns[SSmapping.used_turfs[get_turf(port)]]
 

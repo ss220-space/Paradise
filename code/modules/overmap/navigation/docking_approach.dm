@@ -2,9 +2,6 @@
 #define OVERMAP_APPROACH_READY 2
 #define OVERMAP_APPROACH_TIME (10 SECONDS)
 
-/obj/overmap/entity
-	var/datum/overmap_docking_approach/docking_approach
-
 /datum/overmap_docking_approach
 	var/obj/overmap/entity/vessel
 	var/obj/overmap/entity/host
@@ -63,7 +60,8 @@
 		if(target)
 			var/turf/door = own[1]
 			var/turf/landing = target[2]
-			if(QDELETED(landing) || QDELETED(target[1]))
+			var/turf/target_door = target[1]
+			if(QDELETED(landing) || QDELETED(target_door))
 				return FALSE
 			target_facing = SIMPLIFY_DEGREES(dir2angle(target[3]) + 180 - own[3])
 			var/list/point_world = space.to_world(landing.x, landing.y)
@@ -347,10 +345,6 @@
 	if(in_station_docking_zone() && SSovermap.station_docking_zone.accepts_pad(pad))
 		approach.space = null
 	return approach.update_target()
-
-/obj/overmap/entity
-	var/list/radar_docks_cache
-	var/radar_docks_until = 0
 
 /obj/overmap/entity/proc/radar_dock_targets()
 	if(radar_docks_cache && world.time < radar_docks_until)

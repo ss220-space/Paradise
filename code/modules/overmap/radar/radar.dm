@@ -1,12 +1,3 @@
-/obj/overmap/entity
-	var/radar_snapshot_tick = -1
-	var/radar_snapshot_epoch = -1
-	var/list/radar_snapshots = list()
-	var/turf/radar_docked_at
-	var/radar_docked_dir
-	var/radar_epoch = 0
-	var/radar_transitioning = FALSE
-
 /obj/overmap/entity/proc/fill_radar_data(list/data, reach = OVERMAP_RADAR_TERRAIN_RANGE)
 	if(radar_snapshot_tick != world.time || radar_snapshot_epoch != radar_epoch)
 		radar_snapshot_tick = world.time

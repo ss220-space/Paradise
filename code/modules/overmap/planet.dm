@@ -95,7 +95,6 @@
 	name = "Лазис Ардакс"
 	desc = "Одно из крупнейших тел в секторе. Вулканистая поверхность богата ресурсами и сочится плазмой."
 	map_color = "#c45c2a"
-	visible_without_scanner = TRUE
 
 /obj/overmap/planet/lavaland/get_ru_names()
 	return alist(

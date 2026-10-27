@@ -39,6 +39,7 @@
 	var/list/asset_data
 	/// Rate limit client refreshes to prevent DoS.
 	COOLDOWN_DECLARE(refresh_cooldown)
+	var/obj/overmap/entity/radar_source
 
 /**
  * public

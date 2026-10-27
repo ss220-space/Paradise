@@ -1,7 +1,3 @@
-/obj/overmap/entity
-	var/list/ship_weapons_cache
-	var/ship_weapons_until = 0
-
 /obj/overmap/entity/proc/ship_weapons()
 	if(overmap_pod)
 		var/obj/item/spacepod_equipment/weaponry/module = overmap_pod.pod()?.equipment_system?.weapon_system
@@ -15,9 +11,6 @@
 		if(weapon.host() == src)
 			ship_weapons_cache += weapon
 	return ship_weapons_cache
-
-/obj/machinery/computer/helm
-	var/list/selected_weapons = list()
 
 /obj/machinery/computer/helm/proc/weapon_data()
 	. = list()

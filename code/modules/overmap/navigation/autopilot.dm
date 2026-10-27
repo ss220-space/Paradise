@@ -1,12 +1,3 @@
-/datum/component/overmap_flight
-	var/datum/overmap_navigation/navigation
-	var/navigation_world_x
-	var/navigation_world_y
-	var/navigation_facing
-	var/obj/overmap/entity/navigation_host
-	var/obj/overmap/entity/navigation_target
-	var/matching_velocity = FALSE
-
 /datum/component/overmap_flight/proc/navigation_speed_limited()
 	var/obj/overmap/entity/vessel = parent
 	return autopilot || !!vessel.programmed_mission || (vessel.programmed && !vessel.programmed_profile()?.manual_helm)

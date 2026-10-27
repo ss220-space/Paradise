@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		view.clear()
 		qdel(view)
 	else
-		for(var/key as anything in views)
+		for(var/key in views)
 			var/datum/fog_view/view = views[key]
 			view?.clear()
 			qdel(view)
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /proc/fog_mark_all_dirty()
 	for(var/client/viewer as anything in GLOB.fog_attached_views)
 		var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
-		for(var/key as anything in views)
+		for(var/key in views)
 			var/datum/fog_view/view = views[key]
 			if(!QDELETED(view))
 				view.dirty = TRUE
@@ -597,3 +597,12 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	simulated = FALSE
 	vis_flags = VIS_HIDE
+
+#undef FOG_OF_WAR_BUILD
+#undef FOG_OF_WAR_PLANE
+#undef FOG_OF_WAR_LAYER
+#undef FOG_MODEL_DIAGONAL
+#undef FOG_MODEL_UNION
+#undef FOG_MODEL_STRAIGHT
+#undef FOG_MODEL_PIXEL
+#undef FOG_NATIVE_MAX_RADIUS

@@ -16,10 +16,6 @@
 	var/list/point = space ? space.to_world(spot.x, spot.y) : list(host.get_world_x(), host.get_world_y())
 	return list(host.sector, point[1], point[2], host)
 
-/obj/machinery/tcomms/core
-	var/coverage_tick = -1
-	var/list/coverage_nodes = list()
-
 /obj/machinery/tcomms/core/proc/position_reachable(turf/position)
 	if(!position || !active || (stat & (NOPOWER|BROKEN)) || ion)
 		return FALSE

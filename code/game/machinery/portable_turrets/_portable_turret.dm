@@ -97,6 +97,7 @@
 
 	var/obj/item/salvage_sensor = /obj/item/assembly/prox_sensor
 	var/sprite_prefix = ""
+	var/datum/component/ship_weapon/ship_weapon
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()

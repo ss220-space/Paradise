@@ -131,10 +131,6 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 		CHECK_TICK
 	return null
 
-/datum/overmap_bubble
-	var/list/navigation_extent
-	var/navigation_extent_until = 0
-
 /datum/overmap_bubble/proc/navigation_box()
 	if(world.time < navigation_extent_until)
 		return navigation_extent

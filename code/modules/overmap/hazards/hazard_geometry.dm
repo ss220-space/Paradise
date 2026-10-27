@@ -1,6 +1,3 @@
-/datum/overmap_sector
-	var/list/hazard_shapes
-
 /obj/overmap/feature/hazard/proc/cloud_strength(world_x, world_y)
 	var/span = OVERMAP_TILE_SPAN * (sector?.tile_travel || 1)
 	var/cx = world_x / span
@@ -40,8 +37,16 @@
 	LAZYINITLIST(sector.hazard_shapes)
 	var/obj/overmap/feature/hazard/seed = group[1]
 	var/key = seed.UID()
-	if(sector.hazard_shapes[key])
-		return sector.hazard_shapes[key]
+	if(isnull(sector.hazard_shapes[key]))
+		sector.hazard_shapes[key] = list()
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_overmap_hazard_contours), sector, group)
+	return sector.hazard_shapes[key]
+
+/proc/build_overmap_hazard_contours(datum/overmap_sector/sector, list/group)
+	LAZYINITLIST(sector.hazard_shapes)
+	var/list/cache = sector.hazard_shapes
+	var/obj/overmap/feature/hazard/seed = group[1]
+	var/key = seed.UID()
 	var/list/samples = list()
 	var/list/visited = list()
 	var/span = OVERMAP_TILE_SPAN * (sector.tile_travel || 1)
@@ -86,7 +91,8 @@
 				break
 		if(length(ring) >= 6)
 			rings += list(ring)
-	sector.hazard_shapes[key] = rings
+	if(sector.hazard_shapes == cache)
+		cache[key] = rings
 	return rings
 
 /proc/overmap_cloud_edge(list/edges, x, y, to_x, to_y)

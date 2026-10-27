@@ -222,12 +222,9 @@
 	)
 
 /obj/machinery/ship_engine/virtual
-	requires_apc = FALSE
 	name = "virtual overmap drive"
 	desc = "Служебный двигатель автопилота."
 	generated_thrust = 40
-	omnidirectional = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 	density = FALSE

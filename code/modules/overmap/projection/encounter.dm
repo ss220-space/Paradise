@@ -297,6 +297,7 @@
 	announce_sensor_event("Стыковка: [get_overmap_display_name()] → [host.get_overmap_display_name()]", "dock")
 
 /obj/overmap/entity/proc/undock_ship()
+	set waitfor = FALSE
 	var/obj/overmap/entity/host = docked_ship
 	if(!host)
 		return
@@ -548,7 +549,6 @@
 
 /obj/effect/abstract/overmap_contact_proxy
 	name = "overmap projection"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	simulated = FALSE
 	animate_movement = NO_STEPS
 	var/atom/source
@@ -647,6 +647,13 @@
 
 	var/list/region
 	var/list/region_z
+	var/list/scatter_proxies = list()
+	var/datum/fog_scene/scatter/scatter_fog
+	var/list/navigation_density_cache
+	var/navigation_density_until = 0
+	var/navigation_density_busy = FALSE
+	var/list/navigation_extent
+	var/navigation_extent_until = 0
 
 /datum/overmap_bubble/New(datum/overmap_sector/sector, origin_x, origin_y, speed_x, speed_y)
 	src.sector = sector

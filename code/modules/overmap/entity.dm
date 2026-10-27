@@ -112,6 +112,44 @@
 	var/list/jump_origin
 	var/list/jump_target
 	var/list/obj/effect/abstract/dock_seal/dock_seals = list()
+	var/obj/overmap/entity/hyperrelay/relay_jump_from
+	var/relay_jump_started = 0
+	var/relay_jump_ends = 0
+	var/list/scatter_proxies = list()
+	var/datum/fog_scene/scatter/scatter_fog
+	var/list/scatter_candidates = list()
+	var/list/radar_scatter = list()
+	var/list/pushed_scatter
+	var/scatter_radar_key
+	var/obj/overmap/entity/station_docking_zone/undock_zone
+	var/datum/overmap_docking_approach/docking_approach
+	var/list/radar_docks_cache
+	var/radar_docks_until = 0
+	var/formation_transfer = FALSE
+	var/obj/docking_port/stationary/overmap/formation/formation_pad
+	var/next_ram_damage = 0
+	var/list/radar_terrain_cache
+	var/radar_terrain_key
+	var/radar_terrain_until = 0
+	var/radar_outline_cache
+	var/radar_outline_version = -1
+	var/radar_outline_until = 0
+	var/radar_outline_busy = FALSE
+	var/radar_snapshot_tick = -1
+	var/radar_snapshot_epoch = -1
+	var/list/radar_snapshots = list()
+	var/turf/radar_docked_at
+	var/radar_docked_dir
+	var/radar_epoch = 0
+	var/radar_transitioning = FALSE
+	var/list/radar_uis = list()
+	var/list/radar_motion_frame
+	var/radar_motion_epoch
+	var/datum/overmap_sector/radar_motion_sector
+	var/list/radar_object_sources = list()
+	var/datum/overmap_sector/radar_objects_sector
+	var/list/ship_weapons_cache
+	var/ship_weapons_until = 0
 
 /obj/overmap/entity/shuttle
 	name = "shuttle"

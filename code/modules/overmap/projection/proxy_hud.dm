@@ -1,7 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/list/proxy_hud_tiles = list()
-	var/list/proxy_hud_views = list()
-
 /datum/controller/subsystem/overmap/proc/update_proxy_huds()
 	var/list/wanted_views = list()
 	for(var/client/viewer as anything in client_eyes)
@@ -107,5 +103,5 @@
 		if(islist(entry))
 			for(var/image/mark as anything in entry)
 				output[mark] = target
-		else if(istype(entry, /image))
+		else if(isimage(entry))
 			output[entry] = target

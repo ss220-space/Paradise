@@ -21,6 +21,7 @@
 	var/tile_travel = 1
 
 	var/list/datum/overmap_sector_message/comms_messages = list()
+	var/list/hazard_shapes
 
 /datum/overmap_sector/New(sector_id, sector_name, sector_size, sector_access)
 	if(sector_id)

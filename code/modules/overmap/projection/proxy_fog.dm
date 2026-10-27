@@ -246,7 +246,7 @@
 	var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
 	if(!views)
 		return FALSE
-	for(var/frame_key as anything in views)
+	for(var/frame_key in views)
 		var/datum/fog_view/view = views[frame_key]
 		if(view?.tiles[source])
 			return TRUE
@@ -255,7 +255,6 @@
 #define OVERMAP_PROXY_VOID_PLANE (FLOOR_PLANE - 1)
 
 /atom/movable/screen/overmap_proxy_void
-	name = ""
 	icon = 'icons/effects/alphacolors.dmi'
 	icon_state = "white"
 	color = "#000000"
@@ -279,3 +278,5 @@ GLOBAL_LIST_EMPTY(fog_proxy_backdrops)
 		viewer.screen -= backdrop
 		qdel(backdrop)
 		GLOB.fog_proxy_backdrops -= viewer
+
+#undef OVERMAP_PROXY_VOID_PLANE

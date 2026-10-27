@@ -1,8 +1,3 @@
-/datum/overmap_programmed_mission
-	var/list/obj/effect/landmark/overmap_navigation_beacon/navigation_beacons
-	var/navigation_step = 0
-	var/navigation_dock_prepared = FALSE
-
 /datum/overmap_programmed_mission/proc/resume_after_relay()
 	phase = OVERMAP_PROG_FLY
 	navigation_step = 0
@@ -155,13 +150,6 @@
 	phase = OVERMAP_PROG_FLY
 	navigation_step = length(navigation_beacons) + 2
 	continue_navigation()
-
-/datum/overmap_programmed_mission
-	var/departure_dock_id
-	var/departure_pending = FALSE
-	var/departure_step = 1
-	var/obj/overmap/entity/departure_host
-	var/list/departure_beacons
 
 /datum/overmap_programmed_mission/proc/continue_departure()
 	if(!departure_beacons)

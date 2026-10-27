@@ -43,6 +43,21 @@
 	var/list/copied_light_color
 	var/corner_mask
 	var/reanchor_distance = 1
+	name = "hull proxy tile"
+	invisibility = 0
+
+	var/turf/shown_turf
+
+	var/turf/frame_turf
+
+	var/lit = FALSE
+
+	var/list/frame = list()
+	var/turf/watched_source
+	var/list/watched_multitile
+	var/list/offset_visuals
+	var/obj/effect/abstract/hull_proxy_tile/projected/projected_turf
+	var/list/hud_sources
 
 /obj/effect/abstract/hull_proxy_tile/Click(location, control, params)
 	if(!hull_turf || QDELETED(hull_turf))

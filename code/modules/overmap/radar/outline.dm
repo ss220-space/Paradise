@@ -1,9 +1,3 @@
-/obj/overmap/entity
-	var/radar_outline_cache
-	var/radar_outline_version = -1
-	var/radar_outline_until = 0
-	var/radar_outline_busy = FALSE
-
 /obj/overmap/entity/proc/radar_outline()
 	if(!project_terrain || dock_host?.planet_landing)
 		return null

@@ -20,11 +20,6 @@
 		paired.link_distance = link_distance
 	return max(1, link_distance)
 
-/obj/overmap/entity
-	var/obj/overmap/entity/hyperrelay/relay_jump_from
-	var/relay_jump_started = 0
-	var/relay_jump_ends = 0
-
 /obj/overmap/entity/proc/hyperrelay_jump_duration(obj/overmap/entity/hyperrelay/relay)
 	return max(15 SECONDS, round(OVERMAP_HYPERRELAY_JUMP_TIME * relay.get_link_distance() / 1000))
 

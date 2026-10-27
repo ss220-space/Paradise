@@ -1,8 +1,3 @@
-/datum/overmap_bubble
-	var/list/navigation_density_cache
-	var/navigation_density_until = 0
-	var/navigation_density_busy = FALSE
-
 /datum/overmap_bubble/proc/navigation_density()
 	if(navigation_density_busy)
 		UNTIL(!navigation_density_busy || QDELETED(src))

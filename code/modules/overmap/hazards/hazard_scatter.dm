@@ -1,11 +1,5 @@
 #define OVERMAP_SCATTER_REACH OVERMAP_RADAR_TERRAIN_RANGE
 
-/obj/overmap/feature/hazard
-	var/list/scatter_points
-	var/list/scatter_chunks
-	var/list/scatter_radar_chunks
-	var/list/scatter_hit_chunks
-
 /obj/overmap/feature/hazard/proc/generate_scatter()
 	if(scatter_points || !sector || istype(src, /obj/overmap/feature/hazard/emp))
 		return
@@ -60,19 +54,11 @@
 	var/index = chunk[(y - chunk_y * 16) * 16 + x - chunk_x * 16 + 1]
 	return index && scatter_points[index + 2] > 0 ? index : null
 
-/obj/overmap/entity
-	var/list/scatter_proxies = list()
-	var/datum/fog_scene/scatter/scatter_fog
-	var/list/scatter_candidates = list()
-
 /obj/effect/abstract/hull_proxy_tile/scatter
 	name = "астероид"
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "rock"
 	density = TRUE
-	opacity = FALSE
-	anchored = TRUE
-	simulated = FALSE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	obj_flags = NONE
 	reanchor_distance = 0
@@ -90,7 +76,10 @@
 		blocks_sight = FALSE
 		density = FALSE
 	transform = matrix().Scale(1.03)
-	return ..()
+	. = ..()
+	if(istype(field, /obj/overmap/feature/hazard/carp))
+		var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered))
+		AddElement(/datum/element/connect_loc, connections)
 
 /obj/effect/abstract/hull_proxy_tile/scatter/Click(location, control, params)
 	if(fog_hides_from(usr?.client, src))
@@ -111,8 +100,8 @@
 	field?.damage_scatter(point_index, damage_amount)
 	return max(damage_amount, 0)
 
-/obj/effect/abstract/hull_proxy_tile/scatter/Crossed(atom/movable/arrived)
-	. = ..()
+/obj/effect/abstract/hull_proxy_tile/scatter/proc/on_entered(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
 	if(isliving(arrived) && istype(field, /obj/overmap/feature/hazard/carp) && field.scatter_points?[point_index + 2] > 0)
 		field.damage_scatter(point_index, 40)
 		new /mob/living/simple_animal/hostile/carp(get_turf(src))
@@ -237,7 +226,9 @@
 	var/self_y = get_world_y()
 	var/cos_facing = cos(get_facing())
 	var/sin_facing = sin(get_facing())
-	var/matrix/turned = matrix().Scale(1.03).Turn(-get_facing())
+	var/matrix/turned = matrix()
+	turned.Scale(1.03)
+	turned.Turn(-get_facing())
 	if(draw)
 		for(var/list/viewport as anything in SSovermap.scatter_viewports(src))
 			var/turf/eye = viewport[1]
@@ -276,11 +267,6 @@
 		scatter_fog.update(scatter_proxies)
 	else
 		QDEL_NULL(scatter_fog)
-
-/obj/overmap/entity
-	var/list/radar_scatter = list()
-	var/list/pushed_scatter
-	var/scatter_radar_key
 
 /datum/controller/subsystem/overmap/proc/scatter_fields_at(datum/overmap_sector/sector, world_x, world_y, reach)
 	. = list()
@@ -364,10 +350,6 @@
 	var/list/chunk = list("x" = chunk_x * 16, "y" = chunk_y * 16, "carp" = istype(src, /obj/overmap/feature/hazard/carp), "runs" = runs)
 	scatter_radar_chunks[key] = chunk
 	return chunk
-
-/datum/overmap_bubble
-	var/list/scatter_proxies = list()
-	var/datum/fog_scene/scatter/scatter_fog
 
 /datum/overmap_bubble/proc/update_scatter_proxies(list/eyes, elapsed)
 	var/list/wanted = list()

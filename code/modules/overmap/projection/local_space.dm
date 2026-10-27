@@ -114,7 +114,7 @@
 				max_y = spot.y
 	if(istype(src, /obj/overmap/entity/taipan_site))
 		for(var/turf/simulated/rock in block(locate(1 + TRANSITIONEDGE, 1 + TRANSITIONEDGE, z_level), locate(world.maxx - TRANSITIONEDGE, world.maxy - TRANSITIONEDGE, z_level)))
-			if(!istype(rock, /turf/simulated/mineral) && !istype(rock, /turf/simulated/floor/plating/asteroid))
+			if(!ismineralturf(rock) && !istype(rock, /turf/simulated/floor/plating/asteroid))
 				continue
 			min_x = isnull(min_x) ? rock.x : min(min_x, rock.x)
 			max_x = isnull(max_x) ? rock.x : max(max_x, rock.x)
@@ -242,11 +242,6 @@
 	local_space = origin_space
 	undock_origin = null
 	undock_host = null
-
-/obj/overmap/entity
-	var/list/radar_terrain_cache
-	var/radar_terrain_key
-	var/radar_terrain_until = 0
 
 /obj/overmap/entity/proc/radar_terrain(reach = OVERMAP_RADAR_TERRAIN_RANGE)
 	if(!local_space)

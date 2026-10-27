@@ -197,7 +197,6 @@
 	icon_state = "weapon_taser"
 	projectile_type = /obj/projectile/ion/pod
 	shot_cost = 800
-	shots_per = 1
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 // MINING LASERS

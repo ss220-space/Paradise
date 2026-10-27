@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 
 /obj/overmap/entity/virtual_structure
 	name = "virtual structure"
-	project_terrain = TRUE
 	movable = FALSE
 	halted = TRUE
 	var/list/virtual_cells = list()
@@ -175,7 +174,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 	gun.use_power = NO_POWER_USE
 	gun.stat &= ~NOPOWER
 	for(var/key in list("dir", "enabled", "lethal", "projectile", "eprojectile", "shot_delay"))
-		if(key in attributes && key in gun.vars)
+		if((key in attributes) && (key in gun.vars)
 			gun.vars[key] = attributes[key]
 	var/datum/component/ship_weapon/weapon = gun.GetComponent(/datum/component/ship_weapon)
 	if(weapon)
@@ -246,7 +245,9 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 				var/list/cell = structure.virtual_cells[key]
 				if(cell && cell[4] > 0)
 					wanted[key] = cell
-	var/matrix/turned = matrix().Scale(OVERMAP_TERRAIN_SEAM_SCALE).Turn(new_heading)
+	var/matrix/turned = matrix()
+	turned.Scale(OVERMAP_TERRAIN_SEAM_SCALE)
+	turned.Turn(new_heading)
 	for(var/key in wanted)
 		var/list/cell = wanted[key]
 		var/obj/effect/abstract/hull_proxy_tile/tile = tiles_by_turf[key]

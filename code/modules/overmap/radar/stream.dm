@@ -1,16 +1,3 @@
-/datum/controller/subsystem/overmap
-	var/list/radar_vessels = list()
-	var/radar_frame_time = 0
-
-/datum/tgui
-	var/obj/overmap/entity/radar_source
-
-/obj/overmap/entity
-	var/list/radar_uis = list()
-	var/list/radar_motion_frame
-	var/radar_motion_epoch
-	var/datum/overmap_sector/radar_motion_sector
-
 /obj/overmap/entity/proc/watch_radar(datum/tgui/ui)
 	if(!ui || ui.radar_source == src)
 		return
@@ -46,10 +33,6 @@
 			continue
 		vessel.push_radar()
 
-/obj/overmap/entity
-	var/list/radar_object_sources = list()
-	var/datum/overmap_sector/radar_objects_sector
-
 /obj/overmap/entity/proc/radar_object_positions()
 	if(radar_objects_sector != sector)
 		return null
@@ -60,7 +43,8 @@
 		var/turf/spot = object.get_overmap_turf()
 		if(!spot)
 			continue
-		var/list/entry = radar_object_sources[object].Copy()
+		var/list/source = radar_object_sources[object]
+		var/list/entry = source.Copy()
 		var/list/position = object == src ? radar_sector_position() : list(sector.coord_x(spot) + object.position[1], sector.coord_y(spot) + object.position[2])
 		entry["x"] = position[1]
 		entry["y"] = position[2]

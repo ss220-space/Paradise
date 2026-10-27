@@ -6,11 +6,11 @@
 	icon_state = "nozzle"
 	color = "#ffb677"
 	opacity = FALSE
-	requires_apc = FALSE
 	generated_thrust = OVERMAP_ENGINE_SMALL_THRUST * 3
 	active_power_usage = 0
 	var/fuel_rate = 1
 	var/obj/machinery/atmospherics/unary/ship_engine_feed/fuel_port
+	engine_board = /obj/item/circuitboard/ship_engine_plasma
 
 /obj/machinery/ship_engine/plasma/Initialize(mapload)
 	. = ..()
@@ -52,6 +52,7 @@
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST * 3
 	fuel_rate = 3
 	side_thrust_fraction = 0
+	engine_board = /obj/item/circuitboard/ship_engine_plasma/large
 
 /obj/machinery/atmospherics/unary/ship_engine_feed
 	name = "engine plasma inlet"

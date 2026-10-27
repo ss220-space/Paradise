@@ -88,7 +88,8 @@
 	if(!ui)
 		ui = new(user, src, "OvermapShuttleRemote", name)
 		ui.open()
-	shuttle_vessel()?.watch_radar(ui)
+	var/obj/overmap/entity/vessel = shuttle_vessel()
+	vessel?.watch_radar(ui)
 
 /obj/machinery/computer/shuttle/proc/overmap_request_ui_data(mob/user)
 	var/list/data = list()

@@ -66,6 +66,19 @@ SUBSYSTEM_DEF(overmap)
 	var/slow_elapsed = 0
 	var/iff_key_centcom
 	var/iff_key_syndicate
+	var/list/admin_shuttle_spawns = list()
+	var/list/obj/item/overmap_hull_grip/hull_grips = list()
+	var/obj/overmap/entity/station_docking_zone/station_docking_zone
+	var/list/proxy_hud_tiles = list()
+	var/list/proxy_hud_views = list()
+	var/list/radar_vessels = list()
+	var/radar_frame_time = 0
+	var/list/obj/overmap/entity/pod/flying_pods = list()
+	var/weapon_targets_until = 0
+	var/list/weapon_targets = list()
+	var/projectile_snapshot_tick = -1
+	var/list/projectile_snapshots = list()
+	var/list/datum/overmap_projectile/sector_projectiles = list()
 
 /proc/generate_overmap_iff_key()
 	var/alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -97,7 +110,7 @@ SUBSYSTEM_DEF(overmap)
 	station_sector?.populate_roundstart()
 	for(var/datum/overmap_sector/sector as anything in sector_order)
 		for(var/list/group as anything in overmap_hazard_clusters(sector))
-			overmap_hazard_contours(sector, group)
+			build_overmap_hazard_contours(sector, group)
 			for(var/obj/overmap/feature/hazard/field as anything in group)
 				field.generate_scatter()
 			CHECK_TICK

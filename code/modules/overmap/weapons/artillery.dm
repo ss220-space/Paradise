@@ -3,7 +3,6 @@
 	use_power = NO_POWER_USE
 	max_integrity = 300
 	bound_width = 32
-	bound_height = 32
 	bound_x = 0
 	var/sprite_half_x
 	var/sprite_half_y
@@ -45,7 +44,6 @@
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	max_integrity = 300
 	var/obj/machinery/bsa/full/ship/cannon
 
 /obj/structure/ship_artillery_frame/Destroy()

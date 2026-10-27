@@ -439,6 +439,14 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/persist_until_dock = FALSE
 	var/cancellable = FALSE
 	var/processing = FALSE
+	var/list/obj/effect/landmark/overmap_navigation_beacon/navigation_beacons
+	var/navigation_step = 0
+	var/navigation_dock_prepared = FALSE
+	var/departure_dock_id
+	var/departure_pending = FALSE
+	var/departure_step = 1
+	var/obj/overmap/entity/departure_host
+	var/list/departure_beacons
 
 /datum/overmap_programmed_mission/New(obj/overmap/entity/owner, target_dock, skip_windup, source_dock)
 	vessel = owner
