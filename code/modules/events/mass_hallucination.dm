@@ -11,7 +11,7 @@
 		// Leave radiation-immune species/rad armored players completely unaffected
 		if(HAS_TRAIT(human, TRAIT_RADIMMUNE) || HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS))
 			continue
-		human.AdjustHallucinate(rand(100 SECONDS, 200 SECONDS))
+		human.AdjustHallucinate(rand(150 SECONDS, 350 SECONDS))
 		human.last_hallucinator_log = "Mass hallucination event"
 
 /datum/event/mass_hallucination/announce()

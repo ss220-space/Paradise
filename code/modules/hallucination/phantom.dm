@@ -57,7 +57,7 @@
 	return created_image
 
 /datum/hallucination/phantom/fly
-	random_hallucination_weight = 4
+	random_hallucination_weight = 2
 	image_file = 'icons/mob/human.dmi'
 	image_state = "fly"
 
@@ -72,38 +72,40 @@
 
 // Absolutely damned
 /datum/hallucination/phantom/lizard_woman
-	random_hallucination_weight = 1
 	image_file = 'icons/mob/human.dmi'
 	image_state = "lizard_f_s"
 
 /datum/hallucination/phantom/rat_king
-	random_hallucination_weight = 2
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "regalrat"
 
 /datum/hallucination/phantom/cool_cock
-	random_hallucination_weight = 3
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "cool_cock"
 
 /datum/hallucination/phantom/mouse_ass
-	random_hallucination_weight = 2
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "mouse_gray_idle5"
 
+/datum/hallucination/phantom/mouse_cone
+	image_file = 'icons/mob/animal.dmi'
+	image_state = "mouse_gray_idle6"
+
+/datum/hallucination/phantom/mouse_dance
+	image_file = 'icons/mob/animal.dmi'
+	image_state = "mouse_gray_idle7"
+
 /datum/hallucination/phantom/blobpod
-	random_hallucination_weight = 4
 	image_file = 'icons/mob/blob.dmi'
 	image_state = "blobpod"
 
 /datum/hallucination/phantom/skeleton
-	random_hallucination_weight = 2
 	image_file = 'icons/mob/human.dmi'
 	image_state = "skeleton_s"
 
 /datum/hallucination/phantom/weird
 	image_file = 'icons/mob/mob.dmi'
-	random_hallucination_weight = 0.1 // These are very uncommon
+	random_hallucination_weight = 1
 	abstract_hallucination_parent = /datum/hallucination/phantom/weird
 	hallucination_tier = HALLUCINATION_TIER_RARE
 
@@ -130,7 +132,6 @@
 	image_state = "shadowling_ascended"
 
 /datum/hallucination/phantom/object
-	random_hallucination_weight = 1
 
 /datum/hallucination/phantom/object/syndicate_swat
 	image_file = 'icons/obj/clothing/gloves.dmi'

@@ -1,6 +1,6 @@
 /// Fake chat hallucination. Sends a fake message to the hallucinator's chat.
 /datum/hallucination/chat
-	random_hallucination_weight = 8
+	random_hallucination_weight = 4
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 	/// If TRUE, the message is forced to go over the shared radio. Set to New().
@@ -82,6 +82,11 @@
 				"УБЕЙТЕ МЕНЯ!",
 				"А вот и наша цель...",
 				"Через 5 минут в дормах.",
+				"Я убью тебя!",
+				"Пошёл нахуй!",
+				"Что ты наделал?",
+				"EI NATH!!",
+				"O bidai nabora se'sma!",
 			))
 
 	chosen = capitalize(chosen)

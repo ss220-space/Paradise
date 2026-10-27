@@ -1,7 +1,7 @@
 /// Battle hallucination — makes it sound like there is a shootout or battle going on nearby.
 /datum/hallucination/battle
 	abstract_hallucination_parent = /datum/hallucination/battle
-	random_hallucination_weight = 3
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 	/// A single location the whole fight comes from, so the gunfight doesn't jump around.
 	var/turf/source_turf

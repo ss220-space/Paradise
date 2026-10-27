@@ -1,5 +1,5 @@
 /datum/hallucination/fake_sound
-	random_hallucination_weight = 3
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 	var/volume = 50
 	var/sound_vary = TRUE
@@ -26,7 +26,6 @@
 
 /datum/hallucination/fake_sound/normal
 	abstract_hallucination_parent = /datum/hallucination/fake_sound/normal
-	random_hallucination_weight = 5
 
 /datum/hallucination/fake_sound/normal/airlock
 	volume = 30
@@ -134,7 +133,6 @@
 	sound_type = 'sound/machines/hiss.ogg'
 
 /datum/hallucination/fake_sound/normal/flash
-	random_hallucination_weight = 2 // "it's revs"
 	volume = 90
 	sound_type = 'sound/weapons/flash.ogg'
 
@@ -234,7 +232,6 @@
 		queue_fake_sound(source, sound_to_play, volume_override = volume + (15 * next_shock), delay = 3 SECONDS * next_shock)
 
 /datum/hallucination/fake_sound/weird/xeno
-	random_hallucination_weight = 2
 	volume = 25
 	hallucination_tier = HALLUCINATION_TIER_RARE
 	sound_type = list(

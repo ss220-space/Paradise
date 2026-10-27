@@ -1,6 +1,6 @@
 /// A borer hallucination - a brain slug crawls out of a vent and briefly paralyzes the target.
 /datum/hallucination/borer
-	random_hallucination_weight = 1
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
 
 	/// The vent the fake borer comes out of.

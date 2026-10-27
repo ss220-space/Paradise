@@ -1,6 +1,6 @@
 /// Fires a random fake projectile at the hallucinating target.
 /datum/hallucination/stray_bullet
-	random_hallucination_weight = 4
+	random_hallucination_weight = 3
 	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
 
 /datum/hallucination/stray_bullet/start()
@@ -40,6 +40,7 @@
 	var/hal_fire_sound
 	var/hal_hitsound
 	var/stamina_damage = 0
+	var/matrix/hal_transform
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/Initialize(mapload, mob/seer, datum/hallucination/parent)
 	image_icon = hal_icon
@@ -51,6 +52,15 @@
 		parent.hallucinator.playsound_local(get_turf(src), hal_fire_sound, 60, TRUE)
 
 	var/turf/target_turf = get_turf(target)
+
+	// Rotate the projectile sprite toward the target, like real projectiles do.
+	var/angle = get_angle(src, target_turf)
+	hal_transform = new
+	hal_transform.Turn(angle)
+	regenerate_image()
+	if(shown_image)
+		shown_image.transform = hal_transform
+
 	animate(src, pixel_x = (target_turf.x - x) * ICON_SIZE_X, pixel_y = (target_turf.y - y) * ICON_SIZE_Y, time = 0.5 SECONDS, easing = LINEAR_EASING)
 	addtimer(CALLBACK(src, PROC_REF(hit_target), target), 0.5 SECONDS)
 

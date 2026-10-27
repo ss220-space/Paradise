@@ -1,5 +1,5 @@
 /datum/hallucination/message
-	random_hallucination_weight = 8
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 /datum/hallucination/message/start()

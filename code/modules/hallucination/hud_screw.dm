@@ -1,6 +1,6 @@
 /datum/hallucination/screwy_hud
 	abstract_hallucination_parent = /datum/hallucination/screwy_hud
-	random_hallucination_weight = 4
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 	var/screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_dead
 

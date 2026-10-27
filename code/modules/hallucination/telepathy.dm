@@ -1,6 +1,6 @@
 /// Fake telepathy - a voice in the head.
 /datum/hallucination/telepathy
-	random_hallucination_weight = 4
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 /datum/hallucination/telepathy/start()

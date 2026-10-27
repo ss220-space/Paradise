@@ -22,13 +22,17 @@
 
 /// Sends a fake station announcement only to the hallucinator.
 /datum/hallucination/station_message/proc/announce_to_hallucinator(message, title, alert_sound)
-	to_chat(hallucinator, "<div class='announcement minor'><h1>[html_encode(title)]</h1><p>[html_encode(message)]</p></div>", MESSAGE_TYPE_WARNING)
+	var/list/announcement_strings = list()
+	announcement_strings += "<span class='announcement_header'><span class='minor_announcement_title'>[html_encode(title)]</span></span>"
+	announcement_strings += "<span class='minor_announcement_text'>[html_encode(message)])<span>"
+	var/joined_message = jointext(announcement_strings, "")
+	to_chat(hallucinator, "<div class='chat_alert_red'>[joined_message]</div>", MESSAGE_TYPE_WARNING)
 
 	var/sound_file = alert_sound ? alert_sound : 'sound/misc/notice2.ogg'
 	if(sound_file)
 		hallucinator.playsound_local(null, sound_file, 100)
 
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, hallucinator, message, null, TRUE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, hallucinator, hallucinator, message, "Glados", FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, sound_file)
 
 /datum/hallucination/station_message/blob_alert
 
@@ -90,6 +94,16 @@
 	announce_to_hallucinator(
 		"Метеоры обнаружены на курсе столкновения со станцией.",
 		"Метеоритная тревога",
+		null,
+	)
+
+/datum/hallucination/station_message/rod
+	random_hallucination_weight = 2
+
+/datum/hallucination/station_message/meteors/do_fake_alert()
+	announce_to_hallucinator(
+		"Что это за хуйня?!",
+		"Общая тревога!",
 		null,
 	)
 

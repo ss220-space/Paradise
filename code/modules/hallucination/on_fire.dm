@@ -2,7 +2,7 @@
 #define RAISE_FIRE_TIME 3
 
 /datum/hallucination/fire
-	random_hallucination_weight = 3
+	random_hallucination_weight = 1
 	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
 
 	/// Are we currently burning our mob?

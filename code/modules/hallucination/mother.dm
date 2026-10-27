@@ -1,6 +1,6 @@
 /// Your mother shows up to scold you.
 /datum/hallucination/your_mother
-	random_hallucination_weight = 2
+	random_hallucination_weight = 1
 	hallucination_tier = HALLUCINATION_TIER_VERYSPECIAL
 
 	var/obj/effect/client_image_holder/hallucination/your_mother/mother

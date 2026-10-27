@@ -997,20 +997,20 @@
 	/// The cooldown for when the next hallucination can occur
 	COOLDOWN_DECLARE(hallucination_cooldown)
 
-	/// How intense the hallucinations are (0-10 stacks). Accumulates.
+	/// How intense the hallucinations are (0-10 stacks). Derived from remaining strength.
 	var/hallucination_stacks = 0
-	var/initial_duration = 0
-	/// How fast stacks decay per second.
-	var/stack_decay = 0.5
 
 /datum/status_effect/transient/hallucination/on_apply()
 	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
 		return FALSE
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
 
-	initial_duration = duration
-	// VERYSPECIAL only when stacked for 10 minutes
-	hallucination_stacks = clamp(round(duration / 60 SECONDS), 1, 10)
+	var/dose = strength
+	duration = STATUS_EFFECT_PERMANENT
+	strength = dose
+
+	// Stacks are derived directly from remaining strength (1 stack = 30 seconds).
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
 
 	return TRUE
 
@@ -1024,16 +1024,31 @@
 		SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE),
 	))
 
-/// Add more stacks when a new dose is applied while the effect is already active.
-/datum/status_effect/transient/hallucination/proc/add_stacks(amount)
-	hallucination_stacks = clamp(hallucination_stacks + amount, 0, 10)
-	if(duration > initial_duration)
-		initial_duration = duration
+/// Add a dose (in deciseconds).
+/datum/status_effect/transient/hallucination/proc/add_dose(seconds)
+	seconds = max(0, seconds)
+	strength += seconds
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+
+/// Reduce by a dose.
+/datum/status_effect/transient/hallucination/proc/reduce_dose(seconds)
+	seconds = max(0, seconds)
+	strength = max(0, strength - seconds)
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+	if(hallucination_stacks <= 0)
+		qdel(src)
+
+/// Reset to absolute dose.
+/datum/status_effect/transient/hallucination/proc/reset_to(amount)
+	amount = max(0, amount)
+	strength = amount
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
 
 /datum/status_effect/transient/hallucination/tick(seconds_between_ticks)
-	. = ..()
-	if(!.)
-		return
+	. = TRUE
+	if(QDELETED(owner))
+		qdel(src)
+		return FALSE
 
 	if(!iscarbon(owner))
 		return
@@ -1041,29 +1056,20 @@
 	if(owner.stat == DEAD)
 		return
 
-	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
-		return
+	var/dt = seconds_between_ticks * 10
+	strength = max(0, strength - dt)
 
-	hallucination_stacks -= stack_decay * seconds_between_ticks
+	// Stacks are strictly derived from remaining strength.
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+
 	if(hallucination_stacks <= 0)
 		qdel(src)
 		return
 
-	if(duration > initial_duration)
-		var/added_duration = duration - initial_duration
-		var/new_stacks = clamp(round(added_duration / 30 SECONDS), 0, 5)
-		hallucination_stacks = clamp(hallucination_stacks + new_stacks, 0, 10)
-		initial_duration = duration
+	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
+		return
 
-	var/progress = 0
-	if(initial_duration > 0)
-		progress = 1 - (duration / initial_duration)
-
-	var/multiplier = 1.0
-	if(progress < 0.25 || progress > 0.75)
-		multiplier = 0.5
-
-	var/effective_stacks = round(hallucination_stacks * multiplier)
+	var/effective_stacks = round(hallucination_stacks)
 
 	var/lower_cd = lower_tick_interval
 	var/upper_cd = upper_tick_interval

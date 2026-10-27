@@ -80,6 +80,12 @@
 		if("borer")
 			cause_hallucination(/datum/hallucination/borer, "hallucinate_living wrapper")
 			return
+		if("grenade")
+			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/fake_grenade), "hallucinate_living wrapper")
+			return
+		if("sniper")
+			cause_hallucination(/datum/hallucination/sniper, "hallucinate_living wrapper")
+			return
 		if("singulo")
 			cause_hallucination(/datum/hallucination/singularity_scare, "hallucinate_living wrapper")
 			return
