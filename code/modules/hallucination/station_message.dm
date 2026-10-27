@@ -24,7 +24,7 @@
 /datum/hallucination/station_message/proc/announce_to_hallucinator(message, title, alert_sound)
 	var/list/announcement_strings = list()
 	announcement_strings += "<span class='announcement_header'><span class='minor_announcement_title'>[html_encode(title)]</span></span>"
-	announcement_strings += "<span class='minor_announcement_text'>[html_encode(message)])<span>"
+	announcement_strings += "<span class='minor_announcement_text'>[html_encode(message)]<span>"
 	var/joined_message = jointext(announcement_strings, "")
 	to_chat(hallucinator, "<div class='chat_alert_red'>[joined_message]</div>", MESSAGE_TYPE_WARNING)
 

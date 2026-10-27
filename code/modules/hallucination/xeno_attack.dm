@@ -44,7 +44,7 @@
 
 	var/xeno_name = QDELETED(fake_xeno) ? "alien hunter" : fake_xeno.name
 	hallucinator.Weaken(10 SECONDS)
-	to_chat(hallucinator, span_userdanger("[xeno_name] набросится на тебя!"))
+	to_chat(hallucinator, span_userdanger("[xeno_name] набросился на тебя!"))
 
 /// Runs from the hallucinator back to the vent - sneaking, semi-transparent.
 /datum/hallucination/xeno_attack/proc/run_back_to_pump(obj/effect/client_image_holder/hallucination/xeno/fake_xeno, turf/attack_source)

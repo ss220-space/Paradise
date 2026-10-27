@@ -52,7 +52,6 @@
 /datum/hallucination/fake_grenade/flashbang
 	grenade_type = list(/obj/item/grenade/flashbang)
 	random_hallucination_weight = 1
-	hallucination_tier = HALLUCINATION_TIER_RARE
 
 /datum/hallucination/fake_grenade/flashbang/run_ending()
 	if(QDELETED(src) || QDELETED(hallucinator))
