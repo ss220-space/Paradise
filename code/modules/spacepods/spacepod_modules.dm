@@ -372,8 +372,8 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/examine(mob/user)
 	. = ..()
-	. += span_notice("Тяга [3500] кгс")
-	. += span_notice("Потряебяет [fuel_consume_speed] л. топлива в секунду.")
+	. += span_notice("Тяга [thrust] кгс")
+	. += span_notice("Потряебляет [fuel_consume_speed] л. топлива в секунду.")
 
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	if(length(pod.systems.engines) >= POD_MAX_ENGINES)
