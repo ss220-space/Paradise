@@ -30,7 +30,6 @@
 		name = "alien drone ([rand(1, 1000)])"
 	real_name = name
 
-	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	if(!sterile && !istype(src, /mob/living/carbon/alien/humanoid/drone/resin_drone))
 		AddSpell(new /datum/action/cooldown/spell/evolve/drone)
 

@@ -1,14 +1,15 @@
 // Defines include required plasma in brackets
-#define ALIEN_RESIN_WALL "Resin Wall (60)"
-#define ALIEN_RESIN_DOOR "Resin Door (50)"
-#define ALIEN_RESIN_THICK_WALL "Resin Thick Wall (60)"
-#define ALIEN_RESIN_THICK_DOOR "Resin Thick Door (50)"
-#define ALIEN_RESIN_NEST "Resin Nest (30)"
+#define ALIEN_RESIN_WALL "Смоляная стена (60)"
+#define ALIEN_RESIN_DOOR "Смоляная дверь (50)"
+#define ALIEN_RESIN_THICK_WALL "Толстая смоляная стена (60)"
+#define ALIEN_RESIN_THICK_DOOR "Толстая смоляная дверь (50)"
+#define ALIEN_RESIN_NEST "Смоляное гнездо (30)"
 
 /datum/action/cooldown/spell/build_resin
-	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin."
-	button_icon_state = "alien_resin"
+	name = "Выделить смолу"
+	desc = "Выделить прочную пластичную смолу."
+	button_icon = 'icons/mob/xeno/structures.dmi'
+	button_icon_state = "nest"
 	background_icon_state = "bg_alien"
 	spell_requirements = NONE
 	check_flags = AB_CHECK_CONSCIOUS
@@ -25,7 +26,6 @@
 	var/mob/living/carbon/alien/host = cast_on
 
 	if(in_process)
-		to_chat(host, span_noticealien("Ability is already in use!"))
 		reset_spell_cooldown(owner)
 		return
 
@@ -36,63 +36,63 @@
 
 	if(is_resin_drone)
 		resin_params["Plasma Amount"] = list(
-			ALIEN_RESIN_THICK_WALL		= 60,
-			ALIEN_RESIN_THICK_DOOR		= 50,
-			ALIEN_RESIN_NEST		= 30
+			ALIEN_RESIN_THICK_WALL = 60,
+			ALIEN_RESIN_THICK_DOOR = 50,
+			ALIEN_RESIN_NEST = 30
 		)
 
 		resin_params["Process Time"] = list(
-			ALIEN_RESIN_THICK_WALL		= 3 SECONDS,
-			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
-			ALIEN_RESIN_NEST		= 1 SECONDS
+			ALIEN_RESIN_THICK_WALL = 3 SECONDS,
+			ALIEN_RESIN_THICK_DOOR = 5 SECONDS,
+			ALIEN_RESIN_NEST = 1 SECONDS
 		)
 
 		resin_params["Cooldown"] = list(
-			ALIEN_RESIN_THICK_WALL		= 5 SECONDS,
-			ALIEN_RESIN_THICK_DOOR		= 5 SECONDS,
-			ALIEN_RESIN_NEST		= 2 SECONDS
+			ALIEN_RESIN_THICK_WALL = 5 SECONDS,
+			ALIEN_RESIN_THICK_DOOR = 5 SECONDS,
+			ALIEN_RESIN_NEST = 2 SECONDS
 		)
 
 		resin_params["Structure"] = list(
-			ALIEN_RESIN_THICK_WALL		= /obj/structure/alien/resin/wall/thick,
-			ALIEN_RESIN_THICK_DOOR		= /obj/structure/alien/resin/door/thick,
-			ALIEN_RESIN_NEST		= /obj/structure/bed/nest
+			ALIEN_RESIN_THICK_WALL = /obj/structure/alien/resin/wall/thick,
+			ALIEN_RESIN_THICK_DOOR = /obj/structure/alien/resin/door/thick,
+			ALIEN_RESIN_NEST = /obj/structure/bed/nest
 		)
 
 		resin_params["Image"] = list(
-			ALIEN_RESIN_THICK_WALL		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_wall"),
-			ALIEN_RESIN_THICK_DOOR		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_door"),
-			ALIEN_RESIN_NEST			= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
+			ALIEN_RESIN_THICK_WALL = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_wall"),
+			ALIEN_RESIN_THICK_DOOR = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "thick_resin_door"),
+			ALIEN_RESIN_NEST = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
 		)
 	else
 		resin_params["Plasma Amount"] = list(
-			ALIEN_RESIN_WALL		= 60,
-			ALIEN_RESIN_DOOR		= 50,
-			ALIEN_RESIN_NEST		= 30
+			ALIEN_RESIN_WALL = 60,
+			ALIEN_RESIN_DOOR = 50,
+			ALIEN_RESIN_NEST = 30
 		)
 
 		resin_params["Process Time"] = list(
-			ALIEN_RESIN_WALL		= 1.5 SECONDS,
-			ALIEN_RESIN_DOOR		= 3 SECONDS,
-			ALIEN_RESIN_NEST		= 1 SECONDS
+			ALIEN_RESIN_WALL = 1.5 SECONDS,
+			ALIEN_RESIN_DOOR = 3 SECONDS,
+			ALIEN_RESIN_NEST = 1 SECONDS
 		)
 
 		resin_params["Cooldown"] = list(
-			ALIEN_RESIN_WALL		= 2 SECONDS,
-			ALIEN_RESIN_DOOR		= 3 SECONDS,
-			ALIEN_RESIN_NEST		= 2 SECONDS
+			ALIEN_RESIN_WALL = 2 SECONDS,
+			ALIEN_RESIN_DOOR = 3 SECONDS,
+			ALIEN_RESIN_NEST = 2 SECONDS
 		)
 
 		resin_params["Structure"] = list(
-			ALIEN_RESIN_WALL		= /obj/structure/alien/resin/wall,
-			ALIEN_RESIN_DOOR		= /obj/structure/alien/resin/door,
-			ALIEN_RESIN_NEST		= /obj/structure/bed/nest
+			ALIEN_RESIN_WALL = /obj/structure/alien/resin/wall,
+			ALIEN_RESIN_DOOR = /obj/structure/alien/resin/door,
+			ALIEN_RESIN_NEST = /obj/structure/bed/nest
 		)
 
 		resin_params["Image"] = list(
-			ALIEN_RESIN_WALL		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_wall"),
-			ALIEN_RESIN_DOOR		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_door"),
-			ALIEN_RESIN_NEST		= image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
+			ALIEN_RESIN_WALL = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_wall"),
+			ALIEN_RESIN_DOOR = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_door"),
+			ALIEN_RESIN_NEST = image(icon = 'icons/mob/xeno/xeno_building.dmi', icon_state = "resin_nest")
 		)
 
 	var/choice = show_radial_menu(host, host, resin_params["Image"], radius = 40, custom_check = CALLBACK(src, PROC_REF(check_availability), host))
@@ -101,8 +101,7 @@
 		reset_spell_cooldown(host)
 		return
 
-	host.visible_message(span_warning("[host] starts vomitting purple substance on the surface!"), \
-						span_notice("You start vomitting resin for future use."))
+	host.visible_message(span_warning("[DECLENT_RU_CAP(host, NOMINATIVE)] изрыгает густую фиолетовую субстанцию и формирует из неё структуру!"))
 
 	in_process = TRUE
 	if(!do_after(host, resin_params["Process Time"][choice], host))
@@ -123,8 +122,6 @@
 	var/obj/alien_structure = new build_path(host.loc)
 
 	playsound_xenobuild(alien_structure)
-	host.visible_message(span_warning("[host] vomits up a thick purple substance and shapes it into the [alien_structure.name]!"), \
-						span_alertalien("You finished shaping vomited resin into the [alien_structure.name]."))
 
 /datum/action/cooldown/spell/build_resin/proc/check_availability(mob/living/carbon/user, plasma_amount)
 	if(!istype(user))
@@ -134,20 +131,20 @@
 		return FALSE
 
 	if(isspaceturf(user.loc))
-		to_chat(user, span_noticealien("You cannot build the resin while in space!"))
+		user.balloon_alert(user, "невозможно!")
 		return FALSE
 
 	if(plasma_amount && user.get_plasma() < plasma_amount)
-		to_chat(user, span_noticealien("Not enough plasma stored."))
+		user.balloon_alert(user, "недостаточно плазмы!")
 		return FALSE
 
 	if(user.incapacitated())
-		to_chat(user, span_noticealien("You can't do this right now!"))
+		user.balloon_alert(user, "невозможно!")
 		return FALSE
 
 	var/turf/source_turf = get_turf(user)
 	if((locate(/obj/structure/alien/resin) in source_turf.contents) || (locate(/obj/structure/bed/nest) in source_turf.contents))
-		to_chat(user, span_noticealien("This place is already occupied!"))
+		user.balloon_alert(user, "невозможно!")
 		return FALSE
 
 	return TRUE

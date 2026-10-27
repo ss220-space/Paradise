@@ -30,7 +30,6 @@
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	. = ..()
-	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	AddSpell(new /datum/action/cooldown/spell/evolve/praetorian)
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
@@ -78,7 +77,6 @@
 	if(name == "alien praetorian")
 		name = text("alien praetorian ([rand(1, 1000)])")
 	real_name = name
-	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	praetorian_count++
 
 /mob/living/carbon/alien/humanoid/praetorian/death(gibbed)

@@ -286,15 +286,16 @@
 	update_appearance(UPDATE_ICON)
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
-	if(!welded || !do_after(user, 2 SECONDS, src))
+	playsound(loc, 'sound/machines/airlock_alien_prying.ogg', 75, TRUE)
+	if(!welded || !do_after(user, 3 SECONDS, src))
 		return
 	user.visible_message(
-		span_warning("[user] furiously claws at [src]!"),
-		span_notice("You manage to clear away the stuff blocking the vent."),
-		span_italics("You hear loud scraping noises."),
+		span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] яростно вгрызва[PLUR_ET_YUT(user)]ся в вентиляцию!"),
+		span_notice("Вам удаётся рачистить вентиляцию."),
+		span_italics("Вы слышите громкий скрежет."),
 	)
 	set_welded(FALSE)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 75, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, params)
 	. = ..()

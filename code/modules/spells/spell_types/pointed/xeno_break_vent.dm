@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/pointed/break_vent
-	name = "Break Welded Vent"
-	desc = "Breaks welded vent nearby. Can be used from inside the pipes."
+	name = "Вскрыть вентиляцию"
+	desc = "Вскрывает заваренную вентиляцию рядом. Можно использовать изнутри труб."
 	button_icon_state = "acid_vent"
 	background_icon_state = "bg_alien"
 	active_background_icon_state = "bg_alien"
@@ -28,14 +28,14 @@
 	. = ..()
 	var/obj/machinery/atmospherics/vent = cast_on
 	if(!vent)
-		to_chat(owner, span_warning("No nearby welded vents found!"))
+		to_chat(owner, span_warning("Поблизости нет заваренной вентиляции!"))
 		reset_spell_cooldown()
 		return
 
 	playsound(get_turf(owner),'sound/weapons/bladeslice.ogg' , 100, FALSE)
 
 	if(!do_after(owner, 4 SECONDS, vent, max_interact_count = 1))
-		to_chat(owner, span_danger("There is no welded vent or scrubber close enough to do this."))
+		to_chat(owner, span_danger("Поблизости нет заваренной вентиляции или скруббера, чтобы это сделать."))
 		reset_spell_cooldown()
 		return
 
@@ -44,5 +44,5 @@
 	if(vent?.welded)
 		vent.set_welded(FALSE)
 		owner.forceMove(vent.loc)
-		vent.visible_message(span_danger("[owner] smashes the welded cover off [vent]!"))
+		vent.visible_message(span_danger("[DECLENT_RU_CAP(owner, NOMINATIVE)] срыва[PLUR_ET_UT(owner)] заваренную крышку с вентиляции!"))
 

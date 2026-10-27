@@ -1,8 +1,9 @@
 /datum/action/cooldown/spell/conjure/plant_weeds
-	name = "Plant weeds"
-	desc = "Allows you to plant some alien weeds on the floor below you. Does not work while in space."
+	name = "Посадить смолу"
+	desc = "Позволяет создать смоляную ноду на полу под собой."
 	cooldown_time = 10 SECONDS
-	button_icon_state = "alien_plant"
+	button_icon = 'icons/mob/xeno/weeds.dmi'
+	button_icon_state = "base"
 	background_icon_state = "bg_alien"
 	summon_radius = 0
 	check_flags = AB_CHECK_CONSCIOUS

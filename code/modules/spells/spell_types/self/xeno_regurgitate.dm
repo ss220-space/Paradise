@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/regurgitate
-	name = "Regurgitate"
-	desc = "Empties the contents of your stomach onto the ground."
+	name = "Изрыгнуть"
+	desc = "Вываливает содержимое вашего желудка на землю."
 	button_icon_state = "alien_barf"
 	background_icon_state = "bg_alien"
 	spell_requirements = NONE
@@ -17,7 +17,7 @@
 	for(var/mob/mob in xeno.stomach_contents)
 		var/turf/output_loc = xeno.loc
 		mob.forceMove(output_loc)
-		xeno.visible_message(span_alertalien("<b>[xeno] hurls out the contents of [p_their()] stomach!"))
+		xeno.visible_message(span_alertalien("<b>[DECLENT_RU_CAP(xeno, NOMINATIVE)] изрыга[PLUR_ET_UT(xeno)] содержимое своего желудка!</b>"))
 		return
-	xeno.visible_message(span_alertalien("<b>[xeno] dry heaves!"))
+	xeno.visible_message(span_alertalien("<b>[DECLENT_RU_CAP(xeno, NOMINATIVE)] содрога[PLUR_ET_UT(xeno)]ся в рвотных позывах!"))
 

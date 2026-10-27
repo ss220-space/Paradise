@@ -1,11 +1,11 @@
 /datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit
-	name = "Neurotoxin spit"
-	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
+	name = "Плевок нейротоксином"
+	desc = "Позволяет выпустить порцию нейротоксина. Сбивает с ног любого, в кого вы попадёте, и наносит немного урона выносливости и токсинами."
 	cooldown_time = 1 SECONDS
 	spell_requirements = NONE
 	check_flags = AB_CHECK_CONSCIOUS
-	active_msg = span_noticealien_alt("<b>Your prepare some neurotoxin!</b>")
-	deactive_msg = span_noticealien_alt("<b>You swallow your prepared neurotoxin.</b>")
+	active_msg = span_noticealien_alt("<b>Вы готовите порцию нейротоксина!</b>")
+	deactive_msg = span_noticealien_alt("<b>Вы проглатываете приготовленный нейротоксин.</b>")
 	projectile_type = /obj/projectile/bullet/neurotoxin
 	button_icon_state = "alien_neurotoxin_0"
 	background_icon_state = "bg_alien"

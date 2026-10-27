@@ -41,8 +41,8 @@
 
 /datum/action/innate/alien/toggle_queen_arrow
 	name = "Расположение королевы"
-	desc = "Включить/выключить указатель направления к Королеве"
-	button_icon_state = "queen_arrow"
+	desc = "Переключить указатель направления к Королеве"
+	button_icon_state = "alien_queen_arrow"
 	var/atom/movable/screen/navigate_arrow/arrow
 
 /datum/action/innate/alien/toggle_queen_arrow/Activate()
@@ -58,7 +58,7 @@
 		arrow = null
 		return
 
-	var/mob/living/carbon/alien/humanoid/queen/Q = locate() in GLOB.aliens_list
+	var/mob/living/carbon/alien/humanoid/queen/Q = locate(/mob/living/carbon/alien/humanoid/queen) in GLOB.aliens_list
 	if(!Q || Q.stat == DEAD)
 		host.balloon_alert(host, "королевы нет!")
 		return
@@ -70,7 +70,7 @@
 /datum/action/innate/alien/toggle_queen_arrow/proc/update_arrow()
 	if(!arrow || !owner?.client)
 		return
-	var/mob/living/carbon/alien/humanoid/queen/Q = locate() in GLOB.aliens_list
+	var/mob/living/carbon/alien/humanoid/queen/Q = locate(/mob/living/carbon/alien/humanoid/queen) in GLOB.aliens_list
 	if(!Q || Q.stat == DEAD)
 		owner.client.screen -= arrow
 		qdel(arrow)

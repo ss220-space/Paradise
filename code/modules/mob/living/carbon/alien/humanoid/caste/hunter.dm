@@ -30,6 +30,8 @@
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
 
+	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
+
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
 	. += /obj/item/organ/internal/xenos/plasmavessel/hunter

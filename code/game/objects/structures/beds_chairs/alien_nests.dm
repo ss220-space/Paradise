@@ -2,7 +2,7 @@
 
 /obj/structure/bed/nest
 	name = "alien nest"
-	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
+	desc = "Это отвратительная куча густой липкой смолы, по форме напоминающая гнездо."
 	icon = 'icons/mob/xeno/structures.dmi'
 	icon_state = "nest"
 	max_integrity = 120
@@ -12,6 +12,16 @@
 	allow_tucking = FALSE
 	var/image/nest_overlay
 	var/ghost_timer
+
+/obj/structure/bed/nest/get_ru_names()
+	return alist(
+		NOMINATIVE = "гнездо ксеноморфа",
+		GENITIVE = "гнезда ксеноморфа",
+		DATIVE = "гнезду ксеноморфа",
+		ACCUSATIVE = "гнездо ксеноморфа",
+		INSTRUMENTAL = "гнездом ксеноморфа",
+		PREPOSITIONAL = "гнезде ксеноморфа",
+	)
 
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
@@ -29,11 +39,11 @@
 		return FALSE
 
 	if(target.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
-		to_chat(user, span_noticealien("[target]'s linkage with the hive prevents you from securing them into [src]."))
+		to_chat(user, span_noticealien("Связь [declent_ru(target, GENITIVE)] с ульем не позволяет вам закрепить их в [declent_ru(src, ACCUSATIVE)]."))
 		return FALSE
 
 	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
-		to_chat(user, span_noticealien("Your lack of linkage to the hive prevents you from buckling [target] into [src]."))
+		to_chat(user, span_noticealien("Отсутствие связи с ульем не позволяет вам пристегнуть [declent_ru(target, ACCUSATIVE)] к [declent_ru(src, ACCUSATIVE)]."))
 		return FALSE
 
 	if(has_buckled_mobs())
@@ -42,9 +52,9 @@
 	. = buckle_mob(target)
 	if(.)
 		target.visible_message(
-			span_notice("[user] secretes a thick vile goo, securing [target] into [src]!"),
-			span_userdanger("[user] drenches you in a foul-smelling resin, trapping you in [src]!"),
-			span_italics("You hear squelching..."),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] выделя[PLUR_ET_UT(user)] густую мерзкую слизь, закрепляя [declent_ru(target, ACCUSATIVE)] в [declent_ru(src, ACCUSATIVE)]!"),
+			span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)] облива[PLUR_ET_UT(user)] вас вонючей смолой, заточая вас в [declent_ru(src, ACCUSATIVE)]!"),
+			span_italics("Вы слышите чавканье..."),
 		)
 		if(isalien(user))
 			ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check)), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
@@ -55,26 +65,26 @@
 
 	if(target != user)
 		target.visible_message(
-			span_notice("[user] pulls [target] free from the sticky nest!"),
-			span_notice("[user.name] pulls you free from the gelatinous resin."),
-			span_italics("You hear squelching..."),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] освобожда[PLUR_ET_UT(user)] [declent_ru(target, ACCUSATIVE)] из липкого гнезда!"),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] освобожда[PLUR_ET_UT(user)] вас из гнезда."),
+			span_italics("Вы слышите чавканье..."),
 		)
 	else
 		target.visible_message(
-			span_warning("[target] struggles to break free from the gelatinous resin!"),
-			span_warning("You struggle to break free from the gelatinous resin... (Stay still for two minutes.)"),
-			span_italics("You hear squelching..."),
+			span_warning("[DECLENT_RU_CAP(target, NOMINATIVE)] пыта[PLUR_ET_UT(target)]ся освободиться от гнезда!"),
+			span_warning("Вы пытаетесь освободиться из гнезда... (Задержитесь на две минуты.)"),
+			span_italics("Вы слышите чавканье..."),
 		)
 		if(!do_after(target, 2 MINUTES, src))
 			if(target?.buckled)
-				to_chat(target, span_warning("You fail to escape [src]!"))
+				to_chat(target, span_warning("Вы не можете выбраться из [declent_ru(src, GENITIVE)]!"))
 			return
 		if(!target.buckled)
 			return
 		target.visible_message(
-			span_warning("[target] breaks free from the gelatinous resin!"),
-			span_notice("You break free from the gelatinous resin!"),
-			span_italics("You hear squelching..."),
+			span_warning("[DECLENT_RU_CAP(target, NOMINATIVE)] освобожда[PLUR_ET_UT(target)]ся от гнезда!"),
+			span_notice("Вы освобождаетесь от гнезда!"),
+			span_italics("Вы слышите чавканье..."),
 		)
 
 	return unbuckle_mob(target)
@@ -86,7 +96,7 @@
 		var/obj/item/clothing/mask/facehugger/hugger_mask = buckled_mob.wear_mask
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
 			buckled_mob.throw_alert(ALERT_GHOST_NEST, /atom/movable/screen/alert/ghost)
-			to_chat(buckled_mob, span_ghostalert("You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest."))
+			to_chat(buckled_mob, span_ghostalert("Вы можете покинуть тело, выйдя в призраки. Возможность вернуться в тело при этом сохранится. Когда вас извлекут из гнезда, вы получите уведомление."))
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
 	ADD_TRAIT(target, TRAIT_RESTRAINED, type)
@@ -101,7 +111,7 @@
 	cut_overlay(nest_overlay)
 	deltimer(ghost_timer)
 	target.clear_alert(ALERT_GHOST_NEST)
-	target.notify_ghost_cloning("You have been unbuckled from an alien nest! Click that alert to re-enter your body.", source = src)
+	target.notify_ghost_cloning("Вы были отстегнуты от гнезда ксеноморфа! Нажмите на оповещение, чтобы вернуться в своё тело.", source = src)
 
 /obj/structure/bed/nest/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
