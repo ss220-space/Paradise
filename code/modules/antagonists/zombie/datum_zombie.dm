@@ -7,6 +7,7 @@
 	clown_removal_text = "Вы снова чувствуете себя забавным."
 	wiki_page_name = "Zombie"
 	russian_wiki_name = "Зомби"
+	has_skill_bonus = FALSE
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
 	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_ABSTRACT_HANDS, TRAIT_NO_BREATH)
 	var/datum/unarmed_attack/claws/claw_attack
