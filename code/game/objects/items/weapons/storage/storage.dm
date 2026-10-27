@@ -60,6 +60,8 @@
 	var/list/mobs_viewing
 	/// Increase "w_class" of storage when something inside it
 	var/dynamic_storage_size = FALSE
+	// "w_class" of storage when something inside it
+	var/storage_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()

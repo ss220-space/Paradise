@@ -338,7 +338,7 @@
 	user.adjustCloneLoss(-(user.getCloneLoss()))
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
 	var/obj/item/organ/internal/cyberimp/eyes/eyes
-	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
+	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/empproof/ling(null) // thermal without item
 	eyes.insert(user)
 
 	var/thralls = get_thralls()

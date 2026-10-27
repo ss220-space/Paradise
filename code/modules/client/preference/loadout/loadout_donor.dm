@@ -142,6 +142,12 @@
 	path = /obj/item/lighter/zippo/gonzofist
 	donator_tier = 3
 
+/datum/gear/donor/zippogrenade
+	index_name = "grenade zippo lighter"
+	display_name = "Зажигалка в виде гранаты"
+	path = /obj/item/lighter/zippo/grenade
+	donator_tier = 1
+
 /datum/gear/donor/strip
 	subtype_path = /datum/gear/donor/strip
 	subtype_cost_overlap = FALSE

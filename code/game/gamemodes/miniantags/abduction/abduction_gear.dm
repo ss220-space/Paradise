@@ -288,7 +288,7 @@
 
 	for(var/obj/item/radio/radio in all_items)
 		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-		radio.emp_act(1)
+		radio.emp_act(EMP_HEAVY)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"

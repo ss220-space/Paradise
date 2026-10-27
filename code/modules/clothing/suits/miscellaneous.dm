@@ -1775,3 +1775,16 @@
 		INSTRUMENTAL = "заза-лорд бомбером",
 		PREPOSITIONAL = "заза-лорд бомбере",
 	)
+
+/obj/item/clothing/suit/red_jacket
+	name = "red jacket"
+	desc = "Стильная красная короткая куртка."
+	icon_state = "red_jacket"
+	item_state = "red_jacket"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = FALSE
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/red_jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")

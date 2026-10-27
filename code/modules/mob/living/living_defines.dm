@@ -220,3 +220,6 @@
 	var/navigating = FALSE
 	/// Cooldown of the navigate() verb.
 	COOLDOWN_DECLARE(navigate_cooldown)
+
+	/// Reduces the effects of EMPs, does NOT negate them even at very high numbers
+	var/emp_protection = EMP_PROTECTION_NONE

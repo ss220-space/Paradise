@@ -35,6 +35,7 @@
 	hud.hide_from(user)
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
+	. = ..()
 	if(!emagged)
 		emagged = TRUE
 		desc = desc + " The display flickers slightly."

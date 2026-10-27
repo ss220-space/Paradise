@@ -669,3 +669,29 @@
 #define TRAIT_ITEM_ACTIVE "item_active"
 
 #define TRAIT_HAS_ANTAG_SKILLS "has_antag_skills"
+
+/// A general trait for tracking whether a zombie owned the organ or limb
+#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
+
+#define TRAIT_PLAGUE_ZOMBIE "plague_zombie" // For checking if this is a wizard plague zombie
+
+#define TRAIT_ATTACK_ON_THROW_IMPACT "attack_on_throw_impact"
+
+#define TRAIT_NECROMANT_CURSED "necromant_cursed"
+
+#define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
+#define TRAIT_NON_INFECTIOUS_ZOMBIE "non_infectious_zombie" // A trait for checking if a zombie shouldn't be able to infect other people
+#define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
+#define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
+#define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
+/// The mob is holy and resistance to cult magic
+#define TRAIT_HOLY "holy"
+/// This mob is antimagic, and immune to spells / cannot cast spells
+#define TRAIT_ANTIMAGIC "anti_magic"
+/// This allows a person who has antimagic to cast spells without getting blocked
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+
+/// Trait that allows an item to perform holy rites akin to a nullrod
+#define TRAIT_NULLROD_ITEM "nullrod_item"
