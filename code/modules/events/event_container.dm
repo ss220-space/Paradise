@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_PRISON_BREAK, /datum/event/prison_break, 0, list(ASSIGNMENT_SECURITY = 100)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_CURSED_PIANO, /datum/event/ghostpiano, 100, list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_CURSED_PIANO, /datum/event/ghostpiano, 200, list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_APC_SHORTAGE, /datum/event/apc_short, 200, list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(
@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_ANOMALY, /datum/event/anomaly, 500, list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_SCIENTIST = 30)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 150),
+			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 300),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/swarmers, 40, is_one_shot = TRUE),
 		new /datum/event_meta(
