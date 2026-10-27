@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 	gun.use_power = NO_POWER_USE
 	gun.stat &= ~NOPOWER
 	for(var/key in list("dir", "enabled", "lethal", "projectile", "eprojectile", "shot_delay"))
-		if((key in attributes) && (key in gun.vars)
+		if((key in attributes) && (key in gun.vars))
 			gun.vars[key] = attributes[key]
 	var/datum/component/ship_weapon/weapon = gun.GetComponent(/datum/component/ship_weapon)
 	if(weapon)
