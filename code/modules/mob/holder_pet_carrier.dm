@@ -50,6 +50,7 @@
 	return ..()
 
 /obj/item/pet_carrier/emp_act(intensity)
+	. = ..()
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
@@ -140,6 +141,7 @@
 		. += image(icon, icon_state = "[icon_state]_[color_skin]")
 
 /obj/item/pet_carrier/emp_act(intensity)
+	. = ..()
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 

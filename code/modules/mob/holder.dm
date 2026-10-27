@@ -47,6 +47,7 @@
 		M.show_message(message, m_type, chat_message_type)
 
 /obj/item/holder/emp_act(intensity)
+	. = ..()
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 

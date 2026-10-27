@@ -68,10 +68,10 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		mob_icon = new /icon(icon_file, new_icon_state)
 		if(!skeletal && !is_robotic())
 			if(is_dead())
-				mob_icon.ColorTone(rgb(10,50,0))
+				mob_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 				mob_icon.SetIntensity(0.7)
 
-			if(!isnull(s_tone))
+			else if(!isnull(s_tone)) // we use an else here because it fucks with shit. It would be nice to fix this someday so that colors affect dead limbs
 				if(s_tone >= 0)
 					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 				else
@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)
-		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+		var/datum/sprite_accessory/head_marking_style = SSaccessories.body_markings_list[head_marking]
 		if(head_marking_style?.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	if(!((owner.head && (owner.head.flags_inv & HIDEHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHAIR)))) //Common restriction for all the below features.
 		if(ha_style)
-			var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
+			var/datum/sprite_accessory/head_accessory_style = SSaccessories.head_accessory_list[ha_style]
 			if(head_accessory_style?.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
 				var/icon/head_accessory_s = new /icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
@@ -124,7 +124,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 		if(f_style)
 			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags_inv & HIDEFACIALHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEFACIALHAIR)))))
-				var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+				var/datum/sprite_accessory/facial_hair_style = SSaccessories.facial_hairstyles_list[f_style]
 				if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/facial_s = new /icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 					if(isslimeperson(src)) // I am el worstos
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 		if(h_style)
 			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags_inv & HIDEHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHEADHAIR)))))
-				var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
+				var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[h_style]
 				if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/hair_s = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 					if(isslimeperson(src)) // I am el worstos

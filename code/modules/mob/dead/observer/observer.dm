@@ -196,6 +196,14 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
+/// Offers mob a choice to ghostize.
+/mob/proc/offer_ghostize()
+	if(QDELETED(src))
+		return
+	var/choice = tgui_alert(src, "Хотите ли вы выйти в режим наблюдателя? Вы сможете вернуться в тело в любой момент.", "Выход в призраки", list("Да", "Нет"))
+	if(choice == "Да")
+		ghostize()
+
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(!key)
 		return
@@ -539,7 +547,7 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_sight_view, "Видимость сте
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		to_chat(src, span_notice("Вы следуете за [target]"))
+		to_chat(src, span_notice("Вы следуете за [target.declent_ru(INSTRUMENTAL)]"))
 		orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)

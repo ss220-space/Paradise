@@ -21,6 +21,7 @@ type OutfitItem = {
   icon?: string;
   icon_state?: string;
   id_card?: BooleanLike;
+  is_mod?: BooleanLike;
 };
 
 type ItemStack = {
@@ -535,6 +536,16 @@ const OutfitSlot = (props: SlotDef) => {
             {currItem?.name || '—'}
           </Box>
         </Stack.Item>
+        {slot === 'back' && !!currItem?.is_mod && (
+          <Stack.Item>
+            <Button
+              fluid
+              icon="cog"
+              content="Модули"
+              onClick={() => act('edit_mod')}
+            />
+          </Stack.Item>
+        )}
       </Stack>
     </Stack.Item>
   );
@@ -563,7 +574,7 @@ const ItemGrid = (props: ItemGridProps) => {
   return (
     <Stack wrap>
       {items?.map((item, index) => {
-        const count = item.count && item.count > 1 ? item.count : 0;
+        const count = Number(item.count) > 1 ? Number(item.count) : null;
         const tooltip = count ? `${item.name} (x${count})` : item.name;
         return (
           <Stack.Item key={`${item.path}-${index}`} m={0.5}>
@@ -588,7 +599,7 @@ const ItemGrid = (props: ItemGridProps) => {
                   />
                 </Stack.Item>
               </Stack>
-              {count > 0 && (
+              {count !== null && (
                 <Box
                   position="absolute"
                   bottom="0px"

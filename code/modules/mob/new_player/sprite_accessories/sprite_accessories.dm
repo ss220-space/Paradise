@@ -1,51 +1,11 @@
-/*
-
-	Hello and welcome to sprite_accessories: For sprite accessories, such as hair,
-	facial hair, and possibly tattoos and stuff somewhere along the line. This file is
-	intended to be friendly for people with little to no actual coding experience.
-	The process of adding in new hairstyles has been made pain-free and easy to do.
-	Enjoy! - Doohl
-
-	Notice: This all gets automatically compiled in a list in dna2.dm, so you do not
-	have to define any UI values for sprite accessories manually for hair and facial
-	hair. Just add in new hair types and the game will naturally adapt.
-
-	!!WARNING!!: changing existing hair information can be VERY hazardous to savefiles,
-	to the point where you may completely corrupt a server's savefiles. Please refrain
-	from doing this unless you absolutely know what you are doing, and have defined a
-	conversion in savefile.dm
-*/
-
-/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, list/full_list)
-	if(!istype(L))	L = list()
-	if(!istype(male))	male = list()
-	if(!istype(female))	female = list()
-	if(!istype(full_list))	full_list = list()
-
-	for(var/path in subtypesof(prototype))
-		var/datum/sprite_accessory/D = new path()
-
-		if(D.name)
-			if(D.fluff)
-				full_list[D.name] = D
-			else
-				L[D.name] = D
-				full_list[D.name] = D
-
-			switch(D.unsuitable_gender)
-				if(FEMALE)	male[D.name] = D
-				if(MALE)	female[D.name] = D
-				else
-					male[D.name] = D
-					female[D.name] = D
-	return L
 
 /datum/sprite_accessory
+	abstract_type = /datum/sprite_accessory
 	var/visible_over_uniform = FALSE
 	var/icon				//the icon file the accessory is located in
 	var/icon_state			//the icon_state of the accessory
 	var/name				//the preview name of the accessory
-	var/unsuitable_gender	//Determines if the accessory will be skipped or included in random generations
+	var/gender
 	/// Makes it available only to wizards
 	var/wizard_only = FALSE
 
@@ -59,15 +19,19 @@
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme	//If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = FALSE	//If TRUE, prohibit the colouration of the secondary theme.
-	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
 	/// If our accessory is can be pickable? Used in "proc/generate_valid_markings"
 	var/pickable = TRUE
 
+/datum/sprite_accessory/blank
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = SPRITE_ACCESSORY_NONE
+
 /* HAIR */
 
 /datum/sprite_accessory/hair
+	abstract_type = /datum/sprite_accessory/hair
 	icon = 'icons/mob/sprite_accessories/human/human_hair.dmi'	  // default icon for all human hair. Override if it doesn't belong to human. Human hair that is shared belongs in human file.
 	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value
 
@@ -79,16 +43,14 @@
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
-	unsuitable_gender = FEMALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
 	var/over_hair
-
-/datum/sprite_accessory/hair/fluff
-	fluff = 1
 
 /* HEAD ACCESSORY */
 
 /datum/sprite_accessory/head_accessory
+	abstract_type = /datum/sprite_accessory/head_accessory
 	icon = 'icons/mob/clothing/body_accessory.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_MACHINEPERSON)
 	icon_state = "accessory_none"
@@ -101,16 +63,19 @@
 /* BODY MARKINGS */
 
 /datum/sprite_accessory/body_markings
+	abstract_type = /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_MACHINEPERSON, SPECIES_VOX, SPECIES_KIDAN, SPECIES_MOTH, SPECIES_NUCLEATION)
 	icon_state = "accessory_none"
 	marking_location = "body"
 
 /datum/sprite_accessory/body_markings/head
+	abstract_type = /datum/sprite_accessory/body_markings/head
 	marking_location = "head"
 	species_allowed = list()
 
 /datum/sprite_accessory/body_markings/tail
+	abstract_type = /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()
 	marking_location = "tail"
 	tails_allowed = null
@@ -118,6 +83,7 @@
 /* ALT HEADS */
 
 /datum/sprite_accessory/alt_heads
+	abstract_type = /datum/sprite_accessory/alt_heads
 	icon = null
 	icon_state = null
 	species_allowed = null
@@ -130,6 +96,7 @@
 //going to have to re-integrate this with surgery
 //let the icon_state hold an icon preview for now
 /datum/sprite_accessory/skin
+	abstract_type = /datum/sprite_accessory/skin
 	icon = 'icons/mob/human_races/r_human.dmi'
 
 /datum/sprite_accessory/skin/human
@@ -169,6 +136,7 @@
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
+	abstract_type = /datum/sprite_accessory/underwear
 	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
 	sprite_sheets = list(
@@ -185,7 +153,8 @@
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
 
 /datum/sprite_accessory/underwear/male
-	unsuitable_gender = FEMALE
+	abstract_type = /datum/sprite_accessory/underwear/male
+	gender = MALE
 
 /datum/sprite_accessory/underwear/male/male_striped_alt
 	name = "Mens Striped Alt"
@@ -201,6 +170,7 @@
 	species_allowed = list(SPECIES_HUMAN)
 
 /datum/sprite_accessory/underwear/male/colorized
+	abstract_type = /datum/sprite_accessory/underwear/male/colorized
 	allow_change_color = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
@@ -234,7 +204,8 @@
 	icon_state = "male_kinky"
 
 /datum/sprite_accessory/underwear/female
-	unsuitable_gender = MALE
+	abstract_type = /datum/sprite_accessory/underwear/female
+	gender = FEMALE
 
 /datum/sprite_accessory/underwear/female/female_red_alt
 	name = "Ladies Red Alt"
@@ -281,6 +252,7 @@
 	)
 
 /datum/sprite_accessory/underwear/female/colorized
+	abstract_type = /datum/sprite_accessory/underwear/female/colorized
 	allow_change_color = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
@@ -324,6 +296,7 @@
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
+	abstract_type = /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
 	sprite_sheets = list(
@@ -371,7 +344,7 @@
 /datum/sprite_accessory/undershirt/shirt_colorized/female
 	name = "Female Colorized Shirt"
 	icon_state = "female_shirt"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/shirt_colorized/female/female_cuttedshirt
 	name = "Female Colorized Cutted Shirt"
@@ -526,18 +499,18 @@
 /datum/sprite_accessory/undershirt/tank_top_colorize
 	name = "Female Crop-Top"
 	icon_state = "tank_top"
-	unsuitable_gender = MALE
+	gender = FEMALE
 	allow_change_color = TRUE
 
 /datum/sprite_accessory/undershirt/tank_whitetop
 	name = "White Crop-Top"
 	icon_state = "tank_whitetop"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_midriff
 	name = "Mid Tank-Top"
 	icon_state = "tank_midriff_female"
-	unsuitable_gender = MALE
+	gender = FEMALE
 	allow_change_color = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
@@ -568,6 +541,7 @@
 // Socks Definitions //
 ///////////////////////
 /datum/sprite_accessory/socks
+	abstract_type = /datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
 	sprite_sheets = list(
@@ -610,7 +584,7 @@
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/striped_norm
 	name = "Normal Striped"
@@ -635,7 +609,7 @@
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
@@ -648,7 +622,7 @@
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
@@ -656,45 +630,51 @@
 
 /* HAIR GRADIENT */
 
-/datum/sprite_accessory/hair_gradient
+/datum/sprite_accessory/gradient
+	abstract_type = /datum/sprite_accessory/gradient
 	icon = 'icons/mob/hair_gradients.dmi'
+	///whether this gradient applies to hair and/or beards. Some gradients do not work well on beards.
+	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
-/datum/sprite_accessory/hair_gradient/none
+/datum/sprite_accessory/gradient/none
 	name = "None"
 	icon_state = "none"
 
-/datum/sprite_accessory/hair_gradient/fadeup
+/datum/sprite_accessory/gradient/fadeup
 	name = "Fade Up"
 	icon_state = "fadeup"
 
-/datum/sprite_accessory/hair_gradient/fadedown
+/datum/sprite_accessory/gradient/fadedown
 	name = "Fade Down"
 	icon_state = "fadedown"
 
-/datum/sprite_accessory/hair_gradient/vertical_split
+/datum/sprite_accessory/gradient/vertical_split
 	name = "Vertical Split"
 	icon_state = "vsplit"
 
-/datum/sprite_accessory/hair_gradient/_split
+/datum/sprite_accessory/gradient/_split
 	name = "Horizontal Split"
 	icon_state = "bottomflat"
 
-/datum/sprite_accessory/hair_gradient/reflected
+/datum/sprite_accessory/gradient/reflected
 	name = "Reflected"
 	icon_state = "reflected_high"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/reflected_inverse
+/datum/sprite_accessory/gradient/reflected_inverse
 	name = "Reflected Inverse"
 	icon_state = "reflected_inverse_high"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/wavy
+/datum/sprite_accessory/gradient/wavy
 	name = "Wavy"
 	icon_state = "wavy"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/long_fade_up
+/datum/sprite_accessory/gradient/long_fade_up
 	name = "Long Fade Up"
 	icon_state = "long_fade_up"
 
-/datum/sprite_accessory/hair_gradient/long_fade_down
+/datum/sprite_accessory/gradient/long_fade_down
 	name = "Long Fade Down"
 	icon_state = "long_fade_down"

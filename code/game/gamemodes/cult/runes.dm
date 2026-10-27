@@ -249,12 +249,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(L, span_cultitalic("<b>You feel your life force draining. [SSticker.cultdat.entity_title3] is displeased.</b>"))
 	qdel(src)
 
-/mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
-	var/obj/item/nullrod/N = locate() in src
-	if(N)
-		return N
-	return FALSE
-
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
@@ -277,7 +271,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	// Offering a head/brain
 	for(var/obj/item/organ/O in T)
 		var/mob/living/carbon/brain/b_mob
-		if(istype(O, /obj/item/organ/external/head)) // Offering a head
+		if(ishead(O)) // Offering a head
 			var/obj/item/organ/external/head/H = O
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
 				b_mob = brain.brainmob
@@ -785,10 +779,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/targets = list()
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
-			var/atom/I = L.null_rod_check()
-			if(I)
-				if(isitem(I))
-					to_chat(L, span_userdanger("[I] suddenly burns hotly before returning to normal!"))
+			var/atom/antimagic_source = L.can_block_magic_and_get_source()
+			if(antimagic_source)
+				if(isitem(antimagic_source))
+					to_chat(L, span_userdanger("[antimagic_source] suddenly burns hotly before returning to normal!"))
 				continue
 			targets += L
 
@@ -823,7 +817,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1 * iteration, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
-			if(L.null_rod_check())
+			if(L.can_block_magic())
 				continue
 			L.take_overall_damage(0, tick_damage * multiplier)
 			L.adjust_fire_stacks(2)

@@ -6,14 +6,6 @@
 /obj/structure/grille,
 /turf/space,
 /area/space/nearstation)
-"ah" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
 "ak" = (
 /obj/structure/grille{
 	density = 0;
@@ -21,64 +13,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"am" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
-"an" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
 "ao" = (
 /turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
 "ap" = (
 /turf/simulated/floor/plating,
 /area/djstation)
-"aq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"av" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/storage/box/lights/mixed,
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"az" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
-"aA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "aB" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
@@ -98,19 +38,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"aF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/space)
 "aG" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
@@ -179,35 +106,20 @@
 	},
 /turf/space,
 /area/space)
-"bb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+"bc" = (
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
+/area/djstation)
 "bd" = (
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/djstation)
-"be" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -235,6 +147,23 @@
 	icon_state = "vault"
 	},
 /area/djstation)
+"bn" = (
+/obj/structure/mirror{
+	dir = 4;
+	pixel_x = -32
+	},
+/obj/structure/sink/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"bo" = (
+/obj/structure/toilet/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
 "bp" = (
 /obj/structure/grille{
 	density = 0;
@@ -253,13 +182,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/djstation)
-"bt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bv" = (
 /obj/structure/lattice,
 /obj/structure/grille{
@@ -279,15 +201,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/djstation)
-"bz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
 /area/djstation)
 "bA" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -321,15 +234,6 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"bI" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "bJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -368,22 +272,20 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"bS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bT" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/djstation)
+"bX" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/djstation)
+"cN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
 /area/djstation)
 "cP" = (
@@ -408,41 +310,30 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"eE" = (
-/obj/structure/curtain/open/shower,
-/obj/machinery/shower/directional/east,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
 "eH" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/djstation)
-"hv" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
-"hJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+"fC" = (
+/obj/item/multitool,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
-"iU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+"ia" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
+/area/djstation)
+"jk" = (
+/obj/structure/safe/floor,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/djstation)
 "kd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -450,12 +341,6 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/djstation)
-"ke" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
 /area/djstation)
 "ku" = (
 /obj/structure/closet/crate/can,
@@ -475,27 +360,10 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"lA" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = 28;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"nc" = (
-/obj/structure/toilet/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+"oj" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
 /area/djstation)
 "oE" = (
 /obj/machinery/light/small,
@@ -503,17 +371,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/djstation)
-"pE" = (
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
 /area/djstation)
 "qn" = (
 /obj/machinery/newscaster/directional/north,
@@ -543,41 +400,42 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
-"sJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
+"se" = (
+/obj/structure/cable,
+/turf/simulated/floor/plating,
 /area/djstation)
+"un" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/djstation)
+"uK" = (
+/obj/structure/cable,
+/obj/item/storage/box/lights/mixed,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"vu" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/space)
 "vE" = (
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/djstation)
-"wF" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
 "wS" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/djstation)
-"wV" = (
-/obj/structure/mirror{
-	dir = 4;
-	pixel_x = -32
-	},
-/obj/structure/sink/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
 	},
 /area/djstation)
 "xB" = (
@@ -598,59 +456,9 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"yI" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/noalarm/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/djstation)
-"zC" = (
-/obj/item/multitool,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
 "AH" = (
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"AP" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"Bh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
-"CY" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	dir = 8;
-	id_tag = "dj_post"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -664,19 +472,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
-	},
-/area/djstation)
-"Er" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/smes/magical{
-	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
-	name = "power storage unit"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
 	},
 /area/djstation)
 "EQ" = (
@@ -716,14 +511,25 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"Ig" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+"FX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
+/area/djstation)
+"Gb" = (
+/obj/structure/cable,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
+"IK" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	id_tag = "dj_post"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/djstation)
 "JC" = (
 /obj/effect/spawner/window/reinforced,
@@ -735,6 +541,12 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
+/area/djstation)
+"Ls" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/noalarm/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/djstation)
 "Lv" = (
 /obj/machinery/door_control{
@@ -756,28 +568,36 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
-"Ml" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"Ms" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "Mu" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"MW" = (
+/obj/structure/cable,
+/obj/machinery/power/smes/magical{
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
+	name = "power storage unit"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/djstation)
+"ND" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 28;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
 	icon_state = "darkblue"
 	},
 /area/djstation)
@@ -817,6 +637,15 @@
 	icon_state = "bar"
 	},
 /area/djstation)
+"Qt" = (
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/djstation)
 "Qy" = (
 /obj/structure/rack,
 /obj/item/newspaper{
@@ -825,14 +654,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/djstation)
-"Rl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/solar_control/autostart,
-/turf/simulated/floor/plating,
 /area/djstation)
 "Sc" = (
 /obj/structure/rack,
@@ -857,13 +678,9 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"Tc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+"Ts" = (
+/obj/structure/cable,
+/turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
 "Uj" = (
 /obj/structure/table,
@@ -886,14 +703,6 @@
 /obj/item/storage/fancy/cigarettes/dromedaryco{
 	pixel_x = -26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"UH" = (
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1109,9 +918,9 @@ YA
 ab
 bw
 bw
-Ms
+cP
 YA
-Ms
+cP
 bw
 bw
 ab
@@ -1145,10 +954,10 @@ YA
 YA
 ab
 bw
-bI
-bS
-bI
-bS
+cP
+Gb
+cP
+Gb
 cP
 YA
 YA
@@ -1182,10 +991,10 @@ YA
 YA
 ab
 bw
-bI
-bS
-bI
-bS
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1219,10 +1028,10 @@ YA
 YA
 ak
 bw
-bI
-bS
-bI
-bS
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1256,10 +1065,10 @@ YA
 YA
 ab
 YA
-bI
-bS
-bI
-bS
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1271,7 +1080,7 @@ ao
 ao
 aS
 aS
-CY
+IK
 ao
 ao
 YA
@@ -1294,9 +1103,9 @@ YA
 YA
 YA
 YA
-am
+Gb
 YA
-am
+Gb
 bw
 YA
 ao
@@ -1304,8 +1113,8 @@ NY
 aM
 aM
 aS
-eE
-wV
+bc
+bn
 ao
 bE
 bR
@@ -1331,9 +1140,9 @@ YA
 YA
 YA
 YA
-am
+Gb
 YA
-am
+Gb
 bw
 bw
 ao
@@ -1368,9 +1177,9 @@ YA
 YA
 ao
 bT
-Tc
+un
 ao
-Tc
+un
 bT
 ao
 aS
@@ -1379,7 +1188,7 @@ aN
 JC
 aS
 ao
-nc
+bo
 ao
 kO
 Xf
@@ -1397,18 +1206,18 @@ YA
 ab
 YA
 bw
-Ms
-Ms
-Ms
-Ms
+cP
+cP
+cP
+cP
 YA
 YA
 bT
 bJ
-an
+se
 ap
-an
-yI
+se
+Ls
 ao
 aG
 aI
@@ -1432,25 +1241,25 @@ aa
 aa
 YA
 ak
-bI
-aA
-be
-be
-be
-be
-bt
-bt
-ah
-hJ
-Ig
-zC
-bz
-av
+cP
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+ia
+FX
+se
+fC
+se
+uK
 ao
 Uj
 Vm
 Fu
-lA
+ND
 aX
 bR
 bR
@@ -1469,20 +1278,20 @@ aa
 aa
 YA
 ab
-az
-aF
-Ms
-Ms
-Ms
-Ms
+vu
+Gb
+cP
+cP
+cP
+cP
 YA
 bw
-sJ
+Ts
 bM
-wF
-Er
-Ml
-ke
+oj
+MW
+bX
+se
 aB
 bR
 rq
@@ -1506,19 +1315,19 @@ aa
 aa
 YA
 ab
-bI
-bb
-be
-be
-be
-be
-bt
-bt
-ah
-iU
-AP
-iU
-aq
+cP
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+Gb
+ia
+se
+se
+se
+FX
 UQ
 ao
 aE
@@ -1545,17 +1354,17 @@ YA
 ab
 bw
 bw
-hv
-hv
-hv
-hv
+cP
+cP
+cP
+cP
 bw
 YA
 bT
 ap
-pE
-Rl
-aq
+Qt
+cN
+FX
 bJ
 ao
 qn
@@ -1590,9 +1399,9 @@ YA
 YA
 ao
 bT
-Tc
+un
 ao
-Tc
+un
 bT
 ao
 aS
@@ -1627,13 +1436,13 @@ YA
 YA
 YA
 bw
-am
+Gb
 YA
-am
+Gb
 YA
 YA
 ao
-UH
+jk
 sd
 dv
 ao
@@ -1664,9 +1473,9 @@ bw
 YA
 bw
 bw
-am
+Gb
 YA
-am
+Gb
 YA
 YA
 ao
@@ -1700,10 +1509,10 @@ YA
 bw
 ab
 YA
-bI
-Bh
-bI
-Bh
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1737,10 +1546,10 @@ YA
 bw
 ab
 YA
-bI
-Bh
-bI
-Bh
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1774,10 +1583,10 @@ YA
 YA
 bv
 bw
-bI
-Bh
-bI
-Bh
+cP
+Gb
+cP
+Gb
 cP
 YA
 ao
@@ -1811,10 +1620,10 @@ YA
 YA
 ab
 bw
-bI
-Bh
-bI
-Bh
+cP
+Gb
+cP
+Gb
 cP
 YA
 YA
@@ -1849,9 +1658,9 @@ YA
 ab
 bw
 bw
-hv
+cP
 YA
-hv
+cP
 bw
 bw
 ab

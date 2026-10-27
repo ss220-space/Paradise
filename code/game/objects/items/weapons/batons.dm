@@ -358,16 +358,19 @@
 		/datum/component/transforming, \
 		force_on = src.extend_force, \
 		hitsound_on = on_stun_sound, \
-		hitsound_off = src.hitsound, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
-		item_state_on = src.extend_item_state, \
-		clumsy_check_prob = 0, \
+		clumsy_check = FALSE, \
 		attack_verb_on = list("ударил", "вмазал", "врезал"), \
+		manual_item_state_change = TRUE, \
 	)
 
 /obj/item/melee/baton/telescopic/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+/obj/item/melee/baton/telescopic/Destroy()
+	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
+	return ..()
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -381,6 +384,7 @@
 	if(user)
 		balloon_alert(user, "[active ? "разложено" : "сложено"]")
 	playsound(src, extend_sound, 50, TRUE)
+	item_state = active ? extend_item_state : initial(item_state)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 // One and only

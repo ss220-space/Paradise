@@ -60,6 +60,8 @@
 	var/list/mobs_viewing
 	/// Increase "w_class" of storage when something inside it
 	var/dynamic_storage_size = FALSE
+	// "w_class" of storage when something inside it
+	var/storage_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -898,8 +900,10 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/proc/drop_inventory(user)
+	if(user)
+		hide_from(user)
+
 	var/turf/current_turf = get_turf(src)
-	hide_from(user)
 	for(var/obj/item/item in contents)
 		remove_from_storage(item, current_turf)
 		CHECK_TICK

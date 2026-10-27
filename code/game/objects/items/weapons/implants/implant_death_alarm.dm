@@ -44,6 +44,7 @@
 	qdel(src)
 
 /obj/item/implant/death_alarm/emp_act(severity)	//for some reason alarms stop going off in case they are emp'd, even without this
+	. = ..()
 	activate("emp")	//let's shout that this dude is dead
 
 /obj/item/implant/death_alarm/death_trigger(mob/source, gibbed)

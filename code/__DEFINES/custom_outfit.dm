@@ -13,6 +13,7 @@
 #define CUSTOM_OUTFIT_IS_STORAGE_PATH(path) ispath(path, /obj/item/storage)
 #define CUSTOM_OUTFIT_IS_INTERNAL_ORGAN_PATH(path) ispath(path, /obj/item/organ/internal)
 #define CUSTOM_OUTFIT_IS_MOD_CONTROL_PATH(path) ispath(path, /obj/item/mod/control)
+#define CUSTOM_OUTFIT_IS_MOD_MODULE_PATH(path) ispath(path, /obj/item/mod/module) && (path) != /obj/item/mod/module
 #define CUSTOM_OUTFIT_IS_SKILL_PATH(path) ispath(path, /datum/skill)
 #define CUSTOM_OUTFIT_IS_REAGENT_PATH(path) ispath(path, /datum/reagent)
 #define CUSTOM_OUTFIT_IS_ID_CARD_PATH(path) ispath(path, /obj/item/card/id)

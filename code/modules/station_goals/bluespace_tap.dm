@@ -275,6 +275,9 @@
 	if(!powernet)
 		connect_to_network()
 
+/obj/machinery/power/port_gen/should_have_node()
+	return TRUE
+
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST(fillers)
 	return ..()

@@ -5,6 +5,7 @@
 #define VENDOR_PLASMA_CUTTER_KIT "Комплект плазменного резака"
 #define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
 #define VENDOR_CRUSHER_KIT "Комплект крушителя"
+#define VENDOR_SPEAR_KIT "Комплект кинетического копья"
 #define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
 #define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КА"
 
@@ -18,7 +19,15 @@
 	density = TRUE
 	anchored = TRUE
 	var/obj/item/card/id/inserted_id
-	var/list/categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous")
+	var/list/categories = list(
+		"Gear",
+		"Consumables",
+		"Kinetic Accelerator",
+		"Kinetic Spear",
+		"Digging Tools",
+		"Minebot",
+		"Miscellaneous",
+	)
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
@@ -206,7 +215,18 @@
  * * redeemer - The person holding it
  */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT, VENDOR_KA_UPGRADE_KIT)
+	var/items = list(
+		VENDOR_EXPLORER_WEBBING,
+		VENDOR_RESONATOR_KIT,
+		VENDOR_MINEBOT_KIT,
+		VENDOR_EXTRACTION_KIT,
+		VENDOR_PLASMA_CUTTER_KIT,
+		VENDOR_EXPLOSIVES_KIT,
+		VENDOR_CRUSHER_KIT,
+		VENDOR_SPEAR_KIT,
+		VENDOR_CONSCRIPTION_KIT,
+		VENDOR_KA_UPGRADE_KIT,
+	)
 
 	var/selection = tgui_input_list(redeemer, "Выберите снаряжение", "Шахтёрский ваучер", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -241,6 +261,10 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/storage/box/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
+		if(VENDOR_SPEAR_KIT)
+			new /obj/item/twohanded/mining_spear(drop_location)
+			new /obj/item/mining_spear_core/recall(drop_location)
+			new /obj/item/reagent_containers/hypospray/autoinjector/survival(drop_location)
 		if(VENDOR_CONSCRIPTION_KIT)
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 		if(VENDOR_KA_UPGRADE_KIT)
@@ -265,7 +289,16 @@
 
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
-	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
+	categories = list(
+		"Gear",
+		"Consumables",
+		"Kinetic Accelerator",
+		"Kinetic Spear",
+		"Digging Tools",
+		"Minebot",
+		"Miscellaneous",
+		"Extra",
+	)
 
 /obj/machinery/mineral/equipment_vendor/golem/get_ru_names()
 	return alist(
@@ -454,6 +487,7 @@
 #undef VENDOR_PLASMA_CUTTER_KIT
 #undef VENDOR_EXPLOSIVES_KIT
 #undef VENDOR_CRUSHER_KIT
+#undef VENDOR_SPEAR_KIT
 #undef VENDOR_CONSCRIPTION_KIT
 #undef VENDOR_KA_UPGRADE_KIT
 

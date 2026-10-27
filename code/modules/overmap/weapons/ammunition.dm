@@ -109,7 +109,6 @@
 
 /obj/projectile/ion/pod
 	overmap_radar_visible = TRUE
-	emp_range = 1
 
 /obj/projectile/ion/pod/on_hit(atom/target, blocked = 0)
 	var/turf/spot = get_turf(target)

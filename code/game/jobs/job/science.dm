@@ -35,6 +35,7 @@
 		/datum/skill/research/robotics = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
 	)
+	discount_skill_category = list(/datum/skill/research, /datum/skill/general)
 
 /datum/outfit/job/rd
 	name = JOB_TITLE_RU_RD
@@ -73,6 +74,7 @@
 	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
+	discount_skill_category = list(/datum/skill/research)
 
 /datum/job/science/scientist
 	title = JOB_TITLE_SCIENTIST
@@ -135,6 +137,7 @@
 			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 		)
 	)
+	discount_skill_category = list(/datum/skill/research, /datum/skill/medical/chemistry)
 
 /datum/outfit/job/scientist
 	name = JOB_TITLE_RU_SCIENTIST
@@ -220,6 +223,7 @@
 		/datum/skill/research/robotics = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = list(/datum/skill/research, /datum/skill/medical/surgery, /datum/skill/general/mech_drive)
 
 /datum/outfit/job/roboticist
 	name = JOB_TITLE_RU_ROBOTICIST
@@ -252,6 +256,7 @@
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/robotics = SKILL_LEVEL_BASIC,
 	)
+	discount_skill_category = list(/datum/skill/research, /datum/skill/general/mech_drive, /datum/skill/general/mod_use)
 
 /datum/outfit/job/mechanic
 	name = JOB_TITLE_RU_SPACEPOD_TECHNICIAN
@@ -294,6 +299,7 @@
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 	)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mod_use)
 
 /datum/outfit/job/explorer
 	name = JOB_TITLE_RU_EXPLORER

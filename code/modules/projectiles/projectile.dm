@@ -71,6 +71,9 @@
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
 	var/nodamage = FALSE
+	/// Set when prehit effects should prevent this projectile from hitting its target.
+	// TODO: Port PROJECTILE_DELETE_WITHOUT_HITTING from TG
+	var/prehit_cancelled = FALSE
 	/// Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/flag = BULLET
 	///How much armor this projectile pierces.
@@ -112,6 +115,8 @@
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
+	/// If our projectile can ricochet from any walls
+	var/can_ricochet_from_everything = FALSE
 
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
@@ -169,6 +174,23 @@
 	var/impact_light_range = 2
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
+	/// If true directly targeted turfs can be hit
+	var/can_hit_turfs = FALSE
+
+	// Homing
+	/// If the projectile is currently homing. Warning - this changes projectile's processing logic, reverting it to segmented processing instead of new raymarching logic
+	/// This does not actually set up the projectile to home in on a target - you need to set that up with set_homing_target() on the projectile!
+	VAR_FINAL/homing = FALSE
+	/// Target the projectile is homing on
+	var/atom/homing_target
+	/// Angles per move segment, distance is based on SSprojectiles.pixels_per_decisecond
+	/// With pixels_per_decisecond set to 16 and homing_turn_speed, the projectile can turn up to 20 pixels per turf passed
+	var/homing_turn_speed = 10
+	// Allowed leeway in pixels
+	var/homing_inaccuracy_min = 0
+	var/homing_inaccuracy_max = 0
+	var/homing_offset_x = 0
+	var/homing_offset_y = 0
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -340,6 +362,28 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
+/// Makes projectile home onto the passed target with minor inaccuracy
+/obj/projectile/proc/set_homing_target(atom/target)
+	if(!target || (!isturf(target) && !isturf(target.loc)))
+		return FALSE
+	homing = TRUE
+	homing_target = target
+	homing_offset_x = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	homing_offset_y = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	if(prob(50))
+		homing_offset_x = -homing_offset_x
+	if(prob(50))
+		homing_offset_y = -homing_offset_y
+
+/obj/projectile/proc/process_homing()
+	if(!homing_target)
+		return
+	var/datum/point/new_point = RETURN_PRECISE_POINT(homing_target)
+	new_point.x += homing_offset_x
+	new_point.y += homing_offset_y
+	var/new_angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), new_point))
+	set_angle(Angle + clamp(new_angle, -homing_turn_speed, homing_turn_speed))
+
 /obj/projectile/Bump(atom/bumped_atom)
 	if(ship_pierce(bumped_atom))
 		return FALSE
@@ -384,6 +428,8 @@
 		return
 
 	prehit(bumped_atom)
+	if(prehit_cancelled)
+		return FALSE
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
@@ -401,6 +447,8 @@
 			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
+				if(prehit_cancelled)
+					return FALSE
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
@@ -446,6 +494,8 @@
 		return
 	last_projectile_move = world.time
 	// Keep on course
+	if(homing)
+		process_homing()
 	if(!hitscanning)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
@@ -474,6 +524,8 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
+		if(can_hit_turfs && isturf(original) && loc == get_turf(original)  && !(original in permutated))
+			Bump(original)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
@@ -583,6 +635,9 @@
 		return TRUE
 
 	if(flag == BULLET && (A.flags_ricochet & RICOCHET_BALLISTIC))
+		return TRUE
+
+	if((can_ricochet_from_everything) && (A.flags_ricochet & RICOCHET_SPECIAL))
 		return TRUE
 
 	return FALSE

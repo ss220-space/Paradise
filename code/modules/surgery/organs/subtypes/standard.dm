@@ -31,15 +31,15 @@
 	)
 
 /obj/item/organ/external/chest/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!is_robotic() || emp_proof || !tough) // Augmented chest suffocates the user on EMP.
+	if(!is_robotic() || !tough) // Augmented chest suffocates the user on EMP.
 		return
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			owner?.adjustStaminaLoss(20)
-		if(2)
+		if(EMP_LIGHT)
 			owner?.adjustStaminaLoss(10)
 	to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, вызывая сильное истощение!"))
 
@@ -125,10 +125,10 @@
 	owner.update_fractures_workspeed()
 
 /obj/item/organ/external/arm/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+	if(!owner || !is_robotic() || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
@@ -219,10 +219,10 @@
 	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+	if(!owner || !is_robotic() || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, не давая вам встать!"))
@@ -231,9 +231,9 @@
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, заставляя вас упасть с ног!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% нога выходит из строя!")
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			owner.AdjustWeakened(8 SECONDS)
-		if(2)
+		if(EMP_LIGHT)
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
@@ -363,10 +363,10 @@
 		owner.set_usable_legs(owner.usable_legs + 1)
 
 /obj/item/organ/external/foot/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+	if(!owner || !is_robotic() || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, не давая вам встать!"))
@@ -375,9 +375,9 @@
 		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, заставляя вас упасть!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)%, %(его,её,его,их)% ступня выходит из строя!")
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			owner.AdjustWeakened(8 SECONDS)
-		if(2)
+		if(EMP_LIGHT)
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/right
@@ -505,10 +505,10 @@
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 /obj/item/organ/external/hand/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+	if(!owner || !is_robotic() || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (limb_zone == BODY_ZONE_PRECISE_L_HAND) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
@@ -636,8 +636,8 @@
 			. += span_notice("Выглядит относительно целой, внутри что-то есть.")
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
-	if(alt_head && GLOB.alt_heads_list[alt_head])
-		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[alt_head]
+	if(alt_head && SSaccessories.alt_heads_list[alt_head])
+		var/datum/sprite_accessory/alt_heads/alternate_head = SSaccessories.alt_heads_list[alt_head]
 		if(alternate_head.icon_state)
 			icon_name = alternate_head.icon_state
 		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".
@@ -656,15 +656,15 @@
 	new_dna?.write_head_attributes(src)
 
 /obj/item/organ/external/head/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
+	if(!is_robotic() || !tough || !owner) // Augmented head confuses the user on EMP.
 		return
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			owner.AdjustConfused(60 SECONDS)
-		if(2)
+		if(EMP_LIGHT)
 			owner.AdjustConfused(40 SECONDS)
 	to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, вызывая перегрузку управления!"))
 
@@ -711,7 +711,7 @@
 
 /obj/item/organ/external/tail/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
-	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
+	var/datum/sprite_accessory/tail_marking_style = SSaccessories.body_markings_list[H.m_styles["tail"]]
 	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
 		body_accessory = body_accessory
 	if(body_accessory)

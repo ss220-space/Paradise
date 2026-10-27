@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/tajara
+	abstract_type = /datum/sprite_accessory/body_markings/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_body_markings.dmi'
 	species_allowed = list(SPECIES_TAJARAN)
 
@@ -13,17 +14,17 @@
 /datum/sprite_accessory/body_markings/tajara/belly_taj
 	name = "Tajaran Belly"
 	icon_state = "fullbelly_man"
-	unsuitable_gender = FEMALE
+	gender = MALE
 
 /datum/sprite_accessory/body_markings/tajara/belly_taj/woman
 	icon_state = "fullbelly_woman"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/body_markings/tajara/patchy_taj
 	name = "Tajaran Patches"
 	icon_state = "patch_man"
-	unsuitable_gender = FEMALE
+	gender = MALE
 
 /datum/sprite_accessory/body_markings/tajara/patchy_taj/woman
 	icon_state = "patch_woman"
-	unsuitable_gender = MALE
+	gender = FEMALE

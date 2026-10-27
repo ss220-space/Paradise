@@ -52,7 +52,6 @@
 	var/list/datum/mind/eventmiscs = list()
 	var/list/datum/mind/traders = list()
 	var/list/datum/mind/morphs = list()
-	var/list/datum/mind/swarmers = list()
 	var/list/datum/mind/guardians = list()
 	var/list/datum/mind/revenants = list()
 	var/list/datum/mind/headslugs = list()
@@ -87,6 +86,10 @@
 	var/list/datum/mind/wizards = list()
 	/// A list of all minds that are wizard apprentices
 	var/list/datum/mind/apprentices = list()
+	/// A list of all minds that are zombies
+	var/list/datum/mind/zombies = list()
+	/// A list of all minds that are infected with the zombie virus, but aren't zombies yet
+	var/list/datum/mind/zombie_infected = list()
 
 	/// How many abductor teams do we have
 	var/abductor_teams = 0

@@ -163,7 +163,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/radio/dummy/Destroy(force)
-	GLOB.global_announcer = null
+	if(GLOB.global_announcer == src)
+		GLOB.global_announcer = null
 	return ..()
 
 //simple getters only because i NEED to enforce complex setter use for these vars for caching purposes but VAR_PROTECTED requires getter usage as well.
@@ -917,7 +918,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/mob/living/silicon/robot/robot = loc
 	if(!istype(robot))
 		return
-	return robot.radio?.channels | keyslot?.channels
+	return robot.module?.channels | keyslot?.channels
 
 /obj/item/radio/borg/make_broken()
 	name = "broken radio"

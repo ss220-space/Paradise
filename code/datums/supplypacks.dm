@@ -69,10 +69,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 			continue
 		var/atom/movable/dummy = new path(locate(1, 1, 1))
 		var/content_name = dummy.declent_ru(NOMINATIVE)
+		var/content_name_en = "[dummy.name]"
+		var/content_icon = ""
+		var/content_icon_state = ""
+		if(isfile(dummy.icon) && length("[dummy.icon]"))
+			content_icon = "[dummy.icon]"
+			content_icon_state = "[dummy.icon_state]"
 		qdel(dummy)
 		manifest += "<li>[content_name]</li>"
-		// Add the name to the UI manifest
-		ui_manifest += "[content_name]"
+		// Add the entry to the UI manifest (name + icon for the cargo console contents modal)
+		ui_manifest += list(list("name" = content_name, "name_en" = content_name_en, "icon" = content_icon, "icon_state" = content_icon_state))
 	manifest += "</ul>"
 
 /datum/supply_packs/proc/can_approve(mob/user)
@@ -714,21 +720,60 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/laser
-	name = "Лазерные карабины"
+	name = "Лазерные карабины класса «Страж»"
 	contains = list(
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser/hitscan/carbine,
+		/obj/item/gun/energy/laser/hitscan/carbine,
+		/obj/item/gun/energy/laser/hitscan/carbine,
 	)
 	cost = 20
-	containername = "ящик лазерных карабинов"
+	containername = "ящик лазерных карабинов класса «Страж»"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик лазерных карабинов",
-		GENITIVE = "ящика лазерных карабинов",
-		DATIVE = "ящику лазерных карабинов",
-		ACCUSATIVE = "ящик лазерных карабинов",
-		INSTRUMENTAL = "ящиком лазерных карабинов",
-		PREPOSITIONAL = "ящике лазерных карабинов",
+		NOMINATIVE = "ящик лазерных карабинов класса «Страж»",
+		GENITIVE = "ящика лазерных карабинов класса «Страж»",
+		DATIVE = "ящику лазерных карабинов класса «Страж»",
+		ACCUSATIVE = "ящик лазерных карабинов класса «Страж»",
+		INSTRUMENTAL = "ящиком лазерных карабинов класса «Страж»",
+		PREPOSITIONAL = "ящике лазерных карабинов класса «Страж»",
+	)
+
+/datum/supply_packs/security/energy_accum_laser
+	name = "Аккумуляторные карабины класса «Скорпион»"
+	contains = list(
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/weapon_cell/energy_gun,
+		/obj/item/weapon_cell/energy_gun,
+		/obj/item/weapon_cell/energy_gun,
+	)
+	cost = 40
+	containername = "ящик аккумуляторных карабинов класса «Скорпион»"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик аккумуляторных карабинов класса «Скорпион»",
+		GENITIVE = "ящика аккумуляторных карабинов класса «Скорпион»",
+		DATIVE = "ящику аккумуляторных карабинов класса «Скорпион»",
+		ACCUSATIVE = "ящик аккумуляторных карабинов класса «Скорпион»",
+		INSTRUMENTAL = "ящиком аккумуляторных карабинов класса «Скорпион»",
+		PREPOSITIONAL = "ящике аккумуляторных карабинов класса «Скорпион»",
+	)
+
+/datum/supply_packs/security/automatic_laser
+	name = "Автоматические лазерные карабины класса «Гроза»"
+	contains = list(
+		/obj/item/gun/energy/laser/automatic/carbine,
+		/obj/item/gun/energy/laser/automatic/carbine,
+		/obj/item/gun/energy/laser/automatic/carbine,
+	)
+	cost = 30
+	containername = "ящик автоматических лазерных карабинов класса «Гроза»"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик автоматических лазерных карабинов класса «Гроза»",
+		GENITIVE = "ящика автоматических лазерных карабинов класса «Гроза»",
+		DATIVE = "ящику автоматических лазерных карабинов класса «Гроза»",
+		ACCUSATIVE = "ящик автоматических лазерных карабинов класса «Гроза»",
+		INSTRUMENTAL = "ящиком автоматических лазерных карабинов класса «Гроза»",
+		PREPOSITIONAL = "ящике автоматических лазерных карабинов класса «Гроза»",
 	)
 
 /datum/supply_packs/security/taser
@@ -1078,6 +1123,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике ружейных пуль",
 	)
 
+/*
 /datum/supply_packs/security/armory/expenergy
 	name = "Энергетические карабины"
 	contains = list(
@@ -1096,6 +1142,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком энергетических карабинов",
 		PREPOSITIONAL = "ящике энергетических карабинов",
 	)
+*/
 
 /datum/supply_packs/security/armory/epistol // costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 	name = "Энергетические пистолеты"
@@ -4699,7 +4746,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
-	name = "Оборудование для плеловодства"
+	name = "Оборудование для пчеловодства"
 	contains = list(
 		/obj/structure/beebox/unwrenched,
 		/obj/item/honey_frame,
@@ -4710,14 +4757,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/suit/beekeeper_suit,
 		/obj/item/melee/flyswatter,
 	)
-	containername = "ящик с оборудованием для плеловодства"
+	containername = "ящик с оборудованием для пчеловодства"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик с оборудованием для плеловодства",
-		GENITIVE = "ящика с оборудованием для плеловодства",
-		DATIVE = "ящику с оборудованием для плеловодства",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства",
+		NOMINATIVE = "ящик с оборудованием для пчеловодства",
+		GENITIVE = "ящика с оборудованием для пчеловодства",
+		DATIVE = "ящику с оборудованием для пчеловодства",
+		ACCUSATIVE = "ящик с оборудованием для пчеловодства",
+		INSTRUMENTAL = "ящиком с оборудованием для пчеловодства",
+		PREPOSITIONAL = "ящике с оборудованием для пчеловодства",
 	)
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
@@ -4729,14 +4776,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/suit/beekeeper_suit,
 	)
 	cost = 10
-	containername = "ящик с костюмами плеловода"
+	containername = "ящик с костюмами пчеловода"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик с костюмами плеловода",
-		GENITIVE = "ящика с костюмами плеловода",
-		DATIVE = "ящику с костюмами плеловода",
-		ACCUSATIVE = "ящик с костюмами плеловода",
-		INSTRUMENTAL = "ящиком с костюмами плеловода",
-		PREPOSITIONAL = "ящике с костюмами плеловода",
+		NOMINATIVE = "ящик с костюмами пчеловода",
+		GENITIVE = "ящика с костюмами пчеловода",
+		DATIVE = "ящику с костюмами пчеловода",
+		ACCUSATIVE = "ящик с костюмами пчеловода",
+		INSTRUMENTAL = "ящиком с костюмами пчеловода",
+		PREPOSITIONAL = "ящике с костюмами пчеловода",
 	)
 
 //Bottler

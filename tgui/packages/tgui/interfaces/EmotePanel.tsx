@@ -1,10 +1,17 @@
-import { useMemo, useState } from 'react';
+import 'tgui-panel/styles/main.scss';
+import 'tgui-panel/styles/themes/light.scss';
+import 'tgui-panel/styles/themes/ntos.scss';
+import 'tgui-panel/styles/themes/syndicate.scss';
+import 'tgui-panel/styles/themes/paradise.scss';
+
+import { storage } from 'common/storage';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, Button, Flex, Icon, Section, Stack } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { capitalizeFirst } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { Pane } from '../layouts';
 import { SearchBar } from './common/SearchBar';
 
 type Emote = {
@@ -138,19 +145,21 @@ export const EmotePanelContent = (props) => {
             : `All Emotes`
         }
         buttons={
-          <Flex>
-            <Flex.Item>
+          <Stack>
+            <Stack.Item>
               <Button onClick={() => toggleShowNames(!showNames)}>
                 {showNames ? 'Show Names' : 'Show Keys'}
               </Button>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 selected={showIcons}
                 onClick={() => toggleShowIcons(!showIcons)}
               >
                 Show Icons
               </Button>
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 icon="crosshairs"
                 selected={useParams}
@@ -158,8 +167,8 @@ export const EmotePanelContent = (props) => {
               >
                 Use Params
               </Button>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         }
       >
         <Flex>
@@ -205,11 +214,12 @@ const EmoteButton = (props: EmoteButtonProps) => {
     <Stack
       inlineFlex
       align="center"
+      width={12}
       mb={0.5}
       mr={0.5}
       style={{ gap: '0.25em', backgroundColor: 'rgba(27, 72, 112, 0.55)' }}
     >
-      <Stack.Item grow basis={0}>
+      <Stack.Item grow basis={0} overflowX={'hidden'} width={'80%'}>
         <Button
           fluid
           tooltip={
@@ -230,15 +240,14 @@ const EmoteButton = (props: EmoteButtonProps) => {
             {showNames ? capitalizeFirst(emote.name.toLowerCase()) : emote.key}
           </Box>
           {showIcons ? (
-            <Box inline>
-              <EmoteIcons
-                visible={emote.visible}
-                audible={emote.audible}
-                sound={emote.sound}
-                hands={emote.hands}
-                use_params={emote.use_params}
-              />
-            </Box>
+            <EmoteIcons
+              visible={emote.visible}
+              audible={emote.audible}
+              sound={emote.sound}
+              hands={emote.hands}
+              use_params={emote.use_params}
+              margin={0.2}
+            />
           ) : (
             ''
           )}
@@ -275,11 +284,50 @@ const EmoteIcons = (props) => {
 };
 
 export const EmotePanel = (props) => {
+  const [theme, setTheme] = useState<string>();
+  const [fontSize, setFontSize] = useState<number>(13);
+  const [fontStyle, setFontStyle] = useState<string>('Verdana');
+
+  useEffect(() => {
+    if (theme) return;
+
+    async function fetchSettings(): Promise<void> {
+      try {
+        const storedSettings = await storage.get('panel-settings');
+        console.log('Loaded panel settings from storage:', storedSettings);
+        setTheme(storedSettings.theme);
+        setFontSize(storedSettings.fontSize);
+        setFontStyle(storedSettings.fontFamily);
+      } catch (error) {
+        console.error('Failed to load panel settings:', error);
+      }
+    }
+
+    fetchSettings();
+  }, []);
+
+  const updateTheme = (payload: { theme: string }) => {
+    setTheme(payload.theme);
+  };
+
+  const updateFont = (payload: {
+    font_style: string | undefined;
+    font_size: number | undefined;
+  }) => {
+    if (payload.font_style) setFontStyle(payload.font_style);
+    if (payload.font_size) setFontSize(payload.font_size);
+  };
+
+  Byond.subscribeTo('theme', updateTheme);
+  Byond.subscribeTo('font', updateFont);
+  document.documentElement.style.setProperty('font-family', fontStyle);
+  document.body.style.setProperty('font-family', fontStyle);
+  document.body.style.setProperty('font-size', `${fontSize}px`);
   return (
-    <Window width={630} height={500}>
-      <Window.Content scrollable>
+    <Pane theme={theme} canSuspend={false}>
+      <Pane.Content scrollable fitted>
         <EmotePanelContent />
-      </Window.Content>
-    </Window>
+      </Pane.Content>
+    </Pane>
   );
 };

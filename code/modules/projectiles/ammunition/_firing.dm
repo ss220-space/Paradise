@@ -41,6 +41,20 @@
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
 		qdel(reagents)
 
+	//smartgun code
+	if(!smart_bullet)
+		return
+
+	if(!isturf(target))
+		BB.set_homing_target(target)
+		new /obj/effect/temp_visual/smartgun_target(get_turf(target))
+	else
+		var/atom/aimbot_target = locate(/mob/living) in range(auto_lock_range, target)
+		if(aimbot_target)
+			BB.set_homing_target(aimbot_target)
+			new /obj/effect/temp_visual/smartgun_target(get_turf(aimbot_target))
+
+
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
 	if(!istype(targloc) || !istype(curloc) || !BB)
@@ -51,6 +65,9 @@
 	if(target && !isturf(target) && get_dist(user, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
+		if(BB.prehit_cancelled)
+			QDEL_NULL(BB)
+			return TRUE
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
@@ -58,6 +75,9 @@
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
+			if(BB.prehit_cancelled)
+				QDEL_NULL(BB)
+				return TRUE
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
@@ -173,3 +193,9 @@
 
 	angle = ATAN2(dy, dx)
 	return list(angle, p_x, p_y)
+
+/obj/effect/temp_visual/smartgun_target
+	name = "smartgun target reticle"
+	desc = "Голографический прицел, означающий, что вам пора убегать."
+	icon_state = "target_circle"
+	duration = 0.25 SECONDS

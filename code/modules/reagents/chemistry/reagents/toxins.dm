@@ -121,14 +121,10 @@
 /datum/reagent/slimejelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
-				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+				V.Contract(M, act_type = BLOOD, need_protection_check = TRUE, act_type = CONTACT)
 			else
-				V.Contract(M, need_protection_check = FALSE)
+				V.Contract(M, act_type = BLOOD, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -457,7 +453,7 @@
 		var/should_scream = TRUE
 
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-			if(istype(bodypart, /obj/item/organ/external/head) && !H.wear_mask && !H.head && volume > 25)
+			if(ishead(bodypart) && !H.wear_mask && !H.head && volume > 25)
 				bodypart.disfigure()
 				if(H.has_pain() && should_scream)
 					H.emote("scream")

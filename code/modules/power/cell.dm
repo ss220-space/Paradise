@@ -26,6 +26,8 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
+	// Damage multiplier the cells take from emps to prevent stuff like bluespace cells taking 40 shots to drain.
+	var/emp_damage_modifier = 1
 
 /obj/item/stock_parts/cell/get_ru_names()
 	return alist(
@@ -184,12 +186,18 @@
 	if(prob(10))
 		rigged = TRUE //broken batterys are dangerous
 
-/obj/item/stock_parts/cell/emp_act(severity)
-	charge -= 1000 / severity
-	if(charge < 0)
-		charge = 0
-	update_icon(UPDATE_OVERLAYS)
-	return ..()
+/obj/item/stock_parts/cell/emp_act(severity, resistance_modifier = 1)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	var/atom/container = loc
+	while(container)
+		if(SEND_SIGNAL(container, COMSIG_ATOM_PRE_EMP_ACT, severity) & EMP_PROTECT_CONTENTS)
+			return
+		container = container.loc
+	use(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier / resistance_modifier))
+	if(!QDELETED(src))
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
 	. = ..()
@@ -463,13 +471,14 @@
 		PREPOSITIONAL = "ЭМИ-защищённой батарее А",
 	)
 
+/obj/item/stock_parts/cell/emproof/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
+
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/stock_parts/cell/emproof/emp_act(severity)
-	return
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
@@ -515,6 +524,7 @@
 	maxcharge = 53000
 	rating = 3
 	chargerate = 1500
+	emp_damage_modifier = 0.5
 
 /obj/item/stock_parts/cell/pulse/get_ru_names()
 	return alist(
@@ -718,6 +728,45 @@
 			. += "Specter_overlay_full"
 		else
 			. += "Specter_overlay_empty"
+
+/obj/item/stock_parts/cell/energy_gun
+	name = "energy weapon cell"
+	desc = "Универсальный аккумулятор, применяемый во всей линейке аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки."
+	maxcharge = 1200
+
+/obj/item/weapon_cell/energy_gun
+	name = "energy weapon cell"
+	desc = "Универсальный аккумулятор, применяемый во всей линейке новейшего аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки. Несмотря на название, он не подходит к спектру."
+	icon_state = "egun_accumulator"
+	internal_cell = new /obj/item/stock_parts/cell/energy_gun()
+	materials = list(MAT_METAL = 40000) //20 sheets
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/weapon_cell/energy_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "универсальный аккумулятор",
+		GENITIVE = "универсального аккумулятора",
+		DATIVE = "универсальному аккумулятору",
+		ACCUSATIVE = "универсальный аккумулятор",
+		INSTRUMENTAL = "универсальным аккумулятором",
+		PREPOSITIONAL = "универсальном аккумуляторе",
+	)
+
+/obj/item/weapon_cell/energy_gun/update_overlays()
+	. = list()
+	var/charge_percent = internal_cell.percent()
+
+	switch(charge_percent)
+		if(1 to 25)
+			. += "egun_overlay_low"
+		if(26 to 40)
+			. += "egun_overlay_half2"
+		if(41 to 65)
+			. += "egun_overlay_half"
+		if(66 to 100)
+			. += "egun_overlay_full"
+		else
+			. += "egun_overlay_empty"
 
 /obj/item/stock_parts/cell/crystal_cell
 	name = "crystal power cell"

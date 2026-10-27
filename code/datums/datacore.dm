@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	preview_icon.Blend(temp, ICON_OVERLAY)
 	var/head = "head"
 	if(head_organ.alt_head && head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
+		var/datum/sprite_accessory/alt_heads/alternate_head = SSaccessories.alt_heads_list[head_organ.alt_head]
 		if(alternate_head.icon_state)
 			head = alternate_head.icon_state
 	temp = new /icon(icobase, "[head]_[g]")
@@ -273,12 +273,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	var/icon/t_marking_s
 	if(H.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/tail_marking = H.m_styles["tail"]
-		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
+		var/datum/sprite_accessory/tail_marking_style = SSaccessories.body_markings_list[tail_marking]
 		if(tail_marking_style?.species_allowed)
 			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
-			if(!(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body)))
-				preview_icon.Blend(t_marking_s, ICON_OVERLAY)
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.dna.species.bodyflags & NO_EYES))
@@ -288,7 +286,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[head_organ.h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
@@ -308,13 +306,13 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	//Head Accessory
 	if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
-		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
+		var/datum/sprite_accessory/head_accessory_style = SSaccessories.head_accessory_list[head_organ.ha_style]
 		if(head_accessory_style?.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
+	var/datum/sprite_accessory/facial_hair_style = SSaccessories.facial_hairstyles_list[head_organ.f_style]
 	if(facial_hair_style?.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(isslimeperson(head_organ))
@@ -334,14 +332,14 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	if((H.dna.species.bodyflags & HAS_HEAD_MARKINGS) || (H.dna.species.bodyflags & HAS_BODY_MARKINGS))
 		if(H.dna.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = H.m_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+			var/datum/sprite_accessory/body_marking_style = SSaccessories.body_markings_list[body_marking]
 			if(body_marking_style?.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.dna.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = H.m_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+			var/datum/sprite_accessory/head_marking_style = SSaccessories.body_markings_list[head_marking]
 			if(head_marking_style?.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)
@@ -546,18 +544,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)
-	//Bus body accessories that go over clothes.
-	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/body))
-		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
-		if(H.body_accessory.pixel_x_offset)
-			temp.Shift(EAST, H.body_accessory.pixel_x_offset)
-		if(H.body_accessory.pixel_y_offset)
-			temp.Shift(NORTH, H.body_accessory.pixel_y_offset)
-		if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
-			temp.Blend(H.skin_colour, H.body_accessory.blend_mode)
-		if(t_marking_s)
-			temp.Blend(t_marking_s, ICON_OVERLAY)
-		preview_icon.Blend(temp, ICON_OVERLAY)
+
 	qdel(face_s)
 	qdel(clothes_s)
 

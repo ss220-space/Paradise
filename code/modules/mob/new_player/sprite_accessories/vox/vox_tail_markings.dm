@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/tail/vox
+	abstract_type = /datum/sprite_accessory/body_markings/tail/vox
 	icon = 'icons/mob/sprite_accessories/vox/vox_tail_markings.dmi'
 	species_allowed = list(SPECIES_VOX)
 

@@ -728,8 +728,11 @@
 	for(var/obj/item/organ/bodypart in bodyparts)
 		if(toggle_to)
 			bodypart.emp_proof = TRUE
+			bodypart.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 		else
 			bodypart.emp_proof = initial(bodypart.emp_proof)
+			if(!bodypart.emp_proof)
+				bodypart.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 //Эффекты призванные "Намекнуть", что рядом есть ниндзя
 /obj/item/clothing/suit/space/space_ninja/proc/stealth_creepy_effects()

@@ -75,21 +75,9 @@
 	to_chat(user, span_boldnotice("У Вас осталось [vampire.bloodusable] единиц крови."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
-/datum/spell_handler/vampire/proc/affects(mob/target, mob/user)
-
-	//Other vampires aren't affected
-	if(isvampire(target))
+/datum/spell_handler/vampire/proc/affects(mob/living/target, mob/user)
+	if(target.affects_vampire(user))
 		return FALSE
-
-	//Vampires who have reached their full potential can affect nearly everything
-	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/full))
-		return TRUE
-
-	//Holy characters are resistant to vampire powers
-	if(target.mind?.isholy)
-		return FALSE
-
 	return TRUE
 
 /datum/spell_handler/vampire/goon/revert_cast(mob/living/carbon/user, datum/action/cooldown/spell/spell)

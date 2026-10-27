@@ -996,6 +996,14 @@
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/dangerous/hunting_spear
+	name = "Охотничье копье"
+	desc = "Крайне незаконная модификация стандартных прото-кинетических копий. Бросок копья по цели или же промах приведет к телепортации копья обратно \
+	в руку пользователя. Если копье сможет проткнуть живое существо, то наконечник отсоединится и останется в вашей жертве, принося ужасающие страдания. \
+	В отличие от базовой версии, данное копье способно работать в условиях стандартного давления. Самое главное — не допустите, чтобы ваш враг успел перехватить копье до его возвращения в вашу руку."
+	item = /obj/item/twohanded/mining_spear/syndie
+	cost = 30
+
 /**
  * MARK: Support & Mechas
  */
@@ -1466,6 +1474,13 @@
 	item = /obj/item/toy/plushie/carp/dehy_carp
 	cost = 7
 
+/datum/uplink_item/stealthy_weapons/assassin_pen
+	name = "Ручка ассасина"
+	desc = "Небольшое одноразовое устройство в корпусе ручки, способное тихо выстрелить встроенным десяти миллиметровым экспансивным патроном при ударе в ближнем бою. \
+			Особо эффективно против незащищённых целей. Перед выстрелом необходимо взвести щёлкнув кнопкой ручки."
+	item = /obj/item/pen/assassin
+	cost = 5
+
 /**
  * MARK: Grenades & Explosives
  */
@@ -1609,6 +1624,12 @@
 	desc = "Пояс, содержащий 4 мощные боевые осколочные гранаты."
 	item = /obj/item/storage/belt/grenade/frag
 	cost = 10
+
+/datum/uplink_item/explosives/contact_frag_grenade
+	name = "Пояс боевых контактных осколочных гранат"
+	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
+	item = /obj/item/storage/belt/grenade/frag/contact
+	cost = 20
 
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
@@ -1796,6 +1817,14 @@
 			Однако, они не отличаются стабильностью, и маскировка отключается примерно через 30 минут."
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
 	cost = 6
+
+/datum/uplink_item/stealthy_tools/midichlorian_injector
+	name = "Инъектор мидихлориан"
+	desc = "Всего одна инъекция наделит любой организм связью с Силой, а также дарует мастерство владения энергетическим мечом. \
+			Энергетический меч в комплекте."
+	item = /obj/item/storage/box/syndie_kit/midichlorian
+	cost = 60
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /**
  * MARK: Devices & Tools
@@ -2357,13 +2386,13 @@
 	name = "Нейротренер небоевых навыков"
 	desc = "Нейротренер который позволяет улучший любой небоевой навык на ваш выбор."
 	item = /obj/item/neurotrainer/all_without_combat
-	cost = 8
+	cost = 2
 
 /datum/uplink_item/implants/combat_neurotrainer
 	name = "Нейротренер боевых навыков"
 	desc = "Нейротренер который позволяет улучший любой боевой навык на ваш выбор."
 	item = /obj/item/neurotrainer/combat
-	cost = 15
+	cost = 10
 
 /**
  * MARK: Cybernetic Implants

@@ -16,6 +16,8 @@
 
 /datum/action/cooldown/spell/aoe/rathens_secret/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
+	if(target.can_block_magic(antimagic_flags))
+		return
 	var/datum/effect_system/fluid_spread/smoke/s = new
 	s.set_up(amount = 5, location = target)
 	s.start()
@@ -38,7 +40,7 @@
 		to_chat(target, span_userdanger("You have no appendix, but something had to give! Holy shit, what was that?"))
 		target.Weaken(6 SECONDS)
 		for(var/obj/item/organ/external/E as anything in target.bodyparts)
-			if(istype(E, /obj/item/organ/external/head))
+			if(ishead(E))
 				continue
 			if(ischest(E))
 				continue

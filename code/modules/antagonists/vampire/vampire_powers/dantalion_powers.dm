@@ -97,7 +97,7 @@
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
-	if(C.mind.isholy)
+	if(HAS_MIND_TRAIT(C, TRAIT_HOLY))
 		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
@@ -347,6 +347,11 @@
 	cooldown_time = 60 SECONDS
 	targeting_type = /datum/aoe_targeting/human_affects_vamp
 	var/required_blood = 25
+
+/datum/action/cooldown/spell/aoe/hysteria/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
 
 /datum/action/cooldown/spell/aoe/hysteria/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim

@@ -643,3 +643,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_COLD_ANCIENT_ROCK "#575764"
 
 #define COLOR_DMI_MASK "#a0a0a000"
+
+
+/// Color for dead external organs/zombies
+#define	COLORTONE_DEAD_EXT_ORGAN "#0A3200"
