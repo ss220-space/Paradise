@@ -81,7 +81,7 @@
 						affected_mob.adjustToxLoss(1)
 		if(7)
 			transform_vampire()
-			affected_mob.adjust_nutrition(-1)
+			affected_mob.adjust_nutrition(-2)
 			return FALSE
 
 /datum/disease/virus/blood_plague/try_increase_stage()

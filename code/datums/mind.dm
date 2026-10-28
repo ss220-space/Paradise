@@ -464,7 +464,12 @@
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='byond://?src=[UID()];vampire=vampire'>vampire</a>|"
-		. += "<a href='byond://?src=[UID()];vampire=goonvampire'>goon vampire</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];vampire=goonvampire'>goon vampire</a>|"
+		if(current.HasDisease(/datum/disease/virus/blood_plague))
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirusno'><font color='red'>dis-infect</font></a>"
+		else
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirus'>infect</a>"
+
 
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
@@ -1676,6 +1681,8 @@
 					return
 
 				remove_vampire_role()
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
 				to_chat(current, span_fontsize3(span_red("<b>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</b>")))
 				log_and_message_admins("has de-vampired [key_name(current)].")
 
@@ -1777,6 +1784,24 @@
 				vamp.diablerie.force_diablerie_level(new_total)
 
 				log_and_message_admins("has set [key_name(current)]'s diablerie count to [new_total].")
+
+			if("vampirevirus")
+				if(has_antag_datum(/datum/antagonist/vampire) || !ishuman(current))
+					return
+				var/datum/disease/virus/blood_plague/virus = new
+				virus.Contract(current)
+				message_admins("[key_name_admin(usr)] has given a vampire virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a vampire virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a vampire virus by [key_name_admin(usr)]")
+
+			if("vampirevirusno")
+				if(has_antag_datum(/datum/antagonist/vampire))
+					return
+				for(var/datum/disease/virus/blood_plague/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
+				message_admins("[key_name_admin(usr)] has removed the vampire virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the vampire virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their vampire virus admin-removed by [key_name_admin(usr)]")
 
 			if("full_power_override")
 				if(!isvampire(src))
@@ -1951,7 +1976,7 @@
 					return
 				remove_antag_datum(/datum/antagonist/zombie)
 				for(var/datum/disease/virus/zombie/virus in current.diseases)
-					virus.cure()
+					virus.cure(need_immunity = FALSE)
 				if(ishuman(current))
 					var/mob/living/carbon/human/human_current = current
 					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
@@ -1982,10 +2007,11 @@
 				if(has_antag_datum(/datum/antagonist/zombie))
 					return
 				for(var/datum/disease/virus/zombie/virus in current.diseases)
-					virus.cure()
+					virus.cure(need_immunity = FALSE)
 				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
 				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
 				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
+
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")

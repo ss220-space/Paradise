@@ -218,7 +218,7 @@
 	background_icon_state = "bg_vampire"
 	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = NONE
-	cooldown_time = 60 SECONDS
+	cooldown_time = 30 SECONDS
 
 /datum/action/cooldown/spell/pointed/zombie_leap/before_cast(atom/cast_on)
 	if(iscarbon(owner))
@@ -226,14 +226,13 @@
 		return ..() && caster.body_position != LYING_DOWN
 	return ..()
 
-/datum/action/cooldown/spell/pointed/zombie_leap/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/pointed/zombie_leap/cast(atom/cast_on)
 	. = ..()
-	var/target = targets[1]
-	if(isliving(user))
-		playsound(user, 'sound/voice/zombie_leap.ogg', 80, FALSE)
-		var/mob/living/L = user
-		L.apply_status_effect(STATUS_EFFECT_CHARGING)
-		L.throw_at(target, 5, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+	if(isliving(owner))
+		playsound(owner, 'sound/voice/zombie_leap.ogg', 80, FALSE)
+		var/mob/living/living_owner = owner
+		living_owner.apply_status_effect(STATUS_EFFECT_CHARGING)
+		living_owner.throw_at(cast_on, 5, 1, living_owner, FALSE, callback = CALLBACK(living_owner, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /datum/action/cooldown/spell/stomp/zombie/target_validation(mob/living/target, mob/user)
 	return !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS)
