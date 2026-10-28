@@ -304,7 +304,7 @@
 		if(isvampire(target))
 			to_chat(vampire, span_boldnotice("Кровь сородича утоляет ваш голод, но вы не получите доступной крови, не поглотив всю его жизненную силу!"))
 			// vampire's blood saturates way better then normal human blood, according to WOD lore
-			vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 10))
+			vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 30))
 			target.AdjustBlood(-sucking_amount)
 			if(check_blood_volume(vampire, target))
 				continue
@@ -315,7 +315,7 @@
 		if(unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(vampire, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
 					continue
@@ -334,7 +334,7 @@
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
 				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y_0(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y_0(bloodusable)] крови" : ""]."))
-				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
 					continue
@@ -342,7 +342,7 @@
 
 		// Everything else - we draining sentient monkey, borer controlled non-player human or non-player human, corpses and all other shit
 		to_chat(vampire, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
-		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 		target.AdjustBlood(-sucking_amount)
 		if(check_blood_volume(vampire, target))
 			continue
