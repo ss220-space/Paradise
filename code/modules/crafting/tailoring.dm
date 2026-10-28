@@ -528,7 +528,7 @@
 
 /datum/crafting_recipe/hudsunthermal/monocle
 	name = "Thermal HUD Monocle"
-	result = /obj/item/clothing/glasses/thermal/monothermal
+	result = /obj/item/clothing/glasses/thermal/monocle
 	reqs = list(
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/clothing/glasses/monocle = 1,
@@ -566,4 +566,4 @@
 
 /datum/crafting_recipe/hudsunthermalremoval/monocle
 	result = /obj/item/clothing/glasses/monocle
-	reqs = list(/obj/item/clothing/glasses/thermal/monothermal = 1)
+	reqs = list(/obj/item/clothing/glasses/thermal/monocle = 1)

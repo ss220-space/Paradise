@@ -21,7 +21,7 @@
 		for(var/atom_tag in tags_list)
 			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
 		// some regex to ensure that we don't add another "and" if the final element's main text (not tooltip) has one
-		tag_string = russian_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], regex(@">.*?и .*?<"))) ? " " : " и ")
+		tag_string = russian_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], regex(@">.*? и .*?<"))) ? " " : " и ")
 		. += "Это [tag_string] [examine_descriptor(user)][post_desc_string]."
 	else if(post_desc_string)
 		. += "Это [examine_descriptor(user)][post_desc_string]."
@@ -73,18 +73,18 @@
 		.[span_hypnophrase("abstract")] = "Это абстрактный концепт, который вы не должны были увидеть! Сообщите об этом Высшим Силам!"
 
 	if(resistance_flags & INDESTRUCTIBLE)
-		.["неразрушим[genderize_examine_descriptor("ый", "ая")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая")]! Уничтожить практически невозможно."
+		.["неразрушим[genderize_examine_descriptor("ый", "ая", "ое", "ые")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая", "ое", "ые")]! Уничтожить практически невозможно."
 	else
 		if(resistance_flags & LAVA_PROOF)
-			.["лавастойк[genderize_examine_descriptor("ий", "ая")]"] = "Чрезвычайно устойчив[genderize_examine_descriptor("ый", "ая")] к экстремальным температурам! Может выдержать даже воздействие лавы!"
+			.["лавастойк[genderize_examine_descriptor("ий", "ая", "ое", "ие")]"] = "Чрезвычайно устойчив[genderize_examine_descriptor("ый", "ая", "ое", "ые")] к экстремальным температурам! Может выдержать даже воздействие лавы!"
 		if(resistance_flags & (ACID_PROOF | UNACIDABLE))
-			.["кислотостойк[genderize_examine_descriptor("ий", "ая")]"] = "Выглядит очень прочным. Ни одна кислота такое не разъест."
+			.["кислотостойк[genderize_examine_descriptor("ий", "ая", "ое", "ие")]"] = "Выглядит очень прочным. Ни одна кислота такое не разъест."
 		if(resistance_flags & FREEZE_PROOF)
-			.["морозостойк[genderize_examine_descriptor("ий", "ая")]"] = "Сделано из морозостойких материалов."
+			.["морозостойк[genderize_examine_descriptor("ий", "ая", "ое", "ие")]"] = "Сделано из морозостойких материалов."
 		if(resistance_flags & FIRE_PROOF)
-			.["огнеупорн[genderize_examine_descriptor("ый", "ая")]"] = "Сделано из огнеупорных материалов."
+			.["огнеупорн[genderize_examine_descriptor("ый", "ая", "ое", "ые")]"] = "Сделано из огнеупорных материалов."
 		if(resistance_flags & FLAMMABLE)
-			.["легковоспламеняющ[genderize_examine_descriptor("ий", "ая")]ся"] = "Может легко загореться."
+			.["легковоспламеняющ[genderize_examine_descriptor("ий", "ая", "ее", "ие")]ся"] = "Может легко загореться."
 
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_TAGS, user, .)
 
@@ -92,16 +92,26 @@
 /atom/proc/examine_descriptor(mob/user)
 	return "объект"
 
-/// Gender of the examine descriptor word
-/// For example, "объект" is "male", while "машинерия" is "female"
+/// Gender of the examine descriptor word.
+/// Should return one of "male", "female", "neuter" or "plural".
+/// For example, "объект" is "male", while "машинерия" is "female".
 /atom/proc/examine_descriptor_gender()
 	return "male"
 
 /// Returns the correct form of the examine descriptor based on provided gender
-/atom/proc/genderize_examine_descriptor(male_word, female_word, gender)
-	if(!gender)
-		gender = examine_descriptor_gender()
-	return gender == "male" ? male_word : female_word
+/atom/proc/genderize_examine_descriptor(male_word, female_word, neuter_word, plural_word, atom_gender)
+	if(!atom_gender)
+		atom_gender = examine_descriptor_gender()
+
+	switch(atom_gender)
+		if("male")
+			return male_word
+		if("female")
+			return female_word
+		if("neuter")
+			return neuter_word
+		if("plural")
+			return plural_word
 
 /// Returns a list of strings to be displayed after the descriptor
 /// TODO: имплементировать тута custom_materials
