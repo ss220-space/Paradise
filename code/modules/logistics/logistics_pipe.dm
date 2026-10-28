@@ -221,13 +221,13 @@
 	initialize_dirs = DISP_DIR_FLIP
 
 /obj/structure/logistics_pipe/trunk/nextdir(obj/structure/logistics_holder/holder)
-	if(holder.dir == DOWN)
-		if(length(holder.path_dirs))
-			var/next = holder.path_dirs[1]
-			holder.path_dirs.Cut(1, 2)
-			return next
+	if(holder.dir != DOWN)
+		return NONE
+	if(!length(holder.path_dirs))
 		return dir
-	return NONE
+	var/next = holder.path_dirs[1]
+	holder.path_dirs.Cut(1, 2)
+	return next
 
 /obj/structure/logistics_pipe/trunk/transfer(obj/structure/logistics_holder/holder)
 	if(holder.dir == DOWN)
@@ -281,10 +281,11 @@
 	current_pipe = loc
 	var/delay = LOGISTICS_HOLDER_MOVE_DELAY
 	var/datum/move_loop/our_loop = GLOB.move_manager.move_logistics(src, delay = delay, timeout = delay * count)
-	if(our_loop)
-		RegisterSignal(our_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
-		RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(try_expel))
-		RegisterSignal(our_loop, COMSIG_QDELETING, PROC_REF(movement_stop))
+	if(!our_loop)
+		return
+	RegisterSignal(our_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
+	RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(try_expel))
+	RegisterSignal(our_loop, COMSIG_QDELETING, PROC_REF(movement_stop))
 
 /obj/structure/logistics_holder/proc/pre_move(datum/move_loop/source)
 	SIGNAL_HANDLER
@@ -342,8 +343,8 @@
 	if(!request || !length(shipment_manifest))
 		shipment_manifest?.Cut()
 		return
-	for(var/stock_name in shipment_manifest)
-		request.release_reservation(stock_name, shipment_manifest[stock_name])
+	for(var/stock_name, shipped_amount in shipment_manifest)
+		request.release_reservation(stock_name, shipped_amount)
 	shipment_manifest.Cut()
 
 /obj/structure/logistics_holder/proc/deliver(datum/component/logistics_interface/interface)
@@ -357,8 +358,7 @@
 
 	var/list/undelivered = list()
 	var/turf/drop_turf = get_turf(interface.parent)
-	for(var/stock_name in manifest)
-		var/need = manifest[stock_name]
+	for(var/stock_name, need in manifest)
 		var/delivered_now = 0
 		for(var/obj/item/item in contents)
 			if(delivered_now >= need)

@@ -51,7 +51,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	init_parts()
 	create_reagents()
 	RefreshParts()
-	AddElement(/datum/element/logistics_compatible)
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))
 		icon_state = "syndie_circuit_imprinter"
 		base_icon_state = "syndie_circuit_imprinter"

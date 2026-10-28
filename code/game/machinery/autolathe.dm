@@ -71,7 +71,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
-	AddElement(/datum/element/logistics_compatible)
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 
 
 /obj/machinery/autolathe/upgraded/Initialize(mapload)

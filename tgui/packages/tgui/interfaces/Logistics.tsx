@@ -14,6 +14,7 @@ import {
 import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { LOGISTICS_MODE_SEND, type LogisticsMode } from './common/logistics';
 
 type DropdownEntry = {
   value: string;
@@ -31,7 +32,7 @@ type Stock = {
 type Node = {
   uid: string;
   name: string;
-  mode: string;
+  mode: LogisticsMode;
   self: boolean;
   icon?: string;
   icon_state?: string;
@@ -55,7 +56,7 @@ type DisplayStock = Stock & {
 
 type LogisticsData = {
   name: string;
-  mode: string;
+  mode: LogisticsMode;
   connected: boolean;
   allow_export: boolean;
   notify_status: boolean;
@@ -121,7 +122,7 @@ export const Logistics = (_props: unknown) => {
   const selectedDest = sortedNodes.find((n) => n.uid === destUid);
   const sourceMap = useMemo(
     () => stockMap(selectedSource?.stock || []),
-    [selectedSource]
+    [selectedSource],
   );
   const destAccepted = useMemo(() => {
     const set = new Set(selectedDest?.accepted || []);
@@ -182,7 +183,7 @@ export const Logistics = (_props: unknown) => {
         return prev.map((entry) =>
           entry.id === item.id
             ? { ...entry, amount: entry.amount + amount }
-            : entry
+            : entry,
         );
       }
       return [
@@ -204,7 +205,7 @@ export const Logistics = (_props: unknown) => {
       return;
     }
     setBuffer((prev) =>
-      prev.map((entry) => (entry.id === itemId ? { ...entry, amount } : entry))
+      prev.map((entry) => (entry.id === itemId ? { ...entry, amount } : entry)),
     );
   };
 
@@ -241,11 +242,11 @@ export const Logistics = (_props: unknown) => {
                 <Box className="Logistics__StatusCell">
                   <Box color="label">Режим</Box>
                   <Box>
-                    {mode === 'send' ? 'Отправка' : 'Приём'}{' '}
+                    {mode === LOGISTICS_MODE_SEND ? 'Отправка' : 'Приём'}{' '}
                     <Button
                       icon="info"
                       tooltip={
-                        mode === 'send'
+                        mode === LOGISTICS_MODE_SEND
                           ? 'Режим отправка устанавливает высший приоритет на отправку заказов.'
                           : 'Режим приём устанавливает нисший приоритет на отправку заказов. Товар будет отправлен только в случае отсутствия в интерфейсах с режимом отправки.'
                       }
@@ -546,7 +547,7 @@ const NodeColumn = (props: {
             {selected === 'any'
               ? 'любой источник'
               : selectedNode
-                ? `${selectedNode.mode === 'send' ? 'отправка' : 'приём'} · ${formatFill(selectedNode.fill_percent)}`
+                ? `${selectedNode.mode === LOGISTICS_MODE_SEND ? 'отправка' : 'приём'} · ${formatFill(selectedNode.fill_percent)}`
                 : 'выберите устройство'}
           </Box>
         </Stack.Item>

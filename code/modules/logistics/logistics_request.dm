@@ -37,11 +37,11 @@
 /datum/logistics_request/proc/is_finished()
 	if(status == LOGISTICS_REQUEST_CANCELLED || status == LOGISTICS_REQUEST_COMPLETE)
 		return TRUE
-	for(var/stock_name in wanted)
-		if(wanted[stock_name] > 0)
+	for(var/stock_name, wanted_amount in wanted)
+		if(wanted_amount > 0)
 			return FALSE
-	for(var/stock_name in reserved)
-		if(reserved[stock_name] > 0)
+	for(var/stock_name, reserved_amount in reserved)
+		if(reserved_amount > 0)
 			return FALSE
 	return TRUE
 
@@ -68,8 +68,7 @@
 /datum/logistics_request/proc/finalize_shipment(list/manifest, list/undelivered)
 	if(!length(manifest))
 		return
-	for(var/stock_name in manifest)
-		var/sent = manifest[stock_name]
+	for(var/stock_name, sent in manifest)
 		var/failed = undelivered[stock_name] || 0
 		var/ok = max(sent - failed, 0)
 		if(ok > 0)
@@ -111,8 +110,8 @@
 	if(!length(delivered))
 		return "ничего"
 	var/list/parts = list()
-	for(var/stock_id in delivered)
-		parts += "[logistics_stock_display_name(stock_id)] ×[delivered[stock_id]]"
+	for(var/stock_id, delivered_amount in delivered)
+		parts += "[logistics_stock_display_name(stock_id)] ×[delivered_amount]"
 	return parts.Join(", ")
 
 /datum/logistics_request/proc/notify_related(message)
@@ -134,13 +133,13 @@
 	var/datum/component/logistics_interface/req_dest = get_dest()
 	var/datum/component/logistics_interface/req_creator = get_creator_interface()
 	var/list/wanted_ui = list()
-	for(var/stock_id in original_wanted)
+	for(var/stock_id, original_amount in original_wanted)
 		var/remaining = (wanted[stock_id] || 0) + (reserved[stock_id] || 0)
 		wanted_ui += list(list(
 			"id" = stock_id,
 			"name" = logistics_stock_display_name(stock_id),
 			"amount" = remaining,
-			"original" = original_wanted[stock_id] || remaining,
+			"original" = original_amount || remaining,
 		))
 	return list(
 		"uid" = UID(),

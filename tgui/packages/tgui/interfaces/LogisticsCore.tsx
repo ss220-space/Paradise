@@ -12,6 +12,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { LOGISTICS_MODE_SEND, type LogisticsMode } from './common/logistics';
 
 const STATUS_PENDING = 0;
 const STATUS_ACTIVE = 1;
@@ -42,7 +43,7 @@ type Request = {
 type NetNode = {
   uid: string;
   name: string;
-  mode: string;
+  mode: LogisticsMode;
   allow_export: boolean;
   blocked: boolean;
   fill_percent?: number | null;
@@ -63,7 +64,7 @@ type Network = {
 type MapNode = {
   uid: string;
   name: string;
-  mode: string;
+  mode: LogisticsMode;
   allow_export: boolean;
   blocked: boolean;
   net_id: number;
@@ -111,7 +112,11 @@ const formatFill = (value: number | null | undefined) =>
   typeof value === 'number' ? `${value}%` : '—';
 
 const requestStatusText = (status: number) =>
-  status === STATUS_ACTIVE ? 'выполняется' : status === STATUS_PAUSED ? 'пауза' : 'ожидает';
+  status === STATUS_ACTIVE
+    ? 'выполняется'
+    : status === STATUS_PAUSED
+      ? 'пауза'
+      : 'ожидает';
 
 const isNodeRelated = (entry: Request, uid: string) =>
   entry.source_uid === uid ||
@@ -283,7 +288,7 @@ const MapTab = (props: { levels: number[] }) => {
   } = data;
   const [zoom, setZoom] = useState(1);
   const [zCurrent, setZCurrent] = useState(
-    props.levels[0] || stationLevelNum[0]
+    props.levels[0] || stationLevelNum[0],
   );
 
   return (
@@ -370,7 +375,7 @@ const InterfaceMarker = (props: {
 }) => {
   const { node, zoom, z_current, onClick } = props;
   const size = Math.max(8, PIXELS_PER_TURF * zoom + 4);
-  const isSend = node.mode === 'send';
+  const isSend = node.mode === LOGISTICS_MODE_SEND;
   const filled = isSend || node.allow_export;
   const borderColor = node.blocked ? '#e74c3c' : node.net_color;
 
@@ -406,12 +411,7 @@ const InterfaceMarker = (props: {
 
 const NetworksTab = () => {
   const { data } = useBackend<LogisticsCoreData>();
-  const {
-    networks = [],
-    palette = [],
-    requests = [],
-    archived = [],
-  } = data;
+  const { networks = [], palette = [], requests = [], archived = [] } = data;
 
   return (
     <Section fill scrollable title="Логистические сети">
@@ -443,7 +443,7 @@ const NetworkCard = (props: {
 
   const nodes = useMemo(
     () => [...(net.nodes || [])].sort((a, b) => a.name.localeCompare(b.name)),
-    [net.nodes]
+    [net.nodes],
   );
 
   return (
@@ -560,7 +560,7 @@ const NodeRow = (props: {
 }) => {
   const { act } = useBackend<LogisticsCoreData>();
   const { node, expanded, onToggleOrders } = props;
-  const isSend = node.mode === 'send';
+  const isSend = node.mode === LOGISTICS_MODE_SEND;
 
   return (
     <Stack align="center" px={0.5} py={0.2}>
@@ -606,11 +606,7 @@ const NodeRow = (props: {
         <Button
           icon={node.blocked ? 'lock' : 'unlock'}
           color={node.blocked ? 'bad' : undefined}
-          tooltip={
-            node.blocked
-              ? 'Разблокировать'
-              : 'Заблокировать'
-          }
+          tooltip={node.blocked ? 'Разблокировать' : 'Заблокировать'}
           onClick={() => act('toggle_interface_block', { uid: node.uid })}
         />
       </Stack.Item>
@@ -691,7 +687,9 @@ const LogsTab = () => {
   const [filter, setFilter] = useState('');
 
   const filteredLogs = logs.filter((line) =>
-    `${line.net_name} ${line.text}`.toLowerCase().includes(filter.toLowerCase())
+    `${line.net_name} ${line.text}`
+      .toLowerCase()
+      .includes(filter.toLowerCase()),
   );
 
   return (
@@ -740,7 +738,7 @@ const LogsTab = () => {
               <Box color="label" fontSize="0.85em">
                 {entry.wanted
                   ?.map(
-                    (item) => `${item.name} ×${item.original || item.amount}`
+                    (item) => `${item.name} ×${item.original || item.amount}`,
                   )
                   .join(', ')}
                 {entry.finished_at ? ` · ${entry.finished_at}` : ''}

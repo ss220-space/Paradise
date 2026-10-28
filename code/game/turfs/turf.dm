@@ -235,11 +235,11 @@
 			our_rpd.create_disposals_pipe(user, src)
 
 		if(RPD_LOGISTICS_MODE)
-			for(var/obj/machinery/door/airlock/A in src)
-				if(!A.density)
+			for(var/obj/machinery/door/airlock/airlock in src)
+				if(!airlock.density)
 					continue
 
-				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
+				to_chat(user, span_warning("That type of pipe won't fit under [airlock]!"))
 				return
 			our_rpd.create_logistics_pipe(user, src)
 

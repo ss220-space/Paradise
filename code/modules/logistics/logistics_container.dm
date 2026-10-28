@@ -45,12 +45,12 @@
 		fill_level = null
 		return
 	var/ratio = stored / max(max_n_of_items, 1)
-	if(ratio < 0.34)
-		fill_level = 1
-	else if(ratio < 0.67)
-		fill_level = 2
+	if(ratio < LOGISTICS_FILL_MEDIUM_THRESHOLD)
+		fill_level = LOGISTICS_FILL_LOW
+	else if(ratio < LOGISTICS_FILL_HIGH_THRESHOLD)
+		fill_level = LOGISTICS_FILL_MEDIUM
 	else
-		fill_level = 3
+		fill_level = LOGISTICS_FILL_HIGH
 
 /obj/item/circuitboard/smart_container
 	board_name = "Smart Container"

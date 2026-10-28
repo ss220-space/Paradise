@@ -156,17 +156,17 @@
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
-/obj/item/rpd/proc/create_logistics_pipe(mob/user, turf/T)
+/obj/item/rpd/proc/create_logistics_pipe(mob/user, turf/target_turf)
 	if(!can_dispense_pipe(whatlpipe, PIPETYPE_LOGISTICS))
 		CRASH("Failed to spawn [get_pipe_name(whatlpipe, PIPETYPE_LOGISTICS)] - possible tampering detected")
 	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
-	if(!do_after(user, use_duration * atmos_mod, T, max_interact_count = 1))
+	if(!do_after(user, use_duration * atmos_mod, target_turf, max_interact_count = 1))
 		return
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
 	var/obj/structure/logistics_construct/construct = new(null, whatlpipe, rotate_dir)
 	if(QDELETED(src) || QDELETED(construct))
 		return
-	construct.forceMove(T)
+	construct.forceMove(target_turf)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
@@ -183,8 +183,8 @@
 		P.rotate()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.rotate()
-	for(var/obj/structure/logistics_construct/L in T)
-		L.rotate()
+	for(var/obj/structure/logistics_construct/construct in T)
+		construct.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
 	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
@@ -194,8 +194,8 @@
 		P.flip()
 	for(var/obj/structure/disposalconstruct/D in T)
 		D.flip()
-	for(var/obj/structure/logistics_construct/L in T)
-		L.flip()
+	for(var/obj/structure/logistics_construct/construct in T)
+		construct.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	CALCULATE_SKILL_MOD(user, ATMOS_SPEED_MOD, atmos_mod)
@@ -215,9 +215,9 @@
 		if(!D.anchored)
 			QDEL_NULL(D)
 			eaten = TRUE
-	for(var/obj/structure/logistics_construct/L in T)
-		if(!L.anchored)
-			QDEL_NULL(L)
+	for(var/obj/structure/logistics_construct/construct in T)
+		if(!construct.anchored)
+			QDEL_NULL(construct)
 			eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")

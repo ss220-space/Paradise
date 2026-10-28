@@ -96,7 +96,7 @@
 				var/obj/item/newitem = new typekey(src)
 				item_quants[newitem.declent_ru(NOMINATIVE)] += 1
 	update_icon(UPDATE_OVERLAYS)
-	AddElement(/datum/element/logistics_compatible)
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -111,23 +111,25 @@
 		max_n_of_items += 1500 * B.rating
 
 /obj/machinery/smartfridge/proc/get_stored_item_count()
-	. = 0
+	var/stored_count = 0
 	for(var/obj/item/item in contents)
 		if(item in component_parts)
 			continue
-		.++
+		stored_count++
+	return stored_count
 
 /obj/machinery/smartfridge/proc/is_storage_item(obj/item/item)
 	return item && !(item in component_parts)
 
 /obj/machinery/smartfridge/proc/get_display_quantity(item_name)
-	. = 0
+	var/quantity = 0
 	for(var/obj/item/item in contents)
 		if(!is_storage_item(item))
 			continue
 		if(item.declent_ru(NOMINATIVE) != item_name)
 			continue
-		. += logistics_item_units(item)
+		quantity += logistics_item_units(item)
+	return quantity
 
 /obj/machinery/smartfridge/proc/vend_units(item_name, amount, mob/user)
 	if(amount <= 0 || !item_name)
@@ -1163,3 +1165,6 @@
 	new /obj/item/stack/sheet/wood(loc, 2)
 	new /obj/item/stack/sheet/sinew(loc, 1)
 	..()
+
+/obj/machinery/smartfridge/create_logistics_adapter()
+	return new /datum/logistics_adapter/smartfridge(src)

@@ -76,7 +76,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	AddElement(/datum/element/logistics_compatible)
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
 

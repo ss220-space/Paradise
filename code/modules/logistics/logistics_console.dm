@@ -57,54 +57,8 @@
 
 	for(var/datum/logistics_net/net as anything in GLOB.logistics_nets)
 		var/list/net_interfaces = list()
-		for(var/datum/component/logistics_interface/interface as anything in net.interfaces)
-			var/obj/machinery/machine = interface.parent
-			var/turf/T = get_turf(machine)
-			net_interfaces += list(list(
-				"uid" = interface.UID(),
-				"name" = interface.interface_name,
-				"mode" = (interface.mode == LOGISTICS_MODE_SEND) ? "send" : "receive",
-				"allow_export" = interface.allow_export,
-				"blocked" = interface.orders_blocked,
-				"fill_percent" = interface.adapter ? interface.adapter.get_fill_percent() : null,
-			))
-			if(T)
-				data["map_nodes"] += list(list(
-					"uid" = interface.UID(),
-					"name" = interface.interface_name,
-					"mode" = (interface.mode == LOGISTICS_MODE_SEND) ? "send" : "receive",
-					"allow_export" = interface.allow_export,
-					"blocked" = interface.orders_blocked,
-					"net_id" = net.net_id,
-					"net_color" = net.net_color,
-					"x" = T.x,
-					"y" = T.y,
-					"z" = T.z,
-				))
-
-		var/list/seen_links = list()
-		for(var/obj/structure/logistics_pipe/pipe as anything in net.pipes)
-			var/turf/pipe_turf = get_turf(pipe)
-			if(!pipe_turf)
-				continue
-			for(var/obj/structure/logistics_pipe/neighbor as anything in pipe.get_neighbors())
-				if(neighbor.logistics_net != net)
-					continue
-				var/link_key = pipe.UID() > neighbor.UID() ? "[neighbor.UID()]|[pipe.UID()]" : "[pipe.UID()]|[neighbor.UID()]"
-				if(seen_links[link_key])
-					continue
-				seen_links[link_key] = TRUE
-				var/turf/neighbor_turf = get_turf(neighbor)
-				if(!neighbor_turf || neighbor_turf.z != pipe_turf.z)
-					continue
-				data["map_pipes"] += list(list(
-					"x1" = pipe_turf.x,
-					"y1" = pipe_turf.y,
-					"x2" = neighbor_turf.x,
-					"y2" = neighbor_turf.y,
-					"z" = pipe_turf.z,
-					"net_color" = net.net_color,
-				))
+		append_network_nodes(net, net_interfaces, data["map_nodes"])
+		data["map_pipes"] += get_network_map_pipes(net)
 
 		data["networks"] += list(list(
 			"uid" = net.UID(),
@@ -215,3 +169,57 @@
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/logistics_core
 	origin_tech = "programming=6;engineering=6"
+
+/obj/machinery/computer/logistics_core/proc/append_network_nodes(datum/logistics_net/net, list/net_interfaces, list/map_nodes)
+	for(var/datum/component/logistics_interface/interface as anything in net.interfaces)
+		var/obj/machinery/machine = interface.parent
+		var/turf/machine_turf = get_turf(machine)
+		net_interfaces += list(list(
+			"uid" = interface.UID(),
+			"name" = interface.interface_name,
+			"mode" = interface.mode,
+			"allow_export" = interface.allow_export,
+			"blocked" = interface.orders_blocked,
+			"fill_percent" = interface.adapter ? interface.adapter.get_fill_percent() : null,
+		))
+		if(machine_turf)
+			map_nodes += list(list(
+				"uid" = interface.UID(),
+				"name" = interface.interface_name,
+				"mode" = interface.mode,
+				"allow_export" = interface.allow_export,
+				"blocked" = interface.orders_blocked,
+				"net_id" = net.net_id,
+				"net_color" = net.net_color,
+				"x" = machine_turf.x,
+				"y" = machine_turf.y,
+				"z" = machine_turf.z,
+			))
+
+/obj/machinery/computer/logistics_core/proc/get_network_map_pipes(datum/logistics_net/net)
+	var/list/map_pipes = list()
+	var/list/seen_links = list()
+	for(var/obj/structure/logistics_pipe/pipe as anything in net.pipes)
+		var/turf/pipe_turf = get_turf(pipe)
+		if(!pipe_turf)
+			continue
+		for(var/obj/structure/logistics_pipe/neighbor as anything in pipe.get_neighbors())
+			if(neighbor.logistics_net != net)
+				continue
+			var/link_key = pipe.UID() > neighbor.UID() ? "[neighbor.UID()]|[pipe.UID()]" : "[pipe.UID()]|[neighbor.UID()]"
+			if(seen_links[link_key])
+				continue
+			seen_links[link_key] = TRUE
+			var/turf/neighbor_turf = get_turf(neighbor)
+			if(!neighbor_turf || neighbor_turf.z != pipe_turf.z)
+				continue
+			map_pipes += list(list(
+				"x1" = pipe_turf.x,
+				"y1" = pipe_turf.y,
+				"x2" = neighbor_turf.x,
+				"y2" = neighbor_turf.y,
+				"z" = pipe_turf.z,
+				"net_color" = net.net_color,
+			))
+
+	return map_pipes
