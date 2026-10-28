@@ -1,8 +1,5 @@
 /datum/antagonist/vampire/devil_vampire
 	name = "Devil-Vampire"
-	nullification = OLD_NULLIFICATION
-	is_garlic_affected = TRUE
-	dust_in_space = TRUE
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
 	antag_menu_name = "Вампир дьявола"
 	upgrade_tiers = list(

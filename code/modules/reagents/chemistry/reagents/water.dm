@@ -410,17 +410,16 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				M.emote("scream")
 			vamp.base_nullification()
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
+			var/vomit_stun = 8 SECONDS
 			if(vamp.bloodusable)
 				V.vomit(0, VOMIT_BLOOD, vomit_stun)
-				if(!vomit_stun)
-					V.adjustBruteLoss(3)
+				V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
 				V.vomit(0, stun = vomit_stun)
 				return
 		else
-			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
+			if(!vamp.bloodtotal)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)

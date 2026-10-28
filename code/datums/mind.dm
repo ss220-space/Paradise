@@ -3085,7 +3085,7 @@
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
 	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
-		if(spell.type == instance_or_path)
+		if(spell && (spell.type == instance_or_path))
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 

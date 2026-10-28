@@ -154,9 +154,6 @@
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
 	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		return
-	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
-		to_chat(user, span_warning(span_zombie("Наша инфекция не может распространяться без их головы или груди.")))
-		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		return FALSE
 	if(target.reagents.has_reagent(/datum/reagent/zombie_cure) || target.reagents.has_reagent(/datum/reagent/medicine/spaceacillin))
