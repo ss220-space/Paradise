@@ -101,7 +101,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	l_ear = /obj/item/radio/headset/headset_service
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/science/sunglasses
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
 		/obj/item/toy/russian_revolver = 1,

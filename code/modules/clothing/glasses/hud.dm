@@ -635,9 +635,6 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
-/obj/item/clothing/glasses/hud/security/sunglasses/prescription
-	prescription = TRUE
-
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	name = "security aviators"
 	desc = "Очки-авиаторы с экранированием от ультрафиолетовых лучей, защищающие глаза носителя от ярких вспышек света. \
