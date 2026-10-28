@@ -202,6 +202,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_laser_modification_case(A) (istype(A, /obj/item/laser_modification_case))
 
+#define issmartfridge(A) (istype(A, /obj/machinery/smartfridge))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
