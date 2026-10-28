@@ -2,6 +2,7 @@
 	name = "Virus-Vampire"
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
 	antag_menu_name = "Вампир кровавой чумы"
+	has_skill_bonus = FALSE
 	upgrade_tiers = list(
 		/datum/action/cooldown/spell/vamp_rejuvenate = 0,
 		/datum/action/cooldown/spell/aoe/glare = 0,

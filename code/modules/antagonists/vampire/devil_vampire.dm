@@ -1,6 +1,7 @@
 /datum/antagonist/vampire/devil_vampire
 	name = "Devil-Vampire"
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
+	has_skill_bonus = FALSE
 	antag_menu_name = "Вампир дьявола"
 	upgrade_tiers = list(
 		/datum/action/cooldown/spell/vamp_rejuvenate = 0,
