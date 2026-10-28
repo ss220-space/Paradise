@@ -27,7 +27,7 @@
 
 /datum/controller/subsystem/overmap/proc/push_radars()
 	radar_frame_time = world.time
-	for(var/obj/overmap/entity/vessel as anything in radar_vessels.Copy())
+	for(var/obj/overmap/entity/vessel as anything in radar_vessels)
 		if(QDELETED(vessel))
 			radar_vessels -= vessel
 			continue

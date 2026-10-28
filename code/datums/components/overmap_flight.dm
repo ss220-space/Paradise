@@ -170,14 +170,14 @@
 			continue
 		var/list/directions = engine.push_directions()
 		if(omni_thrust)
-			directions = list("1" = 1, "2" = 1, "4" = 1, "8" = 1)
+			directions = list("[NORTH]" = 1, "[SOUTH]" = 1, "[EAST]" = 1, "[WEST]" = 1)
 		var/list/forces = list()
 		var/list/torques = list()
 		var/arm_x = engine.thrust_origin_x() - vessel.hull_center_x
 		var/arm_y = engine.thrust_origin_y() - vessel.hull_center_y
-		for(var/key in directions)
+		for(var/key, direction_fraction in directions)
 			var/push = text2num(key)
-			var/force = thrust * directions[key]
+			var/force = thrust * direction_fraction
 			forces[key] = force
 			switch(push)
 				if(NORTH)
@@ -448,11 +448,12 @@
 		engine.set_firing(FALSE)
 
 /datum/component/overmap_flight/proc/get_total_thrust()
-	. = 0
+	var/total_thrust = 0
 	var/obj/overmap/entity/vessel = parent
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
 		if(engine != vessel.virtual_engine || vessel.programmed_mission || vessel.admin_virtual_engine)
-			. += engine.get_thrust()
+			total_thrust += engine.get_thrust()
+	return total_thrust
 
 /datum/component/overmap_flight/proc/inertial_mass()
 	var/obj/overmap/entity/vessel = parent
@@ -563,30 +564,3 @@
 /datum/component/overmap_flight/proc/notify_arrival()
 	var/obj/overmap/entity/vessel = parent
 	vessel.programmed_mission?.on_overmap_arrived()
-
-/obj/overmap/entity/proc/get_total_thrust()
-	return flight ? flight.get_total_thrust() : 0
-
-/obj/overmap/entity/proc/get_acceleration()
-	return flight ? flight.get_acceleration() : 0
-
-/obj/overmap/entity/proc/has_working_engines()
-	return !!flight?.has_working_engines()
-
-/obj/overmap/entity/proc/can_steer()
-	return !!flight?.can_steer()
-
-/obj/overmap/entity/proc/set_held_brake(enabled)
-	return flight?.set_held_brake(enabled)
-
-/obj/overmap/entity/proc/cut_engines()
-	return flight?.cut_engines()
-
-/obj/overmap/entity/proc/get_effective_acceleration()
-	return get_acceleration()
-
-/obj/overmap/entity/proc/get_brake_distance()
-	return flight ? flight.get_brake_distance() : 0
-
-/obj/overmap/entity/proc/set_autopilot(enabled, dest_x, dest_y)
-	flight?.set_autopilot(enabled, dest_x, dest_y)

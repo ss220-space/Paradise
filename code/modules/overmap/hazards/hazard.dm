@@ -228,11 +228,12 @@
 	return pick(spots)
 
 /obj/overmap/feature/hazard/proc/count_nearby_carp(turf/spot)
-	. = 0
+	var/carp_count = 0
 	if(!spot)
-		return
+		return carp_count
 	for(var/mob/living/simple_animal/hostile/carp/carp in range(12, spot))
-		.++
+		carp_count++
+	return carp_count
 
 /obj/overmap/feature/hazard/proc/spawn_meteor_at(obj/overmap/entity/vessel)
 	var/turf/goal = pick_impact_turf(vessel)
@@ -437,18 +438,18 @@
 	return hazard.roll_density()
 
 /proc/overmap_hazard_paint_line(hazard_type, datum/overmap_sector/sector, turf/start, length, dir, wobble = FALSE)
-	. = 0
+	var/placed_count = 0
 	var/turf/cursor = start
 	for(var/i in 1 to length)
 		if(!cursor)
 			break
 		if(overmap_hazard_place(hazard_type, sector, cursor))
-			.++
+			placed_count++
 		if(wobble && prob(35))
 			var/turf/side = get_step(cursor, turn(dir, pick(-90, 90)))
 			if(side && !overmap_hazard_spawn_blocked(sector, side))
 				overmap_hazard_place(hazard_type, sector, side)
-				.++
+				placed_count++
 		cursor = get_step(cursor, dir)
 		if(!cursor || cursor.z != sector.z_level)
 			break
@@ -456,18 +457,19 @@
 			break
 		if(cursor.y < sector.origin_y + OVERMAP_EDGE || cursor.y > sector.origin_y + sector.size - OVERMAP_EDGE - 1)
 			break
+	return placed_count
 
 /proc/overmap_hazard_paint_blob(hazard_type, datum/overmap_sector/sector, turf/start, size)
-	. = 0
+	var/placed_count = 0
 	var/list/open = list(start)
 	var/list/seen = list()
-	while(length(open) && . < size)
+	while(length(open) && placed_count < size)
 		var/turf/cursor = pick_n_take(open)
 		if(seen[cursor])
 			continue
 		seen[cursor] = TRUE
 		if(overmap_hazard_place(hazard_type, sector, cursor))
-			.++
+			placed_count++
 		for(var/dir in GLOB.cardinal)
 			var/turf/next = get_step(cursor, dir)
 			if(!next || seen[next] || overmap_hazard_spawn_blocked(sector, next))
@@ -477,16 +479,17 @@
 			if(next.y < sector.origin_y + OVERMAP_EDGE || next.y > sector.origin_y + sector.size - OVERMAP_EDGE - 1)
 				continue
 			open += next
+	return placed_count
 
 /proc/overmap_hazard_paint_arc(hazard_type, datum/overmap_sector/sector, turf/start, length, dir)
-	. = 0
+	var/placed_count = 0
 	var/turf/cursor = start
 	var/heading = dir
 	for(var/i in 1 to length)
 		if(!cursor)
 			break
 		if(overmap_hazard_place(hazard_type, sector, cursor))
-			.++
+			placed_count++
 		if(prob(40))
 			heading = turn(heading, pick(-45, 45))
 			if(!heading)
@@ -498,11 +501,12 @@
 			break
 		if(cursor.y < sector.origin_y + OVERMAP_EDGE || cursor.y > sector.origin_y + sector.size - OVERMAP_EDGE - 1)
 			break
+	return placed_count
 
 /proc/overmap_hazard_paint_ring(hazard_type, datum/overmap_sector/sector, turf/start, radius, count)
-	. = 0
+	var/placed_count = 0
 	if(!start)
-		return
+		return placed_count
 	var/list/ring = list()
 	for(var/turf/spot in orange(radius, start))
 		if(get_dist(start, spot) != radius)
@@ -519,12 +523,13 @@
 	for(var/i in 1 to min(count, length(ring)))
 		var/turf/spot = pick_n_take(ring)
 		if(overmap_hazard_place(hazard_type, sector, spot))
-			.++
+			placed_count++
+	return placed_count
 
 /proc/overmap_hazard_paint_scatter(hazard_type, datum/overmap_sector/sector, turf/start, count, spread)
-	. = 0
+	var/placed_count = 0
 	if(!start)
-		return
+		return placed_count
 	var/list/pool = list(start)
 	for(var/turf/spot in orange(spread, start))
 		if(spot.z != sector.z_level)
@@ -539,16 +544,18 @@
 			break
 		var/turf/spot = pick_n_take(pool)
 		if(overmap_hazard_place(hazard_type, sector, spot))
-			.++
+			placed_count++
+	return placed_count
 
 /proc/overmap_hazard_paint_elbow(hazard_type, datum/overmap_sector/sector, turf/start, length, dir)
-	. = overmap_hazard_paint_line(hazard_type, sector, start, max(2, round(length / 2)), dir, FALSE)
+	var/placed_count = overmap_hazard_paint_line(hazard_type, sector, start, max(2, round(length / 2)), dir, FALSE)
 	var/turf/corner = start
 	for(var/i in 1 to max(1, round(length / 2)))
 		corner = get_step(corner, dir)
 		if(!corner)
-			return
-	. += overmap_hazard_paint_line(hazard_type, sector, corner, max(2, length - round(length / 2)), turn(dir, pick(-90, 90)), TRUE)
+			return placed_count
+	placed_count += overmap_hazard_paint_line(hazard_type, sector, corner, max(2, length - round(length / 2)), turn(dir, pick(-90, 90)), TRUE)
+	return placed_count
 
 /proc/overmap_hazard_paint_random(hazard_type, datum/overmap_sector/sector, turf/start)
 	if(!start)

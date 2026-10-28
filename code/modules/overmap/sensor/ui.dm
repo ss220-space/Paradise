@@ -121,32 +121,7 @@
 	alerts += list(list("id" = "iff", "label" = "Транспондер", "on" = !!alert_enabled["iff"]))
 	alerts += list(list("id" = "dock", "label" = "Стыковка", "on" = !!alert_enabled["dock"]))
 	data["alerts"] = alerts
-	var/list/contacts = list()
-	if(vessel && can_run() && !scanning && vessel.sector)
-		for(var/obj/overmap/overmap_object as anything in vessel.sector.objects)
-			if(!detects_contact(overmap_object))
-				continue
-			var/turf/there = overmap_object.get_overmap_turf()
-			if(!there)
-				continue
-			var/short_mode = view_mode == OVERMAP_SENSOR_KIND_SHORT
-			var/identified = vessel.display_identified(overmap_object, short_mode)
-			var/obj/overmap/entity/scan_contact = overmap_object
-			contacts += list(list(
-				"ref" = overmap_object.UID(),
-				"name" = identified ? overmap_object.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME,
-				"kind" = identified ? overmap_object.overmap_kind : "unknown",
-				"x" = vessel.sector.coord_x(there),
-				"y" = vessel.sector.coord_y(there),
-				"is_self" = overmap_object == vessel,
-				"stealth" = !identified,
-				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),
-				"heading" = overmap_object.get_heading_angle(),
-				"nested" = !isturf(overmap_object.loc),
-				"distress" = istype(scan_contact) && scan_contact.identity_distress,
-				"can_scan" = short_mode && vessel.can_short_scan(overmap_object),
-			))
-	data["contacts"] = contacts
+	data["contacts"] = build_ui_contacts()
 	if(vessel)
 		var/turf/here = vessel.get_overmap_turf()
 		data["vessel_name"] = vessel.get_overmap_display_name()
@@ -302,3 +277,31 @@
 	if(!vessel)
 		link_vessel()
 	return ..()
+
+/obj/machinery/computer/sensors/proc/build_ui_contacts()
+	var/list/contacts = list()
+	if(vessel && can_run() && !scanning && vessel.sector)
+		for(var/obj/overmap/overmap_object as anything in vessel.sector.objects)
+			if(!detects_contact(overmap_object))
+				continue
+			var/turf/there = overmap_object.get_overmap_turf()
+			if(!there)
+				continue
+			var/short_mode = view_mode == OVERMAP_SENSOR_KIND_SHORT
+			var/identified = vessel.display_identified(overmap_object, short_mode)
+			var/obj/overmap/entity/scan_contact = overmap_object
+			contacts += list(list(
+				"ref" = overmap_object.UID(),
+				"name" = identified ? overmap_object.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME,
+				"kind" = identified ? overmap_object.overmap_kind : "unknown",
+				"x" = vessel.sector.coord_x(there),
+				"y" = vessel.sector.coord_y(there),
+				"is_self" = overmap_object == vessel,
+				"stealth" = !identified,
+				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),
+				"heading" = overmap_object.get_heading_angle(),
+				"nested" = !isturf(overmap_object.loc),
+				"distress" = istype(scan_contact) && scan_contact.identity_distress,
+				"can_scan" = short_mode && vessel.can_short_scan(overmap_object),
+			))
+	return contacts

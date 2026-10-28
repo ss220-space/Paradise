@@ -378,8 +378,8 @@ SUBSYSTEM_DEF(overmap)
 /datum/controller/subsystem/overmap/proc/sector_for_turf(turf/spot)
 	if(!spot)
 		return null
-	for(var/sector_id in sectors)
-		var/datum/overmap_sector/candidate = sectors[sector_id]
+	for(var/sector_id, candidate_entry in sectors)
+		var/datum/overmap_sector/candidate = candidate_entry
 		if(candidate?.contains_turf(spot))
 			return candidate
 	return null
@@ -440,8 +440,8 @@ SUBSYSTEM_DEF(overmap)
 	return get_service_site(shuttle)
 
 /datum/controller/subsystem/overmap/proc/start_programmed_roundstart_routes()
-	for(var/shuttle_id in GLOB.overmap_programmed_profiles)
-		var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[shuttle_id]
+	for(var/shuttle_id, profile_entry in GLOB.overmap_programmed_profiles)
+		var/datum/overmap_programmed_profile/profile = profile_entry
 		if(!profile?.autostart_dock_id)
 			continue
 		var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
@@ -474,12 +474,9 @@ SUBSYSTEM_DEF(overmap)
 	service_sector = create_typed_sector(/datum/overmap_sector/service)
 	if(!service_sector)
 		return
-	var/list/site_paths = subtypesof(/obj/overmap/entity/service_site)
+	var/list/site_paths = valid_subtypesof(/obj/overmap/entity/service_site)
 	shuffle_inplace(site_paths)
 	for(var/site_path in site_paths)
-		var/obj/overmap/entity/service_site/site_type = site_path
-		if(initial(site_type.abstract_type) == site_path)
-			continue
 		var/turf/spot = service_sector.get_random_open_turf()
 		if(!spot)
 			log_world("Overmap: no turf for service site [site_path].")
@@ -660,3 +657,104 @@ SUBSYSTEM_DEF(overmap)
 	<b>Координаты:</b><br>\
 	Гипертранслятор: СТАНЦИОННЫЙ СЕКТОР: [overmap_coord_label(station_relay)], ДАЛЬНИЙ КОСМОС: [overmap_coord_label(service_relay)]<br>\
 	Точка реквизиции: [overmap_coord_label(scc)]"
+
+#define OVERMAP_PARALLAX_SCROLL 1000
+
+/datum/controller/subsystem/overmap/proc/process_flight_views(elapsed)
+	var/list/flying = list()
+	flying_pods = list()
+	var/list/flying_areas = list()
+	for(var/obj/docking_port/mobile/port as anything in shuttle_vessels)
+		var/obj/overmap/entity/vessel = shuttle_vessels[port]
+		if(QDELETED(vessel) || QDELETED(port))
+			continue
+		var/in_flight = vessel.in_free_flight()
+		if(in_flight != vessel.free_flight_view)
+			vessel.set_free_flight_view(in_flight)
+		if(!in_flight)
+			continue
+		flying += vessel
+		for(var/area/place as anything in port.shuttle_areas)
+			flying_areas[place] = vessel.docked_ship || vessel
+	for(var/obj/spacepod/craft as anything in pod_vessels)
+		var/obj/overmap/entity/pod/pod_vessel = pod_vessels[craft]
+		if(QDELETED(pod_vessel) || QDELETED(craft))
+			continue
+		var/in_flight = pod_vessel.in_free_flight()
+		if(in_flight != pod_vessel.free_flight_view)
+			pod_vessel.set_free_flight_view(in_flight)
+		if(in_flight)
+			flying += pod_vessel
+			flying_pods += pod_vessel
+		if(pod_vessel.overmap_pod.is_in_own_pocket())
+			flying_areas[pod_vessel.overmap_pod.pocket_area] = pod_vessel
+	for(var/obj/overmap/entity/virtual_structure/structure as anything in GLOB.overmap_virtual_structures)
+		if(!QDELETED(structure) && structure.sector && isturf(structure.loc))
+			flying += structure
+	flying_vessels = flying
+	prepare_bubble_space()
+	var/list/watched = list()
+	var/list/eyes = list()
+
+	client_eyes = list()
+	if(length(flying) || length(bubbles))
+		for(var/client/viewer as anything in GLOB.clients)
+			var/turf/eye_turf = get_turf(viewer.eye || viewer.mob)
+			if(!eye_turf)
+				continue
+			eyes += eye_turf
+			var/list/spots = list(eye_turf)
+
+			var/obj/overmap/entity/inside_vessel = flying_areas[eye_turf.loc]
+			if(inside_vessel?.local_space)
+				var/list/virtual_eye_world = inside_vessel.hull_to_world(eye_turf.x, eye_turf.y)
+				var/turf/virtual_eye = inside_vessel.local_space.turf_at(virtual_eye_world[1], virtual_eye_world[2])
+				if(virtual_eye)
+					eyes += virtual_eye
+					spots += virtual_eye
+			client_eyes[viewer] = spots
+			var/datum/eye_frame = frame_owner(eye_turf)
+			if(eye_frame)
+				watched[eye_frame] = TRUE
+	process_encounters(flying, elapsed, watched, eyes)
+	var/drifting_bubble = FALSE
+	for(var/datum/overmap_bubble/bubble as anything in bubbles)
+		if(bubble.speed_x || bubble.speed_y)
+			drifting_bubble = TRUE
+			break
+	if(!length(flying_areas) && !drifting_bubble && !length(drifting_viewers))
+		return
+	for(var/client/viewer as anything in drifting_viewers)
+		if(QDELETED(viewer))
+			drifting_viewers -= viewer
+	for(var/client/viewer as anything in GLOB.clients)
+		if(!viewer.parallax_rock?.displaying_layers)
+			if(viewer in drifting_viewers)
+				stop_drifting(viewer)
+			continue
+		var/turf/eye_turf = get_turf(viewer.eye)
+		var/obj/overmap/entity/vessel = flying_areas[eye_turf?.loc]
+		var/datum/overmap_bubble/bubble = bubbles_by_reservation[SSmapping.used_turfs[eye_turf]]
+		if(vessel)
+			drift_viewer(viewer, vessel.speed[1], vessel.speed[2], vessel.get_facing(), elapsed)
+		else if(bubble && (bubble.speed_x || bubble.speed_y))
+			drift_viewer(viewer, bubble.speed_x, bubble.speed_y, 0, elapsed)
+		else if(viewer in drifting_viewers)
+			stop_drifting(viewer)
+
+/datum/controller/subsystem/overmap/proc/drift_viewer(client/viewer, speed_x, speed_y, facing, elapsed)
+	drifting_viewers |= viewer
+	var/scroll = OVERMAP_PARALLAX_SCROLL * elapsed
+	for(var/atom/movable/screen/parallax_layer/layer as anything in viewer.parallax_rock.parallax_layers)
+		if(!layer.absolute)
+			layer.set_ship_drift(speed_x * scroll, speed_y * scroll, facing, elapsed)
+
+/datum/controller/subsystem/overmap/proc/stop_drifting(client/viewer)
+	drifting_viewers -= viewer
+	for(var/atom/movable/screen/parallax_layer/layer as anything in viewer.parallax_rock?.parallax_layers)
+		layer.clear_ship_drift()
+	viewer.parallax_movedir = NONE
+	if(viewer.parallax_rock?.displaying_layers)
+		viewer.mob?.hud_used?.update_parallax()
+
+#undef OVERMAP_PARALLAX_SCROLL

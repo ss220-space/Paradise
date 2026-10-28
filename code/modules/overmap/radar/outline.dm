@@ -17,7 +17,7 @@
 			if(cell[4] > 0)
 				occupied["[FLOOR((cell[1] - hull_center_x) / step, 1)],[FLOOR((cell[2] - hull_center_y) / step, 1)]"] = TRUE
 	else if(length(hull_turfs))
-		for(var/turf/spot as anything in hull_turfs.Copy())
+		for(var/turf/spot as anything in hull_turfs)
 			if(spot)
 				occupied["[FLOOR((spot.x - hull_center_x) / step, 1)],[FLOOR((spot.y - hull_center_y) / step, 1)]"] = TRUE
 	else if(physical_space)

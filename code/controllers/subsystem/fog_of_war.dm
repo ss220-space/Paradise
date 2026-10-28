@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(fog_of_war)
 		return
 	var/list/entries = list()
 	var/flushed = 0
-	for(var/turf/tile as anything in dirty_tiles.Copy())
+	for(var/turf/tile as anything in dirty_tiles)
 		if(!synced_z["[tile.z]"] || syncing_z["[tile.z]"])
 			continue
 		entries += "[tile.x],[tile.y],[tile.z],[IS_OPAQUE_TURF(tile) ? 1 : 0]"

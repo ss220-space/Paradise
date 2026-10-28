@@ -118,38 +118,3 @@
 			if(length(taipan_zs))
 				return pick(taipan_zs)
 	return null
-
-/obj/overmap/entity/proc/get_dock_host()
-	RETURN_TYPE(/obj/overmap/entity)
-	if(docked_to)
-		return docked_to
-	if(in_station_docking_zone())
-		return SSovermap.station_entity
-	var/turf/here = get_overmap_turf()
-	if(!here)
-		return null
-	for(var/datum/component/overmap_dock_host/host as anything in SSovermap.dock_hosts)
-		if(QDELETED(host) || host.parent == src)
-			continue
-		var/obj/overmap/entity/token = host.parent
-		if(token.get_overmap_turf() == here)
-			return token
-	for(var/obj/overmap/entity/other in here)
-		if(other != src && other.dock_host)
-			return other
-	for(var/obj/overmap/planet/planet in sector?.objects)
-		if(planet.outpost && planet.covers_turf(here))
-			return planet.outpost
-	return null
-
-/obj/overmap/entity/proc/pad_matches_host(obj/docking_port/stationary/pad, obj/overmap/entity/host)
-	if(!pad || !host)
-		return FALSE
-	if(host == SSovermap.station_entity && in_station_docking_zone() && !SSovermap.station_docking_zone.accepts_pad(pad))
-		return FALSE
-	if(istype(pad, /obj/docking_port/stationary/transit))
-		return FALSE
-	SSovermap?.host_for_pad(pad)
-	if(pad.overmap_host_uid)
-		return pad.overmap_host_uid == host.UID()
-	return host.dock_host?.matches_pad(pad)

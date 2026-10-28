@@ -38,8 +38,8 @@
 		return collision_edge
 	collision_edge_version = hull_version
 	collision_edge = list()
-	for(var/key in virtual_cells)
-		var/list/cell = virtual_cells[key]
+	for(var/key, cell_entry in virtual_cells)
+		var/list/cell = cell_entry
 		if(cell[4] <= 0)
 			continue
 		for(var/dir in GLOB.cardinal)

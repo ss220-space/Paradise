@@ -181,9 +181,9 @@
 	for(var/turf/cordon_turf as anything in cordon_turfs)
 		cordon_turf.turf_flags &= ~UNUSED_RESERVATION_TURF
 		SSmapping.used_turfs[cordon_turf] = src
-	for(var/turf/T as anything in final)
-		SSmapping.used_turfs[T] = src
-		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
+	for(var/turf/reserved_turf as anything in final)
+		SSmapping.used_turfs[reserved_turf] = src
+		reserved_turf.turf_flags = (reserved_turf.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
 	var/list/remaining = list()
 	for(var/turf/unused as anything in SSmapping.unused_turfs["[zlevel]"])
 		if(unused.turf_flags & UNUSED_RESERVATION_TURF)

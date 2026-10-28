@@ -211,13 +211,13 @@
 
 /datum/overmap_admin_panel/proc/serialize_templates()
 	. = list()
-	for(var/template_name in GLOB.map_templates)
-		var/datum/map_template/template = GLOB.map_templates[template_name]
+	for(var/template_name, template_entry in GLOB.map_templates)
+		var/datum/map_template/template = template_entry
 		if(!template)
 			continue
 		. += list(list("id" = template_name, "name" = template.name, "width" = template.width, "height" = template.height, "kind" = "map"))
-	for(var/shuttle_id in GLOB.shuttle_templates)
-		var/datum/map_template/shuttle/template = GLOB.shuttle_templates[shuttle_id]
+	for(var/shuttle_id, template_entry in GLOB.shuttle_templates)
+		var/datum/map_template/shuttle/template = template_entry
 		if(!template)
 			continue
 		. += list(list("id" = shuttle_id, "name" = template.name || shuttle_id, "width" = template.width, "height" = template.height, "kind" = "shuttle"))

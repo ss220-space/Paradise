@@ -356,8 +356,8 @@
 
 /datum/controller/subsystem/overmap/proc/pick_overmap_ruin_templates(size_key, pool, allow_dupes = FALSE)
 	. = list()
-	for(var/name in GLOB.space_ruins_templates)
-		var/datum/map_template/ruin/space/ruin = GLOB.space_ruins_templates[name]
+	for(var/name, ruin_entry in GLOB.space_ruins_templates)
+		var/datum/map_template/ruin/space/ruin = ruin_entry
 		if(!istype(ruin) || ruin.unpickable)
 			continue
 		if(ruin.overmap_size != size_key)

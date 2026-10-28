@@ -390,8 +390,8 @@
 		radius += 1
 
 /datum/controller/subsystem/overmap/proc/galaxy_slot_free(x, y)
-	for(var/id in galaxy_positions)
-		var/list/spot = galaxy_positions[id]
+	for(var/id, spot_entry in galaxy_positions)
+		var/list/spot = spot_entry
 		if((spot[1] - x) ** 2 + (spot[2] - y) ** 2 < 2.25)
 			return FALSE
 	for(var/list/entry as anything in galaxy_unknown)

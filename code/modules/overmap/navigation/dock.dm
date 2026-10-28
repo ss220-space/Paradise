@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(landing_beacons)
 			if(!QDELETED(corner))
 				corner.pad = null
 		qdel(pad, TRUE)
-	for(var/obj/machinery/landing_beacon/first as anything in available.Copy())
+	for(var/obj/machinery/landing_beacon/first as anything in available)
 		if(first.pad)
 			continue
 		var/list/best

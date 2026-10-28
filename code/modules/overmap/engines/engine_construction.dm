@@ -22,20 +22,6 @@
 	build_path = /obj/machinery/ship_engine/plasma/large
 	req_components = list(/obj/item/stock_parts/matter_bin = 4, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/cable_coil = 10)
 
-/obj/machinery/ship_engine/proc/create_engine_parts()
-	if(!engine_board)
-		return
-	component_parts = list()
-	var/obj/item/circuitboard/board = new engine_board(src)
-	component_parts += board
-	for(var/part_type in board.req_components)
-		var/count = board.req_components[part_type]
-		if(ispath(part_type, /obj/item/stack))
-			component_parts += new part_type(src, count)
-		else
-			for(var/index in 1 to count)
-				component_parts += new part_type(src)
-
 /obj/item/ship_engine_mount
 	name = "ion maneuvering thruster assembly"
 	desc = "Установите снаружи на стену корабля. Сопло будет направлено от стены к вам."

@@ -40,7 +40,7 @@
 	return TRUE
 
 /datum/controller/subsystem/overmap/proc/process_sector_projectiles(elapsed)
-	for(var/datum/overmap_projectile/shot as anything in sector_projectiles.Copy())
+	for(var/datum/overmap_projectile/shot as anything in sector_projectiles)
 		shot.advance(elapsed)
 	projectile_snapshot_tick = -1
 
@@ -233,7 +233,7 @@
 		visual.alpha = 255
 		var/turf/anchor = get_turf(visual)
 		SET_PLANE_EXPLICIT(visual, GAME_PLANE, anchor)
-	for(var/datum/owner as anything in proxies.Copy())
+	for(var/datum/owner as anything in proxies)
 		if(!wanted[owner])
 			qdel(proxies[owner])
 			proxies -= owner

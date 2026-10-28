@@ -130,7 +130,7 @@
 	unwatch_hull()
 	undock_ship()
 	QDEL_NULL(terrain_view)
-	for(var/obj/overmap/entity/guest as anything in docked_guests.Copy())
+	for(var/obj/overmap/entity/guest as anything in docked_guests)
 		guest.undock_ship()
 	QDEL_LIST_ASSOC_VAL(neighbor_proxies)
 	QDEL_LIST_ASSOC_VAL(drifter_mirrors)
@@ -406,8 +406,9 @@
 
 /obj/overmap/entity/proc/radar_drifters()
 	. = list()
-	for(var/atom/movable/drifter as anything in drifter_mirrors)
-		var/obj/effect/abstract/hull_proxy_tile/mirror = drifter_mirrors[drifter]
+	for(var/drifter_entry, mirror_entry in drifter_mirrors)
+		var/atom/movable/drifter = drifter_entry
+		var/obj/effect/abstract/hull_proxy_tile/mirror = mirror_entry
 		. += list(list(round(mirror.x + mirror.pixel_x / ICON_SIZE_X - hull_center_x, 0.1), round(mirror.y + mirror.pixel_y / ICON_SIZE_Y - hull_center_y, 0.1), isliving(drifter) && drifter:stat != DEAD))
 
 /obj/overmap/entity/proc/radar_engines()
@@ -447,7 +448,7 @@
 	radar_motion_frame = data
 	radar_motion_epoch = radar_epoch
 	radar_motion_sector = sector
-	for(var/datum/tgui/ui as anything in radar_uis.Copy())
+	for(var/datum/tgui/ui as anything in radar_uis)
 		if(QDELETED(ui) || ui.status < UI_UPDATE)
 			continue
 		ui.send_update(data)
@@ -704,7 +705,7 @@
 	QDEL_LIST_ASSOC_VAL(scatter_proxies)
 	QDEL_NULL(scatter_fog)
 	terrain_chunks.Cut()
-	for(var/atom/movable/drifter as anything in drifters.Copy())
+	for(var/atom/movable/drifter as anything in drifters)
 		remove_drifter(drifter)
 	reservation?.Release()
 	reservation = null
@@ -781,12 +782,12 @@
 	update_contact_proxies(eyes)
 	update_scatter_proxies(eyes, elapsed)
 	if(static_level && !length(ships))
-		for(var/atom/movable/drifter as anything in drifters.Copy())
+		for(var/atom/movable/drifter as anything in drifters)
 			remove_drifter(drifter)
 		return
 	for(var/obj/overmap/entity/vessel as anything in ships)
 		sweep_hull(vessel)
-	for(var/atom/movable/drifter as anything in drifters.Copy())
+	for(var/atom/movable/drifter as anything in drifters)
 		try_board(drifter)
 	if(length(drifters))
 		last_occupied = world.time
@@ -820,7 +821,7 @@
 					contact_proxies[cell] = cell_proxy
 				cell_proxy.place(cell_spot[1], cell_spot[2], bubble_z)
 				wanted[cell] = TRUE
-	for(var/atom/source as anything in contact_proxies.Copy())
+	for(var/atom/source as anything in contact_proxies)
 		if(!wanted[source] || QDELETED(source))
 			qdel(contact_proxies[source])
 			contact_proxies -= source
@@ -1096,7 +1097,7 @@
 	preparing_bubble_space = FALSE
 
 /datum/controller/subsystem/overmap/proc/process_encounters(list/flying, elapsed, list/watched, list/eyes)
-	for(var/obj/item/overmap_hull_grip/grip as anything in hull_grips.Copy())
+	for(var/obj/item/overmap_hull_grip/grip as anything in hull_grips)
 		grip.carry()
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(vessel.docked_ship)
@@ -1135,7 +1136,7 @@
 	if(spare_bubble_space && !length(flying_vessels))
 		spare_bubble_space.Release()
 		spare_bubble_space = null
-	for(var/datum/overmap_bubble/bubble as anything in bubbles.Copy())
+	for(var/datum/overmap_bubble/bubble as anything in bubbles)
 		if(!bubble.static_level && !length(bubble.ships) && !length(bubble.drifters) && world.time > bubble.last_occupied + OVERMAP_BUBBLE_TIMEOUT)
 			qdel(bubble)
 

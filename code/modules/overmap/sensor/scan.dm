@@ -5,23 +5,24 @@
 	return target
 
 /obj/machinery/computer/sensors/proc/count_living(obj/overmap/entity/target)
-	. = 0
+	var/living_count = 0
 	if(!istype(target))
-		return
+		return living_count
 	if(target.shuttle)
 		for(var/area/place as anything in target.shuttle.shuttle_areas)
 			for(var/mob/living/body in place)
 				if(body.stat == DEAD)
 					continue
-				.++
-		return
+				living_count++
+		return living_count
 	if(!target.dock_host?.area_root)
-		return
+		return living_count
 	for(var/area/place as anything in target.dock_host.host_areas())
 		for(var/mob/living/body in place)
 			if(body.stat == DEAD)
 				continue
-			.++
+			living_count++
+	return living_count
 
 /obj/machinery/computer/sensors/proc/build_scan_info(obj/overmap/target, size_x, size_y)
 	var/obj/overmap/entity/ship = target

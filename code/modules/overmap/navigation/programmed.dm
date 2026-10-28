@@ -22,8 +22,8 @@
 	var/static/list/programmed_docks
 	if(isnull(programmed_docks))
 		programmed_docks = list()
-		for(var/shuttle_id in GLOB.overmap_programmed_profiles)
-			var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[shuttle_id]
+		for(var/shuttle_id, profile_entry in GLOB.overmap_programmed_profiles)
+			var/datum/overmap_programmed_profile/profile = profile_entry
 			for(var/profile_dock in profile.dock_ids())
 				programmed_docks[profile_dock] = TRUE
 	return programmed_docks[dock_id]
@@ -716,41 +716,42 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	return CEILING((dist * travel) / speed, 1)
 
 /obj/overmap/entity/proc/estimate_programmed_trip(dock_id, datum/overmap_programmed_mission/mission)
-	. = 0
+	var/trip_time = 0
 	if(mission)
 		switch(mission.phase)
 			if(OVERMAP_PROG_WINDUP)
-				. += max(0, mission.windup_end - world.time)
+				trip_time += max(0, mission.windup_end - world.time)
 			if(OVERMAP_PROG_UNDOCK)
-				. += 8 SECONDS
+				trip_time += 8 SECONDS
 			if(OVERMAP_PROG_JUMP)
-				. += max(0, overmap_jammed_until - world.time)
+				trip_time += max(0, overmap_jammed_until - world.time)
 			if(OVERMAP_PROG_DOCK)
-				. += 8 SECONDS
-				return
+				trip_time += 8 SECONDS
+				return trip_time
 	else
-		. += OVERMAP_PROGRAMMED_WINDUP + 8 SECONDS
+		trip_time += OVERMAP_PROGRAMMED_WINDUP + 8 SECONDS
 	var/obj/overmap/entity/host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id, warn = FALSE), shuttle)
 	if(!host && mission)
 		host = mission.dest_host
 	var/turf/here = get_overmap_turf()
 	if(!here || !host)
-		. += 90 SECONDS
-		return
+		trip_time += 90 SECONDS
+		return trip_time
 	if(sector && host.sector && sector != host.sector)
 		var/obj/overmap/entity/hyperrelay/relay = nearest_hyperrelay(host.sector)
 		var/turf/relay_turf = relay?.get_overmap_turf()
 		if(relay_turf)
-			. += estimate_overmap_leg(here, relay_turf, sector)
+			trip_time += estimate_overmap_leg(here, relay_turf, sector)
 		if(mission?.phase != OVERMAP_PROG_JUMP)
-			. += relay ? hyperrelay_jump_duration(relay) : OVERMAP_HYPERRELAY_JUMP_TIME
+			trip_time += relay ? hyperrelay_jump_duration(relay) : OVERMAP_HYPERRELAY_JUMP_TIME
 		var/turf/dest = host.get_overmap_turf()
 		var/turf/other_relay = relay?.paired?.get_overmap_turf()
 		if(dest && other_relay)
-			. += estimate_overmap_leg(other_relay, dest, host.sector)
-		. += 8 SECONDS
-		return
+			trip_time += estimate_overmap_leg(other_relay, dest, host.sector)
+		trip_time += 8 SECONDS
+		return trip_time
 	var/turf/dest = host.get_overmap_turf()
 	if(dest && here != dest)
-		. += estimate_overmap_leg(here, dest, sector || host.sector)
-	. += 8 SECONDS
+		trip_time += estimate_overmap_leg(here, dest, sector || host.sector)
+	trip_time += 8 SECONDS
+	return trip_time

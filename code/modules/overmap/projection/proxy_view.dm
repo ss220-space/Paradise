@@ -149,8 +149,8 @@
 	return ..()
 
 /datum/terrain_mirror/proc/refresh_light_copies()
-	for(var/turf/shown as anything in tiles)
-		var/obj/effect/abstract/hull_proxy_tile/tile = tiles[shown]
+	for(var/shown_entry, tile_entry in tiles)
+		var/obj/effect/abstract/hull_proxy_tile/tile = tile_entry
 		if(tile.needs_light_refresh())
 			tile.copy_light()
 
@@ -237,7 +237,7 @@
 			if(fresh || ship_moved || turned_changed)
 				tile.glide(hull_x, hull_y, vessel.hull_z, (fresh || turned_changed) ? turned : null, vessel.flight_bounds, fresh ? 0 : elapsed)
 
-	for(var/turf/shown as anything in tiles.Copy())
+	for(var/turf/shown as anything in tiles)
 		if(!wanted[shown])
 			qdel(tiles[shown])
 			tiles.Remove(shown)

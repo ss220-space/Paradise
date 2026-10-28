@@ -168,11 +168,6 @@
 		piece.parent = src
 		fillers += piece
 
-/obj/structure/filler/CanAtmosPass(direction)
-	if(istype(parent, /obj/machinery/ship_engine))
-		return FALSE
-	return TRUE
-
 /obj/machinery/ship_engine/small
 
 /obj/machinery/ship_engine/large
@@ -289,19 +284,17 @@
 	pixel_x = (!!(dir & EAST) - !!(dir & WEST)) * THRUSTER_OVERHANG
 	pixel_y = (!!(dir & NORTH) - !!(dir & SOUTH)) * THRUSTER_OVERHANG
 
-/datum/looping_sound/ship_engine
-	start_sound = 'sound/machines/engine/engine_start.ogg'
-	start_length = 0.3 SECONDS
-	mid_sounds = list('sound/machines/engine/engine_mid1.ogg' = 1)
-	mid_length = 0.3 SECONDS
-	end_sound = 'sound/machines/engine/engine_end.ogg'
-	volume = 25
-	extra_range = 6
-	pressure_affected = FALSE
-	use_sound_tokens = TRUE
-
-/datum/looping_sound/ship_engine/thruster
-	volume = 12
-	extra_range = 2
+/obj/machinery/ship_engine/proc/create_engine_parts()
+	if(!engine_board)
+		return
+	component_parts = list()
+	var/obj/item/circuitboard/board = new engine_board(src)
+	component_parts += board
+	for(var/part_type, count in board.req_components)
+		if(ispath(part_type, /obj/item/stack))
+			component_parts += new part_type(src, count)
+		else
+			for(var/index in 1 to count)
+				component_parts += new part_type(src)
 
 #undef THRUSTER_OVERHANG

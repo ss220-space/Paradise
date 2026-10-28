@@ -103,20 +103,7 @@
 
 	data["sensor_short"] = vessel.has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) && vessel.short_sensors_on
 	data["sensor_long"] = (vessel.has_working_sensor(OVERMAP_SENSOR_KIND_LONG) && vessel.long_sensors_on) || vessel.sees_any_foreign_peel()
-	var/list/engines = list()
-	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine == vessel.virtual_engine)
-			continue
-		engines += list(list(
-			"name" = engine.name,
-			"ref" = engine.UID(),
-			"on" = engine.on,
-			"thrust" = engine.get_thrust(),
-			"limit" = round(engine.thrust_limit * 100),
-			"status" = engine.get_status(),
-			"push" = engine.omnidirectional ? null : REVERSE_DIR(engine.dir),
-		))
-	data["engines"] = engines
+	data["engines"] = build_ui_engines()
 	var/obj/machinery/transponder/beacon = vessel.transponder
 	data["has_transponder"] = !!beacon
 	data["transponder"] = beacon && !(beacon.stat & (NOPOWER|BROKEN)) ? beacon.transponder_data() : null
@@ -175,20 +162,7 @@
 	data["map_jammed"] = vessel.is_overmap_jammed()
 
 	vessel.fill_radar_data(data, radar_reach)
-	var/list/saved_waypoints = list()
-	for(var/waypoint_name in preset_waypoints)
-		saved_waypoints += list(list(
-			"name" = waypoint_name,
-			"x" = preset_waypoints[waypoint_name]["x"],
-			"y" = preset_waypoints[waypoint_name]["y"],
-		))
-	for(var/waypoint_name in waypoints)
-		saved_waypoints += list(list(
-			"name" = waypoint_name,
-			"x" = waypoints[waypoint_name]["x"],
-			"y" = waypoints[waypoint_name]["y"],
-		))
-	data["waypoints"] = saved_waypoints
+	data["waypoints"] = build_ui_waypoints()
 	vessel.fill_programmed_ui(data)
 	return data
 
@@ -287,7 +261,7 @@
 			if(vessel.docked_ship)
 				vessel.undock_ship()
 			else
-				for(var/obj/overmap/entity/guest as anything in vessel.docked_guests.Copy())
+				for(var/obj/overmap/entity/guest as anything in vessel.docked_guests)
 					guest.undock_ship()
 			. = TRUE
 		if("brake")
@@ -505,3 +479,34 @@
 /obj/machinery/computer/helm/process()
 	if(..())
 		SStgui.update_uis(src)
+
+/obj/machinery/computer/helm/proc/build_ui_engines()
+	var/list/engines = list()
+	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
+		if(engine == vessel.virtual_engine)
+			continue
+		engines += list(list(
+			"name" = engine.name,
+			"ref" = engine.UID(),
+			"on" = engine.on,
+			"thrust" = engine.get_thrust(),
+			"limit" = round(engine.thrust_limit * 100),
+			"status" = engine.get_status(),
+			"push" = engine.omnidirectional ? null : REVERSE_DIR(engine.dir),
+		))
+	return engines
+
+/obj/machinery/computer/helm/proc/build_ui_waypoints()
+	var/list/saved_waypoints = list()
+	append_ui_waypoints(saved_waypoints, preset_waypoints)
+	append_ui_waypoints(saved_waypoints, waypoints)
+	return saved_waypoints
+
+/obj/machinery/computer/helm/proc/append_ui_waypoints(list/entries, list/points)
+	for(var/waypoint_name, point_entry in points)
+		var/list/point = point_entry
+		entries += list(list(
+			"name" = waypoint_name,
+			"x" = point["x"],
+			"y" = point["y"],
+		))

@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			tiles.Remove(tile)
 		tiles[tile] = make_fog_image(tile, plane)
 		owner.images += tiles[tile]
-	for(var/turf/tile as anything in tiles.Copy())
+	for(var/turf/tile as anything in tiles)
 		if(wanted[tile])
 			continue
 		owner.images -= tiles[tile]
@@ -565,8 +565,9 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	if(!anchor)
 		return
 	var/matrix/transform = frame.transform_copy()
-	for(var/turf/tile as anything in tiles)
-		var/image/fog = tiles[tile]
+	for(var/tile_entry, fog_entry in tiles)
+		var/turf/tile = tile_entry
+		var/image/fog = fog_entry
 		var/list/spot = frame.place(tile)
 		if(fog.loc != anchor)
 

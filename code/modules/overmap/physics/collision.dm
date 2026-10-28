@@ -50,7 +50,7 @@
 		var/z = spot.z
 		wall.take_damage(damage)
 		spot = locate(x, y, z)
-	for(var/obj/object in spot.contents.Copy())
+	for(var/obj/object in spot.contents)
 		if(!object.simulated || QDELETED(object))
 			continue
 		if(object.density)

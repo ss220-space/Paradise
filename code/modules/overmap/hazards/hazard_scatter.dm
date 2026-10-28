@@ -257,7 +257,7 @@
 						proxy = new(spot, field, index)
 						scatter_proxies[key] = proxy
 					proxy.glide(hull_x, hull_y, hull_z, turned, flight_bounds, fresh ? 0 : elapsed)
-	for(var/key in scatter_proxies.Copy())
+	for(var/key in scatter_proxies)
 		if(!wanted[key])
 			qdel(scatter_proxies[key])
 			scatter_proxies -= key
@@ -385,7 +385,7 @@
 							proxy = new(tile, field, index)
 							scatter_proxies[key] = proxy
 						proxy.glide(spot[1], spot[2], bubble_z, null, bounds, fresh ? 0 : elapsed)
-	for(var/key in scatter_proxies.Copy())
+	for(var/key in scatter_proxies)
 		if(!wanted[key])
 			qdel(scatter_proxies[key])
 			scatter_proxies -= key
@@ -423,8 +423,8 @@
 /datum/fog_scene/scatter/proc/update(list/proxies)
 	visuals = proxies
 	var/list/next_drawn = list()
-	for(var/key in proxies)
-		var/obj/effect/abstract/hull_proxy_tile/scatter/tile = proxies[key]
+	for(var/key, tile_entry in proxies)
+		var/obj/effect/abstract/hull_proxy_tile/scatter/tile = tile_entry
 		var/turf/spot = get_turf(tile)
 		if(spot)
 			next_drawn[spot] = tile
@@ -486,8 +486,9 @@
 	return FALSE
 
 /datum/fog_scene/scatter/collect_clients(list/out)
-	for(var/client/viewer as anything in SSovermap.client_eyes)
-		var/list/eyes = SSovermap.client_eyes[viewer]
+	for(var/viewer_entry, eyes_entry in SSovermap.client_eyes)
+		var/client/viewer = viewer_entry
+		var/list/eyes = eyes_entry
 		for(var/turf/eye as anything in eyes)
 			if(SSovermap.frame_owner(eye) == owner)
 				out[viewer] = TRUE
@@ -514,8 +515,8 @@
 	if(!probe || !fog_rust_usable())
 		return list()
 	var/list/blockers = list()
-	for(var/key in visuals)
-		var/obj/effect/abstract/hull_proxy_tile/scatter/proxy = visuals[key]
+	for(var/key, proxy_entry in visuals)
+		var/obj/effect/abstract/hull_proxy_tile/scatter/proxy = proxy_entry
 		if(proxy.blocks_sight)
 			var/visual_x = grid_origin.x + proxy.field.scatter_points[proxy.point_index] - world_origin_x
 			var/visual_y = grid_origin.y + proxy.field.scatter_points[proxy.point_index + 1] - world_origin_y

@@ -173,10 +173,10 @@
 		if(!length(levels_available))
 			return
 		target_z = pick(levels_available)
-	var/turf/T = locate(_x, _y, target_z)
-	if(!T)
+	var/turf/target_turf = locate(_x, _y, target_z)
+	if(!target_turf)
 		return
-	dumpee.forceMove(T)
+	dumpee.forceMove(target_turf)
 	dumpee.newtonian_move(dumpee.dir)
 
 /turf/space/transit/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)

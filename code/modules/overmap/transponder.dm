@@ -265,10 +265,10 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	data["powered"] = !(stat & NOPOWER)
 	data["transmitting"] = is_transmitting()
 	var/list/colors = list()
-	for(var/color_name in GLOB.overmap_transponder_colors)
+	for(var/color_name, color_value in GLOB.overmap_transponder_colors)
 		colors += list(list(
 			"name" = color_name,
-			"color" = GLOB.overmap_transponder_colors[color_name],
+			"color" = color_value,
 		))
 	data["colors"] = colors
 	var/list/channels = list()
@@ -309,9 +309,9 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		if("set_color")
 			var/new_color = GLOB.overmap_transponder_colors[params["name"]]
 			if(!new_color)
-				for(var/color_name in GLOB.overmap_transponder_colors)
-					if(GLOB.overmap_transponder_colors[color_name] == params["color"])
-						new_color = GLOB.overmap_transponder_colors[color_name]
+				for(var/color_name, color_value in GLOB.overmap_transponder_colors)
+					if(color_value == params["color"])
+						new_color = color_value
 						break
 			if(!new_color)
 				return TRUE

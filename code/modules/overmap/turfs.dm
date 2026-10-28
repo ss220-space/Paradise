@@ -93,7 +93,7 @@
 	name = "map void"
 	desc = null
 	opacity = TRUE
-	color = "#000000"
+	color = COLOR_BLACK
 	space_lit = FALSE
 	luminosity = 0
 
@@ -101,7 +101,7 @@
 	. = ..()
 	icon = OVERMAP_ICON_FILE
 	icon_state = "map"
-	color = "#000000"
+	color = COLOR_BLACK
 	name = "map void"
 
 /turf/simulated/floor/indestructible/hyperspace

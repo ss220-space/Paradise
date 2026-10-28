@@ -188,7 +188,7 @@
 	occupant_sanity_check()
 	if(pilot)
 		eject_pilot()
-	for(var/mob/passenger as anything in passengers.Copy())
+	for(var/mob/passenger as anything in passengers)
 		eject_passenger(passenger)
 	if(equipment_system.cargo_system)
 		equipment_system.cargo_system.removed(null)

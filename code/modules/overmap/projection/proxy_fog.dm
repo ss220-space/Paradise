@@ -167,8 +167,9 @@
 	var/list/zones = vessel.hull_area_turfs
 	if(!length(eyes) || !length(zones))
 		return
-	for(var/client/viewer as anything in eyes)
-		var/list/spots = eyes[viewer]
+	for(var/viewer_entry, spots_entry in eyes)
+		var/client/viewer = viewer_entry
+		var/list/spots = spots_entry
 		if(!length(spots))
 			continue
 
@@ -246,8 +247,8 @@
 	var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
 	if(!views)
 		return FALSE
-	for(var/frame_key in views)
-		var/datum/fog_view/view = views[frame_key]
+	for(var/frame_key, view_entry in views)
+		var/datum/fog_view/view = view_entry
 		if(view?.tiles[source])
 			return TRUE
 	return FALSE
@@ -257,7 +258,7 @@
 /atom/movable/screen/overmap_proxy_void
 	icon = 'icons/effects/alphacolors.dmi'
 	icon_state = "white"
-	color = "#000000"
+	color = COLOR_BLACK
 	plane = OVERMAP_PROXY_VOID_PLANE
 	layer = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

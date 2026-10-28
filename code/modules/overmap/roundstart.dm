@@ -91,7 +91,7 @@
 	return null
 
 /obj/docking_port/mobile/emergency/proc/overmap_launch_escape_pods()
-	for(var/obj/docking_port/mobile/pod/pod as anything in SSshuttle.mobile.Copy())
+	for(var/obj/docking_port/mobile/pod/pod as anything in SSshuttle.mobile)
 		if(!istype(pod) || !is_station_level(pod.z))
 			continue
 		INVOKE_ASYNC(pod, TYPE_PROC_REF(/obj/docking_port/mobile/pod, launch_overmap_escape))

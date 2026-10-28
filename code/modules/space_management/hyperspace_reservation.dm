@@ -30,7 +30,7 @@
 /datum/turf_reservation/transit/overmap/Release()
 	for(var/turf/space/spot as anything in reserved_turfs)
 		if(length(spot.contents))
-			for(var/atom/movable/thing as anything in spot.contents.Copy())
+			for(var/atom/movable/thing as anything in spot.contents)
 				if(thing.simulated && !isobserver(thing) && !istype(thing, /obj/docking_port))
 					dump_in_space(thing)
 		spot.name = initial(spot.name)

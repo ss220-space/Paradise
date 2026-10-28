@@ -47,7 +47,7 @@
 /obj/machinery/computer/helm/proc/fire_weapons(x, y, mob/user)
 	if(!length(selected_weapons) || !isnum(x) || !isnum(y) || !(abs(x) < 1000000000) || !(abs(y) < 1000000000))
 		return FALSE
-	for(var/id in selected_weapons.Copy())
+	for(var/id in selected_weapons)
 		var/obj/gun = locateUID(id)
 		var/datum/component/ship_weapon/weapon = gun?.GetComponent(/datum/component/ship_weapon)
 		if(!weapon || weapon.host() != vessel)

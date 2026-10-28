@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 	if(cell[4] <= 0)
 		hull_version++
 		shape_dirty = TRUE
-		for(var/obj/machinery/gun as anything in virtual_weapons.Copy())
+		for(var/obj/machinery/gun as anything in virtual_weapons)
 			if(gun.virtual_weapon_x == cell[1] && gun.virtual_weapon_y == cell[2])
 				virtual_weapons -= gun
 				qdel(gun)
@@ -204,8 +204,8 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 	shape_dirty = FALSE
 	shape_refresh_at = world.time + OVERMAP_SLOW_TICK
 	radar_shape = list("tiles" = list(), "collars" = list())
-	for(var/key in virtual_cells)
-		var/list/cell = virtual_cells[key]
+	for(var/key, cell_entry in virtual_cells)
+		var/list/cell = cell_entry
 		if(cell[4] > 0)
 			radar_shape["tiles"] += list((cell[1] - hull_center_x) * 2, (cell[2] - hull_center_y) * 2)
 
@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 		var/dx = cell[1] - vessel.hull_center_x
 		var/dy = cell[2] - vessel.hull_center_y
 		tile.glide(new_center_x + dx * cosine + dy * sine, new_center_y + dy * cosine - dx * sine, new_z, turned, bounds, fresh ? 0 : time)
-	for(var/key in tiles_by_turf.Copy())
+	for(var/key in tiles_by_turf)
 		if(!wanted[key])
 			qdel(tiles_by_turf[key])
 			tiles_by_turf -= key

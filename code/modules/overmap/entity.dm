@@ -210,13 +210,13 @@
 	AddComponent(/datum/component/overmap_shuttle)
 
 /obj/overmap/entity/Destroy()
-	for(var/datum/tgui/ui as anything in radar_uis.Copy())
+	for(var/datum/tgui/ui as anything in radar_uis)
 		unwatch_radar(ui)
 	QDEL_NULL(programmed_mission)
 	QDEL_NULL(docking_approach)
 	if(docked_ship)
 		undock_ship()
-	for(var/obj/overmap/entity/guest as anything in docked_guests.Copy())
+	for(var/obj/overmap/entity/guest as anything in docked_guests)
 		guest.undock_ship()
 	docked_guests.Cut()
 	if(physical_space?.host == src)
@@ -573,3 +573,317 @@
 	if(!nav.omni_thrust && !nav.strongest_thrust())
 		return "двигатели не дают тяги ни в одну сторону"
 	return ""
+
+/obj/overmap/entity/proc/get_dock_host()
+	RETURN_TYPE(/obj/overmap/entity)
+	if(docked_to)
+		return docked_to
+	if(in_station_docking_zone())
+		return SSovermap.station_entity
+	var/turf/here = get_overmap_turf()
+	if(!here)
+		return null
+	for(var/datum/component/overmap_dock_host/host as anything in SSovermap.dock_hosts)
+		if(QDELETED(host) || host.parent == src)
+			continue
+		var/obj/overmap/entity/token = host.parent
+		if(token.get_overmap_turf() == here)
+			return token
+	for(var/obj/overmap/entity/other in here)
+		if(other != src && other.dock_host)
+			return other
+	for(var/obj/overmap/planet/planet in sector?.objects)
+		if(planet.outpost && planet.covers_turf(here))
+			return planet.outpost
+	return null
+
+/obj/overmap/entity/proc/pad_matches_host(obj/docking_port/stationary/pad, obj/overmap/entity/host)
+	if(!pad || !host)
+		return FALSE
+	if(host == SSovermap.station_entity && in_station_docking_zone() && !SSovermap.station_docking_zone.accepts_pad(pad))
+		return FALSE
+	if(istype(pad, /obj/docking_port/stationary/transit))
+		return FALSE
+	SSovermap?.host_for_pad(pad)
+	if(pad.overmap_host_uid)
+		return pad.overmap_host_uid == host.UID()
+	return host.dock_host?.matches_pad(pad)
+
+/obj/overmap/entity/proc/get_total_thrust()
+	return flight ? flight.get_total_thrust() : 0
+
+/obj/overmap/entity/proc/get_acceleration()
+	return flight ? flight.get_acceleration() : 0
+
+/obj/overmap/entity/proc/has_working_engines()
+	return !!flight?.has_working_engines()
+
+/obj/overmap/entity/proc/can_steer()
+	return !!flight?.can_steer()
+
+/obj/overmap/entity/proc/set_held_brake(enabled)
+	return flight?.set_held_brake(enabled)
+
+/obj/overmap/entity/proc/cut_engines()
+	return flight?.cut_engines()
+
+/obj/overmap/entity/proc/get_effective_acceleration()
+	return get_acceleration()
+
+/obj/overmap/entity/proc/get_brake_distance()
+	return flight ? flight.get_brake_distance() : 0
+
+/obj/overmap/entity/proc/set_autopilot(enabled, dest_x, dest_y)
+	flight?.set_autopilot(enabled, dest_x, dest_y)
+
+/obj/overmap/entity/proc/register_sensor(obj/machinery/computer/sensors/sensor)
+	sensors |= sensor
+	sensor.vessel = src
+
+/obj/overmap/entity/proc/unregister_sensor(obj/machinery/computer/sensors/sensor)
+	sensors -= sensor
+	if(sensor.vessel == src)
+		sensor.vessel = null
+
+/obj/overmap/entity/proc/register_sensor_array(obj/machinery/sensor_array/array)
+	sensor_arrays |= array
+	array.vessel = src
+	sensor_pack?.sync_sensor_array_power()
+
+/obj/overmap/entity/proc/unregister_sensor_array(obj/machinery/sensor_array/array)
+	sensor_arrays -= array
+	if(array.vessel == src)
+		array.vessel = null
+	if(!has_working_sensor(OVERMAP_SENSOR_KIND_LONG))
+		long_sensors_on = FALSE
+	if(!has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
+		short_sensors_on = FALSE
+	sensor_pack?.sync_peel_sound()
+	sensor_pack?.sync_sensor_array_power()
+	sensor_pack?.refresh_sensor_displays()
+
+/obj/overmap/entity/proc/has_working_sensor(kind)
+	return sensor_pack?.has_working_sensor(kind)
+
+/obj/overmap/entity/proc/sensor_ping_active()
+	return sensor_pack?.sensor_ping_active()
+
+/obj/overmap/entity/proc/signal_view_range()
+	return sensor_pack ? sensor_pack.signal_view_range() : 0
+
+/obj/overmap/entity/proc/sensor_journal_range()
+	return sensor_pack ? sensor_pack.sensor_journal_range() : 0
+
+/obj/overmap/entity/proc/can_receive_sensor_log()
+	return sensor_pack?.can_receive_sensor_log()
+
+/obj/overmap/entity/proc/add_sensor_journal(message, kind, turf/spot, display_name, tone, note)
+	sensor_pack?.add_sensor_journal(message, kind, spot, display_name, tone, note)
+
+/obj/overmap/entity/proc/senses_object(obj/overmap/other)
+	return sensor_pack?.senses_object(other)
+
+/obj/overmap/entity/proc/contact_map_alpha(obj/overmap/other)
+	return sensor_pack ? sensor_pack.contact_map_alpha(other) : 0
+
+/obj/overmap/entity/proc/contact_is_steady(obj/overmap/other)
+	return sensor_pack?.contact_is_steady(other)
+
+/obj/overmap/entity/proc/sees_foreign_peel(obj/overmap/other)
+	return sensor_pack?.sees_foreign_peel(other)
+
+/obj/overmap/entity/proc/sees_any_foreign_peel()
+	return sensor_pack?.sees_any_foreign_peel()
+
+/obj/overmap/entity/proc/is_sensor_peeling()
+	if(!sensor_peel_at)
+		return FALSE
+	return (world.time - sensor_peel_at) <= (OVERMAP_SENSOR_TIME_DELAY * OVERMAP_SENSOR_LONG_VIEW)
+
+/obj/overmap/entity/proc/contact_identified(obj/overmap/other)
+	return sensor_pack ? sensor_pack.contact_identified(other) : iff_detects(other)
+
+/obj/overmap/entity/proc/set_long_sensors(enabled)
+	return sensor_pack?.set_long_sensors(enabled)
+
+/obj/overmap/entity/proc/set_short_sensors(enabled)
+	return sensor_pack?.set_short_sensors(enabled)
+
+/obj/overmap/entity/proc/can_short_scan(obj/overmap/other)
+	return sensor_pack?.can_short_scan(other)
+
+/obj/overmap/entity/proc/short_knows(obj/overmap/other)
+	return sensor_pack?.short_knows(other)
+
+/obj/overmap/entity/proc/display_identified(obj/overmap/other, short_console = FALSE)
+	return sensor_pack?.display_identified(other, short_console)
+
+/obj/overmap/entity/proc/identify_short(obj/overmap/other)
+	sensor_pack?.identify_short(other)
+
+/obj/overmap/entity/proc/identify_short_many(list/others)
+	sensor_pack?.identify_short_many(others)
+
+/obj/overmap/entity/proc/export_short_dump()
+	return sensor_pack?.export_short_dump() || list()
+
+/obj/overmap/entity/proc/import_short_dump(list/uids, source_name)
+	return sensor_pack?.import_short_dump(uids, source_name) || 0
+
+/obj/overmap/entity/proc/play_being_scanned()
+	if(!shuttle)
+		return
+	for(var/area/place as anything in shuttle.shuttle_areas)
+		for(var/mob/listener in place)
+			if(!listener.client)
+				continue
+			listener.playsound_local(get_turf(listener), OVERMAP_SENSOR_LOOP_SOUND, 40, FALSE)
+
+/obj/overmap/entity/proc/start_sensor_ping()
+	return sensor_pack?.start_sensor_ping()
+
+/obj/overmap/entity/proc/sync_sensor_array_power()
+	sensor_pack?.sync_sensor_array_power()
+
+/obj/overmap/entity/proc/refresh_sensor_displays()
+	sensor_pack?.refresh_sensor_displays()
+
+/obj/overmap/entity/proc/process_sensors()
+	sensor_pack?.process_sensors()
+
+/obj/overmap/entity/proc/is_long_range_detectable()
+	return sensor_pack?.is_long_range_detectable()
+
+/obj/overmap/entity/proc/bind_shuttle_signals()
+	overmap_shuttle?.bind(shuttle)
+
+/obj/overmap/entity/proc/recalculate_mass()
+	if(overmap_shuttle)
+		overmap_shuttle.recalculate_mass()
+	else if(overmap_kind == OVERMAP_KIND_STATION)
+		vessel_mass = OVERMAP_MASS_STATION
+
+/obj/overmap/entity/proc/nest_inside(obj/overmap/entity/host)
+	if(!host)
+		return
+	docked_to?.dock_host?.remove_nested(src)
+	docked_to = host
+	status = OVERMAP_STATUS_DOCKED
+	halted = TRUE
+	speed[1] = 0
+	speed[2] = 0
+	host.dock_host?.add_nested(src)
+	forceMove(host)
+	if(host.sector)
+		sector = host.sector
+		host.sector.objects |= src
+	position = list(0, 0)
+	update_overmap_pixel()
+	hidden_from_contacts = TRUE
+	if(free_flight_view)
+		set_free_flight_view(FALSE)
+	update_overmap_visibility()
+	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
+
+/obj/overmap/entity/proc/release_to_overmap(turf/open_turf, list/world_position, initial_facing = null)
+	radar_transitioning = TRUE
+	if(!open_turf)
+		open_turf = docked_to?.get_overmap_turf() || get_overmap_turf()
+	var/datum/overmap_sector/dest_sector = docked_to?.sector || sector || SSovermap?.sector_for_turf(open_turf) || SSovermap?.local_sector
+	var/list/saved_position
+	if(docked_to)
+		saved_position = list(docked_to.position[1], docked_to.position[2])
+	docked_to?.dock_host?.remove_nested(src)
+	docked_to = null
+	status = OVERMAP_STATUS_OVERMAP
+	halted = FALSE
+	hidden_from_contacts = FALSE
+	if(!open_turf && dest_sector)
+		open_turf = dest_sector.get_random_open_turf()
+	if(open_turf)
+		forceMove(open_turf)
+	if(dest_sector && dest_sector != sector)
+		sector?.remove_object(src)
+		dest_sector.add_object(src, open_turf)
+	else if(dest_sector)
+		sector = dest_sector
+		dest_sector.objects |= src
+	if(saved_position)
+		position = saved_position
+		update_overmap_pixel()
+	if(world_position)
+		set_world_position(world_position[1], world_position[2])
+		if(!isnull(initial_facing))
+			flight?.set_facing(initial_facing)
+	if(!free_flight_view && ((shuttle && undock_origin && in_free_flight()) || (overmap_pod && world_position)))
+		set_free_flight_view(TRUE)
+	radar_epoch++
+	radar_transitioning = FALSE
+	update_overmap_visibility()
+	SEND_SIGNAL(src, COMSIG_OVERMAP_MOVED)
+
+/obj/overmap/entity/proc/get_owned_dock_ids()
+	return overmap_shuttle ? overmap_shuttle.get_owned_dock_ids() : list()
+
+/obj/overmap/entity/proc/is_owned_dock(obj/docking_port/stationary/pad)
+	return overmap_shuttle?.is_owned_dock(pad)
+
+/obj/overmap/entity/proc/is_station_dock(obj/docking_port/stationary/pad)
+	return overmap_shuttle?.is_station_dock(pad)
+
+/obj/overmap/entity/proc/get_custom_dock(obj/overmap/entity/host)
+	return overmap_shuttle?.get_custom_dock(host)
+
+/obj/overmap/entity/proc/is_custom_dock(obj/docking_port/stationary/pad)
+	return overmap_shuttle?.is_custom_dock(pad)
+
+/obj/overmap/entity/proc/get_undock_pad()
+	return overmap_shuttle?.get_undock_pad()
+
+/obj/overmap/entity/proc/get_selected_pad()
+	return overmap_shuttle?.get_selected_pad()
+
+/obj/overmap/entity/proc/set_selected_pad(pad_id)
+	if(overmap_pod)
+		return overmap_pod.set_selected_pad(pad_id)
+	return overmap_shuttle?.set_selected_pad(pad_id)
+
+/obj/overmap/entity/proc/set_selected_collar(collar_uid)
+	return overmap_shuttle?.set_selected_collar(collar_uid)
+
+/obj/overmap/entity/proc/select_collar_by_key(key)
+	return overmap_shuttle?.select_collar_by_key(key)
+
+/obj/overmap/entity/proc/build_collar_list()
+	return overmap_shuttle ? overmap_shuttle.build_collar_list() : list()
+
+/obj/overmap/entity/proc/dock_fail_text(status)
+	return overmap_shuttle ? overmap_shuttle.dock_fail_text(status) : "Стыковка невозможна."
+
+/obj/overmap/entity/proc/build_dock_list()
+	if(overmap_pod)
+		return overmap_pod.build_dock_list()
+	return overmap_shuttle ? overmap_shuttle.build_dock_list() : list()
+
+/obj/overmap/entity/proc/begin_physical_undock(instant = FALSE)
+	if(overmap_pod)
+		return overmap_pod.begin_undock()
+	return overmap_shuttle ? overmap_shuttle.begin_physical_undock(instant) : "Нет шаттла."
+
+/obj/overmap/entity/proc/begin_physical_dock(instant = FALSE)
+	if(overmap_pod)
+		return overmap_pod.begin_dock()
+	return overmap_shuttle ? overmap_shuttle.begin_physical_dock(instant) : "Нет шаттла."
+
+/obj/overmap/entity/proc/dock_with(atom/target)
+	if(overmap_shuttle)
+		return overmap_shuttle.dock_with(target)
+	var/obj/overmap/portal/portal = target
+	if(istype(portal))
+		return portal.transit_vessel(src)
+	return "Нечего стыковать."
+
+/obj/overmap/entity/proc/can_use_portal(obj/overmap/portal/portal)
+	if(!portal.required_vessel_flags)
+		return TRUE
+	return (vessel_flags & portal.required_vessel_flags) == portal.required_vessel_flags

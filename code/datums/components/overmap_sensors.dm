@@ -55,23 +55,25 @@
 	var/turf/here = vessel.get_overmap_turf()
 	if(!here || !vessel.sector)
 		return 0
-	. = 0
+	var/view_range = 0
 	for(var/obj/overmap/other as anything in vessel.sector.objects)
 		if(!always_sees(other) || other == vessel)
 			continue
 		var/turf/there = other.get_overmap_turf()
 		if(!there || there.z != here.z)
 			continue
-		. = max(., max(abs(here.x - there.x), abs(here.y - there.y)))
+		view_range = max(view_range, max(abs(here.x - there.x), abs(here.y - there.y)))
+	return view_range
 
 /datum/component/overmap_sensors/proc/sensor_journal_range()
 	var/obj/overmap/entity/vessel = parent
-	. = 0
+	var/journal_range = 0
 	if(has_working_sensor(OVERMAP_SENSOR_KIND_LONG) && vessel.long_sensors_on)
-		. = max(., OVERMAP_SENSOR_LONG_VIEW)
+		journal_range = max(journal_range, OVERMAP_SENSOR_LONG_VIEW)
 	if(has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) && vessel.short_sensors_on)
-		. = max(., OVERMAP_SENSOR_SHORT_VIEW)
-	. = max(., signal_view_range())
+		journal_range = max(journal_range, OVERMAP_SENSOR_SHORT_VIEW)
+	journal_range = max(journal_range, signal_view_range())
+	return journal_range
 
 /datum/component/overmap_sensors/proc/can_receive_sensor_log()
 	var/obj/overmap/entity/vessel = parent
@@ -484,8 +486,7 @@
 /datum/component/overmap_sensors/proc/prune_peel_hits()
 	if(!peel_hit_times)
 		return
-	for(var/uid in peel_hit_times.Copy())
-		var/hit = peel_hit_times[uid]
+	for(var/uid, hit in peel_hit_times)
 		if((world.time - hit) < peel_cycle_len())
 			continue
 		peel_hit_times -= uid
@@ -527,8 +528,8 @@
 /datum/component/overmap_sensors/proc/expire_contact_memory()
 	if(!contact_memory)
 		return
-	for(var/uid in contact_memory)
-		var/list/prev = contact_memory[uid]
+	for(var/uid, prev_entry in contact_memory)
+		var/list/prev = prev_entry
 		if(world.time <= prev["remember_until"])
 			continue
 		var/datum/found = locateUID(uid)
@@ -603,121 +604,3 @@
 	if(vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_MED)
 		return displayed_speed >= OVERMAP_SENSOR_STEALTH_SPEED_MED
 	return displayed_speed >= OVERMAP_SENSOR_STEALTH_SPEED_SMALL
-
-/obj/overmap/entity/proc/register_sensor(obj/machinery/computer/sensors/sensor)
-	sensors |= sensor
-	sensor.vessel = src
-
-/obj/overmap/entity/proc/unregister_sensor(obj/machinery/computer/sensors/sensor)
-	sensors -= sensor
-	if(sensor.vessel == src)
-		sensor.vessel = null
-
-/obj/overmap/entity/proc/register_sensor_array(obj/machinery/sensor_array/array)
-	sensor_arrays |= array
-	array.vessel = src
-	sensor_pack?.sync_sensor_array_power()
-
-/obj/overmap/entity/proc/unregister_sensor_array(obj/machinery/sensor_array/array)
-	sensor_arrays -= array
-	if(array.vessel == src)
-		array.vessel = null
-	if(!has_working_sensor(OVERMAP_SENSOR_KIND_LONG))
-		long_sensors_on = FALSE
-	if(!has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
-		short_sensors_on = FALSE
-	sensor_pack?.sync_peel_sound()
-	sensor_pack?.sync_sensor_array_power()
-	sensor_pack?.refresh_sensor_displays()
-
-/obj/overmap/entity/proc/has_working_sensor(kind)
-	return sensor_pack?.has_working_sensor(kind)
-
-/obj/overmap/entity/proc/sensor_ping_active()
-	return sensor_pack?.sensor_ping_active()
-
-/obj/overmap/entity/proc/signal_view_range()
-	return sensor_pack ? sensor_pack.signal_view_range() : 0
-
-/obj/overmap/entity/proc/sensor_journal_range()
-	return sensor_pack ? sensor_pack.sensor_journal_range() : 0
-
-/obj/overmap/entity/proc/can_receive_sensor_log()
-	return sensor_pack?.can_receive_sensor_log()
-
-/obj/overmap/entity/proc/add_sensor_journal(message, kind, turf/spot, display_name, tone, note)
-	sensor_pack?.add_sensor_journal(message, kind, spot, display_name, tone, note)
-
-/obj/overmap/entity/proc/senses_object(obj/overmap/other)
-	return sensor_pack?.senses_object(other)
-
-/obj/overmap/entity/proc/contact_map_alpha(obj/overmap/other)
-	return sensor_pack ? sensor_pack.contact_map_alpha(other) : 0
-
-/obj/overmap/entity/proc/contact_is_steady(obj/overmap/other)
-	return sensor_pack?.contact_is_steady(other)
-
-/obj/overmap/entity/proc/sees_foreign_peel(obj/overmap/other)
-	return sensor_pack?.sees_foreign_peel(other)
-
-/obj/overmap/entity/proc/sees_any_foreign_peel()
-	return sensor_pack?.sees_any_foreign_peel()
-
-/obj/overmap/entity/proc/is_sensor_peeling()
-	if(!sensor_peel_at)
-		return FALSE
-	return (world.time - sensor_peel_at) <= (OVERMAP_SENSOR_TIME_DELAY * OVERMAP_SENSOR_LONG_VIEW)
-
-/obj/overmap/entity/proc/contact_identified(obj/overmap/other)
-	return sensor_pack ? sensor_pack.contact_identified(other) : iff_detects(other)
-
-/obj/overmap/entity/proc/set_long_sensors(enabled)
-	return sensor_pack?.set_long_sensors(enabled)
-
-/obj/overmap/entity/proc/set_short_sensors(enabled)
-	return sensor_pack?.set_short_sensors(enabled)
-
-/obj/overmap/entity/proc/can_short_scan(obj/overmap/other)
-	return sensor_pack?.can_short_scan(other)
-
-/obj/overmap/entity/proc/short_knows(obj/overmap/other)
-	return sensor_pack?.short_knows(other)
-
-/obj/overmap/entity/proc/display_identified(obj/overmap/other, short_console = FALSE)
-	return sensor_pack?.display_identified(other, short_console)
-
-/obj/overmap/entity/proc/identify_short(obj/overmap/other)
-	sensor_pack?.identify_short(other)
-
-/obj/overmap/entity/proc/identify_short_many(list/others)
-	sensor_pack?.identify_short_many(others)
-
-/obj/overmap/entity/proc/export_short_dump()
-	return sensor_pack?.export_short_dump() || list()
-
-/obj/overmap/entity/proc/import_short_dump(list/uids, source_name)
-	return sensor_pack?.import_short_dump(uids, source_name) || 0
-
-/obj/overmap/entity/proc/play_being_scanned()
-	if(!shuttle)
-		return
-	for(var/area/place as anything in shuttle.shuttle_areas)
-		for(var/mob/listener in place)
-			if(!listener.client)
-				continue
-			listener.playsound_local(get_turf(listener), OVERMAP_SENSOR_LOOP_SOUND, 40, FALSE)
-
-/obj/overmap/entity/proc/start_sensor_ping()
-	return sensor_pack?.start_sensor_ping()
-
-/obj/overmap/entity/proc/sync_sensor_array_power()
-	sensor_pack?.sync_sensor_array_power()
-
-/obj/overmap/entity/proc/refresh_sensor_displays()
-	sensor_pack?.refresh_sensor_displays()
-
-/obj/overmap/entity/proc/process_sensors()
-	sensor_pack?.process_sensors()
-
-/obj/overmap/entity/proc/is_long_range_detectable()
-	return sensor_pack?.is_long_range_detectable()
