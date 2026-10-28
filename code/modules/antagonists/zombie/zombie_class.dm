@@ -49,9 +49,10 @@
 /datum/zombie_class/tank
 	name = "Танк"
 	desc = "Очень медленный, но невероятно живучий зомби. Наносит огромный урон и выдерживает множество попаданий. Умеет топать, создавая ударную волну."
-	brute_mod = 0.5
-	burn_mod = 0.5
-	stamina_mod = 0.5
+	healing_factor_mod = 1.2
+	brute_mod = 0.4
+	burn_mod = 0.4
+	stamina_mod = 0.4
 	damage_mod = 1.7
 	movespeed_modifier = /datum/movespeed_modifier/zombie/slow
 	special_skill = /datum/action/cooldown/spell/stomp/zombie
@@ -68,10 +69,10 @@
 
 /datum/zombie_class/smoker/apply(mob/living/carbon/human/zombie)
 	. = ..()
-	zombie.AddElement(/datum/element/dark_invisibility)
+	zombie.AddElement(/datum/element/dark_invisibility, 100, 50, ALPHA_SOURCE_ZOMBIE)
 
 /datum/zombie_class/smoker/remove(mob/living/carbon/human/zombie)
-	zombie.RemoveElement(/datum/element/dark_invisibility)
+	zombie.RemoveElement(/datum/element/dark_invisibility, 100, 50, ALPHA_SOURCE_ZOMBIE)
 	return ..()
 
 /datum/zombie_class/spitter

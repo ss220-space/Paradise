@@ -34,12 +34,6 @@
 	var/suck_rate = 5 SECONDS
 	/// Amount of blood in units sucked from victim on every suck iteration
 	var/sucking_amount = 30
-	/// Indicates the type of nullification (old or new)
-	var/nullification = NEW_NULLIFICATION
-	/// Does garlic affect vampire?
-	var/is_garlic_affected = FALSE
-	/// Does a vampire turn to dust after dying from space?
-	var/dust_in_space = FALSE
 	/// List of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum.
 	var/list/upgrade_tiers = list()
 
@@ -300,7 +294,9 @@
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				for(var/datum/disease/virus/virus as anything in vampire.diseases)
-					virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = vampire.zone_selected)
+					virus.Contract(target, BLOOD|BITES)
+				for(var/datum/disease/virus/virus as anything in target.diseases)
+					virus.Contract(vampire, BLOOD)
 				time_per_action = suck_rate_final
 				continue
 
@@ -546,7 +542,7 @@
 		to_chat(owner.current, span_userdanger("Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100 && dust_in_space)
+		if(owner.current.cloneloss >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
@@ -590,12 +586,8 @@
 
 	if(is_type_in_typecache(get_area(owner.current), GLOB.holy_areas) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			nullified = max(0, nullified - 1)
 
-		if(NEW_NULLIFICATION)
-			nullified = max(0, nullified - 2)
+	nullified = max(0, nullified - 2)
 
 /datum/antagonist/vampire/proc/draw_HUD()
 	var/datum/hud/hud = owner?.current?.hud_used
@@ -651,20 +643,10 @@
 
 /datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			nullified = max(base, nullified + extra)
-
-		if(NEW_NULLIFICATION)
-			nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
+	nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
 
 /datum/antagonist/vampire/proc/base_nullification()
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			adjust_nullification(5, 2)
-
-		if(NEW_NULLIFICATION)
-			adjust_nullification(20, 4)
+	adjust_nullification(20, 4)
 
 /**
  * Checks if our `victim` is suitable for diablerie, and if so, perform diablerie
