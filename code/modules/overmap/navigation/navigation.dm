@@ -55,6 +55,18 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 			return FALSE
 	return TRUE
 
+/proc/overmap_navigation_entry(list/box, list/target)
+	var/center_x = (box[1] + box[3]) / 2
+	var/center_y = (box[2] + box[4]) / 2
+	var/dx = target[1] - center_x
+	var/dy = target[2] - center_y
+	if(!dx && !dy)
+		dy = 1
+	var/scale_x = dx ? (box[3] - box[1] + 2) / (2 * abs(dx)) : INFINITY
+	var/scale_y = dy ? (box[4] - box[2] + 2) / (2 * abs(dy)) : INFINITY
+	var/scale = min(scale_x, scale_y)
+	return list(center_x + dx * scale, center_y + dy * scale)
+
 /proc/overmap_navigation_path(list/start, list/finish, list/boxes, list/limits)
 	if(limits && !overmap_nav_inside(finish, limits))
 		return null
@@ -193,6 +205,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 
 /datum/overmap_navigation/proc/waypoint(world_x, world_y, obj/overmap/entity/host)
 	var/obj/overmap/entity/vessel = flight.parent
+	var/list/entry_box = vessel.programmed_mission?.navigation_entry_box
 	if(!goal || abs(goal[1] - world_x) + abs(goal[2] - world_y) > 4 || corridor_host != host)
 		reset()
 		goal = list(world_x, world_y)
@@ -204,8 +217,9 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 		planning = FALSE
 		force_passage = TRUE
 		blocked_since = null
-		path = list(list(world_x, world_y))
-	if(force_passage)
+		path = entry_box ? null : list(list(world_x, world_y))
+		next_plan = 0
+	if(force_passage && !entry_box)
 		return list(world_x, world_y)
 	if(!planning && world.time >= next_plan)
 		plan(revision, list(vessel.get_world_x(), vessel.get_world_y()), goal.Copy(), host)
@@ -224,8 +238,13 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 	var/obj/overmap/entity/vessel = flight.parent
 	var/datum/overmap_sector/sector = vessel.sector
 	var/list/boxes = list()
+	var/list/entry_box = vessel.programmed_mission?.navigation_entry_box
+	if(entry_box)
+		boxes += list(entry_box)
 	var/span = OVERMAP_TILE_SPAN * sector.tile_travel
 	for(var/obj/overmap/entity/obstacle in sector.objects)
+		if(force_passage && entry_box)
+			break
 		if(QDELETED(src) || QDELETED(vessel) || revision != version)
 			return
 		if(obstacle == vessel || obstacle == host || obstacle.docked_ship == vessel || !isturf(obstacle.loc) || obstacle.dock_host?.planet_landing || !obstacle.project_terrain)
@@ -242,6 +261,8 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 			boxes += list(box)
 		CHECK_TICK
 	for(var/list/cluster as anything in overmap_hazard_clusters(sector))
+		if(force_passage && entry_box)
+			break
 		var/list/box
 		for(var/obj/overmap/feature/hazard/field as anything in cluster)
 			if(!vessel.programmed_mission && vessel.object_visibility(field, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) <= OVERMAP_CHART_UNSEEN_ALPHA)
@@ -256,7 +277,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 	var/list/limits = list((sector.origin_x + 0.5) * span + vessel.hull_radius, (sector.origin_y + 0.5) * span + vessel.hull_radius, (sector.origin_x + sector.size - 1.5) * span - vessel.hull_radius, (sector.origin_y + sector.size - 1.5) * span - vessel.hull_radius)
 	var/list/result
 	var/precision = 2
-	if(host?.physical_space)
+	if(host?.physical_space && !entry_box)
 		var/datum/overmap_navigation_grid/grid = new(src, host.physical_space, boxes, limits, finish)
 		result = grid.find_path(start)
 		precision = 0.5

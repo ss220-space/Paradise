@@ -3,6 +3,8 @@
 	navigation_step = 0
 	navigation_dock_prepared = FALSE
 	navigation_beacons = null
+	navigation_entry_ready = FALSE
+	navigation_entry_box = null
 	try_fly()
 
 /datum/overmap_programmed_mission/proc/prepare_navigation()
@@ -104,6 +106,18 @@
 					world_y = max(world_y, extent[4] + margin)
 				else if(cos(outward) < -0.5)
 					world_y = min(world_y, extent[2] - margin)
+	if(!navigation_entry_ready && host == SSovermap.station_entity)
+		if(!navigation_entry_box)
+			var/center_x = host.get_world_x()
+			var/center_y = host.get_world_y()
+			var/margin = vessel.hull_radius + 8
+			var/list/extent = host.physical_space?.navigation_box()
+			navigation_entry_box = list(center_x - 200 - margin, center_y - 200 - margin, center_x + 200 + margin, center_y + 200 + margin)
+			if(extent)
+				navigation_entry_box = list(min(navigation_entry_box[1], extent[1] - margin), min(navigation_entry_box[2], extent[2] - margin), max(navigation_entry_box[3], extent[3] + margin), max(navigation_entry_box[4], extent[4] + margin))
+		var/list/entry = overmap_navigation_entry(navigation_entry_box, list(world_x, world_y))
+		world_x = entry[1]
+		world_y = entry[2]
 	vessel.flight.navigate_world(world_x, world_y, heading, host)
 
 /datum/overmap_programmed_mission/proc/navigation_arrived()
@@ -116,6 +130,11 @@
 		return
 	if(needs_hyperrelay())
 		on_overmap_arrived()
+		return
+	if(navigation_entry_box)
+		navigation_entry_box = null
+		navigation_entry_ready = TRUE
+		continue_navigation()
 		return
 	if(navigation_step >= length(navigation_beacons) + 2)
 		phase = OVERMAP_PROG_DOCK

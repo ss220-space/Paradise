@@ -439,6 +439,8 @@
 	return abs(delta_x) < extent && abs(delta_y) < extent && abs(delta_x * cosine + delta_y * sine) < extent && abs(delta_y * cosine - delta_x * sine) < extent
 
 /obj/overmap/entity/proc/solid_hull_at(world_x, world_y)
+	if(!length(hull_turfs) || !hull_z)
+		return null
 	var/list/point = world_to_hull(world_x, world_y)
 	var/cosine = cos(get_facing())
 	var/sine = sin(get_facing())
@@ -447,7 +449,7 @@
 	for(var/tile_x in center_x - 1 to center_x + 1)
 		for(var/tile_y in center_y - 1 to center_y + 1)
 			var/turf/tile = locate(tile_x, tile_y, hull_z)
-			if(!hull_turfs[tile] || !overmap_tiles_overlap(point[1] - tile_x, point[2] - tile_y, cosine, sine))
+			if(!tile || !hull_turfs[tile] || !overmap_tiles_overlap(point[1] - tile_x, point[2] - tile_y, cosine, sine))
 				continue
 			if(tile.is_blocked_turf(exclude_mobs = TRUE))
 				return tile

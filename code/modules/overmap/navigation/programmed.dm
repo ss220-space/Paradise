@@ -442,6 +442,8 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/list/obj/effect/landmark/overmap_navigation_beacon/navigation_beacons
 	var/navigation_step = 0
 	var/navigation_dock_prepared = FALSE
+	var/navigation_entry_ready = FALSE
+	var/list/navigation_entry_box
 	var/departure_dock_id
 	var/departure_pending = FALSE
 	var/departure_step = 1

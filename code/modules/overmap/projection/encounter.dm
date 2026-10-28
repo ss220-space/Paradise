@@ -355,9 +355,11 @@
 	return list(origin_x + local_x * cos(facing) + local_y * sin(facing), origin_y - local_x * sin(facing) + local_y * cos(facing))
 
 /obj/overmap/entity/proc/hull_turf_at(world_x, world_y, origin_x = get_world_x(), origin_y = get_world_y(), facing = get_facing())
+	if(!length(hull_turfs) || !hull_z)
+		return null
 	var/list/spot = world_to_hull(world_x, world_y, origin_x, origin_y, facing)
 	var/turf/hull_turf = locate(FLOOR(spot[1] + 0.5, 1), FLOOR(spot[2] + 0.5, 1), hull_z)
-	return hull_turfs[hull_turf] ? hull_turf : null
+	return hull_turf && hull_turfs[hull_turf] ? hull_turf : null
 
 /obj/overmap/entity/proc/quarter_turns()
 	return round(get_facing() / 90, 1) * 90
@@ -750,6 +752,8 @@
 /datum/overmap_bubble/proc/hull_under(turf/spot, blocking = FALSE)
 	var/list/spot_world = to_world(spot.x, spot.y)
 	for(var/obj/overmap/entity/vessel as anything in ships)
+		if(QDELETED(vessel) || !vessel.free_flight_view || !length(vessel.hull_turfs))
+			continue
 		var/turf/hull_turf = blocking ? vessel.solid_hull_at(spot_world[1], spot_world[2]) : vessel.hull_turf_at(spot_world[1], spot_world[2])
 		if(hull_turf)
 			return list(vessel, hull_turf)
@@ -758,7 +762,7 @@
 	var/list/seen = list()
 	var/list/drawn = list()
 	for(var/obj/overmap/entity/vessel as anything in flying)
-		if(vessel.sector != sector || vessel.formation_pad)
+		if(QDELETED(vessel) || !vessel.free_flight_view || vessel.sector != sector || vessel.formation_pad)
 			continue
 		var/list/spot = to_bubble(vessel.get_world_x(), vessel.get_world_y())
 		if(!covers(spot, vessel.hull_radius))
@@ -851,6 +855,8 @@
 			return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /datum/overmap_bubble/proc/try_board(atom/movable/drifter)
+	if(QDELETED(drifter) || drifter.anchored || !drifter.simulated || isobserver(drifter))
+		return FALSE
 	var/turf/spot = drifter.loc
 	if(!isturf(spot))
 		return FALSE
