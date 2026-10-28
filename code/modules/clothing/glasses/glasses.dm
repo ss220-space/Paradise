@@ -557,7 +557,6 @@
 /obj/item/clothing/glasses/meson/cyber
 	name = "eye replacement implant"
 	desc = "Имплантированная замена левого глаза с функцией мезонного зрения. Позволяет видеть бреши и полости в окружающем пространстве."
-	gender = MALE
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
 	flags_cover = NONE
@@ -580,7 +579,6 @@
 /obj/item/clothing/glasses/meson/visor
 	name = "meson optical visor"
 	desc = "Технологичный визор для глаз. Оснащён системой мезонного зрения, предназначенной для визуального обнаружения брешей и полостей в окружающем пространстве."
-	gender = MALE
 	icon_state = "mesonvisor"
 	item_state = "mesonvisor"
 
@@ -598,7 +596,6 @@
 	name = "meson monocle scanner"
 	desc = "Оптический прибор, носимый путём зажатия мышцами лица. \
 			Оснащён системой мезонного зрения, предназначенной для визуального обнаружения брешей и полостей в окружающем пространстве."
-	gender = MALE
 	icon_state = "monomeson"
 	item_state = "monohud"
 	sprite_sheets = list(
@@ -751,7 +748,6 @@
 	name = "sunscanners"
 	desc = "Очки с экранированием от ультрафиолетовых лучей, защищающие глаза носителя от ярких вспышек света. \
 			Оснащены научным сканером."
-	examine_extensions = EXAMINE_HUD_SCIENCE
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
@@ -977,7 +973,6 @@
 /obj/item/clothing/glasses/thermal/cyber
 	name = "eye replacement implant"
 	desc = "Имплантированная замена левого глаза с функцией термального зрения. Позволяет обнаруживать тепловые сигнатуры живых существ сквозь препятствия."
-	gender = MALE
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
 
