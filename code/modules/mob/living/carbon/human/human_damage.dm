@@ -137,8 +137,10 @@
 
 	return 200
 
-/mob/living/carbon/human/proc/check_brain_for_complex_interactions()
+/mob/living/carbon/human/check_brain_for_complex_interactions()
 	if(getBrainLoss() >= 60 || prob(getBrainLoss()))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		return FALSE
 	var/datum/disease/virus/advance/A = locate(/datum/disease/virus/advance) in diseases
 	if(istype(A))

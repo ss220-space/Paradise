@@ -118,7 +118,7 @@
 	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return
 
-	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
+	if(usr && is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
 		var/obj/item/item = A
 		if(item.item_flags & (IN_INVENTORY|IN_STORAGE))
 			return

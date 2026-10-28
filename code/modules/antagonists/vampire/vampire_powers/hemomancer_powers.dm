@@ -115,6 +115,9 @@
 			if(!HAS_TRAIT(C, TRAIT_EXOTIC_BLOOD))
 				V.adjust_blood(C, blood_absorbed_amount)
 
+	for(var/datum/disease/virus/virus as anything in attacker.diseases)
+		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = attacker.zone_selected)
+
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
 		if(durability <= 0)
@@ -131,6 +134,7 @@
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	var/required_blood = 10
 	school = SCHOOL_SANGUINE
+	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "blood_tendrils"
 	background_icon_state = "bg_vampire"

@@ -1291,11 +1291,11 @@ GAME_VERB_SRC(/mob/living/carbon/human, check_pulse, view(1), "Проверит�
 	return species_check
 
 /mob/living/carbon/human/get_default_language()
-	if(default_language)
-		return default_language
-
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
 		return GLOB.all_languages[LANGUAGE_ZOMBIE]
+
+	if(default_language)
+		return default_language
 
 	if(!dna.species)
 		return null
@@ -1855,7 +1855,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	brains.original_body = WEAKREF(self_chest)
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 100
+	return check_brain_for_complex_interactions()
 
 /mob/living/carbon/human/fakefire()
 	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)

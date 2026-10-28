@@ -216,12 +216,10 @@
 
 	// spread diseases
 	for(var/datum/disease/virus/virus in diseases)
-		if(virus.spread_flags & CONTACT)
-			virus.Contract(bumped_mob, act_type = CONTACT, need_protection_check = TRUE)
+		virus.Contract(bumped_mob, act_type = CONTACT, need_protection_check = TRUE)
 
 	for(var/datum/disease/virus/virus in bumped_mob.diseases)
-		if(virus.spread_flags & CONTACT)
-			virus.Contract(src, act_type = CONTACT, need_protection_check = TRUE)
+		virus.Contract(src, act_type = CONTACT, need_protection_check = TRUE)
 
 	if(bumped_mob.pulledby && bumped_mob.pulledby != src && HAS_TRAIT(bumped_mob, TRAIT_RESTRAINED))
 		if(!(world.time % 5))
@@ -1579,12 +1577,10 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 
 			//Share diseases that are spread by touch
 			for(var/datum/disease/virus/virus in diseases)
-				if(virus.spread_flags & CONTACT)
-					virus.Contract(pulled_living, act_type = CONTACT, need_protection_check = TRUE, zone = zone_selected)
+				virus.Contract(pulled_living, act_type = CONTACT, need_protection_check = TRUE, zone = zone_selected)
 
 			for(var/datum/disease/virus/virus in pulled_living.diseases)
-				if(virus.spread_flags & CONTACT)
-					virus.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				virus.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
 			if(iscarbon(pulled_living) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))
 				pulled_living.grabbedby(src)
@@ -2417,3 +2413,6 @@ GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
 	message = TRUE
 )
 	return
+
+/mob/living/proc/check_brain_for_complex_interactions()
+	return getBrainLoss() < 60
