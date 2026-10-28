@@ -942,7 +942,6 @@
 	dir = 10
 	},
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -1023,12 +1022,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"ej" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "el" = (
 /obj/structure/closet/crate/critter{
 	opened = 1
@@ -1117,7 +1110,6 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ex" = (
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider{
@@ -2417,7 +2409,6 @@
 /obj/structure/spider/cocoon,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "kC" = (
@@ -2711,7 +2702,6 @@
 	dir = 1
 	},
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "mF" = (
@@ -2851,7 +2841,6 @@
 	},
 /obj/item/ammo_box/magazine/pistolm9mm,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
@@ -4288,7 +4277,6 @@
 "Bb" = (
 /obj/structure/cable,
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Bg" = (
@@ -4408,7 +4396,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Cz" = (
@@ -4523,7 +4510,6 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
@@ -4661,13 +4647,6 @@
 /obj/machinery/door/poddoor/shutters,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"Ez" = (
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/BMPship/CommonArea)
 "EA" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
@@ -4709,7 +4688,6 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
@@ -4896,7 +4874,6 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -5277,13 +5254,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/BMPship/CommonArea)
-"Km" = (
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Ky" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -5453,7 +5423,6 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Mi" = (
@@ -5591,7 +5560,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/firealarm/triggered_nosignals/directional/north,
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
@@ -5780,7 +5748,6 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead"
 	},
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -6035,7 +6002,6 @@
 /area/awaymission/BMPship/CommonArea)
 "Sw" = (
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /obj/item/storage/firstaid/with_mousetrap/syndie,
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
@@ -6054,7 +6020,6 @@
 /area/awaymission/BMPship/Engines)
 "SH" = (
 /obj/structure/cable,
-/obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
@@ -6296,7 +6261,6 @@
 /area/awaymission/BMPship/Bath)
 "Vd" = (
 /obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black,
 /turf/simulated/floor/engine,
@@ -6435,12 +6399,6 @@
 	icon_state = "green"
 	},
 /area/awaymission/BMPship/Kitchen)
-"Wn" = (
-/obj/structure/cable,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Engines)
 "Wu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -6452,13 +6410,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
-"Wy" = (
-/obj/structure/cable,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "WC" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -14403,7 +14354,7 @@ bd
 Mh
 ss
 Bs
-Km
+RH
 Dy
 er
 ds
@@ -14532,7 +14483,7 @@ Vu
 HZ
 LT
 jy
-Wy
+sx
 ex
 LT
 cU
@@ -15182,7 +15133,7 @@ er
 XD
 sx
 sx
-Wy
+sx
 Qt
 Dy
 er
@@ -15830,7 +15781,7 @@ er
 er
 er
 mA
-ej
+gd
 sx
 sx
 VD
@@ -16089,8 +16040,8 @@ er
 yu
 Pu
 xO
-ej
-ej
+gd
+gd
 zM
 oX
 qK
@@ -16741,9 +16692,9 @@ xW
 er
 Qk
 Gu
-Km
+RH
 zM
-ej
+gd
 Qk
 er
 Zg
@@ -16871,8 +16822,8 @@ er
 er
 xB
 IT
-Km
-Km
+RH
+RH
 Cx
 xB
 er
@@ -18954,7 +18905,7 @@ ki
 EL
 Hr
 fT
-Ez
+Hr
 fs
 xG
 Dn
@@ -19867,7 +19818,7 @@ lk
 lk
 tD
 Xi
-Wn
+Vg
 Rw
 kC
 SV

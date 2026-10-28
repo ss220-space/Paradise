@@ -985,6 +985,8 @@
 #include "code\datums\elements\forced_gravity.dm"
 #include "code\datums\elements\gags_recolorable.dm"
 #include "code\datums\elements\give_turf_traits.dm"
+#include "code\datums\elements\halloween_mob_drops.dm"
+#include "code\modules\mob\living\simple_animal\hostile\halloween_undead.dm"
 #include "code\datums\elements\halo_attach.dm"
 #include "code\datums\elements\high_value_item.dm"
 #include "code\datums\elements\immerse.dm"
