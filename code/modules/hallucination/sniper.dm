@@ -8,9 +8,9 @@
 
 	var/turf/center = get_turf(hallucinator)
 	var/list/possible_turfs = list()
-	for(var/turf/T in RANGE_EDGE_TURFS(13, center))
-		if(!T.density)
-			possible_turfs += T
+	for(var/turf/turf in RANGE_EDGE_TURFS(13, center))
+		if(!turf.density)
+			possible_turfs += turf
 
 	if(!length(possible_turfs))
 		return FALSE

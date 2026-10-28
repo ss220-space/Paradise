@@ -31,7 +31,7 @@
 		qdel(src)
 		return
 
-	fake_singularity.Eat()
+	fake_singularity.eat()
 	if(get_dist(get_turf(fake_singularity), hallucinator) <= 3)
 		wake_and_restore()
 		return
@@ -44,7 +44,7 @@
 	if(fake_singularity.current_image)
 		animate(fake_singularity.current_image, pixel_y = fake_singularity.current_image.pixel_y - 32, time = 0.3 SECONDS, easing = LINEAR_EASING)
 	fake_singularity.forceMove(next)
-	fake_singularity.Show()
+	fake_singularity.show()
 
 	addtimer(CALLBACK(src, PROC_REF(move_singularity_towards)), 0.3 SECONDS)
 
@@ -74,10 +74,9 @@
 	/// The target mob who sees the image.
 	var/mob/living/carbon/target
 
-/obj/effect/hallucination/simple/New(loc, mob/living/carbon/T)
+/obj/effect/hallucination/simple/New(loc, mob/living/carbon/target)
 	..()
-	target = T
-	current_image = GetImage()
+	current_image = get_image()
 	if(target.client)
 		target.client.images |= current_image
 
@@ -88,26 +87,26 @@
 	active = FALSE
 	return ..()
 
-/obj/effect/hallucination/simple/proc/GetImage()
-	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
-	I.pixel_w = px
-	I.pixel_z = py
+/obj/effect/hallucination/simple/proc/get_image()
+	var/image/simple_image = image(image_icon, src, image_state, image_layer, dir = dir)
+	simple_image.pixel_w = px
+	simple_image.pixel_z = py
 	if(col_mod)
-		I.color = col_mod
-	return I
+		simple_image.color = col_mod
+	return simple_image
 
-/obj/effect/hallucination/simple/proc/Show(update = 1)
+/obj/effect/hallucination/simple/proc/show(update = 1)
 	if(active)
 		if(target?.client)
 			target.client.images.Remove(current_image)
 		if(update)
-			current_image = GetImage()
+			current_image = get_image()
 		if(target?.client)
 			target.client.images |= current_image
 
 /obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
-	Show()
+	show()
 
 /// The singularity hallucination - a big spiral that slides towards its target and "eats" them up close.
 /obj/effect/hallucination/simple/singularity
@@ -118,8 +117,9 @@
 	py = -96
 
 /// If the singularity is close enough, fake-eats the target (fake crit + sleep).
-/obj/effect/hallucination/simple/singularity/proc/Eat()
+/obj/effect/hallucination/simple/singularity/proc/eat()
 	var/target_dist = get_dist(src, target)
-	if(target_dist <= 3) // "Eaten"
-		target.hal_screwyhud = SCREWYHUD_CRIT
-		target.SetSleeping(4 SECONDS)
+	if(!target_dist <= 3) // "Eaten"
+		return
+	target.hal_screwyhud = SCREWYHUD_CRIT
+	target.SetSleeping(4 SECONDS)

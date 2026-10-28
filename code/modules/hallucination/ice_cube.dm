@@ -35,6 +35,7 @@
 
 /datum/hallucination/ice/proc/unfreeze()
 	REMOVE_TRAIT(hallucinator, TRAIT_IMMOBILIZED, "hallucination_ice")
-	if(ice_overlay)
-		hallucinator.client?.images -= ice_overlay
-		ice_overlay = null
+	if(!ice_overlay)
+		return
+	hallucinator.client?.images -= ice_overlay
+	ice_overlay = null

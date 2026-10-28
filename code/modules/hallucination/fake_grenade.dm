@@ -2,7 +2,17 @@
 /datum/hallucination/fake_grenade
 	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_RARE
-	var/list/grenade_type = list(/obj/item/grenade/chem_grenade, /obj/item/grenade/clusterbuster, /obj/item/grenade/spawnergrenade, /obj/item/grenade/empgrenade, /obj/item/grenade/flashbang, /obj/item/grenade/chem_grenade/large, /obj/item/grenade/syndieminibomb, /obj/item/grenade/chem_grenade/cryo, /obj/item/grenade/chem_grenade/pyro)
+	var/list/grenade_type = list(
+		/obj/item/grenade/chem_grenade,
+		/obj/item/grenade/clusterbuster,
+		/obj/item/grenade/spawnergrenade,
+		/obj/item/grenade/empgrenade,
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/large,
+		/obj/item/grenade/syndieminibomb,
+		/obj/item/grenade/chem_grenade/cryo,
+		/obj/item/grenade/chem_grenade/pyro
+	)
 	var/turf/grenade_turf
 	var/obj/effect/client_image_holder/hallucination/fake_grenade/grenade_effect
 	var/duration
