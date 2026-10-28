@@ -179,6 +179,9 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернут�
 	if(isspaceturf(gun_turf))
 		return
 
-	for(var/turf/simulated/floor/landing_turf in shuffle(RANGE_TURFS(3, gun_turf)))
-		new /obj/effect/falling_pipe(landing_turf, user)
-		break
+	var/list/floor_turfs = list()
+	for(var/turf/simulated/floor/floor_turf in RANGE_TURFS(3, gun_turf))
+		floor_turfs += floor_turf
+
+	if(length(floor_turfs))
+		new /obj/effect/falling_pipe(pick(floor_turfs), user)
