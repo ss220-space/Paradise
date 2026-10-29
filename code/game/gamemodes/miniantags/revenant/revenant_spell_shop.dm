@@ -195,7 +195,7 @@
 
 /datum/revenant_spell/aoe/mirage
 	name = "Призрачный мираж"
-	desc = "Создайте свою призрачную копию чтобы обмануть смертных"
+	desc = "Создайте свою призрачную копию чтобы обмануть смертных."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/mirage
 	cost = 15
 
