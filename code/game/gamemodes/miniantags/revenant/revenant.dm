@@ -175,7 +175,7 @@
 	remove_from_all_data_huds()
 	random_revenant_name()
 	giveSpells()
-	mind.add_antag_datum(/datum/antagonist/revenant)
+	mind?.add_antag_datum(/datum/antagonist/revenant)
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -331,57 +331,6 @@
 /mob/living/simple_animal/revenant/proc/update_spell_icons()
 	for(var/datum/action/cooldown/spell/aoe/revenant/spell in mob_spell_list)
 		spell.UpdateButtonIcon()
-
-/datum/objective/revenant
-	needs_target = FALSE
-	var/targetAmount = 100
-
-/datum/objective/revenant/New()
-	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц[DECL_U_Y_0(targetAmount)] эссенции у людей."
-	..()
-
-/datum/objective/revenant/check_completion()
-	var/total_essence = 0
-
-	for(var/datum/mind/player in get_owners())
-		if(!istype(player.current, /mob/living/simple_animal/revenant) || QDELETED(player.current))
-			continue
-
-		var/mob/living/simple_animal/revenant/revenant = player.current
-		total_essence += revenant.essence_accumulated
-
-	if(total_essence < targetAmount)
-		return FALSE
-
-	return TRUE
-
-/datum/objective/revenantFluff
-	needs_target = FALSE
-	antag_menu_name = "Задача ревенанта"
-
-/datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list(
-		"Помогайте существующим угрозам и усугубляйте их в критические моменты.", \
-		"Вызовите как можно больше хаоса и гнева, не будучи убитыми.", \
-		"Повредите и сделайте как можно большую часть станции разрушеной и непригодной для использования.", \
-		"Отключите как можно больше машин и вызовите сбои в их работе.", \
-		"Убедитесь, что любое святое оружие приведено в негодность.", \
-		"Мешайте экипажу, пытаясь остаться незамеченным..", \
-		"Сделайте экипаж как можно более несчастным.", \
-		"Сделайте клоуна как можно более несчастным.", \
-		"Сделайте капитана как можно более несчастным.", \
-		"Сделайте ИИ как можно более несчастным.", \
-		"Раздражайте тех, кто вас больше всего оскорбляет.", \
-		"Шепчите шутки о призраках в головы людей.", \
-		"Помогайте экипажу в критических ситуациях, но принимайте оплату в душах.", \
-		"По возможности предотвращайте применение энергетического оружия."
-	)
-	explanation_text = pick(explanationTexts)
-	..()
-
-/datum/objective/revenantFluff/check_completion()
-	return TRUE
 
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"

@@ -579,7 +579,6 @@
 	name = "Призрачное пламя"
 	desc = "Выпустите волну призрачного пламени из вашего фонаря."
 	button_icon_state = "lanternsflame"
-	background_icon_state = "bg_revenant"
 	cast_amount = 20
 	cast_increase_per_level = 20
 	cooldown_time = 25 SECONDS
