@@ -939,7 +939,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	INVOKE_ASYNC(src, PROC_REF(open_storage), to_show)
 	if(display_contents)
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_CANCEL_ATTACK_CHAIN | COMPONENT_NO_AFTERATTACK
 
 /// Alt click on the storage item. Default: Open the storage.
 /datum/storage/proc/on_click_alt(datum/source, mob/user)
