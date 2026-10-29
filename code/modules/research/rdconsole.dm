@@ -502,7 +502,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return FALSE
 	connected_servers -= null
 
-	if(usr && !(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
+	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return FALSE
 
@@ -512,10 +512,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
 
-	var/protolathe_skill_level = SKILL_LEVEL_BASIC
-	if(usr)
-		GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, calculated_level)
-		protolathe_skill_level = calculated_level
+	var/protolathe_skill_level
+	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, calculated_level)
+	protolathe_skill_level = calculated_level ||= SKILL_LEVEL_BASIC
 	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
 		amount += rand(0, 3)
 
@@ -600,7 +599,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/locked = being_built.locked && !is_taipan(z)
 
 	for(var/i in 1 to amount)
-
 		var/obj/new_item = new being_built.build_path(!user ? src : machine.loc)
 
 		if(istype(new_item, /obj/item/storage/backpack/holding) && user)
@@ -613,7 +611,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(locked && isitem(new_item))
 			var/obj/item/real_item = new_item
 			var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(!user ? src : machine.loc)
-
 			real_item.forceMove(lockbox)
 			lockbox.name += " ([real_item.name])"
 			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
@@ -628,20 +625,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			lockbox.origin_tech = real_item.origin_tech
 			lockbox.req_access = being_built.access_requirement
 			lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
-
 			var/list/lockbox_access
 			for(var/A in lockbox.req_access)
 				lockbox_access += "[get_access_desc(A)] "
-
 			lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \[[lockbox_access]\]."
 
 			if(!user)
 				SEND_SIGNAL(src, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, lockbox)
 		else
-			if(!user)
-				SEND_SIGNAL(src, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, new_item)
+			if(user)
+				new_item.forceMove(machine.loc)
 			else
-				new_item.loc = machine.loc
+				SEND_SIGNAL(src, COMSIG_CIRCUIT_RND_PRINT_COMPLETE, new_item)
 
 	machine.busy = FALSE
 	if(istype(machine, /obj/machinery/r_n_d/protolathe))
@@ -996,14 +991,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/search_id = lowertext(design_id)
 
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
-		if(!D || lowertext(D.id) != search_id)
-			continue
-
-		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
-			D.name = D.id
-			return D
+	var/datum/design/design_data
+	for(var/design_id_key in files.known_designs)
+		design_data = files.known_designs[design_id_key]
+		if(design_data && lowertext(design_data.id) == search_id && (design_data.build_type & (PROTOLATHE | IMPRINTER)))
+			return design_data
 
 	return null
 

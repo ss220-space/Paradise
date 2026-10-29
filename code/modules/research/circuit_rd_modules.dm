@@ -64,9 +64,9 @@
 		output_error.set_output(TRUE)
 		return
 
-	var/datum/design/D = attached_console.usb_find_design(lowertext(search_id))
-	if(D)
-		output_design.set_output(D)
+	var/datum/design/found_design = attached_console.usb_find_design(lowertext(search_id))
+	if(found_design)
+		output_design.set_output(found_design)
 		output_found.set_output(TRUE)
 	else
 		output_error.set_output(TRUE)
@@ -136,32 +136,26 @@
 		output_error.set_output(TRUE)
 		return
 
-	var/datum/design/D = input_design.value
-	if(!istype(D))
+	var/datum/design/target_design = input_design.value
+	if(!istype(target_design))
 		output_error.set_output(TRUE)
 		return
 
 	var/obj/machinery/r_n_d/target_machine = attached_console.linked_lathe
-	if(D.build_type & IMPRINTER)
+	if(target_design.build_type & IMPRINTER)
 		target_machine = attached_console.linked_imprinter
 
 	if(!target_machine || QDELETED(target_machine) || target_machine.busy)
 		output_error.set_output(TRUE)
 		return
 
-	last_printed_design = D
+	last_printed_design = target_design
 
-	var/mob/old_usr = usr
-	usr = null
-
-	var/print_success = attached_console.start_machine(target_machine, D.id, 1)
-
-	usr = old_usr
+	var/print_success = attached_console.start_machine(target_machine, target_design.id, 1, src)
 
 	if(!print_success)
 		output_error.set_output(TRUE)
 
-// Внутренний чистый прок физического выброса предмета
 /obj/item/circuit_component/rd_lathe/proc/execute_eject()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
