@@ -109,3 +109,9 @@
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
+
+/obj/item/ammo_box/magazine/internal/cylinder/peashooter
+	name = "peashooter cylinder"
+	ammo_type = /obj/item/ammo_casing/pea
+	caliber = CALIBER_PEA
+	max_ammo = 8

@@ -137,6 +137,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in laser weapons
 #define CALIBER_LASER "\"лазер\""
 
+/// The caliber used by the (gatfruit) peashooter
+#define CALIBER_PEA "pea"
+
 // Foam force weapons
 /// Used in foam guns
 #define CALIBER_FOAM_FORCE "\"пенопластовый\""

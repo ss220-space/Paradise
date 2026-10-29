@@ -51,6 +51,7 @@
 		BRAIN = 1,
 		STAMINA = 1,
 	)
+	var/list/thralls = list()
 
 /datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -147,6 +148,14 @@
 	aura_hud.hide_from(user)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
+
+/datum/antagonist/vampire/detach_from_owner()
+	for(var/datum/weakref/ref as anything in thralls)
+		var/datum/antagonist/mindslave/thrall/thrall = ref.resolve()
+		if(!thrall)
+			continue
+		thrall.owner?.remove_antag_datum(thrall)
+	return ..()
 
 /datum/antagonist/vampire/get_antag_menu_name()
 	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
@@ -770,5 +779,11 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+/datum/antagonist/mindslave/thrall/detach_from_owner()
+	var/datum/antagonist/vampire/datum = master?.has_antag_datum(/datum/antagonist/vampire)
+	if(datum)
+		datum.thralls -= WEAKREF(src)
+	return ..()
 
 #undef FORMAT_BLOODUSABLE_TEXT

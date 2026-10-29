@@ -108,10 +108,21 @@
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver/c36
+	trash = /obj/item/gun/projectile/revolver/peashooter
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
+
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/generate_trash(atom/location)
+	//if you set this to anything but the revolver i will find you... and... downvote your pr...
+	var/obj/item/gun/projectile/revolver/peashooter/gun = new trash(location || drop_location())
+	var/potency_percentage = CLAMP01(seed.potency / 100)
+	var/amount_to_trans = reagents.total_volume / gun.magazine.max_ammo
+	for(var/obj/item/ammo_casing/pea/casing as anything in gun.magazine.stored_ammo)
+		casing.damage = floor(max(5, LERP(5, casing.max_damage, potency_percentage)))
+		if(reagents.total_volume)
+			reagents.trans_to(casing, amount_to_trans)
+	return gun
 
 //Cherry Bombs
 /obj/item/seeds/cherry/bomb
