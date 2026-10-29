@@ -1,18 +1,8 @@
-#define TAB_ELECTRICITY "electricity"
-#define TAB_ENGINES "engines"
-#define TAB_FUEL "fuel"
-#define TAB_WEAPONS "weapons"
-#define TAB_LIFE_SUPPORT "life_support"
-#define TAB_INTEGRITY "integrity"
-#define TAB_INSTRUMENTAL "instrumental"
-#define TAB_MISC "misc"
-
 #define NOT_SELECTED_RPM_PROVIDER "Не передавать"
 
 /datum/ui_module/spacepod_control_panels
 	name = "Панель управления космическим челноком"
 	var/obj/spacepod/pod
-	var/selected_tab_id = TAB_INSTRUMENTAL
 
 /datum/ui_module/spacepod_control_panels/ui_state(mob/user)
 	if(isobserver(user))
@@ -39,8 +29,7 @@
 /datum/ui_module/spacepod_control_panels/ui_data(mob/user)
 	//create root data
 	var/list/data = list()
-	data["selected_tab"] = selected_tab_id
-	data["tabs"] = create_tabs_data()
+	data["vessel"] = pod.name
 	data["electricity"] = create_electricity_panel_data()
 	data["engines"] = create_engines_panel_data()
 	data["fuel"] = create_fuel_panel_data()
@@ -50,61 +39,18 @@
 	data["misc"] = create_misc_panel_data()
 	return data
 
-/datum/ui_module/spacepod_control_panels/proc/create_tabs_data()
-	var/tabs = list()
-	tabs += list(list(
-		"id" = TAB_INSTRUMENTAL,
-		"name" = "Панель инструментов",
-		"icon" = "plane",
-	))
-	tabs += list(list(
-		"id" = TAB_ELECTRICITY,
-		"name" = "Электропитание",
-		"icon" = "bolt",
-	))
-	tabs += list(list(
-		"id" = TAB_ENGINES,
-		"name" = "Двигатели",
-		"icon" = "gears",
-	))
-	tabs += list(list(
-		"id" = TAB_FUEL,
-		"name" = "Топливо",
-		"icon" = "tint",
-	))
-	if(pod.systems.life_support != null)
-		tabs += list(list(
-			"id" = TAB_LIFE_SUPPORT,
-			"name" = "Жизнеобеспечение",
-			"icon" = "thermometer-full",
-		))
-	if(pod.systems.weapon != null)
-		tabs += list(list(
-			"id" = TAB_WEAPONS,
-			"name" = "Вооружение",
-			"icon" = "crosshairs",
-		))
-	tabs += list(list(
-		"id" = TAB_MISC,
-		"name" = "Прочие",
-		"icon" = "plus",
-	))
-	tabs += list(list(
-		"id" = TAB_INTEGRITY,
-		"name" = "Прочность",
-		"icon" = "heart",
-	))
-	return tabs
-
 /datum/ui_module/spacepod_control_panels/proc/create_electricity_panel_data()
 	var/list/panel = list()
 	if(pod.systems.battery)
 		panel["exists"] = TRUE
 		panel["battery_id"] = pod.systems.battery.id
 		panel["link"] = pod.systems.battery.connection_power_net
-		panel["power"] = pod.systems.battery.power
+		panel["power"] = round(pod.systems.battery.power, 1)
 		panel["capacity"] = pod.systems.battery.power_capacity
-		panel["percent"] = round(pod.systems.battery.power / pod.systems.battery.power_capacity * 100, 1)
+		if(pod.systems.battery.power_capacity > 0)
+			panel["percent"] = round(pod.systems.battery.power / pod.systems.battery.power_capacity * 100, 1)
+		else
+			panel["percent"] = 0
 	else
 		panel["exists"] = FALSE
 	var/list/consumers = list()
@@ -128,6 +74,7 @@
 		engine_data["caption"] = engine.caption
 		engine_data["name"] = engine.module_name
 		engine_data["enable"] = engine.enable
+		engine_data["is_apu"] = engine.is_apu()
 		engine_data["rpm"] = engine.current_rpm
 		engine_data["rpm_percent"] = round(engine.current_rpm / engine.max_rpm * 100, 1)
 		engine_data["rpm_warn"] = engine_data["rpm_percent"] > 0 && (engine_data["rpm_percent"] < 25 || engine_data["rpm_percent"] > 120)
@@ -356,8 +303,6 @@
 
 	playsound(pod.loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	switch(action)
-		if("select_tab")
-			selected_tab_id = params["tab"]
 		if("switch_powernet_link")
 			var/id = params["id"]
 			switch_powernet_link(id)
@@ -521,12 +466,4 @@
 	pod.systems.fire_extenguisher.charges -= 1
 	target_module.fire = FALSE
 
-#undef TAB_ELECTRICITY
-#undef TAB_ENGINES
-#undef TAB_FUEL
-#undef TAB_WEAPONS
-#undef TAB_LIFE_SUPPORT
-#undef TAB_INTEGRITY
-#undef TAB_INSTRUMENTAL
-#undef TAB_MISC
 #undef NOT_SELECTED_RPM_PROVIDER

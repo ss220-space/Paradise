@@ -1,24 +1,14 @@
-import {
-  Box,
-  Button,
-  Divider,
-  //DmIcon,
-  Dropdown,
-  Icon,
-  Image,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-} from 'tgui-core/components';
+import { type ReactElement, type ReactNode, useEffect, useState } from 'react';
+import { Button, Dropdown, Icon, Image, Tooltip } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
+// MARK: Data
+
 type SpacepodControlPanelData = {
-  selected_tab: string;
-  tabs: SpacepodControlPanelTabsData[];
+  vessel: string;
   electricity: ElectricityPanelData;
   engines: EnginesPanelData;
   fuel: FuelSystemPanelData;
@@ -28,88 +18,13 @@ type SpacepodControlPanelData = {
   misc: MiscPanelData;
 };
 
-type SpacepodControlPanelTabsData = {
-  id: string;
-  name: string;
-  icon: string;
-};
-
-const decideTab = (tab_id: string) => {
-  switch (tab_id) {
-    case 'electricity':
-      return <ElectricityPanel />;
-    case 'engines':
-      return <EnginesPanel />;
-    case 'fuel':
-      return <FuelSystemPanel />;
-    case 'life_support':
-      return <LifeSupportPanel />;
-    case 'weapons':
-      return <WeaponsPanel />;
-    case 'integrity':
-      return <IntegrityPanel />;
-    case 'instrumental':
-      return <InstrumentalPanel />;
-    case 'misc':
-      return <MiscPanel />;
-    default:
-      return (
-        <Section>
-          <h2>НЕИЗВЕТНАЯ ОШИБКА!</h2>
-          <b>Перезагрузите авионику космического челнока.</b>
-        </Section>
-      );
-  }
-};
-
-// MARK: Window
-export const SpacepodControlPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { selected_tab, tabs } = data;
-
-  return (
-    <Window
-      width={1030}
-      height={650}
-      title="Панель управления космическим челноком"
-    >
-      <ComplexModal />
-      <Window.Content>
-        <Stack fill vertical={false}>
-          <Stack.Item width="5%">
-            <Tabs fluid vertical>
-              {tabs.map((tab) => (
-                <Tabs.Tab
-                  key={tab.id}
-                  icon={tab.icon}
-                  selected={tab.id === selected_tab}
-                  onClick={() => act('select_tab', { tab: tab.id })}
-                  height="50px"
-                >
-                  {/* {tab.name} */}
-                </Tabs.Tab>
-              ))}
-            </Tabs>
-          </Stack.Item>
-          <Stack.Item width="95%">
-            <Section fill scrollable>
-              {decideTab(selected_tab)}
-            </Section>
-          </Stack.Item>
-        </Stack>
-      </Window.Content>
-    </Window>
-  );
-};
-
-// MARK: Electricity panel
 type ElectricityPanelData = {
   exists: boolean;
-  link: boolean;
-  battery_id: string;
-  power: number;
-  capacity: number;
-  percent: number;
+  battery_id?: string;
+  link?: boolean;
+  power?: number;
+  capacity?: number;
+  percent?: number;
   consumers: ElectricityConsumerData[];
 };
 
@@ -120,91 +35,30 @@ type ElectricityConsumerData = {
   link: boolean;
 };
 
-const ElectricityPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { electricity } = data;
-
-  return (
-    <Stack vertical fill width="100%" scrollable>
-      {/* Battery section */}
-      <Stack.Item>
-        {electricity.exists ? (
-          <Section title="Аккумуляторная батарея" ml="0" mr="0">
-            <Table>
-              <ToggleButtonRow
-                caption="Соединение к электросети"
-                enable={electricity.link}
-                enable_text="Подключено"
-                disable_text="Отключено"
-                clicked={() =>
-                  act('switch_powernet_link', { id: electricity.battery_id })
-                }
-              />
-              <TextRow
-                caption="Заряд батареи"
-                value_text={`${electricity.power} Вт`}
-              />
-              <TextRow
-                caption="Емкость аккумулятора"
-                value_text={`${electricity.capacity} Вт·ч`}
-              />
-              <TextRow
-                caption="Заряд в процентах"
-                value_text={`${electricity.percent} %`}
-              />
-            </Table>
-          </Section>
-        ) : (
-          <Box>
-            <b>Аккумуляторная батаерея отсутствует!</b>
-          </Box>
-        )}
-      </Stack.Item>
-      {/* Electricity consumers section */}
-      <Stack.Item grow>
-        <Section fill scrollable title="Потребители">
-          <Table>
-            {electricity.consumers.map((consumer) => (
-              <ToggleButtonRow
-                key={consumer.id}
-                caption={consumer.name}
-                enable={consumer.link}
-                enable_text="Подключено"
-                disable_text="Отключено"
-                clicked={() => act('switch_powernet_link', { id: consumer.id })}
-              />
-            ))}
-          </Table>
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-// MARK: Engines panel
 type EnginesPanelData = {
   engines: EngineData[];
-  gyroscope: GyroscopeData;
+  gyroscope: GyroscopeData | null;
 };
 
 type EngineData = {
   id: string;
   caption: string;
   name: string;
-  power_link: boolean;
   enable: boolean;
+  is_apu: boolean;
+  power_link: boolean | null;
   rpm: number;
   rpm_percent: number;
   rpm_warn: boolean;
   fuel_pressure: number;
   fuel_pressure_warn: boolean;
-  rpm_provide_engines: string[];
-  selected_rpm_provide_engine: string;
+  rpm_provide_engines: string[] | null;
+  selected_rpm_provide_engine: string | null;
   generator_enable: boolean;
   generated_power: number;
   temperature: number;
   temperature_warn: boolean;
-  error_text: string;
+  error_text: string | null;
 };
 
 type GyroscopeData = {
@@ -217,142 +71,9 @@ type GyroscopeData = {
   rpm_warn: boolean;
   temperature: number;
   temperature_warn: boolean;
-  error_text: string;
+  error_text: string | null;
 };
 
-const EnginesPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { engines } = data;
-
-  return (
-    <Stack vertical fill width="100%" scrollable>
-      {engines.engines.map((engine) => (
-        <Stack.Item key={engine.id}>
-          <Section title={engine.name} ml="0" mr="0">
-            <Table>
-              {engine.power_link !== null ? (
-                <TextStatusRow
-                  caption="Соединение к электросети"
-                  enable={engine.power_link}
-                  enable_text="Подключено"
-                  disable_text="Отключено"
-                />
-              ) : (
-                ''
-              )}
-              <ToggleButtonRow
-                caption="Состояние"
-                enable={engine.enable}
-                enable_text="Запущено"
-                disable_text="Отключено"
-                clicked={() => act('switch_enable', { id: engine.id })}
-              />
-              <ColorTextRow
-                caption="Обороты"
-                value_text={`${engine.rpm} RPM`}
-                warn={engine.rpm_warn}
-              />
-              <ColorTextRow
-                caption="Мощность"
-                value_text={`${engine.rpm_percent}%`}
-                warn={engine.rpm_warn}
-              />
-              <ColorTextRow
-                caption="Давление топлива"
-                value_text={`${engine.fuel_pressure}%`}
-                warn={engine.fuel_pressure_warn}
-              />
-              {engine.rpm_provide_engines !== null ? (
-                <Table.Row>
-                  <Table.Cell bold width="50%">
-                    Передача крутящего момента:
-                  </Table.Cell>
-                  <Box pb={1}>
-                    <Dropdown
-                      options={engine.rpm_provide_engines}
-                      selected={engine.selected_rpm_provide_engine}
-                      onSelected={(value) =>
-                        act('select_rpm_provider', {
-                          id: engine.id,
-                          destination: value,
-                        })
-                      }
-                    />
-                  </Box>
-                </Table.Row>
-              ) : (
-                ''
-              )}
-              <ToggleButtonRow
-                caption="Генератор"
-                enable={engine.generator_enable}
-                enable_text="Запущено"
-                disable_text="Отключено"
-                clicked={() =>
-                  act('switch_generator_enable', { id: engine.id })
-                }
-              />
-              <TextRow
-                caption="Генерация электричества"
-                value_text={`${engine.generated_power} Ватт`}
-              />
-              <ColorTextRow
-                caption="Температура"
-                value_text={`${engine.temperature} C`}
-                warn={engine.temperature_warn}
-              />
-              <ErrorRow error_text={engine.error_text} />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ))}
-      <Stack.Divider />
-      {engines.gyroscope !== null ? (
-        <Stack.Item>
-          <Section title={engines.gyroscope.name} ml="0" mr="0">
-            <Table>
-              <TextStatusRow
-                caption="Соединение к электросети"
-                enable={engines.gyroscope.power_link}
-                enable_text="Подключено"
-                disable_text="Отключено"
-              />
-              <ToggleButtonRow
-                caption="Состояние"
-                enable={engines.gyroscope.enable}
-                enable_text="Запущено"
-                disable_text="Отключено"
-                clicked={() =>
-                  act('switch_enable', { id: engines.gyroscope.id })
-                }
-              />
-              <ColorTextRow
-                caption="Обороты"
-                value_text={`${engines.gyroscope.rpm} RPM`}
-                warn={engines.gyroscope.rpm_warn}
-              />
-              <ColorTextRow
-                caption="Мощность"
-                value_text={`${engines.gyroscope.rpm_percent}%'`}
-                warn={engines.gyroscope.rpm_warn}
-              />
-              <ColorTextRow
-                caption="Температура"
-                value_text={`${engines.gyroscope.temperature} C`}
-                warn={engines.gyroscope.temperature_warn}
-              />
-              <ErrorRow error_text={engines.gyroscope.error_text} />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ) : (
-        ''
-      )}
-    </Stack>
-  );
-};
-
-// MARK: Fuel system panel
 type FuelSystemPanelData = {
   fuel_tanks: FuelTankData[];
   fuel_pumps: FuelPumpData[];
@@ -376,78 +97,11 @@ type FuelPumpData = {
   pump_speed: number;
   temperature: number;
   temperature_warn: boolean;
-  error_text: string;
+  error_text: string | null;
 };
 
-const FuelSystemPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { fuel } = data;
-
-  return (
-    <Stack vertical fill width="100%" scrollable>
-      {/* Fuel tanks section */}
-      {fuel.fuel_tanks.map((fuel_tank) => (
-        <Stack.Item key={fuel_tank.id}>
-          <Section title={fuel_tank.name} ml="0" mr="0">
-            <Table>
-              <TextRow
-                caption="Емкость топлива"
-                value_text={`${fuel_tank.fuel_capacity} л.`}
-              />
-              <ColorTextRow
-                caption="Уровень топлива"
-                value_text={`${fuel_tank.fuel_amount} л.`}
-                warn={fuel_tank.level_percent < 20}
-              />
-              <ColorTextRow
-                caption="Уровень в процентах"
-                value_text={`${fuel_tank.level_percent}%`}
-                warn={fuel_tank.level_percent < 20}
-              />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ))}
-      {/* Fuel pumps section */}
-      <Stack.Divider />
-      {fuel.fuel_pumps.map((fuel_pump) => (
-        <Stack.Item key={fuel_pump.id}>
-          <Section title={fuel_pump.name} ml="0" mr="0">
-            <Table>
-              <TextStatusRow
-                caption="Соединение к электросети"
-                enable={fuel_pump.power_link}
-                enable_text="Подключено"
-                disable_text="Отключено"
-              />
-              <ToggleButtonRow
-                caption="Состояние"
-                enable={fuel_pump.enable}
-                enable_text="Запущено"
-                disable_text="Отключено"
-                clicked={() => act('switch_enable', { id: fuel_pump.id })}
-              />
-              <TextRow
-                caption="Скорость перекачки"
-                value_text={`${fuel_pump.pump_speed} литр/сек`}
-              />
-              <ColorTextRow
-                caption="Температура"
-                value_text={`${fuel_pump.temperature} C`}
-                warn={fuel_pump.temperature_warn}
-              />
-              <ErrorRow error_text={fuel_pump.error_text} />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ))}
-    </Stack>
-  );
-};
-
-// MARK: Weapons panel
 type WeaponsPanelData = {
-  module: WeaponModuleData;
+  module: WeaponModuleData | null;
   guns: GunData[];
 };
 
@@ -456,7 +110,7 @@ type WeaponModuleData = {
   name: string;
   enable: boolean;
   power_link: boolean;
-  error_text: string;
+  error_text: string | null;
 };
 
 type GunData = {
@@ -470,102 +124,9 @@ type GunData = {
   charging: boolean;
 };
 
-const get_gun_type_name = (type: number) => {
-  switch (type) {
-    case 1:
-      return 'Баллистический';
-    case 2:
-      return 'Энергетический';
-  }
-  return 'Неизвестно';
-};
-
-const WeaponsPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { weapons } = data;
-
-  return (
-    <Stack vertical fill width="100%">
-      {/* Module section */}
-      {weapons.module === null ? (
-        ''
-      ) : (
-        <Stack.Item>
-          <Section title={weapons.module.name} ml="0" mr="0">
-            <Table>
-              <TextStatusRow
-                caption="Соединение к электросети"
-                enable={weapons.module.power_link}
-                enable_text="Подключено"
-                disable_text="Отключено"
-              />
-              <ToggleButtonRow
-                caption="Состояние"
-                enable={weapons.module.enable}
-                enable_text="Запущено"
-                disable_text="Отключено"
-                clicked={() => act('switch_enable', { id: weapons.module.id })}
-              />
-              <ErrorRow error_text={weapons.module.error_text} />
-            </Table>
-          </Section>
-        </Stack.Item>
-      )}
-      {/* Attached guns section */}
-      <Stack.Divider />
-      {weapons.guns.map((gun) => (
-        <Stack.Item key={gun.id}>
-          <Section title={gun.name} ml="0" mr="0">
-            <Table>
-              <TextRow
-                caption="Слот"
-                value_text={gun.primary ? 'Основное' : 'Вторичное'}
-              />
-              <ToggleButtonRow
-                caption="Предохранитель"
-                enable={gun.safety}
-                enable_text="Включено"
-                disable_text="Отключено"
-                clicked={() => act('toggle_weapon_safety', { id: gun.id })}
-              />
-              <TextRow caption="Тип" value_text={get_gun_type_name(gun.type)} />
-              <ColorTextRow
-                caption="Боезапас"
-                value_text={`${gun.ammo}/${gun.capacity}`}
-                warn={gun.ammo === 0}
-              />
-              {gun.type === 1 ? (
-                <ButtonRow
-                  caption="Зарядка"
-                  text="Перезарядить"
-                  clicked={() => act('reload_weapon', { id: gun.id })}
-                />
-              ) : (
-                ''
-              )}
-              {gun.type === 2 ? (
-                <ToggleButtonRow
-                  caption="Зарядка"
-                  enable={gun.charging}
-                  enable_text="Включено"
-                  disable_text="Отключено"
-                  clicked={() => act('reload_weapon', { id: gun.id })}
-                />
-              ) : (
-                ''
-              )}
-            </Table>
-          </Section>
-        </Stack.Item>
-      ))}
-    </Stack>
-  );
-};
-
-// MARK: Life support panel
 type LifeSupportPanelData = {
   exists: boolean;
-  airtank: AirtankData;
+  airtank: AirtankData | null;
   atmos: AtmosData;
 };
 
@@ -584,64 +145,6 @@ type AtmosData = {
   low_temperature: boolean;
 };
 
-const LifeSupportPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { life_support } = data;
-
-  return (
-    <Stack vertical fill width="100%">
-      <Stack.Item>
-        <Section title="Жизнеобеспечение" ml="0" mr="0">
-          <Table>
-            <ColorTextRow
-              caption="Баллон"
-              value_text={
-                life_support.airtank === null
-                  ? 'Отсутствует'
-                  : life_support.airtank.name
-              }
-              warn={life_support.airtank === null}
-            />
-            {life_support.airtank === null ? (
-              ''
-            ) : (
-              <>
-                <TextRow
-                  caption="Объем"
-                  value_text={life_support.airtank.volume}
-                />
-                <ColorTextRow
-                  caption="Давление в баллоне"
-                  value_text={`${life_support.airtank.pressure} Pa`}
-                  warn={life_support.airtank.low_pressure}
-                />
-                <ToggleButtonRow
-                  caption="Подача кислорода с баллона"
-                  enable={life_support.airtank.enable}
-                  enable_text="Включено"
-                  disable_text="Отключено"
-                  clicked={() => act('switch_airtank')}
-                />
-              </>
-            )}
-            <ColorTextRow
-              caption="Давление в кабине"
-              value_text={`${life_support.atmos.pressure} Pa`}
-              warn={life_support.atmos.low_pressure}
-            />
-            <ColorTextRow
-              caption="Температура в кабине"
-              value_text={`${life_support.atmos.temperature} K`}
-              warn={life_support.atmos.low_temperature}
-            />
-          </Table>
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-// MARK: Integrity panel
 type IntegrityPanelData = {
   hull: HullIntegrityData;
   modules: ModuleIntegrityData[];
@@ -665,84 +168,10 @@ type ModuleIntegrityData = {
   fire: boolean;
 };
 
-const IntegrityPanel = (props: unknown) => {
-  const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { integrity } = data;
-
-  return (
-    <Stack vertical fill width="100%">
-      {/* Hull section */}
-      <Stack.Item>
-        <Section title={integrity.hull.name} ml="0" mr="0">
-          <Table>
-            <ColorTextRow
-              caption="Прочность"
-              value_text={`${integrity.hull.integrity}/${integrity.hull.max_integrity}`}
-              warn={integrity.hull.integrity_warn}
-            />
-            <ColorTextRow
-              caption="Количество зарядов системы пожаротушения"
-              value_text={`${integrity.hull.extenguish_charges}`}
-              warn={integrity.hull.extenguish_charges <= 0}
-            />
-          </Table>
-        </Section>
-      </Stack.Item>
-      {/* Modules section */}
-      <Stack.Item>
-        <Section title="Модули" ml="0" mr="0">
-          <Table>
-            {integrity.modules.map((module) => (
-              <>
-                {module.integrity > 0 ? (
-                  <Table.Row>
-                    <Table.Cell bold width="50%">
-                      {module.name}:
-                    </Table.Cell>
-                    <Box
-                      inline
-                      mr={1}
-                      color={module.integrity_warn ? 'bad' : 'good'}
-                    >
-                      {`${module.integrity}/${module.max_integrity}`}
-                      {module.fire ? (
-                        <>
-                          {' '}
-                          <Icon name="fire" />{' '}
-                          <Button
-                            icon="fire-extinguisher"
-                            disabled={integrity.hull.extenguish_charges <= 0}
-                            onClick={() => act('extinguish', { id: module.id })}
-                          >
-                            Пожаротушение
-                          </Button>
-                        </>
-                      ) : (
-                        ''
-                      )}
-                    </Box>
-                  </Table.Row>
-                ) : (
-                  <ColorTextRow
-                    caption={module.name}
-                    value_text="Уничтожен"
-                    warn={true}
-                  />
-                )}
-              </>
-            ))}
-          </Table>
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-// MARK: Misc panel
 type MiscPanelData = {
-  key_lock: KeyLockData;
-  catapult: CatapultData;
-  tracker: TrackerData;
+  key_lock: KeyLockData | null;
+  catapult: CatapultData | null;
+  tracker: TrackerData | null;
 };
 
 type KeyLockData = {
@@ -759,836 +188,1366 @@ type TrackerData = {
   enable: boolean;
 };
 
-const MiscPanel = (props: unknown) => {
+// MARK: Helpers
+
+const clampPercent = (value: number) =>
+  Math.max(0, Math.min(100, Number.isFinite(value) ? value : 0));
+
+const percentOf = (value: number, max: number) =>
+  max > 0 ? clampPercent((value / max) * 100) : 0;
+
+const asNumber = (value: string | number | undefined) => {
+  const parsed = typeof value === 'number' ? value : Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const useClock = () => {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  return now.toISOString().slice(11, 19);
+};
+
+const getGunTypeName = (type: number) => {
+  switch (type) {
+    case 1:
+      return 'БАЛЛИСТИЧЕСКОЕ';
+    case 2:
+      return 'ЭНЕРГЕТИЧЕСКОЕ';
+    default:
+      return 'НЕИЗВЕСТНО';
+  }
+};
+
+type LampState = 'ok' | 'warn' | 'bad' | 'off';
+
+type Annunciator = {
+  label: string;
+  state: LampState;
+  tooltip: string;
+};
+
+const buildAnnunciators = (data: SpacepodControlPanelData): Annunciator[] => {
+  const { electricity, engines, fuel, integrity, life_support, weapons } = data;
+  const batteryPercent = electricity.percent ?? 0;
+  const fuelLow = fuel.fuel_tanks.some((tank) => tank.level_percent < 20);
+  const engineFault = engines.engines.some(
+    (engine) => engine.error_text || engine.rpm_warn,
+  );
+  const gyroFault = !!engines.gyroscope?.error_text;
+  const fire = integrity.modules.some((module) => module.fire);
+  const airFault =
+    life_support.exists &&
+    (life_support.atmos.low_pressure || life_support.atmos.low_temperature);
+  const gunsDry = weapons.guns.some(
+    (gun) => gun.capacity > 0 && gun.ammo === 0,
+  );
+
+  return [
+    {
+      label: 'BATT',
+      state: !electricity.exists ? 'bad' : batteryPercent < 25 ? 'warn' : 'ok',
+      tooltip: electricity.exists
+        ? `Заряд батареи: ${batteryPercent}%`
+        : 'Аккумулятор отсутствует',
+    },
+    {
+      label: 'FUEL',
+      state: !fuel.fuel_tanks.length ? 'bad' : fuelLow ? 'warn' : 'ok',
+      tooltip: !fuel.fuel_tanks.length
+        ? 'Топливные баки не установлены'
+        : fuelLow
+          ? 'Низкий уровень топлива'
+          : 'Топливная система в норме',
+    },
+    {
+      label: 'ENG',
+      state: engines.engines.length ? (engineFault ? 'warn' : 'ok') : 'off',
+      tooltip: engines.engines.length
+        ? engineFault
+          ? 'Есть неисправность двигателя'
+          : 'Двигатели в норме'
+        : 'Двигатели не установлены',
+    },
+    {
+      label: 'GYRO',
+      state: !engines.gyroscope
+        ? 'off'
+        : gyroFault
+          ? 'warn'
+          : engines.gyroscope.enable
+            ? 'ok'
+            : 'warn',
+      tooltip: !engines.gyroscope
+        ? 'Гироскоп не установлен'
+        : gyroFault
+          ? engines.gyroscope.error_text || 'Неисправность гироскопа'
+          : engines.gyroscope.enable
+            ? 'Гироскоп работает'
+            : 'Гироскоп выключен',
+    },
+    {
+      label: 'AIR',
+      state: !life_support.exists ? 'off' : airFault ? 'bad' : 'ok',
+      tooltip: !life_support.exists
+        ? 'Жизнеобеспечение не установлено'
+        : airFault
+          ? 'Параметры кабины вне нормы'
+          : 'Параметры кабины в норме',
+    },
+    {
+      label: 'WPN',
+      state: !weapons.module ? 'off' : gunsDry ? 'warn' : 'ok',
+      tooltip: !weapons.module
+        ? 'Оружейный модуль не установлен'
+        : gunsDry
+          ? 'Один из стволов пуст'
+          : 'Вооружение в норме',
+    },
+    {
+      label: 'HULL',
+      state: integrity.hull.integrity_warn ? 'bad' : 'ok',
+      tooltip: `Прочность корпуса: ${integrity.hull.integrity}/${integrity.hull.max_integrity}`,
+    },
+    {
+      label: 'FIRE',
+      state: fire ? 'bad' : 'off',
+      tooltip: fire ? 'На борту пожар!' : 'Пожаров нет',
+    },
+  ];
+};
+
+// MARK: Window
+
+export const SpacepodControlPanel = (props: unknown) => {
+  const { data } = useBackend<SpacepodControlPanelData>();
+  const [booted, setBooted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setBooted(true), 2700);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const annunciators = buildAnnunciators(data);
+  const cautionCount = annunciators.filter(
+    (item) => item.state === 'bad' || item.state === 'warn',
+  ).length;
+  const masterState: LampState = annunciators.some(
+    (item) => item.state === 'bad',
+  )
+    ? 'bad'
+    : cautionCount
+      ? 'warn'
+      : 'ok';
+
+  return (
+    <Window
+      width={1180}
+      height={700}
+      title="Панель управления космическим челноком"
+    >
+      <Window.Content scrollable>
+        <ComplexModal />
+        <div className="spcp-shell">
+          <CockpitBoot
+            active={!booted}
+            annunciators={annunciators}
+            vessel={data.vessel}
+            onSkip={() => setBooted(true)}
+          />
+          <TopStrip
+            annunciators={annunciators}
+            masterState={masterState}
+            warnings={cautionCount}
+            vessel={data.vessel}
+          />
+          <div className="spcp-grid">
+            <div className="spcp-col">
+              <PowerPanel booted={booted} />
+              <FuelPanel booted={booted} />
+              <GyroPanel booted={booted} />
+            </div>
+            <div className="spcp-col">
+              <EnginesPanel booted={booted} />
+              <IntegrityPanel booted={booted} />
+            </div>
+            <div className="spcp-col">
+              <LifeSupportPanel booted={booted} />
+              <WeaponsPanel booted={booted} />
+              <MiscPanel />
+            </div>
+          </div>
+        </div>
+      </Window.Content>
+    </Window>
+  );
+};
+
+// MARK: Boot sequence
+
+type BootLine = {
+  label: string;
+  value: string;
+  state: LampState;
+};
+
+const buildBootLines = (data: SpacepodControlPanelData): BootLine[] => {
+  const { electricity, engines, fuel, integrity, life_support, weapons } = data;
+  const lines: BootLine[] = [
+    {
+      label: 'POWER BUS',
+      value: !electricity.exists
+        ? 'OFFLINE'
+        : `${Math.round(electricity.percent ?? 0)}% CHARGE`,
+      state: !electricity.exists
+        ? 'bad'
+        : (electricity.percent ?? 0) < 25
+          ? 'warn'
+          : 'ok',
+    },
+    {
+      label: 'FUEL SYSTEM',
+      value: fuel.fuel_tanks.length
+        ? `${fuel.fuel_tanks.length} TANK(S) PRESSURIZED`
+        : 'NO TANKS',
+      state: fuel.fuel_tanks.length ? 'ok' : 'bad',
+    },
+    {
+      label: 'ENGINE BUS',
+      value: engines.engines.length
+        ? `${engines.engines.length} UNIT(S) DETECTED`
+        : 'NO ENGINES',
+      state: engines.engines.length ? 'ok' : 'warn',
+    },
+    {
+      label: 'GYROSTAB',
+      value: !engines.gyroscope
+        ? 'NOT INSTALLED'
+        : engines.gyroscope.enable
+          ? 'SPINNING'
+          : 'STANDBY',
+      state: !engines.gyroscope
+        ? 'off'
+        : engines.gyroscope.enable
+          ? 'ok'
+          : 'warn',
+    },
+    {
+      label: 'LIFE SUPPORT',
+      value: !life_support.exists
+        ? 'NOT INSTALLED'
+        : life_support.airtank?.enable
+          ? 'INTERNAL ATMOS'
+          : 'EXTERNAL ATMOS',
+      state: !life_support.exists
+        ? 'off'
+        : life_support.atmos.low_pressure
+          ? 'warn'
+          : 'ok',
+    },
+    {
+      label: 'WEAPON BUS',
+      value: !weapons.module
+        ? 'NOT INSTALLED'
+        : weapons.module.enable
+          ? 'ARMED'
+          : 'SAFE',
+      state: !weapons.module ? 'off' : weapons.module.enable ? 'warn' : 'ok',
+    },
+    {
+      label: 'HULL SENSORS',
+      value: integrity.hull.integrity_warn
+        ? 'DAMAGE DETECTED'
+        : `${integrity.hull.integrity}/${integrity.hull.max_integrity}`,
+      state: integrity.hull.integrity_warn ? 'bad' : 'ok',
+    },
+  ];
+  return lines;
+};
+
+const CockpitBoot = (props: {
+  active: boolean;
+  annunciators: Annunciator[];
+  vessel: string;
+  onSkip: () => void;
+}) => {
+  const { active, annunciators, vessel, onSkip } = props;
+  const { data } = useBackend<SpacepodControlPanelData>();
+  const lines = buildBootLines(data);
+  const faults = annunciators.filter(
+    (item) => item.state === 'bad' || item.state === 'warn',
+  ).length;
+
+  return (
+    <div
+      className={`spcp-boot${active ? '' : ' spcp-boot--hidden'}`}
+      onClick={onSkip}
+    >
+      <div className="spcp-boot__scan" />
+      <div className="spcp-boot__inner">
+        <div className="spcp-boot__header">
+          <div>
+            <div className="spcp-boot__title">SPACEPOD</div>
+            <div className="spcp-boot__subtitle">
+              AVIONICS CONTROL SYSTEM · REV 6.0
+            </div>
+          </div>
+          <div className="spcp-boot__vessel">
+            <span>VESSEL</span>
+            <b>{vessel || 'UNNAMED'}</b>
+          </div>
+        </div>
+        <div className="spcp-boot__lines">
+          {lines.map((line, index) => (
+            <div
+              className={`spcp-boot__line spcp-boot__line--${line.state}`}
+              key={line.label}
+              style={{ animationDelay: `${0.2 + index * 0.13}s` }}
+            >
+              <span>{line.label}</span>
+              <span className="spcp-boot__dots" />
+              <b>{line.value}</b>
+            </div>
+          ))}
+        </div>
+        <div className="spcp-boot__progress">
+          <div className="spcp-boot__progress-fill" />
+        </div>
+        <div
+          className={`spcp-boot__summary${faults ? ' spcp-boot__summary--warn' : ''}`}
+        >
+          {faults ? `ВНИМАНИЕ: ${faults} СООБЩЕНИЙ` : 'ВСЕ СИСТЕМЫ В НОРМЕ'}
+        </div>
+        <div className="spcp-boot__hint">НАЖМИТЕ, ЧТОБЫ ПРОПУСТИТЬ</div>
+      </div>
+    </div>
+  );
+};
+
+// MARK: Top strip
+
+const TopStrip = (props: {
+  annunciators: Annunciator[];
+  masterState: LampState;
+  warnings: number;
+  vessel: string;
+}) => {
+  const { annunciators, masterState, warnings, vessel } = props;
+  const clock = useClock();
+
+  return (
+    <div className="spcp-top">
+      <div className="spcp-top__brand">
+        <span className="spcp-top__logo">SPACEPOD</span>
+        <span className="spcp-top__vessel">{vessel || 'UNNAMED'}</span>
+      </div>
+      <Tooltip
+        content={
+          warnings
+            ? annunciators
+                .filter((item) => item.state !== 'ok' && item.state !== 'off')
+                .map((item) => `${item.label}: ${item.tooltip}`)
+                .join('\n')
+            : 'Все системы в норме'
+        }
+      >
+        <div className={`spcp-master spcp-master--${masterState}`}>
+          <Icon name="exclamation-triangle" />
+          <span>MASTER</span>
+        </div>
+      </Tooltip>
+      <div className="spcp-top__lamps">
+        {annunciators.map((item) => (
+          <Lamp
+            key={item.label}
+            label={item.label}
+            state={item.state}
+            tooltip={item.tooltip}
+          />
+        ))}
+      </div>
+      <div className="spcp-top__clock">
+        <span>UTC</span>
+        <b>{clock}</b>
+      </div>
+    </div>
+  );
+};
+
+// MARK: Primitives
+
+const Panel = (props: {
+  title: string;
+  hint?: string;
+  children: ReactNode;
+  className?: string;
+}) => {
+  const { title, hint, children, className } = props;
+  return (
+    <div className={`spcp-panel${className ? ` ${className}` : ''}`}>
+      <div className="spcp-panel__head">
+        <span className="spcp-panel__title">{title}</span>
+        {!!hint && <span className="spcp-panel__hint">{hint}</span>}
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const Lamp = (props: { label: string; state: LampState; tooltip?: string }) => {
+  const { label, state, tooltip } = props;
+  const body = (
+    <div className={`spcp-annunciator spcp-annunciator--${state}`}>
+      <span className="spcp-annunciator__led" />
+      <span className="spcp-annunciator__label">{label}</span>
+    </div>
+  );
+  return tooltip ? <Tooltip content={tooltip}>{body}</Tooltip> : body;
+};
+
+// MARK: Gauge
+
+const GAUGE_START = -135;
+const GAUGE_SWEEP = 270;
+
+const polar = (angle: number, radius: number): [number, number] => {
+  const radians = ((angle - 90) * Math.PI) / 180;
+  return [60 + radius * Math.cos(radians), 60 + radius * Math.sin(radians)];
+};
+
+const describeArc = (from: number, to: number, radius: number) => {
+  const [x1, y1] = polar(from, radius);
+  const [x2, y2] = polar(to, radius);
+  const largeArc = Math.abs(to - from) > 180 ? 1 : 0;
+  return `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`;
+};
+
+type GaugeProps = {
+  value: number;
+  label: string;
+  readout: string;
+  unit?: string;
+  max?: number;
+  danger?: [number, number];
+  warn?: boolean;
+  booted?: boolean;
+  size?: number;
+  ticks?: number;
+};
+
+const Gauge = (props: GaugeProps) => {
+  const {
+    value,
+    label,
+    readout,
+    unit,
+    max = 100,
+    danger,
+    warn,
+    booted = true,
+    size = 104,
+    ticks = 12,
+  } = props;
+
+  const percent = booted ? percentOf(value, max) : 0;
+  const needleAngle = GAUGE_START + (GAUGE_SWEEP * percent) / 100;
+
+  const tickMarks: ReactElement[] = [];
+  for (let index = 0; index <= ticks; index++) {
+    const angle = GAUGE_START + (GAUGE_SWEEP * index) / ticks;
+    const major = index % 2 === 0;
+    const [x1, y1] = polar(angle, major ? 36 : 39);
+    const [x2, y2] = polar(angle, 43);
+    tickMarks.push(
+      <line
+        key={index}
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
+        className={
+          major
+            ? 'spcp-gauge__tick spcp-gauge__tick--major'
+            : 'spcp-gauge__tick'
+        }
+      />,
+    );
+  }
+
+  return (
+    <div
+      className={`spcp-gauge${warn ? ' spcp-gauge--warn' : ''}`}
+      style={{ width: `${size}px` }}
+    >
+      <svg viewBox="0 0 120 120" className="spcp-gauge__svg">
+        <circle cx="60" cy="60" r="57" className="spcp-gauge__rim" />
+        <path
+          d={describeArc(GAUGE_START, GAUGE_START + GAUGE_SWEEP, 46)}
+          className="spcp-gauge__track"
+        />
+        {danger && (
+          <path
+            d={describeArc(
+              GAUGE_START +
+                (GAUGE_SWEEP * clampPercent((danger[0] / max) * 100)) / 100,
+              GAUGE_START +
+                (GAUGE_SWEEP * clampPercent((danger[1] / max) * 100)) / 100,
+              46,
+            )}
+            className="spcp-gauge__danger"
+          />
+        )}
+        {percent > 0.4 && (
+          <path
+            d={describeArc(GAUGE_START, needleAngle, 46)}
+            className="spcp-gauge__fill"
+          />
+        )}
+        {tickMarks}
+        <text x="60" y="93" textAnchor="middle" className="spcp-gauge__label">
+          {label}
+        </text>
+        <g
+          className="spcp-gauge__needle"
+          style={{ transform: `rotate(${needleAngle}deg)` }}
+        >
+          <line
+            x1="60"
+            y1="60"
+            x2="60"
+            y2="24"
+            className="spcp-gauge__needle-line"
+          />
+          <circle cx="60" cy="60" r="5" className="spcp-gauge__hub" />
+        </g>
+      </svg>
+      <div className="spcp-gauge__readout">
+        {readout}
+        {unit ? <span className="spcp-gauge__unit">{unit}</span> : null}
+      </div>
+    </div>
+  );
+};
+
+// MARK: Level bar
+
+const LevelBar = (props: {
+  value: number;
+  max?: number;
+  label?: string;
+  readout?: string;
+  warn?: boolean;
+  dangerBelow?: number;
+  booted?: boolean;
+}) => {
+  const {
+    value,
+    max = 100,
+    label,
+    readout,
+    warn,
+    dangerBelow = 0,
+    booted = true,
+  } = props;
+  const percent = booted ? percentOf(value, max) : 0;
+
+  return (
+    <div className={`spcp-level${warn ? ' spcp-level--warn' : ''}`}>
+      {(label || readout) && (
+        <div className="spcp-level__head">
+          <span>{label}</span>
+          <b>{readout}</b>
+        </div>
+      )}
+      <div className="spcp-level__track">
+        {dangerBelow > 0 && (
+          <div
+            className="spcp-level__danger"
+            style={{ width: `${clampPercent(dangerBelow)}%` }}
+          />
+        )}
+        <div className="spcp-level__fill" style={{ width: `${percent}%` }} />
+      </div>
+    </div>
+  );
+};
+
+// MARK: Switches
+
+type SwitchProps = {
+  caption: string;
+  on: boolean;
+  onClick: () => void;
+  tooltip?: string;
+  failure?: boolean;
+  disabled?: boolean;
+};
+
+const Switch = (props: SwitchProps) => {
+  const { caption, on, onClick, tooltip, failure, disabled } = props;
+  const image = failure
+    ? 'eng-fail.png'
+    : on
+      ? 'eng-on.png'
+      : 'eng-off-top.png';
+  const body = (
+    <div
+      className={`spcp-switch${on ? ' spcp-switch--on' : ''}${
+        failure ? ' spcp-switch--failure' : ''
+      }${disabled ? ' spcp-switch--disabled' : ''}`}
+      onClick={disabled ? undefined : onClick}
+    >
+      <span className="spcp-switch__caption">{caption}</span>
+      <Image
+        className="spcp-switch__image"
+        src={resolveAsset(image)}
+        draggable={false}
+      />
+      <span
+        className={`spcp-lamp ${
+          failure ? 'spcp-lamp--bad' : on ? 'spcp-lamp--ok' : 'spcp-lamp--off'
+        }`}
+      />
+    </div>
+  );
+  return tooltip ? <Tooltip content={tooltip}>{body}</Tooltip> : body;
+};
+
+const EngineStart = (props: {
+  caption: string;
+  on: boolean;
+  failure: boolean;
+  cranking: boolean;
+  onClick: () => void;
+  tooltip?: string;
+}) => {
+  const { caption, on, failure, cranking, onClick, tooltip } = props;
+  const image = failure ? 'eng-fail.png' : on ? 'eng-on.png' : 'eng-off.png';
+  const body = (
+    <div
+      className={`spcp-switch spcp-switch--start${on ? ' spcp-switch--on' : ''}${
+        failure ? ' spcp-switch--failure' : ''
+      }${cranking ? ' spcp-switch--cranking' : ''}`}
+      onClick={onClick}
+    >
+      <span className="spcp-switch__caption">
+        {cranking ? 'CRANK' : caption}
+      </span>
+      {cranking && <span className="spcp-switch__ring" />}
+      <Image
+        className="spcp-switch__image"
+        src={resolveAsset(image)}
+        draggable={false}
+      />
+      <span className="spcp-switch__state">
+        {cranking ? 'ЗАПУСК…' : on ? 'РАБОТА' : 'СТОП'}
+      </span>
+    </div>
+  );
+  return tooltip ? <Tooltip content={tooltip}>{body}</Tooltip> : body;
+};
+
+// MARK: Power
+
+const PowerPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { electricity } = data;
+  const percent = electricity.percent ?? 0;
+
+  return (
+    <Panel
+      title="Электропитание"
+      hint={electricity.exists ? `${Math.round(percent)}%` : 'OFFLINE'}
+    >
+      {electricity.exists ? (
+        <>
+          <div className="spcp-power">
+            <Gauge
+              value={percent}
+              max={100}
+              label="BATT"
+              readout={`${Math.round(percent)}`}
+              unit="%"
+              danger={[0, 25]}
+              warn={percent < 25}
+              booted={booted}
+              size={112}
+            />
+            <div className="spcp-readouts">
+              <div className="spcp-readout">
+                <span>ЗАРЯД</span>
+                <b>{electricity.power ?? 0} Вт</b>
+              </div>
+              <div className="spcp-readout">
+                <span>ЕМКОСТЬ</span>
+                <b>{electricity.capacity ?? 0} Вт·ч</b>
+              </div>
+              <div className="spcp-readout">
+                <span>ШИНА</span>
+                <b className={electricity.link ? 'is-ok' : 'is-off'}>
+                  {electricity.link ? 'ПОДКЛЮЧЕНА' : 'ОТКЛЮЧЕНА'}
+                </b>
+              </div>
+            </div>
+          </div>
+          <div className="spcp-switch-grid">
+            <Switch
+              caption="MAIN"
+              on={!!electricity.link}
+              disabled={!electricity.battery_id}
+              onClick={() =>
+                act('switch_powernet_link', { id: electricity.battery_id })
+              }
+              tooltip="Главная шина питания"
+            />
+            {electricity.consumers.map((consumer) => (
+              <Switch
+                key={consumer.id}
+                caption={consumer.caption}
+                on={consumer.link}
+                onClick={() => act('switch_powernet_link', { id: consumer.id })}
+                tooltip={`${consumer.name}: ${
+                  consumer.link ? 'подключено' : 'отключено'
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="spcp-empty">АККУМУЛЯТОР НЕ УСТАНОВЛЕН</div>
+      )}
+    </Panel>
+  );
+};
+
+// MARK: Fuel
+
+const FuelPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { fuel } = data;
+
+  return (
+    <Panel title="Топливная система" hint={`${fuel.fuel_tanks.length} БАК`}>
+      {fuel.fuel_tanks.length ? (
+        fuel.fuel_tanks.map((tank) => (
+          <div className="spcp-tank" key={tank.id}>
+            <LevelBar
+              label={tank.caption}
+              value={tank.level_percent}
+              max={100}
+              readout={`${tank.fuel_amount}/${tank.fuel_capacity} л`}
+              warn={tank.level_percent < 20}
+              dangerBelow={20}
+              booted={booted}
+            />
+            <span className="spcp-tank__name">{tank.name}</span>
+          </div>
+        ))
+      ) : (
+        <div className="spcp-empty">БАКИ НЕ УСТАНОВЛЕНЫ</div>
+      )}
+      {!!fuel.fuel_pumps.length && (
+        <div className="spcp-switch-grid">
+          {fuel.fuel_pumps.map((pump) => (
+            <Switch
+              key={pump.id}
+              caption={pump.caption}
+              on={pump.enable}
+              failure={pump.error_text !== null}
+              onClick={() => act('switch_enable', { id: pump.id })}
+              tooltip={`${pump.name}: ${
+                pump.enable ? `${pump.pump_speed} л/с` : 'остановлен'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </Panel>
+  );
+};
+
+// MARK: Engines
+
+const EnginesPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { engines } = data;
+  const [starting, setStarting] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!Object.keys(starting).length) {
+      return;
+    }
+    const timer = setInterval(() => {
+      const now = Date.now();
+      setStarting((prev) => {
+        const next: Record<string, number> = {};
+        let changed = false;
+        for (const key of Object.keys(prev)) {
+          if (prev[key] > now) {
+            next[key] = prev[key];
+          } else {
+            changed = true;
+          }
+        }
+        return changed ? next : prev;
+      });
+    }, 250);
+    return () => clearInterval(timer);
+  }, [starting]);
+
+  const toggleEngine = (engine: EngineData) => {
+    if ((starting[engine.id] ?? 0) > Date.now()) {
+      return;
+    }
+    if (!engine.enable) {
+      setStarting((prev) => ({
+        ...prev,
+        [engine.id]: Date.now() + (engine.is_apu ? 1300 : 3300),
+      }));
+    }
+    act('ignite_engine', { id: engine.id });
+  };
+
+  return (
+    <Panel title="Силовая установка" hint={`${engines.engines.length} ДВИГ.`}>
+      {engines.engines.length ? (
+        <div className="spcp-engines">
+          {engines.engines.map((engine) => {
+            const cranking = (starting[engine.id] ?? 0) > Date.now();
+            return (
+              <div
+                className={`spcp-engine${engine.enable ? ' spcp-engine--running' : ''}${
+                  engine.error_text ? ' spcp-engine--fault' : ''
+                }${cranking ? ' spcp-engine--cranking' : ''}`}
+                key={engine.id}
+              >
+                <div className="spcp-engine__head">
+                  <b className="spcp-engine__caption">{engine.caption}</b>
+                  <span
+                    className={`spcp-lamp ${
+                      engine.error_text
+                        ? 'spcp-lamp--bad'
+                        : engine.enable
+                          ? 'spcp-lamp--ok'
+                          : 'spcp-lamp--off'
+                    }`}
+                  />
+                  <span className="spcp-engine__name" title={engine.name}>
+                    {engine.name}
+                  </span>
+                </div>
+                <div className="spcp-engine__body">
+                  <Gauge
+                    value={engine.rpm_percent}
+                    max={100}
+                    label="RPM"
+                    readout={`${engine.rpm}`}
+                    unit="об/м"
+                    danger={[105, 120]}
+                    warn={engine.rpm_warn}
+                    booted={booted}
+                    size={88}
+                  />
+                  <div className="spcp-engine__side">
+                    <LevelBar
+                      label="FUEL"
+                      value={engine.fuel_pressure}
+                      max={100}
+                      readout={`${engine.fuel_pressure}%`}
+                      warn={engine.fuel_pressure_warn}
+                      dangerBelow={30}
+                      booted={booted}
+                    />
+                    <div className="spcp-readouts spcp-readouts--dense">
+                      <div className="spcp-readout">
+                        <span>TEMP</span>
+                        <b
+                          className={
+                            engine.temperature_warn ? 'is-bad' : undefined
+                          }
+                        >
+                          {engine.temperature}°C
+                        </b>
+                      </div>
+                      <div className="spcp-readout">
+                        <span>GEN</span>
+                        <b
+                          className={
+                            engine.generator_enable ? 'is-ok' : 'is-off'
+                          }
+                        >
+                          {engine.generated_power} Вт
+                        </b>
+                      </div>
+                    </div>
+                    {engine.rpm_provide_engines && (
+                      <div className="spcp-torque">
+                        <span>КРУТЯЩИЙ МОМЕНТ</span>
+                        <Dropdown
+                          fluid
+                          options={engine.rpm_provide_engines}
+                          selected={
+                            engine.selected_rpm_provide_engine ??
+                            engine.rpm_provide_engines[0]
+                          }
+                          onSelected={(value) =>
+                            act('select_rpm_provider', {
+                              id: engine.id,
+                              destination: value,
+                            })
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {!!engine.error_text && (
+                  <div className="spcp-error">{engine.error_text}</div>
+                )}
+                <div className="spcp-engine__foot">
+                  <Switch
+                    caption="GEN"
+                    on={engine.generator_enable}
+                    onClick={() =>
+                      act('switch_generator_enable', { id: engine.id })
+                    }
+                    tooltip="Генератор двигателя"
+                  />
+                  <Switch
+                    caption="BUS"
+                    on={!!engine.power_link}
+                    disabled={engine.power_link === null}
+                    onClick={() =>
+                      act('switch_powernet_link', { id: engine.id })
+                    }
+                    tooltip="Подключение к электросети"
+                  />
+                  <EngineStart
+                    caption={engine.is_apu ? 'APU' : 'START'}
+                    on={engine.enable}
+                    failure={!!engine.error_text}
+                    cranking={cranking}
+                    onClick={() => toggleEngine(engine)}
+                    tooltip={
+                      engine.enable
+                        ? 'Остановить'
+                        : engine.is_apu
+                          ? 'Запустить вспомогательную установку'
+                          : 'Запустить двигатель от APU'
+                    }
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="spcp-empty">ДВИГАТЕЛИ НЕ УСТАНОВЛЕНЫ</div>
+      )}
+    </Panel>
+  );
+};
+
+// MARK: Gyroscope
+
+const GyroPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { gyroscope } = data.engines;
+
+  return (
+    <Panel
+      title="Гироскопический стабилизатор"
+      hint={gyroscope ? (gyroscope.enable ? 'SPIN' : 'STBY') : 'N/A'}
+    >
+      {gyroscope ? (
+        <div className="spcp-gyro">
+          <Gauge
+            value={gyroscope.rpm_percent}
+            max={100}
+            label="GYRO"
+            readout={`${gyroscope.rpm}`}
+            unit="об/м"
+            danger={[0, 10]}
+            warn={gyroscope.rpm_warn}
+            booted={booted}
+            size={88}
+          />
+          <div className="spcp-gyro__side">
+            <div className="spcp-readouts spcp-readouts--dense">
+              <div className="spcp-readout">
+                <span>МОЩНОСТЬ</span>
+                <b>{gyroscope.rpm_percent}%</b>
+              </div>
+              <div className="spcp-readout">
+                <span>ТЕМПЕРАТУРА</span>
+                <b
+                  className={gyroscope.temperature_warn ? 'is-bad' : undefined}
+                >
+                  {gyroscope.temperature}°C
+                </b>
+              </div>
+              <div className="spcp-readout">
+                <span>ПИТАНИЕ</span>
+                <b className={gyroscope.power_link ? 'is-ok' : 'is-bad'}>
+                  {gyroscope.power_link ? 'НОРМА' : 'НЕТ'}
+                </b>
+              </div>
+            </div>
+            <Switch
+              caption="GYRO"
+              on={gyroscope.enable}
+              failure={!!gyroscope.error_text}
+              onClick={() => act('switch_enable', { id: gyroscope.id })}
+              tooltip={gyroscope.name}
+            />
+          </div>
+          {!!gyroscope.error_text && (
+            <div className="spcp-error">{gyroscope.error_text}</div>
+          )}
+        </div>
+      ) : (
+        <div className="spcp-empty">ГИРОСКОП НЕ УСТАНОВЛЕН</div>
+      )}
+    </Panel>
+  );
+};
+
+// MARK: Life support
+
+const LifeSupportPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { life_support } = data;
+
+  if (!life_support.exists) {
+    return (
+      <Panel title="Жизнеобеспечение" hint="N/A">
+        <div className="spcp-empty">СИСТЕМА НЕ УСТАНОВЛЕНА</div>
+      </Panel>
+    );
+  }
+
+  const pressureKpa = asNumber(life_support.atmos.pressure) / 1000;
+  const temperatureC = asNumber(life_support.atmos.temperature) - 273.15;
+  const airtank = life_support.airtank;
+
+  return (
+    <Panel
+      title="Жизнеобеспечение"
+      hint={airtank?.enable ? 'INTERNAL' : 'EXTERNAL'}
+    >
+      <div className="spcp-air">
+        <Gauge
+          value={pressureKpa}
+          max={150}
+          label="CABIN"
+          readout={pressureKpa.toFixed(1)}
+          unit="кПа"
+          danger={[0, 25]}
+          warn={life_support.atmos.low_pressure}
+          booted={booted}
+          size={88}
+        />
+        <Gauge
+          value={temperatureC}
+          max={60}
+          label="TEMP"
+          readout={temperatureC.toFixed(1)}
+          unit="°C"
+          danger={[45, 60]}
+          warn={life_support.atmos.low_temperature}
+          booted={booted}
+          size={88}
+        />
+      </div>
+      <div className="spcp-air__tank">
+        <div className="spcp-readouts spcp-readouts--dense">
+          <div className="spcp-readout">
+            <span>БАЛЛОН</span>
+            <b className={airtank ? undefined : 'is-bad'}>
+              {airtank ? airtank.name : 'ОТСУТСТВУЕТ'}
+            </b>
+          </div>
+          {airtank && (
+            <>
+              <div className="spcp-readout">
+                <span>ОБЪЁМ</span>
+                <b>{airtank.volume} л</b>
+              </div>
+              <div className="spcp-readout">
+                <span>ДАВЛЕНИЕ</span>
+                <b className={airtank.low_pressure ? 'is-bad' : 'is-ok'}>
+                  {(asNumber(airtank.pressure) / 1000).toFixed(1)} кПа
+                </b>
+              </div>
+            </>
+          )}
+        </div>
+        <Switch
+          caption="AIR"
+          on={!!airtank?.enable}
+          disabled={!airtank}
+          failure={!airtank}
+          onClick={() => act('switch_airtank')}
+          tooltip="Подача кислорода из баллона"
+        />
+      </div>
+    </Panel>
+  );
+};
+
+// MARK: Weapons
+
+const WeaponsPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
+  const { act, data } = useBackend<SpacepodControlPanelData>();
+  const { weapons } = data;
+
+  return (
+    <Panel
+      title="Вооружение"
+      hint={weapons.module ? (weapons.module.enable ? 'ARMED' : 'SAFE') : 'N/A'}
+    >
+      {weapons.module ? (
+        <>
+          <div className="spcp-weapon-head">
+            <span>{weapons.module.name}</span>
+            <div className="spcp-lamps">
+              <Lamp
+                label="PWR"
+                state={weapons.module.power_link ? 'ok' : 'bad'}
+                tooltip="Питание оружейного модуля"
+              />
+              <Lamp
+                label="BUS"
+                state={weapons.module.enable ? 'ok' : 'off'}
+                tooltip="Состояние оружейного модуля"
+              />
+            </div>
+            <Switch
+              caption="PWR"
+              on={weapons.module.enable}
+              failure={!!weapons.module.error_text}
+              onClick={() => act('switch_enable', { id: weapons.module?.id })}
+              tooltip="Питание вооружения"
+            />
+          </div>
+          {!!weapons.module.error_text && (
+            <div className="spcp-error">{weapons.module.error_text}</div>
+          )}
+          {weapons.guns.length ? (
+            weapons.guns.map((gun) => (
+              <div className="spcp-gun" key={gun.id}>
+                <div className="spcp-gun__head">
+                  <b>{gun.primary ? 'PRIMARY' : 'SECONDARY'}</b>
+                  <span className="spcp-gun__name" title={gun.name}>
+                    {gun.name}
+                  </span>
+                  <span className="spcp-gun__type">
+                    {getGunTypeName(gun.type)}
+                  </span>
+                </div>
+                <LevelBar
+                  label="AMMO"
+                  value={gun.ammo}
+                  max={gun.capacity > 0 ? gun.capacity : 1}
+                  readout={`${gun.ammo}/${gun.capacity}`}
+                  warn={gun.capacity > 0 && gun.ammo === 0}
+                  dangerBelow={25}
+                  booted={booted}
+                />
+                <div className="spcp-gun__actions">
+                  <Switch
+                    caption="SAFE"
+                    on={gun.safety}
+                    onClick={() => act('toggle_weapon_safety', { id: gun.id })}
+                    tooltip={
+                      gun.safety
+                        ? 'Предохранитель включён'
+                        : 'Оружие готово к стрельбе'
+                    }
+                  />
+                  {gun.type === 1 && (
+                    <Button
+                      compact
+                      icon="redo"
+                      fluid
+                      onClick={() => act('reload_weapon', { id: gun.id })}
+                    >
+                      ПЕРЕЗАРЯДИТЬ
+                    </Button>
+                  )}
+                  {gun.type === 2 && (
+                    <Switch
+                      caption="CHRG"
+                      on={gun.charging}
+                      onClick={() => act('reload_weapon', { id: gun.id })}
+                      tooltip="Циклическая зарядка"
+                    />
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="spcp-empty">ОРУДИЯ НЕ УСТАНОВЛЕНЫ</div>
+          )}
+        </>
+      ) : (
+        <div className="spcp-empty">ОРУЖЕЙНЫЙ МОДУЛЬ НЕ УСТАНОВЛЕН</div>
+      )}
+    </Panel>
+  );
+};
+
+// MARK: Misc
+
+const MiscPanel = () => {
   const { act, data } = useBackend<SpacepodControlPanelData>();
   const { misc } = data;
 
   return (
-    <Stack vertical fill width="100%">
-      {/* Key lock section */}
-      {misc.key_lock !== null ? (
-        <Stack.Item>
-          <Section title="Модуль замка" ml="0" mr="0">
-            <Table>
-              <ToggleButtonRow
-                caption="Замок"
-                enable={misc.key_lock.locked}
-                enable_text="Закрыт"
-                disable_text="Открыт"
-                clicked={() => act('toggle_lock')}
+    <Panel title="Прочие системы" hint="MISC">
+      <div className="spcp-misc">
+        <div className="spcp-misc__cards">
+          {misc.key_lock && (
+            <div className="spcp-misc__card">
+              <span>ЗАМОК</span>
+              <Switch
+                caption="LOCK"
+                on={misc.key_lock.locked}
+                onClick={() => act('toggle_lock')}
+                tooltip={misc.key_lock.locked ? 'Замок закрыт' : 'Замок открыт'}
               />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ) : (
-        ''
+            </div>
+          )}
+          {misc.tracker && (
+            <div className="spcp-misc__card">
+              <span>GPS МАЯЧОК</span>
+              <Switch
+                caption="GPS"
+                on={misc.tracker.enable}
+                onClick={() => act('switch_enable', { id: misc.tracker?.id })}
+                tooltip={
+                  misc.tracker.enable ? 'Маячок включён' : 'Маячок выключен'
+                }
+              />
+            </div>
+          )}
+        </div>
+        {misc.catapult && (
+          <div className="spcp-misc__launch">
+            <Switch
+              caption="AUTO"
+              on={misc.catapult.enable}
+              onClick={() => act('switch_enable', { id: misc.catapult?.id })}
+              tooltip="Автоматическое катапультирование"
+            />
+            <Button.Confirm
+              compact
+              color="bad"
+              icon="rocket"
+              confirmContent="ТОЧНО?"
+              onClick={() => act('catapult_pilot')}
+            >
+              КАТАПУЛЬТ
+            </Button.Confirm>
+          </div>
+        )}
+      </div>
+      {!misc.key_lock && !misc.tracker && !misc.catapult && (
+        <div className="spcp-empty">ДОПОЛНИТЕЛЬНЫХ МОДУЛЕЙ НЕТ</div>
       )}
-      {/* Catapult section */}
-      {misc.catapult !== null ? (
-        <Stack.Item>
-          <Section title="Модуль аварийного катапультирования" ml="0" mr="0">
-            <Table>
-              <ToggleButtonRow
-                caption="Автоматическое катапультирование"
-                enable={misc.catapult.enable}
-                enable_text="Включен"
-                disable_text="Выключен"
-                clicked={() => act('switch_enable', { id: misc.catapult.id })}
-              />
-              <ButtonRow
-                caption="Ручное катапультирование"
-                text="Активировать"
-                clicked={() => act('catapult_pilot')}
-              />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ) : (
-        ''
-      )}
-      {/* Tracker section */}
-      {misc.tracker !== null ? (
-        <Stack.Item>
-          <Section title="Модуль GPS маячка" ml="0" mr="0">
-            <Table>
-              <ToggleButtonRow
-                caption="Маячок"
-                enable={misc.tracker.enable}
-                enable_text="Включен"
-                disable_text="Выключен"
-                clicked={() => act('switch_enable', { id: misc.tracker.id })}
-              />
-            </Table>
-          </Section>
-        </Stack.Item>
-      ) : (
-        ''
-      )}
-    </Stack>
+    </Panel>
   );
 };
 
-// MARK: Instrumental panel
-const InstrumentalPanel = (props: unknown) => {
+// MARK: Integrity
+
+const IntegrityPanel = (props: { booted: boolean }) => {
+  const { booted } = props;
   const { act, data } = useBackend<SpacepodControlPanelData>();
-  const { electricity, engines, fuel, life_support, weapons, misc } = data;
+  const { integrity } = data;
+  const { hull } = integrity;
 
   return (
-    <Stack vertical fill width="100%">
-      {/* Electricity control */}
-      <Stack.Item>
-        <Box align="center">
-          <Stack fill inlineFlex={true}>
-            <Stack.Item>
-              <Box pb="5px"> BATT </Box>
-              <TextMeter
-                caption="CHRG"
-                text_upper={`${electricity.exists ? electricity.power : 0} W`}
-                text_lower={`${electricity.exists ? electricity.percent : 0}%`}
-                warn={!electricity.exists || electricity.percent < 25}
+    <Panel title="Живучесть" hint={`ОГНЕТУШИТЕЛЬ: ${hull.extenguish_charges}`}>
+      <div className="spcp-hull">
+        <LevelBar
+          label="КОРПУС"
+          value={hull.integrity}
+          max={hull.max_integrity}
+          readout={`${hull.integrity}/${hull.max_integrity}`}
+          warn={hull.integrity_warn}
+          dangerBelow={25}
+          booted={booted}
+        />
+        <div className="spcp-lamps">
+          <Lamp
+            label="HULL"
+            state={hull.integrity_warn ? 'bad' : 'ok'}
+            tooltip="Целостность корпуса"
+          />
+          <Lamp
+            label="EXT"
+            state={hull.extenguish_charges > 0 ? 'ok' : 'warn'}
+            tooltip="Заряды системы пожаротушения"
+          />
+        </div>
+      </div>
+      <div className="spcp-modules">
+        {integrity.modules.length ? (
+          integrity.modules.map((module) => (
+            <div
+              className={`spcp-module${module.fire ? ' spcp-module--fire' : ''}`}
+              key={module.id}
+            >
+              <div className="spcp-module__head">
+                <span title={module.name}>{module.caption}</span>
+                <b
+                  className={
+                    module.integrity <= 0
+                      ? 'is-bad'
+                      : module.integrity_warn
+                        ? 'is-warn'
+                        : 'is-ok'
+                  }
+                >
+                  {module.integrity > 0
+                    ? `${module.integrity}/${module.max_integrity}`
+                    : 'УНИЧТОЖЕН'}
+                </b>
+              </div>
+              <LevelBar
+                value={module.integrity}
+                max={module.max_integrity}
+                dangerBelow={50}
+                warn={module.integrity_warn}
+                booted={booted}
               />
-            </Stack.Item>
-            <Stack.Item>
-              <Box pb="5px">PWR STAT</Box>
-              <Stack wrap>
-                <Stack.Item>
-                  <TumblerButton
-                    caption="MAIN BATT"
-                    enable={electricity.link}
-                    clicked={() =>
-                      act('switch_powernet_link', {
-                        id: electricity.battery_id,
-                      })
-                    }
-                  />
-                </Stack.Item>
-                {electricity.consumers.map((consumer) => (
-                  <Stack.Item key={consumer.id}>
-                    <TumblerButton
-                      caption={consumer.caption}
-                      enable={consumer.link}
-                      clicked={() =>
-                        act('switch_powernet_link', { id: consumer.id })
-                      }
-                    />
-                  </Stack.Item>
-                ))}
-              </Stack>
-            </Stack.Item>
-          </Stack>
-          <Divider />
-        </Box>
-      </Stack.Item>
-      {/* Fuel control */}
-      <Stack.Item>
-        <Box align="center">
-          <Stack fill inlineFlex={true}>
-            <Stack.Item>
-              <Box pb="5px">FUEL TANKS</Box>
-              <Stack wrap>
-                <Stack.Item grow />
-                {fuel.fuel_tanks.map((fuel_tank) => (
-                  <Stack.Item key={fuel_tank.id}>
-                    <TextMeter
-                      caption={fuel_tank.caption}
-                      text_upper={`${fuel_tank.fuel_amount} L`}
-                      text_lower={`${fuel_tank.level_percent}%`}
-                      warn={fuel_tank.level_percent < 25}
-                    />
-                  </Stack.Item>
-                ))}
-                <Stack.Item grow />
-              </Stack>
-            </Stack.Item>
-            <Stack.Item>
-              <Box pb="5px">FUEL PUMPS</Box>
-              <Stack wrap>
-                <Stack.Item grow />
-                {fuel.fuel_pumps.map((pump) => (
-                  <Stack.Item key={pump.id}>
-                    <TumblerButton
-                      caption={pump.caption}
-                      enable={pump.enable}
-                      clicked={() => act('switch_enable', { id: pump.id })}
-                    />
-                  </Stack.Item>
-                ))}
-                <Stack.Item grow />
-              </Stack>
-            </Stack.Item>
-          </Stack>
-        </Box>
-        <Divider />
-      </Stack.Item>
-      {/* Engines control */}
-      <Stack.Item>
-        <Box align="center" width="100%">
-          <Stack fill inlineFlex={true}>
-            <Stack.Item>
-              <Box pb="5px">ENG START</Box>
-              <Stack>
-                {engines.engines.map((engine) => (
-                  <Stack.Item key={engine.id}>
-                    <EngineButton
-                      caption={engine.caption}
-                      enable={engine.enable}
-                      failure={engine.error_text != null}
-                      clicked={() => act('ignite_engine', { id: engine.id })}
-                    />
-                  </Stack.Item>
-                ))}
-              </Stack>
-            </Stack.Item>
-            <Divider />
-            <Stack.Item>
-              <Box pb="5px">ENG STAT</Box>
-              <Stack>
-                {engines.engines.map((engine) => (
-                  <Stack.Item key={engine.id}>
-                    <TextMeter
-                      caption={engine.caption}
-                      text_upper={`${engine.rpm} RPM`}
-                      text_lower={`${engine.rpm_percent}%`}
-                      warn={engine.rpm_warn}
-                    />
-                  </Stack.Item>
-                ))}
-              </Stack>
-            </Stack.Item>
-            <Divider />
-            <Stack.Item>
-              <Box pb="5px">ENG GEN</Box>
-              <Stack>
-                {engines.engines.map((engine) => (
-                  <Stack.Item key={engine.id}>
-                    <TumblerButton
-                      caption={`${engine.caption} GEN`}
-                      enable={engine.generator_enable}
-                      clicked={() =>
-                        act('switch_generator_enable', { id: engine.id })
-                      }
-                    />
-                  </Stack.Item>
-                ))}
-              </Stack>
-            </Stack.Item>
-            <Divider />
-            {engines.gyroscope === null ? (
-              ''
-            ) : (
-              <Stack.Item>
-                <Box pb="5px">GYRO</Box>
-                <Stack>
-                  <Stack.Item>
-                    <TumblerButton
-                      caption="PWR"
-                      enable={engines.gyroscope.enable}
-                      clicked={() =>
-                        act('switch_enable', { id: engines.gyroscope.id })
-                      }
-                    />
-                  </Stack.Item>
-                  <Stack.Item>
-                    <TextMeter
-                      caption="STAT"
-                      text_upper={`${engines.gyroscope.rpm} RPM`}
-                      text_lower={`${engines.gyroscope.rpm_percent}%`}
-                      warn={
-                        engines.gyroscope.rpm_percent > 0 &&
-                        engines.gyroscope.rpm_warn
-                      }
-                    />
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
-            )}
-          </Stack>
-        </Box>
-        <Divider />
-      </Stack.Item>
-      <Stack.Item>
-        {/* Life support and weapons control */}
-        <Box align="center" width="100%">
-          <Stack fill inlineFlex={true}>
-            {life_support.exists ? (
-              <>
-                <Stack.Item>
-                  <Box>AIR</Box>
-                  <Stack>
-                    <Stack.Item>
-                      <TextMeter
-                        caption="PRESS"
-                        text_upper={`${life_support.atmos.pressure} Pa`}
-                        text_lower={`${life_support.atmos.temperature} C`}
-                        warn={
-                          life_support.atmos.low_pressure ||
-                          life_support.atmos.low_temperature
-                        }
-                      />
-                    </Stack.Item>
-                    <Stack.Item>
-                      <TumblerButton
-                        caption="PWR"
-                        enable={
-                          life_support.airtank === null
-                            ? false
-                            : life_support.airtank.enable
-                        }
-                        clicked={() => act('switch_airtank')}
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-                <Divider />
-              </>
-            ) : (
-              ''
-            )}
-            {weapons.module ? (
-              <>
-                <Stack.Item>
-                  <Box>WEAPON</Box>
-                  <Stack>
-                    <Stack.Item>
-                      <TumblerButton
-                        caption="PWR"
-                        enable={weapons.module.enable}
-                        clicked={() =>
-                          act('switch_enable', { id: weapons.module.id })
-                        }
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-                <Divider />
-              </>
-            ) : (
-              ''
-            )}
-            {weapons.module &&
-              weapons.guns.map((gun) => (
-                <>
-                  <Stack.Item key={gun.id}>
-                    <Box>{gun.primary ? 'PRIMARY' : 'SECONDARY'}</Box>
-                    <Stack>
-                      <Stack.Item>
-                        <TumblerButton
-                          caption="ARM"
-                          enable={!gun.safety}
-                          clicked={() =>
-                            act('toggle_weapon_safety', { id: gun.id })
-                          }
-                        />
-                      </Stack.Item>
-                      <Stack.Item>
-                        <TextMeter
-                          caption="AMMO"
-                          text_upper={`CUR: ${gun.ammo}`}
-                          text_lower={`MAX: ${gun.capacity}`}
-                          warn={gun.ammo === 0}
-                        />
-                      </Stack.Item>
-                      <Stack.Item>
-                        {gun.type === 1 ? (
-                          <SimpleButton
-                            caption="REL"
-                            failure={false}
-                            clicked={() => act('reload_weapon', { id: gun.id })}
-                          />
-                        ) : (
-                          ''
-                        )}
-                        {gun.type === 2 ? (
-                          <TumblerButton
-                            caption="CHRG"
-                            enable={gun.charging}
-                            clicked={() => act('reload_weapon', { id: gun.id })}
-                          />
-                        ) : (
-                          ''
-                        )}
-                      </Stack.Item>
-                    </Stack>
-                  </Stack.Item>
-                  <Divider />
-                </>
-              ))}
-          </Stack>
-        </Box>
-      </Stack.Item>
-      <Stack.Item>
-        {/* Misc */}
-        <Box align="center" width="100%">
-          <Stack fill inlineFlex={true}>
-            {/* Key lock */}
-            {misc.key_lock !== null ? (
-              <>
-                <Stack.Item>
-                  <Box pb="5px">LOCK</Box>
-                  <Stack>
-                    <Stack.Item>
-                      <TumblerButton
-                        caption="LOCK"
-                        enable={misc.key_lock.locked}
-                        clicked={() => act('toggle_lock')}
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-                <Divider />
-              </>
-            ) : (
-              ''
-            )}
-            {/* Catapult */}
-            {misc.catapult !== null ? (
-              <>
-                <Stack.Item>
-                  <Box pb="5px">CAT</Box>
-                  <Stack>
-                    <Stack.Item>
-                      <TumblerButton
-                        caption="AUTO"
-                        enable={misc.catapult.enable}
-                        clicked={() =>
-                          act('switch_enable', { id: misc.catapult.id })
-                        }
-                      />
-                    </Stack.Item>
-                    <Stack.Item>
-                      <SimpleButton
-                        caption="MAN"
-                        failure={false}
-                        clicked={() => act('catapult_pilot')}
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-                <Divider />
-              </>
-            ) : (
-              ''
-            )}
-            {/* Tracker */}
-            {misc.tracker !== null ? (
-              <>
-                <Stack.Item>
-                  <Box pb="5px">TRK</Box>
-                  <Stack>
-                    <Stack.Item>
-                      <TumblerButton
-                        caption="GPS"
-                        enable={misc.tracker.enable}
-                        clicked={() =>
-                          act('switch_enable', { id: misc.tracker.id })
-                        }
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </Stack.Item>
-                <Divider />
-              </>
-            ) : (
-              ''
-            )}
-          </Stack>
-        </Box>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-// MARK: Elements
-type ToggleButtonRowData = {
-  caption: string;
-  enable: boolean;
-  enable_text: string;
-  disable_text: string;
-  clicked: any;
-};
-
-const ToggleButtonRow = (props: ToggleButtonRowData) => {
-  const { caption, enable, enable_text, disable_text, clicked } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        {caption}:
-      </Table.Cell>
-      <Table.Cell>
-        <Box pb={1}>
-          <Button
-            selected={enable}
-            icon={enable ? 'toggle-on' : 'toggle-off'}
-            onClick={() => clicked()}
-          >
-            {enable ? enable_text : disable_text}
-          </Button>
-        </Box>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
-
-type ButtonRowData = {
-  caption: string;
-  text: string;
-  clicked: any;
-};
-
-const ButtonRow = (props: ButtonRowData) => {
-  const { caption, text, clicked } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        {caption}:
-      </Table.Cell>
-      <Table.Cell>
-        <Box pb={1}>
-          <Button onClick={() => clicked()}>{text}</Button>
-        </Box>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
-
-type BadColorButtonRowData = {
-  caption: string;
-  text: string;
-  icon: string;
-  clicked: any;
-};
-
-const BadColorButtonRow = (props: BadColorButtonRowData) => {
-  const { caption, text, icon, clicked } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        <Box color="bad">{caption}:</Box>
-      </Table.Cell>
-      <Table.Cell>
-        <Box pb={1}>
-          <Button icon={icon} onClick={() => clicked()}>
-            {text}
-          </Button>
-        </Box>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
-
-type TextRowData = {
-  caption: string;
-  value_text: string;
-};
-
-const TextRow = (props: TextRowData) => {
-  const { caption, value_text } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        {caption}:
-      </Table.Cell>
-      <Table.Cell>
-        <b>{value_text}</b>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
-
-type TextStatusRowData = {
-  caption: string;
-  enable: boolean;
-  enable_text: string;
-  disable_text: string;
-};
-
-const TextStatusRow = (props: TextStatusRowData) => {
-  const { caption, enable, enable_text, disable_text } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        {caption}:
-      </Table.Cell>
-      <Table.Cell>
-        <Box inline mr={1} color={enable ? 'good' : 'bad'}>
-          {enable ? enable_text : disable_text}
-        </Box>
-      </Table.Cell>
-    </Table.Row>
-  );
-};
-
-type ColorTextRowData = {
-  caption: string;
-  value_text: string;
-  warn: boolean;
-};
-
-const ColorTextRow = (props: ColorTextRowData) => {
-  const { caption, value_text, warn } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold width="50%">
-        {caption}:
-      </Table.Cell>
-      <Box inline mr={1} color={warn ? 'bad' : 'good'}>
-        {value_text}
-      </Box>
-    </Table.Row>
-  );
-};
-
-type ErrorRowData = {
-  error_text: string;
-};
-
-const ErrorRow = (props: ErrorRowData) => {
-  const { error_text } = props;
-  if (error_text !== null) {
-    return (
-      <Table.Row>
-        <Table.Cell bold>Ошибка:</Table.Cell>
-        <Box inline mr={1} color="bad">
-          {error_text}
-        </Box>
-      </Table.Row>
-    );
-  }
-  return '';
-};
-
-type EngineButtonData = {
-  caption: string;
-  enable: boolean;
-  failure: boolean;
-  clicked: any;
-};
-
-const EngineButton = (props: EngineButtonData) => {
-  const { caption, enable, failure, clicked } = props;
-  return (
-    <Table style={{ borderCollapse: 'separate', borderSpacing: '0px' }}>
-      {/* Строка с заголовком */}
-      <Table.Row>
-        <Table.Cell
-          textAlign="center"
-          height="28px"
-          verticalAlign="center"
-          backgroundColor="#414141" // Добавляем верхний левый и верхний правый радиусы
-          style={{
-            borderRadius: '8px 8px 0 0',
-            padding: '4px',
-          }}
-        >
-          {caption}
-        </Table.Cell>
-      </Table.Row>
-      {/* Строка с тумблером */}
-      <Table.Row>
-        <Table.Cell
-          backgroundColor="#414141" // Добавляем нижний левый и нижний правый радиусы
-          style={{
-            borderRadius: '0 0 8px 8px', // Обязательно добавляем padding, иначе контент прилипнет к краям фона
-            padding: '4px',
-            display: 'flex',
-            justifyContent: 'center', // Центрируем картинку горизонтально
-          }}
-        >
-          <Image
-            src={resolveAsset(
-              failure ? 'eng-fail.png' : enable ? 'eng-on.png' : 'eng-off.png',
-            )}
-            onClick={() => clicked()}
-            style={{
-              width: '64px',
-              height: '64px',
-            }}
-          />
-        </Table.Cell>
-      </Table.Row>
-    </Table>
-  );
-};
-
-type SimpleButtonData = {
-  caption: string;
-  failure: boolean;
-  clicked: any;
-};
-
-const SimpleButton = (props: SimpleButtonData) => {
-  const { caption, failure, clicked } = props;
-  return (
-    <Table style={{ borderCollapse: 'separate', borderSpacing: '0px' }}>
-      {/* Строка с заголовком */}
-      <Table.Row>
-        <Table.Cell
-          textAlign="center"
-          height="28px"
-          verticalAlign="center"
-          backgroundColor="#414141" // Добавляем верхний левый и верхний правый радиусы
-          style={{
-            borderRadius: '8px 8px 0 0',
-            padding: '4px',
-          }}
-        >
-          {caption}
-        </Table.Cell>
-      </Table.Row>
-      {/* Строка с тумблером */}
-      <Table.Row>
-        <Table.Cell
-          backgroundColor="#414141" // Добавляем нижний левый и нижний правый радиусы
-          style={{
-            borderRadius: '0 0 8px 8px', // Обязательно добавляем padding, иначе контент прилипнет к краям фона
-            padding: '4px',
-            display: 'flex',
-            justifyContent: 'center', // Центрируем картинку горизонтально
-          }}
-        >
-          <Image
-            src={resolveAsset(failure ? 'eng-fail.png' : 'eng-idle.png')}
-            onClick={() => clicked()}
-            style={{
-              width: '64px',
-              height: '64px',
-            }}
-          />
-        </Table.Cell>
-      </Table.Row>
-    </Table>
-  );
-};
-
-type TumblerButtonData = {
-  caption: string;
-  enable: boolean;
-  clicked: any;
-};
-
-const TumblerButton = (props: TumblerButtonData) => {
-  const { caption, enable, clicked } = props;
-  return (
-    <Table style={{ borderCollapse: 'separate', borderSpacing: '0px' }}>
-      {/* Строка с заголовком */}
-      <Table.Row>
-        <Table.Cell
-          textAlign="center"
-          verticalAlign="center"
-          backgroundColor="#414141" // Добавляем верхний левый и верхний правый радиусы
-          style={{
-            borderRadius: '8px 8px 0 0',
-            padding: '4px',
-          }}
-        >
-          <Box
-            width="64px"
-            height="24px"
-            textAlign="center"
-            verticalAlign="center"
-          >
-            {caption}
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-      {/* Строка с тумблером */}
-      <Table.Row>
-        <Table.Cell
-          backgroundColor="#414141" // Добавляем нижний левый и нижний правый радиусы
-          style={{
-            borderRadius: '0 0 8px 8px', // Обязательно добавляем padding, иначе контент прилипнет к краям фона
-            padding: '4px',
-            display: 'flex',
-            justifyContent: 'center', // Центрируем картинку горизонтально
-          }}
-        >
-          <Image
-            src={resolveAsset(enable ? 'eng-on.png' : 'eng-off-top.png')}
-            onClick={() => clicked()}
-            style={{
-              width: '64px',
-              height: '64px',
-            }}
-          />
-        </Table.Cell>
-      </Table.Row>
-    </Table>
-  );
-};
-
-type TextMeterData = {
-  caption: string;
-  text_upper: string;
-  text_lower: string;
-  warn: boolean;
-};
-
-const TextMeter = (props: TextMeterData) => {
-  const { caption, text_upper, text_lower, warn } = props;
-  return (
-    <Table style={{ borderCollapse: 'separate', borderSpacing: '0px' }}>
-      {/* Строка с заголовком */}
-      <Table.Row backgroundColor={warn ? '#7c2f2f' : '#414141'}>
-        <Table.Cell
-          textAlign="center"
-          verticalAlign="center"
-          backgroundColor={warn ? '#7c2f2f' : '#414141'}
-          style={{
-            borderRadius: '8px 8px 0 0',
-            padding: '4px',
-          }}
-        >
-          <Box
-            width="64px"
-            height="32px"
-            textAlign="center"
-            verticalAlign="center"
-          >
-            {caption}
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-      {/* Строка с литрами */}
-      <Table.Row>
-        <Table.Cell
-          textAlign="center"
-          verticalAlign="center"
-          backgroundColor={warn ? '#7c2f2f' : '#414141'}
-          style={{
-            padding: '4px',
-          }}
-        >
-          <Box
-            width="64px"
-            height="24px"
-            textAlign="center"
-            verticalAlign="center"
-          >
-            {text_upper}
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-      {/* Строка с процентами */}
-      <Table.Row>
-        <Table.Cell
-          textAlign="center"
-          verticalAlign="center"
-          backgroundColor={warn ? '#7c2f2f' : '#414141'}
-          style={{
-            borderRadius: '0 0 8px 8px',
-            padding: '4px',
-          }}
-        >
-          <Box
-            width="64px"
-            height="24px"
-            textAlign="center"
-            verticalAlign="center"
-          >
-            {text_lower}
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-    </Table>
+              {module.fire && (
+                <Button
+                  compact
+                  fluid
+                  color="bad"
+                  icon="fire-extinguisher"
+                  disabled={hull.extenguish_charges <= 0}
+                  onClick={() => act('extinguish', { id: module.id })}
+                >
+                  ТУШИТЬ
+                </Button>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="spcp-empty">МОДУЛЕЙ НЕТ</div>
+        )}
+      </div>
+    </Panel>
   );
 };
