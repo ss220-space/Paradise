@@ -228,6 +228,6 @@
 
 /datum/revenant_spell/pointed/reflect
 	name = "Отражение мук"
-	desc = "Позволяет отражать часть полученных повреждений в выбранного смертного."
+	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	spell_type = /datum/action/cooldown/spell/pointed/revenant/reflect
 	cost = 35
