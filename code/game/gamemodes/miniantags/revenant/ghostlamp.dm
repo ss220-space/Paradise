@@ -1,5 +1,5 @@
 /obj/structure/revenant_lamp
-	name = "Призрачный маяк"
+	name = "spirit lamp"
 	desc = "Огромная жуткая лампа. Вам не хочется находиться рядом с ней."
 	icon = 'icons/effects/32x64.dmi'
 	icon_state = "revenantlamp"
@@ -17,6 +17,16 @@
 	var/mob/living/simple_animal/revenant/revenant_owner
 	var/datum/action/cooldown/spell/aoe/revenant/soul_lamp/spell
 	COOLDOWN_DECLARE(wisp_creation)
+
+/obj/structure/revenant_lamp/get_ru_names()
+	return alist(
+		NOMINATIVE = "призрачный маяк",
+		GENITIVE = "призрачного маяка",
+		DATIVE = "призрачному маяку",
+		ACCUSATIVE = "призрачный маяк",
+		INSTRUMENTAL = "призрачным маяком",
+		PREPOSITIONAL = "призрачном маяке",
+	)
 
 /obj/structure/revenant_lamp/Click(location, control, params)
 	. = ..()
@@ -80,7 +90,7 @@
 	return counted
 
 /mob/living/simple_animal/hostile/wisp
-	name = "блуждающий огонёк"
+	name = "will-o'-the-wisp"
 	desc = "Маленький огонёк призрачного пламени. Милый, но опасный."
 	icon = 'icons/effects/revenant.dmi'
 	icon_state = "wisp"
@@ -90,6 +100,16 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	melee_damage_type = BURN
+
+/mob/living/simple_animal/hostile/wisp/get_ru_names()
+	return alist(
+		NOMINATIVE = "блуждающий огонёк",
+		GENITIVE = "блуждающего огонька",
+		DATIVE = "блуждающему огоньку",
+		ACCUSATIVE = "блуждающий огонёк",
+		INSTRUMENTAL = "блуждающим огоньком",
+		PREPOSITIONAL = "блуждающем огоньке",
+	)
 
 /mob/living/simple_animal/hostile/wisp/AttackingTarget()
 	if(ishuman(target) && prob(10))
