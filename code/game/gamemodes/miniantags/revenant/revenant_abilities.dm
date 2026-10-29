@@ -155,7 +155,7 @@
 
 	log_say("(REVENANT to [key_name(target)]) [msg]", owner)
 	to_chat(owner, "[span_revenboldnotice("Вы передаёте [target]:")] [span_revennotice(msg)]")
-	target.balloon_alert(target, "вы слышите жуткий голос из ниоткуда")
+	target.balloon_alert(target, "вы слышите жуткий голос")
 	to_chat(target, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
 
 /datum/action/cooldown/spell/revenantinvis
