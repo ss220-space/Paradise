@@ -174,8 +174,8 @@
 	. = ..()
 	remove_from_all_data_huds()
 	random_revenant_name()
-	giveObjectivesandGoals()
 	giveSpells()
+	mind.add_antag_datum(/datum/antagonist/revenant)
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -183,27 +183,6 @@
 	built_name += pick(strings(REVENANT_NAME_FILE, "adjective"))
 	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
 	name = built_name
-
-/mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
-			mind?.wipe_memory()
-			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
-			var/list/messages = list()
-			messages.Add(span_deadsay(span_fontsize3(span_bold("Вы — ревенант."))))
-			messages.Add("<b>Ваш некогда обычный дух был наполнен чужеродной энергией и превращён в ревенанта.</b>")
-			messages.Add("<b>Вы не мёртвы, не живы, а где-то посередине. Вы способны на ограниченное взаимодействие с обоими мирами.</b>")
-			messages.Add("<b>Вы неуязвимы и невидимы для всех, кроме других призраков. Большинство способностей раскроют вас, сделав уязвимым.</b>")
-			messages.Add("<b>Чтобы существовать, вы должны высасывать жизненную эссенцию из людей. Эта эссенции — ваш ресурс и здоровье, она питает все ваши способности.</b>")
-			messages.Add("<b><i>Вы не помните ничего из своих прошлых жизней, а также не будете помнить ничего из этой после своей смерти.</i></b>")
-			messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a>"))
-			var/datum/objective/revenant/objective = new
-			objective.owner = mind
-			mind?.objectives += objective
-			var/datum/objective/revenantFluff/objective2 = new
-			objective2.owner = mind
-			mind?.objectives += objective2
-			SSticker.mode.traitors |= mind //Necessary for announcing
-			messages.Add(mind?.prepare_announce_objectives(FALSE))
-			to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	for(var/spell_type in revenant_spells)
