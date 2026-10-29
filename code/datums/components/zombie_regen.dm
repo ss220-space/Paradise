@@ -19,8 +19,11 @@
 		healing_factor *= 1.6 // plague zombies have more health, and should heal faster
 	if(zomboid.reagents.has_reagent(/datum/reagent/zombie_cure/third))
 		healing_factor /= 3
+	var/datum/antagonist/zombie/datum = zomboid?.mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(datum?.class)
+		healing_factor *= datum.class.healing_factor_mod
 	if(zomboid.stat == DEAD)
-		healing_factor *= 2
+		healing_factor *= 3
 
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
@@ -32,7 +35,7 @@
 			robotlimbbrute += limb.brute_dam
 			robotlimbburn += limb.burn_dam
 
-	if(zomboid.stat == DEAD && (zomboid.getBruteLoss() - robotlimbbrute) <= 1 && (zomboid.getFireLoss() - robotlimbburn) <= 1 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
+	if(zomboid.stat == DEAD && (zomboid.getBruteLoss() - robotlimbbrute) <= 5 && (zomboid.getFireLoss() - robotlimbburn) <= 5 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
 		var/datum/reagent/the_cure = zomboid.reagents.has_reagent(/datum/reagent/zombie_cure/fourth)
 		if(the_cure) // dead bodies dont process chemicals, so we gotta do it manually.
 			zomboid.reagents.remove_reagent(/datum/reagent/zombie_cure/fourth, the_cure.metabolization_rate * zomboid.metabolism_efficiency)
@@ -89,7 +92,12 @@
 
 	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
 		if(!zomboid.get_active_hand())
-			zomboid.put_in_hands(new /obj/item/zombie_claw())
+			var/datum/antagonist/zombie/datum = zomboid.mind.has_antag_datum(/datum/antagonist/zombie)
+			var/obj/item/zombie_claw/claws = new()
+			if(datum?.class)
+				claws.damage_mod = datum?.class.damage_mod
+				claws.force *= datum?.class.damage_mod
+			zomboid.put_in_hands(claws)
 		zomboid.a_intent = INTENT_HARM
 		zomboid.ClickOn(target)
 		return

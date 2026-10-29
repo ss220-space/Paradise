@@ -21,4 +21,4 @@
 		nodamage = TRUE
 	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
-	. = ..()
+	return ..()

@@ -88,7 +88,7 @@
 	if(!on || user.zone_selected != BODY_ZONE_PRECISE_EYES)
 		return ..()
 
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) || !user.check_brain_for_complex_interactions()))	//too dumb to use flashlight properly
 		return ..()	//just hit them in the head
 
 	. = ATTACK_CHAIN_PROCEED

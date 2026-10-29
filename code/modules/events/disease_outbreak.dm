@@ -23,6 +23,9 @@
 		1; /datum/disease/virus/pierrot_throat/advanced,
 		1; /datum/disease/virus/tuberculosis,
 		1; /datum/disease/virus/wizarditis,
+		1; /datum/disease/virus/blood_plague,
+		1; /datum/disease/virus/zombie,
+		1; /datum/disease/virus/gbs,
 		2; /datum/disease/virus/babylonian_fever
 	)
 	if(virus_type == /datum/disease/virus/advance)

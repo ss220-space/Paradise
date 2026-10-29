@@ -37,6 +37,9 @@
 	if(mod.malfunctioning && prob(MOD_MALFUNCTION_PROB))
 		mod.balloon_alert(usr, "сбой активации!")
 		return FALSE
+	var/mob/living/user = astype(usr, /mob/living)
+	if(user && !user.check_brain_for_complex_interactions())
+		return FALSE
 	return TRUE
 
 /datum/action/item_action/mod/deploy

@@ -128,6 +128,16 @@
 		human.update_body()
 		var/obj/item/organ/internal/zombietumor/tumor = new
 		tumor.insert(affected_mob)
+		affected_mob.drop_item_ground()
+
+	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
+		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
+			plague.silent = TRUE //to prevent the second box from appearing
+			plague.wiki_page_name = null
+			affected_mob.mind.add_antag_datum(plague)
+		else
+			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 
 	for(var/obj/item/organ/limb as anything in human.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.vital && !limb.is_robotic())
@@ -142,15 +152,6 @@
 		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
 			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
-
-	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
-		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
-			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
-			plague.silent = TRUE //to prevent the second box from appearing
-			plague.wiki_page_name = null
-			affected_mob.mind.add_antag_datum(plague)
-		else
-			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
 
 	return TRUE
 
@@ -201,6 +202,7 @@
 	spread_flags = NON_CONTAGIOUS
 	ignore_immunity = TRUE
 	cure_text = "Антимагия"
+	show_in_records = FALSE
 
 // this should not be curable. Prevents things like rez wands from un-zombifying your zombs.
 /datum/disease/virus/zombie/wizard/cure(id, need_immunity)

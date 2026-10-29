@@ -623,17 +623,8 @@
 	if(dropped.loc != user && dropped.anchored)
 		return
 
-	if(dropped.loc == user)
-		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
-			user.visible_message(
-				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-			)
-			if(!do_after(user, dropped.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [dropped.declent_ru(GENITIVE)] было прервано!")))
-				return
-
-		if(!user.drop_item_ground(dropped))
-			return
+	if(!dropped.can_pickup(user))
+		return
 
 	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(dropped, ignore_anim = FALSE)) || \
 		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(dropped, ignore_anim = FALSE)))
