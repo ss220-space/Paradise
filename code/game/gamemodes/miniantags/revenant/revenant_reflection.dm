@@ -8,11 +8,11 @@
 	var/reflectpercent
 	var/suf_beam
 
-/datum/status_effect/revenant_reflection/New(list/arguments)
-	if(arguments[2])
-		duration = arguments[2]
-	reflect_from = arguments[3]
-	reflectpercent = arguments[4]
+/datum/status_effect/revenant_reflection/on_creation(mob/living/new_owner, duration, mob/living/simple_animal/revenant/inflicter, percent)
+	if(duration)
+		duration = duration
+	reflect_from = inflicter
+	reflectpercent = percent
 	reflect_from.reflection = src
 	. = ..()
 	suf_beam = owner.Beam(reflect_from, "sufferline", 'icons/effects/revenant.dmi')
@@ -22,7 +22,7 @@
 	reflect_from.reflection = null
 	qdel(suf_beam)
 
-/datum/status_effect/revenant_reflection/tick(seconds_between_ticks)
+/datum/status_effect/revenant_reflection/tick(seconds_between_ticks)ы
 	var/holywater = owner.reagents.has_reagent(/datum/reagent/holywater, 5)
 	if(holywater)
 		owner.reagents.remove_reagent("holy_water", 5)

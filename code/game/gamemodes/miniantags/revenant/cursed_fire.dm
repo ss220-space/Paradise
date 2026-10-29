@@ -16,10 +16,10 @@
 	)
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/status_effect/cursed_flame/New(list/args)
-	if(args[2])
-		duration = args[2]
-	flame_inflicter = args[3]
+/datum/status_effect/cursed_flame/on_creation(mob/living/new_owner, set_duration, mob/living/simple_animal/revenant/inflicter)
+	if(set_duration)
+		duration = set_duration
+	flame_inflicter = inflicter
 	. = ..()
 	update_overlay()
 

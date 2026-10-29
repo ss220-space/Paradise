@@ -4,16 +4,12 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/cursed_hallucinations
 	var/mob/living/simple_animal/revenant/inflicter
-//	COOLDOWN_DECLARE(fireball_cooldown)
 
-/datum/status_effect/revenant_hallucinations/New(list/arguments)
+/datum/status_effect/revenant_hallucinations/on_creation(mob/living/new_owner, mob/living/simple_animal/revenant/revenant)
 	. = ..()
-	inflicter = arguments[1]
-	if(!istype(inflicter))
-		inflicter = null
+	inflicter = revenant
 
 /datum/status_effect/revenant_hallucinations/tick(seconds_between_ticks)
-//.	if(COOLDOWN_FINISHED(src, fireball_cooldown))
 	fire()
 	owner.overlay_fullscreen("revenant", /atom/movable/screen/fullscreen/revenant, (min(owner.getStaminaLoss(), 100)/20)+5) //states 5-10
 
@@ -29,7 +25,6 @@
 	to_fire.original = owner
 	to_fire.preparePixelProjectile(owner, fire_turf)
 	to_fire.fire()
-//	COOLDOWN_START(src, fireball_cooldown, 0.1 SECONDS)
 
 /obj/projectile/cursed_fireball
 	name = "ghostly fireball"
