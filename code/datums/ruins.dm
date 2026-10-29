@@ -38,6 +38,10 @@
 	var/identity_locked = FALSE
 	/// Same as shuttle profiles, id or id = FALSE for TX off.
 	var/list/identity_iff_ids
+	/// Extra ring of turfs around this ruin that the cave generator keeps in mind while it blends terrain
+	var/terrain_padding = 0
+	/// If TRUE the cave generator treats this ruin's footprint as solid rock, otherwise as open floor
+	var/enclosed_for_terrain = FALSE
 
 /datum/map_template/ruin/New()
 	if(!name && id)
