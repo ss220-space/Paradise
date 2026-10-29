@@ -433,7 +433,7 @@
  */
 /datum/action/cooldown/spell/aoe/revenant/hallucinations
 	name = "Аура галлюцинации"
-	desc = "Играйте с живыми, показывая им видения того, что могло бы быть или было."
+	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	button_icon_state = "r_hallucinations"
 	cooldown_time = 15 SECONDS
 	cast_amount = 15
