@@ -24,15 +24,22 @@
 		point[2] += shot.trajectory.return_py() / ICON_SIZE_Y
 	return launch_sector_projectile(shot, space.sector, point[1], point[2], shot.Angle)
 
-/datum/controller/subsystem/overmap/proc/launch_sector_projectile(obj/projectile/payload, datum/overmap_sector/sector, world_x, world_y, angle, obj/overmap/entity/source_vessel)
+/datum/controller/subsystem/overmap/proc/launch_sector_projectile(obj/projectile/payload, datum/overmap_sector/sector, world_x, world_y, angle, obj/overmap/entity/source_vessel, inherit_velocity = TRUE)
 	if(QDELETED(payload) || !sector || payload.hitscan)
 		return FALSE
 	STOP_PROCESSING(SSprojectiles, payload)
 	payload.overmap_persistent = TRUE
 	payload.has_been_fired = TRUE
-	payload.set_angle(angle)
 	if(source_vessel && !payload.overmap_firer_vessel)
 		payload.overmap_firer_vessel = source_vessel
+		if(inherit_velocity)
+			var/obj/overmap/entity/carrier = source_vessel.docked_ship || source_vessel
+			var/velocity_x = sin(angle) * payload.overmap_velocity + carrier.speed[1] * OVERMAP_TILE_SPAN * (1 SECONDS)
+			var/velocity_y = cos(angle) * payload.overmap_velocity + carrier.speed[2] * OVERMAP_TILE_SPAN * (1 SECONDS)
+			payload.overmap_velocity = sqrt(velocity_x ** 2 + velocity_y ** 2)
+			if(payload.overmap_velocity)
+				angle = delta_to_angle(velocity_x, velocity_y)
+	payload.set_angle(angle)
 	payload.moveToNullspace()
 	var/datum/overmap_projectile/shot = new(payload, sector, world_x, world_y, angle)
 	shot.clear_from = source_vessel

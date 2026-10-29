@@ -84,14 +84,14 @@ GLOBAL_LIST_EMPTY(overmap_weapons)
 		turret.last_fired = world.time
 	else
 		next_fire = world.time + (2 SECONDS)
-	if(!shoot(vessel, x, y, user, target))
+	if(!shoot(vessel, x, y, user, target, manual))
 		return FALSE
 	if(burst > 1)
 		for(var/index in 2 to burst)
-			addtimer(CALLBACK(src, PROC_REF(shoot), vessel, x, y, user, target), (index - 1) * 2)
+			addtimer(CALLBACK(src, PROC_REF(shoot), vessel, x, y, user, target, manual), (index - 1) * 2)
 	return TRUE
 
-/datum/component/ship_weapon/proc/shoot(obj/overmap/entity/vessel, x, y, mob/user, mob/living/target)
+/datum/component/ship_weapon/proc/shoot(obj/overmap/entity/vessel, x, y, mob/user, mob/living/target, manual = TRUE)
 	var/obj/machinery/gun = parent
 	if(QDELETED(gun) || QDELETED(vessel) || host() != vessel || (gun.stat & BROKEN) || vessel.is_jumping() || vessel.relay_jump_from || !can_aim(vessel, x, y))
 		return FALSE
@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(overmap_weapons)
 	var/angle = delta_to_angle(x - point[1], y - point[2])
 	point[1] += sin(angle) * muzzle_distance
 	point[2] += cos(angle) * muzzle_distance
-	if(!SSovermap.launch_sector_projectile(shot, vessel.sector, point[1], point[2], angle, vessel))
+	if(!SSovermap.launch_sector_projectile(shot, vessel.sector, point[1], point[2], angle, vessel, manual))
 		qdel(shot)
 		return FALSE
 	if(shot_sound)

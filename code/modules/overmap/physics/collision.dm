@@ -38,34 +38,72 @@
 /proc/overmap_contact_damage(energy, own_health, target_health)
 	return energy * target_health / max(own_health + target_health, 1)
 
+/proc/overmap_turf_blocked(turf/spot)
+	if(!spot)
+		return FALSE
+	if(spot.density || (locate(/mob/living/silicon/ai) in spot))
+		return TRUE
+	for(var/obj/object in spot)
+		if(object.density && object.simulated && !QDELETED(object))
+			return TRUE
+	return FALSE
+
+/proc/overmap_impact_loss(resistance, damage)
+	return 1 - sqrt(max(0, 1 - clamp(resistance / max(damage, 1), 0, 1)))
+
 /proc/overmap_damage_turf(turf/spot, damage)
 	if(!spot || damage <= 0)
 		return
 	var/was_wall = iswallturf(spot)
 	var/hit_object = FALSE
+	var/absorbed = 0
+	var/x = spot.x
+	var/y = spot.y
+	var/z = spot.z
 	if(iswallturf(spot) && !istype(spot, /turf/simulated/wall/indestructible))
 		var/turf/simulated/wall/wall = spot
-		var/x = spot.x
-		var/y = spot.y
-		var/z = spot.z
-		wall.take_damage(damage)
-		spot = locate(x, y, z)
-	for(var/obj/object in spot.contents)
-		if(!object.simulated || QDELETED(object))
-			continue
-		if(object.density)
-			hit_object = TRUE
-		if(object.resistance_flags & INDESTRUCTIBLE)
-			continue
-		if(isspacepod(object))
-			var/obj/spacepod/pod = object
-			pod.deal_damage(damage)
+		var/cap = wall.rotting ? wall.damage_cap / 10 : wall.damage_cap
+		if(damage >= cap - wall.damage)
+			absorbed = max(0, cap - wall.damage)
+			wall.dismantle_wall(devastated = TRUE)
 		else
-			object.take_damage(damage, BRUTE, MELEE, FALSE, null, 100)
+			wall.take_damage(damage)
+			absorbed = damage
+		spot = locate(x, y, z)
+	var/list/damaged = list()
+	for(var/pass in 1 to 4)
+		var/hit = FALSE
+		for(var/obj/object in spot.contents.Copy())
+			if(!object.simulated || QDELETED(object) || damaged[object] || (pass > 1 && !object.density))
+				continue
+			damaged[object] = TRUE
+			var/blocking = object.density
+			if(blocking)
+				hit_object = TRUE
+			if(object.resistance_flags & INDESTRUCTIBLE)
+				continue
+			var/remaining = max(0, damage - absorbed)
+			if(!remaining)
+				continue
+			var/health = max(0, object.obj_integrity)
+			if(isspacepod(object))
+				var/obj/spacepod/pod = object
+				health = max(0, pod.health)
+				pod.deal_damage(remaining)
+				if(blocking)
+					absorbed += clamp(health - max(0, pod.health), 0, remaining)
+			else
+				object.take_damage(remaining, BRUTE, MELEE, FALSE, null, 100)
+				if(blocking)
+					absorbed += clamp(health - (QDELETED(object) ? 0 : max(0, object.obj_integrity)), 0, remaining)
+			hit = TRUE
+		spot = locate(x, y, z)
+		if(!hit)
+			break
 	for(var/mob/living/victim in spot)
 		victim.apply_damage(damage, BRUTE)
 	if(was_wall || hit_object)
-		return
+		return absorbed
 	if(isfloorturf(spot) && damage >= 25)
 		spot.ex_act(EXPLODE_DEVASTATE)
 	else if(damage >= 250)
@@ -76,9 +114,11 @@
 		spot.ex_act(EXPLODE_LIGHT)
 
 /obj/overmap/entity/proc/damage_impact(list/contacts, impact_speed, obj/overmap/entity/other)
-	if(impact_speed < 1 || world.time < next_ram_damage)
+	if(impact_speed < 1)
 		return 1
-	next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
+	var/damage_hull = world.time >= next_ram_damage
+	if(damage_hull)
+		next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
 	var/energy = mass_impact_damage(impact_speed, other)
 	var/list/own_damage = list()
 	var/list/target_damage = list()
@@ -90,16 +130,16 @@
 		var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(own)
 		var/target_health = other?.overmap_pod ? max(1, other.overmap_pod.pod().health) : overmap_contact_health(target)
 		var/damage_to_own = overmap_contact_damage(energy, own_health, target_health)
-		var/damage_to_target = overmap_contact_damage(energy, target_health, own_health)
+		var/damage_to_target = energy
 		own_damage[own] = max(own_damage[own], damage_to_own)
 		target_damage[target] = max(target_damage[target], damage_to_target)
-		loss = max(loss, clamp(target_health / max(damage_to_target, 1), 0.02, 1))
-	if(overmap_pod)
+		loss = max(loss, overmap_impact_loss(target_health, damage_to_target))
+	if(damage_hull && overmap_pod)
 		var/damage = 0
 		for(var/turf/spot as anything in own_damage)
 			damage = max(damage, own_damage[spot])
 		overmap_pod.pod().deal_damage(damage)
-	else
+	else if(damage_hull)
 		for(var/turf/spot as anything in own_damage)
 			overmap_damage_turf(spot, own_damage[spot])
 	if(other?.overmap_pod)
@@ -112,9 +152,10 @@
 			var/x = spot.x
 			var/y = spot.y
 			var/z = spot.z
-			overmap_damage_turf(spot, target_damage[spot])
+			var/absorbed = overmap_damage_turf(spot, target_damage[spot])
+			loss = max(loss, overmap_impact_loss(absorbed, target_damage[spot]))
 			var/turf/remaining = locate(x, y, z)
-			if(remaining.is_blocked_turf(exclude_mobs = TRUE))
+			if(overmap_turf_blocked(remaining))
 				blocked = TRUE
 	if(blocked)
 		return 1
@@ -179,6 +220,8 @@
 	var/drift_x = space?.drift_x()
 	var/drift_y = space?.drift_y()
 	for(var/turf/hull_turf as anything in hull_edge)
+		if(QDELETED(hull_turf))
+			continue
 		if(other?.overmap_pod && !hull_turf.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		var/local_x = hull_turf.x - hull_center_x
@@ -202,7 +245,7 @@
 			struck = locate(CEILING(bubble_x - 0.5, 1), CEILING(bubble_y - 0.5, 1), space.bubble_z)
 			if(!space.is_solid(struck))
 				continue
-		if(!other?.overmap_pod && !struck?.is_blocked_turf(exclude_mobs = TRUE))
+		if(!other?.overmap_pod && !overmap_turf_blocked(struck))
 			continue
 		if(struck)
 			. += list(list(hull_turf, struck, list(world_x, world_y)))
@@ -238,7 +281,7 @@
 	return list(face_x * cos(facing) + face_y * sin(facing), face_y * cos(facing) - face_x * sin(facing))
 
 /datum/overmap_bubble/proc/is_solid(turf/spot)
-	return spot && spot.is_blocked_turf(exclude_mobs = TRUE)
+	return overmap_turf_blocked(spot)
 
 /datum/overmap_bubble/proc/solid_turf_at(world_x, world_y)
 	var/turf/spot = turf_at(world_x, world_y)
@@ -261,6 +304,13 @@
 		return other.collide_virtual(src)
 	if(navigation_collision_disabled() || other?.navigation_collision_disabled())
 		return
+	for(var/attempt in 1 to 8)
+		if(!collide_once(other, attempt < 8))
+			return
+
+/obj/overmap/entity/proc/collide_once(obj/overmap/entity/other, continue_movement = TRUE)
+	if(QDELETED(src) || !flight || (other && QDELETED(other)))
+		return FALSE
 	var/list/impact = find_impact(other)
 	if(!impact)
 		return
@@ -268,6 +318,10 @@
 	var/overlapping = !impact[1] && length(contacts_at(0, other))
 	var/obj/overmap/entity/body = docked_ship || src
 	var/obj/overmap/entity/other_body = other && (other.docked_ship || other)
+	var/list/end_pose = body.pose_at(1)
+	var/list/other_end_pose = other_body?.pose_at(1)
+	var/previous_speed = body.get_speed()
+	var/other_previous_speed = other_body?.get_speed()
 	body.set_pose(body.pose_at(impact[1]))
 	other_body?.set_pose(other_body.pose_at(impact[1]))
 	if(!impact[1])
@@ -300,7 +354,20 @@
 	if(overlapping)
 		body.push_out(normal_x, normal_y)
 		other_body?.push_out(-normal_x, -normal_y)
-	body.ram(other_body, normal_x, normal_y, point_x, point_y, impact[1] ? 0 : OVERMAP_RAM_SEPARATION, !overlapping, contacts)
+	var/loss = body.ram(other_body, normal_x, normal_y, point_x, point_y, impact[1] ? 0 : OVERMAP_RAM_SEPARATION, !overlapping, contacts)
+	if(isnull(loss) || loss >= 1 || overlapping || !continue_movement)
+		return FALSE
+	body.continue_impact_movement(end_pose, previous_speed)
+	other_body?.continue_impact_movement(other_end_pose, other_previous_speed)
+	return TRUE
+
+/obj/overmap/entity/proc/continue_impact_movement(list/end_pose, previous_speed)
+	if(QDELETED(src) || !flight || !end_pose)
+		return
+	var/retained = previous_speed > 0 ? clamp(get_speed() / previous_speed, 0, 1) : 0
+	var/list/pose = list(get_world_x(), get_world_y(), get_facing())
+	remember_pose()
+	set_pose(list(pose[1] + (end_pose[1] - pose[1]) * retained, pose[2] + (end_pose[2] - pose[2]) * retained, pose[3] + closer_angle_difference(pose[3], end_pose[3]) * retained))
 
 /obj/overmap/entity/proc/point_velocity(arm_x, arm_y)
 	var/spin = TORADIANS(flight?.angular_velocity || 0)
@@ -352,8 +419,10 @@
 	var/normal_impulse = (separation - approach) / normal_response
 	normal_impulse *= impulse_scale
 	var/impact_speed = -approach * (1 SECONDS)
+	var/loss = 1
 	if(length(contacts))
-		normal_impulse *= damage_impact(contacts, impact_speed, other)
+		loss = damage_impact(contacts, impact_speed, other)
+		normal_impulse *= loss
 	var/impulse_x = normal_impulse * normal_x
 	var/impulse_y = normal_impulse * normal_y
 	var/tangent_x = relative_x - approach * normal_x
@@ -372,6 +441,7 @@
 		log_game("Overmap collision: [get_overmap_display_name()] hit [other ? other.get_overmap_display_name() : "station structures"] at [round(impact_speed, 0.1)] m/s")
 	feel_impact(impact_speed, kick, -impulse_x, -impulse_y)
 	other?.feel_impact(impact_speed, other_kick, impulse_x, impulse_y)
+	return loss
 
 /obj/overmap/entity/proc/feel_impact(impact_speed, kick, push_x, push_y)
 	if(impact_speed < OVERMAP_RAM_SOUND_SPEED || world.time < next_ram_effect)

@@ -50,7 +50,8 @@
 			set_autopilot(FALSE)
 			return
 		autopilot_status = "Сближение: [navigation_target.get_overmap_display_name()]"
-		return match_navigation_velocity(navigation_target.speed[1] * OVERMAP_TILE_SPAN, navigation_target.speed[2] * OVERMAP_TILE_SPAN, elapsed)
+		match_navigation_velocity(navigation_target.speed[1] * OVERMAP_TILE_SPAN, navigation_target.speed[2] * OVERMAP_TILE_SPAN, elapsed)
+		return
 	var/goal_x = navigation_world_x
 	var/goal_y = navigation_world_y
 	if(isnull(goal_x) || isnull(goal_y))
@@ -137,7 +138,7 @@
 		return
 	var/accel = strongest_thrust() / inertial_mass() / burn_delay * OVERMAP_TILE_SPAN
 	var/effort = accel ? min(1, error / max(accel * elapsed, 0.001)) : 1
-	push(error_x / error * effort, error_y / error * effort, elapsed)
+	push(error_x / error * effort, error_y / error * effort, elapsed, !matching_velocity)
 	if(error > OVERMAP_AUTOPILOT_TURN_ERROR)
 		return delta_to_angle(error_x, error_y)
 

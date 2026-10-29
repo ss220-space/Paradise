@@ -133,7 +133,7 @@
 	if(vessel.overmap_pod && (!engines_state || !strongest_thrust()))
 		return
 
-	var/steady = held_brake || autopilot
+	var/steady = held_brake || (autopilot && !matching_velocity)
 	var/damp_linear = !matching_velocity && (dampeners || steady)
 	var/damp_angular = angular_dampeners || dampeners || steady
 	if(!damp_linear && !damp_angular)
@@ -275,7 +275,7 @@
 	held_brake = FALSE
 	engines_state = TRUE
 	SEND_SIGNAL(parent, COMSIG_OVERMAP_MANUAL_CONTROL)
-	RegisterSignal(pilot, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(block_pilot_walk))
+	RegisterSignals(pilot, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(block_pilot_walk))
 	RegisterSignals(pilot, list(COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_KB_HUMAN_QUICKEQUIP_DOWN), PROC_REF(block_pilot_hotkey))
 	RegisterSignal(pilot, COMSIG_QDELETING, PROC_REF(release_pilot))
 	RegisterSignal(pilot_helm, COMSIG_QDELETING, PROC_REF(release_pilot))
@@ -283,7 +283,7 @@
 /datum/component/overmap_flight/proc/release_pilot()
 	SIGNAL_HANDLER
 	if(pilot)
-		UnregisterSignal(pilot, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_KB_HUMAN_QUICKEQUIP_DOWN, COMSIG_QDELETING))
+		UnregisterSignal(pilot, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE, COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_KB_HUMAN_QUICKEQUIP_DOWN, COMSIG_QDELETING))
 	if(pilot_helm)
 		UnregisterSignal(pilot_helm, COMSIG_QDELETING)
 	pilot = null
@@ -333,10 +333,10 @@
 /datum/component/overmap_flight/proc/thrust_step(elapsed)
 	return strongest_thrust() / inertial_mass() / burn_delay * elapsed
 
-/datum/component/overmap_flight/proc/push(direction_x, direction_y, elapsed)
-	push_local(direction_x * cos(facing) - direction_y * sin(facing), direction_x * sin(facing) + direction_y * cos(facing), elapsed)
+/datum/component/overmap_flight/proc/push(direction_x, direction_y, elapsed, apply_torque = TRUE)
+	push_local(direction_x * cos(facing) - direction_y * sin(facing), direction_x * sin(facing) + direction_y * cos(facing), elapsed, apply_torque)
 
-/datum/component/overmap_flight/proc/push_local(local_x, local_y, elapsed)
+/datum/component/overmap_flight/proc/push_local(local_x, local_y, elapsed, apply_torque = TRUE)
 	var/obj/overmap/entity/vessel = parent
 	if(!engines_state || !can_steer())
 		return
@@ -351,7 +351,7 @@
 		burn_sides |= side_y
 	if(!accel_x && !accel_y)
 		return
-	if(!omni_thrust)
+	if(!omni_thrust && apply_torque)
 		var/torque = 0
 		for(var/obj/machinery/ship_engine/engine as anything in engine_torques)
 			if(engine.omnidirectional)

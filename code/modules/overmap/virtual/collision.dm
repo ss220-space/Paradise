@@ -12,9 +12,9 @@
 			var/health = cell[4]
 			var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(edge)
 			var/energy = mass_impact_damage(relative_speed(other) * (1 SECONDS), other)
-			var/target_damage = overmap_contact_damage(energy, health, own_health)
+			var/target_damage = energy
 			other.damage_cell(cell, target_damage)
-			var/loss = cell[4] > 0 ? 1 : clamp(health / max(target_damage, 1), 0.02, 1)
+			var/loss = cell[4] > 0 ? 1 : overmap_impact_loss(health, target_damage)
 			if(world.time >= next_ram_damage)
 				next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
 				var/own_damage = overmap_contact_damage(energy, own_health, health)
@@ -80,7 +80,7 @@
 			var/target_health = target_cell ? target_cell[4] : overmap_contact_health(struck)
 			var/severity = other ? relative_speed(other) * (1 SECONDS) : get_speed() * OVERMAP_TILE_SPAN * (1 SECONDS)
 			var/energy = mass_impact_damage(severity, other)
-			var/target_damage = overmap_contact_damage(energy, target_health, cell[4])
+			var/target_damage = energy
 			var/own_damage = overmap_contact_damage(energy, cell[4], target_health)
 			var/blocked
 			if(target_cell)
@@ -99,7 +99,7 @@
 			var/dy = speed[2] - (other ? other.speed[2] : 0)
 			var/magnitude = sqrt(dx ** 2 + dy ** 2)
 			if(magnitude)
-				ram(other, -dx / magnitude, -dy / magnitude, point[1], point[2], 0, TRUE, null, blocked ? 1 : clamp(target_health / max(target_damage, 1), 0.02, 1))
+				ram(other, -dx / magnitude, -dy / magnitude, point[1], point[2], 0, TRUE, null, blocked ? 1 : overmap_impact_loss(target_health, target_damage))
 			return
 
 /datum/overmap_projectile/proc/virtual_hit(obj/overmap/entity/virtual_structure/structure, x, y)

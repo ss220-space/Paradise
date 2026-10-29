@@ -205,7 +205,7 @@
 	var/damage = mass_impact_damage(severity)
 	var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(struck_hull)
 	var/target_health = struck.scatter_points[struck_index + 2]
-	var/target_damage = overmap_contact_damage(damage, target_health, own_health)
+	var/target_damage = damage
 	var/own_damage = overmap_contact_damage(damage, own_health, target_health)
 	struck.damage_scatter(struck_index, target_damage)
 	if(world.time >= next_ram_damage)
@@ -215,7 +215,7 @@
 		else
 			overmap_damage_turf(struck_hull, own_damage)
 	set_pose(poses[first_step])
-	var/retained = struck.scatter_points[struck_index + 2] > 0 ? 0 : 1 - clamp(target_health / max(target_damage, 1), 0.02, 1)
+	var/retained = struck.scatter_points[struck_index + 2] > 0 ? 0 : 1 - overmap_impact_loss(target_health, target_damage)
 	speed[1] *= retained
 	speed[2] *= retained
 	feel_impact(severity, severity, get_world_x() - struck.scatter_points[struck_index], get_world_y() - struck.scatter_points[struck_index + 1])
