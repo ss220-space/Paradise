@@ -37,6 +37,7 @@ const THEME_NAMES: Record<string, string> = {
   malfunction: 'Malfunction',
   safe: 'Safe',
   spider_clan: 'Spider Clan',
+  revenant: 'Revenant',
 };
 
 const GetApp = (name) => {

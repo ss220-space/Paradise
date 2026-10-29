@@ -730,16 +730,23 @@
 			return FALSE
 	return FALSE
 
-/datum/reagents/proc/has_reagent(reagent, amount = -1)
+/datum/reagents/proc/has_reagent(reagent, amount = -1, check_subtypes = FALSE)
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == reagent || R.type == reagent)
-			if(!amount)
+		if(ispath(reagent))
+			if(check_subtypes)
+				if(!(R.type in typesof(reagent)))
+					continue
+			else if(R.type != reagent)
+				continue
+		else if(R.id != reagent)
+			continue
+		if(amount < 0)
+			return R
+		else
+			if(R.volume >= amount)
 				return R
 			else
-				if(R.volume >= amount)
-					return R
-				else
-					return FALSE
+				return FALSE
 	return FALSE
 
 /datum/reagents/proc/has_addict_supertype_reagent(reagent, amount = -1)

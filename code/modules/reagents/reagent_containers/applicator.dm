@@ -169,6 +169,11 @@
 
 		playsound(get_turf(src), pick(apply_sounds), 50, TRUE)
 
+/obj/item/reagent_containers/applicator/defile()
+	name = /obj/item/reagent_containers/applicator::name
+	desc = /obj/item/reagent_containers/applicator::desc
+	update_appearance()
+
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."

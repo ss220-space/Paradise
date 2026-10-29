@@ -17,7 +17,6 @@
 
 	var/atom/movable/screen/lingchemdisplay
 	var/atom/movable/screen/lingstingdisplay
-
 	var/atom/movable/screen/guardianhealthdisplay
 
 	var/atom/movable/screen/blobpwrdisplay

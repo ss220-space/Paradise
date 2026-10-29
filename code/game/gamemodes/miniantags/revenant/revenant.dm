@@ -32,12 +32,11 @@
 	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSMACHINE | PASSSTRUCTURE | PASSFENCE
 	pass_flags_self = PASSMOB | PASSPROJECTILE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-
+	hud_type = /datum/hud/revenant
 	tts_seed = "Sylvanas"
-
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = 1 //If the revenant regenerates essence or not; 1 for yes, 0 for no
@@ -52,15 +51,16 @@
 	var/list/drained_mobs //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 	var/list/revenant_spells = list(
+		/datum/action/cooldown/spell/revenant_spells,
 		/datum/action/cooldown/spell/nightvision/revenant,
 		/datum/action/cooldown/spell/pointed/revenant_transmit,
-		/datum/action/cooldown/spell/aoe/revenant/defile,
-		/datum/action/cooldown/spell/aoe/revenant/malfunction,
-		/datum/action/cooldown/spell/aoe/revenant/overload,
-		/datum/action/cooldown/spell/aoe/revenant/blight,
-		/datum/action/cooldown/spell/aoe/revenant/haunt_object,
-		/datum/action/cooldown/spell/aoe/revenant/hallucinations,
+		/datum/action/cooldown/spell/revenantinvis,
 	)
+	var/base_resistance = 0.3
+	var/resistance_per_psoul = 0.05
+	var/max_resistance = 0.9
+	var/have_lamp = FALSE
+	var/datum/status_effect/revenant_reflection/reflection
 
 /mob/living/simple_animal/revenant/get_ru_names()
 	return alist(
@@ -91,6 +91,8 @@
 		death()
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence_regen_cap, essence+essence_regen_amount)
+		var/datum/hud/revenant/hud = hud_used
+		hud.update_huds()
 		update_spell_icons()
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
@@ -136,6 +138,12 @@
 	. = STATUS_UPDATE_NONE
 	if(!revealed)
 		return .
+	if(!forced)
+		amount = amount - amount*min(base_resistance+resistance_per_psoul*perfectsouls, max_resistance)
+	if(reflection)
+		var/amount_to_reflect = reflection.reflectpercent*amount
+		amount -= amount_to_reflect
+		reflection.reflect(amount_to_reflect)
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, span_revendanger("Вы чувствуете, как ваша сущность распадается!"))
@@ -164,51 +172,20 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
-
 	remove_from_all_data_huds()
 	random_revenant_name()
-
-	addtimer(CALLBACK(src, PROC_REF(firstSetupAttempt)), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
+	giveObjectivesandGoals()
+	giveSpells()
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
 	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
-	built_name += " of "
 	built_name += pick(strings(REVENANT_NAME_FILE, "adjective"))
 	built_name += pick(strings(REVENANT_NAME_FILE, "theme"))
 	name = built_name
 
-/mob/living/simple_animal/revenant/proc/firstSetupAttempt()
-	if(mind)
-		giveObjectivesandGoals()
-		giveSpells()
-	else
-		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
-		addtimer(CALLBACK(src, PROC_REF(setupOrDelete)), 1 MINUTES)
-
-/mob/living/simple_animal/revenant/proc/setupOrDelete()
-	if(mind)
-		giveObjectivesandGoals()
-		giveSpells()
-	else
-		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ревенанта?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
-
-		if(QDELETED(src))
-			return
-
-		var/mob/dead/observer/theghost = null
-		if(length(candidates))
-			theghost = pick(candidates)
-			possess_by_player(theghost.key)
-			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
-			giveObjectivesandGoals()
-			giveSpells()
-		else
-			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
-			qdel(src)
-
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
-			mind.wipe_memory()
+			mind?.wipe_memory()
 			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 			var/list/messages = list()
 			messages.Add(span_deadsay(span_fontsize3(span_bold("Вы — ревенант."))))
@@ -220,12 +197,12 @@
 			messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a>"))
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
-			mind.objectives += objective
+			mind?.objectives += objective
 			var/datum/objective/revenantFluff/objective2 = new
 			objective2.owner = mind
-			mind.objectives += objective2
+			mind?.objectives += objective2
 			SSticker.mode.traitors |= mind //Necessary for announcing
-			messages.Add(mind.prepare_announce_objectives(FALSE))
+			messages.Add(mind?.prepare_announce_objectives(FALSE))
 			to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
@@ -266,6 +243,8 @@
 	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
+	var/datum/hud/revenant/hud = hud_used
+	hud.update_huds()
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
 	R.reforming = TRUE
 	ghostize()
@@ -282,25 +261,37 @@
 		addtimer(VARSET_CALLBACK(src, inhibited, FALSE), 3 SECONDS)
 	return ..()
 
-/mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
+/mob/living/simple_animal/revenant/proc/castcheck(essence_cost, show_message = FALSE, use_essence = TRUE)
 	if(!src)
 		return
+	if(unstun_time > world.time)
+		return FALSE
 	var/turf/T = get_turf(src)
 	if(iswallturf(T))
-		balloon_alert(src, "нельзя использовать в стене!")
-		return 0
+		if(show_message)
+			balloon_alert(src, "нельзя использовать в стене!")
+		return FALSE
 	if(src.inhibited)
-		balloon_alert(src, "силы подавлены!")
-		return 0
-	if(!src.change_essence_amount(essence_cost, 1))
-		balloon_alert(src, "не хватает эссенции")
-		return 0
-	return 1
+		if(show_message)
+			balloon_alert(src, "силы подавлены!")
+		return FALSE
+	if(essence_cost == 0)
+		return TRUE
+	if(!use_essence)
+		if(essence <= essence_cost)
+			if(show_message)
+				balloon_alert(src, "не хватает эссенции")
+			return FALSE
+	else if(!src.change_essence_amount(essence_cost, 1))
+		if(show_message)
+			balloon_alert(src, "не хватает эссенции")
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = 0, source = null)
 	if(!src)
 		return
-	if(essence + essence_amt <= 0)
+	if(essence + essence_amt < 0)
 		return
 	essence = max(0, essence+essence_amt)
 	if(essence_amt > 0)
@@ -311,6 +302,8 @@
 		else
 			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
 	update_spell_icons()
+	var/datum/hud/revenant/hud = hud_used
+	hud.update_huds()
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -345,16 +338,16 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/update_icon_state()
-	if(revealed)
+	if(invisibility == 0)
 		if(HAS_TRAIT_FROM(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT))
 			if(draining)
-				icon_state = icon_drain
+				icon_state = "[icon_drain][have_lamp ? "_lamp" : null]"
 			else
-				icon_state = icon_stun
+				icon_state = "[icon_stun][have_lamp ? "_lamp" : null]"
 		else
-			icon_state = icon_reveal
+			icon_state = "[icon_reveal][have_lamp ? "_lamp" : null]"
 	else
-		icon_state = icon_idle
+		icon_state = "[icon_idle][have_lamp ? "_lamp" : null]"
 
 /mob/living/simple_animal/revenant/proc/update_spell_icons()
 	for(var/datum/action/cooldown/spell/aoe/revenant/spell in mob_spell_list)

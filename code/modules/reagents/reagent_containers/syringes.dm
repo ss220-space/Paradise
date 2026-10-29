@@ -188,6 +188,20 @@
 		. += injoverlay
 		update_equipped_item(update_speedmods = FALSE)
 
+/obj/item/reagent_containers/syringe/defile()
+	. = ..()
+	name = /obj/item/reagent_containers/syringe::name
+	desc = /obj/item/reagent_containers/syringe::desc
+	ru_names = alist(
+		NOMINATIVE = "шприц",
+		GENITIVE = "шприца",
+		DATIVE = "шприцу",
+		ACCUSATIVE = "шприц",
+		INSTRUMENTAL = "шприцем",
+		PREPOSITIONAL = "шприце",
+	)
+	update_appearance()
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Щприц с антибиотическим средством."

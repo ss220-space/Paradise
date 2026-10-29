@@ -306,6 +306,9 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 		update_icon()
 		SStgui.update_uis(src)
 
+/obj/machinery/dna_scannernew/defile()
+	eject()
+
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
