@@ -159,7 +159,7 @@
 
 /datum/revenant_spell/aoe/hallucinations
 	name = "Аура галлюцинации"
-	desc = "Играйте с живыми, показывая им видения того, что могло бы быть или было."
+	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/hallucinations
 	cost = 25
 
