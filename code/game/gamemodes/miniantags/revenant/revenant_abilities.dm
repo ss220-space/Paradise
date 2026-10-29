@@ -547,7 +547,7 @@
 	. = ..()
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp
-	name = "Призвать маяк душ."
+	name = "Призвать маяк душ"
 	desc = "Создайте маяк душ, который будет высасывать жизненную эссенцию из ближайших смертных и позволит использовать более мощные заклинания."
 	button_icon_state = "spiritualstreetlight"
 	cooldown_time = 120 SECONDS
