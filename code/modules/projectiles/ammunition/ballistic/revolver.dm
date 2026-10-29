@@ -32,12 +32,6 @@
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/weakbullet2/invisible/fake
 
-// MARK: .36
-/obj/item/ammo_casing/c38/c36
-	ammo_marking = ".36"
-	caliber = CALIBER_DOT_36
-	projectile_type = /obj/projectile/bullet/midbullet2
-
 // MARK: 7.62x38mm
 /obj/item/ammo_casing/n762
 	ammo_marking = "7.62x38 мм"

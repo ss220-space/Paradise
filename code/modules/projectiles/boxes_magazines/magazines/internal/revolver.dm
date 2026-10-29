@@ -30,12 +30,6 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	caliber = CALIBER_7_DOT_62X38MM
 
-/obj/item/ammo_box/magazine/internal/cylinder/rev36
-	name = ".36 revolver cylinder"
-	ammo_type = /obj/item/ammo_casing/c38/c36
-	caliber = CALIBER_DOT_36
-	max_ammo = 6
-
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/cap

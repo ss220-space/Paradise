@@ -224,17 +224,6 @@
 		PREPOSITIONAL = "золотом револьвере",
 	)
 
-// MARK: .36
-/obj/item/gun/projectile/revolver/c36
-	name = ".36 revolver"
-	desc = "An old fashion .36 chambered revolver."
-	icon_state = "detective"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
-	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MEDIUM
-	attachable_allowed = GUN_MODULE_CLASS_NONE
-
 // MARK: Capgun
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"

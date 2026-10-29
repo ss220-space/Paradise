@@ -53,11 +53,6 @@
 	stamina = 0
 	log_override = TRUE
 
-// MARK: .36
-/obj/projectile/bullet/midbullet2
-	damage = 25
-	ricochet_chance = 10
-
 // MARK: .257 Improvised
 /obj/projectile/bullet/weakbullet3/c257
 
