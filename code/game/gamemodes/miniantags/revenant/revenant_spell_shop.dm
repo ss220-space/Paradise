@@ -159,7 +159,7 @@
 
 /datum/revenant_spell/aoe/hallucinations
 	name = "Аура галлюцинации"
-	desc = "Играйте с живыми, показывая им видения того, что могло бы быть или было."
+	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/hallucinations
 	cost = 25
 
@@ -195,7 +195,7 @@
 
 /datum/revenant_spell/aoe/mirage
 	name = "Призрачный мираж"
-	desc = "Создайте свою призрачную копию чтобы обмануть смертных"
+	desc = "Создайте свою призрачную копию чтобы обмануть смертных."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/mirage
 	cost = 15
 
@@ -228,6 +228,6 @@
 
 /datum/revenant_spell/pointed/reflect
 	name = "Отражение мук"
-	desc = "Позволяет отражать часть полученных повреждений в выбранного смертного."
+	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	spell_type = /datum/action/cooldown/spell/pointed/revenant/reflect
 	cost = 35

@@ -155,7 +155,7 @@
 
 	log_say("(REVENANT to [key_name(target)]) [msg]", owner)
 	to_chat(owner, "[span_revenboldnotice("Вы передаёте [target]:")] [span_revennotice(msg)]")
-	target.balloon_alert(target, "вы слышите жуткий голос из ниоткуда")
+	target.balloon_alert(target, "вы слышите жуткий голос")
 	to_chat(target, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
 
 /datum/action/cooldown/spell/revenantinvis
@@ -433,7 +433,7 @@
  */
 /datum/action/cooldown/spell/aoe/revenant/hallucinations
 	name = "Аура галлюцинации"
-	desc = "Играйте с живыми, показывая им видения того, что могло бы быть или было."
+	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	button_icon_state = "r_hallucinations"
 	cooldown_time = 15 SECONDS
 	cast_amount = 15
@@ -547,7 +547,7 @@
 	. = ..()
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp
-	name = "Призвать маяк душ."
+	name = "Призвать маяк душ"
 	desc = "Создайте маяк душ, который будет высасывать жизненную эссенцию из ближайших смертных и позволит использовать более мощные заклинания."
 	button_icon_state = "spiritualstreetlight"
 	cooldown_time = 120 SECONDS
@@ -645,7 +645,7 @@
 
 /datum/action/cooldown/spell/pointed/revenant/reflect
 	name = "Отражение мук"
-	desc = "Позволяет отражать часть полученных повреждений в выбранного смертного."
+	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	button_icon_state = "mirrorofsuffer"
 	cast_amount = 20
 	cast_increase_per_level = 15
