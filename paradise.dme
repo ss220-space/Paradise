@@ -3047,6 +3047,7 @@
 #include "code\modules\hallucination\fake_alert.dm"
 #include "code\modules\hallucination\fake_chat.dm"
 #include "code\modules\hallucination\fake_death.dm"
+#include "code\modules\hallucination\fake_grenade.dm"
 #include "code\modules\hallucination\fake_message.dm"
 #include "code\modules\hallucination\fake_plasmaflood.dm"
 #include "code\modules\hallucination\fake_sound.dm"
