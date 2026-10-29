@@ -22,7 +22,7 @@
 	reflect_from.reflection = null
 	qdel(suf_beam)
 
-/datum/status_effect/revenant_reflection/tick(seconds_between_ticks)ы
+/datum/status_effect/revenant_reflection/tick(seconds_between_ticks)
 	var/holywater = owner.reagents.has_reagent(/datum/reagent/holywater, 5)
 	if(holywater)
 		owner.reagents.remove_reagent("holy_water", 5)

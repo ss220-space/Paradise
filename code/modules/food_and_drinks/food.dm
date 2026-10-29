@@ -66,14 +66,15 @@
 
 /obj/item/reagent_containers/food/proc/add_ants()
 	var/turf/ant_turf = get_turf(src)
-	if(ant_location == ant_turf)
-		if(!locate(/obj/effect/decal/ants) in ant_turf)
-			new /obj/effect/decal/ants(ant_turf)
-			antable = FALSE
-			desc += " It appears to be infested with space ants. Yuck!"
-			reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-	else
+	if(ant_location != ant_turf)
 		ant_location = ant_turf
+		return
+	if(locate(/obj/effect/decal/ants) in ant_turf)
+		return
+	new /obj/effect/decal/ants(ant_turf)
+	antable = FALSE
+	desc += " It appears to be infested with space ants. Yuck!"
+	reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
 
 /obj/item/reagent_containers/food/proc/check_liked(fraction, mob/eater)
 	if(!COOLDOWN_FINISHED(src, last_check_time))
@@ -153,7 +154,3 @@
 /obj/item/reagent_containers/food/defile()
 	add_ants()
 	new/obj/effect/temp_visual/revenant(loc)
-
-#undef HATE_MESSAGES
-#undef DISLIKE_MESSAGES
-#undef LOVE_MESSAGES
