@@ -11,6 +11,7 @@
 	icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
+	logistics_count_amount = TRUE
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
@@ -799,7 +800,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			)
 
 /obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/mob/thrower = throwingdatum?.thrower
+	var/mob/thrower = throwingdatum?.get_thrower()
 	if(istype(thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
 		thrower.say(pick("Сдачу, пожалуйста!", "За сущие копейки!", "Сдачу!", "Кэшбек в кредит!"))
 		embed_chance = 30

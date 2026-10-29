@@ -343,3 +343,16 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 
 //gun flags
 #define GUN_AMMO_COUNTER (1<<0)
+
+//EMP flags
+///Object will protect itself.
+#define EMP_PROTECT_SELF (1<<0)
+///Object will protect its contents from being EMPed.
+#define EMP_PROTECT_CONTENTS (1<<1)
+///Object will protect its wiring from being EMPed.
+#define EMP_PROTECT_WIRES (1<<2)
+///Don't indicate EMP protection in object examine text.
+#define EMP_NO_EXAMINE (1<<3)
+
+///Protects against all EMP types.
+#define EMP_PROTECT_ALL (EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)

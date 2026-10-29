@@ -297,6 +297,10 @@ GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
  * Nonliving mobs don't have hands
  */
 /mob/proc/put_in_hand_check(obj/item/I, hand_id)
+	if(!istype(I) || QDELETED(I))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_ABSTRACT_HANDS) && !(I.flags & ABSTRACT))
+		return FALSE
 	return FALSE
 
 /**
@@ -787,3 +791,11 @@ GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
 	for(var/obj/item/implant/storage/internal_bag in contents)
 		belongings += internal_bag.contents
 	return belongings
+
+//Checks if we're holding an item of type: typepath
+/mob/proc/is_holding_item_of_type(typepath)
+	. = FALSE
+	if(istype(l_hand, typepath))
+		return l_hand
+	if(istype(r_hand, typepath))
+		return r_hand

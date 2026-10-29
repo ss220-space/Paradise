@@ -452,8 +452,6 @@
 	else
 		target_mob.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
 		target_mob.Druggy(30 SECONDS)
-		if(prob(10))
-			target_mob.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/list/clown_message = list("Вы чувствуете головокружение.",
 			"Вы не можете видеть прямо.",

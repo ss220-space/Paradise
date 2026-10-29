@@ -97,7 +97,7 @@
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
-	if(C.mind.isholy)
+	if(HAS_MIND_TRAIT(C, TRAIT_HOLY))
 		C.visible_message(span_warning("Похоже, [C] сопротивля[PLUR_ET_YUT(user)]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
@@ -258,7 +258,7 @@
 		target.Slowed(4 SECONDS)
 		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
+		target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", duration = 15 SECONDS, skip_nearby = FALSE)
 
 /datum/action/cooldown/spell/dantalion_decoy
 	name = "Приманка"
@@ -348,10 +348,14 @@
 	targeting_type = /datum/aoe_targeting/human_affects_vamp
 	var/required_blood = 25
 
+/datum/action/cooldown/spell/aoe/hysteria/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+
 /datum/action/cooldown/spell/aoe/hysteria/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
 	SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
 	target.Slowed(4 SECONDS)
 	target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
-	new /obj/effect/hallucination/delusion(get_turf(owner), target, skip_nearby = FALSE)
-
+	target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", skip_nearby = FALSE)

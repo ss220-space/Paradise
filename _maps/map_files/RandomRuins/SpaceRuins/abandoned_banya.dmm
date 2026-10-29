@@ -386,7 +386,7 @@
 	pixel_x = -4;
 	pixel_y = 20
 	},
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "rn" = (

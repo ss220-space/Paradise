@@ -187,7 +187,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		add_fingerprint(user)
 		if(purified)
 			to_chat(user, span_warning("The [name] is already purified!"))
@@ -325,7 +325,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		add_fingerprint(user)
 		if(!defiled)
 			to_chat(user, span_warning("The [name] is not defiled!"))

@@ -63,6 +63,7 @@
 		item_state = null
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+	register_item_context()
 
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))

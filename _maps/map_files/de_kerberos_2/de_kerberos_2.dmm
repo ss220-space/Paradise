@@ -44315,7 +44315,7 @@
 "jBA" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/station/command/meeting_room)
 "jBD" = (
@@ -55215,7 +55215,7 @@
 "lOe" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/paper/safe_code{
 	owner = "captain";
 	pixel_x = -6;
@@ -87735,7 +87735,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/stamp/hop,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -91957,7 +91957,7 @@
 /area/station/cargo/miningdock)
 "tAU" = (
 /obj/structure/table/wood,
-/obj/item/pen/multi/gold,
+/obj/item/pen/fountain,
 /obj/item/stamp/magistrate,
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet,
@@ -97484,7 +97484,7 @@
 "uGI" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/rep,
 /obj/item/lighter/zippo/nt_rep,
 /obj/structure/window/reinforced,
@@ -100842,7 +100842,7 @@
 "vqS" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -105640,7 +105640,7 @@
 /obj/item/coin/plasma{
 	pixel_x = 10
 	},
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/item/stamp/captain,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)

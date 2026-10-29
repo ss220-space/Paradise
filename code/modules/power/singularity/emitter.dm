@@ -195,6 +195,7 @@
 	update_appearance()
 
 /obj/machinery/power/emitter/emp_act(severity) // Emitters are hardened but still might have issues
+	. = ..()
 	return TRUE
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/user)

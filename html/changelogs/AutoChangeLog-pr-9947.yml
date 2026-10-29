@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - balance: "Зомби больше не получают навыки во всех отделах (PR #9947)"

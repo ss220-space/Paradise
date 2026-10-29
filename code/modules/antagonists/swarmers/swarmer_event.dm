@@ -110,7 +110,7 @@
 			continue
 		if(!obj.density)
 			continue
-		if(istype(obj, /obj/structure/swarmer))
+		if(is_swarmer_object(obj))
 			continue
 		if(check_safe_to_remove(obj))
 			qdel(obj)

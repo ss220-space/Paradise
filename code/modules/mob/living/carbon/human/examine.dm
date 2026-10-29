@@ -14,10 +14,12 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 
+	var/temp_name = "[HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)? "воняющий труп ": ""][..()]"
+
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		return ..() //omit the species when examining
+		return temp_name //omit the species when examining
 	else
-		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+		return "[temp_name],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
 
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
@@ -49,7 +51,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = ""
+	var/list/msg = list()
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -241,7 +243,7 @@
 				if(bodypart.is_robotic())
 					msg += span_warning("<b>Технический люк на [GLOB.body_zone[limb_zone][PREPOSITIONAL]] открыт.</b>\n")
 				else
-					msg += span_warning("<b>У н[GEND_HIS_HER(src)] открытый разрез на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
+					msg += span_warning("<b>У н[GEND_HIS_HER(src)] [bodypart.open != ORGAN_ORGANIC_VIOLENT_OPEN? "открытый разрез" : "жестокое рассечёние"] на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
 				msg += span_warning("<b>В [GEND_HIS_HER(src)] [GLOB.body_zone[limb_zone][PREPOSITIONAL]] застрял [icon2html(embed, user)] [embed.declent_ru(NOMINATIVE)]!</b>\n")
@@ -298,16 +300,16 @@
 	if(fire_stacks < 0)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[GEND_YM_OI_YM_YMI(src)].\n")
 
-	switch(wetlevel)
-		if(1)
+	switch(round(get_wet_stacks()))
+		if(1 to 4)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[GEND_YM_OI_YM_YMI(src)].\n")
-		if(2)
+		if(5 to 8)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(3)
+		if(9 to 12)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(4)
+		if(13 to 16)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(5)
+		if(17 to INFINITY)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[GEND_IM_EI_IM_IMI(src)].\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
@@ -323,6 +325,9 @@
 
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У н[GEND_HIS_HER(src)] бледная кожа.\n")
+
+	if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE)) //to tell plague zombies easier through clothing
+		msg += "[GEND_HE_SHE_CAP(src)] пахн[PLUR_ET_UT(src)] гнилью и смертью!\n"
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
@@ -469,7 +474,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	. = list(msg)
+	. = list(msg.Join(""))
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**

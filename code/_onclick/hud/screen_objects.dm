@@ -124,7 +124,7 @@
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
+		usr.drop_from_active_hand()
 
 /atom/movable/screen/act_intent
 	name = "intent"
@@ -577,6 +577,19 @@
 		return TRUE
 	create_area(usr)
 
+/atom/movable/screen/navigate
+	name = "navigate menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
+
 /atom/movable/screen/inventory
 	/// The identifier for the slot. It has nothing to do with ID cards.
 	var/slot_id
@@ -662,17 +675,8 @@
 	if(dropped.loc != user && dropped.anchored)
 		return
 
-	if(dropped.loc == user)
-		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
-			user.visible_message(
-				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-			)
-			if(!do_after(user, dropped.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [dropped.declent_ru(GENITIVE)] было прервано!")))
-				return
-
-		if(!user.drop_item_ground(dropped))
-			return
+	if(!dropped.can_pickup(user))
+		return
 
 	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(dropped, ignore_anim = FALSE)) || \
 		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(dropped, ignore_anim = FALSE)))

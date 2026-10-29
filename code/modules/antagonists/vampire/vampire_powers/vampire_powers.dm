@@ -3,13 +3,18 @@
 	if(isvampire(src) || isvampirethrall(src))
 		return FALSE
 
+	/// Chaplains with their nullrod can block a full power vampire, but a chaplain by themselfs or a crew with a null rod can not.
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY) && HAS_MIND_TRAIT(src, TRAIT_HOLY))
+		return FALSE
+
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp?.get_ability(/datum/vampire_passive/full))
 		return TRUE
-
 	//Holy characters are resistant to vampire powers
-	if(mind?.isholy)
+	if(HAS_MIND_TRAIT(src, TRAIT_HOLY))
+		return FALSE
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY))
 		return FALSE
 
 	return TRUE
@@ -106,6 +111,13 @@
 	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("Вы наполняете свое тело чистой кровью и снимаете все обездвиживающие эффекты."))
 	var/datum/antagonist/vampire/vampire_datum = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	for(var/datum/disease/virus/zombie/zombie_infection in user.diseases)
+		zombie_infection.stage = min(zombie_infection.stage, round(7 - (vampire_datum.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
+		if(zombie_infection.stage <= 0)
+			zombie_infection.cure()
+			to_chat(user, span_notice("Вы очищаете свой организм от чумы."))
+		else
+			to_chat(user, span_warning("Вы ослабляете чуму в своём организме, но у вас недостаточно крови, чтобы полностью её удалить."))
 	var/rejuv_bonus = vampire_datum.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), user, rejuv_bonus)
@@ -409,7 +421,7 @@
 		victim.balloon_alert(owner, "цель ещё жива!")
 		return FALSE
 
-	if(victim.mind.special_role || victim.mind.isholy || victim.mind.isblessed || ismindshielded(victim))
+	if(victim.mind.special_role || HAS_MIND_TRAIT(victim, TRAIT_HOLY) || victim.mind.isblessed || ismindshielded(victim))
 		victim.balloon_alert(owner, "цель сопротивляется!")
 		to_chat(owner, span_warning("Разум [victim] сопротивляется блюспейс воздействию, и ничего не происходит."))
 		return FALSE

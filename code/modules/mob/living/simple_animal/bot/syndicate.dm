@@ -40,6 +40,7 @@
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /mob/living/simple_animal/bot/ed209/syndicate/setup_access()
 	if(access_card)
@@ -189,9 +190,6 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/projectile/bullet/a40mm
-
-/mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
-	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	return shootAt(A)

@@ -249,6 +249,7 @@
 	if(QDELETED(src) || stat == DEAD)
 		return
 
+	. = ..()
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
 	to_chat(src, span_danger("Системы связи перегружены! Инициирована перезагрузка повреждённых систем. Все модули коммуникации недоступны на время перезагрузки."))
 	if(prob(20))

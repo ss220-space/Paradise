@@ -142,7 +142,7 @@
 	has_triggered_on_death = TRUE
 
 	add_attack_logs(source, source, "had their [src] bio-chip triggered on [gibbed ? "gib" : "death"].")
-	death_trigger(source, gibbed)
+	INVOKE_ASYNC(src, PROC_REF(death_trigger), source, gibbed)
 
 /obj/item/implant/proc/emote_trigger(emote, mob/source, intentional)
 	return
