@@ -747,3 +747,72 @@
 		INSTRUMENTAL = "автоинъектором (Сангвиний)",
 		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
 	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure
+	name = "Anti-Plague Sequence Alpha autoinjector"
+	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Альфа. Предотвращает заражение, лечит заражение 1-го уровня."
+	icon_state = "zombiepen"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	container_type = NONE // No sucking out the reagent
+	list_reagents = list("zombiecure1" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоинъектор (Противовирусная сыворотка Альфа)",
+		GENITIVE = "автоинъектора (Противовирусная сыворотка Альфа)",
+		DATIVE = "автоинъектору (Противовирусная сыворотка Альфа)",
+		ACCUSATIVE = "автоинъектор (Противовирусная сыворотка Альфа)",
+		INSTRUMENTAL = "автоинъектором (Противовирусная сыворотка Альфа)",
+		PREPOSITIONAL = "автоинъекторе (Противовирусная сыворотка Альфа)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(proximity_flag)
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
+	name = "Anti-Plague Sequence Beta autoinjector"
+	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Бета. Ослабляет зомби, лечит слабые заражения."
+	list_reagents = list("zombiecure2" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоинъектор (Противовирусная сыворотка Бета)",
+		GENITIVE = "автоинъектора (Противовирусная сыворотка Бета)",
+		DATIVE = "автоинъектору (Противовирусная сыворотка Бета)",
+		ACCUSATIVE = "автоинъектор (Противовирусная сыворотка Бета)",
+		INSTRUMENTAL = "автоинъектором (Противовирусная сыворотка Бета)",
+		PREPOSITIONAL = "автоинъекторе (Противовирусная сыворотка Бета)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3
+	name = "Anti-Plague Sequence Gamma autoinjector"
+	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Гамма. Снижает исцеление зомби. Лечит заражение 5-й стадии и замедляет заражение 6-й стадии."
+	list_reagents = list("zombiecure3" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоинъектор (Противовирусная сыворотка Гамма)",
+		GENITIVE = "автоинъектора (Противовирусная сыворотка Гамма)",
+		DATIVE = "автоинъектору (Противовирусная сыворотка Гамма)",
+		ACCUSATIVE = "автоинъектор (Противовирусная сыворотка Гамма)",
+		INSTRUMENTAL = "автоинъектором (Противовирусная сыворотка Гамма)",
+		PREPOSITIONAL = "автоинъекторе (Противовирусная сыворотка Гамма)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
+	name = "Anti-Plague Sequence Omega autoinjector"
+	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Омега. Лечит все случаи некротизирующей чумы. Также исцеляет мёртвые конечности."
+	list_reagents = list("zombiecure4" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоинъектор (Противовирусная сыворотка Омега)",
+		GENITIVE = "автоинъектора (Противовирусная сыворотка Омега)",
+		DATIVE = "автоинъектору (Противовирусная сыворотка Омега)",
+		ACCUSATIVE = "автоинъектор (Противовирусная сыворотка Омега)",
+		INSTRUMENTAL = "автоинъектором (Противовирусная сыворотка Омега)",
+		PREPOSITIONAL = "автоинъекторе (Противовирусная сыворотка Омега)",
+	)

@@ -65,10 +65,10 @@
 	cooldown_time = 12 SECONDS
 	spell_requirements = NONE
 	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_INCAPACITATED
-	var/mob/living/summoner = null
-	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
 	aoe_radius = 10
 	targeting_type = /datum/aoe_targeting/living
+	var/list/stunning_hallucinations = list("singulo", "koolaid", "borer")
+	var/mob/living/summoner = null
 
 /datum/action/cooldown/spell/aoe/guardian_hallucination/Remove(mob/living/remove_from)
 	. = ..()

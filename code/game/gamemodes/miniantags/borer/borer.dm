@@ -219,7 +219,7 @@
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking != GLOB.all_languages[LANGUAGE_HIVE_BORER] && loc == host && !talk_inside_host)
-			Communicate(message)
+			INVOKE_ASYNC(src, PROC_REF(Communicate), message)
 			return
 
 	return ..()

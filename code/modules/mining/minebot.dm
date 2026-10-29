@@ -78,6 +78,7 @@
 	)
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
+	. = ..()
 	adjustHealth(100 / severity)
 	to_chat(src, span_userdanger("ВНИМАНИЕ: Обнаружен ЭМИ, системы повреждены!"))
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] яростно трещит и искрит!"))

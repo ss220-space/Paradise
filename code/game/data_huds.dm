@@ -140,7 +140,7 @@
 
 /// Helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
+	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -234,6 +234,10 @@
 		else
 			set_hud_image_state(DIAG_STAT_HUD, "kpb_nominal")
 
+		return
+
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		set_hud_image_state(STATUS_HUD, STATUS_HUD_FLATLINE)
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()

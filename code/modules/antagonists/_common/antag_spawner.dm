@@ -206,7 +206,7 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/demon/demon = new demon_type(T)
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/jaunt = locate() in demon.mob_spell_list
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/jaunt = locate() in demon.mob_spell_list
 	jaunt.enter_jaunt(demon)
 	demon.vialspawned = TRUE
 	demon.possess_by_player(C.key)

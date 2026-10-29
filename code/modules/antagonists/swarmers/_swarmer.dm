@@ -42,7 +42,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 	pull_force = PULL_FORCE_DEFAULT
 	pressure_resistance = 100
 	allows_unconscious = TRUE
-	slowed_by_pull_and_push = FALSE
 	/// Text used in core tgui and sent to client to tell about current class abilities
 	var/swarmer_class_info = "Вы не должны это видеть."
 	/// How much time does it take to dismantle a machine
@@ -183,16 +182,22 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(is_swarmerprojectile(mover))
 		return TRUE
 
-/// Handles dealing actual damage to non humans.
+// Handles dealing actual damage to non humans.
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
-	. = ..()
 	if(isswarmer(target))
+		return FALSE
+
+	if(a_intent == INTENT_GRAB)
+		pulled(target)
+		return TRUE
+
+	. = ..()
+	if(!. || !isliving(target) || ishuman(target))
 		return
 
-	if(isliving(target) && !ishuman(target))
-		var/mob/living/difficult_target = target
-		var/damage = rand(melee_damage_lower, melee_damage_upper)
-		difficult_target.apply_damage(damage, BURN, blocked = getarmor(null, MELEE))
+	var/mob/living/difficult_target = target
+	var/damage = rand(melee_damage_lower, melee_damage_upper)
+	difficult_target.apply_damage(damage, BURN, blocked = difficult_target.getarmor(null, MELEE))
 
 /**
  * Unarmed_Attack signal proc

@@ -22,6 +22,7 @@
 		update_icon()
 
 /obj/structure/closet/secure_closet/emp_act(severity)
+	. = ..()
 	for(var/obj/object in src)
 		object.emp_act(severity)
 

@@ -834,7 +834,7 @@
 	to_chat(src, span_warning("Вы чувствуете [pick("потерю ориентации", "резкую боль в голове", "как мозг заполняет ледяная статика")]."))
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(!emagged)
@@ -848,7 +848,7 @@
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(prob(20*malfunction_level))
@@ -856,7 +856,7 @@
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
 	else if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	..(cause_emp = FALSE)
