@@ -190,11 +190,6 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	var/atom/container = loc
-	while(container)
-		if(SEND_SIGNAL(container, COMSIG_ATOM_PRE_EMP_ACT, severity) & EMP_PROTECT_CONTENTS)
-			return
-		container = container.loc
 	use(round(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier)))
 	if(!QDELETED(src))
 		update_icon(UPDATE_OVERLAYS)
