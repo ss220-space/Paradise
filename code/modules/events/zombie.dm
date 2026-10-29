@@ -1,4 +1,4 @@
-#define ZOMBIE_TRIGGER 0
+#define ZOMBIE_TRIGGER 30
 
 /datum/event/zombie
 	var/list/playercount

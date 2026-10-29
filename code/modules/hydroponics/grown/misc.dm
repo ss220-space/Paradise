@@ -85,7 +85,7 @@
 // Gatfruit
 /obj/item/seeds/gatfruit
 	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .36 revolvers."
+	desc = "These seeds grow into gun."
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
@@ -112,6 +112,12 @@
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
+
+/obj/item/seeds/gatfruit/meme
+	product = /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/meme
+
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/meme
+	trash = /obj/item/gun/projectile/revolver/peashooter/meme
 
 /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/generate_trash(atom/location)
 	//if you set this to anything but the revolver i will find you... and... downvote your pr...
