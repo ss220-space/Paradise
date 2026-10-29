@@ -1,6 +1,6 @@
 /obj/structure/revenant_lamp
 	name = "Призрачный маяк"
-	desc = "Огромная жуткая лампа, вам не хочется находиться рядом с ней."
+	desc = "Огромная жуткая лампа. Вам не хочется находиться рядом с ней."
 	icon = 'icons/effects/32x64.dmi'
 	icon_state = "revenantlamp"
 	light_range = 2
