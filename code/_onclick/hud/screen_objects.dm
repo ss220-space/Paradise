@@ -262,7 +262,7 @@
 	var/datum/storage/datum_storage = master_ref?.resolve()
 	if(!istype(datum_storage))
 		return FALSE
-	if(istype(storage_master) && inserted)
+	if(inserted)
 		datum_storage.attempt_insert(inserted, usr)
 
 	return TRUE
