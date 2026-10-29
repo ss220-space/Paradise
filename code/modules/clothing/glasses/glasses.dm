@@ -1164,9 +1164,7 @@
 	up = !up
 	tint = up ? tint_up : initial(tint)
 	if(user.glasses == src)
-		balloon_alert(user, "[up ? "" : "де"]активировано")
 		user.wear_glasses_update(src)
-
 
 // MARK: Misc Glasses
 /obj/item/clothing/glasses/heart

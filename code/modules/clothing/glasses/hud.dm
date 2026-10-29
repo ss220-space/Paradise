@@ -899,7 +899,7 @@
 // MARK: Skills
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
-	desc = "Проекционный дисплей, носимый в качестве очков. Оснащён модулем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+	desc = "Проекционный дисплей, носимый в качестве очков. Оснащён кадровым модулем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	icon_state = "skill"
 	item_state = "skill"
 	HUDType = DATA_HUD_SECURITY_BASIC
@@ -917,17 +917,17 @@
 
 /obj/item/clothing/glasses/hud/skills/get_ru_names()
 	return alist(
-		NOMINATIVE = "очки с ИЛС навыков",
-		GENITIVE = "очков с ИЛС навыков",
-		DATIVE = "очкам с ИЛС навыков",
-		ACCUSATIVE = "очки с ИЛС навыков",
-		INSTRUMENTAL = "очками с ИЛС навыков",
-		PREPOSITIONAL = "очках с ИЛС навыков",
+		NOMINATIVE = "очки с кадровым ИЛС",
+		GENITIVE = "очков с кадровым ИЛС",
+		DATIVE = "очкам с кадровым ИЛС",
+		ACCUSATIVE = "очки с кадровым ИЛС",
+		INSTRUMENTAL = "очками с кадровым ИЛС",
+		PREPOSITIONAL = "очках с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/patch
 	name = "Skills HUD Eyepatch"
-	desc = "Проекционная повязка на глаз. Оснащена ИЛС-дисплеем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+	desc = "Проекционная повязка на глаз. Оснащена кадровым ИЛС-дисплеем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	gender = FEMALE
 	icon_state = "skillhudpatch"
 	item_state = "skillhudpatch"
@@ -935,34 +935,34 @@
 
 /obj/item/clothing/glasses/hud/skills/patch/get_ru_names()
 	return alist(
-		NOMINATIVE = "повязка на глаз с ИЛС навыков",
-		GENITIVE = "повязки на глаз с ИЛС навыков",
-		DATIVE = "повязке на глаз с ИЛС навыков",
-		ACCUSATIVE = "повязку на глаз с ИЛС навыков",
-		INSTRUMENTAL = "повязкой на глаз с ИЛС навыков",
-		PREPOSITIONAL = "повязке на глаз с ИЛС навыков",
+		NOMINATIVE = "повязка на глаз с кадровым ИЛС",
+		GENITIVE = "повязки на глаз с кадровым ИЛС",
+		DATIVE = "повязке на глаз с кадровым ИЛС",
+		ACCUSATIVE = "повязку на глаз с кадровым ИЛС",
+		INSTRUMENTAL = "повязкой на глаз с кадровым ИЛС",
+		PREPOSITIONAL = "повязке на глаз с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/heart
 	name = "Heart Skills Glasses"
-	desc = "Модные очки в виде сердечек. Оснащены ИЛС-дисплеем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+	desc = "Модные очки в виде сердечек. Оснащены кадровым ИЛС-дисплеем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	icon_state = "heart_skill"
 	item_state = "heart_skill"
 
 /obj/item/clothing/glasses/hud/skills/heart/get_ru_names()
 	return alist(
-		NOMINATIVE = "очки-сердечки с ИЛС навыков",
-		GENITIVE = "очков-сердечек с ИЛС навыков",
-		DATIVE = "очкам-сердечкам с ИЛС навыков",
-		ACCUSATIVE = "очки-сердечки с ИЛС навыков",
-		INSTRUMENTAL = "очками-сердечками с ИЛС навыков",
-		PREPOSITIONAL = "очках-сердечках с ИЛС навыков",
+		NOMINATIVE = "очки-сердечки с кадровым ИЛС",
+		GENITIVE = "очков-сердечек с кадровым ИЛС",
+		DATIVE = "очкам-сердечкам с кадровым ИЛС",
+		ACCUSATIVE = "очки-сердечки с кадровым ИЛС",
+		INSTRUMENTAL = "очками-сердечками с кадровым ИЛС",
+		PREPOSITIONAL = "очках-сердечках с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "skills sunglasses"
 	desc = "Очки с экранированием от ультрафиолетовых лучей, защищающие глаза носителя от ярких вспышек света. \
-			Оснащены ИЛС-дисплеем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+			Оснащены кадровым ИЛС-дисплеем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -980,17 +980,17 @@
 
 /obj/item/clothing/glasses/hud/skills/sunglasses/get_ru_names()
 	return alist(
-		NOMINATIVE = "солнцезащитные очки с ИЛС навыков",
-		GENITIVE = "солнцезащитных очков с ИЛС навыков",
-		DATIVE = "солнцезащитным очкам с ИЛС навыков",
-		ACCUSATIVE = "солнцезащитные очки с ИЛС навыков",
-		INSTRUMENTAL = "солнцезащитными очками с ИЛС навыков",
-		PREPOSITIONAL = "солнцезащитных очках с ИЛС навыков",
+		NOMINATIVE = "солнцезащитные очки с кадровым ИЛС",
+		GENITIVE = "солнцезащитных очков с кадровым ИЛС",
+		DATIVE = "солнцезащитным очкам с кадровым ИЛС",
+		ACCUSATIVE = "солнцезащитные очки с кадровым ИЛС",
+		INSTRUMENTAL = "солнцезащитными очками с кадровым ИЛС",
+		PREPOSITIONAL = "солнцезащитных очках с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/tajblind
 	name = "skills veil"
-	desc = "Адомайская вуаль, скрывающая глаза владельца от посторонних, но не затрудняя обзор носителю. Эта модель оснащена ИЛС навыков."
+	desc = "Адомайская вуаль, скрывающая глаза владельца от посторонних, но не затрудняя обзор носителю. Эта модель оснащена кадровым ИЛС."
 	gender = FEMALE
 	icon_state = "tajblind_skill"
 	item_state = "tajblind_skill"
@@ -999,12 +999,12 @@
 
 /obj/item/clothing/glasses/hud/skills/tajblind/get_ru_names()
 	return alist(
-		NOMINATIVE = "вуаль с ИЛС навыков",
-		GENITIVE = "вуали с ИЛС навыков",
-		DATIVE = "вуали с ИЛС навыков",
-		ACCUSATIVE = "вуаль с ИЛС навыков",
-		INSTRUMENTAL = "вуалью с ИЛС навыков",
-		PREPOSITIONAL = "вуали с ИЛС навыков",
+		NOMINATIVE = "вуаль с кадровым ИЛС",
+		GENITIVE = "вуали с кадровым ИЛС",
+		DATIVE = "вуали с кадровым ИЛС",
+		ACCUSATIVE = "вуаль с кадровым ИЛС",
+		INSTRUMENTAL = "вуалью с кадровым ИЛС",
+		PREPOSITIONAL = "вуали с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
@@ -1017,7 +1017,7 @@
 
 /obj/item/clothing/glasses/hud/skills/visor
 	name = "Skill Optical Visor"
-	desc = "Технологичный визор для глаз. Оснащён ИЛС-дисплеем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+	desc = "Технологичный визор для глаз. Оснащён кадровым ИЛС-дисплеем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	gender = MALE
 	icon_state = "skillvisor"
 	item_state = "skillvisor"
@@ -1025,18 +1025,18 @@
 
 /obj/item/clothing/glasses/hud/skills/visor/get_ru_names()
 	return alist(
-		NOMINATIVE = "оптический визор навыков",
-		GENITIVE = "оптического визора навыков",
-		DATIVE = "оптическому визору навыков",
-		ACCUSATIVE = "оптический визор навыков",
-		INSTRUMENTAL = "оптическим визором навыков",
-		PREPOSITIONAL = "оптическом визоре навыков",
+		NOMINATIVE = "оптический визор с кадровым ИЛС",
+		GENITIVE = "оптического визора с кадровым ИЛС",
+		DATIVE = "оптическому визору с кадровым ИЛС",
+		ACCUSATIVE = "оптический визор с кадровым ИЛС",
+		INSTRUMENTAL = "оптическим визором с кадровым ИЛС",
+		PREPOSITIONAL = "оптическом визоре с кадровым ИЛС",
 	)
 
 /obj/item/clothing/glasses/hud/skills/monocle
 	name = "Skills HUD Monocle"
 	desc = "Оптический прибор, носимый путём зажатия мышцами лица. \
-			Оснащён ИЛС-дисплеем навыков, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
+			Оснащён кадровым ИЛС-дисплеем, отображающим записи о трудовой деятельности сотрудников \"Нанотрейзен\"."
 	gender = MALE
 	icon_state = "monohudskill"
 	item_state = "monohud"
@@ -1048,12 +1048,12 @@
 
 /obj/item/clothing/glasses/hud/skills/monocle/get_ru_names()
 	return alist(
-		NOMINATIVE = "монокль с ИЛС навыков",
-		GENITIVE = "монокля с ИЛС навыков",
-		DATIVE = "моноклю с ИЛС навыков",
-		ACCUSATIVE = "монокль с ИЛС навыков",
-		INSTRUMENTAL = "моноклем с ИЛС навыков",
-		PREPOSITIONAL = "монокле с ИЛС навыков",
+		NOMINATIVE = "монокль с кадровым ИЛС",
+		GENITIVE = "монокля с кадровым ИЛС",
+		DATIVE = "моноклю с кадровым ИЛС",
+		ACCUSATIVE = "монокль с кадровым ИЛС",
+		INSTRUMENTAL = "моноклем с кадровым ИЛС",
+		PREPOSITIONAL = "монокле с кадровым ИЛС",
 	)
 
 // MARK: Multi-mode
