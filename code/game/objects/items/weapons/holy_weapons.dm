@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 /proc/init_nullrod_variants()
 	var/list/rods = list()
 	for(var/obj/item/nullrod/nullrod_type as anything in subtypesof(/obj/item/nullrod))
-		if(nullrod_type::reskin_selectable != TRUE)
+		if(!nullrod_type::reskin_selectable)
 			continue
 		if(!nullrod_type::chaplain_spawnable)
 			continue

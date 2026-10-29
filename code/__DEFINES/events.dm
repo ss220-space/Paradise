@@ -66,6 +66,7 @@
 #define EVENT_WALL_FUNGUS "Стенной грибок"
 #define EVENT_WORMHOLES "Червоточины"
 #define EVENT_XENOMORPH_INFESTATION "Заражение ксеноморфами"
+#define EVENT_ZOMBIE "Капсула с зомби"
 
 // Events from bluespace rift scanner(BRS) station goal
 #define EVENT_BRS_TELEPORT_LIVINGS "Телепортация живых"

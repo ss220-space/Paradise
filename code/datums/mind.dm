@@ -756,6 +756,7 @@
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
 	else
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+	. += _memory_edit_role_enabled(ROLE_ZOMBIE)
 
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
@@ -2760,9 +2761,9 @@
  * * datum_type - an antag datum typepath
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
-	var/datum/antagonist/antag = has_antag_datum(datum_type)
+	var/datum/antagonist/antag = ispath(datum_type)? has_antag_datum(datum_type) : datum_type
 
-	if(!antag)
+	if(!istype(antag))
 		return
 
 	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))

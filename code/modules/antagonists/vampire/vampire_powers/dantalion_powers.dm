@@ -108,10 +108,13 @@
 	if(!istype(H))
 		return FALSE
 
-	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/new_thrall(user.mind))
+	var/datum/antagonist/mindslave/thrall/datum = H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/new_thrall(user.mind))
 	if(jobban_isbanned(H, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
+
 	H.Stun(4 SECONDS)
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire?.thralls |= WEAKREF(datum)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
