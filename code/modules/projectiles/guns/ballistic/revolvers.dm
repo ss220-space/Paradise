@@ -639,5 +639,3 @@
 /obj/item/gun/projectile/revolver/peashooter/meme
 	icon_state = "peashooter_meme"
 	item_state = "peashooter_meme"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
