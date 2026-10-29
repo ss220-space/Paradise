@@ -91,7 +91,7 @@
 	user.visible_message(span_suicide("[user] заварива[PLUR_ET_YUT(user)] себе все лицевые отверстия! Это похоже на попытку самоубийства!"))
 	return FIRELOSS
 
-/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/weldingtool/can_enter_storage(obj/storage_item, mob/user)
 	if(tool_enabled)
 		balloon_alert(user, "сначала выключите!")
 		return FALSE

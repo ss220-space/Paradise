@@ -39,9 +39,9 @@
 	else
 		icon_state = "candle[wax_index][lit ? "_lit" : ""]"
 
-/obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/candle/can_enter_storage(obj/storage_item, mob/user)
 	if(lit)
-		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
+		to_chat(user, span_warning("[storage_item] can't hold [src] while it's lit!"))
 		return FALSE
 	return TRUE
 

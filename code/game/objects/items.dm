@@ -793,7 +793,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * * S - The [/obj/item/storage] that `src` is being inserted into.
  * * user - The mob trying to insert the item.
  */
-/obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/proc/can_enter_storage(obj/storage_item, mob/user)
 	return TRUE
 
 /**

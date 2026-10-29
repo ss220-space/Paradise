@@ -391,6 +391,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			// return FALSE
 	// else if(to_insert.flags_1 & HOLOGRAM_1)
 		// return FALSE
+	if(!to_insert.can_enter_storage(parent, user))
+		return FALSE
+
+	if(SEND_SIGNAL(parent, COMSIG_PRE_INSERT_INTO_STORAGE, usr) & BLOCK_INSERTING_ITEM)
+		return FALSE
 
 	if(locked > force)
 		if(messages && user)
@@ -440,13 +445,13 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			user.balloon_alert(user, "[LOWER_TEXT(parent.loc.name)] is in the way!")
 		return FALSE
 
-	if(isitem(parent))
-		var/obj/item/item_parent = parent
-		var/datum/storage/smaller_fish = to_insert.atom_storage
-		if(smaller_fish && !allow_big_nesting && to_insert.w_class >= item_parent.w_class)
-			if(messages && user)
-				user.balloon_alert(user, "too big!") //TODO vakons storage_datum: localization
-			return FALSE
+	// if(isitem(parent))
+	// 	var/obj/item/item_parent = parent
+	// 	var/datum/storage/smaller_fish = to_insert.atom_storage
+	// 	if(smaller_fish && !allow_big_nesting && to_insert.w_class >= item_parent.w_class)
+	// 		if(messages && user)
+	// 			user.balloon_alert(user, "too big!") //TODO vakons storage_datum: localization
+	// 		return FALSE
 
 	return TRUE
 
