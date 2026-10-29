@@ -14,7 +14,7 @@
 	if(rev_owner)
 		owner = rev_owner
 	START_PROCESSING(SSprocessing, src)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30 SECONDS)
+	QDEL_IN(src, 30 SECONDS)
 
 /obj/effect/cursed_floor/Destroy(force)
 	var/turf/turf_loc = loc

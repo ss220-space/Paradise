@@ -335,14 +335,20 @@
 	return turfs
 
 /proc/get_hollow_turfs_circle(center=usr, radius = 3)
-	if(radius <= 0)
-		return
-	var/list/turfs = new/list()
-	for(var/turf/turf as anything in circle_range_turfs(center, radius))
-		if(turf in circle_range_turfs(center, radius-1))
-			continue
-		turfs += turf
-	return turfs
+    var/turf/center_turf = get_turf(center)
+    var/center_x = center_turf.x
+    var/center_y = center_turf.y
+    var/list/turfs = new/list()
+    var/radius_out = radius * (radius + 0.5)
+    var/radius_inner = (radius-1) * ((radius-1) + 0.5)
+
+    for(var/turf/checked_turf as anything in RANGE_TURFS(radius, center_turf))
+        var/dx = checked_turf.x - center_x
+        var/dy = checked_turf.y - center_y
+        var/range = dx * dx + dy * dy
+        if(range <= radius_out && range >= radius_inner)
+            turfs += checked_turf
+    return turfs
 
 
 /**
