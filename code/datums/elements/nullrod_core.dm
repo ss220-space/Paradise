@@ -24,5 +24,5 @@
 */
 	ADD_TRAIT(target, TRAIT_NULLROD_ITEM, ELEMENT_TRAIT(type))
 
-	if(target.type != /obj/item/nullrod && target.reskin_selectable && !GLOB.nullrod_variants[target.type])
+	if(target.type != /obj/item/nullrod && astype(target, /obj/item/nullrod)?.reskin_selectable && !GLOB.nullrod_variants[target.type])
 		stack_trace("[target.type] is absent from the nullrod_variants global list. Please include it.")
