@@ -69,6 +69,7 @@
 	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
 	button_icon_state = "fake_death"
 	background_icon_state = "bg_terror"
+	spell_requirements = NONE
 	active_msg = span_notice_alt("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
 	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
@@ -81,6 +82,7 @@
 	desc = "Плюнуть кислоту, создающую дым при контакте."
 	button_icon_state = "smoke"
 	background_icon_state = "bg_terror"
+	spell_requirements = NONE
 	active_msg = span_notice_alt("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")
 	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
@@ -156,7 +158,7 @@
 	cooldown_time = 8 SECONDS
 	sound = 'sound/creatures/terrorspiders/attack2.ogg'
 	smoke_type = /datum/effect_system/fluid_spread/smoke
-	smoke_amt = 15
+	smoke_range = 7
 
 /datum/action/cooldown/spell/smoke/terror/can_cast_spell(feedback)
 	if(!isturf(owner.loc))

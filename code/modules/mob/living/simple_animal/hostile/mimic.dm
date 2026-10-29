@@ -59,6 +59,11 @@
 	for(var/obj/item/I in loc)
 		I.loc = src
 
+/mob/living/simple_animal/hostile/mimic/crate/Destroy()
+	for(var/obj/item/item in contents)
+		item.forceMove(loc)
+	return ..()
+
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))
@@ -242,7 +247,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			Zapstick = G
 			var/obj/item/ammo_casing/magic/M = Zapstick.ammo_type
 			projectiletype = initial(M.projectile_type)
-		if(istype(G, /obj/item/gun/projectile))
+		if(is_projectilegun(G))
 			Pewgun = G
 			var/obj/item/ammo_box/magazine/M = Pewgun.mag_type
 			casingtype = initial(M.ammo_type)

@@ -526,6 +526,7 @@
 	qdel(src)
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
+	. = ..()
 	return !my_suit.ninjacost(cost * burst_amount)
 
 /obj/item/gun/energy/shuriken_emitter/borg
@@ -544,6 +545,7 @@
 	return
 
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
+	. = ..()
 	return TRUE
 
 // MARK: Noise cannon

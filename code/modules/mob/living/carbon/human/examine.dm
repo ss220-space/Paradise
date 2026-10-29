@@ -298,16 +298,16 @@
 	if(fire_stacks < 0)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[GEND_YM_OI_YM_YMI(src)].\n")
 
-	switch(wetlevel)
-		if(1)
+	switch(round(get_wet_stacks()))
+		if(1 to 4)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[GEND_YM_OI_YM_YMI(src)].\n")
-		if(2)
+		if(5 to 8)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(3)
+		if(9 to 12)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(4)
+		if(13 to 16)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(5)
+		if(17 to INFINITY)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[GEND_IM_EI_IM_IMI(src)].\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
@@ -333,28 +333,28 @@
 			continue
 		if(bodypart.tourniquet.applied_bodypart != bodypart)
 			continue
-		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
+		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 			continue
-		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>\n")
+		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru_base(GENITIVE)] торчит кость!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
-				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
+				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru_base(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
 			continue
 
 		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 		if(suppressed)
-			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным.\n")
+			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru_base(NOMINATIVE)] перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным.\n")
 		else if(bodypart.has_arterial_bleeding())
-			msg += span_warning(span_bold("Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] хлещет кровь!\n"))
+			msg += span_warning(span_bold("Из [GEND_HIS_HER(src)] [bodypart.declent_ru_base(GENITIVE)] хлещет кровь!\n"))
 		else if(bodypart.has_heavy_bleeding())
-			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 		else
-			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
 		var/blood_volume_text

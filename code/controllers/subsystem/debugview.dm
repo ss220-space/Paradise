@@ -17,15 +17,7 @@ SUBSYSTEM_DEF(debugview)
 	entries += "\[Air] Cost: [SSair.get_cost()]ms | MT: [round(SSair.cost_milla_tick, 1)]ms | IT: [SSair.interesting_tile_count] | HS: [SSair.hotspot_count] | WT: [SSair.windy_tile_count]"
 	entries += "\[Debug] Cost: [round(SSdebugview.cost, 1)]ms | P: [length(SSdebugview.processing)]" // meta af (tbf we need to know how much were using)
 	entries += "\[FP] Cost: [round(SSfastprocess.cost, 1)]ms | P: [length(SSfastprocess.processing)]"
-	#ifdef PASSIVE_GC
-	// Snowflakery for SSgarbage
-	var/list/counts = list()
-	for(var/list/queue in SSgarbage.queues)
-		counts += length(queue)
-	entries += "\[GC] Cost: [round(SSgarbage.cost, 1)]ms | Q: [counts.Join(",")] H: [SSgarbage.delslasttick] | S: [SSgarbage.gcedlasttick]"
-	#else
 	entries += "\[GC] Cost: [round(SSgarbage.cost, 1)]ms | Del's:[SSgarbage.delslasttick] | Total del's:[SSgarbage.totaldels]"
-	#endif
 	entries += "\[Input] Cost: [round(SSinput.cost, 1)]ms"
 	entries += "\[Lighting] Cost: [round(SSlighting.cost, 1)]ms | SQ: [length(SSlighting.sources_queue)] | CQ: [length(SSlighting.corners_queue)] | OQ: [length(SSlighting.objects_queue)]"
 	entries += "\[Machines] Cost: [round(SSmachines.cost, 1)]ms | M: [length(SSmachines.processing)] | P: [length(SSmachines.powernets)]"

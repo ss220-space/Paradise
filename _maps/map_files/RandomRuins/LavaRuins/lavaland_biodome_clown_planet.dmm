@@ -532,7 +532,7 @@
 /turf/simulated/floor/mineral/bananium/lubed/lavaland_air,
 /area/ruin/powered/clownplanet)
 "bL" = (
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/structure/table/glass,
 /turf/simulated/floor/carpet/lavaland_air,
 /area/ruin/powered/clownplanet)

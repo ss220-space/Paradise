@@ -319,7 +319,7 @@
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.announce(
-			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] минут[DECL_U_Y_0(time_to_destination)]."
 		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
@@ -1454,6 +1454,9 @@
 
 	else if(href_list["select_equip"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/select_equipment, locateUID(href_list["select_equip"]))
+
+	else if(href_list["custom_equip"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/custom_equipment, locateUID(href_list["custom_equip"]))
 
 	else if(href_list["change_voice"])
 		if(!check_rights(R_ADMIN))
@@ -3311,7 +3314,7 @@
 					SEND_SOUND(human, sound(
 							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
 							channel = CHANNEL_ANNOUNCER,
-							volume = 40,
+							volume = 100 * USER_VOLUME(human, CHANNEL_ANNOUNCER),
 							))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))

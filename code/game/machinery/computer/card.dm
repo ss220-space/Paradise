@@ -42,7 +42,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/civilian/team3,
 		/datum/job/civilian/team2,
 		/datum/job/civilian/team1,
-		/datum/job/service/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	/// Jobs that appear in the list, and you can prioritize, but not open/close slots for
 	var/list/blacklisted_partial = list(

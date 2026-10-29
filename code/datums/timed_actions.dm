@@ -54,8 +54,8 @@
 		if(astype(user, /mob)?.client || bar_override?.client)
 			progressbar = new(bar_override || user, delay, targets[1] || user)
 
-		if(!isnull(cog_icon) && delay >= 1 SECONDS)
-			cogbar = new(user, cog_icon, cog_iconstate)
+	if(!isnull(cog_icon) && delay >= 1 SECONDS)
+		cogbar = new(user, cog_icon, cog_iconstate)
 
 #ifdef UNIT_TESTS
 	timed_action_flags &= ~DA_IGNORE_SLOWDOWNS // Test dummies are a special case
@@ -266,7 +266,7 @@
  * - delay - The time in deciseconds. Use the SECONDS define for readability. `1 SECONDS` is 10 deciseconds.
  * - target - The target of the action. This is where the progressbar will display.
  * - timed_action_flags - Flags to control the behavior of the timed action.
- * - show_progress - Whether to display a progress bar / cogbar.
+ * - show_progress - Whether to display a progress bar. / cogbar.
  * - extra_checks - Additional checks to perform before the action is executed.
  * - interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * - max_interact_count - The maximum amount of interactions allowed.

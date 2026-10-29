@@ -6,8 +6,8 @@
 /// Under slot identifier
 #define ATTACHMENT_SLOT_UNDER "under"
 /// Sibyl slot identifier
-#define ATTACHMENT_SLOT_SIBYL "sibyl"
-/// Muzzle slot identifier
+#define ATTACHMENT_SLOT_LOCKING_PIN "locking_pin"
+/// Stock slot identifier
 #define ATTACHMENT_SLOT_STOCK "stock"
 
 // Keys for attachment X/Y offset values
@@ -40,11 +40,14 @@
 // Stock slot types flags
 #define GUN_MODULE_CLASS_SMG_STOCK (1 << 13)
 
+// Stock slot types flags
+#define GUN_MODULE_CLASS_LOCKING_PIN (1 << 14)
+
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
 	ATTACHMENT_SLOT_RAIL = "верхняя планка",
 	ATTACHMENT_SLOT_UNDER = "цевьё",
-	ATTACHMENT_SLOT_SIBYL = "курок"
+	ATTACHMENT_SLOT_LOCKING_PIN = "курок"
 ))
 
 #define GUN_MODE_SINGLE_ONLY 1
@@ -172,6 +175,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
 /// Enforcer accuracy
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
+/// Laser pistol accuracy
+#define GUN_ACCURACY_PISTOL_LASER new /datum/gun_accuracy/pistol/laser()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
 /// Scarecrow accuracy

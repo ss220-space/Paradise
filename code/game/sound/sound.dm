@@ -259,8 +259,8 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * sound_length is an optional length of the sound. Things like TTS need to pass this since we can't dynamically grab the length in that case.
  * * frequency is an optional playback speed; null keeps the default speed.
  */
-/proc/playsoundtoken(atom/source, soundin, volume, range, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, allowed_listeners, sound_length, frequency)
-	return new /datum/sound_token(source, soundin, range, volume, falloff_exponent, falloff_distance, allowed_listeners, sound_length, delete_on_end = TRUE, frequency = frequency)
+/proc/playsoundtoken(atom/source, soundin, volume, range, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, allowed_listeners, sound_length, frequency, pressure_affected = TRUE)
+	return new /datum/sound_token(source, soundin, range, volume, falloff_exponent, falloff_distance, pressure_affected, allowed_listeners, sound_length, delete_on_end = TRUE, frequency = frequency)
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
 	filename_input = filename_sanitize(filename_input)
@@ -289,6 +289,8 @@ GLOBAL_LIST_EMPTY(cached_songs)
 			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "rubberband=pitch=0.8, highpass=f=450, lowpass=f=3600, equalizer=f=180:t=q:w=1.0:g=3, equalizer=f=1100:t=q:w=1.2:g=4, equalizer=f=2400:t=q:w=1.0:g=2, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, alimiter=level_in=1.4, acrusher=bits=12:mix=0.3, volume=2.0" [filename_output]"})
 		if(SOUND_EFFECT_RADIO_MASKFILTER)
 			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "rubberband=pitch=0.8, highpass=f=1000, lowpass=f=3000, equalizer=f=180:t=q:w=1.0:g=3, equalizer=f=1100:t=q:w=1.2:g=4, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, acrusher=1:1:50:0:log, volume=2.0" [filename_output]"})
+		if(SOUND_EFFECT_OLD_VOCODER)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "rubberband=pitch=0.8, highpass=f=1000, lowpass=f=3000, equalizer=f=1500:t=q:w=3:g=10, equalizer=f=2200:t=q:w=4:g=12, equalizer=f=2800:t=q:w=5:g=9, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, acrusher=1:1:50:0:log, volume=2.2, aresample=8000, aresample=22050" -ar 8000 -ac 1 -c:a libmp3lame -b:a 32k [filename_output]"})
 		else
 			CRASH("Invalid sound effect chosen.")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]

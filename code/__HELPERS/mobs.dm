@@ -22,44 +22,45 @@
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)
-			pick_list = GLOB.underwear_m
+			pick_list = SSaccessories.underwear_m
 		if(FEMALE)
-			pick_list = GLOB.underwear_f
+			pick_list = SSaccessories.underwear_f
 		else
-			pick_list = GLOB.underwear_list
-	return pick_species_allowed_underwear(pick_list, species)
+			pick_list = SSaccessories.underwear_list
+	return pick_species_allowed_underwear(pick_list, SSaccessories.underwear_list, species)
 
 /proc/random_undershirt(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)
-			pick_list = GLOB.undershirt_m
+			pick_list = SSaccessories.undershirt_m
 		if(FEMALE)
-			pick_list = GLOB.undershirt_f
+			pick_list = SSaccessories.undershirt_f
 		else
-			pick_list = GLOB.undershirt_list
-	return pick_species_allowed_underwear(pick_list, species)
+			pick_list = SSaccessories.undershirt_list
+	return pick_species_allowed_underwear(pick_list, SSaccessories.undershirt_list, species)
 
 /proc/random_socks(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)
-			pick_list = GLOB.socks_m
+			pick_list = SSaccessories.socks_m
 		if(FEMALE)
-			pick_list = GLOB.socks_f
+			pick_list = SSaccessories.socks_f
 		else
-			pick_list = GLOB.socks_list
-	return pick_species_allowed_underwear(pick_list, species)
+			pick_list = SSaccessories.socks_list
+	return pick_species_allowed_underwear(pick_list, SSaccessories.socks_list, species)
 
-/proc/pick_species_allowed_underwear(list/all_picks, species)
+/proc/pick_species_allowed_underwear(list/all_picks, list/full_list, species)
 	var/list/valid_picks = list()
 	for(var/test in all_picks)
-		var/datum/sprite_accessory/S = all_picks[test]
-		if(!(species in S.species_allowed))
+		var/datum/sprite_accessory/S = full_list[test]
+		if(S && !(species in S.species_allowed))
 			continue
 		valid_picks += test
 
-	if(!length(valid_picks)) valid_picks += "Nude"
+	if(!length(valid_picks))
+		valid_picks += "Nude"
 
 	return pick(valid_picks)
 
@@ -67,8 +68,8 @@
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 
-	for(var/hairstyle in GLOB.hair_styles_public_list)
-		var/datum/sprite_accessory/style = GLOB.hair_styles_public_list[hairstyle]
+	for(var/hairstyle, hairstyle_object in SSaccessories.hairstyles_list)
+		var/datum/sprite_accessory/style = hairstyle_object
 
 		if(!LAZYIN(style.species_allowed, species.name))
 			continue
@@ -76,7 +77,7 @@
 		if(style.wizard_only)
 			continue
 
-		if(gender == style.unsuitable_gender)
+		if(style.gender && gender != style.gender)
 			continue
 
 		if(!species.is_allowed_hair_style(human, robohead, style))
@@ -94,15 +95,15 @@
 /proc/random_facial_hair_style(gender, species = SPECIES_HUMAN, datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
-	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
-		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
+	for(var/facialhairstyle, facialhairstyle_object in SSaccessories.facial_hairstyles_list)
+		var/datum/sprite_accessory/S = facialhairstyle_object
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
 		if(S.wizard_only)
 			continue
-		if(gender == S.unsuitable_gender)
+		if(S.gender && gender != S.gender)
 			continue
 		if(species == SPECIES_MACHINEPERSON) //If the user is a species who can have a robotic head...
 			if(!robohead)
@@ -125,8 +126,8 @@
 /proc/random_head_accessory(species = SPECIES_HUMAN)
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
-	for(var/head_accessory in GLOB.head_accessory_styles_list)
-		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
+	for(var/head_accessory, head_accessory_object in SSaccessories.head_accessory_list)
+		var/datum/sprite_accessory/S = head_accessory_object
 
 		if(!(species in S.species_allowed))
 			continue
@@ -140,14 +141,14 @@
 /proc/random_marking_style(location = "body", species = SPECIES_HUMAN, datum/robolimb/robohead, body_accessory, alt_head, gender = NEUTER)
 	var/m_style = "None"
 	var/list/valid_markings = list()
-	for(var/marking in GLOB.marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
+	for(var/marking, marking_object in SSaccessories.body_markings_list)
+		var/datum/sprite_accessory/body_markings/S = marking_object
 		if(S.name == "None")
 			valid_markings += marking
 			continue
 		if(S.marking_location != location) // If the marking isn't for the location we desire, skip.
 			continue
-		if(gender == S.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
+		if(S.gender && gender != S.gender) // If the marking isn't allowed for the user's gender, skip.
 			continue
 		if(!(species in S.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
@@ -168,7 +169,7 @@
 				if(!S.wings_allowed || !(body_accessory in S.wings_allowed))
 					continue
 		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
+			var/datum/sprite_accessory/body_markings/head/M = SSaccessories.body_markings_list[S.name]
 			if(species == SPECIES_MACHINEPERSON)//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]

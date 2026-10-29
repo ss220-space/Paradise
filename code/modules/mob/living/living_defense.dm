@@ -267,6 +267,11 @@
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	return effect?.DryMob()
 
+/// Returns the amount of wet stacks on this mob, or 0 if it is dry.
+/mob/living/proc/get_wet_stacks(wet_type = /datum/status_effect/stacking/wet)
+	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
+	return effect?.stacks || 0
+
 /mob/living/fire_act(exposed_temperature, exposed_volume)
 	..()
 	adjust_fire_stacks(3)
@@ -425,7 +430,7 @@
 				ignored_mobs = grabber,
 			)
 			to_chat(grabber, span_danger("Вы хватаете [name] за шею!"))
-			if(!buckled)
+			if(!buckled && !HAS_TRAIT(src, TRAIT_FORCE_GRASPED))
 				Move(grabber.loc)
 		if(GRAB_KILL)
 			add_attack_logs(grabber, src, "strangled (kill grab)", ATKLOG_ALL)
@@ -436,7 +441,7 @@
 				ignored_mobs = grabber,
 			)
 			to_chat(grabber, span_danger("Вы душите [name]!"))
-			if(!buckled)
+			if(!buckled && !HAS_TRAIT(src, TRAIT_FORCE_GRASPED))
 				Move(grabber.loc)
 	grabber.set_pull_offsets(src, grabber.grab_state)
 	return TRUE

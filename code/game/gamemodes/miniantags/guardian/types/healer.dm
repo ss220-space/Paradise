@@ -46,7 +46,8 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(beacon_cooldown >= world.time)
-		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд[declension_ru(max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0), "а", "ы", "")]")
+		var/reload_time = max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)
+		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[reload_time] секунд[DECL_A_Y_0(reload_time)]")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
@@ -209,7 +210,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/healer, Beacon, "Ус�
 					return TRUE
 				if("damaged_organs")
 					var/obj/item/organ/internal/organ = pick(injures["damaged_organs"])
-					organ.damage = 0
+					organ.heal_internal_damage(organ.damage, robo_repair = TRUE)
 					to_chat(owner, "Восстановлен поврежденный орган.")
 					return TRUE
 		else

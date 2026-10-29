@@ -197,14 +197,14 @@
 			change_gender(PLURAL, FALSE)
 
 	//Head Markings
-	var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_list))
-	if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_list)))
-		m_styles["head"] = GLOB.marking_styles_list[head_marks]
+	var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(SSaccessories.body_markings_list))
+	if((head_marks > 0) && (head_marks <= length(SSaccessories.body_markings_list)))
+		m_styles["head"] = SSaccessories.body_markings_list[head_marks]
 
 	//Body Markings
-	var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_list))
-	if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_list)))
-		m_styles["body"] = GLOB.marking_styles_list[body_marks]
+	var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(SSaccessories.body_markings_list))
+	if((body_marks > 0) && (body_marks <= length(SSaccessories.body_markings_list)))
+		m_styles["body"] = SSaccessories.body_markings_list[body_marks]
 
 	//Body Accessory
 	var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
@@ -222,9 +222,9 @@
 			bodypart_wing?.body_accessory = body_acc
 
 	//Tail Markings
-	var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_list))
-	if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_list)))
-		m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+	var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(SSaccessories.body_markings_list))
+	if((tail_marks > 0) && (tail_marks <= length(SSaccessories.body_markings_list)))
+		m_styles["tail"] = SSaccessories.body_markings_list[tail_marks]
 
 	if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
 		body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
@@ -242,25 +242,25 @@
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
 	//Hair
-	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(GLOB.hair_styles_full_list))
-	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
-		head_organ.h_style = GLOB.hair_styles_full_list[hair]
+	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(SSaccessories.hairstyles_list))
+	if((hair > 0) && (hair <= length(SSaccessories.hairstyles_list)))
+		head_organ.h_style = SSaccessories.hairstyles_list[hair]
 
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 
 	//Facial Hair
-	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,length(GLOB.facial_hair_styles_list))
-	if((beard > 0) && (beard <= length(GLOB.facial_hair_styles_list)))
-		head_organ.f_style = GLOB.facial_hair_styles_list[beard]
+	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,length(SSaccessories.facial_hairstyles_list))
+	if((beard > 0) && (beard <= length(SSaccessories.facial_hairstyles_list)))
+		head_organ.f_style = SSaccessories.facial_hairstyles_list[beard]
 
 	head_organ.facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_B, 255))
 	head_organ.sec_facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_B, 255))
 
 	//Head Accessories
 	var/list/available = list()
-	for(var/head_accessory in GLOB.head_accessory_styles_list)
-		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
+	for(var/head_accessory, head_accessory_object in SSaccessories.head_accessory_list)
+		var/datum/sprite_accessory/S = head_accessory_object
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available.Add(head_accessory)
@@ -293,12 +293,12 @@
 		return
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
-	var/hair = GLOB.hair_styles_full_list.Find(head_organ.h_style)
+	var/hair = SSaccessories.hairstyles_list.Find(head_organ.h_style)
 
 	// Facial Hair
 	if(!head_organ.f_style)
 		head_organ.f_style = "Shaved"
-	var/beard	= GLOB.facial_hair_styles_list.Find(head_organ.f_style)
+	var/beard	= SSaccessories.facial_hairstyles_list.Find(head_organ.f_style)
 
 	// Head Accessory
 	if(!head_organ.ha_style)
@@ -324,8 +324,8 @@
 	SetUIValueRange(DNA_UI_HACC_G,		color2G(head_organ.headacc_colour),		255,	 1)
 	SetUIValueRange(DNA_UI_HACC_B,		color2B(head_organ.headacc_colour),		255,	 1)
 
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		length(GLOB.hair_styles_full_list),		 1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		length(GLOB.facial_hair_styles_list),	 1)
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		length(SSaccessories.hairstyles_list),		 1)
+	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		length(SSaccessories.facial_hairstyles_list),	 1)
 
 	var/list/available = character.generate_valid_head_accessories()
 	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)

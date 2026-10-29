@@ -29,14 +29,14 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},
@@ -127,9 +127,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	brightness_range = 2;
 	dir = 8
@@ -249,7 +247,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 3;
 	pixel_y = 9
 	},
@@ -280,9 +278,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "eR" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 5
@@ -586,9 +582,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/unpowered)
 "ku" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/stack/sheet/wood{
 	amount = 5
 	},
@@ -866,7 +860,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = 3;
 	pixel_y = 9
 	},
@@ -958,9 +952,7 @@
 /area/ruin/unpowered)
 "po" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "pt" = (
@@ -1046,9 +1038,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "rj" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/north{
 	req_access = list(128,121)
 	},
@@ -1203,9 +1193,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "sZ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
@@ -1639,7 +1627,7 @@
 /obj/item/reagent_containers/food/snacks/grown/potato{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
@@ -2000,14 +1988,14 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/food/snacks/boiledpelmeni{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
@@ -2050,7 +2038,7 @@
 /obj/item/reagent_containers/food/snacks/grown/potato{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/food/snacks/oliviersalad,
@@ -2067,10 +2055,10 @@
 	pixel_x = 3;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -2753,15 +2741,15 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 5;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -2810,7 +2798,7 @@
 /area/ruin/unpowered)
 "TS" = (
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/stack/spacecash/ussp/c1000,
 /obj/item/stack/spacecash/ussp/c1000,
 /obj/item/stack/spacecash/ussp/c1000,
@@ -2983,11 +2971,11 @@
 	pixel_x = -7;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},

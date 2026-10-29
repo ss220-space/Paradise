@@ -342,7 +342,7 @@
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		return TRUE
+		return REFLECT_NORMAL
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -586,7 +586,7 @@
 			M.GiveTarget(L)
 
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
+	if(ishead(I))	//Putting heads on spears
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED

@@ -6,7 +6,7 @@
 	abstract_type = /obj/item/shield
 
 /obj/item/shield/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _block_callback = CALLBACK(src, PROC_REF(on_block)))
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = PARRY_SHIELD_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _block_callback = CALLBACK(src, PROC_REF(on_block)))
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/attack_angle = get_angle(owner, hitby)
@@ -93,7 +93,7 @@
 	max_integrity = 380
 
 /obj/item/shield/riot/buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parry_time_out_time = PARRY_SHIELD_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
@@ -116,7 +116,7 @@
 	)
 
 /obj/item/shield/riot/goliath/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.55, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.55, _parry_time_out_time = PARRY_SHIELD_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/energy
 	name = "energy combat shield"

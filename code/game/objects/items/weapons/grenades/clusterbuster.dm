@@ -170,7 +170,7 @@
 
 /obj/item/grenade/clusterbuster/booze
 	name = "Booze Grenade"
-	payload = /obj/item/reagent_containers/food/drinks/bottle/random_drink
+	payload = /obj/item/reagent_containers/cup/glass/bottle/random_drink
 
 /obj/item/grenade/clusterbuster/honk
 	name = "Mega Honk Grenade"

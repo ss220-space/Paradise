@@ -121,16 +121,9 @@
 		оперативники небезызвестного \"Синдиката\"."\
 	)
 
-/obj/item/gun/projectile/automatic/smg/c20r/Initialize(mapload)
-	. = ..()
-	update_icon()
-
 /obj/item/gun/projectile/automatic/smg/c20r/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
-
-/obj/item/gun/projectile/automatic/smg/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
 
 // MARK: "Reaper"
 /obj/item/gun/projectile/automatic/smg/c20r/auto

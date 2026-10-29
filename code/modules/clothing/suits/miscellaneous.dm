@@ -184,7 +184,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/chickensuit
 	name = "chicken suit"
@@ -257,7 +257,7 @@
 	item_state = "holidaypriest"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
@@ -454,7 +454,7 @@
 	icon_state = "wintercoat_med"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatmedical"
-	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/stack/medical, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/stack/medical, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 0, ACID = 45)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
@@ -523,7 +523,7 @@
 	name = "hydroponics winter coat"
 	icon_state = "wintercoat_hydro"
 	item_state = "coathydro"
-	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
+	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro
 
 /obj/item/clothing/head/hooded/winterhood/hydro
@@ -1312,7 +1312,7 @@
 	icon_state = "suragi_jacket_botan"
 	item_state = "suragi_jacket_botan"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 5, FIRE = 0, ACID = 0)
-	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
+	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medic
 	name = "Medical Suragi Jacket"
@@ -1321,7 +1321,7 @@
 	item_state = "suragi_jacket_med"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 5, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,
-	/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
+	/obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/stack/medical, /obj/item/paper, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	name = "Medical Security Suragi Jacket"
@@ -1330,7 +1330,7 @@
 	item_state = "suragi_jacket_brigmed"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 5, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen, /obj/item/rad_laser,
-	/obj/item/reagent_containers/hypospray, /obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle,/obj/item/paper,)
+	/obj/item/reagent_containers/hypospray, /obj/item/flashlight/pen,/obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle,/obj/item/paper,)
 
 /obj/item/clothing/suit/storage/suragi_jacket/virus
 	name = "Virology Suragi Jacket"
@@ -1338,7 +1338,7 @@
 	icon_state = "suragi_jacket_virus"
 	item_state = "suragi_jacket_virus"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 5, FIRE = 0, ACID = 0)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/paper,
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/paper,
 	/obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/chem
@@ -1347,7 +1347,7 @@
 	icon_state = "suragi_jacket_chem"
 	item_state = "suragi_jacket_chem"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 5, ACID = 5)
-	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper,
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/storage/pill_bottle, /obj/item/paper,
 	/obj/item/stack/medical,/obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/reagent_containers/food/pill, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/genetics
@@ -1356,7 +1356,7 @@
 	icon_state = "suragi_jacket_genet"
 	item_state = "suragi_jacket_genet"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
-	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
+	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/cup/bottle,/obj/item/reagent_containers/cup/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/robot
 	name = "Robotiscist Suragi Jacket"
@@ -1364,7 +1364,7 @@
 	icon_state = "suragi_jacket_robotist"
 	item_state = "suragi_jacket_robotist"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
-	allowed = list(/obj/item/robotanalyzer, /obj/item/clothing/glasses/welding, /obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
+	allowed = list(/obj/item/robotanalyzer, /obj/item/clothing/glasses/welding, /obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/cup/bottle,/obj/item/reagent_containers/cup/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/sci
 	name = "Science Suragi Jacket"
@@ -1372,7 +1372,7 @@
 	icon_state = "suragi_jacket_scien"
 	item_state = "suragi_jacket_scien"
 	armor = list(MELEE = 1, BULLET = 1, LASER = 1, ENERGY = 1, BOMB = 1, BIO = 1, FIRE = 1, ACID = 1)
-	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
+	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/cup/bottle,/obj/item/reagent_containers/cup/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/janitor
 	name = "Janitor Suragi Jacket"
@@ -1463,11 +1463,13 @@
 
 /obj/item/clothing/suit/towel
 	name = "towel"
-	desc = "A soft cotton towel."
+	desc = "Мягкое хлопковое полотенце."
 	icon_state = "towel_long"
 	item_state = "towel"
+	item_flags = SKIP_ATTACK_MESSAGE
 	body_parts_covered = LOWER_TORSO | UPPER_TORSO
 	var/drop_amount = 3
+	var/wet_stacks_removed = 5
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1483,12 +1485,22 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
 
+/obj/item/clothing/suit/towel/get_ru_names()
+	return alist(
+		NOMINATIVE = "полотенце",
+		GENITIVE = "полотенца",
+		DATIVE = "полотенцу",
+		ACCUSATIVE = "полотенце",
+		INSTRUMENTAL = "полотенцем",
+		PREPOSITIONAL = "полотенце",
+	)
+
 /obj/item/clothing/suit/towel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/towel/attack_self(mob/living/carbon/user)
-	if(!istype(user) || !user.wetlevel)
+	if(!istype(user) || !user.get_wet_stacks())
 		return ..()
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
@@ -1496,22 +1508,39 @@
 /obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!istype(target) || !target.wetlevel)
+	if(!istype(target) || !target.get_wet_stacks())
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
 
 /obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
-	user.visible_message(span_warning("[user] begins to wipe [target == user ? target.p_themselves() : target] with [src]."))
-
-	if(!do_after(user, 5 SECONDS, target))
+	if(QDELETED(target) || QDELETED(user) || QDELETED(src))
 		return
 
-	if(!istype(target) || !target.wetlevel)
-		return
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] вытира[PLUR_ET_YUT(user)] себя [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы вытираетесь [declent_ru(INSTRUMENTAL)]."),
+		)
+	else
+		user.visible_message(
+			span_warning("[user] начина[PLUR_ET_YUT(user)] вытирать [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Вы начинаете вытирать [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+			ignored_mobs = target,
+		)
+		target.balloon_alert(target, "вас вытирают")
 
-	target.wetlevel = 0
-	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
+	while(!QDELETED(target) && !QDELETED(user) && !QDELETED(src) && target.get_wet_stacks() > 0)
+		if(!do_after(user, 2.5 SECONDS, target))
+			return
+		if(QDELETED(target) || QDELETED(user) || QDELETED(src))
+			return
+		var/wet_stacks_before = target.get_wet_stacks()
+		target.adjust_wet_stacks(-wet_stacks_removed)
+		if(target.get_wet_stacks() >= wet_stacks_before)
+			return
+
+	to_chat(user, span_notice("Вы вытерли [target == user ? "себя" : target.declent_ru(ACCUSATIVE)] досуха."))
 
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -1523,7 +1552,7 @@
 	var/obj/item/stack/sheet/cloth/cloth = new(drop_location(), drop_amount)
 	transfer_fingerprints_to(cloth)
 	cloth.add_fingerprint(user)
-	to_chat(user, span_notice("You tear [src] up."))
+	to_chat(user, span_notice("Вы разрываете [declent_ru(ACCUSATIVE)] на куски."))
 	qdel(src)
 
 /obj/item/clothing/suit/towel/alt
@@ -1597,7 +1626,7 @@
 		PREPOSITIONAL = "чёрном балахоне",
 	)
 
-/obj/item/clothing/suit/hooded/update_icon_state()
+/obj/item/clothing/suit/hooded/ghostfacesuit/update_icon_state()
 	return
 
 /obj/item/clothing/head/hooded/ghostface
@@ -1745,23 +1774,4 @@
 		ACCUSATIVE = "заза-лорд бомбера",
 		INSTRUMENTAL = "заза-лорд бомбером",
 		PREPOSITIONAL = "заза-лорд бомбере",
-	)
-
-/obj/item/clothing/under/chad
-	name = "Chad suit"
-	desc = "Должно быть абсолютно очевидным — перед вами настоящая легенда."
-	over_shoes = TRUE
-	can_adjust = FALSE
-	icon_state = "chadsuit"
-	item_state = "chadsuit"
-	species_restricted = list(SPECIES_HUMAN)
-
-/obj/item/clothing/under/chad/get_ru_names()
-	return alist(
-		NOMINATIVE = "костюм Гигачада",
-		GENITIVE = "костюма Гигачада",
-		DATIVE = "костюму Гигачада",
-		ACCUSATIVE = "костюм Гигачада",
-		INSTRUMENTAL = "костюмом Гигачада",
-		PREPOSITIONAL = "костюме Гигачада",
 	)

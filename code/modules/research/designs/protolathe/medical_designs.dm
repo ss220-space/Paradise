@@ -15,7 +15,7 @@
 	req_tech = list(RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PLASMA = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
-	build_path = /obj/item/reagent_containers/glass/beaker/bluespace
+	build_path = /obj/item/reagent_containers/cup/beaker/bluespace
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/noreactbeaker
@@ -23,7 +23,7 @@
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_PLASMA = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/reagent_containers/glass/beaker/noreact
+	build_path = /obj/item/reagent_containers/cup/beaker/noreact
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/cyborg_analyzer

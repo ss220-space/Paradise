@@ -10,8 +10,9 @@ This was also the case with the verb implementation, it's just much more obvious
 
 /datum/spell_handler/alien/New(datum/action/cooldown/spell/spell, cost = 0)
 	plasma_cost = cost
-	spell.name = "[spell.name] ([plasma_cost])"
-	spell.build_all_button_icons()
+	if(plasma_cost != 0)
+		spell.name = "[spell.name] ([plasma_cost])"
+		spell.build_all_button_icons()
 
 /datum/spell_handler/alien/can_cast(mob/living/carbon/user, show_message, datum/action/cooldown/spell/spell)
 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)

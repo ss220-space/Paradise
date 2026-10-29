@@ -19,6 +19,8 @@
 	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
+	var/gun_flags = NONE
+
 	var/fire_sound = SFX_GUNSHOT
 	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -90,6 +92,11 @@
 	///Can we hold up our target with this? Default to yes
 	var/can_hold_up = TRUE
 
+	/// Overlay for ammo count hud, that we using
+	var/ammo_count_overlay = "ammo_red"
+	/// Color of all ammo count hud numbers
+	var/ammo_count_colour = COLOR_RED
+
 /*
  * Gun modules
  */
@@ -104,14 +111,14 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
-		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+		ATTACHMENT_SLOT_LOCKING_PIN = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
 		ATTACHMENT_SLOT_UNDER,
-		ATTACHMENT_SLOT_SIBYL
+		ATTACHMENT_SLOT_LOCKING_PIN,
 	)
 
 	var/suppressed = FALSE
@@ -157,6 +164,15 @@
 	var/windup_spindown = 3 SECONDS
 	var/datum/looping_sound/sound_loop
 
+	///windup delay before shots. USE ONLY WITH SEMI_AUTO guns
+	///Delay for the gun winding up before firing.
+	var/windup_delay = 0
+	///Sound played during windup.
+	var/windup_sound
+	///Sound cooldown sanity_check
+	var/sound_cooldown_time = 1 SECONDS
+	COOLDOWN_DECLARE(gun_sound_cooldown)
+
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
@@ -189,6 +205,36 @@
 	else if(!istype(accuracy, /datum/gun_accuracy))
 		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
 
+	register_context()
+
+/obj/item/gun/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	if((isnull(held_item) || held_item == src) && user.is_in_hands(held_item))
+		for(var/slot in attachments_by_slot)
+			var/obj/item/gun_module/module = attachments_by_slot[slot]
+			if(!module?.can_detach)
+				continue
+			context[SCREENTIP_CONTEXT_ALT_LMB] = "Снять модуль"
+			. = CONTEXTUAL_SCREENTIP_SET
+			break
+
+	if(held_item == src)
+		var/obj/item/gun_module/stock/stock = attachments_by_slot[ATTACHMENT_SLOT_STOCK]
+		if(!stock)
+			return
+		context[SCREENTIP_CONTEXT_RMB] = "[stock.unfolded ? "С" : "Раз"]ложить приклад"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/gun_module))
+		var/obj/item/gun_module/incoming_module = held_item
+		if(attachments_by_slot[incoming_module.slot])
+			return
+		context[SCREENTIP_CONTEXT_LMB] = "Установить модуль"
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	return .
+
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
 	for(var/attachment in attachments_by_slot)
@@ -199,12 +245,11 @@
 	LAZYCLEARLIST(attachment_overlays)
 	QDEL_NULL(azoom)
 	QDEL_NULL(chambered)
-	if(sound_loop)
-		QDEL_NULL(sound_loop)
-	if(accuracy)
-		QDEL_NULL(accuracy)
-	if(recoil)
-		QDEL_NULL(recoil)
+	QDEL_NULL(sound_loop)
+	QDEL_NULL(accuracy)
+	QDEL_NULL(recoil)
+	gun_user = null
+	target = null
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/target)
@@ -212,31 +257,42 @@
 		set_gun_light(null)
 	return ..()
 
+/obj/item/gun/proc/get_attachment_module_examine_text(mob/user, slot, missing_text = "модуль отсутствует")
+	var/obj/item/gun_module/module = attachments_by_slot[slot]
+	if(!module)
+		return "[missing_text]"
+	return "[module.get_examine_icon(user)] [DECLENT_RU_CAP(module, NOMINATIVE)]"
+
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(attachments_by_slot[ATTACHMENT_SLOT_RAIL])
-		. += span_notice("На прицельную планку прикреплен [attachments_by_slot[ATTACHMENT_SLOT_RAIL].declent_ru(NOMINATIVE)].")
-	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_RAIL)
-		. += span_notice("Имеет большое крепление для прицелов. Можно установить все виды прицелов.")
-	if(attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_RAIL)
-		. += span_notice("Имеет среднее крепление для прицелов. Подойдут большинство прицелов и коллиматоров.")
-	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_RAIL)
-		. += span_notice("Имеет малое крепление для прицелов. Подойдут только маленькие коллиматоры.")
 
-	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
-		. += span_notice("На ствол прикручен [attachments_by_slot[ATTACHMENT_SLOT_MUZZLE].declent_ru(NOMINATIVE)].")
-	else if(attachable_allowed & GUN_MODULE_CLASS_ANY_MUZZLE)
-		. += span_notice("Имеет нарезы для крепления наствольных модулей.")
+	var/static/list/attachment_examine_data = list(
+		// Scope
+		list(GUN_MODULE_CLASS_PISTOL_RAIL, "Совместимо с малогабаритными прицелами.", "Малая прицельная планка", ATTACHMENT_SLOT_RAIL),
+		list(GUN_MODULE_CLASS_SHOTGUN_RAIL, "Совместимо со среднегабаритными прицелами.", "Средняя прицельная планка", ATTACHMENT_SLOT_RAIL),
+		list(GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL, "Совместимо с крупногабаритными прицелами.", "Большая прицельная планка", ATTACHMENT_SLOT_RAIL),
+		// Muzzle
+		list(GUN_MODULE_CLASS_ANY_MUZZLE, "Совместимо с дульными модулями.", "Нарезы на стволе", ATTACHMENT_SLOT_MUZZLE),
+		// Underbarrel
+		list(GUN_MODULE_CLASS_PISTOL_UNDER, "Совместимо с малогабаритными подствольными модулями.", "Малая планка на цевье", ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_SHOTGUN_UNDER, "Совместимо со среднегабаритными подствольными модулями.", "Средняя планка на цевье", ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_RIFLE_UNDER, "Совместимо с крупногабаритными подствольными модулями.", "Большая планка на цевье", ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_SNIPER_UNDER, "Совместимо с лазерными прицелами.", "Малое крепление на цевье", ATTACHMENT_SLOT_UNDER),
+		// Stock
+		list(GUN_MODULE_CLASS_SMG_STOCK, "Совместимо со специализированными прикладами.", "Замок приклада", ATTACHMENT_SLOT_STOCK)
+	)
 
-	if(attachments_by_slot[ATTACHMENT_SLOT_UNDER])
-		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
-	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
-		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
-	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
-		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
+	for(var/list/entry in attachment_examine_data)
+		var/flag_mask = entry[1]
+		if(!(attachable_allowed & flag_mask))
+			continue
+		var/tooltip_text = entry[2]
+		var/tooltip_label = entry[3]
+		var/slot = entry[4]
+		. += span_notice("[span_tooltip(tooltip_text, tooltip_label)]: [get_attachment_module_examine_text(user, slot)]")
 
 	if(unique_rename)
-		. += span_notice("Используйте ручку чтобы переименовать его.")
+		. += span_notice("Используйте ручку для переименования.")
 
 
 /obj/item/gun/update_overlays()
@@ -286,7 +342,8 @@
 			continue
 		var/obj/item/gun_module/module = new module_path(src)
 		attachments_by_slot[module.slot] = module
-		add_attachment_overlay(module)
+		if(module.exists_overlay)
+			add_attachment_overlay(module)
 		module.gun = src
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
@@ -334,6 +391,7 @@
 		))
 		update_mouse_pointer(TRUE)
 		SEND_SIGNAL(gun_user, COMSIG_GUN_USER_UNSET, src)
+		gun_user.hud_used?.remove_ammo_hud(src)
 		gun_user = null
 
 	if(!user)
@@ -342,6 +400,8 @@
 	gun_user = user
 	setup_bullet_accuracy()
 	SEND_SIGNAL(gun_user, COMSIG_GUN_USER_SET, src)
+	if(gun_flags & GUN_AMMO_COUNTER)
+		gun_user.hud_used?.add_ammo_hud(src, get_display_ammo_count(), ammo_count_overlay, ammo_count_colour)
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDOWN, PROC_REF(start_fire))
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDRAG, PROC_REF(change_target))
 	RegisterSignal(gun_user, COMSIG_QDELETING, PROC_REF(clean_gun_user))
@@ -351,6 +411,10 @@
 /obj/item/gun/proc/clean_gun_user()
 	SIGNAL_HANDLER
 	set_gun_user(null)
+
+///returns ammo count to display in the ammo counter of the HUD
+/obj/item/gun/proc/get_display_ammo_count()
+	return
 
 ///Check if the gun can fire and add it to bucket auto_fire system if needed, or just fire the gun if not
 /obj/item/gun/proc/start_fire(datum/source, atom/object, turf/location, control, params, bypass_checks = FALSE)
@@ -393,11 +457,11 @@
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
+		balloon_alert(user, "нужны обе руки!")
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_MEDIUM && isgun(user.get_inactive_hand()))
-		to_chat(user, span_userdanger("Стрелять с двух рук используя [declent_ru(ACCUSATIVE)] не получится!"))
+		balloon_alert(user, "не для двуручной стрельбы!")
 		return
 
 	if(gun_on_cooldown(user))
@@ -414,12 +478,14 @@
 	if(QDELETED(object))
 		return
 
+
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	update_mouse_pointer()
 	sound_loop?.start(user)
 	return TRUE
@@ -434,8 +500,6 @@
 	if(world.time >= delay && (!user || SEND_SIGNAL(user, COMSIG_MOB_GUN_COOLDOWN, src)))
 		return FALSE
 
-	if(world.time % 3)
-		to_chat(user, span_warning("[src] is not ready to fire again!"))
 	return TRUE
 
 ///Update the target if you draged your mouse
@@ -574,10 +638,11 @@
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot(mob/user)
-	return TRUE
+	SHOULD_CALL_PARENT(TRUE)
+	var/response = SEND_SIGNAL(src, COMSIG_GUN_CHECK_CAN_SHOOT, user)
+	return !(response & GUN_CHECK_CANCEL_ATTACK)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, span_danger("*клик*"))
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE)
@@ -615,7 +680,11 @@
 	shots_fired++
 
 /obj/item/gun/proc/do_pointblank_shot(mob/living/user, atom/target)
-	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"))
+	user.visible_message(
+		span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"),
+		span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"),
+		span_italics("Вы слышите [fire_sound_text]!"),
+	)
 	if(pb_knockback > 0 && isliving(target))
 		do_pb_knockback(user, target)
 
@@ -648,6 +717,8 @@
 	return
 
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
+	if(!can_trigger_gun(user))
+		return
 	var/old_target = src.target
 	var/old_user = gun_user
 	var/list/old_modifiers = modifiers
@@ -682,6 +753,7 @@
 		bonus_spread += 45
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	last_fired = world.time
 	SEND_SIGNAL(src, COMSIG_MOB_GUN_FIRED, target, src)
 	if(gun_user)
@@ -697,6 +769,8 @@
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		on_pre_process_fire(user, target)
+		if(!on_windup_check())
+			return NONE
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -810,14 +884,14 @@
 
 	if(user && !isturf(user.loc))
 		if(!silent)
-			to_chat(user, span_warning("Вы не можете переключить фонарь, находясь в [user.loc]!"))
+			balloon_alert(user, "невозможно в текущем положении!")
 		return
 
 	gun_light.on = !gun_light.on
 	if(!silent)
 		playsound(loc, 'sound/weapons/empty.ogg', 100, TRUE)
 		if(user)
-			to_chat(user, span_notice("Вы переключаете фонарь: [gun_light.on ? "вкл": "выкл"]."))
+			balloon_alert(user, "фонарь [gun_light.on ? "включён" : "выключен"]")
 	gun_light.set_light_on(gun_light.on)
 	SEND_SIGNAL(src, COMSIG_GUN_LIGHT_TOGGLE, user)
 	update_icon(UPDATE_OVERLAYS)
@@ -858,6 +932,22 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
+/// Windup for guns. Working only with semi autos
+/obj/item/gun/proc/on_windup_check()
+	if(gun_firemode != GUN_FIREMODE_SEMIAUTO)
+		return TRUE
+
+	if(!windup_delay)
+		return TRUE
+
+	if(windup_sound && COOLDOWN_FINISHED(src, gun_sound_cooldown))
+		COOLDOWN_START(src, gun_sound_cooldown, sound_cooldown_time)
+		playsound(loc, windup_sound, 30, TRUE)
+
+	if(!do_after(gun_user, windup_delay, src, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "busy_danger"))
+		return FALSE
+	return TRUE
+
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight(silent = TRUE)
@@ -873,8 +963,14 @@
 	if(loc != user)
 		return NONE
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
+		balloon_alert(user, "невозможно сейчас!")
 		return CLICK_ACTION_BLOCKING
+
+	var/obj/item/held_item = user.get_active_hand()
+	if(held_item && held_item != src)
+		balloon_alert(user, "рука занята!")
+		return CLICK_ACTION_BLOCKING
+
 	try_detach_gun_module(user)
 	return CLICK_ACTION_SUCCESS
 
@@ -886,19 +982,17 @@
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
 		if(module.can_detach)
-			choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
+			choices[DECLENT_RU_CAP(module, NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
 	if(length(choices) == 0)
 		return
-	var/choice = choices[1]
-	if(length(choices) > 1)
-		choice = show_radial_menu(user, src, choices, require_near = TRUE)
+	var/choice = show_radial_menu(user, src, choices, require_near = TRUE, autopick_single_option = FALSE)
 	if(!choice)
 		return FALSE
 	for(var/slot in attachments_by_slot)
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		if(module.declent_ru(NOMINATIVE) == choice)
+		if(DECLENT_RU_CAP(module, NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
 

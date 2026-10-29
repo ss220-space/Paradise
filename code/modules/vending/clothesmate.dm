@@ -38,6 +38,7 @@
 				/obj/item/clothing/head/beanie/stripedgreen = 3,
 				/obj/item/clothing/head/beanie/rasta = 3,
 				/obj/item/clothing/head/sombrero = 1,
+				/obj/item/clothing/head/jew_hat = 3,
 			),
 		),
 		list(
@@ -72,6 +73,8 @@
 				/obj/item/storage/belt/fannypack/red = 1,
 				/obj/item/clothing/gloves/brown_short_gloves = 3,
 				/obj/item/clothing/gloves/fingerless = 2,
+				/obj/item/clothing/glasses/goldblue = 3,
+				/obj/item/clothing/accessory/wristwatch = 2,
 			),
 		),
 		list(
@@ -122,6 +125,7 @@
 				/obj/item/clothing/shoes/color/black = 4,
 				/obj/item/clothing/shoes/sandal = 1,
 				/obj/item/clothing/shoes/leather_boots = 3,
+				/obj/item/clothing/shoes/crocks = 3,
 			),
 		),
 	)
@@ -134,6 +138,10 @@
 		/obj/item/clothing/head/ushanka = 1,
 		/obj/item/clothing/under/soviet = 1,
 		/obj/item/storage/belt/fannypack/black = 1,
+		/obj/item/clothing/under/bandit = 1,
+		/obj/item/clothing/under/goon = 1,
+		/obj/item/clothing/under/gopnik = 1,
+		/obj/item/clothing/under/chainsmoker = 1,
 	)
 
 	premium = list(

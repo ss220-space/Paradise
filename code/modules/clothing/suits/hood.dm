@@ -11,7 +11,10 @@
 
 /obj/item/clothing/suit/hooded/Destroy()
 	unequip_hood()
-	hood = null
+	if(hood)
+		UnregisterSignal(hood, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_QDELETING))
+		qdel(hood)
+		hood = null
 	return ..()
 
 /obj/item/clothing/suit/armor/reactive/ComponentInitialize()
@@ -99,9 +102,11 @@
 	unequip_hood()
 	if(!suit_adjusted)
 		return FALSE
+	var/mob/living/carbon/human/wearer = loc
 	. = TRUE
 	suit_adjusted = FALSE
 	update_icon(UPDATE_ICON_STATE)
+	wearer.update_worn_oversuit()
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
@@ -113,7 +118,6 @@
 		hood.forceMove(src)
 		return
 	wearer.transfer_item_to_loc(hood, src, force = TRUE)
-	wearer.update_worn_oversuit()
 
 /obj/item/clothing/head/hooded
 	flags_inv = HIDEHAIR

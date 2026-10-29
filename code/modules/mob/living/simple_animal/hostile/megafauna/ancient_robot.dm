@@ -176,18 +176,18 @@ Difficulty: Very Hard
 		return
 
 	armour_penetration = 66
-	TL.armour_penetration = 66
-	TR.armour_penetration = 66
-	BL.armour_penetration = 66
-	BR.armour_penetration = 66
+	TL?.armour_penetration = 66
+	TR?.armour_penetration = 66
+	BL?.armour_penetration = 66
+	BR?.armour_penetration = 66
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
 	. = ..()
 	armour_penetration = 50
-	TL.armour_penetration = 50
-	TR.armour_penetration = 50
-	BL.armour_penetration = 50
-	BR.armour_penetration = 50
+	TL?.armour_penetration = 50
+	TR?.armour_penetration = 50
+	BL?.armour_penetration = 50
+	BR?.armour_penetration = 50
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)

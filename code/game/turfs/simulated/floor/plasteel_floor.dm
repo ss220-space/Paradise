@@ -26,7 +26,7 @@
 	temperature = TCMB
 
 /turf/simulated/floor/plasteel/pressure_debug/Initialize(mapload)
-	..()
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(update_color)), 1, TIMER_LOOP)
 
 /turf/simulated/floor/plasteel/pressure_debug/proc/update_color()

@@ -298,9 +298,9 @@
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 	if(!silent)
 		if(essence_amt > 0)
-			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source]."))
+			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[DECL_YA_I_I(essence_amt)] от [source]."))
 		else
-			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
+			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[DECL_YA_I_I(essence_amt)] из-за [source]."))
 	update_spell_icons()
 	var/datum/hud/revenant/hud = hud_used
 	hud.update_huds()
@@ -359,7 +359,7 @@
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(targetAmount,"e","и","")] эссенции у людей."
+	explanation_text = "Поглотите [targetAmount] единиц[DECL_U_Y_0(targetAmount)] эссенции у людей."
 	..()
 
 /datum/objective/revenant/check_completion()

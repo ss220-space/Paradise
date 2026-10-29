@@ -27,7 +27,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clown_recorder = 1,
 		/obj/item/clothing/head/beret/sec = 1,
@@ -68,7 +68,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana = 1,
 		/obj/item/clown_recorder = 1,
 		/obj/item/instrument/bikehorn = 1,
 

@@ -4,6 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid
 	button_icon_state = "alien_acid"
 	background_icon_state = "bg_alien"
+	background_icon_state_active = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
 	invocation_type = INVOCATION_NONE
 	invocation = ""
@@ -28,6 +29,13 @@
 	if(!can_cast_on_self && victim == caster)
 		return FALSE
 	if(!is_valid_target(victim))
+		return FALSE
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = caster.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel)
+		return FALSE
+
+	if(vessel.stored_plasma < plasma_cost)
+		to_chat(caster, span_warning("You require at least [plasma_cost] plasma to use this ability!"))
 		return FALSE
 	if(!(caster.mobility_flags & MOBILITY_USE))
 		caster.balloon_alert(caster, "can't reach out!")

@@ -60,6 +60,7 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/spawn_crusher_loot()
+	loot = loot.Copy()
 	loot += crusher_loot //we don't butcher
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)
@@ -526,5 +527,5 @@
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult
 			l_pocket = /obj/item/melee/cultblade/dagger
 			glasses =  /obj/item/clothing/glasses/hud/health/night
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
+			backpack_contents = list(/obj/item/reagent_containers/cup/glass/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

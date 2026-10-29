@@ -533,19 +533,19 @@
 //what you can craft with these things
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/food/drinks/mushroom_bowl
+	result = /obj/item/reagent_containers/cup/glass/mushroom_bowl
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl
+/obj/item/reagent_containers/cup/glass/mushroom_bowl
 	name = "mushroom bowl"
 	desc = "Мисковая чаша. Не еда, хотя когда-то могла содержать её."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl/get_ru_names()
+/obj/item/reagent_containers/cup/glass/mushroom_bowl/get_ru_names()
 	return alist(
 		NOMINATIVE = "грибная чаша",
 		GENITIVE = "грибной чаши",
@@ -555,7 +555,7 @@
 		PREPOSITIONAL = "грибной чаше",
 	)
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/glass/mushroom_bowl/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/lavaland_dye))
 		return ..()
 

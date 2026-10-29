@@ -19,9 +19,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/club)
 "as" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -263,9 +261,7 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "ik" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -278,7 +274,7 @@
 	},
 /area/station/maintenance/server)
 "jp" = (
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/reagent_containers/dropper,
 /obj/structure/table/wood/fancy,
 /obj/effect/decal/cleanable/dust,
@@ -301,9 +297,7 @@
 /area/station/maintenance/server)
 "jw" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
@@ -329,9 +323,7 @@
 	},
 /area/station/maintenance/server)
 "jD" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -365,14 +357,9 @@
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/server)
 "kT" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/club)
@@ -462,9 +449,7 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "nQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -493,7 +478,7 @@
 	},
 /area/station/maintenance/server)
 "oJ" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},
@@ -600,19 +585,19 @@
 	},
 /area/station/maintenance/club)
 "sO" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -10;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -15;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -662,7 +647,7 @@
 /obj/structure/table,
 /obj/item/folder/yellow,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -687,9 +672,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/club)
 "yh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -756,14 +739,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/highsecurity{
 	heat_proof = 1;
 	name = "Waste Incinerator";
 	req_access = list(12,24,39)
 	},
+/obj/effect/landmark/navigate_destination/incinerator,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "Be" = (
@@ -807,12 +789,7 @@
 	},
 /area/station/maintenance/club)
 "Bq" = (
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/multilayer/multiz,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -858,9 +835,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -951,9 +926,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -994,12 +967,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "IM" = (
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/multilayer/multiz,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "IP" = (
@@ -1059,9 +1027,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1120,12 +1086,7 @@
 	},
 /area/station/maintenance/club)
 "MC" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
@@ -1144,9 +1105,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -8;
 	pixel_y = -3
@@ -1176,9 +1135,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/multi_tile{
 	dir = 1;
 	glass = 1;
@@ -1205,9 +1162,7 @@
 	pixel_y = -9
 	},
 /obj/machinery/power/apc/worn_out/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -1295,7 +1250,7 @@
 	},
 /area/station/maintenance/server)
 "Sn" = (
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/effect/decal/cleanable/dirt,
@@ -1318,15 +1273,7 @@
 	},
 /area/station/maintenance/server)
 "To" = (
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/multilayer/multiz,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1339,9 +1286,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1388,9 +1333,7 @@
 /area/station/maintenance/server)
 "Wn" = (
 /obj/structure/chair/office/dark,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1423,9 +1366,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -1441,9 +1382,7 @@
 	},
 /area/station/maintenance/club)
 "Yp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1459,9 +1398,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/club)
 "YJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1474,9 +1411,7 @@
 	},
 /area/station/maintenance/server)
 "YP" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1484,9 +1419,6 @@
 /obj/item/paper{
 	pixel_x = 4;
 	pixel_y = -6
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1516,9 +1448,7 @@
 "ZD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},

@@ -357,7 +357,7 @@
 		/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 		/obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
 		/obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader, /obj/item/mod,
-		/obj/item/autoimplanter
+		/obj/item/autoimplanter, /obj/item/card/mining_point_card, /obj/item/neurotrainer,
 	)
 
 /obj/machinery/anomalous_crystal/refresher/Initialize(mapload)

@@ -50,11 +50,11 @@
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -9;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 10;
 	pixel_y = -1
 	},

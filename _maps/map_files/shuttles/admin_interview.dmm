@@ -342,7 +342,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain{
+/obj/item/pen/fountain{
 	pixel_x = -7;
 	pixel_y = 2
 	},

@@ -10,8 +10,6 @@
 #define COMSIG_AREA_EXITED "area_exited"
 ///from base of area/Entered(): (area/current_area, area/old_area)
 #define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
-///from base of area/Exited(): (area/current_area, area/new_area)
-#define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
 ///from base of area/Entered(): (area/new_area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.
 #define COMSIG_ENTER_AREA "enter_area"
 ///from base of area/Exited(): (area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.

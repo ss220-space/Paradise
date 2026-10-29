@@ -675,8 +675,8 @@
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
 	quest_type_name = "Вирусные симптомы в пробирках (минимум 10 ед.)"
-	item_for_show = /obj/item/reagent_containers/glass/beaker/vial
-	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
+	item_for_show = /obj/item/reagent_containers/cup/beaker/vial
+	req_items = list(/obj/item/reagent_containers/cup/beaker/vial)
 	bounty_jobs = list(JOB_TITLE_VIROLOGIST)
 	linked_departament = "Medical"
 
@@ -751,7 +751,7 @@
 	if(!length(current_list))
 		return FALSE
 
-	var/obj/item/reagent_containers/glass/beaker/vial/vial = check_item
+	var/obj/item/reagent_containers/cup/beaker/vial/vial = check_item
 	if(!vial.reagents)
 		return FALSE
 

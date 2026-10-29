@@ -69,7 +69,7 @@
 	var/list/readout = list()
 
 	if(affect_cyborg)
-		readout += "- При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_SEC_MIN(round((stun_time_cyborg/10), 1))]."
+		readout += "- При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_U_Y_0(round((stun_time_cyborg/10), 1))]."
 
 	readout += "- [active ? span_boldwarning(capitalize("[activated_word] и способна оглушать.")) : span_boldnotice("Не [activated_word] и не способна оглушать.")]"
 
@@ -78,7 +78,7 @@
 		return readout.Join("\n")
 
 	if(active)
-		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_CREDIT(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
+		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_0_A_OV(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
 	return readout.Join("\n")
 
 /obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
@@ -358,16 +358,19 @@
 		/datum/component/transforming, \
 		force_on = src.extend_force, \
 		hitsound_on = on_stun_sound, \
-		hitsound_off = src.hitsound, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
-		item_state_on = src.extend_item_state, \
-		clumsy_check_prob = 0, \
+		clumsy_check = FALSE, \
 		attack_verb_on = list("ударил", "вмазал", "врезал"), \
+		manual_item_state_change = TRUE, \
 	)
 
 /obj/item/melee/baton/telescopic/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+/obj/item/melee/baton/telescopic/Destroy()
+	UnregisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM)
+	return ..()
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -381,6 +384,7 @@
 	if(user)
 		balloon_alert(user, "[active ? "разложено" : "сложено"]")
 	playsound(src, extend_sound, 50, TRUE)
+	item_state = active ? extend_item_state : initial(item_state)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 // One and only

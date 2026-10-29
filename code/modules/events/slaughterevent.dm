@@ -23,10 +23,9 @@
 	var/datum/mind/player_mind = new /datum/mind(key_of_slaughter)
 	player_mind.active = TRUE
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
-	var/obj/effect/dummy/phased_mob/blood/holder = new /obj/effect/dummy/phased_mob/blood(spawn_loc)
-	var/mob/living/simple_animal/demon/new_demon = new demon(holder)
-	new_demon.holder = holder
-	holder.jaunter = new_demon
+	var/mob/living/simple_animal/demon/new_demon = new demon(spawn_loc)
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/jaunt = locate() in new_demon.mob_spell_list
+	jaunt.enter_jaunt(new_demon)
 	player_mind.transfer_to(new_demon)
 	player_mind.assigned_role = ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON

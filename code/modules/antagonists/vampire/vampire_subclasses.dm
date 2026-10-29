@@ -19,6 +19,12 @@
 	var/datum/action/cooldown/spell/dissect_info/spell_TGUI
 	/// Name addition for antag menu
 	var/antag_menu_addition
+	/// Skill that the vampire receives when choosing this subclass
+	var/skill_type
+	/// Skill level when choosing the subclass
+	var/skill_level = SKILL_LEVEL_EXPERT
+	/// Skill level when reaching full power
+	var/full_power_skill_level = SKILL_LEVEL_LEGEND
 	/// Associated list of all trophies bestia subclass got via round.
 	var/list/trophies = list(
 		INTERNAL_ORGAN_HEART = 0,
@@ -47,6 +53,7 @@
 /datum/vampire_subclass/umbrae
 	name = "umbrae"
 	antag_menu_addition = "умбра"
+	skill_type = /datum/skill/combat/guns
 	standard_powers = list(
 		/datum/action/cooldown/spell/umbrae_cloak = 100,
 		/datum/action/cooldown/spell/pointed/shadow_snare = 200,
@@ -73,6 +80,7 @@
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
 	antag_menu_addition = "гемомансер"
+	skill_type = /datum/skill/combat/melee
 	standard_powers = list(
 		/datum/action/cooldown/spell/vamp_claws = 100,
 		/datum/action/cooldown/spell/pointed/blood_tendrils = 200,
@@ -92,6 +100,7 @@
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
 	antag_menu_addition = "гаргантюа"
+	skill_type = /datum/skill/combat/fists
 	standard_powers = list(
 		/datum/action/cooldown/spell/blood_swell = 100,
 		/datum/action/cooldown/spell/blood_rush = 200,
@@ -113,6 +122,7 @@
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
 	antag_menu_addition = "данталион"
+	skill_type = /datum/skill/medical/surgery
 	standard_powers = list(
 		/datum/action/cooldown/spell/pointed/dantalion_enthrall = 100,
 		/datum/action/cooldown/spell/dantalion_thrall_commune = 100,
@@ -147,6 +157,7 @@
 /datum/vampire_subclass/bestia
 	name = "bestia"
 	antag_menu_addition = "бестия"
+	skill_type = /datum/skill/general/carrying
 	standard_powers = list(
 		/datum/action/cooldown/spell/dissect_info = 100,
 		/datum/action/cooldown/spell/dissect = 100,

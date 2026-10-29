@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/head/moth
+	abstract_type = /datum/sprite_accessory/body_markings/head/moth
 	icon = 'icons/mob/sprite_accessories/moth/moth_head_markings.dmi'
 	species_allowed = list(SPECIES_MOTH)
 

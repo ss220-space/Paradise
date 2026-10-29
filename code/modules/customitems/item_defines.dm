@@ -56,7 +56,7 @@
 		to_chat(user, span_notice("[target] already has body markings, any more would look silly!"))
 		return .
 
-	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
+	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = SSaccessories.body_markings_list[tattoo_icon]
 	if(!(target.dna.species.name in temp_tatt.species_allowed))
 		to_chat(user, span_notice("You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type."))
 		return .
@@ -255,7 +255,7 @@
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/sandwich(src)
 	new /obj/item/reagent_containers/food/snacks/chips(src)
-	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
+	new /obj/item/reagent_containers/cup/soda_cans/cola(src)
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"

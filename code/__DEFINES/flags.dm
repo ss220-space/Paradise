@@ -60,6 +60,8 @@
 #define RICOCHET_HARD (1<<1)
 /// If the thing can reflect ballistic bullets with low chance
 #define RICOCHET_BALLISTIC (1<<2)
+/// If the thing can reflect special weapons type
+#define RICOCHET_SPECIAL (1<<3)
 
 //Reagent flags
 #define REAGENT_NOREACT 1
@@ -247,6 +249,11 @@
 #define GROSS (1<<11)
 #define TOXIC (1<<12)
 
+///Food preference enums
+#define FOOD_LIKED 1
+#define FOOD_DISLIKED 2
+#define FOOD_TOXIC 3
+
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288))
 
@@ -321,3 +328,6 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
 	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
 		x.appearance_flags &= ~KEEP_TOGETHER
+
+//gun flags
+#define GUN_AMMO_COUNTER (1<<0)

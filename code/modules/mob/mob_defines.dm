@@ -300,9 +300,6 @@
 
 	var/registered_z
 
-	/// Any ranged ability the mob has, as a click override
-	var/obj/effect/proc_holder/ranged_ability
-
 	/// The datum receiving keyboard input. src by default
 	var/datum/focus
 

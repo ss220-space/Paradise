@@ -47,6 +47,8 @@
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
 	#define COMPONENT_BLOCK_PERFECT (1 << 2)
+/// Called when attempting to recall an item using force recall
+#define COMSIG_ITEM_RECALL "item_recall"
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///from base of item/sharpener/attackby(): (amount, max)
@@ -364,6 +366,16 @@
 
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+
+/// Called before inserting something into storage. [/obj/item/storage/proc/can_be_inserted(): (obj/item/W, stop_messages = FALSE)]
+#define COMSIG_PRE_INSERT_INTO_STORAGE "pre_insert_into_storage"
+	/// Block item inseration.
+	#define BLOCK_INSERTING_ITEM (1<<0)
+
+/// Called when need to check is /datum/component/differentiate_storage_size added to storage or not.
+#define COMSIG_CHECK_DIFFERENTIATE_SIZE_COMPONENT "check_differentiate_size_component"
+	/// Storage has differentiate_storage_size component.
+	#define HAS_DIFFERENTIATE_SIZE_COMPONENT (1<<0)
 
 /// Called when the spraycan interacts.
 #define COMSIG_OBJ_PAINTED "obj_painted"
