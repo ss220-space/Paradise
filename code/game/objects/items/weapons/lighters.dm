@@ -189,7 +189,7 @@
 	. = ..()
 	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
 
-/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/lighter/can_enter_storage(storage_item, mob/user)
 	if(lit)
 		user.balloon_alert(user, "потушите зажигалку!")
 		return FALSE

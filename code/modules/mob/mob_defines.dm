@@ -164,6 +164,11 @@
 	/// Carbon
 	var/obj/item/clothing/mask/wear_mask = null
 
+	//HUD things
+
+	/// Storage component (for mob inventory)
+	var/datum/storage/active_storage
+
 	var/datum/hud/hud_used = null
 	/// Mob hud type
 	var/hud_type = /datum/hud

@@ -25,11 +25,11 @@
 	/// No message on putting items in
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)
-	var/list/can_hold = list()
+	var/list/can_hold = null
 	/// List of objects that can be stored, regardless of w_class
 	var/list/w_class_override = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/list/cant_hold = list()
+	var/list/cant_hold = null
 	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
 	/// Min size of objects that this object can store (in effect only if can_hold isn't set)
@@ -63,39 +63,17 @@
 	// "w_class" of storage when something inside it
 	var/storage_with_item_size = WEIGHT_CLASS_BULKY
 
+	var/storage_type = /datum/storage/backpack
+
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
-	can_hold = typecacheof(can_hold)
-	if(can_hold)
-		can_hold = string_assoc_list(can_hold)
-	cant_hold = typecacheof(cant_hold)
-	if(cant_hold)
-		cant_hold = string_assoc_list(cant_hold)
 	if(w_class_override)
 		w_class_override = string_list(w_class_override)
 
-	if(allow_quick_gather)
-		verbs += /obj/item/storage/proc/toggle_gathering_mode
-	else
-		verbs -= /obj/item/storage/proc/toggle_gathering_mode
+	create_storage(storage_slots, max_w_class, max_combined_w_class, can_hold, cant_hold, storage_type, use_sound, drop_sound)
 
 	populate_contents()
-
-	if(display_contents_with_number)
-		boxes = new /atom/movable/screen/storage()
-		boxes.name = "storage"
-		boxes.master_ref = WEAKREF(src)
-		boxes.icon_state = "block"
-		boxes.screen_loc = "7,7 to 10,8"
-		boxes.layer = HUD_LAYER
-		boxes.plane = HUD_PLANE
-
-	closer = new /atom/movable/screen/close()
-	closer.master_ref = WEAKREF(src)
-
-	orient2hud()
-
 
 /obj/item/storage/ComponentInitialize()
 	. = ..()
@@ -106,19 +84,6 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 
 	. = ..()
-	QDEL_NULL(boxes)
-	QDEL_NULL(closer)
-	QDEL_LIST_ASSOC_VAL(storage_boxes)
-	LAZYCLEARLIST(mobs_viewing)
-
-/obj/item/storage/forceMove(atom/destination)
-	. = ..()
-	if(!destination || ismob(destination.loc))
-		return .
-	for(var/mob/player in mobs_viewing)
-		if(player == destination)
-			continue
-		hide_from(player)
 
 /obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
 	if(!length(contents) || (HAS_TRAIT(user, TRAIT_RESTRAINED)) || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || src == target)
@@ -130,67 +95,6 @@
 			break
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
-
-/obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!isliving(user))
-		return
-
-	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
-		return
-
-	if(over_object == user && IsReachableBy(user)) // this must come before the screen objects only block
-		open(user)
-		return
-
-	if(isstorage(over_object))
-		var/obj/item/storage = over_object
-		if(!(storage.item_flags & IN_STORAGE))
-			dump_storage(user, over_object)
-			return
-
-	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
-		|| !length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
-		return
-
-	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
-		return
-
-	if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
-		return
-
-	if(user.s_active == src)
-		close(user)
-
-	user.face_atom(over_object)
-	user.visible_message(
-		span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-	)
-	var/turf/object_turf = get_turf(over_object)
-	for(var/obj/item/item in src)
-		remove_from_storage(item, object_turf)
-
-	update_appearance() // For content-sensitive icons
-
-/obj/item/storage/click_alt(mob/user)
-	if(isobserver(user))
-		show_to(user)
-		return CLICK_ACTION_SUCCESS
-	open(user)
-	return CLICK_ACTION_SUCCESS
-
-/obj/item/storage/attack_hand_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-
-	click_alt(user)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-/obj/item/storage/attack_self_secondary(mob/user, list/modifiers)
-	open(user)
-	return TRUE
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -827,24 +731,6 @@
 		remove_from_storage(I, drop_loc)
 	qdel(src)
 
-//This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
-	if(istype(I, /obj/item/hand_labeler))
-		var/obj/item/hand_labeler/labeler = I
-		if(labeler.mode)	// labeling with afterattack
-			return .
-
-	if(isrobot(user))
-		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
-
-	if(!attempt_insert(I))
-		return .
-
-	return .|ATTACK_CHAIN_BLOCKED_ALL
-
 /obj/item/storage/proc/attempt_insert(obj/item/item)
 	if(!can_be_inserted(item))
 		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
@@ -853,42 +739,6 @@
 
 	handle_item_insertion(item)
 	return TRUE
-
-/obj/item/storage/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
-	. = ..()
-	open(user)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-/obj/item/storage/attack_hand(mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.l_store == src && !H.get_active_hand())	//Prevents opening if it's in a pocket.
-			H.put_in_hands(src)
-			H.l_store = null
-			return
-		if(H.r_store == src && !H.get_active_hand())
-			H.put_in_hands(src)
-			H.r_store = null
-			return
-
-	orient2hud(user)
-	if(loc == user)
-		if(user.s_active)
-			user.s_active.close(user)
-		open(user)
-	else
-		..()
-	add_fingerprint(user)
-
-/obj/item/storage/equipped(mob/user, slot, initial)
-	. = ..()
-	update_viewers()
-
-/obj/item/storage/attack_ghost(mob/user)
-	if(isobserver(user))
-		// Revenants don't get to play with the toys.
-		show_to(user)
-	return ..()
 
 GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбора", VERB_CATEGORY_HIDDEN)
 
@@ -915,30 +765,6 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
  */
 /obj/item/storage/proc/populate_contents()
 	return // Override
-
-/obj/item/storage/emp_act(severity)
-	..()
-	for(var/i in contents)
-		var/atom/A = i
-		A.emp_act(severity)
-
-/obj/item/storage/hear_talk(mob/living/M, list/message_pieces)
-	..()
-	for(var/obj/O in contents)
-		O.hear_talk(M, message_pieces)
-
-/obj/item/storage/hear_message(mob/living/M, msg)
-	..()
-	for(var/obj/O in contents)
-		O.hear_message(M, msg)
-
-/obj/item/storage/attack_self(mob/user)
-	//Clicking on itself will empty it, if allow_quick_empty is TRUE
-	if(allow_quick_empty && user.is_in_active_hand(src))
-		drop_inventory(user)
-
-	else if(foldable)
-		fold(user)
 
 /obj/item/storage/proc/fold(mob/user)
 	if(length(contents))

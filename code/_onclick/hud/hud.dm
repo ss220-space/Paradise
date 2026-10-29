@@ -42,6 +42,8 @@
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
+	/// List of screen objects by their screen group
+	var/list/screen_groups[SCREEN_GROUP_AMT]
 	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /atom/movable/screen/inventory objects, ordered by their slot ID.
 	/// List of atom/movable/screen/inventory/hand objects
 	var/list/hand_slots
@@ -132,6 +134,7 @@
 	QDEL_LIST(static_inventory)
 	QDEL_LIST(ammo_hud_list)
 
+	LAZYCLEARLIST(screen_groups)
 	LAZYCLEARLIST(inv_slots)
 	action_intent = null
 	zone_select = null
@@ -308,11 +311,15 @@
 	if(display_hud_version > HUD_VERSIONS)	//If the requested version number is greater than the available versions, reset back to the first version
 		display_hud_version = 1
 
+	var/list/group_static = screen_groups[HUD_GROUP_STATIC]
+
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
-			if(length(static_inventory))
+			if(length(static_inventory)) //TODO vakons datum_storage: delete it later
 				screenmob.client.screen += static_inventory
+			if (length(group_static))
+				screenmob.client.screen += group_static
 			if(length(toggleable_inventory) && screenmob.hud_used && screenmob.hud_used.inventory_shown)
 				screenmob.client.screen += toggleable_inventory
 			if(length(hotkeybuttons) && !hotkey_ui_hidden)
@@ -328,6 +335,8 @@
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(length(static_inventory))
 				screenmob.client.screen -= static_inventory
+			if (length(group_static))
+				screenmob.client.screen -= group_static
 			if(length(toggleable_inventory))
 				screenmob.client.screen -= toggleable_inventory
 			if(length(hotkeybuttons))

@@ -471,6 +471,26 @@ GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
 	I.forceMove(newloc)
 	I.dir = dir
 
+//for when the item will be immediately placed in a loc other than the ground
+/mob/proc/transferItemToLoc(obj/item/item, newloc = null, force = FALSE, silent = TRUE, animated = null)
+	. = do_unEquip(item, force, newloc, FALSE, silent = silent)
+	if(!.)
+		return
+	// This proc wears a lot of hats for moving items around in different ways,
+	// so we assume unhandled cases for checking to animate can safely be handled
+	// with the same logic we handle animating putting items in container (container on your person isn't animated)
+	if(isnull(animated))
+		// If the item's ultimate location is us, we don't animate putting it wherever
+		animated = !(get(newloc, /mob) == src)
+	if(animated)
+		item.do_pickup_animation(newloc, src)
+
+//visibly unequips I but it is NOT MOVED AND REMAINS IN SRC, newloc is for signal handling checks only which hints where you want to move the object after removal
+//item MUST BE FORCEMOVE'D OR QDEL'D
+
+/mob/proc/temporarilyRemoveItemFromInventory(obj/item/item_dropping, force = FALSE, idrop = TRUE, atom/newloc = src)
+	return do_unEquip(item_dropping, force, newloc, TRUE, idrop, silent = TRUE)
+
 /**
  * Used to drop an item (if it exists) to the ground.
  * Returns `TRUE` if item is successfully dropped.
@@ -619,6 +639,17 @@ GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
 	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
 
+	return TRUE
+
+/mob/proc/putItemFromInventoryInHandIfPossible(obj/item/item, hand_id, force_removal = FALSE)
+	if(!put_in_hand_check(item, hand_id))
+		return FALSE
+	if(!temporarilyRemoveItemFromInventory(item, force_removal))
+		return FALSE
+	item.remove_item_from_storage(src)
+	if(!put_in_hand(item, hand_id))
+		qdel(item)
+		CRASH("Assertion failure: putItemFromInventoryInHandIfPossible") //should never be possible
 	return TRUE
 
 /**

@@ -99,8 +99,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/target, mob/user)
-	if(lit && !istype(target, /obj/item/storage/ashtray))
+/obj/item/clothing/mask/cigarette/can_enter_storage(obj/storage_item, mob/user)
+	if(lit && !istype(storage_item, /obj/item/storage/ashtray))
 		user.balloon_alert(user, "потушите сигарету!")
 		return FALSE
 	else

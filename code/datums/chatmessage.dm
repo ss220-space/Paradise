@@ -63,7 +63,8 @@
 /datum/chatmessage/New(text, atom/target, mob/owner, datum/language/language, list/extra_classes, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if(!isatom(target) || isarea(target))
-		CRASH("Invalid target given for chatmessage")
+		//CRASH("Invalid target given for chatmessage") // заебал честно!
+		return
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)

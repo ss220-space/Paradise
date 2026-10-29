@@ -31,6 +31,7 @@
 	tts_seed = "Valerian"
 	holder_type = /obj/item/holder/cat2
 	var/sitting = FALSE
+	can_be_held = TRUE
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"

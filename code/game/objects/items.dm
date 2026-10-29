@@ -607,6 +607,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	return TRUE
 
+
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
+	return TRUE
+
 /**
  * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
  */
@@ -787,7 +793,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * * S - The [/obj/item/storage] that `src` is being inserted into.
  * * user - The mob trying to insert the item.
  */
-/obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/proc/can_enter_storage(obj/storage_item, mob/user)
 	return TRUE
 
 /**

@@ -201,6 +201,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
+/obj/structure/window/get_dumping_location()
+	return null
+
 /obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE

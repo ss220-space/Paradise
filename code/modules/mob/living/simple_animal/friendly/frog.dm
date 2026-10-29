@@ -38,6 +38,7 @@
 	holder_type = /obj/item/holder/frog
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	can_be_held = TRUE
 
 /mob/living/simple_animal/frog/Initialize(mapload)
 	. = ..()

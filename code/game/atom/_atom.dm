@@ -122,3 +122,10 @@
 	active_hud.screentip_text.maptext = new_maptext
 	active_hud.screentip_text.maptext_y = 26 - map_height
 
+/**
+ * If someone's trying to dump items onto our atom, where should they be dumped to?
+ *
+ * Return a loc to place objects, or null to stop dumping.
+ */
+/atom/proc/get_dumping_location()
+	return null

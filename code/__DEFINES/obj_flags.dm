@@ -70,6 +70,8 @@
 #define WEAPON_DESCRIPTION_INITIALIZED (1<<18)
 /// Has contextual screentips when HOVERING OVER OTHER objects
 #define ITEM_HAS_CONTEXTUAL_SCREENTIPS (1<<19)
+/// Whether or not this atom is storing contents for a disassociated storage object
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

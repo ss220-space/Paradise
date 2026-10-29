@@ -115,6 +115,9 @@
 	// Nada
 	return
 
+/obj/get_dumping_location()
+	return get_turf(src)
+
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
 //BRUTELOSS = 1

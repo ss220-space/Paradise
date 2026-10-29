@@ -202,8 +202,10 @@
 	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	undyeable = TRUE
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
-	pockets_count = 4
-	pockets_max_combined_w_class = 8
+
+/obj/item/clothing/suit/storage/sec_rps/Initialize(mapload)
+	. = ..()
+	create_storage(storage_type = /datum/storage/pockets/belt_shoulder_system)
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"

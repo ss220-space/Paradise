@@ -829,6 +829,10 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 /mob/proc/can_perform_action(atom/target, action_bitflags)
 	return
 
+///Can this mob use storage
+/mob/proc/canUseStorage()
+	return FALSE
+
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
 
