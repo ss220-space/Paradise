@@ -645,7 +645,7 @@
 
 /datum/action/cooldown/spell/pointed/revenant/reflect
 	name = "Отражение мук"
-	desc = "Позволяет отражать часть полученных повреждений в выбранного смертного."
+	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	button_icon_state = "mirrorofsuffer"
 	cast_amount = 20
 	cast_increase_per_level = 15
