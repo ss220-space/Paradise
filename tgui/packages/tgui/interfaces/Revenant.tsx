@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -22,8 +21,7 @@ type RevenantSpell = {
   u_cooldown: number;
 };
 
-type RevenantData = {
-}
+type RevenantData = object
 
 export const Revenant = (_props: unknown) => {
 	  const { act, data } = useBackend<RevenantData>();
@@ -39,7 +37,6 @@ export const Revenant = (_props: unknown) => {
                         <Section
                           title={spell.name}
                           buttons={
-                            <>
 
                               <Button
                                 disabled={!spell.can_buy}
@@ -50,7 +47,6 @@ export const Revenant = (_props: unknown) => {
                               >
 								{`${spell.buy_word}`}
                               </Button>
-                            </>
                           }
                         >
                           <Stack vertical mt={1}>
