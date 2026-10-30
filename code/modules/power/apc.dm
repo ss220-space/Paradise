@@ -1217,11 +1217,8 @@
 	if(ishuman(h_user))
 		if(h_user.incapacitated() || HAS_TRAIT(h_user, TRAIT_HANDS_BLOCKED))
 			return FALSE
-		if(h_user.getBrainLoss() >= 60)
+		if(!h_user.check_brain_for_complex_interactions())
 			h_user.visible_message(span_danger("[h_user] stares cluelessly at [src] and drools."))
-			return FALSE
-		else if(prob(h_user.getBrainLoss()))
-			to_chat(user, span_danger("You momentarily forget how to use [src]."))
 			return FALSE
 	return TRUE
 

@@ -102,6 +102,7 @@
 		update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/emp_act(severity)
+	. = ..()
 	adjustHealth(100 / severity) // takes the same damage as a mining drone from emp
 
 /mob/living/simple_animal/hostile/malf_drone/drop_loot()

@@ -29,7 +29,7 @@
 	icon_state = "impact_omni"
 
 /obj/effect/projectile/impact/xray
-	name = "\improper X-ray impact"
+	name = "X-ray impact"
 	icon_state = "impact_xray"
 
 /obj/effect/projectile/impact/pulse

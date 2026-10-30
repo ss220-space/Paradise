@@ -100,7 +100,6 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
-	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
@@ -465,7 +464,12 @@
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='byond://?src=[UID()];vampire=vampire'>vampire</a>|"
-		. += "<a href='byond://?src=[UID()];vampire=goonvampire'>goon vampire</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];vampire=goonvampire'>goon vampire</a>|"
+		if(current.HasDisease(/datum/disease/virus/blood_plague))
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirusno'><font color='red'>dis-infect</font></a>"
+		else
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirus'>infect</a>"
+
 
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
@@ -743,6 +747,17 @@
 
 	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
 
+/datum/mind/proc/memory_edit_zombie(mob/living/human)
+	. = _memory_edit_header("zombie", list())
+	if(has_antag_datum(/datum/antagonist/zombie))
+		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		return
+	if(current.HasDisease(/datum/disease/virus/zombie))
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+	. += _memory_edit_role_enabled(ROLE_ZOMBIE)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -795,6 +810,8 @@
 		sections["traitor"] = memory_edit_traitor()
 		/** VOX RAIDER ***/
 		sections["vox raider"] = memory_edit_vox_raider()
+		/** Zombies **/
+		sections["zombie"] = memory_edit_zombie(H)
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -1665,6 +1682,8 @@
 					return
 
 				remove_vampire_role()
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
 				to_chat(current, span_fontsize3(span_red("<b>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</b>")))
 				log_and_message_admins("has de-vampired [key_name(current)].")
 
@@ -1766,6 +1785,24 @@
 				vamp.diablerie.force_diablerie_level(new_total)
 
 				log_and_message_admins("has set [key_name(current)]'s diablerie count to [new_total].")
+
+			if("vampirevirus")
+				if(has_antag_datum(/datum/antagonist/vampire) || !ishuman(current))
+					return
+				var/datum/disease/virus/blood_plague/virus = new
+				virus.Contract(current)
+				message_admins("[key_name_admin(usr)] has given a vampire virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a vampire virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a vampire virus by [key_name_admin(usr)]")
+
+			if("vampirevirusno")
+				if(has_antag_datum(/datum/antagonist/vampire))
+					return
+				for(var/datum/disease/virus/blood_plague/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
+				message_admins("[key_name_admin(usr)] has removed the vampire virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the vampire virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their vampire virus admin-removed by [key_name_admin(usr)]")
 
 			if("full_power_override")
 				if(!isvampire(src))
@@ -1932,6 +1969,50 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
+
+	else if(href_list["zombie"])
+		switch(href_list["zombie"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/zombie))
+					return
+				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
+				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
+
+			if("zombie")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				add_antag_datum(/datum/antagonist/zombie)
+				message_admins("[key_name_admin(usr)] has zombie'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has zombie'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an zombie by [key_name_admin(usr)]")
+
+			if("zombievirus")
+				if(has_antag_datum(/datum/antagonist/zombie) || !ishuman(current))
+					return
+				var/datum/disease/virus/zombie/virus = new
+				virus.Contract(current)
+				message_admins("[key_name_admin(usr)] has given a zombie virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a zombie virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a zombie virus by [key_name_admin(usr)]")
+
+			if("zombievirusno")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				for(var/datum/disease/virus/zombie/virus in current.diseases)
+					virus.cure(need_immunity = FALSE)
+				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
+
 	else if(href_list["devil"])
 		switch(href_list["devil"])
 			if("clear")
@@ -2680,9 +2761,9 @@
  * * datum_type - an antag datum typepath
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
-	var/datum/antagonist/antag = has_antag_datum(datum_type)
+	var/datum/antagonist/antag = ispath(datum_type)? has_antag_datum(datum_type) : datum_type
 
-	if(!antag)
+	if(!istype(antag))
 		return
 
 	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
@@ -3031,7 +3112,7 @@
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
 	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
-		if(spell.type == instance_or_path)
+		if(spell && (spell.type == instance_or_path))
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 

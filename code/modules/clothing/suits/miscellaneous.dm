@@ -1193,6 +1193,17 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME|HIDEHAIR
 
+/obj/item/clothing/suit/ghost_sheet/Initialize(mapload)
+	. = ..()
+	if(SSholiday.check_holidays(HALLOWEEN))
+		update_icon(UPDATE_OVERLAYS)
+	//AddElement(/datum/element/adjust_fishing_difficulty, 8)
+
+/obj/item/clothing/suit/ghost_sheet/worn_overlays(mutable_appearance/standing, isinhands, icon_file, bodyshape = NONE)
+	. = ..()
+	if(!isinhands && SSholiday.check_holidays(HALLOWEEN))
+		. += emissive_appearance('icons/mob/mob.dmi', "ghost", offset_spokesman = src, alpha = src.alpha)
+
 /obj/item/clothing/suit/cyberpunk
 	name = "long cyberpunk black coat"
 	desc = "No one knows why it's called cyberpunk, but hey, it looks cool."
@@ -1775,3 +1786,16 @@
 		INSTRUMENTAL = "заза-лорд бомбером",
 		PREPOSITIONAL = "заза-лорд бомбере",
 	)
+
+/obj/item/clothing/suit/red_jacket
+	name = "red jacket"
+	desc = "Стильная красная короткая куртка."
+	icon_state = "red_jacket"
+	item_state = "red_jacket"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = FALSE
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/red_jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")

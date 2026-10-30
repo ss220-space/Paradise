@@ -202,6 +202,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_laser_modification_case(A) (istype(A, /obj/item/laser_modification_case))
 
+#define issmartfridge(A) (istype(A, /obj/machinery/smartfridge))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -487,3 +489,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_reagent_dispenser(O) (istype(O, /obj/structure/reagent_dispensers))
 
 #define is_mining_spear_core(A) (istype(A, /obj/item/mining_spear_core))
+
+#define is_swarmer_object(A) (istype(A, /obj/structure/swarmer) || istype(A, /obj/machinery/porta_turret/swarmer))

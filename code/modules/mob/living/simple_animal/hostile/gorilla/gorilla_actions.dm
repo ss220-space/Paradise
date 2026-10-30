@@ -71,33 +71,19 @@
 
 	if(!master)
 		if(find_phrase(full_message, list("харамбе", "harambe")))
-			custom_emote(EMOTE_VISIBLE, "прикрыва%(ет,ют)% лицо лапой, смахивая слезинку.", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "прикрыва%(ет,ют)% лицо лапой, смахивая слезинку.", intentional = TRUE)
 
 		else if(name_found && find_phrase(full_message, list("хорош", "молод", "красав", "красив", "работ", "сильн", "сила")))
 			oogaooga(100, 150)
-			custom_emote(EMOTE_VISIBLE, "одобрительно уха%(ет,ют)%.", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "одобрительно уха%(ет,ют)%.", intentional = TRUE)
 
 		else if(name_found && find_phrase(full_message, list("урод", "мраз", "плох", "бездельн", "ленив", "гад", "мартышк")))
 			face_atom(speaker)
 			oogaooga(100, 150)
-			custom_emote(EMOTE_VISIBLE, "рассерженно смотр%(ит,ят)% на [speaker].", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "рассерженно смотр%(ит,ят)% на [speaker].", intentional = TRUE)
 
 		else if(find_phrase(full_message, attention_phrases))
-			if(can_pass_adjacent(speaker, types_to_exclude = list(/mob, /obj/structure/table)) || length(get_path_to(src, get_turf(speaker), mintargetdist = 1)))
-				check_buckled_gorilla()
-				face_atom(speaker)
-				oogaooga(100)
-				custom_emote(EMOTE_VISIBLE, "выжидающе смотр%(ит,ят)% на [speaker].")
-				toggle_ai(AI_OFF)
-				Goto(speaker, move_to_delay, 2)
-				if(befriend_timer)
-					deltimer(befriend_timer)
-				befriend_timer = addtimer(CALLBACK(src, PROC_REF(reset_behavior), TRUE, TRUE), GORILLA_EXCITEMENT_TIME, TIMER_STOPPABLE|TIMER_DELETE_ME)
-			else
-				face_atom(speaker)
-				oogaooga(50)
-				custom_emote(EMOTE_VISIBLE, "неодобрительно смотр%(ит,ят)% на [speaker].")
-
+			INVOKE_ASYNC(src, PROC_REF(gorilla_hear_reaction), speaker)
 		start_action_cooldown()
 		return ..()
 
@@ -112,12 +98,12 @@
 			check_buckled_gorilla()
 			face_atom(master)
 			oogaooga(100)
-			custom_emote(EMOTE_VISIBLE, "хлопа%(ет,ют)% по ящику в лапах и смотр%(ит,ят)% на [master].", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "хлопа%(ет,ют)% по ящику в лапах и смотр%(ит,ят)% на [master].", intentional = TRUE)
 		else if(is_bipedal)
 			check_buckled_gorilla()
 			gorilla_toggle.Activate()
 			oogaooga(100, 100)
-			custom_emote(EMOTE_VISIBLE, "опуска%(ет,ют)%ся на все четыре конечности.", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "опуска%(ет,ют)%ся на все четыре конечности.", intentional = TRUE)
 		else
 			confusion = TRUE
 
@@ -126,7 +112,7 @@
 			check_buckled_gorilla()
 			gorilla_toggle.Activate()
 			oogaooga(100, 150)
-			custom_emote(EMOTE_VISIBLE, "выпрямля%(ет,ют)% спину и свысока осматрива%(ет,ют)%ся.", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "выпрямля%(ет,ют)% спину и свысока осматрива%(ет,ют)%ся.", intentional = TRUE)
 		else
 			confusion = TRUE
 
@@ -139,12 +125,12 @@
 			oogaooga(100)
 			if(is_bipedal)
 				if(LAZYLEN(crates_in_hand))
-					custom_emote(EMOTE_VISIBLE, "перехватыва%(ет,ют)% ящик поудобнее и устремля%(ет,ют)%ся к [master].", intentional = TRUE)
+					start_custom_emote(EMOTE_VISIBLE, "перехватыва%(ет,ют)% ящик поудобнее и устремля%(ет,ют)%ся к [master].", intentional = TRUE)
 				else
 					gorilla_toggle.Activate()
-					custom_emote(EMOTE_VISIBLE, "опуска%(ет,ют)%ся на все конечности и устремля%(ет,ют)%ся к [master].", intentional = TRUE)
+					start_custom_emote(EMOTE_VISIBLE, "опуска%(ет,ют)%ся на все конечности и устремля%(ет,ют)%ся к [master].", intentional = TRUE)
 			else
-				custom_emote(EMOTE_VISIBLE, "устремля%(ет,ют)%ся к [master].", intentional = TRUE)
+				start_custom_emote(EMOTE_VISIBLE, "устремля%(ет,ют)%ся к [master].", intentional = TRUE)
 		else
 			confusion = TRUE
 
@@ -155,12 +141,12 @@
 			oogaooga(100)
 			if(is_bipedal)
 				if(LAZYLEN(crates_in_hand))
-					custom_emote(EMOTE_VISIBLE, "грустно смотр%(ит,ят)% на ящик в лапах.", intentional = TRUE)
+					start_custom_emote(EMOTE_VISIBLE, "грустно смотр%(ит,ят)% на ящик в лапах.", intentional = TRUE)
 				else
 					gorilla_toggle.Activate()
-					custom_emote(EMOTE_VISIBLE, "усажива%(ет,ют)%ся на пол и зева%(ет,ют)%.", intentional = TRUE)
+					start_custom_emote(EMOTE_VISIBLE, "усажива%(ет,ют)%ся на пол и зева%(ет,ют)%.", intentional = TRUE)
 			else
-				custom_emote(EMOTE_VISIBLE, "усажива%(ет,ют)%ся на пол и зева%(ет,ют)%.", intentional = TRUE)
+				start_custom_emote(EMOTE_VISIBLE, "усажива%(ет,ют)%ся на пол и зева%(ет,ют)%.", intentional = TRUE)
 		else
 			confusion = TRUE
 
@@ -171,42 +157,60 @@
 			oogaooga(100, 100)
 		else
 			oogaooga(50)
-			custom_emote(EMOTE_VISIBLE, "с недоумением рассматрива%(ет,ют)% свои лапы.", intentional = TRUE)
+			start_custom_emote(EMOTE_VISIBLE, "с недоумением рассматрива%(ет,ют)% свои лапы.", intentional = TRUE)
 
 	else if(find_phrase(full_message, list("носи ящики", "хватай ящики")))
 		check_buckled_gorilla()
 		a_intent_change(INTENT_HELP)
 		face_atom(master)
 		oogaooga(100)
-		custom_emote(EMOTE_VISIBLE, "понимающе кива%(ет,ют)%, играя бицепсами.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "понимающе кива%(ет,ют)%, играя бицепсами.", intentional = TRUE)
 
 	else if(find_phrase(full_message, list("толкай ящики", "двигай ящики")))
 		check_buckled_gorilla()
 		a_intent_change(INTENT_HARM)
 		face_atom(master)
 		oogaooga(100)
-		custom_emote(EMOTE_VISIBLE, "утвердительно уха%(ет,ют)%.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "утвердительно уха%(ет,ют)%.", intentional = TRUE)
 
 	else if(find_phrase(full_message, list("банан", "кушать", "есть", "еда")))
 		check_buckled_gorilla()
 		face_atom(master)
 		oogaooga(100, 200)
-		custom_emote(EMOTE_VISIBLE, "начина%(ет,ют)% усердно кивать головой.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "начина%(ет,ют)% усердно кивать головой.", intentional = TRUE)
 
 	else
 		face_atom(master)
 		oogaooga(100, 150)
-		custom_emote(EMOTE_VISIBLE, "одобрительно смотр%(ит,ят)% на [master].", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "одобрительно смотр%(ит,ят)% на [master].", intentional = TRUE)
 
 	if(confusion)
 		face_atom(master)
 		oogaooga(50)
-		custom_emote(EMOTE_VISIBLE, "непонимающе смотр%(ит,ят)% на [master].", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "непонимающе смотр%(ит,ят)% на [master].", intentional = TRUE)
 
 	if(start_cooldown)
 		start_action_cooldown()
 
 	return ..()
+
+/mob/living/simple_animal/hostile/gorilla/proc/gorilla_hear_reaction(mob/speaker)
+	set waitfor = FALSE
+
+	if(can_pass_adjacent(speaker, types_to_exclude = list(/mob, /obj/structure/table)) || length(get_path_to(src, get_turf(speaker), mintargetdist = 1)))
+		check_buckled_gorilla()
+		face_atom(speaker)
+		oogaooga(100)
+		custom_emote(EMOTE_VISIBLE, "выжидающе смотр%(ит,ят)% на [speaker].")
+		toggle_ai(AI_OFF)
+		Goto(speaker, move_to_delay, 2)
+		if(befriend_timer)
+			deltimer(befriend_timer)
+		befriend_timer = addtimer(CALLBACK(src, PROC_REF(reset_behavior), TRUE, TRUE), GORILLA_EXCITEMENT_TIME, TIMER_STOPPABLE|TIMER_DELETE_ME)
+	else
+		face_atom(speaker)
+		oogaooga(50)
+		start_custom_emote(EMOTE_VISIBLE, "неодобрительно смотр%(ит,ят)% на [speaker].")
 
 /**
  * Parses message for specific phrases contained in a list.
@@ -241,8 +245,7 @@
  */
 /mob/living/simple_animal/hostile/gorilla/proc/check_pointed(mob/living/carbon/human/user, atom/pointed_at)
 	//SIGNAL_HANDLER	// we cant use this here since we have possible waits in [get_path_to()] and input in [custom_emote()],
-	set waitfor = FALSE	// and god damn spacemanDMM will not understand waitfor is set to FALSE in this proc
-
+	set waitfor = FALSE
 	if(!master || client)
 		return
 
@@ -251,7 +254,7 @@
 		return
 
 	if(incapacitated())
-		custom_emote(EMOTE_VISIBLE, "жалобно мыч%(ит,ат)% в сторону [master].", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "жалобно мыч%(ит,ат)% в сторону [master].", intentional = TRUE)
 		return
 
 	check_buckled_gorilla()
@@ -263,7 +266,7 @@
 	if(pointed_at_banana && !isturf(pointed_at.loc) && get(pointed_at.loc, /mob/living/carbon/human) == master && !master.is_in_hands(pointed_at))
 		face_atom(master)
 		oogaooga(100, 150)
-		custom_emote(EMOTE_VISIBLE, "начина%(ет,ют)% усердно кивать головой и радостно ухать.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "начина%(ет,ют)% усердно кивать головой и радостно ухать.", intentional = TRUE)
 		return
 
 	var/obj/structure/bigDelivery/delivery = pointed_at
@@ -271,7 +274,7 @@
 
 	if(pointed_at_crate && LAZYLEN(crates_in_hand) >= crate_limit)
 		oogaooga(100, 100)
-		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, перехватывая ящик в лапах.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, перехватывая ящик в лапах.", intentional = TRUE)
 		return
 
 	var/turf/pointed_turf = get_turf(pointed_at)
@@ -288,7 +291,7 @@
 	if(in_range)
 		face_atom(master)
 		oogaooga(50)
-		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
 		return
 
 	var/list/path = get_path_to(src, pointed_turf, mintargetdist = (pointed_at_check_type || LAZYLEN(crates_in_hand)) ? 1 : null)
@@ -296,7 +299,7 @@
 	if(!path_length)
 		face_atom(master)
 		oogaooga(50)
-		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
 		return
 
 	point_target = pointed_at

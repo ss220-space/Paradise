@@ -65,6 +65,9 @@
 	if(target && !isturf(target) && get_dist(user, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
+		if(BB.prehit_cancelled)
+			QDEL_NULL(BB)
+			return TRUE
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
@@ -72,6 +75,9 @@
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
+			if(BB.prehit_cancelled)
+				QDEL_NULL(BB)
+				return TRUE
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE

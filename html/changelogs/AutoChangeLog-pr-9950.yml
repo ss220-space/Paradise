@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Значительно ослаблен голод у вируса вампиризма. (PR #9950)"

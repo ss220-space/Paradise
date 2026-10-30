@@ -22,6 +22,8 @@ GLOBAL_LIST_INIT(meteors_catastrophic, list(//for catastrophic meteor event
 	/obj/effect/meteor/tunguska = 1,
 ))
 
+GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin=1))
+
 GLOBAL_LIST_INIT(meteors_dust, list(/obj/effect/meteor/dust)) //for space dust event
 
 GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/gore)) //Meaty Gore
@@ -458,6 +460,30 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	if(. || !prob(20))
 		return .
 	explosion(loc, devastation_range = 2, heavy_impact_range = 4, light_impact_range = 6, flash_range = 8, cause = src)
+
+/obj/effect/meteor/pumpkin
+	name = "PUMPKING"
+	desc = "ТЫКВОКОРОЛЬ ПРИБЛИЖАЕТСЯ!"
+	icon_state = "spooky"
+	hits = 10
+	heavy = TRUE
+	dropamt = 1
+	meteordrop = /obj/item/reagent_containers/food/snacks/grown/pumpkin
+
+/obj/effect/meteor/tunguska/get_ru_names()
+	return alist(
+		NOMINATIVE = "ТЫКВОКОРОЛЬ",
+		GENITIVE = "ТЫКВОКОРОЛЯ",
+		DATIVE = "ТЫКВОКОРОЛЮ",
+		ACCUSATIVE = "ТЫКВОКОРОЛЯ",
+		INSTRUMENTAL = "ТЫКВОКОРОЛЁМ",
+		PREPOSITIONAL = "ТЫКВОКОРОЛЕ",
+	)
+
+
+/obj/effect/meteor/pumpkin/Initialize(mapload)
+	. = ..()
+	meteorsound = SFX_IM_HERE
 
 //Gore
 /obj/effect/meteor/gore

@@ -297,7 +297,7 @@
 
 	if(M.AmountStuttering())
 		piece.message_verb = "stammers"
-	else if(M.getBrainLoss() >= 60)
+	else if(!M.check_brain_for_complex_interactions())
 		piece.message_verb = "gibbers"
 	else if(ending == "?")
 		piece.message_verb = "asks"
