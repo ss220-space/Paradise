@@ -183,6 +183,7 @@
 	windup_sound = 'sound/weapons/laser_charge.ogg'
 	zoomable = TRUE
 	zoom_amt = 5
+	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
 	return alist(

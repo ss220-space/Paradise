@@ -608,6 +608,7 @@
 		to_chat(user, span_warning("Вы не хотите навредить [target.declent_ru(DATIVE)]!"))
 		return FALSE
 
+
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
@@ -641,7 +642,7 @@
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
-		var/datum/unarmed_attack/attack = user.dna.species.unarmed
+		var/datum/unarmed_attack/attack = user.get_unarmed_attack()
 		var/attack_species = pick(attack.attack_verb)
 
 		//вносим проверку что это не диона, ведь у дионы свои атаки
@@ -667,7 +668,7 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+		var/damage = rand((user.dna.species.punchdamagelow + user.physiology.punch_damage_low) * user.physiology.punch_damage_low_mod, (user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) * user.physiology.punch_damage_high_mod)
 		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
 		damage *= skill_mod
 
@@ -700,7 +701,7 @@
 		//check user's defense in attacking zone (hands or mouth)
 		for(var/datum/disease/virus/V in target.diseases)
 			var/is_infected = FALSE
-			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
+			if(attack.is_bite && (V.spread_flags & ~NON_CONTAGIOUS))
 				//infected blood contacts with mouth, ignore protection & spread_flags
 				is_infected = V.Contract(user, need_protection_check = FALSE)
 			if(!is_infected && (V.spread_flags & CONTACT))
@@ -864,6 +865,9 @@
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message(span_warning("[M.declent_ru(NOMINATIVE)] пыта[PLUR_ET_YUT(M)]ся коснуться [H.declent_ru(ACCUSATIVE)]!"))
+		return FALSE
+
+	if(SEND_SIGNAL(M, COMSIG_HUMAN_UNARMED_ATTACK, H) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 
 	switch(M.a_intent)

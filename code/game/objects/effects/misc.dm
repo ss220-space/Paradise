@@ -14,6 +14,7 @@
 	Showcase
 	Spawner
 	List_container
+	falling pipe
 */
 
 //The effect when you wrap a dead body in gift wrap
@@ -114,3 +115,54 @@
 		layer = BELOW_MOB_LAYER
 	flick("breath_[C.lying_prev]", src)
 	QDEL_IN(src, 2 SECONDS)
+
+/obj/effect/falling_pipe
+	name = "falling pipe"
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
+	icon_state = "exposed00"
+	dir = EAST
+	layer = ABOVE_ALL_MOB_LAYER
+	pixel_z = 224
+	var/fall_duration = 1 SECONDS
+
+/obj/effect/falling_pipe/Initialize(mapload, mob/shooter)
+	. = ..()
+	visible_message(span_biggerdanger("Труба отрывается от потолка!"))
+	animate(src, pixel_z = 0, time = fall_duration, easing = QUAD_EASING|EASE_IN)
+	addtimer(CALLBACK(src, PROC_REF(land), shooter), fall_duration)
+
+/obj/effect/falling_pipe/proc/land(mob/shooter)
+	var/turf/landing_turf = get_turf(src)
+	if(!isfloorturf(landing_turf))
+		qdel(src)
+		return
+
+	var/obj/item/pipe/fallen_pipe = new(landing_turf, 0, dir)
+	fallen_pipe.name = "fallen pipe"
+	fallen_pipe.ru_names = alist(
+		NOMINATIVE = "упавшая труба",
+		GENITIVE = "упавшей трубы",
+		DATIVE = "упавшей трубе",
+		ACCUSATIVE = "упавшую трубу",
+		INSTRUMENTAL = "упавшей трубой",
+		PREPOSITIONAL = "упавшей трубе",
+	)
+	fallen_pipe.desc = "Участок трубопровода, проложенного над головой. Похоже, в нём есть довольно крупное пулевое отверстие..."
+	playsound(landing_turf, 'sound/misc/metal_pipe_falling.ogg', 100, FALSE)
+
+	var/has_victims = FALSE
+	for(var/mob/living/victim in landing_turf)
+		has_victims = TRUE
+		victim.visible_message(
+			span_biggerdanger("БА-БАХ! Труба приземляется прямо на голову [victim.declent_ru(ACCUSATIVE)]!"),
+			span_biggerdanger("ОХ БЛЯТЬ! ТРУБА ПАДАЕТ ПРЯМО ТЕБЕ НА ГОЛОВУ!!")
+		)
+		victim.emote("scream")
+		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD, used_weapon = fallen_pipe)
+		victim.EyeBlurry(10 SECONDS)
+		victim.Stun(5 SECONDS)
+		victim.Knockdown(5 SECONDS)
+
+	if(!has_victims)
+		visible_message(span_biggerdanger("БА-БАХ! Труба с грохотом падает на пол."))
+	qdel(src)
