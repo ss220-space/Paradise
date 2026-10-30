@@ -14,6 +14,8 @@
 	zomboid.ai_controller?.set_ai_status(AI_STATUS_OFF)
 	if(zomboid.suiciding)
 		return
+	if(!zomboid.get_organ_slot(INTERNAL_ORGAN_BRAIN))
+		return
 	var/turf/current_turf = get_turf(zomboid)
 	var/healing_factor = max(1, 6 * (1 - current_turf.get_lumcount()))
 	if(HAS_TRAIT(zomboid, TRAIT_PLAGUE_ZOMBIE))

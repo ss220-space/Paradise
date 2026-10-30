@@ -1,4 +1,4 @@
-#define BIBLE_COOLDOWN 30 MINUTES
+#define BIBLE_COOLDOWN 1 MINUTES
 /*
  * Library Computer
  */
@@ -47,7 +47,7 @@
 				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible Copy</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
 			if(src.emagged)
 				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
@@ -339,7 +339,7 @@
 			if("6")
 				if(!COOLDOWN_FINISHED(src, bibledelay))
 
-					var/obj/item/storage/bible/B = new /obj/item/storage/bible(src.loc)
+					var/obj/item/storage/bible/B = new /obj/item/storage/bible/copy(src.loc)
 					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
 						B.item_state = SSticker.Bible_item_state
