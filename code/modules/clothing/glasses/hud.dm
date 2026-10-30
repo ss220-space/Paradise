@@ -651,6 +651,24 @@
 		PREPOSITIONAL = "охранных очках-авиаторах",
 	)
 
+/obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
+	name = "augmented shades"
+	desc = "Поляризованные бионейронные очки, предназначенные для аугментации вашего зрения."
+	icon_state = "jensenshades"
+	item_state = "jensenshades"
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+/obj/item/clothing/glasses/hud/security/sunglasses/jensenshades/get_ru_names()
+	return alist(
+		NOMINATIVE = "аугментированные тёмные очки",
+		GENITIVE = "аугментированных тёмных очков",
+		DATIVE = "аугментированным тёмным очкам",
+		ACCUSATIVE = "аугментированные тёмные очки",
+		INSTRUMENTAL = "аугментированными тёмными очками",
+		PREPOSITIONAL = "аугментированных тёмных очках",
+	)
+
 /obj/item/clothing/glasses/hud/security/sunglasses/tajblind
 	name = "security veil"
 	desc = "Адомайская вуаль, скрывающая глаза владельца от посторонних, но не затрудняя обзор носителю. Эта модель оснащена охранным ИЛС."

@@ -793,6 +793,27 @@
 		PREPOSITIONAL = "оптическом сканере материалов",
 	)
 
+/obj/item/clothing/glasses/material/cyber
+	name = "eye replacement implant"
+	desc = "Имплантированная замена левого глаза с функцией распознавания определённых материалов сквозь препятствия."
+	icon_state = "cybereye-blue"
+	item_state = "eyepatch"
+	flags_cover = NONE
+
+/obj/item/clothing/glasses/material/cyber/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант замены глаза",
+		GENITIVE = "импланта замены глаза",
+		DATIVE = "импланту замены глаза",
+		ACCUSATIVE = "имплант замены глаза",
+		INSTRUMENTAL = "имплантом замены глаза",
+		PREPOSITIONAL = "импланте замены глаза",
+	)
+
+/obj/item/clothing/glasses/material/cyber/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 // MARK: Welding Glasses
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
