@@ -126,7 +126,7 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 	// Strange: the flags weren't getting through via the parent emp_act(), so we’re passing them explicitly.
 	..(severity, protection)
 	if(!(protection & EMP_PROTECT_CONTENTS))
-		cell?.emp_act(severity, emp_resistance)
+		cell?.use(round(min(cell.charge, cell.charge / emp_resistance / severity)))
 	if(protection & EMP_PROTECT_SELF)
 		return protection
 	if(chambered?.BB)

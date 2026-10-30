@@ -152,6 +152,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
 	)
+	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/automatic/shotgun/get_ru_names()
 	return alist(
@@ -184,6 +185,7 @@
 	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 	zoomable = TRUE
 	zoom_amt = 5
+	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(
