@@ -112,7 +112,7 @@
 	jumpsuits = list(random_jumpsuit_type)
 	/*
 	for(var/obj/item/clothing/under/color/jumpskirt/jumpskirt_type as anything in subtypesof(/obj/item/clothing/under/color/jumpskirt))
-		if (initial(jumpskirt_type.greyscale_colors) == initial(random_jumpsuit_type.greyscale_colors))
+		if(initial(jumpskirt_type.greyscale_colors) == initial(random_jumpsuit_type.greyscale_colors))
 			jumpskirts = list(jumpskirt_type)
 			return
 
