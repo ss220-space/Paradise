@@ -520,12 +520,12 @@
 
 /datum/action/cooldown/spell/aoe/revenant/mirage/get_spell_title()
 	switch(spell_level)
-	if(1)
-		return "Слабый "
-	if(2)
-		return "Усиленный "
-	if(3)
-		return "Пылающий "
+		if(1)
+			return "Слабый "
+		if(2)
+			return "Усиленный "
+		if(3)
+			return "Пылающий "
 
 /datum/action/cooldown/spell/aoe/revenant/mirage/cast(atom/cast_on)
 	. = ..()
