@@ -130,7 +130,7 @@
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, duration = 2) //No questions
 
-			if(living.can_block_magic())
+			if(living.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
