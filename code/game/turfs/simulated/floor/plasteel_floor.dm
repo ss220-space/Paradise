@@ -97,6 +97,9 @@
 /turf/simulated/floor/plasteel/stairs/old
 	icon_state = "stairs-old"
 
+/turf/simulated/floor/plasteel/stairs/wood
+	icon_state = "stairs_wood"
+
 /turf/simulated/floor/plasteel/stairs/lavaland_air
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND

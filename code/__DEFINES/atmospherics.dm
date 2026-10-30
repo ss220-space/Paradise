@@ -295,6 +295,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define ENVIRONMENT_TEMPERATE "temperate"
 /// Cold environment: Normal atmosphere, -93 C.
 #define ENVIRONMENT_COLD "cold"
+#define ENVIRONMENT_PLANETOID "planetoid"
 
 /// How far away should we load the pressure HUD data from MILLA?
 #define PRESSURE_HUD_LOAD_RADIUS 15
