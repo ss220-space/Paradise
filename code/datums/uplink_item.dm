@@ -1836,7 +1836,7 @@
 	name = "Криптографический считыватель"
 	desc = "Представляет собой модифицированную ID-карту, также известную как ЕМАГ, которая способна активировать скрытые функции в электронных устройствах, \
 			изменять их назначение и обходить механизмы безопасности."
-	item = /obj/item/card/emag
+	item = /obj/item/card/emag/halloween
 	cost = 30 // Brainrot allowed
 
 /datum/uplink_item/device_tools/access_tuner
