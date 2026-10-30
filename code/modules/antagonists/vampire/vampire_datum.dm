@@ -302,9 +302,9 @@
 					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [GEND_HIS_HER(target)] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
-				for(var/datum/disease/virus/virus as anything in vampire.diseases)
+				for(var/datum/disease/virus/virus in vampire.diseases)
 					virus.Contract(target, BLOOD|BITES)
-				for(var/datum/disease/virus/virus as anything in target.diseases)
+				for(var/datum/disease/virus/virus in target.diseases)
 					virus.Contract(vampire, BLOOD)
 				time_per_action = suck_rate_final
 				continue

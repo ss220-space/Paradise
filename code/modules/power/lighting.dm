@@ -720,6 +720,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 		to_chat(user, span_warning("There is no [fitting] in this light."))
 		return
 
+	if(!astype(user, /mob/living)?.check_brain_for_complex_interactions())
+		to_chat(user, span_warning("Вы слишком глупы, чтобы достать лампочку."))
+		return
+
 	// make it burn hands if not wearing fire-insulated gloves
 	if(on)
 		var/prot = 0

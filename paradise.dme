@@ -1041,6 +1041,7 @@
 #include "code\datums\elements\waddling.dm"
 #include "code\datums\elements\watery_tile.dm"
 #include "code\datums\elements\weather_listener.dm"
+#include "code\datums\elements\zombie_infection.dm"
 #include "code\datums\elements\after_attack\_after_attack.dm"
 #include "code\datums\elements\after_attack\attack_effect_sleep.dm"
 #include "code\datums\elements\decals\_decal.dm"

@@ -43040,6 +43040,16 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"jiJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel,
+/area/station/command/vip)
 "jiX" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
@@ -153834,7 +153844,7 @@ uAM
 lPB
 eZH
 kpp
-qmn
+jiJ
 veQ
 jIS
 iLl

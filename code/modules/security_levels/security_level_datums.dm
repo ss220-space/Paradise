@@ -166,6 +166,17 @@
 	color = "orangered"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
-	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
-	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs."
+	elevating_to_announcement_title = "Внимание! Активирован код Дельта-АЗ-5!"
+	elevating_to_announcement_text = "Центральное командование отключило все предохранители ядерного реактора. Экипажу приказано любой ценой обеспечить детонацию станционного реактора."
+	announcement_color = "purple"
+
+/datum/security_level/delta_rocket
+	number_level = SEC_LEVEL_DELTA_ROCKET
+	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
+	ai_announcement_sound = 'sound/AI/delta.ogg'
+	color = "orangered"
+	status_display_mode = STATUS_DISPLAY_ALERT
+	status_display_data = "deltaalert"
+	elevating_to_announcement_title = "Внимание! Активирован код Дельта!"
+	elevating_to_announcement_text = "Центральное командование направило спасательные капсулы. Все члены экипажа обязаны немедленно направиться к центру станции для эвакуации. Любые нарушения приказа наказуемы уничтожением на месте."
 	announcement_color = "purple"

@@ -25,7 +25,11 @@
 	. = ..()
 	if(blocked)
 		return
-	new /obj/effect/acid/alien(get_turf(target), 201, damage * 4)
 	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
 		return
-	target.acid_act(70, damage * 2)
+	if(iswallturf(target) || ismineralturf(target))
+		new /obj/effect/acid/alien(target, 201, damage * 4)
+	if(isstructure(target))
+		target.acid_act(201, damage * 4)
+		return
+	target.acid_act(100, damage * 4)
