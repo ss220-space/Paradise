@@ -1004,7 +1004,7 @@
 		return
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
-		if(living.can_block_magic())
+		if(living.can_block_magic(MAGIC_RESISTANCE_HOLY))
 			src.visible_message(span_warning("[living]'s holy weapon absorbs the light!"))
 			deplete_spell()
 			return
