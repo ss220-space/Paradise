@@ -11,6 +11,7 @@
 	if(!ishuman(parent))
 		return
 	var/mob/living/carbon/human/zomboid = parent
+	zomboid.ai_controller?.set_ai_status(AI_STATUS_OFF)
 	if(zomboid.suiciding)
 		return
 	var/turf/current_turf = get_turf(zomboid)

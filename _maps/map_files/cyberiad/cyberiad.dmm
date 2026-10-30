@@ -75073,6 +75073,13 @@
 	},
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
+"vjb" = (
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/ne)
 "vjf" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -114925,7 +114932,7 @@ dnC
 dev
 dev
 dev
-dev
+vjb
 bsG
 dHG
 dHG

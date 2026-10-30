@@ -16,6 +16,7 @@
 		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/goon_vamp_jaunt = 300,
 		/datum/vampire_passive/xray = 500,
 		/datum/vampire_passive/full = 500,
+		/datum/vampire_passive/virus_immune = 500,
 	)
 
 /datum/antagonist/vampire/devil_vampire/add_owner_to_gamemode()
