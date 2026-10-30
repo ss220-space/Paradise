@@ -275,6 +275,8 @@
 	switch(spell_level)
 		if(1)
 			return "Незначительная "
+		if(2)
+			return "Усиленная"
 		if(3)
 			return "Полная "
 
@@ -315,7 +317,7 @@
 
 //Malfunction: Makes bad stuff happen to robots and machines.
 /datum/action/cooldown/spell/aoe/revenant/malfunction
-	name = "Вызвать сбой"
+	name = "сбой"
 	desc = "Повреждает и искажает ближайшие механизмы и технические объекты."
 	cooldown_time = 10 SECONDS
 	cooldown_increase_per_level = 5 SECONDS
@@ -339,11 +341,20 @@
 	for(var/atom/A in T.contents)
 		A.rev_malfunction(TRUE, spell_level)
 
+/datum/action/cooldown/spell/aoe/revenant/malfunction/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Слабый "
+		if(2)
+			return "Умеренный "
+		if(3)
+			return "Тотальный "
+
 /**
  * Makes objects be haunted and then throws them at conscious people to do damage, spooky!
  */
 /datum/action/cooldown/spell/aoe/revenant/haunt_object
-	name = "Призрачные предметы"
+	name = "призрачные предметы"
 	desc = "Наполняет ближайшие предметы призрачной энергией, заставляя их атаковать живых. Предметы ближе к вам имеют больше шансов быть одержимыми."
 	button_icon_state = "r_haunt"
 	cooldown_time = 60 SECONDS
@@ -360,6 +371,15 @@
 	/// A list of all attack timers started by this spell being cast
 	var/list/attack_timers = list()
 	targeting_type = /datum/aoe_targeting/rev_haunt
+
+/datum/action/cooldown/spell/aoe/revenant/haunt_object/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Жуткие "
+		if(2)
+			return "Зловещие "
+		if(3)
+			return "Ужасающие "
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/level_spell(bypass_cap)
 	. = ..()
@@ -432,7 +452,7 @@
  * Gives everyone in a 7 tile radius 2 minutes of hallucinations
  */
 /datum/action/cooldown/spell/aoe/revenant/hallucinations
-	name = "Аура галлюцинации"
+	name = "галлюцинации"
 	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	button_icon_state = "r_hallucinations"
 	cooldown_time = 15 SECONDS
@@ -446,6 +466,15 @@
 	radius_increase_per_level = 2
 	reveal_increase_per_level = 2 SECONDS
 	targeting_type = /datum/aoe_targeting/living
+
+/datum/action/cooldown/spell/aoe/revenant/hallucinations/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Расплывчатые "
+		if(2)
+			return "Досаждающие "
+		if(3)
+			return "Правдоподобыне "
 
 /datum/action/cooldown/spell/aoe/revenant/hallucinations/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
@@ -476,7 +505,7 @@
 	new /obj/effect/temp_visual/revenant(get_turf(human))
 
 /datum/action/cooldown/spell/aoe/revenant/mirage
-	name = "Призрачный мираж"
+	name = "призрачный мираж"
 	desc = "Создайте свою призрачную копию чтобы обмануть смертных. Нажатие ПКМ по способности при достаточной прокачке позволяет один раз поменяться местами с копией."
 	button_icon_state = "revenantcopy"
 	cast_amount = 15
@@ -488,6 +517,15 @@
 	reveal_increase_per_level = 2 SECONDS
 	aoe_radius = 0
 	var/obj/structure/revenant_mirage/mirage
+
+/datum/action/cooldown/spell/aoe/revenant/mirage/get_spell_title()
+	switch(spell_level)
+	if(1)
+		return "Слабый "
+	if(2)
+		return "Усиленный "
+	if(3)
+		return "Пылающий "
 
 /datum/action/cooldown/spell/aoe/revenant/mirage/cast(atom/cast_on)
 	. = ..()
@@ -547,7 +585,7 @@
 	. = ..()
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp
-	name = "Призвать маяк душ"
+	name = "маяк душ"
 	desc = "Создайте маяк душ, который будет высасывать жизненную эссенцию из ближайших смертных и позволит использовать более мощные заклинания."
 	button_icon_state = "spiritualstreetlight"
 	cooldown_time = 120 SECONDS
@@ -559,6 +597,15 @@
 	reveal_increase_per_level = 2 SECONDS
 	aoe_radius = 0
 	var/list/spawned_lamps = list()
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Тусклый "
+		if(2)
+			return "Путеводный "
+		if(3)
+			return "Ослепляющий "
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp/cast(atom/cast_on)
 	. = ..()
@@ -576,7 +623,7 @@
 	r_owner.update_appearance()
 
 /datum/action/cooldown/spell/aoe/revenant/soul_fire
-	name = "Призрачное пламя"
+	name = "gризрачное пламя"
 	desc = "Выпустите волну призрачного пламени из вашего фонаря."
 	button_icon_state = "lanternsflame"
 	cast_amount = 20
@@ -590,6 +637,15 @@
 	aoe_radius = 3
 	radius_increase_per_level = 2
 	targeting_type = /datum/aoe_targeting/human
+
+/datum/action/cooldown/spell/aoe/revenant/soul_fire/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Тусклое "
+		if(2)
+			return "Обжигающее "
+		if(3)
+			return "Пылающее "
 
 /datum/action/cooldown/spell/aoe/revenant/soul_fire/cast(atom/cast_on)
 	. = ..()
@@ -643,7 +699,7 @@
 	spell_handlers[/datum/spell_handler/revenant] = create_new_handler()
 
 /datum/action/cooldown/spell/pointed/revenant/reflect
-	name = "Отражение мук"
+	name = "отражение мук"
 	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	button_icon_state = "mirrorofsuffer"
 	cast_amount = 20
@@ -654,6 +710,15 @@
 	stun_increase_per_level = 0.5 SECONDS
 	reveal = 3 SECONDS
 	reveal_increase_per_level = 3 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/reflect/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Слабое "
+		if(2)
+			return "Частичное "
+		if(3)
+			return "Полное "
 
 /datum/action/cooldown/spell/pointed/revenant/reflect/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -668,7 +733,7 @@
 	target.apply_status_effect(/datum/status_effect/revenant_reflection, time, owner, reflectpercent)
 
 /datum/action/cooldown/spell/pointed/revenant/gaze
-	name = "Пугающий взор"
+	name = "взор"
 	desc = "Направьте пламя вашей лампы в смертного, ослепляя и оглушая его."
 	button_icon_state = "laterngaze"
 	cast_amount = 10
@@ -679,6 +744,15 @@
 	stun_increase_per_level = 1 SECONDS
 	reveal = 3 SECONDS
 	reveal_increase_per_level = 2 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/gaze/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Жуткий "
+		if(2)
+			return "Пугающий "
+		if(3)
+			return "Ужасающий "
 
 /datum/action/cooldown/spell/pointed/revenant/gaze/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -694,7 +768,7 @@
 	target.AdjustDizzy((5 + ((spell_level-1)*10)) SECONDS)
 
 /datum/action/cooldown/spell/pointed/revenant/tear
-	name = "Слеза пламени"
+	name = "слеза пламени"
 	desc = "Выпустите в цель призрачную слезу из своего фонаря. При попадании слеза подожжет цель призрачным пламенем и нанесет урон ожогами."
 	button_icon_state = "laterntear"
 	cast_amount = 20
@@ -705,6 +779,15 @@
 	stun_increase_per_level = 0.5 SECONDS
 	reveal = 3 SECONDS
 	reveal_increase_per_level = 3 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/tear/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Вспыльчивая "
+		if(2)
+			return "Горящая "
+		if(3)
+			return "Полыхающая "
 
 /datum/action/cooldown/spell/pointed/revenant/tear/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
