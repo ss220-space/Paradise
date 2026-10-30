@@ -63685,6 +63685,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/planetoid/lazarus/hallway/primary/aft/west)
+"qrh" = (
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/planetoid/lazarus/nexus)
 "qri" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -136117,7 +136123,7 @@ xnE
 euh
 tnM
 itH
-lni
+qrh
 euh
 peT
 iHQ
