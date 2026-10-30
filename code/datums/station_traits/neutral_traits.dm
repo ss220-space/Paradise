@@ -228,6 +228,7 @@
 	. = ..()
 	set_observer_default_invisibility(0, "Души прошлой смены хотят чтобы вы продолжили работу.")
 
+
 /datum/station_trait/colored_assistants
 	name = "Цветные ассистенты"
 	show_in_report = TRUE
