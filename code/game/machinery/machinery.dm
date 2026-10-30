@@ -698,3 +698,8 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	set_panel_open(!panel_open)
+
+/obj/machinery/proc/create_logistics_adapter()
+	if(GetComponent(/datum/component/material_container))
+		return new /datum/logistics_adapter/material_container(src)
+	return null

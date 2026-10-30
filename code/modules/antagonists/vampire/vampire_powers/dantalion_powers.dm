@@ -108,10 +108,13 @@
 	if(!istype(H))
 		return FALSE
 
-	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/new_thrall(user.mind))
+	var/datum/antagonist/mindslave/thrall/datum = H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/new_thrall(user.mind))
 	if(jobban_isbanned(H, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
+
 	H.Stun(4 SECONDS)
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire?.thralls |= WEAKREF(datum)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
@@ -258,7 +261,7 @@
 		target.Slowed(4 SECONDS)
 		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
+		target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", duration = 15 SECONDS, skip_nearby = FALSE)
 
 /datum/action/cooldown/spell/dantalion_decoy
 	name = "Приманка"
@@ -358,5 +361,4 @@
 	SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
 	target.Slowed(4 SECONDS)
 	target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
-	new /obj/effect/hallucination/delusion(get_turf(owner), target, skip_nearby = FALSE)
-
+	target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", skip_nearby = FALSE)

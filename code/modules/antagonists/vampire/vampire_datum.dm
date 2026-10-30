@@ -34,12 +34,6 @@
 	var/suck_rate = 5 SECONDS
 	/// Amount of blood in units sucked from victim on every suck iteration
 	var/sucking_amount = 30
-	/// Indicates the type of nullification (old or new)
-	var/nullification = NEW_NULLIFICATION
-	/// Does garlic affect vampire?
-	var/is_garlic_affected = FALSE
-	/// Does a vampire turn to dust after dying from space?
-	var/dust_in_space = FALSE
 	/// List of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum.
 	var/list/upgrade_tiers = list()
 
@@ -57,6 +51,7 @@
 		BRAIN = 1,
 		STAMINA = 1,
 	)
+	var/list/thralls = list()
 
 /datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
@@ -153,6 +148,14 @@
 	aura_hud.hide_from(user)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
+
+/datum/antagonist/vampire/detach_from_owner()
+	for(var/datum/weakref/ref as anything in thralls)
+		var/datum/antagonist/mindslave/thrall/thrall = ref.resolve()
+		if(!thrall)
+			continue
+		thrall.owner?.remove_antag_datum(thrall)
+	return ..()
 
 /datum/antagonist/vampire/get_antag_menu_name()
 	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
@@ -300,7 +303,9 @@
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
 				for(var/datum/disease/virus/virus as anything in vampire.diseases)
-					virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = vampire.zone_selected)
+					virus.Contract(target, BLOOD|BITES)
+				for(var/datum/disease/virus/virus as anything in target.diseases)
+					virus.Contract(vampire, BLOOD)
 				time_per_action = suck_rate_final
 				continue
 
@@ -308,7 +313,7 @@
 		if(isvampire(target))
 			to_chat(vampire, span_boldnotice("Кровь сородича утоляет ваш голод, но вы не получите доступной крови, не поглотив всю его жизненную силу!"))
 			// vampire's blood saturates way better then normal human blood, according to WOD lore
-			vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 10))
+			vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 30))
 			target.AdjustBlood(-sucking_amount)
 			if(check_blood_volume(vampire, target))
 				continue
@@ -319,7 +324,7 @@
 		if(unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(vampire, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
 					continue
@@ -338,7 +343,7 @@
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
 				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y_0(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y_0(bloodusable)] крови" : ""]."))
-				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))
 					continue
@@ -346,7 +351,7 @@
 
 		// Everything else - we draining sentient monkey, borer controlled non-player human or non-player human, corpses and all other shit
 		to_chat(vampire, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
-		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
+		vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 15))
 		target.AdjustBlood(-sucking_amount)
 		if(check_blood_volume(vampire, target))
 			continue
@@ -546,7 +551,7 @@
 		to_chat(owner.current, span_userdanger("Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100 && dust_in_space)
+		if(owner.current.cloneloss >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
@@ -590,12 +595,8 @@
 
 	if(is_type_in_typecache(get_area(owner.current), GLOB.holy_areas) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			nullified = max(0, nullified - 1)
 
-		if(NEW_NULLIFICATION)
-			nullified = max(0, nullified - 2)
+	nullified = max(0, nullified - 2)
 
 /datum/antagonist/vampire/proc/draw_HUD()
 	var/datum/hud/hud = owner?.current?.hud_used
@@ -651,20 +652,10 @@
 
 /datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			nullified = max(base, nullified + extra)
-
-		if(NEW_NULLIFICATION)
-			nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
+	nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
 
 /datum/antagonist/vampire/proc/base_nullification()
-	switch(nullification)
-		if(OLD_NULLIFICATION)
-			adjust_nullification(5, 2)
-
-		if(NEW_NULLIFICATION)
-			adjust_nullification(20, 4)
+	adjust_nullification(20, 4)
 
 /**
  * Checks if our `victim` is suitable for diablerie, and if so, perform diablerie
@@ -788,5 +779,11 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+/datum/antagonist/mindslave/thrall/detach_from_owner()
+	var/datum/antagonist/vampire/datum = master?.has_antag_datum(/datum/antagonist/vampire)
+	if(datum)
+		datum.thralls -= WEAKREF(src)
+	return ..()
 
 #undef FORMAT_BLOODUSABLE_TEXT

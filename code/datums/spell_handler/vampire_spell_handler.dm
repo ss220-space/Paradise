@@ -35,8 +35,7 @@
 			to_chat(user, span_warning("Но вы же мертвы!"))
 		return FALSE
 
-	if(((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION) || \
-	(vampire.nullification == OLD_NULLIFICATION && vampire.nullified)) && !fullpower) // above 100 nullification vampire powers are useless
+	if((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION) && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
 			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
 		return FALSE
@@ -62,7 +61,7 @@
 	vampire?.bloodusable -= calculate_blood_cost(vampire)
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
-	var/blood_cost_modifier = 1 + ((vampire.nullification == OLD_NULLIFICATION)? 0 : vampire.nullified / 100)
+	var/blood_cost_modifier = 1 + (vampire.nullified / 100)
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return clamp(blood_cost, 0, vampire.bloodusable)
 

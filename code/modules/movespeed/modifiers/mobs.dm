@@ -233,5 +233,5 @@
 	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST
 
 /datum/movespeed_modifier/zombie/slow
-	multiplicative_slowdown = 3
+	multiplicative_slowdown = 2.8
 	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST

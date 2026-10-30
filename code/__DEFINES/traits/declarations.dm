@@ -8,6 +8,8 @@
 #define TRAIT_BEING_SHOCKED "being_shocked" // Used together with WAS_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
 /// Trait that determines, if object under floor.
 #define TRAIT_UNDERFLOOR "underfloor"
+/// Machinery can accept a logistics interface board when its panel is open.
+#define TRAIT_LOGISTICS_COMPATIBLE "logistics_compatible"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -58,6 +60,10 @@
 #define TRAIT_MUTE "mute"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
+/// Immune to hallucinations entirely.
+#define TRAIT_HALLUCINATION_IMMUNE "hallucination_immune"
+/// Immune to madness-based hallucinations (used by hallucination_pulse / visible_hallucination_pulse).
+#define TRAIT_MADNESS_IMMUNE "madness_immune"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
 #define TRAIT_NINJA_INVISIBILITY "ninja_invisibility"
 /// Does nothing on its own, applied via status effect.

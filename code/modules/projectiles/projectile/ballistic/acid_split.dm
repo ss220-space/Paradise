@@ -28,4 +28,4 @@
 	new /obj/effect/acid/alien(get_turf(target), 201, damage * 4)
 	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
 		return
-	target.acid_act(100, damage * 2)
+	target.acid_act(70, damage * 2)
