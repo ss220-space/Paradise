@@ -451,7 +451,7 @@
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
-	if(L.can_block_magic())
+	if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		target.visible_message(
 			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
