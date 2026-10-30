@@ -81,7 +81,6 @@
 	healing_factor_mod = 2
 	burn_mod = 0.9
 	brute_mod = 0.9
-	burn_mod = 0.9
 	stamina_mod = 0.6
 	special_skill = /datum/action/cooldown/spell/pointed/projectile/acid_spit
 
