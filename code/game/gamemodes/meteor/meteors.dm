@@ -464,7 +464,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/pumpkin
 	name = "PUMPKING"
 	desc = "ТЫКВОКОРОЛЬ ПРИБЛИЖАЕТСЯ!"
-	icon = 'icons/obj/meteor.dmi'
 	icon_state = "spooky"
 	hits = 10
 	heavy = TRUE

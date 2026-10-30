@@ -219,8 +219,6 @@
 
 /datum/station_trait/colored_assistants
 	name = "Цветные ассистенты"
-	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 10
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_MINIMAL
 	report_message = "Из-за нехватки стандартных комбинезонов мы выдали вашим ассистентам один из наших резервных запасов."
