@@ -104,6 +104,48 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 }
 
+.spcp-root {
+	background: none;
+	background-color: none;
+	background-image: none;
+}
+
+// MARK: Close button
+
+.spcp-close {
+	position: fixed;
+	z-index: 70;
+	top: 6px;
+	left: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	padding: 0;
+	color: $spcp-dim;
+	font-size: 11px;
+	line-height: 1;
+	background: linear-gradient(180deg, #1d262b 0%, #121a1e 100%);
+	border: 1px solid #26353c;
+	border-radius: 4px;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		color 0.15s ease,
+		filter 0.15s ease;
+
+	&:hover {
+		color: $spcp-red;
+		border-color: rgba(255, 90, 77, 0.5);
+		filter: brightness(1.2);
+	}
+
+	&:active {
+		filter: brightness(0.9);
+	}
+}
+
 .spcp-shell {
 	position: relative;
 	display: flex;
@@ -116,17 +158,19 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	font-size: 11px;
 	letter-spacing: 0.02em;
 	user-select: none;
-	background: radial-gradient(
-			ellipse at 50% -10%,
-			rgba(77, 255, 166, 0.07),
-			transparent 60%
-		),
-		repeating-linear-gradient(
-			0deg,
-			rgba(255, 255, 255, 0.012) 0 1px,
-			transparent 1px 4px
-		),
-		#070b0d;
+	background: transparent;
+	background-color: transparent;
+	// background: radial-gradient(
+	// 		ellipse at 50% -10%,
+	// 		rgba(77, 255, 166, 0.07),
+	// 		transparent 60%
+	// 	),
+	// 	repeating-linear-gradient(
+	// 		0deg,
+	// 		rgba(255, 255, 255, 0.012) 0 1px,
+	// 		transparent 1px 4px
+	// 	),
+	// 	#070b0d;
 
 	.Button {
 		font-family: var(--font-family-mono);

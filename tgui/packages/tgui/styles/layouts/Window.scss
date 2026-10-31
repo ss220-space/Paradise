@@ -6,72 +6,87 @@
 @use '../base';
 
 .Window {
-  position: fixed;
-  inset: 0;
-  color: var(--color-text);
-  background-color: var(--color-base);
-  background-image: linear-gradient(
-    to bottom,
-    var(--color-base-start) 0%,
-    var(--color-base-end) 100%
-  );
+	position: fixed;
+	inset: 0;
+	color: var(--color-text);
+	background-color: var(--color-base);
+	background-image: linear-gradient(
+		to bottom,
+		var(--color-base-start) 0%,
+		var(--color-base-end) 100%
+	);
+}
+
+// Window without its own background fill
+.Window--transparent {
+	background-color: transparent;
+	background-image: none;
+
+	.Layout__content {
+		background-image: none;
+	}
 }
 
 // Everything after the title bar
 .Window__rest {
-  position: fixed;
-  top: 32px;
-  top: base.rem(32px);
-  bottom: 0;
-  left: 0;
-  right: 0;
+	position: fixed;
+	top: 32px;
+	top: base.rem(32px);
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+// Window without a title bar occupies the full height
+.Window__rest--flush {
+	top: 0;
 }
 
 .Window__contentPadding {
-  margin: 0.5rem;
-  height: calc(100% - 1rem);
+	margin: 0.5rem;
+	height: calc(100% - 1rem);
 }
 
 .Window__contentPadding:after {
-  height: 0;
+	height: 0;
 }
 
 .Layout__content--scrollable .Window__contentPadding:after {
-  content: '';
-  display: block;
-  height: 0.5rem;
+	content: '';
+	display: block;
+	height: 0.5rem;
 }
 
 .Window__dimmer {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  background-color: hsl(from var(--color-base) h s calc(l + 15) / 0.25);
+	pointer-events: none;
+	position: fixed;
+	inset: 0;
+	background-color: hsl(from var(--color-base) h s calc(l + 15) / 0.25);
 }
 
 .Window__resizeHandle__se {
-  cursor: var(--cursor-se-resize);
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: base.rem(20px);
-  height: base.rem(20px);
+	cursor: var(--cursor-se-resize);
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: base.rem(20px);
+	height: base.rem(20px);
 }
 
 .Window__resizeHandle__s {
-  cursor: var(--cursor-s-resize);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: base.rem(6px);
+	cursor: var(--cursor-s-resize);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: base.rem(6px);
 }
 
 .Window__resizeHandle__e {
-  cursor: var(--cursor-e-resize);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: base.rem(3px);
+	cursor: var(--cursor-e-resize);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: base.rem(3px);
 }

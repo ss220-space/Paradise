@@ -87,6 +87,14 @@ window "mapwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
+	elem "pod_panel"
+		type = BROWSER
+		pos = 100,100
+		size = 640x480
+		background-color = none
+		inner-background-color = transparent
+		is-visible = false
+		saved-params = "pos;size"
 	elem "escape_menu"
 		type = BROWSER
 		pos = 0,0
@@ -475,4 +483,5 @@ window "tgui_say"
 		anchor1 = 0,0
 		anchor2 = 0,0
 		saved-params = ""
+
 

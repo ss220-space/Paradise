@@ -12,17 +12,39 @@
 /datum/ui_module/spacepod_control_panels/ui_host(mob/user)
 	return pod // Default src.
 
+/// tgui window bound to the transparent "pod_panel" browser pane inside the
+/// main window (same technique as the escape menu), so the game stays visible
+/// behind the panel. Standalone popup windows can not be see-through.
+/datum/tgui_window/pod_panel
+
+/datum/tgui_window/pod_panel/close(can_be_suspended = TRUE)
+	. = ..()
+	if(client)
+		winset(client, SKIN_POD_PANEL, "is-visible=0")
+
 /datum/ui_module/spacepod_control_panels/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		if(!user.client)
+			return
+		// Open the panel as a transparent overlay pane inside the game window.
+		// Transparent browsers require BYOND 516.1680+, fall back to a normal
+		// pooled window otherwise.
+		var/datum/tgui_window/window
+		if(user.client.byond_build >= 1680)
+			window = user.client.tgui_windows[SKIN_POD_PANEL]
+			if(!window)
+				window = new /datum/tgui_window/pod_panel(user.client, SKIN_POD_PANEL)
 		ui = new(user, src, "SpacepodControlPanel", name)
-		ui.open()
+		ui.open(window)
 
 /datum/ui_module/spacepod_control_panels/ui_close(mob/user)
 	var/datum/tgui/ui = SStgui.get_open_ui(user, src)
 	if(!ui)
 		return
 	ui.close(TRUE)
+	if(user.client)
+		winset(user.client, SKIN_POD_PANEL, "is-visible=0")
 
 
 // MARK: ui_data

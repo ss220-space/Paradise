@@ -2,8 +2,10 @@ import { type ReactElement, type ReactNode, useEffect, useState } from 'react';
 import { Button, Dropdown, Icon, Image, Tooltip } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
+import { suspendStart } from '../events/handlers/suspense';
 import { Window } from '../layouts';
-import { ComplexModal } from './common/ComplexModal';
+
+// import { ComplexModal } from './common/ComplexModal';
 
 // MARK: Data
 
@@ -343,13 +345,16 @@ export const SpacepodControlPanel = (props: unknown) => {
       : 'ok';
 
   return (
-    <Window
-      width={1180}
-      height={700}
-      title="Панель управления космическим челноком"
-    >
-      <Window.Content scrollable>
-        <ComplexModal />
+    <Window width={1180} height={700} titleBar={false} transparent>
+      <Window.Content scrollable className="spcp-root">
+        {/* <ComplexModal /> */}
+        <button
+          className="spcp-close"
+          onClick={suspendStart}
+          title="Закрыть панель"
+        >
+          <Icon name="times" />
+        </button>
         <div className="spcp-shell">
           <CockpitBoot
             active={!booted}
