@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - bugfix: "Энерго пушки теперь разряжаются от емп (PR #9954)"
