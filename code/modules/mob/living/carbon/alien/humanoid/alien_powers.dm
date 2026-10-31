@@ -16,7 +16,7 @@
 		host.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		host.nightvision_enabled = TRUE
 		host.balloon_alert(host, "термальное")
-		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
+		host.hud_used.nightvisionicon.icon_state = "nightvision1"
 		host.update_sight()
 		return
 
@@ -25,7 +25,7 @@
 		host.lighting_alpha = initial(host.lighting_alpha)
 		host.nightvision_enabled = FALSE
 		host.balloon_alert(host, "обычное")
-		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
+		host.hud_used.nightvisionicon.icon_state = "nightvision0"
 		host.update_sight()
 		return
 
@@ -35,9 +35,8 @@
 	if(!object_turf)
 		return
 
-	playsound(object_turf, pick('sound/creatures/alien/xeno_resin_build1.ogg', \
-								'sound/creatures/alien/xeno_resin_build2.ogg', \
-								'sound/creatures/alien/xeno_resin_build3.ogg'), 30)
+	playsound(object_turf, pick('sound/creatures/alien/xeno_resin_build4.ogg', \
+								'sound/creatures/alien/xeno_resin_build5.ogg'), 30)
 
 /datum/action/innate/alien/toggle_queen_arrow
 	name = "Расположение королевы"
@@ -84,3 +83,128 @@
 		owner?.client?.screen -= arrow
 		QDEL_NULL(arrow)
 	return ..()
+
+/datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno
+	name = "Крик Королевы"
+	desc = "Издать пронзительный крик, ослабляющий и замедляющий врагов вокруг."
+	button_icon_state = "terror_shriek"
+	background_icon_state = "bg_terror"
+	aoe_radius = 8
+	cooldown_time = 50 SECONDS
+	sound = 'sound/creatures/alien/alien_queen_screech.ogg'
+	targeting_type = /datum/aoe_targeting/living_non_alien
+	invocation_type = INVOCATION_NONE
+	sparkle_path = null
+
+/datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/alien/humanoid/queen/queen = src.owner
+	if(!queen)
+		return
+	var/mutable_appearance/shriek = mutable_appearance('icons/effects/64x64.dmi', "shriek_waves", FLOAT_LAYER)
+	shriek.pixel_x = 28
+	queen.shriek_wave_overlay = shriek
+	queen.add_overlay(shriek)
+	addtimer(CALLBACK(src, PROC_REF(cleanup_shriek_wave), queen), 2.5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno/proc/cleanup_shriek_wave(mob/living/carbon/alien/humanoid/queen/queen)
+	if(!queen.shriek_wave_overlay)
+		return
+
+	queen.cut_overlay(queen.shriek_wave_overlay)
+	queen.shriek_wave_overlay = null
+
+/datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	. = ..()
+	if(iscarbon(victim))
+		var/mob/living/carbon/carbon_victim = victim
+		carbon_victim.Slowed(12 SECONDS)
+		carbon_victim.Weaken(4 SECONDS)
+		carbon_victim.apply_damage(30, STAMINA)
+		carbon_victim.Jitter(20 SECONDS)
+		to_chat(carbon_victim, span_danger("<b>Всплеск боли пронзает вашу голову и путает ваши мысли!</b>"))
+
+	if(issilicon(victim))
+		var/mob/living/silicon/silicon_victim = victim
+		to_chat(silicon_victim, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
+		SEND_SOUND(silicon_victim, sound('sound/misc/interference.ogg'))
+		playsound(silicon_victim, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+		do_sparks(5, TRUE, silicon_victim)
+		silicon_victim.Weaken(12 SECONDS)
+
+/datum/action/cooldown/spell/aoe/repulse/tail_lash
+	name = "Удар хвостом"
+	desc = "Отбрасывайте нападающих ударом хвоста."
+	sound = 'sound/magic/tail_swing.ogg'
+	cooldown_time = 15 SECONDS
+	aoe_radius = 2
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	sparkle_path = null
+	button_icon_state = "tailsweep"
+	background_icon_state = "bg_alien"
+	targeting_type = /datum/aoe_targeting/living_non_alien
+	invocation_type = INVOCATION_NONE
+
+/datum/action/cooldown/spell/aoe/repulse/tail_lash/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/alien/humanoid/queen/queen = src.owner
+	if(!queen)
+		return
+	var/mutable_appearance/swing = mutable_appearance('icons/effects/96x96.dmi', "tail_swing", FLOAT_LAYER)
+	queen.tail_swing_overlay = swing
+	queen.add_overlay(swing)
+	addtimer(CALLBACK(src, PROC_REF(cleanup_tail_swing_overlay), queen), 1.0 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	queen.spin(3, 1)
+	playsound(queen.loc, 'sound/creatures/alien/alien_tail_swipe.ogg', 80, TRUE)
+
+/datum/action/cooldown/spell/aoe/repulse/tail_lash/proc/cleanup_tail_swing_overlay(mob/living/carbon/alien/humanoid/queen/queen)
+	if(queen.tail_swing_overlay)
+		queen.cut_overlay(queen.tail_swing_overlay)
+		queen.tail_swing_overlay = null
+
+/datum/action/cooldown/spell/aoe/repulse/tail_lash/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	. = ..()
+
+	if(iscarbon(victim))
+		var/mob/living/carbon/carbon_victim = victim
+		var/dir = get_dir(caster, victim)
+		step(victim, dir)
+		step(victim, dir)
+		step(victim, dir)
+
+		carbon_victim.Knockdown(3 SECONDS)
+		carbon_victim.Weaken(5 SECONDS)
+		carbon_victim.apply_damage(30, BRUTE)
+		to_chat(carbon_victim, span_danger("<b>Хвост ксеноморфа сбивает вас с ног!</b>"))
+
+	if(issilicon(victim))
+		var/mob/living/silicon/silicon_victim = victim
+		SEND_SOUND(silicon_victim, sound('sound/misc/interference.ogg'))
+		playsound(silicon_victim, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+		do_sparks(5, TRUE, silicon_victim)
+		silicon_victim.Weaken(8 SECONDS)
+
+/datum/action/innate/alien/sprite_toggle
+	name = "Изменить размер спрайта"
+	desc = "Остальные продолжат видеть вас огромным."
+	button_icon_state = "alien_toggle_size"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/small = FALSE
+	var/small_icon = 'icons/mob/alien.dmi'
+	var/small_icon_state = "normalsize_xeno"
+
+/datum/action/innate/alien/sprite_toggle/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
+	if(!small)
+		var/image/small_image = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
+		small_image.override = TRUE
+		small_image.pixel_w -= owner.pixel_x
+		small_image.pixel_z -= owner.pixel_y
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "smallsprite", small_image, AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS)
+		small = TRUE
+	else
+		owner.remove_alt_appearance("smallsprite")
+		small = FALSE

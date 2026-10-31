@@ -50,12 +50,19 @@
 	if(on_fire)
 		var/fire_icon = 'icons/mob/OnFire.dmi'
 		var/fire_icon_state = "[is_monkeybasic(src) ? "monkey" : "human"]_generic_burn"
-		if(caste_icon_prefix)
-			// Castes with their own icon file carry their own fire overlays
+		var/is_hunter = istype(src, /mob/living/carbon/alien/humanoid/hunter)
+		if(!is_hunter)
+			// All castes except hunter use the shared grayscale fire overlay from 64x64.dmi
+			fire_icon = 'icons/effects/64x64.dmi'
+			fire_icon_state = body_position == LYING_DOWN ? "alien_fire_lying" : "alien_fire"
+		else
+			// Hunter has its own fire overlay states in its icon file
 			fire_icon = icon
 			fire_icon_state = body_position == LYING_DOWN ? "alien_fire_lying" : "alien_fire"
 		if(!overlays_standing[FIRE_LAYER])
 			overlays_standing[FIRE_LAYER] = mutable_appearance(fire_icon, icon_state = fire_icon_state, layer = -FIRE_LAYER)
+			if(!is_hunter)
+				overlays_standing[FIRE_LAYER].color = rgb(255, 120, 0) // fire orange
 	apply_overlay(FIRE_LAYER)
 
 /**
@@ -107,11 +114,13 @@
 					break
 	apply_overlay(H_DAMAGE_LAYER)
 
+/// Updates wound overlays when health changes.
 /mob/living/carbon/alien/humanoid/set_health(new_value)
 	. = ..()
 	if(. != health)
 		update_wounds()
 
+/// Updates pocket and storage HUD icons.
 /mob/living/carbon/alien/humanoid/update_pockets()
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]

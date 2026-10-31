@@ -4208,6 +4208,7 @@
 #include "code\modules\spells\_aoe_targetings\living.dm"
 #include "code\modules\spells\_aoe_targetings\living_and_turf.dm"
 #include "code\modules\spells\_aoe_targetings\living_in_sight.dm"
+#include "code\modules\spells\_aoe_targetings\living_non_alien.dm"
 #include "code\modules\spells\_aoe_targetings\living_non_terrors.dm"
 #include "code\modules\spells\_aoe_targetings\rev_blight.dm"
 #include "code\modules\spells\_aoe_targetings\rev_haunt.dm"

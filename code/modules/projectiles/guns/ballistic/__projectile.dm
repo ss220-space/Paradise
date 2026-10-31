@@ -100,7 +100,7 @@
 		hold_casing.setDir(pick(GLOB.alldirs))
 		hold_casing.update_appearance()
 		hold_casing.SpinAnimation(10, 1) //next gen special effects
-		playsound(hold_casing.loc, chambered.casing_drop_sound, 100, TRUE)
+		playsound(hold_casing.loc, chambered.casing_drop_sound, 40, TRUE)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -224,7 +224,7 @@
 	chambered = null
 	balloon_alert(user, "патрон извлечён")
 	playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
-	playsound(AC.loc, AC.casing_drop_sound, 50, TRUE)
+	playsound(AC.loc, AC.casing_drop_sound, 40, TRUE)
 	update_icon()
 
 /obj/item/gun/projectile/examine(mob/user)

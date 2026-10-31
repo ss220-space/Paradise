@@ -392,6 +392,15 @@
 		'sound/weapons/gun_interactions/casingfall1.ogg',
 		'sound/weapons/gun_interactions/casingfall2.ogg',
 		'sound/weapons/gun_interactions/casingfall3.ogg',
+		'sound/weapons/gun_interactions/casingfall4.ogg',
+		'sound/weapons/gun_interactions/casingfall5.ogg',
+		'sound/weapons/gun_interactions/casingfall6.ogg',
+		'sound/weapons/gun_interactions/casingfall7.ogg',
+		'sound/weapons/gun_interactions/casingfall8.ogg',
+		'sound/weapons/gun_interactions/casingfall9.ogg',
+		'sound/weapons/gun_interactions/casingfall10.ogg',
+		'sound/weapons/gun_interactions/casingfall11.ogg',
+		'sound/weapons/gun_interactions/casingfall12.ogg',
 	)
 
 /datum/sound_effect/computer_ambience
