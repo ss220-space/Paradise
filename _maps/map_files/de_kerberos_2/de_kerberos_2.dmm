@@ -28142,7 +28142,7 @@
 	},
 /area/station/security/medical)
 "gdc" = (
-/obj/spacepod/sec{
+/obj/spacepod/template/two_engine/raptor{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -36408,13 +36408,11 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
-/obj/item/spacepod_equipment/weaponry/laser,
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
-/obj/item/spacepod_equipment/weaponry/burst_taser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85762,8 +85760,7 @@
 /area/station/maintenance/bar)
 "snM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/mug/hos,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/machinery/firealarm/directional/south,
@@ -85774,6 +85771,7 @@
 	pixel_x = 32
 	},
 /obj/item/lighter/zippo/hos,
+/obj/item/reagent_containers/cup/glass/mug/hos,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "snY" = (

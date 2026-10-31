@@ -4710,13 +4710,6 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/check1)
-"uJ" = (
-/obj/structure/table,
-/obj/item/pod_paint_bucket,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/USSP_gorky17/angar)
 "uK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -36423,7 +36416,7 @@ hJ
 wP
 gr
 gr
-uJ
+Yv
 Yv
 ba
 xm

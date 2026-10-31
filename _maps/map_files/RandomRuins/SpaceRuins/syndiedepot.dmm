@@ -365,7 +365,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
 "bg" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
+/obj/effect/spawner/random_spawners/syndicate/layout/spacepod_no_weapon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

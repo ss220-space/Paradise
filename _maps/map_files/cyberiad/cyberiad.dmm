@@ -550,7 +550,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/podbay)
 "aeD" = (
-/obj/spacepod/sec{
+/obj/spacepod/template/two_engine/raptor{
 	req_access = list(71)
 	},
 /turf/simulated/floor/engine,
@@ -1656,7 +1656,7 @@
 	dir = 4
 	},
 /obj/item/paper/monitorkey,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	pixel_x = -8;
 	pixel_y = 10
 	},
@@ -2194,7 +2194,7 @@
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
 /obj/machinery/light_switch/directional/west,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/item/gps,
@@ -8923,6 +8923,9 @@
 /area/station/commons/locker)
 "blN" = (
 /obj/machinery/firealarm/directional/south,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -17942,9 +17945,8 @@
 /area/station/service/clown)
 "crD" = (
 /obj/structure/closet/secure_closet/security,
-/obj/structure/cable,
-/obj/item/spacepod_equipment/weaponry/laser,
 /obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69904,6 +69906,7 @@
 "tpP" = (
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet/directional/east,
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"

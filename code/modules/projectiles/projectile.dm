@@ -382,6 +382,12 @@
 	var/new_angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), new_point))
 	set_angle(Angle + clamp(new_angle, -homing_turn_speed, homing_turn_speed))
 
+
+/obj/projectile/can_pass_after_bump(atom/bumped_atom)
+	if(firer != null && (bumped_atom == firer || HAS_TRAIT(bumped_atom, TRAIT_IGNORE_OWN_PROJECTILE)))
+		return TRUE
+	return ..()
+
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
 
@@ -395,8 +401,8 @@
 			range = initial(range)
 			return TRUE
 	if(firer && !ignore_source_check)
-		if(bumped_atom == firer || (bumped_atom == firer.loc && ismecha(bumped_atom))) //cannot shoot yourself or your mech
-			loc = bumped_atom.loc
+		if(bumped_atom == firer || (bumped_atom == firer.loc && HAS_TRAIT(bumped_atom, TRAIT_IGNORE_OWN_PROJECTILE))) //cannot shoot yourself or your mech or pod
+			// loc = bumped_atom.loc
 			return FALSE
 
 	var/turf/bumped_turf = get_turf(bumped_atom)
