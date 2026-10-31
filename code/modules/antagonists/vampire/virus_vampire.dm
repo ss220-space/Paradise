@@ -24,6 +24,17 @@
 /datum/antagonist/vampire/virus_vampire/remove_owner_from_gamemode()
 	SSticker.mode.vampires -= owner
 
+/datum/antagonist/vampire/virus_vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	if(!ishuman(new_body))
+		owner.remove_antag_datum(src.type)
+		return
+	if(!new_body.HasDisease(/datum/disease/virus/blood_plague))
+		var/datum/disease/virus/blood_plague/plague = new()
+		plague.Contract(new_body)
+	var/datum/disease/virus/blood_plague/new_plague = locate() in new_body.diseases
+	new_plague.stage = 7
+
 /datum/antagonist/vampire/virus_vampire/greet()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 

@@ -16,8 +16,9 @@
 
 /datum/action/cooldown/spell/zombie_claws/cast(atom/cast_on)
 	. = ..()
-	if(dispel())
-		return
+	if(owner.l_hand || owner.r_hand)
+		owner.drop_l_hand()
+		owner.drop_r_hand()
 
 	var/obj/item/zombie_claw/claws
 	if(HAS_TRAIT(owner, TRAIT_PLAGUE_ZOMBIE))
@@ -29,13 +30,12 @@
 	claws.force *= damage_mod
 	claws.damage_mod = damage_mod
 
-	if(owner.put_in_hands(claws))
+	if(owner.put_in_hands(claws, qdel_on_fail = TRUE))
 		our_claws += claws
 		RegisterSignal(owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
 	else
 		qdel(claws)
 		to_chat(owner, span_warning(span_zombie("У нас нет когтей...")))
-
 
 /datum/action/cooldown/spell/zombie_claws/proc/dispel()
 	var/mob/living/carbon/human/user = owner
@@ -44,10 +44,10 @@
 		qdel(claw)
 		return TRUE
 
-/datum/action/cooldown/spell/zombie_claws/before_cast(atom/cast_on)
+/datum/action/cooldown/spell/zombie_claws/can_cast_spell(feedback)
 	var/mob/living/living_owner = owner
 	if(living_owner.get_active_hand() || living_owner.is_holding_item_of_type(/obj/item/zombie_claw))
-		return SPELL_CANCEL_CAST
+		return FALSE
 	return ..()
 
 /obj/item/zombie_claw
@@ -163,7 +163,7 @@
 		return // We don't want people to be infected via zombie claws if they're augmented or have robotic limbs. Bites are handled differently.
 	if(prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
 		return // Armor blocks zombies trying to eat your brains!
-	for(var/datum/disease/virus/virus as anything in user.diseases)
+	for(var/datum/disease/virus/virus in user.diseases)
 		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = user.zone_selected)
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
 	if(target.HasDisease(/datum/disease/virus/zombie))
@@ -245,6 +245,7 @@
 	desc = "Вы испускаете зловонный дым, заставляющий всех вокруг блевать."
 	button_icon_state = "parasmoke"
 	background_icon_state = "bg_vampire"
+	cooldown_time = 18 SECONDS
 	smoke_type = /datum/effect_system/fluid_spread/smoke/zombie
 
 /datum/action/cooldown/spell/pointed/projectile/acid_spit

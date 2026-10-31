@@ -506,6 +506,36 @@
 		PREPOSITIONAL = "бордовом комбинезоне",
 	)
 
+/obj/item/clothing/under/color/darkgreen
+	name = "dark green jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/darkgreen"
+	greyscale_colors = "#6fbc22"
+
+/obj/item/clothing/under/color/darkgreen/get_ru_names()
+	return alist(
+		NOMINATIVE = "тёмно-зелёный комбинезон",
+		GENITIVE = "тёмно-зелёного комбинезона",
+		DATIVE = "тёмно-зелёному комбинезону",
+		ACCUSATIVE = "тёмно-зелёный комбинезон",
+		INSTRUMENTAL = "тёмно-зелёным комбинезоном",
+		PREPOSITIONAL = "тёмно-зелёном комбинезоне",
+	)
+
+/obj/item/clothing/under/color/teal
+	name = "teal jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/teal"
+	greyscale_colors = "#77f3b7"
+
+/obj/item/clothing/under/color/teal/get_ru_names()
+	return alist(
+		NOMINATIVE = "бирюзовый комбинезон",
+		GENITIVE = "бирюзового комбинезона",
+		DATIVE = "бирюзовому комбинезону",
+		ACCUSATIVE = "бирюзовый комбинезон",
+		INSTRUMENTAL = "бирюзовым комбинезоном",
+		PREPOSITIONAL = "бирюзовом комбинезоне",
+	)
+
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
 	desc = "Джерси против команды BLU!"

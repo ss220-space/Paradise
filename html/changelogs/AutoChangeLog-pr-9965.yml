@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь не происходит переноса датума вирусного вампира без переноса вируса. (PR #9965)"

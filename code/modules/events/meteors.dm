@@ -46,6 +46,8 @@
 			)
 
 /datum/event/meteor_wave/proc/get_meteors()
+	if(SSholiday.check_holidays(HALLOWEEN))
+		return GLOB.meteorsSPOOKY
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			return GLOB.meteors_catastrophic
