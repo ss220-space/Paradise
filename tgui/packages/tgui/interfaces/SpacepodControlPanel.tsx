@@ -865,16 +865,14 @@ const PowerPanel = (props: { booted: boolean }) => {
       {electricity.exists ? (
         <>
           <div className="spcp-power">
-            <Gauge
+            <LevelBar
+              label="ЗАРЯД"
               value={percent}
               max={100}
-              label="BATT"
-              readout={`${Math.round(percent)}`}
-              unit="%"
-              danger={[0, 25]}
+              readout={`${Math.round(percent)}%`}
               warn={percent < 25}
+              dangerBelow={25}
               booted={booted}
-              size={112}
             />
             <div className="spcp-readouts">
               <div className="spcp-readout">
@@ -1167,19 +1165,14 @@ const GyroPanel = (props: { booted: boolean }) => {
     >
       {gyroscope ? (
         <div className="spcp-gyro">
-          <Gauge
-            value={gyroscope.rpm_percent}
-            max={100}
-            label="GYRO"
-            readout={`${gyroscope.rpm}`}
-            unit="об/м"
-            danger={[0, 10]}
-            warn={gyroscope.rpm_warn}
-            booted={booted}
-            size={88}
-          />
           <div className="spcp-gyro__side">
             <div className="spcp-readouts spcp-readouts--dense">
+              <div className="spcp-readout">
+                <span>ОБОРОТЫ</span>
+                <b className={gyroscope.rpm_warn ? 'is-bad' : undefined}>
+                  {gyroscope.rpm} об/м
+                </b>
+              </div>
               <div className="spcp-readout">
                 <span>МОЩНОСТЬ</span>
                 <b>{gyroscope.rpm_percent}%</b>
@@ -1243,28 +1236,26 @@ const LifeSupportPanel = (props: { booted: boolean }) => {
       hint={airtank?.enable ? 'INTERNAL' : 'EXTERNAL'}
     >
       <div className="spcp-air">
-        <Gauge
-          value={pressureKpa}
-          max={150}
-          label="CABIN"
-          readout={pressureKpa.toFixed(1)}
-          unit="кПа"
-          danger={[0, 25]}
-          warn={life_support.atmos.low_pressure}
-          booted={booted}
-          size={88}
-        />
-        <Gauge
-          value={temperatureC}
-          max={60}
-          label="TEMP"
-          readout={temperatureC.toFixed(1)}
-          unit="°C"
-          danger={[45, 60]}
-          warn={life_support.atmos.low_temperature}
-          booted={booted}
-          size={88}
-        />
+        <div className="spcp-readouts spcp-readouts--dense">
+          <div className="spcp-readout">
+            <span>ДАВЛЕНИЕ КАБИНЫ</span>
+            <b
+              className={life_support.atmos.low_pressure ? 'is-bad' : undefined}
+            >
+              {pressureKpa.toFixed(1)} кПа
+            </b>
+          </div>
+          <div className="spcp-readout">
+            <span>ТЕМПЕРАТУРА КАБИНЫ</span>
+            <b
+              className={
+                life_support.atmos.low_temperature ? 'is-bad' : undefined
+              }
+            >
+              {temperatureC.toFixed(1)} °C
+            </b>
+          </div>
+        </div>
       </div>
       <div className="spcp-air__tank">
         <div className="spcp-readouts spcp-readouts--dense">
@@ -1507,22 +1498,9 @@ const IntegrityPanel = (props: { booted: boolean }) => {
               className={`spcp-module${module.fire ? ' spcp-module--fire' : ''}`}
               key={module.id}
             >
-              <div className="spcp-module__head">
-                <span title={module.name}>{module.caption}</span>
-                <b
-                  className={
-                    module.integrity <= 0
-                      ? 'is-bad'
-                      : module.integrity_warn
-                        ? 'is-warn'
-                        : 'is-ok'
-                  }
-                >
-                  {module.integrity > 0
-                    ? `${module.integrity}/${module.max_integrity}`
-                    : 'УНИЧТОЖЕН'}
-                </b>
-              </div>
+              <span className="spcp-module__caption" title={module.name}>
+                {module.caption}
+              </span>
               <LevelBar
                 value={module.integrity}
                 max={module.max_integrity}
@@ -1530,10 +1508,22 @@ const IntegrityPanel = (props: { booted: boolean }) => {
                 warn={module.integrity_warn}
                 booted={booted}
               />
+              <b
+                className={`spcp-module__value ${
+                  module.integrity <= 0
+                    ? 'is-bad'
+                    : module.integrity_warn
+                      ? 'is-warn'
+                      : 'is-ok'
+                }`}
+              >
+                {module.integrity > 0
+                  ? `${module.integrity}/${module.max_integrity}`
+                  : 'УНИЧТОЖЕН'}
+              </b>
               {module.fire && (
                 <Button
                   compact
-                  fluid
                   color="bad"
                   icon="fire-extinguisher"
                   disabled={hull.extenguish_charges <= 0}
