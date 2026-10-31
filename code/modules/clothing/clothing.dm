@@ -73,19 +73,19 @@
 /obj/item/clothing/examine_tags(mob/user)
 	. = ..()
 	if(clothing_flags & THICKMATERIAL)
-		.["плотный"] = "Выполнен из плотного материала, защищающего от уколов."
+		.["плотн[genderize_examine_descriptor("ый", "ая", "ое", "ые")]"] = "Выполнен из плотного материала, защищающего от уколов."
 	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
-		.["устойчивый к давлению"] = "Способен защитить носителя от экстремального давления."
+		.["устойчив[genderize_examine_descriptor("ый", "ая", "ое", "ые")] к давлению"] = "Способен защитить носителя от экстремального давления."
 	if((clothing_traits & TRAIT_QUICK_CARRY) || (clothing_traits & TRAIT_QUICKER_CARRY))
-		.["тактильный"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
+		.["тактильн[genderize_examine_descriptor("ый", "ая", "ое", "ые")]"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
 	if(clothing_traits & FINGERS_COVERED)
-		.["закрывающий пальцы"] = "Пальцы носителя закрыты."
+		.["закрывающ[genderize_examine_descriptor("ий", "ая", "ее", "ие")] пальцы"] = "Пальцы носителя закрыты."
 	if(clothing_traits & TRAIT_FAST_CUFFING)
-		.["сдерживающий"] = "Позволяет носителю заковывать существ в наручники быстрее."
+		.["сдерживающ[genderize_examine_descriptor("ий", "ая", "ее", "ие")]"] = "Позволяет носителю заковывать существ в наручники быстрее."
 	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
-		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+		.["защищающ[genderize_examine_descriptor("ий", "ая", "ее", "ие")] слух"] = "Защищает органы слуха носителя от громких звуков."
 	if(flash_protect > FLASH_PROTECTION_NONE)
-		.["защищающий зрение"] = "Обеспечивает [flash_protect == FLASH_PROTECTION_FLASH ? "умеренную защиту от вспышек cвета" : "сильную защиту от интенсивного света, в том числе от сварочного огня"]."
+		.["защищающ[genderize_examine_descriptor("ий", "ая", "ее", "ие")] зрение"] = "Обеспечивает [flash_protect == FLASH_PROTECTION_FLASH ? "умеренную защиту от вспышек cвета" : "сильную защиту от интенсивного света, в том числе от сварочного огня"]."
 
 /obj/item/clothing/examine_descriptor(mob/user)
 	return "предмет одежды"

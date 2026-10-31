@@ -141,7 +141,7 @@
 	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
-	glasses = /obj/item/clothing/glasses/hud/blueshield/cap
+	glasses = /obj/item/clothing/glasses/hud/multimode/captain
 	id = /obj/item/card/id/gold/battle
 	l_pocket = /obj/item/lighter/zippo/cap
 	pda = /obj/item/pda/captain
