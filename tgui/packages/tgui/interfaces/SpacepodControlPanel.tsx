@@ -357,12 +357,12 @@ export const SpacepodControlPanel = (props: unknown) => {
             vessel={data.vessel}
             onSkip={() => setBooted(true)}
           />
-          <TopStrip
+          {/* <TopStrip
             annunciators={annunciators}
             masterState={masterState}
             warnings={cautionCount}
             vessel={data.vessel}
-          />
+          /> */}
           <div className="spcp-grid">
             <div className="spcp-col">
               <PowerPanel booted={booted} />
@@ -568,10 +568,10 @@ const TopStrip = (props: {
           />
         ))}
       </div>
-      <div className="spcp-top__clock">
+      {/* <div className="spcp-top__clock">
         <span>UTC</span>
         <b>{clock}</b>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -841,9 +841,7 @@ const EngineStart = (props: {
         src={resolveAsset(image)}
         draggable={false}
       />
-      <span className="spcp-switch__state">
-        {cranking ? 'ЗАПУСК…' : on ? 'РАБОТА' : 'СТОП'}
-      </span>
+      <span className="spcp-switch__state">{cranking ? 'IGNITE' : ''}</span>
     </div>
   );
   return tooltip ? <Tooltip content={tooltip}>{body}</Tooltip> : body;
@@ -860,7 +858,7 @@ const PowerPanel = (props: { booted: boolean }) => {
   return (
     <Panel
       title="Электропитание"
-      hint={electricity.exists ? `${Math.round(percent)}%` : 'OFFLINE'}
+      hint={electricity.exists ? `ONLINE` : 'OFFLINE'}
     >
       {electricity.exists ? (
         <>
@@ -1161,7 +1159,7 @@ const GyroPanel = (props: { booted: boolean }) => {
   return (
     <Panel
       title="Гироскопический стабилизатор"
-      hint={gyroscope ? (gyroscope.enable ? 'SPIN' : 'STBY') : 'N/A'}
+      hint={gyroscope ? (gyroscope.enable ? 'ONLINE' : 'OFFLINE') : 'N/A'}
     >
       {gyroscope ? (
         <div className="spcp-gyro">
@@ -1521,7 +1519,7 @@ const IntegrityPanel = (props: { booted: boolean }) => {
                   ? `${module.integrity}/${module.max_integrity}`
                   : 'УНИЧТОЖЕН'}
               </b>
-              {module.fire && (
+              {module.fire ? (
                 <Button
                   compact
                   color="bad"
@@ -1531,6 +1529,8 @@ const IntegrityPanel = (props: { booted: boolean }) => {
                 >
                   ТУШИТЬ
                 </Button>
+              ) : (
+                ''
               )}
             </div>
           ))

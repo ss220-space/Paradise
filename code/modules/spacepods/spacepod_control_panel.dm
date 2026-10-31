@@ -306,8 +306,6 @@
 		"eng-off.png" = 'icons/ui_icons/spacepod_panel/engine-off.png',
 		"eng-off-top.png" = 'icons/ui_icons/spacepod_panel/engine-off-top.png',
 		"eng-fail.png" = 'icons/ui_icons/spacepod_panel/engine-fail.png',
-		"tumbler-on.png" = 'icons/ui_icons/spacepod_panel/tumbler-on.png',
-		"tumbler-off.png" = 'icons/ui_icons/spacepod_panel/tumbler-off.png',
 	)
 
 /datum/ui_module/spacepod_control_panels/ui_assets(mob/user)
