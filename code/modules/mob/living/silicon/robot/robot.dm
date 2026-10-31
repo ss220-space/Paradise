@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/eye_protection = FLASH_PROTECTION_NONE
 	var/ear_protection = HEARING_PROTECTION_NONE
 	var/damage_protection = 0
-	var/emp_protection = FALSE
 	var/has_transform_animation = FALSE
 	/// Value incoming brute damage to borgs is mutiplied by.
 	var/brute_mod = 1
@@ -1813,10 +1812,10 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	update_icons()
 
 /mob/living/silicon/robot/emp_act(severity)
-	if(emp_protection)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 
-	..()
 	if(mainframe)
 		var/mob/living/silicon/ai/AI = mainframe
 		evacuate_ai(DANGER_LVL_NONE)
@@ -1857,7 +1856,6 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	damage_protection = 10 // Reduce all incoming damage by this number
 	brute_mod = 0.5 // Bullets are dealing 50%+5 less damage. Full line of shotgun slugs now won't kill the cyborg(but cyborg will lose 2 modules and armor planting)
 	burn_mod = 0.5 // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
-	emp_protection = TRUE // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
 	reflectable = TRUE
 	allow_rename = FALSE
 	modtype = /obj/item/robot_module/deathsquad
@@ -1867,6 +1865,10 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	default_cell_type = /obj/item/stock_parts/cell/infinite
 	see_reagents = TRUE
 	has_transform_animation = TRUE
+
+/mob/living/silicon/robot/deathsquad/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1948,11 +1950,9 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	pdahide = TRUE
 	eye_protection = FLASH_PROTECTION_WELDER
 	ear_protection = HEARING_PROTECTION_MINOR
-	emp_protection = TRUE
 	damage_protection = 10
 	brute_mod = 0.5
 	burn_mod = 0.5
-	emp_protection = TRUE
 	reflectable = TRUE
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
@@ -1960,6 +1960,10 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
+
+/mob/living/silicon/robot/destroyer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -2319,4 +2323,3 @@ GAME_VERB(/mob/living/silicon/robot, powerwarn, "Состояние заряда
 
 /mob/living/silicon/robot/get_lootpanel_cache_key()
 	return "[module?.type] [selected_skin?.type]"
-

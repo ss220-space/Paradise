@@ -224,17 +224,6 @@
 		PREPOSITIONAL = "золотом револьвере",
 	)
 
-// MARK: .36
-/obj/item/gun/projectile/revolver/c36
-	name = ".36 revolver"
-	desc = "An old fashion .36 chambered revolver."
-	icon_state = "detective"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
-	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MEDIUM
-	attachable_allowed = GUN_MODULE_CLASS_NONE
-
 // MARK: Capgun
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
@@ -627,3 +616,26 @@
 		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает душу [user]!"),
 		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает вашу душу!")
 	)
+
+/obj/item/gun/projectile/revolver/peashooter
+	name = "peashooter"
+	desc = "Дикая мутация растительности, стреляющая затвердевшим горохом. Невероятно."
+	icon_state = "peashooter"
+	w_class = WEIGHT_CLASS_BULKY
+	origin_tech = "combat=3;biotech=5"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/peashooter
+	fire_sound = 'sound/weapons/peashoot.ogg'
+
+/obj/item/gun/ballistic/revolver/peashooter/get_ru_names()
+	return alist(
+		NOMINATIVE = "горохострел",
+		GENITIVE = "горохострела",
+		DATIVE = "горохострелу",
+		ACCUSATIVE = "горохострел",
+		INSTRUMENTAL = "горохострелом",
+		PREPOSITIONAL = "горохостреле",
+	)
+
+/obj/item/gun/projectile/revolver/peashooter/meme
+	icon_state = "peashooter_meme"
+	item_state = "peashooter_meme"

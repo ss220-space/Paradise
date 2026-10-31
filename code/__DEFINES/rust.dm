@@ -104,6 +104,14 @@
 #endif
 
 
+/**
+ * Generates a cave system layout for a whole z-level.
+ * width/height - size of the grid to generate
+ * prefabs_json - JSON array of structures that already exist on the grid and should be treated as immutable while the caves are shaped
+ * settings_json - JSON object with the tuning values
+*/
+#define rustlib_cave_system_generator_generate(width, height, prefabs_json, settings_json) RUSTLIB_CALL(cave_system_generator_generate, width, height, prefabs_json, settings_json)
+
 /// Generates a spritesheet at: [file_path][spritesheet_name]_[size_id].[png or dmi]
 /// The resulting spritesheet arranges icons in a random order, with the position being denoted in the "sprites" return value.
 /// All icons have the same y coordinate, and their x coordinate is equal to `icon_width * position`.

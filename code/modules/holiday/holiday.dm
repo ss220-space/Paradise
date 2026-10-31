@@ -10,6 +10,7 @@
 	var/eventChance = 0
 	/// List of youtube URLs for lobby music to use during this holiday
 	var/list/lobby_music = null
+	var/assistants_style
 
 /*
  * NOTE FOR EVERYONE TRYING TO DO STUFF WHICH REQUIRES MAPPING, PLACING OBJECTS, ETC:
@@ -76,7 +77,8 @@
  * Use this proc to manipulate objects and systems after MC load or mapload.
  */
 /datum/holiday/proc/handle_event() //used for special holiday events
-	return
+	if(assistants_style)
+		GLOB.colored_assistant = new assistants_style
 
 // The actual holidays
 
@@ -88,6 +90,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	begin_month = DECEMBER
 	end_day = 12 //1 days extra
 	end_month = JANUARY
+	assistants_style = /datum/colored_assistant/christmas
 
 /datum/holiday/new_year/celebrate()
 	. = ..()
@@ -98,6 +101,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	begin_day = 7
 	begin_month = JANUARY
 	eventChance = 20
+	assistants_style = /datum/colored_assistant/christmas
 
 /datum/holiday/xmas/greet()
 	var/greeting = "Счастливого Рождества!"
@@ -224,6 +228,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	begin_month = OCTOBER
 	end_day = 7 //7 days extra
 	end_month = NOVEMBER
+	assistants_style = /datum/colored_assistant/halloween
 
 /datum/holiday/halloween/greet()
 	return "Жутко весёлого Хэллоуина!"

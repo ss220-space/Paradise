@@ -1,5 +1,0 @@
-author: "anon1mka"
-delete-after: True
-changes:
-  - tweak: "Турникет и нанопасту можно использовать на Z (PR #9907)"
-  - sound: "Добавлены звуки для бинтов и базей (PR #9907)"

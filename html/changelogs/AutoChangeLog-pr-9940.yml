@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - map: "Развернул конвейеры на цк в сторону конвейеров шаттла карго. (PR #9940)"

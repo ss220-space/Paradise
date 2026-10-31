@@ -1,5 +1,4 @@
 /datum/antagonist/vampire/new_vampire
-	dust_in_space = TRUE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/goon_vampire)
 	upgrade_tiers = list(
 		/datum/action/cooldown/spell/vamp_rejuvenate = 0,

@@ -139,8 +139,8 @@
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow + A.physiology.punch_damage_low, A.dna.species.punchdamagehigh + A.physiology.punch_damage_high)
-	var/datum/unarmed_attack/attack = A.dna.species.unarmed
+	var/damage = rand((A.dna.species.punchdamagelow + A.physiology.punch_damage_low) * A.physiology.punch_damage_low_mod, (A.dna.species.punchdamagehigh + A.physiology.punch_damage_high) * A.physiology.punch_damage_high_mod)
+	var/datum/unarmed_attack/attack = A.get_unarmed_attack()
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(D.body_position == LYING_DOWN)

@@ -1,5 +1,5 @@
 /obj/item/stock_parts/cell/vox_spike
-	name = "\improper vox spike power cell"
+	name = "vox spike power cell"
 	desc = "Зарядная пурпурная светящаяся стандартная ячейка для шипометов."
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "spike_cell"
