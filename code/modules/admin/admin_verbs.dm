@@ -335,7 +335,7 @@ ADMIN_VERB(bless_in_list, R_ADMIN|R_EVENT, "Bless in List", "Bless a player with
 
 ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
 	VERB_ARG_TYPED(spell_recipient, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
-	
+
 	var/list/spell_list = list()
 	var/type_length = length("/datum/action/cooldown/spell") + 2
 	for(var/A in GLOB.spells)

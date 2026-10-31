@@ -1,3 +1,4 @@
+#define INVISIBILITY_REVENANT 50
 ///Harvest
 /mob/living/simple_animal/revenant/ClickOn(atom/A, params) //Copypaste from ghost code - revenants can't interact with the world directly.
 
@@ -98,6 +99,8 @@
 					if(essence_drained > 90)
 						essence_regen_cap += 25
 						perfectsouls += 1
+						var/datum/hud/revenant/hud = hud_used
+						hud.update_huds()
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
 					target.visible_message(span_warning("[target] пада[PLUR_ET_YUT(target)] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
@@ -152,96 +155,95 @@
 
 	log_say("(REVENANT to [key_name(target)]) [msg]", owner)
 	to_chat(owner, "[span_revenboldnotice("Вы передаёте [target]:")] [span_revennotice(msg)]")
+	target.balloon_alert(target, "вы слышите жуткий голос")
 	to_chat(target, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
+
+/datum/action/cooldown/spell/revenantinvis
+	name = "Переключить невидимость"
+	desc = "Позволяет вам добровольно показать себя смертным."
+	button_icon_state = "revenanttoggle"
+	background_icon_state = "bg_revenant"
+	spell_requirements = NONE
+
+/datum/action/cooldown/spell/revenantinvis/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/revenant/caster = cast_on
+	if(caster.invisibility != INVISIBILITY_REVENANT)
+		if(caster.unreveal_time >= world.time)
+			caster.balloon_alert(caster, "слишком рано!")
+			return
+		caster.invisibility = INVISIBILITY_REVENANT
+		caster.incorporeal_move = INCORPOREAL_REVENANT
+		caster.update_appearance(UPDATE_ICON)
+		return
+	if(caster.essence <= 0)
+		caster.balloon_alert(caster, "слишком мало эссенции!")
+		return
+	caster.invisibility = 0
+	caster.incorporeal_move = INCORPOREAL_NONE
+	caster.update_appearance(UPDATE_ICON)
 
 /datum/action/cooldown/spell/aoe/revenant
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	background_icon_state = "bg_revenant"
+	spell_max_level = 3
 	/// How long it reveals the revenant in deciseconds
 	var/reveal = 8 SECONDS
 	/// How long it stuns the revenant in deciseconds
 	var/stun = 2 SECONDS
-	/// If it's locked and needs to be unlocked before use
-	var/locked = TRUE
-	/// How much essence it costs to unlock
-	var/unlock_amount = 100
 	/// How much essence it costs to use
 	var/cast_amount = 50
+	var/cast_increase_per_level = 0
+	var/max_cast_amount = 10000 // just random big numbers for max numbers
+	var/max_radius = 100 SECONDS
+	var/radius_increase_per_level = 0
+	var/stun_increase_per_level = 0
+	var/max_stun = 100 SECONDS
+	var/reveal_increase_per_level = 0
+	var/max_reveal = 100 SECONDS
+	var/cooldown_increase_per_level = 0
+	var/max_cooldown = 1000 SECONDS
 
 /datum/action/cooldown/spell/aoe/revenant/New(Target, original)
 	. = ..()
-	if(locked)
-		name = "[initial(name)] ([unlock_amount]E)"
-	else
-		name = "[initial(name)] ([cast_amount]E)"
+	name = "[get_spell_title()][initial(name)]"
 
-/datum/action/cooldown/spell/aoe/revenant/reset_spell_cooldown()
+/datum/action/cooldown/spell/aoe/revenant/create_new_handler()
+	var/datum/spell_handler/revenant/handler = new(cast_amount)
+	return handler
+
+/datum/action/cooldown/spell/aoe/revenant/level_spell(bypass_cap)
 	. = ..()
-	to_chat(owner, span_revennotice("Ваша способность дрогнула и исчезла!"))
-	var/mob/living/simple_animal/revenant/R = owner
-	R?.essence += cast_amount //refund the spell and reset
-
-/datum/action/cooldown/spell/aoe/revenant/can_cast_spell(feedback)
-	if(!istype(owner, /mob/living/simple_animal/revenant))
-		return FALSE
-	var/mob/living/simple_animal/revenant/user = owner
-	if(user.inhibited)
-		return FALSE
-
-	if(locked)
-		if(user.essence <= unlock_amount)
-			return FALSE
-
-	if(user.essence <= cast_amount)
-		return FALSE
-
-	return ..()
-
-/datum/action/cooldown/spell/aoe/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = owner)
-	cooldown_time = initial(cooldown_time)
-	if(locked)
-		if(!user.castcheck(-unlock_amount))
-			reset_spell_cooldown()
-			return FALSE
-
-		name = "[initial(name)] ([cast_amount]E)"
-		to_chat(user, span_revenwarning("Вы открыли способность <b>\"[initial(name)]\"</b>!"))
-
-		locked = FALSE
-		cooldown_time = 0
-
-		return FALSE
-
-	if(!user.castcheck(-cast_amount))
-		reset_spell_cooldown()
-		return FALSE
-
-	name = "[initial(name)] ([cast_amount]E)"
-	user.reveal(reveal)
-	user.stun(stun)
-
-	UpdateButtonIcon()
-
-	return TRUE
+	aoe_radius = min(aoe_radius + radius_increase_per_level, max_radius)
+	stun = min(stun + stun_increase_per_level, max_stun)
+	reveal = min(reveal + reveal_increase_per_level, max_reveal)
+	cast_amount = min(cast_amount + cast_increase_per_level, max_cast_amount)
+	cooldown_time = min(cooldown_time + cooldown_increase_per_level, max_cooldown)
+	QDEL_NULL(spell_handlers[/datum/spell_handler/revenant])
+	spell_handlers[/datum/spell_handler/revenant] = create_new_handler()
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /datum/action/cooldown/spell/aoe/revenant/overload
-	name = "Перегрузить сеть"
+	name = "перегрузка сети"
 	desc = "Направляет большое количество эссенции в ближайшие источники света, заставляя их бить током окружающих."
-	cooldown_time = 20 SECONDS
-	stun = 3 SECONDS
-	cast_amount = 45
-	var/shock_range = 2
-	var/shock_damage = 20
+	cooldown_time = 15 SECONDS
+	cooldown_increase_per_level = 5 SECONDS
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 3 SECONDS
+	cast_amount = 30
+	cast_increase_per_level = 15
 	button_icon_state = "r_overload_lights"
-	aoe_radius = 5
+	aoe_radius = 3
+	radius_increase_per_level = 3
 	targeting_type = /datum/aoe_targeting/light
+	var/shock_range = 2
+	var/shock_damage = 10
 
-/datum/action/cooldown/spell/aoe/revenant/overload/cast(atom/cast_on)
-	var/mob/living/simple_animal/revenant/user = owner
-	if(!attempt_cast(user))
-		return
-	return ..()
+/datum/action/cooldown/spell/aoe/revenant/overload/level_spell(bypass_cap)
+	. = ..()
+	shock_damage += 10
 
 /datum/action/cooldown/spell/aoe/revenant/overload/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	INVOKE_ASYNC(src, PROC_REF(shock_lights), victim, caster)
@@ -264,81 +266,124 @@
 
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
-
+		if(spell_level == 3)
+			M.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, owner)
 		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
+/datum/action/cooldown/spell/aoe/revenant/overload/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Незначительная "
+		if(2)
+			return "Усиленная"
+		if(3)
+			return "Полная "
+
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /datum/action/cooldown/spell/aoe/revenant/defile
-	name = "Осквернить"
+	name = "осквернение"
 	desc = "Искажает и оскверняет ближайшую территорию, а также рассеивает святую ауру на полу."
-	cooldown_time = 15 SECONDS
-	stun = 1 SECONDS
-	reveal = 4 SECONDS
-	unlock_amount = 75
-	cast_amount = 30
+	cooldown_time = 20 SECONDS
+	cooldown_increase_per_level = 5 SECONDS
+	stun = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 3 SECONDS
+	cast_amount = 20
+	cast_increase_per_level = 10
 	button_icon_state = "r_defile"
-	aoe_radius = 4
+	aoe_radius = 5
+	radius_increase_per_level = 2
+	max_radius = 7
+	stun_increase_per_level = 0.5 SECONDS
 	targeting_type = /datum/aoe_targeting/turfs
-
-/datum/action/cooldown/spell/aoe/revenant/defile/cast(atom/cast_on)
-	var/mob/living/simple_animal/revenant/user = owner
-	if(!attempt_cast(user))
-		return
-	. = ..()
 
 /datum/action/cooldown/spell/aoe/revenant/defile/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/turf/turf = victim
 	turf.defile()
-
+	if(spell_level >= 3 && prob(50))
+		new /obj/effect/cursed_floor(turf, owner)
 	for(var/atom/A as anything in turf.contents)
 		A.defile()
 
+/datum/action/cooldown/spell/aoe/revenant/defile/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Малое "
+		if(2)
+			return "Умеренное "
+		if(3)
+			return "Ужасающее "
+
 //Malfunction: Makes bad stuff happen to robots and machines.
 /datum/action/cooldown/spell/aoe/revenant/malfunction
-	name = "Вызвать сбой"
+	name = "сбой"
 	desc = "Повреждает и искажает ближайшие механизмы и технические объекты."
-	cooldown_time = 20 SECONDS
-	cast_amount = 45
-	unlock_amount = 150
+	cooldown_time = 10 SECONDS
+	cooldown_increase_per_level = 5 SECONDS
+	cast_amount = 30
+	cast_increase_per_level = 15
 	button_icon_state = "r_malfunction"
-	aoe_radius = 2
+	aoe_radius = 5
+	radius_increase_per_level = 4
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 3 SECONDS
 	targeting_type = /datum/aoe_targeting/turfs
-
-/datum/action/cooldown/spell/aoe/revenant/malfunction/cast(atom/cast_on)
-	var/mob/living/simple_animal/revenant/user = owner
-	if(!attempt_cast(user))
-		return
-	return ..()
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /datum/action/cooldown/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(atom/victim, atom/caster)
 		INVOKE_ASYNC(src, PROC_REF(effect), caster, victim)
 
 /datum/action/cooldown/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
-	T.rev_malfunction(TRUE)
-
+	T.rev_malfunction(TRUE, spell_level)
 	for(var/atom/A in T.contents)
-		A.rev_malfunction(TRUE)
+		A.rev_malfunction(TRUE, spell_level)
+
+/datum/action/cooldown/spell/aoe/revenant/malfunction/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Слабый "
+		if(2)
+			return "Умеренный "
+		if(3)
+			return "Тотальный "
 
 /**
  * Makes objects be haunted and then throws them at conscious people to do damage, spooky!
  */
 /datum/action/cooldown/spell/aoe/revenant/haunt_object
-	name = "Призрачные предметы"
+	name = "призрачные предметы"
 	desc = "Наполняет ближайшие предметы призрачной энергией, заставляя их атаковать живых. Предметы ближе к вам имеют больше шансов быть одержимыми."
 	button_icon_state = "r_haunt"
 	cooldown_time = 60 SECONDS
-	unlock_amount = 150
-	stun = 3 SECONDS
-	reveal = 10 SECONDS
+	cast_amount = 30
+	cast_increase_per_level = 25
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 2 SECONDS
 	/// The maximum number of objects to haunt
 	max_targets = 7
 	/// Self explanatory
-	var/haunt_time = 20 SECONDS
+	var/haunt_time = 10 SECONDS
 	/// A list of all attack timers started by this spell being cast
 	var/list/attack_timers = list()
 	targeting_type = /datum/aoe_targeting/rev_haunt
+
+/datum/action/cooldown/spell/aoe/revenant/haunt_object/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Жуткие "
+		if(2)
+			return "Зловещие "
+		if(3)
+			return "Ужасающие "
+
+/datum/action/cooldown/spell/aoe/revenant/haunt_object/level_spell(bypass_cap)
+	. = ..()
+	haunt_time += 10 SECONDS
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/cast(atom/cast_on)
 	. = ..()
@@ -356,8 +401,8 @@
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
 	item_to_possess.throwforce = min(item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
 	set_outline(possessed_object)
-	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
-	possessed_object.health = 100
+	possessed_object.maxHealth = 75*spell_level // Double the regular HP of possessed objects
+	possessed_object.health = possessed_object.maxHealth
 	possessed_object.escape_chance = 100 // We cannot be contained
 
 	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
@@ -386,6 +431,7 @@
 
 	var/mob/living/carbon/victim = pick(potential_victims)
 	possessed_object.throw_at(victim, aoe_radius, 2, user)
+	possessed_object.possessed_item.attack(victim, possessed_object)
 
 /**
  * Sets the glow on the haunted object, scales up based on throwforce.
@@ -406,25 +452,35 @@
  * Gives everyone in a 7 tile radius 2 minutes of hallucinations
  */
 /datum/action/cooldown/spell/aoe/revenant/hallucinations
-	name = "Аура галлюцинации"
-	desc = "Играйте с живыми, показывая им видения того, что могло бы быть или было."
+	name = "галлюцинации"
+	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	button_icon_state = "r_hallucinations"
 	cooldown_time = 15 SECONDS
-	unlock_amount = 50
-	cast_amount = 25
-	stun = 1 SECONDS
+	cast_amount = 15
+	cast_increase_per_level = 10
+	stun = 0
+	stun_increase_per_level = 1 SECONDS
+	max_stun = 1 SECONDS
 	reveal = 3 SECONDS
+	aoe_radius = 5
+	radius_increase_per_level = 2
+	reveal_increase_per_level = 2 SECONDS
 	targeting_type = /datum/aoe_targeting/living
 
-/datum/action/cooldown/spell/aoe/revenant/hallucinations/cast(atom/cast_on)
-	var/mob/living/simple_animal/revenant/user = owner
-	if(!attempt_cast(user))
-		return
-	. = ..()
+/datum/action/cooldown/spell/aoe/revenant/hallucinations/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Расплывчатые "
+		if(2)
+			return "Досаждающие "
+		if(3)
+			return "Правдоподобыне "
 
 /datum/action/cooldown/spell/aoe/revenant/hallucinations/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
 	target.AdjustHallucinate(60 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
+	if(spell_level >= 3)
+		target.apply_status_effect(/datum/status_effect/revenant_hallucinations, owner)
 	new /obj/effect/temp_visual/revenant(get_turf(target))
 
 /**
@@ -433,26 +489,348 @@
 /datum/action/cooldown/spell/aoe/revenant/blight
 	name = "Мор"
 	desc = "Заражает ближайших людей болезнью, которая постепенно ослабляет их."
-	button_icon_state = "blight"
+	button_icon_state = "r_blight"
 	cooldown_time = 60 SECONDS
-	unlock_amount = 200
 	cast_amount = 40
 	stun = 3 SECONDS
 	reveal = 7 SECONDS
 	aoe_radius = 4
+	spell_max_level = 1
 	targeting_type = /datum/aoe_targeting/rev_blight
-
-/datum/action/cooldown/spell/aoe/revenant/blight/cast(atom/cast_on)
-	var/mob/living/simple_animal/revenant/user = owner
-	if(!attempt_cast(user))
-		return
-	. = ..()
 
 /datum/action/cooldown/spell/aoe/revenant/blight/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/human = victim
 	var/datum/disease/ectoplasmic/disease = new
 	disease.Contract(human)
 	new /obj/effect/temp_visual/revenant(get_turf(human))
+
+/datum/action/cooldown/spell/aoe/revenant/mirage
+	name = "призрачный мираж"
+	desc = "Создайте свою призрачную копию чтобы обмануть смертных. Нажатие ПКМ по способности при достаточной прокачке позволяет один раз поменяться местами с копией."
+	button_icon_state = "revenantcopy"
+	cast_amount = 15
+	cast_increase_per_level = 15
+	cooldown_time = 5 SECONDS
+	cooldown_increase_per_level = 5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 1 SECONDS
+	reveal_increase_per_level = 2 SECONDS
+	aoe_radius = 0
+	var/obj/structure/revenant_mirage/mirage
+
+/datum/action/cooldown/spell/aoe/revenant/mirage/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Слабый "
+		if(2)
+			return "Усиленный "
+		if(3)
+			return "Пылающий "
+
+/datum/action/cooldown/spell/aoe/revenant/mirage/cast(atom/cast_on)
+	. = ..()
+	if(mirage)
+		qdel(mirage)
+	mirage = new /obj/structure/revenant_mirage(owner.loc, spell_level, owner)
+
+/datum/action/cooldown/spell/aoe/revenant/mirage/Trigger(mob/clicker, trigger_flags, atom/target)
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
+		if(spell_level < 3 && !(mirage in range(9, owner)))
+			owner.balloon_alert(owner, "слишком далеко!")
+			return CLICK_ACTION_BLOCKING
+		if(!mirage.can_swap || mirage.swapped)
+			owner.balloon_alert(owner, "мираж слишком слаб!")
+			return CLICK_ACTION_BLOCKING
+		mirage.Swap(owner)
+		return CLICK_ACTION_SUCCESS
+	return ..()
+
+/obj/structure/revenant_mirage
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "revenant_revealed"
+	max_integrity = 100
+	var/can_swap = FALSE
+	var/swapped = FALSE
+	var/explosion = FALSE
+	var/mob/living/simple_animal/revenant/spawner
+
+/obj/structure/revenant_mirage/New(loc, spell_level, mob/living/simple_animal/revenant/original)
+	. = ..()
+	max_integrity = max_integrity*spell_level
+	obj_integrity = max_integrity
+	name = original.name
+	desc = original.desc
+	spawner = original
+	update_appearance()
+	if(spell_level < 2)
+		return
+	can_swap =  TRUE
+	if(spell_level < 3)
+		return
+	explosion = TRUE
+
+/obj/structure/revenant_mirage/proc/Swap(mob/to_swap)
+	swapped = TRUE
+	var/turf/selfloc = loc
+	loc = to_swap.loc
+	to_swap.loc = selfloc
+
+/obj/structure/revenant_mirage/Destroy(force)
+	if(!explosion)
+		return ..()
+	revenant_fire_ring(src.loc, 3)
+	for(var/mob/living/carbon/human/target in range(3, src))
+		target.adjustStaminaLoss(25)
+		target.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, spawner)
+	. = ..()
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp
+	name = "маяк душ"
+	desc = "Создайте маяк душ, который будет высасывать жизненную эссенцию из ближайших смертных и позволит использовать более мощные заклинания."
+	button_icon_state = "spiritualstreetlight"
+	cooldown_time = 120 SECONDS
+	cast_amount = 100
+	cast_increase_per_level = 50
+	stun = 1 SECONDS
+	stun_increase_per_level = 1 SECONDS
+	reveal = 4 SECONDS
+	reveal_increase_per_level = 2 SECONDS
+	aoe_radius = 0
+	var/list/spawned_lamps = list()
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Тусклый "
+		if(2)
+			return "Путеводный "
+		if(3)
+			return "Ослепляющий "
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp/cast(atom/cast_on)
+	. = ..()
+	spawned_lamps += new /obj/structure/revenant_lamp(owner.loc, src)
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp/level_spell(bypass_cap)
+	. = ..()
+	for(var/obj/structure/revenant_lamp/lamp as anything in spawned_lamps)
+		lamp.update_level()
+
+/datum/action/cooldown/spell/aoe/revenant/soul_lamp/Grant(mob/grant_to)
+	. = ..()
+	var/mob/living/simple_animal/revenant/r_owner = grant_to
+	r_owner.have_lamp = TRUE
+	r_owner.update_appearance()
+
+/datum/action/cooldown/spell/aoe/revenant/soul_fire
+	name = "gризрачное пламя"
+	desc = "Выпустите волну призрачного пламени из вашего фонаря."
+	button_icon_state = "lanternsflame"
+	cast_amount = 20
+	cast_increase_per_level = 20
+	cooldown_time = 25 SECONDS
+	cooldown_increase_per_level = -5 SECONDS
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 2 SECONDS
+	reveal_increase_per_level = 2 SECONDS
+	aoe_radius = 3
+	radius_increase_per_level = 2
+	targeting_type = /datum/aoe_targeting/human
+
+/datum/action/cooldown/spell/aoe/revenant/soul_fire/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Тусклое "
+		if(2)
+			return "Обжигающее "
+		if(3)
+			return "Пылающее "
+
+/datum/action/cooldown/spell/aoe/revenant/soul_fire/cast(atom/cast_on)
+	. = ..()
+	revenant_fire_ring(owner.loc, aoe_radius)
+
+/datum/action/cooldown/spell/aoe/revenant/soul_fire/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	if(!ishuman(victim))
+		return
+	var/mob/living/carbon/human/target = victim
+	target.apply_damage(10*spell_level, BURN)
+	target.apply_status_effect(/datum/status_effect/cursed_flame, 5*spell_level SECONDS, owner)
+
+/datum/action/cooldown/spell/pointed/revenant
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	background_icon_state = "bg_revenant"
+	background_icon_state_active = "bg_revenant"
+	spell_max_level = 3
+	/// How long it reveals the revenant in deciseconds
+	var/reveal = 8 SECONDS
+	/// How long it stuns the revenant in deciseconds
+	var/stun = 2 SECONDS
+	/// How much essence it costs to use
+	var/cast_amount = 50
+	var/cast_increase_per_level = 0
+	var/max_cast_amount = 10000 // just random big numbers for max numbers
+	var/max_radius = 100 SECONDS
+	var/radius_increase_per_level = 0
+	var/stun_increase_per_level = 0
+	var/max_stun = 100 SECONDS
+	var/reveal_increase_per_level = 0
+	var/max_reveal = 100 SECONDS
+	var/cooldown_increase_per_level = 0
+	var/max_cooldown = 1000 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/New(Target, original)
+	. = ..()
+	name = "[get_spell_title()][initial(name)]"
+
+/datum/action/cooldown/spell/pointed/revenant/create_new_handler()
+	var/datum/spell_handler/revenant/handler = new(cast_amount)
+	return handler
+
+/datum/action/cooldown/spell/pointed/revenant/level_spell(bypass_cap)
+	. = ..()
+	cast_range = min(cast_range + radius_increase_per_level, max_radius)
+	stun = min(stun + stun_increase_per_level, max_stun)
+	reveal = min(reveal + reveal_increase_per_level, max_reveal)
+	cast_amount = min(cast_amount + cast_increase_per_level, max_cast_amount)
+	cooldown_time = min(cooldown_time + cooldown_increase_per_level, max_cooldown)
+	QDEL_NULL(spell_handlers[/datum/spell_handler/revenant])
+	spell_handlers[/datum/spell_handler/revenant] = create_new_handler()
+
+/datum/action/cooldown/spell/pointed/revenant/reflect
+	name = "отражение мук"
+	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
+	button_icon_state = "mirrorofsuffer"
+	cast_amount = 20
+	cast_increase_per_level = 15
+	cooldown_time = 20 SECONDS
+	cooldown_increase_per_level = 10 SECONDS
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 3 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/reflect/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Слабое "
+		if(2)
+			return "Частичное "
+		if(3)
+			return "Полное "
+
+/datum/action/cooldown/spell/pointed/revenant/reflect/is_valid_target(atom/cast_on)
+	return ..() && ishuman(cast_on)
+
+/datum/action/cooldown/spell/pointed/revenant/reflect/cast(atom/cast_on)
+	. = ..()
+	var/reflectpercent = 0.3*spell_level
+	if(reflectpercent >= 0.9)
+		reflectpercent = 1 // round to 100%
+	var/mob/living/carbon/human/target = cast_on
+	var/time = (10+(spell_level-1)*10) SECONDS
+	target.apply_status_effect(/datum/status_effect/revenant_reflection, time, owner, reflectpercent)
+
+/datum/action/cooldown/spell/pointed/revenant/gaze
+	name = "взор"
+	desc = "Направьте пламя вашей лампы в смертного, ослепляя и оглушая его."
+	button_icon_state = "laterngaze"
+	cast_amount = 10
+	cast_increase_per_level = 10
+	cooldown_time = 15 SECONDS
+	cooldown_increase_per_level = 5 SECONDS
+	stun = 0
+	stun_increase_per_level = 1 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 2 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/gaze/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Жуткий "
+		if(2)
+			return "Пугающий "
+		if(3)
+			return "Ужасающий "
+
+/datum/action/cooldown/spell/pointed/revenant/gaze/is_valid_target(atom/cast_on)
+	return ..() && ishuman(cast_on)
+
+/datum/action/cooldown/spell/pointed/revenant/gaze/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
+	target.Weaken(spell_level SECONDS)
+	target.EyeBlind(spell_level SECONDS)
+	target.Silence(spell_level SECONDS)
+	target.AdjustJitter((5 + ((spell_level-1)*10)) SECONDS)
+	target.AdjustConfused((5 + ((spell_level-1)*10)) SECONDS)
+	target.AdjustDizzy((5 + ((spell_level-1)*10)) SECONDS)
+
+/datum/action/cooldown/spell/pointed/revenant/tear
+	name = "слеза пламени"
+	desc = "Выпустите в цель призрачную слезу из своего фонаря. При попадании слеза подожжет цель призрачным пламенем и нанесет урон ожогами."
+	button_icon_state = "laterntear"
+	cast_amount = 20
+	cast_increase_per_level = 20
+	cooldown_time = 20 SECONDS
+	cooldown_increase_per_level = -10 SECONDS
+	stun = 0.5 SECONDS
+	stun_increase_per_level = 0.5 SECONDS
+	reveal = 3 SECONDS
+	reveal_increase_per_level = 3 SECONDS
+
+/datum/action/cooldown/spell/pointed/revenant/tear/get_spell_title()
+	switch(spell_level)
+		if(1)
+			return "Вспыльчивая "
+		if(2)
+			return "Горящая "
+		if(3)
+			return "Полыхающая "
+
+/datum/action/cooldown/spell/pointed/revenant/tear/is_valid_target(atom/cast_on)
+	return ..() && ishuman(cast_on)
+
+/obj/projectile/rev_tear
+	name = "ghostly fireball"
+	icon = 'icons/effects/revenant.dmi'
+	icon_state = "ghostlyfireball"
+	speed = 3
+	damage = 0
+	damage_type = BURN
+	forcedodge = -1
+	ricochets_max = 0
+	suppressed = TRUE
+
+/obj/projectile/rev_tear/get_ru_names()
+	return alist(
+		NOMINATIVE = "снаряд призрачного пламени",
+		GENITIVE = "снаряда призрачного пламени",
+		DATIVE = "снаряду призрачного пламени",
+		ACCUSATIVE = "снаряд призрачного пламени",
+		INSTRUMENTAL = "снарядом призрачного пламени",
+		PREPOSITIONAL = "снаряде призрачного пламени",
+	)
+
+/obj/projectile/rev_tear/on_hit(atom/target, blocked, hit_zone)
+	if(target != original)
+		return FALSE
+	. = ..()
+	var/mob/living/carbon/human/mobtarget = target
+	mobtarget.apply_status_effect(/datum/status_effect/cursed_flame, jitter, firer)
+	qdel(src)
+
+/datum/action/cooldown/spell/pointed/revenant/tear/cast(atom/cast_on)
+	. = ..()
+	var/obj/projectile/rev_tear/proj = new(owner.loc)
+	proj.firer = owner
+	proj.damage = 10+spell_level*10
+	proj.jitter = 15 SECONDS
+	if(spell_level >= 3)
+		proj.jitter += 15 SECONDS
+	proj.preparePixelProjectile(cast_on, owner.loc)
+	proj.fire()
 
 /**
  * Defiling atoms.
@@ -500,9 +878,6 @@
 /obj/machinery/light/defile()
 	flicker(30)
 
-/obj/structure/closet/defile()
-	open()
-
 /mob/living/carbon/human/defile()
 	to_chat(src, span_warning("Вы внезапно чувствуете [pick("усталость и растерянность", "тошноту", "головокружение")]."))
 	apply_damages(tox = 5, stamina = 60)
@@ -537,43 +912,53 @@
  * Malfunctioning atoms.
  */
 
-/mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
+/mob/living/carbon/human/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	to_chat(src, span_warning("Вы чувствуете [pick("потерю ориентации", "резкую боль в голове", "как мозг заполняет ледяная статика")]."))
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
 		emp_act(EMP_HEAVY)
 
-/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
+/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(!emagged)
 		new /obj/effect/temp_visual/revenant(loc)
 		locked = FALSE
 		open = TRUE
 		emag_act(null)
 
-/mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
+/mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
 	if(cause_emp)
 		emp_act(EMP_HEAVY)
 
-/obj/rev_malfunction(cause_emp = TRUE)
-	if(prob(20))
+/obj/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
+	if(prob(20*malfunction_level))
 		if(prob(50))
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
 	else if(cause_emp)
 		emp_act(EMP_HEAVY)
 
-/obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
+/obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	..(cause_emp = FALSE)
 
-/atom/proc/rev_malfunction(cause_emp = TRUE)
+/atom/proc/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	return
 
-/obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE)
-	return
+/obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
+	if(malfunction_level < 3)
+		return
+	emp_act(1)
 
-/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
-	return
+/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
+	if(malfunction_level < 3)
+		return
+	emp_act(1)
 
+/obj/item/gun/energy/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
+	if(malfunction_level < 3)
+		return
+	emp_act(1)
+
+#undef INVISIBILITY_REVENANT

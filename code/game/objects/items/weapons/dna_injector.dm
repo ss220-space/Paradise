@@ -154,6 +154,12 @@
 
 	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
 
+/obj/item/dnainjector/defile()
+	. = ..()
+	name = /obj/item/dnainjector::name
+	desc = /obj/item/dnainjector::desc
+	update_appearance()
+
 /obj/item/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"
 	desc = "This will make you big and strong, but give you a bad skin condition."

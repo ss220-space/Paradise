@@ -42,6 +42,20 @@
 /obj/item/reagent_containers/food/pill/patch/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	return // thanks inheritance again
 
+/obj/item/reagent_containers/food/pill/patch/defile()
+	name = /obj/item/reagent_containers/food/pill/patch::name
+	desc = /obj/item/reagent_containers/food/pill/patch::desc
+	icon_state = /obj/item/reagent_containers/food/pill/patch::icon_state
+	ru_names = alist(
+		NOMINATIVE = "пластырь",
+		GENITIVE = "пластыря",
+		DATIVE = "пластырю",
+		ACCUSATIVE = "пластырь",
+		INSTRUMENTAL = "пластырем",
+		PREPOSITIONAL = "пластыре",
+	)
+	update_appearance()
+
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "healing patch"
 	desc = "Помогает при порезах и ушибах."

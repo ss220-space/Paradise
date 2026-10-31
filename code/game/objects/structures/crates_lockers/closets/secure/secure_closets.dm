@@ -134,4 +134,11 @@
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
+/obj/structure/closet/secure_closet/defile()
+	if(locked)
+		unlock()
+		new/obj/effect/temp_visual/revenant(loc)
+		return
+	. = ..()
+
 #undef CLOSET_BREAKOUT_TIME

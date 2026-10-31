@@ -334,6 +334,23 @@
 			turfs += checked_turf
 	return turfs
 
+/proc/get_hollow_turfs_circle(center=usr, radius = 3)
+	var/turf/center_turf = get_turf(center)
+	var/center_x = center_turf.x
+	var/center_y = center_turf.y
+	var/list/turfs = new/list()
+	var/radius_out = radius * (radius + 0.5)
+	var/radius_inner = (radius-1) * ((radius-1) + 0.5)
+
+	for(var/turf/checked_turf as anything in RANGE_TURFS(radius, center_turf))
+		var/dx = checked_turf.x - center_x
+		var/dy = checked_turf.y - center_y
+		var/range = dx * dx + dy * dy
+		if(range <= radius_out && range >= radius_inner)
+			turfs += checked_turf
+	return turfs
+
+
 /**
  * Get a bounding box of a list of atoms.
  *

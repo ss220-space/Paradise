@@ -480,6 +480,21 @@
 	else
 		. += span_notice("Использовано.")
 
+/obj/item/reagent_containers/hypospray/autoinjector/defile()
+	. = ..()
+	name = /obj/item/reagent_containers/hypospray/autoinjector::name
+	desc = /obj/item/reagent_containers/hypospray/autoinjector::desc
+	icon_state = /obj/item/reagent_containers/hypospray/autoinjector::icon_state
+	ru_names = alist(
+		NOMINATIVE = "автоинъектор (Эпинефрин)",
+		GENITIVE = "автоинъектора (Эпинефрин)",
+		DATIVE = "автоинъектору (Эпинефрин)",
+		ACCUSATIVE = "автоинъектор (Эпинефрин)",
+		INSTRUMENTAL = "автоинъектором (Эпинефрин)",
+		PREPOSITIONAL = "автоинъекторе (Эпинефрин)",
+	)
+	update_appearance()
+
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу тепорона. Быстрый способ восстановления температуры тела до естественных показателей."

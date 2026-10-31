@@ -358,3 +358,15 @@
 	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_FROM, target)
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
+/obj/item/reagent_containers/defile()
+	if(!is_open_container())
+		return
+
+	for(var/datum/reagent/booze in reagents.reagent_list)
+		if(!istype(booze, /datum/reagent/consumable/ethanol))
+			continue
+		var/booze_amount = reagents.get_reagent_amount(booze.id)
+		reagents.remove_reagent(booze.id, booze_amount)
+		reagents.add_reagent(/datum/reagent/blood, booze_amount)
+	new/obj/effect/temp_visual/revenant(loc)
+	update_appearance()
