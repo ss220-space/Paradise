@@ -3,6 +3,7 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 */
 
 /datum/map/delta
+	overmap_physical_docks = TRUE
 	name = "Delta"
 	map_path = "_maps/map_files/Delta/delta.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"

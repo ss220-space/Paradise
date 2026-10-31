@@ -18,6 +18,7 @@
 	name = "syndicate shuttle recall terminal"
 	circuit = /obj/item/circuitboard/shuttle/syndicate/recall
 	possible_destinations = "syndicate_away"
+	overmap_request_console = TRUE
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
@@ -55,6 +56,7 @@
 /obj/machinery/computer/shuttle/nt/drop_pod/recall
 	name = "nanotrasen emergency pod recall"
 	possible_destinations = "pod_recall"
+	overmap_request_console = TRUE
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
 	if(action == "move")

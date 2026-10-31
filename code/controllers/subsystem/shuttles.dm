@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
+	var/list/assoc_mobile = list()
+	var/list/assoc_stationary = list()
 
 	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
 	var/list/transit_requesters = list()
@@ -120,6 +122,8 @@ SUBSYSTEM_DEF(shuttle)
 			var/not_centcom_evac = owner != emergency
 			var/not_in_use = (!T.get_docked())
 			if(idle && not_centcom_evac && not_in_use)
+				if(SSovermap?.shuttle_vessels[owner])
+					continue
 				qdel(T, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
@@ -137,16 +141,25 @@ SUBSYSTEM_DEF(shuttle)
 				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	for(var/obj/docking_port/mobile/M in mobile)
+	. = assoc_mobile[id]
+	if(.)
+		return
+	for(var/obj/docking_port/mobile/M as anything in mobile)
 		if(M.id == id)
+			assoc_mobile[id] = M
 			return M
 	WARNING("couldn't find shuttle with id: [id]")
 
-/datum/controller/subsystem/shuttle/proc/getDock(id)
-	for(var/obj/docking_port/stationary/S in stationary)
+/datum/controller/subsystem/shuttle/proc/getDock(id, warn = TRUE)
+	. = assoc_stationary[id]
+	if(.)
+		return
+	for(var/obj/docking_port/stationary/S as anything in stationary)
 		if(S.id == id)
+			assoc_stationary[id] = S
 			return S
-	WARNING("couldn't find dock with id: [id]")
+	if(warn)
+		WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
@@ -272,6 +285,25 @@ SUBSYSTEM_DEF(shuttle)
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
+/obj/docking_port/mobile/proc/overmap_try_programmed_move(dock_id)
+	if(!SSovermap?.initialized)
+		return null
+	var/obj/overmap/entity/vessel = SSovermap.shuttle_vessels[src]
+	if(!vessel)
+		vessel = SSovermap.get_or_register_shuttle(src)
+	if(!vessel?.programmed)
+		return null
+	if(vessel.is_programmed_emagged())
+		return 2
+	if(getDockedId() == dock_id)
+		vessel.snap_physical_redock()
+		return 0
+	if(id == "supply" && !canMove())
+		return 2
+	if(vessel.start_programmed_route(dock_id, TRUE, TRUE) == TRUE)
+		return 0
+	return 2
+
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	if(!M)
@@ -280,6 +312,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
+	var/overmap_result = M.overmap_try_programmed_move(destination)
+	if(!isnull(overmap_result))
+		return overmap_result
 	if(timed)
 		if(M.request(getDock(destination)))
 			return 2
@@ -290,6 +325,11 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	if(!mobile)
+		return 1
+	var/overmap_result = mobile.overmap_try_programmed_move(dockId)
+	if(!isnull(overmap_result))
+		return overmap_result
 	var/obj/docking_port/stationary/dockAt = getDock(dockId)
 	var/hyperspace_mini = sound(mobile.fly_sound)
 	var/area = mobile.areaInstance
@@ -297,8 +337,6 @@ SUBSYSTEM_DEF(shuttle)
 	if(mobile.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
 
-	if(!mobile)
-		return 1
 	mobile.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(mobile.request(dockAt))
@@ -319,15 +357,26 @@ SUBSYSTEM_DEF(shuttle)
 		if(!(M in transit_requesters))
 			transit_requesters += M
 
-/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
+/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M, max_z_level = null)
+	if(!istype(M))
+		return FALSE
+	if(M.assigned_transit && !QDELETED(M.assigned_transit))
+		return M.assigned_transit
 	// First, determine the size of the needed zone
 	// Because of shuttle rotation, the "width" of the shuttle is not
 	// always x.
 	var/travel_dir = M.preferred_direction
 	// Remember, the direction is the direction we appear to be
 	// coming from
+	// Add 180, because ports point inwards, rather than outwards
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
 	var/dock_dir = angle2dir(dock_angle)
+	var/overmap_reservation = M.overmap_uses_area_hull()
+	if(overmap_reservation)
+		M.overmap_sync_bounds(TRUE)
+		var/list/om_origin = M.overmap_origin()
+		if(om_origin[2])
+			dock_dir = M.overmap_transit_dir(om_origin[2])
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
@@ -357,14 +406,18 @@ SUBSYSTEM_DEF(shuttle)
 		transit_width,
 		transit_height,
 		z_size = 1, //if this is changed the turf uncontain code below has to be updated to support multiple zs
-		reservation_type = /datum/turf_reservation/transit,
-		turf_type_override = transit_path,
+		reservation_type = overmap_reservation ? /datum/turf_reservation/transit/overmap : /datum/turf_reservation/transit,
+		turf_type_override = overmap_reservation ? /turf/space : transit_path,
+		max_z_level = max_z_level,
 	)
 
 	if(!istype(proposal))
 		return FALSE
 
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
+	var/turf/topright = length(proposal.top_right_turfs) ? proposal.top_right_turfs[1] : null
+	if(bottomleft && topright)
+		overmap_seal_block_with_hyperspace(bottomleft, topright)
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
 
@@ -401,12 +454,13 @@ SUBSYSTEM_DEF(shuttle)
 	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
 	new_transit_dock.reserved_area = proposal
+	if(overmap_reservation)
+		new_transit_dock.turf_type = /turf/space
 	new_transit_dock.name = M.name
 	new_transit_dock.owner = M
 	new_transit_dock.assigned_area = new_area
 
-	// Add 180, because ports point inwards, rather than outwards
-	new_transit_dock.setDir(angle2dir(dock_angle))
+	new_transit_dock.setDir(dock_dir)
 
 	M.assigned_transit = new_transit_dock
 	return new_transit_dock

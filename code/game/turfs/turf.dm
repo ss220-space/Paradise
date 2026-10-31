@@ -263,6 +263,11 @@
 // Enter, but hypothetical.
 /turf/proc/can_enter(atom/movable/mover)
 	var/atom/mover_loc = mover.loc
+	if(length(SSovermap.flying_pods))
+		var/obj/spacepod/pod = SSovermap.pod_blocker(src, mover)
+		if(pod)
+			mover.Bump(pod)
+			return FALSE
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
 	if(!can_pass_self)
@@ -362,7 +367,7 @@
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	var/old_lighting_object = lighting_object
+	var/atom/movable/lighting_object/old_lighting_object = lighting_object
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
@@ -426,7 +431,12 @@
 	if(SSlighting.initialized)
 		// Space tiles should never have lighting objects
 		if(!space_lit)
-			if(old_lighting_object)
+			if(lighting_object)
+
+				if(old_lighting_object && old_lighting_object != lighting_object)
+					old_lighting_object.affected_turf = null
+					qdel(old_lighting_object, force = TRUE)
+			else if(old_lighting_object)
 				lighting_object = old_lighting_object
 				vis_contents += lighting_object
 			// Should have a lighting object if we never had one

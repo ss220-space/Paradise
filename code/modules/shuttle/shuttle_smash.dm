@@ -1,4 +1,4 @@
-/obj/docking_port/mobile/proc/shuttle_smash(list/mobile_turfs, list/stationary_turfs, mobile_dir)
+/obj/docking_port/mobile/proc/shuttle_smash(list/mobile_turfs, list/stationary_turfs, mobile_dir, hull_only = FALSE)
 	set waitfor = FALSE
 
 	var/list/viewers_by_turf = list()
@@ -8,6 +8,8 @@
 		var/turf/mobile_turf = mobile_turfs[i]
 		var/turf/stationary_turf = stationary_turfs[i]
 		if(!mobile_turf || !stationary_turf)
+			continue
+		if(hull_only && !overmap_is_hull_turf(mobile_turf))
 			continue
 
 		for(var/atom/movable/movable in stationary_turf.contents)

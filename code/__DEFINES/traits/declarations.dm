@@ -27,6 +27,7 @@
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
+#define TRAIT_HYPERSPACE_DRIFT "hyperspace_drift"
 
 /// This atom is a secluded location, which is counted as out of bounds.
 /// Anything that enters this atom's contents should react if it wants to stay in bounds.
@@ -411,7 +412,6 @@
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
 #define TRAIT_BALD "bald"
-
 
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_XRAY_VISION "xray_vision"

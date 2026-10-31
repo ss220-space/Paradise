@@ -51,6 +51,8 @@
 #define RUSTLIB (__rustlib || __detect_rustlib())
 #define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]")(args)
 
+#define FOG_OF_WAR_USE_RUSTLIB
+
 /// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
@@ -241,7 +243,6 @@
 
 	sound_cache[file_path] = ret
 	return ret
-
 
 #define RUSTG_SOUNDLEN_SUCCESSES "successes"
 #define RUSTG_SOUNDLEN_ERRORS "errors"

@@ -97,6 +97,7 @@
 
 	var/obj/item/salvage_sensor = /obj/item/assembly/prox_sensor
 	var/sprite_prefix = ""
+	var/datum/component/ship_weapon/ship_weapon
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -113,6 +114,7 @@
 
 	proximity_monitor = new(src, scan_range)
 	setup()
+	ship_weapon = AddComponent(/datum/component/ship_weapon)
 
 /obj/machinery/porta_turret/proc/diag_hud_set_health()
 	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/initial(health))]")
@@ -532,6 +534,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/process()
+	if(ship_weapon?.process_turret())
+		return
 	//the main machinery process
 
 	if(stat & (NOPOWER|BROKEN))
@@ -605,14 +609,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L)
 	return assess_living(L)
 
-/obj/machinery/porta_turret/proc/assess_living(mob/living/L)
+/obj/machinery/porta_turret/proc/assess_living(mob/living/L, world_range_checked = FALSE)
 	if(!L)
 		return TURRET_NOT_TARGET
 
 	if(get_turf(L) == get_turf(src))
 		return TURRET_NOT_TARGET
 
-	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
+	if(!world_range_checked && get_dist(src, L) > scan_range)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest

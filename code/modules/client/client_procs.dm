@@ -1138,6 +1138,7 @@
 	datum_flags |= DF_VAR_EDITED
 
 /client/Click(atom/object, atom/location, control, params)
+	var/list/modifiers = params2list(params)
 	if(click_intercept_time)
 		if(click_intercept_time >= world.time)
 			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
@@ -1145,8 +1146,6 @@
 		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
 	var/ab = FALSE
-	var/list/modifiers = params2list(params)
-
 	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
 
 	var/dragged = LAZYACCESS(modifiers, DRAG)

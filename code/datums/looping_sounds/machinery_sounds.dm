@@ -109,6 +109,13 @@
 	mid_length = 0.95 SECONDS
 	volume = 35
 
+/datum/looping_sound/overmap_sensor_peel
+	mid_sounds = list('sound/overmap/sensors/sensorloop.ogg' = 1)
+	mid_length = 15 SECONDS
+	volume = 16
+	extra_range = 3
+	pressure_affected = FALSE
+
 /datum/looping_sound/singularity
 	start_sound = 'sound/machines/generator/singularity_form.ogg'
 	start_length = 5 SECONDS
@@ -138,3 +145,18 @@
 	falloff_distance = 5
 	use_sound_tokens = TRUE
 	pressure_affected = FALSE
+
+/datum/looping_sound/ship_engine
+	start_sound = 'sound/machines/engine/engine_start.ogg'
+	start_length = 0.3 SECONDS
+	mid_sounds = list('sound/machines/engine/engine_mid1.ogg' = 1)
+	mid_length = 0.3 SECONDS
+	end_sound = 'sound/machines/engine/engine_end.ogg'
+	volume = 25
+	extra_range = 6
+	pressure_affected = FALSE
+	use_sound_tokens = TRUE
+
+/datum/looping_sound/ship_engine/thruster
+	volume = 12
+	extra_range = 2

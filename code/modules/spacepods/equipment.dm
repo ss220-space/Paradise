@@ -1,51 +1,80 @@
-/obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
-	if((HAS_TRAIT(usr, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && harmful)
-		to_chat(usr, span_warning("You don't want to harm other living beings!"))
+/obj/item/spacepod_equipment/weaponry/proc/fire_weapons(mob/user, target_x, target_y)
+	var/obj/spacepod/craft = my_atom
+	if(!user || QDELETED(craft) || user != craft.pilot || user.incapacitated())
 		return
-	if(my_atom.next_firetime > world.time)
-		to_chat(usr, span_warning("Your weapons are recharging."))
+	if((HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && harmful)
+		to_chat(user, span_warning("Вы не хотите причинять вред живым существам."))
 		return
-	my_atom.next_firetime = world.time + fire_delay
-	var/turf/firstloc
-	var/turf/secondloc
-	if(!my_atom.equipment_system || !my_atom.equipment_system.weapon_system)
-		to_chat(usr, span_warning("Missing equipment or weapons."))
-		my_atom.verbs -= text2path("[type]/proc/fire_weapons")
+	if(craft.next_firetime > world.time)
 		return
-	if(!my_atom.battery.use(shot_cost))
-		to_chat(usr, span_warning("Insufficient charge to fire the weapons"))
+	if(!craft.equipment_system || craft.equipment_system.weapon_system != src)
 		return
-	var/olddir
-	for(var/i = 0; i < shots_per; i++)
-		if(olddir != my_atom.dir)
-			switch(my_atom.dir)
-				if(NORTH)
-					firstloc = get_step(my_atom, NORTH)
-					secondloc = get_step(firstloc,EAST)
-				if(SOUTH)
-					firstloc = get_turf(my_atom)
-					secondloc = get_step(firstloc,EAST)
-				if(EAST)
-					firstloc = get_step(my_atom, EAST)
-					secondloc = get_step(firstloc,NORTH)
-				if(WEST)
-					firstloc = get_turf(my_atom)
-					secondloc = get_step(firstloc,NORTH)
-		olddir = dir
-		var/obj/projectile/projone = new projectile_type(firstloc)
-		var/obj/projectile/projtwo = new projectile_type(secondloc)
-		projone.starting = get_turf(my_atom)
-		projone.firer = usr
-		projone.firer_source_atom = src
-		projone.def_zone = BODY_ZONE_CHEST
-		projtwo.starting = get_turf(my_atom)
-		projtwo.firer = usr
-		projtwo.firer_source_atom = src
-		projtwo.def_zone = BODY_ZONE_CHEST
-		spawn()
-			playsound(src, fire_sound, 50, TRUE)
-			projone.dumbfire(my_atom.dir)
-			projtwo.dumbfire(my_atom.dir)
+	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket())
+		if(!craft.overmap_vessel.in_free_flight() || !craft.overmap_vessel.sector)
+			to_chat(user, span_warning("Орудия недоступны во время перехода."))
+			return
+	if(isnum(target_x) && isnum(target_y))
+		var/datum/component/ship_weapon/weapon = GetComponent(/datum/component/ship_weapon)
+		var/obj/overmap/entity/vessel = weapon.host()
+		if(!vessel || !weapon.can_aim(vessel, target_x, target_y))
+			return FALSE
+	if(!craft.battery?.use(shot_cost))
+		to_chat(user, span_warning("Недостаточно энергии для выстрела."))
+		return
+	craft.next_firetime = world.time + fire_delay
+	INVOKE_ASYNC(src, PROC_REF(fire_burst), user, target_x, target_y)
+	return TRUE
+
+/obj/item/spacepod_equipment/weaponry/proc/fire_burst(mob/user, target_x, target_y)
+	var/obj/spacepod/craft = my_atom
+	for(var/i in 1 to shots_per)
+		if(QDELETED(craft) || QDELETED(src) || craft.pilot != user)
+			break
+		if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket() && !craft.overmap_vessel.in_free_flight())
+			break
+		var/datum/component/ship_weapon/weapon = GetComponent(/datum/component/ship_weapon)
+		if(isnum(target_x) && isnum(target_y) && !weapon.can_aim(weapon.host(), target_x, target_y))
+			break
+		for(var/side in list(-1, 1))
+			var/obj/projectile/projectile = new projectile_type(null)
+			projectile.overmap_radar_visible |= overmap_radar_visible
+			if(penetration_chance)
+				projectile.ship_penetrations = 1
+				projectile.ship_penetration_chance = penetration_chance
+				projectile.ship_penetration_decay = 0.5
+			projectile.firer = user
+			projectile.firer_source_atom = craft
+			projectile.def_zone = BODY_ZONE_CHEST
+			if(craft.overmap_vessel?.in_free_flight())
+				craft.overmap_vessel.fire_pod_projectile(projectile, side, target_x, target_y)
+			else
+				var/turf/muzzle = get_turf(craft)
+				switch(craft.dir)
+					if(NORTH)
+						muzzle = get_step(muzzle, NORTH)
+						if(side > 0)
+							muzzle = get_step(muzzle, EAST)
+					if(SOUTH)
+						if(side > 0)
+							muzzle = get_step(muzzle, EAST)
+					if(EAST)
+						muzzle = get_step(muzzle, EAST)
+						if(side > 0)
+							muzzle = get_step(muzzle, NORTH)
+					if(WEST)
+						if(side > 0)
+							muzzle = get_step(muzzle, NORTH)
+				projectile.forceMove(muzzle)
+				projectile.starting = get_turf(craft)
+				if(isnum(target_x) && isnum(target_y))
+					var/list/point = weapon.world_position(weapon.host())
+					var/obj/overmap/entity/owner = SSovermap.frame_owner(muzzle)
+					projectile.set_angle(delta_to_angle(target_x - point[1], target_y - point[2]) - (istype(owner) ? owner.get_facing() : 0))
+					projectile.fire()
+				else
+					projectile.dumbfire(craft.dir)
+		if(fire_sound)
+			craft.play_sound_to_riders(fire_sound)
 		sleep(2)
 
 /datum/spacepod/equipment
@@ -101,11 +130,20 @@
 	desc = "You shouldn't be seeing this"
 	icon_state = null
 	var/obj/projectile/projectile_type
+	var/penetration_chance = 0
+	var/overmap_radar_visible = FALSE
 	var/shot_cost = 0
 	var/shots_per = 1
 	var/fire_sound
 	var/fire_delay = 15
 	var/harmful = TRUE
+
+/obj/item/spacepod_equipment/weaponry/Initialize(mapload)
+	. = ..()
+	var/datum/component/ship_weapon/weapon = AddComponent(/datum/component/ship_weapon)
+	weapon.arc = 20
+	weapon.automatic = FALSE
+	weapon.mount_dir = NORTH
 
 /obj/item/spacepod_equipment/weaponry/Destroy()
 	if(my_atom?.equipment_system?.weapon_system == src)
@@ -143,6 +181,8 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/spacepod_equipment/weaponry/solaris
+	penetration_chance = 50
+	overmap_radar_visible = TRUE
 	name = "solaris system"
 	desc = "A stronger vesion of laser systems for pods. Fires high concetrated bursts of energy"
 	icon_state = "weapon_laser"
@@ -150,6 +190,14 @@
 	shot_cost = 1800
 	shots_per = 2
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
+/obj/item/spacepod_equipment/weaponry/ion
+	name = "ion system"
+	desc = "A paired ion projector for spacepods."
+	icon_state = "weapon_taser"
+	projectile_type = /obj/projectile/ion/pod
+	shot_cost = 800
+	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
