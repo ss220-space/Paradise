@@ -95,7 +95,7 @@
 	update_stats()
 
 /datum/revenant_spell/proc/CanBuy(mob/living/simple_animal/revenant/buyer)
-	if(!istype(buyer) || buyer.essence < cost || spell.spell_level == spell.spell_max_level || need_lamp && !buyer.have_lamp)
+	if(!istype(buyer) || buyer.essence < cost || spell.spell_level == spell.spell_max_level && owned || need_lamp && !buyer.have_lamp)
 		return FALSE
 	return TRUE
 
