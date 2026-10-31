@@ -76,6 +76,7 @@
 
 /obj/spacepod/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_IGNORE_OWN_PROJECTILE, INNATE_TRAIT)
 	bound_width = 64
 	bound_height = 64
 	create_internal_system()
