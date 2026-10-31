@@ -7,7 +7,7 @@
 	invocation_type = INVOCATION_SHOUT
 	button_icon_state = "sacredflame"
 	sound = 'sound/magic/fireball.ogg'
-	targeting_type = /datum/aoe_targeting/living
+	targeting_type = /datum/aoe_targeting/living_w_self
 
 /datum/action/cooldown/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	if(victim.can_block_magic(antimagic_flags))
