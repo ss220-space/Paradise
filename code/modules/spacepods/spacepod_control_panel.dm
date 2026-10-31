@@ -41,18 +41,20 @@
 
 /datum/ui_module/spacepod_control_panels/proc/create_electricity_panel_data()
 	var/list/panel = list()
-	if(pod.systems.battery)
+	panel["exists"] = FALSE
+	var/list/batteries = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
 		panel["exists"] = TRUE
-		panel["battery_id"] = pod.systems.battery.id
-		panel["link"] = pod.systems.battery.connection_power_net
-		panel["power"] = round(pod.systems.battery.power, 1)
-		panel["capacity"] = pod.systems.battery.power_capacity
-		if(pod.systems.battery.power_capacity > 0)
-			panel["percent"] = round(pod.systems.battery.power / pod.systems.battery.power_capacity * 100, 1)
+		panel["battery_id"] = batt.id
+		panel["link"] = batt.connection_power_net
+		panel["power"] = round(batt.power, 1)
+		panel["capacity"] = batt.power_capacity
+		if(batt.power_capacity > 0)
+			panel["percent"] = round(batt.power / batt.power_capacity * 100, 1)
 		else
 			panel["percent"] = 0
-	else
-		panel["exists"] = FALSE
+		break
+
 	var/list/consumers = list()
 	for(var/obj/item/spacepod_module/module in pod.systems.modules)
 		if(module.consume_power > 0)
@@ -68,7 +70,11 @@
 /datum/ui_module/spacepod_control_panels/proc/create_engines_panel_data()
 	var/list/panel = list()
 	var/list/engines = list()
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine in pod.systems.engines)
+	var/list/pod_engines = list()
+	var/list/basic_engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	pod_engines += basic_engines
+	pod_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in pod_engines)
 		var/list/engine_data= list()
 		engine_data["id"] = engine.id
 		engine_data["caption"] = engine.caption
@@ -86,7 +92,7 @@
 			engine_data["selected_rpm_provide_engine"] = apu_engine.rpm_destination_engine ? apu_engine.rpm_destination_engine.module_name : NOT_SELECTED_RPM_PROVIDER
 			var/rpm_destinations = list()
 			rpm_destinations += NOT_SELECTED_RPM_PROVIDER
-			for(var/obj/item/spacepod_module/fuel_tank/engine/dest_engine in pod.systems.engines)
+			for(var/obj/item/spacepod_module/fuel_tank/engine/dest_engine as anything in basic_engines)
 				if(engine == dest_engine)
 					continue
 				rpm_destinations += dest_engine.module_name
@@ -101,28 +107,31 @@
 		engine_data["error_text"] = engine.error_text
 		engines += list(engine_data)
 	panel["engines"] = engines
+
 	// Gyroscope
-	if(pod.systems.gyroscope)
+	panel["gyroscope"] = null
+	var/list/gyroscopes = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_GYRO)
+	for(var/obj/item/spacepod_module/gyroscope/gyro as anything in gyroscopes)
 		var/gyroscope_data = list()
-		gyroscope_data["id"] = pod.systems.gyroscope.id
-		gyroscope_data["name"] = pod.systems.gyroscope.module_name
-		gyroscope_data["power_link"] = pod.systems.gyroscope.connection_power_net
-		gyroscope_data["enable"] = pod.systems.gyroscope.enable
-		gyroscope_data["rpm"] = pod.systems.gyroscope.current_rpm
-		gyroscope_data["rpm_percent"] = round(pod.systems.gyroscope.current_rpm / pod.systems.gyroscope.max_rpm * 100, 1)
+		gyroscope_data["id"] = gyro.id
+		gyroscope_data["name"] = gyro.module_name
+		gyroscope_data["power_link"] = gyro.connection_power_net
+		gyroscope_data["enable"] = gyro.enable
+		gyroscope_data["rpm"] = gyro.current_rpm
+		gyroscope_data["rpm_percent"] = round(gyro.current_rpm / gyro.max_rpm * 100, 1)
 		gyroscope_data["rpm_warn"] = gyroscope_data["rpm_percent"] < 10 || gyroscope_data["rpm_percent"] > 120
 		gyroscope_data["temperature"] = 32 + rand(1, 10)
 		gyroscope_data["temperature_warn"] = FALSE
-		gyroscope_data["error_text"] = pod.systems.gyroscope.error_text
+		gyroscope_data["error_text"] = gyro.error_text
 		panel["gyroscope"] = gyroscope_data
-	else
-		panel["gyroscope"] = null
+
 	return panel
 
 /datum/ui_module/spacepod_control_panels/proc/create_fuel_panel_data()
 	var/list/panel = list()
 	var/fuel_tanks = list()
-	for(var/obj/item/spacepod_module/fuel_tank/fuel_tank in pod.systems.fuel_tanks)
+	var/list/pod_fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
+	for(var/obj/item/spacepod_module/fuel_tank/fuel_tank as anything in pod_fuel_tanks)
 		var/tank_data = list()
 		tank_data["id"] = fuel_tank.id
 		tank_data["name"] = fuel_tank.module_name
@@ -132,8 +141,10 @@
 		tank_data["level_percent"] = round(fuel_tank.fuel_amount / fuel_tank.fuel_capacity * 100, 1)
 		fuel_tanks += list(tank_data)
 	panel["fuel_tanks"] = fuel_tanks
+
+	var/list/pod_fuel_pumps = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
 	var/fuel_pumps = list()
-	for(var/obj/item/spacepod_module/fuel_pump/pump in pod.systems.fuel_pumps)
+	for(var/obj/item/spacepod_module/fuel_pump/pump as anything in pod_fuel_pumps)
 		var/pump_data = list()
 		pump_data["id"] = pump.id
 		pump_data["name"] = pump.module_name
@@ -150,22 +161,25 @@
 
 /datum/ui_module/spacepod_control_panels/proc/create_weapons_panel_data()
 	var/list/panel = list()
-	if(pod.systems.weapon == null)
+	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	if(!length(weapons))
 		panel["module"] = null
 		panel["guns"] = list()
 		return panel
+
+	var/obj/item/spacepod_module/weapon/weapon = weapons[1]
 	var/module = list()
-	module["id"] = pod.systems.weapon.id
-	module["name"] = pod.systems.weapon.module_name
-	module["enable"] = pod.systems.weapon.enable
-	module["power_link"] = pod.systems.weapon.connection_power_net
-	module["error_text"] = pod.systems.weapon.error_text
+	module["id"] = weapon.id
+	module["name"] = weapon.module_name
+	module["enable"] = weapon.enable
+	module["power_link"] = weapon.connection_power_net
+	module["error_text"] = weapon.error_text
 	panel["module"] = module
 	var/guns = list()
-	if(pod.systems.weapon.primary.weapon)
-		guns += list(create_weapon_data(pod.systems.weapon.primary, TRUE))
-	if(pod.systems.weapon.secondary.weapon)
-		guns += list(create_weapon_data(pod.systems.weapon.secondary, FALSE))
+	if(weapon.primary.weapon)
+		guns += list(create_weapon_data(weapon.primary, TRUE))
+	if(weapon.secondary.weapon)
+		guns += list(create_weapon_data(weapon.secondary, FALSE))
 	panel["guns"] = guns
 	return panel
 
@@ -197,11 +211,12 @@
 
 /datum/ui_module/spacepod_control_panels/proc/create_life_support_data()
 	var/list/panel = list()
-	panel["exists"] = pod.systems.life_support != null
+	var/obj/item/spacepod_module/life_support/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
+	panel["exists"] = life_supports != null
 	if(pod.internal_tank != null)
 		var/list/airtank = list()
 		airtank["name"] = pod.internal_tank.declent_ru(NOMINATIVE)
-		airtank["enable"] = pod.systems.life_support != null && pod.systems.life_support.enable
+		airtank["enable"] = life_supports != null && life_supports.enable
 		airtank["volume"] = pod.internal_tank.volume
 		airtank["pressure"] = pod.internal_tank.return_pressure()
 		airtank["low_pressure"] = pod.internal_tank.return_pressure() < 0.25 * pod.internal_tank.maximum_pressure
@@ -209,7 +224,7 @@
 	else
 		panel["airtank"] = null
 	var/list/atmos = list()
-	if(pod.systems.life_support != null && pod.systems.life_support.enable)
+	if(life_supports != null && life_supports.enable)
 		atmos["pressure"] = pod.cabin_air.return_pressure()
 		atmos["low_pressure"] = pod.cabin_air.return_pressure() < 0.8 * ONE_ATMOSPHERE
 		var/temperature = pod.cabin_air.temperature()
@@ -234,9 +249,11 @@
 	hull["max_integrity"] = pod.max_integrity
 	hull["integrity_warn"] = pod.obj_integrity < 0.25 * pod.max_integrity
 	hull["extenguish_charges"] = 0
-	if(pod.systems.fire_extenguisher != null)
-		hull["extenguish_charges"] = pod.systems.fire_extenguisher.charges
+	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
+	if(fire_extenguisher != null)
+		hull["extenguish_charges"] = fire_extenguisher.charges
 	panel["hull"] = hull
+
 	var/modules = list()
 	for(var/obj/item/spacepod_module/module in pod.systems.modules)
 		var/module_data = list()
@@ -253,23 +270,28 @@
 
 /datum/ui_module/spacepod_control_panels/proc/create_misc_panel_data()
 	var/list/panel = list()
-	if(pod.systems.key_lock != null)
+	var/obj/item/spacepod_module/key_lock/key_lock = pod.systems.get_misc_module(/obj/item/spacepod_module/key_lock)
+	if(key_lock != null)
 		var/lock_data = list()
 		lock_data["locked"] = !pod.unlocked
 		panel["key_lock"] = lock_data
 	else
 		panel["key_lock"] = null
-	if(pod.systems.catapult != null)
+
+	var/obj/item/spacepod_module/catapult_module/pod_catapult = pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
+	if(pod_catapult != null)
 		var/catapult = list()
-		catapult["id"] = pod.systems.catapult.id
-		catapult["enable"] = pod.systems.catapult.enable
+		catapult["id"] = pod_catapult.id
+		catapult["enable"] = pod_catapult.enable
 		panel["catapult"] = catapult
 	else
 		panel["catapult"] = null
-	if(pod.systems.tracker != null)
+
+	var/obj/item/spacepod_module/tracker/pod_tracker = pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)
+	if(pod_tracker != null)
 		var/tracker_data = list()
-		tracker_data["id"] = pod.systems.tracker.id
-		tracker_data["enable"] = pod.systems.tracker.enable
+		tracker_data["id"] = pod_tracker.id
+		tracker_data["enable"] = pod_tracker.enable
 		panel["tracker"] = tracker_data
 	else
 		panel["tracker"] = null
@@ -363,7 +385,10 @@
 /datum/ui_module/spacepod_control_panels/proc/ignite_engine(id)
 	var/apu_id = null
 	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = null
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine in pod.systems.engines)
+	var/list/total_engines = list()
+	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in total_engines)
 		if(id == engine.id)
 			target_engine = engine
 		if(engine.is_apu())
@@ -384,7 +409,8 @@
 
 /datum/ui_module/spacepod_control_panels/proc/switch_generator_enable(id)
 	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = null
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine in pod.systems.engines)
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
 		if(id == engine.id)
 			target_engine = engine
 			break
@@ -398,9 +424,12 @@
 /datum/ui_module/spacepod_control_panels/proc/select_engine_rpm_provider(id, destination_engine_name)
 	var/obj/item/spacepod_module/fuel_tank/engine/apu/target_engine = null
 	var/obj/item/spacepod_module/fuel_tank/engine/destination_engine = null
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine in pod.systems.engines)
-		if(id == engine.id && istype(engine, /obj/item/spacepod_module/fuel_tank/engine/apu))
-			target_engine = engine
+	var/list/apu_list = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/apu/apu as anything in apu_list)
+		if(id == apu.id)
+			target_engine = apu
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
 		if(destination_engine_name == engine.module_name)
 			destination_engine = engine
 	if(!target_engine)
@@ -412,9 +441,12 @@
 /datum/ui_module/spacepod_control_panels/proc/select_engine_rpm_provider_by_id(id, destination_engine_id)
 	var/obj/item/spacepod_module/fuel_tank/engine/apu/target_engine = null
 	var/obj/item/spacepod_module/fuel_tank/engine/destination_engine = null
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine in pod.systems.engines)
-		if(id == engine.id && istype(engine, /obj/item/spacepod_module/fuel_tank/engine/apu))
-			target_engine = engine
+	var/list/apu_list = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/apu/apu as anything in apu_list)
+		if(id == apu.id)
+			target_engine = apu
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
 		if(destination_engine_id == engine.id)
 			destination_engine = engine
 	if(!target_engine)
@@ -424,7 +456,10 @@
 	target_engine.select_rpm_destination_engine(destination_engine)
 
 /datum/ui_module/spacepod_control_panels/proc/toggle_weapon_safety(id)
-	var/obj/item/spacepod_module/weapon/weapon_module = pod.systems.weapon
+	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	if(!length(weapons))
+		return
+	var/obj/item/spacepod_module/weapon/weapon_module = weapons[1]
 	var/datum/spacepod_weapon_slot/weapon_slot = null
 	if(weapon_module.primary.id == id)
 		weapon_slot = weapon_module.primary
@@ -435,7 +470,10 @@
 	weapon_slot.safety = !weapon_slot.safety
 
 /datum/ui_module/spacepod_control_panels/proc/reload_weapon(id)
-	var/obj/item/spacepod_module/weapon/weapon_module = pod.systems.weapon
+	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	if(!length(weapons))
+		return
+	var/obj/item/spacepod_module/weapon/weapon_module = weapons[1]
 	var/datum/spacepod_weapon_slot/weapon_slot = null
 	if(weapon_module.primary.id == id)
 		weapon_slot = weapon_module.primary
@@ -446,10 +484,11 @@
 	weapon_slot.reload(pod, usr)
 
 /datum/ui_module/spacepod_control_panels/proc/switch_airtank()
-	if(pod.systems.life_support == null)
+	var/obj/item/spacepod_module/life_support/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
+	if(life_supports == null)
 		return
-	pod.systems.life_support.enable = !pod.systems.life_support.enable
-	to_chat(usr, span_notice("Подача воздуха: [pod.systems.life_support.enable ? "из баллона" : "снаружи"]."))
+	life_supports.enable = !life_supports.enable
+	to_chat(usr, span_notice("Подача воздуха: [life_supports.enable ? "из баллона" : "снаружи"]."))
 
 /datum/ui_module/spacepod_control_panels/proc/extinguish_module(module_id)
 	var/obj/item/spacepod_module/target_module = null
@@ -461,9 +500,10 @@
 		return
 	if(!target_module.fire)
 		return
-	if(pod.systems.fire_extenguisher == null || pod.systems.fire_extenguisher.charges <= 0)
+	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
+	if(fire_extenguisher == null || fire_extenguisher.charges <= 0)
 		return
-	pod.systems.fire_extenguisher.charges -= 1
+	fire_extenguisher.charges -= 1
 	target_module.fire = FALSE
 
 #undef NOT_SELECTED_RPM_PROVIDER

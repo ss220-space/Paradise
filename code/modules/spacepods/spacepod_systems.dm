@@ -5,128 +5,59 @@
 /datum/spacepod_systems
 	var/obj/spacepod/pod = null
 	var/list/obj/item/spacepod_module/modules = list()
-	var/obj/item/spacepod_module/battery/battery = null
-	var/list/obj/item/spacepod_module/fuel_tank/fuel_tanks = list()
-	var/list/obj/item/spacepod_module/fuel_pump/fuel_pumps = list()
-	var/obj/item/spacepod_module/fuel_tank/engine/apu/apu = null
-	var/list/obj/item/spacepod_module/fuel_tank/engine/engines = list()
-	var/obj/item/spacepod_module/gyroscope/gyroscope = null
-	var/obj/item/spacepod_module/life_support/life_support = null
-	var/obj/item/spacepod_module/weapon/weapon = null
-	var/list/obj/item/spacepod_module/armor/armors = list()
-	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = null
-	var/obj/item/spacepod_module/key_lock/key_lock = null
-	var/obj/item/spacepod_module/catapult_module/catapult = null
-	var/obj/item/spacepod_module/tracker/tracker = null
+	var/list/slots = list()
+
+/datum/spacepod_systems/New()
+	. = ..()
+	var/list/slot_id_list = GLOB.pod_slots
+	for(var/slot in slot_id_list)
+		slots[slot] = list()
 
 /datum/spacepod_systems/Destroy(force)
 	. = ..()
 	pod = null
-	battery = null
-	fuel_tanks.Cut()
-	fuel_pumps.Cut()
-	apu = null
-	engines.Cut()
-	gyroscope = null
-	life_support = null
-	weapon = null
-	armors.Cut()
-	fire_extenguisher = null
-	key_lock = null
-	catapult = null
-	tracker = null
 	QDEL_LIST(modules)
+	QDEL_LIST(slots)
 
 /datum/spacepod_systems/proc/check_complete()
 	. = list()
-	if(battery == null)
-		. += span_notice("Отсутствует аккумуляторная батарея.")
-	if(fuel_tanks == null || length(fuel_tanks) == 0)
-		. += span_notice("Отсутствуют топливные баки.")
-	var/exists_engine = FALSE
-	if(engines)
-		for(var/obj/item/spacepod_module/fuel_tank/engine/engine in engines)
-			if(!engine.is_apu())
-				exists_engine = TRUE
-				break
-	if(apu == null)
-		. += span_notice("Отсутствует вспомогательная силовая установка.")
-	if(!exists_engine)
-		. += span_notice("Отсутствуют двигатели.")
-	if(fuel_pumps == null || length(fuel_pumps) == 0)
-		. += span_notice("Отсутствуют топливные насосы.")
-	if(gyroscope == null)
-		. += span_notice("Отсутствует гироскопический стабилизатор.")
+	var/static/alist/require_modules = alist(
+		SPACEPOD_MODULE_SLOT_BATTERY = "Отсутствует аккумуляторная батарея.",
+		SPACEPOD_MODULE_SLOT_FUEL_TANK = "Отсутствуют топливные баки.",
+		SPACEPOD_MODULE_SLOT_APU = "Отсутствует вспомогательная силовая установка.",
+		SPACEPOD_MODULE_SLOT_ENGINE = "Отсутствуют двигатели.",
+		SPACEPOD_MODULE_SLOT_FUEL_PUMP = "Отсутствуют топливные насосы.",
+		SPACEPOD_MODULE_SLOT_GYRO = "Отсутствует гироскопический стабилизатор.",
+	)
+	for(var/module_slot, error_message in require_modules)
+		var/slot_modules = slots[module_slot]
+		if(!slot_modules || !length(slot_modules))
+			. += span_notice(error_message)
 
 /datum/spacepod_systems/proc/add_module(obj/spacepod/pod, obj/item/spacepod_module/module)
 	module.systems = src
 	modules += module
-	if(istype(module, /obj/item/spacepod_module/battery))
-		battery = module
-	if(istype(module, /obj/item/spacepod_module/fuel_pump))
-		fuel_pumps += module
-	if(istype(module, /obj/item/spacepod_module/fuel_tank/engine/apu))
-		apu = module
-		engines += module
-	else if(istype(module, /obj/item/spacepod_module/fuel_tank/engine))
-		engines += module
-	else if(istype(module, /obj/item/spacepod_module/fuel_tank))
-		fuel_tanks += module
-	if(istype(module, /obj/item/spacepod_module/gyroscope))
-		gyroscope = module
-	if(istype(module, /obj/item/spacepod_module/life_support))
-		life_support = module
-	if(istype(module, /obj/item/spacepod_module/weapon))
-		weapon = module
-	if(istype(module, /obj/item/spacepod_module/armor))
-		armors += module
-	if(istype(module, /obj/item/spacepod_module/fire_extingusher))
-		fire_extenguisher = module
-	if(istype(module, /obj/item/spacepod_module/key_lock))
-		key_lock = module
-	if(istype(module, /obj/item/spacepod_module/catapult_module))
-		catapult = module
-	if(istype(module, /obj/item/spacepod_module/tracker))
-		tracker = module
+	slots[module.slot] += module
 	module.on_install(pod)
 
 /datum/spacepod_systems/proc/remove_module(obj/spacepod/pod, obj/item/spacepod_module/module)
 	module.on_remove(pod)
 	module.systems = null
 	modules -= module
-	if(istype(module, /obj/item/spacepod_module/battery))
-		battery = null
-	if(istype(module, /obj/item/spacepod_module/fuel_pump))
-		fuel_pumps -= module
-	if(istype(module, /obj/item/spacepod_module/fuel_tank/engine/apu))
-		remove_fuel_tank_from_pumps(module)
-		apu.select_rpm_destination_engine(null)
-		apu = null
-		engines -= module
-	else if(istype(module, /obj/item/spacepod_module/fuel_tank/engine))
-		remove_fuel_tank_from_pumps(module)
-		engines -= module
-	else if(istype(module, /obj/item/spacepod_module/fuel_tank))
-		remove_fuel_tank_from_pumps(module)
-		fuel_tanks -= module
-	if(istype(module, /obj/item/spacepod_module/gyroscope))
-		gyroscope = null
-	if(istype(module, /obj/item/spacepod_module/life_support))
-		life_support = null
-	if(istype(module, /obj/item/spacepod_module/weapon))
-		weapon = null
-	if(istype(module, /obj/item/spacepod_module/armor))
-		armors -= module
-	if(istype(module, /obj/item/spacepod_module/fire_extingusher))
-		fire_extenguisher = null
-	if(istype(module, /obj/item/spacepod_module/key_lock))
-		key_lock = null
-	if(istype(module, /obj/item/spacepod_module/catapult_module))
-		catapult = null
-	if(istype(module, /obj/item/spacepod_module/tracker))
-		tracker = null
+	slots[module.slot] -= module
+
+/datum/spacepod_systems/proc/get_slot(slot_id)
+	return slots[slot_id]
+
+/datum/spacepod_systems/proc/get_misc_module(except_type)
+	var/list/misc_modules = get_slot(SPACEPOD_MODULE_SLOT_MISC)
+	for(var/obj/item/spacepod_module/module in misc_modules)
+		if(module.type == except_type)
+			return module
+	return null
 
 /datum/spacepod_systems/proc/remove_fuel_tank_from_pumps(obj/item/spacepod_module/fuel_tank/tank)
+	var/list/fuel_pumps = get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
 	for(var/obj/item/spacepod_module/fuel_pump/pump in fuel_pumps)
 		if(pump.source_tank == tank)
 			pump.source_tank = null
@@ -140,6 +71,7 @@
 		module.process_work(seconds_per_tick)
 
 /datum/spacepod_systems/proc/get_total_speed_mod()
+	var/list/engines = get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
 	if(!length(engines))
 		return 0
 	var/total_thrust = 0
@@ -154,11 +86,16 @@
 	return clamp(total_thrust / max_thrust, 0, 1)
 
 /datum/spacepod_systems/proc/can_maneuver()
-	if(!gyroscope)
+	var/list/gyroscopes = get_slot(SPACEPOD_MODULE_SLOT_GYRO)
+	if(!length(gyroscopes))
 		return FALSE
-	return gyroscope.is_working()
+	for(var/obj/item/spacepod_module/gyroscope/gyro in gyroscopes)
+		if(gyro.is_working())
+			return TRUE
+	return FALSE
 
 /datum/spacepod_systems/proc/fill_fuel_tanks(fuel_amount)
+	var/list/fuel_tanks = get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
 	for(var/obj/item/spacepod_module/fuel_tank/tank in fuel_tanks)
 		var/fill_fuel_amount = tank.fuel_capacity - tank.fuel_amount
 		if(fill_fuel_amount <= 0)
@@ -191,6 +128,7 @@
 	return total_mass
 
 /datum/spacepod_systems/proc/get_total_thrust(has_gravity)
+	var/list/engines = get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
 	if(!length(engines))
 		return 0
 	var/total_thrust = 0

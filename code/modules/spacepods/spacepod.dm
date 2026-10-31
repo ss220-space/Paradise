@@ -237,11 +237,12 @@
 
 	if(istype(item, /obj/item/spacepod_key))
 		add_fingerprint(user)
-		if(!systems.key_lock)
+		var/obj/item/spacepod_module/key_lock/key_lock = systems.get_misc_module(/obj/item/spacepod_module/key_lock)
+		if(!key_lock)
 			balloon_alert(user, "нет замка!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/spacepod_key/key = item
-		if(key.id != systems.key_lock.key_id)
+		if(key.id != key_lock.key_id)
 			balloon_alert(user, "неправильный ключ!")
 			return ATTACK_CHAIN_PROCEED
 		toggle_lock(user)
@@ -264,22 +265,31 @@
 		return ..()
 
 	// attach gun
-	if(isgun(item) && systems.weapon != null)
-		if(systems.weapon.install_gun(item))
+	if(isgun(item))
+		var/list/weapons = systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+		for(var/obj/item/spacepod_module/weapon/weapon in weapons)
+			if(!weapon.install_gun(item))
+				continue
 			if(!user.drop_transfer_item_to_loc(item, src))
-				return ..()
+				continue
 			item.forceMove(src)
 			update_icon(UPDATE_ICON_STATE)
 			return ATTACK_CHAIN_BLOCKED_ALL
+		return ..()
 
 	// sitch to assemble mode
 	if(ismultitool(item))
 		to_chat(user, span_notice("Системы космического челнока переведены в режим сборки."))
 		assemble_process = TRUE
-		if(systems.battery != null && systems.battery.connection_power_net && systems.battery.power > 0)
+		var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+		for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+			if(!batt.connection_power_net || batt.power <= 0)
+				continue
 			// do not switch to assembly mod if your battery online!
 			do_sparks(5, TRUE, src)
-			user.electrocute_act(systems.battery.power / 50, src)
+			user.electrocute_act(batt.power / 50, src)
+			break
+
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// refill fuel
@@ -296,20 +306,27 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// charge battery
-	if(iscell(item) && systems.battery != null)
+	if(iscell(item))
 		var/obj/item/stock_parts/cell/cell_item = item
-		var/free_charge = systems.battery.power_capacity - systems.battery.power
-		var/used_charge = min(cell_item.charge * POD_POWER_COEFFICIENT, free_charge)
-		systems.battery.power += used_charge
-		cell_item.charge -= used_charge / POD_POWER_COEFFICIENT
-		cell_item.update_appearance()
-		to_chat(user, span_notice("Аккумуляторная батарея заряжена на [used_charge] Ватт."))
-		return ATTACK_CHAIN_BLOCKED_ALL
+		var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+		var/charged = FALSE
+		for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+			var/free_charge = batt.power_capacity - batt.power
+			var/used_charge = min(cell_item.charge * POD_POWER_COEFFICIENT, free_charge)
+			batt.power += used_charge
+			cell_item.charge -= used_charge / POD_POWER_COEFFICIENT
+			cell_item.update_appearance()
+			to_chat(user, span_notice("Аккумуляторная батарея заряжена на [used_charge] Ватт."))
+			charged = TRUE
+
+		if(charged)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
 /obj/spacepod/proc/toggle_lock(mob/user)
-	if(!systems.key_lock)
+	var/key_lock = systems.get_misc_module(/obj/item/spacepod_module/key_lock)
+	if(!key_lock)
 		return
 	unlocked = !unlocked
 	if(unlocked)
@@ -333,10 +350,11 @@
 	if(hatch_opened)
 		var/list/options = list()
 		options += ACTION_CARGO_ACCESS
-		if(systems.weapon != null)
-			if(systems.weapon.primary.weapon != null)
+		var/list/weapons = systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+		for(var/obj/item/spacepod_module/weapon/weapon as anything in weapons)
+			if(weapon.primary.weapon != null)
 				options += ACTION_REMOVE_PRIMARY_WEAPON
-			if(systems.weapon.secondary.weapon != null)
+			if(weapon.secondary.weapon != null)
 				options += ACTION_REMOVE_SECONDARY_WEAPON
 
 		var/choice = length(options) == 1 ? options[1] : tgui_input_list(user, "Что вы хотите сделать?", "Доступ к челноку через люк", options)
@@ -346,21 +364,21 @@
 			if(ACTION_CARGO_ACCESS)
 				cargo_hold.open(user)
 			if(ACTION_REMOVE_PRIMARY_WEAPON)
-				if(systems.weapon != null)
-					remove_gun_from_systems(user, systems.weapon.primary.weapon)
+				for(var/obj/item/spacepod_module/weapon/weapon as anything in weapons)
+					remove_gun_from_systems(user, weapon, weapon.primary.weapon)
 			if(ACTION_REMOVE_SECONDARY_WEAPON)
-				if(systems.weapon != null)
-					remove_gun_from_systems(user, systems.weapon.secondary.weapon)
+				for(var/obj/item/spacepod_module/weapon/weapon as anything in weapons)
+					remove_gun_from_systems(user, weapon, weapon.secondary.weapon)
 
 #undef ACTION_CARGO_ACCESS
 #undef ACTION_REMOVE_PRIMARY_WEAPON
 #undef ACTION_REMOVE_SECONDARY_WEAPON
 
-/obj/spacepod/proc/remove_gun_from_systems(mob/user, obj/item/gun/selected_gun)
+/obj/spacepod/proc/remove_gun_from_systems(mob/user, obj/item/spacepod_module/weapon/weapon, obj/item/gun/selected_gun)
 	if(selected_gun == null)
 		balloon_alert(user, "вооружение не установлено")
 		return
-	var/obj/item/gun/removed_gun = systems.weapon.remove_gun(selected_gun)
+	var/obj/item/gun/removed_gun = weapon.remove_gun(selected_gun)
 	if(removed_gun == null)
 		balloon_alert(user, "вооружение не установлено")
 		return
@@ -371,9 +389,6 @@
 // MARK: Process (update)
 /obj/spacepod/process(seconds_per_tick)
 	systems.process_work(seconds_per_tick, src)
-	if(systems && systems.life_support && systems.life_support.enable)
-		give_air()
-		regulate_temp()
 
 /obj/spacepod/proc/give_air()
 	if(!internal_tank)
@@ -611,7 +626,9 @@
 /obj/spacepod/proc/catapult_pilot(force = FALSE)
 	if(!pilot)
 		return
-	if(!systems.catapult || (!force && !systems.catapult.enable))
+
+	var/obj/item/spacepod_module/catapult_module/catapult = systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
+	if(!catapult || (!force && !catapult.enable))
 		return
 	var/mob/pilot_user = pilot
 	eject_pilot()
@@ -624,20 +641,22 @@
 
 // MARK: Attack procs
 /obj/spacepod/proc/click_action(atom/target, mob/user, list/modifiers)
-	if(systems.weapon == null)
+	var/list/weapons = systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	if(!length(weapons))
 		return // weapons not installed
 
 	if(user != pilot)
 		return // only pilot can fire from weapons
 
-	if(!systems.weapon.connection_power_net || !systems.weapon.enable)
+	var/obj/item/spacepod_module/weapon/weapon = weapons[1] // can fire only from first weapon
+	if(!weapon.connection_power_net || !weapon.enable)
 		return // weapon module offline
 
 	var/datum/spacepod_weapon_slot/selected_gun = null
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		selected_gun = systems.weapon.secondary
+		selected_gun = weapon.secondary
 	else
-		selected_gun = systems.weapon.primary
+		selected_gun = weapon.primary
 
 	if(selected_gun == null)
 		return // selected gun not exists
@@ -685,7 +704,8 @@
 // MARK: Environment
 /obj/spacepod/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	if(systems && systems.life_support && systems.life_support.enable)
+	var/obj/item/spacepod_module/life_support/life_supports = systems.get_misc_module(/obj/item/spacepod_module/life_support)
+	if(life_supports && life_supports.enable)
 		return cabin_air
 	return null
 
@@ -827,11 +847,12 @@
 	to_chat(user, span_notice("Вы начинаете искать потерянные вещи под сиденьем."))
 	if(do_after(user, 4 SECONDS, src))
 		var/list/badlist = list(internal_tank, cargo_hold, pilot) + passengers + systems.modules
-		if(systems.weapon != null)
-			if(systems.weapon.primary.weapon != null)
-				badlist += systems.weapon.primary.weapon
-			if(systems.weapon.secondary.weapon != null)
-				badlist += systems.weapon.secondary.weapon
+		var/list/weapons = systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+		for(var/obj/item/spacepod_module/weapon/weapon as anything in weapons)
+			if(weapon.primary.weapon != null)
+				badlist += weapon.primary.weapon
+			if(weapon.secondary.weapon != null)
+				badlist += weapon.secondary.weapon
 		var/list/true_contents = contents - badlist
 		if(length(true_contents) > 0)
 			var/obj/item = pick(true_contents)

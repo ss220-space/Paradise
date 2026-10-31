@@ -4,6 +4,7 @@
 	icon = 'icons/obj/spacepod.dmi'
 	icon_state = "cargo_blank"
 	origin_tech = "programming=2;materials=2;engineering=2"
+	var/slot = 0
 	var/id = "unknown"
 	var/caption = "???"
 	var/module_name = "Модуль челнока"
@@ -106,9 +107,15 @@
 /obj/item/spacepod_module/proc/process_power(seconds_per_tick)
 	if(!connection_power_net)
 		return FALSE
-	if(!systems || !systems.battery)
+	if(!systems)
 		return FALSE
-	return systems.battery.consume_power(consume_power * seconds_per_tick)
+	var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+	if(!length(batteries))
+		return FALSE
+	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+		if(batt.consume_power(consume_power * seconds_per_tick))
+			return TRUE
+	return FALSE
 
 /obj/item/spacepod_module/proc/process_work(seconds_per_tick)
 	return enable
@@ -141,6 +148,7 @@
 
 // MARK: Fuel tank
 /obj/item/spacepod_module/fuel_tank
+	slot = SPACEPOD_MODULE_SLOT_FUEL_TANK
 	id = "fuel_tank"
 	caption = "TK"
 	module_name = "Топливный бак"
@@ -194,14 +202,15 @@
 	fuel_amount = fuel_capacity
 
 /obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod/pod)
-	if(length(pod.systems.fuel_tanks) >= POD_MAX_FUEL_TANKS)
+	var/list/fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
+	if(fuel_tanks && length(fuel_tanks) >= POD_MAX_FUEL_TANKS)
 		to_chat(user, span_notice("Установлено максимальное количество топливных баков в космическом челноке!"))
 		return FALSE
-	var/fueltank_id = "fueltank_[length(pod.systems.fuel_tanks) + 1]"
+	var/fueltank_id = "fueltank_[length(fuel_tanks) + 1]"
 	var/fueltank_name = tgui_input_text(user, "Название топливного бака", "Назвать топливный бак", default=fueltank_id, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(fueltank_name == null)
 		return FALSE
-	var/caption = "TK [length(pod.systems.fuel_tanks) + 1]"
+	var/caption = "TK [length(fuel_tanks) + 1]"
 	caption = tgui_input_text(user, "Сокращенный код бака", "Указать код топливный бак", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(QDELETED(src) || caption == null)
 		return FALSE
@@ -213,6 +222,7 @@
 
 // MARK: Battery
 /obj/item/spacepod_module/battery
+	slot = SPACEPOD_MODULE_SLOT_BATTERY
 	id = "battery"
 	caption = "BATT"
 	module_name = "Аккумуляторная батарея"
@@ -238,7 +248,8 @@
 	. += span_notice("Заряжено на [power] Ватт.")
 
 /obj/item/spacepod_module/battery/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.battery != null)
+	var/list/batteries = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+	if(length(batteries) > 0)
 		to_chat(user, span_notice("Аккумуляторная батарея уже установлена в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -266,6 +277,7 @@
 
 // MARK: Fuel pump
 /obj/item/spacepod_module/fuel_pump
+	slot = SPACEPOD_MODULE_SLOT_FUEL_PUMP
 	id = "fuel_pump"
 	caption = "PUMP"
 	module_name = "Топливный насос"
@@ -291,16 +303,19 @@
 	. += span_notice("Перекачивает [pump_speed] л. топлива в секунду.")
 
 /obj/item/spacepod_module/fuel_pump/install_to(mob/living/user, obj/spacepod/pod)
-	if(length(pod.systems.fuel_tanks) == 0)
+	var/list/fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
+	if(length(fuel_tanks) == 0)
 		to_chat(user, span_notice("Чтобы установить топливный насос, сначала установите топливный бак!"))
 		return FALSE
-	var/obj/item/spacepod_module/fuel_tank/source_fueltank = tgui_input_list(user, "Выберите откуда насос будет качать топливо:", "Выбор источника топлива", pod.systems.fuel_tanks)
-	var/obj/item/spacepod_module/fuel_tank/destination_fueltank = tgui_input_list(user, "Выберите куда насос будет качать топливо:", "Выбор назначения топлива", pod.systems.fuel_tanks | pod.systems.engines)
-	var/pump_id = "fuelpump_[length(pod.systems.fuel_pumps) + 1]"
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	var/obj/item/spacepod_module/fuel_tank/source_fueltank = tgui_input_list(user, "Выберите откуда насос будет качать топливо:", "Выбор источника топлива", fuel_tanks)
+	var/obj/item/spacepod_module/fuel_tank/destination_fueltank = tgui_input_list(user, "Выберите куда насос будет качать топливо:", "Выбор назначения топлива", fuel_tanks | engines)
+	var/fuel_pumps = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
+	var/pump_id = "fuelpump_[length(fuel_pumps) + 1]"
 	var/pump_name = tgui_input_text(user, "Название топливного насоса", "Назвать топливный насос", default=pump_id, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(pump_name == null)
 		return FALSE
-	var/caption = "PUMP [length(pod.systems.fuel_pumps) + 1]"
+	var/caption = "PUMP [length(fuel_pumps) + 1]"
 	caption = tgui_input_text(user, "Сокращенный код топливного насоса", "Указать код топливного насоса", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(QDELETED(src) || caption == null)
 		return FALSE
@@ -341,6 +356,7 @@
 
 // MARK: Engines
 /obj/item/spacepod_module/fuel_tank/engine
+	slot = SPACEPOD_MODULE_SLOT_ENGINE
 	id = "engine"
 	module_name = "Двигатель челнока"
 	desc = "Базовый маршевый двигатель челнока. Обеспечивает тягу для перемещения в космосе. Требуется вспомогательная силовая установка для запуска данного двигателя."
@@ -376,14 +392,15 @@
 	. += span_notice("Потряебляет [fuel_consume_speed] л. топлива в секунду.")
 
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
-	if(length(pod.systems.engines) >= POD_MAX_ENGINES)
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	if(length(engines) >= POD_MAX_ENGINES)
 		to_chat(user, span_notice("Установлено максимальное количество двигателей в космическом челноке!"))
 		return FALSE
-	var/engine_id = "engine_[length(pod.systems.engines) + 1]"
+	var/engine_id = "engine_[length(engines) + 1]"
 	var/engine_name = tgui_input_text(user, "Название двигателя", "Назвать двигатель", default=engine_id, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(engine_name == null)
 		return FALSE
-	var/caption = "ENG [length(pod.systems.engines) + 1]"
+	var/caption = "ENG [length(engines) + 1]"
 	caption = tgui_input_text(user, "Сокращенный код двигателя", "Указать код двигателя", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(QDELETED(src) || caption == null)
 		return FALSE
@@ -429,9 +446,11 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/process_work(seconds_per_tick)
 	if(generator_enable)
+		var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
 		var/rpm_mod = current_rpm / max_rpm
-		if(systems && systems.battery)
-			systems.battery.accumulate_power(rpm_mod * generate_power * seconds_per_tick)
+		var/generated_power = rpm_mod * generate_power * seconds_per_tick
+		for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+			batt.accumulate_power(generated_power / length(batteries))
 
 	if(!enable) // slowly stoping
 		if(external_rotation || current_rpm == 0)
@@ -472,6 +491,7 @@
 
 // MARK: APU
 /obj/item/spacepod_module/fuel_tank/engine/apu
+	slot = SPACEPOD_MODULE_SLOT_APU
 	id = "apu"
 	caption = "APU"
 	module_name = "Вспомогательная силовая установка"
@@ -488,7 +508,8 @@
 	return TRUE
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.apu != null)
+	var/list/apu_slot = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	if(length(apu_slot) > 0)
 		to_chat(user, span_notice("Вспомогательная силовая установка уже установлена в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -538,6 +559,7 @@
 
 // MARK: Gyroscope
 /obj/item/spacepod_module/gyroscope
+	slot = SPACEPOD_MODULE_SLOT_GYRO
 	id = "gyroscope"
 	module_name = "Гироскопический стабилизатор"
 	desc = "Генерирует крутящий момент для маневрирования челнока в открытом космосе, компенсирует вращение и раскачку челнока."
@@ -576,7 +598,8 @@
 	current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
 
 /obj/item/spacepod_module/gyroscope/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.gyroscope != null)
+	var/list/gyroscopes = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_GYRO)
+	if(length(gyroscopes) > 0)
 		to_chat(user, span_notice("Стабилизирующий гироскоп уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -587,6 +610,7 @@
 
 // MARK: Weapon
 /obj/item/spacepod_module/weapon
+	slot = SPACEPOD_MODULE_SLOT_WEAPON
 	id = "weapon"
 	module_name = "Вооружение"
 	desc = "Оружейная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
@@ -610,7 +634,8 @@
 	. = ..()
 
 /obj/item/spacepod_module/weapon/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.weapon != null)
+	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	if(length(weapons) > 0)
 		to_chat(user, span_notice("Модуль вооружения уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -686,8 +711,13 @@
 	if(!isenergygun(weapon))
 		return
 	var/obj/item/gun/energy/energy_gun = weapon
-	if(module.systems.battery.consume_power(recharge_rate))
-		energy_gun.cell.give(recharge_rate)
+	var/list/batteries = module.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+	if(!length(batteries))
+		return
+	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+		if(batt.consume_power(recharge_rate))
+			energy_gun.cell.give(recharge_rate)
+			return
 
 /obj/item/spacepod_module/weapon/process_work(seconds_per_tick)
 	if(!enable)
@@ -717,6 +747,7 @@
 
 // MARK: Armor
 /obj/item/spacepod_module/armor
+	slot = SPACEPOD_MODULE_SLOT_ARMOR
 	id = "armor"
 	caption = "ARM"
 	module_name = "Броня челнока"
@@ -730,16 +761,17 @@
 	id = "armor_[module_id_counter++]"
 
 /obj/item/spacepod_module/armor/install_to(mob/living/user, obj/spacepod/pod)
-	if(length(pod.systems.armors) >= POD_ARMOR_PLATE_BY_ENGINE * length(pod.systems.engines))
+	var/list/armors = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ARMOR)
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	if(length(armors) >= POD_ARMOR_PLATE_BY_ENGINE * length(engines))
 		to_chat(user, span_notice("Установлено максимальное количество модулей брони в космическом челноке!"))
 		return FALSE
-	var/armor_id = "armor_[length(pod.systems.armors) + 1]"
+	var/armor_id = "armor_[length(armors) + 1]"
 	var/name = tgui_input_text(user, "Название бронеэлемента", "Указать название бронеэлемента", default=armor_id, max_length = MAX_NAME_LEN, encode = TRUE)
 	if(QDELETED(src) || name == null)
 		return FALSE
 	src.name = name
-	src.id = armor_id
-	src.caption = "ARM [length(pod.systems.armors) + 1]"
+	src.caption = "ARM [length(armors) + 1]"
 	return TRUE
 
 /obj/item/spacepod_module/armor/light
@@ -758,6 +790,7 @@
 
 // MARK: Life support
 /obj/item/spacepod_module/life_support
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "life_support"
 	caption = "AIR"
 	module_name = "Жизнеобеспечение"
@@ -771,7 +804,8 @@
 	id = "life_support_[module_id_counter++]"
 
 /obj/item/spacepod_module/life_support/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.life_support != null)
+	var/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
+	if(life_supports != null)
 		to_chat(user, span_notice("Модуль жизнеобеспечения уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -780,6 +814,8 @@
 	if(!enable)
 		return
 	if(process_power(seconds_per_tick))
+		systems.pod.give_air()
+		systems.pod.regulate_temp()
 		return
 
 	if(!connection_power_net)
@@ -791,6 +827,7 @@
 
 // MARK: Misc modules
 /obj/item/spacepod_module/passenger_seat
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "passenger_seat"
 	caption = "SEAT"
 	module_name = "Пассажирское сиденье"
@@ -804,10 +841,10 @@
 	id = "passenger_seat_[module_id_counter++]"
 
 /obj/item/spacepod_module/passenger_seat/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.max_passengers >= POD_PASSENGERS_BY_ENGINE * length(pod.systems.engines))
+	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	if(pod.max_passengers >= POD_PASSENGERS_BY_ENGINE * length(engines))
 		to_chat(user, span_notice("Установлено максимальное количество пассажирский сидений в космическом челноке!"))
 		return FALSE
-	src.id = "passenger_seat_[pod.max_passengers]"
 	return TRUE
 
 /obj/item/spacepod_module/passenger_seat/on_install(obj/spacepod/pod)
@@ -818,6 +855,7 @@
 	pod.max_passengers -= 1
 
 /obj/item/spacepod_module/fire_extingusher
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "fire_extinguisher"
 	caption = "FIRE"
 	module_name = "Пожаротушение"
@@ -835,12 +873,14 @@
 	charges = 5
 
 /obj/item/spacepod_module/fire_extingusher/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.fire_extenguisher != null)
+	var/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
+	if(fire_extenguisher != null)
 		to_chat(user, span_notice("Модуль пожаротушения уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/key_lock
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "key_lock"
 	caption = "LOCK"
 	module_name = "Замок челнока"
@@ -862,7 +902,8 @@
 	key_id = ++id_source
 
 /obj/item/spacepod_module/key_lock/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.key_lock != null)
+	var/key_lock = pod.systems.get_misc_module(/obj/item/spacepod_module/key_lock)
+	if(key_lock != null)
 		to_chat(user, span_notice("Модуль замка уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -899,6 +940,7 @@
 	)
 
 /obj/item/spacepod_module/catapult_module
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "catapult"
 	caption = "CAT"
 	module_name = "Аварийное катапультирование"
@@ -912,12 +954,14 @@
 	id = "catapult_[module_id_counter++]"
 
 /obj/item/spacepod_module/catapult_module/install_to(mob/living/user, obj/spacepod/pod)
-	if(pod.systems.catapult != null)
-		to_chat(user, span_notice("Модуль пожаротушения уже установлен в космическом челноке!"))
+	var/catapult = pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
+	if(catapult != null)
+		to_chat(user, span_notice("Модуль катапульты уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/tracker
+	slot = SPACEPOD_MODULE_SLOT_MISC
 	id = "tracker"
 	caption = "TR"
 	module_name = "GPS маячок"
@@ -930,6 +974,13 @@
 /obj/item/spacepod_module/tracker/New(loc, ...)
 	. = ..()
 	id = "tracker_[module_id_counter++]"
+
+/obj/item/spacepod_module/tracker/install_to(mob/living/user, obj/spacepod/pod)
+	var/tracker = pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)
+	if(tracker != null)
+		to_chat(user, span_notice("Модуль маячка уже установлен в космическом челноке!"))
+		return FALSE
+	return TRUE
 
 /obj/item/spacepod_module/tracker/on_install(obj/spacepod/pod)
 	src.pod = pod
