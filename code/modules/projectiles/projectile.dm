@@ -239,8 +239,7 @@
 /obj/projectile/proc/iff_passes_through(atom/bumped_atom)
 	if(!isliving(bumped_atom) || bumped_atom == original || !isgun(firer_source_atom))
 		return FALSE
-	var/obj/item/gun/smart_gun = firer_source_atom
-	return smart_gun.is_iff_friend(bumped_atom)
+	return SEND_SIGNAL(firer_source_atom, COMSIG_GUN_CHECK_FRIEND, bumped_atom) & GUN_TARGET_IS_FRIEND
 
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)

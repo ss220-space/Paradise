@@ -46,11 +46,12 @@
 		return
 
 	if(isgun(firer_source_atom))
-		var/obj/item/gun/smart_gun = firer_source_atom
-		var/atom/iff_target = smart_gun.get_iff_homing_target(user)
-		if(iff_target)
-			BB.set_homing_target(iff_target)
-			new /obj/effect/temp_visual/smartgun_target(get_turf(iff_target))
+		var/list/homing_targets = list()
+		SEND_SIGNAL(firer_source_atom, COMSIG_GUN_GET_HOMING_TARGET, user, homing_targets)
+		if(length(homing_targets))
+			var/atom/homing_target = homing_targets[1]
+			BB.set_homing_target(homing_target)
+			new /obj/effect/temp_visual/smartgun_target(get_turf(homing_target))
 			return
 
 	if(!isturf(target))

@@ -1,3 +1,7 @@
+#define IFF_ACTION_MODE "mode"
+#define IFF_ACTION_FRIENDS "friends"
+#define IFF_ACTION_ENEMIES "enemies"
+
 /datum/component/iff_system
 	var/enabled = TRUE
 	var/list/friends = list()
@@ -13,10 +17,12 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_click_alt))
+	RegisterSignal(parent, COMSIG_GUN_GET_HOMING_TARGET, PROC_REF(on_get_homing_target))
+	RegisterSignal(parent, COMSIG_GUN_CHECK_FRIEND, PROC_REF(on_check_friend))
 
 /datum/component/iff_system/UnregisterFromParent()
 	. = ..()
-	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_CLICK_ALT))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_CLICK_ALT, COMSIG_GUN_GET_HOMING_TARGET, COMSIG_GUN_CHECK_FRIEND))
 
 /datum/component/iff_system/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
@@ -37,11 +43,11 @@
 	while(check_menu(user))
 		var/list/actions = list()
 		var/mode_key = "Режим: [enabled ? "Включён" : "Выключен"]"
-		actions[mode_key] = "mode"
+		actions[mode_key] = IFF_ACTION_MODE
 		var/friends_key = "Друзья ([length(friends)])"
-		actions[friends_key] = "friends"
+		actions[friends_key] = IFF_ACTION_FRIENDS
 		var/enemies_key = "Враги ([length(enemies)])"
-		actions[enemies_key] = "enemies"
+		actions[enemies_key] = IFF_ACTION_ENEMIES
 
 		var/list/choices = list()
 		choices[mode_key] = image(icon = 'icons/hud/radial.dmi', icon_state = enabled ? "module_active" : "dark")
@@ -53,13 +59,13 @@
 			return
 
 		switch(actions[choice])
-			if("mode")
+			if(IFF_ACTION_MODE)
 				enabled = !enabled
 				user.balloon_alert(user, "режим [enabled ? "включён" : "выключен"]")
-			if("friends")
+			if(IFF_ACTION_FRIENDS)
 				edit_list(user, friends, "Друзья")
 				return
-			if("enemies")
+			if(IFF_ACTION_ENEMIES)
 				edit_list(user, enemies, "Враги")
 				return
 
@@ -140,14 +146,18 @@
 			return TRUE
 	return FALSE
 
-/obj/item/gun/proc/get_iff_homing_target(mob/user)
-	var/datum/component/iff_system/iff = GetComponent(/datum/component/iff_system)
-	if(!iff)
-		return null
-	return iff.find_enemy_target(user)
+/datum/component/iff_system/proc/on_get_homing_target(datum/source, mob/user, list/targets)
+	SIGNAL_HANDLER
+	var/mob/living/target = find_enemy_target(user)
+	if(target)
+		targets += target
 
-/obj/item/gun/proc/is_iff_friend(atom/target)
-	var/datum/component/iff_system/iff = GetComponent(/datum/component/iff_system)
-	if(!iff)
-		return FALSE
-	return iff.is_friend(target)
+/datum/component/iff_system/proc/on_check_friend(datum/source, atom/target)
+	SIGNAL_HANDLER
+	if(is_friend(target))
+		return GUN_TARGET_IS_FRIEND
+	return NONE
+
+#undef IFF_ACTION_MODE
+#undef IFF_ACTION_FRIENDS
+#undef IFF_ACTION_ENEMIES
