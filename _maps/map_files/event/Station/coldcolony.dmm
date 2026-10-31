@@ -17788,9 +17788,9 @@
 /area/coldcolony/malta/maintenance/bridge)
 "gZE" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

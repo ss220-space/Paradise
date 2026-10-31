@@ -5164,7 +5164,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/under/burial,
 		/obj/item/clothing/under/burial,
 	)
-	cost = 40
+	cost = 60
 	containername = "ящик религиозного снабжения"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик религиозного снабжения",

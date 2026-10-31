@@ -817,7 +817,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1 * iteration, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
-			if(L.can_block_magic())
+			if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				continue
 			L.take_overall_damage(0, tick_damage * multiplier)
 			L.adjust_fire_stacks(2)
