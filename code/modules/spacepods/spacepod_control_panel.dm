@@ -409,8 +409,10 @@
 
 /datum/ui_module/spacepod_control_panels/proc/switch_generator_enable(id)
 	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = null
-	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
+	var/list/total_engines = list()
+	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in total_engines)
 		if(id == engine.id)
 			target_engine = engine
 			break
