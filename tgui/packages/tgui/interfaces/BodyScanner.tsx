@@ -31,15 +31,15 @@ const abnormalities = [
   ],
   ['hasVirus', 'bad', 'Обнаружен вирус в кровотоке пациента.'],
   ['blind', 'average', 'Обнаружена катаракта.'],
-  ['colourblind', 'average', 'Обнаружены нарушения в работе фоторецепторов'],
+  ['colourblind', 'average', 'Обнаружены нарушения в работе фоторецепторов.'],
   ['nearsighted', 'average', 'Обнаружено смещение сетчатки.'],
+  ['hasIrradiated', 'average', 'Обнаружено радиационное облучение.'],
 ];
 
 const damages = [
   ['Удушье', 'oxyLoss'],
   ['Повреждение мозга', 'brainLoss'],
   ['Отравление', 'toxLoss'],
-  ['Радиационное поражение', 'radLoss'],
   ['Механические повреждения', 'bruteLoss'],
   ['Генетические повреждения', 'cloneLoss'],
   ['Термические повреждения', 'fireLoss'],
@@ -54,7 +54,9 @@ const damageRange: Record<string, [number, number]> = {
 const mapTwoByTwo = <T, R>(a: T[][], c: (s: T[], c2: T[], i: number) => R) => {
   const result: R[] = [];
   for (let i = 0; i < a.length; i += 2) {
-    result.push(c(a[i], a[i + 1], i));
+    const pair = a.slice(i, i + 2);
+    if (pair.length < 2) break;
+    result.push(c(pair[0], pair[1], i));
   }
   return result;
 };
@@ -255,7 +257,8 @@ const BodyScannerMainAbnormalities = (props: BodyScannerProps) => {
       occupant.blind ||
       occupant.colourblind ||
       occupant.nearsighted ||
-      occupant.hasVirus
+      occupant.hasVirus ||
+      occupant.hasIrradiated
     )
   ) {
     return (

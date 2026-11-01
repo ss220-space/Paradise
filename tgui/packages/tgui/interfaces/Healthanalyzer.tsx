@@ -82,6 +82,7 @@ type ScanData = {
   reagentList: Reagent[];
   addictionList: Addiction[];
   implantDetect: string[];
+  hasIrradiated: string[];
 };
 
 type DamageLocalization = {
@@ -356,6 +357,14 @@ export const Healthanalyzer = (props: unknown) => {
                       <Box textAlign="center" bold color="red">
                         {scan_data.timetodefibText}
                       </Box>
+                    </Box>
+                  </Section>
+                )}
+
+                {!!scan_data.hasIrradiated && (
+                  <Section>
+                    <Box textAlign="center" bold color="red">
+                      Обнаружено радиационное облучение
                     </Box>
                   </Section>
                 )}
