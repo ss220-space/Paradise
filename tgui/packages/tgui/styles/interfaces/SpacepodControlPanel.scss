@@ -1,5 +1,6 @@
-// Spacepod control panel — cockpit-style avionics.
-// Dark instrument panel, amber/green annunciators and a CRT boot sequence.
+// Spacepod control panel — see-through cockpit HUD.
+// Minimal translucent widgets pinned to the screen edges, slide-out tool
+// drawers on the left and a boot sequence on top.
 
 $spcp-text: #c3d2d7;
 $spcp-dim: #6f858d;
@@ -9,6 +10,8 @@ $spcp-amber: #ffc24a;
 $spcp-red: #ff5a4d;
 $spcp-cyan: #67d8ff;
 $spcp-line: rgba(255, 255, 255, 0.07);
+$spcp-glass: rgba(8, 14, 17, 0.45);
+$spcp-glass-border: rgba(130, 165, 175, 0.2);
 
 @keyframes spcp-scan {
 	0% {
@@ -108,6 +111,7 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	background: none;
 	background-color: none;
 	background-image: none;
+	overflow-x: hidden;
 }
 
 // MARK: Close button
@@ -115,8 +119,8 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 .spcp-close {
 	position: fixed;
 	z-index: 70;
-	top: 6px;
-	left: 6px;
+	top: 8px;
+	right: 8px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -150,7 +154,6 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
 	height: 100%;
 	padding: 50px;
 	color: $spcp-text;
@@ -160,112 +163,363 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	user-select: none;
 	background: transparent;
 	background-color: transparent;
-	// background: radial-gradient(
-	// 		ellipse at 50% -10%,
-	// 		rgba(77, 255, 166, 0.07),
-	// 		transparent 60%
-	// 	),
-	// 	repeating-linear-gradient(
-	// 		0deg,
-	// 		rgba(255, 255, 255, 0.012) 0 1px,
-	// 		transparent 1px 4px
-	// 	),
-	// 	#070b0d;
 
 	.Button {
 		font-family: var(--font-family-mono);
-		font-size: 9px;
+		font-size: 8px;
 		letter-spacing: 1px;
 	}
 }
 
-// MARK: Top strip
+// MARK: HUD layout
 
-.spcp-top {
+.spcp-hud {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+}
+
+// Main readouts cluster, pinned to the top-right corner (40% of the width).
+// Widgets are deliberately translucent so the game stays visible behind them.
+.spcp-topright {
+	position: absolute;
+	top: 0;
+	right: 0;
 	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 6px;
+	width: 40%;
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.spcp-cluster {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 6px;
+	width: 100%;
+}
+
+.spcp-gauges {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 4px;
+}
+
+.spcp-fuel {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 4px;
+}
+
+.spcp-gaugewrap {
+	display: flex;
+	flex-direction: column;
+	flex: none;
 	align-items: center;
-	gap: 12px;
-	padding: 5px 10px;
-	background: linear-gradient(180deg, #182127 0%, #0d1215 100%);
-	border: 1px solid #26353c;
-	border-radius: 5px;
-	box-shadow:
-		inset 0 1px 0 rgba(255, 255, 255, 0.06),
-		0 2px 6px rgba(0, 0, 0, 0.55);
+	gap: 1px;
 
-	&__brand {
-		display: flex;
-		flex-direction: column;
-		min-width: 190px;
-	}
-
-	&__logo {
-		color: #e7f4f6;
-		font-size: 15px;
-		font-weight: bold;
-		letter-spacing: 4px;
-		line-height: 1;
-		text-shadow: 0 0 10px rgba(77, 255, 166, 0.25);
-	}
-
-	&__vessel {
+	&__caption {
+		max-width: 110px;
 		overflow: hidden;
+		padding: 1px 6px;
 		color: $spcp-dim;
-		font-size: 9px;
-		letter-spacing: 1.5px;
+		font-size: 8px;
+		letter-spacing: 1px;
 		text-overflow: ellipsis;
 		text-transform: uppercase;
 		white-space: nowrap;
+		background: $spcp-glass;
+		border-radius: 3px;
 	}
 
-	&__lamps {
-		display: flex;
-		flex: 1;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 4px;
+	&--fault &__caption {
+		color: $spcp-red;
+	}
+}
+
+// MARK: Battery segments
+
+.spcp-batt {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	background: $spcp-glass;
+	border: 1px solid $spcp-glass-border;
+	border-radius: 4px;
+
+	&__label {
+		color: $spcp-dim;
+		font-size: 9px;
+		letter-spacing: 2px;
 	}
 
-	&__clock {
+	&__segments {
 		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		min-width: 74px;
+		gap: 2px;
 
-		span {
-			color: $spcp-dim-2;
-			font-size: 8px;
-			letter-spacing: 2px;
+		i {
+			width: 9px;
+			height: 14px;
+			background: rgba(130, 165, 175, 0.12);
+			border: 1px solid rgba(130, 165, 175, 0.22);
+			border-radius: 1px;
 		}
 
-		b {
-			color: $spcp-cyan;
-			font-size: 14px;
-			letter-spacing: 1px;
-			text-shadow: 0 0 8px rgba(103, 216, 255, 0.35);
+		i.is-on {
+			background: linear-gradient(180deg, #5cffb0 0%, #1fae6c 100%);
+			border-color: transparent;
+			box-shadow: 0 0 5px rgba(77, 255, 166, 0.45);
+		}
+	}
+
+	&__value {
+		color: #c6d8dd;
+		font-size: 11px;
+		letter-spacing: 1px;
+	}
+
+	&--warn {
+		i.is-on {
+			background: linear-gradient(180deg, #ff7a6e 0%, #b3271d 100%);
+			box-shadow: 0 0 5px rgba(255, 90, 77, 0.5);
+		}
+
+		.spcp-batt__value {
+			color: $spcp-red;
 		}
 	}
 }
 
-.spcp-master {
+// MARK: Weapons readouts
+
+.spcp-weapons {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-top: 14px;
+	padding: 5px 7px;
+	background: rgba(8, 14, 17, 0.5);
+	border: 1px solid $spcp-glass-border;
+	border-radius: 5px;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
+		svg {
+			color: $spcp-amber;
+		}
+	}
+
+	&__state {
+		flex: none;
+		font-size: 10px;
+		letter-spacing: 2px;
+
+		&.is-online {
+			color: $spcp-green;
+			text-shadow: 0 0 8px rgba(77, 255, 166, 0.4);
+		}
+
+		&.is-offline {
+			color: $spcp-dim-2;
+		}
+	}
+
+	&__name {
+		overflow: hidden;
+		flex: 1;
+		color: #c6d8dd;
+		font-size: 9px;
+		letter-spacing: 1px;
+		text-overflow: ellipsis;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+}
+
+// Weapons section (drawer)
+.spcp-weaponhead {
 	display: flex;
 	align-items: center;
-	gap: 4px;
-	padding: 4px 8px;
-	color: $spcp-dim;
-	font-size: 9px;
-	letter-spacing: 1.5px;
+	gap: 8px;
+
+	> span {
+		overflow: hidden;
+		flex: 1;
+		color: #c6d8dd;
+		font-size: 9px;
+		letter-spacing: 0.5px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.spcp-switch {
+		width: 46px;
+
+		.spcp-switch__image {
+			width: 38px;
+			height: 38px;
+		}
+
+		.spcp-lamp {
+			display: none;
+		}
+	}
+}
+
+.spcp-guncard {
+	padding: 5px 6px;
 	background: #10171a;
-	border: 1px solid #26353c;
+	border: 1px solid #1f2b31;
+	border-radius: 4px;
+
+	&__head {
+		display: flex;
+		align-items: baseline;
+		gap: 6px;
+		margin-bottom: 4px;
+
+		b {
+			color: $spcp-amber;
+			font-size: 8px;
+			letter-spacing: 1.5px;
+		}
+
+		span {
+			overflow: hidden;
+			flex: 1;
+			color: #b8cbd0;
+			font-size: 9px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		em {
+			color: $spcp-dim-2;
+			font-size: 7px;
+			font-style: normal;
+			letter-spacing: 0.5px;
+		}
+	}
+}
+
+.spcp-gun {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	&__info {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		gap: 8px;
+		min-width: 0;
+	}
+
+	&__slot {
+		flex: none;
+		color: $spcp-amber;
+		font-size: 8px;
+		letter-spacing: 1.5px;
+	}
+
+	&__actions {
+		display: flex;
+		flex: none;
+		align-items: flex-end;
+		gap: 4px;
+
+		.spcp-switch {
+			width: 46px;
+
+			.spcp-switch__image {
+				width: 38px;
+				height: 38px;
+			}
+
+			.spcp-lamp {
+				display: none;
+			}
+		}
+	}
+}
+
+// Digital-clock style ammo counter.
+.spcp-ammo {
+	display: flex;
+	align-items: baseline;
+	padding: 0 8px;
+	background: rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(130, 165, 175, 0.25);
+	border-radius: 4px;
+
+	b {
+		color: #52ffb0;
+		font-size: 24px;
+		font-weight: normal;
+		letter-spacing: 3px;
+		line-height: 1.2;
+		text-shadow:
+			0 0 10px rgba(77, 255, 166, 0.55),
+			0 0 2px rgba(77, 255, 166, 0.9);
+	}
+
+	&__cap {
+		color: $spcp-dim-2;
+		font-size: 10px;
+		letter-spacing: 1px;
+	}
+
+	&--empty b {
+		color: $spcp-red;
+		text-shadow:
+			0 0 10px rgba(255, 90, 77, 0.6),
+			0 0 2px rgba(255, 90, 77, 0.9);
+		animation: spcp-blink 1s infinite;
+	}
+}
+
+// MARK: Status lamps (top center)
+
+.spcp-lamps {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	display: flex;
+	gap: 6px;
+	transform: translateX(-50%);
+}
+
+.spcp-lampbox {
+	min-width: 78px;
+	padding: 5px 8px;
+	color: $spcp-dim-2;
+	font-size: 9px;
+	letter-spacing: 1px;
+	text-align: center;
+	background: rgba(10, 16, 19, 0.55);
+	border: 1px solid rgba(130, 165, 175, 0.16);
 	border-radius: 4px;
 
 	&--ok {
 		color: $spcp-green;
+		border-color: rgba(77, 255, 166, 0.35);
+		text-shadow: 0 0 8px rgba(77, 255, 166, 0.35);
 	}
 
 	&--warn {
 		color: $spcp-amber;
-		border-color: rgba(255, 194, 74, 0.45);
+		border-color: rgba(255, 194, 74, 0.4);
 		animation: spcp-blink 1.4s infinite;
 	}
 
@@ -274,198 +528,119 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 		border-color: rgba(255, 90, 77, 0.5);
 		animation: spcp-blink 0.8s infinite;
 	}
-}
-
-.spcp-lamps {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-}
-
-.spcp-annunciator {
-	display: flex;
-	align-items: center;
-	gap: 4px;
-	padding: 2px 5px;
-	background: #0c1215;
-	border: 1px solid #1d2a30;
-	border-radius: 3px;
-
-	&__led {
-		width: 7px;
-		height: 7px;
-		background: #1b272c;
-		border-radius: 50%;
-		box-shadow: inset 0 0 2px #000;
-	}
-
-	&__label {
-		color: $spcp-dim-2;
-		font-size: 8px;
-		letter-spacing: 1px;
-	}
-
-	&--ok &__led {
-		background: $spcp-green;
-		box-shadow: 0 0 5px rgba(77, 255, 166, 0.8);
-	}
-
-	&--ok &__label {
-		color: $spcp-green;
-	}
-
-	&--warn {
-		border-color: rgba(255, 194, 74, 0.35);
-	}
-
-	&--warn &__led {
-		background: $spcp-amber;
-		box-shadow: 0 0 6px rgba(255, 194, 74, 0.9);
-	}
-
-	&--warn &__label {
-		color: $spcp-amber;
-	}
-
-	&--bad {
-		border-color: rgba(255, 90, 77, 0.45);
-	}
-
-	&--bad &__led {
-		background: $spcp-red;
-		box-shadow: 0 0 8px rgba(255, 90, 77, 1);
-		animation: spcp-blink 0.7s infinite;
-	}
-
-	&--bad &__label {
-		color: $spcp-red;
-		animation: spcp-blink 0.7s infinite;
-	}
-}
-
-.spcp-lamp {
-	display: inline-block;
-	width: 7px;
-	height: 7px;
-	background: #1b272c;
-	border-radius: 50%;
-	box-shadow: inset 0 0 2px #000;
-
-	&--ok {
-		background: $spcp-green;
-		box-shadow: 0 0 5px rgba(77, 255, 166, 0.85);
-	}
-
-	&--warn {
-		background: $spcp-amber;
-		box-shadow: 0 0 5px rgba(255, 194, 74, 0.85);
-	}
-
-	&--bad {
-		background: $spcp-red;
-		box-shadow: 0 0 7px rgba(255, 90, 77, 0.95);
-		animation: spcp-blink 0.8s infinite;
-	}
 
 	&--off {
-		background: #1b272c;
+		color: $spcp-dim-2;
 	}
 }
 
-// MARK: Layout
+// MARK: Tool dock (left edge, vertically centered)
 
-.spcp-grid {
-	display: grid;
-	flex: 1;
-	min-height: 0;
-	grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
-	grid-template-rows: minmax(0, 1fr) auto;
-	grid-template-areas:
-		'left right'
-		'bottom bottom';
-	gap: 8px;
-}
-
-.spcp-col {
+.spcp-dock {
+	position: absolute;
+	top: 50%;
+	left: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
-	min-width: 0;
-	min-height: 0;
-	overflow-y: auto;
-	overflow-x: hidden;
+	gap: 6px;
+	transform: translateY(-50%);
 
-	&--left {
-		grid-area: left;
-	}
+	&__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		color: $spcp-dim;
+		background: rgba(13, 19, 23, 0.85);
+		border: 1px solid rgba(130, 165, 175, 0.3);
+		border-radius: 6px;
+		cursor: pointer;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease,
+			filter 0.15s ease;
 
-	&--right {
-		grid-area: right;
+		&:hover {
+			color: $spcp-cyan;
+			border-color: #3b505a;
+			filter: brightness(1.15);
+		}
+
+		&:active {
+			filter: brightness(0.9);
+		}
+
+		&.is-active {
+			color: $spcp-cyan;
+			border-color: rgba(103, 216, 255, 0.55);
+			box-shadow: 0 0 10px rgba(103, 216, 255, 0.2);
+		}
 	}
 }
 
-// Bottom strip spanning the full width: engines (up to 5) and integrity
-// modules (any amount) live here.
-.spcp-bottom {
-	display: grid;
-	grid-area: bottom;
-	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-	gap: 8px;
-	align-items: start;
-	min-height: 0;
+// MARK: Drawer (slides out next to the dock)
 
-	.spcp-panel {
-		max-height: 46vh;
-		overflow-y: auto;
-	}
-}
-
-// MARK: Panel
-
-.spcp-panel {
-	position: relative;
+.spcp-drawer {
+	position: absolute;
+	top: 50%;
+	left: 44px;
 	display: flex;
 	flex-direction: column;
-	flex: none;
-	padding: 5px 7px 5px;
-	background: linear-gradient(180deg, #1a2328 0%, #0f1518 55%, #0b1013 100%);
-	border: 1px solid #26353c;
-	border-radius: 5px;
-	box-shadow:
-		inset 0 1px 0 rgba(255, 255, 255, 0.05),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.55),
-		0 2px 7px rgba(0, 0, 0, 0.5);
+	width: 460px;
+	max-height: 100%;
+	overflow: hidden;
+	background: rgba(8, 13, 16, 0.82);
+	border: 1px solid rgba(130, 165, 175, 0.3);
+	border-radius: 6px;
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-50%) translateX(-10px);
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease,
+		visibility 0.2s;
+	pointer-events: none;
 
-	&::before {
-		position: absolute;
-		inset: 3px;
-		border: 1px solid rgba(255, 255, 255, 0.025);
-		border-radius: 3px;
-		content: '';
-		pointer-events: none;
+	&--open {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(-50%);
+		pointer-events: auto;
 	}
 
 	&__head {
 		display: flex;
 		align-items: center;
-		gap: 6px;
-		margin-bottom: 6px;
-		padding-bottom: 4px;
-		border-bottom: 1px solid #223036;
+		gap: 8px;
+		padding: 6px 8px;
+		color: #a8c0c7;
+		font-size: 10px;
+		font-weight: bold;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		border-bottom: 1px solid rgba(130, 165, 175, 0.15);
+
+		svg {
+			color: $spcp-amber;
+		}
 	}
 
-	&__collapse {
+	&__close {
 		display: flex;
 		flex: none;
 		align-items: center;
 		justify-content: center;
-		width: 16px;
-		height: 16px;
+		width: 20px;
+		height: 20px;
+		margin-left: auto;
 		padding: 0;
 		color: $spcp-dim;
-		font-size: 9px;
+		font-size: 10px;
 		line-height: 1;
-		background: #10171a;
+		background: rgba(16, 23, 26, 0.8);
 		border: 1px solid #26353c;
 		border-radius: 3px;
 		cursor: pointer;
@@ -479,55 +654,79 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 		}
 	}
 
-	&__title {
-		color: #a8c0c7;
-		font-size: 9px;
-		font-weight: bold;
-		letter-spacing: 2px;
-		text-transform: uppercase;
-	}
-
-	&__hint {
-		margin-left: auto;
-		color: $spcp-dim-2;
-		font-size: 8px;
-		letter-spacing: 1.5px;
-		text-transform: uppercase;
+	&__body {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: 8px;
+		overflow-y: auto;
 	}
 }
 
-// Compact button shown in place of a collapsed panel.
-.spcp-panel-toggle {
-	display: flex;
-	flex: none;
-	align-items: center;
-	gap: 6px;
-	align-self: flex-start;
-	padding: 4px 8px;
+.spcp-sec__title {
+	padding-bottom: 2px;
 	color: $spcp-dim;
-	font-family: var(--font-family-mono);
-	font-size: 9px;
+	font-size: 8px;
+	font-weight: bold;
 	letter-spacing: 2px;
-	line-height: 1;
 	text-transform: uppercase;
-	background: linear-gradient(180deg, #1d262b 0%, #121a1e 100%);
-	border: 1px solid #26353c;
-	border-radius: 4px;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-	cursor: pointer;
-	transition:
-		border-color 0.15s ease,
-		color 0.15s ease,
-		filter 0.15s ease;
+	border-bottom: 1px solid rgba(130, 165, 175, 0.12);
+}
 
-	&:hover {
-		color: #c3d2d7;
-		border-color: #3b505a;
-		filter: brightness(1.15);
+.spcp-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 6px;
+
+	.spcp-switch {
+		width: 52px;
+
+		.spcp-switch__image {
+			width: 42px;
+			height: 42px;
+		}
+	}
+}
+
+// Misc system cards, laid out horizontally, each with the system name on
+// top and its toggles inside.
+.spcp-syscards {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.spcp-syscard {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	min-width: 96px;
+	padding: 5px 6px;
+	background: #10171a;
+	border: 1px solid #1f2b31;
+	border-radius: 4px;
+
+	> span {
+		color: $spcp-dim;
+		font-size: 8px;
+		letter-spacing: 1px;
+		text-align: center;
 	}
 
-	&:active {
-		filter: brightness(0.9);
+	.spcp-switch {
+		width: 52px;
+
+		.spcp-switch__image {
+			width: 42px;
+			height: 42px;
+		}
+
+		.spcp-lamp {
+			display: none;
+		}
 	}
 }
 
@@ -537,12 +736,12 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	font-size: 9px;
 	letter-spacing: 1.5px;
 	text-align: center;
-	border: 1px dashed #233036;
+	border: 1px dashed rgba(130, 165, 175, 0.2);
 	border-radius: 4px;
 }
 
 .spcp-error {
-	margin-top: 5px;
+	margin-top: 2px;
 	padding: 3px 6px;
 	color: $spcp-red;
 	font-size: 9px;
@@ -562,18 +761,17 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	&__svg {
 		display: block;
 		overflow: visible;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
 	}
 
 	&__rim {
-		fill: #0a1013;
-		stroke: #2a3a41;
+		fill: rgba(10, 16, 19, 0.55);
+		stroke: rgba(130, 165, 175, 0.25);
 		stroke-width: 1;
 	}
 
 	&__track {
 		fill: none;
-		stroke: #1d2a30;
+		stroke: rgba(140, 175, 185, 0.18);
 		stroke-linecap: round;
 		stroke-width: 4;
 	}
@@ -595,12 +793,12 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 
 	&__tick {
-		stroke: #3a4d54;
+		stroke: rgba(140, 175, 185, 0.35);
 		stroke-width: 0.8;
 	}
 
 	&__tick--major {
-		stroke: #6d858d;
+		stroke: rgba(160, 195, 205, 0.5);
 		stroke-width: 1.2;
 	}
 
@@ -641,6 +839,19 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 		margin-left: 2px;
 		color: $spcp-dim;
 		font-size: 8px;
+	}
+
+	// Semicircle gauge: keep the needle pivot at (60, 60) of the view box.
+	&--half &__svg {
+		aspect-ratio: 120 / 58;
+	}
+
+	&--half &__needle {
+		transform-origin: 60px 60px;
+	}
+
+	&--half &__readout {
+		margin-top: -26px;
 	}
 
 	&--warn &__fill {
@@ -722,23 +933,6 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 }
 
 // MARK: Switches
-
-.spcp-switch-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-	justify-content: center;
-	margin-top: 6px;
-
-	.spcp-switch {
-		width: 50px;
-
-		.spcp-switch__image {
-			width: 40px;
-			height: 40px;
-		}
-	}
-}
 
 .spcp-switch {
 	display: flex;
@@ -848,6 +1042,35 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 }
 
+.spcp-lamp {
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	background: #1b272c;
+	border-radius: 50%;
+	box-shadow: inset 0 0 2px #000;
+
+	&--ok {
+		background: $spcp-green;
+		box-shadow: 0 0 5px rgba(77, 255, 166, 0.85);
+	}
+
+	&--warn {
+		background: $spcp-amber;
+		box-shadow: 0 0 5px rgba(255, 194, 74, 0.85);
+	}
+
+	&--bad {
+		background: $spcp-red;
+		box-shadow: 0 0 7px rgba(255, 90, 77, 0.95);
+		animation: spcp-blink 0.8s infinite;
+	}
+
+	&--off {
+		background: #1b272c;
+	}
+}
+
 // MARK: Readouts
 
 .spcp-readouts {
@@ -903,18 +1126,7 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 }
 
-// MARK: Power & fuel
-
-.spcp-power {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-
-	> .spcp-level {
-		flex: 1;
-		margin-bottom: 0;
-	}
-}
+// MARK: Fuel tanks
 
 .spcp-tank {
 	margin-bottom: 6px;
@@ -931,13 +1143,7 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 }
 
-// MARK: Engines
-
-.spcp-engines {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-	gap: 7px;
-}
+// MARK: Engines (drawer)
 
 .spcp-engine {
 	padding: 6px;
@@ -1035,182 +1241,61 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	}
 }
 
-// MARK: Gyroscope
+// MARK: Gyroscope (drawer)
 
 .spcp-gyro {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
-	gap: 8px;
-
-	&__side {
-		display: flex;
-		flex: 1;
-		align-items: flex-end;
-		gap: 8px;
-		min-width: 130px;
-	}
-}
-
-// MARK: Life support
-
-.spcp-air {
-	display: flex;
+	align-items: flex-end;
 	gap: 8px;
 
 	.spcp-readouts {
 		flex: 1;
+		min-width: 160px;
 	}
 
-	&__tank {
-		display: flex;
-		align-items: flex-end;
-		gap: 8px;
-		margin-top: 4px;
-		padding-top: 4px;
-		border-top: 1px solid #1e2a30;
+	.spcp-switch {
+		width: 50px;
 
-		.spcp-switch {
-			width: 46px;
-
-			.spcp-switch__image {
-				width: 38px;
-				height: 38px;
-			}
-
-			.spcp-lamp {
-				display: none;
-			}
-		}
-	}
-}
-
-// MARK: Weapons
-
-.spcp-weapon-head {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 6px;
-
-	> span {
-		overflow: hidden;
-		flex: 1;
-		color: #c6d8dd;
-		font-size: 9px;
-		letter-spacing: 0.5px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-}
-
-.spcp-gun {
-	margin-bottom: 4px;
-	padding: 4px 6px;
-	background: #10171a;
-	border: 1px solid #1f2b31;
-	border-radius: 3px;
-
-	&__head {
-		display: flex;
-		align-items: baseline;
-		gap: 5px;
-		margin-bottom: 3px;
-
-		b {
-			color: $spcp-amber;
-			font-size: 8px;
-			letter-spacing: 1.5px;
-		}
-	}
-
-	&__name {
-		overflow: hidden;
-		flex: 1;
-		color: #b8cbd0;
-		font-size: 9px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	&__type {
-		color: $spcp-dim-2;
-		font-size: 7px;
-		letter-spacing: 0.5px;
-	}
-
-	&__actions {
-		display: flex;
-		align-items: flex-end;
-		gap: 5px;
-
-		.spcp-switch {
-			width: 50px;
-
-			.spcp-switch__image {
-				width: 38px;
-				height: 38px;
-			}
-		}
-	}
-}
-
-// MARK: Misc
-
-.spcp-misc {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-
-	&__cards {
-		display: flex;
-		gap: 6px;
-	}
-
-	&__card {
-		display: flex;
-		flex: 1;
-		flex-direction: column;
-		align-items: center;
-		gap: 2px;
-		padding: 3px 4px;
-		background: #10171a;
-		border: 1px solid #1f2b31;
-		border-radius: 3px;
-
-		> span {
-			color: $spcp-dim;
-			font-size: 8px;
-			letter-spacing: 1px;
-		}
-
-		.spcp-switch {
-			width: 48px;
-
-			.spcp-switch__image {
-				width: 40px;
-				height: 40px;
-			}
+		.spcp-switch__image {
+			width: 40px;
+			height: 40px;
 		}
 
 		.spcp-lamp {
 			display: none;
 		}
 	}
+}
 
-	&__launch {
-		display: flex;
-		align-items: flex-end;
-		gap: 8px;
+// MARK: Life support (drawer)
 
-		.Button {
-			flex: 1;
-			margin-bottom: 2px;
+.spcp-air__tank {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+	padding-top: 4px;
+	border-top: 1px solid #1e2a30;
+
+	.spcp-readouts {
+		flex: 1;
+	}
+
+	.spcp-switch {
+		width: 46px;
+
+		.spcp-switch__image {
+			width: 38px;
+			height: 38px;
+		}
+
+		.spcp-lamp {
+			display: none;
 		}
 	}
 }
 
-// MARK: Integrity
+// MARK: Integrity (drawer)
 
 .spcp-hull {
 	display: flex;
@@ -1225,9 +1310,8 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 
 .spcp-modules {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 	gap: 5px;
-	margin-top: 5px;
 }
 
 .spcp-module {

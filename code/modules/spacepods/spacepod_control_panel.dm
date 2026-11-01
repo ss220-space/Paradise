@@ -282,6 +282,7 @@
 		module_data["id"] = module.id
 		module_data["caption"] = module.caption
 		module_data["name"] = module.module_name
+		module_data["enable"] = module.enable
 		module_data["integrity"] = module.integrity
 		module_data["max_integrity"] = module.max_integrity
 		module_data["integrity_warn"] = module.integrity < 0.5 * module.max_integrity
