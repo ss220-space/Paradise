@@ -213,6 +213,13 @@ GLOBAL_PROTECT(log_end)
 	messages.Add("[GLOB.log_end]")
 	WRITE_LOG(GLOB.tgui_log, messages.Join())
 
+#if defined(REFERENCE_TRACKING) // Doing it locally
+#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
+
+#else //Not tracking at all
+#define log_reftracker(msg)
+#endif
+
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
 	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]", "true")
@@ -433,10 +440,3 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
-
-#if defined(REFERENCE_TRACKING) // Doing it locally
-#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
-
-#else //Not tracking at all
-#define log_reftracker(msg)
-#endif

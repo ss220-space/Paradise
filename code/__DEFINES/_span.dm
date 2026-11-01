@@ -182,6 +182,12 @@
 #define span_shadowling(str) ("<span class='shadowling'>[str]</span>")
 #define span_shadowling_alt(str) ("<span class='shadowling'>" + str + "</span>")
 #define span_holoparasite(str) ("<span class='holoparasite'>[str]</span>")
+#define span_swarmer(str) ("<span class='swarmer'>[str]</span>")
+#define span_swarmerbold(str) ("<span class='swarmerbold'>[str]</span>")
+#define span_swarmeritalic(str) ("<span class='swarmeritalic'>[str]</span>")
+#define span_swarmerboldlarge(str) ("<span class='swarmerboldlarge'>[str]</span>")
+#define span_zombie(str) ("<span class='zombie'>[str]</span>")
+#define span_zombielarge(str) ("<span class='zombielarge'>[str]</span>")
 
 /**
  * MARK: Cults

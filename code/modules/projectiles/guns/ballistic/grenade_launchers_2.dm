@@ -64,7 +64,7 @@
 
 /obj/item/gun/projectile/revolver/rocketlauncher/can_shoot(mob/user)
 	if(chambered)
-		return TRUE
+		return ..()
 	return FALSE
 
 /obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
@@ -78,7 +78,7 @@
 		chambered.forceMove(src)
 
 /obj/item/gun/projectile/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
-	. = ..()
+	. = ..(TRUE, FALSE) //Count that chambered ammo
 
 /obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0

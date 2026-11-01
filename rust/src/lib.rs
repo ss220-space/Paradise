@@ -1,3 +1,4 @@
+mod cave_system_generator;
 mod dmi;
 mod error;
 mod exit;

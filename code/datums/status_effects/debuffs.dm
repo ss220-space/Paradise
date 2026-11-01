@@ -721,13 +721,13 @@
 	. = ..()
 	if(traits_to_apply)
 		owner.add_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
-	if(needs_update_stat || issilicon(owner))
+	if(needs_update_stat || issilicon(owner) || isswarmer(owner))
 		owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
 	if(traits_to_apply)
 		owner.remove_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
-	if(needs_update_stat || issilicon(owner))
+	if(needs_update_stat || issilicon(owner) || isswarmer(owner))
 		owner.update_stat()
 	return ..()
 
@@ -744,7 +744,7 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
 
 /datum/status_effect/incapacitating/stun/on_apply()
-	if(issilicon(owner))
+	if(issilicon(owner) || isswarmer(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
 
@@ -772,7 +772,7 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
 
 /datum/status_effect/incapacitating/weakened/on_apply()
-	if(issilicon(owner))
+	if(issilicon(owner) || isswarmer(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
 
@@ -980,56 +980,121 @@
 /datum/status_effect/transient/lose_breath
 	id = "lose_breath"
 
-#define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
-#define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
-/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
-#define HALLUCINATE_COOLDOWN_FACTOR 0.003
-/// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 20
-// Severity weights, should sum up to 100!
-#define HALLUCINATE_MINOR_WEIGHT 60
-#define HALLUCINATE_MODERATE_WEIGHT 25
-#define HALLUCINATE_MAJOR_WEIGHT 15
-
 // MARK: Hallucination
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
-	var/next_hallucination = 0
+	/// The lower range of when the next hallucination will trigger after one occurs.
+	var/lower_tick_interval = 20 SECONDS
+	/// The upper range of when the next hallucination will trigger after one occurs.
+	var/upper_tick_interval = 40 SECONDS
+	/// The maximum hallucination tier that can be picked.
+	var/max_hallucination_tier = HALLUCINATION_TIER_COMMON
+	/// If TRUE, we only select hallucinations from the hallucination_tier.
+	/// If FALSE, it will also include anything below the hallucination_tier.
+	var/strict_tier = FALSE
+	/// Tier can be variable, based on the duration of the hallucination.
+	var/variable_tier = TRUE
+	/// The cooldown for when the next hallucination can occur
+	COOLDOWN_DECLARE(hallucination_cooldown)
+
+	/// How intense the hallucinations are (0-10 stacks). Derived from remaining strength.
+	var/hallucination_stacks = 0
+
+/datum/status_effect/transient/hallucination/on_apply()
+	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
+		return FALSE
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
+
+	var/dose = strength
+	duration = STATUS_EFFECT_PERMANENT
+	strength = dose
+
+	// Stacks are derived directly from remaining strength (1 stack = 30 seconds).
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+
+	return TRUE
+
+/datum/status_effect/transient/hallucination/proc/delete_self()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/datum/status_effect/transient/hallucination/on_remove()
+	UnregisterSignal(owner, list(
+		COMSIG_LIVING_HEALTHSCAN,
+		SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE),
+	))
+
+/// Add a dose (in deciseconds).
+/datum/status_effect/transient/hallucination/proc/add_dose(seconds)
+	seconds = max(0, seconds)
+	strength += seconds
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+
+/// Reduce by a dose.
+/datum/status_effect/transient/hallucination/proc/reduce_dose(seconds)
+	seconds = max(0, seconds)
+	strength = max(0, strength - seconds)
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+	if(hallucination_stacks <= 0)
+		qdel(src)
+
+/// Reset to absolute dose.
+/datum/status_effect/transient/hallucination/proc/reset_to(amount)
+	amount = max(0, amount)
+	strength = amount
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
 
 /datum/status_effect/transient/hallucination/tick(seconds_between_ticks)
-	. = ..()
-	if(!.)
-		return
+	. = TRUE
+	if(QDELETED(owner))
+		qdel(src)
+		return FALSE
 
 	if(!iscarbon(owner))
 		return
 
-	if(next_hallucination > world.time)
+	if(owner.stat == DEAD)
 		return
 
-	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
-	if(!prob(HALLUCINATE_CHANCE))
+	var/dt = seconds_between_ticks * 10
+	strength = max(0, strength - dt)
+
+	// Stacks are strictly derived from remaining strength.
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+
+	if(hallucination_stacks <= 0)
+		qdel(src)
 		return
 
-	// Pick a severity
-	var/list/severity = list()
-	switch(rand(100))
-		if(0 to HALLUCINATE_MINOR_WEIGHT)
-			severity = GLOB.minor_hallutinations.Copy()
-		if((HALLUCINATE_MINOR_WEIGHT + 1) to (HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT))
-			severity = GLOB.medium_hallutinations.Copy()
-		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
-			severity = GLOB.major_hallutinations.Copy()
+	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
+		return
 
-	owner.hallucinate_living(pickweight(severity))
+	var/effective_stacks = round(hallucination_stacks)
 
-#undef HALLUCINATE_COOLDOWN_MIN
-#undef HALLUCINATE_COOLDOWN_MAX
-#undef HALLUCINATE_COOLDOWN_FACTOR
-#undef HALLUCINATE_CHANCE
-#undef HALLUCINATE_MINOR_WEIGHT
-#undef HALLUCINATE_MODERATE_WEIGHT
-#undef HALLUCINATE_MAJOR_WEIGHT
+	var/lower_cd = lower_tick_interval
+	var/upper_cd = upper_tick_interval
+	if(variable_tier)
+		switch(effective_stacks)
+			if(0 to 2)
+				max_hallucination_tier = HALLUCINATION_TIER_COMMON
+				lower_cd *= 1.2
+				upper_cd *= 1.2
+			if(3 to 5)
+				max_hallucination_tier = prob(10) ? HALLUCINATION_TIER_RARE : HALLUCINATION_TIER_UNCOMMON
+			if(6 to 8)
+				max_hallucination_tier = HALLUCINATION_TIER_RARE
+				lower_cd *= 0.75
+				upper_cd *= 0.75
+			if(9 to 10)
+				max_hallucination_tier = HALLUCINATION_TIER_VERYSPECIAL
+				lower_cd *= 0.5
+				upper_cd *= 0.5
+
+	var/datum/hallucination/picked_hallucination = get_random_hallucination(max_hallucination_tier, strict_tier)
+	if(!owner.cause_hallucination(picked_hallucination, "[id] status effect"))
+		lower_cd *= 0.25
+		upper_cd *= 0.25
+	COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
 
 // MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
@@ -1629,3 +1694,47 @@
 /datum/status_effect/gene_instability/major/critical/proc/on_time_end()
 	if(owner.gene_stability < GENETIC_DAMAGE_STAGE_3)
 		owner.gib()
+
+// MARK: staminaregen_block
+/datum/status_effect/staminaregen_block
+	id = "staminaregen_block"
+	alert_type = null
+	duration = 1 SECONDS
+
+/// Duration can be specified on creation
+/datum/status_effect/staminaregen_block/on_creation(mob/living/new_owner, new_duration)
+	if(new_duration)
+		duration = new_duration
+	return ..()
+
+/datum/status_effect/staminaregen_block/on_apply()
+	ADD_TRAIT(owner, TRAIT_BLOCK_STAMINA_REGEN, id)
+	return ..()
+
+/datum/status_effect/staminaregen_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_BLOCK_STAMINA_REGEN, id)
+
+// MARK: metabolize_block
+/datum/status_effect/metabolize_block
+	id = "metabolize_block"
+	alert_type = null
+	duration = 10 SECONDS
+	/// Overlay applied to mob, if set on creation
+	var/mutable_appearance/overlay
+
+/// Duration and set overlays can be specified on creation
+/datum/status_effect/metabolize_block/on_creation(mob/living/new_owner, new_duration, mutable_appearance/new_overlay)
+	if(new_duration)
+		duration = new_duration
+	if(new_overlay)
+		overlay = new_overlay
+	return ..()
+
+/datum/status_effect/metabolize_block/on_apply()
+	ADD_TRAIT(owner, TRAIT_BLOCK_METABOLIZE, id)
+	owner.add_overlay(overlay)
+	return ..()
+
+/datum/status_effect/metabolize_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_BLOCK_METABOLIZE, id)
+	owner.cut_overlay(overlay)

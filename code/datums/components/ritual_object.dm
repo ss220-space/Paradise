@@ -16,13 +16,13 @@
 	var/datum/ritual/ritual
 
 /datum/component/ritual_object/Destroy(force)
-	LAZYNULL(rituals)
+	QDEL_LIST(rituals)
 	LAZYNULL(allowed_categories)
 	LAZYNULL(allowed_species)
 	LAZYNULL(allowed_special_role)
 	LAZYNULL(invokers)
 	LAZYNULL(used_things)
-	ritual = null
+	QDEL_NULL(ritual)
 
 	return ..()
 
@@ -48,7 +48,7 @@
 	UnregisterSignal(parent, COMSIG_ATOM_ATTACK_HAND)
 
 /datum/component/ritual_object/proc/get_rituals() // We'll get all rituals for flexibility.
-	LAZYCLEARLIST(rituals)
+	QDEL_LIST(rituals)
 
 	for(var/datum/ritual/ritual as anything in typecacheof(allowed_categories))
 		if(!ritual.name)

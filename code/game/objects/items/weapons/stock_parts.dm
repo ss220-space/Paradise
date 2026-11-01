@@ -68,18 +68,21 @@
 		new /obj/item/stock_parts/cell/bluespace(src)
 
 /obj/item/storage/part_replacer/bluespace/drop_inventory(mob/user)
-	if(user.a_intent == INTENT_HARM) //Меняем режим выгрузки
-		empty_mode -= 1
-		if(empty_mode < 0)
-			empty_mode = 4
-		to_chat(user, span_notice("[src.name] будет выгружать предметы рангом [empty_mode] и ниже."))
-	else
-		var/turf/T = get_turf(src)
+	if(user)
+		if(user.a_intent == INTENT_HARM) //Меняем режим выгрузки
+			empty_mode--
+			if(empty_mode < 0)
+				empty_mode = 4
+			to_chat(user, span_notice("[src.name] будет выгружать предметы рангом [empty_mode] и ниже."))
+			return
+
 		hide_from(user)
-		for(var/obj/item/stock_parts/I in contents)
-			if(I.rating <= empty_mode)
-				remove_from_storage(I, T)
-				CHECK_TICK
+
+	var/turf/loc_turf = get_turf(src)
+	for(var/obj/item/stock_parts/part in contents)
+		if(part.rating <= empty_mode)
+			remove_from_storage(part, loc_turf)
+			CHECK_TICK
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -94,6 +97,7 @@
 	return B.rating - A.rating
 
 /obj/item/stock_parts
+	abstract_type = /obj/item/stock_parts
 	name = "stock part"
 	desc = "What?"
 	gender = PLURAL
@@ -103,7 +107,6 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
-	abstract_type = /obj/item/stock_parts
 
 /obj/item/stock_parts/Initialize(mapload)
 	. = ..()

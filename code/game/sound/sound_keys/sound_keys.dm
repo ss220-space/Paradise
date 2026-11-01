@@ -340,6 +340,13 @@
 		'sound/voice/unathi/f_u_scream2.ogg',
 	)
 
+/datum/sound_effect/u_mscream
+	key = SFX_U_MSCREAM
+	file_paths = list(
+		'sound/voice/unathi/m_u_scream.ogg',
+		'sound/voice/unathi/m_u_scream2.ogg',
+	)
+
 /datum/sound_effect/bonebreak
 	key = SFX_BONEBREAK
 	file_paths = list(
@@ -770,4 +777,11 @@
 	file_paths = list(
 		'sound/effects/footstep/heavy1.ogg',
 		'sound/effects/footstep/heavy2.ogg',
+	)
+
+/datum/sound_effect/hallucination_i_m_here
+	key = SFX_IM_HERE
+	file_paths = list(
+		'sound/effects/hallucinations/im_here1.ogg',
+		'sound/effects/hallucinations/im_here2.ogg',
 	)

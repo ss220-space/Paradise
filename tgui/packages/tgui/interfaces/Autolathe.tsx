@@ -13,6 +13,7 @@ import { flow } from 'tgui-core/fp';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 const canBeMade = (
   recipe: Recipe,
@@ -35,6 +36,7 @@ const canBeMade = (
 type Recipe = {
   requirements: Record<string, number>;
   name: string;
+  name_en: string;
   desc: string;
   category: string[];
   hacked: boolean;
@@ -57,6 +59,7 @@ type AutolatheData = {
   showhacked: boolean;
   busyamt: number;
   fill_percent: number;
+  logistics_enabled: boolean;
 };
 
 export const Autolathe = (props: unknown) => {
@@ -89,7 +92,10 @@ export const Autolathe = (props: unknown) => {
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
 
-  const testSearch = createSearch(searchText, (recipe: Recipe) => recipe.name);
+  const testSearch = createSearch(
+    searchText,
+    (recipe: Recipe) => `${recipe.name}|${recipe.name_en}`,
+  );
 
   let buildQueueItems: React.JSX.Element[] = [];
   if (buildQueueLen > 0) {
@@ -142,12 +148,19 @@ export const Autolathe = (props: unknown) => {
               scrollable
               title={rText}
               buttons={
-                <Dropdown
-                  width="150px"
-                  options={categories}
-                  selected={category.toString()}
-                  onSelected={(val) => setCategory(val)}
-                />
+                <Stack>
+                  <Stack.Item>
+                    <LogisticsButton enabled={!!data.logistics_enabled} />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Dropdown
+                      width="150px"
+                      options={categories}
+                      selected={category.toString()}
+                      onSelected={(val) => setCategory(val)}
+                    />
+                  </Stack.Item>
+                </Stack>
               }
             >
               <Input

@@ -200,9 +200,6 @@
 
 	var/holder_type = null
 
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
 
 	/// Cooldown for projectile miss sound (5 deciseconds)
@@ -215,3 +212,11 @@
 	/// Modify this via add_offsets and remove_offsets,
 	/// NOT directly (and definitely avoid modifying offsets directly)
 	VAR_PRIVATE/list/offsets
+
+	/// Are we currently pathfinding for the navigate verb?
+	var/navigating = FALSE
+	/// Cooldown of the navigate() verb.
+	COOLDOWN_DECLARE(navigate_cooldown)
+
+	/// Reduces the effects of EMPs, does NOT negate them even at very high numbers
+	var/emp_protection = EMP_PROTECTION_NONE

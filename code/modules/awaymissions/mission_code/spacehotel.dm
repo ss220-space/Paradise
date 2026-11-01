@@ -250,7 +250,7 @@
 	room_doors.Cut()
 	vacant_rooms.Cut()
 	guests.Cut()
-
+	controller = null
 	return ..()
 
 // to check a person into a room; no financial stuff; returns the keycard

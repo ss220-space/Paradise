@@ -97,10 +97,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
-	return ..()
-
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)

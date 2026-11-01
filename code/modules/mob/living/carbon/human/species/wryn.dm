@@ -1,6 +1,7 @@
 /datum/species/wryn
 	name = SPECIES_WRYN
 	name_plural = "Wryn"
+	ru_genitive = "врина"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	language = LANGUAGE_WRYN

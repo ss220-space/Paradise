@@ -166,7 +166,7 @@
 /obj/structure/pit/Destroy()
 	if(!open)
 		open()
-	..()
+	return ..()
 
 /obj/structure/pit/closed
 	name = "mound"

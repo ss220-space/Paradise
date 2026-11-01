@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/drask
+	abstract_type = /datum/sprite_accessory/body_markings/drask
 	species_allowed = list(SPECIES_DRASK)
 
 /datum/sprite_accessory/body_markings/drask/arm_spines_drask

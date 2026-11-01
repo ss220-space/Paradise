@@ -3,6 +3,7 @@
  * The file also contain the guicode of the machine
  */
 /obj/machinery/atmospherics/unary/hypertorus
+	abstract_type = /obj/machinery/atmospherics/unary/hypertorus
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/hypertorus.dmi'
 	icon_state = "core"
 	base_icon_state = "core"
@@ -95,6 +96,7 @@
 * Interface and corners
 */
 /obj/machinery/hypertorus
+	abstract_type = /obj/machinery/hypertorus
 	name = "hypertorus_core"
 	desc = "hypertorus_core"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/hypertorus.dmi'

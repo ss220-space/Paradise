@@ -29,6 +29,9 @@
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored
 	anchored = TRUE
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/energy_accumulator/tesla_coil/Initialize(mapload)
 	. = ..()
 	component_parts = list()

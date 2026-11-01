@@ -63,8 +63,14 @@ GLOBAL_LIST_EMPTY(armor_cache)
 	tag = ARMORID
 
 /datum/armor/Destroy(force)
+	if(!force && tag)
+		return QDEL_HINT_LETMELIVE
+
 	GLOB.armor_cache -= tag
 	GLOB.armor_by_type -= type
+	// something really wants us gone
+	datum_flags &= ~DF_USE_TAG
+	tag = null
 	return ..()
 
 /// Gets the rating of armor for the specified rating

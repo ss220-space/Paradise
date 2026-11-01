@@ -40,6 +40,10 @@
 	pai_holder = user
 	..()
 
+/datum/pai_software/Destroy(force)
+	pai_holder = null
+	return ..()
+
 /**
  * Handler for the app's UI data
  *

@@ -1,4 +1,5 @@
 /datum/sprite_accessory/hair/vox
+	abstract_type = /datum/sprite_accessory/hair/vox
 	icon = 'icons/mob/sprite_accessories/vox/vox_hair.dmi'
 	species_allowed = list(SPECIES_VOX)
 	glasses_over = 1

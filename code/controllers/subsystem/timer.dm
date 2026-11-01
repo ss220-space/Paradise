@@ -378,8 +378,9 @@ SUBSYSTEM_DEF(timer)
 	var/list/flags
 	/// Time at which the timer was invoked or destroyed
 	var/spent = 0
-	/// An informative name generated for the timer as its representation in strings, useful for debugging
-	var/name
+	/// Holds info about this timer, stored from the moment it was created
+	/// Used to create a visible "name" whenever the timer is stringified
+	var/list/timer_info
 	/// Next timed event in the bucket
 	var/datum/timedevent/next
 	/// Previous timed event in the bucket
@@ -390,8 +391,6 @@ SUBSYSTEM_DEF(timer)
 	var/bucket_joined = FALSE
 	/// Initial bucket position
 	var/bucket_pos = -1
-	/// Used to create a visible "name" whenever the timer is stringified
-	var/list/timer_info
 
 /datum/timedevent/New(datum/callback/callBack, wait, flags, datum/controller/subsystem/timer/timer_subsystem, hash, source)
 	var/static/nextid = 1
@@ -499,6 +498,21 @@ SUBSYSTEM_DEF(timer)
 	bucket_pos = -1
 	bucket_joined = FALSE
 
+/datum/timedevent/proc/operator""()
+	if(!length(timer_info))
+		return "Event not filled"
+	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
+#if defined(TIMER_DEBUG)
+	var/list/callback_args = timer_info[10]
+	return "Timer: [timer_info[1]] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
+		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]][timer_info[7]]([timer_info[8]]), \
+		callBack.delegate:[timer_info[9]]([callback_args ? callback_args.Join(", ") : ""]), source: [timer_info[11]]"
+#else
+	return "Timer: [timer_info[1]] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
+		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]]([timer_info[7]]), \
+		callBack.delegate:[timer_info[8]], source: [timer_info[9]]"
+#endif
+
 /**
  * Attempts to add this timed event to a bucket, will enter the secondary queue
  * if there are no appropriate buckets at this time.
@@ -591,21 +605,6 @@ SUBSYSTEM_DEF(timer)
 			CRASH("this timer is attached to no object, the attempted proc to call was [callBack.delegate]")
 		. = "[callBack.object.type]"
 
-/datum/timedevent/proc/operator""()
-	if(!length(timer_info))
-		return "Event not filled"
-	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
-#if defined(TIMER_DEBUG)
-	var/list/callback_args = timer_info[10]
-	return "Timer: [timer_info[1]] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
-		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]][timer_info[7]]([timer_info[8]]), \
-		callBack.delegate:[timer_info[9]]([callback_args ? callback_args.Join(", ") : ""]), source: [timer_info[11]]"
-#else
-	return "Timer: [id] ([text_ref(src)]), TTR: [timer_info[2]], wait:[timer_info[3]] Flags: [jointext(bitfield_to_list(timer_info[4], bitfield_flags), ", ")], \
-		callBack: [text_ref(timer_info[5])], callBack.object: [timer_info[6]]([timer_info[7]]), \
-		callBack.delegate:[timer_info[8]], source: [timer_info[9]]"
-#endif
-
 GLOBAL_LIST_EMPTY(timers_by_type)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
 /datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem)
@@ -688,7 +687,7 @@ ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currentl
 		stack_trace("addtimer called with a negative wait. Converting to [world.tick_lag]")
 
 	if(callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
-		stack_trace("addtimer called with a callback assigned to a qdeleted object. In the future such timers will not \
+		stack_trace("addtimer called with a callback: \"[callback]\" assigned to a qdeleted object: \"[callback.object]\". In the future such timers will not \
 			be supported and may refuse to run or run with a 0 wait")
 
 	if(flags & TIMER_CLIENT_TIME) // REALTIMEOFDAY has a resolution of 1 decisecond

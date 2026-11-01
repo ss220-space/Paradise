@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(ticker)
 						var/target_map = pick(all_maps)
 						SSmapping.next_map = new target_map
 					if("vote")
-						SSvote.initiate_vote(/datum/vote/map, "Map Rotation", forced = TRUE)
+						SSvote.initiate_vote(/datum/vote/map, "Map Rotation", forced = TRUE, auto_open_panel = TRUE)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
@@ -374,11 +374,13 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
-	SEND_SOUND(world, sound(
-			SSstation.announcer.get_rand_welcome_sound(),
-			channel = CHANNEL_ANNOUNCER,
-			volume = 40,
-		))
+	var/welcome_sound = SSstation.announcer.get_rand_welcome_sound()
+	for(var/client/client as anything in GLOB.clients)
+		SEND_SOUND(client, sound(
+				welcome_sound,
+				channel = CHANNEL_ANNOUNCER,
+				volume = 100 * client.prefs.get_channel_volume(CHANNEL_ANNOUNCER),
+			))
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
@@ -473,7 +475,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
+			if(!(issilicon(M) && override == MALF_AI))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.ghostize()

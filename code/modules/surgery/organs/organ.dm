@@ -57,6 +57,12 @@
 	var/emp_proof = FALSE
 	/// Will it skip pain messages?
 	var/hidden_pain = FALSE
+	/// Should this organ be destroyed on removal?
+	var/destroy_on_removal = FALSE
+
+	/// What was the last pain message that was sent?
+	var/last_pain_message
+	COOLDOWN_DECLARE(pain_cd)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
@@ -134,6 +140,11 @@
 /obj/item/organ/proc/update_health()
 	return
 
+/obj/item/organ/ComponentInitialize()
+	. = ..()
+	if(emp_proof)
+		AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
+
 /obj/item/organ/proc/emp_shielded(severity)
 	if(!owner || !HAS_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD))
 		return FALSE
@@ -143,10 +154,16 @@
 	owner.adjust_nutrition(-nutrition_cost)
 	return TRUE
 
-/obj/item/organ/proc/necrotize(silent = FALSE)
+/obj/item/organ/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+
+/obj/item/organ/proc/necrotize(silent = FALSE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
 
+	var/old_damage = damage
 	damage = max_damage
 	bleeding_amount = 0
 	status |= ORGAN_DEAD
@@ -157,6 +174,8 @@
 
 	if(owner && vital)
 		owner.death()
+
+	update_damage_overlay(old_damage)
 
 	return TRUE
 
@@ -269,6 +288,38 @@
 		else
 			. += span_notice("Серьёзно повреждено.")
 
+/**
+ * Appends the owner's species name to this organ's Russian names.
+ *
+ * Generic bodyparts such as [/obj/item/organ/external/leg] are shared between every
+ * species, so on their own they read as "левая нога". This bolts the species name onto
+ * every grammatical case, producing "левая нога человека" and "левой ноги человека".
+ */
+/obj/item/organ/proc/apply_species_name()
+	if(species_type)
+		return
+	if(!dna?.species)
+		return
+
+	var/suffix = dna.species.get_bodypart_name_suffix()
+	if(!suffix)
+		return
+
+	set_ru_names_suffix(suffix)
+
+/**
+ * Returns the declined Russian name of the organ WITHOUT the species suffix
+ * added by apply_species_name()
+ * Uses the cached type-level declension, which set_ru_names_suffix() never modifies.
+ */
+/obj/item/organ/proc/declent_ru_base(case_id)
+	if(case_id < NOMINATIVE || case_id > PREPOSITIONAL)
+		return initial(name)
+	var/alist/names = get_ru_names_cached()
+	if(length(names))
+		return names[case_id] || initial(name)
+	return initial(name)
+
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
@@ -294,6 +345,7 @@
 			parent.germ_level += germs_amount
 
 /obj/item/organ/proc/rejuvenate()
+	var/old_damage = damage
 	damage = 0
 	germ_level = 0
 	bleeding_amount = 0
@@ -304,6 +356,8 @@
 		status = NONE
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+	update_damage_overlay(old_damage)
 
 /obj/item/organ/proc/is_damaged(brute = TRUE, burn = TRUE)
 	if(isexternalorgan(src))
@@ -350,7 +404,9 @@
 
 	. = TRUE
 
+	var/old_damage = damage
 	damage = clamp(round(damage + amount, DAMAGE_PRECISION), 0, max_damage)
+	update_damage_overlay(old_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ_zone && amount > 0)
@@ -366,11 +422,17 @@
 	if(is_robotic() && !robo_repair)
 		return
 
+	var/old_damage = damage
 	damage = max(damage - amount, 0)
+	update_damage_overlay(old_damage)
 
 /obj/item/organ/proc/robotize(make_tough = FALSE) //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
 	status |= ORGAN_ROBOT
+	update_damage_overlay(damage)
+
+/obj/item/organ/proc/update_damage_overlay(old_damage)
+	return
 
 /obj/item/organ/proc/shock_organ(intensity)
 	return
@@ -395,6 +457,9 @@
 		owner.death()
 
 	owner = null
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
@@ -470,3 +535,16 @@
 		else
 			blood_dna["UNKNOWN DNA"] = "X*"
 		transfer_blood_dna(blood_dna)
+
+// A proc to send a pain message to the owner.
+/obj/item/organ/proc/custom_pain(message)
+	if(!owner.has_pain() || !message)
+		return
+
+	var/msg = span_userdanger("[message]")
+
+	// Anti message spam checks
+	if(msg != last_pain_message || !COOLDOWN_FINISHED(src, pain_cd))
+		last_pain_message = msg
+		to_chat(owner, msg)
+		COOLDOWN_START(src, pain_cd, 10 SECONDS)

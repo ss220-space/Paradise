@@ -6,6 +6,7 @@
 #define BROKEN_NEEDS_SCREWDRIVER 2
 
 /obj/machinery/kitchen_machine
+	abstract_type = /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	density = TRUE
@@ -303,7 +304,10 @@
 
 	for(var/obj/O in contents)
 		var/display_name = DECLENT_RU_CAP(O, NOMINATIVE)
-		items_counts[display_name]++
+		if(isitem(O))
+			items_counts[display_name] += logistics_item_units(O)
+		else
+			items_counts[display_name]++
 
 	data["ingredients"] += list()
 	for(var/item_name in items_counts)

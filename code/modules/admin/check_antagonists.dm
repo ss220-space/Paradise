@@ -13,7 +13,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = {"<body><h1><b>Round Status</b></h1>"}
+		var/list/dat = list({"<body><h1><b>Round Status</b></h1>"})
 		dat += "Current Game Mode: <b>[SSticker.mode.name]</b><br>"
 		dat += "Round Duration: <b>[ROUND_TIME_TEXT()]</b><br>"
 		dat += "<b>Emergency shuttle</b><br>"
@@ -264,6 +264,12 @@
 		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
+		if(length(SSticker.mode.zombies))
+			dat += check_role_table("Zombies", SSticker.mode.zombies)
+
+		if(length(SSticker.mode.zombie_infected))
+			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
+
 		if(length(SSticker.mode.ert))
 			dat += check_role_table("ERT", SSticker.mode.ert)
 
@@ -278,7 +284,7 @@
 
 		dat += "</body>"
 		var/datum/browser/popup = new(usr, "roundstatus", "<div align='center'>Round Status</div>", 400, 500)
-		popup.set_content(dat)
+		popup.set_content(dat.Join(""))
 		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 		popup.open()
 		onclose(usr, "roundstatus")
@@ -286,17 +292,17 @@
 		tgui_alert(usr, "The game hasn't started yet!")
 
 /datum/admins/proc/check_role_table(name, list/members, show_objectives=1)
-	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	var/list/txt = list("<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>")
 	for(var/datum/mind/M in members)
 		txt += check_role_table_row(M.current, show_objectives)
 	txt += "</table>"
-	return txt
+	return txt.Join("")
 
 /datum/admins/proc/check_role_table_row(mob/M, show_objectives)
 	if(!istype(M))
 		return "<tr><td><i>Not found!</i></td></tr>"
 
-	var/txt = check_antagonists_line(M, close = 0)
+	var/list/txt = list(check_antagonists_line(M, close = 0))
 
 	if(show_objectives)
 		txt += {"
@@ -306,7 +312,14 @@
 		"}
 
 	txt += "</tr>"
-	return txt
+	return txt.Join("")
+
+/datum/admins/proc/check_role_table_mob(name, list/members, show_objectives=1)
+	var/list/txt = list("<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>")
+	for(var/mob/mob as anything in members)
+		txt += check_role_table_row(mob, show_objectives)
+	txt += "</table>"
+	return txt.Join("")
 
 /datum/admins/proc/check_security_line(mob/living/human, close = 1)
 	var/logout_status = human.client ? "" : " <i>(logged out)</i>"

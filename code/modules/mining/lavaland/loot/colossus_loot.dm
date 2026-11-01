@@ -357,7 +357,7 @@
 		/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 		/obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
 		/obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader, /obj/item/mod,
-		/obj/item/autoimplanter
+		/obj/item/autoimplanter, /obj/item/card/mining_point_card, /obj/item/neurotrainer,
 	)
 
 /obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
@@ -427,6 +427,7 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 	posession_spell = new
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -446,9 +447,6 @@
 		if(kill || !isanimal(loc))
 			L.death(0)
 	..()
-
-/obj/structure/closet/stasis/emp_act()
-	return
 
 /obj/structure/closet/stasis/ex_act()
 	return

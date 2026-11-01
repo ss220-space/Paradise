@@ -95,6 +95,11 @@
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Destroy()
+	depotarea = null
+	spawn_turf = null
+	return ..()
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
 	return ListTargets()
@@ -344,6 +349,27 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
 	loot = list()//gonna gibe, no loot.
+
+/mob/living/simple_animal/hostile/syndicate/hazmat
+	name = "Неизвестный"
+	desc = "Человек в очень странном герметичном хазмат-костюме. Выглядит... лиминально?"
+	icon_state = "syndicate_hazmat"
+	icon_living = "syndicate_hazmat"
+	icon_dead = "syndicate_hazmat"
+	icon_gib = "syndicate_hazmat"
+	ranged = TRUE
+	rapid = 2
+	rapid_fire_delay = 3
+	retreat_distance = 5
+	minimum_distance = 5
+	projectilesound = 'sound/weapons/gunshots/1c20.ogg'
+	casingtype = /obj/item/ammo_casing/c45nr //15 brute
+	tts_effect_override = SOUND_EFFECT_OLD_VOCODER
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatehazmat, /obj/item/gun/projectile/automatic/smg/c20r/rusted)
+
+/mob/living/simple_animal/hostile/syndicate/hazmat/mindless
+	AIStatus = AI_OFF
+	wander = FALSE
 
 /mob/living/simple_animal/hostile/viscerator
 	name = "viscerator"

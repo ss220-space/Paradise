@@ -20,15 +20,17 @@
 /obj/machinery/computer/syndicate_depot/Initialize(mapload)
 	. = ..()
 	depotarea = get_area(src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
+
+/obj/machinery/computer/syndicate_depot/Destroy()
+	depotarea = null
+	return ..()
 
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
 		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
-
-/obj/machinery/computer/syndicate_depot/emp_act(severity)
-	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
 	if(user)
@@ -419,7 +421,7 @@
 			mybeacon.toggle()
 	if(portal_enabled)
 		portal_enabled = FALSE
-		update_portal()
+		INVOKE_ASYNC(src, PROC_REF(update_portal))
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/findbeacon()
 	if(mybeacon)

@@ -602,7 +602,7 @@ SUBSYSTEM_DEF(jobs)
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = get_random_area_turf_for_spawn(/area/station/security/prison/perma)
 		else
-			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
+			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station, check_for_subtypes = TRUE)
 
 	if(isturf(mark_spawn))
 		turf_spawn = mark_spawn
@@ -681,10 +681,10 @@ SUBSYSTEM_DEF(jobs)
 	wheelchair.buckle_mob(human, TRUE)
 	return human
 
-/datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
+/datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type, check_for_subtypes = FALSE)
 	var/list/turf/possible_turfs = list()
 	var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
-	for(var/turf/TS in get_area_turfs(area_type))
+	for(var/turf/TS in get_area_turfs(area_type, subtypes = check_for_subtypes))
 		if(TS.density)
 			continue
 		var/bad_turf = FALSE

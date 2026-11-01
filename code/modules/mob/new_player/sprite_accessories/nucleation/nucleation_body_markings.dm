@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/nucleation
+	abstract_type = /datum/sprite_accessory/body_markings/nucleation
 	icon = 'icons/mob/sprite_accessories/nucleation/nucleation_body_markings.dmi' // спрайты от Vadim772
 	species_allowed = list(SPECIES_NUCLEATION)
 	do_colouration = 0

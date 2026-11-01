@@ -395,7 +395,7 @@
 	soul.set_health(new_value)
 	soul.update_stat("itemBodyDamaged")
 
-/obj/item/soulscythe/proc/on_attack(mob/living/source, atom/attacked_atom, modifiers)
+/obj/item/soulscythe/proc/on_attack(mob/living/source, atom/attacked_atom, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!COOLDOWN_FINISHED(src, attack_cooldown) || !isturf(loc))

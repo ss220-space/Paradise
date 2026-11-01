@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	turf_type = /turf/simulated/floor/mineral/silver/fancy
 
 /obj/item/stack/tile/mineral/silver/fancy/Initialize(mapload, new_amount, merge = TRUE)
-	..()
+	. = ..()
 	recipes = GLOB.silverfancy_tile_recipes
 
 /obj/item/stack/tile/mineral/diamond

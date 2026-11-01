@@ -83,6 +83,7 @@
 
 		user.do_attack_animation(src)
 		playsound(user, 'sound/effects/glasshit.ogg', 100, TRUE) //We don't want this playing every time
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(I.force < 15)
 			to_chat(user, span_notice("The cabinet's protective glass glances off the hit."))
 			return .

@@ -103,9 +103,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	if(!character.m_styles)
 		character.m_styles = DEFAULT_MARKING_STYLES
 
-	var/head_marks	= GLOB.marking_styles_list.Find(character.m_styles["head"])
-	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
-	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
+	var/head_marks	= SSaccessories.body_markings_list.Find(character.m_styles["head"])
+	var/body_marks	= SSaccessories.body_markings_list.Find(character.m_styles["body"])
+	var/tail_marks	= SSaccessories.body_markings_list.Find(character.m_styles["tail"])
 
 	head_traits_to_dna(character, H)
 	eye_color_to_dna(eyes_organ)
@@ -129,9 +129,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
 	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		length(GLOB.body_accessory_by_name),	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(SSaccessories.body_markings_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(SSaccessories.body_markings_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(SSaccessories.body_markings_list),		1)
 
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 

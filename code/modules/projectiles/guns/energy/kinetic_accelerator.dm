@@ -122,12 +122,6 @@
 	unique_frequency = TRUE
 	max_mod_capacity = 200
 
-/obj/item/gun/energy/kinetic_accelerator/cyborg/attach_modkit(obj/item/borg/upgrade/modkit/MK, mob/user)
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/loc_robot = loc
-		loc_robot.install_upgrade(MK, user)
-	return MK.install(src, user)
-
 /obj/item/gun/energy/kinetic_accelerator/cyborg/modkit_predeattach(obj/item/borg/upgrade/modkit/MK, mob/living/silicon/robot/owner)
 	if(istype(owner))
 		owner.upgrades -= MK
@@ -144,6 +138,7 @@
 	. = ..()
 	if(!holds_charge)
 		empty()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
@@ -185,9 +180,6 @@
 
 	deltimer(recharge_timerid)
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time, TIMER_STOPPABLE)
-
-/obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
 
 /obj/item/gun/energy/kinetic_accelerator/robocharge()
 	return

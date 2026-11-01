@@ -609,3 +609,15 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define PIXEL_X_OFFSET "x"
 #define PIXEL_Y_OFFSET "y"
 #define PIXEL_Z_OFFSET "z"
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
+
+/**
+ * EMP protection
+ * These values are additive to determine your overall emp protection
+ */
+#define EMP_PROTECTION_NONE 0
+#define EMP_PROTECTION_MODERATE 1
+#define EMP_PROTECTION_HIGH 2

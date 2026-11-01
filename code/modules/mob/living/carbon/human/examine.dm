@@ -14,10 +14,12 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 
+	var/temp_name = "[HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)? "воняющий труп ": ""][..()]"
+
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		return ..() //omit the species when examining
+		return temp_name //omit the species when examining
 	else
-		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+		return "[temp_name],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
 
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
@@ -49,7 +51,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = ""
+	var/list/msg = list()
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -241,7 +243,7 @@
 				if(bodypart.is_robotic())
 					msg += span_warning("<b>Технический люк на [GLOB.body_zone[limb_zone][PREPOSITIONAL]] открыт.</b>\n")
 				else
-					msg += span_warning("<b>У н[GEND_HIS_HER(src)] открытый разрез на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
+					msg += span_warning("<b>У н[GEND_HIS_HER(src)] [bodypart.open != ORGAN_ORGANIC_VIOLENT_OPEN? "открытый разрез" : "жестокое рассечёние"] на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
 				msg += span_warning("<b>В [GEND_HIS_HER(src)] [GLOB.body_zone[limb_zone][PREPOSITIONAL]] застрял [icon2html(embed, user)] [embed.declent_ru(NOMINATIVE)]!</b>\n")
@@ -298,16 +300,16 @@
 	if(fire_stacks < 0)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] немного мокр[GEND_YM_OI_YM_YMI(src)].\n")
 
-	switch(wetlevel)
-		if(1)
+	switch(round(get_wet_stacks()))
+		if(1 to 4)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] слегка влажн[GEND_YM_OI_YM_YMI(src)].\n")
-		if(2)
+		if(5 to 8)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] чуть мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(3)
+		if(9 to 12)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(4)
+		if(13 to 16)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] очень мокр[GEND_YM_OI_YM_YMI(src)].\n")
-		if(5)
+		if(17 to INFINITY)
 			msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] полностью промокш[GEND_IM_EI_IM_IMI(src)].\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
@@ -324,6 +326,9 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У н[GEND_HIS_HER(src)] бледная кожа.\n")
 
+	if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE)) //to tell plague zombies easier through clothing
+		msg += "[GEND_HE_SHE_CAP(src)] пахн[PLUR_ET_UT(src)] гнилью и смертью!\n"
+
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
 		msg += span_warning("<b>[GEND_HE_SHE_CAP(src)] впил[GEND_SYA_AS_OS_IS(src)] своими клыками в шею [vampire_datum.draining].\n</b>")
@@ -333,28 +338,28 @@
 			continue
 		if(bodypart.tourniquet.applied_bodypart != bodypart)
 			continue
-		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
+		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 			continue
-		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>\n")
+		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru_base(GENITIVE)] торчит кость!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
-				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
+				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru_base(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
 			continue
 
 		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 		if(suppressed)
-			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным.\n")
+			msg += span_warning("[capitalize(GEND_HIS_HER(src))] [bodypart.declent_ru_base(NOMINATIVE)] перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным.\n")
 		else if(bodypart.has_arterial_bleeding())
-			msg += span_warning(span_bold("Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] хлещет кровь!\n"))
+			msg += span_warning(span_bold("Из [GEND_HIS_HER(src)] [bodypart.declent_ru_base(GENITIVE)] хлещет кровь!\n"))
 		else if(bodypart.has_heavy_bleeding())
-			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 		else
-			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
 		var/blood_volume_text
@@ -469,7 +474,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	. = list(msg)
+	. = list(msg.Join(""))
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**

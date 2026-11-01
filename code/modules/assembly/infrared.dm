@@ -124,7 +124,7 @@
 
 	var/mob/triggered
 	if(AM.throwing?.thrower)
-		triggered = AM.throwing.thrower
+		triggered = AM.throwing.get_thrower()
 
 	else if(ismob(AM))
 		triggered = AM

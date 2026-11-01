@@ -23,6 +23,11 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
+/obj/item/clothing/suit/armor/abductor/vest/Destroy()
+	stealth_armor = null
+	combat_armor = null
+	return ..()
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(prev_has)
@@ -283,7 +288,7 @@
 
 	for(var/obj/item/radio/radio in all_items)
 		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-		radio.emp_act(1)
+		radio.emp_act(EMP_HEAVY)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"

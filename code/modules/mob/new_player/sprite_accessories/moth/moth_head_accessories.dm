@@ -1,4 +1,5 @@
 /datum/sprite_accessory/head_accessory/moth
+	abstract_type = /datum/sprite_accessory/head_accessory/moth
 	icon = 'icons/mob/sprite_accessories/moth/moth_head_accessories.dmi'
 	species_allowed = list(SPECIES_MOTH)
 	over_hair = TRUE

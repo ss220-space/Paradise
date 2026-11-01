@@ -1,7 +1,8 @@
 /datum/sprite_accessory/facial_hair/vox
+	abstract_type = /datum/sprite_accessory/facial_hair/vox
 	icon = 'icons/mob/sprite_accessories/vox/vox_facial_hair.dmi'
 	species_allowed = list(SPECIES_VOX)
-	unsuitable_gender = null
+	gender = null
 
 /datum/sprite_accessory/facial_hair/vox/vox_colonel
 	name = "Vox Colonel Beard"

@@ -102,6 +102,11 @@
 
 	if(type == "theme")
 		client.tgui_panel_theme = payload["theme"]
+		client.emote_panel?.send_message(type, payload)
+		return TRUE
+
+	if(type == "font")
+		client.emote_panel?.send_message(type, payload)
 		return TRUE
 
 	if(type == "audio/setAdminMusicVolume")

@@ -846,6 +846,8 @@
 		if(halt_action)
 			halt_action.name = "[uppertext(key)]!"
 			halt_action.UpdateButtonIcon()
+	else
+		return ..()
 
 /obj/item/clothing/mask/gas/sechailer/proc/switch_halt_phrase(mob/user)
 	var/key = phrase_list[phrase]

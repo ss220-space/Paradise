@@ -147,7 +147,7 @@
 	for(var/mob/living/carbon/C in range(1, get_turf(src)))
 		to_chat(C, span_warning("Вас облило содержимым [declent_ru(ACCUSATIVE)]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
-		C.wetlevel = max(C.wetlevel + 1, times_shaken)
+		C.adjust_wet_stacks(max(1, times_shaken))
 
 	reagents.remove_any(times_shaken / 5 * reagents.total_volume)
 

@@ -45,6 +45,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
 	enchants = GLOB.gun_and_heart_spells
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(!enchant_type)
@@ -71,9 +72,6 @@
 	newshot()
 
 /obj/item/gun/energy/clockwork/update_icon_state()
-	return
-
-/obj/item/gun/energy/clockwork/emp_act(severity)
 	return
 
 /obj/item/gun/energy/clockwork/process_fire(zone_override, secondary_fire = FALSE)
@@ -177,8 +175,14 @@
 
 /obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
 	. = ..()
+	autofire = GetComponent(/datum/component/automatedfire/autofire)
 	START_PROCESSING(SSprocessing, src)
 	enchants = GLOB.minigun_spells
+
+/obj/item/gun/energy/gun/minigun/clockwork/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	autofire = null
+	return ..()
 
 /obj/item/gun/energy/gun/minigun/clockwork/process()
 	. = ..()
@@ -195,9 +199,6 @@
 	if(COOLDOWN_FINISHED(src, overheated))
 		overheat = FALSE
 
-/obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
-	autofire = src.GetComponent(/datum/component/automatedfire/autofire)
-
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
 	. = ..()
 	if(overheat)
@@ -206,7 +207,7 @@
 		. += "[initial(icon_state)]_overlay_[enchant_type]"
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
-	if(autofire.shooting && !overheat)
+	if(autofire?.shooting && !overheat)
 		icon_state = "clockgun_firing"
 	else
 		icon_state = "clockgun"

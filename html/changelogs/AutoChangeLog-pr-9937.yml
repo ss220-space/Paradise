@@ -1,0 +1,4 @@
+author: "L343-CJ"
+delete-after: True
+changes:
+  - bugfix: "Вернул КД щупалец гемомансера (PR #9937)"

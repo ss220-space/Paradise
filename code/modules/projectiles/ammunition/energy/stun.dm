@@ -29,6 +29,13 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
+	overlay_color = COLOR_HEALING_CYAN
+
+/obj/item/ammo_casing/energy/disabler/scatter
+	projectile_type = /obj/projectile/beam/disabler/scatter
+	pellets = 5
+	variance = 25
+	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40

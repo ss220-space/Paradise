@@ -528,6 +528,9 @@
 	return ..()
 
 /mob/living/simple_animal/bot/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	var/was_on = on
 	stat |= EMPED
 	var/obj/effect/overlay/pulse2 = new/obj/effect/overlay(loc)
@@ -1267,7 +1270,7 @@ GAME_VERB(/mob/living/simple_animal/bot, show_laws, "Набор законов",
 		hud.remove_atom_from_hud(src)
 
 	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
+	LAZYCLEARLIST(path_images)
 	if(newpath)
 		for(var/i in 1 to length(newpath))
 			var/turf/T = newpath[i]

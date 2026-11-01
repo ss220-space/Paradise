@@ -24,9 +24,9 @@
 		return .
 
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		return "Attempted to call a shuttle vote before the game starts!"
+		return "Попытка запустить голосование о трансфере до начала игры!"
 
-	return "Only admins can create crew transfer vote."
+	return "Только администраторы могут создавать голосование о трансфере."
 
 // Map vote
 /datum/vote/map
@@ -34,6 +34,7 @@
 	default_message = "Голосование за карту в следующем раунде!"
 	count_method = VOTE_COUNT_METHOD_MULTI
 	allow_dead_vote = TRUE
+	alert_icon_state = "map_vote"
 
 /datum/vote/map/create_vote(mob/vote_creator)
 	. = ..()
@@ -61,10 +62,10 @@
 		return .
 
 	if(!SSmapping.map_datum)
-		return "Map Vote triggered before the map config load!"
+		return "Голосование за карту запущено до загрузки конфига карты!"
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
-		return "Map Vote triggered before Lobby stage!"
+		return "Голосование за карту запущено до стадии лобби!"
 
 /datum/vote/map/finalize_vote(result)
 	// Find target map.
@@ -77,7 +78,7 @@
 			// Set top voted map
 			if(result == "[initial(M.station_name)] ([initial(M.name)])")
 				top_voted_map = M
-	to_chat(world, span_interface("<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
+	to_chat(world, span_interface("<b>Карта для следующего раунда: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
 	SSmapping.next_map = new top_voted_map
 
 /datum/vote/map/toggle_votable()
@@ -88,7 +89,7 @@
 
 /datum/vote/gamemode
 	name = "Игровой режим"
-	override_question = "Голосование за игровой режим режим"
+	override_question = "Выбор игрового режима"
 	count_method = VOTE_COUNT_METHOD_MULTI
 	allow_dead_vote = TRUE
 	display_statistics = FALSE
@@ -110,7 +111,7 @@
 
 	if(!SSticker.ticker_going)
 		SSticker.ticker_going = TRUE
-		to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
+		to_chat(world, span_boldwarning("Раунд скоро начнётся."))
 
 /datum/vote/gamemode/toggle_votable()
 	CONFIG_SET(flag/allow_vote_gamemode, !CONFIG_GET(flag/allow_vote_gamemode))
@@ -127,10 +128,10 @@
 		return .
 
 	if(SSticker?.mode)
-		return "Gamemode Vote triggered after the game mode selection!"
+		return "Голосование за режим запущено после выбора игрового режима!"
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
-		return "Gamemode Vote triggered before Lobby stage!"
+		return "Голосование за режим запущено до стадии лобби!"
 
 #undef CREW_TRANSFER_CHOICE
 #undef CONTINUE_SHIFT_CHOICE

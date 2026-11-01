@@ -39,6 +39,7 @@ function setGlobalFontSize(
   Byond.command(
     `.output statbrowser:set_font_size ${statLinked ? fontSize : statFontSize}px`,
   );
+  Byond.sendMessage('font', { font_size: fontSize });
   statFontTimer = setTimeout(() => {
     Byond.command(
       `.output statbrowser:set_font_size ${statLinked ? fontSize : statFontSize}px`,
@@ -65,6 +66,7 @@ function setGlobalFontFamily(
   Byond.command(
     `.output statbrowser:set_font_style ${statLinked ? fontFamily : statFontFamily}`,
   );
+  Byond.sendMessage('font', { font_style: fontFamily });
   statFamilyTimer = setTimeout(() => {
     Byond.command(
       `.output statbrowser:set_font_style ${statLinked ? fontFamily : statFontFamily}`,

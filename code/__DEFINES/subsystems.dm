@@ -189,11 +189,11 @@
 #define VOTE_COUNT_METHOD_MULTI 2
 
 /// The choice with the most votes wins. Ties are broken by the first choice to reach that number of votes.
-#define VOTE_WINNER_METHOD_SIMPLE "Simple"
+#define VOTE_WINNER_METHOD_SIMPLE "Простой"
 /// The winning choice is selected randomly based on the number of votes each choice has.
-#define VOTE_WINNER_METHOD_WEIGHTED_RANDOM "Weighted Random"
+#define VOTE_WINNER_METHOD_WEIGHTED_RANDOM "Взвешенный случайный"
 /// There is no winner for this vote.
-#define VOTE_WINNER_METHOD_NONE "No Winner"
+#define VOTE_WINNER_METHOD_NONE "Нет победителя"
 
 /// Returned by [/datum/vote/proc/can_be_initiated] to denote the vote is valid and can be initiated.
-#define VOTE_AVAILABLE "Vote Available"
+#define VOTE_AVAILABLE "Голосование доступно"

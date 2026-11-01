@@ -9,6 +9,7 @@
 /datum/species/moth
 	name = SPECIES_MOTH
 	name_plural = "Nianae"
+	ru_genitive = "луам"
 	language = LANGUAGE_MOTH
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'

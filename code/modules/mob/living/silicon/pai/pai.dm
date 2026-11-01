@@ -169,6 +169,17 @@
 
 	reset_software()
 
+/mob/living/silicon/pai/Destroy()
+	QDEL_LIST_ASSOC_VAL(installed_software)
+	QDEL_NULL(active_software)
+	QDEL_NULL(pda)
+	QDEL_NULL(sradio)
+	QDEL_NULL(integrated_console)
+	QDEL_NULL(integrated_records)
+	card = null
+	radio = null
+	return ..()
+
 /mob/living/silicon/pai/proc/reset_software()
 	QDEL_LIST_ASSOC_VAL(installed_software)
 
@@ -237,6 +248,7 @@
 	if(QDELETED(src) || stat == DEAD)
 		return
 
+	. = ..()
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
 	to_chat(src, span_danger("Системы связи перегружены! Инициирована перезагрузка повреждённых систем. Все модули коммуникации недоступны на время перезагрузки."))
 	if(prob(20))

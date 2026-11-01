@@ -1,6 +1,7 @@
 /datum/species/nucleation
 	name = SPECIES_NUCLEATION
 	name_plural = "Nucleations"
+	ru_genitive = "нуклеации"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	blacklisted = TRUE
 	blurb = "A sub-race of unfortunates who have been exposed to too much supermatter radiation. As a result, \

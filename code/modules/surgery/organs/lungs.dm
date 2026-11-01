@@ -76,11 +76,9 @@
 	)
 
 /obj/item/organ/internal/lungs/emp_act(severity)
-	if(!is_robotic() || emp_proof)
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
 		return
-	if(emp_shielded(severity))
-		return
-
 	if(owner)
 		var/losstime = 40 SECONDS
 		if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
@@ -439,6 +437,9 @@
 	breath.set_nitrium(0)
 	if(prob(20))
 		breather.emote("burp")
+
+	if(prob(5))
+		breather.AdjustDizzy(1.5 SECONDS)
 
 	// Random chance to inflict side effects increases with pressure.
 	if((prob(nitrium_pp) && (nitrium_pp > 15)))

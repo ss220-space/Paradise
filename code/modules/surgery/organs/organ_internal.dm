@@ -1,3 +1,8 @@
+#define ORGAN_ROTT_FILTER "organ_rott_overlay"
+#define ORGAN_ROTT_FILTER_PRIORITY 2
+
+GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
+
 /obj/item/organ/internal
 	origin_tech = "biotech=3"
 	force = 1
@@ -20,6 +25,28 @@
 
 	if(iscarbon(loc))
 		insert(loc, ORGAN_MANIPULATION_INITIALIZE)
+
+	update_damage_overlay(0)
+
+/obj/item/organ/internal/update_damage_overlay(old_damage)
+	if(is_robotic() || !damage || !max_damage)
+		remove_filter(ORGAN_ROTT_FILTER)
+		return
+
+	if(damage == old_damage)
+		return
+
+	var/falpha = round(damage / max_damage * 255)
+	var/list/params = GLOB.organ_rott_overlay_icons["[falpha]"]
+
+	if(!params)
+		params = layering_filter(
+			icon = icon('icons/obj/surgery.dmi', "rotten_organs_overlay"),
+			color = rgb(255, 255, 255, falpha),
+			blend_mode = BLEND_INSET_OVERLAY)
+		GLOB.organ_rott_overlay_icons["[falpha]"] = params
+
+	add_filter(ORGAN_ROTT_FILTER, ORGAN_ROTT_FILTER_PRIORITY, params)
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)
 // target = the carbon we're testing for suitability
@@ -124,19 +151,26 @@
 
 	owner = null
 	START_PROCESSING(SSobj, src)
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
+		return .
 	if(emp_shielded(severity))
-		return
-
+		. |= EMP_PROTECT_SELF
+		return .
+	if(istype(src, /obj/item/organ/internal/cyberimp))
+		return .
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			internal_receive_damage(20 * owner.emp_damage_multiplier_internal, silent = TRUE)
-		if(2)
+		if(EMP_LIGHT)
 			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
+	return .
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	insert(target)
@@ -297,6 +331,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN_TUMOR
+	destroy_on_removal = TRUE
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
@@ -325,7 +360,7 @@
 	M.force_gene_block(GLOB.comicblock, FALSE)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -367,6 +402,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_HONK_BLADDER
+	destroy_on_removal = TRUE
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/get_ru_names()
@@ -386,7 +422,6 @@
 	. = ..()
 
 	QDEL_NULL(squeak)
-	qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -458,3 +493,6 @@
 			damaged.Add(organ)
 
 	return damaged
+
+#undef ORGAN_ROTT_FILTER
+#undef ORGAN_ROTT_FILTER_PRIORITY

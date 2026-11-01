@@ -19,12 +19,11 @@
 		return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/glass/bottle/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
-	if(user.a_intent == INTENT_HARM && is_glass)
-		return NONE
-	return ..()
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-/obj/item/reagent_containers/cup/glass/bottle/afterattack(atom/target, mob/user, list/modifiers)
-	if(!is_glass)
+/obj/item/reagent_containers/cup/glass/bottle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
+	if(!LAZYACCESS(modifiers, RIGHT_CLICK) || user.a_intent != INTENT_HARM || !is_glass || !proximity_flag)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)

@@ -75,9 +75,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(notify)
 		notify_ghosts("Приближается [name]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
-	if(SSaugury)
-		SSaugury.register_doom(src, 2000)
-
 	if(special_target)
 		GLOB.move_manager.home_onto(src, special_target, delay = move_delay)
 	else
@@ -298,6 +295,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	new /obj/effect/portal(mapload, null, null, 2 SECONDS)
 	end = get_turf(target_atom)
 	target = target_atom
+	return ..()
+
+/obj/effect/immovablerod/smite/Destroy(force)
+	QDEL_NULL(exit)
+	end = null
+	target = null
 	return ..()
 
 /obj/effect/immovablerod/smite/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)

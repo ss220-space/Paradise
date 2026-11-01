@@ -22,7 +22,6 @@
 		temperature_max = temperature_maximum
 
 /datum/reagents/Destroy()
-	. = ..()
 	QDEL_LIST(reagent_list)
 	reagent_list = null
 	QDEL_LIST(addiction_list)
@@ -30,6 +29,7 @@
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
+	return ..()
 
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
@@ -403,7 +403,7 @@
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
-			for(var/reaction in GLOB.chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.id] | GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
 
@@ -420,7 +420,7 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
-					if((B == "blood") && (C.required_blood_group || C.required_blood_species))
+					if((B == "blood" || B == /datum/reagent/blood) && (C.required_blood_group || C.required_blood_species))
 						if(C.required_blood_group)
 							if(!find_blood_group(C))
 								break
@@ -453,6 +453,8 @@
 					min_temp = chem_temp
 
 				if(total_matching_reagents == total_required_reagents && total_matching_catalysts >= total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
+					if(!C.last_can_react_check(src))
+						continue
 					var/multiplier = min(multipliers)
 					var/preserved_data = null
 					for(var/B in C.required_reagents)
@@ -515,7 +517,7 @@
 /datum/reagents/proc/del_reagent(reagent_id)
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.id == reagent_id)
+		if(reagent.id == reagent_id || reagent.type == reagent_id)
 			if(isliving(my_atom))
 				if(reagent.metabolizing)
 					reagent.metabolizing = FALSE
@@ -712,7 +714,7 @@
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			R.volume -= amount
 			update_total()
 			if(!safety) //So it does not handle reactions when it need not to
@@ -760,7 +762,7 @@
 		return found_reagent ? found_reagent.volume : FALSE
 
 	for(var/datum/reagent/current_reagent as anything in reagent_list)
-		if(current_reagent.id != reagent_id)
+		if(current_reagent.id != reagent_id || current_reagent.type == reagent_id)
 			continue
 		return current_reagent.volume
 

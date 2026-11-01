@@ -207,7 +207,7 @@
 		span_warning("[owner]'s body flashes a bright blue!"), \
 		span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body.")
 	)
-	owner.emp_act(2)
+	owner.emp_act(EMP_LIGHT)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
@@ -358,6 +358,7 @@
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
+	abstract_type = /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
@@ -394,13 +395,18 @@
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
 			source.UpdateButtonIcon()
-	..()
+	return ..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
+		uses = 0
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, span_danger("[user] absorbs your spell!"))
 		uses = 0
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -445,9 +451,7 @@
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
-	var/obj/item/nullrod/N = locate() in target
-
-	if(N)
+	if(L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		target.visible_message(
 			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),

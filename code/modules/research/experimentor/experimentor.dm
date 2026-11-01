@@ -17,7 +17,7 @@
 	/// How long is the cooldown between experiments
 	var/cooldown = EXPERIMENT_COOLDOWN_BASE
 	/// List of experiment handler datums by scantype
-	var/list/experimentor_result_handlers = list()
+	var/alist/experimentor_result_handlers = alist()
 	/// Reactions that can occur for specific items
 	var/list/item_reactions = list()
 	/// Items that we can get by transforming
@@ -81,6 +81,10 @@
 	// so we need to delay searching for those until after the Initialize()
 	tracked_ian_ref = WEAKREF(locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list)
 	tracked_runtime_ref = WEAKREF(locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list)
+
+/obj/machinery/r_n_d/experimentor/Destroy()
+	QDEL_LIST_ASSOC_VAL(experimentor_result_handlers)
+	return ..()
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	malfunction_probability_coeff = critical_malfunction_counter

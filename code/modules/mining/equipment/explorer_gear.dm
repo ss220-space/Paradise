@@ -128,13 +128,16 @@
 	var/mob/living/carbon/C = loc
 	if(istype(C) && prob(2)) //cursed by bubblegum
 		if(prob(15))
-			new /obj/effect/hallucination/delusion(C.loc, C, force_kind = "demon", duration = 100, skip_nearby = 0)
+			C.cause_hallucination(/datum/hallucination/delusion/preset/demon, "hostile environment suit hallucination", duration = 100, skip_nearby = FALSE)
 			to_chat(C, span_colossus("<b>[pick("МЕНЯ НЕ УБИТЬ.", "НАЧНИ ТУТ РЕЗНЮ!", "Я ТЕБЯ ВИЖУ.", "МЫ ОДНО ЦЕЛОЕ!", "СМЕРТИ МЕНЯ НЕ СДЕРЖАТЬ.", "УСТРОЙ КРОВАВУЮ БАНЮ!")]</b>"))
 		else
 			to_chat(C, span_warning("[pick("Вы слышите тихий шепот.", "Вы чуете пепел.", "Вам жарко.", "Вы слышите рёв вдали.")]"))
 
 /obj/item/clothing/suit/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
 	if(!is_mining_level(new_turf.z))
 		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
 		return
@@ -181,6 +184,9 @@
 
 /obj/item/clothing/head/helmet/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
 	if(!is_mining_level(new_turf.z))
 		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
 		return

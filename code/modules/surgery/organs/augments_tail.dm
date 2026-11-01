@@ -55,11 +55,9 @@
 	origin_tech = "materials=6;combat=5;biotech=5;powerstorage=3;syndicate=2;"
 
 /obj/item/organ/internal/cyberimp/tail/blade/emp_act(severity)
-	if(emp_proof)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	if(emp_shielded(severity))
-		return
-
 	if(activated)
 		activated = FALSE
 		playsound(owner.loc, sound_off, 50, TRUE)

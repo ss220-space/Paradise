@@ -164,8 +164,10 @@
 					medical["empty"] = 1
 			if(MED_DATA_V_DATA)
 				data["virus"] = list()
-				for(var/D in typesof(/datum/disease))
+				for(var/D in subtypesof(/datum/disease))
 					var/datum/disease/DS = new D(0)
+					if(!DS.show_in_records)
+						continue
 					if(istype(DS, /datum/disease/virus/advance))
 						continue
 					if(!DS.desc)
@@ -390,6 +392,7 @@
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.info = "<center></b>Медицинская запись</b></center><br>"
 	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
+		P.name = "Медицинская запись: [active1.fields["name"]]"
 		P.info += {"Имя: [active1.fields["name"]] ID: [active1.fields["id"]]
 		<br>\nПол: [active1.fields["sex"]]
 		<br>\nВозраст: [active1.fields["age"]]
@@ -419,7 +422,6 @@
 	else
 		P.info += "</b>Медицинская информация утрачена!</b><br>"
 	P.info += "</tt>"
-	P.name = "Медицинская запись: [active1.fields["name"]]"
 	printing = FALSE
 	SStgui.update_uis(src)
 

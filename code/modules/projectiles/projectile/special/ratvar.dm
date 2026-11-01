@@ -215,7 +215,6 @@
 	range = 1000
 	forcedodge = -1
 	var/beam_icon = "sphere_beam"
-	var/list/bumped_in = list()
 	layer = ABOVE_ALL_MOB_LAYER + 0.1
 
 /obj/projectile/energy/sphere/get_ru_names()
@@ -236,7 +235,7 @@
 
 /obj/projectile/energy/sphere/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 15 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 15 SECONDS, TIMER_DELETE_ME)
 	addtimer(CALLBACK(src, PROC_REF(process_beam)), 1 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 
 /obj/projectile/energy/sphere/proc/process_beam()
