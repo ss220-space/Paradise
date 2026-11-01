@@ -13492,10 +13492,13 @@
 	},
 /area/station/command/bridge)
 "cXD" = (
-/obj/machinery/vending/security,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -32
 	},
+/obj/structure/logistics_pipe/trunk{
+	dir = 1
+	},
+/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "cXG" = (
@@ -36473,6 +36476,9 @@
 	},
 /area/station/cargo/miningdock)
 "hPb" = (
+/obj/structure/logistics_pipe/segment{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -80218,6 +80224,12 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"qNP" = (
+/obj/structure/logistics_pipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/customs)
 "qNY" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90917,10 +90929,9 @@
 	},
 /area/station/security/prison/perma)
 "sQo" = (
-/obj/structure/logistics_pipe/trunk{
+/obj/structure/logistics_pipe/segment{
 	dir = 1
 	},
-/obj/machinery/smartfridge/smart_container/logistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -98766,7 +98777,7 @@
 /area/station/maintenance/asmaint3)
 "uya" = (
 /obj/structure/logistics_pipe/segment{
-	dir = 1
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -166942,7 +166953,7 @@ mgt
 kOa
 rMS
 hPb
-vmH
+sQo
 cXD
 szi
 hXp
@@ -167198,7 +167209,7 @@ agX
 mgt
 aIw
 uuS
-uXo
+qNP
 jRk
 szi
 szi
@@ -167456,7 +167467,7 @@ kSD
 dkK
 lau
 uya
-sQo
+vmH
 oWj
 bGp
 itz
