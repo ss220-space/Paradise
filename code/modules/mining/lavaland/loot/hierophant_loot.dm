@@ -335,7 +335,8 @@
 	if(possessed)
 		if(!slave)
 			to_chat(user, span_hierophant("Всё ещё ищу подходящую душу для вас..."))
-			return
+		return
+	if(slave)
 		if(slave.master != user.ckey)
 			to_chat(slave, span_hierophant("Теперь вы служите [user.real_name]. Вы должны защищать его."))
 			to_chat(user, span_hierophant("Теперь этот талисман ваш... Он будет оберегать вас..."))
@@ -352,7 +353,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите стать духом талисмана защиты [user.real_name]?", ROLE_PAI, FALSE, 15 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
-	if(QDELETED(slave) || QDELETED(src))
+	if(QDELETED(src))
 		return
 
 	if(length(candidates))
