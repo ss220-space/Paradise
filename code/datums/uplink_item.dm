@@ -1615,6 +1615,8 @@
 	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
 	item = /obj/item/storage/belt/grenade/frag/contact
 	cost = 20
+	hijack_only = TRUE
+	surplus = FALSE
 
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
