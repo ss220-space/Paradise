@@ -89,12 +89,14 @@ window "mapwindow"
 		saved-params = ""
 	elem "pod_panel"
 		type = BROWSER
-		pos = 100,100
+		pos = 0,0
 		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
 		background-color = none
 		inner-background-color = transparent
 		is-visible = false
-		saved-params = "pos;size"
+		saved-params = ""
 	elem "escape_menu"
 		type = BROWSER
 		pos = 0,0

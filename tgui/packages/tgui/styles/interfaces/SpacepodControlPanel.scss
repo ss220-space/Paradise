@@ -150,9 +150,9 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
-	min-height: 100%;
-	padding: 2px;
+	gap: 8px;
+	height: 100%;
+	padding: 50px;
 	color: $spcp-text;
 	font-family: var(--font-family-mono);
 	font-size: 11px;
@@ -376,9 +376,14 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 
 .spcp-grid {
 	display: grid;
-	grid-template-columns: 288px minmax(380px, 1fr) 304px;
-	gap: 6px;
-	align-items: start;
+	flex: 1;
+	min-height: 0;
+	grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+	grid-template-rows: minmax(0, 1fr) auto;
+	grid-template-areas:
+		'left right'
+		'bottom bottom';
+	gap: 8px;
 }
 
 .spcp-col {
@@ -386,12 +391,42 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 	flex-direction: column;
 	gap: 8px;
 	min-width: 0;
+	min-height: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+
+	&--left {
+		grid-area: left;
+	}
+
+	&--right {
+		grid-area: right;
+	}
+}
+
+// Bottom strip spanning the full width: engines (up to 5) and integrity
+// modules (any amount) live here.
+.spcp-bottom {
+	display: grid;
+	grid-area: bottom;
+	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	gap: 8px;
+	align-items: start;
+	min-height: 0;
+
+	.spcp-panel {
+		max-height: 46vh;
+		overflow-y: auto;
+	}
 }
 
 // MARK: Panel
 
 .spcp-panel {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: none;
 	padding: 5px 7px 5px;
 	background: linear-gradient(180deg, #1a2328 0%, #0f1518 55%, #0b1013 100%);
 	border: 1px solid #26353c;
@@ -412,11 +447,36 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 
 	&__head {
 		display: flex;
-		align-items: baseline;
-		gap: 8px;
+		align-items: center;
+		gap: 6px;
 		margin-bottom: 6px;
 		padding-bottom: 4px;
 		border-bottom: 1px solid #223036;
+	}
+
+	&__collapse {
+		display: flex;
+		flex: none;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 16px;
+		padding: 0;
+		color: $spcp-dim;
+		font-size: 9px;
+		line-height: 1;
+		background: #10171a;
+		border: 1px solid #26353c;
+		border-radius: 3px;
+		cursor: pointer;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease;
+
+		&:hover {
+			color: $spcp-cyan;
+			border-color: #3b505a;
+		}
 	}
 
 	&__title {
@@ -433,6 +493,41 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 		font-size: 8px;
 		letter-spacing: 1.5px;
 		text-transform: uppercase;
+	}
+}
+
+// Compact button shown in place of a collapsed panel.
+.spcp-panel-toggle {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 6px;
+	align-self: flex-start;
+	padding: 4px 8px;
+	color: $spcp-dim;
+	font-family: var(--font-family-mono);
+	font-size: 9px;
+	letter-spacing: 2px;
+	line-height: 1;
+	text-transform: uppercase;
+	background: linear-gradient(180deg, #1d262b 0%, #121a1e 100%);
+	border: 1px solid #26353c;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		color 0.15s ease,
+		filter 0.15s ease;
+
+	&:hover {
+		color: #c3d2d7;
+		border-color: #3b505a;
+		filter: brightness(1.15);
+	}
+
+	&:active {
+		filter: brightness(0.9);
 	}
 }
 
@@ -840,7 +935,7 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 
 .spcp-engines {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 	gap: 7px;
 }
 
@@ -1130,7 +1225,7 @@ $spcp-line: rgba(255, 255, 255, 0.07);
 
 .spcp-modules {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	gap: 5px;
 	margin-top: 5px;
 }

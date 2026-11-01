@@ -1,5 +1,6 @@
 import { type ReactElement, type ReactNode, useEffect, useState } from 'react';
 import { Button, Dropdown, Icon, Image, Tooltip } from 'tgui-core/components';
+import { globalEvents } from 'tgui-core/events';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { suspendStart } from '../events/handlers/suspense';
@@ -212,6 +213,18 @@ const useClock = () => {
   return now.toISOString().slice(11, 19);
 };
 
+/**
+ * Returns the size of the browser pane. The pane is anchored to the game
+ * window, so its viewport is always the full map window area. The size is
+ * intentionally captured only once: reacting to `resize` would make Window
+ * push the pane size back via winset, producing a winset/resize feedback
+ * loop (the "shaking" window bug).
+ */
+const getViewportSize = (): [number, number] => [
+  window.innerWidth,
+  window.innerHeight,
+];
+
 const getGunTypeName = (type: number) => {
   switch (type) {
     case 1:
@@ -326,10 +339,21 @@ const buildAnnunciators = (data: SpacepodControlPanelData): Annunciator[] => {
 export const SpacepodControlPanel = (props: unknown) => {
   const { data } = useBackend<SpacepodControlPanelData>();
   const [booted, setBooted] = useState(false);
+  const [viewport] = useState(getViewportSize);
 
   useEffect(() => {
     const timer = setTimeout(() => setBooted(true), 2700);
     return () => clearTimeout(timer);
+  }, []);
+
+  // The panel lives in a transparent browser pane anchored inside the game
+  // window. Window applies its geometry asynchronously on mount, so pin the
+  // pane to the top-left corner after that to keep it covering the map.
+  useEffect(() => {
+    const pin = () => Byond.winset(Byond.windowId, { pos: '0,0' });
+    pin();
+    globalEvents.on('window-geometry-finished', pin);
+    return () => globalEvents.off('window-geometry-finished', pin);
   }, []);
 
   const annunciators = buildAnnunciators(data);
@@ -345,8 +369,13 @@ export const SpacepodControlPanel = (props: unknown) => {
       : 'ok';
 
   return (
-    <Window width={1180} height={700} titleBar={false} transparent>
-      <Window.Content scrollable className="spcp-root">
+    <Window
+      width={viewport[0]}
+      height={viewport[1]}
+      titleBar={false}
+      transparent
+    >
+      <Window.Content fitted scrollable className="spcp-root">
         {/* <ComplexModal /> */}
         <button
           className="spcp-close"
@@ -369,19 +398,19 @@ export const SpacepodControlPanel = (props: unknown) => {
             vessel={data.vessel}
           /> */}
           <div className="spcp-grid">
-            <div className="spcp-col">
+            <div className="spcp-col spcp-col--left">
               <PowerPanel booted={booted} />
               <FuelPanel booted={booted} />
               <GyroPanel booted={booted} />
             </div>
-            <div className="spcp-col">
-              <EnginesPanel booted={booted} />
-              <IntegrityPanel booted={booted} />
-            </div>
-            <div className="spcp-col">
+            <div className="spcp-col spcp-col--right">
               <LifeSupportPanel booted={booted} />
               <WeaponsPanel booted={booted} />
               <MiscPanel />
+            </div>
+            <div className="spcp-bottom">
+              <EnginesPanel booted={booted} />
+              <IntegrityPanel booted={booted} />
             </div>
           </div>
         </div>
@@ -588,11 +617,38 @@ const Panel = (props: {
   hint?: string;
   children: ReactNode;
   className?: string;
+  collapsible?: boolean;
 }) => {
-  const { title, hint, children, className } = props;
+  const { title, hint, children, className, collapsible = true } = props;
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Collapsed panels shrink down to a single button that brings the
+  // section back when pressed.
+  if (collapsed) {
+    return (
+      <button
+        className="spcp-panel-toggle"
+        onClick={() => setCollapsed(false)}
+        title={`${title} — развернуть`}
+      >
+        <Icon name="chevron-right" />
+        <span>{title}</span>
+      </button>
+    );
+  }
+
   return (
     <div className={`spcp-panel${className ? ` ${className}` : ''}`}>
       <div className="spcp-panel__head">
+        {collapsible && (
+          <button
+            className="spcp-panel__collapse"
+            onClick={() => setCollapsed(true)}
+            title={`${title} — свернуть`}
+          >
+            <Icon name="chevron-up" />
+          </button>
+        )}
         <span className="spcp-panel__title">{title}</span>
         {!!hint && <span className="spcp-panel__hint">{hint}</span>}
       </div>
