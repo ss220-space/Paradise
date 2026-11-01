@@ -137,13 +137,12 @@
 
 	var/obj/item/organ/external/affected_limb = human_parent.get_bodypart(human_parent.get_random_valid_zone())
 	human_parent.visible_message(
-		span_boldwarning("У [human_parent] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] начинает пузырится и покрываеться волдырями!"),
-		span_boldwarning("Ваш[GEND_A_E_I(affected_limb)] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] пузырится и покрывается волдырями!"),
+		span_boldwarning("[human_parent]'s [parse_zone(affected_limb)] bubbles unnaturally, then bursts into blisters!"),
+		span_boldwarning("Your [parse_zone(affected_limb)] bubbles unnaturally, then bursts into blisters!"),
 	)
 
-
 	if(human_parent.is_blind())
-		to_chat(human_parent, span_boldwarning("У вас пузырится [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)], а затем невыносимо горит!"))
+		to_chat(human_parent, span_boldwarning("Your [parse_zone(affected_limb)] feels like it's bubbling, then burns like hell!"))
 
 	human_parent.apply_damage(RADIATION_BURN_SPLOTCH_DAMAGE, BURN, affected_limb)
 	playsound(
@@ -186,16 +185,19 @@
 
 	if(isliving(source))
 		var/mob/living/living_source = source
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Субъект облучён. Заражение началось примерно [DisplayTimeText(world.time - beginning_of_irradiation, 5)] назад. Текущий уровень токсинов: [living_source.getToxLoss()]."))
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]."))
 	else
 		// In case the green wasn't obvious enough...
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Цель облучена."))
-		return COMSIG_GEIGER_COUNTER_SCAN_SUCCESSFUL
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Target is irradiated."))
+
+	return COMSIG_GEIGER_COUNTER_SCAN_SUCCESSFUL
 
 /datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
 
-	render_list += conditional_tooltip("Субъект облучён.", "Примените антирадиационные средства, например [/datum/reagent/medicine/potass_iodide::name] или [/datum/reagent/medicine/pen_acid::name].", tochat)
+	render_list += "<span class='alert ml-1'>"
+	render_list += conditional_tooltip("Subject is irradiated.", "Supply antiradiation or antitoxin, such as [/datum/reagent/medicine/potass_iodide::name] or [/datum/reagent/medicine/pen_acid::name].", tochat)
+	render_list += "</span><br>"
 
 /atom/movable/screen/alert/irradiated
 	name = "Облученный"

@@ -593,7 +593,7 @@
 		user.balloon_alert(user, "кровотечения нет!")
 		return
 
-	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru_base(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru_base(PREPOSITIONAL)]");
+	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru(PREPOSITIONAL)]");
 
 	if(user.hand == ACTIVE_HAND_LEFT)
 		user.left_hand_bleed_suppress_lib = target_limb
@@ -1415,13 +1415,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(!source.IsParalyzed())
 			source.emote("collapse")
 		source.Paralyse(RAD_MOB_KNOCKDOWN_AMOUNT)
-		to_chat(source, span_danger("Вы чувствуете слабость в мышцах."))
+		to_chat(source, span_danger("You feel weak."))
 
 	if(time_since_irradiated > RAD_MOB_VOMIT && SPT_PROB(RAD_MOB_VOMIT_PROB, seconds_per_tick))
 		source.vomit(VOMIT_BLOOD, lost_nutrition = 10)
 
 	if(time_since_irradiated > RAD_MOB_MUTATE && SPT_PROB(RAD_MOB_MUTATE_PROB, seconds_per_tick))
-		to_chat(source, span_danger("Вы мутируете!"))
+		to_chat(source, span_danger("You mutate!"))
 		randmutb(source)
 		source.emote("gasp")
 		source.check_genes()
@@ -1429,7 +1429,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(time_since_irradiated > RAD_MOB_HAIRLOSS && SPT_PROB(RAD_MOB_HAIRLOSS_PROB, seconds_per_tick))
 		var/obj/item/organ/external/head/head = source.get_bodypart(BODY_ZONE_HEAD)
 		if(!(head.h_style == "Bald")) // && (head?.head_flags & (HEAD_HAIR|HEAD_FACIAL_HAIR)))
-			to_chat(source, span_danger("Ваши волосы начинают выпадать клочьями..."))
+			to_chat(source, span_danger("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/target)

@@ -60,6 +60,7 @@ type DNAModifierOccupantData = {
   isViableSubject: boolean;
   uniqueIdentity: string;
   minHealth: number;
+  radiationLevel: number;
   uniqueEnzymes: string;
 } & Occupant;
 
@@ -163,6 +164,14 @@ const DNAModifierOccupant = ({ isDNAInvalid }: DNAModifierOccupantProps) => {
             </Box>
           ) : (
             <LabeledList>
+              <LabeledList.Item label="Радиационное поражение">
+                <ProgressBar
+                  minValue={0}
+                  maxValue={100}
+                  value={occupant.radiationLevel / 100}
+                  color="average"
+                />
+              </LabeledList.Item>
               <LabeledList.Item label="Уникальные Ферменты">
                 {data.occupant.uniqueEnzymes ? (
                   data.occupant.uniqueEnzymes

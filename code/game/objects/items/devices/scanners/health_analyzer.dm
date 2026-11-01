@@ -390,7 +390,6 @@
 	data["bodyTemperatureF"] = "[H.bodytemperature*1.8-459.67]"
 	data["genes"] = H.gene_stability
 	data["DRN"] = DNR
-	data["hasIrradiated"] = HAS_TRAIT(H, TRAIT_IRRADIATED)
 
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
@@ -504,7 +503,7 @@
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
-		var/limb = bodypart.declent_ru_base(PREPOSITIONAL)
+		var/limb = bodypart.declent_ru(PREPOSITIONAL)
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
@@ -668,7 +667,7 @@
 		else if(H.getBrainLoss() >= 10)
 			scan_data += span_warning("Обнаружено значительное повреждение мозга.")
 	else
-		scan_data += span_warning("Мозг не обнаружен.")
+		scan_data += span_warning(">Мозг не обнаружен.")
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
 
@@ -679,7 +678,7 @@
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
-				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
+				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
 		if(bodypart.has_infected_wound())
 			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
 
