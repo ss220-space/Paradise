@@ -1,35 +1,3 @@
-/obj/overmap/entity/proc/collide_virtual(obj/overmap/entity/virtual_structure/other)
-	if(navigation_collision_disabled() || other.navigation_collision_disabled())
-		return
-	var/steps = max(1, CEILING((pose_travel() + other.pose_travel()) / 0.4, 1))
-	for(var/step in 1 to steps)
-		var/list/pose = pose_at(step / steps)
-		for(var/turf/edge as anything in hull_edge)
-			var/list/point = hull_to_world(edge.x, edge.y, pose[1], pose[2], pose[3])
-			var/list/cell = other.cell_at(point[1], point[2], TRUE, other.pose_at(step / steps))
-			if(!cell)
-				continue
-			var/health = cell[4]
-			var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(edge)
-			var/energy = mass_impact_damage(relative_speed(other) * (1 SECONDS), other)
-			var/target_damage = energy
-			other.damage_cell(cell, target_damage)
-			var/loss = cell[4] > 0 ? 1 : overmap_impact_loss(health, target_damage)
-			if(world.time >= next_ram_damage)
-				next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
-				var/own_damage = overmap_contact_damage(energy, own_health, health)
-				if(overmap_pod)
-					overmap_pod.pod().deal_damage(own_damage)
-				else
-					overmap_damage_turf(edge, own_damage)
-			set_pose(pose_at((step - 1) / steps))
-			var/dx = speed[1] - other.speed[1]
-			var/dy = speed[2] - other.speed[2]
-			var/length = sqrt(dx ** 2 + dy ** 2)
-			if(length)
-				ram(other, -dx / length, -dy / length, point[1], point[2], 0, TRUE, null, loss)
-			return
-
 /obj/overmap/entity/virtual_structure/sector_obstacle_box(span)
 	return list(get_world_x() - hull_radius, get_world_y() - hull_radius, get_world_x() + hull_radius, get_world_y() + hull_radius)
 
@@ -51,56 +19,41 @@
 				break
 	return collision_edge
 
-/obj/overmap/entity/virtual_structure/collide(obj/overmap/entity/other)
-	if(navigation_collision_disabled() || other?.navigation_collision_disabled())
-		return
-	if(other && !istype(other, /obj/overmap/entity/virtual_structure))
-		return other.collide_virtual(src)
-	if(!flight || !movable)
-		if(other?.flight && other.movable)
-			return other.collide(src)
-		return
+/obj/overmap/entity/virtual_structure/contacts_at(fraction, obj/overmap/entity/other)
+	. = list()
+	var/list/pose = pose_at(fraction)
+	var/list/other_pose = other?.pose_at(fraction)
 	var/datum/overmap_bubble/space = collision_space()
 	if(!other && !space)
 		return
-	var/steps = max(1, CEILING((pose_travel() + other?.pose_travel()) / 0.4, 1))
-	for(var/step in 1 to steps)
-		var/list/pose = pose_at(step / steps)
-		for(var/list/cell as anything in collision_cells())
-			var/list/point = hull_to_world(cell[1], cell[2], pose[1], pose[2], pose[3])
-			var/turf/struck
-			var/list/target_cell
-			var/obj/overmap/entity/virtual_structure/virtual_target = other
-			if(virtual_target)
-				target_cell = virtual_target.cell_at(point[1], point[2], TRUE, other.pose_at(step / steps))
-			else
-				struck = space.solid_turf_at(point[1], point[2])
-			if(!struck && !target_cell)
-				continue
-			var/target_health = target_cell ? target_cell[4] : overmap_contact_health(struck)
-			var/severity = other ? relative_speed(other) * (1 SECONDS) : get_speed() * OVERMAP_TILE_SPAN * (1 SECONDS)
-			var/energy = mass_impact_damage(severity, other)
-			var/target_damage = energy
-			var/own_damage = overmap_contact_damage(energy, cell[4], target_health)
-			var/blocked
-			if(target_cell)
-				virtual_target.damage_cell(target_cell, target_damage)
-				blocked = target_cell[4] > 0
-			else
-				var/tx = struck.x
-				var/ty = struck.y
-				var/tz = struck.z
-				overmap_damage_turf(struck, target_damage)
-				struck = locate(tx, ty, tz)
-				blocked = space.is_solid(struck)
-			damage_cell(cell, own_damage)
-			set_pose(pose_at((step - 1) / steps))
-			var/dx = speed[1] - (other ? other.speed[1] : 0)
-			var/dy = speed[2] - (other ? other.speed[2] : 0)
-			var/magnitude = sqrt(dx ** 2 + dy ** 2)
-			if(magnitude)
-				ram(other, -dx / magnitude, -dy / magnitude, point[1], point[2], 0, TRUE, null, blocked ? 1 : overmap_impact_loss(target_health, target_damage))
-			return
+	for(var/list/cell as anything in collision_cells())
+		var/list/point = hull_to_world(cell[1], cell[2], pose[1], pose[2], pose[3])
+		var/target
+		if(istype(other, /obj/overmap/entity/virtual_structure))
+			var/obj/overmap/entity/virtual_structure/structure = other
+			target = structure.cell_at(point[1], point[2], TRUE, other_pose)
+		else if(other)
+			var/turf/spot = other.hull_turf_at(point[1], point[2], other_pose[1], other_pose[2], other_pose[3])
+			if(other.overmap_pod || overmap_turf_blocked(spot))
+				target = spot
+		else
+			target = space.solid_turf_at(point[1], point[2])
+		if(target)
+			. += list(list(cell, target, point))
+
+/obj/overmap/entity/virtual_structure/hull_face(list/cell)
+	var/face_x = 0
+	var/face_y = 0
+	for(var/direction in GLOB.cardinal)
+		var/x = cell[1] + (!!(direction & EAST) - !!(direction & WEST))
+		var/y = cell[2] + (!!(direction & NORTH) - !!(direction & SOUTH))
+		var/list/neighbor = virtual_cells["[x],[y]"]
+		if(neighbor && neighbor[4] > 0)
+			continue
+		face_x += !!(direction & EAST) - !!(direction & WEST)
+		face_y += !!(direction & NORTH) - !!(direction & SOUTH)
+	var/facing = get_facing()
+	return list(face_x * cos(facing) + face_y * sin(facing), face_y * cos(facing) - face_x * sin(facing))
 
 /datum/overmap_projectile/proc/virtual_hit(obj/overmap/entity/virtual_structure/structure, x, y)
 	var/list/cell = structure.cell_at(x, y, TRUE)
@@ -111,24 +64,10 @@
 	var/key = "[structure.UID()]:[cell[1]],[cell[2]]"
 	if(key in payload.ship_pierced_tiles)
 		return FALSE
-	var/pierce = payload.ship_penetrations > 0 && prob(payload.ship_penetration_chance)
-	if(pierce)
-		payload.ship_penetrations--
-		payload.damage *= payload.ship_penetration_decay
-		LAZYADD(payload.ship_pierced_tiles, key)
+	var/pierce = payload.try_ship_penetration(key)
 	structure.damage_cell(cell, payload.damage)
 	if(istype(payload, /obj/projectile/bullet/ship_artillery) && (!pierce || !payload.ship_penetrations))
-		for(var/ix in -2 to 2)
-			for(var/iy in -2 to 2)
-				var/list/nearby = structure.cell_at(x + ix, y + iy, TRUE)
-				if(nearby)
-					structure.damage_cell(nearby, max(0, 150 - 50 * sqrt(ix ** 2 + iy ** 2)))
-		var/obj/projectile/bullet/ship_artillery/shell = payload
-		var/turf/blast = SSovermap.sector_explosion_turf(sector, x, y)
-		if(blast)
-			shell.detonate(blast)
-		else
-			SSovermap.show_sector_explosion(sector, x, y)
+		detonate_shell(x, y)
 		qdel(src)
 		return TRUE
 	if(!pierce)
@@ -142,37 +81,9 @@
 /obj/overmap/entity/virtual_structure/solid_hull_at(world_x, world_y)
 	return null
 
-/obj/overmap/entity/virtual_structure/collide_scatter(list/candidates, travel)
-	if(!movable || !flight || navigation_collision_disabled())
-		return
-	var/steps = max(1, CEILING(travel / 0.4, 1))
-	for(var/step in 1 to steps)
-		var/list/pose = pose_at(step / steps)
-		for(var/obj/overmap/feature/hazard/field as anything in candidates)
-			for(var/index in candidates[field])
-				if(field.scatter_points[index + 2] <= 0)
-					continue
-				var/x = field.scatter_points[index]
-				var/y = field.scatter_points[index + 1]
-				var/list/cell = cell_at(x, y, FALSE, pose)
-				if(!cell)
-					continue
-				if(istype(field, /obj/overmap/feature/hazard/carp))
-					var/turf/spot = local_space?.turf_at(x, y)
-					if(spot && !spot.is_blocked_turf(exclude_mobs = TRUE))
-						field.damage_scatter(index, 40)
-						new /mob/living/simple_animal/hostile/carp(spot)
-					continue
-				var/health = field.scatter_points[index + 2]
-				var/energy = mass_impact_damage(get_speed() * OVERMAP_TILE_SPAN * (1 SECONDS))
-				var/target_damage = overmap_contact_damage(energy, health, cell[4])
-				var/own_damage = overmap_contact_damage(energy, cell[4], health)
-				field.damage_scatter(index, target_damage)
-				if(world.time >= next_ram_damage)
-					next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
-					damage_cell(cell, own_damage)
-				set_pose(pose_at((step - 1) / steps))
-				var/retained = field.scatter_points[index + 2] > 0 ? 0 : 1 - clamp(health / max(target_damage, 1), 0.02, 1)
-				speed[1] *= retained
-				speed[2] *= retained
-				return
+/obj/overmap/entity/virtual_structure/scatter_contact_at(hull_x, hull_y)
+	var/list/cell = virtual_cells["[FLOOR(hull_x + 0.5, 1)],[FLOOR(hull_y + 0.5, 1)]"]
+	return cell && cell[4] > 0 ? cell : null
+
+/obj/overmap/entity/virtual_structure/scatter_carp_turf(contact, world_x, world_y)
+	return local_space?.turf_at(world_x, world_y)

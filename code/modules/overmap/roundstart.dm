@@ -1,7 +1,5 @@
 /obj/overmap/entity/proc/ensure_virtual_engine()
-	if(!programmed && !programmed_mission && !admin_virtual_engine)
-		return
-	if(length(engines) && !admin_virtual_engine)
+	if(!admin_virtual_engine)
 		return
 	if(virtual_engine && !QDELETED(virtual_engine))
 		return

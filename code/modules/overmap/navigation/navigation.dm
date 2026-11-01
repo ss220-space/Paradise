@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 
 /datum/overmap_navigation/proc/waypoint(world_x, world_y, obj/overmap/entity/host)
 	var/obj/overmap/entity/vessel = flight.parent
-	var/list/entry_box = vessel.programmed_mission?.navigation_entry_box
+	var/list/entry_box = flight.navigation_entry_box
 	if(!goal || abs(goal[1] - world_x) + abs(goal[2] - world_y) > 4 || corridor_host != host)
 		reset()
 		goal = list(world_x, world_y)
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 	var/obj/overmap/entity/vessel = flight.parent
 	var/datum/overmap_sector/sector = vessel.sector
 	var/list/boxes = list()
-	var/list/entry_box = vessel.programmed_mission?.navigation_entry_box
+	var/list/entry_box = flight.navigation_entry_box
 	if(entry_box)
 		boxes += list(entry_box)
 	var/span = OVERMAP_TILE_SPAN * sector.tile_travel
@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 			return
 		if(obstacle == vessel || obstacle == host || obstacle.docked_ship == vessel || !isturf(obstacle.loc) || obstacle.dock_host?.planet_landing || !obstacle.project_terrain)
 			continue
-		if(!vessel.programmed_mission && !vessel.iff_detects(obstacle) && !obstacle.visible_without_scanner && vessel.object_visibility(obstacle, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) <= OVERMAP_CHART_UNSEEN_ALPHA)
+		if(flight.navigation_known_obstacles_only && !vessel.iff_detects(obstacle) && !obstacle.visible_without_scanner && vessel.object_visibility(obstacle, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) <= OVERMAP_CHART_UNSEEN_ALPHA)
 			continue
 		var/list/box = obstacle.physical_space?.navigation_box() || obstacle.sector_obstacle_box(span)
 		if(QDELETED(src) || QDELETED(vessel) || revision != version)
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 			break
 		var/list/box
 		for(var/obj/overmap/feature/hazard/field as anything in cluster)
-			if(!vessel.programmed_mission && vessel.object_visibility(field, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) <= OVERMAP_CHART_UNSEEN_ALPHA)
+			if(flight.navigation_known_obstacles_only && vessel.object_visibility(field, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) <= OVERMAP_CHART_UNSEEN_ALPHA)
 				continue
 			var/list/field_box = list((field.x - 0.5) * span, (field.y - 0.5) * span, (field.x + 0.5) * span, (field.y + 0.5) * span)
 			if(!box)
@@ -298,4 +298,4 @@ GLOBAL_LIST_EMPTY(overmap_navigation_beacons)
 	next_plan = world.time + (2 SECONDS)
 
 /obj/overmap/entity/proc/navigation_collision_disabled()
-	return !!programmed_mission
+	return flight?.navigation_ignore_collisions

@@ -146,11 +146,7 @@ export const OvermapIntercom = () => {
           extra={
             <Button
               icon={beep_muted ? 'volume-mute' : 'volume-up'}
-              tooltip={
-                beep_muted
-                  ? 'Звук выключен'
-                  : 'Заглушить звук'
-              }
+              tooltip={beep_muted ? 'Звук выключен' : 'Заглушить звук'}
               selected={!!beep_muted}
               onClick={() => act('toggle_beep')}
             />

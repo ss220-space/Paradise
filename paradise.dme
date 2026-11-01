@@ -102,6 +102,7 @@
 #include "code\__DEFINES\files.dm"
 #include "code\__DEFINES\flags.dm"
 #include "code\__DEFINES\flamer_fire.dm"
+#include "code\__DEFINES\fog_of_war.dm"
 #include "code\__DEFINES\fonts.dm"
 #include "code\__DEFINES\footstep.dm"
 #include "code\__DEFINES\force_martial_arts.dm"

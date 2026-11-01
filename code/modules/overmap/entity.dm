@@ -106,11 +106,6 @@
 	var/last_world_y
 	var/last_facing = 0
 	var/next_ram_effect = 0
-	var/jump_spool_end = 0
-	var/jump_start_time = 0
-	var/jump_duration
-	var/list/jump_origin
-	var/list/jump_target
 	var/list/obj/effect/abstract/dock_seal/dock_seals = list()
 	var/obj/overmap/entity/hyperrelay/relay_jump_from
 	var/relay_jump_started = 0

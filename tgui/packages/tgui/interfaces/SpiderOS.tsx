@@ -336,8 +336,9 @@ export const SpiderOS = (_properties) => {
   const { act, data } = useBackend<SpiderOSData>();
   let body: ReactNode;
   if (data.suit_tgui_state === 0) {
-    const actionsCheck = !!(data.blocked_TGUI_rows ?? []).filter((value) => !value)
-      .length;
+    const actionsCheck = !!(data.blocked_TGUI_rows ?? []).filter(
+      (value) => !value,
+    ).length;
     body = (
       <Flex direction="row" spacing={1}>
         <Flex.Item width="55%">
@@ -910,12 +911,18 @@ export const ShuttleConsole = (_properties) => {
                 </Button>
               </LabeledList.Item>
               <LabeledList.Item label="Транспондер">
-                <Button icon="broadcast-tower" onClick={() => act('open_transponder')}>
+                <Button
+                  icon="broadcast-tower"
+                  onClick={() => act('open_transponder')}
+                >
                   Управление транспондером
                 </Button>
               </LabeledList.Item>
               <LabeledList.Item label="Сенсоры">
-                <Button icon="satellite-dish" onClick={() => act('open_sensors')}>
+                <Button
+                  icon="satellite-dish"
+                  onClick={() => act('open_sensors')}
+                >
                   Управление сенсорами
                 </Button>
               </LabeledList.Item>

@@ -1,17 +1,40 @@
+/proc/fire_projectile_burst(datum/callback/shot, count, delay)
+	if(count < 1 || !shot.Invoke())
+		return FALSE
+	for(var/index in 2 to count)
+		addtimer(shot, (index - 1) * delay)
+	return TRUE
+
+/obj/projectile/proc/configure_ship_shot(mob/user, atom/source, damage_scale = 1, penetration_chance = 0, radar_visible = FALSE)
+	firer = user
+	firer_source_atom = source
+	damage *= damage_scale
+	overmap_radar_visible |= radar_visible
+	if(penetration_chance)
+		ship_penetrations = 1
+		ship_penetration_chance = penetration_chance
+		ship_penetration_decay = 0.5
+	LAZYADD(permutated, source)
+
+/obj/projectile/proc/try_ship_penetration(key)
+	if(key in ship_pierced_tiles)
+		return TRUE
+	if(!ship_penetrations || !prob(ship_penetration_chance))
+		ship_penetrations = 0
+		return FALSE
+	ship_penetrations--
+	damage *= ship_penetration_decay
+	LAZYADD(ship_pierced_tiles, key)
+	return TRUE
+
 /obj/projectile/proc/ship_pierce(atom/target)
-	if(!ship_penetrations || ismob(target) || (!isturf(target) && !isstructure(target) && !ismachinery(target)) || !target.density)
+	if((!ship_penetrations && !(get_turf(target) in ship_pierced_tiles)) || ismob(target) || (!isturf(target) && !isstructure(target) && !ismachinery(target)) || !target.density)
 		return FALSE
 	if(istype(target, /turf/simulated/wall/indestructible) || (target.resistance_flags & INDESTRUCTIBLE))
 		return FALSE
 	var/turf/spot = get_turf(target)
-	var/new_tile = !(spot in ship_pierced_tiles)
-	if(new_tile && !prob(ship_penetration_chance))
-		ship_penetrations = 0
+	if(!try_ship_penetration(spot))
 		return FALSE
-	if(new_tile)
-		ship_penetrations--
-		LAZYADD(ship_pierced_tiles, spot)
-		damage *= ship_penetration_decay
 	ship_piercing = TRUE
 	prehit(target)
 	target.bullet_act(src, def_zone)
@@ -52,24 +75,10 @@
 	var/key = "[field.UID()]:[index]"
 	if(key in payload.ship_pierced_tiles)
 		return FALSE
-	var/pierce = payload.ship_penetrations > 0 && prob(payload.ship_penetration_chance)
-	if(pierce)
-		payload.ship_penetrations--
-		payload.damage *= payload.ship_penetration_decay
-		LAZYADD(payload.ship_pierced_tiles, key)
+	var/pierce = payload.try_ship_penetration(key)
 	field.damage_scatter(index, payload.damage)
 	if(istype(payload, /obj/projectile/bullet/ship_artillery) && (!pierce || !payload.ship_penetrations))
-		for(var/obj/overmap/feature/hazard/nearby as anything in SSovermap.scatter_fields_at(sector, x, y, 2))
-			for(var/point_index in nearby.nearby_scatter(x, y, 2))
-				var/distance = sqrt((nearby.scatter_points[point_index] - x) ** 2 + (nearby.scatter_points[point_index + 1] - y) ** 2)
-				if(distance <= 2)
-					nearby.damage_scatter(point_index, max(0, 150 - 50 * distance))
-		var/obj/projectile/bullet/ship_artillery/shell = payload
-		var/turf/blast = SSovermap.sector_explosion_turf(sector, x, y)
-		if(blast)
-			shell.detonate(blast)
-		else
-			SSovermap.show_sector_explosion(sector, x, y)
+		detonate_shell(x, y)
 		qdel(src)
 		return TRUE
 	if(!pierce)
@@ -86,8 +95,7 @@
 	for(var/obj/overmap/entity/vessel as anything in flying_vessels)
 		if(vessel.sector != sector || !vessel.flight_reservation || abs(vessel.get_world_x() - x) > vessel.hull_radius + 3 || abs(vessel.get_world_y() - y) > vessel.hull_radius + 3)
 			continue
-		var/list/point = vessel.world_to_hull(x, y)
-		var/turf/spot = locate(FLOOR(point[1] + 0.5, 1), FLOOR(point[2] + 0.5, 1), vessel.hull_z)
+		var/turf/spot = world_to_frame(vessel, x, y)
 		if(spot && SSmapping.used_turfs[spot] == vessel.flight_reservation)
 			return spot
 
@@ -130,8 +138,7 @@
 				if(abs(point[1] - x) <= 1.5 && abs(point[2] - y) <= 1.5)
 					gun.emp_act(EMP_HEAVY)
 			continue
-		var/list/point = vessel.world_to_hull(x, y)
-		var/turf/spot = locate(FLOOR(point[1] + 0.5, 1), FLOOR(point[2] + 0.5, 1), vessel.hull_z)
+		var/turf/spot = SSovermap.world_to_frame(vessel, x, y)
 		if(spot && vessel.flight_reservation && SSmapping.used_turfs[spot] == vessel.flight_reservation)
 			affected |= spot
 	for(var/datum/overmap_bubble/space as anything in SSovermap.bubbles)
@@ -150,3 +157,53 @@
 		SSovermap.launch_sector_projectile(visual, sector, x, y, 0)
 	qdel(src)
 	return TRUE
+
+/datum/overmap_projectile/proc/detonate_shell(x, y)
+	var/obj/projectile/bullet/ship_artillery/shell = payload
+	var/turf/blast = SSovermap.sector_explosion_turf(sector, x, y)
+	if(blast)
+		shell.detonate(blast)
+	else
+		SSovermap.affect_projected_explosion(sector, x, y, 0, 1, 2)
+		SSovermap.show_sector_explosion(sector, x, y)
+
+/proc/overmap_explosion_severity(dx, dy, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction, arc)
+	var/distance = sqrt(dx ** 2 + dy ** 2)
+	if(protect_epicenter && distance < 0.5)
+		return 0
+	if(distance >= 0.5 && arc < 360 && abs(closer_angle_difference(direction, delta_to_angle(dx, dy))) > arc / 2)
+		return 0
+	return EXPLOSION_SEVERITY(distance, devastation_range, heavy_impact_range, light_impact_range)
+
+/proc/overmap_explosion_damage(severity)
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			return 250
+		if(EXPLODE_HEAVY)
+			return 150
+		if(EXPLODE_LIGHT)
+			return 60
+	return 0
+
+/datum/controller/subsystem/overmap/proc/affect_projected_explosion(datum/overmap_sector/sector, x, y, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter = FALSE, direction = 0, arc = 360)
+	var/reach = max(devastation_range, heavy_impact_range, light_impact_range)
+	if(reach <= 0)
+		return
+	for(var/obj/overmap/entity/virtual_structure/structure as anything in GLOB.overmap_virtual_structures)
+		if(structure.sector != sector || abs(structure.get_world_x() - x) > structure.hull_radius + reach || abs(structure.get_world_y() - y) > structure.hull_radius + reach)
+			continue
+		var/list/center = structure.world_to_hull(x, y)
+		var/heading = structure.get_facing()
+		for(var/ix in FLOOR(center[1] - reach, 1) to CEILING(center[1] + reach, 1))
+			for(var/iy in FLOOR(center[2] - reach, 1) to CEILING(center[2] + reach, 1))
+				var/list/cell = structure.virtual_cells["[ix],[iy]"]
+				if(!cell || cell[4] <= 0)
+					continue
+				var/severity = overmap_explosion_severity(ix - center[1], iy - center[2], devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction - heading, arc)
+				if(severity)
+					structure.damage_cell(cell, overmap_explosion_damage(severity))
+	for(var/obj/overmap/feature/hazard/field as anything in scatter_fields_at(sector, x, y, reach))
+		for(var/index in field.nearby_scatter(x, y, reach))
+			var/severity = overmap_explosion_severity(field.scatter_points[index] - x, field.scatter_points[index + 1] - y, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction, arc)
+			if(severity)
+				field.damage_scatter(index, overmap_explosion_damage(severity))

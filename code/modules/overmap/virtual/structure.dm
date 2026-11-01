@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 /datum/overmap_virtual_model
 	var/mutable_appearance/visual
 	var/solid = FALSE
+	var/opaque = FALSE
 	var/health = 100
 	var/visible = FALSE
 	var/thrust = 0
@@ -27,6 +28,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 			weapons += list(list(path, attributes))
 		var/dense = isnull(attributes["density"]) ? initial(prototype.density) : attributes["density"]
 		solid ||= dense
+		opaque ||= isnull(attributes["opacity"]) ? initial(prototype.opacity) : attributes["opacity"]
 		if(dense && ispath(path, /turf/simulated/wall))
 			var/turf/simulated/wall/wall = path
 			health = initial(wall.damage_cap)
@@ -176,9 +178,7 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 	for(var/key in list("dir", "enabled", "lethal", "projectile", "eprojectile", "shot_delay"))
 		if((key in attributes) && (key in gun.vars))
 			gun.vars[key] = attributes[key]
-	var/datum/component/ship_weapon/weapon = gun.GetComponent(/datum/component/ship_weapon)
-	if(weapon)
-		weapon.mount_dir = gun.dir
+	SEND_SIGNAL(gun, COMSIG_OVERMAP_WEAPON_ROTATED, 0, gun.dir)
 	virtual_weapons += gun
 
 /obj/overmap/entity/virtual_structure/keep_inside_local_space()
@@ -212,21 +212,38 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 /obj/overmap/entity/virtual_structure/radar_extent()
 	return list(hull_radius * 2, hull_radius * 2)
 
-/datum/hull_proxy/virtual/New(obj/overmap/entity/virtual_structure/vessel, turf/viewer_turf)
-	src.vessel = vessel
-	src.viewer_turf = viewer_turf
-	rebuild_tiles()
-	RegisterSignal(vessel, COMSIG_QDELETING, PROC_REF(on_vessel_deleted))
+/datum/hull_proxy/virtual
+	copy_lighting = FALSE
+
+/datum/hull_proxy/virtual/create_fog()
+	return new /datum/fog_scene/projected(round(vessel.hull_radius) + OVERMAP_FOG_HULL_REACH)
 
 /datum/hull_proxy/virtual/Destroy(force)
 	QDEL_LIST_ASSOC_VAL(tiles_by_turf)
 	return ..()
 
 /datum/hull_proxy/virtual/rebuild_tiles()
-	return
+	var/obj/overmap/entity/virtual_structure/structure = vessel
+	var/datum/fog_scene/projected/projected = fog
+	projected.opaque_chunks = list()
+	for(var/key, cell_entry in structure.virtual_cells)
+		var/list/cell = cell_entry
+		var/datum/overmap_virtual_model/model = cell[3]
+		if(cell[4] > 0 && model.opaque)
+			projected.add_opaque_point(cell)
+	mapped_hull_version = vessel.hull_version
+	fog.mark_dirty()
 
 /datum/hull_proxy/virtual/place(new_center_x, new_center_y, new_z, new_heading, list/bounds, time)
+	update_fog(new_center_x, new_center_y, new_z, new_heading)
+	center_x = new_center_x
+	center_y = new_center_y
+	proxy_z = new_z
+	heading = new_heading
 	var/obj/overmap/entity/virtual_structure/structure = vessel
+	var/datum/fog_scene/projected/projected = fog
+	projected.drawn = list()
+	projected.source_positions = list()
 	var/cosine = cos(new_heading)
 	var/sine = sin(new_heading)
 	var/list/wanted = list()
@@ -259,6 +276,9 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 			tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
 			tiles_by_turf[key] = tile
+			fog.mark_dirty()
+		projected.drawn[tile] = tile
+		projected.source_positions[tile] = cell
 		var/dx = cell[1] - vessel.hull_center_x
 		var/dy = cell[2] - vessel.hull_center_y
 		tile.glide(new_center_x + dx * cosine + dy * sine, new_center_y + dy * cosine - dx * sine, new_z, turned, bounds, fresh ? 0 : time)
@@ -266,3 +286,4 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 		if(!wanted[key])
 			qdel(tiles_by_turf[key])
 			tiles_by_turf -= key
+			fog.mark_dirty()

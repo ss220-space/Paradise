@@ -158,7 +158,7 @@
 	var/first_step = steps + 1
 	var/obj/overmap/feature/hazard/struck
 	var/struck_index
-	var/turf/struck_hull
+	var/struck_hull
 	var/list/carp_hits = list()
 	for(var/obj/overmap/feature/hazard/field as anything in candidates)
 		for(var/index in candidates[field])
@@ -174,8 +174,8 @@
 				var/dy = world_y - pose[2]
 				var/hull_x = hull_center_x + dx * pose[4] - dy * pose[5]
 				var/hull_y = hull_center_y + dy * pose[4] + dx * pose[5]
-				var/turf/hit = locate(FLOOR(hull_x + 0.5, 1), FLOOR(hull_y + 0.5, 1), hull_z)
-				if(!hull_turfs[hit])
+				var/hit = scatter_contact_at(hull_x, hull_y)
+				if(!hit)
 					continue
 				if(istype(field, /obj/overmap/feature/hazard/carp))
 					carp_hits += list(list(field, index, step, hit))
@@ -189,8 +189,8 @@
 		if(contact[3] > first_step)
 			continue
 		var/obj/overmap/feature/hazard/field = contact[1]
-		var/turf/impact = contact[4]
-		if(impact.is_blocked_turf(exclude_mobs = TRUE))
+		var/turf/impact = scatter_carp_turf(contact[4], field.scatter_points[contact[2]], field.scatter_points[contact[2] + 1])
+		if(impact?.is_blocked_turf(exclude_mobs = TRUE))
 			for(var/direction in GLOB.cardinal)
 				var/turf/outside = get_step(impact, direction)
 				if(outside && !outside.is_blocked_turf(exclude_mobs = TRUE))
@@ -203,22 +203,26 @@
 		return
 	var/severity = get_speed() * OVERMAP_TILE_SPAN * (1 SECONDS)
 	var/damage = mass_impact_damage(severity)
-	var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(struck_hull)
+	var/own_health = overmap_contact_health(struck_hull, src)
 	var/target_health = struck.scatter_points[struck_index + 2]
 	var/target_damage = damage
 	var/own_damage = overmap_contact_damage(damage, own_health, target_health)
 	struck.damage_scatter(struck_index, target_damage)
 	if(world.time >= next_ram_damage)
 		next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
-		if(overmap_pod)
-			overmap_pod.pod().deal_damage(own_damage)
-		else
-			overmap_damage_turf(struck_hull, own_damage)
+		overmap_damage_contact(struck_hull, own_damage, src)
 	set_pose(poses[first_step])
 	var/retained = struck.scatter_points[struck_index + 2] > 0 ? 0 : 1 - overmap_impact_loss(target_health, target_damage)
 	speed[1] *= retained
 	speed[2] *= retained
 	feel_impact(severity, severity, get_world_x() - struck.scatter_points[struck_index], get_world_y() - struck.scatter_points[struck_index + 1])
+
+/obj/overmap/entity/proc/scatter_contact_at(hull_x, hull_y)
+	var/turf/spot = locate(FLOOR(hull_x + 0.5, 1), FLOOR(hull_y + 0.5, 1), hull_z)
+	return hull_turfs[spot] ? spot : null
+
+/obj/overmap/entity/proc/scatter_carp_turf(contact, world_x, world_y)
+	return contact
 
 /obj/overmap/entity/proc/draw_scatter(list/candidates, elapsed, draw)
 	var/list/wanted = list()
@@ -230,7 +234,7 @@
 	turned.Scale(1.03)
 	turned.Turn(-get_facing())
 	if(draw)
-		for(var/list/viewport as anything in SSovermap.scatter_viewports(src))
+		for(var/list/viewport as anything in SSovermap.frame_viewports(src))
 			var/turf/eye = viewport[1]
 			var/list/point = hull_to_world(eye.x, eye.y)
 			var/reach = viewport[2] * 1.42 + 1
@@ -354,7 +358,7 @@
 /datum/overmap_bubble/proc/update_scatter_proxies(list/eyes, elapsed)
 	var/list/wanted = list()
 	var/span = OVERMAP_TILE_SPAN * (sector?.tile_travel || 1)
-	for(var/list/viewport as anything in SSovermap.scatter_viewports(src))
+	for(var/list/viewport as anything in SSovermap.frame_viewports(src))
 		var/turf/eye = viewport[1]
 		var/draw_reach = min(OVERMAP_SCATTER_REACH, viewport[2])
 		if(eye.z != bubble_z || !covers(list(eye.x, eye.y), 0))
@@ -398,18 +402,8 @@
 		QDEL_NULL(scatter_fog)
 
 /datum/fog_scene/scatter
+	parent_type = /datum/fog_scene/projected
 	var/datum/owner
-	var/list/visuals = list()
-	var/world_origin_x
-	var/world_origin_y
-	var/turf/grid_origin
-
-/datum/controller/subsystem/overmap/proc/scatter_viewports(datum/owner)
-	. = list()
-	for(var/client/viewer as anything in client_eyes)
-		var/turf/eye = get_turf(viewer.eye || viewer.mob)
-		if(frame_owner(eye) == owner)
-			. += list(list(eye, (viewer.maxview() || world.view) + 4))
 
 /datum/fog_scene/scatter/New(datum/owner)
 	..(OVERMAP_SCATTER_REACH)
@@ -417,73 +411,36 @@
 
 /datum/fog_scene/scatter/Destroy(force)
 	owner = null
-	visuals = null
 	return ..()
 
 /datum/fog_scene/scatter/proc/update(list/proxies)
-	visuals = proxies
-	var/list/next_drawn = list()
+	var/list/previous = drawn
+	drawn = list()
+	source_positions = list()
+	opaque_chunks = list()
+	var/changed = length(proxies) != length(previous)
 	for(var/key, tile_entry in proxies)
 		var/obj/effect/abstract/hull_proxy_tile/scatter/tile = tile_entry
-		var/turf/spot = get_turf(tile)
-		if(spot)
-			next_drawn[spot] = tile
-	var/changed = length(next_drawn) != length(drawn)
-	for(var/turf/spot as anything in next_drawn)
-		if(drawn[spot] != next_drawn[spot])
+		var/list/point = list(tile.field.scatter_points[tile.point_index], tile.field.scatter_points[tile.point_index + 1])
+		drawn[tile] = tile
+		source_positions[tile] = point
+		if(tile.blocks_sight)
+			add_opaque_point(point)
+		if(!previous[tile])
 			changed = TRUE
-			break
-	drawn = next_drawn
 	if(!length(drawn))
 		detach_all()
 		return
 	var/obj/overmap/entity/vessel = owner
-	var/turf/anchor
 	if(istype(vessel))
-		anchor = overmap_fog_anchor(vessel.hull_center_x, vessel.hull_center_y, vessel.hull_z)
-	else
-		var/datum/overmap_bubble/bubble = owner
-		anchor = overmap_fog_anchor(bubble.center_x, bubble.center_y, bubble.bubble_z)
-	var/new_origin_x
-	var/new_origin_y
-	var/list/target
-	var/angle = 0
-	if(istype(vessel))
-		new_origin_x = world_origin_x
-		new_origin_y = world_origin_y
-		if(isnull(new_origin_x) || abs(vessel.get_world_x() - new_origin_x) > world.maxx / 2 - 40 || abs(vessel.get_world_y() - new_origin_y) > world.maxy / 2 - 40)
-			new_origin_x = FLOOR(vessel.get_world_x(), 1)
-			new_origin_y = FLOOR(vessel.get_world_y(), 1)
-		target = vessel.world_to_hull(new_origin_x, new_origin_y)
-		angle = vessel.get_facing()
+		set_frame(overmap_fog_anchor(vessel.hull_center_x, vessel.hull_center_y, vessel.hull_z), vessel.get_world_x(), vessel.get_world_y(), vessel.hull_center_x, vessel.hull_center_y, vessel.get_facing())
 	else
 		var/datum/overmap_bubble/bubble = owner
 		var/list/point = bubble.to_world(bubble.center_x, bubble.center_y)
-		new_origin_x = FLOOR(point[1], 1)
-		new_origin_y = FLOOR(point[2], 1)
-		target = bubble.to_bubble(new_origin_x, new_origin_y)
-	if(world_origin_x != new_origin_x || world_origin_y != new_origin_y || frame?.angle != angle)
-		changed = TRUE
-	world_origin_x = new_origin_x
-	world_origin_y = new_origin_y
-	grid_origin = locate(round(world.maxx / 2), round(world.maxy / 2), anchor.z)
-	set_frame(anchor, grid_origin.x, grid_origin.y, target[1], target[2], angle)
+		set_frame(overmap_fog_anchor(bubble.center_x, bubble.center_y, bubble.bubble_z), point[1], point[2], bubble.center_x, bubble.center_y, 0)
 	if(changed)
 		mark_dirty()
 	refresh()
-	for(var/client/viewer as anything in mine)
-		var/datum/fog_view/view = fog_attached_to(viewer, frame)
-		if(view)
-			view.frame_time = OVERMAP_FLIGHT_TICK
-			view.replace_frame_tiles()
-
-/datum/fog_scene/scatter/visual_for(turf/source)
-	return null
-
-/datum/fog_scene/scatter/render(datum/fog_view/view)
-	view.frame_time = OVERMAP_FLIGHT_TICK
-	view.replace_frame_tiles()
-	return FALSE
 
 /datum/fog_scene/scatter/collect_clients(list/out)
 	for(var/viewer_entry, eyes_entry in SSovermap.client_eyes)
@@ -493,46 +450,5 @@
 			if(SSovermap.frame_owner(eye) == owner)
 				out[viewer] = TRUE
 				break
-
-/datum/fog_scene/scatter/cast_center(datum/fog_view/view)
-	var/turf/eye = get_turf(view.owner?.eye || view.owner?.mob)
-	if(!eye || !grid_origin)
-		return null
-	var/obj/overmap/entity/vessel = owner
-	var/list/point
-	if(istype(vessel))
-		point = vessel.hull_to_world(eye.x, eye.y)
-	else
-		var/datum/overmap_bubble/bubble = owner
-		point = bubble.to_world(eye.x, eye.y)
-	return locate(grid_origin.x + FLOOR(point[1], 1) - world_origin_x, grid_origin.y + FLOOR(point[2], 1) - world_origin_y, grid_origin.z)
-
-/datum/fog_scene/scatter/cast_radius(datum/fog_view/view)
-	return min(32, CEILING((view.owner?.maxview() || world.view) * 1.42 + 2, 1))
-
-/datum/fog_scene/scatter/hidden_for(datum/fog_view/view)
-	var/turf/probe = view.center
-	if(!probe || !fog_rust_usable())
-		return list()
-	var/list/blockers = list()
-	for(var/key, proxy_entry in visuals)
-		var/obj/effect/abstract/hull_proxy_tile/scatter/proxy = proxy_entry
-		if(proxy.blocks_sight)
-			var/visual_x = grid_origin.x + proxy.field.scatter_points[proxy.point_index] - world_origin_x
-			var/visual_y = grid_origin.y + proxy.field.scatter_points[proxy.point_index + 1] - world_origin_y
-			if(abs(probe.x - visual_x) <= view.radius + 1 && abs(probe.y - visual_y) <= view.radius + 1)
-				blockers += "[FLOOR(visual_x + 0.5, 1)],[FLOOR(visual_y + 0.5, 1)]"
-	var/list/hidden = fog_hidden_native(probe, view.radius, extra_blockers = "virtual;[jointext(blockers, ";")]") || list()
-	var/obj/overmap/entity/vessel = owner
-	if(!istype(vessel))
-		return hidden
-	. = list()
-	for(var/turf/spot as anything in hidden)
-		var/world_x = world_origin_x + spot.x - grid_origin.x
-		var/world_y = world_origin_y + spot.y - grid_origin.y
-		var/list/point = vessel.world_to_hull(world_x, world_y)
-		var/turf/actual = overmap_fog_anchor(point[1], point[2], vessel.hull_z)
-		if(!vessel.hull_area_turfs?[actual])
-			. += spot
 
 #undef OVERMAP_SCATTER_REACH

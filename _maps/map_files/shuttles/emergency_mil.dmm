@@ -378,7 +378,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
 "bx" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
 "by" = (

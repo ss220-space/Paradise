@@ -27,7 +27,9 @@ fn row_runs(rows: &[u16; 16]) -> Vec<ByondValue> {
                 continue;
             }
             let start = x;
-            while x < 16 && row & (1 << x) != 0 { x += 1; }
+            while x < 16 && row & (1 << x) != 0 {
+                x += 1;
+            }
             out.extend([
                 ByondValue::new_num(start as f32),
                 ByondValue::new_num(y as f32),
@@ -63,9 +65,8 @@ impl Field {
         let mut budget = if self.carp {
             density * 24
         } else {
-            ((self.span * self.span) as f64
-                * (0.9 * (density * density) as f64 / 64.0))
-                .round() as usize
+            ((self.span * self.span) as f64 * (0.9 * (density * density) as f64 / 64.0)).round()
+                as usize
         };
         let islands = if self.carp {
             density * 4
@@ -90,7 +91,9 @@ impl Field {
                 let x = rng.random_range(-extent..=extent);
                 let y = rng.random_range(-extent..=extent);
                 if self.carp
-                    && centers.iter().any(|c| (c[0] - x).abs() < 10 && (c[1] - y).abs() < 10)
+                    && centers
+                        .iter()
+                        .any(|c| (c[0] - x).abs() < 10 && (c[1] - y).abs() < 10)
                 {
                     return None;
                 }
@@ -158,13 +161,17 @@ fn overmap_scatter(
 ) -> ByondResult<ByondValue> {
     let span = span.get_number()? as i32;
     if !(1..=1024).contains(&span) {
-        return Err(ByondError::boxed(std::io::Error::other("overmap_scatter: invalid cell span")));
+        return Err(ByondError::boxed(std::io::Error::other(
+            "overmap_scatter: invalid cell span",
+        )));
     }
     let mut neighbors = Vec::new();
     for peer in peers.read_list()? {
         let values = peer.read_list()?;
         if values.len() != 3 {
-            return Err(ByondError::boxed(std::io::Error::other("overmap_scatter: invalid neighbor")));
+            return Err(ByondError::boxed(std::io::Error::other(
+                "overmap_scatter: invalid neighbor",
+            )));
         }
         neighbors.push((
             values[0].get_number()? as i32,
@@ -184,8 +191,12 @@ fn overmap_scatter(
     let mut chunks: BTreeMap<(i32, i32), Chunk> = BTreeMap::new();
     let mut flat = Vec::with_capacity(points.len() * 3);
     for [px, py] in points {
-        let chunk = chunks.entry((px.div_euclid(16), py.div_euclid(16))).or_default();
-        chunk.indices.push(ByondValue::new_num((flat.len() + 1) as f32));
+        let chunk = chunks
+            .entry((px.div_euclid(16), py.div_euclid(16)))
+            .or_default();
+        chunk
+            .indices
+            .push(ByondValue::new_num((flat.len() + 1) as f32));
         chunk.rows[py.rem_euclid(16) as usize] |= 1 << px.rem_euclid(16);
         flat.extend([
             ByondValue::new_num(px as f32),

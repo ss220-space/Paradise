@@ -40,11 +40,6 @@
 /datum/fog_frame/proc/anchor()
 	return origin
 
-#define FOG_MODEL_DIAGONAL 1
-#define FOG_MODEL_UNION 2
-#define FOG_MODEL_STRAIGHT 3
-
-#define FOG_MODEL_PIXEL 4
 
 GLOBAL_VAR_INIT(fog_model, FOG_MODEL_UNION)
 
@@ -122,12 +117,14 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			if(!QDELETED(view))
 				view.dirty = TRUE
 
-/proc/fog_turf_blocks_sight(turf/spot)
+/proc/fog_turf_blocks_sight(turf/spot, list/blockers)
 	if(!spot)
 		return TRUE
+	if(!isnull(blockers))
+		return !!blockers[spot]
 	return IS_OPAQUE_TURF(spot)
 
-/proc/fog_line_of_sight(turf/center, turf/target)
+/proc/fog_line_of_sight(turf/center, turf/target, list/blockers)
 	if(!center || !target || center.z != target.z)
 		return FALSE
 	if(center == target)
@@ -140,12 +137,12 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		GLOB.fog_stat_steps++
 		if(walker == target)
 			return TRUE
-		if(IS_OPAQUE_TURF(walker))
+		if(fog_turf_blocks_sight(walker, blockers))
 			GLOB.fog_stat_blocked++
 			return FALSE
 	return TRUE
 
-/proc/fog_cast(turf/center, radius, model = null)
+/proc/fog_cast(turf/center, radius, model = null, list/blockers)
 	. = list()
 	GLOB.fog_stat_tiles = 0
 	GLOB.fog_stat_steps = 0
@@ -158,23 +155,23 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		model = GLOB.fog_model
 	for(var/turf/target as anything in RANGE_TURFS(radius, center))
 		GLOB.fog_stat_tiles++
-		if(fog_line_of_sight_for(center, target, model))
+		if(fog_line_of_sight_for(center, target, model, blockers))
 			.[target] = TRUE
-	fog_boundary_highlight(., center, radius)
+	fog_boundary_highlight(., center, radius, blockers)
 
-/proc/fog_line_of_sight_for(turf/center, turf/target, model)
+/proc/fog_line_of_sight_for(turf/center, turf/target, model, list/blockers)
 	switch(model)
 		if(FOG_MODEL_STRAIGHT)
-			return fog_line_of_sight_straight(center, target)
+			return fog_line_of_sight_straight(center, target, blockers)
 		if(FOG_MODEL_PIXEL)
-			return fog_line_of_sight_pixel(center, target)
+			return fog_line_of_sight_pixel(center, target, blockers = blockers)
 		if(FOG_MODEL_UNION)
 
-			return fog_line_of_sight(center, target) || fog_line_of_sight_straight(center, target)
+			return fog_line_of_sight(center, target, blockers) || fog_line_of_sight_straight(center, target, blockers)
 		else
-			return fog_line_of_sight(center, target)
+			return fog_line_of_sight(center, target, blockers)
 
-/proc/fog_line_of_sight_pixel(turf/center, turf/target, eye_x = ICON_SIZE_X / 2 + 0.5, eye_y = ICON_SIZE_Y / 2 + 0.5)
+/proc/fog_line_of_sight_pixel(turf/center, turf/target, eye_x = ICON_SIZE_X / 2 + 0.5, eye_y = ICON_SIZE_Y / 2 + 0.5, list/blockers)
 	if(!center || !target || center.z != target.z)
 		return FALSE
 	if(center == target)
@@ -193,7 +190,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		y1 += sign_y
 		while(y1 != y2)
 			walker = locate(x1, y1, z)
-			if(IS_OPAQUE_TURF(walker))
+			if(fog_turf_blocks_sight(walker, blockers))
 				return FALSE
 			y1 += sign_y
 		return TRUE
@@ -212,7 +209,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		if(x1 == x2 && y1 == y2)
 			return TRUE
 		walker = locate(x1, y1, z)
-		if(IS_OPAQUE_TURF(walker))
+		if(fog_turf_blocks_sight(walker, blockers))
 			return FALSE
 	return TRUE
 
@@ -229,7 +226,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			.[target] = TRUE
 	fog_boundary_highlight(., center, radius)
 
-/proc/fog_line_of_sight_straight(turf/center, turf/target)
+/proc/fog_line_of_sight_straight(turf/center, turf/target, list/blockers)
 	if(!center || !target || center.z != target.z)
 		return FALSE
 	if(center == target)
@@ -255,7 +252,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			if(current_x == target.x && current_y == target.y)
 				return TRUE
 			walker = locate(current_x, current_y, center.z)
-			if(IS_OPAQUE_TURF(walker))
+			if(fog_turf_blocks_sight(walker, blockers))
 				return FALSE
 	else
 		for(var/distance_counter in 0 to (abs_y_distance - 1))
@@ -267,14 +264,14 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			if(current_x == target.x && current_y == target.y)
 				return TRUE
 			walker = locate(current_x, current_y, center.z)
-			if(IS_OPAQUE_TURF(walker))
+			if(fog_turf_blocks_sight(walker, blockers))
 				return FALSE
 	return TRUE
 
-/proc/fog_boundary_highlight(list/visible, turf/center, radius)
+/proc/fog_boundary_highlight(list/visible, turf/center, radius, list/blockers)
 	var/list/added = list()
 	for(var/turf/target as anything in RANGE_TURFS(radius, center))
-		if(visible[target] || !IS_OPAQUE_TURF(target))
+		if(visible[target] || !fog_turf_blocks_sight(target, blockers))
 			continue
 		for(var/direction in GLOB.alldirs)
 			var/turf/neighbour = get_step(target, direction)
@@ -284,7 +281,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	for(var/turf/tile as anything in added)
 		visible[tile] = TRUE
 
-/proc/fog_cast_set(turf/center, list/targets, model = null)
+/proc/fog_cast_set(turf/center, list/targets, model = null, list/blockers)
 	. = list()
 	if(!center || !length(targets))
 		return
@@ -295,14 +292,14 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	GLOB.fog_stat_blocked = 0
 	for(var/turf/target as anything in targets)
 		GLOB.fog_stat_tiles++
-		if(fog_line_of_sight_for(center, target, model))
+		if(fog_line_of_sight_for(center, target, model, blockers))
 			.[target] = TRUE
-	fog_boundary_highlight_set(., targets)
+	fog_boundary_highlight_set(., targets, blockers)
 
-/proc/fog_boundary_highlight_set(list/visible, list/targets)
+/proc/fog_boundary_highlight_set(list/visible, list/targets, list/blockers)
 	var/list/added = list()
 	for(var/turf/target as anything in targets)
-		if(visible[target] || !IS_OPAQUE_TURF(target))
+		if(visible[target] || !fog_turf_blocks_sight(target, blockers))
 			continue
 		for(var/direction in GLOB.alldirs)
 			var/turf/neighbour = get_step(target, direction)
@@ -322,6 +319,8 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 
 /proc/fog_hidden_native(turf/center, radius, model = null, extra_blockers = null)
 	if(!center)
+		return null
+	if((isnull(model) ? GLOB.fog_model : model) != FOG_MODEL_UNION)
 		return null
 	if(radius < 0 || radius > FOG_NATIVE_MAX_RADIUS)
 		GLOB.fog_rust_error = "fog_hidden_runs was asked for radius [radius], outside the library's 0..[FOG_NATIVE_MAX_RADIUS]"
@@ -355,7 +354,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 
 	var/list/turf/visible = list()
 
-	var/list/turf/hidden = list()
+	var/list/atom/hidden = list()
 
 	var/datum/fog_frame/frame
 
@@ -364,6 +363,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	var/list/image/tiles = list()
 
 	var/datum/fog_scene/scene
+	var/datum/fog_cast_data/cast_data
 
 	var/frame_time = 0
 
@@ -375,15 +375,19 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /datum/fog_view/New(client/new_owner)
 	. = ..()
 	owner = new_owner
+	cast_data = new
 	watch_mob()
 
 /datum/fog_view/Destroy(force)
 	clear()
 	QDEL_NULL(image_anchor)
+	QDEL_NULL(cast_data)
 	if(watched_mob)
 		UnregisterSignal(watched_mob, COMSIG_MOVABLE_MOVED)
 		watched_mob = null
 	owner = null
+	scene = null
+	frame = null
 	return ..()
 
 /datum/fog_view/proc/watch_mob()
@@ -403,7 +407,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /datum/fog_view/proc/clear()
 	if(owner && length(tiles))
 
-		for(var/turf/tile as anything in tiles)
+		for(var/atom/tile as anything in tiles)
 			owner.images -= tiles[tile]
 	tiles.Cut()
 	visible?.Cut()
@@ -484,15 +488,15 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /datum/fog_view/proc/render()
 	if(!owner || !center)
 		return
-	if(scene?.render(src))
-		return
 	var/plane = render_plane()
 	if(image_anchor && frame?.anchor() && image_anchor.loc != frame.anchor())
 		image_anchor.forceMove(frame.anchor())
 
-	var/list/turf/wanted = list()
+	var/list/atom/wanted = list()
 
-	for(var/turf/tile as anything in hidden)
+	for(var/atom/tile as anything in hidden)
+		if(QDELETED(tile))
+			continue
 		if(tile.z != center.z)
 			continue
 
@@ -509,19 +513,19 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			tiles.Remove(tile)
 		tiles[tile] = make_fog_image(tile, plane)
 		owner.images += tiles[tile]
-	for(var/turf/tile as anything in tiles)
+	for(var/atom/tile as anything in tiles)
 		if(wanted[tile])
 			continue
 		owner.images -= tiles[tile]
 		tiles.Remove(tile)
 
-/datum/fog_view/proc/visual_anchor(turf/tile)
+/datum/fog_view/proc/visual_anchor(atom/tile)
 	if(!scene)
 		return null
 	var/atom/anchor = scene.visual_for(tile)
 	return QDELETED(anchor) ? null : anchor
 
-/datum/fog_view/proc/make_fog_image(turf/tile, plane)
+/datum/fog_view/proc/make_fog_image(atom/tile, plane)
 	var/atom/pinned = visual_anchor(tile)
 	if(pinned)
 		var/image/hung = image(LIGHTING_ICON, pinned, "dark_lighting_object")
@@ -602,8 +606,4 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 #undef FOG_OF_WAR_BUILD
 #undef FOG_OF_WAR_PLANE
 #undef FOG_OF_WAR_LAYER
-#undef FOG_MODEL_DIAGONAL
-#undef FOG_MODEL_UNION
-#undef FOG_MODEL_STRAIGHT
-#undef FOG_MODEL_PIXEL
 #undef FOG_NATIVE_MAX_RADIUS

@@ -1,5 +1,5 @@
 /obj/overmap/entity/pod/in_free_flight()
-	return overmap_pod?.is_in_own_pocket() && !is_jumping() && !relay_jump_from && status == OVERMAP_STATUS_OVERMAP && isturf(loc)
+	return overmap_pod?.is_in_own_pocket() && !is_jumping() && status == OVERMAP_STATUS_OVERMAP && isturf(loc)
 
 /datum/controller/subsystem/overmap/proc/pod_blocker(turf/next, atom/movable/mover)
 	if(!mover.simulated || isobserver(mover) || (mover.movement_type & PHASING))

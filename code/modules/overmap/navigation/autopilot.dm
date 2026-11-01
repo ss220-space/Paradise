@@ -1,6 +1,5 @@
 /datum/component/overmap_flight/proc/navigation_speed_limited()
-	var/obj/overmap/entity/vessel = parent
-	return autopilot || !!vessel.programmed_mission || (vessel.programmed && !vessel.programmed_profile()?.manual_helm)
+	return autopilot
 
 /datum/component/overmap_flight/proc/clear_navigation()
 	navigation?.reset()
@@ -8,9 +7,13 @@
 	navigation_world_y = null
 	navigation_facing = null
 	navigation_host = null
+	navigation_arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE
+	navigation_ignore_collisions = FALSE
+	navigation_known_obstacles_only = TRUE
+	navigation_entry_box = null
 	matching_velocity = FALSE
 
-/datum/component/overmap_flight/proc/navigate_world(world_x, world_y, heading, obj/overmap/entity/host)
+/datum/component/overmap_flight/proc/navigate_world(world_x, world_y, heading, obj/overmap/entity/host, arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE, ignore_collisions = FALSE, known_obstacles_only = TRUE, list/entry_box)
 	if(!autopilot)
 		release_pilot()
 		held_brake = FALSE
@@ -21,6 +24,10 @@
 	navigation_world_y = world_y
 	navigation_facing = heading
 	navigation_host = host
+	navigation_arrival_range = arrival_range
+	navigation_ignore_collisions = ignore_collisions
+	navigation_known_obstacles_only = known_obstacles_only
+	navigation_entry_box = entry_box
 	var/obj/overmap/entity/vessel = parent
 	if(vessel.sector)
 		var/span = OVERMAP_TILE_SPAN * vessel.sector.tile_travel
@@ -84,7 +91,7 @@
 	var/dy = waypoint[2] - vessel.get_world_y()
 	var/distance = sqrt(dx ** 2 + dy ** 2)
 	var/final_leg = abs(waypoint[1] - goal_x) + abs(waypoint[2] - goal_y) < 0.1
-	var/arrival_range = vessel.programmed_mission ? 1 : OVERMAP_AUTOPILOT_ARRIVE_RANGE
+	var/arrival_range = navigation_arrival_range
 	if(final_leg && distance <= arrival_range && vessel.get_speed() * OVERMAP_TILE_SPAN <= OVERMAP_AUTOPILOT_ARRIVE_SPEED)
 		if(!isnull(navigation_facing) && abs(closer_angle_difference(facing, navigation_facing)) > 2)
 			brake(elapsed)
@@ -97,30 +104,27 @@
 		autopilot = FALSE
 		navigation.reset()
 		vessel.refresh_heading_overlay()
-		if(vessel.programmed_mission && !isnull(navigation_world_x))
-			vessel.programmed_mission.navigation_arrived()
-		else
-			notify_arrival()
+		notify_arrival()
 		return
 	var/accel = strongest_thrust() / inertial_mass() / burn_delay * OVERMAP_TILE_SPAN * OVERMAP_AUTOPILOT_ACCEL_MARGIN
 	var/needs_flip = min(thrust_north, thrust_south, thrust_east, thrust_west) < strongest_thrust() * 0.1
 	var/flip = needs_flip ? flip_time() : 0
 	var/safe_speed = accel ? accel * (sqrt(flip ** 2 + 2 * max(distance - 0.5, 0) / accel) - flip) : 0
 	var/wanted_speed = min(get_effective_cruise() * OVERMAP_TILE_SPAN, safe_speed)
-	var/hold_orientation = !isnull(navigation_facing) && distance <= max(64, vessel.hull_radius * 4)
+	var/hold_orientation = !needs_flip && !isnull(navigation_facing) && distance <= max(64, vessel.hull_radius * 4)
 	var/list/host_region = navigation_host?.physical_space?.region
-	if(!isnull(navigation_facing) && host_region)
+	if(!needs_flip && !isnull(navigation_facing) && host_region)
 		var/gap_x = max(host_region[1] - vessel.get_world_x(), vessel.get_world_x() - host_region[3], 0)
 		var/gap_y = max(host_region[2] - vessel.get_world_y(), vessel.get_world_y() - host_region[4], 0)
 		hold_orientation ||= max(gap_x, gap_y) <= max(64, vessel.hull_radius * 4)
-	if(vessel.programmed_mission)
+	if(!needs_flip && !isnull(navigation_facing))
 		var/heading_error = abs(closer_angle_difference(facing + main_axis_angle(), hold_orientation ? navigation_facing + main_axis_angle() : delta_to_angle(dx, dy)))
 		wanted_speed *= max(0, cos(heading_error)) ** 2
 	var/aim = match_navigation_velocity(distance ? dx / distance * wanted_speed : 0, distance ? dy / distance * wanted_speed : 0, elapsed)
 	autopilot_status = navigation.force_passage ? "Аварийный проход без коллизии" : (length(navigation.path) > 1 ? "Обходит препятствие" : "Идёт к цели")
-	if(vessel.programmed_mission && hold_orientation)
+	if(hold_orientation)
 		return navigation_facing + main_axis_angle()
-	if(vessel.programmed_mission && distance > max(arrival_range * 2, 3))
+	if(!needs_flip && !isnull(navigation_facing) && distance > max(arrival_range * 2, 3))
 		return delta_to_angle(dx, dy)
 	return final_leg && !isnull(navigation_facing) && !needs_flip ? navigation_facing + main_axis_angle() : aim
 

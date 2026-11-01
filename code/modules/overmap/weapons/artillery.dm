@@ -18,11 +18,7 @@
 	sprite_half_y = (picture.Height() - ICON_SIZE_Y) / 2
 	sprite_center_x = pixel_x + sprite_half_x
 	sprite_center_y = pixel_y + sprite_half_y
-	var/datum/component/ship_weapon/weapon = AddComponent(/datum/component/ship_weapon)
-	weapon.arc = 30
-	weapon.automatic = FALSE
-	weapon.mount_dir = cannon_direction
-	weapon.muzzle_distance = cannon_direction == EAST ? 4.8 : 6.8
+	AddComponent(/datum/component/ship_weapon, arc = 30, automatic = FALSE, mount_dir = cannon_direction, muzzle_distance = cannon_direction == EAST ? 4.8 : 6.8)
 
 /obj/machinery/bsa/full/ship/Destroy()
 	QDEL_LIST(ship_parts)
@@ -33,9 +29,7 @@
 	. = ..(rotation, params & ~ROTATE_OFFSET)
 	pixel_x = sprite_center_x * cos(sprite_rotation) + sprite_center_y * sin(sprite_rotation) - sprite_half_x
 	pixel_y = sprite_center_y * cos(sprite_rotation) - sprite_center_x * sin(sprite_rotation) - sprite_half_y
-	var/datum/component/ship_weapon/weapon = GetComponent(/datum/component/ship_weapon)
-	if(weapon)
-		weapon.mount_dir = angle2dir(dir2angle(weapon.mount_dir) + rotation)
+	SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_ROTATED, rotation)
 	transform = matrix(transform).Turn(rotation)
 
 /obj/structure/ship_artillery_frame

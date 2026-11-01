@@ -54,15 +54,7 @@
 	data["pilot_name"] = vessel.flight?.pilot?.name
 	data["ship_docked_to"] = vessel.docked_ship?.get_overmap_display_name()
 	data["ship_guests"] = length(vessel.docked_guests)
-	data["can_jump"] = vessel.in_free_flight() && vessel.sector?.sector_kind != OVERMAP_SECTOR_KIND_SERVICE
 	data["local_space"] = !!vessel.local_space
-	if(vessel.jump_spool_end)
-		data["jump_left"] = round((vessel.jump_spool_end - world.time) / (1 SECONDS))
-		data["jump_progress"] = round(100 * (1 - (vessel.jump_spool_end - world.time) / OVERMAP_JUMP_SPOOL))
-		data["jump_spooling"] = TRUE
-	else if(vessel.jump_start_time)
-		data["jump_left"] = round((vessel.jump_start_time + vessel.jump_duration - world.time) / (1 SECONDS))
-		data["jump_progress"] = round(100 * (world.time - vessel.jump_start_time) / vessel.jump_duration)
 	data["radar_enabled"] = !!vessel.sector
 	data["radar_reach"] = radar_reach
 	data["accel"] = round(OVERMAP_DISPLAY_SPEED(vessel.get_effective_acceleration()), 0.01)
@@ -122,10 +114,6 @@
 		for(var/obj/overmap/entity/hyperrelay/relay in target)
 			if(relay.paired && vessel.contact_identified(relay))
 				data["dest_relay"] = relay.paired.sector?.name
-		if(vessel.in_free_flight())
-			var/span = OVERMAP_TILE_SPAN * vessel.sector.tile_travel
-			var/distance = sqrt((target.x * span - vessel.get_world_x()) ** 2 + (target.y * span - vessel.get_world_y()) ** 2)
-			data["dest_jump_time"] = round((OVERMAP_JUMP_SPOOL + max(OVERMAP_JUMP_MIN_TIME, distance / OVERMAP_JUMP_SPEED)) / (1 SECONDS))
 	data["is_shuttle"] = !!vessel.overmap_shuttle
 	data["is_pod"] = !!vessel.overmap_pod
 	data["can_ship_undock"] = !!vessel.docked_ship || length(vessel.docked_guests)
@@ -178,11 +166,11 @@
 		to_chat(usr, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return TRUE
 
-	if((vessel.is_jumping() || vessel.relay_jump_from) && (action in list("undock", "dock", "dock_edge", "dock_ship", "dock_station", "prepare_stop", "prepare_landing", "align_dock", "relay_jump", "hyperjump")))
+	if(vessel.is_jumping() && (action in list("undock", "dock", "dock_edge", "dock_ship", "dock_station", "prepare_stop", "prepare_landing", "align_dock", "relay_jump")))
 		to_chat(usr, span_warning("Идёт гиперпрыжок."))
 		return TRUE
 
-	if(vessel.docking_approach?.aligning && (action in list("take_helm", "inspect", "undock", "dock", "dock_edge", "dock_ship", "dock_station", "hyperjump")))
+	if(vessel.docking_approach?.aligning && (action in list("take_helm", "inspect", "undock", "dock", "dock_edge", "dock_ship", "dock_station")))
 		to_chat(usr, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
 		return TRUE
 	switch(action)
@@ -251,11 +239,6 @@
 			else
 
 				nav.take_pilot(usr, src)
-			. = TRUE
-		if("hyperjump")
-			var/jump_result = vessel.start_jump()
-			if(jump_result != TRUE)
-				to_chat(usr, span_warning("[jump_result]"))
 			. = TRUE
 		if("dock_ship")
 			if(vessel.docked_ship)
@@ -456,8 +439,6 @@
 /obj/machinery/computer/helm/proc/flight_phase()
 	if(vessel.is_programmed_locked())
 		return "route"
-	if(vessel.is_jumping())
-		return "jump"
 	if(vessel.is_overmap_jammed())
 		return "relay"
 	if(vessel.can_helm_undock())

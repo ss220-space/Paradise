@@ -17,7 +17,9 @@
 
 /datum/overmap_admin_panel/Destroy()
 	selected = null
-	open_helms = null
+	for(var/obj/machinery/computer/helm/admin/helm as anything in open_helms)
+		UnregisterSignal(helm, COMSIG_QDELETING)
+	QDEL_LIST(open_helms)
 	dump_uids = null
 	QDEL_NULL(uploaded_template)
 	return ..()
@@ -562,8 +564,8 @@
 		shell.bind_slave(token)
 	if(!vessel.flight)
 		vessel.AddComponent(/datum/component/overmap_flight)
-	vessel.ensure_virtual_engine()
 	vessel.admin_virtual_engine = TRUE
+	vessel.ensure_virtual_engine()
 	if(!vessel.sensor_pack)
 		vessel.AddComponent(/datum/component/overmap_sensors)
 	vessel.long_sensors_on = TRUE
@@ -575,9 +577,14 @@
 			vessel.status = OVERMAP_STATUS_OVERMAP
 	var/obj/machinery/computer/helm/admin/helm = new(null)
 	helm.bind_target(vessel)
+	RegisterSignal(helm, COMSIG_QDELETING, PROC_REF(on_helm_deleted))
 	open_helms |= helm
 	helm.ui_interact(user)
 	log_admin("[key_name(user)] opened admin helm on [token].")
+
+/datum/overmap_admin_panel/proc/on_helm_deleted(obj/machinery/computer/helm/admin/helm)
+	SIGNAL_HANDLER
+	open_helms -= helm
 
 /datum/overmap_admin_panel/proc/apply_dump_to_console(obj/machinery/computer/sensors/console, mob/user)
 	console.link_vessel()
@@ -904,6 +911,19 @@
 	density = FALSE
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/computer/helm/admin/Destroy()
+	var/obj/overmap/entity/admin_shell/shell = vessel
+	if(vessel?.flight?.pilot_helm == src)
+		vessel.flight.release_pilot()
+	. = ..()
+	if(istype(shell) && !length(shell.helms))
+		qdel(shell)
+
+/obj/machinery/computer/helm/admin/ui_close(mob/user)
+	. = ..()
+	if(!QDELING(src))
+		qdel(src)
 
 /obj/machinery/computer/helm/admin/Initialize(mapload)
 	. = ..()

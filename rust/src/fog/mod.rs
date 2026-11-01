@@ -60,7 +60,6 @@ impl Grid {
             None => false,
         }
     }
-
 }
 
 struct FogWorld {
@@ -78,7 +77,6 @@ impl FogWorld {
             maxy: 0,
             maxz: 0,
             grids: Vec::new(),
-
         }
     }
 
@@ -88,7 +86,6 @@ impl FogWorld {
         }
         let slot = z as usize;
         if slot >= self.grids.len() {
-
             self.grids.resize_with(slot + 1, || None);
             if slot > self.maxz {
                 self.maxz = slot;
@@ -258,15 +255,18 @@ fn overlay_grid(base: &Grid, x: i32, y: i32, radius: i32, packed: &str) -> Grid 
 }
 
 fn lock_error() -> ByondError {
-    ByondError::Boxed(Box::<dyn Error + Send + Sync>::from("fog: the world grid lock is poisoned"))
+    ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+        "fog: the world grid lock is poisoned",
+    ))
 }
 
 fn err<T>(message: String) -> ByondResult<T> {
-    Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(message)))
+    Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+        message,
+    )))
 }
 
 fn whole_number(value: &ByondValue, name: &str) -> ByondResult<i32> {
-
     let number = value.get_number()?;
     if number.fract() != 0.0 || number < i32::MIN as f32 || number > i32::MAX as f32 {
         return err(format!("fog: {name} must be a whole number, got {number}"));
@@ -310,7 +310,9 @@ fn fog_load_z(z: ByondValue, packed: ByondValue) -> ByondResult<ByondValue> {
     let packed = packed.get_string()?;
     let mut world = FOG.lock().map_err(|_| lock_error())?;
     if !world.ensure_grid(z) {
-        return err(format!("fog_load_z: z{z} is outside the world the library was initialised with"));
+        return err(format!(
+            "fog_load_z: z{z} is outside the world the library was initialised with"
+        ));
     }
     let mut blocked = 0u32;
     if let Some(grid) = world.grids[z as usize].as_mut() {
@@ -333,7 +335,12 @@ fn fog_load_z(z: ByondValue, packed: ByondValue) -> ByondResult<ByondValue> {
 }
 
 #[byond_fn]
-fn fog_set(x: ByondValue, y: ByondValue, z: ByondValue, blocked: ByondValue) -> ByondResult<ByondValue> {
+fn fog_set(
+    x: ByondValue,
+    y: ByondValue,
+    z: ByondValue,
+    blocked: ByondValue,
+) -> ByondResult<ByondValue> {
     let (x, y, z) = (
         whole_number(&x, "x")?,
         whole_number(&y, "y")?,
@@ -342,7 +349,9 @@ fn fog_set(x: ByondValue, y: ByondValue, z: ByondValue, blocked: ByondValue) -> 
     let blocked = blocked.get_number()? != 0.0;
     let mut world = FOG.lock().map_err(|_| lock_error())?;
     if !world.ensure_grid(z) {
-        return err(format!("fog_set: z{z} is outside the world the library was initialised with"));
+        return err(format!(
+            "fog_set: z{z} is outside the world the library was initialised with"
+        ));
     }
     if let Some(grid) = world.grids[z as usize].as_mut() {
         grid.set(x, y, blocked);
@@ -424,7 +433,11 @@ fn fog_hidden_runs(
         let overlay = overlay_grid(&Grid::new(0, 0), x, y, radius, &packed);
         let bits = cast(&overlay, radius + 1, radius + 1, radius, FOG_MODEL_UNION);
         let mut out = ByondValue::new_list()?;
-        out.write_list(hidden_runs(&bits, radius).into_iter().map(ByondValue::new_num))?;
+        out.write_list(
+            hidden_runs(&bits, radius)
+                .into_iter()
+                .map(ByondValue::new_num),
+        )?;
         return Ok(out);
     }
     let mut world = FOG.lock().map_err(|_| lock_error())?;
@@ -442,6 +455,10 @@ fn fog_hidden_runs(
     };
     drop(world);
     let mut out = ByondValue::new_list()?;
-    out.write_list(hidden_runs(&bits, radius).into_iter().map(ByondValue::new_num))?;
+    out.write_list(
+        hidden_runs(&bits, radius)
+            .into_iter()
+            .map(ByondValue::new_num),
+    )?;
     Ok(out)
 }

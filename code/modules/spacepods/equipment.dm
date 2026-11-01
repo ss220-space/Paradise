@@ -14,68 +14,60 @@
 			to_chat(user, span_warning("Орудия недоступны во время перехода."))
 			return
 	if(isnum(target_x) && isnum(target_y))
-		var/datum/component/ship_weapon/weapon = GetComponent(/datum/component/ship_weapon)
-		var/obj/overmap/entity/vessel = weapon.host()
-		if(!vessel || !weapon.can_aim(vessel, target_x, target_y))
+		var/obj/overmap/entity/vessel = craft.overmap_vessel || SSovermap.get_or_register_pod(craft)
+		if(!SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_CAN_AIM, vessel, target_x, target_y))
 			return FALSE
 	if(!craft.battery?.use(shot_cost))
 		to_chat(user, span_warning("Недостаточно энергии для выстрела."))
 		return
 	craft.next_firetime = world.time + fire_delay
-	INVOKE_ASYNC(src, PROC_REF(fire_burst), user, target_x, target_y)
+	fire_projectile_burst(CALLBACK(src, PROC_REF(fire_volley), user, target_x, target_y), shots_per, 0.2 SECONDS)
 	return TRUE
 
-/obj/item/spacepod_equipment/weaponry/proc/fire_burst(mob/user, target_x, target_y)
+/obj/item/spacepod_equipment/weaponry/proc/fire_volley(mob/user, target_x, target_y)
 	var/obj/spacepod/craft = my_atom
-	for(var/i in 1 to shots_per)
-		if(QDELETED(craft) || QDELETED(src) || craft.pilot != user)
-			break
-		if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket() && !craft.overmap_vessel.in_free_flight())
-			break
-		var/datum/component/ship_weapon/weapon = GetComponent(/datum/component/ship_weapon)
-		if(isnum(target_x) && isnum(target_y) && !weapon.can_aim(weapon.host(), target_x, target_y))
-			break
-		for(var/side in list(-1, 1))
-			var/obj/projectile/projectile = new projectile_type(null)
-			projectile.overmap_radar_visible |= overmap_radar_visible
-			if(penetration_chance)
-				projectile.ship_penetrations = 1
-				projectile.ship_penetration_chance = penetration_chance
-				projectile.ship_penetration_decay = 0.5
-			projectile.firer = user
-			projectile.firer_source_atom = craft
-			projectile.def_zone = BODY_ZONE_CHEST
-			if(craft.overmap_vessel?.in_free_flight())
-				craft.overmap_vessel.fire_pod_projectile(projectile, side, target_x, target_y)
-			else
-				var/turf/muzzle = get_turf(craft)
-				switch(craft.dir)
-					if(NORTH)
-						muzzle = get_step(muzzle, NORTH)
-						if(side > 0)
-							muzzle = get_step(muzzle, EAST)
-					if(SOUTH)
-						if(side > 0)
-							muzzle = get_step(muzzle, EAST)
-					if(EAST)
+	if(QDELETED(craft) || QDELETED(src) || craft.pilot != user)
+		return FALSE
+	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket() && !craft.overmap_vessel.in_free_flight())
+		return FALSE
+	var/obj/overmap/entity/vessel = craft.overmap_vessel
+	if(isnum(target_x) && isnum(target_y) && !SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_CAN_AIM, vessel, target_x, target_y))
+		return FALSE
+	for(var/side in list(-1, 1))
+		var/obj/projectile/projectile = new projectile_type(null)
+		projectile.configure_ship_shot(user, craft, penetration_chance = penetration_chance, radar_visible = overmap_radar_visible)
+		projectile.def_zone = BODY_ZONE_CHEST
+		if(craft.overmap_vessel?.in_free_flight())
+			craft.overmap_vessel.fire_pod_projectile(projectile, side, target_x, target_y)
+		else
+			var/turf/muzzle = get_turf(craft)
+			switch(craft.dir)
+				if(NORTH)
+					muzzle = get_step(muzzle, NORTH)
+					if(side > 0)
 						muzzle = get_step(muzzle, EAST)
-						if(side > 0)
-							muzzle = get_step(muzzle, NORTH)
-					if(WEST)
-						if(side > 0)
-							muzzle = get_step(muzzle, NORTH)
-				projectile.forceMove(muzzle)
-				projectile.starting = get_turf(craft)
-				if(isnum(target_x) && isnum(target_y))
-					var/list/point = weapon.world_position(weapon.host())
-					var/obj/overmap/entity/owner = SSovermap.frame_owner(muzzle)
-					projectile.set_angle(delta_to_angle(target_x - point[1], target_y - point[2]) - (istype(owner) ? owner.get_facing() : 0))
-					projectile.fire()
-				else
-					projectile.dumbfire(craft.dir)
-		if(fire_sound)
-			craft.play_sound_to_riders(fire_sound)
-		sleep(2)
+				if(SOUTH)
+					if(side > 0)
+						muzzle = get_step(muzzle, EAST)
+				if(EAST)
+					muzzle = get_step(muzzle, EAST)
+					if(side > 0)
+						muzzle = get_step(muzzle, NORTH)
+				if(WEST)
+					if(side > 0)
+						muzzle = get_step(muzzle, NORTH)
+			projectile.forceMove(muzzle)
+			projectile.starting = get_turf(craft)
+			if(isnum(target_x) && isnum(target_y))
+				var/list/point = vessel.radar_world_origin()
+				var/obj/overmap/entity/owner = SSovermap.frame_owner(muzzle)
+				projectile.set_angle(delta_to_angle(target_x - point[1], target_y - point[2]) - (istype(owner) ? owner.get_facing() : 0))
+				projectile.fire()
+			else
+				projectile.dumbfire(craft.dir)
+	if(fire_sound)
+		craft.play_sound_to_riders(fire_sound)
+	return TRUE
 
 /datum/spacepod/equipment
 
@@ -140,10 +132,7 @@
 
 /obj/item/spacepod_equipment/weaponry/Initialize(mapload)
 	. = ..()
-	var/datum/component/ship_weapon/weapon = AddComponent(/datum/component/ship_weapon)
-	weapon.arc = 20
-	weapon.automatic = FALSE
-	weapon.mount_dir = NORTH
+	AddComponent(/datum/component/ship_weapon, arc = 20, automatic = FALSE, mount_dir = NORTH)
 
 /obj/item/spacepod_equipment/weaponry/Destroy()
 	if(my_atom?.equipment_system?.weapon_system == src)

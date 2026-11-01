@@ -174,7 +174,7 @@
 		return FALSE
 	if(is_overmap_jammed())
 		return FALSE
-	if(relay_jump_from || is_jumping() || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
+	if(is_jumping() || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
 		return FALSE
 	if(!OVERMAP_SPEED_STOPPED(get_speed()))
 		return FALSE

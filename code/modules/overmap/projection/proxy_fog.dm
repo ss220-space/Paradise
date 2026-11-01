@@ -1,3 +1,5 @@
+#define OVERMAP_FOG_CHUNK_SIZE 16
+
 /datum/fog_frame/proxy
 
 	var/source_x = 0
@@ -45,16 +47,27 @@
 /proc/overmap_fog_anchor(x, y, z)
 	return locate(FLOOR(x + 0.5, 1), FLOOR(y + 0.5, 1), z)
 
-/proc/overmap_probe_stepped(turf/probe)
+/proc/overmap_probe_stepped(turf/probe, list/blockers)
 	if(!probe)
 		return null
-	if(!fog_turf_blocks_sight(probe))
+	if(!fog_turf_blocks_sight(probe, blockers))
 		return probe
 	for(var/direction in GLOB.cardinal)
 		var/turf/step = get_step(probe, direction)
-		if(step && !fog_turf_blocks_sight(step))
+		if(step && !fog_turf_blocks_sight(step, blockers))
 			return step
 	return probe
+
+/datum/fog_cast_data
+	var/turf/center
+	var/list/blockers
+	var/list/source_keys
+
+/datum/fog_cast_data/Destroy()
+	center = null
+	blockers = null
+	source_keys = null
+	return ..()
 
 /datum/fog_scene
 
@@ -65,6 +78,7 @@
 	var/list/drawn = list()
 
 	var/list/mine = list()
+	var/list/client_eyes
 
 	var/reach = 8
 
@@ -76,6 +90,7 @@
 /datum/fog_scene/Destroy(force)
 	detach_all()
 	drawn = null
+	client_eyes = null
 	QDEL_NULL(frame)
 	return ..()
 
@@ -87,14 +102,13 @@
 /datum/fog_scene/proc/set_frame(turf/anchor, src_x, src_y, tgt_x, tgt_y, angle)
 	if(!frame)
 		frame = new /datum/fog_frame/proxy(anchor, angle)
+	if(frame.source_x != src_x || frame.source_y != src_y || frame.target_x != tgt_x || frame.target_y != tgt_y || frame.angle != angle)
+		mark_dirty()
 	frame.setup(anchor, src_x, src_y, tgt_x, tgt_y, angle)
 
-/datum/fog_scene/proc/visual_for(turf/source)
+/datum/fog_scene/proc/visual_for(atom/source)
 	var/atom/visual = drawn ? drawn[source] : null
 	return isatom(visual) ? visual : null
-
-/datum/fog_scene/proc/render(datum/fog_view/view)
-	return FALSE
 
 /datum/fog_scene/proc/refresh()
 	if(!frame)
@@ -120,20 +134,40 @@
 
 /datum/fog_scene/proc/hidden_for(datum/fog_view/view)
 	. = list()
-	var/turf/probe = view.center
-	if(!probe || !length(drawn))
+	if(!view.center || !length(drawn))
 		return
-	var/answered = FALSE
-	if(fog_rust_usable() && SSfog_of_war && SSfog_of_war.native_ready(probe.z))
-		var/list/square = fog_hidden_native(probe, view.radius)
-		if(!isnull(square))
-			answered = TRUE
-			for(var/turf/tile as anything in square)
-				if(drawn[tile])
-					. += tile
-	if(!answered)
-		var/list/visible = fog_cast_set(probe, drawn)
-		. = fog_hidden_from_visible_set(visible, drawn)
+	var/datum/fog_cast_data/data = prepare_cast(view)
+	if(!data.center)
+		return
+	var/list/square
+	if(fog_rust_usable() && SSfog_of_war && (!isnull(data.blockers) || SSfog_of_war.native_ready(data.center.z)))
+		var/packed
+		if(!isnull(data.blockers))
+			var/list/entries = list()
+			for(var/turf/tile as anything in data.blockers)
+				entries += "[tile.x],[tile.y]"
+			packed = "virtual;[jointext(entries, ";")]"
+		square = fog_hidden_native(data.center, view.radius, extra_blockers = packed)
+	if(isnull(square))
+		var/list/visible = fog_cast(data.center, view.radius, blockers = data.blockers)
+		square = fog_hidden_from_visible(visible, data.center, view.radius)
+	for(var/turf/tile as anything in square)
+		square[tile] = TRUE
+	if(isnull(data.source_keys))
+		for(var/turf/tile as anything in square)
+			if(drawn[tile])
+				. += tile
+		return
+	for(var/atom/source, key_entry in data.source_keys)
+		if(square[key_entry])
+			. += source
+
+/datum/fog_scene/proc/prepare_cast(datum/fog_view/view)
+	var/datum/fog_cast_data/data = view.cast_data
+	data.center = view.center
+	data.blockers = null
+	data.source_keys = null
+	return data
 
 /datum/fog_scene/proc/mark_dirty()
 	for(var/client/viewer as anything in mine)
@@ -142,23 +176,86 @@
 			view.dirty = TRUE
 
 /datum/fog_scene/proc/collect_clients(list/out)
-	return
+	var/list/eyes = client_eyes || SSovermap.client_eyes
+	var/turf/anchor = frame?.anchor()
+	if(!anchor)
+		return
+	for(var/client/viewer as anything in eyes)
+		for(var/turf/spot as anything in eyes[viewer])
+			if(spot.z == anchor.z && (spot.x - frame.target_x) ** 2 + (spot.y - frame.target_y) ** 2 <= reach ** 2)
+				out[viewer] = TRUE
+				break
 
 /datum/fog_scene/proc/cast_center(datum/fog_view/view)
 	return null
 
 /datum/fog_scene/proc/cast_radius(datum/fog_view/view)
-	return reach
+	return min(reach, CEILING((view.owner?.maxview() || world.view) * 1.42 + 2, 1))
+
+/datum/fog_scene/projected
+	var/list/source_positions = list()
+	var/list/opaque_chunks = list()
+
+/datum/fog_scene/projected/Destroy(force)
+	source_positions = null
+	opaque_chunks = null
+	return ..()
+
+/datum/fog_scene/projected/proc/add_opaque_point(list/point)
+	var/key = "[FLOOR(point[1] / OVERMAP_FOG_CHUNK_SIZE, 1)],[FLOOR(point[2] / OVERMAP_FOG_CHUNK_SIZE, 1)]"
+	var/list/chunk = opaque_chunks[key]
+	if(!chunk)
+		chunk = list()
+		opaque_chunks[key] = chunk
+	chunk += list(point)
+
+/datum/fog_scene/projected/cast_center(datum/fog_view/view)
+	var/turf/eye = get_turf(view.owner?.eye || view.owner?.mob)
+	var/turf/anchor = frame?.anchor()
+	return eye && anchor && eye.z == anchor.z ? eye : null
+
+/datum/fog_scene/projected/prepare_cast(datum/fog_view/view)
+	var/datum/fog_cast_data/data = ..()
+	data.center = locate(round(world.maxx / 2), round(world.maxy / 2), view.center.z)
+	data.blockers = list()
+	data.source_keys = list()
+	var/delta_x = view.center.x - frame.target_x
+	var/delta_y = view.center.y - frame.target_y
+	var/source_x = FLOOR(frame.source_x + delta_x * cos(frame.angle) + delta_y * sin(frame.angle) + 0.5, 1)
+	var/source_y = FLOOR(frame.source_y - delta_x * sin(frame.angle) + delta_y * cos(frame.angle) + 0.5, 1)
+	var/min_chunk_x = FLOOR((source_x - view.radius - 1) / OVERMAP_FOG_CHUNK_SIZE, 1)
+	var/max_chunk_x = FLOOR((source_x + view.radius + 1) / OVERMAP_FOG_CHUNK_SIZE, 1)
+	var/min_chunk_y = FLOOR((source_y - view.radius - 1) / OVERMAP_FOG_CHUNK_SIZE, 1)
+	var/max_chunk_y = FLOOR((source_y + view.radius + 1) / OVERMAP_FOG_CHUNK_SIZE, 1)
+	for(var/chunk_x in min_chunk_x to max_chunk_x)
+		for(var/chunk_y in min_chunk_y to max_chunk_y)
+			for(var/list/point as anything in opaque_chunks["[chunk_x],[chunk_y]"])
+				if(abs(point[1] - source_x) > view.radius + 1 || abs(point[2] - source_y) > view.radius + 1)
+					continue
+				var/turf/tile = locate(data.center.x + point[1] - source_x, data.center.y + point[2] - source_y, data.center.z)
+				if(tile)
+					data.blockers[tile] = TRUE
+	for(var/atom/source, point_entry in source_positions)
+		var/list/point = point_entry
+		if(abs(point[1] - source_x) > view.radius || abs(point[2] - source_y) > view.radius)
+			continue
+		var/turf/tile = locate(data.center.x + point[1] - source_x, data.center.y + point[2] - source_y, data.center.z)
+		if(tile)
+			data.source_keys[source] = tile
+	data.center = overmap_probe_stepped(data.center, data.blockers)
+	return data
 
 /datum/fog_scene/station
 	label = "station mirror"
 	var/obj/overmap/entity/vessel
 
-	var/list/client_eyes
-
 /datum/fog_scene/station/New(obj/overmap/entity/vessel, reach)
 	. = ..(reach)
 	src.vessel = vessel
+
+/datum/fog_scene/station/Destroy(force)
+	vessel = null
+	return ..()
 
 /datum/fog_scene/station/collect_clients(list/out)
 	if(!vessel)
@@ -173,8 +270,10 @@
 		if(!length(spots))
 			continue
 
-		if(zones[spots[1]])
-			out[viewer] = TRUE
+		for(var/turf/spot as anything in spots)
+			if(zones[spot])
+				out[viewer] = TRUE
+				break
 
 /datum/fog_scene/station/cast_center(datum/fog_view/view)
 	var/client/viewer = view.owner
@@ -190,36 +289,16 @@
 	var/list/spot = vessel.hull_to_world(eye_turf.x, eye_turf.y)
 	return overmap_probe_stepped(space.turf_at(spot[1], spot[2]))
 
-/datum/fog_scene/station/cast_radius(datum/fog_view/view)
-	return reach
-
 /datum/fog_scene/hull
 	label = "hull proxy"
 	var/datum/hull_proxy/proxy
-	var/list/client_eyes
-
 /datum/fog_scene/hull/New(datum/hull_proxy/proxy, reach)
 	. = ..(reach)
 	src.proxy = proxy
 
-/datum/fog_scene/hull/collect_clients(list/out)
-	var/list/eyes = client_eyes
-	if(!proxy || !length(eyes))
-		return
-	var/check_z = proxy.proxy_z
-	var/center_x = proxy.center_x
-	var/center_y = proxy.center_y
-	var/reach_squared = reach * reach
-	for(var/client/viewer as anything in eyes)
-		for(var/turf/spot as anything in eyes[viewer])
-			if(spot.z != check_z)
-				continue
-			var/delta_x = spot.x - center_x
-			var/delta_y = spot.y - center_y
-			if(delta_x * delta_x + delta_y * delta_y > reach_squared)
-				continue
-			out[viewer] = TRUE
-			break
+/datum/fog_scene/hull/Destroy(force)
+	proxy = null
+	return ..()
 
 /datum/fog_scene/hull/cast_center(datum/fog_view/view)
 	var/client/viewer = view.owner
@@ -237,9 +316,6 @@
 	var/hull_y = frame_now.source_y + delta_x * sin(back_angle) + delta_y * cos(back_angle)
 	var/turf/probe = overmap_fog_anchor(hull_x, hull_y, proxy.vessel ? proxy.vessel.hull_z : eye_turf.z)
 	return overmap_probe_stepped(probe)
-
-/datum/fog_scene/hull/cast_radius(datum/fog_view/view)
-	return reach
 
 /proc/fog_hides_from(client/viewer, atom/source)
 	if(!viewer || !source)
@@ -281,3 +357,5 @@ GLOBAL_LIST_EMPTY(fog_proxy_backdrops)
 		GLOB.fog_proxy_backdrops -= viewer
 
 #undef OVERMAP_PROXY_VOID_PLANE
+
+#undef OVERMAP_FOG_CHUNK_SIZE

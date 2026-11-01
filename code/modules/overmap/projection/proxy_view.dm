@@ -183,7 +183,7 @@
 	var/radius = mirror_radius()
 	var/cos_facing = cos(facing)
 	var/sin_facing = sin(facing)
-	var/list/viewports = SSovermap.scatter_viewports(vessel)
+	var/list/viewports = SSovermap.frame_viewports(vessel)
 	var/center_x = round(spot[1], 1)
 	var/center_y = round(spot[2], 1)
 	var/list/wanted = list()

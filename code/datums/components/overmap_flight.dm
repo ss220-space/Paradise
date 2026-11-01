@@ -40,6 +40,10 @@
 	var/navigation_facing
 	var/obj/overmap/entity/navigation_host
 	var/obj/overmap/entity/navigation_target
+	var/navigation_arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE
+	var/navigation_ignore_collisions = FALSE
+	var/navigation_known_obstacles_only = TRUE
+	var/list/navigation_entry_box
 	var/matching_velocity = FALSE
 
 /datum/component/overmap_flight/Initialize()
@@ -56,6 +60,8 @@
 /datum/component/overmap_flight/UnregisterFromParent()
 	QDEL_NULL(navigation)
 	navigation_target = null
+	navigation_host = null
+	navigation_entry_box = null
 	release_pilot()
 	stop_burn()
 	var/obj/overmap/entity/token = parent
@@ -93,10 +99,6 @@
 	if(vessel.relay_jump_from)
 		stop_burn()
 		angular_velocity = 0
-		return
-	if(vessel.is_jumping())
-		stop_burn()
-		vessel.process_jump()
 		return
 	refresh_thrust()
 	burn_sides = NONE
@@ -163,7 +165,7 @@
 	engine_vectors.Cut()
 	omni_thrust = !!vessel.overmap_pod
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine == vessel.virtual_engine && !vessel.programmed_mission && !vessel.admin_virtual_engine)
+		if(engine == vessel.virtual_engine && !vessel.admin_virtual_engine)
 			continue
 		var/thrust = engine.get_thrust()
 		if(!thrust)
@@ -451,7 +453,7 @@
 	var/total_thrust = 0
 	var/obj/overmap/entity/vessel = parent
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine != vessel.virtual_engine || vessel.programmed_mission || vessel.admin_virtual_engine)
+		if(engine != vessel.virtual_engine || vessel.admin_virtual_engine)
 			total_thrust += engine.get_thrust()
 	return total_thrust
 
@@ -465,7 +467,7 @@
 /datum/component/overmap_flight/proc/has_working_engines()
 	var/obj/overmap/entity/vessel = parent
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if((engine != vessel.virtual_engine || vessel.programmed_mission || vessel.admin_virtual_engine) && engine.can_burn())
+		if((engine != vessel.virtual_engine || vessel.admin_virtual_engine) && engine.can_burn())
 			return TRUE
 	return FALSE
 
@@ -563,4 +565,4 @@
 
 /datum/component/overmap_flight/proc/notify_arrival()
 	var/obj/overmap/entity/vessel = parent
-	vessel.programmed_mission?.on_overmap_arrived()
+	SEND_SIGNAL(vessel, COMSIG_OVERMAP_NAVIGATION_ARRIVED)

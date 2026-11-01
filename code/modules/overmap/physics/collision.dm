@@ -12,7 +12,13 @@
 /proc/overmap_impact_damage(impact_speed)
 	return clamp(impact_speed * 2, 0, 60) * 10
 
-/proc/overmap_contact_health(turf/spot)
+/proc/overmap_contact_health(contact, obj/overmap/entity/owner)
+	if(istype(owner, /obj/overmap/entity/virtual_structure))
+		var/list/cell = contact
+		return max(1, cell[4])
+	if(owner?.overmap_pod)
+		return max(1, owner.overmap_pod.pod().health)
+	var/turf/spot = contact
 	if(!spot)
 		return 1
 	if(istype(spot, /turf/simulated/wall/indestructible))
@@ -50,6 +56,29 @@
 
 /proc/overmap_impact_loss(resistance, damage)
 	return 1 - sqrt(max(0, 1 - clamp(resistance / max(damage, 1), 0, 1)))
+
+/proc/overmap_contact_key(contact)
+	if(isturf(contact))
+		return contact
+	var/list/cell = contact
+	return "[cell[1]],[cell[2]]"
+
+/proc/overmap_damage_contact(contact, damage, obj/overmap/entity/owner)
+	if(istype(owner, /obj/overmap/entity/virtual_structure))
+		var/obj/overmap/entity/virtual_structure/structure = owner
+		var/list/cell = contact
+		var/health = cell[4]
+		structure.damage_cell(cell, damage)
+		return cell[4] > 0 ? 1 : overmap_impact_loss(health, damage)
+	if(owner?.overmap_pod)
+		owner.overmap_pod.pod().deal_damage(damage)
+		return owner.overmap_pod.pod().health > 0 ? 1 : 0
+	var/turf/spot = contact
+	var/x = spot.x
+	var/y = spot.y
+	var/z = spot.z
+	var/absorbed = overmap_damage_turf(spot, damage)
+	return overmap_turf_blocked(locate(x, y, z)) ? 1 : overmap_impact_loss(absorbed, damage)
 
 /proc/overmap_damage_turf(turf/spot, damage)
 	if(!spot || damage <= 0)
@@ -122,43 +151,39 @@
 	var/energy = mass_impact_damage(impact_speed, other)
 	var/list/own_damage = list()
 	var/list/target_damage = list()
+	var/list/own_contacts = list()
+	var/list/target_contacts = list()
 	var/loss = 0
-	var/blocked = FALSE
 	for(var/list/contact as anything in contacts)
-		var/turf/own = contact[1]
-		var/turf/target = contact[2]
-		var/own_health = overmap_pod ? max(1, overmap_pod.pod().health) : overmap_contact_health(own)
-		var/target_health = other?.overmap_pod ? max(1, other.overmap_pod.pod().health) : overmap_contact_health(target)
+		var/own = contact[1]
+		var/target = contact[2]
+		var/own_key = overmap_contact_key(own)
+		var/target_key = overmap_contact_key(target)
+		own_contacts[own_key] = own
+		target_contacts[target_key] = target
+		var/own_health = overmap_contact_health(own, src)
+		var/target_health = overmap_contact_health(target, other)
 		var/damage_to_own = overmap_contact_damage(energy, own_health, target_health)
 		var/damage_to_target = energy
-		own_damage[own] = max(own_damage[own], damage_to_own)
-		target_damage[target] = max(target_damage[target], damage_to_target)
+		own_damage[own_key] = max(own_damage[own_key], damage_to_own)
+		target_damage[target_key] = max(target_damage[target_key], damage_to_target)
 		loss = max(loss, overmap_impact_loss(target_health, damage_to_target))
 	if(damage_hull && overmap_pod)
 		var/damage = 0
-		for(var/turf/spot as anything in own_damage)
-			damage = max(damage, own_damage[spot])
+		for(var/key in own_damage)
+			damage = max(damage, own_damage[key])
 		overmap_pod.pod().deal_damage(damage)
 	else if(damage_hull)
-		for(var/turf/spot as anything in own_damage)
-			overmap_damage_turf(spot, own_damage[spot])
+		for(var/key in own_damage)
+			overmap_damage_contact(own_contacts[key], own_damage[key], src)
 	if(other?.overmap_pod)
 		var/damage = 0
-		for(var/turf/spot as anything in target_damage)
-			damage = max(damage, target_damage[spot])
+		for(var/key in target_damage)
+			damage = max(damage, target_damage[key])
 		other.overmap_pod.pod().deal_damage(damage)
 	else
-		for(var/turf/spot as anything in target_damage)
-			var/x = spot.x
-			var/y = spot.y
-			var/z = spot.z
-			var/absorbed = overmap_damage_turf(spot, target_damage[spot])
-			loss = max(loss, overmap_impact_loss(absorbed, target_damage[spot]))
-			var/turf/remaining = locate(x, y, z)
-			if(overmap_turf_blocked(remaining))
-				blocked = TRUE
-	if(blocked)
-		return 1
+		for(var/key in target_damage)
+			loss = max(loss, overmap_damage_contact(target_contacts[key], target_damage[key], other))
 	if(other?.overmap_pod?.pod()?.health > 0)
 		return 1
 	return loss
@@ -196,12 +221,14 @@
 	return sqrt((get_world_x() - last_world_x) ** 2 + (get_world_y() - last_world_y) ** 2) + TORADIANS(abs(closer_angle_difference(last_facing, get_facing()))) * hull_radius
 
 /obj/overmap/entity/proc/set_pose(list/pose)
-	flight.set_facing(pose[3])
+	flight?.set_facing(pose[3])
 	set_world_position(pose[1], pose[2])
 	for(var/obj/overmap/entity/guest as anything in docked_guests)
 		guest.follow_host()
 
 /obj/overmap/entity/proc/push_out(normal_x, normal_y)
+	if(!flight || !movable)
+		return
 	set_pose(list(get_world_x() + normal_x * OVERMAP_RAM_PUSH_OUT, get_world_y() + normal_y * OVERMAP_RAM_PUSH_OUT, get_facing()))
 
 /obj/overmap/entity/proc/collision_space()
@@ -213,6 +240,8 @@
 	var/list/pose = pose_at(fraction)
 	var/list/other_pose = other?.pose_at(fraction)
 	var/datum/overmap_bubble/space = collision_space()
+	if(!other && !space)
+		return
 	var/cos_facing = cos(pose[3])
 	var/sin_facing = sin(pose[3])
 	var/cos_other = other && cos(other_pose[3])
@@ -228,6 +257,12 @@
 		var/local_y = hull_turf.y - hull_center_y
 		var/world_x = pose[1] + local_x * cos_facing + local_y * sin_facing
 		var/world_y = pose[2] - local_x * sin_facing + local_y * cos_facing
+		if(istype(other, /obj/overmap/entity/virtual_structure))
+			var/obj/overmap/entity/virtual_structure/structure = other
+			var/list/cell = structure.cell_at(world_x, world_y, TRUE, other_pose)
+			if(cell)
+				. += list(list(hull_turf, cell, list(world_x, world_y)))
+			continue
 		var/turf/struck
 		if(other)
 			var/delta_x = world_x - other_pose[1]
@@ -298,10 +333,10 @@
 	return list(face_x, face_y)
 
 /obj/overmap/entity/proc/collide(obj/overmap/entity/other)
-	if(istype(other, /obj/overmap/entity/virtual_structure))
-		return collide_virtual(other)
-	if(other && istype(src, /obj/overmap/entity/virtual_structure))
-		return other.collide_virtual(src)
+	if(!flight || !movable)
+		if(other?.flight && other.movable)
+			return other.collide(src)
+		return
 	if(navigation_collision_disabled() || other?.navigation_collision_disabled())
 		return
 	for(var/attempt in 1 to 8)
@@ -326,7 +361,7 @@
 	other_body?.set_pose(other_body.pose_at(impact[1]))
 	if(!impact[1])
 		body.flight.angular_velocity = 0
-		if(other_body)
+		if(other_body?.flight)
 			other_body.flight.angular_velocity = 0
 	var/datum/overmap_bubble/space = collision_space()
 	var/normal_x = 0

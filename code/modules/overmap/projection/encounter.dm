@@ -938,6 +938,13 @@
 /datum/controller/subsystem/overmap/proc/frame_owner(turf/spot)
 	return flight_reservations[SSmapping.used_turfs[spot]] || bubble_for_turf(spot)
 
+/datum/controller/subsystem/overmap/proc/frame_viewports(datum/owner)
+	. = list()
+	for(var/client/viewer as anything in client_eyes)
+		var/turf/eye = get_turf(viewer.eye || viewer.mob)
+		if(frame_owner(eye) == owner)
+			. += list(list(eye, (viewer.maxview() || world.view) + 4))
+
 /datum/controller/subsystem/overmap/proc/frame_sector(datum/owner)
 	var/obj/overmap/entity/vessel = owner
 	if(istype(vessel))
@@ -961,6 +968,8 @@
 	var/hull_x = FLOOR(spot[1] + 0.5, 1)
 	var/hull_y = FLOOR(spot[2] + 0.5, 1)
 	var/list/bounds = vessel.flight_bounds
+	if(!bounds)
+		return null
 	if(hull_x < bounds[1] || hull_x > bounds[3] || hull_y < bounds[2] || hull_y > bounds[4])
 		return null
 	return locate(hull_x, hull_y, vessel.hull_z)
@@ -982,19 +991,21 @@
 		return target
 	return mirror_turf(target_turf, viewer_turf) || target
 
-/datum/controller/subsystem/overmap/proc/mirror_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range)
+/datum/controller/subsystem/overmap/proc/mirror_explosion(datum/source, datum/explosion_data/data, silent)
 	SIGNAL_HANDLER
-	if(mirroring_explosion || !length(flying_vessels) || !epicenter)
+	if(mirroring_explosion || !data?.epicenter)
 		return
-	var/datum/origin = frame_owner(epicenter)
+	var/datum/origin = frame_owner(data.epicenter)
 	if(!origin)
 		return
 	var/datum/overmap_sector/sector = frame_sector(origin)
-	var/list/point = frame_to_world(origin, epicenter)
-	var/reach = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
+	var/list/point = frame_to_world(origin, data.epicenter)
+	var/reach = max(data.devastation_range, data.heavy_impact_range, data.light_impact_range, data.flame_range, data.flash_range)
+	var/obj/overmap/entity/origin_vessel = origin
+	var/origin_heading = istype(origin_vessel) ? origin_vessel.get_facing() : 0
 	var/list/datum/targets = list()
 	for(var/obj/overmap/entity/vessel as anything in flying_vessels)
-		if(vessel == origin || vessel.sector != sector)
+		if(vessel == origin || vessel.sector != sector || istype(vessel, /obj/overmap/entity/virtual_structure))
 			continue
 		if(sqrt((vessel.get_world_x() - point[1]) ** 2 + (vessel.get_world_y() - point[2]) ** 2) <= vessel.hull_radius + reach)
 			targets += vessel
@@ -1002,10 +1013,16 @@
 		if(bubble != origin && bubble.sector == sector && bubble.covers(bubble.to_bubble(point[1], point[2]), reach))
 			targets += bubble
 	mirroring_explosion = TRUE
+	affect_projected_explosion(sector, point[1], point[2], data.devastation_range, data.heavy_impact_range, data.light_impact_range, data.protect_epicenter, data.explosion_direction + origin_heading, data.explosion_arc)
+	var/list/seen = list(data.epicenter)
 	for(var/datum/target as anything in targets)
 		var/turf/mirrored = world_to_frame(target, point[1], point[2])
-		if(mirrored)
-			explosion(mirrored, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = FALSE, flame_range = flame_range, smoke = FALSE, cause = "overmap explosion across hull")
+		if(!mirrored || (mirrored in seen))
+			continue
+		seen += mirrored
+		var/obj/overmap/entity/target_vessel = target
+		var/target_heading = istype(target_vessel) ? target_vessel.get_facing() : 0
+		explosion(mirrored, data.devastation_range, data.heavy_impact_range, data.light_impact_range, data.flash_range, adminlog = FALSE, ignorecap = TRUE, flame_range = data.flame_range, silent = silent, smoke = FALSE, cause = "overmap explosion across hull", breach = data.breach, protect_epicenter = data.protect_epicenter, explosion_direction = SIMPLIFY_DEGREES(data.explosion_direction + origin_heading - target_heading), explosion_arc = data.explosion_arc)
 	mirroring_explosion = FALSE
 
 /proc/bump_into_hull(atom/movable/mover, turf/hull_turf)

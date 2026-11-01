@@ -52,7 +52,6 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/instant_undock = FALSE
 	var/block_if_canMove = FALSE
 	var/block_move_message
-	var/needs_virtual_engine = TRUE
 	var/manual_helm = FALSE
 	var/list/datum/overmap_programmed_leg/legs
 
@@ -206,8 +205,6 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	if(flight)
 		flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
 	programmed_has_routes = !!profile?.has_visible_legs()
-	if(profile?.needs_virtual_engine)
-		ensure_virtual_engine()
 
 /obj/overmap/entity/proc/is_programmed_locked()
 	if(!programmed || programmed_profile()?.manual_helm)
@@ -452,6 +449,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 
 /datum/overmap_programmed_mission/New(obj/overmap/entity/owner, target_dock, skip_windup, source_dock)
 	vessel = owner
+	RegisterSignal(owner, COMSIG_OVERMAP_NAVIGATION_ARRIVED, PROC_REF(on_navigation_arrived))
 	QDEL_NULL(owner.docking_approach)
 	if(owner.flight)
 		owner.flight.release_pilot()
@@ -478,6 +476,8 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		windup_end = world.time + OVERMAP_PROGRAMMED_WINDUP
 
 /datum/overmap_programmed_mission/Destroy()
+	if(vessel)
+		UnregisterSignal(vessel, COMSIG_OVERMAP_NAVIGATION_ARRIVED)
 	if(vessel?.programmed_mission == src)
 		vessel.flight?.set_autopilot(FALSE, manual = FALSE)
 		QDEL_NULL(vessel.docking_approach)
@@ -486,6 +486,13 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	vessel = null
 	dest_host = null
 	return ..()
+
+/datum/overmap_programmed_mission/proc/on_navigation_arrived(datum/source)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(navigation_arrived))
+
+/datum/overmap_programmed_mission/proc/navigate_to(world_x, world_y, heading, obj/overmap/entity/host)
+	vessel.flight.navigate_world(world_x, world_y, heading, host, arrival_range = 1, ignore_collisions = TRUE, known_obstacles_only = FALSE, entry_box = navigation_entry_box)
 
 /datum/overmap_programmed_mission/proc/eta_string()
 	if(QDELETED(vessel))
@@ -604,7 +611,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		if(vessel.flight)
 			vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
 		var/obj/overmap/entity/hyperrelay/relay = route_relay()
-		vessel.flight.navigate_world(relay.get_world_x(), relay.get_world_y())
+		navigate_to(relay.get_world_x(), relay.get_world_y())
 		return
 	continue_navigation()
 

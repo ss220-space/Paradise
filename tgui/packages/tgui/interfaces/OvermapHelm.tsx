@@ -134,15 +134,11 @@ type OvermapHelmData = {
     y: number;
   }[];
   galaxy?: GalaxyMap | null;
-  can_jump?: BooleanLike;
   local_space?: BooleanLike;
-  jump_left?: number;
-  jump_progress?: number;
   dest?: number[];
   dest_name?: string;
   dest_range?: number;
   dest_relay?: string;
-  dest_jump_time?: number;
   max_speed: number;
   engines_on: BooleanLike;
   braking: BooleanLike;
@@ -350,17 +346,8 @@ export const OvermapHelm = () => {
 
 const RadarBottomBar = (props: { onLanding: () => void }) => {
   const { act, data } = useBackend<OvermapHelmData>();
-  const {
-    piloting,
-    pilot_name,
-    can_steer,
-    can_undock,
-    max_speed,
-    can_jump,
-    phase,
-    local_space,
-    dest_jump_time,
-  } = data;
+  const { piloting, pilot_name, can_steer, can_undock, max_speed, phase } =
+    data;
   const [speed, setSpeed] = useSlider(max_speed, (next) =>
     act('set_max_speed', { value: next }),
   );
@@ -445,18 +432,6 @@ const RadarBottomBar = (props: { onLanding: () => void }) => {
                         : 'Остановиться'}
           </span>
         </button>
-        {phase === 'flight' && !!can_jump && !local_space && (
-          <button
-            type="button"
-            className="OvermapTouch OvermapTouch--onScope OvermapTouch--good"
-            onClick={() => act('hyperjump')}
-          >
-            <Icon name="bolt" />
-            <span>
-              Гиперпрыжок{dest_jump_time ? ` ≈${dest_jump_time} с` : ''}
-            </span>
-          </button>
-        )}
       </div>
       <label className="OvermapSpeedRow">
         <Icon name="gauge-high" />

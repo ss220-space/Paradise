@@ -65,7 +65,7 @@
 	gripped_turf = contact
 	anchor_x = destination.x
 	anchor_y = destination.y
-	qdel(user.GetComponent(/datum/component/drift))
+	SEND_SIGNAL(user, COMSIG_MOVABLE_NEWTONIAN_MOVE, NONE, 0)
 	SSovermap.hull_grips += src
 	carried_pull = user.pulling
 	carrying = TRUE

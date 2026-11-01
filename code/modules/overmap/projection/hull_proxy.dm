@@ -23,7 +23,8 @@
 	var/heading
 	var/obj/effect/abstract/hull_proxy_glow/glow
 
-	var/datum/fog_scene/hull/fog
+	var/datum/fog_scene/fog
+	var/copy_lighting = TRUE
 
 /obj/effect/abstract/hull_proxy_tile
 	name = "hull proxy tile"
@@ -114,10 +115,14 @@
 	if(glowing)
 		glow = new(null)
 		refresh_glow()
-	fog = new /datum/fog_scene/hull(src, round(vessel.hull_radius) + OVERMAP_FOG_HULL_REACH)
+	fog = create_fog()
 	rebuild_tiles()
 	RegisterSignal(vessel, COMSIG_QDELETING, PROC_REF(on_vessel_deleted))
-	addtimer(CALLBACK(src, PROC_REF(refresh_light_copies)), HULL_PROXY_LIGHT_COPY_INTERVAL, TIMER_LOOP|TIMER_DELETE_ME)
+	if(copy_lighting)
+		addtimer(CALLBACK(src, PROC_REF(refresh_light_copies)), HULL_PROXY_LIGHT_COPY_INTERVAL, TIMER_LOOP|TIMER_DELETE_ME)
+
+/datum/hull_proxy/proc/create_fog()
+	return new /datum/fog_scene/hull(src, round(vessel.hull_radius) + OVERMAP_FOG_HULL_REACH)
 
 /datum/hull_proxy/Destroy(force)
 	QDEL_LIST(tiles)
@@ -127,6 +132,7 @@
 
 	QDEL_NULL(fog)
 	vessel = null
+	viewer_turf = null
 	return ..()
 
 /datum/hull_proxy/proc/on_vessel_deleted()

@@ -97,7 +97,8 @@
 
 	var/obj/item/salvage_sensor = /obj/item/assembly/prox_sensor
 	var/sprite_prefix = ""
-	var/datum/component/ship_weapon/ship_weapon
+	var/ship_damage_scale = 1
+	var/ship_penetration_chance = 0
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -114,7 +115,7 @@
 
 	proximity_monitor = new(src, scan_range)
 	setup()
-	ship_weapon = AddComponent(/datum/component/ship_weapon)
+	AddComponent(/datum/component/ship_weapon, damage_scale = ship_damage_scale, penetration_chance = ship_penetration_chance)
 
 /obj/machinery/porta_turret/proc/diag_hud_set_health()
 	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/initial(health))]")
@@ -534,7 +535,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/process()
-	if(ship_weapon?.process_turret())
+	if(SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_PROCESS))
 		return
 	//the main machinery process
 
@@ -754,28 +755,29 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	// Emagged turrets again use twice as much power due to higher firing rates
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged) * rapid)
 
-	if(rapid > 1)
-		for(var/i in 1 to rapid)
-			var/datum/callback/cb = CALLBACK(src, PROC_REF(shoot), target)
-			addtimer(cb, (i - 1) * rapid_fire_delay)
-	else
-		shoot(target)
+	fire_projectile_burst(CALLBACK(src, PROC_REF(shoot), target), rapid, rapid_fire_delay)
+
+/obj/machinery/porta_turret/proc/create_projectile(atom/location)
+	var/shot_type = (emagged || lethal) ? eprojectile : projectile
+	var/sound_file = (emagged || lethal) ? eshot_sound : shot_sound
+	if(!shot_type)
+		return
+	var/atom/movable/shot = new shot_type(location)
+	if(sound_file)
+		playsound(src, sound_file, 75, TRUE)
+	return shot
 
 /obj/machinery/porta_turret/proc/shoot(mob/living/target)
-	var/obj/projectile/proj
-	if(emagged || lethal)
-		proj = new eprojectile(loc)
-		playsound(loc, eshot_sound, 75, TRUE)
-	else
-		proj = new projectile(loc)
-		playsound(loc, shot_sound, 75, TRUE)
-	if(!proj)
-		return
-	if(!istype(proj))
-		proj.throw_at(target, scan_range, 1)
-		return
+	var/atom/movable/shot = create_projectile(loc)
+	if(!shot)
+		return FALSE
+	if(!isprojectile(shot))
+		shot.throw_at(target, scan_range, 1)
+		return TRUE
+	var/obj/projectile/proj = shot
 	proj.preparePixelProjectile(target, loc)
 	proj.fire()
+	return TRUE
 
 /obj/machinery/porta_turret/centcom
 	name = "Centcom Turret"

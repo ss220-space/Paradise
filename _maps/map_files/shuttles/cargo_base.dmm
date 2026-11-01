@@ -88,17 +88,17 @@
 /turf/space,
 /area/space)
 "w" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	icon_state = "burst_l"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
 "x" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
 "y" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/shuttle/plating,
