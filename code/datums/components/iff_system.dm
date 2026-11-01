@@ -76,7 +76,7 @@
 		var/list/options = names.Copy()
 		options += add_entry
 
-		var/choice = pick_from_list(user, "Список «[list_title]»", options)
+		var/choice = tgui_input_list(user, "Список «[list_title]»", "Свой-Чужой", options)
 		if(!choice)
 			return
 		if(choice == add_entry)
@@ -92,22 +92,6 @@
 		names -= choice
 		if(length(edited_name))
 			names |= edited_name
-
-/datum/component/iff_system/proc/pick_from_list(mob/user, message, list/options)
-	if(isnull(user.client))
-		return null
-	if(user.client.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
-		return input(user, message, "Свой-Чужой", options[1]) as null|anything in options
-
-	var/datum/tgui_list_input/list_input = new(user, message, "Свой-Чужой", options, null, 0, GLOB.always_state)
-	if(list_input.invalid)
-		qdel(list_input)
-		return null
-	list_input.ui_interact(user)
-	list_input.wait()
-	var/choice = list_input.choice
-	qdel(list_input)
-	return choice
 
 /datum/component/iff_system/proc/check_menu(mob/user)
 	var/obj/item/gun/gun = parent
