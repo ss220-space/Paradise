@@ -1048,6 +1048,7 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 /obj/item/clothing/suit/space
 	name = "Space suit"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
+	icon = 'icons/obj/clothing/suits/space.dmi'
 	icon_state = "space"
 	item_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
