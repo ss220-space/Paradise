@@ -134,6 +134,7 @@
 	return ..()
 
 
+// MARK: examine
 /obj/spacepod/examine(mob/user)
 	. = ..()
 	var/hull_state = get_hull_state_text()
@@ -151,6 +152,13 @@
 
 	if(hatch_opened)
 		. += span_notice("Люк техобслуживания открыт.")
+		if(!length(systems.modules))
+			. += span_notice("Модули не установлены.")
+			return
+
+		. += span_notice("Установленные модули:")
+		for(var/obj/item/spacepod_module/module as anything in systems.modules)
+			. += get_module_status(module)
 
 /obj/spacepod/proc/get_hull_state_text()
 	if(max_integrity <= 0)
@@ -170,6 +178,23 @@
 		if(1 to 19)
 			return span_danger("Корпус едва держится.")
 	return span_danger("Корпус разрушен.")
+
+/obj/spacepod/proc/get_module_status(obj/item/spacepod_module/module)
+	var/module_percent = module.max_integrity > 0 ? clamp(round(module.integrity * 100 / module.max_integrity), 0, 100) : 0
+	var/line = "- [module.module_name] ([module.caption]) — состояние [module_percent]%"
+	if(istype(module, /obj/item/spacepod_module/fuel_tank))
+		var/obj/item/spacepod_module/fuel_tank/tank = module
+		var/fuel_percent = tank.fuel_capacity > 0 ? clamp(round(tank.fuel_amount * 100 / tank.fuel_capacity), 0, 100) : 0
+		line += ", топливо [fuel_percent]%"
+	else if(istype(module, /obj/item/spacepod_module/battery))
+		var/obj/item/spacepod_module/battery/battery = module
+		var/charge_percent = battery.power_capacity > 0 ? clamp(round(battery.power * 100 / battery.power_capacity), 0, 100) : 0
+		line += ", заряд [charge_percent]%"
+	if(module_percent <= 0)
+		return span_danger(line)
+	if(module_percent < 50)
+		return span_warning(line)
+	return span_notice(line)
 
 
 // MARK: Assemble procs
