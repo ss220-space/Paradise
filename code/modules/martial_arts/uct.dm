@@ -7,7 +7,6 @@
 	has_explaination_verb = TRUE
 
 	combos = list()
-	weight = 0
 	change_musculs = FALSE
 	has_dirslash = FALSE
 	works_with_rapid_gloves = TRUE
