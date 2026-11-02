@@ -13,61 +13,61 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/rank/procedure/lawyer
+/obj/item/clothing/under/rank/procedure/internal
 	desc = "The plain, professional attire of a Lawyer. The collar is <i>immaculately</i> starched."
 	name = "lawyer uniform"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
 
-/obj/item/clothing/under/rank/procedure/lawyer/skirt
+/obj/item/clothing/under/rank/procedure/internal/skirt
 	name = "lawyer uniform with skirt"
 	icon_state = "internalaffairsf"
 	item_state = "internalaffairsf"
 	item_color = "internalaffairsf"
 
-/obj/item/clothing/under/procedure/lawyer
+/obj/item/clothing/under/rank/procedure/lawyer
 	name = "Lawyer suit"
 	desc = "Slick threads."
 
-/obj/item/clothing/under/procedure/lawyer/black
+/obj/item/clothing/under/rank/procedure/lawyer/black
 	name = "black lawyer suit"
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
 
-/obj/item/clothing/under/procedure/lawyer/female
+/obj/item/clothing/under/rank/procedure/lawyer/female
 	name = "female lawyer suit"
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
 
-/obj/item/clothing/under/procedure/lawyer/red
+/obj/item/clothing/under/rank/procedure/lawyer/red
 	name = "red lawyer suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
-/obj/item/clothing/under/procedure/lawyer/blue
+/obj/item/clothing/under/rank/procedure/lawyer/blue
 	name = "blue lawyer suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"
 
-/obj/item/clothing/under/procedure/lawyer/bluesuit
+/obj/item/clothing/under/rank/procedure/lawyer/bluesuit
 	name = "Blue Suit"
 	desc = "A classy suit and tie"
 	icon_state = "bluesuit"
 	item_state = "bluesuit"
 	item_color = "bluesuit"
 
-/obj/item/clothing/under/procedure/lawyer/purpsuit
+/obj/item/clothing/under/rank/procedure/lawyer/purpsuit
 	name = "Purple Suit"
 	icon_state = "lawyer_purp"
 	item_state = "lawyer_purp"
 	item_color = "lawyer_purp"
 
-/obj/item/clothing/under/procedure/lawyer/oldman
+/obj/item/clothing/under/rank/procedure/lawyer/oldman
 	name = "Old Man's Suit"
 	desc = "A classic suit for the older gentleman with built in back support."
 	icon_state = "oldman"
@@ -83,7 +83,7 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/representative/get_ru_names()
+/obj/item/clothing/under/rank/procedure/representative/get_ru_names()
 	return alist(
 		NOMINATIVE = "парадная униформа Представителя \"Нанотрейзен\"",
 		GENITIVE = "парадной униформы Представителя \"Нанотрейзен\"",
@@ -142,7 +142,7 @@
 	item_state = "ntrepf"
 	item_color = "ntrepf"
 
-/obj/item/clothing/under/rank/blueshield
+/obj/item/clothing/under/rank/procedure/blueshield
 	name = "blueshield's uniform"
 	desc = "Короткорукавая чёрная форма в сочетании с серыми штанами карго с цифровым камуфляжем, все из прочного материала. Стандартное снаряжение офицера \"Синий Щит\"."
 	icon_state = "blueshield"
@@ -150,7 +150,7 @@
 	item_color = "ert_uniform"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 
-/obj/item/clothing/under/rank/blueshield/get_ru_names()
+/obj/item/clothing/under/rank/procedure/blueshield/get_ru_names()
 	return alist(
 		NOMINATIVE = "униформа Синего Щита",
 		GENITIVE = "униформы Синего Щита",
@@ -160,14 +160,14 @@
 		PREPOSITIONAL = "униформе Синего Щита",
 	)
 
-/obj/item/clothing/under/rank/blueshield/skirt
+/obj/item/clothing/under/rank/procedure/blueshield/skirt
 	name = "blueshield's skirt"
 	desc = "Короткая униформа с юбкой, чёрно-серая, с синими маркировками. Для женственного офицера \"Синий Щит\"."
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
 
-/obj/item/clothing/under/rank/blueshield/skirt/get_ru_names()
+/obj/item/clothing/under/rank/procedure/blueshield/skirt/get_ru_names()
 	return alist(
 		NOMINATIVE = "юбка Синего Щита",
 		GENITIVE = "юбки Синего Щита",

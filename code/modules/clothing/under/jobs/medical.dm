@@ -300,7 +300,7 @@
 		PREPOSITIONAL = "комбинезоне-юбке врача",
 	)
 
-/obj/item/clothing/under/rank/medical/doctor/scrub/blue
+/obj/item/clothing/under/rank/medical/scrub/blue
 	name = "blue medical scrubs"
 	desc = "Специализированная врачебная одежда, которую носят во время операций. Эта окрашена в голубой цвет. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	gender = FEMALE
@@ -485,7 +485,7 @@
 	)
 
 /*
- * Medsci, unused (i think) stuff
+ * Med, unused (i think) stuff
  */
 /obj/item/clothing/under/rank/medical/geneticist_new
 	name = "geneticist's jumpsuit"
@@ -533,72 +533,4 @@
 		ACCUSATIVE = "комбинезон вирусолога",
 		INSTRUMENTAL = "комбинезоном вирусолога",
 		PREPOSITIONAL = "комбинезоне вирусолога",
-	)
-
-/obj/item/clothing/under/rank/medical/mining_medic
-	name = "mining medic's jumpsuit"
-	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец — шахтёрский врач. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	species_restricted = list("exclude", "lesser form")
-	icon_state = "mining_medic"
-	item_state = "mining_medic"
-
-/obj/item/clothing/under/rank/medical/mining_medic/get_ru_names()
-	return alist(
-		NOMINATIVE = "комбинезон шахтёрского врача",
-		GENITIVE = "комбинезона шахтёрского врача",
-		DATIVE = "комбинезону шахтёрского врача",
-		ACCUSATIVE = "комбинезон шахтёрского врача",
-		INSTRUMENTAL = "комбинезоном шахтёрского врача",
-		PREPOSITIONAL = "комбинезоне шахтёрского врача",
-	)
-
-/obj/item/clothing/under/rank/medical/mining_medic/skirt
-	name = "mining medic's jumpskirt"
-	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец — шахтёрский врач. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	species_restricted = list("exclude", "lesser form")
-	icon_state = "mining_medic_f"
-	item_state = "mining_medic_f"
-
-/obj/item/clothing/under/rank/medical/mining_medic/skirt/get_ru_names()
-	return alist(
-		NOMINATIVE = "комбинезон-юбка шахтёрского врача",
-		GENITIVE = "комбинезона-юбки шахтёрского врача",
-		DATIVE = "комбинезону-юбке шахтёрского врача",
-		ACCUSATIVE = "комбинезон-юбку шахтёрского врача",
-		INSTRUMENTAL = "комбинезоном-юбкой шахтёрского врача",
-		PREPOSITIONAL = "комбинезоне-юбке шахтёрского врача",
-	)
-
-/obj/item/clothing/under/rank/medical/mining_paramedic
-	name = "mining paramedic's jumpsuit"
-	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец — шахтёрский врач. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	species_restricted = list("exclude", "lesser form")
-	icon_state = "mining_paramedic"
-	item_state = "mining_paramedic"
-
-/obj/item/clothing/under/rank/medical/mining_paramedic/get_ru_names()
-	return alist(
-		NOMINATIVE = "комбинезон шахтёрского парамедика",
-		GENITIVE = "комбинезона шахтёрского парамедика",
-		DATIVE = "комбинезону шахтёрского парамедика",
-		ACCUSATIVE = "комбинезон шахтёрского парамедика",
-		INSTRUMENTAL = "комбинезоном шахтёрского парамедика",
-		PREPOSITIONAL = "комбинезоне шахтёрского парамедика",
-	)
-
-/obj/item/clothing/under/rank/medical/mining_paramedic/skirt
-	name = "mining paramedic's jumpskirt"
-	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец — шахтёрский врач. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	species_restricted = list("exclude", "lesser form")
-	icon_state = "mining_paramedic_f"
-	item_state = "mining_paramedic_f"
-
-/obj/item/clothing/under/rank/medical/mining_paramedic/skirt/get_ru_names()
-	return alist(
-		NOMINATIVE = "комбинезон-юбка шахтёрского парамедика",
-		GENITIVE = "комбинезона-юбки шахтёрского парамедика",
-		DATIVE = "комбинезону-юбке шахтёрского парамедика",
-		ACCUSATIVE = "комбинезон-юбку шахтёрского парамедика",
-		INSTRUMENTAL = "комбинезоном-юбкой шахтёрского парамедика",
-		PREPOSITIONAL = "комбинезоне-юбке шахтёрского парамедика",
 	)

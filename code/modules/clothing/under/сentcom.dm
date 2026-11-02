@@ -34,14 +34,14 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/centcom_commander
+/obj/item/clothing/under/rank/centcom/commander
 	desc = "Комбинезон, который носят высококлассные командиры флота."
 	name = "CentComm officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
 
-/obj/item/clothing/under/rank/centcom_commander/get_ru_names()
+/obj/item/clothing/under/rank/centcom/commander/get_ru_names()
 	return alist(
 		NOMINATIVE = "комбинезон офицера Центрального Командования",
 		GENITIVE = "комбинезона офицера Центрального Командования",

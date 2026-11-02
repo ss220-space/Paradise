@@ -1,15 +1,13 @@
 /obj/item/clothing/under/syndicate
-	icon = 'icons/obj/clothing/uniforms/syndicate.dmi'
-	has_sensor = 0
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
-	dying_key = DYE_REGISTRY_UNDER
-
-/obj/item/clothing/under/syndicate/tacticool
 	name = "tactical turtleneck"
 	desc = "Водолазка с цифровым камуфляжным принтом и брюки карго, которые выглядят слегка подозрительно."
+	icon = 'icons/clothing/uniforms/syndicate.dmi'
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"
+	has_sensor = 0
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/syndicate/get_ru_names()
 	return alist(
@@ -34,13 +32,12 @@
 		PREPOSITIONAL = "боевой водолазке",
 	)
 
-/obj/item/clothing/under/syndicate/tactifool
+/obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
 	desc = "Увидев это, хочется приобрести карабин СКС, уйти в лес и \"оперировать\""
 	icon_state = "tactifool"
 	item_color = "tactifool"
 	has_sensor = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/tacticool/get_ru_names()
 	return alist(
@@ -135,7 +132,7 @@
 		PREPOSITIONAL = "тактикульном комбинезоне для спецопераций",
 	)
 
-/obj/item/clothing/under/syndicate/plasmaman
+/obj/item/clothing/under/plasmaman/syndie
 	name = "tacticool envirosuit"
 	desc = "Зловещий на вид защитный костюм для самых костлявых оперативников."
 	icon_state = "syndie_envirosuit"
@@ -143,7 +140,7 @@
 	has_sensor = 0
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/under/syndicate/plasmaman/get_ru_names()
+/obj/item/clothing/under/plasmaman/syndie/get_ru_names()
 	return alist(
 		NOMINATIVE = "тактический защитный костюм плазмолюда",
 		GENITIVE = "тактического защитного костюма плазмолюда",
@@ -159,6 +156,7 @@
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FIRE_PROOF
 	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 

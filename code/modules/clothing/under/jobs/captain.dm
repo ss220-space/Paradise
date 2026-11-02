@@ -18,7 +18,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-
 /obj/item/clothing/under/rank/captain/parade
 	name = "captain's parade uniform"
 	desc = "Капитанская роскошная одежда, для особых случаев."
@@ -40,11 +39,6 @@
 	icon_state = "cap_parade"
 	item_state = "cap_parade"
 	item_color = "cap_parade"
-
-/obj/item/clothing/under/rank/captain/parade/dress
-	icon_state = "dress_parade"
-	item_state = "dress_parade"
-	item_color = "dress_parade"
 
 /obj/item/clothing/under/captain/parade/office
 	name = "captain's office uniform"
@@ -84,6 +78,7 @@
 	desc = "Женственная мода для стильного Капитана."
 	icon_state = "dress_parade"
 	item_state = "dress_parade"
+	item_color = "dress_parade"
 
 /obj/item/clothing/under/rank/captain/dress/parade/get_ru_names()
 	return alist(
@@ -94,3 +89,4 @@
 		INSTRUMENTAL = "парадным платьем-униформой капитана",
 		PREPOSITIONAL = "парадном платье-униформе капитана",
 	)
+

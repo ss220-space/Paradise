@@ -38,7 +38,7 @@
 	icon_state = "wardenf"
 	item_color = "wardenf"
 
-/obj/item/clothing/under/rank/officer
+/obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
@@ -70,7 +70,7 @@
 	item_color = "sec_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/security/skirt
+/obj/item/clothing/under/rank/security/officer/skirt
 	name = "security officer's jumpskirt"
 	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "securityf"
@@ -210,7 +210,7 @@
 
 //TG Station
 
-/obj/item/clothing/under/rank/security/formal
+/obj/item/clothing/under/rank/security/officer/formal
 	name = "security suit"
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
 	icon_state = "security_formal"
@@ -284,7 +284,7 @@
 /obj/item/clothing/under/security/tchaikowsky
 	species_restricted = list(SPECIES_HUMAN)
 
-/obj/item/clothing/under/security//tchaikowsky/sechighwaist
+/obj/item/clothing/under/security/tchaikowsky/sechighwaist
 	name = "security high waist female uniform"
 	desc = "Женская униформа Службы Безопасности с завышенной талией."
 	icon_state = "high_waist_sec"
