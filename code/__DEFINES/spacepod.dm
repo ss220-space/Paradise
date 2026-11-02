@@ -64,6 +64,13 @@ GLOBAL_LIST_INIT(pod_slots, list(
 /// Time without movement before engine RPM starts falling back to idle
 #define POD_ENGINE_IDLE_DELAY (3 SECONDS)
 
+/// Min battery percent per EMP
+#define POD_EMP_BATTERY_DRAIN_MIN 10
+/// Max battery percent per EMP
+#define POD_EMP_BATTERY_DRAIN_MAX 20
+/// Base chance per module to be disabled by EMP
+#define POD_EMP_MODULE_DISABLE_CHANCE 30
+
 
 /// List of active trackers
 GLOBAL_LIST_EMPTY(pod_trackers)

@@ -749,6 +749,47 @@
 	)
 
 
+// MARK: emp act
+/obj/spacepod/emp_act(severity, pre_calculated_protection = null)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+
+	emp_discharge_battery()
+	emp_discharge_energy_weapons()
+	emp_disable_modules(severity)
+
+/obj/spacepod/proc/emp_discharge_battery()
+	var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
+	for(var/obj/item/spacepod_module/battery/battery as anything in batteries)
+		var/drain_percent = rand(POD_EMP_BATTERY_DRAIN_MIN, POD_EMP_BATTERY_DRAIN_MAX)
+		battery.power = max(0, battery.power - battery.power_capacity * drain_percent / 100)
+
+/obj/spacepod/proc/emp_discharge_energy_weapons()
+	var/list/weapons = systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
+	for(var/obj/item/spacepod_module/weapon/weapon_module as anything in weapons)
+		for(var/datum/spacepod_weapon_slot/weapon_slot as anything in list(weapon_module.primary, weapon_module.secondary))
+			if(!isenergygun(weapon_slot.weapon))
+				continue
+			var/obj/item/gun/energy/energy_gun = weapon_slot.weapon
+			if(energy_gun.chambered?.BB)
+				QDEL_NULL(energy_gun.chambered.BB)
+			energy_gun.chambered = null
+			if(energy_gun.cell)
+				energy_gun.cell.charge = 0
+				energy_gun.cell.update_icon(UPDATE_OVERLAYS)
+			energy_gun.newshot()
+			energy_gun.update_appearance()
+
+/obj/spacepod/proc/emp_disable_modules(severity)
+	var/disable_chance = POD_EMP_MODULE_DISABLE_CHANCE / max(severity, 1)
+	for(var/obj/item/spacepod_module/module as anything in systems.modules)
+		if(istype(module, /obj/item/spacepod_module/fuel_tank/engine) || istype(module, /obj/item/spacepod_module/battery))
+			continue
+		if(module.enable && prob(disable_chance))
+			module.enable = FALSE
+
+
 // MARK: Damage
 /obj/spacepod/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	if(damage_type != BRUTE && damage_type != BURN)
