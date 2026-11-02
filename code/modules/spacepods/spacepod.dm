@@ -779,8 +779,20 @@
 		to_chat(passenger, mymessage)
 
 /obj/spacepod/hear_talk(mob/user, list/message_pieces)
-	cargo_hold.hear_talk(user, message_pieces)
+	cargo_hold?.hear_talk(user, message_pieces)
+	transmit_occupant_radio(user, message_pieces)
 	..()
+
+/obj/spacepod/proc/transmit_occupant_radio(mob/user, list/message_pieces)
+	if(user != pilot && !(user in passengers))
+		return
+
+	var/list/transmitted_channels = list()
+	for(var/obj/item/radio/radio as anything in user.get_all_contents_type(/obj/item/radio))
+		if(!radio.get_broadcasting() || (radio.get_frequency() in transmitted_channels))
+			continue
+		if(radio.talk_into(user, message_pieces))
+			transmitted_channels += radio.get_frequency()
 
 /obj/spacepod/hear_message(mob/user, msg)
 	cargo_hold.hear_message(user, msg)
