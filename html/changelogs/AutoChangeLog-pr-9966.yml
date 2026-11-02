@@ -1,4 +1,0 @@
-author: "L343-CJ"
-delete-after: True
-changes:
-  - bugfix: "Sacred flame снова поджигает владельца. (PR #9966)"
