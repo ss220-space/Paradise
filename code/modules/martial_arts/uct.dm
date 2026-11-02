@@ -7,7 +7,7 @@
 	has_explaination_verb = TRUE
 
 	combos = list()
-	weight = 1
+	weight = 0
 	change_musculs = FALSE
 	has_dirslash = FALSE
 
@@ -21,16 +21,17 @@
 
 /mob/living/carbon/human/proc/refresh_uct()
 	GET_SKILL_LEVEL(src, /datum/skill/combat/fists, skill_level)
+	var/datum/martial_art/uct/martial_art = null
+	for(var/datum/martial_art/art in mind.known_martial_arts)
+		if(istype(art, /datum/martial_art/uct))
+			martial_art = art
+			break
+
 	if(skill_level < SKILL_LEVEL_BASIC)
-		if(mind.martial_art != null && istype(mind.martial_art, /datum/martial_art/uct))
-			mind.martial_art.remove(src)
+		if(martial_art != null)
+			martial_art.remove(src)
 		return
 
-	var/datum/martial_art/uct/martial_art = null
-	if(mind.martial_art != null)
-		if(!istype(mind.martial_art, /datum/martial_art/uct))
-			return
-		martial_art = mind.martial_art
 	if(martial_art == null)
 		martial_art = new()
 
@@ -40,3 +41,5 @@
 			martial_art.combos += combo
 
 	martial_art.teach(src)
+	if(mind.martial_art == martial_art && hud_used?.combo_display)
+		martial_art.reset_combos(src)
