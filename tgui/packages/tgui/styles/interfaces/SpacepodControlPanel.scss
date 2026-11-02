@@ -14,6 +14,10 @@ $spcp-glass: rgba(8, 14, 17, 0.45);
 $spcp-glass-border: rgba(130, 165, 175, 0.2);
 // Inset of every HUD block from the window edges.
 $spcp-edge-padding: 72px;
+// Height of the top-left action buttons. They keep half of it as an inset
+// from the top edge, and the top-right weapons block lines up with them.
+$spcp-action-height: 46px;
+$spcp-top-offset: $spcp-action-height * 0.5;
 
 @keyframes spcp-blink {
 	0%,
@@ -60,9 +64,9 @@ $spcp-edge-padding: 72px;
 	position: absolute;
 	z-index: 70;
 	left: 0;
-	// Tight to the top edge of the window: cancel the shell padding so the
-	// buttons sit flush with the top while keeping the left inset.
-	top: -$spcp-edge-padding;
+	// Keep half a button height from the top edge: cancel the shell padding
+	// and add that offset back, while keeping the left inset.
+	top: -$spcp-edge-padding + $spcp-top-offset;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
@@ -76,7 +80,7 @@ $spcp-edge-padding: 72px;
 	display: flex;
 	align-items: center;
 	gap: 9px;
-	height: 46px;
+	height: $spcp-action-height;
 	padding: 0 18px;
 	color: $spcp-text;
 	font-family: var(--font-family-mono);
@@ -186,10 +190,11 @@ $spcp-edge-padding: 72px;
 	pointer-events: none;
 }
 
-// Weapons readouts, pinned to the top-right corner.
+// Weapons readouts, pinned to the top-right corner. The top edge is offset by
+// the same amount as the top-left action buttons, so both start on one line.
 .spcp-topright {
 	position: absolute;
-	top: 0;
+	top: -$spcp-edge-padding + $spcp-top-offset;
 	right: 0;
 	display: flex;
 	flex-direction: column;
