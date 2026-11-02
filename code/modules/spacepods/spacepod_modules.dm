@@ -308,8 +308,9 @@
 		to_chat(user, span_notice("Чтобы установить топливный насос, сначала установите топливный бак!"))
 		return FALSE
 	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	var/list/apus = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
 	var/obj/item/spacepod_module/fuel_tank/source_fueltank = tgui_input_list(user, "Выберите откуда насос будет качать топливо:", "Выбор источника топлива", fuel_tanks)
-	var/obj/item/spacepod_module/fuel_tank/destination_fueltank = tgui_input_list(user, "Выберите куда насос будет качать топливо:", "Выбор назначения топлива", fuel_tanks | engines)
+	var/obj/item/spacepod_module/fuel_tank/destination_fueltank = tgui_input_list(user, "Выберите куда насос будет качать топливо:", "Выбор назначения топлива", fuel_tanks | engines | apus)
 	var/fuel_pumps = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
 	var/pump_id = "fuelpump_[length(fuel_pumps) + 1]"
 	var/pump_name = tgui_input_text(user, "Название топливного насоса", "Назвать топливный насос", default=pump_id, max_length = MAX_NAME_LEN, encode = TRUE)
