@@ -5,6 +5,7 @@
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = SPECIES_SHADOWLING
+	ru_genitive = "тенелинга"
 	unarmed_type = /datum/unarmed_attack/claws/shadowlings
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'

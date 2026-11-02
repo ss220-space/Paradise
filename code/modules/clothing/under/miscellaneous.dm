@@ -2906,3 +2906,37 @@
 		INSTRUMENTAL = "костюмом курильщика",
 		PREPOSITIONAL = "костюме курильщика",
 	)
+
+/obj/item/clothing/under/maleclub
+	name = "male club suit"
+	desc = "Потёртый синий клубный костюм с жёлтой рубашкой и тёмным галстуком. Пахнет джазом, сигаретным дымом и плохими решениями."
+	icon_state = "male_club_outfit"
+	item_state = "male_club_outfit"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/maleclub/get_ru_names()
+	return alist(
+		NOMINATIVE = "мужской клубный костюм",
+		GENITIVE = "мужского клубного костюма",
+		DATIVE = "мужскому клубному костюму",
+		ACCUSATIVE = "мужской клубный костюм",
+		INSTRUMENTAL = "мужским клубным костюмом",
+		PREPOSITIONAL = "мужском клубном костюме",
+	)
+
+/obj/item/clothing/under/girlclub
+	name = "girl club suit"
+	desc = "Жёлтый топ и короткие шорты."
+	icon_state = "girl_club_outfit"
+	item_state = "girl_club_outfit"
+	species_restricted = list("exclude", SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_UNATHI, SPECIES_VOX, SPECIES_VOX_ARMALIS, "lesser form")
+
+/obj/item/clothing/under/girlclub/get_ru_names()
+	return alist(
+		NOMINATIVE = "женский клубный костюм",
+		GENITIVE = "женского клубного костюма",
+		DATIVE = "женскому клубному костюму",
+		ACCUSATIVE = "женский клубный костюм",
+		INSTRUMENTAL = "женским клубным костюмом",
+		PREPOSITIONAL = "женском клубном костюме",
+	)

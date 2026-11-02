@@ -437,6 +437,7 @@
 	return ..()
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
+	. = ..()
 	if(prob(80/severity))
 		open()
 

@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	user.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
 	user.mind.RemoveSpell(src)
 	var/obj/item/organ/internal/cyberimp/eyes/eyes
-	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
+	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/empproof/ling(null) // thermal without item
 	eyes.insert(user)
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
 

@@ -1057,3 +1057,13 @@
 	name = "Chain Smoker"
 	icon_state = "chainsmoker"
 	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/cowboy
+	name = "Cowboy"
+	icon_state = "cowboy_cut"
+	species_allowed = list(SPECIES_HUMAN)
+
+/datum/sprite_accessory/hair/cowgirl
+	name = "Cowgirl"
+	icon_state = "cowgirl_cut"
+	species_allowed = list(SPECIES_HUMAN)

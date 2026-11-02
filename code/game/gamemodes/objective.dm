@@ -1681,3 +1681,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/supermatter_cascade/on_remove_objective(datum/mind)
 	REMOVE_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
+
+/// Main goal of swarmers, completed on mega-swarmer spawn
+/datum/objective/swarmer_goal
+	antag_menu_name = "Создать Мега-Свармера"
+	needs_target = FALSE
+
+/datum/objective/swarmer_goal/New(text, datum/team/team_to_join)
+	..()
+	explanation_text = "Создайте Мега-Свармера, накопив командой [MEGA_SWARMER_SPAWN_VALUE] органических ресурсов."

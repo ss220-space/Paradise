@@ -60,6 +60,7 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/spawn_crusher_loot()
+	loot = loot.Copy()
 	loot += crusher_loot //we don't butcher
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)

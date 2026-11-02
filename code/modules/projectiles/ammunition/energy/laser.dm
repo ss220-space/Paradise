@@ -4,6 +4,7 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
 	sibyl_tier = SIBYL_TIER_LETHAL
+	overlay_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/energy/laser/light
 	projectile_type = /obj/projectile/beam/laser/light

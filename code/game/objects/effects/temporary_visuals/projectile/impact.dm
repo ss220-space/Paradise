@@ -9,6 +9,18 @@
 	name = "laser impact"
 	icon_state = "impact_laser"
 
+/obj/effect/projectile/impact/laser/heavy
+	name = "heavy impact"
+	icon_state = "impact_laser_heavy"
+
+/obj/effect/projectile/impact/laser/armorpierce
+	name = "piercing impact"
+	icon_state = "impact_laser_armorpierce"
+
+/obj/effect/projectile/impact/laser/light
+	name = "light impact"
+	icon_state = "impact_laser_light"
+
 /obj/effect/projectile/impact/laser/blue
 	icon_state = "impact_blue"
 
@@ -17,7 +29,7 @@
 	icon_state = "impact_omni"
 
 /obj/effect/projectile/impact/xray
-	name = "\improper X-ray impact"
+	name = "X-ray impact"
 	icon_state = "impact_xray"
 
 /obj/effect/projectile/impact/pulse

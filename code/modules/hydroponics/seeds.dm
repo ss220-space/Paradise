@@ -83,6 +83,12 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 				genes -= plant_gene
 				genes += new plant_gene
 
+		if(yield != -1)
+			yield = min(yield, get_max_yield())
+			var/datum/plant_gene/core/yield/yield_gene = get_gene(/datum/plant_gene/core/yield)
+			if(yield_gene)
+				yield_gene.value = yield
+
 		for(var/reag_id in reagents_add)
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
@@ -144,6 +150,11 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	else
 		return ..()
 
+/obj/item/seeds/proc/get_max_yield()
+	if(get_gene(/datum/plant_gene/trait/anti_magic))
+		return 1
+	return 10
+
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
@@ -154,6 +165,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
+
+	if(get_gene(/datum/plant_gene/trait/anti_magic))
+		return_yield = min(return_yield, 1)
 
 	return return_yield
 
@@ -197,7 +211,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(yield + adjustamt, 0, 10)
+		yield = clamp(yield + adjustamt, 0, get_max_yield())
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
@@ -247,7 +261,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 /obj/item/seeds/proc/set_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(adjustamt, 0, 10)
+		yield = clamp(adjustamt, 0, get_max_yield())
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.

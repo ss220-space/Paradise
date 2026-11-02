@@ -82,8 +82,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_357 ".357 Magnum"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
-/// Used in Gatfruit revolver
-#define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
 /// Used in Nagant revolver
@@ -137,6 +135,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in laser weapons
 #define CALIBER_LASER "\"лазер\""
 
+/// The caliber used by the (gatfruit) peashooter
+#define CALIBER_PEA "pea"
+
 // Foam force weapons
 /// Used in foam guns
 #define CALIBER_FOAM_FORCE "\"пенопластовый\""
@@ -175,6 +176,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
 /// Enforcer accuracy
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
+/// Laser pistol accuracy
+#define GUN_ACCURACY_PISTOL_LASER new /datum/gun_accuracy/pistol/laser()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
 /// Scarecrow accuracy

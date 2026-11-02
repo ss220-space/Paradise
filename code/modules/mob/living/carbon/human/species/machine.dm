@@ -1,6 +1,7 @@
 /datum/species/machine
 	name = SPECIES_MACHINEPERSON
 	name_plural = "Machines"
+	ru_genitive = "машины"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \

@@ -367,7 +367,7 @@
 "jF" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/carpet,
 /area/deathmatch)
 "jM" = (
@@ -443,7 +443,7 @@
 "mX" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/item/pen/multi/fountain,
+/obj/item/pen/fountain,
 /obj/item/stamp/rep,
 /obj/item/lighter/zippo/nt_rep,
 /obj/structure/window/reinforced,
@@ -452,7 +452,7 @@
 "nu" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /obj/machinery/door/window{
 	dir = 1
 	},
@@ -1338,7 +1338,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/stamp/hop,
-/obj/item/pen/fancy,
+/obj/item/pen/fountain,
 /turf/simulated/floor/wood/fancy/light,
 /area/deathmatch)
 "Vp" = (

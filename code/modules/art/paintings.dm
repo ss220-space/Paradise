@@ -1054,35 +1054,35 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 
 //Presets for art gallery mapping, for paintings to be shared across stations
 /obj/structure/sign/painting/library
-	name = "\improper Public Painting Exhibit mounting"
+	name = "Public Painting Exhibit mounting"
 	desc = "For art pieces hung by the public."
 	desc_with_canvas = "A piece of art (or \"art\"). Anyone could've hung it."
 	persistence_id = PAINTING_ID_LIBRARY
 	buildable_sign = FALSE
 
 /obj/structure/sign/painting/library_secure
-	name = "\improper Curated Painting Exhibit mounting"
+	name = "Curated Painting Exhibit mounting"
 	desc = "For masterpieces hand-picked by the curator."
 	desc_with_canvas = "A masterpiece hand-picked by the curator, supposedly."
 	persistence_id = PAINTING_ID_LIBRARY_SECURE
 	buildable_sign = FALSE
 
 /obj/structure/sign/painting/library_private // keep your smut away from prying eyes, or non-librarians at least
-	name = "\improper Private Painting Exhibit mounting"
+	name = "Private Painting Exhibit mounting"
 	desc = "For art pieces deemed too subversive or too illegal to be shared outside of curators."
 	desc_with_canvas = "A painting hung away from lesser minds."
 	persistence_id = PAINTING_ID_LIBRARY_PRIVATE
 	buildable_sign = FALSE
 
 /obj/structure/sign/painting/large/library
-	name = "\improper Large Painting Exhibit mounting"
+	name = "Large Painting Exhibit mounting"
 	desc = "For the bulkier art pieces, hand-picked by the curator."
 	desc_with_canvas = "A curated, large piece of art (or \"art\"). Hopefully the price of the canvas was worth it."
 	persistence_id = PAINTING_ID_LIBRARY_LARGE
 	buildable_sign = FALSE
 
 /obj/structure/sign/painting/large/library_private
-	name = "\improper Private Painting Exhibit mounting"
+	name = "Private Painting Exhibit mounting"
 	desc = "For the privier and less tasteful compositions that oughtn't to be shown in a parlor nor to the masses."
 	desc_with_canvas = "A painting that oughn't to be shown to the less open-minded commoners."
 	persistence_id = PAINTING_ID_LIBRARY_LARGE_PRIVATE

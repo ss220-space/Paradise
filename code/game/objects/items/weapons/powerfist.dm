@@ -135,7 +135,7 @@
 		mobtarget.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [mobtarget.name]!"), \
 			span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
 		if(cell?.charge > 0)
-			mobtarget.emp_act(1)
+			mobtarget.emp_act(EMP_HEAVY)
 			spark_system.start()
 			if(cell.charge >= 15000)
 				mobtarget.electrocute_act(cell.charge / 1250, src)
@@ -144,7 +144,7 @@
 	else
 		target.visible_message(span_danger("As [user]'s powerfist comes into contact with an [target.name], you see how it remain cracked at the point of impact!"))
 		if(cell?.charge > 0)
-			target.emp_act(1)
+			target.emp_act(EMP_HEAVY)
 			cell.use(cell.maxcharge)
 			spark_system.start()
 			to_chat(user, "[src] sparkles violently")

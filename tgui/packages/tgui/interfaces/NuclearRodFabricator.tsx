@@ -61,7 +61,7 @@ export const NuclearRodFabricator = (props) => {
   const [categoryTab, setCategoryTab] = useState('fuel_rods');
 
   return (
-    <Window width={850} height={600}>
+    <Window width={900} height={600}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -70,13 +70,13 @@ export const NuclearRodFabricator = (props) => {
                 selected={activeTab === TABS.FABRICATE}
                 onClick={() => setActiveTab(TABS.FABRICATE)}
               >
-                Fabricate
+                Производство
               </Tabs.Tab>
               <Tabs.Tab
                 selected={activeTab === TABS.MATERIALS}
                 onClick={() => setActiveTab(TABS.MATERIALS)}
               >
-                Materials
+                Материалы
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -85,28 +85,28 @@ export const NuclearRodFabricator = (props) => {
             {activeTab === TABS.FABRICATE && (
               <Stack fill align="stretch">
                 <Stack.Item width="50%">
-                  <Section title={`Available Designs`} fill scrollable>
+                  <Section title={`Доступные варианты`} fill scrollable>
                     <Tabs>
                       <Tabs.Tab
                         icon="atom"
                         selected={categoryTab === 'fuel_rods'}
                         onClick={() => setCategoryTab('fuel_rods')}
                       >
-                        Fuel Rods
+                        Топливные
                       </Tabs.Tab>
                       <Tabs.Tab
                         icon="cubes"
                         selected={categoryTab === 'moderator_rods'}
                         onClick={() => setCategoryTab('moderator_rods')}
                       >
-                        Moderator Rods
+                        Замедляющие
                       </Tabs.Tab>
                       <Tabs.Tab
                         icon="snowflake"
                         selected={categoryTab === 'coolant_rods'}
                         onClick={() => setCategoryTab('coolant_rods')}
                       >
-                        Coolant Rods
+                        Охлаждающие
                       </Tabs.Tab>
                     </Tabs>
 
@@ -117,11 +117,11 @@ export const NuclearRodFabricator = (props) => {
                         if (list.length === 0) {
                           return (
                             <Box color="average" p={1}>
-                              No{' '}
+                              Нет{' '}
                               {categories
                                 .find((c) => c.key === categoryTab)
                                 ?.title.toLowerCase()}{' '}
-                              available.
+                              в наличии.
                             </Box>
                           );
                         }
@@ -157,10 +157,10 @@ export const NuclearRodFabricator = (props) => {
                 </Stack.Item>
 
                 <Stack.Item grow>
-                  <Section title="Rod Information" fill>
+                  <Section title="Информация" fill>
                     {!selectedRod && (
                       <NoticeBox>
-                        Please select a rod design from the left.
+                        Пожалуйста, выберите вариант стержня.
                       </NoticeBox>
                     )}
 
@@ -170,13 +170,13 @@ export const NuclearRodFabricator = (props) => {
                         <Section title={selectedRod.name}>
                           <Table>
                             <Table.Row>
-                              <Table.Cell bold>Power Generation:</Table.Cell>
+                              <Table.Cell bold>Генерация энергии:</Table.Cell>
                               <Table.Cell>
                                 {(selectedRod.power_amount || 0) / 1000} KW
                               </Table.Cell>
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell bold>Power Amplification:</Table.Cell>
+                              <Table.Cell bold>Усиление мощности:</Table.Cell>
                               <Table.Cell>
                                 {selectedRod.power_amp_mod || 1}
                               </Table.Cell>
@@ -188,13 +188,15 @@ export const NuclearRodFabricator = (props) => {
                               />
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell bold>Heat Generation:</Table.Cell>
+                              <Table.Cell bold>Генерация тепла:</Table.Cell>
                               <Table.Cell>
-                                {selectedRod.heat_amount || 0} joules
+                                {selectedRod.heat_amount || 0} Дж
                               </Table.Cell>
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell bold>Heat Amplification:</Table.Cell>
+                              <Table.Cell bold>
+                                Усиление теплового потока:
+                              </Table.Cell>
                               <Table.Cell>
                                 {selectedRod.heat_amp_mod || 1}
                               </Table.Cell>
@@ -206,9 +208,11 @@ export const NuclearRodFabricator = (props) => {
                               />
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell bold>Lifespan:</Table.Cell>
+                              <Table.Cell bold>
+                                Продолжительность работы:
+                              </Table.Cell>
                               <Table.Cell>
-                                {selectedRod.max_durability || 0} cycles
+                                {selectedRod.max_durability || 0} циклов
                               </Table.Cell>
                             </Table.Row>
                             {selectedRod.heat_enrichment && (
@@ -220,14 +224,16 @@ export const NuclearRodFabricator = (props) => {
                                   />
                                 </Table.Row>
                                 <Table.Row>
-                                  <Table.Cell bold>Heat Enrichment:</Table.Cell>
+                                  <Table.Cell bold>
+                                    Тепловое обогащение:
+                                  </Table.Cell>
                                   <Table.Cell>
                                     {selectedRod.heat_enrichment}
                                   </Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                   <Table.Cell bold>
-                                    Heat Enrichment Requirement:
+                                    Требование к обогащению теплом:
                                   </Table.Cell>
                                   <Table.Cell>
                                     {selectedRod.heat_enrichment_requirement ||
@@ -246,7 +252,7 @@ export const NuclearRodFabricator = (props) => {
                                 </Table.Row>
                                 <Table.Row>
                                   <Table.Cell bold>
-                                    Power Enrichment:
+                                    Обогащение энергии:
                                   </Table.Cell>
                                   <Table.Cell>
                                     {selectedRod.power_enrichment}
@@ -254,7 +260,7 @@ export const NuclearRodFabricator = (props) => {
                                 </Table.Row>
                                 <Table.Row>
                                   <Table.Cell bold>
-                                    Power Enrichment Requirement:
+                                    Требования к обогащению энергии:
                                   </Table.Cell>
                                   <Table.Cell>
                                     {selectedRod.power_enrichment_requirement ||
@@ -269,7 +275,7 @@ export const NuclearRodFabricator = (props) => {
                           selectedRod.neighbor_requirements.length > 0 ? (
                             <>
                               <Box mt={1} bold>
-                                Neighbor Requirements:
+                                Требования к соседям:
                               </Box>
                               <Box ml={2}>
                                 {selectedRod.neighbor_requirements.map(
@@ -282,19 +288,19 @@ export const NuclearRodFabricator = (props) => {
                           ) : (
                             <>
                               <Box mt={1} bold>
-                                Neighbor Requirements:
+                                Требования к соседям:
                               </Box>
-                              <Box ml={2}>None</Box>
+                              <Box ml={2}>Нет</Box>
                             </>
                           )}
                         </Section>
 
                         <Divider />
 
-                        <Section title="Required Materials">
+                        <Section title="Необходимые материалы">
                           {!selectedRod.materials ||
                           Object.keys(selectedRod.materials).length === 0 ? (
-                            <Box color="average">No materials required.</Box>
+                            <Box color="average">Материалы не требуются.</Box>
                           ) : (
                             <Table>
                               {Object.entries(selectedRod.materials).map(
@@ -332,7 +338,7 @@ export const NuclearRodFabricator = (props) => {
                                           !hasEnough ? 'color-red' : null
                                         }
                                       >
-                                        ({Math.round(matAmt / 2000)} sheets)
+                                        ({Math.round(matAmt / 2000)} листов)
                                       </Table.Cell>
                                     </Table.Row>
                                   );
@@ -354,7 +360,7 @@ export const NuclearRodFabricator = (props) => {
                             })
                           }
                         >
-                          Fabricate
+                          Создать
                         </Button>
                       </Stack>
                     )}
@@ -364,17 +370,17 @@ export const NuclearRodFabricator = (props) => {
             )}
 
             {activeTab === TABS.MATERIALS && (
-              <Section title="Material Storage" fill>
+              <Section title="Хранилище материалов" fill>
                 {!data.resources || Object.keys(data.resources).length === 0 ? (
-                  <Box color="average">No materials loaded.</Box>
+                  <Box color="average">Материалы не загружены.</Box>
                 ) : (
                   <Table>
                     {Object.entries(data.resources).map(
                       ([resName, resData], i) => (
                         <Table.Row key={i}>
                           <Table.Cell bold>{resName}</Table.Cell>
-                          <Table.Cell>{resData.amount} units</Table.Cell>
-                          <Table.Cell>({resData.sheets} sheets)</Table.Cell>
+                          <Table.Cell>{resData.amount} ед.</Table.Cell>
+                          <Table.Cell>({resData.sheets} листов)</Table.Cell>
                           <Table.Cell>
                             <Button
                               onClick={() =>
@@ -416,7 +422,7 @@ export const NuclearRodFabricator = (props) => {
                                 })
                               }
                             >
-                              All
+                              Всё
                             </Button>
                           </Table.Cell>
                         </Table.Row>

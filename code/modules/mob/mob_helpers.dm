@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 //change a mob's act-intent. Input the intent as a string such as "help" or use "right"/"left
 /mob/proc/a_intent_change(input as text)
 	if(can_change_intents)
-		if(ishuman(src) || isalienadult(src) || isbrain(src) || isdevil(src))
+		if(ishuman(src) || isalienadult(src) || isbrain(src) || isdevil(src) || isswarmer(src))
 			switch(input)
 				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					a_intent = input

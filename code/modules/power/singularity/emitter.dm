@@ -70,6 +70,9 @@
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
 		var/turf/current_turf = get_turf(src)
@@ -192,6 +195,7 @@
 	update_appearance()
 
 /obj/machinery/power/emitter/emp_act(severity) // Emitters are hardened but still might have issues
+	. = ..()
 	return TRUE
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/user)

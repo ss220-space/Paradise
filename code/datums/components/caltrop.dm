@@ -6,8 +6,8 @@
 	var/max_damage
 	///Probability of actually "firing", stunning and doing damage
 	var/probability
-	///Amount of time the spike will weaken
-	var/weaken_duration
+	///Amount of time the spike will knockdown
+	var/knockdown_duration
 	///Miscelanous caltrop flags; shoe bypassing, walking interaction, silence
 	var/flags
 	///Species protected from caltrop effects
@@ -22,14 +22,14 @@
 	)
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, weaken_duration = 6 SECONDS, flags = NONE, list/protected_species, soundfile, del_on_trigger = FALSE)
+/datum/component/caltrop/Initialize(min_damage = 0, max_damage = 0, probability = 100, knockdown_duration = 6 SECONDS, flags = NONE, list/protected_species, soundfile, del_on_trigger = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.min_damage = min_damage
 	src.max_damage = max(min_damage, max_damage)
 	src.probability = probability
-	src.weaken_duration = weaken_duration
+	src.knockdown_duration = knockdown_duration
 	src.flags = flags
 	src.protected_species = protected_species
 	src.soundfile = soundfile
@@ -40,7 +40,7 @@
 	else
 		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
-/datum/component/caltrop/InheritComponent(datum/component/caltrop/new_comp, original, min_damage, max_damage, probability, weaken_duration, flags, list/protected_species, soundfile, del_on_trigger)
+/datum/component/caltrop/InheritComponent(datum/component/caltrop/new_comp, original, min_damage, max_damage, probability, knockdown_duration, flags, list/protected_species, soundfile, del_on_trigger)
 	if(!original)
 		return
 	if(!isnull(min_damage))
@@ -120,7 +120,7 @@
 		playsound(arrived, soundfile, 25, TRUE, -3)
 
 	arrived.apply_damage(rand(min_damage, max_damage), BRUTE, picked_def_zone, sharp = TRUE, used_weapon = parent)
-	arrived.Weaken(weaken_duration)
+	arrived.Knockdown(knockdown_duration)
 
 	if(del_on_trigger && !QDELETED(parent))
 		qdel(parent)

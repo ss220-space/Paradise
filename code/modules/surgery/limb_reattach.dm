@@ -233,7 +233,7 @@
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/bodypart, mob/living/carbon/human/target)
 	if(bodypart.is_robotic())
 		return FALSE
-	if(target.dna.species.type == /datum/species/kidan && istype(bodypart, /obj/item/organ/external/head) && !istype(bodypart, /obj/item/organ/external/head/kidan))
+	if(target.dna.species.type == /datum/species/kidan && ishead(bodypart) && !istype(bodypart, /obj/item/organ/external/head/kidan))
 		return FALSE
 	return TRUE
 

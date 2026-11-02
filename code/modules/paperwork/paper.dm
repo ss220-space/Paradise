@@ -346,6 +346,13 @@
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !iscrayon(item_write))
 		return
+
+	if(is_pen(item_write)) // Can't use TRAIT_TRANSFORM_ACTIVE cause you can click multipen or fountain pen
+		var/obj/item/pen/writing_pen = item_write
+		if(!writing_pen.can_write)
+			balloon_alert(user, "защёлкнуто!")
+			return
+
 	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
 		return // If paper is not in usr, then it must be near them
 
@@ -964,6 +971,7 @@
 	altername = "Приказ"
 	category = "Главы станции"
 	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, приказываю:<br><br><span class=\"paper_field\"></span><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><br>Подпись инициатора: <span class=\"paper_field\"></span><br>Время подписания приказа: <span class=\"paper_field\"></span><br>Дата подписания приказа: <span class=\"paper_field\"></span><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве должностного лица.</font></font>"
+
 /obj/item/paper/form/NT_COM_ST
 	name = "Форма NT-COM-ST"
 	id = "NT-COM-ST"

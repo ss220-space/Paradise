@@ -1,6 +1,7 @@
 /proc/makeDatumRefLists()
 
 	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
+	init_datum_subtypes(/datum/zombie_class, GLOB.zombie_classes, null, "name")
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 
@@ -343,7 +344,8 @@
 		EQUIPMENT("Industrial Mining Satchel", /obj/item/storage/bag/ore/bigger, 500),
 		EQUIPMENT("Meson Health Scanner HUD", /obj/item/clothing/glasses/hud/health/meson, 1500),
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
-		EQUIPMENT("Mining Satchel Upgrade", /obj/item/mining_satchel_upgrade, 600)
+		EQUIPMENT("Mining Satchel Upgrade", /obj/item/mining_satchel_upgrade, 600),
+		EQUIPMENT("Grapple Gun", /obj/item/grapple_gun, 1500),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("Marker Beacons (10)", /obj/item/stack/marker_beacon/ten, 100),
@@ -384,6 +386,14 @@
 		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 300),
 		EQUIPMENT("KA Hyper Chassis", /obj/item/borg/upgrade/modkit/chassis_mod/orange, 500),
 		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 250),
+	)
+	prize_list["Kinetic Spear"] = list(
+		EQUIPMENT("Kinetic Spear", /obj/item/twohanded/mining_spear, 500),
+		EQUIPMENT("Standart Spear Core", /obj/item/mining_spear_core/standart, 300),
+		EQUIPMENT("Recall Spear Core", /obj/item/mining_spear_core/recall, 400),
+		EQUIPMENT("Healing Spear Core", /obj/item/mining_spear_core/healing, 600),
+		EQUIPMENT("AoE Spear Core", /obj/item/mining_spear_core/aoe_effect, 600),
+		EQUIPMENT("Hunting Spear Core", /obj/item/mining_spear_core/hunting, 1000),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 1500),

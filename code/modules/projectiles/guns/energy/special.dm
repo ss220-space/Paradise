@@ -151,8 +151,9 @@
 /obj/item/gun/energy/printer/update_overlays()
 	return list()
 
-/obj/item/gun/energy/printer/emp_act()
-	return
+/obj/item/gun/energy/printer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 // MARK: Instakill Lasers
 /obj/item/gun/energy/laser/instakill
@@ -166,8 +167,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-/obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
-	return
+/obj/item/gun/energy/laser/instakill/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
@@ -403,8 +405,9 @@
 	icon_state = "emittercannon"
 	var/charge_cost = 750
 
-/obj/item/gun/energy/emittercannon/emp_act(severity)
-	return
+/obj/item/gun/energy/emittercannon/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 // MARK: Chrono gun
 /obj/item/gun/energy/chrono_gun

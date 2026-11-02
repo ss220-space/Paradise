@@ -71,6 +71,7 @@
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 
 
 /obj/machinery/autolathe/upgraded/Initialize(mapload)
@@ -83,6 +84,12 @@
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+/obj/machinery/autolathe/logistics
+
+/obj/machinery/autolathe/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
 
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)
@@ -137,6 +144,7 @@
 
 			recipes.Add(list(list(
 				"name" = D.build_object_name,
+				"name_en" = created_object.name,
 				"desc" = D.build_object_desc,
 				"category" = categories,
 				"uid" = D.UID(),
@@ -168,6 +176,7 @@
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len
+	data["logistics_enabled"] = logistics_board_installed()
 	return data
 
 /obj/machinery/autolathe/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -177,6 +186,8 @@
 	add_fingerprint(usr)
 
 	. = TRUE
+	if(try_logistics_ui_act(action, usr))
+		return
 	switch(action)
 		if("clear_queue")
 			queue = list()
@@ -516,3 +527,9 @@
 		INSTRUMENTAL = "автолатом службы безопасности",
 		PREPOSITIONAL = "автолате службы безопасности",
 	)
+
+/obj/machinery/autolathe/security/logistics
+
+/obj/machinery/autolathe/security/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)

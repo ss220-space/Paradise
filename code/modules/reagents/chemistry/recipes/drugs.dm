@@ -125,3 +125,10 @@
 	required_reagents = list(/datum/reagent/coca_extract = 1, /datum/reagent/water=5)
 	result_amount = 5
 	min_temp = T80C
+
+/datum/chemical_reaction/pervitin
+	name = "Pervitin"
+	id = "pervitin"
+	result = "pervitin"
+	required_reagents = list("methamphetamine" = 1, "epinephrine" = 1, "ephedrine" = 1)
+	result_amount = 2

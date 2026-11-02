@@ -68,6 +68,7 @@
 	add_language(LANGUAGE_DRONE_BINARY, 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
@@ -193,9 +194,6 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/emag_act()
-	return
-
-/mob/living/silicon/robot/cogscarab/emp_act(severity)
 	return
 
 /mob/living/silicon/robot/cogscarab/ratvar_act(weak)

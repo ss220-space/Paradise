@@ -44,10 +44,10 @@
  * * FALSE - otherwise
  */
 /mob/proc/CheckVirusProtection(datum/disease/virus/V, act_type = BITES|CONTACT|AIRBORNE, zone)
-	if(prob(15/V.permeability_mod))
+	if(prob(15 / V.permeability_mod))
 		return TRUE
 
-	if(satiety > 0 && prob(satiety/10))
+	if(satiety > 0 && prob(satiety / 10))
 		return TRUE
 
 	//virus must to pass all the checks stated in act_type

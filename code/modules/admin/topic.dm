@@ -3314,7 +3314,7 @@
 					SEND_SOUND(human, sound(
 							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
 							channel = CHANNEL_ANNOUNCER,
-							volume = 40,
+							volume = 100 * USER_VOLUME(human, CHANNEL_ANNOUNCER),
 							))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))

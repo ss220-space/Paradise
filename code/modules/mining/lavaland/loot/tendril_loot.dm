@@ -468,6 +468,10 @@
 		PREPOSITIONAL = "талисмане бессмертия",
 	)
 
+/obj/item/immortality_talisman/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL_MAGIC_RESISTANCE)
+
 /datum/action/item_action/immortality
 	name = "Бессмертие"
 

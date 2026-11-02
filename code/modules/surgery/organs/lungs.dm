@@ -76,11 +76,9 @@
 	)
 
 /obj/item/organ/internal/lungs/emp_act(severity)
-	if(!is_robotic() || emp_proof)
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
 		return
-	if(emp_shielded(severity))
-		return
-
 	if(owner)
 		var/losstime = 40 SECONDS
 		if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))

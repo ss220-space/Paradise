@@ -13,5 +13,7 @@
 	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/blind/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+	if(victim.can_block_magic(antimagic_flags))
+		return
 	victim.AdjustEyeBlind(8 SECONDS)
 	to_chat(victim, span_notice_alt("Your eyes cry out in pain!"))

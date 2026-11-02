@@ -171,6 +171,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// A time in ticks, multiplied by the w_class.
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
 	var/embedded_ignore_throwspeed_threshold = FALSE
+	/// If our item actually embeds into human
+	var/can_actually_embed = TRUE
 
 	/// What kind of tool are we?
 	var/tool_behaviour = NONE
@@ -569,23 +571,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//if(anchored)
 	//	return
 
-	if(loc == user)
-		if(!allow_attack_hand_drop(user))
-			return
-
-		// inventory unequip delay
-		if(equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(src)))
-			user.visible_message(
-				span_notice("[user] начинает снимать [declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [declent_ru(ACCUSATIVE)]..."),
-			)
-			if(!do_after(user, equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
-				return
-
-		if(!user.temporarily_remove_item_from_inventory(src, silent = FALSE))
-			return
-
-	else if(isliving(loc))
+	if(!can_pickup(user))
 		return
 
 	. = pickup(user)
@@ -595,6 +581,31 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return FALSE
 
 	add_fingerprint(user)
+
+/obj/item/proc/can_pickup(mob/user)
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return FALSE
+
+	if(loc == user)
+		if(!allow_attack_hand_drop(user))
+			return FALSE
+
+		// inventory unequip delay
+		if(equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(src)))
+			user.visible_message(
+				span_notice("[user] начинает снимать [declent_ru(ACCUSATIVE)]..."),
+				span_notice("Вы начинаете снимать [declent_ru(ACCUSATIVE)]..."),
+			)
+			if(!do_after(user, equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
+				return FALSE
+
+		if(!user.temporarily_remove_item_from_inventory(src, silent = FALSE))
+			return FALSE
+
+	else if(isliving(loc))
+		return FALSE
+
+	return TRUE
 
 /**
  * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
@@ -1068,7 +1079,9 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(QDELETED(hit_atom))
 		return
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+	if(signal_result & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return
 
 	var/itempush = TRUE
 	if(w_class < WEIGHT_CLASS_BULKY)
@@ -1572,3 +1585,6 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.update_clothing(slot_flags)
+
+/obj/item/proc/on_human_ebedded(/mob/living/carbon/human/our_target)
+	return
