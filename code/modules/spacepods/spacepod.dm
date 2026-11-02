@@ -708,7 +708,7 @@
 	else
 		selected_gun = weapon.primary
 
-	if(selected_gun == null)
+	if(selected_gun == null || selected_gun.weapon == null)
 		return // selected gun not exists
 	if(selected_gun.safety)
 		if(COOLDOWN_FINISHED(src, weapon_balloon_cooldown))
@@ -720,6 +720,9 @@
 		if(COOLDOWN_FINISHED(src, weapon_balloon_cooldown))
 			balloon_alert(user, "оружие заряжается!")
 			COOLDOWN_START(src, weapon_balloon_cooldown, 1 SECONDS)
+		return
+
+	if(selected_gun.weapon.gun_on_cooldown(user, check_mob_cooldown = FALSE))
 		return
 
 	selected_gun.weapon.fast_fire(target, user)

@@ -491,13 +491,13 @@
 	return TRUE
 
 ///Checks if the gun is on cooldown
-/obj/item/gun/proc/gun_on_cooldown(mob/user)
+/obj/item/gun/proc/gun_on_cooldown(mob/user, check_mob_cooldown = TRUE)
 	var/added_delay = fire_delay
 	var/delay = last_fired + added_delay
 	if(gun_firemode == GUN_FIREMODE_BURSTFIRE)
 		delay += extra_delay
 
-	if(world.time >= delay && (!user || SEND_SIGNAL(user, COMSIG_MOB_GUN_COOLDOWN, src)))
+	if(world.time >= delay && (!check_mob_cooldown || !user || SEND_SIGNAL(user, COMSIG_MOB_GUN_COOLDOWN, src)))
 		return FALSE
 
 	return TRUE
