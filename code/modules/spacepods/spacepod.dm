@@ -30,7 +30,7 @@
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 
 	/// Frame integrity
-	max_integrity = 300
+	max_integrity = 200
 	/// Enable external lights
 	var/lights = FALSE
 	/// External lights power
