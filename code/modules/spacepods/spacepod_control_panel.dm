@@ -3,6 +3,10 @@
 /datum/ui_module/spacepod_control_panels
 	name = "Панель управления космическим челноком"
 	var/obj/spacepod/pod
+	/// Mob whose HUD we hid while the panel was open, or null.
+	var/mob/hud_hidden_user
+	/// HUD style the player had before we hid it, restored when the panel closes.
+	var/hud_hidden_version = HUD_STYLE_STANDARD
 
 /datum/ui_module/spacepod_control_panels/ui_state(mob/user)
 	if(isobserver(user))
@@ -18,14 +22,18 @@
 /datum/tgui_window/pod_panel
 
 /datum/tgui_window/pod_panel/close(can_be_suspended = TRUE)
+	// Ask the page to hide its own browser pane. A server-side winset() here
+	// throws "bad client" when the window outlives the client (logout, round
+	// end, server shutdown), because the client is already disconnected even
+	// if it is not garbage collected yet. Sending a message only uses the
+	// output operator, which is safe for a dead client.
+	send_message("suspend", force = TRUE)
 	. = ..()
-	if(client)
-		winset(client, SKIN_POD_PANEL, "is-visible=0")
 
 /datum/ui_module/spacepod_control_panels/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		if(!user.client)
+		if(QDELETED(user.client))
 			return
 		// Open the panel as a transparent overlay pane inside the game window.
 		// Transparent browsers require BYOND 516.1680+, fall back to a normal
@@ -36,15 +44,70 @@
 			if(!window)
 				window = new /datum/tgui_window/pod_panel(user.client, SKIN_POD_PANEL)
 		ui = new(user, src, "SpacepodControlPanel", name)
-		ui.open(window)
+		if(ui.open(window))
+			hide_player_hud(user)
 
 /datum/ui_module/spacepod_control_panels/ui_close(mob/user)
+	// The panel covers the whole map window, so the regular HUD gets hidden
+	// while it is open. Bring it back even if the UI datum is already gone.
+	restore_player_hud(user)
 	var/datum/tgui/ui = SStgui.get_open_ui(user, src)
 	if(!ui)
 		return
 	ui.close(TRUE)
-	if(user.client)
-		winset(user.client, SKIN_POD_PANEL, "is-visible=0")
+	// The pane itself is hidden by pod_panel/close() via a "suspend" message,
+	// so no client-side winset() is needed here either.
+
+/datum/ui_module/spacepod_control_panels/Destroy()
+	restore_player_hud()
+	return ..()
+
+// MARK: Player HUD
+
+/// Hides the pilot's on-screen HUD: the list of action buttons on top, the
+/// inventory and the player buttons at the bottom. The panel is transparent,
+/// so this leaves a clean cockpit view of the game. The HUD style the player
+/// used before is remembered and restored when the panel closes.
+/datum/ui_module/spacepod_control_panels/proc/hide_player_hud(mob/user)
+	var/datum/hud/user_hud = user?.hud_used
+	if(QDELETED(user?.client) || !user_hud)
+		return
+	// Nothing to hide: another mob's HUD is already stashed, or the player
+	// already plays without a HUD (F12) and should not have it changed.
+	var/previous_version = user_hud.hud_version
+	if(hud_hidden_user || previous_version == HUD_STYLE_NOHUD)
+		return
+	hud_hidden_user = user
+	hud_hidden_version = previous_version
+	user_hud.show_hud(HUD_STYLE_NOHUD)
+	// Status readouts (health, stamina, ...) are not buttons, so keep them
+	// visible; the request only covers the action bar, the inventory and the
+	// on-screen player buttons.
+	user.client.screen |= user_hud.infodisplay
+
+/// Restores the HUD that was hidden when the panel opened.
+/datum/ui_module/spacepod_control_panels/proc/restore_player_hud(mob/user)
+	// Only the mob we hid the HUD from gets it back; another client viewing
+	// the same panel has a HUD of their own that was never touched.
+	if(user && hud_hidden_user && user != hud_hidden_user)
+		return
+	var/mob/hidden_user = hud_hidden_user
+	var/restore_version = hud_hidden_version
+	hud_hidden_user = null
+	hud_hidden_version = HUD_STYLE_STANDARD
+	var/datum/hud/user_hud = hidden_user?.hud_used
+	if(!user_hud)
+		return
+	if(QDELETED(hidden_user.client))
+		// Logged out (or lost control of the mob) while the panel was open:
+		// make the next login show the HUD again instead of the hidden style.
+		user_hud.hud_version = restore_version
+		return
+	user_hud.show_hud(restore_version)
+	// show_hud() rebuilds the screen from the HUD lists, but gun ammo
+	// counters live outside of them; put those back as well.
+	for(var/atom/movable/screen/ammo/ammo_hud as anything in user_hud.ammo_hud_list)
+		hidden_user.client.screen += ammo_hud
 
 
 // MARK: ui_data
@@ -377,6 +440,10 @@
 			pod.toggle_lock(usr)
 		if("catapult_pilot")
 			pod.catapult_pilot(TRUE)
+		if("exit_pod")
+			// Closing the panel is handled by exit_pod() -> eject_pilot() ->
+			// ui_close(), which also restores the player HUD.
+			pod.exit_pod(usr)
 		if("map_click")
 			handle_map_click(usr, params)
 		else

@@ -269,7 +269,7 @@ export const SpacepodControlPanel = (props: unknown) => {
 
   const isHudWidget = (target: EventTarget | null) =>
     !!(target as HTMLElement | null)?.closest?.(
-      '.spcp-topright, .spcp-dock, .spcp-drawer, .spcp-lamps, .spcp-close',
+      '.spcp-actions, .spcp-close, .spcp-topright, .spcp-bottomleft, .spcp-bottomright, .spcp-dock, .spcp-drawer, .spcp-lamps',
     );
 
   const sendMapClick = (
@@ -309,13 +309,6 @@ export const SpacepodControlPanel = (props: unknown) => {
       transparent
     >
       <Window.Content fitted scrollable className="spcp-root">
-        <button
-          className="spcp-close"
-          onClick={suspendStart}
-          title="Закрыть панель"
-        >
-          <Icon name="times" />
-        </button>
         <div
           className="spcp-shell"
           onClick={proxyClick}
@@ -337,9 +330,34 @@ export const SpacepodControlPanel = (props: unknown) => {
           }}
         >
           <div className="spcp-hud">
-            <div className="spcp-topright">
+            <div className="spcp-actions">
+              <button
+                className="spcp-close"
+                onClick={suspendStart}
+                title="Закрыть интерфейс и вернуться в игру"
+              >
+                <Icon name="times" className="spcp-close__icon" />
+                <span className="spcp-close__label">Закрыть интерфейс</span>
+              </button>
+              <button
+                className="spcp-close spcp-close--exit"
+                onClick={() => act('exit_pod')}
+                title="Выйти из челнока"
+              >
+                <Icon name="sign-out-alt" className="spcp-close__icon" />
+                <span className="spcp-close__label">Выйти из челнока</span>
+              </button>
+            </div>
+            {!!data.weapons.module && (
+              <div className="spcp-topright">
+                <WeaponsWidget />
+              </div>
+            )}
+            <div className="spcp-bottomleft">
+              <ResourceReadouts />
+            </div>
+            <div className="spcp-bottomright">
               <MainReadouts />
-              <WeaponsWidget />
             </div>
             <div className="spcp-lamps">
               {lamps.map((lamp) => (
@@ -362,7 +380,7 @@ export const SpacepodControlPanel = (props: unknown) => {
                         setSection(section === meta.id ? null : meta.id)
                       }
                     >
-                      <Icon name={meta.icon} size={1.5} />
+                      <Icon name={meta.icon} size={2} />
                     </button>
                   </Tooltip>
                 );
@@ -445,15 +463,12 @@ const LampBox = (props: {
   );
 };
 
-// MARK: Main readouts cluster (top-left)
-
-const BATT_SEGMENTS = 10;
+// MARK: Engine gauges (bottom-right)
 
 const MainReadouts = () => {
   const booted = true;
   const { data } = useBackend<SpacepodControlPanelData>();
-  const { electricity, engines, fuel } = data;
-  const batteryPercent = electricity.percent ?? 0;
+  const { engines } = data;
 
   return (
     <div className="spcp-cluster">
@@ -482,6 +497,22 @@ const MainReadouts = () => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
+
+// MARK: Battery and fuel levels (bottom-left)
+
+const BATT_SEGMENTS = 10;
+
+const ResourceReadouts = () => {
+  const booted = true;
+  const { data } = useBackend<SpacepodControlPanelData>();
+  const { electricity, fuel } = data;
+  const batteryPercent = electricity.percent ?? 0;
+
+  return (
+    <div className="spcp-cluster">
       {electricity.exists && (
         <div
           className={`spcp-batt${batteryPercent < 25 ? ' spcp-batt--warn' : ''}`}
@@ -525,7 +556,7 @@ const MainReadouts = () => {
   );
 };
 
-// MARK: Weapons readouts (under the main cluster)
+// MARK: Weapons readouts (top-right)
 
 const WeaponsWidget = () => {
   const { act, data } = useBackend<SpacepodControlPanelData>();

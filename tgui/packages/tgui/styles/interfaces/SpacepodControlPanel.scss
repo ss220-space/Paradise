@@ -12,6 +12,8 @@ $spcp-cyan: #67d8ff;
 $spcp-line: rgba(255, 255, 255, 0.07);
 $spcp-glass: rgba(8, 14, 17, 0.45);
 $spcp-glass-border: rgba(130, 165, 175, 0.2);
+// Inset of every HUD block from the window edges.
+$spcp-edge-padding: 72px;
 
 @keyframes spcp-blink {
 	0%,
@@ -52,39 +54,92 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	overflow-x: hidden;
 }
 
-// MARK: Close button
+// MARK: Top-left action buttons
+
+.spcp-actions {
+	position: absolute;
+	z-index: 70;
+	left: 0;
+	// Tight to the top edge of the window: cancel the shell padding so the
+	// buttons sit flush with the top while keeping the left inset.
+	top: -$spcp-edge-padding;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	// Leave the right-hand 40% to the weapons block on narrow screens: the
+	// buttons wrap onto a second row instead of running underneath it.
+	max-width: 55%;
+	pointer-events: auto;
+}
 
 .spcp-close {
-	position: fixed;
-	z-index: 70;
-	top: 8px;
-	right: 8px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	width: 22px;
-	height: 22px;
-	padding: 0;
-	color: $spcp-dim;
-	font-size: 11px;
+	gap: 9px;
+	height: 46px;
+	padding: 0 18px;
+	color: $spcp-text;
+	font-family: var(--font-family-mono);
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 2px;
 	line-height: 1;
+	text-transform: uppercase;
 	background: linear-gradient(180deg, #1d262b 0%, #121a1e 100%);
 	border: 1px solid #26353c;
-	border-radius: 4px;
+	border-radius: 6px;
+	box-shadow:
+		0 2px 10px rgba(0, 0, 0, 0.45),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	cursor: pointer;
 	transition:
 		border-color 0.15s ease,
 		color 0.15s ease,
-		filter 0.15s ease;
+		filter 0.15s ease,
+		box-shadow 0.15s ease;
+
+	&__icon {
+		flex: none;
+		color: $spcp-dim;
+		font-size: 17px;
+		transition: color 0.15s ease;
+	}
+
+	&__label {
+		padding-top: 1px;
+		white-space: nowrap;
+	}
 
 	&:hover {
-		color: $spcp-red;
-		border-color: rgba(255, 90, 77, 0.5);
-		filter: brightness(1.2);
+		color: $spcp-cyan;
+		border-color: rgba(103, 216, 255, 0.55);
+		box-shadow:
+			0 2px 12px rgba(0, 0, 0, 0.5),
+			0 0 10px rgba(103, 216, 255, 0.16),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+		filter: brightness(1.15);
+
+		.spcp-close__icon {
+			color: $spcp-cyan;
+		}
 	}
 
 	&:active {
 		filter: brightness(0.9);
+	}
+
+	// Leaving the pod is the drastic action, so it glows red instead.
+	&--exit:hover {
+		color: $spcp-red;
+		border-color: rgba(255, 90, 77, 0.55);
+		box-shadow:
+			0 2px 12px rgba(0, 0, 0, 0.5),
+			0 0 10px rgba(255, 90, 77, 0.16),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+		.spcp-close__icon {
+			color: $spcp-red;
+		}
 	}
 }
 
@@ -93,7 +148,7 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	padding: 50px;
+	padding: $spcp-edge-padding;
 	color: $spcp-text;
 	font-family: var(--font-family-mono);
 	font-size: 11px;
@@ -131,8 +186,7 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	pointer-events: none;
 }
 
-// Main readouts cluster, pinned to the top-right corner (40% of the width).
-// Widgets are deliberately translucent so the game stays visible behind them.
+// Weapons readouts, pinned to the top-right corner.
 .spcp-topright {
 	position: absolute;
 	top: 0;
@@ -143,6 +197,47 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	gap: 6px;
 	width: 40%;
 	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+// Battery and fuel level cluster, pinned to the bottom-left corner.
+.spcp-bottomleft {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	width: 40%;
+	max-height: 55%;
+	overflow-y: auto;
+	overflow-x: hidden;
+
+	// The shared cluster styles right-align their content for the right-hand
+	// corner; mirror that for the left side.
+	.spcp-cluster {
+		align-items: flex-start;
+	}
+
+	.spcp-gauges,
+	.spcp-fuel {
+		justify-content: flex-start;
+	}
+}
+
+// Main readouts cluster, pinned to the bottom-right corner.
+.spcp-bottomright {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 6px;
+	width: 40%;
+	max-height: 55%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -256,7 +351,6 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
-	margin-top: 14px;
 	padding: 5px 7px;
 	background: rgba(8, 14, 17, 0.5);
 	border: 1px solid $spcp-glass-border;
@@ -441,11 +535,11 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	}
 }
 
-// MARK: Status lamps (top center)
+// MARK: Status lamps (bottom center)
 
 .spcp-lamps {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 50%;
 	display: flex;
 	gap: 6px;
@@ -502,13 +596,13 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 36px;
-		height: 36px;
+		width: 46px;
+		height: 46px;
 		padding: 0;
 		color: $spcp-dim;
 		background: rgba(13, 19, 23, 0.85);
 		border: 1px solid rgba(130, 165, 175, 0.3);
-		border-radius: 6px;
+		border-radius: 7px;
 		cursor: pointer;
 		transition:
 			border-color 0.15s ease,
@@ -538,10 +632,10 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 .spcp-drawer {
 	position: absolute;
 	top: 50%;
-	left: 44px;
+	left: 56px;
 	display: flex;
 	flex-direction: column;
-	width: 460px;
+	width: 500px;
 	max-height: 100%;
 	overflow: hidden;
 	background: rgba(8, 13, 16, 0.82);
@@ -568,9 +662,9 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 		display: flex;
 		align-items: center;
 		gap: 8px;
-		padding: 6px 8px;
+		padding: 8px 10px;
 		color: #a8c0c7;
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: bold;
 		letter-spacing: 2px;
 		text-transform: uppercase;
@@ -586,8 +680,8 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 		flex: none;
 		align-items: center;
 		justify-content: center;
-		width: 20px;
-		height: 20px;
+		width: 22px;
+		height: 22px;
 		margin-left: auto;
 		padding: 0;
 		color: $spcp-dim;
@@ -610,8 +704,8 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	&__body {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
-		padding: 8px;
+		gap: 9px;
+		padding: 10px;
 		overflow-y: auto;
 	}
 }
