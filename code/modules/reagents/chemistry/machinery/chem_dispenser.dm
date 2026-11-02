@@ -150,7 +150,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker?.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id" = "[R.type]", "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -165,7 +165,7 @@
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id), "reagentColor" = temp.color))) // list in a list because Byond merges the first list...
+			chemicals.Add(list(list("title" = temp.name, "id" = "[temp.type]", "commands" = list("dispense" = "[temp.type]"), "reagentColor" = temp.color))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
 	return data
@@ -594,18 +594,18 @@
 	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
 	obj_flags = NODECONSTRUCT
 	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
-		"water",
-		"atrazine",
-		"pestkiller",
-		"cryoxadone",
-		"ammonia",
-		"ash",
-		"diethylamine",
+		/datum/reagent/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/plantnutriment/eznutriment,
+		/datum/reagent/plantnutriment/left4zednutriment,
+		/datum/reagent/plantnutriment/robustharvestnutriment,
+		/datum/reagent/water,
+		/datum/reagent/glyphosate/atrazine,
+		/datum/reagent/pestkiller,
+		/datum/reagent/medicine/cryoxadone,
+		/datum/reagent/ammonia,
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
 	)
 	upgrade_reagents = list()
 	base_skill = /datum/skill/service/botany
@@ -699,6 +699,8 @@
 
 	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
 		return
+	var/datum/reagent/current_reagent_datum = GLOB.chemical_reagents_list[current_reagent]
+	var/reagent_name = current_reagent_datum ? current_reagent_datum.name : "[current_reagent]"
 	switch(mode)
 		if("dispense")
 			var/free = target.reagents.maximum_volume - target.reagents.total_volume
@@ -706,14 +708,14 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_U_Y_0(amount)] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_U_Y_0(amount)] [reagent_name] в [target.declent_ru(ACCUSATIVE)]."))
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_U_Y_0(amount)] [current_reagent] из [target.declent_ru(GENITIVE)]."))
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_U_Y_0(amount)] [reagent_name] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))
+				to_chat(user, span_notice("Вы удаляете всё, кроме [reagent_name] в [target.declent_ru(PREPOSITIONAL)]."))
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
@@ -748,7 +750,7 @@
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+			chemicals.Add(list(list("title" = temp.name, "id" = "[temp.type]", "commands" = list("dispense" = "[temp.type]")))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
 	return data
