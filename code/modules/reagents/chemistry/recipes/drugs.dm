@@ -129,6 +129,6 @@
 /datum/chemical_reaction/pervitin
 	name = "Pervitin"
 	id = "pervitin"
-	result = "pervitin"
-	required_reagents = list("methamphetamine" = 1, "epinephrine" = 1, "ephedrine" = 1)
+	result = /datum/reagent/pervitin
+	required_reagents = list(/datum/reagent/methamphetamine = 1, /datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/ephedrine = 1)
 	result_amount = 2
