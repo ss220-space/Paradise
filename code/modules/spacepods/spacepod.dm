@@ -133,8 +133,13 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
 /obj/spacepod/examine(mob/user)
 	. = ..()
+	var/hull_state = get_hull_state_text()
+	if(hull_state)
+		. += hull_state
+
 	if(assemble_process)
 		. += span_notice("Сборка пода не завершена.")
 		var/list/errors = systems.check_complete()
@@ -146,6 +151,25 @@
 
 	if(hatch_opened)
 		. += span_notice("Люк техобслуживания открыт.")
+
+/obj/spacepod/proc/get_hull_state_text()
+	if(max_integrity <= 0)
+		return null
+	var/hull_percent = clamp(round(obj_integrity * 100 / max_integrity), 0, 100)
+	switch(hull_percent)
+		if(100)
+			return span_notice("Корпус целый.")
+		if(85 to 99)
+			return span_notice("Корпус в мелких царапинах.")
+		if(65 to 84)
+			return span_notice("Корпус слегка повреждён.")
+		if(45 to 64)
+			return span_warning("Корпус заметно повреждён.")
+		if(20 to 44)
+			return span_warning("Корпус сильно повреждён.")
+		if(1 to 19)
+			return span_danger("Корпус едва держится.")
+	return span_danger("Корпус разрушен.")
 
 
 // MARK: Assemble procs
