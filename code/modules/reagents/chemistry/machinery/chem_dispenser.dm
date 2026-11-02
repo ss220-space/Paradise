@@ -186,13 +186,14 @@
 			if(!is_operational() || QDELETED(cell))
 				return
 
-			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
+			var/reagent_type = text2path(params["reagent"])
+			if(!beaker || !dispensable_reagents.Find(reagent_type))
 				return
 
 			var/datum/reagents/reagents = beaker.reagents
 			var/free = reagents.maximum_volume - reagents.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-			var/reagent = params["reagent"]
+			var/reagent = reagent_type
 
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
@@ -215,16 +216,16 @@
 				return
 
 			var/datum/reagents/reagents = beaker.reagents
-			var/id = params["reagent"]
+			var/reagent_type = text2path(params["reagent"])
 
 			if(amount > 0)
-				reagents.remove_reagent(id, amount)
+				reagents.remove_reagent(reagent_type, amount)
 
 			else if(amount == -1) //Isolate instead
-				reagents.isolate_reagent(id)
+				reagents.isolate_reagent(reagent_type)
 
 			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
-				reagents.floor_reagent(id)
+				reagents.floor_reagent(reagent_type)
 
 		if("ejectBeaker")
 			if(!beaker)
@@ -761,8 +762,9 @@
 		if("amount")
 			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
-			if(params["reagent"] in dispensable_reagents)
-				current_reagent = params["reagent"]
+			var/reagent_type = text2path(params["reagent"])
+			if(reagent_type in dispensable_reagents)
+				current_reagent = reagent_type
 				update_icon(UPDATE_OVERLAYS)
 		if("mode")
 			switch(params["mode"])
