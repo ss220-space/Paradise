@@ -382,6 +382,8 @@
 	var/generate_power = 250
 	/// Receiving external rotation
 	var/external_rotation = FALSE
+	/// Last time the pod successfully moved a tile
+	var/last_movement_time = 0
 
 /obj/item/spacepod_module/fuel_tank/engine/New(loc, ...)
 	. = ..()
@@ -390,7 +392,7 @@
 /obj/item/spacepod_module/fuel_tank/engine/examine(mob/user)
 	. = ..()
 	. += span_notice("Тяга [thrust] кгс")
-	. += span_notice("Потряебляет [fuel_consume_speed] л. топлива в секунду.")
+	. += span_notice("Потребляет до [fuel_consume_speed] л. топлива в секунду при максимальных оборотах.")
 
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
@@ -418,6 +420,12 @@
 	if(has_gravity)
 		return thrust / POD_GRAVITY_SPEED_MOD
 	return thrust
+
+/obj/item/spacepod_module/fuel_tank/engine/proc/on_pod_moved()
+	if(is_apu() || !enable)
+		return
+	current_rpm = min(current_rpm + max_rpm * POD_ENGINE_MOVEMENT_RPM_GAIN, max_rpm)
+	last_movement_time = world.time
 
 /obj/item/spacepod_module/fuel_tank/engine/turn_on()
 	error_text = null
@@ -459,13 +467,25 @@
 		current_rpm = max(current_rpm - ignition_acceleration * seconds_per_tick, 0)
 		return
 
-	if(!consume_fuel(fuel_consume_speed * seconds_per_tick) > 0)
+	var/fuel_needed = fuel_consume_speed * (current_rpm / max_rpm) * seconds_per_tick
+	if(fuel_needed > 0 && consume_fuel(fuel_needed) <= 0)
 		error_text = "Топливное голодание"
 		enable = FALSE //auto off
 		return
-	if(current_rpm >= max_rpm)
+
+	if(is_apu())
+		if(current_rpm >= max_rpm)
+			return
+		current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
 		return
-	current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
+
+	var/idle_rpm = max_rpm * POD_ENGINE_IDLE_RPM_RATIO
+	if(current_rpm < idle_rpm)
+		current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, idle_rpm)
+		return
+	if(current_rpm <= idle_rpm || world.time < last_movement_time + POD_ENGINE_IDLE_DELAY)
+		return
+	current_rpm = max(current_rpm - ignition_acceleration * seconds_per_tick, idle_rpm)
 
 /obj/item/spacepod_module/fuel_tank/engine/on_destroy_module()
 	. = ..()

@@ -57,6 +57,13 @@ GLOBAL_LIST_INIT(pod_slots, list(
 /// Distance from the pod center to each wing's firing origin, in pixels
 #define POD_WEAPON_WING_OFFSET 16
 
+/// Engine швду RPM
+#define POD_ENGINE_IDLE_RPM_RATIO 0.3
+/// RPM gained per move
+#define POD_ENGINE_MOVEMENT_RPM_GAIN 0.15
+/// Time without movement before engine RPM starts falling back to idle
+#define POD_ENGINE_IDLE_DELAY (3 SECONDS)
+
 
 /// List of active trackers
 GLOBAL_LIST_EMPTY(pod_trackers)

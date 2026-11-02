@@ -856,6 +856,8 @@
 		var/calculated_move_delay = get_current_speed_delay(thrust)
 		set_dir_on_move = systems.can_maneuver()
 		. = Move(next_step, direction)
+		if(.)
+			on_pod_moved()
 		if(ISDIAGONALDIR(direction) && loc == next_step)
 			calculated_move_delay *= sqrt(2)
 		set_glide_size(DELAY_TO_GLIDE_SIZE(calculated_move_delay))
@@ -873,6 +875,11 @@
 	var/thrust_ratio = mass / thrust
 	var/move_delay = clamp(pod_speed_coeff * thrust_ratio, POD_MOVE_MIN_DELAY, POD_MOVE_MAX_DELAY)
 	return move_delay
+
+/obj/spacepod/proc/on_pod_moved()
+	var/list/engines = systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
+		engine.on_pod_moved()
 
 /obj/spacepod/Bump(atom/bumped_atom)
 	. = ..()
