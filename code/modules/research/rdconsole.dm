@@ -438,18 +438,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 
-			for(var/obj/I in linked_destroy.contents)
-				for(var/mob/M in I.contents)
-					M.death()
-				if(istype(I, /obj/item/stack/sheet))
-					var/obj/item/stack/sheet/S = I
+			for(var/obj/contained_object in linked_destroy.contents)
+				for(var/mob/contained_mob in contained_object.contents)
+					contained_mob.death()
+				if(istype(contained_object, /obj/item/stack/sheet))
+					var/obj/item/stack/sheet/S = contained_object
 					if(S.amount > 1)
 						S.amount--
 						linked_destroy.loaded_item = S
 					else
 						qdel(S)
-				else if(!(I in linked_destroy.component_parts))
-					qdel(I)
+				else if(!(contained_object in linked_destroy.component_parts))
+					qdel(contained_object)
 
 			linked_destroy.loaded_item = null
 			linked_destroy.busy = FALSE
@@ -461,33 +461,33 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return actually_increased
 
-/obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
+/obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount, mob/user)
 	if(!machine)
-		to_chat(usr, span_danger("Выбранное оборудование не подключено!"))
+		to_chat(user, span_danger("Выбранное оборудование не подключено!"))
 		return FALSE
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, span_danger("Неподходящий тип подключённого оборудования!"))
+		to_chat(user, span_danger("Неподходящий тип подключённого оборудования!"))
 		return FALSE
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
 		return FALSE
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
+		to_chat(user, span_danger("Выбран неизвестный шаблон печати!"))
 		return FALSE
 
 	var/skill_rand_prob = 1
 	if(usr)
-		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, calculated_prob)
+		CALCULATE_SKILL_MOD(user, PROTOLATHE_RAND_BUILD_PROB, calculated_prob)
 		skill_rand_prob = calculated_prob
 	skill_rand_prob *= 100
-	if(usr && prob(skill_rand_prob))
+	if(user && prob(skill_rand_prob))
 		being_built = pick(matching_designs)
 
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
@@ -498,12 +498,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(being_built && console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
 			add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
-			to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
+			to_chat(user, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
 			return FALSE
 	connected_servers -= null
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
-		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
+		message_admins("[machine] exploit attempted by [key_name_log(user)]!")
 		return FALSE
 
 	if(length(being_built.make_reagents))
@@ -513,7 +513,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	amount = max(1, min(max_amount, amount))
 
 	var/protolathe_skill_level
-	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, calculated_level)
+	GET_SKILL_LEVEL(user, /datum/skill/research/protolathe, calculated_level)
 	protolathe_skill_level = calculated_level ||= SKILL_LEVEL_BASIC
 	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
 		amount += rand(0, 3)
@@ -524,8 +524,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	power = max(BUILD_POWER, power)
 
 	var/skill_duration_mod = 1
-	if(usr)
-		CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, calculated_duration)
+	if(user)
+		CALCULATE_SKILL_MOD(user, PROTOLATHE_DURATION_MOD, calculated_duration)
 		skill_duration_mod = calculated_duration
 	var/coeff = machine.efficiency_coeff
 
@@ -536,11 +536,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * (amount ** 0.8)
 
 	if(is_lathe)
-		if(usr)
+		if(user)
 			add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 	else
-		if(usr)
+		if(user)
 			add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
 		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1)
@@ -549,8 +549,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	use_power(power)
 
 	var/skill_resource_mod = 1
-	if(usr)
-		CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, calculated_resource)
+	if(user)
+		CALCULATE_SKILL_MOD(user, PROTOLATHE_RESOURCE_MOD, calculated_resource)
 		skill_resource_mod = calculated_resource
 	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
@@ -575,7 +575,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	for(var/R in being_built.reagents_list)
 		machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
-	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
+	addtimer(CALLBACK(src, PROC_REF(finish_machine), user, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
 	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		if(S.disabled)
@@ -583,8 +583,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(syndicate != S.syndicate)
 			continue
 		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			if(usr)
-				S.add_usage_log(usr, being_built, machine)
+			if(user)
+				S.add_usage_log(user, being_built, machine)
 	return TRUE
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
@@ -626,8 +626,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			lockbox.req_access = being_built.access_requirement
 			lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
 			var/list/lockbox_access
-			for(var/A in lockbox.req_access)
-				lockbox_access += "[get_access_desc(A)] "
+			for(var/access_id in lockbox.req_access)
+				lockbox_access += "[get_access_desc(access_id)] "
 			lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \[[lockbox_access]\]."
 
 			if(!user)
@@ -804,10 +804,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			sync = !sync
 
 		if("build") //Causes the Protolathe to build something.
-			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
-
+			start_machine(linked_lathe, params["id"], text2num(params["amount"]), usr)
 		if("imprint") //Causes the Circuit Imprinter to build something.
-			start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
+			start_machine(linked_imprinter, params["id"], text2num(params["amount"]), usr)
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
@@ -1010,30 +1009,31 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return list()
 
 	var/list/all_ids = list()
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
-		if(!D || !D.id)
+	var/datum/design/design_info
+	for(var/design_id_key in files.known_designs)
+		design_info = files.known_designs[design_id_key]
+		if(!design_info || !design_info.id)
 			continue
-
-		if((D.build_type & (PROTOLATHE | IMPRINTER)) || ispath(D.build_path, /obj/item/gun) || ispath(D.build_path, /obj/item/ammo_casing))
-			all_ids += D.id
-
+		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
+			all_ids += design_info.id
 	return all_ids
 
-/obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/I)
+/obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
 	if(!linked_destroy || linked_destroy.busy)
-		return -1
+		return null
 
-	if(I)
-		I.forceMove(linked_destroy)
-		linked_destroy.loaded_item = I
+	var/obj/item/item_to_recycle = recycled_item
+	if(item_to_recycle)
+		item_to_recycle.forceMove(linked_destroy)
+		linked_destroy.loaded_item = item_to_recycle
 	else
-		I = linked_destroy.loaded_item
+		item_to_recycle = linked_destroy.loaded_item
 
-	if(!I || QDELETED(I))
-		return -1
+	if(!item_to_recycle || QDELETED(item_to_recycle))
+		return null
 
-	var/list/temp_tech = linked_destroy.ConvertReqString2List(I.origin_tech)
+	var/list/temp_tech = linked_destroy.ConvertReqString2List(item_to_recycle.origin_tech)
+
 
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
 

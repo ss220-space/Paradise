@@ -151,7 +151,7 @@
 
 	last_printed_design = target_design
 
-	var/print_success = attached_console.start_machine(target_machine, target_design.id, 1, src)
+	var/print_success = attached_console.start_machine(target_machine, target_design.id, 1, null)
 
 	if(!print_success)
 		output_error.set_output(TRUE)
@@ -250,7 +250,7 @@
 	var/obj/item/I = input_item.value
 	var/result = attached_console.usb_recycle_item(I)
 
-	if(result == -1)
+	if(isnull(result))
 		output_error.set_output(TRUE)
 		return
 
