@@ -10,6 +10,7 @@
 	weight = 0
 	change_musculs = FALSE
 	has_dirslash = FALSE
+	works_with_rapid_gloves = TRUE
 
 	var/alist/combos_by_level = alist(
 		SKILL_LEVEL_BASIC = /datum/martial_combo/uct/wrist_lock,

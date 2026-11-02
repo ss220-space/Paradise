@@ -43,6 +43,8 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// Can use the rapid attack speed from /obj/item/clothing/gloves/fingerless/rapid and clockwork FASTPUNCH gauntlets.
+	var/works_with_rapid_gloves = FALSE
 	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed
 	/// If provided, this list will override victim's default resist chances for any grab state.
