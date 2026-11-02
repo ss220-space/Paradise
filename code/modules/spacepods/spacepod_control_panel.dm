@@ -16,17 +16,9 @@
 /datum/ui_module/spacepod_control_panels/ui_host(mob/user)
 	return pod // Default src.
 
-/// tgui window bound to the transparent "pod_panel" browser pane inside the
-/// main window (same technique as the escape menu), so the game stays visible
-/// behind the panel. Standalone popup windows can not be see-through.
 /datum/tgui_window/pod_panel
 
 /datum/tgui_window/pod_panel/close(can_be_suspended = TRUE)
-	// Ask the page to hide its own browser pane. A server-side winset() here
-	// throws "bad client" when the window outlives the client (logout, round
-	// end, server shutdown), because the client is already disconnected even
-	// if it is not garbage collected yet. Sending a message only uses the
-	// output operator, which is safe for a dead client.
 	send_message("suspend", force = TRUE)
 	. = ..()
 
@@ -35,9 +27,6 @@
 	if(!ui)
 		if(QDELETED(user.client))
 			return
-		// Open the panel as a transparent overlay pane inside the game window.
-		// Transparent browsers require BYOND 516.1680+, fall back to a normal
-		// pooled window otherwise.
 		var/datum/tgui_window/window
 		if(user.client.byond_build >= 1680)
 			window = user.client.tgui_windows[SKIN_POD_PANEL]
@@ -48,47 +37,31 @@
 			hide_player_hud(user)
 
 /datum/ui_module/spacepod_control_panels/ui_close(mob/user)
-	// The panel covers the whole map window, so the regular HUD gets hidden
-	// while it is open. Bring it back even if the UI datum is already gone.
 	restore_player_hud(user)
 	var/datum/tgui/ui = SStgui.get_open_ui(user, src)
 	if(!ui)
 		return
 	ui.close(TRUE)
-	// The pane itself is hidden by pod_panel/close() via a "suspend" message,
-	// so no client-side winset() is needed here either.
 
 /datum/ui_module/spacepod_control_panels/Destroy()
 	restore_player_hud()
 	return ..()
 
-// MARK: Player HUD
-
-/// Hides the pilot's on-screen HUD: the list of action buttons on top, the
-/// inventory and the player buttons at the bottom. The panel is transparent,
-/// so this leaves a clean cockpit view of the game. The HUD style the player
-/// used before is remembered and restored when the panel closes.
+// MARK: Player HUD control
 /datum/ui_module/spacepod_control_panels/proc/hide_player_hud(mob/user)
 	var/datum/hud/user_hud = user?.hud_used
 	if(QDELETED(user?.client) || !user_hud)
 		return
-	// Nothing to hide: another mob's HUD is already stashed, or the player
-	// already plays without a HUD (F12) and should not have it changed.
 	var/previous_version = user_hud.hud_version
 	if(hud_hidden_user || previous_version == HUD_STYLE_NOHUD)
 		return
 	hud_hidden_user = user
 	hud_hidden_version = previous_version
 	user_hud.show_hud(HUD_STYLE_NOHUD)
-	// Status readouts (health, stamina, ...) are not buttons, so keep them
-	// visible; the request only covers the action bar, the inventory and the
-	// on-screen player buttons.
 	user.client.screen |= user_hud.infodisplay
 
 /// Restores the HUD that was hidden when the panel opened.
 /datum/ui_module/spacepod_control_panels/proc/restore_player_hud(mob/user)
-	// Only the mob we hid the HUD from gets it back; another client viewing
-	// the same panel has a HUD of their own that was never touched.
 	if(user && hud_hidden_user && user != hud_hidden_user)
 		return
 	var/mob/hidden_user = hud_hidden_user
@@ -99,13 +72,9 @@
 	if(!user_hud)
 		return
 	if(QDELETED(hidden_user.client))
-		// Logged out (or lost control of the mob) while the panel was open:
-		// make the next login show the HUD again instead of the hidden style.
 		user_hud.hud_version = restore_version
 		return
 	user_hud.show_hud(restore_version)
-	// show_hud() rebuilds the screen from the HUD lists, but gun ammo
-	// counters live outside of them; put those back as well.
 	for(var/atom/movable/screen/ammo/ammo_hud as anything in user_hud.ammo_hud_list)
 		hidden_user.client.screen += ammo_hud
 
@@ -497,16 +466,6 @@
 	if(click_params["shift"])
 		modifiers[SHIFT_CLICK] = "1"
 
-	// HUD screen objects (action buttons and the like) are drawn above the
-	// map: forward the click to the one under the pointer, if any.
-	var/list/native_view = view_to_pixels(user_client.view)
-	var/map_scale = view_width / native_view[1]
-	if(map_scale > 0)
-		var/atom/movable/screen/screen_hit = get_screen_object_at(user, round(map_px / map_scale), round(map_py / map_scale))
-		if(screen_hit)
-			user_client.Click(screen_hit, screen_hit, "mapwindow.map", list2params(modifiers))
-			return TRUE
-
 	var/world_x = eye_turf.x + 0.5 - tiles_x / 2 + map_px / tile_width
 	var/world_y = eye_turf.y + 0.5 - tiles_y / 2 + (view_height - map_py) / tile_height
 	var/turf/target = locate(round(world_x), round(world_y), eye_turf.z)
@@ -524,9 +483,6 @@
 		if(atom_on_tile.layer > click_target.layer)
 			click_target = atom_on_tile
 
-	// Screen-loc relative to the visible map area, as if the click was made
-	// on the map control itself. X offsets are counted from the left edge of
-	// the tile, Y offsets from its bottom edge (same as icon-x / icon-y).
 	var/sx_tile = clamp(floor(map_px / tile_width) + 1, 1, tiles_x)
 	var/sx_offset = clamp(round(map_px - (sx_tile - 1) * tile_width), 0, tile_width - 1)
 	var/px_from_bottom = view_height - map_py
@@ -538,49 +494,8 @@
 	modifiers[VIS_X] = "[sx_tile]"
 	modifiers[VIS_Y] = "[sy_tile]"
 
-	// params must be a plain params string: the client-side click pipeline
-	// runs params2list(params), which does not round-trip assoc lists.
 	user_client.Click(click_target, target, "mapwindow.map", list2params(modifiers))
 	return TRUE
-
-
-/// Returns the interactive screen object (action buttons and other HUD
-/// items) whose 32x32 cell contains the given native map pixel coordinates,
-/// or null if the point misses every screen object.
-/datum/ui_module/spacepod_control_panels/proc/get_screen_object_at(mob/user, native_px, native_py)
-	var/client/user_client = user.client
-	if(!user_client)
-		return null
-
-	var/list/candidates = list()
-	for(var/atom/movable/screen/screen_atom as anything in user_client.screen)
-		if(QDELETED(screen_atom) || !screen_atom.screen_loc)
-			continue
-		if(screen_atom.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
-			continue
-		if(screen_atom.alpha <= 0)
-			continue
-		// screen_loc_to_offset() expects paired "x,y" coordinates; single
-		// token locs ("CENTER" on plane masters) and rectangular ranges
-		// ("x1,y1 to x2,y2") are not parseable by it and belong to
-		// non-clickable or non-standard objects anyway.
-		if(!findtext(screen_atom.screen_loc, ",") || findtext(screen_atom.screen_loc, " to "))
-			continue
-		var/list/offset = list(0, 0)
-		try
-			offset = screen_loc_to_offset(screen_atom.screen_loc, user_client.view)
-		catch(var/exception/error)
-			log_runtime(error, screen_atom)
-			continue
-		if(native_px < offset[1] || native_px >= offset[1] + ICON_SIZE_X)
-			continue
-		if(native_py < offset[2] || native_py >= offset[2] + ICON_SIZE_Y)
-			continue
-		candidates += screen_atom
-
-	if(!length(candidates))
-		return null
-	return candidates[length(candidates)]
 
 
 /datum/ui_module/spacepod_control_panels/proc/switch_powernet_link(id)
