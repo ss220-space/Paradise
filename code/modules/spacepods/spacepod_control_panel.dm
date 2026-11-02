@@ -377,8 +377,144 @@
 			pod.toggle_lock(usr)
 		if("catapult_pilot")
 			pod.catapult_pilot(TRUE)
+		if("map_click")
+			handle_map_click(usr, params)
 		else
 			return FALSE
+
+/// Proxies a click made on a transparent area of the control panel HUD to
+/// the game map underneath. Clicks are translated from pane pixel
+/// coordinates into world turf coordinates, honoring the current map zoom.
+/datum/ui_module/spacepod_control_panels/proc/handle_map_click(mob/user, list/click_params)
+	var/client/user_client = user.client
+	if(!user_client)
+		return FALSE
+	var/turf/eye_turf = get_turf(user_client.eye)
+	if(!eye_turf)
+		return FALSE
+
+	var/list/map_info = params2list(winget(user_client, "mapwindow.map", "size;view-size"))
+	var/list/map_size = splittext(map_info["size"], "x")
+	var/list/view_px = splittext(map_info["view-size"], "x")
+	if(length(map_size) < 2 || length(view_px) < 2)
+		return FALSE
+
+	var/map_width = text2num(map_size[1])
+	var/map_height = text2num(map_size[2])
+	var/view_width = text2num(view_px[1])
+	var/view_height = text2num(view_px[2])
+	if(!map_width || !map_height || !view_width || !view_height)
+		return FALSE
+
+	var/list/view_tiles = getviewsize(user_client.view)
+	var/tiles_x = view_tiles[1]
+	var/tiles_y = view_tiles[2]
+	var/tile_width = view_width / tiles_x
+	var/tile_height = view_height / tiles_y
+	if(!tile_width || !tile_height)
+		return FALSE
+
+	// Position inside the rendered map (letterboxing is centered).
+	var/map_px = click_params["x"] - (map_width - view_width) / 2
+	var/map_py = click_params["y"] - (map_height - view_height) / 2
+
+	var/list/modifiers = list()
+	modifiers[BUTTON] = click_params["button"] || LEFT_CLICK
+	// Mark the button key itself (right -> RIGHT_CLICK and so on), the way
+	// native map clicks do.
+	modifiers[modifiers[BUTTON]] = "1"
+	if(click_params["ctrl"])
+		modifiers[CTRL_CLICK] = "1"
+	if(click_params["alt"])
+		modifiers[ALT_CLICK] = "1"
+	if(click_params["shift"])
+		modifiers[SHIFT_CLICK] = "1"
+
+	// HUD screen objects (action buttons and the like) are drawn above the
+	// map: forward the click to the one under the pointer, if any.
+	var/list/native_view = view_to_pixels(user_client.view)
+	var/map_scale = view_width / native_view[1]
+	if(map_scale > 0)
+		var/atom/movable/screen/screen_hit = get_screen_object_at(user, round(map_px / map_scale), round(map_py / map_scale))
+		if(screen_hit)
+			user_client.Click(screen_hit, screen_hit, "mapwindow.map", list2params(modifiers))
+			return TRUE
+
+	var/world_x = eye_turf.x + 0.5 - tiles_x / 2 + map_px / tile_width
+	var/world_y = eye_turf.y + 0.5 - tiles_y / 2 + (view_height - map_py) / tile_height
+	var/turf/target = locate(round(world_x), round(world_y), eye_turf.z)
+	if(!target)
+		return FALSE
+
+	// Pick the topmost visible atom on the tile, like a normal map click
+	// would (mobs and objects sit above the turf).
+	var/atom/click_target = target
+	for(var/atom/atom_on_tile as anything in target.contents)
+		if(atom_on_tile.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
+			continue
+		if(atom_on_tile.invisibility || atom_on_tile.alpha <= 0)
+			continue
+		if(atom_on_tile.layer > click_target.layer)
+			click_target = atom_on_tile
+
+	// Screen-loc relative to the visible map area, as if the click was made
+	// on the map control itself. X offsets are counted from the left edge of
+	// the tile, Y offsets from its bottom edge (same as icon-x / icon-y).
+	var/sx_tile = clamp(floor(map_px / tile_width) + 1, 1, tiles_x)
+	var/sx_offset = clamp(round(map_px - (sx_tile - 1) * tile_width), 0, tile_width - 1)
+	var/px_from_bottom = view_height - map_py
+	var/sy_tile = clamp(floor(px_from_bottom / tile_height) + 1, 1, tiles_y)
+	var/sy_offset = clamp(round(px_from_bottom - (sy_tile - 1) * tile_height), 0, tile_height - 1)
+	modifiers[SCREEN_LOC] = "[sx_tile]:[sx_offset],[sy_tile]:[sy_offset]"
+	modifiers[ICON_X] = "[sx_offset]"
+	modifiers[ICON_Y] = "[sy_offset]"
+	modifiers[VIS_X] = "[sx_tile]"
+	modifiers[VIS_Y] = "[sy_tile]"
+
+	// params must be a plain params string: the client-side click pipeline
+	// runs params2list(params), which does not round-trip assoc lists.
+	user_client.Click(click_target, target, "mapwindow.map", list2params(modifiers))
+	return TRUE
+
+
+/// Returns the interactive screen object (action buttons and other HUD
+/// items) whose 32x32 cell contains the given native map pixel coordinates,
+/// or null if the point misses every screen object.
+/datum/ui_module/spacepod_control_panels/proc/get_screen_object_at(mob/user, native_px, native_py)
+	var/client/user_client = user.client
+	if(!user_client)
+		return null
+
+	var/list/candidates = list()
+	for(var/atom/movable/screen/screen_atom as anything in user_client.screen)
+		if(QDELETED(screen_atom) || !screen_atom.screen_loc)
+			continue
+		if(screen_atom.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
+			continue
+		if(screen_atom.alpha <= 0)
+			continue
+		// screen_loc_to_offset() expects paired "x,y" coordinates; single
+		// token locs ("CENTER" on plane masters) and rectangular ranges
+		// ("x1,y1 to x2,y2") are not parseable by it and belong to
+		// non-clickable or non-standard objects anyway.
+		if(!findtext(screen_atom.screen_loc, ",") || findtext(screen_atom.screen_loc, " to "))
+			continue
+		var/list/offset = list(0, 0)
+		try
+			offset = screen_loc_to_offset(screen_atom.screen_loc, user_client.view)
+		catch(var/exception/error)
+			log_runtime(error, screen_atom)
+			continue
+		if(native_px < offset[1] || native_px >= offset[1] + ICON_SIZE_X)
+			continue
+		if(native_py < offset[2] || native_py >= offset[2] + ICON_SIZE_Y)
+			continue
+		candidates += screen_atom
+
+	if(!length(candidates))
+		return null
+	return candidates[length(candidates)]
+
 
 /datum/ui_module/spacepod_control_panels/proc/switch_powernet_link(id)
 	var/obj/item/spacepod_module/target_module = null

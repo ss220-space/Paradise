@@ -95,6 +95,8 @@ window "mapwindow"
 		anchor2 = 100,100
 		background-color = none
 		inner-background-color = transparent
+		is-transparent = true
+		right-click = true
 		is-visible = false
 		saved-params = ""
 	elem "escape_menu"

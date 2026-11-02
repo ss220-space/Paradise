@@ -1,4 +1,4 @@
-// Spacepod control panel — see-through cockpit HUD.
+// Spacepod control panel вЂ” see-through cockpit HUD.
 // Minimal translucent widgets pinned to the screen edges, slide-out tool
 // drawers on the left and a boot sequence on top.
 
@@ -12,45 +12,6 @@ $spcp-cyan: #67d8ff;
 $spcp-line: rgba(255, 255, 255, 0.07);
 $spcp-glass: rgba(8, 14, 17, 0.45);
 $spcp-glass-border: rgba(130, 165, 175, 0.2);
-
-@keyframes spcp-scan {
-	0% {
-		top: 0;
-		opacity: 0;
-	}
-
-	10%,
-	90% {
-		opacity: 1;
-	}
-
-	100% {
-		top: 100%;
-		opacity: 0;
-	}
-}
-
-@keyframes spcp-boot-line {
-	from {
-		opacity: 0;
-		transform: translateX(-8px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
-
-@keyframes spcp-progress {
-	from {
-		width: 0;
-	}
-
-	to {
-		width: 100%;
-	}
-}
 
 @keyframes spcp-blink {
 	0%,
@@ -84,32 +45,9 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	}
 }
 
-@keyframes spcp-flicker {
-	0%,
-	100% {
-		opacity: 0.05;
-	}
-
-	50% {
-		opacity: 0.12;
-	}
-}
-
-@keyframes spcp-boot-in {
-	from {
-		opacity: 0;
-		transform: scale(0.97);
-	}
-
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
-}
-
 .spcp-root {
 	background: none;
-	background-color: none;
+	background-color: transparent;
 	background-image: none;
 	overflow-x: hidden;
 }
@@ -177,6 +115,20 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	position: relative;
 	flex: 1;
 	min-height: 0;
+}
+
+// Click-through: only interactive controls (switches, buttons, the tool
+// drawer) capture clicks; everything else lets them fall through to the
+// shell, which proxies them to the game map underneath.
+.spcp-hud {
+	.spcp-switch,
+	.Button,
+	button,
+	.spcp-drawer {
+		pointer-events: auto;
+	}
+
+	pointer-events: none;
 }
 
 // Main readouts cluster, pinned to the top-right corner (40% of the width).
@@ -536,6 +488,7 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 
 // MARK: Tool dock (left edge, vertically centered)
 
+// Tool dock: pinned to the left edge, vertically centered.
 .spcp-dock {
 	position: absolute;
 	top: 50%;
@@ -1366,198 +1319,5 @@ $spcp-glass-border: rgba(130, 165, 175, 0.2);
 	&--fire {
 		border-color: rgba(255, 90, 77, 0.55);
 		background: rgba(255, 90, 77, 0.08);
-	}
-}
-
-// MARK: Boot sequence
-
-.spcp-boot {
-	position: absolute;
-	z-index: 60;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	inset: 0;
-	overflow: hidden;
-	background: radial-gradient(
-		ellipse at 50% 45%,
-		rgba(10, 32, 24, 0.98) 0%,
-		#020506 72%
-	);
-	border: 1px solid #1d3a31;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: opacity 0.55s ease;
-
-	&::after {
-		position: absolute;
-		inset: 0;
-		background: repeating-linear-gradient(
-			0deg,
-			rgba(0, 0, 0, 0.28) 0 1px,
-			transparent 1px 3px
-		);
-		content: '';
-		pointer-events: none;
-		animation: spcp-flicker 2.4s infinite;
-	}
-
-	&--hidden {
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	&__scan {
-		position: absolute;
-		right: 0;
-		left: 0;
-		height: 2px;
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			rgba(77, 255, 166, 0.85) 50%,
-			transparent 100%
-		);
-		box-shadow: 0 0 12px rgba(77, 255, 166, 0.6);
-		animation: spcp-scan 2.4s linear infinite;
-	}
-
-	&__inner {
-		position: relative;
-		z-index: 2;
-		width: min(760px, 88%);
-		animation: spcp-boot-in 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) both;
-	}
-
-	&__header {
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		gap: 12px;
-		margin-bottom: 18px;
-		padding-bottom: 10px;
-		border-bottom: 1px solid rgba(77, 255, 166, 0.22);
-	}
-
-	&__title {
-		color: #d9fff0;
-		font-size: 42px;
-		font-weight: bold;
-		letter-spacing: 16px;
-		line-height: 1;
-		text-shadow:
-			0 0 18px rgba(77, 255, 166, 0.45),
-			0 0 42px rgba(77, 255, 166, 0.18);
-	}
-
-	&__subtitle {
-		margin-top: 8px;
-		color: rgba(77, 255, 166, 0.55);
-		font-size: 10px;
-		letter-spacing: 5px;
-	}
-
-	&__vessel {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-
-		span {
-			color: rgba(120, 160, 150, 0.7);
-			font-size: 8px;
-			letter-spacing: 2px;
-		}
-
-		b {
-			color: #d9fff0;
-			font-size: 11px;
-			letter-spacing: 1px;
-			text-transform: uppercase;
-		}
-	}
-
-	&__lines {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-	}
-
-	&__line {
-		display: flex;
-		align-items: baseline;
-		gap: 8px;
-		color: #8fb3a8;
-		font-size: 10px;
-		letter-spacing: 1px;
-		opacity: 0;
-		animation: spcp-boot-line 0.22s ease forwards;
-
-		b {
-			color: #cdeee2;
-			font-weight: normal;
-			white-space: nowrap;
-		}
-
-		&--ok b {
-			color: $spcp-green;
-		}
-
-		&--warn b {
-			color: $spcp-amber;
-		}
-
-		&--bad b {
-			color: $spcp-red;
-		}
-
-		&--off b {
-			color: $spcp-dim-2;
-		}
-	}
-
-	&__dots {
-		flex: 1;
-		border-bottom: 1px dotted rgba(120, 160, 150, 0.35);
-		transform: translateY(-3px);
-	}
-
-	&__progress {
-		height: 4px;
-		overflow: hidden;
-		margin-top: 18px;
-		background: rgba(77, 255, 166, 0.08);
-		border: 1px solid rgba(77, 255, 166, 0.22);
-		border-radius: 2px;
-	}
-
-	&__progress-fill {
-		width: 0;
-		height: 100%;
-		background: linear-gradient(90deg, #1fae6c 0%, $spcp-green 100%);
-		box-shadow: 0 0 10px rgba(77, 255, 166, 0.7);
-		animation: spcp-progress 2.35s cubic-bezier(0.3, 0.7, 0.4, 1) forwards;
-	}
-
-	&__summary {
-		margin-top: 12px;
-		color: $spcp-green;
-		font-size: 10px;
-		letter-spacing: 3px;
-		text-align: center;
-		text-shadow: 0 0 10px rgba(77, 255, 166, 0.4);
-
-		&--warn {
-			color: $spcp-amber;
-			text-shadow: 0 0 10px rgba(255, 194, 74, 0.4);
-			animation: spcp-blink 1.2s infinite;
-		}
-	}
-
-	&__hint {
-		margin-top: 6px;
-		color: rgba(120, 160, 150, 0.45);
-		font-size: 8px;
-		letter-spacing: 2px;
-		text-align: center;
 	}
 }

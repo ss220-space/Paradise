@@ -1,4 +1,10 @@
-import { type ReactElement, type ReactNode, useEffect, useState } from 'react';
+import {
+  type ReactElement,
+  type MouseEvent as ReactMouseEvent,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import { Button, Dropdown, Icon, Image, Tooltip } from 'tgui-core/components';
 import { globalEvents } from 'tgui-core/events';
 import { resolveAsset } from '../assets';
@@ -232,26 +238,22 @@ const SECTIONS: { id: SectionId; icon: string; label: string }[] = [
   { id: 'fuel', icon: 'gas-pump', label: 'Топливная система' },
   { id: 'engines', icon: 'tachometer-alt', label: 'Двигатели' },
   { id: 'weapons', icon: 'crosshairs', label: 'Вооружение' },
-  { id: 'systems', icon: 'satellite-dish', label: 'Дополнительные системы' },
+  {
+    id: 'systems',
+    icon: 'satellite-dish',
+    label: 'Дополнительные системы',
+  },
   { id: 'integrity', icon: 'shield-alt', label: 'Живучесть' },
 ];
 
 export const SpacepodControlPanel = (props: unknown) => {
-  const { data } = useBackend<SpacepodControlPanelData>();
-  const [booted, setBooted] = useState(false);
+  const { act, data } = useBackend<SpacepodControlPanelData>();
   const [viewport] = useState(getViewportSize);
   const [section, setSection] = useState<SectionId | null>(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setBooted(true), 2700);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // The panel lives in a transparent browser pane anchored inside the game
-  // window. Window applies its geometry asynchronously on mount and may do
-  // so again when a pooled pane is reattached (suspend/resume), which
-  // centers the pane on the screen. Pin it back to the top-left corner
-  // several times to always win that race.
+  // The pane is anchored to the full game window (skin.dmf). The shared
+  // Window layout applies its own centered geometry asynchronously, so the
+  // pane is pinned back to the top-left corner several times after mount.
   useEffect(() => {
     const pin = () => Byond.winset(Byond.windowId, { pos: '0,0' });
     pin();
@@ -264,6 +266,38 @@ export const SpacepodControlPanel = (props: unknown) => {
       globalEvents.off('window-geometry-finished', pin);
     };
   }, []);
+
+  const isHudWidget = (target: EventTarget | null) =>
+    !!(target as HTMLElement | null)?.closest?.(
+      '.spcp-topright, .spcp-dock, .spcp-drawer, .spcp-lamps, .spcp-close',
+    );
+
+  const sendMapClick = (
+    event: ReactMouseEvent<HTMLDivElement>,
+    button: 'left' | 'right' | 'middle',
+  ) => {
+    act('map_click', {
+      x: Math.round(event.clientX),
+      y: Math.round(event.clientY),
+      button,
+      ctrl: event.ctrlKey || undefined,
+      alt: event.altKey || undefined,
+      shift: event.shiftKey || undefined,
+    });
+  };
+
+  // Clicks landing on transparent HUD padding are proxied to the game map
+  // underneath (DM side translates pixel coords into a turf click).
+  // Right-clicks are ignored here: browsers fire auxclick for them too,
+  // but they are already proxied from mousedown.
+  const proxyClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (event.button === 2 || isHudWidget(event.target)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    sendMapClick(event, event.button === 1 ? 'middle' : 'left');
+  };
 
   const lamps = buildLamps(data);
 
@@ -282,15 +316,29 @@ export const SpacepodControlPanel = (props: unknown) => {
         >
           <Icon name="times" />
         </button>
-        <div className="spcp-shell">
-          <CockpitBoot
-            active={!booted}
-            vessel={data.vessel}
-            onSkip={() => setBooted(true)}
-          />
+        <div
+          className="spcp-shell"
+          onClick={proxyClick}
+          onAuxClick={proxyClick}
+          // Right-clicks are proxied from mousedown: the engine can swallow
+          // the context menu event itself, so it is not a reliable trigger.
+          onMouseDown={(event) => {
+            event.stopPropagation();
+            if (isHudWidget(event.target) || event.button !== 2) {
+              return;
+            }
+            event.preventDefault();
+            sendMapClick(event, 'right');
+          }}
+          onContextMenu={(event) => event.preventDefault()}
+          onDragStart={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
           <div className="spcp-hud">
             <div className="spcp-topright">
-              <MainReadouts booted={booted} />
+              <MainReadouts />
               <WeaponsWidget />
             </div>
             <div className="spcp-lamps">
@@ -320,11 +368,7 @@ export const SpacepodControlPanel = (props: unknown) => {
                 );
               })}
             </div>
-            <Drawer
-              booted={booted}
-              section={section}
-              onClose={() => setSection(null)}
-            />
+            <Drawer section={section} onClose={() => setSection(null)} />
           </div>
         </div>
       </Window.Content>
@@ -405,8 +449,8 @@ const LampBox = (props: {
 
 const BATT_SEGMENTS = 10;
 
-const MainReadouts = (props: { booted: boolean }) => {
-  const { booted } = props;
+const MainReadouts = () => {
+  const booted = true;
   const { data } = useBackend<SpacepodControlPanelData>();
   const { electricity, engines, fuel } = data;
   const batteryPercent = electricity.percent ?? 0;
@@ -553,12 +597,8 @@ const WeaponsWidget = () => {
 
 // MARK: Drawer
 
-const Drawer = (props: {
-  section: SectionId | null;
-  booted: boolean;
-  onClose: () => void;
-}) => {
-  const { section, booted, onClose } = props;
+const Drawer = (props: { section: SectionId | null; onClose: () => void }) => {
+  const { section, onClose } = props;
   const meta = section
     ? SECTIONS.find((candidate) => candidate.id === section)
     : null;
@@ -581,9 +621,9 @@ const Drawer = (props: {
           <div className="spcp-drawer__body">
             {section === 'power' && <PowerSection />}
             {section === 'fuel' && <FuelSection />}
-            {section === 'engines' && <EnginesSection booted={booted} />}
+            {section === 'engines' && <EnginesSection />}
             {section === 'systems' && <SystemsSection />}
-            {section === 'integrity' && <IntegritySection booted={booted} />}
+            {section === 'integrity' && <IntegritySection />}
             {section === 'weapons' && <WeaponsSection />}
           </div>
         </>
@@ -968,8 +1008,8 @@ const FuelSection = () => {
 
 // MARK: Section — Engines
 
-const EnginesSection = (props: { booted: boolean }) => {
-  const { booted } = props;
+const EnginesSection = () => {
+  const booted = true;
   const { act, data } = useBackend<SpacepodControlPanelData>();
   const { engines } = data;
   const [starting, setStarting] = useState<Record<string, number>>({});
@@ -1322,8 +1362,8 @@ const SystemsSection = () => {
 
 // MARK: Section — Integrity
 
-const IntegritySection = (props: { booted: boolean }) => {
-  const { booted } = props;
+const IntegritySection = () => {
+  const booted = true;
   const { act, data } = useBackend<SpacepodControlPanelData>();
   const { integrity } = data;
   const { hull } = integrity;
@@ -1472,145 +1512,5 @@ const WeaponsSection = () => {
         <div className="spcp-empty">ОРУДИЯ НЕ УСТАНОВЛЕНЫ</div>
       )}
     </>
-  );
-};
-
-// MARK: Boot sequence
-
-type BootLine = {
-  label: string;
-  value: string;
-  state: LampState;
-};
-
-const buildBootLines = (data: SpacepodControlPanelData): BootLine[] => {
-  const { electricity, engines, fuel, integrity, life_support, weapons } = data;
-  const lines: BootLine[] = [
-    {
-      label: 'POWER BUS',
-      value: !electricity.exists
-        ? 'OFFLINE'
-        : `${Math.round(electricity.percent ?? 0)}% CHARGE`,
-      state: !electricity.exists
-        ? 'bad'
-        : (electricity.percent ?? 0) < 25
-          ? 'warn'
-          : 'ok',
-    },
-    {
-      label: 'FUEL SYSTEM',
-      value: fuel.fuel_tanks.length
-        ? `${fuel.fuel_tanks.length} TANK(S) PRESSURIZED`
-        : 'NO TANKS',
-      state: fuel.fuel_tanks.length ? 'ok' : 'bad',
-    },
-    {
-      label: 'ENGINE BUS',
-      value: engines.engines.length
-        ? `${engines.engines.length} UNIT(S) DETECTED`
-        : 'NO ENGINES',
-      state: engines.engines.length ? 'ok' : 'warn',
-    },
-    {
-      label: 'GYROSTAB',
-      value: !engines.gyroscope
-        ? 'NOT INSTALLED'
-        : engines.gyroscope.enable
-          ? 'SPINNING'
-          : 'STANDBY',
-      state: !engines.gyroscope
-        ? 'off'
-        : engines.gyroscope.enable
-          ? 'ok'
-          : 'warn',
-    },
-    {
-      label: 'LIFE SUPPORT',
-      value: !life_support.exists
-        ? 'NOT INSTALLED'
-        : life_support.airtank?.enable
-          ? 'INTERNAL ATMOS'
-          : 'EXTERNAL ATMOS',
-      state: !life_support.exists
-        ? 'off'
-        : life_support.atmos.low_pressure
-          ? 'warn'
-          : 'ok',
-    },
-    {
-      label: 'WEAPON BUS',
-      value: !weapons.module
-        ? 'NOT INSTALLED'
-        : weapons.module.enable
-          ? 'ARMED'
-          : 'SAFE',
-      state: !weapons.module ? 'off' : weapons.module.enable ? 'warn' : 'ok',
-    },
-    {
-      label: 'HULL SENSORS',
-      value: integrity.hull.integrity_warn
-        ? 'DAMAGE DETECTED'
-        : `${integrity.hull.integrity}/${integrity.hull.max_integrity}`,
-      state: integrity.hull.integrity_warn ? 'bad' : 'ok',
-    },
-  ];
-  return lines;
-};
-
-const CockpitBoot = (props: {
-  active: boolean;
-  vessel: string;
-  onSkip: () => void;
-}) => {
-  const { active, vessel, onSkip } = props;
-  const { data } = useBackend<SpacepodControlPanelData>();
-  const lines = buildBootLines(data);
-  const faults = lines.filter(
-    (line) => line.state === 'bad' || line.state === 'warn',
-  ).length;
-
-  return (
-    <div
-      className={`spcp-boot${active ? '' : ' spcp-boot--hidden'}`}
-      onClick={onSkip}
-    >
-      <div className="spcp-boot__scan" />
-      <div className="spcp-boot__inner">
-        <div className="spcp-boot__header">
-          <div>
-            <div className="spcp-boot__title">SPACEPOD</div>
-            <div className="spcp-boot__subtitle">
-              AVIONICS CONTROL SYSTEM · REV 7.0
-            </div>
-          </div>
-          <div className="spcp-boot__vessel">
-            <span>VESSEL</span>
-            <b>{vessel || 'UNNAMED'}</b>
-          </div>
-        </div>
-        <div className="spcp-boot__lines">
-          {lines.map((line, index) => (
-            <div
-              className={`spcp-boot__line spcp-boot__line--${line.state}`}
-              key={line.label}
-              style={{ animationDelay: `${0.2 + index * 0.13}s` }}
-            >
-              <span>{line.label}</span>
-              <span className="spcp-boot__dots" />
-              <b>{line.value}</b>
-            </div>
-          ))}
-        </div>
-        <div className="spcp-boot__progress">
-          <div className="spcp-boot__progress-fill" />
-        </div>
-        <div
-          className={`spcp-boot__summary${faults ? ' spcp-boot__summary--warn' : ''}`}
-        >
-          {faults ? `ВНИМАНИЕ: ${faults} СООБЩЕНИЙ` : 'ВСЕ СИСТЕМЫ В НОРМЕ'}
-        </div>
-        <div className="spcp-boot__hint">НАЖМИТЕ, ЧТОБЫ ПРОПУСТИТЬ</div>
-      </div>
-    </div>
   );
 };
