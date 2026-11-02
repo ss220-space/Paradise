@@ -598,7 +598,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/locked = being_built.locked && !is_taipan(z)
 
-	for(var/i in 1 to amount)
+	for(var/print_index in 1 to amount)
 		var/obj/new_item = new being_built.build_path(!user ? src : machine.loc)
 
 		if(istype(new_item, /obj/item/storage/backpack/holding) && user)
@@ -645,7 +645,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/ui_act(action, list/params)
+/obj/machinery/computer/rdconsole/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -804,9 +804,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			sync = !sync
 
 		if("build") //Causes the Protolathe to build something.
-			start_machine(linked_lathe, params["id"], text2num(params["amount"]), usr)
+			start_machine(linked_lathe, params["id"], text2num(params["amount"]), ui.user)
 		if("imprint") //Causes the Circuit Imprinter to build something.
-			start_machine(linked_imprinter, params["id"], text2num(params["amount"]), usr)
+			start_machine(linked_imprinter, params["id"], text2num(params["amount"]), ui.user)
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
@@ -997,8 +997,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/search_id = lowertext(design_id)
 
 	var/datum/design/design_data
-	for(var/design_id_key in files.known_designs)
-		design_data = files.known_designs[design_id_key]
+	for(var/searched_design_id in files.known_designs)
+		design_data = files.known_designs[searched_design_id]
 		if(design_data && lowertext(design_data.id) == search_id && (design_data.build_type & (PROTOLATHE | IMPRINTER)))
 			return design_data
 
@@ -1010,13 +1010,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/list/all_ids = list()
 	var/datum/design/design_info
-	for(var/design_id_key in files.known_designs)
-		design_info = files.known_designs[design_id_key]
+	for(var/cached_design_id in files.known_designs)
+		design_info = files.known_designs[cached_design_id]
 		if(!design_info || !design_info.id)
 			continue
 		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
 			all_ids += design_info.id
 	return all_ids
+
 
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
 	if(!linked_destroy || linked_destroy.busy)
