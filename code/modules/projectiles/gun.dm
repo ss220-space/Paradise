@@ -671,6 +671,11 @@
 
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
+		effect.pixel_x = src.pixel_x
+		effect.pixel_y = src.pixel_y
+		var/matrix/muzzle_matrix = new
+		muzzle_matrix.Turn(get_angle(effect, target))
+		effect.transform = muzzle_matrix
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color

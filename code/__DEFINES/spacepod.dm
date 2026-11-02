@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(pod_slots, list(
 #define POD_FUEL_COEFFICIENT 20
 /// Spacepod power coefficient
 #define POD_POWER_COEFFICIENT 0.25
+/// Distance from the pod center to each wing's firing origin, in pixels
+#define POD_WEAPON_WING_OFFSET 16
 
 
 /// List of active trackers

@@ -725,7 +725,28 @@
 	if(selected_gun.weapon.gun_on_cooldown(user, check_mob_cooldown = FALSE))
 		return
 
-	selected_gun.weapon.fast_fire(target, user)
+	selected_gun.set_fire_origin(src, weapon.next_fire_side)
+	if(selected_gun.weapon.fast_fire(target, user))
+		weapon.next_fire_side *= -1
+
+/// Return pixels offset from the pod lower-left turf
+/// Side 1 - right, -1 - left
+/obj/spacepod/proc/get_weapon_fire_pixel_offsets(side)
+	var/center_x = round((bound_width - ICON_SIZE_X) / 2)
+	var/center_y = round((bound_height - ICON_SIZE_Y) / 2)
+
+	var/forward_x = ((dir & EAST) ? 1 : 0) - ((dir & WEST) ? 1 : 0)
+	var/forward_y = ((dir & NORTH) ? 1 : 0) - ((dir & SOUTH) ? 1 : 0)
+	if(!forward_x && !forward_y)
+		return list(center_x, center_y)
+
+	var/right_x = forward_y
+	var/right_y = -forward_x
+	var/vector_length = sqrt(right_x * right_x + right_y * right_y)
+	return list(
+		center_x + round(right_x / vector_length * side * POD_WEAPON_WING_OFFSET),
+		center_y + round(right_y / vector_length * side * POD_WEAPON_WING_OFFSET),
+	)
 
 
 // MARK: Damage

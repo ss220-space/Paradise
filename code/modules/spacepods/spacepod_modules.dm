@@ -622,6 +622,8 @@
 	consume_power = 5
 	mass = 250
 	var/only_course_fire = FALSE
+	/// Wing for next shot: 1 - right, -1 - left.
+	var/next_fire_side = -1
 	var/datum/spacepod_weapon_slot/primary = new("primary", "Основное")
 	var/datum/spacepod_weapon_slot/secondary = new("secondary", "Дополнительное")
 
@@ -634,6 +636,11 @@
 	QDEL_NULL(secondary)
 	. = ..()
 
+/obj/item/spacepod_module/weapon/on_remove(obj/spacepod/pod)
+	. = ..()
+	primary.restore_weapon_offset()
+	secondary.restore_weapon_offset()
+
 /obj/item/spacepod_module/weapon/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
 	if(length(weapons) > 0)
@@ -643,21 +650,21 @@
 
 /obj/item/spacepod_module/weapon/proc/install_gun(obj/item/gun/installed_gun)
 	if(primary.weapon == null)
-		primary.weapon = installed_gun
+		primary.install_weapon(installed_gun)
 		return TRUE
 	if(secondary.weapon == null)
-		secondary.weapon = installed_gun
+		secondary.install_weapon(installed_gun)
 		return TRUE
 	return FALSE
 
 /obj/item/spacepod_module/weapon/proc/remove_gun(obj/item/gun/selected_gun)
 	if(primary.weapon == selected_gun)
-		primary.weapon = null
+		primary.clear_weapon()
 		primary.charging = FALSE
 		primary.safety = TRUE
 		return selected_gun
 	if(secondary.weapon == selected_gun)
-		secondary.weapon = null
+		secondary.clear_weapon()
 		secondary.charging = FALSE
 		secondary.safety = TRUE
 		return selected_gun
@@ -671,11 +678,37 @@
 	var/safety = TRUE
 	var/charging = FALSE
 	var/recharge_rate = 100
+	var/original_pixel_x = 0
+	var/original_pixel_y = 0
 
 /datum/spacepod_weapon_slot/New(id, name)
 	. = ..()
 	src.id = id
 	src.name = name
+
+/datum/spacepod_weapon_slot/proc/install_weapon(obj/item/gun/new_weapon)
+	weapon = new_weapon
+	original_pixel_x = new_weapon.pixel_x
+	original_pixel_y = new_weapon.pixel_y
+
+/datum/spacepod_weapon_slot/proc/set_fire_origin(obj/spacepod/pod, side)
+	if(!weapon || !pod)
+		return
+	var/list/pixel_offsets = pod.get_weapon_fire_pixel_offsets(side)
+	weapon.pixel_x = original_pixel_x + pixel_offsets[1]
+	weapon.pixel_y = original_pixel_y + pixel_offsets[2]
+
+/datum/spacepod_weapon_slot/proc/restore_weapon_offset()
+	if(!weapon)
+		return
+	weapon.pixel_x = original_pixel_x
+	weapon.pixel_y = original_pixel_y
+
+/datum/spacepod_weapon_slot/proc/clear_weapon()
+	restore_weapon_offset()
+	weapon = null
+	original_pixel_x = 0
+	original_pixel_y = 0
 
 /datum/spacepod_weapon_slot/proc/reload(obj/spacepod/pod, mob/user)
 	if(weapon == null)
