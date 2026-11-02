@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена невозможность выбрать мужские стили для волос в некоторых случаях. (PR #9972)"

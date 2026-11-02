@@ -60,7 +60,7 @@
 	if(has_antimagic)
 		return
 	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
-	addtimer(CALLBACK(src, PROC_REF(unbless_bible)), 10 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(unbless_bible)), 6 MINUTES)
 
 /obj/item/storage/bible/proc/unbless_bible()
 	qdel(GetComponent(/datum/component/anti_magic))

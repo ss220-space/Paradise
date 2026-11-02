@@ -115238,9 +115238,9 @@
 /area/station/maintenance/fpmaint)
 "tHz" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -140112,9 +140112,9 @@
 /area/station/service/clown)
 "xNX" = (
 /obj/structure/closet/cabinet,
-/obj/item/storage/bible,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/carpet/green,
 /area/station/maintenance/library)
 "xOb" = (

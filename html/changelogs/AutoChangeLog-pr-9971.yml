@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь стан пр  попытке мытья включенного батона работает только если тот в руках моющего. (PR #9971)"
