@@ -177,7 +177,10 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 		update_icon()
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
-	if(user && sibyl_mod)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(. && user && sibyl_mod)
 		if(!sibyl_mod.check_auth(user))
 			return FALSE
 

@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - refactor: "Глобальные списки sprite_accessory заменены на сабсистему SSaccessories. (PR #9848)"

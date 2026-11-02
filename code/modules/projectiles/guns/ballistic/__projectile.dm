@@ -117,9 +117,9 @@
 	return
 
 /obj/item/gun/projectile/can_shoot(mob/user)
-	if(!magazine || !magazine.ammo_count(FALSE))
+	if(!chambered && (!magazine || !magazine.ammo_count(FALSE)))
 		return FALSE
-	return TRUE
+	return ..()
 
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine

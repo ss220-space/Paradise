@@ -12,6 +12,12 @@ GLOBAL_DATUM_INIT(strippable_state, /datum/ui_state/strippable_state, new)
 	. = user.default_can_use_topic(src_object)
 	if(!HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		. = min(., UI_UPDATE)
+	if(!user.can_strip)
+		. = min(., UI_DISABLED)
+	else
+		var/mob/living/user_living = user
+		if(user_living?.mob_size <= MOB_SIZE_SMALL)
+			. = min(., UI_DISABLED)
 	var/mob/M = src_object
 	if(!isturf(M.loc))
 		. = min(., UI_DISABLED)

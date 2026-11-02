@@ -121,6 +121,7 @@
 	return ..()
 
 /obj/item/gun/projectile/bow/can_shoot(mob/user)
+	. = ..()
 	return chambered && ready_to_fire
 
 /obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)

@@ -308,6 +308,7 @@
 	var/datum/admin_verb_panel/admin_verb_panel
 
 	var/datum/escape_menu/escape_menu
+	var/datum/tgui_window/emote_panel
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

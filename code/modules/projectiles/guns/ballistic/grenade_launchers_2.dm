@@ -64,7 +64,7 @@
 
 /obj/item/gun/projectile/revolver/rocketlauncher/can_shoot(mob/user)
 	if(chambered)
-		return TRUE
+		return ..()
 	return FALSE
 
 /obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)

@@ -1,5 +1,6 @@
 
 /datum/sprite_accessory/head_accessory/ipc
+	abstract_type = /datum/sprite_accessory/head_accessory/ipc
 	icon = 'icons/mob/sprite_accessories/ipc/ipc_head_accessories.dmi'
 	species_allowed = list(SPECIES_MACHINEPERSON)
 	over_hair = TRUE

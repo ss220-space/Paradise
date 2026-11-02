@@ -1,22 +1,4 @@
 /proc/makeDatumRefLists()
-	// Markings
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.marking_styles_list)
-	// Head accessory
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
-	// Hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
-	// Hair gradients
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
-	// Facial hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
-	// Underwear
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
-	// Undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
-	// Socks
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list, GLOB.socks_m, GLOB.socks_f)
-	// Alt heads
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
 	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
 
@@ -25,8 +7,6 @@
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
-	// Different bodies
-	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
 	// Different wings

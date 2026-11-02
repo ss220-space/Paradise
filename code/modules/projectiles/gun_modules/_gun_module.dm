@@ -22,6 +22,8 @@
 	var/obj/item/gun/gun = null
 	/// Can module be detached.
 	var/can_detach = TRUE
+	/// Exists overlay on gun
+	var/exists_overlay = TRUE
 
 /obj/item/gun_module/Destroy()
 	. = ..()
@@ -49,7 +51,8 @@
 	if(!do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun, max_interact_count = 1))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
-	target_gun.add_attachment_overlay(src)
+	if(exists_overlay)
+		target_gun.add_attachment_overlay(src)
 	user.drop_transfer_item_to_loc(src, target_gun)
 	gun = target_gun
 	src.on_attach(target_gun, user)
@@ -62,7 +65,8 @@
 		return FALSE
 	src.on_detach(target_gun, user)
 	target_gun.attachments_by_slot[slot] = null
-	target_gun.remove_attachment_overlay(src)
+	if(exists_overlay)
+		target_gun.remove_attachment_overlay(src)
 	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_DETACH, user, target_gun, src)
 	if(put_in_hands)
 		user.put_in_hands(src)

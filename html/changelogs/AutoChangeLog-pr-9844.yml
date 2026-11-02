@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - bugfix: "Исправлен баг при котором при выборе модуля борг не получал радиоканалы своего отдела. (PR #9844)"

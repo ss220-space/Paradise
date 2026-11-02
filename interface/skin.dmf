@@ -165,7 +165,7 @@ window "infobuttons"
 		background-color = none
 		saved-params = "is-checked"
 		text = "Emotes"
-		command = "Emote-Panel"
+		command = ".winset \"statwindow.statemotes.is-visible=true?statwindow.statemotes.is-visible=false:statwindow.statemotes.is-visible=true\"\nEmote-Panel"
 	elem "fullscreen-toggle"
 		type = BUTTON
 		pos = 277,2
@@ -441,6 +441,14 @@ window "statwindow"
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "statbrowser"
+		type = BROWSER
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		is-visible = false
+		saved-params = ""
+	elem "statemotes"
 		type = BROWSER
 		pos = 0,0
 		size = 640x480

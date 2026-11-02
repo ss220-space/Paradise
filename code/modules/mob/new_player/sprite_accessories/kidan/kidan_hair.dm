@@ -1,5 +1,6 @@
 //Kidan Hairstyles with sprites by Travelling Merchant
 /datum/sprite_accessory/hair/kidan
+	abstract_type = /datum/sprite_accessory/hair/kidan
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_hair.dmi'
 	species_allowed = list(SPECIES_KIDAN)
 	glasses_over = 1

@@ -1,0 +1,5 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Мыши больше не могут переворачивать столы (PR #9839)"
+  - bugfix: "Мыши больше не могут раздевать людей (PR #9839)"

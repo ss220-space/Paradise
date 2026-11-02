@@ -8776,6 +8776,7 @@
 /area/shuttle/pirate_corvette)
 "dfO" = (
 /obj/structure/chair/stool,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/carpet/arcade,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "dgc" = (
@@ -15311,6 +15312,13 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permabrig)
+"fKA" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/carpet/orange,
+/area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "fKL" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -42359,6 +42367,14 @@
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
+"pNU" = (
+/obj/structure/chair/office/dark,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/coldcolony/malta/resid_serv/library/game_zone)
 "pNV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -43958,6 +43974,10 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
+"qtK" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "qtM" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/ore/silver{
@@ -45415,6 +45435,7 @@
 /area/coldcolony/malta/hallway/service/east)
 "qWA" = (
 /obj/structure/chair/sofa,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "qWK" = (
@@ -55990,6 +56011,13 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/securearmory)
+"vce" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/carpet/orange,
+/area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "vcl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -56869,6 +56897,7 @@
 /obj/structure/chair/stool/wooden{
 	dir = 8
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "vrl" = (
@@ -59449,6 +59478,13 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
+"wlL" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/carpet,
+/area/coldcolony/malta/resid_serv/bar/atrium)
 "wlM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -95064,7 +95100,7 @@ cqT
 oAY
 dmG
 vIj
-pjw
+fKA
 csq
 vIj
 pjw
@@ -95334,7 +95370,7 @@ qls
 iql
 mXD
 pDT
-pDT
+wlL
 lxZ
 gWC
 mXD
@@ -95577,7 +95613,7 @@ nxo
 qrf
 gWq
 sYU
-vIj
+vce
 pjw
 csq
 vIj
@@ -98670,7 +98706,7 @@ sKI
 tLE
 sER
 haO
-wqn
+pNU
 cTM
 cSi
 uoP
@@ -98908,7 +98944,7 @@ wGY
 bOM
 xYj
 gQV
-kNZ
+qtK
 hsG
 nRn
 obl

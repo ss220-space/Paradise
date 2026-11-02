@@ -72,6 +72,7 @@
 		JOB_TITLE_ROBOTICIST = "sciradio",
 		JOB_TITLE_SCIENTIST = "sciradio",
 		JOB_TITLE_SCIENCE_STUDENT = "sciradio",
+		JOB_TITLE_EXPLORER = "sciradio",
 		// Security
 		JOB_TITLE_BRIGDOC = "secradio",
 		JOB_TITLE_DETECTIVE = "secradio",

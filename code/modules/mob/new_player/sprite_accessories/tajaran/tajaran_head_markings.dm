@@ -1,5 +1,6 @@
 
 /datum/sprite_accessory/body_markings/head/tajara
+	abstract_type = /datum/sprite_accessory/body_markings/head/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_markings.dmi'
 	species_allowed = list(SPECIES_TAJARAN)
 

@@ -1,4 +1,5 @@
 /datum/sprite_accessory/body_markings/kidan
+	abstract_type = /datum/sprite_accessory/body_markings/kidan
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_body_markings.dmi'
 	species_allowed = list(SPECIES_KIDAN)
 

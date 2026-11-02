@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - add: "Добавлен редактор МЭКов в Custom Outfit (PR #9830)"

@@ -64,7 +64,7 @@
 		if(new_hair)
 			M.change_hair_color(new_hair)
 
-		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 			new_hair = tgui_input_color(usr, "Пожалуйста, выберите дополнительный цвет волос.", "Создание персонажа", head_organ.sec_hair_colour)
 			if(new_hair)
@@ -81,7 +81,7 @@
 		if(new_facial)
 			M.change_facial_hair_color(new_facial)
 
-		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
+		var/datum/sprite_accessory/facial_hair_style = SSaccessories.facial_hairstyles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 			new_facial = tgui_input_color(usr, "Пожалуйста, выберите дополнительный цвет лицевой растительности.", "Создание персонажа", head_organ.sec_facial_colour)
 			if(new_facial)

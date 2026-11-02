@@ -340,6 +340,13 @@
 		'sound/voice/unathi/f_u_scream2.ogg',
 	)
 
+/datum/sound_effect/u_mscream
+	key = SFX_U_MSCREAM
+	file_paths = list(
+		'sound/voice/unathi/m_u_scream.ogg',
+		'sound/voice/unathi/m_u_scream2.ogg',
+	)
+
 /datum/sound_effect/bonebreak
 	key = SFX_BONEBREAK
 	file_paths = list(

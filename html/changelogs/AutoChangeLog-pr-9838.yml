@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - bugfix: "унати снова кричат (и больше не рантаймят) (PR #9838)"

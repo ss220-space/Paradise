@@ -1,6 +1,7 @@
 // Unathi head accessories are all shared with hairstyle. So they redirect to the same file.
 
 /datum/sprite_accessory/head_accessory/unathi
+	abstract_type = /datum/sprite_accessory/head_accessory/unathi
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_hair.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 	over_hair = 1

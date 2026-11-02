@@ -1,8 +1,10 @@
 /datum/sprite_accessory/hair/ipc
+	abstract_type = /datum/sprite_accessory/hair/ipc
 	icon = 'icons/mob/sprite_accessories/ipc/ipc_face.dmi'
 	species_allowed = list(SPECIES_MACHINEPERSON)
 	glasses_over = TRUE
 	models_allowed = list("Bishop Castle", "Industrial Revolution", "Morpheus Cyberkinetics", "Ward-Takahashi Classic", "Xion Original", "Shellguard Munitions Standard Series")
+
 /datum/sprite_accessory/hair/ipc/ipc_screen_blank
 	name = "Blank IPC Screen"
 	icon_state = "blank"
@@ -131,18 +133,14 @@
 	icon_state = "rainbow_hesp_alt"
 	models_allowed = list("Titan Enforcer")
 
-//Fluff
-/datum/sprite_accessory/hair/ipc/fluff
-	fluff = TRUE
-
-/datum/sprite_accessory/hair/ipc/fluff/lumi_eyes //Lumi Fluff hair
+/datum/sprite_accessory/hair/ipc/lumi_eyes //Lumi Fluff hair
 	name = "Lumi Eyes"
 	icon_state = "lumi_eyes"
 
-/datum/sprite_accessory/hair/ipc/fluff/lumi_music //Lumi Fluff hair
+/datum/sprite_accessory/hair/ipc/lumi_music //Lumi Fluff hair
 	name = "Lumi Music"
 	icon_state = "lumi_music"
 
-/datum/sprite_accessory/hair/ipc/fluff/lumi_waiting //Lumi Fluff hair
+/datum/sprite_accessory/hair/ipc/lumi_waiting //Lumi Fluff hair
 	name = "Lumi Waiting"
 	icon_state = "lumi_waiting"

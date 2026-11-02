@@ -1406,7 +1406,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!istype(head_organ))
 		return
-	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair/hair_style = SSaccessories.hairstyles_list[head_organ.h_style]
 	var/mutable_appearance/MA
 	if(hair_style)
 		var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")

@@ -61,7 +61,12 @@
 	if(!ui)
 		ui = new(user, src, "EmotePanel")
 		ui.set_autoupdate(FALSE)
-		ui.open()
+		ui.open(user.client.emote_panel)
 
 /datum/emote_panel/ui_state(mob/user)
 	return GLOB.always_state
+
+/datum/emote_panel/ui_close(mob/user)
+	if(user.canon_client)
+		winset(user.canon_client, "statwindow.statemotes", "is-visible=false")
+	return ..()
