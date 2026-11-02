@@ -120,8 +120,8 @@
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
 		var/datum/reagent/new_reagent = new addict_supertype()
-		M.reagents.addiction_threshold_accumulated[new_reagent.id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
+		M.reagents.addiction_threshold_accumulated[new_reagent.type] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.type]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))

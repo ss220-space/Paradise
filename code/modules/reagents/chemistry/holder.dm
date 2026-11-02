@@ -752,7 +752,7 @@
 		return FALSE
 
 	for(var/datum/reagent/R in reagent_list)
-		if(R.type == R.addict_supertype)
+		if(R.addict_supertype == reagent)
 			if(!amount)
 				return R
 			else

@@ -246,18 +246,21 @@
 		data["isBeakerLoaded"] = FALSE
 
 	var/chemicals[0]
-	for(var/datum/reagent/re in possible_chems)
-		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+	for(var/reagent_type in possible_chems)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[reagent_type]
+		if(!temp)
+			continue
+
 		var/reagent_amount = 0
 		var/pretty_amount
 		var/injectable = occupant ? 1 : 0
 		var/overdosing = 0
 		var/caution = 0 // To make things clear that you're coming close to an overdose
-		if(crisis && !(re in emergency_chems))
+		if(crisis && !(reagent_type in emergency_chems))
 			injectable = 0
 
 		if(occupant?.reagents)
-			reagent_amount = occupant.reagents.get_reagent_amount(re)
+			reagent_amount = occupant.reagents.get_reagent_amount(reagent_type)
 			// If they're mashing the highest concentration, they get one warning
 			if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
 				caution = 1
@@ -266,7 +269,7 @@
 
 		pretty_amount = round(reagent_amount, 0.05)
 
-		chemicals.Add(list(list("title" = temp.name, "id" = temp.type, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+		chemicals.Add(list(list("title" = temp.name, "id" = "[reagent_type]", "commands" = list("chemical" = "[reagent_type]"), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 
 	data["chemicals"] = chemicals
 	return data
@@ -290,9 +293,9 @@
 			if(occupant.stat == DEAD)
 				to_chat(usr, span_danger("Пациент мёртв, ввод веществ невозможен."))
 				return
-			var/chemical = params["chemid"]
+			var/chemical = text2path(params["chemid"])
 			var/amount = text2num(params["amount"])
-			if(!length(chemical) || amount <= 0)
+			if(!ispath(chemical) || amount <= 0)
 				return
 			if(occupant.health > min_health || (chemical in emergency_chems))
 				inject_chemical(usr, chemical, amount)

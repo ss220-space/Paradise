@@ -25,7 +25,7 @@
 		return
 
 	for(var/datum/reagent/reagent as anything in reagent_list)
-		. += list(list("name" = reagent.name, "id" = reagent.id, "volume" = round(reagent.volume, 0.01)))
+		. += list(list("name" = reagent.name, "id" = "[reagent.type]", "volume" = round(reagent.volume, 0.01)))
 
 /obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
@@ -162,9 +162,10 @@
 		return FALSE
 
 	if(action == "inject_reagent")
-		var/reagent_id = params["reagent"]
-		var/datum/reagent/reagent = find_chemical_reagent_by_id(reagent_id)
-		var/datum/reagent/medication = shooter.reagents.has_reagent(reagent.type)
+		var/reagent_type = text2path(params["reagent"])
+		if(!ispath(reagent_type))
+			return FALSE
+		var/datum/reagent/medication = shooter.reagents.has_reagent(reagent_type)
 		if(!medication)
 			return FALSE
 		inject_reagent(medication, shooter)
@@ -263,11 +264,13 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
 
-	for(var/i = 1 to length(known_reagents))
-		var/enabled = FALSE
-		if(known_reagents[i] in processed_reagents)
-			enabled = TRUE
-		analyzed_reagents += list((list("name" = known_reagents[i], "enabled" = enabled)))
+	for(var/reagent_type in known_reagents)
+		var/datum/reagent/known_reagent = GLOB.chemical_reagents_list[reagent_type]
+		analyzed_reagents += list(list(
+			"name" = known_reagent ? known_reagent.name : "[reagent_type]",
+			"id" = "[reagent_type]",
+			"enabled" = (reagent_type in processed_reagents),
+		))
 
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_SYRINGE,
@@ -309,17 +312,19 @@
 			reagents.clear_reagents()
 			return TRUE
 		if("purge_reagent")
-			var/reagent_id = params["reagent"]
-			var/datum/reagent/reagent = find_chemical_reagent_by_id(reagent_id)
-			reagents.del_reagent(reagent.type)
+			var/reagent_type = text2path(params["reagent"])
+			if(!ispath(reagent_type))
+				return FALSE
+			reagents.del_reagent(reagent_type)
 			return TRUE
 		if("toggle_reagent")
-			var/switch_reagent_id = params["reagent"]
-			var/datum/reagent/switch_reagent = find_chemical_reagent_by_id(switch_reagent_id)
-			if(switch_reagent in processed_reagents)
-				processed_reagents -= switch_reagent.type
+			var/reagent_type = text2path(params["reagent"])
+			if(!ispath(reagent_type))
+				return FALSE
+			if(reagent_type in processed_reagents)
+				processed_reagents -= reagent_type
 			else
-				synthesize(switch_reagent.type)
+				synthesize(reagent_type)
 			return TRUE
 
 	return FALSE
@@ -380,7 +385,7 @@
 			if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 				if(mechsyringe.reagents)
 					for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-						R += A.id + " ("
+						R += "[A.type] ("
 						R += num2text(A.volume) + "),"
 				add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 				mechsyringe.reagents.reaction(M, REAGENT_INGEST)
