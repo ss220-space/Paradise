@@ -20,13 +20,11 @@
 
 /mob/living/simple_animal/hostile/carp/rift_carp/AttackingTarget()
 	if(istype(target, /obj/structure/carp_rift))
-		to_chat(src, span_warning("Вы почти укусили разлом, но вовремя остановились."))
 		return
 
 	if(isliving(target))
 		var/mob/living/living_target = target
 		if("carp" in living_target.faction)
-			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
 			return
 	. = ..()
 

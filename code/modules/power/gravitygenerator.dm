@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator
 	abstract_type = /obj/machinery/gravity_generator
 	name = "gravitational generator"
-	desc = "A device which produces a gravaton field when set up."
+	desc = "Тяжелый гравитационный стабилизатор. Центральное ядро светится жутковатым зеленым светом, непрерывно проецируя локальное гравитонное поле."
 	icon = 'icons/obj/machines/gravity_generator.dmi'
 	anchored = TRUE
 	density = TRUE
@@ -25,6 +25,16 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sprite_number = 0
 	/// Number of successful blob hits
 	var/blob_hits = 0
+
+/obj/machinery/gravity_generator/get_ru_names()
+	return alist(
+		NOMINATIVE = "генератор гравитации",
+		GENITIVE = "генератора гравитации",
+		DATIVE = "генератору гравитации",
+		ACCUSATIVE = "генератор гравитации",
+		INSTRUMENTAL = "генератором гравитации",
+		PREPOSITIONAL = "генераторе гравитации",
+	)
 
 /obj/machinery/gravity_generator/ex_act(severity, target)
 	if(severity >= EXPLODE_DEVASTATE) // Very sturdy.
@@ -197,13 +207,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
-			. += span_notice("The entire frame is barely holding together, the <b>screws</b> need to be refastened.")
+			. += span_notice("Весь каркас едва держится, <b>болты</b> нужно закрутить заново.")
 		if(GRAV_NEEDS_WELDING)
-			. += span_notice("There's lots of broken seals on the framework, it could use some <b>welding</b>.")
+			. += span_notice("На каркасе полно поврежденных уплотнений, его не помешало бы <b>заварить</b>.")
 		if(GRAV_NEEDS_PLASTEEL)
-			. += span_notice("Some of this damaged plating needs full replacement. <b>10 plasteel</> should be enough.")
+			. += span_notice("Часть этой поврежденной обшивки требует полной замены. <b>10 пластали</b> должно хватить.")
 		if(GRAV_NEEDS_WRENCH)
-			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
+			. += span_notice("Новую обшивку теперь остается только <b>прикрутить</b> на место.")
 
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
@@ -213,11 +223,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/obj/item/stack/sheet/plasteel/plasteel = I
 	var/cached_sound = plasteel.usesound
 	if(!plasteel.use(10))
-		to_chat(user, span_warning("You need at least ten sheets of plasteel to repair the framework."))
+		to_chat(user, span_warning("Вам нужно как минимум 10 листов пластали, чтобы починить каркас."))
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	to_chat(user, span_notice("You have repaired the plating of the framework."))
+	to_chat(user, span_notice("Вы починили обшивку каркаса."))
 	playsound(loc, cached_sound, 75, TRUE)
 	broken_state++
 	update_icon(UPDATE_ICON_STATE)
@@ -229,7 +239,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	add_fingerprint(user)
-	to_chat(user, span_notice("You secure the screws of the framework."))
+	to_chat(user, span_notice("Вы закручиваете винты каркаса."))
 	broken_state++
 	update_icon(UPDATE_ICON_STATE)
 
@@ -239,7 +249,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	. = TRUE
 	if(!I.use_tool(src, user, amount = 1, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("You mend the damaged framework."))
+	to_chat(user, span_notice("Вы ремонтируете поврежденный каркас."))
 	broken_state++
 	update_icon(UPDATE_ICON_STATE)
 
@@ -250,7 +260,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	add_fingerprint(user)
-	to_chat(user, span_notice("You secure the plating to the framework."))
+	to_chat(user, span_notice("Вы закрепляете обшивку на каркасе."))
 	set_fix()
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user)
@@ -443,18 +453,15 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 // MARK: Misc
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"
-	info = {"<h1>Generating Gravity For Dummies</h1>
-	<p>Surprisingly, gravity isn't that hard to make! All you have to do is inject deadly radioactive minerals into a ball of
-	energy and you have yourself gravity! You can turn the machine on or off when required but you must remember that the generator
-	will EMIT RADIATION when charging or discharging, you can tell it is charging or discharging by the noise it makes, so please WEAR PROTECTIVE CLOTHING.</p>
-	<br>
-	<h3>It blew up!</h3>
-	<p>Don't panic! The gravity generator was designed to be easily repaired. If, somehow, the sturdy framework did not survive then
-	please proceed to panic; otherwise follow these steps.</p><ol>
-	<li>Mend the damaged framework with a welding tool.</li>
-	<li>Add additional plasteel plating.</li>
-	<li>Secure the additional plating with a wrench.</li>
-	<li>Secure the cover screws with a screwdriver.</li></ol>"}
+	info = {"<h1>Генерация гравитации для чайников</h1>
+		<p>Как ни странно, создать гравитацию не так уж сложно! Все, что вам нужно сделать, это впрыснуть смертельно опасные радиоактивные минералы в шар энергии, и у вас есть гравитация! Вы можете включать или выключать генератор по мере необходимости, но вы должны помнить, что генератор будет ИЗЛУЧАТЬ РАДИАЦИЮ при зарядке или разрядке. Вы можете определить, заряжается он или разряжается, по издаваемому шуму, поэтому, пожалуйста, <b>НАДЕВАЙТЕ ЗАЩИТНУЮ ЭКИПИРОВКУ!</b></p>
+		<br>
+		<h3>Оно взорвалось!</h3>
+		<p>Не паникуйте! Генератор гравитации был спроектирован так, чтобы его можно было легко починить. Если каким-то образом прочный каркас не выжил, тогда, пожалуйста, переходите к панике; в противном случае выполните следующие шаги.</p><ol>
+		<li>Почините поврежденный каркас с помощью сварочного инструмента.</li>
+		<li>Добавьте дополнительную обшивку из пластали.</li>
+		<li>Закрепите дополнительную обшивку с помощью гаечного ключа.</li>
+		<li>Закрутите винты крышки с помощью отвертки.</li></ol>"}
 
 #undef GRAV_POWER_IDLE
 #undef GRAV_POWER_UP
