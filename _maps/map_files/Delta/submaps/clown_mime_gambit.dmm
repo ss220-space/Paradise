@@ -324,7 +324,7 @@
 /obj/machinery/alarm/directional/west,
 /obj/structure/closet/secure_closet/clown,
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

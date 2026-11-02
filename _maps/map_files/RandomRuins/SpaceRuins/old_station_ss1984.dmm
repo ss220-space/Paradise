@@ -2461,7 +2461,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/ears/headphones,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
 "jF" = (
@@ -3008,7 +3008,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/under/rank/bartender/skirt,
+/obj/item/clothing/under/rank/service/bartender/skirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
 "lD" = (
@@ -5058,7 +5058,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "tC" = (
 /obj/effect/decal/cleanable/blood/gibs,
-/obj/item/clothing/under/rank/janitor,
+/obj/item/clothing/under/rank/service/janitor,
 /obj/item/clothing/shoes/color/black,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -5554,7 +5554,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "vw" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/vending_refill/sovietsoda,
 /obj/item/decorations/flag/soviet,
 /turf/simulated/floor/plating,
@@ -11218,7 +11218,7 @@
 /obj/item/clothing/head/caphat/office,
 /obj/item/clothing/glasses/sunglasses/big,
 /obj/item/clothing/neck/mantle/regal,
-/obj/item/clothing/under/captainparade/alt,
+/obj/item/clothing/under/rank/captain/parade,
 /obj/effect/decal/remains/human,
 /obj/item/storage/backpack/satchel,
 /obj/item/card/id/research{
@@ -11235,8 +11235,8 @@
 	dir = 1
 	},
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/blackskirt,
-/obj/item/clothing/under/barber,
+/obj/item/clothing/under/miscellaneous/blackskirt,
+/obj/item/clothing/under/rank/service/barber,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
 "RC" = (

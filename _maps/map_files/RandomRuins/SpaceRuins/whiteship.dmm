@@ -1207,7 +1207,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "zJ" = (
-/obj/item/clothing/under/rank/chief_medical_officer/skirt,
+/obj/item/clothing/under/rank/medical/doctor/chief_medical_officer/skirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -1327,7 +1327,7 @@
 	name = "scrubber to outside gas pump";
 	target_pressure = 4000
 	},
-/obj/item/clothing/under/rank/medical/purple,
+/obj/item/clothing/under/rank/medical/doctor/purple,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -1336,8 +1336,8 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/passive_vent,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/clothing/under/rank/medical/blue,
-/obj/item/clothing/under/rank/medical{
+/obj/item/clothing/under/rank/medical/doctor/blue,
+/obj/item/clothing/under/rank/medical/doctor{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -1588,7 +1588,7 @@
 	custom_door_overlay = "white";
 	name = "Medical gear"
 	},
-/obj/item/clothing/under/rank/medical/paramedic,
+/obj/item/clothing/under/rank/medical/doctor/paramedic,
 /obj/item/clothing/shoes/color/black,
 /obj/item/surgical_drapes,
 /turf/simulated/floor/plasteel{
@@ -1871,7 +1871,7 @@
 /area/shuttle/abandoned)
 "Oq" = (
 /obj/structure/rack,
-/obj/item/clothing/under/rank/medical/blue,
+/obj/item/clothing/under/rank/medical/doctor/blue,
 /obj/machinery/light/built,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"

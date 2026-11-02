@@ -6380,8 +6380,8 @@
 /area/station/ai/satellite/exterior)
 "bcR" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/blue,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
 /obj/item/clothing/head/beret,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable,
@@ -33531,7 +33531,7 @@
 "fPr" = (
 /obj/structure/closet/secure_closet/clown,
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -46786,7 +46786,7 @@
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/clothing/under/solgov/civ,
+/obj/item/clothing/under/solgov/marine/civ,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -52190,8 +52190,8 @@
 /area/station/commons/serviceyard)
 "iXl" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/solgov/civ,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/solgov/marine/civ,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/under/syndicate/blackops_civ,
 /obj/item/clothing/under/fluff/soviet_casual_uniform,
@@ -114592,7 +114592,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/leathercoat,
 /obj/item/clothing/head/fedora,
-/obj/item/clothing/under/blacktango,
+/obj/item/clothing/under/dress/blacktango,
 /obj/item/clothing/head/bowlerhat,
 /obj/machinery/light{
 	dir = 1;
@@ -130957,7 +130957,7 @@
 "wqg" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/item/clothing/under/fluff/soviet_casual_uniform,
 /turf/simulated/floor/carpet/orange,

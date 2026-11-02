@@ -555,7 +555,7 @@
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "mY" = (
-/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/costumes/pirate,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -780,8 +780,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/pirate_rags,
+/obj/item/clothing/under/dress/sailor,
+/obj/item/clothing/under/costumes/pirate_rags,
 /turf/simulated/floor/wood/fancy/oak/lavaland_air,
 /area/ruin/powered/pirateship)
 "ri" = (
@@ -2067,7 +2067,7 @@
 /area/ruin/powered/pirateship)
 "Tl" = (
 /obj/effect/decal/cleanable/dust,
-/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/costumes/pirate,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "Tr" = (

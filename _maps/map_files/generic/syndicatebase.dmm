@@ -786,7 +786,7 @@
 	},
 /obj/structure/chair/office/light,
 /obj/item/clothing/suit/armor/secjacket,
-/obj/item/clothing/under/mafia,
+/obj/item/clothing/under/suit/mafia,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "aUQ" = (

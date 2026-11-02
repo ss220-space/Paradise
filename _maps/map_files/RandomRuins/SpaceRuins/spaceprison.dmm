@@ -2408,7 +2408,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/clothing/under/rank/centcom_officer,
+/obj/item/clothing/under/rank/centcom/lieutenant,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"

@@ -15,7 +15,7 @@
 "ah" = (
 /obj/structure/table/wood/poker,
 /obj/item/clothing/shoes/roman,
-/obj/item/clothing/under/roman,
+/obj/item/clothing/under/costumes/roman,
 /obj/item/shield/riot/roman,
 /obj/item/clothing/head/helmet/roman/legionaire,
 /obj/item/twohanded/spear/bonespear,
@@ -123,7 +123,7 @@
 "bn" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/miscellaneous/pj/red,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel{
@@ -1984,7 +1984,7 @@
 "yu" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/miscellaneous/pj/blue,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel{
@@ -2352,7 +2352,7 @@
 "Ca" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/miscellaneous/pj/red,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel{
@@ -2762,7 +2762,7 @@
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
-/obj/item/clothing/under/rebeloutfit,
+/obj/item/clothing/under/miscellaneous/rebeloutfit,
 /obj/item/clothing/neck/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
 /turf/simulated/floor/wood,
@@ -2785,7 +2785,7 @@
 	},
 /area/centcom/tdome/arena_source)
 "GF" = (
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/miscellaneous/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake/holo,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
@@ -3589,7 +3589,7 @@
 /obj/item/clothing/head/naziofficer{
 	name = "Officer Cap"
 	},
-/obj/item/clothing/under/officeruniform{
+/obj/item/clothing/under/ussp/clown/officer{
 	icon_state = "nazi";
 	name = "Officer's Uniform"
 	},
@@ -4070,7 +4070,7 @@
 /area/centcom/admin_room)
 "WO" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/under/dress/dress_saloon,
+/obj/item/clothing/under/dress/saloon,
 /obj/item/clothing/head/hairflower,
 /turf/simulated/floor/holofloor{
 	icon_state = "light-fancy-wood"
@@ -4194,7 +4194,7 @@
 "XZ" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/miscellaneous/pj/blue,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plasteel{

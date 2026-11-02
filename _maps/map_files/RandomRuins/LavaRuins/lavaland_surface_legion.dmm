@@ -74,7 +74,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/rack,
 /obj/item/clothing/shoes/roman,
-/obj/item/clothing/under/roman,
+/obj/item/clothing/under/costumes/roman,
 /obj/item/clothing/head/helmet/roman/legionaire,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)

@@ -7,7 +7,7 @@
 /obj/item/clothing/under/roman/@SUBTYPES : /obj/item/clothing/under/costumes/roman/@SUBTYPES{@OLD}
 /obj/item/clothing/under/maid/@SUBTYPES : /obj/item/clothing/under/costumes/maid/@SUBTYPES{@OLD}
 /obj/item/clothing/under/maid/short/@SUBTYPES : /obj/item/clothing/under/costumes/maid/short/@SUBTYPES{@OLD}
-/obj/item/clothing/under/janimaid/@SUBTYPES /obj/item/clothing/under/costumes/janimaid/@SUBTYPES{@OLD}
+/obj/item/clothing/under/janimaid/@SUBTYPES : /obj/item/clothing/under/costumes/janimaid/@SUBTYPES{@OLD}
 /obj/item/clothing/under/schoolgirl/@SUBTYPES : /obj/item/clothing/under/costumes/schoolgirl/@SUBTYPES{@OLD}
 /obj/item/clothing/under/jester/@SUBTYPES : /obj/item/clothing/under/costumes/jester/@SUBTYPES{@OLD}
 /obj/item/clothing/under/psyjump/@SUBTYPES : /obj/item/clothing/under/costumes/psyjump/@SUBTYPES{@OLD}
@@ -121,7 +121,7 @@
 /obj/item/clothing/under/rank/medical/@SUBTYPES : /obj/item/clothing/under/rank/medical/doctor/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/medical/blue/@SUBTYPES : /obj/item/clothing/under/rank/medical/scrub/blue/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/medical/green/@SUBTYPES : /obj/item/clothing/under/rank/medical/scrub/green/@SUBTYPES{@OLD}
-/obj/item/clothing/under/rank/medical/lightgreen/@SUBTYPES : obj/item/clothing/under/rank/medical/scrub/lightgreen/@SUBTYPES{@OLD}
+/obj/item/clothing/under/rank/medical/lightgreen/@SUBTYPES : /obj/item/clothing/under/rank/medical/scrub/lightgreen/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/medical/purple/@SUBTYPES : /obj/item/clothing/under/rank/medical/scrub/purple/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/medical/mortician/@SUBTYPES : /obj/item/clothing/under/rank/medical/scrub/mortician/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/psych/@SUBTYPES : /obj/item/clothing/under/rank/medical/psych/@SUBTYPES{@OLD}
@@ -138,7 +138,7 @@
 /obj/item/clothing/under/rank/blueshield/@SUBTYPES : /obj/item/clothing/under/rank/procedure/blueshield/@SUBTYPES{@OLD}
 
 /obj/item/clothing/under/rank/research_director/@SUBTYPES : /obj/item/clothing/under/rank/science/research_director/@SUBTYPES{@OLD}
-/obj/item/clothing/under/rank/scientist/@SUBTYPES : obj/item/clothing/under/rank/science/scientist/@SUBTYPES{@OLD}
+/obj/item/clothing/under/rank/scientist/@SUBTYPES : /obj/item/clothing/under/rank/science/scientist/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/scientist/student/@SUBTYPES : /obj/item/clothing/under/rank/science/student/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/roboticist/@SUBTYPES : /obj/item/clothing/under/rank/science/roboticist/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/mechanic/@SUBTYPES : /obj/item/clothing/under/rank/science/mechanic/@SUBTYPES{@OLD}
@@ -166,7 +166,7 @@
 /obj/item/clothing/under/rank/security/brigphys/@SUBTYPES : /obj/item/clothing/under/rank/security/brigphys/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/security/brigphys/skirt/@SUBTYPES : /obj/item/clothing/under/rank/security/brigphys/skirt/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/security/brigmedical/@SUBTYPES : /obj/item/clothing/under/rank/security/brigmedical/@SUBTYPES{@OLD}
-obj/item/clothing/under/rank/security/pod_pilot/@SUBTYPES : /obj/item/clothing/under/rank/security/pod_pilot/@SUBTYPES{@OLD}
+/obj/item/clothing/under/rank/security/pod_pilot/@SUBTYPES : /obj/item/clothing/under/rank/security/pod_pilot/@SUBTYPES{@OLD}
 /obj/item/clothing/under/tchaikowsky/sechighwaist/@SUBTYPES : /obj/item/clothing/under/security/tchaikowsky/sechighwaist/@SUBTYPES{@OLD}
 
 /obj/item/clothing/under/pj/red/@SUBTYPES : /obj/item/clothing/under/miscellaneous/pj/red/@SUBTYPES{@OLD}

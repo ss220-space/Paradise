@@ -5426,7 +5426,7 @@
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/head/fedora/brownfedora,
 /obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/item/clothing/under/sovietofficer,
+/obj/item/clothing/under/ussp/soviet/officer,
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "cav" = (
@@ -23199,7 +23199,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/defibrillator/compact/advanced/loaded,
 /obj/item/laser_pointer,
-/obj/item/clothing/under/rank/medical/blue,
+/obj/item/clothing/under/rank/medical/doctor/blue,
 /obj/item/clothing/head/surgery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
