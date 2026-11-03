@@ -13,7 +13,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/rank/qm
+/obj/item/clothing/under/rank/cargo/qm
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm"

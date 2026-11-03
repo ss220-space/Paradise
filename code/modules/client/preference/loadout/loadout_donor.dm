@@ -28,12 +28,12 @@
 /datum/gear/donor/ussptracksuit_black
 	donator_tier = 1
 	index_name = "track suit (black)"
-	path = /obj/item/clothing/under/ussptracksuit_black
+	path = /obj/item/clothing/under/ussp/tracksuit_black
 
 /datum/gear/donor/ussptracksuit_white
 	donator_tier = 1
 	index_name = "track suit (white)"
-	path = /obj/item/clothing/under/ussptracksuit_white
+	path = /obj/item/clothing/under/ussp/tracksuit_white
 
 /datum/gear/donor/kittyears
 	index_name = "Kitty ears"
@@ -427,15 +427,15 @@
 	display_name = "Ночное платье"
 	description = "A classic night dress."
 	donator_tier = 3
-	path = /obj/item/clothing/under/night_dress
+	path = /obj/item/clothing/under/dress/night
 
 /datum/gear/donor/night_dress/New()
 	..()
-	var/list/skirts = list("black" = /obj/item/clothing/under/night_dress,
-							"darkred" = /obj/item/clothing/under/night_dress/darkred,
-							"red" = /obj/item/clothing/under/night_dress/red,
-							"silver" = /obj/item/clothing/under/night_dress/silver,
-							"white" = /obj/item/clothing/under/night_dress/white,)
+	var/list/skirts = list("black" = /obj/item/clothing/under/dress/night,
+							"darkred" = /obj/item/clothing/under/dress/night/darkred,
+							"red" = /obj/item/clothing/under/dress/night/red,
+							"silver" = /obj/item/clothing/under/dress/night/silver,
+							"white" = /obj/item/clothing/under/dress/night/white,)
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
 
 /datum/gear/donor/strip/cheese_badge
@@ -538,7 +538,7 @@
 /datum/gear/donor/steampunkdress
 	donator_tier = 1
 	index_name = "victorian blue-white dress"
-	path = /obj/item/clothing/under/steampunkdress
+	path = /obj/item/clothing/under/dress/steampunk
 
 /datum/gear/donor/plaidhoodie_green
 	donator_tier = 1
@@ -582,7 +582,7 @@
 
 /datum/gear/donor/maid
 	index_name = "Short maid costume"
-	path = /obj/item/clothing/under/maid/short
+	path = /obj/item/clothing/under/costumes/maid/short
 
 /datum/gear/donor/rdplushie
 	donator_tier = 3
@@ -622,22 +622,22 @@
 /datum/gear/donor/masterli
 	donator_tier = 1
 	index_name = "master li clothes"
-	path = /obj/item/clothing/under/martialsuit/masterli
+	path = /obj/item/clothing/under/miscellaneous/martialsuit/masterli
 
 /datum/gear/donor/masterdragon
 	donator_tier = 1
 	index_name = "gold dragon master clothes"
-	path = /obj/item/clothing/under/martialsuit/masterdragon
+	path = /obj/item/clothing/under/miscellaneous/martialsuit/masterdragon
 
 /datum/gear/donor/redkunoichi
 	donator_tier = 1
 	index_name = "red kunoichi clothes"
-	path = /obj/item/clothing/under/martialsuit/redkunoichi
+	path = /obj/item/clothing/under/miscellaneous/martialsuit/redkunoichi
 
 /datum/gear/donor/bluekunoichi
 	donator_tier = 1
 	index_name = "blue kunoichi clothes"
-	path = /obj/item/clothing/under/martialsuit/bluekunoichi
+	path = /obj/item/clothing/under/miscellaneous/martialsuit/bluekunoichi
 
 /datum/gear/donor/zazalord
 	donator_tier = 1

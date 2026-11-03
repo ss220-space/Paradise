@@ -579,7 +579,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/soldieruniform
+	uniform = /obj/item/clothing/under/ussp/clown/soldier
 	suit = /obj/item/clothing/suit/soldiercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -590,7 +590,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /datum/outfit/clownofficer
 	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/officeruniform
+	uniform = /obj/item/clothing/under/ussp/clown/officer
 	suit = /obj/item/clothing/suit/officercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -641,7 +641,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /datum/outfit/job/mining/suit
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
-	uniform = /obj/item/clothing/under/rank/miner
+	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
@@ -686,7 +686,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/service/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/color/black
@@ -751,7 +751,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
 	l_ear = /obj/item/radio/headset/heads/hop
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/color/black
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -767,7 +767,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /datum/outfit/nanotrasencommandercorpse
 	name = "Commander Corpse"
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/lieutenant
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
@@ -804,7 +804,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/service/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/color/black
 	suit = /obj/item/clothing/suit/armor/vest

@@ -38,7 +38,7 @@
 		drop_item_ground(w_uniform, force = TRUE)
 		drop_item_ground(wear_suit, force = TRUE)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime, ITEM_SLOT_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/service/mime, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders, ITEM_SLOT_CLOTH_OUTER)
 		Silence(14 SECONDS)
 	else
@@ -46,7 +46,7 @@
 		qdel(w_uniform)
 		qdel(wear_suit)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime/nodrop, ITEM_SLOT_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/service/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, ITEM_SLOT_CLOTH_OUTER)
 		force_gene_block(GLOB.muteblock, TRUE, TRUE)
 

@@ -38,8 +38,8 @@
 			/obj/item/clothing/under/color/orange/prison,
 			/obj/item/clothing/under/prison,
 			/obj/item/clothing/under/color/red/dodgeball,
-			/obj/item/clothing/under/color/red/jersey,
-			/obj/item/clothing/under/color/blue/jersey,
+			/obj/item/clothing/under/color/miscellaneous/red/jersey,
+			/obj/item/clothing/under/color/miscellaneous/blue/jersey,
 		)
 		allowed_colors = subtypesof(/obj/item/clothing/under/color) - excluded
 	var/obj/item/clothing/under/color/new_color = pick(allowed_colors)
@@ -556,7 +556,7 @@
 		PREPOSITIONAL = "джерси синей команды",
 	)
 
-/obj/item/clothing/under/miscellaneous/rainbow
+/obj/item/clothing/under/color/miscellaneous/rainbow
 	name = "rainbow"
 	desc = "радуга"
 	icon_state = "rainbow"
@@ -564,7 +564,7 @@
 	item_color = "rainbow"
 	dying_key = DYE_REGISTRY_UNDER
 
-/obj/item/clothing/under/miscellaneous/rainbow/get_ru_names()
+/obj/item/clothing/under/color/miscellaneous/rainbow/get_ru_names()
 	return alist(
 		NOMINATIVE = "радуга",
 		GENITIVE = "радуги",

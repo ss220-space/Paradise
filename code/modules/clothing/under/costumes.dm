@@ -87,7 +87,7 @@
 		PREPOSITIONAL = "костюме горничной",
 	)
 
-/obj/item/clothing/under/maid/short
+/obj/item/clothing/under/costumes/maid/short
 	name = "short maid costume"
 	desc = "Костюм для косплея горничной."
 	over_shoes = TRUE

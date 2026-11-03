@@ -13,14 +13,14 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/rank/centcom/officer
+/obj/item/clothing/under/rank/centcom/official
 	name = "CentComm officer's jumpsuit"
 	desc = "Комбинезон, который носят офицеры Центрального Командования."
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 
-/obj/item/clothing/under/rank/centcom/officer/get_ru_names()
+/obj/item/clothing/under/rank/centcom/official/get_ru_names()
 	return alist(
 		NOMINATIVE = "комбинезон офицера Центрального Командования",
 		GENITIVE = "комбинезона офицера Центрального Командования",
@@ -30,7 +30,7 @@
 		PREPOSITIONAL = "комбинезоне офицера Центрального Командования",
 	)
 
-/obj/item/clothing/under/rank/centcom/officer/sensor
+/obj/item/clothing/under/rank/centcom/official/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 

@@ -1077,7 +1077,7 @@ GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим на
 	item_color = "jaywingler"
 	displays_id = 0
 
-/obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
+/obj/item/clothing/under/costumes/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
 	desc = "Black, comfortable and nicely fitting suit. Made not to hinder the wearer in any way. Made of some exotic fabric. And some strange glowing jewel at the waist. Name labels says; Property of Isaca Sirius; The Seeder."
 

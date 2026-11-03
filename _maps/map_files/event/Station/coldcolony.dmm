@@ -23199,7 +23199,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/defibrillator/compact/advanced/loaded,
 /obj/item/laser_pointer,
-/obj/item/clothing/under/rank/medical/doctor/blue,
+/obj/item/clothing/under/rank/medical/scrub/blue,
 /obj/item/clothing/head/surgery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)

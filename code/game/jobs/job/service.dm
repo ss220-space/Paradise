@@ -45,7 +45,7 @@
 /datum/outfit/job/hop
 	name = JOB_TITLE_RU_HOP
 	jobtype = /datum/job/head_of_staff/hop
-	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
+	uniform = /obj/item/clothing/under/rank/service/head_of_personnel_alt
 	suit = /obj/item/clothing/suit/hop_jacket
 	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/hopcap
@@ -97,7 +97,7 @@
 	name = JOB_TITLE_RU_BARTENDER
 	jobtype = /datum/job/service/bartender
 
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/service/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	l_ear = /obj/item/radio/headset/headset_service
@@ -141,7 +141,7 @@
 	name = JOB_TITLE_RU_CHEF
 	jobtype = /datum/job/service/chef
 
-	uniform = /obj/item/clothing/under/rank/chef
+	uniform = /obj/item/clothing/under/rank/service/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
@@ -163,7 +163,7 @@
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if(ALT_JOB_TITLE_RU_ART_CHEF)
-				uniform = /obj/item/clothing/under/artist
+				uniform = /obj/item/clothing/under/rank/service/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
 				suit = /obj/item/clothing/suit/storage/chefbluza
@@ -194,7 +194,7 @@
 	name = JOB_TITLE_RU_BOTANIST
 	jobtype = /datum/job/service/botanist
 
-	uniform = /obj/item/clothing/under/rank/hydroponics
+	uniform = /obj/item/clothing/under/rank/service/hydroponics
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	l_ear = /obj/item/radio/headset/headset_service
@@ -229,7 +229,7 @@
 	name = JOB_TITLE_RU_CLOWN
 	jobtype = /datum/job/service/clown
 
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/service/clown
 	belt = /obj/item/signmaker
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
@@ -260,7 +260,7 @@
 		backpack_contents[/obj/item/stack/sheet/mineral/bananium/fifty] = 1
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
-		uniform = /obj/item/clothing/under/rank/clown/sexy
+		uniform = /obj/item/clothing/under/rank/service/clown/sexy
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -445,7 +445,7 @@
 	name = JOB_TITLE_RU_MIME
 	jobtype = /datum/job/service/mime
 
-	uniform = /obj/item/clothing/under/mime
+	uniform = /obj/item/clothing/under/rank/service/mime
 	suit = /obj/item/clothing/suit/suspenders
 	gloves = /obj/item/clothing/gloves/color/white
 	head = /obj/item/clothing/head/beret
@@ -466,7 +466,7 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MIMANIUM_SHIPMENTS))
 		backpack_contents[/obj/item/stack/sheet/mineral/tranquillite/fifty] = 1
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/mimeskirt
+		uniform = /obj/item/clothing/under/rank/service/mime/skirts
 		mask = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -501,7 +501,7 @@
 	name = JOB_TITLE_RU_JANITOR
 	jobtype = /datum/job/service/janitor
 
-	uniform = /obj/item/clothing/under/rank/janitor
+	uniform = /obj/item/clothing/under/rank/service/janitor
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
 
@@ -529,7 +529,7 @@
 	name = JOB_TITLE_RU_LIBRARIAN
 	jobtype = /datum/job/service/librarian
 
-	uniform = /obj/item/clothing/under/suit_jacket/red
+	uniform = /obj/item/clothing/under/suit/jacket/red
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
@@ -567,7 +567,7 @@
 	name = JOB_TITLE_RU_CHAPLAIN
 	jobtype = /datum/job/service/chaplain
 
-	uniform = /obj/item/clothing/under/rank/chaplain
+	uniform = /obj/item/clothing/under/rank/service/chaplain
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(

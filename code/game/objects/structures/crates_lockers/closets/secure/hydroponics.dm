@@ -9,7 +9,7 @@
 	else
 		new /obj/item/clothing/suit/apron/overalls(src)
 	new /obj/item/storage/bag/plants/portaseeder(src)
-	new /obj/item/clothing/under/rank/hydroponics(src)
+	new /obj/item/clothing/under/rank/service/hydroponics(src)
 	new /obj/item/plant_analyzer(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/mask/bandana/botany(src)
@@ -18,4 +18,4 @@
 	new /obj/item/storage/box/disks_plantgene(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/hydro(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/hydro(src)
-	new /obj/item/clothing/under/rank/hydroponics/skirt(src)
+	new /obj/item/clothing/under/rank/service/hydroponics/skirt(src)

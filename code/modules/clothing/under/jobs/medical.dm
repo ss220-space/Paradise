@@ -40,7 +40,7 @@
 	icon_state = "cmof"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/chief_medical_officer/skirt/get_ru_names()
+/obj/item/clothing/under/rank/medical/chief_medical_officer/skirt/get_ru_names()
 	return alist(
 		NOMINATIVE = "комбинезон-юбка главного врача",
 		GENITIVE = "комбинезона-юбки главного врача",
@@ -154,7 +154,7 @@
 	icon_state = "nursesuit"
 	item_state = "nursesuit"
 
-/obj/item/clothing/under/rank/nursesuit/get_ru_names()
+/obj/item/clothing/under/rank/medical/nursesuit/get_ru_names()
 	return alist(
 		NOMINATIVE = "костюм медсестры",
 		GENITIVE = "костюма медсестры",
@@ -325,7 +325,7 @@
 	icon_state = "scrubs_brown"
 	item_state = "scrubs_brown"
 
-/obj/item/clothing/under/rank/medical/brown/get_ru_names()
+/obj/item/clothing/under/rank/medical/scrub/brown/get_ru_names()
 	return alist(
 		NOMINATIVE = "коричневая медицинская одежда",
 		GENITIVE = "коричневой медицинской одежды",

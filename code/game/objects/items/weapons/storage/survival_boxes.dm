@@ -188,7 +188,7 @@
 	name = "ERT Amber Commander kit"
 
 /obj/item/storage/box/survival/responseteam/amber/commander/populate_contents()
-	new /obj/item/clothing/under/rank/centcom_officer/sensor (src)
+	new /obj/item/clothing/under/rank/centcom/official/sensor (src)
 	new /obj/item/radio/headset/ert/alt/commander (src)
 	new /obj/item/card/id/ert/registration/commander (src)
 	new /obj/item/pinpointer (src)
@@ -213,7 +213,7 @@
 
 /obj/item/storage/box/survival/responseteam/amber/security/populate_contents()
 	new /obj/item/storage/box/survival/responseteam (src)
-	new /obj/item/clothing/under/rank/security/sensor (src)
+	new /obj/item/clothing/under/rank/security/officer/sensor (src)
 	new /obj/item/storage/belt/security/response_team (src)
 	new /obj/item/pda/heads/ert/security (src)
 	new /obj/item/card/id/ert/registration/security (src)
@@ -237,7 +237,7 @@
 	name = "ERT Amber Medic kit"
 
 /obj/item/storage/box/survival/responseteam/amber/medic/populate_contents()
-	new /obj/item/clothing/under/rank/medical (src)
+	new /obj/item/clothing/under/rank/medical/doctor (src)
 	new /obj/item/pda/heads/ert/medical (src)
 	new /obj/item/card/id/ert/registration/medic (src)
 	new /obj/item/clothing/shoes/color/white (src)
@@ -271,7 +271,7 @@
 	name = "ERT Amber Engineer kit"
 
 /obj/item/storage/box/survival/responseteam/amber/engineer/populate_contents()
-	new /obj/item/clothing/under/rank/engineer (src)
+	new /obj/item/clothing/under/rank/engineering/engineer (src)
 	new /obj/item/storage/belt/utility/full/multitool (src)
 	new /obj/item/pda/heads/ert/engineering (src)
 	new /obj/item/card/id/ert/registration/engineering (src)
@@ -326,7 +326,7 @@
 	name = "ERT Red Commander kit"
 
 /obj/item/storage/box/survival/responseteam/red/commander/populate_contents()
-	new /obj/item/clothing/under/rank/centcom_officer/sensor (src)
+	new /obj/item/clothing/under/rank/centcom/official/sensor (src)
 	new /obj/item/radio/headset/ert/alt/commander (src)
 	new /obj/item/card/id/ert/registration/commander (src)
 	new /obj/item/pinpointer (src)
@@ -356,7 +356,7 @@
 	name = "ERT Red Security kit"
 
 /obj/item/storage/box/survival/responseteam/red/security/populate_contents()
-	new /obj/item/clothing/under/rank/security/sensor (src)
+	new /obj/item/clothing/under/rank/security/officer/sensor (src)
 	new /obj/item/storage/belt/security/response_team (src)
 	new /obj/item/pda/heads/ert/security (src)
 	new /obj/item/card/id/ert/registration/security (src)
@@ -388,7 +388,7 @@
 	name = "ERT Red Engineer kit"
 
 /obj/item/storage/box/survival/responseteam/red/engineer/populate_contents()
-	new /obj/item/clothing/under/rank/engineer (src)
+	new /obj/item/clothing/under/rank/engineering/engineer (src)
 	new /obj/item/pda/heads/ert/engineering (src)
 	new /obj/item/card/id/ert/registration/engineering (src)
 	new /obj/item/clothing/shoes/magboots/advance (src)
@@ -420,7 +420,7 @@
 	name = "ERT Red Medic kit"
 
 /obj/item/storage/box/survival/responseteam/red/medic/populate_contents()
-	new /obj/item/clothing/under/rank/medical (src)
+	new /obj/item/clothing/under/rank/medical/doctor (src)
 	new /obj/item/pda/heads/ert/medical (src)
 	new /obj/item/card/id/ert/registration/medic (src)
 	new /obj/item/clothing/shoes/color/white (src)

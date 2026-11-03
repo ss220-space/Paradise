@@ -74,7 +74,7 @@
 	icon_state = "sciencef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/scientist/skirt/get_ru_names()
+/obj/item/clothing/under/rank/science/scientist/skirt/get_ru_names()
 	return alist(
 		NOMINATIVE = "комбинезон-юбка учёного",
 		GENITIVE = "комбинезона-юбки учёного",

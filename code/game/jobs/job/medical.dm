@@ -30,7 +30,7 @@
 	name = JOB_TITLE_RU_CMO
 	jobtype = /datum/job/head_of_staff/cmo
 
-	uniform = /obj/item/clothing/under/rank/chief_medical_officer
+	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
 	shoes = /obj/item/clothing/shoes/color/brown
 	belt = /obj/item/storage/belt/medical/filled
@@ -112,7 +112,7 @@
 /datum/outfit/job/doctor
 	name = JOB_TITLE_RU_DOCTOR
 	jobtype = /datum/job/medical/doctor
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/doctor
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/color/white
 	belt = /obj/item/storage/belt/medical/filled
@@ -132,9 +132,9 @@
 		return
 	switch(H.mind.role_alt_title)
 		if(JOB_TITLE_RU_DOCTOR)
-			uniform = /obj/item/clothing/under/rank/medical
+			uniform = /obj/item/clothing/under/rank/medical/doctor
 		if(ALT_JOB_TITLE_RU_SURGEON)
-			uniform = /obj/item/clothing/under/rank/medical/blue
+			uniform = /obj/item/clothing/under/rank/medical/scrub/blue
 			head = /obj/item/clothing/head/surgery/blue
 
 /datum/job/medical/doctor/intern
@@ -205,7 +205,7 @@
 	name = JOB_TITLE_RU_CORONER
 	jobtype = /datum/job/medical/coroner
 
-	uniform = /obj/item/clothing/under/rank/medical/mortician
+	uniform = /obj/item/clothing/under/rank/medical/scrub/mortician
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
 	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
@@ -253,7 +253,7 @@
 	name = JOB_TITLE_RU_CHEMIST
 	jobtype = /datum/job/medical/chemist
 
-	uniform = /obj/item/clothing/under/rank/chemist
+	uniform = /obj/item/clothing/under/rank/medical/chemist
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
@@ -296,7 +296,7 @@
 	name = JOB_TITLE_RU_GENETICIST
 	jobtype = /datum/job/medical/geneticist
 
-	uniform = /obj/item/clothing/under/rank/geneticist
+	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_medsci
@@ -339,7 +339,7 @@
 	name = JOB_TITLE_RU_VIROLOGIST
 	jobtype = /datum/job/medical/virologist
 
-	uniform = /obj/item/clothing/under/rank/virologist
+	uniform = /obj/item/clothing/under/rank/medical/virologist
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
 	shoes = /obj/item/clothing/shoes/color/white
 	mask = /obj/item/clothing/mask/surgical
@@ -380,7 +380,7 @@
 	name = JOB_TITLE_RU_PSYCHIATRIST
 	jobtype = /datum/job/medical/psychiatrist
 
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/doctor
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/laceup
 	l_ear = /obj/item/radio/headset/headset_med
@@ -394,11 +394,11 @@
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if(JOB_TITLE_RU_PSYCHIATRIST)
-				uniform = /obj/item/clothing/under/rank/psych
+				uniform = /obj/item/clothing/under/rank/medical/psych
 			if(ALT_JOB_TITLE_RU_PSYCHOLOGIST)
-				uniform = /obj/item/clothing/under/rank/psych/turtleneck
+				uniform = /obj/item/clothing/under/rank/medical/psych/turtleneck
 			if(ALT_JOB_TITLE_RU_THERAPIST)
-				uniform = /obj/item/clothing/under/rank/medical
+				uniform = /obj/item/clothing/under/rank/medical/doctor
 
 /datum/job/medical/paramedic
 	title = JOB_TITLE_PARAMEDIC

@@ -15,8 +15,8 @@
 	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
-		/obj/item/clothing/under/rank/chief_engineer = 4,
-		/obj/item/clothing/under/rank/engineer = 4,
+		/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
+		/obj/item/clothing/under/rank/engineering/engineer = 4,
 		/obj/item/clothing/shoes/workboots = 4,
 		/obj/item/clothing/head/hardhat = 4,
 		/obj/item/storage/belt/utility = 4,

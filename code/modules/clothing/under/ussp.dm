@@ -20,7 +20,7 @@
 	item_state = "soviet"
 	item_color = "soviet"
 
-/obj/item/clothing/under/soviet/ussp/get_ru_names()
+/obj/item/clothing/under/ussp/soviet/ussp/get_ru_names()
 	return alist(
 		NOMINATIVE = "советская униформа",
 		GENITIVE = "советской униформы",

@@ -166,7 +166,7 @@
 	desc = "Офицер с уникой. Что же может пойти не так?"
 
 	head = /datum/outfit/job/hos::head
-	uniform = /obj/item/clothing/under/rank/head_of_security/alt
+	uniform = /obj/item/clothing/under/rank/security/head_of_security/alt
 	shoes = /datum/outfit/job/hos::shoes
 	glasses = /datum/outfit/job/hos::glasses
 	suit = /obj/item/clothing/suit/armor/hos
@@ -266,7 +266,7 @@
 	display_name = "Офицер ОБР (Солдат с АРГ)"
 	desc = "Бравый член отряда быстрого реагирования."
 
-	uniform = /obj/item/clothing/under/rank/security/sensor
+	uniform = /obj/item/clothing/under/rank/security/officer/sensor
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/storage/belt/military/assault/gammaert/full
@@ -288,7 +288,7 @@
 	name = "Deathmatch: ERT member (Inquisitor)"
 	display_name = "Офицер ОБР (Инквизитор с гироджетом)"
 
-	uniform = /obj/item/clothing/under/rank/chaplain
+	uniform = /obj/item/clothing/under/rank/service/chaplain
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 
 	l_hand = /obj/item/gun/projectile/automatic/gyropistol
@@ -357,7 +357,7 @@
 	display_name = "Шеф-повар"
 	desc = "Любитель приготовить гречку."
 
-	uniform = /obj/item/clothing/under/rank/chef
+	uniform = /obj/item/clothing/under/rank/service/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
@@ -419,7 +419,7 @@
 	desc = "Ящер, владеющий огромным количеством заклинаний. Жаль, правда, что они почти бесполезные."
 
 	species_override = /datum/species/unathi
-	uniform = /obj/item/clothing/under/ash_walker
+	uniform = /obj/item/clothing/under/miscellaneous/ash_walker
 	gloves = /obj/item/clothing/gloves/color/black/goliath
 	suit = /obj/item/clothing/suit/hooded/goliath/wizard
 	l_hand = /obj/item/twohanded/spear/bonespear

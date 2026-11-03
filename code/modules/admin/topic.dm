@@ -1591,7 +1591,7 @@
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), ITEM_SLOT_CLOTH_INNER)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/jacket(observer), ITEM_SLOT_CLOTH_INNER)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black(observer), ITEM_SLOT_FEET)
 		if(isliving(M))
 			var/mob/living/L = M
@@ -3322,8 +3322,8 @@
 						if(!(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_CATEARS))
 							human.force_gene_block(GLOB.cat_earsblock, TRUE, TRUE)
 
-						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
-						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
+						var/seifuku = pick(typesof(/obj/item/clothing/under/costumes/schoolgirl))
+						var/obj/item/clothing/under/costumes/schoolgirl/uniform = new seifuku
 						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)

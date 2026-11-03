@@ -266,7 +266,7 @@
 /obj/item/clothing/under/officeruniform/@SUBTYPES : /obj/item/clothing/under/ussp/clown/officer/@SUBTYPES{@OLD}
 /obj/item/clothing/under/soldieruniform/@SUBTYPES : /obj/item/clothing/under/ussp/clown/soldier/@SUBTYPES{@OLD}
 
-/obj/item/clothing/under/rank/centcom_officer/@SUBTYPES : /obj/item/clothing/under/rank/centcom/officer/@SUBTYPES{@OLD}
+/obj/item/clothing/under/rank/centcom_officer/@SUBTYPES : /obj/item/clothing/under/rank/centcom/official/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/centcom_commander/@SUBTYPES : /obj/item/clothing/under/rank/centcom/commander/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/centcom/officer/@SUBTYPES : /obj/item/clothing/under/rank/centcom/lieutenant/@SUBTYPES{@OLD}
 /obj/item/clothing/under/rank/centcom/captain/@SUBTYPES : /obj/item/clothing/under/rank/centcom/captain/@SUBTYPES{@OLD}

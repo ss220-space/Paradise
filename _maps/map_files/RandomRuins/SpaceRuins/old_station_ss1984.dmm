@@ -590,7 +590,7 @@
 /obj/item/shovel,
 /obj/item/storage/bag/ore,
 /obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "cg" = (
@@ -1868,7 +1868,7 @@
 /obj/item/shovel,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/storage/backpack/old,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "hf" = (
@@ -6451,7 +6451,7 @@
 /obj/item/storage/bag/ore/bigger,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/mask/gas/explorer,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
 "yK" = (
@@ -7468,7 +7468,7 @@
 /obj/structure/closet,
 /obj/item/pickaxe/drill,
 /obj/item/shovel,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "CP" = (

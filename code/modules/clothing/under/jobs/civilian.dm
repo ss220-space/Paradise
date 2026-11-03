@@ -41,7 +41,7 @@
 	item_state = "hop_skirt"
 	item_color = "hop_skirt"
 
-/obj/item/clothing/under/dress/dress/hop
+/obj/item/clothing/under/service/dress/hop
 	name = "head of personnel dress uniform"
 	desc = "Женственная мода для стильного ГП."
 	icon_state = "dress_hop"
@@ -119,7 +119,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20) //die off quick please
 
-/obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/under/rank/service/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == JOB_TITLE_CLOWN)
@@ -194,7 +194,7 @@
 
 /obj/item/clothing/under/rank/service/mime/nodrop
 
-/obj/item/clothing/under/mime/rank/service/nodrop/Initialize(mapload)
+/obj/item/clothing/under/rank/service/mime/rank/service/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
