@@ -18,10 +18,12 @@
 	item_state = "banana_touch"
 
 /datum/action/cooldown/spell/touch/banana_touch/is_valid_target(atom/cast_on)
+	if(!ishuman(cast_on))
+		return FALSE
 	var/mob/living/carbon/human/target = cast_on
 	if(target.can_block_magic(antimagic_flags))
 		return FALSE
-	return ishuman(cast_on)
+	return TRUE
 
 /datum/action/cooldown/spell/touch/banana_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
