@@ -6,11 +6,10 @@ import {
   useState,
 } from 'react';
 import { Button, Dropdown, Icon, Image, Tooltip } from 'tgui-core/components';
-import { globalEvents } from 'tgui-core/events';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { suspendStart } from '../events/handlers/suspense';
-import { Window } from '../layouts';
+import { Pane } from '../layouts';
 
 // MARK: Data
 
@@ -209,21 +208,9 @@ const asNumber = (value: string | number | undefined) => {
   return Number.isFinite(parsed) ? parsed : 0;
 };
 
-/**
- * Returns the size of the browser pane. The pane is anchored to the game
- * window, so its viewport is always the full map window area. The size is
- * intentionally captured only once: reacting to `resize` would make Window
- * push the pane size back via winset, producing a winset/resize feedback
- * loop (the "shaking" window bug).
- */
-const getViewportSize = (): [number, number] => [
-  window.innerWidth,
-  window.innerHeight,
-];
-
 type LampState = 'ok' | 'warn' | 'bad' | 'off';
 
-// MARK: Window
+// MARK: Pane
 
 type SectionId =
   | 'power'
@@ -248,24 +235,7 @@ const SECTIONS: { id: SectionId; icon: string; label: string }[] = [
 
 export const SpacepodControlPanel = (props: unknown) => {
   const { act, data } = useBackend<SpacepodControlPanelData>();
-  const [viewport] = useState(getViewportSize);
   const [section, setSection] = useState<SectionId | null>(null);
-
-  // The pane is anchored to the full game window (skin.dmf). The shared
-  // Window layout applies its own centered geometry asynchronously, so the
-  // pane is pinned back to the top-left corner several times after mount.
-  useEffect(() => {
-    const pin = () => Byond.winset(Byond.windowId, { pos: '0,0' });
-    pin();
-    const timers = [200, 500, 1000, 2000].map((delay) =>
-      setTimeout(pin, delay),
-    );
-    globalEvents.on('window-geometry-finished', pin);
-    return () => {
-      timers.forEach(clearTimeout);
-      globalEvents.off('window-geometry-finished', pin);
-    };
-  }, []);
 
   const isHudWidget = (target: EventTarget | null) =>
     !!(target as HTMLElement | null)?.closest?.(
@@ -302,13 +272,8 @@ export const SpacepodControlPanel = (props: unknown) => {
   const lamps = buildLamps(data);
 
   return (
-    <Window
-      width={viewport[0]}
-      height={viewport[1]}
-      titleBar={false}
-      transparent
-    >
-      <Window.Content fitted scrollable className="spcp-root">
+    <Pane className="spcp-pane" theme="spacepod">
+      <Pane.Content fitted scrollable className="spcp-root">
         <div
           className="spcp-shell"
           onClick={proxyClick}
@@ -389,8 +354,8 @@ export const SpacepodControlPanel = (props: unknown) => {
             <Drawer section={section} onClose={() => setSection(null)} />
           </div>
         </div>
-      </Window.Content>
-    </Window>
+      </Pane.Content>
+    </Pane>
   );
 };
 

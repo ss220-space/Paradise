@@ -1,6 +1,6 @@
-// Spacepod control panel вЂ” see-through cockpit HUD.
-// Minimal translucent widgets pinned to the screen edges, slide-out tool
-// drawers on the left and a boot sequence on top.
+// Spacepod control panel - see-through cockpit HUD.
+// Minimal translucent widgets pinned to the screen edges and a slide-out
+// tool drawer on the left.
 
 $spcp-text: #c3d2d7;
 $spcp-dim: #6f858d;
@@ -48,6 +48,22 @@ $spcp-top-offset: $spcp-action-height * 0.5;
 
 	to {
 		transform: rotate(360deg);
+	}
+}
+
+// The panel is rendered in a browser pane above the map. Pane applies this
+// theme to the document root, which also makes the html/body background
+// transparent through the shared --color-base variable.
+.theme-spacepod:root {
+	--color-base: transparent;
+	--color-base-start: transparent;
+	--color-base-end: transparent;
+}
+
+.spcp-pane {
+	// The shared Layout adds a station logo background to every content pane.
+	.Layout__content {
+		background-image: none;
 	}
 }
 
@@ -159,7 +175,6 @@ $spcp-top-offset: $spcp-action-height * 0.5;
 	letter-spacing: 0.02em;
 	user-select: none;
 	background: transparent;
-	background-color: transparent;
 
 	.Button {
 		font-family: var(--font-family-mono);

@@ -41,8 +41,6 @@ type Props = Partial<{
   height: number;
   theme: string;
   title: string;
-  titleBar: BooleanLike;
-  transparent: BooleanLike;
   width: number;
 }> &
   PropsWithChildren;
@@ -56,8 +54,6 @@ export function Window(props: Props) {
     buttons,
     width,
     height,
-    titleBar = true,
-    transparent = false,
   } = props;
 
   const { config, suspended, debug } = useBackend();
@@ -72,20 +68,6 @@ export function Window(props: Props) {
     });
     setIsReadyToRender(true);
   }, []);
-
-  // Transparent windows must not paint the body background
-  // (it is set inline in tgui.html).
-  useEffect(() => {
-    const targets = [document.body, document.documentElement];
-    for (const target of targets) {
-      target.style.backgroundColor = transparent ? 'transparent' : '';
-    }
-    return () => {
-      for (const target of targets) {
-        target.style.backgroundColor = '';
-      }
-    };
-  }, [transparent]);
 
   const { scale } = config?.window || false;
 
@@ -132,25 +114,19 @@ export function Window(props: Props) {
       : config.status < UI_INTERACTIVE);
 
   return suspended ? null : (
-    <Layout
-      className={classes(['Window', transparent && 'Window--transparent'])}
-      theme={theme}
-    >
-      {!!titleBar && (
-        <TitleBar
-          title={title || decodeHtmlEntities(config.title)}
-          status={config.status}
-          onDragStart={dragStartHandler}
-          onClose={suspendStart}
-          canClose={canClose}
-        >
-          {buttons}
-        </TitleBar>
-      )}
+    <Layout className="Window" theme={theme}>
+      <TitleBar
+        title={title || decodeHtmlEntities(config.title)}
+        status={config.status}
+        onDragStart={dragStartHandler}
+        onClose={suspendStart}
+        canClose={canClose}
+      >
+        {buttons}
+      </TitleBar>
       <div
         className={classes([
           'Window__rest',
-          !titleBar && 'Window__rest--flush',
           debug.debugLayout && 'debug-layout',
         ])}
       >

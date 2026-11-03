@@ -384,7 +384,7 @@
 
 
 /obj/projectile/can_pass_after_bump(atom/bumped_atom)
-	if(firer != null && (bumped_atom == firer && HAS_TRAIT(bumped_atom, TRAIT_IGNORE_OWN_PROJECTILE)))
+	if(firer != null && (bumped_atom == firer || (bumped_atom == firer.loc && HAS_TRAIT(bumped_atom, TRAIT_IGNORE_OWN_PROJECTILE))))
 		return TRUE
 	return ..()
 

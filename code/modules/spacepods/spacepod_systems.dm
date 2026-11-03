@@ -80,7 +80,7 @@
 		if(engine.is_apu())
 			continue
 		total_thrust += engine.current_rpm / engine.max_rpm
-		max_thrust += 1
+		max_thrust++
 	if(max_thrust == 0) //zero div check
 		max_thrust = 1
 	return clamp(total_thrust / max_thrust, 0, 1)

@@ -16,32 +16,26 @@
 /datum/ui_module/spacepod_control_panels/ui_host(mob/user)
 	return pod // Default src.
 
-/datum/tgui_window/pod_panel
-
-/datum/tgui_window/pod_panel/close(can_be_suspended = TRUE)
-	send_message("suspend", force = TRUE)
-	. = ..()
-
 /datum/ui_module/spacepod_control_panels/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		if(QDELETED(user.client))
 			return
-		var/datum/tgui_window/window
-		if(user.client.byond_build >= 1680)
-			window = user.client.tgui_windows[SKIN_POD_PANEL]
-			if(!window)
-				window = new /datum/tgui_window/pod_panel(user.client, SKIN_POD_PANEL)
+		var/datum/tgui_window/window = user.client.tgui_windows[SKIN_POD_PANEL]
+		if(!window)
+			window = new /datum/tgui_window(user.client, SKIN_POD_PANEL)
 		ui = new(user, src, "SpacepodControlPanel", name)
 		if(ui.open(window))
+			winset(user.client, SKIN_POD_PANEL, "is-visible=true")
 			hide_player_hud(user)
 
 /datum/ui_module/spacepod_control_panels/ui_close(mob/user)
 	restore_player_hud(user)
 	var/datum/tgui/ui = SStgui.get_open_ui(user, src)
-	if(!ui)
-		return
-	ui.close(TRUE)
+	if(ui)
+		ui.close(TRUE)
+	if(!QDELETED(user?.client))
+		winset(user.client, SKIN_POD_PANEL, "is-visible=false")
 
 /datum/ui_module/spacepod_control_panels/Destroy()
 	restore_player_hud()
