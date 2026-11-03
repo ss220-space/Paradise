@@ -137,13 +137,13 @@
 
 	var/obj/item/organ/external/affected_limb = human_parent.get_bodypart(human_parent.get_random_valid_zone())
 	human_parent.visible_message(
-		span_boldwarning("У [human_parent] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] начинает пузырится и покрывается волдырями!"),
-		span_boldwarning("Ваш[GEND_A_E_I(affected_limb)] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] пузырится и покрывается волдырями!"),
+		span_boldwarning("У [human_parent] [affected_limb.declent_ru_base(NOMINATIVE)] начинает пузырится и покрывается волдырями!"),
+		span_boldwarning("Ваш[GEND_A_E_I(affected_limb)] [affected_limb.declent_ru_base(NOMINATIVE)] пузырится и покрывается волдырями!"),
 	)
 
 
 	if(human_parent.is_blind())
-		to_chat(human_parent, span_boldwarning("У вас пузырится [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)], а затем невыносимо горит!"))
+		to_chat(human_parent, span_boldwarning("У вас пузырится [affected_limb.declent_ru_base(NOMINATIVE)], а затем невыносимо горит!"))
 
 	human_parent.apply_damage(RADIATION_BURN_SPLOTCH_DAMAGE, BURN, affected_limb)
 	playsound(
