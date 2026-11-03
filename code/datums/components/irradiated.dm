@@ -137,7 +137,7 @@
 
 	var/obj/item/organ/external/affected_limb = human_parent.get_bodypart(human_parent.get_random_valid_zone())
 	human_parent.visible_message(
-		span_boldwarning("У [human_parent] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] начинает пузырится и покрываеться волдырями!"),
+		span_boldwarning("У [human_parent] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] начинает пузырится и покрывается волдырями!"),
 		span_boldwarning("Ваш[GEND_A_E_I(affected_limb)] [parse_zone(affected_limb).declent_ru_base(NOMINATIVE)] пузырится и покрывается волдырями!"),
 	)
 
@@ -186,7 +186,7 @@
 
 	if(isliving(source))
 		var/mob/living/living_source = source
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Субъект облучён. Заражение началось примерно [DisplayTimeText(world.time - beginning_of_irradiation, 5)] назад. Текущий уровень токсинов: [living_source.getToxLoss()]."))
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Субъект облучён. Заражение началось примерно [DisplayTimeText(world.time - beginning_of_irradiation, 5)] назад. Текущий уровень интоксикации: [living_source.getToxLoss()]."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Цель облучена."))

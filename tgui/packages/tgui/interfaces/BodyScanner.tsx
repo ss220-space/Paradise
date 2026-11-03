@@ -115,6 +115,7 @@ type Occupant = {
   bodyTempC: number;
   bodyTempF: number;
   hasBorer: boolean;
+  hasIrradiated: boolean;
   blind: boolean;
   colourblind: boolean;
   nearsighted: boolean;
