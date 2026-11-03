@@ -74,12 +74,12 @@
 
 /obj/machinery/eventmachine/serverrack/substation/get_ru_names()
 	return alist(
-		NOMINATIVE = "Ядро проекта Cynosure",
-		GENITIVE = "Ядра проекта Cynosure",
-		DATIVE = "Ядру проекта Cynosure",
-		ACCUSATIVE = "Ядро проекта Cynosure",
-		INSTRUMENTAL = "Ядром проекта Cynosure",
-		PREPOSITIONAL = "Ядре проекта Cynosure"
+		NOMINATIVE = "ядро проекта Cynosure",
+		GENITIVE = "ядра проекта Cynosure",
+		DATIVE = "ядру проекта Cynosure",
+		ACCUSATIVE = "ядро проекта Cynosure",
+		INSTRUMENTAL = "ядром проекта Cynosure",
+		PREPOSITIONAL = "ядре проекта Cynosure"
 	)
 
 /obj/machinery/eventmachine/serverrack/cynosure_storage
@@ -91,11 +91,11 @@
 
 /obj/machinery/eventmachine/serverrack/substation/get_ru_names()
 	return alist(
-		NOMINATIVE = "Хранилище души Cynosure",
-		GENITIVE = "Хранилища души Cynosure",
-		DATIVE = "Хранилищу души Cynosure",
-		ACCUSATIVE = "Хранилище души Cynosure",
-		INSTRUMENTAL = "Хранилищем души Cynosure",
-		PREPOSITIONAL = "Хранилище души Cynosure"
+		NOMINATIVE = "хранилище души Cynosure",
+		GENITIVE = "хранилища души Cynosure",
+		DATIVE = "хранилищу души Cynosure",
+		ACCUSATIVE = "хранилище души Cynosure",
+		INSTRUMENTAL = "хранилищем души Cynosure",
+		PREPOSITIONAL = "хранилище души Cynosure"
 	)
 
