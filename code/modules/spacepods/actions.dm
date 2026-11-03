@@ -6,7 +6,7 @@
 /datum/action/innate/pod/Grant(mob/living/target, obj/spacepod/spacepod)
 	if(spacepod)
 		pod = spacepod
-	. = ..()
+	return ..()
 
 /datum/action/innate/pod/Destroy()
 	pod = null
