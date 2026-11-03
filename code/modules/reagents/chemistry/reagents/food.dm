@@ -103,7 +103,6 @@
 /datum/reagent/consumable/nutriment/protein/liquid
 	name = "Разбавленный протеин"
 	id = "protein_liquid"
-	reagent_state = LIQUID
 	nutriment_factor = 15 * REAGENTS_METABOLISM / 4
 	metabolization_rate = REAGENTS_METABOLISM / 4
 	status_effect_type = /datum/status_effect/sport_reagents/protein/water
@@ -117,8 +116,7 @@
 	name = "Сахар"
 	id = "sugar"
 	description = "Органическое соединение, широко известное как столовый сахар и иногда называемое сахарозой. Это белый кристаллический порошок без запаха, обладающий приятным сладким вкусом."
-	color = "#FFFFFF" // rgb: 255, 255, 255
-	nutriment_factor = 2.5 * REAGENTS_METABOLISM
+	color = "#FFFFFF" // rgb: 255, 255, 255	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "сладости"
 	taste_mult = 1.5
@@ -172,8 +170,7 @@
 	name = "Аспартам"
 	id = "aspartame"
 	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
-	color = "#FFFFFF" // rgb: 255, 255, 255
-	nutriment_factor = 0
+	color = "#FFFFFF" // rgb: 255, 255, 255	nutriment_factor = 0
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	overdose_threshold = 17
 	taste_mult = 8
@@ -194,7 +191,6 @@
 	name = "Соевый соус"
 	id = "soysauce"
 	description = "Солёный соус из соевого растения."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
 	taste_description = "сои"
@@ -203,7 +199,6 @@
 	name = "Кетчуп"
 	id = "ketchup"
 	description = "Кетчуп, кекчуп, кечап, как будет угодно. Это томатная паста."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "кетчупа"
@@ -212,7 +207,6 @@
 	name = "Томатный соус"
 	id = "tsauce"
 	description = "Отец всех соусов. Помидоры, немного специй и ничего лишнего."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#ee1000"
 	taste_description = "томатного соуса"
@@ -221,7 +215,6 @@
 	name = "Сырный соус"
 	id = "csauce"
 	description = "Сыр, сливки и молоко... максимальная концентрация белка!"
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#e6d600"
 	taste_description = "сырного соуса"
@@ -230,7 +223,6 @@
 	name = "Грибной соус"
 	id = "msauce"
 	description = "Сливочный соус с грибами, имеет довольно резкий запах."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#beb58a"
 	taste_description = "грибного соуса"
@@ -239,7 +231,6 @@
 	name = "Чесночный соус"
 	id = "gsauce"
 	description = "Крепкий чесночный с резким запахом. Некоторые члены экипажа наверняка будут шипеть на вас из-за этого."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#fffee1"
 	taste_description = "чесночного соуса"
@@ -248,7 +239,6 @@
 	name = "Соус \"Диабло\""
 	id = "dsauce"
 	description = "Древний жгучий соус, рецепт которого практически не изменился с момента его создания."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#440804"
 	taste_description = "острого томатного соуса"
@@ -257,7 +247,6 @@
 	name = "Заварной крем"
 	id = "custard"
 	description = "Мягкий и сладкий крем, используемый в кондитерских изделиях."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#fffed1"
 	taste_description = "сладкого мягкого крема"
@@ -266,7 +255,6 @@
 	name = "Капсаициновое масло"
 	id = "capsaicin"
 	description = "Именно это делает чили острым."
-	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_description = span_warning_alt("ОСТРОТЫ")
 	taste_mult = 1.5
@@ -303,7 +291,6 @@
 	name = "Сгущённое капсаициновое масло"
 	id = "condensedcapsaicin"
 	description = "Ещё острее."
-	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_description = span_userdanger_alt("НЕРЕАЛЬНОЙ ОСТРОТЫ")
 
@@ -384,7 +371,6 @@
 	name = "Ледяное масло"
 	id = "frostoil"
 	description = "Масло, сильно охлаждающее тело. Добывается из ледяных перцев."
-	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<font color='lightblue'>холода</span>"
@@ -486,7 +472,6 @@
 	name = "Горячий шоколад"
 	id = "hot_coco"
 	description = "Сделано с любовью! И какао-бобами."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "горячего шоколада"
@@ -540,7 +525,6 @@
 	name = "Кукурузное масло"
 	id = "cornoil"
 	description = "Масло, получаемое из различных видов кукурузы."
-	reagent_state = LIQUID
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "кукурузного масла"
@@ -564,7 +548,6 @@
 	name = "Универсальный фермент"
 	id = "enzyme"
 	description = "Специальный катализатор, благодаря которому некоторые кулинарные химические реакции происходят мгновенно, а не занимают несколько часов или дней."
-	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 	taste_description = "сладости"
 
@@ -579,7 +562,6 @@
 	name = "Горячий рамен"
 	id = "hot_ramen"
 	description = "Лапша варёная, ароматизаторы искусственные, а вы как будто бы снова в школе."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "дешёвой лапши и воспоминаний"
@@ -593,7 +575,6 @@
 	name = "Адский рамен"
 	id = "hell_ramen"
 	description = "Лапша варёная, ароматизаторы искусственные, а вы как будто бы снова в школе... В АДУ!"
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "острой лапши со специями"
@@ -633,7 +614,6 @@
 	name = "Вишнёвое желе"
 	id = "cherryjelly"
 	description = "Абсолютно лучший. Наносится только на продукты с отличной боковой симметрией."
-	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 	taste_description = "вишнёвого желе"
 
@@ -641,7 +621,6 @@
 	name = "Голубичное желе"
 	id = "bluecherryjelly"
 	description = "Более вкусная версия желе из голубики."
-	reagent_state = LIQUID
 	color = "#00F0FF"
 	taste_description = "голубичного желе"
 
@@ -649,7 +628,6 @@
 	name = "Яйцо"
 	id = "egg"
 	description = "Текучая и вязкая смесь белка и желтка."
-	reagent_state = LIQUID
 	color = "#F0C814"
 	taste_description = "яиц"
 
@@ -662,7 +640,6 @@
 	name = "Кукурузный крахмал"
 	id = "corn_starch"
 	description = "Порошкообразный крахмал кукурузы, получаемый из эндосперма зерен. Используется в качестве загустителя для соусов и пудингов."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "муки"
 
@@ -670,7 +647,6 @@
 	name = "Кукурузный сироп"
 	id = "corn_syrup"
 	description = "Сладкий сироп, получаемый из кукурузного крахмала преобразованного в мальтозу и другие сахара."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "дешевого сахарозаменителя"
 
@@ -682,7 +658,6 @@
 	name = "Высокофруктозный кукурузный сироп"
 	id = "vhfcs"
 	description = "Невероятно сладкая жидкость, созданная из кукурузного сиропа, обработанного ферментами для превращения сахаров во фруктозу."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "диабета"
 
@@ -694,7 +669,6 @@
 	name = "Мёд"
 	id = "honey"
 	description = "Густое сладкое вещество, вырабатываемое пчелами в результате частичного переваривания. Пчелиная блевотина."
-	reagent_state = LIQUID
 	color = "#d3a308"
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	taste_description = "тягучей сладости"
@@ -730,7 +704,6 @@
 	name = "Шоколад"
 	id = "chocolate"
 	description = "Шоколад — это восхитительный продукт, получаемый из семян дерева \"Theobroma cacao\"."
-	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
@@ -758,7 +731,6 @@
 	name = "Полынь"
 	id = "mugwort"
 	description = "Довольно горькая трава, которая, как считается, обладает магическими защитными свойствами."
-	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "странного чая"
 
@@ -776,7 +748,6 @@
 	name = "Порктониум"
 	id = "porktonium"
 	description = "Высокорадиоактивный побочный продукт свинины, впервые обнаруженный в хот-догах."
-	reagent_state = LIQUID
 	color = "#AB5D5D"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 133
@@ -795,7 +766,6 @@
 	name = "Куриный бульон"
 	id = "chicken_soup"
 	description = "Старинное домашнее средство для лечения лёгких простудных заболеваний."
-	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	nutriment_factor = 2.5 * REAGENTS_METABOLISM
@@ -821,7 +791,6 @@
 	name = "Заменитель сыра"
 	id = "fake_cheese"
 	description = "Сыроподобное вещество, полученное из настоящего сыра."
-	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
 	harmless = FALSE
@@ -854,7 +823,6 @@
 	name = "Жареная фасоль"
 	id = "beans"
 	description = "Блюдо из фасолевого пюре, приготовленного с добавлением сала."
-	reagent_state = LIQUID
 	color = "#684435"
 	taste_description = "бурритос"
 
@@ -869,7 +837,6 @@
 	name = "Соевое масло"
 	id = "soybeanoil"
 	description = "Масло, полученное из соевых бобов."
-	reagent_state = LIQUID
 	color = "#B1B0B0"
 	taste_description = "соевого масла"
 
@@ -884,7 +851,6 @@
 	name = "Частично гидрогенизированное соевое масло"
 	id = "hydrogenated_soybeanoil"
 	description = "Масло, полученное из соевых бобов, в которое добавлены дополнительные атомы водорода для преобразования его в насыщенную форму."
-	reagent_state = LIQUID
 	color = "#B1B0B0"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 75
@@ -920,7 +886,6 @@
 	name = "Мясная жижа"
 	id = "meatslurry"
 	description = "Паста, состоящая из сильно переработанного органического материала. Напоминает спред из ветчины."
-	reagent_state = LIQUID
 	color = "#EBD7D7"
 	taste_description = "мяса?"
 
@@ -945,7 +910,6 @@
 	name = "Подливка"
 	id = "gravy"
 	description = "Пикантный соус, приготовленный из простого мясного рулета и молока."
-	reagent_state = LIQUID
 	color = "#B4641B"
 	taste_description = "подливки"
 
@@ -955,7 +919,6 @@
 	name = "Сгоревшая пищевая масса"
 	id = "????"
 	description = "Отвратительная и ядовитая субстанция."
-	reagent_state = LIQUID
 	color = "#63DE63"
 	taste_description = "сгоревшей еды"
 
@@ -973,7 +936,6 @@
 	name = "Глутамат натрия"
 	id = "msg"
 	description = "Глутамат натрия — это натриевая соль, известная главным образом благодаря своему использованию в качестве спорного усилителя вкуса."
-	reagent_state = LIQUID
 	color = "#F5F5F5"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "отличной кухни"
@@ -997,7 +959,6 @@
 	name = "Холестерин"
 	id = "cholesterol"
 	description = "Чистый холестерин. Достаточно вредная штука."
-	reagent_state = LIQUID
 	color = "#FFFAC8"
 	taste_description = "сердечного приступа"
 
@@ -1021,7 +982,6 @@
 	name = "Космический грибок"
 	id = "fungus"
 	description = "Соскобы неизвестного грибка, растущего на стенах станции."
-	reagent_state = LIQUID
 	color = "#C87D28"
 	taste_description = "плесени"
 
@@ -1042,7 +1002,6 @@
 	name = "Эктоплазма"
 	id = "ectoplasm"
 	description = "Причудливая студенистая субстанция, якобы получаемая из призраков."
-	reagent_state = LIQUID
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 	taste_description = "страшилок"
@@ -1072,7 +1031,6 @@
 	name = "Блевотина"
 	id = "vomit"
 	description = "Похоже, кто-то потерял свой обед. А потом собрал его. Фу."
-	reagent_state = LIQUID
 	color = "#FFFF00"
 	taste_description = "рвоты"
 
@@ -1084,7 +1042,6 @@
 	name = "Зелёная блевотина"
 	id = "green_vomit"
 	description = "Вау, это не может быть естественным. Это ужасно."
-	reagent_state = LIQUID
 	color = "#78FF74"
 	taste_description = "рвоты"
 

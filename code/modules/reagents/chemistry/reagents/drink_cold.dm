@@ -31,7 +31,6 @@
 	name = "Лёд"
 	id = "ice"
 	description = "Замороженная вода. Не стоит жевать, если не хочешь повредить свои зубы."
-	reagent_state = SOLID
 	color = "#619494" // rgb: 97, 148, 148
 	adj_temp_cool = 0
 	drink_icon = "iceglass"

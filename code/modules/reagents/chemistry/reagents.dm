@@ -4,7 +4,6 @@
 	var/tags = 0
 	var/description = ""
 	var/datum/reagents/holder = null
-	var/reagent_state = SOLID
 	var/list/data = null
 	var/volume = 0
 	var/metabolization_rate = REAGENTS_METABOLISM

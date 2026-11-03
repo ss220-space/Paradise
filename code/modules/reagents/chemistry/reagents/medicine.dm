@@ -17,7 +17,6 @@
 	name = "Гидрокодон"
 	id = "hydrocodone"
 	description = "Чрезвычайно эффективное болеутоляющее средство; может иметь долгосрочные последствия злоупотребления."
-	reagent_state = LIQUID
 	color = "#C805DC"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
@@ -32,7 +31,6 @@
 	name = "Стерилизин"
 	id = "sterilizine"
 	description = "Стерилизует раны для подготовки к операции."
-	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "антисептика"
 
@@ -44,7 +42,6 @@
 	name = "Синаптизин"
 	id = "synaptizine"
 	description = "Синаптизин используется для лечения нейролептического шока. Может использоваться для устранения инвалидизирующих симптомов, таких как паралич."
-	reagent_state = LIQUID
 	color = "#FA46FA"
 	overdose_threshold = 40
 	harmless = FALSE
@@ -91,7 +88,6 @@
 	name = "Митоколид"
 	id = "mitocholide"
 	description = "Специализированный препарат, стимулирующий митохондрии клеток для заживления внутренних органов."
-	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	chemdesc = "Исцеляет повреждения внутренних органов."
 
@@ -116,7 +112,6 @@
 	name = "Криоксадон"
 	id = "cryoxadone"
 	description = "Плазменная смесь, обладающая почти магической целительной силой. Его главное ограничение — температура тела субъекта должна быть ниже 265 К, чтобы он мог правильно метаболизироваться."
-	reagent_state = LIQUID
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
 	taste_description = "холодящей горечи"
@@ -198,7 +193,6 @@
 	name = "Космоциллин"
 	id = "spaceacillin"
 	description = "Универсальный антибиотик, получаемый из космической плесени."
-	reagent_state = LIQUID
 	color = "#0AB478"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
@@ -230,7 +224,6 @@
 	name = "Сульфадиазин серебра"
 	id = "silver_sulfadiazine"
 	description = "Это антибактериальное соединение используется для лечения пострадавших от ожогов."
-	reagent_state = LIQUID
 	color = "#F0DC00"
 	metabolization_rate = 7.5 * REAGENTS_METABOLISM
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
@@ -255,7 +248,6 @@
 	name = "Кровоостанавливающая пудра"
 	id = "styptic_powder"
 	description = "Кровоостанавливающий порошок (сульфат алюминия), который помогает остановить кровотечение и заживить физические раны."
-	reagent_state = LIQUID
 	color = "#FF9696"
 	metabolization_rate = 7.5 * REAGENTS_METABOLISM
 	harmless = FALSE
@@ -280,7 +272,7 @@
 	name = "Транексамовая кислота"
 	id = "traneksam_acid"
 	description = "лекарственное средство, которое применяют для лечения или предотвращения чрезмерной потери крови от травмы и хирургического вмешательства."
-	reagent_state = LIQUID
+
 	overdose_threshold = 20
 	color = "#b9645e"
 	penetrates_skin = TRUE
@@ -338,7 +330,6 @@
 	name = "Нейроматин"
 	id = "neuromatin"
 	description = "Иммунодепрессант, предназначенный для противодействия последствиям трансплантации мозга. Имеет ряд побочных эффектов."
-	reagent_state = LIQUID
 	overdose_threshold = 30
 	color = "#5010a3"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
@@ -364,7 +355,6 @@
 	name = "Физиологический раствор"
 	id = "salglu_solution"
 	description = "Этот раствор соли и глюкозы помогает стабилизировать состояние тяжелораненых пациентов и очистить раны."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	penetrates_skin = TRUE
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
@@ -388,7 +378,6 @@
 	name = "Синт-плоть"
 	id = "synthflesh"
 	description = "Резорбируемая смесь микрофибриллярного коллагена и белков, способная быстро заживлять повреждения при местном применении."
-	reagent_state = LIQUID
 	color = "#FFEBEB"
 	taste_description = "крови"
 
@@ -410,7 +399,6 @@
 	name = "Анти-ожоговый стимулянт"
 	id = "antiburn_stimulant"
 	description = "Стимулятор регенеративных способностей клеток, способный излечить обугленную кожу в кратчайшие сроки."
-	reagent_state = LIQUID
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 3
 	color = "#fab9b9"
@@ -442,7 +430,6 @@
 	name = "Активированный уголь"
 	id = "charcoal"
 	description = "Активированный уголь поглощает токсины."
-	reagent_state = LIQUID
 	taste_description = "пыли"
 	chemdesc = "Медленно лечит от отравления, а также медленно выводит другие химические вещества."
 
@@ -459,7 +446,6 @@
 	name = "Экстракт Угледрева"
 	id = "coaltree_extract"
 	description = "Экстракт, полученный из угледрева. Выводит из организма вредные токсины, но имеет ряд побочных эффектов."
-	reagent_state = LIQUID
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	taste_description = "пепла"
 
@@ -479,7 +465,6 @@
 	name = "Омнизин"
 	id = "omnizine"
 	description = "Омнизин — это высокоэффективный лечебный препарат, который можно использовать для лечения широкого спектра травм."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
 	addiction_chance = 3
@@ -539,7 +524,6 @@
 	name = "Каломель"
 	id = "calomel"
 	description = "Это мощное чистящее средство избавляет организм от нечистот. Однако он очень токсичен, поэтому необходим тщательный контроль."
-	reagent_state = LIQUID
 	color = "#22AB35"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	harmless = FALSE
@@ -560,7 +544,6 @@
 	name = "Йодид калия"
 	id = "potass_iodide"
 	description = "Йодид калия — лекарственный препарат, используемый для борьбы с последствиями радиационного отравления."
-	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "очищения"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
@@ -576,7 +559,6 @@
 	name = "Пентетовая кислота"
 	id = "pen_acid"
 	description = "Диэтилентриаминпентаацетат (сокращённо \"ДТПА\") — уменьшает огромное количество токсинов, одновременно выводя из организма другие химические вещества."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	harmless = FALSE
 	taste_description = "очищения"
@@ -592,7 +574,6 @@
 	name = "Салициловая кислота"
 	id = "sal_acid"
 	description = "Это стандартное обезболивающее и жаропонижающее средство."
-	reagent_state = LIQUID
 	color = "#B54848"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	shock_reduction = 25
@@ -612,7 +593,6 @@
 	name = "Ментол"
 	id = "menthol"
 	description = "Ментол снимает ожоги и боль, обеспечивая ощущение прохлады."
-	reagent_state = LIQUID
 	color = "#F0F9CA"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "успокоения"
@@ -629,7 +609,6 @@
 	name = "Сальбутамол"
 	id = "salbutamol"
 	description = "Сальбутамол — распространенное бронхорасширяющее лекарство для астматиков. Он может помочь и при других проблемах с дыханием."
-	reagent_state = LIQUID
 	color = "#00FFFF"
 	taste_description = "свежего воздуха"
 	chemdesc = "Лечит повреждения от удушья."
@@ -644,7 +623,6 @@
 	name = "Перфтордекалин"
 	id = "perfluorodecalin"
 	description = "Этот экспериментальный перфторированный растворитель находит применение в жидкостном дыхании и оксигенации тканей. Использовать с осторожностью."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	addiction_chance = 1
@@ -667,7 +645,6 @@
 	name = "Эфедрин"
 	id = "ephedrine"
 	description = "Эфедрин — это стимулятор растительного происхождения."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	overdose_threshold = 35
@@ -723,7 +700,6 @@
 	name = "Дифенгидрамин"
 	id = "diphenhydramine"
 	description = "Противоаллергические препараты. Может вызывать сонливость, не работайте с тяжелыми механизмами при использовании этого препарата."
-	reagent_state = LIQUID
 	color = "#5BCBE1"
 	addiction_chance = 1
 	addiction_threshold = 10
@@ -746,7 +722,6 @@
 	name = "Морфин"
 	id = "morphine"
 	description = "Сильное, но вызывающее сильное привыкание опиатное болеутоляющее средство с седативными побочными эффектами."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 20
 	addiction_chance = 10
@@ -786,7 +761,6 @@
 	name = "Окулин"
 	id = "oculine"
 	description = "Окулин — это солевой глазной препарат с мидриатическим и антибиотическим действием."
-	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "ясности"
 
@@ -811,7 +785,7 @@
 	name = "Атропин"
 	id = "atropine"
 	description = "Атропин — мощный сердечный реаниматор, но он может вызвать спутанность сознания, головокружение и гипертермию."
-	reagent_state = LIQUID
+
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	harmless = FALSE
@@ -840,7 +814,6 @@
 	name = "Эпинефрин"
 	id = "epinephrine"
 	description = "Эпинефрин — мощный нейротрансмиттер, используемый в экстренных медицинских ситуациях для купирования анафилактического шока и предотвращения остановки сердца."
-	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 20
@@ -900,7 +873,6 @@
 	name = "Странный реагент"
 	id = "strange_reagent"
 	description = "Светящаяся зелёная жидкость, очень напоминающая ядерные отходы."
-	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "жизни"
@@ -1126,8 +1098,7 @@
 /datum/reagent/medicine/insulin
 	name = "Инсулин"
 	id = "insulin"
-	description = "Гормон, вырабатываемый поджелудочной железой и отвечающий за метаболизм углеводов и жиров в кровеносной системе.."
-	reagent_state = LIQUID
+	description = "Гормон, вырабатываемый поджелудочной железой и отвечающий за метаболизм углеводов и жиров в кровеносной системе."
 	color = "#C8A5DC"
 	taste_description = "усталости"
 	chemuse = 50
@@ -1140,7 +1111,6 @@
 	name = "Гепарин"
 	id = "heparin"
 	description = "Антикоагулянт, используемый при операциях на сердце, а также при лечении инфарктов и тромбозов."
-	reagent_state = LIQUID
 	color = "#eee6da"
 	overdose_threshold = 20
 	taste_description = "горечи"
@@ -1176,7 +1146,6 @@
 	name = "Тепорон"
 	id = "teporone"
 	description = "Это экспериментальное соединение на основе плазмы крови, которое регулирует температуру тела."
-	reagent_state = LIQUID
 	color = "#D782E6"
 	addiction_chance = 1
 	addiction_chance_additional = 10
@@ -1199,7 +1168,6 @@
 	name = "Галоперидол"
 	id = "haloperidol"
 	description = "Галоперидол — мощный антипсихотик и седативное средство. Помогает справиться с психическими проблемами, но может вызвать повреждение мозга."
-	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "стабильности и успокоения"
 	harmless = FALSE
@@ -1227,7 +1195,6 @@
 	name = "Эфир"
 	id = "ether"
 	description = "Сильное обезболивающее и седативное средство."
-	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
@@ -1276,7 +1243,6 @@
 	name = "Разбавленный омнизин"
 	id = "weak_omnizine"
 	description = "Медленно исцеляет все типы повреждений. Гораздо более слабая версия настоящего омнизина."
-	reagent_state = LIQUID
 	color = "#DCDCDC"
 	overdose_threshold = 30
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
@@ -1314,7 +1280,6 @@
 	name = "Обезжириватель"
 	id = "degreaser"
 	description = "Промышленный обезжириватель, который можно использовать для удаления остатков налёта с оборудования и поверхностей."
-	reagent_state = LIQUID
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
 	taste_description = "очищения внутренних систем"
@@ -1345,7 +1310,6 @@
 	name = "Жидкий припой"
 	id = "liquid_solder"
 	description = "Раствор, предназначенный для очистки и восстановления поврежденных соединений в позитронных блоках в процессе эксплуатации."
-	reagent_state = LIQUID
 	color = "#D7B395"
 	process_flags = SYNTHETIC
 	taste_description = "тяжёлых металлов"
@@ -1360,7 +1324,6 @@
 	name = "Охлаждающая жидкость"
 	id = "coolant"
 	description = "Исправляет ошибки модуля общения."
-	reagent_state = LIQUID
 	color = "#0af0f0"
 	process_flags = SYNTHETIC
 	taste_description = "исправленных багов"
@@ -1377,7 +1340,6 @@
 	name = "Бикаридин"
 	id = "bicaridine"
 	description = "Залечивает травмы. При передозировке вызывает их появление."
-	reagent_state = LIQUID
 	color = "#f02c2c"
 	overdose_threshold = 30
 	harmless = FALSE
@@ -1397,7 +1359,6 @@
 	name = "Келотан"
 	id = "kelotane"
 	description = "Залечивает ожоги. При передозировке вызывает их появление."
-	reagent_state = LIQUID
 	color = "#f7a132"
 	overdose_threshold = 30
 	harmless = FALSE
@@ -1581,7 +1542,6 @@
 	name = "Кровь Зессул"
 	id = "zessulblood"
 	description = "Природное химическое вещество, вырабатываемое в кровотоке унатхов."
-	reagent_state = LIQUID
 	color = "#00ff15"
 	shock_reduction = 20
 	taste_description = "благословления"
@@ -1597,7 +1557,6 @@
 	name = "Чистая плазма"
 	id = "pure_plasma"
 	description = "Продукт метаболизма плазмаменов, отвечающий за восстановление тканей и противодействие болевому шоку. Чрезвычайно токсичен."
-	reagent_state = LIQUID
 	color = "#b521c2"
 	shock_reduction = 20
 	taste_description = "превосходства"
@@ -1658,7 +1617,6 @@
 	name = "Модифицированный Экстракт Лазиса"
 	id = "adv_lava_extract"
 	description = "Очень дорогое лекарство, которое помогает перекачивать кровь по телу и предотвращает замедление работы сердца, исцеляя пациента в процессе. Передозировка приводит к сердечным приступам."
-	reagent_state = LIQUID
 	color = "#F5F5F5"
 	overdose_threshold = 10
 	harmless = FALSE
@@ -1715,7 +1673,6 @@
 	name = "Сироп Лазиса"
 	id = "ashiezine"
 	description = "Странный реагент, найденный на Лазис Ардаксе. Судя по всему, он работает только на пеплоходцев."
-	reagent_state = LIQUID
 	color = "#f45555"
 	harmless = FALSE
 	taste_description = "потрохов"
@@ -1799,7 +1756,6 @@
 	name = "Противовирусная сыворотка Альфа"
 	id = "zombiecure1"
 	description = "Первый шаг к лечению некротизирующей чумы. Предотвращает простое заражение от царапин."
-	reagent_state = LIQUID
 	metabolization_rate = 0.1
 	color = "#003602"
 	var/cure_level = 1
