@@ -906,3 +906,5 @@
 
 /datum/config_entry/flag/emojis
 	default = TRUE
+
+/datum/config_entry/flag/grey_assistants

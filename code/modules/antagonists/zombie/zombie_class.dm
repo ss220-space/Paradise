@@ -38,9 +38,9 @@
 /datum/zombie_class/hunter
 	name = "Охотник"
 	desc = "Быстрый и юркий зомби. Наносит мало урона и сам быстро погибает, зато способен совершать рывки на большие расстояния."
-	brute_mod = 3
-	burn_mod = 3
-	stamina_mod = 3
+	brute_mod = 2.3
+	burn_mod = 2.3
+	stamina_mod = 1.5
 	damage_mod = 0.5
 	healing_factor_mod = 1.1
 	movespeed_modifier = /datum/movespeed_modifier/zombie/fast
@@ -64,7 +64,7 @@
 	burn_mod = 4
 	brute_mod = 0.9
 	burn_mod = 0.9
-	stamina_mod = 0.9
+	stamina_mod = 0.6
 	special_skill = /datum/action/cooldown/spell/smoke/zombie
 
 /datum/zombie_class/smoker/apply(mob/living/carbon/human/zombie)
@@ -81,7 +81,6 @@
 	healing_factor_mod = 2
 	burn_mod = 0.9
 	brute_mod = 0.9
-	burn_mod = 0.9
-	stamina_mod = 0.9
+	stamina_mod = 0.6
 	special_skill = /datum/action/cooldown/spell/pointed/projectile/acid_spit
 

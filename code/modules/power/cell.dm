@@ -186,16 +186,11 @@
 	if(prob(10))
 		rigged = TRUE //broken batterys are dangerous
 
-/obj/item/stock_parts/cell/emp_act(severity, resistance_modifier = 1)
+/obj/item/stock_parts/cell/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	var/atom/container = loc
-	while(container)
-		if(SEND_SIGNAL(container, COMSIG_ATOM_PRE_EMP_ACT, severity) & EMP_PROTECT_CONTENTS)
-			return
-		container = container.loc
-	use(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier / resistance_modifier))
+	use(round(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier)))
 	if(!QDELETED(src))
 		update_icon(UPDATE_OVERLAYS)
 
