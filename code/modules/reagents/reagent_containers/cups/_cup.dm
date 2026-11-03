@@ -471,7 +471,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
 
 /obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
@@ -491,7 +491,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	desc = "Свежая бутылка воды коммерческого размера."
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
+	list_reagents = list(/datum/reagent/water = 100)
 	volume = 100
 	amount_per_transfer_from_this = 20
 

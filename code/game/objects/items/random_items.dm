@@ -87,7 +87,7 @@
 		reagent = pick(special_drinks)
 	else
 		reagent = pick(GLOB.drinks)
-		if(initial(reagent.id) in GLOB.blocked_chems)
+		if(reagent in GLOB.blocked_chems)
 			reagent = pick(special_drinks)
 
 	reagents.add_reagent(reagent, volume)

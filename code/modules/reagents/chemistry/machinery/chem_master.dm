@@ -660,7 +660,7 @@
 
 /datum/chemical_production_mode/patches/proc/SafetyCheck(datum/reagents/R)
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!GLOB.safe_chem_list.Find(A.id))
+		if(!GLOB.safe_chem_list.Find(A.type))
 			return FALSE
 	return TRUE
 

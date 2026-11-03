@@ -112,7 +112,7 @@
 	if(!bee.beegent)
 		return ..()
 
-	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial()
+	reagent_id = bee.beegent.type // Set parameters and send them into parent without initial()
 	reagent_amount = rand(1, 5)
 
 	if(!..())

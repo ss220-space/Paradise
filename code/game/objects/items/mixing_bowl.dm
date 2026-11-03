@@ -85,7 +85,7 @@
 			balloon_alert(user, "пусто!")
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
-			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
+			if(!(reagent.type in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.type in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.type in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.type in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.type in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
 				to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] содержит компоненты, непригодные для готовки."))
 				return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = I

@@ -392,7 +392,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/borer, toggle_silence_inside_host, "Ð Ð
 	content += "<table>"
 
 	for(var/datum/reagent/reagent as anything in subtypesof(/datum/reagent))
-		if(!LAZYIN(GLOB.borer_reagents, reagent.id) || !reagent.name)
+		if(!LAZYIN(GLOB.borer_reagents, reagent) || !reagent.name)
 			continue
 
 		content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"

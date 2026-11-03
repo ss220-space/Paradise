@@ -740,7 +740,7 @@
 	amount_per_transfer_from_this = 15
 	volume = 15
 	container_type = NONE // No sucking out the reagent
-	list_reagents = list("zombiecure1" = 15)
+	list_reagents = list(/datum/reagent/zombie_cure = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/get_ru_names()
 	return alist(
@@ -760,7 +760,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
 	name = "Anti-Plague Sequence Beta autoinjector"
 	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Бета. Ослабляет зомби, лечит слабые заражения."
-	list_reagents = list("zombiecure2" = 15)
+	list_reagents = list(/datum/reagent/zombie_cure/second = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2/get_ru_names()
 	return alist(
@@ -775,7 +775,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3
 	name = "Anti-Plague Sequence Gamma autoinjector"
 	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Гамма. Снижает исцеление зомби. Лечит заражение 5-й стадии и замедляет заражение 6-й стадии."
-	list_reagents = list("zombiecure3" = 15)
+	list_reagents = list(/datum/reagent/zombie_cure/third = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3/get_ru_names()
 	return alist(
@@ -790,7 +790,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
 	name = "Anti-Plague Sequence Omega autoinjector"
 	desc = "Небольшой автоинъектор, содержащий 15 единиц противовирусной сыворотки Омега. Лечит все случаи некротизирующей чумы. Также исцеляет мёртвые конечности."
-	list_reagents = list("zombiecure4" = 15)
+	list_reagents = list(/datum/reagent/zombie_cure/fourth = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4/get_ru_names()
 	return alist(

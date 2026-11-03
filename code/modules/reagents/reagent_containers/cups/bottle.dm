@@ -1294,7 +1294,7 @@
 /obj/item/reagent_containers/cup/bottle/zombiecure1
 	name = "Anti-Plague Sequence Alpha bottle"
 	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Альфа. Предотвращает заражение, лечит заражение 1-го уровня."
-	list_reagents = list("zombiecure1" = 50)
+	list_reagents = list(/datum/reagent/zombie_cure = 50)
 
 /obj/item/reagent_containers/cup/bottle/zombiecure1/get_ru_names()
 	return alist(
@@ -1309,7 +1309,7 @@
 /obj/item/reagent_containers/cup/bottle/zombiecure2
 	name = "Anti-Plague Sequence Beta bottle"
 	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Бета. Ослабляет зомби, лечит слабые заражения."
-	list_reagents = list("zombiecure2" = 50)
+	list_reagents = list(/datum/reagent/zombie_cure/second = 50)
 
 /obj/item/reagent_containers/cup/bottle/zombiecure2/get_ru_names()
 	return alist(
@@ -1324,7 +1324,7 @@
 /obj/item/reagent_containers/cup/bottle/zombiecure3
 	name = "Anti-Plague Sequence Gamma bottle"
 	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Гамма. Снижает исцеление зомби. Лечит заражение 5-й стадии и замедляет заражение 6-й стадии."
-	list_reagents = list("zombiecure3" = 50)
+	list_reagents = list(/datum/reagent/zombie_cure/third = 50)
 
 /obj/item/reagent_containers/cup/bottle/zombiecure3/get_ru_names()
 	return alist(
@@ -1339,7 +1339,7 @@
 /obj/item/reagent_containers/cup/bottle/zombiecure4
 	name = "Anti-Plague Sequence Omega bottle"
 	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Омега. Лечит все случаи некротизирующей чумы. Также исцеляет мёртвые конечности."
-	list_reagents = list("zombiecure4" = 50)
+	list_reagents = list(/datum/reagent/zombie_cure/fourth = 50)
 
 /obj/item/reagent_containers/cup/bottle/zombiecure4/get_ru_names()
 	return alist(

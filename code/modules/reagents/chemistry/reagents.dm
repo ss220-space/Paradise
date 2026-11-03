@@ -80,7 +80,7 @@
 /datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) // Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  // for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
-			M.reagents.add_reagent(id, volume)
+			M.reagents.add_reagent(type, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
@@ -186,7 +186,7 @@
 
 // Called in on_merge() proc if reagent can carry diseases
 /datum/reagent/proc/merge_diseases_data(list/mix_data)
-	if(!(id in GLOB.diseases_carrier_reagents))
+	if(!(type in GLOB.diseases_carrier_reagents))
 		return
 
 	if(data && mix_data)

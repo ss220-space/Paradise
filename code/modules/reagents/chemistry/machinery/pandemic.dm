@@ -84,7 +84,7 @@
 		var/datum/reagents/reagents = beaker.reagents
 		for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 			var/list/reagent_data = reagent.data
-			if((reagent.id in GLOB.diseases_carrier_reagents) && reagent_data && reagent_data["resistances"])
+			if((reagent.type in GLOB.diseases_carrier_reagents) && reagent_data && reagent_data["resistances"])
 				var/list/original_resistances = reagent_data["resistances"]
 				var/list/resistances = original_resistances.Copy()
 				for(var/path in resistances)
@@ -139,7 +139,7 @@
 
 	var/datum/reagent/blood = null
 	for(var/datum/reagent/reagent in reagents.reagent_list)
-		if(reagent.id in GLOB.diseases_carrier_reagents)
+		if(reagent.type in GLOB.diseases_carrier_reagents)
 			blood = reagent
 			if(!blood.data)
 				continue

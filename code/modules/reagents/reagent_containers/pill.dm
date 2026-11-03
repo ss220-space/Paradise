@@ -156,7 +156,7 @@
 	name = "Pervitin pill"
 	desc = "Увеличивает концентрацию и ускоряет работу руками. Вызывает сильное привыкание."
 	icon_state = "pill8"
-	list_reagents = list("pervitin" = 5)
+	list_reagents = list(/datum/reagent/pervitin = 5)
 
 /obj/item/reagent_containers/food/pill/methamphetamine/get_ru_names()
 	return alist(
