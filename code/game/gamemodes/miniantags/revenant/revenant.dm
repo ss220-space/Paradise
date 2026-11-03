@@ -33,7 +33,7 @@
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSMACHINE | PASSSTRUCTURE | PASSFENCE
-	pass_flags_self = PASSMOB | PASSPROJECTILE
+	pass_flags_self = PASSMOB | PASSPROJECTILE | PASSGLASS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	hud_type = /datum/hud/revenant
 	tts_seed = "Sylvanas"

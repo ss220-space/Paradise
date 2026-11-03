@@ -138,13 +138,25 @@
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_revenant"
 	background_icon_state_active = "bg_revenant"
+	var/list/voices = list(
+		"Arthas",
+		"Acolyte",
+		"Bounty",
+		"Glados",
+		"Meepo",
+		"Dude",
+		"Spongebob",
+		"Akshan",
+		"Darth_Vader",
+		"Dick",
+	)
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/cast(atom/cast_on)
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(cast_async), target)
+	INVOKE_ASYNC(src, PROC_REF(cast_async), cast_on)
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/proc/cast_async(mob/living/target)
 	var/msg = tgui_input_text(usr, "Что вы хотите передать [target]?", null, "")
@@ -157,6 +169,7 @@
 	to_chat(owner, "[span_revenboldnotice("Вы передаёте [target]:")] [span_revennotice(msg)]")
 	target.balloon_alert(target, "вы слышите жуткий голос")
 	to_chat(target, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, target, target, msg, pick(voices), TRUE, TTS_TRAIT_PITCH_WHISPER)
 
 /datum/action/cooldown/spell/revenantinvis
 	name = "Переключить невидимость"
