@@ -4,6 +4,8 @@
  * Add skins feature to /obj/item by alt_click.
  */
 /datum/element/item_skins
+	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 3
 	var/key_to_open
 
 /datum/element/item_skins/Attach(datum/target, item_path = null, key = COMSIG_CLICK_ALT)
