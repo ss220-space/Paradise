@@ -255,6 +255,9 @@
 	return TRUE
 
 /datum/martial_art/proc/add_martial_art_verbs(mob/living/carbon/human/human)
+	if(!ishuman(human))
+		return
+
 	if(has_explaination_verb)
 		ASSIGN_GAME_VERB(human, /mob/living/carbon/human, martial_arts_help)
 
