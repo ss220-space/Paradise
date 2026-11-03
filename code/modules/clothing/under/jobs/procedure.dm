@@ -1,5 +1,5 @@
 /obj/item/clothing/under/rank/procedure
-	icon = 'icons/clothing/uniforms/procedure.dmi'
+	icon = 'icons/obj/clothing/uniforms/procedure.dmi'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',

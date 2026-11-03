@@ -1,5 +1,5 @@
 /obj/item/clothing/under/solgov
-	icon = 'icons/clothing/uniforms/solgov.dmi'
+	icon = 'icons/obj/clothing/uniforms/solgov.dmi'
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 	sprite_sheets = list(

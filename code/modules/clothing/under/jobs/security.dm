@@ -9,7 +9,7 @@
  * Security
  */
 /obj/item/clothing/under/rank/security
-	icon = 'icons/clothing/uniforms/security.dmi'
+	icon = 'icons/obj/clothing/uniforms/security.dmi'
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 	sprite_sheets = list(
@@ -168,7 +168,6 @@
 	icon_state = "hosalt_skirt"
 	item_state = "hosalt_skirt"
 	item_color = "hosalt_skirt"
-	sprite_sheets = list(
 
 /obj/item/clothing/under/rank/security/head_of_security/paradef
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer. Made for parades."
@@ -176,7 +175,6 @@
 	icon_state = "hos_parade_fem"
 	item_state = "hos_parade_fem"
 	item_color = "hos_parade_fem"
-	sprite_sheets = list(
 
 //Jensen cosplay gear
 

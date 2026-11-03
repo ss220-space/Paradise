@@ -300,6 +300,27 @@
 		PREPOSITIONAL = "комбинезоне-юбке врача",
 	)
 
+/obj/item/clothing/under/rank/medical/medigown
+	name = "medical gown"
+	desc = "Халат, предназначенный для использования медицинским персоналом. \
+			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
+			Застёжки на спине слабые и не застёгиваются должным образом, \
+			что делает этот халат не самым популярным выбором среди остальной униформы."
+	icon_state = "medicalgown"
+	item_state = "medicalgown"
+	item_color = "medicalgown"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/rank/medical/medigown/get_ru_names()
+	return alist(
+		NOMINATIVE = "медицинский халат",
+		GENITIVE = "медицинского халата",
+		DATIVE = "медицинскому халату",
+		ACCUSATIVE = "медицинский халат",
+		INSTRUMENTAL = "медицинским халатом",
+		PREPOSITIONAL = "медицинском халате",
+	)
+
 /obj/item/clothing/under/rank/medical/scrub/blue
 	name = "blue medical scrubs"
 	desc = "Специализированная врачебная одежда, которую носят во время операций. Эта окрашена в голубой цвет. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."

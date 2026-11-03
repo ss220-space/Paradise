@@ -1,5 +1,5 @@
 /obj/item/clothing/under/dress
-	icon = 'icons/clothing/uniforms/dress.dmi'
+	icon = 'icons/obj/clothing/uniforms/dress.dmi'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -228,7 +228,7 @@
 		PREPOSITIONAL = "красном вечернем платье",
 	)
 
-/obj/item/clothing/under/dress/50s
+/obj/item/clothing/under/dress/ussp
 	name = "old Soviet dress"
 	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
 	over_shoes = TRUE
@@ -289,7 +289,7 @@
 	item_state = "night_dress_darkred"
 	item_color = "night_dress_darkred"
 
-/obj/item/clothing/under/dress/night_dress/red
+/obj/item/clothing/under/dress/night/red
 	icon_state = "night_dress_red"
 	item_state = "night_dress_red"
 	item_color = "night_dress_red"

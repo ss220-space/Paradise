@@ -1,7 +1,7 @@
 /obj/item/clothing/under/syndicate
 	name = "tactical turtleneck"
 	desc = "Водолазка с цифровым камуфляжным принтом и брюки карго, которые выглядят слегка подозрительно."
-	icon = 'icons/clothing/uniforms/syndicate.dmi'
+	icon = 'icons/obj/clothing/uniforms/syndicate.dmi'
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"

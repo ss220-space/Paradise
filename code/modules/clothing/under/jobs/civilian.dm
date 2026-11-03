@@ -1,5 +1,5 @@
 /obj/item/clothing/under/rank/service
-	icon = 'icons/clothing/uniforms/service.dmi'
+	icon = 'icons/obj/clothing/uniforms/service.dmi'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -57,13 +57,13 @@
 		PREPOSITIONAL = "платье-униформе главы персонала",
 	)
 
-/obj/item/clothing/under/service/dress/hr
+/obj/item/clothing/under/rank/service/dress/hr
 	name = "human resources director uniform"
 	desc = "Высший класс для любопытного директора по персоналу."
 	icon_state = "huresource"
 	item_color = "huresource"
 
-/obj/item/clothing/under/service/dress/hr/get_ru_names()
+/obj/item/clothing/under/rank/service/dress/hr/get_ru_names()
 	return alist(
 		NOMINATIVE = "платье-униформа директора персоналу",
 		GENITIVE = "платья-униформы директора персоналу.",
@@ -80,7 +80,7 @@
 	item_state = "ba_suit"
 	item_color = "ba_suit"
 
-/obj/item/clothing/under/rank/service/bartender/service/skirt
+/obj/item/clothing/under/rank/service/bartender/skirt
 	name = "bartender's skirt"
 	icon_state = "ba_suitf"
 	item_state = "ba_suitf"

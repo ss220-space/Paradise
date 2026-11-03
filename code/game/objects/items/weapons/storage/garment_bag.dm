@@ -83,7 +83,7 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hop_jacket(src)
 	new /obj/item/clothing/suit/hop_jacket/female(src)
-	new /obj/item/clothing/under/service/dress/hr(src)
+	new /obj/item/clothing/under/rank/service/dress/hr(src)
 	new /obj/item/clothing/under/rank/procedure/lawyer/female(src)
 	new /obj/item/clothing/under/rank/procedure/lawyer/black(src)
 	new /obj/item/clothing/under/rank/procedure/lawyer/red(src)

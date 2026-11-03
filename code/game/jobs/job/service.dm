@@ -466,7 +466,7 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MIMANIUM_SHIPMENTS))
 		backpack_contents[/obj/item/stack/sheet/mineral/tranquillite/fifty] = 1
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/service/mime/skirts
+		uniform = /obj/item/clothing/under/rank/service/mime/skirt
 		mask = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -2785,7 +2785,7 @@
 	},
 /area/centcom/tdome/arena_source)
 "GF" = (
-/obj/item/clothing/under/miscellaneous/rainbow,
+/obj/item/clothing/under/color/miscellaneous/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake/holo,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)

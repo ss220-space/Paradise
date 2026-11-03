@@ -1,7 +1,7 @@
 /obj/item/clothing/under/rank/captain
 	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
 	name = "captain's jumpsuit"
-	icon = 'icons/clothing/uniforms/captain.dmi'
+	icon = 'icons/obj/clothing/uniforms/captain.dmi'
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
@@ -40,14 +40,14 @@
 	item_state = "cap_parade"
 	item_color = "cap_parade"
 
-/obj/item/clothing/under/captain/parade/office
+/obj/item/clothing/under/rank/captain/parade/office
 	name = "captain's office uniform"
 	desc = "Для повседневной бюрократии."
 	icon_state = "cap_office"
 	item_state = "cap_office"
 	item_color = "cap_office"
 
-/obj/item/clothing/under/captain/parade/office/get_ru_names()
+/obj/item/clothing/under/rank/captain/parade/office/get_ru_names()
 	return alist(
 		NOMINATIVE = "капитанская офисная униформа",
 		GENITIVE = "капитанской офисной униформы",

@@ -540,7 +540,7 @@
  These clothes dont use greyskale
 */
 /obj/item/clothing/under/color/miscellaneous
-	icon = 'icons/clothing/uniforms/color.dmi'
+	icon = 'icons/obj/clothing/uniforms/color.dmi'
 
 /obj/item/clothing/under/color/miscellaneous/red/jersey
 	name = "red team jersey"

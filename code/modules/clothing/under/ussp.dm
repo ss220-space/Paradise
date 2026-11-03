@@ -1,5 +1,5 @@
 /obj/item/clothing/under/ussp
-	icon = 'icons/clothing/uniforms/ussp.dmi'
+	icon = 'icons/obj/clothing/uniforms/ussp.dmi'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',

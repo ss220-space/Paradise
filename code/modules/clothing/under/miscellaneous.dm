@@ -1,5 +1,5 @@
 /obj/item/clothing/under/miscellaneous
-	icon = 'icons/clothing/uniforms/misc.dmi'
+	icon = 'icons/obj/clothing/uniforms/misc.dmi'
 
 /obj/item/clothing/under/miscellaneous/pj/red
 	name = "red pj's"
@@ -406,27 +406,6 @@
 /obj/item/clothing/under/miscellaneous/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-/obj/item/clothing/under/miscellaneous/medigown
-	name = "medical gown"
-	desc = "Халат, предназначенный для использования медицинским персоналом. \
-			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
-			Застёжки на спине слабые и не застёгиваются должным образом, \
-			что делает этот халат не самым популярным выбором среди остальной униформы."
-	icon_state = "medicalgown"
-	item_state = "medicalgown"
-	item_color = "medicalgown"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/miscellaneous/medigown/get_ru_names()
-	return alist(
-		NOMINATIVE = "медицинский халат",
-		GENITIVE = "медицинского халата",
-		DATIVE = "медицинскому халату",
-		ACCUSATIVE = "медицинский халат",
-		INSTRUMENTAL = "медицинским халатом",
-		PREPOSITIONAL = "медицинском халате",
-	)
 
 /obj/item/clothing/under/miscellaneous/burial
 	name = "burial garments"

@@ -28468,7 +28468,7 @@
 /obj/item/clothing/suit/pirate_brown,
 /obj/item/clothing/suit/soldiercoat,
 /obj/machinery/alarm/directional/north,
-/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
 /turf/simulated/floor/plating,
 /area/station/commons/trading)
 "ggW" = (

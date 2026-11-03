@@ -137,7 +137,7 @@
 				/obj/item/clothing/under/miscellaneous/orangehawaiianshirt = 10,
 				/obj/item/clothing/under/ussp/tracksuit_red = 10,
 				/obj/item/clothing/under/ussp/tracksuit_blue = 10,
-				/obj/item/clothing/under/dress/50s = 10,
+				/obj/item/clothing/under/dress/ussp = 10,
 				/obj/item/clothing/under/miscellaneous/tourist_suit = 10,
 				/obj/item/clothing/under/miscellaneous/maleclub = 10,
 				/obj/item/clothing/under/miscellaneous/girlclub = 10,

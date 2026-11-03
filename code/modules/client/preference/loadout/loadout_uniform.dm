@@ -408,7 +408,7 @@
 
 /datum/gear/uniform/dress50s
 	index_name = "old Soviet dress"
-	path = /obj/item/clothing/under/dress/50s
+	path = /obj/item/clothing/under/dress/ussp
 
 /datum/gear/uniform/bandit_uniform
 	index_name = "bandit uniform"

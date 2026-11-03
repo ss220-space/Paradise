@@ -190,7 +190,7 @@
 /obj/item/clothing/under/rockso/@SUBTYPES : /obj/item/clothing/under/miscellaneous/rockso/@SUBTYPES{@OLD}
 /obj/item/clothing/under/assistantformal/@SUBTYPES : /obj/item/clothing/under/miscellaneous/assistantformal/@SUBTYPES{@OLD}
 /obj/item/clothing/under/cursedclown/@SUBTYPES : /obj/item/clothing/under/miscellaneous/cursedclown/@SUBTYPES{@OLD}
-/obj/item/clothing/under/medigown/@SUBTYPES : /obj/item/clothing/under/miscellaneous/medigown/@SUBTYPES{@OLD}
+/obj/item/clothing/under/medigown/@SUBTYPES : /obj/item/clothing/under/rank/medical/medigown/@SUBTYPES{@OLD}
 /obj/item/clothing/under/burial/@SUBTYPES : /obj/item/clothing/under/miscellaneous/burial/@SUBTYPES{@OLD}
 /obj/item/clothing/under/redhawaiianshirt/@SUBTYPES : /obj/item/clothing/under/miscellaneous/redhawaiianshirt/@SUBTYPES{@OLD}
 /obj/item/clothing/under/pinkhawaiianshirt/@SUBTYPES : /obj/item/clothing/under/miscellaneous/pinkhawaiianshirt/@SUBTYPES{@OLD}

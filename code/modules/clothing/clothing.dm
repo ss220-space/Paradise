@@ -1151,7 +1151,6 @@ GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костю�
 /obj/item/clothing/under
 	name = "under"
 	gender = MALE
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER

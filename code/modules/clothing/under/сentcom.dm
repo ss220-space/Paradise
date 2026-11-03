@@ -1,5 +1,5 @@
 /obj/item/clothing/under/rank/centcom
-	icon = 'icons/clothing/uniforms/cargo.dmi'
+	icon = 'icons/obj/clothing/uniforms/cargo.dmi'
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
