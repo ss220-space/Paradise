@@ -1318,3 +1318,15 @@
 	spell_type = /datum/action/cooldown/spell/forcewall/greater/mime
 	spellname = "Великая Невидимая стена"
 	desc = "Содержит изображения выдающихся сооружений, которые оставили след в истории человечества."
+
+/datum/spellbook_entry/item/plague_talisman
+	name = "Пять чумных талисманов"
+	desc = "Особые гравированные руны, используемые для поднятия мёртвых в виде поражённых чумой одушевлённых трупов."
+	item_path = /obj/item/storage/belt/plague_talisman
+	category = "Artefacts"
+	cost = 1
+
+/datum/spellbook_entry/item/plague_talisman/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		user.add_language(LANGUAGE_ZOMBIE)

@@ -146,6 +146,7 @@ no power level overlay is currently in the overlays list.
 			state = FG_SECURED
 
 /obj/machinery/field/generator/emp_act()
+	. = ..()
 	return FALSE
 
 /obj/machinery/field/generator/attack_animal(mob/living/simple_animal/user, list/modifiers)

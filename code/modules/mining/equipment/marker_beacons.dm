@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/item/stack/marker_beacon
 	name = "marker beacon"
 	singular_name = "marker beacon"
+	logistics_count_amount = TRUE
 	desc = "Устройства освещения пути. Используются шахтёрами для разметки маршрутов и обозначения опасностей."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"

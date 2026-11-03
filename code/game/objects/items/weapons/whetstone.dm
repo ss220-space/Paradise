@@ -77,12 +77,13 @@
 
 /obj/item/whetstone/attack_self(mob/living/carbon/human/user)
 	. = ..()
-	if(!ishuman(user) || !istype(user.dna.species.unarmed, /datum/unarmed_attack/claws))
+	var/datum/unarmed_attack/attack = user.get_unarmed_attack()
+	if(!ishuman(user) || !istype(attack , /datum/unarmed_attack/claws))
 		return .
 	if(!uses)
 		to_chat(user, span_warning("Точильный брусок слишком изношен, чтобы его можно было использовать повторно!"))
 		return .
-	var/datum/unarmed_attack/claws/claws = user.dna.species.unarmed
+	var/datum/unarmed_attack/claws/claws = attack
 	if(claws.damage > initial(claws.damage))
 		to_chat(user, span_warning("Вы больше не можете точить свои когти!"))
 		return .

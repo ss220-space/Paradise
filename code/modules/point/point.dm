@@ -9,6 +9,10 @@
  * Not intended as a replacement for the mob verb
  */
 /atom/movable/proc/point_at(atom/pointed_atom)
+	// Hallucinated items are client-only fakes in the mob's contents
+	if(istype(pointed_atom, /obj/item/hallucinated))
+		return
+
 	var/turf/source_turf = loc
 	if(!isturf(source_turf))
 		return
@@ -129,6 +133,10 @@ GAME_VERB_CONTEXT(/mob, pointed, "Указать на", VERB_NO_DESCRIPTION, VER
 	if(istype(target, /obj/effect/temp_visual/point))
 		return
 
+	// Hallucinated items are client-only fakes and must not be pointable.
+	if(istype(target, /obj/item/hallucinated))
+		return
+
 	changeNext_move(CLICK_CD_POINT)
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), target))
@@ -138,6 +146,10 @@ GAME_VERB_CONTEXT(/mob, pointed, "Указать на", VERB_NO_DESCRIPTION, VER
  * Either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro.
  */
 /mob/proc/run_pointed(atom/target)
+	// Hallucinated items must not be pointable (they are client-only fakes).
+	if(istype(target, /obj/item/hallucinated))
+		return FALSE
+
 	if(target.loc in src) // Object is inside a container on the mob. It's not part of the verb's list since it's not in view and requires middle clicking.
 		point_at(target)
 		return TRUE

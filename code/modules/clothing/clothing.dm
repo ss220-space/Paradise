@@ -48,6 +48,9 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
+	/// What level of emp protection item has
+	var/emp_protection = EMP_PROTECTION_NONE
+
 /obj/item/clothing/Initialize(mapload)
 	if(LAZYLEN(clothing_traits))
 		clothing_traits = string_list(clothing_traits)

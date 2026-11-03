@@ -26,8 +26,9 @@
 	..()
 	robocharge()
 
-/obj/item/gun/energy/gun/cyborg/emp_act()
-	return
+/obj/item/gun/energy/gun/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 // MARK: Mini energy gun
 /obj/item/gun/energy/gun/mini

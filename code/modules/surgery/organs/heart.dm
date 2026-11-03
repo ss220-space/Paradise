@@ -34,9 +34,8 @@
 	. = ..()
 
 /obj/item/organ/internal/heart/emp_act(intensity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(emp_shielded(intensity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
 		return
 	Stop()
 
@@ -292,11 +291,8 @@
 		emagged = FALSE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
-	if(emp_shielded(severity))
-		return
-	..()
-
-	if(emp_proof)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 
 	if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))

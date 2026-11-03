@@ -9,6 +9,10 @@
 	cooldown_reduction_per_rank = 10 SECONDS //100 deciseconds reduction per rank
 	button_icon_state = "statue"
 
+/datum/action/cooldown/spell/touch/flesh_to_stone/on_antimagic_triggered(obj/item/melee/touch_attack/hand, mob/living/victim, mob/living/carbon/caster)
+	to_chat(caster, span_warning("The spell can't seem to affect [victim]!"))
+	to_chat(victim, span_warning("You feel your flesh turn to stone for a moment, then revert back!"))
+
 /obj/item/melee/touch_attack/flesh_to_stone
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
@@ -16,10 +20,14 @@
 	item_state = "fleshtostone"
 
 /datum/action/cooldown/spell/touch/flesh_to_stone/is_valid_target(atom/cast_on)
+	var/mob/living/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
 	return isliving(cast_on)
 
 /datum/action/cooldown/spell/touch/flesh_to_stone/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/target = victim
+
 	target.Stun(4 SECONDS)
 	new /obj/structure/closet/statue(target.loc, target)
 	return TRUE

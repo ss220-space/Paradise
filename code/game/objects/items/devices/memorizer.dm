@@ -150,6 +150,7 @@
 		memorize_carbon(fucking_target, user, 3, FALSE)
 
 /obj/item/memorizer/emp_act(severity)
+	. = ..()
 	if(!try_use_flash())
 		return FALSE
 	for(var/mob/living/carbon/fucking_target in viewers(3, get_turf(src)))

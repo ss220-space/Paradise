@@ -38,6 +38,8 @@
 #define COMSIG_LIVING_EARLY_DEATH "living_early_death"
 ///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_DEATH "living_death"
+/// From /mob/living/proc/cause_hallucination(): (datum/hallucination)
+#define COMSIG_LIVING_HALLUCINATING "living_hallucinating"
 //sent from mobs when they exit their body as a ghost
 #define COMSIG_LIVING_GHOSTIZED "ghostized"
 //sent from mobs when they re-enter their body as a ghost

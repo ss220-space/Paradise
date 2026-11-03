@@ -559,7 +559,7 @@
 	if(isvehicle(target)) //simple solution
 		return
 
-	else if(!drop && istype(target, /obj/machinery/smartfridge))
+	else if(!drop && issmartfridge(target))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
 		return ..()
 

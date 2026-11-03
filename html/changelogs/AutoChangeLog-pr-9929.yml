@@ -1,4 +1,0 @@
-author: "NightDawnFox"
-delete-after: True
-changes:
-  - bugfix: "Модуль защиты слуха теперь работает корректно (PR #9929)"

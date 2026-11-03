@@ -43,9 +43,10 @@
 	species = "holymelon"
 	plantname = "Holy Melon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/holymelon
+	genes = list(/datum/plant_gene/trait/glow/yellow, /datum/plant_gene/trait/anti_magic)
 	mutatelist = list()
 	reagents_add = list("holywater" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
-	rarity = 20
+	rarity = 10
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon
 	seed = /obj/item/seeds/watermelon/holy

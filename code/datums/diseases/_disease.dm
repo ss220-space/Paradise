@@ -76,6 +76,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
 
+	var/show_in_records = TRUE
+
 /datum/disease/New()
 	if(!cure_text)
 		var/reagents = list()
@@ -160,6 +162,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/CanContract(mob/living/M, act_type, need_protection_check, zone)
 	. = FALSE
+
 	if(!M.CanContractDisease(src))
 		return FALSE
 

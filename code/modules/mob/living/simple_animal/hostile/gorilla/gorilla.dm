@@ -385,7 +385,7 @@
 	playsound(loc, 'sound/items/handling/drop/toolbox_drop.ogg', 100)
 	if(master)
 		oogaooga(100)
-		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% все ящики на пол.", intentional = TRUE)
+		start_custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% все ящики на пол.", intentional = TRUE)
 
 /mob/living/simple_animal/hostile/gorilla/add_collar(obj/item/clothing/accessory/petcollar/collar, mob/user)
 	. = ..()

@@ -60,6 +60,8 @@
 	var/list/mobs_viewing
 	/// Increase "w_class" of storage when something inside it
 	var/dynamic_storage_size = FALSE
+	// "w_class" of storage when something inside it
+	var/storage_with_item_size = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -915,7 +917,9 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 	return // Override
 
 /obj/item/storage/emp_act(severity)
-	..()
+	. = ..()
+	if(. & EMP_PROTECT_CONTENTS)
+		return
 	for(var/i in contents)
 		var/atom/A = i
 		A.emp_act(severity)

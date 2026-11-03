@@ -14,12 +14,15 @@
 	var/stun_amt = 3 SECONDS
 	var/throwtarget
 	var/distfromcaster
-
+	var/check_antimagic = TRUE
 
 /datum/action/cooldown/spell/aoe/repulse/cast_on_thing_in_aoe(atom/movable/victim, atom/caster)
 	if(victim == caster || victim.anchored || victim.move_resist == INFINITY)
 		return
-
+	if(ismob(victim))
+		var/mob/victim_mob = victim
+		if(check_antimagic && victim_mob.can_block_magic(antimagic_flags))
+			return
 	throwtarget = get_edge_target_turf(caster, get_dir(caster, get_step_away(victim, caster)))
 	distfromcaster = get_dist(caster, victim)
 	if(distfromcaster == 0)
@@ -47,6 +50,7 @@
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	button_icon_state = "tailsweep"
 	background_icon_state = "bg_alien"
+	check_antimagic = FALSE
 
 /datum/action/cooldown/spell/aoe/repulse/spacedragon/cast(atom/cast_on)
 	. = ..()

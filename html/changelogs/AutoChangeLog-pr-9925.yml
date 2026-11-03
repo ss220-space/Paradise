@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - map: "Убираем закрутку проводов соляров у карго на дельте. (PR #9925)"
