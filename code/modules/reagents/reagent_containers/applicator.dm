@@ -19,9 +19,7 @@
 	has_variable_transfer_amount = FALSE
 	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
-	container_type = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
-	temperature_min = 270
-	temperature_max = 350
+	initial_reagent_flags = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
 	pass_open_check = TRUE
 	custom_premium_price = PAYCHECK_LOWER
 	// used for emagged version

@@ -7,7 +7,6 @@
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	usesound = 'sound/items/welder.ogg'
-	container_type = OPENCONTAINER
 	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1

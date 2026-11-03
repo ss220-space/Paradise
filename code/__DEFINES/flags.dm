@@ -63,9 +63,6 @@
 /// If the thing can reflect special weapons type
 #define RICOCHET_SPECIAL (1<<3)
 
-//Reagent flags
-#define REAGENT_NOREACT 1
-
 //Species clothing flags
 #define HAS_UNDERWEAR 1
 #define HAS_UNDERSHIRT 2

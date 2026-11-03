@@ -257,7 +257,6 @@
 	item_state = "zaza_can"
 	volume = 80
 	drink_type = SUGAR
-	container_type = NONE
 	list_reagents = list("zaza" = 80)
 	can_lid = TRUE
 	fill_icon_thresholds = list(50, 60, 65, 70, 75, 80)

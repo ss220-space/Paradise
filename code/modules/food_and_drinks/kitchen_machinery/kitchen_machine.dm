@@ -13,7 +13,6 @@
 	anchored = TRUE
 	idle_power_usage = 5
 	active_power_usage = 100
-	container_type = OPENCONTAINER
 	/// Is it on?
 	var/operating = FALSE
 	/// = {0..100} Does it need cleaning?
@@ -43,7 +42,7 @@
 
 /obj/machinery/kitchen_machine/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	create_reagents(100, OPENCONTAINER)
 	reagents.set_reacting(FALSE)
 	init_lists()
 
@@ -100,7 +99,7 @@
 			dirty = NO_DIRT // It's clean!
 			update_icon(UPDATE_ICON_STATE)
 			if(broken == BROKEN_NONE)
-				container_type = OPENCONTAINER
+				reagents.flags = OPENCONTAINER
 			user.visible_message(
 				span_notice("[user] заканчива[PLUR_ET_YUT(user)] чистить [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы заканчиваете чистить [declent_ru(ACCUSATIVE)]."),
@@ -226,7 +225,7 @@
 		return .
 	broken = BROKEN_NONE // Fix it!
 	if(dirty != MAX_DIRT)
-		container_type = OPENCONTAINER
+		reagents.flags = OPENCONTAINER
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message(
 		span_notice("[user] заканчива[PLUR_ET_YUT(user)] чинить [declent_ru(ACCUSATIVE)]."),
@@ -489,13 +488,13 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/abort()
-	operating = FALSE // Turn it off again aferwards
+	reagents.flags = NONE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-	operating = FALSE // Turn it off again aferwards
+	reagents.flags = NONE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
@@ -519,8 +518,7 @@
 	visible_message(span_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] покрывается грязью!"))
 	if(can_be_dirty) //this vars are much more easy than copy-paste all that code to tribal oven
 		dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned
-	container_type = NONE
-	operating = FALSE // Turn it off again afterwards
+	reagents.flags = NONE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
@@ -529,8 +527,7 @@
 	visible_message(span_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] ломается!")) //Let them know they're stupid
 	if(can_broke)
 		broken = BROKEN_NEEDS_SCREWDRIVER // Make it broken so it can't be used util fixed
-	container_type = NONE
-	operating = FALSE // Turn it off again aferwards
+	reagents.flags = NONE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 

@@ -286,8 +286,12 @@
  * MARK: Sleepypen
  */
 /obj/item/pen/sleepy
-	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
+
+/obj/item/pen/sleepy/Initialize(mapload)
+	. = ..()
+	create_reagents(100, OPENCONTAINER)
+	reagents.add_reagent("ketamine", 100)
 
 /obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
@@ -298,11 +302,6 @@
 		transfered = reagents.trans_to(target, 50)
 	to_chat(user, span_warning("Вы аккуратно укололи ручкой [target.declent_ru(ACCUSATIVE)]."))
 	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
-
-/obj/item/pen/sleepy/Initialize(mapload)
-	. = ..()
-	create_reagents(100)
-	reagents.add_reagent("ketamine", 100)
 
 /*
  * MARK: Edagger

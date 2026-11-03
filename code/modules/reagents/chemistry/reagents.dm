@@ -221,7 +221,7 @@
 
 // Called every time reagent containers process.
 /datum/reagent/process()
-	if(!holder || holder.flags & REAGENT_NOREACT)
+	if(!holder || holder.flags & NO_REACT)
 		return FALSE
 	return TRUE
 

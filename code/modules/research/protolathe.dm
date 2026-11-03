@@ -14,7 +14,6 @@ Note: Must be placed west/left of and R&D console to function.
 			Управление происходит с помощью подключаемой консоли."
 	icon_state = "protolathe"
 	base_icon_state = "protolathe"
-	container_type = OPENCONTAINER
 
 	categories = list(
 		PROTOLATHE_CATEGORY_BLUESPACE,
@@ -45,7 +44,7 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
 	init_parts()
-	create_reagents()
+	create_reagents(flags = OPENCONTAINER)
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"

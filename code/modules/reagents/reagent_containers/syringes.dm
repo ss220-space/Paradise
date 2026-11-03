@@ -14,7 +14,7 @@
 	sharp = TRUE
 	pass_open_check = TRUE
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
-	container_type = TRANSPARENT
+	initial_reagent_flags = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
 	fill_icon_thresholds = list(1, 5, 10 ,15)
 	var/busy = FALSE
