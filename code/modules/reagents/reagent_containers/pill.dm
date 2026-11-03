@@ -14,6 +14,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
 	custom_price = PAYCHECK_MIN * 0.3
+	eat_time = 1 SECONDS
 
 /obj/item/reagent_containers/food/pill/get_ru_names()
 	return alist(
