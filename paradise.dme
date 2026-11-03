@@ -1527,6 +1527,7 @@
 #include "code\game\machinery\embedded_controller\airlock_program.dm"
 #include "code\game\machinery\embedded_controller\embedded_controller_base.dm"
 #include "code\game\machinery\embedded_controller\embedded_program_base.dm"
+#include "code\game\machinery\eventmachine\serverrack.dm"
 #include "code\game\machinery\pipe\construction.dm"
 #include "code\game\machinery\pipe\pipe_dispenser.dm"
 #include "code\game\machinery\portable_turrets\_portable_turret.dm"

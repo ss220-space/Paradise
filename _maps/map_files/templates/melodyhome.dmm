@@ -38,7 +38,6 @@
 /area/eventzone/vasthorizon)
 "bN" = (
 /obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/eventzone/vasthorizon)
 "bW" = (
@@ -395,7 +394,6 @@
 /turf/simulated/floor/grass,
 /area/eventzone/vasthorizon)
 "sD" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall/rust,
 /area/eventzone/vasthorizon)
 "sE" = (
@@ -732,7 +730,6 @@
 /turf/simulated/floor/plating,
 /area/space)
 "JE" = (
-/obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
 /area/space)

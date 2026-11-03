@@ -6,18 +6,14 @@
 /obj/item/autoimplanter,
 /obj/item/autoimplanter,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ar" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ay" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 5
@@ -30,9 +26,7 @@
 "aD" = (
 /obj/structure/sign/poster/secret/sexiqm,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "aQ" = (
 /obj/structure/railing{
 	dir = 1
@@ -41,9 +35,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bi" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/indestructible/asteroid,
@@ -52,9 +44,7 @@
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/weather/dirt,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bD" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -72,35 +62,27 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bH" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/white/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bJ" = (
 /obj/structure/chair/stool{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bK" = (
 /obj/machinery/light/small/directional/west,
 /obj/structure/chair/stool{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bP" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 1
@@ -118,17 +100,13 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "bY" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "cd" = (
 /obj/structure/rack,
 /obj/item/storage/backpack/duffel/syndie/c4{
@@ -142,29 +120,21 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ce" = (
 /obj/effect/decal/straw,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "cm" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "cn" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "cM" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -185,9 +155,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "cV" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -196,9 +164,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -211,9 +177,7 @@
 /obj/item/storage/box/handcuffs,
 /obj/item/storage/box/handcuffs,
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "di" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -221,30 +185,22 @@
 	},
 /obj/machinery/vending/syndicigs,
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dj" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dn" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dr" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dG" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/syndie,
@@ -253,15 +209,11 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dR" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dT" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -281,9 +233,7 @@
 	id_tag = "STZB32"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "dV" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -300,9 +250,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ei" = (
 /obj/effect/turf_decal/box/white,
 /obj/item/ammo_box/magazine/m50,
@@ -320,26 +268,20 @@
 	},
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ek" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "eo" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ep" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -353,9 +295,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "er" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -367,9 +307,7 @@
 	},
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "eS" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -381,15 +319,11 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "eW" = (
 /obj/effect/turf_decal/tile/dark/anticorner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "eY" = (
 /obj/effect/turf_decal/tile/dark/anticorner,
 /obj/machinery/light/small/directional/south,
@@ -397,9 +331,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "fq" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor{
 	id_tag = "STZB11";
@@ -407,9 +339,7 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "fr" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -418,9 +348,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "fA" = (
 /obj/machinery/optable,
 /obj/structure/window/reinforced{
@@ -428,9 +356,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "fL" = (
 /obj/structure/rack/holorack,
 /obj/item/clothing/under/acj{
@@ -456,9 +382,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "fN" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -480,15 +404,11 @@
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "gg" = (
 /obj/machinery/computer/old_frame/big/right,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "gj" = (
 /obj/machinery/shieldwall/syndicate,
 /turf/simulated/floor/indestructible/asteroid,
@@ -501,35 +421,27 @@
 /area/space)
 "gB" = (
 /turf/simulated/wall/indestructible/rock,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "gI" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "gT" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 4
 	},
 /obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "gW" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hd" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
@@ -539,9 +451,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hh" = (
 /obj/machinery/door_control/secure{
 	id = "STZB21";
@@ -550,9 +460,7 @@
 	pixel_x = 5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hj" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -562,9 +470,7 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hn" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -575,9 +481,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ho" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
@@ -588,9 +492,7 @@
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/stripes/white/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hu" = (
 /obj/structure/rack,
 /obj/item/storage/belt/grenade/full{
@@ -605,9 +507,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hA" = (
 /obj/effect/turf_decal/number/number_1{
 	dir = 1
@@ -617,9 +517,7 @@
 	},
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hC" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -631,9 +529,7 @@
 	},
 /obj/machinery/chem_heater,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "hJ" = (
 /obj/structure/railing{
 	dir = 1
@@ -663,22 +559,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ir" = (
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iu" = (
 /obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iJ" = (
 /obj/structure/rack/holorack,
 /obj/item/organ/internal/cyberimp/brain/anti_drop,
@@ -750,9 +640,7 @@
 /obj/item/organ/internal/cyberimp/arm/surgery/adv,
 /obj/item/organ/internal/cyberimp/arm/surgery/adv,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iO" = (
 /obj/structure/railing{
 	dir = 8
@@ -761,45 +649,35 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iT" = (
 /obj/structure/closet/crate/syndicate,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iX" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "iZ" = (
 /obj/structure/bed/mattress/dirty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jc" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 4
@@ -809,39 +687,29 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jd" = (
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jq" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jD" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jI" = (
 /obj/machinery/light/small/directional/south,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jM" = (
 /obj/structure/railing,
 /turf/simulated/floor/indestructible/asteroid,
@@ -850,9 +718,7 @@
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jW" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -864,15 +730,11 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "jY" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "kk" = (
 /obj/machinery/door_control/secure{
 	id = "STZE31";
@@ -881,9 +743,7 @@
 	pixel_y = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "kl" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -902,18 +762,14 @@
 	},
 /obj/machinery/chem_master,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "kE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "kG" = (
 /obj/structure/rack/holorack,
 /obj/item/storage/box/syndie_kit/chameleon{
@@ -957,9 +813,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "kZ" = (
 /obj/structure/railing{
 	dir = 4
@@ -968,19 +822,13 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lb" = (
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lg" = (
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lj" = (
 /obj/machinery/door_control/secure{
 	id = "STZE23";
@@ -990,9 +838,7 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ll" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -1000,30 +846,22 @@
 	dir = 10
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lp" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lv" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/item/reagent_containers/food/snacks/fruitcup,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lw" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lx" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 8
@@ -1032,36 +870,28 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ly" = (
 /obj/structure/railing{
 	dir = 10
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lD" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/white/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "lM" = (
 /obj/machinery/light/small/directional/east,
 /obj/structure/closet/crate/syndicate,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "mg" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -1072,18 +902,14 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "mi" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "mu" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -1091,9 +917,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "mv" = (
 /obj/structure/railing{
 	dir = 4
@@ -1101,32 +925,24 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "mL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "nd" = (
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ns" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "nz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1135,9 +951,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "nJ" = (
 /turf/space,
 /area/space)
@@ -1166,9 +980,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "oi" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -1181,9 +993,7 @@
 /obj/machinery/computer/old_frame/server/rackframe,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "oE" = (
 /obj/structure/rack/holorack,
 /obj/effect/turf_decal/box/white,
@@ -1197,34 +1007,26 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "oM" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "oO" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/jukebox/no_access,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "oR" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/item/deck/cards/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "pe" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -1234,9 +1036,7 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1250,9 +1050,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "pw" = (
 /obj/structure/railing{
 	dir = 8
@@ -1268,9 +1066,7 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "pM" = (
 /obj/structure/rack/holorack,
 /obj/item/storage/belt/chameleon{
@@ -1284,9 +1080,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "qb" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -1294,9 +1088,7 @@
 	},
 /obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ql" = (
 /obj/machinery/door_control/secure{
 	id = "STZE33";
@@ -1306,9 +1098,7 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "qu" = (
 /obj/machinery/light/floor,
 /obj/machinery/bodyscanner,
@@ -1320,9 +1110,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "qI" = (
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/indestructible/asteroid,
@@ -1354,25 +1142,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rg" = (
 /obj/effect/turf_decal/miscellaneous/plumbing,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/blood/innards,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rm" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ro" = (
 /obj/machinery/door_control/secure{
 	id = "STZE22";
@@ -1382,26 +1164,20 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rv" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rE" = (
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/space)
 "rG" = (
 /obj/effect/turf_decal/tile/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rH" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -1411,9 +1187,7 @@
 	name = "Southern Shooting Window"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rJ" = (
 /obj/machinery/door_control/secure{
 	id = "STZE32";
@@ -1422,16 +1196,12 @@
 	pixel_y = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rN" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "rV" = (
 /obj/structure/railing{
 	dir = 8
@@ -1444,9 +1214,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sa" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
@@ -1456,25 +1224,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sc" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sj" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /obj/effect/decal/straw/light,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "su" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -1482,34 +1244,26 @@
 /obj/item/reagent_containers/food/snacks/fried_vox,
 /obj/item/reagent_containers/food/snacks/fried_vox,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sE" = (
 /obj/structure/rack/gunrack,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sL" = (
 /obj/effect/turf_decal/tile/dark{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "sP" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/item/reagent_containers/food/snacks/fried_vox,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "th" = (
 /obj/machinery/door_control/secure{
 	id = "STZB32";
@@ -1518,15 +1272,11 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "tv" = (
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "tC" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -1545,25 +1295,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "tQ" = (
 /obj/structure/chair/stool{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "uj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ut" = (
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/stripes/line{
@@ -1571,9 +1315,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "uQ" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -1584,9 +1326,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "uZ" = (
 /obj/structure/rack,
 /obj/item/gun/medbeam{
@@ -1600,9 +1340,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vp" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1618,25 +1356,19 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vs" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vB" = (
 /obj/structure/chair/stool{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vF" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
@@ -1646,24 +1378,18 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vK" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vP" = (
 /obj/effect/turf_decal/tile/dark{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1671,18 +1397,14 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "vZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wf" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 6
@@ -1691,18 +1413,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wj" = (
 /obj/machinery/light/small/directional/east,
 /obj/structure/chair/stool{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wm" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 3
@@ -1712,9 +1430,7 @@
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1724,9 +1440,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wC" = (
 /obj/structure/lattice,
 /turf/simulated/floor/indestructible/asteroid,
@@ -1757,9 +1471,7 @@
 /obj/effect/turf_decal/box/white,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "wZ" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
@@ -1773,9 +1485,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xb" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
@@ -1788,9 +1498,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xh" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -1800,18 +1508,14 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xo" = (
 /obj/structure/rack/gunrack,
 /obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xq" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
@@ -1820,9 +1524,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xr" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -1830,30 +1532,22 @@
 	},
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xt" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xH" = (
 /obj/structure/railing/corner{
 	dir = 1
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xM" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1863,9 +1557,7 @@
 	},
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "xT" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
@@ -1874,18 +1566,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yb" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yc" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -1893,9 +1581,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yd" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -1906,14 +1592,10 @@
 	},
 /obj/machinery/vending/syndichem,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yj" = (
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yo" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -1923,9 +1605,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yy" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1937,15 +1617,11 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yz" = (
 /obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yF" = (
 /obj/structure/rack,
 /obj/item/storage/backpack/duffel/syndie/surgery{
@@ -1959,9 +1635,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yH" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -1969,9 +1643,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1983,25 +1655,19 @@
 	name = "Syndicate Base"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "yT" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "za" = (
 /obj/machinery/syndicatebomb/self_destruct,
 /obj/effect/turf_decal/mech,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zj" = (
 /obj/structure/railing{
 	dir = 8
@@ -2012,9 +1678,7 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zo" = (
 /obj/structure/railing,
 /obj/machinery/porta_turret/syndicate/exterior,
@@ -2029,9 +1693,7 @@
 	id_tag = "STZB31"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zA" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -2043,9 +1705,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2054,15 +1714,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zG" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zI" = (
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
 	pixel_x = -3;
@@ -2079,9 +1735,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "zR" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8
@@ -2092,9 +1746,7 @@
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Af" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/syndie,
@@ -2102,9 +1754,7 @@
 /obj/item/storage/firstaid/syndie,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ah" = (
 /obj/effect/mine/explosive,
 /turf/simulated/floor/indestructible/asteroid,
@@ -2116,15 +1766,11 @@
 /obj/structure/railing/corner,
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "At" = (
 /obj/effect/turf_decal/miscellaneous/plumbing,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Av" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
@@ -2133,38 +1779,28 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "AB" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "AT" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Bc" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Bd" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Be" = (
 /obj/machinery/door_control/secure{
 	id = "STZE21";
@@ -2174,15 +1810,11 @@
 	pixel_x = -5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Bf" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Bn" = (
 /turf/simulated/wall/indestructible/rock,
 /area/space)
@@ -2192,31 +1824,23 @@
 	name = "Syndicate Base"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Bz" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "BC" = (
 /obj/effect/decal/straw/light,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "BF" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "BG" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -2237,32 +1861,24 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "BN" = (
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "BW" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ca" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ce" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -2272,9 +1888,7 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Cg" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 9
@@ -2290,9 +1904,7 @@
 	},
 /obj/effect/turf_decal/number,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Co" = (
 /obj/effect/turf_decal/number/number_3{
 	dir = 1;
@@ -2302,9 +1914,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Cp" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2315,9 +1925,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Cs" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -2353,9 +1961,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Dl" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -2370,9 +1976,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Du" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -2386,18 +1990,14 @@
 "Dy" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "DQ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "DR" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 9
@@ -2413,9 +2013,7 @@
 	},
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "DX" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
@@ -2424,9 +2022,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "DZ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 9
@@ -2437,9 +2033,7 @@
 "Ek" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Eq" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -2452,9 +2046,7 @@
 	pixel_y = -20
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Er" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2470,25 +2062,19 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "EC" = (
 /obj/structure/rack/gunrack,
 /obj/machinery/light/small/directional/south,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "EN" = (
 /obj/machinery/light/small/directional/east,
 /obj/item/radio/intercom/syndicate/directional/north,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ET" = (
 /obj/structure/rack,
 /obj/item/storage/backpack/duffel/syndie/x4{
@@ -2502,9 +2088,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Fg" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
@@ -2512,17 +2096,13 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Fk" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FD" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -2536,49 +2116,35 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FF" = (
 /turf/simulated/wall/indestructible/mineral_rock,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FG" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FH" = (
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FK" = (
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FN" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FO" = (
 /obj/structure/sign/medbay/redcross,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "FP" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
@@ -2586,25 +2152,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Gb" = (
 /obj/structure/chair/stool{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ge" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Gg" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
@@ -2612,9 +2172,7 @@
 	},
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Gw" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/rack,
@@ -2623,9 +2181,7 @@
 /obj/item/storage/firstaid/syndie,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "GD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 10
@@ -2641,9 +2197,7 @@
 	name = "Southern Shooting Window"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ho" = (
 /obj/structure/closet/crate/freezer{
 	desc = "A crate.";
@@ -2661,27 +2215,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Hv" = (
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Hx" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/wall/indestructible/rock,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "HB" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "If" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -2690,9 +2236,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Il" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 1
@@ -2703,30 +2247,22 @@
 /obj/structure/railing/corner,
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "IY" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Jj" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Jk" = (
 /obj/machinery/computer/old_frame/big/alert,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ju" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -2734,9 +2270,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Jz" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -2749,9 +2283,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "JE" = (
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
@@ -2759,9 +2291,7 @@
 	name = "Riot Control"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "JK" = (
 /obj/item/gun/projectile/automatic/m90{
 	pixel_x = -3;
@@ -2778,44 +2308,32 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Kg" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ki" = (
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Kl" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "KH" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "KK" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "KR" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 9
@@ -2834,9 +2352,7 @@
 	pixel_y = -20
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Lm" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -2850,31 +2366,23 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "LI" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "LJ" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "LK" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "LN" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2884,9 +2392,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "LU" = (
 /obj/machinery/door_control/secure{
 	id = "STZB11";
@@ -2895,9 +2401,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Mb" = (
 /obj/machinery/door_control/secure{
 	id = "SBT2";
@@ -2906,37 +2410,27 @@
 	pixel_y = 7
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Mc" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Mg" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ml" = (
 /obj/machinery/vending/ammo,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Mr" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ms" = (
 /obj/structure/railing{
 	dir = 4
@@ -2947,9 +2441,7 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "MD" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -2958,17 +2450,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "MS" = (
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/weather/dirt,
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Nb" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
@@ -2976,9 +2464,7 @@
 /obj/effect/turf_decal/stripes,
 /obj/machinery/vending/medical/syndicate_access/beamgun,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ne" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -2986,9 +2472,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Nj" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -3006,9 +2490,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Nv" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 4
@@ -3016,9 +2498,7 @@
 /obj/effect/turf_decal/stripes,
 /obj/machinery/vending/medical/syndicate_access/beamgun,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "NE" = (
 /obj/machinery/door_control/secure{
 	id = "STZB22";
@@ -3027,9 +2507,7 @@
 	pixel_x = 5
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "NJ" = (
 /obj/structure/shuttle/engine/router,
 /obj/machinery/porta_turret/syndicate/exterior,
@@ -3041,17 +2519,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "NM" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/vending/gun_mods/advanced,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "NP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3062,23 +2536,17 @@
 	},
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Oj" = (
 /obj/machinery/computer/old_frame/thick,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "On" = (
 /obj/structure/railing{
 	dir = 8
@@ -3086,9 +2554,7 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Op" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -3096,9 +2562,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Os" = (
 /obj/machinery/porta_turret/syndicate/exterior,
 /turf/simulated/wall/mineral/plastitanium/coated,
@@ -3114,9 +2578,7 @@
 "OF" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "OO" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 4
@@ -3125,31 +2587,23 @@
 	dir = 3
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "OV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Pb" = (
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Pf" = (
 /obj/item/target,
 /obj/structure/target_stake,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Pt" = (
 /obj/structure/fans/tiny,
 /obj/structure/barricade/sandbags,
@@ -3159,42 +2613,32 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Py" = (
 /obj/effect/turf_decal/arrows,
 /obj/effect/turf_decal/number/number_1{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Pz" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "PC" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "PN" = (
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "PW" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 3
@@ -3203,9 +2647,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "PY" = (
 /obj/structure/railing{
 	dir = 8
@@ -3220,15 +2662,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Qs" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QB" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -3237,9 +2675,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QH" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8
@@ -3254,36 +2690,28 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QO" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QP" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
 /obj/machinery/tcomms/core/station,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QR" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "QS" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -3298,17 +2726,13 @@
 "Rc" = (
 /obj/machinery/computer/old_frame/server/rackframe,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Rh" = (
 /obj/structure/chair/sofa/bench{
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ro" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
@@ -3316,9 +2740,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "RB" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 3
@@ -3331,24 +2753,18 @@
 "RL" = (
 /obj/structure/sign/poster/secret/lady,
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Sa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Sh" = (
 /obj/item/radio/intercom/syndicate/directional/north,
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "SY" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
@@ -3360,9 +2776,7 @@
 "Tb" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Tj" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8
@@ -3379,58 +2793,44 @@
 	icon_state = "open"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Tp" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "TL" = (
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "TO" = (
 /obj/machinery/light/small/directional/south,
 /obj/effect/decal/straw/medium,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "TQ" = (
 /obj/structure/chair/stool{
 	dir = 4
 	},
 /obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "TR" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
 /turf/simulated/floor/pod/dark,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Un" = (
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /obj/item/storage/box/syndidonkpockets,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Uw" = (
 /obj/structure/railing{
 	dir = 9
@@ -3438,9 +2838,7 @@
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "UF" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -3466,9 +2864,7 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Va" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 8
@@ -3478,9 +2874,7 @@
 	},
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Vh" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -3493,9 +2887,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Vm" = (
 /obj/structure/railing{
 	dir = 6
@@ -3504,9 +2896,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/item/flag/syndi,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Vn" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -3518,15 +2908,11 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Vq" = (
 /obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "VE" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -3546,18 +2932,14 @@
 /obj/item/handheld_defibrillator/syndie,
 /obj/item/defibrillator/compact/combat/loaded,
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "VV" = (
 /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
 /obj/structure/table/wood{
 	color = "#996633"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "VX" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -3568,18 +2950,14 @@
 /area/space)
 "VZ" = (
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Wa" = (
 /obj/effect/turf_decal/arrows,
 /obj/effect/turf_decal/number/number_4{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Wq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3590,9 +2968,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Wz" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -3603,18 +2979,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "WB" = (
 /obj/structure/railing{
 	dir = 6
 	},
 /obj/machinery/light/floor,
 /turf/simulated/floor/plating,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "WK" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -3624,22 +2996,16 @@
 	pixel_y = -20
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "WY" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Xe" = (
 /obj/machinery/light/small/directional/north,
 /obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Xj" = (
 /obj/structure/railing{
 	dir = 10
@@ -3657,33 +3023,25 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Xw" = (
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "XA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 8
 	},
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "XB" = (
 /obj/machinery/light/small/directional/north,
 /obj/item/target,
 /obj/structure/target_stake,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "XD" = (
 /obj/structure/railing/corner,
 /obj/machinery/shieldwall/syndicate,
@@ -3694,9 +3052,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "XW" = (
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
@@ -3720,22 +3076,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ym" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall/indestructible/rock,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Yo" = (
 /obj/machinery/computer/old_frame/macintosh,
 /obj/effect/turf_decal/mech,
 /turf/simulated/floor/redgrid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Ys" = (
 /obj/machinery/light/small/directional/east,
 /obj/structure/chair/stool{
@@ -3743,9 +3093,7 @@
 	},
 /obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Yt" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -3758,9 +3106,7 @@
 	pixel_y = -20
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Yv" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 8
@@ -3769,9 +3115,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YB" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8
@@ -3789,15 +3133,11 @@
 	pixel_y = 7
 	},
 /turf/simulated/wall/indestructible/iron,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YG" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/grass,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YL" = (
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 10
@@ -3815,34 +3155,26 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YS" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/straw/edge,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YT" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "YY" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
 	color = "red"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Za" = (
 /obj/effect/turf_decal/box,
 /obj/structure/window/reinforced{
@@ -3853,9 +3185,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "Zv" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -3865,9 +3195,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ZC" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -3894,9 +3222,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ZO" = (
 /obj/item/kitchen/knife,
 /obj/structure/table/wood{
@@ -3904,9 +3230,7 @@
 	},
 /obj/item/reagent_containers/food/snacks/fruitcup,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 "ZU" = (
 /obj/machinery/computer/operating,
 /obj/structure/window/reinforced{
@@ -3918,9 +3242,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/centcom/syndicate_base/control{
-	name = "Gorlex Marauders Base"
-	})
+/area/eventzone/zenith_fob
 
 (1,1,1) = {"
 nJ
