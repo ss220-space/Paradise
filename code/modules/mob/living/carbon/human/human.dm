@@ -574,6 +574,10 @@
 			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
 			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 				return
+			GET_SKILL_LEVEL(usr, /datum/skill/medical/heal, heal_skill_level)
+			if(heal_skill_level < SKILL_LEVEL_ADVANCED)
+				balloon_alert(usr, "проблема с навыками")
+				return
 			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
 				return
 			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
@@ -1518,6 +1522,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return ..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	GET_SKILL_LEVEL(src, /datum/skill/medical/heal, heal_skill_level)
+	if(heal_skill_level < SKILL_LEVEL_ADVANCED)
+		return // skill issue
 	if(H == src)
 		balloon_alert(src, "слр на себе невозможна!")
 		return
