@@ -32,7 +32,6 @@
 /area/eventzone/zenith_shuttle)
 "br" = (
 /obj/machinery/porta_turret/syndicate/exterior,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 8;
@@ -409,7 +408,6 @@
 /area/eventzone/zenith_shuttle)
 "mb" = (
 /obj/machinery/porta_turret/syndicate/grenade,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 8;
@@ -426,7 +424,6 @@
 /area/eventzone/zenith_shuttle)
 "mi" = (
 /obj/machinery/porta_turret/syndicate/exterior,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 9;
@@ -515,7 +512,6 @@
 /area/eventzone/zenith_shuttle)
 "nI" = (
 /obj/machinery/porta_turret/syndicate/grenade,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 4;
@@ -639,7 +635,6 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_shuttle)
 "rO" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
@@ -1344,7 +1339,6 @@
 "PC" = (
 /obj/structure/lattice,
 /obj/structure/grille/fence,
-/obj/structure/lattice,
 /turf/space,
 /area/space)
 "PE" = (
@@ -1670,7 +1664,6 @@
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/eventzone/zenith_shuttle)
 "VC" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/door_control{
 	id = "smindicate_bottom";
 	name = "External Door Control";
@@ -1731,7 +1724,6 @@
 	},
 /area/eventzone/zenith_shuttle)
 "Wv" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/eventzone/zenith_shuttle)
 "Wx" = (
@@ -1761,7 +1753,6 @@
 /area/eventzone/zenith_shuttle)
 "WO" = (
 /obj/machinery/porta_turret/syndicate/exterior,
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 10;
