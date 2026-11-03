@@ -5,6 +5,7 @@
 #define EXTINGUISHER_EXPLOSION_FRAME_DELAY (0.2 SECONDS)
 #define EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER 0.2
 
+// MARK: Base Extinguisher
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
@@ -16,7 +17,6 @@
 	flags = CONDUCT
 	throwforce = 10
 	force = 10
-	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
 	attack_verb = list("огрел", "ударил", "стукнул")
 	dog_fashion = /datum/dog_fashion/back
@@ -25,6 +25,8 @@
 	var/max_water = 50
 	/// Does the welder extinguisher start with water.
 	var/starting_water = TRUE
+	/// Chem we use for our extinguishing.
+	var/chem = /datum/reagent/water
 	/// Cooldown between uses.
 	COOLDOWN_DECLARE(last_use)
 	/// Can we actually fire currently?
@@ -50,44 +52,23 @@
 		PREPOSITIONAL = "огнетушителе",
 	)
 
-/obj/item/extinguisher/mini
-	name = "pocket fire extinguisher"
-	desc = "Лёгкая и компактная модель огнетушителя в фиберглассовом корпусе."
-	icon_state = "miniFE0"
-	base_icon_state = "miniFE"
-	item_state = "miniFE"
-	hitsound = null	//it is much lighter, after all.
-	flags = null //doesn't CONDUCT
-	throwforce = 2
-	w_class = WEIGHT_CLASS_SMALL
-	force = 3
-	materials = list()
-	max_water = 30
-	dog_fashion = null
-	toolbox_radial_menu_compatibility = TRUE
-	can_explode = FALSE
-
-/obj/item/extinguisher/mini/get_ru_names()
-	return alist(
-		NOMINATIVE = "карманный огнетушитель",
-		GENITIVE = "карманного огнетушителя",
-		DATIVE = "карманному огнетушителю",
-		ACCUSATIVE = "карманный огнетушитель",
-		INSTRUMENTAL = "карманным огнетушителем",
-		PREPOSITIONAL = "карманном огнетушителе",
-	)
-
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
-	if(!reagents && starting_water)
-		create_reagents(max_water)
-		reagents.add_reagent(/datum/reagent/water, max_water)
+	if(starting_water)
+		refill()
+	else if(chem)
+		create_reagents(max_water, AMOUNT_VISIBLE | NO_REACT)
 
 	if(!can_explode)
 		return .
 
-	reagents.set_reacting(FALSE)
 	RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
+
+/obj/item/extinguisher/proc/refill()
+	if(!chem)
+		return
+	create_reagents(max_water, AMOUNT_VISIBLE)
+	reagents.add_reagent(chem, max_water)
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
@@ -236,22 +217,22 @@
 	return ..()
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
+	if(!is_reagent_dispenser(target) || !target.Adjacent(user))
 		return FALSE
 	var/safety_save = safety
 	safety = TRUE
 	if(reagents.total_volume == reagents.maximum_volume)
 		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] уже полностью заправлен!"))
 	else
-		var/obj/structure/reagent_dispensers/watertank/watertank = target
-		var/transferred = watertank.reagents.trans_to(src, max_water)
+		var/obj/structure/reagent_dispensers/dispenser = target
+		var/transferred = dispenser.reagents.trans_to(src, max_water)
 		if(transferred > 0)
 			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_U_Y_0(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
-			to_chat(user, span_notice("[DECLENT_RU_CAP(watertank, NOMINATIVE)] пуст!"))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(dispenser, NOMINATIVE)] пуст!"))
 	safety = safety_save
 	return TRUE
 
@@ -392,6 +373,34 @@
 	if(!blowing_up)
 		return
 	icon_state = new_state
+
+// MARK: Extinguisher Types
+/obj/item/extinguisher/mini
+	name = "pocket fire extinguisher"
+	desc = "Лёгкая и компактная модель огнетушителя в фиберглассовом корпусе."
+	icon_state = "miniFE0"
+	base_icon_state = "miniFE"
+	item_state = "miniFE"
+	hitsound = null	//it is much lighter, after all.
+	flags = null //doesn't CONDUCT
+	throwforce = 2
+	w_class = WEIGHT_CLASS_SMALL
+	force = 3
+	materials = list()
+	max_water = 30
+	dog_fashion = null
+	toolbox_radial_menu_compatibility = TRUE
+	can_explode = FALSE
+
+/obj/item/extinguisher/mini/get_ru_names()
+	return alist(
+		NOMINATIVE = "карманный огнетушитель",
+		GENITIVE = "карманного огнетушителя",
+		DATIVE = "карманному огнетушителю",
+		ACCUSATIVE = "карманный огнетушитель",
+		INSTRUMENTAL = "карманным огнетушителем",
+		PREPOSITIONAL = "карманном огнетушителе",
+	)
 
 /obj/item/extinguisher/cyborg
 	can_explode = FALSE
