@@ -22,10 +22,6 @@
 	name = "oscillating computer"
 	desc = "Серверная стойка со встроенным осциллятором. Волны постоянно колеблются, отчего не ясно, для чего он вообще тут стоит."
 	icon_state = "rack"
-	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
-	anchored = TRUE
 
 /obj/machinery/eventmachine/serverrack/oscilograph/get_ru_names()
 	return alist(
@@ -41,10 +37,7 @@
 	name = "server recorder"
 	desc = "Самописная стойка. Бобины крутятся, а вы слышите постоянные щелчки, по мере того, как они сами переставляют их."
 	icon_state = "recorder_on"
-	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
-	anchored = TRUE
+
 
 /obj/machinery/eventmachine/serverrack/recorder/get_ru_names()
 	return alist(
@@ -60,10 +53,7 @@
 	name = "power substation"
 	desc = "Энергоподстанция старого образца. Берёт 380, отдаёт 220, а на остальные гудит."
 	icon_state = "substation_rust"
-	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
-	anchored = TRUE
+
 
 /obj/machinery/eventmachine/serverrack/substation/get_ru_names()
 	return alist(
@@ -80,10 +70,7 @@
 	desc = "Ядро проекта Cynosure, официально закрытого Nanotrasen. От него исходит едва слышимый шёпот, словно оно пытается заговорить с вами."
 	icon = 'icons/obj/eventicons/cynosure.dmi'
 	icon_state = "cynosure"
-	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
-	anchored = TRUE
+
 
 /obj/machinery/eventmachine/serverrack/substation/get_ru_names()
 	return alist(
@@ -100,10 +87,7 @@
 	desc = "Огромный датабанк-хранилище проекта Cynosure. По официальным данным, именно с помощью данного устройства извлекали человеческую душу для использования при создании ОИИ."
 	icon = 'icons/obj/eventicons/storage.dmi'
 	icon_state = "storage_of_materials_active1"
-	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
-	anchored = TRUE
+
 
 /obj/machinery/eventmachine/serverrack/substation/get_ru_names()
 	return alist(
