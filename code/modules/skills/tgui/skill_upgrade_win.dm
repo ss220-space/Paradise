@@ -38,7 +38,10 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	//create user data
 	var/list/user_data = list()
 	user_data["username"] = target_user.real_name
-	user_data["job"] = target_user.job
+	user_data["job"] = NOJOB_STATUS_RUS
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = target_user
+		user_data["job"] = human_user.get_assignment()
 	user_data["admin"] = admin_interact
 	var/skill_points = target_user.mind.actual_free_skill_points
 	user_data["points"] = skill_points
