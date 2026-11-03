@@ -79,7 +79,7 @@
 		for(var/obj/structure/closet/crate/crate in contents)
 			. += span_notice("[icon2html(crate, user)] [DECLENT_RU_CAP(crate, NOMINATIVE)]")
 
-/obj/structure/cargo_shelf/wrench_act_secondary(mob/living/user, obj/item/tool)
+/obj/structure/cargo_shelf/wrench_act(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src)
 	deconstruct(TRUE)
 	return ITEM_INTERACT_SUCCESS

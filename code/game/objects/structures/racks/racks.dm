@@ -220,5 +220,5 @@
 	var/mutable_appearance/wooden_rack_overlay = mutable_appearance('icons/obj/objects.dmi', "wooden_rack_overlay", ABOVE_OBJ_LAYER)
 	. += wooden_rack_overlay
 
-/obj/structure/rack/wooden/wrench_act_secondary(mob/living/user, obj/item/tool)
+/obj/structure/rack/wooden/wrench_act(mob/living/user, obj/item/tool)
 	return NONE

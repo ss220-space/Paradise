@@ -126,7 +126,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	return ..()
 
-/obj/machinery/r_n_d/protolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE

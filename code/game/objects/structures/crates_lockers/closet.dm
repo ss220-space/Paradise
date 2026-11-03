@@ -513,7 +513,7 @@ GLOBAL_LIST_EMPTY(closets)
 	else
 		target_movable.forceMove(current_turf)
 
-/obj/structure/closet/wrench_act_secondary(mob/living/user, obj/item/tool)
+/obj/structure/closet/wrench_act(mob/living/user, obj/item/tool)
 	if(!anchorable)
 		balloon_alert(user, "no anchor bolts!")
 		return TRUE

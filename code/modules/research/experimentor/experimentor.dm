@@ -454,7 +454,7 @@
 	try_generate_reaction_for_item(loaded_item)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/experimentor/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+/obj/machinery/r_n_d/experimentor/screwdriver_act(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
