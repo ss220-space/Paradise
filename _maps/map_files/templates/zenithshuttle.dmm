@@ -1,273 +1,4583 @@
-"ap" = (/obj/machinery/light_switch/directional/north,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ax" = (/obj/structure/sign/poster/official/air2,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"az" = (/obj/item/clothing/gloves/combat/swat/syndicate{name = "армированные перчатки"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"aT" = (/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"aU" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted,/obj/machinery/computer/shuttle/admin{name = "SSV Ouroboros shuttle console"; shuttleId = "zenshuttle"; req_access = list(150); possible_destinations = "admin_home; admin_away; admin_custom"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"aX" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"br" = (/obj/machinery/porta_turret/syndicate/exterior,/obj/structure/lattice,/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 8; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "router_dir"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"bP" = (/obj/effect/turf_decal/tile/red/half{dir = 8},/obj/effect/turf_decal/caution/stand_clear{dir = 4},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"bY" = (/obj/structure/table/reinforced,/obj/effect/turf_decal/tile/dark_blue,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ch" = (/obj/effect/turf_decal/siding/wood/pallet,/obj/structure/rack/gunrack,/obj/item/gun/projectile/automatic/sniper_rifle,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"cW" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 4},/obj/structure/closet/secure_closet/syndicate/medbay,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ds" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 3},/obj/machinery/computer/syndie_supplycomp,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"dx" = (/obj/structure/noticeboard,/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"dC" = (/obj/effect/turf_decal/arrows,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"dM" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 8},/obj/item/flag/syndi,/obj/machinery/light/directional/south,/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"dP" = (/obj/machinery/door/airlock/syndicate/command{name = "Bridge"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"dV" = (/obj/structure/sign/poster/contraband/armor,/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ee" = (/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,/obj/item/gun_module/muzzle/suppressor/heavy,/obj/item/gun_module/rail/scope/x16,/obj/item/gun_module/under/hand/simple,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ef" = (/obj/effect/turf_decal/siding/wood{dir = 1},/obj/item/twohanded/required/kirbyplants,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ev" = (/obj/effect/turf_decal/tile/red/half{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"eJ" = (/turf/simulated/floor/engine/insulated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"eM" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/door/airlock/syndicate/command{name = "Bridge"; req_access = list(153)},/obj/machinery/door/poddoor/multi_tile/two_tile_ver{name = "Zenith Shuttle Lockdown"; id_tag = "FullLockdownZenith"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"eQ" = (/obj/machinery/porta_turret/syndicate/exterior,/obj/structure/lattice/catwalk,/turf/simulated/floor/indestructible/plating,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"fz" = (/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"fC" = (/turf/space,/area/space)
-"fO" = (/obj/effect/turf_decal/tile/dark_blue{dir = 8},/obj/structure/window/plasmareinforced{color = "#FF0000"; dir = 1},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"gy" = (/obj/machinery/suit_storage_unit/syndicate,/obj/effect/turf_decal/delivery/red/hollow,/obj/effect/turf_decal/tile/red/half/contrasted,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ha" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Cabin Privacy Shutters"; id_tag = "CabinPrivate"},/obj/machinery/door/poddoor/impassable/unhittable{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hg" = (/obj/item/pda/syndicate,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hh" = (/obj/effect/turf_decal{dir = 6; icon_state = "golden_stripes"},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hl" = (/obj/machinery/door/airlock/syndicate/command{name = "Restroom"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hm" = (/obj/effect/turf_decal/stripes/end,/turf/simulated/floor/shuttle{icon = 'icons/turf/floors.dmi'; icon_state = "podfloor_dark"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hH" = (/obj/item/rcd/syndicate/combat,/obj/item/rcd_ammo/syndicate/large,/obj/item/rcd_ammo/syndicate/large,/obj/item/rcd_ammo/syndicate/large,/obj/item/rcd_ammo/syndicate/large,/obj/item/rcd_ammo/syndicate/large,/obj/effect/turf_decal/stripes/red/line{dir = 3},/obj/effect/turf_decal/stripes/line{dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hQ" = (/obj/item/clothing/head/helmet/space/deathsquad/beret/solgov{name = "берет СпН ТСФ"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"hT" = (/obj/effect/turf_decal/tile/red/fourcorners,/obj/machinery/door/airlock/syndicate/command{name = "Lounge"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ic" = (/turf/simulated/wall/mineral/plastitanium/interior,/area/space)
-"ih" = (/obj/machinery/computer/old_frame/big,/obj/effect/turf_decal/stripes/red,/turf/simulated/floor/shuttle{icon_state = "floor4"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"it" = (/obj/structure/sign/poster/contraband/c20r,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"iZ" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 2},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"jg" = (/obj/structure/chair/office/dark,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"jm" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/machinery/bodyscanner{dir = 4},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"jn" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/machinery/optable,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"jo" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 1},/obj/item/twohanded/required/kirbyplants,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ju" = (/obj/item/storage/belt/utility/chief/full,/obj/effect/turf_decal/stripes/red/line{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"jQ" = (/obj/effect/turf_decal{icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"kk" = (/obj/effect/turf_decal/siding/wood/corner,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"kw" = (/obj/effect/turf_decal/tile/dark_blue{dir = 4},/obj/structure/chair/comfy/shuttle/dark{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"kK" = (/obj/effect/turf_decal/stripes/red/line{dir = 8},/obj/machinery/door/airlock/external{frequency = 1331; id_tag = "synd_outer_bottom"; name = "Ship External Access"; req_access = list(150)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lj" = (/obj/effect/turf_decal{dir = 5; icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lo" = (/obj/machinery/atmospherics/unary/vent_pump/high_volume{frequency = 1331; id_tag = "synd_pump_bottom"; dir = 4},/obj/effect/turf_decal/stripes/end{dir = 1},/turf/simulated/floor/shuttle{icon = 'icons/turf/floors.dmi'; icon_state = "podfloor_dark"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lp" = (/obj/structure/sign/vacuum,/turf/simulated/wall/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lD" = (/obj/machinery/chem_dispenser/upgraded,/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lO" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 2},/obj/machinery/door/poddoor/multi_tile/two_tile_hor{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lV" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/structure/table/glass,/obj/item/storage/backpack/duffel/syndie/surgery,/obj/item/storage/box/bodybags/biohazard,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"lZ" = (/obj/effect/turf_decal/tile/red/half{dir = 8},/obj/machinery/light_switch/directional/west,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ma" = (/obj/effect/decal/cleanable/liquid_fuel,/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"mb" = (/obj/machinery/porta_turret/syndicate/grenade,/obj/structure/lattice,/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 8; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "router_dir"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"md" = (/obj/effect/turf_decal{dir = 1; icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"mi" = (/obj/machinery/porta_turret/syndicate/exterior,/obj/structure/lattice,/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 9; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "router_dir"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ms" = (/obj/structure/railing/corner{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"mJ" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 8},/obj/machinery/chem_master,/obj/machinery/light/directional/south,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"mQ" = (/obj/item/clothing/suit/space/deathsquad/officer/syndie{name = "окровавленная, поношенная броня"; icon_state = "bloody_armor"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"mX" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nc" = (/obj/machinery/chem_heater,/obj/structure/window/plasmareinforced{color = "#d70000"; dir = 4},/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ng" = (/obj/machinery/door/airlock/syndicate/command{name = "Lounge"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nj" = (/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nk" = (/obj/machinery/vending/boozeomat,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nt" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 2},/obj/machinery/door/poddoor/multi_tile/three_tile_hor{name = "Zenith Shuttle Lockdown"; id_tag = "FullLockdownZenith"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nA" = (/obj/item/documents/syndicate/yellow,/obj/item/documents/syndicate/red,/obj/item/documents/syndicate/blue,/obj/structure/table/wood,/obj/effect/turf_decal/siding/wood{dir = 1},/obj/machinery/light/directional/north,/obj/machinery/light_switch/directional/north,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nI" = (/obj/machinery/porta_turret/syndicate/grenade,/obj/structure/lattice,/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 4; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "router_dir"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"nV" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 4},/obj/machinery/vending/medical/syndicate_access/beamgun,/obj/machinery/light/directional/north,/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"oe" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ox" = (/obj/machinery/computer/old_frame/big/right,/obj/effect/turf_decal/stripes/red,/turf/simulated/floor/shuttle{icon_state = "floor4"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"oA" = (/obj/effect/turf_decal/stripes/red/line{dir = 8},/obj/item/mod/control/pre_equipped/elite{complexity_max = 28; name = "поношенная сумка"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"oZ" = (/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"pi" = (/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"pr" = (/obj/effect/turf_decal/siding/wood{dir = 8},/obj/machinery/computer/camera_advanced,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"pL" = (/obj/effect/turf_decal/siding/wood{dir = 5},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"pT" = (/obj/structure/window/plasmareinforced{color = "#d70000"; dir = 4},/obj/structure/window/plasmareinforced{color = "#FF0000"; dir = 1},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"qw" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bar Privacy Shutters"; id_tag = "BarPrivate"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"qM" = (/obj/machinery/turretid/syndicate{name = "internal turret controls"; pixel_y = 32},/obj/structure/dresser,/obj/effect/turf_decal/siding/wood{dir = 1},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"qQ" = (/obj/structure/closet/secure_closet/syndicate,/obj/effect/turf_decal/siding/wood{dir = 9},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"qU" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"},/obj/machinery/door/poddoor/multi_tile/two_tile_ver{name = "Zenith Shuttle Lockdown"; id_tag = "FullLockdownZenith"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"rb" = (/obj/item/twohanded/required/kirbyplants,/obj/machinery/light/directional/south,/obj/effect/turf_decal/tile/red/anticorner,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"rO" = (/obj/structure/lattice,/obj/structure/lattice/catwalk,/obj/structure/marker_beacon{icon_state = "markerjade-on"},/turf/space,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"rS" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/beer,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"rW" = (/obj/item/ammo_box/magazine/sniper_rounds/soporific,/obj/item/ammo_box/magazine/sniper_rounds/soporific,/obj/item/ammo_box/magazine/sniper_rounds/soporific,/obj/item/ammo_box/magazine/sniper_rounds/penetrator,/obj/item/ammo_box/magazine/sniper_rounds/penetrator,/obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,/obj/item/ammo_box/magazine/sniper_rounds/explosive,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"sj" = (/obj/effect/turf_decal/stripes/red/line{dir = 4},/obj/structure/fans/tiny,/obj/machinery/door/airlock/external{frequency = 1331; id_tag = "synd_inner_bottom"; locked = 1; name = "Ship External Access"; req_access = list(150)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"sl" = (/obj/effect/turf_decal/stripes/red/line{dir = 6},/obj/machinery/light/directional/north,/obj/structure/chair/sofa/bench/left/security_red,/obj/docking_port/mobile{name = "Zenith Shuttle"; dir = 4; dwidth = 13; height = 35; width = 27; id = "zenshuttle"; dheight = 17},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"sz" = (/obj/effect/turf_decal/stripes/red/line{dir = 10},/obj/machinery/light/directional/north,/obj/structure/chair/sofa/bench/right/security_red,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ti" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 8},/obj/item/twohanded/required/kirbyplants,/obj/machinery/light/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"tB" = (/obj/structure/closet/crate/freezer,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/machinery/iv_drip,/obj/item/reagent_containers/iv_bag/salglu,/obj/item/tank/internals/emergency_oxygen/engi,/obj/item/tank/internals/emergency_oxygen/engi,/obj/item/tank/internals/emergency_oxygen/nitrogen,/obj/item/tank/internals/emergency_oxygen/plasma,/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 3},/obj/machinery/light/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"tC" = (/obj/effect/turf_decal/stripes/red/corner{dir = 1},/obj/item/clothing/glasses/hud/security/chameleon,/obj/item/clothing/mask/chameleon,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"tQ" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 8},/obj/effect/turf_decal/stripes/corner,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"tU" = (/obj/effect/turf_decal/siding/wood{dir = 3},/obj/structure/table/wood/fancy/red,/obj/item/storage/ashtray/bronze,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"tX" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 1},/obj/machinery/door/poddoor/impassable/unhittable{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"uN" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/machinery/computer/operating,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"vd" = (/obj/item/flag/syndi,/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/obj/machinery/light_switch/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"vG" = (/obj/effect/turf_decal{dir = 10; icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"vM" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/impassable/unhittable{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"wi" = (/obj/structure/chair/stool/bar{dir = 4},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"wW" = (/obj/item/mod/core/infinite,/obj/effect/turf_decal/stripes/red/line{dir = 1},/obj/effect/turf_decal/stripes/line,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"xb" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 1},/obj/effect/decal/cleanable/dirt,/obj/machinery/suit_storage_unit/syndicate,/obj/effect/turf_decal/delivery/red/hollow,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"xn" = (/obj/effect/turf_decal/siding/wood{dir = 10},/obj/structure/table/wood/fancy/red,/obj/machinery/photocopier/faxmachine/longrange/syndie{department = "Syndicate"},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"xI" = (/turf/simulated/floor/light/colour_cycle/dancefloor_a,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"yu" = (/obj/structure/railing,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"yy" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bar Privacy Shutters"; id_tag = "BarPrivate"; dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"yO" = (/obj/effect/turf_decal/stripes/red/corner{dir = 4},/obj/effect/turf_decal/stripes/line,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"yV" = (/obj/machinery/sleeper/syndie{dir = 4},/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zd" = (/obj/structure/railing,/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zm" = (/obj/structure/sign/poster/contraband/syndicate_recruitment,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zw" = (/obj/structure/table/glass,/obj/item/reagent_containers/spray/cleaner{desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back."; name = "Surgery Cleaner"},/obj/item/soap/syndie,/obj/item/bodybag/environmental/prisoner/syndicate,/obj/item/bodybag/environmental/prisoner/syndicate,/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zG" = (/obj/structure/table/reinforced,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zW" = (/obj/effect/turf_decal/tile/red/half{dir = 8},/obj/effect/decal/cleanable/dirt,/obj/machinery/atmospherics/pipe/simple/visible{color = "#FFC0CB"; dir = 9},/obj/effect/turf_decal/caution/stand_clear{dir = 4},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"zY" = (/obj/machinery/computer/old_frame/thick,/obj/effect/turf_decal/stripes/red,/turf/simulated/floor/shuttle{icon_state = "floor4"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ah" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 1},/obj/effect/decal/remains/robot,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ai" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 4},/obj/machinery/computer/message_monitor,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"AI" = (/obj/machinery/jukebox/no_access,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"AQ" = (/obj/structure/chair/sofa/bench/left/security_red{dir = 1},/obj/effect/turf_decal/stripes/red/line{dir = 9},/obj/machinery/light/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ba" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 2},/obj/machinery/door/poddoor/multi_tile/four_tile_hor{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Bk" = (/obj/structure/lattice,/obj/structure/grille/fence,/turf/space,/area/space)
-"Bv" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 2},/obj/machinery/door/poddoor/impassable/unhittable{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"BC" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 1},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"BM" = (/obj/effect/turf_decal/tile/red/half{dir = 1},/obj/effect/turf_decal/tile/yellow/half,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Cr" = (/obj/effect/turf_decal/siding/wood{dir = 8},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Cy" = (/obj/effect/turf_decal/siding/wood{dir = 6},/obj/structure/bed/wooden,/obj/item/bedsheet/syndie,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"CH" = (/obj/effect/turf_decal/tile/red/half/contrasted,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Dk" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 1},/obj/effect/decal/cleanable/dirt,/obj/machinery/light/directional/north,/obj/machinery/atmospherics/unary/tank/air,/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Dm" = (/obj/effect/turf_decal/tile/dark_blue,/obj/item/implanter/fake_mindshield,/obj/item/implanter/heal,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Do" = (/obj/structure/chair/sofa/bench/right/security_red{dir = 1},/obj/effect/turf_decal/stripes/red/line{dir = 5},/obj/machinery/light/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"DA" = (/obj/structure/sign/poster/contraband/syndicate_pistol,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ee" = (/obj/effect/turf_decal/stripes/red/corner{dir = 8},/obj/effect/turf_decal/stripes/corner{dir = 1},/obj/item/storage/box/debug,/obj/item/card/emag,/obj/item/teleporter/admin,/obj/item/book_of_babel,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"EA" = (/turf/simulated/floor/light/colour_cycle/dancefloor_b,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"FF" = (/obj/item/clothing/head/beret/solgov/command/elite,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Gd" = (/obj/machinery/computer/old_frame/server/rackframe,/obj/effect/turf_decal/stripes/red,/turf/simulated/floor/shuttle{icon_state = "floor4"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Gq" = (/obj/effect/turf_decal/stripes/red/line{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"GR" = (/obj/structure/railing{dir = 8},/obj/item/twohanded/required/kirbyplants,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ha" = (/obj/effect/turf_decal{dir = 9; icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Hi" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Hp" = (/obj/effect/spawner/window/plastitanium,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Hr" = (/obj/structure/grille/fence,/obj/structure/lattice,/turf/space,/area/space)
-"Hv" = (/obj/structure/table/wood,/obj/effect/turf_decal/siding/wood{dir = 1},/obj/machinery/computer/security/wooden_tv,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"HY" = (/obj/effect/turf_decal/siding/wood{dir = 3},/obj/structure/table/wood/fancy/red,/obj/item/deck/cards/syndicate/black,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ia" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/item/flag/syndi,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Is" = (/obj/structure/lattice/catwalk,/obj/structure/marker_beacon{icon_state = "markerjade-on"},/turf/simulated/floor/shuttle/transparent_floor{dir = 4; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "tube"},/area/space)
-"IR" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/soda,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"IU" = (/obj/machinery/chem_heater,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"IX" = (/obj/effect/turf_decal{dir = 4; icon_state = "golden_stripes"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Jx" = (/obj/structure/table/reinforced,/obj/item/storage/ashtray/bronze,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"JI" = (/obj/effect/turf_decal{dir = 8; icon_state = "golden_stripes"},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"JP" = (/obj/item/radio/headset/syndicate/admin_officer{name = "военная гарнитура"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Kx" = (/obj/machinery/chem_dispenser,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"KH" = (/obj/structure/lattice/catwalk,/turf/simulated/floor/indestructible/plating,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"La" = (/obj/effect/turf_decal/tile/red/fourcorners,/obj/machinery/door/airlock/syndicate/command{name = "Restroom"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ld" = (/obj/effect/turf_decal/siding/wood{dir = 3},/obj/machinery/light/directional/south,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ll" = (/mob/living/simple_animal/bot/medbot/syndicate,/obj/effect/turf_decal/stripes/red/corner,/obj/effect/turf_decal/stripes/corner{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Lt" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 3},/obj/structure/closet/secure_closet/syndicate/medbay,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"LF" = (/obj/effect/turf_decal/siding/wood{dir = 1},/obj/machinery/light/directional/north,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"LJ" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"; dir = 1},/obj/machinery/door/poddoor/multi_tile/four_tile_hor{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Mg" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 1},/obj/effect/decal/cleanable/shreds,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Mj" = (/obj/effect/turf_decal/arrows{dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Mq" = (/obj/machinery/vending/wallmed/syndicate,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ME" = (/obj/structure/chair/wood/wings,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"MI" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"MV" = (/obj/machinery/light/directional/north,/obj/effect/turf_decal/tile/red/anticorner{dir = 4},/obj/item/twohanded/required/kirbyplants,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ns" = (/obj/item/autoimplanter,/obj/item/organ/internal/cyberimp/arm/surgery/alien,/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,/obj/item/organ/internal/cyberimp/chest/reviver/hardened,/obj/item/organ/internal/cyberimp/eyes/hud/medical,/obj/item/organ/internal/cyberimp/eyes/shield,/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/mouth/breathing_tube,/obj/effect/turf_decal/stripes/red/line{dir = 3},/obj/effect/turf_decal/stripes/line{dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Oh" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ol" = (/obj/effect/turf_decal/siding/wood{dir = 6},/obj/machinery/photocopier/syndie,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Om" = (/obj/effect/turf_decal/stripes/red/line{dir = 4},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ov" = (/turf/simulated/floor/shuttle{icon_state = "floor3"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Oz" = (/obj/structure/chair/comfy/shuttle/dark{dir = 4},/obj/effect/turf_decal/tile/dark_blue,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"OM" = (/obj/effect/turf_decal/stripes/red,/obj/machinery/tcomms/relay/cc{network_id = "РАДИО-ПРОСЛУШКА"},/turf/simulated/floor/shuttle{icon_state = "floor4"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"OQ" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bar Privacy Shutters"; id_tag = "BarPrivate"},/obj/machinery/door/poddoor/multi_tile/two_tile_ver{name = "Zenith Shuttle Lockdown"; id_tag = "FullLockdownZenith"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Pd" = (/obj/effect/turf_decal/tile/yellow/fourcorners,/obj/machinery/door/airlock/syndicate/command{name = "Restroom"; req_access = list(153)},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"PC" = (/obj/structure/lattice,/obj/structure/grille/fence,/obj/structure/lattice,/turf/space,/area/space)
-"PE" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 1},/obj/machinery/suit_storage_unit/syndicate,/obj/effect/turf_decal/delivery/red/hollow,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"PJ" = (/obj/structure/sign/poster/contraband/Enlist_Gorlex,/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"PK" = (/obj/effect/turf_decal/stripes/red/line{dir = 4},/obj/structure/fans/tiny,/obj/machinery/door/airlock/external{frequency = 1331; id_tag = "synd_inner_bottom"; locked = 1; name = "Ship External Access"; req_access = list(150)},/obj/machinery/atmospherics/pipe/simple/visible{color = "#FFC0CB"; dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"PS" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bridge Privacy Shutters"; id_tag = "Bridge Privacy"},/obj/machinery/door/poddoor/multi_tile/four_tile_ver{name = "Zenith Shuttle Lockdown"; id_tag = "FullLockdownZenith"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ql" = (/obj/effect/turf_decal/siding/wood{dir = 3},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Qm" = (/obj/machinery/vending/syndichem,/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Qy" = (/obj/effect/turf_decal/siding/wood{dir = 3},/obj/structure/table/wood/fancy/red,/obj/machinery/door_control{id = "CabinPrivate"; name = "Private Cabin"; pixel_x = -5; req_access = list(154); pixel_y = -2},/obj/machinery/door_control{id = "FullLockdownZenith"; name = "Shuttle Lockdown"; pixel_x = 5; req_access = list(154); pixel_y = -2},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"QS" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 4},/obj/item/flag/syndi,/obj/machinery/light/directional/north,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"QU" = (/obj/structure/railing{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Rj" = (/obj/effect/turf_decal/stripes/red/line{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ro" = (/obj/effect/turf_decal/stripes/red/line{dir = 3},/obj/effect/turf_decal/stripes/line{dir = 1},/obj/effect/decal/cleanable/dirt/blackpowder,/obj/item/storage/firstaid/syndie,/obj/item/reagent_containers/applicator/abductor/industrial,/obj/item/reagent_containers/applicator/abductor/industrial,/obj/item/reagent_containers/hypospray/combat/nanites,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Rp" = (/obj/structure/chair/stool/bar{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Rw" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 3},/obj/item/flag/syndi,/obj/machinery/light/directional/south,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Sb" = (/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 4; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "tube"},/area/space)
-"Sj" = (/obj/structure/chair/sofa/bench/security_red{dir = 1},/obj/effect/turf_decal/stripes/red/line{dir = 3},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"SJ" = (/obj/effect/turf_decal/tile/dark_blue{dir = 4},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/item/melee/baton/telescopic/contractor,/obj/item/baton_upgrade/mute,/obj/item/baton_upgrade/focus,/obj/item/baton_upgrade/cuff,/obj/item/baton_upgrade/antidrop,/obj/item/storage/box/zipties,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"SP" = (/obj/effect/turf_decal/stripes/red/line{dir = 3},/obj/effect/turf_decal/stripes/line{dir = 1},/obj/item/stack/spacecash/c1000000,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"SV" = (/obj/machinery/embedded_controller/radio/airlock/airlock_controller{frequency = 1331; id_tag = "synd_airlock_bottom"; req_access = list(150); tag_airpump = "synd_pump_bottom"; tag_chamber_sensor = "synd_sensor_bottom"; tag_exterior_door = "synd_outer_bottom"; tag_interior_door = "synd_inner_bottom"},/obj/machinery/airlock_sensor{frequency = 1331; id_tag = "synd_sensor_bottom"; pixel_y = -9; req_access = list(150)},/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Te" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/multi_tile/two_tile_hor{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"To" = (/obj/structure/shuttle/engine/large{dir = 8},/turf/space,/area/space)
-"TE" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 8},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"TK" = (/obj/machinery/light/directional/south,/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/obj/machinery/computer/camera_advanced,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"TR" = (/turf/space,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"TS" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 4},/obj/machinery/computer/camera_advanced/shuttle_docker/admin{name = "SSV Ouroboros shuttle console"; shuttleId = "zenshuttle"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Uh" = (/obj/effect/turf_decal/siding/wood{dir = 1},/obj/machinery/papershredder,/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Ul" = (/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Uu" = (/obj/effect/turf_decal/stripes/red/line{dir = 8},/obj/item/storage/belt/military/sst,/obj/item/clothing/accessory/holster/leg,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Uy" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 8},/obj/item/twohanded/required/kirbyplants,/obj/structure/window/plasmareinforced{color = "#d70000"; dir = 4},/obj/effect/turf_decal/stripes/line{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"UL" = (/obj/effect/spawner/window/plastitanium,/obj/machinery/door/poddoor/shutters/preopen/invincible{name = "Bar Privacy Shutters"; id_tag = "BarPrivate"; dir = 1},/obj/machinery/door/poddoor/multi_tile/two_tile_hor{id_tag = "FullLockdownZenith"; name = "Zenith Shuttle Lockdown"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"UP" = (/obj/structure/lattice,/turf/space,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"US" = (/obj/effect/turf_decal/siding/wood{dir = 4},/turf/simulated/floor/wood/dark,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Vf" = (/obj/structure/closet/crate/freezer{desc = "A crate."; name = "Medical crate"},/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,/obj/item/reagent_containers/iv_bag/salglu,/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 3},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Vg" = (/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{dir = 1},/obj/structure/reagent_dispensers/fueltank,/obj/machinery/light/directional/north,/obj/effect/turf_decal/stripes/line{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Vi" = (/obj/structure/lattice,/turf/space,/area/space)
-"Vj" = (/obj/structure/sign/poster/contraband/syndicate_recruitment{pixel_x = -32},/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"VC" = (/obj/structure/lattice/catwalk,/obj/machinery/door_control{id = "smindicate_bottom"; name = "External Door Control"; pixel_x = -8; req_access = list(150); pixel_y = -5},/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"VQ" = (/obj/effect/turf_decal/tile/dark_blue{dir = 4},/obj/structure/table/reinforced,/obj/machinery/door_control{id = "FullLockdownZenith"; name = "Shuttle Lockdown"; pixel_x = 5; req_access = list(154); pixel_y = -2},/obj/machinery/door_control{id = "CabinPrivate"; name = "Private Cabin"; pixel_x = -5; req_access = list(154); pixel_y = -2},/obj/machinery/door_control{id = "BarPrivate"; name = "Private Bar Convo"; pixel_x = -5; req_access = list(154); pixel_y = 8},/obj/machinery/door_control{name = "Bridge Privacy"; pixel_x = 5; pixel_y = 8; id = "Bridge Privacy"},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"VT" = (/obj/structure/lattice,/turf/simulated/floor/shuttle/transparent_floor{dir = 4; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "tube"},/area/space)
-"Wu" = (/obj/structure/lattice,/turf/simulated/floor/shuttle/transparent_floor{dir = 4; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "tube"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Wv" = (/obj/structure/lattice/catwalk,/turf/simulated/wall/mineral/plastitanium/interior,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Wx" = (/obj/effect/turf_decal/tile/dark_blue/half/contrasted{dir = 1},/obj/machinery/computer/crew,/obj/machinery/light/directional/north,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Wy" = (/obj/structure/shuttle/engine/heater{dir = 8},/obj/structure/window/plasmareinforced{dir = 4},/turf/simulated/floor/engine/insulated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"WK" = (/obj/item/storage/part_replacer/bluespace/experimental,/obj/item/storage/part_replacer/bluespace/experimental,/obj/effect/turf_decal/stripes/red/line{dir = 1},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"WO" = (/obj/machinery/porta_turret/syndicate/exterior,/obj/structure/lattice,/obj/structure/lattice/catwalk,/turf/simulated/floor/shuttle/transparent_floor{dir = 10; icon = 'icons/turf/shuttle/misc.dmi'; icon_state = "router_dir"},/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Xy" = (/obj/structure/sign/poster/official/rolling_stones,/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"XC" = (/obj/effect/turf_decal/tile/red/half{dir = 8},/obj/effect/decal/cleanable/dirt/blackpowder,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"XD" = (/obj/effect/turf_decal/tile/red/anticorner{dir = 1},/obj/item/twohanded/required/kirbyplants,/obj/machinery/light/directional/north,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Yb" = (/obj/effect/turf_decal/tile/red/half/contrasted{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"YB" = (/obj/effect/turf_decal/stripes/red/line{dir = 1},/obj/structure/chair/sofa/bench/security_red,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"YN" = (/obj/item/mod/module/activation_upgrade/elite,/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,/obj/item/mod/module/chameleon,/obj/item/mod/module/defibrillator/combat,/obj/item/mod/module/deployed_upgrade,/obj/item/mod/module/magboot/advanced/elite,/obj/item/mod/module/magnetic_harness,/obj/item/mod/module/medbeam,/obj/item/mod/module/quick_carry/advanced,/obj/item/mod/module/rad_protection,/obj/item/mod/module/shock_absorber,/obj/item/mod/module/stealth/ninja,/obj/item/mod/module/storage/bluespace,/obj/effect/turf_decal/stripes/red/line{dir = 1},/obj/effect/turf_decal/stripes/line,/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"YV" = (/obj/machinery/door_control{id = "BarPrivate"; name = "Private Bar Convo"; pixel_x = -5; req_access = list(154); pixel_y = 8},/turf/simulated/wall/mineral/plastitanium/coated,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"YW" = (/turf/simulated/floor/plating/asteroid/airless,/area/space)
-"Za" = (/obj/effect/turf_decal/tile/dark_blue{dir = 1},/obj/structure/closet/secure_closet/medical1{req_access = list(150)},/obj/item/storage/bag/chemistry,/obj/item/storage/bag/chemistry,/obj/item/clothing/glasses/science,/obj/item/clothing/glasses/science,/obj/item/grenade/bananade/casing,/obj/item/grenade/bananade/casing,/obj/item/grenade/bananade/casing,/obj/item/storage/box/beakers/bluespace,/obj/item/storage/box/beakers/bluespace,/obj/item/storage/box/beakers/bluespace,/obj/effect/turf_decal/stripes/line{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"Zq" = (/obj/effect/turf_decal/tile/red/half{dir = 4},/turf/simulated/floor/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
-"ZD" = (/turf/simulated/wall/mineral/plastitanium,/area/syndicate_depot/core{name = "Zenith Shuttle"; requires_power = 0})
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ap" = (
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ax" = (
+/obj/structure/sign/poster/official/air2,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"az" = (
+/obj/item/clothing/gloves/combat/swat/syndicate{
+	name = "армированные перчатки"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"aT" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"aU" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted,
+/obj/machinery/computer/shuttle/admin{
+	name = "SSV Ouroboros shuttle console";
+	shuttleId = "zenshuttle";
+	req_access = list(150);
+	possible_destinations = "admin_home; admin_away; admin_custom"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"aX" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"br" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 8;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"bP" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"bY" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/dark_blue,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ch" = (
+/obj/effect/turf_decal/siding/wood/pallet,
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sniper_rifle,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"cW" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/syndicate/medbay,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ds" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 3
+	},
+/obj/machinery/computer/syndie_supplycomp,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"dx" = (
+/obj/structure/noticeboard,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"dC" = (
+/obj/effect/turf_decal/arrows,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"dM" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 8
+	},
+/obj/item/flag/syndi,
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"dP" = (
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Bridge";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"dV" = (
+/obj/structure/sign/poster/contraband/armor,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ee" = (
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/obj/item/gun_module/muzzle/suppressor/heavy,
+/obj/item/gun_module/rail/scope/x16,
+/obj/item/gun_module/under/hand/simple,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ef" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ev" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"eJ" = (
+/turf/simulated/floor/engine/insulated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"eM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Bridge";
+	req_access = list(153)
+	},
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Zenith Shuttle Lockdown";
+	id_tag = "FullLockdownZenith"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"eQ" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/indestructible/plating,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"fz" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"fC" = (
+/turf/space,
+/area/space)
+"fO" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"gy" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ha" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Cabin Privacy Shutters";
+	id_tag = "CabinPrivate"
+	},
+/obj/machinery/door/poddoor/impassable/unhittable{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hg" = (
+/obj/item/pda/syndicate,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hh" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hl" = (
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Restroom";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hm" = (
+/obj/effect/turf_decal/stripes/end,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hH" = (
+/obj/item/rcd/syndicate/combat,
+/obj/item/rcd_ammo/syndicate/large,
+/obj/item/rcd_ammo/syndicate/large,
+/obj/item/rcd_ammo/syndicate/large,
+/obj/item/rcd_ammo/syndicate/large,
+/obj/item/rcd_ammo/syndicate/large,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hQ" = (
+/obj/item/clothing/head/helmet/space/deathsquad/beret/solgov{
+	name = "берет СпН ТСФ"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"hT" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Lounge";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ic" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/space)
+"ih" = (
+/obj/machinery/computer/old_frame/big,
+/obj/effect/turf_decal/stripes/red,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"it" = (
+/obj/structure/sign/poster/contraband/c20r,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"iZ" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"jg" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"jm" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"jn" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/optable,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"jo" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ju" = (
+/obj/item/storage/belt/utility/chief/full,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"jQ" = (
+/obj/effect/turf_decal{
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"kk" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"kw" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"kK" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_outer_bottom";
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lj" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lo" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1331;
+	id_tag = "synd_pump_bottom";
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lp" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lD" = (
+/obj/machinery/chem_dispenser/upgraded,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lO" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 2
+	},
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lV" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/storage/backpack/duffel/syndie/surgery,
+/obj/item/storage/box/bodybags/biohazard,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"lZ" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ma" = (
+/obj/effect/decal/cleanable/liquid_fuel,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"mb" = (
+/obj/machinery/porta_turret/syndicate/grenade,
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 8;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"md" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"mi" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 9;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ms" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"mJ" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 8
+	},
+/obj/machinery/chem_master,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"mQ" = (
+/obj/item/clothing/suit/space/deathsquad/officer/syndie{
+	name = "окровавленная, поношенная броня";
+	icon_state = "bloody_armor"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"mX" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nc" = (
+/obj/machinery/chem_heater,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ng" = (
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Lounge";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nj" = (
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nk" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nt" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 2
+	},
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	name = "Zenith Shuttle Lockdown";
+	id_tag = "FullLockdownZenith"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nA" = (
+/obj/item/documents/syndicate/yellow,
+/obj/item/documents/syndicate/red,
+/obj/item/documents/syndicate/blue,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light/directional/north,
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nI" = (
+/obj/machinery/porta_turret/syndicate/grenade,
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"nV" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 4
+	},
+/obj/machinery/vending/medical/syndicate_access/beamgun,
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"oe" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ox" = (
+/obj/machinery/computer/old_frame/big/right,
+/obj/effect/turf_decal/stripes/red,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"oA" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/item/mod/control/pre_equipped/elite{
+	complexity_max = 28;
+	name = "поношенная сумка"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"oZ" = (
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"pi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"pr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"pL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"pT" = (
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"qw" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bar Privacy Shutters";
+	id_tag = "BarPrivate"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"qM" = (
+/obj/machinery/turretid/syndicate{
+	name = "internal turret controls";
+	pixel_y = 32
+	},
+/obj/structure/dresser,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"qQ" = (
+/obj/structure/closet/secure_closet/syndicate,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"qU" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy"
+	},
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Zenith Shuttle Lockdown";
+	id_tag = "FullLockdownZenith"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"rb" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/tile/red/anticorner,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"rO" = (
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/space,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"rS" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"rW" = (
+/obj/item/ammo_box/magazine/sniper_rounds/soporific,
+/obj/item/ammo_box/magazine/sniper_rounds/soporific,
+/obj/item/ammo_box/magazine/sniper_rounds/soporific,
+/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
+/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
+/obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,
+/obj/item/ammo_box/magazine/sniper_rounds/explosive,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"sj" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_inner_bottom";
+	locked = 1;
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"sl" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 6
+	},
+/obj/machinery/light/directional/north,
+/obj/structure/chair/sofa/bench/left/security_red,
+/obj/docking_port/mobile{
+	name = "Zenith Shuttle";
+	dir = 4;
+	dwidth = 13;
+	height = 35;
+	width = 27;
+	id = "zenshuttle";
+	dheight = 17
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"sz" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 10
+	},
+/obj/machinery/light/directional/north,
+/obj/structure/chair/sofa/bench/right/security_red,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ti" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"tB" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 3
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"tC" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/obj/item/clothing/glasses/hud/security/chameleon,
+/obj/item/clothing/mask/chameleon,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"tQ" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"tU" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 3
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/item/storage/ashtray/bronze,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"tX" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 1
+	},
+/obj/machinery/door/poddoor/impassable/unhittable{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"uN" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/operating,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"vd" = (
+/obj/item/flag/syndi,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"vG" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"vM" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/impassable/unhittable{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"wi" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"wW" = (
+/obj/item/mod/core/infinite,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"xb" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"xn" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate"
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"xI" = (
+/turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"yu" = (
+/obj/structure/railing,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"yy" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bar Privacy Shutters";
+	id_tag = "BarPrivate";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"yO" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"yV" = (
+/obj/machinery/sleeper/syndie{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zd" = (
+/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zm" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zw" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/item/soap/syndie,
+/obj/item/bodybag/environmental/prisoner/syndicate,
+/obj/item/bodybag/environmental/prisoner/syndicate,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zG" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zW" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	color = "#FFC0CB";
+	dir = 9
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"zY" = (
+/obj/machinery/computer/old_frame/thick,
+/obj/effect/turf_decal/stripes/red,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ah" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ai" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/message_monitor,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"AI" = (
+/obj/machinery/jukebox/no_access,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"AQ" = (
+/obj/structure/chair/sofa/bench/left/security_red{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 9
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ba" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 2
+	},
+/obj/machinery/door/poddoor/multi_tile/four_tile_hor{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Bk" = (
+/obj/structure/lattice,
+/obj/structure/grille/fence,
+/turf/space,
+/area/space)
+"Bv" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 2
+	},
+/obj/machinery/door/poddoor/impassable/unhittable{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"BC" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"BM" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/half,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Cr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Cy" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/bed/wooden,
+/obj/item/bedsheet/syndie,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"CH" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Dk" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/directional/north,
+/obj/machinery/atmospherics/unary/tank/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Dm" = (
+/obj/effect/turf_decal/tile/dark_blue,
+/obj/item/implanter/fake_mindshield,
+/obj/item/implanter/heal,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Do" = (
+/obj/structure/chair/sofa/bench/right/security_red{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 5
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"DA" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ee" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/item/storage/box/debug,
+/obj/item/card/emag,
+/obj/item/teleporter/admin,
+/obj/item/book_of_babel,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"EA" = (
+/turf/simulated/floor/light/colour_cycle/dancefloor_b,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"FF" = (
+/obj/item/clothing/head/beret/solgov/command/elite,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Gd" = (
+/obj/machinery/computer/old_frame/server/rackframe,
+/obj/effect/turf_decal/stripes/red,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Gq" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"GR" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ha" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Hi" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Hp" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Hr" = (
+/obj/structure/grille/fence,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"Hv" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/computer/security/wooden_tv,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"HY" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 3
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/item/deck/cards/syndicate/black,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ia" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Is" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "tube"
+	},
+/area/space)
+"IR" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"IU" = (
+/obj/machinery/chem_heater,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"IX" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "golden_stripes"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Jx" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/ashtray/bronze,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"JI" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"JP" = (
+/obj/item/radio/headset/syndicate/admin_officer{
+	name = "военная гарнитура"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Kx" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"KH" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/indestructible/plating,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"La" = (
+/obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Restroom";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ld" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 3
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ll" = (
+/mob/living/simple_animal/bot/medbot/syndicate,
+/obj/effect/turf_decal/stripes/red/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Lt" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 3
+	},
+/obj/structure/closet/secure_closet/syndicate/medbay,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"LF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"LJ" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy";
+	dir = 1
+	},
+/obj/machinery/door/poddoor/multi_tile/four_tile_hor{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Mg" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/shreds,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Mj" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Mq" = (
+/obj/machinery/vending/wallmed/syndicate,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ME" = (
+/obj/structure/chair/wood/wings,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"MI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"MV" = (
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ns" = (
+/obj/item/autoimplanter,
+/obj/item/organ/internal/cyberimp/arm/surgery/alien,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/shield,
+/obj/item/organ/internal/cyberimp/eyes/xray,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Oh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ol" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/machinery/photocopier/syndie,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Om" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ov" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Oz" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_blue,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"OM" = (
+/obj/effect/turf_decal/stripes/red,
+/obj/machinery/tcomms/relay/cc{
+	network_id = "РАДИО-ПРОСЛУШКА"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"OQ" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bar Privacy Shutters";
+	id_tag = "BarPrivate"
+	},
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Zenith Shuttle Lockdown";
+	id_tag = "FullLockdownZenith"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Pd" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners,
+/obj/machinery/door/airlock/syndicate/command{
+	name = "Restroom";
+	req_access = list(153)
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"PC" = (
+/obj/structure/lattice,
+/obj/structure/grille/fence,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"PE" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"PJ" = (
+/obj/structure/sign/poster/contraband/Enlist_Gorlex,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"PK" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_inner_bottom";
+	locked = 1;
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	color = "#FFC0CB";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"PS" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bridge Privacy Shutters";
+	id_tag = "Bridge Privacy"
+	},
+/obj/machinery/door/poddoor/multi_tile/four_tile_ver{
+	name = "Zenith Shuttle Lockdown";
+	id_tag = "FullLockdownZenith"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ql" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 3
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Qm" = (
+/obj/machinery/vending/syndichem,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Qy" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 3
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/door_control{
+	id = "CabinPrivate";
+	name = "Private Cabin";
+	pixel_x = -5;
+	req_access = list(154);
+	pixel_y = -2
+	},
+/obj/machinery/door_control{
+	id = "FullLockdownZenith";
+	name = "Shuttle Lockdown";
+	pixel_x = 5;
+	req_access = list(154);
+	pixel_y = -2
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"QS" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 4
+	},
+/obj/item/flag/syndi,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"QU" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Rj" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ro" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/item/storage/firstaid/syndie,
+/obj/item/reagent_containers/applicator/abductor/industrial,
+/obj/item/reagent_containers/applicator/abductor/industrial,
+/obj/item/reagent_containers/hypospray/combat/nanites,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Rp" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Rw" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 3
+	},
+/obj/item/flag/syndi,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Sb" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "tube"
+	},
+/area/space)
+"Sj" = (
+/obj/structure/chair/sofa/bench/security_red{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"SJ" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/melee/baton/telescopic/contractor,
+/obj/item/baton_upgrade/mute,
+/obj/item/baton_upgrade/focus,
+/obj/item/baton_upgrade/cuff,
+/obj/item/baton_upgrade/antidrop,
+/obj/item/storage/box/zipties,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"SP" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c1000000,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"SV" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "synd_airlock_bottom";
+	req_access = list(150);
+	tag_airpump = "synd_pump_bottom";
+	tag_chamber_sensor = "synd_sensor_bottom";
+	tag_exterior_door = "synd_outer_bottom";
+	tag_interior_door = "synd_inner_bottom"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "synd_sensor_bottom";
+	pixel_y = -9;
+	req_access = list(150)
+	},
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Te" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"To" = (
+/obj/structure/shuttle/engine/large{
+	dir = 8
+	},
+/turf/space,
+/area/space)
+"TE" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"TK" = (
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"TR" = (
+/turf/space,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"TS" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "SSV Ouroboros shuttle console";
+	shuttleId = "zenshuttle"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Uh" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/papershredder,
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Ul" = (
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Uu" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/item/storage/belt/military/sst,
+/obj/item/clothing/accessory/holster/leg,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Uy" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"UL" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	name = "Bar Privacy Shutters";
+	id_tag = "BarPrivate";
+	dir = 1
+	},
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "FullLockdownZenith";
+	name = "Zenith Shuttle Lockdown"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"UP" = (
+/obj/structure/lattice,
+/turf/space,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"US" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Vf" = (
+/obj/structure/closet/crate/freezer{
+	desc = "A crate.";
+	name = "Medical crate"
+	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Vg" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Vi" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"Vj" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = -32
+	},
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"VC" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/door_control{
+	id = "smindicate_bottom";
+	name = "External Door Control";
+	pixel_x = -8;
+	req_access = list(150);
+	pixel_y = -5
+	},
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"VQ" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "FullLockdownZenith";
+	name = "Shuttle Lockdown";
+	pixel_x = 5;
+	req_access = list(154);
+	pixel_y = -2
+	},
+/obj/machinery/door_control{
+	id = "CabinPrivate";
+	name = "Private Cabin";
+	pixel_x = -5;
+	req_access = list(154);
+	pixel_y = -2
+	},
+/obj/machinery/door_control{
+	id = "BarPrivate";
+	name = "Private Bar Convo";
+	pixel_x = -5;
+	req_access = list(154);
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	name = "Bridge Privacy";
+	pixel_x = 5;
+	pixel_y = 8;
+	id = "Bridge Privacy"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"VT" = (
+/obj/structure/lattice,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "tube"
+	},
+/area/space)
+"Wu" = (
+/obj/structure/lattice,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "tube"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Wv" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/wall/mineral/plastitanium/interior,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Wx" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/crew,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Wy" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/engine/insulated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"WK" = (
+/obj/item/storage/part_replacer/bluespace/experimental,
+/obj/item/storage/part_replacer/bluespace/experimental,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"WO" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 10;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Xy" = (
+/obj/structure/sign/poster/official/rolling_stones,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"XC" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"XD" = (
+/obj/effect/turf_decal/tile/red/anticorner{
+	dir = 1
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Yb" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"YB" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/chair/sofa/bench/security_red,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"YN" = (
+/obj/item/mod/module/activation_upgrade/elite,
+/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,
+/obj/item/mod/module/chameleon,
+/obj/item/mod/module/defibrillator/combat,
+/obj/item/mod/module/deployed_upgrade,
+/obj/item/mod/module/magboot/advanced/elite,
+/obj/item/mod/module/magnetic_harness,
+/obj/item/mod/module/medbeam,
+/obj/item/mod/module/quick_carry/advanced,
+/obj/item/mod/module/rad_protection,
+/obj/item/mod/module/shock_absorber,
+/obj/item/mod/module/stealth/ninja,
+/obj/item/mod/module/storage/bluespace,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"YV" = (
+/obj/machinery/door_control{
+	id = "BarPrivate";
+	name = "Private Bar Convo";
+	pixel_x = -5;
+	req_access = list(154);
+	pixel_y = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"YW" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space)
+"Za" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/medical1{
+	req_access = list(150)
+	},
+/obj/item/storage/bag/chemistry,
+/obj/item/storage/bag/chemistry,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
+/obj/item/grenade/bananade/casing,
+/obj/item/grenade/bananade/casing,
+/obj/item/grenade/bananade/casing,
+/obj/item/storage/box/beakers/bluespace,
+/obj/item/storage/box/beakers/bluespace,
+/obj/item/storage/box/beakers/bluespace,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"Zq" = (
+/obj/effect/turf_decal/tile/red/half{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
+"ZD" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/syndicate_depot/core{
+	name = "Zenith Shuttle";
+	requires_power = 0
+	})
 
 (1,1,1) = {"
-fCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWfCfCfCfCfCfCfCYWYWYWfCfCfCfCfCfCfCfCfCYWYWYWfCfCfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCfCYWYWYWYWYWfCfCfCfCfCfCfCfCYWYWYWfCfCfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWfCfCfCfCfCfCfCYWYWYWYWYWYWYWfCfCfCfCfCfCYWfCfCfCfCfCfCfCfCfCfCfCfC
-fCfCfCYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
-fCfCYWYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
-fCYWYWYWYWYWfCfCfCfCVinIVTVTIsSbVTVTSbIsVTVTmbVifCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
-fCYWYWYWYWYWYWfCfCfCVinjoZoZULyyoZMqULyyoZoZnjVifCfCfCfCfCfCfCfCfCYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCfC
-fCfCYWYWYWYWYWfCfCfCoZoZyuyuzdzdzdmsaTaTaTapYVZDfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCfCfCfCfC
-fCfCfCYWYWfCfCfCfCoZoZnjaTxIaTxIaTGRfzwizGfzKxoZViHrfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCeJWynjxIaTEAaTxIQUaTRpzGfzrSqwfCHrfCfCfCfCfCfCfCfCfCfCYWYWYWYWfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCToeJWynjaTEAaXEAaTaTfzRpJxaTIROQfCHrfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWfCfCfC
-fCfCfCfCfCfCfCfCfCeJWynjxIaTEAaTxIQUfzwizGaTnkoZViHrfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWfCfC
-fCfCfCfCfCfCfCfCToeJWynjOhxIaTxIaTGRaTaToZIUnjoZbrfCfCfCHrHrHrHrHrHrfCfCfCfCfCfCfCfCfCYWYWYWYWYWfC
-fCfCfCfCfCfCfCViVinjnjnjmaAInjoZoZoZnjngZDnjnjViViViViViVifCfCfCfCViViVifCfCfCfCfCfCfCYWYWYWYWYWfC
-fCfCfCfCfCfCfCHrfCVifCfCoZoZoZfCfCfCoZCHoZfCfCfCfCfCfCnjoZLJHiHiHioZnjWOfCHrHrHrfCfCfCfCYWYWYWYWfC
-fCfCfCfCfCfCfCHrHrPCfCfCfCfCfCfCnjMqdxhTdVoZZDfCfCfCnjPJVgjmjnuNlVnVnjnjViViViViVimbfCfCfCYWYWYWfC
-fCfCfCfCfCfCfCVifCViicoZaxTeHpzmoZXDMgBCAhMVnjoZvMMqnjjoZayVOvhgzwSJcWXynjtXoerOTRTRfCfCfCYWYWYWfC
-fCfCfCfCfCfCfCUPeQVCSVnjDkPExbQSoZlZHamdljYbHpslYBszHpTELlNsRoSPhHEeVQIaWxAiqUoefCfCfCfCfCfCYWfCfC
-fCfCfCfCfCfCfCTRKHkKloPKzWMjMjZqdPevJIfzIXYbhlRjfzGqhlTEGqGdihoxGdUuFFhQJPkwTSoefCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCTRKHkKhmsjbPdCdCZqeMevJIfzIXYbhlRjfzGqhlTEOmGdzYGdOMoAmQazrWOzaUoefCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCUPeQWvoZlpdMgygyRwoZXCvGjQhhYbHpDoSjAQHptQyOwWYNjuWKtCbYvdTKdsoePSfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCVifCViicoZoZTeHpDAoZtiCHCHCHrbnjoZvMoZnjUyfOjgpTpieeDmLtnjnjBvqUrOTRTRfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCHrHrBkfCfCfCfCfCfCoZoZnjLanjoZoZfCfCfCnjnjmJlDncQmVftBnjnjViViViViVimbfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCHrfCVifCfCfCfCfCfCfCfCoZBMoZfCfCfCfCfCfCnjoZBaiZiZiZoZnjmifCHrHrHrfCfCfCfCYWYWfCfCfC
-fCYWYWfCfCfCfCViVinjnjnjitoZoZoZVjMqnjPdnjoZViBkBkBkViViVifCfCfCfCVifCVifCfCfCfCfCfCfCYWYWYWYWfCfC
-YWYWYWYWYWfCfCfCfCeJWynjqQnAqMHvUhefLFpLchhaVifCfCfCfCfCHrHrHrHrHrHrfCfCfCfCfCfCfCfCfCYWYWYWYWfCfC
-YWYWYWYWYWfCfCfCToeJWynjCrUlUlmXUlUlMIUSnjoZbrfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWfCfC
-fCYWYWYWYWfCfCfCfCeJWynjprMEUlUlkkLdQlCyoZViVifCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWfCfC
-fCfCYWYWYWfCfCfCToeJWynjxntUQyHYOlZDlOiZoZfCfCfCfCfCfCfCYWYWYWYWYWfCfCfCfCfCfCfCYWYWYWYWYWYWYWfCfC
-fCfCYWYWfCfCfCfCfCnjnjnjoZntiZiZoZnjVifCVifCfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCYWYWYWYWYWYWfCfCfC
-fCfCfCfCfCfCfCfCfCfCVinIWuIsSbIsVTmbViHrHrfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWfCfCfCYWYWYWYWYWYWfCfCfCfC
-fCfCfCfCfCfCfCfCfCfCfCfCHrHrHrHrHrfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWfCfCfCfCYWYWYWYWYWfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWfCfCfCfCfCfCfC
-fCfCYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWfCfCfCfCfCfCfC
-fCfCYWYWYWYWfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWfCfCfCfCfCfCYWYWYWYWYWYWYWYWfCfCfCfCfC
-fCfCfCYWYWYWYWfCfCfCfCfCfCYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWfCfCfCfCfCfCYWYWYWYWYWYWfCfCfCfCfCfCfC
-fCfCfCfCYWYWYWYWYWfCfCfCfCYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCYWYWYWYWfCfCfCfCfCfCfCfC
-fCfCfCfCfCYWYWYWfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
-fCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCYWYWYWYWYWYWYWfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfCfC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(2,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(3,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+"}
+(4,1,1) = {"
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+"}
+(5,1,1) = {"
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+"}
+(6,1,1) = {"
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+"}
+(7,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+"}
+(8,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Vi
+Hr
+Hr
+Vi
+UP
+TR
+TR
+UP
+Vi
+Hr
+Hr
+Vi
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+"}
+(9,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+To
+fC
+To
+Vi
+fC
+Hr
+fC
+eQ
+KH
+KH
+eQ
+fC
+Hr
+fC
+Vi
+fC
+To
+fC
+To
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+fC
+fC
+"}
+(10,1,1) = {"
+fC
+fC
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+oZ
+eJ
+eJ
+eJ
+eJ
+nj
+Vi
+PC
+Vi
+VC
+kK
+kK
+Wv
+Vi
+Bk
+Vi
+nj
+eJ
+eJ
+eJ
+eJ
+nj
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(11,1,1) = {"
+fC
+fC
+YW
+YW
+fC
+fC
+Vi
+Vi
+oZ
+oZ
+Wy
+Wy
+Wy
+Wy
+nj
+fC
+fC
+ic
+SV
+lo
+hm
+oZ
+ic
+fC
+fC
+nj
+Wy
+Wy
+Wy
+Wy
+nj
+Vi
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(12,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+nI
+nj
+oZ
+nj
+nj
+nj
+nj
+nj
+nj
+fC
+fC
+oZ
+nj
+PK
+sj
+lp
+oZ
+fC
+fC
+nj
+nj
+nj
+nj
+nj
+nj
+nI
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(13,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+VT
+oZ
+yu
+aT
+xI
+aT
+xI
+Oh
+ma
+oZ
+fC
+ax
+Dk
+zW
+bP
+dM
+oZ
+fC
+fC
+it
+qQ
+Cr
+pr
+xn
+oZ
+Wu
+Hr
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(14,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+VT
+oZ
+yu
+xI
+aT
+EA
+aT
+xI
+AI
+oZ
+fC
+Te
+PE
+Mj
+dC
+gy
+Te
+fC
+fC
+oZ
+nA
+Ul
+ME
+tU
+nt
+Is
+Hr
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+"}
+(15,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+Is
+UL
+zd
+aT
+EA
+aX
+EA
+aT
+nj
+oZ
+fC
+Hp
+xb
+Mj
+dC
+gy
+Hp
+fC
+fC
+oZ
+qM
+Ul
+Ul
+Qy
+iZ
+Sb
+Hr
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+"}
+(16,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+Sb
+yy
+zd
+xI
+aT
+EA
+aT
+xI
+oZ
+fC
+fC
+zm
+QS
+Zq
+Zq
+Rw
+DA
+fC
+fC
+oZ
+Hv
+mX
+Ul
+HY
+iZ
+Is
+Hr
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+"}
+(17,1,1) = {"
+fC
+fC
+YW
+fC
+fC
+fC
+VT
+oZ
+zd
+aT
+xI
+aT
+xI
+aT
+oZ
+fC
+nj
+oZ
+oZ
+dP
+eM
+oZ
+oZ
+oZ
+fC
+Vj
+Uh
+Ul
+kk
+Ol
+oZ
+VT
+Hr
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+"}
+(18,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+VT
+Mq
+ms
+GR
+QU
+aT
+QU
+GR
+oZ
+fC
+Mq
+XD
+lZ
+ev
+ev
+XC
+ti
+oZ
+fC
+Mq
+ef
+Ul
+Ld
+ZD
+nj
+mb
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+"}
+(19,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+Sb
+UL
+aT
+fz
+aT
+fz
+fz
+aT
+nj
+oZ
+dx
+Mg
+Ha
+JI
+JI
+vG
+CH
+nj
+oZ
+nj
+LF
+MI
+Ql
+lO
+Vi
+Vi
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+"}
+(20,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+Is
+yy
+aT
+wi
+Rp
+Rp
+wi
+aT
+ng
+CH
+hT
+BC
+md
+fz
+fz
+jQ
+CH
+La
+BM
+Pd
+pL
+US
+Cy
+iZ
+fC
+Hr
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(21,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+VT
+oZ
+aT
+zG
+zG
+Jx
+zG
+oZ
+ZD
+oZ
+dV
+Ah
+lj
+IX
+IX
+hh
+CH
+nj
+oZ
+nj
+ch
+nj
+oZ
+oZ
+Vi
+Hr
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(22,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+VT
+oZ
+ap
+fz
+fz
+aT
+aT
+IU
+nj
+fC
+oZ
+MV
+Yb
+Yb
+Yb
+Yb
+rb
+oZ
+fC
+oZ
+ha
+oZ
+Vi
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(23,1,1) = {"
+fC
+fC
+YW
+fC
+fC
+fC
+mb
+nj
+YV
+Kx
+rS
+IR
+nk
+nj
+nj
+fC
+ZD
+nj
+Hp
+hl
+hl
+Hp
+nj
+oZ
+fC
+Vi
+Vi
+br
+Vi
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(24,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+Vi
+Vi
+ZD
+oZ
+qw
+OQ
+oZ
+oZ
+Vi
+fC
+fC
+oZ
+sl
+Rj
+Rj
+Do
+oZ
+fC
+fC
+Bk
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(25,1,1) = {"
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Vi
+fC
+fC
+Vi
+br
+Vi
+fC
+fC
+vM
+YB
+fz
+fz
+Sj
+vM
+fC
+fC
+Bk
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(26,1,1) = {"
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Hr
+Hr
+Hr
+Hr
+fC
+Vi
+fC
+fC
+Mq
+sz
+Gq
+Gq
+AQ
+oZ
+fC
+fC
+Bk
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+"}
+(27,1,1) = {"
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Vi
+fC
+nj
+nj
+Hp
+hl
+hl
+Hp
+nj
+nj
+fC
+Vi
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+"}
+(28,1,1) = {"
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Vi
+nj
+PJ
+jo
+TE
+TE
+TE
+tQ
+Uy
+nj
+nj
+Vi
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+"}
+(29,1,1) = {"
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Hr
+Vi
+oZ
+Vg
+Za
+Ll
+Gq
+Om
+yO
+fO
+mJ
+oZ
+Vi
+Hr
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+"}
+(30,1,1) = {"
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Hr
+fC
+LJ
+jm
+yV
+Ns
+Gd
+Gd
+wW
+jg
+lD
+Ba
+fC
+Hr
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+"}
+(31,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Hr
+fC
+Hi
+jn
+Ov
+Ro
+ih
+zY
+YN
+pT
+nc
+iZ
+fC
+Hr
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(32,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Hr
+fC
+Hi
+uN
+hg
+SP
+ox
+Gd
+ju
+pi
+Qm
+iZ
+fC
+Hr
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(33,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+Hr
+fC
+Hi
+lV
+zw
+hH
+Gd
+OM
+WK
+ee
+Vf
+iZ
+fC
+Hr
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(34,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+Hr
+Vi
+oZ
+nV
+SJ
+Ee
+Uu
+oA
+tC
+Dm
+tB
+oZ
+Vi
+Hr
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(35,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Vi
+nj
+nj
+cW
+VQ
+FF
+mQ
+bY
+Lt
+nj
+nj
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(36,1,1) = {"
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Vi
+WO
+nj
+Xy
+Ia
+hQ
+az
+vd
+nj
+nj
+mi
+Vi
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(37,1,1) = {"
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+Vi
+nj
+Wx
+JP
+rW
+TK
+nj
+Vi
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+"}
+(38,1,1) = {"
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Hr
+Vi
+tX
+Ai
+kw
+Oz
+ds
+Bv
+Vi
+Hr
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+"}
+(39,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Hr
+Vi
+oe
+qU
+TS
+aU
+oe
+qU
+Vi
+Hr
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+fC
+fC
+"}
+(40,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+Hr
+Vi
+rO
+oe
+oe
+oe
+PS
+rO
+Vi
+Hr
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+"}
+(41,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+Vi
+TR
+fC
+fC
+fC
+fC
+TR
+Vi
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+"}
+(42,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+mb
+TR
+fC
+fC
+fC
+fC
+TR
+mb
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+"}
+(43,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+YW
+fC
+fC
+fC
+fC
+"}
+(44,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+YW
+fC
+fC
+fC
+fC
+"}
+(45,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(46,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(47,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(48,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+YW
+YW
+YW
+YW
+YW
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+"}
+(49,1,1) = {"
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
+fC
 "}
