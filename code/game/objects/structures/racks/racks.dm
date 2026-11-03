@@ -72,7 +72,7 @@
 		return ITEM_INTERACT_SUCCESS
 	return ITEM_INTERACT_BLOCKING
 
-/obj/structure/rack/wrench_act_secondary(mob/living/user, obj/item/tool)
+/obj/structure/rack/wrench_act(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src)
 	deconstruct(TRUE)
 	return ITEM_INTERACT_SUCCESS

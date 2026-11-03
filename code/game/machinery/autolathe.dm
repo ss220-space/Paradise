@@ -305,7 +305,7 @@
 
 	return ..()
 
-/obj/machinery/autolathe/crowbar_act_secondary(mob/living/user, obj/item/tool)
+/obj/machinery/autolathe/crowbar_act(mob/living/user, obj/item/tool)
 	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
@@ -315,7 +315,7 @@
 	if(panel_open)
 		default_deconstruction_crowbar(user, tool)
 
-/obj/machinery/autolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+/obj/machinery/autolathe/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
