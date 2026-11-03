@@ -4,8 +4,6 @@
 	icon = 'icons/obj/eventicons/32x48_machinery.dmi'
 	icon_state = "serverrack_on"
 	density = TRUE
-	idle_power_usage = 0
-	active_power_usage = 0
 	anchored = TRUE
 
 /obj/machinery/eventmachine/serverrack/get_ru_names()
