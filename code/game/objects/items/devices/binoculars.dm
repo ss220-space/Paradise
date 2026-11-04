@@ -43,7 +43,7 @@
 		span_notice("[user] подносит [declent_ru(ACCUSATIVE)] к глазам."),
 		span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к глазам."),
 	)
-	item_state = "binoculars_wielded"
+	update_icon_state()
 	user.update_held_items()
 	user.add_movespeed_modifier(/datum/movespeed_modifier/binocs_wielded)
 
@@ -54,6 +54,13 @@
 		span_notice("[user] опускает [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы опускаете [declent_ru(ACCUSATIVE)]."),
 	)
-	item_state = "binoculars"
+	update_icon_state()
 	user.update_held_items()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/binocs_wielded)
+
+/obj/item/binoculars/update_icon_state()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		item_state = "binoculars_wielded"
+		return
+	item_state = "binoculars"
