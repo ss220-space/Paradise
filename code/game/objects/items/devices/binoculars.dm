@@ -43,7 +43,7 @@
 		span_notice("[user] подносит [declent_ru(ACCUSATIVE)] к глазам."),
 		span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к глазам."),
 	)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	user.update_held_items()
 	user.add_movespeed_modifier(/datum/movespeed_modifier/binocs_wielded)
 
