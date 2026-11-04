@@ -179,9 +179,12 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
 	)
-	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge.ogg'
 	emp_resistance = 0.5
+
+/obj/item/gun/energy/laser/hitscan/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/charge_shot)
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
 	return alist(
