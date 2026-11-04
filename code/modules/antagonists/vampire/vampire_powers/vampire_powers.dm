@@ -47,11 +47,14 @@
 /datum/vampire_passive/full
 	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 
-/datum/vampire_passive/full/on_apply(datum/antagonist/vampire/vampire_datum)
+/datum/vampire_passive/virus_immune
+	gain_desc = "Вы достигли полной силы и никакие вирусы вам больше не помеха."
+
+/datum/vampire_passive/virus_immune/on_apply(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	ADD_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 
-/datum/vampire_passive/full/on_remove(datum/antagonist/vampire/vampire_datum)
+/datum/vampire_passive/virus_immune/on_remove(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	REMOVE_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 

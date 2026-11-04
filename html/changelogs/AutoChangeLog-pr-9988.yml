@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Удалено моргание импланта миникарты. (PR #9988)"

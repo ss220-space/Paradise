@@ -447,7 +447,8 @@
 	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
 		return
 
-	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
+	var/scope_fire = istype(object, /atom/movable/screen/fullscreen/cursor_catcher/scope) // scope fire allow fire outside reachable range
+	if(!scope_fire && object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
 	if(!isgun(user.get_active_hand())) // If the object in our active hand is not a gun, abort
@@ -513,6 +514,9 @@
 	var/list/modifiers = params2list(params)
 	if(!is_screen_atom(target))
 		return target
+	if(istype(target, /atom/movable/screen/fullscreen/cursor_catcher/scope))
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = target
+		return scope.crosshair_turf || scope.given_turf
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
 	var/loctoget = user.client?.eye ? user.client.eye : user

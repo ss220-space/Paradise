@@ -379,10 +379,12 @@
 	if(!istype(target))
 		return FALSE
 
-	target.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/goon_thrall(user.mind))
+	var/datum/antagonist/mindslave/thrall/datum = target.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/goon_thrall(user.mind))
 	if(jobban_isbanned(target, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(target, SPECIAL_ROLE_VAMPIRE_THRALL)
 	target.Stun(4 SECONDS)
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire?.thralls |= WEAKREF(datum)
 	to_chat(user, span_warning("Вы успешно поработили [target]. <i>Если игрок откажется Вас слушаться, используйте adminhelp.</i>"))
 	user.create_log(CONVERSION_LOG, "vampire enthralled", target)
 	target.create_log(CONVERSION_LOG, "was vampire enthralled", user)

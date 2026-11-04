@@ -917,7 +917,9 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 	return // Override
 
 /obj/item/storage/emp_act(severity)
-	..()
+	. = ..()
+	if(. & EMP_PROTECT_CONTENTS)
+		return
 	for(var/i in contents)
 		var/atom/A = i
 		A.emp_act(severity)
