@@ -199,6 +199,19 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/station/maintenance/casino)
+"acU" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "vir_airlock";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space)
 "acV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8342,6 +8355,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
+"bQv" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos/mixing_atmos)
 "bQE" = (
 /obj/structure/logistics_pipe/segment{
 	dir = 4
@@ -31120,6 +31137,24 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
+"gHZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	frequency = 1379;
+	name = "exterior access button";
+	master_tag = "atmos_tank_airlock";
+	command = "cycle_exterior";
+	req_access = list(10,13);
+	pixel_x = 20;
+	pixel_y = -20
+	},
+/turf/space,
+/area/space)
 "gIc" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -61669,6 +61704,18 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/engineering/supermatter/room)
+"mYT" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/space,
+/area/space)
 "mZi" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -136339,7 +136386,7 @@ aaq
 aaq
 coE
 aaq
-tco
+fFy
 kZF
 kZF
 kZF
@@ -136595,8 +136642,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 abM
 rIW
@@ -136836,7 +136883,7 @@ wzq
 nPR
 fAD
 coE
-txu
+bQv
 jYg
 hwQ
 nfH
@@ -136852,8 +136899,8 @@ coE
 aaq
 coE
 aaq
-aaq
-tco
+acF
+gHZ
 qgk
 eRJ
 kaI
@@ -137109,8 +137156,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 uHO
 rIW
@@ -162915,7 +162962,7 @@ qwR
 uzM
 fSU
 rmI
-acF
+mYT
 acF
 acF
 coE
@@ -168533,7 +168580,7 @@ qth
 pdD
 oFw
 ajv
-acF
+acU
 acF
 coE
 coE
@@ -179270,7 +179317,7 @@ acF
 cIV
 acF
 acF
-acF
+cIV
 cIV
 acF
 coE
