@@ -192,6 +192,7 @@
 	. = ..()
 	AddComponent(/datum/component/iff_system)
 	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(
@@ -202,7 +203,3 @@
 		INSTRUMENTAL = "автоматической снайперской винтовкой «Град»",
 		PREPOSITIONAL = "автоматической снайперской винтовке «Град»",
 	)
-
-/obj/item/gun/energy/laser/automatic/sniper_rifle/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 1.43)

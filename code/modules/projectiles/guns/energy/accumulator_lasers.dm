@@ -273,6 +273,7 @@
 /obj/item/gun/energy/accumulator/sniper_rifle/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
 	return alist(
@@ -283,7 +284,3 @@
 		INSTRUMENTAL = "энерго-снайперской винтовкой «Богомол»",
 		PREPOSITIONAL = "энерго-снайперской винтовке «Богомол»",
 	)
-
-/obj/item/gun/energy/accumulator/sniper_rifle/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 1.43)
