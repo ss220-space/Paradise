@@ -7,7 +7,7 @@
 /datum/mind/proc/get_skill_level(skill_type)
 	var/level = skills[skill_type]
 	if(level == null)
-		return SKILL_LEVEL_BASIC
+		return lobotomized ? SKILL_LEVEL_UNAVAILABLE : SKILL_LEVEL_BASIC
 	return level
 
 /datum/mind/proc/set_skill_level(skill_type, level)
@@ -54,10 +54,11 @@
 	return SKILL_AVAILABLE_RESULT
 
 /datum/mind/proc/give_basic_skills()
+	var/level = lobotomized ? SKILL_LEVEL_UNAVAILABLE : SKILL_LEVEL_BASIC
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
-		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
-		skills_without_manual_bonuses[skill.type] = SKILL_LEVEL_BASIC
+		set_skill_level(skill.type, level)
+		skills_without_manual_bonuses[skill.type] = level
 
 /datum/mind/proc/refresh_skills(ref_job = current.job)
 	skills = list()
@@ -103,6 +104,8 @@
 	human_current.refresh_uct()
 
 /datum/mind/proc/calculate_skill_level(skill_type, basic_skill, is_antag, datum/job/current_job, list/mode_bonuses, list/mode_additive_bonuses, include_manual_bonuses = TRUE)
+	if(lobotomized)
+		return SKILL_LEVEL_UNAVAILABLE
 	var/antag_skill_level = basic_skill
 	if(is_antag)
 		antag_skill_level = GLOB.antag_skills[skill_type] || basic_skill
@@ -140,6 +143,21 @@
 		return get_skill_level(skill_type)
 	return skills_without_manual_bonuses[skill_type]
 
+/**
+ * Permanently wipes this mind's skills, free skill points, and accumulated skill bonuses.
+ */
+/datum/mind/proc/lobotomize()
+	lobotomized = TRUE
+	free_skill_points = 0
+	actual_free_skill_points = 0
+	selected_skills = null
+	selected_skills_levels = list()
+	active_skill_bonuses = list()
+	manual_skill_bonuses = list()
+	active_neurotrainer_bonuses = list()
+	read_manuals = list()
+	refresh_skills()
+
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
 	var/bonus_level = 0
 	for(var/datum/antagonist/antag as anything in antag_datums)
@@ -154,6 +172,11 @@
 
 /datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()
+	if(lobotomized)
+		for(var/skill_name, skill_datum in GLOB.skills)
+			var/datum/skill/skill = skill_datum
+			skills[skill.type] = SKILL_LEVEL_UNAVAILABLE
+		return skills
 	var/list/antag_skills = GLOB.antag_skills
 	var/datum/job/current_job
 	if(current.job)
@@ -194,8 +217,8 @@
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
 	refresh_skills(ref_job)
 	var/job_free_skill_points = current_job?.base_free_skill_point || DEFAULT_FREE_POINTS
-	free_skill_points = job_free_skill_points + (is_antag ? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
-	actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
+	free_skill_points = lobotomized ? 0 : job_free_skill_points + (is_antag ? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
+	actual_free_skill_points = lobotomized ? 0 : ACTUAL_FREE_SKILL_POINTS_NOT_SET
 	if(!current_job)
 		return
 	discount_skill_category = current_job.discount_skill_category
@@ -210,6 +233,8 @@
  * Ties are resolved randomly. Returns null if the mind has no skills.
  */
 /datum/mind/proc/get_highest_skill()
+	if(lobotomized)
+		return null
 	var/highest_level = -1
 	var/list/highest_skills = list()
 	for(var/skill_type in skills)

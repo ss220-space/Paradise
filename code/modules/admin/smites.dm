@@ -113,6 +113,23 @@
 	to_chat(target, span_userdanger("Вы чувствуете как ваши мозги плавятся! Боги наказали вас за [reason]!"))
 	logmsg = "[damage] brain damage."
 
+// MARK: Lobotomy
+/datum/smite/lobotomy
+	name = SMITE_LOBOTOMY
+	desc = "Проведите грешнику лоботомию, лишив его всех навыков."
+	category = SMITE_CATEGORY_CONTROL
+
+/datum/smite/lobotomy/apply_effect(mob/living/carbon/human/target, reason)
+	if(!target.mind)
+		to_chat(usr, span_warning("У цели нет разума."))
+		return
+	if(target.mind.lobotomized)
+		to_chat(usr, span_warning("Цель уже лоботомирована."))
+		return
+	target.mind.lobotomize()
+	to_chat(target, span_userdanger("Вы чувствуете, как ваши мысли и знания угасают... Боги наказали вас за [reason]!"))
+	logmsg = "lobotomy."
+
 // MARK: Honk tumor
 /datum/smite/honktumor
 	name = SMITE_HONKTUMOR

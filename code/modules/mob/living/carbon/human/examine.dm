@@ -218,6 +218,9 @@
 					msg += span_deadsay(" [GEND_HIS_HER_CAP(src)] душа покинула тело")
 		msg += span_deadsay("...\n")
 
+	if(!appears_dead && mind?.lobotomized)
+		msg += span_notice("У н[GEND_HIS_HER(src)] слюна течёт из края рта.\n")
+
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += span_warning("Кажется, у н[GEND_HIS_HER(src)] отсутствует мозг...\n")
 

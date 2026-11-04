@@ -38,7 +38,7 @@
 	data["job"] = target_user.job
 	data["admin"] = admin_interact
 	var/used_points = collect_used_skill_points(target_user)
-	var/total_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points
+	var/total_points = target_user.mind.lobotomized ? 0 : target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points
 	var/free_points = total_points - used_points
 	data["total_point"] = total_points
 	data["free_points"] = free_points
@@ -146,7 +146,8 @@
 /datum/ui_module/skills_select_win/proc/save_skills(mob/user)
 	var/total_used_points = collect_used_skill_points(user)
 	var/datum/mind/user_mind = user.mind
-	if(!admin_interact && total_used_points != user_mind.free_skill_points + user.dna.species.bonus_skill_free_points)
+	var/expected_points = user_mind.lobotomized ? 0 : user_mind.free_skill_points + user.dna.species.bonus_skill_free_points
+	if(!admin_interact && total_used_points != expected_points)
 		to_chat(user, span_notice("Распределите все очки!"))
 		return //TODO использовать tgui окно с вопросом, в случае отказа рандомно распределить свободные очки
 	for(var/skill, used_points in user_mind.selected_skills)

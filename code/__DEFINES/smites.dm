@@ -10,6 +10,7 @@
 #define SMITE_LIGHTING "Удар молнией"
 #define SMITE_GIB "Разорвать на органы"
 #define SMITE_BRAINLOSS "Повредить мозг"
+#define SMITE_LOBOTOMY "Лоботомия"
 #define SMITE_HONKTUMOR "Банановая опухоль"
 #define SMITE_CLUWNE "Клунефикация"
 #define SMITE_HUNGER "Голод"
@@ -51,6 +52,7 @@ GLOBAL_LIST_INIT(smites_not_human, list(
 
 GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_BRAINLOSS = /datum/smite/brainloss,
+	SMITE_LOBOTOMY = /datum/smite/lobotomy,
 	SMITE_HONKTUMOR = /datum/smite/honktumor,
 	SMITE_CLUWNE = /datum/smite/cluwne,
 	SMITE_HUNGER = /datum/smite/hunger,

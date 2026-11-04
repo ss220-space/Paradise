@@ -23,7 +23,9 @@ GLOBAL_DATUM_INIT(skills_upgrade_window, /datum/ui_module/skills_upgrade_win, ne
 	ui_interact(user)
 
 /datum/ui_module/skills_upgrade_win/ui_interact(mob/user, datum/tgui/ui = null)
-	if(target_user.mind.actual_free_skill_points == ACTUAL_FREE_SKILL_POINTS_NOT_SET)
+	if(target_user.mind.lobotomized)
+		target_user.mind.actual_free_skill_points = 0
+	else if(target_user.mind.actual_free_skill_points == ACTUAL_FREE_SKILL_POINTS_NOT_SET)
 		target_user.mind.actual_free_skill_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points
 
 	ui = SStgui.try_update_ui(user, src, ui)

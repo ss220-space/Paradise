@@ -8,6 +8,16 @@
 	name = "Переноска"
 	desc = "Влияет на переноски вещей."
 	duration_mod_names = list(PULL_SLOWDOWN_MODIFIERS, GRAB_SPEED_MODIFIERS)
+	speed_modifiers = alist(
+		SKILL_LEVEL_NONE = 1.5,
+		SKILL_LEVEL_BEGINNER = 1.25,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 0.8,
+		SKILL_LEVEL_PROFESSIONAL = 0.7,
+		SKILL_LEVEL_EXPERT = 0.6,
+		SKILL_LEVEL_LEGEND = 0.5,
+		SKILL_LEVEL_UNAVAILABLE = 5,
+	)
 
 /datum/skill/general/mech_drive
 	id = "general.mech_drive"
@@ -24,7 +34,7 @@
 			SKILL_LEVEL_PROFESSIONAL = 1.05,
 			SKILL_LEVEL_EXPERT = 0.9,
 			SKILL_LEVEL_LEGEND = 0.75,
-			SKILL_LEVEL_UNAVAILABLE = 0.01,
+			SKILL_LEVEL_UNAVAILABLE = 5,
 		),
 	)
 
@@ -33,6 +43,16 @@
 	name = "ВКД"
 	desc = "Влияет на скорость одевания МЭКов и РИГов."
 	duration_mod_names = list(MOD_ACTIVATION_SPEED_MOD, SPACESUIT_SLOWDOWN_MOD)
+	speed_modifiers = alist(
+		SKILL_LEVEL_NONE = 1.5,
+		SKILL_LEVEL_BEGINNER = 1.25,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 0.8,
+		SKILL_LEVEL_PROFESSIONAL = 0.7,
+		SKILL_LEVEL_EXPERT = 0.6,
+		SKILL_LEVEL_LEGEND = 0.5,
+		SKILL_LEVEL_UNAVAILABLE = 5,
+	)
 
 /datum/skill/general/cooking
 	id = "general.cooking"

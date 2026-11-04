@@ -146,6 +146,8 @@
 	var/list/job_alt_skills
 	/// Active skill bonuses from skill manuals
 	var/list/read_manuals = list()
+	/// Lobotomized flag
+	var/lobotomized = FALSE
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
