@@ -2,7 +2,7 @@
 "aI" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "aK" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 4
@@ -12,18 +12,18 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "aX" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/flamer_fire,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "bb" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	icon_state = "beachcorner";
 	water_overlay_icon_state = null
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "bE" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -34,30 +34,30 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "bO" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/reinforced/rusted,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "bP" = (
 /obj/structure/decorative_structures/corpse{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "cg" = (
 /obj/effect/turf_decal{
 	dir = 10;
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "cj" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "cD" = (
 /obj/machinery/suit_storage_unit/syndicate/comms,
 /obj/effect/turf_decal/stripes/red,
@@ -65,12 +65,12 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "cU" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "da" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -78,19 +78,19 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "db" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "dz" = (
 /obj/item/spentcasing,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "dG" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal{
@@ -104,16 +104,16 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "dL" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /obj/item/gun/projectile/automatic/l6_saw,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "dV" = (
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ef" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/asteroid{
@@ -121,11 +121,11 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "eh" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "er" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/cobweb2,
@@ -133,14 +133,14 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "eC" = (
 /obj/effect/turf_decal{
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "eF" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/cleanable/cobweb,
@@ -149,7 +149,7 @@
 /obj/item/gun/projectile/automatic/arg,
 /obj/item/gun/projectile/automatic/arg,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "eL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 9
@@ -159,16 +159,16 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "eX" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fk" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fq" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -180,11 +180,11 @@
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fL" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fP" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
@@ -193,63 +193,63 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fQ" = (
 /obj/item/ammo_casing/shotgun,
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "fS" = (
 /obj/structure/chair/plastic{
 	dir = 3
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ga" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gd" = (
 /obj/structure/railing{
 	dir = 3
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gm" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gt" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gH" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gI" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "gO" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hb" = (
 /obj/structure/mortar/fixed{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ho" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -259,27 +259,27 @@
 	},
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hu" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hx" = (
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hD" = (
 /obj/machinery/light/small/directional/west,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hH" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hI" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating/asteroid{
@@ -287,7 +287,7 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hL" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/railing,
@@ -295,31 +295,31 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "hU" = (
 /turf/simulated/wall/indestructible/reinforced,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ic" = (
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ig" = (
 /obj/item/ammo_casing/a556,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ih" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "in" = (
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "io" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -329,37 +329,37 @@
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "iN" = (
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "iU" = (
 /obj/item/ammo_casing/a556,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jd" = (
 /turf/simulated/wall/indestructible/rock/dark,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jq" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jr" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /mob/living/simple_animal/bot/medbot/adv,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jD" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jE" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -370,19 +370,19 @@
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jG" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jS" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "jX" = (
 /obj/machinery/suit_storage_unit/syndicate/comms,
 /obj/effect/turf_decal/stripes/red,
@@ -394,7 +394,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kd" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -403,33 +403,33 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kl" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kq" = (
 /obj/item/ammo_casing/a556,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kt" = (
 /obj/item/gun/projectile/automatic/arg,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kA" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kC" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/stripes/red,
@@ -439,17 +439,17 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kS" = (
 /turf/simulated/floor/indestructible/beach/coastline/dense,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "kT" = (
 /mob/living/simple_animal/bot/medbot/syndicate,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ll" = (
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "lB" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/ammo_casing/a556,
@@ -458,7 +458,7 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "lJ" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -466,67 +466,67 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "lQ" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "lU" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mh" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mi" = (
 /obj/item/spentcasing,
 /obj/item/spentcasing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ml" = (
 /obj/item/ammo_casing/shotgun/frag12,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 10
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mq" = (
 /obj/structure/railing{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mv" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mw" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mD" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "mZ" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ng" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -534,19 +534,19 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "nm" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /obj/item/gun/projectile/automatic/l6_saw,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "np" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "nJ" = (
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 1
@@ -558,19 +558,19 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "nN" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "nO" = (
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "nZ" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ob" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -578,7 +578,7 @@
 	},
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "od" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal{
@@ -587,15 +587,15 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "oi" = (
 /obj/machinery/vending/nta/ertarmory/medical,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ok" = (
 /obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ol" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 5
@@ -604,34 +604,34 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "or" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "oD" = (
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "oI" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "oS" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pa" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pe" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -640,46 +640,46 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ph" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pH" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/ammo_casing/shotgun,
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pK" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pL" = (
 /obj/structure/rack/gunrack,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pN" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "pT" = (
 /obj/item/ammo_casing/a40mm/secgl/gas,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qe" = (
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qg" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qh" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -689,28 +689,28 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qr" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qw" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qB" = (
 /obj/item/gun/projectile/automatic/arg,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qL" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/decorative_structures/corpse{
@@ -720,7 +720,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qP" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 8
@@ -731,11 +731,11 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "qY" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "rs" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -746,31 +746,31 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "rA" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "rB" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "rE" = (
 /obj/item/ammo_casing/a556,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "rR" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sb" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -778,24 +778,24 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sk" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sB" = (
 /obj/item/ammo_box/magazine/cats12g/universal,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sP" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sR" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "sT" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/asteroid{
@@ -803,26 +803,26 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "tx" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ty" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "tC" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/decorative_structures/corpse{
 	dir = 3
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "uM" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "uV" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -833,32 +833,32 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "vo" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "vD" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "vK" = (
 /obj/item/ammo_casing/a40mm,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "vZ" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wi" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/ammo_casing/a556,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wk" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 3
@@ -867,18 +867,18 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wl" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wv" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ww" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/stripes/red,
@@ -892,14 +892,14 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wA" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wB" = (
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 8
@@ -908,28 +908,28 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wG" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /obj/flamer_fire,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "wX" = (
 /obj/effect/turf_decal/sand,
 /obj/structure/decorative_structures/corpse{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xe" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xv" = (
 /mob/living/simple_animal/bot/medbot/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xH" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 9
@@ -938,17 +938,17 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xJ" = (
 /obj/item/ammo_casing/shotgun,
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xP" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xS" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -956,7 +956,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xW" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
@@ -969,28 +969,28 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "xZ" = (
 /obj/structure/barricade/sandbags,
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ye" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "yq" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "yJ" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "yO" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -998,13 +998,13 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "yP" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/flamer_fire,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "zb" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal{
@@ -1013,20 +1013,20 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "zi" = (
 /obj/structure/railing/corner{
 	dir = 3
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "zL" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "zP" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/asteroid{
@@ -1034,7 +1034,7 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ab" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/turf_decal{
@@ -1047,28 +1047,28 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ac" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ag" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ah" = (
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "AX" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "AZ" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1078,12 +1078,12 @@
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Bf" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Bh" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 3
@@ -1092,7 +1092,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Bx" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 1
@@ -1101,21 +1101,21 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "BA" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "BQ" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "BR" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ck" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1126,32 +1126,32 @@
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Cr" = (
 /obj/machinery/light/small/directional/east,
 /obj/item/flag/command,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Cv" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Cx" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/indestructible/rock/dark,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Cz" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 6
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "CD" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "CP" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -1161,13 +1161,13 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "CT" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dh" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal{
@@ -1179,7 +1179,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dj" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -1188,21 +1188,21 @@
 	},
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dk" = (
 /obj/effect/turf_decal{
 	dir = 1;
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dq" = (
 /obj/item/ammo_casing/a556,
 /obj/item/ammo_casing/a556,
 /obj/effect/decal/cleanable/glass,
 /obj/item/gun/projectile/automatic/arg,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dt" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -1212,12 +1212,12 @@
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Dy" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "DC" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -1229,23 +1229,23 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "DU" = (
 /obj/structure/decorative_structures/corpse{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "DW" = (
 /turf/simulated/wall/indestructible/reinforced/rusted,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ec" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Eo" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -1254,16 +1254,16 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "EG" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "EY" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Fl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1274,22 +1274,22 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ft" = (
 /obj/item/ammo_casing/a40mm,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "FC" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "FM" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "FT" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1298,12 +1298,12 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "FU" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gb" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1313,7 +1313,7 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gd" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
 /obj/effect/turf_decal/delivery,
@@ -1322,32 +1322,32 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gj" = (
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gk" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gl" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Cynosure Project Guard Barracks"
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gp" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gu" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1355,16 +1355,16 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Gw" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "GP" = (
 /obj/machinery/light/small/directional/north,
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "GZ" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 6
@@ -1373,7 +1373,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Hg" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1384,7 +1384,7 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Hi" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -1396,11 +1396,11 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "HC" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "HO" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1409,12 +1409,12 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ia" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/leaves,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ic" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1425,17 +1425,17 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Id" = (
 /obj/structure/barricade/sandbags,
 /obj/item/ammo_casing/shotgun,
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ij" = (
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Is" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/stripes/red,
@@ -1449,11 +1449,11 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "IF" = (
 /obj/item/ammo_casing/a556,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "IK" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1464,64 +1464,64 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "IV" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/ammo_box/magazine/cats12g/universal,
 /obj/item/ammo_box/magazine/cats12g/universal,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Je" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Js" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Jt" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Cynosure Project Guard Barracks"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "JI" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "JJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Cynosure Project Guard Barracks"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "JU" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ko" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Kq" = (
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ks" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/sand,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "KK" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood,
@@ -1537,30 +1537,30 @@
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "KM" = (
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "KU" = (
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ll" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "LG" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "LO" = (
 /obj/machinery/door/poddoor/multi_tile/three_tile_hor{
 	name = "Cynosure Lockdown Door"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "LX" = (
 /obj/item/ammo_casing/a556,
 /obj/flamer_fire,
@@ -1569,7 +1569,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Mh" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -1577,28 +1577,28 @@
 	},
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Mj" = (
 /obj/machinery/optable,
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Mm" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "MF" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "MP" = (
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "MQ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1608,14 +1608,14 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "MS" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nb" = (
 /obj/structure/railing{
 	dir = 1
@@ -1624,61 +1624,61 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ng" = (
 /obj/effect/decal/leaves,
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nl" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nn" = (
 /obj/effect/turf_decal{
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nt" = (
 /obj/item/ammo_casing/a40mm,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nu" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /obj/item/ammo_box/magazine/cats12g/universal,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Nw" = (
 /obj/flamer_fire,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ol" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ov" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/he,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "OC" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "OL" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "OT" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1688,18 +1688,18 @@
 	dir = 3
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Pf" = (
 /obj/structure/chair/plastic{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Pj" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Po" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -1709,7 +1709,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Pw" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/turf_decal{
@@ -1718,7 +1718,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "PI" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 10
@@ -1733,12 +1733,12 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "PU" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/railing,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "PZ" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/turf_decal{
@@ -1747,7 +1747,7 @@
 	},
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Qd" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 10
@@ -1756,18 +1756,18 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Qr" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QA" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 3
@@ -1777,29 +1777,29 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QP" = (
 /obj/flamer_fire,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QR" = (
 /obj/structure/rack/gunrack,
 /obj/item/gun/projectile/automatic/arg,
 /obj/item/gun/projectile/automatic/arg,
 /obj/item/gun/projectile/automatic/arg,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QS" = (
 /obj/item/ammo_casing/shotgun/frag12,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QX" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "QY" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal{
@@ -1808,7 +1808,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rg" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1817,17 +1817,17 @@
 	},
 /obj/flamer_fire,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rl" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rq" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rr" = (
 /obj/flamer_fire,
 /obj/effect/turf_decal{
@@ -1835,7 +1835,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rt" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/ammo_casing/a556,
@@ -1843,35 +1843,35 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Rv" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 6
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "RA" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "RB" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 10
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "RD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Se" = (
 /obj/machinery/light/small/directional/east,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Sj" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/blood/old,
@@ -1879,7 +1879,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Sp" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
@@ -1890,16 +1890,16 @@
 	icon_state = "asteroidwarning";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Sq" = (
 /turf/simulated/floor/indestructible/beach/sand,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "St" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
 	},
 /turf/simulated/wall/mineral/plastitanium/coated,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Su" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
@@ -1907,18 +1907,18 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "SE" = (
 /obj/structure/railing/corner{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Tg" = (
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic,
 /mob/living/simple_animal/bot/medbot/adv,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Tj" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal{
@@ -1928,7 +1928,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "TK" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/stripes/red,
@@ -1938,30 +1938,30 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "TM" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Cynosure Project Entrance"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "TP" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ua" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Uc" = (
 /turf/simulated/wall/mineral/plastitanium/coated,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ud" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ue" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
@@ -1971,7 +1971,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Um" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -1979,14 +1979,14 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ur" = (
 /obj/effect/turf_decal{
 	dir = 8;
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "UO" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 1
@@ -1995,7 +1995,7 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "UQ" = (
 /obj/structure/rack/gunrack,
 /obj/effect/turf_decal/stripes/red,
@@ -2005,52 +2005,52 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "UR" = (
 /obj/effect/turf_decal/sand,
 /obj/structure/barricade/sandbags,
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "UW" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Va" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/decorative_structures/corpse{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Vd" = (
 /obj/machinery/computer/operating/old_frame,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Vg" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Vl" = (
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Vv" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "VD" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "VJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
@@ -2058,7 +2058,7 @@
 	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "VN" = (
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 3
@@ -2068,17 +2068,17 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "VZ" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 3
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Wd" = (
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Wh" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal{
@@ -2087,25 +2087,25 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Wi" = (
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Wo" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Wr" = (
 /obj/structure/railing{
 	dir = 10
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "WE" = (
 /obj/item/spentcasing,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "WH" = (
 /obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
 /obj/effect/turf_decal/delivery,
@@ -2113,39 +2113,39 @@
 	color = "red"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "WL" = (
 /turf/simulated/floor/indestructible/beach/water,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "WW" = (
 /obj/structure/barricade/sandbags,
 /obj/item/gun/projectile/automatic/cats,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xa" = (
 /obj/effect/decal/leaves,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Cynosure Project Entrance"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xd" = (
 /obj/effect/turf_decal{
 	dir = 8;
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xj" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xn" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /obj/item/ammo_casing/a338_soporific,
@@ -2153,16 +2153,16 @@
 /obj/item/ammo_casing/a338_soporific,
 /obj/item/ammo_casing/a338_soporific,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xr" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xw" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xy" = (
 /obj/item/ammo_casing/a556,
 /obj/item/ammo_casing/a556,
@@ -2170,7 +2170,7 @@
 	mob_name = "Cynosure SO Soldier"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Xz" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -2178,23 +2178,23 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "XH" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "XX" = (
 /obj/item/ammo_casing/a338_soporific,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Yd" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/grass,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Ye" = (
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "YE" = (
 /obj/item/ammo_casing/a556,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
@@ -2205,20 +2205,20 @@
 	name = "floor";
 	dir = 1
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "YM" = (
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "YY" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Zi" = (
 /obj/item/gun/projectile/automatic/l6_saw,
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Zj" = (
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 4
@@ -2228,35 +2228,35 @@
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Zs" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "Zx" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
 /obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ZG" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ZI" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
-/area/space)
+/area/eventzone/forgottenbattlefield)
 "ZN" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/space)
+/area/eventzone/forgottenbattlefield)
 
 (1,1,1) = {"
 jd
