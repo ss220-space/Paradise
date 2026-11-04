@@ -9,7 +9,6 @@
 	combos = list()
 	change_musculs = FALSE
 	has_dirslash = FALSE
-	works_with_rapid_gloves = TRUE
 
 	var/alist/combos_by_level = alist(
 		SKILL_LEVEL_BASIC = /datum/martial_combo/uct/wrist_lock,
@@ -18,6 +17,9 @@
 		SKILL_LEVEL_EXPERT = /datum/martial_combo/uct/armbar,
 		SKILL_LEVEL_LEGEND = /datum/martial_combo/uct/leg_slicer,
 	)
+
+/datum/martial_art/uct/can_use_rapid_gloves()
+	return TRUE
 
 /mob/living/carbon/human/proc/refresh_uct()
 	GET_SKILL_LEVEL(src, /datum/skill/combat/fists, skill_level)

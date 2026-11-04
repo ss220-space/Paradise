@@ -43,8 +43,6 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
-	/// Can use the rapid attack speed from /obj/item/clothing/gloves/fingerless/rapid and clockwork FASTPUNCH gauntlets.
-	var/works_with_rapid_gloves = FALSE
 	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed
 	/// If provided, this list will override victim's default resist chances for any grab state.
@@ -77,6 +75,9 @@
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/human)
 	return !HAS_TRAIT(human, TRAIT_PACIFISM) && !HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED)
+
+/datum/martial_art/proc/can_use_rapid_gloves()
+	return FALSE
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
