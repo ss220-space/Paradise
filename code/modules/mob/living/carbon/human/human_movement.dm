@@ -3,6 +3,21 @@
 #define PUSH_STAMINADAM_WALK 3
 #define PUSH_STAMINADAM_RUN 4
 
+/mob/living/carbon/human/proc/force_walk_intent()
+	m_intent = MOVE_INTENT_WALK
+	hud_used?.move_intent?.update_icon(UPDATE_ICON_STATE)
+	update_move_intent_slowdown()
+	SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLED)
+
+/mob/living/carbon/human/can_change_move_intent(silent = FALSE)
+	if(mind?.lobotomized)
+		if(m_intent != MOVE_INTENT_WALK)
+			force_walk_intent()
+		if(!silent)
+			to_chat(src, span_warning("Вы не можете бежать после лоботомии."))
+		return FALSE
+	return ..()
+
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!forced && (!old_loc || old_loc.no_gravity()) && has_gravity())

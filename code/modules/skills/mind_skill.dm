@@ -148,6 +148,9 @@
  */
 /datum/mind/proc/lobotomize()
 	lobotomized = TRUE
+	if(ishuman(current))
+		var/mob/living/carbon/human/human_current = current
+		human_current.force_walk_intent()
 	free_skill_points = 0
 	actual_free_skill_points = 0
 	selected_skills = null
