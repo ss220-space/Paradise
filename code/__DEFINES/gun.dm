@@ -216,13 +216,13 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Scope component flags
 /// Do we have the scope cancel on move?
-#define SCOPE_MOVEMENT_CANCELS 	(1<<0)
+#define SCOPE_MOVEMENT_CANCELS (1<<0)
 /// Can we use scope from mechs, lockers, etc?
-#define SCOPE_TURF_ONLY 		(1<<1)
+#define SCOPE_TURF_ONLY (1<<1)
 /// Do we let the user scope and click on the middle of their screen?
-#define SCOPE_CLICK_MIDDLE 		(1<<2)
+#define SCOPE_CLICK_MIDDLE (1<<2)
 /// Should the user hold the item in active hand to use it?
-#define SCOPE_NEED_ACTIVE_HAND 	(1<<3)
+#define SCOPE_NEED_ACTIVE_HAND (1<<3)
 
 #define SEVERITY_ITEM 0
 #define SEVERITY_GUN 1

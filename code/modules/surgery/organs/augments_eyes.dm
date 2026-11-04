@@ -100,7 +100,7 @@
 	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен."
 	icon_state = "eyes-c-kaleido"
 	eye_colour = "#6f00ff"
-	flash_protect = FLASH_PROTECTION_SENSITIVE
+	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600)
 	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
