@@ -509,7 +509,7 @@
 
 /obj/item/storage/firstaid/crew/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew)
+	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew, key = COMSIG_CLICK_ALT_SECONDARY)
 
 /obj/item/storage/firstaid/crew/full
 

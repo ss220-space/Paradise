@@ -133,6 +133,20 @@
 	name = "autoimplanter (laserblade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 
+/obj/item/autoimplanter/oneuse/scope_eyes
+	name ="autoimplanter (scope)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/scope/hardened
+
+/obj/item/autoimplanter/oneuse/scope_eyes/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоимплантер с глазным имплантом \"Калейдо Оптикс\"",
+		GENITIVE = "автоимплантера с глазным имплантом \"Калейдо Оптикс\"",
+		DATIVE = "автоимплантеру с глазным имплантом \"Калейдо Оптикс\"",
+		ACCUSATIVE = "автоимплантер с глазным имплантом \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "автоимплантером с глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "автоимплантере с глазным имплантом \"Калейдо Оптикс\"",
+	)
+
 /obj/item/autoimplanter/oneuse/sec_hud
 	name = "autoimplanter (sechud)"
 	desc = "Одноразовый автоимплантер, содержащий в себе охранный ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."
