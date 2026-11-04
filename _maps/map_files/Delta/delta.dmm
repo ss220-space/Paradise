@@ -54957,9 +54957,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "lFC" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/secure)
 "lFJ" = (
@@ -90262,6 +90260,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "sHl" = (
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/security/hallway/secure)
 "sHp" = (
@@ -175370,12 +175369,12 @@ tQi
 aoi
 sHl
 uDE
-xXJ
+aAx
+aAx
 sOd
 aAx
 aAx
-aAx
-aAx
+xXJ
 dDk
 lrM
 aAx
