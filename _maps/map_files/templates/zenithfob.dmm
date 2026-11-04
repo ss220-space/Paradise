@@ -8,10 +8,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "ar" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "ay" = (
@@ -67,18 +69,18 @@
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/white/corner,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/chem_master,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "bJ" = (
-/obj/structure/chair/stool{
+/obj/structure/chair/plastic{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "bK" = (
 /obj/machinery/light/small/directional/west,
-/obj/structure/chair/stool{
+/obj/structure/chair/plastic{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -91,19 +93,23 @@
 /turf/simulated/wall/mineral/plastitanium/coated,
 /area/space)
 "bQ" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
 	},
-/obj/structure/window/reinforced{
-	color = "red"
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
-/obj/structure/table/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "bY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -126,8 +132,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "cm" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible/iron,
 /area/eventzone/zenith_fob)
 "cn" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
@@ -198,7 +206,9 @@
 /turf/simulated/floor/grass,
 /area/eventzone/zenith_fob)
 "dr" = (
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "dG" = (
@@ -270,7 +280,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "ek" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
@@ -321,15 +336,21 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/eventzone/zenith_fob)
 "eW" = (
-/obj/effect/turf_decal/tile/dark/anticorner,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "eY" = (
-/obj/effect/turf_decal/tile/dark/anticorner,
-/obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 1
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
 	},
+/obj/machinery/light/small/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndidonkpockets,
+/obj/item/storage/box/syndidonkpockets,
+/obj/item/storage/box/syndidonkpockets,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "fq" = (
@@ -341,20 +362,40 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "fr" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "fA" = (
-/obj/machinery/optable,
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1
+	dir = 4
 	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "fL" = (
@@ -406,8 +447,15 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "gg" = (
-/obj/machinery/computer/old_frame/big/right,
-/turf/simulated/floor/redgrid,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/upgraded,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "gj" = (
 /obj/machinery/shieldwall/syndicate,
@@ -423,17 +471,24 @@
 /turf/simulated/wall/indestructible/rock,
 /area/eventzone/zenith_fob)
 "gI" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
+/obj/machinery/light/floor,
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "gT" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 4
 	},
-/obj/machinery/tcomms/relay/mining,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "gW" = (
 /obj/structure/table/wood{
@@ -443,14 +498,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "hd" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 4
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
 	},
-/obj/machinery/light/floor,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "hh" = (
 /obj/machinery/door_control/secure{
@@ -486,12 +540,13 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 8
-	},
-/obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/stripes/white/corner,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/sleeper/syndie,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "hu" = (
 /obj/structure/rack,
@@ -519,15 +574,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "hC" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
 	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
-	},
-/obj/machinery/chem_heater,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "hJ" = (
@@ -665,11 +714,16 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "iX" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 4
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "iZ" = (
 /obj/structure/bed/mattress/dirty,
@@ -683,9 +737,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/east,
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 8
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "jd" = (
@@ -699,11 +751,10 @@
 /turf/simulated/floor/grass,
 /area/eventzone/zenith_fob)
 "jD" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "jI" = (
 /obj/machinery/light/small/directional/south,
@@ -752,22 +803,19 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "kA" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	color = "red";
+/obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/chem_master,
+/obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "kE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "kG" = (
@@ -859,17 +907,20 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "lw" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "lx" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
+/obj/machinery/vending/syndichem,
+/obj/structure/window/reinforced{
+	color = "red"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "ly" = (
 /obj/structure/railing{
@@ -879,11 +930,31 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "lD" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
+/obj/structure/closet/crate/freezer{
+	desc = "A crate.";
+	name = "Medical crate"
 	},
-/obj/effect/turf_decal/stripes/white/corner,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "lM" = (
 /obj/machinery/light/small/directional/east,
@@ -904,9 +975,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "mi" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -956,30 +1026,13 @@
 /turf/space,
 /area/space)
 "nR" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/nitrogen,
-/obj/item/tank/internals/emergency_oxygen/plasma,
-/obj/structure/window/reinforced{
-	color = "red";
+/obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	color = "red"
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "oi" = (
 /obj/structure/railing/corner{
@@ -990,8 +1043,8 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "oz" = (
-/obj/machinery/computer/old_frame/server/rackframe,
 /obj/machinery/light/small/directional/north,
+/obj/machinery/eventmachine/serverrack,
 /turf/simulated/floor/redgrid,
 /area/eventzone/zenith_fob)
 "oE" = (
@@ -1018,6 +1071,9 @@
 "oO" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/jukebox/no_access,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "oR" = (
@@ -1045,11 +1101,8 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "pu" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "pw" = (
 /obj/structure/railing{
@@ -1082,11 +1135,14 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "qb" = (
+/obj/machinery/chem_heater,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1
+	dir = 4
 	},
-/obj/machinery/chem_dispenser/upgraded,
+/obj/structure/window/reinforced{
+	color = "red"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "ql" = (
@@ -1100,16 +1156,13 @@
 /turf/simulated/wall/indestructible/iron,
 /area/eventzone/zenith_fob)
 "qu" = (
-/obj/machinery/light/floor,
-/obj/machinery/bodyscanner,
-/obj/structure/window/reinforced{
-	color = "red";
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "qI" = (
 /obj/effect/decal/remains/xeno,
@@ -1175,8 +1228,10 @@
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/space)
 "rG" = (
-/obj/effect/turf_decal/tile/dark,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/space,
 /area/eventzone/zenith_fob)
 "rH" = (
 /obj/structure/fans/tiny,
@@ -1213,29 +1268,37 @@
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "sa" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 1
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
-/obj/machinery/light/floor,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "sc" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+/obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "sj" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /obj/effect/decal/straw/light,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/stripes,
+/obj/machinery/vending/medical/syndicate_access/beamgun{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "su" = (
 /obj/structure/table/wood{
@@ -1254,7 +1317,6 @@
 /obj/effect/turf_decal/tile/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "sP" = (
@@ -1284,20 +1346,13 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "tK" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted{
+/obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
-	},
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 8
-	},
-/obj/machinery/light/small/directional/north,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "tQ" = (
-/obj/structure/chair/stool{
+/obj/structure/chair/plastic{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1313,7 +1368,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "uQ" = (
@@ -1381,20 +1438,24 @@
 /area/eventzone/zenith_fob)
 "vK" = (
 /obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tile/dark{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "vP" = (
 /obj/effect/turf_decal/tile/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "vS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /obj/effect/decal/cleanable/flour/foam,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -1402,7 +1463,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "wf" = (
@@ -1435,7 +1498,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -1490,12 +1555,10 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
+/obj/machinery/vending/engineering{
+	req_access = null;
+	check_one_access = 0;
+	all_products_free = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -1517,11 +1580,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "xq" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
+/obj/effect/turf_decal/tile/dark{
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -1534,7 +1594,13 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "xt" = (
-/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "xH" = (
@@ -1562,27 +1628,44 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
-	},
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "yb" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "yc" = (
-/obj/effect/turf_decal/box,
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
 	},
-/turf/simulated/floor/mineral/plastitanium,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "yd" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"yj" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"yo" = (
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 8
@@ -1590,21 +1673,10 @@
 /obj/structure/window/reinforced{
 	color = "red"
 	},
-/obj/machinery/vending/syndichem,
-/turf/simulated/floor/mineral/titanium,
-/area/eventzone/zenith_fob)
-"yj" = (
-/turf/simulated/floor/mineral/titanium,
-/area/eventzone/zenith_fob)
-"yo" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
+/obj/machinery/vending/syndierobotics{
+	all_products_free = 1
 	},
-/obj/item/flag/syndi,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "yy" = (
 /obj/effect/turf_decal{
@@ -1786,16 +1858,25 @@
 /area/eventzone/zenith_fob)
 "AT" = (
 /obj/machinery/light/floor,
+/obj/effect/decal/straw,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Bc" = (
-/obj/structure/chair/office/dark{
+/obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Bd" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
@@ -1826,7 +1907,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Bz" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -1835,10 +1921,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "BF" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "BG" = (
@@ -1866,8 +1954,7 @@
 /obj/effect/turf_decal/tile/dark{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "BW" = (
 /obj/structure/flora/grass/jungle,
@@ -1876,7 +1963,9 @@
 "Ca" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Ce" = (
@@ -1906,12 +1995,17 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Co" = (
-/obj/effect/turf_decal/number/number_3{
-	dir = 1;
-	pixel_y = -20
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -1945,22 +2039,13 @@
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/space)
 "Dj" = (
-/obj/structure/closet/crate/freezer{
-	desc = "A crate.";
-	name = "Medical crate"
-	},
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/structure/window/reinforced{
-	color = "red";
+/obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Dl" = (
 /obj/effect/turf_decal{
@@ -2011,7 +2096,9 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "DX" = (
@@ -2093,9 +2180,11 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/light_switch/directional/north,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "Fk" = (
 /obj/effect/turf_decal/tile/dark/half/contrasted{
@@ -2128,6 +2217,9 @@
 /area/eventzone/zenith_fob)
 "FH" = (
 /obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "FK" = (
@@ -2135,7 +2227,9 @@
 /turf/simulated/floor/grass,
 /area/eventzone/zenith_fob)
 "FN" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
@@ -2154,7 +2248,7 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "Gb" = (
-/obj/structure/chair/stool{
+/obj/structure/chair/plastic{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2166,11 +2260,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Gg" = (
-/obj/effect/turf_decal/tile/dark/half/contrasted,
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+/obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
-/obj/machinery/light/small/directional/south,
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Gw" = (
@@ -2199,22 +2294,10 @@
 /turf/simulated/floor/pod/dark,
 /area/eventzone/zenith_fob)
 "Ho" = (
-/obj/structure/closet/crate/freezer{
-	desc = "A crate.";
-	name = "Medical crate"
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
 	},
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Hv" = (
 /obj/effect/turf_decal/box,
@@ -2229,11 +2312,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "If" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 1
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -2260,7 +2343,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Jk" = (
-/obj/machinery/computer/old_frame/big/alert,
+/obj/machinery/eventmachine/serverrack/recorder,
 /turf/simulated/floor/redgrid,
 /area/eventzone/zenith_fob)
 "Ju" = (
@@ -2310,10 +2393,17 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Kg" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+/obj/machinery/light/floor,
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red";
 	dir = 4
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "Ki" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -2380,8 +2470,8 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/white/line,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/structure/table/glass,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "LN" = (
 /obj/effect/turf_decal{
@@ -2416,10 +2506,16 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Mg" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Ml" = (
@@ -2443,12 +2539,10 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "MD" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
+/obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "MS" = (
@@ -2461,8 +2555,9 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes,
-/obj/machinery/vending/medical/syndicate_access/beamgun,
+/obj/machinery/vending/toyliberationstation{
+	all_products_free = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Ne" = (
@@ -2484,19 +2579,24 @@
 /obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
-/obj/machinery/light/small/directional/north,
-/obj/effect/turf_decal/stripes/white/corner{
+/obj/structure/table/glass,
+/obj/item/defibrillator/compact/combat/loaded,
+/obj/item/handheld_defibrillator/syndie,
+/obj/item/storage/toolbox/surgery/advanced,
+/obj/structure/window/reinforced{
+	color = "red";
 	dir = 8
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "Nv" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes,
-/obj/machinery/vending/medical/syndicate_access/beamgun,
+/obj/machinery/light/small/directional/north,
+/obj/machinery/vending/syndisnack{
+	all_products_free = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "NE" = (
@@ -2523,14 +2623,18 @@
 "NM" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/vending/gun_mods/advanced,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "NP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -2544,7 +2648,7 @@
 	},
 /area/eventzone/zenith_fob)
 "Oj" = (
-/obj/machinery/computer/old_frame/thick,
+/obj/machinery/eventmachine/serverrack,
 /turf/simulated/floor/redgrid,
 /area/eventzone/zenith_fob)
 "On" = (
@@ -2556,12 +2660,17 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "Op" = (
-/obj/effect/turf_decal/box,
-/obj/structure/window/reinforced{
-	color = "red";
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/plastitanium,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Os" = (
 /obj/machinery/porta_turret/syndicate/exterior,
@@ -2664,15 +2773,21 @@
 	},
 /area/eventzone/zenith_fob)
 "Qs" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/plastic{
+	dir = 33
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "QB" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/north,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -2692,18 +2807,15 @@
 /turf/simulated/floor/grass,
 /area/eventzone/zenith_fob)
 "QO" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/vending/wallmed/syndicate,
+/turf/simulated/wall/indestructible/iron,
 /area/eventzone/zenith_fob)
 "QP" = (
 /obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
-/obj/machinery/tcomms/core/station,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/computer/operating,
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "QR" = (
 /obj/structure/railing/corner{
@@ -2724,7 +2836,7 @@
 /turf/simulated/floor/plating,
 /area/space)
 "Rc" = (
-/obj/machinery/computer/old_frame/server/rackframe,
+/obj/machinery/eventmachine/serverrack/substation,
 /turf/simulated/floor/redgrid,
 /area/eventzone/zenith_fob)
 "Rh" = (
@@ -2796,9 +2908,14 @@
 /area/eventzone/zenith_fob)
 "Tp" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "TL" = (
@@ -2811,10 +2928,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "TQ" = (
-/obj/structure/chair/stool{
+/obj/item/radio/intercom/syndicate/directional/east,
+/obj/structure/chair/plastic{
 	dir = 4
 	},
-/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "TR" = (
@@ -2840,29 +2957,7 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "UF" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/nitrogen,
-/obj/item/tank/internals/emergency_oxygen/plasma,
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	color = "red"
-	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "Va" = (
@@ -2872,8 +2967,8 @@
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/west,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/vending/wallmed/syndicate,
+/turf/simulated/wall/indestructible/iron,
 /area/eventzone/zenith_fob)
 "Vh" = (
 /obj/effect/turf_decal{
@@ -2921,16 +3016,9 @@
 /turf/simulated/floor/mech_bay_recharge_floor/airless,
 /area/space)
 "VN" = (
-/obj/structure/table/glass,
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
 	},
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/item/handheld_defibrillator/syndie,
-/obj/item/defibrillator/compact/combat/loaded,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "VV" = (
@@ -2971,13 +3059,7 @@
 /area/eventzone/zenith_fob)
 "Wz" = (
 /obj/effect/turf_decal/box,
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
+/obj/effect/decal/straw,
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "WB" = (
@@ -2988,17 +3070,20 @@
 /turf/simulated/floor/plating,
 /area/eventzone/zenith_fob)
 "WK" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
+/obj/structure/closet/crate/can,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
 	dir = 4
-	},
-/obj/effect/turf_decal/number/number_2{
-	dir = 1;
-	pixel_y = -20
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "WY" = (
 /obj/machinery/vending/boozeomat,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Xe" = (
@@ -3030,11 +3115,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "XA" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
-	dir = 8
-	},
 /obj/effect/decal/remains/robot,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/stripes,
+/obj/machinery/vending/medical/syndicate_access/beamgun{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "XB" = (
 /obj/machinery/light/small/directional/north,
@@ -3048,8 +3134,15 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "XF" = (
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 1
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"XQ" = (
+/obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -3066,15 +3159,30 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/space)
 "Ye" = (
-/obj/machinery/sleeper/syndie,
+/obj/structure/closet/crate/freezer{
+	desc = "A crate.";
+	name = "Medical crate"
+	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
 	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "Ym" = (
@@ -3082,16 +3190,16 @@
 /turf/simulated/wall/indestructible/rock,
 /area/eventzone/zenith_fob)
 "Yo" = (
-/obj/machinery/computer/old_frame/macintosh,
 /obj/effect/turf_decal/mech,
+/obj/machinery/eventmachine/serverrack,
 /turf/simulated/floor/redgrid,
 /area/eventzone/zenith_fob)
 "Ys" = (
 /obj/machinery/light/small/directional/east,
-/obj/structure/chair/stool{
+/obj/item/radio/intercom/syndicate/directional/west,
+/obj/structure/chair/plastic{
 	dir = 8
 	},
-/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Yt" = (
@@ -3108,11 +3216,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "Yv" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 8
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
@@ -3162,11 +3270,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "YT" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark,
-/obj/effect/turf_decal/stripes/white/corner{
+/obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "YY" = (
 /obj/effect/turf_decal/box,
@@ -3176,25 +3286,30 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "Za" = (
-/obj/effect/turf_decal/box,
+/obj/structure/closet/syndicate/nuclear,
 /obj/structure/window/reinforced{
-	color = "red"
+	color = "red";
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/eventzone/zenith_fob)
 "Zv" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 8
-	},
-/obj/item/flag/syndi,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/bodyscanner,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 "ZC" = (
 /obj/structure/railing/corner{
@@ -3232,15 +3347,29 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/eventzone/zenith_fob)
 "ZU" = (
-/obj/machinery/computer/operating,
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
-	},
+/obj/machinery/light/floor,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
 /turf/simulated/floor/mineral/titanium,
 /area/eventzone/zenith_fob)
 
@@ -3353,7 +3482,7 @@ nJ
 nJ
 rE
 rE
-Dx
+Ah
 nJ
 "}
 (3,1,1) = {"
@@ -3458,7 +3587,7 @@ Dx
 Dx
 Dx
 Dx
-Dx
+Ah
 nJ
 nJ
 nJ
@@ -3745,7 +3874,7 @@ IY
 LJ
 Dx
 Dx
-Dx
+Ah
 Dx
 "}
 (10,1,1) = {"
@@ -3817,7 +3946,7 @@ rE
 rE
 gB
 gB
-Rc
+Jk
 za
 yb
 pM
@@ -3928,8 +4057,8 @@ rE
 rE
 rE
 gB
-Rc
-gg
+Oj
+Jk
 Oj
 Jj
 wO
@@ -4043,11 +4172,11 @@ lb
 lb
 lb
 lb
-TL
+tK
 oO
 WY
-TL
-TL
+Fk
+cn
 OF
 lb
 Dy
@@ -4067,7 +4196,7 @@ Dx
 Ah
 Dx
 Dx
-Dx
+Ah
 Dx
 Dx
 Dx
@@ -4099,7 +4228,7 @@ lb
 iP
 Oi
 RL
-TL
+Ho
 iu
 eo
 lp
@@ -4155,12 +4284,12 @@ OF
 mL
 NK
 Pz
-TL
+Ho
 VV
 gW
 TL
 TL
-TL
+mi
 er
 di
 xr
@@ -4193,7 +4322,7 @@ nJ
 nJ
 nJ
 rE
-Dx
+Ah
 nJ
 "}
 (18,1,1) = {"
@@ -4211,12 +4340,12 @@ iZ
 Oi
 Oi
 DX
-TL
+Ho
 sP
 ZO
 lp
-TL
-Kl
+xq
+XQ
 JE
 Ki
 vB
@@ -4267,10 +4396,10 @@ Qk
 NK
 Oi
 Mr
-TL
+XF
 Mc
 rX
-xM
+WK
 Mg
 Mr
 lb
@@ -4293,7 +4422,7 @@ nJ
 nJ
 Dx
 rE
-Dx
+Ah
 nJ
 nJ
 nJ
@@ -4377,13 +4506,13 @@ gB
 lb
 bH
 lx
-lx
+YT
 Va
-Fk
+Gg
 DS
+If
 Fk
-Fk
-cn
+MD
 lb
 XB
 BC
@@ -4435,11 +4564,11 @@ LK
 kA
 yd
 pu
-WK
+yc
 gI
-Kg
+FG
 AT
-cm
+mi
 yM
 TL
 TL
@@ -4487,14 +4616,14 @@ rE
 rE
 gB
 aD
-LK
+gg
 qb
-Bc
-jD
+yd
+pu
 yc
 Za
 ar
-TL
+hA
 Bz
 lb
 sE
@@ -4547,12 +4676,12 @@ Fg
 hC
 bQ
 jD
-Hv
-YY
+Bc
+nR
 Tp
-hA
-sc
-lb
+uQ
+Bd
+QO
 Af
 TL
 jd
@@ -4602,11 +4731,11 @@ lb
 Nl
 yo
 hd
-YT
+lb
 Op
 Wz
 kE
-uQ
+YY
 Bd
 lb
 Sh
@@ -4639,7 +4768,7 @@ nJ
 nJ
 nJ
 rE
-Dx
+Ah
 nJ
 nJ
 nJ
@@ -4656,12 +4785,12 @@ gB
 lb
 QP
 BN
-Hv
-FG
+UF
+fr
 XA
 bY
-bY
-BF
+Hv
+kE
 YY
 Bd
 Mr
@@ -4712,13 +4841,13 @@ gB
 lb
 gT
 vP
-Hv
-FG
+UF
+fr
 sj
 Co
-gI
+qu
 ek
-YY
+mg
 Bd
 zG
 Gw
@@ -4764,20 +4893,20 @@ fW
 VZ
 lb
 lb
+QO
 lb
-lb
-lb
+FO
 ho
 Zv
 sa
 QO
-yc
-Za
+QB
+iX
 FN
-mg
-Bd
-yM
-TL
+DQ
+xt
+lb
+sE
 TL
 Qs
 Aa
@@ -4823,17 +4952,17 @@ iT
 TL
 xM
 lb
-LK
+Ye
 ZU
 VN
 jD
-Hv
-YY
-If
-DQ
-Gg
-lb
-sE
+yc
+Kg
+FG
+AT
+mi
+yM
+TL
 TL
 TL
 Aa
@@ -4878,15 +5007,15 @@ lb
 YS
 TL
 dG
-FO
-LK
+lb
+lD
 fA
 yj
-jD
-Op
-Wz
-FG
-rG
+lb
+Yv
+Dj
+BF
+Ge
 eW
 lb
 Pf
@@ -4934,18 +5063,18 @@ px
 TL
 tQ
 TL
+lb
+cm
+lb
+pu
+lb
+lb
+lb
 yM
-LK
-Ye
-qu
-Yv
-lD
-MD
-xq
-iX
 lb
 lb
 lb
+QO
 yM
 lb
 lb
@@ -4990,15 +5119,15 @@ Aa
 TL
 TL
 TL
-lb
+rG
 tK
-QB
-fr
-XF
-xt
-Ho
-UF
-mi
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+cn
 Mr
 xo
 TL
@@ -5050,10 +5179,10 @@ lb
 Nv
 Nb
 xb
-Ge
+sc
 sL
-Dj
-nR
+TL
+TL
 mi
 yM
 TL
@@ -5108,13 +5237,13 @@ Mr
 lb
 lb
 jc
-xT
+Ge
 xT
 eY
 lb
 Af
 TL
-Gb
+TL
 TL
 Bv
 Xs
@@ -5163,7 +5292,7 @@ lb
 sE
 sE
 lb
-lb
+QO
 yM
 lb
 lb
@@ -5508,7 +5637,7 @@ PY
 dV
 XW
 Dx
-Dx
+Ah
 Dx
 Dx
 YL

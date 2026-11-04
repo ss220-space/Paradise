@@ -1,0 +1,4500 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aI" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"aK" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 4
+	},
+/mob/living/simple_animal/bot/medbot/syndicate,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"aX" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/flamer_fire,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"bb" = (
+/turf/simulated/floor/indestructible/beach/coastline{
+	icon_state = "beachcorner";
+	water_overlay_icon_state = null
+	},
+/area/space)
+"bE" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"bO" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/wall/indestructible/reinforced/rusted,
+/area/space)
+"bP" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"cg" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"cj" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"cD" = (
+/obj/machinery/suit_storage_unit/syndicate/comms,
+/obj/effect/turf_decal/stripes/red,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"cU" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"da" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"db" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"dz" = (
+/obj/item/spentcasing,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"dG" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"dL" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"dV" = (
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ef" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"eh" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"er" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"eC" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"eF" = (
+/obj/structure/rack/gunrack,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"eL" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"eX" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"fk" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"fq" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/gun/projectile/automatic/m90,
+/turf/simulated/floor/plating/asteroid{
+	dir = 8;
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"fL" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"fP" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"fQ" = (
+/obj/item/ammo_casing/shotgun,
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"fS" = (
+/obj/structure/chair/plastic{
+	dir = 3
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ga" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"gd" = (
+/obj/structure/railing{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"gm" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"gt" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/sand,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"gH" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"gI" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"gO" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"hb" = (
+/obj/structure/mortar/fixed{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"ho" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/box,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"hu" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"hx" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"hD" = (
+/obj/machinery/light/small/directional/west,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"hH" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"hI" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"hL" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"hU" = (
+/turf/simulated/wall/indestructible/reinforced,
+/area/space)
+"ic" = (
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"ig" = (
+/obj/item/ammo_casing/a556,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ih" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"in" = (
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"io" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"iN" = (
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"iU" = (
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"jd" = (
+/turf/simulated/wall/indestructible/rock/dark,
+/area/space)
+"jq" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"jr" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/mob/living/simple_animal/bot/medbot/adv,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"jD" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"jE" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/plating/asteroid{
+	dir = 8;
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"jG" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"jS" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"jX" = (
+/obj/machinery/suit_storage_unit/syndicate/comms,
+/obj/effect/turf_decal/stripes/red,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"kd" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"kl" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"kq" = (
+/obj/item/ammo_casing/a556,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"kt" = (
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"kw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"kA" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"kC" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/stripes/red,
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"kS" = (
+/turf/simulated/floor/indestructible/beach/coastline/dense,
+/area/space)
+"kT" = (
+/mob/living/simple_animal/bot/medbot/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ll" = (
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"lB" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"lJ" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"lQ" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"lU" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"mh" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"mi" = (
+/obj/item/spentcasing,
+/obj/item/spentcasing,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ml" = (
+/obj/item/ammo_casing/shotgun/frag12,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"mq" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"mv" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"mw" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"mD" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"mZ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ng" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"nm" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"np" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"nJ" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 1
+	},
+/obj/structure/decorative_structures/corpse{
+	dir = 3
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"nN" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"nO" = (
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"nZ" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"ob" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/obj/item/gun/energy/kinetic_accelerator/crossbow/large,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"od" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"oi" = (
+/obj/machinery/vending/nta/ertarmory/medical,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ok" = (
+/obj/item/gun/projectile/automatic/m90,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"ol" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"or" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"oD" = (
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"oI" = (
+/obj/machinery/light/small/directional/north,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"oS" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"pa" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"pe" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"ph" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"pH" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/ammo_casing/shotgun,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"pK" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"pL" = (
+/obj/structure/rack/gunrack,
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"pN" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"pT" = (
+/obj/item/ammo_casing/a40mm/secgl/gas,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"qe" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"qg" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"qh" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"qr" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"qw" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"qB" = (
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"qF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"qL" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/decorative_structures/corpse{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"qP" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/flamer_fire,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"qY" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"rs" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"rA" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"rB" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"rE" = (
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"rR" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"sb" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"sk" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"sB" = (
+/obj/item/ammo_box/magazine/cats12g/universal,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"sP" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"sR" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"sT" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"tx" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ty" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"tC" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/decorative_structures/corpse{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"uM" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"uV" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"vo" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"vD" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"vK" = (
+/obj/item/ammo_casing/a40mm,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"vZ" = (
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"wi" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"wk" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 3
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"wl" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"wv" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"ww" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/stripes/red,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/item/gun/projectile/automatic/smg/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"wA" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"wB" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"wG" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/glass,
+/obj/flamer_fire,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"wX" = (
+/obj/effect/turf_decal/sand,
+/obj/structure/decorative_structures/corpse{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"xe" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"xv" = (
+/mob/living/simple_animal/bot/medbot/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"xH" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"xJ" = (
+/obj/item/ammo_casing/shotgun,
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"xP" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"xS" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"xW" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/arrows/red{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"xZ" = (
+/obj/structure/barricade/sandbags,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"ye" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"yq" = (
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"yJ" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"yO" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"yP" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/flamer_fire,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"zb" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"zi" = (
+/obj/structure/railing/corner{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"zL" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"zP" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"Ab" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"Ac" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Ag" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Ah" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"AX" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"AZ" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Bf" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"Bh" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 3
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Bx" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"BA" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"BQ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"BR" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ck" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Cr" = (
+/obj/machinery/light/small/directional/east,
+/obj/item/flag/command,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Cv" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Cx" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/wall/indestructible/rock/dark,
+/area/space)
+"Cz" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"CD" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"CP" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"CT" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Dh" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Dj" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Dk" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Dq" = (
+/obj/item/ammo_casing/a556,
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/glass,
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Dt" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid{
+	dir = 8;
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"Dy" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"DC" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/arrows/red{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"DU" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"DW" = (
+/turf/simulated/wall/indestructible/reinforced/rusted,
+/area/space)
+"Ec" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Eo" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"EG" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"EY" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Fl" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Ft" = (
+/obj/item/ammo_casing/a40mm,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"FC" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"FM" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"FT" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"FU" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Gb" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Gd" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Gj" = (
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Gk" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Gl" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Cynosure Project Guard Barracks"
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Gp" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Gu" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Gw" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"GP" = (
+/obj/machinery/light/small/directional/north,
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"GZ" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Hg" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Hi" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows/red{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"HC" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"HO" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Ia" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Ic" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Id" = (
+/obj/structure/barricade/sandbags,
+/obj/item/ammo_casing/shotgun,
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ij" = (
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Is" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/stripes/red,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/item/gun/projectile/automatic/smg/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"IF" = (
+/obj/item/ammo_casing/a556,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"IK" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"IV" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_box/magazine/cats12g/universal,
+/obj/item/ammo_box/magazine/cats12g/universal,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"Je" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"Js" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Jt" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Cynosure Project Guard Barracks"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"JI" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"JJ" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Cynosure Project Guard Barracks"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"JU" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Ko" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Kq" = (
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Ks" = (
+/obj/machinery/light/small/directional/north,
+/obj/effect/turf_decal/sand,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"KK" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"KM" = (
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"KU" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ll" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"LG" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"LO" = (
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	name = "Cynosure Lockdown Door"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"LX" = (
+/obj/item/ammo_casing/a556,
+/obj/flamer_fire,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Mh" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Mj" = (
+/obj/machinery/optable,
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Mm" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"MF" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"MP" = (
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"MQ" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"MS" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Nb" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ng" = (
+/obj/effect/decal/leaves,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Nl" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Nn" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"Nt" = (
+/obj/item/ammo_casing/a40mm,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"Nu" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/obj/item/ammo_box/magazine/cats12g/universal,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Nw" = (
+/obj/flamer_fire,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Ol" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Ov" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/he,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"OC" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"OL" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"OT" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/decorative_structures/corpse{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Pf" = (
+/obj/structure/chair/plastic{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Pj" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Po" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Pw" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"PI" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/arrows/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/arrows/red{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"PU" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/railing,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"PZ" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Qd" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Qr" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"QA" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"QL" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 3
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"QP" = (
+/obj/flamer_fire,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"QR" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"QS" = (
+/obj/item/ammo_casing/shotgun/frag12,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"QX" = (
+/obj/effect/turf_decal/stripes/asteroid/corner,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"QY" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Rg" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Rl" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Rq" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Rr" = (
+/obj/flamer_fire,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"Rt" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/ammo_casing/a556,
+/obj/item/ammo_casing/a556,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Rv" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"RA" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"RB" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"RD" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Se" = (
+/obj/machinery/light/small/directional/east,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Sj" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Sp" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor"
+	},
+/area/space)
+"Sq" = (
+/turf/simulated/floor/indestructible/beach/sand,
+/area/space)
+"St" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"Su" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"SE" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Tg" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic,
+/mob/living/simple_animal/bot/medbot/adv,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Tj" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"TK" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/stripes/red,
+/obj/item/gun/projectile/automatic/smg/mini_uzi,
+/obj/item/gun/projectile/automatic/smg/mini_uzi,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"TM" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Cynosure Project Entrance"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"TP" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Ua" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Uc" = (
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"Ud" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Ue" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Um" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ur" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"UO" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"UQ" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/stripes/red,
+/obj/item/gun/projectile/automatic/smg/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"UR" = (
+/obj/effect/turf_decal/sand,
+/obj/structure/barricade/sandbags,
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"UW" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Va" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/decorative_structures/corpse{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Vd" = (
+/obj/machinery/computer/operating/old_frame,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Vg" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Vl" = (
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"Vv" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/space)
+"VD" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"VJ" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/decorative_structures/corpse{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"VN" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 3
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"VZ" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Wd" = (
+/obj/item/ammo_casing/shotgun,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Wh" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Wi" = (
+/obj/machinery/door/poddoor/multi_tile/four_tile_ver,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Wo" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Wr" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"WE" = (
+/obj/item/spentcasing,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"WH" = (
+/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"WL" = (
+/turf/simulated/floor/indestructible/beach/water,
+/area/space)
+"WW" = (
+/obj/structure/barricade/sandbags,
+/obj/item/gun/projectile/automatic/cats,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Xa" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Xc" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Cynosure Project Entrance"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Xd" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Xj" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Xn" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/obj/item/ammo_casing/a338_soporific,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Xr" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Xw" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/space)
+"Xy" = (
+/obj/item/ammo_casing/a556,
+/obj/item/ammo_casing/a556,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Xz" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"XH" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"XX" = (
+/obj/item/ammo_casing/a338_soporific,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Yd" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/grass,
+/area/space)
+"Ye" = (
+/turf/simulated/floor/indestructible/beach/coastline,
+/area/space)
+"YE" = (
+/obj/item/ammo_casing/a556,
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer{
+	mob_name = "Cynosure SO Soldier"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidwarning";
+	name = "floor";
+	dir = 1
+	},
+/area/space)
+"YM" = (
+/obj/item/ammo_casing/shotgun,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"YY" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"Zi" = (
+/obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Zj" = (
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 4
+	},
+/obj/item/gun/projectile/automatic/smg/mini_uzi,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"Zs" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"Zx" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/item/gun/projectile/automatic/m90,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/space)
+"ZG" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/space)
+"ZI" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/space)
+"ZN" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+
+(1,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(2,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(3,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(4,1,1) = {"
+jd
+jd
+jd
+jd
+UQ
+kC
+jd
+jd
+jd
+jd
+jd
+jd
+Uc
+Uc
+Uc
+Uc
+Uc
+KU
+KU
+KU
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(5,1,1) = {"
+jd
+jd
+jd
+Is
+GZ
+ol
+TK
+jd
+jd
+Uc
+Uc
+Uc
+Uc
+mw
+mw
+Ov
+Uc
+Uc
+Uc
+Uc
+vZ
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(6,1,1) = {"
+jd
+jd
+jd
+ww
+kd
+wk
+TK
+jX
+cD
+Uc
+Ov
+eX
+WH
+Ah
+Ah
+Ah
+Gd
+Rq
+Rq
+Uc
+KU
+xe
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(7,1,1) = {"
+jd
+jd
+jd
+cD
+DC
+qP
+Eo
+Hi
+Hi
+Uc
+Qr
+Ah
+Ah
+qr
+CD
+HC
+yq
+Ah
+QX
+Uc
+KU
+BA
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(8,1,1) = {"
+jd
+jd
+jd
+cD
+DC
+Gj
+ZI
+mD
+Gj
+Bh
+cj
+or
+Gk
+xv
+Ah
+Pj
+Gk
+QX
+Rv
+io
+KU
+KU
+MP
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(9,1,1) = {"
+jd
+jd
+jd
+cD
+PI
+xW
+aK
+nJ
+wB
+CP
+Qd
+fP
+hb
+Ah
+HC
+Xw
+hb
+kA
+eL
+Sp
+xe
+Vg
+KU
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(10,1,1) = {"
+jd
+jd
+jd
+jd
+cD
+cD
+kd
+VN
+Zj
+np
+Bh
+cj
+Qr
+aI
+Gk
+Ah
+QX
+Rv
+Ic
+jS
+MP
+kT
+xe
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(11,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+Bx
+np
+ZI
+JI
+Po
+Qd
+Ag
+Ah
+hb
+Ah
+Gp
+xH
+UO
+ic
+KU
+KU
+KU
+Uc
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(12,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Gj
+JI
+JI
+Sj
+QL
+ph
+AX
+AX
+ob
+Cz
+HO
+np
+ic
+BA
+KU
+Uc
+Uc
+KU
+jd
+jd
+jd
+jd
+jd
+"}
+(13,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Uc
+Uc
+Uc
+pe
+Fl
+FT
+Fl
+MQ
+uV
+Ue
+Gj
+Uc
+Uc
+Uc
+Uc
+KU
+KU
+jd
+jd
+jd
+jd
+jd
+"}
+(14,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+KU
+Uc
+Uc
+Gj
+QP
+JI
+Gu
+qL
+Sj
+JI
+Uc
+KU
+KU
+KU
+KU
+KU
+KU
+jd
+jd
+jd
+jd
+"}
+(15,1,1) = {"
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+xe
+vZ
+KU
+KU
+Uc
+Uc
+St
+fq
+jE
+Dt
+Dt
+Dt
+St
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+jd
+jd
+jd
+jd
+"}
+(16,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+KU
+Vg
+KU
+KU
+lQ
+lQ
+lQ
+pa
+nZ
+nZ
+nZ
+nZ
+nZ
+iN
+nZ
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+jd
+jd
+jd
+"}
+(17,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+KU
+VZ
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+sP
+iN
+iN
+iN
+iN
+ga
+iN
+iN
+iN
+jd
+jd
+jd
+"}
+(18,1,1) = {"
+jd
+jd
+KU
+KU
+KU
+KU
+KU
+lQ
+pa
+iN
+iN
+iN
+sP
+iN
+iN
+iN
+iN
+iN
+sP
+YM
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+jd
+jd
+jd
+"}
+(19,1,1) = {"
+jd
+jd
+KU
+KU
+gH
+Vg
+VZ
+sP
+iN
+iN
+iN
+iN
+Kq
+iN
+iN
+ga
+iN
+YM
+Ac
+iN
+iN
+lU
+iN
+iN
+iN
+ga
+iN
+jd
+jd
+jd
+"}
+(20,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+KU
+pa
+iN
+iN
+EY
+ga
+iN
+iN
+dL
+iN
+iN
+iN
+sP
+iN
+iN
+KM
+YM
+YM
+Zs
+iN
+iN
+iN
+iN
+jd
+jd
+"}
+(21,1,1) = {"
+jd
+jd
+jd
+jd
+KU
+VZ
+iN
+ga
+iN
+iN
+iN
+iN
+sP
+iN
+iN
+lU
+iN
+sP
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+sP
+iN
+jd
+jd
+"}
+(22,1,1) = {"
+jd
+jd
+jd
+jd
+lQ
+pa
+iN
+iN
+iN
+Ua
+iN
+iN
+Ac
+YM
+iN
+iN
+ty
+iN
+Ua
+iN
+ga
+iN
+iN
+lU
+KM
+iN
+iN
+iN
+jd
+jd
+"}
+(23,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+iN
+iN
+iN
+iN
+BQ
+iN
+ok
+lU
+iN
+iN
+iN
+BQ
+iN
+iN
+iN
+MS
+iN
+iN
+iN
+Zx
+iN
+iN
+iN
+jd
+jd
+"}
+(24,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+iN
+zi
+mq
+mq
+mq
+mq
+mq
+mq
+RA
+iN
+iN
+iN
+bP
+iN
+Ac
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+jd
+jd
+"}
+(25,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+iN
+gd
+Ol
+FU
+rE
+Rt
+Ol
+Ol
+xZ
+nZ
+nZ
+iN
+iN
+YM
+iN
+Kq
+iN
+YM
+sP
+sP
+WE
+iN
+iN
+jd
+jd
+"}
+(26,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+gd
+Ol
+DW
+qe
+qe
+qe
+Wi
+hU
+mq
+RA
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+iN
+sP
+jd
+jd
+"}
+(27,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+gd
+FU
+hU
+xJ
+ho
+pH
+ZG
+DW
+mi
+OC
+iN
+ga
+iN
+iN
+YM
+iN
+dz
+iN
+ty
+iN
+iN
+jd
+jd
+jd
+"}
+(28,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Ol
+hU
+XH
+Dy
+ZG
+JU
+DW
+lB
+OC
+iN
+nZ
+nZ
+WW
+nZ
+WW
+nZ
+iN
+iN
+sP
+iN
+jd
+jd
+jd
+"}
+(29,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+ig
+Ko
+XH
+qe
+Gl
+kw
+iN
+iN
+nZ
+Js
+MF
+YM
+QS
+nZ
+iN
+iN
+KM
+iN
+jd
+jd
+jd
+"}
+(30,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Ko
+Rl
+hU
+VJ
+OC
+iN
+FC
+iN
+Dq
+IF
+lU
+iN
+iN
+iN
+nO
+jd
+jd
+jd
+jd
+"}
+(31,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+hU
+JU
+OC
+iN
+iN
+iN
+iN
+sP
+iN
+nO
+iN
+iN
+iN
+jd
+jd
+jd
+jd
+"}
+(32,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Ol
+gt
+Nb
+RB
+iN
+iN
+iN
+iN
+ga
+Ll
+sP
+iN
+iN
+jd
+jd
+jd
+jd
+"}
+(33,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+iU
+wi
+kq
+rB
+KU
+CT
+ih
+ml
+iN
+iN
+iN
+iN
+iN
+iN
+jd
+jd
+jd
+jd
+"}
+(34,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+KU
+ZN
+Wr
+qF
+mZ
+rB
+Vg
+KU
+KU
+VZ
+Ac
+iN
+iN
+KM
+iN
+iN
+jd
+jd
+jd
+jd
+"}
+(35,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+KU
+ZN
+KU
+KU
+SE
+KU
+KU
+KU
+VZ
+iN
+VD
+iN
+QS
+sP
+jd
+jd
+jd
+jd
+jd
+"}
+(36,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+MP
+KU
+KU
+Ij
+Ij
+xe
+KU
+KU
+MP
+VZ
+iN
+iN
+iN
+iN
+iN
+jd
+jd
+jd
+jd
+jd
+"}
+(37,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+Vg
+xe
+KU
+Cv
+Ij
+KU
+KU
+vZ
+KU
+xe
+KU
+KU
+RB
+lU
+iN
+iN
+iN
+jd
+jd
+jd
+jd
+jd
+"}
+(38,1,1) = {"
+jd
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+KU
+xe
+KU
+KU
+DU
+BA
+KU
+MP
+KU
+KU
+KU
+KU
+pa
+iN
+iN
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(39,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+Gw
+KU
+nm
+Ij
+xe
+Zi
+KU
+KU
+KU
+Wo
+Id
+Wo
+hH
+KU
+VZ
+iN
+iN
+iN
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(40,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+xe
+KU
+KU
+KU
+KU
+KU
+xe
+KU
+xe
+KU
+Wd
+KU
+KU
+KU
+VZ
+iN
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(41,1,1) = {"
+jd
+jd
+jd
+KU
+KU
+KU
+KU
+MP
+KU
+KU
+KU
+KU
+Vg
+XX
+sB
+KU
+KU
+Vg
+KU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(42,1,1) = {"
+jd
+jd
+jd
+Rg
+wl
+KU
+xe
+Wo
+Wo
+Wo
+Wo
+Wo
+KU
+Vg
+KU
+KU
+KU
+KU
+jd
+jd
+jd
+jd
+jd
+ll
+ll
+ll
+ll
+jd
+jd
+jd
+"}
+(43,1,1) = {"
+jd
+jd
+jd
+ll
+db
+KU
+Vg
+BR
+fQ
+Nu
+jD
+Wo
+MP
+KU
+KU
+KU
+pK
+KU
+KU
+jd
+jd
+jd
+ll
+ll
+OL
+ll
+ll
+ll
+jd
+jd
+"}
+(44,1,1) = {"
+jd
+jd
+jd
+ll
+qh
+wl
+KU
+KU
+sB
+KU
+kt
+KU
+hH
+KU
+KU
+hH
+pK
+KU
+KU
+KU
+KU
+ng
+ll
+ll
+ll
+fL
+gO
+ll
+jd
+jd
+"}
+(45,1,1) = {"
+jd
+jd
+OL
+ll
+ll
+cg
+Ur
+Ur
+OT
+PZ
+Ur
+wl
+Vg
+Vg
+KU
+KU
+KU
+KU
+KU
+KU
+KU
+ng
+gO
+ll
+ll
+ll
+ll
+ll
+jd
+jd
+"}
+(46,1,1) = {"
+jd
+jd
+ll
+ll
+ll
+ll
+gm
+OL
+ll
+ll
+Yd
+cg
+yO
+yO
+yO
+wl
+KU
+KU
+MP
+Ij
+KU
+ng
+ll
+Ng
+Yd
+ll
+OL
+ll
+jd
+jd
+"}
+(47,1,1) = {"
+jd
+jd
+fL
+ll
+ll
+gO
+ll
+Xa
+Xa
+ll
+ll
+ll
+ll
+OL
+oD
+db
+MP
+hH
+BA
+KU
+Ij
+zb
+OL
+ll
+ll
+ll
+ll
+ll
+jd
+jd
+"}
+(48,1,1) = {"
+jd
+jd
+ll
+ll
+Ia
+pN
+ll
+ll
+ll
+OL
+ll
+gO
+fL
+ll
+ll
+cg
+yO
+wl
+xe
+KU
+Xd
+Wh
+fL
+ll
+pN
+FM
+ll
+jd
+jd
+jd
+"}
+(49,1,1) = {"
+jd
+jd
+uM
+ll
+uM
+ll
+jd
+jd
+jd
+jd
+ll
+ll
+ll
+ll
+ll
+ll
+ll
+db
+KU
+Xd
+sb
+ll
+ll
+gO
+Xa
+ll
+ll
+jd
+jd
+jd
+"}
+(50,1,1) = {"
+jd
+jd
+ll
+fL
+ll
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+Xr
+ll
+fL
+OL
+bE
+yO
+sb
+ll
+ll
+ll
+ll
+ll
+fL
+ll
+jd
+jd
+jd
+"}
+(51,1,1) = {"
+jd
+jd
+Xa
+ll
+ll
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+gO
+Xa
+ll
+ll
+ll
+ll
+ll
+ll
+OL
+jd
+jd
+ll
+ll
+jd
+jd
+jd
+jd
+"}
+(52,1,1) = {"
+jd
+jd
+ll
+gO
+ll
+OL
+ll
+jd
+jd
+jd
+jd
+jd
+ll
+ll
+ll
+Yd
+ll
+pN
+ll
+ll
+fL
+ll
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(53,1,1) = {"
+jd
+jd
+jd
+ll
+ll
+Xa
+ll
+ll
+Yd
+ll
+fL
+ll
+fL
+ll
+ll
+uM
+TP
+ll
+da
+Um
+ll
+uM
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(54,1,1) = {"
+jd
+jd
+jd
+gm
+tC
+ll
+ll
+fL
+gO
+uM
+ll
+ll
+Yd
+jG
+oD
+ll
+da
+Hg
+Gb
+Dk
+Um
+ll
+ll
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(55,1,1) = {"
+jd
+jd
+jd
+ll
+ll
+Ud
+Yd
+ll
+ll
+OL
+Xa
+ll
+dG
+Tj
+Xz
+Xz
+eC
+KU
+KU
+xe
+ng
+ll
+ll
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(56,1,1) = {"
+jd
+jd
+jd
+oD
+wA
+Xn
+Dj
+AZ
+Pw
+Ab
+Dh
+rs
+IK
+KU
+Vg
+KU
+UW
+KU
+MP
+MP
+QY
+ll
+ll
+xS
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(57,1,1) = {"
+jd
+jd
+jd
+Nl
+KK
+Ck
+Mh
+qw
+KU
+zP
+qB
+Gj
+hI
+Wo
+Wo
+KU
+kt
+BA
+qg
+KU
+ng
+Va
+xS
+Nn
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(58,1,1) = {"
+jd
+jd
+jd
+AZ
+Mh
+LG
+Ij
+yP
+Wo
+hI
+Gj
+Gj
+ef
+Xy
+LX
+yO
+Xj
+KU
+KU
+Xd
+sb
+ll
+rA
+bb
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(59,1,1) = {"
+jd
+jd
+jd
+MP
+pK
+KU
+KU
+KU
+Wo
+YE
+Gj
+np
+sT
+hx
+DW
+hU
+db
+KU
+Xd
+sb
+jq
+ll
+Rr
+Ye
+WL
+jd
+jd
+jd
+jd
+jd
+"}
+(60,1,1) = {"
+jd
+jd
+jd
+RD
+eh
+RD
+eh
+RD
+DW
+Nt
+Ec
+Su
+Gj
+yJ
+Vl
+hU
+lJ
+od
+sb
+Yd
+Yd
+xS
+Nn
+Ye
+WL
+jd
+jd
+jd
+jd
+jd
+"}
+(61,1,1) = {"
+jd
+jd
+jd
+DW
+hU
+DW
+hU
+DW
+DW
+Je
+Bf
+wv
+Gj
+hu
+pT
+DW
+DW
+hU
+DW
+DW
+ll
+rA
+fk
+Ye
+WL
+jd
+jd
+jd
+jd
+jd
+"}
+(62,1,1) = {"
+jd
+jd
+DW
+hU
+eF
+pL
+QR
+DW
+Ks
+wX
+Mm
+UR
+Ft
+pT
+qe
+hU
+YY
+Mj
+Vd
+hU
+DW
+rA
+Sq
+Ye
+WL
+WL
+jd
+jd
+jd
+jd
+"}
+(63,1,1) = {"
+jd
+jd
+DW
+rR
+qe
+mh
+nN
+DW
+kl
+in
+xP
+IV
+QA
+vo
+qY
+Jt
+kl
+Tg
+qe
+hD
+DW
+rA
+Sq
+kS
+WL
+WL
+WL
+jd
+jd
+jd
+"}
+(64,1,1) = {"
+jd
+jd
+hU
+GP
+jr
+qe
+qe
+Jt
+er
+in
+Vv
+Vv
+ye
+qe
+Se
+hU
+QR
+qe
+gI
+qe
+LO
+rA
+fk
+kS
+WL
+WL
+WL
+jd
+jd
+jd
+"}
+(65,1,1) = {"
+jd
+jd
+DW
+Vd
+qe
+DW
+Jt
+DW
+DW
+wG
+cU
+vK
+in
+aX
+bO
+DW
+DW
+hU
+qe
+XH
+KU
+rA
+Sq
+kS
+WL
+WL
+WL
+jd
+jd
+jd
+"}
+(66,1,1) = {"
+jd
+jd
+hU
+Nw
+qe
+hU
+qe
+hD
+hU
+qe
+Cr
+sR
+Cr
+mv
+DW
+vD
+XH
+Jt
+qe
+qe
+KU
+rA
+Sq
+kS
+WL
+WL
+WL
+jd
+jd
+jd
+"}
+(67,1,1) = {"
+jd
+jd
+DW
+DW
+oi
+DW
+XH
+EG
+hU
+JJ
+hU
+TM
+hU
+TM
+hU
+dV
+XH
+hU
+oi
+Ko
+hU
+rA
+fk
+kS
+WL
+WL
+WL
+WL
+jd
+jd
+"}
+(68,1,1) = {"
+jd
+jd
+jd
+DW
+hU
+hU
+oI
+Ko
+PU
+nN
+hL
+tx
+hL
+qe
+zL
+Ko
+qe
+hU
+hU
+DW
+DW
+rA
+Sq
+kS
+Cx
+jd
+jd
+jd
+jd
+jd
+"}
+(69,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+hU
+fS
+Ko
+PU
+oS
+hL
+sk
+hL
+qe
+zL
+Ko
+Pf
+hU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
+(70,1,1) = {"
+jd
+jd
+jd
+jd
+jd
+hU
+hU
+hU
+hU
+Xc
+hU
+Xc
+hU
+Xc
+hU
+hU
+hU
+hU
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+jd
+"}
