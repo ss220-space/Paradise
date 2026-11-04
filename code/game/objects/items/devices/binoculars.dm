@@ -54,7 +54,7 @@
 		span_notice("[user] опускает [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы опускаете [declent_ru(ACCUSATIVE)]."),
 	)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	user.update_held_items()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/binocs_wielded)
 
