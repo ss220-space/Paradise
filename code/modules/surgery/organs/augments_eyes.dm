@@ -75,7 +75,7 @@
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
-	implant_color = "#000000"
+	icon_state = "eyes-c-xray"
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
@@ -94,6 +94,60 @@
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/empproof
 	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/scope
+	name = "Kaleido Optics eyes"
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен."
+	icon_state = "eyes-c-kaleido"
+	eye_colour = "#6f00ff"
+	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
+	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600)
+	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
+	var/active = FALSE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/get_ru_names()
+	return alist(
+		NOMINATIVE = "глазной имплант \"Калейдо Оптикс\"",
+		GENITIVE = "глазного импланта \"Калейдо Оптикс\"",
+		DATIVE = "глазному импланту \"Калейдо Оптикс\"",
+		ACCUSATIVE = "глазной имплант \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "глазном импланте \"Калейдо Оптикс\"",
+	)
+
+/obj/item/organ/internal/cyberimp/eyes/scope/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, zoom_method = ZOOM_METHOD_ITEM_ACTION, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+
+/obj/item/organ/internal/cyberimp/eyes/scope/insert(mob/living/carbon/human/M, special)
+	. = ..()
+	flash_protect = FLASH_PROTECTION_NONE //Resets it to none, so we can just flip to inital each time it is used.
+
+/obj/item/organ/internal/cyberimp/eyes/scope/ui_action_click(mob/user, actiontype)
+	active = !active
+	if(active)
+		flash_protect = initial(flash_protect)
+	else
+		flash_protect = FLASH_PROTECTION_NONE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/hardened
+	name = "Hardened Kaleido Optics eyes"
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен. Эта пара была усилена для персонала специальных операций и обладает улучшенной функцией приближения."
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
+	scope_range = 1.25
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/hardened/get_ru_names()
+	return alist(
+		NOMINATIVE = "укреплённый глазной имплант \"Калейдо Оптикс\"",
+		GENITIVE = "укреплённого глазного импланта \"Калейдо Оптикс\"",
+		DATIVE = "укреплённому глазному импланту \"Калейдо Оптикс\"",
+		ACCUSATIVE = "укреплённый глазной имплант \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "укреплённым глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "укреплённом глазном импланте \"Калейдо Оптикс\"",
+	)
 
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
