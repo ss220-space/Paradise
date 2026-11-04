@@ -13,28 +13,18 @@
 	var/movespeed_mod
 
 /obj/item/gun_module/rail/scope/on_attach(obj/item/gun/target_gun, mob/user)
-	target_gun.zoomable = TRUE
-	old_zoom_amount = target_gun.zoom_amt
-	target_gun.build_zooming()
-	if(user && user.is_in_hands(target_gun))
-		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
 	RegisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE, PROC_REF(zoom_toogle))
-	target_gun.zoom_amt = 0
-	target_gun.AddComponent(/datum/component/scope, range_modifier = scope_range, zoom_method = ZOOM_METHOD_GUN_ZOOM)
+	target_gun.AddComponent(/datum/component/scope, range_modifier = scope_range)
 
 /obj/item/gun_module/rail/scope/on_detach(obj/item/gun/target_gun, mob/user)
 	var/datum/component/scope/scope_component = target_gun.GetComponent(/datum/component/scope)
 	if(scope_component)
 		scope_component.stop_zooming(user)
 		qdel(scope_component)
-
-	target_gun.zoomable = FALSE
-	target_gun.zoom_amt = old_zoom_amount
-	target_gun.destroy_zooming()
 	UnregisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE)
 
-/obj/item/gun_module/rail/scope/proc/zoom_toogle(datum/source, mob/user)
-	if(gun.zoomed)
+/obj/item/gun_module/rail/scope/proc/zoom_toogle(datum/source, mob/user, zoomed)
+	if(zoomed)
 		on_enter_sight_mode(user)
 	else
 		on_leave_sight(user)
@@ -69,7 +59,7 @@
 	overlay_state = "coll_o"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
-	scope_range = 4
+	scope_range = 1.14
 	bonus_accuracy = 5
 	spread_decrease_mod = 0.15
 	movespeed_slowdown = 1.15
@@ -116,7 +106,7 @@
 	overlay_state = "x4_o"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
-	scope_range = 6
+	scope_range = 1.71
 	bonus_accuracy = 5
 	spread_decrease_mod = 0.20
 	movespeed_slowdown = 1.3
@@ -140,7 +130,7 @@
 	overlay_state = "x8_o"
 	overlay_offset = list("x" = -5, "y" = 0)
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
-	scope_range = 10
+	scope_range = 2.86
 	bonus_accuracy = 15
 	movespeed_slowdown = 1.75
 	custom_price = 5 * PAYCHECK_MAX
@@ -163,7 +153,7 @@
 	overlay_state = "x16_o"
 	overlay_offset = list("x" = -3, "y" = 0)
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
-	scope_range = 16
+	scope_range = 4.57
 	bonus_accuracy = 25
 	spread_decrease_mod = 0.4
 	movespeed_slowdown = 2

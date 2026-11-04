@@ -112,8 +112,6 @@
 	icon_state = "brasssniper"
 	item_state = "brasssniper"
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/snipe)
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	cell_type = /obj/item/stock_parts/cell/clock/sniper
 	charge_rate = 1
 	recoil = new /datum/gun_recoil/mega()
@@ -136,6 +134,10 @@
 		INSTRUMENTAL = "латунной снайперской винтовкой",
 		PREPOSITIONAL = "латунной снайперской винтовке",
 	)
+
+/obj/item/gun/energy/clockwork/sniper/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 2)
 
 /obj/item/gun/energy/gun/minigun/clockwork
 	name = "brass minigun"

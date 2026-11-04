@@ -520,6 +520,15 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/map/fire
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_scope
+	id = "ci-scope"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PLASMA = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/scope
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_antidrop
 	id = "ci-antidrop"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BIOTECH = 5)
