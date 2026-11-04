@@ -185,6 +185,7 @@
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
 	return alist(
@@ -195,7 +196,3 @@
 		INSTRUMENTAL = "лазерной снайперской винтовкой «Игла»",
 		PREPOSITIONAL = "лазерной снайперской винтовке «Игла»",
 	)
-
-/obj/item/gun/energy/laser/hitscan/sniper_rifle/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 1.43)

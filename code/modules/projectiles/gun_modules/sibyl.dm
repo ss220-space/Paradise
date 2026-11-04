@@ -334,9 +334,16 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	target_gun.desc = initial(target_gun.desc)
 
 /obj/item/gun_module/gategun/proc/on_emag_act(obj/item/source, mob/user)
-	return
+	emag_act(user)
+
+/obj/item/gun_module/gategun/emag_act(mob/user)
+	. = ..()
+	emagged = TRUE
+	to_chat(user, span_warning("Вы замечаете как индикатор системы безопасности мигает и гаснет."))
 
 /obj/item/gun_module/gategun/proc/on_check_can_shoot(obj/item/source, mob/user)
+	if(emagged)
+		return
 	if(user.loc && is_station_level(user.loc.z))
 		user.balloon_alert(user, "блокировка!")
 		return GUN_CHECK_CANCEL_ATTACK
