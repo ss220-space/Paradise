@@ -24096,7 +24096,7 @@
 /area/station/commons/fitness)
 "flL" = (
 /obj/structure/table/wood,
-/obj/item/storage/bible,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -43088,6 +43088,16 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"jiJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel,
+/area/station/command/vip)
 "jiX" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
@@ -53135,9 +53145,9 @@
 /area/station/medical/surgery/north)
 "llJ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -66158,10 +66168,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/bible{
-	pixel_x = -9;
-	pixel_y = -7
-	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "nWr" = (
@@ -67620,10 +67627,10 @@
 "okt" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/storage/bible,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "okv" = (
@@ -153796,7 +153803,7 @@ uAM
 lPB
 eZH
 kpp
-qmn
+jiJ
 veQ
 jIS
 iLl

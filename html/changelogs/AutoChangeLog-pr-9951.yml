@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - balance: "Ускорение насыщения вампирами. (PR #9951)"
