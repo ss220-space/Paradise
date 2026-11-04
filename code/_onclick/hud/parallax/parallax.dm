@@ -315,6 +315,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	var/absolute = FALSE
 	/// View size we're being rendered with
 	var/working_view = ""
+	var/drift_x = 0
+	var/drift_y = 0
+	var/drift_angle = 0
 
 /atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner, client/owner, template = FALSE)
 	. = ..()
@@ -367,6 +370,36 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 
 /atom/movable/screen/parallax_layer/proc/tileable_appearance()
 	return mutable_appearance(icon, icon_state)
+
+/atom/movable/screen/parallax_layer/proc/drift_matrix(offset_x, offset_y, angle)
+	var/matrix/drifted = matrix()
+	drifted.Translate(offset_x, offset_y)
+	drifted.Turn(-angle)
+	return drifted
+
+/atom/movable/screen/parallax_layer/proc/set_ship_drift(step_x, step_y, angle, time)
+	if(!step_x && !step_y && angle == drift_angle)
+		return
+	var/next_x = drift_x - step_x * speed
+	var/next_y = drift_y - step_y * speed
+	var/wrap_x = 0
+	var/wrap_y = 0
+	if(abs(next_x) > PARALLAX_TILE_SIZE / 2)
+		wrap_x = -sign(next_x) * PARALLAX_TILE_SIZE
+	if(abs(next_y) > PARALLAX_TILE_SIZE / 2)
+		wrap_y = -sign(next_y) * PARALLAX_TILE_SIZE
+	if(wrap_x || wrap_y)
+		transform = drift_matrix(drift_x + wrap_x, drift_y + wrap_y, drift_angle)
+	drift_x = next_x + wrap_x
+	drift_y = next_y + wrap_y
+	drift_angle = angle
+	animate(src, transform = drift_matrix(drift_x, drift_y, drift_angle), time = time)
+
+/atom/movable/screen/parallax_layer/proc/clear_ship_drift()
+	drift_x = 0
+	drift_y = 0
+	drift_angle = 0
+	animate(src, transform = matrix(), time = 0)
 
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"

@@ -46,6 +46,7 @@
 	var/paper_height = 400 //Height of the window that opens
 	var/paper_height_big = 700
 	var/joinable = TRUE
+	var/list/overmap_scan_dump
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"

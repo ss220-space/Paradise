@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(starlight)
 
 	temperature = TCMB
 	heat_capacity = HEAT_CAPACITY_VACUUM
+
 	atmos_mode = ATMOS_MODE_SPACE
 
 	flags = NO_SCREENTIPS
@@ -106,6 +107,9 @@ GLOBAL_LIST_EMPTY(starlight)
 	var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
 	space_level.add_to_transit(src)
 	space_level.apply_transition(src)
+	var/datum/turf_reservation/transit/overmap/hyperspace = overmap_hyperspace_reservation(src)
+	if(hyperspace)
+		hyperspace.prepare_space(src)
 
 /// Updates starlight. Called when we're unsure of a turf's starlight state
 /// Returns TRUE if we succeed, FALSE otherwise
@@ -128,6 +132,8 @@ GLOBAL_LIST_EMPTY(starlight)
 		GLOB.starlight += src
 
 /turf/space/attackby(obj/item/I, mob/user, params)
+	if(overmap_hyperspace_reservation(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -195,6 +201,13 @@ GLOBAL_LIST_EMPTY(starlight)
 		return ..()
 
 	. = ..()
+	var/datum/turf_reservation/transit/overmap/hyperspace = overmap_hyperspace_reservation(src)
+	if(hyperspace)
+		hyperspace.entered_space(src, arrived)
+		return
+	if(SSovermap.promote_space_projectile(arrived, src))
+		return
+	SSovermap.on_space_entered(src, arrived)
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))
@@ -272,6 +285,8 @@ GLOBAL_LIST_EMPTY(starlight)
 	return 0
 
 /turf/space/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	if(overmap_hyperspace_reservation(src))
+		return RCD_NO_ACT
 	. = ..()
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
@@ -284,6 +299,16 @@ GLOBAL_LIST_EMPTY(starlight)
 	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати пола!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
+
+/turf/space/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	if(overmap_hyperspace_reservation(src))
+		return RCD_NO_ACT
+	return ..()
+
+/turf/space/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
+	if(overmap_hyperspace_reservation(src))
+		return
+	return ..()
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	generate_space_underlay(underlay_appearance, asking_turf)

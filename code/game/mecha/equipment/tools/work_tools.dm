@@ -271,7 +271,7 @@
 	module_type = MECH_EQUIPMENT_MIME
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target, list/modifiers)
-	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
+	if(isturf(target) && is_hyperspace_turf(target))
 		return
 	if(!isturf(target))
 		target = get_turf(target)

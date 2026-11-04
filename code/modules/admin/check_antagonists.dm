@@ -17,15 +17,29 @@
 		dat += "Current Game Mode: <b>[SSticker.mode.name]</b><br>"
 		dat += "Round Duration: <b>[ROUND_TIME_TEXT()]</b><br>"
 		dat += "<b>Emergency shuttle</b><br>"
-		if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
+		if(SSshuttle.emergency.is_nav_emagged())
+			dat += "Навигация взломана. Таймер заморожен. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+		else if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
 			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
-			if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><br>"
-				dat += "<a href='byond://?_src_=holder;call_shuttle=2'>Send Back</a><br>"
-			else
-				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><br>"
+			var/clock = "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]"
+			switch(SSshuttle.emergency.mode)
+				if(SHUTTLE_CALL)
+					if(SSshuttle.emergency.overmap_leg_started)
+						dat += "В полёте к станции. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+						dat += "<a href='byond://?src=[UID()];call_shuttle=2'>Send Back</a><br>"
+					else
+						dat += "ETA (вызов): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
+						dat += "<a href='byond://?src=[UID()];call_shuttle=2'>Send Back</a><br>"
+				if(SHUTTLE_RECALL)
+					dat += "ETA (отзыв): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
+				if(SHUTTLE_DOCKED)
+					dat += "ETD (посадка): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
+				if(SHUTTLE_ESCAPE, SHUTTLE_IGNITING)
+					dat += "В полёте. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+				else
+					dat += "Статус: [SSshuttle.emergency.mode]. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
 		if(!SSshuttle.emergencyNoEscape)
 			dat += "<a href='byond://?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
 		else

@@ -150,6 +150,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
 		// Players won't be allowed to create new buttons that open roundstart doors
 		GLOB.restricted_door_tags += id_tag
+	if(id_tag)
+		if(!GLOB.airlocks_by_id_tag[id_tag])
+			GLOB.airlocks_by_id_tag[id_tag] = list()
+		GLOB.airlocks_by_id_tag[id_tag] += src
 
 	if(closeOtherId)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 0.5 SECONDS)
@@ -188,6 +192,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			break
 
 /obj/machinery/door/airlock/Destroy()
+	if(id_tag)
+		LAZYREMOVE(GLOB.airlocks_by_id_tag[id_tag], src)
+		if(!length(GLOB.airlocks_by_id_tag[id_tag]))
+			GLOB.airlocks_by_id_tag -= id_tag
 	SStgui.close_uis(wires)
 	QDEL_NULL(airlock_electronics)
 	QDEL_NULL(access_electronics)

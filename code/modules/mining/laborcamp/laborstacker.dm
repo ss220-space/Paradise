@@ -115,19 +115,21 @@
 			if(!alone_in_area(get_area(src), usr))
 				to_chat(usr, span_warning("Освобождение возможно только при отсутствии других заключенных."))
 			else
-				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
-					if(1)
-						to_chat(usr, span_notice("Шаттл не обнаружен."))
-					if(2)
-						to_chat(usr, span_notice("Шаттл уже на станции."))
-					if(3)
-						to_chat(usr, span_notice("Не удалось получить разрешение на стыковку."))
-					else
-						if(!emagged)
-							var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
-							radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
-						to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
-						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
+				var/obj/docking_port/mobile/labor = SSshuttle.getShuttle("laborcamp")
+				if(labor?.getDockedId() == "laborcamp_home")
+					to_chat(usr, span_notice("Шаттл уже на станции."))
+				else
+					switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
+						if(1)
+							to_chat(usr, span_notice("Шаттл не обнаружен."))
+						if(2)
+							to_chat(usr, span_warning("Не удалось отправить шаттл на станцию."))
+						else
+							if(!emagged)
+								var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
+								radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
+							to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
+							add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 

@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(demo)
 				// have different appearances despite being the same thing.
 				if(T.type == /turf/space || T.type == /turf/space/openspace)
 					this_appearance = "s" // save the bytes
-				else if(istype(T, /turf/space/transit))
+				else if(is_hyperspace_turf(T))
 					this_appearance = "t[T.dir]"
 				else
 					this_appearance = T.appearance

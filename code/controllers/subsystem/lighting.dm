@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(lighting)
 			continue
 		for(var/list/zlevel_turfs as anything in area.get_zlevel_turf_lists())
 			for(var/turf/area_turf as anything in zlevel_turfs)
-				if(area_turf.space_lit)
+				if(area_turf.space_lit || area_turf.lighting_object)
 					continue
 				new /atom/movable/lighting_object(null, area_turf)
 			CHECK_TICK
@@ -147,3 +147,26 @@ SUBSYSTEM_DEF(lighting)
 		var/area/loc_area = unlit.loc
 		if(loc_area.static_lighting)
 			unlit.lighting_build_overlay()
+
+/datum/controller/subsystem/lighting/proc/update_turfs_now(list/turfs)
+	var/list/sources = list()
+	for(var/turf/lit_turf in turfs)
+		sources |= lit_turf.light_sources
+		for(var/atom/movable/thing as anything in lit_turf)
+			sources |= thing.light_sources
+	for(var/datum/light_source/source in sources)
+		if(!source.needs_update)
+			continue
+		source.update_corners()
+		if(!QDELETED(source))
+			source.needs_update = LIGHTING_NO_UPDATE
+	for(var/turf/lit_turf in turfs)
+		for(var/datum/lighting_corner/corner as anything in list(lit_turf.lighting_corner_NE, lit_turf.lighting_corner_SE, lit_turf.lighting_corner_SW, lit_turf.lighting_corner_NW))
+			if(corner?.needs_update)
+				corner.needs_update = FALSE
+				corner.update_objects()
+	for(var/turf/lit_turf in turfs)
+		var/atom/movable/lighting_object/object = lit_turf.lighting_object
+		if(object?.needs_update)
+			object.needs_update = FALSE
+			object.update()
