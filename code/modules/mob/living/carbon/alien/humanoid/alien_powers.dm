@@ -94,7 +94,6 @@
 	sound = 'sound/creatures/alien/alien_queen_screech.ogg'
 	targeting_type = /datum/aoe_targeting/living_non_alien
 	invocation_type = INVOCATION_NONE
-	sparkle_path = null
 
 /datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno/cast(atom/cast_on)
 	. = ..()
@@ -102,7 +101,7 @@
 	if(!queen)
 		return
 	var/mutable_appearance/shriek = mutable_appearance('icons/effects/64x64.dmi', "shriek_waves", FLOAT_LAYER)
-	shriek.pixel_x = 28
+	shriek.pixel_x = -28
 	queen.shriek_wave_overlay = shriek
 	queen.add_overlay(shriek)
 	addtimer(CALLBACK(src, PROC_REF(cleanup_shriek_wave), queen), 2.5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
@@ -208,3 +207,101 @@
 	else
 		owner.remove_alt_appearance("smallsprite")
 		small = FALSE
+
+/datum/action/cooldown/spell/aoe/resin_drone_healing
+	name = "Исцеляющие феромоны"
+	desc = "Излечить союзников-ксеноморфов на смоляных зарослях вокруг."
+	button_icon_state = "alien_health"
+	background_icon_state = "bg_alien"
+	cooldown_time = 30 SECONDS
+	aoe_radius = 6
+	spell_requirements = NONE
+	targeting_type = /datum/aoe_targeting/alien_on_resin
+	sound = 'sound/creatures/terrorspiders/heal.ogg'
+	var/heal_amount = 30
+	var/plasma_cost = 100
+
+/datum/action/cooldown/spell/aoe/resin_drone_healing/cast(atom/cast_on)
+	var/mob/living/carbon/alien/alien_owner = owner
+	if(alien_owner.get_plasma() < plasma_cost)
+		to_chat(alien_owner, span_warning("Недостаточно плазмы!"))
+		return
+	alien_owner.adjust_alien_plasma(-plasma_cost)
+	. = ..()
+	owner.visible_message(span_green("[DECLENT_RU_CAP(owner, NOMINATIVE)] источает целительные феромоны!"))
+
+/datum/action/cooldown/spell/aoe/resin_drone_healing/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	. = ..()
+	var/mob/living/carbon/alien/alien_victim = victim
+	alien_victim.adjustBruteLoss(-heal_amount)
+	new /obj/effect/temp_visual/heal(get_turf(alien_victim), "#00ff0d")
+
+/datum/action/cooldown/spell/aoe/resin_drone_healing/IsAvailable()
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/alien/alien_owner = owner
+	return alien_owner.get_plasma() >= plasma_cost
+
+/datum/action/cooldown/praetorian_shield
+	name = "Щит преторианца"
+	desc = "Укрепить броню спереди и по бокам на короткое время."
+	button_icon_state = "praetorian_shield"
+	background_icon_state = "bg_alien"
+	cooldown_time = 30 SECONDS
+	var/plasma_cost = 80
+	var/duration = 6 SECONDS
+	next_use_time = 0
+
+/datum/action/cooldown/praetorian_shield/Activate(atom/target)
+	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = owner
+	var/obj/item/organ/internal/xenos/plasmavessel/praetorian/vessel
+	for(var/obj/item/organ/internal/xenos/plasmavessel/praetorian/P in praetorian.internal_organs)
+		vessel = P
+		break
+	if(!vessel || vessel.stored_plasma < plasma_cost)
+		to_chat(praetorian, span_warning("Недостаточно плазмы!"))
+		return
+	if(praetorian.shield_active)
+		return
+	vessel.stored_plasma = clamp(vessel.stored_plasma - plasma_cost, 0, vessel.max_plasma)
+	praetorian.activate_shield(duration)
+	status_text = "ACTIVE"
+	next_use_time = world.time + cooldown_time
+	UpdateButtonIcon()
+
+/datum/action/cooldown/praetorian_shield/IsAvailable()
+	if(world.time < next_use_time)
+		return FALSE
+	if(owner.stat > CONSCIOUS)
+		return FALSE
+	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = owner
+	return !praetorian.shield_active
+
+/datum/action/cooldown/spell/praetorian_shield
+	name = "Щит преторианца"
+	desc = "Укрепить броню спереди и по бокам на короткое время."
+	button_icon_state = "praetorian_shield"
+	background_icon_state = "bg_alien"
+	cooldown_time = 30 SECONDS
+	check_flags = AB_CHECK_CONSCIOUS
+	spell_requirements = NONE
+	var/plasma_cost = 80
+	var/duration = 6 SECONDS
+
+/datum/action/cooldown/spell/praetorian_shield/create_new_handler()
+	var/datum/spell_handler/alien/handler = new(src, plasma_cost)
+	return handler
+
+/datum/action/cooldown/spell/praetorian_shield/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = cast_on
+	praetorian.activate_shield(duration)
+	status_text = "ACTIVE"
+	UpdateButtonIcon()
+
+/datum/action/cooldown/spell/praetorian_shield/IsAvailable(feedback = TRUE)
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = owner
+	return !praetorian.shield_active
+

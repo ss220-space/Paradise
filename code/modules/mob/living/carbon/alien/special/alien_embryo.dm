@@ -79,7 +79,7 @@
 	if(QDELETED(src))
 		return
 
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Ксеноморфа?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
 
 	if(QDELETED(src))
 		return

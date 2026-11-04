@@ -63,6 +63,7 @@
 	if(name == "alien resin drone")
 		name = "alien resin drone ([rand(1, 1000)])"
 	real_name = name
+	AddSpell(new /datum/action/cooldown/spell/aoe/resin_drone_healing)
 
 /mob/living/carbon/alien/humanoid/drone/resin_drone/get_caste_organs()
 	. = ..()
