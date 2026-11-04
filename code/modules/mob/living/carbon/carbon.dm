@@ -803,7 +803,7 @@
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
-		if(time_to_eat > 0 && !do_after(user, time_to_eat, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1))
+		if(time_to_eat > 0 && !do_after(user, time_to_eat, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1))
 			return FALSE
 		if(istype(toEat, /obj/item/reagent_containers/cup/glass))
 			if(!selfDrink(toEat))
