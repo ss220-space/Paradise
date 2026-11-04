@@ -121,13 +121,15 @@
 /obj/structure/spider/spiderling/attack_hand(mob/living/user)
 	. = ..()
 	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
 		if(user.a_intent == INTENT_HELP)
 			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[GEND_A_O_I(user)] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
-			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, TRUE, -1)
+			var/datum/unarmed_attack/attack = human_user.get_unarmed_attack()
+			user.do_attack_animation(src, attack.animation_type)
+			playsound(src.loc, attack.attack_sound, 25, TRUE, -1)
 			attack_generic(user, max_integrity/3)
 
 /obj/structure/spider/spiderling/proc/cancel_vent_move()

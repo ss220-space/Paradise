@@ -1,6 +1,7 @@
 /proc/makeDatumRefLists()
 
 	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
+	init_datum_subtypes(/datum/zombie_class, GLOB.zombie_classes, null, "name")
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 

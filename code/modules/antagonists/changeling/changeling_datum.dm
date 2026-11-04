@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	addtimer(CALLBACK(src, PROC_REF(calculate_stasis_delay), user), 0)	// We need this timer to register missing head
 
-	if(!h_user.get_organ_slot("brain"))
+	if(!h_user.get_organ_slot(INTERNAL_ORGAN_BRAIN))
 		to_chat(user, span_changeling("Мозги не обязательный орган для нас, мы способны к его регенерации!"))
 	else
 		to_chat(user, span_changeling("Хотя наш сосуд мёртв, для нас это ещё не конец. Мы можем регенерировать!"))

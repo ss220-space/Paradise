@@ -24,6 +24,20 @@ SUBSYSTEM_DEF(holiday)
 			holidays[holiday.name] = holiday
 	return SS_INIT_SUCCESS
 
+/**
+ * Checks that the passed holiday is located in the global holidays list.
+ *
+ * Returns a holiday datum, or null if it's not that holiday.
+ */
+/datum/controller/subsystem/holiday/proc/check_holidays(holiday_to_find)
+	if(!CONFIG_GET(flag/allow_holidays))
+		return // Holiday stuff was not enabled in the config!
+
+	if(isnull(holidays))
+		return // Failed to generate holidays, for some reason
+
+	return holidays[holiday_to_find]
+
 /datum/controller/subsystem/holiday/OnMasterLoad()
 	if(holidays)
 		holidays = shuffle(holidays)

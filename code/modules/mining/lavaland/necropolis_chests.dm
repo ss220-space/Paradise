@@ -413,6 +413,7 @@
 	contents = newlist(/obj/item/cursed_katana)
 	sound_on = 'sound/weapons/swings/katana_swing4.ogg'
 	sound_off = 'sound/weapons/swings/katana_swing4.ogg'
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/katana/get_ru_names()
 	return alist(
@@ -435,9 +436,6 @@
 
 	user.drop_item_ground(src, force = TRUE, silent = TRUE)
 	insert(user)
-
-/obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
-	return
 
 /obj/item/organ/internal/cyberimp/arm/katana/Retract()
 	var/obj/item/cursed_katana/katana = active_item

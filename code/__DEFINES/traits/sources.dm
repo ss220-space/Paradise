@@ -9,6 +9,7 @@
 #define CULT_TRAIT "cult"
 #define CLOCK_TRAIT "clockwork_cult"
 #define DEVIL_TRAIT "devil"
+#define ZOMBIE_TRAIT "zombie"
 #define INNATE_TRAIT "innate"
 #define EAR_DAMAGE "ear_damage"
 #define EYE_DAMAGE "eye_damage"

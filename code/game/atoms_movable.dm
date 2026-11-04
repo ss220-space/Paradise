@@ -1625,11 +1625,11 @@
 		gourmet.adjust_nutrition(2 * victim.health)
 
 	for(var/datum/disease/virus/virus in victim.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
+		if(virus.spread_flags & ~NON_CONTAGIOUS)
 			virus.Contract(gourmet)
 
 	for(var/datum/disease/virus/virus in gourmet.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
+		if(virus.spread_flags & ~NON_CONTAGIOUS)
 			virus.Contract(victim)
 
 	victim.forceMove(gourmet)

@@ -528,6 +528,7 @@ GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", 
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
+	. = ..()
 	for(var/atom/A in src)
 		A.emp_act(severity)
 

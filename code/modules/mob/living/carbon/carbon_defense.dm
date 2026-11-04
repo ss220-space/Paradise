@@ -56,12 +56,10 @@
 		. = TRUE
 
 	for(var/datum/disease/virus/V in diseases)
-		if(V.spread_flags & CONTACT)
-			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
 	for(var/datum/disease/virus/V in user.diseases)
-		if(V.spread_flags & CONTACT)
-			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
+		V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
 	if(body_position == LYING_DOWN && length(surgeries))
 		if(user.a_intent == INTENT_HELP)

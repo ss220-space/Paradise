@@ -96,8 +96,9 @@
 	..()
 	robocharge()
 
-/obj/item/gun/energy/laser/cyborg/emp_act()
-	return
+/obj/item/gun/energy/laser/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/laser/scatter
 	name = "scatter laser gun"
@@ -137,8 +138,9 @@
 	..()
 	robocharge()
 
-/obj/item/gun/energy/lasercannon/cyborg/emp_act()
-	return
+/obj/item/gun/energy/lasercannon/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 // MARK: X-ray
 /obj/item/gun/energy/xray

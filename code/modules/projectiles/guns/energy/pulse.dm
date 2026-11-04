@@ -17,8 +17,9 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
 
-/obj/item/gun/energy/pulse/emp_act(severity)
-	return
+/obj/item/gun/energy/pulse/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/pulse/prize
 	cell_type = /obj/item/stock_parts/cell/pulse/prise

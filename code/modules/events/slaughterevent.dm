@@ -24,7 +24,7 @@
 	player_mind.active = TRUE
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
 	var/mob/living/simple_animal/demon/new_demon = new demon(spawn_loc)
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/jaunt = locate() in new_demon.mob_spell_list
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/jaunt = locate() in new_demon.mob_spell_list
 	jaunt.enter_jaunt(new_demon)
 	player_mind.transfer_to(new_demon)
 	player_mind.assigned_role = ROLE_DEMON

@@ -135,12 +135,6 @@
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
 	var/ammo_y_offset = 0
 
-	//Zooming
-	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
-	var/zoomed = FALSE //Zoom toggle
-	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
-	var/datum/action/toggle_scope_zoom/azoom
-
 	light_on = FALSE
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
@@ -176,7 +170,6 @@
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
-	build_zooming()
 	create_start_gun_modules()
 	if(sound_loop)
 		sound_loop = new sound_loop(src)
@@ -243,7 +236,6 @@
 		qdel(attachments_by_slot[attachment])
 	LAZYCLEARLIST(attachments_by_slot)
 	LAZYCLEARLIST(attachment_overlays)
-	QDEL_NULL(azoom)
 	QDEL_NULL(chambered)
 	QDEL_NULL(sound_loop)
 	QDEL_NULL(accuracy)
@@ -447,7 +439,8 @@
 	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
 		return
 
-	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
+	var/scope_fire = istype(object, /atom/movable/screen/fullscreen/cursor_catcher/scope) // scope fire allow fire outside reachable range
+	if(!scope_fire && object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
 	if(!isgun(user.get_active_hand())) // If the object in our active hand is not a gun, abort
@@ -513,6 +506,9 @@
 	var/list/modifiers = params2list(params)
 	if(!is_screen_atom(target))
 		return target
+	if(istype(target, /atom/movable/screen/fullscreen/cursor_catcher/scope))
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope = target
+		return scope.given_turf
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
 	var/loctoget = user.client?.eye ? user.client.eye : user
@@ -576,7 +572,7 @@
 	if(dual_wield && !(gun_user && HAS_TRAIT(gun_user, TRAIT_BADASS)))
 		bonus_spread += accuracy.dual_wield_spread * weapon_weight
 	//CLOWN CHECK
-	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY))
+	if(gun_user && (HAS_TRAIT(gun_user, TRAIT_CLUMSY) || !gun_user.check_brain_for_complex_interactions()))
 		bonus_spread += 75
 
 /obj/item/gun/proc/set_fire_delay(value, mob/user)
@@ -697,9 +693,19 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, pb_knockback, 2)
 
-/obj/item/gun/emp_act(severity)
-	for(var/obj/O in contents)
-		O.emp_act(severity)
+/obj/item/gun/emp_act(severity, pre_calculated_protection = null)
+	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
+	var/obj/item/gun/energy/energy_gun
+	if(isenergygun(src))
+		energy_gun = src
+	// Strange: the flags weren't getting through via the parent emp_act(), so we’re passing them explicitly.
+	..(severity, protection)
+	if(!(protection & EMP_PROTECT_CONTENTS))
+		for(var/obj/inside in contents)
+			if(energy_gun && inside == energy_gun.cell)
+				continue
+			inside.emp_act(severity)
+	return protection
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
@@ -823,10 +829,6 @@
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(isliving(interacting_with) && IN_GIVEN_RANGE(user, interacting_with, GUNPOINT_SHOOTER_STRAY_RANGE))
 		return interact_with_atom_secondary(interacting_with, user, modifiers)
-
-	if(azoom)
-		zoom(user)
-		return ITEM_INTERACT_SUCCESS
 	return ..()
 
 /obj/item/gun/attackby(obj/item/item, mob/living/user, list/modifiers)
@@ -955,12 +957,6 @@
 		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
 
-/obj/item/gun/dropped(mob/user, slot, silent = FALSE)
-	. = ..()
-	zoom(user, FALSE)
-	if(azoom)
-		azoom.Remove(user)
-
 /obj/item/gun/click_alt(mob/user)
 	if(loc != user)
 		return NONE
@@ -1046,129 +1042,6 @@
 	var/fired = fast_fire(target, user, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
-
-/////////////
-// ZOOMING //
-/////////////
-
-/datum/action/toggle_scope_zoom
-	name = "Масштаб"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED
-	button_icon_state = "sniper_zoom"
-	var/obj/item/gun/gun = null
-
-/datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
-	gun.zoom(owner)
-
-/datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)
-	. = ..()
-	if(!. && gun)
-		gun.zoom(owner, FALSE)
-
-/datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	if(gun)
-		gun.zoom(L, FALSE)
-	..()
-
-/datum/action/toggle_scope_zoom/Destroy()
-	gun = null
-	return ..()
-
-/obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
-	if(!user || !user.client)
-		return
-
-	var/old_zoomed = zoomed
-	switch(forced_zoom)
-		if(FALSE)
-			zoomed = FALSE
-		if(TRUE)
-			zoomed = TRUE
-		else
-			zoomed = !zoomed
-
-	if(old_zoomed != zoomed) // Send signal only if zoomed state changed!
-		SEND_SIGNAL(src, COMSIG_GUN_ZOOM_TOGGLE, user, zoomed)
-
-	if(zoomed)
-		var/_x = 0
-		var/_y = 0
-		switch(user.dir)
-			if(NORTH)
-				_y = zoom_amt
-			if(EAST)
-				_x = zoom_amt
-			if(SOUTH)
-				_y = -zoom_amt
-			if(WEST)
-				_x = -zoom_amt
-
-		user.client.pixel_x = ICON_SIZE_X*_x
-		user.client.pixel_y = ICON_SIZE_Y*_y
-
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				observe.handle_when_autoobserve_move()
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.pixel_x = ICON_SIZE_X*_x
-			observe.client.pixel_y = ICON_SIZE_Y*_y
-	else
-		user.client.pixel_x = 0
-		user.client.pixel_y = 0
-
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				observe.handle_when_autoobserve_move()
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.pixel_x = 0
-			observe.client.pixel_y = 0
-
-//Proc, so that gun accessories/scopes/etc. can easily add zooming.
-/obj/item/gun/proc/build_zooming()
-	if(azoom)
-		return
-
-	if(zoomable)
-		azoom = new()
-		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
-
-/obj/item/gun/proc/destroy_zooming()
-	if(!azoom)
-		return
-	if(zoomable)
-		return
-	QDEL_NULL(azoom)
-	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
-
-/**
- * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
- *
- * This happens if the mob picks up the gun, or equips it to any of their slots.
- * If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and `Remove` the zoom action button from the mob.
- * Otherwise, `Grant` the mob the zoom action button.
- *
- * Arguments:
- * * source - the gun that got equipped, which is `src`.
- * * user - the mob equipping the gun.
- * * slot - the slot the gun is getting equipped to.
- */
-/obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
-	// Checks if the gun got equipped into either of the user's hands.
-	if(!(slot & ITEM_SLOT_HANDS))
-		// If its not in their hands, un-zoom, and remove the zoom action button.
-		zoom(user, FALSE)
-		azoom.Remove(user)
-		return FALSE
-
-	// The gun is equipped in their hands, give them the zoom ability.
-	azoom.Grant(user)
 
 /obj/item/gun/proc/place_on_rack()
 	on_rack = TRUE

@@ -15,7 +15,6 @@
 	mech_enter_time = 20
 	allowed_equipment = MECH_EQUIPMENT_MAKESHIFT
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
-	emp_protection = TRUE
 	mech_type = MECH_TYPE_LOCKER
 
 /obj/mecha/makeshift/get_ru_names()
@@ -27,6 +26,10 @@
 		INSTRUMENTAL = "Шкафомехом",
 		PREPOSITIONAL = "Шкафомехе",
 	)
+
+/obj/mecha/makeshift/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)

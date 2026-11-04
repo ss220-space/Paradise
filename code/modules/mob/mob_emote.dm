@@ -61,6 +61,9 @@
 
 	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
+/mob/proc/start_custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE, ignore_cooldowns = FALSE)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, custom_emote), arglist(args))
+
 /**
  * Get a list of all emote keys usable by the current mob.
  *

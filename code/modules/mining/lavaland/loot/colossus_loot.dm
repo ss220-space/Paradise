@@ -427,6 +427,7 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 	posession_spell = new
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -446,9 +447,6 @@
 		if(kill || !isanimal(loc))
 			L.death(0)
 	..()
-
-/obj/structure/closet/stasis/emp_act()
-	return
 
 /obj/structure/closet/stasis/ex_act()
 	return

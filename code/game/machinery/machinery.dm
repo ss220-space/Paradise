@@ -243,10 +243,11 @@
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
-	if(use_power && !stat)
+	var/protection = SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity)
+	if(!(protection & EMP_PROTECT_SELF) && use_power && !stat)
 		use_power(7500/severity)
 		. = TRUE
-	..()
+	return ..(severity, protection)
 
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()
@@ -697,3 +698,8 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	set_panel_open(!panel_open)
+
+/obj/machinery/proc/create_logistics_adapter()
+	if(GetComponent(/datum/component/material_container))
+		return new /datum/logistics_adapter/material_container(src)
+	return null

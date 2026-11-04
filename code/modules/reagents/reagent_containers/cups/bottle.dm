@@ -1289,6 +1289,66 @@
 		PREPOSITIONAL = "бутылке (Био-вирусный антидот)",
 	)
 
+/obj/item/reagent_containers/cup/bottle/zombiecure1
+	name = "Anti-Plague Sequence Alpha bottle"
+	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Альфа. Предотвращает заражение, лечит заражение 1-го уровня."
+	list_reagents = list("zombiecure1" = 50)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure1/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка (Противовирусная сыворотка Альфа)",
+		GENITIVE = "бутылки (Противовирусная сыворотка Альфа)",
+		DATIVE = "бутылке (Противовирусная сыворотка Альфа)",
+		ACCUSATIVE = "бутылку (Противовирусная сыворотка Альфа)",
+		INSTRUMENTAL = "бутылкой (Противовирусная сыворотка Альфа)",
+		PREPOSITIONAL = "бутылке (Противовирусная сыворотка Альфа)",
+	)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure2
+	name = "Anti-Plague Sequence Beta bottle"
+	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Бета. Ослабляет зомби, лечит слабые заражения."
+	list_reagents = list("zombiecure2" = 50)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure2/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка (Противовирусная сыворотка Бета)",
+		GENITIVE = "бутылки (Противовирусная сыворотка Бета)",
+		DATIVE = "бутылке (Противовирусная сыворотка Бета)",
+		ACCUSATIVE = "бутылку (Противовирусная сыворотка Бета)",
+		INSTRUMENTAL = "бутылкой (Противовирусная сыворотка Бета)",
+		PREPOSITIONAL = "бутылке (Противовирусная сыворотка Бета)",
+	)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure3
+	name = "Anti-Plague Sequence Gamma bottle"
+	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Гамма. Снижает исцеление зомби. Лечит заражение 5-й стадии и замедляет заражение 6-й стадии."
+	list_reagents = list("zombiecure3" = 50)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure3/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка (Противовирусная сыворотка Гамма)",
+		GENITIVE = "бутылки (Противовирусная сыворотка Гамма)",
+		DATIVE = "бутылке (Противовирусная сыворотка Гамма)",
+		ACCUSATIVE = "бутылку (Противовирусная сыворотка Гамма)",
+		INSTRUMENTAL = "бутылкой (Противовирусная сыворотка Гамма)",
+		PREPOSITIONAL = "бутылке (Противовирусная сыворотка Гамма)",
+	)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure4
+	name = "Anti-Plague Sequence Omega bottle"
+	desc = "Небольшой флакон, содержащий 50 единиц противовирусной сыворотки Омега. Лечит все случаи некротизирующей чумы. Также исцеляет мёртвые конечности."
+	list_reagents = list("zombiecure4" = 50)
+
+/obj/item/reagent_containers/cup/bottle/zombiecure4/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка (Противовирусная сыворотка Омега)",
+		GENITIVE = "бутылки (Противовирусная сыворотка Омега)",
+		DATIVE = "бутылке (Противовирусная сыворотка Омега)",
+		ACCUSATIVE = "бутылку (Противовирусная сыворотка Омега)",
+		INSTRUMENTAL = "бутылкой (Противовирусная сыворотка Омега)",
+		PREPOSITIONAL = "бутылке (Противовирусная сыворотка Омега)",
+	)
+
 /obj/item/reagent_containers/cup/bottle/monkeylangue
 	name = "bottle of monkey language potion"
 	desc = "Небольшая стеклянная бутылочка, внутри находится вещество, заставляющее выпившего выучить обезьяний язык. Удивительно."

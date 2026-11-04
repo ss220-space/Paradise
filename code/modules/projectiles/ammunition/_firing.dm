@@ -45,6 +45,15 @@
 	if(!smart_bullet)
 		return
 
+	if(isgun(firer_source_atom))
+		var/list/homing_targets = list()
+		SEND_SIGNAL(firer_source_atom, COMSIG_GUN_GET_HOMING_TARGET, user, homing_targets)
+		if(length(homing_targets))
+			var/atom/homing_target = homing_targets[1]
+			BB.set_homing_target(homing_target)
+			new /obj/effect/temp_visual/smartgun_target(get_turf(homing_target))
+			return
+
 	if(!isturf(target))
 		BB.set_homing_target(target)
 		new /obj/effect/temp_visual/smartgun_target(get_turf(target))
@@ -65,6 +74,9 @@
 	if(target && !isturf(target) && get_dist(user, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
+		if(BB.prehit_cancelled)
+			QDEL_NULL(BB)
+			return TRUE
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
@@ -72,6 +84,9 @@
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
+			if(BB.prehit_cancelled)
+				QDEL_NULL(BB)
+				return TRUE
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
