@@ -183,8 +183,6 @@
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge_up.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
 	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
@@ -196,3 +194,7 @@
 		INSTRUMENTAL = "автоматической снайперской винтовкой «Град»",
 		PREPOSITIONAL = "автоматической снайперской винтовке «Град»",
 	)
+
+/obj/item/gun/energy/laser/automatic/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 1.43)

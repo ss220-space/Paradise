@@ -181,8 +181,6 @@
 	)
 	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
 	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
@@ -194,3 +192,7 @@
 		INSTRUMENTAL = "лазерной снайперской винтовкой «Игла»",
 		PREPOSITIONAL = "лазерной снайперской винтовке «Игла»",
 	)
+
+/obj/item/gun/energy/laser/hitscan/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
