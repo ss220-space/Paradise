@@ -484,6 +484,55 @@ emp_act
 	melee_counterattacking = FALSE
 	return TRUE
 
+/mob/living/carbon/human/proc/try_melee_heavy_strike(mob/living/carbon/human/target, obj/item/weapon)
+	if(melee_heavy_strike_state == MELEE_HEAVY_STRIKE_ATTACKING)
+		return FALSE
+	if(melee_heavy_strike_state != MELEE_HEAVY_STRIKE_IDLE)
+		return TRUE
+	if(!target || !weapon || QDELETED(target) || QDELETED(weapon) || QDELETED(src))
+		return FALSE
+	if(!ishuman(target) || stat != CONSCIOUS || incapacitated())
+		return FALSE
+	if(a_intent != INTENT_HARM || get_active_hand() != weapon || !weapon.is_melee_weapon())
+		return FALSE
+	if(!Adjacent(target))
+		return FALSE
+	GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
+	if(melee_skill_level < SKILL_LEVEL_EXPERT)
+		return FALSE
+	var/is_grabbed = pulling == target && grab_state >= GRAB_NECK
+	var/is_lying = target.body_position == LYING_DOWN
+	if(!is_grabbed && !is_lying)
+		return FALSE
+	var/duration = is_grabbed ? MELEE_HEAVY_STRIKE_DURATION : MELEE_HEAVY_STRIKE_LYING_DURATION
+	melee_heavy_strike_state = MELEE_HEAVY_STRIKE_CHARGING
+	visible_message(
+		span_danger("[src] замахива[PLUR_ET_YUT(src)]ся для сокрушительного удара по [target]!"),
+		span_danger("Вы замахиваетесь для сокрушительного удара по [target]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	var/datum/callback/extra_checks = CALLBACK(src, PROC_REF(melee_heavy_strike_checks), target, weapon, is_grabbed)
+	if(!do_after(src, duration, target, max_interact_count = 1, extra_checks = extra_checks) || !melee_heavy_strike_checks(target, weapon, is_grabbed))
+		melee_heavy_strike_state = MELEE_HEAVY_STRIKE_IDLE
+		return TRUE
+	melee_heavy_strike_state = MELEE_HEAVY_STRIKE_ATTACKING
+	var/original_force = weapon.force
+	weapon.force *= MELEE_HEAVY_STRIKE_MOD
+	weapon.melee_attack_chain(src, target)
+	if(!QDELETED(weapon))
+		weapon.force = original_force
+	melee_heavy_strike_state = MELEE_HEAVY_STRIKE_IDLE
+	return TRUE
+
+/mob/living/carbon/human/proc/melee_heavy_strike_checks(mob/living/carbon/human/target, obj/item/weapon, is_grabbed)
+	if(QDELETED(target) || QDELETED(weapon) || QDELETED(src))
+		return FALSE
+	if(get_active_hand() != weapon || a_intent != INTENT_HARM || !Adjacent(target))
+		return FALSE
+	if(is_grabbed)
+		return pulling == target && grab_state >= GRAB_NECK
+	return target.body_position == LYING_DOWN
+
 /mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(item) || QDELETED(user))	// tripple insurance, jesus fucking christ
 		return ATTACK_CHAIN_BLOCKED_ALL
