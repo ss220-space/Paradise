@@ -81,7 +81,8 @@
 	return FALSE
 
 /mob/living/proc/update_stamina()
-	return
+	SEND_SIGNAL(src, COMSIG_LIVING_STAMINA_UPDATE)
+	update_stamina_hud()
 
 /mob/living/proc/update_disgust_alert()
 	switch(AmountDisgust())
