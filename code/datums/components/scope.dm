@@ -1,6 +1,3 @@
-///Used to allow reaching the maximum offset range without exiting the boundaries of the game screen.
-#define MOUSE_POINTER_OFFSET_MULT 1.1
-
 /**
  * A component that allows the parent item to be used as a scope,
  * shifting the user's view towards their cursor so they can look far away.
@@ -356,8 +353,6 @@
 	given_x = clamp(uncapped_x, -x_cap, x_cap)
 	given_y = clamp(uncapped_y, -y_cap, y_cap)
 	given_turf = locate(owner.x + floor(given_x / ICON_SIZE_X), owner.y + floor(given_y / ICON_SIZE_Y), owner.z)
-
-#undef MOUSE_POINTER_OFFSET_MULT
 
 /datum/action/zoom
 	name = "Масштаб"
