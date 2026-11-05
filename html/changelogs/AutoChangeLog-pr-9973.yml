@@ -1,4 +1,0 @@
-author: "broodjeh-lang"
-delete-after: True
-changes:
-  - bugfix: "Исправлена потеря радиосвязи после надевания гарнитуры на попугая Поли. (PR #9973)"
