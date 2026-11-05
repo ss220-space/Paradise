@@ -22311,9 +22311,8 @@
 /area/station/security/medical)
 "ePW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},

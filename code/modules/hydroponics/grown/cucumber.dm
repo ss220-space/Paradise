@@ -16,7 +16,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "cucumber-grow"
 	icon_dead = "cucumber-dead"
-	reagents_add = list("water" = 0.15, "kelotane" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/water = 0.15, /datum/reagent/medicine/kelotane = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/cucumber
 	seed = /obj/item/seeds/cucumber
@@ -28,4 +28,4 @@
 	filling_color = "#47FF91"
 	tastes = list("cucumber" = 1)
 	bitesize_mod = 2
-	distill_reagent = "enzyme"
+	distill_reagent = /datum/reagent/consumable/enzyme
