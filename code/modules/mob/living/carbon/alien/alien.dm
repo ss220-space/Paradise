@@ -78,7 +78,7 @@
 	if(caste_movement_delay)
 		update_alien_speed()
 
-	if(!istype(src, /mob/living/carbon/alien/humanoid/queen))
+	if(!isalienqueen(src))
 		queen_arrow = new
 		queen_arrow.Grant(src)
 
@@ -402,9 +402,9 @@ Des: Removes all infected images from the alien.
 	sync_lighting_plane_alpha()
 
 /mob/living/carbon/alien/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
-    if(istype(puller, /mob/living/carbon/alien))
-        return TRUE
-    return ..()
+	if(isalien(puller))
+		return TRUE
+	return ..()
 
 #undef ALIEN_BURN_MOD
 #undef ALIEN_BRUTE_MOD

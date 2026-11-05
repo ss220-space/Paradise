@@ -46,13 +46,10 @@
 
 /mob/living/carbon/alien/humanoid/drone/resin_drone
 	name = "alien resin drone"
-	caste = "d"
 	maxHealth = 180
 	health = 180
-	icon = 'icons/mob/xeno/drone.dmi'
 	icon_state = "resin_drone"
 	caste_icon_prefix = "resin_drone"
-	time_to_open_doors = 0.2 SECONDS
 	caste_movement_delay = 0.8
 	ventcrawler_trait = null
 	can_evolve = FALSE

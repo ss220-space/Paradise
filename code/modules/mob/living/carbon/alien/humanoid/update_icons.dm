@@ -50,7 +50,7 @@
 	if(on_fire)
 		var/fire_icon = 'icons/mob/OnFire.dmi'
 		var/fire_icon_state = "[is_monkeybasic(src) ? "monkey" : "human"]_generic_burn"
-		var/is_hunter = istype(src, /mob/living/carbon/alien/humanoid/hunter)
+		var/is_hunter = isalienhunter(src)
 		if(!is_hunter)
 			// All castes except hunter use the shared grayscale fire overlay from 64x64.dmi
 			fire_icon = 'icons/effects/64x64.dmi'
@@ -61,8 +61,6 @@
 			fire_icon_state = body_position == LYING_DOWN ? "alien_fire_lying" : "alien_fire"
 		if(!overlays_standing[FIRE_LAYER])
 			overlays_standing[FIRE_LAYER] = mutable_appearance(fire_icon, icon_state = fire_icon_state, layer = -FIRE_LAYER)
-			if(!is_hunter)
-				overlays_standing[FIRE_LAYER].color = rgb(255, 120, 0) // fire orange
 	apply_overlay(FIRE_LAYER)
 
 /**

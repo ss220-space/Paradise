@@ -8,7 +8,6 @@
 	icon_state = "hunter"
 	caste_icon_prefix = "hunter"
 	caste_movement_delay = -0.8
-	rotate_on_lying = FALSE
 	role_text = "Вы — Охотник. Ваша основная задача — добыча носителей для заражения их грудоломами."
 	base_pixel_x = -8
 	pixel_x = -8

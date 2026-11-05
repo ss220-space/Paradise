@@ -184,7 +184,7 @@
 /obj/structure/alien/resin/wall/thick
 	name = "thick resin wall"
 	walltype = "thickresin"
-	max_integrity = 400
+	max_integrity = 350
 
 /obj/structure/alien/resin/wall/get_ru_names()
 	return alist(
@@ -215,7 +215,6 @@
 /obj/structure/alien/resin/door
 	name = "resin door"
 	desc = "Перекошенная дверь из затвердевшей чёрной смолы, с тонкими жилками, пульсирующими под блестящей поверхностью."
-	icon = 'icons/mob/xeno/structures.dmi'
 	icon_state = "resindoor"
 	var/icon_closed = "resindoor"
 	var/icon_opened = "resindooropen"
@@ -410,7 +409,7 @@
 	icon_opened = "thickresindooropen"
 	icon_closing = "thickresindoorclosing"
 	icon_opening = "thickresindooropening"
-	max_integrity = 320
+	max_integrity = 300
 
 /*
  * Weeds

@@ -87,13 +87,11 @@
 /datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno
 	name = "Крик Королевы"
 	desc = "Издать пронзительный крик, ослабляющий и замедляющий врагов вокруг."
-	button_icon_state = "terror_shriek"
-	background_icon_state = "bg_terror"
+	background_icon_state = "bg_alien"
 	aoe_radius = 8
 	cooldown_time = 50 SECONDS
 	sound = 'sound/creatures/alien/alien_queen_screech.ogg'
 	targeting_type = /datum/aoe_targeting/living_non_alien
-	invocation_type = INVOCATION_NONE
 
 /datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno/cast(atom/cast_on)
 	. = ..()
@@ -118,8 +116,6 @@
 	if(iscarbon(victim))
 		var/mob/living/carbon/carbon_victim = victim
 		carbon_victim.Slowed(12 SECONDS)
-		carbon_victim.Weaken(4 SECONDS)
-		carbon_victim.apply_damage(30, STAMINA)
 		carbon_victim.Jitter(20 SECONDS)
 		to_chat(carbon_victim, span_danger("<b>Всплеск боли пронзает вашу голову и путает ваши мысли!</b>"))
 
@@ -135,7 +131,7 @@
 	name = "Удар хвостом"
 	desc = "Отбрасывайте нападающих ударом хвоста."
 	sound = 'sound/magic/tail_swing.ogg'
-	cooldown_time = 15 SECONDS
+	cooldown_time = 20 SECONDS
 	aoe_radius = 2
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	sparkle_path = null
@@ -153,7 +149,7 @@
 	queen.tail_swing_overlay = swing
 	queen.add_overlay(swing)
 	addtimer(CALLBACK(src, PROC_REF(cleanup_tail_swing_overlay), queen), 1.0 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-	queen.spin(3, 1)
+	queen.spin(4, 1)
 	playsound(queen.loc, 'sound/creatures/alien/alien_tail_swipe.ogg', 80, TRUE)
 
 /datum/action/cooldown/spell/aoe/repulse/tail_lash/proc/cleanup_tail_swing_overlay(mob/living/carbon/alien/humanoid/queen/queen)
@@ -210,7 +206,7 @@
 
 /datum/action/cooldown/spell/aoe/resin_drone_healing
 	name = "Исцеляющие феромоны"
-	desc = "Излечить союзников-ксеноморфов на смоляных зарослях вокруг."
+	desc = "Излечить ксеноморфов на смоляных зарослях вокруг."
 	button_icon_state = "alien_health"
 	background_icon_state = "bg_alien"
 	cooldown_time = 30 SECONDS
@@ -236,46 +232,11 @@
 	alien_victim.adjustBruteLoss(-heal_amount)
 	new /obj/effect/temp_visual/heal(get_turf(alien_victim), "#00ff0d")
 
-/datum/action/cooldown/spell/aoe/resin_drone_healing/IsAvailable()
+/datum/action/cooldown/spell/aoe/resin_drone_healing/IsAvailable(feedback = TRUE)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/alien/alien_owner = owner
 	return alien_owner.get_plasma() >= plasma_cost
-
-/datum/action/cooldown/praetorian_shield
-	name = "Щит преторианца"
-	desc = "Укрепить броню спереди и по бокам на короткое время."
-	button_icon_state = "praetorian_shield"
-	background_icon_state = "bg_alien"
-	cooldown_time = 30 SECONDS
-	var/plasma_cost = 80
-	var/duration = 6 SECONDS
-	next_use_time = 0
-
-/datum/action/cooldown/praetorian_shield/Activate(atom/target)
-	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = owner
-	var/obj/item/organ/internal/xenos/plasmavessel/praetorian/vessel
-	for(var/obj/item/organ/internal/xenos/plasmavessel/praetorian/P in praetorian.internal_organs)
-		vessel = P
-		break
-	if(!vessel || vessel.stored_plasma < plasma_cost)
-		to_chat(praetorian, span_warning("Недостаточно плазмы!"))
-		return
-	if(praetorian.shield_active)
-		return
-	vessel.stored_plasma = clamp(vessel.stored_plasma - plasma_cost, 0, vessel.max_plasma)
-	praetorian.activate_shield(duration)
-	status_text = "ACTIVE"
-	next_use_time = world.time + cooldown_time
-	UpdateButtonIcon()
-
-/datum/action/cooldown/praetorian_shield/IsAvailable()
-	if(world.time < next_use_time)
-		return FALSE
-	if(owner.stat > CONSCIOUS)
-		return FALSE
-	var/mob/living/carbon/alien/humanoid/praetorian/praetorian = owner
-	return !praetorian.shield_active
 
 /datum/action/cooldown/spell/praetorian_shield
 	name = "Щит преторианца"

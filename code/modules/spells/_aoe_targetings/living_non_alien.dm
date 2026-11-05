@@ -3,7 +3,7 @@
 	for(var/mob/living/target in range(aoe_radius, center))
 		if(target == owner || target == center)
 			continue
-		if(istype(target, /mob/living/carbon/alien))
+		if(isalien(target))
 			continue
 		targets += target
 	return targets

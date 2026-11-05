@@ -50,6 +50,9 @@
 			evolution_path = /mob/living/carbon/alien/humanoid/queen
 			xeno.queen_count++
 		if("Смоляной дрон")
+			if(!team?.current_queen?.current || team.current_queen.current.stat == DEAD)
+				to_chat(cast_on, span_warning("Нет живой королевы — смоляной дрон не может эволюционировать."))
+				return
 			evolution_path = /mob/living/carbon/alien/humanoid/drone/resin_drone
 	..()
 

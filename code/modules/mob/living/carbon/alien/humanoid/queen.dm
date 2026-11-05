@@ -27,8 +27,6 @@
 	antag_datum_type = /datum/antagonist/xenomorph/queen
 	tts_seed = "Queen"
 	death_sound = 'sound/creatures/alien/alien_queen_died.ogg'
-	/// Overlay shown while the queen is spitting.
-	var/mutable_appearance/spit_overlay
 	/// Overlay shown during the terror shriek.
 	var/mutable_appearance/shriek_wave_overlay
 	/// Overlay shown during the tail lash.
@@ -61,27 +59,11 @@
 	AddSpell(new /datum/action/cooldown/spell/aoe/terror_shriek_princess/xeno)
 	AddSpell(new /datum/action/cooldown/spell/aoe/repulse/tail_lash)
 
-
-/mob/living/carbon/alien/humanoid/queen/proc/play_spit_overlay()
-	if(spit_overlay)
-		cut_overlay(spit_overlay)
-	spit_overlay = mutable_appearance(icon, "queen_spit", FLOAT_LAYER)
-	add_overlay(spit_overlay)
-	addtimer(CALLBACK(src, PROC_REF(clear_spit_overlay)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/mob/living/carbon/alien/humanoid/queen/proc/clear_spit_overlay()
-	if(!spit_overlay)
-		return
-	cut_overlay(spit_overlay)
-	spit_overlay = null
-
 /// Refreshes the queen's overlays after the base icon update.
 /mob/living/carbon/alien/humanoid/queen/update_icons()
 	. = ..()
 	if(stat == DEAD)
 		return
-	if(spit_overlay)
-		add_overlay(spit_overlay)
 	if(shriek_wave_overlay)
 		add_overlay(shriek_wave_overlay)
 	if(tail_swing_overlay)
@@ -101,9 +83,6 @@
 /mob/living/carbon/alien/humanoid/queen/death(gibbed)
 	. = ..()
 	SSshuttle.remove_hostile_environment(src)
-	if(spit_overlay)
-		cut_overlay(spit_overlay)
-		spit_overlay = null
 	if(shriek_wave_overlay)
 		cut_overlay(shriek_wave_overlay)
 		shriek_wave_overlay = null

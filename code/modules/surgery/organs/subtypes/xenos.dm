@@ -137,7 +137,6 @@
 /obj/item/organ/internal/xenos/plasmavessel/drone/resin_drone
 	name = "enhanced xeno plasma vessel"
 	desc = "Орган, ответственный за секрецию плазмы в организме ксеноморфа. Эта принадлежала смоляному рабочему."
-	icon_state = "plasma_large"
 	max_plasma = 450
 	stored_plasma = 300
 	plasma_rate = 30

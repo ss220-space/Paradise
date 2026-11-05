@@ -55,7 +55,6 @@
 	large = TRUE
 	caste_movement_delay = 1.5
 	ventcrawler_trait = null
-	attack_damage = 30
 	disarm_stamina_damage = 34
 	armour_penetration = 30
 	obj_damage = 80
@@ -120,6 +119,8 @@
 		to_chat(src, span_warning("Вы не можете атаковать под щитом!"))
 		return
 	. = ..(I, user, modifiers)
+
+/mob/living/carbon/alien/humanoid/praetorian/proc/activate_shield(duration)
 	shield_active = TRUE
 	shield_end_time = world.time + duration
 	SetSlowed(duration, 2)
@@ -143,27 +144,30 @@
 		icon_state = "praetorian_shield"
 
 /mob/living/carbon/alien/humanoid/praetorian/bullet_act(obj/projectile/proj, def_zone)
+	var/impact_dir = NONE
 	if(shield_active)
-		if(prob(10))
-			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [proj.declent_ru(ACCUSATIVE)]!"), \
-				span_userdanger("Вы отражаете [proj.declent_ru(ACCUSATIVE)]!"))
-			proj.reflect_back(src)
-			return -1
-		if(prob(10))
-			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает [proj.declent_ru(ACCUSATIVE)]!"), \
-				span_userdanger("Вы поглощаете [proj.declent_ru(ACCUSATIVE)]!"))
-			return proj.on_hit(src, 100, def_zone)
+		var/atom/source = proj.starting ? proj.starting : proj.firer
+		if(source)
+			impact_dir = get_dir(src, source)
+		if(impact_dir == src.dir || impact_dir == turn(src.dir, 90) || impact_dir == turn(src.dir, -90))
+			if(prob(10))
+				if(prob(50))
+					visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [proj.declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("Вы отражаете [proj.declent_ru(ACCUSATIVE)]!"))
+					proj.reflect_back(src)
+					return -1
+				else
+					visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает [proj.declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("Вы поглощаете [proj.declent_ru(ACCUSATIVE)]!"))
+					return proj.on_hit(src, 100, def_zone)
 
 	var/base_armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
 	var/bonus = 0
 	if(shield_active)
-		var/atom/source = proj.starting ? proj.starting : proj.firer
-		if(source)
-			var/impact_dir = get_dir(src, source)
-			if(impact_dir == src.dir)
-				bonus = 25
-			else if(impact_dir == turn(src.dir, 90) || impact_dir == turn(src.dir, -90))
-				bonus = 10
+		if(impact_dir == src.dir)
+			bonus = 25
+		else if(impact_dir == turn(src.dir, 90) || impact_dir == turn(src.dir, -90))
+			bonus = 10
 	var/armor = min(100, base_armor + bonus)
 	if(!proj.nodamage && !QDELETED(src))
 		apply_damage(proj.damage, proj.damage_type, def_zone, armor)

@@ -787,15 +787,15 @@
 	owner?.palette_actions.refresh_actions() // We effect them, so we gotta refresh em
 
 /atom/movable/screen/navigate_arrow
-    icon = 'icons/effects/96x96.dmi'
-    icon_state = "navigate_arrow_appear"
-    pixel_x = -32
-    pixel_y = -32
-    mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-    screen_loc = around_player
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "navigate_arrow_appear"
+	pixel_x = -32
+	pixel_y = -32
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = around_player
 
 /atom/movable/screen/navigate_arrow/proc/start_effect(turf/tracked_turf, arrow_color, mob/arrow_owner)
-    var/mob/owner = arrow_owner || usr
-    if(owner)
-        animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
-    color = arrow_color
+	var/mob/owner = arrow_owner || usr
+	if(owner)
+		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
+	color = arrow_color
