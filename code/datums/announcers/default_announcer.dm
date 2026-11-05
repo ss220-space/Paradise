@@ -1,5 +1,7 @@
 /datum/centcom_announcer/default
-	welcome_sounds = list('sound/announcer/classic/welcome.ogg')
+	welcome_sounds = list(
+		'sound/announcer/vedma-6.ogg'
+	)
 	alert_sounds = list('sound/announcer/classic/attention.ogg')
 	command_report_sounds = list('sound/announcer/classic/commandreport.ogg')
 	event_sounds = list(

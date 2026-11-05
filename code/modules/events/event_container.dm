@@ -195,6 +195,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MUNDANE, EVENT_KOI_MIGRATION, /datum/event/carp_migration/koi, 80),
 		new /datum/event_meta(
 			EVENT_LEVEL_MUNDANE, EVENT_APPENDIX, /datum/event/spontaneous_appendicitis, 0, list(ASSIGNMENT_MEDICAL = 10), TRUE),
+		new /datum/event/spooky(
+			EVENT_LEVEL_MUNDANE, "Хэллоуин", /datum/event/spooky, 300
+		)
 	)
 
 /datum/event_container/moderate
@@ -221,7 +224,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_PRISON_BREAK, /datum/event/prison_break, 0, list(ASSIGNMENT_SECURITY = 100)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_CURSED_PIANO, /datum/event/ghostpiano, 100, list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_CURSED_PIANO, /datum/event/ghostpiano, 200, list(ASSIGNMENT_ANY = 1), is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_APC_SHORTAGE, /datum/event/apc_short, 200, list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(
@@ -233,9 +236,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_ION_TYPHOON, /datum/event/ion_typhoon, 100, list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_BORER_INFESTATION, /datum/event/borer_infestation, 40, list(ASSIGNMENT_SECURITY = 30), TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_BORER_INFESTATION, /datum/event/borer_infestation, 50, list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_HEADSLUG_INFESTATION, /datum/event/headslug_infestation, 40, list(ASSIGNMENT_SECURITY = 30), TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_HEADSLUG_INFESTATION, /datum/event/headslug_infestation, 50, list(ASSIGNMENT_SECURITY = 30), TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_IMMOVABLE_ROD, /datum/event/immovable_rod, 0, list(ASSIGNMENT_ENGINEER = 30), TRUE),
 		// NON-BAY EVENTS
@@ -246,11 +249,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_SPACE_DUST, /datum/event/dust, 50, list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_DIMENSIONAL_TEAR, /datum/event/tear, 0, list(ASSIGNMENT_SECURITY = 35)),
+			EVENT_LEVEL_MODERATE, EVENT_DIMENSIONAL_TEAR, /datum/event/tear, 50, list(ASSIGNMENT_SECURITY = 35)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_HONKANOMALY, /datum/event/tear/honk, 0),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_RANDOMENSIONAL_TEAR, /datum/event/tear/random, 0),
+			EVENT_LEVEL_MODERATE, EVENT_RANDOMENSIONAL_TEAR, /datum/event/tear/random, 50),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_VENT_CLOG, /datum/event/vent_clog, 250),
 		new /datum/event_meta(
@@ -258,7 +261,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_ANOMALY, /datum/event/anomaly, 500, list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_SCIENTIST = 30)),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 150),
+			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 300),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/swarmers, 40, is_one_shot = TRUE),
 		new /datum/event_meta(
@@ -270,7 +273,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_DISEASE_OUTBREAK, /datum/event/disease_outbreak, 0, list(ASSIGNMENT_MEDICAL = 150), TRUE),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_HEADCRABS, /datum/event/headcrabs, 0, list(ASSIGNMENT_SECURITY = 20)),
+			EVENT_LEVEL_MODERATE, EVENT_HEADCRABS, /datum/event/headcrabs, 10, list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_AIRLOCK_MALFUNCTION, /datum/event/door_runtime, 50, list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(
@@ -296,7 +299,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_BLOB, /datum/event/blob, 30, list(ASSIGNMENT_ENGINEER = 5), TRUE),	// 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(
-			EVENT_LEVEL_MAJOR, EVENT_METEOR_WAVE_HUGE, /datum/event/meteor_wave, 30, list(ASSIGNMENT_ENGINEER = 5), TRUE), // 6.9% on high pop, 5.5% on low pop
+			EVENT_LEVEL_MAJOR, EVENT_METEOR_WAVE_HUGE, /datum/event/meteor_wave, 80, list(ASSIGNMENT_ENGINEER = 5), TRUE), // 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_ABDUCTORS, /datum/event/abductor, 20, list(ASSIGNMENT_SECURITY = 3), TRUE), // 5.8% on high pop, 4.5% on low pop
 		new /datum/event_meta/alien(
@@ -304,15 +307,15 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_TERROR_SPIDER, /datum/event/spider_terror, 20, list(ASSIGNMENT_SECURITY = 4), TRUE), // 7.1% on high pop, 5.3% on low pop
 		new /datum/event_meta(
-			EVENT_LEVEL_MAJOR, EVENT_SLAUGHTER_DEMON, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE), // 3% on high pop, 2.1% on low pop
+			EVENT_LEVEL_MAJOR, EVENT_SLAUGHTER_DEMON, /datum/event/spawn_slaughter, 40, is_one_shot = TRUE), // 3% on high pop, 2.1% on low pop
 		new /datum/event_meta(
-			EVENT_LEVEL_MAJOR, EVENT_LAUGHTER_DEMON, /datum/event/spawn_slaughter/laughter,	20, is_one_shot = TRUE),
+			EVENT_LEVEL_MAJOR, EVENT_LAUGHTER_DEMON, /datum/event/spawn_slaughter/laughter,	0, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_SHADOW_DEMON, /datum/event/spawn_slaughter/shadow,	20, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_SPACE_DRAGON, /datum/event/space_dragon, 20, list(ASSIGNMENT_SECURITY = 4), TRUE),
 		new /datum/event_meta(
-			EVENT_LEVEL_MAJOR, EVENT_ZOMBIE, /datum/event/zombie, 20, is_one_shot = TRUE),
+			EVENT_LEVEL_MAJOR, EVENT_ZOMBIE, /datum/event/zombie, 80, is_one_shot = TRUE),
 	)
 
 #undef ASSIGNMENT_ANY

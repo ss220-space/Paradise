@@ -165,16 +165,20 @@
 	)
 
 /obj/effect/spawner/random_spawners/rodent
-	name = "33pc mouse 33pc rat 33pc cockroach"
+	name = "8pc ghost 8pc skeleton 8pc zombie 24pc mouse 24pc rat 28pc cockroach"
 	icon_state = "mouse"
 	result = list(
-		/mob/living/simple_animal/mouse = 1,
-		/mob/living/simple_animal/mouse/white = 1,
-		/mob/living/simple_animal/mouse/brown = 1,
-		/mob/living/simple_animal/mouse/rat = 1,
-		/mob/living/simple_animal/mouse/rat/white = 1,
-		/mob/living/simple_animal/mouse/rat/irish = 1,
-		/mob/living/basic/cockroach = 3,
+		/mob/living/simple_animal/hostile/ghost/halloween = 8,
+		/mob/living/simple_animal/hostile/skeleton/halloween = 8,
+		/mob/living/simple_animal/hostile/zombie/halloween = 8,
+		/mob/living/simple_animal/mouse = 8,
+		/mob/living/simple_animal/mouse/white = 8,
+		/mob/living/simple_animal/mouse/brown = 8,
+		/mob/living/simple_animal/mouse/rat = 8,
+		/mob/living/simple_animal/mouse/rat/white = 8,
+		/mob/living/simple_animal/mouse/rat/irish = 8,
+		/mob/living/basic/cockroach = 28,
+		//
 	)
 
 /obj/effect/spawner/random_spawners/rat
