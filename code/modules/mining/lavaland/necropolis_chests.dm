@@ -332,7 +332,7 @@
 		return
 	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
 
-	for(var/mob/mob_to_summon in summons.Copy())
+	for(var/mob/mob_to_summon as anything in summons.Copy())
 		if(QDELETED(mob_to_summon))
 			summons -= mob_to_summon
 			continue
