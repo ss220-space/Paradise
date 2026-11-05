@@ -880,6 +880,17 @@
 		return "[pick(syllables)][terminator]"
 	return "[copytext_char(input, 1, min(7, length(input)))][terminator]"
 
+/datum/language/ashwalkers
+	name = LANGUAGE_HIVE_ASHWALKER
+	desc = "Некоторые пеплоходцы умеют общаться на расстоянии, используя магию."
+	speech_verbs = list("шип%(ит,ят)%")
+	ask_verbs = list("вопросительно шип%(ит,ят)%")
+	exclaim_verbs = list("рыч%(ит,ят)%")
+	colour = "cultspeech"
+	key = "sh"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)

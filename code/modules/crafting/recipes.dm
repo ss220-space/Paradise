@@ -781,7 +781,7 @@
 	name = "Bone Armor"
 	result = /obj/item/clothing/suit/armor/bone
 	reqs = list(
-		/obj/item/stack/sheet/bone = 6,
+		/obj/item/stack/sheet/bone = 4,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -823,7 +823,7 @@
 	name = "Skull Helmet"
 	result = /obj/item/clothing/head/helmet/skull
 	reqs = list(
-		/obj/item/stack/sheet/bone = 4,
+		/obj/item/stack/sheet/bone = 2,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -843,9 +843,9 @@
 	result = /obj/item/clothing/suit/hooded/goliath
 	time = 50
 	reqs = list(
-		/obj/item/stack/sheet/leather = 2,
+		/obj/item/stack/sheet/leather = 3,
 		/obj/item/stack/sheet/sinew = 2,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -1107,8 +1107,8 @@
 	time = 8 SECONDS
 	reqs = list(
 		/obj/item/gun/projectile/bow = 1, //it's actually tier 2 bow
-		/obj/item/stack/sheet/bone = 4,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
+		/obj/item/stack/sheet/bone = 3,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1,
 		/obj/item/stack/sheet/sinew = 2,
 	)
 	blacklist = list(/obj/item/gun/projectile/bow/ashen)
@@ -1140,9 +1140,9 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/ammo_casing/caseless/arrow = 3,
-		/obj/item/stack/sheet/bone = 1,
-		/obj/item/stack/sheet/sinew = 2,
-		/obj/item/stack/sheet/animalhide/weaver_chitin = 2,
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 1,
+		/obj/item/stack/sheet/animalhide/weaver_chitin = 1,
 	)
 	blacklist = list(/obj/item/ammo_casing/caseless/arrow/bone_tipped)
 	category = CAT_PRIMAL
@@ -1942,10 +1942,10 @@
 	time = 5 SECONDS
 	reqs = list(
 		/obj/item/clothing/suit/hooded/goliath = 1,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 2, //2 plates for the cloak plus 2 here plus 3 for plating the armor = 7 total
+		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
 		/obj/item/stack/sheet/animalhide/weaver_chitin = 6,
-		/obj/item/stack/sheet/bone = 5,
-		/obj/item/stack/sheet/sinew = 5,
+		/obj/item/stack/sheet/bone = 4,
+		/obj/item/stack/sheet/sinew = 4,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR

@@ -104,7 +104,7 @@
 	playsound(src, throw_sound, 30)
 	to_chat(user, span_notice("Вы начали рыбачить."))
 
-	if(do_after(fisher, 10 SECONDS, target = fishing_target, max_interact_count = 1))
+	if(do_after(fisher, 4 SECONDS, target = fishing_target, max_interact_count = 1))
 		if(prob(20))
 			to_chat(user, span_warning("Рыба сорвалась вместе с наживкой! Чёрт!"))
 			fishing = FALSE
