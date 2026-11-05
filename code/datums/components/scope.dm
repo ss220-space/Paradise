@@ -1,6 +1,3 @@
-///Used to allow reaching the maximum offset range without exiting the boundaries of the game screen.
-#define MOUSE_POINTER_OFFSET_MULT 1.1
-
 /**
  * A component that allows the parent item to be used as a scope,
  * shifting the user's view towards their cursor so they can look far away.
@@ -8,8 +5,7 @@
  * Mainly intended for binoculars, but can be applied to any item.
  */
 /datum/component/scope
-	/// How far we can extend the view. Its meaning depends on [range_is_multiplier]:
-	/// either a multiplier of half the viewport, or a maximum distance in tiles.
+	/// How far we can extend the view.
 	var/range_modifier = 1
 	/// The fullscreen object we use for tracking the user's cursor.
 	var/atom/movable/screen/fullscreen/cursor_catcher/scope/tracker
@@ -239,7 +235,7 @@
 
 /datum/component/scope/proc/generic_click(/obj/source, location, control, params)
 	SIGNAL_HANDLER // COMSIG_CLICK
-	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_target(tracker.given_turf), params)
+	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_scope_target(tracker.given_turf, tracker), params)
 
 /**
  * We find and return the best target to hit on a given turf.
@@ -247,7 +243,7 @@
  * Arguments:
  * * target_turf: The turf we are looking for targets on.
 */
-/datum/component/scope/proc/get_target(turf/target_turf)
+/proc/get_scope_target(turf/target_turf, atom/movable/screen/fullscreen/cursor_catcher/scope/tracker)
 	var/list/object_targets = list()
 	var/list/non_dense_targets = list()
 	for(var/atom/movable/possible_target in target_turf)
@@ -322,14 +318,18 @@
 	icon_state = "scope"
 	/// How far the view center can move. See [datum/component/scope/var/range_modifier].
 	var/range_modifier = 1
-	/// The turf currently under the cursor/crosshair.
-	var/turf/crosshair_turf
 
 /atom/movable/screen/fullscreen/cursor_catcher/scope/assign_to_mob(mob/new_owner, range_modifier)
 	src.range_modifier = range_modifier
 	return ..()
 
 /atom/movable/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
+	if(usr == owner)
+		calculate_params()
+	return ..()
+
+/atom/movable/screen/fullscreen/cursor_catcher/scope/MouseDrag(over_object, src_location, over_location, src_control, over_control, params)
+	MouseMove(over_location, over_control, params)
 	if(usr == owner)
 		calculate_params()
 	return ..()
@@ -346,15 +346,13 @@
 		icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 		if(isnull(icon_y))
 			icon_y = view_list[2] * ICON_SIZE_Y / 2
-	var/x_cap = range_modifier * view_list[1] * ICON_SIZE_X / 2
-	var/y_cap = range_modifier * view_list[2] * ICON_SIZE_Y / 2
-	var/uncapped_x = round(range_modifier * (icon_x - view_list[1] * ICON_SIZE_X / 2) * MOUSE_POINTER_OFFSET_MULT)
-	var/uncapped_y = round(range_modifier * (icon_y - view_list[2] * ICON_SIZE_Y / 2) * MOUSE_POINTER_OFFSET_MULT)
+	var/x_cap = range_modifier * (view_list[1] - 1) * ICON_SIZE_X / 2
+	var/y_cap = range_modifier * (view_list[2] - 1) * ICON_SIZE_Y / 2
+	var/uncapped_x = range_modifier * (icon_x - view_list[1] * ICON_SIZE_X / 2)
+	var/uncapped_y = range_modifier * (icon_y - view_list[2] * ICON_SIZE_Y / 2)
 	given_x = clamp(uncapped_x, -x_cap, x_cap)
 	given_y = clamp(uncapped_y, -y_cap, y_cap)
-	given_turf = locate(owner.x + round(given_x / ICON_SIZE_X, 1), owner.y + round(given_y / ICON_SIZE_Y, 1), owner.z)
-
-#undef MOUSE_POINTER_OFFSET_MULT
+	given_turf = locate(owner.x + floor(given_x / ICON_SIZE_X), owner.y + floor(given_y / ICON_SIZE_Y), owner.z)
 
 /datum/action/zoom
 	name = "Масштаб"

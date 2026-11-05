@@ -472,8 +472,7 @@
 		return
 
 
-	set_target(get_turf_on_clickcatcher(object, user, params))
-	src.modifiers = modifiers
+	calculate_target(object, user, params)
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
@@ -498,17 +497,34 @@
 ///Update the target if you draged your mouse
 /obj/item/gun/proc/change_target(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
+	calculate_target(over_object, gun_user, params)
+
+/obj/item/gun/proc/calculate_target(atom/over_object, mob/user, params)
+	SIGNAL_HANDLER
+	if(istype(over_object, /atom/movable/screen/fullscreen/cursor_catcher/scope))
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope = over_object
+		var/turf/target = scope.given_turf
+		var/given_x = scope.owner.x * ICON_SIZE_X + scope.given_x
+		var/tile_x = (target.x - 0.5) * ICON_SIZE_X
+		var/pixel_x = given_x - tile_x
+		var/given_y = scope.owner.y * ICON_SIZE_Y + scope.given_y
+		var/tile_y = (target.y - 0.5) * ICON_SIZE_Y
+		var/pixel_y = given_y - tile_y
+		set_target(get_scope_target(target, over_object))
+		modifiers = list(
+			ICON_X = pixel_x,
+			ICON_Y = pixel_y,
+		)
+		return
 	set_target(get_turf_on_clickcatcher(over_object, gun_user, params))
 	modifiers = params2list(params)
+
 
 ///Helper proc that processes a clicked target, if the target is not black tiles, it will not change it. If they are it will return the turf of the black tiles. It will return null if the object is a screen object other than black tiles.
 /proc/get_turf_on_clickcatcher(atom/target, mob/user, params)
 	var/list/modifiers = params2list(params)
 	if(!is_screen_atom(target))
 		return target
-	if(istype(target, /atom/movable/screen/fullscreen/cursor_catcher/scope))
-		var/atom/movable/screen/fullscreen/cursor_catcher/scope = target
-		return scope.given_turf
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
 	var/loctoget = user.client?.eye ? user.client.eye : user
