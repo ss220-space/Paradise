@@ -976,7 +976,7 @@
 			if(human.gloves != src)
 				to_chat(human, span_notice("You should wear [src]!"))
 				return
-			if(human.mind.martial_art && !human.mind.martial_art.can_use_rapid_gloves())
+			if(!human.can_use_rapid_gloves())
 				to_chat(human, span_warning("You're too powerful to use it!"))
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
@@ -1021,8 +1021,7 @@
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
-	var/datum/martial_art/martial_art = user.mind?.martial_art
-	if(north_star && (!martial_art || martial_art.can_use_rapid_gloves()))
+	if(north_star && user.can_use_rapid_gloves())
 		user.changeNext_move(CLICK_CD_RAPID)
 	if(fire_casting && iscarbon(A))
 		var/mob/living/carbon/C = A
