@@ -56,20 +56,18 @@
 		return
 
 	output_design.set_output(null)
-	output_found.set_output(FALSE)
-	output_error.set_output(FALSE)
 
 	var/search_id = input_id.value
 	if(!search_id || search_id == "")
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	var/datum/design/found_design = attached_console.usb_find_design(lowertext(search_id))
 	if(found_design)
 		output_design.set_output(found_design)
-		output_found.set_output(TRUE)
+		output_found.set_output(COMPONENT_SIGNAL)
 	else
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/rd_lathe
 	display_name = "Интерфейс Печати НИО"
@@ -116,45 +114,68 @@
 	return ..()
 
 /obj/item/circuit_component/rd_lathe/input_received(datum/port/input/port)
-	if(port == input_print)
-		execute_print()
-	if(port == input_eject)
-		execute_eject()
+	return
+
+/obj/item/circuit_component/rd_lathe/input_received(datum/port/input/port)
+	return
 
 /obj/item/circuit_component/rd_lathe/trigger_component()
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+
 	if(input_print.value)
+		input_print.value = null
 		execute_print()
+
 	if(input_eject.value)
+		input_eject.value = null
 		execute_eject()
+
 	return ..()
 
 /obj/item/circuit_component/rd_lathe/proc/execute_print()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
-	if(!attached_console || QDELETED(attached_console) || held_item)
-		output_error.set_output(TRUE)
+	output_error.value = null
+
+	if(!attached_console || QDELETED(attached_console))
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
+
+	if(held_item && held_item.loc == attached_console)
+		var/obj/machinery/r_n_d/old_machine = attached_console.linked_lathe
+		if(last_printed_design && (last_printed_design.build_type & IMPRINTER))
+			old_machine = attached_console.linked_imprinter
+
+		if(old_machine)
+			held_item.forceMove(old_machine.loc)
+		else
+			held_item.forceMove(attached_console.loc)
+
+		held_item = null
+		output_item.set_output(null)
+		desc = initial(desc)
 
 	var/datum/design/target_design = input_design.value
 	if(!istype(target_design))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	var/obj/machinery/r_n_d/target_machine = attached_console.linked_lathe
 	if(target_design.build_type & IMPRINTER)
 		target_machine = attached_console.linked_imprinter
 
-	if(!target_machine || QDELETED(target_machine) || target_machine.busy)
-		output_error.set_output(TRUE)
+	if(!target_machine || QDELETED(target_machine))
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	last_printed_design = target_design
 
-	var/print_success = attached_console.start_machine(target_machine, target_design.id, 1, null)
-
-	if(!print_success)
-		output_error.set_output(TRUE)
+	if(!attached_console.start_machine(target_machine, target_design.id, 1, null))
+		if(!target_machine.busy)
+			output_error.set_output(COMPONENT_SIGNAL)
+			return
 
 /obj/item/circuit_component/rd_lathe/proc/execute_eject()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
@@ -182,7 +203,7 @@
 /obj/item/circuit_component/rd_lathe/proc/on_print_finished(datum/source, obj/item/printed_result)
 	SIGNAL_HANDLER
 	if(!printed_result)
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	held_item = printed_result
@@ -191,7 +212,7 @@
 	if(held_item)
 		desc = "Модуль печати. Хранящийся предмет: [held_item.name]"
 
-	output_printed.set_output(TRUE)
+	output_printed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/rd_destructor
 	display_name = "Интерфейс Деконструктора НИО"
@@ -240,28 +261,21 @@
 		attached_console = loc
 
 	if(!attached_console || QDELETED(attached_console))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	if(!attached_console.linked_destroy || QDELETED(attached_console.linked_destroy))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	var/obj/item/I = input_item.value
 	var/result = attached_console.usb_recycle_item(I)
 
 	if(isnull(result))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	if(result == TRUE)
-		output_tech_up.set_output(TRUE)
+		output_tech_up.set_output(COMPONENT_SIGNAL)
 	else
-		output_error.set_output(TRUE)
-
-	var/obj/item/circuit_component/rd_lathe/lathe = locate() in attached_console
-	if(lathe)
-		lathe.held_item = null
-		if(lathe.output_item)
-			lathe.output_item.set_output(null)
-		lathe.desc = initial(lathe.desc)
+		output_error.set_output(COMPONENT_SIGNAL)
