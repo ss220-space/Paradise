@@ -116,6 +116,7 @@
 	assignedrole = "Ash Walker"
 	respawn_cooldown = 10 MINUTES
 	skills_ref_job = JOB_TITLE_CIVILIAN
+	discount_skill_category = list(/datum/skill/combat)
 	skills = alist(
 		/datum/skill/general/mod_use = SKILL_LEVEL_NONE,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_NONE,
