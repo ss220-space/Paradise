@@ -216,3 +216,16 @@
 	show_in_report = TRUE
 	weight = 3
 	trait_to_give = STATION_TRAIT_GREEN_ENERGY
+
+/datum/station_trait/colored_assistants
+	name = "Цветные ассистенты"
+	show_in_report = TRUE
+	cost = STATION_TRAIT_COST_MINIMAL
+	report_message = "Из-за нехватки стандартных комбинезонов мы выдали вашим ассистентам один из наших резервных запасов."
+	//blacklist = list(/datum/station_trait/assistant_gimmicks)
+
+/datum/station_trait/colored_assistants/New()
+	. = ..()
+
+	var/new_colored_assistant_type = pick(subtypesof(/datum/colored_assistant) - get_configured_colored_assistant_type())
+	GLOB.colored_assistant = new new_colored_assistant_type

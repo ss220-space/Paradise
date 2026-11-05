@@ -2206,7 +2206,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/under/burial,
 		/obj/item/clothing/under/burial,
 	)
-	cost = 400
+	cost = 600
 	containername = "religious supplies crate"
 
 /datum/syndie_supply_packs/misc/minerkit

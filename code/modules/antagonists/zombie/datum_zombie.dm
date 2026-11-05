@@ -3,6 +3,7 @@
 	antag_hud_name = "hudzombie"
 	antag_hud_type = ANTAG_HUD_ZOMBIE
 	special_role = SPECIAL_ROLE_ZOMBIE
+	job_rank = ROLE_ZOMBIE
 	clown_gain_text = "М-мозгии... Хонк..."
 	clown_removal_text = "Вы снова чувствуете себя забавным."
 	wiki_page_name = "Zombie"

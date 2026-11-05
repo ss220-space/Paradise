@@ -761,6 +761,7 @@
 	new /obj/item/storage/belt/security/detective(src)
 	new /obj/item/clothing/accessory/holobadge/detective(src)
 	new /obj/item/storage/garmentbag/detective(src)
+	new /obj/item/binoculars(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

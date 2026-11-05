@@ -31,7 +31,7 @@
 
 	if(mind)
 		for(var/datum/action/cooldown/spell/spell as anything in mind.spell_list)
-			spell.UpdateButtonIcon()
+			spell?.UpdateButtonIcon()
 
 	return TRUE
 
