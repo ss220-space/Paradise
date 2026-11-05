@@ -361,6 +361,44 @@
 		else
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 
+	// Heal skill: 5 - fractures, 6 - blood and internal bleeding, 7 - damages
+	if(in_range(user, src))
+		GET_SKILL_LEVEL(user, /datum/skill/medical/heal, examine_heal_skill_level)
+		if(examine_heal_skill_level >= SKILL_LEVEL_PROFESSIONAL)
+			for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+				if(!bodypart.has_fracture())
+					continue
+				if(bodypart.fracture == FRACTURE_TYPE_CRACK)
+					msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] трещина в [bodypart.declent_ru_base(PREPOSITIONAL)].\n"))
+				else
+					msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] сломан[GEND_A_O_Y(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)].\n"))
+
+			if(examine_heal_skill_level >= SKILL_LEVEL_EXPERT)
+				if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
+					var/heal_blood_percent = round((blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+					var/heal_blood_text = "Уровень крови: [heal_blood_percent]%"
+					if(blood_volume <= BLOOD_VOLUME_OKAY)
+						heal_blood_text = span_danger("Уровень крови: [heal_blood_percent]% (критический)")
+					else if(blood_volume <= BLOOD_VOLUME_SAFE)
+						heal_blood_text = span_warning("Уровень крови: [heal_blood_percent]% (низкий)")
+					msg += "[heal_blood_text]\n"
+
+				var/list/internal_bleedings = list()
+				for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+					if(bodypart.has_internal_bleeding())
+						internal_bleedings += "в [bodypart.declent_ru_base(PREPOSITIONAL)]"
+				if(length(internal_bleedings))
+					var/internal_bleeding_title = length(internal_bleedings) > 1 ? "Внутренние кровотечения" : "Внутреннее кровотечение"
+					var/internal_bleeding_list = internal_bleedings.Join(", ")
+					msg += span_warning(span_bold("[internal_bleeding_title]: [internal_bleeding_list].\n"))
+
+				if(examine_heal_skill_level >= SKILL_LEVEL_LEGEND)
+					msg += "Уровень повреждений: "
+					msg += "[span_color("удушье [getOxyLoss()]", "#0080ff")], "
+					msg += "[span_color("отравление [getToxLoss()]", "green")], "
+					msg += "[span_color("терм. [getFireLoss()]", "#FF8000")], "
+					msg += "[span_color("мех. [getBruteLoss()]", "red")].\n"
+
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
 		var/blood_volume_text
 		if(blood_volume >= BLOOD_VOLUME_PALE)
