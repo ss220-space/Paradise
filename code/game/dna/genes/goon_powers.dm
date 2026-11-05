@@ -73,9 +73,18 @@
 	else
 		mutant.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
 
+/datum/dna/gene/basic/chameleon/activate(mob/living/mutant, flags)
+	. = ..()
+	RegisterSignal(mutant, COMSIG_MOVABLE_MOVED, PROC_REF(chameleon_moved))
+
 /datum/dna/gene/basic/chameleon/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
+
+/datum/dna/gene/basic/chameleon/proc/chameleon_moved(mob/living/source)
+	SIGNAL_HANDLER
+
+	source.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
