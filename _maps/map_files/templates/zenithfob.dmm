@@ -1,0 +1,6007 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"an" = (
+/obj/structure/rack/holorack,
+/obj/item/autoimplanter,
+/obj/effect/turf_decal/box/white,
+/obj/item/autoimplanter,
+/obj/item/autoimplanter,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ar" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ay" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 5
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"aD" = (
+/obj/structure/sign/poster/secret/sexiqm,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"aQ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"bi" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"bx" = (
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"bD" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"bE" = (
+/obj/machinery/door_control/secure{
+	id = "STZB31";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"bH" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 1
+	},
+/obj/machinery/chem_master,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"bJ" = (
+/obj/structure/chair/plastic{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"bK" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/chair/plastic{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"bP" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 1
+	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"bQ" = (
+/obj/effect/turf_decal/stripes/red/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"bY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"cd" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/duffel/syndie/c4{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/backpack/duffel/syndie/c4,
+/obj/item/storage/backpack/duffel/syndie/c4{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ce" = (
+/obj/effect/decal/straw,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"cm" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"cn" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"cM" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"cQ" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"cV" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"dg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	icon_state = "rightsecure";
+	name = "Riot Control";
+	dir = 8
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"di" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/machinery/vending/syndicigs,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"dj" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"dn" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"dr" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"dG" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"dR" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"dT" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 1
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"dU" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	name = "Shooting Theatre Zone Beta";
+	icon_state = "open";
+	id_tag = "STZB32"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"dV" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ea" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"ei" = (
+/obj/effect/turf_decal/box/white,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/gun/projectile/automatic/pistol/deagle{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/deagle,
+/obj/item/gun/projectile/automatic/pistol/deagle{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/rack/gunrack,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ek" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"eo" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ep" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/item/storage/firstaid/tactical/sst{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/tactical/sst,
+/obj/item/storage/firstaid/tactical/sst{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"er" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"eS" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"eW" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"eY" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/obj/machinery/light/small/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndidonkpockets,
+/obj/item/storage/box/syndidonkpockets,
+/obj/item/storage/box/syndidonkpockets,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"fq" = (
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "STZB11";
+	name = "Shooting Theatre Zone Beta";
+	icon_state = "open"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"fr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"fA" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"fL" = (
+/obj/structure/rack/holorack,
+/obj/item/clothing/under/acj{
+	pixel_x = -9;
+	pixel_y = 9
+	},
+/obj/item/clothing/under/acj{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/clothing/under/acj{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/under/acj,
+/obj/item/clothing/under/acj{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/under/acj{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"fN" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/mech_bay_recharge_floor/airless,
+/area/space)
+"fW" = (
+/obj/structure/railing,
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ga" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"gg" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/upgraded,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"gj" = (
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"gA" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 5
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"gB" = (
+/turf/simulated/wall/indestructible/rock,
+/area/eventzone/zenith_fob)
+"gI" = (
+/obj/machinery/light/floor,
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"gT" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"gW" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"hd" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"hh" = (
+/obj/machinery/door_control/secure{
+	id = "STZB21";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_x = 5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"hj" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Alpha";
+	id_tag = "STZE23";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"hn" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"ho" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/corner,
+/obj/machinery/sleeper/syndie,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"hu" = (
+/obj/structure/rack,
+/obj/item/storage/belt/grenade/full{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/belt/grenade/full,
+/obj/item/storage/belt/grenade/full{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/machinery/light/small/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"hA" = (
+/obj/effect/turf_decal/number/number_1{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"hC" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"hJ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"hK" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 10
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ig" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"il" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ir" = (
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"iu" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"iJ" = (
+/obj/structure/rack/holorack,
+/obj/item/organ/internal/cyberimp/brain/anti_drop,
+/obj/item/organ/internal/cyberimp/brain/anti_drop,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/thermals,
+/obj/item/organ/internal/cyberimp/eyes/thermals,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/obj/item/implanter/mindshield,
+/obj/item/implanter/mindshield,
+/obj/item/organ/internal/cyberimp/arm/surgery,
+/obj/item/organ/internal/cyberimp/arm/toolset,
+/obj/item/organ/internal/cyberimp/arm/janitorial,
+/obj/effect/turf_decal/box/white,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/map/nuke,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/arm/surgery/adv,
+/obj/item/organ/internal/cyberimp/arm/surgery/adv,
+/obj/item/organ/internal/cyberimp/arm/surgery/adv,
+/obj/item/organ/internal/cyberimp/arm/surgery/adv,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"iO" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"iP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"iT" = (
+/obj/structure/closet/crate/syndicate,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"iX" = (
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"iZ" = (
+/obj/structure/bed/mattress/dirty,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"jc" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/east,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"jd" = (
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"jq" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"jD" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"jI" = (
+/obj/machinery/light/small/directional/south,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"jM" = (
+/obj/structure/railing,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"jT" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"jW" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"jY" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"kk" = (
+/obj/machinery/door_control/secure{
+	id = "STZE31";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"kl" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"kA" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"kE" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"kG" = (
+/obj/structure/rack/holorack,
+/obj/item/storage/box/syndie_kit/chameleon{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/storage/box/syndie_kit/chameleon{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/storage/box/syndie_kit/chameleon{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/syndie_kit/chameleon{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/storage/box/syndie_kit/chameleon{
+	pixel_x = 9;
+	pixel_y = -9
+	},
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/shoes/chameleon/noslip,
+/obj/item/clothing/shoes/chameleon/noslip,
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"kZ" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"lb" = (
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"lg" = (
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"lj" = (
+/obj/machinery/door_control/secure{
+	id = "STZE23";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = -5;
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"ll" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"lp" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"lv" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/reagent_containers/food/snacks/fruitcup,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"lw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"lx" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/vending/syndichem,
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"ly" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"lD" = (
+/obj/structure/closet/crate/freezer{
+	desc = "A crate.";
+	name = "Medical crate"
+	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"lM" = (
+/obj/machinery/light/small/directional/east,
+/obj/structure/closet/crate/syndicate,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"mg" = (
+/obj/effect/turf_decal/box,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"mi" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"mu" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"mv" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"mL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"nd" = (
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"ns" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"nz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"nJ" = (
+/turf/space,
+/area/space)
+"nR" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"oi" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"oz" = (
+/obj/machinery/light/small/directional/north,
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"oE" = (
+/obj/structure/rack/holorack,
+/obj/effect/turf_decal/box/white,
+/obj/item/teleporter/admin{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/teleporter/admin,
+/obj/item/teleporter/admin{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"oM" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"oO" = (
+/obj/machinery/light/small/directional/west,
+/obj/machinery/jukebox/no_access,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"oR" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/deck/cards/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"pe" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Beta";
+	id_tag = "STZB21";
+	icon_state = "open"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"pl" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"pu" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"pw" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"px" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "STZE31";
+	name = "Shooting Theatre Zone Alpha";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"pM" = (
+/obj/structure/rack/holorack,
+/obj/item/storage/belt/chameleon{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/belt/chameleon,
+/obj/item/storage/belt/chameleon{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"qb" = (
+/obj/machinery/chem_heater,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"ql" = (
+/obj/machinery/door_control/secure{
+	id = "STZE33";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"qu" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"qI" = (
+/obj/effect/decal/remains/xeno,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"qJ" = (
+/turf/simulated/wall/indestructible/iron,
+/area/space)
+"qR" = (
+/obj/structure/lattice,
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"rb" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 6
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"rd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"rg" = (
+/obj/effect/turf_decal/miscellaneous/plumbing,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/innards,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"rm" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"ro" = (
+/obj/machinery/door_control/secure{
+	id = "STZE22";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = -5;
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"rv" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"rE" = (
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/space)
+"rG" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/space,
+/area/eventzone/zenith_fob)
+"rH" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	icon_state = "open";
+	id_tag = "SBT1";
+	name = "Southern Shooting Window"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"rJ" = (
+/obj/machinery/door_control/secure{
+	id = "STZE32";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"rN" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"rV" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"rX" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"sa" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"sc" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"sj" = (
+/obj/effect/decal/straw/light,
+/obj/effect/turf_decal/stripes,
+/obj/machinery/vending/medical/syndicate_access/beamgun{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"su" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/reagent_containers/food/snacks/fried_vox,
+/obj/item/reagent_containers/food/snacks/fried_vox,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"sE" = (
+/obj/structure/rack/gunrack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"sL" = (
+/obj/effect/turf_decal/tile/dark{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"sP" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/reagent_containers/food/snacks/fried_vox,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"th" = (
+/obj/machinery/door_control/secure{
+	id = "STZB32";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"tv" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"tC" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"tK" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"tQ" = (
+/obj/structure/chair/plastic{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"uj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"ut" = (
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"uQ" = (
+/obj/effect/turf_decal/box,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"uZ" = (
+/obj/structure/rack,
+/obj/item/gun/medbeam{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/medbeam,
+/obj/item/gun/medbeam{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"vp" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"vs" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"vB" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"vF" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	dir = 1;
+	name = "Riot Control"
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/delivery/partial,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"vK" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tile/dark{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"vP" = (
+/obj/effect/turf_decal/tile/dark{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"vS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/obj/effect/decal/cleanable/flour/foam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"vZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"wf" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"wj" = (
+/obj/machinery/light/small/directional/east,
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"wm" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"wz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"wC" = (
+/obj/structure/lattice,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"wO" = (
+/obj/item/implanter/emp{
+	pixel_x = 9;
+	pixel_y = -9
+	},
+/obj/item/implanter/explosive{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/implanter/freedom,
+/obj/item/implanter/krav_maga{
+	pixel_x = -9;
+	pixel_y = 9
+	},
+/obj/item/implanter/mindshield{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/implanter/storage{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/structure/rack/holorack,
+/obj/effect/turf_decal/box/white,
+/obj/machinery/light/small/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"wZ" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"xa" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/chair/sofa/bench{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"xb" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/vending/engineering{
+	req_access = null;
+	check_one_access = 0;
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xh" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Beta";
+	id_tag = "STZB22";
+	icon_state = "open"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xo" = (
+/obj/structure/rack/gunrack,
+/obj/machinery/light/small/directional/north,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xq" = (
+/obj/effect/turf_decal/tile/dark{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xr" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"xt" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xH" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"xM" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/flour/foam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"xT" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yb" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yc" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yd" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"yj" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"yo" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/obj/machinery/vending/syndierobotics{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"yy" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"yz" = (
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yF" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/duffel/syndie/surgery{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/backpack/duffel/syndie/surgery,
+/obj/item/storage/backpack/duffel/syndie/surgery{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yH" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yI" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"yM" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"yT" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"za" = (
+/obj/machinery/syndicatebomb/self_destruct,
+/obj/effect/turf_decal/mech,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"zj" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"zo" = (
+/obj/structure/railing,
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"zv" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	name = "Shooting Theatre Zone Beta";
+	icon_state = "open";
+	id_tag = "STZB31"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"zA" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"zC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"zG" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"zI" = (
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/item/gun/projectile/automatic/shotgun/bulldog{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/rack/gunrack,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"zR" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Aa" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Af" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Ah" = (
+/obj/effect/mine/explosive,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"An" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"At" = (
+/obj/effect/turf_decal/miscellaneous/plumbing,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Av" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/barricade/sandbags,
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"AB" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"AT" = (
+/obj/machinery/light/floor,
+/obj/effect/decal/straw,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Bc" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Bd" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Be" = (
+/obj/machinery/door_control/secure{
+	id = "STZE21";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = -5;
+	pixel_x = -5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Bf" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Bn" = (
+/turf/simulated/wall/indestructible/rock,
+/area/space)
+"Bv" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Bz" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"BC" = (
+/obj/effect/decal/straw/light,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"BF" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"BG" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/plating,
+/area/space)
+"BL" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	id_tag = "STZE32";
+	name = "Shooting Theatre Zone Alpha";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"BN" = (
+/obj/effect/turf_decal/tile/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"BW" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"Ca" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Ce" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Alpha";
+	id_tag = "STZE22";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Cg" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 9
+	},
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/space)
+"Cm" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/number,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Co" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Cp" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"Cs" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Db" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/space)
+"Dj" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Dl" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"Du" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Dx" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Dy" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"DQ" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"DR" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 9
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"DS" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"DX" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"DZ" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 9
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ek" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Eq" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/number/number_5{
+	dir = 1;
+	pixel_y = -20
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Er" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"EC" = (
+/obj/structure/rack/gunrack,
+/obj/machinery/light/small/directional/south,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"EN" = (
+/obj/machinery/light/small/directional/east,
+/obj/item/radio/intercom/syndicate/directional/north,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ET" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/duffel/syndie/x4{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/backpack/duffel/syndie/x4,
+/obj/item/storage/backpack/duffel/syndie/x4{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Fg" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/north,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"Fk" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"FD" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"FF" = (
+/turf/simulated/wall/indestructible/mineral_rock,
+/area/eventzone/zenith_fob)
+"FG" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"FH" = (
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"FK" = (
+/obj/effect/mapping_helpers/light,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"FN" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"FO" = (
+/obj/structure/sign/medbay/redcross,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"FP" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Gb" = (
+/obj/structure/chair/plastic{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Ge" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Gg" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Gw" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/rack,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/firstaid/syndie,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"GD" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"GL" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	icon_state = "open";
+	id_tag = "SBT2";
+	name = "Southern Shooting Window"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Ho" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Hv" = (
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"Hx" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/wall/indestructible/rock,
+/area/eventzone/zenith_fob)
+"HB" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"If" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Il" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"IS" = (
+/obj/structure/railing/corner,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"IY" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Jj" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Jk" = (
+/obj/machinery/eventmachine/serverrack/recorder,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"Ju" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Jz" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"JE" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	dir = 1;
+	name = "Riot Control"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"JK" = (
+/obj/item/gun/projectile/automatic/m90{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/rack/gunrack,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Kg" = (
+/obj/machinery/light/floor,
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"Ki" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"Kl" = (
+/obj/machinery/light/small/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"KH" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"KK" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"KR" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"KX" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/number/number_2{
+	dir = 1;
+	pixel_y = -20
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Lm" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"LI" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"LJ" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"LK" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"LN" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"LU" = (
+/obj/machinery/door_control/secure{
+	id = "STZB11";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = 7
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Mb" = (
+/obj/machinery/door_control/secure{
+	id = "SBT2";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = 7
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Mc" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Mg" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Ml" = (
+/obj/machinery/vending/ammo,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Mr" = (
+/obj/structure/sign/poster/contraband/random,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Ms" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"MD" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"MS" = (
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/weather/dirt,
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Nb" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/vending/toyliberationstation{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Ne" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Nj" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"Nl" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/defibrillator/compact/combat/loaded,
+/obj/item/handheld_defibrillator/syndie,
+/obj/item/storage/toolbox/surgery/advanced,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"Nv" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/north,
+/obj/machinery/vending/syndisnack{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"NE" = (
+/obj/machinery/door_control/secure{
+	id = "STZB22";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_x = 5
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"NJ" = (
+/obj/structure/shuttle/engine/router,
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"NK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"NM" = (
+/obj/machinery/light/small/directional/west,
+/obj/machinery/vending/gun_mods/advanced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"NP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/flour/foam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Oi" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"Oj" = (
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"On" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Op" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Os" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"OC" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/router,
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"OF" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"OO" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"OV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Pb" = (
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Pf" = (
+/obj/item/target,
+/obj/structure/target_stake,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Pt" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Alpha";
+	id_tag = "STZE33";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Py" = (
+/obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/number/number_1{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Pz" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"PC" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"PN" = (
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"PW" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"PY" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Qk" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/eventzone/zenith_fob)
+"Qs" = (
+/obj/structure/chair/plastic{
+	dir = 33
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"QB" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light/small/directional/north,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"QH" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"QN" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"QO" = (
+/obj/machinery/vending/wallmed/syndicate,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"QP" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 1
+	},
+/obj/machinery/computer/operating,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"QR" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"QS" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"Rc" = (
+/obj/machinery/eventmachine/serverrack/substation,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"Rh" = (
+/obj/structure/chair/sofa/bench{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"Ro" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"RB" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"RL" = (
+/obj/structure/sign/poster/secret/lady,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Sa" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Sh" = (
+/obj/item/radio/intercom/syndicate/directional/north,
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"SY" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/router,
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Tb" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"Tj" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 8
+	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/wall/mineral/plastitanium/coated,
+/area/space)
+"Tl" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/sandbags,
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+	name = "Shooting Theatre Zone Alpha";
+	id_tag = "STZE21";
+	icon_state = "open"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Tp" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 3
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"TL" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"TO" = (
+/obj/machinery/light/small/directional/south,
+/obj/effect/decal/straw/medium,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"TQ" = (
+/obj/item/radio/intercom/syndicate/directional/east,
+/obj/structure/chair/plastic{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"TR" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base"
+	},
+/turf/simulated/floor/pod/dark,
+/area/eventzone/zenith_fob)
+"Un" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/storage/box/syndidonkpockets,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Uw" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"UF" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"Va" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/corner{
+	dir = 4
+	},
+/obj/machinery/vending/wallmed/syndicate,
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"Vh" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"Vm" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/sand/plating,
+/obj/item/flag/syndi,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Vn" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"Vq" = (
+/obj/effect/turf_decal/stripes/end,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"VE" = (
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/mech_bay_recharge_floor/airless,
+/area/space)
+"VN" = (
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"VV" = (
+/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"VX" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/obj/structure/lattice,
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"VZ" = (
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Wa" = (
+/obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/number/number_4{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Wq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/sand,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"Wz" = (
+/obj/effect/turf_decal/box,
+/obj/effect/decal/straw,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"WB" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/zenith_fob)
+"WK" = (
+/obj/structure/closet/crate/can,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"WY" = (
+/obj/machinery/vending/boozeomat,
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Xe" = (
+/obj/machinery/light/small/directional/north,
+/obj/item/radio/intercom/syndicate/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Xj" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Xs" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"Xw" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"XA" = (
+/obj/effect/decal/remains/robot,
+/obj/effect/turf_decal/stripes,
+/obj/machinery/vending/medical/syndicate_access/beamgun{
+	all_products_free = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"XB" = (
+/obj/machinery/light/small/directional/north,
+/obj/item/target,
+/obj/structure/target_stake,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"XD" = (
+/obj/structure/railing/corner,
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"XF" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"XQ" = (
+/obj/machinery/light/small/directional/east,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"XW" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerburgundy-on"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Yc" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"Ye" = (
+/obj/structure/closet/crate/freezer{
+	desc = "A crate.";
+	name = "Medical crate"
+	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/half/contrasted{
+	dir = 1
+	},
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"Ym" = (
+/obj/structure/sign/poster/contraband/random,
+/turf/simulated/wall/indestructible/rock,
+/area/eventzone/zenith_fob)
+"Yo" = (
+/obj/effect/turf_decal/mech,
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/redgrid,
+/area/eventzone/zenith_fob)
+"Ys" = (
+/obj/machinery/light/small/directional/east,
+/obj/item/radio/intercom/syndicate/directional/west,
+/obj/structure/chair/plastic{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Yt" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/number/number_3{
+	dir = 1;
+	pixel_y = -20
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"Yv" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"YB" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 3
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"YD" = (
+/obj/machinery/door_control/secure{
+	id = "SBT1";
+	name = "Shooting Theatre Shutter Control";
+	req_access = list(153);
+	pixel_y = 7
+	},
+/turf/simulated/wall/indestructible/iron,
+/area/eventzone/zenith_fob)
+"YG" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass,
+/area/eventzone/zenith_fob)
+"YL" = (
+/obj/structure/window/reinforced/survival_pod/unhittable{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"YQ" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"YS" = (
+/obj/machinery/light/small/directional/north,
+/obj/effect/decal/straw/edge,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"YT" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"YY" = (
+/obj/effect/turf_decal/box,
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"Za" = (
+/obj/structure/closet/syndicate/nuclear,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/zenith_fob)
+"Zv" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/machinery/bodyscanner,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+"ZC" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/shieldwall/syndicate,
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ZG" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/space)
+"ZI" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/zenith_fob)
+"ZO" = (
+/obj/item/kitchen/knife,
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/reagent_containers/food/snacks/fruitcup,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/eventzone/zenith_fob)
+"ZU" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/mineral/titanium,
+/area/eventzone/zenith_fob)
+
+(1,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+XW
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(2,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Os
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+Ah
+nJ
+"}
+(3,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Ah
+Dx
+nJ
+nJ
+Dx
+XW
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+Dx
+Dx
+Dx
+Dx
+Os
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+"}
+(4,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+Dx
+Os
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+rE
+rE
+rE
+rE
+rE
+rE
+Dx
+Dx
+Dx
+XW
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+Dx
+Ah
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(5,1,1) = {"
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+gB
+gB
+gB
+gB
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(6,1,1) = {"
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+Ah
+Dx
+Dx
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+cV
+Cm
+Ro
+Yt
+ll
+gB
+rE
+rE
+rE
+rE
+rE
+rE
+Dx
+Dx
+Dx
+NJ
+Dx
+nJ
+nJ
+nJ
+Dx
+Dx
+IS
+KK
+KK
+An
+KK
+KK
+QR
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+"}
+(7,1,1) = {"
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+gB
+gB
+yH
+Py
+jT
+Wa
+Ca
+gB
+gB
+rE
+rE
+rE
+rE
+rE
+rE
+wC
+wC
+wC
+wC
+wC
+qR
+wC
+wC
+lb
+NE
+IY
+xh
+hh
+IY
+pe
+lb
+lb
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+"}
+(8,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Os
+rE
+rE
+rE
+rE
+rE
+gB
+Ym
+gB
+Ml
+NM
+Ju
+KX
+il
+Eq
+Ne
+gB
+gB
+gB
+rE
+rE
+rE
+rE
+rE
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+lb
+lb
+Mr
+TL
+TL
+TQ
+bK
+Gb
+TL
+jd
+LU
+rv
+ly
+Dx
+Dx
+Dx
+nJ
+"}
+(9,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+XW
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+ut
+xS
+zC
+wz
+nz
+nz
+NP
+Vq
+gB
+gB
+gB
+rE
+rE
+FF
+FF
+FF
+mv
+kZ
+kZ
+mv
+mv
+mv
+mv
+lb
+rN
+TL
+TL
+TL
+Un
+oR
+su
+TL
+TL
+fq
+IY
+LJ
+Dx
+Dx
+Ah
+Dx
+"}
+(10,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+Rc
+yb
+fL
+ei
+vS
+JK
+ET
+yb
+yF
+gB
+gB
+rE
+rE
+rE
+FF
+nd
+nd
+nd
+nd
+nd
+nd
+nd
+nd
+nd
+Bv
+TL
+TL
+TL
+TL
+lv
+dj
+Un
+TL
+TL
+TL
+IY
+LJ
+Dx
+Dx
+Dx
+Dx
+"}
+(11,1,1) = {"
+nJ
+nJ
+nJ
+Ah
+Dx
+Dx
+Dx
+rE
+rE
+rE
+gB
+gB
+Jk
+za
+yb
+pM
+oE
+vZ
+zI
+cd
+yb
+uZ
+gB
+rE
+rE
+rE
+rE
+ns
+nd
+Uw
+On
+On
+On
+On
+iO
+iO
+On
+Mr
+Pb
+TL
+TL
+TL
+Ys
+bJ
+bJ
+TL
+jd
+lb
+KK
+WB
+Dx
+Dx
+Dx
+Dx
+"}
+(12,1,1) = {"
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+oz
+Jk
+Yo
+yb
+kG
+iJ
+vZ
+JK
+hu
+Jj
+ep
+gB
+rE
+rE
+rE
+Dx
+ns
+nd
+aQ
+DZ
+Du
+yI
+yI
+yI
+yI
+GD
+lb
+th
+IY
+IY
+dU
+bE
+IY
+IY
+zv
+lb
+lb
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+"}
+(13,1,1) = {"
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+Oj
+Jk
+Oj
+Jj
+wO
+an
+Jj
+Hx
+gB
+gB
+gB
+gB
+gB
+qJ
+Dx
+Dx
+ns
+nd
+aQ
+cM
+wC
+wC
+wC
+wC
+wC
+VX
+Du
+PC
+rv
+rv
+rv
+ga
+rv
+rv
+rv
+xH
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+"}
+(14,1,1) = {"
+nJ
+nJ
+nJ
+Dx
+Os
+rE
+rE
+rE
+rE
+gB
+gB
+gB
+gB
+gB
+yM
+gB
+gB
+yM
+gB
+gB
+lb
+Mr
+lb
+Bf
+lb
+Ms
+mv
+Vm
+nd
+Av
+ay
+pl
+SY
+XW
+Dx
+XW
+Dx
+XW
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(15,1,1) = {"
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+Bn
+gB
+lb
+lb
+lb
+lb
+tK
+oO
+WY
+Fk
+cn
+OF
+lb
+Dy
+rg
+MS
+TR
+Wq
+yT
+yT
+nd
+yT
+fN
+QS
+cM
+Dx
+Dx
+Ah
+Dx
+Dx
+Ah
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(16,1,1) = {"
+nJ
+nJ
+Dx
+Dx
+Dx
+rE
+rE
+rE
+gB
+gB
+lb
+iP
+Oi
+RL
+Ho
+iu
+eo
+lp
+vK
+FH
+vF
+lg
+At
+bx
+TR
+rd
+oM
+oM
+oM
+oM
+VE
+BG
+cM
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+nJ
+"}
+(17,1,1) = {"
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+lb
+OF
+mL
+NK
+Pz
+Ho
+VV
+gW
+TL
+TL
+mi
+er
+di
+xr
+dg
+tv
+zj
+On
+On
+On
+FP
+DR
+Du
+OC
+XW
+Dx
+XW
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+Ah
+nJ
+"}
+(18,1,1) = {"
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+lb
+iZ
+Oi
+Oi
+DX
+Ho
+sP
+ZO
+lp
+xq
+XQ
+JE
+Ki
+vB
+wj
+lb
+ig
+yI
+yI
+yI
+yI
+wZ
+wC
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+Dx
+nJ
+"}
+(19,1,1) = {"
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+lb
+Qk
+NK
+Oi
+Mr
+XF
+Mc
+rX
+WK
+Mg
+Mr
+lb
+dR
+lb
+lb
+lb
+oi
+wC
+wC
+wC
+wC
+wC
+wC
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+Ah
+nJ
+nJ
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(20,1,1) = {"
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+lb
+lb
+lb
+lb
+lb
+yM
+lb
+dR
+dR
+lb
+lb
+TL
+TL
+jI
+YD
+OV
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(21,1,1) = {"
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+lb
+bH
+lx
+YT
+Va
+Gg
+DS
+If
+Fk
+MD
+lb
+XB
+BC
+TL
+rH
+uj
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+rE
+nJ
+nJ
+nJ
+rE
+rE
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(22,1,1) = {"
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+rE
+gB
+Mr
+LK
+kA
+yd
+pu
+yc
+gI
+FG
+AT
+mi
+yM
+TL
+TL
+Qs
+Aa
+uj
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Ah
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(23,1,1) = {"
+nJ
+XW
+Os
+rE
+rE
+rE
+rE
+rE
+gB
+aD
+gg
+qb
+yd
+pu
+yc
+Za
+ar
+hA
+Bz
+lb
+sE
+TL
+TL
+Aa
+uj
+hJ
+Dx
+wC
+Dx
+Ah
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+"}
+(24,1,1) = {"
+nJ
+Dx
+Dx
+rE
+rE
+rE
+rE
+gB
+gB
+lb
+Fg
+hC
+bQ
+jD
+Bc
+nR
+Tp
+uQ
+Bd
+QO
+Af
+TL
+jd
+lb
+KH
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+"}
+(25,1,1) = {"
+nJ
+Dx
+Ah
+Dx
+rE
+rE
+rE
+gB
+lb
+lb
+Nl
+yo
+hd
+lb
+Op
+Wz
+kE
+YY
+Bd
+lb
+Sh
+TL
+TL
+lb
+Ek
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Ah
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+Ah
+nJ
+nJ
+nJ
+"}
+(26,1,1) = {"
+nJ
+Dx
+Dx
+XD
+rE
+rE
+rE
+gB
+lb
+QP
+BN
+UF
+fr
+XA
+bY
+Hv
+kE
+YY
+Bd
+Mr
+TL
+TL
+jd
+Mb
+rm
+hJ
+Dx
+wC
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(27,1,1) = {"
+nJ
+Dx
+gj
+jM
+VZ
+rE
+gB
+gB
+lb
+gT
+vP
+UF
+fr
+sj
+Co
+qu
+ek
+mg
+Bd
+zG
+Gw
+TL
+TL
+GL
+uj
+rb
+tC
+Nj
+tC
+tC
+gA
+Dx
+Dx
+Dx
+XW
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(28,1,1) = {"
+nJ
+Dx
+Dx
+fW
+VZ
+lb
+lb
+QO
+lb
+FO
+ho
+Zv
+sa
+QO
+QB
+iX
+FN
+DQ
+xt
+lb
+sE
+TL
+Qs
+Aa
+uj
+RB
+ir
+ir
+ir
+ir
+bD
+tC
+gA
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+"}
+(29,1,1) = {"
+nJ
+Dx
+Dx
+jM
+VZ
+lb
+iT
+TL
+xM
+lb
+Ye
+ZU
+VN
+jD
+yc
+Kg
+FG
+AT
+mi
+yM
+TL
+TL
+TL
+Aa
+wf
+Cs
+ir
+ir
+dn
+jY
+ir
+ir
+bD
+tC
+tC
+gA
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+rE
+nJ
+nJ
+"}
+(30,1,1) = {"
+nJ
+Ah
+Dx
+jM
+dr
+lb
+YS
+TL
+dG
+lb
+lD
+fA
+yj
+lb
+Yv
+Dj
+BF
+Ge
+eW
+lb
+Pf
+TL
+TO
+lb
+PW
+YG
+ir
+BW
+ir
+ir
+ir
+ir
+ir
+YG
+ir
+bD
+Nj
+gA
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+rE
+nJ
+"}
+(31,1,1) = {"
+nJ
+Dx
+qI
+jM
+lw
+px
+TL
+tQ
+TL
+lb
+cm
+lb
+pu
+lb
+lb
+lb
+yM
+lb
+lb
+lb
+QO
+yM
+lb
+lb
+OO
+ir
+ir
+ir
+ir
+Tb
+BW
+ir
+ir
+ir
+ir
+jY
+ir
+dT
+kl
+gA
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+"}
+(32,1,1) = {"
+nJ
+Dx
+XW
+jM
+lw
+Aa
+TL
+TL
+TL
+rG
+tK
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+cn
+Mr
+xo
+TL
+TL
+AB
+lb
+ir
+BW
+dn
+ir
+FK
+ir
+jY
+ir
+hn
+ir
+BW
+ir
+ir
+ir
+ir
+bD
+tC
+gA
+rE
+rE
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+Dx
+"}
+(33,1,1) = {"
+nJ
+Dx
+Dx
+jM
+vs
+kk
+TL
+BC
+sE
+lb
+Nv
+Nb
+xb
+sc
+sL
+TL
+TL
+mi
+yM
+TL
+TL
+TL
+TL
+Bv
+mu
+ir
+jY
+ir
+ir
+BW
+ir
+Dl
+eS
+ir
+ir
+Tb
+BW
+ir
+dn
+ir
+ir
+bD
+gA
+Dx
+Ah
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+"}
+(34,1,1) = {"
+nJ
+nJ
+Dx
+zo
+dr
+lb
+Xe
+TL
+EC
+lb
+lb
+Mr
+lb
+lb
+jc
+Ge
+xT
+eY
+lb
+Af
+TL
+TL
+TL
+Bv
+Xs
+yy
+FD
+YQ
+YQ
+ea
+ir
+LN
+YG
+ir
+dn
+ir
+ir
+ir
+ir
+ir
+jY
+ir
+bD
+tC
+gA
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+Dx
+nJ
+"}
+(35,1,1) = {"
+nJ
+nJ
+Dx
+jM
+lw
+BL
+TL
+TL
+TL
+AB
+lb
+sE
+sE
+lb
+QO
+yM
+lb
+lb
+lb
+EN
+TL
+TL
+Kl
+lb
+ir
+ir
+Cp
+ir
+BW
+cQ
+YQ
+Er
+YQ
+Lm
+ir
+jY
+ir
+jY
+Vn
+ir
+ir
+BW
+ir
+ir
+Il
+Dx
+Dx
+Ah
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(36,1,1) = {"
+nJ
+nJ
+nJ
+jM
+lw
+Aa
+TL
+tQ
+TL
+ce
+yM
+ce
+TL
+PN
+TL
+TL
+Xw
+AB
+lb
+lj
+Aa
+hj
+lb
+lb
+dn
+Tb
+Cp
+ir
+YG
+QN
+Rh
+xa
+jq
+vp
+YQ
+YQ
+ZI
+YQ
+Er
+Vh
+ir
+ir
+Tb
+ir
+Il
+Dx
+Dx
+Dx
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(37,1,1) = {"
+nJ
+nJ
+nJ
+jM
+vs
+rJ
+LI
+TL
+TL
+TL
+lb
+yz
+TL
+Gb
+HB
+Gb
+TL
+TL
+lb
+vs
+Sa
+Sa
+Sa
+wm
+ir
+ir
+jW
+Jz
+ir
+dn
+ir
+BW
+ir
+ir
+jY
+FK
+zA
+ir
+ir
+ir
+ir
+ir
+dn
+ir
+bP
+Dx
+XW
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(38,1,1) = {"
+nJ
+nJ
+nJ
+jM
+VZ
+lb
+lb
+Aa
+Pt
+ql
+lb
+lM
+TL
+TL
+ce
+TL
+TL
+Kl
+lb
+VZ
+ZG
+pw
+pw
+hK
+YB
+ir
+jY
+ir
+BW
+ir
+ir
+ir
+Tb
+ir
+ir
+ir
+ir
+ir
+Tb
+BW
+ir
+ir
+ir
+ir
+Il
+rE
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(39,1,1) = {"
+nJ
+nJ
+nJ
+fW
+VZ
+VZ
+vs
+Sa
+Sa
+KH
+lb
+Be
+Aa
+Tl
+ro
+Aa
+Ce
+lb
+lb
+VZ
+hJ
+Dx
+Dx
+Dx
+YL
+YB
+ir
+ir
+jY
+ir
+dn
+ir
+ir
+ir
+BW
+ir
+ir
+ir
+ir
+ir
+ir
+YG
+QH
+zR
+KR
+rE
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(40,1,1) = {"
+Dx
+nJ
+nJ
+ZC
+rV
+PY
+pw
+pw
+Xj
+Ek
+VZ
+vs
+Sa
+Sa
+Sa
+Sa
+Sa
+KH
+VZ
+Ek
+hJ
+Dx
+bi
+Dx
+Dx
+YL
+YB
+ir
+ir
+ir
+ir
+ir
+jY
+ir
+ir
+ir
+QH
+zR
+Tj
+zR
+zR
+zR
+KR
+Dx
+Dx
+Dx
+Dx
+Ah
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(41,1,1) = {"
+Dx
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+Yc
+pw
+PY
+pw
+pw
+pw
+pw
+pw
+pw
+pw
+pw
+PY
+dV
+XW
+Dx
+Ah
+Dx
+Dx
+YL
+zR
+YB
+ir
+ir
+ir
+YG
+ir
+QH
+zR
+KR
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(42,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Ah
+Dx
+Dx
+XW
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Ah
+rE
+Dx
+Dx
+YL
+zR
+Tj
+zR
+zR
+Db
+Cg
+rE
+Dx
+XW
+Dx
+Ah
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+"}
+(43,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+bi
+Dx
+Ah
+Dx
+Dx
+Dx
+Ah
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+Dx
+Dx
+XW
+Dx
+Dx
+rE
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+nJ
+nJ
+nJ
+"}
+(44,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+Ah
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+nJ
+nJ
+"}
+(45,1,1) = {"
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+nJ
+nJ
+"}
+(46,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+nJ
+nJ
+nJ
+nJ
+Dx
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+Dx
+rE
+rE
+rE
+Dx
+nJ
+nJ
+"}
+(47,1,1) = {"
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+rE
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+nJ
+Dx
+rE
+Dx
+Dx
+nJ
+nJ
+nJ
+"}

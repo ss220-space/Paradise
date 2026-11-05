@@ -1,0 +1,2590 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/effect/decal/straw/medium,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"ar" = (
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/eventmachine/serverrack/recorder,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"aH" = (
+/obj/structure/window/full/paperframe,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"aM" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"aO" = (
+/obj/machinery/eventmachine/serverrack/substation,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"bk" = (
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"bA" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"bN" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"bW" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/spacebattle/security,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"cb" = (
+/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/space,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"cc" = (
+/obj/machinery/eventmachine/serverrack/recorder,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"cG" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"cP" = (
+/obj/effect/mob_spawn/human/corpse/syndicatehazmat,
+/turf/simulated/floor/plating/asteroid/cold,
+/area/space)
+"cW" = (
+/obj/effect/decal/straw/medium,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"db" = (
+/obj/item/shredded_paper,
+/turf/simulated/floor/plating,
+/area/space)
+"dj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"dN" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"dW" = (
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/greengrid,
+/area/eventzone/vasthorizon)
+"dZ" = (
+/obj/flamer_fire,
+/turf/simulated/floor/plating/asteroid/cold,
+/area/space)
+"ec" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/table/reinforced,
+/obj/item/newspaper,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"et" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"eW" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/chair/sofa/bench/solo{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"eZ" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"fb" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"fe" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"ff" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/mineral_door/wood/paperframe,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"gc" = (
+/turf/space,
+/area/space)
+"gr" = (
+/obj/structure/table,
+/obj/random/toolbox,
+/obj/item/wrench,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"gF" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"gM" = (
+/obj/machinery/eventmachine/serverrack/recorder,
+/turf/simulated/floor/glass/reinforced,
+/area/eventzone/vasthorizon)
+"gO" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/space,
+/area/space)
+"gU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 7
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"ho" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"hr" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"iH" = (
+/obj/machinery/eventmachine/serverrack/recorder,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"iK" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"iL" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/chair/sofa/bench/left,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"iX" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"jD" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"kx" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"lp" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/glass/reinforced,
+/area/eventzone/vasthorizon)
+"lT" = (
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/spacebattle/security,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"mx" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"mC" = (
+/obj/structure/window/full/paperframe,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"mS" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/eventzone/vasthorizon)
+"nb" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"nn" = (
+/obj/effect/decal/straw/medium,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"nH" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"nI" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"nQ" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"oN" = (
+/obj/machinery/atmospherics/trinary/mixer/flipped{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"pc" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"pq" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"pQ" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"pU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"qc" = (
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/eventzone/vasthorizon)
+"qo" = (
+/obj/structure/chair/sofa/bench/solo{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"qq" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"qv" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"qH" = (
+/obj/effect/decal/leaves,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"ro" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"rp" = (
+/turf/simulated/wall/indestructible/rock/dark,
+/area/space)
+"ru" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"rv" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"rU" = (
+/turf/simulated/floor/indestructible/beach/coastline,
+/area/eventzone/vasthorizon)
+"sg" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"sm" = (
+/obj/structure/bonfire/dense/prelit,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"sD" = (
+/turf/simulated/wall/r_wall/rust,
+/area/eventzone/vasthorizon)
+"sE" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"sR" = (
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"sX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"tg" = (
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/eventmachine/serverrack/substation,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"tp" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"tq" = (
+/obj/machinery/eventmachine/serverrack/cynosure_storage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"ts" = (
+/obj/structure/chair/sofa/bench/solo,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"tu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"tw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"wc" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"wn" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"wV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"xd" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light/floor,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"xf" = (
+/obj/eventobjects/eventobj/skeleton,
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/space)
+"xv" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(12)
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"xD" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"xR" = (
+/obj/effect/turf_decal/weather,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"yc" = (
+/obj/machinery/papershredder,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"yt" = (
+/turf/simulated/floor/indestructible/beach/water,
+/area/eventzone/vasthorizon)
+"yH" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"za" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"zS" = (
+/turf/simulated/floor/plating,
+/area/space)
+"AA" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"AT" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Bf" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"BF" = (
+/obj/machinery/eventmachine/serverrack/oscilograph,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"BU" = (
+/obj/machinery/power/apc/directional/east,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"Dg" = (
+/obj/item/shredded_paper,
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/space)
+"DH" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/eventzone/vasthorizon)
+"DI" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 4;
+	name = "Труба дыхательной смеси"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"DP" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Ee" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Ex" = (
+/turf/space,
+/area/eventzone/vasthorizon)
+"EF" = (
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/space)
+"EM" = (
+/obj/effect/decal/straw,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"EN" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 7
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"EQ" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/jukebox/no_access,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Fk" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/eventzone/vasthorizon)
+"FC" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"FT" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"FV" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/machinery/eventmachine/serverrack/substation,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"FW" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Gq" = (
+/obj/effect/decal/straw/medium,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"Gw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"GH" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"GQ" = (
+/obj/effect/mob_spawn/human/corpse/syndicatecommando,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/space)
+"GZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 10;
+	name = "Труба дыхательной смеси"
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Ht" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"HG" = (
+/obj/machinery/light/floor,
+/obj/machinery/eventmachine/serverrack/cynosure_core{
+	pixel_x = -15;
+	pixel_y = -10
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"Iw" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"ID" = (
+/obj/machinery/light/floor,
+/obj/flamer_fire,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"IL" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/beach/sand,
+/area/eventzone/vasthorizon)
+"IR" = (
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"IS" = (
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"IU" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"JC" = (
+/obj/flamer_fire,
+/turf/simulated/floor/plating,
+/area/space)
+"JJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"JK" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"JM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 4
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Ke" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa/bench/right,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Ld" = (
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/glass/reinforced,
+/area/eventzone/vasthorizon)
+"Lf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Lz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/weather,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"LQ" = (
+/obj/flamer_fire,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid/cold,
+/area/space)
+"Mz" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"MJ" = (
+/obj/effect/decal/straw/medium,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"ML" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"NO" = (
+/obj/structure/chair/comfy/beige,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"NX" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/window/full/paperframe,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Om" = (
+/turf/simulated/floor/plating/asteroid/cold,
+/area/space)
+"Ot" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/space,
+/area/space)
+"Px" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/space)
+"PC" = (
+/turf/simulated/floor/greengrid,
+/area/eventzone/vasthorizon)
+"PE" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/lattice,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"PS" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"PV" = (
+/obj/effect/decal/remains,
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/space)
+"PY" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"Ql" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Qs" = (
+/turf/simulated/floor/indestructible/beach/sand,
+/area/eventzone/vasthorizon)
+"QM" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(12)
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"QO" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"RO" = (
+/obj/effect/decal/straw,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"St" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"SB" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/space,
+/area/space)
+"Tj" = (
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/eventzone/vasthorizon)
+"Ty" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 4;
+	name = "Труба дыхательной смеси"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"TS" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"TY" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 9;
+	name = "Труба дыхательной смеси"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Uh" = (
+/obj/machinery/eventmachine/serverrack,
+/turf/simulated/floor/mineral/plastitanium,
+/area/eventzone/vasthorizon)
+"Uj" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"Uw" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tile/dark_blue/anticorner{
+	dir = 3
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"UI" = (
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"UW" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Vb" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal/tile/dark_blue{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Vc" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"VG" = (
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"VI" = (
+/turf/simulated/wall,
+/area/eventzone/vasthorizon)
+"VJ" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"VT" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"VW" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/chair/sofa/bench,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"We" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Wh" = (
+/turf/simulated/floor/glass/reinforced,
+/area/eventzone/vasthorizon)
+"Wp" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper/pamphlet/hotel,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"Ws" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/eventzone/vasthorizon)
+"WC" = (
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"WK" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper/pamphlet/violent_video_games,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"WO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
+	dir = 3
+	},
+/obj/flamer_fire,
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"Xe" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"Xr" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/asteroid/cold,
+/area/space)
+"XM" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/greengrid,
+/area/eventzone/vasthorizon)
+"YG" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+"YR" = (
+/obj/effect/decal/straw/medium,
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper/pamphlet/hotel,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/eventzone/vasthorizon)
+"ZB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/weather,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/eventzone/vasthorizon)
+"ZI" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/grass,
+/area/eventzone/vasthorizon)
+
+(1,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(2,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(3,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+Om
+Om
+Om
+Om
+gc
+gc
+gc
+gc
+"}
+(4,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+Om
+rp
+rp
+rp
+Om
+Om
+gc
+gc
+gc
+"}
+(5,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+dN
+SB
+SB
+dN
+gc
+SB
+SB
+gc
+gc
+gc
+sD
+sD
+sD
+sD
+sD
+gc
+gc
+rp
+rp
+rp
+rp
+rp
+Xr
+Om
+Om
+gc
+"}
+(6,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+dN
+gc
+gc
+dN
+gc
+dN
+gc
+gc
+gc
+SB
+sD
+AA
+tq
+sg
+sD
+sD
+gc
+rp
+rp
+rp
+rp
+rp
+LQ
+Om
+Om
+gc
+"}
+(7,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+bN
+bN
+bN
+bN
+bN
+dN
+dN
+gc
+gc
+gc
+dN
+sD
+AA
+AA
+AA
+AA
+sD
+sD
+dN
+gc
+gc
+Xr
+LQ
+Om
+LQ
+gc
+gc
+"}
+(8,1,1) = {"
+gc
+gc
+dN
+SB
+dN
+SB
+gc
+bN
+bN
+IR
+dW
+IR
+bN
+bN
+gc
+sD
+bN
+bN
+bN
+sD
+AA
+AA
+AA
+AA
+AA
+pq
+dN
+gc
+gc
+cP
+dZ
+gc
+gc
+gc
+gc
+"}
+(9,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+bN
+IR
+Tj
+PC
+Tj
+Tj
+bN
+gc
+sD
+cc
+Ld
+iH
+sD
+sD
+sD
+sD
+sD
+AA
+pq
+dN
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(10,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+dN
+bN
+dW
+PC
+HG
+XM
+PC
+sD
+gc
+bN
+IS
+Wh
+AA
+AA
+ru
+FC
+AA
+AA
+AA
+pq
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(11,1,1) = {"
+gc
+SB
+gc
+gc
+gc
+SB
+gc
+bN
+IR
+Tj
+PC
+Gw
+Tj
+sD
+sD
+sD
+cc
+gM
+Uh
+ru
+sD
+bN
+bN
+sD
+sD
+sD
+SB
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(12,1,1) = {"
+gc
+gc
+EF
+EF
+gc
+SB
+gc
+bN
+bN
+Gw
+PC
+BU
+JK
+JK
+sD
+yc
+bk
+lp
+Wh
+Wh
+sD
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(13,1,1) = {"
+dN
+EF
+EF
+EF
+xf
+gc
+gc
+gc
+bN
+bN
+sD
+sD
+JK
+iK
+sR
+sR
+xd
+WC
+WC
+mx
+bN
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+"}
+(14,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+gc
+gc
+gc
+gc
+gc
+gc
+sD
+sD
+sR
+sR
+sE
+FW
+sR
+IU
+sR
+sD
+sD
+sD
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(15,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+gc
+gc
+gc
+gc
+gc
+bN
+sD
+EQ
+tw
+NO
+nb
+FW
+sR
+BF
+BF
+BF
+BF
+sD
+sD
+gc
+IS
+IS
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(16,1,1) = {"
+gc
+EF
+PV
+EF
+EF
+EF
+gc
+dN
+sD
+sD
+bN
+sR
+YR
+ec
+Wp
+WK
+qq
+St
+nQ
+za
+iX
+wn
+We
+sD
+dN
+IS
+cb
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(17,1,1) = {"
+EF
+EF
+EF
+EF
+EF
+EF
+gc
+dN
+sD
+Vb
+tp
+RO
+Ee
+ZI
+UI
+UI
+jD
+tp
+BF
+BF
+BF
+BF
+BF
+bN
+gO
+Mz
+IS
+dN
+SB
+SB
+gc
+gc
+gc
+gc
+gc
+"}
+(18,1,1) = {"
+EF
+EF
+Dg
+Dg
+EF
+EF
+dN
+dN
+PE
+UI
+xD
+Bf
+UI
+UI
+PS
+UI
+PY
+pc
+Iw
+QO
+aM
+aM
+IS
+bN
+qc
+FT
+iX
+dN
+dN
+dN
+dN
+gc
+gc
+gc
+gc
+"}
+(19,1,1) = {"
+EF
+EF
+EF
+EF
+EF
+EF
+gc
+dN
+bN
+YG
+UI
+UI
+UI
+UI
+nI
+Gq
+UI
+pc
+Wh
+Wh
+Wh
+Wh
+za
+bN
+qc
+qc
+FT
+sD
+sD
+sD
+sD
+sD
+gc
+gc
+gc
+"}
+(20,1,1) = {"
+EF
+Dg
+EF
+EF
+EF
+EF
+gc
+dN
+eZ
+UI
+nI
+PS
+PY
+eW
+UI
+UI
+qv
+fe
+iK
+IS
+nn
+aO
+IS
+bN
+qc
+qc
+qc
+DH
+rU
+yt
+yt
+sD
+gc
+gc
+gc
+"}
+(21,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+EF
+dN
+dN
+eZ
+UI
+UI
+YG
+ts
+sm
+UI
+gF
+AT
+Mz
+EM
+aO
+IS
+IS
+IS
+bN
+qc
+qc
+mS
+DH
+rU
+yt
+yt
+sD
+IS
+gc
+gc
+"}
+(22,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+EF
+gc
+dN
+eZ
+PS
+nI
+UI
+nI
+qo
+UI
+UI
+xD
+rv
+tp
+sR
+sR
+IS
+tg
+sD
+qc
+mS
+IL
+Qs
+rU
+yt
+yt
+bN
+IS
+dN
+gc
+"}
+(23,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+EF
+dN
+dN
+eZ
+eZ
+Xe
+UI
+UI
+UI
+nI
+UI
+Gq
+UI
+FV
+IS
+IS
+aO
+IS
+bN
+Ot
+Fk
+Qs
+Qs
+rU
+yt
+yt
+sD
+gc
+gc
+gc
+"}
+(24,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+EF
+gc
+gc
+gc
+eZ
+bN
+sD
+sD
+UI
+PS
+nI
+UI
+qv
+NX
+aH
+sR
+VJ
+IS
+bN
+dN
+sD
+sD
+sD
+sD
+sD
+sD
+sD
+gc
+gc
+gc
+"}
+(25,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+EF
+gc
+gc
+gc
+gc
+dN
+gc
+sD
+IS
+PY
+Uj
+qv
+VG
+ff
+sR
+ar
+cc
+bN
+bN
+gc
+gc
+zS
+gc
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+"}
+(26,1,1) = {"
+gc
+gc
+EF
+EF
+EF
+EF
+gc
+gc
+gc
+gc
+dN
+gc
+bN
+iL
+bA
+bA
+VG
+Mz
+mC
+aM
+cc
+cc
+bN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+"}
+(27,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+dN
+gc
+gc
+Px
+db
+dN
+dN
+bN
+VW
+nn
+EN
+sR
+ID
+mC
+IS
+cc
+cc
+bN
+dN
+dN
+dN
+SB
+dN
+dN
+SB
+SB
+gc
+gc
+gc
+gc
+"}
+(28,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+dN
+zS
+db
+JC
+db
+gc
+gc
+bN
+Ke
+tu
+Uw
+sD
+sD
+bN
+bN
+bN
+sD
+sD
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+"}
+(29,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+dN
+JC
+db
+db
+Px
+gc
+gc
+sD
+MJ
+dj
+bk
+sD
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(30,1,1) = {"
+gc
+EF
+EF
+EF
+EF
+dN
+zS
+zS
+GQ
+JC
+gc
+sD
+sD
+nQ
+wV
+GH
+sD
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+gc
+Om
+Om
+gc
+gc
+gc
+gc
+"}
+(31,1,1) = {"
+gc
+gc
+EF
+EF
+gc
+dN
+gc
+JC
+zS
+gc
+gc
+bN
+cG
+lT
+TS
+qH
+sD
+sD
+VI
+VI
+VI
+VI
+VI
+VI
+dN
+dN
+gc
+gc
+gc
+Om
+Om
+Om
+gc
+gc
+gc
+"}
+(32,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+dN
+gc
+gc
+gc
+bN
+pQ
+Vc
+Ws
+ZB
+sD
+ML
+Lf
+hr
+kx
+yH
+pU
+VI
+VI
+gc
+gc
+gc
+Om
+Om
+rp
+Om
+gc
+gc
+gc
+"}
+(33,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+dN
+dN
+dN
+dN
+dN
+dN
+bN
+JM
+et
+cW
+xR
+xv
+DP
+nH
+VT
+Ty
+DI
+wc
+QM
+VI
+dN
+gc
+Om
+Om
+rp
+rp
+Om
+Om
+gc
+gc
+"}
+(34,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+sD
+sD
+fb
+ro
+Lz
+sD
+gr
+GZ
+UW
+oN
+TY
+Ht
+VI
+VI
+dN
+gc
+Om
+Om
+rp
+rp
+rp
+Om
+gc
+gc
+"}
+(35,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+Ex
+sD
+ab
+sX
+sD
+sD
+sD
+VI
+VI
+VI
+VI
+VI
+VI
+dN
+dN
+gc
+gc
+Om
+rp
+rp
+rp
+Om
+Om
+gc
+"}
+(36,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+dN
+dN
+sD
+JJ
+gU
+sD
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+Om
+Om
+rp
+rp
+rp
+Om
+gc
+"}
+(37,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+bN
+nQ
+WO
+bN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+gc
+gc
+Om
+Om
+rp
+rp
+Om
+gc
+"}
+(38,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+bN
+ho
+sX
+bN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+Om
+Om
+Om
+rp
+Om
+gc
+"}
+(39,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+dN
+dN
+dN
+bN
+bW
+Ql
+bN
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+Om
+Om
+Om
+gc
+"}
+(40,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+SB
+gc
+gc
+sD
+eZ
+eZ
+sD
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
+(41,1,1) = {"
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+IS
+IS
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+gc
+"}
