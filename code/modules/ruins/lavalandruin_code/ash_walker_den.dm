@@ -160,6 +160,7 @@
 	assignedrole = "Ash Walker Shaman"
 	eggtype = "шамана пеплоходцев"
 	skills_ref_job = JOB_TITLE_DOCTOR
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/medical)
 
 /obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
 	return alist(
