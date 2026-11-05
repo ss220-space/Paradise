@@ -331,6 +331,8 @@
 	tracker = null
 	tracker_owner_ckey = null
 
+#undef SCOPE_CURSOR_ICON
+
 /atom/movable/screen/fullscreen/cursor_catcher/scope
 	icon_state = "scope"
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
