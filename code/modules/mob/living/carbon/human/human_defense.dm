@@ -474,7 +474,7 @@ emp_act
 	if(QDELETED(disarmer) || !Adjacent(disarmer))
 		return FALSE
 	GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
-	if(melee_skill_level < SKILL_LEVEL_ADVANCED)
+	if(melee_skill_level < SKILL_LEVEL_PROFESSIONAL)
 		return FALSE
 	var/obj/item/weapon = get_active_hand()
 	if(!weapon?.is_melee_weapon())
