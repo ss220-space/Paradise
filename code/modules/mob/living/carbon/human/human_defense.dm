@@ -549,9 +549,12 @@ emp_act
 	if(!prob(50))
 		return FALSE
 	melee_counterattacking = TRUE
+	addtimer(CALLBACK(src, PROC_REF(do_melee_harm_counterattack), weapon, attacker), 0.1 SECONDS)
+	return TRUE
+
+/mob/living/carbon/human/proc/do_melee_harm_counterattack(obj/item/weapon, mob/living/attacker)
 	weapon.melee_attack_chain(src, attacker)
 	melee_counterattacking = FALSE
-	return TRUE
 
 /mob/living/carbon/human/proc/try_melee_double_strike(atom/target, obj/item/weapon)
 	if(melee_double_striking)
