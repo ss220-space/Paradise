@@ -1514,6 +1514,9 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
 	return final_force * skill_mod
 
+/obj/item/proc/is_melee_weapon()
+	return HAS_TRAIT(src, TRAIT_MELEE_WEAPON)
+
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()
 	var/icon_state_to_use = belt_icon || icon_state

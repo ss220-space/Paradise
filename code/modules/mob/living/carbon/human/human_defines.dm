@@ -76,6 +76,8 @@
 
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
+	/// Prevent recursive melee counterattacks
+	var/melee_counterattacking = FALSE
 
 	var/datum/body_accessory/body_accessory = null
 	/// Name of tail image in species effects icon file.

@@ -46,6 +46,9 @@
 	apply_twohanded_component()
 	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
 
+/obj/item/twohanded/is_melee_weapon()
+	return TRUE
+
 /**
  * Proc handles adding component during Initialize()
  *

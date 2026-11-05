@@ -468,6 +468,22 @@ emp_act
 	if(.)
 		w_uniform?.add_fingerprint(grabber)
 
+/mob/living/carbon/human/proc/try_melee_counterattack(mob/living/disarmer)
+	if(melee_counterattacking || stat != CONSCIOUS || body_position == LYING_DOWN || incapacitated())
+		return FALSE
+	if(QDELETED(disarmer) || !Adjacent(disarmer))
+		return FALSE
+	GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
+	if(melee_skill_level < SKILL_LEVEL_ADVANCED)
+		return FALSE
+	var/obj/item/weapon = get_active_hand()
+	if(!weapon?.is_melee_weapon())
+		return FALSE
+	melee_counterattacking = TRUE
+	weapon.melee_attack_chain(src, disarmer)
+	melee_counterattacking = FALSE
+	return TRUE
+
 /mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(item) || QDELETED(user))	// tripple insurance, jesus fucking christ
 		return ATTACK_CHAIN_BLOCKED_ALL
