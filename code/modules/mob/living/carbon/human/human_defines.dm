@@ -78,6 +78,8 @@
 	var/receiving_cpr = FALSE
 	/// Prevent recursive melee counterattacks
 	var/melee_counterattacking = FALSE
+	/// Prevent recursive melee double strikes
+	var/melee_double_striking = FALSE
 	/// heavy melee strike state
 	var/melee_heavy_strike_state = MELEE_HEAVY_STRIKE_IDLE
 

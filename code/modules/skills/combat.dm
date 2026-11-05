@@ -118,6 +118,22 @@
 		),
 	)
 
+/datum/skill/combat/melee/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_HUMAN_ATTACKED, PROC_REF(try_melee_counterattack_from_signal))
+
+/datum/skill/combat/melee/remove_from_mob(mob/owner)
+	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
+	return ..()
+
+/datum/skill/combat/melee/proc/try_melee_counterattack_from_signal(datum/source, mob/living/attacker)
+	SIGNAL_HANDLER
+	if(!ishuman(source))
+		return
+	var/mob/living/carbon/human/human_source = source
+	human_source.try_melee_harm_counterattack(attacker)
+	return
+
 // MARK: Fists
 /datum/skill/combat/fists
 	id = "combat.fists"

@@ -533,6 +533,53 @@ emp_act
 		return pulling == target && grab_state >= GRAB_NECK
 	return target.body_position == LYING_DOWN
 
+/mob/living/carbon/human/proc/try_melee_harm_counterattack(mob/living/attacker)
+	if(melee_counterattacking || melee_heavy_strike_state != MELEE_HEAVY_STRIKE_IDLE || stat != CONSCIOUS || body_position == LYING_DOWN || incapacitated())
+		return FALSE
+	if(!attacker || QDELETED(attacker) || !Adjacent(attacker))
+		return FALSE
+	if(attacker.a_intent != INTENT_HARM || a_intent != INTENT_HARM)
+		return FALSE
+	GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
+	if(melee_skill_level < SKILL_LEVEL_LEGEND)
+		return FALSE
+	var/obj/item/weapon = get_active_hand()
+	if(!weapon?.is_melee_weapon())
+		return FALSE
+	if(!prob(50))
+		return FALSE
+	melee_counterattacking = TRUE
+	weapon.melee_attack_chain(src, attacker)
+	melee_counterattacking = FALSE
+	return TRUE
+
+/mob/living/carbon/human/proc/try_melee_double_strike(atom/target, obj/item/weapon)
+	if(melee_double_striking)
+		return FALSE
+	if(stat != CONSCIOUS || incapacitated())
+		return FALSE
+	if(QDELETED(target) || QDELETED(weapon) || !isliving(target))
+		return FALSE
+	if(a_intent != INTENT_HARM || get_active_hand() != weapon || !weapon.is_melee_weapon())
+		return FALSE
+	GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
+	if(melee_skill_level < SKILL_LEVEL_LEGEND)
+		return FALSE
+	if(!prob(25))
+		return FALSE
+	melee_double_striking = TRUE
+	addtimer(CALLBACK(src, PROC_REF(do_melee_double_strike), target, weapon), 0.25 SECONDS)
+	return TRUE
+
+/mob/living/carbon/human/proc/do_melee_double_strike(atom/target, obj/item/weapon)
+	if(QDELETED(src))
+		return
+	if(QDELETED(target) || QDELETED(weapon) || stat != CONSCIOUS || incapacitated() || a_intent != INTENT_HARM || get_active_hand() != weapon || !weapon.is_melee_weapon() || !isliving(target) || !Adjacent(target))
+		melee_double_striking = FALSE
+		return
+	weapon.melee_attack_chain(src, target)
+	melee_double_striking = FALSE
+
 /mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(item) || QDELETED(user))	// tripple insurance, jesus fucking christ
 		return ATTACK_CHAIN_BLOCKED_ALL
