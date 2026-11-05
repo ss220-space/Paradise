@@ -126,6 +126,8 @@
 	var/datum/weakref/skills_initialized
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
+	/// Skill levels without bonuses from skill manuals
+	var/list/skills_without_manual_bonuses = list()
 	/// Available free skill points
 	var/free_skill_points = DEFAULT_FREE_POINTS
 	/// Actual free skill points

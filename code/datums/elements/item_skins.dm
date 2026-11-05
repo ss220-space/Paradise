@@ -4,8 +4,11 @@
  * Add skins feature to /obj/item by alt_click.
  */
 /datum/element/item_skins
+	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 3
+	var/key_to_open
 
-/datum/element/item_skins/Attach(datum/target, item_path = null)
+/datum/element/item_skins/Attach(datum/target, item_path = null, key = COMSIG_CLICK_ALT)
 	. = ..()
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
@@ -19,15 +22,16 @@
 		item_target.skins = null
 		return
 
-	RegisterSignal(target, COMSIG_CLICK_ALT, PROC_REF(check_altclicked), override = TRUE)
+	key_to_open = key
+	RegisterSignal(target, key_to_open, PROC_REF(check_key), override = TRUE)
 	item_target.exists_skin_change = TRUE
 
 
 /datum/element/item_skins/Detach(datum/target)
-	UnregisterSignal(target, COMSIG_CLICK_ALT)
+	UnregisterSignal(target, key_to_open)
 	return ..()
 
-/datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
+/datum/element/item_skins/proc/check_key(datum/source, mob/living/carbon/human/user)
 	var/obj/item/item = source
 	if(!item.skins || !length(item.skins))
 		return NONE
