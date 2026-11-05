@@ -1523,7 +1523,7 @@
 
 	if(occupant?.client)
 		occupant.client.mouse_override_icon = null
-		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
+		occupant.update_mouse_pointer()
 
 	if(ishuman(occupant))
 		mob_container = occupant

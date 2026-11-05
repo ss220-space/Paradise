@@ -502,19 +502,10 @@
 /obj/item/gun/proc/calculate_target(atom/over_object, mob/user, params)
 	SIGNAL_HANDLER
 	if(istype(over_object, /atom/movable/screen/fullscreen/cursor_catcher/scope))
-		var/atom/movable/screen/fullscreen/cursor_catcher/scope = over_object
-		var/turf/target = scope.given_turf
-		var/given_x = scope.owner.x * ICON_SIZE_X + scope.given_x
-		var/tile_x = (target.x - 0.5) * ICON_SIZE_X
-		var/pixel_x = given_x - tile_x
-		var/given_y = scope.owner.y * ICON_SIZE_Y + scope.given_y
-		var/tile_y = (target.y - 0.5) * ICON_SIZE_Y
-		var/pixel_y = given_y - tile_y
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = over_object
+		var/turf/target = scope.crosshair_turf
 		set_target(get_scope_target(target, over_object))
-		modifiers = list(
-			ICON_X = pixel_x,
-			ICON_Y = pixel_y,
-		)
+		modifiers = params2list(scope.mouse_params)
 		return
 	set_target(get_turf_on_clickcatcher(over_object, gun_user, params))
 	modifiers = params2list(params)
@@ -548,11 +539,11 @@
 ///Updates the current mouse pointer to use the gun crosshair or not
 /obj/item/gun/proc/update_mouse_pointer(reset)
 	if(reset)
-		gun_user?.client?.mouse_override_icon = initial(gun_user.client.mouse_override_icon)
-		gun_user?.client?.mouse_pointer_icon = 	gun_user?.client?.mouse_override_icon
+		gun_user?.client?.mouse_override_icon = null
+		gun_user?.update_mouse_pointer()
 		return
 	gun_user?.client?.mouse_override_icon = gun_crosshair
-	gun_user?.client?.mouse_pointer_icon = gun_crosshair
+	gun_user?.update_mouse_pointer()
 
 ///Reset variables used in firing and remove the gun from the autofire system
 /obj/item/gun/proc/stop_fire()
