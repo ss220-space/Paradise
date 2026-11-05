@@ -490,9 +490,13 @@
 		if(GRAB_NECK)
 			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
 				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+			else if(. <= GRAB_PASSIVE) // Grab got set via grippedby(... , grab_state_override = GRAB_NECK) proc
+				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
 		if(GRAB_KILL)
 			if(. <= GRAB_KILL) // Grab got ugraded from neck grab.
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+			else if(. <= GRAB_PASSIVE) // Grab got set via grippedby(... , grab_state_override = GRAB_KILL) proc
+				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
 
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
 /// Should return an atom to bump.

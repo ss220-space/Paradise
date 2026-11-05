@@ -544,6 +544,7 @@
 	can_hold = list(/obj/item/ammo_box/magazine)
 	custom_price = PAYCHECK_MAX
 	fast_reload_delay = 2 SECONDS
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
 	return alist(
