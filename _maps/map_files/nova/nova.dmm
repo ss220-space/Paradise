@@ -26108,6 +26108,9 @@
 "ezn" = (
 /obj/structure/table/reinforced,
 /obj/item/weldingtool,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -34108,7 +34111,7 @@
 	},
 /area/station/medical/morgue)
 "fUR" = (
-/obj/spacepod/sec,
+/obj/spacepod/template/two_engine/raptor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37917,16 +37920,16 @@
 	pixel_x = -6;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/cup/glass/mug/hos{
-	pixel_x = 9;
-	pixel_y = 1
-	},
 /obj/item/paper/safe_code{
 	owner = "hos"
 	},
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000;
 	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/mug/hos{
+	pixel_x = 9;
+	pixel_y = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -79677,6 +79680,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -107327,11 +107331,9 @@
 /area/station/commons/cabin/four)
 "srd" = (
 /obj/structure/closet/secure_closet/security,
-/obj/item/spacepod_equipment/weaponry/burst_taser,
 /obj/item/clothing/head/beret/sec,
 /obj/item/clothing/suit/jacket/pilot,
-/obj/item/spacepod_equipment/weaponry/laser,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
 /obj/effect/turf_decal/delivery/red/hollow,

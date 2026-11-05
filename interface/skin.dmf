@@ -87,6 +87,17 @@ window "mapwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
+	elem "pod_panel"
+		type = BROWSER
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = none
+		inner-background-color = transparent
+		right-click = true
+		is-visible = false
+		saved-params = ""
 	elem "minimap_panel"
 		type = BROWSER
 		pos = 0,0
