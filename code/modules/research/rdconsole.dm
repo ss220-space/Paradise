@@ -1018,7 +1018,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			all_ids += design_info.id
 	return all_ids
 
-
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
 	if(!linked_destroy || linked_destroy.busy)
 		return null
@@ -1034,9 +1033,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return null
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(item_to_recycle.origin_tech)
+	if(!length(temp_tech))
+		return null
 
+	linked_destroy.busy = TRUE
+	flick("[linked_destroy.base_icon_state]_insert", linked_destroy)
 
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
+
+	addtimer(CALLBACK(linked_destroy, /obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing), 1 SECONDS)
 
 	return tech_upgraded
 

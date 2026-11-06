@@ -53241,6 +53241,9 @@
 /area/station/security/prison/cell_block/secondary)
 "lmR" = (
 /obj/structure/table/reinforced,
+/obj/item/integrated_circuit/loaded/rnd_automation,
+/obj/item/usb_cable,
+/obj/item/shell/bot,
 /obj/item/disk/tech_disk{
 	pixel_x = -6
 	},

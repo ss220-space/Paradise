@@ -32,8 +32,7 @@
 	return ..()
 
 /obj/item/circuit_component/rd_search/input_received(datum/port/input/port)
-	if(port == input_search)
-		execute_search()
+	return
 
 /obj/item/circuit_component/rd_search/trigger_component()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
@@ -42,16 +41,17 @@
 	if(!attached_console)
 		return ..()
 
+	// Обновляем список чертежей для вывода в порт
 	var/list/designs_list = attached_console.usb_get_all_designs()
 	output_all_designs.set_output(designs_list)
 
-	execute_search()
+	if(input_search.value)
+		input_search.value = null
+		execute_search()
+
 	return ..()
 
 /obj/item/circuit_component/rd_search/proc/execute_search()
-	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
-		attached_console = loc
-
 	if(!attached_console)
 		return
 
@@ -248,11 +248,11 @@
 	return ..()
 
 /obj/item/circuit_component/rd_destructor/input_received(datum/port/input/port)
-	if(port == input_recycle)
-		execute_recycle()
+	return
 
 /obj/item/circuit_component/rd_destructor/trigger_component()
 	if(input_recycle.value)
+		input_recycle.value = null
 		execute_recycle()
 	return ..()
 
@@ -260,16 +260,18 @@
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
+	output_tech_up.set_output(null)
+	output_error.set_output(null)
+
 	if(!attached_console || QDELETED(attached_console))
 		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
-	if(!attached_console.linked_destroy || QDELETED(attached_console.linked_destroy))
-		output_error.set_output(COMPONENT_SIGNAL)
+	var/obj/item/item_to_recycle = input_item.value
+	if(!item_to_recycle || QDELETED(item_to_recycle))
 		return
 
-	var/obj/item/I = input_item.value
-	var/result = attached_console.usb_recycle_item(I)
+	var/result = attached_console.usb_recycle_item(item_to_recycle)
 
 	if(isnull(result))
 		output_error.set_output(COMPONENT_SIGNAL)
