@@ -1009,7 +1009,7 @@
 	duration = STATUS_EFFECT_PERMANENT
 	strength = dose
 	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
-	COOLDOWN_START(src, hallucination_cooldown, rand(lower_tick_interval, upper_tick_interval)) // ← добавить
+	COOLDOWN_START(src, hallucination_cooldown, rand(lower_tick_interval, upper_tick_interval))
 	return TRUE
 
 /datum/status_effect/transient/hallucination/proc/delete_self()
