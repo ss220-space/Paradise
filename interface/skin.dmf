@@ -87,6 +87,16 @@ window "mapwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
+	elem "minimap_panel"
+		type = BROWSER
+		pos = 0,0
+		size = 300x312
+		anchor1 = 0,0
+		anchor2 = 0,0
+		background-color = none
+		inner-background-color = transparent
+		is-visible = false
+		saved-params = ""
 	elem "escape_menu"
 		type = BROWSER
 		pos = 0,0

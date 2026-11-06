@@ -32,6 +32,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	equipping.forceMove(parrot_source)
 	parrot_source.ears = radio
+	radio.set_listening(radio.should_be_listening)
 	parrot_source.update_available_channels()
 	parrot_source.update_speak()
 

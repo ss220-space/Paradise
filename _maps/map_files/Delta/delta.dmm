@@ -199,6 +199,19 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/station/maintenance/casino)
+"acU" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "vir_airlock";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space)
 "acV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -6315,12 +6328,9 @@
 /area/station/maintenance/fpmaint)
 "brv" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -24262,7 +24272,7 @@
 /area/station/commons/fitness)
 "flL" = (
 /obj/structure/table/wood,
-/obj/item/storage/bible,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -31120,6 +31130,24 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
+"gHZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	frequency = 1379;
+	name = "exterior access button";
+	master_tag = "atmos_tank_airlock";
+	command = "cycle_exterior";
+	req_access = list(10,13);
+	pixel_x = 20;
+	pixel_y = -20
+	},
+/turf/space,
+/area/space)
 "gIc" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -31218,12 +31246,9 @@
 /area/station/medical/reception)
 "gIR" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -43040,6 +43065,16 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"jiJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel,
+/area/station/command/vip)
 "jiX" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
@@ -52540,9 +52575,11 @@
 /area/station/maintenance/tourist)
 "lgz" = (
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/mask/muzzle,
-/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "lgA" = (
@@ -53087,9 +53124,9 @@
 /area/station/medical/surgery/north)
 "llJ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -59401,11 +59438,6 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft)
-"myD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "myQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -61659,6 +61691,18 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/engineering/supermatter/room)
+"mYT" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/space,
+/area/space)
 "mZi" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -66029,10 +66073,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/bible{
-	pixel_x = -9;
-	pixel_y = -7
-	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "nWr" = (
@@ -67453,10 +67494,10 @@
 "okt" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/storage/bible,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "okv" = (
@@ -70136,7 +70177,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/restraints/handcuffs/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -88672,7 +88712,6 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
-/obj/item/clothing/suit/straight_jacket,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -107541,6 +107580,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
+/obj/item/restraints/handcuffs/cable,
 /obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -109992,14 +110032,6 @@
 /obj/structure/cable/layer3,
 /turf/simulated/floor/plating,
 /area/station/ai/satellite/interior)
-"wQx" = (
-/obj/machinery/power/solar{
-	name = "South-East Solar Panel"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/solars/starboard/aft)
 "wQy" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -116503,7 +116535,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "yhs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -136332,7 +136364,7 @@ aaq
 aaq
 coE
 aaq
-tco
+fFy
 kZF
 kZF
 kZF
@@ -136588,8 +136620,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 abM
 rIW
@@ -136845,8 +136877,8 @@ coE
 aaq
 coE
 aaq
-aaq
-tco
+acF
+gHZ
 qgk
 eRJ
 kaI
@@ -137102,8 +137134,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 uHO
 rIW
@@ -145317,7 +145349,7 @@ hjR
 hjR
 hxR
 mRj
-myD
+kKt
 hjR
 hxR
 hxR
@@ -153834,7 +153866,7 @@ uAM
 lPB
 eZH
 kpp
-qmn
+jiJ
 veQ
 jIS
 iLl
@@ -162908,7 +162940,7 @@ qwR
 uzM
 fSU
 rmI
-acF
+mYT
 acF
 acF
 coE
@@ -168526,7 +168558,7 @@ qth
 pdD
 oFw
 ajv
-acF
+acU
 acF
 coE
 coE
@@ -168823,7 +168855,7 @@ coE
 aaq
 coE
 aaq
-wQx
+iGD
 coE
 coE
 dZq
@@ -179263,7 +179295,7 @@ acF
 cIV
 acF
 acF
-acF
+cIV
 cIV
 acF
 coE

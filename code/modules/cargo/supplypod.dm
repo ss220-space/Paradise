@@ -215,7 +215,7 @@
 	name = "cruise missile"
 	desc = "Огромная ракета, вероятно, запущенная из какой-то далёкой ракетной шахты в дальнем космосе."
 	style = /datum/pod_style/missile/syndicate
-	explosionSize = list(0,1,2,2)
+	explosionSize = list(0, 1, 2, 2)
 	effectShrapnel = TRUE
 	specialised = TRUE
 	delays = list(POD_TRANSIT = 2.6 SECONDS, POD_FALLING = 0.4 SECONDS)
@@ -234,17 +234,21 @@
 /obj/structure/closet/supplypod/deadmatch_missile/endgame
 	explosionSize = list(80, 100, 120, 0)
 	ignore_explosion_cap = TRUE
-	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS)
+	delays = list(POD_TRANSIT = 1.5 MINUTES, POD_FALLING = 5 SECONDS)
+
+/obj/structure/closet/supplypod/deadmatch_missile/endgame/Initialize(mapload, customStyle)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA_ROCKET)
+	return ..()
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame/preOpen()
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(nuke_effect), z)
-	. = ..()
+	return ..()
+
+/proc/launch_endgame_missile()
+	new /obj/effect/pod_landingzone(pick(GLOB.airdrops_points), new /obj/structure/closet/supplypod/deadmatch_missile/endgame())
 
 /proc/nuke_effect(z)
 	for(var/mob/living as anything in GLOB.mob_list)
-		if(living.stat == DEAD)
-			continue
-
 		var/turf/turf = get_turf(living)
 
 		if(!turf || (turf.z != z) || isnewplayer(living) || istype(living.loc, /obj/structure/closet/secure_closet/freezer))
@@ -263,7 +267,9 @@
 		qdel(core)
 		CHECK_TICK
 
-	SSticker.mode.end_game()
+	GLOB.enter_allowed = 0
+	SSticker.mode.station_was_nuked = TRUE
+	to_chat(world, span_bold("Станция уничтожена взрывом ядерной ракеты!"))
 
 /obj/structure/closet/supplypod/swarmer
 	style = /datum/pod_style/swarmer

@@ -1198,6 +1198,9 @@ GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEG
 	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
 		client.mouse_pointer_icon = examine_cursor_icon
 
+	if(scope_pointer_icon)
+		client.mouse_pointer_icon = scope_pointer_icon
+
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
 

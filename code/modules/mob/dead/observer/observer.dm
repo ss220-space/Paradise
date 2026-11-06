@@ -213,7 +213,8 @@ Works together with spawning an observer, noted above.
 
 	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 	if(client)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+		client.mouse_override_icon = initial(client.mouse_pointer_icon)
+		update_mouse_pointer()
 
 	var/recordable_time = world.time
 	var/mob/living/former_mob = ghost.mind?.current
