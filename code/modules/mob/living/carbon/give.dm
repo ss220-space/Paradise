@@ -135,7 +135,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 	..()
 	if(!holder.mouse_override_icon)
 		holder.mouse_override_icon = 'icons/misc/mouse_icons/give_item.dmi'
-		holder.mouse_pointer_icon = holder.mouse_override_icon
+		holder.mob?.update_mouse_pointer()
 
 	giver = holder.mob
 	giving_item = giver.get_active_hand()
@@ -147,7 +147,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 /datum/click_intercept/give/Destroy(force = FALSE)
 	if(holder.mouse_override_icon == 'icons/misc/mouse_icons/give_item.dmi')
 		holder.mouse_override_icon = null
-		holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+		holder.mob?.update_mouse_pointer()
 	if(!item_offered)
 		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
 	if(giving_item)
