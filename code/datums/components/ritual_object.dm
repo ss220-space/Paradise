@@ -136,7 +136,7 @@
 			var/mob/user = ui.user
 			ui.close()
 			ritual_in_progress = TRUE
-			var/ritual_status = pre_ritual_check(user)
+			pre_ritual_check(user)
 			ritual_in_progress = FALSE
 			. = TRUE
 
