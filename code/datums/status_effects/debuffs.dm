@@ -1001,16 +1001,16 @@
 	var/hallucination_stacks = 0
 
 /datum/status_effect/transient/hallucination/on_apply()
-    if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
-        return FALSE
-    RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
+	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
+		return FALSE
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
 
-    var/dose = strength
-    duration = STATUS_EFFECT_PERMANENT
-    strength = dose
-    hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
-    COOLDOWN_START(src, hallucination_cooldown, rand(lower_tick_interval, upper_tick_interval)) // ← добавить
-    return TRUE
+	var/dose = strength
+	duration = STATUS_EFFECT_PERMANENT
+	strength = dose
+	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
+	COOLDOWN_START(src, hallucination_cooldown, rand(lower_tick_interval, upper_tick_interval)) // ← добавить
+	return TRUE
 
 /datum/status_effect/transient/hallucination/proc/delete_self()
 	SIGNAL_HANDLER
@@ -1092,7 +1092,7 @@
 	if(owner.cause_hallucination(picked_hallucination, "[id] status effect"))
 		COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
 	else
-		COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd * 0.75, upper_cd * 0.75))
+		COOLDOWN_START(src, hallucination_cooldown, randfloat(lower_cd * 0.75, upper_cd * 0.75))
 
 // MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
