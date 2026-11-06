@@ -19,7 +19,7 @@
 	var/duration = 14 SECONDS
 	/// Datum of our chronofield
 	var/datum/proximity_monitor/advanced/timestop/chronofield
-	/// Not implemented yet, waiting for antimagic port. Please update this
+	/// It allows people with anti-magic to pass through.
 	var/antimagic_flags = NONE
 	/// If true, immune atoms moving ends the timestop instead of duration.
 	var/channelled = FALSE
@@ -30,9 +30,6 @@
 	/// Sets color matrix for timestop effect.
 	var/color_matrix = COLOR_MATRIX_INVERT
 
-/obj/effect/timestop/wizard
-	duration = 10 SECONDS
-
 /obj/effect/timestop/slowing
 	duration = 10 SECONDS
 	timefreeze = TRUE
@@ -42,10 +39,9 @@
 /obj/effect/timestop/channelled
 	channelled = TRUE
 
-/*
 /obj/effect/timestop/magic
+	duration = 10 SECONDS
 	antimagic_flags = MAGIC_RESISTANCE
-*/
 
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE, silent = FALSE) //Immune atoms assoc list atom = TRUE
 	. = ..()
@@ -133,13 +129,13 @@
 		if(channelled)
 			RegisterSignal(our_movable, COMSIG_MOVABLE_MOVED, PROC_REF(atom_broke_channel), override = TRUE)
 		return FALSE
-	/*
+
 	if(ismob(our_movable))
 		var/mob/our_mob = our_movable
 		if(our_mob.can_block_magic(antimagic_flags))
 			immune[our_movable] = TRUE
 			return
-	*/
+
 	var/frozen = TRUE
 	if(isliving(our_movable))
 		freeze_mob(our_movable)

@@ -318,6 +318,8 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	/// How much emp protection this module grants to its wearer when fully extended.
+	var/protection_factor = EMP_PROTECTION_MODERATE
 
 /obj/item/mod/module/emp_shield/get_ru_names()
 	return alist(
@@ -331,11 +333,36 @@
 
 /obj/item/mod/module/emp_shield/on_install()
 	. = ..()
-	mod.emp_proof = TRUE
+	mod.AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/mod/module/emp_shield/on_uninstall(deleting = FALSE)
 	. = ..()
-	mod.emp_proof = FALSE
+	mod.RemoveElement(/datum/element/empprotection, EMP_PROTECT_ALL)
+
+// MARK: Advanced EMP shield
+/// Advanced EMP Shield - Protects the wearer (and suit) from EMPs.
+/obj/item/mod/module/emp_shield/advanced
+	name = "MOD advanced EMP shield module"
+	desc = "Модуль для МЭК, является усовершенствованной версией модуля защиты от ЭМИ. Будучи установленным в костюм и включенным, защищает не только МЭК, \
+			но и его носителя от воздействия ЭМИ, постоянно потребляя заряд костюма."
+	origin_tech = "materials=6;bluespace=6;syndicate=2"
+	complexity = 2
+
+/obj/item/mod/module/emp_shield/advanced/get_ru_names()
+	return alist(
+		NOMINATIVE = "модуль улучшенной защиты от ЭМИ",
+		GENITIVE = "модуля улучшенной защиты от ЭМИ",
+		DATIVE = "модулю улучшенной защиты от ЭМИ",
+		ACCUSATIVE = "модуль улучшенной защиты от ЭМИ",
+		INSTRUMENTAL = "модулем улучшенной защиты от ЭМИ",
+		PREPOSITIONAL = "модуле улучшенной защиты от ЭМИ",
+	)
+
+/obj/item/mod/module/emp_shield/advanced/on_part_activation()
+	mod.wearer.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
+
+/obj/item/mod/module/emp_shield/advanced/on_part_deactivation(deleting = FALSE)
+	mod.wearer.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
 
 // MARK: Flashlight
 /// Flashlight - Gives the suit a customizable flashlight.
@@ -545,14 +572,12 @@
 	. = ..()
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_mod_activation))
 	RegisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL, PROC_REF(on_mod_removal))
-	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 	RegisterSignal(mod, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag))
 
 /obj/item/mod/module/dna_lock/on_uninstall(deleting = FALSE)
 	. = ..()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	UnregisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL)
-	UnregisterSignal(mod, COMSIG_ATOM_EMP_ACT)
 	UnregisterSignal(mod, COMSIG_ATOM_EMAG_ACT)
 
 /obj/item/mod/module/dna_lock/on_use()
@@ -562,9 +587,10 @@
 
 /obj/item/mod/module/dna_lock/emp_act(severity)
 	. = ..()
-	if(mod.emp_proof)
-		return
+	if(. & EMP_PROTECT_SELF)
+		return .
 	on_emp(src, severity)
+	return .
 
 /obj/item/mod/module/dna_lock/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
@@ -580,8 +606,6 @@
 	return FALSE
 
 /obj/item/mod/module/dna_lock/proc/on_emp(datum/source, severity)
-	SIGNAL_HANDLER
-
 	dna = null
 
 /obj/item/mod/module/dna_lock/proc/on_emag(datum/source, mob/user, obj/item/card/emag/emag_card)
@@ -603,7 +627,7 @@
 		atom_say("ОШИБКА: ДНК пользователя не совпадает с ДНК владельца.")
 		return MOD_CANCEL_REMOVAL
 
-// MARK: EMP-proof DNA
+// MARK: EMP-proof DNA lock
 /obj/item/mod/module/dna_lock/emp_shield
 	name = "MOD DN-MP shield lock"
 	desc = "Модуль для МЭК, интегрированный в систему герметизации и электронику костюма. \
@@ -625,11 +649,11 @@
 
 /obj/item/mod/module/dna_lock/emp_shield/on_install()
 	. = ..()
-	mod.emp_proof = TRUE
+	mod.AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/mod/module/dna_lock/emp_shield/on_uninstall(deleting = FALSE)
 	. = ..()
-	mod.emp_proof = FALSE
+	mod.RemoveElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 // MARK: Plasma stabilizer
 /// Plasma Stabilizer - Prevents plasmamen from igniting in the suit

@@ -14,10 +14,12 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 
+	var/temp_name = "[HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)? "воняющий труп ": ""][..()]"
+
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		return ..() //omit the species when examining
+		return temp_name //omit the species when examining
 	else
-		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+		return "[temp_name],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
 
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
@@ -49,7 +51,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = ""
+	var/list/msg = list()
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -241,7 +243,7 @@
 				if(bodypart.is_robotic())
 					msg += span_warning("<b>Технический люк на [GLOB.body_zone[limb_zone][PREPOSITIONAL]] открыт.</b>\n")
 				else
-					msg += span_warning("<b>У н[GEND_HIS_HER(src)] открытый разрез на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
+					msg += span_warning("<b>У н[GEND_HIS_HER(src)] [bodypart.open != ORGAN_ORGANIC_VIOLENT_OPEN? "открытый разрез" : "жестокое рассечёние"] на [GLOB.body_zone[limb_zone][PREPOSITIONAL]].</b>\n")
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
 				msg += span_warning("<b>В [GEND_HIS_HER(src)] [GLOB.body_zone[limb_zone][PREPOSITIONAL]] застрял [icon2html(embed, user)] [embed.declent_ru(NOMINATIVE)]!</b>\n")
@@ -324,6 +326,9 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У н[GEND_HIS_HER(src)] бледная кожа.\n")
 
+	if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE)) //to tell plague zombies easier through clothing
+		msg += "[GEND_HE_SHE_CAP(src)] пахн[PLUR_ET_UT(src)] гнилью и смертью!\n"
+
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
 		msg += span_warning("<b>[GEND_HE_SHE_CAP(src)] впил[GEND_SYA_AS_OS_IS(src)] своими клыками в шею [vampire_datum.draining].\n</b>")
@@ -355,6 +360,44 @@
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] обильно кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 		else
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru_base(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
+
+	// Heal skill: 5 - fractures, 6 - blood and internal bleeding, 7 - damages
+	if(in_range(user, src))
+		GET_SKILL_LEVEL(user, /datum/skill/medical/heal, examine_heal_skill_level)
+		if(examine_heal_skill_level >= SKILL_LEVEL_PROFESSIONAL)
+			for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+				if(!bodypart.has_fracture())
+					continue
+				if(bodypart.fracture == FRACTURE_TYPE_CRACK)
+					msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] трещина в [bodypart.declent_ru_base(PREPOSITIONAL)].\n"))
+				else
+					msg += span_warning(span_bold("У н[GEND_HIS_HER(src)] сломан[GEND_A_O_Y(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)].\n"))
+
+			if(examine_heal_skill_level >= SKILL_LEVEL_EXPERT)
+				if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
+					var/heal_blood_percent = round((blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+					var/heal_blood_text = "Уровень крови: [heal_blood_percent]%"
+					if(blood_volume <= BLOOD_VOLUME_OKAY)
+						heal_blood_text = span_danger("Уровень крови: [heal_blood_percent]% (критический)")
+					else if(blood_volume <= BLOOD_VOLUME_SAFE)
+						heal_blood_text = span_warning("Уровень крови: [heal_blood_percent]% (низкий)")
+					msg += "[heal_blood_text]\n"
+
+				var/list/internal_bleedings = list()
+				for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+					if(bodypart.has_internal_bleeding())
+						internal_bleedings += "в [bodypart.declent_ru_base(PREPOSITIONAL)]"
+				if(length(internal_bleedings))
+					var/internal_bleeding_title = length(internal_bleedings) > 1 ? "Внутренние кровотечения" : "Внутреннее кровотечение"
+					var/internal_bleeding_list = internal_bleedings.Join(", ")
+					msg += span_warning(span_bold("[internal_bleeding_title]: [internal_bleeding_list].\n"))
+
+				if(examine_heal_skill_level >= SKILL_LEVEL_LEGEND)
+					msg += "Уровень повреждений: "
+					msg += "[span_color("удушье [getOxyLoss()]", "#0080ff")], "
+					msg += "[span_color("отравление [getToxLoss()]", "green")], "
+					msg += "[span_color("терм. [getFireLoss()]", "#FF8000")], "
+					msg += "[span_color("мех. [getBruteLoss()]", "red")].\n"
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
 		var/blood_volume_text
@@ -469,7 +512,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	. = list(msg)
+	. = list(msg.Join(""))
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**

@@ -41,6 +41,8 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	/// for icons when inserted in protolathe
 	var/protolathe_name
+	/// If TRUE, logistics counts stack.amount (sheets, ore). If FALSE, one stack object is one unit/
+	var/logistics_count_amount = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	if(new_amount != null)

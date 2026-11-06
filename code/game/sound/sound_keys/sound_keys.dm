@@ -814,4 +814,10 @@
 		'sound/ambience/weather/rain/thunder/sfx_thunder_low_5.ogg',
 		'sound/ambience/weather/rain/thunder/sfx_thunder_low_6.ogg',
 		'sound/ambience/weather/rain/thunder/sfx_thunder_low_7.ogg',
+
+/datum/sound_effect/hallucination_i_m_here
+	key = SFX_IM_HERE
+	file_paths = list(
+		'sound/effects/hallucinations/im_here1.ogg',
+		'sound/effects/hallucinations/im_here2.ogg',
 	)

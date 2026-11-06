@@ -135,6 +135,7 @@
 		/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 		/obj/item/clothing/mask/balaclava = 1,
 		/obj/item/clothing/under/syndicate/blackops_civ = 1,
+		/obj/item/clothing/head/oldhuman_head = 1,
 		/obj/item/clothing/head/ushanka = 1,
 		/obj/item/clothing/under/soviet = 1,
 		/obj/item/storage/belt/fannypack/black = 1,

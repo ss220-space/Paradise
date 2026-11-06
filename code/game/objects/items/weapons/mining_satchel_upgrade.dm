@@ -17,22 +17,23 @@
 		PREPOSITIONAL = "магнитном улучшении сумок для руды",
 	)
 
-/obj/item/storage/bag/ore/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/mining_satchel_upgrade))
-		if(aoe)
-			to_chat(user, span_notice("Сумка уже улучшена!"))
-			return ATTACK_CHAIN_BLOCKED_ALL
-
-		add_fingerprint(user)
-		to_chat(user, span_notice("Вы улучшили сумку для руды!"))
-		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-		aoe = TRUE
-		qdel(item)
-
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ..()
-
-/obj/item/storage/bag/ore/examine(mob/user)
+/obj/item/mining_satchel_upgrade/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	. = ..()
-	if(aoe)
-		. += span_notice("Сумка улучшена рудным магнитом.")
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+
+	if(!istype(interacting_with, /obj/item/storage/bag/ore))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] можно крепить только на сумки для руды!"))
+		return ITEM_INTERACT_FAILURE
+
+	var/obj/item/storage/bag/ore/ore_bag = interacting_with
+	if(ore_bag.aoe)
+		to_chat(user, span_notice("[DECLENT_RU_CAP(ore_bag, NOMINATIVE)] уже улучшена!"))
+		return ITEM_INTERACT_FAILURE
+
+	add_fingerprint(user)
+	to_chat(user, span_notice("Вы улучшили [ore_bag.declent_ru(ACCUSATIVE)] рудным магнитом!"))
+	playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+	ore_bag.aoe = TRUE
+	qdel(src)
+	return ITEM_INTERACT_SUCCESS

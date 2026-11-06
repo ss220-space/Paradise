@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Молитвенный хлеб теперь требует одну из рук, а не обе руки (PR #9986)"

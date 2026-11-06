@@ -2,6 +2,8 @@
 #define SWARMER_ACP_RANGE_DAMAGE_MODIFIER 2
 /// ACP turret slowed multiplier (doesn't scale)
 #define SWARMER_ACP_SLOWED_MODIFIER 2
+/// Damage multiplier if we can't see the target
+#define SWARMER_ACP_NO_SIGHT_DAMAGE_MULTIPLIER 0.5
 
 /**
  * Swarmer ACP turret
@@ -114,13 +116,14 @@
 		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MODIFIER)
 
 	var/final_damage = damage + damage * modifier * SWARMER_ACP_RANGE_DAMAGE_MODIFIER
+	if(!is_in_sight(src, target))
+		final_damage *= SWARMER_ACP_NO_SIGHT_DAMAGE_MULTIPLIER
+
 	if(!iscarbon(target))
-		target.apply_damage(final_damage / 2, BURN)
+		target.apply_damage(final_damage, BURN, blocked = target.getarmor(null, ENERGY))
 		return
 
-	var/mob/living/carbon/carbon_target = target
-	if(!carbon_target.IsStamcrited())
-		target.apply_damage(final_damage, STAMINA)
+	target.apply_damage(final_damage, STAMINA, blocked = target.getarmor(null, ENERGY))
 
 /obj/structure/swarmer/acp_turret/get_ru_names()
 	return alist(
@@ -151,3 +154,4 @@
 
 #undef SWARMER_ACP_RANGE_DAMAGE_MODIFIER
 #undef SWARMER_ACP_SLOWED_MODIFIER
+#undef SWARMER_ACP_NO_SIGHT_DAMAGE_MULTIPLIER

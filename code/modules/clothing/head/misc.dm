@@ -529,6 +529,24 @@
 	item_state = "lingspacehelmet"
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 
+/obj/item/clothing/head/oldhuman_head
+	name = "old human head"
+	desc = "Дешевая силиконовая маска в виде человеческой головы."
+	icon_state = "oldhumanhelmet"
+	item_state = "oldhumanhelmet"
+	flags_inv = HIDENAME|HIDEHEADSETS|HIDE_ALL_HAIR
+	species_restricted = list("exclude", SPECIES_VOX, SPECIES_VOX_ARMALIS)
+
+/obj/item/clothing/head/oldhuman_head/get_ru_names()
+	return alist(
+		NOMINATIVE = "старая силиконовая маска",
+		GENITIVE = "старой силиконовой маски",
+		DATIVE = "старой силиконовой маске",
+		ACCUSATIVE = "старую силиконовую маску",
+		INSTRUMENTAL = "старой силиконовой маской",
+		PREPOSITIONAL = "старой силиконовой маске",
+	)
+
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."

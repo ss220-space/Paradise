@@ -177,14 +177,10 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
-				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+				V.Contract(M, act_type = BLOOD, need_protection_check = TRUE, act_type = CONTACT)
 			else
-				V.Contract(M, need_protection_check = FALSE)
+				V.Contract(M, act_type = BLOOD, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -240,10 +236,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
@@ -418,17 +410,16 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				M.emote("scream")
 			vamp.base_nullification()
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
+			var/vomit_stun = 8 SECONDS
 			if(vamp.bloodusable)
 				V.vomit(0, VOMIT_BLOOD, vomit_stun)
-				if(!vomit_stun)
-					V.adjustBruteLoss(3)
+				V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
 				V.vomit(0, stun = vomit_stun)
 				return
 		else
-			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
+			if(!vamp.bloodtotal)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)

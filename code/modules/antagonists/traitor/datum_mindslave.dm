@@ -106,3 +106,21 @@
 // Helper proc that determines if a mob is a mindslave.
 /proc/ismindslave(mob/living/carbon/human/slave)
 	return istype(slave) && slave.mind?.has_antag_datum(/datum/antagonist/mindslave, FALSE)
+
+//Mindslaved thrall risen by the wizards necromantic stone
+/datum/antagonist/mindslave/necromancy
+	name = "Necromancy-risen Thrall"
+	master_hud_icon = "wizard"
+
+/datum/antagonist/mindslave/necromancy/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/mob = .
+	ADD_TRAIT(mob, TRAIT_NECROMANT_CURSED, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/antagonist/mindslave/necromancy/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/mob = .
+	REMOVE_TRAIT(mob, TRAIT_NECROMANT_CURSED, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/antagonist/mindslave/necromancy/plague_zombie
+	name = "Necromancy-risen Plague Zombie"

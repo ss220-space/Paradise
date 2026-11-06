@@ -166,8 +166,6 @@
 		var/mob/living/carbon/C = AM
 		if(blood_data["diseases"])
 			for(var/datum/disease/virus/V in blood_data["diseases"])
-				if(V.spread_flags < BLOOD)
-					continue
 				V.Contract(C)
 		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood

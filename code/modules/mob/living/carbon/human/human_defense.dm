@@ -266,6 +266,12 @@ emp_act
 	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return HIT_RESULT_SUCCESS
 
+	if(l_hand && l_hand.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
+	if(r_hand && r_hand.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+		return HIT_RESULT_SUCCESS
+
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return HIT_RESULT_SUCCESS
 	return HIT_RESULT_FAILED
@@ -900,3 +906,8 @@ emp_act
 		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
 			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
 			to_chat(src, span_danger("Вязкий напалм обволакивает ваши конечности, и вы с трудом двигаетесь сквозь пламя!"))
+
+/mob/living/carbon/human/get_emp_protection()
+	. = ..()
+	for(var/obj/item/clothing/each_clothing in get_equipped_items())
+		. += each_clothing.emp_protection
