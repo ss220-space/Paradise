@@ -33,6 +33,8 @@
 	)
 
 /datum/action/cooldown/spell/touch/healtouch/is_valid_target(atom/cast_on)
+	if(!ishuman(cast_on))
+		return FALSE
 	var/mob/living/carbon/human/target = cast_on
 	if(target.can_block_magic(antimagic_flags))
 		return FALSE
