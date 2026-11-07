@@ -16,7 +16,7 @@
 	agent = "Вирус класса [pick("A", "B", "C", "D", "E", "F")][pick("A", "B", "C", "D", "E", "F")]-[rand(50,300)]"
 	//else cure is rest
 	if(prob(40))
-		cures = list("mutadone")
+		cures = list(/datum/reagent/medicine/mutadone)
 
 /datum/disease/virus/dna_retrovirus/stage_act()
 	if(!..())

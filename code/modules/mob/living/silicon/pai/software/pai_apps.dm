@@ -500,7 +500,7 @@
 	for(var/datum in typesof(/datum/pai_chem))
 		var/datum/pai_chem/C = datum
 		if(initial(C.chemname))
-			available_c += list(list("name" = initial(C.chemname), "key" = initial(C.key), "desc" = initial(C.chemdesc), "cost" = initial(C.chemuse)))
+			available_c += list(list("name" = initial(C.chemname), "key" = "[initial(C.key)]", "desc" = initial(C.chemdesc), "cost" = initial(C.chemuse)))
 
 	data["current_chemicals"] = pai_holder.chemicals
 	data["available_chemicals"] = available_c
@@ -513,19 +513,26 @@
 	switch(action)
 		if("secreteChemicals")
 			var/mob/living/held = get_holding_mob(FALSE)
+			var/reagent_type = text2path(params["key"])
+			if(!ispath(reagent_type))
+				return
+
 			var/datum/pai_chem/C = null
 			for(var/datum in typesof(/datum/pai_chem))
 				var/datum/pai_chem/test = datum
-				if(initial(test.key) == params["key"])
+				if(initial(test.key) == reagent_type)
 					C = new test()
 					break
 
-			if(!C || !held || !src)
+			if(!C || !held)
 				return
 
-			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
+			var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_type]
+			if(!R)
+				return
+
 			to_chat(pai_holder, span_notice("В кровоток носителя введён синтезированный реагент: \"[R.name]\"."))
-			held.reagents.add_reagent(C.key, C.quantity)
+			held.reagents.add_reagent(reagent_type, C.quantity)
 			pai_holder.chemicals -= C.chemuse
 
 // Advanced Security Records //

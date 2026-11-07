@@ -57,7 +57,7 @@
 		owner.adjustToxLoss(toxin_healing * PROCESS_ACCURACY)
 
 	//High toxins levels are dangerous
-	if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
+	if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent(/datum/reagent/medicine/charcoal))
 		//Healthy liver suffers on its own
 		if(damage < min_broken_damage)
 			internal_receive_damage(0.2 * PROCESS_ACCURACY)
@@ -69,7 +69,7 @@
 
 	if(damage)
 		//Detox can heal small amounts of damage
-		if((damage < min_bruised_damage && owner.reagents.has_reagent("charcoal")))
+		if((damage < min_bruised_damage && owner.reagents.has_reagent(/datum/reagent/medicine/charcoal)))
 			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
 		//Upgraded cyber liver heals all the time when we dont have toxins
 		if(regeneration && (owner.getToxLoss() == 0))
