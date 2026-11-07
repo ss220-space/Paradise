@@ -84,6 +84,8 @@
 		icon_floor_type = ""
 	if(istype(loc, /turf/simulated/floor/beach/sand))
 		icon_floor_type = "sand"
+	if(istype(loc, /turf/simulated/floor/planetoid/desert))
+		icon_floor_type = "sand"
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
 	update_icon(UPDATE_ICON_STATE)

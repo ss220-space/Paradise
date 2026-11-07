@@ -280,6 +280,11 @@
 	else
 		visible_message(span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))
 
+/obj/structure/torch_holder/ancient
+	icon = 'icons/obj/bonfire.dmi'
+	icon_state = "torch"
+	ancient = TRUE
+
 #undef TORCH_OK
 #undef TORCH_EMPTY
 #undef TORCH_OFF
