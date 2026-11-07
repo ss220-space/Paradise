@@ -29,7 +29,7 @@
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 	)
 	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS
 
