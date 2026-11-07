@@ -162,7 +162,7 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/choccherrycake,
 
 		// Clothes
-		/obj/item/clothing/under/psyjump = 10,
+		/obj/item/clothing/under/costumes/psyjump = 10,
 		/obj/item/clothing/head/collectable/chef,
 		/obj/item/clothing/head/collectable/paper,
 		/obj/item/clothing/head/collectable/tophat,

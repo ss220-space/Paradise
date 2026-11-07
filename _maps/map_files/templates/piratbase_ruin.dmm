@@ -2444,7 +2444,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/miscellaneous/pj/red,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "ik" = (
@@ -8288,7 +8288,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/miscellaneous/pj/blue,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "AT" = (
@@ -13861,8 +13861,8 @@
 	dir = 8
 	},
 /obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/under/pirate,
-/obj/item/clothing/under/pirate_rags,
+/obj/item/clothing/under/costumes/pirate,
+/obj/item/clothing/under/costumes/pirate_rags,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/gloves/combat,
@@ -15452,8 +15452,8 @@
 /area/shuttle/pirate_corvette)
 "Yu" = (
 /obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/under/pirate,
-/obj/item/clothing/under/pirate_rags,
+/obj/item/clothing/under/costumes/pirate,
+/obj/item/clothing/under/costumes/pirate_rags,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/gloves/combat,

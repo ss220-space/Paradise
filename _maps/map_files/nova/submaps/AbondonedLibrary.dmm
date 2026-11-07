@@ -953,7 +953,7 @@
 /area/station/maintenance/trading)
 "Rx" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/barber,
+/obj/item/clothing/under/rank/service/barber,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)

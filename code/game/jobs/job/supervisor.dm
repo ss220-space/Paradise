@@ -130,7 +130,7 @@
 /datum/outfit/job/nanotrasenrep
 	name = JOB_TITLE_RU_REPRESENTATIVE
 	jobtype = /datum/job/head_of_staff/nanotrasenrep
-	uniform = /obj/item/clothing/under/rank/ntrep
+	uniform = /obj/item/clothing/under/rank/procedure/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -192,7 +192,7 @@
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_RU_BLUESHIELD
 	jobtype = /datum/job/blueshield
-	uniform = /obj/item/clothing/under/rank/blueshield
+	uniform = /obj/item/clothing/under/rank/procedure/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -253,7 +253,7 @@
 /datum/outfit/job/judge
 	name = JOB_TITLE_RU_MAGISTRATE
 	jobtype = /datum/job/head_of_staff/judge
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/jacket/really_black
 	suit = /obj/item/clothing/suit/judgerobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
@@ -302,7 +302,7 @@
 /datum/outfit/job/lawyer
 	name = JOB_TITLE_RU_LAWYER
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/lawyer
+	uniform = /obj/item/clothing/under/rank/procedure/internal
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/headset_iaa

@@ -8,7 +8,7 @@
 		new /obj/item/storage/backpack/clown(src)
 	else
 		new /obj/item/storage/backpack/satchel_clown(src)
-	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/under/rank/service/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/mask/gas/clown_hat(src)
@@ -19,7 +19,7 @@
 	new /obj/item/seeds/banana(src)
 	new /obj/item/restraints/handcuffs/toy(src)
 	new /obj/item/clothing/suit/soldiercoat(src)	//added here deleted on maps
-	new /obj/item/clothing/under/soldieruniform(src)
+	new /obj/item/clothing/under/ussp/clown/soldier(src)
 
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
@@ -35,9 +35,9 @@
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/clothing/mask/gas/mime/old(src)
 	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/clothing/under/mime(src)
-	new /obj/item/clothing/under/mimeskirt(src)
-	new /obj/item/clothing/under/mimeshorts(src)
+	new /obj/item/clothing/under/rank/service/mime(src)
+	new /obj/item/clothing/under/rank/service/mime/skirt(src)
+	new /obj/item/clothing/under/rank/service/mime/shorts(src)
 	new /obj/item/clothing/suit/suspenders(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/color/black(src)

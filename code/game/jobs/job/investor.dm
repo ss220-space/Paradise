@@ -3,7 +3,7 @@
 	jobtype = /datum/job/investor
 	allow_backbag_choice = FALSE
 
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/jacket/really_black
 	shoes = /obj/item/clothing/shoes/laceup
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/investor

@@ -1593,13 +1593,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/securityclothes
 	name = "Униформа службы безопасности"
 	contains = list(
-		/obj/item/clothing/under/rank/security/corp,
-		/obj/item/clothing/under/rank/security/corp,
+		/obj/item/clothing/under/rank/security/officer/corp,
+		/obj/item/clothing/under/rank/security/officer/corp,
 		/obj/item/clothing/head/soft/sec/corp,
 		/obj/item/clothing/head/soft/sec/corp,
-		/obj/item/clothing/under/rank/warden/corp,
+		/obj/item/clothing/under/rank/security/warden/corp,
 		/obj/item/clothing/head/beret/sec/warden,
-		/obj/item/clothing/under/rank/head_of_security/corp,
+		/obj/item/clothing/under/rank/security/head_of_security/corp,
 		/obj/item/clothing/head/HoS/beret,
 	)
 	cost = 30
@@ -5161,8 +5161,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/bible/booze,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
-		/obj/item/clothing/under/burial,
-		/obj/item/clothing/under/burial,
+		/obj/item/clothing/under/miscellaneous/burial,
+		/obj/item/clothing/under/miscellaneous/burial,
 	)
 	cost = 60
 	containername = "ящик религиозного снабжения"
@@ -5197,8 +5197,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Снаряжение барбера"
 	contains = list(
 		/obj/item/storage/box/barber,
-		/obj/item/clothing/under/barber,
-		/obj/item/clothing/under/barber/skirt,
+		/obj/item/clothing/under/rank/service/barber,
+		/obj/item/clothing/under/rank/service/barber/skirt,
 		/obj/item/razor,
 		/obj/item/storage/box/lip_stick,
 	)
@@ -5519,10 +5519,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/backpack/clown,
 		/obj/item/clothing/shoes/clown_shoes,
 		/obj/item/clothing/mask/gas/clown_hat,
-		/obj/item/clothing/under/rank/clown,
+		/obj/item/clothing/under/rank/service/clown,
 		/obj/item/bikehorn,
 		/obj/item/storage/backpack/mime,
-		/obj/item/clothing/under/mime,
+		/obj/item/clothing/under/rank/service/mime,
 		/obj/item/clothing/shoes/color/black,
 		/obj/item/clothing/gloves/color/white,
 		/obj/item/clothing/mask/gas/mime,
@@ -5571,12 +5571,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/head/fedora/whitefedora,
 		/obj/item/clothing/head/fedora/brownfedora,
 		/obj/item/clothing/head/fedora,
-		/obj/item/clothing/under/flappers,
-		/obj/item/clothing/under/mafia,
-		/obj/item/clothing/under/mafia/vest,
-		/obj/item/clothing/under/mafia/white,
-		/obj/item/clothing/under/mafia/sue,
-		/obj/item/clothing/under/mafia/tan,
+		/obj/item/clothing/under/miscellaneous/flappers,
+		/obj/item/clothing/under/suit/mafia,
+		/obj/item/clothing/under/suit/mafia/vest,
+		/obj/item/clothing/under/suit/mafia/white,
+		/obj/item/clothing/under/suit/mafia/sue,
+		/obj/item/clothing/under/suit/mafia/tan,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 	)
@@ -5702,14 +5702,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Официальная одежда"
 	contains = list(
-		/obj/item/clothing/under/blacktango,
-		/obj/item/clothing/under/assistantformal,
-		/obj/item/clothing/under/assistantformal,
-		/obj/item/clothing/under/lawyer/bluesuit,
+		/obj/item/clothing/under/dress/blacktango,
+		/obj/item/clothing/under/miscellaneous/assistantformal,
+		/obj/item/clothing/under/miscellaneous/assistantformal,
+		/obj/item/clothing/under/rank/procedure/lawyer/bluesuit,
 		/obj/item/clothing/suit/storage/lawyer/bluejacket,
-		/obj/item/clothing/under/lawyer/purpsuit,
+		/obj/item/clothing/under/rank/procedure/lawyer/purpsuit,
 		/obj/item/clothing/suit/storage/lawyer/purpjacket,
-		/obj/item/clothing/under/lawyer/black,
+		/obj/item/clothing/under/rank/procedure/lawyer/black,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket,
 		/obj/item/clothing/accessory/waistcoat,
 		/obj/item/clothing/accessory/blue,
@@ -5723,11 +5723,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/laceup,
 		/obj/item/clothing/shoes/laceup,
 		/obj/item/clothing/shoes/laceup,
-		/obj/item/clothing/under/suit_jacket/charcoal,
-		/obj/item/clothing/under/suit_jacket/navy,
-		/obj/item/clothing/under/suit_jacket/burgundy,
-		/obj/item/clothing/under/suit_jacket/checkered,
-		/obj/item/clothing/under/suit_jacket/tan,
+		/obj/item/clothing/under/suit/jacket/charcoal,
+		/obj/item/clothing/under/suit/jacket/navy,
+		/obj/item/clothing/under/suit/jacket/burgundy,
+		/obj/item/clothing/under/suit/jacket/checkered,
+		/obj/item/clothing/under/suit/jacket/tan,
 		/obj/item/lipstick/random,
 	)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
@@ -5745,14 +5745,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Командные майки"
 	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
 	contains = list(
-		/obj/item/clothing/under/color/red/jersey,
-		/obj/item/clothing/under/color/red/jersey,
-		/obj/item/clothing/under/color/red/jersey,
-		/obj/item/clothing/under/color/red/jersey,
-		/obj/item/clothing/under/color/blue/jersey,
-		/obj/item/clothing/under/color/blue/jersey,
-		/obj/item/clothing/under/color/blue/jersey,
-		/obj/item/clothing/under/color/blue/jersey,
+		/obj/item/clothing/under/color/miscellaneous/red/jersey,
+		/obj/item/clothing/under/color/miscellaneous/red/jersey,
+		/obj/item/clothing/under/color/miscellaneous/red/jersey,
+		/obj/item/clothing/under/color/miscellaneous/red/jersey,
+		/obj/item/clothing/under/color/miscellaneous/blue/jersey,
+		/obj/item/clothing/under/color/miscellaneous/blue/jersey,
+		/obj/item/clothing/under/color/miscellaneous/blue/jersey,
+		/obj/item/clothing/under/color/miscellaneous/blue/jersey,
 		/obj/item/beach_ball,
 	)
 	cost = 15

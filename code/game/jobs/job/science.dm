@@ -41,7 +41,7 @@
 	name = JOB_TITLE_RU_RD
 	jobtype = /datum/job/head_of_staff/rd
 
-	uniform = /obj/item/clothing/under/rank/research_director
+	uniform = /obj/item/clothing/under/rank/science/research_director
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/rd
@@ -143,7 +143,7 @@
 	name = JOB_TITLE_RU_SCIENTIST
 	jobtype = /datum/job/science/scientist
 
-	uniform = /obj/item/clothing/under/rank/scientist
+	uniform = /obj/item/clothing/under/rank/science/scientist
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_sci
@@ -185,19 +185,19 @@
 	name = JOB_TITLE_RU_SCIENCE_STUDENT
 	jobtype = /datum/job/science/scientist/student
 
-	uniform = /obj/item/clothing/under/rank/scientist/student
+	uniform = /obj/item/clothing/under/rank/science/student
 	id = /obj/item/card/id/research/student
 
 /datum/outfit/job/scientist/student/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
+		uniform = /obj/item/clothing/under/rank/science/student/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if(ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER)
-				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
+				uniform = /obj/item/clothing/under/rank/science/student/assistant
 				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
+					uniform = /obj/item/clothing/under/rank/science/student/assistant/skirt
 
 /datum/job/science/roboticist
 	title = JOB_TITLE_ROBOTICIST
@@ -229,7 +229,7 @@
 	name = JOB_TITLE_RU_ROBOTICIST
 	jobtype = /datum/job/science/roboticist
 
-	uniform = /obj/item/clothing/under/rank/roboticist
+	uniform = /obj/item/clothing/under/rank/science/roboticist
 	suit = /obj/item/clothing/suit/storage/labcoat
 	belt = /obj/item/storage/belt/utility/full
 	l_ear = /obj/item/radio/headset/headset_sci
@@ -261,7 +261,7 @@
 /datum/outfit/job/mechanic
 	name = JOB_TITLE_RU_SPACEPOD_TECHNICIAN
 	jobtype = /datum/job/science/mechanic
-	uniform = /obj/item/clothing/under/rank/mechanic
+	uniform = /obj/item/clothing/under/rank/science/mechanic
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
@@ -304,7 +304,7 @@
 /datum/outfit/job/explorer
 	name = JOB_TITLE_RU_EXPLORER
 	jobtype = /datum/job/science/explorer
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	head = /obj/item/clothing/head/beret/black
 	suit = /obj/item/clothing/suit/armor/vest
 	l_ear = /obj/item/radio/headset/headset_sci

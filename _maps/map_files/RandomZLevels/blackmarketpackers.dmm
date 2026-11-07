@@ -4174,7 +4174,7 @@
 /area/awaymission/BMPship/Shelter)
 "Ai" = (
 /obj/structure/closet,
-/obj/item/clothing/under/overalls,
+/obj/item/clothing/under/miscellaneous/overalls,
 /obj/item/clothing/suit/chickensuit,
 /obj/item/clothing/head/chicken,
 /obj/item/laser_pointer,

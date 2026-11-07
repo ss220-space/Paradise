@@ -171,7 +171,7 @@
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 200
 
@@ -182,7 +182,7 @@
 /datum/outfit/admin/nt_vip
 	name = "VIP Guest"
 
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/jacket/really_black
 	back = /obj/item/storage/backpack/satchel
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/color/black
@@ -341,7 +341,7 @@
 
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom/official
 	back = /obj/item/mod/control/pre_equipped/apocryphal
 	belt = /obj/item/storage/belt/military/assault/rsh_12/full
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -406,7 +406,7 @@
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
 
-	uniform = /obj/item/clothing/under/pirate
+	uniform = /obj/item/clothing/under/costumes/pirate
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
@@ -480,7 +480,7 @@
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 	toggle_helmet = TRUE
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/service/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -515,7 +515,7 @@
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
 
-	uniform = /obj/item/clothing/under/mime
+	uniform = /obj/item/clothing/under/rank/service/mime
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -543,7 +543,7 @@
 /datum/outfit/admin/mime_assassin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/sexymime
+		uniform = /obj/item/clothing/under/service/mime/sexy
 		mask = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/admin/mime_assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -639,7 +639,7 @@
 /datum/outfit/admin/musician
 	name = "Musician"
 
-	uniform = /obj/item/clothing/under/singerb
+	uniform = /obj/item/clothing/under/costumes/singerb
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/singerb
 	gloves = /obj/item/clothing/gloves/color/white
@@ -677,7 +677,7 @@
 	name = "Soviet Generic"
 	var/list/rank_list = list()
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
@@ -735,7 +735,7 @@
 	name = "Soviet Officer"
 	rank_list = list("Старший лейтенант","Капитан", "Майор", "Подполковник", "Полковник")
 	suit = /obj/item/clothing/suit/sovietcoat/officer
-	uniform = /obj/item/clothing/under/sovietofficer
+	uniform = /obj/item/clothing/under/ussp/soviet/officer
 	head = /obj/item/clothing/head/sovietofficerhat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	belt = /obj/item/gun/projectile/revolver/mateba
@@ -772,7 +772,7 @@
 /datum/outfit/admin/soviet/marine/captain
 	name = "Soviet Marine Captain"
 	rank_list = list("Старший лейтенант", "Капитан", "Майор", "Подполковник", "Полковник")
-	uniform = /obj/item/clothing/under/sovietofficer
+	uniform = /obj/item/clothing/under/ussp/soviet/officer
 	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
 
 	backpack_contents = list(
@@ -785,7 +785,7 @@
 /datum/outfit/admin/soviet/admiral
 	name = "Soviet Admiral"
 	rank_list = list("Адмирал")
-	uniform = /obj/item/clothing/under/sovietadmiral
+	uniform = /obj/item/clothing/under/ussp/soviet/admiral
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
 	l_ear = /obj/item/radio/headset/syndicate
@@ -828,7 +828,7 @@
 
 /datum/outfit/admin/solgov
 	name = "Solar Federation Marine (Bulldog)"
-	uniform = /obj/item/clothing/under/solgov
+	uniform = /obj/item/clothing/under/solgov/marine
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
 	belt = /obj/item/storage/belt/military/assault/marines/full
@@ -921,7 +921,7 @@
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/cargotech
 	suit = /obj/item/clothing/suit/armor/vest/combat
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/storage/belt/military/assault/marines/cats/full
@@ -1071,7 +1071,7 @@
 /datum/outfit/admin/tournament_gangster //gangster are supposed to fight each other. --rastaf0
 	name = "Tournament Gangster"
 
-	uniform = /obj/item/clothing/under/det
+	uniform = /obj/item/clothing/under/security/det
 	suit = /obj/item/clothing/suit/storage/det_suit
 	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/det_hat
@@ -1082,7 +1082,7 @@
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"
 
-	uniform = /obj/item/clothing/under/rank/chef
+	uniform = /obj/item/clothing/under/rank/service/chef
 	suit = /obj/item/clothing/suit/chef
 	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/chefhat
@@ -1094,7 +1094,7 @@
 /datum/outfit/admin/tournament_janitor
 	name = "Tournament Janitor"
 
-	uniform = /obj/item/clothing/under/rank/janitor
+	uniform = /obj/item/clothing/under/rank/service/janitor
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/color/black
 	l_hand = /obj/item/reagent_containers/cup/bucket
@@ -1115,7 +1115,7 @@
 /datum/outfit/admin/survivor
 	name = "Survivor"
 
-	uniform = /obj/item/clothing/under/overalls
+	uniform = /obj/item/clothing/under/miscellaneous/overalls
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
 	shoes = /obj/item/clothing/shoes/color/white
@@ -1142,7 +1142,7 @@
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
 
-	uniform = /obj/item/clothing/under/overalls
+	uniform = /obj/item/clothing/under/miscellaneous/overalls
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
@@ -1236,7 +1236,7 @@
 /datum/outfit/admin/ancient_vampire
 	name = "Ancient Vampire"
 
-	uniform = /obj/item/clothing/under/victsuit/red
+	uniform = /obj/item/clothing/under/costumes/victsuit/red
 	suit = /obj/item/clothing/suit/draculacoat
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat

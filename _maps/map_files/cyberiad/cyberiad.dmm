@@ -32207,7 +32207,7 @@
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/firealarm/directional/east,
 /obj/item/reagent_containers/food/snacks/pie,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "fvS" = (
@@ -47744,7 +47744,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "kYF" = (
-/obj/item/clothing/under/rank/security2,
+/obj/item/clothing/under/rank/security/officer/alt,
 /obj/item/clothing/head/officer,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -77977,9 +77977,9 @@
 "wms" = (
 /obj/structure/closet/wardrobe/xenos,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/item/clothing/under/bluehawaiianshirt,
-/obj/item/clothing/under/brown_chaps,
-/obj/item/clothing/under/stripeddress,
+/obj/item/clothing/under/miscellaneous/bluehawaiianshirt,
+/obj/item/clothing/under/suit/brown_chaps,
+/obj/item/clothing/under/dress/striped,
 /obj/item/clothing/suit/leathercoat,
 /obj/item/clothing/suit/tailcoat,
 /obj/item/clothing/head/beaverhat,

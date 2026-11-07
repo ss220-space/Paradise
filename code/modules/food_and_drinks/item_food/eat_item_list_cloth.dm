@@ -44,7 +44,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/rank/centcom/officer/add_eatable_component()
+/obj/item/clothing/under/rank/centcom/lieutenant/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \
@@ -53,7 +53,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/rank/centcom_commander/add_eatable_component()
+/obj/item/clothing/under/rank/centcom/commander/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \
@@ -62,7 +62,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/space/add_eatable_component()
+/obj/item/clothing/under/miscellaneous/space/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \
@@ -71,7 +71,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/cursedclown/add_eatable_component()
+/obj/item/clothing/under/miscellaneous/cursedclown/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \
@@ -80,7 +80,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/acj/add_eatable_component()
+/obj/item/clothing/under/miscellaneous/acj/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \
@@ -608,7 +608,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/misc/durathread/add_eatable_component()
+/obj/item/clothing/under/miscellaneous/durathread/add_eatable_component()
 	AddElement( \
 	/datum/element/eatable, \
 	material_type = MATERIAL_CLASS_NONE, \

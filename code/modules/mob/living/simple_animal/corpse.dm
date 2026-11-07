@@ -79,7 +79,7 @@
 
 /datum/outfit/piratecorpse
 	name = "Pirate Corpse"
-	uniform = /obj/item/clothing/under/pirate
+	uniform = /obj/item/clothing/under/costumes/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
@@ -103,7 +103,7 @@
 
 /datum/outfit/russiancorpse
 	name = "Russian Corpse"
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/sovietsidecap
 
@@ -153,7 +153,7 @@
 
 /datum/outfit/wardencorpse
 	name = "Warden Corpse"
-	uniform = /obj/item/clothing/under/rank/warden
+	uniform = /obj/item/clothing/under/rank/security/warden
 	suit = /obj/item/clothing/suit/armor/vest/warden
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots

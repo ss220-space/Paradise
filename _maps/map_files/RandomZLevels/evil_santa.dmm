@@ -3203,7 +3203,7 @@
 /turf/simulated/floor/grass,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "BT" = (
-/obj/item/clothing/under/pennywise,
+/obj/item/clothing/under/costumes/pennywise,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "BX" = (
