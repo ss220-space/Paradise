@@ -80900,9 +80900,6 @@
 /area/station/command/office/captain/bedroom)
 "nPx" = (
 /obj/structure/table/reinforced,
-/obj/item/integrated_circuit/loaded/rnd_automation,
-/obj/item/usb_cable,
-/obj/item/shell/bot,
 /obj/item/disk/tech_disk{
 	pixel_x = -6
 	},
@@ -80919,6 +80916,9 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
+/obj/item/integrated_circuit/loaded/rnd_automation,
+/obj/item/usb_cable,
+/obj/item/shell/bot,
 /area/station/science/rnd)
 "nPB" = (
 /obj/machinery/door/airlock/maintenance,
