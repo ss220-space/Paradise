@@ -50,6 +50,11 @@
 
 	drifting = !!GLOB.move_manager.processing_on(user, SSspacedrift)
 
+	if(!ismob(user))
+		timed_action_flags |= DA_IGNORE_HELD_ITEM | DA_IGNORE_INCAPACITATED | DA_IGNORE_SLOWDOWNS
+	else if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
+		delay *= astype(user, /mob).get_actionspeed_by_category(category)
+
 	if(show_progress)
 		if(astype(user, /mob)?.client || bar_override?.client)
 			progressbar = new(bar_override || user, delay, targets[1] || user)
@@ -60,11 +65,6 @@
 #ifdef UNIT_TESTS
 	timed_action_flags &= ~DA_IGNORE_SLOWDOWNS // Test dummies are a special case
 #endif
-
-	if(!ismob(user))
-		timed_action_flags |= DA_IGNORE_HELD_ITEM | DA_IGNORE_INCAPACITATED | DA_IGNORE_SLOWDOWNS
-	else if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
-		delay *= astype(user, /mob).get_actionspeed_by_category(category)
 
 	start_time = world.time
 	end_time = world.time + delay
