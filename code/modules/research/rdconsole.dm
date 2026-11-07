@@ -435,6 +435,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(new_level)
 					tech_log += "[T] [new_level], "
 					actually_increased = TRUE
+					files.RefreshResearch()
+
 			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 
@@ -455,8 +457,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			linked_destroy.busy = FALSE
 			linked_destroy.update_icon(UPDATE_ICON_STATE)
 			use_power(DECONSTRUCT_POWER)
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
+			if(user)
+				menu = MENU_MAIN
+				submenu = SUBMENU_MAIN
 			SStgui.update_uis(src)
 
 	return actually_increased
@@ -1023,7 +1026,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return null
 
 	var/obj/item/item_to_recycle = recycled_item
-	if(item_to_recycle)
+	if(istype(item_to_recycle))
 		item_to_recycle.forceMove(linked_destroy)
 		linked_destroy.loaded_item = item_to_recycle
 	else

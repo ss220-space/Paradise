@@ -167,7 +167,9 @@
 
 /obj/item/integrated_circuit/loaded/rnd_automation/ui_interact(mob/user, datum/tgui/ui)
 	if(wiring_done)
-		return ..()
+		if(ismob(user))
+			return ..()
+		return
 
 	var/obj/item/circuit_component/bot/bot_comp
 	var/obj/item/circuit_component/rd_search/search_comp
@@ -271,4 +273,10 @@
 	if(bot_comp && search_comp && lathe_comp && destructor_comp)
 		wiring_done = TRUE
 
-	return ..()
+	if(ismob(user))
+		return ..()
+
+/obj/item/integrated_circuit/loaded/rnd_automation/add_component(obj/item/circuit_component/to_add, mob/living/user)
+	. = ..()
+	if(. && !wiring_done)
+		ui_interact(null)

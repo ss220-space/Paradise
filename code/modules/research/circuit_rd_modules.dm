@@ -268,8 +268,8 @@
 		return
 
 	var/obj/item/item_to_recycle = input_item.value
-	if(!item_to_recycle || QDELETED(item_to_recycle))
-		return
+	if(QDELETED(item_to_recycle))
+		item_to_recycle = null
 
 	var/result = attached_console.usb_recycle_item(item_to_recycle)
 
