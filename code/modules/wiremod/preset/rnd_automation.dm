@@ -1,7 +1,3 @@
-/obj/item/circuit_component/rd_search
-/obj/item/circuit_component/rd_lathe
-/obj/item/circuit_component/rd_destructor
-
 /obj/item/integrated_circuit/loaded/rnd_automation
 	display_name = "Интегральная схема: Авто-НИО"
 	desc = "Плата автоматического перебора чертежей, печати и утилизации для базовой прокачки технологий."
@@ -24,7 +20,6 @@
 
 /obj/item/integrated_circuit/loaded/rnd_automation/Initialize(mapload)
 	. = ..()
-
 	if(src.cell)
 		qdel(src.cell)
 	src.cell = new /obj/item/stock_parts/cell/super(src)
@@ -166,9 +161,11 @@
 			loop.next_index.connect(out_del_fail)
 
 /obj/item/integrated_circuit/loaded/rnd_automation/ui_interact(mob/user, datum/tgui/ui)
+	try_wire()
+	return ..()
+
+/obj/item/integrated_circuit/loaded/rnd_automation/proc/try_wire()
 	if(wiring_done)
-		if(ismob(user))
-			return ..()
 		return
 
 	var/obj/item/circuit_component/bot/bot_comp
@@ -273,10 +270,8 @@
 	if(bot_comp && search_comp && lathe_comp && destructor_comp)
 		wiring_done = TRUE
 
-	if(ismob(user))
-		return ..()
-
 /obj/item/integrated_circuit/loaded/rnd_automation/add_component(obj/item/circuit_component/to_add, mob/living/user)
 	. = ..()
 	if(. && !wiring_done)
-		ui_interact(null)
+		try_wire()
+
