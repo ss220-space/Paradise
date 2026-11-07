@@ -435,6 +435,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(new_level)
 					tech_log += "[T] [new_level], "
 					actually_increased = TRUE
+					files.RefreshResearch()
+
 			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 
@@ -455,8 +457,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			linked_destroy.busy = FALSE
 			linked_destroy.update_icon(UPDATE_ICON_STATE)
 			use_power(DECONSTRUCT_POWER)
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
+			if(user)
+				menu = MENU_MAIN
+				submenu = SUBMENU_MAIN
 			SStgui.update_uis(src)
 
 	return actually_increased
@@ -1018,13 +1021,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			all_ids += design_info.id
 	return all_ids
 
-
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
 	if(!linked_destroy || linked_destroy.busy)
 		return null
 
 	var/obj/item/item_to_recycle = recycled_item
-	if(item_to_recycle)
+	if(istype(item_to_recycle))
 		item_to_recycle.forceMove(linked_destroy)
 		linked_destroy.loaded_item = item_to_recycle
 	else
@@ -1034,9 +1036,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return null
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(item_to_recycle.origin_tech)
+	if(!length(temp_tech))
+		return null
 
+	linked_destroy.busy = TRUE
+	flick("[linked_destroy.base_icon_state]_insert", linked_destroy)
 
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
+
+	addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/obj/machinery/r_n_d/destructive_analyzer, reset_processing)), 1 SECONDS)
 
 	return tech_upgraded
 
