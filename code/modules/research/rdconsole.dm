@@ -1044,7 +1044,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
 
-	addtimer(CALLBACK(linked_destroy, /obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing), 1 SECONDS)
+	addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/obj/machinery/r_n_d/destructive_analyzer, reset_processing)), 1 SECONDS)
 
 	return tech_upgraded
 
