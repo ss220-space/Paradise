@@ -304,7 +304,7 @@
 	. += span_notice("Вызывает следующий эффект, если используется как трофей крушителя: [effect_desc()].")
 
 /obj/item/crusher_trophy/proc/effect_desc()
-	return "errors" //this item should only be obtainable via spawn panel, so not translating 
+	return "errors" 
 
 /obj/item/crusher_trophy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/twohanded/kinetic_crusher))
