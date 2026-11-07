@@ -125,6 +125,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
 	)
 	var/eggtype = "пеплоходца"
 

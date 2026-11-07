@@ -174,6 +174,16 @@
 	if(dragon_power && isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
+/obj/item/clothing/accessory/necklace/gem/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
+		return ..()
+	if(dragon_power && isliving(user))
+		AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+		user.say("NWOC EGEVNER")
+		qdel(I)
+		name = "blessed draconic necklace"
+
 //bracers
 /obj/item/clothing/gloves/jewelry_bracers
 	name = "gem bracers"

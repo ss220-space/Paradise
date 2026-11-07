@@ -251,7 +251,7 @@
 	fail_chance = 50
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 15 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	fluff_tgui_dye = "Киноварная краска"
 	needed_dye = "Cinnabar Dyes"
@@ -301,7 +301,7 @@
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	cooldown_after_cast = 900 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 15 SECONDS
 	extra_invokers = 1
 
 /datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
@@ -380,7 +380,7 @@
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 10 SECONDS
 	charges = 3
 	shaman_only = TRUE
 	fluff_tgui_dye = "Кровавая краска"
@@ -450,7 +450,7 @@
 	fail_chance = 40
 	charges = 2
 	cooldown_after_cast = 800 SECONDS
-	cast_time = 40 SECONDS
+	cast_time = 12 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
 	fluff_tgui_dye = "Тёмно-синяя краска"
@@ -519,7 +519,7 @@
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 4 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 25
 	fail_chance = 35
@@ -576,7 +576,7 @@
 	disaster_prob = 30
 	fail_chance = 50
 	cooldown_after_cast = 360 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 6 SECONDS
 	shaman_only = TRUE
 	fluff_tgui_dye =  "Янтарная краска"
 	needed_dye = "Amber Dyes"
@@ -645,10 +645,9 @@
 	name = "Ритуал Населения"
 	description = "Проведение данного ритуала позволит племени пеплоходцев получить второго шамана. \
 					Катастрофическая неудача приведёт к выпадению всех вещей на пол у случайных соплеменников."
-	extra_invokers = 2
 	charges = 1
 	cooldown_after_cast = 120 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 10 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	fluff_tgui_dye = "Киноварная краска"
 	needed_dye = "Cinnabar Dyes"
@@ -739,7 +738,7 @@
 					Катастрофическая неудача приведёт к ужасающим ожогам всем участникам ритуала."
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 6 SECONDS
 	fluff_tgui_dye = "Кровавая краска"
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
@@ -811,31 +810,41 @@
 
 /datum/ritual/ashwalker/transmutation
 	name = "Ритуал Трансмутации"
-	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц любой руды в другую случайную руду. \
-					Катастрофическая неудача приведёт к расплавлению руды в руках и последующим ужасающим ожогам."
+	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц алмазной руды в случайный драгоценный камень. \
+					Неудача приведёт к расплавлению руды."
 	cooldown_after_cast = 20 SECONDS
-	cast_time = 10 SECONDS
+	disaster_prob = 100
+	fail_chance = 15
+	cast_time = 6 SECONDS
 	required_things = list(
-		/obj/item/stack/ore = 10,
+		/obj/item/stack/ore/diamond = 10,
 	)
 
-/datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/invoker, list/invokers)
+/datum/ritual/ashwalker/transmutation/del_things(list/used_things)
+	var/obj/item/stack/ore/diamond/diamonds = locate() in used_things
+	qdel(diamonds)
+
+	for(var/mob/living/living in used_things)
+		living.gib()
+
+	return
+
+/datum/ritual/ashwalker/transmutation/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
 		return FALSE
 
-	if(!isashwalkershaman(invoker))
-		disaster_prob = 30
-		fail_chance = 50
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
+			return FALSE
 
 	return TRUE
 
 /datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
-	var/ore_type = pick(subtypesof(/obj/item/stack/ore))
-
-	var/obj/item/stack/ore/ore = new ore_type(get_turf(ritual_object))
-	ore.add(10)
+	var/gem_type = pick(/obj/item/gem/amber, /obj/item/gem/fdiamond, /obj/item/gem/magma, /obj/item/gem/ruby)
+	new gem_type(get_turf(ritual_object))
 
 	return RITUAL_SUCCESSFUL
 
@@ -849,7 +858,9 @@
 
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(get_turf(ritual_object))
+		var/obj/item/stack/ore/diamond/diamonds = locate() in used_things
+		qdel(diamonds)
 		hotspot.temperature = 1000
 		hotspot.recolor()
 		turf.hotspot_expose(700, 50)
@@ -930,7 +941,7 @@
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
-	cast_time = 30 SECONDS
+	cast_time = 10 SECONDS
 	fluff_tgui_dye = "Тёмно-синяя краска"
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
@@ -980,7 +991,7 @@
 	shaman_only = TRUE
 	disaster_prob = 35
 	extra_invokers = 1
-	cast_time = 30 SECONDS
+	cast_time = 10 SECONDS
 	fluff_tgui_dye = "Мятная краска"
 	needed_dye = "Mint Dyes"
 	totem_dye = "mint"
@@ -1064,7 +1075,7 @@
 	fail_chance = 25
 	charges = 3
 	cooldown_after_cast = 180 SECONDS
-	cast_time = 25 SECONDS
+	cast_time = 8 SECONDS
 	extra_invokers = 1
 	fluff_tgui_dye = "Киноварная краска"
 	needed_dye = "Cinnabar Dyes"
@@ -1100,10 +1111,7 @@
 	LAZYADD(invokers, invoker)
 
 	for(var/mob/living/carbon/human/human in invokers)
-		if(HAS_TRAIT(invoker, TRAIT_RESIST_COLD))
-			continue
-		ADD_TRAIT(invoker, TRAIT_RESIST_COLD, name)
-
+		ADD_TRAIT(human, TRAIT_RESIST_COLD, name)
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/coldresist/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
@@ -1120,3 +1128,59 @@
 		hotspot.temperature = 1000
 		hotspot.recolor()
 		turf.hotspot_expose(700, 50)
+
+/datum/ritual/ashwalker/endure
+	name = "Ритуал Стойкости"
+	description = "Проведение данного ритуала сделает всех его участников невосприимчивыми к ослеплению. \
+					Катастрофическая неудача приведёт к медленному замерзанию всех участников ритуала."
+	disaster_prob = 100
+	fail_chance = 25
+	charges = 3
+	cooldown_after_cast = 180 SECONDS
+	cast_time = 8 SECONDS
+	extra_invokers = 1
+	fluff_tgui_dye = "Кровавая краска"
+	needed_dye = "Crimson Dyes"
+	totem_dye = "crimson"
+	required_things = list(
+		/obj/item/gem/fdiamond = 1,
+	)
+
+/datum/ritual/ashwalker/endure/del_things(list/used_things)
+	var/obj/item/gem/fdiamond/fdiamond = locate() in used_things
+	qdel(fdiamond)
+
+	for(var/mob/living/living in used_things)
+		living.gib()
+
+	return
+
+/datum/ritual/ashwalker/endure/check_contents(mob/living/carbon/invoker, list/used_things)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	for(var/mob/living/living in used_things)
+		if(living.stat == DEAD)
+			continue
+		invoker.balloon_alert(invoker, "существа должны быть мертвы!")
+		return FALSE
+
+	return TRUE
+
+/datum/ritual/ashwalker/endure/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	LAZYADD(invokers, invoker)
+	for(var/mob/living/carbon/human/human in invokers)
+		ADD_TRAIT(human, TRAIT_FLASH_PROTECTION, name)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/endure/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+
+		if(!isturf(human.loc))
+			continue
+
+		human.reagents.add_reagent("frostoil", 18)

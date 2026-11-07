@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/bait_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/bait_righthand.dmi'
 	item_state = "ash_eater"
+	layer = MOB_LAYER
 	list_reagents = list("protein" = 1) //mmmm tasty
 	tastes = list("пепла" = 5, "безнадёжности" = 1)
 	bitesize = 1
