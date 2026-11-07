@@ -17719,6 +17719,16 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"cXu" = (
+/obj/structure/cable,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/north)
 "cXy" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20371,6 +20381,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/additional)
+"dvU" = (
+/obj/spacepod/template/two_engine/raptor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/podbay)
 "dwm" = (
 /obj/structure/cable,
 /obj/structure/grille,
@@ -26105,14 +26121,6 @@
 	icon_state = "grimy"
 	},
 /area/station/maintenance/detectives_office)
-"ezn" = (
-/obj/structure/table/reinforced,
-/obj/item/weldingtool,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/mechanic_workshop/hangar)
 "ezo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/small{
@@ -34107,12 +34115,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"fUR" = (
-/obj/spacepod/sec,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/podbay)
 "fUS" = (
 /obj/structure/rack{
 	dir = 8;
@@ -37908,28 +37910,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
-"gDw" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/obj/structure/table/wood/fancy/red,
-/obj/item/lighter/zippo/hos{
-	pixel_x = -6;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/glass/mug/hos{
-	pixel_x = 9;
-	pixel_y = 1
-	},
-/obj/item/paper/safe_code{
-	owner = "hos"
-	},
-/obj/item/spacepod_equipment/key{
-	id = 100000;
-	pixel_y = 10
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/hos)
 "gDz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -41029,6 +41009,19 @@
 /obj/structure/sign/botany,
 /turf/simulated/wall,
 /area/hydroponics)
+"hdD" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_y = 32
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/mechanic_workshop/hangar)
 "hdL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -53324,6 +53317,25 @@
 	},
 /turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/station/science/server)
+"jhc" = (
+/obj/structure/closet/secure_closet/security,
+/obj/item/clothing/head/beret/sec,
+/obj/item/clothing/suit/jacket/pilot,
+/obj/item/spacepod_key{
+	id = 100000
+	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/station/security/podbay)
 "jhi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/mouse,
@@ -79670,18 +79682,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
-"nGn" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/sign/vacuum/external{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/mechanic_workshop/hangar)
 "nGo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -82331,6 +82331,13 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/command/meeting_room)
+"oem" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dust,
+/obj/item/storage/bible/copy,
+/turf/simulated/floor/carpet/green,
+/area/station/maintenance/library)
 "oeq" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89626,6 +89633,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"psF" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/bible/copy,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/station/security/processing)
 "psH" = (
 /obj/structure/lattice,
 /turf/space,
@@ -95987,16 +96004,6 @@
 	icon_state = "red"
 	},
 /area/station/security/courtroom)
-"qwg" = (
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/spawner/airdrop,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/north)
 "qwh" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -103968,6 +103975,17 @@
 	dir = 8
 	},
 /area/station/hallway/primary/central/second/south)
+"rMf" = (
+/obj/structure/table/reinforced,
+/obj/item/weldingtool,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/mechanic_workshop/hangar)
 "rMi" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -107325,27 +107343,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/commons/cabin/four)
-"srd" = (
-/obj/structure/closet/secure_closet/security,
-/obj/item/spacepod_equipment/weaponry/burst_taser,
-/obj/item/clothing/head/beret/sec,
-/obj/item/clothing/suit/jacket/pilot,
-/obj/item/spacepod_equipment/weaponry/laser,
-/obj/item/spacepod_equipment/key{
-	id = 100000
-	},
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/station/security/podbay)
 "srg" = (
 /obj/item/radio/intercom/directional/north,
 /obj/structure/chair/sofa/bench/solo,
@@ -115236,16 +115233,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"tHz" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/bottle/holywater,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/storage/bible/copy,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/station/security/processing)
 "tHK" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -140110,13 +140097,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/clown)
-"xNX" = (
-/obj/structure/closet/cabinet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/cleanable/dust,
-/obj/item/storage/bible/copy,
-/turf/simulated/floor/carpet/green,
-/area/station/maintenance/library)
 "xOb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -140828,6 +140808,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/perma)
+"xUA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/item/lighter/zippo/hos{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/item/paper/safe_code{
+	owner = "hos"
+	},
+/obj/item/spacepod_key{
+	id = 100000;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/mug/hos{
+	pixel_x = 9;
+	pixel_y = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/hos)
 "xUB" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -172661,7 +172663,7 @@ eIe
 iuf
 pON
 gty
-ezn
+rMf
 fPi
 fPi
 fPi
@@ -172918,7 +172920,7 @@ tkq
 iuf
 wyD
 gty
-nGn
+hdD
 dvC
 lEO
 tZu
@@ -174011,7 +174013,7 @@ khV
 xLD
 opf
 eqR
-qwg
+cXu
 wBb
 vkG
 abu
@@ -219512,7 +219514,7 @@ mzK
 dwy
 sqz
 iFP
-gDw
+xUA
 mzK
 aKl
 tYT
@@ -223624,7 +223626,7 @@ tde
 sGX
 uON
 qbw
-tHz
+psF
 clr
 mCo
 xLI
@@ -229316,7 +229318,7 @@ bim
 uue
 abc
 bnb
-srd
+jhc
 qtq
 aAQ
 oLR
@@ -230089,7 +230091,7 @@ kWF
 bnb
 cuv
 uVB
-fUR
+dvU
 kkL
 rgI
 cYe
@@ -257013,7 +257015,7 @@ xbz
 oCQ
 xcU
 evV
-xNX
+oem
 bQP
 aVd
 sdd
