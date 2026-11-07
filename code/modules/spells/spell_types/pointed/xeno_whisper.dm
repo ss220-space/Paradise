@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/pointed/xeno_whisper
-	name = "Whisper"
-	desc = "Whisper into a target's mind."
+	name = "Шёпот"
+	desc = "Прошептать в разум цели."
 	button_icon_state = "alien_whisper"
 	background_icon_state = "bg_alien"
 	active_background_icon_state = "bg_alien"
@@ -20,14 +20,14 @@
 	. = ..()
 	var/mob/living/target = cast_on
 
-	var/msg = tgui_input_text(owner, "Message:", "Alien Whisper")
+	var/msg = tgui_input_text(owner, "Сообщение:", "Шёпот")
 	if(!msg)
 		reset_spell_cooldown()
 		return
 	log_say("(AWHISPER to [key_name(target)]) [msg]", owner)
 	target.balloon_alert(target, "вы слышите голос в голове...")
-	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")
+	to_chat(target, "<span class='noticealien'>Вы слышите странный, чужеродный голос...<span class='noticealien'> [msg]")
 	to_chat(owner, span_noticealien("You said: [msg] to [target]"))
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
-		ghosts.show_message("<i>Alien message from ([ghost_follow_link(owner, ghost = ghosts)]) <b>[owner]</b> to ([ghost_follow_link(target, ghost = ghosts)]) <b>[target]</b>: [msg]</i>")
+		ghosts.show_message("<i>Ксеноморф ([ghost_follow_link(owner, ghost = ghosts)]) <b>[owner.declent_ru(NOMINATIVE)]</b> говорит ([ghost_follow_link(target, ghost = ghosts)]) <b>[target.declent_ru(DATIVE)]</b>: [msg]</i>")
 

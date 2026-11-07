@@ -65,8 +65,6 @@
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()
-	if(obj_integrity < 90)
-		Die()
 
 /obj/item/clothing/mask/facehugger/allowed_for_alien()
 	return TRUE
@@ -214,7 +212,7 @@
 			target.visible_message(span_danger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)][real? ", оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]" : ""]!"), \
 								span_userdanger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)][real? ", оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]" : ""]!"))
 			if(real)
-				head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID)
+				head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID, TRUE, null, 20)
 				holdered_mob?.adjustBruteLoss(HELMET_HUGGER_DAMAGE)
 			return FALSE
 

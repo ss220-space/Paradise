@@ -3,12 +3,15 @@
 	caste = "q"
 	maxHealth = 900
 	health = 900
+	icon = 'icons/mob/alienhuge.dmi'
 	icon_state = "alienq_s"
+	pixel_x = -32 // huge sprite, keep it centered on the tile (was set on the removed /empress/large subtype)
+	base_pixel_x = -32 // same shift for the add_offsets() base, so lying/standing, grabs, nests don't reset pixel_x
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
 	large = TRUE
-	move_resist = MOVE_FORCE_STRONG
+	caste_movement_delay = 3
 	obj_damage = 100
 	time_to_open_doors = 0.2 SECONDS
 	attack_damage = 50
@@ -19,11 +22,9 @@
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	antag_datum_type = /datum/antagonist/xenomorph/queen
 
-/mob/living/carbon/alien/humanoid/empress/large
-	icon = 'icons/mob/alienhuge.dmi'
-	pixel_x = -32
-
-/mob/living/carbon/alien/humanoid/empress/large/update_icons()
+// 'icons/mob/alienhuge.dmi' only carries alienq_s/alienq_sleep/alienq_dead,
+// so the stock update_icons() pose states (running, unconscious, husked) don't exist here.
+/mob/living/carbon/alien/humanoid/empress/update_icons()
 	cut_overlays()
 
 	if(stat == DEAD)

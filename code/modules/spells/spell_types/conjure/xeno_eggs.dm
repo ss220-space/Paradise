@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/conjure/xeno_eggs
-	name = "Plant alien eggs"
-	desc = "Allows you to plant alien eggs on your current turf, does not work while in space."
+	name = "Отложить яйцо"
+	desc = "Позволяет отложить яйцо с лицехватом внутри."
 	cooldown_time = 1 SECONDS
 	check_flags = AB_CHECK_CONSCIOUS
 	spell_requirements = NONE

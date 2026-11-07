@@ -243,13 +243,18 @@
 		cd_action.disable()
 
 /datum/action/cooldown/Trigger(mob/clicker, trigger_flags, atom/target)
+	var/mob/user = clicker || owner
+
+	// If we're cancelling our own active click_to_activate state,
+	// bypass the cooldown availability check - user should always be able to cancel
+	if(click_to_activate && user.client.click_intercept == src)
+		trigger_flags |= TRIGGER_FORCE_AVAILABLE
+
 	. = ..()
 	if(!.)
 		return FALSE
 	if(!owner)
 		return FALSE
-
-	var/mob/user = clicker || owner
 
 	// If our cooldown action is a click_to_activate action:
 	// The actual action is activated on whatever the user clicks on -
@@ -257,23 +262,25 @@
 	// In trigger, we handle setting the click intercept
 	if(click_to_activate)
 		if(target)
-			// For automatic / mob handling
+			if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !IsAvailable(feedback = TRUE))
+				return FALSE
 			return InterceptClickOn(user, null, target)
 
 		var/datum/action/cooldown/already_set = user.client.click_intercept
 		if(already_set == src)
-			// if we clicked ourself and we're already set, unset and return
 			return unset_click_ability(user, refund_cooldown = TRUE)
 
 		else if(istype(already_set))
-			// if we have an active set already, unset it before we set our's
 			already_set.unset_click_ability(user, refund_cooldown = TRUE)
+
+		if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !IsAvailable(feedback = TRUE))
+			return FALSE
 
 		return set_click_ability(user)
 
-	// If our cooldown action is not a click_to_activate action:
-	// We can just continue on and use the action
-	// the target is the user of the action (often, the owner)
+	if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !IsAvailable(feedback = TRUE))
+		return FALSE
+
 	return PreActivate(user)
 
 /// Intercepts client owner clicks to activate the ability

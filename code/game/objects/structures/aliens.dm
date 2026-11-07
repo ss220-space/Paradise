@@ -6,13 +6,12 @@
  *		Egg
  */
 
-#define WEED_NORTH_EDGING "north"
-#define WEED_SOUTH_EDGING "south"
-#define WEED_EAST_EDGING "east"
-#define WEED_WEST_EDGING "west"
-
 #define ALIEN_RESIN_BURN_MOD 2
 #define ALIEN_RESIN_BRUTE_MOD 0.25
+
+#define RESIN_CORNER_COUNTERCLOCKWISE 1
+#define RESIN_CORNER_DIAGONAL 2
+#define RESIN_CORNER_CLOCKWISE 4
 
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
@@ -47,17 +46,16 @@
  */
 /obj/structure/alien/resin
 	name = "resin"
-	desc = "Looks like some kind of thick resin."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
+	desc = "Похоже на какую-то густую смолу."
+	icon = 'icons/mob/xeno/structures.dmi'
 	icon_state = "resin"
-	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
-	smoothing_groups = SMOOTH_GROUP_ALIEN_WALLS
 	max_integrity = 200
-	smooth = SMOOTH_BITMASK
+	var/walltype = "resin"
+	var/list/wall_connections = list("0", "0", "0", "0")
+	var/special_icon = FALSE
 
 /obj/structure/alien/resin/add_debris_element()
 	generate_debris_handler(null, -40, 8, 0.7)
@@ -65,12 +63,14 @@
 /obj/structure/alien/resin/Initialize(mapload)
 	recalculate_atmos_connectivity()
 	. = ..()
+	update_neighbours()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
 	playdestroysound(T)
 	. = ..()
 	T.recalculate_atmos_connectivity()
+	update_neighbours(T)
 
 /obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -83,31 +83,118 @@
 /obj/structure/alien/resin/proc/playdestroysound(source)
 	playsound(source, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
 
+/**
+ * Recomputes corner smoothing for every resin structure in a 1 tile radius around [centre],
+ * this structure included. Used on spawn and after a structure is destroyed.
+ */
+/obj/structure/alien/resin/proc/update_neighbours(turf/centre)
+	if(!centre)
+		centre = get_turf(src)
+	if(!centre)
+		return
+	for(var/obj/structure/alien/resin/neighbour in range(1, centre))
+		neighbour.update_connections()
+		neighbour.update_icon()
+
+/**
+ * Recalculates [wall_connections] from the adjacent resin structures
+ */
+/obj/structure/alien/resin/proc/update_connections()
+	var/list/smoothing_dirs = list()
+	for(var/direction in GLOB.alldirs)
+		var/turf/neighbour_turf = get_step(src, direction)
+		if(!neighbour_turf)
+			continue
+		var/obj/structure/alien/resin/neighbour = locate(/obj/structure/alien/resin) in neighbour_turf
+		if(!neighbour)
+			continue
+		if(istype(neighbour, /obj/structure/alien/resin/door) && !(direction in GLOB.cardinal))
+			continue
+		smoothing_dirs += direction
+	wall_connections = corner_states(smoothing_dirs)
+
+/obj/structure/alien/resin/update_icon_state()
+	. = ..()
+	if(special_icon)
+		return
+	icon_state = null
+
+/obj/structure/alien/resin/update_overlays()
+	. = ..()
+	if(special_icon)
+		return
+	for(var/i in 1 to 4)
+		. += image(icon = icon, icon_state = "[walltype][wall_connections[i]]", dir = 1 << (i - 1))
+
+/**
+ * Converts a list of directions into the four per-corner states (NW, SE, NE, SW),
+ * each a "0".."7" string, used by the CM-SS13 wall corner sprites.
+ */
+/proc/corner_states(list/dirs)
+	if(!islist(dirs))
+		return
+	var/list/ret = list(NORTHWEST, SOUTHEAST, NORTHEAST, SOUTHWEST)
+	for(var/i in 1 to length(ret))
+		var/corner_dir = ret[i]
+		var/state = 0
+		if(corner_dir in dirs)
+			state |= RESIN_CORNER_DIAGONAL
+		if(turn(corner_dir, 45) in dirs)
+			state |= RESIN_CORNER_COUNTERCLOCKWISE
+		if(turn(corner_dir, -45) in dirs)
+			state |= RESIN_CORNER_CLOCKWISE
+		ret[i] = "[state]"
+	return ret
+
 /obj/structure/alien/resin/wall
 	name = "resin wall"
-	desc = "Thick resin solidified into a wall."
-	icon_state = "resin_wall-0"
+	desc = "Выпуклая стена чёрной смолы. Под блестящей поверхностью словно пульсируют тонкие жилки."
+
+/obj/structure/alien/resin/wall/get_ru_names()
+	return alist(
+		NOMINATIVE = "смоляная стена",
+		GENITIVE = "смоляной стены",
+		DATIVE = "смоляной стене",
+		ACCUSATIVE = "смоляную стену",
+		INSTRUMENTAL = "смоляной стеной",
+		PREPOSITIONAL = "смоляной стене",
+	)
 
 /obj/structure/alien/resin/wall/get_superconductivity(direction)
 	return FALSE
 
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
-	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
+	desc = "Некая субстанция фиолетового цвета, по форме напоминающая яйцо. Она пульсирует и бьется изнутри и кажется непроницаемой.."
 	max_integrity = INFINITY
+
+/obj/structure/alien/resin/wall/shadowling/get_ru_names()
+	return alist(
+		NOMINATIVE = "стена-кокон",
+		GENITIVE = "стены-кокона",
+		DATIVE = "стене-кокону",
+		ACCUSATIVE = "стену-кокон",
+		INSTRUMENTAL = "стеной-коконом",
+		PREPOSITIONAL = "стене-коконе",
+	)
 
 /obj/structure/alien/resin/wall/shadowling/playdestroysound(source)
 	playsound(source, 'sound/effects/splat.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
-/obj/structure/alien/resin/membrane
-	name = "resin membrane"
-	desc = "Resin just thin enough to let light pass through."
-	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "resin_membrane-0"
-	opacity = FALSE
-	max_integrity = 160
-	base_icon_state = "resin_membrane"
-	pass_flags_self = PASSGLASS
+/obj/structure/alien/resin/wall/thick
+	name = "thick resin wall"
+	walltype = "thickresin"
+	max_integrity = 350
+
+/obj/structure/alien/resin/wall/get_ru_names()
+	return alist(
+		NOMINATIVE = "толстая смоляная стена",
+		GENITIVE = "толстой смоляной стены",
+		DATIVE = "толстой смоляной стене",
+		ACCUSATIVE = "толстую смоляную стену",
+		INSTRUMENTAL = "толстой смоляной стеной",
+		PREPOSITIONAL = "толстой смоляной стене",
+	)
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)
@@ -127,16 +214,14 @@
 
 /obj/structure/alien/resin/door
 	name = "resin door"
-	desc = "Thick resin solidified into a weird looking door."
-	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
-	icon_state = "resin_door_closed"
-	var/icon_closed = "resin_door_closed"
-	var/icon_opened = "resin_door_opened"
-	var/icon_closing = "resin_door_closing"
-	var/icon_opening = "resin_door_opening"
+	desc = "Перекошенная дверь из затвердевшей чёрной смолы, с тонкими жилками, пульсирующими под блестящей поверхностью."
+	icon_state = "resindoor"
+	var/icon_closed = "resindoor"
+	var/icon_opened = "resindooropen"
+	var/icon_closing = "resindoorclosing"
+	var/icon_opening = "resindooropening"
 	max_integrity = 160
-	canSmoothWith = null
-	smooth = NONE
+	special_icon = TRUE
 	pass_flags_self = PASSDOOR
 	var/open_sound = 'sound/creatures/alien/xeno_door_open.ogg'
 	var/close_sound = 'sound/creatures/alien/xeno_door_close.ogg'
@@ -145,9 +230,22 @@
 	var/autoclose = TRUE
 	var/autoclose_delay = 10 SECONDS
 
+/obj/structure/alien/resin/door/update_connections()
+	. = ..()
+	var/door_mask = 0
+	for(var/direction in GLOB.cardinal)
+		if(locate(/obj/structure/alien/resin/door) in get_step(src, direction))
+			door_mask |= direction
+	if(door_mask & (NORTH|SOUTH))
+		setDir(WEST)
+	else if(door_mask & (EAST|WEST))
+		setDir(NORTH)
+
 /obj/structure/alien/resin/door/Initialize(mapload)
 	. = ..()
 	update_freelook_sight()
+	update_connections()
+	update_icon()
 
 /obj/structure/alien/resin/door/Destroy()
 	set_density(FALSE)
@@ -180,7 +278,7 @@
 
 /obj/structure/alien/resin/door/proc/attack_check(mob/living/user)
 	if(!isalien(user))
-		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
+		to_chat(user, span_notice("Не удаётся найти способ манипулировать этой дверью."))
 		return FALSE
 	return TRUE
 
@@ -304,6 +402,15 @@
 #undef RESIN_DOOR_CLOSED
 #undef RESIN_DOOR_OPENED
 
+/obj/structure/alien/resin/door/thick
+	name = "thick resin door"
+	icon_state = "thickresindoor"
+	icon_closed = "thickresindoor"
+	icon_opened = "thickresindooropen"
+	icon_closing = "thickresindoorclosing"
+	icon_opening = "thickresindooropening"
+	max_integrity = 300
+
 /*
  * Weeds
  */
@@ -313,16 +420,26 @@
 /obj/structure/alien/weeds
 	gender = PLURAL
 	name = "resin floor"
-	desc = "A thick resin surface covers the floor."
+	desc = "Толстая смоляная поверхность, покрывающая пол."
 	anchored = TRUE
 	layer = ABOVE_ICYOVERLAY_LAYER
 	plane = FLOOR_PLANE
-	icon_state = "weeds"
+	icon = 'icons/mob/xeno/weeds.dmi'
+	icon_state = "base"
 	max_integrity = 15
 	var/obj/structure/alien/weeds/node/linked_node = null
-	var/static/list/weedImageCache
 	var/static/list/forbidden_turf_types
 	creates_cover = TRUE
+
+/obj/structure/alien/weeds/get_ru_names()
+	return alist(
+		NOMINATIVE = "смоляной пол",
+		GENITIVE = "смоляного пола",
+		DATIVE = "смоляному полу",
+		ACCUSATIVE = "смоляной пол",
+		INSTRUMENTAL = "смоляным полом",
+		PREPOSITIONAL = "смоляном полу",
+	)
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
 	. = ..()
@@ -334,20 +451,17 @@
 		qdel(src)
 		return
 
-	if(icon_state == "weeds")
-		icon_state = pick("weeds", "weeds1", "weeds2")
-
-	fullUpdateWeedOverlays()
+	update_neighbours()
 
 	addtimer(CALLBACK(src, PROC_REF(Life)), rand(15 SECONDS, 20 SECONDS))
 	RegisterSignal(linked_node, COMSIG_QDELETING, PROC_REF(clear_linked_node))
 
 /obj/structure/alien/weeds/Destroy()
-	var/turf/T = loc
-	for(var/obj/structure/alien/weeds/W in range(1,T))
-		W.updateWeedOverlays()
+	var/turf/old_loc = loc
 	linked_node = null
-	return ..()
+	. = ..()
+	for(var/obj/structure/alien/weeds/weed in range(1, old_loc))
+		weed.update_icon()
 
 /obj/structure/alien/weeds/proc/clear_linked_node()
 	SIGNAL_HANDLER
@@ -376,47 +490,48 @@
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
-/obj/structure/alien/weeds/proc/updateWeedOverlays()
+/obj/structure/alien/weeds/update_icon_state()
+	. = ..()
 
-	cut_overlays()
+	var/smoothing_mask = 0
+	for(var/direction in GLOB.cardinal)
+		var/turf/neighbour = get_step(src, direction)
+		if(neighbour && locate(/obj/structure/alien) in neighbour)
+			smoothing_mask |= direction
 
-	if(!weedImageCache || !length(weedImageCache))
-		weedImageCache = list()
-		weedImageCache.len = 4
-		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_z = -32)
-		weedImageCache[WEED_SOUTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_s", layer=2.11, pixel_z = 32)
-		weedImageCache[WEED_EAST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_e", layer=2.11, pixel_w = -32)
-		weedImageCache[WEED_WEST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_w", layer=2.11, pixel_w = 32)
+	if(smoothing_mask == 15)
+		icon_state = "weed[rand(0, 15)]"
+	else if(!smoothing_mask)
+		icon_state = "base"
+	else
+		icon_state = "weed_dir[smoothing_mask]"
 
-	var/turf/N = get_step(src, NORTH)
-	var/turf/S = get_step(src, SOUTH)
-	var/turf/E = get_step(src, EAST)
-	var/turf/W = get_step(src, WEST)
-	if(!locate(/obj/structure/alien) in N.contents)
-		if(isfloorturf(N))
-			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
-	if(!locate(/obj/structure/alien) in S.contents)
-		if(isfloorturf(S))
-			add_overlay(weedImageCache[WEED_NORTH_EDGING])
-	if(!locate(/obj/structure/alien) in E.contents)
-		if(isfloorturf(E))
-			add_overlay(weedImageCache[WEED_WEST_EDGING])
-	if(!locate(/obj/structure/alien) in W.contents)
-		if(isfloorturf(W))
-			add_overlay(weedImageCache[WEED_EAST_EDGING])
-
-/obj/structure/alien/weeds/proc/fullUpdateWeedOverlays()
-	for(var/obj/structure/alien/weeds/W in range(1,src))
-		W.updateWeedOverlays()
+/obj/structure/alien/weeds/proc/update_neighbours()
+	update_icon()
+	for(var/obj/structure/alien/weeds/weed in range(1, src))
+		weed.update_icon()
 
 //Weed nodes
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
-	desc = "Blue bioluminescence shines from beneath the surface."
-	icon_state = "weednode"
+	desc = "Толстая смоляная поверхность, покрывающая пол. Из-под поверхности струится синее биолюминесцентное свечение."
 	light_range = 1
 	layer = MID_TURF_LAYER
 	var/node_range = NODERANGE
+
+/obj/structure/alien/weeds/node/get_ru_names()
+	return alist(
+		NOMINATIVE = "мерцающая смола",
+		GENITIVE = "мерцающей смолы",
+		DATIVE = "мерцающей смоле",
+		ACCUSATIVE = "мерцающую смолу",
+		INSTRUMENTAL = "мерцающей смолой",
+		PREPOSITIONAL = "мерцающей смоле",
+	)
+
+/obj/structure/alien/weeds/node/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "node")
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
 	return ..(loc, src)
@@ -442,12 +557,23 @@
 
 /obj/structure/alien/egg
 	name = "egg"
-	desc = "A large mottled egg."
+	desc = "Большое пятнистое яйцо."
+	icon = 'icons/mob/xeno/xenoegg.dmi'
 	icon_state = "egg_growing"
 	anchored = TRUE
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
+
+/obj/structure/alien/egg/get_ru_names()
+	return alist(
+		NOMINATIVE = "яйцо",
+		GENITIVE = "яйца",
+		DATIVE = "яйцу",
+		ACCUSATIVE = "яйцо",
+		INSTRUMENTAL = "яйцом",
+		PREPOSITIONAL = "яйце",
+	)
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -455,7 +581,7 @@
 
 /obj/structure/alien/egg/burst
 	status = BURST
-	icon_state = "egg_hatched"
+	icon_state = "egg_opened"
 
 /obj/structure/alien/egg/Initialize(mapload)
 	. = ..()
@@ -483,7 +609,7 @@
 		if(GROWN)
 			icon_state = "egg"
 		if(BURST)
-			icon_state = "egg_hatched"
+			icon_state = "egg_opened"
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -492,19 +618,19 @@
 	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		switch(status)
 			if(BURST)
-				to_chat(user, span_notice("You clear the hatched egg."))
+				to_chat(user, span_notice("Вы убираете вылупившееся яйцо."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, span_notice("The child is not developed yet."))
+				to_chat(user, span_notice("Яйцо еще не созрело."))
 				return
 			if(GROWN)
-				to_chat(user, span_notice("You retrieve the child."))
+				to_chat(user, span_notice("Вы раскрываете яйцо."))
 				Burst(kill = FALSE)
 				return
 	else
-		to_chat(user, span_notice("It feels slimy."))
+		to_chat(user, span_notice("На ощупь — склизкое.."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/structure/alien/egg/proc/GetFacehugger()
@@ -522,7 +648,7 @@
 		flick("egg_opening", src)
 		status = BURSTING
 		QDEL_NULL(proximity_monitor)
-		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
 /obj/structure/alien/egg/proc/Hatch(kill, atom/movable/trigger)
@@ -588,7 +714,6 @@
 #undef ALIEN_RESIN_BURN_MOD
 #undef ALIEN_RESIN_BRUTE_MOD
 
-#undef WEED_NORTH_EDGING
-#undef WEED_SOUTH_EDGING
-#undef WEED_EAST_EDGING
-#undef WEED_WEST_EDGING
+#undef RESIN_CORNER_COUNTERCLOCKWISE
+#undef RESIN_CORNER_DIAGONAL
+#undef RESIN_CORNER_CLOCKWISE

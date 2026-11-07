@@ -35,6 +35,7 @@
 	queen.icon = 'icons/mob/alien.dmi'
 	queen.icon_state = "alienq_s"
 	queen.pixel_x = 0
+	queen.base_pixel_x = 0 // keep the offsets base in sync, update_offsets() would restore -28 otherwise
 
 	var/turf/alienturf = get_turf(queen)
 	var/list/alien_walls = list()
@@ -58,7 +59,7 @@
 	ghost.can_reenter_corpse = TRUE
 	ghost.reenter_corpse()
 
-	var/mob/living/carbon/alien/new_xeno = new /mob/living/carbon/alien/humanoid/empress/large(get_turf(queen))
+	var/mob/living/carbon/alien/new_xeno = new /mob/living/carbon/alien/humanoid/empress(get_turf(queen))
 	queen.mind.transfer_to(new_xeno)
 	SEND_SIGNAL(new_xeno.mind, COMSIG_ALIEN_EVOLVE, queen.type, new_xeno.type)
 	QDEL_LIST(alien_walls)

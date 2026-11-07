@@ -201,3 +201,5 @@
 #define SQUARE_VIEWPORT_SIZE "15x15"
 /// Largest viewport possible, required for checking if someone can see an object
 #define LARGEST_VIEWPORT_SIZE WIDESCREEN_VIEWPORT_SIZE
+
+#define around_player "CENTER-1,CENTER-1"

@@ -1,16 +1,18 @@
 /mob/living/carbon/alien/larva
 	name = "alien larva"
 	real_name = "alien larva"
-	icon_state = "larva0"
+	desc = "Ой, какая милашка!"
+	icon = 'icons/mob/xeno/larva.dmi'
+	icon_state = "larva_idle"
 	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE | PASSDOOR
 	mob_size = MOB_SIZE_SMALL
+	caste_movement_delay = -0.2
 	attack_damage = 3
 	obj_damage = 10
-	maxHealth = 25
-	health = 25
+	maxHealth = 50
+	health = 50
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
-	rotate_on_lying = FALSE
 	tts_seed = "Templar"
 	can_evolve = TRUE
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
@@ -20,6 +22,16 @@
 
 	var/datum/action/innate/hide/alien_larva/hide_action
 	var/temperature_resistance = T0C+75
+
+/mob/living/carbon/alien/larva/get_ru_names()
+	return alist(
+		NOMINATIVE = "грудолом",
+		GENITIVE = "грудолома",
+		DATIVE = "грудолому",
+		ACCUSATIVE = "грудолома",
+		INSTRUMENTAL = "грудоломом",
+		PREPOSITIONAL = "грудоломе",
+	)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)
