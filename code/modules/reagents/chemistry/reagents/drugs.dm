@@ -17,7 +17,6 @@
 	name = "Диэтиламид лизергиновой кислоты"
 	id = "lsd"
 	description = "Сильнодействующее галлюциногенное вещество, также известное как \"ЛСД\". Чуваааак."
-	reagent_state = LIQUID
 	color = "#0000D8"
 	taste_description = "магического путешествия"
 
@@ -32,7 +31,6 @@
 	name = "Космо-дурь"
 	id = "space_drugs"
 	description = "Запрещенное химическое соединение, используемое в качестве наркотика."
-	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	addiction_chance = 15
@@ -86,7 +84,6 @@
 	name = "Никотин"
 	id = "nicotine"
 	description = "Немного уменьшает время оглушения. При передозировке отравляет и сбивает дыхание."
-	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
 	addiction_chance = 3
@@ -158,7 +155,6 @@
 	name = "Мунлин"
 	id = "moonlin"
 	description = "Гранулированный порошок, состоящий из мелких белых кристаллов, который добывают из растения \"Мунлайт\", растущего на побережьях и в дельтах рек Адомая."
-	reagent_state = LIQUID
 	color = "#5ec3cc" // rgb: 96, 165, 132
 	drink_icon = "moonlight_d"
 	drink_name = "Мунлин"
@@ -232,7 +228,6 @@
 	name = "Крэнк"
 	id = "crank"
 	description = "Reduces stun times by about 200%. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
-	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_chance = 10
@@ -307,7 +302,6 @@
 	name = "Дезоморфин"
 	id = "krokodil"
 	description = "Кустарно произведённый наркотик, популярный в бедных секторах СССП."
-	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
 	addiction_chance = 10
@@ -379,7 +373,6 @@
 	name = "Метамфетамин"
 	id = "methamphetamine"
 	description = "Метамфетамин — психоактивное вещество, стимулирующее работу головного мозга и всей нервной системы. Это синтетический препарат, представленный в виде белого кристаллического порошка."
-	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_chance = 10
@@ -525,7 +518,6 @@
 	name = "Дженкем"
 	id = "jenkem"
 	description = "Дженкем — это тюремный наркотик, изготовленный путем брожения фекалий в растворе мочи. Крайне отвратительно."
-	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 5
 	addiction_threshold = 5
@@ -543,7 +535,6 @@
 	name = "Аранесп"
 	id = "aranesp"
 	description = "Запрещенный препарат, повышающий работоспособность. Побочные эффекты могут включать боль в груди, судороги, отеки, головную боль, лихорадку и так далее..."
-	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "горечи"
 
@@ -568,7 +559,6 @@
 	name = "Тетрагидроканнабинол"
 	id = "thc"
 	description = "Мягкое психоактивное вещество, добываемое из растения конопли."
-	reagent_state = LIQUID
 	color = "#0FBE0F"
 	taste_description = "охренненого кайфа"
 
@@ -589,7 +579,6 @@
 	name = "Каннабидиол"
 	id = "cbd"
 	description = "Непсихоактивный фитоканнабиноид, добываемый из растения конопли."
-	reagent_state = LIQUID
 	color = "#00e100"
 	taste_description = "расслабления"
 
@@ -615,7 +604,6 @@
 	name = "Крутений"
 	id = "fliptonium"
 	description = "Туда-сюда, влево-вправо, вперёд-назад!"
-	reagent_state = LIQUID
 	color = "#A42964"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
@@ -695,7 +683,6 @@
 	name = "Ротатий"
 	id = "rotatium"
 	description = "Крутящаяся туда-сюда странного цвета жидкость. Нарушает чувство координации употребившего."
-	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
@@ -730,7 +717,6 @@
 	addiction_threshold = 20
 	color = "#FF4DD2"
 	taste_description = "смеха"
-	reagent_state = LIQUID
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -913,7 +899,6 @@
 	name = "Всплеск"
 	id = "surge"
 	description = "Сверхпроводящий гель, который перегружает процессоры синтетиков, вызывая эффект, схожий с действием опиатов на органиков."
-	reagent_state = LIQUID
 	color = "#6DD16D"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -957,7 +942,6 @@
 	name = "Всплеск+"
 	id = "surge_plus"
 	description = "Сверхпроводящий гель, который перегружает процессоры синтетиков, вызывая эффект, схожий с действием бензодиазепинамов на органиков."
-	reagent_state = LIQUID
 	color = "#28b581"
 
 	process_flags = SYNTHETIC
@@ -1055,7 +1039,6 @@
 	name = "Крэк"
 	id = "crack"
 	description = "Кристаллизованная версия кокаина, потребляемая путем курения."
-	reagent_state = LIQUID
 	color = "#f0f0f0"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -1096,7 +1079,6 @@
 	name = "Кокаин"
 	id = "cocaine"
 	description = "Всемирно известный препарат, оказывающий сильное воздействие на нервную систему употребившего."
-	reagent_state = LIQUID
 	color = "#f0f0f0"
 	overdose_threshold = 20
 	addiction_chance = 10
@@ -1144,7 +1126,6 @@
 	name = "Мате де Кока"
 	id = "matedecoca"
 	description = "Чай из кокаина. Особенно интересный напиток."
-	reagent_state = LIQUID
 	color = "#8acca7"
 	overdose_threshold = 40
 	addiction_chance = 2
@@ -1179,7 +1160,6 @@
 	name = "Первитин"
 	id = "pervitin"
 	description = "Первитин — мощный стимулятор, синтезируемый из метамфетамина. Вызывает эйфорию и прилив сил, но чрезвычайно быстро формирует зависимость и разрушает мозг."
-	reagent_state = LIQUID
 	color = "#8c7ba0"
 	overdose_threshold = 20
 	addiction_chance = 30

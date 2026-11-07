@@ -2,7 +2,6 @@
 	name = "Токсин"
 	id = "toxin"
 	description = "Ядовитый."
-	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_mult = 1.2
 	taste_description = "горечи"
@@ -17,7 +16,6 @@
 	name = "Паучий яд"
 	id = "spidertoxin"
 	description = "Яд, впрыскиваемый космическими арахнидами."
-	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_description = "горечи"
 
@@ -30,7 +28,6 @@
 	name = "Пчелиный яд"
 	id = "beetoxin"
 	description = "Яд, впрыскиваемый космическими пчелами."
-	reagent_state = LIQUID
 	color = "#ff932f"
 	taste_description = "боли"
 
@@ -44,7 +41,6 @@
 	name = "Пчелиный яд"
 	id = "beetoxinbeesease"
 	description = "Яд, впрыскиваемый космическими пчелами."
-	reagent_state = LIQUID
 	color = "#ff932f"
 	taste_description = "боли"
 	overdose_threshold = 30
@@ -85,7 +81,6 @@
 	name = "Мятный токсин"
 	id = "minttoxin"
 	description = "Пригодится для работы с нежелательными клиентами."
-	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_description = "мяты"
 
@@ -99,7 +94,6 @@
 	name = "Слаймовое желе"
 	id = "slimejelly"
 	description = "Липкая полужидкость, полученная из одной из самых смертоносных форм жизни в галактике."
-	reagent_state = LIQUID
 	color = "#0b8f70" // rgb: 11, 143, 112
 	taste_description = "желе"
 	taste_mult = 1.3
@@ -142,7 +136,6 @@
 	name = "Мутационный токсин"
 	id = "mutationtoxin"
 	description = "Мутационный токсин, производимый слаймами."
-	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
 	taste_description = "теней"
@@ -162,7 +155,6 @@
 	name = "Продвинутый мутационный токсин"
 	id = "amutationtoxin"
 	description = "Продвинутый мутационный токсин, производимый слаймами."
-	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
 	taste_description = "желе"
@@ -176,7 +168,6 @@
 	name = "Ртуть"
 	id = "mercury"
 	description = "Химический элемент."
-	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -192,7 +183,6 @@
 	name = "Хлор"
 	id = "chlorine"
 	description = "Химический элемент."
-	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
@@ -207,7 +197,6 @@
 	name = "Фтор"
 	id = "fluorine"
 	description = "Высокореактивный химический элемент."
-	reagent_state = GAS
 	color = "#6A6054"
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
@@ -262,7 +251,6 @@
 	name = "Полоний"
 	id = "polonium"
 	description = "Чрезвычайно радиоактивный материал в жидкой форме. Попадание внутрь приводит к смертельному облучению."
-	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -301,7 +289,6 @@
 	name = "Нестабильный мутаген"
 	id = "mutagen"
 	description = "Может вызывать непредсказуемые мутации. Держите подальше от детей."
-	reagent_state = LIQUID
 	color = "#04DF27"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_mult = 0.9
@@ -329,7 +316,6 @@
 	name = "Стабильный мутаген"
 	id = "stable_mutagen"
 	description = "Обычное, скучное мутагенное соединение. Действует совершенно предсказуемо."
-	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "желе"
 
@@ -405,7 +391,6 @@
 	name = "Лексорин"
 	id = "lexorin"
 	description = "Лексорин временно останавливает дыхание. Вызывает повреждение тканей."
-	reagent_state = LIQUID
 	color = "#52685D"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "сладости"
@@ -419,7 +404,6 @@
 	name = "Серная кислота"
 	id = "sacid"
 	description = "Сильная минеральная кислота с молекулярной формулой H2SO4."
-	reagent_state = LIQUID
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = span_userdanger_alt("РАЗЪЕДАЮЩЕЙ КИСЛОТЫ")
@@ -563,7 +547,6 @@
 	id = "acetic_acid"
 	description = "Слабая кислота, которая является основным компонентом уксуса и плохого похмелья."
 	color = "#0080ff"
-	reagent_state = LIQUID
 	taste_description = "уксуса"
 
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
@@ -608,7 +591,6 @@
 	name = "Карпотоксин"
 	id = "carpotoxin"
 	description = "Смертельный нейротоксин, вырабатываемый железами космического карпа."
-	reagent_state = LIQUID
 	color = "#003333" // rgb: 0, 51, 51
 	taste_description = "рыбы"
 
@@ -621,7 +603,6 @@
 	name = "Тиризин"
 	id = "tirizene"
 	description = "Токсин, который ухудшает снабжение тканей кислородом, постепенно выматывая организм субъекта."
-	reagent_state = LIQUID
 	color = "#6E2828"
 	data = 13
 	taste_description = "горечи"
@@ -688,7 +669,6 @@
 	name = "Гистамин"
 	id = "histamine"
 	description = "Нейротрансмиттер иммунной системы. Если он обнаружен в крови, то, скорее всего, у человека наблюдается аллергическая реакция."
-	reagent_state = LIQUID
 	color = "#E7C4C4"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40
@@ -766,7 +746,6 @@
 	name = "Формальдегид"
 	id = "formaldehyde"
 	description = "Формальдегид — распространенный промышленный химикат, который используется для консервации трупов и медицинских препа. Он очень токсичен и вызывает аллергию."
-	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "горечи"
@@ -783,7 +762,6 @@
 	name = "Ацетальдегид"
 	id = "acetaldehyde"
 	description = "Ацетальдегид — распространенный промышленный химикат. Он является сильным раздражителем."
-	reagent_state = LIQUID
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "яблок"
@@ -797,7 +775,6 @@
 	name = "Яд"
 	id = "venom"
 	description = "Невероятно сильный яд. Происхождение неизвестно."
-	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40
@@ -825,7 +802,6 @@
 	name = "Нейротоксин"
 	id = "neurotoxin2"
 	description = "Опасный токсин, поражающий нервную систему."
-	reagent_state = LIQUID
 	color = "#60A584"
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_mult = 0
@@ -864,7 +840,6 @@
 	name = "Цианид"
 	id = "cyanide"
 	description = "Высокотоксичное химическое вещество, используемое в качестве строительного блока для других веществ."
-	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -889,7 +864,6 @@
 	name = "Зудящий порошок"
 	id = "itching_powder"
 	description = "Абразивный порошок, любимый жестокими шутниками."
-	reagent_state = LIQUID
 	color = "#B0B0B0"
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -925,7 +899,6 @@
 	name = "Инитропидрил"
 	id = "initropidril"
 	description = "Сильнодействующий сердечный яд — может убить за несколько минут."
-	reagent_state = LIQUID
 	color = "#7F10C0"
 	can_synth = FALSE
 	taste_mult = 0
@@ -956,7 +929,6 @@
 	name = "Панкуроний"
 	id = "pancuronium"
 	description = "Бромид панкурония — мощный релаксант скелетных мышц."
-	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_mult = 0
@@ -989,7 +961,6 @@
 	name = "Тиопентал натрия"
 	id = "sodium_thiopental"
 	description = "Быстродействующий транквилизатор барбитуратного ряда."
-	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 1.75 * REAGENTS_METABOLISM
 	can_synth = FALSE
@@ -1018,7 +989,6 @@
 	name = "Кетамин"
 	id = "ketamine"
 	description = "Сильнодействующий ветеринарный транквилизатор."
-	reagent_state = LIQUID
 	color = "#646EA0"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -1046,7 +1016,6 @@
 	name = "Сульфонал"
 	id = "sulfonal"
 	description = "Отравляет организм субьекта и погружает его в сон."
-	reagent_state = LIQUID
 	color = "#6BA688"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_mult = 0
@@ -1074,7 +1043,6 @@
 	name = "Аманитин"
 	id = "amanitin"
 	description = "Токсин, вырабатываемый некоторыми грибами. Очень опасен."
-	reagent_state = LIQUID
 	color = "#D9D9D9"
 	taste_mult = 0
 
@@ -1112,7 +1080,6 @@
 	name = "Кониин"
 	id = "coniine"
 	description = "Нейротоксин, быстро вызывающий остановку дыхания."
-	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	can_synth = FALSE
@@ -1128,7 +1095,6 @@
 	name = "Кураре"
 	id = "curare"
 	description = "Очень опасный паралитический яд."
-	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
@@ -1164,7 +1130,6 @@
 	name = "Зарин"
 	id = "sarin"
 	description = "Чрезвычайно смертоносный нейротоксин."
-	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
@@ -1222,7 +1187,6 @@
 	name = "Глифосат"
 	id = "glyphosate"
 	description = "Гербицид широкого спектра применения, эффективно уничтожающий вредителей."
-	reagent_state = LIQUID
 	color = "#d3cf50"
 	var/lethality = 0 //Glyphosate is non-toxic to people
 	taste_description = "горечи"
@@ -1299,7 +1263,6 @@
 	name = "Капулеттий"
 	id = "capulettium"
 	description = "Редкий препарат, используемый для симуляции смерти организма употребившего."
-	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
 	taste_description = "сладости"
@@ -1327,7 +1290,6 @@
 	name = "Капулеттий+"
 	id = "capulettium_plus"
 	description = "Редкий препарат, используемый для симуляции смерти организма употребившего. Пока находится в кровотоке, не позволяет субъекту говорить."
-	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
 	taste_description = "сладости"
@@ -1350,7 +1312,6 @@
 	name = "Токсичная жижа"
 	id = "toxic_slurry"
 	description = "Токсичный канцерогенный осадок, образующийся на заводе \"Сларрипод\"."
-	reagent_state = LIQUID
 	color = "#00C81E"
 	taste_description = "желе"
 
@@ -1369,7 +1330,6 @@
 	name = "Светящаяся жижа"
 	id = "glowing_slurry"
 	description = "Это, вероятно, не очень хорошо для вас."
-	reagent_state = LIQUID
 	color = "#00FD00"
 	taste_description = "желе"
 
@@ -1421,7 +1381,6 @@
 	name = "Теслий"
 	id = "teslium"
 	description = "Нестабильная, электрически заряженная металлическая суспензия. Увеличивает проводимость живых организмов."
-	reagent_state = LIQUID
 	color = "#20324D" //RGB: 32, 50, 77
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	var/shock_timer = 0
@@ -1452,7 +1411,6 @@
 	name = "Благословение Чревоугодия"
 	id = "gluttonytoxin"
 	description = "Продвинутый токсин, вызывающий разложение, производимый чем-то ужасным."
-	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	can_synth = FALSE
 	taste_description = "разложения"
@@ -1465,7 +1423,6 @@
 	name = "Бунготоксин"
 	id = "bungotoxin"
 	description = "Ужасный кардиотоксин."
-	reagent_state = LIQUID
 	color = "#EBFF8E"
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "танина"
@@ -1499,7 +1456,6 @@
 	name = "Экстракт коки"
 	id = "cocaextract"
 	description = "Необработанный экстракт коки. Не стоит пробовать его в таком виде."
-	reagent_state = LIQUID
 	color = "#f4f4f4"
 	taste_description = "травяной горечи"
 

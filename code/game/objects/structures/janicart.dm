@@ -6,7 +6,6 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
 	density = TRUE
-	container_type = OPENCONTAINER
 	//copypaste sorry
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 	var/obj/item/storage/bag/trash/mybag = null
@@ -18,7 +17,7 @@
 
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	create_reagents(100, OPENCONTAINER)
 	GLOB.janitorial_equipment += src
 	register_context()
 

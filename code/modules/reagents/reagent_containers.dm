@@ -13,6 +13,8 @@
 	var/list/possible_transfer_amounts = list(5,10,15,20,25,30)
 	/// The maximum amount of reagents this container can hold
 	var/volume = 30
+	/// The base reagent flags that our reagent datum takes on when created
+	var/initial_reagent_flags = NONE
 	/// A list of what initial reagents this container should spawn with
 	var/list/list_reagents = null
 	/// If this container should spawn with a disease type inside of it
@@ -36,8 +38,6 @@
 	var/fill_icon = 'icons/obj/reagentfillings.dmi'
 	///If we want to the contrast of the reagent overlay if the reagent mix color is very dark.
 	var/adjust_color_contrast = FALSE
-	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
-	var/temperature_max = 10000
 	/// Pass open check in empty verb
 	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
@@ -54,20 +54,24 @@
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
 
-/obj/item/reagent_containers/Initialize(mapload)
+/obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
+	if(isnum(vol) && vol > 0)
+		volume = vol
+	if(!force)
+		item_flags |= NOBLUDGEON
 	if(!reagents) // Some subtypes create their own reagents
-		create_reagents(volume, temperature_min, temperature_max)
+		create_reagents(volume, initial_reagent_flags)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
 		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
-		reagents.add_reagent("blood", disease_amount, data)
+		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
 	if(list_reagents)
 		list_reagents = string_assoc_list(list_reagents)
 	if(possible_transfer_amounts)
 		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
-	update_icon()
+	AddElement(/datum/element/reagents_exposed_on_fire)
 
 /obj/item/reagent_containers/examine()
 	. = ..()
@@ -76,6 +80,10 @@
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
 		else if(possible_transfer_amounts.len)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
+
+/obj/item/reagent_containers/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignal(reagents, COMSIG_REAGENTS_HOLDER_UPDATED, PROC_REF(on_reagent_change))
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
@@ -133,7 +141,7 @@
 
 /// Tries to splash the target, called when right-clicking with a reagent container.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if(!is_open_container() || (container_type & NO_SPLASH))
+	if(!is_open_container() || (reagents.flags & NO_SPLASH))
 		return FALSE
 
 	if(!reagents?.total_volume)
@@ -188,6 +196,18 @@
 	if(!QDELETED(src))
 		..()
 
+/// Sets reagent flags to the passed flags outright
+/obj/item/reagent_containers/proc/update_container_flags(new_flags)
+	reagents.flags = new_flags
+
+/// Adds the passed flags to the current reagent flags
+/obj/item/reagent_containers/proc/add_container_flags(new_flags)
+	reagents.flags |= new_flags
+
+/// Resets to base flags
+/obj/item/reagent_containers/proc/reset_container_flags()
+	reagents.flags = initial_reagent_flags
+
 /obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
 	switch(amount_per_transfer_from_this)
 		if(0 to 9)
@@ -217,7 +237,7 @@
  * * throwingdatum - The throwingdatum behind the throw if the
  */
 /obj/item/reagent_containers/proc/splash_reagents(atom/target, mob/splasher, was_thrown = FALSE, allow_closed_splash = FALSE)
-	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (container_type & NO_SPLASH))
+	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (reagents.flags & NO_SPLASH))
 		return
 
 	if(ismob(target) && target.reagents)
@@ -253,6 +273,11 @@
 	target.flick_overlay_view(splash_animation, 1.0 SECONDS)
 
 	reagents.clear_reagents()
+
+/// Updates the icon of the container when the reagents change. Eats signal args
+/obj/item/reagent_containers/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
+	update_appearance()
 
 /obj/item/reagent_containers/update_overlays()
 	. = ..()

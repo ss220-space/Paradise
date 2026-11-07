@@ -50,7 +50,6 @@
 	ammo_marking = "12g \"Дротик\""
 	extra_info = "Пуля представляет собой аналог дротика с ёмкостью для химикатов. Вмещает вплоть до 30 единиц вещества."
 	icon_state = "rubbershotshell"
-	container_type = OPENCONTAINER
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
 	projectile_type = /obj/projectile/bullet/dart
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -59,7 +58,7 @@
 
 /obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
 	. = ..()
-	create_reagents(30)
+	create_reagents(30, OPENCONTAINER)
 
 // MARK: Beanbag
 /obj/item/ammo_casing/shotgun/beanbag

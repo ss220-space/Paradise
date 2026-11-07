@@ -1377,10 +1377,14 @@
 	possible_transfer_amounts = list(5, 10)
 	volume = 50
 	amount_per_transfer_from_this = 5
-	container_type = NONE
 	materials = list(MAT_GLASS = 500)
 	can_lid = FALSE
 	fill_icon_thresholds = list(20, 40, 60, 80, 100)
+
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/Initialize(mapload)
+	. = ..()
+	// this is not done via initial_reagent_flags because it represents state
+	update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/get_ru_names()
 	return alist(
@@ -1404,14 +1408,16 @@
 	else
 		icon_state = "syrup"
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/attack_self(mob/user)
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/click_alt(mob/user)
 	if(is_open_container())
-		container_type &= ~OPENCONTAINER
-		user.balloon_alert(user, "крышка-дозатор надета")
+		balloon_alert(user, "крышка-дозатор надета")
+		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 	else
-		container_type |= OPENCONTAINER
-		user.balloon_alert(user, "крышка-дозатор снята")
+		balloon_alert(user, "крышка-дозатор снята")
+		reset_container_flags()
+
 	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)

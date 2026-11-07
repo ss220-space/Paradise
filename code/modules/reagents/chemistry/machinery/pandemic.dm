@@ -71,7 +71,7 @@
 
 	if(is_reagent_container(item))
 		add_fingerprint(user)
-		if(!(item.container_type & OPENCONTAINER))
+		if(!item.is_open_container())
 			balloon_alert(user, "несовместимо!")
 			return ATTACK_CHAIN_PROCEED
 		if(beaker)

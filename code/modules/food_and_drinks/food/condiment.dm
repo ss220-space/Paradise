@@ -6,7 +6,7 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
-	container_type = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
@@ -261,6 +261,7 @@
 	desc = "A small plastic pack with condiments to put on your food."
 	icon_state = "condi_empty"
 	volume = 10
+	initial_reagent_flags = parent_type::initial_reagent_flags | NO_SPLASH
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	possible_states = list(

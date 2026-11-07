@@ -27,7 +27,7 @@
 		. += "Это [examine_descriptor(user)][post_desc_string]."
 
 	if(reagents)
-		if(container_type & TRANSPARENT)
+		if(reagents.flags & TRANSPARENT)
 			. += span_notice("Содержимое:")
 			if(length(reagents.reagent_list))
 				if(user.can_see_reagents()) //Show each individual reagent
@@ -39,7 +39,7 @@
 						. += span_notice("<b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)] вещества.")
 			else
 				. += span_notice("Ничего.")
-		else if(container_type & AMOUNT_VISIBLE)
+		else if(reagents.flags & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
 				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)] вещества.")
 			else
