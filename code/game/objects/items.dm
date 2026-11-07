@@ -534,6 +534,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
+	if(proximity_flag && ATTACK_CHAIN_SUCCESS_CHECK(status) && !QDELETED(user) && ishuman(user) && !QDELETED(target) && isliving(target))
+		var/mob/living/carbon/human/human_user = user
+		human_user.try_melee_double_strike(target, src)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -1513,6 +1516,9 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 
 	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
 	return final_force * skill_mod
+
+/obj/item/proc/is_melee_weapon()
+	return HAS_TRAIT(src, TRAIT_MELEE_WEAPON)
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()

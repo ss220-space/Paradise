@@ -144,6 +144,10 @@
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return .|ATTACK_CHAIN_BLOCKED
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.melee_heavy_strike_state == MELEE_HEAVY_STRIKE_CHARGING)
+			return .|ATTACK_CHAIN_BLOCKED
 	var/temperature = get_temperature()
 	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
 		to_chat(user, span_notice("Вы нагрели [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
@@ -168,6 +172,11 @@
 
 	if(signal_result & COMPONENT_SECONDARY_CONTINUE_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+	if(ishuman(user) && ishuman(target))
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.try_melee_heavy_strike(target, src))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	return SECONDARY_ATTACK_CALL_NORMAL
 

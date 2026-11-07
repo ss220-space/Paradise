@@ -81,6 +81,17 @@
 #define GRAB_NECK 2
 #define GRAB_KILL 3
 
+// Heavy melee strike states
+#define MELEE_HEAVY_STRIKE_IDLE 0
+#define MELEE_HEAVY_STRIKE_CHARGING 1
+#define MELEE_HEAVY_STRIKE_ATTACKING 2
+/// Heavy strike duration on grabbed target
+#define MELEE_HEAVY_STRIKE_DURATION (2 SECONDS)
+/// Heavy strike duration on lying target
+#define MELEE_HEAVY_STRIKE_LYING_DURATION (5 SECONDS)
+/// Heavy strike damage mod
+#define MELEE_HEAVY_STRIKE_MOD 10
+
 #define MARTIAL_GRAB_AGGRESSIVE "martial_grab_aggressive"
 #define MARTIAL_GRAB_NECK "martial_grab_neck"
 #define MARTIAL_GRAB_KILL "martial_grab_kill"
