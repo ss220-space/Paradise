@@ -541,6 +541,10 @@ GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1),
 /obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
 	return FALSE // you can't see the pipe network when inside a cryo cell.
 
+/obj/machinery/atmospherics/unary/cryo_cell/defile()
+	go_out()
+	new/obj/effect/temp_visual/revenant(loc)
+
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD
 #undef OCCUPANT_PIXEL_BOUNCE_HIGH

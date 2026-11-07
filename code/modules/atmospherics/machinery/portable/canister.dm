@@ -350,6 +350,15 @@
 	add_fingerprint(usr)
 	update_icon()
 
+/obj/machinery/portable_atmospherics/canister/defile()
+	name = /obj/machinery/portable_atmospherics/canister::name
+	desc = /obj/machinery/portable_atmospherics/canister::desc
+	icon_state = /obj/machinery/portable_atmospherics/canister::icon_state
+	base_icon_state = /obj/machinery/portable_atmospherics/canister::icon_state
+	greyscale_colors = /obj/machinery/portable_atmospherics/canister::greyscale_colors
+	greyscale_config = /obj/machinery/portable_atmospherics/canister::greyscale_config
+	update_greyscale()
+
 /// Turns hyper-noblium crystal reaction suppression in the canister on or off
 /obj/machinery/portable_atmospherics/canister/proc/toggle_reaction_suppression(mob/user, wire_pulsed = FALSE)
 	if(!nob_crystal_inserted)

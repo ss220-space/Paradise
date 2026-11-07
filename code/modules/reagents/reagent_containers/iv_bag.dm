@@ -222,6 +222,12 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
+/obj/item/reagent_containers/iv_bag/defile()
+	. = ..()
+	name = /obj/item/dnainjector::name
+	desc = /obj/item/dnainjector::desc
+	update_appearance()
+
 // MARK: Pre-filled IV Bags
 /obj/item/reagent_containers/iv_bag/salglu
 	list_reagents = list("salglu_solution" = 200)

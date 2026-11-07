@@ -67,6 +67,20 @@
 		spawn(5)
 			qdel(src)
 
+/obj/item/reagent_containers/food/pill/defile()
+	name = /obj/item/reagent_containers/food/pill::name
+	desc = /obj/item/reagent_containers/food/pill::desc
+	ru_names = alist(
+		NOMINATIVE = "таблетка",
+		GENITIVE = "таблетки",
+		DATIVE = "таблетке",
+		ACCUSATIVE = "таблетку",
+		INSTRUMENTAL = "таблеткой",
+		PREPOSITIONAL = "таблетке",
+	)
+	icon_state = /obj/item/reagent_containers/food/pill::icon_state
+	update_appearance()
+
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills. END
 ////////////////////////////////////////////////////////////////////////////////

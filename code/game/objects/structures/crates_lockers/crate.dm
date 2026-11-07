@@ -255,3 +255,10 @@
 	. += src
 	for(var/obj/item/contained_item in contents)
 		. += contained_item.get_uplink_log_items()
+
+/obj/structure/closet/crate/defile()
+	. = ..()
+	name = /obj/structure/closet/crate::name
+	desc = /obj/structure/closet/crate::desc
+	icon_state = /obj/structure/closet/crate::icon_state
+	update_appearance()

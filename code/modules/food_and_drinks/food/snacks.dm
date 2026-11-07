@@ -321,4 +321,9 @@
 	list_reagents = list("nutriment" = 3)
 	foodtype = FRIED | JUNKFOOD | GROSS
 
+/obj/item/reagent_containers/food/snacks/defile()
+	if(trash)
+		return
+	return ..()
+
 #undef MAX_WEIGHT_CLASS

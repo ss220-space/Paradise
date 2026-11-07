@@ -30,6 +30,7 @@
 
 
 #define DECL_U_Y_0(num) declension_ru(num, "у", "ы", "")
+#define DECL_U_I_0(num) declension_ru(num, "у", "и", "")
 #define DECL_0_A_OV(num) declension_ru(num, "", "а", "ов")
 #define DECL_A_Y_0(num) declension_ru(num, "а", "ы", "")
 #define DECL_E_YA_J(num) declension_ru(num, "е", "я", "й")
@@ -66,3 +67,4 @@
 #define DECL_OJ_YH_YH(num) declension_ru(num, "ой", "ых", "ых")
 #define DECL_YJ_YH_YH(num) declension_ru(num, "ый", "ых", "ых")
 #define DECL_OGO_YH_YH(num) declension_ru(num, "ого", "ых", "ых")
+#define DECL_YU_YH_YH(num) declension_ru(num, "ю", "ых", "ых")

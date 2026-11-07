@@ -60,17 +60,21 @@
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)
 	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
-		if(ant_location == T)
-			if(prob(15))
-				if(!locate(/obj/effect/decal/ants) in T)
-					new /obj/effect/decal/ants(T)
-					antable = FALSE
-					desc += " It appears to be infested with space ants. Yuck!"
-					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-		else
-			ant_location = T
-
+		if(prob(15))
+			add_ants()
 	last_ant_time = world.time
+
+/obj/item/reagent_containers/food/proc/add_ants()
+	var/turf/ant_turf = get_turf(src)
+	if(ant_location != ant_turf)
+		ant_location = ant_turf
+		return
+	if(locate(/obj/effect/decal/ants) in ant_turf)
+		return
+	new /obj/effect/decal/ants(ant_turf)
+	antable = FALSE
+	desc += " It appears to be infested with space ants. Yuck!"
+	reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
 
 /obj/item/reagent_containers/food/proc/check_liked(fraction, mob/eater)
 	if(!COOLDOWN_FINISHED(src, last_check_time))
@@ -145,3 +149,8 @@
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
 			. += span_notice("[R.name] — [R.volume] ед.")
+			. += span_notice("[R.volume] units of [R.name]")
+
+/obj/item/reagent_containers/food/defile()
+	add_ants()
+	new/obj/effect/temp_visual/revenant(loc)

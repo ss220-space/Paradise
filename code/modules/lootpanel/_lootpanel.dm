@@ -65,3 +65,8 @@
 			return grab(usr, params)
 
 	return FALSE
+
+/datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
+	if(istype(user, /mob/living/simple_animal/revenant))
+		return UI_INTERACTIVE
+	. = ..()

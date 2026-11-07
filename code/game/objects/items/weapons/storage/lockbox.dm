@@ -102,6 +102,11 @@
 /obj/item/storage/lockbox/hear_message(mob/living/M, msg)
 	return
 
+/obj/item/storage/lockbox/defile()
+	name = /obj/item/storage/lockbox::name
+	desc = /obj/item/storage/lockbox::desc
+	update_appearance()
+
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(ACCESS_SECURITY)
