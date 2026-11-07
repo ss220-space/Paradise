@@ -57,6 +57,7 @@
 	var/max_buckled_mobs = 1
 	/// Whether things buckled to this atom can be pulled while they're buckled
 	var/buckle_prevents_pull = FALSE
+	var/buckle_bonus_spread = 45
 
 	/**
 	  * In case you have multiple types, you automatically use the most useful one.
