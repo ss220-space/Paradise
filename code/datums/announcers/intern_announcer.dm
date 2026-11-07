@@ -1,11 +1,6 @@
 /datum/centcom_announcer/intern_ru
 	welcome_sounds = list(
-		'sound/announcer/intern_ru/welcome/1.ogg',
-		'sound/announcer/intern_ru/welcome/2.ogg',
-		'sound/announcer/intern_ru/welcome/3.ogg',
-		'sound/announcer/intern_ru/welcome/4.ogg',
-		'sound/announcer/intern_ru/welcome/5.ogg',
-		'sound/announcer/intern_ru/welcome/6.ogg',
+		'sound/announcer/vedma-6.ogg'
 	)
 
 	alert_sounds = list(
@@ -48,12 +43,7 @@
 
 /datum/centcom_announcer/intern
 	welcome_sounds = list(
-		'sound/announcer/intern/welcome/1.ogg',
-		'sound/announcer/intern/welcome/2.ogg',
-		'sound/announcer/intern/welcome/3.ogg',
-		'sound/announcer/intern/welcome/4.ogg',
-		'sound/announcer/intern/welcome/5.ogg',
-		'sound/announcer/intern/welcome/6.ogg',
+		'sound/announcer/vedma-6.ogg'
 	)
 
 	alert_sounds = list(

@@ -7,22 +7,31 @@
 	forced_ambience = TRUE
 	ambient_buzz = 'sound/ambience/maintenance/source_corridor2.ogg'
 	ambient_buzz_vol = 20
-	///A list of rare sound effects to fuck with players. No, it does not contain actual minecraft sounds anymore.
+	///A list of rare sound effects to fuck with players. Yes, now it contains minecraft sounds again(for halloween)
 	var/static/list/minecraft_cave_noises = list(
-		'sound/machines/airlock_open.ogg',
-		'sound/effects/snap.ogg',
-		'sound/effects/clownstep1.ogg',
-		'sound/effects/clownstep2.ogg',
-		'sound/items/welder.ogg',
-		'sound/items/welder2.ogg',
-		'sound/items/crowbar.ogg',
-		'sound/items/deconstruct.ogg',
-		'sound/ambience/misc/source_holehit3.ogg',
-		'sound/ambience/misc/cavesound3.ogg',
+		'sound/ambience/halloween/Cave1.ogg',
+		'sound/ambience/halloween/Cave2.ogg',
+		'sound/ambience/halloween/Cave3.ogg',
+		'sound/ambience/halloween/Cave4.ogg',
+		'sound/ambience/halloween/Cave5.ogg',
+		'sound/ambience/halloween/Cave6.ogg',
+		'sound/ambience/halloween/Cave7.ogg',
+		'sound/ambience/halloween/Cave8.ogg',
+		'sound/ambience/halloween/Cave9.ogg',
+		'sound/ambience/halloween/Cave10.ogg',
+		'sound/ambience/halloween/Cave11.ogg',
+		'sound/ambience/halloween/Cave12.ogg',
+		'sound/ambience/halloween/Cave13.ogg',
+		'sound/ambience/halloween/Cave14.ogg',
+		'sound/ambience/halloween/Cave15.ogg',
+		'sound/ambience/halloween/Cave16.ogg',
+		'sound/ambience/halloween/Cave17.ogg.mp3',
+		'sound/ambience/halloween/Cave18.ogg.mp3',
+		'sound/ambience/halloween/Cave19.ogg',
 	)
 
-/area/station/maintenance/play_ambience(mob/target, sound/override_sound, volume)
-	if(!target.has_light_nearby() && prob(0.5))
+/area/station/maintenance/play_ambience(mob/target, sound/override_sound, volume = 50)
+	if(!target.has_light_nearby())
 		return ..(target, pick(minecraft_cave_noises))
 	return ..()
 
