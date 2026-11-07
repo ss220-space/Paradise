@@ -151,9 +151,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	QDEL_NULL(wires)
 	lose_hearing_sensitivity(ROUNDSTART_TRAIT)
 	set_on(FALSE)
-	SSradio?.remove_object_all(src)
-	LAZYCLEARLIST(secure_radio_connections)
-	radio_connection = null
+	unsubscribe()
 	GLOB.global_radios -= src
 	return ..()
 
@@ -196,21 +194,18 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  */
 /obj/item/radio/proc/set_listening(new_listening, actual_setting = TRUE)
 	if(!on)
-		return
-	var/old_listening = listening
+		return FALSE
+	new_listening = !!new_listening
+	if(listening == new_listening)
+		return FALSE
 	listening = new_listening
-
-	if(old_listening == listening)
-		return
-
 	if(actual_setting)
 		should_be_listening = listening
-
 	if(listening)
 		recalculate_channels()
-		return
-
-	reset_channels()
+	else
+		reset_channels()
+	return TRUE
 
 /**
  * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
@@ -221,16 +216,18 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  */
 /obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
 	if(!on)
-		return
-
+		return FALSE
+	new_broadcasting = !!new_broadcasting
+	if(broadcasting == new_broadcasting)
+		return FALSE
 	broadcasting = new_broadcasting
 	if(actual_setting)
 		should_be_broadcasting = broadcasting
-
-	if(broadcasting) //we dont need hearing sensitivity if we arent broadcasting, because talk_into doesnt care about hearing
+	if(broadcasting)
 		become_hearing_sensitive(INNATE_TRAIT)
-		return
-	lose_hearing_sensitivity(INNATE_TRAIT)
+	else
+		lose_hearing_sensitivity(INNATE_TRAIT)
+	return TRUE
 
 /obj/item/radio/proc/get_internal_channels()
 	return GLOB.default_internal_channels
@@ -629,42 +626,29 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	broadcast_message(tcm)
 	qdel(tcm) // Delete the message datum
 
-/obj/item/radio/proc/receive_range(freq, level)
-	// check if this radio can receive on the given frequency, and if so,
-	// what the range is in which mobs will hear the radio
-	// returns: -1 if can't receive, range otherwise
-
+/obj/item/radio/proc/can_receive(freq, level)
 	if(!is_listening())
-		return -1
+		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
-			return -1
+			return FALSE
 	if(freq in SSradio.ANTAG_FREQS)
-		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
-			return -1
-
-	if(!freq) //received on main frequency
+		if(!syndiekey)
+			return FALSE
+	if(!freq)
 		if(!listening)
-			return -1
-	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))
-		return canhear_range
-	else
-		var/accept = (freq == frequency && listening)
-		if(!accept)
-			for(var/ch_name in channels)
-				var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
-				if(RF.frequency==freq && (channels[ch_name]&FREQ_LISTENING))
-					accept = 1
-					break
-		if(!accept)
-			return -1
-	return canhear_range
-
-/obj/item/radio/proc/send_hear(freq, level)
-	var/range = receive_range(freq, level)
-	if(range > -1)
-		return get_hearers_in_view(canhear_range, src)
+			return FALSE
+		return TRUE
+	if(syndiekey && !(freq in SSradio.syndicate_blacklist))
+		return TRUE
+	if(freq == frequency && listening)
+		return TRUE
+	for(var/ch_name in channels)
+		var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
+		if(RF && RF.frequency == freq && (channels[ch_name] & FREQ_LISTENING))
+			return TRUE
+	return FALSE
 
 /obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
@@ -682,6 +666,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return get_hearers_in_view(canhear_range, src)
 
 	return null
+
+
+/obj/item/radio/proc/deliver()
+	return get_hearers_in_LOS(canhear_range, src)
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
@@ -789,9 +777,12 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/proc/reset_channels()
 	channels = list()
-	secure_radio_connections = null
-	radio_connection = null
+	unsubscribe()
+
+/obj/item/radio/proc/unsubscribe()
 	SSradio.remove_object_all(src)
+	radio_connection = null
+	secure_radio_connections = null
 
 ///////////////////////////////
 //////////Borg Radios//////////
