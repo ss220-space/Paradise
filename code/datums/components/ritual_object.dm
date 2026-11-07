@@ -14,6 +14,10 @@
 	var/list/invokers
 	/// Cached selected ritual.
 	var/datum/ritual/ritual
+	/// Prevents ritual selection while a ritual is being cast
+	var/ritual_in_progress = FALSE
+	/// Flag to cancel the cast when used things move
+	var/cast_cancelled = FALSE
 
 /datum/component/ritual_object/Destroy(force)
 	QDEL_LIST(rituals)
@@ -65,6 +69,9 @@
 	SIGNAL_HANDLER
 
 	if(active_ui)
+		return
+
+	if(ritual_in_progress)
 		return
 
 	if(!istype(human))
@@ -125,11 +132,12 @@
 		if("select_ritual")
 			handle_ritual_selection(ui.user, params["selected_ritual"])
 			. = TRUE
-
 		if("start_ritual")
-			var/ritual_status = pre_ritual_check(ui.user)
-			if(ritual_status)
-				active_ui = FALSE
+			var/mob/user = ui.user
+			ui.close()
+			ritual_in_progress = TRUE
+			pre_ritual_check(user)
+			ritual_in_progress = FALSE
 			. = TRUE
 
 /datum/component/ritual_object/ui_close(mob/user)
@@ -137,6 +145,9 @@
 	active_ui = FALSE
 
 /datum/component/ritual_object/proc/handle_ritual_selection(mob/living/carbon/human, choosen_ritual)
+	if(ritual_in_progress)
+		return FALSE
+
 	if(!choosen_ritual)
 		active_ui = FALSE
 		return
@@ -188,6 +199,9 @@
 	if((. & RITUAL_FAILED_ON_PROCEED) && (ritual.ritual_should_del_things_on_fail))
 		del_things = TRUE
 
+	for(var/atom/movable/atom as anything in used_things)
+		UnregisterSignal(atom, COMSIG_MOVABLE_MOVED)
+
 	if(del_things)
 		ritual.del_things(used_things)
 
@@ -200,9 +214,6 @@
 	if(message)
 		var/atom/atom = parent
 		addtimer(CALLBACK(src, PROC_REF(create_message), atom, invoker, message), 0.5 SECONDS)
-
-	for(var/atom/movable/atom as anything in used_things)
-		UnregisterSignal(atom, COMSIG_MOVABLE_MOVED)
 
 	LAZYNULL(invokers)
 	LAZYNULL(used_things)
@@ -225,14 +236,14 @@
 
 	if(ritual.cast_time)
 		for(var/atom/movable/atom as anything in used_things)
-			RegisterSignal(atom, COMSIG_MOVABLE_MOVED, PROC_REF(track_atoms))
+			RegisterSignal(atom, COMSIG_MOVABLE_MOVED, PROC_REF(on_thing_moved))
 
 		if(!cast())
 			return RITUAL_FAILED_ON_PROCEED
 
 	return ritual.do_ritual(invoker, invokers, used_things)
 
-/datum/component/ritual_object/proc/track_atoms(
+/datum/component/ritual_object/proc/on_thing_moved(
 	atom/source,
 	atom/old_loc,
 	movement_dir,
@@ -242,7 +253,7 @@
 )
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(cast))
+	cast_cancelled = TRUE
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /datum/component/ritual_object/proc/check_invokers(mob/living/carbon/invoker)
@@ -319,20 +330,21 @@
 	return ritual.check_contents(invoker, used_things)
 
 /datum/component/ritual_object/proc/cast()
+	cast_cancelled = FALSE
 	for(var/mob/living/carbon/human/human in invokers)
-		if(!do_after(human, ritual.cast_time, parent, DA_IGNORE_HELD_ITEM, max_interact_count = 1))
+		if(!do_after(human, ritual.cast_time, parent, DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(cast_still_valid)), max_interact_count = 1))
 			return FALSE
 
 	return TRUE
+
+/datum/component/ritual_object/proc/cast_still_valid()
+	return !cast_cancelled && ritual
 
 /datum/component/ritual_object/proc/get_available_rituals(mob/living/carbon/human)
 	var/list/rituals_list = list()
 
 	for(var/datum/ritual/ritual as anything in rituals)
 		if(ritual.charges == 0)
-			continue
-
-		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
 
 		if(ritual.allowed_species && !is_type_in_list(human.dna.species, ritual.allowed_species))

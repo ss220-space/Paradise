@@ -857,8 +857,8 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 		var/follow_button
 		if(invisibility) // Only show the button if the ghost is not visible to the living
 			follow_button = "([ghost_follow_link(target, current_mob)])" // Ghost needs to be link clicker, otherwise it breaks
-
-		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
+		var/follow_text = follow_button ? "[follow_button] " : ""
+		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_text][target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
 		add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 
 	return TRUE
