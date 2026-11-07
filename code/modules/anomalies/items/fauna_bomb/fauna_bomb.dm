@@ -319,7 +319,7 @@
 	in_choose_mode = TRUE
 	if(!chooser?.mouse_override_icon)
 		chooser.mouse_override_icon = CHOOSING_ICON
-		chooser.mouse_pointer_icon = CHOOSING_ICON
+		chooser.mob?.update_mouse_pointer()
 
 /obj/item/fauna_bomb/proc/choosing_target_off(choosing_num)
 	if(choosing_num != cur_choosing)
@@ -329,7 +329,7 @@
 	in_choose_mode = FALSE
 	if(chooser?.mouse_override_icon == CHOOSING_ICON)
 		chooser.mouse_override_icon = null
-		chooser.mouse_pointer_icon = initial(chooser.mouse_pointer_icon)
+		chooser.mob?.update_mouse_pointer()
 
 #undef CHOOSING_ICON
 

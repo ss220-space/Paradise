@@ -59441,11 +59441,6 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft)
-"myD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "myQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -110040,14 +110035,6 @@
 /obj/structure/cable/layer3,
 /turf/simulated/floor/plating,
 /area/station/ai/satellite/interior)
-"wQx" = (
-/obj/machinery/power/solar{
-	name = "South-East Solar Panel"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/solars/starboard/aft)
 "wQy" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -116551,7 +116538,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "yhs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -145365,7 +145352,7 @@ hjR
 hjR
 hxR
 mRj
-myD
+kKt
 hjR
 hxR
 hxR
@@ -168871,7 +168858,7 @@ coE
 aaq
 coE
 aaq
-wQx
+iGD
 coE
 coE
 dZq
