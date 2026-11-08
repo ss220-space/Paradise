@@ -347,7 +347,7 @@
 /datum/chemical_reaction/helbital
 	name = "Хельбитал"
 	id = "helbital"
-	result = /datum/reagent/medicine/c2
+	result = /datum/reagent/medicine/c2/helbital
 	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/fluorine = 1)
 	result_amount = 3
 	min_temp = T0C + 250
