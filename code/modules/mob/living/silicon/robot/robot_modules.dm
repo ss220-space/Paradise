@@ -535,6 +535,7 @@
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/melee/baton/security(src)
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
+	modules += new /obj/item/gun/projectile/revolver/detective/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	modules += new /obj/item/extinguisher/mini(src)
@@ -542,6 +543,13 @@
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
+
+/obj/item/robot_module/security/respawn_consumable(mob/living/silicon/robot/R)
+	. = ..()
+	for(var/obj/item/gun/projectile/revolver/detective/cyborg/revolver in modules)
+		for(var/i in 1 to revolver.ammo_recharge_rate)
+			if(!revolver.recharge_one_round())
+				break
 
 /obj/item/robot_module/security/ert
 	name = "Combat Security"

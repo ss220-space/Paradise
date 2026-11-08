@@ -720,6 +720,11 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 	for(var/datum/robot_energy_storage/robot_energy_storage in module.storages)
 		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_energy_storage)
 
+	for(var/obj/item/gun/projectile/revolver/detective/cyborg/revolver in module.modules)
+		if(!revolver.magazine)
+			continue
+		status_tab_data[++status_tab_data.len] = list("Патроны R38:", "[revolver.get_ammo(FALSE, FALSE)] / [revolver.magazine.max_ammo]")
+
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 

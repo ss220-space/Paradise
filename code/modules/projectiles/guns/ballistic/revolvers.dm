@@ -10,6 +10,40 @@
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/projectile/revolver/detective/cyborg
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/cyborg
+	can_air_shoot = FALSE
+	show_live_rounds = FALSE
+	damage_mod = 3
+	var/ammo_recharge_rate = 3
+
+/obj/item/gun/projectile/revolver/detective/cyborg/get_ammo(countchambered = FALSE, countempties = FALSE)
+	return ..(countchambered, countempties)
+
+/obj/item/gun/projectile/revolver/detective/cyborg/proc/recharge_one_round()
+	if(!magazine)
+		return FALSE
+
+	for(var/i in 1 to length(magazine.stored_ammo))
+		var/obj/item/ammo_casing/casing = magazine.stored_ammo[i]
+		if(casing && casing.BB)
+			continue
+
+		var/obj/item/ammo_casing/c38/new_round = new /obj/item/ammo_casing/c38(magazine)
+		magazine.stored_ammo[i] = new_round
+
+		if(casing)
+			qdel(casing)
+
+		chamber_round(FALSE)
+		update_icon()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/projectile/revolver/detective/cyborg/unload_act(mob/user)
+	balloon_alert(user, "боезапас нельзя извлечь")
+
+
 /obj/item/gun/projectile/revolver/detective/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)

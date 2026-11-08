@@ -10,6 +10,14 @@
 	desc = "Wait, what?"
 	ammo_type = /obj/item/ammo_casing/c38/invisible
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/cyborg
+	max_ammo = 36
+
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/cyborg/ammo_suitability(obj/item/ammo_casing/new_casing)
+	if(!new_casing || new_casing.type != /obj/item/ammo_casing/c38)
+		return FALSE
+	return ..()
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 	ammo_type = /obj/item/ammo_casing/c38/invisible/fake
 
