@@ -10,6 +10,9 @@
 	var/datum/port/output/output_error
 	var/datum/port/output/output_design
 	var/datum/port/output/output_all_designs
+	var/datum/port/output/output_named_designs
+
+
 
 	var/obj/machinery/computer/rdconsole/attached_console
 
@@ -20,7 +23,8 @@
 	output_found = add_output_port("Чертеж найден", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка поиска", PORT_TYPE_SIGNAL)
 	output_design = add_output_port("Выход чертежа", PORT_TYPE_DATUM)
-	output_all_designs = add_output_port("Список доступных чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	output_all_designs = add_output_port("Список доступных Id чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	output_named_designs = add_output_port("Список адаптированных названий", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/rd_search/register_usb_parent(atom/movable/shell)
 	. = ..()
@@ -41,9 +45,9 @@
 	if(!attached_console)
 		return ..()
 
-	// Обновляем список чертежей для вывода в порт
-	var/list/designs_list = attached_console.usb_get_all_designs()
-	output_all_designs.set_output(designs_list)
+	var/list/designs_data = attached_console.usb_get_all_designs()
+	output_all_designs.set_output(designs_data["ids"])
+	output_named_designs.set_output(designs_data["named"])
 
 	if(input_search.value)
 		input_search.value = null
@@ -213,7 +217,6 @@
 		desc = "Модуль печати. Хранящийся предмет: [held_item.name]"
 
 	output_printed.set_output(COMPONENT_SIGNAL)
-
 /obj/item/circuit_component/rd_destructor
 	display_name = "Интерфейс Деконструктора НИО"
 	desc = "Модуль автоматической разборки предметов, повышающий уровень технологий НИО."
@@ -224,6 +227,7 @@
 
 	var/datum/port/output/output_tech_up
 	var/datum/port/output/output_error
+	var/datum/port/output/output_item_inserted
 
 	var/obj/machinery/computer/rdconsole/attached_console
 
@@ -233,8 +237,11 @@
 
 	output_tech_up = add_output_port("Повышение технологий", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Провал изучений", PORT_TYPE_SIGNAL)
+	output_item_inserted = add_output_port("Предмет загружен", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/rd_destructor/Destroy()
+	if(attached_console?.linked_destroy)
+		UnregisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED)
 	attached_console = null
 	return ..()
 
@@ -242,8 +249,12 @@
 	. = ..()
 	if(istype(shell, /obj/machinery/computer/rdconsole))
 		attached_console = shell
+		if(attached_console.linked_destroy)
+			RegisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED, PROC_REF(on_destroyer_entered))
 
 /obj/item/circuit_component/rd_destructor/unregister_usb_parent(atom/movable/shell)
+	if(attached_console?.linked_destroy)
+		UnregisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED)
 	attached_console = null
 	return ..()
 
@@ -251,6 +262,11 @@
 	return
 
 /obj/item/circuit_component/rd_destructor/trigger_component()
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+		if(attached_console.linked_destroy)
+			RegisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED, PROC_REF(on_destroyer_entered), override = TRUE)
+
 	if(input_recycle.value)
 		input_recycle.value = null
 		execute_recycle()
@@ -281,3 +297,21 @@
 		output_tech_up.set_output(COMPONENT_SIGNAL)
 	else
 		output_error.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/rd_destructor/proc/on_destroyer_entered(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
+	if(!istype(arrived, /obj/item))
+		return
+	if(!attached_console || !attached_console.linked_destroy)
+		return
+	if(attached_console.linked_destroy.busy && attached_console.linked_destroy.loaded_item)
+		return
+	addtimer(CALLBACK(src, PROC_REF(trigger_item_inserted), arrived), 1.1 SECONDS)
+
+/obj/item/circuit_component/rd_destructor/proc/trigger_item_inserted(obj/item/arrived)
+	if(QDELETED(arrived) || !attached_console || !attached_console.linked_destroy)
+		return
+	if(attached_console.linked_destroy.loaded_item != arrived || attached_console.linked_destroy.busy)
+		return
+	output_item_inserted.set_output(COMPONENT_SIGNAL)
+

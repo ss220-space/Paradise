@@ -48,7 +48,7 @@
 	delay_start_loop.rel_x = 40
 	delay_start_loop.rel_y = 460
 	if(delay_start_loop.delay_amount)
-		delay_start_loop.delay_amount.set_input(2)
+		delay_start_loop.delay_amount.set_input(1)
 
 	splitter = new()
 	add_component(splitter)
@@ -98,7 +98,7 @@
 	delay_tech_2.rel_x = 840
 	delay_tech_2.rel_y = 220
 	if(delay_tech_2.delay_amount)
-		delay_tech_2.delay_amount.set_input(2)
+		delay_tech_2.delay_amount.set_input(1)
 
 	say_mid_msg = new()
 	add_component(say_mid_msg)
@@ -112,7 +112,7 @@
 	delay_fail_post.rel_x = 640
 	delay_fail_post.rel_y = 480
 	if(delay_fail_post.delay_amount)
-		delay_fail_post.delay_amount.set_input(2)
+		delay_fail_post.delay_amount.set_input(1)
 
 	say_fail = new()
 	add_component(say_fail)
@@ -240,6 +240,9 @@
 	if(destructor_comp)
 		destructor_comp.rel_x = 740
 		destructor_comp.rel_y = 620
+
+		if(destructor_comp.input_recycle && destructor_comp.output_item_inserted)
+			destructor_comp.input_recycle.connect(destructor_comp.output_item_inserted)
 
 		if(delay_tech_1 && destructor_comp.output_tech_up)
 			if(delay_tech_1.trigger)

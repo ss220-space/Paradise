@@ -997,29 +997,35 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!files || !design_id)
 		return null
 
-	var/search_id = lowertext(design_id)
+	var/search_query = lowertext(trim("[design_id]"))
 
 	var/datum/design/design_data
 	for(var/searched_design_id in files.known_designs)
 		design_data = files.known_designs[searched_design_id]
-		if(design_data && lowertext(design_data.id) == search_id && (design_data.build_type & (PROTOLATHE | IMPRINTER)))
-			return design_data
+		if(!design_data)
+			continue
+		if(lowertext(design_data.id) == search_query || lowertext(design_data.build_object_name) == search_query)
+			if((design_data.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_data.build_path, /obj/item/gun) || ispath(design_data.build_path, /obj/item/ammo_casing))
+				return design_data
 
 	return null
 
 /obj/machinery/computer/rdconsole/proc/usb_get_all_designs()
 	if(!files)
-		return list()
+		return list("ids" = list(), "named" = list())
 
 	var/list/all_ids = list()
+	var/list/named_designs = list()
 	var/datum/design/design_info
 	for(var/cached_design_id in files.known_designs)
 		design_info = files.known_designs[cached_design_id]
 		if(!design_info || !design_info.id)
 			continue
-		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
+		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing)) // Оставь свою полную строку условия без изменений!
 			all_ids += design_info.id
-	return all_ids
+			var/display_name = design_info.build_object_name || design_info.name || design_info.id
+			named_designs[display_name] = design_info.id
+	return list("ids" = all_ids, "named" = named_designs)
 
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
 	if(!linked_destroy || linked_destroy.busy)
