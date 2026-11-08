@@ -272,7 +272,6 @@
 	name = "Транексамовая кислота"
 	id = "traneksam_acid"
 	description = "лекарственное средство, которое применяют для лечения или предотвращения чрезмерной потери крови от травмы и хирургического вмешательства."
-
 	overdose_threshold = 20
 	color = "#b9645e"
 	penetrates_skin = TRUE
@@ -785,7 +784,6 @@
 	name = "Атропин"
 	id = "atropine"
 	description = "Атропин — мощный сердечный реаниматор, но он может вызвать спутанность сознания, головокружение и гипертермию."
-
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	harmless = FALSE

@@ -116,7 +116,8 @@
 	name = "Сахар"
 	id = "sugar"
 	description = "Органическое соединение, широко известное как столовый сахар и иногда называемое сахарозой. Это белый кристаллический порошок без запаха, обладающий приятным сладким вкусом."
-	color = "#FFFFFF" // rgb: 255, 255, 255	nutriment_factor = 2.5 * REAGENTS_METABOLISM
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "сладости"
 	taste_mult = 1.5
@@ -170,7 +171,8 @@
 	name = "Аспартам"
 	id = "aspartame"
 	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
-	color = "#FFFFFF" // rgb: 255, 255, 255	nutriment_factor = 0
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 0
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	overdose_threshold = 17
 	taste_mult = 8
