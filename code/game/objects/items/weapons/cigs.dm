@@ -595,7 +595,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
-	var/turf/location = get_turf(src)
 	smoketime--
 	if(smoketime < 1)
 		die()
