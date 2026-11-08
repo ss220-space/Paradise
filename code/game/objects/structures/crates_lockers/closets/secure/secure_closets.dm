@@ -10,6 +10,17 @@
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
+	material_drop = /obj/item/stack/sheet/plasteel
+	material_drop_amount = 1
+
+/obj/structure/closet/secure_closet/newly_made
+	desc = "Грубо собранный защищённый шкаф с местом под плату доступов. Удивительно, но такой же крепкий, как и оригинал!"
+	locked = FALSE
+	broken = TRUE
+
+/obj/structure/closet/secure_closet/newly_made/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -52,6 +63,7 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
+		return ..()
 
 /obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)
@@ -133,5 +145,27 @@
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
+
+/obj/structure/closet/secure_closet/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(broken && !opened && istype(tool, /obj/item/access_control))
+		if(SEND_SIGNAL(src, COMSIG_ITEM_CHECK_CUSTOM_ACCESS, user) & COMPONENT_CUSTOM_ACCESS_EXIST)
+			return NONE
+		var/obj/item/access_control/access_electronics = tool
+		AddComponent(/datum/component/custom_access, access_electronics, user)
+		RegisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT, PROC_REF(try_remove_electronics))
+		broken = FALSE
+		desc = initial(desc)
+		update_icon()
+		return ITEM_INTERACT_SUCCESS
+	return NONE
+
+/obj/structure/closet/secure_closet/proc/try_remove_electronics(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	if(!broken || opened)
+		return COMPONENT_BLOCK_ACCESS_REMOVAL
+
+	balloon_alert(user, "успешно!")
+	UnregisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT)
 
 #undef CLOSET_BREAKOUT_TIME
