@@ -12,8 +12,6 @@
 	var/datum/port/output/output_all_designs
 	var/datum/port/output/output_named_designs
 
-
-
 	var/obj/machinery/computer/rdconsole/attached_console
 
 /obj/item/circuit_component/rd_search/populate_ports()
@@ -300,7 +298,7 @@
 
 /obj/item/circuit_component/rd_destructor/proc/on_destroyer_entered(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
-	if(!istype(arrived, /obj/item))
+	if(!isitem(arrived))
 		return
 	if(!attached_console || !attached_console.linked_destroy)
 		return
