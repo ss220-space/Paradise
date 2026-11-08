@@ -354,4 +354,4 @@
 
 	///Cursor icon used when holding shift over things
 	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
-
+	var/scope_pointer_icon

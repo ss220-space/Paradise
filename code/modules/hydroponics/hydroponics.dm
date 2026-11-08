@@ -1003,6 +1003,9 @@
 		add_fingerprint(user)
 		CALCULATE_SKILL_MOD(user, HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
 		if(do_after(user, 2 SECONDS * harvest_skill_mod, src, max_interact_count = 1))
+			if(!harvest)
+				to_chat(user, span_warning("Растения больше нет в [declent_ru(PREPOSITIONAL)]!"))
+				return
 			myseed.harvest(user)
 	else if(dead)
 		add_fingerprint(user)

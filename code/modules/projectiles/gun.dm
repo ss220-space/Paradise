@@ -472,8 +472,7 @@
 		return
 
 
-	set_target(get_turf_on_clickcatcher(object, user, params))
-	src.modifiers = modifiers
+	calculate_target(object, user, params)
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
@@ -498,17 +497,25 @@
 ///Update the target if you draged your mouse
 /obj/item/gun/proc/change_target(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
+	calculate_target(over_object, gun_user, params)
+
+/obj/item/gun/proc/calculate_target(atom/over_object, mob/user, params)
+	SIGNAL_HANDLER
+	if(istype(over_object, /atom/movable/screen/fullscreen/cursor_catcher/scope))
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = over_object
+		var/turf/target = scope.crosshair_turf
+		set_target(get_scope_target(target, over_object))
+		modifiers = params2list(scope.mouse_params)
+		return
 	set_target(get_turf_on_clickcatcher(over_object, gun_user, params))
 	modifiers = params2list(params)
+
 
 ///Helper proc that processes a clicked target, if the target is not black tiles, it will not change it. If they are it will return the turf of the black tiles. It will return null if the object is a screen object other than black tiles.
 /proc/get_turf_on_clickcatcher(atom/target, mob/user, params)
 	var/list/modifiers = params2list(params)
 	if(!is_screen_atom(target))
 		return target
-	if(istype(target, /atom/movable/screen/fullscreen/cursor_catcher/scope))
-		var/atom/movable/screen/fullscreen/cursor_catcher/scope = target
-		return scope.given_turf
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
 	var/loctoget = user.client?.eye ? user.client.eye : user
@@ -532,11 +539,11 @@
 ///Updates the current mouse pointer to use the gun crosshair or not
 /obj/item/gun/proc/update_mouse_pointer(reset)
 	if(reset)
-		gun_user?.client?.mouse_override_icon = initial(gun_user.client.mouse_override_icon)
-		gun_user?.client?.mouse_pointer_icon = 	gun_user?.client?.mouse_override_icon
+		gun_user?.client?.mouse_override_icon = null
+		gun_user?.update_mouse_pointer()
 		return
 	gun_user?.client?.mouse_override_icon = gun_crosshair
-	gun_user?.client?.mouse_pointer_icon = gun_crosshair
+	gun_user?.update_mouse_pointer()
 
 ///Reset variables used in firing and remove the gun from the autofire system
 /obj/item/gun/proc/stop_fire()
