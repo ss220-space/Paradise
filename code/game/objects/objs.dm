@@ -407,7 +407,11 @@
 /obj/proc/add_deep_lore()
 	return
 
-// Overwrite this proc when adding /datum/component/custom_access for some object
+/**
+ * Hook to intercept custom access electronics removal.
+ * Override to return [COMPONENT_BLOCK_ACCESS_REMOVAL] and prevent uninstallation.
+ * Otherwise, returns null to allow the player to successfully extract the board.
+ */
 /obj/proc/try_remove_electronics(datum/source, mob/user)
 	SIGNAL_HANDLER
 	return
