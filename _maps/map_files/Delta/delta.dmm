@@ -40525,7 +40525,7 @@
 	},
 /obj/machinery/autolathe/logistics,
 /obj/structure/logistics_pipe/trunk{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
