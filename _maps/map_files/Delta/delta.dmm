@@ -59042,7 +59042,7 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/camera{
 	c_tag = "Brig Pilot Office";
-	dir = 1;
+	dir = 10;
 	network = list("SS13","Security")
 	},
 /obj/item/mod/module/jetpack/advanced,
