@@ -472,7 +472,7 @@
 	// fill the rest of the pot with coffee
 	if(coffeepot.reagents.total_volume < coffeepot.volume)
 		var/extra_coffee_amount = coffeepot.volume - coffeepot.reagents.total_volume
-		coffeepot.reagents.add_reagent("coffee", extra_coffee_amount)
+		coffeepot.reagents.add_reagent(/datum/reagent/consumable/drink/coffee, extra_coffee_amount)
 
 	update_appearance(UPDATE_OVERLAYS)
 

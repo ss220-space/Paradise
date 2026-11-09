@@ -4,7 +4,7 @@
 	agent = "Космическая грибковая туберкулезная бацилла"
 	desc = "Редкий высокозаразный вирус. Существует лишь несколько образцов, которые, по слухам, тщательно выращиваются и культивируются специалистами по биологическому оружию. Вызывает лихорадку, кровавую рвоту, повреждение лёгких, потерю веса и усталость."
 	spread_flags = AIRBORNE
-	cures = list("spaceacillin", "salbutamol")
+	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salbutamol)
 	cure_prob = 5
 	required_organs = list(/obj/item/organ/internal/lungs)
 	severity = DISEASE_SEVERITY_HARMFUL
