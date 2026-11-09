@@ -1,4 +1,0 @@
-author: "L343-CJ"
-delete-after: True
-changes:
-  - bugfix: "Больше нельзя использовать заклинания касания без кд. (PR #10013)"
