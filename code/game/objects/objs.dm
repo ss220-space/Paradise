@@ -406,3 +406,8 @@
  */
 /obj/proc/add_deep_lore()
 	return
+
+// Overwrite this proc when adding /datum/component/custom_access for some object
+/obj/proc/try_remove_electronics(datum/source, mob/user)
+	SIGNAL_HANDLER
+	return

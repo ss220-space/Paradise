@@ -39,9 +39,15 @@
 	RegisterSignal(parent, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag_act))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ITEM_CHECK_CUSTOM_ACCESS, PROC_REF(check_this_component))
+	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_object_deconstruct))
 
 /datum/component/custom_access/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_OBJ_ALLOWED, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR), COMSIG_ATOM_EMAG_ACT, COMSIG_ATOM_EXAMINE))
+	UnregisterSignal(parent, list(
+		COMSIG_OBJ_ALLOWED,
+		COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR),
+		COMSIG_ATOM_EMAG_ACT,
+		COMSIG_ATOM_EXAMINE
+		))
 
 /datum/component/custom_access/proc/check_access(datum/source, mob/accessor)
 	SIGNAL_HANDLER
@@ -67,17 +73,18 @@
 		parent_obj.balloon_alert(user, "нет доступа!")
 		return NONE
 
-	if(!tool.use_tool(parent_obj, user, 2 SECONDS, volume = tool.tool_volume))
-		return NONE
-
 	playsound(parent_obj, 'sound/items/deconstruct.ogg', 40, TRUE)
+	drop_new_access_control()
+	return ITEM_INTERACT_SUCCESS
+
+/datum/component/custom_access/proc/drop_new_access_control()
+	var/obj/parent_obj = parent
 	var/obj/item/access_control/access_control = new(get_turf(parent_obj))
 	access_control.selected_accesses = copied_accesses
 	access_control.one_access = copied_one_access
 	access_control.emagged = emagged
 	access_control.update_appearance(UPDATE_ICON_STATE)
 	qdel(src)
-	return ITEM_INTERACT_SUCCESS
 
 /datum/component/custom_access/proc/on_emag_act(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -96,3 +103,8 @@
 
 	to_chat(user, span_notice("Сначала вытащите старую плату доступа!"))
 	return COMPONENT_CUSTOM_ACCESS_EXIST
+
+/datum/component/custom_access/proc/on_object_deconstruct(datum/source, disassembled)
+	SIGNAL_HANDLER
+
+	drop_new_access_control()

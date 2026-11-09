@@ -159,9 +159,7 @@
 		return ITEM_INTERACT_SUCCESS
 	return NONE
 
-/obj/structure/closet/secure_closet/proc/try_remove_electronics(datum/source, mob/user)
-	SIGNAL_HANDLER
-
+/obj/structure/closet/secure_closet/try_remove_electronics(datum/source, mob/user)
 	if(!broken || opened)
 		return COMPONENT_BLOCK_ACCESS_REMOVAL
 

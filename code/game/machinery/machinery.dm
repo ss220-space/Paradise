@@ -359,7 +359,7 @@
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 			component_parts.Cut()
-	qdel(src)
+	..()
 
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)

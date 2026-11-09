@@ -1579,6 +1579,30 @@
 	var/matrix/to_turn = turn(transform, -tilted_rotation)
 	animate(src, transform = to_turn, 0.2 SECONDS)
 
+/obj/machinery/vending/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(panel_open && !(stat & BROKEN) && istype(tool, /obj/item/access_control))
+
+		if(SEND_SIGNAL(src, COMSIG_ITEM_CHECK_CUSTOM_ACCESS, user) & COMPONENT_CUSTOM_ACCESS_EXIST)
+			return NONE
+
+		if(!allowed(user) && scan_id)
+			balloon_alert(user, "в доступе отказано!")
+			return NONE
+
+		var/obj/item/access_control/access_electronics = tool
+		AddComponent(/datum/component/custom_access, access_electronics, user)
+		RegisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT, PROC_REF(try_remove_electronics))
+		scan_id = TRUE
+		return ITEM_INTERACT_SUCCESS
+	return NONE
+
+/obj/machinery/vending/try_remove_electronics(datum/source, mob/user)
+	if(!(stat & BROKEN) && !panel_open)
+		return COMPONENT_BLOCK_ACCESS_REMOVAL
+
+	balloon_alert(user, "успешно!")
+	UnregisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT)
+
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY
