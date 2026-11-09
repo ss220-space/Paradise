@@ -4,7 +4,7 @@
 	agent = "Избыток лепидоптицидов"
 	desc = "Если не лечить, заражённый начнёт отрыгивать бабочек."
 	max_stages = 4
-	spread_flags = CONTACT
+	spread_flags = BLOOD|CONTACT
 	cures = list(/datum/reagent/consumable/ethanol)
 	severity = DISEASE_SEVERITY_MEDIUM
 	possible_mutations = list(/datum/disease/virus/beesease)

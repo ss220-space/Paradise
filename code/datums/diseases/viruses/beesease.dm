@@ -7,7 +7,7 @@
 	stage_prob = 2
 	can_progress_in_dead = TRUE
 	discovery_threshold = 0.9
-	spread_flags = CONTACT
+	spread_flags = BLOOD|CONTACT
 	cures = list(/datum/reagent/consumable/sugar)
 	severity = DISEASE_SEVERITY_HARMFUL
 	possible_mutations = list(/datum/disease/virus/lycan)

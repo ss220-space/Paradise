@@ -3,7 +3,7 @@
 	agent = "Криптококк космозис"
 	desc = "Эта болезнь разрушает клетки мозга, вызывая его воспаление, некроз и общую интоксикацию."
 	max_stages = 4
-	spread_flags = CONTACT
+	spread_flags = BLOOD|CONTACT
 	cures = list(/datum/reagent/medicine/mannitol)
 	cure_prob = 15
 	required_organs = list(/obj/item/organ/internal/brain)
