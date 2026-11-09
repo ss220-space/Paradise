@@ -6328,12 +6328,9 @@
 /area/station/maintenance/fpmaint)
 "brv" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -31253,12 +31250,9 @@
 /area/station/medical/reception)
 "gIR" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -52585,9 +52579,11 @@
 /area/station/maintenance/tourist)
 "lgz" = (
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/mask/muzzle,
-/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "lgA" = (
@@ -59446,11 +59442,6 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft)
-"myD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "myQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -70190,7 +70181,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/restraints/handcuffs/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -88726,7 +88716,6 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
-/obj/item/clothing/suit/straight_jacket,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -107595,6 +107584,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
+/obj/item/restraints/handcuffs/cable,
 /obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -110046,14 +110036,6 @@
 /obj/structure/cable/layer3,
 /turf/simulated/floor/plating,
 /area/station/ai/satellite/interior)
-"wQx" = (
-/obj/machinery/power/solar{
-	name = "South-East Solar Panel"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/solars/starboard/aft)
 "wQy" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -116557,7 +116539,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "yhs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -145371,7 +145353,7 @@ hjR
 hjR
 hxR
 mRj
-myD
+kKt
 hjR
 hxR
 hxR
@@ -168877,7 +168859,7 @@ coE
 aaq
 coE
 aaq
-wQx
+iGD
 coE
 coE
 dZq
