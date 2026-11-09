@@ -8355,10 +8355,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
-"bQv" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos/mixing_atmos)
 "bQE" = (
 /obj/structure/logistics_pipe/segment{
 	dir = 4
@@ -136831,7 +136827,7 @@ wzq
 nPR
 fAD
 coE
-bQv
+txu
 jYg
 hwQ
 nfH
