@@ -2,24 +2,27 @@
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
 /datum/reagents
-	var/list/datum/reagent/reagent_list = new/list()
+	/// The reagents being held
+	var/list/datum/reagent/reagent_list = list()
+	/// Current volume of all the reagents
 	var/total_volume = 0
+	/// Max volume of this holder
 	var/maximum_volume = 100
+	/// The atom this holder is attached to
 	var/atom/my_atom = null
+	/// Current temp of the holder volume
 	var/chem_temp = T20C
+	/// various flags, see code\__DEFINES\reagents.dm
+	var/flags
 	var/temperature_min = 0
 	var/temperature_max = 10000
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
-	var/flags
 	var/locked = FALSE
 
-/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
+/datum/reagents/New(maximum = 100, new_flags = 0)
 	maximum_volume = maximum
-	if(temperature_minimum)
-		temperature_min = temperature_minimum
-	if(temperature_maximum)
-		temperature_max = temperature_maximum
+	flags = new_flags
 
 /datum/reagents/Destroy()
 	QDEL_LIST(reagent_list)
@@ -364,9 +367,9 @@
 
 /datum/reagents/proc/set_reacting(react = TRUE)
 	if(react)
-		flags &= ~(REAGENT_NOREACT)
+		flags &= ~(NO_REACT)
 	else
-		flags |= REAGENT_NOREACT
+		flags |= NO_REACT
 
 /datum/reagents/proc/conditional_update_move(atom/A, Running = FALSE)
 	for(var/AB in reagent_list)
@@ -395,7 +398,7 @@
 	return FALSE
 
 /datum/reagents/proc/handle_reactions()
-	if(flags & REAGENT_NOREACT)
+	if(flags & NO_REACT)
 		return //Yup, no reactions here. No siree.
 
 	var/reaction_occured = FALSE
@@ -908,12 +911,17 @@
 
 	return russian_list(out, no_taste_text)
 
-///////////////////////////////////////////////////////////////////////////////////
-
-// Convenience proc to create a reagents holder for an atom
-// Max vol is maximum volume of holder
-/atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
+/**
+ * Convenience proc to create a reagents holder for an atom
+ *
+ * Arguments:
+ * * max_vol - maximum volume of holder
+ * * flags - flags to pass to the holder
+ */
+/atom/proc/create_reagents(max_vol, flags)
+	if(reagents)
+		qdel(reagents)
+	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents

@@ -15,7 +15,6 @@
 	name = "Чиюризин"
 	id = "chiyurizine"
 	description = "Мощный экспериментальный состав, способный стремительно восстановить ткани после широкого спектра повреждений. Частое использование приводит к быстрому старению. Очень быстрому."
-	reagent_state = LIQUID
 	color = "#55ff63"
 	can_synth = FALSE
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM

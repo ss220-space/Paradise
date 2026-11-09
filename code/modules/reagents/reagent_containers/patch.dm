@@ -4,12 +4,10 @@
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	volume = 20
-	container_type = 0 //nooo my insta-kill patch!!!
+	initial_reagent_flags = NONE
 	apply_type = REAGENT_TOUCH
 	apply_method = "налепи"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
-	temperature_min = 270
-	temperature_max = 350
 	var/needs_to_apply_reagents = TRUE
 	var/application_zone = null
 

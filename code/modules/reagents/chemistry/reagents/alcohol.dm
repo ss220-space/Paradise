@@ -3,7 +3,6 @@
 	name = "Этанол" //Parent class for all alcoholic reagents.
 	id = "ethanol"
 	description = "Хорошо известный алкоголь, имеющий множество воплощений."
-	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
 	addiction_chance = 3
@@ -1030,7 +1029,6 @@
 	name = "Джин и Соник"
 	id = "ginsonic"
 	description = "GOTTA GET CRUNK FAST BUT LIQUOR TOO SLOW"
-	reagent_state = LIQUID
 	color = "#1111CF"
 	drink_icon = "ginsonic"
 	drink_name = "Джин и Соник"

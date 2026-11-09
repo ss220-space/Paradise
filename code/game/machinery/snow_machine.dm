@@ -34,10 +34,8 @@
 
 /obj/machinery/snow_machine/Initialize(mapload)
 	. = ..()
-	create_reagents(300) //Makes 100 snow tiles!
+	create_reagents(300, REFILLABLE | NO_REACT) //Makes 100 snow tiles!
 	reagents.add_reagent("water", 300) //But any reagent will do
-	reagents.flags |= REAGENT_NOREACT //Because a) this doesn't need to process and b) this way we can use any reagents without needing to worry about explosions and shit
-	container_type = REFILLABLE
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/snow_machine(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

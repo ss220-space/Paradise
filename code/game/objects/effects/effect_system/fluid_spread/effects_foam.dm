@@ -187,7 +187,7 @@
 /datum/effect_system/fluid_spread/foam/New()
 	..()
 	chemholder = new(1000)
-	chemholder.flags = chemholder.flags | REAGENT_NOREACT
+	chemholder.flags = chemholder.flags | NO_REACT
 
 /datum/effect_system/fluid_spread/foam/Destroy()
 	QDEL_NULL(chemholder)

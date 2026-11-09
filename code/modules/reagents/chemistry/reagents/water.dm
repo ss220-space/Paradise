@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Вода"
 	id = "water"
 	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
-	reagent_state = LIQUID
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
 	taste_description = "воды"
 	var/cooling_temperature = 2
@@ -79,7 +78,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Космическая смазка"
 	id = "lube"
 	description = "Вещество, используемое для уменьшения трения между двумя движущимися поверхностями."
-	reagent_state = LIQUID
 	color = "#1BB1AB"
 	harmless = TRUE
 	taste_description = "вишни"
@@ -92,7 +90,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Космочист"
 	id = "cleaner"
 	description = "Состав, используемый для очистки поверхностей. Теперь на 50% больше гипохлорита натрия!"
-	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
 	process_flags = ORGANIC | SYNTHETIC
@@ -121,7 +118,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"=BLOOD_COLOR_RED,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Кровь"
 	id = "blood"
-	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	drink_icon = "glass_red"
@@ -302,7 +298,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Аквариумная вода"
 	id = "fishwater"
 	description = "Вонючая вода из аквариума. Мерзость!"
-	reagent_state = LIQUID
 	color = "#757547"
 	taste_description = "блевотины"
 
@@ -331,7 +326,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Вода"
 	id = "holywater"
 	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
-	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
@@ -527,7 +521,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	id = "liquidgibs"
 	color = "#FF9966"
 	description = "Вы даже думать не хотите, что это такое."
-	reagent_state = LIQUID
 	taste_description = "мяса"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
@@ -539,7 +532,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Щёлочь"
 	id = "lye"
 	description = "Также известна как гидроксид натрия."
-	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
 	taste_description = "едкой кислоты"//don't drink lye, kids
 
@@ -547,7 +539,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Сушильный агент"
 	id = "drying_agent"
 	description = "Используется для осушения различных поверхностей."
-	reagent_state = LIQUID
 	color = "#A70FFF"
 	taste_description = "сухости"
 
@@ -587,7 +578,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Разбавленный креатин"
 	id = "creatine_liquid"
 	description = "Смесь воды и креатина."
-	reagent_state = LIQUID
 	status_effect_type = /datum/status_effect/sport_reagents/creatine/liquid
 
 /datum/reagent/status_effect/guarana
@@ -603,7 +593,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	id = "steroids"
 	description = "Используется для ускоренного развития мышц. \
 					Не рекомендуется употреблять обладающим хвостом, беременным, перенесшим тяжелую травму, переболевшим ветрянкой, состоящим из слизи и бесхвостым."
-	reagent_state = LIQUID
 	color = "#c2ff34"
 	taste_description = "силы"
 	status_effect_type = /datum/status_effect/sport_reagents/steroids

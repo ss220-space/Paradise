@@ -2,7 +2,6 @@
 	name = "Флогистон"
 	id = "phlogiston"
 	description = "Похоже, это жидкий огонь."
-	reagent_state = LIQUID
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "огня"
@@ -48,7 +47,6 @@
 	name = "Напалм"
 	id = "napalm"
 	description = "Легковоспламеняющееся желеобразное топливо."
-	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "горения"
 	color = "#ffb300"
@@ -87,7 +85,6 @@
 	name = "Сварочное топливо"
 	id = "fuel"
 	description = "Легковоспламеняющаяся смесь основных углеводородов, в основном ацетилена. Используется как для сварки, так и для органической химии, может быть переработано в более тяжёлое масло."
-	reagent_state = LIQUID
 	color = "#060606"
 	drink_icon = "dr_gibb_glass"
 	drink_name = "стакан сварочного топлива"
@@ -163,7 +160,6 @@
 	name = "Плазма"
 	id = "plasma"
 	description = "Жидкая форма необычного внеземного соединения."
-	reagent_state = LIQUID
 	color = "#7A2B94"
 	taste_description = "пропадающих зря корпоративных активов"
 	taste_mult = 1.5
@@ -238,7 +234,6 @@
 	name = "Глицерин"
 	id = "glycerol"
 	description = "Глицерин — это простое полиольное соединение. Глицерин обладает сладким вкусом и низкой токсичностью."
-	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "сладости"
 
@@ -246,7 +241,6 @@
 	name = "Стабилизирующий агент"
 	id = "stabilizing_agent"
 	description = "Химикат, который стабилизирует обычно летучие соединения, не позволяя им немедленно вступать в реакцию."
-	reagent_state = LIQUID
 	color = "#FFFF00"
 	taste_description = "стабильности"
 
@@ -254,7 +248,6 @@
 	name = "Трифторид хлора"
 	id = "clf3"
 	description = "Крайне летучее вещество, обращаться с ним следует с особой осторожностью."
-	reagent_state = LIQUID
 	color = "#FF0000"
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	process_flags = ORGANIC | SYNTHETIC
@@ -285,7 +278,6 @@
 	name = "Сорий"
 	id = "sorium"
 	description = "Отправляет всё в полет от точки взрыва."
-	reagent_state = LIQUID
 	color = "#FFA500"
 	taste_description = "горького воздуха"
 
@@ -304,7 +296,6 @@
 	name = "Жидкая тёмная материя"
 	id = "liquid_dark_matter"
 	description = "Всасывает всё в точку взрыва."
-	reagent_state = LIQUID
 	color = "#800080"
 	taste_description = "горького вакуума"
 
@@ -323,7 +314,6 @@
 	name = "Чёрный порох"
 	id = "blackpowder"
 	description = "Взрывается. Сильно взрывается."
-	reagent_state = LIQUID
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "взрывов"
@@ -337,7 +327,6 @@
 	name = "Порошок-вспышка"
 	id = "flash_powder"
 	description = "Создаёт очень яркую вспышку."
-	reagent_state = LIQUID
 	color = "#FFFF00"
 	penetrates_skin = TRUE
 	taste_description = "соли"
@@ -353,7 +342,6 @@
 	name = "Дымный порошок"
 	id = "smoke_powder"
 	description = "Создаёт большое облако дыма, в котором могут находиться реагенты."
-	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "дыма"
 
@@ -368,7 +356,6 @@
 	name = "Звуковой порошок"
 	id = "sonic_powder"
 	description = "Производит оглушительный шум."
-	reagent_state = LIQUID
 	color = "#0000FF"
 	penetrates_skin = TRUE
 	taste_description = "шума"
@@ -455,7 +442,6 @@
 	name = "Противопожарная пена"
 	id = "firefighting_foam"
 	description = "Тетрахлорид углерода — это пена, используемая для тушения пожаров."
-	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water
 	taste_description = "пены для огнетушителей"

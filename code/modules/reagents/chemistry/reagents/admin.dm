@@ -2,7 +2,6 @@
 	name = "Админордразин"
 	id = "adminordrazine"
 	description = "Это магия. Тут нечего объяснять."
-	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE

@@ -1,11 +1,11 @@
 // MARK: Base Cup
 /obj/item/reagent_containers/cup
-	name = " "
 	abstract_type = /obj/item/reagent_containers/cup
+	name = " "
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
-	container_type = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER | DUNKABLE
 	resistance_flags = ACID_PROOF
 
 	/// Like Edible's food type, what kind of drink is this?
@@ -219,9 +219,9 @@
 	update_appearance()
 	balloon_alert(user, "крышка [has_lid ? "надета" : "снята"]")
 	if(has_lid)
-		container_type &= ~OPENCONTAINER
+		add_container_flags(SEALED_CONTAINER)
 	else
-		container_type |= OPENCONTAINER
+		reset_container_flags()
 	return CLICK_ACTION_SUCCESS
 
 // MARK: Beaker
@@ -412,6 +412,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
+	initial_reagent_flags = OPENCONTAINER | NO_REACT
 	can_lid = FALSE
 
 /obj/item/reagent_containers/cup/beaker/noreact/get_ru_names()

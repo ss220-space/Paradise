@@ -252,7 +252,7 @@
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
 		drink_container.canopened = TRUE
-		drink_container.container_type |= OPENCONTAINER
+		reagents.flags |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--
 

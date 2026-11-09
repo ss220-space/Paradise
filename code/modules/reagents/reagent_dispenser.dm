@@ -5,7 +5,6 @@
 	icon_state = "water_tank"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
-	container_type = DRAINABLE | AMOUNT_VISIBLE
 	cares_about_temperature = TRUE
 	/// In units, how much the dispenser can hold
 	var/tank_volume = 1000
@@ -17,6 +16,14 @@
 	var/went_boom = FALSE
 	/// is it climbable? some of our wall-mounted dispensers should not have this
 	var/climbable = FALSE
+	/// Flags passed to the reagents datum upon creation
+	var/reagent_flags = DRAINABLE | AMOUNT_VISIBLE
+
+/obj/structure/reagent_dispensers/Initialize(mapload)
+	create_reagents(tank_volume, reagent_flags)
+	if(reagent_id)
+		reagents.add_reagent(reagent_id, tank_volume)
+	. = ..()
 
 /obj/structure/reagent_dispensers/ComponentInitialize()
 	. = ..()
@@ -35,11 +42,6 @@
 	if(I.is_refillable())
 		return ATTACK_CHAIN_PROCEED //so we can refill them via their afterattack.
 	return ..()
-
-/obj/structure/reagent_dispensers/Initialize(mapload)
-	. = ..()
-	create_reagents(tank_volume)
-	reagents.add_reagent(reagent_id, tank_volume)
 
 /obj/structure/reagent_dispensers/temperature_expose(exposed_temperature, exposed_volume)
 	..()
@@ -302,29 +304,12 @@
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
 	reagent_id = "beer"
-	var/has_lid = TRUE
+	reagent_flags = DRAINABLE | REFILLABLE | AMOUNT_VISIBLE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5, flash_range = 7, flame_range = 10, cause = "[src.name] got blobbed")
 	if(!QDELETED(src))
 		qdel(src)
-
-/obj/structure/reagent_dispensers/beerkeg/proc/add_lid()
-		container_type = DRAINABLE | AMOUNT_VISIBLE
-		has_lid = TRUE
-
-/obj/structure/reagent_dispensers/beerkeg/proc/remove_lid()
-		container_type = REFILLABLE | AMOUNT_VISIBLE
-		has_lid = FALSE
-
-/obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(has_lid)
-		to_chat(usr, span_notice("You take the lid off [src]."))
-		remove_lid()
-	else
-		to_chat(usr, span_notice("You put the lid on [src]."))
-		add_lid()
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"

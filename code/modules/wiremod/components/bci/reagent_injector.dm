@@ -21,8 +21,7 @@
 
 /obj/item/circuit_component/reagent_injector/Initialize(mapload)
 	. = ..()
-	container_type = OPENCONTAINER
-	create_reagents(15) //This is mostly used in the case of a BCI still having reagents in it when the component is removed.
+	create_reagents(15, OPENCONTAINER) //This is mostly used in the case of a BCI still having reagents in it when the component is removed.
 
 /obj/item/circuit_component/reagent_injector/Destroy()
 	if(bci)
@@ -67,8 +66,7 @@
 		return
 
 	bci = shell
-	bci.container_type = OPENCONTAINER
-	bci.create_reagents(15)
+	bci.create_reagents(15, OPENCONTAINER)
 	if(!reagents.total_volume)
 		return
 
@@ -79,7 +77,6 @@
 	if(bci?.reagents)
 		if(bci.reagents.total_volume)
 			bci.reagents.trans_to(src, bci.reagents.total_volume)
-		bci.container_type = NONE
 		QDEL_NULL(bci.reagents)
 
 	bci = null
