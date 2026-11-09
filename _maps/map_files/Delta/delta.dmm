@@ -104536,7 +104536,7 @@
 	pixel_y = 3
 	},
 /obj/structure/logistics_pipe/trunk{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -106064,7 +106064,7 @@
 	pixel_y = 2
 	},
 /obj/structure/logistics_pipe/trunk{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
