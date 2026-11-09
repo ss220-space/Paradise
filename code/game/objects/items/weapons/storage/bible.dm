@@ -54,7 +54,7 @@
 	. = ..()
 	if(!has_antimagic)
 		return
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_HANDS,)
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_HANDS)
 
 /obj/item/storage/bible/proc/bless_bible()
 	if(has_antimagic)
@@ -63,7 +63,7 @@
 		antimagic_flags = MAGIC_RESISTANCE_HOLY, \
 		inventory_flags = ITEM_SLOT_HANDS, \
 		charges = 2, \
-		expiration = CALLBACK(src, PROC_REF(expire_antimagic)), \
+		expiration = CALLBACK(src, PROC_REF(expire_antimagic))
 	)
 	has_antimagic = TRUE
 
