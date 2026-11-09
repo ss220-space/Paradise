@@ -43,7 +43,8 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	return gun_modification_asset
 
 /obj/item/gun/proc/build_gun_modification_icon(obj/item/gun/gun)
-	var/icon/gun_icon = get_flat_uni_icon(gun, SOUTH).to_icon()
+	var/datum/universal_icon/flat_gun = get_flat_uni_icon(gun, SOUTH)
+	var/icon/gun_icon = flat_gun.to_icon()
 	if(!gun_icon)
 		return null
 
@@ -249,7 +250,7 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	if(gun.chambered)
 		return gun.chambered.caliber
 
-	if(istype(gun, /obj/item/gun/projectile))
+	if(is_projectilegun(gun))
 		var/obj/item/gun/projectile/projectile_gun = gun
 		if(projectile_gun.magazine)
 			return projectile_gun.magazine.caliber
@@ -258,7 +259,7 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 			var/obj/item/ammo_box/magazine/magazine_type = mag_type_path
 			return initial(magazine_type.caliber)
 
-	if(istype(gun, /obj/item/gun/energy))
+	if(isenergygun(gun))
 		var/obj/item/gun/energy/energy_gun = gun
 		if(length(energy_gun.ammo_type))
 			var/select_index = energy_gun.select
