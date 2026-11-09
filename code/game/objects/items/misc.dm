@@ -97,7 +97,7 @@
 	custom_price = PAYCHECK_CREW
 	var/amount_left = 600
 	var/applying = FALSE
-	var/list/reagent = list("nicotine")
+	var/list/reagent = list(/datum/reagent/nicotine)
 
 /obj/item/ecig/get_ru_names()
 	return alist(
@@ -243,7 +243,7 @@
 	desc = "Гладкий никотиновый испаритель в подозрительном красном корпусе. Выдаёт плотное облако пара с лёгким химическим оттенком."
 	icon_state = "ecig_syndi"
 	item_state = "ecig_syndi"
-	reagent = list("nicotine", "syndiezine")
+	reagent = list(/datum/reagent/nicotine, /datum/reagent/medicine/syndiezine)
 
 /obj/item/ecig/syndi/get_ru_names()
 	return alist(

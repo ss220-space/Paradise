@@ -25,7 +25,7 @@
 		return
 
 	for(var/datum/reagent/reagent as anything in reagent_list)
-		. += list(list("name" = reagent.name, "id" = reagent.id, "volume" = round(reagent.volume, 0.01)))
+		. += list(list("name" = reagent.name, "id" = "[reagent.type]", "volume" = round(reagent.volume, 0.01)))
 
 /obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
@@ -162,7 +162,10 @@
 		return FALSE
 
 	if(action == "inject_reagent")
-		var/datum/reagent/medication = shooter.reagents.has_reagent(params["reagent"])
+		var/reagent_type = text2path(params["reagent"])
+		if(!ispath(reagent_type))
+			return FALSE
+		var/datum/reagent/medication = shooter.reagents.has_reagent(reagent_type)
 		if(!medication)
 			return FALSE
 		inject_reagent(medication, shooter)
@@ -181,8 +184,8 @@
 		occupant_message("Applying [to_inject] units of [R.name] to [patient].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		var/datum/reagents/chosen_reagent = new(to_inject)
-		chosen_reagent.add_reagent(R.id, to_inject)
-		SG.reagents.remove_reagent(R.id, to_inject, TRUE)
+		chosen_reagent.add_reagent(R.type, to_inject)
+		SG.reagents.remove_reagent(R.type, to_inject, TRUE)
 		var/fraction = min(inject_amount / to_inject, 1)
 		var/method = REAGENT_INGEST
 		for(var/r_type in reagent_ingest_blacklist)
@@ -212,8 +215,8 @@
 		M.adjustOxyLoss(-1)
 	M.AdjustStunned(-8 SECONDS)
 	M.AdjustWeakened(-8 SECONDS)
-	if(M.reagents.get_reagent_amount("epinephrine") < 5)
-		M.reagents.add_reagent("epinephrine", 5)
+	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
+		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
@@ -239,7 +242,7 @@
 	create_reagents(max_volume)
 	reagents.set_reacting(FALSE)
 	syringes = new
-	known_reagents = list("epinephrine" = "Эпинефрин", "charcoal" = "Активированный уголь")
+	known_reagents = list(/datum/reagent/medicine/epinephrine = "Эпинефрин", /datum/reagent/medicine/charcoal = "Активированный уголь")
 	processed_reagents = new
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
@@ -261,11 +264,13 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
 
-	for(var/i = 1 to length(known_reagents))
-		var/enabled = FALSE
-		if(known_reagents[i] in processed_reagents)
-			enabled = TRUE
-		analyzed_reagents += list((list("name" = known_reagents[i], "enabled" = enabled)))
+	for(var/reagent_type in known_reagents)
+		var/datum/reagent/known_reagent = GLOB.chemical_reagents_list[reagent_type]
+		analyzed_reagents += list(list(
+			"name" = known_reagent ? known_reagent.name : "[reagent_type]",
+			"id" = "[reagent_type]",
+			"enabled" = (reagent_type in processed_reagents),
+		))
 
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_SYRINGE,
@@ -307,14 +312,19 @@
 			reagents.clear_reagents()
 			return TRUE
 		if("purge_reagent")
-			reagents.del_reagent(params["reagent"])
+			var/reagent_type = text2path(params["reagent"])
+			if(!ispath(reagent_type))
+				return FALSE
+			reagents.del_reagent(reagent_type)
 			return TRUE
 		if("toggle_reagent")
-			var/switch_reagent = params["reagent"]
-			if(switch_reagent in processed_reagents)
-				processed_reagents -= switch_reagent
+			var/reagent_type = text2path(params["reagent"])
+			if(!ispath(reagent_type))
+				return FALSE
+			if(reagent_type in processed_reagents)
+				processed_reagents -= reagent_type
 			else
-				synthesize(switch_reagent)
+				synthesize(reagent_type)
 			return TRUE
 
 	return FALSE
@@ -375,7 +385,7 @@
 			if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 				if(mechsyringe.reagents)
 					for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-						R += A.id + " ("
+						R += "[A.type] ("
 						R += num2text(A.volume) + "),"
 				add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 				mechsyringe.reagents.reaction(M, REAGENT_INGEST)
@@ -433,14 +443,14 @@
 		return FALSE
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if((emagged && (R.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.id, R.name))
+		if((emagged && (R.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.type, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 	occupant_message("Analyzis complete.")
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)
-	if(!(r_id in known_reagents))
-		known_reagents += r_id
-		known_reagents[r_id] = r_name
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_type, r_name)
+	if(!(r_type in known_reagents))
+		known_reagents += r_type
+		known_reagents[r_type] = r_name
 		return TRUE
 	return FALSE
 
@@ -454,7 +464,7 @@
 		return
 	var/amount = synth_speed / processed_reagents.len
 	for(var/reagent in processed_reagents)
-		reagents.add_reagent(reagent,amount)
+		reagents.add_reagent(reagent, amount)
 		chassis.use_power(energy_drain)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade

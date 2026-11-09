@@ -5,7 +5,7 @@
 	max_stages = 4
 	visibility_flags = HIDDEN_HUD
 	spread_flags = AIRBORNE
-	cures = list("manlydorf")
+	cures = list(/datum/reagent/consumable/ethanol/manly_dorf)
 	cure_prob = 100
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_HARMFUL

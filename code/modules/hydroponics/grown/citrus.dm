@@ -22,7 +22,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/orange)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lime
 	name = "lime"
@@ -46,7 +46,7 @@
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/lime, /obj/item/seeds/orange_3d)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange
 	seed = /obj/item/seeds/orange
@@ -73,7 +73,7 @@
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/firelemon)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lemon
 	seed = /obj/item/seeds/lemon
@@ -98,7 +98,7 @@
 	lifespan = 55
 	endurance = 45
 	yield = 4
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon
 	seed = /obj/item/seeds/firelemon
@@ -172,7 +172,7 @@
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.05, "formaldehyde" = 0.15)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/formaldehyde = 0.15)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d
 	seed = /obj/item/seeds/orange_3d
@@ -180,7 +180,7 @@
 	desc = "You can hardly wrap your head around this thing."
 	icon_state = "orang"
 	filling_color = "#FFA500"
-	distill_reagent = "lsd"
+	distill_reagent = /datum/reagent/lsd
 	tastes = list("polygons" = 1, "oranges" = 1)
 	var/big_icon = TRUE
 
@@ -203,7 +203,7 @@
 	icon_state = "tangerine"
 	filling_color = "#FFA500"
 	tastes = list("нового года" = 1)
-	list_reagents = list("adminordrazine" = 1, "vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine = 1, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/drink/orangejuice = 5, /datum/reagent/consumable/nutriment = 5)
 	antable = FALSE
 	bitecount = 3
 

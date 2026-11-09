@@ -6,7 +6,7 @@
 	icon_state = "proteinbar_bananza"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "banana" = 5, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/consumable/sugar = 3)
 	tastes = list("банана" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -29,7 +29,7 @@
 	icon_state = "proteinbar_cherry"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "cherryjelly" = 5, "sugar" = 3, "slimejelly" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/sugar = 3, /datum/reagent/slimejelly = 1)
 	tastes = list("вишни" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -52,7 +52,7 @@
 	icon_state = "proteinbar_beef"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 12)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 12)
 	tastes = list("говядины" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -66,5 +66,3 @@
 		INSTRUMENTAL = "протеиновым батончиком \"Наследие Бурёнки\"",
 		PREPOSITIONAL = "протеиновом батончике \"Наследие Бурёнки\"",
 	)
-
-
