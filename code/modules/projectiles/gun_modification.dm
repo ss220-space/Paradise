@@ -41,10 +41,6 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	assets[asset_name] = gun_icon
 	. = ..()
 
-/obj/item/gun
-	/// Dynamic asset cache
-	var/datum/asset/simple/gun_modification/gun_modification_asset
-
 /obj/item/gun/proc/invalidate_gun_modification_asset()
 	gun_modification_asset = null //TODO vakons: optimisation?
 
@@ -139,9 +135,7 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 		data["gunIcon"] = SSassets.transport.get_asset_url(asset.asset_name)
 		var/datum/tgui/ui = SStgui.get_open_ui(user, src)
 		if(ui && ui.window && ui.window.sent_assets && !(asset in ui.window.sent_assets))
-			var/flush_queue = ui.send_asset(asset)
-			if(flush_queue && user.client)
-				user.client.browse_queue_flush()
+			ui.send_asset(asset)
 
 	return data
 

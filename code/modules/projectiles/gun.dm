@@ -97,6 +97,9 @@
 	/// Color of all ammo count hud numbers
 	var/ammo_count_colour = COLOR_RED
 
+	/// Dynamic asset cache for gun modification
+	var/datum/asset/simple/gun_modification/gun_modification_asset
+
 /*
  * Gun modules
  */

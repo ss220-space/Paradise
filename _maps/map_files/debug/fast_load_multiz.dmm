@@ -17,18 +17,40 @@
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
+"df" = (
+/obj/item/gun/energy/dominator,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "dY" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"eG" = (
+/obj/item/gun/energy/laser/hitscan/sniper_rifle,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "eX" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"fM" = (
+/obj/item/gun/energy/laser/captain,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"go" = (
+/obj/item/storage/box/syndie_kit/gun_mods/super,
+/obj/item/storage/box/syndie_kit/gun_mods/super,
+/obj/item/storage/box/syndie_kit/gun_mods/super,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "gL" = (
 /obj/structure/stairs{
 	dir = 8
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"hd" = (
+/obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "he" = (
@@ -43,6 +65,22 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"hV" = (
+/obj/item/gun/energy/laser/hitscan/assault_mg,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"im" = (
+/obj/item/gun/projectile/revolver/mateba,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"iv" = (
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"ix" = (
+/obj/item/gun/projectile/automatic/lr30,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -61,6 +99,18 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"ky" = (
+/obj/item/gun/projectile/automatic/smg/saber,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"lw" = (
+/obj/item/gun/projectile/shotgun/winchester,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"lT" = (
+/obj/item/gun/energy/laser/instakill,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "nd" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
@@ -84,10 +134,18 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"rF" = (
+/obj/item/gun/energy/laser/hitscan/pistol,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "rS" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"rW" = (
+/obj/item/gun/energy/ionrifle/carbine,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "sP" = (
 /obj/machinery/light{
 	dir = 1
@@ -116,6 +174,18 @@
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
+"wG" = (
+/obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"xb" = (
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"xF" = (
+/obj/item/gun/projectile/automatic/pistol,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "xL" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
@@ -126,40 +196,104 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"xP" = (
+/obj/item/gun/projectile/automatic/smg/kedr,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "xQ" = (
 /obj/machinery/message_server,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"ya" = (
+/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "yS" = (
 /obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"zy" = (
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"zN" = (
+/obj/item/gun/projectile/automatic/smg/wt550,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"zO" = (
+/obj/item/gun/energy/sniperrifle/pod_pilot,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Ag" = (
+/obj/item/gun/energy/laser/hitscan/shotgun,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "An" = (
 /turf/simulated/openspace,
 /area/fastload/purple)
+"AD" = (
+/obj/item/gun/energy/gun/nuclear,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "AX" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Bc" = (
+/obj/item/gun/energy/ionrifle,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "By" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"BI" = (
+/obj/item/gun/projectile/automatic/smg/c20r,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"BN" = (
+/obj/item/gun/energy/laser/automatic/carbine,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "BO" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/purple)
+"Ca" = (
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Cc" = (
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"CJ" = (
+/obj/item/gun/energy/laser/automatic/shotgun,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"De" = (
+/obj/item/gun/energy/laser/hitscan/carbine,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"DB" = (
+/obj/item/gun/projectile/revolver/rsh_12,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "DZ" = (
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Fm" = (
+/obj/item/gun/projectile/automatic/sniper_rifle/compact,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Fp" = (
+/obj/item/gun/projectile/automatic/smg/sfg,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Fv" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -175,12 +309,20 @@
 /obj/item/mounted/frame/alarm_frame,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Gi" = (
+/obj/item/gun/projectile/automatic/pistol/deagle,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Hi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Hw" = (
+/obj/item/gun/energy/laser/automatic/pistol,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "HE" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
@@ -188,10 +330,18 @@
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Kk" = (
+/obj/item/gun/energy/gun/nuclear/gate,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "LF" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"LX" = (
+/obj/item/gun/projectile/automatic/pistol/enforcer,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Nb" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -208,20 +358,45 @@
 /area/fastload)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
+/obj/item/gun/energy/disabler,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"RT" = (
+/obj/item/gun/energy/gun/pdw9,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
+/obj/item/gun/energy/gun/hos,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"St" = (
+/obj/item/gun/projectile/automatic/shotgun/minotaur,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"SG" = (
+/obj/item/gun/energy/laser/automatic/assault_mg,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"TS" = (
+/obj/item/gun/projectile/shotgun/riot,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Uj" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"UR" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"VP" = (
+/obj/item/gun/projectile/revolver/taurus,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Xa" = (
@@ -230,6 +405,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Xr" = (
+/obj/item/gun/projectile/automatic/smg/sp91rc,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Xw" = (
 /obj/machinery/light{
 	dir = 8
@@ -2134,7 +2313,7 @@ jO
 HE
 HE
 HE
-HE
+lT
 HE
 HE
 HE
@@ -2198,10 +2377,10 @@ ay
 jk
 HE
 HE
-HE
-HE
-HE
-HE
+fM
+CJ
+Ag
+hV
 HE
 HE
 HE
@@ -2263,11 +2442,11 @@ ay
 ay
 jk
 HE
-HE
-HE
-HE
-HE
-HE
+Bc
+rW
+BN
+SG
+De
 HE
 HE
 HE
@@ -2329,11 +2508,11 @@ ay
 ay
 jk
 HE
-HE
-HE
-HE
-HE
-HE
+AD
+Kk
+RT
+Hw
+rF
 HE
 HE
 HE
@@ -2394,12 +2573,12 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
-HE
-HE
+lw
+iv
+BI
+VP
+DB
+eG
 HE
 HE
 HE
@@ -2461,11 +2640,11 @@ ay
 ay
 jk
 QS
-HE
-HE
-HE
-HE
-HE
+TS
+ya
+St
+im
+zO
 HE
 aJ
 HE
@@ -2527,10 +2706,10 @@ ay
 ay
 jk
 RU
-HE
-HE
-HE
-HE
+df
+wG
+LX
+zy
 HE
 aw
 HE
@@ -2592,11 +2771,11 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
-HE
+UR
+go
+ix
+Gi
+Fm
 yS
 HE
 HE
@@ -2658,11 +2837,11 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
-HE
+UR
+go
+hd
+Ca
+zN
 HE
 HE
 HE
@@ -2724,11 +2903,11 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
-HE
+UR
+go
+xF
+xb
+Xr
 HE
 HE
 HE
@@ -2792,9 +2971,9 @@ ay
 jk
 HE
 HE
-HE
-HE
-HE
+xP
+ky
+Fp
 HE
 HE
 HE
