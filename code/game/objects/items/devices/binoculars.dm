@@ -28,7 +28,7 @@
 		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
 		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)) \
 	)
-	AddComponent(/datum/component/scope, range_modifier = 4, range_is_multiplier = TRUE, zoom_method = ZOOM_METHOD_WIELD)
+	AddComponent(/datum/component/scope, range_modifier = 2.5, zoom_method = ZOOM_METHOD_WIELD, severity = SEVERITY_ITEM)
 
 /obj/item/binoculars/Destroy()
 	if(ismob(loc))

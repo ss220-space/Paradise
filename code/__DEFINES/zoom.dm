@@ -4,5 +4,3 @@
 #define ZOOM_METHOD_WIELD 2
 /// Activated by clicking an item action button specified by the `item_action_type` var.
 #define ZOOM_METHOD_ITEM_ACTION 3
-/// Toggled by the parent gun's own zoom action (see COMSIG_GUN_ZOOM_TOGGLE).
-#define ZOOM_METHOD_GUN_ZOOM 4

@@ -11,6 +11,14 @@
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
+/datum/design/gate_gun
+	id = "gate_gun"
+	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_POWERSTORAGE = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 3000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/gun/energy/gun/nuclear/gate
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
 /datum/design/decloner
 	id = "decloner"
 	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_PLASMA = 7)

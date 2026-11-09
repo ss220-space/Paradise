@@ -24,7 +24,7 @@
 /datum/skill/medical/heal
 	id = "medical.heal"
 	name = "Лечение"
-	desc = "Влияет на скорось и величину лечения медикаментами."
+	desc = "Влияет на скорость и величину лечения медикаментами. Позволяет лучше проводить СЛР и вправлять открытые переломы."
 	duration_mod_names = list(HEAL_DURATION_MOD)
 	skills_mods = alist(
 		HEAL_AMOUNT_MOD = alist(
