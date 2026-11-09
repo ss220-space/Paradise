@@ -245,30 +245,27 @@
 
 /obj/item/gun/proc/get_module_class_ru_names_list()
 	var/static/alist/class_names = alist(
-		"малая прицельная планка" = GUN_MODULE_CLASS_PISTOL_RAIL,
-		"средняя прицельная планка" = GUN_MODULE_CLASS_SHOTGUN_RAIL,
-		"большая прицельная планка" = GUN_MODULE_CLASS_RIFLE_RAIL,
-		"снайперская прицельная планка" = GUN_MODULE_CLASS_SNIPER_RAIL,
-		"малый дульный модуль" = GUN_MODULE_CLASS_PISTOL_MUZZLE,
-		"средний дульный модуль" = GUN_MODULE_CLASS_SHOTGUN_MUZZLE,
-		"большой дульный модуль" = GUN_MODULE_CLASS_RIFLE_MUZZLE,
-		"снайперский дульный модуль" = GUN_MODULE_CLASS_SNIPER_MUZZLE,
-		"малая планка на цевье" = GUN_MODULE_CLASS_PISTOL_UNDER,
-		"средняя планка на цевье" = GUN_MODULE_CLASS_SHOTGUN_UNDER,
-		"большая планка на цевье" = GUN_MODULE_CLASS_RIFLE_UNDER,
-		"малое крепление на цевье" = GUN_MODULE_CLASS_SNIPER_UNDER,
-		"замок приклада" = GUN_MODULE_CLASS_SMG_STOCK,
-		"курок" = GUN_MODULE_CLASS_LOCKING_PIN,
-		"разъём Sibyl System" = GUN_MODULE_CLASS_ENERGY_WEAPON,
+		GUN_MODULE_CLASS_PISTOL_RAIL = "малая прицельная планка",
+		GUN_MODULE_CLASS_SHOTGUN_RAIL = "средняя прицельная планка",
+		GUN_MODULE_CLASS_RIFLE_RAIL = "большая прицельная планка",
+		GUN_MODULE_CLASS_SNIPER_RAIL = "снайперская прицельная планка",
+		GUN_MODULE_CLASS_PISTOL_MUZZLE = "малый дульный модуль",
+		GUN_MODULE_CLASS_SHOTGUN_MUZZLE = "средний дульный модуль",
+		GUN_MODULE_CLASS_RIFLE_MUZZLE = "большой дульный модуль",
+		GUN_MODULE_CLASS_SNIPER_MUZZLE = "снайперский дульный модуль",
+		GUN_MODULE_CLASS_PISTOL_UNDER = "малая планка на цевье",
+		GUN_MODULE_CLASS_SHOTGUN_UNDER = "средняя планка на цевье",
+		GUN_MODULE_CLASS_RIFLE_UNDER = "большая планка на цевье",
+		GUN_MODULE_CLASS_SNIPER_UNDER = "малое крепление на цевье",
+		GUN_MODULE_CLASS_SMG_STOCK = "замок приклада",
+		GUN_MODULE_CLASS_LOCKING_PIN = "курок",
+		GUN_MODULE_CLASS_ENERGY_WEAPON = "разъём Sibyl System",
 	)
 	return class_names
 
 /obj/item/gun/proc/get_module_class_ru_name(class_flag)
 	var/alist/class_names = get_module_class_ru_names_list()
-	for(var/class_name, flag in class_names)
-		if(flag == class_flag)
-			return class_name
-	return "неизвестно"
+	return class_names[class_flag] || "неизвестно"
 
 /obj/item/gun/proc/get_attachment_module_examine_text(mob/user, slot, missing_text = "модуль отсутствует")
 	var/obj/item/gun_module/module = attachments_by_slot[slot]

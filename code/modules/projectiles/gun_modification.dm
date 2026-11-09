@@ -27,20 +27,6 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	ATTACHMENT_SLOT_LOCKING_PIN = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = 4),
 ))
 
-/// Dynamic asset contains rendered gun with all overlays.
-/datum/asset/simple/gun_modification
-	abstract_type = /datum/asset/simple/gun_modification //Abstract - asset subsystem try to instantiate it without arguments on startup
-	var/asset_name
-
-/datum/asset/simple/gun_modification/New(icon/gun_icon, asset_name)
-	if(!gun_icon || !asset_name)
-		return ..()
-
-	src.asset_name = asset_name
-	assets = list()
-	assets[asset_name] = gun_icon
-	. = ..()
-
 /obj/item/gun/proc/invalidate_gun_modification_asset()
 	gun_modification_asset = null //TODO vakons: optimisation?
 
@@ -49,57 +35,24 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 		return gun_modification_asset
 
 	var/icon/gun_icon = build_gun_modification_icon(src)
+	if(!gun_icon)
+		return null
+
 	var/asset_name = "[GENERATE_ASSET_NAME(gun_icon)].png"
 	gun_modification_asset = new /datum/asset/simple/gun_modification(gun_icon, asset_name)
 	return gun_modification_asset
 
-// TODO vakons: optimisation
 /obj/item/gun/proc/build_gun_modification_icon(obj/item/gun/gun)
+	var/icon/gun_icon = get_flat_uni_icon(gun, SOUTH).to_icon()
+	if(!gun_icon)
+		return null
+
 	var/icon/canvas = icon('icons/blanks/96x96.dmi', "nothing")
 	canvas.Crop(1, 1, GUN_MODIFICATION_ICON_SIZE_X, GUN_MODIFICATION_ICON_SIZE_Y)
 
-	var/origin_x = round((GUN_MODIFICATION_ICON_SIZE_X - gun.get_cached_width()) / 2)
-	var/origin_y = round((GUN_MODIFICATION_ICON_SIZE_Y - gun.get_cached_height()) / 2)
-
-	var/icon/base = icon(gun.icon, gun.icon_state, dir = gun.dir, frame = 1, moving = FALSE)
-	if(base)
-		canvas.Blend(base, ICON_OVERLAY, origin_x + 1, origin_y + 1)
-
-	for(var/overlay in gun.overlays)
-		if(!overlay)
-			continue
-
-		var/icon/add
-		var/x_offset = 0
-		var/y_offset = 0
-		var/blend_mode = ICON_OVERLAY
-
-		if(istext(overlay))
-			if(!icon_exists(gun.icon, overlay))
-				continue
-			add = icon(gun.icon, overlay, gun.dir, frame = 1, moving = FALSE)
-		else if(isicon(overlay))
-			add = overlay
-		else
-			var/overlay_icon = overlay:icon
-			var/overlay_state = overlay:icon_state
-			if(isnull(overlay_state))
-				overlay_state = ""
-			if(!overlay_icon || !icon_exists(overlay_icon, overlay_state))
-				continue
-			var/overlay_dir = overlay:dir
-			if(isnull(overlay_dir))
-				overlay_dir = gun.dir
-			add = icon(overlay_icon, overlay_state, overlay_dir, frame = 1, moving = FALSE)
-			x_offset = (overlay:pixel_x || 0) + (overlay:pixel_w || 0)
-			y_offset = (overlay:pixel_y || 0) + (overlay:pixel_z || 0)
-			blend_mode = blendMode2iconMode(overlay:blend_mode)
-
-		if(!add)
-			continue
-
-		canvas.Blend(add, blend_mode, origin_x + 1 + x_offset, origin_y + 1 + y_offset)
-
+	var/origin_x = round((GUN_MODIFICATION_ICON_SIZE_X - gun_icon.Width()) / 2)
+	var/origin_y = round((GUN_MODIFICATION_ICON_SIZE_Y - gun_icon.Height()) / 2)
+	canvas.Blend(gun_icon, ICON_OVERLAY, origin_x + 1, origin_y + 1)
 	return canvas
 
 /obj/item/gun/ui_state(mob/user)
@@ -235,7 +188,7 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 
 	var/alist/class_names = get_module_class_ru_names_list()
 	var/list/names = list()
-	for(var/class_name, flag in class_names)
+	for(var/flag, class_name in class_names)
 		if(flags & flag)
 			names += class_name
 
