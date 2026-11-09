@@ -64442,10 +64442,6 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/plating,
 /area/station/maintenance/consarea_virology)
-"nFs" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos/mixing_atmos)
 "nFy" = (
 /obj/machinery/light{
 	dir = 4
@@ -136831,7 +136827,7 @@ wzq
 nPR
 fAD
 coE
-nFs
+txu
 jYg
 hwQ
 nfH
