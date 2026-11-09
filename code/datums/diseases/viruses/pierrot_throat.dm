@@ -3,7 +3,7 @@
 	agent = "H0NI<42 Virus"
 	desc = "Заболевание мозга, которое было завезено первыми исследователями планеты Клоунов, которое повреждает базальные ганглии, жертвы будут иметь неконтролируемое желание делать ХОНК."
 	max_stages = 4
-	spread_flags = AIRBORNE
+	spread_flags = BLOOD|AIRBORNE
 	cures = list(/datum/reagent/consumable/drink/banana)
 	cure_prob = 75
 	permeability_mod = 0.75
