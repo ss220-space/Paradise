@@ -89,7 +89,6 @@
 /datum/component/custom_access/proc/on_emag_act(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	var/obj/parent_obj = parent
 	INVOKE_ASYNC(src, PROC_REF(async_parent_emag_act), user)
 	emagged = TRUE
 
