@@ -90,7 +90,7 @@
 	SIGNAL_HANDLER
 
 	var/obj/parent_obj = parent
-	parent_obj.emag_act(user)
+	INVOKE_ASYNC(src, PROC_REF(async_parent_emag_act), user)
 	emagged = TRUE
 
 /datum/component/custom_access/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -108,3 +108,7 @@
 	SIGNAL_HANDLER
 
 	drop_new_access_control()
+
+/datum/component/custom_access/proc/async_parent_emag_act(mob/user)
+	var/obj/parent_obj = parent
+	parent_obj.emag_act(user)
