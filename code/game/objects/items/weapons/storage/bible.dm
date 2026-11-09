@@ -54,16 +54,24 @@
 	. = ..()
 	if(!has_antimagic)
 		return
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_HANDS,)
 
 /obj/item/storage/bible/proc/bless_bible()
 	if(has_antimagic)
 		return
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
-	addtimer(CALLBACK(src, PROC_REF(unbless_bible)), 6 MINUTES)
+	AddComponent(/datum/component/anti_magic, \
+		antimagic_flags = MAGIC_RESISTANCE_HOLY, \
+		inventory_flags = ITEM_SLOT_HANDS, \
+		charges = 2, \
+		expiration = CALLBACK(src, PROC_REF(expire_antimagic)), \
+	)
+	has_antimagic = TRUE
 
-/obj/item/storage/bible/proc/unbless_bible()
-	qdel(GetComponent(/datum/component/anti_magic))
+/// When the plant our gene is hosted in is drained of all of its anti-magic charges.
+/obj/item/storage/bible/proc/expire_antimagic(mob/user)
+	to_chat(user, span_warning("[src] rapidly turns into ash!"))
+	new /obj/effect/decal/cleanable/ash(drop_location())
+	qdel(src)
 
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
