@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 
 /datum/event/disposals_explosion
 	name = "Взрыв мусоропровода"
-	startWhen = 0
 	announceWhen = 20
 	endWhen = 150 // Should be plenty of time to find it
 	var/obj/structure/disposalpipe/segment/bursting_pipe = null
