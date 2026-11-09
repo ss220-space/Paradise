@@ -595,17 +595,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
-	var/turf/location = get_turf(src)
 	smoketime--
 	if(smoketime < 1)
-		new /obj/effect/decal/cleanable/ash(location)
-		lit = FALSE
-		update_icon(UPDATE_ICON_STATE)
-		if(ismob(loc))
-			var/mob/living/M = loc
-			M.balloon_alert(M, "трубка гаснет")
-		STOP_PROCESSING(SSobj, src)
-		return
+		die()
 	smoke()
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
@@ -643,6 +635,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
+
+/obj/item/clothing/mask/cigarette/pipe/die()
+	var/turf/location = get_turf(src)
+	new /obj/effect/decal/cleanable/ash(location)
+	lit = FALSE
+	update_icon(UPDATE_ICON_STATE)
+	if(ismob(loc))
+		var/mob/living/living_smoker = loc
+		living_smoker.balloon_alert(living_smoker, "трубка гаснет")
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
