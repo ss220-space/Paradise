@@ -3063,8 +3063,9 @@
 "aIw" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable,
-/obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law,
+/obj/machinery/smartfridge/smart_container/logistics,
+/obj/structure/logistics_pipe/trunk,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "aIA" = (
@@ -13483,6 +13484,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/vending/security,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "cXG" = (
@@ -13903,13 +13905,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/prison/perma)
-"dcg" = (
-/obj/machinery/vending/department_clothesmate/security,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/station/security/customs)
 "dcl" = (
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -14550,7 +14545,7 @@
 "dkK" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 9;
 	icon_state = "red"
 	},
 /area/station/security/customs)
@@ -21909,6 +21904,9 @@
 /area/station/maintenance/banya)
 "eMA" = (
 /obj/structure/cable,
+/obj/structure/logistics_pipe/segment{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "eMC" = (
@@ -28032,6 +28030,7 @@
 "gbC" = (
 /obj/machinery/firealarm/directional/west,
 /obj/structure/closet/bombclosetsecurity,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -28308,6 +28307,7 @@
 "geY" = (
 /obj/item/radio/intercom/directional/west,
 /obj/structure/closet/bombclosetsecurity,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -34180,7 +34180,9 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "hpY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -36458,6 +36460,11 @@
 	icon_state = "neutralfull"
 	},
 /area/station/cargo/miningdock)
+"hPb" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/customs)
 "hPf" = (
 /obj/effect/spawner/new_year/snow_machine,
 /turf/simulated/floor/plasteel{
@@ -36706,7 +36713,10 @@
 /obj/machinery/autolathe/security/logistics,
 /obj/machinery/light_switch/directional/north,
 /obj/structure/logistics_pipe/trunk,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "hSl" = (
 /obj/structure/railing/wooden{
@@ -40355,7 +40365,10 @@
 	name = "Tasers";
 	req_access = list(1)
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "iGP" = (
 /obj/structure/cable,
@@ -45969,24 +45982,6 @@
 	icon_state = "dark"
 	},
 /area/station/ai/satellite/chamber)
-"jRk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/logistics_pipe/segment{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/station/security/brig)
 "jRr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -50085,11 +50080,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
 "kGt" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull"
+	dir = 4;
+	icon_state = "red"
 	},
 /area/station/security/customs)
 "kGD" = (
@@ -50779,6 +50772,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/vending/security,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "kOc" = (
@@ -51986,7 +51980,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "red"
+	icon_state = "redcorner"
 	},
 /area/station/security/customs)
 "laz" = (
@@ -60338,12 +60332,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/bar/atrium)
-"mIB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner";
-	dir = 8
-	},
-/area/station/security/customs)
 "mIC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -62143,7 +62131,9 @@
 /obj/machinery/newscaster/security_unit/directional/north,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/vending/gun_mods,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "neM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -70791,9 +70781,14 @@
 	},
 /area/station/science/toxins/launch)
 "oWj" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/table/reinforced,
+/obj/item/book/manual/sop_legal{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 6;
 	icon_state = "red"
 	},
 /area/station/security/customs)
@@ -72748,7 +72743,10 @@
 /obj/item/stack/sheet/metal{
 	amount = 10
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "pqr" = (
 /obj/structure/cable/layer1,
@@ -75678,17 +75676,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/cargo/office)
 "pTY" = (
-/obj/machinery/alarm/directional/south,
-/obj/machinery/camera{
-	c_tag = "Brig Customs";
-	dir = 1;
-	network = list("SS13","Security")
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
 	},
-/obj/machinery/smartfridge/smart_container/logistics,
-/obj/structure/logistics_pipe/trunk{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "pUh" = (
 /obj/effect/landmark/spawner/blob,
@@ -80204,14 +80196,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"qNP" = (
-/obj/structure/logistics_pipe/segment{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/station/security/customs)
 "qNY" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90908,11 +90892,9 @@
 	},
 /area/station/security/prison/perma)
 "sQo" = (
-/obj/structure/logistics_pipe/segment{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "redcorner";
+	dir = 8
 	},
 /area/station/security/customs)
 "sQs" = (
@@ -91947,7 +91929,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 5;
 	icon_state = "red"
 	},
 /area/station/security/customs)
@@ -95304,6 +95286,24 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/storage/secure)
+"tKz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/logistics_pipe/segment{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/brig)
 "tKO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -97141,7 +97141,9 @@
 /area/station/maintenance/fpmaint)
 "uiH" = (
 /obj/effect/landmark/start/hangover,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "uiJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -98254,7 +98256,7 @@
 	},
 /obj/effect/landmark/start/hangover,
 /obj/structure/logistics_pipe/segment{
-	dir = 6
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -98727,10 +98729,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint3)
 "uya" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
+/obj/machinery/alarm/directional/south,
+/obj/machinery/camera{
+	c_tag = "Brig Customs";
+	dir = 1;
+	network = list("SS13","Security")
 	},
+/obj/machinery/vending/department_clothesmate/security,
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "uyg" = (
 /obj/structure/closet/secure_closet/brig{
@@ -101048,11 +101055,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "uXK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull"
+	dir = 1;
+	icon_state = "red"
 	},
 /area/station/security/customs)
 "uXY" = (
@@ -101796,7 +101801,9 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "vgz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -109053,7 +109060,9 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "wHl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -116637,7 +116646,9 @@
 /area/station/maintenance/asmaint2)
 "yjx" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/customs)
 "yjN" = (
 /obj/machinery/door/airlock/external{
@@ -166104,7 +166115,7 @@ agX
 mgt
 nEN
 bIy
-uXK
+mhU
 sWW
 fKb
 szi
@@ -166618,7 +166629,7 @@ kYy
 mgt
 mpk
 bcC
-kGt
+iLO
 sdw
 qNy
 szi
@@ -166875,7 +166886,7 @@ hiY
 mgt
 kOa
 rMS
-uXo
+hPb
 vmH
 cXD
 szi
@@ -167132,9 +167143,9 @@ agX
 mgt
 aIw
 uuS
-qNP
-sQo
-pTY
+uXo
+vmH
+uya
 szi
 rxl
 rxl
@@ -167390,8 +167401,8 @@ kSD
 dkK
 lau
 uXo
-mIB
-oWj
+sQo
+pTY
 xGA
 itz
 eOc
@@ -167904,8 +167915,8 @@ wHS
 tbn
 lDF
 uXo
-uya
-dcg
+kGt
+oWj
 xGA
 hzA
 eAR
@@ -168672,7 +168683,7 @@ eRd
 mFy
 agX
 xGA
-uXo
+uXK
 ieb
 iLO
 hpU
@@ -168926,7 +168937,7 @@ wDM
 qYp
 qYp
 dpm
-jRk
+tKz
 mBX
 gCd
 eMA
@@ -169186,7 +169197,7 @@ wmy
 mFy
 xFT
 xGA
-uXo
+uXK
 bsS
 mhU
 vgx
