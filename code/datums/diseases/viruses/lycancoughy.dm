@@ -5,7 +5,7 @@
 	desc = "Если не лечить, заражённый начнёт отрыгивать... щенков."
 	max_stages = 4
 	spread_flags = CONTACT
-	cures = list("ethanol")
+	cures = list(/datum/reagent/consumable/ethanol)
 	severity = DISEASE_SEVERITY_MEDIUM
 	var/barklimit = 0
 

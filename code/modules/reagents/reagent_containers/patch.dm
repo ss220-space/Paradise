@@ -47,7 +47,7 @@
 	desc = "Помогает при порезах и ушибах."
 	icon_state = "bandaid2"
 	instant_application = 1
-	list_reagents = list("styptic_powder" = 20)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 20)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/get_ru_names()
 	return alist(
@@ -62,7 +62,7 @@
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
 	icon_state = "bandaid1"
-	list_reagents = list("styptic_powder" = 10)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 10)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small/get_ru_names()
 	return alist(
@@ -79,7 +79,7 @@
 	desc = "Помогает при ожогах."
 	icon_state = "bandaid4"
 	instant_application = 1
-	list_reagents = list("silver_sulfadiazine" = 20)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 20)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/get_ru_names()
 	return alist(
@@ -94,7 +94,7 @@
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
 	icon_state = "bandaid3"
-	list_reagents = list("silver_sulfadiazine" = 10)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small/get_ru_names()
 	return alist(
@@ -111,7 +111,7 @@
 	desc = "Помогает лечить как механические, так и термические повреждения."
 	icon_state = "bandaid8"
 	instant_application = 1
-	list_reagents = list("synthflesh" = 10)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 10)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh/get_ru_names()
 	return alist(
@@ -126,7 +126,7 @@
 /obj/item/reagent_containers/food/pill/patch/nicotine
 	name = "nicotine patch"
 	desc = "Помогает облегчить никотиновую зависимость."
-	list_reagents = list("nicotine" = 10)
+	list_reagents = list(/datum/reagent/nicotine = 10)
 
 /obj/item/reagent_containers/food/pill/patch/nicotine/get_ru_names()
 	return alist(
@@ -142,7 +142,7 @@
 	name = "jestosterone patch"
 	desc = "Вводит необходимую дозу хи-хи и ха-ха прямо в кровь."
 	icon_state = "bandaid20"
-	list_reagents = list("jestosterone" = 20)
+	list_reagents = list(/datum/reagent/jestosterone = 20)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone/get_ru_names()
 	return alist(

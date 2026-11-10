@@ -84,7 +84,7 @@
 		var/datum/reagents/reagents = beaker.reagents
 		for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 			var/list/reagent_data = reagent.data
-			if((reagent.id in GLOB.diseases_carrier_reagents) && reagent_data && reagent_data["resistances"])
+			if((reagent.type in GLOB.diseases_carrier_reagents) && reagent_data && reagent_data["resistances"])
 				var/list/original_resistances = reagent_data["resistances"]
 				var/list/resistances = original_resistances.Copy()
 				for(var/path in resistances)
@@ -139,7 +139,7 @@
 
 	var/datum/reagent/blood = null
 	for(var/datum/reagent/reagent in reagents.reagent_list)
-		if(reagent.id in GLOB.diseases_carrier_reagents)
+		if(reagent.type in GLOB.diseases_carrier_reagents)
 			blood = reagent
 			if(!blood.data)
 				continue
@@ -303,7 +303,7 @@
 				PREPOSITIONAL = "культуре [capitalize(name)]",
 			)
 			bottle.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой [capitalize(copy.agent)]."
-			bottle.reagents.add_reagent("blood", 20, data)
+			bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)
 
 		if("addSympthom")
 			add_random_symptom(text2num(params["index"]))
@@ -346,7 +346,7 @@
 					INSTRUMENTAL = "вакциной [capitalize(vaccine_name)]",
 					PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]",
 				)
-				bottle.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+				bottle.reagents.add_reagent(/datum/reagent/vaccine, 15, list(vaccine_type))
 				replicator_cooldown(20 SECONDS)
 
 /obj/machinery/computer/pandemic/proc/ui_act_modal(action, params)

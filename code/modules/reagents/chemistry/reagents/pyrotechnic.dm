@@ -62,7 +62,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 		fireflash_sm(T, radius, rand(3000, 6000), 500)
 
 /datum/reagent/napalm/reaction_turf(turf/T, volume)
@@ -70,7 +70,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("napalm", volume)
+	T.reagents.add_reagent(/datum/reagent/napalm, volume)
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -126,7 +126,7 @@
 	if(exposed_temperature > combustion_temp)
 		if(volume < 1)
 			if(holder)
-				holder.del_reagent(id)
+				holder.del_reagent(type)
 			return
 
 		var/will_explode = volume >= explosion_threshold
@@ -139,7 +139,7 @@
 
 		var/turf/T = get_turf(holder.my_atom)
 		if(holder) // Delete the fuel from the holder before we trigger the fireball
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
@@ -152,7 +152,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("fuel", volume)
+	T.reagents.add_reagent(/datum/reagent/fuel, volume)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == REAGENT_TOUCH)
@@ -173,14 +173,14 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(0.5, FALSE)
-	if(holder.has_reagent("epinephrine"))
-		holder.remove_reagent("epinephrine", 2)
+	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
+		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjust_alien_plasma(10)
@@ -196,7 +196,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("plasma", volume)
+	T.reagents.add_reagent(/datum/reagent/plasma, volume)
 
 /datum/reagent/thermite
 	name = "Термит"
@@ -218,17 +218,16 @@
 
 	if(exposed_temperature >= T0C + 100)
 		var/datum/reagents/Holder = holder
-		var/Id = id
 		var/Volume = volume
 		fire_flash_log(holder, id)
-		Holder.del_reagent(Id)
+		Holder.del_reagent(type)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
 /datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
 	if(istype(S))
 		if(!S.reagents)
 			S.create_reagents(volume)
-		S.reagents.add_reagent("thermite", volume)
+		S.reagents.add_reagent(/datum/reagent/thermite, volume)
 		S.melting_olay = mutable_appearance('icons/effects/effects.dmi', icon_state = "thermite")
 		S.add_overlay(S.melting_olay)
 		if(S.active_hotspot)
@@ -298,7 +297,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("sorium", 5)
+	T.reagents.add_reagent(/datum/reagent/sorium, 5)
 
 /datum/reagent/liquid_dark_matter
 	name = "Жидкая тёмная материя"
@@ -317,7 +316,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("liquid_dark_matter", 5)
+	T.reagents.add_reagent(/datum/reagent/liquid_dark_matter, 5)
 
 /datum/reagent/blackpowder
 	name = "Чёрный порох"
@@ -347,7 +346,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("flash_powder", volume)
+	T.reagents.add_reagent(/datum/reagent/flash_powder, volume)
 
 /datum/reagent/smoke_powder
 	name = "Дымный порошок"
@@ -362,7 +361,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("smoke_powder", 10)
+	T.reagents.add_reagent(/datum/reagent/smoke_powder, 10)
 
 /datum/reagent/sonic_powder
 	name = "Звуковой порошок"
@@ -378,7 +377,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("sonic_powder", volume)
+	T.reagents.add_reagent(/datum/reagent/sonic_powder, volume)
 
 /datum/reagent/cryostylane
 	name = "Криостилан"
@@ -397,16 +396,16 @@
 	return ..()
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
-	if(M.reagents.has_reagent("oxygen"))
-		M.reagents.remove_reagent("oxygen", 1)
+	if(M.reagents.has_reagent(/datum/reagent/oxygen))
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 1)
 		M.adjust_bodytemperature(-30)
 	return ..()
 
 /datum/reagent/cryostylane/process()
 	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("cryostylane", 2)
+		if(holder.has_reagent(/datum/reagent/oxygen))
+			holder.remove_reagent(/datum/reagent/oxygen, 2)
+			holder.remove_reagent(/datum/reagent/cryostylane, 2)
 			holder.temperature_reagents(holder.chem_temp - 200)
 
 /datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -439,16 +438,16 @@
 	return ..()
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
-	if(M.reagents.has_reagent("oxygen"))
-		M.reagents.remove_reagent("oxygen", 1)
+	if(M.reagents.has_reagent(/datum/reagent/oxygen))
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 1)
 		M.adjust_bodytemperature(30)
 	return ..()
 
 /datum/reagent/pyrosium/process()
 	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("pyrosium", 2)
+		if(holder.has_reagent(/datum/reagent/oxygen))
+			holder.remove_reagent(/datum/reagent/oxygen, 2)
+			holder.remove_reagent(/datum/reagent/pyrosium, 2)
 			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam
@@ -482,7 +481,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
@@ -504,4 +503,4 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("plasma_dust", volume)
+	T.reagents.add_reagent(/datum/reagent/plasma_dust, volume)
