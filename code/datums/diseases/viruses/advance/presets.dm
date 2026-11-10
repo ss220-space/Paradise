@@ -44,14 +44,14 @@
 /datum/disease/virus/advance/preset/stealth_necrosis
 	name = "Некроэйроз"
 	symptoms = list(new/datum/symptom/flesh_eating, new/datum/symptom/viraladaptation, new/datum/symptom/youth, new/datum/symptom/dizzy)
-	mutation_reagents = list("mutagen", "histamine")
+	mutation_reagents = list(/datum/reagent/mutagen, /datum/reagent/histamine)
 	possible_mutations = list(/datum/disease/virus/transformation/xeno)
 
 //Facial Hypertrichosis + Voice Change + Itching
 /datum/disease/virus/advance/preset/pre_kingstons
 	name = "Вечный чужак"
 	symptoms = list(new/datum/symptom/beard, new/datum/symptom/voice_change, new/datum/symptom/itching)
-	mutation_reagents = list("mutagen", "radium")
+	mutation_reagents = list(/datum/reagent/mutagen, /datum/reagent/radium)
 	possible_mutations = list(/datum/disease/virus/kingstons)
 
 //Pacifist Syndrome
@@ -103,5 +103,5 @@
 /datum/disease/virus/advance/preset/pre_loyalty
 	name = "Весёлый страдалец"
 	symptoms = list(new/datum/symptom/laugh, new/datum/symptom/moan, new/datum/symptom/hallucigen)
-	mutation_reagents = list("love")
+	mutation_reagents = list(/datum/reagent/love)
 	possible_mutations = list(/datum/disease/virus/loyalty)

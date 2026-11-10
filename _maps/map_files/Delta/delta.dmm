@@ -199,19 +199,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/station/maintenance/casino)
-"acU" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/access_button{
-	name = "exterior access button";
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "vir_airlock";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access = list(10,13)
-	},
-/turf/space,
-/area/space)
 "acV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -6326,25 +6313,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"brv" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/cup/beaker,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/virology/lab)
 "bry" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -22313,15 +22281,6 @@
 	icon_state = "white"
 	},
 /area/station/security/medical)
-"ePW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/station/commons/trading)
 "ePY" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -29293,6 +29252,14 @@
 /obj/item/taperecorder,
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"goS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/recharger,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/station/commons/trading)
 "gpi" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/door_control{
@@ -29394,6 +29361,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"gqS" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	frequency = 1379;
+	name = "exterior access button";
+	master_tag = "atmos_tank_airlock";
+	command = "cycle_exterior";
+	req_access = list(10,13);
+	pixel_x = 20;
+	pixel_y = -20
+	},
+/turf/space,
+/area/space)
 "gqW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -31134,24 +31119,6 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
-"gHZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 4;
-	name = "Труба фильтрации"
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/access_button{
-	frequency = 1379;
-	name = "exterior access button";
-	master_tag = "atmos_tank_airlock";
-	command = "cycle_exterior";
-	req_access = list(10,13);
-	pixel_x = 20;
-	pixel_y = -20
-	},
-/turf/space,
-/area/space)
 "gIc" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -31248,25 +31215,6 @@
 	icon_state = "ramptop"
 	},
 /area/station/medical/reception)
-"gIR" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/cup/beaker,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/virology/lab)
 "gIV" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -39064,6 +39012,25 @@
 	icon_state = "grimy"
 	},
 /area/station/command/bridge)
+"irk" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/reagent_containers/cup/beaker,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/virology/lab)
 "iro" = (
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos/mixing_atmos)
@@ -52577,15 +52544,6 @@
 	icon_state = "wood-broken3"
 	},
 /area/station/maintenance/tourist)
-"lgz" = (
-/obj/structure/table/reinforced,
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
-/turf/simulated/floor/plasteel,
-/area/station/medical/virology/lab)
 "lgA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -54474,6 +54432,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
+"lAn" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
+/obj/item/storage/box/bodybags/biohazard,
+/turf/simulated/floor/plasteel,
+/area/station/medical/virology/lab)
 "lAu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -59855,6 +59825,18 @@
 	icon_state = "green"
 	},
 /area/station/medical/virology/lab)
+"mDC" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/space,
+/area/space)
 "mDS" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
@@ -61695,18 +61677,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/station/engineering/supermatter/room)
-"mYT" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/access_button{
-	name = "exterior access button";
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "ex";
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/turf/space,
-/area/space)
 "mZi" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -70177,20 +70147,6 @@
 	icon_state = "red"
 	},
 /area/station/security/brig)
-"oOy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
-/obj/effect/landmark/spawner/revenant,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/virology/lab)
 "oOH" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/newscaster/directional/south,
@@ -70383,6 +70339,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint3)
+"oQS" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/reagent_containers/cup/beaker,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/virology/lab)
 "oQV" = (
 /mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72059,6 +72034,21 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/maintenance/asmaint4)
+"pjv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable,
+/obj/item/restraints/handcuffs/cable,
+/obj/effect/landmark/spawner/revenant,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/virology/lab)
 "pjw" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -72890,6 +72880,15 @@
 "prd" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/nw)
+"prp" = (
+/obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/turf/simulated/floor/plasteel,
+/area/station/medical/virology/lab)
 "prr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -88710,18 +88709,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"srO" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/bodybags{
-	pixel_x = 8;
-	pixel_y = 4
-	},
-/obj/machinery/status_display{
-	pixel_x = -32
-	},
-/obj/item/storage/box/bodybags/biohazard,
-/turf/simulated/floor/plasteel,
-/area/station/medical/virology/lab)
 "ssa" = (
 /obj/effect/spawner/new_year/snow_machine,
 /obj/effect/spawner/new_year/garland/south,
@@ -98210,6 +98197,19 @@
 	icon_state = "grimy"
 	},
 /area/station/command/meeting_room)
+"utt" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "vir_airlock";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space)
 "utD" = (
 /obj/structure/logistics_pipe/segment{
 	dir = 1
@@ -107575,21 +107575,6 @@
 	icon_state = "dark"
 	},
 /area/station/ai/upload/chamber)
-"wrj" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
-/obj/item/restraints/handcuffs/cable,
-/obj/effect/landmark/spawner/revenant,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/virology/lab)
 "wrz" = (
 /obj/structure/closet,
 /obj/item/roller,
@@ -108594,6 +108579,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
+"wAH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable,
+/obj/effect/landmark/spawner/revenant,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/virology/lab)
 "wAJ" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -136882,7 +136881,7 @@ aaq
 coE
 aaq
 acF
-gHZ
+gqS
 qgk
 eRJ
 kaI
@@ -145577,7 +145576,7 @@ vrz
 uwF
 uMU
 qHA
-ePW
+goS
 tUY
 rCn
 wPY
@@ -162944,7 +162943,7 @@ qwR
 uzM
 fSU
 rmI
-mYT
+mDC
 acF
 acF
 coE
@@ -166772,9 +166771,9 @@ axO
 axO
 axO
 axO
-srO
+lAn
 sax
-lgz
+prp
 sTV
 ovW
 lFg
@@ -167025,7 +167024,7 @@ aaq
 aaq
 aaq
 axO
-brv
+irk
 pea
 vgA
 jKg
@@ -167284,7 +167283,7 @@ aaq
 axO
 tnY
 woj
-oOy
+wAH
 wOd
 ssd
 alL
@@ -167798,7 +167797,7 @@ aaq
 axO
 gKL
 eeX
-wrj
+pjv
 jme
 oEs
 uvj
@@ -168053,7 +168052,7 @@ aaq
 aaq
 coE
 axO
-gIR
+oQS
 wIh
 vvs
 jKg
@@ -168562,7 +168561,7 @@ qth
 pdD
 oFw
 ajv
-acU
+utt
 acF
 coE
 coE

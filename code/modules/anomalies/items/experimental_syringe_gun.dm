@@ -108,7 +108,7 @@
 			if(!reagent.can_synth)
 				continue
 
-			synth_reagents[reagent.id] = reagent.volume / synch_reagent_volume
+			synth_reagents[reagent.type] = reagent.volume / synch_reagent_volume
 
 		user.balloon_alert(user, "смесь изменена")
 		return ATTACK_CHAIN_BLOCKED_ALL

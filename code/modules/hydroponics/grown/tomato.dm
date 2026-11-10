@@ -12,7 +12,7 @@
 	icon_dead = "tomato-dead"
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato/blood)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato
 	seed = /obj/item/seeds/tomato
@@ -23,7 +23,7 @@
 	filling_color = "#FF6347"
 	tastes = list("tomato" = 1)
 	bitesize_mod = 2
-	distill_reagent = "enzyme"
+	distill_reagent = /datum/reagent/consumable/enzyme
 
 // Blood Tomato
 /obj/item/seeds/tomato/blood
@@ -34,7 +34,7 @@
 	plantname = "Blood-Tomato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blood
 	mutatelist = list(/obj/item/seeds/tomato/killer)
-	reagents_add = list("sbloodoxy" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/blood/synthetic/oxy = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood
@@ -46,7 +46,7 @@
 	filling_color = "#FF0000"
 	tastes = list("tomato" = 1, "blood" = 2)
 	origin_tech = "biotech=5"
-	distill_reagent = "bloodymary"
+	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
 
 /obj/item/seeds/tomato/debug
 	name = "pack of debugo-tomato seeds"
@@ -66,7 +66,7 @@
 		/datum/plant_gene/trait/stinging,
 	)
 	mutatelist = list()
-	reagents_add = list("plasma" = 0.1, "sacid" = 0.5, "phosphorus" = 0.1, "facid" = 0.5)
+	reagents_add = list(/datum/reagent/plasma = 0.1, /datum/reagent/acid = 0.5, /datum/reagent/phosphorus = 0.1, /datum/reagent/acid/facid = 0.5)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/debug
@@ -78,7 +78,7 @@
 	filling_color = "#FF0000"
 	tastes = list("tomato" = 1, "blood" = 2)
 	origin_tech = "biotech=5"
-	distill_reagent = "bloodymary"
+	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
 
 // Blue Tomato
 /obj/item/seeds/tomato/blue
@@ -92,7 +92,7 @@
 	icon_grow = "bluetomato-grow"
 	mutatelist = list(/obj/item/seeds/tomato/blue/bluespace)
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("lube" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/lube = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue
@@ -114,7 +114,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("lube" = 0.2, "singulo" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/lube = 0.2, /datum/reagent/consumable/ethanol/singulo = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	rarity = 50
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
@@ -142,7 +142,7 @@
 	icon_harvest = "killertomato-harvest"
 	icon_dead = "killertomato-dead"
 	mutatelist = list()
-	reagents_add = list("vitamin" = 0.04, "protein" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/protein = 0.1)
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer
@@ -153,7 +153,7 @@
 	var/awakening = 0
 	filling_color = "#FF0000"
 	origin_tech = "biotech=4;combat=5"
-	distill_reagent = "demonsblood"
+	distill_reagent = /datum/reagent/consumable/ethanol/demonsblood
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(awakening)

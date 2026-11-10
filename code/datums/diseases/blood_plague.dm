@@ -97,6 +97,8 @@
 /datum/disease/virus/blood_plague/has_cure()
 	if(affected_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		return TRUE
+	if(affected_mob.mind.has_antag_datum(/datum/antagonist/changeling))
+		return TRUE
 	return ..()
 
 /datum/disease/virus/blood_plague/proc/transform_vampire()

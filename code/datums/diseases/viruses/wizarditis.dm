@@ -4,8 +4,8 @@
 	desc = "Некоторые предполагают, что этот вирус является причиной существования Федерации Волшебников. Заражённые демонстрируют признаки слабоумия, выкрикивая странные фразы или полную бессмыслицу. На поздних стадиях заражённые иногда выражают чувство внутренней силы и, цитирую, 'способность управлять силами космоса!' Глоток крепкого, мужественного напитка обычно возвращает их в нормальное, человеческое состояние."
 	max_stages = 4
 	visibility_flags = HIDDEN_HUD
-	spread_flags = AIRBORNE
-	cures = list("manlydorf")
+	spread_flags = BLOOD|AIRBORNE
+	cures = list(/datum/reagent/consumable/ethanol/manly_dorf)
 	cure_prob = 100
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_HARMFUL
