@@ -6391,7 +6391,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
 /area/station/security/customs)
 "bsV" = (
 /obj/machinery/power/apc/worn_out/directional/north,
@@ -12639,7 +12642,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "cOf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -28856,6 +28862,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
+"gld" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/station/security/customs)
 "glj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/gameboard,
@@ -34144,9 +34156,7 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "hpY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -36678,9 +36688,7 @@
 /obj/machinery/light_switch/directional/north,
 /obj/structure/logistics_pipe/trunk,
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "hSl" = (
 /obj/structure/railing/wooden{
@@ -37856,7 +37864,10 @@
 /obj/structure/logistics_pipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
 /area/station/security/customs)
 "iek" = (
 /obj/effect/spawner/window/reinforced,
@@ -40350,9 +40361,7 @@
 	req_access = list(1)
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "iGP" = (
 /obj/structure/cable,
@@ -43079,6 +43088,14 @@
 /obj/item/reagent_containers/cup/bottle/nutrient/rh,
 /turf/simulated/floor/grass,
 /area/station/maintenance/fpmaint)
+"jjz" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/customs)
 "jjB" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/fyellow,
@@ -54782,7 +54799,10 @@
 /obj/structure/logistics_pipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
 /area/station/security/customs)
 "lDK" = (
 /obj/machinery/door/airlock/external{
@@ -59373,6 +59393,14 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft)
+"myI" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/customs)
 "myQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -62128,9 +62156,7 @@
 /obj/machinery/newscaster/security_unit/directional/north,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/vending/gun_mods,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "neM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -64180,7 +64206,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/station/security/brig)
 "nBW" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -72760,9 +72788,7 @@
 	amount = 10
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "pqr" = (
 /obj/structure/cable/layer1,
@@ -82006,6 +82032,11 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
+"rgT" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/station/security/customs)
 "rgU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -101078,7 +101109,7 @@
 /area/station/maintenance/starboard)
 "uXK" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "red"
 	},
 /area/station/security/customs)
@@ -101823,9 +101854,7 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "vgz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -107027,7 +107056,9 @@
 /area/station/hallway/secondary/entry/westarrival)
 "wlH" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "wlK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -109084,9 +109115,7 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "wHl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -110591,7 +110620,10 @@
 /obj/structure/logistics_pipe/junction{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "wXv" = (
 /turf/simulated/floor/plasteel{
@@ -114167,7 +114199,10 @@
 /obj/structure/logistics_pipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "xIO" = (
 /obj/structure/cable,
@@ -167413,7 +167448,7 @@ agX
 kSD
 dkK
 lau
-uXo
+hPb
 sQo
 pTY
 xGA
@@ -167927,7 +167962,7 @@ agX
 wHS
 tbn
 lDF
-uXo
+rgT
 kGt
 oWj
 xGA
@@ -168441,7 +168476,7 @@ rtZ
 mgt
 hSh
 wXu
-uXo
+vmH
 pqm
 saB
 gdO
@@ -168698,7 +168733,7 @@ agX
 xGA
 uXK
 ieb
-iLO
+myI
 hpU
 saB
 sMj
@@ -168955,7 +168990,7 @@ mBX
 gCd
 eMA
 ffQ
-uXo
+vmH
 wHh
 saB
 hcL
@@ -169210,9 +169245,9 @@ wmy
 mFy
 xFT
 xGA
-uXK
+gld
 bsS
-mhU
+jjz
 vgx
 saB
 sMj
@@ -169469,7 +169504,7 @@ agX
 mgt
 neI
 cOd
-uXo
+vmH
 iGJ
 saB
 sMj
