@@ -34,26 +34,23 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	if(gun_modification_asset)
 		return gun_modification_asset
 
-	var/icon/gun_icon = build_gun_modification_icon(src)
+	var/datum/universal_icon/gun_icon = build_gun_modification_icon(src)
 	if(!gun_icon)
 		return null
 
-	var/asset_name = "[GENERATE_ASSET_NAME(gun_icon)].png"
-	gun_modification_asset = new /datum/asset/simple/gun_modification(gun_icon, asset_name)
+	var/icon/gun_file = get_icon_from_uni_icon(gun_icon, UID())
+	var/asset_name = "[GENERATE_ASSET_NAME(gun_file)].png"
+	gun_modification_asset = new /datum/asset/simple/gun_modification(gun_file, asset_name)
 	return gun_modification_asset
 
 /obj/item/gun/proc/build_gun_modification_icon(obj/item/gun/gun)
+	var/datum/universal_icon/canvas = uni_icon('icons/blanks/96x96.dmi', "nothing")
+	canvas.crop(1, 1, GUN_MODIFICATION_ICON_SIZE_X, GUN_MODIFICATION_ICON_SIZE_Y)
+
 	var/datum/universal_icon/flat_gun = get_flat_uni_icon(gun, SOUTH)
-	var/icon/gun_icon = flat_gun.to_icon()
-	if(!gun_icon)
-		return null
-
-	var/icon/canvas = icon('icons/blanks/96x96.dmi', "nothing")
-	canvas.Crop(1, 1, GUN_MODIFICATION_ICON_SIZE_X, GUN_MODIFICATION_ICON_SIZE_Y)
-
-	var/origin_x = round((GUN_MODIFICATION_ICON_SIZE_X - gun_icon.Width()) / 2)
-	var/origin_y = round((GUN_MODIFICATION_ICON_SIZE_Y - gun_icon.Height()) / 2)
-	canvas.Blend(gun_icon, ICON_OVERLAY, origin_x + 1, origin_y + 1)
+	var/origin_x = round((GUN_MODIFICATION_ICON_SIZE_X - ICON_SIZE_X) / 2)
+	var/origin_y = round((GUN_MODIFICATION_ICON_SIZE_Y - ICON_SIZE_Y) / 2)
+	canvas.blend_icon(flat_gun, ICON_OVERLAY, origin_x + 1, origin_y + 1)
 	return canvas
 
 /obj/item/gun/ui_state(mob/user)
