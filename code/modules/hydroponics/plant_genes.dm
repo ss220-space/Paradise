@@ -567,20 +567,16 @@
 	target.audible_message(span_notice("[our_plant] lets out burst of laughter."))
 	playsound(our_plant, pick(sounds), 100, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
 
-/// Holymelon's anti-magic trait. Charges based on potency.
+/// Holymelon's anti-magic trait.
 /datum/plant_gene/trait/anti_magic
 	name = "Anti-Magic Vacuoles"
-	/// The amount of anti-magic blocking uses we have.
-	var/shield_uses = 1
 
 /datum/plant_gene/trait/anti_magic/on_new(obj/item/reagent_containers/food/snacks/grown/G)
-	var/obj/item/seeds/our_seed = G.get_plant_seed()
-	shield_uses = round(our_seed.potency / 20)
 	//deliver us from evil o melon god
 	G.AddComponent(/datum/component/anti_magic, \
 		antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, \
 		inventory_flags = ITEM_SLOT_HANDS, \
-		charges = shield_uses, \
+		charges = 1, \
 		block_magic = CALLBACK(src, PROC_REF(drain_antimagic)), \
 		expiration = CALLBACK(src, PROC_REF(expire)), \
 	)
