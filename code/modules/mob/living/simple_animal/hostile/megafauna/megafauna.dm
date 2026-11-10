@@ -39,7 +39,7 @@
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
 	/// Has someone enabled hard mode?
-	var/enraged = FALSE
+	var/enraged = TRUE		//хардмод постоянно включен
 	/// Path of the hardmode loot disk, if applicable.
 	var/enraged_loot
 	/// Hardmode one loot

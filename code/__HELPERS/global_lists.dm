@@ -424,7 +424,7 @@
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 400),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/magic_linked, 2500),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 500),
-		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 2500),
+		EQUIPMENT("HRD-MDE Medal Box", /obj/item/storage/lockbox/medal/hardmode_box, 300),
 	)
 	prize_list["Extra"] = list(
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
