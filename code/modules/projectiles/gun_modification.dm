@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 ))
 
 /obj/item/gun/proc/invalidate_gun_modification_asset()
-	gun_modification_asset = null //TODO vakons: optimisation?
+	gun_modification_asset = null
 
 /obj/item/gun/proc/get_gun_modification_asset()
 	if(gun_modification_asset)
