@@ -165,16 +165,6 @@
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 
-/obj/item/clothing/gloves/color/black/krav_maga/get_ru_names()
-	return alist(
-		NOMINATIVE = "чёрные перчатки",
-		GENITIVE = "чёрных перчаток",
-		DATIVE = "чёрным перчаткам",
-		ACCUSATIVE = "чёрные перчатки",
-		INSTRUMENTAL = "чёрными перчатками",
-		PREPOSITIONAL = "чёрных перчатках"
-	)
-
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()
 	style = new()
