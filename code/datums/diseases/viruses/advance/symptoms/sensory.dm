@@ -36,13 +36,13 @@ Bonus
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
 		if(A.stage >= 4)
 			M.AdjustDrowsy(-4 SECONDS)
-			if(RD.has_reagent("lsd"))
-				RD.remove_reagent("lsd", 5)
-			if(RD.has_reagent("histamine"))
-				RD.remove_reagent("histamine", 5)
+			if(RD.has_reagent(/datum/reagent/lsd))
+				RD.remove_reagent(/datum/reagent/lsd, 5)
+			if(RD.has_reagent(/datum/reagent/histamine))
+				RD.remove_reagent(/datum/reagent/histamine, 5)
 			M.AdjustHallucinate(-10 SECONDS)
 		if(A.stage >= 5)
-			RD.check_and_add("mannitol", 10, 10)
+			RD.check_and_add(/datum/reagent/medicine/mannitol, 10, 10)
 
 /datum/symptom/sensory_restoration
 	name = "Сенсорное восстановление"
@@ -59,8 +59,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				if(M.reagents.get_reagent_amount("oculine") < 20)
-					M.reagents.add_reagent("oculine", 20)
+				if(M.reagents.get_reagent_amount(/datum/reagent/medicine/oculine) < 20)
+					M.reagents.add_reagent(/datum/reagent/medicine/oculine, 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, span_notice(pick("Ваши глаза чувствуют себя прекрасно.", "Вы чувствуете, что ваши глаза могут фокусироваться чётче.", "Вы не чувствуете необходимости моргать.", "Ваши уши чувствуют себя прекрасно.", "Ваш слух стал острее.")))

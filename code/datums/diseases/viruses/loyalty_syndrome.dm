@@ -4,10 +4,10 @@
 	name = "Синдром лояльности"
 	agent = "Халомонас миномай"
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
-	spread_flags = CONTACT
+	spread_flags = BLOOD|CONTACT
 	permeability_mod = 0.8
 	cure_text = "Галоперидол"
-	cures = list("haloperidol")
+	cures = list(/datum/reagent/medicine/haloperidol)
 	visibility_flags = HIDDEN_HUD
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	no_vaccine = TRUE

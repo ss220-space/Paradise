@@ -574,13 +574,22 @@
 			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
 			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 				return
+			GET_SKILL_LEVEL(usr, /datum/skill/medical/heal, heal_skill_level)
+			if(heal_skill_level < SKILL_LEVEL_BEGINNER)
+				balloon_alert(usr, "проблема с навыками")
+				return
+			// level 2 - 20%, levl 3 - 40%, level 4 - 60%, level 5 - 80%, level 6,7 - 100%
+			var/reattach_chance = min(100, 20 * (heal_skill_level - SKILL_LEVEL_NONE))
+			if(usr != src) // double chance
+				reattach_chance = min(100, reattach_chance * 2)
 			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
 				return
 			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 				return
 			bodypart.owner.emote("scream")
-			if(prob(bodypart.fracture.reattach_chance)) //success
+			if(prob(reattach_chance)) //success
 				bodypart.fracture = FRACTURE_TYPE_CLOSED
+				balloon_alert(usr, "кость вправлена")
 				return
 			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] горит огнем!")
 			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
@@ -1517,51 +1526,85 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		ratvar.soul_devoured++
 	return ..()
 
-/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
-	if(H == src)
+/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/target_human)
+	GET_SKILL_LEVEL(src, /datum/skill/medical/heal, heal_skill_level)
+	if(heal_skill_level < SKILL_LEVEL_BASIC)
+		return // skill issue
+	if(target_human == src)
 		balloon_alert(src, "слр на себе невозможна!")
 		return
-	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
+	if(target_human.stat == DEAD || HAS_TRAIT(target_human, TRAIT_FAKEDEATH))
 		balloon_alert(src, "цель мертва!")
 		return
 	if(!check_has_mouth())
 		balloon_alert(src, "у вас нет рта!")
 		return
-	if(!H.check_has_mouth())
+	if(!target_human.check_has_mouth())
 		balloon_alert(src, "у цели нет рта!")
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.up))
 		balloon_alert(src, "ваш рот заблокирован!")
 		return
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.up))
+	if((target_human.head && (target_human.head.flags_cover & HEADCOVERSMOUTH)) || (target_human.wear_mask && (target_human.wear_mask.flags_cover & MASKCOVERSMOUTH) && !target_human.wear_mask.up))
 		balloon_alert(src, "рот цели заблокирован!")
 		return
-	if(H.receiving_cpr) // To prevent spam stacking
+	if(target_human.receiving_cpr) // To prevent spam stacking
 		balloon_alert(src, "на цели уже применяют слр!")
 		return
 	visible_message(
-		span_danger("[src] пыта[PLUR_ET_YUT(src)]ся провести СЛР на [H.declent_ru(PREPOSITIONAL)]."),
+		span_danger("[src] пыта[PLUR_ET_YUT(src)]ся провести СЛР на [target_human.declent_ru(PREPOSITIONAL)]."),
 		ignored_mobs = src
 	)
-	H.balloon_alert(src, "проведение слр...")
-	H.receiving_cpr = TRUE
-	if(do_after(src, 4 SECONDS, H, NONE))
-		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.heal_damage_type(15, OXY)
-			H.SetLoseBreath(0)
-			H.AdjustParalysis(-2 SECONDS)
-			visible_message(
-				span_danger("[src] успешно провод[PLUR_IT_YAT(src)] СЛР на [H.declent_ru(PREPOSITIONAL)]."),
-				ignored_mobs = src
-			)
-			H.balloon_alert(src, "слр проведена")
-			to_chat(H, span_notice("Вы чувствуете поток свежего воздуха, идущего в вашие лёгкие."))
-			H.receiving_cpr = FALSE
-			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
-			return TRUE
-	else
-		H.receiving_cpr = FALSE
-		balloon_alert(src, "не двигайтесь во время слр!")
+	target_human.balloon_alert(src, "проведение слр...")
+	target_human.receiving_cpr = TRUE
+	var/cpr_power = max(0, heal_skill_level - SKILL_LEVEL_ADVANCED)
+	var/cpr_logged = FALSE
+	while(!QDELETED(target_human) && !QDELETED(src) && target_human.health <= HEALTH_THRESHOLD_CRIT)
+		if(target_human.stat == DEAD || HAS_TRAIT(target_human, TRAIT_FAKEDEATH))
+			break
+		if(!do_after(src, 4 SECONDS, target_human, NONE))
+			balloon_alert(src, "не двигайтесь во время слр!")
+			break
+		if(QDELETED(target_human) || QDELETED(src) || target_human.health > HEALTH_THRESHOLD_CRIT)
+			break
+		if(target_human.stat == DEAD || HAS_TRAIT(target_human, TRAIT_FAKEDEATH))
+			break
+		target_human.heal_damage_type(15 + cpr_power * 5, OXY)
+		target_human.SetLoseBreath(0)
+		var/paralysis_reduction = (2 + cpr_power) SECONDS
+		target_human.AdjustParalysis(-paralysis_reduction)
+		visible_message(
+			span_danger("[src] успешно провод[PLUR_IT_YAT(src)] СЛР на [target_human.declent_ru(PREPOSITIONAL)]."),
+			ignored_mobs = src
+		)
+		target_human.balloon_alert(src, "слр проведена")
+		to_chat(target_human, span_notice("Вы чувствуете поток свежего воздуха, идущего в ваши лёгкие."))
+		if(!cpr_logged)
+			add_attack_logs(src, target_human, "CPRed", ATKLOG_ALL)
+			cpr_logged = TRUE
+		target_human.try_cpr_status_cure(heal_skill_level)
+	if(!QDELETED(target_human))
+		target_human.receiving_cpr = FALSE
+	return TRUE
+
+/// remove random status effect
+/mob/living/carbon/human/proc/try_cpr_status_cure(heal_skill_level)
+	var/list/removable_effects = list()
+	for(var/datum/status_effect/effect as anything in status_effects)
+		if(istype(effect, /datum/status_effect/transient) || istype(effect, /datum/status_effect/incapacitating))
+			removable_effects += effect
+	if(!length(removable_effects))
+		return FALSE
+	var/cure_chance = max(1, heal_skill_level - SKILL_LEVEL_ADVANCED + 1)
+	if(!prob(cure_chance))
+		return FALSE
+	var/datum/status_effect/effect_to_remove = pick(removable_effects)
+	remove_status_effect(effect_to_remove.type)
+	visible_message(
+		span_notice("[GEND_HE_SHE_CAP(src)] приход[PLUR_IT_YAT(src)] в себя после СЛР."),
+		span_notice("Вы приходите в себя после СЛР.")
+	)
+	return TRUE
 
 /mob/living/carbon/human/has_mutated_organs()
 	for(var/obj/item/organ/external/E as anything in bodyparts)
