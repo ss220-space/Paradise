@@ -21,10 +21,9 @@
 	)
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	if(emagged)
-		user.visible_message(span_notice("[user.name] активиру[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"))
-		SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
-		activate(user, TRUE)
+	user.visible_message(span_notice("[user.name] активиру[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]!"))
+	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
+	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/proc/turf_check()
 

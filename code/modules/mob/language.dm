@@ -886,7 +886,7 @@
 	speech_verbs = list("шип%(ит,ят)%")
 	ask_verbs = list("вопросительно шип%(ит,ят)%")
 	exclaim_verbs = list("рыч%(ит,ят)%")
-	colour = "cultspeech"
+	colour = "ashwalker"
 	key = "sh"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE

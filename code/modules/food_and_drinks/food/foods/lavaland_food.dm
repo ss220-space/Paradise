@@ -751,10 +751,10 @@
 /obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
-		return ..()
+		return
 	if(active)
 		balloon_alert(user, "уже активно!")
-		return ..()
+		return
 	user.say("NWOC EGEVNER")
 	active = TRUE
 	qdel(I)
@@ -768,7 +768,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/on_mob_eating_effect(mob/user)
 	if(!active)
 		return
-	if(isliving(user))
+	else
 		var/mob/living/living_user = user
 		living_user.add_language(LANGUAGE_HIVE_ASHWALKER)
 		living_user.AdjustSleeping(30 SECONDS)

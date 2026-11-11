@@ -843,7 +843,7 @@
 	return TRUE
 
 /datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
-	var/gem_type = pick(/obj/item/gem/amber, /obj/item/gem/fdiamond, /obj/item/gem/magma, /obj/item/gem/ruby)
+	var/gem_type = pick(/obj/item/gem/amber, /obj/item/gem/fdiamond, /obj/item/gem/magma, /obj/item/gem/random)
 	new gem_type(get_turf(ritual_object))
 
 	return RITUAL_SUCCESSFUL
@@ -1183,4 +1183,4 @@
 		if(!isturf(human.loc))
 			continue
 
-		human.reagents.add_reagent("frostoil", 18)
+		human.reagents.add_reagent(/datum/reagent/consumable/frostoil, 18)
