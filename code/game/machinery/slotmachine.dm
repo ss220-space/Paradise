@@ -264,7 +264,7 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 	prize_id = null
 	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 12)
+	addtimer(CALLBACK(src, PROC_REF(spin_slots), usr), 10)
 	return TRUE
 
 /obj/machinery/computer/slot_machine/proc/get_prize_coefficient()
@@ -319,6 +319,9 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 	credits = prize_credits
 	prize_id = prizedatum.id
 	generate_reels(prizedatum)
+	addtimer(CALLBACK(src, PROC_REF(apply_spin_result_after_anim), user, prizedatum, prize_credits), 10)
+
+/obj/machinery/computer/slot_machine/proc/apply_spin_result_after_anim(mob/user, datum/slotmachine_prize/prizedatum, prize_credits)
 	if(prizedatum.say_phrase)
 		atom_say("[prizedatum.say_phrase] Игрок [user.name] выиграл [prize_credits] кредитов!")
 	if(prize_credits > 0)
