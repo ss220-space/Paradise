@@ -246,7 +246,7 @@
 /obj/machinery/fishtank/proc/adjust_food_level(amount = 0)
 	food_level = min(10, max(0, food_level + amount))
 
-/obj/machinery/fishtank/take_damage(new_value, damage_flag = MELEE)
+/obj/machinery/fishtank/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	//Leaking status check
 	if(obj_integrity <= (max_integrity * 0.25)) //Major leak at or below 25% health (-10 water/cycle)
