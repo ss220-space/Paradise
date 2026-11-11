@@ -38,7 +38,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/get_ru_names()
 	return alist(
 		NOMINATIVE = "коза",
-		GENITIVE = "козу",
+		GENITIVE = "козы",
 		DATIVE = "козе",
 		ACCUSATIVE = "козу",
 		INSTRUMENTAL = "козой",
