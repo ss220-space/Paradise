@@ -46,7 +46,7 @@
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(P, NOMINATIVE)] не оказывается влияния на [declent_ru(ACCUSATIVE)]!"))
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
@@ -55,7 +55,7 @@
 		if(!stat)
 			Aggro()
 		if(T.throwforce <= 20)
-			visible_message(span_notice("[T.name] [throw_message] [declent_ru(GENITIVE)]!"))
+			visible_message(span_notice("[DECLENT_RU_CAP(T, NOMINATIVE)] [throw_message] [declent_ru(GENITIVE)]!"))
 			return
 	..()
 
