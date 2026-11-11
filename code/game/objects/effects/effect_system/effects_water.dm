@@ -39,7 +39,7 @@
 		return
 
 	// should be full water to extinguish mobs
-	var/should_extinguish = reagents.has_reagent("water", amount = 1)
+	var/should_extinguish = reagents.has_reagent(/datum/reagent/water, amount = 1)
 	for(var/atom/movable/thing as anything in turf)
 		reagents.reaction(thing)
 		if(should_extinguish && isliving(thing))

@@ -1,4 +1,0 @@
-author: "PlayerUnknown14"
-delete-after: True
-changes:
-  - local: "Локализация очков. (PR #9949)"

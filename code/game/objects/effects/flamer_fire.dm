@@ -84,6 +84,11 @@
 	set_light(l_color = reagent.burncolor)
 
 	tied_reagent = new reagent.type() // Can't get deleted this way
+	tied_reagent.durationfire = reagent.durationfire
+	tied_reagent.intensityfire = reagent.intensityfire
+	tied_reagent.rangefire = reagent.rangefire
+	tied_reagent.burncolor = reagent.burncolor
+	tied_reagent.burn_sprite = reagent.burn_sprite
 
 	if(obj_reagents)
 		tied_reagents = obj_reagents
@@ -106,7 +111,7 @@
 	var/burn_dam = burnlevel * FIRE_DAMAGE_PER_LEVEL
 
 	if(tied_reagents && !tied_reagents.locked)
-		var/removed = tied_reagents.remove_reagent(tied_reagent.id, FLAME_REAGENT_USE_AMOUNT * fuel_pressure)
+		var/removed = tied_reagents.remove_reagent(tied_reagent.type, FLAME_REAGENT_USE_AMOUNT * fuel_pressure)
 		if(removed)
 			qdel(src)
 			return
@@ -146,7 +151,7 @@
 	to_call = null
 	tied_reagent = null
 	tied_reagents = null
-	. = ..()
+	return ..()
 
 /obj/flamer_fire/extinguish()
 	. = ..()
@@ -179,7 +184,7 @@
 
 	mob.apply_damage(burn_damage, BURN) //This makes fire stronk.
 
-	to_chat(mob, span_danger("You are burned!"))
+	to_chat(mob, span_danger("Вы загорелись!"))
 	mob.updatehealth()
 
 /obj/flamer_fire/proc/update_flame()
@@ -248,7 +253,7 @@
 
 		var/spread_direction_angle = dir2angle(spread_direction)
 
-		var/angle = 180 - abs( abs( direction_angle - spread_direction_angle ) - 180 ) // the angle difference between the spread direction and initial direction
+		var/angle = 180 - abs(abs( direction_angle - spread_direction_angle) - 180) // the angle difference between the spread direction and initial direction
 
 		switch(angle) //this reduces power when the explosion is going around corners
 			if(45)
@@ -257,7 +262,7 @@
 				continue
 
 		switch(spread_direction)
-			if(NORTH,SOUTH,EAST,WEST)
+			if(NORTH, SOUTH, EAST, WEST)
 				spread_power--
 			else
 				spread_power -= 1.414 //diagonal spreading
@@ -278,9 +283,7 @@
 
 		if(!has_pass)
 			return
-
-		ASYNC
-			fire_spread_recur(picked_turf, spread_power, spread_direction, fire_lvl, burn_lvl, f_color, burn_sprite)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(fire_spread_recur), picked_turf, spread_power, spread_direction, fire_lvl, burn_lvl, f_color, burn_sprite)
 
 /proc/fire_spread(turf/target, range, fire_lvl, burn_lvl, f_color, burn_sprite = "dynamic")
 	var/datum/reagent/fire_reag = new()

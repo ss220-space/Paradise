@@ -165,16 +165,6 @@
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 
-/obj/item/clothing/gloves/color/black/krav_maga/get_ru_names()
-	return alist(
-		NOMINATIVE = "перчатки \"Крав-мага\"",
-		GENITIVE = "перчаток \"Крав-мага\"",
-		DATIVE = "перчаткам \"Крав-мага\"",
-		ACCUSATIVE = "перчатки \"Крав-мага\"",
-		INSTRUMENTAL = "перчатками \"Крав-мага\"",
-		PREPOSITIONAL = "перчатках \"Крав-мага\""
-	)
-
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()
 	style = new()
@@ -200,6 +190,16 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
+
+/obj/item/clothing/gloves/color/black/krav_maga/sec/get_ru_names()
+	return alist(
+		NOMINATIVE = "перчатки \"Крав-мага\"",
+		GENITIVE = "перчаток \"Крав-мага\"",
+		DATIVE = "перчаткам \"Крав-мага\"",
+		ACCUSATIVE = "перчатки \"Крав-мага\"",
+		INSTRUMENTAL = "перчатками \"Крав-мага\"",
+		PREPOSITIONAL = "перчатках \"Крав-мага\""
+	)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()

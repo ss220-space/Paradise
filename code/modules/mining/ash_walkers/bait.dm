@@ -95,7 +95,7 @@
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "charred_krill"
 	item_state = "charred_krill"
-	list_reagents = list("protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
 	bitesize = 1
 	antable = FALSE
 	tastes = list("пепла" = 5, "упущенных возможностей" = 1)

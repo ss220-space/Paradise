@@ -4,6 +4,11 @@
 	description = "Химический элемент."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
+	chemfiresupp = TRUE
+	intensitymod = 0.15
+	burncolor = "#ff356f"
+	burncolormod = 5
+	properties = list(PROPERTY_OXIDIZING = 1)
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !isspaceturf(M.loc))
@@ -249,7 +254,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		to_chat(M, span_notice("Вы чувствуете себя отлично!"))
-		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.reagents.add_reagent(/datum/reagent/methamphetamine, rand(1,2))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
 		to_chat(M, span_notice("Вы чувствуете тепло!"))
@@ -294,7 +299,7 @@
 			M.Weaken(6 SECONDS)
 			M.AdjustConfused(50 SECONDS)
 			M.emote("scream")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 7)
 			M.emote("scream")
 			M.visible_message(span_warning("[M] нервно скреб[PLUR_YOT_YUT(M)] свою кожу!"))
@@ -604,7 +609,7 @@
 		M.SetWeakened(0, FALSE)
 		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
-		if(M.reagents.get_reagent_amount("thc") <= 20)
+		if(M.reagents.get_reagent_amount(/datum/reagent/thc) <= 20)
 			M.Drowsy(20 SECONDS)
 	if(prob(25))
 		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
@@ -1090,7 +1095,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/crack_crystal(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/cocaine
 	name = "Кокаин"
@@ -1138,7 +1143,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/coca_packet(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/matedecoca
 	name = "Мате де Кока"

@@ -10,10 +10,10 @@
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
-	"sodiumchloride", "sugar", "orangejuice",
-	"spaceacillin", "salglu_solution", "ethanol",
-	"teporone", "diphenhydramine", "lipolicide",
-	"silver", "gold"
+	/datum/reagent/consumable/sodiumchloride, /datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice,
+	/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/consumable/ethanol,
+	/datum/reagent/medicine/teporone, /datum/reagent/medicine/diphenhydramine, /datum/reagent/lipolicide,
+	/datum/reagent/silver, /datum/reagent/gold
 ))
 
 GLOBAL_LIST_EMPTY(archive_diseases)
@@ -207,9 +207,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		if(-INFINITY to 1)
 			spread_flags = BLOOD
 		if(2 to 3)
-			spread_flags = CONTACT
+			spread_flags = BLOOD|CONTACT
 		if(4 to INFINITY)
-			spread_flags = AIRBORNE
+			spread_flags = BLOOD|AIRBORNE
 	additional_info = spread_text()
 	permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
 

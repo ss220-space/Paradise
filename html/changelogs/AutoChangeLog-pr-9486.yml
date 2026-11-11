@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - refactor: "Идентификаторы реагентов заменены на типы. (PR #9486)"
