@@ -69,7 +69,7 @@
 /datum/reagent/New()
 	addict_supertype = type
 	if(properties)
-		properties = properties_to_datums()
+		properties = string_assoc_list(properties_to_datums())
 	recalculate_variables()
 
 /datum/reagent/Destroy()
