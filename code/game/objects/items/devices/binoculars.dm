@@ -71,7 +71,6 @@
 /obj/item/binoculars/range
 	name = "rangefinder"
 	gender = NEUTER
-	desc = "A pair of binoculars with a rangefinding function. Ctrl + Click turf to acquire its coordinates. Ctrl + Click rangefinder to stop lasing."
 	actions_types = list(/datum/action/item_action/toggle_rangefinder_mode)
 	var/cooldown_duration = 20 SECONDS
 	var/obj/effect/overlay/temp/coord
@@ -83,6 +82,16 @@
 	var/calculate_delay = 10 SECONDS
 	var/mode = RANGEFINDER_MODE_RANGE
 	var/connected = FALSE
+
+/obj/item/binoculars/range/get_ru_names()
+	return alist(
+		NOMINATIVE = "бинокль-дальномер",
+		GENITIVE = "бинокля-дальномера",
+		DATIVE = "биноклю-дальномеру",
+		ACCUSATIVE = "бинокль-дальномер",
+		INSTRUMENTAL = "биноклем-дальномером",
+		PREPOSITIONAL = "бинокле-дальномере",
+	)
 
 /obj/item/binoculars/range/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(istype(interacting_with, /atom/movable/screen/fullscreen/cursor_catcher/scope))
