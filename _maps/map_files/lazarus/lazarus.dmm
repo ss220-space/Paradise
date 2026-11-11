@@ -27001,6 +27001,7 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/maintenance/research/robotics)
 "gLT" = (
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -29095,6 +29096,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -44903,6 +44905,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/abandoned_building/barracks)
 "lmJ" = (
@@ -49947,6 +49950,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = 33
 	},
+/obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -55236,15 +55240,9 @@
 	},
 /area/planetoid/lazarus/service/chapel)
 "ocE" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/landmark/lightsout,
-/turf/simulated/floor/wood,
-/area/planetoid/lazarus/commons/serviceyard)
+/obj/effect/landmark/spawner/ninja_teleport,
+/turf/simulated/floor/wood/fancy/oak,
+/area/planetoid/lazarus/hallway/secondary/garden)
 "ocU" = (
 /obj/structure/closet/secure_closet/magistrate,
 /obj/item/megaphone,
@@ -100718,7 +100716,7 @@ kNW
 tLK
 ifI
 kHJ
-had
+ocE
 bep
 ifI
 gxv
@@ -114861,7 +114859,7 @@ pnx
 hQJ
 hQJ
 hQJ
-ocE
+hQJ
 hQJ
 amN
 hQJ
