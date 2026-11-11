@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
 	ATTACHMENT_SLOT_RAIL = "верхняя планка",
 	ATTACHMENT_SLOT_UNDER = "цевьё",
+	ATTACHMENT_SLOT_STOCK = "приклад",
 	ATTACHMENT_SLOT_LOCKING_PIN = "курок"
 ))
 

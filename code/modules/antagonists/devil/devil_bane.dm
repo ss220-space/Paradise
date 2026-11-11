@@ -155,7 +155,7 @@
 	)
 	SIGNAL_HANDLER
 
-	if(reagent_id != "silver")
+	if(reagent_id != /datum/reagent/silver)
 		return
 
 	owner.reagents?.add_reagent(/datum/reagent/toxin, amount * bonus_damage)
@@ -185,7 +185,7 @@
 	)
 	SIGNAL_HANDLER
 
-	if(reagent_id != "iron")
+	if(reagent_id != /datum/reagent/iron)
 		return
 
 	owner.reagents?.add_reagent(/datum/reagent/toxin, amount * bonus_damage)

@@ -68,7 +68,7 @@
 
 		var/blood_color = "#A10808"
 		if(ishuman(target))
-			var/list/b_data = target.get_blood_data(target.get_blood_id())
+			var/list/b_data = target.get_blood_data(target.get_blood_type())
 			if(b_data && b_data["blood_color"])
 				blood_color = b_data["blood_color"]
 
