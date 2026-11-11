@@ -34156,7 +34156,9 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "hpY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40361,7 +40363,10 @@
 	req_access = list(1)
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "iGP" = (
 /obj/structure/cable,
@@ -43088,14 +43093,6 @@
 /obj/item/reagent_containers/cup/bottle/nutrient/rh,
 /turf/simulated/floor/grass,
 /area/station/maintenance/fpmaint)
-"jjz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/station/security/customs)
 "jjB" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/fyellow,
@@ -50809,7 +50806,9 @@
 	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "kOI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -59394,11 +59393,9 @@
 	},
 /area/station/hallway/primary/aft)
 "myI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/station/security/customs)
 "myQ" = (
@@ -72788,7 +72785,10 @@
 	amount = 10
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "pqr" = (
 /obj/structure/cable/layer1,
@@ -101854,7 +101854,9 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "vgz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -109115,7 +109117,9 @@
 	pixel_x = 5;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
 /area/station/security/customs)
 "wHl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -168476,7 +168480,7 @@ rtZ
 mgt
 hSh
 wXu
-vmH
+myI
 pqm
 saB
 gdO
@@ -168733,7 +168737,7 @@ agX
 xGA
 uXK
 ieb
-myI
+iLO
 hpU
 saB
 sMj
@@ -168990,7 +168994,7 @@ mBX
 gCd
 eMA
 ffQ
-vmH
+uXo
 wHh
 saB
 hcL
@@ -169247,7 +169251,7 @@ xFT
 xGA
 gld
 bsS
-jjz
+mhU
 vgx
 saB
 sMj
@@ -169504,7 +169508,7 @@ agX
 mgt
 neI
 cOd
-vmH
+rgT
 iGJ
 saB
 sMj
@@ -170018,7 +170022,7 @@ qDk
 mRs
 rHJ
 lhF
-hXK
+tTg
 nWT
 aLW
 tMg
