@@ -1,3 +1,5 @@
+#define FUEL_TRANSFER_MULTIPLIER 5
+
 /obj/vehicle/ridden/motorbike
 	name = "motorbike"
 	desc = "Внедорожный мотоцикл для передвижения по пересечённой местности."
@@ -193,7 +195,7 @@
 	// Refueling from any reagent container holding fuel
 	if(is_reagent_container(I))
 		var/obj/item/reagent_containers/fuel_container = I
-		if(fuel_container.reagents?.has_reagent("fuel"))
+		if(fuel_container.reagents?.has_reagent(/datum/reagent/fuel))
 			pour_fuel(fuel_container, user)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -211,11 +213,16 @@
 	if(fuel_count >= fuel_max)
 		balloon_alert(user, "бак полный!")
 		return
-	var/pour_amount = min(container.amount_per_transfer_from_this, container.reagents.get_reagent_amount("fuel"), fuel_max - fuel_count)
+
+	var/space_left = fuel_max - fuel_count
+	var/needed_units = max(1, round(space_left / FUEL_TRANSFER_MULTIPLIER))
+	var/pour_amount = min(container.amount_per_transfer_from_this, container.reagents.get_reagent_amount("fuel"), needed_units)
 	if(pour_amount <= 0)
 		return
+	var/fuel_added = min(pour_amount * FUEL_TRANSFER_MULTIPLIER, space_left)
 	container.reagents.remove_reagent("fuel", pour_amount)
-	fuel_count += pour_amount
+	fuel_count += fuel_added
+
 	playsound(loc, 'sound/effects/refill.ogg', 25, TRUE)
 	balloon_alert(user, "[round(fuel_count / fuel_max * 100)]%")
 	to_chat(user, span_notice("Залито <b>[pour_amount]</b> ед. топлива ([round(fuel_count / fuel_max * 100)]% бака)."))
@@ -269,3 +276,5 @@
 	desc = "Небольшие отсеки для хранения вещей, встроенные в мотоцикл."
 	storage_slots = 4
 	max_combined_w_class = 8
+
+#undef FUEL_TRANSFER_MULTIPLIER
