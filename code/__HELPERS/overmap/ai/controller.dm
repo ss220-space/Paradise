@@ -1,0 +1,26 @@
+/proc/overmap_ai_radius(obj/overmap/entity/ship)
+	var/list/region = ship.physical_space?.region
+	if(region)
+		return max(ship.hull_radius, sqrt((region[3] - region[1]) ** 2 + (region[4] - region[2]) ** 2) / 2)
+	return max(1, ship.hull_radius)
+
+/proc/overmap_ai_faction(obj/overmap/entity/ship, deep_scan = FALSE)
+	if(deep_scan)
+		var/syndicate = FALSE
+		for(var/datum/overmap_iff_channel/channel as anything in ship.get_iff_channels())
+			if(channel.id == OVERMAP_IFF_CENTCOM)
+				return "nt"
+			if(channel.id == OVERMAP_IFF_SYNDICATE)
+				syndicate = TRUE
+		return syndicate ? "syndicate" : "unknown"
+	if(ship.is_overmap_jammed() || (ship.transponder && (ship.transponder.stat & (NOPOWER|BROKEN))))
+		return "unknown"
+	var/nt = FALSE
+	for(var/datum/overmap_iff_channel/channel as anything in ship.get_iff_channels())
+		if(!channel.transmit)
+			continue
+		if(channel.id == OVERMAP_IFF_SYNDICATE)
+			return "syndicate"
+		if(channel.id == OVERMAP_IFF_CENTCOM)
+			nt = TRUE
+	return nt ? "nt" : "unknown"

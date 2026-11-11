@@ -10,7 +10,15 @@ import {
 } from 'react';
 import { Icon } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
+import type { GalaxyMap } from './galaxyTypes';
+import { MapControls } from './MapControls';
+import { MapRuler } from './MapRuler';
+import { formatMetricDistance } from './mapDistance';
 import { overmapKindIcon, overmapKindLabel } from './OvermapChrome';
+import { OvermapGalaxy } from './OvermapGalaxy';
+import { type RadarEngine, RadarEngines } from './RadarEngines';
+import { RadarProjectiles } from './RadarProjectiles';
+import { type RadarWeapon, RadarWeapons } from './RadarWeapons';
 import { type RadarDock, radarClickWorld } from './radarInterpolation';
 import { GEOMETRY_FADE, GEOMETRY_FULL, radarWheelZoom } from './radarZoom';
 import { useRadarInterpolation } from './useRadarInterpolation';
@@ -49,14 +57,16 @@ export type RadarContact = {
   y: number;
   rot: number;
   own?: boolean;
+  destroyed?: boolean;
   distance?: number;
   closing?: number;
   docked?: boolean;
 };
 
-export type RadarEngine = [number, number, number, number];
+export type { RadarEngine } from './RadarEngines';
 
 export type RadarProjectile = {
+  kind?: string;
   id: string;
   x: number;
   y: number;
@@ -87,41 +97,7 @@ export type RadarObject = {
 
 const EMPTY_OBJECTS: RadarObject[] = [];
 
-export type GalaxySector = {
-  distances?: Record<string, number>;
-  id: string;
-  name: string;
-  kind: string;
-  x: number;
-  y: number;
-  links: string[];
-  signal_links?: string[];
-  contacts: number;
-  distress: boolean | number;
-
-  unknown?: boolean;
-};
-
-export type GalaxyMap = {
-  revision: number;
-  sectors: GalaxySector[];
-  center?: string;
-  transits?: {
-    id: string;
-    from: string;
-    to: string;
-    progress: number;
-    remaining: number;
-    own: boolean | number;
-  }[];
-};
-
-const NOZZLE_VECTORS: Record<number, number[]> = {
-  1: [0, 1],
-  2: [0, -1],
-  4: [1, 0],
-  8: [-1, 0],
-};
+export type { GalaxyMap, GalaxySector } from './galaxyTypes';
 
 export const RADAR_TILE_SPAN = 100;
 
@@ -177,11 +153,8 @@ const runsPath = (runs: number[], inset = 0) => {
 
 export const formatRadarDistance = (
   metres: number,
-  cellSpan: number = RADAR_TILE_SPAN,
-) =>
-  metres >= cellSpan
-    ? `${(metres / cellSpan).toFixed(2)} кл.`
-    : `${Math.round(metres)} м`;
+  _cellSpan = RADAR_TILE_SPAN,
+) => formatMetricDistance(metres);
 
 const geometryOpacity = (radius: number) =>
   Math.max(
@@ -237,37 +210,6 @@ const worldFrameFraction = (
   const screenY = -(x * Math.sin(rad) + y * Math.cos(rad));
   return [screenX / radius, screenY / radius];
 };
-
-const RadarEngines = (props: { engines: RadarEngine[] }) => (
-  <>
-    {props.engines.map(([x, y, dir, firing], index) => {
-      const [dx, dy] = NOZZLE_VECTORS[dir] || [0, -1];
-      return (
-        <g key={index}>
-          {!!firing && (
-            <line
-              className="OvermapRadar__burn"
-              x1={x + dx * 0.6}
-              y1={y + dy * 0.6}
-              x2={x + dx * 2.6}
-              y2={y + dy * 2.6}
-            />
-          )}
-          <circle
-            className={
-              firing
-                ? 'OvermapRadar__engine OvermapRadar__engine--firing'
-                : 'OvermapRadar__engine'
-            }
-            cx={x + dx * 0.5}
-            cy={y + dy * 0.5}
-            r={0.35}
-          />
-        </g>
-      );
-    })}
-  </>
-);
 
 export type RadarScatterChunk = {
   x: number;
@@ -425,11 +367,13 @@ const GeometryLayer = (props: {
             collars = '',
             known = false,
           } = hulls.get(contact.id) || {};
-          const tone = contact.own
-            ? 'OvermapRadar__hull--own'
-            : contact.docked
-              ? 'OvermapRadar__hull--docked'
-              : 'OvermapRadar__hull--other';
+          const tone = contact.destroyed
+            ? 'OvermapRadar__hull--destroyed'
+            : contact.own
+              ? 'OvermapRadar__hull--own'
+              : contact.docked
+                ? 'OvermapRadar__hull--docked'
+                : 'OvermapRadar__hull--other';
           return (
             <g
               key={contact.id}
@@ -668,7 +612,8 @@ const ObjectLayer = (props: {
       objects
         .filter(
           (object) =>
-            (!object.is_self || props.showSelf) && object.kind !== 'hazard',
+            (!object.is_self || props.showSelf !== false) &&
+            object.kind !== 'hazard',
         )
         .map((object, index) => {
           const size = Math.max(object.size || 1, 1);
@@ -742,13 +687,7 @@ const ObjectLayer = (props: {
                 key={`${object.kind}-${object.name}-${index}`}
                 opacity={opacity}
               >
-                {shape ? (
-                  <path
-                    className="OvermapRadar__objectShape"
-                    d={shape}
-                    style={{ fill: color, stroke: color }}
-                  />
-                ) : object.id && props.outlines?.[object.id] ? (
+                {object.id && props.outlines?.[object.id] ? (
                   <path
                     className="OvermapRadar__objectShape"
                     d={props.outlines[object.id]}
@@ -756,6 +695,12 @@ const ObjectLayer = (props: {
                     style={{ fill: 'none', stroke: color }}
                     strokeWidth={1.2}
                     vectorEffect="non-scaling-stroke"
+                  />
+                ) : shape ? (
+                  <path
+                    className="OvermapRadar__objectShape"
+                    d={shape}
+                    style={{ fill: color, stroke: color }}
                   />
                 ) : object.extent ? (
                   <ellipse
@@ -939,227 +884,6 @@ const SectorLayer = (props: {
   );
 };
 
-const GalaxyLayer = (props: {
-  galaxy: GalaxyMap;
-  sectorId?: string;
-  radius: number;
-  opacity: number;
-
-  slot: number;
-  rotation: number;
-}) => {
-  const { galaxy, sectorId, radius, opacity, slot } = props;
-  const [selectedId, setSelectedId] = useState<string | undefined>(sectorId);
-  const [flightAge, setFlightAge] = useState(0);
-  useEffect(() => {
-    setFlightAge(0);
-    if (!galaxy.transits?.length) return;
-    const started = performance.now();
-    let animation = 0;
-    const tick = (now: number) => {
-      setFlightAge(now - started);
-      animation = requestAnimationFrame(tick);
-    };
-    animation = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(animation);
-  }, [galaxy.transits]);
-  const nodes = useMemo(() => {
-    const sectors = galaxy.sectors;
-    const center = sectors.find((sector) => sector.id === galaxy.center);
-    const centerX = center?.x || 0;
-    const centerY = center?.y || 0;
-    const extent = Math.max(
-      1,
-      ...sectors.map((sector) =>
-        Math.max(Math.abs(sector.x - centerX), Math.abs(sector.y - centerY)),
-      ),
-    );
-    const scale = (slot * 2.4 * 1.15 * 0.72) / extent;
-    return sectors.map((sector) => ({
-      sector,
-      x: (sector.x - centerX) * scale,
-      y: -(sector.y - centerY) * scale,
-    }));
-  }, [galaxy, slot]);
-  if (!nodes.length || opacity <= 0) return null;
-  const selected =
-    nodes.find((node) => node.sector.id === selectedId) ||
-    nodes.find((node) => node.sector.id === sectorId);
-  const byId = new Map(nodes.map((node) => [node.sector.id, node]));
-  const dot = radius * 0.017;
-  return (
-    <g className="OvermapGalaxy" opacity={opacity}>
-      <ellipse
-        className="OvermapGalaxy__orbit"
-        rx={radius * 0.85}
-        ry={radius * 0.43}
-        transform="rotate(-28)"
-      />
-      <ellipse
-        className="OvermapGalaxy__orbit"
-        rx={radius * 0.67}
-        ry={radius * 0.26}
-        transform="rotate(-28)"
-      />
-      {Array.from({ length: 70 }, (_, index) => (
-        <circle
-          key={index}
-          className="OvermapGalaxy__star"
-          cx={Math.sin(index * 127.1) * radius * 0.94}
-          cy={Math.cos(index * 311.7) * radius * 0.9}
-          r={radius * (index % 5 === 0 ? 0.002 : 0.001)}
-        />
-      ))}
-      {nodes.flatMap((node) =>
-        node.sector.links.map((id) => {
-          const target = byId.get(id);
-          if (!target || id < node.sector.id) return null;
-          const active = node === selected || target === selected;
-          const signal =
-            node.sector.signal_links?.includes(id) ||
-            target.sector.signal_links?.includes(node.sector.id);
-          const midX = (node.x + target.x) / 2;
-          const midY = (node.y + target.y) / 2 - radius * 0.07;
-          return (
-            <g key={`${node.sector.id}-${id}`}>
-              <path
-                className={classes([
-                  'OvermapGalaxy__route',
-                  active && 'OvermapGalaxy__route--active',
-                  !signal && 'OvermapGalaxy__route--uncertain',
-                ])}
-                d={`M${node.x} ${node.y} Q${midX} ${midY} ${target.x} ${target.y}`}
-              />
-              <text
-                x={midX}
-                y={(node.y + target.y) / 2 - radius * 0.035}
-                fontSize={radius * 0.018}
-                fill="#8fa8c2"
-                textAnchor="middle"
-              >
-                {node.sector.distances?.[id] ||
-                  target.sector.distances?.[node.sector.id] ||
-                  ''}
-              </text>
-            </g>
-          );
-        }),
-      )}
-      {galaxy.transits?.map((flight) => {
-        const from = byId.get(flight.from);
-        const to = byId.get(flight.to);
-        if (!from || !to) return null;
-        const t = Math.min(
-          1,
-          flight.progress +
-            ((1 - flight.progress) * flightAge) / Math.max(flight.remaining, 1),
-        );
-        const u = 1 - t;
-        const midX = (from.x + to.x) / 2;
-        const midY = (from.y + to.y) / 2 - radius * 0.07;
-        const x = u * u * from.x + 2 * u * t * midX + t * t * to.x;
-        const y = u * u * from.y + 2 * u * t * midY + t * t * to.y;
-        const angle =
-          (Math.atan2(
-            u * (midY - from.y) + t * (to.y - midY),
-            u * (midX - from.x) + t * (to.x - midX),
-          ) *
-            180) /
-          Math.PI;
-        const size = radius * 0.012;
-        return (
-          <path
-            key={flight.id}
-            d={`M${size} 0L${-size} ${size * 0.7}L${-size * 0.5} 0L${-size} ${-size * 0.7}Z`}
-            transform={`translate(${x} ${y}) rotate(${angle})`}
-            fill={flight.own ? '#76ffc1' : '#f3ba85'}
-          >
-            <title>{flight.own ? 'Ваш корабль' : 'Корабль в переходе'}</title>
-          </path>
-        );
-      })}
-      {nodes.map((node) => {
-        const current = node.sector.id === sectorId;
-        const picked = node === selected;
-        const unknown = node.sector.unknown;
-        return (
-          <g
-            key={node.sector.id}
-            transform={`translate(${node.x} ${node.y})`}
-            className={classes([
-              'OvermapGalaxy__node',
-              current && 'OvermapGalaxy__node--current',
-              picked && 'OvermapGalaxy__node--selected',
-              unknown && 'OvermapGalaxy__node--unknown',
-            ])}
-            role="button"
-            tabIndex={0}
-            aria-label={node.sector.name}
-            onClick={() => setSelectedId(node.sector.id)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ')
-                setSelectedId(node.sector.id);
-            }}
-          >
-            <title>{unknown ? 'Неизвестный сектор' : node.sector.name}</title>
-            <circle r={dot * 3.4} fill="transparent" />
-            <circle className="OvermapGalaxy__halo" r={dot * 2.2} />
-            <path
-              className="OvermapGalaxy__bracket"
-              d={`M${-dot * 2.7} ${-dot}v${-dot}h${dot} M${dot * 2.7} ${dot}v${dot}h${-dot}`}
-            />
-            <circle
-              className="OvermapGalaxy__core"
-              r={unknown ? dot * 0.5 : dot}
-            />
-            {!!node.sector.distress && (
-              <circle r={dot * 3} className="OvermapGalaxy__distress" />
-            )}
-            <text
-              className="OvermapGalaxy__name"
-              x={dot * 3.4}
-              y={dot * 0.4}
-              fontSize={radius / 37}
-            >
-              {unknown ? 'НЕИЗВЕСТНО' : node.sector.name}
-            </text>
-            {current && (
-              <text
-                className="OvermapGalaxy__here"
-                x={dot * 3.4}
-                y={dot * 2.4}
-                fontSize={radius / 49}
-              >
-                ТЕКУЩИЙ СЕКТОР
-              </text>
-            )}
-          </g>
-        );
-      })}
-      <text
-        className="OvermapGalaxy__heading"
-        x={-radius * 0.89}
-        y={-radius * 0.83}
-        fontSize={radius / 33}
-      >
-        МЕЖСЕКТОРНАЯ СЕТЬ
-      </text>
-      {!!selected && (
-        <text
-          className="OvermapGalaxy__detail"
-          x={-radius * 0.89}
-          y={radius * 0.89}
-          fontSize={radius / 38}
-        >
-          {selected.sector.unknown
-            ? 'Сигнатура не исследована'
-            : `${selected.sector.name} · связей ${selected.sector.links.length}${selected.sector.distress ? ' · SOS' : ''}`}
-        </text>
-      )}
-    </g>
-  );
-};
-
 const RadarRim = (props: { radius: number }) => {
   const { radius } = props;
   const ticks = useMemo(() => {
@@ -1267,24 +991,20 @@ const RadarCompass = (props: {
 const RadarRuler = (props: {
   radius: number;
   cellSpan: number;
+  side: number;
 
   slot: number;
   galaxy: boolean;
 }) => {
   const { radius, cellSpan, slot, galaxy } = props;
   return (
-    <div className="OvermapRadar__ruler">
-      <div className="OvermapRadar__rulerBar">
-        <span className="OvermapRadar__rulerTick" />
-        <span className="OvermapRadar__rulerLine" />
-        <span className="OvermapRadar__rulerTick" />
-      </div>
-      <span className="OvermapRadar__rulerLabel">
-        {galaxy
+    <MapRuler
+      label={
+        galaxy
           ? `${(radius / slot).toFixed(1)} сектора`
-          : formatRadarDistance(radius / 2, cellSpan)}
-      </span>
-    </div>
+          : formatRadarDistance((radius * 2 * 120) / props.side, cellSpan)
+      }
+    />
   );
 };
 
@@ -1296,6 +1016,7 @@ const RadarZoom = (props: {
   ceiling: number;
 
   sectorSpan: number;
+  onGalaxy: () => void;
 }) => {
   const { radius, onZoom, threshold, ceiling, sectorSpan } = props;
   const nudge = (outward: boolean) => {
@@ -1309,40 +1030,17 @@ const RadarZoom = (props: {
     onZoom(clampRadarZoom(radius * step, ceiling));
   };
   return (
-    <div className="OvermapRadar__zoom">
-      <button
-        type="button"
-        className="OvermapRadar__zoomButton"
-        title="Приблизить"
-        onClick={() => nudge(false)}
-      >
-        +
-      </button>
-      <button
-        type="button"
-        className="OvermapRadar__zoomButton"
-        title="Отдалить"
-        onClick={() => nudge(true)}
-      >
-        −
-      </button>
-      {}
-      <button
-        type="button"
-        className="OvermapRadar__zoomButton OvermapRadar__zoomButton--band"
-        title={radius > threshold ? 'сектор' : 'глобально'}
-        onClick={() =>
-          onZoom(
-            clampRadarZoom(
-              radius > threshold ? sectorSpan * 0.5 : threshold * 1.15,
-              ceiling,
-            ),
-          )
-        }
-      >
-        {radius > threshold ? '◻' : '✦'}
-      </button>
-    </div>
+    <MapControls
+      onIn={() => nudge(false)}
+      onOut={() => nudge(true)}
+      onBand={() =>
+        radius > threshold
+          ? onZoom(clampRadarZoom(sectorSpan * 0.5, ceiling))
+          : props.onGalaxy()
+      }
+      bandTitle={radius > threshold ? 'Сектор' : 'Галактика'}
+      band={radius > threshold ? '◻' : '✦'}
+    />
   );
 };
 
@@ -1493,6 +1191,8 @@ export const OvermapRadar = (props: {
   contacts: RadarContact[];
   drifters: number[][];
   projectiles?: RadarProjectile[];
+  weapons?: RadarWeapon[];
+  onSelectWeapon?: (id: string) => void;
   weaponArcs?: {
     id: string;
     x: number;
@@ -1559,7 +1259,21 @@ export const OvermapRadar = (props: {
     filter = 'all',
     hazardFields = [],
   } = props;
+  const [galaxyEntry, setGalaxyEntry] = useState<'close' | 'overview'>(
+    'overview',
+  );
+  const [galaxyReset, setGalaxyReset] = useState(0);
   const scope = useRef<HTMLDivElement>(null);
+  const [scopeSide, setScopeSide] = useState(640);
+  useEffect(() => {
+    if (!scope.current) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (width && height) setScopeSide(Math.min(width, height));
+    });
+    observer.observe(scope.current);
+    return () => observer.disconnect();
+  }, []);
   const requestedReach = useRef<number | undefined>(undefined);
   const sectorSpan = Math.max(cellSpan * sectorSize, cellSpan * 4);
   const radius = props.locked
@@ -1633,6 +1347,7 @@ export const OvermapRadar = (props: {
       return;
     }
     event.preventDefault();
+    if (!galaxyBand) setGalaxyEntry('close');
     onZoom(
       clampRadarZoom(
         radarWheelZoom(radius, event.deltaY > 0, galaxyBandRadius),
@@ -1645,7 +1360,7 @@ export const OvermapRadar = (props: {
     if (
       (event.target as Element).closest(
         firing
-          ? 'input,select,textarea,.OvermapRadar__controls,.OvermapRadar__bands'
+          ? 'input,select,textarea,.OvermapRadar__weapon,.OvermapRadar__controls,.OvermapRadar__bands'
           : 'button,input,select,textarea,.OvermapRadar__controls',
       )
     )
@@ -1686,7 +1401,11 @@ export const OvermapRadar = (props: {
           <button
             type="button"
             className={galaxyBand ? 'selected' : ''}
-            onClick={() => onZoom(galaxyBandRadius * 1.15)}
+            onClick={() => {
+              setGalaxyEntry('overview');
+              setGalaxyReset((value) => value + 1);
+              onZoom(galaxyBandRadius * 1.15);
+            }}
           >
             Глобально
           </button>
@@ -1897,16 +1616,7 @@ export const OvermapRadar = (props: {
               <RadarRim radius={radius} />
             </g>
           )}
-          {galaxyBand ? (
-            <GalaxyLayer
-              galaxy={galaxy || { revision: 0, sectors: [] }}
-              sectorId={sectorId}
-              radius={radius}
-              opacity={1}
-              slot={galaxySlot}
-              rotation={rotation}
-            />
-          ) : (
+          {!galaxyBand && (
             <>
               {
                 <HazardLayer
@@ -1995,30 +1705,11 @@ export const OvermapRadar = (props: {
                   opacity={0.9}
                   pointerEvents="none"
                 >
-                  {(projectiles || []).map((shot) => {
-                    const size = Math.max(0.25, radius * 0.009);
-                    return (
-                      <g
-                        key={shot.id}
-                        transform={`translate(${shot.x - world[0]} ${shot.y - world[1]}) rotate(${-shot.angle})`}
-                      >
-                        <path
-                          d={`M 0 ${-size * 2} L 0 0`}
-                          stroke="#ff9d45"
-                          strokeWidth={3}
-                          opacity={0.3}
-                          vectorEffect="non-scaling-stroke"
-                        />
-                        <path
-                          d={`M 0 ${-size * 1.5} L 0 0 M ${-size * 0.3} ${-size * 0.5} L 0 0 L ${size * 0.3} ${-size * 0.5}`}
-                          stroke="#ffe6af"
-                          strokeWidth={1.5}
-                          vectorEffect="non-scaling-stroke"
-                          fill="none"
-                        />
-                      </g>
-                    );
-                  })}
+                  <RadarProjectiles
+                    shots={projectiles || []}
+                    world={world}
+                    radius={radius}
+                  />
                 </g>
               )}
               <ObjectLayer
@@ -2056,6 +1747,19 @@ export const OvermapRadar = (props: {
             </text>
           )}
         </svg>
+        {galaxyBand && (
+          <OvermapGalaxy
+            key={galaxyReset}
+            galaxy={galaxy || { revision: 0, sectors: [] }}
+            sectorId={sectorId}
+            entry={galaxyEntry}
+            onSector={
+              !props.locked && onZoom
+                ? () => onZoom(Math.max(220, sectorSpan * 0.55))
+                : undefined
+            }
+          />
+        )}
         {!galaxyBand && (
           <MarkerOverlay
             radius={radius}
@@ -2070,6 +1774,16 @@ export const OvermapRadar = (props: {
             filter={filter}
           />
         )}
+        {!galaxyBand && (
+          <RadarWeapons
+            weapons={props.weapons || []}
+            radius={radius}
+            facing={facing}
+            followHeading={followHeading}
+            offset={chartOffset}
+            onSelect={props.locked ? undefined : props.onSelectWeapon}
+          />
+        )}
         {galaxyBand && !(galaxy?.sectors || []).length && (
           <div className="OvermapRadar__galaxyEmpty">
             <Icon name="circle-info" />
@@ -2079,7 +1793,10 @@ export const OvermapRadar = (props: {
             </span>
           </div>
         )}
-        <span className="OvermapRadar__band">
+        <span
+          className="OvermapRadar__band"
+          style={galaxyBand ? { display: 'none' } : undefined}
+        >
           {bandName(radius, galaxyBand, BAND_GEOMETRY_FULL)}
           {galaxyBand && galaxy?.sectors?.length
             ? ` · узлов ${galaxy.sectors.length}`
@@ -2093,10 +1810,18 @@ export const OvermapRadar = (props: {
           />
         )}
         <div className="OvermapRadar__controls">
-          {!!onZoom && !props.locked && (
+          {!!onZoom && !props.locked && !galaxyBand && (
             <RadarZoom
               radius={radius}
-              onZoom={onZoom}
+              onZoom={(value) => {
+                setGalaxyEntry('close');
+                onZoom(value);
+              }}
+              onGalaxy={() => {
+                setGalaxyEntry('overview');
+                setGalaxyReset((value) => value + 1);
+                onZoom(galaxyBandRadius * 1.15);
+              }}
               threshold={galaxyBandRadius}
               ceiling={zoomCeiling}
               sectorSpan={sectorSpan}
@@ -2106,6 +1831,7 @@ export const OvermapRadar = (props: {
             <RadarRuler
               radius={radius}
               cellSpan={cellSpan}
+              side={scopeSide}
               slot={galaxySlot}
               galaxy={false}
             />

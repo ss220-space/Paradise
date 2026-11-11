@@ -129,6 +129,11 @@
 			try_fly()
 		return
 	if(needs_hyperrelay())
+		var/obj/overmap/entity/hyperrelay/relay = route_relay()
+		if(relay?.template_loaded)
+			relay_route_aligned = TRUE
+			try_fly()
+			return
 		on_overmap_arrived()
 		return
 	if(navigation_entry_box)

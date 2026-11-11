@@ -52,7 +52,7 @@
 	vessel.local_space = null
 
 /datum/controller/subsystem/overmap/proc/create_station_docking_zone()
-	if(SSmapping.map_datum.overmap_physical_docks || station_docking_zone || !station_entity?.sector)
+	if(SSmapping.map_datum.overmap_physical_docks || station_entity?.dock_host?.planet_landing || station_docking_zone || !station_entity?.sector)
 		return
 	var/datum/overmap_sector/sector = station_entity.sector
 	var/turf/home = station_entity.get_overmap_turf()

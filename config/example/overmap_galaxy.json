@@ -1,0 +1,224 @@
+{
+	"version": 1,
+	"name": "Навигационный атлас · Эпсилон Лукусты",
+	"units": "св. лет",
+	"systems": [
+		{
+			"id": "station",
+			"name": "Эпсилон Лукусты",
+			"x": 0,
+			"y": 0,
+			"kind": "station",
+			"faction": "central",
+			"description": "Станционный сектор. Центральный узел навигационной сети."
+		},
+		{
+			"id": "service",
+			"name": "Дальний космос Эпсилон Лукусты",
+			"x": -105,
+			"y": 45,
+			"kind": "service",
+			"faction": "central",
+			"description": "Служебный сектор. Доступ к ретранслятору ограничен IFF."
+		},
+		{
+			"id": "wilderness_a",
+			"name": "Рубеж Альфа",
+			"x": 100,
+			"y": 65,
+			"kind": "wilderness",
+			"faction": "frontier",
+			"description": "Пограничный сектор с существующими руинами и опасностями."
+		},
+		{
+			"id": "outer_reach",
+			"name": "Внешний предел",
+			"x": 210,
+			"y": 25,
+			"kind": "wilderness",
+			"faction": "frontier",
+			"description": "Пустой сектор, доступный для дальнейшего наполнения."
+		},
+		{
+			"id": "silent_expanse",
+			"name": "Тихая область",
+			"x": 110,
+			"y": -100,
+			"kind": "wilderness",
+			"faction": "unclaimed",
+			"description": "Пустой сектор вне государственных границ."
+		},
+		{
+			"id": "south_cross",
+			"name": "Южный перекрёсток",
+			"x": -75,
+			"y": -100,
+			"kind": "wilderness",
+			"faction": "central",
+			"description": "Пустой сектор. Параметры можно задать в коде."
+		}
+	],
+	"factions": [
+		{
+			"id": "central",
+			"name": "Центральные территории",
+			"color": "#59c9ed",
+			"style": {
+				"line": "solid",
+				"width": 2,
+				"opacity": 0.9,
+				"fill": "#184f69",
+				"fillOpacity": 0.22,
+				"hatch": "none",
+				"hatchOpacity": 0.22,
+				"hatchSpacing": 12
+			}
+		},
+		{
+			"id": "frontier",
+			"name": "Пограничные территории",
+			"color": "#d9b46b",
+			"style": {
+				"line": "dashed",
+				"width": 2,
+				"opacity": 0.85,
+				"fill": "#6a481c",
+				"fillOpacity": 0.16,
+				"hatch": "diagonal",
+				"hatchOpacity": 0.23,
+				"hatchSpacing": 12
+			}
+		},
+		{
+			"id": "unclaimed",
+			"name": "Вне юрисдикции",
+			"color": "#8995ad",
+			"style": {
+				"line": "dotted",
+				"width": 1.5,
+				"opacity": 0.7,
+				"fill": "#222e41",
+				"fillOpacity": 0.1,
+				"hatch": "dots",
+				"hatchOpacity": 0.2,
+				"hatchSpacing": 14
+			}
+		}
+	],
+	"territories": [
+		{
+			"id": "central_border",
+			"name": "Центральные территории",
+			"faction": "central",
+			"points": [
+				[-155, 95],
+				[-40, 105],
+				[45, 40],
+				[35, -30],
+				[-15, -145],
+				[-120, -150],
+				[-165, -55]
+			]
+		},
+		{
+			"id": "frontier_border",
+			"name": "Пограничные территории",
+			"faction": "frontier",
+			"points": [
+				[55, 110],
+				[170, 125],
+				[265, 70],
+				[260, -30],
+				[170, -55],
+				[65, 0]
+			]
+		}
+	],
+	"links": [
+		{
+			"id": "station_service",
+			"from": "station",
+			"to": "service",
+			"state": "active",
+			"access": "restricted",
+			"color": "#77cde0",
+			"line": "dashed",
+			"width": 1.5,
+			"opacity": 0.8,
+			"waypoints": [],
+			"distance": 700
+		},
+		{
+			"id": "station_wilderness",
+			"from": "station",
+			"to": "wilderness_a",
+			"state": "active",
+			"access": "public",
+			"color": "#89c9ec",
+			"line": "solid",
+			"width": 1.5,
+			"opacity": 0.8,
+			"waypoints": [],
+			"distance": 1000
+		},
+		{
+			"id": "frontier_route",
+			"from": "wilderness_a",
+			"to": "outer_reach",
+			"state": "active",
+			"access": "public",
+			"color": "#d9b46b",
+			"line": "solid",
+			"width": 1.5,
+			"opacity": 0.8,
+			"waypoints": [[155, 65]],
+			"distance": 900
+		},
+		{
+			"id": "silent_route",
+			"from": "station",
+			"to": "silent_expanse",
+			"state": "unstable",
+			"access": "public",
+			"color": "#cf9bea",
+			"line": "dash-dot",
+			"width": 1.5,
+			"opacity": 0.8,
+			"waypoints": [[55, -25]],
+			"distance": 1400
+		},
+		{
+			"id": "south_route",
+			"from": "station",
+			"to": "south_cross",
+			"state": "active",
+			"access": "public",
+			"color": "#89c9ec",
+			"line": "solid",
+			"width": 1.5,
+			"opacity": 0.8,
+			"waypoints": [],
+			"distance": 1000
+		}
+	],
+	"pois": [
+		{
+			"id": "chart_warning",
+			"name": "Предел картографии",
+			"x": 235,
+			"y": -90,
+			"kind": "warning",
+			"color": "#e5b567",
+			"description": "Аннотация атласа: физический объект не создаётся."
+		},
+		{
+			"id": "survey",
+			"name": "Зона дальней разведки",
+			"x": 175,
+			"y": -125,
+			"kind": "interest",
+			"color": "#b7a5e8",
+			"description": "Планируемая точка интереса. Размещение объектов задаётся отдельно в коде."
+		}
+	]
+}

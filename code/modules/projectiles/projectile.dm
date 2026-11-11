@@ -198,6 +198,7 @@
 	var/list/ship_pierced_tiles
 	var/overmap_persistent = FALSE
 	var/overmap_velocity = 50
+	var/overmap_radar_kind = "light"
 	var/overmap_radar_visible = FALSE
 	var/overmap_effect_until = 0
 	var/obj/overmap/entity/overmap_firer_vessel
@@ -220,6 +221,8 @@
 		ammo_casing =  null
 	firer_source_atom = null
 	firer = null
+	overmap_firer_vessel = null
+	ship_pierced_tiles = null
 	if(trajectory)
 		QDEL_NULL(trajectory)
 	if(beam_index)

@@ -14,11 +14,12 @@
 
 	var/list/hazard_clusters
 	var/hazard_spawn_weight = 0
+	var/list/galaxy_generation
 	var/list/obj/overmap/objects = list()
 	var/area/overmap/map_area
 
 	var/wraparound = TRUE
-	var/tile_travel = 1
+	var/tile_travel = OVERMAP_STATION_CELL_TILES / OVERMAP_TILE_SPAN
 
 	var/list/datum/overmap_sector_message/comms_messages = list()
 	var/list/hazard_shapes
@@ -249,7 +250,9 @@
 	return block(locate_local(1, 1), locate_local(size, size))
 
 /datum/overmap_sector/proc/populate_roundstart()
-	return
+	if(can_spawn_static_hazards())
+		spawn_static_overmap_hazards(src)
+	SSovermap.spawn_overmap_ruins(src)
 
 /datum/overmap_sector/proc/can_spawn_static_hazards()
 	return sector_kind != OVERMAP_SECTOR_KIND_SERVICE
@@ -265,21 +268,16 @@
 	ruin_spawn_weight = 0.7
 	hazard_spawn_weight = 0.3
 
-	tile_travel = OVERMAP_STATION_CELL_TILES / OVERMAP_TILE_SPAN
-
 /datum/overmap_sector/service
 	id = OVERMAP_SECTOR_ID_SERVICE
 	name = "Дальний космос Эпсилон Лукусты"
-	size = OVERMAP_SECTOR_SERVICE_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_SERVICE
 	access_flags = OVERMAP_ACCESS_CENTCOM | OVERMAP_ACCESS_SYNDICATE
 
 /datum/overmap_sector/wilderness
-	size = OVERMAP_SECTOR_WILDERNESS_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_WILDERNESS
 	ruin_spawn_weight = 2
 	hazard_spawn_weight = 1
-	tile_travel = 3
 
 /datum/overmap_sector/wilderness/populate_roundstart()
 	spawn_static_overmap_hazards(src)

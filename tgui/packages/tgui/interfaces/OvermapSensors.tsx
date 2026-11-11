@@ -78,6 +78,7 @@ type ScanInfo = {
 };
 
 type OvermapSensorsData = {
+  radar_outlines?: Record<string, string>;
   radar_shapes?: Record<string, RadarShape>;
   radar?: RadarContact[];
   radar_drifters?: number[][];
@@ -340,6 +341,7 @@ export const OvermapSensors = () => {
                   <NoticeBox danger>Связь потеряна.</NoticeBox>
                 ) : (
                   <OvermapRadar
+                    outlines={data.radar_outlines}
                     locked={!!data.radar_locked}
                     tick={data.radar_tick}
                     epoch={data.radar_epoch}

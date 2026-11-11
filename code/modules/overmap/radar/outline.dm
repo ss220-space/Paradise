@@ -1,6 +1,4 @@
 /obj/overmap/entity/proc/radar_outline()
-	if(!project_terrain || dock_host?.planet_landing)
-		return null
 	if(!radar_outline_busy && (radar_outline_version != hull_version || world.time >= radar_outline_until))
 		radar_outline_busy = TRUE
 		INVOKE_ASYNC(src, PROC_REF(build_radar_outline))
@@ -26,6 +24,16 @@
 			if(!isspaceturf(spot) || (locate(/obj/structure) in spot))
 				occupied["[FLOOR((spot.x - space.center_x) / step, 1)],[FLOOR((spot.y - space.center_y) / step, 1)]"] = TRUE
 			CHECK_TICK
+	else if(dock_host)
+		var/z_level = dock_host.pick_landing_z()
+		var/list/rect = z_level ? host_content_bounds(z_level) : null
+		if(rect)
+			var/center_x = (rect[1] + rect[3]) / 2
+			var/center_y = (rect[2] + rect[4]) / 2
+			for(var/turf/spot as anything in block(locate(rect[1], rect[2], z_level), locate(rect[3], rect[4], z_level)))
+				if(!isspaceturf(spot) || (locate(/obj/structure) in spot))
+					occupied["[FLOOR((spot.x - center_x) / step, 1)],[FLOOR((spot.y - center_y) / step, 1)]"] = TRUE
+				CHECK_TICK
 	var/list/path = list()
 	for(var/key in occupied)
 		var/list/coords = splittext(key, ",")

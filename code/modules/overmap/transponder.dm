@@ -1,50 +1,3 @@
-GLOBAL_LIST_INIT(overmap_transponder_colors, list(
-	"Белый" = COLOR_WHITE,
-	"Красный" = COLOR_RED,
-	"Жёлтый" = COLOR_VERY_SOFT_YELLOW,
-	"Зелёный" = COLOR_ETHIOPIA_GREEN,
-	"Лаймовый" = COLOR_JADE,
-	"Синий" = COLOR_COMMAND_BLUE,
-	"Фиолетовый" = COLOR_PURPLE,
-	"Серый" = COLOR_SILVER,
-))
-
-/datum/overmap_iff_channel
-	var/id
-	var/label
-	var/permanent = FALSE
-	var/receive = FALSE
-	var/transmit = FALSE
-
-/datum/overmap_iff_channel/New(channel_id, channel_label, is_permanent = FALSE, do_receive = FALSE, do_transmit = FALSE)
-	id = channel_id
-	label = channel_label
-	permanent = is_permanent
-	receive = do_receive
-	transmit = do_transmit
-
-/proc/overmap_iff_id_for_key(key)
-	key = trim(key)
-	if(!key)
-		return null
-	if(cmptext(key, SSovermap.iff_key_centcom))
-		return OVERMAP_IFF_CENTCOM
-	if(cmptext(key, SSovermap.iff_key_syndicate))
-		return OVERMAP_IFF_SYNDICATE
-	return null
-
-/proc/overmap_iff_label_for_id(id)
-	switch(id)
-		if(OVERMAP_IFF_GLOBAL)
-			return "Глобальный"
-		if(OVERMAP_IFF_CENTCOM)
-			return "Центком"
-		if(OVERMAP_IFF_SYNDICATE)
-			return "Синдикат"
-		if(OVERMAP_IFF_HIJACK)
-			return "sys.iff_signal = %ERR#NULL%"
-	return id
-
 /obj/machinery/transponder
 	name = "transponder"
 	desc = "Настенный маяк идентификации. Позволяет идентифицировать судно на глобальной карте."
@@ -286,6 +239,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	return data
 
 /obj/machinery/transponder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/mob/user = ui.user
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -293,7 +247,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	if(action == "relink")
 		link_vessel()
 		return TRUE
-	return handle_action(action, params, usr)
+	return handle_action(action, params, user)
 
 /obj/machinery/transponder/proc/handle_action(action, list/params, mob/user)
 	switch(action)

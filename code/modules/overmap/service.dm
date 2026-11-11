@@ -1,4 +1,6 @@
 /obj/overmap/entity/service_site
+	identity_locked = TRUE
+	identity_icon = "station"
 	abstract_type = /obj/overmap/entity/service_site
 	name = "service site"
 	project_terrain = FALSE
@@ -8,8 +10,6 @@
 	overmap_hazard_immune = TRUE
 	var/site_id
 	var/area/area_root
-	identity_icon = "station"
-	identity_locked = TRUE
 
 /obj/overmap/entity/service_site/Initialize(mapload)
 	. = ..()

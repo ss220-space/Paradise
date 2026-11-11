@@ -75,7 +75,7 @@
 
 /datum/component/overmap_flight/proc/needs_physics()
 	var/obj/overmap/entity/vessel = parent
-	if(held_brake || autopilot || pilot)
+	if(held_brake || autopilot || pilot || vessel.ship_ai?.enabled)
 		return TRUE
 	return vessel.movable && !vessel.halted && vessel.is_moving()
 
@@ -96,7 +96,7 @@
 				release_pilot()
 		else if(seat_pilot?.client && !seat_pilot.incapacitated() && pilot != seat_pilot)
 			take_pilot(seat_pilot, pod_vessel.pod.overmap_helm)
-	if(vessel.relay_jump_from)
+	if(vessel.relay_jump_from || vessel.relay_capture)
 		stop_burn()
 		angular_velocity = 0
 		return
@@ -108,7 +108,9 @@
 	if(pilot)
 		manual_drive = process_pilot(elapsed)
 	var/aim
-	if(autopilot && needs_physics() && !(matching_velocity && (manual_drive || pilot_turn)))
+	if(vessel.ship_ai?.enabled)
+		aim = vessel.ship_ai.flight_control(elapsed)
+	else if(autopilot && needs_physics() && !(matching_velocity && (manual_drive || pilot_turn)))
 		aim = process_autopilot(elapsed)
 	if(!isnull(aim))
 		steer_towards(aim - main_axis_angle(), elapsed)
@@ -368,7 +370,7 @@
 	vessel.speed[1] += accel_x * cos(facing) + accel_y * sin(facing)
 	vessel.speed[2] += accel_y * cos(facing) - accel_x * sin(facing)
 
-	var/limit = min(vessel.max_speed, max(cruise_speed, before))
+	var/limit = min(vessel.max_speed, max(vessel.ship_ai?.enabled ? vessel.max_speed : cruise_speed, before))
 	var/current = sqrt(vessel.speed[1] ** 2 + vessel.speed[2] ** 2)
 	if(current > limit)
 		vessel.speed[1] *= limit / current
@@ -557,6 +559,9 @@
 	return delta_to_angle(vessel.speed[1], vessel.speed[2])
 
 /datum/component/overmap_flight/proc/get_effective_cruise()
+	var/obj/overmap/entity/vessel = parent
+	if(vessel.ship_ai?.enabled)
+		return vessel.max_speed
 	var/limit = cruise_speed
 	if(navigation_speed_limited())
 		limit = min(limit, OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE))

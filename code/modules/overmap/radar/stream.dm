@@ -16,15 +16,6 @@
 	if(!length(radar_uis))
 		SSovermap.radar_vessels -= src
 
-/proc/overmap_watch_radar(atom/source, mob/user, obj/overmap/entity/vessel)
-	for(var/datum/tgui/ui as anything in user?.tgui_open_uis)
-		if(ui.src_object != source)
-			continue
-		if(vessel)
-			vessel.watch_radar(ui)
-		else
-			ui.radar_source?.unwatch_radar(ui)
-
 /datum/controller/subsystem/overmap/proc/push_radars()
 	radar_frame_time = world.time
 	for(var/obj/overmap/entity/vessel as anything in radar_vessels)
@@ -50,5 +41,5 @@
 		entry["y"] = position[2]
 		var/obj/overmap/entity/contact = object
 		if(istype(contact))
-			entry["facing"] = contact.free_flight_view ? contact.get_facing() : 0
+			entry["facing"] = (contact.free_flight_view || istype(contact, /obj/overmap/entity/virtual_structure)) ? contact.get_facing() : 0
 		. += list(entry)

@@ -1,13 +1,3 @@
-/proc/build_overmap_shuttle_profiles()
-	. = list()
-	for(var/path in subtypesof(/datum/overmap_shuttle_profile))
-		var/datum/overmap_shuttle_profile/profile = new path
-		if(!profile.shuttle_id)
-			continue
-		.[profile.shuttle_id] = profile
-
-GLOBAL_LIST_INIT(overmap_shuttle_profiles, build_overmap_shuttle_profiles())
-
 /datum/overmap_shuttle_profile
 	var/shuttle_id
 	var/identity_name
@@ -134,7 +124,6 @@ GLOBAL_LIST_INIT(overmap_shuttle_profiles, build_overmap_shuttle_profiles())
 /datum/overmap_shuttle_profile/trade
 	shuttle_id = "trade_sol"
 	identity_name = "Торговый шаттл"
-	identity_color = COLOR_CENTCOM_BLUE
 	identity_iff_ids = list(OVERMAP_IFF_CENTCOM)
 	identity_color = COLOR_VERY_SOFT_YELLOW
 

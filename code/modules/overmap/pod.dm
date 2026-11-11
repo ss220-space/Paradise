@@ -196,10 +196,3 @@
 	.["cell_charge"] = battery?.charge || 0
 	.["cell_max"] = battery?.maxcharge || 0
 	.["sources"] = !!battery
-
-/proc/overmap_pod_user_ok(mob/user, obj/spacepod/craft)
-	if(!user || !isspacepod(craft))
-		return FALSE
-	if(user.incapacitated())
-		return FALSE
-	return user.loc == craft

@@ -1,0 +1,879 @@
+{
+  "repository": "https://github.com/KhorinisSS14/MonoFrontier",
+  "ref": "main",
+  "imported": "2026-11-10",
+  "engines": [
+    {
+      "source": "thruster_large.rsi",
+      "size": [
+        64,
+        64
+      ],
+      "metadata": {
+        "version": 1,
+        "license": "CC-BY-SA-3.0",
+        "copyright": "Base taken from https://github.com/tgstation/tgstation/blob/c0f54449f9cbe4ca84355e0251dc90d7c806fffb/icons/obj/fluff/2x2.dmi, thrust and thrust_burn_unshaded were made by AsnDen (github)",
+        "size": {
+          "x": 64,
+          "y": 64
+        },
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "9baaaaa6e0e2f48ea768a7901f5845752811243dd21e668ddba0102bc266ad18",
+        "thrust": "437066ed34f179ffd55b6342b18edb37fbbf0e80a072f228755d26fad81ee005",
+        "thrust_burn_unshaded": "5fe413c788be84ad0e2fee1ad725ed152b3b2aea7877e95a4da85ed184a97912"
+      },
+      "dmi_sha256": "02bb94e93bfc059ffbd088be3988504d071618d50ed05185e63cc381455e1887",
+      "frames_verified": 36,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/frontier_large",
+      "name": "Frontier large thruster",
+      "balance": {
+        "size": 2,
+        "generated_thrust": 8,
+        "full_thrust": 32,
+        "active_power_w": 8000,
+        "integrity": 650,
+        "quiet": false
+      }
+    },
+    {
+      "source": "thruster_stealth.rsi",
+      "size": [
+        32,
+        32
+      ],
+      "metadata": {
+        "version": 1,
+        "size": {
+          "x": 32,
+          "y": 32
+        },
+        "copyright": "Created by Ghost Prince for use on Frontier Station.",
+        "license": "CC-BY-SA-4.0",
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "e7107ba51b5d5c3111156cd3f35d85075f158e70b12809c86038d0f06a9bca5b",
+        "thrust": "c420caa5d17587693b16eddd195154217a3e709f8f27edcfa538960a51cf7ea3",
+        "thrust_burn_unshaded": "6e0ceabbb860fff9d41cdebcab397e24b4d5653b0cbd619defce1002ad9731b4"
+      },
+      "dmi_sha256": "1d3ba40032deec83c94948abbe04416708e4ad6be2ac6b78201bc3d6c64ab7df",
+      "frames_verified": 44,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/nfsd_stealth",
+      "name": "NFSD stealth thruster",
+      "balance": {
+        "size": 1,
+        "generated_thrust": 1.5,
+        "full_thrust": 6.0,
+        "active_power_w": 1200,
+        "integrity": 250,
+        "quiet": true
+      }
+    },
+    {
+      "source": "thrusternfsd_large.rsi",
+      "size": [
+        64,
+        64
+      ],
+      "metadata": {
+        "version": 1,
+        "license": "CC-BY-SA-3.0",
+        "copyright": "Base taken from https://github.com/tgstation/tgstation/blob/c0f54449f9cbe4ca84355e0251dc90d7c806fffb/icons/obj/fluff/2x2.dmi, thrust and thrust_burn_unshaded were made by AsnDen (github), edited by Honestly101 (github)",
+        "size": {
+          "x": 64,
+          "y": 64
+        },
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "546bcbdb7064fc0745d2a6360109ecd24c303907b93527202d0d988ff99ce8f3",
+        "thrust": "6f3a8effb16798730cd54435857a82381c042e40ceaafad7b3d984a4cbe48c83",
+        "thrust_burn_unshaded": "ab47386639430ca658dbdcf67e44391f119caeba6a8451dabf53e44b5f637c67"
+      },
+      "dmi_sha256": "4ef652a9a3087e85406ad54a48e368376244204e30011c3febd92f85f3e13fa9",
+      "frames_verified": 36,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/nfsd_large",
+      "name": "NFSD large thruster",
+      "balance": {
+        "size": 2,
+        "generated_thrust": 9,
+        "full_thrust": 36,
+        "active_power_w": 10000,
+        "integrity": 900,
+        "quiet": false
+      }
+    },
+    {
+      "source": "thrusterrogue.rsi",
+      "size": [
+        32,
+        32
+      ],
+      "metadata": {
+        "version": 1,
+        "size": {
+          "x": 32,
+          "y": 32
+        },
+        "copyright": "Created by Ghost Prince for use on Frontier Station, edited by Honestly101 (github)",
+        "license": "CC-BY-SA-4.0",
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "7a5de3ff7291f40d687ff5fdebec9cb4cb607b72f3d8b0fb30781897c61eb8ad",
+        "thrust": "b0a1d8481307cf9aad02c74bd59e0ab6456bd3b34fd7f1514ee97ac71296d5d8",
+        "thrust_burn_unshaded": "0b3b86a85e3192a395aa1fa3bff51527ce14b5f672e14b709ec10cd8a99cbb02"
+      },
+      "dmi_sha256": "183c7d5c953a52de9a644b01fc22c87fdc5a5eb3de85e620be1fbe69c88bc6c1",
+      "frames_verified": 44,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/rogue",
+      "name": "Rogue thruster",
+      "balance": {
+        "size": 1,
+        "generated_thrust": 3,
+        "full_thrust": 12,
+        "active_power_w": 2600,
+        "integrity": 350,
+        "quiet": false
+      }
+    },
+    {
+      "source": "thrusterrogue_large.rsi",
+      "size": [
+        64,
+        64
+      ],
+      "metadata": {
+        "version": 1,
+        "license": "CC-BY-SA-3.0",
+        "copyright": "Base taken from https://github.com/tgstation/tgstation/blob/c0f54449f9cbe4ca84355e0251dc90d7c806fffb/icons/obj/fluff/2x2.dmi, thrust and thrust_burn_unshaded were made by AsnDen (github), edited by Honestly101 (github)",
+        "size": {
+          "x": 64,
+          "y": 64
+        },
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "3fb80276706b4ae7c6de32ef13f8609c99a2994331036281b9c3914c9fcaa9cf",
+        "thrust": "a103c969fb38bf82a3575e90669062182c92f30462c9dd87760e3cb4723e6e7d",
+        "thrust_burn_unshaded": "1bf98373c80396195feb2dc2227bcddcc3c191f9529003511083656e8cc99aad"
+      },
+      "dmi_sha256": "af887dc73c5da58381c21240173f2048eaf164a3cbf63cda1acc2bd3fed7b1a9",
+      "frames_verified": 36,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/rogue_large",
+      "name": "Rogue large thruster",
+      "balance": {
+        "size": 2,
+        "generated_thrust": 10,
+        "full_thrust": 40,
+        "active_power_w": 13000,
+        "integrity": 700,
+        "quiet": false
+      }
+    },
+    {
+      "source": "thrusterrogue_stealth.rsi",
+      "size": [
+        32,
+        32
+      ],
+      "metadata": {
+        "version": 1,
+        "size": {
+          "x": 32,
+          "y": 32
+        },
+        "copyright": "Created by Ghost Prince for use on Frontier Station.",
+        "license": "CC-BY-SA-4.0",
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "e7107ba51b5d5c3111156cd3f35d85075f158e70b12809c86038d0f06a9bca5b",
+        "thrust": "b0a1d8481307cf9aad02c74bd59e0ab6456bd3b34fd7f1514ee97ac71296d5d8",
+        "thrust_burn_unshaded": "0b3b86a85e3192a395aa1fa3bff51527ce14b5f672e14b709ec10cd8a99cbb02"
+      },
+      "dmi_sha256": "74660701b27a3cd909e969b7be0d826b3423b2a6eaba17dcb5b0228135dfabe5",
+      "frames_verified": 44,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/rogue_stealth",
+      "name": "Rogue stealth thruster",
+      "balance": {
+        "size": 1,
+        "generated_thrust": 2,
+        "full_thrust": 8,
+        "active_power_w": 1700,
+        "integrity": 300,
+        "quiet": true
+      }
+    },
+    {
+      "source": "thrusterussp.rsi",
+      "size": [
+        32,
+        32
+      ],
+      "metadata": {
+        "version": 1,
+        "size": {
+          "x": 32,
+          "y": 32
+        },
+        "copyright": "Created by Ghost Prince for use on Frontier Station, edited by Honestly101 (github)",
+        "license": "CC-BY-SA-4.0",
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "a4bf3ec43b61d9f9f02a623e418ee6b3c150a6a28d3e69c78f639dc2757494e3",
+        "thrust": "f15f94ad9c69c71ec881eac9cd2e4a05012476615e44dde7afe4acaf5e75ab3f",
+        "thrust_burn_unshaded": "43d7a99f6b03de9ccdd82e486c48f0b6ff1cc075fc11319f943a866c6705c60c"
+      },
+      "dmi_sha256": "6749c8c04d8d286e2c22108633f4f5167f56f85f54080400c05c0008667728d8",
+      "frames_verified": 44,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/ussp",
+      "name": "USSP thruster",
+      "balance": {
+        "size": 1,
+        "generated_thrust": 2.5,
+        "full_thrust": 10.0,
+        "active_power_w": 2200,
+        "integrity": 500,
+        "quiet": false
+      }
+    },
+    {
+      "source": "thrusterussp_large.rsi",
+      "size": [
+        64,
+        64
+      ],
+      "metadata": {
+        "version": 1,
+        "license": "CC-BY-SA-3.0",
+        "copyright": "Base taken from https://github.com/tgstation/tgstation/blob/c0f54449f9cbe4ca84355e0251dc90d7c806fffb/icons/obj/fluff/2x2.dmi, thrust and thrust_burn_unshaded were made by AsnDen (github), edited by Honestly101 (github)",
+        "size": {
+          "x": 64,
+          "y": 64
+        },
+        "states": [
+          {
+            "name": "base",
+            "directions": 4
+          },
+          {
+            "name": "thrust",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          },
+          {
+            "name": "thrust_burn_unshaded",
+            "directions": 4,
+            "delays": [
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ]
+            ]
+          }
+        ]
+      },
+      "png_sha256": {
+        "base": "bd2f8c0164a8f5db6bd9a41bd2792e1de868b774c54a6815bda38456adc1e2ac",
+        "thrust": "a9b6e73eea93b0030cc6b647008657b7269fa02eca85ae7d8e0ba44c14a26e2b",
+        "thrust_burn_unshaded": "ec5f6189331c68a00e21ecf68d97655e224885bc497016dd13fb81dee5012686"
+      },
+      "dmi_sha256": "1444946296d460c786855e9eb253d23dbbb0cb22ca02933d1e89d0373cf5b7c8",
+      "frames_verified": 36,
+      "dmi_direction_source_indices": [
+        1,
+        0,
+        3,
+        2
+      ],
+      "typepath": "/obj/machinery/ship_engine/ussp_large",
+      "name": "USSP large thruster",
+      "balance": {
+        "size": 2,
+        "generated_thrust": 9,
+        "full_thrust": 36,
+        "active_power_w": 11000,
+        "integrity": 1100,
+        "quiet": false
+      }
+    }
+  ]
+}

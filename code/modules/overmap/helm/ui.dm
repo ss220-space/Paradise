@@ -155,6 +155,7 @@
 	return data
 
 /obj/machinery/computer/helm/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/mob/user = ui.user
 	if(..())
 		return
 	if(!vessel)
@@ -163,19 +164,19 @@
 			return TRUE
 
 	if(vessel.is_programmed_locked() && !(action in list("select_programmed", "execute_programmed", "relink", "helm_tab", "helm_radar_reach", "select_weapon", "weapon_auto")) && !(length(selected_weapons) && (action in list("radar_point", "set_dest"))))
-		to_chat(usr, span_warning("Прямое управление заблокировано поставщиком услуг."))
+		to_chat(user, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return TRUE
 
 	if(vessel.is_jumping() && (action in list("undock", "dock", "dock_edge", "dock_ship", "dock_station", "prepare_stop", "prepare_landing", "align_dock", "relay_jump")))
-		to_chat(usr, span_warning("Идёт гиперпрыжок."))
+		to_chat(user, span_warning("Идёт гиперпрыжок."))
 		return TRUE
 
 	if(vessel.docking_approach?.aligning && (action in list("take_helm", "inspect", "undock", "dock", "dock_edge", "dock_ship", "dock_station")))
-		to_chat(usr, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
+		to_chat(user, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
 		return TRUE
 	switch(action)
 		if("select_weapon", "weapon_auto")
-			weapon_action(action, params, usr)
+			weapon_action(action, params, user)
 			return TRUE
 		if("prepare_landing")
 			if(!vessel.can_radar_land())
@@ -183,19 +184,19 @@
 			if(vessel.set_selected_pad(params["id"]))
 				var/result = vessel.overmap_pod ? vessel.begin_physical_dock() : vessel.prepare_landing(vessel.get_selected_pad())
 				if(result != TRUE)
-					to_chat(usr, span_warning("Посадочная область недоступна."))
+					to_chat(user, span_warning("Посадочная область недоступна."))
 			return TRUE
 		if("select_radar_dock")
 			vessel.select_radar_dock(params["id"])
 			return TRUE
 		if("prepare_stop")
 			if(!vessel.prepare_stop())
-				to_chat(usr, span_warning("Поблизости нет свободной области остановки."))
+				to_chat(user, span_warning("Поблизости нет свободной области остановки."))
 			return TRUE
 		if("relay_jump")
 			var/result = vessel.begin_hyperrelay_jump()
 			if(result != TRUE)
-				to_chat(usr, span_warning("[result]"))
+				to_chat(user, span_warning("[result]"))
 			return TRUE
 		if("align_dock")
 			if(vessel.docking_approach && !vessel.docking_approach.aligning && !vessel.docking_approach.in_alignment_range())
@@ -203,7 +204,7 @@
 				return TRUE
 			var/result = vessel.docking_approach?.start_alignment()
 			if(result != TRUE)
-				to_chat(usr, span_warning("[result || "Сначала выберите область стыковки."]"))
+				to_chat(user, span_warning("[result || "Сначала выберите область стыковки."]"))
 			return TRUE
 		if("cancel_docking")
 			if(!vessel.docking_approach?.aligning && !vessel.docking_approach?.in_alignment_range())
@@ -215,7 +216,7 @@
 		if("execute_programmed")
 			var/result = vessel.start_programmed_route(params["id"] || vessel.programmed_selected_dock)
 			if(result != TRUE)
-				to_chat(usr, span_warning("[result]"))
+				to_chat(user, span_warning("[result]"))
 			. = TRUE
 
 		if("take_helm", "inspect")
@@ -224,21 +225,21 @@
 			var/datum/component/overmap_flight/nav = vessel.flight
 			if(!nav)
 				return TRUE
-			if(nav.pilot == usr)
+			if(nav.pilot == user)
 				nav.release_pilot()
 			else if(nav.pilot)
-				to_chat(usr, span_warning("За штурвалом уже [nav.pilot.name]."))
-			else if(!can_pilot(usr))
-				to_chat(usr, span_warning("Нужно стоять у консоли."))
+				to_chat(user, span_warning("За штурвалом уже [nav.pilot.name]."))
+			else if(!can_pilot(user))
+				to_chat(user, span_warning("Нужно стоять у консоли."))
 			else if(!vessel.can_steer())
-				to_chat(usr, span_warning("Судно не может маневрировать."))
+				to_chat(user, span_warning("Судно не может маневрировать."))
 			else if(vessel.docked_ship)
-				to_chat(usr, span_warning("Корабль пристыкован к [vessel.docked_ship.get_overmap_display_name()]."))
+				to_chat(user, span_warning("Корабль пристыкован к [vessel.docked_ship.get_overmap_display_name()]."))
 			else if(vessel.is_jumping())
-				to_chat(usr, span_warning("Идёт гиперпрыжок."))
+				to_chat(user, span_warning("Идёт гиперпрыжок."))
 			else
 
-				nav.take_pilot(usr, src)
+				nav.take_pilot(user, src)
 			. = TRUE
 		if("dock_ship")
 			if(vessel.docked_ship)
@@ -249,7 +250,7 @@
 			. = TRUE
 		if("brake")
 			if(!vessel.set_held_brake(!vessel.flight?.held_brake))
-				to_chat(usr, span_warning("Невозможно тормозить."))
+				to_chat(user, span_warning("Невозможно тормозить."))
 			. = TRUE
 		if("cut_engines")
 			vessel.cut_engines()
@@ -291,9 +292,9 @@
 		if("transponder")
 			var/obj/machinery/transponder/beacon = vessel.transponder
 			if(!beacon || (beacon.stat & (NOPOWER|BROKEN)))
-				to_chat(usr, span_warning("Транспондер не отвечает."))
+				to_chat(user, span_warning("Транспондер не отвечает."))
 				return TRUE
-			beacon.handle_action(params["op"], params, usr)
+			beacon.handle_action(params["op"], params, user)
 			. = TRUE
 		if("set_dest", "radar_point")
 			if(length(selected_weapons))
@@ -306,7 +307,7 @@
 					var/obj/overmap/entity/entity = target
 					target_x = istype(entity) ? entity.get_world_x() : target.x * OVERMAP_TILE_SPAN * vessel.sector.tile_travel
 					target_y = istype(entity) ? entity.get_world_y() : target.y * OVERMAP_TILE_SPAN * vessel.sector.tile_travel
-				fire_weapons(target_x, target_y, usr)
+				fire_weapons(target_x, target_y, user)
 				return TRUE
 			if(!vessel.flight || !vessel.sector)
 				return TRUE
@@ -352,11 +353,11 @@
 			. = TRUE
 		if("match_velocity")
 			if(!vessel.flight?.toggle_velocity_matching())
-				to_chat(usr, span_warning("Выберите доступный объект для сближения."))
+				to_chat(user, span_warning("Выберите доступный объект для сближения."))
 			. = TRUE
 		if("toggle_autopilot")
 			if(!vessel.flight?.autopilot_x || !vessel.flight.autopilot_y)
-				to_chat(usr, span_warning("Нет установленной цели автопилота."))
+				to_chat(user, span_warning("Нет установленной цели автопилота."))
 			else
 				vessel.set_autopilot(!vessel.flight.autopilot, vessel.flight.autopilot_x, vessel.flight.autopilot_y)
 			. = TRUE
@@ -372,52 +373,52 @@
 		if("undock")
 			var/undock_result = vessel.begin_physical_undock()
 			if(undock_result != TRUE)
-				to_chat(usr, span_warning("[undock_result]"))
+				to_chat(user, span_warning("[undock_result]"))
 			else if(vessel.overmap_pod)
-				to_chat(usr, span_notice("Челнок выходит в гиперпространство."))
+				to_chat(user, span_notice("Челнок выходит в гиперпространство."))
 			else
-				to_chat(usr, span_notice("Шаттл выходит в гиперпространство."))
+				to_chat(user, span_notice("Шаттл выходит в гиперпространство."))
 			. = TRUE
 		if("dock")
 			var/dock_result = vessel.overmap_pod ? vessel.begin_physical_dock() : (vessel.prepare_landing(vessel.get_selected_pad()) ? TRUE : "Посадочная область недоступна.")
 			if(dock_result == OVERMAP_DOCK_NEED_CUSTOM_PICK)
-				if(!open_custom_dock_picker(usr))
-					to_chat(usr, span_warning("Произвольная точка недоступна."))
+				if(!open_custom_dock_picker(user))
+					to_chat(user, span_warning("Произвольная точка недоступна."))
 				else
-					to_chat(usr, span_notice("Отметьте произвольную точку на [vessel.get_dock_host()?.name || "объекте"]."))
+					to_chat(user, span_notice("Отметьте произвольную точку на [vessel.get_dock_host()?.name || "объекте"]."))
 			else if(dock_result != TRUE)
-				to_chat(usr, span_warning("[dock_result]"))
+				to_chat(user, span_warning("[dock_result]"))
 			else if(vessel.overmap_pod)
-				to_chat(usr, span_notice("Челнок выходит из гиперпространства."))
+				to_chat(user, span_notice("Челнок выходит из гиперпространства."))
 			else
-				to_chat(usr, span_notice("Стыковка начата. Шаттл направляется к выбранной площадке."))
+				to_chat(user, span_notice("Стыковка начата. Шаттл направляется к выбранной площадке."))
 			. = TRUE
 		if("dock_edge")
 			if(!vessel.overmap_pod)
-				to_chat(usr, span_warning("Судно слишком большое для такого манёвра."))
+				to_chat(user, span_warning("Судно слишком большое для такого манёвра."))
 			else
 				vessel.set_selected_pad(OVERMAP_DOCK_ID_EDGE)
 				var/edge_result = vessel.overmap_pod.begin_dock(TRUE)
 				if(edge_result != TRUE)
-					to_chat(usr, span_warning("[edge_result]"))
+					to_chat(user, span_warning("[edge_result]"))
 				else
-					to_chat(usr, span_notice("Челнок выходит к краю сектора объекта."))
+					to_chat(user, span_notice("Челнок выходит к краю сектора объекта."))
 			. = TRUE
 		if("select_dock")
 			if(!vessel.set_selected_pad(params["id"]))
-				to_chat(usr, span_warning("Нельзя выбрать эту площадку."))
+				to_chat(user, span_warning("Нельзя выбрать эту площадку."))
 			else if(params["id"] == OVERMAP_DOCK_ID_CUSTOM && !vessel.get_custom_dock(vessel.get_dock_host()))
-				open_custom_dock_picker(usr)
+				open_custom_dock_picker(user)
 			. = TRUE
 		if("select_collar")
 			if(!vessel.set_selected_collar(params["id"]))
-				to_chat(usr, span_warning("Этот шлюз недоступен."))
+				to_chat(user, span_warning("Этот шлюз недоступен."))
 			. = TRUE
 		if("helm_tab")
 			helm_tab = (params["tab"] == "dock") ? "dock" : "flight"
 			. = TRUE
 		if("pick_custom_dock")
-			if(!open_custom_dock_picker(usr))
+			if(!open_custom_dock_picker(user))
 				. = TRUE
 			else
 				vessel.set_selected_pad(OVERMAP_DOCK_ID_CUSTOM)
@@ -425,16 +426,6 @@
 		if("relink")
 			link_vessel()
 			. = TRUE
-
-/proc/hazard_flavour(obj/overmap/feature/hazard/hazard)
-	switch(hazard?.icon_state)
-		if(OVERMAP_HAZARD_ICON_EMP)
-			return "emp"
-		if(OVERMAP_HAZARD_ICON_CARP)
-			return "carp"
-		if(OVERMAP_HAZARD_ICON_ASTEROID)
-			return "asteroid"
-	return null
 
 /obj/machinery/computer/helm/proc/flight_phase()
 	if(vessel.is_programmed_locked())

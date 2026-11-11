@@ -12,6 +12,7 @@ export type OvermapLamp = {
 };
 
 type FrameProps = {
+  variant?: 'weapons';
   title: string;
   width: number;
   height: number;
@@ -37,7 +38,10 @@ export const OvermapFrame = (props: FrameProps) => {
   } = props;
   return (
     <Window title={title} width={width} height={height}>
-      <Window.Content fitted className="OvermapConsole">
+      <Window.Content
+        fitted
+        className={`OvermapConsole${props.variant === 'weapons' ? ' OvermapConsole--weapons' : ''}`}
+      >
         {!linked ? (
           <div className="OvermapConsole__pad">
             <NoticeBox danger>

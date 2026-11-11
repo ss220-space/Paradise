@@ -1,61 +1,3 @@
-/datum/overmap_sector_message
-	var/id
-	var/plaintext = ""
-	var/scrambled = ""
-	var/encryption_key
-	var/sender_name = "Неизвестный"
-	var/sector_id
-	var/sent_at = 0
-
-/datum/overmap_sector_message/New(body, key, origin_name, from_sector_id)
-	id = "omsg_[UID()]"
-	plaintext = body
-	encryption_key = key
-	sender_name = origin_name
-	sector_id = from_sector_id
-	sent_at = world.time
-	if(encryption_key)
-		scrambled = overmap_comms_scramble(plaintext)
-	else
-		scrambled = plaintext
-
-/datum/overmap_comms_cipher
-	var/key = ""
-	var/label = ""
-	var/autodecrypt = FALSE
-	var/announce = FALSE
-
-/datum/overmap_comms_cipher/New(cipher_key, cipher_label)
-	key = cipher_key
-	label = cipher_label || "Канал"
-
-/proc/overmap_comms_scramble(text)
-	. = ""
-	var/static/list/alphabet = list(
-		"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-		"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-		"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-		"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-	)
-	for(var/i in 1 to length_char(text))
-		var/char = copytext_char(text, i, i + 1)
-		if(char == " " || char == "\n" || char == "\t")
-			. += char
-			continue
-		. += pick(alphabet)
-
-/proc/overmap_comms_mask_key(key)
-	var/len = length_char(key)
-	if(len <= 1)
-		return key
-	if(len == 2)
-		return "[copytext_char(key, 1, 2)]*"
-	var/stars = ""
-	for(var/i in 1 to len - 2)
-		stars += "*"
-	return "[copytext_char(key, 1, 2)][stars][copytext_char(key, len, len + 1)]"
-
 /obj/machinery/overmap_intercom
 	name = "sector comms panel"
 	desc = "Настенная панель секторной связи. Рассылает сообщения всем панелям в текущем секторе. Имеет встроенный шифратор."
@@ -260,6 +202,7 @@
 	return data
 
 /obj/machinery/overmap_intercom/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/mob/user = ui.user
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -284,13 +227,13 @@
 			var/key = sanitize_comms_key(params["key"])
 			var/label = copytext_char(trim(strip_html(params["label"])), 1, 32)
 			if(!key)
-				to_chat(usr, span_warning("Пустой ключ."))
+				to_chat(user, span_warning("Пустой ключ."))
 				return TRUE
 			if(!label)
-				to_chat(usr, span_warning("Укажите название канала."))
+				to_chat(user, span_warning("Укажите название канала."))
 				return TRUE
 			if(find_cipher(key))
-				to_chat(usr, span_notice("Этот ключ уже в списке прослушивания."))
+				to_chat(user, span_notice("Этот ключ уже в списке прослушивания."))
 				return TRUE
 			known_ciphers += new /datum/overmap_comms_cipher(key, label)
 			. = TRUE
@@ -315,17 +258,17 @@
 				link_vessel()
 			var/datum/overmap_sector/sector = get_comms_sector()
 			if(!sector)
-				to_chat(usr, span_warning("Нет связи с сектором."))
+				to_chat(user, span_warning("Нет связи с сектором."))
 				return TRUE
 			if(vessel.is_overmap_jammed())
-				to_chat(usr, span_warning("Помехи гипертранслятора. Передача невозможна."))
+				to_chat(user, span_warning("Помехи гипертранслятора. Передача невозможна."))
 				return TRUE
 			if(world.time < next_transmit)
-				to_chat(usr, span_warning("Передатчик ещё остывает."))
+				to_chat(user, span_warning("Передатчик ещё остывает."))
 				return TRUE
 			var/body = trim(strip_html_properly(params["text"], OVERMAP_COMMS_MAX_BODY, TRUE))
 			if(!body)
-				to_chat(usr, span_warning("Пустое сообщение."))
+				to_chat(user, span_warning("Пустое сообщение."))
 				return TRUE
 			var/key = sanitize_comms_key(params["key"])
 			saved_send_key = key || ""
@@ -347,7 +290,7 @@
 			var/msg_id = params["id"]
 			var/key = sanitize_comms_key(params["key"])
 			if(!msg_id || !key)
-				to_chat(usr, span_warning("Нужен ключ шифрования."))
+				to_chat(user, span_warning("Нужен ключ шифрования."))
 				return TRUE
 			var/datum/overmap_sector_message/message
 			for(var/datum/overmap_sector_message/entry as anything in sector.comms_messages)
@@ -355,22 +298,22 @@
 					message = entry
 					break
 			if(!message)
-				to_chat(usr, span_warning("Сообщение не найдено."))
+				to_chat(user, span_warning("Сообщение не найдено."))
 				return TRUE
 			if(!message.encryption_key)
-				to_chat(usr, span_notice("Сообщение не зашифровано."))
+				to_chat(user, span_notice("Сообщение не зашифровано."))
 				return TRUE
 			if(unlocked_message_ids[message.id])
-				to_chat(usr, span_notice("Это сообщение уже расшифровано на этой панели."))
+				to_chat(user, span_notice("Это сообщение уже расшифровано на этой панели."))
 				return TRUE
 			if(key != message.encryption_key)
-				to_chat(usr, span_warning("Ключ не подходит."))
+				to_chat(user, span_warning("Ключ не подходит."))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 40, FALSE)
 				return TRUE
 			unlocked_message_ids[message.id] = TRUE
 			if(!find_cipher(key))
 				known_ciphers += new /datum/overmap_comms_cipher(key, "Канал")
-			to_chat(usr, span_notice("Сообщение расшифровано на этой панели."))
+			to_chat(user, span_notice("Сообщение расшифровано на этой панели."))
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 40, FALSE)
 			. = TRUE
 

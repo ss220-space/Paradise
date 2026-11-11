@@ -160,3 +160,7 @@
 /datum/looping_sound/ship_engine/thruster
 	volume = 12
 	extra_range = 2
+
+/datum/looping_sound/ship_engine/stealth
+	volume = 5
+	extra_range = 1

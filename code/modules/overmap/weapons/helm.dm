@@ -27,7 +27,7 @@
 		var/dx = point ? point[1] - origin[1] : 0
 		var/dy = point ? point[2] - origin[2] : 0
 		point = list(dx * cos(angle) - dy * sin(angle), dx * sin(angle) + dy * cos(angle))
-		. += list(list("id" = id, "name" = gun.name, "selected" = (id in selected_weapons), "auto" = data["automatic"], "turret" = istype(gun, /obj/machinery/porta_turret), "cooldown" = max(0, cooldown - world.time) / (1 SECONDS), "arc" = data["arc"], "heading" = data["heading"] - angle, "x" = point[1], "y" = point[2]))
+		. += list(list("id" = id, "name" = gun.name, "selected" = (id in selected_weapons), "auto" = data["automatic"], "turret" = istype(gun, /obj/machinery/porta_turret), "cooldown" = max(0, cooldown - world.time) / (1 SECONDS), "cooldown_total" = data["cooldown_total"], "arc" = data["arc"], "heading" = data["heading"] - angle, "x" = point[1], "y" = point[2]))
 	selected_weapons &= available
 
 /obj/machinery/computer/helm/proc/weapon_action(action, list/params, mob/user)

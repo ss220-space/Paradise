@@ -1,10 +1,3 @@
-/proc/fire_projectile_burst(datum/callback/shot, count, delay)
-	if(count < 1 || !shot.Invoke())
-		return FALSE
-	for(var/index in 2 to count)
-		addtimer(shot, (index - 1) * delay)
-	return TRUE
-
 /obj/projectile/proc/configure_ship_shot(mob/user, atom/source, damage_scale = 1, penetration_chance = 0, radar_visible = FALSE)
 	firer = user
 	firer_source_atom = source
@@ -49,6 +42,7 @@
 	return TRUE
 
 /obj/projectile/bullet/ship_artillery
+	overmap_radar_kind = "heavy"
 	name = "bluespace artillery shell"
 	icon_state = "pulse1"
 	damage = 75
@@ -68,23 +62,6 @@
 	detonated = TRUE
 	explosion(spot, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 2, adminlog = TRUE, cause = "portable bluespace artillery")
 	qdel(src)
-
-/datum/overmap_projectile/proc/scatter_hit(obj/overmap/feature/hazard/field, index, x, y)
-	if(ion_impact(x, y))
-		return TRUE
-	var/key = "[field.UID()]:[index]"
-	if(key in payload.ship_pierced_tiles)
-		return FALSE
-	var/pierce = payload.try_ship_penetration(key)
-	field.damage_scatter(index, payload.damage)
-	if(istype(payload, /obj/projectile/bullet/ship_artillery) && (!pierce || !payload.ship_penetrations))
-		detonate_shell(x, y)
-		qdel(src)
-		return TRUE
-	if(!pierce)
-		qdel(src)
-		return TRUE
-	return FALSE
 
 /datum/controller/subsystem/overmap/proc/sector_explosion_turf(datum/overmap_sector/sector, x, y)
 	for(var/datum/overmap_bubble/space as anything in bubbles)
@@ -109,6 +86,7 @@
 	launch_sector_projectile(visual, sector, x, y, 0)
 
 /obj/projectile/ion/pod
+	overmap_radar_kind = "ion"
 	overmap_radar_visible = TRUE
 
 /obj/projectile/ion/pod/on_hit(atom/target, blocked = 0)
@@ -116,74 +94,6 @@
 	if(!spot)
 		return
 	pod_emp(spot)
-
-/proc/pod_emp(turf/spot)
-	playsound(spot, 'sound/effects/empulse.ogg', 60, TRUE)
-	new /obj/effect/temp_visual/emp/pulse(spot)
-	for(var/atom/target in range(1, spot))
-		target.emp_act(EMP_HEAVY)
-	add_game_logs("Pod ion impact at [COORD(spot)]")
-
-/datum/overmap_projectile/proc/ion_impact(x, y)
-	if(!istype(payload, /obj/projectile/ion/pod))
-		return FALSE
-	var/list/affected = list()
-	for(var/obj/overmap/entity/vessel as anything in SSovermap.flying_vessels)
-		if(vessel.sector != sector)
-			continue
-		if(istype(vessel, /obj/overmap/entity/virtual_structure))
-			var/obj/overmap/entity/virtual_structure/structure = vessel
-			for(var/obj/machinery/gun as anything in structure.virtual_weapons)
-				var/list/point = structure.hull_to_world(gun.virtual_weapon_x, gun.virtual_weapon_y)
-				if(abs(point[1] - x) <= 1.5 && abs(point[2] - y) <= 1.5)
-					gun.emp_act(EMP_HEAVY)
-			continue
-		var/turf/spot = SSovermap.world_to_frame(vessel, x, y)
-		if(spot && vessel.flight_reservation && SSmapping.used_turfs[spot] == vessel.flight_reservation)
-			affected |= spot
-	for(var/datum/overmap_bubble/space as anything in SSovermap.bubbles)
-		if(space.static_level && space.sector == sector)
-			var/turf/spot = space.turf_at(x, y)
-			if(spot)
-				affected |= spot
-	for(var/turf/spot as anything in affected)
-		pod_emp(spot)
-	if(!length(affected))
-		var/obj/effect/temp_visual/emp/pulse/prototype = /obj/effect/temp_visual/emp/pulse
-		var/obj/projectile/visual = new(null)
-		visual.icon = initial(prototype.icon)
-		visual.icon_state = initial(prototype.icon_state)
-		visual.overmap_effect_until = world.time + initial(prototype.duration)
-		SSovermap.launch_sector_projectile(visual, sector, x, y, 0)
-	qdel(src)
-	return TRUE
-
-/datum/overmap_projectile/proc/detonate_shell(x, y)
-	var/obj/projectile/bullet/ship_artillery/shell = payload
-	var/turf/blast = SSovermap.sector_explosion_turf(sector, x, y)
-	if(blast)
-		shell.detonate(blast)
-	else
-		SSovermap.affect_projected_explosion(sector, x, y, 0, 1, 2)
-		SSovermap.show_sector_explosion(sector, x, y)
-
-/proc/overmap_explosion_severity(dx, dy, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction, arc)
-	var/distance = sqrt(dx ** 2 + dy ** 2)
-	if(protect_epicenter && distance < 0.5)
-		return 0
-	if(distance >= 0.5 && arc < 360 && abs(closer_angle_difference(direction, delta_to_angle(dx, dy))) > arc / 2)
-		return 0
-	return EXPLOSION_SEVERITY(distance, devastation_range, heavy_impact_range, light_impact_range)
-
-/proc/overmap_explosion_damage(severity)
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			return 250
-		if(EXPLODE_HEAVY)
-			return 150
-		if(EXPLODE_LIGHT)
-			return 60
-	return 0
 
 /datum/controller/subsystem/overmap/proc/affect_projected_explosion(datum/overmap_sector/sector, x, y, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter = FALSE, direction = 0, arc = 360)
 	var/reach = max(devastation_range, heavy_impact_range, light_impact_range)

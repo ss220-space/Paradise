@@ -39,6 +39,20 @@
 	/// Used to disable ruins, lavaland, etc. for a specific map.
 	var/disables = NONE
 	var/overmap_physical_docks = FALSE
+	var/overmap_station_sector_id = OVERMAP_SECTOR_ID_STATION
+	var/list/overmap_station_position
+	var/overmap_station_hidden = FALSE
+	var/overmap_station_planetary = null
+	var/overmap_station_allow_custom_landing = TRUE
+	var/overmap_station_broadcasting = TRUE
+	var/overmap_station_planet_name = "Планета станции"
+	var/overmap_station_planet_color = "#6b9ac4"
+	var/overmap_station_planet_icon_state = "lavaland"
+	var/overmap_station_planet_footprint = 3
+	var/overmap_lavaland_sector_id
 
 	/// Boolean that tells us if this is a planetary station. (like Malta)
 	var/planetary = FALSE
+
+/datum/map/proc/overmap_station_is_planetary()
+	return isnull(overmap_station_planetary) ? planetary : overmap_station_planetary

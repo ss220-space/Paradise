@@ -1359,9 +1359,7 @@
   background: rgba(5, 16, 28, 0.75);
   border: 1px solid rgba(96, 170, 255, 0.35);
   color: #a8d4ff;
-  font-size: 1em;
-  font-weight: bold;
-  line-height: 1;
+  font: bold 13px/1 Consolas, monospace;
   cursor: pointer;
 }
 
@@ -1408,7 +1406,7 @@
 
 .OvermapRadar__rulerLabel {
   font-family: Consolas, 'Courier New', monospace;
-  font-size: 0.7em;
+  font-size: 10px;
   color: #a8d4ff;
 }
 
@@ -2536,4 +2534,229 @@
     font-size: 11px;
     opacity: 0.6;
   }
+}
+
+.TacticalGalaxy {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  color: #b9ccdd;
+  background: radial-gradient(ellipse at 50% 40%, #14202b, #0a101b 80%);
+  font:
+    11px Consolas,
+    'Courier New',
+    monospace;
+  user-select: none;
+  touch-action: none;
+
+  button:not(.OvermapRadar__zoomButton) {
+    cursor: pointer;
+    color: #c7d9e7;
+    background: #111e2b;
+    border: 1px solid #344c60;
+    padding: 6px 9px;
+    font: inherit;
+  }
+  button:not(.OvermapRadar__zoomButton):hover {
+    background: #213849;
+    color: #fff;
+  }
+  button:focus-visible,
+  [role='button']:focus-visible {
+    outline: 2px solid #7cdce5;
+    outline-offset: 2px;
+  }
+  input {
+    accent-color: #6dc5d9;
+  }
+}
+.TacticalGalaxy__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.TacticalGalaxy__canvas:active {
+  cursor: grabbing;
+}
+.TacticalGalaxy__grid {
+  stroke: #7894b4;
+  stroke-opacity: 0.12;
+  fill: #668096;
+  font-size: 9px;
+}
+.TacticalGalaxy__grid text {
+  stroke: none;
+}
+.TacticalGalaxy__system {
+  cursor: pointer;
+}
+.TacticalGalaxy__label {
+  font:
+    11px Consolas,
+    monospace;
+  paint-order: stroke;
+  stroke: #0a101b;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.TacticalGalaxy__legend,
+.TacticalGalaxy__inspector {
+  position: absolute;
+  background: rgba(8, 15, 24, 0.94);
+  border: 1px solid #344758;
+  padding: 10px;
+  box-shadow: 0 8px 24px #0005;
+}
+.TacticalGalaxy__legend {
+  left: 12px;
+  top: 12px;
+  max-width: min(255px, 55%);
+  max-height: 65%;
+  overflow: auto;
+}
+.TacticalGalaxy__legend .TacticalGalaxy__heading {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0 0 6px;
+  background: transparent;
+  text-align: left;
+  color: #84d4e9;
+  letter-spacing: 0.07em;
+}
+.TacticalGalaxy__heading small {
+  float: right;
+  margin-left: 12px;
+  color: #7893a5;
+  letter-spacing: 0;
+}
+.TacticalGalaxy__legend label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 10px;
+}
+.TacticalGalaxy__legend i {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+}
+.TacticalGalaxy__legend hr {
+  border: 0;
+  border-top: 1px solid #293a4c;
+  margin: 8px 0;
+}
+.TacticalGalaxy__tools {
+  position: absolute;
+  bottom: 36px;
+  right: 0.6em;
+  display: flex;
+  gap: 3px;
+}
+.TacticalGalaxy__inspector {
+  bottom: 40px;
+  left: 12px;
+  max-width: min(290px, 70%);
+  pointer-events: none;
+}
+.TacticalGalaxy__inspector strong,
+.TacticalGalaxy__inspector span {
+  display: block;
+  margin-bottom: 5px;
+}
+.TacticalGalaxy__inspector strong {
+  color: #e0ebf4;
+}
+.TacticalGalaxy__inspector p {
+  color: #7896a9;
+  font-size: 10px;
+  margin: 6px 0 0;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__inspector p {
+  display: none;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__inspector {
+  max-width: 240px;
+  bottom: 50px;
+  padding: 8px;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__legend {
+  max-width: 180px;
+}
+
+.TacticalGalaxy__ruler {
+  position: absolute;
+  right: 0.6em;
+  bottom: 0.6em;
+  pointer-events: none;
+}
+
+.OvermapConsole--weapons {
+  background: #16090c;
+
+  .Section {
+    background: rgba(25, 6, 10, 0.85);
+    border-color: rgba(235, 95, 105, 0.4);
+  }
+
+  .Section__title {
+    color: #ff929b;
+    border-color: rgba(235, 95, 105, 0.4);
+  }
+
+  .Button {
+    background-color: #65272f;
+  }
+
+  .Button--selected {
+    background-color: #bc4756;
+  }
+}
+
+.OvermapRadar__hull--destroyed {
+  fill: #555;
+  stroke: #999;
+}
+
+.OvermapRadar__weapons {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.OvermapRadar__weapon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #e89a55;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  span {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2px;
+    background: #16090c;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  &--ready { color: #8cdcab; }
+  &--selected { color: #fff2a5; filter: drop-shadow(0 0 3px #f3b84a); }
+  &:hover, &:focus-visible { outline: 1px solid #fff2a5; }
 }

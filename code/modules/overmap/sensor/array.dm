@@ -86,6 +86,7 @@
 	desc = "Антенна короткого действия. Сканирует объекты на ближней дистанции. Не раскрывает судно и позволяет сканировать ближайшие объекты."
 	sensor_kind = OVERMAP_SENSOR_KIND_SHORT
 	idle_power_usage = 150
+
 /obj/machinery/sensor_array/short_range/pod
 	name = "pod short-range sensors"
 	use_power = NO_POWER_USE

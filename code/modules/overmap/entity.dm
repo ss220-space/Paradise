@@ -110,6 +110,11 @@
 	var/obj/overmap/entity/hyperrelay/relay_jump_from
 	var/relay_jump_started = 0
 	var/relay_jump_ends = 0
+	var/datum/overmap_relay_capture/relay_capture
+	var/relay_arrival_cooldown = 0
+	var/relay_portal_jump = FALSE
+	var/relay_jump_was_hidden = FALSE
+	var/turf/relay_jump_origin
 	var/list/scatter_proxies = list()
 	var/datum/fog_scene/scatter/scatter_fog
 	var/list/scatter_candidates = list()
@@ -145,6 +150,7 @@
 	var/datum/overmap_sector/radar_objects_sector
 	var/list/ship_weapons_cache
 	var/ship_weapons_until = 0
+	var/datum/overmap_ship_ai/ship_ai
 
 /obj/overmap/entity/shuttle
 	name = "shuttle"
@@ -205,6 +211,7 @@
 	AddComponent(/datum/component/overmap_shuttle)
 
 /obj/overmap/entity/Destroy()
+	QDEL_NULL(relay_capture)
 	for(var/datum/tgui/ui as anything in radar_uis)
 		unwatch_radar(ui)
 	QDEL_NULL(programmed_mission)
@@ -218,6 +225,7 @@
 		QDEL_NULL(physical_space)
 	undock_host = null
 	SSovermap.vessels -= src
+	SSovermap.projectile_poses -= src
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
 		if(engine.vessel == src)
 			engine.vessel = null

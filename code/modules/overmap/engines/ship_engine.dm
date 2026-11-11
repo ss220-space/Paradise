@@ -1,5 +1,3 @@
-#define THRUSTER_OVERHANG 8
-
 /obj/machinery/ship_engine
 	name = "small advanced engine"
 	desc = "Компактный двигатель. Даёт небольшую тягу, которой достаточно для комфортного передвижения на малых судах."
@@ -28,7 +26,9 @@
 
 	var/omnidirectional = TRUE
 	var/firing = FALSE
+	var/last_applied_thrust = 0
 	var/engine_size = 1
+	var/integrated_exhaust = FALSE
 	var/burn_icon = 'icons/obj/machines/ship_engine.dmi'
 	var/burn_state = "nozzle_burn"
 	var/burn_sound_type = /datum/looping_sound/ship_engine
@@ -90,6 +90,7 @@
 	return generated_thrust * thrust_limit * 4 * resource_fraction(OVERMAP_FLIGHT_TICK)
 
 /obj/machinery/ship_engine/proc/apply_thrust(elapsed = 1 SECONDS)
+	last_applied_thrust = 0
 	if(!can_burn())
 		return 0
 	var/thrust = get_thrust()
@@ -98,6 +99,7 @@
 		return 0
 	if(!consume_fuel(elapsed * fraction))
 		return 0
+	last_applied_thrust = thrust
 	return thrust
 
 /obj/machinery/ship_engine/proc/toggle()
@@ -105,6 +107,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/ship_engine/proc/set_firing(new_firing, pushes = NONE)
+	if(!new_firing)
+		last_applied_thrust = 0
 	if(firing == new_firing && active_pushes == pushes)
 		return
 	firing = new_firing
@@ -138,6 +142,22 @@
 
 /obj/machinery/ship_engine/update_overlays()
 	. = ..()
+	if(integrated_exhaust)
+		if(firing && (active_pushes & REVERSE_DIR(dir)))
+			var/mutable_appearance/glow = mutable_appearance(icon, "thrust", appearance_flags = PIXEL_SCALE)
+			glow.dir = dir
+			. += glow
+			var/mutable_appearance/flame = mutable_appearance(icon, "thrust_burn_unshaded", appearance_flags = PIXEL_SCALE)
+			flame.dir = dir
+			flame.pixel_x = (!!(dir & EAST) - !!(dir & WEST)) * engine_size * ICON_SIZE_X
+			flame.pixel_y = (!!(dir & NORTH) - !!(dir & SOUTH)) * engine_size * ICON_SIZE_Y
+			. += flame
+			var/mutable_appearance/light = emissive_appearance(icon, "thrust_burn_unshaded", src, appearance_flags = PIXEL_SCALE)
+			light.dir = dir
+			light.pixel_x = flame.pixel_x
+			light.pixel_y = flame.pixel_y
+			. += light
+		return
 	if(firing)
 		for(var/push in GLOB.cardinal)
 			if(!(active_pushes & push))
@@ -152,7 +172,7 @@
 /obj/machinery/ship_engine/proc/exhaust_overlay(mutable_appearance/flame, exhaust_dir = dir)
 	var/flame_scale = 1 + (engine_size - 1) / 2
 	var/reach = (engine_size + flame_scale) * ICON_SIZE_X / 2
-	flame.dir = exhaust_dir
+	flame.dir = REVERSE_DIR(exhaust_dir)
 	flame.pixel_w = (engine_size - 1) * ICON_SIZE_X / 2 + (!!(exhaust_dir & EAST) - !!(exhaust_dir & WEST)) * reach
 	flame.pixel_z = (engine_size - 1) * ICON_SIZE_Y / 2 + (!!(exhaust_dir & NORTH) - !!(exhaust_dir & SOUTH)) * reach
 	if(flame_scale != 1)
@@ -296,5 +316,3 @@
 		else
 			for(var/index in 1 to count)
 				component_parts += new part_type(src)
-
-#undef THRUSTER_OVERHANG

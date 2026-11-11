@@ -3868,8 +3868,11 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "cae" = (
-/obj/machinery/computer/sensors,
-/turf/simulated/floor/plasteel/dark,
+/obj/item/toy/figure/miner,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light,
 /area/shuttle/mining)
 "cah" = (
 /obj/item/radio/intercom/specops/directional/east,
@@ -9336,6 +9339,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/mining)
 "eFc" = (
@@ -10322,6 +10328,9 @@
 "fbS" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/mining)
@@ -14484,11 +14493,8 @@
 	},
 /area/centcom/central_command_areas/zone/two)
 "haV" = (
-/obj/machinery/mineral/labor_claim_console{
-	pixel_x = 30;
-	pixel_y = 30
-	},
 /obj/machinery/transponder/directional/east,
+/obj/machinery/computer/engines,
 /turf/simulated/floor/pod/light,
 /area/shuttle/mining)
 "haW" = (
@@ -24401,8 +24407,13 @@
 	},
 /area/centcom/central_command_areas/zone/two)
 "luA" = (
-/obj/machinery/computer/engines,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
 /area/shuttle/mining)
 "luB" = (
 /obj/effect/landmark/spawner/vox_raider,
@@ -24816,11 +24827,11 @@
 	},
 /area/centcom/central_command_areas/supplypod/loading/two)
 "lFH" = (
-/obj/machinery/ship_engine/thruster/rcs{
-	dir = 8
-	},
 /obj/machinery/ship_engine/thruster{
 	dir = 1
+	},
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/shuttle/mining)
@@ -29986,10 +29997,7 @@
 	},
 /area/centcom/central_command_areas/zone/two)
 "nNC" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/toy/figure/miner,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/pod/light,
 /area/shuttle/mining)
 "nNK" = (
@@ -40150,6 +40158,7 @@
 /area/centcom/syndicate_base/infiltrators)
 "sla" = (
 /obj/machinery/overmap_intercom/directional/west,
+/obj/machinery/computer/helm,
 /turf/simulated/floor/pod/light,
 /area/shuttle/mining)
 "sle" = (
@@ -40607,19 +40616,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/evacuation)
-"svF" = (
-/obj/machinery/computer/helm,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/mining)
-"swp" = (
-/obj/machinery/ship_engine/thruster/rcs{
-	dir = 4
-	},
-/obj/machinery/ship_engine/thruster{
-	dir = 1
-	},
-/turf/simulated/wall/mineral/titanium/survival/pod,
-/area/shuttle/mining)
 "swr" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/enzyme{
@@ -72688,16 +72684,16 @@ rRS
 rRS
 "}
 (76,1,1) = {"
+mVX
 lFH
-crl
 hrA
 crl
 taG
 bGS
-xQZ
 crl
 crl
 taG
+mVX
 mVX
 mVX
 mVX
@@ -72945,16 +72941,16 @@ rRS
 rRS
 "}
 (77,1,1) = {"
+mVX
 crl
-svF
 sla
 afL
 fbS
 loL
 nKD
-nKD
 yiv
 crl
+mVX
 mVX
 mVX
 mVX
@@ -73202,16 +73198,16 @@ rRS
 rRS
 "}
 (78,1,1) = {"
+mVX
 xQZ
-cae
 nNC
+cae
 loL
 loL
-loL
-nKD
 nKD
 bBP
 brQ
+mVX
 mVX
 mVX
 mVX
@@ -73459,16 +73455,16 @@ rRS
 rRS
 "}
 (79,1,1) = {"
+mVX
 crl
-luA
 haV
 shT
 eEW
 loL
 nKD
-nKD
 nTL
 crl
+mVX
 mVX
 mVX
 mVX
@@ -73716,16 +73712,16 @@ rRS
 rRS
 "}
 (80,1,1) = {"
-swp
-crl
+mVX
+luA
 hrA
 crl
 cgj
 lId
-xQZ
 crl
 crl
 cgj
+mVX
 mVX
 mVX
 mVX

@@ -55,26 +55,6 @@
 	var/facing = get_facing()
 	return list(face_x * cos(facing) + face_y * sin(facing), face_y * cos(facing) - face_x * sin(facing))
 
-/datum/overmap_projectile/proc/virtual_hit(obj/overmap/entity/virtual_structure/structure, x, y)
-	var/list/cell = structure.cell_at(x, y, TRUE)
-	if(!cell)
-		return FALSE
-	if(ion_impact(x, y))
-		return TRUE
-	var/key = "[structure.UID()]:[cell[1]],[cell[2]]"
-	if(key in payload.ship_pierced_tiles)
-		return FALSE
-	var/pierce = payload.try_ship_penetration(key)
-	structure.damage_cell(cell, payload.damage)
-	if(istype(payload, /obj/projectile/bullet/ship_artillery) && (!pierce || !payload.ship_penetrations))
-		detonate_shell(x, y)
-		qdel(src)
-		return TRUE
-	if(!pierce)
-		qdel(src)
-		return TRUE
-	return FALSE
-
 /obj/overmap/entity/virtual_structure/hull_turf_at(world_x, world_y, origin_x = get_world_x(), origin_y = get_world_y(), facing = get_facing())
 	return null
 

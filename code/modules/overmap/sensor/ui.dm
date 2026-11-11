@@ -131,6 +131,7 @@
 	return data
 
 /obj/machinery/computer/sensors/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/mob/user = ui.user
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -180,7 +181,7 @@
 				selected_uid = params["ref"]
 			var/obj/overmap/target = resolve_scan_target()
 			if(!start_short_scan(target))
-				to_chat(usr, span_warning("Нет цели в зоне сканирования."))
+				to_chat(user, span_warning("Нет цели в зоне сканирования."))
 			. = TRUE
 		if("scan_point")
 			var/world_x = text2num(params["x"])
@@ -195,18 +196,18 @@
 			. = TRUE
 		if("print_scan")
 			if(!print_scan_report())
-				to_chat(usr, span_warning("Нет готового отчёта."))
+				to_chat(user, span_warning("Нет готового отчёта."))
 			. = TRUE
 		if("dump_write")
-			if(!write_sensor_dump(usr))
-				to_chat(usr, span_warning("Сначала вставьте листок бумаги в консоль."))
+			if(!write_sensor_dump(user))
+				to_chat(user, span_warning("Сначала вставьте листок бумаги в консоль."))
 			. = TRUE
 		if("dump_load")
-			if(!load_sensor_dump(usr))
-				to_chat(usr, span_warning("На листке нет дампа сенсоров."))
+			if(!load_sensor_dump(user))
+				to_chat(user, span_warning("На листке нет дампа сенсоров."))
 			. = TRUE
 		if("dump_eject")
-			eject_dump_paper(usr)
+			eject_dump_paper(user)
 			. = TRUE
 		if("close_scan")
 			scanning = FALSE

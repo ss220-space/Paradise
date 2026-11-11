@@ -114,21 +114,21 @@
 	data["recall_here"] = recall_id && vessel.programmed_current_pad() == recall_id && vessel.status == OVERMAP_STATUS_DOCKED
 	return data
 
-/obj/machinery/computer/shuttle/proc/overmap_request_ui_act(action, list/params)
-	if(length(req_access) && !allowed(usr))
-		to_chat(usr, span_danger("Доступ запрещён."))
+/obj/machinery/computer/shuttle/proc/overmap_request_ui_act(action, list/params, mob/user)
+	if(length(req_access) && !allowed(user))
+		to_chat(user, span_danger("Доступ запрещён."))
 		playsound(src, SFX_BUTTON_DENIED, 20)
 		return TRUE
 	if(lockdown_affected && GLOB.full_lockdown)
-		to_chat(usr, span_warning("Консоль заблокирована режимом полной изоляции."))
+		to_chat(user, span_warning("Консоль заблокирована режимом полной изоляции."))
 		return TRUE
 	var/obj/overmap/entity/vessel = shuttle_vessel()
 	if(!vessel)
 		return TRUE
 	if(vessel.is_programmed_emagged())
-		to_chat(usr, span_warning("Нет ответа от объекта."))
+		to_chat(user, span_warning("Нет ответа от объекта."))
 		return TRUE
-	if(!can_call_shuttle(usr, "move"))
+	if(!can_call_shuttle(user, "move"))
 		return TRUE
 	switch(action)
 		if("select_programmed")
@@ -137,13 +137,13 @@
 		if("execute_programmed")
 			var/result = vessel.start_programmed_route(params["id"] || vessel.programmed_selected_dock, FALSE, FALSE, params2list(possible_destinations))
 			if(result != TRUE)
-				to_chat(usr, span_warning("[result]"))
+				to_chat(user, span_warning("[result]"))
 			. = TRUE
 		if("recall_here")
 			var/dock_id = request_call_dock_id()
 			var/result = uses_overmap_request_ui() ? vessel.start_request_route(dock_id) : vessel.start_programmed_route(dock_id, FALSE, FALSE, params2list(possible_destinations))
 			if(result != TRUE)
-				to_chat(usr, span_warning("[result]"))
+				to_chat(user, span_warning("[result]"))
 			. = TRUE
 
 /obj/machinery/computer/shuttle/process()
@@ -319,17 +319,3 @@
 		if(!vessel)
 			link_vessel()
 		SStgui.update_uis(src)
-
-/proc/overmap_ninja_vessel(mob/user)
-	if(!ishuman(user))
-		return null
-	var/mob/living/carbon/human/human = user
-	var/obj/item/clothing/suit/space/space_ninja/suit = human.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
-	if(!istype(suit))
-		return null
-	return suit.linked_overmap_vessel()
-
-/proc/overmap_ninja_can_remote(mob/user, obj/overmap/entity/vessel)
-	if(!user || !vessel)
-		return FALSE
-	return overmap_ninja_vessel(user) == vessel

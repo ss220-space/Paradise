@@ -1,9 +1,8 @@
 /obj/overmap/entity/hyperrelay
+	parent_type = /obj/overmap/entity/virtual_structure
 	name = "Гипертранслятор"
-	desc = "Стационарный гиперпространственный ретранслятор."
+	desc = "TEMP123TEMP"
 	icon_state = "object"
-	movable = FALSE
-	halted = TRUE
 	overmap_kind = OVERMAP_KIND_RELAY
 	vessel_flags = NONE
 	vessel_mass = 300
@@ -12,6 +11,12 @@
 	var/obj/overmap/entity/hyperrelay/paired
 	var/pair_id
 	var/link_distance
+	var/list/galaxy_route_points
+	var/template_path = "_maps/map_files/overmap/hyperrelay.dmm"
+	var/template_loaded = FALSE
+	var/enabled = TRUE
+	var/relay_facing = 0
+	var/list/obj/effect/overmap_warp_portal/warp_portals = list()
 
 /obj/overmap/entity/hyperrelay/proc/get_link_distance()
 	if(!link_distance)
@@ -20,15 +25,28 @@
 		paired.link_distance = link_distance
 	return max(1, link_distance)
 
+/obj/overmap/entity/hyperrelay/proc/update_destination_name()
+	name = paired?.sector ? "[initial(name)] ([paired.sector.name])" : initial(name)
+	identity_name = name
+
 /obj/overmap/entity/proc/hyperrelay_jump_duration(obj/overmap/entity/hyperrelay/relay)
 	return max(15 SECONDS, round(OVERMAP_HYPERRELAY_JUMP_TIME * relay.get_link_distance() / 1000))
 
 /obj/overmap/entity/hyperrelay/Initialize(mapload)
 	. = ..()
+	if(. == INITIALIZE_HINT_QDEL)
+		return
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/overmap/entity/hyperrelay/LateInitialize()
+	load_relay_template()
+	if(!template_loaded)
+		GLOB.overmap_virtual_structures -= src
 	setup_virtual_iff()
 	update_overmap_visibility()
 
 /obj/overmap/entity/hyperrelay/Destroy()
+	clear_warp_portals()
 	SSovermap?.bump_galaxy()
 	if(paired)
 		if(paired.paired == src)
@@ -43,7 +61,121 @@
 	return name
 
 /obj/overmap/entity/hyperrelay/is_overmap_visible()
-	return FALSE
+	return template_loaded
+
+/obj/overmap/entity/hyperrelay/get_facing()
+	return relay_facing
+
+/obj/overmap/entity/hyperrelay/damage_cell(list/cell, damage)
+	return
+
+/obj/overmap/entity/hyperrelay/add_virtual_weapon(list/spec, x, y)
+	return
+
+/obj/overmap/entity/hyperrelay/in_free_flight()
+	return template_loaded
+
+/obj/overmap/entity/hyperrelay/sector_obstacle_box(span)
+	return template_loaded ? ..() : null
+
+/obj/overmap/entity/hyperrelay/proc/load_relay_template()
+	var/path = template_path
+	if(!fexists(path))
+		path = "_maps/map_files/generic/hyperrelay.dmm"
+	if(!fexists(path))
+		path = "hyperrelay.dmm"
+	if(!fexists(path))
+		return FALSE
+	var/datum/map_template/template = new(path, WRAP_FILE(path), name)
+	template_loaded = load_template(template, FALSE)
+	qdel(template)
+	overmap_kind = OVERMAP_KIND_RELAY
+	movable = FALSE
+	halted = TRUE
+	QDEL_LIST(virtual_iff_channels)
+	if(!template_loaded)
+		clear_warp_portals()
+		QDEL_LIST_ASSOC_VAL(virtual_models)
+		virtual_cells.Cut()
+		hull_radius = 0
+		return FALSE
+	if(!length(warp_portals))
+		var/portal_x
+		var/portal_y
+		var/nearest = INFINITY
+		for(var/cell_x in 1 to template_width())
+			for(var/cell_y in 1 to template_height())
+				var/list/cell = virtual_cells["[cell_x],[cell_y]"]
+				var/datum/overmap_virtual_model/model = cell?[3]
+				var/distance = (cell_x - hull_center_x) ** 2 + (cell_y - hull_center_y) ** 2
+				if(model?.solid || distance >= nearest)
+					continue
+				portal_x = cell_x
+				portal_y = cell_y
+				nearest = distance
+		if(!isnull(portal_x))
+			var/datum/overmap_virtual_model/model = new("/obj/effect/overmap_warp_portal,/turf/space")
+			var/list/old_cell = virtual_cells["[portal_x],[portal_y]"]
+			var/datum/overmap_virtual_model/old_model = old_cell?[3]
+			if(old_model)
+				model.visual.overlays += old_model.visual
+			virtual_models["__relay_portal"] = model
+			virtual_cells["[portal_x],[portal_y]"] = list(portal_x, portal_y, model, model.health)
+			on_virtual_cell_loaded(model, portal_x, portal_y)
+	set_enabled(enabled)
+	return TRUE
+
+/obj/overmap/entity/hyperrelay/proc/template_width()
+	return round(hull_center_x * 2 - 1)
+
+/obj/overmap/entity/hyperrelay/proc/template_height()
+	return round(hull_center_y * 2 - 1)
+
+/obj/overmap/entity/hyperrelay/on_virtual_cell_loaded(datum/overmap_virtual_model/model, cell_x, cell_y)
+	if(model.warp_portal)
+		warp_portals += new /obj/effect/overmap_warp_portal(null, src, cell_x, cell_y)
+
+/obj/overmap/entity/hyperrelay/proc/clear_warp_portals()
+	var/list/previous = warp_portals
+	warp_portals = list()
+	QDEL_LIST(previous)
+
+/obj/overmap/entity/hyperrelay/proc/set_enabled(new_enabled)
+	enabled = !!new_enabled
+	for(var/obj/effect/overmap_warp_portal/portal as anything in warp_portals)
+		portal.set_enabled(enabled)
+	for(var/key, model_entry in virtual_models)
+		var/datum/overmap_virtual_model/model = model_entry
+		if(!model.warp_portal)
+			continue
+		model.visual.overlays -= model.warp_visual
+		if(enabled)
+			model.visual.overlays += model.warp_visual
+	hull_version++
+
+/obj/overmap/entity/hyperrelay/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(. && var_name == NAMEOF(src, enabled))
+		set_enabled(enabled)
+
+/obj/overmap/entity/hyperrelay/proc/orient_to_sector_edge()
+	if(!sector)
+		return
+	var/turf/spot = get_overmap_turf()
+	var/local_x = sector.coord_x(spot)
+	var/local_y = sector.coord_y(spot)
+	var/list/distances = list(local_y - 1, sector.size - local_y, local_x - 1, sector.size - local_x)
+	var/nearest = min(distances[1], distances[2], distances[3], distances[4])
+	if(nearest == distances[1])
+		relay_facing = 180
+	else if(nearest == distances[2])
+		relay_facing = 0
+	else if(nearest == distances[3])
+		relay_facing = 270
+	else
+		relay_facing = 90
+	relay_facing = SIMPLIFY_DEGREES(relay_facing + rand(-20, 20))
+	remember_pose()
 
 /obj/overmap/entity/hyperrelay/proc/setup_virtual_iff()
 	virtual_iff_channels = list(
@@ -60,92 +192,6 @@
 		new /datum/overmap_iff_channel(OVERMAP_IFF_SYNDICATE, overmap_iff_label_for_id(OVERMAP_IFF_SYNDICATE), TRUE, FALSE, TRUE),
 		new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, FALSE, TRUE),
 	)
-
-/datum/controller/subsystem/overmap/proc/spawn_hyperrelays()
-	if(!station_sector || !service_sector)
-		return
-	var/turf/service_spot = pick_hyperrelay_turf(service_sector, TRUE)
-	var/turf/station_spot = pick_hyperrelay_turf(station_sector, FALSE)
-	if(!service_spot || !station_spot)
-		log_world("Overmap: failed to place hyperrelay pair.")
-		return
-	var/obj/overmap/entity/hyperrelay/service_relay = new(service_spot)
-	var/obj/overmap/entity/hyperrelay/station_relay = new(station_spot)
-	service_relay.pair_id = "station_service"
-	station_relay.pair_id = "station_service"
-	service_relay.paired = station_relay
-	station_relay.paired = service_relay
-	service_sector.add_object(service_relay, service_spot)
-	station_sector.add_object(station_relay, station_spot)
-	SSovermap.bump_galaxy()
-
-/datum/controller/subsystem/overmap/proc/spawn_station_wilderness_relays()
-	if(!station_sector || !wilderness_sector)
-		return
-	var/turf/station_spot = pick_hyperrelay_edge_turf(station_sector, TRUE)
-	var/turf/wilderness_spot = pick_hyperrelay_edge_turf(wilderness_sector, FALSE)
-	if(!station_spot || !wilderness_spot)
-		log_world("Overmap: failed to place station↔wilderness hyperrelay pair.")
-		return
-	var/obj/overmap/entity/hyperrelay/station_relay = new /obj/overmap/entity/hyperrelay/public(station_spot)
-	var/obj/overmap/entity/hyperrelay/wild_relay = new /obj/overmap/entity/hyperrelay/public(wilderness_spot)
-	station_relay.pair_id = "station_wilderness"
-	wild_relay.pair_id = "station_wilderness"
-	station_relay.paired = wild_relay
-	wild_relay.paired = station_relay
-	station_sector.add_object(station_relay, station_spot)
-	wilderness_sector.add_object(wild_relay, wilderness_spot)
-	SSovermap.bump_galaxy()
-
-/datum/controller/subsystem/overmap/proc/pick_hyperrelay_edge_turf(datum/overmap_sector/sector, at_top)
-	if(!sector)
-		return null
-	var/low_x = sector.origin_x + OVERMAP_EDGE
-	var/low_y = sector.origin_y + OVERMAP_EDGE
-	var/high_x = sector.origin_x + sector.size - OVERMAP_EDGE - 1
-	var/high_y = sector.origin_y + sector.size - OVERMAP_EDGE - 1
-	var/list/candidates = list()
-	for(var/turf/open_turf as anything in block(locate(low_x, low_y, sector.z_level), locate(high_x, high_y, sector.z_level)))
-		if(sector.turf_occupied(open_turf))
-			continue
-		if(locate(/obj/overmap/entity/hyperrelay) in range(2, open_turf))
-			continue
-		var/local_y = sector.coord_y(open_turf)
-		var/edge_dist = at_top ? (sector.size - local_y) : (local_y - 1)
-		if(edge_dist < 2 || edge_dist > 4)
-			continue
-		candidates += open_turf
-	if(length(candidates))
-		return pick(candidates)
-	return sector.get_random_open_turf()
-
-/datum/controller/subsystem/overmap/proc/pick_hyperrelay_turf(datum/overmap_sector/sector, on_right)
-	if(!sector)
-		return null
-	var/local_x
-	if(on_right)
-		local_x = sector.size - OVERMAP_EDGE - 1
-		var/local_y = round(sector.size / 2)
-		var/turf/center = sector.locate_local(local_x, local_y)
-		if(center && !sector.turf_occupied(center))
-			return center
-		for(var/offset in 1 to 6)
-			var/turf/up = sector.locate_local(local_x, clamp(local_y + offset, OVERMAP_EDGE + 1, sector.size - OVERMAP_EDGE))
-			if(up && !sector.turf_occupied(up))
-				return up
-			var/turf/down = sector.locate_local(local_x, clamp(local_y - offset, OVERMAP_EDGE + 1, sector.size - OVERMAP_EDGE))
-			if(down && !sector.turf_occupied(down))
-				return down
-		return sector.get_random_open_turf()
-	local_x = OVERMAP_EDGE + rand(1, 2)
-	var/list/candidates = list()
-	for(var/local_y in (OVERMAP_EDGE + 1) to (sector.size - OVERMAP_EDGE))
-		var/turf/spot = sector.locate_local(local_x, local_y)
-		if(spot && !sector.turf_occupied(spot))
-			candidates += spot
-	if(length(candidates))
-		return pick(candidates)
-	return sector.get_random_open_turf()
 
 /obj/overmap/entity/proc/hyperrelay_on_tile()
 	var/turf/here = get_overmap_turf()
@@ -174,27 +220,30 @@
 		return FALSE
 	if(is_overmap_jammed())
 		return FALSE
-	if(is_jumping() || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
+	if(is_jumping() || relay_capture || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
 		return FALSE
 	if(!OVERMAP_SPEED_STOPPED(get_speed()))
 		return FALSE
 	if(status != OVERMAP_STATUS_OVERMAP && status != OVERMAP_STATUS_TRANSIT)
 		return FALSE
 	var/obj/overmap/entity/hyperrelay/relay = hyperrelay_on_tile()
-	if(!relay?.paired || QDELETED(relay.paired))
+	if(!relay?.enabled || relay.template_loaded || !relay.paired || QDELETED(relay.paired))
 		return FALSE
 	return iff_detects(relay) || contact_identified(relay)
 
-/obj/overmap/entity/proc/begin_hyperrelay_jump(forced = FALSE)
-	var/obj/overmap/entity/hyperrelay/relay = hyperrelay_on_tile()
-	if(forced)
+/obj/overmap/entity/proc/begin_hyperrelay_jump(forced = FALSE, obj/effect/overmap_warp_portal/portal)
+	var/obj/overmap/entity/hyperrelay/relay = portal ? portal.relay : hyperrelay_on_tile()
+	if(portal)
+		if(!portal.is_active() || !can_enter_relay(relay))
+			return FALSE
+	else if(forced)
 		if(overmap_kind != OVERMAP_KIND_SHUTTLE || is_overmap_jammed())
 			return "Прыжок недоступен."
 		if(!OVERMAP_SPEED_STOPPED(get_speed()))
 			return "Прыжок недоступен."
 		if(status != OVERMAP_STATUS_OVERMAP && status != OVERMAP_STATUS_TRANSIT)
 			return "Прыжок недоступен."
-		if(!relay?.paired || QDELETED(relay.paired))
+		if(!relay?.enabled || relay.template_loaded || !relay.paired || QDELETED(relay.paired))
 			return "Прыжок недоступен."
 	else if(!can_hyperrelay_jump())
 		return "Прыжок недоступен."
@@ -207,6 +256,13 @@
 	QDEL_NULL(docking_approach)
 	var/duration = hyperrelay_jump_duration(relay)
 	relay_jump_from = relay
+	relay_portal_jump = !!portal
+	if(relay_portal_jump)
+		relay_jump_origin = get_overmap_turf()
+		relay_jump_was_hidden = hidden_from_contacts
+		hidden_from_contacts = TRUE
+		sector.objects -= src
+		moveToNullspace()
 	relay_jump_started = world.time
 	relay_jump_ends = world.time + duration
 	radar_epoch++
@@ -223,6 +279,13 @@
 	return TRUE
 
 /obj/overmap/entity/proc/finish_hyperrelay_jump(obj/overmap/entity/hyperrelay/from_relay)
+	var/was_portal_jump = relay_portal_jump
+	relay_portal_jump = FALSE
+	if(was_portal_jump)
+		hidden_from_contacts = relay_jump_was_hidden
+		if(relay_jump_origin && sector)
+			sector.add_object(src, relay_jump_origin)
+		relay_jump_origin = null
 	relay_jump_from = null
 	relay_jump_started = 0
 	relay_jump_ends = 0
@@ -243,6 +306,11 @@
 	sector?.remove_object(src)
 	dest_relay.sector?.add_object(src, dest)
 	position = list(0, 0)
+	if(was_portal_jump)
+		var/list/exit_point = dest_relay.relay_exit_position(src)
+		set_world_position(exit_point[1], exit_point[2])
+		flight?.set_facing(SIMPLIFY_DEGREES(dest_relay.get_facing() + 180))
+		relay_arrival_cooldown = world.time + (5 SECONDS)
 	remember_pose()
 	QDEL_NULL(terrain_view)
 	QDEL_LIST_ASSOC_VAL(neighbor_proxies)
@@ -326,145 +394,3 @@
 
 /obj/overmap/entity/proc/stop_hyperrelay_transit_fx()
 	set_shuttle_hyperspace_visuals(FALSE)
-
-/datum/controller/subsystem/overmap/proc/bump_galaxy()
-	galaxy_revision++
-	galaxy_positions = null
-
-/datum/controller/subsystem/overmap/proc/sector_neighbours(datum/overmap_sector/sector)
-	. = list()
-	if(!sector)
-		return
-	for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
-		var/datum/overmap_sector/other = relay.paired?.sector
-		if(!other || other == sector || (other in .))
-			continue
-		. += other
-
-/datum/controller/subsystem/overmap/proc/galaxy_positions()
-	if(galaxy_positions)
-		return galaxy_positions
-	galaxy_positions = list()
-	if(station_sector)
-		galaxy_positions[station_sector.id] = list(0, 0)
-	for(var/datum/overmap_sector/sector as anything in sector_order)
-		if(galaxy_positions[sector.id])
-			continue
-		var/list/center = list(0, 0)
-		var/distance = 1000
-		for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
-			var/datum/overmap_sector/neighbor = relay.paired?.sector
-			if(neighbor && galaxy_positions[neighbor.id])
-				center = galaxy_positions[neighbor.id]
-				distance = relay.get_link_distance()
-				break
-		galaxy_positions[sector.id] = galaxy_random_position(center, 1.5 + sqrt(distance / 1000) * 2)
-	for(var/pass in 1 to 40)
-		for(var/datum/overmap_sector/sector as anything in sector_order)
-			if(sector == station_sector)
-				continue
-			var/list/spot = galaxy_positions[sector.id]
-			for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
-				var/datum/overmap_sector/neighbor = relay.paired?.sector
-				var/list/other = neighbor && galaxy_positions[neighbor.id]
-				if(!other)
-					continue
-				var/dx = spot[1] - other[1]
-				var/dy = spot[2] - other[2]
-				var/actual = max(sqrt(dx * dx + dy * dy), 0.01)
-				var/desired = 1.5 + sqrt(relay.get_link_distance() / 1000) * 2
-				var/change = (desired - actual) / actual * 0.08
-				spot[1] += dx * change
-				spot[2] += dy * change
-	return galaxy_positions
-
-/datum/controller/subsystem/overmap/proc/galaxy_random_position(list/center, radius = 2)
-	while(TRUE)
-		for(var/attempt in 1 to 24)
-			var/angle = rand(0, 35999) / 100
-			var/distance = rand(100, 180) / 100 * radius
-			var/x = center[1] + cos(angle) * distance
-			var/y = center[2] + sin(angle) * distance
-			if(galaxy_slot_free(x, y))
-				return list(x, y)
-		radius += 1
-
-/datum/controller/subsystem/overmap/proc/galaxy_slot_free(x, y)
-	for(var/id, spot_entry in galaxy_positions)
-		var/list/spot = spot_entry
-		if((spot[1] - x) ** 2 + (spot[2] - y) ** 2 < 2.25)
-			return FALSE
-	for(var/list/entry as anything in galaxy_unknown)
-		if((entry["x"] - x) ** 2 + (entry["y"] - y) ** 2 < 2.25)
-			return FALSE
-	return TRUE
-
-/datum/controller/subsystem/overmap/proc/galaxy_unknown()
-	if(galaxy_unknown)
-		return galaxy_unknown
-	galaxy_positions()
-	galaxy_unknown = list()
-	for(var/index in 1 to 10)
-		var/list/spot = galaxy_random_position(list(0, 0))
-		galaxy_unknown += list(list(
-			"id" = "unknown_[index]",
-			"name" = "Неизвестный сектор",
-			"kind" = "unknown",
-			"x" = spot[1],
-			"y" = spot[2],
-			"links" = list(),
-			"contacts" = 0,
-			"distress" = FALSE,
-			"unknown" = TRUE,
-		))
-	return galaxy_unknown
-
-/datum/controller/subsystem/overmap/proc/galaxy_map(obj/overmap/entity/viewer)
-	. = list("revision" = galaxy_revision, "center" = station_sector?.id, "sectors" = list(), "transits" = list())
-	var/list/positions = galaxy_positions()
-	var/slot = 0
-	for(var/datum/overmap_sector/sector as anything in sector_order)
-		if(!sector)
-			continue
-		var/list/spot = positions[sector.id]
-		if(!spot)
-
-			slot++
-			spot = list(0, 6 + slot * 2)
-			positions[sector.id] = spot
-		var/list/links = list()
-		var/list/signal_links = list()
-		var/list/distances = list()
-		for(var/datum/overmap_sector/neighbour as anything in sector_neighbours(sector))
-			links += neighbour.id
-		for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
-			if(relay.paired?.sector)
-				distances[relay.paired.sector.id] = relay.get_link_distance()
-			if(relay.paired?.sector && (!viewer || (viewer.sector == sector && viewer.iff_detects(relay))))
-				signal_links |= relay.paired.sector.id
-		var/contacts = 0
-		var/distress = FALSE
-		for(var/obj/overmap/entity/vessel in sector.objects)
-			contacts++
-			if(vessel.identity_distress)
-				distress = TRUE
-		.["sectors"] += list(list(
-			"id" = sector.id,
-			"name" = sector.name,
-			"kind" = sector.sector_kind,
-			"x" = spot[1],
-			"y" = spot[2],
-			"links" = links,
-			"signal_links" = signal_links,
-			"distances" = distances,
-			"contacts" = contacts,
-			"distress" = distress,
-			"unknown" = FALSE,
-		))
-	for(var/list/entry as anything in galaxy_unknown())
-		.["sectors"] += list(entry)
-	for(var/obj/overmap/entity/vessel as anything in vessels)
-		var/obj/overmap/entity/hyperrelay/relay = vessel.relay_jump_from
-		if(!relay?.paired?.sector || vessel.relay_jump_ends <= world.time)
-			continue
-		.["transits"] += list(list("id" = vessel.UID(), "from" = relay.sector.id, "to" = relay.paired.sector.id, "progress" = clamp((world.time - vessel.relay_jump_started) / max(1, vessel.relay_jump_ends - vessel.relay_jump_started), 0, 1), "remaining" = (vessel.relay_jump_ends - world.time) * 100, "own" = vessel == viewer))

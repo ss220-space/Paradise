@@ -1,4 +1,5 @@
 /obj/machinery/ship_engine/plasma
+	engine_board = /obj/item/circuitboard/ship_engine_plasma
 	omnidirectional = FALSE
 	name = "small plasma engine"
 	desc = "Малый плазменный двигатель. Подключите трубу к стороне, противоположной выхлопу. Восемь процентов основной тяги доступны боковым соплам."
@@ -10,7 +11,6 @@
 	active_power_usage = 0
 	var/fuel_rate = 1
 	var/obj/machinery/atmospherics/unary/ship_engine_feed/fuel_port
-	engine_board = /obj/item/circuitboard/ship_engine_plasma
 
 /obj/machinery/ship_engine/plasma/Initialize(mapload)
 	. = ..()

@@ -71,7 +71,7 @@ type ShipPower = {
 
 type Phase = 'route' | 'jump' | 'relay' | 'docked' | 'transit' | 'flight';
 
-type OvermapHelmData = {
+export type OvermapHelmData = {
   radar_outlines?: Record<string, string>;
   radar_peels?: RadarPeel[];
   radar_scatter?: RadarScatterChunk[];
@@ -128,6 +128,7 @@ type OvermapHelmData = {
     auto: BooleanLike;
     turret: BooleanLike;
     cooldown: number;
+    cooldown_total?: number;
     arc: number;
     heading: number;
     x: number;
@@ -754,6 +755,7 @@ const RadarPanel = (props: {
             contacts={data.radar || []}
             drifters={data.radar_drifters || []}
             projectiles={data.radar_projectiles || []}
+            weapons={data.weapons || []}
             weaponArcs={(data.weapons || []).filter(
               (weapon) => weapon.selected,
             )}

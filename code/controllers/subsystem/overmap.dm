@@ -1,12 +1,3 @@
-GLOBAL_LIST_EMPTY(ship_engines)
-GLOBAL_LIST_EMPTY(helm_computers)
-GLOBAL_LIST_EMPTY(transponders)
-GLOBAL_LIST_EMPTY(sensor_computers)
-GLOBAL_LIST_EMPTY(sensor_arrays)
-GLOBAL_LIST_EMPTY(overmap_request_consoles)
-GLOBAL_LIST_EMPTY(navmap_computers)
-GLOBAL_LIST_EMPTY(overmap_intercoms)
-
 SUBSYSTEM_DEF(overmap)
 	name = "Overmap"
 	wait = OVERMAP_FLIGHT_TICK
@@ -24,8 +15,9 @@ SUBSYSTEM_DEF(overmap)
 
 	var/galaxy_revision = 0
 	var/list/galaxy_positions
+	var/list/galaxy_layout
+	var/list/galaxy_systems = list()
 
-	var/list/galaxy_unknown
 	var/datum/overmap_sector/local_sector
 	var/datum/overmap_sector/station_sector
 	var/datum/overmap_sector/service_sector
@@ -63,6 +55,8 @@ SUBSYSTEM_DEF(overmap)
 	var/list/obj/docking_port/mobile/area_shuttles = list()
 	var/area_shuttle_cache_ready = FALSE
 	var/last_fire_time = 0
+	var/list/relay_drifter_positions = list()
+	var/list/relay_drifter_captures = list()
 	var/slow_elapsed = 0
 	var/iff_key_centcom
 	var/iff_key_syndicate
@@ -76,16 +70,11 @@ SUBSYSTEM_DEF(overmap)
 	var/list/obj/overmap/entity/pod/flying_pods = list()
 	var/weapon_targets_until = 0
 	var/list/weapon_targets = list()
+	var/list/projectile_poses = list()
 	var/projectile_snapshot_tick = -1
 	var/list/projectile_snapshots = list()
 	var/list/datum/overmap_projectile/sector_projectiles = list()
-
-/proc/generate_overmap_iff_key()
-	var/alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-	. = ""
-	for(var/i in 1 to OVERMAP_IFF_KEY_LEN)
-		var/index = rand(1, length(alphabet))
-		. += copytext(alphabet, index, index + 1)
+	var/datum/overmap_ai_controller/ai_controller
 
 /datum/controller/subsystem/overmap/Initialize()
 	iff_key_centcom = generate_overmap_iff_key()
@@ -97,17 +86,21 @@ SUBSYSTEM_DEF(overmap)
 	sectors[station_sector.id] = station_sector
 	sector_order |= station_sector
 	seed_reserved_space()
-	spawn_lavaland()
-	spawn_station()
 	spawn_service_sector()
 	spawn_wilderness()
-	spawn_hyperrelays()
+	initialize_galaxy_layout(FALSE)
+	apply_overmap_map_config()
+	spawn_lavaland()
+	spawn_station()
+	spawn_galaxy_relays()
 	register_roundstart_shuttles()
 	register_roundstart_pods()
 	stamp_pad_hosts()
 	relink_hardware()
 	ensure_station_transponder()
-	station_sector?.populate_roundstart()
+	for(var/datum/overmap_sector/sector as anything in sector_order)
+		sector.populate_roundstart()
+		CHECK_TICK
 	for(var/datum/overmap_sector/sector as anything in sector_order)
 		for(var/list/group as anything in overmap_hazard_clusters(sector))
 			build_overmap_hazard_contours(sector, group)
@@ -156,10 +149,16 @@ SUBSYSTEM_DEF(overmap)
 	if(slow_elapsed >= OVERMAP_SLOW_TICK)
 		process_slow_tick(slow_elapsed)
 		slow_elapsed = 0
+	projectile_poses = list()
+	for(var/obj/overmap/entity/vessel as anything in flying_vessels)
+		if(!QDELETED(vessel))
+			projectile_poses[vessel] = list(vessel.get_world_x(), vessel.get_world_y(), vessel.get_facing(), vessel.sector)
+	ai_controller?.process_tick()
 	for(var/datum/component/overmap_flight/flight as anything in flights)
 		if(QDELETED(flight))
 			continue
 		flight.process_tick(elapsed)
+	process_hyperrelay_portals(elapsed)
 	process_flight_views(elapsed)
 	update_proxy_huds()
 	process_sector_projectiles(elapsed)
@@ -193,15 +192,20 @@ SUBSYSTEM_DEF(overmap)
 /datum/controller/subsystem/overmap/proc/spawn_station()
 	if(!local_sector)
 		return
+	var/datum/map/settings = SSmapping.map_datum
+	if(settings.overmap_station_is_planetary() && spawn_planetary_station(settings))
+		return
 	var/turf/spawn_turf
+	if(settings.overmap_station_position)
+		spawn_turf = configured_station_turf(settings.overmap_station_position)
 	var/turf/dock = lavaland_entity?.get_overmap_turf()
-	if(dock)
+	if(!spawn_turf && lavaland_entity?.sector == local_sector && dock)
 		spawn_turf = local_sector.get_turf_near(dock, OVERMAP_STATION_MIN_SEPARATION, OVERMAP_STATION_MAX_SEPARATION, lavaland_planet)
 	if(!spawn_turf)
 		spawn_turf = local_sector.get_random_open_turf()
 	station_entity = new /obj/overmap/entity/station(spawn_turf)
 	station_entity.status = OVERMAP_STATUS_OVERMAP
-	station_entity.apply_overmap_identity(station_name(), COLOR_WHITE, "station", FALSE, TRUE, null, TRUE)
+	station_entity.apply_overmap_identity(station_name(), COLOR_WHITE, "station", FALSE, settings.overmap_station_broadcasting, null, TRUE)
 	local_sector.add_object(station_entity, spawn_turf)
 
 /datum/controller/subsystem/overmap/proc/lavaland_enabled()
@@ -214,12 +218,13 @@ SUBSYSTEM_DEF(overmap)
 /datum/controller/subsystem/overmap/proc/spawn_lavaland()
 	if(!local_sector || !lavaland_enabled())
 		return
-	var/turf/origin = local_sector.get_centered_footprint_origin(OVERMAP_LAVALAND_FOOTPRINT)
+	var/datum/overmap_sector/target_sector = configured_map_sector(SSmapping.map_datum.overmap_lavaland_sector_id, local_sector, "Lavaland")
+	var/turf/origin = target_sector.get_centered_footprint_origin(OVERMAP_LAVALAND_FOOTPRINT)
 	if(!origin)
 		log_world("Overmap: failed to place Lavaland at sector center.")
 		return
 	lavaland_planet = new /obj/overmap/planet/lavaland(origin)
-	local_sector.add_object(lavaland_planet, origin)
+	target_sector.add_object(lavaland_planet, origin)
 	var/list/footprint = lavaland_planet.footprint_turfs()
 	if(!length(footprint))
 		footprint = list(origin)
@@ -230,7 +235,7 @@ SUBSYSTEM_DEF(overmap)
 	lavaland_entity.name = "Лаваленд"
 	lavaland_entity.movable = FALSE
 	lavaland_entity.halted = TRUE
-	local_sector.add_object(lavaland_entity, outpost_turf)
+	target_sector.add_object(lavaland_entity, outpost_turf)
 
 /datum/controller/subsystem/overmap/proc/rebuild_area_shuttle_cache()
 	area_shuttles = list()
@@ -491,8 +496,6 @@ SUBSYSTEM_DEF(overmap)
 	if(!wilderness_sector)
 		log_world("Overmap: failed to create wilderness sector.")
 		return
-	spawn_station_wilderness_relays()
-	wilderness_sector.populate_roundstart()
 
 /datum/controller/subsystem/overmap/proc/register_service_site(obj/overmap/entity/service_site/site)
 	if(!site?.site_id)

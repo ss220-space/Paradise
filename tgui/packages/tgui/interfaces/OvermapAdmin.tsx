@@ -12,9 +12,10 @@ import {
   Tabs,
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { AIShipsAdmin } from './overmap/AIShipsAdmin';
+import { GalaxyAdmin } from './overmap/GalaxyAdmin';
 
 type Sector = {
   id: string;
@@ -139,6 +140,8 @@ const TAB_SPAWN = 1;
 const TAB_DUMP = 2;
 const TAB_IFF = 3;
 const TAB_COMMS = 4;
+const TAB_GALAXY = 5;
+const TAB_AI = 6;
 
 const asList = <T,>(value: T[] | Record<string, T> | null | undefined): T[] => {
   if (Array.isArray(value)) {
@@ -1079,7 +1082,7 @@ const DumpTab = () => {
 export const OvermapAdmin = () => {
   const [tab, setTab] = useState(TAB_CONTROL);
   return (
-    <Window title="Овермап" width={760} height={820}>
+    <Window title="Овермап" width={900} height={820}>
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
@@ -1109,7 +1112,18 @@ export const OvermapAdmin = () => {
           >
             Связь
           </Tabs.Tab>
+          <Tabs.Tab
+            selected={tab === TAB_GALAXY}
+            onClick={() => setTab(TAB_GALAXY)}
+          >
+            Галактика
+          </Tabs.Tab>
+          <Tabs.Tab selected={tab === TAB_AI} onClick={() => setTab(TAB_AI)}>
+            ИИ-корабли
+          </Tabs.Tab>
         </Tabs>
+        {tab === TAB_AI && <AIShipsAdmin />}
+        {tab === TAB_GALAXY && <GalaxyAdmin />}
         {tab === TAB_CONTROL && <ControlTab />}
         {tab === TAB_SPAWN && <SpawnTab />}
         {tab === TAB_DUMP && <DumpTab />}

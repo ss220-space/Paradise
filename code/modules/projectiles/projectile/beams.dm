@@ -15,6 +15,7 @@
 	light_color = COLOR_RED_LIGHT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
+	overmap_radar_kind = "laser_light"
 
 /obj/projectile/beam/get_ru_names()
 	return alist(

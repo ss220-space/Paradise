@@ -983,11 +983,11 @@
 		data["admin_controlled"] = admin_controlled || lockdown_check
 	return data
 
-/obj/machinery/computer/shuttle/ui_act(action, params)
+/obj/machinery/computer/shuttle/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(uses_overmap_remote_ui())
 		if(..())
 			return TRUE
-		return overmap_request_ui_act(action, params)
+		return overmap_request_ui_act(action, params, ui.user)
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))

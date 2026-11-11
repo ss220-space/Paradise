@@ -44,7 +44,7 @@ export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
   return (
     <OvermapRadar
       outlines={data.radar_outlines}
-      showSelf={!!data.radar_show_self}
+      showSelf
       locked={!!data.radar_locked}
       tick={data.radar_tick}
       epoch={data.radar_epoch}
