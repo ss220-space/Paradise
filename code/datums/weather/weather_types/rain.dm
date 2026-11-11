@@ -1,6 +1,6 @@
 /datum/weather/particle/rain
 	particle_type = /particles/weather/rain
-	overlay_planes = list()
+	overlay_planes = list(WEATHER_PLANE)
 	name = "rain"
 	desc = "Мягкий дождь омывает поверхность планеты, создавая умиротворяющую атмосферу."
 	telegraph_message = span_notice_alt("Небо темнеет, первые капли дождя начинают падать...")
@@ -8,6 +8,10 @@
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 180 SECONDS
 	end_message = span_notice_alt("Дождь заканчивается. Последние капли падают на землю.")
+
+	telegraph_overlay = "light_rain"
+	weather_overlay = "rain"
+	end_overlay = "light_rain"
 
 	area_type = /area/planetoid
 	target_trait = ZTRAIT_RAIN

@@ -107,10 +107,14 @@
 	var/turf/view_turf = get_view_turf(player)
 	if(!view_turf || !(view_turf.z in impacted_z_levels))
 		return FALSE
+	if(!(player.client?.prefs.toggles3 & PREFTOGGLE_3_PARTICLE_WEATHER))
+		return FALSE
 	return TRUE
 
 /// Creates a player's emitter set at their feet, tuned to the current severity.
 /datum/weather/particle/proc/create_emitters(mob/player)
+	if(!(player.client?.prefs.toggles3 & PREFTOGGLE_3_PARTICLE_WEATHER))
+		return
 	var/turf/view_turf = get_view_turf(player)
 	if(!view_turf)
 		return

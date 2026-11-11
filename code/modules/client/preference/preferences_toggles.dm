@@ -727,3 +727,16 @@ GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заг
 	enable_message = "Теперь цвет интерфейса хранилища зависит от цвета инвентаря."
 	disable_message = "Теперь цвет интерфейса хранилища не зависит от цвета инвентаря."
 	blackbox_message = "Toggle storage colorfy"
+
+/datum/preference_toggle/toggle_particle_weather
+	name = "Погода частицами"
+	description = "Переключение способа отображения погодных эффектов между частицами, и заготовленными анимациями."
+	preftoggle_bitflag = PREFTOGGLE_3_PARTICLE_WEATHER
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь погода будет работать через частицы."
+	disable_message = "Теперь погода будет работать через заготовленные анимации."
+	blackbox_message = "Переключение визуализации погоды на частицы"
+
+/datum/preference_toggle/toggle_particle_weather/set_toggles(client/user)
+	return

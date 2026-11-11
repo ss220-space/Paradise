@@ -8,7 +8,7 @@
 	appearance_flags = TILE_BOUND | PIXEL_SCALE
 	blocks_emissive = EMISSIVE_BLOCK_NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	invisibility = INVISIBILITY_NONE
+	invisibility = INVISIBILITY_OBSERVER
 	var/base_plane = RENDER_PLANE_PARTICLE_WEATHER
 
 /**
