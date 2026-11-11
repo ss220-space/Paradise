@@ -85,20 +85,20 @@
 	if(!stat)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
+/mob/living/simple_animal/hostile/retaliate/goat/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || !iscup(tool))
 		return ..()
 
-	if(iscup(I))
-		add_fingerprint(user)
-		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
-			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		return ATTACK_CHAIN_PROCEED
+	add_fingerprint(user)
+	if(stat != CONSCIOUS)
+		to_chat(user, span_warning("[src] has problems with health."))
+		return ITEM_INTERACT_BLOCKING
 
-	return ..()
+	if(!tool.is_open_container())
+		balloon_alert(user, "ёмкость закрыта!")
+		return ITEM_INTERACT_BLOCKING
+
+	return udder.milkAnimal(tool, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
@@ -221,16 +221,22 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(iscup(I))
-		add_fingerprint(user)
-		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[src] has problems with health."))
-			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		return ATTACK_CHAIN_PROCEED
-
 	return ..()
+
+/mob/living/simple_animal/cow/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || !iscup(tool))
+		return ..()
+
+	add_fingerprint(user)
+	if(stat != CONSCIOUS)
+		to_chat(user, span_warning("[src] has problems with health."))
+		return ITEM_INTERACT_BLOCKING
+
+	if(!tool.is_open_container())
+		balloon_alert(user, "ёмкость закрыта!")
+		return ITEM_INTERACT_BLOCKING
+
+	return udder.milkAnimal(tool, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 /mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
@@ -736,14 +742,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/cup/container, mob/user)
 	if(!container.reagents)
-		balloon_alert(user, "неподходящая ёмкость!")
+		user.balloon_alert(user, "неподходящая ёмкость!")
 		return FALSE
 	if(container.reagents.total_volume >= container.volume)
-		balloon_alert(user, "ёмкость заполнена!")
+		user.balloon_alert(user, "ёмкость заполнена!")
 		return FALSE
 	var/transfered = reagents.trans_to(container, rand(5,10))
 	if(!transfered)
-		balloon_alert(user, "вымя сухое!")
+		user.balloon_alert(user, "вымя сухое!")
 		return FALSE
 	user.visible_message(
 		span_notice("[user] до[PLUR_IT_YAT(user)] [declent_ru(ACCUSATIVE)]."),
