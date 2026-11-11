@@ -53,6 +53,7 @@
 	taste_description = "горения"
 	color = "#ffb300"
 	chemfiresupp = TRUE
+	chemfirescpec = TRUE
 	burncolor = "#d05006"
 	burn_sprite = "red"
 
