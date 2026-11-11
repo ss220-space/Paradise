@@ -207,9 +207,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		if(-INFINITY to 1)
 			spread_flags = BLOOD
 		if(2 to 3)
-			spread_flags = CONTACT
+			spread_flags = BLOOD|CONTACT
 		if(4 to INFINITY)
-			spread_flags = AIRBORNE
+			spread_flags = BLOOD|AIRBORNE
 	additional_info = spread_text()
 	permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
 

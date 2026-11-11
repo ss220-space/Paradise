@@ -3,7 +3,7 @@
 	agent = "XY-риновирус"
 	desc = "Если не лечить, заражённый заболеет гриппом."
 	max_stages = 3
-	spread_flags = AIRBORNE
+	spread_flags = BLOOD|AIRBORNE
 	visibility_flags = HIDDEN_HUD
 	cure_text = "Отдых и Космоциллин"
 	cures = list(/datum/reagent/medicine/spaceacillin)
