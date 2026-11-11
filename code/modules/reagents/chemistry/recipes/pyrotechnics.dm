@@ -250,6 +250,32 @@
 	result_amount = 3
 	mix_message = "The mixture congeals into a sticky gel."
 
+/datum/chemical_reaction/chemfire
+	name = "Napalm fire"
+	id = "napalm_fire"
+	result = /datum/reagent/napalm
+	required_reagents = list(/datum/reagent/aluminum = 1, /datum/reagent/toxin/phoron = 1, /datum/reagent/acid = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/chemfire/on_reaction(datum/reagents/holder, created_volume)
+	. = ..()
+	holder.trigger_volatiles = TRUE
+	return
+
+/datum/chemical_reaction/custom/sticky
+	name = "Sticky-Napalm"
+	id = "stickynapalm"
+	result = /datum/reagent/napalm/sticky
+	required_reagents = list(/datum/reagent/napalm = 1, /datum/reagent/fuel = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/custom/high_damage
+	name = "High-Combustion Napalm Fuel"
+	id = "highdamagenapalm"
+	result = /datum/reagent/napalm/high_damage
+	required_reagents = list(/datum/reagent/napalm = 1, /datum/reagent/clf3 = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/smoke_powder
 	name = "smoke_powder"
 	id = "smoke_powder"
