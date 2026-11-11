@@ -944,3 +944,71 @@
 			result = possible // real time bullshit
 			return TRUE
 	return FALSE
+
+/datum/chemical_reaction/pacid
+	name = "Polytrinic acid"
+	id = "pacid"
+	result = /datum/reagent/acid/polyacid
+	required_reagents = list(/datum/reagent/acid = 1, /datum/reagent/chlorine = 1, /datum/reagent/potassium = 1)
+	result_amount = 3
+
+/datum/chemical_reaction/methane
+	name = "Methane"
+	id = "methane"
+	result = /datum/reagent/methane
+	required_reagents = list(/datum/reagent/hydrogen = 4, /datum/reagent/carbon = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/paraformaldehyde
+	name = "Paraformaldehyde"
+	id = "paraformaldehyde"
+	result = /datum/reagent/toxin/paraformaldehyde
+	required_reagents = list(/datum/reagent/formaldehyde = 1, /datum/reagent/consumable/frostoil = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/hexamine
+	name = "Hexamine"
+	id = "hexamine"
+	result = /datum/reagent/hexamine
+	required_reagents = list(/datum/reagent/ammonia = 2, /datum/reagent/formaldehyde = 3)
+	result_amount = 3
+
+/datum/chemical_reaction/ammoniumnitrate
+	name = "Ammonium Nitrate"
+	id = "ammonium_nitrate"
+	result = "ammonium_nitrate"
+	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/acid/polyacid = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/octogen
+	name = "Octogen"
+	id = "octogen"
+	result = "octogen"
+	required_reagents = list(
+		/datum/reagent/hexamine = 1,
+		/datum/reagent/acid/polyacid = 1,
+		/datum/reagent/toxin/paraformaldehyde = 1,
+		/datum/reagent/ammoniumnitrate = 1,
+	)
+	result_amount = 2
+
+/datum/chemical_reaction/iron_sulfate
+	name = "Iron Sulfate"
+	id = "iron_sulfate"
+	result = /datum/reagent/toxin/iron_sulfate
+	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/acid = 5)
+	result_amount = 1
+
+/datum/chemical_reaction/iron_phoride_sulfate
+	name = "Iron Phoride Sulfate"
+	id = "iron_phoride_sulfate"
+	result = /datum/reagent/toxin/iron_phoride_sulfate
+	required_reagents = list(/datum/reagent/toxin/iron_sulfate = 3, /datum/reagent/toxin/phoron = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/potassium_chloride
+	name = "Potassium Chloride"
+	id = "potassium_chloride"
+	result = /datum/reagent/toxin/potassium_chloride
+	required_reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/potassium = 1)
+	result_amount = 2

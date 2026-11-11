@@ -56,6 +56,7 @@
 	chemfirescpec = TRUE
 	burncolor = "#d05006"
 	burn_sprite = "red"
+	properties = list(PROPERTY_OXIDIZING = 6, PROPERTY_FUELING = 7, PROPERTY_FLOWING = 1)
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -95,6 +96,12 @@
 	drink_desc = "Если вы не являетесь промышленным инструментом, это, вероятно, небезопасно для употребления. Хотя ассистенты любят такое пить."
 	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
+	chemfiresupp = TRUE
+	intensityfire = BURN_LEVEL_TIER_1
+	durationfire = BURN_TIME_TIER_1
+	rangefire = 4
+	burncolor = "#660000"
+	properties = list(PROPERTY_FUELING = 5, PROPERTY_OXIDIZING = 3)
 	var/max_radius = 7
 	var/min_radius = 0
 	var/volume_radius_modifier = -0.15
@@ -206,6 +213,9 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "ржавчины"
+	chemfiresupp = TRUE
+	burncolor = "#ffb300"
+	properties = list(PROPERTY_FUELING = 7, PROPERTY_OXIDIZING = 5)
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -259,6 +269,9 @@
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
+	chemfiresupp = TRUE
+	burncolor = "#ff9300"
+	properties = list(PROPERTY_OXIDIZING = 9)
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -505,3 +518,96 @@
 	if(!T.reagents)
 		T.create_reagents(volume)
 	T.reagents.add_reagent(/datum/reagent/plasma_dust, volume)
+
+/datum/reagent/methane
+	name = "Метан"
+	id = "methane"
+	description = "Легковоспламеняющийся углеводород, который может очень быстро распространять огонь, а при определённых концентрациях даже взрываться. Используется главным образом как топливо для получения тепла и света или для производства органических химикатов."
+	color = "#0064C8"
+	chemfiresupp = TRUE
+	burncolor = "#00a5ff"
+	burncolormod = 1.5
+	properties = list(PROPERTY_FLOWING = 3, PROPERTY_FUELING = 2)
+
+/datum/reagent/oxidizing_agent
+	name = "Окислитель"
+	id = "oxidizing_agent"
+	description = "Синтезированный высокоочищенный окислитель, который, скорее всего, крайне вреден для употребления человеком."
+	reagent_state = GAS
+	color = "#c4c4c4"
+	chemfiresupp = TRUE
+	properties = list(PROPERTY_OXIDIZING = 6)
+	intensitymod = 1
+	radiusmod = -0.12
+	burncolor = "#a9ecff"
+	burncolormod = 2
+
+/datum/reagent/octogen
+	name = "Октоген"
+	id = "octogen"
+	description = "Октоген, также известный как HMX или «Взрывчатка Её Величества», — мощное и относительно нечувствительное взрывчатое вещество. Это одна из самых сильнодействующих доступных химических взрывчаток, превосходящая циклонит (RDX)."
+	color = "#F5F5F5"
+	chemfiresupp = TRUE
+	properties = list(PROPERTY_OXIDIZING = 2)
+
+/datum/reagent/hexamine
+	name = "Гексамин"
+	id = "hexamine"
+	description = "Кристаллическое соединение, находящее множество применений: от пищевых добавок, производства пластмасс и лечения инфекций мочевыводящих путей до использования в качестве бездымного нагревательного элемента в военных пайках и создания нескольких видов взрывчатых веществ."
+	color = "#f0f0f0"
+	chemfiresupp = TRUE
+	durationmod = 0.5
+	burncolor = "#ff9900"
+
+/datum/reagent/toxin/paraformaldehyde
+	name = "Параформальдегид"
+	id = "paraformaldehyde"
+	description = "Полимеризованная форма формальдегида, которая медленно образуется в холодном водном растворе."
+	color = "#e0e0e0"
+	reagent_state = SOLID
+
+/datum/reagent/ammoniumnitrate
+	name = "Нитрат аммония"
+	id = "ammonium_nitrate"
+	description = "Белое кристаллическое соединение, используемое в сельском хозяйстве в качестве азотного удобрения с высоким содержанием азота. Сам по себе нитрат аммония не взрывоопасен, но быстро становится таковым при смешивании с мазутом."
+	color = "#e5e5e5"
+	chemfiresupp = TRUE
+	durationmod = -0.2
+	intensitymod = 0.5
+	burncolor = "#ff9900"
+
+/datum/reagent/toxin/iron_phoride_sulfate
+	name = "Сульфат форида железа"
+	id = "iron_phoride_sulfate"
+	description = "Сульфат железа, соединённый с фороном, образует прочное и долговечное вещество, обычно предлагаемое в качестве добавки к бронеплитам. Практически не нашло применения из-за своей горючести."
+	color = "#4b1f5e"
+	properties = list(PROPERTY_OXIDIZING = 3)
+
+/datum/reagent/toxin/phoron
+	name = "Форон"
+	id = "phoron"
+	description = "Особая форма металлической плазмы, не встречающаяся на Земле. Хотя форон чрезвычайно горюч и крайне токсичен, его высокая энергетическая плотность делает его одним из лучших альтернативных видов твёрдого топлива. Жидкий форон часто используется в исследовательских целях, а в медицинской промышленности — как катализатор для многих сложных химических веществ."
+	color = "#e71b00"
+	chemfiresupp = TRUE
+	intensitymod = 0.4
+	durationmod = -0.8
+	radiusmod = 0.05
+	burncolor = "#e01e1e"
+	burncolormod = 3
+
+/datum/reagent/toxin/iron_sulfate
+	name = "Сульфат железа"
+	id = "iron_sulfate"
+	description = "Реактивный сульфидный материал, часто используемый в качестве промежуточного или исходного компонента в различных химических процессах."
+	color = "#303030"
+
+/datum/reagent/toxin/potassium_chloride
+	name = "Хлорид калия"
+	id = "potassium_chloride"
+	description = "Горькая на вкус соль, которую можно использовать как приправу, но в больших количествах она может вызвать остановку сердца. По этой причине она на протяжении многих лет использовалась как компонент смертельных инъекций."
+	reagent_state = SOLID
+	color = COLOR_WHITE
+	chemfiresupp = TRUE
+	intensitymod = 0.1
+	burncolor = COLOR_PURPLE
+	burncolormod = 5

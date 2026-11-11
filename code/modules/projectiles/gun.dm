@@ -97,6 +97,9 @@
 	/// Color of all ammo count hud numbers
 	var/ammo_count_colour = COLOR_RED
 
+	/// Dynamic asset cache for gun modification
+	var/datum/asset/simple/gun_modification/gun_modification_asset
+
 /*
  * Gun modules
  */
@@ -203,15 +206,6 @@
 /obj/item/gun/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 
-	if((isnull(held_item) || held_item == src) && user.is_in_hands(held_item))
-		for(var/slot in attachments_by_slot)
-			var/obj/item/gun_module/module = attachments_by_slot[slot]
-			if(!module?.can_detach)
-				continue
-			context[SCREENTIP_CONTEXT_ALT_LMB] = "Снять модуль"
-			. = CONTEXTUAL_SCREENTIP_SET
-			break
-
 	if(held_item == src)
 		var/obj/item/gun_module/stock/stock = attachments_by_slot[ATTACHMENT_SLOT_STOCK]
 		if(!stock)
@@ -249,6 +243,30 @@
 		set_gun_light(null)
 	return ..()
 
+/obj/item/gun/proc/get_module_class_ru_names_list()
+	var/static/alist/class_names = alist(
+		GUN_MODULE_CLASS_PISTOL_RAIL = "малая прицельная планка",
+		GUN_MODULE_CLASS_SHOTGUN_RAIL = "средняя прицельная планка",
+		GUN_MODULE_CLASS_RIFLE_RAIL = "большая прицельная планка",
+		GUN_MODULE_CLASS_SNIPER_RAIL = "снайперская прицельная планка",
+		GUN_MODULE_CLASS_PISTOL_MUZZLE = "малый дульный модуль",
+		GUN_MODULE_CLASS_SHOTGUN_MUZZLE = "средний дульный модуль",
+		GUN_MODULE_CLASS_RIFLE_MUZZLE = "большой дульный модуль",
+		GUN_MODULE_CLASS_SNIPER_MUZZLE = "снайперский дульный модуль",
+		GUN_MODULE_CLASS_PISTOL_UNDER = "малая планка на цевье",
+		GUN_MODULE_CLASS_SHOTGUN_UNDER = "средняя планка на цевье",
+		GUN_MODULE_CLASS_RIFLE_UNDER = "большая планка на цевье",
+		GUN_MODULE_CLASS_SNIPER_UNDER = "малое крепление на цевье",
+		GUN_MODULE_CLASS_SMG_STOCK = "замок приклада",
+		GUN_MODULE_CLASS_LOCKING_PIN = "курок",
+		GUN_MODULE_CLASS_ENERGY_WEAPON = "разъём Sibyl System",
+	)
+	return class_names
+
+/obj/item/gun/proc/get_module_class_ru_name(class_flag)
+	var/alist/class_names = get_module_class_ru_names_list()
+	return class_names[class_flag] || "неизвестно"
+
 /obj/item/gun/proc/get_attachment_module_examine_text(mob/user, slot, missing_text = "модуль отсутствует")
 	var/obj/item/gun_module/module = attachments_by_slot[slot]
 	if(!module)
@@ -260,18 +278,18 @@
 
 	var/static/list/attachment_examine_data = list(
 		// Scope
-		list(GUN_MODULE_CLASS_PISTOL_RAIL, "Совместимо с малогабаритными прицелами.", "Малая прицельная планка", ATTACHMENT_SLOT_RAIL),
-		list(GUN_MODULE_CLASS_SHOTGUN_RAIL, "Совместимо со среднегабаритными прицелами.", "Средняя прицельная планка", ATTACHMENT_SLOT_RAIL),
-		list(GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL, "Совместимо с крупногабаритными прицелами.", "Большая прицельная планка", ATTACHMENT_SLOT_RAIL),
+		list(GUN_MODULE_CLASS_PISTOL_RAIL, "Совместимо с малогабаритными прицелами.", GUN_MODULE_CLASS_PISTOL_RAIL, ATTACHMENT_SLOT_RAIL),
+		list(GUN_MODULE_CLASS_SHOTGUN_RAIL, "Совместимо со среднегабаритными прицелами.", GUN_MODULE_CLASS_SHOTGUN_RAIL, ATTACHMENT_SLOT_RAIL),
+		list(GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL, "Совместимо с крупногабаритными прицелами.", GUN_MODULE_CLASS_RIFLE_RAIL, ATTACHMENT_SLOT_RAIL),
 		// Muzzle
-		list(GUN_MODULE_CLASS_ANY_MUZZLE, "Совместимо с дульными модулями.", "Нарезы на стволе", ATTACHMENT_SLOT_MUZZLE),
+		list(GUN_MODULE_CLASS_ANY_MUZZLE, "Совместимо с дульными модулями.", "нарезы на стволе", ATTACHMENT_SLOT_MUZZLE),
 		// Underbarrel
-		list(GUN_MODULE_CLASS_PISTOL_UNDER, "Совместимо с малогабаритными подствольными модулями.", "Малая планка на цевье", ATTACHMENT_SLOT_UNDER),
-		list(GUN_MODULE_CLASS_SHOTGUN_UNDER, "Совместимо со среднегабаритными подствольными модулями.", "Средняя планка на цевье", ATTACHMENT_SLOT_UNDER),
-		list(GUN_MODULE_CLASS_RIFLE_UNDER, "Совместимо с крупногабаритными подствольными модулями.", "Большая планка на цевье", ATTACHMENT_SLOT_UNDER),
-		list(GUN_MODULE_CLASS_SNIPER_UNDER, "Совместимо с лазерными прицелами.", "Малое крепление на цевье", ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_PISTOL_UNDER, "Совместимо с малогабаритными подствольными модулями.", GUN_MODULE_CLASS_PISTOL_UNDER, ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_SHOTGUN_UNDER, "Совместимо со среднегабаритными подствольными модулями.", GUN_MODULE_CLASS_SHOTGUN_UNDER, ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_RIFLE_UNDER, "Совместимо с крупногабаритными подствольными модулями.", GUN_MODULE_CLASS_RIFLE_UNDER, ATTACHMENT_SLOT_UNDER),
+		list(GUN_MODULE_CLASS_SNIPER_UNDER, "Совместимо с лазерными прицелами.", GUN_MODULE_CLASS_SNIPER_UNDER, ATTACHMENT_SLOT_UNDER),
 		// Stock
-		list(GUN_MODULE_CLASS_SMG_STOCK, "Совместимо со специализированными прикладами.", "Замок приклада", ATTACHMENT_SLOT_STOCK)
+		list(GUN_MODULE_CLASS_SMG_STOCK, "Совместимо со специализированными прикладами.", GUN_MODULE_CLASS_SMG_STOCK, ATTACHMENT_SLOT_STOCK)
 	)
 
 	for(var/list/entry in attachment_examine_data)
@@ -279,12 +297,16 @@
 		if(!(attachable_allowed & flag_mask))
 			continue
 		var/tooltip_text = entry[2]
-		var/tooltip_label = entry[3]
+		var/name_or_flag = entry[3]
+		var/tooltip_label = isnum(name_or_flag) ? get_module_class_ru_name(name_or_flag) : name_or_flag
 		var/slot = entry[4]
-		. += span_notice("[span_tooltip(tooltip_text, tooltip_label)]: [get_attachment_module_examine_text(user, slot)]")
+		. += span_notice("[span_tooltip(tooltip_text, capitalize(tooltip_label))]: [get_attachment_module_examine_text(user, slot)]")
 
 	if(unique_rename)
 		. += span_notice("Используйте ручку для переименования.")
+
+	if(user.contains(src))
+		. += span_notice("<a href='byond://?src=[UID()];gun_modification=1'>Модификация оружия</a>")
 
 
 /obj/item/gun/update_overlays()
@@ -294,6 +316,8 @@
 		if(!overlay)
 			continue
 		. += overlay
+
+	invalidate_gun_modification_asset()
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
@@ -964,42 +988,6 @@
 		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
 
-/obj/item/gun/click_alt(mob/user)
-	if(loc != user)
-		return NONE
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		balloon_alert(user, "невозможно сейчас!")
-		return CLICK_ACTION_BLOCKING
-
-	var/obj/item/held_item = user.get_active_hand()
-	if(held_item && held_item != src)
-		balloon_alert(user, "рука занята!")
-		return CLICK_ACTION_BLOCKING
-
-	try_detach_gun_module(user)
-	return CLICK_ACTION_SUCCESS
-
-/obj/item/gun/proc/try_detach_gun_module(mob/user)
-	. = FALSE
-	var/list/choices = list()
-	for(var/slot in attachments_by_slot)
-		if(!attachments_by_slot[slot])
-			continue
-		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		if(module.can_detach)
-			choices[DECLENT_RU_CAP(module, NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
-	if(length(choices) == 0)
-		return
-	var/choice = show_radial_menu(user, src, choices, require_near = TRUE, autopick_single_option = FALSE)
-	if(!choice)
-		return FALSE
-	for(var/slot in attachments_by_slot)
-		if(!attachments_by_slot[slot])
-			continue
-		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		if(DECLENT_RU_CAP(module, NOMINATIVE) == choice)
-			return module.detach_without_check(src, user)
-
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers)
 	if(!ishuman(user) || !ishuman(target))
@@ -1182,6 +1170,22 @@
 	if(gun_firemode == removed_firemode)
 		gun_firemode = gun_firemode_list[1]
 		toggle_firemode(gun_firemode)
+
+
+/obj/item/gun/Topic(href, href_list)
+	. = ..()
+
+	if(!href_list["gun_modification"])
+		return
+
+	var/mob/user = usr
+	if(!istype(user))
+		return
+
+	if(!user.contains(src))
+		return
+
+	ui_interact(user)
 
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, fire_delay))
