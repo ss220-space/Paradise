@@ -164,8 +164,10 @@
 					medical["empty"] = 1
 			if(MED_DATA_V_DATA)
 				data["virus"] = list()
-				for(var/D in typesof(/datum/disease))
+				for(var/D in subtypesof(/datum/disease))
 					var/datum/disease/DS = new D(0)
+					if(!DS.show_in_records)
+						continue
 					if(istype(DS, /datum/disease/virus/advance))
 						continue
 					if(!DS.desc)

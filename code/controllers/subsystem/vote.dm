@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(vote)
  * * vote_initiator - If a person / mob initiated the vote, this is the mob that did it
  * * forced - Whether we're forcing the vote to go through regardless of existing votes or other circumstances.
  */
-/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, vote_initiator_name, mob/vote_initiator, forced = FALSE)
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, vote_initiator_name, mob/vote_initiator, forced = FALSE, auto_open_panel = FALSE)
 	if(!can_vote_start(vote_initiator, forced))
 		return FALSE
 
@@ -247,6 +247,8 @@ SUBSYSTEM_DEF(vote)
 			vote_alert.name = vote_title
 			vote_alert.icon_state = current_vote.alert_icon_state
 		SEND_SOUND(voter, sound(current_vote.vote_sound))
+		if(voter.client && auto_open_panel)
+			ui_interact(voter)
 
 	return TRUE
 
@@ -309,7 +311,7 @@ SUBSYSTEM_DEF(vote)
 
 	data["user"] = list(
 		"ckey" = user.client?.ckey,
-		"isGhost" = CONFIG_GET(flag/vote_no_dead) && user.stat == DEAD && !user.client?.holder,
+		"isGhost" = CONFIG_GET(flag/vote_no_dead) && !current_vote?.allow_dead_vote && user.stat == DEAD && !user.client?.holder,
 		"isLowerAdmin" = is_lower_admin,
 		"isUpperAdmin" = is_upper_admin,
 		// What the current user has selected in any ongoing votes.

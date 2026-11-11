@@ -9,6 +9,10 @@
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
+/obj/structure/closet/secure_closet/syndicate/depot/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
+
 /obj/structure/closet/secure_closet/syndicate/depot/emag_act()
 	. = ..()
 	loot_pickup()
@@ -46,9 +50,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
-
-/obj/structure/closet/secure_closet/syndicate/depot/emp_act(severity)
-	return
 
 /obj/structure/closet/secure_closet/syndicate/depot/togglelock(mob/user)
 	. = ..()

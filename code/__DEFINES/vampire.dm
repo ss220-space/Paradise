@@ -20,11 +20,6 @@
 /// The point of nullification where vampires can no longer use abilities.
 #define VAMPIRE_COMPLETE_NULLIFICATION 100
 
-/// Nulifiaction like the new vampires
-#define NEW_NULLIFICATION 1
-/// Nulifiaction like the goon vampires
-#define OLD_NULLIFICATION 2
-
 /// Total blood required for a special subclass action
 #define REQ_BLOOD_FOR_SUBCLASS_ACT 300
 

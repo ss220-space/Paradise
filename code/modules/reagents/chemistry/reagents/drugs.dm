@@ -1175,3 +1175,41 @@
 		M.emote("tremble")
 	return list(0, update_flags)
 
+/datum/reagent/pervitin
+	name = "Первитин"
+	id = "pervitin"
+	description = "Первитин — мощный стимулятор, синтезируемый из метамфетамина. Вызывает эйфорию и прилив сил, но чрезвычайно быстро формирует зависимость и разрушает мозг."
+	reagent_state = LIQUID
+	color = "#8c7ba0"
+	overdose_threshold = 20
+	addiction_chance = 30
+	addiction_threshold = 5
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	heart_rate_increase = 1
+	taste_description = "бодрости"
+	chemdesc = "Ускоряет работу руками. Вызывает зависимость, при передозировке разрушает мозг и сердце."
+
+/datum/reagent/pervitin/on_mob_add(mob/living/user)
+	. = ..()
+	user.next_move_modifier /= 1.5
+
+/datum/reagent/pervitin/overdose_start(mob/living/M)
+	M.next_move_modifier *=0.75
+
+/datum/reagent/pervitin/overdose_end(mob/living/M)
+	M.next_move_modifier /= 0.75
+
+/datum/reagent/pervitin/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	update_flags |= M.adjustBrainLoss(2, FALSE)
+	update_flags |= M.adjustHeartLoss(1, FALSE)
+	if(prob(40))
+		M.emote("bshake")
+	return list(overdose_info[REAGENT_OVERDOSE_EFFECT], update_flags)
+
+/datum/reagent/pervitin/on_mob_delete(mob/living/user)
+	if(overdosed)
+		user.next_move_modifier /= 0.75
+	user.next_move_modifier *= 1.5
+	return ..()

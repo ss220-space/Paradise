@@ -82,8 +82,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_357 ".357 Magnum"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
-/// Used in Gatfruit revolver
-#define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
 /// Used in Nagant revolver
@@ -136,6 +134,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 // Energy weapons
 /// Used in laser weapons
 #define CALIBER_LASER "\"лазер\""
+
+/// The caliber used by the (gatfruit) peashooter
+#define CALIBER_PEA "pea"
 
 // Foam force weapons
 /// Used in foam guns
@@ -211,3 +212,17 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //autofire component fire callback callback return flags
 #define AUTOFIRE_CONTINUE (1<<0)
 #define AUTOFIRE_SUCCESS (1<<1)
+
+
+// Scope component flags
+/// Do we have the scope cancel on move?
+#define SCOPE_MOVEMENT_CANCELS (1<<0)
+/// Can we use scope from mechs, lockers, etc?
+#define SCOPE_TURF_ONLY (1<<1)
+/// Do we let the user scope and click on the middle of their screen?
+#define SCOPE_CLICK_MIDDLE (1<<2)
+/// Should the user hold the item in active hand to use it?
+#define SCOPE_NEED_ACTIVE_HAND (1<<3)
+
+#define SEVERITY_ITEM 0
+#define SEVERITY_GUN 1

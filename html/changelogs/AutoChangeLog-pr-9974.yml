@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - bugfix: "Боргам и ИИ больше не выдаются недоступные им команды боевых искусств. (PR #9974)"

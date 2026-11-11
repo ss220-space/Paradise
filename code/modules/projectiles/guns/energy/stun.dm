@@ -75,8 +75,9 @@
 	..()
 	robocharge()
 
-/obj/item/gun/energy/disabler/cyborg/emp_act(severity)
-	return
+/obj/item/gun/energy/disabler/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /**
  * MARK: Tesla Cannon

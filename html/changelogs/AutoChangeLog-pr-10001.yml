@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - tweak: "Возвращен вариант прицеливания курсором от vovakons. (PR #10001)"
+  - tweak: "Теперь прицеливание по диагонали ограничено радиально. (PR #10001)"

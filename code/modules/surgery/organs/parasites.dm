@@ -5,6 +5,7 @@
 	name = "spider eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
@@ -35,8 +36,6 @@
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
 	return null
 
 // Terror Spiders - white spider infection
@@ -45,6 +44,7 @@
 	name = "terror eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
@@ -142,6 +142,4 @@
 /obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_IFECTION_REMOVED, src)
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
 	return null

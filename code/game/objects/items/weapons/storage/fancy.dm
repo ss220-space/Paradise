@@ -593,8 +593,9 @@
 	can_hold = list(/obj/item/reagent_containers/cup/beaker/vial)
 
 /obj/item/storage/fancy/vials/populate_contents()
-	for(var/I = 1 to storage_slots)
+	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/cup/beaker/vial(src)
+
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
@@ -606,7 +607,7 @@
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/item/storage/lockbox/vials/populate_contents()
-	for(var/I = 1 to storage_slots)
+	for(var/i in 1 to storage_slots)
 		new /obj/item/reagent_containers/cup/beaker/vial(src)
 	update_icon()
 
@@ -621,6 +622,16 @@
 			. += "cover"
 	else
 		. += "ledb"
+
+/obj/item/storage/lockbox/vials/zombie_cure
+	name = "secure vial storage box - 'Anti-Plague Sequences'"
+
+/obj/item/storage/lockbox/vials/zombie_cure/populate_contents()
+	new /obj/item/reagent_containers/cup/bottle/zombiecure1(src)
+	new /obj/item/reagent_containers/cup/bottle/zombiecure2(src)
+	new /obj/item/reagent_containers/cup/bottle/zombiecure3(src)
+	new /obj/item/reagent_containers/cup/bottle/zombiecure4(src)
+
 
 /*
  * MARK: Aquatic Starter Kit

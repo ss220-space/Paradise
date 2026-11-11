@@ -181,11 +181,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
-/obj/item/clothing/glasses/sunglasses_fake/fluff/kaki //Rapidvalj: Kakicharakiti
-	name = "broken thermonocle"
-	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
-	icon_state = "thermoncle"
-
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "Набор деталей для инвалидной коляски."
@@ -1244,16 +1239,6 @@ GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_boots"
 	item_state = "superior_boots"
-
-/obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)
-
-/obj/item/nullrod/fluff/chronx/scythe
-	name = "Soul Collector"
-	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chronx_scythe"
-	item_state = "chronx_scythe"
 
 /obj/item/clothing/head/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Hood"

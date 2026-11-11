@@ -27,6 +27,7 @@
 	return cell
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
+	. = ..()
 	if(cell && severity)
 		cell.emp_act(severity)
 

@@ -121,14 +121,10 @@
 /datum/reagent/slimejelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
-				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+				V.Contract(M, act_type = BLOOD, need_protection_check = TRUE, act_type = CONTACT)
 			else
-				V.Contract(M, need_protection_check = FALSE)
+				V.Contract(M, act_type = BLOOD, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M

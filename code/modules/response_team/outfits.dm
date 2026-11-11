@@ -484,7 +484,7 @@
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind)
-		H.mind.isholy = TRUE
+		ADD_TRAIT(H.mind, TRAIT_HOLY, INNATE_TRAIT)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "Инквизитор ОБР \"Эмбер\""

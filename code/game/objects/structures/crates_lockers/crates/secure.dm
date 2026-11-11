@@ -63,6 +63,7 @@
 	balloon_alert(user, "разблокировано")
 
 /obj/structure/closet/crate/secure/emp_act(severity)
+	. = ..()
 	for(var/obj/object in src)
 		object.emp_act(severity)
 	if(broken || opened)

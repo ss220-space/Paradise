@@ -19,6 +19,8 @@
 #define SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX 1
 /// What is the chance to remove a bodypart or organ on non-machine analyze
 #define SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE 20
+/// What is the chance we break a limb
+#define SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_FRACTURE_CHANCE 33
 
 /**
  * Swarmer mob analyzer
@@ -84,6 +86,7 @@
 
 	sound_loop.stop()
 	addtimer(CALLBACK(sound_loop, TYPE_PROC_REF(/datum/looping_sound, start)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+
 	animate(src, transform = matrix())
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(animate_recoil), src), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 
@@ -102,7 +105,7 @@
  * Returns TRUE if we have space.
  * Returns FALSE otherwise.
  */
-/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(mob/living/target, qdel_on_end = FALSE)
+/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(mob/living/target, gib_on_end = FALSE)
 	if(!anchored)
 		return FALSE
 	if(occupant)
@@ -110,7 +113,7 @@
 
 	occupant = target
 	var/delay = SWARMER_ANALYZE_DELAY(occupant)
-	addtimer(CALLBACK(src, PROC_REF(finish_analyzing), qdel_on_end), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+	addtimer(CALLBACK(src, PROC_REF(finish_analyzing), gib_on_end), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 	occupant.Paralyse(delay + 1 SECONDS, TRUE) // Extra second just incase
 	occupant.Sleeping(delay + 1 SECONDS) // Extra second just incase
 	occupant.forceMove(src)
@@ -128,7 +131,7 @@
  * adjusts swarmer resources,
  * teleports the target to a safe place.
  */
-/obj/structure/swarmer/organic_analyzer/proc/finish_analyzing(should_qdel = FALSE)
+/obj/structure/swarmer/organic_analyzer/proc/finish_analyzing(should_gib = FALSE)
 	if(QDELETED(occupant) || !(occupant in contents))
 		occupant = null
 		update_icon(UPDATE_ICON_STATE)
@@ -140,8 +143,9 @@
 	animate(src, transform = matrix())
 	adjust_resources()
 
-	if(should_qdel)
-		QDEL_NULL(occupant)
+	if(should_gib)
+		occupant.gib()
+		occupant = null
 		update_icon(UPDATE_ICON_STATE)
 		return
 
@@ -182,7 +186,7 @@
 	if(!ishuman(occupant))
 		return
 
-	var/external_bodyparts_taken = 0
+	var/external_bodyparts_fractured = 0
 	var/mob/living/carbon/human/target = occupant
 	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
 		// First, internal organs
@@ -200,19 +204,18 @@
 				qdel(thing)
 
 		// Now, the external organ
-		if(external_bodyparts_taken >= SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX)
+		if(external_bodyparts_fractured >= SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX)
 			continue
 		if(is_type_in_typecache(bodypart, organs_blacklist))
 			continue
-		if(!prob(SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE))
+		if(!prob(SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_FRACTURE_CHANCE))
 			continue
 
-		external_bodyparts_taken++
 		if(bodypart.is_robotic())
 			adjust_swarmer_metallic_resources(SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN)
-		var/atom/movable/thing = bodypart.remove(target)
-		if(!QDELETED(thing))
-			qdel(thing)
+
+		bodypart.fracture()
+		external_bodyparts_fractured++
 
 	target.UpdateAppearance()
 
@@ -268,3 +271,4 @@
 #undef SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN
 #undef SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_TAKE_MAX
 #undef SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE
+#undef SWARMER_ANALYZE_FINISH_EXTERNAL_BODYPART_FRACTURE_CHANCE

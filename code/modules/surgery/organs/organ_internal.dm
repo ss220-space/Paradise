@@ -151,19 +151,26 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
+		return .
 	if(emp_shielded(severity))
-		return
-
+		. |= EMP_PROTECT_SELF
+		return .
+	if(istype(src, /obj/item/organ/internal/cyberimp))
+		return .
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			internal_receive_damage(20 * owner.emp_damage_multiplier_internal, silent = TRUE)
-		if(2)
+		if(EMP_LIGHT)
 			internal_receive_damage(7 * owner.emp_damage_multiplier_internal, silent = TRUE)
+	return .
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	insert(target)
@@ -324,6 +331,7 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN_TUMOR
+	destroy_on_removal = TRUE
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
@@ -352,7 +360,7 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	M.force_gene_block(GLOB.comicblock, FALSE)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -394,6 +402,7 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_HONK_BLADDER
+	destroy_on_removal = TRUE
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/get_ru_names()
@@ -413,7 +422,6 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	. = ..()
 
 	QDEL_NULL(squeak)
-	qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"

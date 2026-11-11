@@ -628,7 +628,7 @@
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(!target.dna.species.has_organ["brain"])
+	if(!target.dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_SKIP
 

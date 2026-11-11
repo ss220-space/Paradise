@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Исправлена невозможность класть вещи в пояс, что лежит в БоХе. (PR #9893)"

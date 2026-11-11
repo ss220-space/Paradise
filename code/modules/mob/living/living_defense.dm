@@ -101,9 +101,15 @@
 		forceMove(voring_core)
 
 /mob/living/emp_act(severity)
-	..()
-	for(var/obj/O in contents)
-		O.emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_CONTENTS)
+		return
+	severity += get_emp_protection()
+	for(var/obj/inside in contents)
+		inside.emp_act(severity)
+
+/mob/living/proc/get_emp_protection()
+	return emp_protection
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
