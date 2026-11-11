@@ -197,6 +197,9 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = tgui_alert(user, "Каждая клеточка тела кричит, что это плохая идея...", "Постучать?", list("Решиться", "Отступить"))
 		if(!safety || safety == "Отступить" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
+		if("ashwalker" in user.faction)
+			user.visible_message(span_boldannounceic("Ваша рука опускается под влиянием незримой силы..."))
+			return
 		user.visible_message(
 			span_warning("[user] стуч[PLUR_IT_YAT(user)] по [declent_ru(DATIVE)]..."),
 			span_boldannounceic("Вы осторожно стучите по [declent_ru(DATIVE)]...")

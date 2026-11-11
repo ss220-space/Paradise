@@ -14,6 +14,7 @@
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	resistance_flags = FIRE_PROOF
+	faction_restricted = list("ashwalker")
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
 	sprite_sheets = list(
