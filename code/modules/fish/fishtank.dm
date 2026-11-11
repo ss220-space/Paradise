@@ -249,11 +249,11 @@
 /obj/machinery/fishtank/take_damage(new_value, damage_flag = MELEE)
 	. = ..()
 	//Leaking status check
-	if(obj_integrity <= (max_integrity * 0.25))			//Major leak at or below 25% health (-10 water/cycle)
+	if(obj_integrity <= (max_integrity * 0.25)) //Major leak at or below 25% health (-10 water/cycle)
 		leaking = 2
-	else if(obj_integrity <= (max_integrity * 0.5))		//Minor leak at or below 50% health (-1 water/cycle)
+	else if(obj_integrity <= (max_integrity * 0.5)) //Minor leak at or below 50% health (-1 water/cycle)
 		leaking = 1
-	else											//Not leaking above 50% health
+	else //Not leaking above 50% health
 		leaking = 0
 
 /obj/machinery/fishtank/proc/kill_fish(datum/fish/fish_type = null)
