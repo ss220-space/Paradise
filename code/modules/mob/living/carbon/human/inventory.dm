@@ -733,6 +733,10 @@
 	var/obj/item/storage/storage
 	if(isstorage(equipped_item))
 		storage = equipped_item
+	else if(ismodcontrol(equipped_item))
+		var/obj/item/mod/control/mod = equipped_item
+		if(mod.bag)
+			storage = mod.bag
 
 	if(!storage)
 		if(!thing)

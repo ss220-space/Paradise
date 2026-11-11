@@ -19,6 +19,11 @@
 		var/obj/item/target_item = get_item_by_slot(slot)
 		if(istype(target_item))
 			var/list/modifiers = params2list(params)
+			if(ismodcontrol(target_item))
+				var/obj/item/mod/control/mod = target_item
+				if(mod.bag)
+					mod.bag.attack_hand(src, modifiers)
+				return TRUE
 			target_item.attack_hand(src, modifiers)
 
 	return FALSE
