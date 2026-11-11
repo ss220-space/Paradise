@@ -25,7 +25,6 @@
 #include "test_modsuit.dm"
 #include "test_missing_icons.dm"
 #include "test_orphaned_genturf.dm"
-#include "test_overmap.dm"
 #include "test_paintings.dm"
 #include "test_portagrav.dm"
 #include "test_plane_double_transform.dm"

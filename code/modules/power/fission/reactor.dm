@@ -1014,6 +1014,7 @@
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
+	explosion(get_turf(src), 80, 100, 120, 0, ignorecap = TRUE)
 	sleep(10 SECONDS)
 	SSblackbox.record_feedback("tally", "fission_overload", 1, "detonation successful")
 	active_meltdown = FALSE

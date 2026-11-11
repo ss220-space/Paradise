@@ -534,7 +534,7 @@
 
 /datum/uplink_item/jobspecific/gatfruit
 	name = "Семена Гатфрукта"
-	desc = "Пачка семян Гатфрукта, съев плоды которого можно получить револьвер .36 калибра! \
+	desc = "Пачка семян Гатфрукта, съев плоды которого можно получить горохострел! \
 			Кроме того, растение содержит химические элементы: 10% серы, 10% углерода, 7% азота и 5% калия."
 	item = /obj/item/seeds/gatfruit
 	cost = 22
@@ -1630,6 +1630,8 @@
 	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
 	item = /obj/item/storage/belt/grenade/frag/contact
 	cost = 20
+	hijack_only = TRUE
+	surplus = FALSE
 
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
@@ -2433,6 +2435,15 @@
 			Устойчив к ЭМИ. Поставляется в комплекте с автоимплантером."
 	item = /obj/item/storage/box/cyber_implants/reviver_hardened
 	cost = 40
+
+/datum/uplink_item/cyber_implants/scope_eyes
+	name = "Автоимплантер с укреплёнными глазными имплантами \"Калейдо Оптикс\""
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. \
+	Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен. \
+	Эта пара была усилена для персонала специальных операций."
+	item = /obj/item/autoimplanter/oneuse/scope_eyes
+	cost = 10
+	excludefrom = list()
 
 /datum/uplink_item/cyber_implants/mantisblade
 	name = "Клинки богомола"

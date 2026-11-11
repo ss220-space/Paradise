@@ -1,0 +1,5 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Фикс пропажи когтей гемомансера при переломе. (PR #10010)"
+  - bugfix: "Фикс прогресс бара у ду_афтеров при переломах. (PR #10010)"

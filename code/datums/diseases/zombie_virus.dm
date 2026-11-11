@@ -52,6 +52,7 @@
 		return FALSE
 
 	SSticker.mode.zombie_infected |= affected_mob
+	affected_mob.AddElement(/datum/element/zombie_infection)
 	switch(stage)
 		if(1) // cured by lvl 1 cure
 			if(prob(4))
@@ -196,6 +197,8 @@
 	qdel(affected_mob.GetComponent(/datum/component/zombie_regen))
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
+	SSticker.mode.zombie_infected -= affected_mob
+	affected_mob.RemoveElement(/datum/element/zombie_infection)
 	return ..()
 
 /datum/disease/virus/zombie/wizard

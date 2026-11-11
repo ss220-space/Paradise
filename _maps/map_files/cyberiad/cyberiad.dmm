@@ -7169,11 +7169,11 @@
 /area/station/hallway/primary/fore)
 "bao" = (
 /obj/structure/rack,
-/obj/item/storage/bible,
 /obj/item/paper_bin{
 	pixel_x = -2;
 	pixel_y = 5
 	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "bap" = (
@@ -52637,10 +52637,6 @@
 "mPB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/storage/bible{
-	pixel_x = -9;
-	pixel_y = -7
-	},
 /obj/effect/mapping_helpers/table_flip{
 	dir = 4
 	},
@@ -52649,6 +52645,7 @@
 	pixel_y = 6
 	},
 /obj/item/grown/bananapeel,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitehall"
@@ -74909,6 +74906,13 @@
 	},
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
+"vjb" = (
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/ne)
 "vjf" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -75921,9 +75925,9 @@
 /area/station/engineering/break_room)
 "vCW" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -114765,7 +114769,7 @@ dnC
 dev
 dev
 dev
-dev
+vjb
 bsG
 dHG
 dHG

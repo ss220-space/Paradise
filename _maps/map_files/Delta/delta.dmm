@@ -6239,12 +6239,9 @@
 /area/station/maintenance/fpmaint)
 "brv" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -8109,6 +8106,24 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/command/eva)
+"bOx" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	frequency = 1379;
+	name = "exterior access button";
+	master_tag = "atmos_tank_airlock";
+	command = "cycle_exterior";
+	req_access = list(10,13);
+	pixel_x = 20;
+	pixel_y = -20
+	},
+/turf/space,
+/area/space)
 "bOz" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -24149,7 +24164,7 @@
 /area/station/commons/fitness)
 "flL" = (
 /obj/structure/table/wood,
-/obj/item/storage/bible,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -31081,12 +31096,9 @@
 /area/station/medical/reception)
 "gIR" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/pen/red,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/dropper/precision,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -52386,9 +52398,11 @@
 /area/station/maintenance/tourist)
 "lgz" = (
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/mask/muzzle,
-/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "lgA" = (
@@ -52933,9 +52947,9 @@
 /area/station/medical/surgery/north)
 "llJ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bible,
 /obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -59257,11 +59271,6 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft)
-"myD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "myQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -65884,10 +65893,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/bible{
-	pixel_x = -9;
-	pixel_y = -7
-	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "nWr" = (
@@ -67308,10 +67314,10 @@
 "okt" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/storage/bible,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/item/storage/bible/copy,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "okv" = (
@@ -69996,7 +70002,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/restraints/handcuffs/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -80689,6 +80694,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
+"qSK" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "vir_airlock";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space)
 "qSX" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -81622,6 +81640,16 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology/lab)
+"rdw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/airdrop,
+/turf/simulated/floor/plasteel,
+/area/station/command/vip)
 "rdx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
@@ -88548,7 +88576,6 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
-/obj/item/clothing/suit/straight_jacket,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -107411,6 +107438,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
+/obj/item/restraints/handcuffs/cable,
 /obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -109862,14 +109890,6 @@
 /obj/structure/cable/layer3,
 /turf/simulated/floor/plating,
 /area/station/ai/satellite/interior)
-"wQx" = (
-/obj/machinery/power/solar{
-	name = "South-East Solar Panel"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/station/solars/starboard/aft)
 "wQy" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -114538,6 +114558,18 @@
 /obj/item/toy/crayon/rainbow,
 /turf/simulated/floor/plating,
 /area/station/maintenance/tourist)
+"xMW" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	name = "exterior access button";
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "ex";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/space,
+/area/space)
 "xMX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -114893,6 +114925,9 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore)
+"xRl" = (
+/turf/simulated/wall/r_wall,
+/area/space)
 "xRt" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
@@ -116373,7 +116408,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "yhs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -136191,7 +136226,7 @@ aaq
 aaq
 coE
 aaq
-tco
+fFy
 kZF
 kZF
 kZF
@@ -136447,8 +136482,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 abM
 rIW
@@ -136704,8 +136739,8 @@ coE
 aaq
 coE
 aaq
-aaq
-tco
+acF
+bOx
 qgk
 eRJ
 kaI
@@ -136961,8 +136996,8 @@ coE
 coE
 coE
 coE
-coE
-tco
+acF
+fFy
 kZF
 uHO
 rIW
@@ -145176,7 +145211,7 @@ hjR
 hjR
 hxR
 mRj
-myD
+kKt
 hjR
 hxR
 hxR
@@ -153693,7 +153728,7 @@ uAM
 lPB
 eZH
 kpp
-qmn
+rdw
 veQ
 jIS
 iLl
@@ -162767,7 +162802,7 @@ qwR
 uzM
 fSU
 rmI
-acF
+xMW
 acF
 acF
 coE
@@ -168385,7 +168420,7 @@ qth
 pdD
 oFw
 ajv
-acF
+qSK
 acF
 coE
 coE
@@ -168682,7 +168717,7 @@ coE
 aaq
 coE
 aaq
-wQx
+iGD
 coE
 coE
 dZq
@@ -179122,7 +179157,7 @@ acF
 acF
 acF
 aaq
-acF
+xRl
 acF
 acF
 aaq

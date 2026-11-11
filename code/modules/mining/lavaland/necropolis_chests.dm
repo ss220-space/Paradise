@@ -305,9 +305,9 @@
 	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "eflower"
-	var/next_summon = 0
 	var/list/summons = list()
 	attack_verb = list("коснулся", "погладил", "провёл")
+	COOLDOWN_DECLARE(eflowers_summon)
 
 /obj/item/eflowers/get_ru_names()
 	return alist(
@@ -324,17 +324,22 @@
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(user)
-	if(next_summon > world.time)
+	if(!COOLDOWN_FINISHED(src, eflowers_summon))
 		to_chat(user, span_warning("Вы пока не можете этого сделать!"))
 		return
 	if(is_station_level(T.z) && !A.outdoors)
 		to_chat(user, span_warning("Кажется, призывать фауну в помещении — плохая идея."))
 		return
 	user.visible_message(span_warning("[user] протягивает букет, призывая союзников!"))
-	for(var/mob/m in summons)
-		m.forceMove(T)
+
+	for(var/mob/mob_to_summon as anything in summons.Copy())
+		if(QDELETED(mob_to_summon))
+			summons -= mob_to_summon
+			continue
+		mob_to_summon.forceMove(T)
+
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
-	next_summon = world.time + COOLDOWN_SUMMON
+	COOLDOWN_START(src, eflowers_summon, COOLDOWN_SUMMON)
 
 #undef COOLDOWN_SUMMON
 

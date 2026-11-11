@@ -103,6 +103,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
 	)
 
+/obj/item/gun/energy/laser/automatic/pistol/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/iff_system)
+
 /obj/item/gun/energy/laser/automatic/pistol/get_ru_names()
 	return alist(
 		NOMINATIVE = "автоматический лазерная пистолет «Буря»",
@@ -152,6 +156,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
 	)
+	emp_resistance = 0.5
 
 /obj/item/gun/energy/laser/automatic/shotgun/get_ru_names()
 	return alist(
@@ -180,10 +185,14 @@
 	)
 	gun_firemode = GUN_FIREMODE_SEMIAUTO
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
-	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge_up.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
+	emp_resistance = 0.5
+
+/obj/item/gun/energy/laser/automatic/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/iff_system)
+	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(
