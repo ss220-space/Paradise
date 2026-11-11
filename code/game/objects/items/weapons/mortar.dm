@@ -541,7 +541,6 @@
 	qdel(src)
 
 /obj/effect/overlay/temp
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //can't click to examine it
 	var/effect_duration = 10 //in deciseconds
 
@@ -555,7 +554,6 @@
 
 /obj/effect/overlay/temp/laser_coordinate
 	name = "laser"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	light_range = 2
 	icon = 'icons/obj/weapons/guns/projectiles.dmi'
@@ -571,7 +569,6 @@
 
 /obj/effect/overlay/temp/laser_target
 	name = "laser"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	light_range = 2
 	icon = 'icons/obj/weapons/guns/projectiles.dmi'
@@ -596,9 +593,6 @@
 //used to show where dropship ordnance will impact.
 /obj/effect/overlay/temp/blinking_laser
 	name = "blinking laser"
-	anchored = TRUE
 	light_range = 2
-	effect_duration = 1 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "laser_target3"

@@ -163,3 +163,5 @@
 	var/obj/item/binoculars/range/item_target = target
 	item_target.select_mode(owner)
 
+#undef RANGEFINDER_MODE_RANGET
+#undef RANGEFINDER_MODE_TARGET
