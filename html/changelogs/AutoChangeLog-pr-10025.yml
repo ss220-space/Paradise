@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - tweak: "Обновление окна слот-машины. (PR #10025)"
