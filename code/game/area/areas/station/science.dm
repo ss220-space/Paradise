@@ -1,14 +1,27 @@
 /area/station/science
+	icon_state = "research"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/station/science/rnd
 	name = "Research and Development"
-	icon_state = "toxlab"
+
+/area/station/science/research
+	name = "RnD North Hallway"
+
+/area/station/science/research/south
+	name = "RnD South Hallway"
+
+/area/station/science/research/lobby
+	name = "Research Division"
+
+/area/station/science/break_room
+	name = "RnD Restroom"
+	icon_state = "meeting"
 
 /area/station/science/xenobiology
 	name = "Xenobiology Lab"
-	icon_state = "toxmix"
+	icon_state = "xenocell1"
 	xenobiology_compatible = TRUE
 
 /area/station/science/storage
@@ -30,7 +43,7 @@
 
 /area/station/science/chem_lab
 	name = "Research Testing Lab"
-	icon_state = "toxmisc"
+	icon_state = "chem"
 
 /area/station/science/chem_lab/chamber
 	name = "Research Testing Chamber"
@@ -47,10 +60,13 @@
 
 /area/station/science/explab
 	name = "E.X.P.E.R.I-MENTOR Lab"
-	icon_state = "toxmisc"
+	icon_state = "toxtest"
 
 /area/station/science/explab/chamber
 	name = "E.X.P.E.R.I-MENTOR Chamber"
+
+/area/station/science/robotics
+	name = "Robotics Room"
 
 /area/station/science/robotics/chargebay
 	name = "Mech Bay"
