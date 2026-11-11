@@ -10,4 +10,4 @@
 	src.asset_name = asset_name
 	assets = list()
 	assets[asset_name] = gun_icon
-	. = ..()
+	return ..()
