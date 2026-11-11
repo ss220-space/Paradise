@@ -1,0 +1,4 @@
+author: "pilygun"
+delete-after: True
+changes:
+  - image: "Спрайты оружия в слоте брони отображаться на кукле (PR #10007)"

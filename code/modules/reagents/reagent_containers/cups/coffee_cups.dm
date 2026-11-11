@@ -57,7 +57,7 @@
 	)
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee
-	list_reagents = list("coffee" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/coffee = 30)
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor
 	name = "cup of suspicious liquid"

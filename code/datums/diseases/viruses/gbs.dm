@@ -1,8 +1,8 @@
 /datum/disease/virus/gbs
 	name = "ГБС"
 	agent = "Гравитокинетический Бипотенциальный SADS+"
-	spread_flags = CONTACT
-	cures = list("diphenhydramine", "sulfur")
+	spread_flags = BLOOD|CONTACT
+	cures = list(/datum/reagent/medicine/diphenhydramine, /datum/reagent/sulfur)
 	cure_prob = 15
 	severity = DISEASE_SEVERITY_BIOHAZARD
 
@@ -36,7 +36,7 @@
 	name = "Незаразный ГБС"
 	agent = "Гиббис"
 	spread_flags = NON_CONTAGIOUS
-	cures = list("cryoxadone")
+	cures = list(/datum/reagent/medicine/cryoxadone)
 	cure_prob = 10
 	can_immunity = FALSE
 
@@ -44,8 +44,8 @@
 	name = "ГБС"
 	desc = "Если не лечить, наступит смерть."
 	agent = "Гравитокинетический Бипотенциальный SADS-"
-	spread_flags = CONTACT
-	cures = list("diphenhydramine", "sulfur")
+	spread_flags = BLOOD|CONTACT
+	cures = list(/datum/reagent/medicine/diphenhydramine, /datum/reagent/sulfur)
 	cure_prob = 15
 	severity = DISEASE_SEVERITY_BIOHAZARD
 

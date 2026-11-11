@@ -155,7 +155,7 @@
 	id = FLAMESHAPE_TRIANGLE
 
 /datum/flameshape/triangle/handle_fire_spread(obj/flamer_fire/F, fire_spread_amount, burn_dam, fuel_pressure = 1)
-	set waitfor = 0
+	set waitfor = FALSE
 
 	var/unleash_dir = get_cardinal_dir(F, F.target_clicked)
 	var/list/turf/turfs = get_line(F, F.target_clicked)
