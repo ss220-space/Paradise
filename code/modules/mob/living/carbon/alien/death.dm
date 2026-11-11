@@ -4,6 +4,7 @@
 	death(1)
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	var/old_icon = icon
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -13,9 +14,12 @@
 	animation.master = src
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
-
-	flick("gibbed-a", animation)
+	animation.icon = old_icon
+	flick("gib", animation)
 	xgibs(loc)
+	var/obj/effect/decal/remains/xeno/xeno_remains = new(loc)
+	xeno_remains.icon = old_icon
+	xeno_remains.icon_state = "corpse"
 	remove_from_dead_mob_list()
 
 	QDEL_IN(animation, 15)

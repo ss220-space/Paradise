@@ -3,8 +3,8 @@
 
 /obj/item/organ/internal/body_egg/alien_embryo
 	name = "alien embryo"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "larva0_dead"
+	icon = 'icons/mob/xeno/larva.dmi'
+	icon_state = "embryo"
 	var/stage = 0
 	var/polling = FALSE
 	var/mob/candidate = null
@@ -79,7 +79,7 @@
 	if(QDELETED(src))
 		return
 
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Ксеноморфа?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
 
 	if(QDELETED(src))
 		return

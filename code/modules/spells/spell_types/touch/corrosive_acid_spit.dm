@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/touch/corrosive_acid_spit
-	name = "Corrosive acid"
-	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
+	name = "Едкая кислота"
+	desc = "Подготовить кислоту для ближнего боя. Эта кислота разъедает почти всё и наносит тяжёлый урон всем, у кого нет надлежащей защиты."
 	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid
 	button_icon_state = "alien_acid"
 	background_icon_state = "bg_alien"
@@ -9,8 +9,8 @@
 	invocation_type = INVOCATION_NONE
 	invocation = ""
 	spell_requirements = NONE
-	draw_message = span_noticealien_alt("You vomit acid in your hand and prepare to use it.")
-	drop_message = span_noticealien_alt("You decide not to use acid for now...")
+	draw_message = span_noticealien_alt("Вы срыгиваете кислоту в руку и готовитесь её использовать.")
+	drop_message = span_noticealien_alt("Вы решаете пока не тратить кислоту...")
 	cooldown_time = 1
 	var/plasma_cost = 200
 	var/acid_power = 400
@@ -35,10 +35,10 @@
 		return FALSE
 
 	if(vessel.stored_plasma < plasma_cost)
-		to_chat(caster, span_warning("You require at least [plasma_cost] plasma to use this ability!"))
+		to_chat(caster, span_warning("Для использования этой способности нужно как минимум [plasma_cost] плазм[DECL_U_Y_Y(plasma_cost)]!"))
 		return FALSE
 	if(!(caster.mobility_flags & MOBILITY_USE))
-		caster.balloon_alert(caster, "can't reach out!")
+		caster.balloon_alert(caster, "не достать!")
 		return FALSE
 
 	return TRUE
@@ -47,10 +47,10 @@
 	var/mob/living/carbon/alien/alien_caster = caster
 
 	if(!victim.acid_act(acid_power, 100))
-		to_chat(alien_caster, span_noticealien("You cannot dissolve this object."))
+		to_chat(alien_caster, span_noticealien("Вы не можете растворить этот объект."))
 		return FALSE
 	playsound(victim, 'sound/items/welder.ogg', 150, TRUE)
-	caster.visible_message(span_alertalien("[alien_caster] vomits globs of vile stuff all over [victim]. It begins to sizzle and melt under the bubbling mess of acid!"))
+	caster.visible_message(span_alertalien("[alien_caster] изрыгает комки мерзкой субстанции на [victim.declent_ru(ACCUSATIVE)]. Она начинает шипеть и плавиться под пузырящейся массой кислоты!"))
 	add_attack_logs(alien_caster, victim, "Applied corrosive acid") // Want this logged
 	alien_caster.adjust_alien_plasma(-plasma_cost)
 	return TRUE
@@ -66,6 +66,6 @@
 	acid_power = 1000
 
 /obj/item/melee/touch_attack/alien/corrosive_acid
-	name = "Corrosive acid"
-	desc = "A fistfull of death."
+	name = "Едкая кислота"
+	desc = "Кулак смерти."
 	icon_state = "alien_acid"

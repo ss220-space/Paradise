@@ -504,7 +504,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")
-			new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+			new_xeno = new /mob/living/carbon/alien/humanoid/queen(spawn_here)
 		if("Hunter")
 			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
 		if("Sentinel")

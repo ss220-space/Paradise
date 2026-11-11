@@ -128,10 +128,27 @@
 	return alist(
 		NOMINATIVE = "плазменная железа рабочего",
 		GENITIVE = "плазменной железы рабочего",
-		DATIVE = "плазменной железе преторианца",
+		DATIVE = "плазменной железе рабочего",
 		ACCUSATIVE = "плазменную железу рабочего",
 		INSTRUMENTAL = "плазменной железой рабочего",
 		PREPOSITIONAL = "плазменной железе рабочего",
+	)
+
+/obj/item/organ/internal/xenos/plasmavessel/drone/resin_drone
+	name = "enhanced xeno plasma vessel"
+	desc = "Орган, ответственный за секрецию плазмы в организме ксеноморфа. Эта принадлежала смоляному рабочему."
+	max_plasma = 450
+	stored_plasma = 300
+	plasma_rate = 30
+
+/obj/item/organ/internal/xenos/plasmavessel/drone/resin_drone/get_ru_names()
+	return alist(
+		NOMINATIVE = "плазменная железа смоляного рабочего",
+		GENITIVE = "плазменной железы смоляного рабочего",
+		DATIVE = "плазменной железе смоляного рабочего",
+		ACCUSATIVE = "плазменную железу смоляного рабочего",
+		INSTRUMENTAL = "плазменной железой смоляного рабочего",
+		PREPOSITIONAL = "плазменной железе смоляного рабочего",
 	)
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel

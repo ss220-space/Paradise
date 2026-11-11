@@ -174,6 +174,12 @@
 /datum/action/cooldown/spell/proc/can_cast_spell(feedback = TRUE)
 	if(!owner)
 		CRASH("[type] - can_cast_spell called on a spell without an owner!")
+	if(istype(owner, /mob/living/carbon/alien/humanoid/praetorian))
+		var/mob/living/carbon/alien/humanoid/praetorian/P = owner
+		if(P.shield_active)
+			if(feedback)
+				to_chat(owner, span_warning("Вы не можете использовать способности под щитом!"))
+			return FALSE
 
 	// Certain spells are not allowed on the centcom zlevel
 	var/turf/caster_turf = get_turf(owner)

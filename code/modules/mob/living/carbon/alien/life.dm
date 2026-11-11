@@ -10,6 +10,11 @@
 		var/datum/action/cooldown/spell/evolve/evolution = locate() in actions
 		evolution?.build_all_button_icons()
 
+	if(client)
+		for(var/datum/action/innate/alien/toggle_queen_arrow/arrow_action in actions)
+			if(arrow_action.arrow)
+				arrow_action.update_arrow()
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return

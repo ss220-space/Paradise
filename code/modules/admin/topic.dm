@@ -402,7 +402,7 @@
 			if("hunter")
 				M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1)
 			if("queen")
-				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1)
+				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen , null, null, delmob, 1)
 			if("sentinel")
 				M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1)
 			if("larva")

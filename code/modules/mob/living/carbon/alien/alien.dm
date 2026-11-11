@@ -15,6 +15,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/nightvision_enabled = FALSE
 	nightvision = 4
+	rotate_on_lying = 0
 
 	verb_say = "шипит"
 	verb_ask = "вопросительно шипит"
@@ -31,9 +32,9 @@
 
 	status_flags = CANPARALYSE |CANPUSH| CANUNCONSCIOUS
 
-	var/attack_damage = 20
+	var/attack_damage = 30
 	var/armour_penetration = 20
-	var/disarm_stamina_damage = 20
+	var/disarm_stamina_damage = 35
 	var/obj_damage = 60
 	var/devour_time = 3 SECONDS
 	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -41,7 +42,6 @@
 
 	var/large = FALSE
 	var/heat_protection = 0.5
-	var/leaping = FALSE
 	dirslash_enabled = TRUE
 
 	var/antag_datum_type = /datum/antagonist/xenomorph
@@ -55,10 +55,15 @@
 	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
+	var/list/speech_sounds = list('sound/creatures/alien/xeno_talk.ogg', 'sound/creatures/alien/xeno_talk2.ogg', 'sound/creatures/alien/xeno_talk3.ogg')
+
 	var/datum/action/innate/alien/thermal_toogle/thermal_toogle
 	var/static/praetorian_count = 0
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
+
+	var/datum/action/innate/alien/toggle_queen_arrow/queen_arrow
+	var/datum/action/innate/alien/sprite_toggle/sprite_toggle
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
@@ -73,14 +78,25 @@
 	if(caste_movement_delay)
 		update_alien_speed()
 
-/mob/living/carbon/alien/Initialize(mapload)
-	. = ..()
+	if(!isalienqueen(src))
+		queen_arrow = new
+		queen_arrow.Grant(src)
+
+	sprite_toggle = new
+	sprite_toggle.Grant(src)
+
 	GLOB.aliens_list += src
 
 /mob/living/carbon/alien/Destroy()
 	if(thermal_toogle)
 		thermal_toogle.Remove(src)
 		thermal_toogle = null
+	if(queen_arrow)
+		queen_arrow.Remove(src)
+		queen_arrow = null
+	if(sprite_toggle)
+		sprite_toggle.Remove(src)
+		sprite_toggle = null
 	GLOB.aliens_list -= src
 	return ..()
 
@@ -124,6 +140,10 @@
 		return genderize_decode(src, speaking.get_spoken_verb(ending))          //and use normal verbs for their own languages and non-common languages
 	else
 		return ..()
+
+/mob/living/carbon/alien/say/(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
+	. = ..()
+	playsound(get_turf(src), pick(speech_sounds), 20, TRUE)
 
 /mob/living/carbon/alien/adjustToxLoss(
 	amount = 0,
@@ -380,6 +400,11 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/alien/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
+	if(isalien(puller))
+		return TRUE
+	return ..()
 
 #undef ALIEN_BURN_MOD
 #undef ALIEN_BRUTE_MOD
