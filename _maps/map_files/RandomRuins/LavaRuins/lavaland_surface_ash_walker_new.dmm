@@ -607,7 +607,7 @@
 /turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "pL" = (
-/obj/effect/decal/ash_rune_centre,
+/obj/ash_rune_centre,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "pR" = (
